@@ -17,3 +17,42 @@ z3-test:
 uv-setup:
     @echo "Setting up uv environment..."
     uv sync
+
+# ==============================================================================
+# Task 3.1: Γ_Co Stabilizer Computation
+# ==============================================================================
+
+task3_1:
+    @echo "=== Running Task 3.1: Γ_Co Stabilizer Computation ==="
+    sage computations/task3_1_stabilizer.sage
+
+task3_1-results:
+    @echo "=== Task 3.1 Results ==="
+    @cat computations/task3_1_results.txt
+
+task3_1-output:
+    @echo "=== Task 3.1 Output ==="
+    @cat computations/task3_1_output.txt
+
+# ==============================================================================
+# Task 3.2: Isotropic Plane Orbits
+# ==============================================================================
+
+task3_2:
+    @echo "=== Running Task 3.2: Isotropic Plane Orbits and J⊥/J ==="
+    sage computations/task3_2_isotropic_planes.sage
+
+task3_2-results:
+    @echo "=== Task 3.2 Results ==="
+    @cat computations/task3_2_results.txt
+
+# Run all tasks
+run-all:
+    @echo "=== Running All Tasks ==="
+    sage computations/task1_1_sextic.sage.py
+    sage computations/task1_2_gram_matrices.sage.py
+    sage computations/task1_3_embeddings.sage.py
+    sage computations/task2_1_isotropic_orbits.sage.py
+    sage computations/task2_2_orbit_lift.sage.py
+    sage computations/task3_1_stabilizer.sage
+    @echo "=== All Tasks Complete ==="

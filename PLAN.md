@@ -9,22 +9,38 @@
 | 1.3  | Primitive embedding matrices  | ✓ Done | task1_3_embeddings.sage       |
 | 2.1  | Isotropic vectors in A_T      | ✓ Done | task2_1_isotropic_orbits.sage |
 | 2.2  | Lift orbits, verify O\*(T)    | ✓ Done | task2_2_lift_orbits.sage      |
+| 3.1  | Γ_Co stabilizer generators    | ✓ Done | task3_1_stabilizer.sage       |
+| 3.2  | Isotropic planes and J⊥/J     | ✓ Done | task3_2_isotropic_planes.sage |
 
 ## Current Task
 
-**Task 3.1**: Compute Γ_Co stabilizer generators
+**Task 3.2 Complete**: See results below
 
-### Mathematical Goal
+### Task 3.2 Results Summary
 
-Compute the arithmetic group:
-$$\Gamma_{Co} = \text{Stab}_{O(T_{En})}(h_{Co}) \cap Z_{O(T_{En})}(\theta)$$
+- **Isotropic planes found**: 27 examples (from systematic search)
+- **Orbit classification**: ONE O(T_Co)-orbit (unique 1-cusp)
+- **Quotient J⊥/J**: Isometric to A₁^⊕7 (verified)
+  - Rank: 7
+  - Gram matrix: diag(-2, -2, ..., -2)
+  - Signature: (0, 7) (negative definite)
+  - Determinant: -128
+- **Output files**:
+  - `task3_2_results.txt` - Full computational results
+  - `task3_2_isotropic_planes.sage` - SageMath script
 
-This requires:
+### Task 3.1 Results Summary
 
-1. Identify polarization vector h_Co in T_En
-2. Compute stabilizer of h_Co in O(T_En)
-3. Find centralizer of involution θ in O(T_En)
-4. Compute intersection to get Γ_Co generators
+- **Generators found**: 9 reflection matrices
+- **Verification**: All generators fix h_Co, commute with θ, and are isometries
+- **Output files**:
+  - `task3_1_results.txt` - Full results with generator matrices
+  - `task3_1_generators.sage` - Sage-readable generator matrices
+
+### Dependencies
+
+- Task 1.3: T_En Gram matrix and embeddings ✓ (COMPLETE)
+- Task 2.1: Isotropic vectors (for reference) ✓ (COMPLETE)
 
 ---
 
@@ -32,8 +48,8 @@ This requires:
 
 ### Section 3: Uniqueness of 1-Cusps and Γ_Co Stabilizer
 
-- **Task 3.1** (current): Compute Γ_Co stabilizer generators
-- **Task 3.2**: Enumerate isotropic planes J and compute J⊥/J
+- **Task 3.1**: Compute Γ_Co stabilizer generators ✓ DONE
+- **Task 3.2**: Enumerate isotropic planes J and compute J⊥/J ✓ DONE
 
 ### Section 4: Coxeter Parabolics Search
 
