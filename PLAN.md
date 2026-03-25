@@ -19,7 +19,7 @@
 | 1.2 | T_Co orthogonal complement | ✅ DONE |
 | 1.2 | Discriminant form verification | ✅ DONE |
 | 1.3 | Embedding verification | ✅ DONE* |
-| 1.1 | Hessian rank check | ⏳ PENDING |
+| 1.1 | Hessian rank check | ✅ DONE |
 
 *Note: Task 1.3 embedding has index 1024 (non-primitive), but downstream tasks 2.1-6.1
 all work correctly with current lattices.
@@ -31,12 +31,12 @@ Primitivity is not a blocker for downstream computations.
 
 | Task | Description | Status |
 | --- | --- | --- |
-| 1.1 | Sextic equation with 10 nodes | ⏳ PENDING (Hessian fix) |
+| 1.1 | Sextic equation with 10 nodes | ✅ DONE |
 | 1.2 | Gram matrices and (r,a,δ) | ✅ DONE |
 | 1.3 | Embedding matrices | ✅ DONE* |
 | 2.1 | Isotropic vectors in A_T | ✅ DONE |
 | 2.2 | Lift orbits, verify O\*(T) | ✅ DONE |
-| 3.1 | Γ_Co stabilizer generators | ⚠️ Syntax error |
+| 3.1 | Γ_Co stabilizer generators | ✅ DONE |
 | 3.2 | Isotropic planes and J⊥/J | ✅ DONE |
 | 4.1 | Coxeter subdiagram search | ✅ DONE |
 | 5.1 | Involution matrix | ✅ DONE |
