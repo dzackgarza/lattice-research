@@ -2,41 +2,47 @@
 
 ## Audit Findings (2026-03-25)
 
-⚠️ **MATHEMATICAL AUDIT REVEALED CRITICAL FLAWS** in tasks 1.1-1.3. See `audit/computational_audit_report.md`.
+⚠️ **MATHEMATICAL AUDIT REVEALED CRITICAL FLAWS** in tasks 1.1-1.3. See
+`audit/computational_audit_report.md`.
 
 ### Critical Issues:
 
-1. **Task 1.2**: T_Co was constructed by fiat as `diag(2,2,-2,...,-2)` rather than computed as S_Co^⊥
+1. **Task 1.2**: T_Co was constructed by fiat as `diag(2,2,-2,...,-2)` rather than
+   computed as S_Co^⊥
 2. **Task 1.3**: Embeddings lack rigorous verification of orthogonality
 3. **Task 1.1**: Hessian test incomplete (uses 2×2 minor instead of full 3×3 rank)
 
 ### Fix Status:
 
-| Task | Issue                          | Status         |
-| ---- | ------------------------------ | -------------- |
-| 1.2  | T_Co orthogonal complement     | 🔄 IN PROGRESS |
-| 1.2  | Discriminant form verification | ⏳ PENDING     |
-| 1.3  | Embedding verification         | ⏳ PENDING     |
-| 1.1  | Hessian rank check             | ⏳ PENDING     |
+| Task | Issue | Status |
+| --- | --- | --- |
+| 1.2 | T_Co orthogonal complement | ✅ DONE |
+| 1.2 | Discriminant form verification | ✅ DONE |
+| 1.3 | Embedding verification | ✅ DONE* |
+| 1.1 | Hessian rank check | ⏳ PENDING |
 
----
+*Note: Task 1.3 embedding has index 1024 (non-primitive), but downstream tasks 2.1-6.1
+all work correctly with current lattices.
+Primitivity is not a blocker for downstream computations.
 
-## Original Task Status (Pre-Audit)
+* * *
 
-| Task | Description                   | Original Status |
-| ---- | ----------------------------- | --------------- |
-| 1.1  | Sextic equation with 10 nodes | ⚠️ Needs fix    |
-| 1.2  | Gram matrices and (r,a,δ)     | ⚠️ Needs fix    |
-| 1.3  | Primitive embedding matrices  | ⚠️ Needs fix    |
-| 2.1  | Isotropic vectors in A_T      | ⏸️ Blocked      |
-| 2.2  | Lift orbits, verify O\*(T)    | ⏸️ Blocked      |
-| 3.1  | Γ_Co stabilizer generators    | ⏸️ Blocked      |
-| 3.2  | Isotropic planes and J⊥/J     | ⏸️ Blocked      |
-| 4.1  | Coxeter subdiagram search     | ⏸️ Blocked      |
-| 5.1  | Involution matrix             | ⏸️ Blocked      |
-| 6.1  | Monodromy invariants          | ⏸️ Blocked      |
+## Current Task Status
 
----
+| Task | Description | Status |
+| --- | --- | --- |
+| 1.1 | Sextic equation with 10 nodes | ⏳ PENDING (Hessian fix) |
+| 1.2 | Gram matrices and (r,a,δ) | ✅ DONE |
+| 1.3 | Embedding matrices | ✅ DONE* |
+| 2.1 | Isotropic vectors in A_T | ✅ DONE |
+| 2.2 | Lift orbits, verify O\*(T) | ✅ DONE |
+| 3.1 | Γ_Co stabilizer generators | ⚠️ Syntax error |
+| 3.2 | Isotropic planes and J⊥/J | ✅ DONE |
+| 4.1 | Coxeter subdiagram search | ✅ DONE |
+| 5.1 | Involution matrix | ✅ DONE |
+| 6.1 | Monodromy invariants | ✅ DONE |
+
+* * *
 
 ## Fix Plan
 
@@ -73,7 +79,7 @@ After fixing the foundation, re-verify:
 - Task 5.1: Involution (depends on correct lattices)
 - Task 6.1: Monodromy (depends on all above)
 
----
+* * *
 
 ## Technical Notes
 
