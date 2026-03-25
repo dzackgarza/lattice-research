@@ -1,77 +1,81 @@
 # Coble Moduli Project: Implementation Plan
 
-## Completed Tasks
+## Audit Findings (2026-03-25)
 
-| Task | Description                   | Status | Files                         |
-| ---- | ----------------------------- | ------ | ----------------------------- |
-| 1.1  | Sextic equation with 10 nodes | ✓ Done | task1_1_sextic.sage           |
-| 1.2  | Gram matrices and (r,a,δ)     | ✓ Done | task1_2_gram_matrices.sage    |
-| 1.3  | Primitive embedding matrices  | ✓ Done | task1_3_embeddings.sage       |
-| 2.1  | Isotropic vectors in A_T      | ✓ Done | task2_1_isotropic_orbits.sage |
-| 2.2  | Lift orbits, verify O\*(T)    | ✓ Done | task2_2_lift_orbits.sage      |
-| 3.1  | Γ_Co stabilizer generators    | ✓ Done | task3_1_stabilizer.sage       |
-| 3.2  | Isotropic planes and J⊥/J     | ✓ Done | task3_2_isotropic_planes.sage |
+⚠️ **MATHEMATICAL AUDIT REVEALED CRITICAL FLAWS** in tasks 1.1-1.3. See `audit/computational_audit_report.md`.
 
-## Current Task
+### Critical Issues:
 
-**Task 3.2 Complete**: See results below
+1. **Task 1.2**: T_Co was constructed by fiat as `diag(2,2,-2,...,-2)` rather than computed as S_Co^⊥
+2. **Task 1.3**: Embeddings lack rigorous verification of orthogonality
+3. **Task 1.1**: Hessian test incomplete (uses 2×2 minor instead of full 3×3 rank)
 
-### Task 3.2 Results Summary
+### Fix Status:
 
-- **Isotropic planes found**: 27 examples (from systematic search)
-- **Orbit classification**: ONE O(T_Co)-orbit (unique 1-cusp)
-- **Quotient J⊥/J**: Isometric to A₁^⊕7 (verified)
-  - Rank: 7
-  - Gram matrix: diag(-2, -2, ..., -2)
-  - Signature: (0, 7) (negative definite)
-  - Determinant: -128
-- **Output files**:
-  - `task3_2_results.txt` - Full computational results
-  - `task3_2_isotropic_planes.sage` - SageMath script
-
-### Task 3.1 Results Summary
-
-- **Generators found**: 9 reflection matrices
-- **Verification**: All generators fix h_Co, commute with θ, and are isometries
-- **Output files**:
-  - `task3_1_results.txt` - Full results with generator matrices
-  - `task3_1_generators.sage` - Sage-readable generator matrices
-
-### Dependencies
-
-- Task 1.3: T_En Gram matrix and embeddings ✓ (COMPLETE)
-- Task 2.1: Isotropic vectors (for reference) ✓ (COMPLETE)
+| Task | Issue                          | Status         |
+| ---- | ------------------------------ | -------------- |
+| 1.2  | T_Co orthogonal complement     | 🔄 IN PROGRESS |
+| 1.2  | Discriminant form verification | ⏳ PENDING     |
+| 1.3  | Embedding verification         | ⏳ PENDING     |
+| 1.1  | Hessian rank check             | ⏳ PENDING     |
 
 ---
 
-## Remaining Tasks
+## Original Task Status (Pre-Audit)
 
-### Section 3: Uniqueness of 1-Cusps and Γ_Co Stabilizer
+| Task | Description                   | Original Status |
+| ---- | ----------------------------- | --------------- |
+| 1.1  | Sextic equation with 10 nodes | ⚠️ Needs fix    |
+| 1.2  | Gram matrices and (r,a,δ)     | ⚠️ Needs fix    |
+| 1.3  | Primitive embedding matrices  | ⚠️ Needs fix    |
+| 2.1  | Isotropic vectors in A_T      | ⏸️ Blocked      |
+| 2.2  | Lift orbits, verify O\*(T)    | ⏸️ Blocked      |
+| 3.1  | Γ_Co stabilizer generators    | ⏸️ Blocked      |
+| 3.2  | Isotropic planes and J⊥/J     | ⏸️ Blocked      |
+| 4.1  | Coxeter subdiagram search     | ⏸️ Blocked      |
+| 5.1  | Involution matrix             | ⏸️ Blocked      |
+| 6.1  | Monodromy invariants          | ⏸️ Blocked      |
 
-- **Task 3.1**: Compute Γ_Co stabilizer generators ✓ DONE
-- **Task 3.2**: Enumerate isotropic planes J and compute J⊥/J ✓ DONE
+---
 
-### Section 4: Coxeter Parabolics Search
+## Fix Plan
 
-- **Task 4.1**: Subdiagram search for maximal parabolic configurations
+### Phase A: Fix Foundation (Tasks 1.1-1.3)
 
-### Section 5: Explicit Involution Matrix
+**A.1: Fix Task 1.2 - Compute T_Co as Orthogonal Complement**
 
-- **Task 5.1**: Construct θ matrix on Λ_K3, verify eigenspaces
+- [ ] Embed S_Co into Λ_K3 explicitly using Nikulin's theorem
+- [ ] Compute T_Co = S_Co^⊥ via kernel computation
+- [ ] Verify Gram matrix from embedding matches expected form
+- [ ] Verify discriminant form relation q_T ≅ -q_S
 
-### Section 6: Monodromy Invariants
+**A.2: Fix Task 1.3 - Verify Embeddings**
 
-- **Task 6.1**: Map h_Co to surgery vector ℓ, verify slc stability
+- [ ] Verify S_Co embedding is orthogonal (check S_Co_check == S_Co_gram)
+- [ ] Check S_Co ⊕ T_Co spans Λ_K3 (index 1)
+- [ ] Provide geometric justification for T_En and T_dP sublattices
+
+**A.3: Fix Task 1.1 - Node Verification**
+
+- [ ] Replace 2×2 Hessian test with full 3×3 Hessian rank check
+- [ ] Add irreducibility verification for sextic
+- [ ] Verify multiplicity 2 at each singular point
+
+### Phase B: Re-verify Downstream Tasks
+
+After fixing the foundation, re-verify:
+
+- Task 2.1: Isotropic vectors (depends on correct T_Co)
+- Task 2.2: Orbit lifting (depends on 2.1)
+- Task 3.1: Stabilizer (depends on correct embeddings)
+- Task 3.2: Isotropic planes (depends on correct T_Co)
+- Task 4.1: Coxeter diagram (depends on correct S_Co)
+- Task 5.1: Involution (depends on correct lattices)
+- Task 6.1: Monodromy (depends on all above)
 
 ---
 
 ## Technical Notes
-
-### Dependencies
-
-- Task 2.x builds on Task 2.1 results (orbit representatives)
-- Task 3.x requires explicit embedding matrices from Task 1.3
-- Task 4.1 requires Gram matrix from Task 1.2
 
 ### Key References
 
@@ -84,3 +88,4 @@
 - Each task must produce verifiable output
 - Results must match theoretical predictions from literature
 - All computations use exact arithmetic (no floating point)
+- **NEW**: All lattice constructions must be computed, not asserted by fiat
