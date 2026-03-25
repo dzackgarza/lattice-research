@@ -1,0 +1,35 @@
+/home/dzack/research/computations/task3_1_stabilizer.sage.py:9: SyntaxWarning: invalid escape sequence '\G'
+  $$\Gamma_{Co} = \text{Stab}_{O(T_{En})}(h_{Co}) \cap Z_{O(T_{En})}(\theta)$$
+================================================================================
+Task 3.1: Compute Γ_Co Stabilizer Generators
+================================================================================
+
+================================================================================
+[Step 1] Setting up the problem
+================================================================================
+
+T_En (Enriques transcendental lattice):
+  Signature: (2, 8)
+  Rank: 10
+  (From Task 1.3 embedding)
+
+h_Co (Coble polarization):
+  h_Co corresponds to E_0 in the Coble basis
+  h_Co² = 2 (degree 2 polarization)
+  In T_En basis: h_Co = e + f from U factor
+
+θ (horizontal folding involution):
+  θ acts on Λ_K3 = U³ ⊕ E_8(-1)²
+  Fixed sublattice: Λ_K3^θ ≅ T_Co
+  Anti-fixed sublattice: Λ_K3^{-θ} ≅ S_Co
+
+================================================================================
+Note: Full implementation requires detailed lattice analysis
+This is a complex computational algebra problem
+================================================================================
+
+Results saved to: /home/dzack/research/computations/task3_1_results.txt
+
+================================================================================
+Task 3.1: Requires detailed implementation (stub)
+================================================================================
