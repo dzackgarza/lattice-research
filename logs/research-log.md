@@ -411,6 +411,7 @@ From AEGS23 (Alexeev-Engel-Garza-Schaffler, arXiv:2312.03638):
 - KSBA stable limit is $(Z, \epsilon C)$ with $0 < \epsilon \ll 1$
 
 slc stability conditions:
+
 1. $Z$ is $S_2$ (Cohen-Macaulay)
 2. $Z$ has nodal singularities in codimension 1
 3. $K_Z + \epsilon C$ is $\mathbb{Q}$-Cartier and ample
@@ -432,7 +433,6 @@ slc stability conditions:
 - **Surgery vector**: $\ell = (0, 0, 0, 0, 0, 0, 0, 0, 0)$
   - All entries zero: $h_{Co}$ is orthogonal to all simple roots
   - This is expected: $h_{Co}$ lies in positive definite part, roots in negative part
-  
 - **Dual complex**: $B(\ell) = S^2$ (standard 2-sphere)
   - Degeneration type: Type III (maximal unipotent monodromy)
   - Integral-affine structure: standard (no surgery modifications)
@@ -457,6 +457,7 @@ slc stability conditions:
 **Key Insight**:
 
 The surgery vector $\ell = 0$ indicates that the Coble polarization $h_{Co}$ corresponds to the **standard Type III degeneration** with no surgery modifications. This is the generic case where:
+
 - The dual complex is the standard 2-sphere
 - The integral-affine structure has no singularities beyond the standard ones
 - The stable limit is the "most symmetric" degeneration
@@ -466,6 +467,7 @@ The vanishing of $\ell$ reflects the orthogonality between the polarization (in 
 **Verification**:
 
 All 13 verification checks passed:
+
 - ✓ $h_{Co}$ has norm 2
 - ✓ Surgery vector $\ell$ computed (length 9)
 - ✓ $B(\ell)$ constructed as $S^2$
