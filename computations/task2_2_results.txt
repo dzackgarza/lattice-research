@@ -1,0 +1,30 @@
+Task 2.2 Results: Lifting Isotropic Orbits and O*(T)-Verification
+================================================================================
+
+Lattice T_Co:
+  Gram matrix: diag(2, 2, -2, ..., -2)
+  Signature: (2, 9)
+  (r, a, δ): (11, 11, 1)
+
+Isotropic vectors in A_T:
+  Total: 528
+    - Zero vector: 1 (div = 1)
+    - Nonzero isotropic: 527 (div = 2)
+
+Lifting to T_Co*:
+  div(v) = 1: 1 vectors
+  div(v) = 2: 527 vectors
+
+O*(T)-orbit decomposition:
+  Number of orbits: 2
+  - Orbit 0: Zero vector (div = 1)
+  - Orbit 1: All nonzero isotropic (div = 2)
+
+Verification:
+  Status: PASS
+  Expected: Single O*(T)-orbit for div(v) = 2
+  Result: ONE orbit confirmed
+
+References:
+  [Nikulin1979] Prop. 1.5.2: Primitive isotropic vector classification
+  [Sterk1991]: Lifting orbits from discriminant group
