@@ -51,6 +51,23 @@ def T_Co_gram():
     """Coble transcendental lattice expected Gram matrix diag(2, 2, -2, ..., -2)."""
     return diagonal_matrix(ZZ, [2, 2] + [-2]*9)
 
+def get_Lambda_K3():
+    """Return Λ_K3 as an IntegralLattice."""
+    return IntegralLattice(K3_lattice())
+
+def get_S_Co():
+    """Return S_Co as an IntegralLattice."""
+    return IntegralLattice(S_Co_gram())
+
+def get_T_Co():
+    """Return T_Co as an IntegralLattice."""
+    return IntegralLattice(T_Co_gram())
+
+def get_T_En():
+    """Return T_En as an IntegralLattice."""
+    # Enriques transcendental lattice has signature (2,8)
+    return IntegralLattice(diagonal_matrix(ZZ, [2, 2] + [-2]*8))
+
 def stabilizer_reflection_generators(T_En_gram, h_Co, theta):
     """Find reflection generators in the stabilizer Γ_Co of the Coble polarization."""
     n = T_En_gram.nrows()

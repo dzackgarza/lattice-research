@@ -45,19 +45,11 @@ print("Task 3.1: Compute Γ_Co Matrix Generators")
 print("=" * 80)
 print()
 
-import sys
-import os
-sys.path.append(os.path.join(os.getcwd(), 'computations'))
-
-# ###############################################################################
-# Section 1: Construct T_En
-# ###############################################################################
-
 print("Section 1: Constructing T_En (Enriques Transcendental Lattice)")
 print("-" * 80)
 
 # Load T_En from central geometry module
-from coble_geometry import get_T_En
+load("computations/coble_geometry.sage")
 T_En = get_T_En()
 T_En_gram = T_En.gram_matrix()
 

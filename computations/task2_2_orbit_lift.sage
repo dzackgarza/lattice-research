@@ -73,10 +73,6 @@ print("=" * 80)
 print("Task 2.2: Lifting Isotropic Orbits from A_T_Co to T_Co")
 print("=" * 80)
 
-import sys
-import os
-sys.path.append(os.path.join(os.getcwd(), 'computations'))
-
 # ============================================================================
 # Step 1: Construct T_Co and its discriminant form
 # ============================================================================
@@ -85,7 +81,7 @@ print("[Step 1] Constructing T_Co and Discriminant Form")
 print("=" * 80)
 
 # Load T_Co from central geometry module
-from coble_geometry import get_T_Co
+load("computations/coble_geometry.sage")
 T_Co = get_T_Co()
 T_Co_gram = T_Co.gram_matrix()
 

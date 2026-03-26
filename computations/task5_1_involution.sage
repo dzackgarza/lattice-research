@@ -60,10 +60,6 @@ print("=" * 80)
 print("Task 5.1: Construct θ Involution and Verify Eigenspaces")
 print("=" * 80)
 
-import sys
-import os
-sys.path.append(os.path.join(os.getcwd(), 'computations'))
-
 # ============================================================================
 # Step 1: Construct the K3 Lattice Λ_K3
 # ============================================================================
@@ -72,7 +68,7 @@ print("[Step 1] Constructing K3 Lattice Λ_K3 = U³ ⊕ E₈(-1)²")
 print("=" * 80)
 
 # Load Λ_K3 from central geometry module
-from coble_geometry import get_Lambda_K3
+load("computations/coble_geometry.sage")
 Lambda_K3 = get_Lambda_K3()
 Lambda_K3_gram = Lambda_K3.gram_matrix()
 Lambda_K3_rank = Lambda_K3.rank()
