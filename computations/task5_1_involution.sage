@@ -87,7 +87,7 @@ print("[Step 2] Constructing Target Lattices T_Co and S_Co")
 print("=" * 80)
 
 # Load T_Co and S_Co from central geometry module
-from coble_geometry import get_T_Co, get_S_Co
+load("computations/coble_geometry.sage")
 T_Co = get_T_Co()
 T_Co_gram = T_Co.gram_matrix()
 
