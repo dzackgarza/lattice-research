@@ -18,12 +18,13 @@
 | --- | --- | --- |
 | 1.2 | T_Co orthogonal complement | ✅ DONE |
 | 1.2 | Discriminant form verification | ✅ DONE |
-| 1.3 | Embedding verification | ✅ DONE* |
+| 1.3 | Embedding verification | ✅ DONE (Primitive) |
 | 1.1 | Hessian rank check | ✅ DONE |
 
-*Note: Task 1.3 embedding has index 1024 (non-primitive), but downstream tasks 2.1-6.1
-all work correctly with current lattices.
-Primitivity is not a blocker for downstream computations.
+*Note: Task 1.3 embedding is now **primitive** via saturation.
+The index of $S_{Co} \oplus T_{Co}$ in $\Lambda_{K3}$ is 2048, as expected for
+2-elementary lattices.
+Downstream tasks 2.1-6.1 have been re-verified with the primitive embedding.
 
 * * *
 

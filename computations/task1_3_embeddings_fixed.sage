@@ -32,6 +32,8 @@ print("Task 1.3 (Fixed): Rigorous Embedding Verification")
 print("=" * 80)
 print()
 
+load("computations/coble_geometry.sage")
+
 ###############################################################################
 # Section 1: Construct Standard Lattices
 ###############################################################################
@@ -39,37 +41,8 @@ print()
 print("Section 1: Constructing Λ_K3 = U³ ⊕ E₈(-1)²")
 print("-" * 80)
 
-def hyperbolic_plane():
-    """
-    Hyperbolic plane U with Gram matrix [[0,1],[1,0]].
-    
-    In basis (e,f): e² = f² = 0, e·f = 1.
-    Vectors (e+f) and (e-f) are orthogonal with norms 2 and -2.
-    """
-    return Matrix(ZZ, [[0, 1], [1, 0]])
-
-def E8_lattice(negative=True):
-    """
-    E8 Cartan matrix (positive definite), optionally negated.
-    
-    Reference: Conway-Sloane, Chapter 4; Bourbaki, Lie Groups Ch. 4-6.
-    """
-    E8_cartan = Matrix(ZZ, [
-        [ 2, -1,  0,  0,  0,  0,  0,  0],
-        [-1,  2, -1,  0,  0,  0,  0,  0],
-        [ 0, -1,  2, -1,  0,  0,  0,  0],
-        [ 0,  0, -1,  2, -1,  0,  0,  0],
-        [ 0,  0,  0, -1,  2, -1,  0, -1],
-        [ 0,  0,  0,  0, -1,  2, -1,  0],
-        [ 0,  0,  0,  0,  0, -1,  2,  0],
-        [ 0,  0,  0,  0, -1,  0,  0,  2]
-    ])
-    return -E8_cartan if negative else E8_cartan
-
 # Construct Λ_K3
-U = hyperbolic_plane()
-E8_neg = E8_lattice(negative=True)
-Lambda_K3 = block_diagonal_matrix([U, U, U, E8_neg, E8_neg])
+Lambda_K3 = K3_lattice()
 
 print(f"Λ_K3: rank = {Lambda_K3.nrows()}")
 print(f"Λ_K3 signature: {QuadraticForm(Lambda_K3).signature()} (should be -16 = 3-19)")
@@ -83,10 +56,10 @@ print()
 print("Section 2: Expected Lattice Invariants")
 print("-" * 80)
 
-S_Co_gram_expected = diagonal_matrix(ZZ, [2] + [-2]*10)
+S_Co_gram_expected = S_Co_gram()
 print(f"S_Co (expected): rank 11, sig -9, det = {S_Co_gram_expected.determinant()}")
 
-T_Co_gram_expected = diagonal_matrix(ZZ, [2, 2] + [-2]*9)
+T_Co_gram_expected = T_Co_gram()
 print(f"T_Co (expected): rank 11, sig -7, det = {T_Co_gram_expected.determinant()}")
 print()
 
@@ -107,26 +80,32 @@ Embedding plan using orthogonal vectors:
 - s_8-s_10 (norm -2) ↦ α_1, α_3, α_5 in E8_b(-1) (mutually orthogonal)
 """
 
-M_SCo = matrix(ZZ, 22, 11, 0)
+M_SCo_raw = matrix(ZZ, 22, 11, 0)
 
-# s_0, s_1 in U_0
-M_SCo[0, 0] = 1; M_SCo[1, 0] = 1   # (1,1), norm 2
-M_SCo[0, 1] = 1; M_SCo[1, 1] = -1  # (1,-1), norm -2, orthogonal
+# s_0 in U_0 (norm 2)
+M_SCo_raw[0, 0] = 1; M_SCo_raw[1, 0] = 1   # (1,1)
 
-# s_2 in U_1, s_3 in U_2
-M_SCo[2, 2] = 1; M_SCo[3, 2] = -1  # (1,-1) in U_1
-M_SCo[4, 3] = 1; M_SCo[5, 3] = -1  # (1,-1) in U_2
+# s_1 in U_1 (norm -2)
+M_SCo_raw[2, 1] = 1; M_SCo_raw[3, 1] = -1  # (1,-1)
 
-# s_4-s_7 in E8_a (orthogonal simple roots: indices 0,2,4,6)
-M_SCo[6, 4] = 1    # α_0
-M_SCo[8, 5] = 1    # α_2
-M_SCo[10, 6] = 1   # α_4
-M_SCo[12, 7] = 1   # α_6
+# s_2 in U_2 (norm -2)
+M_SCo_raw[4, 2] = 1; M_SCo_raw[5, 2] = -1  # (1,-1)
 
-# s_8-s_10 in E8_b (orthogonal simple roots: indices 1,3,5)
-M_SCo[15, 8] = 1   # α_1
-M_SCo[17, 9] = 1   # α_3
-M_SCo[19, 10] = 1  # α_5
+# s_3-s_6 in E8_a (orthogonal simple roots: indices 0,2,4,6)
+M_SCo_raw[6, 3] = 1    # α_0
+M_SCo_raw[8, 4] = 1    # α_2
+M_SCo_raw[10, 5] = 1   # α_4
+M_SCo_raw[12, 6] = 1   # α_6
+
+# s_7-s_10 in E8_b (orthogonal simple roots: indices 0,2,4,6)
+M_SCo_raw[14, 7] = 1   # α_0
+M_SCo_raw[16, 8] = 1   # α_2
+M_SCo_raw[18, 9] = 1   # α_4
+M_SCo_raw[20, 10] = 1  # α_6
+
+print("Saturating S_Co to make it primitive...")
+M_SCo = saturate_embedding(M_SCo_raw, Lambda_K3)
+print(f"S_Co primitive after saturation: {is_primitive_embedding(M_SCo)}")
 
 ###############################################################################
 # Section 4: Verify S_Co Embedding is Orthogonal
@@ -310,10 +289,7 @@ M_TCo[5, 1] = 1
 # Let's verify primitivity of S_Co first
 
 print("Verifying S_Co primitivity...")
-S_SCo, U_SCo, V_SCo = M_SCo.smith_form()
-sco_diagonal = [S_SCo[i,i] for i in range(min(S_SCo.nrows(), S_SCo.ncols()))]
-sco_primitive = all(d == 1 for d in sco_diagonal)
-print(f"S_Co Smith diagonal: {sco_diagonal}")
+sco_primitive = is_primitive_embedding(M_SCo)
 print(f"S_Co primitive: {sco_primitive}")
 
 if not sco_primitive:
@@ -389,6 +365,7 @@ G_combined = M_combined.transpose() * Lambda_K3 * M_combined
 
 det_combined = G_combined.determinant()
 print(f"det(S_Co ⊕ T_Co) = {det_combined}")
+print(f"det(M_combined) = {M_combined.determinant()}")
 print(f"  = det(S_Co) * det(T_Co) = {S_Co_gram_expected.determinant()} * {det_TCo}")
 
 # Smith normal form to check primitivity
@@ -440,17 +417,18 @@ print("T_En construction:")
 print("  T_En = v_En^⊥ in T_Co, where v_En is the Enriques polarization direction")
 print("  This corresponds to the invariant sublattice under Enriques involution")
 
-# For T_En, we take the orthogonal complement of a norm 2 vector in T_Co
-# This vector corresponds to the "extra" positive direction beyond the Coble polarization
+# For T_En, we take the orthogonal complement of a negative norm vector in T_Co
+# This vector corresponds to an algebraic class being added to the Picard lattice
+# to move from Coble (rho=11) to Enriques (rho=12).
+# Signature (2,9) --v(-2)--> (2,8)
 
-# Find norm 2 vectors in T_Co
-# From the Gram matrix, identify positive norm directions
-pos_indices = [i for i in range(G_TCo.nrows()) if G_TCo[i,i] > 0]
-print(f"  Positive norm basis vectors in T_Co: {pos_indices}")
+# Find negative norm vectors in T_Co
+neg_indices = [i for i in range(G_TCo.nrows()) if G_TCo[i,i] < 0]
+print(f"  Negative norm basis vectors in T_Co: {neg_indices}")
 
-if len(pos_indices) >= 1:
-    # Use the first positive direction as the Enriques polarization
-    v_En_idx = pos_indices[0]
+if len(neg_indices) >= 1:
+    # Use the first negative direction as the Enriques polarization increment
+    v_En_idx = neg_indices[0]
     v_En_coords = zero_vector(ZZ, M_TCo.ncols())
     v_En_coords[v_En_idx] = 1
     v_En = M_TCo * v_En_coords
@@ -458,10 +436,8 @@ if len(pos_indices) >= 1:
     print(f"  v_En norm: {v_En_norm}")
     
     # T_En = v_En^⊥ in T_Co
-    # Compute pairing of v_En with T_Co basis
     pairing_En = vector(ZZ, [(v_En * Lambda_K3 * M_TCo[:,i])[0] for i in range(M_TCo.ncols())])
     pairing_En_QQ = pairing_En.change_ring(QQ)
-    # Convert to matrix for kernel computation
     pairing_En_matrix = matrix(QQ, 1, len(pairing_En_QQ), pairing_En_QQ)
     kernel_En_QQ = pairing_En_matrix.right_kernel()
     
@@ -486,27 +462,24 @@ if len(pos_indices) >= 1:
             M_TEn[i, j] = v_Lambda[i]
     
     G_TEn = M_TEn.transpose() * Lambda_K3 * M_TEn
-    print(f"  T_En signature: {QuadraticForm(G_TEn).signature()} (expected: -6)")
+    print(f"  T_En signature: {QuadraticForm(G_TEn).signature()} (expected: -6 = 2-8)")
 else:
-    print("  WARNING: Could not find positive norm vector in T_Co")
+    print("  WARNING: Could not find negative norm vector in T_Co")
     M_TEn = M_TCo[:, :-1]  # Fallback: truncate
     G_TEn = M_TEn.transpose() * Lambda_K3 * M_TEn
 
 print()
 print("T_dP construction:")
-print("  T_dP = v_dP^⊥ in T_En, where v_dP is the del Pezzo polarization direction")
-print("  This corresponds to removing the anticanonical class direction")
+print("  T_dP = v_dP^⊥ in T_En, where v_dP is another negative direction increment")
+print("  Signature (2,8) --v(-2)--> (2,7)")
 
-if len(pos_indices) >= 1 and 'M_TEn' in dir():
-    # For T_dP, remove another direction from T_En
-    # Use a different positive direction or a specific combination
+if 'M_TEn' in dir():
+    # Find negative norm vectors in T_En
+    neg_En = [i for i in range(G_TEn.nrows()) if G_TEn[i,i] < 0]
+    print(f"  Negative norm directions in T_En: {neg_En}")
     
-    # Find positive norm vectors in T_En
-    pos_En = [i for i in range(G_TEn.nrows()) if G_TEn[i,i] > 0]
-    print(f"  Positive norm directions in T_En: {pos_En}")
-    
-    if len(pos_En) >= 1:
-        v_dP_idx = pos_En[0]
+    if len(neg_En) >= 1:
+        v_dP_idx = neg_En[0]
         v_dP_coords = zero_vector(ZZ, M_TEn.ncols())
         v_dP_coords[v_dP_idx] = 1
         v_dP = M_TEn * v_dP_coords
@@ -516,7 +489,6 @@ if len(pos_indices) >= 1 and 'M_TEn' in dir():
         # T_dP = v_dP^⊥ in T_En
         pairing_dP = vector(ZZ, [(v_dP * Lambda_K3 * M_TEn[:,i])[0] for i in range(M_TEn.ncols())])
         pairing_dP_QQ = pairing_dP.change_ring(QQ)
-        # Convert to matrix for kernel computation
         pairing_dP_matrix = matrix(QQ, 1, len(pairing_dP_QQ), pairing_dP_QQ)
         kernel_dP_QQ = pairing_dP_matrix.right_kernel()
         
@@ -541,11 +513,7 @@ if len(pos_indices) >= 1 and 'M_TEn' in dir():
                 M_TdP[i, j] = v_Lambda[i]
         
         G_TdP = M_TdP.transpose() * Lambda_K3 * M_TdP
-        print(f"  T_dP signature: {QuadraticForm(G_TdP).signature()} (expected: -5)")
-    else:
-        print("  WARNING: Could not find positive norm vector in T_En")
-        M_TdP = M_TEn[:, :-1]  # Fallback
-        G_TdP = M_TdP.transpose() * Lambda_K3 * M_TdP
+        print(f"  T_dP signature: {QuadraticForm(G_TdP).signature()} (expected: -5 = 2-7)")
 else:
     print("  WARNING: T_En not constructed, using fallback")
     M_TdP = M_TCo[:, :-2]
@@ -564,12 +532,6 @@ print(f"  T_dP: rank {M_TdP.ncols()}, signature {QuadraticForm(G_TdP).signature(
 print()
 print("Section 9: Primitivity Verification (Nontrivial Embeddings Only)")
 print("-" * 80)
-
-def is_primitive_embedding(M):
-    """Check if integer matrix M defines a primitive embedding."""
-    S, U, V = M.smith_form()
-    diagonal = [S[i,i] for i in range(min(S.nrows(), S.ncols()))]
-    return all(d == 1 for d in diagonal)
 
 print("Nontrivial primitivity tests:")
 print(f"  S_Co ↪ Λ_K3: {is_primitive_embedding(M_SCo)}")

@@ -3,7 +3,7 @@ Task 6.1 Results: h_Co → ℓ Mapping and slc Stability Verification
 
 Coble Polarization:
 --------------------------------------------------------------------------------
-h_Co = (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+h_Co_K3 = (1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 h_Co² = 2
 
 Surgery Vector:

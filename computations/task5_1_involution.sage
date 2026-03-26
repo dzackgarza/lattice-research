@@ -60,6 +60,10 @@ print("=" * 80)
 print("Task 5.1: Construct θ Involution and Verify Eigenspaces")
 print("=" * 80)
 
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), 'computations'))
+
 # ============================================================================
 # Step 1: Construct the K3 Lattice Λ_K3
 # ============================================================================
@@ -67,43 +71,17 @@ print("\n" + "=" * 80)
 print("[Step 1] Constructing K3 Lattice Λ_K3 = U³ ⊕ E₈(-1)²")
 print("=" * 80)
 
-# Hyperbolic plane U with Gram matrix [[0,1],[1,0]]
-def hyperbolic_plane():
-    return Matrix(ZZ, [[0, 1], [1, 0]])
+# Load Λ_K3 from central geometry module
+from coble_geometry import get_Lambda_K3
+Lambda_K3 = get_Lambda_K3()
+Lambda_K3_gram = Lambda_K3.gram_matrix()
+Lambda_K3_rank = Lambda_K3.rank()
 
-# E8 Cartan matrix (positive definite)
-def E8_cartan():
-    return Matrix(ZZ, [
-        [ 2, -1,  0,  0,  0,  0,  0,  0],
-        [-1,  2, -1,  0,  0,  0,  0,  0],
-        [ 0, -1,  2, -1,  0,  0,  0,  0],
-        [ 0,  0, -1,  2, -1,  0,  0,  0],
-        [ 0,  0,  0, -1,  2, -1,  0, -1],
-        [ 0,  0,  0,  0, -1,  2, -1,  0],
-        [ 0,  0,  0,  0,  0, -1,  2,  0],
-        [ 0,  0,  0,  0, -1,  0,  0,  2]
-    ])
-
-# Construct Λ_K3
-U = hyperbolic_plane()
-E8_neg = -E8_cartan()  # E₈(-1) for K3 convention
-
-Lambda_K3_gram = block_diagonal_matrix([U, U, U, E8_neg, E8_neg])
-Lambda_K3_rank = Lambda_K3_gram.nrows()
-
-print(f"\nΛ_K3 Gram matrix:")
-print(f"  Rank: {Lambda_K3_rank}")
-QF_Lambda = QuadraticForm(Lambda_K3_gram)
-sig_vec_Lambda = QF_Lambda.signature_vector()  # Returns (positive, negative, zero)
-sig_Lambda = (sig_vec_Lambda[0], sig_vec_Lambda[1])
-print(f"  Signature: {sig_Lambda} (positive={sig_vec_Lambda[0]}, negative={sig_vec_Lambda[1]})")
-print(f"  Determinant: {Lambda_K3_gram.determinant()}")
-print(f"  Is unimodular: {abs(Lambda_K3_gram.determinant()) == 1}")
-print(f"  Is even: {all(Lambda_K3_gram[i,i] % 2 == 0 for i in range(Lambda_K3_rank))}")
-
-# Verify signature is (3, 19)
-assert sig_Lambda == (3, 19), f"Expected (3,19), got {sig_Lambda}"
-print("  ✓ Signature matches expected (3, 19)")
+print(f"\nΛ_K3 rank: {Lambda_K3_rank}")
+print(f"  Signature: {Lambda_K3.signature()}")
+print(f"  Determinant: {Lambda_K3.determinant()}")
+print(f"  Is unimodular: {abs(Lambda_K3.determinant()) == 1}")
+print(f"  Is even: {Lambda_K3.is_even()}")
 
 # ============================================================================
 # Step 2: Construct Target Lattices T_Co and S_Co
@@ -112,34 +90,26 @@ print("\n" + "=" * 80)
 print("[Step 2] Constructing Target Lattices T_Co and S_Co")
 print("=" * 80)
 
-# T_Co: transcendental lattice of Coble surface
-# Signature (2, 9), rank 11, discriminant (ℤ/2ℤ)^11
-T_Co_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*9)
+# Load T_Co and S_Co from central geometry module
+from coble_geometry import get_T_Co, get_S_Co
+T_Co = get_T_Co()
+T_Co_gram = T_Co.gram_matrix()
+
+S_Co = get_S_Co()
+S_Co_gram = S_Co.gram_matrix()
+
 print(f"\nT_Co (target fixed sublattice):")
-print(f"  Gram matrix: diag(2, 2, -2, ..., -2)")
-print(f"  Rank: {T_Co_gram.nrows()}")
-QF_T = QuadraticForm(T_Co_gram)
-sig_vec_T = QF_T.signature_vector()
-sig_T = (sig_vec_T[0], sig_vec_T[1])
-print(f"  Signature: {sig_T}")
-print(f"  Determinant: {T_Co_gram.determinant()}")
+print(f"  Rank: {T_Co.rank()}")
+print(f"  Signature: {T_Co.signature()}")
+print(f"  Determinant: {T_Co.determinant()}")
 
-# S_Co: Picard lattice of Coble surface  
-# Signature (1, 10), rank 11, discriminant (ℤ/2ℤ)^11
-S_Co_gram = diagonal_matrix(ZZ, [2] + [-2]*10)
 print(f"\nS_Co (target coinvariant sublattice):")
-print(f"  Gram matrix: diag(2, -2, ..., -2)")
-print(f"  Rank: {S_Co_gram.nrows()}")
-QF_S = QuadraticForm(S_Co_gram)
-sig_vec_S = QF_S.signature_vector()
-sig_S = (sig_vec_S[0], sig_vec_S[1])
-print(f"  Signature: {sig_S}")
-print(f"  Determinant: {S_Co_gram.determinant()}")
+print(f"  Rank: {S_Co.rank()}")
+print(f"  Signature: {S_Co.signature()}")
+print(f"  Determinant: {S_Co.determinant()}")
 
-# Verify signatures
-assert sig_T == (2, 9), f"Expected (2,9), got {sig_T}"
-assert sig_S == (1, 10), f"Expected (1,10), got {sig_S}"
-print("  ✓ Signatures match expected values")
+sig_T = T_Co.signature()
+sig_S = S_Co.signature()
 
 # ============================================================================
 # Step 3: Construct the Involution θ

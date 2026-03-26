@@ -60,6 +60,10 @@ print("=" * 80)
 print("Task 2.1: Isotropic Vector Enumeration and O(q_T)-Orbit Classification")
 print("=" * 80)
 
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), 'computations'))
+
 # ============================================================================
 # Step 1: Construct T_Co and its discriminant form
 # ============================================================================
@@ -67,13 +71,13 @@ print("\n" + "=" * 80)
 print("[Step 1] Constructing T_Co and Discriminant Form q_T")
 print("=" * 80)
 
-# T_Co Gram matrix from Task 1.2
-T_Co_gram = diagonal_matrix(QQ, [2, 2] + [-2]*9)
-T_Co = IntegralLattice(T_Co_gram)
+# Load T_Co from central geometry module
+from coble_geometry import get_T_Co
+T_Co = get_T_Co()
+T_Co_gram = T_Co.gram_matrix()
 
-print(f"\nT_Co Gram matrix: diag(2, 2, -2, ..., -2)")
-print(f"  Rank: {T_Co.rank()}")
-print(f"  Signature: {QuadraticForm(T_Co_gram).signature_vector()[:2]}")
+print(f"\nT_Co rank: {T_Co.rank()}")
+print(f"  Signature: {T_Co.signature()}")
 print(f"  Determinant: {T_Co.determinant()}")
 
 # Discriminant group A_T = T_Co*/T_Co

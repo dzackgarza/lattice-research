@@ -167,70 +167,37 @@ except:
     sols_inf = []
     print(f"    None found")
 
-# Combine all singular points
+# Combine all singular points, filtering out the zero vector
 all_singular_points = []
 for sol in sols_affine:
     all_singular_points.append((sol[X], sol[Y], K(1)))
 for sol in sols_inf:
-    all_singular_points.append((sol[X], sol[Y], K(0)))
+    pt = (sol[X], sol[Y], K(0))
+    if any(c != 0 for c in pt):
+        all_singular_points.append(pt)
 
-print(f"\n  Total singular points: {len(all_singular_points)}")
+print(f"\n  Total singular points (projective): {len(all_singular_points)}")
+
+# ============================================================================
+load("computations/coble_geometry.sage")
 
 # ============================================================================
 # Step 5: Verify Each Singularity is a Node (A₁)
 # ============================================================================
 print("\n[Step 5] Verifying nodes (A₁ singularities)...")
 
-# A point p is a node iff the quadratic part of the Taylor expansion is
-# non-degenerate. For a plane curve singularity, this means the Hessian
-# matrix (full 3×3) has rank exactly 2 at the singular point.
-#
-# The Hessian matrix is:
-#   H = [ F_xx  F_xy  F_xz ]
-#       [ F_xy  F_yy  F_yz ]
-#       [ F_xz  F_yz  F_zz ]
-
-Fxx = F.derivative(x_gen, 2)
-Fxy = F.derivative(x_gen, y_gen)
-Fxz = F.derivative(x_gen, z_gen)
-Fyy = F.derivative(y_gen, 2)
-Fyz = F.derivative(y_gen, z_gen)
-Fzz = F.derivative(z_gen, 2)
-
 nodes = []
 other_singularities = []
 
 for idx, pt in enumerate(all_singular_points):
-    px, py, pz = pt
-    
     try:
-        # Evaluate all second derivatives at the point
-        h_xx = Fxx.substitute(x=px, y=py, z=pz)
-        h_xy = Fxy.substitute(x=px, y=py, z=pz)
-        h_xz = Fxz.substitute(x=px, y=py, z=pz)
-        h_yy = Fyy.substitute(x=px, y=py, z=pz)
-        h_yz = Fyz.substitute(x=px, y=py, z=pz)
-        h_zz = Fzz.substitute(x=px, y=py, z=pz)
-        
-        # Construct the full 3×3 Hessian matrix
-        H = matrix(QQbar, [
-            [h_xx, h_xy, h_xz],
-            [h_xy, h_yy, h_yz],
-            [h_xz, h_yz, h_zz]
-        ])
-        
-        # Compute rank of Hessian
-        rank_H = H.rank()
-        
-        # A node has rank exactly 2 (the quadratic part is non-degenerate)
-        is_node = (rank_H == 2)
-        
-        if is_node:
-            nodes.append((pt, rank_H))
-            print(f"    Point {idx+1}: Hessian rank = {rank_H}  ✓ NODE (A₁)")
+        # Verify node using centralized utility
+        if is_node_at_point(F, pt):
+            nodes.append((pt, 2))
+            print(f"    Point {idx+1}: Hessian rank = 2  ✓ NODE (A₁)")
         else:
-            other_singularities.append((pt, rank_H))
-            print(f"    Point {idx+1}: Hessian rank = {rank_H}  ✗ NOT A NODE")
+            other_singularities.append((pt, "degenerate"))
+            print(f"    Point {idx+1}: ✗ NOT A NODE")
             
     except Exception as e:
         print(f"    Point {idx+1}: Error - {e}")

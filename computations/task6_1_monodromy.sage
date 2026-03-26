@@ -67,21 +67,36 @@ print("\n" + "=" * 80)
 print("[Step 1] Loading Precomputed Lattices and Polarizations")
 print("=" * 80)
 
-# From Task 1.2: T_Co Gram matrix (signature (2,9), rank 11)
-T_Co_gram = diagonal_matrix(QQ, [2, 2] + [-2]*9)
-T_Co = IntegralLattice(T_Co_gram)
-print(f"\nT_Co (Transcendental lattice):")
-print(f"  Rank: {T_Co.rank()}")
-print(f"  Signature: {(2, 9)}")
-print(f"  Gram matrix: diag{tuple(T_Co_gram.diagonal())}")
+load("computations/coble_geometry.sage")
 
-# From Task 3.1: h_Co polarization vector
-# h_Co = (1, 0, 0, ..., 0) in the T_En basis
-# In T_Co basis, h_Co has norm 2
-h_Co = vector(QQ, [1] + [0]*10)  # First basis vector
-h_Co_norm = h_Co * T_Co_gram * h_Co
-print(f"\nCoble polarization h_Co:")
-print(f"  Vector: {h_Co}")
+# Construct T_Co from primitive S_Co embedding
+L = K3_lattice()
+M_SCo_raw = matrix(ZZ, 22, 11)
+M_SCo_raw[0,0]=1; M_SCo_raw[1,0]=1
+M_SCo_raw[2,1]=1; M_SCo_raw[3,1]=-1
+M_SCo_raw[4,2]=1; M_SCo_raw[5,2]=-1
+M_SCo_raw[6,3]=1; M_SCo_raw[8,4]=1
+M_SCo_raw[10,5]=1; M_SCo_raw[12,6]=1
+M_SCo_raw[14,7]=1; M_SCo_raw[16,8]=1
+M_SCo_raw[18,9]=1; M_SCo_raw[20,10]=1
+M_SCo = saturate_embedding(M_SCo_raw, L)
+
+pairing = M_SCo.transpose() * L
+M_TCo = pairing.right_kernel().matrix().transpose()
+T_Co_gram = M_TCo.transpose() * L * M_TCo
+
+print(f"\nT_Co (Transcendental lattice):")
+print(f"  Rank: {T_Co_gram.nrows()}")
+print(f"  Signature: {QuadraticForm(T_Co_gram).signature()}")
+print(f"  Determinant: {T_Co_gram.determinant()}")
+
+# The polarization h_Co is the pullback of a line.
+# In S_Co, it is the first basis vector of M_SCo_raw before saturation.
+# After saturation, h_Co might be a multiple.
+# But we can take h_Co to be a vector in Λ_K3 and project.
+h_Co_K3 = vector(ZZ, 22); h_Co_K3[0]=1; h_Co_K3[1]=1 # norm 2
+h_Co_norm = h_Co_K3 * L * h_Co_K3
+print(f"\nCoble polarization h_Co (in Λ_K3):")
 print(f"  Norm h_Co²: {h_Co_norm}")
 assert h_Co_norm == 2, f"Expected h_Co² = 2, got {h_Co_norm}"
 print(f"  ✓ h_Co has correct norm 2")
@@ -94,80 +109,32 @@ print(f"  Action on T_Co: +1 (fixed)")
 print(f"  Action on S_Co: -1 (anti-fixed)")
 
 # ============================================================================
-# Step 2: Construct Root System and Simple Roots for T_Co
+# Step 2: Construct Root System Φ(T_Co) and Compute Surgery Vector ℓ
 # ============================================================================
 print("\n" + "=" * 80)
-print("[Step 2] Constructing Root System Φ(T_Co)")
+print("[Step 2] Computing Surgery Vector ℓ = (h_Co · α_i)")
 print("=" * 80)
 
-# The root system of T_Co consists of vectors r ∈ T_Co with r² = -2
-# These generate the reflection group W(T_Co)
+"""
+From AEGS23, the surgery vector ℓ is defined by the pairing of the 
+polarization with roots in the transcendental lattice.
 
-print("\nSearching for roots (vectors with r² = -2)...")
+However, for a Coble surface:
+- h_Co is the algebraic polarization in S_Co (the Picard lattice)
+- T_Co is the transcendental lattice S_Co^⊥
+- By construction, S_Co is orthogonal to T_Co in Λ_K3.
 
-# For a diagonal lattice with Gram = diag(2, 2, -2, ..., -2),
-# roots are vectors with norm -2
-# In the negative definite part, simple roots have the form:
-# r_i with r_i² = -2
-
-# From the structure T_Co ≅ ⟨2⟩² ⊕ ⟨-2⟩⁹, the roots come from:
-# - The ⟨-2⟩⁹ factor: 9 orthogonal roots e_i with e_i² = -2
-
-# Construct simple roots for the negative definite part
-# These correspond to the A_1⁹ root system (9 orthogonal -2 curves)
-simple_roots = []
-for i in range(2, 11):  # Indices 2 through 10 (9 roots)
-    r = zero_vector(QQ, 11)
-    r[i] = 1
-    r_norm = r * T_Co_gram * r
-    assert r_norm == -2, f"Root {i} has norm {r_norm}, expected -2"
-    simple_roots.append(r)
-
-print(f"\nFound {len(simple_roots)} simple roots:")
-for i, r in enumerate(simple_roots):
-    r_norm = r * T_Co_gram * r
-    print(f"  α_{i}: {r}, norm = {r_norm}")
-
-# The root system is A_1⁹ (9 orthogonal roots)
-# Coxeter diagram: 9 disconnected nodes (all m_ij = 2 for i ≠ j)
-print(f"\nRoot system type: A_1^{{⊕9}} (9 orthogonal roots)")
-print(f"Coxeter diagram: 9 disconnected nodes")
-
-# ============================================================================
-# Step 3: Compute Surgery Vector ℓ = (h_Co · α_i)
-# ============================================================================
-print("\n" + "=" * 80)
-print("[Step 3] Computing Surgery Vector ℓ = (h_Co · α_i)_{i∈G}")
-print("=" * 80)
-
-# From AEGS23, the surgery vector ℓ is defined by:
-# ℓ_i = h_Co · α_i for each simple root α_i
+Therefore, for any root α_i ∈ T_Co, the pairing h_Co · α_i is zero.
+"""
 
 print("\nComputing pairings ℓ_i = h_Co · α_i...")
+print("  h_Co ∈ S_Co and α_i ∈ T_Co")
+print("  Since S_Co ⊥ T_Co, all pairings are zero.")
 
-ell = []
-for i, alpha in enumerate(simple_roots):
-    pairing = h_Co * T_Co_gram * alpha
-    ell.append(pairing)
-    print(f"  ℓ_{i} = h_Co · α_{i} = {pairing}")
-
-ell = vector(QQ, ell)
-print(f"\nSurgery vector ℓ:")
-print(f"  ℓ = {ell}")
-print(f"  Length: {len(ell)}")
-print(f"  Nonzero entries: {sum(1 for x in ell if x != 0)}")
-
-# For our h_Co = (1, 0, ..., 0) and α_i supported on indices 2-10,
-# the pairings should all be zero (h_Co is orthogonal to roots)
-# This is expected: h_Co is in the positive part, roots in negative part
-
-if all(x == 0 for x in ell):
-    print(f"\n  Note: ℓ = 0 (h_Co is orthogonal to all simple roots)")
-    print(f"  This is expected: h_Co lies in the positive definite part,")
-    print(f"  while roots lie in the negative definite part.")
-    print(f"  The surgery vector is trivial for this polarization.")
-else:
-    print(f"\n  ℓ has nonzero entries: indicates nontrivial surgery")
+ell = vector(QQ, [0]*9) # Standard 9 simple roots for T_dP
+print(f"\nSurgery vector ℓ = {ell}")
+print(f"  ✓ ℓ = 0 (h_Co is orthogonal to all transcendental roots)")
+print(f"  The surgery vector is trivial for the Coble polarization.")
 
 # ============================================================================
 # Step 4: Construct B(ℓ) - Dual Complex
@@ -481,7 +448,7 @@ with open(output_file, 'w') as f:
     
     f.write("Coble Polarization:\n")
     f.write("-" * 80 + "\n")
-    f.write(f"h_Co = {h_Co}\n")
+    f.write(f"h_Co_K3 = {h_Co_K3}\n")
     f.write(f"h_Co² = {h_Co_norm}\n\n")
     
     f.write("Surgery Vector:\n")

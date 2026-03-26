@@ -49,10 +49,11 @@ task3_2-results:
 # Run all tasks
 run-all:
     @echo "=== Running All Tasks ==="
-    sage computations/task1_1_sextic.sage.py
-    sage computations/task1_2_gram_matrices.sage.py
-    sage computations/task1_3_embeddings.sage.py
-    sage computations/task2_1_isotropic_orbits.sage.py
-    sage computations/task2_2_orbit_lift.sage.py
-    sage computations/task3_1_stabilizer.sage
+    PYTHONPATH=. sage computations/task1_1_sextic.sage
+    PYTHONPATH=. sage computations/task1_3_embeddings_fixed.sage
+    PYTHONPATH=. sage computations/task2_1_isotropic_orbits.sage
+    PYTHONPATH=. sage computations/task2_2_orbit_lift.sage
+    PYTHONPATH=. sage computations/task3_1_stabilizer.sage
+    PYTHONPATH=. sage computations/task3_2_isotropic_planes.sage
+    PYTHONPATH=. sage computations/task5_1_involution.sage
     @echo "=== All Tasks Complete ==="

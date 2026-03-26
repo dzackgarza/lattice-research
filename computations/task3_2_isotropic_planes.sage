@@ -76,6 +76,10 @@ print("=" * 80)
 print("Task 3.2: Isotropic Plane Orbits and J⊥/J Computation")
 print("=" * 80)
 
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), 'computations'))
+
 # ============================================================================
 # Step 1: Construct T_Co
 # ============================================================================
@@ -83,14 +87,13 @@ print("\n" + "=" * 80)
 print("[Step 1] Constructing T_Co")
 print("=" * 80)
 
-# T_Co Gram matrix from Task 1.2
-T_Co_gram = diagonal_matrix(QQ, [2, 2] + [-2]*9)
-T_Co = IntegralLattice(T_Co_gram)
+# Load T_Co from central geometry module
+from coble_geometry import get_T_Co
+T_Co = get_T_Co()
+T_Co_gram = T_Co.gram_matrix()
 
-print(f"\nT_Co Gram matrix: diag(2, 2, -2, ..., -2)")
-print(f"  Rank: {T_Co.rank()}")
-sig = QuadraticForm(T_Co_gram).signature_vector()[:2]
-print(f"  Signature: {sig}")
+print(f"\nT_Co rank: {T_Co.rank()}")
+print(f"  Signature: {T_Co.signature()}")
 print(f"  Determinant: {T_Co.determinant()}")
 
 # Verify signature is (2, 9)

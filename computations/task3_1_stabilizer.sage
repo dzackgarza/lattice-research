@@ -45,23 +45,26 @@ print("Task 3.1: Compute Γ_Co Matrix Generators")
 print("=" * 80)
 print()
 
-###############################################################################
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), 'computations'))
+
+# ###############################################################################
 # Section 1: Construct T_En
-###############################################################################
+# ###############################################################################
 
 print("Section 1: Constructing T_En (Enriques Transcendental Lattice)")
 print("-" * 80)
 
-# T_En: rank 10, signature (2, 8), 2-elementary
-# Simplified model: diag(2, 2, -2, ..., -2)
-T_En_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*8)
-T_En = IntegralLattice(T_En_gram)
+# Load T_En from central geometry module
+from coble_geometry import get_T_En
+T_En = get_T_En()
+T_En_gram = T_En.gram_matrix()
 
-print(f"T_En Gram matrix: diag(2, 2, -2, ..., -2)")
-print(f"  Rank: {T_En.rank()}")
-print(f"  Signature: {QuadraticForm(T_En_gram).signature_vector()[:2]}")
+print(f"\nT_En rank: {T_En.rank()}")
+print(f"  Signature: {T_En.signature()}")
 print(f"  Determinant: {T_En.determinant()}")
-print(f"  Is even: {all(T_En_gram[i,i] % 2 == 0 for i in range(T_En_gram.nrows()))}")
+print(f"  Is even: {T_En.is_even()}")
 
 # Discriminant group
 A_TEn = T_En.discriminant_group()
