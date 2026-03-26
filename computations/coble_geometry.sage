@@ -137,3 +137,9 @@ def is_node_at_point(F, pt):
             H[i,j] = F.derivative(vars[i], vars[j]).substitute(x=px, y=py, z=pz)
     
     return H.rank() == 2
+
+def get_signature(L):
+    """Return the (p, n) signature vector of an IntegralLattice."""
+    G = L.gram_matrix()
+    p, n, z = QuadraticForm(G).signature_vector()
+    return (p, n)

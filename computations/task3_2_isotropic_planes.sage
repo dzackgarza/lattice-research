@@ -89,11 +89,12 @@ T_Co = get_T_Co()
 T_Co_gram = T_Co.gram_matrix()
 
 print(f"\nT_Co rank: {T_Co.rank()}")
-print(f"  Signature: {T_Co.signature()}")
+sig_T = get_signature(T_Co)
+print(f"  Signature: {sig_T}")
 print(f"  Determinant: {T_Co.determinant()}")
 
 # Verify signature is (2, 9)
-assert sig == (2, 9), f"Expected (2,9), got {sig}"
+assert sig_T == (2, 9), f"Expected (2,9), got {sig_T}"
 print(f"  ✓ Signature confirmed: (2, 9)")
 
 # ============================================================================
