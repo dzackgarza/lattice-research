@@ -46,6 +46,18 @@ task3_2-results:
     @echo "=== Task 3.2 Results ==="
     @cat computations/task3_2_results.txt
 
+# ==============================================================================
+# Task 5.1: Primitive Embedding and True Complement Gate
+# ==============================================================================
+
+task5_1-primitive:
+    @echo "=== Running Task 5.1 primitive/complement gate ==="
+    PYTHONPATH=. sage computations/task5_1_involution.sage | tee computations/task5_1_primitive_output.txt
+
+task5_1-primitive-results:
+    @echo "=== Task 5.1 Primitive Results ==="
+    @cat computations/task5_1_primitive_results.txt
+
 # Run all tasks
 task1_1-all:
     @echo "=== Running Task 1.1 Sextic Suite ==="
