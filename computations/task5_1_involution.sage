@@ -1,18 +1,21 @@
 """
-Task 5.1: Primitive S_Co embedding and orthogonal complement gate.
+Task 5.1 exact primitive/complement gate with theta verification phase.
 
-This script implements only the current exact Task 5.1 slice:
-- build a primitive S_Co embedding into a concrete K3-lattice model;
-- compute the true orthogonal complement inside that ambient lattice;
-- verify discriminant-form compatibility on the computed complement;
-- stop before any theta reconstruction or export.
+Modes:
+- primitive: stop after the verified primitive embedding/complement gate;
+- theta: extend the exact gate by defining theta as -I on embedded S_Co and
+  +I on the actual computed orthogonal complement, then verify integrality and
+  isometry in the glued ambient basis.
 """
 
 import sys
 from sage.all import *
 
 
-RESULTS_FILE = "/home/dzack/research/computations/task5_1_primitive_results.txt"
+PRIMITIVE_RESULTS_FILE = "/home/dzack/research/computations/task5_1_primitive_results.txt"
+THETA_RESULTS_FILE = "/home/dzack/research/computations/task5_1_theta_results.txt"
+
+
 def fail(message):
     print(f"ERROR: {message}")
     raise SystemExit(1)
@@ -122,8 +125,78 @@ def compute_true_complement(embedded_sco, ambient_gram):
     return complement
 
 
+def integer_matrix_or_fail(M, blocker_message):
+    if any(entry not in ZZ for entry in M.list()):
+        fail(blocker_message)
+    return M.change_ring(ZZ)
+
+
+def build_theta_from_decomposition(embedded_sco, complement, ambient_gram):
+    combined = embedded_sco.stack(complement)
+    if combined.rank() != ambient_gram.nrows():
+        fail("embedded S_Co plus computed complement does not span the ambient lattice rationally")
+
+    sign_action = diagonal_matrix(QQ, [-1] * embedded_sco.nrows() + [1] * complement.nrows())
+    theta_row = combined.change_ring(QQ).inverse() * sign_action * combined.change_ring(QQ)
+    theta = theta_row.transpose()
+    return {
+        "combined": combined,
+        "theta_row": theta_row,
+        "theta": theta,
+    }
+
+
+def write_lines(path, lines):
+    with open(path, "w") as handle:
+        handle.write("\n".join(str(line) for line in lines) + "\n")
+
+
+def theta_result_lines(
+    ambient_gram,
+    embedded_sco,
+    complement,
+    cross_pairing,
+    theta_integral,
+    theta_sq_identity,
+    theta_isometry,
+    theta_on_s,
+    theta_on_t,
+    outcome,
+):
+    return [
+        "Task 5.1 theta verification from the actual primitive decomposition",
+        "=" * 80,
+        "",
+        "Ambient lattice:",
+        f"  Rank: {ambient_gram.nrows()}",
+        f"  Signature: {matrix_signature(ambient_gram)}",
+        f"  Determinant: {ambient_gram.determinant()}",
+        "",
+        "Primitive decomposition:",
+        f"  Embedded S_Co primitive: {smith_diagonal(embedded_sco) == [1] * 11}",
+        f"  Computed complement primitive: {smith_diagonal(complement) == [1] * 11}",
+        f"  Cross pairing zero: {cross_pairing.is_zero()}",
+        "",
+        "Theta checks:",
+        f"  Integral in ambient basis: {theta_integral}",
+        f"  theta^2 = I: {theta_sq_identity}",
+        f"  theta^T G theta = G: {theta_isometry}",
+        f"  theta acts by -I on embedded S_Co: {theta_on_s}",
+        f"  theta acts by +I on computed complement: {theta_on_t}",
+        "",
+        "Outcome:",
+        f"  {outcome}",
+    ]
+
+
+mode = sys.argv[1] if len(sys.argv) > 1 else "primitive"
+if mode not in {"primitive", "theta"}:
+    fail(f"unsupported mode '{mode}'; expected 'primitive' or 'theta'")
+
 print("=" * 80)
-print("Task 5.1: Primitive S_Co embedding and orthogonal complement gate")
+print("Task 5.1 exact primitive/complement gate")
+if mode == "theta":
+    print("with theta verification from the actual primitive decomposition")
 print("=" * 80)
 print()
 
@@ -132,7 +205,6 @@ model = build_glued_k3_model()
 ambient_basis = model["ambient_basis"]
 ambient_gram = model["ambient_gram"]
 S_expected = model["S_expected"]
-T_expected = model["T_expected"]
 
 print(f"  Ambient rank: {ambient_gram.nrows()}")
 print(f"  Ambient signature: {matrix_signature(ambient_gram)}")
@@ -142,9 +214,10 @@ print()
 
 print("[2] Embedding S_Co with exact target Gram matrix")
 embedded_sco = embed_expected_sco(ambient_basis)
-if any(entry not in ZZ for entry in embedded_sco.list()):
-    fail("embedded S_Co coordinates are not integral in the ambient basis")
-embedded_sco = embedded_sco.change_ring(ZZ)
+embedded_sco = integer_matrix_or_fail(
+    embedded_sco,
+    "embedded S_Co coordinates are not integral in the ambient basis",
+)
 embedded_sco_gram = embedded_sco * ambient_gram * embedded_sco.transpose()
 
 print(f"  Embedded S_Co rank: {embedded_sco.nrows()}")
@@ -221,7 +294,7 @@ if brown_T_actual != expected_brown:
 print("  PASS: discriminant-group compatibility is verified on the actual computed complement")
 print()
 
-lines = [
+primitive_lines = [
     "Task 5.1 primitive embedding and complement gate",
     "=" * 80,
     "",
@@ -245,15 +318,80 @@ lines = [
     f"  Invariants: {A_T_actual.invariants()}",
     f"  Brown(q_T(actual)): {brown_T_actual}",
     f"  Expected -Brown(q_S): {expected_brown}",
-    "",
-    "Stop rule:",
-    "  No theta matrix was constructed or exported.",
 ]
+write_lines(PRIMITIVE_RESULTS_FILE, primitive_lines)
 
-with open(RESULTS_FILE, "w") as handle:
-    handle.write("\n".join(str(line) for line in lines) + "\n")
-
-print("[5] Results written")
-print(f"  Results file: {RESULTS_FILE}")
+print("[5] Primitive results written")
+print(f"  Results file: {PRIMITIVE_RESULTS_FILE}")
 print()
-print("Task 5.1 primitive/complement gate passed.")
+
+if mode == "primitive":
+    print("Task 5.1 primitive/complement gate passed.")
+    raise SystemExit(0)
+
+print("[5] Defining theta from the actual primitive orthogonal decomposition")
+theta_data = build_theta_from_decomposition(embedded_sco, complement, ambient_gram)
+theta_row = theta_data["theta_row"]
+theta = theta_data["theta"]
+theta_integral = all(entry in ZZ for entry in theta.list())
+theta_sq_identity = theta * theta == identity_matrix(QQ, ambient_gram.nrows())
+theta_isometry = theta.transpose() * ambient_gram * theta == ambient_gram
+theta_on_s = embedded_sco * theta_row == -embedded_sco
+theta_on_t = complement * theta_row == complement
+
+print(f"  theta integral in ambient basis: {theta_integral}")
+print(f"  theta^2 = I: {theta_sq_identity}")
+print(f"  theta^T G theta = G: {theta_isometry}")
+print(f"  theta acts by -I on embedded S_Co: {theta_on_s}")
+print(f"  theta acts by +I on computed complement: {theta_on_t}")
+
+def fail_theta(blocker_message):
+    write_lines(
+        THETA_RESULTS_FILE,
+        theta_result_lines(
+            ambient_gram,
+            embedded_sco,
+            complement,
+            cross_pairing,
+            theta_integral,
+            theta_sq_identity,
+            theta_isometry,
+            theta_on_s,
+            theta_on_t,
+            f"FAIL: {blocker_message}",
+        ),
+    )
+    fail(blocker_message)
+
+if not theta_integral:
+    fail_theta("theta blocker: sign action on the actual glued overlattice is not integral in the ambient basis")
+
+theta = theta.change_ring(ZZ)
+
+if not theta_sq_identity:
+    fail_theta("theta blocker: theta^2 != I on the actual glued ambient lattice")
+if not theta_isometry:
+    fail_theta("theta blocker: theta^T G theta != G on the actual glued ambient lattice")
+if not theta_on_s:
+    fail_theta("theta blocker: theta does not act by -I on the embedded S_Co")
+if not theta_on_t:
+    fail_theta("theta blocker: theta does not act by +I on the computed orthogonal complement")
+
+theta_lines = theta_result_lines(
+    ambient_gram,
+    embedded_sco,
+    complement,
+    cross_pairing,
+    theta_integral,
+    theta_sq_identity,
+    theta_isometry,
+    theta_on_s,
+    theta_on_t,
+    "PASS: exact theta verification succeeded on the actual glued ambient lattice.",
+)
+write_lines(THETA_RESULTS_FILE, theta_lines)
+
+print("  PASS: exact theta verification succeeded")
+print(f"  Results file: {THETA_RESULTS_FILE}")
+print()
+print("Task 5.1 theta verification passed.")

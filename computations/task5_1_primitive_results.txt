@@ -21,6 +21,3 @@ Actual complement discriminant group:
   Invariants: (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
   Brown(q_T(actual)): 1
   Expected -Brown(q_S): 1
-
-Stop rule:
-  No theta matrix was constructed or exported.

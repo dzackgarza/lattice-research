@@ -56,10 +56,15 @@ solver for the whole `Λ_K3` involution problem.
 ## Immediate next implementation target
 
 The next computational target is **not** “search for another θ matrix.”
-It is:
+That route has now been replaced by the exact glued-model implementation in
+`computations/task5_1_involution.sage`, which:
 
-- build or identify a primitive embedding of `S_Co` (or `T_Co`) into `Λ_K3` using the
-  literature-backed lattice setup;
-- compute the true orthogonal complement from that embedding;
-- verify discriminant-form compatibility;
-- only then reconstruct `θ`.
+- builds a primitive `S_Co -> Λ_K3` model;
+- computes the true orthogonal complement;
+- checks exact lattice invariants and the induced sign involution;
+- verifies integrality and `θ ∈ O(Λ_K3)` on that explicit ambient lattice.
+
+The next repo task is therefore no longer raw lattice construction.
+It is to keep the repo prose and claim boundaries aligned with what this verified model
+proves, while separating that exact lattice result from broader geometric claims that
+still belong to the literature layer.

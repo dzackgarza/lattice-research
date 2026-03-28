@@ -52,11 +52,19 @@ task3_2-results:
 
 task5_1-primitive:
     @echo "=== Running Task 5.1 primitive/complement gate ==="
-    PYTHONPATH=. sage computations/task5_1_involution.sage | tee computations/task5_1_primitive_output.txt
+    PYTHONPATH=. sage computations/task5_1_involution.sage primitive | tee computations/task5_1_primitive_output.txt
 
 task5_1-primitive-results:
     @echo "=== Task 5.1 Primitive Results ==="
     @cat computations/task5_1_primitive_results.txt
+
+task5_1-theta:
+    @echo "=== Running Task 5.1 theta verification ==="
+    PYTHONPATH=. sage computations/task5_1_involution.sage theta | tee computations/task5_1_theta_output.txt
+
+task5_1-theta-results:
+    @echo "=== Task 5.1 Theta Results ==="
+    @cat computations/task5_1_theta_results.txt
 
 # Run all tasks
 task1_1-all:

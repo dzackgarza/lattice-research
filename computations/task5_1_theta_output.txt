@@ -1,5 +1,6 @@
 ================================================================================
 Task 5.1 exact primitive/complement gate
+with theta verification from the actual primitive decomposition
 ================================================================================
 
 [1] Building exact glued K3-lattice model
@@ -37,4 +38,13 @@ Task 5.1 exact primitive/complement gate
 [5] Primitive results written
   Results file: /home/dzack/research/computations/task5_1_primitive_results.txt
 
-Task 5.1 primitive/complement gate passed.
+[5] Defining theta from the actual primitive orthogonal decomposition
+  theta integral in ambient basis: True
+  theta^2 = I: True
+  theta^T G theta = G: True
+  theta acts by -I on embedded S_Co: True
+  theta acts by +I on computed complement: True
+  PASS: exact theta verification succeeded
+  Results file: /home/dzack/research/computations/task5_1_theta_results.txt
+
+Task 5.1 theta verification passed.
