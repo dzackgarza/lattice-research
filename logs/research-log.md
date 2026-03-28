@@ -347,9 +347,9 @@ The uniqueness of $\widetilde{B}_7(2)$ confirms the lattice-theoretic descriptio
 
 * * *
 
-## 2026-03-25 - Task 5.1: Construct θ Involution and Verify Eigenspaces
+## 2026-03-25 - Task 5.1: Initial θ Construction Attempt
 
-**Status**: ✓ Solved
+**Status**: superseded by the 2026-03-27 correction below
 
 **Problem Statement**: Construct the 22×22 involution matrix $\theta$ acting on
 $\Lambda_{K3} \cong U^3 \oplus E_8(-1)^2$ such that:
@@ -386,7 +386,7 @@ problem. From [AEGS23] and [AlexeevEngel2023], $\theta$ acts on the K3 lattice w
 6. Defined $\theta = P \cdot \text{diag}(+1^{11}, -1^{11}) \cdot P^{-1}$
 7. Verified all invariants of eigenspaces
 
-**Results**:
+**Historical attempt results**:
 
 - **Involution matrix $\theta$**: 22×22 rational matrix
   - Verified $\theta^2 = I$ ✓
@@ -406,7 +406,7 @@ problem. From [AEGS23] and [AlexeevEngel2023], $\theta$ acts on the K3 lattice w
   - $h_{Co}$ (norm 2, in +1 eigenspace): $\theta(h_{Co}) = h_{Co}$ ✓
   - $h_{En}$ (norm -2, in -1 eigenspace): $\theta(h_{En}) = -h_{En}$ ✓
 
-**Key Insight**:
+**Historical attempted insight**:
 
 The involution $\theta$ can be constructed explicitly by specifying its eigenspaces.
 The key is finding an orthogonal decomposition of $\Lambda_{K3}$ into sublattices
@@ -421,9 +421,9 @@ The polarization swap is realized by placing $h_{Co}$ in the +1 eigenspace and $
 in the -1 eigenspace, which is consistent with the horizontal folding geometry where the
 Coble polarization is invariant and the Enriques polarization is anti-invariant.
 
-**Verification**:
+**Historical verification before the later audit correction**:
 
-All 9 verification checks passed:
+This pass originally reported that all 9 verification checks passed:
 
 - ✓ $\theta$ is 22×22 matrix
 - ✓ $\theta^2 = I$ (involution)
@@ -456,12 +456,13 @@ All 9 verification checks passed:
 - [Nikulin1979]: 2-elementary lattices and involutions
 - [ConwaySloane]: $E_8$ root system and orthogonal vectors
 
-**Next Steps**:
+**Later correction**:
 
-- Task 5.2: (if needed) Further analysis of $\theta$ action on period domain
-- Task 6.1: Map Coble polarization $h_{Co}$ to surgery vector $\ell$ and verify slc
-  stability ✓ SOLVED
-- Use $\theta$ matrix in subsequent computations for $\Gamma_{Co}$ stabilizer analysis
+The later 2026-03-27 audit showed that this construction did **not** yield $\theta \in
+O(\Lambda_{K3})$ because the chosen eigenspaces were not orthogonal in the ambient
+lattice. Treat the present section as chronology only; the operative Task 5.1 route is
+the primitive-embedding / orthogonal-complement route recorded in the correction entry
+and in `audit/task5_1_route_reset.md`.
 
 * * *
 
@@ -528,9 +529,9 @@ embedding $S \hookrightarrow \Lambda$.
 
 * * *
 
-## 2026-03-25 - Task 6.1: Map h_Co to Surgery Vector ℓ and Verify slc Stability
+## 2026-03-25 - Task 6.1: Initial slc-Stability Computation Note
 
-**Status**: ✓ Solved
+**Status**: historical computation note; not the canonical justification layer
 
 **Problem Statement**: Map the Coble polarization $h_{Co}$ to the surgery vector $\ell
 \in \check{\mathcal{H}}$ (dual complex parameters), construct the stable model
@@ -641,8 +642,10 @@ All 13 verification checks passed:
 - [Kollar2013] Kollár, J. "Singularities of the Minimal Model Program."
 - [Nikulin1979] 2-elementary lattices and involutions
 
-**Next Steps**:
+**Current status note**:
 
-- All computational verification tasks from GOAL.md are now complete
-- Tasks 1.1-6.1 establish the lattice-theoretic foundation for Coble moduli
-- Future work: Extend to explicit compactification boundary analysis
+This computation note predates the literature-first reset and should not be read as the
+current repository status summary.
+The canonical compactification background now lives in `REFERENCES.md` and
+`audit/literature_claim_map.md`, while Task 5.1 remains blocked on primitive embedding
+plus orthogonal-complement verification.

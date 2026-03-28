@@ -8,13 +8,17 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- `plans/2026-03-28-task5_1-prose-cleanup.md` — current follow-on plan for prose
-  integration, narrow cleanup, and the first Task 5.1 recovery step.
+- `plans/2026-03-28-task5_1-primitive-complement.md` — current Task 5.1 gate plan for
+  correcting stale live prose and reducing the next code pass to primitive embedding
+  plus orthogonal complement verification.
 
-## Recently completed reset plan
+## Recently completed plans
 
 - `plans/2026-03-28-literature-first-reorientation.md` — completed literature-first
   reset that established the current citation spine and claim notes.
+- `plans/2026-03-28-task5_1-prose-cleanup.md` — completed prose-alignment and narrow
+  cleanup thread that rewrote the solved proof notes and removed explicitly triaged
+  debris.
 
 ## Archived plans
 
@@ -26,10 +30,9 @@ support those claims, they do not substitute for them.
 ## Current priorities
 
 - Centralize the literature spine in `REFERENCES.md`.
-- Rewrite remaining repo prose so standard facts cite literature before they cite
-  computations.
+- Rewrite the remaining live Task 5.1 status prose so it matches the reset route.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
-- Advance Task 5.1 only through the primitive-embedding / orthogonal-complement route,
+- Advance Task 5.1 only through the primitive-embedding / orthogonal-complement gate,
   with CARAT treated as a possible auxiliary backend for finite positive-definite
-  subproblems.
+  subproblems and with no new `θ` export before that gate passes.

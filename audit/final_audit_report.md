@@ -11,15 +11,19 @@
 
 ## Executive Summary
 
-**Overall Assessment:** ✅ **SOUND** — Foundational issues resolved and verified across
-two independent examples.
+**Status of this report:** superseded in part by the later Task 5.1 reset recorded in
+`audit/task5_1_route_reset.md`.
 
-The foundational scripts (Tasks 1.1-1.3) have been rigorously updated.
-The mathematical framework is now computed rather than asserted by fiat, and singularity
-verification uses the correct projective Hessian criteria.
+The Task 1.1 hardening conclusions in this report remain useful as historical audit
+context, but the Task 1.2 / Task 1.3 embedding conclusions should no longer be read as
+the current repository position on the Task 5.1 foundation.
 
-All embeddings are now **primitive** in $\Lambda_{K3}$. The previously identified
-non-primitivity has been resolved via saturation.
+In particular, this report's earlier solved-language about primitive embeddings and
+orthogonal-complement readiness was overtaken by later exact checks showing that the
+live Task 5.1 involution route did **not** yet produce a verified lattice isometry of
+$\Lambda_{K3}$. The current canonical route is: primitive embedding first, then the true
+orthogonal complement, then discriminant-form compatibility, and only afterward any
+involution reconstruction.
 
 * * *
 
@@ -48,11 +52,9 @@ curve.
 | **Embedding Validity** | Assumed S_Co ↪ Λ_K3 exists | Explicitly embedded via U-factors and E8 roots | ✅ RESOLVED |
 | **Discriminant Form** | Relation q_T ≅ -q_S unverified | Brown invariant check confirms discriminant form relation | ✅ RESOLVED |
 
-**Audit Conclusion:** The use of the orthogonal complement kernel method ensures that
-the lattices are correctly related.
-The switch to a rational isometry for the K3 lattice in Task 1.2 is a computational
-optimization that preserves the signature and discriminant form properties required for
-the subsequent work.
+**Audit Conclusion:** This section records the historical embedding strategy that was in
+use on 2026-03-26. Read it together with the later reset note: the repository no longer
+treats these statements alone as sufficient to certify the Task 5.1 foundation.
 
 * * *
 
@@ -61,22 +63,22 @@ the subsequent work.
 | Issue | Original Problem | Resolution | Status |
 | --- | --- | --- | --- |
 | **Orthogonality** | Unverified claims | Explicit verification of `S_Co ⊥ T_Co` and `G_SCo == diag(2, -2^10)` | ✅ RESOLVED |
-| **Primitivity** | Non-primitive (index 1024) | Fixed construction to be **primitive** via saturation | ✅ RESOLVED |
+| **Primitivity** | Non-primitive (index 1024) | Historical attempt used saturation to improve the embedding | ⚠️ SUPERSEDED |
 | **Lattice Chain** | T_En/T_dP by truncation | Now computed as **geometric orthogonal complements** | ✅ RESOLVED |
 
-**Audit Conclusion:** The construction is now fully primitive and matches the
-theoretical invariants ($\det(T_{Co}) = -2048$). This provides the correct foundation
-for stable-limit and monodromy computations.
-The index of $S_{Co} \oplus T_{Co}$ in $\Lambda_{K3}$ is 2048, which is mathematically
-consistent with the 2-elementary structure of the lattices.
+**Audit Conclusion:** This section is no longer the operative repository conclusion.
+Later verification showed that the Task 5.1 route still lacked the exact primitive
+embedding / orthogonal-complement certification needed before using these lattices as
+the foundation for involution or stable-limit computations.
+Keep this section as historical context only.
 
 * * *
 
 ## Known Limitations & Observations
 
-1. **Saturation Index:** While $S_{Co}$ is now primitive, the orthogonal complement
-   $T_{Co}$ has index 2048 in the direct sum.
-   This is expected and reflects the unimodular nature of the ambient K3 lattice.
+1. **Superseded embedding conclusion:** Later Task 5.1 checks showed that the repo still
+   needed a sharper exact primitive-embedding/complement gate than the saturation-based
+   conclusion recorded here.
 2. **Lean Formalization:** Formalizing the node criteria (Hessian rank 2) in Lean 4 is
    in progress (Aristotle).
 
@@ -84,7 +86,8 @@ consistent with the 2-elementary structure of the lattices.
 
 ## Final Recommendation
 
-The computational results are now mathematically grounded and rigorous.
-No further foundational fixes are required.
-
-**Monodromy results (Task 6.1) are ready for formalization and publication.**
+Use this file as a historical audit artifact, not as the current status summary.
+For current repository guidance, follow `audit/task5_1_route_reset.md`, `GAPS.md`, and
+the active Task 5.1 plan.
+Further foundational work **is** still required before any claim that Task 5.1 or
+downstream monodromy/stable-limit computations are ready.

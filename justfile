@@ -47,6 +47,12 @@ task3_2-results:
     @cat computations/task3_2_results.txt
 
 # Run all tasks
+task1_1-all:
+    @echo "=== Running Task 1.1 Sextic Suite ==="
+    PYTHONPATH=. sage computations/task1_1_sextic.sage
+    PYTHONPATH=. sage computations/task1_1_sextic_example2.sage
+    PYTHONPATH=. sage computations/task1_1_sextic_example3.sage
+
 run-all:
     @echo "=== Running All Tasks ==="
     PYTHONPATH=. sage computations/task1_1_sextic.sage

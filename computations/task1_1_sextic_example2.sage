@@ -99,6 +99,8 @@ print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
 print(f"  Generic fiber gcd: {generic_fiber_gcd}")
 print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
+load("computations/coble_geometry.sage")
+
 # ============================================================================
 # Step 4: Find All Singular Points
 # ============================================================================
@@ -147,10 +149,9 @@ for sol in sols_inf:
     if any(c != 0 for c in pt):
         all_singular_points.append(pt)
 
-print(f"  Total singular points (projective): {len(all_singular_points)}")
+all_singular_points = deduplicate_projective_points_exact(all_singular_points)
 
-# ============================================================================
-load("computations/coble_geometry.sage")
+print(f"  Total singular points (projective): {len(all_singular_points)}")
 
 # ============================================================================
 # Step 5: Verify Each Singularity is a Node (A₁)
@@ -159,7 +160,7 @@ print("\n[Step 5] Verifying nodes (A₁ singularities)...")
 
 nodes = []
 for idx, pt in enumerate(all_singular_points):
-    if is_node_at_point(F, pt):
+    if is_node_at_point(F, tuple(pt)):
         nodes.append(pt)
         print(f"    Point {idx+1}: ✓ NODE (A₁)")
     else:
@@ -265,7 +266,7 @@ with open(results_file, 'w') as f:
     f.write(f"   Nodes (A1): {len(nodes)}\n\n")
     f.write("4. Node Positions (Projective):\n")
     for idx, pt in enumerate(nodes):
-        f.write(f"   p_{idx+1} = [{pt[0]} : {pt[1]} : {pt[2]}]\n")
+        f.write(f"   p_{idx+1} = {format_exact_projective_point(pt, name=f'a{idx+1}')}\n")
     f.write("\n5. Stabilizer Group Γ_Co Analysis:\n")
     f.write(f"   Lattice T_En Gram Matrix: diag(2, 2, -2, ..., -2)\n")
     f.write(f"   Polarization h_Co: {list(h_Co)}\n")

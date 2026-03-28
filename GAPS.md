@@ -28,14 +28,13 @@
 
 - Planning has been reset, but `.orig` / temporary debris still exists elsewhere in the
   repo and should be triaged separately rather than mixed into mathematical work.
-- `audit/dolgachev_kondo_extracted.txt` was accidentally committed and should be removed
-  as tracked debris rather than treated as a canonical note.
+- Some live historical prose still contradicts the reset route, especially
+  `audit/final_audit_report.md` and `logs/research-log.md`.
 
 ## Immediate next targets
 
-- Push the new literature claim map and Task 1.1 / Task 5.1 notes back into the main
-  repo prose, beginning with the solved proof notes.
-- Implement the first Task 5.1 primitive-embedding/complement step and keep θ
+- Rewrite the remaining live Task 5.1 status prose so the reset route is the only active
+  one in current docs.
+- Implement the first Task 5.1 primitive-embedding/complement step and keep `θ`
   reconstruction blocked until that verification exists.
-- Remove the accidental extracted-text artifact and the explicitly triaged tracked
-  backup debris.
+- Triage the remaining `.orig` / temporary debris separately from the mathematical work.
