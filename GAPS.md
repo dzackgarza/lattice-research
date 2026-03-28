@@ -46,11 +46,8 @@
 
 ## Immediate next targets
 
-- Rewrite the remaining live Task 5.1 status prose so the exact post-theta route is the
-  only active one in current docs.
-- Add one canonical note, `audit/task5_1_exact_involution_note.md`, stating exactly what
-  the verified glued-model involution proves, and what remains outside the current exact
-  audit boundary.
+- Propagate `audit/task5_1_exact_involution_note.md` into the remaining live Task 5.1
+  status prose so the exact post-theta route is the only active one in current docs.
 - Obtain direct source access for the remaining explicit-family leads before citing
   them, especially Coolidge and any actual source behind the Thas attribution.
 - Triage the remaining `.orig` / temporary debris separately from the mathematical work.

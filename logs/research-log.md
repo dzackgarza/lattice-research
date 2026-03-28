@@ -647,5 +647,5 @@ All 13 verification checks passed:
 This computation note predates the literature-first reset and should not be read as the
 current repository status summary.
 The canonical compactification background now lives in `REFERENCES.md` and
-`audit/literature_claim_map.md`, while Task 5.1 remains blocked on primitive embedding
-plus orthogonal-complement verification.
+`audit/literature_claim_map.md`, while the canonical exact Task 5.1 post-theta status
+now lives in `audit/task5_1_exact_involution_note.md`.

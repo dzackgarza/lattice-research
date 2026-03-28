@@ -39,6 +39,6 @@ support those claims, they do not substitute for them.
   blocked or pre-theta language.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
-- Record precisely what the verified glued-model involution establishes for Task 5.1,
-  and isolate any remaining claim-alignment or prose gaps without reopening the
+- Use `audit/task5_1_exact_involution_note.md` as the canonical post-theta boundary
+  note, and isolate any remaining claim-alignment or prose gaps without reopening the
   disproved route; keep CARAT auxiliary only for finite positive-definite subproblems.

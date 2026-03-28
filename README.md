@@ -21,6 +21,8 @@ This repo has two jobs:
   establish, and what they do not establish
 - `audit/task5_1_route_reset.md` — corrected next route for the failed Task 5.1
   involution construction
+- `audit/task5_1_exact_involution_note.md` — exact post-theta boundary note for what the
+  verified glued-model involution proves, and what still belongs to the literature layer
 - `audit/carat_capability_audit.md` — when CARAT is relevant for exact finite
   positive-definite subproblems
 

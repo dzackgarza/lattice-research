@@ -30,6 +30,7 @@
   - `GAPS.md`
   - `audit/task5_1_route_reset.md`
   - `audit/task5_1_exact_involution_note.md`
+  - `README.md`
 - Excluded for this slice:
   - new computational searches
   - Lean formalization
@@ -63,19 +64,19 @@ Goal: keep the reset note accurate after the route has succeeded.
   already-completed work.
 - Validation: inspect `git diff -- audit/task5_1_route_reset.md`.
 
-## Phase 2: Define the next claim-alignment note
+## Phase 2: Publish the canonical claim-alignment note
 
-Goal: choose the canonical place to state what the glued-model involution proves and
-what it does not yet claim.
+Goal: state what the glued-model involution proves and what it does not yet claim.
 
 - Location: `audit/task5_1_exact_involution_note.md`
 - Description:
   - state the exact lattice result;
-  - state the remaining interpretation boundary.
+  - state the remaining interpretation boundary;
+  - add one README-level pointer so future agents can find the note directly.
 - Dependencies: Phase 1.
 - Acceptance criteria: future agents have one canonical prose target for the post-theta
   status instead of rediscovering it from output files.
-- Validation: inspect this plan plus `GAPS.md` and ensure both point to
+- Validation: inspect this plan, `GAPS.md`, and `README.md`, and ensure all point to
   `audit/task5_1_exact_involution_note.md`.
 
 ## System-Level Validation
@@ -83,6 +84,7 @@ what it does not yet claim.
 - Active docs no longer advertise theta verification as pending.
 - The canonical route note stays accurate after the successful glued-model check.
 - One follow-on prose target is named for claim-boundary alignment.
+- The repo index points directly to the canonical post-theta boundary note.
 
 ## Risks / Rollback
 
@@ -114,11 +116,12 @@ what it does not yet claim.
 
 ### Phase 2
 
-- [x] Choose `audit/task5_1_exact_involution_note.md` as the canonical post-theta status
-  note target
+- [x] Publish `audit/task5_1_exact_involution_note.md` as the canonical post-theta
+  status note
+- [x] Add a README pointer to the canonical post-theta status note
 
 ### Quality Gates
 
 - [x] Directive files match the verified post-theta state
 - [x] The route note no longer instructs completed work
-- [x] A single follow-on prose target is named
+- [x] A single canonical post-theta note exists and is indexed
