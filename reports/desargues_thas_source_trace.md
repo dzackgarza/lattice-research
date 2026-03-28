@@ -9,7 +9,7 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
 - Primary publication by J. Thas (Joseph A. Thas) containing this theorem
 - Any lecture notes, proceedings, or preprint version
 - Secondary sources citing or discussing this result
-- The MPI abstract (Dololachev lecture 2016) that was cited in prior reports
+- The MPI abstract (Dolgachev lecture 2016) that was cited in prior reports
 
 ## 2. Candidate Sources Found
 
@@ -48,16 +48,18 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
 
 ## 3. Evidence Actually Supporting the Desargues/Sextic Claim
 
-**Evidence Found**: NONE
+**Evidence Found in searched sources**: No primary or secondary source beyond the
+unavailable MPI abstract citation trail.
 
-The claim attributed to J. Thas appears ONLY in the now-unavailable MPI abstract.
+In the searched sources, the claim attributed to J. Thas appears only through the
+now-unavailable MPI abstract trail.
 No published paper, preprint, lecture notes, or secondary source was found that:
 
 - Contains the full statement and proof
 - Cites a specific journal or publication venue
 - Provides any bibliographic reference to Thas's original work
 
-The claim exists only as:
+The claim currently survives in the searched material only as:
 - A lecture announcement abstract (now 404)
 - A search engine snippet preserved in indices
 
@@ -69,8 +71,8 @@ The claim exists only as:
   Google Scholar, arXiv
 - **Found**: No paper on the topic of Desargues configurations producing rational plane
   sextics
-- **Conclusion**: No peer-reviewed or preprint publication by Thas on this exact topic
-  was found
+- **Conclusion**: Based on the searched sources, I found no peer-reviewed or preprint
+  publication by Thas on this exact topic
 - **Confidence**: High
 - **Gaps**: Possible unpublished lecture or conference talk not archived
 
@@ -87,8 +89,8 @@ The claim exists only as:
 
 - **Searched**: MathOverflow, StackExchange, research blogs, lecture notes repositories
 - **Found**: No discussion, citation, or reformulation of this specific Thas result
-- **Conclusion**: The result has not entered the secondary literature or mathematical
-  discourse
+- **Conclusion**: Based on the searched sources, I found no indexed secondary
+  discussion, citation, or reformulation of this specific claim
 - **Confidence**: Medium
 - **Gaps**: Possible existence in conference proceedings or private notes not indexed
 
@@ -123,8 +125,8 @@ Alternatively, if the result must be mentioned without verification:
 
 ## Summary
 
-- **Primary source found**: NO
-- **Claim verifiable**: NO
+- **Primary source found in searched sources**: NO
+- **Claim verifiable from searched sources**: NO
 - **Recommendation**: Do not cite Thas for this result without obtaining the original
   source; treat the claim as unverified oral tradition from a lecture, not established
   mathematics

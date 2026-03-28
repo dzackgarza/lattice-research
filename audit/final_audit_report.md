@@ -19,11 +19,13 @@ context, but the Task 1.2 / Task 1.3 embedding conclusions should no longer be r
 the current repository position on the Task 5.1 foundation.
 
 In particular, this report's earlier solved-language about primitive embeddings and
-orthogonal-complement readiness was overtaken by later exact checks showing that the
-live Task 5.1 involution route did **not** yet produce a verified lattice isometry of
-$\Lambda_{K3}$. The current canonical route is: primitive embedding first, then the true
-orthogonal complement, then discriminant-form compatibility, and only afterward any
-involution reconstruction.
+orthogonal-complement readiness was overtaken first by the route reset, and then by the
+later exact glued-model verification recorded in
+`audit/task5_1_exact_involution_note.md`. The current canonical route is still:
+primitive embedding first, then the true orthogonal complement, then discriminant-form
+compatibility, and only afterward the induced sign involution; what is now resolved is
+the exact lattice check on the explicit glued model, not the broader literature-backed
+interpretation layer.
 
 * * *
 
@@ -87,7 +89,8 @@ Keep this section as historical context only.
 ## Final Recommendation
 
 Use this file as a historical audit artifact, not as the current status summary.
-For current repository guidance, follow `audit/task5_1_route_reset.md`, `GAPS.md`, and
-the active Task 5.1 plan.
-Further foundational work **is** still required before any claim that Task 5.1 or
-downstream monodromy/stable-limit computations are ready.
+For current repository guidance, follow `audit/task5_1_route_reset.md`,
+`audit/task5_1_exact_involution_note.md`, `GAPS.md`, and the active Task 5.1 plan.
+The raw exact-lattice blocker for Task 5.1 is resolved on the explicit glued model, but
+broader geometric, moduli, and downstream interpretation claims still belong to the
+literature-backed layer rather than to this historical report.

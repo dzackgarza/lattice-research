@@ -468,7 +468,8 @@ and in `audit/task5_1_route_reset.md`.
 
 ## 2026-03-27 - Task 5.1 Correction: Failed Isometry Verification
 
-**Status**: ✗ Failed — eigenspaces not orthogonal, $\theta \notin O(\Lambda_{K3})$
+**Status**: historical route-reset entry; later superseded by the exact glued-model
+verification recorded in `audit/task5_1_exact_involution_note.md`
 
 **Problem Statement**: The Task 5.1 implementation constructed an involution $\theta$
 but failed the critical verification that $\theta \in O(\Lambda_{K3})$.
@@ -521,11 +522,11 @@ embedding $S \hookrightarrow \Lambda$.
 - `audit/task5_1_lattice_audit_report.md` — Full technical audit
 - `audit/task5_1_rerun_20260327T122004Z.txt` — Failed audit output
 
-**Next Steps**:
-- [ ] Implement primitive embedding finder for $S_{Co} \hookrightarrow \Lambda_{K3}$
-- [ ] Recompute $T_{Co} = S_{Co}^\perp$ using orthogonal complement algorithm
-- [ ] Reconstruct $\theta$ from verified orthogonal decomposition
-- [ ] Verify $\theta^T G \theta = G$ passes
+**Later update**:
+
+Those next steps were completed later on the explicit glued ambient lattice used by
+`computations/task5_1_involution.sage`. For the canonical post-theta boundary, use
+`audit/task5_1_exact_involution_note.md` instead of this historical correction entry.
 
 * * *
 

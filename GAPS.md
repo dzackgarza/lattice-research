@@ -41,8 +41,8 @@
 
 - Planning has been reset, but `.orig` / temporary debris still exists elsewhere in the
   repo and should be triaged separately rather than mixed into mathematical work.
-- Some live historical prose still contradicts the reset route, especially
-  `audit/final_audit_report.md` and `logs/research-log.md`.
+- Some live historical prose still needs post-theta boundary alignment, especially
+  `audit/final_audit_report.md`.
 
 ## Immediate next targets
 
