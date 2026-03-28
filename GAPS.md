@@ -35,3 +35,7 @@
   route instead of rediscovering it from code.
 - Replace the current Task 5.1 non-orthogonal-basis construction with a route grounded
   in orthogonal complements or another genuine lattice isometry construction.
+- Use the CARAT capability audit in `audit/carat_capability_audit.md` to test whether
+  `Aut_grp`, `Normalizer`, or `Orbit` can take over finite positive-definite
+  orthogonal-group / stabilizer subproblems before adding more custom lattice-search
+  code.
