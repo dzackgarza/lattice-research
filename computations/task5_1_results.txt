@@ -29,6 +29,9 @@ Involution Matrix θ (22×22):
 Verification:
 --------------------------------------------------------------------------------
 θ² = I: True
+θ^T G θ = G: False
+G θ = θ^T G: False
+V_+ ⟂ V_-: False
 
 +1 Eigenspace (Λ_K3^θ ≅ T_Co):
 --------------------------------------------------------------------------------
@@ -77,10 +80,12 @@ Verification Summary:
 --------------------------------------------------------------------------------
 ✓ θ is 22×22 matrix
 ✓ θ² = I (involution)
+✗ θ preserves Λ_K3 form
+✗ θ is self-adjoint for Λ_K3 form
 ✓ +1 eigenspace dimension = 11
 ✓ -1 eigenspace dimension = 11
 ✓ +1 eigenspace signature = (2,9)
 ✓ -1 eigenspace signature = (1,10)
 ✓ +1 eigenspace det = T_Co det
 ✓ -1 eigenspace det = S_Co det
-✓ Eigenspaces orthogonal
+✗ Eigenspaces orthogonal

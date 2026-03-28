@@ -155,9 +155,9 @@ Goal: orient the next day of work around high-value, literature-grounded outputs
 
 ### Phase 3
 
-- [ ] Prepare the lattice/moduli literature note
-- [ ] Prepare the Task 1.1 prose note
-- [ ] Reset the Task 5.1 route description
+- [x] Prepare the lattice/moduli literature note
+- [x] Prepare the Task 1.1 prose note
+- [x] Reset the Task 5.1 route description
 
 ### Quality Gates
 

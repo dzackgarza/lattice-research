@@ -29,6 +29,9 @@ Use it before adding new derivations or background prose.
 - **F. Scattone (1987)**: *On the Compactification of Moduli Spaces for Algebraic K3
   Surfaces*.
   - Use for: Type IV period-domain / Baily–Borel boundary background on the K3 side.
+- **R. Friedman (1984)**: *A New Proof of the Global Torelli Theorem for K3 Surfaces*.
+  - Use for: a standard Torelli reference when the repo passes from the K3 lattice/
+    period data to moduli statements.
 
 ### Lattice-theoretic structure and embeddings
 
