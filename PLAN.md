@@ -217,7 +217,10 @@ Goal: only after computational stabilization, revisit Lean and publication claim
 
 ### Phase 3: Mathematical Re-verification
 
-- [x] Task 1.1 base example verified from current artifact logs.
+- [x] Task 1.1 sextic extraction strengthened — current example artifacts now record
+  degree-6 extraction, irreducibility over `QQ`, reducedness/squarefreeness, 10 node
+  detections, and generic fiber gcd `u-a` (hence generic injectivity / birationality)
+  for all three sextic examples.
 - [x] Task 1.3 foundational embedding checks verified — orthogonality, kernel T_Co,
   index 2048
 - [x] Task 2.1 verified — fresh run in `audit/run-all-20260326-1837.txt`: 528 isotropic
@@ -226,8 +229,10 @@ Goal: only after computational stabilization, revisit Lean and publication claim
   O*(T)-orbit for div=2, PASS
 - [x] Task 3.1 verified — 9 Γ_Co generators computed
 - [x] Task 3.2 verified — 27 isotropic planes found, J⊥/J ≅ A₁^⊕7 (rank 7, det -128)
-- [x] Task 5.1 verified — θ involution constructed, eigenspaces match T_Co/S_Co
-  invariants
+- [ ] Task 5.1 current route disproved — rerun log
+  `audit/task5_1_rerun_20260327T122004Z.txt` shows `θ^T G θ = G: False`,
+  `G θ = θ^T G: False`, and `V_+ ⟂ V_-: False`, so the present construction does not
+  define a lattice isometry and must be replaced by a different autonomous route.
 - [x] Task 6.1 verified — fresh run in `audit/run-all-20260326-1837.txt` completes
   successfully
 - [x] Primitivity narrative reconciled — index 2048 is expected for 2-elementary
@@ -235,17 +240,25 @@ Goal: only after computational stabilization, revisit Lean and publication claim
 
 ### Phase 4: Formalization and Publication Readiness
 
-- [ ] Check current Lean/Aristotle status.
-- [ ] Decide whether formalization is ready to integrate or should remain deferred.
+- [x] Aristotle support-lemma audit completed (2026-03-27): completed artifacts now
+  provide honest Hessian lemmas, including `hessian_mulVec_singular` and
+  `hessian_rank_le_two_of_singular`, and the extracted `7183...` artifact imports
+  `NodeCriteria` into its root file.
+- [ ] Local project still has only the original 29-line `sorry` stub in
+  `coble_research_lean/CobleResearchLean/NodeCriteria.lean`; no artifact has yet been
+  accepted into the real project.
+- [ ] Decide whether any Lean integration is worthwhile only after computational state
+  is stable and upstream/library search justifies local formalization work.
 - [ ] Prepare the final evidence package only after Phases 0–3 are complete.
 
 ### Quality Gates
 
 - [x] Plan now states current defect and target state.
-- [x] Plan distinguishes verified, blocked, and unresolved items.
+- [x] Plan distinguishes verified items, disproved current routes, and unresolved items.
 - [x] Plan includes stop rules and rollback point.
 - [x] Fresh `just run-all` audit log exists: `audit/run-all-20260326-1837.txt`
   (EXIT_CODE: 0)
+- [x] Lean/Aristotle formalization status audited and documented (2026-03-27)
 - [ ] User review of the audited direction obtained.
 
 * * *

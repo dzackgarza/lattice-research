@@ -423,7 +423,7 @@ print(f"    Matches: {T_plus_gram.diagonal() == T_Co_gram.diagonal()}")
 
 # Check orthogonality of the chosen E₈ roots
 print("\n  Checking E₈ root orthogonality...")
-E8_a_gram = E8_neg
+E8_a_gram = E8_lattice(negative=True)
 
 # Set A: indices {0, 2, 4, 6}
 print(f"    Set A (T_Co): indices {{0, 2, 4, 6}}")

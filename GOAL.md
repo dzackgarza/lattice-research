@@ -7,7 +7,7 @@ This document outlines the lattice-theoretic and computational verification task
 ### Background
 A **Coble surface** $S$ is obtained via the blowup $\pi: S \to \mathbb{P}^2$ at the 10 $A_1$ nodes of an irreducible rational plane sextic $C = \{ F(x,y,z) = 0 \}$. The polynomial $F$ is a homogeneous sextic of the form:
 $$F(x,y,z) = \sum_{i+j+k=6} a_{ijk} x^i y^j z^k$$
-satisfying the **nodal conditions** $F(p_m) = \frac{\partial F}{\partial x}(p_m) = \frac{\partial F}{\partial y}(p_m) = \frac{\partial F}{\partial z}(p_m) = 0$ for 10 "special" point positions $p_1, \dots, p_{10} \in \mathbb{P}^2$. The moduli space of such sextics is 9-dimensional. Explicit equations can be derived from the **Steiner sextic** or configurations related to index-2 Halphen pencils.
+satisfying the **nodal conditions** $F(p_m) = \frac{\partial F}{\partial x}(p_m) = \frac{\partial F}{\partial y}(p_m) = \frac{\partial F}{\partial z}(p_m) = 0$ for 10 "special" point positions $p_1, \dots, p_{10} \in \mathbb{P}^2$. A 9-dimensional moduli claim for such sextics appears in current project notes, but this repo does not yet contain a settled derivation or citation for that dimension count. Explicit equations can be derived from the **Steiner sextic** or configurations related to index-2 Halphen pencils.
 
 The **K3 cover** $X \xrightarrow{2:1} S$ is the double cover of $\mathbb{P}^2$ branched along $C$, with equation $w^2 = F(x,y,z)$ in the weighted projective space $\mathbb{P}(1,1,1,3)$. The singularities of $X$ consist of ten $A_1$ nodes lying directly above the nodal positions $p_m$.
 

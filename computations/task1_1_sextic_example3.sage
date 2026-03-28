@@ -62,6 +62,43 @@ if F is None:
 
 print(f"  Final F degree: {F.total_degree()}")
 
+sextic_factorization = F.factor()
+sextic_is_irreducible = len(sextic_factorization) == 1 and sextic_factorization[0][1] == 1
+sextic_is_squarefree = F.is_squarefree()
+
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
+if not sextic_is_irreducible:
+    print(f"  Sextic factorization: {sextic_factorization}")
+
+A.<a> = PolynomialRing(QQ)
+K_a = FractionField(A)
+U.<u> = PolynomialRing(K_a)
+
+def dehomogenize_at_one(poly, var, target_ring):
+    result = target_ring(0)
+    for (i, j), coeff in poly.dict().items():
+        result += target_ring(coeff) * var^i
+    return result
+
+f0_a = dehomogenize_at_one(f0, a, K_a)
+f1_a = dehomogenize_at_one(f1, a, K_a)
+f2_a = dehomogenize_at_one(f2, a, K_a)
+f0_u = dehomogenize_at_one(f0, u, U)
+f1_u = dehomogenize_at_one(f1, u, U)
+f2_u = dehomogenize_at_one(f2, u, U)
+
+fiber_eq1 = f0_u * f1_a - f1_u * f0_a
+fiber_eq2 = f0_u * f2_a - f2_u * f0_a
+generic_fiber_gcd = fiber_eq1.gcd(fiber_eq2).monic()
+generic_expected = (u - K_a(a)).monic()
+generic_fiber_degree = generic_fiber_gcd.degree()
+parametrization_generically_injective = generic_fiber_gcd == generic_expected
+
+print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
+print(f"  Generic fiber gcd: {generic_fiber_gcd}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
+
 # ============================================================================
 # Step 3: Find All Singular Points
 # ============================================================================
@@ -162,6 +199,8 @@ for idx, pt in enumerate(unique_points):
         print(f"    Point {idx+1}: ✗ NOT A NODE")
 
 print(f"\n  Found {len(nodes)} nodes.")
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
 
 # ============================================================================
 # Step 5: Stabilizer Group Computation
@@ -217,6 +256,9 @@ with open(results_file, 'w') as f:
     f.write(f"   f1 = {f1}\n")
     f.write(f"   f2 = {f2}\n\n")
     f.write(f"2. Implicit Equation F(x,y,z) degree: {F.total_degree()}\n")
+    f.write(f"   Irreducible over QQ: {sextic_is_irreducible}\n")
+    f.write(f"   Squarefree/reduced: {sextic_is_squarefree}\n")
+    f.write(f"   Parametrization generically injective: {parametrization_generically_injective}\n")
     f.write(f"3. Singular Points:\n")
     f.write(f"   Total found: {len(unique_points)}\n")
     f.write(f"   Nodes (A1): {len(nodes)}\n\n")

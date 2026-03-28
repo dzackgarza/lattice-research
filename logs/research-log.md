@@ -465,6 +465,69 @@ All 9 verification checks passed:
 
 * * *
 
+## 2026-03-27 - Task 5.1 Correction: Failed Isometry Verification
+
+**Status**: ✗ Failed — eigenspaces not orthogonal, $\theta \notin O(\Lambda_{K3})$
+
+**Problem Statement**: The Task 5.1 implementation constructed an involution $\theta$
+but failed the critical verification that $\theta \in O(\Lambda_{K3})$.
+
+**Audit Results** (from `audit/task5_1_rerun_20260327T122004Z.txt`):
+
+| Property | Status |
+| --- | --- |
+| $\theta^2 = I$ | ✓ Pass |
+| $\theta$ is 22×22 matrix | ✓ Pass |
+| +1 eigenspace dimension = 11 | ✓ Pass |
+| -1 eigenspace dimension = 11 | ✓ Pass |
+| +1 eigenspace signature = (2,9) | ✓ Pass |
+| -1 eigenspace signature = (1,10) | ✓ Pass |
+| +1 eigenspace det = det($T_{Co}$) | ✓ Pass |
+| -1 eigenspace det = det($S_{Co}$) | ✓ Pass |
+| **$\theta^T G \theta = G$ (isometry)** | ✗ **FAIL** |
+| **$V_+ \perp V_-$ (orthogonal eigenspaces)** | ✗ **FAIL** |
+
+**Root Cause**: The code constructed embedding matrices $M_{T_+}$ and $M_{S_-}$ by
+picking specific basis vectors of the correct norms but did NOT verify orthogonality
+between the two subspaces.
+The cross-term matrix $V_+^T G V_-$ contains non-zero entries, violating the fundamental
+requirement that eigenspaces of an involution in an orthogonal lattice must be
+orthogonal.
+
+**Mathematical Criterion**: For $\theta = (+1 \text{ on } T, -1 \text{ on } S)$ to lie
+in $O(\Lambda)$, the sublattices $S$ and $T$ must be orthogonal in $\Lambda$. This is
+guaranteed when $T = S^\perp$ is computed as the orthogonal complement of a *primitive*
+embedding $S \hookrightarrow \Lambda$.
+
+**Correct Construction**:
+
+1. Find a primitive embedding $S_{Co} \hookrightarrow \Lambda_{K3}$ (non-trivial
+   computation)
+2. Compute $T_{Co} = S_{Co}^\perp$ as the orthogonal complement (guarantees
+   orthogonality)
+3. Define $\theta = +1$ on $T_{Co}$, $-1$ on $S_{Co}$ (automatically $\theta \in
+   O(\Lambda_{K3})$)
+
+**Key Distinction**:
+- **Automatic**: Given primitive $S \hookrightarrow \Lambda$ unimodular, $S^\perp$ is
+  automatically orthogonal
+- **Must verify**: The current code assumed arbitrary embeddings were orthogonal (they
+  are not)
+
+**Technical Report**: Full analysis in `audit/task5_1_lattice_audit_report.md`
+
+**Files**:
+- `audit/task5_1_lattice_audit_report.md` — Full technical audit
+- `audit/task5_1_rerun_20260327T122004Z.txt` — Failed audit output
+
+**Next Steps**:
+- [ ] Implement primitive embedding finder for $S_{Co} \hookrightarrow \Lambda_{K3}$
+- [ ] Recompute $T_{Co} = S_{Co}^\perp$ using orthogonal complement algorithm
+- [ ] Reconstruct $\theta$ from verified orthogonal decomposition
+- [ ] Verify $\theta^T G \theta = G$ passes
+
+* * *
+
 ## 2026-03-25 - Task 6.1: Map h_Co to Surgery Vector ℓ and Verify slc Stability
 
 **Status**: ✓ Solved

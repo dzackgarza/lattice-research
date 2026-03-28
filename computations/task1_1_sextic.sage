@@ -102,13 +102,58 @@ for f, mult in factors:
     print(f"    Degree {f.total_degree()}: multiplicity {mult}")
 
 # Extract the irreducible sextic factor
+F = None
 for f, mult in factors:
     if f.total_degree() == 6:
         F = f
         print("  Using sextic factor")
         break
 
+if F is None:
+    raise RuntimeError("Could not find a degree-6 factor in the resultant")
+
 print(f"  Final F degree: {F.total_degree()}")
+
+sextic_factorization = F.factor()
+sextic_is_irreducible = len(sextic_factorization) == 1 and sextic_factorization[0][1] == 1
+sextic_is_squarefree = F.is_squarefree()
+
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
+if not sextic_is_irreducible:
+    print(f"  Sextic factorization: {sextic_factorization}")
+
+# Verify that the parametrization is generically one-to-one by comparing a
+# generic affine parameter value a with a second source parameter u. If the
+# only common solution in QQ(a)[u] is u=a, then the map P¹ --> C has generic
+# fiber degree 1 and is birational onto its image.
+A.<a> = PolynomialRing(QQ)
+K_a = FractionField(A)
+U.<u> = PolynomialRing(K_a)
+
+def dehomogenize_at_one(poly, var, target_ring):
+    result = target_ring(0)
+    for (i, j), coeff in poly.dict().items():
+        result += target_ring(coeff) * var^i
+    return result
+
+f0_a = dehomogenize_at_one(f0, a, K_a)
+f1_a = dehomogenize_at_one(f1, a, K_a)
+f2_a = dehomogenize_at_one(f2, a, K_a)
+f0_u = dehomogenize_at_one(f0, u, U)
+f1_u = dehomogenize_at_one(f1, u, U)
+f2_u = dehomogenize_at_one(f2, u, U)
+
+fiber_eq1 = f0_u * f1_a - f1_u * f0_a
+fiber_eq2 = f0_u * f2_a - f2_u * f0_a
+generic_fiber_gcd = fiber_eq1.gcd(fiber_eq2).monic()
+generic_expected = (u - K_a(a)).monic()
+generic_fiber_degree = generic_fiber_gcd.degree()
+parametrization_generically_injective = generic_fiber_gcd == generic_expected
+
+print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
+print(f"  Generic fiber gcd: {generic_fiber_gcd}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
 # ============================================================================
 # Step 3: Extract Coefficients
@@ -213,6 +258,9 @@ print("=" * 80)
 print(f"\nImplicit equation F(x,y,z):")
 print(f"  Degree: {F.total_degree()}")
 print(f"  Non-zero coefficients: {len(nonzero_coeffs)}")
+print(f"  Irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Squarefree/reduced: {sextic_is_squarefree}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
 print(f"\nSingular points analysis:")
 print(f"  Total found: {len(all_singular_points)}")
@@ -226,10 +274,14 @@ print(f"  Geometric genus: g = g_a - Σδ ≤ 10 - {len(nodes)} = {10 - len(node
 
 # Determine success
 if len(nodes) == 10:
-    if len(other_singularities) == 0:
-        print(f"\n✓ SUCCESS: F(x,y,z) has exactly 10 nodes!")
+    if len(other_singularities) == 0 and sextic_is_irreducible and sextic_is_squarefree:
+        print(f"\n✓ SUCCESS: F(x,y,z) is a reduced irreducible sextic with exactly 10 nodes!")
         print("  This is the required Coble curve equation.")
         status = "SUCCESS"
+    elif len(other_singularities) == 0:
+        print(f"\n✓ SUCCESS (with rigor gaps): F(x,y,z) has exactly 10 nodes")
+        print("  but irreducibility/reducedness checks did not both pass.")
+        status = "SUCCESS_WITH_RIGOR_GAPS"
     else:
         print(f"\n✓ SUCCESS (with caveat): F(x,y,z) has 10 nodes")
         print(f"  plus {len(other_singularities)} additional degenerate singularity(ies)")
