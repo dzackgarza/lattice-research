@@ -15,6 +15,8 @@ Task 1.1: Rational Sextic with 10 Nodes for Coble Surface
     Degree 6: multiplicity 1
   Using sextic factor
   Final F degree: 6
+  Sextic irreducible over QQ: True
+  Sextic squarefree/reduced: True
 
 [Step 3] Coefficients of F(x,y,z)...
   Number of non-zero coefficients: 28
@@ -46,6 +48,8 @@ VERIFICATION SUMMARY
 Implicit equation F(x,y,z):
   Degree: 6
   Non-zero coefficients: 28
+  Irreducible over QQ: True
+  Squarefree/reduced: True
 
 Singular points analysis:
   Total found: 10
@@ -57,7 +61,7 @@ Genus verification:
   Sum of delta-invariants: Σδ ≥ 10 (each node contributes δ=1)
   Geometric genus: g = g_a - Σδ ≤ 10 - 10 = 0
 
-✓ SUCCESS: F(x,y,z) has exactly 10 nodes!
+✓ SUCCESS: F(x,y,z) is a reduced irreducible sextic with exactly 10 nodes!
   This is the required Coble curve equation.
 
 ================================================================================

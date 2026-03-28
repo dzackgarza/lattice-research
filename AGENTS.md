@@ -15,3 +15,12 @@ Any Aristotle formalization attempt must begin by checking whether the target re
 already exists upstream in mathlib or other imported dependencies.
 Do not spend Aristotle budget reproving upstream results when the correct action is to
 find and reuse the existing theorem.
+
+Computational validation must prefer exact arithmetic throughout whenever Sage can
+support it. Prefer integral or rational coefficients, exact polynomial/system solving,
+and small or minimal examples that avoid coefficient blowup.
+Do not treat floating-point approximations as acceptable audit evidence when exact
+algebraic data is available.
+When singular points or other solutions are algebraic but not rational, base change to a
+natural number field or exact algebraic extension and continue exact work there rather
+than deduplicating or validating numerically.

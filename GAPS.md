@@ -19,9 +19,6 @@
 
 ## Delegation / formalization gaps
 
-- **Prover is unreliable except on ultra-narrow one-line prompts.** Broad and
-  medium-scope mathematical audit prompts have repeatedly returned empty outputs, so
-  current Prover usage must stay highly constrained.
 - **Aristotle support-lemma work is progressing, but the full node criterion is still
   untrusted.** Completed artifacts have produced useful Hessian support lemmas, but one
   artifact still packaged nodehood tautologically and another returned an unfinished
@@ -33,5 +30,8 @@
   claim.
 - Turn the new Task 1.1 birationality computation into a concise evidence note or audit
   citation, so the rationality claim is easy to reuse downstream.
+- Turn the Task 1.1 exact-coordinate machinery into a short reusable audit note, so the
+  repo cites the exact `QQbar.polynomial_root(..., isolating_interval(...))` output
+  route instead of rediscovering it from code.
 - Replace the current Task 5.1 non-orthogonal-basis construction with a route grounded
   in orthogonal complements or another genuine lattice isometry construction.

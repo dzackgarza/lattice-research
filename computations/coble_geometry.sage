@@ -118,6 +118,58 @@ def saturate_embedding(M, L_gram):
     # Ensure it is integer matrix
     return U_inv.change_ring(ZZ)[:, :k]
 
+def normalize_projective_point_exact(coords):
+    """Return an exactly normalized projective point over QQbar."""
+    P2 = ProjectiveSpace(QQbar, 2)
+    pt = P2([QQbar(c) for c in coords])
+    pt.normalize_coordinates()
+    return pt
+
+def deduplicate_projective_points_exact(coords_list):
+    """Deduplicate projective points by exact projective equality."""
+    unique_points = []
+    for coords in coords_list:
+        pt = normalize_projective_point_exact(coords)
+        if not any(pt == existing for existing in unique_points):
+            unique_points.append(pt)
+    return unique_points
+
+def point_over_minimal_number_field(pt, name='a'):
+    """Base change an exact QQbar projective point to a small embedded number field."""
+    K, coords, _ = number_field_elements_from_algebraics(list(pt), minimal=True,
+                                                         embedded=True, name=name)
+    P2 = ProjectiveSpace(K, 2)
+    nf_pt = P2(coords)
+    nf_pt.normalize_coordinates()
+    return nf_pt
+
+def sage_input_expression(obj):
+    """Return the final exact expression line from Sage's algebraic renderer."""
+    rendered = str(sage_input(obj))
+    for line in reversed(rendered.splitlines()):
+        stripped = line.strip()
+        if stripped and not stripped.startswith('#'):
+            return stripped
+    return rendered.strip()
+
+def compact_exact_algebraic_expression(coord):
+    """Render a QQbar element via its minpoly and isolating interval."""
+    from sage.rings.qqbar import isolating_interval
+
+    if coord in QQ:
+        return sage_input_expression(QQ(coord))
+
+    minpoly = coord.minpoly()
+    interval = isolating_interval(lambda prec: ComplexIntervalField(prec)(coord), minpoly)
+    root = QQbar.polynomial_root(AA.common_polynomial(minpoly), interval)
+    return sage_input_expression(root)
+
+def format_exact_projective_point(pt, name='a'):
+    """Format a projective point using compact exact QQbar expressions."""
+    normalized = normalize_projective_point_exact(tuple(pt))
+    coords = [compact_exact_algebraic_expression(coord) for coord in normalized]
+    return f"[{coords[0]} : {coords[1]} : {coords[2]}]"
+
 def is_node_at_point(F, pt):
     """
     Verify if a singular point is a node (A1) using 3x3 Hessian rank.

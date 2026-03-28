@@ -99,6 +99,8 @@ print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
 print(f"  Generic fiber gcd: {generic_fiber_gcd}")
 print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
+load("computations/coble_geometry.sage")
+
 # ============================================================================
 # Step 3: Find All Singular Points
 # ============================================================================
@@ -155,23 +157,7 @@ for sol in sols_affine:
 for sol in sols_x1:
     all_singular_points.append((K(1), sol[Y_inf], K(0)))
 
-# De-duplicate points (by projective equivalence)
-def normalize(pt):
-    for c in pt:
-        if c != 0:
-            return tuple(x/c for x in pt)
-    return pt
-
-unique_points = []
-for pt in all_singular_points:
-    npt = normalize(pt)
-    is_new = True
-    for upt in unique_points:
-        if all(abs(npt[i] - upt[i]) < 1e-9 for i in range(3)):
-            is_new = False
-            break
-    if is_new:
-        unique_points.append(npt)
+unique_points = deduplicate_projective_points_exact(all_singular_points)
 
 print(f"  Total unique singular points (projective): {len(unique_points)}")
 
@@ -180,19 +166,9 @@ print(f"  Total unique singular points (projective): {len(unique_points)}")
 # ============================================================================
 print("\n[Step 4] Verifying nodes (A₁ singularities)...")
 
-def is_node_at_point(poly, pt):
-    # Hessian matrix at pt
-    vars = [x_gen, y_gen, z_gen]
-    H = matrix(K, 3, 3)
-    for i in range(3):
-        for j in range(3):
-            val = poly.derivative(vars[i], vars[j]).substitute(x=pt[0], y=pt[1], z=pt[2])
-            H[i,j] = val
-    return H.rank() == 2
-
 nodes = []
 for idx, pt in enumerate(unique_points):
-    if is_node_at_point(F, pt):
+    if is_node_at_point(F, tuple(pt)):
         nodes.append(pt)
         print(f"    Point {idx+1}: ✓ NODE (A₁)")
     else:
@@ -264,7 +240,7 @@ with open(results_file, 'w') as f:
     f.write(f"   Nodes (A1): {len(nodes)}\n\n")
     f.write("4. Node Positions (Projective):\n")
     for idx, pt in enumerate(nodes):
-        f.write(f"   p_{idx+1} = [{pt[0]} : {pt[1]} : {pt[2]}]\n")
+        f.write(f"   p_{idx+1} = {format_exact_projective_point(pt, name=f'a{idx+1}')}\n")
     f.write("\n5. Stabilizer Group Γ_Co Analysis:\n")
     f.write(f"   Lattice T_En Gram Matrix: diag(2, 2, -2, ..., -2)\n")
     f.write(f"   Polarization h_Co: {list(h_Co)}\n")

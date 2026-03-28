@@ -229,6 +229,10 @@ Goal: only after computational stabilization, revisit Lean and publication claim
   O*(T)-orbit for div=2, PASS
 - [x] Task 3.1 verified — 9 Γ_Co generators computed
 - [x] Task 3.2 verified — 27 isotropic planes found, J⊥/J ≅ A₁^⊕7 (rank 7, det -128)
+- [x] Task 1.1 exact-coordinate audit repaired — `computations/coble_geometry.sage` now
+  deduplicates projective points exactly and renders non-rational coordinates via
+  `QQbar.polynomial_root(AA.common_polynomial(minpoly), isolating_interval(...))`
+  instead of primitive-element rational functions or floating tolerance heuristics.
 - [ ] Task 5.1 current route disproved — rerun log
   `audit/task5_1_rerun_20260327T122004Z.txt` shows `θ^T G θ = G: False`,
   `G θ = θ^T G: False`, and `V_+ ⟂ V_-: False`, so the present construction does not
