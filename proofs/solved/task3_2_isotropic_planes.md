@@ -2,11 +2,16 @@
 
 ## Theorem Statement
 
-**Theorem**: The moduli space $\mathcal{F}*{\mathrm{Co}}$ of Coble surfaces has a unique
-1-cusp in its Baily-Borel compactification.
-Equivalently, there is a unique $O(T*{\mathrm{Co}})$-orbit of primitive isotropic planes
-$J \subset T_{\mathrm{Co}}$, and for any such plane, the quotient $J^\perp/J$ is
-isometric to $A_1^{\oplus 7}$.
+Standard period-domain references already place the Coble moduli problem in a Type IV /
+Baily-Borel setting; see `REFERENCES.md` and `audit/literature_claim_map.md` for the
+canonical source chain through Scattone, Sterk, Dolgachev–Kondō, and Friedman.
+
+The repo-specific claim verified in this note is the lattice calculation that supports
+the 1-cusp description used in that literature-backed framework:
+
+**Claim verified here**: there is a unique $O(T*{\mathrm{Co}})$-orbit of primitive
+isotropic planes $J \subset T_{\mathrm{Co}}$, and for any such plane, the quotient
+$J^\perp/J$ is isometric to $A_1^{\oplus 7}$.
 
 ## Mathematical Background
 
@@ -40,7 +45,7 @@ subspace such that the bilinear form restricts to zero on $J$.
 ### Theoretical Prediction
 
 From Nikulin's classification of 2-elementary lattices and Sterk's work on Enriques
-moduli:
+moduli, as recorded in `REFERENCES.md`:
 
 - For $T_{\mathrm{Co}}$ with $(r, a, \delta) = (11, 11, 1)$, the genus contains a unique
   isometry class
@@ -172,10 +177,11 @@ is the Gram matrix.
 
 ## Conclusion
 
-**Theorem (Computationally Verified)**: The Coble moduli space
-$\mathcal{F}*{\mathrm{Co}}$ has a unique 1-cusp, corresponding to the unique
-$O(T*{\mathrm{Co}})$-orbit of primitive isotropic planes in $T_{\mathrm{Co}}$. For any
-such plane $J$, the quotient $J^\perp/J$ is isometric to $A_1^{\oplus 7}$.
+Within the literature-backed period-domain description of Coble moduli, the repo now
+computationally verifies the lattice statement needed for the 1-cusp calculation: there
+is a unique $O(T*{\mathrm{Co}})$-orbit of primitive isotropic planes in
+$T_{\mathrm{Co}}$, and for any such plane $J$, the quotient $J^\perp/J$ is isometric to
+$A_1^{\oplus 7}$.
 
 **Verification Method**:
 1. **Isometry**: Direct diagonal comparison (both $\operatorname{diag}(-2, \ldots, -2)$)
@@ -188,7 +194,7 @@ such plane $J$, the quotient $J^\perp/J$ is isometric to $A_1^{\oplus 7}$.
 - Audit log: `audit/run-all-20260326-1837.txt` (updated with new verification)
 - 15 primitive isotropic planes, all with Arf invariant 0 ⇒ single orbit
 
-This **computationally verifies** the theoretical predictions from:
+This is exact computational support for the theoretical predictions from:
 - Nikulin (1979): Classification of 2-elementary lattices
 - Sterk (1991): Cusp classification for Enriques moduli
 - Alexeev-Engel-Garza-Schaffler (2023): Compact moduli of Enriques surfaces

@@ -8,8 +8,13 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- `plans/2026-03-28-literature-first-reorientation.md` — current 24-hour recovery and
-  execution plan.
+- `plans/2026-03-28-task5_1-prose-cleanup.md` — current follow-on plan for prose
+  integration, narrow cleanup, and the first Task 5.1 recovery step.
+
+## Recently completed reset plan
+
+- `plans/2026-03-28-literature-first-reorientation.md` — completed literature-first
+  reset that established the current citation spine and claim notes.
 
 ## Archived plans
 
@@ -21,8 +26,10 @@ support those claims, they do not substitute for them.
 ## Current priorities
 
 - Centralize the literature spine in `REFERENCES.md`.
-- Rewrite repo claims so standard facts cite literature before they cite computations.
+- Rewrite remaining repo prose so standard facts cite literature before they cite
+  computations.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
-- Reframe Task 5.1 around a mathematically correct lattice route, with CARAT treated as
-  a possible auxiliary backend for finite positive-definite subproblems.
+- Advance Task 5.1 only through the primitive-embedding / orthogonal-complement route,
+  with CARAT treated as a possible auxiliary backend for finite positive-definite
+  subproblems.

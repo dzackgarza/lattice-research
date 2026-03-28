@@ -6,16 +6,29 @@
 
 ## Theorem Statement
 
-Let $h_{Co} \in T_{Co}$ be the Coble polarization (degree 2, $h_{Co}^2 = 2$) on the transcendental lattice of a Coble surface. Then:
+Let $h_{Co} \in T_{Co}$ be the Coble polarization (degree 2, $h_{Co}^2 = 2$) on the
+transcendental lattice of a Coble surface.
+Then:
 
 1. The surgery vector $\ell = (h_{Co} \cdot \alpha_i)_{i \in G}$ vanishes: $\ell = 0$
-2. The dual complex $B(\ell) = S^2$ is the standard 2-sphere with integral-affine structure
+2. The dual complex $B(\ell) = S^2$ is the standard 2-sphere with integral-affine
+   structure
 3. The stable limit $(Z, \epsilon C)$ is slc-stable for $0 < \epsilon \ll 1$
 4. $Z$ is an $S_2$-quotient of a nodal K3 surface with 10 $A_1$ singularities
 
 ## Mathematical Context
 
-This result completes the lattice-theoretic verification of the moduli space compactification for Coble surfaces. The mapping $h_{Co} \to \ell \to B(\ell) \to (Z, \epsilon C)$ establishes the correspondence between:
+The compactification and KSBA background are not new repo theorems; they belong to the
+literature spine in `REFERENCES.md`, especially the AEGS compactification layer together
+with the ambient Coble/K3/moduli references summarized in
+`audit/literature_claim_map.md`.
+
+This note records the repo-specific computation inside that framework.
+The mapping $h_{Co} \to \ell \to B(\ell) \to (Z, \epsilon C)$ is used here as a
+computational check of the standard picture, not as a replacement proof of the ambient
+compactification theory.
+
+It connects:
 
 - **Hodge theory**: Period domain and monodromy invariant $\lambda$
 - **Integral-affine geometry**: Dual complex $B(\ell)$ with surgery parameters
@@ -27,17 +40,19 @@ This result completes the lattice-theoretic verification of the moduli space com
 
 From previous tasks:
 
-- $T_{Co} \cong \langle 2 \rangle^2 \oplus \langle -2 \rangle^9$ (signature $(2,9)$, rank 11)
+- $T_{Co} \cong \langle 2 \rangle^2 \oplus \langle -2 \rangle^9$ (signature $(2,9)$,
+  rank 11)
 - $h_{Co} = (1, 0, \ldots, 0)$ with $h_{Co}^2 = 2$
-- Root system $\Phi(T_{Co})$ consists of 9 orthogonal roots $\alpha_i$ with $\alpha_i^2 = -2$
+- Root system $\Phi(T_{Co})$ consists of 9 orthogonal roots $\alpha_i$ with $\alpha_i^2
+  = -2$
 
 ### Step 2: Surgery Vector Computation
 
-The surgery vector is defined by:
-$$\ell_i = h_{Co} \cdot \alpha_i$$
+The surgery vector is defined by: $$\ell_i = h_{Co} \cdot \alpha_i$$
 
-**Computation**: Since $h_{Co}$ lies in the positive definite part $\langle 2 \rangle^2$ and all roots $\alpha_i$ lie in the negative definite part $\langle -2 \rangle^9$, they are orthogonal:
-$$h_{Co} \cdot \alpha_i = 0 \quad \text{for all } i = 1, \ldots, 9$$
+**Computation**: Since $h_{Co}$ lies in the positive definite part $\langle 2 \rangle^2$
+and all roots $\alpha_i$ lie in the negative definite part $\langle -2 \rangle^9$, they
+are orthogonal: $$h_{Co} \cdot \alpha_i = 0 \quad \text{for all } i = 1, \ldots, 9$$
 
 Therefore: $\ell = (0, 0, 0, 0, 0, 0, 0, 0, 0)$
 
@@ -54,12 +69,13 @@ For $\ell = 0$:
 - $B(0) = S^2$ with standard integral-affine structure
 - Degeneration type: Type III (maximal unipotent monodromy)
 
-The Enriques involution $\iota_{\text{Enr,IA}}$ acts hemispherically:
-$$B(0) / \iota_{\text{Enr,IA}} \cong D^2 \text{ (disk)}$$
+The Enriques involution $\iota_{\text{Enr,IA}}$ acts hemispherically: $$B(0) /
+\iota_{\text{Enr,IA}} \cong D^2 \text{ (disk)}$$
 
 ### Step 4: slc Stability Verification
 
-We verify the five KSBA stability conditions for $(Z, \epsilon C)$ with $0 < \epsilon \ll 1$:
+We verify the five KSBA stability conditions for $(Z, \epsilon C)$ with $0 < \epsilon
+\ll 1$:
 
 **Condition 1: $Z$ is $S_2$**
 
@@ -99,14 +115,15 @@ We verify the five KSBA stability conditions for $(Z, \epsilon C)$ with $0 < \ep
 
 ### Step 5: Hilbert-Mumford Stability
 
-The Hilbert-Mumford weight is:
-$$\mu((Z, \epsilon C), \lambda) = \mu(K_Z, \lambda) + \epsilon \cdot \mu(C, \lambda)$$
+The Hilbert-Mumford weight is: $$\mu((Z, \epsilon C), \lambda) = \mu(K_Z, \lambda) +
+\epsilon \cdot \mu(C, \lambda)$$
 
 For K3 quotient: $K_Z \equiv 0 \implies \mu(K_Z, \lambda) = 0$
 
 For ample $C$: $\mu(C, \lambda) > 0$ for destabilizing $\lambda$
 
-Therefore: $\mu((Z, \epsilon C), \lambda) = \epsilon \cdot \mu(C, \lambda) > 0$ for $0 < \epsilon \ll 1$
+Therefore: $\mu((Z, \epsilon C), \lambda) = \epsilon \cdot \mu(C, \lambda) > 0$ for $0 <
+\epsilon \ll 1$
 
 ✓ STABLE
 
@@ -144,24 +161,34 @@ All computations performed in SageMath:
 
 The vanishing surgery vector $\ell = 0$ has the following geometric meaning:
 
-1. **Generic degeneration**: $\ell = 0$ corresponds to the most symmetric Type III degeneration
+1. **Generic degeneration**: $\ell = 0$ corresponds to the most symmetric Type III
+   degeneration
 2. **No surgery needed**: The integral-affine structure is standard
-3. **Orthogonality**: Reflects the separation between polarization (positive part) and roots (negative part)
+3. **Orthogonality**: Reflects the separation between polarization (positive part) and
+   roots (negative part)
 4. **Moduli interpretation**: This is the generic point in the Coble moduli space
 
 ## References
 
-- [AEGS23] Alexeev, Engel, Garza, Schaffler. "Compact moduli of Enriques surfaces with a numerical polarization of degree 2." arXiv:2312.03638 (2023). Sections 2.4, 6, 7.
-- [Nikulin1979] Nikulin, V. V. "Integer symmetric bilinear forms and some of their geometric applications." Math. USSR Izvestija 14 (1979).
-- [Kollar2013] Kollár, J. "Singularities of the Minimal Model Program." Cambridge Tracts in Mathematics.
+- [AEGS23] Alexeev, Engel, Garza, Schaffler.
+  "Compact moduli of Enriques surfaces with a numerical polarization of degree 2."
+  arXiv:2312.03638 (2023). Sections 2.4, 6, 7.
+- [Nikulin1979] Nikulin, V. V. "Integer symmetric bilinear forms and some of their
+  geometric applications."
+  Math. USSR Izvestija 14 (1979).
+- [Kollar2013] Kollár, J. "Singularities of the Minimal Model Program."
+  Cambridge Tracts in Mathematics.
 
 ## Conclusion
 
-The stable limit $(Z, \epsilon C)$ of Coble surfaces is slc-stable, with $Z$ being an $S_2$-quotient of a nodal K3 surface. The surgery vector $\ell = 0$ indicates the standard Type III degeneration, and all KSBA stability conditions are satisfied.
+The repo computation supports the standard compactification picture by checking that the
+chosen Coble polarization produces the zero surgery vector, the standard Type III dual
+complex, and the expected slc-stability conditions in this worked example.
 
-This completes the computational verification of the lattice-theoretic foundation for Coble moduli spaces.
+It does not replace the literature-based compactification theory; it provides exact
+computational evidence inside that theory.
 
----
+* * *
 
 **Files**:
 
@@ -170,4 +197,5 @@ This completes the computational verification of the lattice-theoretic foundatio
 - Results summary: `/home/dzack/research/computations/task6_1_results.txt`
 - Research log: `/home/dzack/research/logs/research-log.md`
 
-**Git commit**: `2619b1e` - "Task 6.1: Map h_Co to surgery vector ℓ and verify slc stability"
+**Git commit**: `2619b1e` - "Task 6.1: Map h_Co to surgery vector ℓ and verify slc
+stability"

@@ -3,7 +3,8 @@
 ## Literature / citation gaps
 
 - `audit/literature_claim_map.md` now records the standard claim flow, but the main repo
-  prose still needs those citations woven into the places where the claims are reused.
+  prose still needs those citations woven into the places where the claims are reused,
+  especially the longer proof notes in `proofs/solved/`.
 - A clean literature-backed statement of the precise variant of the moduli claim used by
   this repo is still missing from repo prose.
 
@@ -27,9 +28,14 @@
 
 - Planning has been reset, but `.orig` / temporary debris still exists elsewhere in the
   repo and should be triaged separately rather than mixed into mathematical work.
+- `audit/dolgachev_kondo_extracted.txt` was accidentally committed and should be removed
+  as tracked debris rather than treated as a canonical note.
 
 ## Immediate next targets
 
-- Push the new literature claim map and Task 1.1 note back into the main repo prose.
-- Implement the first primitive-embedding/complement step of the Task 5.1 reset.
-- Triage remaining cleanup debris after the top-level literature/plan reset is stable.
+- Push the new literature claim map and Task 1.1 / Task 5.1 notes back into the main
+  repo prose, beginning with the solved proof notes.
+- Implement the first Task 5.1 primitive-embedding/complement step and keep θ
+  reconstruction blocked until that verification exists.
+- Remove the accidental extracted-text artifact and the explicitly triaged tracked
+  backup debris.
