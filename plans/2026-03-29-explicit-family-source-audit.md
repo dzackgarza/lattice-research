@@ -119,7 +119,9 @@ Goal: make the literature status of explicit sextic families consistent across t
 
 ### Phase 1
 
-- [ ] Inspect the surviving primary-source leads directly
+- [ ] Inspect Coolidge directly
+- [x] Inspect the surviving Desargues/Thas primary-source lead directly and split the
+  weaker existence claim from the stronger uniqueness wording
 
 ### Phase 2
 

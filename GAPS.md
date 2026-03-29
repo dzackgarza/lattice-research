@@ -7,14 +7,17 @@
   especially the longer proof notes in `proofs/solved/`.
 - A clean literature-backed statement of the precise variant of the moduli claim used by
   this repo is still missing from repo prose.
-- The alleged Desargues/Thas explicit-family route is still unverified.
+- The stronger Desargues/Thas uniqueness claim is still unverified.
   `reports/task1_1_family_report_audit.md` and `reports/desargues_thas_source_trace.md`
-  currently support only the weaker statement that an unavailable MPI abstract
-  attributes such a claim to Thas; no primary source has been confirmed.
-- No literature-backed explicit polynomial family for a 10-nodal rational sextic is
-  currently verified in-repo.
-  Until direct source inspection changes that, the existing Task 1.1 examples should be
-  treated as repo-native computational constructions rather than classical examples.
+  now record a directly inspected primary source — C. Thas, *A rational sextic
+  associated with a Desargues configuration* (1994) — for the weaker existence/
+  construction claim, but the unavailable MPI abstract's stronger uniqueness wording and
+  exact `J. Thas` attribution remain unresolved.
+- A literature-backed explicit polynomial family for a 10-nodal rational sextic is still
+  not yet verified in-repo at the level of directly inspected full-text formulas.
+  The existing Task 1.1 examples should still be treated as repo-native computational
+  constructions unless and until a directly inspected source yields explicit equations
+  or a comparable full construction record.
 
 ## Computation-to-literature interface gaps
 
@@ -48,7 +51,8 @@
 ## Immediate next targets
 
 - Obtain direct source access for the remaining explicit-family leads before citing
-  them, especially Coolidge and any actual source behind the Thas attribution.
+  stronger statements, especially Coolidge and any source that clarifies the stronger
+  uniqueness / `J. Thas` attribution beyond C. Thas (1994).
 - Add one canonical audit note for the exact-coordinate rendering path used by Task 1.1,
   so that result does not live only in code and raw output artifacts.
 - Triage the remaining `.orig` / temporary debris separately from the mathematical work.

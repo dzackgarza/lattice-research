@@ -10,6 +10,12 @@ Use it before adding new derivations or background prose.
 - **A. B. Coble (1917)**: *The ten nodes of the rational plane sextic*. American Journal
   of Mathematics, 39(2), 327–372.
   - Use for: the classical 10-nodal rational sextic and the basic blowup construction.
+- **C. Thas (1994)**: *A rational sextic associated with a Desargues configuration*.
+  Geometriae Dedicata 51, 163–180.
+  - Use for: a direct primary source that constructs a rational 10-nodal sextic from a
+    Desargues configuration and gives a rational parametrization.
+    Do not upgrade this to the stronger uniqueness claim unless the full text or another
+    directly inspected source supports that wording.
 - **A. B. Coble (1929)**: *Algebraic Geometry and Theta Functions*. American
   Mathematical Society.
   - Use for: classical background on the point-configuration geometry surrounding Coble

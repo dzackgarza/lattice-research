@@ -26,7 +26,22 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
 - **Status**: UNAVAILABLE — Returns HTTP 404 when accessed directly (confirmed
   2026-03-28)
 
-### Source 2: Joseph A. Thas Publication List
+### Source 2: C. Thas (1994) journal article
+
+- **Source**: Springer journal landing page for *A rational sextic associated with a
+  Desargues configuration*
+- **Citation**: C. Thas, *Geometriae Dedicata* 51 (1994), 163–180
+- **DOI**: `10.1007/BF01265327`
+- **Directly inspected abstract support**:
+  - "We construct a rational curve of order 6 which has a node at each of the ten
+    points" of a Desargues configuration.
+  - The paper also says it finds "a rational parametric representation of it."
+- **What this does support**: a primary-source existence/construction claim for a
+  rational 10-nodal sextic associated with a Desargues configuration.
+- **What this does not yet support**: the stronger MPI-snippet wording about a
+  **unique** rational sextic, or the exact identity of the cited "J. Thas" source.
+
+### Source 3: Joseph A. Thas Publication List
 
 - **Source**: Author's institutional page at Ghent University
 - **URL**: http://cage.ugent.be/~jat/JATHPUB.html
@@ -37,27 +52,32 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
   projective plane S_{2,q} over the Galois field GF(q)" (1971) — concerns counting
   Desargues configurations in finite fields, not curve construction
 
-### Source 3: Web Searches
+### Source 4: Web Searches
 
 - Searched combinations: "J. Thas Desargues configuration sextic", "Thas unique rational
   sextic", "Desargues configuration 10 nodes sextic", "Joseph Thas plane curves"
-- **Result**: The MPI abstract is the ONLY source found that attributes this specific
-  claim to J. Thas
+- **Result**: The MPI abstract is the only source found that attributes the stronger
+  uniqueness claim specifically to J. Thas, but a directly inspected 1994 paper by C.
+  Thas does support the weaker existence/construction claim
 - No independent verification, citation, or discussion found in any mathematical
   database, preprint server, or lecture notes
 
 ## 3. Evidence Actually Supporting the Desargues/Sextic Claim
 
-**Evidence Found in searched sources**: No primary or secondary source beyond the
-unavailable MPI abstract citation trail.
+**Evidence Found in searched sources**:
 
-In the searched sources, the claim attributed to J. Thas appears only through the
-now-unavailable MPI abstract trail.
-No published paper, preprint, lecture notes, or secondary source was found that:
+- Direct primary evidence for a weaker claim: C. Thas (1994) constructs a rational
+  sextic of degree 6 with a node at each point of a Desargues configuration and gives a
+  rational parametrization.
+- No directly inspected source yet supports the stronger uniqueness wording from the MPI
+  snippet or explains the exact "J. Thas" attribution.
 
-- Contains the full statement and proof
-- Cites a specific journal or publication venue
-- Provides any bibliographic reference to Thas's original work
+In the searched sources, the stronger uniqueness claim attributed to J. Thas still
+appears only through the now-unavailable MPI abstract trail.
+No directly inspected source was found that:
+
+- States the stronger uniqueness claim
+- Explains whether the cited source is C. Thas (1994), J. Thas, or another work
 
 The claim currently survives in the searched material only as:
 - A lecture announcement abstract (now 404)
@@ -65,16 +85,19 @@ The claim currently survives in the searched material only as:
 
 ## 4. Negative Findings and Remaining Gaps
 
-### Gap 1: No Primary Publication Found
+### Gap 1: No primary source found for the stronger J. Thas uniqueness claim
 
-- **Searched**: Joseph A. Thas's complete publications list (280+ papers), zbMATH,
-  Google Scholar, arXiv
-- **Found**: No paper on the topic of Desargues configurations producing rational plane
-  sextics
-- **Conclusion**: Based on the searched sources, I found no peer-reviewed or preprint
-  publication by Thas on this exact topic
+- **Searched**: Springer landing page for C. Thas (1994), Joseph A. Thas's complete
+  publications list (280+ papers), zbMATH, Google Scholar, arXiv
+- **Found**: A directly inspected 1994 paper by C. Thas supports construction of a
+  rational 10-nodal sextic from a Desargues configuration, but no directly inspected
+  source supports the stronger uniqueness wording or ties it to J. Thas specifically
+- **Conclusion**: Based on the searched sources, I found primary support for the weaker
+  existence/construction claim, but no directly inspected source for the stronger J.
+  Thas uniqueness claim
 - **Confidence**: High
-- **Gaps**: Possible unpublished lecture or conference talk not archived
+- **Gaps**: Full-text inspection of the 1994 paper; possible separate unpublished
+  lecture or conference source behind Dolgachev's wording
 
 ### Gap 2: MPI Abstract Unavailable
 
@@ -85,48 +108,55 @@ The claim currently survives in the searched material only as:
 - **Confidence**: High (verified twice)
 - **Gaps**: No cached version or archive.org snapshot found in this search
 
-### Gap 3: No Secondary Discussion Found
+### Gap 3: No independent source found for the stronger uniqueness wording
 
-- **Searched**: MathOverflow, StackExchange, research blogs, lecture notes repositories
-- **Found**: No discussion, citation, or reformulation of this specific Thas result
-- **Conclusion**: Based on the searched sources, I found no indexed secondary
-  discussion, citation, or reformulation of this specific claim
+- **Searched**: MathOverflow, StackExchange, research blogs, lecture notes repositories,
+  search results around the 1994 paper and the MPI abstract
+- **Found**: No directly inspected source restating the uniqueness claim, even though
+  the 1994 C. Thas paper itself is discoverable
+- **Conclusion**: Based on the searched sources, I found no indexed independent
+  discussion, citation, or reformulation of the stronger uniqueness claim
 - **Confidence**: Medium
 - **Gaps**: Possible existence in conference proceedings or private notes not indexed
 
-### Gap 4: Thas's Research Area Mismatch
+### Gap 4: Attribution ambiguity remains unresolved
 
-- **Searched**: Thas's publications, research interests described on institutional pages
-- **Found**: Thas's work is in finite geometry, combinatorics, generalized quadrangles —
-  not algebraic geometry of plane curves
-- **Conclusion**: The topic is atypical for this author; unverified oral tradition is
-  plausible
-- **Confidence**: High
-- **Gaps**: Possible collaboration or side work not reflected in main publication list
+- **Searched**: MPI abstract snippet, Springer metadata for C. Thas (1994), Joseph A.
+  Thas publication listings
+- **Found**: A relevant paper exists under the author name C. Thas, while the MPI
+  snippet names J. Thas
+- **Conclusion**: Based on the searched sources, I cannot yet determine whether the MPI
+  attribution is a typo, a different author, or a separate source trail
+- **Confidence**: Medium
+- **Gaps**: Full bibliographic inspection of the 1994 paper and any Dolgachev notes that
+  might clarify the attribution
 
 ## 5. Safe Repo Phrasing
 
-Given the complete absence of a verifiable primary source, the following phrasing is
-recommended:
+Given the current evidence split between a verified weaker source and an unresolved
+stronger source trail, the following phrasing is recommended:
 
-> **"The claim that a Desargues configuration yields a unique 10-nodal rational sextic
-> originates from an MPI lecture abstract by Dolgachev (2016) citing J. Thas.
-> The abstract is no longer accessible (HTTP 404), and no independent publication by
-> Thas or secondary source was found to verify this statement.
-> This claim remains UNVERIFIED."**
+> **"A directly inspected paper by C. Thas (Geom.
+> Dedicata 51 (1994)) constructs a rational plane sextic of degree 6 with a node at each
+> point of a Desargues configuration and gives a rational parametrization.
+> A stronger uniqueness statement, attributed in an unavailable MPI abstract to J. Thas,
+> has not yet been independently verified."**
 
 Alternatively, if the result must be mentioned without verification:
 
-> **"According to an unavailable MPI abstract (Dolgachev 2016, citing Thas), the ten
-> points of a Desargues configuration may determine a unique rational plane sextic.
-> This statement has not been independently verified."**
+> **"According to a directly inspected abstract by C. Thas (1994), a Desargues
+> configuration gives rise to a rational 10-nodal plane sextic with a rational
+> parametrization. The stronger uniqueness wording seen in an unavailable MPI abstract
+> has not yet been independently verified."**
 
 * * *
 
 ## Summary
 
-- **Primary source found in searched sources**: NO
-- **Claim verifiable from searched sources**: NO
-- **Recommendation**: Do not cite Thas for this result without obtaining the original
-  source; treat the claim as unverified oral tradition from a lecture, not established
-  mathematics
+- **Primary source found in searched sources**: YES, for the weaker existence/
+  construction claim via C. Thas (1994)
+- **Claim verifiable from searched sources**: YES for existence/construction; NO for the
+  stronger uniqueness wording and exact J. Thas attribution
+- **Recommendation**: Cite C. Thas (1994) for the existence/construction claim only, and
+  keep the stronger uniqueness wording marked unverified until a directly inspected
+  source is found
