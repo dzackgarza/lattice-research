@@ -25,7 +25,7 @@ verification.
 | Coble (1919) gave explicit sextic equations | **Retracted** | None | No evidence found — Coble's papers study configuration geometry, not explicit equations | "Coble studied the configuration geometry of 10-nodal sextics" |
 | Desargues configuration + Thas gives unique sextic | **Unsupported** | Primary for weaker existence claim; none for uniqueness | Direct Springer abstract for C. Thas (1994) supports existence/construction of a rational sextic with ten nodes from a Desargues configuration, but not the stronger uniqueness claim or the exact J. Thas attribution in the MPI snippet | Cite C. Thas (1994) only for existence/construction, not uniqueness |
 | Halphen index-2 guarantees rational 10-nodal sextic | **Retracted** | None | Halphen framework exists but no theorem found guaranteeing rational member | "Halphen pencils provide a framework — rationality condition is subtle" |
-| Coolidge Theorem 28 gives existence | **Unsupported** | None | MathOverflow cites Coolidge; primary treatise NOT directly inspected | Do not cite Coolidge without direct verification |
+| Coolidge Theorem 28 gives existence | **Unsupported as stated** | Primary for a nearby weaker claim | Direct inspection of Coolidge pp. 390-392 confirms a classical discussion of nine and ten double points on rational sextics, but the exact MathOverflow paraphrase of "Theorem 28" was not yet isolated verbatim from the primary text | Cite Coolidge for configuration constraints on nine/ten double points, not yet for the stronger MO theorem wording |
 | K3/period moduli give explicit equations | **Retracted** | None | Moduli sources are existence statements only | "Moduli theory proves existence, not constructibility" |
 | Steiner sextics produce 10-nodal curves | **Retracted** | None | Steiner constructions produce different node counts | "Steiner constructions are not relevant to 10-node case" |
 | Generic parametrization approach is classical | **Unsupported** | None | No classical source found for this specific approach | Do not claim classical status for generic parametrization |
@@ -35,24 +35,40 @@ verification.
 
 ## 3. Verified Families with Exact Support Level
 
-### 3.1 COOLIDGE THEOREM 28 — STATUS: UNSUPPORTED
+### 3.1 COOLIDGE THEOREM 28 — STATUS: PRIMARY INSPECTED; CLAIM AS STATED STILL UNSUPPORTED
 
 **Reported Source**: Julian Lowell Coolidge, "A Treatise on Algebraic Plane Curves"
 (1928), Theorem 28, p. 392
 
 **What I Actually Verified**:
-- MathOverflow answer (Francesco Polizzi, Dec 2020) cites "Coolidge's Theorem 28, p.
-  392"
-- The MO answer provides a proof reconstruction based on Coolidge
-- I have NOT directly inspected Coolidge's treatise
-- Therefore: source quality is **None**, not "Primary"
+- I directly inspected the machine-readable OCR text of the 1931 Oxford scan available
+  via Internet Archive item `dli.ernet.524477`, aligned with printed p. 392 using the
+  archive page-number JSON.
+- Coolidge explicitly discusses the sextic threshold where nine assigned double points
+  are no longer arbitrary because a nondegenerate sextic must form a superabundant base.
+- Coolidge also explicitly writes: "Suppose, now, that our sextic is rational, and so
+  has ten double points.
+  How must they lie?"
+- This confirms that pp.
+  390-392 genuinely contain the classical nine-/ten-node rational-sextic discussion that
+  later summaries point to.
+- I also inspected the MathOverflow answer (Francesco Polizzi, Dec.
+  2020), which reconstructs a theorem from Coolidge's surrounding propositions.
+- However, I did **not** isolate a clean verbatim primary-text theorem statement
+  matching the exact MathOverflow paraphrase of "Theorem 28, p. 392".
 
 **Exact Statement** (from MathOverflow summary): Let $S = \{P_1, \ldots, P_{10}\}
 \subset \mathbb{P}^2$ such that for any $i$, there is an irreducible sextic curve
 singular along $S \setminus P_i$; then there is an irreducible sextic curve singular
 along all of $S$.
 
-**Support Level**: UNSUPPORTED — I did not inspect the primary source.
+**Support Level**:
+
+- **Verified for the weaker claim** that Coolidge directly studies the geometric
+  constraints on nine and ten double points of rational sextics at the cited location.
+- **Unsupported as stated** for the stronger MathOverflow paraphrase until the exact
+  theorem wording is isolated directly from a better primary-text extraction or page
+  image.
 
 * * *
 
@@ -125,11 +141,13 @@ along all of $S$.
 
 The following defects were identified in the prior audit:
 
-1. **Coolidge "Primary" misclassification**: I cited Coolidge as a "verified primary
-   source" based only on a MathOverflow summary.
-   I did not inspect Coolidge's treatise directly.
-   This is a tertiary → secondary → primary error chain.
-   The correct classification is **Unsupported**.
+1. **Coolidge theorem-overreach**: I previously treated the MathOverflow paraphrase as
+   if it were already a directly verified theorem statement from Coolidge.
+   I have now inspected the primary source and confirmed the surrounding classical
+   nine-/ten-node discussion, but I still have not isolated a verbatim theorem statement
+   matching the exact MathOverflow wording.
+   The corrected classification is therefore: **primary inspected for a nearby weaker
+   claim; unsupported as stated for the stronger paraphrase**.
 
 2. **Thas/Desargues source-chain collapse**: I previously treated the unavailable MPI
    abstract as if it were enough to support the full claim.
@@ -156,7 +174,6 @@ Based on audited evidence, ranked by what could theoretically be verified:
 
 **Route**: Actually inspect the primary sources that were only cited indirectly.
 
-- Obtain Coolidge (1928) "A Treatise on Algebraic Plane Curves", Theorem 28, p. 392
 - Obtain Thas publication on Desargues configurations and sextics
 - Verify whether these theorems actually say what prior reports claimed
 
@@ -193,9 +210,11 @@ of a 10-nodal rational sextic.
 
 ## 6. Open Gaps Requiring Manual/Source-Level Follow-Up
 
-1. **Inspect Coolidge (1928) directly**: Obtain the treatise, verify Theorem 28 exists
-   and has the stated content.
-   Do not rely on MathOverflow summaries.
+1. **Resolve the exact Coolidge theorem wording**: the primary text has now been
+   inspected and it does support the surrounding nine-/ten-node rational-sextic
+   discussion, but the exact stronger theorem wording quoted in MathOverflow still needs
+   a cleaner direct extraction or page-image confirmation before it can be cited as
+   such.
 
 2. **Resolve the Thas attribution / uniqueness layer**: Determine whether Dolgachev's
    unavailable MPI abstract intended the 1994 C. Thas paper or some separate J. Thas
@@ -214,14 +233,18 @@ of a 10-nodal rational sextic.
 
 ## Summary
 
-- **Unsupported as stated**: Coolidge (not directly verified), the stronger
-  Thas/Desargues uniqueness claim, and all other claimed families
+- **Unsupported as stated**: the stronger MathOverflow paraphrase of Coolidge Theorem
+  28, the stronger Thas/Desargues uniqueness claim, and all other claimed families
 - **Direct primary support for a weaker claim**: C. Thas (1994) constructs a rational
   sextic with ten nodes from a Desargues configuration and gives a rational
   parametrization, based on the directly inspected journal abstract
+- **Direct primary support for a nearby classical discussion**: Coolidge directly treats
+  the nine-/ten-node rational-sextic configuration problem on the cited pages, even
+  though the exact stronger theorem wording still needs cleaner extraction before use
 - **Retracted**: All claims that prior report made about Coble equations, Halphen
   guarantees, Steiner relevance, K3 explicitness, generic parametrization as classical
-- **Core gap**: No explicit sextic equations found in literature; the entire
-  construction family literature is existential or configuration-theoretic
+- **Core gap**: No directly inspected full-text explicit sextic equations have been
+  verified in-repo; the surviving literature support is still configuration-theoretic,
+  except for the weaker constructive Desargues route recorded from C. Thas (1994)
 - **Audit defect**: Prior report incorrectly classified source quality levels due to not
   actually inspecting primary sources

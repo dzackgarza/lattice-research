@@ -119,16 +119,18 @@ Goal: make the literature status of explicit sextic families consistent across t
 
 ### Phase 1
 
-- [ ] Inspect Coolidge directly
+- [x] Inspect Coolidge directly and downgrade the stronger theorem wording to the exact
+  level supported by the primary text
 - [x] Inspect the surviving Desargues/Thas primary-source lead directly and split the
   weaker existence claim from the stronger uniqueness wording
 
 ### Phase 2
 
-- [ ] Normalize canonical repo phrasing for explicit-family support levels
+- [x] Normalize canonical repo phrasing for explicit-family support levels, while
+  keeping the remaining stronger-source wording explicitly unresolved
 
 ### Quality Gates
 
 - [x] A literature-first source-audit thread is the active plan
-- [ ] Support levels are source-backed or explicitly unresolved
-- [ ] Canonical prose no longer blurs repo-native and literature-backed examples
+- [x] Support levels are source-backed or explicitly unresolved
+- [x] Canonical prose no longer blurs repo-native and literature-backed examples

@@ -18,6 +18,9 @@
   The existing Task 1.1 examples should still be treated as repo-native computational
   constructions unless and until a directly inspected source yields explicit equations
   or a comparable full construction record.
+- Coolidge has now been directly inspected for the classical nine-/ten-node discussion,
+  but the stronger all-ten-from-any-nine theorem wording quoted via MathOverflow still
+  needs a cleaner primary-text extraction before the repo should cite it in that form.
 
 ## Computation-to-literature interface gaps
 
@@ -50,9 +53,9 @@
 
 ## Immediate next targets
 
-- Obtain direct source access for the remaining explicit-family leads before citing
-  stronger statements, especially Coolidge and any source that clarifies the stronger
-  uniqueness / `J. Thas` attribution beyond C. Thas (1994).
+- Resolve the remaining stronger-source wording questions before citing them as settled,
+  especially the stronger all-ten-from-any-nine Coolidge paraphrase and any source that
+  clarifies the uniqueness / `J. Thas` attribution beyond C. Thas (1994).
 - Add one canonical audit note for the exact-coordinate rendering path used by Task 1.1,
   so that result does not live only in code and raw output artifacts.
 - Triage the remaining `.orig` / temporary debris separately from the mathematical work.

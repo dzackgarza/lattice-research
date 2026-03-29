@@ -16,6 +16,12 @@ Use it before adding new derivations or background prose.
     Desargues configuration and gives a rational parametrization.
     Do not upgrade this to the stronger uniqueness claim unless the full text or another
     directly inspected source supports that wording.
+- **J. L. Coolidge (1931)**: *A Treatise on Algebraic Plane Curves*. Oxford University
+  Press.
+  - Use for: the classical discussion on pp.
+    390-392 of configuration constraints for nine and ten double points on rational
+    sextics. Do not upgrade this to the stronger MathOverflow paraphrase of “Theorem 28,
+    p. 392” unless the exact theorem wording is isolated directly from the primary text.
 - **A. B. Coble (1929)**: *Algebraic Geometry and Theta Functions*. American
   Mathematical Society.
   - Use for: classical background on the point-configuration geometry surrounding Coble
