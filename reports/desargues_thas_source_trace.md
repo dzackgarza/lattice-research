@@ -23,8 +23,12 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
   Desargues configuration of lines and points formed by two perspective triangles in the
   projective plane can serve as the ten nodes of a unique rational plane curve of degree
   6."
-- **Status**: UNAVAILABLE — Returns HTTP 404 when accessed directly (confirmed
-  2026-03-28)
+- **Status**: LIVE URL UNAVAILABLE, but a Wayback snapshot is directly inspectable
+- **Wayback URL**:
+  `https://web.archive.org/web/20200803181625/https://www.mis.mpg.de/calendar/lectures/2016/abstract-19678.html`
+- **Archived evidence**: the snapshot states, "A beautiful theorem of J. Thas asserts
+  that the ten points of a Desargues configuration ... can serve as the ten nodes of a
+  unique rational plane curve of degree 6."
 
 ### Source 2: C. Thas (1994) journal article
 
@@ -56,9 +60,9 @@ plane can serve as the ten nodes of a unique rational plane curve of degree 6"*:
 
 - Searched combinations: "J. Thas Desargues configuration sextic", "Thas unique rational
   sextic", "Desargues configuration 10 nodes sextic", "Joseph Thas plane curves"
-- **Result**: The MPI abstract is the only source found that attributes the stronger
-  uniqueness claim specifically to J. Thas, but a directly inspected 1994 paper by C.
-  Thas does support the weaker existence/construction claim
+- **Result**: The archived MPI abstract is the only directly inspected source found that
+  attributes the stronger uniqueness claim specifically to J. Thas, while a directly
+  inspected 1994 paper by C. Thas supports only the weaker existence/construction claim
 - No independent verification, citation, or discussion found in any mathematical
   database, preprint server, or lecture notes
 
@@ -80,8 +84,8 @@ No directly inspected source was found that:
 - Explains whether the cited source is C. Thas (1994), J. Thas, or another work
 
 The claim currently survives in the searched material only as:
-- A lecture announcement abstract (now 404)
-- A search engine snippet preserved in indices
+- An archived lecture announcement abstract by Dolgachev
+- Search engine snippets preserved in indices
 
 ## 4. Negative Findings and Remaining Gaps
 
@@ -99,14 +103,16 @@ The claim currently survives in the searched material only as:
 - **Gaps**: Full-text inspection of the 1994 paper; possible separate unpublished
   lecture or conference source behind Dolgachev's wording
 
-### Gap 2: MPI Abstract Unavailable
+### Gap 2: Live MPI URL unavailable, but archived abstract does not resolve the primary source
 
 - **Searched**: Direct URL
   https://www.mis.mpg.de/calendar/lectures/2016/abstract-19678.html
-- **Found**: HTTP 404 error — page no longer exists
-- **Conclusion**: The only direct source for the claim is inaccessible
-- **Confidence**: High (verified twice)
-- **Gaps**: No cached version or archive.org snapshot found in this search
+- **Found**: HTTP 404 at the live URL, but a Wayback snapshot preserves the abstract
+  text with the stronger uniqueness wording and the `J. Thas` attribution
+- **Conclusion**: The abstract itself is now directly inspectable as a secondary source,
+  but it still does not identify the underlying primary theorem source
+- **Confidence**: High
+- **Gaps**: Any bibliography, slides, or full-text notes behind Dolgachev's attribution
 
 ### Gap 3: No independent source found for the stronger uniqueness wording
 
@@ -139,15 +145,15 @@ stronger source trail, the following phrasing is recommended:
 > **"A directly inspected paper by C. Thas (Geom.
 > Dedicata 51 (1994)) constructs a rational plane sextic of degree 6 with a node at each
 > point of a Desargues configuration and gives a rational parametrization.
-> A stronger uniqueness statement, attributed in an unavailable MPI abstract to J. Thas,
-> has not yet been independently verified."**
+> A stronger uniqueness statement, attributed in an archived Dolgachev MPI abstract to
+> J. Thas, has not yet been tied to a directly inspected primary source."**
 
 Alternatively, if the result must be mentioned without verification:
 
 > **"According to a directly inspected abstract by C. Thas (1994), a Desargues
 > configuration gives rise to a rational 10-nodal plane sextic with a rational
-> parametrization. The stronger uniqueness wording seen in an unavailable MPI abstract
-> has not yet been independently verified."**
+> parametrization. The stronger uniqueness wording seen in an archived Dolgachev MPI
+> abstract has not yet been tied to a directly inspected primary source."**
 
 * * *
 
@@ -155,8 +161,11 @@ Alternatively, if the result must be mentioned without verification:
 
 - **Primary source found in searched sources**: YES, for the weaker existence/
   construction claim via C. Thas (1994)
-- **Claim verifiable from searched sources**: YES for existence/construction; NO for the
-  stronger uniqueness wording and exact J. Thas attribution
-- **Recommendation**: Cite C. Thas (1994) for the existence/construction claim only, and
-  keep the stronger uniqueness wording marked unverified until a directly inspected
-  source is found
+- **Direct secondary source found in searched sources**: YES, for the stronger
+  uniqueness wording via Dolgachev's archived MPI abstract
+- **Claim verifiable from searched sources**: YES for existence/construction; YES at the
+  secondary-source level for the stronger uniqueness wording; NO for a directly
+  inspected primary source behind the `J. Thas` attribution
+- **Recommendation**: Cite C. Thas (1994) for the existence/construction claim, and if
+  the stronger uniqueness wording must be mentioned, attribute it to Dolgachev's
+  archived abstract while keeping the underlying primary source unresolved

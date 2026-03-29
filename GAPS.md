@@ -7,12 +7,12 @@
   especially the longer proof notes in `proofs/solved/`.
 - A clean literature-backed statement of the precise variant of the moduli claim used by
   this repo is still missing from repo prose.
-- The stronger Desargues/Thas uniqueness claim is still unverified.
-  `reports/task1_1_family_report_audit.md` and `reports/desargues_thas_source_trace.md`
-  now record a directly inspected primary source — C. Thas, *A rational sextic
-  associated with a Desargues configuration* (1994) — for the weaker existence/
-  construction claim, but the unavailable MPI abstract's stronger uniqueness wording and
-  exact `J. Thas` attribution remain unresolved.
+- The stronger Desargues/Thas uniqueness claim is now directly inspectable at the
+  secondary-source level via Dolgachev's archived 2016 MPI abstract, while C. Thas, *A
+  rational sextic associated with a Desargues configuration* (1994), remains the
+  directly inspected primary source for the weaker existence/construction claim.
+  The underlying `J. Thas` primary source behind the stronger uniqueness wording remains
+  unresolved.
 - A literature-backed explicit polynomial family for a 10-nodal rational sextic is still
   not yet verified in-repo at the level of directly inspected full-text formulas.
   The existing Task 1.1 examples should still be treated as repo-native computational

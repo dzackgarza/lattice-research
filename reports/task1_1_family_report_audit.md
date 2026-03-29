@@ -23,7 +23,7 @@ verification.
 | Claim | Verdict | Source Quality | Exact Support | Safe Repo Phrasing |
 | --- | --- | --- | --- | --- |
 | Coble (1919) gave explicit sextic equations | **Retracted** | None | No evidence found — Coble's papers study configuration geometry, not explicit equations | "Coble studied the configuration geometry of 10-nodal sextics" |
-| Desargues configuration + Thas gives unique sextic | **Unsupported** | Primary for weaker existence claim; none for uniqueness | Direct Springer abstract for C. Thas (1994) supports existence/construction of a rational sextic with ten nodes from a Desargues configuration, but not the stronger uniqueness claim or the exact J. Thas attribution in the MPI snippet | Cite C. Thas (1994) only for existence/construction, not uniqueness |
+| Desargues configuration + Thas gives unique sextic | **Secondary supported for uniqueness; primary for weaker existence** | Primary for weaker existence claim; archived secondary source for uniqueness | C. Thas (1994) directly supports existence/construction of a rational sextic with ten nodes from a Desargues configuration, while an archived 2016 Dolgachev abstract directly attributes the stronger uniqueness claim to `J. Thas`; the underlying primary `J. Thas` source is still unresolved | Cite C. Thas (1994) for existence/construction; if mentioning uniqueness, attribute it to Dolgachev's archived abstract and keep the underlying `J. Thas` source unresolved |
 | Halphen index-2 guarantees rational 10-nodal sextic | **Retracted** | None | Halphen framework exists but no theorem found guaranteeing rational member | "Halphen pencils provide a framework — rationality condition is subtle" |
 | Coolidge Theorem 28 gives existence | **Unsupported as stated** | Primary for a nearby weaker claim | Direct inspection of Coolidge pp. 390-392 confirms a classical discussion of nine and ten double points on rational sextics, but the exact MathOverflow paraphrase of "Theorem 28" was not yet isolated verbatim from the primary text | Cite Coolidge for configuration constraints on nine/ten double points, not yet for the stronger MO theorem wording |
 | K3/period moduli give explicit equations | **Retracted** | None | Moduli sources are existence statements only | "Moduli theory proves existence, not constructibility" |
@@ -72,11 +72,11 @@ along all of $S$.
 
 * * *
 
-### 3.2 THAS/DESARGUES CONFIGURATION — STATUS: PARTIALLY VERIFIED / CLAIM AS STATED STILL UNSUPPORTED
+### 3.2 THAS/DESARGUES CONFIGURATION — STATUS: PRIMARY VERIFIED FOR THE WEAKER CLAIM; ARCHIVED SECONDARY SUPPORT FOR THE STRONGER UNIQUENESS WORDING
 
 **Reported Source**: J. Thas, theorem cited in:
 - Igor Dolgachev, "Coble surfaces and Desargues configurations" (MPI lecture abstract
-  2016\) — **UNAVAILABLE (404 error)**
+  2016\) — current URL 404, but an archived copy is directly inspectable via Wayback
 
 **Directly inspected primary source**:
 
@@ -84,16 +84,20 @@ along all of $S$.
   Dedicata* 51 (1994), 163–180. DOI: `10.1007/BF01265327`.
 
 **What I Actually Verified**:
-- The MPI abstract that supposedly contains the stronger J. Thas uniqueness statement
-  returns 404.
+- The live MPI abstract URL returns 404, but an archived Wayback copy is directly
+  inspectable and states: "A beautiful theorem of J. Thas asserts that the ten points of
+  a Desargues configuration ... can serve as the ten nodes of a unique rational plane
+  curve of degree 6."
 - The Springer landing page for C. Thas (1994) gives a directly inspected abstract
   stating: "We construct a rational curve of order 6 which has a node at each of the ten
   points" of a Desargues configuration and "find a rational parametric representation of
   it."
 - This directly supports a weaker claim: a Desargues configuration can be used to
   produce a rational sextic with ten nodes.
-- The abstract I inspected does **not** verify the stronger uniqueness statement from
-  the MPI snippet, and it does not resolve whether Dolgachev's cited "J. Thas" is a
+- The archived Dolgachev abstract directly supports the stronger uniqueness wording as a
+  secondary attribution.
+- No directly inspected primary source yet verifies that stronger uniqueness statement,
+  and the archived abstract does not resolve whether Dolgachev's cited "J. Thas" is a
   typo, different author, or a separate source trail.
 
 **Exact Statement**:
@@ -108,9 +112,10 @@ along all of $S$.
 
 - **Verified for the weaker existence/construction claim** via the directly inspected
   abstract of C. Thas (1994).
-- **Unsupported for the stronger uniqueness / J. Thas attribution claim** because the
-  MPI abstract is unavailable and no matching directly inspected source has yet been
-  tied to that exact wording.
+- **Secondary supported for the stronger uniqueness wording** via the directly inspected
+  archived Dolgachev abstract.
+- **Still unresolved at the primary-source level** because no directly inspected
+  `J. Thas` publication has yet been tied to that exact wording.
 
 * * *
 
@@ -149,12 +154,13 @@ The following defects were identified in the prior audit:
    The corrected classification is therefore: **primary inspected for a nearby weaker
    claim; unsupported as stated for the stronger paraphrase**.
 
-2. **Thas/Desargues source-chain collapse**: I previously treated the unavailable MPI
-   abstract as if it were enough to support the full claim.
-   The better split is: C. Thas (1994) directly supports existence/construction of a
-   rational 10-nodal sextic from a Desargues configuration, while the stronger
-   uniqueness wording and the exact "J. Thas" attribution remain unsupported until
-   directly tied to an inspected source.
+2. **Thas/Desargues source-chain collapse**: I previously treated the MPI layer as if it
+   were either unavailable noise or enough to support the full claim.
+   The better split is now: C. Thas (1994) directly supports existence/construction of a
+   rational 10-nodal sextic from a Desargues configuration; Dolgachev's archived 2016
+   abstract directly supports the stronger uniqueness wording as a secondary
+   attribution; the exact "J. Thas" primary source remains unresolved until directly
+   tied to an inspected source.
 
 3. **Wikipedia citation**: I cited Wikipedia as a source in section 3.2. Wikipedia is
    NOT an acceptable source class for mathematical claims in this audit.
@@ -217,8 +223,8 @@ of a 10-nodal rational sextic.
    such.
 
 2. **Resolve the Thas attribution / uniqueness layer**: Determine whether Dolgachev's
-   unavailable MPI abstract intended the 1994 C. Thas paper or some separate J. Thas
-   source, and whether any directly inspected source actually states uniqueness.
+   archived MPI abstract intended the 1994 C. Thas paper or some separate J. Thas
+   source, and whether any directly inspected primary source actually states uniqueness.
 
 3. **Determine if any explicit equations exist**: Search systematically for any source
    that provides an explicit polynomial equation of a 10-nodal rational sextic.
@@ -233,11 +239,14 @@ of a 10-nodal rational sextic.
 
 ## Summary
 
-- **Unsupported as stated**: the stronger MathOverflow paraphrase of Coolidge Theorem
-  28, the stronger Thas/Desargues uniqueness claim, and all other claimed families
+- **Unsupported as stated**: the stronger MathOverflow paraphrase of Coolidge Theorem 28
+  and all remaining claimed families that still lack direct support
 - **Direct primary support for a weaker claim**: C. Thas (1994) constructs a rational
   sextic with ten nodes from a Desargues configuration and gives a rational
   parametrization, based on the directly inspected journal abstract
+- **Direct secondary support for a stronger claim**: Dolgachev's archived 2016 MPI
+  abstract attributes to `J. Thas` the stronger uniqueness statement for the
+  Desargues-configuration sextic, but the underlying primary source remains unresolved
 - **Direct primary support for a nearby classical discussion**: Coolidge directly treats
   the nine-/ten-node rational-sextic configuration problem on the cited pages, even
   though the exact stronger theorem wording still needs cleaner extraction before use
