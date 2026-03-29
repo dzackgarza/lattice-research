@@ -6,10 +6,10 @@
   decomposition and an integral lattice involution, but the directive layer still talks
   as if theta verification were the next step.
 - Target state: the repo's active docs state the exact post-theta status clearly and
-  make one narrow follow-on task explicit: record what the current computation proves,
-  and what still belongs to the literature-backed interpretation layer.
-- Why this matters: after a hard-won exact verification pass, stale blocked-language is
-  just as misleading as stale solved-language was earlier.
+  route readers to one canonical note for what the current computation proves, and what
+  still belongs to the literature-backed interpretation layer.
+- Why this mattered: after a hard-won exact verification pass, stale blocked-language
+  was just as misleading as stale solved-language had been earlier.
 
 ## Constraints
 
@@ -85,6 +85,8 @@ Goal: state what the glued-model involution proves and what it does not yet clai
 - The canonical route note stays accurate after the successful glued-model check.
 - One follow-on prose target is named for claim-boundary alignment.
 - The repo index points directly to the canonical post-theta boundary note.
+- Historical Task 5.1 log entries no longer tell readers to redo the primitive/
+  complement/theta construction.
 
 ## Risks / Rollback
 
@@ -125,3 +127,4 @@ Goal: state what the glued-model involution proves and what it does not yet clai
 - [x] Directive files match the verified post-theta state
 - [x] The route note no longer instructs completed work
 - [x] A single canonical post-theta note exists and is indexed
+- [x] Live historical Task 5.1 prose no longer advertises the old blocker as active

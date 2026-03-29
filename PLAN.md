@@ -8,12 +8,14 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- `plans/2026-03-28-task5_1-status-alignment.md` — current Task 5.1 follow-on plan for
-  normalizing repo status after the exact theta verification and clarifying what the
-  verified glued model now proves.
+- `plans/2026-03-29-explicit-family-source-audit.md` — current literature-first plan for
+  verifying or retiring claimed classical explicit-family routes for 10-nodal rational
+  sextics.
 
 ## Recently completed plans
 
+- `plans/2026-03-28-task5_1-status-alignment.md` — completed post-theta status-alignment
+  plan; live Task 5.1 prose now routes readers to the canonical exact involution note.
 - `plans/2026-03-28-task5_1-theta-verification.md` — completed exact theta-verification
   plan; the sign action now passes integrality and isometry checks on the explicit glued
   ambient lattice.
@@ -35,8 +37,8 @@ support those claims, they do not substitute for them.
 ## Current priorities
 
 - Centralize the literature spine in `REFERENCES.md`.
-- Keep live Task 5.1 prose aligned with the exact post-theta status and remove stale
-  blocked or pre-theta language.
+- Verify direct sources for claimed explicit 10-nodal sextic families before citing
+  them, beginning with Coolidge and any real source behind the Thas attribution.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
 - Use `audit/task5_1_exact_involution_note.md` as the canonical post-theta boundary

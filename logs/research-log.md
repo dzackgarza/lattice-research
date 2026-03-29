@@ -141,9 +141,9 @@ embedding. In E8, selecting mutually orthogonal simple roots (e.g., α_0, α_2, 
 generates a D4 sublattice that has index 2 in its saturation.
 This propagates to the full S_Co ⊕ T_Co embedding.
 
-For a truly primitive embedding, one would need to:
-1. Saturate the lattice (find vectors v such that 2v is in the lattice but v is not)
-2. Or use a different construction avoiding E8 root lattice issues
+This historical obstruction was later bypassed by the exact glued-model route recorded
+in `audit/task5_1_exact_involution_note.md`, which replaced the old embedding attempt
+with a verified primitive model before defining the involution.
 
 **Tools Developed**:
 
@@ -164,10 +164,12 @@ For a truly primitive embedding, one would need to:
 - [ConwaySloane] E8 root system, orthogonal vectors, and lattice saturation
 - [BourbakiLie4-6] E8 Dynkin diagram and orthogonal root sets
 
-**Next Steps**:
+**Later update**:
 
-- For primitive embedding: implement lattice saturation algorithm
-- Task 2.1: Enumerate isotropic vectors in A_{T_Co} and compute O(q_T)-orbits
+- The primitive-embedding part of this route was later superseded by the explicit glued
+  ambient lattice used by `computations/task5_1_involution.sage`.
+- The follow-on discriminant/orbit work remained relevant, but Task 5.1 itself no longer
+  depends on implementing the saturation algorithm proposed here.
 
 * * *
 
@@ -338,12 +340,12 @@ The uniqueness of $\widetilde{B}_7(2)$ confirms the lattice-theoretic descriptio
 - [Nikulin1979] Section 3: Reflection groups and Coxeter diagrams
 - [BourbakiLie4-6] Classification of affine Dynkin diagrams
 
-**Next Steps**:
+**Later update**:
 
-- Task 4.2: (if needed) Further analysis of other maximal parabolic subdiagrams
-- Task 5.1: Construct explicit involution matrix $\theta$ and verify sublattice
-  invariants
-- Task 6.1: Map Coble polarization to surgery vector $\ell$ and verify slc stability
+- Task 5.1 is no longer pending from this point in the log; see
+  `audit/task5_1_exact_involution_note.md` for the canonical exact post-theta status.
+- The remaining follow-on work from this section is interpretive rather than raw lattice
+  construction.
 
 * * *
 

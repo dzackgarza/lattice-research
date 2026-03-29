@@ -28,9 +28,10 @@
   replaces it with a verified glued-model route: primitive `S_Co \hookrightarrow Λ_K3`,
   true orthogonal complement, and a sign involution that is integral and satisfies
   `θ ∈ O(Λ_K3)` on that explicit ambient lattice model.
-- The remaining Task 5.1 gap is no longer raw existence of `θ`; it is to align repo
-  prose and claim boundaries with what this exact glued-model verification proves, and
-  what it still does not claim about the broader geometric or moduli interpretation.
+- The remaining Task 5.1 gap is no longer raw existence of `θ`; it is to keep longer
+  prose and literature-facing claims consistent with
+  `audit/task5_1_exact_involution_note.md` without overclaiming beyond the verified
+  glued model.
 - `audit/task5_1_route_reset.md` remains canonical for the route order: primitive
   embedding and orthogonal complement first, involution only afterward; CARAT remains
   auxiliary only on finite positive-definite subproblems.
@@ -41,13 +42,13 @@
 
 - Planning has been reset, but `.orig` / temporary debris still exists elsewhere in the
   repo and should be triaged separately rather than mixed into mathematical work.
-- Some live historical prose still needs post-theta boundary alignment, especially
-  `audit/final_audit_report.md`.
+- `.orig` backups and temporary artifacts continue to accumulate around edited files and
+  should be triaged in a dedicated cleanup pass.
 
 ## Immediate next targets
 
-- Propagate `audit/task5_1_exact_involution_note.md` into the remaining live Task 5.1
-  status prose so the exact post-theta route is the only active one in current docs.
 - Obtain direct source access for the remaining explicit-family leads before citing
   them, especially Coolidge and any actual source behind the Thas attribution.
+- Add one canonical audit note for the exact-coordinate rendering path used by Task 1.1,
+  so that result does not live only in code and raw output artifacts.
 - Triage the remaining `.orig` / temporary debris separately from the mathematical work.
