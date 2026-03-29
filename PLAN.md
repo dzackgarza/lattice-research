@@ -8,12 +8,15 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- `plans/2026-03-29-explicit-family-source-audit.md` — current literature-first plan for
-  verifying or retiring claimed classical explicit-family routes for 10-nodal rational
-  sextics.
+- `plans/2026-03-29-stronger-source-boundary-audit.md` — current literature-first plan
+  for resolving the remaining stronger-wording boundaries around Coolidge's theorem
+  paraphrase and the archived `J. Thas` uniqueness attribution.
 
 ## Recently completed plans
 
+- `plans/2026-03-29-explicit-family-source-audit.md` — completed source-audit plan;
+  surviving explicit-family leads are now split into direct primary support, archived
+  secondary support, and unresolved stronger-source wording.
 - `plans/2026-03-28-task5_1-status-alignment.md` — completed post-theta status-alignment
   plan; live Task 5.1 prose now routes readers to the canonical exact involution note.
 - `plans/2026-03-28-task5_1-theta-verification.md` — completed exact theta-verification
@@ -37,8 +40,9 @@ support those claims, they do not substitute for them.
 ## Current priorities
 
 - Centralize the literature spine in `REFERENCES.md`.
-- Verify direct sources for claimed explicit 10-nodal sextic families before citing
-  them, beginning with Coolidge and any real source behind the Thas attribution.
+- Resolve the remaining stronger-source wording boundaries before citing them as
+  settled, especially the stronger Coolidge all-ten-from-any-nine paraphrase and any
+  source clarifying the archived `J. Thas` uniqueness attribution.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
 - Use `audit/task5_1_exact_involution_note.md` as the canonical post-theta boundary
