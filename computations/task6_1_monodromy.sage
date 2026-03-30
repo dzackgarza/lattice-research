@@ -67,7 +67,7 @@ print("\n" + "=" * 80)
 print("[Step 1] Loading Precomputed Lattices and Polarizations")
 print("=" * 80)
 
-load("computations/coble_geometry.sage")
+load("coble_geometry.sage")
 
 # Construct T_Co from primitive S_Co embedding
 L = K3_lattice()

@@ -32,7 +32,7 @@ print("Task 1.3 (Fixed): Rigorous Embedding Verification")
 print("=" * 80)
 print()
 
-load("computations/coble_geometry.sage")
+load("coble_geometry.sage")
 
 ###############################################################################
 # Section 1: Construct Standard Lattices
