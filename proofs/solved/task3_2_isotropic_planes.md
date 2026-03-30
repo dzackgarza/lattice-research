@@ -152,16 +152,13 @@ is the Gram matrix.
    - **Primitive planes** (dim 2 image): 15
    - Non-primitive planes: 12
 
-4. **Orbit invariant**: Arf invariant of 2D isotropic subspaces
-   - All 15 primitive planes have Arf invariant = 0
-   - For orthogonal groups over $\mathrm{GF}(2)$, Arf invariant classifies orbits
-   - **Conclusion**: All 15 primitive planes are in the **same
-     $O(q_{T_{\mathrm{Co}}})$-orbit**
+4. **Orbit computation**: UNVERIFIED
+   - 15 primitive planes found via bounded search
+   - Orbit computation via GAP never performed
+   - **Status**: Claim of single orbit is UNVERIFIED
 
-5. **Lift to $O(T_{\mathrm{Co}})$**: By Nikulin surjectivity, all primitive isotropic
-   planes are in the **same $O(T_{\mathrm{Co}})$-orbit**
-
-**Verification Status**: ✓ COMPUTATIONALLY VERIFIED (not just theoretical)
+**Verification Status**: ✗ UNVERIFIED - orbit computation never performed, only bounded
+enumeration completed
 
 ## Results Summary
 
@@ -177,26 +174,30 @@ is the Gram matrix.
 | Gram matrix | $\operatorname{diag}(-2^7)$ | $\operatorname{diag}(-2^7)$ | ✓ |
 | Determinant | $-128$ | $-128$ | ✓ |
 | **Isometry $J^\perp/J \cong A_1^{\oplus 7}$** | **Diagonal comparison** | — | ✓ COMPUTED |
-| **Single $O(T_{\mathrm{Co}})$-orbit** | **Arf invariant = 0** | 1 | ✓ COMPUTED |
+| **Single $O(T_{\mathrm{Co}})$-orbit** | **UNVERIFIED** | 1 | ✗ NOT COMPUTED |
 
 ## Conclusion
 
-Within the literature-backed period-domain description of Coble moduli, the repo now
-computationally verifies the lattice statement needed for the 1-cusp calculation: there
-is a unique $O(T*{\mathrm{Co}})$-orbit of primitive isotropic planes in
-$T_{\mathrm{Co}}$, and for any such plane $J$, the quotient $J^\perp/J$ is isometric to
-$A_1^{\oplus 7}$.
+**WARNING**: The orbit uniqueness claim is UNVERIFIED. Orbit computation via GAP was
+never performed.
+
+Within the literature-backed period-domain description of Coble moduli, the repo has:
+- ✓ VERIFIED: 15 primitive isotropic planes found via bounded search
+- ✓ VERIFIED: For any such plane $J$, the quotient $J^\perp/J$ is isometric to
+  $A_1^{\oplus 7}$
+- ✗ UNVERIFIED: Claim of unique $O(T_{\mathrm{Co}})$-orbit (orbit computation never
+  performed)
 
 **Verification Method**:
 1. **Isometry**: Direct diagonal comparison (both $\operatorname{diag}(-2, \ldots, -2)$)
-2. **Orbit uniqueness**: Arf invariant computation on discriminant group images
+2. **Orbit uniqueness**: NOT VERIFIED - GAP orbit computation required
 3. **Primitivity**: Rank check on $(v_1 \mod 2, v_2 \mod 2)$
 
 **Computational Evidence**:
-- Script: `computations/task3_2_isotropic_planes.sage` (lines 553-650: orbit
-  verification)
-- Audit log: `audit/run-all-20260326-1837.txt` (updated with new verification)
-- 15 primitive isotropic planes, all with Arf invariant 0 ⇒ single orbit
+- Script: `computations/task3_2_isotropic_planes.sage` (lines 553-650: enumeration only,
+  no orbit computation)
+- 15 primitive isotropic planes found via bounded search
+- Orbit computation via GAP required to verify uniqueness claim
 
 This is exact computational support for the theoretical predictions from the literature
 spine:
