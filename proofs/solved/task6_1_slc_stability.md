@@ -21,7 +21,7 @@ Then:
 The compactification and KSBA background are not new repo theorems; they belong to the
 literature spine in `REFERENCES.md`, especially the AEGS compactification layer together
 with the ambient Coble/K3/moduli references summarized in
-`audit/literature_claim_map.md`.
+`audit/literature_claim_map.md` and `audit/moduli_dimension_claim.md`.
 
 This note records the repo-specific computation inside that framework.
 The mapping $h_{Co} \to \ell \to B(\ell) \to (Z, \epsilon C)$ is used here as a
