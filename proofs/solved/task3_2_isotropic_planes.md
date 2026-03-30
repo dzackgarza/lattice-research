@@ -46,12 +46,13 @@ subspace such that the bilinear form restricts to zero on $J$.
 
 ### Theoretical Prediction
 
-From Nikulin's classification of 2-elementary lattices and Sterk's work on Enriques
-moduli, as recorded in `REFERENCES.md`:
+From Nikulin's classification of 2-elementary lattices (Nikulin 1979) and Sterk's work
+on Enriques moduli (Sterk 1991), as recorded in `REFERENCES.md`:
 
 - For $T_{\mathrm{Co}}$ with $(r, a, \delta) = (11, 11, 1)$, the genus contains a unique
-  isometry class
-- The map $O(T_{\mathrm{Co}}) \to O(q_{T_{\mathrm{Co}}})$ is surjective
+  isometry class (Nikulin 1979, Theorem 1.14.2)
+- The map $O(T_{\mathrm{Co}}) \to O(q_{T_{\mathrm{Co}}})$ is surjective (Nikulin 1979,
+  Prop. 1.5.2)
 - Isotropic plane orbits are determined by their images in the discriminant group
 - **Prediction**: There is exactly ONE $O(T_{\mathrm{Co}})$-orbit of isotropic planes
 - For the unique orbit: $J^\perp/J \cong A_1^{\oplus 7}$
