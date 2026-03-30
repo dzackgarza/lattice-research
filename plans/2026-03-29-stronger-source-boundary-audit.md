@@ -126,8 +126,8 @@ Goal: keep canonical repo files aligned with the strongest evidence actually in 
 
 ### Phase 1
 
-- [ ] Resolve or explicitly fence the stronger Coolidge theorem wording
-- [ ] Resolve or explicitly fence the archived `J. Thas` uniqueness attribution
+- [x] Resolve or explicitly fence the stronger Coolidge theorem wording
+- [x] Resolve or explicitly fence the archived `J. Thas` uniqueness attribution
 
 ### Phase 2
 
