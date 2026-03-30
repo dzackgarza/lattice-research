@@ -19,14 +19,18 @@ results.
 
 ## Phase 1 — Fix Task 1.2 T_Co Gram matrix bug
 
-- [ ] Read `computations/task1_2_gram_matrices.sage` (or task1_2_fixed.sage)
-- [ ] Identify where orthogonal complement is computed
-- [ ] Root cause: likely using vectors of norm -1 instead of norm -2
-- [ ] Fix the computation to produce correct diagonal
+- [x] Read `computations/task1_2_gram_matrices.sage` (or task1_2_fixed.sage)
+- [x] Identify where orthogonal complement is computed
+- [x] Root cause: embedding used pairs `(1,1)` producing norm -4 in
+  `diagonal_matrix([-2]*16)`
+- [x] Fix the computation to produce correct diagonal
   `[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]`
-- [ ] Verify determinant is -2048
-- [ ] Regenerate output file
-- [ ] Delegate to Prover subagent to verify fix
+- [x] Verify determinant is -2048
+- [x] Regenerate output file
+- [x] Delegate to Prover subagent to verify fix
+
+**Result**: FIXED. Changed line 110 and embedding construction (lines 127-133). T_Co
+Gram now correct.
 
 ## Phase 2 — Fix Task 1.3 T_Co embedding bug
 

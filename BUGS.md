@@ -19,7 +19,13 @@
 **Root cause**: Likely bug in orthogonal complement computation where vectors of norm -1
 were used instead of norm -2
 
-**Status**: OPEN - needs investigation and fix
+**Status**: FIXED - 2026-03-30
+
+**Fix**: Changed `computations/task1_2_gram_matrices_fixed.sage` line 110 from
+`-identity_matrix(QQ, 16)` to `diagonal_matrix(QQ, [-2]*16)` and fixed embedding
+construction (lines 127-133) to use single coordinates instead of pairs.
+T_Co Gram diagonal now correctly `[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]` with
+determinant -2048.
 
 **Mathematical claims**: The theoretical claims in
 `proofs/solved/task1_2_gram_matrices.md` are correct per Nikulin's classification.
