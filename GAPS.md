@@ -24,9 +24,8 @@
 
 ## Computation-to-literature interface gaps
 
-- Task 1.1 now has `audit/task1_1_birationality_note.md`, but the exact-coordinate
-  rendering path still deserves its own short reusable audit note instead of being
-  recoverable only from code and output files.
+- Task 1.1 now has `audit/task1_1_birationality_note.md` and
+  `audit/task1_1_exact_coordinate_note.md` documenting the exact computation path.
 
 ## Genuine mathematical / implementation gaps
 
