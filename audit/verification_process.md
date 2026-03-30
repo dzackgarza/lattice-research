@@ -140,6 +140,73 @@ This applies to:
 - Algebraic identities (θ² = I, orthogonality)
 - Numerical values (coordinates, matrix entries)
 
+## Mandatory Reporting Standards for Subagents
+
+When delegating verification work, subagents MUST provide:
+
+### 1. Algorithm Description (Step-by-Step)
+
+Every computational approach must be explained algorithmically:
+```
+Algorithm: Enumerate isotropic orbits in discriminant group
+1. Generate all 2048 elements of A_T ≅ (ℤ/2ℤ)^11
+2. For each element v, compute q_T(v) mod 2ℤ
+3. Filter to isotropic elements (q_T(v) = 0)
+4. Compute orbits under O(q_T) action using [specific method]
+5. Count orbit sizes
+```
+
+### 2. Explicit Classification (Mandatory Labels)
+
+Every result must be labeled as one of:
+
+**PROOF**: Mathematically rigorous argument with theorem citations
+- Must cite specific theorems/results (e.g., "By Nikulin Prop 1.5.2...")
+- No bare claims allowed
+- Example: "By Nikulin's surjectivity theorem (Prop 1.5.2), O(T) → O(q_T) is surjective
+  when r = a, therefore all isotropic elements form one orbit under O(q_T)"
+
+**CONJECTURE**: Claim supported by computational evidence but not proven
+- Must explicitly state what's conjectured
+- Must describe supporting evidence
+- Example: "CONJECTURE: All 15 primitive isotropic planes lie in one O(T_Co)-orbit.
+  EVIDENCE: Bounded search in [-12,12]³ found 15 planes, all with same Arf invariant"
+
+**EVIDENCE**: Computational data supporting a claim
+- Must state what claim it supports
+- Must describe limitations/bounds
+- Example: "EVIDENCE for finiteness: Exhaustive search in [-12,12]³ found 15 planes, no
+  additional planes found in expanded search to [-20,20]³"
+
+### 3. Investigation Triggers
+
+Any subagent output that fails to meet these standards triggers mandatory investigation:
+- ❌ Algorithm not explained step-by-step → Investigate: What did the code actually do?
+- ❌ Result not labeled PROOF/CONJECTURE/EVIDENCE → Investigate: Is this proven or
+  conjectured?
+- ❌ "Proof" without theorem citations → Investigate: What justifies this claim?
+- ❌ Bare claims (e.g., "the orbit is unique") → Investigate: Why is this true?
+
+### 4. Delegation Template
+
+When delegating verification work, include these requirements explicitly:
+
+```
+Task: Verify [specific claim]
+
+Requirements:
+1. Describe all algorithms step-by-step
+2. Label every result as PROOF/CONJECTURE/EVIDENCE
+3. For PROOF: cite specific theorems/results
+4. For CONJECTURE: describe supporting evidence and limitations
+5. For EVIDENCE: state what claim it supports and what bounds were used
+
+Report back with:
+- Algorithm description
+- Results with explicit labels
+- Justification for any PROOF claims
+```
+
 ## Examples
 
 ### Good: Task 2.1 Isotropic Orbits
