@@ -669,13 +669,7 @@ For integer matrices, this is equivalent to:
 - Or: M can be completed to a basis of L2
 """
 
-def is_primitive_embedding(M):
-    """Check if integer matrix M defines a primitive embedding."""
-    # Compute Smith normal form
-    S, U, V = M.smith_form()
-    # Primitive iff all diagonal entries of S are 1
-    diagonal = [S[i,i] for i in range(min(S.nrows(), S.ncols()))]
-    return all(d == 1 for d in diagonal)
+# Note: is_primitive_embedding is now imported from coble_geometry.sage
 
 print(f"T_dP → T_En primitive: {is_primitive_embedding(M_dP_En)}")
 print(f"T_En → T_Co primitive: {is_primitive_embedding(M_En_Co)}")
