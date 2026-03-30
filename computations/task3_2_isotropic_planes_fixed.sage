@@ -638,16 +638,30 @@ for v1_mod2, v2_mod2 in discriminant_images:
     gap_planes.append([row1, row2])
 
 # Create GAP code to compute orbits
+# Format planes as proper GAP list
+gap_planes_str = "["
+for i, plane in enumerate(gap_planes):
+    gap_planes_str += "["
+    for j, row in enumerate(plane):
+        gap_planes_str += str(row).replace('[', '[').replace(']', ']')
+        if j < len(plane) - 1:
+            gap_planes_str += ","
+    gap_planes_str += "]"
+    if i < len(gap_planes) - 1:
+        gap_planes_str += ","
+gap_planes_str += "]"
+
 gap_code = f"""
 LoadPackage("forms");;
 V := GF(2)^11;;
 Q := QuadraticFormByMatrix(IdentityMat(11, GF(2)), GF(2));;
 O := OrthogonalGroup(Q);;
 
-planes := {str(gap_planes).replace('[', '').replace(']', '')};;
+planes := {gap_planes_str};;
 plane_subspaces := [];;
 for p in planes do
-    Add(plane_subspaces, Subspace(V, p * One(GF(2))));
+    mat := p * One(GF(2));;
+    Add(plane_subspaces, Subspace(V, mat));;
 od;;
 
 orbit_count := 0;;
