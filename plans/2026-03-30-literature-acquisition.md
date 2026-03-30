@@ -45,20 +45,16 @@ Not found / unavailable (5 sources):
 - [x] Garza (2024) - Does not exist as separate publication (dissertation in progress)
 - [x] Garza (2026) - Dissertation expected May 2025, not yet published
 
-## Phase 2 — Acquire available sources
+## Phase 2 — Acquire available sources [COMPLETE]
 
-Priority order (easiest to hardest):
-1. Author's own papers (Garza 2024, 2026)
-2. Arxiv papers (AEGS 2023, possibly Dolgachev, Friedman, Nikulin)
-3. Archive.org books (Coolidge 1931, Coble 1929)
-4. Institutional repositories (Sterk, Scattone)
-5. JSTOR/paywalled journals (Coble 1917, C. Thas 1994)
+Successfully acquired and extracted 3 sources:
 
-For each acquired source:
-- [ ] Download PDF to papers/ directory
-- [ ] Use reading-pdfs skill to extract markdown
-- [ ] Store extracted markdown in papers/extracted/
-- [ ] Update REFERENCES.md with local file paths
+- [x] Dolgachev & Kondō (2013) - Downloaded to papers/dolgachev_kondo_2013.pdf (177KB,
+  436 lines extracted)
+- [x] AEGS (2023) - Downloaded to papers/aegs_2023.pdf (1.7MB, 1233 lines extracted)
+- [x] C. Thas (1994) - Downloaded to papers/thas_1994.pdf (1MB, 756 lines extracted)
+- [x] All extracted markdown stored in papers/extracted/
+- [x] REFERENCES.md updated with local file paths
 
 ## Phase 3 — Document gaps
 
