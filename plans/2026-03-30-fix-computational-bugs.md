@@ -32,15 +32,13 @@ results.
 **Result**: FIXED. Changed line 110 and embedding construction (lines 127-133). T_Co
 Gram now correct.
 
-## Phase 2 — Fix Task 1.3 T_Co embedding bug
+## Phase 2 — Verify Task 1.3 T_Co embedding
 
-- [ ] Read `computations/task1_3_embeddings.sage` (or task1_3_embeddings_fixed.sage)
-- [ ] Understand why computed T_Co Gram is non-diagonal
-- [ ] Verify discriminant form matches expected q_T
-- [ ] If discriminant form matches: lattices are isometric, just different basis (no
-  bug)
-- [ ] If discriminant form differs: actual bug, needs fix
-- [ ] Delegate to Prover subagent to verify discriminant form
+- [ ] Delegate to Prover: verify discriminant form of computed T_Co matches expected q_T
+- [ ] Note: Signature + determinant do NOT imply isometry for indefinite lattices
+- [ ] If discriminant form matches: likely correct (but not guaranteed isometric)
+- [ ] If discriminant form differs: definite bug, needs fix
+- [ ] Based on Prover result: close Bug 2 or delegate fix
 
 ## Phase 3 — Update BUGS.md
 
