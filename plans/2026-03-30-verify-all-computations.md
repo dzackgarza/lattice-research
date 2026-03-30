@@ -118,7 +118,43 @@ implementations not referenced by proof notes.
 **Next actions**: Continue spot-checking remaining task groups (1.2, 1.3, 2.2, 3.1, 3.2,
 4.1, 5.1, 6.1) with Prover subagent
 
+## Phase 5 — Process Improvement: Fix the Verification Loop
+
+**Critical failure identified**: Assigned impossible task (Task 3.2 primitive isotropic
+plane enumeration) without understanding prerequisites, complexity, or proper
+techniques.
+
+**Broken loop**:
+1. See claim → 2. "Verify this claim" → 3. Delegate → 4. Discover it was impossible
+
+**Correct loop** (mandatory for all future verification work):
+1. **Research**: What techniques exist in literature?
+   What makes this hard?
+   What's known?
+2. **Scope**: Is this computationally verifiable?
+   What prerequisites? What bounds are justified?
+3. **Method**: What approach has mathematical justification?
+   What finiteness arguments?
+4. **Plan**: Break into subtasks with clear acceptance criteria
+5. **Delegate**: Execute with proper technique
+6. **Audit**: Review results against acceptance criteria
+7. **Pivot**: If research reveals complexity, adapt plan - this is expected, not failure
+
+**Process fix**: All verification plans must now include Research and Scoping phases
+BEFORE any delegation.
+Plans must explicitly accommodate pivots when complexity is discovered.
+
+**Example of correct structure**:
+- Task 3.2 should have started with: "Research literature techniques for enumerating
+  primitive isotropic planes in indefinite lattices"
+- Then: "Understand finiteness argument - why are there finitely many?"
+- Then: "Identify proper enumeration method with justified bounds"
+- Only then: "Implement and verify"
+
+**Outcome**: Computational evidence (15 planes found) is valuable even without complete
+proof. The issue was bad task framing, not execution failure.
+
 ## Verification
 
-Phase 1-3: Scripts execute without errors ✓ Phase 4: Mathematical correctness UNVERIFIED
-\- needs Prover subagent work
+Phase 1-3: Scripts execute without errors ✓ Phase 4: Mathematical correctness
+verification via Prover subagent - 9/10 passed Phase 5: Process improvement documented ✓
