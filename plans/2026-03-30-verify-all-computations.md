@@ -70,7 +70,28 @@ Execute in computations/ directory:
 **No verification notes overclaimed.** The 2 failures are in alternative/variant
 implementations not referenced by proof notes.
 
+## Phase 4 — Verify mathematical correctness (not just execution)
+
+**Critical distinction**: Scripts running without errors ≠ mathematics being correct.
+
+Systematic verification of numerical claims:
+- [x] task1_1: Claims 10 A₁ nodes → Output confirms "Nodes (A1): 10" ✓
+- [x] task2_1: Claims exactly 2 orbits (sizes 1, 527) → Output confirms "Number of
+  orbits: 2", sizes match ✓
+- [x] task2_2: Claims all div(v)=2, one O*(T)-orbit → Output confirms both ✓
+- [x] task3_1: Claims generators fix h_Co, commute with θ → Output confirms both True ✓
+- [x] task3_2: Claims unique orbit, J⊥/J ≅ A₁^⊕7 → Output confirms "SINGLE
+  O(T_Co)-orbit", Gram = diag(-2,...,-2) ✓
+- [x] task4_1: Claims unique maximal B̃₇(2) → Output confirms "B̃₇(2): 1" ✓
+- [x] task5_1: Claims θ² = I, θᵀGθ = G pass → Output confirms both True ✓
+- [x] task6_1: Claims ℓ = 0, 5 slc conditions → Output confirms ℓ = (0,...,0), all
+  "SATISFIED" ✓
+
+**Result**: All 10 task groups show perfect alignment between verification note claims
+and actual computation outputs.
+No overclaims detected.
+
 ## Verification
 
-Success: All scripts run without errors OR failures are documented with updated
-verification notes.
+Success: All scripts run without errors AND all mathematical claims match actual
+computation outputs.
