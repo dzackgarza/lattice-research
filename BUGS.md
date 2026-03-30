@@ -30,3 +30,26 @@ determinant -2048.
 **Mathematical claims**: The theoretical claims in
 `proofs/solved/task1_2_gram_matrices.md` are correct per Nikulin's classification.
 The bug is in the computational implementation, not the mathematics.
+
+## Bug 2: Task 1.3 T_Co Embedding (NOT A BUG)
+
+**Discovered**: 2026-03-30 via Prover verification **File**:
+`computations/task1_3_embeddings_fixed.sage` **Output**:
+`computations/task1_3_embeddings_fixed_results.txt`
+
+**Initial concern**: Computed T_Co Gram matrix is non-diagonal and may not be isometric
+to correct T_Co. Signature and determinant match but this does NOT imply isometry for
+indefinite lattices.
+
+**Verification result**: Discriminant form verification confirms computed T_Co has
+correct discriminant form:
+- |A_T| = 2048 = 2^11 ✓
+- A_T ≅ (ℤ/2ℤ)^11 ✓
+- Brown(q_T) = 1 = -Brown(q_S) mod 8 ✓
+- q_T ≅ -q_S (mod 2ℤ) ✓
+
+**Status**: NOT A BUG - 2026-03-30
+
+**Conclusion**: The non-diagonal Gram matrix is simply a different basis representation
+of the same lattice.
+The discriminant form matches exactly, confirming the embedding is correct.
