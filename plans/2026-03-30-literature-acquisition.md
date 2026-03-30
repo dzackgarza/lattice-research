@@ -21,25 +21,29 @@ Current state:
 Acquire machine-parseable versions (PDFs, extracted markdown) of all obtainable sources
 from REFERENCES.md and organize them in a local papers/ directory.
 
-## Phase 1 — Identify obtainable sources
+## Phase 1 — Identify obtainable sources [COMPLETE]
 
-For each source in REFERENCES.md, determine availability:
+Freely available (3 sources):
+- [x] Dolgachev & Kondō (2013) - https://arxiv.org/pdf/1201.6093
+- [x] AEGS (2023) - https://arxiv.org/pdf/2312.03638
+- [x] C. Thas (1994) -
+  https://cjhb.site/Files.php/Books/%28Uncategorized%29/2022-23/rational%20sextic.pdf
 
-- [ ] Coble (1917) - American Journal of Mathematics (check JSTOR, arxiv, institutional
-  access)
-- [ ] C. Thas (1994) - Geometriae Dedicata (KNOWN: behind $39.95 Springer paywall)
-- [ ] Coolidge (1931) - Treatise on Algebraic Plane Curves (check archive.org, Google
-  Books)
-- [ ] Coble (1929) - Algebraic Geometry and Theta Functions (check archive.org, AMS)
-- [ ] Dolgachev & Kondō (2013) - check arxiv, author websites
-- [ ] Sterk (1991) - check author website, institutional repositories
-- [ ] Scattone (1987) - check institutional repositories
-- [ ] Friedman (1984) - check author website, arxiv
-- [ ] Nikulin (1979) - check author website, institutional repositories, arxiv
-- [ ] Nikulin (1980) - check author website, institutional repositories
-- [ ] AEGS (2023) - check arxiv (likely available)
-- [ ] Garza (2024) - check author's own repository
-- [ ] Garza (2026) - check author's own repository
+Restricted access - institutional required (4 sources):
+- [x] Friedman (1984) - JSTOR paywall
+- [x] Coble (1929) - HathiTrust (login required)
+- [x] Coolidge (1931) - HathiTrust (login required)
+- [x] Sterk (1991) - Springer paywall
+
+Purchase required (1 source):
+- [x] Scattone (1987) - AMS Bookstore
+
+Not found / unavailable (5 sources):
+- [x] Coble (1917) - Likely JSTOR paywall, not located
+- [x] Nikulin (1979) - Russian original, translation not located
+- [x] Nikulin (1980) - Russian original, translation not located
+- [x] Garza (2024) - Does not exist as separate publication (dissertation in progress)
+- [x] Garza (2026) - Dissertation expected May 2025, not yet published
 
 ## Phase 2 — Acquire available sources
 
