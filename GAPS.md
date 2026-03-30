@@ -2,8 +2,6 @@
 
 ## Literature / citation gaps
 
-- A clean literature-backed statement of the precise variant of the moduli claim used by
-  this repo is still missing from repo prose.
 - The stronger Desargues/Thas uniqueness claim is now directly inspectable at the
   secondary-source level via Dolgachev's archived 2016 MPI abstract, while C. Thas, *A
   rational sextic associated with a Desargues configuration* (1994), remains the
