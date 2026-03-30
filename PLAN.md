@@ -8,7 +8,7 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- None — stronger-source boundary audit is complete; awaiting next directive.
+- None — citation-weaving plan is complete; awaiting next directive.
 
 ## Recently completed plans
 
