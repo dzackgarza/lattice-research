@@ -3,7 +3,7 @@ Task 1.1: Compare stabilizer reflection generators for Example 1 and Example 2.
 """
 
 from sage.all import *
-load("computations/coble_geometry.sage")
+load("coble_geometry.sage")
 
 # ============================================================================
 # Section 1: Stabilizer Generator logic for Example 1 and Example 2
