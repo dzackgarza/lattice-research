@@ -25,6 +25,8 @@ References:
 import sys
 from sage.all import *
 
+load("coble_geometry.sage")
+
 print("=" * 80)
 print("Task 1.3: Primitive Embedding Matrices")
 print("=" * 80)
@@ -36,28 +38,6 @@ print()
 
 print("Section 1: Constructing Standard Lattices")
 print("-" * 80)
-
-# Hyperbolic plane U with Gram matrix [[0,1],[1,0]]
-def hyperbolic_plane():
-    return Matrix(ZZ, [[0, 1], [1, 0]])
-
-# E8 lattice (negative definite for K3 convention)
-def E8_lattice(negative=True):
-    """
-    E8 Cartan matrix (positive definite), optionally negated.
-    Reference: Conway-Sloane, Chapter 4
-    """
-    E8_cartan = Matrix(ZZ, [
-        [ 2, -1,  0,  0,  0,  0,  0,  0],
-        [-1,  2, -1,  0,  0,  0,  0,  0],
-        [ 0, -1,  2, -1,  0,  0,  0,  0],
-        [ 0,  0, -1,  2, -1,  0,  0,  0],
-        [ 0,  0,  0, -1,  2, -1,  0, -1],
-        [ 0,  0,  0,  0, -1,  2, -1,  0],
-        [ 0,  0,  0,  0,  0, -1,  2,  0],
-        [ 0,  0,  0,  0, -1,  0,  0,  2]
-    ])
-    return -E8_cartan if negative else E8_cartan
 
 # K3 lattice Λ_K3 = U³ ⊕ E8(-1)²
 U = hyperbolic_plane()

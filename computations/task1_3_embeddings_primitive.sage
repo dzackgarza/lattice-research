@@ -28,6 +28,8 @@ References:
 import sys
 from sage.all import *
 
+load("coble_geometry.sage")
+
 print("=" * 80)
 print("Task 1.3 (Primitive): Construct Primitive Embedding S_Co ↪ Λ_K3")
 print("=" * 80)
@@ -39,33 +41,6 @@ print()
 
 print("Section 1: Constructing Λ_K3 = U³ ⊕ E₈(-1)²")
 print("-" * 80)
-
-def hyperbolic_plane():
-    """
-    Hyperbolic plane U with Gram matrix [[0,1],[1,0]].
-    
-    In basis (e,f): e² = f² = 0, e·f = 1.
-    Vectors (e+f) and (e-f) are orthogonal with norms 2 and -2.
-    """
-    return Matrix(ZZ, [[0, 1], [1, 0]])
-
-def E8_lattice(negative=True):
-    """
-    E8 Cartan matrix (positive definite), optionally negated.
-    
-    Reference: Conway-Sloane, Chapter 4; Bourbaki, Lie Groups Ch. 4-6.
-    """
-    E8_cartan = Matrix(ZZ, [
-        [ 2, -1,  0,  0,  0,  0,  0,  0],
-        [-1,  2, -1,  0,  0,  0,  0,  0],
-        [ 0, -1,  2, -1,  0,  0,  0,  0],
-        [ 0,  0, -1,  2, -1,  0,  0,  0],
-        [ 0,  0,  0, -1,  2, -1,  0, -1],
-        [ 0,  0,  0,  0, -1,  2, -1,  0],
-        [ 0,  0,  0,  0,  0, -1,  2,  0],
-        [ 0,  0,  0,  0, -1,  0,  0,  2]
-    ])
-    return -E8_cartan if negative else E8_cartan
 
 # Construct Λ_K3
 U = hyperbolic_plane()
