@@ -8,12 +8,14 @@ support those claims, they do not substitute for them.
 
 ## Active work thread
 
-- `plans/2026-03-29-stronger-source-boundary-audit.md` — current literature-first plan
-  for resolving the remaining stronger-wording boundaries around Coolidge's theorem
-  paraphrase and the archived `J. Thas` uniqueness attribution.
+- None — stronger-source boundary audit is complete; awaiting next directive.
 
 ## Recently completed plans
 
+- `plans/2026-03-29-stronger-source-boundary-audit.md` — completed stronger-source
+  boundary audit; both stronger-wording layers (Coolidge theorem paraphrase and J. Thas
+  uniqueness attribution) are now explicitly fenced as unresolved at primary-source
+  level.
 - `plans/2026-03-29-explicit-family-source-audit.md` — completed source-audit plan;
   surviving explicit-family leads are now split into direct primary support, archived
   secondary support, and unresolved stronger-source wording.
