@@ -73,8 +73,8 @@ if not sextic_is_irreducible:
     print(f"  Sextic factorization: {sextic_factorization}")
 
 A.<a> = PolynomialRing(QQ)
-K_a.<u> = PolynomialRing(A)
-U = PolynomialRing(K_a, 'u')
+K_a = FractionField(A)
+U.<u> = PolynomialRing(K_a)
 
 f0_a = dehomogenize_at_one(f0, a, K_a)
 f1_a = dehomogenize_at_one(f1, a, K_a)
