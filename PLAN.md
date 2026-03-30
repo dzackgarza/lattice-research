@@ -20,6 +20,12 @@ Recent pruning:
 
 ## Recently completed plans
 
+- `plans/2026-03-30-refactor-stabilizer-orbit-utilities.md` — completed refactoring of
+  duplicate utilities; consolidated to_affine and dehomogenize_at_one into
+  coble_geometry.sage (88 lines eliminated), fixed K_a ring structure bug.
+- `plans/2026-03-30-refactor-duplicate-lattice-definitions.md` — completed lattice
+  definition refactoring; consolidated hyperbolic_plane and E8_lattice into
+  coble_geometry.sage (45 lines eliminated).
 - `plans/2026-03-30-documentation-pruning.md` — completed documentation pruning;
   archived 14 .txt transcripts (3593 lines) and 2 duplicate audit reports, removed
   reports/ directory.
