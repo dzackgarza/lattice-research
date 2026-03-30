@@ -84,7 +84,7 @@ print("[Step 1] Constructing T_Co")
 print("=" * 80)
 
 # Load T_Co from central geometry module
-load("computations/coble_geometry.sage")
+load("coble_geometry.sage")
 T_Co = get_T_Co()
 T_Co_gram = T_Co.gram_matrix()
 

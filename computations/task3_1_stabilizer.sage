@@ -49,7 +49,7 @@ print("Section 1: Constructing T_En (Enriques Transcendental Lattice)")
 print("-" * 80)
 
 # Load T_En from central geometry module
-load("computations/coble_geometry.sage")
+load("coble_geometry.sage")
 T_En = get_T_En()
 T_En_gram = T_En.gram_matrix()
 
