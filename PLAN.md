@@ -20,6 +20,9 @@ Recent pruning:
 
 ## Recently completed plans
 
+- `plans/2026-03-30-documentation-pruning.md` — completed documentation pruning;
+  archived 14 .txt transcripts (3593 lines) and 2 duplicate audit reports, removed
+  reports/ directory.
 - `plans/2026-03-30-remaining-verification-notes.md` — completed verification note
   creation for all remaining computational tasks; repo now has 10 solved proof notes
   covering all 20 computation scripts (task1_1, task1_2, task1_3, task2_1, task2_2,
