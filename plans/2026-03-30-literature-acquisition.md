@@ -56,13 +56,14 @@ Successfully acquired and extracted 3 sources:
 - [x] All extracted markdown stored in papers/extracted/
 - [x] REFERENCES.md updated with local file paths
 
-## Phase 3 — Document gaps
+## Phase 3 — Document gaps [COMPLETE]
 
-For sources that remain unavailable:
-- [ ] Update GAPS.md with specific blockers (paywall, no open access, etc.)
-- [ ] Note which claims depend on unavailable sources
-- [ ] Identify workarounds (secondary sources, partial access via Google Books preview,
-  etc.)
+Updated GAPS.md with literature acquisition status:
+- [x] 3/13 sources acquired (Dolgachev & Kondō, AEGS, C. Thas)
+- [x] 4/13 require institutional access (Friedman, Coble 1929, Coolidge, Sterk)
+- [x] 1/13 requires purchase (Scattone)
+- [x] 5/13 not found/unavailable (Coble 1917, Nikulin 1979/1980, Garza 2024/2026)
+- [x] Impact documented: 10/13 canonical sources remain unavailable locally
 
 ## Verification
 
