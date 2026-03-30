@@ -3,6 +3,7 @@ Task 1.1 Example 3: Construct a third independent example of a 10-nodal rational
 """
 
 from sage.all import *
+load("coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.1 Example 3: Rational Sextic with 10 Nodes")
@@ -72,14 +73,8 @@ if not sextic_is_irreducible:
     print(f"  Sextic factorization: {sextic_factorization}")
 
 A.<a> = PolynomialRing(QQ)
-K_a = FractionField(A)
-U.<u> = PolynomialRing(K_a)
-
-def dehomogenize_at_one(poly, var, target_ring):
-    result = target_ring(0)
-    for (i, j), coeff in poly.dict().items():
-        result += target_ring(coeff) * var^i
-    return result
+K_a.<u> = PolynomialRing(A)
+U = PolynomialRing(K_a, 'u')
 
 f0_a = dehomogenize_at_one(f0, a, K_a)
 f1_a = dehomogenize_at_one(f1, a, K_a)
@@ -99,8 +94,6 @@ print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
 print(f"  Generic fiber gcd: {generic_fiber_gcd}")
 print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
-load("computations/coble_geometry.sage")
-
 # ============================================================================
 # Step 3: Find All Singular Points
 # ============================================================================
@@ -114,20 +107,9 @@ Fz = F.derivative(z_gen)
 # Work in affine chart z=1
 R_xy.<X,Y> = PolynomialRing(QQ)
 
-def to_affine(poly):
-    result = R_xy(0)
-    # Correct handling of dict keys (tuple of exponents)
-    d = poly.substitute(z=1).dict()
-    for exponents, c in d.items():
-        # exponents might be (i, j) or (i, j, 0)
-        i = exponents[0]
-        j = exponents[1]
-        result += c * X^i * Y^j
-    return result
-
-F_aff = to_affine(F)
-Fx_aff = to_affine(Fx)
-Fy_aff = to_affine(Fy)
+F_aff = to_affine(F, R_xy)
+Fx_aff = to_affine(Fx, R_xy)
+Fy_aff = to_affine(Fy, R_xy)
 
 I_aff = ideal([F_aff, Fx_aff, Fy_aff])
 K = QQbar
@@ -137,7 +119,7 @@ sols_affine = I_aff.variety(K)
 
 # Check for singular points at infinity (z=0)
 print("  Checking points at infinity (z=0)...")
-F_inf_aff = to_affine(F.substitute(z=0)) # This is not really affine, it's homogeneous in x,y
+F_inf_aff = to_affine(F.substitute(z=0), R_xy) # This is not really affine, it's homogeneous in x,y
 # For z=0, we can check charts x=1 and y=1
 # Chart x=1:
 R_yz.<Y_inf, Z_inf> = PolynomialRing(QQ)

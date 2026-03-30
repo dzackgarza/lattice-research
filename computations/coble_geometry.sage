@@ -212,3 +212,51 @@ def get_signature(L):
     G = L.gram_matrix()
     p, n, z = QuadraticForm(G).signature_vector()
     return (p, n)
+
+def dehomogenize_at_one(poly, var, target_ring):
+    """
+    Dehomogenize a bivariate polynomial by setting one variable to 1.
+    
+    Args:
+        poly: A polynomial in two variables
+        var: The variable to keep (the other is set to 1)
+        target_ring: The target polynomial ring for the result
+    
+    Returns:
+        Univariate polynomial in target_ring
+    """
+    result = target_ring(0)
+    for (i, j), coeff in poly.dict().items():
+        result += target_ring(coeff) * var^i
+    return result
+
+def to_affine(poly, target_ring):
+    """
+    Convert homogeneous polynomial to affine form by setting z=1.
+    
+    Args:
+        poly: A homogeneous polynomial in three variables (x, y, z)
+        target_ring: The target polynomial ring (typically in two variables)
+    
+    Returns:
+        Affine polynomial in target_ring
+    
+    Example:
+        R.<x,y,z> = PolynomialRing(QQ)
+        R_xy.<X,Y> = PolynomialRing(QQ)
+        F = x^2 + y^2 + z^2
+        F_aff = to_affine(F, R_xy)  # Returns X^2 + Y^2 + 1
+    """
+    result = target_ring(0)
+    X, Y = target_ring.gens()
+    
+    # Substitute z=1 and extract coefficients
+    poly_dehom = poly.substitute({poly.parent().gens()[2]: 1})
+    
+    for exponents, c in poly_dehom.dict().items():
+        # exponents might be (i, j) or (i, j, 0) depending on the ring
+        i = exponents[0]
+        j = exponents[1]
+        result += c * X^i * Y^j
+    
+    return result
