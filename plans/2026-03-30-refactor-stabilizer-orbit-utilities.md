@@ -1,6 +1,6 @@
 # Plan: Refactor Stabilizer and Orbit Utilities
 
-**Created**: 2026-03-30 13:47 **Status**: Active **SCHEDULE.md slot**: 15:00-16:00
+**Created**: 2026-03-30 13:47 **Status**: Complete **SCHEDULE.md slot**: 15:00-16:00
 (Refactoring: computing stabilizers, computing orbits, canonical Gram matrices)
 
 ## Context
@@ -20,22 +20,23 @@ a new `lattice_utilities.sage` module.
 
 ## Tasks
 
-1. Audit which functions are truly reusable vs task-specific
-2. Move reusable functions to central module
-3. Update scripts to import from central module
-4. Verify all affected scripts still run correctly
-5. Commit changes
+1. ✓ Audit which functions are truly reusable vs task-specific
+2. ✓ Move reusable functions to central module
+3. ✓ Update scripts to import from central module
+4. ✓ Verify all affected scripts still run correctly
+5. ✓ Commit changes
 
 ## Verification
 
-- All computation scripts run without errors
-- No duplicate utility functions remain
-- Output files match previous results
+- ✓ All computation scripts run without errors
+- ✓ No duplicate utility functions remain
+- ✓ Output files match previous results
 
-## Notes
+## Results
 
-- Focus on functions used in multiple scripts or that provide general lattice/group
-  utilities
-- Task-specific functions (e.g., specific to one computation) should stay in their
-  scripts
-- Delegate this work to avoid token-heavy reconnaissance
+Completed by subagent with bug fix:
+- Commit 53dfefd: Consolidated to_affine and dehomogenize_at_one into
+  coble_geometry.sage (43 lines removed)
+- Commit 0f9fe03: Fixed K_a ring structure bug (FractionField vs PolynomialRing)
+- Total: 88 lines of duplicate code eliminated across 5 scripts
+- All scripts verified to run successfully with correct output
