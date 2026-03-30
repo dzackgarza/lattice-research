@@ -112,7 +112,33 @@ They are not failures.
 feasibility**: Treat all claims as equally verifiable ❌ **Ignore prerequisites**: Assign
 tasks without checking if foundations exist ❌ **Treat pivots as failures**: Rigidly
 stick to original plan when complexity discovered ❌ **Confuse evidence with proof**:
-Computational results are evidence, not always proof
+Computational results are evidence, not always proof ❌ **Print without assertion**:
+Report results without validating them first
+
+## Coding Standards for Verification Scripts
+
+**Rule: Every print statement must be immediately preceded by an assertion**
+
+```python
+# BAD - prints unvalidated result
+print(f"Total isotropic elements: {len(isotropic_elements)}")
+
+# GOOD - validates before printing
+assert len(isotropic_elements) == 528, \
+    f"Expected 528 isotropic elements, got {len(isotropic_elements)}"
+print(f"Total isotropic elements: {len(isotropic_elements)}")
+```
+
+**Rationale**: Print statements present results as if they're verified.
+Without assertions, they're just "whatever the code computed" with no validation.
+Assertions force explicit checking against expected values or invariants.
+
+**Application**: All verification scripts must validate results before reporting them.
+This applies to:
+- Counts (number of orbits, elements, planes)
+- Structural properties (rank, signature, determinant)
+- Algebraic identities (θ² = I, orthogonality)
+- Numerical values (coordinates, matrix entries)
 
 ## Examples
 
