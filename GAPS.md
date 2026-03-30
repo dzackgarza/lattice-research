@@ -2,9 +2,6 @@
 
 ## Literature / citation gaps
 
-- `audit/literature_claim_map.md` now records the standard claim flow, but the main repo
-  prose still needs those citations woven into the places where the claims are reused,
-  especially the longer proof notes in `proofs/solved/`.
 - A clean literature-backed statement of the precise variant of the moduli claim used by
   this repo is still missing from repo prose.
 - The stronger Desargues/Thas uniqueness claim is now directly inspectable at the
