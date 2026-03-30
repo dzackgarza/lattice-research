@@ -20,6 +20,16 @@ Recent pruning:
 
 ## Recently completed plans
 
+- `plans/2026-03-30-thas-comparison.md` — completed Thas (1994) vs task1_1 comparison;
+  determined repo's three task1_1 sextic examples are INDEPENDENT constructions from
+  Thas (1994). Thas uses degree patterns (6,5,5) with geometric parameters (a,b,c)
+  encoding Desargues configuration; repo uses fixed integer coefficients with degree-6
+  in all coordinates. See `audit/thas_vs_task1_1_comparison.md`.
+- `plans/2026-03-30-literature-acquisition.md` — completed literature acquisition plan;
+  acquired 3/13 canonical sources (Dolgachev & Kondō 2013, AEGS 2023, C. Thas 1994) in
+  both PDF and extracted markdown form, updated REFERENCES.md with local paths,
+  documented 10/13 sources remain unavailable (institutional access, purchase, or not
+  found).
 - `plans/2026-03-30-fix-computational-bugs.md` — completed bug fix plan; Bug 1 (Task 1.2
   T_Co Gram matrix) fixed via Prover delegation, Bug 2 (Task 1.3 embedding) verified as
   NOT A BUG via discriminant form verification.
