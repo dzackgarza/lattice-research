@@ -94,8 +94,12 @@ itself)
 - [x] Task 1.1 (Example 2): ✓ PASSED - Verified one node is actual A₁ singularity on
   degree-6 curve (Hessian rank 2, all partial derivatives zero at claimed node
   coordinate)
+- [x] Task 2.1: ✓ PASSED - Verified discriminant group A_T_Co ≅ (ℤ/2ℤ)^11 with 528
+  isotropic vectors (1 zero + 527 nonzero), bilinear form nondegenerate (rank 11),
+  confirming 2-orbit structure
 
-**Next actions**: Continue spot-checking other task groups with Prover subagent
+**Next actions**: Continue spot-checking remaining task groups (1.2, 1.3, 2.2, 3.1, 3.2,
+4.1, 5.1, 6.1) with Prover subagent
 
 ## Verification
 
