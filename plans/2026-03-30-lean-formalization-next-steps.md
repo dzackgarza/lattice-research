@@ -35,7 +35,8 @@ verification, both of which are complete.
 - [ ] Identify which computational facts are already in mathlib vs need custom
   formalization
 - [ ] Check if Nikulin's surjectivity theorem (Prop 1.5.2) has any mathlib analogue
-- [ ] Assess whether Arf invariant classification is in mathlib or needs custom work
+- [ ] Note: task3_2 orbit uniqueness claim is UNVERIFIED (orbit computation never
+  performed)
 
 ## Phase 2 — Formalize tractable lemmas first
 
@@ -43,7 +44,7 @@ Priority order (easiest to hardest):
 1. Basic lattice definitions (T_Co bilinear form, isotropic vectors)
 2. Discriminant group computation (A_T_Co ≅ (ℤ/2ℤ)^11)
 3. Primitive plane enumeration (15 planes found computationally)
-4. Arf invariant computation (all 0)
+4. Orbit computation via GAP (not yet performed - task3_2 claim unverified)
 5. Nikulin surjectivity application (requires mathlib search or custom proof)
 
 ## Phase 3 — Verify build and commit

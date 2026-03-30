@@ -233,7 +233,8 @@ Every result must be labeled as one of:
 - Must explicitly state what's conjectured
 - Must describe supporting evidence
 - Example: "CONJECTURE: All 15 primitive isotropic planes lie in one O(T_Co)-orbit.
-  EVIDENCE: Bounded search in [-12,12]³ found 15 planes, all with same Arf invariant"
+  EVIDENCE: Bounded search in [-12,12]³ found 15 planes.
+  Orbit computation via GAP not yet performed."
 
 **EVIDENCE**: Computational data supporting a claim
 - Must state what claim it supports

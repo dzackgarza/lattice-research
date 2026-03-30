@@ -11,7 +11,8 @@
   - Task 2.1: isotropic vector orbit classification (2 orbits in discriminant group)
   - Task 2.2: orbit lifting to primitive vectors (all div=2, single orbit)
   - Task 3.1: stabilizer group Γ_Co generators and verification
-  - Task 3.2: unique isotropic plane orbit (15 planes, all Arf invariant 0)
+  - Task 3.2: UNVERIFIED claim of unique isotropic plane orbit (15 planes found, orbit
+    computation never performed)
   - Task 4.1: unique maximal B̃₇(2) parabolic subdiagram
   - Task 5.1: involution construction on glued lattice model
   - Task 6.1: slc stability verification
