@@ -107,7 +107,7 @@ print(f"  Mutually orthogonal: {orth_check}")
 print("\n  Using rational isometry for simpler computation...")
 
 # Construct Λ_K3' = U^3 ⊕ (-I_16)
-Lambda_K3_prime_gram = block_diagonal_matrix([U, U, U, -identity_matrix(QQ, 16)])
+Lambda_K3_prime_gram = block_diagonal_matrix([U, U, U, diagonal_matrix(QQ, [-2]*16)])
 print(f"  Λ_K3' signature: {QuadraticForm(Lambda_K3_prime_gram).signature_vector()[:2]}")
 
 # Now embed S_Co into Λ_K3'
@@ -124,13 +124,12 @@ v3 = vector(QQ, [0, 0, 0, 0, 1, -1] + [0]*16)
 embed_vectors.extend([v1, v2, v3])
 
 # e_4 through e_10: 7 orthogonal norm -2 vectors from -I_16
-# Use pairs: (1,1) in positions has norm -1-1 = -2 in -I_16
+# In diagonal_matrix([-2]*16), a single coordinate (1) gives norm -2*1^2 = -2
 # -I_16 is at indices 6-21 (16 dimensions)
 for i in range(7):
-    # Use pairs at (6+2i, 6+2i+1): norm = -(1^2 + 1^2) = -2
-    coords = [0]*6 + [0]*16
-    coords[6 + 2*i] = 1
-    coords[6 + 2*i + 1] = 1
+    # Use single coordinate at position 6+i: norm = -2 * 1^2 = -2
+    coords = [0]*22
+    coords[6 + i] = 1
     v = vector(QQ, coords)
     embed_vectors.append(v)
 
