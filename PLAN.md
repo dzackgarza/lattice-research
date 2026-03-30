@@ -1,130 +1,443 @@
-# Active Plan
+# Coble Moduli Project Plan
 
-## Current State vs GOAL.md
+## Goal
 
-### Priority 1: Centralize canonical literature — ✓ COMPLETE
+**Current state**: Project is 90% complete toward GOAL.md objectives.
+Critical issue: Task3_2 orbit uniqueness claim is mathematically invalid (used "Arf
+invariant" which doesn't exist over Z). Process issue: Lattice constructions are
+inconsistent across scripts.
 
-**Status**: Literature spine established in REFERENCES.md with 13 canonical sources (3
-acquired locally, 10 documented as unavailable)
+**Target state**: All GOAL.md Priority 1-3 objectives complete and verified:
+- Priority 1: Literature spine complete with all gaps documented
+- Priority 2: All computational claims verified and aligned with literature
+- Priority 3: All computational blocks resolved
 
-**Canonical claim notes**:
-- ✓ `audit/literature_claim_map.md` — maps computational claims to literature sources
-- ✓ `audit/task1_1_birationality_note.md` — documents birationality verification path
-- ✓ `audit/task5_1_route_reset.md` — documents corrected involution route
-- ✓ `audit/moduli_dimension_claim.md` — canonical 9-dimensional period domain statement
+**Why this matters**: Mathematical correctness and reproducibility.
+Invalid verification undermines all downstream work.
+Inconsistent constructions create confusion about lattice structure.
 
-**Literature acquired**:
-- Dolgachev & Kondō (2013) — K3/Coble lattice structure
-- AEGS (2023) — compact moduli and cusp structure
-- C. Thas (1994) — Desargues configuration sextic construction
+## Constraints
 
-**Next**: No immediate literature gaps.
-Maintain alignment as computational work progresses.
+**Required**:
+- Use GAP's built-in orbit functions for task3_2 (no custom algorithms)
+- All lattice constructions via IntegralLattice.direct_sum() (not diagonal matrices)
+- All mathematical concepts must pass Phase 0 blocking gates (formal definitions,
+  applicability)
+- Literature claims must cite specific sources
 
-* * *
+**Forbidden**:
+- Any mention of "Arf invariant" in code or documentation
+- Ad-hoc lattice constructions bypassing coble_geometry.sage
+- Verification that compares documentation to itself
+- Claiming literature support without specific citations
 
-### Priority 2: Keep exact numerical evidence aligned with literature — ⚠️ MOSTLY COMPLETE
+**Approval gates**: None - autonomous execution
 
-**Status**: 10 solved proof notes covering all 20 computation scripts, BUT task3_2 is
-INVALID
+## Prerequisites
 
-**Completed verification notes**:
-- ✓ Task 1.1: explicit rational sextic construction (3 parametrizations)
-- ✓ Task 1.2: Gram matrices and Nikulin invariants
-- ✓ Task 1.3: primitive embedding matrices
-- ✓ Task 2.1: isotropic vector orbit classification (2 orbits)
-- ✓ Task 2.2: orbit lifting to primitive vectors
-- ✓ Task 3.1: stabilizer group Γ_Co generators
-- ✗ Task 3.2: INVALID — used "Arf invariant" which doesn't exist over Z
-- ✓ Task 4.1: unique maximal B̃₇(2) parabolic subdiagram
-- ✓ Task 5.1: involution construction on glued lattice model
-- ✓ Task 6.1: slc stability verification
-- ✓ Utilities: shared computation infrastructure
+- [x] Sage environment available
+- [x] GAP available via Sage
+- [x] Lean toolchain available (source ~/.envrc)
+- [x] Literature spine established (REFERENCES.md with 13 sources)
+- [x] Verification process with blocking gates (audit/verification_process.md)
+- [x] Project state assessment complete (audit/project_state_assessment.md)
 
-**Critical issue**: Task 3.2 orbit uniqueness claim
-- Used "Arf invariant" (only defined for quadratic forms over fields of characteristic
-  2\)
-- No actual orbit computation performed
-- Needs complete redo using GAP orbit functions
+## Scope
 
-**Next actions**:
-1. Delegate task3_2 orbit verification to Prover subagent
-   - Use GAP to compute orbits of O(q_T) acting on 15 primitive isotropic planes
-   - Reuse enumeration code (lines 1-620), discard "Arf invariant" reasoning (lines
-     620-653)
-   - Require actual orbit count via GAP's `Orbits()` function
-2. Update task3_2 proof note with correct verification
-3. Remove remaining Arf contamination from computation script
+**Included** (Complete path to GOAL.md Priorities 1-3):
+- Task3_2 orbit verification via GAP (Priority 2, CRITICAL)
+- Standardize lattice constructions (Priority 2, PROCESS)
+- Document remaining literature gaps (Priority 1)
+- Verify all scripts run after changes (Priority 2)
 
-* * *
+**Excluded**:
+- Lean formalization (Priority 4, secondary)
+- New computational searches
+- Acquiring paywalled literature (blocked on external access)
 
-### Priority 3: Resolve genuinely open computational blocks — ✓ COMPLETE
+## Phase 1: Fix Task3_2 Orbit Verification (CRITICAL)
 
-**Status**: Task 5.1 involution route resolved
+**Goal**: Replace invalid Arf invariant approach with correct GAP orbit computation
 
-**Resolution**:
-- Primitive embedding S_Co ↪ Λ_K3 verified
-- True orthogonal complement T computed
-- Sign involution θ ∈ O(Λ_K3) verified on explicit glued lattice model
-- All checks pass: θ² = I, θᵀGθ = G, eigenspace decomposition correct
+### Task 1.1: Delegate GAP orbit computation to Prover subagent
 
-**Documentation**:
-- `audit/task5_1_exact_involution_note.md` — canonical scope note
-- `audit/task5_1_route_reset.md` — corrected route order
-- `proofs/solved/task5_1_involution.md` — verification note
+**Location**: Delegate to Prover subagent
 
-**Next**: No open computational blocks.
-CARAT remains available for future finite positive-definite subproblems.
+**Description**: Compute orbits of O(q_T) acting on 15 primitive isotropic plane images
+in discriminant group A_T using GAP
 
-* * *
+**Dependencies**: None
 
-### Priority 4: Formalize only the right statements — ⚠️ BLOCKED
+**Acceptance criteria**:
+- Actual orbit count computed via GAP's `Orbits()` or equivalent function
+- Code uses standard GAP orbit functions (not custom BFS/DFS)
+- If single orbit: cites Nikulin Prop 1.5.2 for theoretical justification
+- Zero mentions of "Arf invariant"
+- Clear distinction between EVIDENCE (enumeration) and PROOF/CONJECTURE (orbit count)
 
-**Status**: Lean formalization blocked on toolchain (elan/lake not on PATH)
+**Validation**: Review subagent transcript for:
+```bash
+# Check for GAP orbit computation
+grep -i "Orbits\|orbit" transcript
+# Verify no Arf contamination
+grep -i "arf" transcript  # Must return nothing
+```
 
-**Existing Lean files**:
-- `IsotropicPlanes.lean` — 3 sorry placeholders (task3_2, currently invalid)
-- `NodeCriteria.lean` — complete proof (Hessian rank bound)
-- `Basic.lean` — stub file
+### Task 1.2: Update task3_2 computation script
 
-**Blocker**: Cannot build or verify Lean code without toolchain
+**Location**: `computations/task3_2_isotropic_planes.sage`
 
-**Next**: Formalization remains secondary per GOAL.md.
-Wait for toolchain availability or explicit user directive.
+**Description**: Remove lines 620-653 (Arf invariant computation), replace with GAP
+orbit computation from Task 1.1
 
-* * *
+**Dependencies**: Task 1.1 complete
 
-## Process Improvements Completed
+**Acceptance criteria**:
+- Zero occurrences of "Arf" in script
+- GAP orbit computation code present (from Task 1.1)
+- Script runs successfully
+- Output file contains orbit count
 
-**Mathematical validity gates** (audit/verification_process.md):
-- Phase 0: Blocking gates for formal definitions, concept applicability, literature
-  alignment, theorem hypothesis verification
-- Enhanced audit phase with mathematical validity checks
+**Validation**:
+```bash
+cd computations
+sage task3_2_isotropic_planes.sage
+grep -c "Arf" task3_2_isotropic_planes.sage  # Must return 0
+test -f task3_2_output.txt && echo "Output exists"
+```
 
-**Standards documentation**:
-- `audit/lattice_construction_standards.md` — specifies canonical lattice constructors
-  (direct sums, not ad-hoc matrices)
-- `audit/arf_invariant_warning.md` — explains why Arf invariant is undefined over Z
+### Task 1.3: Update task3_2 proof note
 
-**Outstanding process work**:
-- Standardize lattice constructions in coble_geometry.sage (T_Co, S_Co via direct sums)
-- Audit all scripts for non-standard constructions
+**Location**: `proofs/solved/task3_2_isotropic_planes.md`
 
-* * *
+**Description**: Replace invalid Arf invariant reasoning with correct GAP orbit
+verification
 
-## Immediate Next Steps
+**Dependencies**: Task 1.2 complete
 
-1. **Task3_2 orbit verification** (Priority 2)
-   - Delegate to Prover subagent with GAP orbit computation
-   - Update proof note with correct verification
-   - Remove Arf contamination from script
+**Acceptance criteria**:
+- Zero occurrences of "Arf" in proof note
+- Correct orbit count from GAP computation
+- Proper citations (Nikulin Prop 1.5.2 if single orbit, AEGS 2023 for context)
+- Clear distinction between enumeration (EVIDENCE) and orbit computation (PROOF or
+  CONJECTURE)
+- Mathematical validity: all concepts properly defined
 
-2. **Lattice construction standardization** (Process improvement)
-   - Update coble_geometry.sage to use direct sums
-   - Audit scripts for non-standard constructions
-   - Verify standardized constructions produce consistent results
+**Validation**:
+```bash
+grep -c "Arf" proofs/solved/task3_2_isotropic_planes.md  # Must return 0
+grep -i "orbit" proofs/solved/task3_2_isotropic_planes.md  # Should find orbit discussion
+```
 
-3. **Maintain current state** (All priorities)
-   - Keep PLAN.md updated as work progresses
-   - Archive completed plans, don't accumulate failure docs
-   - Single source of truth for project state
+## Phase 2: Standardize Lattice Constructions (PROCESS)
+
+**Goal**: All lattices constructed via canonical direct sums, eliminating
+basis-dependent confusion
+
+### Task 2.1: Update coble_geometry.sage with direct sum constructors
+
+**Location**: `computations/coble_geometry.sage`
+
+**Description**: Add canonical lattice constructors using IntegralLattice.direct_sum():
+- `rank_one_lattice(n)`: ⟨n⟩ lattice
+- `S_Co_lattice()`: ⟨2⟩ ⊕ ⟨-2⟩¹⁰ via direct_sum
+- `T_Co_lattice()`: ⟨2⟩ ⊕ U ⊕ E8(-1) via direct_sum
+- `T_En_lattice()`: ⟨2⟩² ⊕ ⟨-2⟩⁸ via direct_sum
+- `Lambda_K3_lattice()`: U³ ⊕ E8(-1)² via direct_sum
+
+Keep existing diagonal matrix versions for backward compatibility but mark as
+deprecated.
+
+**Dependencies**: None
+
+**Acceptance criteria**:
+- All new constructors use IntegralLattice.direct_sum()
+- Signature, determinant, discriminant group invariants match expected values
+- Existing code still works (backward compatible)
+- Documentation comments explain canonical construction
+
+**Validation**:
+```python
+# In Sage:
+load("computations/coble_geometry.sage")
+S = S_Co_lattice()
+assert S.signature() == (1, 10)
+assert S.determinant() == 2048
+T = T_Co_lattice()
+assert T.signature() == (2, 9)
+assert T.determinant() == -2048
+```
+
+### Task 2.2: Audit computation scripts for non-standard constructions
+
+**Location**: All files in `computations/`
+
+**Description**: Identify scripts constructing lattices without using
+coble_geometry.sage
+
+**Dependencies**: Task 2.1 complete
+
+**Acceptance criteria**:
+- Complete list of scripts with non-standard constructions
+- Assessment of which need updating vs which are intentionally custom
+- Document findings in audit/lattice_construction_audit.md
+
+**Validation**:
+```bash
+cd computations
+# Find diagonal matrix constructions
+grep -l "diagonal_matrix.*2.*-2" *.sage | grep -v coble_geometry.sage > /tmp/diagonal_constructions.txt
+# Find direct IntegralLattice constructions
+grep -l "IntegralLattice(matrix" *.sage | grep -v coble_geometry.sage > /tmp/direct_constructions.txt
+# Count findings
+wc -l /tmp/diagonal_constructions.txt /tmp/direct_constructions.txt
+```
+
+### Task 2.3: Update scripts to use standardized constructors
+
+**Location**: Scripts identified in Task 2.2
+
+**Description**: Replace ad-hoc constructions with calls to coble_geometry.sage
+canonical constructors
+
+**Dependencies**: Task 2.2 complete
+
+**Acceptance criteria**:
+- All scripts use coble_geometry.sage for T_Co, S_Co, T_En, Lambda_K3
+- All scripts run successfully
+- Mathematical results unchanged (invariants match, orbit counts same, etc.)
+- Output files regenerated and verified
+
+**Validation**: For each updated script:
+```bash
+cd computations
+sage <script_name>.sage
+# Compare invariants in new vs old output
+diff <old_output> <new_output> | grep -E "signature|determinant|discriminant"
+```
+
+## Phase 3: Document Remaining Literature Gaps (DOCUMENTATION)
+
+**Goal**: Explicitly document all literature gaps as either resolvable or blocked on
+external access
+
+### Task 3.1: Update GAPS.md with literature gap status
+
+**Location**: `GAPS.md`
+
+**Description**: Clearly mark each literature gap as:
+- RESOLVABLE: Can be addressed with available resources
+- BLOCKED: Requires institutional access, purchase, or author contact
+- INDEPENDENT: Repo-native construction, not connected to literature
+
+**Dependencies**: None
+
+**Acceptance criteria**:
+- Every literature gap has explicit status (RESOLVABLE/BLOCKED/INDEPENDENT)
+- J. Thas primary source marked as BLOCKED
+- Coolidge extraction marked as BLOCKED
+- Task1_1 sextics marked as INDEPENDENT unless connected to literature
+- 10/13 unavailable sources marked as BLOCKED
+
+**Validation**: Review GAPS.md for:
+- All gaps have status labels
+- No ambiguous "needs investigation" language
+- Clear next actions for RESOLVABLE gaps
+
+### Task 3.2: Attempt to connect task1_1 sextics to Coble/Coolidge
+
+**Location**: Delegate to General subagent for literature search
+
+**Description**: Search acquired literature (Dolgachev-Kondō 2013, AEGS 2023, Thas 1994)
+for connections to task1_1 parametrizations
+
+**Dependencies**: Task 3.1 complete
+
+**Acceptance criteria**:
+- Explicit search of all 3 acquired papers
+- Document findings (connections found or not found)
+- Update GAPS.md with results
+- If no connections: confirm task1_1 as INDEPENDENT construction
+
+**Validation**: Check audit/ for search report documenting:
+- Papers searched
+- Search terms used
+- Findings (connections or lack thereof)
+
+## Phase 4: System-Level Verification (VALIDATION)
+
+**Goal**: Verify all changes work correctly and project is in consistent state
+
+### Task 4.1: Run all computation scripts
+
+**Location**: `computations/`
+
+**Description**: Execute all 20 computation scripts and verify they complete without
+errors
+
+**Dependencies**: Phase 1, 2 complete
+
+**Acceptance criteria**:
+- All 20 scripts run without errors
+- All output files generated
+- No Arf contamination in any output
+
+**Validation**:
+```bash
+cd computations
+for f in task*.sage; do 
+  echo "Running $f..."
+  sage "$f" || echo "FAILED: $f"
+done
+# Check for Arf contamination
+grep -r "Arf" . --include="*.sage" --include="*.txt" | wc -l  # Must be 0
+```
+
+### Task 4.2: Verify proof notes align with outputs
+
+**Location**: `proofs/solved/`
+
+**Description**: Spot-check that proof notes accurately reflect current computation
+outputs
+
+**Dependencies**: Task 4.1 complete
+
+**Acceptance criteria**:
+- Sample 3 proof notes and verify claims match output files
+- No overclaiming (proof notes don't claim more than outputs show)
+- All citations present and correct
+
+**Validation**: Manual review of 3 randomly selected proof notes against their output
+files
+
+### Task 4.3: Update PLAN.md with completion status
+
+**Location**: `PLAN.md`
+
+**Description**: Mark all completed tasks, update project completion percentage
+
+**Dependencies**: All phases complete
+
+**Acceptance criteria**:
+- All task checkboxes marked complete
+- Project completion percentage updated (should be ~95%)
+- Any remaining gaps documented with clear status
+
+**Validation**: Review PLAN.md execution checklist - all items should be [x] or [-] with
+reasons
+
+## System-Level Validation
+
+**End-to-end checks**:
+- All 20 computation scripts run without errors
+- Task3_2 produces valid orbit count via GAP
+- All lattice constructions produce consistent invariants
+- Zero Arf contamination in codebase
+- All GOAL.md Priority 1-3 objectives addressed
+
+**Real-use smoke checks**:
+```bash
+# Verify all scripts run
+cd computations && for f in task*.sage; do sage "$f" || echo "FAIL: $f"; done
+
+# Verify zero Arf contamination
+grep -r "Arf" . --include="*.sage" --include="*.md" --include="*.txt" | wc -l  # Must be 0
+
+# Verify standardized constructions
+grep -c "load.*coble_geometry" computations/task*.sage  # Should be high
+
+# Verify proof notes exist for all tasks
+ls proofs/solved/task*.md | wc -l  # Should be 10
+```
+
+## Risks / Rollback
+
+**Risks**:
+- GAP orbit computation may be slow or fail for large groups
+- Standardized constructions may expose bugs in existing code
+- Gram matrices will change (basis change) even though invariants match
+- Literature search may find no connections (task1_1 remains independent)
+
+**Mitigations**:
+- Use reasonable timeout for GAP computation (30 minutes)
+- Verify invariants (signature, determinant, discriminant group) match before/after
+- Document that Gram matrix changes are expected (basis change, not mathematical change)
+- Accept task1_1 as independent construction if no literature connections found
+
+**Rollback path**:
+- Git commit after each task
+- Can revert individual tasks via git
+- Preserve old output files for comparison
+- Archive old scripts if needed
+
+## Stop Rules
+
+**Do not proceed if**:
+- GAP orbit computation fails or times out → investigate alternative approaches or
+  accept as CONJECTURE
+- Standardized constructions produce different invariants → investigate mathematical
+  error, rollback
+- Any script fails after standardization → rollback that script, investigate
+- Verification reveals mathematical errors → stop, create new plan to address errors
+
+## Execution Progress
+
+### Prerequisites
+
+- [x] Sage environment available
+- [x] GAP available via Sage
+- [x] Lean toolchain available
+- [x] Literature spine established
+- [x] Verification process with blocking gates
+- [x] Project state assessment complete
+
+### Phase 1: Fix Task3_2 Orbit Verification
+
+- [ ] Task 1.1: Delegate GAP orbit computation to Prover subagent
+- [ ] Task 1.2: Update task3_2 computation script
+- [ ] Task 1.3: Update task3_2 proof note
+
+### Phase 2: Standardize Lattice Constructions
+
+- [ ] Task 2.1: Update coble_geometry.sage with direct sum constructors
+- [ ] Task 2.2: Audit computation scripts for non-standard constructions
+- [ ] Task 2.3: Update scripts to use standardized constructors
+
+### Phase 3: Document Remaining Literature Gaps
+
+- [ ] Task 3.1: Update GAPS.md with literature gap status
+- [ ] Task 3.2: Attempt to connect task1_1 sextics to Coble/Coolidge
+
+### Phase 4: System-Level Verification
+
+- [ ] Task 4.1: Run all computation scripts
+- [ ] Task 4.2: Verify proof notes align with outputs
+- [ ] Task 4.3: Update PLAN.md with completion status
+
+### System-Level Validation
+
+- [ ] All computation scripts run without errors
+- [ ] Zero Arf contamination in codebase
+- [ ] Standardized constructions produce consistent invariants
+- [ ] All GOAL.md Priority 1-3 objectives addressed
+
+### Quality Gates
+
+- [ ] Completeness: All GOAL.md priorities addressed
+- [ ] Actionability: Each task has concrete location, acceptance criteria, validation
+- [ ] Mathematical validity: Phase 0 blocking gates applied
+- [ ] Documentation: All gaps explicitly documented with status
+
+## Project Completion Estimate
+
+**Current state**: 90% complete (9/10 tasks verified, literature spine 80% complete)
+
+**After plan execution**: 95% complete
+- Priority 1 (Literature): 80% → 95% (all gaps documented with status)
+- Priority 2 (Numerical evidence): 90% → 100% (task3_2 fixed, constructions
+  standardized)
+- Priority 3 (Computational blocks): 100% (no work needed)
+- Priority 4 (Lean formalization): 0% (secondary, not planned)
+
+**Remaining 5%**: Blocked on external resources (paywalled literature, institutional
+access)
