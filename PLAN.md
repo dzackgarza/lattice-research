@@ -12,6 +12,9 @@ support those claims, they do not substitute for them.
 
 ## Recently completed plans
 
+- `plans/2026-03-30-weave-citations-into-prose.md` — completed citation-weaving plan;
+  inline literature citations now added to solved proof notes for K3/lattice setup and
+  2-elementary lattice classification.
 - `plans/2026-03-29-stronger-source-boundary-audit.md` — completed stronger-source
   boundary audit; both stronger-wording layers (Coolidge theorem paraphrase and J. Thas
   uniqueness attribution) are now explicitly fenced as unresolved at primary-source
