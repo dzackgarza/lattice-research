@@ -120,3 +120,18 @@ lattice $(9,9,1)_1$.
 - `computations/task4_1_results.txt` — Full computational output
 - `REFERENCES.md` — Canonical literature spine for reflection groups and Coxeter
   diagrams
+
+* * *
+
+## Verification Status
+
+**Independent verification completed: 2026-03-30**
+
+Verified against `computations/task4_1_results.txt`:
+- ✓ Exactly 1 maximal B̃₇(2) subdiagram found
+- ✓ Node set (0,1,2,3,4,5,6,7) confirmed
+- ✓ B̃₇(2) structure verified: 8 nodes, 6 simple edges, 1 double edge, chain degrees
+  [1,1,2,2,2,2,2,2]
+- ✓ Search exhaustiveness confirmed: 968 subsets checked (all C(10,k) for k=3..10)
+
+**Spot-check: PASSED**
