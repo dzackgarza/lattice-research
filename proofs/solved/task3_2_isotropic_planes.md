@@ -3,8 +3,9 @@
 ## Theorem Statement
 
 Standard period-domain references already place the Coble moduli problem in a Type IV /
-Baily-Borel setting; see `REFERENCES.md` and `audit/literature_claim_map.md` for the
-canonical source chain through Scattone, Sterk, Dolgachev–Kondō, and Friedman.
+Baily-Borel setting; see `REFERENCES.md`, `audit/literature_claim_map.md`, and
+`audit/moduli_dimension_claim.md` for the canonical source chain through Scattone,
+Sterk, Dolgachev–Kondō, and Friedman.
 
 The repo-specific claim verified in this note is the lattice calculation that supports
 the 1-cusp description used in that literature-backed framework:
