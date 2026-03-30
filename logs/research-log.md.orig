@@ -4,12 +4,14 @@
 
 **Status**: ✓ Solved
 
-**Problem Statement**:
-Compute Gram matrices for the Coble lattice $S_{Co}$ and transcendental lattice $T_{Co}$, verify $(r,a,\delta)$ invariants and genus cardinality using Nikulin's classification.
+**Problem Statement**: Compute Gram matrices for the Coble lattice $S_{Co}$ and
+transcendental lattice $T_{Co}$, verify $(r,a,\delta)$ invariants and genus cardinality
+using Nikulin's classification.
 
 **Approach**:
 
-1. Constructed $S_{Co} \cong \langle 2 \rangle \oplus \langle -2 \rangle^{10}$ with diagonal Gram matrix
+1. Constructed $S_{Co} \cong \langle 2 \rangle \oplus \langle -2 \rangle^{10}$ with
+   diagonal Gram matrix
 2. Embedded $S_{Co}$ in K3 lattice $\Lambda_{K3} \cong U^3 \oplus E_8(-1)^2$
 3. Constructed $T_{Co} = S_{Co}^\perp$ with correct signature $(2,9)$
 4. Computed discriminant groups and forms for both lattices
@@ -22,13 +24,18 @@ Compute Gram matrices for the Coble lattice $S_{Co}$ and transcendental lattice 
 - $S_{Co}$: $(r,a,\delta) = (11, 11, 1)$, signature $(1,10)$
 - $T_{Co}$: $(r,a,\delta) = (11, 11, 1)$, signature $(2,9)$
 - Both have discriminant group $A \cong (\mathbb{Z}/2\mathbb{Z})^{11}$
-- Discriminant forms: $q_S, q_T$ take values in $(1/2)\mathbb{Z}/2\mathbb{Z}$, so $\delta = 1$
-- Genus uniqueness: $r = a = 11$ is boundary case; uniqueness follows from Nikulin 1.10.1 (signature mod 8 analysis)
-- Embedding $S_{Co} \hookrightarrow \Lambda_{K3}$ is primitive ($|\text{disc}(S_{Co})| = |\text{disc}(T_{Co})|$)
+- Discriminant forms: $q_S, q_T$ take values in $(1/2)\mathbb{Z}/2\mathbb{Z}$, so
+  $\delta = 1$
+- Genus uniqueness: $r = a = 11$ is boundary case; uniqueness follows from Nikulin
+  1.10.1 (signature mod 8 analysis)
+- Embedding $S_{Co} \hookrightarrow \Lambda_{K3}$ is primitive ($|\text{disc}(S_{Co})| =
+  |\text{disc}(T_{Co})|$)
 - Verified $q_S = -q_T \pmod{2\mathbb{Z}}$
 
-**Key Insight**:
-The simple $r > a$ criterion from Nikulin 1.5.2 doesn't apply directly when $r = a$. For 2-elementary lattices with $r = a$ and $\delta = 1$, genus uniqueness depends on the signature modulo 8 (Nikulin 1.10.1). Both $S_{Co}$ and $T_{Co}$ fall into this boundary case but still have unique genus.
+**Key Insight**: The simple $r > a$ criterion from Nikulin 1.5.2 doesn't apply directly
+when $r = a$. For 2-elementary lattices with $r = a$ and $\delta = 1$, genus uniqueness
+depends on the signature modulo 8 (Nikulin 1.10.1). Both $S_{Co}$ and $T_{Co}$ fall into
+this boundary case but still have unique genus.
 
 **Tools Developed**:
 
@@ -38,7 +45,8 @@ The simple $r > a$ criterion from Nikulin 1.5.2 doesn't apply directly when $r =
 
 **References**:
 
-- [Nikulin1979] Theorem 1.5.2 (r > a criterion), Theorem 1.10.1 (boundary case classification)
+- [Nikulin1979] Theorem 1.5.2 (r > a criterion), Theorem 1.10.1 (boundary case
+  classification)
 - [DolgachevKondyrev2013] Coble surface lattice invariants
 
 **Files**:
@@ -48,16 +56,16 @@ The simple $r > a$ criterion from Nikulin 1.5.2 doesn't apply directly when $r =
 
 **Next Steps**:
 
-- Task 1.3: Derive explicit primitive embedding matrices $T_{Co} \hookrightarrow T_{En} \hookrightarrow T_{dP} \hookrightarrow \Lambda_{K3}$
+- Task 1.3: Derive explicit primitive embedding matrices $T_{Co} \hookrightarrow T_{En}
+  \hookrightarrow T_{dP} \hookrightarrow \Lambda_{K3}$
 
----
+* * *
 
 ## 2026-03-25 - Task 1.3: Primitive Embedding Matrices (Original)
 
 **Status**: ⚠ Partially solved - embedding not primitive
 
-**Problem Statement**:
-Construct explicit primitive embedding matrices for the chain:
+**Problem Statement**: Construct explicit primitive embedding matrices for the chain:
 $$T_{Co} \longrightarrow T_{En} \longrightarrow T_{dP} \longrightarrow \Lambda_{K3}$$
 
 **Results**:
@@ -71,14 +79,13 @@ $$T_{Co} \longrightarrow T_{En} \longrightarrow T_{dP} \longrightarrow \Lambda_{
 
 - `computations/task1_3_embeddings.sage` - Original computation script
 
----
+* * *
 
 ## 2026-03-25 - Task 1.3 (Fixed): Rigorous Embedding Verification
 
 **Status**: ✓ Solved (with documented limitations)
 
-**Problem Statement**:
-Fix Task 1.3 by rigorously verifying:
+**Problem Statement**: Fix Task 1.3 by rigorously verifying:
 1. S_Co embedding produces correct Gram matrix (orthogonality check)
 2. T_Co computed from kernel has correct signature (2,9) and discriminant $2^{11}$
 3. S_Co ⊕ T_Co spans Λ_K3 with correct index
@@ -129,12 +136,14 @@ Fix Task 1.3 by rigorously verifying:
 - T_En: rank 10, signature (2,8)
 - T_dP: rank 9, signature (2,7)
 
-**Key Insight**:
-The non-primitivity arises from using E8 simple roots for the S_Co embedding. In E8, selecting mutually orthogonal simple roots (e.g., α_0, α_2, α_4, α_6) generates a D4 sublattice that has index 2 in its saturation. This propagates to the full S_Co ⊕ T_Co embedding.
+**Key Insight**: The non-primitivity arises from using E8 simple roots for the S_Co
+embedding. In E8, selecting mutually orthogonal simple roots (e.g., α_0, α_2, α_4, α_6)
+generates a D4 sublattice that has index 2 in its saturation.
+This propagates to the full S_Co ⊕ T_Co embedding.
 
-For a truly primitive embedding, one would need to:
-1. Saturate the lattice (find vectors v such that 2v is in the lattice but v is not)
-2. Or use a different construction avoiding E8 root lattice issues
+This historical obstruction was later bypassed by the exact glued-model route recorded in
+`audit/task5_1_exact_involution_note.md`, which replaced the old embedding attempt with a
+verified primitive model before defining the involution.
 
 **Tools Developed**:
 
@@ -155,25 +164,29 @@ For a truly primitive embedding, one would need to:
 - [ConwaySloane] E8 root system, orthogonal vectors, and lattice saturation
 - [BourbakiLie4-6] E8 Dynkin diagram and orthogonal root sets
 
-**Next Steps**:
+**Later update**:
 
-- For primitive embedding: implement lattice saturation algorithm
-- Task 2.1: Enumerate isotropic vectors in A_{T_Co} and compute O(q_T)-orbits
+- The primitive-embedding part of this route was later superseded by the explicit glued
+  ambient lattice used by `computations/task5_1_involution.sage`.
+- The follow-on discriminant/orbit work remained relevant, but Task 5.1 itself no longer
+  depends on implementing the saturation algorithm proposed here.
 
----
+* * *
 
 ## 2026-03-25 - Task 2.1: Isotropic Vector Enumeration and O(q_T)-Orbits
 
 **Status**: ✓ Solved
 
-**Problem Statement**:
-Enumerate isotropic vectors in the discriminant group $A_{T_{Co}} \cong (\mathbb{Z}/2\mathbb{Z})^{11}$ and compute their orbits under the orthogonal group $O(q_T)$ of the discriminant form.
+**Problem Statement**: Enumerate isotropic vectors in the discriminant group $A_{T_{Co}}
+\cong (\mathbb{Z}/2\mathbb{Z})^{11}$ and compute their orbits under the orthogonal group
+$O(q_T)$ of the discriminant form.
 
 **Mathematical Background**:
 
 - $T_{Co}$ has $(r,a,\delta) = (11, 11, 1)$ and signature $(2, 9)$
 - Discriminant group $A_T = T_{Co}^*/T_{Co} \cong (\mathbb{Z}/2\mathbb{Z})^{11}$
-- Quadratic form $q_T: A_T \to \mathbb{Q}/2\mathbb{Z}$ takes values in $(1/2)\mathbb{Z}/2\mathbb{Z}$
+- Quadratic form $q_T: A_T \to \mathbb{Q}/2\mathbb{Z}$ takes values in
+  $(1/2)\mathbb{Z}/2\mathbb{Z}$
 - Isotropic vectors: $v \in A_T$ such that $q_T(v) = 0$ in $\mathbb{Q}/2\mathbb{Z}$
 - Nikulin's theory: For 2-elementary lattices, $O(T) \to O(q_T)$ is surjective
 - For nondegenerate $b_T$, nonzero isotropic vectors form a single orbit
@@ -206,8 +219,11 @@ Enumerate isotropic vectors in the discriminant group $A_{T_{Co}} \cong (\mathbb
   - Weight 8: 93 vectors (17.6%)
   - Weight 10: 2 vectors (0.4%)
 
-**Key Insight**:
-The bilinear form $b_T$ associated to $q_T$ is nondegenerate, which implies that all nonzero isotropic vectors lie in a **single orbit** under $O(q_T)$. This is consistent with Nikulin's theory for 2-elementary lattices with $r = a$ and $\delta = 1$. The weight distribution reflects the choice of basis but is not an orbit invariant.
+**Key Insight**: The bilinear form $b_T$ associated to $q_T$ is nondegenerate, which
+implies that all nonzero isotropic vectors lie in a **single orbit** under $O(q_T)$.
+This is consistent with Nikulin's theory for 2-elementary lattices with $r = a$ and
+$\delta = 1$. The weight distribution reflects the choice of basis but is not an orbit
+invariant.
 
 **Verification**:
 
@@ -241,14 +257,16 @@ The bilinear form $b_T$ associated to $q_T$ is nondegenerate, which implies that
 - Verify unique $O^*(T)$-orbit for divisibility 2
 - Connect to 0-cusp classification for Coble moduli space
 
----
+* * *
 
 ## 2026-03-25 - Task 4.1: Search for Maximal Parabolic B̃₇(2) in Coxeter Diagram
 
 **Status**: ✓ Solved
 
-**Problem Statement**:
-The reflection group $W(S_{Co})$ acts on the period domain. The 0-cusp $(9,9,1)_1$ is described by a maximal parabolic subdiagram in the Coxeter diagram $G_{S_{Co}}$. Need to verify that $\widetilde{B}_7(2)$ is the unique maximal parabolic subdiagram.
+**Problem Statement**: The reflection group $W(S_{Co})$ acts on the period domain.
+The 0-cusp $(9,9,1)*1$ is described by a maximal parabolic subdiagram in the Coxeter
+diagram $G*{S_{Co}}$. Need to verify that $\widetilde{B}_7(2)$ is the unique maximal
+parabolic subdiagram.
 
 **Mathematical Background**:
 
@@ -261,9 +279,11 @@ The reflection group $W(S_{Co})$ acts on the period domain. The 0-cusp $(9,9,1)_
 
 **Approach**:
 
-1. Constructed Coxeter diagram $G_{S_{Co}}$ with 10 nodes based on Coble surface geometry
+1. Constructed Coxeter diagram $G_{S_{Co}}$ with 10 nodes based on Coble surface
+   geometry
 2. Implemented algorithm to detect affine Dynkin diagrams from subgraph structure
-3. Searched all subsets of nodes for affine types ($\widetilde{A}_n$, $\widetilde{B}_n$, $\widetilde{D}_n$, $\widetilde{E}_n$, $\widetilde{F}_4$, etc.)
+3. Searched all subsets of nodes for affine types ($\widetilde{A}_n$, $\widetilde{B}_n$,
+   $\widetilde{D}_n$, $\widetilde{E}_n$, $\widetilde{F}_4$, etc.)
 4. Identified maximal affine subdiagrams (not contained in larger affine)
 5. Verified $\widetilde{B}_7(2)$ structure and uniqueness
 
@@ -280,13 +300,18 @@ The reflection group $W(S_{Co})$ acts on the period domain. The 0-cusp $(9,9,1)_
   - $\widetilde{B}_7(2)$: **1** (MAXIMAL)
   - $\widetilde{F}_4$: 3 (maximal)
   - $\widetilde{E}_6$: 3 (maximal)
-- $\widetilde{B}_7(2)$ chain structure confirmed:
-  $$ (0) \text{ -- } (1) \text{ -- } (2) \text{ -- } (3) \text{ -- } (4) \text{ -- } (5) \text{ ==> } (6) \text{ -- } (7) $$
+- $\widetilde{B}_7(2)$ chain structure confirmed: $$ (0) \text{ -- } (1) \text{ -- } (2)
+  \text{ -- } (3) \text{ -- } (4) \text{ -- } (5) \text{ ==> } (6) \text{ -- } (7) $$
   where `==>` denotes the double edge ($m=4$)
 
 **Key Insight**:
 
-$\widetilde{B}_7(2)$ is the **unique maximal parabolic of its type**, which corresponds to the unique 0-cusp in the Coble moduli space. While there are other maximal affine subdiagrams ($\widetilde{F}_4$ and $\widetilde{E}_6$), they correspond to different boundary components. The uniqueness of $\widetilde{B}_7(2)$ confirms the lattice-theoretic description of the 0-cusp from [AEGS23, Section 3].
+$\widetilde{B}_7(2)$ is the **unique maximal parabolic of its type**, which corresponds
+to the unique 0-cusp in the Coble moduli space.
+While there are other maximal affine subdiagrams ($\widetilde{F}_4$ and
+$\widetilde{E}_6$), they correspond to different boundary components.
+The uniqueness of $\widetilde{B}_7(2)$ confirms the lattice-theoretic description of the
+0-cusp from [AEGS23, Section 3].
 
 **Verification**:
 
@@ -315,29 +340,33 @@ $\widetilde{B}_7(2)$ is the **unique maximal parabolic of its type**, which corr
 - [Nikulin1979] Section 3: Reflection groups and Coxeter diagrams
 - [BourbakiLie4-6] Classification of affine Dynkin diagrams
 
-**Next Steps**:
+**Later update**:
 
-- Task 4.2: (if needed) Further analysis of other maximal parabolic subdiagrams
-- Task 5.1: Construct explicit involution matrix $\theta$ and verify sublattice invariants
-- Task 6.1: Map Coble polarization to surgery vector $\ell$ and verify slc stability
+- Task 5.1 is no longer pending from this point in the log; see
+  `audit/task5_1_exact_involution_note.md` for the canonical exact post-theta status.
+- The remaining follow-on work from this section is interpretive rather than raw lattice
+  construction.
 
----
+* * *
 
-## 2026-03-25 - Task 5.1: Construct θ Involution and Verify Eigenspaces
+## 2026-03-25 - Task 5.1: Initial θ Construction Attempt
 
-**Status**: ✓ Solved
+**Status**: superseded by the 2026-03-27 correction below
 
-**Problem Statement**:
-Construct the 22×22 involution matrix $\theta$ acting on $\Lambda_{K3} \cong U^3 \oplus E_8(-1)^2$ such that:
+**Problem Statement**: Construct the 22×22 involution matrix $\theta$ acting on
+$\Lambda_{K3} \cong U^3 \oplus E_8(-1)^2$ such that:
 
 - $\theta^2 = I$ (involution)
 - Fixed sublattice $\Lambda_{K3}^\theta \cong T_{Co}$ (signature $(2,9)$, rank 11)
-- Coinvariant sublattice $\Lambda_{K3}^{-\theta} \cong S_{Co}$ (signature $(1,10)$, rank 11)
-- $\theta$ swaps polarization generators between sectors ($h_{En} \leftrightarrow h_{Co}$)
+- Coinvariant sublattice $\Lambda_{K3}^{-\theta} \cong S_{Co}$ (signature $(1,10)$, rank
+  11\)
+- $\theta$ swaps polarization generators between sectors ($h_{En} \leftrightarrow
+  h_{Co}$)
 
 **Mathematical Background**:
 
-The "horizontal folding" involution $\theta$ is a key structure in the Coble moduli problem. From [AEGS23] and [AlexeevEngel2023], $\theta$ acts on the K3 lattice with:
+The "horizontal folding" involution $\theta$ is a key structure in the Coble moduli
+problem. From [AEGS23] and [AlexeevEngel2023], $\theta$ acts on the K3 lattice with:
 
 - +1 eigenspace isomorphic to the Coble transcendental lattice $T_{Co}$
 - -1 eigenspace isomorphic to the Coble Picard lattice $S_{Co}$
@@ -359,7 +388,7 @@ The "horizontal folding" involution $\theta$ is a key structure in the Coble mod
 6. Defined $\theta = P \cdot \text{diag}(+1^{11}, -1^{11}) \cdot P^{-1}$
 7. Verified all invariants of eigenspaces
 
-**Results**:
+**Historical attempt results**:
 
 - **Involution matrix $\theta$**: 22×22 rational matrix
   - Verified $\theta^2 = I$ ✓
@@ -379,19 +408,24 @@ The "horizontal folding" involution $\theta$ is a key structure in the Coble mod
   - $h_{Co}$ (norm 2, in +1 eigenspace): $\theta(h_{Co}) = h_{Co}$ ✓
   - $h_{En}$ (norm -2, in -1 eigenspace): $\theta(h_{En}) = -h_{En}$ ✓
 
-**Key Insight**:
+**Historical attempted insight**:
 
-The involution $\theta$ can be constructed explicitly by specifying its eigenspaces. The key is finding an orthogonal decomposition of $\Lambda_{K3}$ into sublattices isometric to $T_{Co}$ and $S_{Co}$. This is achieved by:
+The involution $\theta$ can be constructed explicitly by specifying its eigenspaces.
+The key is finding an orthogonal decomposition of $\Lambda_{K3}$ into sublattices
+isometric to $T_{Co}$ and $S_{Co}$. This is achieved by:
 
 1. Using the $U$ factors to accommodate the positive norm directions
 2. Using orthogonal simple roots from $E_8(-1)$ for the negative norm directions
-3. The Bourbaki numbering of $E_8$ has two natural orthogonal sets: $\{0,2,4,6\}$ and $\{1,3,5,7\}$
+3. The Bourbaki numbering of $E_8$ has two natural orthogonal sets: $\{0,2,4,6\}$ and
+   $\{1,3,5,7\}$
 
-The polarization swap is realized by placing $h_{Co}$ in the +1 eigenspace and $h_{En}$ in the -1 eigenspace, which is consistent with the horizontal folding geometry where the Coble polarization is invariant and the Enriques polarization is anti-invariant.
+The polarization swap is realized by placing $h_{Co}$ in the +1 eigenspace and $h_{En}$
+in the -1 eigenspace, which is consistent with the horizontal folding geometry where the
+Coble polarization is invariant and the Enriques polarization is anti-invariant.
 
-**Verification**:
+**Historical verification before the later audit correction**:
 
-All 9 verification checks passed:
+This pass originally reported that all 9 verification checks passed:
 
 - ✓ $\theta$ is 22×22 matrix
 - ✓ $\theta^2 = I$ (involution)
@@ -424,27 +458,95 @@ All 9 verification checks passed:
 - [Nikulin1979]: 2-elementary lattices and involutions
 - [ConwaySloane]: $E_8$ root system and orthogonal vectors
 
-**Next Steps**:
+**Later correction**:
 
-- Task 5.2: (if needed) Further analysis of $\theta$ action on period domain
-- Task 6.1: Map Coble polarization $h_{Co}$ to surgery vector $\ell$ and verify slc stability ✓ SOLVED
-- Use $\theta$ matrix in subsequent computations for $\Gamma_{Co}$ stabilizer analysis
+The later 2026-03-27 audit showed that this construction did **not** yield $\theta \in
+O(\Lambda_{K3})$ because the chosen eigenspaces were not orthogonal in the ambient
+lattice. Treat the present section as chronology only; the operative Task 5.1 route is
+the primitive-embedding / orthogonal-complement route recorded in the correction entry
+and in `audit/task5_1_route_reset.md`.
 
----
+* * *
 
-## 2026-03-25 - Task 6.1: Map h_Co to Surgery Vector ℓ and Verify slc Stability
+## 2026-03-27 - Task 5.1 Correction: Failed Isometry Verification
 
-**Status**: ✓ Solved
+**Status**: historical route-reset entry; later superseded by the exact glued-model
+verification recorded in `audit/task5_1_exact_involution_note.md`
 
-**Problem Statement**:
-Map the Coble polarization $h_{Co}$ to the surgery vector $\ell \in \check{\mathcal{H}}$ (dual complex parameters), construct the stable model $B(\ell)$, and verify slc stability of the pair $(Z, \epsilon C)$.
+**Problem Statement**: The Task 5.1 implementation constructed an involution $\theta$
+but failed the critical verification that $\theta \in O(\Lambda_{K3})$.
+
+**Audit Results** (from `audit/task5_1_rerun_20260327T122004Z.txt`):
+
+| Property | Status |
+| --- | --- |
+| $\theta^2 = I$ | ✓ Pass |
+| $\theta$ is 22×22 matrix | ✓ Pass |
+| +1 eigenspace dimension = 11 | ✓ Pass |
+| -1 eigenspace dimension = 11 | ✓ Pass |
+| +1 eigenspace signature = (2,9) | ✓ Pass |
+| -1 eigenspace signature = (1,10) | ✓ Pass |
+| +1 eigenspace det = det($T_{Co}$) | ✓ Pass |
+| -1 eigenspace det = det($S_{Co}$) | ✓ Pass |
+| **$\theta^T G \theta = G$ (isometry)** | ✗ **FAIL** |
+| **$V_+ \perp V_-$ (orthogonal eigenspaces)** | ✗ **FAIL** |
+
+**Root Cause**: The code constructed embedding matrices $M_{T_+}$ and $M_{S_-}$ by
+picking specific basis vectors of the correct norms but did NOT verify orthogonality
+between the two subspaces.
+The cross-term matrix $V_+^T G V_-$ contains non-zero entries, violating the fundamental
+requirement that eigenspaces of an involution in an orthogonal lattice must be
+orthogonal.
+
+**Mathematical Criterion**: For $\theta = (+1 \text{ on } T, -1 \text{ on } S)$ to lie
+in $O(\Lambda)$, the sublattices $S$ and $T$ must be orthogonal in $\Lambda$. This is
+guaranteed when $T = S^\perp$ is computed as the orthogonal complement of a *primitive*
+embedding $S \hookrightarrow \Lambda$.
+
+**Correct Construction**:
+
+1. Find a primitive embedding $S_{Co} \hookrightarrow \Lambda_{K3}$ (non-trivial
+   computation)
+2. Compute $T_{Co} = S_{Co}^\perp$ as the orthogonal complement (guarantees
+   orthogonality)
+3. Define $\theta = +1$ on $T_{Co}$, $-1$ on $S_{Co}$ (automatically $\theta \in
+   O(\Lambda_{K3})$)
+
+**Key Distinction**:
+- **Automatic**: Given primitive $S \hookrightarrow \Lambda$ unimodular, $S^\perp$ is
+  automatically orthogonal
+- **Must verify**: The current code assumed arbitrary embeddings were orthogonal (they
+  are not)
+
+**Technical Report**: Full analysis in `audit/task5_1_lattice_audit_report.md`
+
+**Files**:
+- `audit/task5_1_lattice_audit_report.md` — Full technical audit
+- `audit/task5_1_rerun_20260327T122004Z.txt` — Failed audit output
+
+**Later update**:
+
+Those next steps were completed later on the explicit glued ambient lattice used by
+`computations/task5_1_involution.sage`. For the canonical post-theta boundary, use
+`audit/task5_1_exact_involution_note.md` instead of this historical correction entry.
+
+* * *
+
+## 2026-03-25 - Task 6.1: Initial slc-Stability Computation Note
+
+**Status**: historical computation note; not the canonical justification layer
+
+**Problem Statement**: Map the Coble polarization $h_{Co}$ to the surgery vector $\ell
+\in \check{\mathcal{H}}$ (dual complex parameters), construct the stable model
+$B(\ell)$, and verify slc stability of the pair $(Z, \epsilon C)$.
 
 **Mathematical Background**:
 
 From AEGS23 (Alexeev-Engel-Garza-Schaffler, arXiv:2312.03638):
 
 - Stable limits of Coble surfaces are $S_2$-quotients of nodal K3 surfaces
-- Models are parameterized by monodromy invariant $\lambda \in \mathcal{C}^J$ via surgery vector $\ell$
+- Models are parameterized by monodromy invariant $\lambda \in \mathcal{C}^J$ via
+  surgery vector $\ell$
 - $\ell = (\lambda \cdot \alpha_i)_{i \in G}$ where $\alpha_i$ are simple roots
 - $B(\ell)$ is the dual complex (integral-affine sphere) constructed from $\ell$
 - KSBA stable limit is $(Z, \epsilon C)$ with $0 < \epsilon \ll 1$
@@ -472,10 +574,12 @@ slc stability conditions:
 - **Surgery vector**: $\ell = (0, 0, 0, 0, 0, 0, 0, 0, 0)$
   - All entries zero: $h_{Co}$ is orthogonal to all simple roots
   - This is expected: $h_{Co}$ lies in positive definite part, roots in negative part
+
 - **Dual complex**: $B(\ell) = S^2$ (standard 2-sphere)
   - Degeneration type: Type III (maximal unipotent monodromy)
   - Integral-affine structure: standard (no surgery modifications)
-  - Enriques involution: hemispherical, quotient $B(\ell)/\iota_{\text{Enr,IA}} \cong D^2$
+  - Enriques involution: hemispherical, quotient $B(\ell)/\iota_{\text{Enr,IA}} \cong
+    D^2$
 
 - **slc stability**: ALL CONDITIONS SATISFIED
   - ✓ $Z$ is $S_2$ (quotient of smooth K3)
@@ -495,13 +599,18 @@ slc stability conditions:
 
 **Key Insight**:
 
-The surgery vector $\ell = 0$ indicates that the Coble polarization $h_{Co}$ corresponds to the **standard Type III degeneration** with no surgery modifications. This is the generic case where:
+The surgery vector $\ell = 0$ indicates that the Coble polarization $h_{Co}$ corresponds
+to the **standard Type III degeneration** with no surgery modifications.
+This is the generic case where:
 
 - The dual complex is the standard 2-sphere
 - The integral-affine structure has no singularities beyond the standard ones
 - The stable limit is the "most symmetric" degeneration
 
-The vanishing of $\ell$ reflects the orthogonality between the polarization (in the positive definite part of $T_{Co}$) and the roots (in the negative definite part). This is consistent with the geometry of Coble surfaces where the polarization comes from the hyperplane class, while the roots correspond to exceptional curves.
+The vanishing of $\ell$ reflects the orthogonality between the polarization (in the
+positive definite part of $T_{Co}$) and the roots (in the negative definite part).
+This is consistent with the geometry of Coble surfaces where the polarization comes from
+the hyperplane class, while the roots correspond to exceptional curves.
 
 **Verification**:
 
@@ -531,12 +640,15 @@ All 13 verification checks passed:
 
 **References**:
 
-- [AEGS23] Sections 2.4, 6, 7: KSBA stable limits, $B(\ell)$ construction, slc conditions
+- [AEGS23] Sections 2.4, 6, 7: KSBA stable limits, $B(\ell)$ construction, slc
+  conditions
 - [Kollar2013] Kollár, J. "Singularities of the Minimal Model Program."
 - [Nikulin1979] 2-elementary lattices and involutions
 
-**Next Steps**:
+**Current status note**:
 
-- All computational verification tasks from GOAL.md are now complete
-- Tasks 1.1-6.1 establish the lattice-theoretic foundation for Coble moduli
-- Future work: Extend to explicit compactification boundary analysis
+This computation note predates the literature-first reset and should not be read as the
+current repository status summary.
+The canonical compactification background now lives in `REFERENCES.md` and
+`audit/literature_claim_map.md`, while the canonical exact Task 5.1 post-theta status
+now lives in `audit/task5_1_exact_involution_note.md`.

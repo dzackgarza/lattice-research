@@ -178,6 +178,28 @@ print(f"\n  Found {len(nodes)} nodes.")
 print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
 print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
 
+if len(nodes) == 10 and sextic_is_irreducible and sextic_is_squarefree:
+    print("\n✓ SUCCESS: Exactly 10 nodes found, and the sextic is reduced and irreducible.")
+    status = "SUCCESS"
+elif len(nodes) == 10:
+    print("\n✓ SUCCESS (with rigor gaps): 10 nodes found, but irreducibility/reducedness checks did not both pass.")
+    status = "SUCCESS_WITH_RIGOR_GAPS"
+else:
+    print(f"\n✗ FAILURE: Found {len(nodes)} nodes instead of 10.")
+    status = "FAILED"
+
+print("\n" + "=" * 80)
+print("NODE POSITIONS")
+print("=" * 80)
+print("\nThe 10 nodes of the Coble curve are located at:")
+print()
+for idx, pt in enumerate(nodes):
+    print(f"  p_{idx+1} = {format_exact_projective_point(pt, name=f'a{idx+1}')}")
+
+print("\n" + "=" * 80)
+print(f"FINAL STATUS: {status}")
+print("=" * 80)
+
 # ============================================================================
 # Step 5: Stabilizer Group Computation
 # ============================================================================

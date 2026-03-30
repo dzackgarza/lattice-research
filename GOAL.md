@@ -10,6 +10,10 @@
     fixed
   - the Enriques/Coble moduli and compactification background
 - Treat those references as the default justification layer in repo prose.
+- Keep the canonical claim notes in sync with that spine:
+  - `audit/literature_claim_map.md`
+  - `audit/task1_1_birationality_note.md`
+  - `audit/task5_1_route_reset.md`
 
 ## Priority 2 — Keep exact numerical evidence aligned with the literature
 

@@ -107,13 +107,60 @@ for f, mult in factors:
     print(f"    Degree {f.total_degree()}: multiplicity {mult}")
 
 # Extract the irreducible sextic factor
+F = None
 for f, mult in factors:
     if f.total_degree() == _sage_const_6 :
         F = f
         print("  Using sextic factor")
         break
 
+if F is None:
+    raise RuntimeError("Could not find a degree-6 factor in the resultant")
+
 print(f"  Final F degree: {F.total_degree()}")
+
+sextic_factorization = F.factor()
+sextic_is_irreducible = len(sextic_factorization) == _sage_const_1  and sextic_factorization[_sage_const_0 ][_sage_const_1 ] == _sage_const_1 
+sextic_is_squarefree = F.is_squarefree()
+
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
+if not sextic_is_irreducible:
+    print(f"  Sextic factorization: {sextic_factorization}")
+
+# Verify that the parametrization is generically one-to-one by comparing a
+# generic affine parameter value a with a second source parameter u. If the
+# only common solution in QQ(a)[u] is u=a, then the map P¹ --> C has generic
+# fiber degree 1 and is birational onto its image.
+A = PolynomialRing(QQ, names=('a',)); (a,) = A._first_ngens(1)
+K_a = FractionField(A)
+U = PolynomialRing(K_a, names=('u',)); (u,) = U._first_ngens(1)
+
+def dehomogenize_at_one(poly, var, target_ring):
+    result = target_ring(_sage_const_0 )
+    for (i, j), coeff in poly.dict().items():
+        result += target_ring(coeff) * var**i
+    return result
+
+f0_a = dehomogenize_at_one(f0, a, K_a)
+f1_a = dehomogenize_at_one(f1, a, K_a)
+f2_a = dehomogenize_at_one(f2, a, K_a)
+f0_u = dehomogenize_at_one(f0, u, U)
+f1_u = dehomogenize_at_one(f1, u, U)
+f2_u = dehomogenize_at_one(f2, u, U)
+
+fiber_eq1 = f0_u * f1_a - f1_u * f0_a
+fiber_eq2 = f0_u * f2_a - f2_u * f0_a
+generic_fiber_gcd = fiber_eq1.gcd(fiber_eq2).monic()
+generic_expected = (u - K_a(a)).monic()
+generic_fiber_degree = generic_fiber_gcd.degree()
+parametrization_generically_injective = generic_fiber_gcd == generic_expected
+
+print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
+print(f"  Generic fiber gcd: {generic_fiber_gcd}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
+
+load("computations/coble_geometry.sage")
 
 # ============================================================================
 # Step 3: Extract Coefficients
@@ -181,10 +228,9 @@ for sol in sols_inf:
     if any(c != _sage_const_0  for c in pt):
         all_singular_points.append(pt)
 
-print(f"\n  Total singular points (projective): {len(all_singular_points)}")
+all_singular_points = deduplicate_projective_points_exact(all_singular_points)
 
-# ============================================================================
-load("computations/coble_geometry.sage")
+print(f"\n  Total singular points (projective): {len(all_singular_points)}")
 
 # ============================================================================
 # Step 5: Verify Each Singularity is a Node (A₁)
@@ -197,7 +243,7 @@ other_singularities = []
 for idx, pt in enumerate(all_singular_points):
     try:
         # Verify node using centralized utility
-        if is_node_at_point(F, pt):
+        if is_node_at_point(F, tuple(pt)):
             nodes.append((pt, _sage_const_2 ))
             print(f"    Point {idx+_sage_const_1 }: Hessian rank = 2  ✓ NODE (A₁)")
         else:
@@ -218,6 +264,9 @@ print("=" * _sage_const_80 )
 print(f"\nImplicit equation F(x,y,z):")
 print(f"  Degree: {F.total_degree()}")
 print(f"  Non-zero coefficients: {len(nonzero_coeffs)}")
+print(f"  Irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Squarefree/reduced: {sextic_is_squarefree}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
 print(f"\nSingular points analysis:")
 print(f"  Total found: {len(all_singular_points)}")
@@ -231,10 +280,14 @@ print(f"  Geometric genus: g = g_a - Σδ ≤ 10 - {len(nodes)} = {_sage_const_1
 
 # Determine success
 if len(nodes) == _sage_const_10 :
-    if len(other_singularities) == _sage_const_0 :
-        print(f"\n✓ SUCCESS: F(x,y,z) has exactly 10 nodes!")
+    if len(other_singularities) == _sage_const_0  and sextic_is_irreducible and sextic_is_squarefree:
+        print(f"\n✓ SUCCESS: F(x,y,z) is a reduced irreducible sextic with exactly 10 nodes!")
         print("  This is the required Coble curve equation.")
         status = "SUCCESS"
+    elif len(other_singularities) == _sage_const_0 :
+        print(f"\n✓ SUCCESS (with rigor gaps): F(x,y,z) has exactly 10 nodes")
+        print("  but irreducibility/reducedness checks did not both pass.")
+        status = "SUCCESS_WITH_RIGOR_GAPS"
     else:
         print(f"\n✓ SUCCESS (with caveat): F(x,y,z) has 10 nodes")
         print(f"  plus {len(other_singularities)} additional degenerate singularity(ies)")
@@ -267,12 +320,12 @@ print("=" * _sage_const_80 )
 print("\nThe 10 nodes of the Coble curve are located at:")
 print()
 for idx, (pt, disc) in enumerate(nodes):
-    print(f"  p_{idx+_sage_const_1 } = [{pt[_sage_const_0 ]} : {pt[_sage_const_1 ]} : {pt[_sage_const_2 ]}]")
+    print(f"  p_{idx+_sage_const_1 } = {format_exact_projective_point(pt, name=f'a{idx+_sage_const_1 }')}")
 
 if len(other_singularities) > _sage_const_0 :
     print("\nAdditional singularities (not nodes):")
     for idx, (pt, disc) in enumerate(other_singularities):
-        print(f"  q_{idx+_sage_const_1 } = [{pt[_sage_const_0 ]} : {pt[_sage_const_1 ]} : {pt[_sage_const_2 ]}]")
+        print(f"  q_{idx+_sage_const_1 } = {format_exact_projective_point(pt, name=f'b{idx+_sage_const_1 }')}")
 
 print("\n" + "=" * _sage_const_80 )
 print(f"FINAL STATUS: {status}")

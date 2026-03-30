@@ -24,3 +24,13 @@ algebraic data is available.
 When singular points or other solutions are algebraic but not rational, base change to a
 natural number field or exact algebraic extension and continue exact work there rather
 than deduplicating or validating numerically.
+
+For arXiv papers, always prefer the arXiv LaTeX/source payload over PDF OCR whenever the
+source is available.
+Use OCR only for non-source papers, scanned sources, or figures that the source does not
+capture.
+
+For lattice computations, note that CARAT may be useful when an exact computation of
+integral orthogonal groups, normalizers, or orbit/stabilizer data is needed.
+In particular, review `Aut_grp`, `Normalizer`, and `Orbit` before building custom search
+code for finite positive-definite cases.

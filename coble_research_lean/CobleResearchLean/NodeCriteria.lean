@@ -1,29 +1,72 @@
-import Mathlib.AlgebraicGeometry.ProjectiveSpectrum.StructureSheaf
-import Mathlib.AlgebraicGeometry.Scheme
-import Mathlib.Algebra.MvPolynomial.Basic
-import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-import Mathlib.FieldTheory.IsAlgClosed.Basic
+import Mathlib
 
 /-!
-# Node Criteria for Plane Curves
+# Node Criteria for Plane Curves – Hessian Rank Bound
 
-This file formalizes the criterion for a singular point of a plane curve to be a node (A1 singularity)
-using the rank of the Hessian matrix.
+At a nonzero singular point of a homogeneous ternary polynomial the 3 × 3
+Hessian matrix has rank at most 2.
 
-## Main Statement
-A singular point $p$ of a projective plane curve $C = \{F(x,y,z)=0\}$ is a node iff
-the $3 \times 3$ Hessian matrix $H(F)(p)$ has rank 2.
+## Proof idea
+If `F` is homogeneous of degree `n`, then `∂F/∂xⱼ` is homogeneous of degree
+`n − 1`. Euler's identity applied to `∂F/∂xⱼ` gives the polynomial identity
 
-PROVIDED SOLUTION
-1. Let $F$ be a homogeneous polynomial of degree $d$.
-2. At a singular point $p$, we have $F(p) = 0$ and $dF(p) = 0$ by Euler's homogeneous function theorem.
-3. The Hessian $H(F)(p)$ represents the quadratic part of the Taylor expansion of $F$ at $p$.
-4. A singularity is a node (A1) if it is of multiplicity 2 and the tangent cone is non-degenerate.
-5. Multiplicity 2 means the second-order part is non-zero, i.e., $rank(H(F)(p)) \ge 1$.
-6. In a chart where $z=1$ and $p=(0,0,1)$, the condition $rank(H(F)(p))=2$ is equivalent to $det(H(f)(0,0)) \ne 0$ where $f(x,y) = F(x,y,1)$.
-7. This follows from the projective Hessian identity: $H(F)(p)$ and $H(f)(0,0)$ are related by a rank transformation at a singular point.
+  `∑ i, X i * ∂²F/∂xᵢ∂xⱼ = (n − 1) • ∂F/∂xⱼ`.
+
+Evaluating at a singular point `p` (where every first partial vanishes) shows
+that the Hessian matrix `H(F)(p)` satisfies `H(F)(p) · p = 0`. Since `p ≠ 0`
+the kernel of `H(F)(p)` is non-trivial, so its rank is at most 2.
 -/
 
-theorem node_criteria_hessian_rank (k : Type*) [Field k] [IsAlgClosed k]
-  (F : MvPolynomial (Fin 3) k) (p : Fin 3 → k) :
-  sorry := by sorry
+open MvPolynomial Matrix Finset
+
+noncomputable section
+
+/-- The Hessian matrix of a multivariate polynomial `F` evaluated at a point `p`.
+    Entry `(i, j)` is `eval p (pderiv i (pderiv j F))`. -/
+def hessianMatrixAt {k : Type*} [CommSemiring k]
+    (F : MvPolynomial (Fin 3) k) (p : Fin 3 → k) : Matrix (Fin 3) (Fin 3) k :=
+  Matrix.of fun i j => MvPolynomial.eval p (MvPolynomial.pderiv i (MvPolynomial.pderiv j F))
+
+/-- A point `p` is a singular point of `F` when `F(p) = 0` and every first
+    partial derivative vanishes at `p`. -/
+def IsSingularPoint {k : Type*} [CommSemiring k]
+    (F : MvPolynomial (Fin 3) k) (p : Fin 3 → k) : Prop :=
+  MvPolynomial.eval p F = 0 ∧ ∀ j : Fin 3, MvPolynomial.eval p (MvPolynomial.pderiv j F) = 0
+
+/-- At a singular point of a homogeneous polynomial, the Hessian matrix
+    multiplied by the point vector is zero. -/
+lemma hessian_mulVec_singular {k : Type*} [CommRing k]
+    {F : MvPolynomial (Fin 3) k} {n : ℕ} {p : Fin 3 → k}
+    (hF : F.IsHomogeneous n) (hs : IsSingularPoint F p) :
+    (hessianMatrixAt F p).mulVec p = 0 := by
+  ext j
+  have h_euler : ∑ i, MvPolynomial.X i * MvPolynomial.pderiv i F = n • F := by
+    convert MvPolynomial.IsHomogeneous.sum_X_mul_pderiv hF using 1
+  have h_chain : ∑ i, MvPolynomial.X i * MvPolynomial.pderiv j (MvPolynomial.pderiv i F) +
+      MvPolynomial.pderiv j F = n • MvPolynomial.pderiv j F := by
+    convert congr_arg (pderiv j) h_euler using 1 <;> simp +decide [mul_comm]
+    simp +decide [Finset.sum_add_distrib, Pi.single_apply]
+  replace h_chain := congr_arg (MvPolynomial.eval p) h_chain
+  simp_all +decide [Matrix.mulVec, dotProduct]
+  simp_all +decide [mul_comm, hessianMatrixAt]
+  have := hs.2 j
+  aesop
+
+/-- At a nonzero singular point of a homogeneous ternary polynomial,
+    the Hessian matrix has rank at most 2. -/
+theorem hessian_rank_le_two_of_singular {k : Type*} [Field k]
+    {F : MvPolynomial (Fin 3) k} {n : ℕ} {p : Fin 3 → k}
+    (hF : F.IsHomogeneous n) (hs : IsSingularPoint F p)
+    (hp : p ≠ 0) :
+    (hessianMatrixAt F p).rank ≤ 2 := by
+  have h_mulVec_zero : (hessianMatrixAt F p).mulVec p = 0 :=
+    hessian_mulVec_singular hF hs
+  have h_kernel_nontrivial : LinearMap.ker (Matrix.mulVecLin (hessianMatrixAt F p)) ≠ ⊥ := by
+    rw [Ne.eq_def, LinearMap.ker_eq_bot']
+    aesop
+  have := LinearMap.finrank_range_add_finrank_ker (Matrix.mulVecLin (hessianMatrixAt F p))
+  simp_all +decide [Matrix.rank]
+  linarith [show Module.finrank k (LinearMap.ker (Matrix.mulVecLin (hessianMatrixAt F p))) ≥ 1
+    from Nat.pos_of_ne_zero (by aesop)]
+
+end

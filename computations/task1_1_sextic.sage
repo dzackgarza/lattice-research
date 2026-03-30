@@ -155,6 +155,8 @@ print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
 print(f"  Generic fiber gcd: {generic_fiber_gcd}")
 print(f"  Parametrization generically injective: {parametrization_generically_injective}")
 
+load("computations/coble_geometry.sage")
+
 # ============================================================================
 # Step 3: Extract Coefficients
 # ============================================================================
@@ -221,10 +223,9 @@ for sol in sols_inf:
     if any(c != 0 for c in pt):
         all_singular_points.append(pt)
 
-print(f"\n  Total singular points (projective): {len(all_singular_points)}")
+all_singular_points = deduplicate_projective_points_exact(all_singular_points)
 
-# ============================================================================
-load("computations/coble_geometry.sage")
+print(f"\n  Total singular points (projective): {len(all_singular_points)}")
 
 # ============================================================================
 # Step 5: Verify Each Singularity is a Node (A₁)
@@ -237,7 +238,7 @@ other_singularities = []
 for idx, pt in enumerate(all_singular_points):
     try:
         # Verify node using centralized utility
-        if is_node_at_point(F, pt):
+        if is_node_at_point(F, tuple(pt)):
             nodes.append((pt, 2))
             print(f"    Point {idx+1}: Hessian rank = 2  ✓ NODE (A₁)")
         else:
@@ -314,12 +315,12 @@ print("=" * 80)
 print("\nThe 10 nodes of the Coble curve are located at:")
 print()
 for idx, (pt, disc) in enumerate(nodes):
-    print(f"  p_{idx+1} = [{pt[0]} : {pt[1]} : {pt[2]}]")
+    print(f"  p_{idx+1} = {format_exact_projective_point(pt, name=f'a{idx+1}')}")
 
 if len(other_singularities) > 0:
     print("\nAdditional singularities (not nodes):")
     for idx, (pt, disc) in enumerate(other_singularities):
-        print(f"  q_{idx+1} = [{pt[0]} : {pt[1]} : {pt[2]}]")
+        print(f"  q_{idx+1} = {format_exact_projective_point(pt, name=f'b{idx+1}')}")
 
 print("\n" + "=" * 80)
 print(f"FINAL STATUS: {status}")

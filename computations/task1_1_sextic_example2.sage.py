@@ -56,12 +56,55 @@ F = R_xyz(F)
 
 # Factor and extract the sextic component
 factors = F.factor()
+F = None
 for f, mult in factors:
     if f.total_degree() == _sage_const_6 :
         F = f
         break
 
+if F is None:
+    raise RuntimeError("Could not find a degree-6 factor in the resultant")
+
 print(f"  Final F degree: {F.total_degree()}")
+
+sextic_factorization = F.factor()
+sextic_is_irreducible = len(sextic_factorization) == _sage_const_1  and sextic_factorization[_sage_const_0 ][_sage_const_1 ] == _sage_const_1 
+sextic_is_squarefree = F.is_squarefree()
+
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
+if not sextic_is_irreducible:
+    print(f"  Sextic factorization: {sextic_factorization}")
+
+A = PolynomialRing(QQ, names=('a',)); (a,) = A._first_ngens(1)
+K_a = FractionField(A)
+U = PolynomialRing(K_a, names=('u',)); (u,) = U._first_ngens(1)
+
+def dehomogenize_at_one(poly, var, target_ring):
+    result = target_ring(_sage_const_0 )
+    for (i, j), coeff in poly.dict().items():
+        result += target_ring(coeff) * var**i
+    return result
+
+f0_a = dehomogenize_at_one(f0, a, K_a)
+f1_a = dehomogenize_at_one(f1, a, K_a)
+f2_a = dehomogenize_at_one(f2, a, K_a)
+f0_u = dehomogenize_at_one(f0, u, U)
+f1_u = dehomogenize_at_one(f1, u, U)
+f2_u = dehomogenize_at_one(f2, u, U)
+
+fiber_eq1 = f0_u * f1_a - f1_u * f0_a
+fiber_eq2 = f0_u * f2_a - f2_u * f0_a
+generic_fiber_gcd = fiber_eq1.gcd(fiber_eq2).monic()
+generic_expected = (u - K_a(a)).monic()
+generic_fiber_degree = generic_fiber_gcd.degree()
+parametrization_generically_injective = generic_fiber_gcd == generic_expected
+
+print(f"  Generic fiber gcd degree: {generic_fiber_degree}")
+print(f"  Generic fiber gcd: {generic_fiber_gcd}")
+print(f"  Parametrization generically injective: {parametrization_generically_injective}")
+
+load("computations/coble_geometry.sage")
 
 # ============================================================================
 # Step 4: Find All Singular Points
@@ -111,10 +154,9 @@ for sol in sols_inf:
     if any(c != _sage_const_0  for c in pt):
         all_singular_points.append(pt)
 
-print(f"  Total singular points (projective): {len(all_singular_points)}")
+all_singular_points = deduplicate_projective_points_exact(all_singular_points)
 
-# ============================================================================
-load("computations/coble_geometry.sage")
+print(f"  Total singular points (projective): {len(all_singular_points)}")
 
 # ============================================================================
 # Step 5: Verify Each Singularity is a Node (A₁)
@@ -123,18 +165,37 @@ print("\n[Step 5] Verifying nodes (A₁ singularities)...")
 
 nodes = []
 for idx, pt in enumerate(all_singular_points):
-    if is_node_at_point(F, pt):
+    if is_node_at_point(F, tuple(pt)):
         nodes.append(pt)
         print(f"    Point {idx+_sage_const_1 }: ✓ NODE (A₁)")
     else:
         print(f"    Point {idx+_sage_const_1 }: ✗ NOT A NODE")
 
 print(f"\n  Found {len(nodes)} nodes.")
+print(f"  Sextic irreducible over QQ: {sextic_is_irreducible}")
+print(f"  Sextic squarefree/reduced: {sextic_is_squarefree}")
 
-if len(nodes) == _sage_const_10 :
-    print("\n✓ SUCCESS: Exactly 10 nodes found.")
+if len(nodes) == _sage_const_10  and sextic_is_irreducible and sextic_is_squarefree:
+    print("\n✓ SUCCESS: Exactly 10 nodes found, and the sextic is reduced and irreducible.")
+    status = "SUCCESS"
+elif len(nodes) == _sage_const_10 :
+    print("\n✓ SUCCESS (with rigor gaps): 10 nodes found, but irreducibility/reducedness checks did not both pass.")
+    status = "SUCCESS_WITH_RIGOR_GAPS"
 else:
     print(f"\n✗ FAILURE: Found {len(nodes)} nodes instead of 10.")
+    status = "FAILED"
+
+print("\n" + "=" * _sage_const_80 )
+print("NODE POSITIONS")
+print("=" * _sage_const_80 )
+print("\nThe 10 nodes of the Coble curve are located at:")
+print()
+for idx, pt in enumerate(nodes):
+    print(f"  p_{idx+_sage_const_1 } = {format_exact_projective_point(pt, name=f'a{idx+_sage_const_1 }')}")
+
+print("\n" + "=" * _sage_const_80 )
+print(f"FINAL STATUS: {status}")
+print("=" * _sage_const_80 )
 
 # ============================================================================
 # Step 6: Stabilizer Group Computation (Logic from task3_1_stabilizer.sage)
@@ -217,12 +278,15 @@ with open(results_file, 'w') as f:
     f.write(f"   f1 = {f1}\n")
     f.write(f"   f2 = {f2}\n\n")
     f.write(f"2. Implicit Equation F(x,y,z) degree: {F.total_degree()}\n")
+    f.write(f"   Irreducible over QQ: {sextic_is_irreducible}\n")
+    f.write(f"   Squarefree/reduced: {sextic_is_squarefree}\n")
+    f.write(f"   Parametrization generically injective: {parametrization_generically_injective}\n")
     f.write(f"3. Singular Points:\n")
     f.write(f"   Total found: {len(all_singular_points)}\n")
     f.write(f"   Nodes (A1): {len(nodes)}\n\n")
     f.write("4. Node Positions (Projective):\n")
     for idx, pt in enumerate(nodes):
-        f.write(f"   p_{idx+_sage_const_1 } = [{pt[_sage_const_0 ]} : {pt[_sage_const_1 ]} : {pt[_sage_const_2 ]}]\n")
+        f.write(f"   p_{idx+_sage_const_1 } = {format_exact_projective_point(pt, name=f'a{idx+_sage_const_1 }')}\n")
     f.write("\n5. Stabilizer Group Γ_Co Analysis:\n")
     f.write(f"   Lattice T_En Gram Matrix: diag(2, 2, -2, ..., -2)\n")
     f.write(f"   Polarization h_Co: {list(h_Co)}\n")
