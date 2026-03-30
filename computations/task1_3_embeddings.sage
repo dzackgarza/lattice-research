@@ -25,7 +25,7 @@ References:
 import sys
 from sage.all import *
 
-load("coble_geometry.sage")
+load("computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.3: Primitive Embedding Matrices")
