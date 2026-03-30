@@ -10,23 +10,13 @@ support those claims, they do not substitute for them.
 
 - None — awaiting next directive.
 
-## Documentation proliferation warning
+## Documentation budget
 
-The repo has accumulated 37 documentation files (264K audit/, 84K plans/, 32K reports/)
-and recent autonomous work spiraled into internal bureaucracy instead of mathematical
-progress. The last 15 commits were pure documentation churn (citation weaving, canonical
-statement creation) with zero computational or verification advancement.
-
-**Scheduled pruning targets**:
-- Archive stale audit/*.txt transcripts that are superseded by canonical notes
-- Consolidate redundant plan summaries
-- Remove or archive reports/ artifacts that duplicate information in canonical notes
-- Establish a documentation budget: canonical notes stay, transient artifacts get
-  archived
-
-The schedule should incorporate a dedicated documentation pruning pass to bring the repo
-back in line with what's actually needed for mathematical work, not internal process
-overhead.
+Canonical notes stay in audit/, transient artifacts get archived.
+Recent pruning:
+- Archived 14 .txt transcripts (3593 lines) superseded by solved proof notes
+- Archived 2 duplicate audit reports
+- Removed reports/ directory (content duplicated GAPS.md)
 
 ## Recently completed plans
 
