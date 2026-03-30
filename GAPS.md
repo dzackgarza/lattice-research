@@ -2,10 +2,21 @@
 
 ## Literature / citation gaps
 
+- C. Thas (1994) has been acquired in local machine-parseable form
+  (`papers/extracted/thas_1994.md`, 757 lines).
+  The paper provides explicit rational parametric equations for a 10-nodal sextic
+  associated with a Desargues configuration (Section 3, Main Theorem).
+  The parametric representation is given as rational functions in a parameter t with
+  coefficients depending on three parameters a, b, c. This provides a concrete explicit
+  polynomial family that could be used to verify the repo's computational sextic
+  constructions against primary-source formulas.
+  **Gap**: Still need to compare the repo's three computational examples (task1_1)
+  against these explicit Thas formulas to determine if they are the same construction or
+  independent.
 - The stronger Desargues/Thas uniqueness claim is now directly inspectable at the
-  secondary-source level via Dolgachev's archived 2016 MPI abstract, while C. Thas, *A
-  rational sextic associated with a Desargues configuration* (1994), remains the
-  directly inspected primary source for the weaker existence/construction claim.
+  secondary-source level via Dolgachev's archived 2016 MPI abstract, while C. Thas
+  (1994) remains the directly inspected primary source for the weaker
+  existence/construction claim.
   The underlying `J. Thas` primary source behind the stronger uniqueness wording remains
   unresolved.
 - A literature-backed explicit polynomial family for a 10-nodal rational sextic is still
