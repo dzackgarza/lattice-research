@@ -46,16 +46,10 @@
 
 ## Repo cleanup gaps
 
-- Planning has been reset, but `.orig` / temporary debris still exists elsewhere in the
-  repo and should be triaged separately rather than mixed into mathematical work.
 - `.orig` backups and temporary artifacts continue to accumulate around edited files and
   should be triaged in a dedicated cleanup pass.
 
 ## Immediate next targets
 
-- Resolve the remaining stronger-source wording questions before citing them as settled,
-  especially the stronger all-ten-from-any-nine Coolidge paraphrase and any source that
-  clarifies the uniqueness / `J. Thas` attribution beyond C. Thas (1994).
 - Add one canonical audit note for the exact-coordinate rendering path used by Task 1.1,
   so that result does not live only in code and raw output artifacts.
-- Triage the remaining `.orig` / temporary debris separately from the mathematical work.
