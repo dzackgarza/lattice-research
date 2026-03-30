@@ -50,5 +50,5 @@
 
 ## Immediate next targets
 
-- Add one canonical audit note for the exact-coordinate rendering path used by Task 1.1,
-  so that result does not live only in code and raw output artifacts.
+- None — all immediate literature and computation-to-literature interface gaps are now
+  documented.
