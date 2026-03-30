@@ -20,10 +20,11 @@ Recent pruning:
 
 ## Recently completed plans
 
-- `plans/2026-03-30-verify-all-computations.md` — completed systematic verification of
-  all computation scripts; 15/17 scripts run successfully (2 failures in alternative
-  implementations not referenced by proof notes), all 10 verification notes have
-  mathematically correct outputs matching their claims (no overclaims detected).
+- `plans/2026-03-30-verify-all-computations.md` — INCOMPLETE: Phase 1-3 verified scripts
+  execute without errors (15/17 pass, 2 failures in alternative implementations not
+  referenced by proof notes).
+  Phase 4 mathematical correctness verification was circular (compared documentation to
+  itself) and needs Prover subagent work.
 - `plans/2026-03-30-refactor-stabilizer-orbit-utilities.md` — completed refactoring of
   duplicate utilities; consolidated to_affine and dehomogenize_at_one into
   coble_geometry.sage (88 lines eliminated), fixed K_a ring structure bug.
