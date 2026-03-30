@@ -2,32 +2,43 @@
 
 ## Literature / citation gaps
 
-- C. Thas (1994) has been acquired in local machine-parseable form
-  (`papers/extracted/thas_1994.md`, 757 lines).
-  The paper provides explicit rational parametric equations for a 10-nodal sextic
-  associated with a Desargues configuration (Section 3, Main Theorem).
-  The parametric representation is given as rational functions in a parameter t with
-  coefficients depending on three parameters a, b, c. **Comparison complete**: The
-  repo's three Task 1.1 examples are INDEPENDENT constructions from Thas (1994). Thas
-  uses degree patterns (6, 5, 5) with geometric parameters (a, b, c) encoding Desargues
-  configuration; repo uses fixed integer coefficients with degree-6 in all three
-  coordinates. See `audit/thas_vs_task1_1_comparison.md` for details.
-  **Gap**: The repo's independent sextic constructions could still be connected to other
-  literature sources (e.g., Coble 1917, Coolidge) or verified against additional primary
-  sources.
-- The stronger Desargues/Thas uniqueness claim is now directly inspectable at the
-  secondary-source level via Dolgachev's archived 2016 MPI abstract, while C. Thas
-  (1994) remains the directly inspected primary source for the weaker
-  existence/construction claim.
-  The underlying `J. Thas` primary source behind the stronger uniqueness wording remains
-  unresolved.
-- The repo's Task 1.1 examples are confirmed independent from Thas (1994) but still lack
-  connection to other literature sources.
-  They should continue to be treated as repo-native computational constructions unless
-  connected to additional literature.
-- Coolidge has now been directly inspected for the classical nine-/ten-node discussion,
-  but the stronger all-ten-from-any-nine theorem wording quoted via MathOverflow still
-  needs a cleaner primary-text extraction before the repo should cite it in that form.
+### Task 1.1 sextic constructions — INDEPENDENT (potentially RESOLVABLE)
+
+**Status**: INDEPENDENT — The repo's three Task 1.1 examples are confirmed independent
+constructions from Thas (1994). Thas uses degree patterns (6, 5, 5) with geometric
+parameters (a, b, c) encoding Desargues configuration; repo uses fixed integer
+coefficients with degree-6 in all three coordinates.
+See `audit/thas_vs_task1_1_comparison.md` for details.
+
+**Gap**: Could still be connected to other literature sources (e.g., Coble 1917,
+Coolidge 1931) or verified against additional primary sources.
+
+**Next action**: Search acquired literature (Dolgachev-Kondō 2013, AEGS 2023) for
+connections to repo parametrizations.
+
+### J. Thas uniqueness primary source — BLOCKED
+
+**Status**: BLOCKED — The underlying `J. Thas` primary source behind the stronger
+uniqueness wording remains unresolved.
+Only accessible via Dolgachev's archived 2016 MPI abstract (secondary source).
+
+**Gap**: C. Thas (1994) provides weaker existence/construction claim.
+Stronger uniqueness claim requires J. Thas primary source.
+
+**Next action**: Requires author contact or institutional access to
+unpublished/conference sources.
+
+### Coolidge stronger theorem wording — BLOCKED
+
+**Status**: BLOCKED — Coolidge has been directly inspected for the classical
+nine-/ten-node discussion, but the stronger all-ten-from-any-nine theorem wording quoted
+via MathOverflow needs cleaner primary-text extraction.
+
+**Gap**: MathOverflow paraphrase of "Theorem 28, p. 392" not yet isolated from primary
+text.
+
+**Next action**: Requires better OCR extraction or page-image confirmation from Coolidge
+(1931).
 
 ## Computation-to-literature interface gaps
 
