@@ -20,7 +20,15 @@ placeholders represent concrete formalization targets.
 Fill `sorry` placeholders in existing Lean files with formal proofs, starting with the
 most tractable targets that have complete computational verification.
 
-## Phase 1 — Assess formalization readiness
+## Blocker: Lean toolchain not available
+
+Lean/elan is not installed or not on PATH. Cannot build or verify Lean code.
+
+**Status**: Lean formalization is blocked until toolchain is available.
+Per GOAL.md Priority 4, formalization is secondary to literature spine and computational
+verification, both of which are complete.
+
+## Phase 1 — Assess formalization readiness (BLOCKED)
 
 - [ ] Review `IsotropicPlanes.lean` theorem statements against
   `proofs/solved/task3_2_isotropic_planes.md`
