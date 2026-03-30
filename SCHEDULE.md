@@ -21,7 +21,12 @@
 
 ## 02:00 – 03:00
 
-- Cleaning up, organizing, and modularizing documentation
+- Documentation pruning: archive stale audit/*.txt transcripts superseded by canonical
+  notes, consolidate redundant plan summaries, remove or archive reports/ artifacts that
+  duplicate canonical notes.
+  Establish documentation budget: canonical notes stay, transient artifacts get
+  archived. Goal is to prevent documentation from spiraling into internal bureaucracy
+  that blocks mathematical work.
 
 * * *
 
