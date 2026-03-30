@@ -72,26 +72,27 @@ implementations not referenced by proof notes.
 
 ## Phase 4 — Verify mathematical correctness (not just execution)
 
+**Status**: INCOMPLETE - Previous verification was circular (compared documentation to
+itself)
+
 **Critical distinction**: Scripts running without errors ≠ mathematics being correct.
 
-Systematic verification of numerical claims:
-- [x] task1_1: Claims 10 A₁ nodes → Output confirms "Nodes (A1): 10" ✓
-- [x] task2_1: Claims exactly 2 orbits (sizes 1, 527) → Output confirms "Number of
-  orbits: 2", sizes match ✓
-- [x] task2_2: Claims all div(v)=2, one O*(T)-orbit → Output confirms both ✓
-- [x] task3_1: Claims generators fix h_Co, commute with θ → Output confirms both True ✓
-- [x] task3_2: Claims unique orbit, J⊥/J ≅ A₁^⊕7 → Output confirms "SINGLE
-  O(T_Co)-orbit", Gram = diag(-2,...,-2) ✓
-- [x] task4_1: Claims unique maximal B̃₇(2) → Output confirms "B̃₇(2): 1" ✓
-- [x] task5_1: Claims θ² = I, θᵀGθ = G pass → Output confirms both True ✓
-- [x] task6_1: Claims ℓ = 0, 5 slc conditions → Output confirms ℓ = (0,...,0), all
-  "SATISFIED" ✓
+**Flawed methodology (now rejected)**:
+- Compared verification note claims against output files
+- But verification notes were written FROM those same output files
+- This proves nothing about mathematical correctness
 
-**Result**: All 10 task groups show perfect alignment between verification note claims
-and actual computation outputs.
-No overclaims detected.
+**Correct methodology (needs Prover subagent)**:
+- Pick specific numerical claims and verify them independently
+- Example for task1_1: Take one claimed node coordinate, verify it satisfies F = ∂F/∂x =
+  ∂F/∂y = ∂F/∂z = 0, compute Hessian and verify rank = 2
+- Example for task3_2: Take one claimed primitive isotropic plane, verify primitivity
+  and isotropy from first principles
+- Delegate to Prover subagent for computational proof checking
+
+**Next action**: Delegate spot-check verification to Prover subagent
 
 ## Verification
 
-Success: All scripts run without errors AND all mathematical claims match actual
-computation outputs.
+Phase 1-3: Scripts execute without errors ✓ Phase 4: Mathematical correctness UNVERIFIED
+\- needs Prover subagent work
