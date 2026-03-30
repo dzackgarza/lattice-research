@@ -3,6 +3,7 @@ Task 1.1: Compare stabilizer reflection generators for Example 1 and Example 2.
 """
 
 from sage.all import *
+load("computations/coble_geometry.sage")
 
 # ============================================================================
 # Section 1: Stabilizer Generator logic for Example 1 and Example 2
@@ -13,15 +14,7 @@ def get_stabilizer_gens():
     h_Co = vector(ZZ, [1] + [0]*9)
     theta = diagonal_matrix(ZZ, [1, 1] + [-1]*8)
 
-    def reflection_matrix(r, G):
-        n = G.nrows()
-        r_norm = int(r * G * r)
-        s_r = matrix(QQ, n, n)
-        Gr = G * r
-        for i in range(n):
-            for j in range(n):
-                s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
-        return s_r.change_ring(ZZ), r
+    # Note: reflection_matrix is now imported from coble_geometry.sage
 
     # Find roots for O(T_En)
     roots = []
@@ -33,21 +26,20 @@ def get_stabilizer_gens():
     for i in range(2, 10):
         for sign in [-1, 1]:
             v = vector(ZZ, [0]*10); v[i] = sign; roots.append(v)
-    
-    # Intersect Stabilizer and Centralizer
+
     gamma_gens = []
     gamma_roots = []
     seen_mats = set()
     for r in roots:
         try:
-            s_r, root = reflection_matrix(r, T_En_gram)
+            s_r = reflection_matrix(r, T_En_gram)
             if s_r.transpose() * T_En_gram * s_r == T_En_gram:
                 if (s_r * h_Co == h_Co) and (s_r * theta == theta * s_r):
                     s_tuple = tuple(s_r.list())
                     if s_tuple not in seen_mats:
                         seen_mats.add(s_tuple)
                         gamma_gens.append(s_r)
-                        gamma_roots.append(root)
+                        gamma_roots.append(r)
         except: pass
     
     return gamma_gens, gamma_roots, T_En_gram

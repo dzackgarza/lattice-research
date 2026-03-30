@@ -68,18 +68,35 @@ def get_T_En():
     # Enriques transcendental lattice has signature (2,8)
     return IntegralLattice(diagonal_matrix(ZZ, [2, 2] + [-2]*8))
 
+def reflection_matrix(r, G):
+    """Compute reflection matrix for root r in lattice with Gram matrix G.
+    
+    Formula: s_r(v) = v - 2*(v·r)/(r·r) * r
+    In matrix form: s_r[i,j] = delta[i,j] - 2 * r[i] * (G*r)[j] / r_norm
+    
+    Args:
+        r: Root vector (must be non-isotropic)
+        G: Gram matrix of the lattice
+        
+    Returns:
+        Reflection matrix as an integer matrix
+    """
+    n = G.nrows()
+    r_norm = int(r * G * r)
+    
+    if r_norm == 0:
+        raise ValueError("Root must be non-isotropic")
+    
+    s_r = matrix(QQ, n, n)
+    Gr = G * r
+    for i in range(n):
+        for j in range(n):
+            s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
+    return s_r.change_ring(ZZ)
+
 def stabilizer_reflection_generators(T_En_gram, h_Co, theta):
     """Find reflection generators in the stabilizer Γ_Co of the Coble polarization."""
     n = T_En_gram.nrows()
-    
-    def reflection_matrix(r, G):
-        r_norm = int(r * G * r)
-        s_r = matrix(QQ, n, n)
-        Gr = G * r
-        for i in range(n):
-            for j in range(n):
-                s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
-        return s_r.change_ring(ZZ)
 
     # Search for -2 roots
     roots = []

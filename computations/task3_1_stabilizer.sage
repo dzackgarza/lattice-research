@@ -133,31 +133,7 @@ print("-" * 80)
 
 # For a root r with r² = ±2, the reflection is:
 #   s_r(v) = v - 2(v·r)/(r·r) · r
-
-def reflection_matrix(r, G):
-    """Compute reflection matrix for root r in lattice with Gram G.
-    
-    Formula: s_r(v) = v - 2*(v·r)/(r·r) * r
-    In matrix form: s_r[i,j] = delta[i,j] - 2 * r[i] * (G*r)[j] / r_norm
-    """
-    n = G.nrows()
-    r_norm = int(r * G * r)
-    
-    if r_norm == 0:
-        raise ValueError("Root must be non-isotropic")
-    
-    # Compute in QQ then convert to ZZ
-    s_r = matrix(QQ, n, n)
-    Gr = G * r  # Column vector
-    
-    for i in range(n):
-        for j in range(n):
-            s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
-    
-    # Convert to ZZ
-    s_r = s_r.change_ring(ZZ)
-    
-    return s_r
+# Note: reflection_matrix is now imported from coble_geometry.sage
 
 # Find roots efficiently using diagonal structure
 print("\nFinding roots (vectors with norm ±2)...")

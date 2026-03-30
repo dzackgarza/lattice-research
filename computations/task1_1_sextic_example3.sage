@@ -212,15 +212,7 @@ T_En_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*8)
 h_Co = vector(ZZ, [1] + [0]*9)
 theta = diagonal_matrix(ZZ, [1, 1] + [-1]*8)
 
-def reflection_matrix(r, G):
-    n = G.nrows()
-    r_norm = int(r * G * r)
-    s_r = matrix(QQ, n, n)
-    Gr = G * r
-    for i in range(n):
-        for j in range(n):
-            s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
-    return s_r.change_ring(ZZ)
+# Note: reflection_matrix is now imported from coble_geometry.sage
 
 # Roots to check: standard basis vectors
 roots = []
