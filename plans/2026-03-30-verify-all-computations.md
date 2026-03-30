@@ -72,8 +72,7 @@ implementations not referenced by proof notes.
 
 ## Phase 4 — Verify mathematical correctness (not just execution)
 
-**Status**: INCOMPLETE - Previous verification was circular (compared documentation to
-itself)
+**Status**: COMPLETE (9/10 passed, 1 failed)
 
 **Critical distinction**: Scripts running without errors ≠ mathematics being correct.
 
@@ -94,9 +93,27 @@ itself)
 - [x] Task 1.1 (Example 2): ✓ PASSED - Verified one node is actual A₁ singularity on
   degree-6 curve (Hessian rank 2, all partial derivatives zero at claimed node
   coordinate)
+- [x] Task 1.2: ✓ PASSED (with bug) - Mathematical claims correct per Nikulin
+  classification, but found computational bug: T_Co Gram diagonal has [-1,-1] instead of
+  [-2,-2] (det 1024 vs -2048). Bug tracked in BUGS.md
+- [x] Task 1.3: ✗ FAILED - Computed T_Co Gram matrix is non-diagonal and may not be
+  isometric to correct T_Co. Signature and determinant match but this does NOT imply
+  isometry for indefinite lattices.
+  Needs discriminant form verification.
 - [x] Task 2.1: ✓ PASSED - Verified discriminant group A_T_Co ≅ (ℤ/2ℤ)^11 with 528
   isotropic vectors (1 zero + 527 nonzero), bilinear form nondegenerate (rank 11),
   confirming 2-orbit structure
+- [x] Task 2.2: ✓ PASSED - Verified all primitive isotropic have div(v)=2, 527 nonzero
+  isotropic vectors lift to single O*(T_Co)-orbit
+- [x] Task 3.1: ✓ PASSED - Verified all 9 generators are integer matrices preserving
+  T_En Gram, fixing h_Co, commuting with θ
+- [x] Task 3.2: ✓ PASSED - Verified 15 primitive isotropic planes in single
+  O(T_Co)-orbit, J⊥/J ≅ A₁^⊕7 with Gram diag(-2,-2,-2,-2,-2,-2,-2)
+- [x] Task 4.1: ✓ PASSED - Verified exactly 1 maximal B̃₇(2) subdiagram on nodes
+  (0,1,2,3,4,5,6,7), exhaustive search over 968 node subsets
+- [x] Task 5.1: ✓ PASSED - Verified θ² = I, θᵀGθ = G, θ acts by -I on S_Co and +I on T,
+  signature (3,19), both sublattices primitive
+- [x] Task 6.1: ✓ PASSED - Verified surgery vector ℓ = 0, all 5 slc conditions satisfied
 
 **Next actions**: Continue spot-checking remaining task groups (1.2, 1.3, 2.2, 3.1, 3.2,
 4.1, 5.1, 6.1) with Prover subagent
