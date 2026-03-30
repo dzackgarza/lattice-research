@@ -4,241 +4,121 @@
 
 Agents have been constructing lattices inconsistently, leading to disagreements over
 Gram matrices and verification failures.
-This document establishes canonical construction methods that MUST be used throughout
-the project.
+This document specifies what MUST be centralized in shared code.
 
-## Canonical Lattice Constructions
+## Required Canonical Constructors
+
+All lattices must be constructed via direct sums of these canonical pieces:
 
 ### Standard Building Blocks
 
-All lattices must be constructed from these canonical pieces:
+1. **Rank-1 lattices**: ⟨n⟩ for any n ∈ ℤ
+   - Gram matrix: [n]
 
-```sage
-# Rank-1 lattices
-def rank_one(n):
-    """Rank-1 lattice <n> with Gram matrix [n]."""
-    return IntegralLattice(matrix(ZZ, [[n]]))
+2. **Hyperbolic plane**: U
+   - Gram matrix: [[0,1],[1,0]]
 
-# Hyperbolic plane U
-def hyperbolic_plane():
-    """U with Gram matrix [[0,1],[1,0]]."""
-    return IntegralLattice(matrix(ZZ, [[0,1],[1,0]]))
+3. **E8 root lattice**: E8 or E8(-1)
+   - Gram matrix: Cartan matrix (optionally negated)
 
-# E8 root lattice
-def E8_lattice(negative=True):
-    """E8 with Cartan matrix, optionally negated."""
-    E8_cartan = matrix(ZZ, [
-        [ 2, -1,  0,  0,  0,  0,  0,  0],
-        [-1,  2, -1,  0,  0,  0,  0,  0],
-        [ 0, -1,  2, -1,  0,  0,  0,  0],
-        [ 0,  0, -1,  2, -1,  0,  0,  0],
-        [ 0,  0,  0, -1,  2, -1,  0, -1],
-        [ 0,  0,  0,  0, -1,  2, -1,  0],
-        [ 0,  0,  0,  0,  0, -1,  2,  0],
-        [ 0,  0,  0,  0, -1,  0,  0,  2]
-    ])
-    G = -E8_cartan if negative else E8_cartan
-    return IntegralLattice(G)
-```
+### Project Lattices (Direct Sum Form)
 
-### Project Lattices (Canonical Direct Sum Form)
+**CRITICAL**: These must be constructed via direct sums, NOT ad-hoc diagonal matrices.
 
-**CRITICAL**: These must be constructed via direct sums, not ad-hoc diagonal matrices.
+1. **K3 lattice**: Λ_K3 = U³ ⊕ E8(-1)²
+   - Signature: (3, 19)
+   - Determinant: -1 (unimodular)
 
-```sage
-# K3 lattice
-def Lambda_K3():
-    """Λ_K3 = U³ ⊕ E8(-1)²"""
-    U = hyperbolic_plane()
-    E8 = E8_lattice(negative=True)
-    return U.direct_sum(U).direct_sum(U).direct_sum(E8).direct_sum(E8)
+2. **Coble Picard lattice**: S_Co = ⟨2⟩ ⊕ ⟨-2⟩¹⁰
+   - Signature: (1, 10)
+   - Determinant: 2¹¹ = 2048
 
-# Coble Picard lattice
-def S_Co():
-    """S_Co = <2> ⊕ <-2>¹⁰"""
-    L = rank_one(2)
-    for _ in range(10):
-        L = L.direct_sum(rank_one(-2))
-    return L
+3. **Coble transcendental lattice**: T_Co = ⟨2⟩ ⊕ U ⊕ E8(-1)
+   - Signature: (2, 9)
+   - Determinant: -2¹¹ = -2048
 
-# Coble transcendental lattice
-def T_Co():
-    """T_Co = <2> ⊕ U ⊕ E8(-1)"""
-    return rank_one(2).direct_sum(hyperbolic_plane()).direct_sum(E8_lattice(negative=True))
+4. **Enriques transcendental lattice**: T_En = ⟨2⟩² ⊕ ⟨-2⟩⁸
+   - Signature: (2, 8)
+   - Determinant: -2¹⁰ = -1024
 
-# Enriques transcendental lattice
-def T_En():
-    """T_En = <2>² ⊕ <-2>⁸"""
-    L = rank_one(2).direct_sum(rank_one(2))
-    for _ in range(8):
-        L = L.direct_sum(rank_one(-2))
-    return L
-```
+## Required Standard Operations
 
-## Standard Lattice Operations
-
-All agents MUST use these standard methods.
-No custom implementations.
+All agents MUST use these standard methods (no custom implementations):
 
 ### Basic Invariants
 
-```sage
-L = get_T_Co()  # Use canonical constructor
-
-# Signature
-sig = L.signature()  # Returns (p, n) where p = # positive, n = # negative
-
-# Rank
-r = L.rank()
-
-# Determinant
-det = L.determinant()
-
-# Gram matrix (basis-dependent!)
-G = L.gram_matrix()
-```
+- `L.signature()` → (p, n) where p = # positive, n = # negative
+- `L.rank()` → rank
+- `L.determinant()` → determinant
+- `L.gram_matrix()` → Gram matrix (basis-dependent!)
 
 ### Discriminant Group
 
-```sage
-# Discriminant group A_L = L^*/L
-A_L = L.discriminant_group()
-
-# Order
-order = A_L.cardinality()
-
-# Invariants (elementary divisors)
-invs = A_L.invariants()  # e.g., (2, 2, 2, ..., 2) for 2-elementary
-
-# Check if 2-elementary
-is_2_elem = all(d == 2 for d in A_L.invariants())
-```
+- `L.discriminant_group()` → A_L = L*/L
+- `A_L.cardinality()` → |A_L|
+- `A_L.invariants()` → elementary divisors
+- Check 2-elementary: all invariants equal 2
 
 ### Discriminant Form
 
-```sage
-A_L = L.discriminant_group()
-
-# Quadratic form q_L: A_L → Q/2Z
-def q_L(v):
-    """Evaluate discriminant form on element v ∈ A_L."""
-    return A_L.quadratic_form(v)
-
-# Check if isotropic
-is_isotropic = (q_L(v) == 0)
-```
+- `A_L.quadratic_form(v)` → q_L(v) ∈ ℚ/2ℤ
+- Check isotropic: q_L(v) = 0
 
 ### Nikulin Invariants
 
-For 2-elementary lattices:
-
-```sage
-# (r, a, δ) where:
-# r = rank
-# a = rank of discriminant group (log_2 of order)
-# δ = 0 or 1 (coparity: whether r ≡ a mod 2)
-
-r = L.rank()
-A_L = L.discriminant_group()
-a = len(A_L.invariants())  # For 2-elementary, this is log_2(order)
-delta = (r - a) % 2
-```
+For 2-elementary lattices: (r, a, δ) where
+- r = rank
+- a = rank of discriminant group
+- δ = (r - a) mod 2 (coparity)
 
 ### Primitive Embeddings
 
-```sage
-def is_primitive_embedding(M_basis, L):
-    """
-    Check if sublattice generated by M_basis is primitive in L.
-
-    Args:
-        M_basis: Matrix whose rows are basis vectors for sublattice M
-        L: IntegralLattice containing M
-
-    Returns:
-        True if M is primitive (L/M is torsion-free)
-    """
-    # Compute Smith normal form of M_basis over L's ambient space
-    # Primitive iff all diagonal entries are ±1
-    S = M_basis.smith_form()[0]
-    return all(abs(S[i,i]) == 1 for i in range(S.nrows()))
-```
+- Check if sublattice M is primitive in L (L/M torsion-free)
+- Use Smith normal form: primitive iff all diagonal entries ±1
 
 ### Orthogonal Complements
 
-```sage
-def orthogonal_complement(M_basis, L):
-    """
-    Compute orthogonal complement M^⊥ in L.
+- Compute M^⊥ in L
+- Solve orthogonality conditions
 
-    Args:
-        M_basis: Matrix whose rows span M
-        L: Ambient lattice
-
-    Returns:
-        Basis matrix for M^⊥
-    """
-    G = L.gram_matrix()
-    # Solve G * x^T = 0 for all rows of M_basis
-    # Return basis for kernel
-    return (M_basis * G).right_kernel().basis_matrix()
-```
-
-## Verification Standards
+## Critical Rules
 
 ### Lattice Equality
 
-**NEVER** compare Gram matrices directly.
-Lattices are equal up to isometry, not matrix equality.
+**NEVER compare Gram matrices directly**. Lattices are equal up to isometry, not matrix
+equality.
 
-```sage
-def lattices_isometric(L1, L2):
-    """Check if L1 and L2 are isometric."""
-    # Must have same invariants
-    if L1.signature() != L2.signature():
-        return False
-    if L1.determinant() != L2.determinant():
-        return False
+To check isometry:
+- Compare signature
+- Compare determinant
+- Compare discriminant group invariants
+- For 2-elementary lattices: compare discriminant forms
 
-    # For 2-elementary lattices, check discriminant forms
-    A1 = L1.discriminant_group()
-    A2 = L2.discriminant_group()
-    if A1.invariants() != A2.invariants():
-        return False
-
-    # For indefinite lattices, signature + det + disc form determines isometry class
-    # (Nikulin's classification)
-    return True  # If all invariants match
-```
+**WARNING**: Signature + determinant + discriminant form does NOT always determine
+isometry class for indefinite lattices.
+Nikulin's classification is more subtle.
 
 ### Assertion-First Coding
 
-Every computation MUST be preceded by an assertion:
-
-```sage
-# BAD: Just print
+Every print must be preceded by assertion:
+```python
+# BAD
 print(f"Signature: {L.signature()}")
 
-# GOOD: Assert then print
+# GOOD
 sig = L.signature()
-assert sig == (2, 9), f"Expected signature (2,9), got {sig}"
+assert sig == (2, 9), f"Expected (2,9), got {sig}"
 print(f"Signature: {sig}")
 ```
 
-## Process Review Checklist
+## Implementation Requirements
 
-Before any verification work, check:
+1. All canonical constructors must be in `coble_geometry.sage`
+2. All scripts must use these constructors (no ad-hoc constructions)
+3. Gram matrices may differ (basis change) but invariants must match
+4. Any custom construction requires explicit justification
 
-- [ ] Are lattices constructed via canonical direct sums?
-- [ ] Are standard methods used (not custom implementations)?
-- [ ] Are assertions present before every print?
-- [ ] Are lattice comparisons done via invariants (not Gram matrices)?
-- [ ] Are discriminant forms computed using standard methods?
-- [ ] Is the verification plan reviewed for standardization violations?
+## Delegation
 
-## Migration Plan
-
-1. Update `coble_geometry.sage` to use canonical direct sum constructions
-2. Audit all existing scripts for non-standard constructions
-3. Create verification records documenting which standards were used
-4. Add standardization review to verification process (audit/verification_process.md)
+Subagents should implement these specifications in `coble_geometry.sage` and update all
+scripts to use them.

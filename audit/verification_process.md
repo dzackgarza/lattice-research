@@ -7,6 +7,29 @@ before delegation.
 
 Every verification task must follow this structure:
 
+### Phase 0: Mathematical Validity Review
+
+**Question**: Are the concepts we're using actually defined in this setting?
+
+**Actions**:
+- Check if every mathematical concept is defined in our setting (e.g., "Arf invariant"
+  only exists over F_2, not Z)
+- Verify that proposed methods match literature techniques for this problem
+- Confirm that any invoked theorems actually apply to our case
+- For any "invariant" or "classification theorem": mandatory literature check
+- Reject any approach that uses undefined concepts or misapplies theorems
+
+**Output**: Mathematical validity clearance or rejection with explanation
+
+**Rejection triggers**:
+- Concept not defined in this setting (e.g., Arf invariant over Z)
+- Theorem doesn't apply (e.g., definite lattice results applied to indefinite case)
+- Method doesn't match literature approach without justification
+- "Invariant" proposed without literature backing
+
+**Critical**: This phase prevents mathematical nonsense from propagating.
+If validity check fails, STOP and research correct approach.
+
 ### Phase 1: Research
 
 **Question**: What techniques exist?
@@ -86,9 +109,20 @@ literature search
 - Review subagent transcript and outputs
 - Check against acceptance criteria
 - Verify mathematical correctness (not just execution success)
+- **Mathematical validity check**: Are concepts used correctly?
+- **Literature alignment check**: Does this match how literature solves this problem?
+- **Concept applicability check**: Is every "invariant" or theorem actually
+  defined/applicable in this setting?
 - Identify any gaps or errors
+- **Reject any work that invokes undefined concepts or misapplies theorems**
 
 **Output**: Audit report with pass/fail determination
+
+**Mandatory rejection triggers**:
+- Uses concepts not defined in this setting
+- Invokes theorems that don't apply
+- Proposes "invariants" without literature backing
+- Mathematical reasoning is nonsensical
 
 ### Phase 7: Pivot (if needed)
 
