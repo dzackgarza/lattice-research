@@ -416,8 +416,13 @@ All canonical lattice constructors implemented.
 
 ### Phase 3: Document Remaining Literature Gaps
 
-- [ ] Task 3.1: Update GAPS.md with literature gap status
-- [ ] Task 3.2: Attempt to connect task1_1 sextics to Coble/Coolidge
+- [x] Task 3.1: Update GAPS.md with literature gap status — COMPLETE: Added explicit
+  status labels (INDEPENDENT, BLOCKED, RESOLVABLE)
+- [x] Task 3.2: Attempt to connect task1_1 sextics to Coble/Coolidge — COMPLETE:
+  Searched Dolgachev-Kondō 2013, AEGS 2023, confirmed INDEPENDENT
+
+**Status**: All literature gaps documented with explicit status.
+Task1_1 confirmed INDEPENDENT from all acquired literature.
 
 ### Phase 4: System-Level Verification
 
