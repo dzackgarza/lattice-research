@@ -7,28 +7,57 @@ before delegation.
 
 Every verification task must follow this structure:
 
-### Phase 0: Mathematical Validity Review
+### Phase 0: Mathematical Validity Review (BLOCKING GATES)
 
 **Question**: Are the concepts we're using actually defined in this setting?
 
-**Actions**:
-- Check if every mathematical concept is defined in our setting (e.g., "Arf invariant"
-  only exists over F_2, not Z)
-- Verify that proposed methods match literature techniques for this problem
-- Confirm that any invoked theorems actually apply to our case
-- For any "invariant" or "classification theorem": mandatory literature check
-- Reject any approach that uses undefined concepts or misapplies theorems
+**MANDATORY REQUIREMENTS** (work cannot proceed without these):
 
-**Output**: Mathematical validity clearance or rejection with explanation
+#### Gate 1: Formal Definitions
 
-**Rejection triggers**:
-- Concept not defined in this setting (e.g., Arf invariant over Z)
-- Theorem doesn't apply (e.g., definite lattice results applied to indefinite case)
-- Method doesn't match literature approach without justification
-- "Invariant" proposed without literature backing
+For EVERY mathematical term used:
+- Provide formal definition
+- State the setting where it's defined (e.g., "quadratic forms over F_2", "integral
+  lattices over Z")
+- Cite source (textbook, paper, theorem number)
 
-**Critical**: This phase prevents mathematical nonsense from propagating.
-If validity check fails, STOP and research correct approach.
+**BLOCKING**: Cannot proceed to implementation without definitions + citations for ALL
+terms.
+
+#### Gate 2: Concept Applicability
+
+For EVERY "invariant", "classification", or "theorem":
+- State EXACTLY what mathematical structure it applies to
+- Verify our setting matches that structure
+- If settings don't match: REJECT and find correct approach
+
+**Example blocking questions**:
+- "Arf invariant" → What is it defined for?
+  (Answer: quadratic forms over F_2)
+- Our setting? (Answer: discriminant forms over Z)
+- Do these match? (Answer: NO → BLOCKED)
+
+#### Gate 3: Literature Alignment
+
+For EVERY proposed method:
+- Find literature reference for this exact problem type
+- Cite how experts solve it
+- If proposing different method: explicit justification required
+
+**BLOCKING**: Cannot use custom methods without literature justification.
+
+#### Gate 4: Theorem Hypothesis Verification
+
+For EVERY theorem invoked:
+- State theorem hypotheses explicitly
+- Verify EACH hypothesis holds in our case
+- If any hypothesis fails: REJECT theorem application
+
+**Output**: Mathematical validity clearance with ALL definitions, citations, and
+verifications documented, OR rejection with explanation
+
+**CRITICAL**: These are COMPILER-LEVEL gates, not linter suggestions.
+Work CANNOT proceed past this phase without satisfying ALL requirements.
 
 ### Phase 1: Research
 
