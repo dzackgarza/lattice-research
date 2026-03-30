@@ -90,7 +90,12 @@ itself)
   and isotropy from first principles
 - Delegate to Prover subagent for computational proof checking
 
-**Next action**: Delegate spot-check verification to Prover subagent
+**Prover verification results**:
+- [x] Task 1.1 (Example 2): ✓ PASSED - Verified one node is actual A₁ singularity on
+  degree-6 curve (Hessian rank 2, all partial derivatives zero at claimed node
+  coordinate)
+
+**Next actions**: Continue spot-checking other task groups with Prover subagent
 
 ## Verification
 
