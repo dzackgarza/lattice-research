@@ -42,9 +42,6 @@ support those claims, they do not substitute for them.
 ## Current priorities
 
 - Centralize the literature spine in `REFERENCES.md`.
-- Resolve the remaining stronger-source wording boundaries before citing them as
-  settled, especially the stronger Coolidge all-ten-from-any-nine paraphrase and any
-  source clarifying the archived `J. Thas` uniqueness attribution.
 - Keep exact numerical evidence, but attach each computation to a literature-backed
   claim.
 - Use `audit/task5_1_exact_involution_note.md` as the canonical post-theta boundary
