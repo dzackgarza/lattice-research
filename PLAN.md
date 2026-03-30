@@ -30,6 +30,13 @@ overhead.
 
 ## Recently completed plans
 
+- `plans/2026-03-30-remaining-verification-notes.md` — completed verification note
+  creation for all remaining computational tasks; repo now has 10 solved proof notes
+  covering all 20 computation scripts (task1_1, task1_2, task1_3, task2_1, task2_2,
+  task3_1, task3_2, task4_1, task5_1, task6_1).
+- `plans/2026-03-30-mathematical-verification-work.md` — completed mathematical
+  verification work plan; created 3 new solved proof notes (task2_1, task4_1, task5_1)
+  after user correction about documentation churn.
 - `plans/2026-03-30-weave-citations-into-prose.md` — completed citation-weaving plan;
   inline literature citations now added to solved proof notes for K3/lattice setup and
   2-elementary lattice classification.
