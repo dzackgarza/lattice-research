@@ -197,10 +197,13 @@ $A_1^{\oplus 7}$.
 - Audit log: `audit/run-all-20260326-1837.txt` (updated with new verification)
 - 15 primitive isotropic planes, all with Arf invariant 0 ⇒ single orbit
 
-This is exact computational support for the theoretical predictions from:
-- Nikulin (1979): Classification of 2-elementary lattices
-- Sterk (1991): Cusp classification for Enriques moduli
-- Alexeev-Engel-Garza-Schaffler (2023): Compact moduli of Enriques surfaces
+This is exact computational support for the theoretical predictions from the literature
+spine:
+- Nikulin (1979): Classification of 2-elementary lattices and discriminant-form
+  surjectivity
+- Sterk (1991): Cusp classification for Enriques moduli and isotropic plane orbits
+- Alexeev-Engel-Garza-Schaffler (2023): Compact moduli of Enriques surfaces and Type IV
+  boundary structure
 
 ## Files
 
