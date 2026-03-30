@@ -38,11 +38,6 @@
 - Lean formalization remains secondary until the literature spine and blocked
   computations are stabilized.
 
-## Repo cleanup gaps
-
-- `.orig` backups and temporary artifacts continue to accumulate around edited files and
-  should be triaged in a dedicated cleanup pass.
-
 ## Immediate next targets
 
 - None — all immediate literature and computation-to-literature interface gaps are now
