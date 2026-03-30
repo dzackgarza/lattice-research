@@ -55,6 +55,23 @@ Tracked in BUGS.md.
 **Impact**: Most downstream computations (Task 2.1, 2.2, 3.1, 3.2, 6.1) use correct T_Co
 from coble_geometry.sage, so bugs are isolated to Task 1.2 and 1.3 scripts only.
 
+## Computational bugs
+
+**Task 1.2 T_Co Gram matrix bug**: Computed T_Co has diagonal
+`[2, 2, -2, -2, -2, -2, -2, -2, -2, -1, -1]` instead of expected
+`[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]`. Determinant is 1024 instead of -2048. Root
+cause: likely bug in orthogonal complement computation.
+Tracked in BUGS.md.
+
+**Task 1.3 T_Co embedding bug**: Computed T_Co from embedding is non-diagonal and may
+not be isometric to correct T_Co. Signature and determinant match but this does NOT
+imply isometry for indefinite lattices.
+Needs discriminant form verification.
+Tracked in BUGS.md.
+
+**Impact**: Most downstream computations (Task 2.1, 2.2, 3.1, 3.2, 6.1) use correct T_Co
+from coble_geometry.sage, so bugs are isolated to Task 1.2 and 1.3 scripts only.
+
 ## Immediate next targets
 
 - None — all immediate literature and computation-to-literature interface gaps are now

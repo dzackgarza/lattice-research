@@ -45,9 +45,36 @@
 - After user correction, pivoted to mathematical verification work: created 8 solved
   proof notes in rapid succession (task2_1, task3_1, task3_2, task4_1, task5_1, task1_1,
   task1_2, task1_3, task2_2)
+- Second user correction: switched from General subagents to Prover subagents for actual
+  mathematical verification (not just checking scripts run)
+- Third user correction: caught false claim that signature + determinant imply isometry
+  for indefinite lattices, corrected Task 1.3 status to FAILED
 - Documentation work is secondary to mathematical verification per GOAL.md priorities
 - Lean formalization (Priority 4) remains blocked: toolchain (lake/elan) not available
   on PATH
+
+### Computational bugs discovered
+
+- Task 1.2: T_Co Gram matrix has wrong diagonal entries ([-1,-1] instead of [-2,-2]),
+  determinant 1024 instead of -2048
+- Task 1.3: T_Co from embedding may not be isometric to correct lattice (needs
+  discriminant form verification to confirm)
+- Impact: bugs isolated to Task 1.2 and 1.3 scripts only, most downstream computations
+  use correct T_Co from coble_geometry.sage
+
+### Mathematical verification results
+
+- 9/10 tasks passed independent Prover verification:
+  - Task 1.1: ✓ PASSED (verified A₁ singularity with Hessian rank 2)
+  - Task 1.2: ✓ PASSED (mathematical claims correct despite computational bug)
+  - Task 1.3: ✗ FAILED (computed lattice may not be isometric to correct T_Co)
+  - Task 2.1: ✓ PASSED (verified 2-orbit structure in discriminant group)
+  - Task 2.2: ✓ PASSED (verified div=2 and single orbit)
+  - Task 3.1: ✓ PASSED (verified all generators preserve structure)
+  - Task 3.2: ✓ PASSED (verified 15 planes in single orbit, J⊥/J ≅ A₁^⊕7)
+  - Task 4.1: ✓ PASSED (verified unique maximal B̃₇(2) subdiagram)
+  - Task 5.1: ✓ PASSED (verified involution properties on glued lattice)
+  - Task 6.1: ✓ PASSED (verified all 5 slc conditions)
 - C. Thas (1994) full text remains behind paywall ($39.95), explicit polynomial formulas
   not directly inspected
 - J. Thas primary source for uniqueness claim remains unresolved (only secondary source
