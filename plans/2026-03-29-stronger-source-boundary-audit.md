@@ -131,11 +131,11 @@ Goal: keep canonical repo files aligned with the strongest evidence actually in 
 
 ### Phase 2
 
-- [ ] Normalize canonical support language after the stronger-source audit
+- [x] Normalize canonical support language after the stronger-source audit
 
 ### Quality Gates
 
 - [x] A narrower literature-first follow-up thread is the active plan
-- [ ] Stronger wording layers are source-backed or explicitly unresolved
-- [ ] Canonical prose still separates primary, archived secondary, and repo-native
+- [x] Stronger wording layers are source-backed or explicitly unresolved
+- [x] Canonical prose still separates primary, archived secondary, and repo-native
   claims
