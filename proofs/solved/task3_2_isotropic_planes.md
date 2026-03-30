@@ -17,7 +17,9 @@ $J^\perp/J$ is isometric to $A_1^{\oplus 7}$.
 
 ### Lattice Setup
 
-From Tasks 1.1-1.3, we have:
+From the standard K3/lattice setup (Coble 1917, 1929; Nikulin 1979) as recorded in
+`audit/literature_claim_map.md`, the transcendental lattice of a Coble surface has the
+following structure, verified computationally in Tasks 1.1-1.3:
 
 - **Transcendental lattice**: $T_{\mathrm{Co}} \cong (11, 11, 1)_2$ in Nikulin notation
 - **Signature**: $(2, 9)$ (2 positive, 9 negative directions)

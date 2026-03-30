@@ -38,7 +38,8 @@ It connects:
 
 ### Step 1: Setup
 
-From previous tasks:
+From the standard K3/lattice setup (Coble 1917, 1929; Nikulin 1979) as recorded in
+`audit/literature_claim_map.md`, verified computationally in previous tasks:
 
 - $T_{Co} \cong \langle 2 \rangle^2 \oplus \langle -2 \rangle^9$ (signature $(2,9)$,
   rank 11)
