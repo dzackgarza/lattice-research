@@ -55,7 +55,7 @@ print(f"Is irreducible: {len(F.factor()) == 1 and F.factor()[0][1] == 1}")
 print(f"Is squarefree: {F.is_squarefree()}")
 
 # ============================================================================
-# Step 3: Find singular points - replicate original approach
+# Step 3: Find singular points
 # ============================================================================
 x_gen, y_gen, z_gen = F.parent().gens()
 Fx = F.derivative(x_gen)
@@ -117,7 +117,6 @@ print(f"\nTotal nodes: {len(nodes)}")
 # Step 5: Verify one node with full detail
 # ============================================================================
 if nodes:
-    # Verify first node in detail
     pt = nodes[0]
     px, py, pz = pt
     
@@ -126,11 +125,8 @@ if nodes:
     print("=" * 60)
     
     print(f"\nPoint coordinates: ({px}, {py}, {pz})")
-    
-    # Show approximate values
     print(f"\nApproximate: ({complex(px):.8f}, {complex(py):.8f}, {complex(pz):.8f})")
     
-    # Verify F = 0
     F_val = F(px, py, pz)
     Fx_val = Fx(px, py, pz)
     Fy_val = Fy(px, py, pz)
@@ -145,7 +141,6 @@ if nodes:
     is_zero = (F_val == 0 and Fx_val == 0 and Fy_val == 0 and Fz_val == 0)
     print(f"\n  All zero (exact): {is_zero}")
     
-    # Hessian
     H = matrix([[F.derivative(x_gen, x_gen), F.derivative(x_gen, y_gen), F.derivative(x_gen, z_gen)],
                 [F.derivative(y_gen, x_gen), F.derivative(y_gen, y_gen), F.derivative(y_gen, z_gen)],
                 [F.derivative(z_gen, x_gen), F.derivative(z_gen, y_gen), F.derivative(z_gen, z_gen)]])
