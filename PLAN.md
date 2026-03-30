@@ -20,6 +20,9 @@ Recent pruning:
 
 ## Recently completed plans
 
+- `plans/2026-03-30-fix-computational-bugs.md` — completed bug fix plan; Bug 1 (Task 1.2
+  T_Co Gram matrix) fixed via Prover delegation, Bug 2 (Task 1.3 embedding) verified as
+  NOT A BUG via discriminant form verification.
 - `plans/2026-03-30-verify-all-computations.md` — INCOMPLETE: Phase 1-3 verified scripts
   execute without errors (15/17 pass, 2 failures in alternative implementations not
   referenced by proof notes).

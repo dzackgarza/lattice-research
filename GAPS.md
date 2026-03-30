@@ -38,39 +38,17 @@
 - Lean formalization remains secondary until the literature spine and blocked
   computations are stabilized.
 
-## Computational bugs
+## Computational bugs (resolved 2026-03-30)
 
-**Task 1.2 T_Co Gram matrix bug**: Computed T_Co has diagonal
-`[2, 2, -2, -2, -2, -2, -2, -2, -2, -1, -1]` instead of expected
-`[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]`. Determinant is 1024 instead of -2048. Root
-cause: likely bug in orthogonal complement computation.
-Tracked in BUGS.md.
+**Task 1.2 T_Co Gram matrix bug**: FIXED. Changed embedding construction in
+`task1_2_gram_matrices_fixed.sage` to use single coordinates instead of pairs.
+T_Co Gram diagonal now correct `[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]` with
+determinant -2048. See BUGS.md for details.
 
-**Task 1.3 T_Co embedding bug**: Computed T_Co from embedding is non-diagonal and may
-not be isometric to correct T_Co. Signature and determinant match but this does NOT
-imply isometry for indefinite lattices.
-Needs discriminant form verification.
-Tracked in BUGS.md.
-
-**Impact**: Most downstream computations (Task 2.1, 2.2, 3.1, 3.2, 6.1) use correct T_Co
-from coble_geometry.sage, so bugs are isolated to Task 1.2 and 1.3 scripts only.
-
-## Computational bugs
-
-**Task 1.2 T_Co Gram matrix bug**: Computed T_Co has diagonal
-`[2, 2, -2, -2, -2, -2, -2, -2, -2, -1, -1]` instead of expected
-`[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]`. Determinant is 1024 instead of -2048. Root
-cause: likely bug in orthogonal complement computation.
-Tracked in BUGS.md.
-
-**Task 1.3 T_Co embedding bug**: Computed T_Co from embedding is non-diagonal and may
-not be isometric to correct T_Co. Signature and determinant match but this does NOT
-imply isometry for indefinite lattices.
-Needs discriminant form verification.
-Tracked in BUGS.md.
-
-**Impact**: Most downstream computations (Task 2.1, 2.2, 3.1, 3.2, 6.1) use correct T_Co
-from coble_geometry.sage, so bugs are isolated to Task 1.2 and 1.3 scripts only.
+**Task 1.3 T_Co embedding**: NOT A BUG. Discriminant form verification confirmed
+computed T_Co has correct discriminant form.
+Non-diagonal Gram matrix is different basis representation of same lattice.
+See BUGS.md for details.
 
 ## Immediate next targets
 
