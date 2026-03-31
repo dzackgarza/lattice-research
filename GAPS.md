@@ -63,6 +63,28 @@ Huybrechts K3). See `audit/new_literature_connections.md` for complete analysis.
 - Literature connections: `audit/new_literature_connections.md` (264 lines)
 - Acquired papers: 5 sources locally (21,613 total lines)
 
+## Computational gaps
+
+### Task 3.2 orbit uniqueness — CONJECTURE (computational complexity)
+
+**Status**: CONJECTURE — The orbit uniqueness claim for 15 primitive isotropic planes
+remains computationally unverified due to computational complexity.
+
+**Attempts**: 6 failed attempts (5 GAP, 1 Sage native) - all timeout or return empty.
+Root cause: A_T has order 2048, O(q_T) is large, orbit computation is genuinely hard.
+
+**What is verified**:
+- Enumeration: 27 isotropic planes found, 15 primitive ✓
+- J⊥/J structure: J⊥/J ≅ A₁^⊕7 confirmed for all 15 planes ✓
+- Orbit uniqueness: CONJECTURE (not computationally verified)
+
+**Theoretical support**:
+- Nikulin Prop 1.5.2: surjectivity O(T) → O(q_T) implies single orbit
+- Pieroni (2026) Theorem 46: isotropic sequences extend to length 10
+
+**Next action**: Accept as CONJECTURE with strong theoretical support.
+See `audit/gap_technical_issue_update.md` for complete analysis.
+
 ## Genuine mathematical / implementation gaps
 
 - The old Task 5.1 involution construction failed, but the current exact script now
