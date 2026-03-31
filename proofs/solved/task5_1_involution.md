@@ -146,6 +146,9 @@ verification establishes:
   lattice decomposition
 - **Sterk 1991**: *Compactifications of the period space of Enriques surfaces.
   I* — Period-domain framework for Enriques/Coble surfaces
+- **Pieroni 2026** (Theorem 72, line 2068): Classification of involutions on Coble
+  surfaces as lifts of Bertini involutions — provides geometric context for the sign
+  involution constructed here
 
 ## Cross-References
 
