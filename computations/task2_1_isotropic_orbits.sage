@@ -68,8 +68,8 @@ print("[Step 1] Constructing T_Co and Discriminant Form q_T")
 print("=" * 80)
 
 # Load T_Co from central geometry module
-load("coble_geometry.sage")
-T_Co = get_T_Co()
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+T_Co = T_Co_lattice()
 T_Co_gram = T_Co.gram_matrix()
 
 print(f"\nT_Co rank: {T_Co.rank()}")
