@@ -11,6 +11,8 @@ Modes:
 import sys
 from sage.all import *
 
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+
 
 PRIMITIVE_RESULTS_FILE = "/home/dzack/research/computations/task5_1_primitive_results.txt"
 THETA_RESULTS_FILE = "/home/dzack/research/computations/task5_1_theta_results.txt"
@@ -44,8 +46,8 @@ def build_glued_k3_model():
     S_Co = <2> + <-2>^10 and T_Co = <2>^2 + <-2>^9 along a graph isometry of
     discriminant forms.
     """
-    S_expected = diagonal_matrix(ZZ, [2] + [-2] * 10)
-    T_expected = diagonal_matrix(ZZ, [2, 2] + [-2] * 9)
+    S_expected = S_Co_lattice().gram_matrix()
+    T_expected = T_Co_lattice().gram_matrix()
     ambient_split_gram = block_diagonal_matrix([S_expected, T_expected])
 
     # Basis for a discriminant-form graph A_S -> A_T with q_T(phi(x)) = -q_S(x).
