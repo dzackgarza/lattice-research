@@ -51,7 +51,15 @@ The generic fiber degree 1 condition ensures the parametrization P¹ → C is bi
 **Literature**: The classical Coble surface construction (Coble 1917, 1929) begins with
 such a rational 10-nodal sextic.
 The blowup of P² at the 10 nodes produces a K3 surface with specific lattice structure.
-See `REFERENCES.md` for Coble (1917, 1929), Dolgachev-Kondō (2013), and related sources.
+
+**Theoretical context** (Pieroni 2026, lines 752-759): For a generic 10-point
+configuration in P², no nodal sextic exists because 10 nodes impose 30 independent
+linear conditions on the 28-dimensional space H⁰(O_P²(6)). The repo's three examples
+represent special configurations where these conditions become dependent, making them
+computationally rare instances of the theoretical framework Pieroni describes.
+
+See `REFERENCES.md` for Coble (1917, 1929), Dolgachev-Kondō (2013), Pieroni (2026), and
+related sources.
 
 ## Scope
 
