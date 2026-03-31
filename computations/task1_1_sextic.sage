@@ -42,7 +42,7 @@ REFERENCES
 """
 
 load("/home/dzack/research/computations/coble_geometry_foundation.sage")
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.1: Rational Sextic with 10 Nodes for Coble Surface")
