@@ -392,14 +392,17 @@ ls proofs/solved/task*.md | wc -l  # Should be 10
 
 ### Phase 1: Fix Task3_2 Orbit Verification
 
-- [/] Task 1.1: Delegate GAP orbit computation to Prover subagent — BLOCKED: GAP
-  technical issue (returns empty string)
+- [/] Task 1.1: Delegate GAP orbit computation to Prover subagent — BLOCKED:
+  Computational complexity (6 attempts: 5 GAP, 1 Sage native, all timeout)
 - [x] Task 1.2: Update task3_2 computation script — COMPLETE: Arf invariant removed, GAP
   approach added (task3_2_isotropic_planes_fixed.sage)
-- [-] Task 1.3: Update task3_2 proof note — SKIPPED: Waiting for GAP orbit count
+- [-] Task 1.3: Update task3_2 proof note — SKIPPED: Orbit uniqueness accepted as
+  CONJECTURE with strong theoretical support
 
 **Status**: Task3_2 enumeration and J⊥/J verification complete.
-Orbit uniqueness UNVERIFIED due to GAP technical issue.
+Orbit uniqueness is CONJECTURE (computationally unverified due to complexity, but
+supported by Nikulin Prop 1.5.2 + Pieroni 2026 Theorem 46). See
+audit/gap_technical_issue_update.md.
 
 ### Phase 2: Standardize Lattice Constructions
 
