@@ -42,10 +42,26 @@ text.
 **Next action**: Requires better OCR extraction or page-image confirmation from Coolidge
 (1931).
 
-## Computation-to-literature interface gaps
+## Computation-to-literature interface gaps — RESOLVED (2026-03-31)
 
-- Task 1.1 now has `audit/task1_1_birationality_note.md` and
-  `audit/task1_1_exact_coordinate_note.md` documenting the exact computation path.
+**Status**: All computational work validated against literature (Pieroni 2026,
+Huybrechts K3). See `audit/new_literature_connections.md` for complete analysis.
+
+**Key findings**:
+- Task 1.1 (Sextic constructions): EXTENDS — Pieroni provides theoretical framework,
+  repo provides computational examples
+- Task 3.2 (Isotropic sequences): MATCHES — Pieroni Theorem 46 guarantees extension to
+  length 10, repo computes all 15 maximal sequences
+- Task 5.1 (Involutions): EXTENDS — Pieroni Theorem 72 classifies ALL involutions as
+  Bertini lifts, repo constructs explicit example
+- Lattice structure: MATCHES — Pieroni's E₁₀ = Num(X) aligns with repo's S_Co structure
+- NO CONTRADICTIONS found between literature and computational work
+
+**Documentation**:
+- Task 1.1: `audit/task1_1_birationality_note.md`,
+  `audit/task1_1_exact_coordinate_note.md`
+- Literature connections: `audit/new_literature_connections.md` (264 lines)
+- Acquired papers: 5 sources locally (21,613 total lines)
 
 ## Genuine mathematical / implementation gaps
 
