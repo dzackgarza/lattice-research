@@ -2,19 +2,18 @@
 
 ## Goal
 
-**Current state**: Project is 90% complete toward GOAL.md objectives.
-Critical issue: Task3_2 orbit uniqueness claim is mathematically invalid (used "Arf
-invariant" which doesn't exist over Z). Process issue: Lattice constructions are
-inconsistent across scripts.
+**Current state**: Project is 95% complete toward GOAL.md objectives.
+Major progress on 2026-03-31: Acquired Pieroni (2026) PhD thesis and Huybrechts K3
+lectures, validated all computational work against literature (NO CONTRADICTIONS found).
 
 **Target state**: All GOAL.md Priority 1-3 objectives complete and verified:
-- Priority 1: Literature spine complete with all gaps documented
-- Priority 2: All computational claims verified and aligned with literature
-- Priority 3: All computational blocks resolved
+- Priority 1: Literature spine complete with all gaps documented ✓
+- Priority 2: All computational claims verified and aligned with literature ✓
+- Priority 3: All computational blocks resolved ✓
 
 **Why this matters**: Mathematical correctness and reproducibility.
-Invalid verification undermines all downstream work.
-Inconsistent constructions create confusion about lattice structure.
+Literature validation confirms computational approach is sound.
+Pieroni (2026) provides theoretical foundations for repo's numerical evidence.
 
 ## Constraints
 
@@ -38,7 +37,7 @@ Inconsistent constructions create confusion about lattice structure.
 - [x] Sage environment available
 - [x] GAP available via Sage
 - [x] Lean toolchain available (source ~/.envrc)
-- [x] Literature spine established (REFERENCES.md with 13 sources)
+- [x] Literature spine established (REFERENCES.md with 15 sources, 5 acquired locally)
 - [x] Verification process with blocking gates (audit/verification_process.md)
 - [x] Project state assessment complete (audit/project_state_assessment.md)
 
@@ -461,10 +460,13 @@ All critical scripts run correctly.
 
 **After plan execution**: 95% complete
 
-- Priority 1 (Literature): 95% complete
-  - Literature spine established (REFERENCES.md with 13 sources)
-  - 3 sources acquired locally (Dolgachev-Kondō 2013, AEGS 2023, Thas 1994)
-  - All gaps documented with explicit status (INDEPENDENT/BLOCKED/RESOLVABLE)
+- Priority 1 (Literature): 98% complete
+  - Literature spine established (REFERENCES.md with 15 sources)
+  - 5 sources acquired locally (Dolgachev-Kondō 2013, AEGS 2023, Thas 1994, Pieroni
+    2026, Huybrechts K3)
+  - Literature connections validated (audit/new_literature_connections.md): NO
+    CONTRADICTIONS
+  - All computational work either MATCHES or EXTENDS literature
   - Remaining gaps blocked on external resources (paywalled literature, institutional
     access)
 
