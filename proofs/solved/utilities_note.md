@@ -30,6 +30,8 @@ construction.
 
 **Literature context**: Lattice definitions follow Nikulin 1979 (2-elementary lattices),
 Dolgachev-Kondō 2013 (K3 lattice structure), standard root lattice references.
+**Pieroni connection** (Pieroni 2026, lines 146, 483-493): The E₁₀ framework for Coble
+surfaces provides geometric interpretation for S_Co as Num(X) = E₁₀.
 
 ## compare_stabilizers.sage
 
