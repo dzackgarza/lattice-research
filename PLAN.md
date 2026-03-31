@@ -416,7 +416,7 @@ audit/gap_technical_issue_update.md.
 - [-] Task 2.3: Update scripts to use standardized constructors — DEFERRED: Foundation
   library available, migration can happen incrementally
 
-**Status**: Foundation library complete with 42 passing tests.
+**Status**: Foundation library complete with 43 passing tests.
 All canonical lattice constructors implemented.
 
 ### Phase 3: Document Remaining Literature Gaps
@@ -431,10 +431,10 @@ Task1_1 confirmed INDEPENDENT from all acquired literature.
 
 ### Phase 4: System-Level Verification
 
-- [x] Task 4.1: Run all computation scripts — COMPLETE: Tested critical scripts
-  (task1_2_fixed, foundation library 42/42 tests pass)
-- [-] Task 4.2: Verify proof notes align with outputs — SKIPPED: Already verified in
-  earlier work (b26)
+- [x] Task 4.1: Run all computation scripts — COMPLETE: Full `just run-all` pipeline
+  passes end-to-end (15 scripts, 43/43 foundation tests, exit code 0)
+- [x] Task 4.2: Verify proof notes align with outputs — COMPLETE: Spot-checked Task 5.1,
+  Task 1.2, Task 6.1 proof notes against pipeline output; all claims match
 - [x] Task 4.3: Update PLAN.md with completion status — COMPLETE: This update
 
 **Status**: System verification complete.
@@ -442,7 +442,7 @@ All critical scripts run correctly.
 
 ### System-Level Validation
 
-- [x] All computation scripts run without errors — Critical scripts verified
+- [x] All computation scripts run without errors — Full `just run-all` passed (exit 0)
 - [x] Zero Arf contamination in codebase — Old files archived, remaining mentions are
   documentation/explanations
 - [x] Standardized constructions produce consistent invariants — Foundation library
@@ -481,7 +481,7 @@ All critical scripts run correctly.
   - Task 1.2 bug fixed (T_Co Gram matrix)
   - Task 3.2 Arf invariant error corrected (orbit uniqueness remains CONJECTURE pending
     GAP fix)
-  - Foundation library built (1617 lines, 42 tests passing)
+  - Foundation library built (1617 lines, 43 tests passing)
   - All computational claims aligned with literature
 
 - Priority 3 (Computational blocks): 100% complete
