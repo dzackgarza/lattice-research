@@ -33,42 +33,57 @@ Do not do it.
 
 ## File Organization
 
-### What belongs in the repo
+### Allowed directories
 
-| Content | Location | Rules |
-| --- | --- | --- |
-| Sage computation scripts | `computations/taskN_M_*.sage` | One script per GOAL.md subtask |
-| Computation outputs | `computations/taskN_M_*_results.txt` | Machine-generated only |
-| Foundation library | `computations/coble_geometry_foundation.sage` | Single source of truth for lattice constructors |
-| Foundation tests | `computations/test_foundation.sage` | Must pass before any commit |
-| Research notes | `notes/` | See "Notes policy" below |
-| Literature | `papers/` | PDFs and extracted text |
-| Justfile | `justfile` | All recipes for running computations |
+The repo has exactly this structure.
+Any directory not listed here is debris and must be deleted on sight.
+
+```
+research/
+  GOAL.md                          # READ-ONLY research spec
+  REFERENCES.md                    # Append-only literature spine
+  AGENTS.md                        # This file
+  justfile                         # All computation recipes
+  computations/
+    coble_geometry_foundation.sage  # Single source of truth for lattice constructors
+    test_foundation.sage            # Foundation test suite
+    taskN_M_*.sage                  # One script per GOAL.md subtask
+    taskN_M_*_results.txt           # Machine-generated output (one per script)
+  notes/                           # Mathematical research notes (see Notes Policy)
+    proofs/                         # Proof sketches, one per GOAL.md subtask
+  papers/                           # PDFs and extracted text
+```
+
+Any file or directory outside this structure — `archive/`, `plans/`, `scripts/`,
+`tests/`, `verification_records/`, `logs/`, `audit/`, `approaches/`, `proofs/solved/`,
+Lean project directories, stale markdown at the top level — is debris.
+
+### Automatic pruning (every session startup)
+
+This is not advisory.
+Run these deletions before any other work:
+
+- Delete all `.orig` files
+- Delete all `.sage.py` files (Sage preparse artifacts)
+- Delete all empty directories
+- Delete any directory not in the allowed list above
+- Delete any top-level markdown file not in the allowed list above
+- If a Lean project directory exists (`coble_research_lean/`, `MyLeanProject/`, etc.)
+  and has no active justfile recipe, delete it
+
+Exception: if a directory contains work that traces to a GOAL.md task and has not been
+committed, commit it first, then move the relevant files to their correct location and
+delete the debris directory.
 
 ### What does NOT belong in the repo
 
 - Plans, schedules, changelogs, process docs, audit reports, verification status docs,
-  agent session summaries.
-  These are agent process debris.
+  agent session summaries — these are agent process debris.
 - Markdown files that restate what a computation script already outputs.
 - Documents that will be stale within one session.
 - Any file whose primary audience is "the agent that wrote it."
-
-### Pruning policy
-
-Before creating any new markdown file, answer:
-- Does this file contain mathematical content that a human researcher needs?
-- Will this file still be accurate after the next 5 commits?
-- Is this information already captured in a commit message, memory, or existing file?
-
-If any answer is "no," do not create the file.
-
-At the start of every session, check for and delete:
-- `.orig` files
-- `.sage.py` files (Sage preparse artifacts)
-- Empty directories
-- Any markdown file not listed in the "What belongs" table above that was created by a
-  prior agent session
+- Bug report files. If a computation fails, fix it or delete it.
+  Git history is the record of what was tried.
 
 ## Notes Policy
 
@@ -168,6 +183,8 @@ Every new session must:
 - Read GOAL.md
 - Read AGENTS.md (this file)
 - Run `list_memories` for project context
+- Run automatic pruning (see "Automatic pruning" above) — this is mandatory, not
+  advisory
 - State which GOAL.md task(s) will be worked on and why
 - NOT start by "assessing project state" or reading every file in the repo
 
