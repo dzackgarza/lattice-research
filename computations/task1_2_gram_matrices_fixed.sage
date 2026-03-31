@@ -110,7 +110,7 @@ print(f"  Mutually orthogonal: {orth_check}")
 print("\n  Using rational isometry for simpler computation...")
 
 # Construct Λ_K3' = U^3 ⊕ (-I_16)
-Lambda_K3_prime_gram = block_diagonal_matrix([U, U, U, diagonal_matrix(QQ, [-2]*16)])
+Lambda_K3_prime_gram = block_diagonal_matrix([U.gram_matrix(), U.gram_matrix(), U.gram_matrix(), diagonal_matrix(QQ, [-2]*16)])
 print(f"  Λ_K3' signature: {QuadraticForm(Lambda_K3_prime_gram).signature_vector()[:2]}")
 
 # Now embed S_Co into Λ_K3'
