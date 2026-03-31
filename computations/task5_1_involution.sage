@@ -8,6 +8,7 @@ Modes:
   isometry in the glued ambient basis.
 """
 
+import os as _os
 import sys
 from sage.all import *
 
@@ -20,7 +21,7 @@ THETA_RESULTS_FILE = "/home/dzack/research/computations/task5_1_theta_results.tx
 
 def fail(message):
     print(f"ERROR: {message}")
-    raise SystemExit(1)
+    _os._exit(1)
 
 
 def smith_diagonal(M):
@@ -329,7 +330,7 @@ print()
 
 if mode == "primitive":
     print("Task 5.1 primitive/complement gate passed.")
-    raise SystemExit(0)
+    _os._exit(0)
 
 print("[5] Defining theta from the actual primitive orthogonal decomposition")
 theta_data = build_theta_from_decomposition(embedded_sco, complement, ambient_gram)
