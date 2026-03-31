@@ -49,14 +49,22 @@ research/
     test_foundation.sage            # Foundation test suite
     taskN_M_*.sage                  # One script per GOAL.md subtask
     taskN_M_*_results.txt           # Machine-generated output (one per script)
+    *.g                             # GAP scripts (same naming: taskN_M_*.g)
+  coble_research_lean/             # Lean 4 formalizations (single Lean project)
   notes/                           # Mathematical research notes (see Notes Policy)
     proofs/                         # Proof sketches, one per GOAL.md subtask
   papers/                           # PDFs and extracted text
 ```
 
-Any file or directory outside this structure — `archive/`, `plans/`, `scripts/`,
-`tests/`, `verification_records/`, `logs/`, `audit/`, `approaches/`, `proofs/solved/`,
-Lean project directories, stale markdown at the top level — is debris.
+Every computation tool (Sage, GAP, Lean) has a prescribed home.
+If you need to create a file and don't know where it goes, it goes in `computations/`
+with the standard `taskN_M_*` naming.
+Lean formalizations go in `coble_research_lean/`.
+
+There is exactly one Lean project.
+Do not create new Lean project directories.
+If `MyLeanProject/` or other duplicate scaffolds exist, consolidate their contents into
+`coble_research_lean/` and delete the duplicate.
 
 ### Automatic pruning (every session startup)
 
@@ -66,14 +74,15 @@ Run these deletions before any other work:
 - Delete all `.orig` files
 - Delete all `.sage.py` files (Sage preparse artifacts)
 - Delete all empty directories
-- Delete any directory not in the allowed list above
+- Delete any directory not in the allowed list above (`archive/`, `plans/`, `scripts/`,
+  `tests/`, `verification_records/`, `logs/`, `audit/`, `approaches/`, `proofs/solved/`,
+  duplicate Lean directories)
 - Delete any top-level markdown file not in the allowed list above
-- If a Lean project directory exists (`coble_research_lean/`, `MyLeanProject/`, etc.)
-  and has no active justfile recipe, delete it
 
-Exception: if a directory contains work that traces to a GOAL.md task and has not been
-committed, commit it first, then move the relevant files to their correct location and
-delete the debris directory.
+Before deleting a directory, check if it contains uncommitted work that traces to a
+GOAL.md task.
+If so, move the relevant files to their correct location first, then delete
+the directory. Everything else: delete without ceremony.
 
 ### What does NOT belong in the repo
 
