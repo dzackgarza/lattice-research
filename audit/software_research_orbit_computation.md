@@ -59,19 +59,19 @@ The computational complexity is fundamental, not tool-specific:
 Despite computational verification failure, strong theoretical support exists:
 
 1. **Nikulin Prop 1.5.2**: For r = a = 11, O(T_Co) → O(q_T) is surjective
-2. **Pieroni (2026) Theorem 46**: Any isotropic sequence of length ≤8 extends to length
-   10
+2. **Pieroni (2026)**: E₁₀ = Num(X) lattice structure alignment (lines 146, 483-493)
+   Note: Theorem 46 concerns geometric isotropic sequences, NOT lattice-theoretic
+   isotropic vectors
 3. **Enumeration complete**: All 15 primitive isotropic planes found
 4. **J⊥/J verification**: J⊥/J ≅ A₁^⊕7 confirmed for all 15 planes
 
 ## Recommendation
 
-**Accept orbit uniqueness as CONJECTURE with strong theoretical support.**
+**Accept orbit uniqueness as CONJECTURE with strong theoretical support from Nikulin.**
 
-Attempting further computational verification is low-value work given:
-- 6 failed attempts (5 GAP, 1 Sage native)
-- Fundamental computational complexity barrier
-- Strong theoretical evidence from Nikulin and Pieroni
+Pieroni's Theorem 46 does not provide support for this specific claim since it concerns
+geometric isotropic sequences (E_i·E_j = 1 - δ_ij), not lattice-theoretic isotropic
+vectors (v² = 0).
 - Complete enumeration and J⊥/J verification already achieved
 
 ## Alternative Approaches (Not Pursued)

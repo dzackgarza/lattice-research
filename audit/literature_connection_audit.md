@@ -22,14 +22,16 @@ newly acquired literature (Pieroni 2026, Huybrechts K3) and repo computational w
 
 ### Claim 2: Pieroni Theorem 46 (line 1209) on isotropic sequences
 
-**Verification**: ✓ PASS
+**Verification**: ✓ PASS (but assessment INCORRECT)
 - Theorem 46 accurately cited at line 1209
 - Statement: "any sequence $\mathcal{E}*{1},\ldots,\mathcal{E}*{r}$ of isolated elliptic
   curves satisfying $\mathcal{E}*{i}\mathcal{E}*{j}=1-\delta_{i,j}$ and $r\leq 8$ can be
   extended to a sequence $\mathcal{E}*{1},\ldots,\mathcal{E}*{10}$"
-- Connection to Task 3.2 (isotropic planes): VALID
-- Assessment "MATCHES" is appropriate - theorem provides theoretical foundation for
-  repo's computational search
+- **CRITICAL ERROR**: Assessment "MATCHES" is INCORRECT
+- Pieroni's "isotropic sequence" is a GEOMETRIC concept (E_i·E_j = 1 - δ_ij)
+- Repo's "isotropic planes" is a LATTICE-THEORETIC concept (v² = 0)
+- These are DISTINCT concepts — Theorem 46 does NOT support the orbit uniqueness claim
+- Corrected assessment: CONTEXT (Pieroni's E₁₀ = Num(X) aligns with S_Co)
 
 ### Claim 3: Pieroni Theorem 72 (line 2068-2070) on involutions
 

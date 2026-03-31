@@ -56,11 +56,15 @@ Date: 2026-03-31
 
 * * *
 
-## Task 3.2: Isotropic Sequences
+## Task 3.2: Isotropic Planes
 
 ### Pieroni Paper Findings
 
-**Location**: Lines 138, 148, 1209-1213
+**Location**: Lines 138, 146, 148, 483-493, 1209-1213
+
+**Lattice Structure** (lines 146, 483-493):
+> "At a level of Picard group, the former [Enriques surfaces] satisfy Pic(X)=E₁₀⊕Z·2K_X,
+> while the latter [Coble surfaces] satisfy Pic(X)=E₁₀⊕Z·K_X."
 
 **Theorem 46** (line 1209):
 > "Let $X$ be an unnodal Coble surface, with irreducible boundary curve $C$. Then any
@@ -75,20 +79,25 @@ Date: 2026-03-31
 > products $\mathcal{E}*{i}\mathcal{E}*{j}=1-\delta_{i,j}$ is known as an isotropic
 > sequence."
 
+**Important Clarification**:
+- Pieroni's "isotropic sequence" is a GEOMETRIC concept (sequence of elliptic curves
+  with intersection E_i·E_j = 1 - δ_ij)
+- Repo's "isotropic planes" is a LATTICE-THEORETIC concept (2-dimensional subspaces of
+  T_Co where v² = 0 for all v in the plane)
+- These are DISTINCT concepts — Theorem 46 does NOT directly support the orbit
+  uniqueness claim
+
 **Connection to Repo**:
-- Repo Task 3.2: "Find all 15 primitive isotropic planes in S_Co"
-- Pieroni's Theorem 46 guarantees that isotropic sequences of length ≤8 extend to length
-  10
-- The repo's 15 planes likely correspond to different maximal isotropic sequences
+- Repo Task 3.2: "Find all 15 primitive isotropic planes in S_Co" (lattice-theoretic)
+- Pieroni's E₁₀ = Num(X) framework provides lattice structure alignment
+- Theorem 46 concerns geometric isotropic sequences, NOT lattice-theoretic isotropic
+  vectors
 
-**Assessment**: MATCHES
-- Pieroni's theorem provides theoretical foundation for repo's computational search
-- The extension property (r≤8 → r=10) explains why the repo focuses on maximal sequences
-- Repo's "15 primitive isotropic planes" aligns with Pieroni's framework
-
-**Key Insight**: Lines 579-580 mention that finding maximal isotropic sequences is "a
-very hard work" and cites references [4], [21], [26] for Enriques surfaces.
-The repo's computational approach addresses this difficulty.
+**Assessment**: CONTEXT (not MATCH)
+- Pieroni's lattice structure (E₁₀ = Num(X), lines 146, 483-493) aligns with repo's S_Co
+  structure
+- Theorem 46 does NOT provide direct support for orbit uniqueness — it's a different
+  concept
 
 * * *
 

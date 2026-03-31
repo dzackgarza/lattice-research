@@ -58,11 +58,11 @@ on Enriques moduli (Sterk 1991), as recorded in `REFERENCES.md`:
 - **Prediction**: There is exactly ONE $O(T_{\mathrm{Co}})$-orbit of isotropic planes
 - For the unique orbit: $J^\perp/J \cong A_1^{\oplus 7}$
 
-**Pieroni connection** (Pieroni 2026, Theorem 46, line 1209): In Coble surfaces, any
-isotropic sequence of elliptic curves of length ≤8 can be extended to a maximal
-isotropic sequence of length 10. This theorem provides the geometric foundation for the
-lattice-theoretic focus on maximal isotropic sequences and aligns with the repo's search
-for primitive isotropic planes in $T_{\mathrm{Co}}$.
+**Literature context**: The lattice structure S_Co = ⟨2⟩ ⊕ ⟨-2⟩^10 aligns with Pieroni's
+E₁₀ = Num(X) framework (Pieroni 2026, lines 146, 483-493). Note: Pieroni's Theorem 46
+concerns isotropic sequences of elliptic curves on Coble surfaces (geometric concept:
+E_i·E_j = 1 - δ_ij), not lattice-theoretic isotropic vectors (v² = 0). These are
+distinct concepts — the theorem does not directly support the orbit uniqueness claim.
 
 ## Computational Verification
 
@@ -212,8 +212,9 @@ spine:
 - Sterk (1991): Cusp classification for Enriques moduli and isotropic plane orbits
 - Alexeev-Engel-Garza-Schaffler (2023): Compact moduli of Enriques surfaces and Type IV
   boundary structure
-- **Pieroni (2026)**: Extension theorem for isotropic sequences in Coble surfaces
-  (Theorem 46, line 1209) provides geometric context for maximal isotropic structures
+- **Pieroni (2026)**: E₁₀ = Num(X) lattice structure (lines 146, 483-493). Note: Theorem
+  46 concerns geometric isotropic sequences of elliptic curves (E_i·E_j = 1 - δ_ij), not
+  lattice-theoretic isotropic vectors (v² = 0).
 
 ## Files
 

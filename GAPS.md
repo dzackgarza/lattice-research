@@ -50,8 +50,9 @@ Huybrechts K3). See `audit/new_literature_connections.md` for complete analysis.
 **Key findings**:
 - Task 1.1 (Sextic constructions): EXTENDS — Pieroni provides theoretical framework,
   repo provides computational examples
-- Task 3.2 (Isotropic sequences): MATCHES — Pieroni Theorem 46 guarantees extension to
-  length 10, repo computes all 15 maximal sequences
+- Task 3.2 (Isotropic planes): CONTEXT — Pieroni E₁₀ = Num(X) provides lattice
+  structure. Note: Theorem 46 concerns geometric isotropic sequences (E_i·E_j = 1 -
+  δ_ij), not lattice-theoretic isotropic vectors (v² = 0)
 - Task 5.1 (Involutions): EXTENDS — Pieroni Theorem 72 classifies ALL involutions as
   Bertini lifts, repo constructs explicit example
 - Lattice structure: MATCHES — Pieroni's E₁₀ = Num(X) aligns with repo's S_Co structure
@@ -80,7 +81,9 @@ Root cause: A_T has order 2048, O(q_T) is large, orbit computation is genuinely 
 
 **Theoretical support**:
 - Nikulin Prop 1.5.2: surjectivity O(T) → O(q_T) implies single orbit
-- Pieroni (2026) Theorem 46: isotropic sequences extend to length 10
+- Pieroni (2026): E₁₀ = Num(X) provides lattice structure alignment (lines 146, 483-493)
+  Note: Theorem 46 concerns geometric isotropic sequences, not lattice-theoretic
+  isotropic vectors
 
 **Software research** (2026-03-31): Investigated alternative approaches including Dawes
 (2022) algorithms, Sage native functionality, Magma, and PARI/GP. Conclusion:
