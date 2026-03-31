@@ -177,6 +177,10 @@ The vanishing surgery vector $\ell = 0$ has the following geometric meaning:
 - [Nikulin1979] Nikulin, V. V. "Integer symmetric bilinear forms and some of their
   geometric applications."
   Math. USSR Izvestija 14 (1979).
+- [Pieroni2026] Pieroni.
+  Coble surfaces and their moduli.
+  Provides theoretical framework for Coble surfaces including lattice structure E₁₀ =
+  Num(X) and moduli dimension context (lines 1225-1280).
 - [Kollar2013] Kollár, J. "Singularities of the Minimal Model Program."
   Cambridge Tracts in Mathematics.
 
