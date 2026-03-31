@@ -43,11 +43,16 @@
 
 **Software research (Task 3.2 orbit computation)**:
 - Investigated alternative approaches to GAP orbit computation
+- Researched Dawes (2022) "Orbits in Lattices" (arXiv:2205.10601, 1392 lines)
+- Cloned and analyzed Dawes' buildings.sage repository (937 lines)
+- Conclusion: Dawes' algorithms compute orbits in lattices L under O(L), not
+  discriminant form orbits under O(q_T) - different problem domain
 - Tested Sage native discriminant form orbit computation: also times out (60s)
 - Root cause identified: computational complexity (A_T order 2048, O(q_T) is large)
 - 6 total failed attempts: 5 GAP, 1 Sage native
 - Conclusion: Task 3.2 orbit uniqueness is CONJECTURE (strong theoretical support from
   Nikulin Prop 1.5.2 + Pieroni 2026 Theorem 46, but computationally unverified)
+- Created audit/software_research_orbit_computation.md documenting complete analysis
 - Created audit/gap_technical_issue_update.md documenting complete analysis
 
 **Documentation updates**:

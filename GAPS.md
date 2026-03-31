@@ -82,8 +82,14 @@ Root cause: A_T has order 2048, O(q_T) is large, orbit computation is genuinely 
 - Nikulin Prop 1.5.2: surjectivity O(T) → O(q_T) implies single orbit
 - Pieroni (2026) Theorem 46: isotropic sequences extend to length 10
 
+**Software research** (2026-03-31): Investigated alternative approaches including Dawes
+(2022) algorithms, Sage native functionality, Magma, and PARI/GP. Conclusion:
+computational complexity is fundamental, not tool-specific.
+See `audit/software_research_orbit_computation.md` for complete analysis.
+
 **Next action**: Accept as CONJECTURE with strong theoretical support.
-See `audit/gap_technical_issue_update.md` for complete analysis.
+See `audit/gap_technical_issue_update.md` and
+`audit/software_research_orbit_computation.md` for complete analysis.
 
 ## Genuine mathematical / implementation gaps
 
