@@ -3,14 +3,14 @@ Task 1.1: Compare stabilizer reflection generators for Example 1 and Example 2.
 """
 
 from sage.all import *
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
 
 # ============================================================================
 # Section 1: Stabilizer Generator logic for Example 1 and Example 2
 # ============================================================================
 
 def get_stabilizer_gens():
-    T_En_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*8)
+    T_En_gram = T_En_lattice().gram_matrix()
     h_Co = vector(ZZ, [1] + [0]*9)
     theta = diagonal_matrix(ZZ, [1, 1] + [-1]*8)
 
