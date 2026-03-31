@@ -1,33 +1,53 @@
 # Coble moduli research repo
 
-This repo has two jobs:
-
-- record canonical literature for the standard Coble/K3/moduli background;
-- produce exact computational evidence for explicit sextics, lattice computations, and
-  related audits.
+Exact computational evidence for the lattice-theoretic tasks underlying the moduli space
+of terminal Coble surfaces of K3 type.
 
 ## Start here
 
-- `REFERENCES.md` — canonical literature spine for standard claims
-- `PLAN.md` — active plan index
-- `GOAL.md` — current project goals
-- `GAPS.md` — current unresolved gaps
+- `GOAL.md` — project goals and task definitions (Tasks 1.1--6.1)
+- `REFERENCES.md` — canonical literature spine
+- `GAPS.md` — unresolved gaps and open questions
 
-## Core claim notes
+## Running computations
 
-- `audit/literature_claim_map.md` — short map from the blowup/K3/lattice/moduli picture
-  to the canonical literature
-- `audit/task1_1_birationality_note.md` — what the exact Task 1.1 sextic computations
-  establish, and what they do not establish
-- `audit/task5_1_route_reset.md` — corrected next route for the failed Task 5.1
-  involution construction
-- `audit/task5_1_exact_involution_note.md` — exact post-theta boundary note for what the
-  verified glued-model involution proves, and what still belongs to the literature layer
-- `audit/carat_capability_audit.md` — when CARAT is relevant for exact finite
-  positive-definite subproblems
+All scripts are run through `just` (never directly):
 
-## Current stance
+```bash
+just test-foundation   # foundation library tests (43 assertions)
+just run-all           # end-to-end smoke run of all tasks
+just task1_1           # individual task recipes (see `just --list`)
+```
 
-Standard facts should be cited from the literature first.
-Computations in this repo are supporting evidence, exact worked examples, or audits of
-new candidate constructions.
+Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
+
+## Repository layout
+
+| Directory | Contents |
+| --- | --- |
+| `computations/` | Sage scripts (`taskN_M_*.sage`), output files (`*_results.txt`), foundation library (`coble_geometry_foundation.sage`) |
+| `notes/` | Mathematical research notes, literature connections, task-specific analysis |
+| `notes/proofs/` | Proof sketches and verification records (one per GOAL.md subtask) |
+| `papers/` | Acquired literature (PDFs and extracted text) |
+| `plans/` | Active working plans |
+| `archive/` | Historical process artifacts (audit transcripts, old plans, logs) |
+| `tests/` | Unit tests |
+| `scripts/` | Utility scripts (GAP test, etc.) |
+| `coble_research_lean/`, `MyLeanProject/` | Lean 4 formalization (secondary) |
+
+## Core notes
+
+- `notes/literature_claim_map.md` — map from the blowup/K3/lattice/moduli picture to
+  canonical literature
+- `notes/literature_connections.md` — computation-to-literature validation (Pieroni
+  2026, Huybrechts K3)
+- `notes/task1_1_birationality_note.md` — what the Task 1.1 sextic computations
+  establish
+- `notes/task5_1_exact_involution_note.md` — exact involution verification boundary
+- `notes/task3_2_gap_difficulty.md` — why orbit uniqueness remains a conjecture
+
+## Stance
+
+Standard facts are cited from the literature first.
+Computations here are supporting evidence, exact worked examples, or verifications of
+new constructions.
