@@ -25,7 +25,8 @@ References:
 import sys
 from sage.all import *
 
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.3: Primitive Embedding Matrices")
@@ -58,11 +59,11 @@ print("Section 2: S_Co and T_Co Gram Matrices (from Task 1.2)")
 print("-" * 80)
 
 # S_Co = <2> ⊕ <-2>^10
-S_Co_gram = diagonal_matrix(ZZ, [2] + [-2]*10)
+S_Co_gram = S_Co_lattice().gram_matrix()
 print(f"S_Co: rank {S_Co_gram.nrows()}, signature {QuadraticForm(S_Co_gram).signature()}, det = {S_Co_gram.determinant()}")
 
 # T_Co = <2>^2 ⊕ <-2>^9 (orthogonal complement structure)
-T_Co_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*9)
+T_Co_gram = T_Co_lattice().gram_matrix()
 print(f"T_Co: rank {T_Co_gram.nrows()}, signature {QuadraticForm(T_Co_gram).signature()}, det = {T_Co_gram.determinant()}")
 print()
 
