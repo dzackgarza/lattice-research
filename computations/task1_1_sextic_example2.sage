@@ -3,7 +3,8 @@ Task 1.1: Construct a *second* explicit sextic equation F(x,y,z)=0 with exactly 
 This is a different example from task1_1_sextic.sage.
 """
 
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.1 Example 2: Rational Sextic with 10 Nodes")
@@ -189,8 +190,8 @@ print("=" * 80)
 
 # The Picard lattice S_Co for a 10-nodal rational sextic is abstractly fixed.
 # Gram matrix is diag(2, -2, ..., -2)
-S_Co_gram = diagonal_matrix(ZZ, [2] + [-2]*10)
-T_En_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*8)
+S_Co_gram = S_Co_lattice().gram_matrix()
+T_En_gram = T_En_lattice().gram_matrix()
 h_Co = vector(ZZ, [1] + [0]*9)
 theta = diagonal_matrix(ZZ, [1, 1] + [-1]*8)
 
