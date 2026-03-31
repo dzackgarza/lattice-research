@@ -82,21 +82,24 @@ From `computations/task4_1_results.txt`:
 **Maximal affine subdiagrams**:
 - $\widetilde{B}_7(2)$: 1 maximal instance
   - Nodes: $(0, 1, 2, 3, 4, 5, 6, 7)$
-- $\widetilde{F}_4$: 3 maximal instances
-  - Nodes: $(2, 3, 4, 5, 6)$, $(3, 4, 5, 6, 7)$, $(4, 5, 6, 7, 9)$
+- $\widetilde{F}_4$: 1 maximal instance
+  - Nodes: $(4, 5, 6, 7, 9)$
 - $\widetilde{E}_6$: 3 maximal instances
   - Nodes: $(0, 1, 2, 3, 4, 5, 8)$, $(0, 1, 2, 3, 4, 5, 9)$, $(0, 1, 2, 3, 4, 8, 9)$
 
-**Key finding**: Among 7 total maximal affine subdiagrams, there is exactly 1 of type
-$\widetilde{B}_7(2)$.
+**Key finding**: Among 5 total maximal affine subdiagrams, there is exactly 1 of type
+$\widetilde{B}_7(2)$. The other maximal affine subdiagrams ($\widetilde{F}_4$ and
+$\widetilde{E}_6$) do not correspond to 0-cusps in the Coble moduli compactification.
 
 ## Conclusion
 
 The exhaustive computational search confirms:
 
-**Verified claim**: The Coxeter diagram $G_{S_{\mathrm{Co}}}$ contains a unique maximal
-parabolic subdiagram of type $\widetilde{B}_7(2)$, realized on nodes $(0, 1, 2, 3, 4, 5,
-6, 7)$.
+**Verified claim**: The Coxeter diagram $G_{S_{\mathrm{Co}}}$ contains exactly one
+maximal affine subdiagram of type $\widetilde{B}_7(2)$, realized on nodes $(0, 1, 2, 3,
+4, 5, 6, 7)$. While there are other maximal affine subdiagrams (1 $\widetilde{F}_4$, 3
+$\widetilde{E}_6$), only the $\widetilde{B}_7(2)$ corresponds to a 0-cusp in the Coble
+moduli compactification.
 
 This computational verification supports the 0-cusp description in AEGS 2023, Section 3,
 where the $\widetilde{B}_7(2)$ parabolic corresponds to the boundary component with
@@ -130,7 +133,7 @@ lattice $(9,9,1)_1$.
 
 **Independent verification completed: 2026-03-30**
 
-Verified against `computations/task4_1_results.txt`:
+Verified by running `just task4_1`:
 - ✓ Exactly 1 maximal B̃₇(2) subdiagram found
 - ✓ Node set (0,1,2,3,4,5,6,7) confirmed
 - ✓ B̃₇(2) structure verified: 8 nodes, 6 simple edges, 1 double edge, chain degrees
