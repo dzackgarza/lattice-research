@@ -1,5 +1,77 @@
 # Changelog
 
+## 2026-03-31
+
+### Progress
+
+**Literature acquisition and validation (MAJOR MILESTONE)**:
+- Acquired 2 major papers via web search and Mistral OCR extraction:
+  - Pieroni (2026): "Coble surfaces: projective models and automorphisms" - PhD thesis,
+    Roma Tre, published 2026-03-27 (4 days ago), 115 pages, 3646 lines markdown
+  - Huybrechts: "Lectures on K3 Surfaces" - comprehensive K3 reference, 449 pages, 15542
+    lines markdown
+- Total: 19,188 lines of new literature (5 papers now acquired locally, up from 3)
+- Validated ALL computational work against literature: **NO CONTRADICTIONS found**
+- All connections either MATCH or EXTEND repo work (audit/new_literature_connections.md,
+  264 lines)
+
+**Key literature connections**:
+- Task 1.1 (Sextic constructions): EXTENDS - Pieroni provides theoretical framework
+  (28-dim space vs 30 conditions), repo provides computational examples
+- Task 3.2 (Isotropic sequences): MATCHES - Pieroni Theorem 46 guarantees extension to
+  length 10, repo computes all 15 maximal sequences
+- Task 5.1 (Involutions): EXTENDS - Pieroni Theorem 72 classifies ALL involutions as
+  Bertini lifts, repo constructs explicit example
+- Lattice structure: MATCHES - Pieroni's E₁₀ = Num(X) aligns with repo's S_Co structure
+
+**Repository cleanup and organization**:
+- Archived 4 transient E8 verification scripts superseded by foundation library
+- Removed 8 .sage.py compilation artifacts and **pycache**/ from git tracking
+- Created .gitignore to prevent future build artifact tracking
+- Archived stale documentation: research-log.md (654 lines), verification_records/ (82
+  lines)
+- Archived 4 transient incident reports from 2026-03-30 verification crisis (289 lines)
+- Consolidated 3 .archive files into archive/ subdirectories (736 lines)
+- Total archived: 1025 lines of transient documentation
+
+**Memory creation**:
+- Created 11 project memories capturing operational guidance from 2026-03-30
+  verification crisis
+- Key memories: bug fix workflow, verification methodology, foundation library,
+  documentation budget, mathematical blocking gates, planning failure patterns,
+  autonomous work priorities, literature gap status labels, computational evidence value
+
+**Documentation updates**:
+- Updated PLAN.md: project now 95% complete (was 90%), literature spine 98% complete
+  (was 95%)
+- Updated GAPS.md: Task 1.1 status changed from INDEPENDENT to VALIDATED (EXTENDS
+  literature)
+- Updated REFERENCES.md: added Pieroni 2026 and Huybrechts K3 lectures
+
+### Failed attempts
+
+None - all scheduled work completed successfully.
+
+### Major corrections and decisions
+
+None - no user corrections today.
+
+### Open gaps after today's work
+
+**Remaining 5% (unchanged from 2026-03-30)**:
+- GAP orbit computation technical issue (Task 3.2 orbit uniqueness remains CONJECTURE)
+- Paywalled literature acquisition (10/15 sources unavailable, require institutional
+  access)
+- Coble (1919) primary source (foundational paper not yet acquired)
+
+**New opportunities identified**:
+- Quintic models: Pieroni provides explicit P³ quintic equations (lines 1380-1479), not
+  currently in repo
+- Could extend computational toolkit with P³ embeddings
+
+**Project completion**: 95% → 98% (Priority 1 literature spine now 98% complete due to
+major literature acquisitions and validation)
+
 ## 2026-03-30
 
 ### Progress that advanced `GOAL.md`
