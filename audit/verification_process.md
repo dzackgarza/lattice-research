@@ -41,6 +41,8 @@ For EVERY "invariant", "classification", or "theorem":
 
 For EVERY proposed method:
 - Find literature reference for this exact problem type
+- **New requirement**: Check against Pieroni (2026) and Huybrechts K3 Lectures for
+  Coble/K3 lattice problems
 - Cite how experts solve it
 - If proposing different method: explicit justification required
 
