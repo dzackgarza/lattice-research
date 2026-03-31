@@ -804,8 +804,9 @@ def run_all_tests():
     return failed == 0
 
 
-if __name__ == "__main__":
-    success = run_all_tests()
-    # Sage overrides exit() — use os._exit for correct shell exit codes
-    import os as _os
-    _os._exit(0 if success else 1)
+# Always run tests when this file is loaded or executed
+success = run_all_tests()
+import sys as _sys
+_sys.stdout.flush()
+if not success:
+    raise SystemExit(1)
