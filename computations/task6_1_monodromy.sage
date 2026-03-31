@@ -67,10 +67,11 @@ print("\n" + "=" * 80)
 print("[Step 1] Loading Precomputed Lattices and Polarizations")
 print("=" * 80)
 
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
 
 # Construct T_Co from primitive S_Co embedding
-L = K3_lattice()
+L = Lambda_K3_lattice().gram_matrix()
 M_SCo_raw = matrix(ZZ, 22, 11)
 M_SCo_raw[0,0]=1; M_SCo_raw[1,0]=1
 M_SCo_raw[2,1]=1; M_SCo_raw[3,1]=-1
