@@ -49,7 +49,6 @@ research/
     coble_geometry_foundation.sage  # Single source of truth for lattice constructors
     test_foundation.sage            # Foundation test suite
     taskN_M_*.sage                  # One script per GOAL.md subtask
-    taskN_M_*_results.txt           # Machine-generated output (one per script)
     *.g                             # GAP scripts (same naming: taskN_M_*.g)
   coble_research_lean/             # Lean 4 formalizations (single Lean project)
   notes/                           # Mathematical research notes (see Notes Policy)
@@ -151,7 +150,6 @@ Each note must:
 One file per GOAL.md subtask: `notes/proofs/taskN_M_*.md`.
 
 Do not create notes that merely summarize computation output.
-The output files exist for that purpose.
 
 ## Computation Policy
 
@@ -178,7 +176,13 @@ The legacy `coble_geometry.sage` must not be loaded by any active script.
 Every computation script must:
 - Use assertions (not just prints) for all claimed results
 - State which GOAL.md task it verifies in a header comment
-- Produce a `_results.txt` file with machine-checkable output
+
+Scripts must NOT write output files (`*_results.txt`, `*_output.txt`, etc.). The script
+itself — with its assertions and print statements — is the reproducible artifact.
+A text file caching one run's output is instantly stale, not re-verifiable without
+re-running the script anyway, and accumulates as debris.
+Verification means the script passes when run via `just`, not that a text file exists
+claiming it passed.
 
 Assertions must test the mathematical claims in GOAL.md — not just internal consistency.
 Each assertion must be traceable to a specific statement in GOAL.md or the literature
@@ -201,7 +205,6 @@ Never accept prior session claims at face value.
 "Verified" labels from prior agent sessions are worthless without:
 - A script in `computations/` that asserts the claimed result
 - A passing `just` run that exercises that script
-- A results file that matches the GOAL.md claim
 
 If any of these are missing, the claim is UNVERIFIED regardless of what any markdown
 file says.
