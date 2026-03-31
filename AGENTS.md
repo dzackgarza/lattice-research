@@ -184,10 +184,31 @@ Every new session must:
 - State which GOAL.md task(s) will be worked on and why
 - NOT start by "assessing project state" or reading every file in the repo
 
+## Broken Work Policy
+
+Broken computations get **fixed or deleted**. Never documented and preserved.
+
+If a script fails:
+- Fix it in the same worktree, or
+- Delete the worktree and start over
+
+Never:
+- Write a markdown file describing the failure
+- Merge broken code to main with a companion "status" or "issue" document
+- Create an "audit report" about why something doesn't work
+- Archive broken code "for reference" — git history is the reference
+
+The pattern that produced 110 markdown files in this repo: an agent encounters a
+failure, writes a report about it instead of fixing it, then the next agent reads that
+report, writes a summary, and the pile grows.
+Nobody fixes the bug.
+This is banned.
+
 ## Anti-Patterns (Hard Bans)
 
 - Creating markdown files to track agent process (plans, changelogs, schedules, status
   reports, audit summaries)
+- Documenting failures instead of fixing or reverting them
 - Overwriting GOAL.md or REFERENCES.md
 - Running computations outside of `just`
 - Claiming something is "verified" without a passing assertion-based script
