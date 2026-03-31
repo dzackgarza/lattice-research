@@ -3,7 +3,8 @@ Task 1.1 Example 3: Construct a third independent example of a 10-nodal rational
 """
 
 from sage.all import *
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.1 Example 3: Rational Sextic with 10 Nodes")
@@ -190,7 +191,7 @@ print("Step 5: Compute Stabilizer Group Γ_Co")
 print("=" * 80)
 
 # Lattice definitions as in Example 2
-T_En_gram = diagonal_matrix(ZZ, [2, 2] + [-2]*8)
+T_En_gram = T_En_lattice().gram_matrix()
 h_Co = vector(ZZ, [1] + [0]*9)
 theta = diagonal_matrix(ZZ, [1, 1] + [-1]*8)
 
