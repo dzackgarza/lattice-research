@@ -117,6 +117,8 @@ This orbit classification is foundational for:
   I* — Uses discriminant group orbit analysis for cusp classification
 - **Dolgachev & Kondō 2013**: *The rationality of the moduli spaces of Coble surfaces
   and of nodal Enriques surfaces* — Lattice invariants for Coble surfaces
+- **Pieroni 2026** (lines 146, 483-493): Identifies E₁₀ = Num(X) for Coble surfaces,
+  providing geometric context for the discriminant group A_{T_Co} computations
 
 ## Cross-References
 
