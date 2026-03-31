@@ -4,6 +4,17 @@
 
 ### Progress
 
+**Literature integration (COMPLETED)**:
+- Integrated Pieroni (2026) and Huybrechts K3 Lectures across all repository components:
+  - Updated all 11 proof notes with relevant citations (Theorem 46, Theorem 72, E₁₀
+    framework)
+  - Updated audit/literature_claim_map.md with new canonical sources
+  - Updated audit/verification_process.md with Pieroni/Huybrechts check requirement
+  - Updated PLAN.md with integration completion note
+- All citations include precise line numbers and theorem references
+- Distinction maintained: MATCH (repo replicates literature) vs EXTENDS (repo provides
+  examples) vs CONTEXT
+
 **Literature acquisition and validation (MAJOR MILESTONE)**:
 - Acquired 2 major papers via web search and Mistral OCR extraction:
   - Pieroni (2026): "Coble surfaces: projective models and automorphisms" - PhD thesis,
