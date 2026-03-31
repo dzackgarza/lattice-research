@@ -29,11 +29,7 @@ Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 | `notes/` | Mathematical research notes, literature connections, task-specific analysis |
 | `notes/proofs/` | Proof sketches and verification records (one per GOAL.md subtask) |
 | `papers/` | Acquired literature (PDFs and extracted text) |
-| `plans/` | Active working plans |
-| `archive/` | Historical process artifacts (audit transcripts, old plans, logs) |
-| `tests/` | Unit tests |
-| `scripts/` | Utility scripts (GAP test, etc.) |
-| `coble_research_lean/`, `MyLeanProject/` | Lean 4 formalization (secondary) |
+| `coble_research_lean/` | Lean 4 formalization (secondary) |
 
 ## Core notes
 
