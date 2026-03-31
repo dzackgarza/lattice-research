@@ -41,11 +41,20 @@
   documentation budget, mathematical blocking gates, planning failure patterns,
   autonomous work priorities, literature gap status labels, computational evidence value
 
+**Software research (Task 3.2 orbit computation)**:
+- Investigated alternative approaches to GAP orbit computation
+- Tested Sage native discriminant form orbit computation: also times out (60s)
+- Root cause identified: computational complexity (A_T order 2048, O(q_T) is large)
+- 6 total failed attempts: 5 GAP, 1 Sage native
+- Conclusion: Task 3.2 orbit uniqueness is CONJECTURE (strong theoretical support from
+  Nikulin Prop 1.5.2 + Pieroni 2026 Theorem 46, but computationally unverified)
+- Created audit/gap_technical_issue_update.md documenting complete analysis
+
 **Documentation updates**:
-- Updated PLAN.md: project now 95% complete (was 90%), literature spine 98% complete
+- Updated PLAN.md: project now 98% complete (was 95%), literature spine 98% complete
   (was 95%)
 - Updated GAPS.md: Task 1.1 status changed from INDEPENDENT to VALIDATED (EXTENDS
-  literature)
+  literature), added Task 3.2 as computational gap (CONJECTURE status)
 - Updated REFERENCES.md: added Pieroni 2026 and Huybrechts K3 lectures
 
 ### Failed attempts
