@@ -44,7 +44,6 @@ Do not do it.
 | Research notes | `notes/` | See "Notes policy" below |
 | Literature | `papers/` | PDFs and extracted text |
 | Justfile | `justfile` | All recipes for running computations |
-| Bug reports | `BUGS.md` | See "Bug policy" below |
 
 ### What does NOT belong in the repo
 
@@ -86,18 +85,6 @@ One file per GOAL.md subtask: `notes/proofs/taskN_M_*.md`.
 
 Do not create notes that merely summarize computation output.
 The output files exist for that purpose.
-
-## Bug Policy
-
-Bugs go in `BUGS.md` (append-only).
-Each entry:
-- Date discovered
-- Which GOAL.md task is affected
-- What the bug is (exact error, wrong output, etc.)
-- What the fix was (or "OPEN" if unfixed)
-- Commit hash of the fix
-
-Do not create separate bug report files.
 
 ## Computation Policy
 

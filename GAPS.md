@@ -112,15 +112,14 @@ See `notes/task3_2_gap_difficulty.md` and
 
 ## Computational bugs (resolved 2026-03-30)
 
-**Task 1.2 T_Co Gram matrix bug**: FIXED. Changed embedding construction in
-`task1_2_gram_matrices_fixed.sage` to use single coordinates instead of pairs.
-T_Co Gram diagonal now correct `[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]` with
-determinant -2048. See BUGS.md for details.
+**Task 1.2 T_Co Gram matrix bug**: FIXED (commit 160422c). Changed embedding
+construction in `task1_2_gram_matrices_fixed.sage` to use single coordinates instead of
+pairs. T_Co Gram diagonal now correct `[2, 2, -2, -2, -2, -2, -2, -2, -2, -2, -2]` with
+determinant -2048.
 
 **Task 1.3 T_Co embedding**: NOT A BUG. Discriminant form verification confirmed
 computed T_Co has correct discriminant form.
 Non-diagonal Gram matrix is different basis representation of same lattice.
-See BUGS.md for details.
 
 ## Immediate next targets
 
