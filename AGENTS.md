@@ -293,3 +293,118 @@ There is no third option.
   script cleanup, documentation)
 - Creating a new markdown file when an existing one could be updated
 - Re-reading the entire repo to "assess state" — read GOAL.md and memories
+
+## Computation Auditing Criteria
+
+Every computation script must pass the following audit before commit.
+A script that triggers any of these is either broken (fix it) or fraudulent (delete it).
+The canonical example of a script that violates every criterion below is the original
+`computations/task6_1_monodromy.sage` — 439 lines, one real computation, and the rest is
+print statements asserting conclusions by fiat with variables hardcoded to True.
+
+### Structural fraud indicators
+
+- **Zero assertions.** A script with no `assert` statements proves nothing.
+  Every claimed result needs an assertion whose expected value comes from the
+  mathematics, not from the script itself.
+- **Assertions against self-computed values.** `x = f(); assert x == f()` proves
+  internal consistency, not correctness.
+  The expected value must come from GOAL.md, the literature, or an independent
+  computation.
+- **Hardcoded boolean "verifications."** Setting `is_S2 = True` on line 241 and then
+  checking `is_S2` on line 402 is not verification.
+  It is writing the answer key and then grading yourself.
+
+### Print-statement theater
+
+- **Print statements that state conclusions.** `print("✓ SATISFIED")` is not evidence.
+  If a property holds, assert it; if you cannot write an assertion, you have not
+  computed anything.
+- **Multiple consecutive print statements.** Embedding prose arguments in code is not
+  computation. If three or more `print()` calls appear in sequence with no intervening
+  computation, the block is exposition pretending to be code.
+- **Checkmarks, success markers, or status tables in output.** Code written to produce
+  reassuring output instead of verifying claims.
+  `"✓"`, `"PASSED"`, `"VERIFIED"`, `"ALL CHECKS PASSED"` in print strings are red flags
+  unless each is immediately preceded by the assertion it claims to summarize.
+- **f-strings with no `{}` interpolation.** An f-string with no dynamic content is a
+  string literal wearing a disguise — it misleads readers into thinking a computed value
+  was checked. If there is nothing to interpolate, use a plain string.
+- **f-strings that interpolate only hardcoded values.** `f"Norm = {2}"` or
+  `f"Status: {True}"` — the dynamic appearance hides a static fact.
+- **Print statements that state conclusions instead of checking them.** E.g.
+  `print("v^2 = 0: Confirmed")` instead of
+  `assert v_norm == 0, f"Expected v^2=0, got {v_norm}"`.
+
+### Ad-hoc construction smells
+
+- **Large manually typed matrices.** Any matrix larger than 3×3 typed out entry by entry
+  is suspect. Matrices should be constructed semantically — from maps between generators,
+  from Sage's `hom` facilities, from Smith normal form computations, from lattice
+  embeddings, etc. Manually keying a 22×11 matrix (as in task6_1 lines 75-82) is a typo
+  waiting to happen.
+- **Large manually typed vectors.** Vectors should be constructed as linear combinations
+  of semantically named generators, not typed as raw coordinate tuples.
+- **Ad-hoc `diagonal_matrix()` calls.** All lattice constructions must use foundation
+  library constructors.
+  A bare `diagonal_matrix()` call is constructing a lattice outside the canonical path.
+- **Low-level Sage abstractions when project-level abstractions exist.** E.g.
+  `left_kernel()` when the foundation library provides orthogonal complement helpers.
+  Using project abstractions ensures consistent conventions (saturation, inner product
+  normalization, etc.).
+- **`load("coble_geometry.sage")`** — the legacy file.
+  Only `coble_geometry_foundation.sage` is canonical.
+
+### Algorithmic gaps
+
+- **Missing standard algorithm implementations.** If a script needs Vinberg's algorithm,
+  root enumeration, or bounded lattice-point enumeration, those must be implemented as
+  reusable foundation utilities — not approximated with ad-hoc bounded for-loops
+  claiming exhaustiveness.
+- **Bounded enumeration claiming exhaustiveness.** A `for i in range(-5, 6)` loop
+  searching for lattice vectors is not exhaustive unless proven so.
+  The bound must be justified mathematically (e.g. from Cauchy-Schwarz or norm
+  constraints), and the justification must appear as a comment citing the bound.
+- **Nested for-loops bypassing semantic constructions.** Building a matrix entry by
+  entry in a double loop, or searching over pairs/triples by brute force, usually means
+  a standard algebraic construction (root system enumeration, orbit computation,
+  homomorphism construction) is being reinvented badly.
+
+### Software engineering patterns that do not belong in math code
+
+- **`try`/`except` blocks.** Mathematically correct code does not raise exceptions.
+  If an exception is possible, the code is not handling all cases.
+  Catching and suppressing exceptions hides bugs.
+- **`raise` statements.** Same rationale.
+  A computation script computes and asserts; it does not define error conditions.
+  If input validation is needed, it belongs in the foundation library, not in task
+  scripts.
+- **Long strings / docstrings embedding exposition.** A 60-line docstring explaining the
+  mathematical background (task6_1 lines 1-57) is not computation.
+  Background belongs in `notes/` or `REFERENCES.md`. The script header should be a 2-3
+  line comment stating which GOAL.md task it verifies and what it computes.
+
+### Trivial-computation padding
+
+- **Abundance of dimension, signature, determinant, rank, length, size calculations.**
+  These are O(1) lookups that produce no insight.
+  A script that computes `rank`, `signature`, `det`, and `len` of every object and
+  prints them is padding its output to look substantial.
+- **Count-based "verifications."** `assert len(roots) == 240` — is 240 the right answer?
+  Where does it come from?
+  Count assertions need a citation or derivation for the expected count.
+- **Claims of "isomorphism" without proof.** Printing "T_Co ≅ U ⊕ E8(-1)" without
+  computing the isomorphism (or at minimum checking genus invariants, discriminant form,
+  and signature) is a claim, not a computation.
+
+### File-level red flags
+
+- **High line count with few assertions.** A script over 100 lines with fewer than 5
+  assertions is almost certainly padding.
+  The ratio of assertions to total lines should be examined.
+- **Many lines of comments with no code.** Comments claiming to check things but with no
+  corresponding computation.
+  The comment "# Verify orthogonality" followed by a print statement instead of an
+  assertion is documentation of intent, not verification.
+- **Output files.** Scripts must not write `*_results.txt`, `*_output.txt`, or any other
+  file. The script itself is the reproducible artifact.

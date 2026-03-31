@@ -40,7 +40,7 @@ No block exceeds one session.
 
 * * *
 
-## 06:00 – 08:00 Literature leverage check
+## 06:00 – 07:00 Literature leverage check
 
 - Review existing literature to determine if current computation scripts are leveraging
   known theory instead of reinventing it
@@ -49,7 +49,54 @@ No block exceeds one session.
 
 * * *
 
-## 08:00 – 10:00 Computation audit
+## 07:00 – 09:00 Adversarial audit (morning)
+
+Assume every script is fraudulent until proven otherwise.
+Apply the Computation Auditing Criteria from AGENTS.md with zero tolerance.
+
+For every `.sage` file in `computations/`:
+- Count assertions vs total lines.
+  A script over 100 lines with fewer than 5 assertions is padding — delete it or rewrite
+  it in the same session.
+- Check every assertion: does the expected value come from GOAL.md or the literature, or
+  from the script itself?
+  Self-validating assertions (`x = f(); assert x == f()`) and hardcoded-boolean checks
+  (`is_ok = True; ... assert is_ok`) are fraudulent — delete them.
+- Search for print-statement theater: consecutive prints with no intervening
+  computation, checkmarks/success markers in strings, f-strings with no interpolation or
+  only hardcoded values, prints that state conclusions ("✓ SATISFIED") without a
+  preceding assertion.
+  Any block of 3+ consecutive prints with no computation between them is exposition
+  pretending to be code — delete the block.
+- Search for ad-hoc constructions: manually typed matrices larger than 3×3, manually
+  typed vectors, bare `diagonal_matrix()` calls, `load("coble_geometry.sage")` (legacy
+  file). These must use foundation library constructors or be deleted.
+- Search for algorithmic gaps: bounded `for` loops claiming exhaustiveness without a
+  mathematical justification for the bound, nested loops reinventing standard algebraic
+  constructions. Delete or rewrite.
+- Search for software engineering debris: `try`/`except`, `raise`, docstrings longer
+  than 5 lines. These do not belong in math computation scripts.
+- Search for trivial padding: scripts dominated by `rank()`, `signature()`, `det()`,
+  `len()` calls with no substantive computation.
+  Scripts that compute invariants and print them without asserting anything are not
+  verification.
+
+**Hard pruning rules:**
+- If a script fails more than 3 of the above checks, delete it entirely.
+  Do not attempt to salvage — the foundation is unsound.
+- If a deleted script was marked "completed" or "verified" in any plan, note, or memory,
+  invalidate that claim: update the note/memory to state the script was deleted as
+  fraudulent, and the task is UNVERIFIED.
+- If an audit trail or verification record references a deleted script, delete the audit
+  trail too. An audit built on fraud is itself fraud.
+- If a notes/proofs/ file claims a result that was "verified" by a deleted script, add a
+  prominent warning at the top: "UNVERIFIED — computation script deleted as fraudulent."
+- `remember` every deletion: what file, what fraud indicators triggered it, what GOAL.md
+  task is now unverified.
+
+* * *
+
+## 09:00 – 10:00 Computation audit
 
 - For each computation script in `computations/`, verify:
   - Assertions trace to specific GOAL.md claims or literature, not internal consistency
@@ -98,7 +145,7 @@ No block exceeds one session.
 
 * * *
 
-## 18:00 – 20:00 Subagent transcript review
+## 18:00 – 19:00 Subagent transcript review
 
 - Use `ocm` to read recent subagent transcripts
 - Identify common failures, misinterpretations of instructions, repeated mistakes
@@ -108,7 +155,32 @@ No block exceeds one session.
 
 * * *
 
-## 20:00 – 22:00 Mathematical work
+## 19:00 – 21:00 Adversarial audit (evening)
+
+Same procedure as the morning adversarial audit (07:00–09:00), applied to any scripts
+created or modified since the morning audit.
+Additionally:
+
+- Review git log since the morning audit.
+  For every new or modified `.sage` file, apply the full Computation Auditing Criteria
+  from AGENTS.md.
+- Check for regression: did a session re-introduce a file or pattern that was deleted in
+  the morning audit? If so, `remember` the regression and add a specific ban to AGENTS.md
+  naming the pattern.
+- Check for plan drift: if any plan or memory claims a task is "verified" or
+  "completed", trace the claim to a specific script.
+  If the script does not exist, fails its assertions, or fails the auditing criteria,
+  the claim is invalid — update the plan or memory.
+- Review notes/proofs/ for any new claims.
+  Each claim must trace to a passing script.
+  Ungrounded claims get the "UNVERIFIED" warning.
+
+**Same hard pruning rules as the morning audit apply.** Delete fraudulent scripts,
+invalidate claims built on them, delete audit trails referencing them.
+
+* * *
+
+## 21:00 – 23:00 Mathematical work
 
 - Advance the highest-priority unverified GOAL.md task
 - Use worktrees for any new computation
@@ -116,7 +188,7 @@ No block exceeds one session.
 
 * * *
 
-## 22:00 – 00:00 Lean formalization
+## 23:00 – 00:00 Lean formalization
 
 - Advance Lean formalizations in `coble_research_lean/`
 - Check if target results already exist in Mathlib before proving
