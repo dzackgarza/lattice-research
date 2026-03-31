@@ -53,7 +53,10 @@ Coble surface, and θ encodes the Enriques involution structure.
 Coxeter diagram structure (studied in Task 4.1) determines the reflection subgroup.
 
 **Literature**: Sterk (1991) for arithmetic group structure in Enriques/Coble moduli.
-Dolgachev-Kondō (2013) for Coble surface period domain.
+Dolgachev-Kondō (2013) for Coble surface period domain.\
+**Pieroni connection** (Pieroni 2026, lines 146, 483-493): The lattice E₁₀ framework for
+Coble surfaces provides geometric context for the stabilizer computations and arithmetic
+group structure studied here.
 See `REFERENCES.md` for complete citations.
 
 ## Scope
