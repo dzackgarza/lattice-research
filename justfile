@@ -159,7 +159,7 @@ run-all:
     set -euo pipefail
     echo "=== Running All Tasks ==="
     echo "--- Foundation Tests ---"
-    (cd computations && sage test_foundation.sage)
+    sage -c "import os; os.chdir('computations'); load('test_foundation.sage')"
     echo "--- Task 1.1 ---"
     sage computations/task1_1_sextic.sage
     sage computations/task1_1_sextic_example2.sage
