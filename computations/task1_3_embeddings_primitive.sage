@@ -28,7 +28,8 @@ References:
 import sys
 from sage.all import *
 
-load("coble_geometry.sage")
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.3 (Primitive): Construct Primitive Embedding S_Co ↪ Λ_K3")
@@ -59,10 +60,10 @@ print()
 print("Section 2: Expected Lattice Invariants")
 print("-" * 80)
 
-S_Co_gram_expected = diagonal_matrix(ZZ, [2] + [-2]*10)
+S_Co_gram_expected = S_Co_lattice().gram_matrix()
 print(f"S_Co (expected): rank 11, sig -9, det = {S_Co_gram_expected.determinant()}")
 
-T_Co_gram_expected = diagonal_matrix(ZZ, [2, 2] + [-2]*9)
+T_Co_gram_expected = T_Co_lattice().gram_matrix()
 print(f"T_Co (expected): rank 11, sig -7, det = {T_Co_gram_expected.determinant()}")
 print()
 
@@ -536,38 +537,30 @@ For a primitive embedding S ↪ L with L unimodular, we have:
 where q_L : A_L → ℚ/2ℤ is the discriminant quadratic form.
 """
 
-# Compute discriminant groups
-S_Co = QuadraticForm(S_Co_gram_expected)
-T_Co = QuadraticForm(G_TCo)
+# Compute discriminant groups using IntegralLattice (QuadraticForm lacks .discriminant_group())
+L_SCo = IntegralLattice(S_Co_gram_expected)
+L_TCo = IntegralLattice(G_TCo)
 
-# Discriminant forms
-A_S = S_Co.discriminant_group()
-A_T = T_Co.discriminant_group()
+A_S = L_SCo.discriminant_group()
+A_T = L_TCo.discriminant_group()
 
-print(f"A_S order: {A_S.order()} (expected: 2048)")
-print(f"A_T order: {A_T.order()} (expected: 2048)")
+print(f"A_S order: {A_S.cardinality()} (expected: 2048)")
+print(f"A_T order: {A_T.cardinality()} (expected: 2048)")
 
 # Compute Brown invariants (signature mod 8 of discriminant form)
 # For 2-elementary lattices, the Brown invariant determines the discriminant form
 
-def brown_invariant(Q):
+def brown_invariant(G):
     """
-    Compute Brown invariant of a 2-elementary quadratic form.
-    
-    For a 2-elementary lattice with invariants (r, a, δ), the Brown invariant is:
-      γ = (r - a) mod 8  (for δ = 0)
-      γ = (r - a + 4) mod 8  (for δ = 1)
-    
-    Alternatively, compute from the discriminant form directly.
+    Compute Brown invariant from a Gram matrix.
+    Uses QuadraticForm for signature computation.
     """
-    # Use SageMath's discriminant group
-    A = Q.discriminant_group()
-    # The Brown invariant is the signature of the discriminant form mod 8
-    # For computational purposes, we use the formula from Nikulin
-    return Q.signature_pair()[0] - Q.signature_pair()[1]
+    Q = QuadraticForm(G)
+    sv = Q.signature_vector()
+    return sv[0] - sv[1]
 
-gamma_S = brown_invariant(S_Co)
-gamma_T = brown_invariant(T_Co)
+gamma_S = brown_invariant(S_Co_gram_expected)
+gamma_T = brown_invariant(G_TCo)
 
 print(f"Brown invariant γ(S_Co): {gamma_S}")
 print(f"Brown invariant γ(T_Co): {gamma_T}")
