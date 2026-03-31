@@ -2,19 +2,21 @@
 
 ## Literature / citation gaps
 
-### Task 1.1 sextic constructions — INDEPENDENT (potentially RESOLVABLE)
+### Task 1.1 sextic constructions — VALIDATED (EXTENDS literature)
 
-**Status**: INDEPENDENT — The repo's three Task 1.1 examples are confirmed independent
-constructions from Thas (1994). Thas uses degree patterns (6, 5, 5) with geometric
-parameters (a, b, c) encoding Desargues configuration; repo uses fixed integer
-coefficients with degree-6 in all three coordinates.
-See `audit/thas_vs_task1_1_comparison.md` for details.
+**Status**: VALIDATED — The repo's three Task 1.1 examples are confirmed independent
+constructions from Thas (1994), but now validated against Pieroni (2026). Pieroni
+provides theoretical framework explaining why 10-nodal sextics are rare (28-dimensional
+space vs 30 conditions).
+Repo provides computational examples that Pieroni's theory predicts should be special.
+See `audit/thas_vs_task1_1_comparison.md` and `audit/new_literature_connections.md`.
 
-**Gap**: Could still be connected to other literature sources (e.g., Coble 1917,
-Coolidge 1931) or verified against additional primary sources.
+**Connection**: EXTENDS — Pieroni (2026) lines 752-759, 1225-1280 provide theoretical
+justification. Repo's parametric construction via resultants provides concrete
+realizations.
 
-**Next action**: Search acquired literature (Dolgachev-Kondō 2013, AEGS 2023) for
-connections to repo parametrizations.
+**Remaining gap**: Could still be connected to Coble (1917) or Coolidge (1931) primary
+sources (both blocked on institutional access).
 
 ### J. Thas uniqueness primary source — BLOCKED
 
