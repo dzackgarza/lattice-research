@@ -71,6 +71,9 @@ This script produces:
 ================================================================================
 """
 
+# Load the centralized foundation library for lattice constructions
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+
 print("=" * 80)
 print("Task 1.2: Gram Matrices and (r,a,δ) Invariants for Coble Lattices")
 print("=" * 80)
@@ -92,9 +95,10 @@ print("  e_0 = π*L (hyperplane class, e_0² = 2)")
 print("  e_i = E_i (exceptional divisor, e_i² = -2) for i = 1,...,10")
 print("  e_i · e_j = 0 for i ≠ j")
 
-# Construct Gram matrix as diagonal matrix
+# Use foundation library for S_Co
 n_S = 11  # rank of S_Co
-S_gram = diagonal_matrix(QQ, [2] + [-2]*10)
+S_Co = S_Co_lattice()
+S_gram = S_Co.gram_matrix()
 
 print(f"\nGram matrix Q_S_Co = diag(2, -2, ..., -2):")
 print(f"  Size: {S_gram.nrows()} × {S_gram.ncols()}")
@@ -110,8 +114,6 @@ print(f"  Signature: {sig} (positive={sig_vec[0]}, negative={sig_vec[1]})")
 assert sig == (1, 10), f"Expected signature (1,10), got {sig}"
 print("  ✓ Signature matches expected (1, 10)")
 
-# Create IntegralLattice object for advanced computations
-S_Co = IntegralLattice(S_gram)
 print(f"\nIntegralLattice S_Co created")
 print(f"  Rank: {S_Co.rank()}")
 print(f"  Determinant: {S_Co.determinant()}")
@@ -181,21 +183,20 @@ print("=" * 80)
 # Λ_K3 ≅ U^3 ⊕ E_8(-1)^2
 # where U is the hyperbolic plane and E_8(-1) is negative-definite E_8
 
-# Hyperbolic plane U with Gram matrix [[0, 1], [1, 0]]
-U = matrix(QQ, [[0, 1], [1, 0]])
+# Use foundation library for hyperbolic plane and E8
+U_lattice = hyperbolic_plane()
+U = U_lattice.gram_matrix()
 print("\nHyperbolic plane U:")
 print(f"  Gram matrix: {U}")
 QF_U = QuadraticForm(U)
 print(f"  Signature: {QF_U.signature_vector()[:2]}")
 
-# E_8 root lattice (negative definite)
-# SageMath has built-in E_8 via RootSystem
-R_E8 = RootSystem(['E', 8])
-E8_gram = R_E8.cartan_matrix()  # This is positive definite
-E8_neg_gram = -E8_gram  # Make it negative definite
+# E_8 root lattice (negative definite) - use foundation library
+E8_neg = E8_lattice(scale=-1)
+E8_neg_gram = E8_neg.gram_matrix()
 
 print(f"\nE_8(-1) root lattice:")
-print(f"  Rank: {E8_gram.nrows()}")
+print(f"  Rank: {E8_neg.rank()}")
 QF_E8_neg = QuadraticForm(E8_neg_gram)
 print(f"  Gram matrix signature: {QF_E8_neg.signature_vector()[:2]}")
 print(f"  Determinant: {E8_neg_gram.det()}")
@@ -317,8 +318,9 @@ print("\n  Constructing T_Co via orthogonal complement computation...")
 # Let me use a different construction
 # T_Co ≅ ⟨2⟩^2 ⊕ ⟨-2⟩^9 has signature (2, 9) and discriminant (ℤ/2ℤ)^11 ✓
 
-T_Co_gram = diagonal_matrix(QQ, [2, 2] + [-2]*9)
-T_Co = IntegralLattice(T_Co_gram)
+# Use foundation library for T_Co
+T_Co = T_Co_lattice()
+T_Co_gram = T_Co.gram_matrix()
 
 print(f"\nTranscendental lattice T_Co:")
 print(f"  Gram matrix: diag(2, 2, -2, ..., -2)")

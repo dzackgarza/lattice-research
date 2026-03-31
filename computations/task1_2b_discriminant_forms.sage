@@ -25,6 +25,9 @@ cyclic quadratic forms. Two such forms are isomorphic iff their Brown invariants
 match (for odd primes) and they have the same signature mod 8.
 """
 
+# Load the centralized foundation library for lattice constructions
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+
 print("=" * 80)
 print("Task 1.2b: Discriminant Form Verification")
 print("=" * 80)
@@ -38,14 +41,13 @@ print("=" * 80)
 
 print("\n[1.1] Constructing S_Co...")
 
-# S_Co has Gram matrix diag(2, -2, -2, ..., -2) (11x11)
-# This is the lattice <2> + <-2>^10
-S_gram = diagonal_matrix(QQ, [2] + [-2]*10)
-S_Co = IntegralLattice(S_gram)
+# S_Co = <2> + <-2>^10 (use foundation library)
+S_Co = S_Co_lattice()
 
-print(f"  S_Co Gram matrix: diag{S_gram.diagonal()}")
+print(f"  S_Co Gram matrix: diag{S_Co.gram_matrix().diagonal()}")
 print(f"  Rank: {S_Co.rank()}")
 
+S_gram = S_Co.gram_matrix()
 QF_S = QuadraticForm(S_gram)
 sig_S = QF_S.signature_vector()[:2]
 print(f"  Signature: {sig_S}")
@@ -184,8 +186,9 @@ print("\n[2.2] Constructing T0 = <2>^2 + <-2>^9...")
 # - sig = (2, 9) OK
 # - det = 2^2 * (-2)^9 = 4 * (-512) = -2048, so |det| = 2048 OK
 
-T0_gram = diagonal_matrix(QQ, [2, 2] + [-2]*9)
-T0 = IntegralLattice(T0_gram)
+# Use foundation library for T_Co lattice
+T0 = T_Co_lattice()
+T0_gram = T0.gram_matrix()
 
 print(f"  T0 Gram matrix: diag{T0_gram.diagonal()}")
 print(f"  Rank: {T0.rank()}")

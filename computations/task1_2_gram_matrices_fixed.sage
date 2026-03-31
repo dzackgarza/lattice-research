@@ -5,6 +5,9 @@ APPROACH: Use the explicit structure of E_8 to find orthogonal roots.
 E_8 can be realized concretely, and we can find the A₁^8 subsystem explicitly.
 """
 
+# Load the centralized foundation library for lattice constructions
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+
 print("=" * 80)
 print("Task 1.2 (FIXED): Orthogonal Complement Computation")
 print("=" * 80)
@@ -14,16 +17,16 @@ print("=" * 80)
 # ============================================================================
 print("\n[Step 1] Constructing lattices...")
 
-S_gram = diagonal_matrix(QQ, [2] + [-2]*10)
-S_Co = IntegralLattice(S_gram)
+# Use foundation library for S_Co and Lambda_K3
+S_Co = S_Co_lattice()
+S_gram = S_Co.gram_matrix()
 print(f"S_Co: rank={S_Co.rank()}, sig=(1,10), det={S_Co.determinant()}")
 
-U = matrix(QQ, [[0, 1], [1, 0]])
-R_E8 = RootSystem(['E', 8])
-E8_gram = matrix(QQ, R_E8.cartan_matrix())
-E8_neg_gram = -E8_gram
+# Get U from foundation library and build Lambda_K3
+U = hyperbolic_plane()
+E8_neg_gram = -E8_lattice(scale=-1).gram_matrix()
 
-Lambda_K3_gram = block_diagonal_matrix([U, U, U, E8_neg_gram, E8_neg_gram])
+Lambda_K3_gram = block_diagonal_matrix([U.gram_matrix(), U.gram_matrix(), U.gram_matrix(), E8_neg_gram, E8_neg_gram])
 Lambda_K3 = IntegralLattice(Lambda_K3_gram)
 print(f"Λ_K3: rank={Lambda_K3.rank()}, sig=(3,19), unimodular={abs(Lambda_K3.determinant())==1}")
 
