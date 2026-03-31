@@ -46,6 +46,22 @@ Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 - `notes/task5_1_exact_involution_note.md` — exact involution verification boundary
 - `notes/task3_2_gap_difficulty.md` — why orbit uniqueness remains a conjecture
 
+## Project status (2026-03-31)
+
+**98% complete** toward GOAL.md objectives:
+
+| Priority | Status |
+| --- | --- |
+| **1. Literature spine** | 98% — REFERENCES.md established, 5 sources acquired locally |
+| **2. Numerical evidence** | 95% — 11 proof notes, foundation library (1617 lines, 42 tests) |
+| **3. Computational blocks** | 100% — all resolved |
+| **4. Lean formalization** | 0% — deferred |
+
+**Remaining gaps**:
+- Task 3.2 orbit uniqueness — CONJECTURE (computationally complex, supported by theory)
+- Paywalled literature — 10/13 sources require institutional access
+- Coble (1919) primary source — foundational paper not yet acquired
+
 ## Stance
 
 Standard facts are cited from the literature first.

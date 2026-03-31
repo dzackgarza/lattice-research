@@ -88,11 +88,11 @@ Root cause: A_T has order 2048, O(q_T) is large, orbit computation is genuinely 
 **Software research** (2026-03-31): Investigated alternative approaches including Dawes
 (2022) algorithms, Sage native functionality, Magma, and PARI/GP. Conclusion:
 computational complexity is fundamental, not tool-specific.
-See `archive/audit/software_research_orbit_computation.md` for complete analysis.
+See `notes/task3_2_gap_difficulty.md` for complete analysis.
 
 **Next action**: Accept as CONJECTURE with strong theoretical support.
-See `notes/task3_2_gap_difficulty.md` and
-`archive/audit/software_research_orbit_computation.md` for complete analysis.
+See `notes/task3_2_gap_difficulty.md` and `notes/task3_2_gap_difficulty.md` for complete
+analysis.
 
 ## Genuine mathematical / implementation gaps
 
