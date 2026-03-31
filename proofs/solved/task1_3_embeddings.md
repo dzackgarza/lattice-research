@@ -62,7 +62,10 @@ the orthogonal complement T = S^⊥ satisfies:
 - Discriminant forms: q_T ≅ -q_S
 
 **Literature**: Nikulin (1979) for primitive embedding theory and orthogonal complement
-structure. Dolgachev-Kondō (2013) for Coble surface lattice embeddings.
+structure. Dolgachev-Kondō (2013) for Coble surface lattice embeddings.\
+**Huybrechts connection** (Huybrechts K3 Lectures, lines 561, 1589-1619): Provides
+foundational K3 lattice theory including U³ ⊕ E₈(-1)² structure and Kummer lattice
+discriminant computations relevant for understanding lattice embeddings in K3 context.
 See `REFERENCES.md` for complete citations.
 
 ## Scope
