@@ -84,12 +84,12 @@ print("[Step 1] Constructing T_Co")
 print("=" * 80)
 
 # Load T_Co from central geometry module
-load("coble_geometry.sage")
-T_Co = get_T_Co()
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+T_Co = T_Co_lattice()
 T_Co_gram = T_Co.gram_matrix()
 
 print(f"\nT_Co rank: {T_Co.rank()}")
-sig_T = get_signature(T_Co)
+sig_T = lattice_signature(T_Co)
 print(f"  Signature: {sig_T}")
 print(f"  Determinant: {T_Co.determinant()}")
 
