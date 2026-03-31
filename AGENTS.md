@@ -179,8 +179,19 @@ Every computation script must:
 - State which GOAL.md task it verifies in a header comment
 - Produce a `_results.txt` file with machine-checkable output
 
-A computation is verified when: the script runs without assertion errors via `just`, and
-the results match the mathematical claims in GOAL.md.
+Assertions must test the mathematical claims in GOAL.md — not just internal consistency.
+Each assertion must be traceable to a specific statement in GOAL.md or the literature
+(Nikulin, Sterk, Dolgachev-Kondo, AEGS). A script that computes a value and asserts it
+equals what it just computed proves nothing.
+The expected values must come from the mathematics, not from a previous run of the same
+script.
+
+A script that passes its own assertions only proves internal consistency.
+Verification is adversarial: the person writing the assertion must know what the answer
+MUST be from the mathematics, independent of the computation.
+An agent writing a script and then "verifying" that script is the same agent checking
+its own homework — this is not verification.
+
 Agent self-reports ("I verified this") are not verification.
 
 ## Zero-Trust Verification
@@ -259,6 +270,12 @@ report, writes a summary, and the pile grows.
 Nobody fixes the bug.
 This is banned.
 
+Preserving broken work in ANY form is banned: renaming with `_old` or `_broken`
+suffixes, moving to subdirectories, creating companion documents explaining why it's
+broken, archiving "for reference."
+If a script doesn't pass its assertions, it gets fixed or deleted in the same session.
+There is no third option.
+
 ## Anti-Patterns (Hard Bans)
 
 - Creating markdown files to track agent process (plans, changelogs, schedules, status
@@ -267,6 +284,7 @@ This is banned.
 - Overwriting GOAL.md or REFERENCES.md
 - Running computations outside of `just`
 - Claiming something is "verified" without a passing assertion-based script
+- Writing assertions that test internal consistency rather than GOAL.md claims
 - Spending more than 10% of a session on non-mathematical work (file organization,
   script cleanup, documentation)
 - Creating a new markdown file when an existing one could be updated
