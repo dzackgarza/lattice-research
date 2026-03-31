@@ -705,45 +705,5 @@ print(f"  S_Co ⊥ T_Co: {cross_pairing.is_zero()}")
 print(f"  All embeddings primitive: {all([is_primitive_embedding(M_dP_En), is_primitive_embedding(M_En_Co), is_primitive_embedding(M_TCo), is_primitive_embedding(M_dP_K3)])}")
 print()
 
-# Save results
-output_file = '/home/dzack/research/computations/task1_3_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 1.3 Results: Primitive Embedding Matrices\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("Embedding Matrices:\n")
-    f.write("-" * 80 + "\n\n")
-    
-    f.write(f"M_dP_En (T_dP → T_En): {M_dP_En.dimensions()}\n")
-    f.write(str(M_dP_En) + "\n\n")
-    
-    f.write(f"M_En_Co (T_En → T_Co): {M_En_Co.dimensions()}\n")
-    f.write(str(M_En_Co) + "\n\n")
-    
-    f.write(f"M_TCo (T_Co → Λ_K3): {M_TCo.dimensions()}\n")
-    f.write(str(M_TCo) + "\n\n")
-    
-    f.write(f"M_En_K3 (T_En → Λ_K3): {M_En_K3.dimensions()}\n")
-    f.write(str(M_En_K3) + "\n\n")
-    
-    f.write(f"M_dP_K3 (T_dP → Λ_K3): {M_dP_K3.dimensions()}\n")
-    f.write(str(M_dP_K3) + "\n\n")
-    
-    f.write("Gram Matrices:\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"S_Co diagonal: {S_Co_gram.diagonal()}\n")
-    f.write(f"T_Co diagonal: {T_Co_computed_gram.diagonal()}\n")
-    f.write(f"T_En diagonal: {T_En_gram.diagonal()}\n")
-    f.write(f"T_dP diagonal: {T_dP_gram.diagonal()}\n\n")
-    
-    f.write("Verification:\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"S_Co ⊥ T_Co: {cross_pairing.is_zero()}\n")
-    f.write(f"T_dP → T_En primitive: {is_primitive_embedding(M_dP_En)}\n")
-    f.write(f"T_En → T_Co primitive: {is_primitive_embedding(M_En_Co)}\n")
-    f.write(f"T_Co → Λ_K3 primitive: {is_primitive_embedding(M_TCo)}\n")
-    f.write(f"T_dP → Λ_K3 primitive: {is_primitive_embedding(M_dP_K3)}\n")
-
-print(f"Results saved to: {output_file}")
 print()
 print("Task 1.3 completed.")

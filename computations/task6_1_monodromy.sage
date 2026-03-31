@@ -434,60 +434,6 @@ else:
     print("FINAL STATUS: SOME VERIFICATIONS FAILED ✗")
 print("=" * 80)
 
-# ============================================================================
-# Step 10: Export Results
-# ============================================================================
-print("\n" + "=" * 80)
-print("EXPORTING RESULTS")
-print("=" * 80)
-
-# Save results
-output_file = '/home/dzack/research/computations/task6_1_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 6.1 Results: h_Co → ℓ Mapping and slc Stability Verification\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("Coble Polarization:\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"h_Co_K3 = {h_Co_K3}\n")
-    f.write(f"h_Co² = {h_Co_norm}\n\n")
-    
-    f.write("Surgery Vector:\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"ℓ = {ell}\n")
-    f.write(f"ℓ_i = h_Co · α_i for i = 1,...,9\n\n")
-    
-    f.write("Dual Complex B(ℓ):\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"B(ℓ) = {dual_complex}\n")
-    f.write(f"Degeneration type: {degeneration_type}\n\n")
-    
-    f.write("slc Stability Verification:\n")
-    f.write("-" * 80 + "\n")
-    f.write("Condition 1 (Z is S_2): SATISFIED\n")
-    f.write("Condition 2 (Nodal singularities): SATISFIED\n")
-    f.write("Condition 3 (K_Z + εC Q-Cartier ample): SATISFIED\n")
-    f.write("Condition 4 (C avoids strata): SATISFIED\n")
-    f.write("Condition 5 (S_2-quotient): SATISFIED\n")
-    f.write("Hilbert-Mumford stability: SATISFIED\n\n")
-    
-    f.write("Stable Limit Invariants:\n")
-    f.write("-" * 80 + "\n")
-    f.write(f"χ(O_Z) = {chi_O}\n")
-    f.write(f"K_Z² = {K_squared}\n")
-    f.write(f"h_Co² = {h_squared}\n")
-    f.write(f"p_g(Z) = {p_g}\n")
-    f.write(f"q(Z) = {q}\n")
-    f.write(f"π_1(Z) = ℤ/2ℤ\n")
-    f.write(f"Singularities: {num_A1} × A_1\n\n")
-    
-    f.write("Verification Summary:\n")
-    f.write("-" * 80 + "\n")
-    for desc, passed in verifications:
-        f.write(f"{'✓' if passed else '✗'} {desc}\n")
-
-print(f"\nResults saved to: {output_file}")
-
 print("\n" + "=" * 80)
 print("Task 6.1 Complete")
 print("=" * 80)

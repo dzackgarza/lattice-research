@@ -303,52 +303,6 @@ for i, (name, rep, size) in enumerate(orbit_data):
 
 print(f"\nVerification: {verification_status}")
 
-# ============================================================================
-# Step 8: Save Results
-# ============================================================================
-print("\n" + "=" * 80)
-print("[Step 8] Saving Results")
-print("=" * 80)
-
-output_file = '/home/dzack/research/computations/task2_1_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 2.1 Results: Isotropic Vectors and O(q_T)-Orbits\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("Lattice T_Co:\n")
-    f.write(f"  Gram matrix: diag(2, 2, -2, ..., -2)\n")
-    f.write(f"  Signature: (2, 9)\n")
-    f.write(f"  (r, a, δ): (11, 11, 1)\n\n")
-    
-    f.write("Discriminant group A_T:\n")
-    f.write(f"  Structure: (ℤ/2ℤ)^11\n")
-    f.write(f"  Order: {A_T.cardinality()}\n")
-    f.write(f"  Bilinear form: {'Nondegenerate' if nondegenerate else 'Degenerate'}\n\n")
-    
-    f.write("Isotropic vectors:\n")
-    f.write(f"  Total count: {len(isotropic_vectors)}\n")
-    f.write(f"  Fraction: {fraction:.1f}%\n")
-    f.write(f"  Zero vectors: {len(zero_vector)}\n")
-    f.write(f"  Nonzero vectors: {len(nonzero_isotropic)}\n\n")
-    
-    f.write("O(q_T)-orbit decomposition:\n")
-    f.write(f"  Number of orbits: {num_orbits}\n")
-    for i, (name, rep, size) in enumerate(orbit_data):
-        f.write(f"  Orbit {i}: {name}\n")
-        f.write(f"    Representative: {rep}\n")
-        f.write(f"    Size: {size}\n")
-    
-    f.write("\n" + "-" * 80 + "\n")
-    f.write("Theoretical verification:\n")
-    f.write(f"  Prediction: 2 orbits (zero + nonzero)\n")
-    f.write(f"  Computed: {num_orbits} orbits\n")
-    f.write(f"  Status: {verification_status}\n")
-    f.write("\nReferences:\n")
-    f.write("  [Nikulin1979] Prop. 1.5.2: O(T) → O(q_T) surjective for r > a\n")
-    f.write("  [Sterk1991]: Orbit analysis for cusp classification\n")
-
-print(f"\nResults saved to: {output_file}")
-
 print("\n" + "=" * 80)
 print("Task 2.1 Complete")
 print("=" * 80)

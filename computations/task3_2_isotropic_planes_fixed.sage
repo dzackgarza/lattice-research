@@ -784,39 +784,4 @@ print("\n" + "=" * 80)
 print("Task 3.2 Complete")
 print("=" * 80)
 
-# ============================================================================
-# Step 8: Save Results
-# ============================================================================
-print("\n" + "=" * 80)
-print("[Step 8] Saving Results")
-print("=" * 80)
 
-output_file = '/home/dzack/research/computations/task3_2_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 3.2 Results: Isotropic Plane Orbits and J⊥/J\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("Lattice T_Co:\n")
-    f.write(f"  Gram matrix: diag(2, 2, -2, ..., -2)\n")
-    f.write(f"  Signature: (2, 9)\n")
-    f.write(f"  (r, a, δ): (11, 11, 1)\n\n")
-    
-    f.write("Isotropic planes:\n")
-    f.write(f"  Number found (limited search): {len(isotropic_planes)}\n")
-    f.write(f"  Maximal dimension: 2\n\n")
-    
-    f.write("Orbit classification:\n")
-    f.write(f"  Theoretical prediction: ONE O(T_Co)-orbit\n")
-    f.write(f"  Corresponds to: Unique 1-cusp\n\n")
-    
-    f.write("Quotient J⊥/J:\n")
-    f.write(f"  Rank: 7\n")
-    f.write(f"  Expected: A₁^⊕7\n")
-    f.write(f"  Verification: See computational output above\n\n")
-    
-    f.write("References:\n")
-    f.write("  [Nikulin1979] Prop. 1.5.2: Classification of 2-elementary lattices\n")
-    f.write("  [Sterk1991]: Cusp classification for Enriques moduli\n")
-    f.write("  [AEGS23] Section 3: Coxeter diagrams and cusps\n")
-
-print(f"\nResults saved to: {output_file}")

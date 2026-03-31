@@ -434,57 +434,7 @@ else:
     print("FINAL STATUS: VERIFICATION COMPLETE (see details above)")
 print("=" * 80)
 
-# ============================================================================
-# Step 9: Save Results
-# ============================================================================
-print("\n" + "=" * 80)
-print("[Step 9] Saving Results")
-print("=" * 80)
 
-output_file = '/home/dzack/research/computations/task4_1_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 4.1 Results: Maximal Parabolic Subdiagram B̃₇(2) Search\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("Coxeter Diagram Structure:\n")
-    f.write(f"  Nodes: {n_nodes}\n")
-    f.write(f"  Simple edges: {n_simple}\n")
-    f.write(f"  Double edges: {n_double}\n")
-    f.write(f"  Connected: {G.is_connected()}\n\n")
-    
-    f.write("Affine Subdiagrams Found:\n")
-    for affine_type in sorted(affine_subdiagrams.keys()):
-        f.write(f"  {affine_type}: {len(affine_subdiagrams[affine_type])}\n")
-    f.write("\n")
-    
-    f.write("Maximal Affine Subdiagrams:\n")
-    for affine_type in sorted(maximal_affine.keys()):
-        f.write(f"  {affine_type}: {len(maximal_affine[affine_type])}\n")
-        for s in maximal_affine[affine_type]:
-            f.write(f"    - nodes {s}\n")
-    f.write("\n")
-    
-    f.write("B̃₇(2) Details:\n")
-    f.write(f"  Total B̃₇(2): {len(b7_subsets)}\n")
-    f.write(f"  Maximal B̃₇(2): {len(maximal_b7)}\n")
-    if len(b7_subsets) > 0:
-        f.write(f"  Nodes: {b7_subsets[0]}\n")
-    f.write("\n")
-    
-    f.write("Conclusion:\n")
-    if len(maximal_b7) == 1 and len(all_maximal) == 1:
-        f.write("  ✓ UNIQUE maximal B̃₇(2) subdiagram confirmed!\n")
-        f.write("  This verifies the 0-cusp structure for Coble moduli.\n")
-        f.write("  The maximal parabolic B̃₇(2) is the ONLY maximal affine subdiagram.\n")
-    else:
-        f.write(f"  Found {len(maximal_b7)} maximal B̃₇(2) among {len(all_maximal)} total maximal affine.\n")
-    
-    f.write("\nReferences:\n")
-    f.write("  [AEGS23] Section 3: Coxeter diagrams for Coble moduli\n")
-    f.write("  [Nikulin1979] Section 3: Reflection groups\n")
-    f.write("  [BourbakiLie4-6] Classification of affine Dynkin diagrams\n")
-
-print(f"\nResults saved to: {output_file}")
 
 print("\n" + "=" * 80)
 print("Task 4.1 Complete")

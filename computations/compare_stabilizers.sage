@@ -86,12 +86,4 @@ print("  isomorphic for any generic 10-nodal rational sextic curve.")
 print("  The 9 reflection generators produce the same Cartan matrix for both examples.")
 print("  Isomorphism confirmed.")
 
-# Save Cartan matrix to a file for record
-with open('computations/cartan_matrix_stabilizer.txt', 'w') as f:
-    f.write("Cartan Matrix for Γ_Co Stabilizer Reflection Generators\n")
-    f.write("=" * 80 + "\n\n")
-    f.write(str(A))
-    f.write("\n\nLattice Invariants:\n")
-    f.write("  r = 10, a = 10, delta = 1, signature = (2,8)\n")
 
-print("\nCartan matrix saved to computations/cartan_matrix_stabilizer.txt")

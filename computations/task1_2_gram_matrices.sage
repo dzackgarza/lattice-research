@@ -542,30 +542,6 @@ print(S_gram)
 print("\nT_Co Gram Matrix (11×11):")
 print(T_Co_gram)
 
-# Save to file for later use
-output_file = '/home/dzack/research/computations/task1_2_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 1.2 Results: Gram Matrices and (r,a,δ) Invariants\n")
-    f.write("=" * 80 + "\n\n")
-    
-    f.write("S_Co Gram Matrix:\n")
-    f.write(str(S_gram) + "\n\n")
-    
-    f.write("T_Co Gram Matrix:\n")
-    f.write(str(T_Co_gram) + "\n\n")
-    
-    f.write("Invariants:\n")
-    f.write(f"S_Co: (r, a, δ) = ({r_S}, {a_S}, {delta_S}), signature = {sig}\n")
-    f.write(f"T_Co: (r, a, δ) = ({r_T}, {a_T}, {delta_T}), signature = {sig_T}\n\n")
-    
-    f.write("Genus Uniqueness:\n")
-    f.write(f"S_Co: r = {r_S}, a = {a_S}, r > a is {r_S > a_S}\n")
-    f.write(f"T_Co: r = {r_T}, a = {a_T}, r > a is {r_T > a_T}\n")
-    f.write(f"\nNote: For 2-elementary lattices with r = a, genus uniqueness\n")
-    f.write(f"requires additional analysis beyond the simple r > a criterion.\n")
-
-print(f"\nResults saved to: {output_file}")
-
 print("\n" + "=" * 80)
 print("Task 1.2 Complete")
 print("=" * 80)

@@ -15,8 +15,7 @@ from sage.all import *
 load("/home/dzack/research/computations/coble_geometry_foundation.sage")
 
 
-PRIMITIVE_RESULTS_FILE = "/home/dzack/research/computations/task5_1_primitive_results.txt"
-THETA_RESULTS_FILE = "/home/dzack/research/computations/task5_1_theta_results.txt"
+
 
 
 def fail(message):
@@ -149,48 +148,6 @@ def build_theta_from_decomposition(embedded_sco, complement, ambient_gram):
     }
 
 
-def write_lines(path, lines):
-    with open(path, "w") as handle:
-        handle.write("\n".join(str(line) for line in lines) + "\n")
-
-
-def theta_result_lines(
-    ambient_gram,
-    embedded_sco,
-    complement,
-    cross_pairing,
-    theta_integral,
-    theta_sq_identity,
-    theta_isometry,
-    theta_on_s,
-    theta_on_t,
-    outcome,
-):
-    return [
-        "Task 5.1 theta verification from the actual primitive decomposition",
-        "=" * 80,
-        "",
-        "Ambient lattice:",
-        f"  Rank: {ambient_gram.nrows()}",
-        f"  Signature: {matrix_signature(ambient_gram)}",
-        f"  Determinant: {ambient_gram.determinant()}",
-        "",
-        "Primitive decomposition:",
-        f"  Embedded S_Co primitive: {smith_diagonal(embedded_sco) == [1] * 11}",
-        f"  Computed complement primitive: {smith_diagonal(complement) == [1] * 11}",
-        f"  Cross pairing zero: {cross_pairing.is_zero()}",
-        "",
-        "Theta checks:",
-        f"  Integral in ambient basis: {theta_integral}",
-        f"  theta^2 = I: {theta_sq_identity}",
-        f"  theta^T G theta = G: {theta_isometry}",
-        f"  theta acts by -I on embedded S_Co: {theta_on_s}",
-        f"  theta acts by +I on computed complement: {theta_on_t}",
-        "",
-        "Outcome:",
-        f"  {outcome}",
-    ]
-
 
 mode = sys.argv[1] if len(sys.argv) > 1 else "primitive"
 if mode not in {"primitive", "theta"}:
@@ -297,37 +254,6 @@ if brown_T_actual != expected_brown:
 print("  PASS: discriminant-group compatibility is verified on the actual computed complement")
 print()
 
-primitive_lines = [
-    "Task 5.1 primitive embedding and complement gate",
-    "=" * 80,
-    "",
-    "Ambient lattice:",
-    f"  Rank: {ambient_gram.nrows()}",
-    f"  Signature: {matrix_signature(ambient_gram)}",
-    f"  Determinant: {ambient_gram.determinant()}",
-    "",
-    "Embedded S_Co:",
-    f"  Primitive: {smith_diagonal(embedded_sco) == [1] * 11}",
-    f"  Gram diagonal: {embedded_sco_gram.diagonal()}",
-    "",
-    "Computed orthogonal complement:",
-    f"  Rank: {complement.nrows()}",
-    f"  Signature: {matrix_signature(complement_gram)}",
-    f"  Determinant: {complement_gram.determinant()}",
-    f"  Cross pairing zero: {cross_pairing.is_zero()}",
-    "",
-    "Actual complement discriminant group:",
-    f"  Order: {A_T_actual.cardinality()}",
-    f"  Invariants: {A_T_actual.invariants()}",
-    f"  Brown(q_T(actual)): {brown_T_actual}",
-    f"  Expected -Brown(q_S): {expected_brown}",
-]
-write_lines(PRIMITIVE_RESULTS_FILE, primitive_lines)
-
-print("[5] Primitive results written")
-print(f"  Results file: {PRIMITIVE_RESULTS_FILE}")
-print()
-
 if mode == "primitive":
     print("Task 5.1 primitive/complement gate passed.")
     _os._exit(0)
@@ -348,53 +274,20 @@ print(f"  theta^T G theta = G: {theta_isometry}")
 print(f"  theta acts by -I on embedded S_Co: {theta_on_s}")
 print(f"  theta acts by +I on computed complement: {theta_on_t}")
 
-def fail_theta(blocker_message):
-    write_lines(
-        THETA_RESULTS_FILE,
-        theta_result_lines(
-            ambient_gram,
-            embedded_sco,
-            complement,
-            cross_pairing,
-            theta_integral,
-            theta_sq_identity,
-            theta_isometry,
-            theta_on_s,
-            theta_on_t,
-            f"FAIL: {blocker_message}",
-        ),
-    )
-    fail(blocker_message)
-
 if not theta_integral:
-    fail_theta("theta blocker: sign action on the actual glued overlattice is not integral in the ambient basis")
+    fail("theta blocker: sign action on the actual glued overlattice is not integral in the ambient basis")
 
 theta = theta.change_ring(ZZ)
 
 if not theta_sq_identity:
-    fail_theta("theta blocker: theta^2 != I on the actual glued ambient lattice")
+    fail("theta blocker: theta^2 != I on the actual glued ambient lattice")
 if not theta_isometry:
-    fail_theta("theta blocker: theta^T G theta != G on the actual glued ambient lattice")
+    fail("theta blocker: theta^T G theta != G on the actual glued ambient lattice")
 if not theta_on_s:
-    fail_theta("theta blocker: theta does not act by -I on the embedded S_Co")
+    fail("theta blocker: theta does not act by -I on the embedded S_Co")
 if not theta_on_t:
-    fail_theta("theta blocker: theta does not act by +I on the computed orthogonal complement")
-
-theta_lines = theta_result_lines(
-    ambient_gram,
-    embedded_sco,
-    complement,
-    cross_pairing,
-    theta_integral,
-    theta_sq_identity,
-    theta_isometry,
-    theta_on_s,
-    theta_on_t,
-    "PASS: exact theta verification succeeded on the actual glued ambient lattice.",
-)
-write_lines(THETA_RESULTS_FILE, theta_lines)
+    fail("theta blocker: theta does not act by +I on the computed orthogonal complement")
 
 print("  PASS: exact theta verification succeeded")
-print(f"  Results file: {THETA_RESULTS_FILE}")
 print()
 print("Task 5.1 theta verification passed.")
