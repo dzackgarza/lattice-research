@@ -47,6 +47,8 @@ REFERENCES
 ================================================================================
 """
 
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
+
 print("=" * 80)
 print("Task 4.1: Search for Maximal Parabolic Subdiagram B̃₇(2)")
 print("=" * 80)
