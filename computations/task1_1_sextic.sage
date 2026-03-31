@@ -41,6 +41,7 @@ REFERENCES
 - Dolgachev & Kondyrev (2013), "Moduli of Coble surfaces"
 """
 
+load("/home/dzack/research/computations/coble_geometry_foundation.sage")
 load("coble_geometry.sage")
 
 print("=" * 80)
