@@ -56,15 +56,52 @@ research/
   papers/                           # PDFs and extracted text
 ```
 
-Every computation tool (Sage, GAP, Lean) has a prescribed home.
-If you need to create a file and don't know where it goes, it goes in `computations/`
-with the standard `taskN_M_*` naming.
-Lean formalizations go in `coble_research_lean/`.
+Every computation script — Sage, GAP, whatever — goes in `computations/` with the
+`taskN_M_*` naming. There is no separate `scripts/`, `tests/`, or `code/` directory
+because every script IS a computation, IS a test (it must assert its claims), and IS a
+script. These are not distinct categories.
 
-There is exactly one Lean project.
+Lean formalizations go in `coble_research_lean/`. There is exactly one Lean project.
 Do not create new Lean project directories.
 If `MyLeanProject/` or other duplicate scaffolds exist, consolidate their contents into
 `coble_research_lean/` and delete the duplicate.
+
+### Why directories proliferate and how to prevent it
+
+Agents create directories to categorize their *process* — "I'm testing", "I'm auditing",
+"I'm planning", "I'm logging", "I'm approaching".
+Each new directory is a new category of agent activity, not a new category of
+mathematical content.
+Once a directory exists, it attracts more files of the same type.
+
+The structural gate: **no directory may be created that is not listed above.** If you
+think you need a new directory, you are wrong.
+The work either:
+- Serves a GOAL.md task → goes in `computations/` with `taskN_M_*` naming
+- Is a mathematical observation → goes in `notes/`
+- Is a proof sketch → goes in `notes/proofs/`
+- Is a Lean formalization → goes in `coble_research_lean/`
+- Is a paper → goes in `papers/`
+- Is operational context → goes in agent memory
+- Is change rationale → goes in a git commit message
+
+There is no other category.
+Specifically:
+- There is no `tests/` — every computation script asserts its claims or it is broken.
+  The script IS the test.
+- There is no `scripts/` — every file in `computations/` is a script.
+- There is no `logs/` — git history and agent memories are the log.
+- There is no `plans/` — there is at most one active plan, and completed plans are
+  archived (deleted; git history is the record).
+- There is no `approaches/` — abandoned approaches belong in agent memory, not files.
+  If an approach was tried and failed, git history records it.
+- There is no `audit/` or `verification_records/` — audits are actions, not documents.
+  You run a script; it passes or fails.
+  If it fails, you fix it or delete it.
+  There is nothing to record.
+  The script is the permanent, re-runnable audit.
+- There is no `archive/` — git history is the archive.
+  Broken work gets fixed or deleted, not preserved in a holding pen.
 
 ### Automatic pruning (every session startup)
 
