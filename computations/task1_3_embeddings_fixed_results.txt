@@ -8,11 +8,11 @@ S_Co embedding orthogonal: True
   - Expected:    diag[2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2]
 T_Co signature (2,9): True
   - Computed: -7
-T_Co discriminant -2048: True ✓ (verified via discriminant form)
 S_Co ⊥ T_Co: True
   - Cross-pairing is zero: True
 S_Co ⊕ T_Co primitive in Λ_K3: False
-  - Index in Λ_K3: 2048 (combined, not individual lattices)
+  - Index in Λ_K3: 2048
+  - Note: Non-primitivity due to E8 root lattice embedding
 
 KEY VERIFICATIONS PASSED
 --------------------------------------------------------------------------------
@@ -23,10 +23,12 @@ KEY VERIFICATIONS PASSED
 
 LIMITATIONS
 --------------------------------------------------------------------------------
-- The S_Co ⊕ T_Co embedding in Λ_K3 has index 2048 (not primitive)
-- This is due to using E8 simple roots which don't span a primitive sublattice
-- However, T_Co individually has correct discriminant -2048 (verified)
-- For a fully primitive combined embedding, a different construction is needed
+- S_Co embedding is not primitive (index 2 in saturation)
+- This is due to using E8 simple roots which don't form a
+  primitive sublattice when selecting orthogonal roots.
+- T_Co discriminant is -512 instead of -2048 as a consequence.
+- For a primitive embedding, one would need to saturate the
+  lattice or use a different construction.
 
 LATTICE INVARIANTS
 --------------------------------------------------------------------------------
