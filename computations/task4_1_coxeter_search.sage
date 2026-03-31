@@ -246,13 +246,12 @@ for affine_type, subsets in affine_subdiagrams.items():
         subset_set = set(subset)
         is_maximal = True
         
-        # Check if this subset is contained in any larger affine subdiagram
+        # Check if this subset is strictly contained in any larger affine subdiagram
         for larger_type, larger_subsets in affine_subdiagrams.items():
-            if len(larger_subsets) > len(subset):
-                for larger_subset in larger_subsets:
-                    if subset_set.issubset(set(larger_subset)):
-                        is_maximal = False
-                        break
+            for larger_subset in larger_subsets:
+                if len(larger_subset) > len(subset) and subset_set.issubset(set(larger_subset)):
+                    is_maximal = False
+                    break
             if not is_maximal:
                 break
         
