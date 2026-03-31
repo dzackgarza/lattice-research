@@ -1,0 +1,24 @@
+# Sage compilation artifacts
+*.sage.py
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup files
+*.orig
+*~
+.DS_Store
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Lean build artifacts
+.lake/
+build/
