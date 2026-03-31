@@ -300,6 +300,41 @@ def test_vector_in_discriminant_group():
     print("test_vector_in_discriminant_group: PASSED")
 
 
+def test_reflection_matrix():
+    """
+    Test reflection_matrix function.
+
+    For a root r with r^2 != 0, the reflection s_r is:
+      s_r(v) = v - 2(v.r)/(r.r) * r
+
+    It must satisfy:
+      1. s_r is an isometry: s_r^T G s_r = G
+      2. s_r is an involution: s_r^2 = I
+      3. s_r reflects the root: s_r(r) = -r
+    """
+    T_En = T_En_lattice()
+    G = T_En.gram_matrix()
+    n = T_En.rank()
+
+    # A standard basis vector e_2 (index 2) has norm -2 in T_En
+    v = vector(ZZ, [0]*n)
+    v[2] = 1
+    assert int(v * G * v) == -2, "e_2 should have norm -2 in T_En"
+
+    s = reflection_matrix(v, G)
+
+    # 1. Isometry
+    assert s.transpose() * G * s == G, "reflection must be an isometry"
+
+    # 2. Involution
+    assert s * s == identity_matrix(ZZ, n), "reflection must be an involution"
+
+    # 3. Reflects the root
+    assert s * v == -v, "reflection must negate the root"
+
+    print("test_reflection_matrix: PASSED")
+
+
 # ==============================================================================
 # LAYER 3: SUBSPACE TESTS
 # ==============================================================================
@@ -715,6 +750,7 @@ def run_all_tests():
         test_divisibility,
         test_is_primitive_vector,
         test_vector_in_discriminant_group,
+        test_reflection_matrix,
         # Layer 3: Subspace
         test_subspace_span,
         test_subspace_dimension,

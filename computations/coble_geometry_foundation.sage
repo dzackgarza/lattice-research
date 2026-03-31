@@ -617,6 +617,33 @@ def vector_in_discriminant_group(v, L):
     return A(v)
 
 
+def reflection_matrix(r, G):
+    """Compute reflection matrix for root r in lattice with Gram matrix G.
+    
+    Formula: s_r(v) = v - 2*(v·r)/(r·r) * r
+    In matrix form: s_r[i,j] = delta[i,j] - 2 * r[i] * (G*r)[j] / r_norm
+    
+    Args:
+        r: Root vector (must be non-isotropic)
+        G: Gram matrix of the lattice
+        
+    Returns:
+        Reflection matrix as an integer matrix
+    """
+    n = G.nrows()
+    r_norm = int(r * G * r)
+    
+    if r_norm == 0:
+        raise ValueError("Root must be non-isotropic")
+    
+    s_r = matrix(QQ, n, n)
+    Gr = G * r
+    for i in range(n):
+        for j in range(n):
+            s_r[i,j] = (1 if i == j else 0) - QQ(2 * r[i] * Gr[j]) / r_norm
+    return s_r.change_ring(ZZ)
+
+
 # ==============================================================================
 # LAYER 3: SUBSPACE LAYER
 # ==============================================================================
@@ -1590,7 +1617,7 @@ __all__ = [
     'is_primitive_embedding',
     # Layer 2: Vector
     'inner_product', 'norm', 'is_isotropic_vector', 'divisibility',
-    'is_primitive_vector', 'vector_in_discriminant_group',
+    'is_primitive_vector', 'vector_in_discriminant_group', 'reflection_matrix',
     # Layer 3: Subspace
     'subspace_span', 'subspace_dimension', 'subspace_gram_matrix',
     'is_isotropic_subspace', 'is_primitive_subspace',
