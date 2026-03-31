@@ -57,7 +57,10 @@ The unique div=2 orbit for T_Co implies a unique cusp type (the "1-cusp" in AEGS
 terminology).
 
 **Literature**: Nikulin (1979) for divisibility theory and surjectivity.
-Sterk (1991) for orbit lifting and cusp classification.
+Sterk (1991) for orbit lifting and cusp classification.\
+**Pieroni connection** (Pieroni 2026, lines 146, 483-493): The lattice E₁₀ framework for
+Coble surfaces provides geometric context for the discriminant group structure and orbit
+classification studied here.
 See `REFERENCES.md` for complete citations.
 
 ## Scope
