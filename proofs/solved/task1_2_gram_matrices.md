@@ -66,8 +66,10 @@ discriminant forms of S and T = S^⊥ satisfy q_T ≅ -q_S. This is verified via
 invariant: Brown(q_T) + Brown(q_S) ≡ 0 (mod 8).
 
 **Literature**: Nikulin (1979) for 2-elementary lattice classification and discriminant
-form theory. Dolgachev-Kondō (2013) for Coble surface lattice structure.
-See `REFERENCES.md` for complete citations.
+form theory. Dolgachev-Kondō (2013) for Coble surface lattice structure.\
+**Pieroni connection** (Pieroni 2026, lines 146, 483-493): The lattice E₁₀ = k^⊥ ⊂
+ℤ^{1,10} is identified as the numerical class group Num(X) for Coble surfaces, matching
+S_Co structure. See `REFERENCES.md` for complete citations.
 
 ## Scope
 
