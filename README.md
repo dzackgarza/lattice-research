@@ -7,16 +7,14 @@ of terminal Coble surfaces of K3 type.
 
 - `GOAL.md` — project goals and task definitions (Tasks 1.1--6.1)
 - `REFERENCES.md` — canonical literature spine
-- `GAPS.md` — unresolved gaps and open questions
 
 ## Running computations
 
 All scripts are run through `just` (never directly):
 
 ```bash
-just test-foundation   # foundation library tests (43 assertions)
-just run-all           # end-to-end smoke run of all tasks
-just task1_1           # individual task recipes (see `just --list`)
+just test-foundation   # foundation library tests
+just run-all           # all passing tasks
 ```
 
 Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
@@ -25,41 +23,17 @@ Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 
 | Directory | Contents |
 | --- | --- |
-| `computations/` | Sage scripts (`taskN_M_*.sage`), output files (`*_results.txt`), foundation library (`coble_geometry_foundation.sage`) |
+| `computations/` | Foundation library (`coble_geometry_foundation.sage`), tests, and task scripts (`taskN_M_*.sage`) |
 | `notes/` | Mathematical research notes, literature connections, task-specific analysis |
-| `notes/proofs/` | Proof sketches and verification records (one per GOAL.md subtask) |
+| `notes/proofs/` | Proof sketches (one per GOAL.md subtask) |
 | `papers/` | Acquired literature (PDFs and extracted text) |
 | `coble_research_lean/` | Lean 4 formalization (secondary) |
 
-## Core notes
+## Project status
 
-- `notes/literature_claim_map.md` — map from the blowup/K3/lattice/moduli picture to
-  canonical literature
-- `notes/literature_connections.md` — computation-to-literature validation (Pieroni
-  2026, Huybrechts K3)
-- `notes/task1_1_birationality_note.md` — what the Task 1.1 sextic computations
-  establish
-- `notes/task5_1_exact_involution_note.md` — exact involution verification boundary
-- `notes/task3_2_gap_difficulty.md` — why orbit uniqueness remains a conjecture
+All prior task scripts were deleted as fraudulent (print-statement theater with zero or
+self-validating assertions).
+The foundation library and its tests are the only surviving computation artifacts.
 
-## Project status (2026-03-31)
-
-**98% complete** toward GOAL.md objectives:
-
-| Priority | Status |
-| --- | --- |
-| **1. Literature spine** | 98% — REFERENCES.md established, 5 sources acquired locally |
-| **2. Numerical evidence** | 95% — 11 proof notes, foundation library (1617 lines, 42 tests) |
-| **3. Computational blocks** | 100% — all resolved |
-| **4. Lean formalization** | 0% — deferred |
-
-**Remaining gaps**:
-- Task 3.2 orbit uniqueness — CONJECTURE (computationally complex, supported by theory)
-- Paywalled literature — 10/13 sources require institutional access
-- Coble (1919) primary source — foundational paper not yet acquired
-
-## Stance
-
-Standard facts are cited from the literature first.
-Computations here are supporting evidence, exact worked examples, or verifications of
-new constructions.
+Tasks 1.1--6.1 are UNVERIFIED. Proof notes in `notes/proofs/` contain mathematical
+reasoning but their "verified" claims traced to deleted scripts.
