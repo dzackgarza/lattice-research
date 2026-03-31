@@ -270,17 +270,3 @@ for desc, passed in checks:
 print("\n" + "=" * 80)
 print("Task 1.2 (FIXED) Complete")
 print("=" * 80)
-
-# Save results
-output_file = '/home/dzack/research/computations/task1_2_fixed_results.txt'
-with open(output_file, 'w') as f:
-    f.write("Task 1.2 (FIXED): Gram Matrices via Orthogonal Complement\n")
-    f.write("=" * 80 + "\n\n")
-    f.write(f"S_Co: rank = {r_S}, sig = {sig_S}, disc = {disc_S}\n")
-    f.write(f"T_Co: rank = {r_T}, sig = {sig_T}, disc = {disc_T}\n\n")
-    f.write("S_Co Gram:\n")
-    f.write(str(S_gram) + "\n\n")
-    f.write("T_Co Gram (computed):\n")
-    f.write(str(T_gram) + "\n")
-
-print(f"\nResults: {output_file}")

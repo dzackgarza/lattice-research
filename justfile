@@ -86,10 +86,6 @@ task3_1:
     @echo "=== Running Task 3.1: Γ_Co Stabilizer Computation ==="
     sage computations/task3_1_stabilizer.sage
 
-task3_1-results:
-    @echo "=== Task 3.1 Results ==="
-    @cat computations/task3_1_results.txt
-
 # ==============================================================================
 # Task 3.2: Isotropic Plane Orbits
 # ==============================================================================
@@ -97,10 +93,6 @@ task3_1-results:
 task3_2:
     @echo "=== Running Task 3.2: Isotropic Plane Orbits and J⊥/J ==="
     sage computations/task3_2_isotropic_planes_fixed.sage
-
-task3_2-results:
-    @echo "=== Task 3.2 Results ==="
-    @cat computations/task3_2_results.txt
 
 # ==============================================================================
 # Task 4.1: Coxeter Search
@@ -116,19 +108,11 @@ task4_1:
 
 task5_1-primitive:
     @echo "=== Running Task 5.1 primitive/complement gate ==="
-    sage computations/task5_1_involution.sage primitive | tee computations/task5_1_primitive_output.txt
-
-task5_1-primitive-results:
-    @echo "=== Task 5.1 Primitive Results ==="
-    @cat computations/task5_1_primitive_results.txt
+    sage computations/task5_1_involution.sage primitive
 
 task5_1-theta:
     @echo "=== Running Task 5.1 theta verification ==="
-    sage computations/task5_1_involution.sage theta | tee computations/task5_1_theta_output.txt
-
-task5_1-theta-results:
-    @echo "=== Task 5.1 Theta Results ==="
-    @cat computations/task5_1_theta_results.txt
+    sage computations/task5_1_involution.sage theta
 
 # ==============================================================================
 # Task 6.1: Monodromy

@@ -216,32 +216,3 @@ for r in roots:
         pass
 
 print(f"Found {len(gamma_gens)} reflection generators in Γ_Co.")
-
-# ============================================================================
-# Step 6: Save Results
-# ============================================================================
-results_file = 'computations/task1_1_example3_results.txt'
-with open(results_file, 'w') as f:
-    f.write("Task 1.1 Example 3: 10-nodal Rational Sextic Curve\n")
-    f.write("=" * 80 + "\n\n")
-    f.write("1. Parametrization f_i(s,t):\n")
-    f.write(f"   f0 = {f0}\n")
-    f.write(f"   f1 = {f1}\n")
-    f.write(f"   f2 = {f2}\n\n")
-    f.write(f"2. Implicit Equation F(x,y,z) degree: {F.total_degree()}\n")
-    f.write(f"   Irreducible over QQ: {sextic_is_irreducible}\n")
-    f.write(f"   Squarefree/reduced: {sextic_is_squarefree}\n")
-    f.write(f"   Parametrization generically injective: {parametrization_generically_injective}\n")
-    f.write(f"3. Singular Points:\n")
-    f.write(f"   Total found: {len(unique_points)}\n")
-    f.write(f"   Nodes (A1): {len(nodes)}\n\n")
-    f.write("4. Node Positions (Projective):\n")
-    for idx, pt in enumerate(nodes):
-        f.write(f"   p_{idx+1} = {format_exact_projective_point(pt, name=f'a{idx+1}')}\n")
-    f.write("\n5. Stabilizer Group Γ_Co Analysis:\n")
-    f.write(f"   Lattice T_En Gram Matrix: diag(2, 2, -2, ..., -2)\n")
-    f.write(f"   Polarization h_Co: {list(h_Co)}\n")
-    f.write(f"   Involution theta: diag(1, 1, -1, ..., -1)\n")
-    f.write(f"   Number of reflection generators: {len(gamma_gens)}\n")
-
-print(f"\nResults saved to {results_file}")
