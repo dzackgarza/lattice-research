@@ -43,6 +43,7 @@ research/
   GOAL.md                          # READ-ONLY research spec
   REFERENCES.md                    # Append-only literature spine
   AGENTS.md                        # This file
+  SCHEDULE.md                      # Daily autonomous agent rotation
   justfile                         # All computation recipes
   computations/
     coble_geometry_foundation.sage  # Single source of truth for lattice constructors
