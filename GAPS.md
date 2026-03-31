@@ -9,7 +9,7 @@ constructions from Thas (1994), but now validated against Pieroni (2026). Pieron
 provides theoretical framework explaining why 10-nodal sextics are rare (28-dimensional
 space vs 30 conditions).
 Repo provides computational examples that Pieroni's theory predicts should be special.
-See `audit/thas_vs_task1_1_comparison.md` and `audit/new_literature_connections.md`.
+See `notes/thas_vs_task1_1_comparison.md` and `notes/literature_connections.md`.
 
 **Connection**: EXTENDS — Pieroni (2026) lines 752-759, 1225-1280 provide theoretical
 justification. Repo's parametric construction via resultants provides concrete
@@ -45,7 +45,7 @@ text.
 ## Computation-to-literature interface gaps — RESOLVED (2026-03-31)
 
 **Status**: All computational work validated against literature (Pieroni 2026,
-Huybrechts K3). See `audit/new_literature_connections.md` for complete analysis.
+Huybrechts K3). See `notes/literature_connections.md` for complete analysis.
 
 **Key findings**:
 - Task 1.1 (Sextic constructions): EXTENDS — Pieroni provides theoretical framework,
@@ -59,9 +59,9 @@ Huybrechts K3). See `audit/new_literature_connections.md` for complete analysis.
 - NO CONTRADICTIONS found between literature and computational work
 
 **Documentation**:
-- Task 1.1: `audit/task1_1_birationality_note.md`,
-  `audit/task1_1_exact_coordinate_note.md`
-- Literature connections: `audit/new_literature_connections.md` (264 lines)
+- Task 1.1: `notes/task1_1_birationality_note.md`,
+  `notes/task1_1_exact_coordinate_note.md`
+- Literature connections: `notes/literature_connections.md` (264 lines)
 - Acquired papers: 5 sources locally (21,613 total lines)
 
 ## Computational gaps
@@ -88,11 +88,11 @@ Root cause: A_T has order 2048, O(q_T) is large, orbit computation is genuinely 
 **Software research** (2026-03-31): Investigated alternative approaches including Dawes
 (2022) algorithms, Sage native functionality, Magma, and PARI/GP. Conclusion:
 computational complexity is fundamental, not tool-specific.
-See `audit/software_research_orbit_computation.md` for complete analysis.
+See `archive/audit/software_research_orbit_computation.md` for complete analysis.
 
 **Next action**: Accept as CONJECTURE with strong theoretical support.
-See `audit/gap_technical_issue_update.md` and
-`audit/software_research_orbit_computation.md` for complete analysis.
+See `notes/task3_2_gap_difficulty.md` and
+`archive/audit/software_research_orbit_computation.md` for complete analysis.
 
 ## Genuine mathematical / implementation gaps
 
@@ -102,9 +102,9 @@ See `audit/gap_technical_issue_update.md` and
   `θ ∈ O(Λ_K3)` on that explicit ambient lattice model.
 - The remaining Task 5.1 gap is no longer raw existence of `θ`; it is to keep longer
   prose and literature-facing claims consistent with
-  `audit/task5_1_exact_involution_note.md` without overclaiming beyond the verified
+  `notes/task5_1_exact_involution_note.md` without overclaiming beyond the verified
   glued model.
-- `audit/task5_1_route_reset.md` remains canonical for the route order: primitive
+- `notes/task5_1_route_reset.md` remains canonical for the route order: primitive
   embedding and orthogonal complement first, involution only afterward; CARAT remains
   auxiliary only on finite positive-definite subproblems.
 - Lean formalization remains secondary until the literature spine and blocked

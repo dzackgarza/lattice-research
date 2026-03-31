@@ -50,7 +50,7 @@ It may still help on reduced auxiliary subproblems, for example:
 - stabilizer / normalizer / orbit calculations after the main indefinite problem has
   been reduced to a finite exact matrix-group computation.
 
-This matches `audit/carat_capability_audit.md` and avoids treating CARAT as a black-box
+This matches `notes/carat_capabilities.md` and avoids treating CARAT as a black-box
 solver for the whole `Λ_K3` involution problem.
 
 ## Immediate next implementation target

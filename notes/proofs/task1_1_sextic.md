@@ -71,7 +71,7 @@ The role is to provide concrete computational instances matching the standard Co
 surface setup.
 
 **Cross-references**:
-- `audit/task1_1_birationality_note.md` — canonical scope note for what Task 1.1
+- `notes/task1_1_birationality_note.md` — canonical scope note for what Task 1.1
   establishes
-- `audit/task1_1_exact_coordinate_note.md` — exact algebraic coordinate rendering path
+- `notes/task1_1_exact_coordinate_note.md` — exact algebraic coordinate rendering path
 - `REFERENCES.md` — Coble (1917, 1929), Dolgachev-Kondō (2013)

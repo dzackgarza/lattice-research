@@ -77,9 +77,9 @@ Instead, repo computations:
 ## Cross-References
 
 - `REFERENCES.md`: Full bibliographic details for canonical sources
-- `audit/literature_claim_map.md`: Standard claim flow for Coble surfaces, K3 covers,
+- `notes/literature_claim_map.md`: Standard claim flow for Coble surfaces, K3 covers,
   and period domains
-- `proofs/solved/task3_2_isotropic_planes.md`: Computational verification of isotropic
+- `notes/proofs/task3_2_isotropic_planes.md`: Computational verification of isotropic
   plane orbits within the period-domain framework
-- `proofs/solved/task6_1_slc_stability.md`: Computational verification of slc stability
+- `notes/proofs/task6_1_slc_stability.md`: Computational verification of slc stability
   within the KSBA/compactification framework

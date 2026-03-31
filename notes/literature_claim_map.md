@@ -39,7 +39,7 @@ appealing to local computation.
 - The moduli statement is therefore not something the repo needs to rediscover from
   computation; the computational role is to produce exact worked examples and supporting
   checks inside that standard period-domain picture.
-- See `audit/moduli_dimension_claim.md` for the full canonical statement with complete
+- See `notes/moduli_dimension_claim.md` for the full canonical statement with complete
   literature attribution.
 - Canonical sources:
   - Scattone (1987) for Type IV / Baily–Borel compactification background on the K3

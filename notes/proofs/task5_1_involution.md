@@ -49,7 +49,7 @@ satisfies:
 ### Method
 
 The computation in `computations/task5_1_involution.sage` implements the corrected route
-documented in `audit/task5_1_route_reset.md`:
+documented in `notes/task5_1_route_reset.md`:
 
 1. **Construct glued K3 lattice model**: Build explicit even unimodular lattice
    $\Lambda$ of signature $(3,19)$ by gluing $S_{\mathrm{Co}}$ and
@@ -115,11 +115,11 @@ $\theta \in O(\Lambda)$ satisfying all required properties (integrality, involut
 isometry, eigenspace decomposition).
 
 This resolves the Task 5.1 lattice construction blocker via the corrected
-primitive-embedding route documented in `audit/task5_1_route_reset.md`.
+primitive-embedding route documented in `notes/task5_1_route_reset.md`.
 
 ## Scope and Limitations
 
-As documented in `audit/task5_1_exact_involution_note.md`, this computational
+As documented in `notes/task5_1_exact_involution_note.md`, this computational
 verification establishes:
 
 **What is verified**:
@@ -156,7 +156,7 @@ verification establishes:
   verification
 - `computations/task5_1_primitive_results.txt` — Primitive embedding verification output
 - `computations/task5_1_theta_output.txt` — Involution verification output
-- `audit/task5_1_exact_involution_note.md` — Canonical note documenting exact scope and
+- `notes/task5_1_exact_involution_note.md` — Canonical note documenting exact scope and
   limitations
-- `audit/task5_1_route_reset.md` — Documents the corrected primitive-embedding route
+- `notes/task5_1_route_reset.md` — Documents the corrected primitive-embedding route
 - `REFERENCES.md` — Canonical literature spine for K3 lattices and primitive embeddings

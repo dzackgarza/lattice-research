@@ -69,6 +69,6 @@ The generators are used in subsequent tasks for orbit computations and moduli sp
 analysis.
 
 **Cross-references**:
-- `proofs/solved/task3_2_isotropic_planes.md` — uses Γ_Co action for orbit analysis
-- `proofs/solved/task4_1_coxeter_search.md` — uses reflection subgroup structure
+- `notes/proofs/task3_2_isotropic_planes.md` — uses Γ_Co action for orbit analysis
+- `notes/proofs/task4_1_coxeter_search.md` — uses reflection subgroup structure
 - `REFERENCES.md` — Sterk (1991), Dolgachev-Kondō (2013)

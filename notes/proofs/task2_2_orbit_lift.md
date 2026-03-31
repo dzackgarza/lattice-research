@@ -72,8 +72,8 @@ matrix entries even), and the orbit uniqueness follows from Nikulin's surjectivi
 theorem combined with the Task 2.1 discriminant group orbit classification.
 
 **Cross-references**:
-- `proofs/solved/task2_1_isotropic_orbits.md` — uses this orbit structure for
+- `notes/proofs/task2_1_isotropic_orbits.md` — uses this orbit structure for
   discriminant group classification
-- `proofs/solved/task3_2_isotropic_planes.md` — uses unique div=2 orbit for 1-cusp
+- `notes/proofs/task3_2_isotropic_planes.md` — uses unique div=2 orbit for 1-cusp
   uniqueness
 - `REFERENCES.md` — Nikulin (1979), Sterk (1991)

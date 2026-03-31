@@ -82,6 +82,5 @@ known from Nikulin's classification) but provides explicit worked examples with 
 invariants.
 
 **Cross-references**:
-- `proofs/solved/task1_1_sextic.md` — uses this lattice structure for Coble surface
-  setup
+- `notes/proofs/task1_1_sextic.md` — uses this lattice structure for Coble surface setup
 - `REFERENCES.md` — Nikulin (1979), Dolgachev-Kondō (2013)

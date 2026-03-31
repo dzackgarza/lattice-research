@@ -124,6 +124,6 @@ This orbit classification is foundational for:
 
 - `computations/task2_1_isotropic_orbits.sage` — Orbit enumeration implementation
 - `computations/task2_1_results.txt` — Full computational output
-- `proofs/solved/task3_2_isotropic_planes.md` — Uses this orbit classification for
+- `notes/proofs/task3_2_isotropic_planes.md` — Uses this orbit classification for
   primitive isotropic plane uniqueness
 - `REFERENCES.md` — Canonical literature spine for Nikulin's 2-elementary lattice theory

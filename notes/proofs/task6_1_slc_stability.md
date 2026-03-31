@@ -21,7 +21,7 @@ Then:
 The compactification and KSBA background are not new repo theorems; they belong to the
 literature spine in `REFERENCES.md`, especially the AEGS compactification layer together
 with the ambient Coble/K3/moduli references summarized in
-`audit/literature_claim_map.md` and `audit/moduli_dimension_claim.md`.
+`notes/literature_claim_map.md` and `notes/moduli_dimension_claim.md`.
 
 This note records the repo-specific computation inside that framework.
 The mapping $h_{Co} \to \ell \to B(\ell) \to (Z, \epsilon C)$ is used here as a
@@ -39,7 +39,7 @@ It connects:
 ### Step 1: Setup
 
 From the standard K3/lattice setup (Coble 1917, 1929; Nikulin 1979) as recorded in
-`audit/literature_claim_map.md`, verified computationally in previous tasks:
+`notes/literature_claim_map.md`, verified computationally in previous tasks:
 
 - $T_{Co} \cong \langle 2 \rangle^2 \oplus \langle -2 \rangle^9$ (signature $(2,9)$,
   rank 11)

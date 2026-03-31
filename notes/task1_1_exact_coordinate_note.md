@@ -47,7 +47,7 @@ Exact algebraic coordinates allow:
 - It does not claim the coordinates are rational (they are generally algebraic over
   `QQ`).
 - It does not replace the birationality verification recorded in
-  `audit/task1_1_birationality_note.md`.
+  `notes/task1_1_birationality_note.md`.
 
 Its role is narrower: it documents the exact-coordinate rendering path so that result
 does not live only in code and raw output artifacts.

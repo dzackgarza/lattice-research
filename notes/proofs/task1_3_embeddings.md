@@ -77,6 +77,6 @@ Nikulin's theory) but provides concrete worked examples with explicit coordinate
 standard K3 lattice basis U³ ⊕ E₈(-1)².
 
 **Cross-references**:
-- `proofs/solved/task1_2_gram_matrices.md` — uses these embeddings to verify T_Co
+- `notes/proofs/task1_2_gram_matrices.md` — uses these embeddings to verify T_Co
   structure
 - `REFERENCES.md` — Nikulin (1979), Dolgachev-Kondō (2013)

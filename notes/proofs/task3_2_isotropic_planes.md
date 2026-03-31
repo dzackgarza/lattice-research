@@ -3,8 +3,8 @@
 ## Theorem Statement
 
 Standard period-domain references already place the Coble moduli problem in a Type IV /
-Baily-Borel setting; see `REFERENCES.md`, `audit/literature_claim_map.md`, and
-`audit/moduli_dimension_claim.md` for the canonical source chain through Scattone,
+Baily-Borel setting; see `REFERENCES.md`, `notes/literature_claim_map.md`, and
+`notes/moduli_dimension_claim.md` for the canonical source chain through Scattone,
 Sterk, Dolgachev–Kondō, and Friedman.
 
 The repo-specific claim verified in this note is the lattice calculation that supports
@@ -19,7 +19,7 @@ $J^\perp/J$ is isometric to $A_1^{\oplus 7}$.
 ### Lattice Setup
 
 From the standard K3/lattice setup (Coble 1917, 1929; Nikulin 1979) as recorded in
-`audit/literature_claim_map.md`, the transcendental lattice of a Coble surface has the
+`notes/literature_claim_map.md`, the transcendental lattice of a Coble surface has the
 following structure, verified computationally in Tasks 1.1-1.3:
 
 - **Transcendental lattice**: $T_{\mathrm{Co}} \cong (11, 11, 1)_2$ in Nikulin notation
@@ -220,7 +220,7 @@ spine:
 
 - **Script**: `computations/task3_2_isotropic_planes.sage`
 - **Results**: `computations/task3_2_results.txt`
-- **This proof**: `proofs/solved/task3_2_isotropic_planes.md`
+- **This proof**: `notes/proofs/task3_2_isotropic_planes.md`
 
 ## References
 
