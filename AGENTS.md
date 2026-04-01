@@ -33,10 +33,14 @@ Do not do it.
 
 ## File Organization
 
-### Allowed directories
+### Directory organization
 
-The repo has exactly this structure.
-Any directory not listed here is debris and must be deleted on sight.
+The repo has this basic structure.
+Subdirectories of these parent directories are automatically allowed — no need to update
+this file when you create new folders inside computations/, notes/, papers/, or
+coble_research_lean/.
+
+Only *root-level* orphan directories (not under these parents) require justification.
 
 ```
 research/
@@ -45,15 +49,10 @@ research/
   AGENTS.md                        # This file
   SCHEDULE.md                      # Daily autonomous agent rotation
   justfile                         # All computation recipes
-  computations/
-    coble_geometry_foundation.sage  # Single source of truth for lattice constructors
-    test_foundation.sage            # Foundation test suite
-    taskN_M_*.sage                  # One script per GOAL.md subtask
-    *.g                             # GAP scripts (same naming: taskN_M_*.g)
-  coble_research_lean/             # Lean 4 formalizations (single Lean project)
-  notes/                           # Mathematical research notes (see Notes Policy)
-    proofs/                         # Proof sketches, one per GOAL.md subtask
-  papers/                           # PDFs and extracted text
+  computations/                    # Computation scripts (any subdirs allowed)
+  coble_research_lean/             # Lean 4 formalizations
+  notes/                           # Mathematical notes (any subdirs allowed)
+  papers/                          # PDFs and extracted text
 ```
 
 Every computation script — Sage, GAP, whatever — goes in `computations/` with the
@@ -74,8 +73,11 @@ Each new directory is a new category of agent activity, not a new category of
 mathematical content.
 Once a directory exists, it attracts more files of the same type.
 
-The structural gate: **no directory may be created that is not listed above.** If you
-think you need a new directory, you are wrong.
+The structural gate: **subdirectories of allowed parent directories are automatically
+allowed.** Create new folders inside computations/, notes/, papers/, or
+coble_research_lean/ freely.
+Only root-level orphan directories require justification.
+If you think you need a new root-level directory, you are wrong.
 The work either:
 - Serves a GOAL.md task → goes in `computations/` with `taskN_M_*` naming
 - Is a mathematical observation → goes in `notes/`
@@ -116,10 +118,10 @@ Run these deletions before any other work:
 - Delete all `.orig` files
 - Delete all `.sage.py` files (Sage preparse artifacts)
 - Delete all empty directories
-- Delete any directory not in the allowed list above (`archive/`, `plans/`, `scripts/`,
-  `tests/`, `verification_records/`, `logs/`, `audit/`, `approaches/`, `proofs/solved/`,
-  duplicate Lean directories)
-- Delete any top-level markdown file not in the allowed list above
+- Delete orphan root-level directories (directories at repo root not under
+  computations/, notes/, papers/, or coble_research_lean/)
+- Delete any top-level markdown file not in the allowed list (GOAL.md, REFERENCES.md,
+  AGENTS.md, SCHEDULE.md)
 
 Before deleting a directory, check if it contains uncommitted work that traces to a
 GOAL.md task.
@@ -320,10 +322,6 @@ There is no "commit now, fix later."
 - Re-reading the entire repo to "assess state" — read GOAL.md and memories
 - Committing a computation script that has not passed the Mandatory Pre-Commit Audit
   Gate above
-- Cloning external git repos into the working tree (`git clone` inside `~/research`).
-  Reference implementations belong upstream — record their URLs in agent memory and
-  reference them by URL. This directory has had `computations/vinbergs_algorithm/`
-  re-cloned and re-deleted three times.
 - Subagents modifying scripts that already pass `just run-all`. Subagents create new
   scripts or fix broken ones; they do not touch passing code.
   Commit `78e5335` documents a subagent breaking `task2_1_isotropic_orbits.sage` that
