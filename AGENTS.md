@@ -31,6 +31,98 @@ Before starting any work, state: "This serves GOAL.md Task X.Y because [reason].
 work serves no task, it is debris.
 Do not do it.
 
+## Process and Workflow
+
+### Hard Rules (Non-Negotiable)
+
+These are not suggestions — violations are immediate grounds for rejection:
+
+- **Zero-trust review**: Never accept code without a rigorous, independent, adversarial
+  review against the REAL mathematical goals.
+  The author cannot be the auditor.
+- **Self-validation is fraud**: Never trust agents to "validate" their own work.
+  Every claim must be independently verified.
+- **Assertions not claims**: Never trust code that prints validation statements (fiat
+  proofs). Real proofs require assertions with external sources, citations, or
+  computational verification.
+- **No validation summaries at face value**: Never accept "verified", "passed",
+  "confirmed" at face value.
+  Trace every claim to its source.
+- **No duplicates**: Never accept duplicated versions of code (_fixed, _broken, copies,
+  parallel updates).
+- **No collateral edits**: Never accept subagent edits on non-task-specific files.
+- **Separation of concerns**: Never let audit agents write code or coding agents do
+  audits. The orchestrator is not an impartial auditor.
+- **Fiat is not proof**: Print statements stating conclusions are not evidence.
+  Assertions with external sources are proof.
+
+### Task Establishment Phase
+
+Before any implementation begins, establish:
+
+1. **Task linkage**: Explicitly state which GOAL.md task and subtask this addresses
+2. **Deliverables**: Define specific, concrete deliverables (proofs, computations,
+   conjectures)
+3. **Literature grounding**: Each deliverable must be traceable to specific results in
+   the literature (with citations)
+4. **Logical narrative**: Establish the logical flow — "establish X ⇒ implies Y,
+   establish Z, then X + Z ⇒ Y'" or "if Z is false then X + not Z ⇒ Y''"
+5. **Implementation plan**: For computational tasks, specify:
+   - What algorithms to use
+   - How to represent mathematical objects (e.g., groups as generators + relations,
+     matrix groups)
+   - What "computation" means for infinite groups
+   - Known methods from literature and their references
+
+### Implementation Phase
+
+- Use established algorithms from the foundation library — never reinvent standard
+  algorithms
+- Every computational claim must have an assertion with externally-sourced expected
+  value
+- No bounded enumeration as "exhaustive proof" without mathematical justification for
+  the bound
+- No print statements as proof — use assertions
+
+### Audit Phase (Independent)
+
+Before any task is marked complete:
+
+1. **Trace claims**: Every "verified" or "completed" claim traces to a specific
+   assertion in a specific script
+2. **External source check**: Every assertion's expected value comes from GOAL.md,
+   literature, or independent computation — never from the script itself
+3. **Failure mode check**: Audit against known fraud patterns:
+   - Bounded enumeration claiming exhaustiveness
+   - Print statements proving by fiat
+   - Prose arguments instead of computational proofs
+   - Self-validation (x = f(); assert x == f())
+   - Hardcoded boolean checks
+4. **Ill-defined issues**: If a task cannot be precisely specified, halt and return to
+   planning
+
+### Rollback and Recovery
+
+- If audit reveals fundamental issues, halt implementation immediately
+- Do not "fix in place" — either rollback or delete the work
+- Document what failed and why in a memory, then return to planning
+- Never merge broken work to main
+
+### Delegation Workflow
+
+1. **Delegate**: Subagent receives explicit task with acceptance criteria
+2. **Implement**: Subagent produces deliverables
+3. **Audit**: Independent review of subagent output against criteria
+4. **Re-delegate or reject**: If audit fails, either re-delegate with tighter
+   constraints or reject and restart planning
+
+### Foundation Library Requirement
+
+Difficult algorithms must be enshrined in `coble_geometry_foundation.sage` for reuse:
+- Agents must use foundation constructors, not ad-hoc implementations
+- Deviations require explicit justification citing why the foundation version doesn't
+  apply
+
 ## File Organization
 
 ### Directory organization
