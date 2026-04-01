@@ -33,7 +33,6 @@ print("=" * 80)
 print()
 
 load("/home/dzack/research/computations/coble_geometry_foundation.sage")
-load("/home/dzack/research/computations/coble_geometry.sage")
 
 ###############################################################################
 # Section 1: Construct Standard Lattices

@@ -29,7 +29,6 @@ import sys
 from sage.all import *
 
 load("/home/dzack/research/computations/coble_geometry_foundation.sage")
-load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.3 (Primitive): Construct Primitive Embedding S_Co ↪ Λ_K3")

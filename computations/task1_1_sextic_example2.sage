@@ -4,7 +4,6 @@ This is a different example from task1_1_sextic.sage.
 """
 
 load("/home/dzack/research/computations/coble_geometry_foundation.sage")
-load("/home/dzack/research/computations/coble_geometry.sage")
 
 print("=" * 80)
 print("Task 1.1 Example 2: Rational Sextic with 10 Nodes")
