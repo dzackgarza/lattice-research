@@ -320,6 +320,14 @@ There is no "commit now, fix later."
 - Re-reading the entire repo to "assess state" — read GOAL.md and memories
 - Committing a computation script that has not passed the Mandatory Pre-Commit Audit
   Gate above
+- Cloning external git repos into the working tree (`git clone` inside `~/research`).
+  Reference implementations belong upstream — record their URLs in agent memory and
+  reference them by URL. This directory has had `computations/vinbergs_algorithm/`
+  re-cloned and re-deleted three times.
+- Subagents modifying scripts that already pass `just run-all`. Subagents create new
+  scripts or fix broken ones; they do not touch passing code.
+  Commit `78e5335` documents a subagent breaking `task2_1_isotropic_orbits.sage` that
+  was already passing.
 
 ## Computation Auditing Criteria
 
