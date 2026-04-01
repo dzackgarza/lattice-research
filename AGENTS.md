@@ -1,161 +1,22 @@
 # Research Repo Agent Policy
 
+**For all task execution, workflow, audit, and acceptance criteria: defer entirely to
+[STATE_MACHINE.md](./STATE_MACHINE.md) and [PROOF_AUDITING.md](./PROOF_AUDITING.md).**
+
+This file contains only project-specific operational details not covered by those files.
+
 ## Environment
 
-`sage` is on the path at /home/dzack/miniforge3/envs/sage/bin/sage
-
-Do not install system packages, use a uv venv.
-
-Use the justfile for all computation runs.
-Never run sage scripts "manually".
-
-Work in this repo is autonomous.
-Do NOT use blocking tools (ask_question, submit_plan) unless the user specifically asks.
+- `sage` path: `/home/dzack/miniforge3/envs/sage/bin/sage`
+- Use `uv venv` for dependencies, never system packages.
+- All computation runs go through the `justfile`.
 
 ## Sacred Files
 
-These files are READ-ONLY. Never overwrite, truncate, or substantially rewrite:
+Read-only, never modify:
 
-- `GOAL.md` — the research specification.
-  chmod 444. If you need to update it, ask the user.
-- `REFERENCES.md` — the literature spine.
-  Append-only: new references may be added, existing entries must not be removed or
-  reworded.
-
-## Research Direction
-
-Every action must trace back to a specific task in GOAL.md (Tasks 1.1–6.1). If you
-cannot state which GOAL.md task your current action serves, STOP.
-
-Before starting any work, state: "This serves GOAL.md Task X.Y because [reason]." If the
-work serves no task, it is debris.
-Do not do it.
-
-## Process and Workflow
-
-The workflow is a state machine with two primary states and nested substate machines:
-
-```
-PLANNING → audit plan → IMPLEMENTATION
-                              ↓
-                    (substates per task:)
-                    audit task → implement task → audit implementation
-                              ↓
-                    (branch:)
-                    pass? → yes → task complete
-                          → no → cycle back to implement task (with feedback)
-                          → or reject entirely → back to PLANNING
-```
-
-### State 1: PLANNING
-
-Before any work begins, establish:
-
-1. **Task linkage**: Which specific GOAL.md task and subtask?
-   State explicitly.
-2. **Deliverables**: What specific proof, computation, or conjecture will result?
-3. **Literature grounding**: Trace each deliverable to specific results in the
-   literature (with citations).
-   Why is this the right approach?
-   What are the known methods?
-4. **Logical narrative**: "Establish X ⇒ implies Y, establish Z, then X + Z ⇒ Y'" OR "If
-   Z is false then X + not Z ⇒ Y''" — what's the mathematical argument?
-5. **Implementation plan**: For computational tasks, the plan MUST explicitly answer:
-   - **What algorithms to use?** (name specific algorithms, cite their sources)
-   - **How to represent the group?** (generators?
-     relations? presentation?
-     matrix group?什么样的表示)
-   - **What suffices as "computation" for infinite groups?** (e.g., generators +
-     relations, a presentation, known methods)
-   - **Are there known methods?** If so, what are they and where are they described?
-   - For example: "compute the stabilizer" → how?
-     Use GAP's Stabilizer on the orthogonal group O(L) as a matrix group over integers.
-     Finite generating set from reflections.
-     Representation: generators as integer matrices, compute via group action on
-     vectors.
-
-The implementation plan is incomplete if it cannot answer these questions.
-
-### Audit Plan (Gate before IMPLEMENTATION)
-
-Before entering IMPLEMENTATION, verify:
-- The plan traces to a **specific** GOAL.md item (not vague "Task 3.1")
-- Deliverables are **concrete** (not "verify the structure" but "assert X matches Y from
-  Lemma Z")
-- The logical narrative is **sound** (the mathematics actually leads to the claimed
-  conclusion)
-- Implementation is **feasible** (algorithms exist, foundation library supports it, no
-  hand-waving)
-
-If any check fails: reject and stay in PLANNING.
-
-### State 2: IMPLEMENTATION
-
-Implementation has a substate machine that runs **for each task**:
-
-#### Substate A: Audit Task
-
-- Read the full GOAL.md task specification
-- Verify the implementation plan actually addresses what the task requires
-- If task is ill-defined: reject to PLANNING
-- If plan is wrong: reject to PLANNING
-
-#### Substate B: Implement Task
-
-- Write code/script
-- Use foundation library constructors — never ad-hoc implementations
-- Every claim must have an assertion with **externally-sourced expected value** (from
-  GOAL.md or literature, never from self)
-- No bounded enumeration as "exhaustive proof" without mathematical justification
-
-#### Substate C: Audit Implementation
-
-- Run via `just`
-- Verify all assertions pass
-- Trace every result to an assertion with external source
-- Check for fraud patterns:
-  - Bounded enumeration claiming exhaustiveness
-  - Print statements proving by fiat
-  - Prose arguments instead of computational proofs
-  - Self-validation (`x = f(); assert x == f()`)
-  - Hardcoded boolean checks
-
-#### Branch from Substate C
-
-- **All checks pass**: task complete, exit IMPLEMENTATION
-- **Failure in Substate C**: cycle back to Substate B with specific failure as feedback
-- **Fundamental failure** (wrong task, wrong plan): reject entirely to PLANNING
-
-### Hard Rules (Apply at ALL States)
-
-These are non-negotiable — violations are immediate grounds for rejection:
-
-- **Zero-trust review**: Never accept code without independent adversarial review.
-  Author cannot audit own work.
-- **Self-validation is fraud**: Never trust agents to validate their own work.
-- **Assertions not claims**: Code that prints validation is not proof.
-  Assertions with external sources are proof.
-- **No validation summaries at face value**: Never accept "verified", "passed",
-  "confirmed" without tracing to assertions.
-- **No duplicates**: Never accept `_fixed`, `_broken`, copies, parallel updates.
-- **No collateral edits**: Never accept subagent edits on non-task files.
-- **Separation of concerns**: Never let audit agents write code or coding agents audit.
-- **Orchestrator is not impartial**: The agent driving the workflow cannot be trusted as
-  sole auditor.
-
-### Rollback and Recovery
-
-- If audit reveals fundamental issues at any substate: halt immediately
-- Do not "fix in place" — rollback or delete
-- Document failure in memory, then return to PLANNING
-- Never merge broken work to main
-
-### Foundation Library Requirement
-
-Difficult algorithms must be enshrined in `coble_geometry_foundation.sage` for reuse:
-- Agents must use foundation constructors, not ad-hoc implementations
-- Deviations require explicit justification citing why the foundation version doesn't
-  apply
+- `GOAL.md` — research specification (chmod 444)
+- `REFERENCES.md` — append-only literature spine
 
 ## File Organization
 
@@ -173,6 +34,8 @@ research/
   GOAL.md                          # READ-ONLY research spec
   REFERENCES.md                    # Append-only literature spine
   AGENTS.md                        # This file
+  STATE_MACHINE.md                 # Canonical state machine (see above)
+  PROOF_AUDITING.md                # Canonical auditing standards (see above)
   SCHEDULE.md                      # Daily autonomous agent rotation
   justfile                         # All computation recipes
   computations/                    # Computation scripts (any subdirs allowed)
@@ -247,7 +110,7 @@ Run these deletions before any other work:
 - Delete orphan root-level directories (directories at repo root not under
   computations/, notes/, papers/, or coble_research_lean/)
 - Delete any top-level markdown file not in the allowed list (GOAL.md, REFERENCES.md,
-  AGENTS.md, SCHEDULE.md)
+  AGENTS.md, STATE_MACHINE.md, PROOF_AUDITING.md, SCHEDULE.md)
 
 Before deleting a directory, check if it contains uncommitted work that traces to a
 GOAL.md task.
@@ -256,97 +119,16 @@ the directory. Everything else: delete without ceremony.
 
 ### What does NOT belong in the repo
 
-- Plans, schedules, changelogs, process docs, audit reports, verification status docs,
-  agent session summaries — these are agent process debris.
-- Markdown files that restate what a computation script already outputs.
-- Documents that will be stale within one session.
-- Any file whose primary audience is "the agent that wrote it."
-- Bug report files. If a computation fails, fix it or delete it.
-  Git history is the record of what was tried.
+- Agent process debris (plans, session summaries, audit reports)
+- Markdown files restating computation output
+- Documents stale within one session
+- Bug report files — fix or delete broken code
 
-## Notes Policy
-
-`notes/` contains mathematical research notes — observations, conjectures, literature
-connections, and analysis that a human researcher would want to read.
-Each note must:
-
-- State which GOAL.md task(s) it relates to in the first line
-- Contain substantive mathematical content (not process/status updates)
-- Be updated in-place rather than creating new files for revisions
-
-`notes/proofs/` contains proof sketches and verification records for each task.
-One file per GOAL.md subtask: `notes/proofs/taskN_M_*.md`.
-
-Do not create notes that merely summarize computation output.
-
-## Computation Policy
-
-### Exact arithmetic
-
-Prefer exact arithmetic throughout whenever Sage supports it.
-Prefer integral or rational coefficients, exact polynomial/system solving, and small or
-minimal examples that avoid coefficient blowup.
-Do not treat floating-point approximations as acceptable evidence when exact algebraic
-data is available.
-
-When singular points or other solutions are algebraic but not rational, base change to a
-natural number field or exact algebraic extension and continue exact work there rather
-than deduplicating or validating numerically.
-
-### Foundation library
+## Foundation Library
 
 All lattice constructions must use `coble_geometry_foundation.sage` constructors.
 Never construct lattices with ad-hoc `diagonal_matrix()` calls.
-The legacy `coble_geometry.sage` must not be loaded by any active script.
-
-### Verification standard
-
-Every computation script must:
-- Use assertions (not just prints) for all claimed results
-- State which GOAL.md task it verifies in a header comment
-
-Scripts must NOT write output files (`*_results.txt`, `*_output.txt`, etc.). The script
-itself — with its assertions and print statements — is the reproducible artifact.
-A text file caching one run's output is instantly stale, not re-verifiable without
-re-running the script anyway, and accumulates as debris.
-Verification means the script passes when run via `just`, not that a text file exists
-claiming it passed.
-
-Assertions must test the mathematical claims in GOAL.md — not just internal consistency.
-Each assertion must be traceable to a specific statement in GOAL.md or the literature
-(Nikulin, Sterk, Dolgachev-Kondo, AEGS). A script that computes a value and asserts it
-equals what it just computed proves nothing.
-The expected values must come from the mathematics, not from a previous run of the same
-script.
-
-A script that passes its own assertions only proves internal consistency.
-Verification is adversarial: the person writing the assertion must know what the answer
-MUST be from the mathematics, independent of the computation.
-An agent writing a script and then "verifying" that script is the same agent checking
-its own homework — this is not verification.
-
-Agent self-reports ("I verified this") are not verification.
-
-## Zero-Trust Verification
-
-Never accept prior session claims at face value.
-"Verified" labels from prior agent sessions are worthless without:
-- A script in `computations/` that asserts the claimed result
-- A passing `just` run that exercises that script
-
-If any of these are missing, the claim is UNVERIFIED regardless of what any markdown
-file says.
-
-## Worktree Policy
-
-Use git worktrees for:
-- Any change touching 3+ files
-- Any change to `coble_geometry_foundation.sage`
-- Any new computation script
-- Any work that might break existing computations
-
-Work on a branch, verify with `just run-all`, then merge.
-Do not commit experimental or in-progress work to main.
+The legacy `coble_geometry.sage` must not be loaded.
 
 ## Lean / Aristotle
 
@@ -375,7 +157,9 @@ finite positive-definite cases.
 
 Every new session must:
 - Read GOAL.md
-- Read AGENTS.md (this file)
+- Read STATE_MACHINE.md (for task execution rules)
+- Read PROOF_AUDITING.md (for audit criteria)
+- Read AGENTS.md (this file — project-specific guidance)
 - Run `list_memories` for project context
 - Run automatic pruning (see "Automatic pruning" above) — this is mandatory, not
   advisory
@@ -407,247 +191,3 @@ suffixes, moving to subdirectories, creating companion documents explaining why 
 broken, archiving "for reference."
 If a script doesn't pass its assertions, it gets fixed or deleted in the same session.
 There is no third option.
-
-## Mandatory Pre-Commit Audit Gate
-
-No computation script may be committed (to any branch) without passing this gate.
-This is not advisory.
-Violating this gate is grounds for immediate deletion of the script.
-
-Before committing any new or modified `taskN_M_*.sage` script:
-
-- **Run it via `just`** and confirm it exits 0. A script that does not run is broken.
-- **Count assertions.** If the script has fewer than 1 assertion per 50 lines of code,
-  it is suspect. Zero assertions = delete on sight.
-- **Verify each assertion's expected value has an external source.** For every `assert`
-  statement, the expected value must be traceable to GOAL.md, the literature (Nikulin,
-  Sterk, Dolgachev-Kondo, AEGS), or an independent computation.
-  If the expected value was produced by the same script, the assertion proves nothing —
-  delete it and write a real one.
-- **Search for fraud indicators.** Run through the Computation Auditing Criteria below.
-  Any single indicator is grounds for rejection.
-- **Diff review.** Before committing, run `git diff` on the script and read every line.
-  If any line sets a variable to True/False and that variable is later "checked," the
-  script is fraudulent.
-
-If a script fails the gate: fix it or delete it in the same session.
-There is no "commit now, fix later."
-
-## Anti-Patterns (Failure Modes to Avoid)
-
-These are not rules to execute — they are failure modes observed in practice.
-The goal is understanding why each pattern is problematic, not checking boxes.
-
-- **Process markdown accumulation**: Agents create directories and files to categorize
-  their process ("testing", "planning", "audit"). Each new directory attracts more files
-  of the same type. The next agent reads these files instead of the actual math.
-  Fix: if you want to record something, put it in a commit message or memory — never in
-  a file that will be stale within one session.
-
-- **Preserving broken work**: When a script fails, agents sometimes document the
-  failure, rename files with "_broken" suffixes, or create companion documents
-  explaining the issue.
-  This accumulates debris.
-  Fix: fix it or delete it.
-  Git history is the record of what was tried.
-
-- **Overwriting sacred files**: GOAL.md and REFERENCES.md define the research direction.
-  Changing them without asking erases context.
-  Fix: these are read-only.
-  If you need to change one, ask the user.
-
-- **Running outside the established harness**: `just` ensures consistency,
-  reproducibility, and proper environment.
-  Running scripts manually bypasses this.
-  Fix: always use `just`.
-
-- **Self-delusion via claims**: Agents sometimes "verify" results by printing success
-  messages without assertions.
-  The output looks reassuring but proves nothing.
-  Fix: if a property holds, assert it.
-  If you can't assert it, you haven't computed anything.
-
-- **Internal-consistency theater**: An assertion like `x = f(); assert x == f()` proves
-  internal consistency, not correctness.
-  Fix: expected values must come from GOAL.md, the literature, or an independent
-  computation — never from the script itself.
-
-- **Low-value busywork**: Agents sometimes spend sessions on file organization, script
-  cleanup, or documentation that doesn't advance the mathematics.
-  Fix: if your work doesn't trace to a GOAL.md task, it's debris.
-
-- **File proliferation**: Creating new markdown files when existing ones could be
-  updated fragments the context.
-  Fix: update in place, don't create parallel files.
-
-- **Wasteful assessment**: Agents re-read the entire repo to "assess state" instead of
-  reading the specific files that contain the relevant context.
-  Fix: read GOAL.md and memories first.
-
-- **Committing without quality gates**: Scripts with no assertions, fraud indicators, or
-  print-statement theater should not reach the repo.
-  Fix: run the pre-commit audit before every commit.
-
-- **Subagent regression**: Subagents sometimes modify scripts that were already passing,
-  breaking them. Fix: subagents create new scripts or fix broken ones; they don't touch
-  passing code.
-
-## Computation Auditing Criteria
-
-Every computation script must pass the following audit before commit.
-A script that triggers any of these is either broken (fix it) or fraudulent (delete it).
-
-### Mathematical adequacy (the primary gate)
-
-A script that passes every syntactic check below but does not actually compute what the
-GOAL.md task demands is **fraudulent by inadequacy**. This is the most common and most
-dangerous failure mode: a script with real mathematics that does not address the task.
-
-For every `taskN_M_*.sage` script, the auditor must:
-
-- **Read the corresponding GOAL.md task specification in full.** Identify exactly what
-  the task requires to be computed, constructed, or proved.
-- **Check that the script performs the required computation, not a substitute.** If the
-  task says "compute Pic(S) from exceptional divisor pullbacks," the script must compute
-  Pic(S) from exceptional divisor pullbacks — not assert an abstract lattice.
-  If the task says "enumerate orbits under O(T)," the script must construct O(T) and
-  compute orbits — not filter a bounded list.
-- **Check that the script uses the right tools.** If Sage has a builtin for the required
-  computation (e.g. `is_singular()`, `singular_points()`, `automorphism_group()`,
-  `orthogonal_group()`), the script must use it — not reinvent it with ad-hoc code.
-  Reinventing standard algorithms is a fraud indicator even when the reinvention is
-  mathematically valid, because it signals the author did not know or use the proper
-  tools.
-- **Check that claimed results are actually derived, not assumed.** If a script states
-  "Pic(S) ≅ T_Co" without computing either side and proving the isometry, that is a
-  claim, not a computation.
-  Every claimed isomorphism, isometry, or equality must have a corresponding computation
-  that constructs both sides and verifies the relation.
-- **Check that group-theoretic computations use proper group theory.** Stabilizers must
-  be computed via Sage/GAP group methods (e.g. `gap.Stabilizer()`, `gap.Centralizer()`),
-  not by filtering finite lists.
-  Orbit computations must use `gap.Orbits()` or equivalent, not bounded enumeration.
-  The orthogonal group O(L) of a lattice L must be constructed as a matrix group, not
-  approximated.
-- **Check that enumeration is provably exhaustive.** Any enumeration claiming to find
-  "all" objects (roots, isotropic vectors, orbits, subdiagrams) must either: (a) use an
-  algorithm with a proof of termination and completeness (Vinberg's algorithm, short
-  vector enumeration with proven norm bounds, orbit-stabilizer theorem), or (b)
-  explicitly state and prove the bound used (citing Cauchy-Schwarz, lattice geometry, or
-  similar). A `for i in range(-N, N+1)` loop is not exhaustive without a proof that N
-  suffices.
-
-**The canonical example** of a script that passes syntactic checks but fails
-mathematical adequacy: a task1_1 script that reinvents the Jacobian criterion instead of
-using Sage's `is_singular()`, "asserts" an abstract Picard lattice instead of computing
-it from exceptional divisors, finds roots by bounded search instead of using root system
-enumeration, and computes "stabilizers" by filtering a finite list instead of using
-GAP's `Stabilizer()`. Each piece contains valid mathematics, but the script does not
-perform the computation the task demands.
-
-### Structural fraud indicators
-
-- **Zero assertions.** A script with no `assert` statements proves nothing.
-  Every claimed result needs an assertion whose expected value comes from the
-  mathematics, not from the script itself.
-- **Assertions against self-computed values.** `x = f(); assert x == f()` proves
-  internal consistency, not correctness.
-  The expected value must come from GOAL.md, the literature, or an independent
-  computation.
-- **Hardcoded boolean "verifications."** Setting `is_S2 = True` on line 241 and then
-  checking `is_S2` on line 402 is not verification.
-  It is writing the answer key and then grading yourself.
-
-### Print-statement theater
-
-- **Print statements that state conclusions.** `print("✓ SATISFIED")` is not evidence.
-  If a property holds, assert it; if you cannot write an assertion, you have not
-  computed anything.
-- **Multiple consecutive print statements.** Embedding prose arguments in code is not
-  computation. If three or more `print()` calls appear in sequence with no intervening
-  computation, the block is exposition pretending to be code.
-- **Checkmarks, success markers, or status tables in output.** Code written to produce
-  reassuring output instead of verifying claims.
-  `"✓"`, `"PASSED"`, `"VERIFIED"`, `"ALL CHECKS PASSED"` in print strings are red flags
-  unless each is immediately preceded by the assertion it claims to summarize.
-- **f-strings with no `{}` interpolation.** An f-string with no dynamic content is a
-  string literal wearing a disguise — it misleads readers into thinking a computed value
-  was checked. If there is nothing to interpolate, use a plain string.
-- **f-strings that interpolate only hardcoded values.** `f"Norm = {2}"` or
-  `f"Status: {True}"` — the dynamic appearance hides a static fact.
-- **Print statements that state conclusions instead of checking them.** E.g.
-  `print("v^2 = 0: Confirmed")` instead of
-  `assert v_norm == 0, f"Expected v^2=0, got {v_norm}"`.
-
-### Ad-hoc construction smells
-
-- **Large manually typed matrices.** Any matrix larger than 3×3 typed out entry by entry
-  is suspect. Matrices should be constructed semantically — from maps between generators,
-  from Sage's `hom` facilities, from Smith normal form computations, from lattice
-  embeddings, etc. Manually keying a 22×11 matrix (as in task6_1 lines 75-82) is a typo
-  waiting to happen.
-- **Large manually typed vectors.** Vectors should be constructed as linear combinations
-  of semantically named generators, not typed as raw coordinate tuples.
-- **Ad-hoc `diagonal_matrix()` calls.** All lattice constructions must use foundation
-  library constructors.
-  A bare `diagonal_matrix()` call is constructing a lattice outside the canonical path.
-- **Low-level Sage abstractions when project-level abstractions exist.** E.g.
-  `left_kernel()` when the foundation library provides orthogonal complement helpers.
-  Using project abstractions ensures consistent conventions (saturation, inner product
-  normalization, etc.).
-- **`load("coble_geometry.sage")`** — the legacy file.
-  Only `coble_geometry_foundation.sage` is canonical.
-
-### Algorithmic gaps
-
-- **Missing standard algorithm implementations.** If a script needs Vinberg's algorithm,
-  root enumeration, or bounded lattice-point enumeration, those must be implemented as
-  reusable foundation utilities — not approximated with ad-hoc bounded for-loops
-  claiming exhaustiveness.
-- **Bounded enumeration claiming exhaustiveness.** A `for i in range(-5, 6)` loop
-  searching for lattice vectors is not exhaustive unless proven so.
-  The bound must be justified mathematically (e.g. from Cauchy-Schwarz or norm
-  constraints), and the justification must appear as a comment citing the bound.
-- **Nested for-loops bypassing semantic constructions.** Building a matrix entry by
-  entry in a double loop, or searching over pairs/triples by brute force, usually means
-  a standard algebraic construction (root system enumeration, orbit computation,
-  homomorphism construction) is being reinvented badly.
-
-### Software engineering patterns that do not belong in math code
-
-- **`try`/`except` blocks.** Mathematically correct code does not raise exceptions.
-  If an exception is possible, the code is not handling all cases.
-  Catching and suppressing exceptions hides bugs.
-- **`raise` statements.** Same rationale.
-  A computation script computes and asserts; it does not define error conditions.
-  If input validation is needed, it belongs in the foundation library, not in task
-  scripts.
-- **Long strings / docstrings embedding exposition.** A 60-line docstring explaining the
-  mathematical background (task6_1 lines 1-57) is not computation.
-  Background belongs in `notes/` or `REFERENCES.md`. The script header should be a 2-3
-  line comment stating which GOAL.md task it verifies and what it computes.
-
-### Trivial-computation padding
-
-- **Abundance of dimension, signature, determinant, rank, length, size calculations.**
-  These are O(1) lookups that produce no insight.
-  A script that computes `rank`, `signature`, `det`, and `len` of every object and
-  prints them is padding its output to look substantial.
-- **Count-based "verifications."** `assert len(roots) == 240` — is 240 the right answer?
-  Where does it come from?
-  Count assertions need a citation or derivation for the expected count.
-- **Claims of "isomorphism" without proof.** Printing "T_Co ≅ U ⊕ E8(-1)" without
-  computing the isomorphism (or at minimum checking genus invariants, discriminant form,
-  and signature) is a claim, not a computation.
-
-### File-level red flags
-
-- **High line count with few assertions.** A script over 100 lines with fewer than 5
-  assertions is almost certainly padding.
-  The ratio of assertions to total lines should be examined.
-- **Many lines of comments with no code.** Comments claiming to check things but with no
-  corresponding computation.
-  The comment "# Verify orthogonality" followed by a print statement instead of an
-  assertion is documentation of intent, not verification.
-- **Output files.** Scripts must not write `*_results.txt`, `*_output.txt`, or any other
-  file. The script itself is the reproducible artifact.

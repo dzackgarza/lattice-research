@@ -84,6 +84,19 @@ Use it before adding new derivations or background prose.
   Enriques Surfaces*.
   - Use for: dissertation-level details on the degree-2 Enriques side.
 
+### Coxeter diagrams and reflective lattices
+
+- **V. Alexeev (2024)**: *Reflective Hyperbolic 2-Elementary Lattices, K3 Surfaces and
+  Hyperkahler Manifolds*. NSF Public Access Repository, PURL 10653059.
+  - **Local**: `~/pdfs/other/nsf_10653059/content.pdf`,
+    `~/pdfs/other/nsf_10653059/content.md`
+  - Use for: Coxeter diagrams $\Gamma_r$ of reflective two-elementary lattices with
+    $r+a=22$, maximal parabolic subdiagrams, isotropic vector classification (odd, even
+    ordinary, even characteristic), and explicit descriptions of diagrams for
+    $(11,11,1)$, $(12,10,1)$, $(13,9,1)$, $(14,8,0)$, $(14,8,1)$, $(15,7,1)$,
+    $(16,6,1)$. Key result: $(17,5,1)$, $(18,4,1)$, $(19,3,1)$ are not reflective; all
+    other even two-elementary lattices on $r+a=22$ line are reflective.
+
 ## How to use this file
 
 - If a claim is standard background, cite one of the sources above before writing local
