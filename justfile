@@ -120,16 +120,9 @@ task5_1-theta:
 # ==============================================================================
 
 task6_1:
-    @echo "=== Running Task 6.1: Monodromy ==="
-    sage computations/task6_1_monodromy.sage
-
-# ==============================================================================
-# Compare Stabilizers
-# ==============================================================================
-
-compare-stabilizers:
-    @echo "=== Running Stabilizer Comparison ==="
-    sage computations/compare_stabilizers.sage
+    @echo "=== Task 6.1: Monodromy — PURGED, awaiting rewrite ==="
+    @echo "Script task6_1_monodromy.sage was deleted (inadequate)."
+    @exit 1
 
 # ==============================================================================
 # Run All (excludes heavy GAP computation in task3_2)
@@ -141,28 +134,15 @@ run-all:
     echo "=== Running All Tasks ==="
     echo "--- Foundation Tests ---"
     sage -c "import os; os.chdir('computations'); load('test_foundation.sage')"
-    echo "--- Task 1.1 ---"
-    sage computations/task1_1_sextic.sage
-    sage computations/task1_1_sextic_example2.sage
-    sage computations/task1_1_sextic_example3.sage
     echo "--- Task 1.2 ---"
     sage computations/task1_2_gram_matrices_fixed.sage
     sage computations/task1_2b_discriminant_forms.sage
-    echo "--- Task 1.3 ---"
-    sage computations/task1_3_embeddings_fixed.sage
-    sage computations/task1_3_embeddings_primitive.sage
     echo "--- Task 2 ---"
     sage computations/task2_1_isotropic_orbits.sage
     sage computations/task2_2_orbit_lift.sage
     echo "--- Task 3.1 ---"
     sage computations/task3_1_stabilizer.sage
-    echo "--- Task 4.1 ---"
-    sage computations/task4_1_coxeter_search.sage
     echo "--- Task 5.1 ---"
     sage computations/task5_1_involution.sage primitive
     sage computations/task5_1_involution.sage theta
-    echo "--- Task 6.1 ---"
-    sage computations/task6_1_monodromy.sage
-    echo "--- Compare Stabilizers ---"
-    sage computations/compare_stabilizers.sage
     echo "=== All Tasks Complete ==="
