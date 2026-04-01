@@ -280,6 +280,31 @@ broken, archiving "for reference."
 If a script doesn't pass its assertions, it gets fixed or deleted in the same session.
 There is no third option.
 
+## Mandatory Pre-Commit Audit Gate
+
+No computation script may be committed (to any branch) without passing this gate.
+This is not advisory.
+Violating this gate is grounds for immediate deletion of the script.
+
+Before committing any new or modified `taskN_M_*.sage` script:
+
+- **Run it via `just`** and confirm it exits 0. A script that does not run is broken.
+- **Count assertions.** If the script has fewer than 1 assertion per 50 lines of code,
+  it is suspect. Zero assertions = delete on sight.
+- **Verify each assertion's expected value has an external source.** For every `assert`
+  statement, the expected value must be traceable to GOAL.md, the literature (Nikulin,
+  Sterk, Dolgachev-Kondo, AEGS), or an independent computation.
+  If the expected value was produced by the same script, the assertion proves nothing —
+  delete it and write a real one.
+- **Search for fraud indicators.** Run through the Computation Auditing Criteria below.
+  Any single indicator is grounds for rejection.
+- **Diff review.** Before committing, run `git diff` on the script and read every line.
+  If any line sets a variable to True/False and that variable is later "checked," the
+  script is fraudulent.
+
+If a script fails the gate: fix it or delete it in the same session.
+There is no "commit now, fix later."
+
 ## Anti-Patterns (Hard Bans)
 
 - Creating markdown files to track agent process (plans, changelogs, schedules, status
@@ -293,6 +318,8 @@ There is no third option.
   script cleanup, documentation)
 - Creating a new markdown file when an existing one could be updated
 - Re-reading the entire repo to "assess state" — read GOAL.md and memories
+- Committing a computation script that has not passed the Mandatory Pre-Commit Audit
+  Gate above
 
 ## Computation Auditing Criteria
 
