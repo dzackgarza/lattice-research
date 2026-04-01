@@ -54,9 +54,7 @@ task1_2b:
 # ==============================================================================
 
 task1_3:
-    @echo "=== Task 1.3: Embeddings — PURGED, awaiting rewrite ==="
-    @echo "Scripts deleted: zero assertions, wrong API calls."
-    @exit 1
+    sage computations/task1_3_embeddings.sage
 
 # ==============================================================================
 # Task 2: Isotropic Orbits
@@ -129,6 +127,8 @@ run-all:
     echo "--- Task 1.2 ---"
     sage computations/task1_2_gram_matrices_fixed.sage
     sage computations/task1_2b_discriminant_forms.sage
+    echo "--- Task 1.3 ---"
+    sage computations/task1_3_embeddings.sage
     echo "--- Task 2 ---"
     sage computations/task2_1_isotropic_orbits.sage
     sage computations/task2_2_orbit_lift.sage
