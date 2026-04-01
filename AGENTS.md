@@ -307,25 +307,64 @@ Before committing any new or modified `taskN_M_*.sage` script:
 If a script fails the gate: fix it or delete it in the same session.
 There is no "commit now, fix later."
 
-## Anti-Patterns (Hard Bans)
+## Anti-Patterns (Failure Modes to Avoid)
 
-- Creating markdown files to track agent process (plans, changelogs, schedules, status
-  reports, audit summaries)
-- Documenting failures instead of fixing or reverting them
-- Overwriting GOAL.md or REFERENCES.md
-- Running computations outside of `just`
-- Claiming something is "verified" without a passing assertion-based script
-- Writing assertions that test internal consistency rather than GOAL.md claims
-- Spending more than 10% of a session on non-mathematical work (file organization,
-  script cleanup, documentation)
-- Creating a new markdown file when an existing one could be updated
-- Re-reading the entire repo to "assess state" — read GOAL.md and memories
-- Committing a computation script that has not passed the Mandatory Pre-Commit Audit
-  Gate above
-- Subagents modifying scripts that already pass `just run-all`. Subagents create new
-  scripts or fix broken ones; they do not touch passing code.
-  Commit `78e5335` documents a subagent breaking `task2_1_isotropic_orbits.sage` that
-  was already passing.
+These are not rules to execute — they are failure modes observed in practice.
+The goal is understanding why each pattern is problematic, not checking boxes.
+
+- **Process markdown accumulation**: Agents create directories and files to categorize
+  their process ("testing", "planning", "audit"). Each new directory attracts more files
+  of the same type. The next agent reads these files instead of the actual math.
+  Fix: if you want to record something, put it in a commit message or memory — never in
+  a file that will be stale within one session.
+
+- **Preserving broken work**: When a script fails, agents sometimes document the
+  failure, rename files with "_broken" suffixes, or create companion documents
+  explaining the issue.
+  This accumulates debris.
+  Fix: fix it or delete it.
+  Git history is the record of what was tried.
+
+- **Overwriting sacred files**: GOAL.md and REFERENCES.md define the research direction.
+  Changing them without asking erases context.
+  Fix: these are read-only.
+  If you need to change one, ask the user.
+
+- **Running outside the established harness**: `just` ensures consistency,
+  reproducibility, and proper environment.
+  Running scripts manually bypasses this.
+  Fix: always use `just`.
+
+- **Self-delusion via claims**: Agents sometimes "verify" results by printing success
+  messages without assertions.
+  The output looks reassuring but proves nothing.
+  Fix: if a property holds, assert it.
+  If you can't assert it, you haven't computed anything.
+
+- **Internal-consistency theater**: An assertion like `x = f(); assert x == f()` proves
+  internal consistency, not correctness.
+  Fix: expected values must come from GOAL.md, the literature, or an independent
+  computation — never from the script itself.
+
+- **Low-value busywork**: Agents sometimes spend sessions on file organization, script
+  cleanup, or documentation that doesn't advance the mathematics.
+  Fix: if your work doesn't trace to a GOAL.md task, it's debris.
+
+- **File proliferation**: Creating new markdown files when existing ones could be
+  updated fragments the context.
+  Fix: update in place, don't create parallel files.
+
+- **Wasteful assessment**: Agents re-read the entire repo to "assess state" instead of
+  reading the specific files that contain the relevant context.
+  Fix: read GOAL.md and memories first.
+
+- **Committing without quality gates**: Scripts with no assertions, fraud indicators, or
+  print-statement theater should not reach the repo.
+  Fix: run the pre-commit audit before every commit.
+
+- **Subagent regression**: Subagents sometimes modify scripts that were already passing,
+  breaking them. Fix: subagents create new scripts or fix broken ones; they don't touch
+  passing code.
 
 ## Computation Auditing Criteria
 
