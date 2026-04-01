@@ -33,88 +33,113 @@ Do not do it.
 
 ## Process and Workflow
 
-### Hard Rules (Non-Negotiable)
+The workflow is a state machine with two primary states and nested substate machines:
 
-These are not suggestions — violations are immediate grounds for rejection:
+```
+PLANNING → audit plan → IMPLEMENTATION
+                              ↓
+                    (substates per task:)
+                    audit task → implement task → audit implementation
+                              ↓
+                    (branch:)
+                    pass? → yes → task complete
+                          → no → cycle back to implement task (with feedback)
+                          → or reject entirely → back to PLANNING
+```
 
-- **Zero-trust review**: Never accept code without a rigorous, independent, adversarial
-  review against the REAL mathematical goals.
-  The author cannot be the auditor.
-- **Self-validation is fraud**: Never trust agents to "validate" their own work.
-  Every claim must be independently verified.
-- **Assertions not claims**: Never trust code that prints validation statements (fiat
-  proofs). Real proofs require assertions with external sources, citations, or
-  computational verification.
-- **No validation summaries at face value**: Never accept "verified", "passed",
-  "confirmed" at face value.
-  Trace every claim to its source.
-- **No duplicates**: Never accept duplicated versions of code (_fixed, _broken, copies,
-  parallel updates).
-- **No collateral edits**: Never accept subagent edits on non-task-specific files.
-- **Separation of concerns**: Never let audit agents write code or coding agents do
-  audits. The orchestrator is not an impartial auditor.
-- **Fiat is not proof**: Print statements stating conclusions are not evidence.
-  Assertions with external sources are proof.
+### State 1: PLANNING
 
-### Task Establishment Phase
+Before any work begins, establish:
 
-Before any implementation begins, establish:
-
-1. **Task linkage**: Explicitly state which GOAL.md task and subtask this addresses
-2. **Deliverables**: Define specific, concrete deliverables (proofs, computations,
-   conjectures)
-3. **Literature grounding**: Each deliverable must be traceable to specific results in
-   the literature (with citations)
-4. **Logical narrative**: Establish the logical flow — "establish X ⇒ implies Y,
-   establish Z, then X + Z ⇒ Y'" or "if Z is false then X + not Z ⇒ Y''"
-5. **Implementation plan**: For computational tasks, specify:
-   - What algorithms to use
+1. **Task linkage**: Which specific GOAL.md task and subtask?
+   State explicitly.
+2. **Deliverables**: What specific proof, computation, or conjecture will result?
+3. **Literature grounding**: Trace each deliverable to specific results in the
+   literature (with citations).
+   Why is this the right approach?
+   What are the known methods?
+4. **Logical narrative**: "Establish X ⇒ implies Y, establish Z, then X + Z ⇒ Y'" OR "If
+   Z is false then X + not Z ⇒ Y''" — what's the mathematical argument?
+5. **Implementation plan**: For computational tasks:
+   - What algorithms to use?
    - How to represent mathematical objects (e.g., groups as generators + relations,
-     matrix groups)
-   - What "computation" means for infinite groups
-   - Known methods from literature and their references
+     matrix groups)?
+   - What suffices as "computation" for infinite groups?
+   - Known methods from literature — what are they, where are they described?
 
-### Implementation Phase
+### Audit Plan (Gate before IMPLEMENTATION)
 
-- Use established algorithms from the foundation library — never reinvent standard
-  algorithms
-- Every computational claim must have an assertion with externally-sourced expected
-  value
-- No bounded enumeration as "exhaustive proof" without mathematical justification for
-  the bound
-- No print statements as proof — use assertions
+Before entering IMPLEMENTATION, verify:
+- The plan traces to a **specific** GOAL.md item (not vague "Task 3.1")
+- Deliverables are **concrete** (not "verify the structure" but "assert X matches Y from
+  Lemma Z")
+- The logical narrative is **sound** (the mathematics actually leads to the claimed
+  conclusion)
+- Implementation is **feasible** (algorithms exist, foundation library supports it, no
+  hand-waving)
 
-### Audit Phase (Independent)
+If any check fails: reject and stay in PLANNING.
 
-Before any task is marked complete:
+### State 2: IMPLEMENTATION
 
-1. **Trace claims**: Every "verified" or "completed" claim traces to a specific
-   assertion in a specific script
-2. **External source check**: Every assertion's expected value comes from GOAL.md,
-   literature, or independent computation — never from the script itself
-3. **Failure mode check**: Audit against known fraud patterns:
-   - Bounded enumeration claiming exhaustiveness
-   - Print statements proving by fiat
-   - Prose arguments instead of computational proofs
-   - Self-validation (x = f(); assert x == f())
-   - Hardcoded boolean checks
-4. **Ill-defined issues**: If a task cannot be precisely specified, halt and return to
-   planning
+Implementation has a substate machine that runs **for each task**:
+
+#### Substate A: Audit Task
+
+- Read the full GOAL.md task specification
+- Verify the implementation plan actually addresses what the task requires
+- If task is ill-defined: reject to PLANNING
+- If plan is wrong: reject to PLANNING
+
+#### Substate B: Implement Task
+
+- Write code/script
+- Use foundation library constructors — never ad-hoc implementations
+- Every claim must have an assertion with **externally-sourced expected value** (from
+  GOAL.md or literature, never from self)
+- No bounded enumeration as "exhaustive proof" without mathematical justification
+
+#### Substate C: Audit Implementation
+
+- Run via `just`
+- Verify all assertions pass
+- Trace every result to an assertion with external source
+- Check for fraud patterns:
+  - Bounded enumeration claiming exhaustiveness
+  - Print statements proving by fiat
+  - Prose arguments instead of computational proofs
+  - Self-validation (`x = f(); assert x == f()`)
+  - Hardcoded boolean checks
+
+#### Branch from Substate C
+
+- **All checks pass**: task complete, exit IMPLEMENTATION
+- **Failure in Substate C**: cycle back to Substate B with specific failure as feedback
+- **Fundamental failure** (wrong task, wrong plan): reject entirely to PLANNING
+
+### Hard Rules (Apply at ALL States)
+
+These are non-negotiable — violations are immediate grounds for rejection:
+
+- **Zero-trust review**: Never accept code without independent adversarial review.
+  Author cannot audit own work.
+- **Self-validation is fraud**: Never trust agents to validate their own work.
+- **Assertions not claims**: Code that prints validation is not proof.
+  Assertions with external sources are proof.
+- **No validation summaries at face value**: Never accept "verified", "passed",
+  "confirmed" without tracing to assertions.
+- **No duplicates**: Never accept `_fixed`, `_broken`, copies, parallel updates.
+- **No collateral edits**: Never accept subagent edits on non-task files.
+- **Separation of concerns**: Never let audit agents write code or coding agents audit.
+- **Orchestrator is not impartial**: The agent driving the workflow cannot be trusted as
+  sole auditor.
 
 ### Rollback and Recovery
 
-- If audit reveals fundamental issues, halt implementation immediately
-- Do not "fix in place" — either rollback or delete the work
-- Document what failed and why in a memory, then return to planning
+- If audit reveals fundamental issues at any substate: halt immediately
+- Do not "fix in place" — rollback or delete
+- Document failure in memory, then return to PLANNING
 - Never merge broken work to main
-
-### Delegation Workflow
-
-1. **Delegate**: Subagent receives explicit task with acceptance criteria
-2. **Implement**: Subagent produces deliverables
-3. **Audit**: Independent review of subagent output against criteria
-4. **Re-delegate or reject**: If audit fails, either re-delegate with tighter
-   constraints or reject and restart planning
 
 ### Foundation Library Requirement
 
