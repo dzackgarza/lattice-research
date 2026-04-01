@@ -31,8 +31,8 @@
 - **Prerequisites**: G1.2 (Gram matrices), lattice embedding algorithms
 - **Deliverable**: Explicit embedding matrices with primitivity certificates
 - **Risk**: Medium - requires Nikulin embedding theory implementation
-- **ADDENDUM**: This is exactly what Oscar.jl `primitive_embeddings` does. See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
+- **ADDENDUM**: This is exactly what Oscar.jl `primitive_embeddings` does.
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
   extensions". Do NOT implement Nikulin theory from scratch.
 
 ### G2 - Isotropic Orbit Enumeration
@@ -43,8 +43,8 @@
 - **Prerequisites**: G1.2 (discriminant form q_T)
 - **Deliverable**: Orbit representatives and orbit sizes
 - **Risk**: Low - finite group computation
-- **ADDENDUM**: This is exactly what GAP `Orbit`/`Orbits` does. See
-  `/home/dzack/research/theory/gap_orbits.md`. Do NOT write custom orbit code.
+- **ADDENDUM**: This is exactly what GAP `Orbit`/`Orbits` does.
+  See `/home/dzack/research/theory/gap_orbits.md`. Do NOT write custom orbit code.
 
 #### G2.2: Orbit Lifting to T_Co
 
@@ -53,9 +53,9 @@
 - **Prerequisites**: G2.1, Sterk's lifting theorems
 - **Deliverable**: Verification of unique orbit
 - **Risk**: Medium - requires Sterk's technique implementation
-- **ADDENDUM**: Oscar.jl `image_centralizer_in_Oq` computes the image of the
-  centralizer in O(D_L), which is the lifting obstruction. See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Lattices with isometry".
+- **ADDENDUM**: Oscar.jl `image_centralizer_in_Oq` computes the image of the centralizer
+  in O(D_L), which is the lifting obstruction.
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Lattices with isometry".
 
 ### G3 - Uniqueness of 1-Cusps
 
@@ -66,9 +66,9 @@
 - **Ambiguity**: "Minimal set of generators" for infinite group needs definition
 - **Deliverable**: Matrix generators for Γ_Co
 - **Risk**: High - infinite group computation
-- **ADDENDUM**: Oscar.jl `invariant_lattice` and `coinvariant_lattice` compute
-  the fixed/coinvariant sublattices under an isometry. See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Kernel sublattices".
+- **ADDENDUM**: Oscar.jl `invariant_lattice` and `coinvariant_lattice` compute the
+  fixed/coinvariant sublattices under an isometry.
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Kernel sublattices".
 
 #### G3.2: Isotropic Plane Orbits
 
@@ -77,9 +77,9 @@
 - **Prerequisites**: G1.2, G2 (orbit machinery)
 - **Deliverable**: Verification that J^⊥/J ≅ A_1^⊕7 for all orbits
 - **Risk**: High - requires plane orbit enumeration
-- **ADDENDUM**: buildings.sage `building()` computes exactly this—orbits of
-  isotropic planes for O(2,n) subgroups. See
-  `/home/dzack/research/theory/buildings.md`. Local copy: `buildings.sage`.
+- **ADDENDUM**: buildings.sage `building()` computes exactly this—orbits of isotropic
+  planes for O(2,n) subgroups.
+  See `/home/dzack/research/theory/buildings.md`. Local copy: `buildings.sage`.
 
 ### G4 - Coxeter Parabolics
 
@@ -89,9 +89,9 @@
 - **Prerequisites**: G1.2 (S_Co root system)
 - **Deliverable**: Complete list of maximal parabolics, verification of unique B̃_7(2)
 - **Risk**: Medium - combinatorial search
-- **ADDENDUM**: Oscar.jl `vinberg_algorithm` computes the fundamental chamber and
-  simple roots for hyperbolic lattices. See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Vinberg's algorithm".
+- **ADDENDUM**: Oscar.jl `vinberg_algorithm` computes the fundamental chamber and simple
+  roots for hyperbolic lattices.
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Vinberg's algorithm".
 
 ### G5 - Involution Matrix
 
@@ -102,9 +102,9 @@
 - **Prerequisites**: G1.3 (embedding into Λ_K3)
 - **Deliverable**: Explicit θ matrix, eigenspace invariants
 - **Risk**: Medium - requires involution construction
-- **ADDENDUM**: Oscar.jl `equivariant_primitive_extensions` constructs lattices
-  with isometry from (L⁺, +id) ⊕ (L⁻, -id). See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
+- **ADDENDUM**: Oscar.jl `equivariant_primitive_extensions` constructs lattices with
+  isometry from (L⁺, +id) ⊕ (L⁻, -id).
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
   extensions".
 
 ### G6 - Monodromy Invariants
@@ -117,8 +117,8 @@
 - **Deliverable**: Mapping + stability verification
 - **Risk**: High - depends on external AEGS23 construction
 - **ADDENDUM**: Oscar.jl `admissible_equivariant_primitive_extensions` handles
-  p-admissible triples and double coset representatives. See
-  `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
+  p-admissible triples and double coset representatives.
+  See `/home/dzack/research/theory/oscar_lattices.md` → "Primitive embeddings and
   extensions".
 
 ## Task Backlog (Ordered by Prerequisites)
@@ -160,6 +160,52 @@
 2. **Vinberg's algorithm**: For Coxeter diagram computation
    - Present in computations/vinbergs_algorithm/
    - May support G4.1
+
+## Computational Tool Routing
+
+All remaining tasks use specialized tools rather than hand-rolled Sage implementations:
+
+| Task | Goal | Tool | Key Function | Notes |
+| --- | --- | --- | --- | --- |
+| T-0004 | G2.1 Orbits | GAP | `Orbit`/`Orbits` | Finite group action on (Z/2Z)^11 |
+| T-0005 | G4.1 Coxeter | Oscar.jl | `vinberg_algorithm` | Fundamental chamber + simple roots |
+| T-0006 | G5.1 θ matrix | Oscar.jl | `equivariant_primitive_extensions` | Lattice with isometry from (L⁺,L⁻) |
+| T-0007 | G2.2 Lifting | Oscar.jl | `image_centralizer_in_Oq` | Centralizer image in O(D_L) |
+| T-0008 | G3.1 Γ_Co | Oscar.jl | `invariant_lattice`/`coinvariant_lattice` | Fixed/coinvariant under isometry |
+| T-0009 | G3.2 Planes | buildings.sage | `building()` | Orbits of isotropic planes for O(2,n) |
+| T-0010 | G6.1 Surgery | Oscar.jl | `admissible_equivariant_primitive_extensions` | p-admissible triples |
+
+**Environment notes:**
+- Oscar.jl: `~/.julia/juliaup/julia-1.12.5+0.x64.linux.gnu/bin/julia`. Precompilation
+  slow (100s+).
+- GAP: available via `sage -sh` environment.
+- buildings.sage: local copy at `computations/buildings.sage`, theory at
+  `theory/buildings.md`.
+- G1.3 (T-0003) was completed with Sage kernel method; Oscar.jl `primitive_embeddings`
+  is superior but not worth re-doing.
+
+## Computational Tool Routing
+
+All remaining tasks use specialized tools rather than hand-rolled Sage implementations:
+
+| Task | Goal | Tool | Key Function | Notes |
+| --- | --- | --- | --- | --- |
+| T-0004 | G2.1 Orbits | GAP | `Orbit`/`Orbits` | Finite group action on (Z/2Z)^11 |
+| T-0005 | G4.1 Coxeter | Oscar.jl | `vinberg_algorithm` | Fundamental chamber + simple roots |
+| T-0006 | G5.1 θ matrix | Oscar.jl | `equivariant_primitive_extensions` | Lattice with isometry from (L⁺,L⁻) |
+| T-0007 | G2.2 Lifting | Oscar.jl | `image_centralizer_in_Oq` | Centralizer image in O(D_L) |
+| T-0008 | G3.1 Γ_Co | Oscar.jl | `invariant_lattice`/`coinvariant_lattice` | Fixed/coinvariant under isometry |
+| T-0009 | G3.2 Planes | buildings.sage | `building()` | Orbits of isotropic planes for O(2,n) |
+| T-0010 | G6.1 Surgery | Oscar.jl | `admissible_equivariant_primitive_extensions` | p-admissible triples |
+
+**Environment notes:**
+- Oscar.jl: `~/.julia/juliaup/julia-1.12.5+0.x64.linux.gnu/bin/julia`. Precompilation
+  slow (100s+).
+- GAP: available via `sage -sh` environment.
+- buildings.sage: local copy at `computations/buildings.sage`, theory at
+  `theory/buildings.md`.
+- G1.3 (T-0003) was completed with Sage kernel method; Oscar.jl `primitive_embeddings`
+  is superior but not worth re-doing.
 
 ## Risk Assessment
 
