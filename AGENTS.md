@@ -3,6 +3,16 @@
 **For all task execution, workflow, audit, and acceptance criteria: defer entirely to
 [STATE_MACHINE.md](./STATE_MACHINE.md) and [PROOF_AUDITING.md](./PROOF_AUDITING.md).**
 
+The state machine explicitly requires:
+
+IMPLEMENT via subagents in isolated workspaces
+SELF_CHECK by a non-author agent
+ADVERSARIAL_AUDIT by an independent agent
+
+IMPLEMENT via subagents — not the orchestrator writing code directly
+Isolated worktrees — each worker in separate branch
+Exact contracts — with prohibitions, allowed files, exit conditions
+
 This file contains only project-specific operational details not covered by those files.
 
 NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts: memories, files, etc. DO NOT simply report artifacts and outputs in chat -- these will be lost as SOON as you compress them (they will be replaced with lossy summaries) or as soon as you hit a compactification threshold (too many tokens in a given session -- inevitable). 
@@ -85,7 +95,7 @@ Specifically:
 - There is no `tests/` — every computation script asserts its claims or it is broken.
   The script IS the test.
 - There is no `scripts/` — every file in `computations/` is a script.
-- There is no `logs/` — git history and agent memories are the log.
+- Git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
 - There is at most one active plan, and completed plans are
   archived (deleted; git history is the record).
