@@ -325,9 +325,54 @@ There is no "commit now, fix later."
 
 Every computation script must pass the following audit before commit.
 A script that triggers any of these is either broken (fix it) or fraudulent (delete it).
-The canonical example of a script that violates every criterion below is the original
-`computations/task6_1_monodromy.sage` — 439 lines, one real computation, and the rest is
-print statements asserting conclusions by fiat with variables hardcoded to True.
+
+### Mathematical adequacy (the primary gate)
+
+A script that passes every syntactic check below but does not actually compute what the
+GOAL.md task demands is **fraudulent by inadequacy**. This is the most common and most
+dangerous failure mode: a script with real mathematics that does not address the task.
+
+For every `taskN_M_*.sage` script, the auditor must:
+
+- **Read the corresponding GOAL.md task specification in full.** Identify exactly what
+  the task requires to be computed, constructed, or proved.
+- **Check that the script performs the required computation, not a substitute.** If the
+  task says "compute Pic(S) from exceptional divisor pullbacks," the script must compute
+  Pic(S) from exceptional divisor pullbacks — not assert an abstract lattice.
+  If the task says "enumerate orbits under O(T)," the script must construct O(T) and
+  compute orbits — not filter a bounded list.
+- **Check that the script uses the right tools.** If Sage has a builtin for the required
+  computation (e.g. `is_singular()`, `singular_points()`, `automorphism_group()`,
+  `orthogonal_group()`), the script must use it — not reinvent it with ad-hoc code.
+  Reinventing standard algorithms is a fraud indicator even when the reinvention is
+  mathematically valid, because it signals the author did not know or use the proper
+  tools.
+- **Check that claimed results are actually derived, not assumed.** If a script states
+  "Pic(S) ≅ T_Co" without computing either side and proving the isometry, that is a
+  claim, not a computation.
+  Every claimed isomorphism, isometry, or equality must have a corresponding computation
+  that constructs both sides and verifies the relation.
+- **Check that group-theoretic computations use proper group theory.** Stabilizers must
+  be computed via Sage/GAP group methods (e.g. `gap.Stabilizer()`, `gap.Centralizer()`),
+  not by filtering finite lists.
+  Orbit computations must use `gap.Orbits()` or equivalent, not bounded enumeration.
+  The orthogonal group O(L) of a lattice L must be constructed as a matrix group, not
+  approximated.
+- **Check that enumeration is provably exhaustive.** Any enumeration claiming to find
+  "all" objects (roots, isotropic vectors, orbits, subdiagrams) must either: (a) use an
+  algorithm with a proof of termination and completeness (Vinberg's algorithm, short
+  vector enumeration with proven norm bounds, orbit-stabilizer theorem), or (b)
+  explicitly state and prove the bound used (citing Cauchy-Schwarz, lattice geometry, or
+  similar). A `for i in range(-N, N+1)` loop is not exhaustive without a proof that N
+  suffices.
+
+**The canonical example** of a script that passes syntactic checks but fails
+mathematical adequacy: a task1_1 script that reinvents the Jacobian criterion instead of
+using Sage's `is_singular()`, "asserts" an abstract Picard lattice instead of computing
+it from exceptional divisors, finds roots by bounded search instead of using root system
+enumeration, and computes "stabilizers" by filtering a finite list instead of using
+GAP's `Stabilizer()`. Each piece contains valid mathematics, but the script does not
+perform the computation the task demands.
 
 ### Structural fraud indicators
 
