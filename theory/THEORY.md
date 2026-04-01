@@ -753,9 +753,20 @@ The compactification is toroidal over the 0-cusps 2 and 4, the 1-cusps adjacent 
 
 ## Bibliography
 
-- **[@alexeev2024reflective]**: V. Alexeev, *Reflective Hyperbolic 2-Elementary Lattices, K3 Surfaces and Hyperkahler Manifolds*, in: Advances in Geometry and Lattice Theory, NSF Public Access Repository, PURL 10653059, 2024.
+Local markdown extractions should be symlinked in `refs/` directory. Run:
 
-- **[@aegs2023compact]**: V. Alexeev, P. Engel, D. Zack Garza, and M. Schaffler, *Compact Moduli of Enriques Surfaces with a Numerical Polarization of Degree 2*, arXiv:2208.10383, 2023.
+```bash
+cd /home/dzack/research/theory
+mkdir -p refs
+ln -sf ../../pdfs/other/nsf_10653059/content.md refs/alexeev2024reflective.md
+# Find and link others: aegs, huybrechts, nikulin
+```
+
+- **[@alexeev2024reflective]**: V. Alexeev, *Reflective Hyperbolic 2-Elementary Lattices, K3 Surfaces and Hyperkahler Manifolds*, in: Advances in Geometry and Lattice Theory, NSF Public Access Repository, PURL 10653059, 2024.  
+  Extraction: `/home/dzack/pdfs/other/nsf_10653059/content.md`
+
+- **[@aegs2023compact]**: V. Alexeev, P. Engel, D. Zack Garza, and M. Schaffler, *Compact Moduli of Enriques Surfaces with a Numerical Polarization of Degree 2*, arXiv:2208.10383, 2023.  
+  Extraction: locate via `find /home/dzack -name "*aegs*" -o -name "*enriques*"`
 
 - **[@beauville1983varietes]**: A. Beauville, *Variétés Kähleriennes dont la première classe de Chern est nulle*, J. Diff. Geom. 18 (1983), 755–782.
 
@@ -765,11 +776,13 @@ The compactification is toroidal over the 0-cusps 2 and 4, the 1-cusps adjacent 
 
 - **[@friedman1984new]**: R. Friedman, *A New Proof of the Global Torelli Theorem for K3 Surfaces*, Ann. of Math. 120 (1984), no. 2, 237–269.
 
-- **[@huybrechts2016lectures]**: D. Huybrechts, *Lectures on K3 Surfaces*, Cambridge Studies in Advanced Mathematics 158, Cambridge University Press, 2016.
+- **[@huybrechts2016lectures]**: D. Huybrechts, *Lectures on K3 Surfaces*, Cambridge Studies in Advanced Mathematics 158, Cambridge University Press, 2016.  
+  Extraction: locate via `find /home/dzack -name "*huybrechts*"`
 
 - **[@milnor1973symmetric]**: J. Milnor and D. Husemoller, *Symmetric Bilinear Forms*, Springer, 1973. (Milgram's formula appears in Appendix 4; cited as [MH] in Bruinier.)
 
-- **[@nikulin1979integral]**: V. V. Nikulin, *Integer Symmetric Bilinear Forms and Some of Their Geometric Applications*, Izv. Akad. Nauk SSSR Ser. Mat. 43 (1979), no. 1, 111–177.
+- **[@nikulin1979integral]**: V. V. Nikulin, *Integer Symmetric Bilinear Forms and Some of Their Geometric Applications*, Izv. Akad. Nauk SSSR Ser. Mat. 43 (1979), no. 1, 111–177.  
+  Extraction: locate via `find /home/dzack -name "*nikulin*"`
 
 - **[@vinberg1972units]**: É. B. Vinberg, *The Groups of Units of Certain Quadratic Forms*, Mat. Sb. (N.S.) 87 (1972), no. 129, 18–36.
 

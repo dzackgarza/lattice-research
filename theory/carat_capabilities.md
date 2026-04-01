@@ -19,6 +19,25 @@ Primary upstream sources reviewed:
 - `tex/progs/First_perfect.html`
 - `functions/Orbit/README`
 
+## Critical limitation: CARAT requires positive-definite forms
+
+**CARAT cannot handle indefinite quadratic forms.** The following tools require positive-definite input:
+
+- `Aut_grp` — first form must be symmetric positive-definite
+- `Isometry` — first form in each file must be positive-definite
+- `Shortest` — positive-definite forms only
+
+**For indefinite forms, use Indefinite.jl instead.**
+
+**Indefinite.jl** (Dawes, arXiv:2205.10601) provides:
+- Automorphism groups of indefinite forms
+- Isometry testing for indefinite forms
+- Orbit representatives of vectors, isotropic k-planes, isotropic k-flags
+
+**Documentation:** `/home/dzack/research/theory/indefinite_jl.md`
+
+**BibTeX:** `@article{dawes2022orbits, ...}` in `references.bib`
+
 ## What CARAT can plausibly replace here
 
 ### `Aut_grp`

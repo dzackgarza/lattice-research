@@ -5,19 +5,23 @@
 
 The state machine explicitly requires:
 
-IMPLEMENT via subagents in isolated workspaces
-SELF_CHECK by a non-author agent
+IMPLEMENT via subagents in isolated workspaces SELF_CHECK by a non-author agent
 ADVERSARIAL_AUDIT by an independent agent
 
-IMPLEMENT via subagents — not the orchestrator writing code directly
-Isolated worktrees — each worker in separate branch
-Exact contracts — with prohibitions, allowed files, exit conditions
+IMPLEMENT via subagents — not the orchestrator writing code directly Isolated worktrees
+— each worker in separate branch Exact contracts — with prohibitions, allowed files,
+exit conditions
 
 This file contains only project-specific operational details not covered by those files.
 
-NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts: memories, files, etc. DO NOT simply report artifacts and outputs in chat -- these will be lost as SOON as you compress them (they will be replaced with lossy summaries) or as soon as you hit a compactification threshold (too many tokens in a given session -- inevitable). 
+NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts:
+memories, files, etc.
+DO NOT simply report artifacts and outputs in chat -- these will be lost as SOON as you
+compress them (they will be replaced with lossy summaries) or as soon as you hit a
+compactification threshold (too many tokens in a given session -- inevitable).
 
-REMINDER: DO NOT REPORT ARTIFACTS AND FINDINGS IN CHAT. CREATE ARTIFACTS: MEMORIES, FILES, GIT COMMITS WITH MESSAGES.
+REMINDER: DO NOT REPORT ARTIFACTS AND FINDINGS IN CHAT. CREATE ARTIFACTS: MEMORIES,
+FILES, GIT COMMITS WITH MESSAGES.
 
 ## Environment
 
@@ -58,10 +62,13 @@ research/
   papers/                          # PDFs and extracted text
 ```
 
-Every computation script — Sage, GAP, whatever — goes in `computations/` with the
-`taskN_M_*` naming. There is no separate `scripts/`, `tests/`, or `code/` directory
-because every script IS a computation, IS a test (it must assert its claims), and IS a
-script. These are not distinct categories.
+Task implementation artifacts live in `tasks/T-XXXX/implementation/` during the active
+task lifecycle (per STATE_MACHINE.md artifact model).
+Finalized computation scripts that are reusable across tasks may be copied to
+`computations/` with `taskN_M_*` naming after archiving.
+There is no separate `scripts/`, `tests/`, or `code/` directory because every script IS
+a computation, IS a test (it must assert its claims), and IS a script.
+These are not distinct categories.
 
 Lean formalizations go in `coble_research_lean/`. There is exactly one Lean project.
 Do not create new Lean project directories.
@@ -97,10 +104,10 @@ Specifically:
 - There is no `scripts/` — every file in `computations/` is a script.
 - Git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
-- There is at most one active plan, and completed plans are
-  archived (deleted; git history is the record).
-- If you tried an approach and it failed, use `remember` to
-  record what was tried, why it failed, and what to try instead.
+- There is at most one active plan, and completed plans are archived (deleted; git
+  history is the record).
+- If you tried an approach and it failed, use `remember` to record what was tried, why
+  it failed, and what to try instead.
   The next session reads memories at startup and will not repeat the mistake.
   Do not write a file preserving the failed approach.
 - You run a script; it passes or fails.

@@ -5,6 +5,17 @@ Use it before adding new derivations or background prose.
 
 ## Core claim families
 
+### Indefinite quadratic forms and orbit algorithms
+
+- **M. Dawes (2022)**: *Orbits in Lattices*. arXiv:2205.10601.
+  - **Local**: `papers/dawes_2022_orbits.pdf` (if downloaded)
+  - **Software**: https://github.com/MathieuDutSik/Indefinite.jl
+  - Use for: algorithms computing automorphism groups and orbit representatives of
+    indefinite integral quadratic forms. Includes orbit representatives of vectors,
+    isotropic k-planes, and isotropic k-flags. Primary source for indefinite form
+    computations (CARAT cannot handle indefinite forms).
+  - BibTeX key: `dawes2022orbits`
+
 ### Coble curve, blowup model, and K3 cover
 
 - **A. B. Coble (1917)**: *The ten nodes of the rational plane sextic*. American Journal
