@@ -1,0 +1,16 @@
+allowed_files:
+  - 'computations/coble_geometry_foundation.sage'
+  - 'tasks/T-0003/implementation/*.sage'
+
+allowed_modules:
+  - sage.all
+  - sage.modules.free_module
+  - sage.modules.free_quadratic_module_integer_symmetric
+
+allowed_outputs:
+  - terminal output showing assertions pass/fail
+  - exact computation logs
+  - no file output beyond temporary debug
+
+required_isolation: git_worktree
+isolation_strategy: Create dedicated worktree branch T-0003-work

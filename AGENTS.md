@@ -87,20 +87,18 @@ Specifically:
 - There is no `scripts/` — every file in `computations/` is a script.
 - There is no `logs/` — git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
-- There is no `plans/` — there is at most one active plan, and completed plans are
+- There is at most one active plan, and completed plans are
   archived (deleted; git history is the record).
-- There is no `approaches/` — if you tried an approach and it failed, use `remember` to
+- If you tried an approach and it failed, use `remember` to
   record what was tried, why it failed, and what to try instead.
   The next session reads memories at startup and will not repeat the mistake.
   Do not write a file preserving the failed approach.
-- There is no `audit/` or `verification_records/` — audits are actions, not documents.
-  You run a script; it passes or fails.
+- You run a script; it passes or fails.
   If it fails, you fix it or delete it.
   There is nothing to record.
   The script is the permanent, re-runnable audit.
-- There is no `archive/` — git history is the archive.
+- Git history is the archive.
   Broken work gets fixed or deleted, not preserved in a holding pen.
-  This includes subdirectories like `computations/archive/` — no nested archive
   directories either.
 
 ### Automatic pruning (every session startup)
