@@ -60,12 +60,21 @@ Before any work begins, establish:
    What are the known methods?
 4. **Logical narrative**: "Establish X ⇒ implies Y, establish Z, then X + Z ⇒ Y'" OR "If
    Z is false then X + not Z ⇒ Y''" — what's the mathematical argument?
-5. **Implementation plan**: For computational tasks:
-   - What algorithms to use?
-   - How to represent mathematical objects (e.g., groups as generators + relations,
-     matrix groups)?
-   - What suffices as "computation" for infinite groups?
-   - Known methods from literature — what are they, where are they described?
+5. **Implementation plan**: For computational tasks, the plan MUST explicitly answer:
+   - **What algorithms to use?** (name specific algorithms, cite their sources)
+   - **How to represent the group?** (generators?
+     relations? presentation?
+     matrix group?什么样的表示)
+   - **What suffices as "computation" for infinite groups?** (e.g., generators +
+     relations, a presentation, known methods)
+   - **Are there known methods?** If so, what are they and where are they described?
+   - For example: "compute the stabilizer" → how?
+     Use GAP's Stabilizer on the orthogonal group O(L) as a matrix group over integers.
+     Finite generating set from reflections.
+     Representation: generators as integer matrices, compute via group action on
+     vectors.
+
+The implementation plan is incomplete if it cannot answer these questions.
 
 ### Audit Plan (Gate before IMPLEMENTATION)
 
