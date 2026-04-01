@@ -5,14 +5,14 @@ allowed_files:
 
 allowed_modules:
   - coble_geometry_foundation.sage
-  - GAP (via sage -sh or gap command)
+  - SageMath (via sage command)
   - theory/gap_orbits.md (reference only)
 
 allowed_outputs:
   - Orbit representatives (as F_2^11 vectors)
   - Orbit sizes
   - Stabilizer sizes
-  - Verification that sum of orbit sizes = 1024
+  - Verification that sum of orbit sizes = 528
 
 required_isolation:
   type: worktree
@@ -23,4 +23,4 @@ prohibited:
   - Modifying coble_geometry_foundation.sage
   - Modifying any file outside tasks/T-0004/implementation/
   - Using floating-point arithmetic
-  - Hand-rolled orbit code (must use GAP Orbits)
+  - Hand-rolled orbit code (must use Sage's orbit/group action facilities or GAP Orbits)
