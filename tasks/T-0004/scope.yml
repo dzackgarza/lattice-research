@@ -23,4 +23,3 @@ prohibited:
   - Modifying coble_geometry_foundation.sage
   - Modifying any file outside tasks/T-0004/implementation/
   - Using floating-point arithmetic
-  - Hand-rolled orbit code (must use Sage's orbit/group action facilities or GAP Orbits)

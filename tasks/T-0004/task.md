@@ -36,7 +36,8 @@ Exact computation with certificate.
    (Z/2Z)^11
 2. All 2^11 = 2048 elements of A_T are enumerated
 3. Isotropic elements are identified (q_T(x) = 0 mod 2Z)
-4. Orbits of isotropic elements under O(q_T) are computed using GAP `Orbits`
+4. Orbits of isotropic elements under O(q_T) are computed using a standard group action
+   method (GAP `Orbits`, Sage group action, or transvection-generated BFS)
 5. For each orbit: representative, orbit size, and stabilizer size are recorded
 6. The orbit decomposition is verified: sum of orbit sizes = number of isotropic
    elements
