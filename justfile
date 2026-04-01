@@ -33,14 +33,9 @@ test-foundation:
 # ==============================================================================
 
 task1_1:
-    @echo "=== Running Task 1.1: Sextic Construction ==="
-    sage computations/task1_1_sextic.sage
-
-task1_1-all:
-    @echo "=== Running Task 1.1 Sextic Suite ==="
-    sage computations/task1_1_sextic.sage
-    sage computations/task1_1_sextic_example2.sage
-    sage computations/task1_1_sextic_example3.sage
+    @echo "=== Task 1.1: Sextic Construction — PURGED, awaiting rewrite ==="
+    @echo "Scripts deleted: zero assertions, undefined utility functions."
+    @exit 1
 
 # ==============================================================================
 # Task 1.2: Gram Matrices
@@ -59,12 +54,9 @@ task1_2b:
 # ==============================================================================
 
 task1_3:
-    @echo "=== Running Task 1.3: Embeddings (fixed) ==="
-    sage computations/task1_3_embeddings_fixed.sage
-
-task1_3-primitive:
-    @echo "=== Running Task 1.3: Embeddings (primitive) ==="
-    sage computations/task1_3_embeddings_primitive.sage
+    @echo "=== Task 1.3: Embeddings — PURGED, awaiting rewrite ==="
+    @echo "Scripts deleted: zero assertions, wrong API calls."
+    @exit 1
 
 # ==============================================================================
 # Task 2: Isotropic Orbits
