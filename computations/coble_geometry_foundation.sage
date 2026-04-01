@@ -167,26 +167,87 @@ def T_Co_lattice():
 
 def T_En_lattice():
     """
-    Construct Enriques transcendental lattice T_En = ⟨2⟩^2 ⊕ ⟨-2⟩^8.
+    Construct Enriques transcendental lattice T_En = U ⊕ U(2) ⊕ E8(-2).
     
-    The Enriques transcendental lattice has signature (2, 8) with Gram matrix
-    diag(2, 2, -2, ..., -2) (two positive, eight negative diagonal entries).
+    T_En is the orthogonal complement of S_En = U(2) ⊕ E8(-2) in Λ_K3.
+    It has Nikulin invariants (r, a, δ) = (12, 10, 0), signature (2, 10),
+    and |det| = 2^10 = 1024.
+    
+    Reference: AEGS 2023, Lemma 2.4.
     
     OUTPUT:
-    - IntegralLattice with Gram matrix diag(2, 2, -2^8)
+    - IntegralLattice with Gram matrix U ⊕ U(2) ⊕ E8(-2), rank 12
     
     EXAMPLES::
     
         sage: from coble_geometry_foundation import T_En_lattice
         sage: T_En = T_En_lattice()
         sage: T_En.rank()
-        10
+        12
         sage: T_En.signature()
-        (2, 8)
+        (2, 10)
     """
-    # Build diagonal Gram matrix: diag(2, 2, -2, ..., -2) with 8 negatives
-    diag_entries = [2, 2] + [-2] * 8
-    G = diagonal_matrix(ZZ, diag_entries)
+    U = matrix(ZZ, [[0, 1], [1, 0]])
+    U2 = matrix(ZZ, [[0, 2], [2, 0]])
+    E8_neg2 = E8_lattice(scale=-2).gram_matrix()
+    G = block_diagonal_matrix([U, U2, E8_neg2])
+    return IntegralLattice(G)
+
+
+def T_dP_lattice():
+    """
+    Construct del Pezzo transcendental lattice T_dP = U ⊕ U(2) ⊕ E8(-1)^2.
+    
+    T_dP is the orthogonal complement of S_dP = U(2) in Λ_K3.
+    It has Nikulin invariants (r, a, δ) = (20, 2, 0), signature (2, 18),
+    and |det| = 2^2 = 4.
+    
+    Reference: AEGS 2023, Lemma 2.4.
+    
+    OUTPUT:
+    - IntegralLattice with Gram matrix U ⊕ U(2) ⊕ E8(-1)^2, rank 20
+    
+    EXAMPLES::
+    
+        sage: from coble_geometry_foundation import T_dP_lattice
+        sage: T_dP = T_dP_lattice()
+        sage: T_dP.rank()
+        20
+        sage: T_dP.signature()
+        (2, 18)
+    """
+    U = matrix(ZZ, [[0, 1], [1, 0]])
+    U2 = matrix(ZZ, [[0, 2], [2, 0]])
+    E8_neg1 = E8_lattice(scale=-1).gram_matrix()
+    G = block_diagonal_matrix([U, U2, E8_neg1, E8_neg1])
+    return IntegralLattice(G)
+
+
+def S_En_lattice():
+    """
+    Construct Enriques Picard lattice S_En = U(2) ⊕ E8(-2).
+    
+    S_En is the Picard lattice of a generic Enriques surface (pulled back
+    to the K3 cover). It has Nikulin invariants (r, a, δ) = (10, 10, 0),
+    signature (1, 9), and |det| = 2^10 = 1024.
+    
+    Reference: AEGS 2023, Lemma 2.4.
+    
+    OUTPUT:
+    - IntegralLattice with Gram matrix U(2) ⊕ E8(-2), rank 10
+    
+    EXAMPLES::
+    
+        sage: from coble_geometry_foundation import S_En_lattice
+        sage: S_En = S_En_lattice()
+        sage: S_En.rank()
+        10
+        sage: S_En.signature()
+        (1, 9)
+    """
+    U2 = matrix(ZZ, [[0, 2], [2, 0]])
+    E8_neg2 = E8_lattice(scale=-2).gram_matrix()
+    G = block_diagonal_matrix([U2, E8_neg2])
     return IntegralLattice(G)
 
 

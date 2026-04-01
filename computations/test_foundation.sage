@@ -121,15 +121,60 @@ def test_T_En_lattice():
     """
     Test T_En_lattice constructor.
     
-    T_En = ⟨2⟩^2 ⊕ ⟨-2⟩^8 has signature (2, 8) and rank 10.
+    T_En = U ⊕ U(2) ⊕ E8(-2) has signature (2, 10) and rank 12.
+    Nikulin invariants: (12, 10, 0). |det| = 2^10 = 1024.
+    Reference: AEGS 2023, Lemma 2.4.
     """
     T_En = T_En_lattice()
-    assert T_En.rank() == 10
+    assert T_En.rank() == 12, f"Expected rank 12, got {T_En.rank()}"
     
     sig = lattice_signature(T_En)
-    assert sig == (2, 8), "Expected (2, 8), got %s" % str(sig)
+    assert sig == (2, 10), "Expected (2, 10), got %s" % str(sig)
+    
+    assert abs(T_En.gram_matrix().det()) == 1024, \
+        f"Expected |det|=1024, got {abs(T_En.gram_matrix().det())}"
     
     print("test_T_En_lattice: PASSED")
+
+
+def test_T_dP_lattice():
+    """
+    Test T_dP_lattice constructor.
+    
+    T_dP = U ⊕ U(2) ⊕ E8(-1)^2 has signature (2, 18) and rank 20.
+    Nikulin invariants: (20, 2, 0). |det| = 2^2 = 4.
+    Reference: AEGS 2023, Lemma 2.4.
+    """
+    T_dP = T_dP_lattice()
+    assert T_dP.rank() == 20, f"Expected rank 20, got {T_dP.rank()}"
+    
+    sig = lattice_signature(T_dP)
+    assert sig == (2, 18), "Expected (2, 18), got %s" % str(sig)
+    
+    assert abs(T_dP.gram_matrix().det()) == 4, \
+        f"Expected |det|=4, got {abs(T_dP.gram_matrix().det())}"
+    
+    print("test_T_dP_lattice: PASSED")
+
+
+def test_S_En_lattice():
+    """
+    Test S_En_lattice constructor.
+    
+    S_En = U(2) ⊕ E8(-2) has signature (1, 9) and rank 10.
+    Nikulin invariants: (10, 10, 0). |det| = 2^10 = 1024.
+    Reference: AEGS 2023, Lemma 2.4.
+    """
+    S_En = S_En_lattice()
+    assert S_En.rank() == 10, f"Expected rank 10, got {S_En.rank()}"
+    
+    sig = lattice_signature(S_En)
+    assert sig == (1, 9), "Expected (1, 9), got %s" % str(sig)
+    
+    assert abs(S_En.gram_matrix().det()) == 1024, \
+        f"Expected |det|=1024, got {abs(S_En.gram_matrix().det())}"
+    
+    print("test_S_En_lattice: PASSED")
 
 
 def test_Lambda_K3_lattice():
@@ -312,14 +357,14 @@ def test_reflection_matrix():
       2. s_r is an involution: s_r^2 = I
       3. s_r reflects the root: s_r(r) = -r
     """
-    T_En = T_En_lattice()
-    G = T_En.gram_matrix()
-    n = T_En.rank()
+    T_Co = T_Co_lattice()
+    G = T_Co.gram_matrix()
+    n = T_Co.rank()
 
-    # A standard basis vector e_2 (index 2) has norm -2 in T_En
+    # A standard basis vector e_2 (index 2) has norm -2 in T_Co
     v = vector(ZZ, [0]*n)
     v[2] = 1
-    assert int(v * G * v) == -2, "e_2 should have norm -2 in T_En"
+    assert int(v * G * v) == -2, "e_2 should have norm -2 in T_Co"
 
     s = reflection_matrix(v, G)
 
@@ -738,6 +783,8 @@ def run_all_tests():
         test_S_Co_lattice,
         test_T_Co_lattice,
         test_T_En_lattice,
+        test_T_dP_lattice,
+        test_S_En_lattice,
         test_Lambda_K3_lattice,
         test_lattice_signature,
         test_lattice_determinant,
