@@ -99,8 +99,9 @@ task3_2:
 # ==============================================================================
 
 task4_1:
-    @echo "=== Running Task 4.1: Coxeter Search ==="
-    sage computations/task4_1_coxeter_search.sage
+    @echo "=== Task 4.1: Coxeter Search — PURGED, awaiting rewrite ==="
+    @echo "Script task4_1_coxeter_search.sage was deleted (fabricated diagram)."
+    @exit 1
 
 # ==============================================================================
 # Task 5.1: Primitive Embedding and True Complement Gate
