@@ -5,6 +5,10 @@
 
 This file contains only project-specific operational details not covered by those files.
 
+NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts: memories, files, etc. DO NOT simply report artifacts and outputs in chat -- these will be lost as SOON as you compress them (they will be replaced with lossy summaries) or as soon as you hit a compactification threshold (too many tokens in a given session -- inevitable). 
+
+REMINDER: DO NOT REPORT ARTIFACTS AND FINDINGS IN CHAT. CREATE ARTIFACTS: MEMORIES, FILES, GIT COMMITS WITH MESSAGES.
+
 ## Environment
 
 - `sage` path: `/home/dzack/miniforge3/envs/sage/bin/sage`

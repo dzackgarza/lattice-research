@@ -106,13 +106,13 @@ $(-2)$-roots $\alpha$ of divisibility 1 (i.e., satisfying $\alpha \cdot L = \mat
 
 > **Source**: [@alexeev2024reflective, Definition 9.1.3]
 
-### C-even lattice
+### Coeven lattice
 
 A two-elementary lattice $S$ is **coeven** ($\delta = 0$) if the doubled dual $S^\dagger := S^*(2)$ is even, where $S^*(2)$ denotes the dual lattice with the bilinear form multiplied by 2.
 
 > **Source**: [@alexeev2024reflective, §9.2]
 
-### C-odd lattice
+### Coodd lattice
 
 A two-elementary lattice $S$ is **coodd** ($\delta = 1$) if the doubled dual $S^\dagger := S^*(2)$ is odd.
 
