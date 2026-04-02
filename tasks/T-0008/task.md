@@ -41,8 +41,8 @@ shared tool — reusable primitives with explicit contracts.
 2. **Eigenspace extraction**: Compute L⁺ = {v ∈ L | θv = v} and L⁻ = {v ∈ L | θv = -v}
    as sublattices
 
-3. **Signature verification**: For Λ_K3 with standard involution, L⁺ has signature (2,0)
-   and L⁻ has signature (0,20) — matching T_Co and S_Co
+3. **Signature verification**: For horizontal folding involution θ on Λ_K3, L⁺ ≅ T_Co
+   has signature (2,9), L⁻ ≅ S_Co has signature (1,10)
 
 4. **Discriminant action**: Compute induced action on A_L = L*/L; verify it respects
    quadratic form
