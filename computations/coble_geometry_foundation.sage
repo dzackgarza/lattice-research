@@ -1669,9 +1669,18 @@ def document_computation(description, inputs, outputs):
 # EXPORTS
 # ==============================================================================
 
+def A1_lattice():
+    """
+    A1 root lattice: < -2 > (rank 1, signature (0,1), det = -2)
+    """
+    return IntegralLattice(matrix(ZZ, [[-2]]))
+
+
+# ==============================================================================
+
 __all__ = [
     # Layer 1: Lattice
-    'rank_one_lattice', 'hyperbolic_plane', 'E8_lattice',
+    'rank_one_lattice', 'hyperbolic_plane', 'E8_lattice', 'A1_lattice',
     'S_Co_lattice', 'T_Co_lattice', 'T_En_lattice', 'Lambda_K3_lattice',
     'lattice_signature', 'lattice_determinant', 'discriminant_group',
     'discriminant_form', 'primitive_embedding', 'orthogonal_complement',
