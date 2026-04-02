@@ -1,1 +1,0 @@
-/home/dzack/pdfs/other/isotropic-orbits/content.md

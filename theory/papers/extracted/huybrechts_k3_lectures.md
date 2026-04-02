@@ -1,1 +1,0 @@
-/home/dzack/pdfs/other/huybrechts_k3_lectures/content.md

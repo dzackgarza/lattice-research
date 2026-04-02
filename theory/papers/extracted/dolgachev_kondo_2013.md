@@ -1,1 +1,0 @@
-/home/dzack/pdfs/other/dolgachev_kondo_2013/content.md

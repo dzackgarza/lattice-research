@@ -1,1 +1,0 @@
-/home/dzack/pdfs/arxiv/2206.01282/paper.md
