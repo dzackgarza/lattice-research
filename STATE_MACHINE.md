@@ -415,7 +415,75 @@ Parse `GOAL.md` into explicit research targets.
 
 ### Purpose
 
-Expand high-level goal items into long-term task trees.
+Expand high-level goal items into long-term task trees across four mandatory tiers.
+
+### Task tier taxonomy
+
+Every goal expansion must classify candidate tasks into one of four numbered tiers.
+The tier prefix is part of the task ID: `T-0XXX`, `T-1XXX`, `T-2XXX`, `T-3XXX`.
+
+#### Tier 0 — Tool construction (`T-0XXX`)
+
+These tasks centralize and formalize all nontrivial algorithms that higher-tier tasks
+depend on into shared functions, classes, wrappers, and reusable modules.
+They do **not** solve any mathematical problem.
+They build the toolkit that T-3 tasks will apply and combine.
+Each T-0 task must specify:
+
+* the exact algorithm or mathematical operation being wrapped,
+* the input/output contract (types, exactness requirements, edge cases),
+* which T-3 tasks will consume this tool,
+* the isolation strategy so tool code does not become entangled with task-specific logic.
+
+Examples: `is_primitive()`, discriminant form evaluators, lattice embedding constructors,
+orbit enumeration engines, Gram matrix builders, involution matrix generators.
+
+#### Tier 1 — Fixture discovery (`T-1XXX`)
+
+These tasks search the existing repo-local literature, references, and known results for
+concrete fixtures with pre-computed invariants that can serve as sanity-check data for
+tool correctness.
+They do **not** verify correctness themselves.
+They assemble the reference data that T-2 assertion gates will check against.
+Each T-1 task must specify:
+
+* the source (paper, theorem, known example) providing the fixture,
+* the exact invariant values or structural properties expected,
+* which T-0 tools the fixture is intended to test,
+* provenance chain back to the original reference.
+
+Examples: known $(r,a,\delta)$ invariants for specific lattices, published Gram matrices,
+verified orbit counts, established embedding indices.
+
+#### Tier 2 — Assertion gates (`T-2XXX`)
+
+These tasks write assertion functions, test harnesses, and validation gates that T-3
+tasks **must** pass before their results are accepted.
+They rely on T-0 shared tools and T-1 fixture data.
+They do **not** solve mathematical problems.
+They define the correctness criteria that T-3 outputs must satisfy.
+Each T-2 task must specify:
+
+* the exact property being asserted (e.g., primitivity, signature match, orbit count),
+* which T-0 tool implements the check,
+* which T-1 fixtures provide the expected values,
+* the failure mode (what happens when a T-3 task fails the gate).
+
+Examples: `assert_primitive()`, `assert_signature()`, `assert_orbit_count()`,
+`assert_discriminant_form()`, replay-and-compare harnesses.
+
+#### Tier 3 — Mathematical application (`T-3XXX`)
+
+These tasks apply and combine existing T-0 tools, validated by T-2 gates, against
+T-1 fixtures and new mathematical targets to produce proofs, computations, or
+conjectural evidence answering `GOAL.md` items.
+They are the only tier that may produce mathematical results.
+Each T-3 task must specify:
+
+* which T-0 tools it uses,
+* which T-2 gates it must pass,
+* which T-1 fixtures it validates against (if any),
+* the exact mathematical claim or computation target.
 
 ### Required actions
 
@@ -424,17 +492,22 @@ Expand high-level goal items into long-term task trees.
 * identify latent research programs hidden inside single lines
 * extract prerequisite objects, algorithms, references, and conventions
 * separate core goals from natural extensions
+* **classify every candidate into its correct tier before specification**
+* **identify every algorithm that a T-3 task depends on and promote it to a T-0 task**
+* **identify every known fixture that can validate a tool and promote it to a T-1 task**
+* **identify every correctness gate a T-3 result must pass and promote it to a T-2 task**
 
 ### Output
 
 A backlog of task candidates, each with:
 
 * exact objective
+* tier label (0 / 1 / 2 / 3)
 * justification from `GOAL.md`
-* dependencies
+* dependencies (including cross-tier dependencies)
 * risk level
 * expected deliverable type: theorem / exact computation / conjecture evidence /
-  documentation
+  documentation / shared tool / fixture data / assertion gate
 
 ### Rejection rule
 
@@ -444,13 +517,47 @@ A task candidate is invalid if it cannot be tied either:
 * to a necessary prerequisite of a `GOAL.md` item, or
 * to a natural extension explicitly justified in writing
 
+### Tier integrity rules
+
+* A T-3 task may **not** implement an algorithm that should be a T-0 shared tool.
+  Any nontrivial algorithm discovered during T-3 planning must be split into a T-0 task.
+* A T-0 task may **not** attempt to solve a mathematical problem.
+  Its deliverable is a reusable function, class, or module — not a theorem or computation.
+* A T-2 task may **not** be skipped for any T-3 task.
+  Every T-3 task must have at least one T-2 gate it must pass.
+* A T-3 task may not advance to IMPLEMENT until its required T-0 tools and T-2 gates
+  are at minimum in PRE_AUDIT, and its T-1 fixtures are identified.
+
+### Tier integrity rules
+
+* A T-3 task may **not** implement an algorithm that should be a T-0 shared tool.
+  Any nontrivial algorithm discovered during T-3 planning must be split into a T-0 task.
+* A T-0 task may **not** attempt to solve a mathematical problem.
+  Its deliverable is a reusable function, class, or module — not a theorem or computation.
+* A T-2 task may **not** be skipped for any T-3 task.
+  Every T-3 task must have at least one T-2 gate it must pass.
+* A T-3 task may not advance to IMPLEMENT until its required T-0 tools and T-2 gates
+  are at minimum in PRE_AUDIT, and its T-1 fixtures are identified.
+
 * * *
 
 ## 2. `TASK_SELECTION`
 
 ### Purpose
 
-Choose a subset of task candidates to activate.
+Choose a subset of task candidates to activate and enforce tier execution order.
+
+### Tier execution order
+
+Tasks must be activated in tier order.
+A task in tier N may not enter IMPLEMENT until the prerequisite tasks in tiers 0..N-1
+that it depends on have passed their own gates.
+
+* **T-0 (Tools)**: activated first. No tier dependencies.
+* **T-1 (Fixtures)**: activated in parallel with T-0. No tier dependencies.
+* **T-2 (Gates)**: activated after required T-0 tools exist and T-1 fixtures are identified.
+* **T-3 (Math)**: activated only after required T-0 tools, T-1 fixtures, and T-2 gates
+  are at minimum specified and in PRE_AUDIT.
 
 ### Selection criteria
 
@@ -459,10 +566,11 @@ Choose a subset of task candidates to activate.
 * isolation feasibility
 * auditability of output
 * dependency pressure from higher-priority goals
+* **tier readiness**: no T-3 task selected before its T-0/T-1/T-2 dependencies are ready
 
 ### Output
 
-Activated tasks `T-XXXX`.
+Activated tasks `T-NXXX` where N is the tier digit (0, 1, 2, or 3).
 
 ### Constraint
 

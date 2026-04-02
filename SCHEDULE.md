@@ -1,9 +1,6 @@
 # Daily Work Schedule
 
 Autonomous agents run on this rotation.
-Each block is a one-shot session (`ocm one-shot`) dispatched by `task-sched`. The agent
-reads AGENTS.md, does the block's work, and exits.
-No block exceeds one session.
 
 * * *
 

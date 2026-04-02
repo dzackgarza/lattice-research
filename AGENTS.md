@@ -41,11 +41,17 @@ Read-only, never modify:
 ### Directory organization
 
 The repo has this basic structure.
-Subdirectories of these parent directories are automatically allowed — no need to update
-this file when you create new folders inside computations/, notes/, papers/, or
-coble_research_lean/.
+Subdirectories of these durable content roots are automatically allowed — no need to
+update this file when you create new folders inside established roots such as
+computations/, notes/, papers/, coble_research_lean/, tasks/, or other repo-level
+directories that already have a stable semantic role.
 
-Only *root-level* orphan directories (not under these parents) require justification.
+The list below is the current baseline layout, not a frozen allowlist.
+Root-level additions are allowed when they create a clearly valuable, durable category
+of research material, tooling, or shared documentation that does not fit cleanly inside
+an existing root.
+What is forbidden is process sprawl: directories that exist only to mirror agent
+workflow stages like planning, auditing, logging, retries, or session summaries.
 
 ```
 research/
@@ -60,6 +66,8 @@ research/
   coble_research_lean/             # Lean 4 formalizations
   notes/                           # Mathematical notes (any subdirs allowed)
   papers/                          # PDFs and extracted text
+  tasks/                           # State-machine task artifacts
+  theory/                          # Shared theory notes, tool audits, and claim maps
 ```
 
 Task implementation artifacts live in `tasks/T-XXXX/implementation/` during the active
@@ -83,17 +91,20 @@ Each new directory is a new category of agent activity, not a new category of
 mathematical content.
 Once a directory exists, it attracts more files of the same type.
 
-The structural gate: **subdirectories of allowed parent directories are automatically
-allowed.** Create new folders inside computations/, notes/, papers/, or
-coble_research_lean/ freely.
-Only root-level orphan directories require justification.
-If you think you need a new root-level directory, you are wrong.
+The structural gate: **subdirectories of established durable roots are automatically
+allowed.** Create new folders inside computations/, notes/, papers/,
+coble_research_lean/, tasks/, theory/, or another already-established root freely.
+New root-level directories require justification, but they are not categorically banned.
+They must represent a durable content class, not an agent-process phase.
 The work either:
 - Serves a GOAL.md task → goes in `computations/` with `taskN_M_*` naming
 - Is a mathematical observation → goes in `notes/`
 - Is a proof sketch → goes in `notes/proofs/`
 - Is a Lean formalization → goes in `coble_research_lean/`
 - Is a paper → goes in `papers/`
+- Is a state-machine task artifact → goes in `tasks/`
+- Is durable shared theory/reference/tooling documentation → goes in a coherent shared
+  root such as `theory/`
 - Is operational context → goes in agent memory
 - Is change rationale → goes in a git commit message
 
@@ -118,6 +129,18 @@ Specifically:
   Broken work gets fixed or deleted, not preserved in a holding pen.
   directories either.
 
+When considering a new root-level directory, apply this test before creating or pruning
+it:
+- Does it hold durable mathematical content, shared documentation, task artifacts, or
+  vendored tooling that will still make sense next session?
+- Is there a coherent file class that would become harder to navigate if forced into an
+  existing root?
+- Is it avoiding process-sprawl names like `logs/`, `audits/`, `tmp/`, `scratch/`,
+  `experiments/`, or `status/`?
+
+If the answer is yes to the first two and no to the third, the directory is usually
+legitimate. The goal is organized semantics, not rigid name enforcement.
+
 ### Automatic pruning (every session startup)
 
 This is not advisory.
@@ -126,15 +149,22 @@ Run these deletions before any other work:
 - Delete all `.orig` files
 - Delete all `.sage.py` files (Sage preparse artifacts)
 - Delete all empty directories
-- Delete orphan root-level directories (directories at repo root not under
-  computations/, notes/, papers/, or coble_research_lean/)
+- Delete root-level process-debris directories created only for transient agent work
+  (for example scratch logs, temporary audit dumps, one-off status folders, duplicate
+  scaffolds, or abandoned staging trees)
 - Delete any top-level markdown file not in the allowed list (GOAL.md, REFERENCES.md,
   AGENTS.md, STATE_MACHINE.md, PROOF_AUDITING.md, SCHEDULE.md)
 
+Before deleting a root-level directory, classify it first:
+- Durable repo root: keep it
+- Process debris or duplicate scaffold: delete it
+- Mixed: move the durable contents to their correct location, then delete the debris
+
 Before deleting a directory, check if it contains uncommitted work that traces to a
 GOAL.md task.
-If so, move the relevant files to their correct location first, then delete
-the directory. Everything else: delete without ceremony.
+If so, move the relevant files to their correct location first, then delete the
+directory. Do not delete a root-level directory merely because it is absent from an
+old examples list.
 
 ### What does NOT belong in the repo
 
@@ -142,6 +172,28 @@ the directory. Everything else: delete without ceremony.
 - Markdown files restating computation output
 - Documents stale within one session
 - Bug report files — fix or delete broken code
+
+## Shared Code Boundary
+
+Trusted shared code should expose **small exact primitives**, not task-shaped verdicts.
+
+Good shared interfaces:
+- constructors and coercions for canonical mathematical objects
+- exact transforms such as embedding creation, composition, image/preimage, quotient, or
+  orthogonal complement
+- exact predicates such as `is_primitive`, `is_isotropic`, `is_isometric`
+- invariant extractors such as signature, discriminant form, Brown invariant, orbit
+  decomposition
+
+Bad shared interfaces:
+- task-shaped helpers like `assert_primitive_embedding`
+- wrappers whose main effect is to hide construction and validation inside one opaque
+  call
+- "verify_*" functions that silently absorb the mathematical burden that agent code
+  should compose and make auditable
+
+Gates may compose shared primitives against fixture data and expected values.
+The shared baseline itself should stay narrow, explicit, and inspectable.
 
 ## Foundation Library
 

@@ -1,30 +1,16 @@
-# Dependencies for Task T-0001
+# Dependencies
 
-## Prerequisite lemmas
+## Prerequisite Tasks
 
-- Nikulin's classification theorem for 2-elementary lattices
-- Orthogonal complement computation in unimodular lattices
-- Discriminant group and quadratic form computation
+- none
 
-## Code modules
+## Local Sources
 
-- `coble_geometry_foundation.sage`: Provides `SCo_lattice()` and `TCo_lattice()`
-  constructors
-- SageMath lattice module for invariant computations
+- computations/coble_geometry_foundation.sage
+- theory/oscar_lattices.md
+- theory/library_integration.md
 
-## References
+## Required Tools / Backends
 
-- `GOAL.md` (Task 1.2): Target invariant values
-- `REFERENCES.md`: Literature citations
-- Nikulin (1980): Formal definitions of $(r, a, \delta)$ invariants
-
-## Infrastructure
-
-- SageMath installation (`/home/dzack/miniforge3/envs/sage/bin/sage`)
-- `justfile` for running computations
-- Git for isolation (worktree)
-
-## Trusted base
-
-- `coble_geometry_foundation.sage` must be audited before task execution
-- SageMath lattice algorithms assumed correct for exact integer arithmetic
+- Mature exact backend from local theory docs
+- Shared-code boundary from `AGENTS.md`

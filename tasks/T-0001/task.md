@@ -1,56 +1,48 @@
-# Task T-0001: Foundation Verification (GOAL.md Task 1.2)
+# Task T-0001: Canonical Lattice Constructors And Coercions
+
+## Status
+
+Selected in Wave A. This is scaffolded for TASK_SPECIFICATION; detailed acceptance and
+failure criteria must be finalized before PRE_AUDIT.
+
+## Tier
+
+Tier 0.
 
 ## Origin
 
-GOAL.md Task 1.2: "Compute the Gram matrices for $S_{Co}$ and $T_{Co}$, and verify their
-$(r, a, \delta)$ invariants and genus cardinality using Nikulin's classification ($r >
-a$ check)."
+- Canonical backlog source: [tasks/goal_expansion.md](/home/dzack/research/tasks/goal_expansion.md)
+- GOAL linkage: Prerequisite for G1.2, G1.3, and G5.1
 
 ## Objective
 
-Verify the lattice invariants claimed in the literature for Coble surfaces:
-- $S_{\mathrm{Co}} \cong \langle 2 \rangle \oplus \langle -2 \rangle^{10} \cong (11, 11,
-  1)_1$, signature $(1, 10)$
-- $T_{\mathrm{Co}} = S_{\mathrm{Co}}^{\perp \Lambda_{\mathrm{K3}}} \cong (11, 11, 1)_2$,
-  signature $(2, 9)$
-- Both satisfy $q_S \cong q_{T} \cong (\mathbb{Z}/2\mathbb{Z})^{11}$ with $q_S = -q_T
-  \pmod{2\mathbb{Z}}$
+Build canonical lattice constructors and coercions for S_Co, T_Co, T_En, T_dP, Lambda_K3, and the standard U, A_1, E_8 factors, with exact conversion between the foundation library and Oscar objects.
 
-## Deliverable type
+## Parent Sufficiency Map
 
-Exact computation with certificate.
+Supplies the canonical lattice objects for downstream lattice-theoretic tasks; discharges no GOAL.md burden by itself.
 
-## Acceptance criteria
+## Deliverable Type
 
-1. Gram matrices for $S_{Co}$ and $T_{Co}$ computed exactly
-2. $(r, a, \delta)$ invariants match literature values: (11, 11, 1) for both
-3. Signature verification: (1,10) for $S_{Co}$, (2,9) for $T_{Co}$
-4. Discriminant groups computed: $A_{S_{Co}} \cong A_{T_{Co}} \cong
-   (\mathbb{Z}/2\mathbb{Z})^{11}$
-5. Quadratic forms $q_S$ and $q_T$ satisfy $q_S = -q_T \pmod{2\mathbb{Z}}$
-6. Genus classification: verify $r > a$ for both lattices
+shared tool
 
-## Non-goals
+## Current Dependencies
 
-- Deriving equation $F(x,y,z)$ (Task 1.1)
-- Computing embedding matrices (Task 1.3)
-- Isotropic orbit enumeration (Task 2.1)
+- Prerequisite tasks: none
+- Local sources:
+- computations/coble_geometry_foundation.sage
+- theory/oscar_lattices.md
+- theory/library_integration.md
 
-## Allowed dependencies
+## Acceptance Scaffold
 
-- `coble_geometry_foundation.sage` for lattice constructors
-- SageMath for lattice computations
-- Nikulin classification theorems (literature)
+- The task must stay within the objective and sufficiency map above.
+- Tier semantics from [STATE_MACHINE.md](/home/dzack/research/STATE_MACHINE.md) are binding.
+- Detailed acceptance criteria, non-goals, and failure conditions remain to be pinned in
+  TASK_SPECIFICATION.
 
-## Required conventions
+## Tier Constraints
 
-- Use standard basis $\{e_0, e_1, \dots, e_{10}\}$ where $e_0 = \pi^* L$ and $e_i = E_i$
-- Gram matrix: $Q_{S_{\mathrm{Co}}} = \text{diag}(2, -2, \dots, -2)$
-- $\Lambda_{\mathrm{K3}} \cong (22, 0, 0)_1$ standard K3 lattice
-
-## Failure conditions
-
-- Computed invariants don't match literature values
-- Discriminant group structure incorrect
-- Signature mismatch
-- Computation not exact (floating approximations used)
+- Must expose object-level exact primitives with explicit contracts.
+- Must not make or imply theorem-level claims.
+- Must remain reusable and not absorb task-specific mathematical burden.
