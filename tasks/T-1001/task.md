@@ -2,8 +2,7 @@
 
 ## Status
 
-Selected in Wave A. This is scaffolded for TASK_SPECIFICATION; detailed acceptance and
-failure criteria must be finalized before PRE_AUDIT.
+Selected in Wave A. TASK_SPECIFICATION complete as of 2026-04-02.
 
 ## Tier
 
@@ -11,36 +10,83 @@ Tier 1.
 
 ## Origin
 
-- Canonical backlog source: [tasks/goal_expansion.md](/home/dzack/research/tasks/goal_expansion.md)
-- GOAL linkage: Fixture support for T-0001, T-0002, T-0003, and T-0008
+- GOAL.md source: line 19 "Λ_K3 = U³ ⊕ E8² (rank 22, signature (22,0), unimodular)"
+- GOAL.md line 60 "Hyperbolic plane U" with Gram [[0,1],[1,0]]
+- GOAL.md reference: standard lattice theory (E8 root lattice, A1 = ⟨-2⟩)
+- Foundation library already constructs U, E8, A1, Λ_K3
 
 ## Objective
 
-Assemble standard lattice fixtures for U, A_1, E_8, and Lambda_K3 with published rank, signature, determinant, and isometry data.
+Assemble standard lattice fixtures:
+- U (hyperbolic plane): rank=2, signature=(1,1), det=-1
+- A₁ = ⟨-2⟩: rank=1, signature=(0,1), det=-2
+- E8 (root lattice): rank=8, signature=(0,8), det=1 (unimodular)
+- E8(-1): rank=8, signature=(0,8), det=1, even
+- E8(-2): rank=8, signature=(0,8), det=256 = 2⁸, even
+- Λ_K3 = U³ ⊕ E8²: rank=22, signature=(22,0), det=1 (unimodular)
 
-## Parent Sufficiency Map
-
-Provides known-good fixture data for the activated lattice primitives; does not verify correctness by itself.
+With published rank, signature, determinant, and isometry data from standard references.
 
 ## Deliverable Type
 
-fixture data
+fixture data — known-invariant objects for sanity-checking T-0 tools.
 
-## Current Dependencies
+## Acceptance Criteria
 
-- Prerequisite tasks: none
+1. **Fixture inventory**: Document each lattice with exact values:
+   - rank (Integer)
+   - signature (p,q) tuple
+   - determinant (Integer)
+   - is_even (Boolean)
+   - discriminant group structure (if not unimodular)
+
+2. **Reference source**: Each fixture value traces to a published source (textbook,
+   paper, or foundation library docstring)
+
+3. **Test harness**: Create Sage script that loads all fixtures and verifies each
+   invariant against expected values
+
+4. **Fixture file**: Save as YAML or JSON in theory/computations/fixtures/ for
+   downstream consumption
+
+5. **Import test**: T-1001 fixtures loadable without error
+
+## Non-Goals
+
+- Does not verify correctness (that's T-2001)
+- Does not prove isometry (just provides fixtures)
+- Does not compute orbits or group actions
+- Does not construct embeddings
+
+## Allowed Dependencies
+
+- Prerequisite tasks: none (independent fixture collection)
 - Local sources:
-- REFERENCES.md
-- theory/oscar_lattices.md
+  - REFERENCES.md (standard lattice theory references)
+  - theory/oscar_lattices.md (Oscar fixture conventions)
+  - computations/coble_geometry_foundation.sage (already constructs these)
 
-## Acceptance Scaffold
+## Required Conventions
 
-- The task must stay within the objective and sufficiency map above.
-- Tier semantics from [STATE_MACHINE.md](/home/dzack/research/STATE_MACHINE.md) are binding.
-- Detailed acceptance criteria, non-goals, and failure conditions remain to be pinned in
-  TASK_SPECIFICATION.
+- Fixture file format: YAML with keys matching lattice names
+- Each fixture entry includes: rank, signature, determinant, evenness, reference
+- Test script uses asserts against fixture values
 
-## Tier Constraints
+## Failure Conditions
 
-- Must collect fixture data only; no verification or theorem promotion.
-- Every expected value must be tied to a local source or directly inspected reference.
+1. If any fixture value doesn't match published source → fail
+2. If test harness fails on any fixture → fail
+3. If fixture file doesn't parse as valid YAML/JSON → fail
+4. If downstream T-0 tool can't load fixtures → fail
+
+## Parent Sufficiency Map
+
+Provides fixtures for:
+- T-0001: sanity-checks lattice constructors
+- T-0002: sanity-checks invariant computation
+- T-0003: sanity-checks embedding test cases
+- T-0008: sanity-checks involution test case (Λ_K3)
+- T-2001: gates constructor correctness
+- T-2008: gates involution correctness
+
+This is fixture collection only — no verification performed.
