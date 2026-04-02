@@ -32,8 +32,8 @@ Exact computation with certificate.
 
 ## Acceptance Criteria
 
-1. The orthogonal group O(q_T) is constructed explicitly as a matrix group acting on
-   (Z/2Z)^11
+1. The orthogonal group O(q_T) is constructed or generated explicitly (as a matrix
+   group, via transvection generators, or by another mathematically equivalent method)
 2. All 2^11 = 2048 elements of A_T are enumerated
 3. Isotropic elements are identified (q_T(x) = 0 mod 2Z)
 4. Orbits of isotropic elements under O(q_T) are computed using a standard group action
