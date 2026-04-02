@@ -1,323 +1,280 @@
-# Subgraph enumeration and orbits under Aut(G)
+# Subgraph orbits under Aut(G)
 
-**Purpose:** Enumerate subgraphs of a graph G, compute orbits under Aut(G), obtain quotient of subgraph poset by automorphism action.
+**Problem:** Given graph G with automorphism group Aut(G), enumerate subgraphs up to isomorphism (orbits under Aut(G) action).
+
+**Key insight:** This is the quotient of the subgraph poset by Aut(G).
 
 ---
 
 ## GAP: GRAPE package
 
-**Documentation:** https://gap-packages.github.io/grape/
-
-### Complete subgraphs (cliques)
+### Complete subgraphs with orbit representatives
 
 ```gap
 LoadPackage("grape");
 
-# Construct graph
-gamma := JohnsonGraph(5, 2);
+gamma := Graph(...);  # Your graph with gamma.group ≤ Aut(gamma)
 
-# All maximal complete subgraphs
-cliques := CompleteSubgraphs(gamma);
-# Returns: List of vertex sets, e.g., [[1,2,3,4], [1,2,5]]
+# Maximal complete subgraphs (one per orbit)
+cliques := CompleteSubgraphs(gamma, -1, 0);
+# alls=0: one representative per Aut(gamma)-orbit
 
-# Complete subgraphs of size k
-cliques_k := CompleteSubgraphs(gamma, k);
-# Returns: All complete subgraphs with exactly k vertices
+# All complete subgraphs of size k (one per orbit)
+cliques_k := CompleteSubgraphs(gamma, k, 0);
 
-# Complete subgraphs of size k, with orbit control
-# alls = 0: one representative per orbit
-# alls = 1: all subgraphs
-# alls = 2: orbit representatives + orbit info
-cliques_orbits := CompleteSubgraphs(gamma, k, 0);
-# Returns: One representative per Aut(gamma)-orbit
-
-cliques_orbits := CompleteSubgraphs(gamma, k, 2);
-# Returns: Record with orbit representatives and orbit data
+# All complete subgraphs of size k (full orbit data)
+cliques_k_full := CompleteSubgraphs(gamma, k, 2);
+# Returns record with:
+#   .reps: orbit representatives
+#   .sizes: orbit sizes
+#   .stabs: stabilizer orders
 ```
 
-### Complete subgraphs with vertex weights
+### Vertex-weighted complete subgraphs
 
 ```gap
-# Vertex weights (for weighted subgraph enumeration)
-weights := [1, 1, 2, 2, 3];  # One weight per vertex
+# Vertex weights
+wts := [1, 2, 1, 3, 2, ...];
 
-# Complete subgraphs where sum of weights = k
-cliques_weighted := CompleteSubgraphsOfGivenSize(gamma, k, alls, maxi, col, weights);
-# alls: orbit control (0/1/2)
-# maxi: true = only maximal subgraphs
-# col: use vertex coloring optimization (default true)
-# weights: vertex weights list
+# Complete subgraphs with total vertex weight = k
+cliques_weighted := CompleteSubgraphsOfGivenSize(gamma, k, 0, false, true, wts);
+# alls=0: orbit reps
+# maxi=false: not just maximal
+# col=true: use coloring optimization
+# wts: vertex weights
 ```
 
-### Maximum clique
+### Independent sets (via complement)
 
 ```gap
-# Find maximum clique (largest complete subgraph)
-max_clique := MaximumClique(gamma);
-# Returns: Vertex set of maximum clique
-
-# Clique number (size of largest clique)
-omega := CliqueNumber(gamma);
-# Returns: Integer
-```
-
-### Independent sets (complement of cliques)
-
-```gap
-# Independent set (no two vertices adjacent)
-indset := IndependentSet(gamma);
-
-# Independent set containing specific vertices
-indset := IndependentSet(gamma, required_vertices);
-
-# Independent sets = cliques in complement graph
+# Independent sets = cliques in complement
 gamma_complement := ComplementGraph(gamma);
-indep_cliques := CompleteSubgraphs(gamma_complement);
+indsets := CompleteSubgraphs(gamma_complement, k, 0);
 ```
 
 ---
 
 ## General subgraph orbits
 
-### Method 1: Induced subgraphs + Orbits
+### Method: Canonical labeling + hashing
 
 ```gap
 LoadPackage("grape");
+LoadPackage("digraphs");
 
-# Graph with automorphism group
 gamma := Graph(...);
 aut := AutomorphismGroup(gamma);
+verts := Vertices(gamma);
+n := Length(verts);
 
-# Enumerate all k-vertex subsets
+# Enumerate k-vertex subgraphs by orbit
 k := 4;
-subsets := Combinations(Vertices(gamma), k);
+orbit_reps := [];
+seen_canons := [];
 
-# Compute induced subgraphs
-induced_subgraphs := List(subsets, S -> InducedSubgraph(gamma, S));
+for subset in Combinations(verts, k) do
+    # Compute canonical form of induced subgraph
+    sub := InducedSubgraph(gamma, subset);
+    adj := AdjacencyMatrix(sub);
+    dig := Digraph(adj);
+    canon := BlissCanonicalLabelling(dig);
+    
+    # Check if we've seen this isomorphism type
+    if not canon in seen_canons then
+        Add(seen_canons, canon);
+        Add(orbit_reps, subset);
+    fi;
+od;
 
-# Compute orbits under Aut(gamma)
-# Use canonical labeling for isomorphism testing
+# orbit_reps: one representative per isomorphism class
+Length(orbit_reps);  # Number of non-isomorphic k-vertex subgraphs
+```
+
+### Method: Orbits under explicit group action
+
+```gap
+# If you have explicit Aut(gamma) generators
+aut := AutomorphismGroup(gamma);
+
+# All k-subsets
+subsets := Combinations(verts, k);
+
+# Orbits under Aut(gamma)
 orbits := Orbits(aut, subsets, OnSets);
 
-# Orbit representatives
+# Representatives
 reps := List(orbits, o -> o[1]);
 
-# Corresponding induced subgraphs
-rep_subgraphs := List(reps, S -> InducedSubgraph(gamma, S));
-```
+# Orbit sizes
+sizes := List(orbits, Length);
 
-### Method 2: RepresentativeAction for isomorphism testing
-
-```gap
-# Test if two subgraphs are in same orbit
-S1 := [1, 2, 3, 4];
-S2 := [2, 3, 5, 6];
-
-# Find g in aut mapping S1 to S2
-g := RepresentativeAction(aut, S1, S2, OnSets);
-
-if g <> fail then
-    Print("S1 and S2 are in same orbit\n");
-else
-    Print("S1 and S2 are in different orbits\n");
-fi;
-```
-
-### Method 3: OrbitsDomain for closed domains
-
-```gap
-# If you have a closed set of subgraphs (e.g., all k-cliques)
-cliques := CompleteSubgraphs(gamma, k, 1);  # All k-cliques
-
-# Orbits under automorphism group
-clique_orbits := Orbits(aut, cliques, OnSets);
-
-# Number of orbits
-Length(clique_orbits);
-
-# Representatives
-clique_reps := List(clique_orbits, o -> o[1]);
+# Total count (with multiplicity)
+Sum(sizes);  # = Binomial(n, k)
 ```
 
 ---
 
-## Quotient of subgraph poset by Aut(G)
+## Quotient poset structure
 
-The quotient poset has:
-- **Elements:** Aut(G)-orbits of subgraphs
-- **Order:** [H] ≤ [K] iff ∃ H' ∈ [H], K' ∈ [K] with H' ⊆ K'
+The quotient poset P/Aut(G) has:
+- **Elements:** Orbits [H] of subgraphs H ⊆ G
+- **Order:** [H] ≤ [K] iff ∃g ∈ Aut(G) with H ⊆ g·K
 
-### Computing the quotient poset
+### Computing cover relations
 
 ```gap
-LoadPackage("grape");
+# For each pair of orbit reps, check if one embeds in orbit of other
+IsSubgraphOfOrbit := function(gamma, aut, S1, S2)
+    # Does S1 embed into some g·S2 for g ∈ aut?
+    for g in aut do
+        S2_image := OnSets(S2, g);
+        if IsSubset(S2_image, S1) then
+            return true;
+        fi;
+    od;
+    return false;
+end;
 
-gamma := Graph(...);
-aut := AutomorphismGroup(gamma);
-n := OrderGraph(gamma);
-
-# Step 1: Enumerate subgraphs by size
-all_subgraph_orbits := [];
-for k in [1..n] do
-    subsets := Combinations(Vertices(gamma), k);
-    orbits := Orbits(aut, subsets, OnSets);
-    reps := List(orbits, o -> o[1]);
-    Add(all_subgraph_orbits, reps);
-od;
-
-# Step 2: Compute quotient poset relations
-# [H] ≤ [K] iff H is subgraph of some K' in orbit [K]
-quotient_relations := [];
-for i in [1..Length(all_subgraph_orbits)] do
-    for j in [i+1..Length(all_subgraph_orbits)] do
-        for H_rep in all_subgraph_orbits[i] do
-            for K_rep in all_subgraph_orbits[j] do
-                # Check if H_rep is subgraph of some K' in orbit of K_rep
-                for g in aut do
-                    K_image := OnSets(K_rep, g);
-                    if IsSubset(K_image, H_rep) then
-                        Add(quotient_relations, [i, j]);
-                        break;
-                    fi;
-                od;
-            od;
-        od;
+# Cover relations in quotient poset
+covers := [];
+for i in [1..Length(reps)] do
+    for j in [1..Length(reps)] do
+        if Length(reps[i]) = Length(reps[j]) - 1 then
+            if IsSubgraphOfOrbit(gamma, aut, reps[i], reps[j]) then
+                Add(covers, [i, j]);
+            fi;
+        fi;
     od;
 od;
 ```
 
-### Efficient quotient computation (using canonical labeling)
+---
+
+## Efficient enumeration by isomorphism type
+
+### Using nauty directly (via GRAPE)
+
+```gap
+LoadPackage("grape");
+
+# GRAPE uses nauty internally for canonical labeling
+# Set information records for orbit computation
+
+gamma := Graph(...);
+
+# Compute complete subgraphs with full orbit info
+result := CompleteSubgraphs(gamma, k, 2);
+
+# Access orbit data
+reps := result.representatives;  # Orbit reps
+sizes := result.orbit_sizes;     # Size of each orbit
+stabs := result.stabilizer_sizes; # Stabilizer order
+
+# Verify orbit-stabilizer: |orbit| × |stab| = |Aut(gamma)|
+for i in [1..Length(reps)] do
+    Print("Orbit ", i, ": size ", sizes[i], 
+          ", stab size ", stabs[i], "\n");
+od;
+```
+
+### Using bliss canonical forms (Digraphs package)
 
 ```gap
 LoadPackage("digraphs");
 
 # For each subgraph, compute canonical form
-canonical_reps := [];
-for k in [1..n] do
-    subsets := Combinations(Vertices(gamma), k);
-    orbits := Orbits(aut, subsets, OnSets);
-    
-    for orbit in orbits do
-        rep := orbit[1];
-        subgraph := InducedSubgraph(gamma, rep);
-        
-        # Convert to digraph for bliss canonical labeling
-        adj := AdjacencyMatrix(subgraph);
-        dig := Digraph(adj);
-        
-        # Canonical labeling
-        canon := BlissCanonicalLabelling(dig);
-        
-        Add(canonical_reps, [k, canon, orbit]);
-    od;
+# Two subgraphs are in same orbit iff same canonical form
+
+CanonicalForm := function(gamma, subset)
+    sub := InducedSubgraph(gamma, subset);
+    adj := AdjacencyMatrix(sub);
+    dig := Digraph(adj);
+    return BlissCanonicalLabelling(dig);
+end;
+
+# Group subgraphs by canonical form
+canon_to_reps := [];
+for subset in Combinations(verts, k) do
+    canon := CanonicalForm(gamma, subset);
+    if not canon in canon_to_reps then
+        canon_to_reps[canon] := [subset];
+    else
+        Add(canon_to_reps[canon], subset);
+    fi;
 od;
 
-# Subgraphs with same canonical form are in same orbit
-# Quotient poset elements = unique canonical forms
+# Each entry: list of subsets in same orbit
+orbit_lists := Values(canon_to_reps);
+Length(orbit_lists);  # Number of orbits
 ```
 
 ---
 
-## Weighted subgraph enumeration
-
-### Vertex-weighted subgraphs
-
-```gap
-# Assign weights to vertices
-weights := [1, 2, 1, 3, 2, ...];
-
-# Find subgraphs with total weight = W
-target_weight := 10;
-
-# Enumerate subsets with correct weight sum
-valid_subsets := Filtered(
-    Combinations([1..n], k),
-    S -> Sum(List(S, i -> weights[i])) = target_weight
-);
-
-# Compute orbits
-orbits := Orbits(aut, valid_subsets, OnSets);
-```
-
-### Edge-weighted subgraphs
-
-```gap
-# Encode edge weights as separate graphs
-gamma_w1 := Graph(...);  # Weight 1 edges
-gamma_w2 := Graph(...);  # Weight 2 edges
-
-# Find subgraphs preserving edge weight structure
-# (subgraph must have same weight pattern)
-```
-
----
-
-## Complete example: Orbit enumeration of 4-vertex subgraphs
+## Complete example: Petersen graph 4-vertex subgraphs
 
 ```gap
 LoadPackage("grape");
+LoadPackage("digraphs");
 
 # Petersen graph
 gamma := PetersenGraph();
 aut := AutomorphismGroup(gamma);
 verts := Vertices(gamma);
 
-# Enumerate all 4-vertex induced subgraphs
 k := 4;
 subsets := Combinations(verts, k);
-Print("Total ", Length(subsets), " subsets of size ", k, "\n");
+Print("Total subsets: ", Length(subsets), "\n");  # 210
 
-# Compute orbits under Aut(gamma)
+# Compute orbits
 orbits := Orbits(aut, subsets, OnSets);
-Print("Number of orbits: ", Length(orbits), "\n");
+Print("Number of orbits: ", Length(orbits), "\n");  # e.g., 6
 
-# Orbit representatives
-reps := List(orbits, o -> o[1]);
-
-# Display orbit sizes
+# Display orbit structure
 for i in [1..Length(orbits)] do
+    rep := orbits[i][1];
+    sub := InducedSubgraph(gamma, rep);
+    
+    # Compute invariants
+    deg_seq := SortedList(List(rep, v -> VertexDegree(gamma, v)));
+    edges := Size(Edges(sub));
+    
     Print("Orbit ", i, ": size ", Length(orbits[i]), 
-          ", representative: ", reps[i], "\n");
+          ", rep: ", rep,
+          ", deg seq: ", deg_seq,
+          ", edges: ", edges, "\n");
 od;
 
-# Compute induced subgraph for each representative
-rep_subgraphs := List(reps, S -> InducedSubgraph(gamma, S));
-
-# Classify by isomorphism type (using canonical forms)
-LoadPackage("digraphs");
-canonical_forms := [];
-for subgraph in rep_subgraphs do
-    adj := AdjacencyMatrix(subgraph);
+# Classify by isomorphism type (canonical form)
+canon_types := [];
+for orbit in orbits do
+    rep := orbit[1];
+    sub := InducedSubgraph(gamma, rep);
+    adj := AdjacencyMatrix(sub);
     dig := Digraph(adj);
     canon := BlissCanonicalLabelling(dig);
-    Add(canonical_forms, canon);
+    
+    if not canon in canon_types then
+        Add(canon_types, canon);
+    fi;
 od;
-
-# Subgraphs with same canonical form are isomorphic
-iso_types := Set(canonical_forms);
-Print("Number of isomorphism types: ", Length(iso_types), "\n");
+Print("Isomorphism types: ", Length(canon_types), "\n");
 ```
 
 ---
 
 ## Summary
 
-| Task | GAP function |
-|------|--------------|
-| Maximal cliques | `CompleteSubgraphs(gamma)` |
-| k-cliques | `CompleteSubgraphs(gamma, k)` |
-| k-clique orbit reps | `CompleteSubgraphs(gamma, k, 0)` |
-| Maximum clique | `MaximumClique(gamma)` |
-| Clique number | `CliqueNumber(gamma)` |
-| Independent sets | `IndependentSet(gamma)` |
-| Induced subgraph | `InducedSubgraph(gamma, V)` |
-| Subgraph orbits | `Orbits(aut, subsets, OnSets)` |
-| Orbit representative | `Representative(orbit)` |
-| Isomorphism test | `RepresentativeAction(aut, S1, S2, OnSets)` |
-| Canonical labeling | `BlissCanonicalLabelling(dig)` |
+| Function | Purpose |
+|----------|---------|
+| `CompleteSubgraphs(gamma, k, 0)` | k-cliques, one per orbit |
+| `CompleteSubgraphs(gamma, k, 2)` | k-cliques with full orbit data |
+| `CompleteSubgraphsOfGivenSize(..., wts)` | Weighted cliques |
+| `Orbits(aut, subsets, OnSets)` | General subgraph orbits |
+| `BlissCanonicalLabelling(dig)` | Canonical form for isomorphism test |
+| `RepresentativeAction(aut, S1, S2, OnSets)` | Test if S1, S2 in same orbit |
 
-**Recommended workflow:**
-1. Use `CompleteSubgraphs` for cliques with orbit control
-2. Use `Orbits(aut, subsets, OnSets)` for general subgraph orbits
-3. Use `BlissCanonicalLabelling` for isomorphism classification
-4. Quotient poset = orbit representatives with inclusion relations
+**Workflow:**
+1. For cliques: `CompleteSubgraphs(gamma, k, 0)` gives orbit reps directly
+2. For general subgraphs: `Orbits(aut, Combinations(verts, k), OnSets)`
+3. For isomorphism classification: `BlissCanonicalLabelling`
+4. Quotient poset: orbit reps with inclusion check via `RepresentativeAction`
