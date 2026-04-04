@@ -5,7 +5,7 @@ activation_wave: A
 isolation: isolated worktree required before implementation
 allowed_paths:
   - tasks/T-2006/**
-  - computations/**
+  - src/**
   - theory/**
   - justfile
 notes:

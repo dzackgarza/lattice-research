@@ -2,7 +2,7 @@
 
 **Source:** https://github.com/m-dawes/buildings
 
-**Local:** `/home/dzack/research/buildings.sage`
+**Local:** `/home/dzack/research/src/external/buildings.sage`
 
 **Author:** Matthew Dawes (same as Indefinite.jl and arXiv:2205.10601)
 
@@ -13,7 +13,7 @@
 ## Usage
 
 ```python
-load("buildings.sage")
+load("src/external/buildings.sage")
 
 H = SubGp_A2t()
 H.building()
@@ -22,7 +22,7 @@ H.building()
 ### SubGp_A2t — Õ⁺(2U + A₂)
 
 ```python
-load("buildings.sage")
+load("src/external/buildings.sage")
 
 H = SubGp_A2t()
 H.building()

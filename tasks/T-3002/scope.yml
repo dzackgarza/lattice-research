@@ -13,7 +13,7 @@ allowed_paths:
   - tasks/T-2001/**
   - tasks/T-2002/**
   - tasks/T-2009/**
-  - computations/**
+  - src/**
   - theory/**
   - notes/**
   - justfile

@@ -14,6 +14,17 @@ exit conditions
 
 This file contains only project-specific operational details not covered by those files.
 
+## Worktree Policy
+
+- **At most one worktree is active at any time.** Do not create a second worktree while
+  one exists. Check with `git worktree list` before creating.
+- Every worktree branches cleanly off the current tip of `main`:
+  `git worktree add .worktrees/<name> -b <name> main`
+- When the task is done (merged or abandoned), remove the worktree immediately:
+  `git worktree remove .worktrees/<name> && git branch -d <name>`
+- Never leave a stale worktree behind. If a worktree exists at session startup with no
+  active task, remove it.
+
 NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts:
 memories, files, etc.
 DO NOT simply report artifacts and outputs in chat -- these will be lost as SOON as you
@@ -22,6 +33,8 @@ compactification threshold (too many tokens in a given session -- inevitable).
 
 REMINDER: DO NOT REPORT ARTIFACTS AND FINDINGS IN CHAT. CREATE ARTIFACTS: MEMORIES,
 FILES, GIT COMMITS WITH MESSAGES.
+
+Also: never "repair" code that violates audits. This poisons context and leads to "polishing" and "whittling" behaviour of bad code into minimally passing code. Delete poisonous code entirely, after reading it into your own context, and use the IDEAS to delegate a complete ground-up rewrite of the poisoned parts. Motto: excise/purge and rewrite, never iterate on poisoned code.
 
 ## Environment
 
@@ -43,7 +56,7 @@ Read-only, never modify:
 The repo has this basic structure.
 Subdirectories of these durable content roots are automatically allowed — no need to
 update this file when you create new folders inside established roots such as
-computations/, notes/, papers/, coble_research_lean/, tasks/, or other repo-level
+computations/, src/, notes/, papers/, coble_research_lean/, tasks/, or other repo-level
 directories that already have a stable semantic role.
 
 The list below is the current baseline layout, not a frozen allowlist.
@@ -62,7 +75,9 @@ research/
   PROOF_AUDITING.md                # Canonical auditing standards (see above)
   SCHEDULE.md                      # Daily autonomous agent rotation
   justfile                         # All computation recipes
-  computations/                    # Computation scripts (any subdirs allowed)
+  computations/                    # Active subagent computation workspace
+  src/                             # Trusted first-party computation core
+    external/                      # Vendored/external code; excluded from repo QC
   coble_research_lean/             # Lean 4 formalizations
   notes/                           # Mathematical notes (any subdirs allowed)
   papers/                          # PDFs and extracted text
@@ -71,9 +86,11 @@ research/
 ```
 
 Task implementation artifacts live in `tasks/T-XXXX/implementation/` during the active
-task lifecycle (per STATE_MACHINE.md artifact model).
-Finalized computation scripts that are reusable across tasks may be copied to
-`computations/` with `taskN_M_*` naming after archiving.
+task lifecycle (per STATE_MACHINE.md artifact model). Active task and subagent
+computation work belongs in `computations/`. Finalized computation scripts or reusable
+shared code may be admitted into `src/` once they become trusted first-party
+infrastructure.
+Vendored or third-party code goes in `src/external/` and is excluded from repo QC.
 There is no separate `scripts/`, `tests/`, or `code/` directory because every script IS
 a computation, IS a test (it must assert its claims), and IS a script.
 These are not distinct categories.
@@ -92,12 +109,14 @@ mathematical content.
 Once a directory exists, it attracts more files of the same type.
 
 The structural gate: **subdirectories of established durable roots are automatically
-allowed.** Create new folders inside computations/, notes/, papers/,
+allowed.** Create new folders inside computations/, src/, notes/, papers/,
 coble_research_lean/, tasks/, theory/, or another already-established root freely.
 New root-level directories require justification, but they are not categorically banned.
 They must represent a durable content class, not an agent-process phase.
 The work either:
-- Serves a GOAL.md task → goes in `computations/` with `taskN_M_*` naming
+- Serves as active subagent-written computation or verification work → goes in
+  `computations/`
+- Serves as admitted reusable computation code → goes in `src/`
 - Is a mathematical observation → goes in `notes/`
 - Is a proof sketch → goes in `notes/proofs/`
 - Is a Lean formalization → goes in `coble_research_lean/`
@@ -112,7 +131,9 @@ There is no other category.
 Specifically:
 - There is no `tests/` — every computation script asserts its claims or it is broken.
   The script IS the test.
-- There is no `scripts/` — every file in `computations/` is a script.
+- There is no `scripts/` — `src/` is the trusted shared code surface,
+  `computations/` is the active computation workspace, and task-local computation
+  artifacts live under `tasks/T-XXXX/computations/` when required by the state machine.
 - Git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
 - There is at most one active plan, and completed plans are archived (deleted; git
@@ -175,29 +196,90 @@ old examples list.
 
 ## Shared Code Boundary
 
-Trusted shared code should expose **small exact primitives**, not task-shaped verdicts.
+Trusted shared code must be a **semantic mathematical base** built from explicit nouns
+with methods, not a flat bag of helper functions.
 
-Good shared interfaces:
-- constructors and coercions for canonical mathematical objects
-- exact transforms such as embedding creation, composition, image/preimage, quotient, or
-  orthogonal complement
-- exact predicates such as `is_primitive`, `is_isotropic`, `is_isometric`
-- invariant extractors such as signature, discriminant form, Brown invariant, orbit
-  decomposition
+### Required public vocabulary
 
-Bad shared interfaces:
+- `FreeBilinearModule`
+- `FreeBilinearModuleElement`
+- `Lattice`
+- `LatticeElement`
+- `LatticeMorphism`
+- `DiscriminantGroup`
+- `DiscriminantGroupElement`
+- `DiscriminantGroupMorphism`
+
+### Design rules
+
+- Constructors, coercions, exact transforms, predicates, and invariant extractors live
+  on these nouns as methods or class methods.
+- If a public operation takes a lattice, lattice element, discriminant group, or
+  morphism as its primary argument, that is a design smell. Attach the verb to the
+  noun unless the operation is a true interop bridge.
+- Never add wrappers whose only effect is renaming or forwarding to a native upstream
+  method on the same object in the same language.
+- Public wrappers are allowed only when they hide language interop or expose new exact
+  functionality that upstream does not already provide.
+- Raw matrices, vectors, dicts, and lists may appear inside implementations and backend
+  bridges, but they are not the public mathematical vocabulary.
+- Shared code should compose upstream exact implementations rather than restating them.
+
+### Good shared interfaces
+
+- canonical constructors such as `Lattice.hyperbolic_plane()`
+- exact methods such as `lattice.discriminant_group()` or
+  `element.inner_product(other)`
+- exact transforms such as `morphism.image()` or
+  `lattice.orthogonal_complement(sublattice)`
+
+### Bad shared interfaces
+
 - task-shaped helpers like `assert_primitive_embedding`
-- wrappers whose main effect is to hide construction and validation inside one opaque
-  call
-- "verify_*" functions that silently absorb the mathematical burden that agent code
+- wrapper aliases like `lattice_determinant(L)` when `L.determinant()` already exists
+- free functions like `norm(v, L)` or `discriminant_group(L)` whose receiver is already
+  a mathematical noun
+- `verify_*` functions that silently absorb the mathematical burden that agent code
   should compose and make auditable
 
-Gates may compose shared primitives against fixture data and expected values.
-The shared baseline itself should stay narrow, explicit, and inspectable.
+Gates may compose shared primitives against fixture data and expected values. The
+shared baseline itself should stay narrow, explicit, inspectable, and noun-based.
+
+### When the base is insufficient
+
+If a task cannot be expressed cleanly using the public noun vocabulary above, stop and
+surface that as a task-boundary failure.
+
+Examples of insufficiency:
+- the required verb belongs on `Lattice`, `LatticeElement`, `DiscriminantGroup`, or a
+  morphism noun, but no such exact method exists;
+- the task is drifting into repeated raw matrix or vector manipulation because the base
+  lacks the right semantic object;
+- multiple tasks would need the same foundational operation or convention.
+
+Do not solve this inside the task with ad hoc helpers. Send it back to
+`STATE_MACHINE.md` for trusted-base admission and task redesign.
+
+## Testing Non-Python Languages
+
+For computations in Julia, GAP, or other non-Python languages, use the language's
+native testing framework and invoke it from Python/Sage rather than reimplementing
+assertions in a wrapper:
+
+- **GAP**: use SageMath's built-in GAP interface (`gap(...)`, `libgap`) — assertions
+  live in GAP code, Sage just calls and checks the return value.
+- **Julia**: use `PyCall.jl` from Julia or `juliacall` from Python to bridge; wire
+  Julia's `Test` stdlib so failures surface as exceptions to the Python caller.
+- **Other languages**: same pattern — native test framework + thin Python/Sage caller
+  that fails loudly on non-zero exit or exception.
+
+Never port language-native logic into a Python shim just to make it "testable." The
+native code is the test.
 
 ## Foundation Library
 
-All lattice constructions must use `coble_geometry_foundation.sage` constructors.
+All lattice constructions must use `src/coble_geometry_foundation.sage`
+constructors.
 Never construct lattices with ad-hoc `diagonal_matrix()` calls.
 The legacy `coble_geometry.sage` must not be loaded.
 

@@ -23,7 +23,9 @@ Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 
 | Directory | Contents |
 | --- | --- |
-| `computations/` | Foundation library (`coble_geometry_foundation.sage`), tests, and task scripts (`taskN_M_*.sage`) |
+| `computations/` | Active subagent computation workspace for task scripts and exact verification runs |
+| `src/` | Trusted first-party computation core, including `coble_geometry_foundation.sage` |
+| `src/external/` | Vendored/external computation code excluded from repo QC |
 | `notes/` | Mathematical research notes, literature connections, task-specific analysis |
 | `notes/proofs/` | Proof sketches (one per GOAL.md subtask) |
 | `papers/` | Acquired literature (PDFs and extracted text) |
@@ -31,9 +33,8 @@ Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 
 ## Project status
 
-All prior task scripts were deleted as fraudulent (print-statement theater with zero or
-self-validating assertions).
-The foundation library and its tests are the only surviving computation artifacts.
+All prior fraudulent task scripts were deleted. Trusted shared infrastructure now lives
+in `src/`; new task and subagent computation work belongs in `computations/`.
 
 Tasks 1.1--6.1 are UNVERIFIED. Proof notes in `notes/proofs/` contain mathematical
 reasoning but their "verified" claims traced to deleted scripts.

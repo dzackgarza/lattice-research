@@ -2,7 +2,9 @@
 
 ## Status
 
-Selected in Wave A. TASK_SPECIFICATION complete as of 2026-04-02.
+Selected in Wave A. REPLAN_REQUIRED as of 2026-04-03 because
+`src/coble_geometry_foundation.sage` requires the separate prerequisite task
+`T-0011` before this task may rely on or extend any admitted shared-base surface.
 
 ## Tier
 
@@ -69,9 +71,10 @@ shared tool — reusable primitives with explicit contracts.
 
 ## Allowed Dependencies
 
-- Prerequisite tasks: none (this is foundational)
+- Prerequisite tasks: T-0011 (shared-base decontamination and trusted-base admission)
 - Local sources:
-  - computations/coble_geometry_foundation.sage (existing, must extend)
+  - src/coble_geometry_foundation.sage (admitted version only; blocked pending
+    T-0011)
   - theory/oscar_lattices.md (Oscar API conventions)
   - theory/library_integration.md (layer organization)
 

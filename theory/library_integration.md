@@ -214,7 +214,7 @@ G_image, phi = image_centralizer_in_Oq(T_En_f)
 **Doc:** `/home/dzack/research/theory/buildings.md` → Main classes, building()
 
 ```python
-load("buildings.sage")
+load("src/external/buildings.sage")
 
 # For lattice of signature (2,n), compute Tits' building
 # This gives orbits of isotropic lines AND planes

@@ -61,6 +61,66 @@ Reject any script exhibiting:
   `coble_geometry_foundation.sage` is canonical
 - **Output files**: `*_results.txt`, `*_output.txt` — the script itself is the artifact
 
+### 3A. Structural QC Warning Classes
+
+These QC findings are **blocking warning classes**.
+They do not replace the audit standard, but they are not decorative:
+any such warning blocks acceptance until it is reviewed rigorously against this
+document and `STATE_MACHINE.md`.
+
+- **`print(...)` without f-string interpolation**: prints should expose results, not
+  claim or narrate status
+- **Self-reinforcing language**: `verified`, `complete`, `completed`, `passed`,
+  `confirmed`, `success`, `done`, `finished`; results should stand for themselves
+- **Functions with no asserts**: mathematical code should verify assumptions and
+  obligations explicitly
+- **Functions operating on raw types**: code should operate on meaningful mathematical
+  nouns with meaningful mathematical verbs
+- **Free functions over mathematical nouns**: if a public function takes a lattice,
+  lattice element, discriminant group, or morphism as its primary argument, review
+  whether it should be a method on `Lattice`, `LatticeElement`, `DiscriminantGroup`, or
+  the corresponding morphism noun instead
+- **Wrapper one-liners over native methods**: reject public helpers that only rename or
+  forward to an upstream exact method already available on the same object in the same
+  language, unless they are genuine interop bridges
+- **`matrix()` / `Matrix()` / `matix()` construction**: constructions should be
+  semantic, with fixed conventions, using Sage internals rather than ad-hoc assembly
+- **`for` loops**: likely places where proof is substituted by partial enumeration
+- **Diagonal assembly**: `diagonal()`, `diagonal_matrix()`, `block_diagonal_matrix()`,
+  or similar raw diagonal assembly should be replaced by direct sums of semantic pieces
+- **`gram_matrix()` usage**: review whether the code is bypassing semantic functions and
+  rebuilding the mathematics manually from matrices
+- **`hasattr(...)`**: horrible pattern; use types, assertions, and `isinstance` only as
+  a narrowing aid where unavoidable, not attribute-probing
+- **`try` / `except`**: mathematically correct code should not rely on exception control
+  flow
+- **Optional types and `None` checks**: inputs should be precise and predictable;
+  optional variants should be explicit, not sentinel-driven
+- **`if` statements**: prefer exhaustive case or `match`-style constructions over
+  hidden non-exhaustive splits
+- **`raise` statements**: assert the mathematical obligation instead of constructing
+  exceptions by hand
+- **`isinstance(...)`**: do not allow polymorphic raw inputs where strict composable
+  types should be enforced
+- **Nested `for` loops**: especially strong signals of inefficient numerical search
+  replacing proof
+- **`continue`**: hints that an imperative loop should have been filtered semantically
+  upstream
+- **Boolean assignment staging**: `x = True` / `x = False`; booleans should be outputs
+  of decisions or quantified predicates
+- **`append(...)`**: likely imperative enumeration or builder-style search; prefer
+  generators or comprehensions
+- **`None` usage**: optional outputs are not mathematically meaningful in final APIs
+- **Imperative empty builders**: `x = []`, `x = {}`, `x = set()`, `x = list()`,
+  `x = dict()` are likely braindead iterative builders instead of semantic
+  comprehensions or generators
+- **Raw dict usage**: should be replaced by a pydantic type or another explicit
+  structured mathematical record
+- **Numerical constants**: arbitrary constants often signal bounded search or uncited
+  normalization choices and require explicit justification
+- **`__all__` manipulation**: allow importing everything and rely on `_name`
+  conventions for private helpers instead of export bookkeeping
+
 ### 4. File Structure
 
 - [ ] Header comment states which GOAL.md task it verifies (2-3 lines, not 60-line
@@ -108,7 +168,8 @@ agent self-reports.
 ### Required Evidence
 
 A result is UNVERIFIED unless:
-- [ ] A script in `computations/` asserts the claimed result
+- [ ] A script in `computations/`, `src/`, or a task-local
+  `tasks/T-XXXX/computations/` artifact asserts the claimed result
 - [ ] The script runs via `just` and exits 0
 - [ ] Every assertion traces to an external source
 

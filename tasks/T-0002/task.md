@@ -70,7 +70,7 @@ shared tool — reusable primitives with explicit contracts.
 
 - Prerequisite tasks: T-0001 (uses its lattice constructors)
 - Local sources:
-  - computations/coble_geometry_foundation.sage (extend with invariants)
+  - src/coble_geometry_foundation.sage (extend with invariants)
   - theory/mathematical_background.md (Nikulin formulas)
   - theory/oscar_lattices.md (Oscar API for quadratic forms)
 

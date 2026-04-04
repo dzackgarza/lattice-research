@@ -840,13 +840,14 @@ The compactification is toroidal over the 0-cusps 2 and 4, the 1-cusps adjacent 
 
 ## Bibliography
 
-Local markdown extractions should be symlinked in `refs/` directory. Run:
+Repo-local markdown extractions should live in `theory/literature/`.
+If the canonical extraction lives elsewhere on disk, symlink or copy it there.
 
 ```bash
 cd /home/dzack/research/theory
-mkdir -p refs
-ln -sf ../../pdfs/other/nsf_10653059/content.md refs/alexeev2024reflective.md
-# Find and link others: aegs, huybrechts, nikulin
+mkdir -p literature
+ln -sf ../../pdfs/other/nsf_10653059/content.md literature/alexeev2024reflective.md
+# Add other extractions here as they are acquired or restored.
 ```
 
 - **[@dawes2021baily]**: M. Dawes, *The Baily-Borel compactification of a family of orthogonal modular varieties*, arXiv:2108.06236, 2021.  
@@ -859,7 +860,7 @@ ln -sf ../../pdfs/other/nsf_10653059/content.md refs/alexeev2024reflective.md
   Extraction: `/home/dzack/pdfs/other/nsf_10653059/content.md`
 
 - **[@aegs2023compact]**: V. Alexeev, P. Engel, D. Zack Garza, and M. Schaffler, *Compact Moduli of Enriques Surfaces with a Numerical Polarization of Degree 2*, arXiv:2208.10383, 2023.  
-  Extraction: locate via `find /home/dzack -name "*aegs*" -o -name "*enriques*"`
+  Extraction: `/home/dzack/research/theory/literature/aegs_2023.md`
 
 - **[@beauville1983varietes]**: A. Beauville, *Variétés Kähleriennes dont la première classe de Chern est nulle*, J. Diff. Geom. 18 (1983), 755–782.
 
@@ -870,7 +871,7 @@ ln -sf ../../pdfs/other/nsf_10653059/content.md refs/alexeev2024reflective.md
 - **[@friedman1984new]**: R. Friedman, *A New Proof of the Global Torelli Theorem for K3 Surfaces*, Ann. of Math. 120 (1984), no. 2, 237–269.
 
 - **[@huybrechts2016lectures]**: D. Huybrechts, *Lectures on K3 Surfaces*, Cambridge Studies in Advanced Mathematics 158, Cambridge University Press, 2016.  
-  Extraction: locate via `find /home/dzack -name "*huybrechts*"`
+  Extraction: `/home/dzack/research/theory/literature/huybrechts_k3_lectures.md`
 
 - **[@milnor1973symmetric]**: J. Milnor and D. Husemoller, *Symmetric Bilinear Forms*, Springer, 1973. (Milgram's formula appears in Appendix 4; cited as [MH] in Bruinier.)
 

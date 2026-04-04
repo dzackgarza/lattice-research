@@ -37,8 +37,8 @@
   invariant and coinvariant lattices, and equivariant extensions.
 - Use GAP only for finite group actions on discriminant groups and other finite exact
   orbit computations.
-- Use Indefinite.jl and `buildings.sage` for indefinite orbit problems such as
-  primitive isotropic lines and planes.
+- Use Indefinite.jl and `buildings.sage` for indefinite orbit problems such as primitive
+  isotropic lines and planes.
 - Use CARAT only for finite positive-definite auxiliary group problems; do not route
   indefinite rank-11 or rank-22 work through CARAT.
 - Do not implement ad hoc Nikulin, Vinberg, orbit, or involution algorithms when the
@@ -61,7 +61,8 @@
 
 | ID | Objective | Parent sufficiency | Dependencies | Risk | Deliverable |
 | --- | --- | --- | --- | --- | --- |
-| `T-0001` | Build canonical lattice constructors and coercions for `S_Co`, `T_Co`, `T_En`, `T_dP`, `Lambda_K3`, and the standard `U`, `A_1`, `E_8` factors, with exact conversion between the foundation library and Oscar objects | Supplies the canonical inputs for every lattice-theoretic task; discharges no `GOAL.md` burden by itself | `computations/coble_geometry_foundation.sage`, `theory/oscar_lattices.md`, `theory/library_integration.md` | Low | shared tool |
+| `T-0011` | Decontaminate `src/coble_geometry_foundation.sage` and request trusted-base admission for the exact shared primitive surface that survives the rewrite | Legalizes no `GOAL.md` burden by itself; it is the prerequisite that determines whether any lattice-tier task may reuse the shared base at all | `src/coble_geometry_foundation.sage`, `AGENTS.md`, `STATE_MACHINE.md`, `PROOF_AUDITING.md`, `theory/library_integration.md`, `theory/oscar_lattices.md`, `theory/gap_orbits.md`, `theory/indefinite_jl.md`, `theory/buildings.md` | High | infrastructure prerequisite |
+| `T-0001` | Build canonical lattice constructors and coercions for `S_Co`, `T_Co`, `T_En`, `T_dP`, `Lambda_K3`, and the standard `U`, `A_1`, `E_8` factors, with exact conversion between the foundation library and Oscar objects | Supplies the canonical inputs for every lattice-theoretic task; discharges no `GOAL.md` burden by itself | `src/coble_geometry_foundation.sage`, `theory/oscar_lattices.md`, `theory/library_integration.md` | Low | shared tool |
 | `T-0002` | Expose invariant and predicate primitives for rank, signature, determinant, `(r,a,delta)`, discriminant forms, Brown invariants, divisibility, and isotropicity in 2-elementary lattices | Supplies the invariant layer needed by `G1.2`, `G2.*`, and `G5.1` | `T-0001`, Nikulin-backed formulas in `theory/mathematical_background.md`, `theory/oscar_lattices.md` | Low | shared tool |
 | `T-0003` | Expose composable embedding primitives such as embedding creation, composition, image extraction, orthogonal complement recovery, matrix export, and `is_primitive(...)`, backed by Oscar/Hecke | Supplies the exact embedding infrastructure for `G1.3`, `G5.1`, and the finite-quotient portion of `G3.1` | `T-0001`, `theory/oscar_lattices.md`, `theory/library_integration.md` | Medium | shared tool |
 | `T-0004` | Expose finite discriminant-group action primitives: generator import, isotropic-set construction, orbit decomposition, stabilizer computation, and representative transport in GAP | Supplies the finite exact engine for `G2.1` and the finite discriminant-image pieces of `G3.1` | `T-0002`, `theory/gap_orbits.md` | Low | shared tool |
@@ -129,7 +130,8 @@
 
 - Activate `T-0004`, `T-1003`, `T-2004`
 - Then activate `T-3005`, `T-3006`
-- Activate `T-3004` only after the intermediate lattice models are fixed in the task spec
+- Activate `T-3004` only after the intermediate lattice models are fixed in the task
+  spec
 
 ### Wave C: indefinite, Coxeter, and arithmetic-group work
 
@@ -146,11 +148,13 @@
 
 ## Immediate Notes for TASK_SELECTION
 
-- `G1.2`, `G1.3` (direct `Lambda_K3` embedding), `G2.1`, `G2.2`, and `G5.1` are the
-  best first wave: exact, source-backed, and close to the current foundation library.
+- `G1.2`, `G1.3` (direct `Lambda_K3` embedding), `G2.1`, `G2.2`, and `G5.1` are the best
+  first wave: exact, source-backed, and close to the current foundation library.
 - `G3.1` and `G6.1` are intentionally split because the current `GOAL.md` wording hides
   theorem-level burden that must not be smuggled through as "implementation details."
-- `G3.2` must route through indefinite-lattice tooling. Any plan that reduces it to
-  finite GAP orbit enumeration on a guessed finite subset fails pre-audit.
-- `G4.1` is valid only if the root/chamber data are generated from the lattice. Hand-fed
-  Coxeter matrices or copied adjacency tables are outside the accepted claim surface.
+- `G3.2` must route through indefinite-lattice tooling.
+  Any plan that reduces it to finite GAP orbit enumeration on a guessed finite subset
+  fails pre-audit.
+- `G4.1` is valid only if the root/chamber data are generated from the lattice.
+  Hand-fed Coxeter matrices or copied adjacency tables are outside the accepted claim
+  surface.

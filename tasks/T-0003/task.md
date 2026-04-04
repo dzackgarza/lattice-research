@@ -64,7 +64,7 @@ shared tool — reusable primitives with explicit contracts.
 
 - Prerequisite tasks: T-0001 (uses its lattice constructors)
 - Local sources:
-  - computations/coble_geometry_foundation.sage (extend with embeddings)
+  - src/coble_geometry_foundation.sage (extend with embeddings)
   - theory/oscar_lattices.md (Oscar embedding API)
   - theory/library_integration.md
 

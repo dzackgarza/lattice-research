@@ -2,11 +2,12 @@
 
 ## Prerequisite Tasks
 
-- none
+- T-0011
 
 ## Local Sources
 
-- computations/coble_geometry_foundation.sage
+- src/coble_geometry_foundation.sage (admitted version only; blocked pending
+  T-0011)
 - theory/oscar_lattices.md
 - theory/library_integration.md
 

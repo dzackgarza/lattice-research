@@ -67,7 +67,7 @@ shared tool — reusable primitives with explicit contracts.
 
 - Prerequisite tasks: T-0003 (uses embedding primitives for eigenspace extraction)
 - Local sources:
-  - computations/coble_geometry_foundation.sage (extend with involution)
+  - src/coble_geometry_foundation.sage (extend with involution)
   - theory/oscar_lattices.md (Oscar eigenspace computation)
   - theory/library_integration.md
 

@@ -8,7 +8,7 @@ allowed_paths:
   - tasks/T-0007/**
   - tasks/T-1007/**
   - tasks/T-2006/**
-  - computations/**
+  - src/**
   - theory/**
   - notes/**
   - justfile

@@ -9,7 +9,7 @@ allowed_paths:
   - tasks/T-3002/**
   - tasks/T-3003/**
   - tasks/T-3011/**
-  - computations/**
+  - src/**
   - theory/**
   - justfile
 allowed_modules:

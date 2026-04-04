@@ -187,6 +187,45 @@ reduction of the original burden: clarified claim, split hidden major work into 
 tasks, fixed trusted-base scope, or discharged a parent prerequisite.
 Replan churn without burden reduction is failure.
 
+### R11. Base-insufficiency escalation is mandatory
+
+If faithful execution of a task reveals that the shared semantic base is insufficient,
+the task boundary was invalid. This is not an implementation detail and may not be
+patched locally inside the task.
+
+The insufficiency is real if any of the following occurs:
+
+* the task needs a new shared noun, method, morphism, coercion, or interop bridge in
+  order to express its mathematics cleanly;
+* the task is forced into repeated raw matrix/vector/quadratic-module manipulation
+  because the semantic base cannot state the operation at the right mathematical level;
+* the agent is tempted to add a free function whose primary argument is a lattice,
+  lattice element, discriminant group, or morphism, and the correct design would attach
+  that verb to the noun instead;
+* the same foundational convention or exact operation is being reinvented across tasks
+  rather than admitted once into the trusted base;
+* most of the work has become redesign of foundations rather than discharge of the
+  stated task burden.
+
+When this happens, the implementing subagent must:
+
+* stop implementation immediately and surface the insufficiency as blocking;
+* mark the current task `REPLAN_REQUIRED` rather than continuing with local helpers or
+  wrappers;
+* split the hidden work into at least:
+  * a trusted-base task that freezes the exact new noun/method/convention/interop
+    burden, and
+  * a redesigned dependent task that states exactly how it will use the repaired base;
+* refuse to resume the dependent task until the base task has its own exact contract,
+  replay route, and acceptance surface.
+
+A subagent may not hide base insufficiency by:
+
+* adding ad hoc helper functions in the task worktree,
+* laundering new fundamentals through "just this task" glue,
+* silently broadening the shared base during implementation, or
+* pushing foundational redesign into audit or cleanup work after code already exists.
+
 ## Objective
 
 Given a user-provided `GOAL.md` containing high-level research goals, maintain a

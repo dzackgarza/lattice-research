@@ -64,7 +64,7 @@ fixture data — known-invariant objects for sanity-checking T-0 tools.
 - Local sources:
   - REFERENCES.md (standard lattice theory references)
   - theory/oscar_lattices.md (Oscar fixture conventions)
-  - computations/coble_geometry_foundation.sage (already constructs these)
+  - src/coble_geometry_foundation.sage (already constructs these)
 
 ## Required Conventions
 

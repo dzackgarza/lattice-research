@@ -23,7 +23,7 @@ Use it before adding new derivations or background prose.
   - Use for: the classical 10-nodal rational sextic and the basic blowup construction.
 - **C. Thas (1994)**: *A rational sextic associated with a Desargues configuration*.
   Geometriae Dedicata 51, 163–180.
-  - **Local**: `papers/thas_1994.pdf`, `papers/extracted/thas_1994.md`
+  - **Local**: `theory/literature/thas_1994.md`
   - Use for: a direct primary source that constructs a rational 10-nodal sextic from a
     Desargues configuration and gives a rational parametrization.
     Do not upgrade this to the stronger uniqueness claim unless the full text or another
@@ -43,8 +43,7 @@ Use it before adding new derivations or background prose.
 
 - **I. Dolgachev & S. Kondō (2013)**: *The rationality of the moduli spaces of Coble
   surfaces and of nodal Enriques surfaces*.
-  - **Local**: `papers/dolgachev_kondo_2013.pdf`,
-    `papers/extracted/dolgachev_kondo_2013.md`
+  - **Local**: `theory/literature/dolgachev_kondo_2013.md`
   - Use for: the moduli-theoretic Coble/Enriques picture, rationality statements, and
     the standard period-domain framing that the repo should cite before attempting any
     local restatement of the 9-dimensional claim.
@@ -70,8 +69,7 @@ Use it before adding new derivations or background prose.
   - Use for: reflection-group background when the repo discusses arithmetic groups and
     reflection-generated structures.
 - **D. Huybrechts**: *Lectures on K3 Surfaces*.
-  - **Local**: `papers/downloaded/huybrechts_k3_lectures.pdf`,
-    `papers/extracted/huybrechts_k3_lectures.md`
+  - **Local**: `theory/literature/huybrechts_k3_lectures.md`
   - Use for: comprehensive K3 surface theory including lattice theory, Hodge structures,
     moduli spaces, and Nikulin's classification of 2-elementary lattices.
 
@@ -79,13 +77,12 @@ Use it before adding new derivations or background prose.
 
 - **V. Alexeev, P. Engel, D. Zack Garza, & M. Schaffler (2023)**: *Compact moduli of
   Enriques surfaces with a numerical polarization of degree 2*.
-  - **Local**: `papers/aegs_2023.pdf`, `papers/extracted/aegs_2023.md`
+  - **Local**: `theory/literature/aegs_2023.md`
   - Use for: the modern Enriques compactification layer, IAS language, and nodal K3
     cover context.
 - **F. Pieroni (2026)**: *Coble surfaces: projective models and automorphisms with
   related topics*. PhD thesis, Roma Tre University.
-  - **Local**: `papers/downloaded/pieroni_2026_coble_surfaces.pdf`,
-    `papers/extracted/pieroni_2026_coble_surfaces.md`
+  - **Local**: `theory/literature/pieroni_2026_coble_surfaces.md`
   - Use for: recent comprehensive treatment of Coble surfaces including extension
     results for isotropic sequences, quintic models, involution classification, and
     connections to Enriques surfaces.

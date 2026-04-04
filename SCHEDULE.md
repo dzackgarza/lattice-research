@@ -37,7 +37,7 @@ Autonomous agents run on this rotation.
 
 * * *
 
-## 06:00 – 07:00 Literature leverage check
+## 06:00 – 07:00 Literature check
 
 - Review existing literature to determine if current computation scripts are leveraging
   known theory instead of reinventing it
@@ -51,7 +51,8 @@ Autonomous agents run on this rotation.
 Assume every script is fraudulent until proven otherwise.
 Apply the Computation Auditing Criteria from AGENTS.md with zero tolerance.
 
-For every `.sage` file in `computations/`:
+For every first-party `.sage` file in `computations/` and every first-party `.sage`
+file in `src/` outside `src/external/`:
 - Count assertions vs total lines.
   A script over 100 lines with fewer than 5 assertions is padding — delete it or rewrite
   it in the same session.
@@ -95,7 +96,8 @@ For every `.sage` file in `computations/`:
 
 ## 09:00 – 10:00 Computation audit
 
-- For each computation script in `computations/`, verify:
+- For each first-party computation script in `computations/` and each first-party
+  shared/core script in `src/` outside `src/external/`, verify:
   - Assertions trace to specific GOAL.md claims or literature, not internal consistency
   - Expected values come from the mathematics, not from prior runs
   - Script runs via `just` without errors
