@@ -31,14 +31,9 @@ Sources:
 
 from __future__ import annotations
 
-import ast
-import subprocess
-import tempfile
-from pathlib import Path
-
 from sage.all import ZZ, IntegralLattice
 
-_BIN_DIR = Path(__file__).parent.parent / "external" / "bin"
+from src.external.py_polyhedral import indefinite_form_test_equivalence
 
 
 class LatticeIsometryBackend:
@@ -156,51 +151,18 @@ class LatticeIsometryBackend:
         return cache[cache_key]
 
     def _compute_general_indefinite_isometry(self, left, right):
-        binary = _BIN_DIR / "INDEF_FORM_TestEquivalence"
-        with (
-            tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f1,
-            tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f2,
-            tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as fout,
-        ):
-            self._write_matrix(f1, left.inner_product_matrix())
-            self._write_matrix(f2, right.inner_product_matrix())
-            out_path = fout.name
-
-        result = subprocess.run(
-            [str(binary), "gmp", f1.name, f2.name, "PYTHON", out_path],
-            capture_output=True,
-            text=True,
+        M1 = left.inner_product_matrix()
+        M2 = right.inner_product_matrix()
+        witness_data = indefinite_form_test_equivalence(
+            M1.rows(), M2.rows()
         )
-        if result.returncode != 0:
-            raise RuntimeError(
-                f"INDEF_FORM_TestEquivalence failed: {result.stderr[:500]}"
-            )
-
-        raw = Path(out_path).read_text().strip()
-        witness_data = ast.literal_eval(raw)
-
         if witness_data is None:
             return False
-
-        n = left.rank()
-        m = right.rank()
         from sage.all import matrix
-
+        n, m = left.rank(), right.rank()
         witness = matrix(ZZ, n, m, [ZZ(x) for row in witness_data for x in row])
-        assert witness.nrows() == n
-        assert witness.ncols() == m
-        assert (
-            witness * left.inner_product_matrix() * witness.transpose()
-            == right.inner_product_matrix()
-        )
+        assert witness * M1 * witness.transpose() == M2
         return True
-
-    @staticmethod
-    def _write_matrix(f, M):
-        rows = M.rows()
-        f.write(f"{len(rows)} {len(rows[0])}\n")
-        for row in rows:
-            f.write(" ".join(str(x) for x in row) + "\n")
 
     def _gram_key(self, lattice):
         return tuple(
