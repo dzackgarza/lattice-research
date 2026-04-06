@@ -1,0 +1,457 @@
+from __future__ import annotations
+
+import logging
+from functools import reduce
+
+from sage.all import ZZ, IntegralLattice, identity_matrix, matrix
+
+from coble_geometry_foundation import DiscriminantGroup, FreeBilinearModule, Lattice
+from research.isometry_backend import LatticeIsometryBackend
+
+
+class TestLatticeSemantics:
+    NATIVE_LATTICE = type(IntegralLattice("U"))
+    PICARD_NEGATIVE_RANK = IntegralLattice("E8").rank() + IntegralLattice("U").rank()
+    HYPERBOLIC_RANK = IntegralLattice("U").rank()
+    README_EQUIVALENCE_LEFT = (
+        (0, 1, 0, 0),
+        (1, 0, 0, 0),
+        (0, 0, -1, 0),
+        (0, 0, 0, -1),
+    )
+    README_EQUIVALENCE_RIGHT = (
+        (2, 1, 0, 0),
+        (1, 0, 0, 0),
+        (0, 0, -1, 0),
+        (0, 0, 0, -1),
+    )
+    UPSTREAM_U_I3_LEFT = (
+        (0, 1, 0, 0, 0),
+        (1, 0, 0, 0, 0),
+        (0, 0, -1, 0, 0),
+        (0, 0, 0, -1, 0),
+        (0, 0, 0, 0, -1),
+    )
+    UPSTREAM_U_I3_RIGHT = (
+        (-3729, 464, -792, -930, 805),
+        (464, -58, 99, 116, -99),
+        (-792, 99, -169, -198, 169),
+        (-930, 116, -198, -232, 201),
+        (805, -99, 169, 201, -170),
+    )
+
+    @classmethod
+    def _native_scaled_hyperbolic_plane(cls, scale):
+        native = IntegralLattice(scale * IntegralLattice("U").inner_product_matrix())
+        assert native.base_ring() is ZZ
+        return native
+
+    @classmethod
+    def _wrapped_scaled_hyperbolic_plane(cls, scale):
+        wrapped = Lattice.from_sage(cls._native_scaled_hyperbolic_plane(scale))
+        assert wrapped.base_ring() is ZZ
+        return wrapped
+
+    @classmethod
+    def _wrapped_basis_changed_scaled_hyperbolic_plane(cls, scale):
+        native = cls._native_scaled_hyperbolic_plane(scale)
+        first_basis_vector, second_basis_vector = tuple(native.basis())
+        changed_lattice = cls.NATIVE_LATTICE(
+            native.ambient_module(),
+            native.submodule(
+                (first_basis_vector, first_basis_vector + second_basis_vector)
+            ).basis_matrix(),
+            native.inner_product_matrix(),
+        )
+        assert changed_lattice.base_ring() is ZZ
+        return Lattice.from_sage(changed_lattice)
+
+    @classmethod
+    def _native_split_scaled_hyperbolic_plane(cls, scale):
+        native = cls.NATIVE_LATTICE.direct_sum(
+            Lattice.rank_one(scale),
+            Lattice.rank_one(-scale),
+        )
+        assert native.base_ring() is ZZ
+        return native
+
+    @classmethod
+    def _wrapped_split_scaled_hyperbolic_plane(cls, scale):
+        wrapped = Lattice.from_sage(cls._native_split_scaled_hyperbolic_plane(scale))
+        assert wrapped.base_ring() is ZZ
+        return wrapped
+
+    @classmethod
+    def _wrapped_lattice_from_gram_rows(cls, rows):
+        rank = len(rows)
+        native = cls.NATIVE_LATTICE(
+            ZZ**rank,
+            identity_matrix(ZZ, rank),
+            matrix(ZZ, rows),
+        )
+        assert native.base_ring() is ZZ
+        return Lattice.from_sage(native)
+
+    @classmethod
+    def _native_t_en(cls):
+        native = reduce(
+            cls.NATIVE_LATTICE.direct_sum,
+            (
+                IntegralLattice("U"),
+                cls._native_scaled_hyperbolic_plane(2),
+                IntegralLattice(-2 * IntegralLattice("E8").inner_product_matrix()),
+            ),
+        )
+        assert native.base_ring() is ZZ
+        return native
+
+    @classmethod
+    def _native_k3(cls):
+        native = reduce(
+            cls.NATIVE_LATTICE.direct_sum,
+            (
+                IntegralLattice("U"),
+                IntegralLattice("U"),
+                IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
+                IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
+            ),
+            IntegralLattice("U"),
+        )
+        assert native.base_ring() is ZZ
+        return native
+
+    def test_free_module_and_lattice_element_semantics_are_exact(self) -> None:
+        wrapped_module = FreeBilinearModule.from_sage(IntegralLattice("U"))
+        module_generator = next(iter(wrapped_module.gens()))
+        wrapped_lattice = Lattice.hyperbolic_plane()
+        basis_vector = next(iter(wrapped_lattice.basis()))
+        assert module_generator.is_isotropic()
+        assert basis_vector.divisibility().is_one()
+        assert basis_vector.is_primitive()
+        assert basis_vector.discriminant_class().is_zero()
+
+    def test_k3_matches_the_literature_model_and_unimodularity(self) -> None:
+        wrapped_lattice = Lattice.k3()
+        rank_invariant, a_invariant, delta_invariant = (
+            wrapped_lattice.nikulin_invariants()
+        )
+        assert wrapped_lattice.is_even()
+        assert wrapped_lattice.discriminant_group().cardinality().is_one()
+        assert wrapped_lattice.discriminant_group().is_p_elementary(2)
+        assert wrapped_lattice.is_isometric_to(self._native_k3())
+        assert not rank_invariant.is_zero()
+        assert a_invariant.is_zero()
+        assert delta_invariant.is_zero()
+
+    def test_discriminant_group_exposes_two_primary_nikulin_data_on_u_two(self) -> None:
+        wrapped_lattice = self._wrapped_scaled_hyperbolic_plane(2)
+        wrapped_group = wrapped_lattice.discriminant_group()
+        rank_invariant, a_invariant, delta_invariant = (
+            wrapped_lattice.nikulin_invariants()
+        )
+        assert wrapped_group.is_p_elementary(2)
+        assert not wrapped_group.is_p_elementary(3)
+        assert wrapped_group.p_rank(3).is_zero()
+        assert not wrapped_group.p_rank(2).is_zero()
+        assert not wrapped_group.nikulin_a().is_zero()
+        assert wrapped_group.coparity().is_zero()
+        assert wrapped_group.delta().is_zero()
+        assert wrapped_lattice.is_isometric_to(
+            self._wrapped_basis_changed_scaled_hyperbolic_plane(2)
+        )
+        assert not rank_invariant.is_zero()
+        assert not a_invariant.is_zero()
+        assert delta_invariant.is_zero()
+
+    def test_t_en_sits_in_the_nikulin_domain(self) -> None:
+        wrapped_lattice = Lattice.from_sage(self._native_t_en())
+        rank_invariant, a_invariant, delta_invariant = (
+            wrapped_lattice.nikulin_invariants()
+        )
+        assert wrapped_lattice.is_even()
+        assert wrapped_lattice.discriminant_group().is_p_elementary(2)
+        assert wrapped_lattice.is_isometric_to(self._native_t_en())
+        assert not rank_invariant.is_zero()
+        assert not a_invariant.is_zero()
+        assert delta_invariant.is_zero()
+
+    def test_rank_mismatch_precludes_isometry(self) -> None:
+        assert not Lattice.rank_one(ZZ.one()).is_isometric_to(
+            Lattice.hyperbolic_plane()
+        )
+
+    def test_discriminant_group_mismatch_precludes_isometry(self) -> None:
+        """
+        <2> + <2> and <1> + <4> share rank 2, signature (2, 0), and
+        determinant 4, but their discriminant groups differ:
+        (Z/2Z)^2 versus Z/4Z.
+        """
+        from sage.all import diagonal_matrix
+
+        two_two = Lattice.from_sage(IntegralLattice(diagonal_matrix(ZZ, [2, 2])))
+        one_four = Lattice.from_sage(IntegralLattice(diagonal_matrix(ZZ, [1, 4])))
+        assert two_two.rank() == one_four.rank()
+        assert two_two.signature_pair() == one_four.signature_pair()
+        assert two_two.determinant() == one_four.determinant()
+        assert not two_two.has_isomorphic_discriminant_group_to(one_four)
+        assert not two_two.is_isometric_to(one_four)
+
+    def test_signature_and_nikulin_domain_mismatches_preclude_isometry(self) -> None:
+        positive_line = Lattice.rank_one(ZZ.one())
+        negative_line = Lattice.a1_negative()
+        nikulin_lattice = self._wrapped_scaled_hyperbolic_plane(2)
+        non_nikulin_lattice = self._wrapped_scaled_hyperbolic_plane(3)
+        assert not positive_line.is_isometric_to(negative_line)
+        assert not nikulin_lattice.is_isometric_to(non_nikulin_lattice)
+
+    def test_isometry_prechecks_rule_out_nonisometric_indefinite_pair(self) -> None:
+        left = self._wrapped_scaled_hyperbolic_plane(2)
+        right = self._wrapped_split_scaled_hyperbolic_plane(2)
+        assert left.rank() == right.rank()
+        assert left.signature_pair() == right.signature_pair()
+        assert left.determinant() == right.determinant()
+        assert left.has_isomorphic_discriminant_group_to(right)
+        assert not left.has_isomorphic_discriminant_form_to(right)
+        assert left.is_rationally_isometric_to(right)
+        assert not left.is_locally_isometric_to(right, 2)
+        assert left.is_locally_isometric_to(right, 3)
+        assert left.is_locally_isometric_to(right, 5)
+        assert not left.is_in_same_genus_as(right)
+        assert not left.is_isometric_to(right)
+
+    def test_nikulin_invariants_warn_but_remain_defined_on_u_three(
+        self, caplog
+    ) -> None:
+        wrapped_lattice = self._wrapped_scaled_hyperbolic_plane(3)
+        with caplog.at_level(logging.WARNING, logger="coble_geometry_foundation"):
+            invariants = wrapped_lattice.nikulin_invariants()
+        rank_invariant, a_invariant, delta_invariant = invariants
+        assert caplog.records
+        assert wrapped_lattice.discriminant_group().is_p_elementary(3)
+        assert not wrapped_lattice.discriminant_group().is_p_elementary(2)
+        assert not rank_invariant.is_zero()
+        assert a_invariant.is_zero()
+        assert delta_invariant.is_one()
+
+    def test_isometry_uses_the_known_nikulin_route_for_u_two(self) -> None:
+        """
+        TODO: expose the roughly 75 Nikulin lattices as named constructors and run
+        this theorem-backed isometry path across the full literature family.
+        """
+        left = self._wrapped_scaled_hyperbolic_plane(2)
+        right = self._wrapped_basis_changed_scaled_hyperbolic_plane(2)
+        left_rank, left_a, left_delta = left.nikulin_invariants()
+        right_rank, right_a, right_delta = right.nikulin_invariants()
+        assert left.discriminant_group().is_p_elementary(2)
+        assert right.discriminant_group().is_p_elementary(2)
+        assert not left_rank.is_zero()
+        assert not left_a.is_zero()
+        assert left_delta.is_zero()
+        assert not right_rank.is_zero()
+        assert not right_a.is_zero()
+        assert right_delta.is_zero()
+        assert left.is_isometric_to(right)
+
+    def test_general_indefinite_basis_change_is_detected_as_an_isometry(self) -> None:
+        left = self._wrapped_scaled_hyperbolic_plane(3)
+        right = self._wrapped_basis_changed_scaled_hyperbolic_plane(3)
+        assert left.discriminant_group().is_p_elementary(3)
+        assert not left.discriminant_group().is_p_elementary(2)
+        assert left.has_isomorphic_discriminant_group_to(right)
+        assert left.has_isomorphic_discriminant_form_to(right)
+        assert left.is_rationally_isometric_to(right)
+        assert left.is_locally_isometric_to(right, 2)
+        assert left.is_locally_isometric_to(right, 3)
+        assert left.is_locally_isometric_to(right, 5)
+        assert left.is_in_same_genus_as(right)
+        assert left.is_isometric_to(right)
+
+    def test_upstream_readme_equivalence_fixture_is_supported(self) -> None:
+        """
+        Source: `Indefinite.jl` README and the example in `src/Functions.jl`.
+        """
+        left = self._wrapped_lattice_from_gram_rows(self.README_EQUIVALENCE_LEFT)
+        right = self._wrapped_lattice_from_gram_rows(self.README_EQUIVALENCE_RIGHT)
+        assert left.rank() == right.rank()
+        assert left.signature_pair() == right.signature_pair()
+        assert left.is_in_same_genus_as(right)
+        assert left.is_isometric_to(right)
+
+    def test_upstream_u_i3_fixture_is_supported(self) -> None:
+        """
+        Source: `Indefinite.jl` fixtures `TestLor/U_I3_mat1` and `U_I3_mat2`.
+        """
+        left = self._wrapped_lattice_from_gram_rows(self.UPSTREAM_U_I3_LEFT)
+        right = self._wrapped_lattice_from_gram_rows(self.UPSTREAM_U_I3_RIGHT)
+        assert left.rank() == right.rank()
+        assert left.signature_pair() == right.signature_pair()
+        assert left.has_isomorphic_discriminant_group_to(right)
+        assert left.has_isomorphic_discriminant_form_to(right)
+        assert left.is_rationally_isometric_to(right)
+        assert left.is_in_same_genus_as(right)
+        assert left.is_isometric_to(right)
+
+    def test_general_indefinite_backend_maps_missing_witness_to_false(self) -> None:
+        backend = LatticeIsometryBackend()
+        left = self._wrapped_scaled_hyperbolic_plane(3)
+        right = self._wrapped_split_scaled_hyperbolic_plane(3)
+        assert not backend._compute_general_indefinite_isometry(left, right)
+
+    def test_coble_constructors_and_orthogonal_complements_match_models(
+        self,
+    ) -> None:
+        positive_line = Lattice.rank_one(2)
+        negative_line = Lattice.rank_one(-2)
+        coble_picard = Lattice.coble_picard()
+        coble_transcendental = Lattice.coble_transcendental()
+        expected_picard = reduce(
+            self.NATIVE_LATTICE.direct_sum,
+            (negative_line,) * int(self.PICARD_NEGATIVE_RANK),
+            positive_line,
+        )
+        expected_transcendental = reduce(
+            self.NATIVE_LATTICE.direct_sum,
+            (
+                Lattice.rank_one(2),
+                IntegralLattice("U"),
+                IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
+            ),
+        )
+        k3_lattice = Lattice.k3()
+        orthogonal_complement = k3_lattice.orthogonal_complement(
+            k3_lattice.submodule(tuple(k3_lattice.basis())[: int(self.HYPERBOLIC_RANK)])
+        )
+        expected_orthogonal = reduce(
+            self.NATIVE_LATTICE.direct_sum,
+            (
+                IntegralLattice("U"),
+                IntegralLattice("U"),
+                IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
+                IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
+            ),
+        )
+        assert coble_picard.is_isometric_to(expected_picard)
+        assert coble_transcendental.is_isometric_to(expected_transcendental)
+        assert orthogonal_complement.is_isometric_to(expected_orthogonal)
+
+    def test_lattice_morphism_contracts_are_exact_on_k3(self) -> None:
+        wrapped_lattice = Lattice.k3()
+        identity_morphism = wrapped_lattice.hom(
+            wrapped_lattice,
+            tuple(wrapped_lattice.basis()),
+        )
+        assert identity_morphism.image_lattice().is_isometric_to(wrapped_lattice)
+        assert identity_morphism.orthogonal_complement_of_image().rank().is_zero()
+
+    def test_discriminant_group_identity_morphism_is_exact_for_a1_negative(
+        self,
+    ) -> None:
+        wrapped_group = DiscriminantGroup.from_lattice(Lattice.a1_negative())
+        native_group = IntegralLattice(
+            -IntegralLattice("A1").inner_product_matrix()
+        ).discriminant_group()
+        identity_morphism = wrapped_group.hom(
+            wrapped_group,
+            tuple(wrapped_group.gens()),
+        )
+        zero_morphism = wrapped_group.hom(wrapped_group, (wrapped_group.zero(),))
+        wrapped_to_native = wrapped_group.hom(
+            native_group,
+            tuple(native_group(generator.lift()) for generator in wrapped_group.gens()),
+        )
+        assert wrapped_group.zero().is_isotropic()
+        assert identity_morphism.is_identity()
+        assert not zero_morphism.is_identity()
+        assert not zero_morphism.is_injective()
+        assert not zero_morphism.is_surjective()
+        assert wrapped_to_native.is_injective()
+        assert wrapped_to_native.is_surjective()
+
+    @classmethod
+    def _unimodular_shear(cls, gram):
+        """Apply a shear P = I + e_0 e_1^T to get a different Gram representation."""
+        rank = gram.nrows()
+        shear = identity_matrix(ZZ, rank)
+        shear[0, 1] = 1
+        return shear * gram * shear.transpose()
+
+    def test_e8_is_unique_in_its_genus(self) -> None:
+        """
+        E8 is the unique even unimodular positive-definite lattice of rank 8.
+        A unimodular basis change produces a different Gram matrix for the same
+        lattice; the definite isometry engine must recover this.
+        """
+        standard = Lattice.from_sage(IntegralLattice("E8"))
+        sheared_gram = self._unimodular_shear(
+            IntegralLattice("E8").inner_product_matrix()
+        )
+        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        assert sheared_gram != IntegralLattice("E8").inner_product_matrix()
+        assert standard.is_in_same_genus_as(sheared)
+        assert standard.is_isometric_to(sheared)
+
+    def test_negative_e8_is_unique_in_its_genus(self) -> None:
+        """
+        The negative-definite E8 lattice is unique in its genus.
+        This exercises the negation branch of the definite isometry engine
+        (``_positive_definite_copy`` negates a negative-definite lattice before
+        calling Sage's quadratic-form equivalence).
+        """
+        negative_e8_gram = -IntegralLattice("E8").inner_product_matrix()
+        standard = Lattice.from_sage(IntegralLattice(negative_e8_gram))
+        sheared_gram = self._unimodular_shear(negative_e8_gram)
+        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        assert sheared_gram != negative_e8_gram
+        assert standard.is_in_same_genus_as(sheared)
+        assert standard.is_isometric_to(sheared)
+
+    @classmethod
+    def _d16_plus(cls):
+        """
+        Construct D16+, the even unimodular overlattice of D16.
+
+        D16 has discriminant group (Z/2Z)^2 with two isotropic elements.
+        Gluing along either one produces D16+, the unique even unimodular
+        rank-16 lattice that is not isometric to E8 + E8.
+        """
+        d16 = IntegralLattice("D16")
+        discriminant = d16.discriminant_group()
+        isotropic_glue = next(g for g in discriminant if g.q() == 0 and not g.is_zero())
+        overlattice = d16.overlattice([isotropic_glue.lift()])
+        return IntegralLattice(overlattice.gram_matrix())
+
+    def test_e8_e8_and_d16_plus_are_not_isometric(self) -> None:
+        """
+        There are exactly two isometry classes of even unimodular
+        positive-definite lattices of rank 16: E8 + E8 and D16+. They share
+        the same genus but are not isometric.
+        """
+        e8_e8 = Lattice.from_sage(
+            IntegralLattice("E8").direct_sum(IntegralLattice("E8"))
+        )
+        d16_plus = Lattice.from_sage(self._d16_plus())
+        assert e8_e8.rank() == d16_plus.rank()
+        assert e8_e8.signature_pair() == d16_plus.signature_pair()
+        assert e8_e8.determinant() == d16_plus.determinant()
+        assert e8_e8.is_even()
+        assert d16_plus.is_even()
+        assert e8_e8.is_in_same_genus_as(d16_plus)
+        assert not e8_e8.is_isometric_to(d16_plus)
+
+    def test_odd_unimodular_lorentzian_lattice_is_unique(self) -> None:
+        """
+        I_{1,8} = <1> + <-1>^8 is the unique odd unimodular lattice of
+        signature (1, 8). A unimodular shear produces a different Gram matrix
+        that the general indefinite backend (Dutour's Indefinite.jl) must
+        recognize as isometric.
+        """
+        from sage.all import diagonal_matrix
+
+        diagonal_gram = diagonal_matrix(ZZ, [1] + [-1] * 8)
+        sheared_gram = self._unimodular_shear(diagonal_gram)
+        standard = Lattice.from_sage(IntegralLattice(diagonal_gram))
+        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        assert diagonal_gram != sheared_gram
+        assert not standard.is_even()
+        assert standard.is_in_same_genus_as(sheared)
+        assert standard.is_isometric_to(sheared)
