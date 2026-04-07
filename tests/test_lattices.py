@@ -39,26 +39,6 @@ class TestLatticeSemantics:
         (-930, 116, -198, -232, 201),
         (805, -99, 169, 201, -170),
     )
-    # Sterk (1991) / AEGS23 Fig. 3: F_{(10,10,0)} = D(T_En)/O(T_En).
-    # T_En = U ⊕ U(2) ⊕ E_8(2), signature (2,10), rank 12.
-    # Computed 2026-04-07 via INDEF_FORM_GetOrbit_IsotropicKplane (gmp).
-    # Each inner list is a basis (one or two vectors) for one orbit representative.
-    T_EN_ZERO_CUSP_REPRESENTATIVES = (
-        # orbit 0: div(e)=2 in T_En*
-        ([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],),
-        # orbit 1: div(e)=1 in T_En*
-        ([-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],),
-    )
-    T_EN_ONE_CUSP_REPRESENTATIVES = (
-        (
-            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [-2, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-        ),
-        (
-            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [-2, -2, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0],
-        ),
-    )
 
     @classmethod
     def _native_scaled_hyperbolic_plane(cls, scale):

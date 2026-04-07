@@ -358,5 +358,59 @@
       "configuration": "a Desargues configuration in which each line contains exactly three points",
       "conclusion": "determines a sextic with a node at each of the ten points"
     }
+  },
+  {
+    "id": "T_En_cusp_orbits_sterk",
+    "object_type": "computation_result",
+    "object_name": "O(T_En)-orbits of isotropic k-planes in T_En (Sterk 1991)",
+    "source_type": "computation",
+    "sources": [
+      {
+        "file": "theory/literature/aegs_2023.md",
+        "lines": "244-249",
+        "bibliographic_key": "aegs2023compact",
+        "claim": "F_{(10,10,0)} has two 0-cusps and two 1-cusps"
+      },
+      {
+        "bibliographic_key": "sterk1991",
+        "claim": "Sterk (1991) original computation of the cusp diagram"
+      }
+    ],
+    "computation": {
+      "binary": "INDEF_FORM_GetOrbit_IsotropicKplane",
+      "arithmetic": "gmp",
+      "lattice": "T_En = U + U(2) + E8(2)",
+      "gram_matrix_order": "U block first, then U(2) block, then E8(2) block",
+      "date": "2026-04-07",
+      "script": "computations/sterk_cusps.py"
+    },
+    "results": {
+      "zero_cusps": {
+        "k": 1,
+        "orbit_count": 2,
+        "runtime_seconds": 33,
+        "representatives": [
+          [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+          [[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        ],
+        "note": "Two orbits distinguished by div(e) in {1,2} in T_En* (AEGS23 §3.2)"
+      },
+      "one_cusps": {
+        "k": 2,
+        "orbit_count": 2,
+        "runtime_seconds": 2807,
+        "representatives": [
+          [
+            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [-2, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+          ],
+          [
+            [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [-2, -2, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0]
+          ]
+        ],
+        "note": "Each entry is a basis (two vectors) for one representative isotropic plane"
+      }
+    }
   }
 ]

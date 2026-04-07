@@ -13,13 +13,14 @@ from typing import TYPE_CHECKING, Self
 from coble_geometry_foundation import Lattice
 
 if TYPE_CHECKING:
+    from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
     from sage.matrix.matrix import Matrix
     from sage.rings.ideal import Ideal
     from sage.rings.polynomial.multi_polynomial import MPolynomial
     from sage.rings.ring import Ring
 else:
     # At runtime, import Sage's AbelianGroup directly
-    pass
+    from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -261,8 +262,7 @@ def hodge_number(self, p: int, q: int) -> int:
 
     @abstractmethod
     def picard_group(self) -> PicardGroup:
-        r"""Return the Picard group $\mathrm{Pic}(X)$ as divisor classes modulo linear equivalence."""
-        ...
+        r"""Return the Picard group Pic(X) as divisor classes modulo lin. equiv."""
 
     @abstractmethod
     def picard_lattice(self) -> PicardeLattice:
@@ -526,7 +526,7 @@ class PrimeDivisor(Divisor):
 
 
 class PicardGroup(SageAbelianGroup, ABC):
-    r"""Divisor classes modulo linear equivalence: $\mathrm{Pic}(X) \cong \mathbb{Z}^r \oplus \mathrm{Tors}$.
+    r"""Divisor classes: Pic(X) ≅ Z^r ⊕ Tors.
 
     This extends Sage's AbelianGroup (see sage.groups.abelian_gp) and adds
     the intersection form specific to algebraic geometry.
@@ -534,7 +534,7 @@ class PicardGroup(SageAbelianGroup, ABC):
     Implementation notes:
     - Inherits rank(), torsion(), generators() from SageAbelianGroup.
     - Concrete implementations should set self._sage_abelian_group to the
-      underlying Sage AbelianGroup and delegate methods as needed.
+    underlying Sage AbelianGroup and delegate methods as needed.
     """
 
     @abstractmethod
@@ -799,7 +799,7 @@ class CobleSurface(Blowup):
 
     @abstractmethod
     def coble_lattice(self) -> PicardeLattice:
-        r"""Return the Coble Picard lattice $\langle 2 \rangle \oplus \langle -2 \rangle^{10}$."""
+        r"""Return the Coble Picard lattice ⟨2⟩ ⊕ ⟨-2⟩^{10}."""
         ...
 
 
