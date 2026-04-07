@@ -52,5 +52,27 @@ def main():
     print(f"    One-cusps:  {one_cusps}")
 
 
+# ---------------------------------------------------------------------------
+# Recorded results (2026-04-07, INDEF_FORM_GetOrbit_IsotropicKplane, gmp)
+# T_En gram matrix: U ⊕ U(2) ⊕ E_8(2), see main() above.
+#
+# k=1 (0-cusps), runtime ~33s:
+#   [
+#     [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+#     [[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+#   ]
+#   Two orbits, distinguished by div(e) ∈ {1, 2} in T_En* (AEGS23 §3.2).
+#
+# k=2 (1-cusps), runtime ~47min:
+#   [
+#     [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#      [-2, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]],
+#     [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#      [-2, -2, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0]]
+#   ]
+#   Two orbits. Each entry is a basis for one representative isotropic plane.
+# ---------------------------------------------------------------------------
+
+
 if __name__ == "__main__":
     main()
