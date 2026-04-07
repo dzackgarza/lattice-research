@@ -17,6 +17,9 @@ if TYPE_CHECKING:
     from sage.rings.ideal import Ideal
     from sage.rings.polynomial.multi_polynomial import MPolynomial
     from sage.rings.ring import Ring
+else:
+    # At runtime, import Sage's AbelianGroup directly
+    pass
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -57,6 +60,7 @@ class Variety(ABC):
         """
         ...
 
+
 @abstractmethod
 def is_irreducible(self) -> bool:
     """Check if the variety is irreducible.
@@ -65,55 +69,66 @@ def is_irreducible(self) -> bool:
     """
     ...
 
+
 @abstractmethod
 def is_smooth(self) -> bool:
     """Check if the variety is smooth (non-singular)."""
     ...
+
 
 @abstractmethod
 def is_reduced(self) -> bool:
     """Check if the variety is reduced."""
     ...
 
+
 @abstractmethod
 def is_normal(self) -> bool:
     """Check if the variety is normal."""
     ...
+
 
 @abstractmethod
 def is_complete(self) -> bool:
     """Check if the variety is complete (proper)."""
     ...
 
+
 @abstractmethod
 def is_projective(self) -> bool:
     """Check if the variety is projective."""
     ...
+
 
 @abstractmethod
 def is_affine(self) -> bool:
     """Check if the variety is affine."""
     ...
 
+
 @abstractmethod
 def is_quasi_projective(self) -> bool:
     """Check if the variety is quasi-projective."""
     ...
+
 
 @abstractmethod
 def singular_locus(self) -> Subvariety:
     """Return the singular locus as a subvariety."""
     ...
 
+
 @abstractmethod
 def smooth_locus(self) -> Variety:
     """Return the smooth locus (complement of singular locus)."""
     ...
 
+
 @abstractmethod
 def is_snc(self) -> bool:
     """Check if the variety is simple normal crossing (snc)."""
     ...
+
 
 @abstractmethod
 def is_hypersurface(self) -> bool:
@@ -123,61 +138,83 @@ def is_hypersurface(self) -> bool:
     """
     ...
 
+
 @abstractmethod
 def is_complete_intersection(self) -> bool:
     """Check if the variety is a complete intersection."""
     ...
+
 
 @abstractmethod
 def is_calabi_yau(self) -> bool:
     """Check if the variety is a Calabi-Yau (trivial canonical bundle)."""
     ...
 
+
 @abstractmethod
 def is_general_type(self) -> bool:
     """Check if the variety is of general type (big canonical bundle)."""
     ...
+
 
 @abstractmethod
 def is_rational(self) -> bool:
     """Check if the variety is rational (birational to P^n)."""
     ...
 
+
 @abstractmethod
 def is_unirational(self) -> bool:
     """Check if the variety is unirational."""
     ...
 
+
+@abstractmethod
+def is_abelian_variety(self) -> bool:
+    """Check if the variety is an abelian variety."""
+    ...
+
+
+@abstractmethod
+def is_pencil(self) -> bool:
+    """Check if this variety is a pencil (family of dimension 1 over a curve)."""
+    ...
+
+
 # -------------------------------------------------------------------------
 # Numerical invariants
 # -------------------------------------------------------------------------
+
 
 @abstractmethod
 def kodaira_dimension(self) -> int:
     """Return the Kodaira dimension $\\kappa(X)$."""
     ...
 
+
 @abstractmethod
-def hilbert_polynomial(self) -> "MPolynomial":
+def hilbert_polynomial(self) -> MPolynomial:
     """Return the Hilbert polynomial."""
     ...
+
 
 @abstractmethod
 def holomorphic_euler_characteristic(self) -> int:
     """Return the holomorphic Euler characteristic $\\chi(\\mathcal{O}_X)$."""
     ...
 
+
 @abstractmethod
 def hodge_number(self, p: int, q: int) -> int:
     """Return the Hodge number $h^{p,q}$."""
     ...
 
-# -------------------------------------------------------------------------
-# Base ring
-# -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Base ring
+    # -------------------------------------------------------------------------
 
-@abstractmethod
-def base_ring(self) -> Ring:
+    @abstractmethod
+    def base_ring(self) -> Ring:
         """Return the base ring (typically ZZ or a field)."""
         ...
 
@@ -288,6 +325,9 @@ class Point(ABC):
     - Each Point should maintain an underlying Sage scheme point
       (see https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/point.html)
       accessible via self._sage_point.
+    - For projective varieties (which all our varieties are), use
+      https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/projective/projective_point.html
+      for multiplicities and projective coordinate methods.
     - The Sage point provides coordinate access, reduction modulo
       prime ideals, etc.
     """
@@ -372,86 +412,103 @@ class Divisor(ABC):
         """Return the self-intersection $D^2$."""
         ...
 
+
 @abstractmethod
 def intersection(self, other: Divisor) -> int:
     """Return the intersection number $D \cdot E$."""
     ...
 
+
 # -------------------------------------------------------------------------
 # Riemann-Roch and linear systems
 # -------------------------------------------------------------------------
+
 
 @abstractmethod
 def riemann_roch_space_dimension(self) -> int:
     r"""Return $\ell(D) = \dim H^0(X, \mathcal{O}_X(D))$."""
     ...
 
+
 @abstractmethod
 def index_of_speciality(self) -> int:
     r"""Return the index of speciality $i = \ell(K_X - D)$."""
     ...
 
+
 # -------------------------------------------------------------------------
 # Divisor properties
 # -------------------------------------------------------------------------
+
 
 @abstractmethod
 def is_weyl_divisor(self) -> bool:
     """Check if this is a Weil divisor (codimension 1 subvariety)."""
     ...
 
+
 @abstractmethod
 def is_cartier_divisor(self) -> bool:
     """Check if this is a Cartier divisor (locally principal)."""
     ...
+
 
 @abstractmethod
 def is_numerically_effective(self) -> bool:
     """Alias for is_nef: numerically effective."""
     ...
 
+
 # -------------------------------------------------------------------------
 # Divisor operations
 # -------------------------------------------------------------------------
 
+
 @classmethod
 @abstractmethod
-def from_meromorphic_function(cls, f: "MPolynomial", domain: Variety) -> Self:
+def from_meromorphic_function(cls, f: MPolynomial, domain: Variety) -> Self:
     """Construct the divisor of a meromorphic function $f$."""
     ...
+
 
 @abstractmethod
 def is_linearly_equivalent_to(self, other: Divisor) -> bool:
     """Check if this divisor is linearly equivalent to another."""
     ...
 
+
 @abstractmethod
 def is_canonical_divisor(self) -> bool:
     """Check if this divisor is a canonical divisor $K_X$."""
     ...
+
 
 @abstractmethod
 def is_prime_divisor(self) -> bool:
     """Check if this is a prime divisor (irreducible)."""
     ...
 
+
 @abstractmethod
-def ord_D(self, f: "MPolynomial") -> int:
+def ord_D(self, f: MPolynomial) -> int:
     r"""Return the order of vanishing of $f$ along $D$, i.e. $\mathrm{ord}_D(f)$.
 
     This is the length of $\mathcal{O}_{X,D}/(f)$.
     """
     ...
 
+
 @abstractmethod
-def to_coherent_sheaf(self) -> "CoherentSheaf":
+def to_coherent_sheaf(self) -> CoherentSheaf:
     r"""Return the associated rank-1 coherent sheaf $\mathcal{O}_X(D)$."""
     ...
+
 
 @abstractmethod
 def pullback(self, f: Morphism) -> Divisor:
     """Return the pullback $f^*(D)$."""
     ...
+
 
 @abstractmethod
 def pushforward(self, f: Morphism) -> Divisor:
@@ -468,27 +525,17 @@ class PrimeDivisor(Divisor):
         ...
 
 
-class AbelianGroup(ABC):
-    """Abstract base for abelian groups."""
+class PicardGroup(SageAbelianGroup, ABC):
+    r"""Divisor classes modulo linear equivalence: $\mathrm{Pic}(X) \cong \mathbb{Z}^r \oplus \mathrm{Tors}$.
 
-    @abstractmethod
-    def rank(self) -> int:
-        """Return the rank (free part)."""
-        ...
+    This extends Sage's AbelianGroup (see sage.groups.abelian_gp) and adds
+    the intersection form specific to algebraic geometry.
 
-    @abstractmethod
-    def torsion(self) -> list:
-        """Return the torsion part as a list of cyclic groups."""
-        ...
-
-    @abstractmethod
-    def generators(self) -> list:
-        """Return a set of generators."""
-        ...
-
-
-class PicardGroup(AbelianGroup):
-    """Divisor classes modulo linear equivalence: $\mathrm{Pic}(X) \cong \mathbb{Z}^r \oplus \mathrm{Tors}$."""
+    Implementation notes:
+    - Inherits rank(), torsion(), generators() from SageAbelianGroup.
+    - Concrete implementations should set self._sage_abelian_group to the
+      underlying Sage AbelianGroup and delegate methods as needed.
+    """
 
     @abstractmethod
     def variety(self) -> Variety:
@@ -630,7 +677,12 @@ class Curve(Variety):
 
 
 class PlaneCurve(Curve):
-    """A curve embedded in the projective plane $\mathbb{P}^2$."""
+    """A curve embedded in the projective plane $\mathbb{P}^2$.
+
+    Implementation notes:
+    - For plane curves, is_hypersurface() routes to Sage's hypersurface
+      (see https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/hypersurface.html)
+    """
 
     @abstractmethod
     def equation(self) -> MPolynomial:
@@ -779,10 +831,40 @@ class BranchedCoverConstruction(ABC):
         """Return the degree of the covering."""
         ...
 
-    @abstractmethod
-    def total_space(self) -> Variety:
-        """Return the total space $Y$ (the covering variety)."""
-        ...
+
+@abstractmethod
+def total_space(self) -> Variety:
+    """Return the total space $Y$ (the covering variety)."""
+    ...
+
+
+# -------------------------------------------------------------------------
+# Ramification data
+# -------------------------------------------------------------------------
+
+
+@abstractmethod
+def ramification_index(self, point: Point) -> int:
+    r"""Return the ramification index $e_p$ at a point $p \in Y$."""
+    ...
+
+
+@abstractmethod
+def ramification_divisor_as_divisor(self) -> Divisor:
+    r"""Return the ramification divisor as a divisor $R = \sum (e_p - 1) p$."""
+    ...
+
+
+@abstractmethod
+def branch_divisor_as_divisor(self) -> Divisor:
+    r"""Return the branch divisor as a divisor $B = \sum m_q q$."""
+    ...
+
+
+@abstractmethod
+def satisfies_riemann_hurwitz(self) -> bool:
+    r"""Verify that the Riemann-Hurwitz formula holds."""
+    ...
 
 
 class DoubleCover(BranchedCoverConstruction):
@@ -826,6 +908,7 @@ class EnriquesQuotient(ABC):
     def involution(self) -> Morphism:
         r"""Return the Enriques involution $\iota_{\mathrm{En}}: X \to X$."""
         ...
+
 
 @abstractmethod
 def quotient_surface(self) -> Surface:
@@ -927,76 +1010,8 @@ class FamilyOfVarieties(ABC):
         ...
 
     @abstractmethod
-    def limit_period(self, boundary_point: Point) -> "Variety":
+    def limit_period(self, boundary_point: Point) -> Variety:
         """Return the limiting period ( Hodge structure) at a boundary point."""
-        ...
-
-
-# ============================================================================
-# RAMIFICATION (for branched covers)
-# ============================================================================
-
-
-class BranchedCoverConstruction(ABC):
-    r"""A branched cover $Y \to X$ branched over a divisor $D \subset X$."""
-
-    @abstractmethod
-    def base(self) -> Variety:
-        """Return the base variety $X$."""
-        ...
-
-    @abstractmethod
-    def branch_divisor(self) -> Divisor:
-        r"""Return the branch divisor $D \subset X$."""
-        ...
-
-    @abstractmethod
-    def ramification_divisor(self) -> Divisor:
-        r"""Return the ramification divisor $R \subset Y$ where $\pi$ is ramified."""
-        ...
-
-    @abstractmethod
-    def degree(self) -> int:
-        """Return the degree of the covering."""
-        ...
-
-    @abstractmethod
-    def total_space(self) -> Variety:
-        """Return the total space $Y$ (the covering variety)."""
-        ...
-
-    # -------------------------------------------------------------------------
-    # Ramification data
-    # -------------------------------------------------------------------------
-
-    @abstractmethod
-    def ramification_index(self, point: Point) -> int:
-        r"""Return the ramification index $e_p$ at a point $p \in Y$.
-
-        For a point $p \in Y$ lying over $q \in X$, the ramification index
-        is the integer $e_p$ such that $\pi^*(t) = u \cdot t^{e_p}$ locally,
-        where $t$ is a uniformizer at $q$.
-        """
-        ...
-
-    @abstractmethod
-    def ramification_divisor_as_divisor(self) -> Divisor:
-        r"""Return the ramification divisor as a divisor $R = \sum (e_p - 1) p$."""
-        ...
-
-    @abstractmethod
-    def branch_divisor_as_divisor(self) -> Divisor:
-        r"""Return the branch divisor as a divisor $B = \sum m_q q$."""
-        ...
-
-    @abstractmethod
-    def satisfies_riemann_hurwitz(self) -> bool:
-        r"""Verify that the Riemann-Hurwitz formula holds:
-
-        $\chi(Y) = d \cdot \chi(X) + \sum_p (e_p - 1)$
-
-        for degree $d$ cover with ramification indices $e_p$.
-        """
         ...
 
 

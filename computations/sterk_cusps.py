@@ -10,8 +10,8 @@ T_En = U ⊕ U(2) ⊕ E_8(2)   (signature (2,10), rank 12, Nikulin (12,10,0)_2)
 Both counts should equal 2.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
