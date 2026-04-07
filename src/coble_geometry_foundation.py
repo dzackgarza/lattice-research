@@ -10,13 +10,22 @@ from functools import reduce
 from itertools import repeat
 from typing import Self
 
-from sage.all import QQ, ZZ, Integer, IntegralLattice, MatrixSpace, gcd
+from sage.all import QQ, ZZ, Integer, IntegralLattice, MatrixSpace, gcd, matrix
 from sage.misc.cachefunc import cached_method
 from sage.modules.fg_pid.fgp_morphism import FGP_Morphism
 from sage.modules.free_module_morphism import FreeModuleMorphism
 from sage.modules.vector_integer_dense import Vector_integer_dense
 
 from research.isometry_backend import ISOMETRY_BACKEND
+from src.external.py_polyhedral import (
+    indefinite_form_automorphism_group,
+    indefinite_form_isotropic_k_plane,
+    indefinite_form_isotropic_k_flag,
+    indefinite_form_stabilizer_vector,
+    indefinite_form_stabilizer_isotropic_line,
+    indefinite_form_stabilizer_isotropic_plane_2d,
+    indefinite_form_stabilizer_isotropic_flag,
+)
 
 _A1_POSITIVE = IntegralLattice("A1")
 _A1_POSITIVE_VECTOR = next(iter(_A1_POSITIVE.basis()))
@@ -570,3 +579,111 @@ class Lattice(_LatticeBase):
         morphism = LatticeMorphism(self.Hom(codomain), tuple(images))
         assert morphism.image().base_ring() is ZZ
         return morphism
+
+    # ------------------------------------------------------------------
+    # High-level computational methods (route to polyhedral_common binaries)
+    # ------------------------------------------------------------------
+
+    def _gram_rows(self):
+        """Return the Gram matrix as a list of lists of Python ints."""
+        return [[int(x) for x in row] for row in self.inner_product_matrix().rows()]
+
+    def _vec_to_list(self, v):
+        """Convert a LatticeElement / vector to a list of Python ints."""
+        return [int(x) for x in v]
+
+    def _matrices_from_raw(self, raw_matrices):
+        """Convert raw output of binary (list of list-of-lists) to sage matrices."""
+        n = self.rank()
+        return [matrix(ZZ, n, n, [ZZ(x) for row in M for x in row])
+                for M in raw_matrices]
+
+    def orthogonal_group_generators(self):
+        r"""Return generators of O(self) as a list of square integer matrices.
+
+        Convention (from INDEF_FORM_AutomorphismGroup): each generator G
+        satisfies  G * Q * G.transpose() == Q  where Q is the Gram matrix.
+        """
+        raw = indefinite_form_automorphism_group(self._gram_rows())
+        return self._matrices_from_raw(raw)
+
+    def stabilizer_of_vector(self, v):
+        r"""Return generators of Stab_{O(self)}(v) for an integer vector v.
+
+        v: a LatticeElement or integer vector (isotropic or non-isotropic).
+        Returns a list of n×n integer matrices G satisfying G*Q*G^T = Q
+        and  v_row * G = v_row  (right-action convention).
+        """
+        raw = indefinite_form_stabilizer_vector(
+            self._gram_rows(), self._vec_to_list(v)
+        )
+        return self._matrices_from_raw(raw)
+
+    def stabilizer_of_isotropic_line(self, v):
+        r"""Return generators of the setwise stabilizer of span(v) in O(self).
+
+        v: a primitive isotropic LatticeElement.
+        Generators satisfy G*Q*G^T = Q and map span(v) → span(v) (setwise,
+        so some generators may send v → -v).
+        """
+        assert self._vec_to_list(v) == self._vec_to_list(v), "v must be a vector"
+        raw = indefinite_form_stabilizer_isotropic_line(
+            self._gram_rows(), self._vec_to_list(v)
+        )
+        return self._matrices_from_raw(raw)
+
+    def stabilizer_of_isotropic_plane(self, v, w):
+        r"""Return generators of Stab_{O(self)}(span(v,w)) for an isotropic 2-plane.
+
+        v, w: LatticeElements spanning a totally isotropic 2-plane.
+        Returns generators satisfying G*Q*G^T = Q mapping span(v,w) to itself.
+        """
+        raw = indefinite_form_stabilizer_isotropic_plane_2d(
+            self._gram_rows(),
+            self._vec_to_list(v),
+            self._vec_to_list(w),
+        )
+        return self._matrices_from_raw(raw)
+
+    def stabilizer_of_isotropic_flag(self, basis):
+        r"""Return generators of the stabilizer of the isotropic flag defined by basis.
+
+        basis: list of LatticeElements [v_1, ..., v_k] where each prefix
+               v_1, ..., v_i spans a totally isotropic i-plane.
+        Returns generators satisfying G*Q*G^T = Q stabilising the full flag.
+        """
+        raw = indefinite_form_stabilizer_isotropic_flag(
+            self._gram_rows(),
+            [self._vec_to_list(v) for v in basis],
+        )
+        return self._matrices_from_raw(raw)
+
+    def isotropic_line_orbits(self):
+        r"""Return orbit representatives of primitive isotropic lines under O(self).
+
+        Returns a list of LatticeElements, one per O(self)-orbit of primitive
+        isotropic lines (1-dimensional totally isotropic subspaces).
+        """
+        raw = indefinite_form_isotropic_k_plane(self._gram_rows(), 1)
+        # raw is a list of vectors (list of ints), one per orbit
+        return [self(v) for v in raw]
+
+    def isotropic_plane_orbits(self):
+        r"""Return orbit representatives of totally isotropic planes under O(self).
+
+        Returns a list of pairs (v, w) of LatticeElements spanning one
+        representative totally isotropic 2-plane per O(self)-orbit.
+        """
+        raw = indefinite_form_isotropic_k_plane(self._gram_rows(), 2)
+        # raw is a list of 2×n matrices (list of two row-vectors)
+        return [(self(rows[0]), self(rows[1])) for rows in raw]
+
+    def isotropic_flag_orbits(self, k):
+        r"""Return orbit representatives of isotropic flags of depth k under O(self).
+
+        k=1: orbits of isotropic lines (same as isotropic_line_orbits)
+        k=2: orbits of flags line ⊂ plane
+        Returns a list of lists of LatticeElements.
+        """
+        raw = indefinite_form_isotropic_k_flag(self._gram_rows(), k)
+        return [[self(row) for row in rows] for rows in raw]
