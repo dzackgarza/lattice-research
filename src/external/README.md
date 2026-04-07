@@ -25,6 +25,8 @@ Each is built from the corresponding `src_*/` subdirectory using `make` directly
 | `INDEF_FORM_AutomorphismGroup` | `src_indefinite` | Automorphism group generators |
 | `INDEF_FORM_GetOrbitRepresentative` | `src_indefinite` | Orbit representatives at given norm |
 | `INDEF_FORM_GetOrbit_IsotropicKplane` | `src_indefinite` | Orbits of isotropic k-planes |
+| `INDEF_FORM_StabilizerVector` | `src_indefinite` | Generators of Stab_{O(Q)}(v) for any integer vector v |
+| `INDEF_FORM_StabilizerIsotropicPlane` | `src_indefinite` | Generators of stabilizer of an isotropic k-plane or k-flag |
 | `LATT_FindIsotropic` | `src_isotropy` | Find an isotropic vector |
 | `LATT_Canonicalize` | `src_latt` | Canonical form of a positive-definite lattice |
 | `CP_TestCopositivity` | `src_copos` | Test copositivity of a form |
@@ -109,7 +111,8 @@ MAKE_VARS='
 cd $BASE/src_indefinite
 make $MAKE_VARS \
     INDEF_FORM_TestEquivalence INDEF_FORM_AutomorphismGroup \
-    INDEF_FORM_GetOrbitRepresentative INDEF_FORM_GetOrbit_IsotropicKplane
+    INDEF_FORM_GetOrbitRepresentative INDEF_FORM_GetOrbit_IsotropicKplane \
+    INDEF_FORM_StabilizerVector INDEF_FORM_StabilizerIsotropicPlane
 ```
 
 ### src_isotropy
