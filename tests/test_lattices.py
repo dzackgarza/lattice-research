@@ -13,34 +13,33 @@ class TestLatticeSemantics:
     NATIVE_LATTICE = type(IntegralLattice("U"))
     PICARD_NEGATIVE_RANK = IntegralLattice("E8").rank() + IntegralLattice("U").rank()
     HYPERBOLIC_RANK = IntegralLattice("U").rank()
-    README_EQUIVALENCE_LEFT = (
-        (0, 1, 0, 0),
-        (1, 0, 0, 0),
-        (0, 0, -1, 0),
-        (0, 0, 0, -1),
-    )
-    README_EQUIVALENCE_RIGHT = (
-        (2, 1, 0, 0),
-        (1, 0, 0, 0),
-        (0, 0, -1, 0),
-        (0, 0, 0, -1),
-    )
-    UPSTREAM_U_I3_LEFT = (
-        (0, 1, 0, 0, 0),
-        (1, 0, 0, 0, 0),
-        (0, 0, -1, 0, 0),
-        (0, 0, 0, -1, 0),
-        (0, 0, 0, 0, -1),
-    )
-    UPSTREAM_U_I3_RIGHT = (
-        (-3729, 464, -792, -930, 805),
-        (464, -58, 99, 116, -99),
-        (-792, 99, -169, -198, 169),
-        (-930, 116, -198, -232, 201),
-        (805, -99, 169, 201, -170),
-    )
-
-    @classmethod
+README_EQUIVALENCE_LEFT = (
+    ((0, 1, 0, 0),
+    (1, 0, 0, 0),
+    (0, 0, -1, 0),
+    (0, 0, 0, -1),)
+)
+README_EQUIVALENCE_RIGHT = (
+    ((2, 1, 0, 0),
+    (1, 0, 0, 0),
+    (0, 0, -1, 0),
+    (0, 0, 0, -1),)
+)
+UPSTREAM_U_I3_LEFT = (
+    ((0, 1, 0, 0, 0),
+    (1, 0, 0, 0, 0),
+    (0, 0, -1, 0, 0),
+    (0, 0, 0, -1, 0),
+    (0, 0, 0, 0, -1),)
+)
+UPSTREAM_U_I3_RIGHT = (
+    ((-3729, 464, -792, -930, 805),
+    (464, -58, 99, 116, -99),
+    (-792, 99, -169, -198, 169),
+    (-930, 116, -198, -232, 201),
+    (805, -99, 169, 201, -170),)
+)
+@classmethod
     def _native_scaled_hyperbolic_plane(cls, scale):
         native = IntegralLattice(scale * IntegralLattice("U").inner_product_matrix())
         assert native.base_ring() is ZZ
@@ -290,6 +289,20 @@ class TestLatticeSemantics:
         assert left.is_rationally_isometric_to(right)
         assert left.is_in_same_genus_as(right)
         assert left.is_isometric_to(right)
+
+    def test_milnor_husemoller_same_genus_not_isometric(self) -> None:
+        """
+        Milnor-Husemoller, §II Example 3 p.44.
+
+        L1 = <5> ⊕ <11> and L2 = <1> ⊕ <55> are p-adically isometric for
+        every finite prime p (same genus), but not isometric over Z because
+        5x² + 11y² = 1 has no integer solutions.
+        """
+        L1 = Lattice.rank_one(1) + Lattice.rank_one(55)
+        L2 = Lattice.rank_one(5) + Lattice.rank_one(11)
+        assert L1.determinant() == L2.determinant()
+        assert L1.is_in_same_genus_as(L2)
+        assert not L1.is_isometric_to(L2)
 
     def test_general_indefinite_backend_maps_missing_witness_to_false(self) -> None:
         backend = LatticeIsometryBackend()

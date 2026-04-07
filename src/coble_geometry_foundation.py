@@ -499,9 +499,7 @@ class Lattice(_LatticeBase):
         return cls.e8_negative()
 
     def twist(self, n: int) -> Self:
-        twisted = type(self).from_sage(
-            IntegralLattice(n * self.inner_product_matrix())
-        )
+        twisted = type(self).from_sage(IntegralLattice(n * self.inner_product_matrix()))
         return twisted
 
     @classmethod

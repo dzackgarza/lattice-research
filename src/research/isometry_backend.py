@@ -153,12 +153,11 @@ class LatticeIsometryBackend:
     def _compute_general_indefinite_isometry(self, left, right):
         M1 = left.inner_product_matrix()
         M2 = right.inner_product_matrix()
-        witness_data = indefinite_form_test_equivalence(
-            M1.rows(), M2.rows()
-        )
+        witness_data = indefinite_form_test_equivalence(M1.rows(), M2.rows())
         if witness_data is None:
             return False
         from sage.all import matrix
+
         n, m = left.rank(), right.rank()
         witness = matrix(ZZ, n, m, [ZZ(x) for row in witness_data for x in row])
         assert witness * M1 * witness.transpose() == M2

@@ -15,10 +15,7 @@
       "literature_notation": "II_{3,19} = U^3 + E8^2 ~= H^2(X,Z)",
       "even": true,
       "unimodular": true,
-      "signature": [
-        3,
-        19
-      ]
+      "signature": [3, 19]
     }
   },
   {
@@ -43,10 +40,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 2,
-      "signature": [
-        1,
-        1
-      ],
+      "signature": [1, 1],
       "nikulin_invariants": {
         "r": 2,
         "a": 2,
@@ -77,10 +71,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 20,
-      "signature": [
-        2,
-        18
-      ],
+      "signature": [2, 18],
       "nikulin_invariants": {
         "r": 20,
         "a": 2,
@@ -111,10 +102,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 10,
-      "signature": [
-        1,
-        9
-      ],
+      "signature": [1, 9],
       "nikulin_invariants": {
         "r": 10,
         "a": 10,
@@ -151,10 +139,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 12,
-      "signature": [
-        2,
-        10
-      ],
+      "signature": [2, 10],
       "nikulin_invariants": {
         "r": 12,
         "a": 10,
@@ -184,10 +169,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 14,
-      "signature": [
-        3,
-        11
-      ],
+      "signature": [3, 11],
       "nikulin_invariants": {
         "r": 14,
         "a": 8,
@@ -217,10 +199,7 @@
     "derived_properties": {
       "derivation_note": "Decoded from the paper's (r,a,delta)_{n_+} notation at the cited lines.",
       "rank": 8,
-      "signature": [
-        0,
-        8
-      ],
+      "signature": [0, 8],
       "nikulin_invariants": {
         "r": 8,
         "a": 8,
@@ -410,7 +389,6 @@
           ]
         ],
         "note": "Each entry is a basis (two vectors) for one representative isotropic plane"
-      }
-    }
+}
   }
 ]

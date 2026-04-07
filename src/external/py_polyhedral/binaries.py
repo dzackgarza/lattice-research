@@ -149,6 +149,37 @@ def indefinite_form_isotropic_k_flag(M, k):
     return indefinite_form_isotropic_k_stuff(M, k, "flag")
 
 
+def write_vector_file(file_name, v):
+    n = len(v)
+    with open(file_name, 'w') as f:
+        f.write(str(n) + '\n')
+        f.write(' '.join(str(x) for x in v) + '\n')
+
+
+def indefinite_form_stabilizer_vector(M, v):
+    """Compute generators of Stab_{O(M)}(v) for any integer vector v."""
+    binary_path = get_binary_path("INDEF_FORM_StabilizerVector")
+    arr_Q = tempfile.NamedTemporaryFile()
+    arr_v = tempfile.NamedTemporaryFile()
+    write_matrix_file(arr_Q.name, M)
+    write_vector_file(arr_v.name, v)
+    return run_and_check([binary_path, "gmp", arr_Q.name, arr_v.name])
+
+
+def indefinite_form_stabilizer_isotropic_plane(M, plane, choice="plane"):
+    """Compute generators of the stabilizer of an isotropic k-plane or k-flag.
+
+    plane: list of rows (each row is a basis vector of the isotropic subspace)
+    choice: "plane" or "flag"
+    """
+    binary_path = get_binary_path("INDEF_FORM_StabilizerIsotropicPlane")
+    arr_Q = tempfile.NamedTemporaryFile()
+    arr_P = tempfile.NamedTemporaryFile()
+    write_matrix_file(arr_Q.name, M)
+    write_matrix_file(arr_P.name, plane)
+    return run_and_check([binary_path, "gmp", arr_Q.name, arr_P.name, choice])
+
+
 def dual_description(EXT, GRP):
     binary_path = get_binary_path("POLY_DirectSerialDualDesc")
     arr_inpEXT = tempfile.NamedTemporaryFile()

@@ -8,19 +8,14 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Self
+from typing import Self, override
+
+from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
+from sage.rings.ideal import Ideal
+from sage.rings.polynomial.multi_polynomial import MPolynomial
+from sage.rings.ring import Ring
 
 from coble_geometry_foundation import Lattice
-
-if TYPE_CHECKING:
-    from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
-    from sage.matrix.matrix import Matrix
-    from sage.rings.ideal import Ideal
-    from sage.rings.polynomial.multi_polynomial import MPolynomial
-    from sage.rings.ring import Ring
-else:
-    # At runtime, import Sage's AbelianGroup directly
-    from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,162 +56,142 @@ class Variety(ABC):
         """
         ...
 
+    @abstractmethod
+    def degree(self) -> int:
+        """Return the degree of this variety in its ambient projective space."""
+        ...
 
-@abstractmethod
-def is_irreducible(self) -> bool:
-    """Check if the variety is irreducible.
+    @abstractmethod
+    def is_irreducible(self) -> bool:
+        """Check if the variety is irreducible.
 
-    Delegates to self._sage_scheme.is_irreducible().
-    """
-    ...
-
-
-@abstractmethod
-def is_smooth(self) -> bool:
-    """Check if the variety is smooth (non-singular)."""
-    ...
+        Delegates to self._sage_scheme.is_irreducible().
+        """
+        ...
 
 
-@abstractmethod
-def is_reduced(self) -> bool:
-    """Check if the variety is reduced."""
-    ...
+    @abstractmethod
+    def is_smooth(self) -> bool:
+        """Check if the variety is smooth (non-singular)."""
+        ...
 
+    @abstractmethod
+    def is_reduced(self) -> bool:
+        """Check if the variety is reduced."""
+        ...
 
-@abstractmethod
-def is_normal(self) -> bool:
-    """Check if the variety is normal."""
-    ...
+    @abstractmethod
+    def is_normal(self) -> bool:
+        """Check if the variety is normal."""
+        ...
 
+    @abstractmethod
+    def is_complete(self) -> bool:
+        """Check if the variety is complete (proper)."""
+        ...
 
-@abstractmethod
-def is_complete(self) -> bool:
-    """Check if the variety is complete (proper)."""
-    ...
+    @abstractmethod
+    def is_projective(self) -> bool:
+        """Check if the variety is projective."""
+        ...
 
+    @abstractmethod
+    def is_affine(self) -> bool:
+        """Check if the variety is affine."""
+        ...
 
-@abstractmethod
-def is_projective(self) -> bool:
-    """Check if the variety is projective."""
-    ...
+    @abstractmethod
+    def is_quasi_projective(self) -> bool:
+        """Check if the variety is quasi-projective."""
+        ...
 
+    @abstractmethod
+    def singular_locus(self) -> Subvariety:
+        """Return the singular locus as a subvariety."""
+        ...
 
-@abstractmethod
-def is_affine(self) -> bool:
-    """Check if the variety is affine."""
-    ...
+    @abstractmethod
+    def smooth_locus(self) -> Subvariety:
+        """Return the smooth locus (complement of singular locus)."""
+        ...
 
+    @abstractmethod
+    def is_snc(self) -> bool:
+        """Check if the variety is simple normal crossing (snc)."""
+        ...
 
-@abstractmethod
-def is_quasi_projective(self) -> bool:
-    """Check if the variety is quasi-projective."""
-    ...
+    @abstractmethod
+    def is_hypersurface(self) -> bool:
+        """Check if the variety is a hypersurface in its ambient space.
 
+        See https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/hypersurface.html
+        """
+        ...
 
-@abstractmethod
-def singular_locus(self) -> Subvariety:
-    """Return the singular locus as a subvariety."""
-    ...
+    @abstractmethod
+    def is_complete_intersection(self) -> bool:
+        """Check if the variety is a complete intersection."""
+        ...
 
+    @abstractmethod
+    def is_calabi_yau(self) -> bool:
+        """Check if the variety is a Calabi-Yau (trivial canonical bundle)."""
+        ...
 
-@abstractmethod
-def smooth_locus(self) -> Variety:
-    """Return the smooth locus (complement of singular locus)."""
-    ...
+    @abstractmethod
+    def is_general_type(self) -> bool:
+        """Check if the variety is of general type (big canonical bundle)."""
+        ...
 
+    @abstractmethod
+    def is_rational(self) -> bool:
+        """Check if the variety is rational (birational to P^n)."""
+        ...
 
-@abstractmethod
-def is_snc(self) -> bool:
-    """Check if the variety is simple normal crossing (snc)."""
-    ...
+    @abstractmethod
+    def is_unirational(self) -> bool:
+        """Check if the variety is unirational."""
+        ...
 
+    @abstractmethod
+    def is_abelian_variety(self) -> bool:
+        """Check if the variety is an abelian variety."""
+        ...
 
-@abstractmethod
-def is_hypersurface(self) -> bool:
-    """Check if the variety is a hypersurface in its ambient space.
-
-    See https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/hypersurface.html
-    """
-    ...
-
-
-@abstractmethod
-def is_complete_intersection(self) -> bool:
-    """Check if the variety is a complete intersection."""
-    ...
-
-
-@abstractmethod
-def is_calabi_yau(self) -> bool:
-    """Check if the variety is a Calabi-Yau (trivial canonical bundle)."""
-    ...
-
-
-@abstractmethod
-def is_general_type(self) -> bool:
-    """Check if the variety is of general type (big canonical bundle)."""
-    ...
-
-
-@abstractmethod
-def is_rational(self) -> bool:
-    """Check if the variety is rational (birational to P^n)."""
-    ...
-
-
-@abstractmethod
-def is_unirational(self) -> bool:
-    """Check if the variety is unirational."""
-    ...
-
-
-@abstractmethod
-def is_abelian_variety(self) -> bool:
-    """Check if the variety is an abelian variety."""
-    ...
-
-
-@abstractmethod
-def is_pencil(self) -> bool:
-    """Check if this variety is a pencil (family of dimension 1 over a curve)."""
-    ...
-
-
-# -------------------------------------------------------------------------
-# Numerical invariants
-# -------------------------------------------------------------------------
-
-
-@abstractmethod
-def kodaira_dimension(self) -> int:
-    """Return the Kodaira dimension $\\kappa(X)$."""
-    ...
-
-
-@abstractmethod
-def hilbert_polynomial(self) -> MPolynomial:
-    """Return the Hilbert polynomial."""
-    ...
-
-
-@abstractmethod
-def holomorphic_euler_characteristic(self) -> int:
-    """Return the holomorphic Euler characteristic $\\chi(\\mathcal{O}_X)$."""
-    ...
-
-
-@abstractmethod
-def hodge_number(self, p: int, q: int) -> int:
-    """Return the Hodge number $h^{p,q}$."""
-    ...
+    @abstractmethod
+    def is_pencil(self) -> bool:
+        """Check if this variety is a pencil (family of dimension 1 over a curve)."""
+        ...
 
     # -------------------------------------------------------------------------
-    # Base ring
+    # Numerical invariants
     # -------------------------------------------------------------------------
 
     @abstractmethod
+    def kodaira_dimension(self) -> int:
+        r"""Return the Kodaira dimension $\kappa(X)$."""
+        ...
+
+    @abstractmethod
+    def hilbert_polynomial(self) -> MPolynomial:
+        """Return the Hilbert polynomial."""
+        ...
+
+    @abstractmethod
+    def holomorphic_euler_characteristic(self) -> int:
+        r"""
+        $\chi(\mathcal{O}_X)$.
+        """
+        ...
+
+    @abstractmethod
+    def hodge_number(self, p: int, q: int) -> int:
+        """Return the Hodge number $h^{p,q}$."""
+        ...
+
+    @abstractmethod
     def base_ring(self) -> Ring:
-        """Return the base ring (typically ZZ or a field)."""
+        """Return the base ring (typically ZZ, QQ, or CC)."""
         ...
 
     # -------------------------------------------------------------------------
@@ -224,7 +199,7 @@ def hodge_number(self, p: int, q: int) -> int:
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def p_arithmetic(self) -> int:
+    def arithmetic_genus(self) -> int:
         r"""
         Return the arithmetic genus $p_a(X) = (-1)^{\dim X}(\chi(\mathcal{O}_X) - 1)$.
 
@@ -234,7 +209,7 @@ def hodge_number(self, p: int, q: int) -> int:
         ...
 
     @abstractmethod
-    def p_geometric(self) -> int:
+    def geometric_genus(self) -> int:
         r"""
         Return the geometric genus $p_g = h^0(X, K_X)$.
 
@@ -247,31 +222,36 @@ def hodge_number(self, p: int, q: int) -> int:
         """Return the irregularity $q = h^1(\\mathcal{O}_X)$."""
         ...
 
-    @abstractmethod
-    def canonical_class(self) -> Divisor:
-        r"""Return the canonical class $K_X$."""
+    def canonical_divisor(self) -> Divisor:
+        """The canonical divisor K_X"""
         ...
 
-    def canonical_divisor(self) -> Divisor:
-        """Alias for canonical_class()."""
-        return self.canonical_class()
+    @abstractmethod
+    def defining_ideal(self) -> Ideal:
+        """Return the defining ideal in the ambient coordinate ring."""
+        ...
 
-    # -------------------------------------------------------------------------
-    # Picard group (for proper varieties)
-    # -------------------------------------------------------------------------
+    @abstractmethod
+    def equations(self) -> list[MPolynomial]:
+        """Return the homogeneous equations defining this variety."""
+        ...
+
+    @abstractmethod
+    def is_proper(self) -> bool:
+        ...
+
+    @abstractmethod
+    def is_complete(self) -> bool:
+        ...
 
     @abstractmethod
     def picard_group(self) -> PicardGroup:
         r"""Return the Picard group Pic(X) as divisor classes modulo lin. equiv."""
 
     @abstractmethod
-    def picard_lattice(self) -> PicardeLattice:
-        r"""Return the Picard lattice with intersection form."""
+    def normalization(self) -> Variety:
+        """Return the normalization (integral closure of the coordinate ring)."""
         ...
-
-    # -------------------------------------------------------------------------
-    # Birational operations
-    # -------------------------------------------------------------------------
 
     @abstractmethod
     def blowup(self, center: Subvariety) -> Variety:
@@ -279,13 +259,16 @@ def hodge_number(self, p: int, q: int) -> int:
         ...
 
     @abstractmethod
-    def resolve_singularities(self) -> Variety:
+    def resolution(self) -> VarietyMorphism:
         """Return a resolution of singularities."""
         ...
 
 
-class Subvariety(ABC):
+class Subvariety(Variety):
     """A closed subscheme of a variety.
+
+    A Subvariety IS a Variety; dimension(), defining_ideal(), equations(), etc.
+    are inherited. This class adds the ambient context and codimension.
 
     Implementation notes:
     - Each Subvariety should maintain an underlying Sage subscheme object
@@ -303,23 +286,13 @@ class Subvariety(ABC):
         ...
 
     @abstractmethod
-    def defining_ideal(self) -> Ideal:
-        """Return the defining ideal in the coordinate ring of the ambient."""
-        ...
-
-    @abstractmethod
-    def dimension(self) -> int:
-        """Return the dimension of this subvariety."""
-        ...
-
-    @abstractmethod
     def codimension(self) -> int:
         """Return the codimension in the ambient variety."""
         ...
 
 
 class Point(ABC):
-    """A rational point on a variety.
+    """A closed point on a variety.
 
     Implementation notes:
     - Each Point should maintain an underlying Sage scheme point
@@ -340,13 +313,9 @@ class Point(ABC):
         ...
 
     @abstractmethod
-    def coordinates(self, chart: str | None = None) -> list:
+    def coordinates(self) -> (vector, chart):
         r"""
         Return coordinates of this point.
-
-        Args:
-            chart: Choose an affine or projective chart, e.g., "affine_xy",
-                   "projective_xyz", "D(x0)", etc.
         """
         ...
 
@@ -370,20 +339,24 @@ class Divisor(ABC):
     # _sage_divisor: sage.schemes.generic.divisor.Divisor
 
     @abstractmethod
-    def as_prime_divisor(self) -> PrimeDivisor:
-        """Return as a prime divisor if applicable, raise otherwise."""
+    def is_cartier_divisor(self) -> bool:
         ...
 
-    def is_prime(self) -> bool:
-        """Check if this divisor is prime (an irreducible codimension 1 subvariety)."""
-        try:
-            self.as_prime_divisor()
-            return True
-        except (TypeError, ValueError):
-            return False
+    @abstractmethod
+    def is_Q_cartier_divisor(self) -> bool:
+        ...
 
     @abstractmethod
-    def coefficients(self) -> dict[PrimeDivisor, int]:
+    def is_weyl_divisor(self) -> bool:
+        ...
+
+    @abstractmethod
+    def is_prime(self) -> bool:
+        """Check if this divisor is prime (irreducible codimension 1 subvariety)."""
+        ...
+
+    @abstractmethod
+    def coefficients(self) -> dict[Divisor, int]:
         """Return the dictionary of prime divisors and their coefficients."""
         ...
 
@@ -403,125 +376,92 @@ class Divisor(ABC):
         ...
 
     @abstractmethod
+    def is_big(self) -> bool:
+        ...
+
+    @abstractmethod
+    def is_very_ample(self) -> bool:
+        ...
+
+    @abstractmethod
+    def is_polarization(self) -> bool:
+        ...
+
+    @abstractmethod
     def is_nef(self) -> bool:
         """Check if numerically effective (nef)."""
         ...
 
     @abstractmethod
-    def self_intersection(self) -> int:
-        """Return the self-intersection $D^2$."""
+    def degree(self) -> int:
         ...
 
-
-@abstractmethod
-def intersection(self, other: Divisor) -> int:
-    """Return the intersection number $D \cdot E$."""
-    ...
-
-
-# -------------------------------------------------------------------------
-# Riemann-Roch and linear systems
-# -------------------------------------------------------------------------
-
-
-@abstractmethod
-def riemann_roch_space_dimension(self) -> int:
-    r"""Return $\ell(D) = \dim H^0(X, \mathcal{O}_X(D))$."""
-    ...
-
-
-@abstractmethod
-def index_of_speciality(self) -> int:
-    r"""Return the index of speciality $i = \ell(K_X - D)$."""
-    ...
-
-
-# -------------------------------------------------------------------------
-# Divisor properties
-# -------------------------------------------------------------------------
-
-
-@abstractmethod
-def is_weyl_divisor(self) -> bool:
-    """Check if this is a Weil divisor (codimension 1 subvariety)."""
-    ...
-
-
-@abstractmethod
-def is_cartier_divisor(self) -> bool:
-    """Check if this is a Cartier divisor (locally principal)."""
-    ...
-
-
-@abstractmethod
-def is_numerically_effective(self) -> bool:
-    """Alias for is_nef: numerically effective."""
-    ...
-
-
-# -------------------------------------------------------------------------
-# Divisor operations
-# -------------------------------------------------------------------------
-
-
-@classmethod
-@abstractmethod
-def from_meromorphic_function(cls, f: MPolynomial, domain: Variety) -> Self:
-    """Construct the divisor of a meromorphic function $f$."""
-    ...
-
-
-@abstractmethod
-def is_linearly_equivalent_to(self, other: Divisor) -> bool:
-    """Check if this divisor is linearly equivalent to another."""
-    ...
-
-
-@abstractmethod
-def is_canonical_divisor(self) -> bool:
-    """Check if this divisor is a canonical divisor $K_X$."""
-    ...
-
-
-@abstractmethod
-def is_prime_divisor(self) -> bool:
-    """Check if this is a prime divisor (irreducible)."""
-    ...
-
-
-@abstractmethod
-def ord_D(self, f: MPolynomial) -> int:
-    r"""Return the order of vanishing of $f$ along $D$, i.e. $\mathrm{ord}_D(f)$.
-
-    This is the length of $\mathcal{O}_{X,D}/(f)$.
-    """
-    ...
-
-
-@abstractmethod
-def to_coherent_sheaf(self) -> CoherentSheaf:
-    r"""Return the associated rank-1 coherent sheaf $\mathcal{O}_X(D)$."""
-    ...
-
-
-@abstractmethod
-def pullback(self, f: Morphism) -> Divisor:
-    """Return the pullback $f^*(D)$."""
-    ...
-
-
-@abstractmethod
-def pushforward(self, f: Morphism) -> Divisor:
-    """Return the pushforward $f_*(D)$."""
-    ...
-
-
-class PrimeDivisor(Divisor):
-    """An irreducible codimension 1 subvariety (prime divisor)."""
+    @abstractmethod
+    def intersection(self, other: Divisor) -> int:
+        """Return the intersection number $D \cdot E$."""
+        ...
 
     @abstractmethod
-    def underlying_subvariety(self) -> Subvariety:
-        """Return the underlying subvariety."""
+    def h(self, n: int) -> int:
+        r"""
+        h^n(O_X(D)) := dim_k H^n(X, O_X(D))
+        """
+
+    @final
+    def riemann_roch_space_dimension(self) -> int:
+        return self.h(0)
+
+    @final
+    def index_of_speciality(self) -> int:
+        r"""Return the index of speciality $\ell(K_X - D)$."""
+        return (self.variety().canonical_divisor() - D).h(0)
+    
+    @abstractmethod
+    def is_numerically_effective(self) -> bool:
+        """Alias for is_nef: numerically effective."""
+        ...
+
+    # -------------------------------------------------------------------------
+    # Divisor operations
+    # -------------------------------------------------------------------------
+
+    @classmethod
+    @abstractmethod
+    def from_meromorphic_function(cls, f: MPolynomial, domain: Variety) -> Self:
+        """Construct the divisor of a meromorphic function $f$."""
+        ...
+
+    @abstractmethod
+    def is_linearly_equivalent_to(self, other: Divisor) -> bool:
+        """Check if this divisor is linearly equivalent to another."""
+        ...
+
+    @abstractmethod
+    def is_canonical_divisor(self) -> bool:
+        """Check if this divisor is a canonical divisor $K_X$."""
+        ...
+
+    @abstractmethod
+    def ord_D(self, f: MPolynomial) -> int:
+        r"""Return the order of vanishing of $f$ along $D$, i.e. $\mathrm{ord}_D(f)$.
+
+        This is the length of $\mathcal{O}_{X,D}/(f)$.
+        """
+        ...
+
+    @abstractmethod
+    def to_coherent_sheaf(self) -> CoherentSheaf:
+        r"""Return the associated rank-1 coherent sheaf $\mathcal{O}_X(D)$."""
+        ...
+
+    @abstractmethod
+    def pullback(self, f: Morphism) -> Divisor:
+        """Return the pullback $f^*(D)$."""
+        ...
+
+    @abstractmethod
+    def pushforward(self, f: Morphism) -> Divisor:
+        """Return the pushforward $f_*(D)$."""
         ...
 
 
@@ -543,25 +483,15 @@ class PicardGroup(SageAbelianGroup, ABC):
         ...
 
     @abstractmethod
-    def intersection_matrix(self) -> Matrix:
-        """Return the intersection form matrix on generators."""
+    def as_lattice(self) -> Lattice:
+        """Return the abstract lattice defined by the intersection form."""
         ...
-
-
-class PicardeLattice(Lattice):
-    """The Picard lattice $\mathrm{Pic}(X)$ equipped with the intersection form."""
-
-    @abstractmethod
-    def underlying_picard_group(self) -> PicardGroup:
-        """Return the underlying Picard group."""
-        ...
-
 
 class LinearSystem(ABC):
     """Complete linear system $|D| = \mathbb{P}H^0(X, \mathcal{O}(D))$."""
 
     @abstractmethod
-    def divisor(self) -> Divisor:
+    def defining_divisor(self) -> Divisor:
         """Return the divisor $D$ such that this is $|D|$."""
         ...
 
@@ -575,13 +505,8 @@ class LinearSystem(ABC):
         """Return the base locus (fixed component)."""
         ...
 
-    @abstractmethod
-    def general_element(self) -> Divisor:
-        """Return a general element of the linear system."""
-        ...
 
-
-class Morphism(ABC):
+class VarietyMorphism(ABC):
     """A morphism of varieties $f: X \to Y$.
 
     Implementation notes:
@@ -624,23 +549,13 @@ class BirationalMap(ABC):
     """A birational map $X \dashrightarrow Y$."""
 
     @abstractmethod
-    def is_morphism(self) -> bool:
+    def is_regular(self) -> bool:
         """Check if the map is actually a regular morphism."""
-        ...
-
-    @abstractmethod
-    def as_morphism(self) -> Morphism:
-        """Return as a regular morphism if possible."""
         ...
 
     @abstractmethod
     def inverse(self) -> BirationalMap:
         """Return the inverse birational map."""
-        ...
-
-    @abstractmethod
-    def exceptional_divisor(self) -> Divisor:
-        """Return the exceptional divisor of the birational map."""
         ...
 
 
@@ -652,70 +567,18 @@ class BirationalMap(ABC):
 class Curve(Variety):
     """Algebraic curve (dimension 1)."""
 
-    @abstractmethod
-    def genus(self) -> int:
-        """Return the geometric genus $g = p_g$ for curves."""
-        ...
-
-    @abstractmethod
-    def arithmetic_genus(self) -> int:
-        """Return the arithmetic genus $p_a$."""
-        ...
-
-    @abstractmethod
-    def degree(self) -> int:
-        """Return the degree as a curve in projective space."""
-        ...
-
-    @abstractmethod
-    def normalization(self) -> Curve:
-        """Return the normalization (smooth model)."""
-        ...
-
+    @override
     def dimension(self) -> int:
         return 1
 
-
-class PlaneCurve(Curve):
-    """A curve embedded in the projective plane $\mathbb{P}^2$.
-
-    Implementation notes:
-    - For plane curves, is_hypersurface() routes to Sage's hypersurface
-      (see https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/hypersurface.html)
-    """
-
-    @abstractmethod
-    def equation(self) -> MPolynomial:
-        """Return the homogeneous equation $F(x,y,z) = 0$ defining the curve."""
-        ...
-
-    @abstractmethod
-    def degree(self) -> int:
-        """Return the degree of the curve."""
-        ...
-
-    @abstractmethod
-    def dual_curve(self) -> PlaneCurve:
-        """Return the dual plane curve in $(\mathbb{P}^2)^\vee$."""
-        ...
-
-
-class RationalSextic(PlaneCurve):
-    """A rational plane sextic curve of degree 6."""
-
     @abstractmethod
     def is_nodal(self) -> bool:
-        """Check if the sextic is nodal (has only nodes as singularities)."""
+        """Check if the curve has only nodes as singularities."""
         ...
 
     @abstractmethod
     def nodes(self) -> list[Point]:
-        """Return the list of node singularities as points in $\mathbb{P}^2$."""
-        ...
-
-    @abstractmethod
-    def normalization(self) -> Curve:
-        """Return the normalization, which is $\mathbb{P}^1$ for rational curves."""
+        """Return the list of node singularities."""
         ...
 
 
@@ -727,31 +590,13 @@ class RationalSextic(PlaneCurve):
 class Surface(Variety):
     """Algebraic surface (dimension 2)."""
 
+    @override
     def dimension(self) -> int:
-        return 1  # sic: dimension returns the dimension of the variety
-
-    @abstractmethod
-    def birational_involution(self) -> Morphism:
-        """Return a birational involution if present (e.g., for Enriques surfaces)."""
-        ...
+        return 2
 
 
-class ProjectivePlane(Surface):
-    """The projective plane $\mathbb{P}^2$."""
-
-    @classmethod
-    def standard(cls) -> Self:
-        """Return the standard $\mathbb{P}^2$."""
-        ...
-
-
-class Blowup(Surface):
+class Blowup(VarietyMorphism):
     """A blowup of a surface at a center (points or curves)."""
-
-    @abstractmethod
-    def original_surface(self) -> Surface:
-        """Return the original surface before blowing up."""
-        ...
 
     @abstractmethod
     def center(self) -> Subvariety:
@@ -764,7 +609,7 @@ class Blowup(Surface):
         ...
 
 
-class CobleSurface(Blowup):
+class CobleSurface(Surface):
     r"""Coble surface $= \mathrm{Bl}_{p_1,\dots,p_{10}}\mathbb{P}^2$.
 
     The surface obtained by blowing up $\mathbb{P}^2$ at the 10 nodes of a rational
@@ -774,8 +619,10 @@ class CobleSurface(Blowup):
 
     @classmethod
     @abstractmethod
-    def from_singular_sextic(cls, sextic: RationalSextic) -> Self:
-        """Construct as blowup at the nodes of a singular sextic curve."""
+    def from_sextic(cls, C: Curve) -> Self:
+        r"""
+        Construct as blowup at the nodes of a singular sextic curve.
+        """
         ...
 
     @classmethod
@@ -803,117 +650,105 @@ class CobleSurface(Blowup):
         ...
 
 
-# ============================================================================
-# BRANCHED COVER CONSTRUCTIONS
-# ============================================================================
+class BranchedCover(VarietyMorphism):
+    r"""A branched cover $f: Y \to X$, a finite morphism ramified over a divisor.
 
-
-class BranchedCoverConstruction(ABC):
-    r"""A branched cover $Y \to X$ branched over a divisor $D \subset X$."""
-
-    @abstractmethod
-    def base(self) -> Variety:
-        """Return the base variety $X$."""
-        ...
+    Inherits domain() (= total space $Y$), codomain() (= base $X$), degree(),
+    is_finite(), is_étale() from VarietyMorphism.
+    """
 
     @abstractmethod
     def branch_divisor(self) -> Divisor:
-        r"""Return the branch divisor $D \subset X$."""
+        r"""Return the branch divisor $D \subset X$ (locus over which $f$ is ramified)."""
         ...
 
     @abstractmethod
     def ramification_divisor(self) -> Divisor:
-        r"""Return the ramification divisor $R \subset Y$ where $\pi$ is ramified."""
+        r"""Return the ramification divisor $R \subset Y$, satisfying $K_Y = f^* K_X + R$."""
         ...
 
     @abstractmethod
-    def degree(self) -> int:
-        """Return the degree of the covering."""
+    def ramification_index(self, point: Point) -> int:
+        r"""Return the ramification index $e_p$ at a point $p \in Y$."""
+        ...
+
+    @abstractmethod
+    def satisfies_riemann_hurwitz(self) -> bool:
+        r"""Verify the Riemann-Hurwitz formula $2g_Y - 2 = \deg(f)(2g_X - 2) + \deg R$."""
         ...
 
 
-@abstractmethod
-def total_space(self) -> Variety:
-    """Return the total space $Y$ (the covering variety)."""
-    ...
+# ============================================================================
+# SPECIALIZATIONS: K3 AND ENRIQUES SURFACES
+# ============================================================================
 
 
-# -------------------------------------------------------------------------
-# Ramification data
-# -------------------------------------------------------------------------
+class K3Surface(Surface):
+    r"""A K3 surface: smooth projective surface with $p_g = 1$, $q = 0$, $K_X \sim 0$.
+
+    In the Coble construction, arises as the double cover of $\mathbb{P}^2$
+    branched over a rational sextic $C$: the surface $w^2 = F(x,y,z)$ in
+    $\mathbb{P}(1,1,1,3)$.
+    """
+
+    @classmethod
+    @abstractmethod
+    def from_branch_sextic(cls, sextic: Curve) -> Self:
+        r"""Construct as the double cover of $\mathbb{P}^2$ branched over a sextic."""
+        ...
+
+    @override
+    def geometric_genus(self) -> int:
+        """K3 surfaces satisfy $p_g = 1$ by definition."""
+        return 1
+
+    @override
+    def q(self) -> int:
+        """K3 surfaces satisfy $q = 0$ by definition."""
+        return 0
+
+    @override
+    def is_calabi_yau(self) -> bool:
+        """K3 surfaces have trivial canonical bundle ($K_X \\sim 0$)."""
+        return True
+
+    @override
+    def kodaira_dimension(self) -> int:
+        """K3 surfaces have Kodaira dimension 0."""
+        return 0
 
 
-@abstractmethod
-def ramification_index(self, point: Point) -> int:
-    r"""Return the ramification index $e_p$ at a point $p \in Y$."""
-    ...
+class EnriquesSurface(Surface):
+    r"""An Enriques surface: $p_g = 0$, $q = 0$, $2K_Z \sim 0$, $K_Z \not\sim 0$.
 
-
-@abstractmethod
-def ramification_divisor_as_divisor(self) -> Divisor:
-    r"""Return the ramification divisor as a divisor $R = \sum (e_p - 1) p$."""
-    ...
-
-
-@abstractmethod
-def branch_divisor_as_divisor(self) -> Divisor:
-    r"""Return the branch divisor as a divisor $B = \sum m_q q$."""
-    ...
-
-
-@abstractmethod
-def satisfies_riemann_hurwitz(self) -> bool:
-    r"""Verify that the Riemann-Hurwitz formula holds."""
-    ...
-
-
-class DoubleCover(BranchedCoverConstruction):
-    r"""A double (2-sheeted) cover branched over an even-degree divisor."""
-
-    def degree(self) -> int:
-        return 2
-
-
-class K3DoubleCover(DoubleCover):
-    r"""Double cover of $\mathbb{P}^2$ branched over a sextic curve.
-
-    The covering surface is a K3 surface $X$ given by $w^2 = F(x,y,z)$ in
-    the weighted projective space $\mathbb{P}(1,1,1,3)$.
+    Every Enriques surface is the quotient $Z = X / \iota$ of a K3 surface $X$
+    by a fixed-point-free involution $\iota$ (the Enriques involution).
     """
 
     @abstractmethod
-    def branch_sextic(self) -> RationalSextic:
-        """Return the branch sextic curve."""
+    def k3_cover(self) -> K3Surface:
+        r"""Return the canonical K3 double cover $X \to Z$."""
         ...
 
     @abstractmethod
-    def cover_surface(self) -> Surface:
-        """Return the K3 surface."""
+    def enriques_involution(self) -> VarietyMorphism:
+        r"""Return the deck transformation $\iota: X \to X$ (fixed-point-free, order 2)."""
         ...
 
+    @override
+    def geometric_genus(self) -> int:
+        """Enriques surfaces satisfy $p_g = 0$."""
+        return 0
 
-class EnriquesQuotient(ABC):
-    r"""Quotient of a K3 surface by a fixed-point-free involution.
+    @override
+    def q(self) -> int:
+        """Enriques surfaces satisfy $q = 0$."""
+        return 0
 
-    The quotient $Z = X/\iota_{\mathrm{En}}$ is an Enriques surface with
-    $2K_Z \sim 0$.
-    """
-
-    @abstractmethod
-    def k3_cover(self) -> Surface:
-        """Return the covering K3 surface $X$."""
-        ...
-
-    @abstractmethod
-    def involution(self) -> Morphism:
-        r"""Return the Enriques involution $\iota_{\mathrm{En}}: X \to X$."""
-        ...
-
-
-@abstractmethod
-def quotient_surface(self) -> Surface:
-    """Return the Enriques surface $Z = X/\iota_{\mathrm{En}}$."""
-    ...
+    @override
+    def kodaira_dimension(self) -> int:
+        """Enriques surfaces have Kodaira dimension 0."""
+        return 0
 
 
 # ============================================================================
@@ -931,7 +766,15 @@ class CoherentSheaf(ABC):
     """
 
     @abstractmethod
-    def variety(self) -> Variety:
+    @classmethod
+    def from_divisor(cls, D: Divisor) -> Self:
+        """
+        Construct O_X(D) from D.
+        """
+        ...
+
+    @abstractmethod
+    def base_variety(self) -> Variety:
         """Return the variety on which this sheaf is defined."""
         ...
 
@@ -941,18 +784,25 @@ class CoherentSheaf(ABC):
         ...
 
     @abstractmethod
-    def h0(self) -> int:
-        r"""Return $h^0(\mathcal{F}) = \dim H^0(X, \mathcal{F})$."""
-        ...
-
-    @abstractmethod
-    def h1(self) -> int:
-        r"""Return $h^1(\mathcal{F}) = \dim H^1(X, \mathcal{F})$."""
+    def h(self, n: int) -> int:
+        r"""Return $h^n(\mathcal{F}) = \dim H^n(X, \mathcal{F})$."""
         ...
 
     @abstractmethod
     def euler_characteristic(self) -> int:
         r"""Return $\chi(\mathcal{F}) = \sum (-1)^i h^i(\mathcal{F})$."""
+        ...
+
+    @abstractmethod
+    def twist(self, n: int) -> Self:
+        """
+        Return F(n) := F \otimes O_X(n)
+        """
+        ...
+
+    @abstractmethod
+    def dual(self) -> Self:
+        """Return F^*"""
         ...
 
 
@@ -961,59 +811,26 @@ class CoherentSheaf(ABC):
 # ============================================================================
 
 
-class FamilyOfVarieties(ABC):
-    r"""A family of varieties $\mathcal{X} \to S$ over a base scheme.
+class FamilyOfVarieties(VarietyMorphism):
+    r"""A flat family of varieties $f: \mathcal{X} \to S$.
 
-    This represents a morphism $f: \mathcal{X} \to S$ where each fiber
-    $X_s = f^{-1}(s)$ is a variety. Used for degenerations, moduli,
-    and specialization.
-
-    Implementation notes:
-    - Maintains the total space and base scheme
-    - Provides methods for Specialization, monodromy, etc.
+    A flat VarietyMorphism where domain() = total space $\mathcal{X}$ and
+    codomain() = base scheme $S$. Inherits domain(), codomain(), degree(),
+    is_finite(), is_étale() from VarietyMorphism.
     """
 
     @abstractmethod
-    def total_space(self) -> Variety:
-        r"""Return the total space $\mathcal{X}$."""
-        ...
-
-    @abstractmethod
-    def base(self) -> Variety:
-        """Return the base scheme $S$."""
-        ...
-
-    @abstractmethod
-    def morphism(self) -> Morphism:
-        r"""Return the structure morphism $\mathcal{X} \to S$."""
-        ...
-
-    @abstractmethod
     def fiber(self, s: Point) -> Variety:
-        r"""Return the fiber $X_s$ over the point $s \in S$."""
+        r"""Return the fiber $X_s = f^{-1}(s)$ over $s \in S$."""
         ...
 
     @abstractmethod
     def specialization(self, s: Point) -> Variety:
-        r"""Return the specialized variety at the point $s$.
+        r"""Return the specialized variety at $s$ (e.g. stable model at a boundary point).
 
-        For example, at a point in the boundary of a compactification,
-        this returns the special fiber (stable model).
         See https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/algebraic_scheme.html
         for degeneration handling.
         """
         ...
 
-    @abstractmethod
-    def monodromy(self, loop: Point) -> list:
-        r"""Return the monodromy action on cohomology around a loop."""
-        ...
 
-    @abstractmethod
-    def limit_period(self, boundary_point: Point) -> Variety:
-        """Return the limiting period ( Hodge structure) at a boundary point."""
-        ...
-
-
-# Ring, Ideal, Matrix, MPolynomial are imported from Sage in concrete implementations
-# See TYPE_CHECKING block at top of file

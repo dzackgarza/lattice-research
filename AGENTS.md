@@ -22,8 +22,8 @@ This file contains only project-specific operational details not covered by thos
   `git worktree add .worktrees/<name> -b <name> main`
 - When the task is done (merged or abandoned), remove the worktree immediately:
   `git worktree remove .worktrees/<name> && git branch -d <name>`
-- Never leave a stale worktree behind. If a worktree exists at session startup with no
-  active task, remove it.
+- Never leave a stale worktree behind.
+  If a worktree exists at session startup with no active task, remove it.
 
 NOTE: if you are an ORCHESTRATING AGENT, you MUST commit outputs to PERMANENT artifacts:
 memories, files, etc.
@@ -34,7 +34,12 @@ compactification threshold (too many tokens in a given session -- inevitable).
 REMINDER: DO NOT REPORT ARTIFACTS AND FINDINGS IN CHAT. CREATE ARTIFACTS: MEMORIES,
 FILES, GIT COMMITS WITH MESSAGES.
 
-Also: never "repair" code that violates audits. This poisons context and leads to "polishing" and "whittling" behaviour of bad code into minimally passing code. Delete poisonous code entirely, after reading it into your own context, and use the IDEAS to delegate a complete ground-up rewrite of the poisoned parts. Motto: excise/purge and rewrite, never iterate on poisoned code.
+Also: never "repair" code that violates audits.
+This poisons context and leads to "polishing" and "whittling" behaviour of bad code into
+minimally passing code.
+Delete poisonous code entirely, after reading it into your own context, and use the
+IDEAS to delegate a complete ground-up rewrite of the poisoned parts.
+Motto: excise/purge and rewrite, never iterate on poisoned code.
 
 ## Environment
 
@@ -56,15 +61,15 @@ Read-only, never modify:
 The repo has this basic structure.
 Subdirectories of these durable content roots are automatically allowed — no need to
 update this file when you create new folders inside established roots such as
-computations/, src/, notes/, papers/, coble_research_lean/, tasks/, or other repo-level
-directories that already have a stable semantic role.
+computations/, src/, notes/, theory/literature/, coble_research_lean/, tasks/, or other
+repo-level directories that already have a stable semantic role.
 
 The list below is the current baseline layout, not a frozen allowlist.
 Root-level additions are allowed when they create a clearly valuable, durable category
 of research material, tooling, or shared documentation that does not fit cleanly inside
-an existing root.
-What is forbidden is process sprawl: directories that exist only to mirror agent
-workflow stages like planning, auditing, logging, retries, or session summaries.
+an existing root. What is forbidden is process sprawl: directories that exist only to
+mirror agent workflow stages like planning, auditing, logging, retries, or session
+summaries.
 
 ```
 research/
@@ -80,19 +85,19 @@ research/
     external/                      # Vendored/external code; excluded from repo QC
   coble_research_lean/             # Lean 4 formalizations
   notes/                           # Mathematical notes (any subdirs allowed)
-  papers/                          # PDFs and extracted text
+theory/literature/ # PDFs and extracted text
   tasks/                           # State-machine task artifacts
   theory/                          # Shared theory notes, tool audits, and claim maps
 ```
 
 Task implementation artifacts live in `tasks/T-XXXX/implementation/` during the active
-task lifecycle (per STATE_MACHINE.md artifact model). Active task and subagent
-computation work belongs in `computations/`. Finalized computation scripts or reusable
-shared code may be admitted into `src/` once they become trusted first-party
-infrastructure.
-Vendored or third-party code goes in `src/external/` and is excluded from repo QC.
-There is no separate `scripts/`, `tests/`, or `code/` directory because every script IS
-a computation, IS a test (it must assert its claims), and IS a script.
+task lifecycle (per STATE_MACHINE.md artifact model).
+Active task and subagent computation work belongs in `computations/`. Finalized
+computation scripts or reusable shared code may be admitted into `src/` once they become
+trusted first-party infrastructure.
+Vendored or third-party code goes in `src/external/` and is excluded from repo QC. There
+is no separate `scripts/`, `tests/`, or `code/` directory because every script IS a
+computation, IS a test (it must assert its claims), and IS a script.
 These are not distinct categories.
 
 Lean formalizations go in `coble_research_lean/`. There is exactly one Lean project.
@@ -109,7 +114,7 @@ mathematical content.
 Once a directory exists, it attracts more files of the same type.
 
 The structural gate: **subdirectories of established durable roots are automatically
-allowed.** Create new folders inside computations/, src/, notes/, papers/,
+allowed.** Create new folders inside computations/, src/, notes/, theory/literature/,
 coble_research_lean/, tasks/, theory/, or another already-established root freely.
 New root-level directories require justification, but they are not categorically banned.
 They must represent a durable content class, not an agent-process phase.
@@ -120,7 +125,7 @@ The work either:
 - Is a mathematical observation → goes in `notes/`
 - Is a proof sketch → goes in `notes/proofs/`
 - Is a Lean formalization → goes in `coble_research_lean/`
-- Is a paper → goes in `papers/`
+- Is a paper → goes in `theory/literature/`
 - Is a state-machine task artifact → goes in `tasks/`
 - Is durable shared theory/reference/tooling documentation → goes in a coherent shared
   root such as `theory/`
@@ -131,9 +136,9 @@ There is no other category.
 Specifically:
 - There is no `tests/` — every computation script asserts its claims or it is broken.
   The script IS the test.
-- There is no `scripts/` — `src/` is the trusted shared code surface,
-  `computations/` is the active computation workspace, and task-local computation
-  artifacts live under `tasks/T-XXXX/computations/` when required by the state machine.
+- There is no `scripts/` — `src/` is the trusted shared code surface, `computations/` is
+  the active computation workspace, and task-local computation artifacts live under
+  `tasks/T-XXXX/computations/` when required by the state machine.
 - Git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
 - There is at most one active plan, and completed plans are archived (deleted; git
@@ -183,8 +188,8 @@ Before deleting a root-level directory, classify it first:
 
 Before deleting a directory, check if it contains uncommitted work that traces to a
 GOAL.md task.
-If so, move the relevant files to their correct location first, then delete the
-directory. Do not delete a root-level directory merely because it is absent from an
+If so, move the relevant files to their correct location first, then delete
+the directory. Do not delete a root-level directory merely because it is absent from an
 old examples list.
 
 ### What does NOT belong in the repo
@@ -215,8 +220,8 @@ with methods, not a flat bag of helper functions.
 - Constructors, coercions, exact transforms, predicates, and invariant extractors live
   on these nouns as methods or class methods.
 - If a public operation takes a lattice, lattice element, discriminant group, or
-  morphism as its primary argument, that is a design smell. Attach the verb to the
-  noun unless the operation is a true interop bridge.
+  morphism as its primary argument, that is a design smell.
+  Attach the verb to the noun unless the operation is a true interop bridge.
 - Never add wrappers whose only effect is renaming or forwarding to a native upstream
   method on the same object in the same language.
 - Public wrappers are allowed only when they hide language interop or expose new exact
@@ -228,8 +233,7 @@ with methods, not a flat bag of helper functions.
 ### Good shared interfaces
 
 - canonical constructors such as `Lattice.hyperbolic_plane()`
-- exact methods such as `lattice.discriminant_group()` or
-  `element.inner_product(other)`
+- exact methods such as `lattice.discriminant_group()` or `element.inner_product(other)`
 - exact transforms such as `morphism.image()` or
   `lattice.orthogonal_complement(sublattice)`
 
@@ -242,8 +246,8 @@ with methods, not a flat bag of helper functions.
 - `verify_*` functions that silently absorb the mathematical burden that agent code
   should compose and make auditable
 
-Gates may compose shared primitives against fixture data and expected values. The
-shared baseline itself should stay narrow, explicit, inspectable, and noun-based.
+Gates may compose shared primitives against fixture data and expected values.
+The shared baseline itself should stay narrow, explicit, inspectable, and noun-based.
 
 ### When the base is insufficient
 
@@ -257,14 +261,14 @@ Examples of insufficiency:
   lacks the right semantic object;
 - multiple tasks would need the same foundational operation or convention.
 
-Do not solve this inside the task with ad hoc helpers. Send it back to
-`STATE_MACHINE.md` for trusted-base admission and task redesign.
+Do not solve this inside the task with ad hoc helpers.
+Send it back to `STATE_MACHINE.md` for trusted-base admission and task redesign.
 
 ## Testing Non-Python Languages
 
-For computations in Julia, GAP, or other non-Python languages, use the language's
-native testing framework and invoke it from Python/Sage rather than reimplementing
-assertions in a wrapper:
+For computations in Julia, GAP, or other non-Python languages, use the language's native
+testing framework and invoke it from Python/Sage rather than reimplementing assertions
+in a wrapper:
 
 - **GAP**: use SageMath's built-in GAP interface (`gap(...)`, `libgap`) — assertions
   live in GAP code, Sage just calls and checks the return value.
@@ -273,13 +277,12 @@ assertions in a wrapper:
 - **Other languages**: same pattern — native test framework + thin Python/Sage caller
   that fails loudly on non-zero exit or exception.
 
-Never port language-native logic into a Python shim just to make it "testable." The
-native code is the test.
+Never port language-native logic into a Python shim just to make it "testable."
+The native code is the test.
 
 ## Foundation Library
 
-All lattice constructions must use `src/coble_geometry_foundation.sage`
-constructors.
+All lattice constructions must use `src/coble_geometry_foundation.sage` constructors.
 Never construct lattices with ad-hoc `diagonal_matrix()` calls.
 The legacy `coble_geometry.sage` must not be loaded.
 

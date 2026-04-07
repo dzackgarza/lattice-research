@@ -2,6 +2,35 @@ r"""
 These tests define things that should be possible with the finalized interfaces.
 """
 
+Z = Lattice.()
+assert Z.gram_matrix().is_identity()
+assert Z.is_integral() and Z.is_nondegenerate()
+
+Z2 = Lattice.ZZ(2)
+assert Z2.gram_matrix() == Matrix(ZZ, 1, [2])
+assert Z2 == Z.twist(2) == 2*Z
+
+E8 = Lattice.root_lattice("E8")
+assert E8 == Lattice.E8()
+assert E8.is_integral() and E8.is_nondegenerate()
+assert E8.is_negative_definite() and not E8.is_positive_definite() and not E8.is_indefinite()
+assert E8.is_unimodular() and E8.discriminant_group().is_trivial()
+assert E8.signature == (0, 8) and E8 == Lattice.II(0, 8)
+assert E8.rank() == 8 and E8.dual() == E8
+
+E8_2 = E8.twist(2)
+assert not E8_2.is_unimodular() and E8_2.dual() == (1/2)*E8_2
+# If L is a lattice, then L(2)^* = (1/2)L^* always, 
+# and if L is unimodular, L^* = L.
+assert E8_2.discriminant_group() == E8_2.dual()/E8_2 == (1/2)E8/E8 == E8 / (2*E8)
+# If L is unimodular, then A_{L(2)} = L(2)^*/L(2) = (1/2)L/L = L/2L
+
+assert E8.root_sublattice() == E8
+assert E8.orthogonal_group() == E8.weyl_group()
+assert E8.weyl_group().cardinality() == 2^(14) * 3^5 * 5^2 * 7
+R_E8 = E8.root_system()
+assert R_E8.cardinality() == 240
+assert R_E8.rank() == 8
 
 
 U.<e,f> = Lattice.U()
