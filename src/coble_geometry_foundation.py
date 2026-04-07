@@ -477,6 +477,10 @@ class Lattice(_LatticeBase):
         return converted
 
     @classmethod
+    def U(cls) -> Self:
+        return cls.hyperbolic_plane()
+
+    @classmethod
     def a1_negative(cls) -> Self:
         native_lattice = IntegralLattice(-_A1_POSITIVE.inner_product_matrix())
         converted = cls.from_sage(native_lattice)
@@ -489,6 +493,16 @@ class Lattice(_LatticeBase):
         converted = cls.from_sage(native_lattice)
         assert converted.is_isometric_to(native_lattice)
         return converted
+
+    @classmethod
+    def E8(cls) -> Self:
+        return cls.e8_negative()
+
+    def twist(self, n: int) -> Self:
+        twisted = type(self).from_sage(
+            IntegralLattice(n * self.inner_product_matrix())
+        )
+        return twisted
 
     @classmethod
     def coble_picard(cls) -> Self:

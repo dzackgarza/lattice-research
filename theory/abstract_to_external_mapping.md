@@ -10,10 +10,10 @@ tool functionalities documented in `theory/comprehensive_tool_docs.md`.
 | `Variety.blowup(center)` | Macaulay2: Schubert2 `blowup(i)` | Use Macaulay2's Schubert2 package |
 | `Variety.resolve_singularities()` | Singular: `resbin.lib` (minimal resolution) | Use Singular's resolution algorithms |
 | `Variety.picard_group()` | Sage: `PicardGroup`, Oscar.jl: integer lattices | Use Sage or Oscar to compute Pic |
-| `Variety.kodaira_dimension()` | **NOT FOUND** — requires custom computation via h^0(nK_X) for n=1,2,3,... | Compute h^0(nK_X) for n=1,2,3,... and check stabilization |
+| `Variety.kodaira_dimension()` | Macaulay2 + Sage: compute h^0(nK_X), then Sage `R.lagrange_polynomial(points)` | **Verified**: For proper X of dimension d, by Asymptotic Riemann-Roch (Stacks Tag 0BJ8), if κ ≥ 0 then h^0(nK_X) = P(n) for a polynomial of degree κ. Compute h^0(nK_X) for n = 1,...,d+2 via Macaulay2. In Sage: `R = PolynomialRing(QQ, 'x'); points = [(n, h0(n)) for n in 1..d+2]; P = R.lagrange_polynomial(points); κ = P.degree()`. If all h^0 = 0, then κ = -∞. Reference: https://stacks.math.columbia.edu/tag/0BJ8 |
 | `Variety.hilbert_polynomial()` | Macaulay2: `hilbertPolynomial` | Use Macaulay2's Hilbert series (verified in docs) |
 | `Variety.hodge_number(p,q)` | Macaulay2: `HH^i(cotangentSheaf(p, X))` | Use Macaulay2's sheaf cohomology (verified in docs) |
-| `Variety.holomorphic_euler_characteristic()` | **NOT FOUND** — likely computed via chi(O_X) = sum (-1)^i h^i(O_X) | Compute via Hodge numbers or topological Euler characteristic |
+| `Variety.holomorphic_euler_characteristic()` | Macaulay2: via sheaf cohomology | Formula (definition): χ(O_X) = Σ(-1)^i h^i(O_X). For surfaces: χ = 1 - q + p_g. Compute each h^i(O_X) via Macaulay2's `dim HH^i(O_X)`. Reference: Standard definition (no additional theorem needed). |
 | `Variety.canonical_class()` | Macaulay2: `canonicalDivisor(X)` | Verified: https://macaulay2.com/doc/Macaulay2-1.22/share/doc/Macaulay2/Divisor/html/_canonical__Divisor.html |
 
 ## Curve Methods
