@@ -614,15 +614,16 @@ class Lattice(_LatticeBase):
     def orthogonal_group(self) -> LatticeOrthogonalGroup:
         r"""Return O(self) as a :class:`LatticeOrthogonalGroup`.
 
-        Generators come from the ``INDEF_FORM_AutomorphismGroup`` binary.
-        The returned group uses LEFT action: ``G * v`` (column-vector convention),
-        opposite to Sage's default right action ``v * G``.
-        Membership: ``G in O(L)`` iff ``G * Q * G^T == Q``.
+        Construction is cheap; generators are computed lazily on first call to
+        ``gens()``.  Membership uses the matrix equation G*Q*G^T == Q directly.
         """
-        gens = self._matrices_from_raw(
-            indefinite_form_automorphism_group(self._gram_rows())
+        gram_rows = self._gram_rows()
+        return LatticeOrthogonalGroup.from_lattice(
+            self,
+            lambda: self._matrices_from_raw(
+                indefinite_form_automorphism_group(gram_rows)
+            ),
         )
-        return LatticeOrthogonalGroup(self, gens)
 
     def stabilizer_of_vector(self, v) -> LatticeOrthogonalSubgroup:
         r"""Return Stab_{O(self)}(v) as a :class:`LatticeOrthogonalSubgroup`.
@@ -630,38 +631,33 @@ class Lattice(_LatticeBase):
         v: a LatticeElement or integer vector (isotropic or non-isotropic).
         Membership: M in O(L) and M*v == v  (left action, column convention).
         """
-        v_col = matrix(ZZ, self.rank(), 1, self._vec_to_list(v))
-        raw = indefinite_form_stabilizer_vector(
-            self._gram_rows(), self._vec_to_list(v)
-        )
-        og = LatticeOrthogonalGroup(self, self._matrices_from_raw(
-            indefinite_form_automorphism_group(self._gram_rows())
-        ))
-        return LatticeOrthogonalSubgroup(
-            og,
-            self._matrices_from_raw(raw),
-            predicates=[lambda M, _v=v_col: M * _v == _v],
+        from sage.all import vector as sage_vector
+        v_col = sage_vector(ZZ, self._vec_to_list(v))
+        vlist = self._vec_to_list(v)
+        gram_rows = self._gram_rows()
+        return self.orthogonal_group().subgroup(
+            gens_fn=lambda: self._matrices_from_raw(
+                indefinite_form_stabilizer_vector(gram_rows, vlist)
+            ),
+            predicate=lambda M, _v=v_col: M * _v == _v,
         )
 
     def stabilizer_of_isotropic_line(self, v) -> LatticeOrthogonalSubgroup:
-        r"""Return the setwise stabilizer of span(v) as a :class:`LatticeOrthogonalSubgroup`.
+        r"""Return setwise Stab_{O(self)}(span(v)) as a :class:`LatticeOrthogonalSubgroup`.
 
         v: a primitive isotropic LatticeElement.
-        Membership: M in O(L) and M*v in span(v) over ZZ (setwise, so M*v = ±v).
+        Membership: M in O(L) and M*v in span(v) over ZZ (allows M*v = ±v).
         """
         from sage.all import vector as sage_vector
         v_col = sage_vector(ZZ, self._vec_to_list(v))
         span_v = self.ambient_module().span([v_col])
-        raw = indefinite_form_stabilizer_isotropic_line(
-            self._gram_rows(), self._vec_to_list(v)
-        )
-        og = LatticeOrthogonalGroup(self, self._matrices_from_raw(
-            indefinite_form_automorphism_group(self._gram_rows())
-        ))
-        return LatticeOrthogonalSubgroup(
-            og,
-            self._matrices_from_raw(raw),
-            predicates=[lambda M, _s=span_v, _v=v_col: M * _v in _s],
+        vlist = self._vec_to_list(v)
+        gram_rows = self._gram_rows()
+        return self.orthogonal_group().subgroup(
+            gens_fn=lambda: self._matrices_from_raw(
+                indefinite_form_stabilizer_isotropic_line(gram_rows, vlist)
+            ),
+            predicate=lambda M, _s=span_v, _v=v_col: M * _v in _s,
         )
 
     def stabilizer_of_isotropic_plane(self, v, w) -> LatticeOrthogonalSubgroup:
@@ -674,55 +670,39 @@ class Lattice(_LatticeBase):
         v_col = sage_vector(ZZ, self._vec_to_list(v))
         w_col = sage_vector(ZZ, self._vec_to_list(w))
         plane = self.ambient_module().span([v_col, w_col])
-        raw = indefinite_form_stabilizer_isotropic_plane_2d(
-            self._gram_rows(),
-            self._vec_to_list(v),
-            self._vec_to_list(w),
-        )
-        og = LatticeOrthogonalGroup(self, self._matrices_from_raw(
-            indefinite_form_automorphism_group(self._gram_rows())
-        ))
-        return LatticeOrthogonalSubgroup(
-            og,
-            self._matrices_from_raw(raw),
-            predicates=[
-                lambda M, _p=plane, _v=v_col, _w=w_col: (
-                    M * _v in _p and M * _w in _p
-                )
-            ],
+        vlist, wlist = self._vec_to_list(v), self._vec_to_list(w)
+        gram_rows = self._gram_rows()
+        return self.orthogonal_group().subgroup(
+            gens_fn=lambda: self._matrices_from_raw(
+                indefinite_form_stabilizer_isotropic_plane_2d(gram_rows, vlist, wlist)
+            ),
+            predicate=lambda M, _p=plane, _v=v_col, _w=w_col: (
+                M * _v in _p and M * _w in _p
+            ),
         )
 
     def stabilizer_of_isotropic_flag(self, ordered_basis) -> LatticeOrthogonalSubgroup:
         r"""Return Stab_{O(self)}(flag) as a :class:`LatticeOrthogonalSubgroup`.
 
         ordered_basis: ordered list of LatticeElements [v_1, ..., v_k].
-            The i-th prefix spans a totally isotropic i-plane.
             The ORDER is essential: the stabilizer fixes the nested flag
             span(v_1) ⊂ span(v_1,v_2) ⊂ ... ⊂ span(v_1,...,v_k).
-        Membership: M in O(L) and for each j in 1..k,  M*v_j in span(v_1,...,v_j).
+        Membership: M in O(L) and M*v_j in span(v_1,...,v_j) for each j.
         """
         from sage.all import vector as sage_vector
         cols = [sage_vector(ZZ, self._vec_to_list(vi)) for vi in ordered_basis]
-        # One predicate per basis vector: M*v_j must stay in its own stratum
-        strata = [
-            self.ambient_module().span(cols[: i + 1])
-            for i in range(len(cols))
-        ]
-        predicates = [
-            (lambda M, _s=s, _c=c: M * _c in _s)
-            for s, c in zip(strata, cols)
-        ]
-        raw = indefinite_form_stabilizer_isotropic_flag(
-            self._gram_rows(),
-            [self._vec_to_list(vi) for vi in ordered_basis],
+        strata = [self.ambient_module().span(cols[: i + 1]) for i in range(len(cols))]
+        basis_lists = [self._vec_to_list(vi) for vi in ordered_basis]
+        gram_rows = self._gram_rows()
+        # Compose all per-stratum predicates into one
+        predicate = lambda M, _strata=strata, _cols=cols: all(
+            M * c in s for c, s in zip(_cols, _strata)
         )
-        og = LatticeOrthogonalGroup(self, self._matrices_from_raw(
-            indefinite_form_automorphism_group(self._gram_rows())
-        ))
-        return LatticeOrthogonalSubgroup(
-            og,
-            self._matrices_from_raw(raw),
-            predicates=predicates,
+        return self.orthogonal_group().subgroup(
+            gens_fn=lambda: self._matrices_from_raw(
+                indefinite_form_stabilizer_isotropic_flag(gram_rows, basis_lists)
+            ),
+            predicate=predicate,
         )
 
     def isotropic_line_orbits(self):
@@ -768,167 +748,213 @@ class Lattice(_LatticeBase):
 # Action convention diagram:
 #   Sage default:   v_row  * G         = (G^T v_col)^T     [RIGHT]
 #   Our convention: G      * v_col     = G v_col           [LEFT]
+#
+# Generators are computed lazily via a zero-arg callable supplied at
+# construction.  Pass a lambda that calls the appropriate binary; the result
+# is cached after the first call to gens().
+#
+# Membership is handled internally by a ConditionSet over the MatrixSpace.
+# Subgroups intersect their parent's ConditionSet with a new predicate.
+# & / | produce new subgroups by intersecting / unioning ConditionSets.
+
+
+from sage.sets.condition_set import ConditionSet as _ConditionSet
+from sage.all import MatrixSpace as _MatrixSpace
 
 
 class LatticeOrthogonalGroup:
     r"""The orthogonal group O(L) of a lattice, with LEFT action G*v.
 
-    Generators are plain ``matrix(ZZ, n, n)`` objects.  Membership is
-    decided by the matrix equation::
+    Construction is O(1).  Generators are computed lazily by :meth:`gens`.
 
-        G in O(L)  iff  G * Q * G^T == Q
+    Membership:  ``G in O(L)``  iff  ``G * Q * G^T == Q``,
+    implemented via an internal ``ConditionSet`` over ``MatrixSpace(ZZ, n)``.
 
-    where Q = L.inner_product_matrix().  No GAP call is needed for
-    membership in the full O(L).
-
-    Subgroups are obtained via :meth:`subgroup`; their membership test
-    additionally delegates to GAP (feasible for definite L, where O(L) is
-    finite; see :class:`LatticeOrthogonalSubgroup` for the limitation note).
+    Subgroups are obtained via :meth:`subgroup`; they intersect this group's
+    ``ConditionSet`` with an additional predicate.  Use ``&`` / ``|`` to
+    intersect or union subgroups.
     """
 
-    def __init__(self, lattice: Lattice, generators: list):
+    @classmethod
+    def from_lattice(cls, lattice: Lattice, gens_fn) -> LatticeOrthogonalGroup:
+        r"""Construct O(L) with a lazy generator callable.
+
+        gens_fn: zero-arg callable returning a list of ZZ-matrices.
+                 Called at most once; result cached on first :meth:`gens` call.
+        """
+        return cls(lattice, gens_fn)
+
+    def __init__(self, lattice: Lattice, gens_fn):
         self._lattice = lattice
         self._Q = lattice.inner_product_matrix()
-        self._generators = list(generators)
+        self._gens_fn = gens_fn
+        self._gens_cache = None
+        MS = _MatrixSpace(ZZ, lattice.rank())
+        Q = self._Q
+        self._condition_set = _ConditionSet(MS, lambda M: M * Q * M.transpose() == Q)
 
     @property
     def lattice(self) -> Lattice:
         return self._lattice
 
-    def generators(self) -> list:
-        """Return the generating ZZ-matrices of O(L)."""
-        return list(self._generators)
+    @property
+    def condition_set(self):
+        return self._condition_set
+
+    def gens(self) -> list:
+        """Return the generating ZZ-matrices of O(L), computing them if needed."""
+        if self._gens_cache is None:
+            self._gens_cache = self._gens_fn()
+        return list(self._gens_cache)
 
     def __contains__(self, G) -> bool:
         r"""G in O(L)  iff  G * Q * G^T == Q."""
-        try:
-            return G * self._Q * G.transpose() == self._Q
-        except Exception:
-            return False
+        return G in self._condition_set
 
     def act(self, G, v):
         r"""Apply G to v from the left: return G * v (column-vector convention)."""
         from sage.all import vector as sage_vector
         return G * sage_vector(ZZ, v)
 
-    def subgroup(self, generators, predicates) -> LatticeOrthogonalSubgroup:
-        r"""Return the :class:`LatticeOrthogonalSubgroup` with these generators and predicates.
+    def subgroup(self, gens_fn, predicate) -> LatticeOrthogonalSubgroup:
+        r"""Return a :class:`LatticeOrthogonalSubgroup` of O(L).
 
-        generators: iterable of ZZ-matrices each satisfying G*Q*G^T = Q.
-        predicates: non-empty list of callables ``M -> bool`` defining
-            the membership condition beyond ``M in O(L)``.
+        gens_fn:   zero-arg callable returning the list of generator matrices.
+        predicate: callable ``M -> bool`` encoding the geometric condition
+                   (e.g. M*v == v for a vector stabilizer).
         """
-        return LatticeOrthogonalSubgroup(self, list(generators), list(predicates))
+        return LatticeOrthogonalSubgroup(self, gens_fn, predicate)
+
+    def __and__(self, other) -> LatticeOrthogonalSubgroup:
+        r"""Intersection: subgroup satisfying both membership conditions."""
+        cs = self._condition_set & other.condition_set
+        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+
+    def __or__(self, other) -> LatticeOrthogonalSubgroup:
+        r"""Union: elements satisfying either membership condition."""
+        cs = self._condition_set | other.condition_set
+        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
 
     def __repr__(self) -> str:
-        return (
-            f"LatticeOrthogonalGroup of rank-{self._lattice.rank()} lattice"
-            f" ({len(self._generators)} generator(s))"
-        )
+        cached = f"{len(self._gens_cache)} gens" if self._gens_cache is not None else "gens not yet computed"
+        return f"LatticeOrthogonalGroup(rank={self._lattice.rank()}, {cached})"
 
 
 class LatticeOrthogonalSubgroup:
-    r"""A subgroup of O(L) defined by its generators and a list of predicates.
+    r"""A subgroup of O(L) defined by a ConditionSet.
 
-    Membership:  ``M in subgroup``  iff
-      1. ``M in ambient_group``  (i.e. ``M * Q * M^T == Q``)
-      2. every predicate in ``predicates`` returns ``True`` for ``M``
+    Membership:  ``M in subgroup``  iff  ``M`` is in the internal
+    ``ConditionSet``, which is the intersection of:
 
-    The predicates encode the defining geometric condition.  Examples:
+      - the parent O(L) condition  ``M * Q * M^T == Q``, and
+      - the geometric predicate supplied at construction.
 
-    - Pointwise vector stabilizer ``Stab(v)``:
-        ``predicate = lambda M: M * v == v``
-    - Setwise line stabilizer ``Stab(span(v))``:
-        ``predicate = lambda M: M * v in ambient_module.span([v])``
-    - Setwise plane stabilizer ``Stab(span(v,w))``:
-        ``predicate = lambda M: M*v in plane and M*w in plane``
-    - Flag stabilizer ``Stab(span(v1) ⊂ span(v1,v2) ⊂ ...)``:
-        one predicate per stratum: ``M * v_j in span(v_1,...,v_j)``
+    Examples of predicates:
 
-    This avoids requiring any decidability result for subgroup membership in
-    infinite groups.  It correctly tests the defining geometric relation
-    directly.  No GAP call is made.
+    - Pointwise stabilizer of v:   ``lambda M: M * v == v``
+    - Setwise stabilizer of line:  ``lambda M: M * v in span(v)``
+    - Setwise stabilizer of plane: ``lambda M: M*v in P and M*w in P``
+    - Flag stabilizer:             ``lambda M: all(M*v_j in stratum_j ...)``
 
-    **Note on completeness**: predicates are *necessary* conditions derived
-    from the stabilizer definition.  The generators are the *sufficient*
-    witness (they generate the true stabilizer via the C++ backend).
-    Together they give both a certificate of membership (generated elements)
-    and a fast rejection test (predicates).
+    ``&`` / ``|`` produce new subgroups by intersecting / unioning ConditionSets.
+
+    Generators are computed lazily via :meth:`gens`.
     """
+
+    @classmethod
+    def _from_condition_set(cls, lattice, condition_set):
+        """Internal constructor from a pre-built ConditionSet (for & / |)."""
+        obj = object.__new__(cls)
+        obj._lattice = lattice
+        obj._condition_set = condition_set
+        obj._gens_fn = None
+        obj._gens_cache = None
+        return obj
 
     def __init__(
         self,
         ambient_group: LatticeOrthogonalGroup,
-        generators: list,
-        predicates: list,
+        gens_fn,
+        predicate,
     ):
-        if not predicates:
-            raise ValueError(
-                "LatticeOrthogonalSubgroup requires at least one predicate "
-                "defining the membership condition."
-            )
-        self._ambient = ambient_group
-        self._generators = list(generators)
-        self._predicates = list(predicates)
-
-    @property
-    def ambient_group(self) -> LatticeOrthogonalGroup:
-        return self._ambient
+        self._lattice = ambient_group.lattice
+        self._gens_fn = gens_fn
+        self._gens_cache = None
+        self._condition_set = ambient_group.condition_set & _ConditionSet(
+            _MatrixSpace(ZZ, self._lattice.rank()), predicate
+        )
 
     @property
     def lattice(self) -> Lattice:
-        return self._ambient.lattice
+        return self._lattice
 
-    def generators(self) -> list:
-        """Return the generating ZZ-matrices."""
-        return list(self._generators)
+    @property
+    def condition_set(self):
+        return self._condition_set
+
+    def gens(self) -> list:
+        """Return the generating ZZ-matrices, computing them if needed."""
+        if self._gens_cache is None:
+            if self._gens_fn is None:
+                raise ValueError("No generator function available (subgroup built from &/|).")
+            self._gens_cache = self._gens_fn()
+        return list(self._gens_cache)
 
     def __contains__(self, M) -> bool:
-        r"""M in subgroup  iff  M in O(L)  and  all predicates hold."""
-        if M not in self._ambient:
-            return False
-        return all(p(M) for p in self._predicates)
+        return M in self._condition_set
 
     def act(self, G, v):
         r"""Apply G to v from the left: return G * v (column-vector convention)."""
         from sage.all import vector as sage_vector
         return G * sage_vector(ZZ, v)
 
+    def __and__(self, other) -> LatticeOrthogonalSubgroup:
+        cs = self._condition_set & other.condition_set
+        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+
+    def __or__(self, other) -> LatticeOrthogonalSubgroup:
+        cs = self._condition_set | other.condition_set
+        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+
     def __repr__(self) -> str:
-        return (
-            f"LatticeOrthogonalSubgroup of O(rank-{self.lattice.rank()} lattice)"
-            f" ({len(self._generators)} generator(s),"
-            f" {len(self._predicates)} predicate(s))"
-        )
+        cached = f"{len(self._gens_cache)} gens" if self._gens_cache is not None else "gens not yet computed"
+        return f"LatticeOrthogonalSubgroup(rank={self._lattice.rank()}, {cached})"
 
 
 class DiscriminantOrthogonalGroup:
     r"""The orthogonal group O(A_L) of a discriminant group, with LEFT action.
 
-    Wraps Sage's ``FqfOrthogonalGroup``.  Since A_L is a finite group,
-    O(A_L) is finite and membership is always decidable via GAP.
+    Wraps Sage's ``FqfOrthogonalGroup``.  Since A_L is finite, O(A_L) is
+    finite and membership is always decidable via GAP.
 
-    Generators are plain ZZ-matrices (action on the free abelian ambient of
-    the discriminant group); LEFT action convention G*v.
+    Generators are computed lazily by :meth:`gens`.
     """
 
     def __init__(self, disc: DiscriminantGroup):
         self._disc = disc
-        # Delegate to the native TorsionQuadraticModule orthogonal_group()
-        self._sage_group = _DiscriminantGroupBase.orthogonal_group(disc)
+        self._sage_group = None  # built lazily
+        self._gens_cache = None
+
+    def _require_sage_group(self):
+        if self._sage_group is None:
+            self._sage_group = _DiscriminantGroupBase.orthogonal_group(self._disc)
+        return self._sage_group
 
     @property
     def discriminant_group(self) -> DiscriminantGroup:
         return self._disc
 
-    def generators(self) -> list:
-        """Return generating ZZ-matrices."""
-        return [g.matrix() for g in self._sage_group.gens()]
+    def gens(self) -> list:
+        """Return generating ZZ-matrices, computing them if needed."""
+        if self._gens_cache is None:
+            self._gens_cache = [g.matrix() for g in self._require_sage_group().gens()]
+        return list(self._gens_cache)
 
     def __contains__(self, G) -> bool:
-        r"""Test G in O(A_L) via GAP (always decidable)."""
+        r"""Test G in O(A_L) via GAP (always decidable, O(A_L) is finite)."""
         try:
-            return self._sage_group(G) in self._sage_group
+            sg = self._require_sage_group()
+            return sg(G) in sg
         except Exception:
             return False
 
@@ -940,7 +966,7 @@ class DiscriminantOrthogonalGroup:
 
     def subgroup(self, generators) -> DiscriminantOrthogonalSubgroup:
         r"""Return the :class:`DiscriminantOrthogonalSubgroup` generated by *generators*."""
-        return DiscriminantOrthogonalSubgroup(self._disc, list(generators), self._sage_group)
+        return DiscriminantOrthogonalSubgroup(self._disc, list(generators), self._require_sage_group())
 
     def __repr__(self) -> str:
         return f"DiscriminantOrthogonalGroup of {self._disc!r}"
@@ -964,7 +990,7 @@ class DiscriminantOrthogonalSubgroup:
     def discriminant_group(self) -> DiscriminantGroup:
         return self._disc
 
-    def generators(self) -> list:
+    def gens(self) -> list:
         return list(self._generators)
 
     def __contains__(self, G) -> bool:
