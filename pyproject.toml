@@ -6,6 +6,9 @@ dependencies = []
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "slow: marks tests that take more than 2 minutes (deselect with '-m \"not slow\"')",
+]
 
 [tool.coverage.run]
 source = ["src"]

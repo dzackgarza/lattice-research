@@ -389,6 +389,7 @@
           ]
         ],
         "note": "Each entry is a basis (two vectors) for one representative isotropic plane"
-}
+      }
+    }
   }
 ]

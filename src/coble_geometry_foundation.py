@@ -502,6 +502,9 @@ class Lattice(_LatticeBase):
         twisted = type(self).from_sage(IntegralLattice(n * self.inner_product_matrix()))
         return twisted
 
+    def __add__(self, other: Self) -> Self:
+        return type(self).from_sage(self.direct_sum(other))
+
     @classmethod
     def coble_picard(cls) -> Self:
         positive_line = cls.rank_one(_A1_SCALE)

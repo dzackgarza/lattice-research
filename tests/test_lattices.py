@@ -13,33 +13,34 @@ class TestLatticeSemantics:
     NATIVE_LATTICE = type(IntegralLattice("U"))
     PICARD_NEGATIVE_RANK = IntegralLattice("E8").rank() + IntegralLattice("U").rank()
     HYPERBOLIC_RANK = IntegralLattice("U").rank()
-README_EQUIVALENCE_LEFT = (
-    ((0, 1, 0, 0),
-    (1, 0, 0, 0),
-    (0, 0, -1, 0),
-    (0, 0, 0, -1),)
-)
-README_EQUIVALENCE_RIGHT = (
-    ((2, 1, 0, 0),
-    (1, 0, 0, 0),
-    (0, 0, -1, 0),
-    (0, 0, 0, -1),)
-)
-UPSTREAM_U_I3_LEFT = (
-    ((0, 1, 0, 0, 0),
-    (1, 0, 0, 0, 0),
-    (0, 0, -1, 0, 0),
-    (0, 0, 0, -1, 0),
-    (0, 0, 0, 0, -1),)
-)
-UPSTREAM_U_I3_RIGHT = (
-    ((-3729, 464, -792, -930, 805),
-    (464, -58, 99, 116, -99),
-    (-792, 99, -169, -198, 169),
-    (-930, 116, -198, -232, 201),
-    (805, -99, 169, 201, -170),)
-)
-@classmethod
+    README_EQUIVALENCE_LEFT = (
+        (0, 1, 0, 0),
+        (1, 0, 0, 0),
+        (0, 0, -1, 0),
+        (0, 0, 0, -1),
+    )
+    README_EQUIVALENCE_RIGHT = (
+        (2, 1, 0, 0),
+        (1, 0, 0, 0),
+        (0, 0, -1, 0),
+        (0, 0, 0, -1),
+    )
+    UPSTREAM_U_I3_LEFT = (
+        (0, 1, 0, 0, 0),
+        (1, 0, 0, 0, 0),
+        (0, 0, -1, 0, 0),
+        (0, 0, 0, -1, 0),
+        (0, 0, 0, 0, -1),
+    )
+    UPSTREAM_U_I3_RIGHT = (
+        (-3729, 464, -792, -930, 805),
+        (464, -58, 99, 116, -99),
+        (-792, 99, -169, -198, 169),
+        (-930, 116, -198, -232, 201),
+        (805, -99, 169, 201, -170),
+    )
+
+    @classmethod
     def _native_scaled_hyperbolic_plane(cls, scale):
         native = IntegralLattice(scale * IntegralLattice("U").inner_product_matrix())
         assert native.base_ring() is ZZ

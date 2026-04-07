@@ -18,6 +18,7 @@ _clean:
     set -euo pipefail
     cd {{justfile_directory()}}
     find . -path './.worktrees' -prune -o -type f -name '*.orig' -exec rm -f {} +
+    find . -path './.worktrees' -prune -o -type f -name '*.sage.py' -exec rm -f {} +
 
 # ==============================================================================
 # Foundation Library

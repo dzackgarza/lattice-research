@@ -157,7 +157,13 @@ def write_vector_file(file_name, v):
 
 
 def indefinite_form_stabilizer_vector(M, v):
-    """Compute generators of Stab_{O(M)}(v) for any integer vector v."""
+    """Compute generators of Stab_{O(M)}(v) for any integer vector v.
+
+    v: list of n integers (column vector)
+    Returns list of n×n integer matrices generating the stabilizer.
+    Convention: generators satisfy M G M^T = G (row-vector / right action).
+    Works for isotropic and non-isotropic v alike.
+    """
     binary_path = get_binary_path("INDEF_FORM_StabilizerVector")
     arr_Q = tempfile.NamedTemporaryFile()
     arr_v = tempfile.NamedTemporaryFile()
@@ -166,18 +172,50 @@ def indefinite_form_stabilizer_vector(M, v):
     return run_and_check([binary_path, "gmp", arr_Q.name, arr_v.name])
 
 
-def indefinite_form_stabilizer_isotropic_plane(M, plane, choice="plane"):
-    """Compute generators of the stabilizer of an isotropic k-plane or k-flag.
+def indefinite_form_stabilizer_isotropic_subspace(M, basis, choice="plane"):
+    """Compute generators of the stabilizer of an isotropic subspace.
 
-    plane: list of rows (each row is a basis vector of the isotropic subspace)
-    choice: "plane" or "flag"
+    M: n×n Gram matrix (list of lists of ints)
+    basis: k×n matrix (list of k rows) — basis vectors of the isotropic subspace.
+           For an isotropic LINE pass a 1×n matrix (one row).
+           For an isotropic PLANE pass a 2×n matrix (two rows).
+           For a FLAG pass a k×n matrix where rows are nested: row[0] spans
+           the line, rows 0..1 span the plane, etc.
+    choice: "plane" — stabilizer of the subspace spanned by basis
+            "flag"  — stabilizer of the full flag (line ⊂ plane ⊂ ... ⊂ span(basis))
+    Returns list of n×n integer matrices.
+    Convention: generators satisfy M G M^T = G.
     """
     binary_path = get_binary_path("INDEF_FORM_StabilizerIsotropicPlane")
     arr_Q = tempfile.NamedTemporaryFile()
     arr_P = tempfile.NamedTemporaryFile()
     write_matrix_file(arr_Q.name, M)
-    write_matrix_file(arr_P.name, plane)
+    write_matrix_file(arr_P.name, basis)
     return run_and_check([binary_path, "gmp", arr_Q.name, arr_P.name, choice])
+
+
+def indefinite_form_stabilizer_isotropic_line(M, v):
+    """Compute generators of Stab_{O(M)}(span(v)) for an isotropic line.
+
+    v: list of n integers — a primitive isotropic vector.
+    Returns generators of the pointwise stabilizer of the line span(v).
+    Use indefinite_form_stabilizer_isotropic_subspace(M, [v], "plane") for the
+    setwise stabilizer of the line (= same for lines, differs for planes).
+    """
+    return indefinite_form_stabilizer_isotropic_subspace(M, [v], "plane")
+
+
+def indefinite_form_stabilizer_isotropic_plane_2d(M, v1, v2):
+    """Compute generators of Stab_{O(M)}(span(v1,v2)) for an isotropic 2-plane."""
+    return indefinite_form_stabilizer_isotropic_subspace(M, [v1, v2], "plane")
+
+
+def indefinite_form_stabilizer_isotropic_flag(M, basis):
+    """Compute generators of Stab_{O(M)} for the isotropic flag defined by basis.
+
+    basis: k×n matrix where row[i] extends the flag at each step.
+    """
+    return indefinite_form_stabilizer_isotropic_subspace(M, basis, "flag")
 
 
 def dual_description(EXT, GRP):
