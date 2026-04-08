@@ -11,20 +11,22 @@ from itertools import repeat
 from typing import Self
 
 from sage.all import QQ, ZZ, Integer, IntegralLattice, MatrixSpace, gcd, matrix
+from sage.all import MatrixSpace as _MatrixSpace
 from sage.misc.cachefunc import cached_method
 from sage.modules.fg_pid.fgp_morphism import FGP_Morphism
 from sage.modules.free_module_morphism import FreeModuleMorphism
 from sage.modules.vector_integer_dense import Vector_integer_dense
+from sage.sets.condition_set import ConditionSet as _ConditionSet
 
 from research.isometry_backend import ISOMETRY_BACKEND
 from src.external.py_polyhedral import (
     indefinite_form_automorphism_group,
-    indefinite_form_isotropic_k_plane,
     indefinite_form_isotropic_k_flag,
-    indefinite_form_stabilizer_vector,
+    indefinite_form_isotropic_k_plane,
+    indefinite_form_stabilizer_isotropic_flag,
     indefinite_form_stabilizer_isotropic_line,
     indefinite_form_stabilizer_isotropic_plane_2d,
-    indefinite_form_stabilizer_isotropic_flag,
+    indefinite_form_stabilizer_vector,
 )
 
 _A1_POSITIVE = IntegralLattice("A1")
@@ -608,8 +610,9 @@ class Lattice(_LatticeBase):
     def _matrices_from_raw(self, raw_matrices):
         """Convert raw output of binary (list of list-of-lists) to sage matrices."""
         n = self.rank()
-        return [matrix(ZZ, n, n, [ZZ(x) for row in M for x in row])
-                for M in raw_matrices]
+        return [
+            matrix(ZZ, n, n, [ZZ(x) for row in M for x in row]) for M in raw_matrices
+        ]
 
     def orthogonal_group(self) -> LatticeOrthogonalGroup:
         r"""Return O(self) as a :class:`LatticeOrthogonalGroup`.
@@ -632,6 +635,7 @@ class Lattice(_LatticeBase):
         Membership: M in O(L) and M*v == v  (left action, column convention).
         """
         from sage.all import vector as sage_vector
+
         v_col = sage_vector(ZZ, self._vec_to_list(v))
         vlist = self._vec_to_list(v)
         gram_rows = self._gram_rows()
@@ -643,12 +647,14 @@ class Lattice(_LatticeBase):
         )
 
     def stabilizer_of_isotropic_line(self, v) -> LatticeOrthogonalSubgroup:
-        r"""Return setwise Stab_{O(self)}(span(v)) as a :class:`LatticeOrthogonalSubgroup`.
+        r"""Return setwise Stab_{O(self)}(span(v)) as a
+        :class:`LatticeOrthogonalSubgroup`.
 
         v: a primitive isotropic LatticeElement.
         Membership: M in O(L) and M*v in span(v) over ZZ (allows M*v = ±v).
         """
         from sage.all import vector as sage_vector
+
         v_col = sage_vector(ZZ, self._vec_to_list(v))
         span_v = self.ambient_module().span([v_col])
         vlist = self._vec_to_list(v)
@@ -667,6 +673,7 @@ class Lattice(_LatticeBase):
         Membership: M in O(L) and M*v, M*w both in span(v,w) over ZZ.
         """
         from sage.all import vector as sage_vector
+
         v_col = sage_vector(ZZ, self._vec_to_list(v))
         w_col = sage_vector(ZZ, self._vec_to_list(w))
         plane = self.ambient_module().span([v_col, w_col])
@@ -690,19 +697,20 @@ class Lattice(_LatticeBase):
         Membership: M in O(L) and M*v_j in span(v_1,...,v_j) for each j.
         """
         from sage.all import vector as sage_vector
+
         cols = [sage_vector(ZZ, self._vec_to_list(vi)) for vi in ordered_basis]
         strata = [self.ambient_module().span(cols[: i + 1]) for i in range(len(cols))]
         basis_lists = [self._vec_to_list(vi) for vi in ordered_basis]
         gram_rows = self._gram_rows()
-        # Compose all per-stratum predicates into one
-        predicate = lambda M, _strata=strata, _cols=cols: all(
-            M * c in s for c, s in zip(_cols, _strata)
-        )
+
+        def _flag_predicate(M, _strata=strata, _cols=cols):
+            return all(M * c in s for c, s in zip(_cols, _strata))
+
         return self.orthogonal_group().subgroup(
             gens_fn=lambda: self._matrices_from_raw(
                 indefinite_form_stabilizer_isotropic_flag(gram_rows, basis_lists)
             ),
-            predicate=predicate,
+            predicate=_flag_predicate,
         )
 
     def isotropic_line_orbits(self):
@@ -735,6 +743,96 @@ class Lattice(_LatticeBase):
         raw = indefinite_form_isotropic_k_flag(self._gram_rows(), k)
         return [[self(row) for row in rows] for rows in raw]
 
+    def _eigenspace_sublattice(self, iota_matrix, eigenvalue: int) -> Lattice:
+        r"""Return the eigenspace sublattice for eigenvalue ±1 of *iota_matrix*.
+
+        Returns {v ∈ L : iota*v = eigenvalue*v} as a :class:`Lattice`.
+        The Gram matrix of the returned sublattice is the restriction of the
+        inner product to the ZZ-kernel of (iota - eigenvalue*I).
+        """
+        from sage.all import identity_matrix
+
+        n = self.rank()
+        ev = ZZ(eigenvalue)
+        A = matrix(ZZ, iota_matrix) - ev * identity_matrix(ZZ, n)
+        ker = A.kernel()  # free ZZ-submodule of ZZ^n
+        B = ker.basis_matrix()  # rows are ZZ basis vectors of the eigenspace
+        if B.nrows() == 0:
+            return Lattice.from_sage(IntegralLattice(matrix(ZZ, 0, 0, [])))
+        Q = self.inner_product_matrix()
+        gram = B * Q * B.transpose()
+        return Lattice.from_sage(IntegralLattice(gram))
+
+    def invariant_sublattice(self, iota_matrix) -> Lattice:
+        r"""Return the (+1)-eigenspace sublattice L^ι = {v ∈ L : ι*v = v}.
+
+        iota_matrix: a square ZZ-matrix representing an isometry of L.
+        The sublattice is equipped with the inner product restricted from L.
+        """
+        return self._eigenspace_sublattice(iota_matrix, +1)
+
+    def coinvariant_sublattice(self, iota_matrix) -> Lattice:
+        r"""Return the (−1)-eigenspace sublattice L_ι = {v ∈ L : ι*v = −v}.
+
+        iota_matrix: a square ZZ-matrix representing an isometry of L.
+        The sublattice is equipped with the inner product restricted from L.
+        """
+        return self._eigenspace_sublattice(iota_matrix, -1)
+
+    def centralizer_of_involution(self, iota_matrix) -> LatticeOrthogonalSubgroup:
+        r"""Return Z_{O(L)}(ι) = {g ∈ O(L) : g*ι = ι*g} as a subgroup.
+
+        iota_matrix: a square ZZ-matrix representing an isometry of L.
+
+        Membership test: ``M in Z_{O(L)}(ι)``  iff  M ∈ O(L) and M*ι = ι*M.
+
+        Generators:
+          - Definite L: computed via GAP Centralizer (O(L) is finite).
+          - Indefinite L: requires OSCAR's ``integer_lattice_with_isometry`` +
+            ``image_centralizer_in_Oq``; call :func:`oscar_centralizer_gens`
+            from ``computations/oscar_centralizer.py`` and pass the result
+            directly as generators.
+
+        Note: Z_{O(L)}(ι) ≠ O^0(L, ι) in general.  Sterk's Γ_En is obtained
+        by further intersection::
+
+            centralizer_of_involution(ι)
+                .kernel_of_discriminant_action()
+                & stabilizer_of_vector(h)
+        """
+        iota_mat = matrix(ZZ, iota_matrix)
+
+        def _gens_fn():
+            p, q = self.signature_pair()
+            if q == 0 or p == 0:  # positive or negative definite
+                return self._centralizer_gens_via_gap(iota_mat)
+            raise NotImplementedError(
+                "Centralizer generators for indefinite L require OSCAR's "
+                "image_centralizer_in_Oq (Julia).  Compute via "
+                "computations/oscar_centralizer.py and supply directly."
+            )
+
+        return self.orthogonal_group().subgroup(
+            gens_fn=_gens_fn,
+            predicate=lambda M, _ι=iota_mat: M * _ι == _ι * M,
+        )
+
+    def _centralizer_gens_via_gap(self, iota_mat) -> list:
+        r"""Compute generators of Z_{O(L)}(ι) via GAP Centralizer (definite only).
+
+        Converts ι to a GAP matrix group element, calls GAP's ``Centralizer``,
+        then converts the resulting generators back to ZZ-matrices.
+        """
+        sage_L = IntegralLattice(self.inner_product_matrix())
+        og = sage_L.orthogonal_group()
+        iota_elt = og(iota_mat)
+        centralizer_gap = og.gap().Centralizer(iota_elt.gap())
+        result = []
+        for g_gap in centralizer_gap.GeneratorsOfGroup():
+            g_elt = og(g_gap)
+            result.append(matrix(ZZ, g_elt.matrix()))
+        return result
+
 
 # ---------------------------------------------------------------------------
 # Orthogonal group classes — LEFT action (G * v, column-vector convention)
@@ -758,8 +856,27 @@ class Lattice(_LatticeBase):
 # & / | produce new subgroups by intersecting / unioning ConditionSets.
 
 
-from sage.sets.condition_set import ConditionSet as _ConditionSet
-from sage.all import MatrixSpace as _MatrixSpace
+def _acts_trivially_on_discriminant(lattice: Lattice, M) -> bool:
+    r"""Return True if M ∈ O(L) acts trivially on A_L = L*/L.
+
+    The action of M on A_L = L*/L sends the coset x + L to M*x + L for x ∈ L*.
+    M acts trivially iff M*x − x ∈ L for every basis vector x of L*.
+
+    For an integer lattice with Gram matrix Q, the dual lattice L* has basis
+    given by the rows of Q^{-1}.  We check all dual-basis vectors.
+    """
+    from sage.all import vector as sage_vector
+
+    Q = lattice.inner_product_matrix()
+    # Rows of Q^{-1} are a basis for L* in the ambient QQ^n
+    Qinv = Q.inverse()  # QQ-matrix
+    for x_row in Qinv.rows():
+        x = sage_vector(QQ, x_row)
+        diff = M * x - x
+        # diff ∈ L = ZZ^n iff all coordinates are integers
+        if not all(c in ZZ for c in diff):
+            return False
+    return True
 
 
 class LatticeOrthogonalGroup:
@@ -814,6 +931,7 @@ class LatticeOrthogonalGroup:
     def act(self, G, v):
         r"""Apply G to v from the left: return G * v (column-vector convention)."""
         from sage.all import vector as sage_vector
+
         return G * sage_vector(ZZ, v)
 
     def subgroup(self, gens_fn, predicate) -> LatticeOrthogonalSubgroup:
@@ -835,8 +953,32 @@ class LatticeOrthogonalGroup:
         cs = self._condition_set | other.condition_set
         return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
 
+    def kernel_of_discriminant_action(self) -> LatticeOrthogonalSubgroup:
+        r"""Return the subgroup of O(L) acting trivially on A_L = L*/L.
+
+        This is the kernel of π: O(L) → O(A_L).
+
+        Membership: M ∈ O(L) and M*x ≡ x (mod L) for all x ∈ L*,
+        i.e. M*x − x ∈ L for every dual-lattice generator x.
+
+        Use this to refine centralisers toward Sterk's arithmetic groups::
+
+            L.centralizer_of_involution(ι).kernel_of_discriminant_action()
+        """
+        lattice = self._lattice
+        cs = _ConditionSet(
+            _MatrixSpace(ZZ, lattice.rank()),
+            lambda M: _acts_trivially_on_discriminant(lattice, M),
+        )
+        return LatticeOrthogonalSubgroup._from_condition_set(
+            lattice, self._condition_set & cs
+        )
+
     def __repr__(self) -> str:
-        cached = f"{len(self._gens_cache)} gens" if self._gens_cache is not None else "gens not yet computed"
+        if self._gens_cache is not None:
+            cached = f"{len(self._gens_cache)} gens"
+        else:
+            cached = "gens not yet computed"
         return f"LatticeOrthogonalGroup(rank={self._lattice.rank()}, {cached})"
 
 
@@ -896,7 +1038,9 @@ class LatticeOrthogonalSubgroup:
         """Return the generating ZZ-matrices, computing them if needed."""
         if self._gens_cache is None:
             if self._gens_fn is None:
-                raise ValueError("No generator function available (subgroup built from &/|).")
+                raise ValueError(
+                    "No generator function available (subgroup built from &/|)."
+                )
             self._gens_cache = self._gens_fn()
         return list(self._gens_cache)
 
@@ -906,6 +1050,7 @@ class LatticeOrthogonalSubgroup:
     def act(self, G, v):
         r"""Apply G to v from the left: return G * v (column-vector convention)."""
         from sage.all import vector as sage_vector
+
         return G * sage_vector(ZZ, v)
 
     def __and__(self, other) -> LatticeOrthogonalSubgroup:
@@ -916,8 +1061,27 @@ class LatticeOrthogonalSubgroup:
         cs = self._condition_set | other.condition_set
         return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
 
+    def kernel_of_discriminant_action(self) -> LatticeOrthogonalSubgroup:
+        r"""Return the sub-subgroup acting trivially on A_L = L*/L.
+
+        Intersects this subgroup's ConditionSet with the predicate
+        ``M*x − x ∈ L`` for all dual-lattice generators x.  See
+        :meth:`LatticeOrthogonalGroup.kernel_of_discriminant_action`.
+        """
+        lattice = self._lattice
+        cs = _ConditionSet(
+            _MatrixSpace(ZZ, lattice.rank()),
+            lambda M: _acts_trivially_on_discriminant(lattice, M),
+        )
+        return LatticeOrthogonalSubgroup._from_condition_set(
+            lattice, self._condition_set & cs
+        )
+
     def __repr__(self) -> str:
-        cached = f"{len(self._gens_cache)} gens" if self._gens_cache is not None else "gens not yet computed"
+        if self._gens_cache is not None:
+            cached = f"{len(self._gens_cache)} gens"
+        else:
+            cached = "gens not yet computed"
         return f"LatticeOrthogonalSubgroup(rank={self._lattice.rank()}, {cached})"
 
 
@@ -961,12 +1125,15 @@ class DiscriminantOrthogonalGroup:
     def act(self, G, v):
         r"""Apply G to discriminant element v from the left: G * v."""
         from sage.all import vector as sage_vector
+
         vec = v.vector() if hasattr(v, "vector") else sage_vector(ZZ, v)
         return G * vec
 
     def subgroup(self, generators) -> DiscriminantOrthogonalSubgroup:
-        r"""Return the :class:`DiscriminantOrthogonalSubgroup` generated by *generators*."""
-        return DiscriminantOrthogonalSubgroup(self._disc, list(generators), self._require_sage_group())
+        r"""Return the subgroup generated by *generators*."""
+        return DiscriminantOrthogonalSubgroup(
+            self._disc, list(generators), self._require_sage_group()
+        )
 
     def __repr__(self) -> str:
         return f"DiscriminantOrthogonalGroup of {self._disc!r}"
@@ -1003,6 +1170,7 @@ class DiscriminantOrthogonalSubgroup:
     def act(self, G, v):
         r"""Apply G to discriminant element v from the left: G * v."""
         from sage.all import vector as sage_vector
+
         vec = v.vector() if hasattr(v, "vector") else sage_vector(ZZ, v)
         return G * vec
 
@@ -1011,4 +1179,3 @@ class DiscriminantOrthogonalSubgroup:
             f"DiscriminantOrthogonalSubgroup of O({self._disc!r})"
             f" ({len(self._generators)} generator(s))"
         )
-
