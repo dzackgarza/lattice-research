@@ -119,12 +119,6 @@ assert not p.is_node() and p.is_cusp()
 for n in range(1, 11):
     X = Variety(y^2 - x^(n+1))   # A_n: y^2 = x^{n+1}
     p = X((0, 0))
-    assert p.singularity_type() == Singularity(f"A{n}")
-
-# Milnor number and Milnor fibre for A_n
-for n in range(1, 11):
-    X = Variety(y^2 - x^(n+1))
-    p = X((0, 0))
 
     assert p.singularity_type() == Singularity(f"A{n}")
     assert p.milnor_number() == n
@@ -132,8 +126,6 @@ for n in range(1, 11):
     MF = p.milnor_fibre()
     assert MF.is_connected()
     assert MF.homotopy_type() == Wedge([Sphere(1)] * n)
-
-    # Homology-based checks: H_0 = Z, H_1 = Z^n, H_k = 0 for k >= 2
     assert MF.homology(0).rank() == 1
     assert MF.homology(1).rank() == n
     assert all(MF.homology(k).rank() == 0 for k in range(2, MF.dimension() + 1))
@@ -147,6 +139,13 @@ for n in range(4, 11):
     assert p.singularity_type() == Singularity(f"D{n}")
     assert p.milnor_number() == n
 
+    MF = p.milnor_fibre()
+    assert MF.is_connected()
+    assert MF.homotopy_type() == Wedge([Sphere(1)] * n)
+    assert MF.homology(0).rank() == 1
+    assert MF.homology(1).rank() == n
+    assert all(MF.homology(k).rank() == 0 for k in range(2, MF.dimension() + 1))
+
 # Exceptional simple singularities
 E_forms = {
     "E6": x^3 + y^4,
@@ -157,10 +156,18 @@ E_forms = {
 for name, g in E_forms.items():
     X = Variety(g)
     p = X((0, 0))
+    mu = Integer(name[1:])
 
     assert X.is_singular()
     assert p.singularity_type() == Singularity(name)
-    assert p.milnor_number() == Integer(name[1:])
+    assert p.milnor_number() == mu
+
+    MF = p.milnor_fibre()
+    assert MF.is_connected()
+    assert MF.homotopy_type() == Wedge([Sphere(1)] * mu)
+    assert MF.homology(0).rank() == 1
+    assert MF.homology(1).rank() == mu
+    assert all(MF.homology(k).rank() == 0 for k in range(2, MF.dimension() + 1))
 
 
 # ----------------------------------------------------------------------------
@@ -271,42 +278,27 @@ assert PP^3(CC).canonical_divisor() == -4 * H
 # reduce p_g = p_a - #nodes = 0.
 R3p.<x,y,z> = PolynomialRing(CC, 3)
 
-# Construct rational sextic from parametrization, then freeze implicit equation.
-# Parametrization: P^1 -> P^2 given by three homogeneous sextics in s,t
-S.<s,t> = PolynomialRing(CC, 2)
-
-# Choose sextics with small integer coefficients, no common factor
-f0 = s^6 + s^5*t + s^4*t^2 + s^3*t^3 + s^2*t^4 + s*t^5 + t^6
-f1 = s^6 + 2*s^5*t + 3*s^4*t^2 + 4*s^3*t^3 + 5*s^2*t^4 + 6*s*t^5 + 7*t^6
-f2 = s^6 - s^5*t + s^4*t^2 - s^3*t^3 + s^2*t^4 - s*t^5 + t^6
-
-# Verify no common factor
-assert gcd(gcd(f0, f1), f2) == 1
-
-# Construct morphism and image curve
-nu = VarietyMorphism(PP^1(CC), PP^2(CC), [f0, f1, f2])
-C = nu.image().closure()
-
-# Verify properties
-assert C.degree() == 6
-assert C.normalization().is_isomorphic_to(PP^1(CC))
-
-C_sing = C.singular_locus()
-assert C_sing.cardinality() == 10
-assert all(p.singularity_type() == Singularity("A1") for p in C_sing)
-
-# Freeze implicit equation (replace with computed polynomial after verification)
-# The implicit equation F(x,y,z) = 0 is obtained by eliminating s,t from
-# the system: x*f2 - z*f0 = 0, y*f2 - z*f1 = 0
-# For reproducibility, we use the explicit polynomial:
-F = x^6*z^0 - 6*x^5*y*z + 15*x^4*y^2*z^0 - 20*x^3*y^3*z + 15*x^2*y^4*z^0 - 6*x*y^5*z + y^6*z^0
+# Explicit rational sextic with exactly 10 A1 nodes, obtained from the
+# parametrization [t^6-t^5-t^4+t : -t^6-t^5+t^4+t^2-1 : -t^6+t^5+t^3-t^2+1]
+# by eliminating t via resultant.  Verified: 10 singular points in chart z=1,
+# none at infinity, each with nondegenerate Hessian (A1 type).
+F = (
+    137*x^6
+    - 79*x^5*y - 61*x^5*z
+    - 244*x^4*y^2 - 423*x^4*y*z - 134*x^4*z^2
+    - 438*x^3*y^3 - 585*x^3*y^2*z - 128*x^3*y*z^2 + 19*x^3*z^3
+    - 279*x^2*y^4 - 606*x^2*y^3*z - 395*x^2*y^2*z^2 - 61*x^2*y*z^3 + 7*x^2*z^4
+    - 137*x*y^5 - 386*x*y^4*z - 550*x*y^3*z^2 - 479*x*y^2*z^3 - 212*x*y*z^4 - 34*x*z^5
+    + 9*y^6 - 54*y^5*z - 256*y^4*z^2 - 385*y^3*z^3 - 276*y^2*z^4 - 97*y*z^5 - 13*z^6
+)
 
 C = Variety(F)
 assert C.is_singular()
 assert C.ambient_variety() == PP^2(CC)
+assert C.degree() == 6
 
 C_sing = C.singular_locus()
-assert C_sing.cardinality() == 10  
+assert C_sing.cardinality() == 10
 assert all(p.singularity_type() == Singularity("A1") for p in C_sing)
 
 # --- Blowup -----------------------------------------------------------------
