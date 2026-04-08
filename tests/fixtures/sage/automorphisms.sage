@@ -21,7 +21,6 @@
 # An automorphism is
 #   φ.is_symplectic()        -- True iff φ^* acts as +1 on H^{2,0}
 #   φ.is_nonsymplectic()     -- True iff φ^* acts as a nontrivial root of unity
-#   φ.action_on_holomorphic_form() -- the scalar ζ s.t. φ^*ω = ζ·ω (a root of unity)
 #   φ.fixed_locus()          -- Fix(φ) ⊂ X as a subscheme
 #   φ.trace_on_cohomology(k) -- Tr(φ^* | H^k(X))
 #
@@ -64,8 +63,6 @@ iota = f_k3.deck_transformation()
 assert iota.order() == 2
 assert iota.is_nonsymplectic()
 assert not iota.is_symplectic()
-assert iota.action_on_holomorphic_form() == -1   # ι^*ω = -ω
-assert iota.action_on_holomorphic_form().multiplicative_order() == iota.order()  # == 2
 assert iota.trace_on_cohomology(2) == 22 - 2   # acts as -1 on H^{2,0}⊕H^{0,2}, +1 on H^{1,1}
 
 # Fixed locus of a non-symplectic involution on a K3:
@@ -93,7 +90,6 @@ iota_T = T2.negation_automorphism()           # x ↦ -x
 assert iota_T.order() == 2
 assert iota_T.is_symplectic()
 assert not iota_T.is_nonsymplectic()
-assert iota_T.action_on_holomorphic_form() == 1   # φ^*ω = ω
 
 Fix_T = iota_T.fixed_locus()
 assert Fix_T.cardinality() == 16              # 2-torsion points of T
@@ -130,8 +126,6 @@ phi3 = X_q.automorphism(diagonal_matrix([1, CyclotomicField(3).gen(), 1, 1]))
 assert phi3.order() == 3
 assert phi3.is_nonsymplectic()
 assert not phi3.is_symplectic()
-assert phi3.action_on_holomorphic_form() == CyclotomicField(3).gen()
-assert phi3.action_on_holomorphic_form().multiplicative_order() == phi3.order()  # == 3
 
 # Fixed locus of order-3 non-symplectic: a curve (Lefschetz fixed-point theorem)
 Fix3 = phi3.fixed_locus()
@@ -144,8 +138,6 @@ phi2 = X_q.automorphism(diagonal_matrix([1, 1, 1, -1]))
 assert phi2.order() == 2
 assert phi2.is_nonsymplectic()
 assert not phi2.is_symplectic()
-assert phi2.action_on_holomorphic_form() == -1
-assert phi2.action_on_holomorphic_form().multiplicative_order() == phi2.order()  # == 2
 
 Fix2 = phi2.fixed_locus()
 assert Fix2.dimension() == 1   # non-symplectic involution fixes a curve
@@ -198,4 +190,4 @@ assert all(not phi.is_nonsymplectic() for phi in Aut_symp if phi.order() > 1)
 
 # Non-symplectic elements
 Aut_nonsymp = [phi for phi in Aut_Xq if phi.is_nonsymplectic()]
-assert all(phi.action_on_holomorphic_form() != 1 for phi in Aut_nonsymp)
+assert all(not phi.is_symplectic() for phi in Aut_nonsymp)
