@@ -196,7 +196,6 @@ assert elliptic.canonical_divisor().degree() == 0
 #    0  [1  1]
 #    1  [1  1]
 assert elliptic.hodge_diamond() == Matrix(ZZ, [[1, 1], [1, 1]])
-assert elliptic.hodge_numbers(1, 0) == 1 and elliptic.hodge_numbers(0, 1) == 1
 
 assert elliptic.kodaira_dimension() == 0   # K trivial: Calabi-Yau
 assert elliptic.is_elliptic() and elliptic.is_calabi_yau()
@@ -510,7 +509,6 @@ assert (S4.canonical_divisor().self_intersection()
 #    1  [0  20  0]
 #    2  [1   0  1]
 assert S4.hodge_diamond() == Matrix(ZZ, [[1,0,1],[0,20,0],[1,0,1]])
-assert S4.hodge_numbers(1, 1) == 20
 
 assert S4.kodaira_dimension() == 0   # K trivial
 
@@ -599,8 +597,7 @@ for d, f in surfaces_in_PP3.items():
     assert S.canonical_divisor().self_intersection() == K2
     # Noether's formula
     assert K2 + chi_top == 12 * chi_O
-    # h^{1,1}
-    assert S.hodge_numbers(1, 1) == chi_top - 2 - 2*pg
+    assert S.hodge_diamond() == Matrix(ZZ, [[1, 0, pg], [0, chi_top - 2 - 2*pg, 0], [pg, 0, 1]])
 
 
 # ============================================================================
@@ -727,6 +724,9 @@ for k in range(1, 9):
     assert K_k == -3 * Hp_k + sum(Ei.as_divisor() for Ei in Eks)
     assert K_k.self_intersection() == 9 - k
     assert K_k.self_intersection() + Sk.topological_euler_characteristic() == 12
+
+    # h^{1,1} = k+1 for Bl_k PP^2 (rational surface: p_g = q = 0)
+    assert Sk.hodge_diamond() == Matrix(ZZ, [[1,0,0],[0,k+1,0],[0,0,1]])
 
     Pic_k = Sk.picard_group().as_lattice()
     assert Pic_k.rank() == k + 1
