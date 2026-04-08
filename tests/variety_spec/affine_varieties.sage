@@ -1,11 +1,5 @@
 # ============================================================================
-# FIXTURE: AFFINE VARIETIES
-#
-# Exercises the AA^n(CC) ambient space, affine Variety constructor, local
-# algebra (coordinate rings, local rings), set-theoretic operations (union,
-# complement, subtraction, subset/subvariety tests), and point coercion.
-#
-# Follows variety_interface_spec.sage sections 1-3 faithfully.
+# AFFINE VARIETIES
 # ============================================================================
 
 R.<x,y> = PolynomialRing(CC, 2)
@@ -24,10 +18,11 @@ assert X.is_hypersurface()      # codimension 1 in AA^2
 
 assert X.ambient_variety() == AA^2(CC)
 assert X.is_subset_of(AA^2(CC)) and X.is_subvariety_of(AA^2(CC))
+assert X <= AA^2(CC) # Convenience for subvarieties
 
 # --- Point (0,0): the node ---------------------------------------------------
 p = X([0, 0])                   # Affine point via coordinate list
-assert p.is_singular()
+assert p.is_singular() and not p.is_smooth()
 
 X_sing = X.singular_locus()
 X_sm   = X.smooth_locus()
@@ -51,21 +46,36 @@ assert p.singularity_type() == Singularity("A1")
 assert p.is_node() and p.is_ordinary_double_point()
 assert p.canonical_form() == Variety(x*y).point([0, 0])  # standard form uv=0
 assert not p.is_cusp()
+# TODO: assert on p.multiplicity()
 
 assert X.is_snc()   # Two transverse lines are simple normal crossing
 
 f_blowup = X.blowup(p)
-assert f_blowup.domain().is_smooth()
+Xp = f_blowup.domain()
+assert Xp.is_smooth() and Xp.is_normal()
+assert f_blowup.is_rational()
+# assert len(f.exceptional_divisor()) == 1 # == [E], a Weyl divisor with one term with coefficient 1.
+# TODO: assert on properties of blowup
+# assert f.is_birational()
+# E*E == E^2 == -1, f(E) == p, f^*(p) == E, f.indeterminacy_locus() == ...
+# C1, C2 = ... {curve passing through p, curve missing p}
+# assert f^*(C1)*E == ..., f^*(C2)*E == ..., f^*(C1)*f^*(C2) == C1*C2, etc
+# assert on f.proper_transform(C1), f.strict_transform(C1), etc
+# assert X.resolution().domain() == Xp # Automatically iterate blowups of singular points 
+# resolution() is a birational map f: \tilde X -> X
+# assert blowup is a subvariety of AA^2(CC) * PP^1(CC) with equations { ((x,y), [z:w]) | det( [x,y;w,z] ) }
+# NB: V1 * V2 is the Cartesian product.
 
 # --- Coordinate ring and local algebra --------------------------------------
-# CC[x,y]/(x^2-y^2) in two equivalent notations
 assert X.coordinate_ring() == CC['x','y'].quotient(f)
-assert X.coordinate_ring() == CC['x', 'y'] / f
+assert X.coordinate_ring() == CC['x', 'y'] / f # Convenience
 
 p_local = p.local_ring()
 assert p_local == X.local_ring(p)
 assert p_local.is_local()
-
+# TODO: assert ring-theoretic properties
+# is_regular(), dimension(), is_field(), is_ufd(), == CC?
+# assert p.local == ...?
 
 # ============================================================================
 # 2. SMOOTH AFFINE LINE: V(x - y)

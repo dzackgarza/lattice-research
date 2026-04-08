@@ -59,6 +59,7 @@ assert f_blowup.domain().is_smooth()
 # The coordinate ring of X = V(x^2-y^2) is CC[x,y]/(x^2-y^2).
 # CC[x,y]/(x^2-y^2) ≅ CC[x,y]/((x-y)(x+y)) ≅ CC[u] \otimes_{CC} CC[v]
 assert X.coordinate_ring() == CC['x','y'].quotient(f)
+assert X.coordinate_ring() == CC['x', 'y'] / f
 
 assert p.local_ring() == X.local_ring(p)
 R_local = p.local_ring()
@@ -105,8 +106,6 @@ assert X.resolution().domain() == X
 # ----------------------------------------------------------------------------
 
 # Standard form for A_n: y^2 - x^{n+1} = 0 at (0,0).
-# ORIGINAL BUG: y^2 - x^n gives A_{n-1} for n≥2, and has no singularity at
-# (0,0) for n=0,1.  Correct parametrisation below.
 
 # A_2 singularity (cusp): y^2 - x^3
 X = Variety(y^2 - x^3)
@@ -360,8 +359,62 @@ assert iota_X in X.Aut()
 assert iota_X.order() == 2
 
 assert X.quotient(iota_X) == S       # X / iota_X ≅ S (Coble surface as quotient)
+assert S == X / iota_X
 
 # Branch and ramification data (using interface method names, not spec's original names)
 assert f_k3.branch_divisor() == B    
 R_X = f_k3.ramification_divisor()    
 assert R_X in X.picard_group()       # Ramification divisor is a Cartier divisor on X
+
+# TODO: assert on explicit equations for a normalization
+# TODO: assert on explicit equations for blowups
+# TODO: construct and assert on a cycle of copies of PP^1, each intersecting the next at exactly one point
+# - assert on geometric_genus(), arithmetic_genus(), number of nodes, number of irreducible components, 
+# TODO: construct and assert on Dynkin type of dual complex of resolution
+
+# TODO: test stability of curves. C := ....
+# assert C.is_stable() and C.is_lci()
+# omega_C = C.canonical_sheaf()
+# assert omega_C^3.is_very_amply() # Powers are tensor powers, multiplication is tensor
+# assert C.hilbert_polynomial("n") == (6n - 1)*(C.genus() - 1)
+# assert all(p.singularity_type() == Singularity("A1") for p in C.singular_locus())
+# assert C.Aut().is_finite()
+## For curves: Aut is finite iff C.arithmetic_genus() != 1 and 
+## assert all(C_i * C_j >= 3 for C_i in C.irreducible_components() if C_i.is_rational() and C_i.is_smooth() for C_j in C.irreducible_components()
+## DM69: every non-singular rational component meets the other components in at least 3 points.
+# assert C.is_semistable() # stable => semistable
+
+# TODO: assert on semistable curves. C := ...
+# assert C.is_semistable()
+# assert C.Aut().is_reductive()
+## assert all(C_i * C_j >= 2 for C_i in C.irreducible_components() if C_i.is_rational() and C_i.is_smooth() for C_j in C.irreducible_components()
+## DM69: every non-singular rational component meets the other components in at least *2* points
+
+# TODO: allow marking points on curves
+# C = ....
+# p1, p2 = C.point(...), C.point(...)
+# C.mark_points([p1,p2])
+# (assert on stability, semistability, etc)
+# assert that elliptic curves naturally have one marked point by construction
+
+# TODO: assert on a family of elliptic curves X := V(x^3-y^2+t)
+# Central fiber == rational curve with a cusp
+# General fiber == smooth elliptic curve
+# Construct as a flat morphism f: X -> DD^1(CC) [the complex disc]
+# assert f^(-1)(0) == f.fiber_over(0) == f.central_fiber() == f.special_fiber() 
+# assert f^(-1)(t) == f.fiber_over(t) == f.general_fiber() when t is an indeterminate
+# assert f^(-1)(1/2) == V(x^3-y^2+ (1/2)) 
+
+# TODO: assert on Weierstrass family of curves
+# R1.<t> = PolynomialRing(CC, 1)
+# R.<x,y,z> = PolynomialRing(R1, 3)
+# f(t,x,y,z) = y^2*z - x*(x-z)*(x-t*z)
+# X = Variety(f).as_projective_variety()
+## Allow interpreting a homogeneous equation as defining a projective variety
+## (Must validate homogeneity)
+# assert X == Proj(R/f)
+# pi = X.as_family_over(R1) # Interpret as a family in t
+# assert pi.general_fiber().is_smooth()
+# assert pi^(-1)(0).is_singular() and pi^(-1)(1).is_singular()
+# assert degenerate points have only one double point singularity.
+
