@@ -330,36 +330,4 @@ H = SubGp_U2U2A2t()
 H.building()    # takes hours; use intermediate tower for speedup
 ```
 
----
 
-## Generalizing to T_En = U⊕U(2)⊕E₈(2)
-
-The algorithm is structurally identical. What changes:
-
-| Component         | 2U⊕A₂ (existing)          | T_En = U⊕U(2)⊕E₈(2) (new)   |
-|-------------------|---------------------------|------------------------------|
-| BigGp gram matrix | 6×6 for 2U⊕A₂             | 12×12 for 2U⊕E₈              |
-| Rank              | 6                         | 12                            |
-| Enclosing group   | O⁺(2U⊕A₂)                | O⁺(2U⊕E₈)                   |
-| Generators        | Eichler(e₁/f₁,v∈U⊕A₂)   | Eichler(e₁/f₁,v∈U⊕E₈)       |
-|                   | Reflections for O⁺(A₂)   | Reflections for O⁺(E₈)       |
-|                   | jay (A₂ diagram aut)      | E₈ diagram automorphisms      |
-| Subgroup embedding| L=(0,0,0,2x₄,x₅,x₆)      | L=(0,0,0,2x₄,2x₅,...,2x₁₂)  |
-| Dual vectors      | u_d∈U(2)∨, w_d∈A₂∨       | u_d∈U(2)∨, w_d∈E₈(2)∨        |
-| Congruence level  | Ell(6)                    | Ell(2)                        |
-| Expected building | (from existing code)      | 2 lines, 2 planes (Sterk 1991)|
-
-**Key facts for T_En:**
-- D(T_En) = (ℤ/2)^10: 2-elementary, exponent 2
-- Maximal overlattice: L' = 2U⊕E₈ (unimodular, unique)
-- N = 2: only 6 cosets in SL(2,ℤ)/Γ(2) to check per incidence test
-- The two 0-cusp orbits are distinguished by div(e): div=1 (type I) and div=2 (type II)
-- The two 1-cusp orbits correspond to the two classes in gen(0,8,D(T_En)):
-  these are E₈ and D₁₆⁺ or similar (discriminant group (ℤ/2)^10 admits exactly two classes)
-
-**References for T_En geometry:**
-- Sterk (1991): The two 0-cusps and two 1-cusps of F_{(10,10,0)}
-- AEGS23 §3.2: cusp diagram of F_{(10,10,0)}, Figure 3
-- Generator sets for O⁺(E₈): Vinberg's algorithm on the negative definite E₈;
-  reflections in the simple roots α₁,…,α₈ suffice for W(E₈); add diagram automorphisms
-  for full O(E₈) ≅ W(E₈).
