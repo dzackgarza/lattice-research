@@ -469,3 +469,110 @@ class TestLatticeSemantics:
         assert not standard.is_even()
         assert standard.is_in_same_genus_as(sheared)
         assert standard.is_isometric_to(sheared)
+
+
+class TestCentralizerAndEigenspaceMethods:
+    """Tests for invariant_sublattice, coinvariant_sublattice,
+    centralizer_of_involution, and kernel_of_discriminant_action."""
+
+    def test_invariant_sublattice_minus_identity_is_empty(self) -> None:
+        """ker(-I - I) = ker(-2I) = 0 over ZZ, so no fixed vectors."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        inv = L.invariant_sublattice(iota)
+        assert inv.rank() == 0
+
+    def test_coinvariant_sublattice_minus_identity_is_full(self) -> None:
+        """Every vector is a (-1)-eigenvector of -I, so coinvariant = full."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        coinv = L.coinvariant_sublattice(iota)
+        assert coinv.rank() == L.rank()
+
+    def test_coinvariant_sublattice_gram_matches_original(self) -> None:
+        """The inner product on L_ι agrees with L (A2 has only ±1 eigs for -I)."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        coinv = L.coinvariant_sublattice(iota)
+        # Coinvariant of -I has same Gram as L (basis = identity map)
+        assert coinv.inner_product_matrix() == L.inner_product_matrix()
+
+    def test_invariant_and_coinvariant_rank_sum_equals_total(self) -> None:
+        """For a rank-2 involution on A1+A1, ranks split as 1+1=2."""
+        # A1 ⊕ A1 Gram matrix: diag(2, 2)
+        gram = matrix(ZZ, [[2, 0], [0, 2]])
+        L = Lattice.from_sage(IntegralLattice(gram))
+        iota = matrix(ZZ, [[1, 0], [0, -1]])
+        assert iota in L.orthogonal_group()
+        inv = L.invariant_sublattice(iota)
+        coinv = L.coinvariant_sublattice(iota)
+        assert inv.rank() + coinv.rank() == L.rank()
+        assert inv.rank() == 1
+        assert coinv.rank() == 1
+
+    def test_minus_identity_is_in_centralizer_of_a2(self) -> None:
+        """-I commutes with every matrix, so it is in Z_{O(A2)}(-I)."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        Z = L.centralizer_of_involution(iota)
+        assert iota in Z
+
+    def test_centralizer_of_minus_identity_equals_full_group(self) -> None:
+        """-I is central, so Z_{O(A2)}(-I) = O(A2); #gens should be positive."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        Z = L.centralizer_of_involution(iota)
+        gens = Z.gens()
+        assert len(gens) > 0
+        # All gens are isometries
+        Q = L.inner_product_matrix()
+        for g in gens:
+            assert g * Q * g.transpose() == Q
+
+    def test_non_commuting_matrix_not_in_centralizer(self) -> None:
+        """A matrix that does not commute with iota is not in Z(iota)."""
+        gram = matrix(ZZ, [[2, 0], [0, 2]])
+        L = Lattice.from_sage(IntegralLattice(gram))
+        # Involution negating second factor
+        iota = matrix(ZZ, [[1, 0], [0, -1]])
+        # Swap permutation: commutes only if block sizes are equal here, but
+        # the swap does NOT commute with this iota (swap then negate ≠ negate then swap)
+        swap = matrix(ZZ, [[0, 1], [1, 0]])
+        assert swap in L.orthogonal_group()
+        Z = L.centralizer_of_involution(iota)
+        # swap * iota != iota * swap: [[0,-1],[1,0]] vs [[0,1],[-1,0]]
+        assert swap not in Z
+
+    def test_identity_in_kernel_of_discriminant_action(self) -> None:
+        """The identity acts trivially on every discriminant group."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        assert identity_matrix(ZZ, 2) in K
+
+    def test_minus_identity_not_in_kernel_for_a2(self) -> None:
+        """A2 has discriminant group Z/3Z; -I acts nontrivially on it."""
+        L = Lattice.from_sage(IntegralLattice("A2"))
+        iota = -identity_matrix(ZZ, 2)
+        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        assert iota not in K
+
+    def test_kernel_of_disc_action_trivial_for_unimodular(self) -> None:
+        """U is unimodular (A_L = 0), so every isometry acts trivially on A_L."""
+        L = Lattice.from_sage(IntegralLattice("U"))
+        iota = -identity_matrix(ZZ, 2)
+        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        assert iota in K
+
+    def test_intersection_of_centralizer_and_stabilizer(self) -> None:
+        """Z(ι) ∩ Stab(v) excludes -I when -I*v ≠ v."""
+        L = Lattice.from_sage(IntegralLattice("U"))
+        iota = -identity_matrix(ZZ, 2)
+        from sage.all import vector
+
+        v = vector(ZZ, [1, 0])
+        Z = L.centralizer_of_involution(iota)
+        stab = L.stabilizer_of_vector(v)
+        combined = Z & stab
+        assert identity_matrix(ZZ, 2) in combined
+        assert iota not in combined  # -I*v = -v ≠ v
