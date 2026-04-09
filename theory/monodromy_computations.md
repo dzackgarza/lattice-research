@@ -19,61 +19,32 @@ Two cases are treated separately:
 
 ## Case 1: Families of curves — RiemannSurface parallel transport
 
-**Setup**: f(z, w, t) ∈ ZZ[z, w, t] (or QQ[z,w,t]). For each rational or QQ[i] value
-of t, the specialization f(z, w, t_k) ∈ QQ[z,w] (or QQ[i][z,w]) is a bivariate
-polynomial over an exact ring, which `RiemannSurface` accepts directly.
+**The per-fiber step is trivial**: `Curve(f_t).riemann_surface(prec=100)` already works
+for any affine or projective plane curve over QQ (or a number field with complex
+embedding). Both `AffinePlaneCurve` and `ProjectivePlaneCurve` expose `.riemann_surface()`.
 
-**Key Sage classes and methods** (all in `sage.schemes.riemann_surfaces.riemann_surface`):
-- `RiemannSurface(f, prec=100)` — constructs from f ∈ k[z,w], k = QQ or number field
-  with complex embedding. Computes branch locus (discriminant roots), Voronoi graph,
-  homology basis, cohomology basis.
-- `S.period_matrix()` — g × 2g complex matrix of periods ∫_{γⱼ} ωᵢ.
-- `S.riemann_matrix()` — g × g normalized period matrix (Siegel upper half-space).
-- `S.symplectic_isomorphisms(other)` — finds all M ∈ Sp(2g, ZZ) such that
-  Ω(S) ≈ Ω(other) · M. Uses `homomorphism_basis` (LLL on the period matrices via
-  `integer_matrix_relations`) then filters for M · Rosati(M) = I. Returns a list.
-- `S.homomorphism_basis(other)` — ZZ-basis of the full Hom(Jac(S), Jac(other)) as
-  2g × 2g integer matrices. Calls `integer_matrix_relations(Ω_other, Ω_self)`.
-- `C.riemann_surface(**kwargs)` — convenience method on any Sage affine or projective
-  curve object (both `AffinePlaneCurve` and `ProjectivePlaneCurve` have this).
+**The family monodromy** requires chaining across a loop. Given f(z, w, t) ∈ ZZ[z,w,t],
+specialize t to a sequence of QQ or QQ[i] values forming a closed loop around t=0,
+with no critical value of Δ(t) = Res_z(f, ∂f/∂z) lying between consecutive points.
 
-**What `integer_matrix_relations(M1, M2)` does**: finds integer matrices (D,B;C,A) such
-that B + M1·A = (D + M1·C)·M2. This is a purely numerical LLL computation — it does NOT
-require the two surfaces to be isomorphic. Isomorphisms are the subset with det(R) = 1
-and R·Rosati(R) = I.
+Canonical loop: the unit square in QQ[i] = QuadraticField(-1),
+  t: 1  →  -i  →  -1  →  i  →  1
+or scaled by ε if critical values are near the origin. Vertices are in ZZ[i], so each
+specialization f(z, w, t_k) ∈ QQ[i][z,w] which `RiemannSurface` accepts.
 
-**The algorithm**:
+At each consecutive pair (t_k, t_{k+1}):
+1. S_k = Curve(f(z,w,t_k)).riemann_surface(prec=p)
+2. S_{k+1} = Curve(f(z,w,t_{k+1})).riemann_surface(prec=p)
+3. `isos = S_k.symplectic_isomorphisms(S_{k+1})`
+   - Returns all M ∈ Sp(2g, ZZ) with Ω(S_k) ≈ Ω(S_{k+1})·M (via LLL on period matrices,
+     filtered by M·Rosati(M) = I).
+   - Since no critical value lies between t_k and t_{k+1}, the Jacobians are isomorphic
+     and the list is non-empty.
+   - The local parallel transport is the M ∈ isos minimising ||M − I|| (closest to identity).
+4. Compose: M_total = M_{N-1} · ... · M_0.
 
-For a loop around t=0 (the critical value), choose a canonical polygonal path with
-vertices at rational or QQ[i] points, away from all critical values of
-  Δ(t) = Res_z(f(z,w,t), ∂f/∂z(z,w,t))  (the discriminant in z).
-
-Canonical path: the unit square in QQ[i],
-  t_0 = 1,  t_1 = -i,  t_2 = -1,  t_3 = i,  t_4 = 1
-or scaled: ε·{1, -i, -1, i} if critical values are near the origin.
-Subdivide each edge into N rational steps if needed to avoid passing near branch points
-of Δ.
-
-At each step k:
-1. Compute S_k = RiemannSurface(f(z, w, t_k), prec=p)
-2. Compute S_{k+1} = RiemannSurface(f(z, w, t_{k+1}), prec=p)
-3. Call `isos = S_k.symplectic_isomorphisms(S_{k+1})`
-   - This returns all Sp(2g,ZZ) matrices relating Ω(S_k) to Ω(S_{k+1}).
-   - For small steps (no critical t between t_k and t_{k+1}), the surfaces have
-     isomorphic Jacobians and the list is non-empty.
-   - The local parallel transport is the element M_k ∈ isos closest to the identity
-     (minimising ||M_k - I||).
-4. Compose: M = M_{N-1} · ... · M_1 · M_0.
-
-**Why this works**: At each step, since no critical value of Δ(t) lies between t_k and
-t_{k+1}, the family is a smooth deformation of Riemann surfaces. The Jacobian Jac(S_k)
-and Jac(S_{k+1}) are isomorphic as complex tori. `symplectic_isomorphisms` finds ALL
-Sp(2g,ZZ) isomorphisms; the one closest to identity is the analytic continuation matrix
-(since for a small step the transport is close to the identity in the archimedean norm).
-After composing all steps around the full loop, M is the monodromy.
-
-**Base ring note**: When t ∈ QQ[i], set K = NumberField(x^2+1, embedding=CC(I)), then
-f(z, w, t_k) ∈ K[z,w], and RiemannSurface accepts K.
+**Base ring**: t_k ∈ QQ[i] means f(z,w,t_k) ∈ K[z,w] where K = QuadraticField(-1,
+embedding=CC(I)). `RiemannSurface` accepts number fields with complex embeddings.
 
 **Limitations of `symplectic_isomorphisms`**:
 - Requires the two surfaces to have isomorphic Jacobians (automatic for small enough steps).
