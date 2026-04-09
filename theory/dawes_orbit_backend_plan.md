@@ -359,15 +359,11 @@ and fail there if they are false. It should not weaken the problem to ambient
 Files:
 
 - [src/external/bin](/home/dzack/research/src/external/bin)
-- [src/external/README.md](/home/dzack/research/src/external/README.md)
-- `justfile`
 
 Work:
 
-- add a `just` route that builds or copies `INDEF_FORM_TestEquivalenceVector`
-  from the canonical `polyhedral_common` source,
-- refresh the install docs to state that this binary is required by the Dawes
-  orbit backend,
+- build or copy `INDEF_FORM_TestEquivalenceVector` from the canonical
+  `polyhedral_common` source,
 - verify that the installed binary uses the same `gmp` and `PYTHON` conventions as
   the other indefinite wrappers.
 
@@ -377,8 +373,7 @@ Acceptance:
 
 Validation:
 
-- execute the binary on a known positive case and a known negative case through a
-  `just` recipe.
+- execute the binary on a known positive case and a known negative case.
 
 ### Phase 1: Wrap the raw binary
 
@@ -524,8 +519,6 @@ Validation:
 
 ## Testing Strategy
 
-All verification should go through `just`.
-
 ### Wrapper tests
 
 - ambient positive case for `INDEF_FORM_TestEquivalenceVector`
@@ -559,7 +552,6 @@ Mitigation:
 
 - treat `src/external/README.md` plus upstream `polyhedral_common` as the install
   contract,
-- keep the new binary install behind a dedicated `just` recipe,
 - verify the binary before touching the semantic API.
 
 Stop rule:

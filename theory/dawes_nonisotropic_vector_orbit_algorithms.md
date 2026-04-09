@@ -419,6 +419,11 @@ the input needed for Lemma 2.4.
 The examples in §2.1 are useful because they supply exact intermediate objects and
 witnesses that an implementation can assert against.
 
+For machine fixtures, use the explicit Gram matrices written below, cross-checked
+against the arXiv source payload `orbits_in_lattices.tex`. Do not derive these
+fixtures from Sage's named `A_3` constructors, whose sign convention differs from
+the one fixed in Dawes's examples.
+
 ### Example 2.2: Algorithm 2.1 fixture
 
 Input data:

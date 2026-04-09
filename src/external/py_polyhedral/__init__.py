@@ -1,7 +1,12 @@
 from .binaries import compute_isotropic_vector
 from .binaries import compute_canonical_form
 from .binaries import test_copositivity, test_complete_positivity
-from .binaries import indefinite_form_automorphism_group, indefinite_form_test_equivalence
+from .binaries import (
+    indefinite_form_automorphism_group,
+    indefinite_form_test_equivalence,
+    indefinite_form_test_equivalence_vector,
+    indefinite_form_test_equivalence_isotropic_k_plane,
+)
 from .binaries import indefinite_form_get_orbit_representative
 from .binaries import indefinite_form_isotropic_k_plane, indefinite_form_isotropic_k_flag
 from .binaries import (

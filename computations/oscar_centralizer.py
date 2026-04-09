@@ -56,13 +56,8 @@ def oscar_centralizer_data(gram_rows: list, isometry_rows: list) -> dict:
         ``image_centralizer_gens``  list of integer matrix rows-of-rows
         ``image_centralizer_order`` int (order of image; -1 if not computed)
 
-    Raises
-    ------
-    RuntimeError  if Julia exits with a nonzero status.
-    FileNotFoundError  if the oscar_centralizer.jl script is missing.
     """
-    if not _SCRIPT.exists():
-        raise FileNotFoundError(f"Missing Julia script: {_SCRIPT}")
+    assert _SCRIPT.exists(), f"Missing Julia script: {_SCRIPT}"
 
     with tempfile.TemporaryDirectory() as tmp:
         gram_path = Path(tmp) / "gram.txt"
@@ -84,11 +79,10 @@ def oscar_centralizer_data(gram_rows: list, isometry_rows: list) -> dict:
             capture_output=True,
             text=True,
         )
-        if result.returncode != 0:
-            raise RuntimeError(
-                f"oscar_centralizer.jl failed (exit {result.returncode}):\n"
-                + textwrap.indent(result.stderr, "  ")
-            )
+        assert result.returncode == 0, (
+            f"oscar_centralizer.jl failed (exit {result.returncode}):\n"
+            + textwrap.indent(result.stderr, "  ")
+        )
 
         raw = out_path.read_text()
 

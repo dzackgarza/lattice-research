@@ -10,8 +10,9 @@ _BIN_DIR = os.path.join(os.path.dirname(__file__), "..", "bin")
 
 def get_binary_path(the_bin):
     binary_path = os.path.join(_BIN_DIR, the_bin)
-    if not os.path.exists(binary_path):
-        raise FileNotFoundError(f"Binary {binary_path} not found. See src/external/README.md to rebuild.")
+    assert os.path.exists(binary_path), (
+        f"Binary {binary_path} not found. See src/external/README.md to rebuild."
+    )
     return binary_path
 
 
@@ -54,8 +55,7 @@ def write_group_file(file_name, l_gen, n_act):
 
 
 def ast_read(file_name):
-    if not os.path.exists(file_name):
-        raise FileNotFoundError(f"Output file {file_name} does not exist")
+    assert os.path.exists(file_name), f"Output file {file_name} does not exist"
     f = open(file_name, 'r')
     content = f.read()
     f.close()
@@ -69,8 +69,9 @@ def run_and_check(list_comm):
     list_comm_call.append("PYTHON")
     list_comm_call.append(output_file)
     result = subprocess.run(list_comm_call, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"Command {list_comm} failed: {result.stderr[:500]}")
+    assert result.returncode == 0, (
+        f"Command {list_comm} failed: {result.stderr[:500]}"
+    )
     return ast_read(output_file)
 
 
@@ -123,6 +124,60 @@ def indefinite_form_test_equivalence(M1, M2):
     write_matrix_file(input1_file, M1)
     write_matrix_file(input2_file, M2)
     return run_and_check([binary_path, "gmp", input1_file, input2_file])
+
+
+def indefinite_form_test_equivalence_vector(M, v1, v2):
+    """Return a witness in O(M) sending the first integral vector to the second.
+
+    M:
+        n x n Gram matrix as a list of lists of integers.
+    v1, v2:
+        integer vectors of length n.
+
+    Returns:
+        an n x n integer matrix witness, or ``None`` if the vectors are not
+        equivalent under the full orthogonal group ``O(M)``.
+    """
+    binary_path = get_binary_path("INDEF_FORM_TestEquivalenceVector")
+    arr_Q = tempfile.NamedTemporaryFile()
+    arr_v1 = tempfile.NamedTemporaryFile()
+    arr_v2 = tempfile.NamedTemporaryFile()
+    write_matrix_file(arr_Q.name, M)
+    write_vector_file(arr_v1.name, v1)
+    write_vector_file(arr_v2.name, v2)
+    return run_and_check([binary_path, "gmp", arr_Q.name, arr_v1.name, arr_v2.name])
+
+
+def indefinite_form_test_equivalence_isotropic_k_plane(M, basis1, basis2, choice="plane"):
+    """Return a witness sending one isotropic subspace or flag to another.
+
+    M:
+        n x n Gram matrix as a list of lists of integers.
+    basis1, basis2:
+        k x n integer matrices given as row lists.
+    choice:
+        ``"plane"`` for isotropic subspaces, ``"flag"`` for isotropic flags.
+
+    Returns:
+        an n x n integer matrix witness in row-action convention, or ``None``.
+    """
+    binary_path = get_binary_path("INDEF_FORM_TestEquivalenceIsotropicKplane")
+    arr_Q = tempfile.NamedTemporaryFile()
+    arr_basis1 = tempfile.NamedTemporaryFile()
+    arr_basis2 = tempfile.NamedTemporaryFile()
+    write_matrix_file(arr_Q.name, M)
+    write_matrix_file(arr_basis1.name, basis1)
+    write_matrix_file(arr_basis2.name, basis2)
+    return run_and_check(
+        [
+            binary_path,
+            "gmp",
+            arr_Q.name,
+            arr_basis1.name,
+            arr_basis2.name,
+            choice,
+        ]
+    )
 
 
 def indefinite_form_get_orbit_representative(M, eNorm):

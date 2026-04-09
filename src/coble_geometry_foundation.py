@@ -49,6 +49,41 @@ _NIKULIN_DOMAIN_WARNING = (
 )
 
 
+def _default_orbit_constraints():
+    return {
+        "determinant": None,
+        "spinor": None,
+        "discriminant_subgroup": None,
+        "opaque": False,
+    }
+
+
+def _clone_orbit_constraints(constraints):
+    return {
+        "determinant": constraints["determinant"],
+        "spinor": constraints["spinor"],
+        "discriminant_subgroup": constraints["discriminant_subgroup"],
+        "opaque": constraints["opaque"],
+    }
+
+
+def _merge_orbit_constraints(left, right):
+    merged = _clone_orbit_constraints(left)
+    for key in ("determinant", "spinor"):
+        if right[key] is not None:
+            if merged[key] is not None:
+                assert merged[key] == right[key]
+            merged[key] = right[key]
+    if right["discriminant_subgroup"] is not None:
+        if merged["discriminant_subgroup"] is None:
+            merged["discriminant_subgroup"] = right["discriminant_subgroup"]
+        elif merged["discriminant_subgroup"] is not right["discriminant_subgroup"]:
+            merged["opaque"] = True
+            merged["discriminant_subgroup"] = None
+    merged["opaque"] = merged["opaque"] or right["opaque"]
+    return merged
+
+
 class FreeBilinearModuleElement(Vector_integer_dense):
     def is_isotropic(self):
         norm = self.inner_product(self)
@@ -607,18 +642,26 @@ class Lattice(_LatticeBase):
         """Convert a LatticeElement / vector to a list of Python ints."""
         return [int(x) for x in v]
 
+    def _column_action_isometry_from_row_action_matrix(self, raw_matrix):
+        """Convert a row-action isometry matrix into the public column-action form."""
+        raw = matrix(ZZ, raw_matrix)
+        candidate = raw.transpose()
+        gram = self.inner_product_matrix()
+        assert candidate.transpose() * gram * candidate == gram
+        return candidate
+
     def _matrices_from_raw(self, raw_matrices):
-        """Convert raw output of binary (list of list-of-lists) to sage matrices."""
-        n = self.rank()
+        """Convert row-action backend matrices into public column-action matrices."""
         return [
-            matrix(ZZ, n, n, [ZZ(x) for row in M for x in row]) for M in raw_matrices
+            self._column_action_isometry_from_row_action_matrix(raw_matrix)
+            for raw_matrix in raw_matrices
         ]
 
     def orthogonal_group(self) -> LatticeOrthogonalGroup:
         r"""Return O(self) as a :class:`LatticeOrthogonalGroup`.
 
         Construction is cheap; generators are computed lazily on first call to
-        ``gens()``.  Membership uses the matrix equation G*Q*G^T == Q directly.
+        ``gens()``.  Membership uses the column-action equation G^T*Q*G == Q.
         """
         gram_rows = self._gram_rows()
         return LatticeOrthogonalGroup.from_lattice(
@@ -720,8 +763,7 @@ class Lattice(_LatticeBase):
         isotropic lines (1-dimensional totally isotropic subspaces).
         """
         raw = indefinite_form_isotropic_k_plane(self._gram_rows(), 1)
-        # raw is a list of vectors (list of ints), one per orbit
-        return [self(v) for v in raw]
+        return [self(rows[0]) for rows in raw]
 
     def isotropic_plane_orbits(self):
         r"""Return orbit representatives of totally isotropic planes under O(self).
@@ -806,10 +848,9 @@ class Lattice(_LatticeBase):
             p, q = self.signature_pair()
             if q == 0 or p == 0:  # positive or negative definite
                 return self._centralizer_gens_via_gap(iota_mat)
-            raise NotImplementedError(
-                "Centralizer generators for indefinite L require OSCAR's "
-                "image_centralizer_in_Oq (Julia).  Compute via "
-                "computations/oscar_centralizer.py and supply directly."
+            assert False, (
+                "Centralizer generators for indefinite lattices require OSCAR's "
+                "image_centralizer_in_Oq data"
             )
 
         return self.orthogonal_group().subgroup(
@@ -830,22 +871,25 @@ class Lattice(_LatticeBase):
         result = []
         for g_gap in centralizer_gap.GeneratorsOfGroup():
             g_elt = og(g_gap)
-            result.append(matrix(ZZ, g_elt.matrix()))
+            result.append(
+                self._column_action_isometry_from_row_action_matrix(g_elt.matrix())
+            )
         return result
 
 
 # ---------------------------------------------------------------------------
 # Orthogonal group classes — LEFT action (G * v, column-vector convention)
 # ---------------------------------------------------------------------------
-# Sage's GroupOfIsometries / MatrixGroup uses a RIGHT action: the natural
-# multiplication `g * v` in Sage is really v * g.matrix() because vectors
-# are row vectors.  All four classes below instead expose a LEFT action:
+# Sage and the Dutour-Sikirić backends return lattice isometries in a row-action
+# convention.  Lattice._matrices_from_raw converts those matrices into the
+# standard column-action convention used below:
 #   G.act(v)  =  G * v   (matrix times column vector)
-# which matches standard mathematical notation.
+# with defining equation G^T Q G = Q.
 #
 # Action convention diagram:
-#   Sage default:   v_row  * G         = (G^T v_col)^T     [RIGHT]
-#   Our convention: G      * v_col     = G v_col           [LEFT]
+#   Row-action input:  v_row * R = (R^T v_col)^T
+#   Public API:        G * v_col = G v_col
+#                      where G = R^T for group generators/stabilizers
 #
 # Generators are computed lazily via a zero-arg callable supplied at
 # construction.  Pass a lambda that calls the appropriate binary; the result
@@ -884,7 +928,7 @@ class LatticeOrthogonalGroup:
 
     Construction is O(1).  Generators are computed lazily by :meth:`gens`.
 
-    Membership:  ``G in O(L)``  iff  ``G * Q * G^T == Q``,
+    Membership:  ``G in O(L)``  iff  ``G^T * Q * G == Q``,
     implemented via an internal ``ConditionSet`` over ``MatrixSpace(ZZ, n)``.
 
     Subgroups are obtained via :meth:`subgroup`; they intersect this group's
@@ -906,9 +950,13 @@ class LatticeOrthogonalGroup:
         self._Q = lattice.inner_product_matrix()
         self._gens_fn = gens_fn
         self._gens_cache = None
+        self._orbit_constraints = _default_orbit_constraints()
         MS = _MatrixSpace(ZZ, lattice.rank())
         Q = self._Q
-        self._condition_set = _ConditionSet(MS, lambda M: M * Q * M.transpose() == Q)
+        self._condition_set = _ConditionSet(
+            MS,
+            lambda M: M.transpose() * Q * M == Q,
+        )
 
     @property
     def lattice(self) -> Lattice:
@@ -925,7 +973,7 @@ class LatticeOrthogonalGroup:
         return list(self._gens_cache)
 
     def __contains__(self, G) -> bool:
-        r"""G in O(L)  iff  G * Q * G^T == Q."""
+        r"""G in O(L)  iff  G^T * Q * G == Q."""
         return G in self._condition_set
 
     def act(self, G, v):
@@ -946,12 +994,115 @@ class LatticeOrthogonalGroup:
     def __and__(self, other) -> LatticeOrthogonalSubgroup:
         r"""Intersection: subgroup satisfying both membership conditions."""
         cs = self._condition_set & other.condition_set
-        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            other._orbit_constraints,
+        )
+        return subgroup
 
     def __or__(self, other) -> LatticeOrthogonalSubgroup:
         r"""Union: elements satisfying either membership condition."""
         cs = self._condition_set | other.condition_set
-        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup._orbit_constraints = _default_orbit_constraints()
+        subgroup._orbit_constraints["opaque"] = True
+        return subgroup
+
+    def _structured_subgroup(
+        self,
+        predicate,
+        *,
+        constraints,
+        gens_fn=None,
+    ) -> LatticeOrthogonalSubgroup:
+        subgroup = LatticeOrthogonalSubgroup(self, gens_fn, predicate)
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            constraints,
+        )
+        return subgroup
+
+    def special_orthogonal_subgroup(self) -> LatticeOrthogonalSubgroup:
+        return self._structured_subgroup(
+            lambda M: ZZ(M.det()) == ZZ.one(),
+            constraints={
+                "determinant": 1,
+                "spinor": None,
+                "discriminant_subgroup": None,
+                "opaque": False,
+            },
+        )
+
+    def plus_subgroup(self) -> LatticeOrthogonalSubgroup:
+        from research.dawes_orbit_backend import real_spinor_norm_sign
+
+        return self._structured_subgroup(
+            lambda M, _lattice=self._lattice: real_spinor_norm_sign(_lattice, M) == 1,
+            constraints={
+                "determinant": None,
+                "spinor": 1,
+                "discriminant_subgroup": None,
+                "opaque": False,
+            },
+        )
+
+    def special_plus_subgroup(self) -> LatticeOrthogonalSubgroup:
+        return self.special_orthogonal_subgroup().plus_subgroup()
+
+    def preimage_of_discriminant_subgroup(self, subgroup) -> LatticeOrthogonalSubgroup:
+        from research.dawes_orbit_backend import induced_discriminant_action
+
+        return self._structured_subgroup(
+            lambda M, _lattice=self._lattice, _subgroup=subgroup: (
+                induced_discriminant_action(_lattice, M) in _subgroup
+            ),
+            constraints={
+                "determinant": None,
+                "spinor": None,
+                "discriminant_subgroup": subgroup,
+                "opaque": False,
+            },
+        )
+
+    def find_vector_isometry(self, v1, v2):
+        from research.dawes_orbit_backend import find_vector_isometry_in_group
+
+        return find_vector_isometry_in_group(self, v1, v2)
+
+    def vectors_are_equivalent(self, v1, v2) -> bool:
+        from research.dawes_orbit_backend import vectors_are_equivalent_in_group
+
+        return vectors_are_equivalent_in_group(self, v1, v2)
+
+    def isotropic_line_orbits(self):
+        from research.isotropic_gamma_orbit_backend import isotropic_line_orbits_in_group
+
+        return isotropic_line_orbits_in_group(self)
+
+    def isotropic_plane_orbits(self):
+        from research.isotropic_gamma_orbit_backend import isotropic_plane_orbits_in_group
+
+        return isotropic_plane_orbits_in_group(self)
+
+    def isotropic_flag_orbits(self, k):
+        from research.isotropic_gamma_orbit_backend import isotropic_flag_orbits_in_group
+
+        return isotropic_flag_orbits_in_group(self, k)
+
+    def isotropic_lines_are_equivalent(self, v1, v2) -> bool:
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_lines_are_equivalent_in_group,
+        )
+
+        return isotropic_lines_are_equivalent_in_group(self, v1, v2)
+
+    def isotropic_planes_are_equivalent(self, basis1, basis2) -> bool:
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_planes_are_equivalent_in_group,
+        )
+
+        return isotropic_planes_are_equivalent_in_group(self, basis1, basis2)
 
     def kernel_of_discriminant_action(self) -> LatticeOrthogonalSubgroup:
         r"""Return the subgroup of O(L) acting trivially on A_L = L*/L.
@@ -970,9 +1121,21 @@ class LatticeOrthogonalGroup:
             _MatrixSpace(ZZ, lattice.rank()),
             lambda M: _acts_trivially_on_discriminant(lattice, M),
         )
-        return LatticeOrthogonalSubgroup._from_condition_set(
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(
             lattice, self._condition_set & cs
         )
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            {
+                "determinant": None,
+                "spinor": None,
+                "discriminant_subgroup": lattice.discriminant_group()
+                .orthogonal_group()
+                .subgroup([]),
+                "opaque": False,
+            },
+        )
+        return subgroup
 
     def __repr__(self) -> str:
         if self._gens_cache is not None:
@@ -988,7 +1151,7 @@ class LatticeOrthogonalSubgroup:
     Membership:  ``M in subgroup``  iff  ``M`` is in the internal
     ``ConditionSet``, which is the intersection of:
 
-      - the parent O(L) condition  ``M * Q * M^T == Q``, and
+      - the parent O(L) condition  ``M^T * Q * M == Q``, and
       - the geometric predicate supplied at construction.
 
     Examples of predicates:
@@ -1011,6 +1174,7 @@ class LatticeOrthogonalSubgroup:
         obj._condition_set = condition_set
         obj._gens_fn = None
         obj._gens_cache = None
+        obj._orbit_constraints = _default_orbit_constraints()
         return obj
 
     def __init__(
@@ -1022,6 +1186,10 @@ class LatticeOrthogonalSubgroup:
         self._lattice = ambient_group.lattice
         self._gens_fn = gens_fn
         self._gens_cache = None
+        self._orbit_constraints = _clone_orbit_constraints(
+            ambient_group._orbit_constraints
+        )
+        self._orbit_constraints["opaque"] = True
         self._condition_set = ambient_group.condition_set & _ConditionSet(
             _MatrixSpace(ZZ, self._lattice.rank()), predicate
         )
@@ -1038,8 +1206,8 @@ class LatticeOrthogonalSubgroup:
         """Return the generating ZZ-matrices, computing them if needed."""
         if self._gens_cache is None:
             if self._gens_fn is None:
-                raise ValueError(
-                    "No generator function available (subgroup built from &/|)."
+                assert False, (
+                    "Generator computation requires an explicit generator function"
                 )
             self._gens_cache = self._gens_fn()
         return list(self._gens_cache)
@@ -1055,11 +1223,114 @@ class LatticeOrthogonalSubgroup:
 
     def __and__(self, other) -> LatticeOrthogonalSubgroup:
         cs = self._condition_set & other.condition_set
-        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            other._orbit_constraints,
+        )
+        return subgroup
 
     def __or__(self, other) -> LatticeOrthogonalSubgroup:
         cs = self._condition_set | other.condition_set
-        return LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(self._lattice, cs)
+        subgroup._orbit_constraints = _default_orbit_constraints()
+        subgroup._orbit_constraints["opaque"] = True
+        return subgroup
+
+    def _structured_subgroup(
+        self,
+        predicate,
+        *,
+        constraints,
+        gens_fn=None,
+    ) -> LatticeOrthogonalSubgroup:
+        subgroup = LatticeOrthogonalSubgroup(self, gens_fn, predicate)
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            constraints,
+        )
+        return subgroup
+
+    def special_orthogonal_subgroup(self) -> LatticeOrthogonalSubgroup:
+        return self._structured_subgroup(
+            lambda M: ZZ(M.det()) == ZZ.one(),
+            constraints={
+                "determinant": 1,
+                "spinor": None,
+                "discriminant_subgroup": None,
+                "opaque": False,
+            },
+        )
+
+    def plus_subgroup(self) -> LatticeOrthogonalSubgroup:
+        from research.dawes_orbit_backend import real_spinor_norm_sign
+
+        return self._structured_subgroup(
+            lambda M, _lattice=self._lattice: real_spinor_norm_sign(_lattice, M) == 1,
+            constraints={
+                "determinant": None,
+                "spinor": 1,
+                "discriminant_subgroup": None,
+                "opaque": False,
+            },
+        )
+
+    def special_plus_subgroup(self) -> LatticeOrthogonalSubgroup:
+        return self.special_orthogonal_subgroup().plus_subgroup()
+
+    def preimage_of_discriminant_subgroup(self, subgroup) -> LatticeOrthogonalSubgroup:
+        from research.dawes_orbit_backend import induced_discriminant_action
+
+        return self._structured_subgroup(
+            lambda M, _lattice=self._lattice, _subgroup=subgroup: (
+                induced_discriminant_action(_lattice, M) in _subgroup
+            ),
+            constraints={
+                "determinant": None,
+                "spinor": None,
+                "discriminant_subgroup": subgroup,
+                "opaque": False,
+            },
+        )
+
+    def find_vector_isometry(self, v1, v2):
+        from research.dawes_orbit_backend import find_vector_isometry_in_group
+
+        return find_vector_isometry_in_group(self, v1, v2)
+
+    def vectors_are_equivalent(self, v1, v2) -> bool:
+        from research.dawes_orbit_backend import vectors_are_equivalent_in_group
+
+        return vectors_are_equivalent_in_group(self, v1, v2)
+
+    def isotropic_line_orbits(self):
+        from research.isotropic_gamma_orbit_backend import isotropic_line_orbits_in_group
+
+        return isotropic_line_orbits_in_group(self)
+
+    def isotropic_plane_orbits(self):
+        from research.isotropic_gamma_orbit_backend import isotropic_plane_orbits_in_group
+
+        return isotropic_plane_orbits_in_group(self)
+
+    def isotropic_flag_orbits(self, k):
+        from research.isotropic_gamma_orbit_backend import isotropic_flag_orbits_in_group
+
+        return isotropic_flag_orbits_in_group(self, k)
+
+    def isotropic_lines_are_equivalent(self, v1, v2) -> bool:
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_lines_are_equivalent_in_group,
+        )
+
+        return isotropic_lines_are_equivalent_in_group(self, v1, v2)
+
+    def isotropic_planes_are_equivalent(self, basis1, basis2) -> bool:
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_planes_are_equivalent_in_group,
+        )
+
+        return isotropic_planes_are_equivalent_in_group(self, basis1, basis2)
 
     def kernel_of_discriminant_action(self) -> LatticeOrthogonalSubgroup:
         r"""Return the sub-subgroup acting trivially on A_L = L*/L.
@@ -1073,9 +1344,21 @@ class LatticeOrthogonalSubgroup:
             _MatrixSpace(ZZ, lattice.rank()),
             lambda M: _acts_trivially_on_discriminant(lattice, M),
         )
-        return LatticeOrthogonalSubgroup._from_condition_set(
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(
             lattice, self._condition_set & cs
         )
+        subgroup._orbit_constraints = _merge_orbit_constraints(
+            self._orbit_constraints,
+            {
+                "determinant": None,
+                "spinor": None,
+                "discriminant_subgroup": lattice.discriminant_group()
+                .orthogonal_group()
+                .subgroup([]),
+                "opaque": False,
+            },
+        )
+        return subgroup
 
     def __repr__(self) -> str:
         if self._gens_cache is not None:
