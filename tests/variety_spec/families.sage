@@ -204,3 +204,128 @@ chi_top_X  = X_lef.topological_euler_characteristic()
 chi_top_F  = F_lef_gen.topological_euler_characteristic()   # 0 for elliptic
 n_nodal    = len(nodal_fibers)
 assert chi_top_X == n_nodal * 1    # each nodal fiber contributes +1 to χ
+
+
+# ============================================================================
+# Section 6: Cuspidal degeneration  V(x^3 - y^2 + t)
+# ============================================================================
+# The family X := V(x^3 - y^2 + t) over AA^1 with parameter t.
+# - Central fiber (t=0): V(x^3 - y^2) — the cuspidal cubic (A_2 singularity).
+# - General fiber (t ≠ 0): V(x^3 - y^2 + t) — smooth elliptic curve.
+#
+# This is an affine family; the total space maps to AA^1 by projecting to t.
+
+Ra_cusp.<x_cp, y_cp, t_cp> = PolynomialRing(CC, 3)
+f_cusp_fam = x_cp^3 - y_cp^2 + t_cp
+X_cusp_fam = Variety(f_cusp_fam)                          # total space in AA^3
+pi_cusp    = X_cusp_fam.projection_to(AA^1(CC), variable=t_cp)
+
+assert pi_cusp.is_flat()
+assert pi_cusp.is_smooth_over_generic_point()
+
+# General fiber: smooth elliptic curve (t ≠ 0)
+F_cusp_gen = pi_cusp.general_fiber()
+assert F_cusp_gen.is_smooth()
+assert F_cusp_gen.genus() == 1
+assert F_cusp_gen.is_elliptic()
+
+# Special fiber (t=0): cuspidal cubic V(x^3 - y^2)
+F_cusp_0 = pi_cusp.special_fiber()
+assert F_cusp_0 == pi_cusp.central_fiber()
+assert not F_cusp_0.is_smooth()
+assert F_cusp_0.singular_locus().cardinality() == 1
+sing_cusp = F_cusp_0.singular_locus().points()[0]
+assert sing_cusp.is_cuspidal()
+assert not sing_cusp.is_nodal()
+assert sing_cusp.singularity_type() == Singularity("A2")
+assert F_cusp_0.geometric_genus() == 0    # cuspidal: p_a = 1, p_g = 0
+assert F_cusp_0.arithmetic_genus() == 1   # by degree formula for cubic
+
+# Specialize a point: the identity section [x=0, y=0, t] specializes to the cusp
+sec_origin = pi_cusp.section([0, 0])            # section (x,y) = (0,0) for all t
+assert sec_origin.is_section()
+p_spec = pi_cusp.specialize(sec_origin, t=0)
+assert p_spec == sing_cusp                      # specializes to the singular point
+
+# Concrete fiber at a specific t ≠ 0
+F_cusp_1 = pi_cusp.fiber_at(AA^1(CC).point([1]))
+assert F_cusp_1.is_smooth()
+assert F_cusp_1.genus() == 1
+
+# Monodromy: the fundamental group of AA^1 \ {0} acts on H^1(F_gen, ZZ).
+# For a cuspidal degeneration the monodromy is unipotent: N^2 = 0 but N ≠ 0.
+mono_cusp = pi_cusp.monodromy_operator()
+assert not mono_cusp.is_identity()
+assert (mono_cusp.matrix() - mono_cusp.identity_matrix()).is_nilpotent()
+N_cusp = mono_cusp.matrix() - mono_cusp.identity_matrix()
+assert N_cusp^2 == 0 * N_cusp    # N^2 = 0 (cuspidal = Type II degeneration in Kulikov classification)
+
+
+# ============================================================================
+# Section 7: Weierstrass family of elliptic curves
+# ============================================================================
+# The Weierstrass family y^2 = x^3 + a(t)*x + b(t) over a parameter base.
+# Discriminant Δ = -16*(4a^3 + 27b^2).
+# Smooth fibers: Δ(t) ≠ 0.
+# Nodal fiber:   Δ(t) = 0 and a^3/b^2 ratio is generic (cuspidal or nodal).
+#
+# Concrete example: y^2 = x*(x-1)*(x-t) = x^3 - (t+1)*x^2 + t*x
+# (This is the Legendre family, now written in inhomogeneous affine Weierstrass form.)
+# The Weierstrass change of variables X = x - (t+1)/3, Y = y brings it to
+# y^2 = X^3 + A(t)*X + B(t) with A, B explicit polynomials.
+
+Ra_W.<x_W, y_W, t_W> = PolynomialRing(CC, 3)
+
+# Hesse pencil: a^3 + b^3 + c^3 - 3*t*a*b*c = 0
+# (cubic in PP^2 with parameter t; smooth for t ≠ 1, ω with ω^3=1)
+# Simpler explicit Weierstrass family: y^2 = x^3 - t
+# At t=0: y^2 = x^3 (cuspidal), p_g = 0; for t≠0: smooth elliptic.
+
+f_W = y_W^2 - (x_W^3 - t_W)
+X_W = Variety(f_W)
+pi_W = X_W.projection_to(AA^1(CC), variable=t_W)
+
+assert pi_W.is_flat()
+assert pi_W.is_smooth_over_generic_point()
+
+F_W_gen = pi_W.general_fiber()
+assert F_W_gen.genus() == 1
+assert F_W_gen.is_smooth()
+assert F_W_gen.is_elliptic()
+
+F_W_0 = pi_W.special_fiber()
+assert not F_W_0.is_smooth()
+assert F_W_0.singular_locus().cardinality() == 1
+assert F_W_0.singular_locus().points()[0].is_cuspidal()
+
+# Weierstrass family with a nodal fiber: y^2 = x^3 - x^2 + t*(x^3 - x)
+# At t=0: y^2 = x^3 - x^2 = x^2*(x-1), a node at x=y=0.
+f_W_nod = y_W^2 - x_W^2 * (x_W - 1) - t_W * x_W * (x_W^2 - 1)
+X_W_nod = Variety(f_W_nod)
+pi_W_nod = X_W_nod.projection_to(AA^1(CC), variable=t_W)
+
+assert pi_W_nod.is_flat()
+
+F_W_nod_0 = pi_W_nod.special_fiber()
+assert not F_W_nod_0.is_smooth()
+assert F_W_nod_0.singular_locus().cardinality() == 1
+assert F_W_nod_0.singular_locus().points()[0].is_nodal()
+
+F_W_nod_gen = pi_W_nod.general_fiber()
+assert F_W_nod_gen.genus() == 1
+assert F_W_nod_gen.is_smooth()
+
+# Discriminant vanishing encodes the singular locus of the family
+# For y^2 = x^3 + A*x + B: Δ = -16*(4A^3 + 27B^2)
+# The discriminant locus of pi_W (y^2 = x^3 - t) in AA^1_t is {t=0} alone
+disc_W = pi_W.discriminant_locus()
+assert disc_W == AA^1(CC).point([0])
+
+# j-invariant: for y^2 = x^3 - t (A=0, B=-t), j = 0 (cuspidal degeneration at j→∞)
+# For a general smooth fiber t≠0: j(E_t) = 1728 * 4A^3 / (4A^3 + 27B^2) with A=0, B=-t
+# gives j = 0 for all t≠0.  This is the equianharmonic family (all fibers j=0).
+j_W = pi_W.general_fiber().j_invariant()
+assert j_W == 0
+
+# Period map: the period τ(t) → ∞ as t → 0 (degeneration of the lattice)
+assert pi_W.period_map().is_holomorphic_on(AA^1(CC).remove_point([0]))

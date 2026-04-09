@@ -155,3 +155,83 @@ for k in range(1, 9):
     Pic_k = Sk.picard_group().as_lattice()
     assert Pic_k.rank() == k + 1
     assert Pic_k.is_isometric_to(Lattice.I(1, k))
+
+
+# ============================================================================
+# EXPLICIT BLOWUP EQUATIONS
+# ============================================================================
+# The blowup of AA^2 at the origin is the subvariety of AA^2 × PP^1 defined by
+# the equation  x*v = y*u  in coordinates (x,y) × [u:v].
+# In the chart v=1: the blowup in chart is {(x, y, u) : x = y*u} → AA^2.
+# In the chart u=1: {(x, y, v) : x*v = y} → AA^2.
+#
+# For the affine blowup: Spec CC[x,y,u]/(xu-y) — the chart v=1.
+
+# Blowup of AA^2 at origin:  cover by two affine charts
+Bl_AA2 = AA^2(CC).blowup(AA^2(CC).origin())
+
+assert Bl_AA2.domain().is_smooth()
+assert Bl_AA2.domain().dimension() == 2
+
+# The blowup has exactly one exceptional divisor E ≅ PP^1 with E^2 = -1
+E_orig = Bl_AA2.exceptional_divisor()
+assert E_orig.is_isomorphic_to(PP^1(CC))
+assert E_orig.self_intersection() == -1
+assert E_orig.dimension() == 1
+
+# Affine chart equations: in chart v=1, the blowup locus is x = y*u
+Ra.<x_b, y_b, u_b> = PolynomialRing(CC, 3)
+chart1_eqn = x_b - y_b * u_b
+chart1 = Bl_AA2.affine_chart(index=0)
+assert chart1.defining_ideal() == Ra.ideal(chart1_eqn)
+
+# In chart u=1: x*v = y, blowup locus x*v - y = 0
+Rb.<x_b2, y_b2, v_b> = PolynomialRing(CC, 3)
+chart2_eqn = x_b2 * v_b - y_b2
+chart2 = Bl_AA2.affine_chart(index=1)
+assert chart2.defining_ideal() == Rb.ideal(chart2_eqn)
+
+# The charts glue: in the overlap, u_b = 1/v_b and x_b = x_b2, y_b = y_b2
+assert Bl_AA2.domain().is_covered_by([chart1, chart2])
+
+# Blowup of the node of V(y^2 - x^3 + x^2):
+# In chart v=1: substitute x = t*u, y = t; equation becomes t^2 - t^3*u^3 + t^2*u^2 = 0.
+# Factor out t^2: 1 - t*u^3 + u^2 = 0.  Strict transform: 1 + u^2 - t*u^3 = 0.
+
+C_node2 = Variety(y2^2 - x2^3 + x2^2)    # node at (0,0), smooth for x≠0
+p_node2  = C_node2((0, 0))
+assert p_node2.is_node()
+
+bl_node  = C_node2.blowup(p_node2)
+C_strict = bl_node.strict_transform()
+assert C_strict.is_smooth()
+assert C_strict.is_irreducible()
+
+# The strict transform meets E in exactly 2 points (two branches of the node)
+E_bl = bl_node.exceptional_divisor()
+intersection_pts = C_strict.intersection_with(E_bl)
+assert intersection_pts.cardinality() == 2
+assert all(pt.is_smooth_on(C_strict) for pt in intersection_pts)
+
+# Blowup of V(y^2 - x^3) (cusp) at the cusp:
+# First blowup: chart v=1, t ↦ (t*u, t); equation t^2 - t^3*u^3 = t^2*(1-t*u^3).
+# Strict transform: 1 - t*u^3 = 0.  Still singular? Check at t=u=0: not on curve.
+# The strict transform after first blowup is smooth: the cusp is resolved in one step.
+# (Actually A_2 = cusp needs 2 blowups; first blowup gives an A_1 singularity on strict transform.)
+
+bl_cusp1 = cuspidal_cubic.blowup(p_cusp)
+C_strict1 = bl_cusp1.strict_transform()
+# First blowup: strict transform still singular (one remaining node)
+assert not C_strict1.is_smooth()
+assert C_strict1.singular_locus().cardinality() == 1
+p_cusp2 = C_strict1.singular_locus().points()[0]
+assert p_cusp2.is_node()   # after first blowup: A_2 → A_1
+
+# Second blowup: now the strict transform is smooth
+bl_cusp2 = C_strict1.blowup(p_cusp2)
+C_strict2 = bl_cusp2.strict_transform()
+assert C_strict2.is_smooth()
+
+# Minimal resolution requires exactly 2 blowups for A_2 (cusp)
+res_cusp = cuspidal_cubic.resolution()
+assert res_cusp.number_of_blowups() == 2

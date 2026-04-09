@@ -14,6 +14,107 @@ Notation is Dawes's:
 - $\Gamma \subset O(L)$ is a subgroup.
 - $v_1, v_2 \in L \otimes \mathbb{Q}$ are the vectors to compare.
 
+## Notation and Prerequisites from Dawes §1.2-1.3
+
+The algorithms in §2.1 use the following notation from Dawes's setup.
+
+### Discriminant data
+
+- The **dual lattice** is
+  $$
+  L^\vee := \operatorname{Hom}(L,\mathbb Z) \subset L \otimes \mathbb Q.
+  $$
+- The **discriminant group** is
+  $$
+  D(L) := L^\vee/L.
+  $$
+- The **discriminant form** is the induced finite quadratic form
+  $$
+  q_L : D(L) \to \mathbb Q/2\mathbb Z.
+  $$
+- For lattices $L_1,L_2$, Dawes writes
+  $$
+  \operatorname{Iso}(q_{L_1},q_{L_2})
+  $$
+  for the group isomorphisms between $D(L_1)$ and $D(L_2)$ compatible with the
+  quadratic forms.
+- He writes
+  $$
+  O(D(L)) := \operatorname{Iso}(q_L,q_L).
+  $$
+
+### Real spinor norm and the `+`-subgroups
+
+For $g \in O(L \otimes \mathbb R)$ written as a product of reflections
+$$
+g = \sigma_{w_1}\cdots\sigma_{w_m},
+$$
+Dawes defines the real spinor norm
+$$
+\operatorname{sn}_{\mathbb R}(g)
+= \left(\frac{-(w_1,w_1)}{2}\right)\cdots\left(\frac{-(w_m,w_m)}{2}\right)
+\in \mathbb R^*/(\mathbb R^*)^2.
+$$
+
+He then defines
+$$
+O^+(L \otimes \mathbb R)
+$$
+to be the kernel of this spinor norm in $O(L \otimes \mathbb R)$.
+
+For any subgroup $\Gamma \subset O(L \otimes \mathbb R)$, Dawes writes
+$$
+\Gamma^+ := \Gamma \cap O^+(L \otimes \mathbb R).
+$$
+
+### The bar notation and `\mathcal A`
+
+There is a natural map
+$$
+O(L) \to O(D(L)).
+$$
+For $g \in O(L)$, Dawes writes
+$$
+\overline g
+$$
+for its image in $O(D(L))$.
+
+He also writes
+$$
+\widetilde O(L)
+$$
+for the kernel of the natural map
+$$
+O(L) \to O(D(L)),
+$$
+that is, the stable orthogonal group.
+
+If
+$$
+\mathcal A \subset O(D(L))
+$$
+is a subgroup, then for any $\Gamma \subset O(L)$ Dawes writes
+$$
+\Gamma_{\mathcal A} := \{g \in \Gamma \mid \overline g \in \mathcal A\}.
+$$
+
+More generally, for any $\Gamma \subset O(L)$ he writes
+$$
+\widetilde \Gamma := \Gamma \cap \widetilde O(L).
+$$
+
+Specializing this notation gives:
+
+- $\widetilde O^+(L) := \widetilde O(L) \cap O^+(L \otimes \mathbb R)$,
+- $\widetilde{SO}^+(L) := SO(L) \cap \widetilde O^+(L)$,
+- $O_{\mathcal A}(L) := \{g \in O(L) \mid \overline g \in \mathcal A\}$,
+- $SO_{\mathcal A}(L) := SO(L) \cap O_{\mathcal A}(L)$,
+- $O_{\mathcal A}^+(L) := O_{\mathcal A}(L) \cap O^+(L \otimes \mathbb R)$,
+- $SO_{\mathcal A}^+(L) := SO(L) \cap O_{\mathcal A}^+(L)$.
+
+These are exactly the subgroup types referenced in Dawes's discussion of membership
+tests for Algorithms 2.1-2.3.
+
 ## Algorithmic Hierarchy
 
 Dawes presents the following hierarchy.
@@ -128,6 +229,9 @@ Dawes makes the following subgroup-specific remarks:
   verifying that $\theta$ is integral and that $\overline{\theta} \in \mathcal A$.
 - If $\Gamma = SO_{\mathcal A}^+(L)$ or $O_{\mathcal A}^+(L)$, one must also check the
   relevant spinor-norm or positive-cone condition.
+- For the spinor-norm check, Dawes points to effective methods for decomposing
+  $\psi$ into a product of reflections in Cassels, *Rational Quadratic Forms*,
+  pp. 18-20.
 
 ## Algorithm 2.2
 
@@ -225,20 +329,10 @@ Assume the same hypotheses as Algorithm 2.2.
      $$
      D(K_i) \cong \bigoplus_j C_{d_j},
      $$
-   - define explicit dual representatives
-     $$
-     f_{il} := \frac{1}{d_k}\sum_{j=1}^n q_{jl}k_{il},
-     $$
-   - define
-     $$
-     \theta_{i1} := (w_i|k_{i1}|\dots|k_{in}), \quad
-     \theta_{i2} := (w_i^2)\oplus G(K_i),
-     $$
-     $$
-     \theta_{i3} := (\alpha_i \underline e_1|f_{i1}|\dots|f_{i(n-1)}),
-     \quad
-     \lambda_i := \theta_{i3}\circ\theta_{i2}\circ\theta_{i1}^{-1}.
-     $$
+   - choose explicit representatives $f_{il} \in K_i^\vee$ for the canonical basis
+     of $D(K_i)$,
+   - construct the coordinate maps $\theta_{i1}$, $\theta_{i2}$, $\theta_{i3}$, and
+     $\lambda_i$ from Dawes's displayed Smith-normal-form formulas.
 4. If $K_1 \not\cong K_2$, return $v_1 \not\sim_\Gamma v_2$.
 5. For each $i \in \{1,2\}$:
    - let $H_i$ be the subgroup of
@@ -319,6 +413,359 @@ then $S \subset K$.
 
 Dawes uses this together with Theorem 2.3 to prove that $K$ represents $\pm 2$, which is
 the input needed for Lemma 2.4.
+
+## Paper Examples as Validation Extracts
+
+The examples in §2.1 are useful because they supply exact intermediate objects and
+witnesses that an implementation can assert against.
+
+### Example 2.2: Algorithm 2.1 fixture
+
+Input data:
+
+- lattice
+  $$
+  L = U \oplus A_3,
+  $$
+  with
+  $$
+  G(U)=
+  \begin{pmatrix}
+  0 & 1 \\
+  1 & 0
+  \end{pmatrix},
+  \qquad
+  G(A_3)=-
+  \begin{pmatrix}
+  2 & 1 & 0 \\
+  1 & 2 & 1 \\
+  0 & 1 & 2
+  \end{pmatrix};
+  $$
+- vectors
+  $$
+  v_1=(4,4,1,2,-1),
+  \qquad
+  v_2=(36,144,5,-30,83);
+  $$
+- subgroup
+  $$
+  \Gamma=\widetilde O^+(L).
+  $$
+
+Validation targets from Dawes's calculation:
+
+- normalization and norms:
+  $$
+  c_1=c_2=1,
+  \qquad
+  w_1=v_1,
+  \qquad
+  w_2=v_2,
+  \qquad
+  v_1^2=v_2^2=20;
+  $$
+- Smith-normal-form output matrices:
+  $$
+  Q(\hat w_1)=
+  \begin{pmatrix}
+  0 & 1 & 0 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 & 0 \\
+  -1 & 1 & 1 & -1 & 0 \\
+  0 & 0 & 0 & 0 & 1
+  \end{pmatrix},
+  $$
+  $$
+  Q(\hat w_2)=
+  \begin{pmatrix}
+  0 & 1 & 0 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 & 0 \\
+  -5 & 180 & 45 & 25 & 34 \\
+  1 & -36 & -9 & -5 & -7
+  \end{pmatrix};
+  $$
+- embeddings
+  $$
+  \iota_1=
+  \begin{pmatrix}
+  4 & 1 & 0 & 0 & 0 \\
+  4 & 0 & 1 & 0 & 0 \\
+  1 & 0 & 0 & 1 & 0 \\
+  2 & 1 & 1 & -1 & 0 \\
+  -1 & 0 & 0 & 0 & 1
+  \end{pmatrix},
+  \qquad
+  \iota_2=
+  \begin{pmatrix}
+  36 & 1 & 0 & 0 & 0 \\
+  144 & 0 & 1 & 0 & 0 \\
+  5 & 0 & 0 & 1 & 0 \\
+  -30 & 180 & 45 & 25 & 34 \\
+  83 & -36 & -9 & -5 & -7
+  \end{pmatrix};
+  $$
+- complement Gram matrices:
+  $$
+  G(K_1)=
+  \begin{pmatrix}
+  -2 & -1 & 1 & -1 \\
+  -1 & -2 & 1 & -1 \\
+  1 & 1 & -2 & 1 \\
+  -1 & -1 & 1 & -2
+  \end{pmatrix},
+  $$
+  $$
+  G(K_2)=
+  \begin{pmatrix}
+  -54432 & -13607 & -7740 & -10260 \\
+  -13607 & -3402 & -1935 & -2565 \\
+  -7740 & -1935 & -1102 & -1459 \\
+  -10260 & -2565 & -1459 & -1934
+  \end{pmatrix};
+  $$
+- explicit witness isometry on the complements:
+  $$
+  \psi=
+  \begin{pmatrix}
+  -2 & -8 & 2 & -9 \\
+  -8 & -30 & 5 & -36 \\
+  -1 & -1 & 1 & -2 \\
+  22 & 83 & -18 & 97
+  \end{pmatrix};
+  $$
+- resulting extension to $L$:
+  $$
+  \theta=
+  \begin{pmatrix}
+  11 & 5 & -11 & -13 & -9 \\
+  43 & 21 & -46 & -51 & -36 \\
+  1 & 1 & -1 & -2 & -2 \\
+  -9 & -5 & 10 & 12 & 8 \\
+  25 & 12 & -26 & -30 & -21
+  \end{pmatrix};
+  $$
+- stable-discriminant check:
+  $$
+  w=\frac14(0,0,3,-2,1)\in L^\vee
+  $$
+  generates the cyclic group $D(L)$, and Dawes verifies
+  $$
+  w \equiv \theta w \pmod L;
+  $$
+- positive-cone check for membership in $\widetilde O^+(L)$:
+  $$
+  P=
+  \begin{pmatrix}
+  0 & -1 & 1 & 0 & 0 \\
+  0 & 1 & 1 & 0 & 0 \\
+  -1 & 0 & 0 & 1 & 1 \\
+  0 & 0 & 0 & \sqrt2 & -\sqrt2 \\
+  1 & 0 & 0 & 1 & 1
+  \end{pmatrix}
+  $$
+  diagonalizes the quadratic form, and with
+  $$
+  x=(1,0,0,0,0)\in \mathcal C(L)^+
+  $$
+  Dawes checks
+  $$
+  (P^{-1}\theta P)^\tau x=
+  \left(3,4,6,-\frac12\sqrt2+1,\frac12\sqrt2+1\right)
+  \in \mathcal C(L)^+.
+  $$
+
+Expected outcome:
+$$
+v_1\sim_{\widetilde O^+(L)} v_2.
+$$
+
+### Example 2.6: Algorithm 2.3 fixture
+
+Input data:
+
+- lattice
+  $$
+  L=U\oplus A_3
+  $$
+  with the same Gram matrices as in Example 2.2;
+- vectors
+  $$
+  v_1=(1,-1,0,0,0),
+  \qquad
+  v_2=(1,0,1,0,0);
+  $$
+- subgroup
+  $$
+  \Gamma=\widetilde{SO}^+(L).
+  $$
+
+Validation targets from Dawes's calculation:
+
+- normalization data:
+  $$
+  c_1=c_2=1,
+  \qquad
+  w_1=v_1,
+  \qquad
+  w_2=v_2,
+  \qquad
+  w_1^2=w_2^2=-2,
+  \qquad
+  \alpha_1=\alpha_2=1;
+  $$
+- bases for the complements:
+  $$
+  K_1=
+  \begin{pmatrix}
+  1 & 0 & 0 & 0 \\
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1
+  \end{pmatrix},
+  \qquad
+  K_2=
+  \begin{pmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 1 & -2 & 0 \\
+  0 & 0 & 0 & 1
+  \end{pmatrix};
+  $$
+- complement Gram matrices:
+  $$
+  G(K_1)=
+  \begin{pmatrix}
+  2 & 0 & 0 & 0 \\
+  0 & -2 & -1 & 0 \\
+  0 & -1 & -2 & -1 \\
+  0 & 0 & -1 & -2
+  \end{pmatrix},
+  \qquad
+  G(K_2)=
+  \begin{pmatrix}
+  0 & 1 & 0 & 0 \\
+  1 & -2 & 3 & -1 \\
+  0 & 3 & -6 & 2 \\
+  0 & -1 & 2 & -2
+  \end{pmatrix};
+  $$
+- discriminant-group structure:
+  $$
+  D(K_1)\cong C_1\oplus C_1\oplus C_2\oplus C_4\cong D(K_2);
+  $$
+  Dawes then invokes Theorem 2.3 to conclude
+  $$
+  K_1\cong K_2;
+  $$
+- Smith-normal-form output matrices:
+  $$
+  Q(G(K_1))=
+  \begin{pmatrix}
+  0 & -1 & 3 & 2 \\
+  -1 & 0 & 2 & 1 \\
+  1 & 0 & -2 & -2 \\
+  -1 & -1 & 4 & 3
+  \end{pmatrix},
+  \qquad
+  Q(G(K_2))=
+  \begin{pmatrix}
+  1 & 1 & 1 & 0 \\
+  1 & 0 & 0 & 0 \\
+  0 & 0 & -1 & -1 \\
+  -1 & 0 & -2 & -3
+  \end{pmatrix};
+  $$
+- discriminant generators:
+  $$
+  x_1=\frac12(3,3,2,-2,4),
+  \qquad
+  x_2=\frac14(2,2,1,-2,3),
+  $$
+  $$
+  y_1=\frac12(1,0,-1,2,-2),
+  \qquad
+  y_2=\frac14(0,0,-1,2,-3),
+  $$
+  with
+  $$
+  D(K_1)\cong \langle x_1,x_2\rangle \bmod L,
+  \qquad
+  D(K_2)\cong \langle y_1,y_2\rangle \bmod L;
+  $$
+- discriminant-form formulas on $C_2\oplus C_4$:
+  $$
+  q_{K_1}(a,b)=-\frac{3a^2}{2}-\frac{b^2}{4}-ab \pmod{2\mathbb Z},
+  $$
+  $$
+  q_{K_2}(a,b)=-\frac{3a^2}{2}-\frac{3b^2}{4} \pmod{2\mathbb Z};
+  $$
+- gluing maps:
+  $$
+  \lambda_1=
+  \begin{pmatrix}
+  1 & -1 & 0 & 0 & 0 \\
+  1 & 1 & 0 & -1 & -2 \\
+  1 & 1 & 1 & -2 & -3 \\
+  1 & 1 & 2 & 0 & -2 \\
+  0 & 0 & 4 & -4 & 0
+  \end{pmatrix},
+  \qquad
+  \lambda_2=
+  \begin{pmatrix}
+  0 & -1 & 2 & 1 & 0 \\
+  0 & 1 & 0 & 0 & 0 \\
+  1 & 0 & -1 & -2 & -1 \\
+  0 & -1 & 0 & 3 & 2 \\
+  0 & 0 & 0 & 4 & -4
+  \end{pmatrix};
+  $$
+- resulting gluing subgroups:
+  $$
+  H_1\cong H_2\cong \langle (1,0)\rangle
+  \subset C_2\oplus C_4
+  \cong D(K_1)\cong D(K_2);
+  $$
+- discriminant-action check:
+  $$
+  P(G(L))=
+  \begin{pmatrix}
+  1 & 0 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 & 0 \\
+  0 & 0 & -1 & -2 & 1
+  \end{pmatrix},
+  $$
+  $$
+  \overline\varphi=(1),
+  \qquad
+  \overline\psi=
+  \begin{pmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 1 \\
+  0 & 0 & 0 & 3
+  \end{pmatrix},
+  $$
+  and Dawes checks that the resulting $\theta$ acts trivially on $D(L)$.
+
+Expected outcome:
+
+- first
+  $$
+  v_1\sim_{O_{\{1\}}(L)} v_2,
+  \qquad
+  O_{\{1\}}(L)=\widetilde O(L),
+  $$
+  since the required discriminant action is trivial;
+- then, by Lemma 2.4,
+  $$
+  v_1\sim_{\widetilde{SO}^+(L)} v_2.
+  $$
 
 ## Bottom Line
 
