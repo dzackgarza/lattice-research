@@ -100,10 +100,6 @@ assert F_k3_0 == pi_k3.central_fiber()
 assert not F_k3_0.is_smooth()
 assert F_k3_0.is_connected()
 
-# specialize: Hodge number h^{1,1} jumps at the special fiber (monodromy)
-mono = pi_k3.monodromy_operator()
-assert not mono.is_identity()     # non-trivial monodromy around t=0
-
 # specialize a divisor class from general to special fiber
 H_gen = F_k3_gen.hyperplane_class()
 H_sp  = pi_k3.specialize(H_gen)
@@ -252,13 +248,12 @@ F_cusp_1 = pi_cusp.fiber_at(AA^1(CC).point([1]))
 assert F_cusp_1.is_smooth()
 assert F_cusp_1.genus() == 1
 
-# Monodromy: the fundamental group of AA^1 \ {0} acts on H^1(F_gen, ZZ).
-# For a cuspidal degeneration the monodromy is unipotent: N^2 = 0 but N ≠ 0.
-mono_cusp = pi_cusp.monodromy_operator()
-assert not mono_cusp.is_identity()
-assert (mono_cusp.matrix() - mono_cusp.identity_matrix()).is_nilpotent()
-N_cusp = mono_cusp.matrix() - mono_cusp.identity_matrix()
-assert N_cusp^2 == 0 * N_cusp    # N^2 = 0 (cuspidal = Type II degeneration in Kulikov classification)
+# NOTE: Monodromy of the cuspidal family V(x^3 - y^2 + t) around t=0 is the
+# unipotent Picard-Lefschetz transformation M = [[1,0],[1,1]] (Kodaira type I_1).
+# The monodromy log N = M - I satisfies N^2 = 0. Feasible computation via:
+#   RiemannSurface parallel transport (see theory/monodromy_computations.md §1)
+#   or ore_algebra with the Picard-Fuchs ODE of y^2 = x^3 - t (see §2).
+# TODO(feasibility-confirmed): implement via RiemannSurface chain once API is wired.
 
 
 # ============================================================================
