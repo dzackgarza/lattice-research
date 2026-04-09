@@ -1,0 +1,546 @@
+{
+  "description": "Starred Table 2 entries: T = R.overlattice(H) where H is a totally isotropic subgroup of A_R = R^v/R. Generators of H recorded as integer coordinates in A_R = (Z/2)^a and as rational vectors in the ambient space.",
+  "source": "Alexeev (2022) arXiv:2208.10383 Table 2",
+  "lattices": [
+    {
+      "r": 8,
+      "a": 6,
+      "delta": 0,
+      "root_lattice": "A1^8",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 9,
+      "a": 7,
+      "delta": 1,
+      "root_lattice": "A1^9",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 11,
+      "a": 5,
+      "delta": 1,
+      "root_lattice": "D6 A1^5",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 11,
+      "a": 7,
+      "delta": 1,
+      "root_lattice": "A1^7 D4",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 4,
+      "delta": 0,
+      "root_lattice": "E7 A1^5",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "-1/2",
+          "0",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 6,
+      "delta": 0,
+      "root_lattice": "D6 A1^6",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "-1",
+          "0",
+          "-1",
+          "0",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 4,
+      "delta": 1,
+      "root_lattice": "D8 A1^4",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 6,
+      "delta": 1,
+      "root_lattice": "D4^2 A1^4",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 13,
+      "a": 3,
+      "delta": 1,
+      "root_lattice": "D10 A1^3",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 13,
+      "a": 5,
+      "delta": 1,
+      "root_lattice": "E7 A1^6",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 14,
+      "a": 2,
+      "delta": 1,
+      "root_lattice": "D12 A1^2",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2",
+          "0",
+          "0"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 15,
+      "a": 1,
+      "delta": 1,
+      "root_lattice": "D14 A1",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 0,
+      "delta": 0,
+      "root_lattice": "D16",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 2,
+      "delta": 0,
+      "root_lattice": "D8^2",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 2,
+      "delta": 0,
+      "root_lattice": "E7^2 A1^2",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          1,
+          0,
+          1,
+          1
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "0",
+          "1/2",
+          "0",
+          "0",
+          "1/2",
+          "0",
+          "-1/2",
+          "0",
+          "1/2",
+          "0",
+          "0",
+          "1/2",
+          "0",
+          "-1/2",
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "verified": true
+    },
+    {
+      "r": 17,
+      "a": 1,
+      "delta": 1,
+      "root_lattice": "D16 A1",
+      "isotropic_subgroup_generators_in_A_R": [
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "rational_glue_vectors": [
+        [
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "-1/2",
+          "0",
+          "0",
+          "1/2",
+          "0"
+        ]
+      ],
+      "verified": true
+    }
+  ]
+}
