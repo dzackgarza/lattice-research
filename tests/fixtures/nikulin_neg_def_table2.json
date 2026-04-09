@@ -1,0 +1,374 @@
+{
+  "description": "Negative-definite 2-elementary lattices from Alexeev (2022) arXiv:2208.10383 Table 2. All are unstarred entries (pure root lattice direct sums, no discriminant gluing). Used to test nikulin_a() and delta() computations on negative-definite inputs.",
+  "source": "Alexeev, Engel, Thompson (2022) arXiv:2208.10383, Table 2",
+  "lattices": [
+    {
+      "r": 1,
+      "a": 1,
+      "delta": 1,
+      "construction": "A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 2,
+      "a": 2,
+      "delta": 1,
+      "construction": "A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 3,
+      "a": 3,
+      "delta": 1,
+      "construction": "A1^3",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 4,
+      "a": 2,
+      "delta": 0,
+      "construction": "D4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 4,
+      "a": 4,
+      "delta": 1,
+      "construction": "A1^4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 5,
+      "a": 3,
+      "delta": 1,
+      "construction": "D4 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 5,
+      "a": 5,
+      "delta": 1,
+      "construction": "A1^5",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 6,
+      "a": 2,
+      "delta": 1,
+      "construction": "D6",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 6,
+      "a": 4,
+      "delta": 1,
+      "construction": "D4 A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 6,
+      "a": 6,
+      "delta": 1,
+      "construction": "A1^6",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 7,
+      "a": 1,
+      "delta": 1,
+      "construction": "E7",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 7,
+      "a": 3,
+      "delta": 1,
+      "construction": "D6 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 7,
+      "a": 5,
+      "delta": 1,
+      "construction": "D4 A1^3",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 7,
+      "a": 7,
+      "delta": 1,
+      "construction": "A1^7",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 0,
+      "delta": 0,
+      "construction": "E8",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 2,
+      "delta": 0,
+      "construction": "D8",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 2,
+      "delta": 1,
+      "construction": "E7 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 4,
+      "delta": 0,
+      "construction": "D4^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 4,
+      "delta": 1,
+      "construction": "D6 A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 8,
+      "delta": 0,
+      "construction": "E8(2)",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 8,
+      "a": 8,
+      "delta": 1,
+      "construction": "A1^8",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 9,
+      "a": 1,
+      "delta": 1,
+      "construction": "E8 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 9,
+      "a": 3,
+      "delta": 1,
+      "construction": "D8 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 9,
+      "a": 5,
+      "delta": 1,
+      "construction": "D6 A1^3",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 9,
+      "a": 9,
+      "delta": 1,
+      "construction": "A1^9",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 10,
+      "a": 2,
+      "delta": 1,
+      "construction": "E8 A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 10,
+      "a": 4,
+      "delta": 1,
+      "construction": "D8 A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 10,
+      "a": 6,
+      "delta": 1,
+      "construction": "D6 A1^4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 11,
+      "a": 3,
+      "delta": 1,
+      "construction": "E7 D4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 11,
+      "a": 5,
+      "delta": 1,
+      "construction": "D8 A1^3",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 11,
+      "a": 7,
+      "delta": 1,
+      "construction": "D6 A1^5",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 2,
+      "delta": 0,
+      "construction": "E8 D4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 4,
+      "delta": 0,
+      "construction": "D8 D4",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 4,
+      "delta": 1,
+      "construction": "D6^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 6,
+      "delta": 0,
+      "construction": "D4^3",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 12,
+      "a": 6,
+      "delta": 1,
+      "construction": "D6 D4 A1^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 13,
+      "a": 3,
+      "delta": 1,
+      "construction": "E7 D6",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 13,
+      "a": 5,
+      "delta": 1,
+      "construction": "D8 D4 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 14,
+      "a": 2,
+      "delta": 1,
+      "construction": "E8 D6",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 14,
+      "a": 4,
+      "delta": 1,
+      "construction": "D8 D6",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 15,
+      "a": 1,
+      "delta": 1,
+      "construction": "E8 E7",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 15,
+      "a": 3,
+      "delta": 1,
+      "construction": "D8 E7",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 0,
+      "delta": 0,
+      "construction": "E8^2",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 2,
+      "delta": 0,
+      "construction": "E8 D8",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 16,
+      "a": 2,
+      "delta": 1,
+      "construction": "E8 E7 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    },
+    {
+      "r": 17,
+      "a": 1,
+      "delta": 1,
+      "construction": "E8^2 A1",
+      "construction_type": "negative_definite_root_lattice",
+      "verified": true
+    }
+  ]
+}
