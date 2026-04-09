@@ -11,6 +11,7 @@ The construction uses Nikulin's discriminant gluing theorem.
 """
 
 import json
+
 from sage.all import *
 
 

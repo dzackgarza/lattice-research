@@ -10,6 +10,7 @@ This script constructs each 2-elementary hyperbolic lattice by:
 """
 
 import json
+
 from sage.all import *
 
 

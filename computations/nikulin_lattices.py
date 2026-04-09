@@ -90,7 +90,7 @@ def build_lattice(r, a, delta):
         # For 2-elementary lattices, use the following construction:
         # Start with root lattice + U, then use Nikulin's glue
 
-    except Exception as e:
+    except Exception:
         pass
 
     return None, f"Manual construction needed for ({r},{a},{delta})"

@@ -7,6 +7,7 @@ Use direct_sum() for combining lattices, compute signature from eigenvalues.
 """
 
 import json
+
 from sage.all import IntegralLattice
 
 

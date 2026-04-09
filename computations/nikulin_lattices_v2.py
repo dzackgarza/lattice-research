@@ -12,6 +12,7 @@ For each (r, a, δ) with signature (r-1, 1), we build:
 """
 
 import json
+
 from sage.all import *
 
 

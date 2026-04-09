@@ -8,6 +8,7 @@ Strategy:
 """
 
 import json
+
 from sage.all import IntegralLattice
 
 
@@ -122,7 +123,7 @@ def try_combinations(target_r, target_a, target_delta, library):
                     try:
                         L1 = (
                             IntegralLattice(lib1["name"])
-                            if not "(" in lib1["name"]
+                            if "(" not in lib1["name"]
                             else None
                         )
                         # This is messy - let me just compute the combined and check
