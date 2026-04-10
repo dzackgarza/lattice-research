@@ -11,6 +11,7 @@ R.<x,y> = PolynomialRing(CC, 2)
 
 # x^2 - y^2 = (x-y)(x+y); union of lines x=y and x=-y meeting at (0,0).
 f = (x - y) * (x + y)
+assert f.gradient() == vector(R, [2*x, -2*y])
 
 X = Variety(f)                  # Construct from affine equation
 assert X.is_affine() and not X.is_projective()
@@ -46,7 +47,7 @@ assert p.singularity_type() == Singularity("A1")
 assert p.is_node() and p.is_ordinary_double_point()
 assert p.canonical_form() == Variety(x*y).point([0, 0])  # standard form uv=0
 assert not p.is_cusp()
-# TODO: assert on p.multiplicity()
+assert p.multiplicity() == 2    # ordinary double point = multiplicity 2
 
 assert X.is_snc()   # Two transverse lines are simple normal crossing
 
@@ -54,17 +55,19 @@ f_blowup = X.blowup(p)
 Xp = f_blowup.domain()
 assert Xp.is_smooth() and Xp.is_normal()
 assert f_blowup.is_rational()
-# assert len(f.exceptional_divisor()) == 1 # == [E], a Weyl divisor with one term with coefficient 1.
-# TODO: assert on properties of blowup
-# assert f.is_birational()
-# E*E == E^2 == -1, f(E) == p, f^*(p) == E, f.indeterminacy_locus() == ...
-# C1, C2 = ... {curve passing through p, curve missing p}
-# assert f^*(C1)*E == ..., f^*(C2)*E == ..., f^*(C1)*f^*(C2) == C1*C2, etc
-# assert on f.proper_transform(C1), f.strict_transform(C1), etc
-# assert X.resolution().domain() == Xp # Automatically iterate blowups of singular points 
-# resolution() is a birational map f: \tilde X -> X
-# assert blowup is a subvariety of AA^2(CC) * PP^1(CC) with equations { ((x,y), [z:w]) | det( [x,y;w,z] ) }
-# NB: V1 * V2 is the Cartesian product.
+assert f_blowup.is_birational()
+assert f_blowup.degree() == 1 and f_blowup.is_finite()
+assert Xp.is_isomorphic_to(X.normalization())
+
+Xp_components = list(Xp.irreducible_components())
+assert len(Xp_components) == 2
+assert all(comp.is_isomorphic_to(AA^1(CC)) for comp in Xp_components)
+
+E_node = f_blowup.exceptional_locus()
+assert E_node.cardinality() == 2
+assert E_node.is_finite() and E_node.is_closed()
+assert E_node.is_smooth()
+assert X.resolution().domain().is_isomorphic_to(Xp)
 
 # --- Coordinate ring and local algebra --------------------------------------
 assert X.coordinate_ring() == CC['x','y'].quotient(f)
@@ -73,9 +76,10 @@ assert X.coordinate_ring() == CC['x', 'y'] / f # Convenience
 p_local = p.local_ring()
 assert p_local == X.local_ring(p)
 assert p_local.is_local()
-# TODO: assert ring-theoretic properties
-# is_regular(), dimension(), is_field(), is_ufd(), == CC?
-# assert p.local == ...?
+assert p_local.dimension() == 1
+assert not p_local.is_regular()
+assert not p_local.is_field()
+assert not p_local.is_ufd()
 
 # ============================================================================
 # 2. SMOOTH AFFINE LINE: V(x - y)

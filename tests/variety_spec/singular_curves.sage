@@ -174,6 +174,46 @@ assert C_proj_cusp.is_cuspidal() and not C_proj_cusp.is_nodal()
 
 
 # ============================================================================
+# 4A. REDUCIBLE PROJECTIVE CONIC: UNION OF TWO LINES
+# ============================================================================
+
+# The projective closure of the affine node (x-y)(x+y)=0 is the reducible conic
+# V((x-y)(x+y)) ⊂ PP^2.  It is the union of two copies of PP^1 meeting
+# transversely in one node, hence a simple normal crossing curve with
+# arithmetic genus 0 and geometric genus 0.
+
+two_lines_affine = Variety((x2 - y2) * (x2 + y2))
+two_lines_proj = two_lines_affine.projective_closure()
+t_proj = polygen(QQ, 't_proj')
+
+assert two_lines_proj.ambient_space() == PP^2(CC)
+assert two_lines_proj.is_projective() and not two_lines_proj.is_affine()
+assert two_lines_proj.degree() == 2 and two_lines_proj.dimension() == 1
+assert two_lines_proj.is_singular() and two_lines_proj.is_nodal()
+assert not two_lines_proj.is_cuspidal()
+assert two_lines_proj.is_snc()
+assert two_lines_proj == Variety((x - y) * (x + y))
+
+two_lines_sing = two_lines_proj.singular_locus()
+assert two_lines_sing.cardinality() == 1
+q_two_lines = two_lines_sing.points()[0]
+assert q_two_lines.is_node() and q_two_lines.singularity_type() == Singularity("A1")
+
+two_lines_components = list(two_lines_proj.irreducible_components())
+assert len(two_lines_components) == 2
+assert all(comp.is_isomorphic_to(PP^1(CC)) for comp in two_lines_components)
+
+assert two_lines_proj.arithmetic_genus() == 0
+assert two_lines_proj.geometric_genus() == 0
+assert two_lines_proj.irregularity() == 0
+assert two_lines_proj.holomorphic_euler_characteristic() == 1
+assert two_lines_proj.topological_euler_characteristic() == 3
+assert two_lines_proj.hilbert_polynomial(t_proj) == 2*t_proj + 1
+assert [two_lines_proj.plurigenus(n) for n in range(5)] == [1, 0, 0, 0, 0]
+assert two_lines_proj.kodaira_dimension() == -Infinity
+
+
+# ============================================================================
 # 5. ADE SINGULARITIES AND MILNOR FIBRES
 # ============================================================================
 

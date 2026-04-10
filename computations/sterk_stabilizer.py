@@ -23,7 +23,7 @@ def gram_as_lists(L):
 
 def main():
     U = Lattice.U()
-    E8 = Lattice.E8()
+    E8 = Lattice.E(8)
     T_En = U.direct_sum(U.twist(2)).direct_sum(E8.twist(2))
     G = gram_as_lists(T_En)
 

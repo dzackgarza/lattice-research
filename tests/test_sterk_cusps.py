@@ -57,7 +57,7 @@ def _load_sterk_fixture():
 
 def _t_en_gram():
     U = Lattice.U()
-    E8 = Lattice.E8()
+    E8 = Lattice.E(8)
     T_En = U.direct_sum(U.twist(2)).direct_sum(E8.twist(2))
     G = T_En.inner_product_matrix()
     return [[int(G[i, j]) for j in range(12)] for i in range(12)]
@@ -253,7 +253,7 @@ class TestSterkZeroCuspStabilizers:
         for rep in reps:
             if _div(G, rep[0]) == 2:
                 return rep[0]
-        raise AssertionError("No div=2 zero-cusp rep in fixture")
+        assert False, "No div=2 zero-cusp rep in fixture"
 
     @pytest.fixture(scope="class")
     def gens_div2(self, G, div2_rep):
@@ -294,7 +294,7 @@ class TestSterkZeroCuspStabilizerSlow:
         for rep in reps:
             if _div(G, rep[0]) == 1:
                 return rep[0]
-        raise AssertionError("No div=1 zero-cusp rep in fixture")
+        assert False, "No div=1 zero-cusp rep in fixture"
 
     @pytest.fixture(scope="class")
     def gens_div1(self, G, div1_rep):

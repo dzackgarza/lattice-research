@@ -19,6 +19,31 @@ just run-all           # all passing tasks
 
 Requires: SageMath (`sage`), GAP (for Task 3.2 orbit computations).
 
+## Cache
+
+Expensive deterministic backend computations use a 3-tier cache:
+
+- in-memory cache for repeated calls within one process
+- disk cache in `$COBLE_RESEARCH_CACHE_DIR`
+- direct recomputation on a cache miss
+
+The repo `.envrc` sets `COBLE_RESEARCH_CACHE_DIR` to `.cache` at the repo root.
+Cache hits are logged as warnings.
+
+Do not manage the cache in code or by hand. There are no recompute knobs. To invalidate
+the cache, delete `.cache/` or delete specific key-named cache files inside it.
+
+## Test Timing
+
+The repo `.envrc` sets `COBLE_RESEARCH_TEST_TIMING_DIR` to `.cache/test_timings`.
+
+- `pytest` prints the slowest tests on each run
+- `pytest` writes per-session timing records to `.cache/test_timings/pytest_sessions/`
+- `pytest` appends a session summary to `.cache/test_timings/history.jsonl`
+- `just test` appends whole-recipe wall-clock timings to `.cache/test_timings/just_history.jsonl`
+
+Delete `.cache/test_timings/` to reset the local timing history.
+
 ## Repository layout
 
 | Directory | Contents |

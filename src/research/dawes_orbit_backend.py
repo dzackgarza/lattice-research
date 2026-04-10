@@ -345,7 +345,7 @@ def _test_full_orthogonal_equivalence(lattice, w1, w2):
 
 
 def _build_complement_decomposition(lattice, w):
-    line_lattice = type(lattice).rank_one(int(_quadratic_norm(lattice, vector(QQ, w))))
+    line_lattice = type(lattice).Z().twist(int(_quadratic_norm(lattice, vector(QQ, w))))
     complement_basis, complement_lattice = _orthogonal_complement_data(lattice, w)
     inclusion_matrix = _column_matrix([vector(ZZ, list(w)), *complement_basis])
     inverse_inclusion_matrix = inclusion_matrix.inverse()

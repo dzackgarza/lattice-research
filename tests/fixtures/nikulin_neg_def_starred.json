@@ -6,7 +6,7 @@
       "r": 8,
       "a": 6,
       "delta": 0,
-      "root_lattice": "A1^8",
+      "root_lattice": "A_{1}^{8}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           1,
@@ -37,7 +37,7 @@
       "r": 9,
       "a": 7,
       "delta": 1,
-      "root_lattice": "A1^9",
+      "root_lattice": "A_{1}^{9}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -70,7 +70,7 @@
       "r": 11,
       "a": 5,
       "delta": 1,
-      "root_lattice": "D6 A1^5",
+      "root_lattice": "D_{6} + + + A_{1}^{5}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -103,7 +103,7 @@
       "r": 11,
       "a": 7,
       "delta": 1,
-      "root_lattice": "A1^7 D4",
+      "root_lattice": "A_{1}^{7} + + + D_{4}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -138,7 +138,7 @@
       "r": 12,
       "a": 4,
       "delta": 0,
-      "root_lattice": "E7 A1^5",
+      "root_lattice": "E_{7} + + + A_{1}^{5}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           1,
@@ -171,7 +171,7 @@
       "r": 12,
       "a": 6,
       "delta": 0,
-      "root_lattice": "D6 A1^6",
+      "root_lattice": "D_{6} + + + A_{1}^{6}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           1,
@@ -206,7 +206,7 @@
       "r": 12,
       "a": 4,
       "delta": 1,
-      "root_lattice": "D8 A1^4",
+      "root_lattice": "D_{8} + + + A_{1}^{4}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -239,7 +239,7 @@
       "r": 12,
       "a": 6,
       "delta": 1,
-      "root_lattice": "D4^2 A1^4",
+      "root_lattice": "D_{4}^{2} + + + A_{1}^{4}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -274,7 +274,7 @@
       "r": 13,
       "a": 3,
       "delta": 1,
-      "root_lattice": "D10 A1^3",
+      "root_lattice": "D_{10} + + + A_{1}^{3}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -307,7 +307,7 @@
       "r": 13,
       "a": 5,
       "delta": 1,
-      "root_lattice": "E7 A1^6",
+      "root_lattice": "E_{7} + + + A_{1}^{6}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -342,7 +342,7 @@
       "r": 14,
       "a": 2,
       "delta": 1,
-      "root_lattice": "D12 A1^2",
+      "root_lattice": "D_{12} + + + A_{1}^{2}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -375,7 +375,7 @@
       "r": 15,
       "a": 1,
       "delta": 1,
-      "root_lattice": "D14 A1",
+      "root_lattice": "D_{14} + + + A_{1}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -408,7 +408,7 @@
       "r": 16,
       "a": 0,
       "delta": 0,
-      "root_lattice": "D16",
+      "root_lattice": "D_{16}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -441,7 +441,7 @@
       "r": 16,
       "a": 2,
       "delta": 0,
-      "root_lattice": "D8^2",
+      "root_lattice": "D_{8}^{2}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,
@@ -476,7 +476,7 @@
       "r": 16,
       "a": 2,
       "delta": 0,
-      "root_lattice": "E7^2 A1^2",
+      "root_lattice": "E_{7}^{2} + + + A_{1}^{2}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           1,
@@ -511,7 +511,7 @@
       "r": 17,
       "a": 1,
       "delta": 1,
-      "root_lattice": "D16 A1",
+      "root_lattice": "D_{16} + + + A_{1}",
       "isotropic_subgroup_generators_in_A_R": [
         [
           0,

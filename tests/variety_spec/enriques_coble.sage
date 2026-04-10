@@ -124,6 +124,8 @@ assert (-2 * K_S).h(0) == 1      # h^0(O_S(-2K_S)) = 1
 Eis = f_bl.exceptional_locus()
 assert Eis.cardinality() == 10
 assert all(Ei.self_intersection() == -1 for Ei in Eis)
+assert Variety(f_bl(Ei) for Ei in Eis) == C_sing
+assert Variety(f_bl.pullback(pi) for pi in C_sing) == Eis
 
 Hp = f_bl.pullback(PP^2(CC).hyperplane_class())
 assert K_S == -3 * Hp + sum(Ei.as_divisor() for Ei in Eis)

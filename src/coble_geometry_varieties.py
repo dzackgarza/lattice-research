@@ -8,14 +8,16 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Self, final, override
+from typing import TYPE_CHECKING, Any, Self, final, override
 
-from sage.groups.abelian_gp import AbelianGroup as SageAbelianGroup
-from sage.rings.ideal import Ideal
-from sage.rings.polynomial.multi_polynomial import MPolynomial
-from sage.rings.ring import Ring
+from ore_algebra.differential_operator_1_1 import (
+    UnivariateDifferentialOperatorOverUnivariateRing,
+)
 
 from coble_geometry_foundation import Lattice
+
+if TYPE_CHECKING:
+    from research.foliation_backend import HodgeTheoreticMonodromy
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,7 +41,7 @@ class Variety(ABC):
       bundles, etc.
     - Concrete implementations should provide classmethods:
       - from_equations(equations: list, ambient: Variety) -> Self
-      - from_ideal(ideal: Ideal, ambient: Variety) -> Self
+      - from_ideal(ideal: Any, ambient: Variety) -> Self
     - Sage's algebraic schemes compute Jacobian, codimension(),
       defining ideals, irreducible components automatically.
     """
@@ -189,7 +191,7 @@ class Variety(ABC):
         ...
 
     @abstractmethod
-    def base_ring(self) -> Ring:
+    def base_ring(self) -> Any:
         """Return the base ring (typically ZZ, QQ, or CC)."""
         ...
 
@@ -226,12 +228,12 @@ class Variety(ABC):
         ...
 
     @abstractmethod
-    def defining_ideal(self) -> Ideal:
+    def defining_ideal(self) -> Any:
         """Return the defining ideal in the ambient coordinate ring."""
         ...
 
     @abstractmethod
-    def equations(self) -> list[MPolynomial]:
+    def equations(self) -> list[Any]:
         """Return the homogeneous equations defining this variety."""
         ...
 
@@ -314,7 +316,7 @@ class Point(ABC):
         ...
 
     @abstractmethod
-    def coordinate_ring(self) -> Ring:
+    def coordinate_ring(self) -> Any:
         """Return the coordinate ring of the point (local ring)."""
         ...
 
@@ -452,7 +454,7 @@ class Divisor(ABC):
         ...
 
 
-class PicardGroup(SageAbelianGroup, ABC):
+class PicardGroup(ABC):
     r"""Divisor classes: Pic(X) ≅ Z^r ⊕ Tors.
 
     This extends Sage's AbelianGroup (see sage.groups.abelian_gp) and adds
@@ -762,8 +764,8 @@ class CoherentSheaf(ABC):
       h^0, h^1, Euler characteristic, Chern class, etc.
     """
 
-    @abstractmethod
     @classmethod
+    @abstractmethod
     def from_divisor(cls, D: Divisor) -> Self:
         """
         Construct O_X(D) from D.
@@ -829,3 +831,47 @@ class FamilyOfVarieties(VarietyMorphism):
         for degeneration handling.
         """
         ...
+
+    def hypersurface_family_equation(self) -> Any:
+        r"""Return the unique defining equation for a one-parameter hypersurface family."""
+        total_space = self.domain()
+        base = self.codomain()
+        assert base.dimension() == 1
+        assert total_space.is_hypersurface()
+        equations = total_space.equations()
+        assert len(equations) == 1
+        return equations[0]
+
+    def hodge_theoretic_monodromy(self) -> HodgeTheoreticMonodromy:
+        r"""Return Picard-Fuchs and monodromy data via the vendored Singular backend."""
+        cached = getattr(self, "_hodge_theoretic_monodromy_cache", None)
+        if cached is None:
+            from research.foliation_backend import hodge_theoretic_monodromy_of_family
+
+            cached = hodge_theoretic_monodromy_of_family(self)
+            setattr(self, "_hodge_theoretic_monodromy_cache", cached)
+        return cached
+
+    def milnor_number(self) -> int:
+        r"""Return the Milnor number used by the Picard-Fuchs/monodromy solver."""
+        return self.hodge_theoretic_monodromy().milnor_number
+
+    def picard_fuchs_operator(self) -> UnivariateDifferentialOperatorOverUnivariateRing:
+        r"""Return the Picard-Fuchs operator attached to this family."""
+        return self.hodge_theoretic_monodromy().picard_fuchs_operator
+
+    def indicial_polynomial(self):
+        r"""Return the indicial polynomial extracted from the Picard-Fuchs operator."""
+        return self.hodge_theoretic_monodromy().indicial_polynomial
+
+    def monodromy_matrix(self):
+        r"""Return the Hodge-theoretic monodromy matrix in the logarithmic Jordan basis."""
+        return self.hodge_theoretic_monodromy().monodromy_matrix
+
+    def nilpotent_monodromy_matrix(self):
+        r"""Return the nilpotent matrix $N = \\log(T_u)$ in the logarithmic Jordan basis."""
+        return self.hodge_theoretic_monodromy().nilpotent_monodromy_matrix
+
+    def monodromy_jordan_form(self):
+        r"""Return the standard Jordan normal form of the monodromy matrix."""
+        return self.hodge_theoretic_monodromy().monodromy_jordan_form

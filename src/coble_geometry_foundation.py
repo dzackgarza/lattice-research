@@ -7,7 +7,6 @@ from __future__ import annotations
 import logging
 from collections.abc import Sequence
 from functools import reduce
-from itertools import repeat
 from typing import Self
 
 from sage.all import QQ, ZZ, Integer, IntegralLattice, MatrixSpace, gcd, matrix
@@ -341,7 +340,121 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return DiscriminantOrthogonalGroup(self)
 
 
+class RationalLattice:
+    """Free Z-module with a QQ-valued symmetric bilinear form.
+
+    This is the supertype of :class:`Lattice`.  A ``RationalLattice`` may have
+    non-integer inner products (e.g. the F_4 root lattice in its Bourbaki
+    ambient-space basis has a ``-1/2`` entry).  Use :meth:`is_integral` to
+    test whether all inner products lie in ``ZZ``; if so, the gram matrix can
+    be promoted to a :class:`Lattice` via :meth:`Lattice.from_gram`.
+
+    Typical use: ``Lattice.F(4)`` internally builds
+    ``RationalLattice.F(4).twist(2)`` and promotes the result to an integral
+    :class:`Lattice`.
+    """
+
+    def __init__(self, gram_qq):
+        self._gram = matrix(QQ, gram_qq)
+        assert self._gram == self._gram.transpose(), "Gram matrix must be symmetric"
+
+    def gram_matrix(self):
+        """Return the QQ Gram matrix."""
+        return self._gram
+
+    def rank(self):
+        return self._gram.nrows()
+
+    def is_integral(self):
+        """Return True iff every entry of the Gram matrix lies in ZZ.
+
+        Equivalently: ``self.gram_matrix() in Mat_n(ZZ)``.
+        """
+        return all(self._gram[i, j] in ZZ
+                   for i in range(self.rank()) for j in range(self.rank()))
+
+    def twist(self, n) -> RationalLattice:
+        """Return the lattice rescaled by ``n``: the bilinear form becomes ``n·β``.
+
+        Auto-promotes to :class:`Lattice` when the result is integral.
+
+        Examples::
+
+            RationalLattice.F(4).twist(2)    # → Lattice  (integral)
+            Lattice.U().twist(QQ(1, 2))      # → RationalLattice  (non-integral)
+        """
+        new_gram = QQ(n) * self._gram
+        result = RationalLattice(new_gram)
+        if result.is_integral():
+            return Lattice.from_gram(matrix(ZZ, new_gram))
+        return result
+
+    def __add__(self, other: RationalLattice) -> RationalLattice:
+        """Direct sum (block-diagonal Gram matrix); auto-promotes to :class:`Lattice`."""
+        from sage.all import block_diagonal_matrix
+        new_gram = block_diagonal_matrix([self._gram, other._gram], subdivide=False)
+        result = RationalLattice(new_gram)
+        if result.is_integral():
+            return Lattice.from_gram(matrix(ZZ, new_gram))
+        return result
+
+    def __pow__(self, n: int) -> RationalLattice:
+        """Iterated direct sum: ``L ** n = L ⊕ ... ⊕ L`` (n copies)."""
+        n = int(n)
+        assert n >= 1, f"exponent must be ≥ 1, got {n!r}"
+        result = self
+        for _ in range(n - 1):
+            result = result + self
+        return result
+
+    @classmethod
+    def _neg_root_gram_qq(cls, cartan_type: str) -> matrix:
+        """Negative-definite QQ Gram matrix for the given Cartan type.
+
+        The matrix is ``-β(α_i, α_j)`` where ``α_i`` are the simple roots in
+        Sage's Bourbaki-ordered ambient space.  The result may have non-integer
+        entries (F_4 has ``+1/2`` off-diagonal terms before negation).
+        """
+        from sage.all import RootSystem
+        space = RootSystem(cartan_type).ambient_space()
+        simple = list(space.simple_roots())
+        gram_qq = matrix(QQ, [[a.inner_product(b) for b in simple] for a in simple])
+        return -gram_qq
+
+    @classmethod
+    def F(cls, n: int) -> RationalLattice:
+        """``F_4`` rational root lattice, negative-definite.
+
+        In Bourbaki's ambient space ``R^4`` the simple roots are::
+
+            α_1 = e_2 − e_3        (norm -2)
+            α_2 = e_3 − e_4        (norm -2)
+            α_3 = e_4              (norm -1)
+            α_4 = ½(e_1−e_2−e_3−e_4)  (norm -1)
+
+        Because ``α_3·α_4 = -½`` the bilinear form is **not** ZZ-valued on this
+        basis; ``RationalLattice.F(4)`` is not integral.  Call ``Lattice.F(4)``
+        to obtain the standard integral presentation ``twist(2)`` (all norms ×2:
+        norm-(-2) nodes become norm-(-4), norm-(-1) nodes become norm-(-2)).
+
+        Gram matrix (negative-definite)::
+
+            [[-2,  1,  0,   0  ]
+             [ 1, -2,  1,   0  ]
+             [ 0,  1, -1,  1/2 ]
+             [ 0,  0, 1/2, -1  ]]
+        """
+        assert int(n) == 4, f"F_n requires n = 4, got {n}"
+        return cls(cls._neg_root_gram_qq("F4"))
+
+
 class Lattice(_LatticeBase):
+    """Integral lattice: a free Z-module with a ZZ-valued symmetric bilinear form.
+
+    This is the integral subtype of :class:`RationalLattice`.  All
+    constructors assert ``is_integral()`` and operate over ``ZZ``.
+    """
+
     Element = LatticeElement
 
     @classmethod
@@ -353,6 +466,22 @@ class Lattice(_LatticeBase):
         )
         assert converted.base_ring() is lattice.base_ring()
         return converted
+
+    @classmethod
+    def from_gram(cls, gram_zz) -> Self:
+        """Construct a lattice directly from an integer Gram matrix."""
+        gram = matrix(ZZ, gram_zz)
+        assert gram == gram.transpose(), "Gram matrix must be symmetric"
+        assert all(gram[i, j] in ZZ for i in range(gram.nrows()) for j in range(gram.nrows())), \
+            "from_gram requires integer entries; use RationalLattice for QQ forms"
+        return cls.from_sage(IntegralLattice(gram))
+
+    def is_integral(self) -> bool:
+        """Return True — every :class:`Lattice` is integral by construction.
+
+        Satisfies the same contract as :meth:`RationalLattice.is_integral`.
+        """
+        return True
 
     @cached_method
     def _native_lattice(self):
@@ -522,92 +651,369 @@ class Lattice(_LatticeBase):
         return invariants
 
     @classmethod
-    def rank_one(cls, scale) -> Self:
-        native_lattice = IntegralLattice(MatrixSpace(ZZ, ZZ.one())([scale]))
-        converted = cls.from_sage(native_lattice)
-        assert converted.is_isometric_to(native_lattice)
-        return converted
-
-    @classmethod
-    def hyperbolic_plane(cls) -> Self:
-        native_lattice = IntegralLattice("U")
+    def Z(cls) -> Self:
+        """Rank-1 lattice ``<1>`` with Gram matrix ``[1]``. Use ``.twist(n)`` for ``<n>``."""
+        native_lattice = IntegralLattice(MatrixSpace(ZZ, ZZ.one())([1]))
         converted = cls.from_sage(native_lattice)
         assert converted.is_isometric_to(native_lattice)
         return converted
 
     @classmethod
     def U(cls) -> Self:
-        return cls.hyperbolic_plane()
-
-    @classmethod
-    def a1_negative(cls) -> Self:
-        native_lattice = IntegralLattice(-_A1_POSITIVE.inner_product_matrix())
+        """Hyperbolic plane ``U`` with Gram matrix ``[[0,1],[1,0]]``."""
+        native_lattice = IntegralLattice("U")
         converted = cls.from_sage(native_lattice)
         assert converted.is_isometric_to(native_lattice)
         return converted
 
     @classmethod
-    def e8_negative(cls) -> Self:
-        native_lattice = IntegralLattice(-IntegralLattice("E8").inner_product_matrix())
-        converted = cls.from_sage(native_lattice)
-        assert converted.is_isometric_to(native_lattice)
-        return converted
+    def _root_lattice_gram(cls, cartan_type: str):
+        """Negative-definite integer Gram matrix for the given Cartan type.
+
+        Computes ``-β(α_i, α_j)`` where ``α_i`` are Sage's Bourbaki-ordered
+        simple roots in the ambient space of ``RootSystem(cartan_type)``.
+        Asserts that all entries are integral (this holds for A, B, C, D, E, G
+        but NOT for F_4 — use ``RationalLattice.F(4)`` for that type).
+        """
+        from sage.all import RootSystem
+        space = RootSystem(cartan_type).ambient_space()
+        simple = list(space.simple_roots())
+        gram_qq = matrix(QQ, [[a.inner_product(b) for b in simple] for a in simple])
+        neg_gram = -gram_qq
+        assert all(neg_gram[i, j] in ZZ
+                   for i in range(neg_gram.nrows()) for j in range(neg_gram.nrows())), \
+            f"_root_lattice_gram: non-integer entries for {cartan_type!r}; use RationalLattice"
+        return matrix(ZZ, neg_gram)
 
     @classmethod
-    def E8(cls) -> Self:
-        return cls.e8_negative()
+    def A(cls, n: int) -> Self:
+        """``A_n`` root lattice, negative-definite (n ≥ 1).
 
-    def twist(self, n: int) -> Self:
-        twisted = type(self).from_sage(IntegralLattice(n * self.inner_product_matrix()))
-        return twisted
+        All simple roots have norm -2.  Sage uses Bourbaki labeling: nodes
+        1, 2, …, n form a chain.
 
-    def __add__(self, other: Self) -> Self:
-        return type(self).from_sage(self.direct_sum(other))
+        Dynkin diagram (Sage node labels)::
+
+            1 — 2 — 3 — … — n       (all nodes norm -2)
+
+        Gram matrix for A_3::
+
+            [[-2,  1,  0]
+             [ 1, -2,  1]
+             [ 0,  1, -2]]
+        """
+        assert int(n) >= 1, f"A_n requires n ≥ 1, got {n}"
+        return cls.from_gram(cls._root_lattice_gram(f"A{n}"))
+
+    @classmethod
+    def B(cls, n: int) -> Self:
+        """``B_n`` root lattice, negative-definite (n ≥ 2).
+
+        Constructed via the ambient-space bilinear form ``β(α_i, α_j)``.
+        Nodes 1, …, n-1 have norm -2; node n has norm -1.
+
+        Dynkin diagram (Sage node labels)::
+
+            1 — 2 — … — (n-1) == n      (nodes 1..n-1: norm -2, node n: norm -1)
+
+        Gram matrix for B_3::
+
+            [[-2,  1,  0]
+             [ 1, -2,  1]
+             [ 0,  1, -1]]
+        """
+        assert int(n) >= 2, f"B_n requires n ≥ 2, got {n}"
+        return cls.from_gram(cls._root_lattice_gram(f"B{n}"))
+
+    @classmethod
+    def C(cls, n: int) -> Self:
+        """``C_n`` root lattice, negative-definite (n ≥ 2).
+
+        Nodes 1, …, n-1 have norm -2; node n has norm -4.
+
+        Dynkin diagram (Sage node labels)::
+
+            1 — 2 — … — (n-1) == n      (nodes 1..n-1: norm -2, node n: norm -4)
+
+        Gram matrix for C_3::
+
+            [[-2,  1,  0]
+             [ 1, -2,  2]
+             [ 0,  2, -4]]
+        """
+        assert int(n) >= 2, f"C_n requires n ≥ 2, got {n}"
+        return cls.from_gram(cls._root_lattice_gram(f"C{n}"))
+
+    @classmethod
+    def D(cls, n: int) -> Self:
+        """``D_n`` root lattice, negative-definite (n ≥ 4).
+
+        All simple roots have norm -2.  Node 2 is the branch vertex; nodes 1,
+        n-1, and n all connect to node 2 (or to the end of the chain — see
+        diagram).
+
+        Dynkin diagram for D_4 (Sage node labels)::
+
+                1
+                |
+            3 — 2 — 4
+
+        Dynkin diagram for D_n (n ≥ 5)::
+
+            1 — 2 — 3 — … — (n-2) — (n-1)
+                                  \\
+                                   n        (all nodes norm -2)
+
+        Gram matrix for D_4::
+
+            [[-2,  1,  0,  0]
+             [ 1, -2,  1,  1]
+             [ 0,  1, -2,  0]
+             [ 0,  1,  0, -2]]
+        """
+        assert int(n) >= 4, f"D_n requires n ≥ 4, got {n}"
+        return cls.from_gram(cls._root_lattice_gram(f"D{n}"))
+
+    @classmethod
+    def E(cls, n: int) -> Self:
+        """``E_n`` root lattice, negative-definite (n ∈ {6, 7, 8}).
+
+        All simple roots have norm -2.  Sage follows Bourbaki labeling: node 2
+        is the branch vertex, attached to node 4 in the main chain.
+
+        Dynkin diagram (Sage node labels, all nodes norm -2)::
+
+                2
+                |
+            1 — 3 — 4 — 5 — 6          (E_6)
+
+                2
+                |
+            1 — 3 — 4 — 5 — 6 — 7      (E_7)
+
+                2
+                |
+            1 — 3 — 4 — 5 — 6 — 7 — 8  (E_8)
+
+        Gram matrix for E_8 (rows/cols in Bourbaki order 1,2,…,8)::
+
+            [[-2,  0,  1,  0,  0,  0,  0,  0]
+             [ 0, -2,  0,  1,  0,  0,  0,  0]
+             [ 1,  0, -2,  1,  0,  0,  0,  0]
+             [ 0,  1,  1, -2,  1,  0,  0,  0]
+             [ 0,  0,  0,  1, -2,  1,  0,  0]
+             [ 0,  0,  0,  0,  1, -2,  1,  0]
+             [ 0,  0,  0,  0,  0,  1, -2,  1]
+             [ 0,  0,  0,  0,  0,  0,  1, -2]]
+        """
+        assert int(n) in {6, 7, 8}, f"E_n requires n ∈ {{6,7,8}}, got {n}"
+        return cls.from_gram(cls._root_lattice_gram(f"E{n}"))
+
+    @classmethod
+    def F(cls, n: int) -> Self:
+        """``F_4`` root lattice, integral presentation, negative-definite.
+
+        ``RationalLattice.F(4)`` has the Bourbaki-ambient-space Gram matrix
+        (non-integral, with a ``±1/2`` entry).  Scaling by 2 gives the
+        standard integral presentation ``RationalLattice.F(4).twist(2)``
+        whose diagonal entries are all in ``{-4, -2}``.  This is what
+        ``Lattice.F(4)`` returns.
+
+        Nodes 1, 2 have norm -4; nodes 3, 4 have norm -2 (after the ×2 scale).
+
+        Dynkin diagram (Sage node labels after scaling)::
+
+            1 — 2 == 3 — 4     (nodes 1,2: norm -4; nodes 3,4: norm -2)
+
+        Gram matrix::
+
+            [[-4,  2,  0,  0]
+             [ 2, -4,  2,  0]
+             [ 0,  2, -2,  1]
+             [ 0,  0,  1, -2]]
+        """
+        assert int(n) == 4, f"F_n requires n = 4, got {n}"
+        rl = RationalLattice.F(4).twist(2)
+        assert isinstance(rl, Lattice)
+        return rl
+
+    @classmethod
+    def G(cls, n: int) -> Self:
+        """``G_2`` root lattice, negative-definite.
+
+        This is NOT the Cartan matrix; it uses the specific integral bilinear
+        form ``β(α_i, α_j)`` in Bourbaki's ambient space ``R^4``.  Node 1 has
+        norm -2; node 2 has norm -6 (ratio 1:3, reflecting the G_2 root length
+        ratio ``|α_long|² / |α_short|² = 3``).
+
+        Dynkin diagram (Sage node labels)::
+
+            1 === 2      (node 1: norm -2, node 2: norm -6)
+
+        Gram matrix::
+
+            [[-2,  3]
+             [ 3, -6]]
+        """
+        assert int(n) == 2, f"G_n requires n = 2, got {n}"
+        return cls.from_gram(cls._root_lattice_gram("G2"))
+
+    @classmethod
+    def I(cls, p: int, q: int) -> Self:
+        """Odd unimodular lattice ``I_{p,q} = <1>^p ⊕ <-1>^q``."""
+        p, q = int(p), int(q)
+        assert p >= 0 and q >= 0 and p + q >= 1, "I_{p,q} requires p,q ≥ 0 and p+q ≥ 1"
+        pieces = [cls.Z()] * p + [cls.Z().twist(-1)] * q
+        return reduce(lambda a, b: a + b, pieces)
+
+    @classmethod
+    def II(cls, p: int, q: int) -> Self:
+        """Even unimodular lattice ``II_{p,q}``; requires ``p ≡ q (mod 8)``."""
+        p, q = int(p), int(q)
+        assert p >= 0 and q >= 0, "II_{p,q} requires p,q ≥ 0"
+        assert (p - q) % 8 == 0, f"II_{{p,q}} requires p ≡ q (mod 8), got ({p},{q})"
+        assert p + q >= 1, "II_{{0,0}} is trivial; not supported"
+        diff = p - q
+        n_hyperbolic = min(p, q)
+        n_e8 = abs(diff) // 8
+        e8 = cls.from_sage(IntegralLattice(IntegralLattice("E8").inner_product_matrix())) if diff > 0 else cls.E(8)
+        pieces = [cls.U()] * n_hyperbolic + [e8] * n_e8
+        return reduce(lambda a, b: a + b, pieces)
+
+    @classmethod
+    def from_string(cls, s: str) -> Self:
+        """Parse a LaTeX-compatible direct-sum expression into a lattice.
+
+        Syntax::
+
+            expr  =  term ('+' term)*
+            term  =  base ('^' exp)?
+            base  =  'A_n' | 'A_{n}'    (single-digit subscript may omit braces)
+                   | 'B_{n}' | 'C_{n}' | 'D_{n}' | 'E_{n}' | 'F_{4}' | 'G_{2}'
+                   | 'U'
+                   | 'U(k)'             (hyperbolic plane scaled by k)
+                   | 'I_{p,q}' | 'II_{p,q}'
+                   | '<n>'              (rank-1 lattice ZZ(n))
+            exp   =  int | '{' int '}'  (iterated direct sum)
+            scale =  '(' int ')'        (twist / rescale by integer)
+
+        Examples::
+
+            Lattice.from_string("A_1")
+            Lattice.from_string("U(2) + A_{1}")
+            Lattice.from_string("U^{3} + D_{6} + E_{8}")
+            Lattice.from_string("E_{8}(2)")
+            Lattice.from_string("A_{1}^{6} + D_{4}")
+        """
+        import re
+
+        _DISPATCH = {'A': cls.A, 'B': cls.B, 'C': cls.C, 'D': cls.D, 'E': cls.E, 'F': cls.F, 'G': cls.G}
+
+        def _parse_term(raw: str):
+            raw = raw.strip()
+            # Strip trailing direct-sum power: '^n' or '^{n}'
+            pm = re.match(r'^(.*?)\^\{?(\d+)\}?$', raw, re.DOTALL)
+            if pm:
+                base_str, exp = pm.group(1).strip(), int(pm.group(2))
+            else:
+                base_str, exp = raw, 1
+
+            # <n>  →  ZZ(n)
+            m = re.fullmatch(r'<(-?\d+)>', base_str)
+            if m:
+                L = cls.Z().twist(int(m.group(1)))
+                return L ** exp if exp > 1 else L
+
+            # U or U(k)  →  U() or U().twist(k)
+            m = re.fullmatch(r'U(?:\((\d+)\))?', base_str)
+            if m:
+                L = cls.U()
+                if m.group(1):
+                    L = L.twist(int(m.group(1)))
+                return L ** exp if exp > 1 else L
+
+            # II_{p,q}
+            m = re.fullmatch(r'II_\{(\d+),(\d+)\}', base_str)
+            if m:
+                L = cls.II(int(m.group(1)), int(m.group(2)))
+                return L ** exp if exp > 1 else L
+
+            # I_{p,q}
+            m = re.fullmatch(r'I_\{(\d+),(\d+)\}', base_str)
+            if m:
+                L = cls.I(int(m.group(1)), int(m.group(2)))
+                return L ** exp if exp > 1 else L
+
+            # Root lattice: X_{n}(k) or X_n(k) where single-digit subscript
+            # may omit braces per LaTeX convention.
+            m = re.fullmatch(r'([A-G])_(?:\{(\d+)\}|(\d))(?:\((\d+)\))?', base_str)
+            if m:
+                letter = m.group(1)
+                n = int(m.group(2) if m.group(2) is not None else m.group(3))
+                scale = m.group(4)
+                if letter not in _DISPATCH:
+                    raise ValueError(f"Unknown root lattice type: {letter!r}")
+                L = _DISPATCH[letter](n)
+                if scale:
+                    L = L.twist(int(scale))
+                return L ** exp if exp > 1 else L
+
+            raise ValueError(
+                f"Cannot parse lattice token {base_str!r} in {s!r}. "
+                f"Use LaTeX subscript notation: 'A_1' or 'A_{{1}}', not 'A1'."
+            )
+
+        terms = [_parse_term(t) for t in re.split(r'\s*\+\s*', s.strip()) if t.strip()]
+        if not terms:
+            raise ValueError(f"Empty lattice expression: {s!r}")
+        return reduce(lambda a, b: a + b, terms)
+
+    def __pow__(self, n: int) -> Self:
+        """Iterated direct sum: ``L ** n = L ⊕ ... ⊕ L`` (n copies)."""
+        n = int(n)
+        assert n >= 1, f"exponent must be ≥ 1, got {n!r}"
+        result = self
+        for _ in range(n - 1):
+            result = result + self
+        return result
+
+    def twist(self, n) -> Lattice | RationalLattice:
+        """Return the lattice rescaled by ``n``: the bilinear form becomes ``n·β``.
+
+        Accepts any rational ``n``.  Returns a :class:`Lattice` when ``n`` is
+        an integer (result is always integral); returns a :class:`RationalLattice`
+        when the result has non-integer entries.
+
+        Example::
+
+            Lattice.U().twist(2)          # → Lattice     (integral)
+            Lattice.U().twist(QQ(1, 2))   # → RationalLattice  (non-integral)
+        """
+        new_gram = QQ(n) * self.inner_product_matrix()
+        if all(new_gram[i, j] in ZZ
+               for i in range(new_gram.nrows()) for j in range(new_gram.ncols())):
+            return type(self).from_gram(matrix(ZZ, new_gram))
+        return RationalLattice(new_gram)
+
+    def __add__(self, other: Lattice | RationalLattice) -> Lattice | RationalLattice:
+        """Direct sum.  Returns a :class:`Lattice` when ``other`` is also a :class:`Lattice`."""
+        if isinstance(other, Lattice):
+            return type(self).from_sage(self.direct_sum(other))
+        # other is a RationalLattice — fall back to RationalLattice arithmetic
+        rl_self = RationalLattice(matrix(QQ, self.inner_product_matrix()))
+        return rl_self + other
 
     @classmethod
     def coble_picard(cls) -> Self:
-        positive_line = cls.rank_one(_A1_SCALE)
-        negative_line = cls.rank_one(-_A1_SCALE)
-        native_lattice = reduce(
-            _LatticeBase.direct_sum,
-            repeat(
-                negative_line,
-                int(IntegralLattice("E8").rank() + IntegralLattice("U").rank()),
-            ),
-            positive_line,
-        )
-        converted = cls.from_sage(native_lattice)
-        assert converted.is_isometric_to(native_lattice)
-        return converted
+        return cls.Z().twist(_A1_SCALE) + cls.Z().twist(-_A1_SCALE) ** (IntegralLattice("E8").rank() + IntegralLattice("U").rank())
 
     @classmethod
     def coble_transcendental(cls) -> Self:
-        native_lattice = _LatticeBase.direct_sum(
-            _LatticeBase.direct_sum(
-                cls.rank_one(_A1_SCALE),
-                cls.hyperbolic_plane(),
-            ),
-            cls.e8_negative(),
-        )
-        converted = cls.from_sage(native_lattice)
-        assert converted.is_isometric_to(native_lattice)
-        return converted
+        return cls.Z().twist(_A1_SCALE) + cls.U() + cls.E(8)
 
     @classmethod
     def k3(cls) -> Self:
-        native_lattice = reduce(
-            _LatticeBase.direct_sum,
-            (
-                cls.hyperbolic_plane(),
-                cls.hyperbolic_plane(),
-                cls.e8_negative(),
-                cls.e8_negative(),
-            ),
-            cls.hyperbolic_plane(),
-        )
-        converted = cls.from_sage(native_lattice)
-        assert converted.is_isometric_to(native_lattice)
-        return converted
+        return cls.II(3, 19)
 
     @cached_method
     def discriminant_group(self, s=ZZ.zero()):
@@ -861,10 +1267,15 @@ class Lattice(_LatticeBase):
     def _centralizer_gens_via_gap(self, iota_mat) -> list:
         r"""Compute generators of Z_{O(L)}(ι) via GAP Centralizer (definite only).
 
-        Converts ι to a GAP matrix group element, calls GAP's ``Centralizer``,
-        then converts the resulting generators back to ZZ-matrices.
+        Sage's orthogonal group engine requires a positive-definite Gram matrix.
+        O(-L) = O(L) as groups of integer matrices (G^T Q G = Q ⟺ G^T (-Q) G = -Q),
+        so we pass |Q| = -Q to Sage when the lattice is negative-definite.
         """
-        sage_L = IntegralLattice(self.inner_product_matrix())
+        p, q = self.signature_pair()
+        gram = self.inner_product_matrix()
+        # Sage's orthogonal_group requires positive-definite input.
+        pd_gram = -gram if p == 0 else gram
+        sage_L = IntegralLattice(pd_gram)
         og = sage_L.orthogonal_group()
         iota_elt = og(iota_mat)
         centralizer_gap = og.gap().Centralizer(iota_elt.gap())
@@ -973,7 +1384,14 @@ class LatticeOrthogonalGroup:
         return list(self._gens_cache)
 
     def __contains__(self, G) -> bool:
-        r"""G in O(L)  iff  G^T * Q * G == Q."""
+        r"""G ∈ O(L)  iff  G^T Q G = Q  (column-action / left-action convention).
+
+        This is the **single source of truth** for isometry membership.
+        Never check ``G Q G^T == Q`` elsewhere — that is the row-action condition
+        for Sage's raw backend matrices, which are converted to column-action form
+        via ``_column_action_isometry_from_row_action_matrix`` before reaching
+        the public API.
+        """
         return G in self._condition_set
 
     def act(self, G, v):
@@ -1076,17 +1494,23 @@ class LatticeOrthogonalGroup:
         return vectors_are_equivalent_in_group(self, v1, v2)
 
     def isotropic_line_orbits(self):
-        from research.isotropic_gamma_orbit_backend import isotropic_line_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_line_orbits_in_group,
+        )
 
         return isotropic_line_orbits_in_group(self)
 
     def isotropic_plane_orbits(self):
-        from research.isotropic_gamma_orbit_backend import isotropic_plane_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_plane_orbits_in_group,
+        )
 
         return isotropic_plane_orbits_in_group(self)
 
     def isotropic_flag_orbits(self, k):
-        from research.isotropic_gamma_orbit_backend import isotropic_flag_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_flag_orbits_in_group,
+        )
 
         return isotropic_flag_orbits_in_group(self, k)
 
@@ -1304,17 +1728,23 @@ class LatticeOrthogonalSubgroup:
         return vectors_are_equivalent_in_group(self, v1, v2)
 
     def isotropic_line_orbits(self):
-        from research.isotropic_gamma_orbit_backend import isotropic_line_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_line_orbits_in_group,
+        )
 
         return isotropic_line_orbits_in_group(self)
 
     def isotropic_plane_orbits(self):
-        from research.isotropic_gamma_orbit_backend import isotropic_plane_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_plane_orbits_in_group,
+        )
 
         return isotropic_plane_orbits_in_group(self)
 
     def isotropic_flag_orbits(self, k):
-        from research.isotropic_gamma_orbit_backend import isotropic_flag_orbits_in_group
+        from research.isotropic_gamma_orbit_backend import (
+            isotropic_flag_orbits_in_group,
+        )
 
         return isotropic_flag_orbits_in_group(self, k)
 
@@ -1416,6 +1846,15 @@ class DiscriminantOrthogonalGroup:
         r"""Return the subgroup generated by *generators*."""
         return DiscriminantOrthogonalSubgroup(
             self._disc, list(generators), self._require_sage_group()
+        )
+
+    def stabilizer(self, element) -> DiscriminantOrthogonalSubgroup:
+        r"""Return the stabilizer of a discriminant element in ``O(A_L)``."""
+        sage_stabilizer = self._require_sage_group().stabilizer(element)
+        return DiscriminantOrthogonalSubgroup(
+            self._disc,
+            [g.matrix() for g in sage_stabilizer.gens()],
+            self._require_sage_group(),
         )
 
     def __repr__(self) -> str:

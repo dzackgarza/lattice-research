@@ -69,8 +69,8 @@ class TestLatticeSemantics:
     @classmethod
     def _native_split_scaled_hyperbolic_plane(cls, scale):
         native = cls.NATIVE_LATTICE.direct_sum(
-            Lattice.rank_one(scale),
-            Lattice.rank_one(-scale),
+            Lattice.Z().twist(scale),
+            Lattice.Z().twist(-scale),
         )
         assert native.base_ring() is ZZ
         return native
@@ -123,7 +123,7 @@ class TestLatticeSemantics:
     def test_free_module_and_lattice_element_semantics_are_exact(self) -> None:
         wrapped_module = FreeBilinearModule.from_sage(IntegralLattice("U"))
         module_generator = next(iter(wrapped_module.gens()))
-        wrapped_lattice = Lattice.hyperbolic_plane()
+        wrapped_lattice = Lattice.U()
         basis_vector = next(iter(wrapped_lattice.basis()))
         assert module_generator.is_isotropic()
         assert basis_vector.divisibility().is_one()
@@ -176,8 +176,8 @@ class TestLatticeSemantics:
         assert delta_invariant.is_zero()
 
     def test_rank_mismatch_precludes_isometry(self) -> None:
-        assert not Lattice.rank_one(ZZ.one()).is_isometric_to(
-            Lattice.hyperbolic_plane()
+        assert not Lattice.Z().is_isometric_to(
+            Lattice.U()
         )
 
     def test_discriminant_group_mismatch_precludes_isometry(self) -> None:
@@ -197,8 +197,8 @@ class TestLatticeSemantics:
         assert not two_two.is_isometric_to(one_four)
 
     def test_signature_and_nikulin_domain_mismatches_preclude_isometry(self) -> None:
-        positive_line = Lattice.rank_one(ZZ.one())
-        negative_line = Lattice.a1_negative()
+        positive_line = Lattice.Z()
+        negative_line = Lattice.A(1)
         nikulin_lattice = self._wrapped_scaled_hyperbolic_plane(2)
         non_nikulin_lattice = self._wrapped_scaled_hyperbolic_plane(3)
         assert not positive_line.is_isometric_to(negative_line)
@@ -299,8 +299,8 @@ class TestLatticeSemantics:
         every finite prime p (same genus), but not isometric over Z because
         5x² + 11y² = 1 has no integer solutions.
         """
-        L1 = Lattice.rank_one(1) + Lattice.rank_one(55)
-        L2 = Lattice.rank_one(5) + Lattice.rank_one(11)
+        L1 = Lattice.Z().twist(1) + Lattice.Z().twist(55)
+        L2 = Lattice.Z().twist(5) + Lattice.Z().twist(11)
         assert L1.determinant() == L2.determinant()
         assert L1.is_in_same_genus_as(L2)
         assert not L1.is_isometric_to(L2)
@@ -314,8 +314,8 @@ class TestLatticeSemantics:
     def test_coble_constructors_and_orthogonal_complements_match_models(
         self,
     ) -> None:
-        positive_line = Lattice.rank_one(2)
-        negative_line = Lattice.rank_one(-2)
+        positive_line = Lattice.Z().twist(2)
+        negative_line = Lattice.Z().twist(-2)
         coble_picard = Lattice.coble_picard()
         coble_transcendental = Lattice.coble_transcendental()
         expected_picard = reduce(
@@ -326,7 +326,7 @@ class TestLatticeSemantics:
         expected_transcendental = reduce(
             self.NATIVE_LATTICE.direct_sum,
             (
-                Lattice.rank_one(2),
+                Lattice.Z().twist(2),
                 IntegralLattice("U"),
                 IntegralLattice(-IntegralLattice("E8").inner_product_matrix()),
             ),
@@ -360,7 +360,7 @@ class TestLatticeSemantics:
     def test_discriminant_group_identity_morphism_is_exact_for_a1_negative(
         self,
     ) -> None:
-        wrapped_group = DiscriminantGroup.from_lattice(Lattice.a1_negative())
+        wrapped_group = DiscriminantGroup.from_lattice(Lattice.A(1))
         native_group = IntegralLattice(
             -IntegralLattice("A1").inner_product_matrix()
         ).discriminant_group()
@@ -519,15 +519,14 @@ class TestCentralizerAndEigenspaceMethods:
 
     def test_centralizer_of_minus_identity_equals_full_group(self) -> None:
         """-I is central, so Z_{O(A2)}(-I) = O(A2); #gens should be positive."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.A(2)
         iota = -identity_matrix(ZZ, 2)
         Z = L.centralizer_of_involution(iota)
         gens = Z.gens()
         assert len(gens) > 0
-        # All gens are isometries
-        Q = L.inner_product_matrix()
+        O = L.orthogonal_group()
         for g in gens:
-            assert g * Q * g.transpose() == Q
+            assert g in O
 
     def test_non_commuting_matrix_not_in_centralizer(self) -> None:
         """A matrix that does not commute with iota is not in Z(iota)."""
