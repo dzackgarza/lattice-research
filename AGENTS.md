@@ -61,7 +61,7 @@ Read-only, never modify:
 The repo has this basic structure.
 Subdirectories of these durable content roots are automatically allowed — no need to
 update this file when you create new folders inside established roots such as
-computations/, src/, notes/, theory/literature/, coble_research_lean/, tasks/, or other
+src/, tests/, notes/, theory/literature/, lean/, tasks/, or other
 repo-level directories that already have a stable semantic role.
 
 The list below is the current baseline layout, not a frozen allowlist.
@@ -80,30 +80,52 @@ research/
   PROOF_AUDITING.md                # Canonical auditing standards (see above)
   SCHEDULE.md                      # Daily autonomous agent rotation
   justfile                         # All computation recipes
-  computations/                    # Active subagent computation workspace
   src/                             # Trusted first-party computation core
     external/                      # Vendored/external code; excluded from repo QC
-  coble_research_lean/             # Lean 4 formalizations
+    oscar_centralizer/             # Julia/OSCAR backend bridge
+  tests/                           # Verified mathematical tests (pytest)
+    fixtures/                      # JSON fixture data for parametrized tests
+  lean/                            # Lean 4 formalizations
   notes/                           # Mathematical notes (any subdirs allowed)
-theory/literature/ # PDFs and extracted text
-  tasks/                           # State-machine task artifacts
   theory/                          # Shared theory notes, tool audits, and claim maps
+    literature/                    # PDFs and extracted text
+  tasks/                           # State-machine task artifacts
+  scratch/                         # GITIGNORED agent scratch workspace
 ```
 
-Task implementation artifacts live in `tasks/T-XXXX/implementation/` during the active
-task lifecycle (per STATE_MACHINE.md artifact model).
-Active task and subagent computation work belongs in `computations/`. Finalized
-computation scripts or reusable shared code may be admitted into `src/` once they become
-trusted first-party infrastructure.
-Vendored or third-party code goes in `src/external/` and is excluded from repo QC. There
-is no separate `scripts/`, `tests/`, or `code/` directory because every script IS a
-computation, IS a test (it must assert its claims), and IS a script.
-These are not distinct categories.
+### Where code goes
 
-Lean formalizations go in `coble_research_lean/`. There is exactly one Lean project.
+There are exactly three destinations for code, plus a scratch area:
+
+- **`src/`** — Finalized, permanent, reusable backend and tool code. The trusted
+  first-party computation core. Code here uses canonical constructors and is the
+  shared mathematical vocabulary. Vendored/external code goes in `src/external/`.
+
+- **`tests/`** — Verified mathematical tests run via pytest. Every test must use
+  canonical constructors from `src/` (e.g. `Lattice.U()`, `Lattice.E(8)`,
+  `Lattice.from_string()`). Tests verify real mathematics against known literature
+  results and fixtures. Tests must NOT invent ad-hoc lattice constructors, bypass
+  the foundation API, or use raw `QuadraticForm()`/`diagonal_matrix()` calls when
+  a canonical constructor exists. If the canonical API is insufficient for a test,
+  that is a signal that `src/` needs to be extended — surface it as such.
+
+- **`tasks/T-XXXX/`** — Active research task artifacts per STATE_MACHINE.md.
+
+- **`scratch/`** — GITIGNORED. Agents do exploratory, experimental, or draft work
+  here. Nothing in scratch is ever committed. The verification process for promoting
+  scratch work is: audit the code, ensure it uses canonical API, then move it to
+  `tests/` (if verification) or `src/` (if reusable infrastructure). Scratch is
+  ephemeral by design.
+
+There is no `computations/` directory. That pattern led to accumulation of
+unreviewed, non-canonical exploratory code that was never properly integrated.
+The replacement is `scratch/` (gitignored, never committed) for exploratory work,
+with `tests/` as the audited, committed destination.
+
+Lean formalizations go in `lean/`. There is exactly one Lean project.
 Do not create new Lean project directories.
 If `MyLeanProject/` or other duplicate scaffolds exist, consolidate their contents into
-`coble_research_lean/` and delete the duplicate.
+`lean/` and delete the duplicate.
 
 ### Why directories proliferate and how to prevent it
 
@@ -114,17 +136,17 @@ mathematical content.
 Once a directory exists, it attracts more files of the same type.
 
 The structural gate: **subdirectories of established durable roots are automatically
-allowed.** Create new folders inside computations/, src/, notes/, theory/literature/,
-coble_research_lean/, tasks/, theory/, or another already-established root freely.
+allowed.** Create new folders inside src/, tests/, notes/, theory/literature/,
+lean/, tasks/, theory/, or another already-established root freely.
 New root-level directories require justification, but they are not categorically banned.
 They must represent a durable content class, not an agent-process phase.
 The work either:
-- Serves as active subagent-written computation or verification work → goes in
-  `computations/`
-- Serves as admitted reusable computation code → goes in `src/`
+- Is verified mathematical computation → goes in `tests/` (pytest, canonical API)
+- Is reusable computation code or infrastructure → goes in `src/`
+- Is exploratory/experimental draft work → goes in `scratch/` (GITIGNORED, never committed)
 - Is a mathematical observation → goes in `notes/`
 - Is a proof sketch → goes in `notes/proofs/`
-- Is a Lean formalization → goes in `coble_research_lean/`
+- Is a Lean formalization → goes in `lean/`
 - Is a paper → goes in `theory/literature/`
 - Is a state-machine task artifact → goes in `tasks/`
 - Is durable shared theory/reference/tooling documentation → goes in a coherent shared
@@ -134,10 +156,10 @@ The work either:
 
 There is no other category.
 Specifically:
-- There is no `tests/` — every computation script asserts its claims or it is broken.
-  The script IS the test.
-- There is no `scripts/` — `src/` is the trusted shared code surface, `computations/` is
-  the active computation workspace, and task-local computation artifacts live under
+- There is no `computations/` directory — exploratory work goes in `scratch/` (gitignored),
+  verified work goes in `tests/`, reusable code goes in `src/`.
+- There is no `scripts/` — `src/` is the trusted shared code surface, `tests/` is the
+  verified computation surface, and task-local computation artifacts live under
   `tasks/T-XXXX/computations/` when required by the state machine.
 - Git history and agent memories are the log.
   If you need to record something that happened, `remember` it.
@@ -153,7 +175,6 @@ Specifically:
   The script is the permanent, re-runnable audit.
 - Git history is the archive.
   Broken work gets fixed or deleted, not preserved in a holding pen.
-  directories either.
 
 When considering a new root-level directory, apply this test before creating or pruning
 it:
@@ -161,8 +182,9 @@ it:
   vendored tooling that will still make sense next session?
 - Is there a coherent file class that would become harder to navigate if forced into an
   existing root?
-- Is it avoiding process-sprawl names like `logs/`, `audits/`, `tmp/`, `scratch/`,
+- Is it avoiding process-sprawl names like `logs/`, `audits/`, `tmp/`,
   `experiments/`, or `status/`?
+  (`scratch/` is the one exception: it exists but is gitignored.)
 
 If the answer is yes to the first two and no to the third, the directory is usually
 legitimate. The goal is organized semantics, not rigid name enforcement.
@@ -282,7 +304,7 @@ The native code is the test.
 
 ## Foundation Library
 
-All lattice constructions must use `src/coble_geometry_foundation.sage` constructors.
+All lattice constructions must use `src/coble_geometry_foundation.py` constructors.
 Never construct lattices with ad-hoc `diagonal_matrix()` calls.
 The legacy `coble_geometry.sage` must not be loaded.
 
@@ -347,3 +369,39 @@ suffixes, moving to subdirectories, creating companion documents explaining why 
 broken, archiving "for reference."
 If a script doesn't pass its assertions, it gets fixed or deleted in the same session.
 There is no third option.
+
+## Debris Handling Policy
+
+### Never delete without proof of provenance
+
+Do NOT delete or remove any file unless you can **directly prove** it was created by a
+subagent. "Directly prove" means: you have inspected a literal transcript or log showing
+an agent creating that file. The following do NOT count as proof:
+- Inference from git commit contents or messages
+- Timing of creation relative to agent sessions
+- File appearing to be "agent-like" in style or naming
+- Guessing based on directory location
+
+If you cannot prove provenance, **ask the user** before deleting.
+
+### Markdown files require special care
+
+Markdown files (`.md`) can be:
+- User-requested documentation or research notes (valuable)
+- Agent-generated process debris (worthless)
+
+These are often indistinguishable without context. ALL markdown files outside of
+the explicitly allowed top-level set (GOAL.md, REFERENCES.md, AGENTS.md,
+STATE_MACHINE.md, PROOF_AUDITING.md, SCHEDULE.md) must be **reviewed before touching**.
+Read the file. If it contains substantive mathematical content, literature connections,
+or user-requested analysis, it is NOT debris — leave it alone or ask the user.
+
+### Cleanup requires user confirmation
+
+Before any cleanup operation that touches multiple files or removes a directory:
+- List what you intend to remove
+- Explain why each item qualifies as debris
+- Wait for user confirmation
+
+The only exception is the automatic pruning list (`.orig`, `.sage.py`, empty dirs)
+which is pre-authorized.

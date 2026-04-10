@@ -1,5 +1,5 @@
 """
-oscar_centralizer.py — Python wrapper for computations/oscar_centralizer.jl.
+oscar_centralizer — Python wrapper for oscar_centralizer.jl (OSCAR backend).
 
 Calls Julia/OSCAR to compute:
   - Invariant sublattice basis (L^f = ker(f - I))
@@ -12,7 +12,7 @@ or set JULIA_PROJECT to a suitable environment.
 
 Usage::
 
-    from computations.oscar_centralizer import oscar_centralizer_data
+    from src.oscar_centralizer import oscar_centralizer_data
     result = oscar_centralizer_data(gram_matrix, isometry_matrix)
     # result["invariant_basis"]         -- list of lists (rational rows)
     # result["coinvariant_basis"]       -- list of lists (rational rows)

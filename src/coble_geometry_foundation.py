@@ -1237,8 +1237,8 @@ class Lattice(_LatticeBase):
         Generators:
           - Definite L: computed via GAP Centralizer (O(L) is finite).
           - Indefinite L: requires OSCAR's ``integer_lattice_with_isometry`` +
-            ``image_centralizer_in_Oq``; call :func:`oscar_centralizer_gens`
-            from ``computations/oscar_centralizer.py`` and pass the result
+            ``image_centralizer_in_Oq``; call :func:`oscar_centralizer_data`
+            from ``src/oscar_centralizer`` and pass the result
             directly as generators.
 
         Note: Z_{O(L)}(ι) ≠ O^0(L, ι) in general.  Sterk's Γ_En is obtained

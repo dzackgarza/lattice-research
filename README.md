@@ -48,18 +48,20 @@ Delete `.cache/test_timings/` to reset the local timing history.
 
 | Directory | Contents |
 | --- | --- |
-| `computations/` | Active subagent computation workspace for task scripts and exact verification runs |
-| `src/` | Trusted first-party computation core, including `coble_geometry_foundation.sage` |
+| `src/` | Trusted first-party computation core, including `coble_geometry_foundation.py` |
 | `src/external/` | Vendored/external computation code excluded from repo QC |
+| `src/oscar_centralizer/` | Julia/OSCAR backend bridge for centralizer computations |
+| `tests/` | Verified mathematical tests (pytest), fixtures in `tests/fixtures/` |
 | `notes/` | Mathematical research notes, literature connections, task-specific analysis |
 | `notes/proofs/` | Proof sketches (one per GOAL.md subtask) |
-| `papers/` | Acquired literature (PDFs and extracted text) |
-| `coble_research_lean/` | Lean 4 formalization (secondary) |
+| `theory/literature/` | Acquired literature (PDFs and extracted text) |
+| `lean/` | Lean 4 formalization (secondary) |
+| `scratch/` | GITIGNORED agent scratch workspace (never committed) |
 
 ## Project status
 
-All prior fraudulent task scripts were deleted. Trusted shared infrastructure now lives
-in `src/`; new task and subagent computation work belongs in `computations/`.
+Trusted shared infrastructure lives in `src/`. Mathematical verification tests live in
+`tests/` and are run via `just test`. Exploratory work goes in `scratch/` (gitignored).
 
 Tasks 1.1--6.1 are UNVERIFIED. Proof notes in `notes/proofs/` contain mathematical
 reasoning but their "verified" claims traced to deleted scripts.

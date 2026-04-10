@@ -23,3 +23,6 @@ venv/
 .lake/
 build/
 .worktrees
+
+# Agent scratch workspace (ephemeral, never committed)
+scratch/
