@@ -66,17 +66,7 @@ class TestSterkVectorStabilizer:
     def test_generators_preserve_gram(self, stabilizer_gens, gram):
         n = 12
         for idx, M in enumerate(stabilizer_gens):
-            MGMt = [
-                [
-                    sum(
-                        M[i][k] * gram[k][m] * M[j][m]
-                        for k in range(n)
-                        for m in range(n)
-                    )
-                    for j in range(n)
-                ]
-                for i in range(n)
-            ]
+            MGMt = [[sum(M[i][k] * gram[k][m] * M[j][m] for k in range(n) for m in range(n)) for j in range(n)] for i in range(n)]
             assert MGMt == gram, f"Generator {idx} does not preserve Gram matrix"
 
     def test_generators_fix_h(self, stabilizer_gens, gram, h_vector):

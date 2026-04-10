@@ -144,11 +144,7 @@ class DiscriminantGroupMorphism(FGP_Morphism):
         assert image_group.base_ring() is ZZ
         same_domain = self.domain() is self.codomain()
         same_image_size = image_group.cardinality() == self.domain().cardinality()
-        return (
-            same_domain
-            and same_image_size
-            and self.image_generators() == tuple(self.domain().gens())
-        )
+        return same_domain and same_image_size and self.image_generators() == tuple(self.domain().gens())
 
     def is_injective(self):
         image_group = self.image_group()
@@ -190,10 +186,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
             group._modulus_qf,
         )
         assert converted.base_ring() is group.base_ring()
-        assert all(
-            generator.additive_order() * generator.lift() in converted.W()
-            for generator in converted.gens()
-        )
+        assert all(generator.additive_order() * generator.lift() in converted.W() for generator in converted.gens())
         return converted
 
     @classmethod
@@ -258,9 +251,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
         """
-        has_integral_discriminant_form = all(
-            element.quadratic_product().lift() in ZZ for element in self
-        )
+        has_integral_discriminant_form = all(element.quadratic_product().lift() in ZZ for element in self)
         coparity = ZZ.zero() if has_integral_discriminant_form else ZZ.one()
         assert coparity.is_zero() or coparity.is_one()
         return coparity
@@ -303,23 +294,12 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         """
         left_normal_form = self.normal_form()
         right_normal_form = other.normal_form()
-        same_value_module = (
-            self._modulus == other._modulus and self._modulus_qf == other._modulus_qf
-        )
-        same_invariant_factors = (
-            left_normal_form.invariants() == right_normal_form.invariants()
-        )
-        same_canonical_quadratic_matrix = (
-            left_normal_form.gram_matrix_quadratic()
-            == right_normal_form.gram_matrix_quadratic()
-        )
+        same_value_module = self._modulus == other._modulus and self._modulus_qf == other._modulus_qf
+        same_invariant_factors = left_normal_form.invariants() == right_normal_form.invariants()
+        same_canonical_quadratic_matrix = left_normal_form.gram_matrix_quadratic() == right_normal_form.gram_matrix_quadratic()
         assert self.base_ring() is ZZ
         assert other.base_ring() is ZZ
-        return (
-            same_value_module
-            and same_invariant_factors
-            and same_canonical_quadratic_matrix
-        )
+        return same_value_module and same_invariant_factors and same_canonical_quadratic_matrix
 
     def hom(self, codomain: Self, images: Sequence[DiscriminantGroupElement]):
         sage_hom = _DiscriminantGroupBase.hom(self, images, codomain)
@@ -370,8 +350,7 @@ class RationalLattice:
 
         Equivalently: ``self.gram_matrix() in Mat_n(ZZ)``.
         """
-        return all(self._gram[i, j] in ZZ
-                   for i in range(self.rank()) for j in range(self.rank()))
+        return all(self._gram[i, j] in ZZ for i in range(self.rank()) for j in range(self.rank()))
 
     def twist(self, n) -> RationalLattice:
         """Return the lattice rescaled by ``n``: the bilinear form becomes ``n·β``.
@@ -392,6 +371,7 @@ class RationalLattice:
     def __add__(self, other: RationalLattice) -> RationalLattice:
         """Direct sum (block-diagonal Gram matrix); auto-promotes to :class:`Lattice`."""
         from sage.all import block_diagonal_matrix
+
         new_gram = block_diagonal_matrix([self._gram, other._gram], subdivide=False)
         result = RationalLattice(new_gram)
         if result.is_integral():
@@ -416,6 +396,7 @@ class RationalLattice:
         entries (F_4 has ``+1/2`` off-diagonal terms before negation).
         """
         from sage.all import RootSystem
+
         space = RootSystem(cartan_type).ambient_space()
         simple = list(space.simple_roots())
         gram_qq = matrix(QQ, [[a.inner_product(b) for b in simple] for a in simple])
@@ -472,8 +453,9 @@ class Lattice(_LatticeBase):
         """Construct a lattice directly from an integer Gram matrix."""
         gram = matrix(ZZ, gram_zz)
         assert gram == gram.transpose(), "Gram matrix must be symmetric"
-        assert all(gram[i, j] in ZZ for i in range(gram.nrows()) for j in range(gram.nrows())), \
+        assert all(gram[i, j] in ZZ for i in range(gram.nrows()) for j in range(gram.nrows())), (
             "from_gram requires integer entries; use RationalLattice for QQ forms"
+        )
         return cls.from_sage(IntegralLattice(gram))
 
     def is_integral(self) -> bool:
@@ -515,9 +497,7 @@ class Lattice(_LatticeBase):
         discriminant quadratic form.
         """
         other_lattice = self._coerce_lattice(other)
-        return self.discriminant_group().has_isomorphic_group_structure_to(
-            other_lattice.discriminant_group()
-        )
+        return self.discriminant_group().has_isomorphic_group_structure_to(other_lattice.discriminant_group())
 
     def has_isomorphic_discriminant_form_to(self, other):
         """
@@ -528,9 +508,7 @@ class Lattice(_LatticeBase):
         abstract discriminant-group isomorphism.
         """
         other_lattice = self._coerce_lattice(other)
-        return self.discriminant_group().has_isomorphic_quadratic_module_to(
-            other_lattice.discriminant_group()
-        )
+        return self.discriminant_group().has_isomorphic_quadratic_module_to(other_lattice.discriminant_group())
 
     def is_rationally_isometric_to(self, other):
         """
@@ -541,9 +519,7 @@ class Lattice(_LatticeBase):
         ``ZZ`` to ``QQ``.
         """
         other_lattice = self._coerce_lattice(other)
-        return self._rational_quadratic_form().is_rationally_isometric(
-            other_lattice._rational_quadratic_form()
-        )
+        return self._rational_quadratic_form().is_rationally_isometric(other_lattice._rational_quadratic_form())
 
     @cached_method
     def genus(self):
@@ -640,10 +616,7 @@ class Lattice(_LatticeBase):
             discriminant_group.delta(),
         )
         outside_domain = (
-            (not self.is_even())
-            or (not positive_rank)
-            or (not negative_rank)
-            or (not discriminant_group.is_p_elementary(2))
+            (not self.is_even()) or (not positive_rank) or (not negative_rank) or (not discriminant_group.is_p_elementary(2))
         )
         if outside_domain:
             _LOGGER.warning(_NIKULIN_DOMAIN_WARNING)
@@ -676,13 +649,14 @@ class Lattice(_LatticeBase):
         but NOT for F_4 — use ``RationalLattice.F(4)`` for that type).
         """
         from sage.all import RootSystem
+
         space = RootSystem(cartan_type).ambient_space()
         simple = list(space.simple_roots())
         gram_qq = matrix(QQ, [[a.inner_product(b) for b in simple] for a in simple])
         neg_gram = -gram_qq
-        assert all(neg_gram[i, j] in ZZ
-                   for i in range(neg_gram.nrows()) for j in range(neg_gram.nrows())), \
+        assert all(neg_gram[i, j] in ZZ for i in range(neg_gram.nrows()) for j in range(neg_gram.nrows())), (
             f"_root_lattice_gram: non-integer entries for {cartan_type!r}; use RationalLattice"
+        )
         return matrix(ZZ, neg_gram)
 
     @classmethod
@@ -907,46 +881,46 @@ class Lattice(_LatticeBase):
         """
         import re
 
-        _DISPATCH = {'A': cls.A, 'B': cls.B, 'C': cls.C, 'D': cls.D, 'E': cls.E, 'F': cls.F, 'G': cls.G}
+        _DISPATCH = {"A": cls.A, "B": cls.B, "C": cls.C, "D": cls.D, "E": cls.E, "F": cls.F, "G": cls.G}
 
         def _parse_term(raw: str):
             raw = raw.strip()
             # Strip trailing direct-sum power: '^n' or '^{n}'
-            pm = re.match(r'^(.*?)\^\{?(\d+)\}?$', raw, re.DOTALL)
+            pm = re.match(r"^(.*?)\^\{?(\d+)\}?$", raw, re.DOTALL)
             if pm:
                 base_str, exp = pm.group(1).strip(), int(pm.group(2))
             else:
                 base_str, exp = raw, 1
 
             # <n>  →  ZZ(n)
-            m = re.fullmatch(r'<(-?\d+)>', base_str)
+            m = re.fullmatch(r"<(-?\d+)>", base_str)
             if m:
                 L = cls.Z().twist(int(m.group(1)))
-                return L ** exp if exp > 1 else L
+                return L**exp if exp > 1 else L
 
             # U or U(k)  →  U() or U().twist(k)
-            m = re.fullmatch(r'U(?:\((\d+)\))?', base_str)
+            m = re.fullmatch(r"U(?:\((\d+)\))?", base_str)
             if m:
                 L = cls.U()
                 if m.group(1):
                     L = L.twist(int(m.group(1)))
-                return L ** exp if exp > 1 else L
+                return L**exp if exp > 1 else L
 
             # II_{p,q}
-            m = re.fullmatch(r'II_\{(\d+),(\d+)\}', base_str)
+            m = re.fullmatch(r"II_\{(\d+),(\d+)\}", base_str)
             if m:
                 L = cls.II(int(m.group(1)), int(m.group(2)))
-                return L ** exp if exp > 1 else L
+                return L**exp if exp > 1 else L
 
             # I_{p,q}
-            m = re.fullmatch(r'I_\{(\d+),(\d+)\}', base_str)
+            m = re.fullmatch(r"I_\{(\d+),(\d+)\}", base_str)
             if m:
                 L = cls.I(int(m.group(1)), int(m.group(2)))
-                return L ** exp if exp > 1 else L
+                return L**exp if exp > 1 else L
 
             # Root lattice: X_{n}(k) or X_n(k) where single-digit subscript
             # may omit braces per LaTeX convention.
-            m = re.fullmatch(r'([A-G])_(?:\{(\d+)\}|(\d))(?:\((\d+)\))?', base_str)
+            m = re.fullmatch(r"([A-G])_(?:\{(\d+)\}|(\d))(?:\((\d+)\))?", base_str)
             if m:
                 letter = m.group(1)
                 n = int(m.group(2) if m.group(2) is not None else m.group(3))
@@ -956,14 +930,13 @@ class Lattice(_LatticeBase):
                 L = _DISPATCH[letter](n)
                 if scale:
                     L = L.twist(int(scale))
-                return L ** exp if exp > 1 else L
+                return L**exp if exp > 1 else L
 
             raise ValueError(
-                f"Cannot parse lattice token {base_str!r} in {s!r}. "
-                f"Use LaTeX subscript notation: 'A_1' or 'A_{{1}}', not 'A1'."
+                f"Cannot parse lattice token {base_str!r} in {s!r}. Use LaTeX subscript notation: 'A_1' or 'A_{{1}}', not 'A1'."
             )
 
-        terms = [_parse_term(t) for t in re.split(r'\s*\+\s*', s.strip()) if t.strip()]
+        terms = [_parse_term(t) for t in re.split(r"\s*\+\s*", s.strip()) if t.strip()]
         if not terms:
             raise ValueError(f"Empty lattice expression: {s!r}")
         return reduce(lambda a, b: a + b, terms)
@@ -990,8 +963,7 @@ class Lattice(_LatticeBase):
             Lattice.U().twist(QQ(1, 2))   # → RationalLattice  (non-integral)
         """
         new_gram = QQ(n) * self.inner_product_matrix()
-        if all(new_gram[i, j] in ZZ
-               for i in range(new_gram.nrows()) for j in range(new_gram.ncols())):
+        if all(new_gram[i, j] in ZZ for i in range(new_gram.nrows()) for j in range(new_gram.ncols())):
             return type(self).from_gram(matrix(ZZ, new_gram))
         return RationalLattice(new_gram)
 
@@ -1005,7 +977,10 @@ class Lattice(_LatticeBase):
 
     @classmethod
     def coble_picard(cls) -> Self:
-        return cls.Z().twist(_A1_SCALE) + cls.Z().twist(-_A1_SCALE) ** (IntegralLattice("E8").rank() + IntegralLattice("U").rank())
+        pos = cls.Z().twist(_A1_SCALE)
+        neg = cls.Z().twist(-_A1_SCALE)
+        e8_u_rank = IntegralLattice("E8").rank() + IntegralLattice("U").rank()
+        return pos + neg**e8_u_rank
 
     @classmethod
     def coble_transcendental(cls) -> Self:
@@ -1019,10 +994,7 @@ class Lattice(_LatticeBase):
     def discriminant_group(self, s=ZZ.zero()):
         native_group = self._native_lattice().discriminant_group(s)
         converted = DiscriminantGroup.from_sage(native_group)
-        assert all(
-            generator.additive_order() * generator.lift() in converted.W()
-            for generator in converted.gens()
-        )
+        assert all(generator.additive_order() * generator.lift() in converted.W() for generator in converted.gens())
         return converted
 
     def orthogonal_complement(self, sublattice: Self):
@@ -1058,10 +1030,7 @@ class Lattice(_LatticeBase):
 
     def _matrices_from_raw(self, raw_matrices):
         """Convert row-action backend matrices into public column-action matrices."""
-        return [
-            self._column_action_isometry_from_row_action_matrix(raw_matrix)
-            for raw_matrix in raw_matrices
-        ]
+        return [self._column_action_isometry_from_row_action_matrix(raw_matrix) for raw_matrix in raw_matrices]
 
     def orthogonal_group(self) -> LatticeOrthogonalGroup:
         r"""Return O(self) as a :class:`LatticeOrthogonalGroup`.
@@ -1072,9 +1041,7 @@ class Lattice(_LatticeBase):
         gram_rows = self._gram_rows()
         return LatticeOrthogonalGroup.from_lattice(
             self,
-            lambda: self._matrices_from_raw(
-                indefinite_form_automorphism_group(gram_rows)
-            ),
+            lambda: self._matrices_from_raw(indefinite_form_automorphism_group(gram_rows)),
         )
 
     def stabilizer_of_vector(self, v) -> LatticeOrthogonalSubgroup:
@@ -1089,9 +1056,7 @@ class Lattice(_LatticeBase):
         vlist = self._vec_to_list(v)
         gram_rows = self._gram_rows()
         return self.orthogonal_group().subgroup(
-            gens_fn=lambda: self._matrices_from_raw(
-                indefinite_form_stabilizer_vector(gram_rows, vlist)
-            ),
+            gens_fn=lambda: self._matrices_from_raw(indefinite_form_stabilizer_vector(gram_rows, vlist)),
             predicate=lambda M, _v=v_col: M * _v == _v,
         )
 
@@ -1109,9 +1074,7 @@ class Lattice(_LatticeBase):
         vlist = self._vec_to_list(v)
         gram_rows = self._gram_rows()
         return self.orthogonal_group().subgroup(
-            gens_fn=lambda: self._matrices_from_raw(
-                indefinite_form_stabilizer_isotropic_line(gram_rows, vlist)
-            ),
+            gens_fn=lambda: self._matrices_from_raw(indefinite_form_stabilizer_isotropic_line(gram_rows, vlist)),
             predicate=lambda M, _s=span_v, _v=v_col: M * _v in _s,
         )
 
@@ -1129,12 +1092,8 @@ class Lattice(_LatticeBase):
         vlist, wlist = self._vec_to_list(v), self._vec_to_list(w)
         gram_rows = self._gram_rows()
         return self.orthogonal_group().subgroup(
-            gens_fn=lambda: self._matrices_from_raw(
-                indefinite_form_stabilizer_isotropic_plane_2d(gram_rows, vlist, wlist)
-            ),
-            predicate=lambda M, _p=plane, _v=v_col, _w=w_col: (
-                M * _v in _p and M * _w in _p
-            ),
+            gens_fn=lambda: self._matrices_from_raw(indefinite_form_stabilizer_isotropic_plane_2d(gram_rows, vlist, wlist)),
+            predicate=lambda M, _p=plane, _v=v_col, _w=w_col: M * _v in _p and M * _w in _p,
         )
 
     def stabilizer_of_isotropic_flag(self, ordered_basis) -> LatticeOrthogonalSubgroup:
@@ -1156,9 +1115,7 @@ class Lattice(_LatticeBase):
             return all(M * c in s for c, s in zip(_cols, _strata))
 
         return self.orthogonal_group().subgroup(
-            gens_fn=lambda: self._matrices_from_raw(
-                indefinite_form_stabilizer_isotropic_flag(gram_rows, basis_lists)
-            ),
+            gens_fn=lambda: self._matrices_from_raw(indefinite_form_stabilizer_isotropic_flag(gram_rows, basis_lists)),
             predicate=_flag_predicate,
         )
 
@@ -1254,10 +1211,7 @@ class Lattice(_LatticeBase):
             p, q = self.signature_pair()
             if q == 0 or p == 0:  # positive or negative definite
                 return self._centralizer_gens_via_gap(iota_mat)
-            assert False, (
-                "Centralizer generators for indefinite lattices require OSCAR's "
-                "image_centralizer_in_Oq data"
-            )
+            assert False, "Centralizer generators for indefinite lattices require OSCAR's image_centralizer_in_Oq data"
 
         return self.orthogonal_group().subgroup(
             gens_fn=_gens_fn,
@@ -1282,9 +1236,7 @@ class Lattice(_LatticeBase):
         result = []
         for g_gap in centralizer_gap.GeneratorsOfGroup():
             g_elt = og(g_gap)
-            result.append(
-                self._column_action_isometry_from_row_action_matrix(g_elt.matrix())
-            )
+            result.append(self._column_action_isometry_from_row_action_matrix(g_elt.matrix()))
         return result
 
 
@@ -1472,9 +1424,7 @@ class LatticeOrthogonalGroup:
         from research.dawes_orbit_backend import induced_discriminant_action
 
         return self._structured_subgroup(
-            lambda M, _lattice=self._lattice, _subgroup=subgroup: (
-                induced_discriminant_action(_lattice, M) in _subgroup
-            ),
+            lambda M, _lattice=self._lattice, _subgroup=subgroup: induced_discriminant_action(_lattice, M) in _subgroup,
             constraints={
                 "determinant": None,
                 "spinor": None,
@@ -1545,17 +1495,13 @@ class LatticeOrthogonalGroup:
             _MatrixSpace(ZZ, lattice.rank()),
             lambda M: _acts_trivially_on_discriminant(lattice, M),
         )
-        subgroup = LatticeOrthogonalSubgroup._from_condition_set(
-            lattice, self._condition_set & cs
-        )
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(lattice, self._condition_set & cs)
         subgroup._orbit_constraints = _merge_orbit_constraints(
             self._orbit_constraints,
             {
                 "determinant": None,
                 "spinor": None,
-                "discriminant_subgroup": lattice.discriminant_group()
-                .orthogonal_group()
-                .subgroup([]),
+                "discriminant_subgroup": lattice.discriminant_group().orthogonal_group().subgroup([]),
                 "opaque": False,
             },
         )
@@ -1610,13 +1556,9 @@ class LatticeOrthogonalSubgroup:
         self._lattice = ambient_group.lattice
         self._gens_fn = gens_fn
         self._gens_cache = None
-        self._orbit_constraints = _clone_orbit_constraints(
-            ambient_group._orbit_constraints
-        )
+        self._orbit_constraints = _clone_orbit_constraints(ambient_group._orbit_constraints)
         self._orbit_constraints["opaque"] = True
-        self._condition_set = ambient_group.condition_set & _ConditionSet(
-            _MatrixSpace(ZZ, self._lattice.rank()), predicate
-        )
+        self._condition_set = ambient_group.condition_set & _ConditionSet(_MatrixSpace(ZZ, self._lattice.rank()), predicate)
 
     @property
     def lattice(self) -> Lattice:
@@ -1630,9 +1572,7 @@ class LatticeOrthogonalSubgroup:
         """Return the generating ZZ-matrices, computing them if needed."""
         if self._gens_cache is None:
             if self._gens_fn is None:
-                assert False, (
-                    "Generator computation requires an explicit generator function"
-                )
+                assert False, "Generator computation requires an explicit generator function"
             self._gens_cache = self._gens_fn()
         return list(self._gens_cache)
 
@@ -1706,9 +1646,7 @@ class LatticeOrthogonalSubgroup:
         from research.dawes_orbit_backend import induced_discriminant_action
 
         return self._structured_subgroup(
-            lambda M, _lattice=self._lattice, _subgroup=subgroup: (
-                induced_discriminant_action(_lattice, M) in _subgroup
-            ),
+            lambda M, _lattice=self._lattice, _subgroup=subgroup: induced_discriminant_action(_lattice, M) in _subgroup,
             constraints={
                 "determinant": None,
                 "spinor": None,
@@ -1774,17 +1712,13 @@ class LatticeOrthogonalSubgroup:
             _MatrixSpace(ZZ, lattice.rank()),
             lambda M: _acts_trivially_on_discriminant(lattice, M),
         )
-        subgroup = LatticeOrthogonalSubgroup._from_condition_set(
-            lattice, self._condition_set & cs
-        )
+        subgroup = LatticeOrthogonalSubgroup._from_condition_set(lattice, self._condition_set & cs)
         subgroup._orbit_constraints = _merge_orbit_constraints(
             self._orbit_constraints,
             {
                 "determinant": None,
                 "spinor": None,
-                "discriminant_subgroup": lattice.discriminant_group()
-                .orthogonal_group()
-                .subgroup([]),
+                "discriminant_subgroup": lattice.discriminant_group().orthogonal_group().subgroup([]),
                 "opaque": False,
             },
         )
@@ -1844,9 +1778,7 @@ class DiscriminantOrthogonalGroup:
 
     def subgroup(self, generators) -> DiscriminantOrthogonalSubgroup:
         r"""Return the subgroup generated by *generators*."""
-        return DiscriminantOrthogonalSubgroup(
-            self._disc, list(generators), self._require_sage_group()
-        )
+        return DiscriminantOrthogonalSubgroup(self._disc, list(generators), self._require_sage_group())
 
     def stabilizer(self, element) -> DiscriminantOrthogonalSubgroup:
         r"""Return the stabilizer of a discriminant element in ``O(A_L)``."""
@@ -1871,9 +1803,7 @@ class DiscriminantOrthogonalSubgroup:
     def __init__(self, disc: DiscriminantGroup, generators: list, parent_sage_group):
         self._disc = disc
         self._generators = list(generators)
-        self._sage_subgroup = parent_sage_group.subgroup(
-            [parent_sage_group(G) for G in generators]
-        )
+        self._sage_subgroup = parent_sage_group.subgroup([parent_sage_group(G) for G in generators])
 
     @property
     def discriminant_group(self) -> DiscriminantGroup:
@@ -1897,7 +1827,4 @@ class DiscriminantOrthogonalSubgroup:
         return G * vec
 
     def __repr__(self) -> str:
-        return (
-            f"DiscriminantOrthogonalSubgroup of O({self._disc!r})"
-            f" ({len(self._generators)} generator(s))"
-        )
+        return f"DiscriminantOrthogonalSubgroup of O({self._disc!r}) ({len(self._generators)} generator(s))"

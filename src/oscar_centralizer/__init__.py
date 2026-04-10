@@ -79,9 +79,8 @@ def oscar_centralizer_data(gram_rows: list, isometry_rows: list) -> dict:
             capture_output=True,
             text=True,
         )
-        assert result.returncode == 0, (
-            f"oscar_centralizer.jl failed (exit {result.returncode}):\n"
-            + textwrap.indent(result.stderr, "  ")
+        assert result.returncode == 0, f"oscar_centralizer.jl failed (exit {result.returncode}):\n" + textwrap.indent(
+            result.stderr, "  "
         )
 
         raw = out_path.read_text()
