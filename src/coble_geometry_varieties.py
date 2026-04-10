@@ -17,6 +17,8 @@ from ore_algebra.differential_operator_1_1 import (
 from coble_geometry_foundation import Lattice
 
 if TYPE_CHECKING:
+    from sage.all import MPolynomial
+
     from research.foliation_backend import HodgeTheoreticMonodromy
 
 _LOGGER = logging.getLogger(__name__)
