@@ -22,11 +22,7 @@ def _timing_root() -> Path:
 
 
 def _utc_timestamp(epoch_seconds: float) -> str:
-    return (
-        datetime.fromtimestamp(epoch_seconds, tz=UTC)
-        .isoformat(timespec="seconds")
-        .replace("+00:00", "Z")
-    )
+    return datetime.fromtimestamp(epoch_seconds, tz=UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
@@ -37,15 +33,11 @@ def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
 
 
 def pytest_addoption(parser):
-    parser.addoption(
-        "--run-slow", action="store_true", default=False, help="run slow tests (>2 min)"
-    )
+    parser.addoption("--run-slow", action="store_true", default=False, help="run slow tests (>2 min)")
 
 
 def pytest_configure(config):
-    config.addinivalue_line(
-        "markers", "slow: marks tests that take more than 2 minutes"
-    )
+    config.addinivalue_line("markers", "slow: marks tests that take more than 2 minutes")
 
 
 def pytest_sessionstart(session):
@@ -113,9 +105,13 @@ def pytest_sessionfinish(session, exitstatus):
     timing_root = _timing_root()
     session_dir = timing_root / "pytest_sessions"
     session_dir.mkdir(parents=True, exist_ok=True)
-    session_stamp = _utc_timestamp(_SESSION_STARTED_AT).replace(":", "").replace(
-        "-",
-        "",
+    session_stamp = (
+        _utc_timestamp(_SESSION_STARTED_AT)
+        .replace(":", "")
+        .replace(
+            "-",
+            "",
+        )
     )
     session_path = session_dir / f"{session_stamp}_{os.getpid()}.json"
     session_payload = {
@@ -150,10 +146,7 @@ def pytest_sessionfinish(session, exitstatus):
         "deselected_count": _SESSION_DESELECTED,
         "slow_enabled": session_payload["slow_enabled"],
         "session_file": str(session_path),
-        "slowest": [
-            {"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]}
-            for record in records[:20]
-        ],
+        "slowest": [{"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]} for record in records[:20]],
     }
     history_path = timing_root / "history.jsonl"
     _append_jsonl(history_path, history_entry)

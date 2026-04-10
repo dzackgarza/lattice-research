@@ -19,9 +19,7 @@ class TestGeneralIndefiniteIsometrySpec:
         first_basis_vector, second_basis_vector = tuple(native_left.basis())
         native_right = type(native_left)(
             native_left.ambient_module(),
-            native_left.submodule(
-                (first_basis_vector, first_basis_vector + second_basis_vector)
-            ).basis_matrix(),
+            native_left.submodule((first_basis_vector, first_basis_vector + second_basis_vector)).basis_matrix(),
             native_left.inner_product_matrix(),
         )
         left = Lattice.from_sage(native_left)

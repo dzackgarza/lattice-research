@@ -101,22 +101,14 @@ class _IsotropicOrbitBackend:
             "subgroup_orbit_representatives",
             key_payload,
             compute_fn=self._compute_orbit_representatives,
-            serialize_fn=lambda reps: [
-                _serialize_isotropic_object(self._orbit_kind, rep) for rep in reps
-            ],
-            deserialize_fn=lambda payload: [
-                _normalize_isotropic_object(self._lattice, self._orbit_kind, rep)
-                for rep in payload
-            ],
+            serialize_fn=lambda reps: [_serialize_isotropic_object(self._orbit_kind, rep) for rep in reps],
+            deserialize_fn=lambda payload: [_normalize_isotropic_object(self._lattice, self._orbit_kind, rep) for rep in payload],
             validate_fn=lambda reps: _validate_orbit_representatives(
                 self._lattice,
                 self._orbit_kind,
                 reps,
             ),
-            label=(
-                f"{self._orbit_kind} orbit representatives for "
-                f"{_structured_spec_label(self._spec)}"
-            ),
+            label=(f"{self._orbit_kind} orbit representatives for {_structured_spec_label(self._spec)}"),
         )
 
     def objects_are_equivalent(self, left, right) -> bool:
@@ -130,9 +122,7 @@ class _IsotropicOrbitBackend:
             return False
         if ambient_witness in self._group:
             return True
-        assert self._finite_quotient is not None, (
-            "Subgroup isotropic equivalence requires a computable finite quotient image"
-        )
+        assert self._finite_quotient is not None, "Subgroup isotropic equivalence requires a computable finite quotient image"
         stabilizer_gens = _ambient_stabilizer_generators(
             self._lattice,
             self._orbit_kind,
@@ -276,9 +266,7 @@ def _cached_artifact(
 def _finite_quotient_spec(group, spec):
     if _is_full_ambient_group(group):
         return None
-    assert not spec.opaque, (
-        "Subgroup isotropic splitting requires structured subgroup constraints"
-    )
+    assert not spec.opaque, "Subgroup isotropic splitting requires structured subgroup constraints"
     factors = []
     if spec.discriminant_subgroup is not None:
         ambient_disc_group = spec.lattice.discriminant_group().orthogonal_group()
@@ -297,9 +285,7 @@ def _finite_quotient_spec(group, spec):
             )
         )
     if spec.determinant is not None:
-        assert spec.determinant == 1, (
-            "Finite subgroup images only support determinant kernel constraints"
-        )
+        assert spec.determinant == 1, "Finite subgroup images only support determinant kernel constraints"
         c2_det = libgap.CyclicGroup(2)
         det_gen = c2_det.GeneratorsOfGroup()[0]
 
@@ -314,18 +300,12 @@ def _finite_quotient_spec(group, spec):
             )
         )
     if spec.spinor is not None:
-        assert spec.spinor == 1, (
-            "Finite subgroup images only support positive spinor kernel constraints"
-        )
+        assert spec.spinor == 1, "Finite subgroup images only support positive spinor kernel constraints"
         c2_spin = libgap.CyclicGroup(2)
         spin_gen = c2_spin.GeneratorsOfGroup()[0]
 
         def _spin_image(M, _spin_gen=spin_gen, _c2_spin=c2_spin, _lattice=spec.lattice):
-            return (
-                libgap.One(_c2_spin)
-                if real_spinor_norm_sign(_lattice, M) == 1
-                else _spin_gen
-            )
+            return libgap.One(_c2_spin) if real_spinor_norm_sign(_lattice, M) == 1 else _spin_gen
 
         factors.append(
             (
@@ -334,9 +314,7 @@ def _finite_quotient_spec(group, spec):
                 _spin_image,
             )
         )
-    assert factors, (
-        "Subgroup isotropic splitting requires determinant, spinor, or discriminant-image data"
-    )
+    assert factors, "Subgroup isotropic splitting requires determinant, spinor, or discriminant-image data"
     ambient_group = spec.lattice.orthogonal_group()
     ambient_generators = [matrix(ZZ, generator) for generator in ambient_group.gens()]
     source_group = MatrixGroup(ambient_generators)
@@ -351,10 +329,7 @@ def _finite_quotient_spec(group, spec):
 
     else:
         target_gap_group = libgap.DirectProduct(*[factor[0] for factor in factors])
-        embeddings = [
-            libgap.Embedding(target_gap_group, index + 1)
-            for index in range(len(factors))
-        ]
+        embeddings = [libgap.Embedding(target_gap_group, index + 1) for index in range(len(factors))]
         target_images = []
         for generator in ambient_generators:
             product_image = libgap.One(target_gap_group)
@@ -363,10 +338,7 @@ def _finite_quotient_spec(group, spec):
             target_images.append(product_image)
         allowed_gens = []
         for embedding, (_, allowed_factor, _) in zip(embeddings, factors, strict=True):
-            allowed_gens.extend(
-                libgap.Image(embedding, gen)
-                for gen in allowed_factor.GeneratorsOfGroup()
-            )
+            allowed_gens.extend(libgap.Image(embedding, gen) for gen in allowed_factor.GeneratorsOfGroup())
         allowed_group = _gap_subgroup(target_gap_group, allowed_gens)
 
         def _image_from_matrix(M, _embeddings=embeddings, _factors=factors, _target=target_gap_group):
@@ -429,13 +401,8 @@ def _ambient_isotropic_orbits(lattice, orbit_kind, *, flag_depth=None):
                 orbit_kind,
                 flag_depth=flag_depth,
             ),
-            serialize_fn=lambda reps: [
-                _serialize_isotropic_object(orbit_kind, rep) for rep in reps
-            ],
-            deserialize_fn=lambda payload: tuple(
-                _normalize_isotropic_object(lattice, orbit_kind, rep)
-                for rep in payload
-            ),
+            serialize_fn=lambda reps: [_serialize_isotropic_object(orbit_kind, rep) for rep in reps],
+            deserialize_fn=lambda payload: tuple(_normalize_isotropic_object(lattice, orbit_kind, rep) for rep in payload),
             validate_fn=lambda reps: _validate_orbit_representatives(
                 lattice,
                 orbit_kind,
@@ -501,10 +468,7 @@ def _apply_ambient_isometry(lattice, orbit_kind, isotropic_object, M):
     if orbit_kind == "line":
         image = lattice(M * vector(ZZ, list(isotropic_object)))
         return lattice(_normalize_primitive_line(image))
-    images = tuple(
-        lattice(M * vector(ZZ, list(row)))
-        for row in isotropic_object
-    )
+    images = tuple(lattice(M * vector(ZZ, list(row))) for row in isotropic_object)
     return images
 
 
@@ -541,20 +505,12 @@ def _ambient_equivalence_witness(lattice, orbit_kind, left, right):
 
 def _compute_ambient_isotropic_orbits(lattice, orbit_kind, *, flag_depth=None):
     if orbit_kind == "line":
-        return tuple(
-            lattice(_normalize_primitive_line(v))
-            for v in lattice.isotropic_line_orbits()
-        )
+        return tuple(lattice(_normalize_primitive_line(v)) for v in lattice.isotropic_line_orbits())
     if orbit_kind == "plane":
-        return tuple(
-            tuple(lattice(v) for v in pair) for pair in lattice.isotropic_plane_orbits()
-        )
+        return tuple(tuple(lattice(v) for v in pair) for pair in lattice.isotropic_plane_orbits())
     assert orbit_kind == "flag"
     assert flag_depth is not None and flag_depth >= 1
-    return tuple(
-        tuple(lattice(v) for v in flag)
-        for flag in lattice.isotropic_flag_orbits(flag_depth)
-    )
+    return tuple(tuple(lattice(v) for v in flag) for flag in lattice.isotropic_flag_orbits(flag_depth))
 
 
 def _compute_ambient_stabilizer_generators(lattice, orbit_kind, isotropic_object):
@@ -638,9 +594,7 @@ def _structured_spec_payload(spec):
         "determinant": spec.determinant,
         "spinor": spec.spinor,
         "opaque": spec.opaque,
-        "discriminant_subgroup": _discriminant_subgroup_payload(
-            spec.discriminant_subgroup
-        ),
+        "discriminant_subgroup": _discriminant_subgroup_payload(spec.discriminant_subgroup),
     }
 
 
@@ -727,11 +681,16 @@ def _validate_equivalence_witness(lattice, orbit_kind, left, right, witness):
         left_image = _apply_ambient_isometry(lattice, orbit_kind, left, witness)
         assert left_image == right_object
         return
-    image_rows = matrix(ZZ, _object_basis_rows(_apply_ambient_isometry(
-        lattice,
-        orbit_kind,
-        left,
-        witness,
-    )))
+    image_rows = matrix(
+        ZZ,
+        _object_basis_rows(
+            _apply_ambient_isometry(
+                lattice,
+                orbit_kind,
+                left,
+                witness,
+            )
+        ),
+    )
     right_rows = matrix(ZZ, _object_basis_rows(right_object))
     assert image_rows.row_module() == right_rows.row_module()

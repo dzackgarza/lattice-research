@@ -81,9 +81,7 @@ def test_legendre_family_picard_fuchs_data():
         12 * t**3 - 8 * t**2 - 4 * t,
     ]
     assert operator.leading_coefficient() == 12 * t**3 - 8 * t**2 - 4 * t
-    assert str(operator) == (
-        "(12*t^3 - 8*t^2 - 4*t)*Dt^2 + (12*t^2 + 8*t - 4)*Dt - 3*t + 3"
-    )
+    assert str(operator) == ("(12*t^3 - 8*t^2 - 4*t)*Dt^2 + (12*t^2 + 8*t - 4)*Dt - 3*t + 3")
     assert family.indicial_polynomial() == -4 * alpha**2
 
 

@@ -44,12 +44,13 @@ class TestCanonicalConstructors:
 class TestLatticeElements:
     """Verify element-level operations: divisibility, primitivity, isotropy."""
 
-    def test_positive_line_generator_divisibility_one(self):
+    def test_positive_line_generator_divisibility_matches_form(self):
         native = IntegralLattice("A1")
         scale = next(iter(native.basis())).inner_product(next(iter(native.basis())))
         L = Lattice.Z().twist(scale)
         gen = next(iter(L.gens()))
-        assert gen.divisibility().is_one()
+        # A1 = <-2> is even: div(e1) = generator of <beta(e1, L)> = <-2> = 2
+        assert gen.divisibility() == 2
 
     def test_positive_line_generator_is_primitive(self):
         native = IntegralLattice("A1")

@@ -19,21 +19,15 @@ def _two_hyperbolic_planes():
 
 @cache
 def _t_en():
-    return Lattice.from_sage(
-        Lattice.U().direct_sum(Lattice.U().twist(2)).direct_sum(Lattice.E(8).twist(2))
-    )
+    return Lattice.from_sage(Lattice.U().direct_sum(Lattice.U().twist(2)).direct_sum(Lattice.E(8).twist(2)))
 
 
 @cache
 def _degree_two_enriques_gamma():
     lattice = _t_en()
     h_over_2 = lattice.discriminant_group()(lattice([0, 0, 1, 1] + [0] * 8) / 2)
-    disc_stabilizer = (
-        lattice.discriminant_group().orthogonal_group().stabilizer(h_over_2)
-    )
-    return lattice.orthogonal_group().preimage_of_discriminant_subgroup(
-        disc_stabilizer
-    ).plus_subgroup()
+    disc_stabilizer = lattice.discriminant_group().orthogonal_group().stabilizer(h_over_2)
+    return lattice.orthogonal_group().preimage_of_discriminant_subgroup(disc_stabilizer).plus_subgroup()
 
 
 @cache
@@ -52,9 +46,7 @@ def _sterk_zero_cusp_representatives():
 
 def _is_totally_isotropic(basis):
     return all(v.is_isotropic() for v in basis) and all(
-        basis[i].inner_product(basis[j]).is_zero()
-        for i in range(len(basis))
-        for j in range(i + 1, len(basis))
+        basis[i].inner_product(basis[j]).is_zero() for i in range(len(basis)) for j in range(i + 1, len(basis))
     )
 
 
@@ -189,11 +181,7 @@ class TestSterkDegreeTwoEnriquesLines:
         gamma_line_orbit_labels,
     ):
         for left_name, right_name in combinations(gamma_line_orbit_labels, 2):
-            assert gamma_line_orbit_labels[left_name] != gamma_line_orbit_labels[
-                right_name
-            ], (
-                f"{left_name} ~ {right_name}"
-            )
+            assert gamma_line_orbit_labels[left_name] != gamma_line_orbit_labels[right_name], f"{left_name} ~ {right_name}"
 
     @pytest.mark.slow
     def test_paper_representatives_match_the_five_gamma_orbits(
@@ -203,9 +191,7 @@ class TestSterkDegreeTwoEnriquesLines:
         gamma_line_orbit_labels,
     ):
         assert len(gamma_line_orbits) == len(representatives)
-        assert set(gamma_line_orbit_labels.values()) == set(
-            range(len(gamma_line_orbits))
-        )
+        assert set(gamma_line_orbit_labels.values()) == set(range(len(gamma_line_orbits)))
 
     @pytest.mark.slow
     def test_degree_two_enriques_group_has_nine_plane_orbits(self, gamma_plane_orbits):

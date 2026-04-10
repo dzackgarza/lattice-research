@@ -41,9 +41,7 @@ from src.external.py_polyhedral.binaries import (
 # Helpers
 # ---------------------------------------------------------------------------
 
-_FIXTURE_PATH = os.path.join(
-    os.path.dirname(__file__), "fixtures", "coble_literature_fixtures.json"
-)
+_FIXTURE_PATH = os.path.join(os.path.dirname(__file__), "fixtures", "coble_literature_fixtures.json")
 
 
 def _load_sterk_fixture():
@@ -83,13 +81,7 @@ def _check_preserves_gram(gens, G, label):
     """All generators satisfy M G M^T = G (polyhedral_common row-vector convention)."""
     n = len(G)
     for idx, M in enumerate(gens):
-        MGMt = [
-            [
-                sum(M[i][k] * G[k][m] * M[j][m] for k in range(n) for m in range(n))
-                for j in range(n)
-            ]
-            for i in range(n)
-        ]
+        MGMt = [[sum(M[i][k] * G[k][m] * M[j][m] for k in range(n) for m in range(n)) for j in range(n)] for i in range(n)]
         assert MGMt == G, f"{label}: gen {idx} violates M G M^T = G"
 
 
@@ -137,14 +129,10 @@ def _check_stabilizes_plane(gens, v1, v2, label):
             det = b[0][j0] * b[1][j1] - b[0][j1] * b[1][j0]
             a_num = img[j0] * b[1][j1] - img[j1] * b[1][j0]
             bk_num = b[0][j0] * img[j1] - b[0][j1] * img[j0]
-            assert a_num % det == 0 and bk_num % det == 0, (
-                f"{label}: gen {idx} maps basis row {bi} outside the plane span"
-            )
+            assert a_num % det == 0 and bk_num % det == 0, f"{label}: gen {idx} maps basis row {bi} outside the plane span"
             a, bk = a_num // det, bk_num // det
             recon = [a * b[0][j] + bk * b[1][j] for j in range(n)]
-            assert recon == img, (
-                f"{label}: gen {idx} span check failed for basis row {bi}"
-            )
+            assert recon == img, f"{label}: gen {idx} span check failed for basis row {bi}"
 
 
 # ---------------------------------------------------------------------------
@@ -364,10 +352,7 @@ class TestSterkOneCuspStabilizers:
 
     @pytest.fixture(scope="class")
     def all_stabilizers(self, G, one_cusp_fixture_reps):
-        return [
-            indefinite_form_stabilizer_isotropic_plane_2d(G, rep[0], rep[1])
-            for rep in one_cusp_fixture_reps
-        ]
+        return [indefinite_form_stabilizer_isotropic_plane_2d(G, rep[0], rep[1]) for rep in one_cusp_fixture_reps]
 
     def test_stabilizers_nonempty(self, all_stabilizers):
         for i, gens in enumerate(all_stabilizers):

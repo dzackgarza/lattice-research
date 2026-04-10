@@ -281,10 +281,7 @@ def test_plus_subgroup_uses_the_real_spinor_norm_predicate() -> None:
     lattice = Lattice.hyperbolic_plane()
     reflection_in_positive_two_root = matrix(ZZ, [[0, -1], [-1, 0]])
     assert reflection_in_positive_two_root in lattice.orthogonal_group()
-    assert (
-        reflection_in_positive_two_root
-        not in lattice.orthogonal_group().plus_subgroup()
-    )
+    assert reflection_in_positive_two_root not in lattice.orthogonal_group().plus_subgroup()
 
 
 def test_orthogonal_group_generators_use_public_column_action_convention() -> None:
@@ -315,11 +312,7 @@ def test_dawes_example_22_explicit_paper_witness_lies_in_stable_plus_subgroup() 
     vector_one = lattice((4, 4, 1, 2, -1))
     vector_two = lattice((36, 144, 5, -30, 83))
     theta = _dawes_example_22_theta()
-    subgroup = (
-        lattice.orthogonal_group()
-        .kernel_of_discriminant_action()
-        .plus_subgroup()
-    )
+    subgroup = lattice.orthogonal_group().kernel_of_discriminant_action().plus_subgroup()
     assert theta in lattice.orthogonal_group()
     assert list(theta * vector_one) == list(vector_two)
     assert theta in subgroup
@@ -329,11 +322,7 @@ def test_dawes_example_22_backend_finds_a_stable_plus_witness() -> None:
     lattice = _dawes_u_plus_a3()
     vector_one = lattice((4, 4, 1, 2, -1))
     vector_two = lattice((36, 144, 5, -30, 83))
-    subgroup = (
-        lattice.orthogonal_group()
-        .kernel_of_discriminant_action()
-        .plus_subgroup()
-    )
+    subgroup = lattice.orthogonal_group().kernel_of_discriminant_action().plus_subgroup()
     witness = subgroup.find_vector_isometry(vector_one, vector_two)
     assert witness is not None
     assert witness in subgroup
@@ -346,21 +335,24 @@ def test_dawes_example_22_exact_algorithm_21_data_matches_the_paper() -> None:
     vector_two = vector(ZZ, [36, 144, 5, -30, 83])
     left = _build_complement_decomposition(lattice, vector_one)
     right = _build_complement_decomposition(lattice, vector_two)
-    assert _dawes_right_smith_transform(
-        lattice,
-        vector_one,
-    ) == _dawes_example_22_qhat_one()
-    assert _dawes_right_smith_transform(
-        lattice,
-        vector_two,
-    ) == _dawes_example_22_qhat_two()
+    assert (
+        _dawes_right_smith_transform(
+            lattice,
+            vector_one,
+        )
+        == _dawes_example_22_qhat_one()
+    )
+    assert (
+        _dawes_right_smith_transform(
+            lattice,
+            vector_two,
+        )
+        == _dawes_example_22_qhat_two()
+    )
     assert left.inclusion_matrix == _dawes_example_22_iota_one()
     assert right.inclusion_matrix == _dawes_example_22_iota_two()
     assert left.complement_lattice.inner_product_matrix() == _dawes_example_22_k1_gram()
-    assert (
-        right.complement_lattice.inner_product_matrix()
-        == _dawes_example_22_k2_gram()
-    )
+    assert right.complement_lattice.inner_product_matrix() == _dawes_example_22_k2_gram()
 
 
 def test_dawes_example_22_paper_complement_isometry_extends_to_paper_theta() -> None:
@@ -380,10 +372,7 @@ def test_dawes_example_22_paper_complement_isometry_extends_to_paper_theta() -> 
         QQ,
         [QQ.zero(), QQ.zero(), QQ(3) / QQ(4), -QQ(1) / QQ(2), QQ(1) / QQ(4)],
     )
-    assert all(
-        entry in ZZ
-        for entry in list(theta * discriminant_generator - discriminant_generator)
-    )
+    assert all(entry in ZZ for entry in list(theta * discriminant_generator - discriminant_generator))
     assert induced_discriminant_action(lattice, theta) == matrix(ZZ, [[1]])
 
 
@@ -392,20 +381,14 @@ def test_dawes_example_22_algorithm_21_handles_opaque_black_box_subgroups() -> N
     vector_one = lattice((4, 4, 1, 2, -1))
     vector_two = lattice((36, 144, 5, -30, 83))
     theta = _dawes_example_22_theta()
-    structured = (
-        lattice.orthogonal_group()
-        .kernel_of_discriminant_action()
-        .plus_subgroup()
-    )
+    structured = lattice.orthogonal_group().kernel_of_discriminant_action().plus_subgroup()
     ambient_witness = lattice.orthogonal_group().find_vector_isometry(
         vector_one,
         vector_two,
     )
     subgroup = lattice.orthogonal_group().subgroup(
         None,
-        lambda M, _structured=structured, _theta=theta: (
-            M in _structured and M * _theta == _theta * M
-        ),
+        lambda M, _structured=structured, _theta=theta: M in _structured and M * _theta == _theta * M,
     )
     assert ambient_witness is not None
     assert ambient_witness not in subgroup
@@ -425,20 +408,13 @@ def test_dawes_example_26_exact_algorithm_23_data_matches_the_paper() -> None:
     assert left.inclusion_matrix[:, 1:] == _dawes_example_26_k1_basis()
     assert right.inclusion_matrix[:, 1:] == _dawes_example_26_k2_basis()
     assert left.complement_lattice.inner_product_matrix() == _dawes_example_26_k1_gram()
-    assert (
-        right.complement_lattice.inner_product_matrix()
-        == _dawes_example_26_k2_gram()
-    )
+    assert right.complement_lattice.inner_product_matrix() == _dawes_example_26_k2_gram()
     smith_one = left.complement_lattice.inner_product_matrix().smith_form()[2]
     smith_two = right.complement_lattice.inner_product_matrix().smith_form()[2]
     assert smith_one == _dawes_example_26_qgram_one()
     assert smith_two == _dawes_example_26_qgram_two()
-    assert list(
-        left.complement_lattice.inner_product_matrix().smith_form()[0].diagonal()
-    ) == [1, 1, 2, 4]
-    assert list(
-        right.complement_lattice.inner_product_matrix().smith_form()[0].diagonal()
-    ) == [1, 1, 2, 4]
+    assert list(left.complement_lattice.inner_product_matrix().smith_form()[0].diagonal()) == [1, 1, 2, 4]
+    assert list(right.complement_lattice.inner_product_matrix().smith_form()[0].diagonal()) == [1, 1, 2, 4]
 
 
 def test_dawes_example_26_theorem_23_hypotheses_hold_for_the_complements() -> None:
@@ -449,20 +425,8 @@ def test_dawes_example_26_theorem_23_hypotheses_hold_for_the_complements() -> No
     right = _build_complement_decomposition(lattice, vector_two).complement_lattice
     assert left.signature_pair() == (1, 3)
     assert right.signature_pair() == (1, 3)
-    assert len(
-        [
-            entry
-            for entry in left.inner_product_matrix().smith_form()[0].diagonal()
-            if entry != 1
-        ]
-    ) == 2
-    assert len(
-        [
-            entry
-            for entry in right.inner_product_matrix().smith_form()[0].diagonal()
-            if entry != 1
-        ]
-    ) == 2
+    assert len([entry for entry in left.inner_product_matrix().smith_form()[0].diagonal() if entry != 1]) == 2
+    assert len([entry for entry in right.inner_product_matrix().smith_form()[0].diagonal() if entry != 1]) == 2
     assert left.is_isometric_to(right)
 
 

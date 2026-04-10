@@ -174,27 +174,12 @@ class _DawesOrbitBackend:
             ambient_witness,
             self._problem.spec.as_constraints(),
         )
-        if (
-            witness is None
-            and (
-                self._problem.spec.determinant is not None
-                or self._problem.spec.spinor is not None
-            )
-        ):
+        if witness is None and (self._problem.spec.determinant is not None or self._problem.spec.spinor is not None):
             base_witness = self._find_relaxed_structured_witness(ambient_witness)
             if base_witness is not None:
-                witness = self._adjust_relaxed_witness_via_root_reflections(
-                    base_witness
-                )
-        if (
-            witness is None
-            and self._problem.spec.determinant is None
-            and self._problem.spec.spinor is None
-        ):
-            assert False, (
-                "Algorithm 2.2 detected an O_A(L)-witness but witness "
-                "recovery failed"
-            )
+                witness = self._adjust_relaxed_witness_via_root_reflections(base_witness)
+        if witness is None and self._problem.spec.determinant is None and self._problem.spec.spinor is None:
+            assert False, "Algorithm 2.2 detected an O_A(L)-witness but witness recovery failed"
         return witness
 
     def _find_relaxed_structured_witness(self, ambient_witness):
@@ -285,9 +270,7 @@ class _DawesOrbitBackend:
         return False
 
     def _assert_algorithm_22_hypotheses(self):
-        assert not self._problem.spec.opaque, (
-            "Algorithms 2.2/2.3 require a structured subgroup, not an opaque predicate"
-        )
+        assert not self._problem.spec.opaque, "Algorithms 2.2/2.3 require a structured subgroup, not an opaque predicate"
         assert not _complement_of_vector_is_definite(
             self._problem.lattice,
             self._problem.w1,
@@ -368,17 +351,13 @@ def _build_complement_decomposition(lattice, w):
         iota=None,
     )
     _assert_direct_sum_generator_split(data)
-    gluing_generators = [
-        data.direct_sum_discriminant_element(basis_vector)
-        for basis_vector in lattice.basis()
-    ]
+    gluing_generators = [data.direct_sum_discriminant_element(basis_vector) for basis_vector in lattice.basis()]
     gluing_subgroup = direct_discriminant.submodule(gluing_generators)
     gluing_orthogonal = direct_discriminant.orthogonal_submodule_to(gluing_subgroup)
     quotient_discriminant = gluing_orthogonal / gluing_subgroup
     lattice_discriminant = lattice.discriminant_group()
     iota_images = [
-        quotient_discriminant(data.direct_sum_discriminant_element(generator.lift()))
-        for generator in lattice_discriminant.gens()
+        quotient_discriminant(data.direct_sum_discriminant_element(generator.lift())) for generator in lattice_discriminant.gens()
     ]
     iota = lattice_discriminant.hom(quotient_discriminant, iota_images)
     assert iota.image().cardinality() == lattice_discriminant.cardinality()
@@ -417,8 +396,7 @@ def _search_definite_complement_isometries(left, right):
     # column-action convention used by the ambient lattice API, so invert here.
     base_isometry = matrix(ZZ, standard_isometry).inverse()
     automorphism_generators = [
-        matrix(ZZ, generator.matrix().transpose())
-        for generator in left_positive.orthogonal_group().gens()
+        matrix(ZZ, generator.matrix().transpose()) for generator in left_positive.orthogonal_group().gens()
     ]
     if not automorphism_generators:
         yield base_isometry
@@ -446,13 +424,7 @@ def _search_discriminant_form_isometries(domain, codomain):
     candidate_lists = []
     for generator in domain_gens:
         generator_order = generator.additive_order()
-        candidate_lists.append(
-            [
-                element
-                for element in codomain_elements
-                if element.additive_order() == generator_order
-            ]
-        )
+        candidate_lists.append([element for element in codomain_elements if element.additive_order() == generator_order])
     seen = set()
     for image_tuple in product(*candidate_lists):
         hom = domain._hom_from_smith(Sequence(image_tuple, universe=codomain))
@@ -460,10 +432,7 @@ def _search_discriminant_form_isometries(domain, codomain):
             continue
         if not _is_discriminant_form_isometry(domain_gens, hom):
             continue
-        key = tuple(
-            tuple(int(entry) for entry in image.vector())
-            for image in image_tuple
-        )
+        key = tuple(tuple(int(entry) for entry in image.vector()) for image in image_tuple)
         if key in seen:
             continue
         seen.add(key)
@@ -482,25 +451,18 @@ def _combined_direct_sum_discriminant_isometry(
     line_isometry,
     complement_isometry,
 ):
-    images = [
-        right.inject_line_discriminant(line_isometry(generator))
-        for generator in left.line_discriminant.gens()
-    ]
+    images = [right.inject_line_discriminant(line_isometry(generator)) for generator in left.line_discriminant.gens()]
     images.extend(
-        right.inject_complement_discriminant(complement_isometry(generator))
-        for generator in left.complement_discriminant.gens()
+        right.inject_complement_discriminant(complement_isometry(generator)) for generator in left.complement_discriminant.gens()
     )
     return left.direct_discriminant.hom(right.direct_discriminant, images)
 
 
 def _gluing_subgroups_match(left, right, direct_sum_isometry):
-    image_generators = [
-        direct_sum_isometry(generator) for generator in left.gluing_subgroup.gens()
-    ]
+    image_generators = [direct_sum_isometry(generator) for generator in left.gluing_subgroup.gens()]
     image_subgroup = right.direct_discriminant.submodule(image_generators)
-    return (
-        image_subgroup.cardinality() == right.gluing_subgroup.cardinality()
-        and all(generator in right.gluing_subgroup for generator in image_generators)
+    return image_subgroup.cardinality() == right.gluing_subgroup.cardinality() and all(
+        generator in right.gluing_subgroup for generator in image_generators
     )
 
 
@@ -548,9 +510,7 @@ def _find_structured_witness_with_constraints(
             lattice,
             generator,
             constraints,
-            precomputed_spinor=(
-                None if spinor_images is None else spinor_images[index]
-            ),
+            precomputed_spinor=(None if spinor_images is None else spinor_images[index]),
         )
         for index, generator in enumerate(stabilizer_generators)
     ]
@@ -558,9 +518,7 @@ def _find_structured_witness_with_constraints(
         lattice,
         ambient_witness,
         constraints,
-        precomputed_spinor=(
-            None if spinor_images is None else spinor_images[-1]
-        ),
+        precomputed_spinor=(None if spinor_images is None else spinor_images[-1]),
     )
     identity_witness = identity_matrix(ZZ, lattice.rank())
     identity_image = _structured_identity(lattice, constraints)
@@ -723,16 +681,10 @@ def _candidate_satisfies_constraints(
     constraints,
 ):
     if constraints["determinant"] is not None:
-        if (
-            stabilizer_image["determinant"] * ambient_image["determinant"]
-            != constraints["determinant"]
-        ):
+        if stabilizer_image["determinant"] * ambient_image["determinant"] != constraints["determinant"]:
             return False
     if constraints["spinor"] is not None:
-        if (
-            stabilizer_image["spinor"] * ambient_image["spinor"]
-            != constraints["spinor"]
-        ):
+        if stabilizer_image["spinor"] * ambient_image["spinor"] != constraints["spinor"]:
             return False
     if constraints["discriminant_subgroup"] is not None:
         combined = _compose_discriminant_actions(
@@ -764,11 +716,7 @@ def _structured_image(lattice, M, constraints, *, precomputed_spinor=None):
     if constraints["determinant"] is not None:
         image["determinant"] = _determinant_sign(M)
     if constraints["spinor"] is not None:
-        image["spinor"] = (
-            precomputed_spinor
-            if precomputed_spinor is not None
-            else real_spinor_norm_sign(lattice, M)
-        )
+        image["spinor"] = precomputed_spinor if precomputed_spinor is not None else real_spinor_norm_sign(lattice, M)
     return image
 
 
@@ -808,10 +756,7 @@ def _ambient_discriminant_action_is_surjective(lattice) -> bool:
         return cache[key]
     target_group = lattice.discriminant_group().orthogonal_group()
     image_group = target_group.subgroup(
-        [
-            induced_discriminant_action(lattice, generator)
-            for generator in lattice.orthogonal_group().gens()
-        ]
+        [induced_discriminant_action(lattice, generator) for generator in lattice.orthogonal_group().gens()]
     )
     cache[key] = all(generator in image_group for generator in target_group.gens())
     return cache[key]
@@ -824,9 +769,7 @@ def _is_discriminant_form_isometry(domain_gens, hom) -> bool:
             return False
         for right_generator in domain_gens:
             image_right = hom(right_generator)
-            if image_left.inner_product(image_right) != left_generator.inner_product(
-                right_generator
-            ):
+            if image_left.inner_product(image_right) != left_generator.inner_product(right_generator):
                 return False
     return True
 
@@ -840,16 +783,9 @@ def _complement_of_vector_is_definite(lattice, w) -> bool:
 def _orthogonal_complement_data(lattice, w):
     primitive = vector(ZZ, [ZZ(entry) for entry in w])
     right_transform = _dawes_right_smith_transform(lattice, primitive)
-    complement_basis = [
-        vector(ZZ, list(right_transform.column(column)))
-        for column in range(1, right_transform.ncols())
-    ]
+    complement_basis = [vector(ZZ, list(right_transform.column(column))) for column in range(1, right_transform.ncols())]
     for basis_vector in complement_basis:
-        assert (
-            primitive
-            * lattice.inner_product_matrix()
-            * basis_vector.column()
-        )[0] == 0
+        assert (primitive * lattice.inner_product_matrix() * basis_vector.column())[0] == 0
     complement_gram = _gram_on_embedded_basis(
         lattice.inner_product_matrix(),
         complement_basis,
@@ -872,11 +808,7 @@ def _dawes_right_smith_transform(lattice, w):
 def _positive_definite_copy(lattice):
     positive_rank, negative_rank = lattice.signature_pair()
     assert positive_rank == 0 or negative_rank == 0
-    return (
-        lattice._native_lattice()
-        if not negative_rank
-        else IntegralLattice(-lattice.inner_product_matrix())
-    )
+    return lattice._native_lattice() if not negative_rank else IntegralLattice(-lattice.inner_product_matrix())
 
 
 def _block_diagonal_with_scalar_one(M):
@@ -955,10 +887,7 @@ def _reflection_matrix(gram, root_vector):
     root_norm = (root * gram * root.column())[0]
     assert root_norm in (QQ(2), QQ(-2))
     pairing_row = matrix(QQ, 1, gram.nrows(), list(root * gram))
-    reflection = (
-        identity_matrix(QQ, gram.nrows())
-        - (QQ(2) / root_norm) * root.column() * pairing_row
-    )
+    reflection = identity_matrix(QQ, gram.nrows()) - (QQ(2) / root_norm) * root.column() * pairing_row
     assert all(entry in ZZ for entry in reflection.list())
     return matrix(ZZ, reflection)
 
@@ -973,11 +902,7 @@ def _real_spinor_norm_signs(lattice, matrices):
     gram_key = _gram_key(lattice)
     cache = real_spinor_norm_sign.__dict__.setdefault("_cache", {})
     keys = [(gram_key, _matrix_key(M)) for M in matrices]
-    missing = [
-        (key, M)
-        for key, M in zip(keys, matrices, strict=True)
-        if key not in cache
-    ]
+    missing = [(key, M) for key, M in zip(keys, matrices, strict=True) if key not in cache]
     if missing:
         missing_signs = _compute_real_spinor_norm_signs(
             lattice,
@@ -1064,10 +989,7 @@ def _oscar_ambient_rows(M):
 
 
 def _gram_key(lattice):
-    return tuple(
-        tuple(int(entry) for entry in row)
-        for row in lattice.inner_product_matrix().rows()
-    )
+    return tuple(tuple(int(entry) for entry in row) for row in lattice.inner_product_matrix().rows())
 
 
 def _matrix_key(M):
@@ -1091,13 +1013,9 @@ def _lorentzian_positive_cone_vector(lattice):
     key = _gram_key(lattice)
     cache = _lorentzian_positive_cone_vector.__dict__.setdefault("_cache", {})
     if key not in cache:
-        diagonal_form, change_of_basis = (
-            lattice.quadratic_form().rational_diagonal_form(return_matrix=True)
-        )
+        diagonal_form, change_of_basis = lattice.quadratic_form().rational_diagonal_form(return_matrix=True)
         diagonal_entries = diagonal_form.matrix().diagonal()
-        positive_indices = [
-            index for index, entry in enumerate(diagonal_entries) if entry > 0
-        ]
+        positive_indices = [index for index, entry in enumerate(diagonal_entries) if entry > 0]
         assert len(positive_indices) == 1
         positive_vector = vector(QQ, list(change_of_basis.column(positive_indices[0])))
         assert _quadratic_norm(lattice, positive_vector) > 0

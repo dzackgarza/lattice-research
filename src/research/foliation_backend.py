@@ -13,13 +13,13 @@ from sage.all import (
     I,
     PolynomialRing,
     QQbar,
+    companion_matrix,
     diagonal_matrix,
     exp,
     factorial,
     identity_matrix,
     matrix,
     pi,
-    prod,
 )
 from sage.interfaces.singular import singular
 
@@ -62,7 +62,7 @@ def hodge_theoretic_monodromy_of_family(family) -> HodgeTheoreticMonodromy:
     normalized = _normalize_one_parameter_hypersurface_family(family)
     milnor_number, coefficients = _singular_picard_fuchs_data(normalized)
     operator = _picard_fuchs_operator(normalized.parameter, coefficients)
-    indicial_polynomial = _indicial_polynomial_at_zero(normalized.parameter, coefficients)
+    indicial_polynomial = _indicial_polynomial_at_zero(operator)
     log_jordan = _log_monodromy_jordan_form(indicial_polynomial, milnor_number)
     semisimple_log = _diagonal_part(log_jordan)
     nilpotent_log = log_jordan - semisimple_log
@@ -129,17 +129,12 @@ def _singular_picard_fuchs_data(
     singular.eval("int ii;")
     singular.eval("for (ii = 1; ii <= mu; ii++) { gen_p = gen_p + B[ii]; }")
     singular.eval("poly dy_c = diff(f, var(nvars(basering)));")
-    singular.eval(
-        "poly P_form = (-1)^(nvars(basering)-1) * (dy_c / var(nvars(basering))) * gen_p;"
-    )
+    singular.eval("poly P_form = (-1)^(nvars(basering)-1) * (dy_c / var(nvars(basering))) * gen_p;")
     singular.eval("vector ve = [1];")
     singular.eval("matrix PF = PFequ(f, P_form, ve);")
     milnor_number = int(singular.eval("mu"))
     pf_matrix = singular("PF").sage()
-    coefficients = tuple(
-        _extract_parameter_polynomial(entry)
-        for entry in pf_matrix.rows()[0]
-    )
+    coefficients = tuple(_extract_parameter_polynomial(entry) for entry in pf_matrix.rows()[0])
     assert len(coefficients) == milnor_number + 1
     return milnor_number, coefficients
 
@@ -164,40 +159,16 @@ def _picard_fuchs_operator(
     )
 
 
-def _indicial_polynomial_at_zero(parameter, coefficients):
-    parameter_ring = coefficients[0].parent()
-    parameter = parameter_ring.gen()
-    alpha_ring = PolynomialRing(parameter_ring.base_ring(), names=("alpha",))
-    alpha = alpha_ring.gen()
-    shifts = []
-    leading_terms = []
-    for degree, coefficient in enumerate(coefficients):
-        if coefficient.is_zero():
-            shifts.append(None)
-            leading_terms.append(parameter_ring.zero())
-            continue
-        valuation = coefficient.valuation()
-        lead = (coefficient / (parameter**valuation))(0)
-        shifts.append(ZZ(valuation - degree))
-        leading_terms.append(lead)
-    indicial_shift = min(shift for shift in shifts if shift is not None)
-    return sum(
-        leading_terms[degree] * prod(alpha - j for j in range(degree))
-        for degree, shift in enumerate(shifts)
-        if shift == indicial_shift
-    )
+def _indicial_polynomial_at_zero(operator):
+    # ore_algebra built-in: roots are the indicial exponents at t=0.
+    return operator.indicial_polynomial(operator.base_ring().gen())
 
 
 def _log_monodromy_jordan_form(indicial_polynomial, milnor_number: int):
-    coefficient = indicial_polynomial.leading_coefficient()
-    companion = matrix(indicial_polynomial.base_ring(), milnor_number)
-    for index in range(milnor_number - 1):
-        companion[index, index + 1] = 1
-    rho = indicial_polynomial.parent().gen()
-    for index in range(milnor_number):
-        ci = indicial_polynomial.derivative(rho, index)(0) / factorial(index)
-        companion[milnor_number - 1, index] = -ci / coefficient
-    jordan, _ = companion.change_ring(QQbar).jordan_form(transformation=True)
+    assert indicial_polynomial.degree() == milnor_number, (
+        "Degree of indicial polynomial must equal Milnor number (regular singular point assumption)"
+    )
+    jordan, _ = companion_matrix(indicial_polynomial.monic()).change_ring(QQbar).jordan_form(transformation=True)
     return jordan
 
 
@@ -249,11 +220,7 @@ def _jordan_blocks(jordan_matrix) -> tuple[MonodromyJordanBlock, ...]:
 
 
 def _semisimple_monodromy_matrix(blocks: tuple[MonodromyJordanBlock, ...]):
-    diagonal = [
-        block.eigenvalue
-        for block in blocks
-        for _ in range(block.size)
-    ]
+    diagonal = [block.eigenvalue for block in blocks for _ in range(block.size)]
     return diagonal_matrix(SR, diagonal)
 
 

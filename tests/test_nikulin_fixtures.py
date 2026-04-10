@@ -5,6 +5,7 @@ Tests load verified constructions from JSON fixtures and assert that
 Sage's discriminant_group() + quadratic_product() integrality check
 reproduce the recorded (r, a, delta) exactly.
 """
+
 from __future__ import annotations
 
 import json
@@ -21,6 +22,7 @@ FIXTURES = Path(__file__).parent / "fixtures"
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _build(s: str):
     """Build a lattice from a canonical from_string expression."""
@@ -52,13 +54,13 @@ def _rad(L):
 # Indefinite 75-lattice fixture
 # ---------------------------------------------------------------------------
 
+
 def _load_nikulin_75():
     with open(FIXTURES / "nikulin_lattices.json") as f:
         return json.load(f)["lattices"]
 
 
-@pytest.mark.parametrize("entry", _load_nikulin_75(),
-                         ids=lambda e: f"({e['r']},{e['a']},{e['delta']})")
+@pytest.mark.parametrize("entry", _load_nikulin_75(), ids=lambda e: f"({e['r']},{e['a']},{e['delta']})")
 def test_nikulin_indefinite_construction(entry):
     L = _build(entry["construction"])
     assert _rad(L) == (entry["r"], entry["a"], entry["delta"])
@@ -68,13 +70,15 @@ def test_nikulin_indefinite_construction(entry):
 # Negative-definite unstarred fixture
 # ---------------------------------------------------------------------------
 
+
 def _load_neg_def_unstarred():
     with open(FIXTURES / "nikulin_neg_def_table2.json") as f:
         return json.load(f)["lattices"]
 
 
-@pytest.mark.parametrize("entry", _load_neg_def_unstarred(),
-                         ids=lambda e: f"({e['r']},{e['a']},{e['delta']})-{e['construction']}")
+@pytest.mark.parametrize(
+    "entry", _load_neg_def_unstarred(), ids=lambda e: f"({e['r']},{e['a']},{e['delta']})-{e['construction']}"
+)
 def test_nikulin_neg_def_unstarred(entry):
     L = _build(entry["construction"])
     assert _rad(L) == (entry["r"], entry["a"], entry["delta"])
@@ -84,17 +88,16 @@ def test_nikulin_neg_def_unstarred(entry):
 # Starred overlattice fixture
 # ---------------------------------------------------------------------------
 
+
 def _load_neg_def_starred():
     with open(FIXTURES / "nikulin_neg_def_starred.json") as f:
         return json.load(f)["lattices"]
 
 
-@pytest.mark.parametrize("entry", _load_neg_def_starred(),
-                         ids=lambda e: f"({e['r']},{e['a']},{e['delta']})-{e['root_lattice']}")
+@pytest.mark.parametrize("entry", _load_neg_def_starred(), ids=lambda e: f"({e['r']},{e['a']},{e['delta']})-{e['root_lattice']}")
 def test_nikulin_neg_def_starred(entry):
     L = _build_from_root_and_glue(
         entry["root_lattice"],
         entry["rational_glue_vectors"] or [],
     )
     assert _rad(L) == (entry["r"], entry["a"], entry["delta"])
-

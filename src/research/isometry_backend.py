@@ -65,17 +65,13 @@ class LatticeIsometryBackend:
                 return False
             case _ if not left.is_rationally_isometric_to(right):
                 return False
-            case _ if not all(
-                left.is_locally_isometric_to(right, p) for p in (2, 3, 5)
-            ):
+            case _ if not all(left.is_locally_isometric_to(right, p) for p in (2, 3, 5)):
                 return False
             case _ if not left.is_in_same_genus_as(right):
                 return False
             case _ if self._is_definite(left):
                 return self._isometric_definite(left, right)
-            case _ if self._supports_nikulin_classification(
-                left
-            ) and self._supports_nikulin_classification(right):
+            case _ if self._supports_nikulin_classification(left) and self._supports_nikulin_classification(right):
                 return self._isometric_indefinite_two_elementary(left, right)
             case _:
                 return self._isometric_indefinite_general(left, right)
@@ -92,10 +88,7 @@ class LatticeIsometryBackend:
         positive_rank, negative_rank = lattice.signature_pair()
         assert lattice.base_ring() is ZZ
         return (
-            lattice.is_even()
-            and bool(positive_rank)
-            and bool(negative_rank)
-            and lattice.discriminant_group().is_p_elementary(2)
+            lattice.is_even() and bool(positive_rank) and bool(negative_rank) and lattice.discriminant_group().is_p_elementary(2)
         )
 
     def _is_definite(self, lattice):
@@ -106,19 +99,13 @@ class LatticeIsometryBackend:
     def _positive_definite_copy(self, lattice):
         positive_rank, negative_rank = lattice.signature_pair()
         assert self._is_definite(lattice)
-        return (
-            lattice._native_lattice()
-            if not negative_rank
-            else IntegralLattice(-lattice.inner_product_matrix())
-        )
+        return lattice._native_lattice() if not negative_rank else IntegralLattice(-lattice.inner_product_matrix())
 
     def _isometric_definite(self, left, right):
         left_positive = self._positive_definite_copy(left)
         right_positive = self._positive_definite_copy(right)
         assert self._is_definite(left_positive)
-        return left_positive.quadratic_form().is_globally_equivalent_to(
-            right_positive.quadratic_form()
-        )
+        return left_positive.quadratic_form().is_globally_equivalent_to(right_positive.quadratic_form())
 
     def _isometric_indefinite_two_elementary(self, left, right):
         """
@@ -164,10 +151,7 @@ class LatticeIsometryBackend:
         return True
 
     def _gram_key(self, lattice):
-        return tuple(
-            tuple(str(entry) for entry in row)
-            for row in lattice.inner_product_matrix().rows()
-        )
+        return tuple(tuple(str(entry) for entry in row) for row in lattice.inner_product_matrix().rows())
 
 
 ISOMETRY_BACKEND = LatticeIsometryBackend()

@@ -26,8 +26,8 @@ def parametrization():
     R_t = PolynomialRing(QQ, "t")
     t = R_t.gen()
     P = t**6 - t**5 - t**4 + t
-    R = -t**6 - t**5 + t**4 + t**2 - 1
-    Q = -t**6 + t**5 + t**3 - t**2 + 1
+    R = -(t**6) - t**5 + t**4 + t**2 - 1
+    Q = -(t**6) + t**5 + t**3 - t**2 + 1
     return P, R, Q
 
 
@@ -115,12 +115,12 @@ class TestRationalSextic:
         t, s = S2.gens()
 
         P_t = t**6 - t**5 - t**4 + t
-        R_t = -t**6 - t**5 + t**4 + t**2 - 1
-        Q_t = -t**6 + t**5 + t**3 - t**2 + 1
+        R_t = -(t**6) - t**5 + t**4 + t**2 - 1
+        Q_t = -(t**6) + t**5 + t**3 - t**2 + 1
 
         P_s = s**6 - s**5 - s**4 + s
-        R_s = -s**6 - s**5 + s**4 + s**2 - 1
-        Q_s = -s**6 + s**5 + s**3 - s**2 + 1
+        R_s = -(s**6) - s**5 + s**4 + s**2 - 1
+        Q_s = -(s**6) + s**5 + s**3 - s**2 + 1
 
         minor_PR = P_t * R_s - P_s * R_t
         minor_PQ = P_t * Q_s - P_s * Q_t
