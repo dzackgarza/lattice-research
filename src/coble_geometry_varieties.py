@@ -8,18 +8,15 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Any, Self, final, override
+from typing import Any, Self, final, override
 
 from ore_algebra.differential_operator_1_1 import (
     UnivariateDifferentialOperatorOverUnivariateRing,
 )
+from sage.all import MPolynomial
 
 from coble_geometry_foundation import Lattice
-
-if TYPE_CHECKING:
-    from sage.all import MPolynomial
-
-    from research.foliation_backend import HodgeTheoreticMonodromy
+from research.foliation_backend import HodgeTheoreticMonodromy
 
 _LOGGER = logging.getLogger(__name__)
 
