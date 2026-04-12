@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from sage.all import QQ, ZZ, IntegralLattice, matrix, vector
-
-from coble_geometry_foundation import Lattice
-from research.dawes_orbit_backend import (
+from src.backends.dawes_orbit_backend import (
     _assemble_witness_from_complement_data,
     _build_complement_decomposition,
     _combined_direct_sum_discriminant_isometry,
@@ -13,6 +11,8 @@ from research.dawes_orbit_backend import (
     _search_discriminant_form_isometries,
     induced_discriminant_action,
 )
+
+from coble_geometry_foundation import Lattice
 
 
 def _rank_one_lattice(gram_entry: int) -> Lattice:

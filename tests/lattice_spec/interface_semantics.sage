@@ -7,6 +7,7 @@ actually exposes.  The remaining aspirational dual/Weyl/Eichler API in the
 legacy top-level draft is left there until it can be migrated faithfully.
 """
 
+from src import Lattice
 
 # ============================================================================
 # 1. CONSTRUCTORS, PARSING, AND ELEMENT SEMANTICS
@@ -23,9 +24,7 @@ assert Z.twist(2).gram_matrix() == matrix(ZZ, [[2]])
 assert Lattice.II(0, 8).is_isometric_to(Lattice.E(8))
 assert Lattice.II(3, 19).is_isometric_to(Lattice.k3())
 assert Lattice.I(1, 10).signature_pair() == (1, 10)
-assert Lattice.from_string("U(2) + A_1").is_isometric_to(
-    Lattice.U().twist(2) + Lattice.A(1)
-)
+assert Lattice.from_string("U(2) + A_1").is_isometric_to(Lattice.U().twist(2) + Lattice.A(1))
 assert Lattice.from_string("U^{3} + D_{6} + E_{8}").rank() == 20
 
 module_U = FreeBilinearModule.from_sage(IntegralLattice("U"))
@@ -128,16 +127,12 @@ coble_transcendental = Lattice.coble_transcendental()
 assert coble_picard.signature_pair() == (1, 10)
 assert coble_picard.discriminant_group().is_p_elementary(2)
 assert coble_picard.nikulin_invariants() == (11, 11, 1)
-assert coble_picard.is_isometric_to(
-    Lattice.Z().twist(2) + (Lattice.Z().twist(-2) ** 10)
-)
+assert coble_picard.is_isometric_to(Lattice.Z().twist(2) + (Lattice.Z().twist(-2) ** 10))
 
 assert coble_transcendental.signature_pair() == (2, 9)
 assert coble_transcendental.discriminant_group().cardinality() == 2
 assert coble_transcendental.nikulin_invariants() == (11, 1, 1)
-assert coble_transcendental.is_isometric_to(
-    Lattice.Z().twist(2) + Lattice.U() + Lattice.E(8)
-)
+assert coble_transcendental.is_isometric_to(Lattice.Z().twist(2) + Lattice.U() + Lattice.E(8))
 
 
 # ============================================================================
@@ -161,23 +156,9 @@ assert minus_I2 in U.stabilizer_of_isotropic_line(e)
 
 U_plus_U = Lattice.from_sage(IntegralLattice("U").direct_sum(IntegralLattice("U")))
 assert len(U_plus_U.orthogonal_group().isotropic_plane_orbits()) == 1
-assert (
-    len(
-        U_plus_U.orthogonal_group()
-        .special_orthogonal_subgroup()
-        .isotropic_plane_orbits()
-    )
-    == 2
-)
+assert len(U_plus_U.orthogonal_group().special_orthogonal_subgroup().isotropic_plane_orbits()) == 2
 assert len(U_plus_U.orthogonal_group().isotropic_flag_orbits(2)) == 1
-assert (
-    len(
-        U_plus_U.orthogonal_group()
-        .special_orthogonal_subgroup()
-        .isotropic_flag_orbits(2)
-    )
-    == 2
-)
+assert len(U_plus_U.orthogonal_group().special_orthogonal_subgroup().isotropic_flag_orbits(2)) == 2
 
 
 # ============================================================================

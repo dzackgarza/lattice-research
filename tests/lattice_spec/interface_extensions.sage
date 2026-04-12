@@ -8,6 +8,7 @@ direct-sum embeddings, explicit orthogonal groups of ``U`` and ``U(2)``,
 root/Weyl data, and Eichler transvections.
 """
 
+from src import DynkinDiagram, Lattice, eichler_transvection
 
 # ============================================================================
 # 1. DUAL LATTICES AND EXPLICIT DISCRIMINANT-LIFT SEMANTICS
@@ -194,10 +195,7 @@ assert r * r == -2
 t_er = eichler_transvection(e0, r)
 for basis_vector in tuple(L_eich.basis()):
     assert t_er(basis_vector) == (
-        basis_vector
-        - (r * basis_vector) * e0
-        + (e0 * basis_vector) * r
-        - QQ(r * r, 2) * (e0 * basis_vector) * e0
+        basis_vector - (r * basis_vector) * e0 + (e0 * basis_vector) * r - QQ(r * r, 2) * (e0 * basis_vector) * e0
     )
 
 assert t_er.inverse() == eichler_transvection(e0, -r)

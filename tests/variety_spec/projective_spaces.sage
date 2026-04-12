@@ -9,12 +9,12 @@
 # Hilbert polynomial: P(t) = (t+1)...(t+n)/n!
 # ============================================================================
 
-t = polygen(QQ, 't')
+t = polygen(QQ, "t")
 
 
 # --- PP^1 -------------------------------------------------------------------
 
-P1 = PP^1(CC)
+P1 = PP ^ 1(CC)
 assert P1.dimension() == 1
 assert P1.is_smooth() and P1.is_projective() and P1.is_quasi_projective()
 assert not P1.is_affine()
@@ -33,19 +33,19 @@ H1 = P1.hyperplane_class()
 # K_{PP^1} = -2H
 K_P1 = P1.canonical_divisor()
 assert K_P1 == -2 * H1
-assert K_P1.degree() == -2   # deg K = 2g - 2 = -2 for g=0
+assert K_P1.degree() == -2  # deg K = 2g - 2 = -2 for g=0
 assert K_P1.is_linearly_equivalent_to((-2) * H1)
 assert K_P1 in P1.picard_group()
 assert H1 in P1.picard_group()
 
 assert H1.is_ample() and H1.is_nef() and H1.is_big()
-assert K_P1.is_anti_ample()    # K negative => rational
+assert K_P1.is_anti_ample()  # K negative => rational
 
 # h^0 of line bundles on PP^1: h^0(O(d)) = max(d+1, 0)
 assert (2 * H1).h(0) == 3
 assert H1.h(0) == 2
-assert P1.picard_group()(0).h(0) == 1    # h^0(O) = 1
-assert K_P1.h(0) == 0                     # h^0(K) = 0 for g=0
+assert P1.picard_group()(0).h(0) == 1  # h^0(O) = 1
+assert K_P1.h(0) == 0  # h^0(K) = 0 for g=0
 
 # Plurigenera: P_n = h^0(nK) = 0 for all n >= 1 (K anti-ample)
 assert [P1.plurigenus(n) for n in range(6)] == [1, 0, 0, 0, 0, 0]
@@ -69,7 +69,7 @@ for d in range(-3, 6):
 
 # --- PP^2 -------------------------------------------------------------------
 
-P2 = PP^2(CC)
+P2 = PP ^ 2(CC)
 assert P2.dimension() == 2
 assert P2.is_smooth() and P2.is_projective() and P2.is_quasi_projective()
 assert P2.smooth_locus() == P2 and P2.singular_locus() == Variety.empty()
@@ -96,7 +96,7 @@ assert P2.holomorphic_euler_characteristic() == 1
 # Noether: K^2 + chi_top = 12*chi(O)  =>  9 + 3 = 12 ✓
 assert K_P2.self_intersection() + P2.topological_euler_characteristic() == 12
 
-assert K_P2.h(0) == 0    # h^0(K_{PP^2}) = 0 (anti-ample)
+assert K_P2.h(0) == 0  # h^0(K_{PP^2}) = 0 (anti-ample)
 assert P2.picard_group().rank() == 1
 
 # Hodge diamond:
@@ -115,7 +115,7 @@ for d in range(0, 5):
 
 # --- PP^3 -------------------------------------------------------------------
 
-P3 = PP^3(CC)
+P3 = PP ^ 3(CC)
 assert P3.dimension() == 3
 assert P3.is_smooth() and P3.is_projective()
 assert P3.smooth_locus() == P3 and P3.singular_locus() == Variety.empty()
@@ -135,5 +135,5 @@ assert K_P3.is_anti_ample() and H3.is_ample()
 #    1  [0  1  0  0]
 #    2  [0  0  1  0]
 #    3  [0  0  0  1]
-assert P3.hodge_diamond() == Matrix(ZZ, [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+assert P3.hodge_diamond() == Matrix(ZZ, [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 assert P3.picard_group().rank() == 1

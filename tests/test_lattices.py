@@ -4,9 +4,9 @@ import logging
 from functools import reduce
 
 from sage.all import ZZ, IntegralLattice, identity_matrix, matrix
+from src.backends.isometry_backend import LatticeIsometryBackend
 
 from coble_geometry_foundation import DiscriminantGroup, FreeBilinearModule, Lattice
-from research.isometry_backend import LatticeIsometryBackend
 
 
 class TestLatticeSemantics:

@@ -34,10 +34,24 @@ this sign difference.
 
 ### Dual lattice
 
-For a lattice $L$ (a free $\mathbb{Z}$-module of rank $r$ with a nondegenerate symmetric
-bilinear form), the **dual lattice** is $L^* = \{x \in L \otimes \mathbb{Q} : x \cdot y
-\in \mathbb{Z} \text{ for all } y \in L\}$, where $L \otimes \mathbb{Q}$ denotes the
-extension of scalars to $\mathbb{Q}$.
+Let $L$ be a lattice over $E/K$ inside the space $(V, \Phi)$. The **dual lattice** (also
+called the **dual** or **codual**) is:
+
+$$L^\# = \left\{ x \in V \mid \Phi(x, L) \subseteq \mathcal{O}_E \right\}.$$
+
+For $\mathbb{Z}$-lattices with bilinear form $\beta$, this simplifies to: $L^* = \{x \in
+L \otimes \mathbb{Q} : \beta(x, y) \in \mathbb{Z} \text{ for all } y \in L\}$.
+
+**Properties:**
+- $(L^\#)^\# = L$ for nondegenerate lattices.
+- $L \subseteq L^\#$ if and only if $L$ is integral.
+- $L = L^\#$ if and only if $L$ is unimodular.
+- The discriminant group $A_L = L^\#/L$ is finite.
+
+**Relation to Gram matrix:** If $L$ has Gram matrix $G$, then $L^\#$ has Gram matrix
+$G^{-1}$ with respect to the dual basis.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
 
 ### Discriminant group and form
 
@@ -280,6 +294,36 @@ are points (0-cusps) and modular curves (1-cusps).
 
 > **Source**: [@aegs2023compact, Definition 2.9]
 
+### Definite and indefinite lattices
+
+Let $L$ be a lattice over $R$ with rational span $V = L \otimes \mathbb{Q}$.
+
+- $L$ is **positive definite** if $x^2 > 0$ for all non-zero $x \in V$.
+- $L$ is **negative definite** if $x^2 < 0$ for all non-zero $x \in V$.
+- $L$ is **definite** if it is either positive or negative definite.
+- $L$ is **indefinite** if $V$ contains both positive and negative norm vectors.
+
+The **signature** of a definite lattice is $(r, 0)$ (positive) or $(0, r)$ (negative),
+where $r = \mathrm{rank}(L)$.
+
+> **Source**: Standard; see [@Nik79, §1.1].
+
+### Discriminant (index ideal)
+
+Let $L$ be a lattice over $R$ in the space $(V, \Phi)$. The **discriminant** (or **index
+ideal**) $\mathrm{disc}(L)$ is the generalized index ideal $[L^\# : L]_{\mathcal{O}_E}$,
+where $L^\#$ is the dual lattice.
+
+For integral lattices over $\mathbb{Z}$, $\mathrm{disc}(L) = |\det(G)|$ where $G$ is the
+Gram matrix, equivalently $|L^\#/L|$.
+
+**Relation to discriminant group:** For $\mathbb{Z}$-lattices, $|A_L| =
+|\mathrm{disc}(L)|$. The discriminant group and discriminant ideal differ for general
+number field lattices: $A_L$ is a finite abelian group, while $\mathrm{disc}(L)$ is a
+fractional ideal.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
+
 ### Divisibility
 
 Let $L$ be an integral $R$-lattice with bilinear form $\beta$. For a vector $v$ in the
@@ -479,6 +523,18 @@ boundary of the corresponding polytope.
 
 > **Source**: [@aegs2023compact, Definition 5.4]
 
+### Integral lattice
+
+A lattice $L$ over $E/K$ is **integral** if its scale $\mathfrak{s}(L) = \Phi(L, L)$ is
+contained in $\mathcal{O}_E$, i.e., $\Phi(x, y) \in \mathcal{O}_E$ for all $x, y \in L$.
+
+Equivalently, $L \subseteq L^\#$ (the lattice is contained in its dual).
+
+**For $\mathbb{Z}$-lattices:** $L$ is integral if and only if all inner products $x
+\cdot y$ for $x, y \in L$ are integers.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
+
 ### K3 surface
 
 A **K3 surface** over a field $k$ is a complete non-singular variety $X$ of dimension
@@ -489,6 +545,24 @@ The Picard lattice $S_X \subset H^2(X, \mathbb{Z})$ is the subgroup of algebraic
 with the intersection form.
 
 > **Source**: [@Huy16, Definition 1.1]
+
+### Jordan decomposition
+
+Let $L$ be a lattice over a number field $E$ and $\mathfrak{p}$ a prime ideal in
+$\mathcal{O}_E$. A **Jordan decomposition** of $L$ at $\mathfrak{p}$ is an orthogonal
+direct sum decomposition:
+
+$$L_{\mathfrak{p}} = L_1 \perp L_2 \perp \cdots \perp L_r$$
+
+where each $L_i$ is $\mathfrak{p}^{s_i}$-modular (i.e., $\mathfrak{p}^{s_i} L_i^\# =
+L_i$) and $s_1 < s_2 < \cdots < s_r$.
+
+**Properties:**
+- Jordan decompositions exist and are unique up to isometry (Jordan's theorem).
+- The scales $\mathfrak{p}^{s_i}$ and ranks $\mathrm{rank}(L_i)$ are invariants of $L$.
+- Used for local classification and computing genera.
+
+> **Source**: Standard; OSCAR/Hecke documentation; [@Nik79, §1.5].
 
 ### KSBA compactification
 
@@ -596,6 +670,23 @@ involutions.
 
 > **Source**: [@aegs2023compact, Definition 4.1, §4.3]
 
+### Modular lattice
+
+A lattice $L$ over $E/K$ is **modular** if there exists a fractional ideal
+$\mathfrak{a}$ of $\mathcal{O}_E$ such that $\mathfrak{a} L^\# = L$.
+
+Equivalently, $L$ is similar to its dual: $L \cong \mathfrak{a}^{-1} L^\#$.
+
+**Local version:** $L$ is **modular at $\mathfrak{p}$** (or
+**$\mathfrak{p}^v$-modular**) if $L_{\mathfrak{p}}$ is modular for the local lattice,
+i.e., $\mathfrak{p}^v L_{\mathfrak{p}}^\# = L_{\mathfrak{p}}$.
+
+**Examples:**
+- Unimodular lattices: $L^\# = L$ (case $\mathfrak{a} = \mathcal{O}_E$).
+- $U(n)$: $\mathfrak{a} = n^{-1}\mathcal{O}_K$.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
+
 ### Nikulin classification
 
 An indefinite even two-elementary lattice is uniquely determined by its signature and a
@@ -614,6 +705,24 @@ holomorphic 2-form $\omega_X$. It acts as $+1$ on the Picard lattice $S_X$ and $
 the transcendental lattice $T_X = S_X^\perp \subset H^2(X, \mathbb{Z})$.
 
 > **Source**: [@alexeev2024reflective, §9.4]
+
+### Norm (lattice invariant)
+
+Let $L$ be a lattice over $E/K$ in the space $(V, \Phi)$. The **norm** $\mathfrak{n}(L)$
+is the ideal of $\mathcal{O}_K$ generated by all squares:
+
+$$\mathfrak{n}(L) = \langle \Phi(x, x) \mid x \in L \rangle_{\mathcal{O}_K}.$$
+
+**For $\mathbb{Z}$-lattices:** $\mathfrak{n}(L) = \gcd\{x^2 \mid x \in L\} \cdot
+\mathbb{Z}$.
+
+**Relation to scale:** $\mathfrak{n}(L) \subseteq \mathfrak{s}(L)$, with equality for
+**maximal** lattices.
+
+**Warning:** The term "norm" is also used for $x^2 = \Phi(x,x)$ of a single vector.
+The lattice invariant $\mathfrak{n}(L)$ is sometimes called the "norm ideal."
+
+> **Source**: Standard; OSCAR/Hecke documentation.
 
 ### Orthogonal modular variety
 
@@ -785,6 +894,24 @@ two-elementary lattice $L$ if and only if $v^2 = -2$, or $v^2 = -4$ and $\mathrm
 
 > **Source**: [@alexeev2024reflective, §9.2]
 
+### Rescale
+
+Let $L$ be a lattice over $E/K$ in the space $(V, \Phi)$. For a non-zero element $a \in
+K$, the **rescaled lattice** $L^a$ is the lattice with the same underlying module as $L$
+(same pseudo-basis) but in the space $(V, a\Phi)$.
+
+Equivalently, the Gram matrix $G$ of $L$ becomes $aG$ in $L^a$.
+
+**Properties:**
+- $(L^a)^\# = (L^\#)^{1/a}$ (dual scales inversely).
+- $\mathfrak{s}(L^a) = a \cdot \mathfrak{s}(L)$.
+- $\mathfrak{n}(L^a) = a^2 \cdot \mathfrak{n}(L)$.
+- $\mathrm{disc}(L^a) = a^r \cdot \mathrm{disc}(L)$ where $r = \mathrm{rank}(L)$.
+
+**Example:** $U(2)$ denotes the hyperbolic plane rescaled by 2.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
+
 ### Semifan (Coxeter semifan, generalized Coxeter semifan)
 
 Let $W$ be a reflection group acting on a hyperbolic lattice with fundamental chamber
@@ -812,6 +939,26 @@ For $F_{\mathrm{En},2}$, the KSBA compactification has normalization given by a
 semitoroidal compactification with semifans $\mathfrak{F}^k$ for $k = 1, 2, 3, 4, 5$.
 
 > **Source**: [@aegs2023compact, §5.2, Theorem 5.9]
+
+### Scale (lattice invariant)
+
+Let $L$ be a lattice over $E/K$ in the space $(V, \Phi)$. The **scale**
+$\mathfrak{s}(L)$ is the fractional ideal:
+
+$$\mathfrak{s}(L) = \langle \Phi(x, y) \mid x, y \in L \rangle_{\mathcal{O}_E}.$$
+
+For hermitian lattices, $\mathfrak{s}(L)$ is an ideal of $\mathcal{O}_E$; for quadratic
+lattices, it is an ideal of $\mathcal{O}_K$ (the fixed field).
+
+**For $\mathbb{Z}$-lattices:** $\mathfrak{s}(L) = \gcd\{x \cdot y \mid x, y \in L\}
+\cdot \mathbb{Z}$.
+
+**Relation to integrality:** $L$ is integral iff $\mathfrak{s}(L) \subseteq
+\mathcal{O}_E$.
+
+**Relation to norm:** $\mathfrak{n}(L) \subseteq \mathfrak{s}(L)$.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
 
 ### Spinor norm
 
@@ -962,6 +1109,24 @@ diagram of a hyperbolic lattice.
 It terminates in finitely many steps if and only if the lattice is reflective.
 
 > **Source**: [@alexeev2024reflective, §9.3; @vinberg1972units; @Vin75]
+
+### Volume (lattice invariant)
+
+Let $L$ be a lattice over $E/K$ in the space $(V, \Phi)$. The **volume**
+$\mathfrak{v}(L)$ is the index ideal:
+
+$$\mathfrak{v}(L) = [L^\# : L]_{\mathcal{O}*E} = \langle \{\sigma \mid \sigma \in
+\mathrm{Hom}*{\mathcal{O}*E}(L^\#, L)\} \rangle*{\mathcal{O}_E}.$$
+
+For quadratic lattices, this is the same as the discriminant: $\mathfrak{v}(L) =
+\mathrm{disc}(L)$.
+
+**For $\mathbb{Z}$-lattices:** $\mathfrak{v}(L) = |\det(G)| \cdot \mathbb{Z}$ where $G$
+is the Gram matrix.
+
+**Relation to discriminant group:** $|A_L| = \mathfrak{v}(L)$ for $\mathbb{Z}$-lattices.
+
+> **Source**: Standard; OSCAR/Hecke documentation.
 
 * * *
 

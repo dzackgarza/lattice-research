@@ -5,7 +5,6 @@ from functools import cache
 from itertools import combinations
 
 import pytest
-
 from src.coble_geometry_foundation import Lattice
 
 

@@ -13,7 +13,6 @@ from pathlib import Path
 
 import pytest
 from sage.all import QQ, ZZ, vector
-
 from src.coble_geometry_foundation import Lattice
 
 FIXTURES = Path(__file__).parent / "fixtures"

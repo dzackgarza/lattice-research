@@ -5,7 +5,6 @@ from ore_algebra.differential_operator_1_1 import (
 )
 from sage.all import QQ, SR, I, PolynomialRing, QQbar, matrix, pi
 from sage.rings.polynomial.term_order import TermOrder
-
 from src.coble_geometry_varieties import FamilyOfVarieties
 
 

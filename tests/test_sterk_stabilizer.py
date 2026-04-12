@@ -12,9 +12,9 @@ Reference: Sterk 1991, vector stabilizer in the transcendental lattice.
 from __future__ import annotations
 
 import pytest
+from src.backends.external.py_polyhedral.binaries import indefinite_form_stabilizer_vector
 
 from coble_geometry_foundation import Lattice
-from src.external.py_polyhedral.binaries import indefinite_form_stabilizer_vector
 
 
 def _gram_as_lists(L):
