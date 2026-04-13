@@ -109,7 +109,7 @@ Before starting any stage:
 - record any newly discovered spec mismatch as a deferred Stage 7 review item;
 - route executable verification through the repo `justfile`.
 
-### Literal class inventory
+### Literal public API noun inventory
 
 Foundational scalar/codomain/module layer:
 
@@ -165,8 +165,11 @@ Lattice/discriminant layer:
 - `DualLattice`
 - `DualLatticeElement`
 - `DiscriminantForm`
+- `DiscriminantFormElement`
 - `DiscriminantGroup`
 - `DiscriminantGroupElement`
+- `DiscriminantFormHomSpace`
+- `DiscriminantFormMorphism`
 - `RationalLatticeHomSpace`
 - `RationalLatticeMorphism`
 - `LatticeHomSpace`
@@ -184,7 +187,16 @@ Group layer:
 - `CoxeterDiagram`
 - `EichlerGroup`
 
-### Literal method-to-class attachment inventory
+Category/classifier nouns required by the specs:
+
+- `BilinearModules`
+- `QuadraticModules`
+- `FreeBilinearModules`
+- `TorsionBilinearModules`
+- `FreeQuadraticModules`
+- `TorsionQuadraticModules`
+
+### Literal public API verb-to-noun attachment inventory
 
 The methods below are the canonical receivers. If a method can live higher in
 the hierarchy without losing meaning, it belongs on the higher noun.
@@ -236,6 +248,12 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 - `fraction_field`
 - `contains`
 - `quotient`
+
+`BilinearModules`, `QuadraticModules`, `FreeBilinearModules`,
+`TorsionBilinearModules`, `FreeQuadraticModules`,
+`TorsionQuadraticModules`:
+
+- category containment for parent nouns and their elements/morphisms
 
 `BilinearForm`:
 
@@ -290,6 +308,27 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 - `to_vector`
 - `to_coordinates`
 
+`LatticeElement`:
+
+- `inner_product`
+- `divisibility`
+- `is_primitive`
+- `discriminant_class`
+- `span`
+- `perp`
+- `is_root`
+- `reflection`
+
+`DualLatticeElement`:
+
+- function-call evaluation on lattice elements
+- `discriminant_class`
+
+`DiscriminantGroupElement`:
+
+- `additive_order`
+- `lift`
+
 `BilinearModuleHomSpace`:
 
 - `element_from_dict`
@@ -300,9 +339,9 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 `QuadraticModuleHomSpace`, `FreeQuadraticModuleHomSpace`,
 `TorsionQuadraticModuleHomSpace`:
 
-- inherit the highest valid hom-space structure
-- add only the specialization-specific constructors and validation needed by
-  their layer
+- `element_from_dict`
+- `element_from_matrix`
+- `natural_map`
 
 `BilinearModuleMorphism`:
 
@@ -320,47 +359,146 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 `QuadraticModuleMorphism`, `FreeQuadraticModuleMorphism`,
 `TorsionQuadraticModuleMorphism`:
 
-- inherit the highest valid morphism structure
-- override only the computations that genuinely specialize to their layer
+- `image`
+- `kernel`
+- `cokernel`
+- `is_injective`
+- `is_surjective`
+- `is_isomorphism`
+- `is_primitive`
+- `is_isometry`
 
 `RationalLattice`:
 
 - `from_gram`
 - `codomain`
 - `is_integral`
+- `dual`
 - `dual_lattice`
 - `discriminant_group`
+- `hom`
+- `basis`
+- `gens`
+- `span`
+- `value_ring`
+
+`DualLattice`:
+
+- `inclusion_morphism`
+- `basis`
+- `gens`
+- `span`
+- `quotient_by`
 
 `Lattice`:
 
-- named constructors such as `U`, `A1`, `E8`, and the other canonical examples
+- `Z`
+- `U`
+- `I`
+- `II`
+- `A`
+- `E`
+- `k3`
+- `coble_picard`
+- `root_lattice`
+- `from_string`
+- `from_gram`
+- `basis`
+- `gens`
+- `b`
+- `hom`
+- `dual`
 - `dual_lattice`
 - `discriminant_group`
+- `quotient_by`
 - `orthogonal_group`
+- `O`
 - `roots`
 - `root_sublattice`
 - `weyl_group`
+- `W`
 - `coxeter_diagram`
 - `eichler_group`
+- `E`
+- `primitive_isotropic_vector_orbits`
+- `isotropic_vector_orbits`
+- `invariant_sublattice`
+- `coinvariant_sublattice`
 - `delta`
 - `coparity`
 
 `DiscriminantGroup`:
 
+- `gens`
+- `zero`
+- `q`
+- `b`
 - `quadratic_form`
 - `bilinear_form`
 - `orthogonal_group`
 - `isotropic_subgroup`
+- `isotropic_elements`
+- `elements_of_norm`
 - `value_map`
 - `norm_classes`
 
-`RationalLatticeHomSpace`, `LatticeHomSpace`, `DiscriminantGroupHomSpace`:
+`DiscriminantForm`:
+
+- `quadratic_form`
+- `bilinear_form`
+- `orthogonal_group`
+
+`RationalLatticeHomSpace`:
 
 - `element_from_dict`
 - `element_from_matrix`
 - `natural_map`
 
-`RationalLatticeMorphism`, `LatticeMorphism`, `DiscriminantGroupMorphism`:
+`LatticeHomSpace`:
+
+- `element_from_dict`
+- `element_from_matrix`
+- `element_from_images`
+- `from_dict`
+- `natural_map`
+
+`DiscriminantGroupHomSpace`, `DiscriminantFormHomSpace`:
+
+- `element_from_dict`
+- `element_from_matrix`
+- `natural_map`
+
+`RationalLatticeMorphism`:
+
+- `image`
+- `kernel`
+- `cokernel`
+- `is_isometry`
+- `is_primitive`
+
+`LatticeMorphism`:
+
+- `image`
+- `kernel`
+- `cokernel`
+- `is_isometry`
+- `is_primitive`
+- `to_matrix`
+- `direct_sum`
+- `is_injective`
+- `is_surjective`
+- `is_bijective`
+- `is_isomorphism`
+- `inverse`
+- `is_involution`
+- `order`
+- `is_permutation`
+- `is_shear`
+- `as_word_in_generators`
+- `as_word_in_reflections`
+- `reflection_decomposition`
+
+`DiscriminantGroupMorphism`, `DiscriminantFormMorphism`:
 
 - `image`
 - `kernel`
@@ -370,10 +508,22 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 
 `LatticeOrthogonalGroup`:
 
+- `element_from_matrix`
+- `from_matrix`
+- thin-router `__call__`
+- `identity`
 - `gens`
+- `is_subgroup_of`
+- `special_orthogonal_subgroup`
 - `stabilizer`
+- `stabilizer_of_isotropic_line`
 - `centralizer`
 - `discriminant_kernel`
+- `kernel_of_discriminant_action`
+- `isotropic_line_orbits`
+- `isotropic_lines_are_equivalent`
+- `isotropic_plane_orbits`
+- `isotropic_flag_orbits`
 - `reflection`
 
 `DiscriminantOrthogonalGroup`:
@@ -385,15 +535,416 @@ the hierarchy without losing meaning, it belongs on the higher noun.
 
 - `gens`
 - `simple_reflections`
+- `coxeter_diagram`
+- `is_isomorphic_to`
 
 `CoxeterDiagram`:
 
-- diagram construction and inspection methods only
+- `__eq__`
 
 `EichlerGroup`:
 
 - `gens`
 - `stabilizer`
+- `is_trivial`
+- `is_subgroup`
+
+### Literal inheritance/class diagram
+
+Category layer:
+
+- `ModulesCategory(R)`
+- `BilinearModulesCategory(R)` inherits `ModulesCategory(R)`
+- `QuadraticModulesCategory(R)` inherits `ModulesCategory(R)`
+- `FreeBilinearModulesCategory(R)` inherits `BilinearModulesCategory(R)`
+- `TorsionBilinearModulesCategory(R)` inherits `BilinearModulesCategory(R)`
+- `FreeQuadraticModulesCategory(R)` inherits `QuadraticModulesCategory(R)`
+- `TorsionQuadraticModulesCategory(R)` inherits `QuadraticModulesCategory(R)`
+- `RationalLatticesCategory()` inherits `FreeBilinearModulesCategory(ZZ)`
+- `LatticesCategory()` inherits `RationalLatticesCategory()`
+- `DiscriminantGroupsCategory()` inherits `TorsionBilinearModulesCategory(ZZ)`
+- `DiscriminantFormsCategory()` inherits `TorsionQuadraticModulesCategory(ZZ)`
+
+Parent layer:
+
+- `Module(Parent)`
+- `FreeModule(Module)`
+- `TorsionModule(Module)`
+- `MixedModule(Module)`
+- `BilinearModule(Module)`
+- `FreeBilinearModule(BilinearModule)`
+- `TorsionBilinearModule(BilinearModule)`
+- `QuadraticModule(Module)`
+- `FreeQuadraticModule(QuadraticModule)`
+- `TorsionQuadraticModule(QuadraticModule)`
+- `RationalLattice(FreeBilinearModule)`
+- `Lattice(RationalLattice)`
+- `DualLattice(RationalLattice)`
+- `DiscriminantGroup(TorsionBilinearModule)`
+- `DiscriminantForm(TorsionQuadraticModule)`
+
+Element layer:
+
+- `ModuleElement(ElementWrapper)`
+- `BilinearModuleElement(ModuleElement)`
+- `QuadraticModuleElement(ModuleElement)`
+- `FreeBilinearModuleElement(BilinearModuleElement)`
+- `TorsionBilinearModuleElement(BilinearModuleElement)`
+- `FreeQuadraticModuleElement(QuadraticModuleElement)`
+- `TorsionQuadraticModuleElement(QuadraticModuleElement)`
+- `RationalLatticeElement(FreeBilinearModuleElement)`
+- `LatticeElement(RationalLatticeElement)`
+- `DualLatticeElement(RationalLatticeElement)`
+- `DiscriminantGroupElement(TorsionBilinearModuleElement)`
+- `DiscriminantFormElement(TorsionQuadraticModuleElement)`
+
+Hom-space layer:
+
+- `ModuleHomSpace(Homset)`
+- `BilinearModuleHomSpace(ModuleHomSpace)`
+- `FreeBilinearModuleHomSpace(BilinearModuleHomSpace)`
+- `TorsionBilinearModuleHomSpace(BilinearModuleHomSpace)`
+- `QuadraticModuleHomSpace(ModuleHomSpace)`
+- `FreeQuadraticModuleHomSpace(QuadraticModuleHomSpace)`
+- `TorsionQuadraticModuleHomSpace(QuadraticModuleHomSpace)`
+- `RationalLatticeHomSpace(FreeBilinearModuleHomSpace)`
+- `LatticeHomSpace(RationalLatticeHomSpace)`
+- `DiscriminantGroupHomSpace(TorsionBilinearModuleHomSpace)`
+- `DiscriminantFormHomSpace(TorsionQuadraticModuleHomSpace)`
+
+Morphism layer:
+
+- `ModuleMorphism(Morphism)`
+- `BilinearModuleMorphism(ModuleMorphism)`
+- `FreeBilinearModuleMorphism(BilinearModuleMorphism)`
+- `TorsionBilinearModuleMorphism(BilinearModuleMorphism)`
+- `QuadraticModuleMorphism(ModuleMorphism)`
+- `FreeQuadraticModuleMorphism(QuadraticModuleMorphism)`
+- `TorsionQuadraticModuleMorphism(QuadraticModuleMorphism)`
+- `RationalLatticeMorphism(FreeBilinearModuleMorphism)`
+- `LatticeMorphism(RationalLatticeMorphism)`
+- `DiscriminantGroupMorphism(TorsionBilinearModuleMorphism)`
+- `DiscriminantFormMorphism(TorsionQuadraticModuleMorphism)`
+
+Group layer:
+
+- `LatticeOrthogonalGroup(Parent)`
+- `LatticeOrthogonalSubgroup(LatticeOrthogonalGroup)`
+- `DiscriminantOrthogonalGroup(Parent)`
+- `DiscriminantOrthogonalSubgroup(DiscriminantOrthogonalGroup)`
+- `WeylGroup(LatticeOrthogonalSubgroup)`
+- `EichlerGroup(LatticeOrthogonalSubgroup)`
+- `CoxeterDiagram(SageObject)`
+
+### Literal composition/storage diagram
+
+`FormCodomain` stores:
+
+- base ring `R`
+- fraction field `K`
+- chosen codomain object `C`
+- internal Sage representation of `C`
+
+`FGPModuleWrapper` stores:
+
+- internal Sage module parent
+- presentation data
+- Smith/decomposition caches
+- generator-order metadata
+
+`Module` stores:
+
+- `FGPModuleWrapper`
+- base ring/category object
+- pydantic presentation model
+
+`ModuleHomSpace` stores:
+
+- domain module
+- codomain module
+- internal Sage homset/module object
+- constructor validation model
+
+`ModuleMorphism` stores:
+
+- parent hom space
+- internal Sage morphism
+- generator-image cache if needed for exact reconstruction
+
+`BilinearForm` stores:
+
+- domain module
+- codomain object
+- Gram matrix in the chosen generator order
+- internal Sage bilinear-map data
+
+`QuadraticForm` stores:
+
+- domain module
+- codomain object
+- quadratic data in the chosen generator order
+- cached polar bilinear form
+
+`BilinearModule` stores:
+
+- underlying `Module`
+- `BilinearForm`
+- category object
+- pydantic presentation model
+
+`QuadraticModule` stores:
+
+- underlying `Module`
+- `QuadraticForm`
+- category object
+- cached polar bilinear form and, when needed, the associated bilinear-module
+  sibling object
+
+`RationalLattice` stores:
+
+- underlying `FreeBilinearModule`
+- codomain object identifying the chosen `K`-valued form
+- specialized Sage delegation objects only for lattice-specific algorithms
+
+`Lattice` stores:
+
+- underlying `RationalLattice`
+- proof that the codomain has been restricted to `R = ZZ`
+- cached Sage `IntegralLattice` only for specialized algorithms such as
+  isometry, roots, Weyl, and Coxeter computations
+
+`DualLattice` stores:
+
+- source lattice
+- inclusion morphism `L -> L^*`
+- underlying `RationalLattice`
+
+`DiscriminantGroup` stores:
+
+- underlying `TorsionBilinearModule`
+- source cokernel data from `L -> L^*`
+
+`DiscriminantForm` stores:
+
+- underlying `TorsionQuadraticModule`
+- associated `DiscriminantGroup`
+- source cokernel/refinement data from the lattice side
+
+`LatticeOrthogonalGroup` and `DiscriminantOrthogonalGroup` store:
+
+- ambient parent
+- defining `ConditionSet`
+- delegated backend group object only where a specialized algorithm is needed
+
+### Literal Sage hook map
+
+Category hooks:
+
+- `ModulesCategory(R)`, `BilinearModulesCategory(R)`, and
+  `QuadraticModulesCategory(R)` own parent/element/homset mixins for their
+  respective layers
+- the free/torsion/lattice/discriminant categories refine these via inheritance
+  rather than by re-implementing unrelated hooks
+
+Parent hooks:
+
+- every public parent class above subclasses Sage `Parent`
+- `Module`, `BilinearModule`, `QuadraticModule`, `RationalLattice`, `Lattice`,
+  `DiscriminantGroup`, and `DiscriminantForm` implement
+  `_element_constructor_`
+- those same parent classes implement `_Hom_` to return the correct hom-space
+  class for their layer
+- `__call__` remains a thin router to explicit `element_from_*` constructors
+
+Element hooks:
+
+- every public element class above subclasses `ElementWrapper`
+- wrapped Sage elements never appear as public return values; they are always
+  rewrapped by the parent layer
+
+Hom-space hooks:
+
+- every hom-space class above subclasses Sage `Homset`
+- each hom-space sets `Element` to its morphism class
+- each hom-space owns `element_from_dict(...)`,
+  `element_from_matrix(...)`, and `natural_map()`
+
+Morphism hooks:
+
+- every morphism class above subclasses Sage `Morphism`
+- hom-space containment owns isometry testing
+- morphism classes do not define `__contains__`
+
+Set/membership hooks:
+
+- `ConditionSet` is the canonical hook for orthogonal groups, subgroup
+  constraints, isotropic subsets, root sets, and similar lazy membership
+  predicates
+- parent membership stays on parents and hom/group parents, not on morphism
+  objects
+
+### Literal validation-model inventory
+
+The public boundary must have one pydantic model per constructor surface:
+
+- `FormCodomainModel`
+- `ModulePresentationModel`
+- `FreeModulePresentationModel`
+- `TorsionModulePresentationModel`
+- `MixedModulePresentationModel`
+- `BilinearFormModel`
+- `QuadraticFormModel`
+- `BilinearModulePresentationModel`
+- `QuadraticModulePresentationModel`
+- `MorphismFromImagesModel`
+- `MorphismFromMatrixModel`
+- `LatticeFromGramModel`
+- `DiscriminantGroupFromCokernelModel`
+- `DiscriminantFormFromRefinementModel`
+
+### Literal spec-coverage matrix
+
+This section is the exhaustiveness check. Every public noun and every public
+verb invoked in the normative spec surfaces must appear here with one concrete
+receiver and one concrete home in the hierarchy. If a spec verb is not listed
+here, the plan is incomplete and implementation must not start.
+
+Source: `tests/lattice_spec/interface_semantics.sage`
+
+- `Lattice` in `src/lattices/lattices.py` owns:
+  `Z`, `U`, `I`, `II`, `A`, `E`, `k3`, `coble_picard`, `from_string`,
+  `from_gram`, `rank`, `gram_matrix`, `twist`, `signature_pair`, `is_even`,
+  `determinant`, `nikulin_invariants`, `is_isometric_to`,
+  `is_rationally_isometric_to`, `is_locally_isometric_to`,
+  `is_in_same_genus_as`, `hom`, `discriminant_group`, `orthogonal_group`,
+  `invariant_sublattice`, `coinvariant_sublattice`, `basis`
+- `FreeBilinearModule` in `src/lattices/core/free.py` owns:
+  constructor from `(R, gram_matrix)`, `gens`
+- `LatticeElement` in `src/lattices/core/elements.py` owns:
+  `is_isotropic`, `inner_product`, `divisibility`, `is_primitive`,
+  `discriminant_class`
+- `DiscriminantGroup` in `src/lattices/core/discriminant.py` owns:
+  `cardinality`, `is_p_elementary`, `p_rank`, `delta`,
+  `isomorphic_as_groups`, `is_isometric_to`, `zero`
+- `LatticeHomSpace` in `src/lattices/morphisms/homspaces.py` owns:
+  `element_from_images`
+- `LatticeMorphism` in `src/lattices/morphisms/lattice.py` owns:
+  `image`, `is_isometry`
+- `FreeBilinearModule` in `src/lattices/core/free.py` owns:
+  `perp`, `rank`
+- `LatticeOrthogonalGroup` in `src/lattices/groups/orthogonal.py` owns:
+  `special_orthogonal_subgroup`, `isotropic_line_orbits`,
+  `isotropic_lines_are_equivalent`, `stabilizer`,
+  `stabilizer_of_isotropic_line`, `isotropic_plane_orbits`,
+  `isotropic_flag_orbits`, `centralizer`, `kernel_of_discriminant_action`
+
+Source: `tests/lattice_spec/more_specs.sage`
+
+- `CobleSurface`, `rational_nodal_sextic`, and the cover/pullback geometry
+  nouns are external geometry-system nouns and are not owned by the lattice
+  hierarchy
+- `Lattice` owns:
+  `gens`, `dual`, `hom`, `b`, `twist`, `sublattice_from_gens`, `index_of`
+- `DualLattice` in `src/lattices/core/rational.py` owns:
+  `inclusion_morphism`, `gens`, `is_isometric_to`
+- `DualLatticeElement` in `src/lattices/core/elements.py` owns:
+  function-call evaluation on lattice elements
+- `LatticeHomSpace` owns:
+  `from_dict`
+- `LatticeMorphism` owns:
+  `inverse`
+- `BilinearModule` in `src/lattices/core/abstract.py` owns:
+  constructor from torsion module plus Gram data, `bilinear_form`, `zero_form`
+- `BilinearForm` in `src/lattices/core/forms.py` owns:
+  `domain`, `codomain`
+- `BilinearModules` and `TorsionBilinearModules` in
+  `src/lattices/categories/bilinear_modules.py` own category containment
+- `TorsionBilinearModule` in `src/lattices/core/torsion.py` owns:
+  `is_isometric_to`
+- `RationalLattice` owns:
+  scalar-twist semantics for `(1/2) * U`
+
+Source: `tests/lattice_spec/interface_extensions.sage`
+
+- `Lattice` owns:
+  `dual`, `discriminant_group`, `basis`, `summands`, `embeddings`,
+  `span`, `quotient_by`, `orthogonal_group`, `primitive_isotropic_vector_orbits`,
+  `isotropic_vector_orbits`, `roots`, `root_sublattice`, `root_lattice`,
+  `weyl_group`, `W`, `coxeter_diagram`, `eichler_group`, `E`,
+  `invariant_sublattice`, `coinvariant_sublattice`
+- `DiscriminantGroup` owns:
+  `gens`, `q`, `b`, `zero`, `isotropic_elements`, `elements_of_norm`,
+  `value_map`
+- `DiscriminantGroupElement` owns:
+  `additive_order`, `lift`
+- `DualLatticeElement` owns:
+  `discriminant_class`
+- `LatticeHomSpace` owns:
+  `element_from_dict`
+- `LatticeMorphism` owns:
+  `to_matrix`, `direct_sum`, `is_injective`, `is_surjective`, `is_bijective`,
+  `is_isomorphism`, `cokernel`, `image`, `is_primitive`, `inverse`,
+  `is_involution`, `order`, `is_permutation`, `is_shear`,
+  `as_word_in_generators`, `as_word_in_reflections`,
+  `reflection_decomposition`
+- `LatticeOrthogonalGroup` owns:
+  iteration over elements, `is_isomorphic_to`, `stabilizer`,
+  `stabilizer_of_isotropic_line`, `from_matrix`, `identity`, `is_subgroup_of`
+- `LatticeOrthogonalSubgroup` owns:
+  subgroup containment and set-theoretic operations inherited from the
+  orthogonal-group layer
+- `LatticeElement` owns:
+  `span`, `perp`, `is_root`, `reflection`
+- `FreeBilinearModule` owns:
+  `is_primitive`, `is_saturated`, `saturation`, `index`
+- `WeylGroup` owns:
+  `gens`, `coxeter_diagram`, `is_isomorphic_to`
+- `CoxeterDiagram` owns:
+  equality/comparison as the diagram noun returned by `coxeter_diagram()`
+- `EichlerGroup` owns:
+  `is_trivial`, `is_subgroup`
+- `DynkinDiagram` is an external comparison noun and is not owned by the
+  lattice hierarchy
+- `eichler_transvection` is a spec-required bridge free function whose semantic
+  home is the Eichler/lattice layer, but the callable itself remains a
+  top-level spec surface because the spec imports it directly
+
+Source: `tests/sage_spec/lattice_methods.sage`
+
+- `LatticeOrthogonalGroup` owns:
+  `element_from_matrix`, thin-router `__call__`, `centralizer`,
+  `kernel_of_discriminant_action`, `identity`, `stabilizer`
+- `Lattice` owns:
+  `O`, `orthogonal_group`, `gens`, `span`, `quotient_by`
+- `LatticeElement` owns:
+  `span`, `perp`, `is_isotropic`
+- `LatticeHomSpace` owns:
+  `element_from_dict`
+- `DualLattice` owns:
+  `span`, `quotient_by`
+- `FreeBilinearModule` owns:
+  `base_ring`, `value_ring`
+
+Source: `theory/spec_backups/lattices_written_spec_backup.py`
+
+- `BilinearModule` is the public general parent noun for pairs `(M, \beta)`
+- `QuadraticModule` is the public general parent noun for pairs `(M, q)`
+- `RationalLattice` owns the unique `from_gram(...)` promotion site
+- `Lattice` owns the named constructors and the integral specializations
+- `DiscriminantForm` owns the torsion quadratic specialization
+- `LatticeElement`, `DualLatticeElement`, and `DiscriminantGroupElement` own
+  the element-level exact operations described there
+- `RationalLatticeHomSpace` and `LatticeHomSpace` own the constructor families
+  `element_from_dict`, `element_from_matrix`, and the witness-returning
+  isometry path
+- `RationalLatticeMorphism` and `LatticeMorphism` own:
+  `image`, `kernel`, `cokernel`, `is_primitive`, `to_*`, `from_*`,
+  and generator-image conversion families
+- `DiscriminantGroupMorphism` and `DiscriminantFormMorphism` own the torsion
+  and torsion-quadratic morphism surfaces
+- `DualLattice` owns `inclusion_morphism`
+- quotient notation `A / B` is owned by the relevant module/lattice/discriminant
+  noun via `quotient_by(...)` and the corresponding natural map
 
 ### Stage 0: Public boundary and file ownership
 
@@ -677,6 +1228,8 @@ The public package should end in this form:
 - `src/lattices/core/free.py`: free bilinear-module semantics over general `R`
 - `src/lattices/core/torsion.py`: pure-torsion specialization of the general
   bilinear-module noun
+- `src/lattices/categories/quadratic_modules.py`: quadratic-module category
+  layer and mixins
 - `src/lattices/core/rational.py`: `RationalLattice`, `DualLattice`
 - `src/lattices/core/discriminant.py`: `DiscriminantForm`,
   `DiscriminantGroup`, discriminant elements
@@ -703,172 +1256,10 @@ deleted once their contents have been moved into the target hierarchy.
 
 ## Phases
 
-### Phase A: Containment and skeleton
-
-- Create the target subdirectory hierarchy and stub only the intended files.
-- Freeze the public noun vocabulary and file ownership.
-- Mark current flat lattice files as migration-source files, not destinations.
-- Completion:
-  - every target file exists,
-  - every public noun has a declared home,
-  - no new work lands in the wrong file class.
-- Verification:
-  - file inventory inspection,
-  - import graph inspection,
-  - diff review confirming no new compatibility shims were added.
-
-### Phase B: Core noun migration
-
-- Replace the current abstract-shell top layer with a real semantic carrier:
-  `BilinearModule` must wrap a finitely generated module presented as an FGP
-  module together with a bilinear form matrix in a fixed generator order.
-- `FreeBilinearModule` and `TorsionBilinearModule` are specializations of that
-  general noun when the torsion part or free part vanishes, respectively.
-- Keep bilinear and quadratic public semantics distinct even when a class stores
-  multiple Sage backend objects for delegation.
-- Move shared element semantics, free-module semantics, and
-  rational/integral lattice semantics into the target `core/` files.
-- Replace hard-coded `ZZ` where the written spec requires general `R`.
-- Remove rejected public state:
-  `ambient_parent`, `inclusion_matrix`, `projection_lattice`,
-  `projection_matrix`, `scaled_element`, `lift_vector`, and any public
-  `native`-style methods.
-- Lift general module verbs upward so they live on `BilinearModule` unless they
-  truly require lattice-specific structure: `gens`, `element_from`, direct
-  sums, twists, submodule generation, quotient construction, bilinear-form
-  access, and related parent-level operations.
-- Remove public Sage leakage:
-  `to_sage`, `from_sage`, direct Sage-object constructor admission, and
-  analogous passthroughs that let callers bypass the semantic layer.
-- Remove optional-argument constructor shapes from the public nouns and split
-  the cases into explicit constructors or class methods.
-- Completion:
-  - `BilinearModule(...)` is a concrete mixed free-plus-torsion noun backed by
-    an FGP module and a bilinear form matrix,
-  - `FreeBilinearModule` and `TorsionBilinearModule` are genuine special cases
-    of that noun rather than disjoint presentation systems,
-  - public module/lattice nouns are presented only by generators and Gram data,
-  - membership is parent-based,
-  - no ambient embedding state remains on the public nouns,
-  - no public Sage leakage remains on the noun surface.
-- Verification:
-  - direct inspection of public constructors and fields,
-  - import compile of the moved files,
-  - spec-review against the canonical sources,
-  - grep confirming that public `src/lattices/core/` APIs no longer expose
-    `to_sage`, `from_sage`, `ambient_parent`, or `inclusion_matrix`.
-
-### Phase C: Validation and typing pass
-
-- Replace hand-written public validation with explicit pydantic models at the
-  public boundary.
-- Add complete type annotations on constructors, element conversions, morphism
-  constructors, and group entry points.
-- Replace `hasattr`/`isinstance` abuse with typed or semantic dispatch.
-- Remove `raise`-style validation from public constructors and coercions.
-- Remove optional public types and `Any`-typed surfaces from the final lattice
-  package.
-- Add explicit `@override` markers wherever the codebase/runtime supports them.
-- Completion:
-  - public constructors and coercions validate through pydantic models,
-  - abstract classes have real abstract methods,
-  - public methods no longer return `None` for mathematically undefined cases,
-  - public mathematical APIs use assertions only for true mathematical domain
-    obligations rather than input-shape checking,
-  - public signatures avoid `Any` and optional variants.
-- Verification:
-  - static inspection of signatures,
-  - direct inspection of validation ownership in `src/lattices/validation/`,
-  - import compile,
-  - grep confirming no new `raise`, `try`, or `except` in the public lattice
-    layer,
-  - grep confirming no `Any`, `object`, `| None`, or `Optional` in the public
-    lattice signatures.
-
-### Phase D: Morphisms and homspaces
-
-- Rebuild homspace nouns first, then morphism elements as elements of those
-  spaces, wrapping Sage homsets and morphisms rather than hand-rolling matrix
-  carriers.
-- Use Sage's real parent hook: custom hom construction belongs on `_Hom_`,
-  not on ad hoc `Hom` forwarding methods.
-- Custom homsets must be initialized with the bilinear-module category itself;
-  passing the homset category in directly produces the wrong Sage construction
-  path.
-- Wrapped module/lattice/discriminant elements must be genuine Sage
-  `Element`/`ElementWrapper` instances; plain Python wrappers break
-  `Map.__call__`, coercion, and category-owned morphism behavior.
-- Implement the missing constructor families and migration of existing matrix
-  and generator-image logic.
-- Replace the current bogus cokernel logic with actual bilinear-module quotient
-  construction driven by the FGP module cokernel.
-- On torsion/discriminant backends, build homomorphisms through the backend's
-  own Smith-form constructor (`_hom_from_smith`) when that is the exact Sage
-  interface, rather than reassembling maps through ad hoc image routing.
-- Move matrix-isometry checking to the semantic containment boundary of the
-  relevant hom-space or orthogonal-group noun instead of repeating matrix
-  equations in ad hoc methods.
-- Delete wrong-noun APIs from morphisms: no morphism `__contains__`, no
-  morphism `perp`, and no ambient-subobject semantics on morphism elements.
-- Lift general morphism verbs upward so they live on
-  `BilinearModuleMorphism` unless they genuinely require integral/rational
-  specialization: `image`, `kernel`, `cokernel`, `is_primitive`, and the
-  standard constructors through hom-space parents.
-- Completion:
-  - `hom()` returns homspaces,
-  - morphisms own `image`, `kernel`, `cokernel`, `is_primitive`, and related
-    verbs,
-  - `A_L := coker(L -> L^*)` is modeled through the correct construction path,
-  - equality on hom spaces and morphisms matches the `CONTRIBUTING.md`
-    semantics.
-- Verification:
-  - API inspection,
-  - dedicated spec tests once the hierarchy is stable,
-  - review against the morphism block in the written spec backup.
-
-### Phase E: Discriminant and dual semantics
-
-- Rebuild `DualLattice` and discriminant objects without fake projection state.
-- Ensure dual-lattice elements, not ad hoc vectors, are the relevant lift
-  objects.
-- Move lattice invariants such as `delta` and `coparity` to the lattice layer.
-- Completion:
-  - discriminant class semantics come from the dual/discriminant architecture,
-    not from remembered ambient state,
-  - discriminant-group API does not own lattice-only invariants.
-- Verification:
-  - public API inspection,
-  - direct comparison against the preserved correction spec.
-
-### Phase F: Orthogonal groups and backend boundary
-
-- Move orthogonal-group nouns into `src/lattices/groups/orthogonal.py`.
-- Remove constraint-merge bookkeeping from the public group layer and express
-  subgroup semantics through the proper `ConditionSet` boundary.
-- Keep backend files delegation-only; they may compute generators/orbits, but
-  they must not define the public semantics.
-- Completion:
-  - `L.orthogonal_group()` is the semantic home,
-  - stabilizers live on the orthogonal-group nouns,
-  - backend files no longer dictate public API structure.
-- Verification:
-  - call-site inspection,
-  - import compile,
-  - spec-check against the orthogonal-group corrections.
-
-### Phase G: Debris deletion
-
-- Delete temporary flat files and any remaining stale names once all migrated
-  logic has a final home.
-- Delete rejected helper functions and old shim names.
-- Delete internal renamings of canonical objects where direct construction is
-  the intended name.
-- Completion:
-  - the repo has exactly one intended public lattice hierarchy,
-  - no duplicate or transitional lattice files remain.
-- Verification:
-  - file inventory,
-  - grep for banned names and rejected fields.
+This older generic phase list is superseded by the explicit class inventory,
+inheritance/composition design, receiver map, and staged implementation plan in
+`## Current Plan` above. The active source of truth is the literal noun/verb
+architecture there.
 
 ## Current Status Snapshot
 

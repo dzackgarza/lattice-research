@@ -14,6 +14,19 @@ exit conditions
 
 This file contains only project-specific operational details not covered by those files.
 
+## CURRENT PLAN
+
+For the lattice/module redesign, the current execution plan is
+[theory/lattice_interface_redesign_plan.md](./theory/lattice_interface_redesign_plan.md).
+
+If the task touches `src/lattices/`, `tests/lattice_spec/`, or `tests/sage_spec/`,
+read that file before acting. The required dependency order is:
+- restore the canonical public export boundary,
+- build foundational rings/fields/finitely generated module semantics,
+- build general bilinear-module category and nouns,
+- promote to lattice/dual/discriminant specializations,
+- then finish orthogonal/root/Weyl/Coxeter/Eichler and indefinite-isometry work.
+
 ## Worktree Policy
 
 - **At most one worktree is active at any time.** Do not create a second worktree while
@@ -471,3 +484,6 @@ Before any cleanup operation that touches multiple files or removes a directory:
 
 The only exception is the automatic pruning list (`.orig`, `.sage.py`, empty dirs)
 which is pre-authorized.
+
+REMINDER: DO NOT MODIFY OR DELETE SPECS.
+It MAY be the case that a spec uses an idea from an old API, etc. If so, this is NOT due to "staleness", and agents do NOT have the authority to modify specs in any instances. Specs MUST be updated live and interactively with a human in the loop, withe commit explicitly made by the user and signed by them. If you NOTICE inconsistencies or issues with specs, you should DOCUMENT this as something that needs to be addressed in a separate interactive pass/turn, and continue work around it.
