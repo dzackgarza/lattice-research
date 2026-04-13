@@ -744,11 +744,53 @@ necessary for numerical computation. Code that works with formal elements
 and morphisms is more general, more readable, and less error-prone than
 code that works with vectors and matrices directly.
 
-**Corollary:** `is_isomorphic` checks should always be available, and
-always via an explicit witness morphism. If `A` is isomorphic to `B` but
-not by the identity, then `v in A` does NOT mean `v in B`. Only `f(v)` is
-in `B`, where `f` is the specific isomorphism. Structure is never
-implicitly transferred.
+
+### Explicit Morphisms, No Implicit Identifications
+
+Subobjects, inclusions, and containment always go through explicit
+morphisms. The type system should catch mathematical errors during
+experimentation by refusing to silently identify objects across different
+parents.
+
+```python
+L.<e, f> = Lattice.U()
+S = e.span()                # <e> as a sublattice
+iota = S.inclusion()        # The chosen embedding iota: <e> -> U
+
+# e was constructed as a generator of U, so e is an element of U
+assert e in L
+
+# S has its own generator
+ep = S.gens()[0]
+assert ep in S              # ep is an element of S
+
+# ep is NOT automatically an element of U -- it lives in a different parent
+assert ep not in L
+
+# Its IMAGE under the inclusion IS an element of U
+assert iota(ep) == e
+assert iota(ep) in L
+```
+
+**The general principle:** very few surprise coercions, at the cost of
+needing to explicitly work categorically. This forces proper mathematical
+hygiene. If `A` is isomorphic to `B` but not by the identity, then `v in A`
+does NOT mean `v in B`. Only `f(v)` is in `B`, where `f` is the specific
+isomorphism.
+
+**Containment cascades through morphisms:** `e in S` and `S <= L` are both
+true. But "moving" `e` from `S` to `L` requires applying `iota`. The
+chain of inclusions is explicit, not automatic. This is what makes it
+possible to catch errors like confusing an element of `L` with an element
+of `L^*`, or an element of `A_L` with its lift to `L^*` -- mistakes that
+silent coercion would hide and that are genuinely hard to debug in
+numerical lattice computations.
+
+**The basic idea:** make the type system work FOR you. During
+experimentation and computation, the strict containment rules will catch
+mathematical errors (wrong parent, wrong ambient, confused identification)
+at the point where they happen, not three steps later when a matrix
+equation silently produces garbage.
 
 
 ### Validation at Construction
