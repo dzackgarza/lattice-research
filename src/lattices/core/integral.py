@@ -5,7 +5,6 @@ import re
 
 from sage.all import QQ, ZZ, Integer, IntegralLattice, QuadraticForm, identity_matrix, matrix, vector
 from sage.misc.cachefunc import cached_method
-
 from src.backends.external.py_polyhedral import (
     indefinite_form_automorphism_group,
     indefinite_form_isotropic_k_flag,
@@ -16,7 +15,6 @@ from src.lattices.core.elements import LatticeElement
 from src.lattices.core.rational import DualLattice, RationalLattice
 from src.lattices.groups.orthogonal import LatticeOrthogonalGroup
 from src.lattices.validation.presentations import IntegralCoordinatePresentation, LatticePresentation, PrimePresentation
-from src.lattices.validation.presentations import matrix_has_entries_in, right_kernel_basis
 
 _LOGGER = logging.getLogger(__name__)
 _NIKULIN_DOMAIN_WARNING = (
@@ -31,37 +29,40 @@ _A1_SCALE = Integer(IntegralLattice("A1").gram_matrix()[0, 0])
 class Lattice(RationalLattice):
     Element = LatticeElement
 
-    def __init__(self, gram):
-        presentation = LatticePresentation(gram=gram)
-        super().__init__(presentation.gram)
+    @classmethod
+    def _coordinate_ring(cls):
+        return ZZ
+
+    def __init__(self, gram, *, generator_names: tuple[str, ...] = ()):
+        presentation = LatticePresentation(gram=gram, generator_names=generator_names)
         self._sage_lattice = IntegralLattice(presentation.gram)
+        super().__init__(presentation.gram, generator_names=presentation.generator_names)
 
     @classmethod
-    def from_gram(cls, gram):
-        presentation = LatticePresentation(gram=gram)
-        return cls(presentation.gram)
-
-    @classmethod
-    def _from_embedded_presentation(cls, gram, *, ambient_parent, inclusion_matrix):
-        wrapped = cls(gram)
-        wrapped._set_embedded_data(ambient_parent, inclusion_matrix)
-        return wrapped
+    def from_gram(cls, gram, *, generator_names: tuple[str, ...] = ()):
+        presentation = LatticePresentation(gram=gram, generator_names=generator_names)
+        return cls(presentation.gram, generator_names=presentation.generator_names)
 
     @classmethod
     def _from_sage_like(cls, lattice):
+        if isinstance(lattice, cls):
+            return lattice
         wrapped = cls(matrix(ZZ, lattice.gram_matrix()))
         wrapped._sage_lattice = lattice
         return wrapped
 
+    def base_ring(self):
+        return ZZ
+
+    def value_ring(self):
+        return ZZ
+
     def element_from(self, coordinates):
-        presentation = IntegralCoordinatePresentation(rank=self.rank(), coordinates=coordinates)
+        presentation = IntegralCoordinatePresentation(rank=self.ngens(), coordinates=coordinates)
         return self.Element(self, presentation.coordinates)
 
     def _sage_like(self):
         return self._sage_lattice
-
-    def is_integral(self):
-        return True
 
     def gram_matrix(self):
         return matrix(ZZ, self._gram)
@@ -69,27 +70,41 @@ class Lattice(RationalLattice):
     def inner_product_matrix(self):
         return self.gram_matrix()
 
+    def is_integral(self):
+        return True
+
     def _scalar_multiple(self, element, scalar):
-        scalar = QQ(scalar)
-        scaled_coordinates = scalar * element.to_vector()
-        if all(entry in ZZ for entry in scaled_coordinates):
+        scaled_coordinates = QQ(scalar) * element.to_primal_coordinates()
+        if scaled_coordinates.denominator().is_one():
             return self.element_from(vector(ZZ, scaled_coordinates))
-        dual_coordinates = scalar * self.gram_matrix() * element.to_vector().column()
-        if all(entry in ZZ for entry in dual_coordinates.list()):
-            return self.dual().element_from(vector(ZZ, dual_coordinates.column(0)))
-        return self.as_rational_lattice().element_from(vector(QQ, scaled_coordinates))
+        dual = self.dual()
+        dual_coordinates = self.gram_matrix() * scaled_coordinates.column()
+        dual_vector = vector(QQ, dual_coordinates.column(0))
+        if dual_vector.denominator().is_one():
+            return dual.element_from_dual_coordinates(vector(ZZ, dual_vector))
+        return self.as_rational_lattice().element_from(scaled_coordinates)
 
     def as_rational_lattice(self):
-        return RationalLattice.from_gram(self.gram_matrix())
+        return RationalLattice(self.gram_matrix(), generator_names=self.generator_names())
 
     def dual(self):
         return DualLattice.from_lattice(self)
 
+    def overlattice(self, glue_vectors):
+        dual = self.dual()
+        glue_tuple = tuple(
+            dual.element_from_primal_coordinates(vector(QQ, glue_vector)).to_primal_coordinates()
+            for glue_vector in glue_vectors
+        )
+        return type(self)._from_sage_like(self._sage_lattice.overlattice(glue_tuple))
+
     def scale(self):
-        return ZZ.ideal(self.gram_matrix().list()).gen()
+        ideal = ZZ.ideal(self.gram_matrix().list())
+        assert len(ideal.gens()) == 1, "The scale ideal of a lattice over ZZ must be principal"
+        return ideal.gens()[0]
 
     def is_even(self):
-        return all(Integer(self.gram_matrix()[index, index]).is_even() for index in range(self.rank()))
+        return all(Integer(self.gram_matrix()[index, index]) % 2 == 0 for index in range(self.rank()))
 
     def _quadratic_form(self):
         return self._sage_lattice.quadratic_form()
@@ -101,29 +116,21 @@ class Lattice(RationalLattice):
         prime = PrimePresentation(prime=p).prime
         return self._quadratic_form().local_genus_symbol(prime)
 
-    def has_isomorphic_discriminant_group_to(self, other):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return self.discriminant_group().isomorphic_as_groups(right.discriminant_group())
-
-    def has_isomorphic_discriminant_form_to(self, other):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return self.discriminant_group().is_isometric_to(right.discriminant_group())
-
     def is_rationally_isometric_to(self, other):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return QuadraticForm(QQ, self.gram_matrix()).is_rationally_isometric(QuadraticForm(QQ, right.gram_matrix()))
+        assert isinstance(other, Lattice), "Rational isometry is defined on lattice nouns"
+        return QuadraticForm(QQ, self.gram_matrix()).is_rationally_isometric(QuadraticForm(QQ, other.gram_matrix()))
 
     def is_locally_isometric_to(self, other, p):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return self.local_genus_symbol(p) == right.local_genus_symbol(p)
+        assert isinstance(other, Lattice), "Local isometry is defined on lattice nouns"
+        return self.local_genus_symbol(p) == other.local_genus_symbol(p)
 
     def is_in_same_genus_as(self, other):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return self.genus() == right.genus()
+        assert isinstance(other, Lattice), "Genus comparison is defined on lattice nouns"
+        return self.genus() == other.genus()
 
     def is_isometric_to(self, other):
-        right = other if isinstance(other, Lattice) else Lattice._from_sage_like(other)
-        return ISOMETRY_BACKEND.is_isometric(self, right)
+        assert isinstance(other, Lattice), "Isometry is defined on lattice nouns"
+        return ISOMETRY_BACKEND.is_isometric(self, other)
 
     def nikulin_a(self):
         return Integer(sum(Integer(2).divides(invariant) for invariant in self.discriminant_group().invariants()))
@@ -158,7 +165,7 @@ class Lattice(RationalLattice):
     @classmethod
     def _integral_root_gram(cls, cartan_type: str):
         gram = RationalLattice._neg_root_gram_qq(cartan_type)
-        assert matrix_has_entries_in(ZZ, gram), f"{cartan_type} does not define an integral root lattice"
+        assert gram.denominator().is_one(), f"{cartan_type} does not define an integral root lattice"
         return matrix(ZZ, gram)
 
     @classmethod
@@ -283,11 +290,6 @@ class Lattice(RationalLattice):
 
         return DiscriminantGroup._from_sage_like(self._sage_lattice.discriminant_group(), lattice=self)
 
-    def hom(self, codomain):
-        from src.lattices.morphisms.homspaces import RationalLatticeHomSpace
-
-        return RationalLatticeHomSpace(self, codomain)
-
     def _gram_rows(self):
         return [[int(entry) for entry in row] for row in self.gram_matrix().rows()]
 
@@ -309,20 +311,11 @@ class Lattice(RationalLattice):
 
     def orthogonal_group(self):
         positive_rank, negative_rank = self.signature_pair()
-        gens_fn = self._definite_orthogonal_group_generators if (not positive_rank) or (not negative_rank) else lambda: self._matrices_from_raw(indefinite_form_automorphism_group(self._gram_rows()))
+        if (not positive_rank) or (not negative_rank):
+            gens_fn = self._definite_orthogonal_group_generators
+        else:
+            gens_fn = lambda: self._matrices_from_raw(indefinite_form_automorphism_group(self._gram_rows()))
         return LatticeOrthogonalGroup.from_lattice(self, gens_fn)
-
-    def stabilizer_of_vector(self, value):
-        return self.orthogonal_group().stabilizer(value)
-
-    def stabilizer_of_isotropic_line(self, value):
-        return self.orthogonal_group().stabilizer_of_isotropic_line(value)
-
-    def stabilizer_of_isotropic_plane(self, left, right):
-        return self.orthogonal_group().stabilizer_of_isotropic_plane(left, right)
-
-    def stabilizer_of_isotropic_flag(self, ordered_basis):
-        return self.orthogonal_group().stabilizer_of_isotropic_flag(ordered_basis)
 
     def isotropic_line_orbits(self):
         return [self.element_from(row) for rows in indefinite_form_isotropic_k_plane(self._gram_rows(), 1) for row in rows]
@@ -334,25 +327,14 @@ class Lattice(RationalLattice):
         return [[self.element_from(row) for row in rows] for rows in indefinite_form_isotropic_k_flag(self._gram_rows(), depth)]
 
     def _eigenspace_sublattice(self, involution_matrix, eigenvalue: int):
-        kernel_matrix = right_kernel_basis(matrix(ZZ, involution_matrix) - Integer(eigenvalue) * identity_matrix(ZZ, self.rank()))
-        return self._submodule_from_generators(kernel_matrix.rows())
+        kernel = (matrix(ZZ, involution_matrix) - Integer(eigenvalue) * identity_matrix(ZZ, self.rank())).right_kernel()
+        return self.span(tuple(self.element_from(row) for row in kernel.basis_matrix().rows()))
 
     def invariant_sublattice(self, involution_matrix):
         return self._eigenspace_sublattice(involution_matrix, 1)
 
     def coinvariant_sublattice(self, involution_matrix):
         return self._eigenspace_sublattice(involution_matrix, -1)
-
-    def centralizer_of_involution(self, involution_matrix):
-        involution = matrix(ZZ, involution_matrix)
-        positive_rank, negative_rank = self.signature_pair()
-        gens_fn = None
-        if (not positive_rank) or (not negative_rank):
-            gens_fn = lambda: self._centralizer_gens_via_gap(involution)
-        return self.orthogonal_group().subgroup(
-            gens_fn=gens_fn,
-            predicate=lambda M, _involution=involution: M * _involution == _involution * M,
-        )
 
     def _centralizer_gens_via_gap(self, involution_matrix):
         positive_rank, negative_rank = self.signature_pair()

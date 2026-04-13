@@ -370,6 +370,72 @@ broken, archiving "for reference."
 If a script doesn't pass its assertions, it gets fixed or deleted in the same session.
 There is no third option.
 
+
+## Spec and Durable Artifact Preservation
+
+Spec files, review files, theory notes, TODO files, and other durable design artifacts
+are source material. They are not "stale implementation debris."
+
+Autonomous agents must **never** modify spec files.
+The only exception is an interactive session where the user has given a specific spec
+edit or rewrite to implement.
+Specs are user-driven work.
+They may contain mistakes, may grow stale, and may use vocabulary that the current code
+does not yet support.
+That still does **not** authorize autonomous cleanup, modernization, alignment, or
+rewriting.
+
+It is explicitly banned to rewrite a spec file merely because it mentions an old API,
+rejected method names, or a broader semantic surface than the current implementation.
+If a spec disagrees with the code, that is evidence that:
+- the implementation is wrong,
+- the redesign is incomplete, or
+- the mismatch must be reviewed with the user.
+
+It is **not** evidence that the spec should be rewritten to match the implementation.
+
+The following rationalizations are explicitly banned, because they invert the source of
+truth:
+- calling a spec or review file a "stale API hit" or "legacy spec file"
+- saying you are "rewriting it to current lattice semantics"
+- saying you are "replacing it wholesale because its surface is the rejected API"
+- treating user-authored or transcript-recoverable spec material as something to
+  "align" to the current code
+
+These are wildly wrong.
+During a redesign, a spec file that uses rejected or missing vocabulary is exactly the
+kind of file that defines the migration target.
+It is evidence about intended semantics, required nouns and verbs, missing
+infrastructure, and preserved mathematical facts.
+You must implement against it, preserve it, back it up if needed, and cite it.
+You must not compress it into a shorter substitute, delete large sections, or replace
+its theory content with a watered-down restatement of the current code.
+
+An untracked durable file is **not** disposable.
+If it is a spec, review, note, theorem sketch, or other substantive user work, treat
+it as high-value material immediately.
+Before touching it, create a durable recovery point in git.
+
+For any edit with plausible data loss, semantic erasure, truncation, wholesale
+replacement, file recreation, or destructive migration, a real git commit checkpoint is
+mandatory.
+`git add` alone is **not** sufficient for:
+- destructive rewrites
+- delete-and-recreate edits
+- replacing one file with a shorter "modernized" version
+- editing untracked durable files
+- any action where recovery might depend on transcript forensics if you are wrong
+
+The required workflow for such files is:
+- read the file in full
+- identify whether it is spec/review/source material
+- create a git commit preserving the exact pre-edit bytes
+- verify recoverability with `git show` or an equivalent exact git readback
+- only then edit
+
+If there is any uncertainty whether the file is a spec, a review artifact, or durable
+user-authored material, stop and ask the user before changing it.
+
 ## Debris Handling Policy
 
 ### Never delete without proof of provenance

@@ -79,8 +79,8 @@ assert iota_U.is_primitive()
 assert iota_U2.is_primitive()
 assert iota_U.cokernel().is_isomorphic_to(U2)
 assert iota_U2.cokernel().is_isomorphic_to(U)
-assert iota_U.perp() == iota_U2.image()
-assert iota_U2.perp() == iota_U.image()
+assert iota_U.image().perp() == iota_U2.image()
+assert iota_U2.image().perp() == iota_U.image()
 
 iota = iota_U.direct_sum(iota_U2)
 assert iota.domain().is_isometric_to(U + U2)
@@ -102,15 +102,15 @@ swap = matrix(ZZ, [[0, 1], [1, 0]])
 minus_I2 = -I2
 minus_swap = -swap
 
-assert set(U.O()) == {I2, swap, minus_I2, minus_swap}
-assert set(U2.O()) == {I2, swap, minus_I2, minus_swap}
-assert U.O().is_isomorphic_to(CyclicPermutationGroup([2, 2]))
-assert U2.O().is_isomorphic_to(CyclicPermutationGroup([2, 2]))
+assert set(U.orthogonal_group()) == {I2, swap, minus_I2, minus_swap}
+assert set(U2.orthogonal_group()) == {I2, swap, minus_I2, minus_swap}
+assert U.orthogonal_group().is_isomorphic_to(CyclicPermutationGroup([2, 2]))
+assert U2.orthogonal_group().is_isomorphic_to(CyclicPermutationGroup([2, 2]))
 
-assert set(U.O().stabilizer_of_vector(e)) == {I2}
-assert set(U2.O().stabilizer_of_vector(ep)) == {I2}
-assert set(U.O().stabilizer_of_isotropic_line(e)) == {I2, minus_I2}
-assert set(U2.O().stabilizer_of_isotropic_line(ep)) == {I2, minus_I2}
+assert set(U.orthogonal_group().stabilizer(e)) == {I2}
+assert set(U2.orthogonal_group().stabilizer(ep)) == {I2}
+assert set(U.orthogonal_group().stabilizer_of_isotropic_line(e)) == {I2, minus_I2}
+assert set(U2.orthogonal_group().stabilizer_of_isotropic_line(ep)) == {I2, minus_I2}
 
 assert U.primitive_isotropic_vector_orbits() == {e}
 assert U2.primitive_isotropic_vector_orbits() == {ep}
@@ -121,7 +121,7 @@ assert U2.isotropic_vector_orbits() == {U2.zero()} | {n * ep for n in ZZ if n > 
 # 4. INVOLUTIONS, ROOTS, REFLECTIONS, AND WEYL GROUPS
 # ============================================================================
 
-G = U.O()
+G = U.orthogonal_group()
 assert G.is_subgroup_of(U.hom(U))
 
 F = G.from_matrix(swap)
@@ -158,8 +158,8 @@ assert U / (R_U + R_U.perp()) == zero_disc
 s_v = v.reflection()
 assert s_v(e) == f and s_v(f) == e
 assert s_v(v) == -v
-assert s_v in U.O()
-assert s_v * s_v == U.O().identity()
+assert s_v in U.orthogonal_group()
+assert s_v * s_v == U.orthogonal_group().identity()
 assert s_v.as_word_in_generators() == [s_v]
 assert s_v in U.weyl_group()
 assert U.W() == U.weyl_group()
@@ -199,7 +199,7 @@ for basis_vector in tuple(L_eich.basis()):
     )
 
 assert t_er.inverse() == eichler_transvection(e0, -r)
-assert t_er in L_eich.O()
+assert t_er in L_eich.orthogonal_group()
 assert t_er in L_eich.E()
 assert t_er == (r + e0).reflection() * r.reflection()
 assert t_er.as_word_in_reflections() == [(r + e0).reflection(), r.reflection()]

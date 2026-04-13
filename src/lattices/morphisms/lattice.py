@@ -1,88 +1,123 @@
 from __future__ import annotations
 
-from sage.all import QQ, ZZ, Integer, matrix, vector
+from sage.all import QQ, block_diagonal_matrix, matrix
+from sage.categories.morphism import Morphism
+from sage.misc.cachefunc import cached_method
 
-from src.lattices.validation.presentations import right_kernel_basis
 
+class BilinearModuleMorphism(Morphism):
+    def __init__(self, parent, fgp_morphism):
+        import sage.modules.fg_pid.fgp_morphism as fgp_morphism_module
 
-class RationalLatticeMorphism:
-    def __init__(self, domain, codomain, matrix_data):
-        self._domain = domain
-        self._codomain = codomain
-        self._matrix = matrix(QQ, matrix_data)
-        assert self._matrix.nrows() == codomain.rank() and self._matrix.ncols() == domain.rank(), (
-            "Morphism matrix has the wrong shape"
-        )
+        Morphism.__init__(self, parent)
+        if isinstance(fgp_morphism, BilinearModuleMorphism):
+            assert fgp_morphism.parent() is parent, "A bilinear-module morphism belongs to a fixed hom-space parent"
+            self._fgp_morphism = fgp_morphism._fgp_morphism
+            return
+        if isinstance(fgp_morphism, fgp_morphism_module.FGP_Morphism):
+            if fgp_morphism.parent() == parent._fgp_homset:
+                self._fgp_morphism = fgp_morphism
+            else:
+                self._fgp_morphism = parent._fgp_homset(fgp_morphism)
+            return
+        self._fgp_morphism = parent._fgp_homset(fgp_morphism)
 
-    def domain(self):
-        return self._domain
+    @cached_method
+    def images(self):
+        return tuple(self(generator) for generator in self.domain().gens())
 
-    def codomain(self):
-        return self._codomain
+    im_gens = images
+
+    def _sage_like(self):
+        return self._fgp_morphism
+
+    def _repr_(self):
+        return repr(self._fgp_morphism)
 
     def to_matrix(self):
-        return self._matrix
+        return matrix(self.domain().base_ring(), [image.to_vector() for image in self.images()]).transpose()
 
-    def __call__(self, value):
-        element = value if value in self._domain else self._domain.element_from(value)
-        image_coordinates = self._matrix * element.to_vector().column()
-        return self._codomain.element_from(vector(QQ, image_coordinates.column(0)))
+    def _call_(self, value):
+        element = value if value in self.domain() else self.domain().element_from(value)
+        return self.codomain()._wrap_element(self._fgp_morphism(element._sage_like()))
 
-    def images(self):
-        return tuple(self(generator) for generator in self._domain.gens())
+    def __neg__(self):
+        return self.parent()(-self._fgp_morphism)
+
+    def __add__(self, other):
+        right = self.parent()(other)
+        return self.parent()(self._fgp_morphism + right._fgp_morphism)
+
+    def __sub__(self, other):
+        right = self.parent()(other)
+        return self.parent()(self._fgp_morphism - right._fgp_morphism)
 
     def image(self):
-        return self._codomain.span(self.images())
+        return self.codomain()._wrap_sage_submodule(self._fgp_morphism.image())
 
-    def perp(self):
-        image_rows = matrix(QQ, [image.to_vector() for image in self.images()])
-        complement_rows = right_kernel_basis(image_rows * self._codomain.gram_matrix())
-        return self._codomain._submodule_from_generators(complement_rows.rows())
-
-    def orthogonal_complement_of_image(self):
-        return self.perp()
-
-    def __contains__(self, value):
-        return value in self._codomain
+    def kernel(self):
+        return self.domain()._wrap_sage_submodule(self._fgp_morphism.kernel())
 
     def cokernel(self):
-        assert self._domain.rank() == self._codomain.rank(), (
-            "Finite-index cokernels are currently defined only for same-rank morphisms"
-        )
-        assert self._domain.is_integral(), (
-            "Finite-index cokernels currently require an integral domain lattice so the quotient lands in A_L"
-        )
-        dual = self._domain.dual()
-        discriminant_group = self._domain.discriminant_group()
-        codomain_dual_coordinates = self.to_matrix().transpose() * self._codomain.gram_matrix()
-        generators = tuple(
-            discriminant_group(
-                dual.element_from_dual_coordinates(vector(QQ, list(codomain_dual_coordinates.column(index))))
+        quotient = self.codomain()._module_like() / self._fgp_morphism.image()
+        return self._promote_cokernel(self.codomain()._wrap_sage_quotient(quotient))
+
+    def _promote_cokernel(self, quotient):
+        from src.lattices.core.discriminant import DiscriminantGroup
+        from src.lattices.core.rational import DualLattice
+
+        codomain = self.codomain()
+        if isinstance(codomain, DualLattice) and codomain.source_lattice() is self.domain():
+            return DiscriminantGroup.from_invariants_and_gram(
+                quotient.invariants(),
+                quotient.gram_matrix(),
+                lattice=self.domain(),
             )
-            for index in range(self._codomain.rank())
+        return quotient
+
+    def lift(self, value):
+        lifted = self._fgp_morphism.lift(self.codomain()(value)._sage_like())
+        return self.domain()._wrap_element(lifted)
+
+    def is_primitive(self):
+        return self.cokernel().is_torsionfree()
+
+    def is_injective(self):
+        return self.kernel().ngens() == 0
+
+    def is_surjective(self):
+        return self.cokernel().ngens() == 0
+
+    def is_bijective(self):
+        return self.is_injective() and self.is_surjective()
+
+    def is_isomorphism(self):
+        return self.is_bijective()
+
+    def is_isometry(self):
+        return self in self.parent()
+
+    def inverse(self):
+        inverse_matrix = matrix(QQ, self.to_matrix()).inverse()
+        return self.codomain().hom(self.domain()).element_from_matrix(inverse_matrix)
+
+    def direct_sum(self, other):
+        right = other if isinstance(other, BilinearModuleMorphism) else self.parent()(other)
+        domain = self.domain() + right.domain()
+        codomain = self.codomain() + right.codomain()
+        direct_sum_matrix = block_diagonal_matrix(
+            [
+                matrix(QQ, self.to_matrix()),
+                matrix(QQ, right.to_matrix()),
+            ],
+            subdivide=False,
         )
-        return discriminant_group.submodule(generators)
+        return domain.hom(codomain).element_from_matrix(direct_sum_matrix)
+
+
+class RationalLatticeMorphism(BilinearModuleMorphism):
+    pass
 
 
 class LatticeMorphism(RationalLatticeMorphism):
-    def __init__(self, domain, codomain, matrix_data):
-        super().__init__(domain, codomain, matrix(ZZ, matrix_data))
-
-    def to_matrix(self):
-        return matrix(ZZ, self._matrix)
-
-    def is_primitive(self):
-        smith_form, _left, _right = self.to_matrix().smith_form()
-        diagonal = [smith_form[index, index] for index in range(min(smith_form.nrows(), smith_form.ncols())) if smith_form[index, index] != 0]
-        return all(Integer(entry) == 1 for entry in diagonal)
-
-    def cokernel(self):
-        if self.domain().rank() == self.codomain().rank():
-            return super().cokernel()
-
-        complement = self.perp()
-        if self.is_primitive() and self.image().rank() + complement.rank() == self.codomain().rank():
-            direct_sum = self.image() + complement
-            if direct_sum.is_isometric_to(self.codomain()):
-                return complement
-        assert False, "Cokernel construction currently requires a finite-index inclusion or an orthogonal direct-sum splitting"
+    pass

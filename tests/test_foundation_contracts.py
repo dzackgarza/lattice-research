@@ -11,8 +11,7 @@ from __future__ import annotations
 
 import pytest
 from sage.all import QQ, ZZ, IntegralLattice, matrix
-
-from coble_geometry_foundation import DiscriminantGroup, Lattice
+from src.lattices.lattices import DiscriminantGroup, Lattice
 
 
 def q(num: int, den: int = 1):
@@ -20,7 +19,7 @@ def q(num: int, den: int = 1):
 
 
 def trivial_discriminant_form(*, even: bool) -> DiscriminantGroup:
-    return DiscriminantGroup.from_invariants_and_gram((), [], modulus_qf=2 if even else 1)
+    return DiscriminantGroup.from_invariants_and_gram((), [], quadratic_modulus=2 if even else 1)
 
 
 def an_gram(n: int):
@@ -141,10 +140,10 @@ def generator_isotropy(lattice: Lattice):
 
 class TestRoutingAndVocabulary:
     def test_named_routing_agrees_with_sage_named_lattices(self):
-        assert Lattice.from_sage(IntegralLattice("A1")).is_isometric_to(Lattice.Z().rescale(2))
-        assert Lattice.from_sage(IntegralLattice(-IntegralLattice("A1").inner_product_matrix())).is_isometric_to(Lattice.A(1))
-        assert Lattice.from_sage(IntegralLattice(-IntegralLattice("E8").inner_product_matrix())).is_isometric_to(Lattice.E(8))
-        assert Lattice.from_sage(IntegralLattice("U")).is_isometric_to(Lattice.U())
+        assert Lattice.from_gram(IntegralLattice("A1").gram_matrix()).is_isometric_to(Lattice.Z().rescale(2))
+        assert Lattice.from_gram(-IntegralLattice("A1").inner_product_matrix()).is_isometric_to(Lattice.A(1))
+        assert Lattice.from_gram(-IntegralLattice("E8").inner_product_matrix()).is_isometric_to(Lattice.E(8))
+        assert Lattice.from_gram(IntegralLattice("U").gram_matrix()).is_isometric_to(Lattice.U())
 
     def test_scale_is_the_pairing_ideal_and_rescale_changes_the_form(self):
         positive_line = Lattice.Z()

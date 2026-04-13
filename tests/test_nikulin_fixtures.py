@@ -2,7 +2,7 @@
 Fixture-driven tests for Nikulin (r, a, delta) invariant computations.
 
 Tests load verified constructions from JSON fixtures and assert that
-Sage's discriminant_group() + quadratic_product() integrality check
+Sage's discriminant_group() + discriminant-form integrality check
 reproduce the recorded (r, a, delta) exactly.
 """
 
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 from sage.all import QQ, ZZ, vector
-from src.coble_geometry_foundation import Lattice
+from src.lattices.lattices import Lattice
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -32,7 +32,7 @@ def _build_from_root_and_glue(root_label: str, rational_glue: list[list[str]]):
     L = Lattice.from_string(root_label)
     if rational_glue:
         glue_vecs = [vector(QQ, [QQ(x) for x in row]) for row in rational_glue]
-        L = L._native_lattice().overlattice(glue_vecs)
+        L = L.overlattice(glue_vecs)
     return L
 
 
@@ -43,7 +43,7 @@ def _rad(L):
     a = len(invs)
     delta = 0
     for v in dg:
-        if v.quadratic_product() not in ZZ:
+        if v.q() not in ZZ:
             delta = 1
             break
     return (L.rank(), a, delta)

@@ -1,5 +1,8 @@
 from src.lattices.lattices import (
     BilinearModule,
+    BilinearModuleHomSpace,
+    BilinearModuleMorphism,
+    BilinearModules,
     DiscriminantForm,
     DiscriminantGroup,
     DiscriminantGroupElement,
@@ -12,6 +15,7 @@ from src.lattices.lattices import (
     FreeBilinearModuleElement,
     Lattice,
     LatticeElement,
+    LatticeHomSpace,
     LatticeMorphism,
     LatticeOrthogonalGroup,
     LatticeOrthogonalSubgroup,
@@ -21,4 +25,5 @@ from src.lattices.lattices import (
     RationalLatticeHomSpace,
     RationalLatticeMorphism,
     TorsionBilinearModule,
+    TorsionBilinearModules,
 )

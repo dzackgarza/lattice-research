@@ -34,8 +34,7 @@ from src.backends.external.py_polyhedral.binaries import (
     indefinite_form_stabilizer_isotropic_line,
     indefinite_form_stabilizer_isotropic_plane_2d,
 )
-
-from coble_geometry_foundation import Lattice
+from src.lattices.lattices import Lattice
 
 # ---------------------------------------------------------------------------
 # Helpers

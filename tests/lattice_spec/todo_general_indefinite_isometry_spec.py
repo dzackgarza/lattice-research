@@ -9,8 +9,7 @@ the general DutSik-backed backend is implemented.
 from __future__ import annotations
 
 from sage.all import IntegralLattice
-
-from coble_geometry_foundation import Lattice
+from src.lattices.lattices import Lattice
 
 
 class TestGeneralIndefiniteIsometrySpec:
@@ -22,12 +21,12 @@ class TestGeneralIndefiniteIsometrySpec:
             native_left.submodule((first_basis_vector, first_basis_vector + second_basis_vector)).basis_matrix(),
             native_left.inner_product_matrix(),
         )
-        left = Lattice.from_sage(native_left)
-        right = Lattice.from_sage(native_right)
+        left = Lattice.from_gram(native_left.gram_matrix())
+        right = Lattice.from_gram(native_right.gram_matrix())
         assert left.discriminant_group().is_p_elementary(3)
         assert not left.discriminant_group().is_p_elementary(2)
-        assert left.has_isomorphic_discriminant_group_to(right)
-        assert left.has_isomorphic_discriminant_form_to(right)
+        assert left.discriminant_group().isomorphic_as_groups(right.discriminant_group())
+        assert left.discriminant_group().is_isometric_to(right.discriminant_group())
         assert left.is_rationally_isometric_to(right)
         assert left.is_locally_isometric_to(right, 2)
         assert left.is_locally_isometric_to(right, 3)

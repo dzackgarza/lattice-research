@@ -1,0 +1,1 @@
+Execution plan for the complete lattice redesign is theory/lattice_interface_redesign_plan.md. It supersedes the earlier lightweight plan and treats the current flat lattice files as migration-source artifacts only. Implementation must follow it together with theory/spec_backups/lattices_written_spec_backup.py and theory/lattice_redesign_corrections_spec.md.

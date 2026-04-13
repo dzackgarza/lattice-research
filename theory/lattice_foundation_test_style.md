@@ -7,7 +7,7 @@ audit.
 
 - Testing Sage instead of the repository-owned interface.
   The only required Sage interop tests are routing tests at the boundary, e.g.
-  `Lattice.from_sage(...)` agreeing with the corresponding foundation
+  `Lattice.from_gram(...)` agreeing with the corresponding foundation
   constructor after the sign convention is accounted for.
 - Inflating test count by splitting one mathematical theorem into many trivial
   wrapper checks.

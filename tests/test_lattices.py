@@ -5,8 +5,7 @@ from functools import reduce
 
 from sage.all import ZZ, IntegralLattice, identity_matrix, matrix
 from src.backends.isometry_backend import LatticeIsometryBackend
-
-from coble_geometry_foundation import DiscriminantGroup, FreeBilinearModule, Lattice
+from src.lattices.lattices import DiscriminantGroup, FreeBilinearModule, Lattice
 
 
 class TestLatticeSemantics:
@@ -48,7 +47,7 @@ class TestLatticeSemantics:
 
     @classmethod
     def _wrapped_scaled_hyperbolic_plane(cls, scale):
-        wrapped = Lattice.from_sage(cls._native_scaled_hyperbolic_plane(scale))
+        wrapped = Lattice.from_gram(cls._native_scaled_hyperbolic_plane(scale).gram_matrix())
         assert wrapped.base_ring() is ZZ
         return wrapped
 
@@ -62,7 +61,7 @@ class TestLatticeSemantics:
             native.inner_product_matrix(),
         )
         assert changed_lattice.base_ring() is ZZ
-        return Lattice.from_sage(changed_lattice)
+        return Lattice.from_gram(changed_lattice.gram_matrix())
 
     @classmethod
     def _native_split_scaled_hyperbolic_plane(cls, scale):
@@ -75,7 +74,7 @@ class TestLatticeSemantics:
 
     @classmethod
     def _wrapped_split_scaled_hyperbolic_plane(cls, scale):
-        wrapped = Lattice.from_sage(cls._native_split_scaled_hyperbolic_plane(scale))
+        wrapped = Lattice.from_gram(cls._native_split_scaled_hyperbolic_plane(scale).gram_matrix())
         assert wrapped.base_ring() is ZZ
         return wrapped
 
@@ -88,7 +87,7 @@ class TestLatticeSemantics:
             matrix(ZZ, rows),
         )
         assert native.base_ring() is ZZ
-        return Lattice.from_sage(native)
+        return Lattice.from_gram(native.gram_matrix())
 
     @classmethod
     def _native_t_en(cls):
@@ -119,7 +118,7 @@ class TestLatticeSemantics:
         return native
 
     def test_free_module_and_lattice_element_semantics_are_exact(self) -> None:
-        wrapped_module = FreeBilinearModule.from_sage(IntegralLattice("U"))
+        wrapped_module = FreeBilinearModule(ZZ, IntegralLattice("U").inner_product_matrix())
         module_generator = next(iter(wrapped_module.gens()))
         wrapped_lattice = Lattice.U()
         basis_vector = next(iter(wrapped_lattice.basis()))
@@ -130,11 +129,12 @@ class TestLatticeSemantics:
 
     def test_k3_matches_the_literature_model_and_unimodularity(self) -> None:
         wrapped_lattice = Lattice.k3()
+        expected = Lattice.U() ** 3 + Lattice.E(8).twist(-1) ** 2
         rank_invariant, a_invariant, delta_invariant = wrapped_lattice.nikulin_invariants()
         assert wrapped_lattice.is_even()
         assert wrapped_lattice.discriminant_group().cardinality().is_one()
         assert wrapped_lattice.discriminant_group().is_p_elementary(2)
-        assert wrapped_lattice.is_isometric_to(self._native_k3())
+        assert wrapped_lattice.is_isometric_to(expected)
         assert not rank_invariant.is_zero()
         assert a_invariant.is_zero()
         assert delta_invariant.is_zero()
@@ -156,11 +156,11 @@ class TestLatticeSemantics:
         assert delta_invariant.is_zero()
 
     def test_t_en_sits_in_the_nikulin_domain(self) -> None:
-        wrapped_lattice = Lattice.from_sage(self._native_t_en())
+        wrapped_lattice = Lattice.U() + Lattice.U().twist(2) + Lattice.E(8).twist(2)
         rank_invariant, a_invariant, delta_invariant = wrapped_lattice.nikulin_invariants()
         assert wrapped_lattice.is_even()
         assert wrapped_lattice.discriminant_group().is_p_elementary(2)
-        assert wrapped_lattice.is_isometric_to(self._native_t_en())
+        assert wrapped_lattice.is_isometric_to(Lattice.U() + Lattice.U().twist(2) + Lattice.E(8).twist(2))
         assert not rank_invariant.is_zero()
         assert not a_invariant.is_zero()
         assert delta_invariant.is_zero()
@@ -176,12 +176,12 @@ class TestLatticeSemantics:
         """
         from sage.all import diagonal_matrix
 
-        two_two = Lattice.from_sage(IntegralLattice(diagonal_matrix(ZZ, [2, 2])))
-        one_four = Lattice.from_sage(IntegralLattice(diagonal_matrix(ZZ, [1, 4])))
+        two_two = Lattice.from_gram(diagonal_matrix(ZZ, [2, 2]))
+        one_four = Lattice.from_gram(diagonal_matrix(ZZ, [1, 4]))
         assert two_two.rank() == one_four.rank()
         assert two_two.signature_pair() == one_four.signature_pair()
         assert two_two.determinant() == one_four.determinant()
-        assert not two_two.has_isomorphic_discriminant_group_to(one_four)
+        assert not two_two.discriminant_group().isomorphic_as_groups(one_four.discriminant_group())
         assert not two_two.is_isometric_to(one_four)
 
     def test_signature_and_nikulin_domain_mismatches_preclude_isometry(self) -> None:
@@ -198,8 +198,8 @@ class TestLatticeSemantics:
         assert left.rank() == right.rank()
         assert left.signature_pair() == right.signature_pair()
         assert left.determinant() == right.determinant()
-        assert left.has_isomorphic_discriminant_group_to(right)
-        assert not left.has_isomorphic_discriminant_form_to(right)
+        assert left.discriminant_group().isomorphic_as_groups(right.discriminant_group())
+        assert not left.discriminant_group().is_isometric_to(right.discriminant_group())
         assert left.is_rationally_isometric_to(right)
         assert not left.is_locally_isometric_to(right, 2)
         assert left.is_locally_isometric_to(right, 3)
@@ -243,8 +243,8 @@ class TestLatticeSemantics:
         right = self._wrapped_basis_changed_scaled_hyperbolic_plane(3)
         assert left.discriminant_group().is_p_elementary(3)
         assert not left.discriminant_group().is_p_elementary(2)
-        assert left.has_isomorphic_discriminant_group_to(right)
-        assert left.has_isomorphic_discriminant_form_to(right)
+        assert left.discriminant_group().isomorphic_as_groups(right.discriminant_group())
+        assert left.discriminant_group().is_isometric_to(right.discriminant_group())
         assert left.is_rationally_isometric_to(right)
         assert left.is_locally_isometric_to(right, 2)
         assert left.is_locally_isometric_to(right, 3)
@@ -271,8 +271,8 @@ class TestLatticeSemantics:
         right = self._wrapped_lattice_from_gram_rows(self.UPSTREAM_U_I3_RIGHT)
         assert left.rank() == right.rank()
         assert left.signature_pair() == right.signature_pair()
-        assert left.has_isomorphic_discriminant_group_to(right)
-        assert left.has_isomorphic_discriminant_form_to(right)
+        assert left.discriminant_group().isomorphic_as_groups(right.discriminant_group())
+        assert left.discriminant_group().is_isometric_to(right.discriminant_group())
         assert left.is_rationally_isometric_to(right)
         assert left.is_in_same_genus_as(right)
         assert left.is_isometric_to(right)
@@ -336,34 +336,23 @@ class TestLatticeSemantics:
 
     def test_lattice_morphism_contracts_are_exact_on_k3(self) -> None:
         wrapped_lattice = Lattice.k3()
-        identity_morphism = wrapped_lattice.hom(
-            wrapped_lattice,
-            tuple(wrapped_lattice.basis()),
-        )
-        assert identity_morphism.image_lattice().is_isometric_to(wrapped_lattice)
-        assert identity_morphism.orthogonal_complement_of_image().rank().is_zero()
+        identity_morphism = wrapped_lattice.hom(wrapped_lattice).element_from_images(tuple(wrapped_lattice.basis()))
+        assert identity_morphism.image().is_isometric_to(wrapped_lattice)
+        assert identity_morphism.image().perp().rank().is_zero()
 
     def test_discriminant_group_identity_morphism_is_exact_for_a1_negative(
         self,
     ) -> None:
         wrapped_group = DiscriminantGroup.from_lattice(Lattice.A(1))
-        native_group = IntegralLattice(-IntegralLattice("A1").inner_product_matrix()).discriminant_group()
-        identity_morphism = wrapped_group.hom(
-            wrapped_group,
-            tuple(wrapped_group.gens()),
-        )
-        zero_morphism = wrapped_group.hom(wrapped_group, (wrapped_group.zero(),))
-        wrapped_to_native = wrapped_group.hom(
-            native_group,
-            tuple(native_group(generator.lift()) for generator in wrapped_group.gens()),
-        )
+        identity_morphism = wrapped_group.hom(wrapped_group).element_from_images(tuple(wrapped_group.gens()))
+        zero_morphism = wrapped_group.hom(wrapped_group).element_from_images((wrapped_group.zero(),))
         assert wrapped_group.zero().is_isotropic()
         assert identity_morphism.is_identity()
         assert not zero_morphism.is_identity()
         assert not zero_morphism.is_injective()
         assert not zero_morphism.is_surjective()
-        assert wrapped_to_native.is_injective()
-        assert wrapped_to_native.is_surjective()
+        assert identity_morphism.is_injective()
+        assert identity_morphism.is_surjective()
 
     @classmethod
     def _unimodular_shear(cls, gram):
@@ -379,9 +368,9 @@ class TestLatticeSemantics:
         A unimodular basis change produces a different Gram matrix for the same
         lattice; the definite isometry engine must recover this.
         """
-        standard = Lattice.from_sage(IntegralLattice("E8"))
+        standard = Lattice.from_gram(IntegralLattice("E8").gram_matrix())
         sheared_gram = self._unimodular_shear(IntegralLattice("E8").inner_product_matrix())
-        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        sheared = Lattice.from_gram(sheared_gram)
         assert sheared_gram != IntegralLattice("E8").inner_product_matrix()
         assert standard.is_in_same_genus_as(sheared)
         assert standard.is_isometric_to(sheared)
@@ -394,9 +383,9 @@ class TestLatticeSemantics:
         calling Sage's quadratic-form equivalence).
         """
         negative_e8_gram = -IntegralLattice("E8").inner_product_matrix()
-        standard = Lattice.from_sage(IntegralLattice(negative_e8_gram))
+        standard = Lattice.from_gram(negative_e8_gram)
         sheared_gram = self._unimodular_shear(negative_e8_gram)
-        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        sheared = Lattice.from_gram(sheared_gram)
         assert sheared_gram != negative_e8_gram
         assert standard.is_in_same_genus_as(sheared)
         assert standard.is_isometric_to(sheared)
@@ -422,8 +411,8 @@ class TestLatticeSemantics:
         positive-definite lattices of rank 16: E8 + E8 and D16+. They share
         the same genus but are not isometric.
         """
-        e8_e8 = Lattice.from_sage(IntegralLattice("E8").direct_sum(IntegralLattice("E8")))
-        d16_plus = Lattice.from_sage(self._d16_plus())
+        e8_e8 = Lattice.from_gram(IntegralLattice("E8").direct_sum(IntegralLattice("E8")).gram_matrix())
+        d16_plus = Lattice.from_gram(self._d16_plus().gram_matrix())
         assert e8_e8.rank() == d16_plus.rank()
         assert e8_e8.signature_pair() == d16_plus.signature_pair()
         assert e8_e8.determinant() == d16_plus.determinant()
@@ -443,8 +432,8 @@ class TestLatticeSemantics:
 
         diagonal_gram = diagonal_matrix(ZZ, [1] + [-1] * 8)
         sheared_gram = self._unimodular_shear(diagonal_gram)
-        standard = Lattice.from_sage(IntegralLattice(diagonal_gram))
-        sheared = Lattice.from_sage(IntegralLattice(sheared_gram))
+        standard = Lattice.from_gram(diagonal_gram)
+        sheared = Lattice.from_gram(sheared_gram)
         assert diagonal_gram != sheared_gram
         assert not standard.is_even()
         assert standard.is_in_same_genus_as(sheared)
@@ -453,25 +442,25 @@ class TestLatticeSemantics:
 
 class TestCentralizerAndEigenspaceMethods:
     """Tests for invariant_sublattice, coinvariant_sublattice,
-    centralizer_of_involution, and kernel_of_discriminant_action."""
+    centralizer, and kernel_of_discriminant_action."""
 
     def test_invariant_sublattice_minus_identity_is_empty(self) -> None:
         """ker(-I - I) = ker(-2I) = 0 over ZZ, so no fixed vectors."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
         inv = L.invariant_sublattice(iota)
         assert inv.rank() == 0
 
     def test_coinvariant_sublattice_minus_identity_is_full(self) -> None:
         """Every vector is a (-1)-eigenvector of -I, so coinvariant = full."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
         coinv = L.coinvariant_sublattice(iota)
         assert coinv.rank() == L.rank()
 
     def test_coinvariant_sublattice_gram_matches_original(self) -> None:
         """The inner product on L_ι agrees with L (A2 has only ±1 eigs for -I)."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
         coinv = L.coinvariant_sublattice(iota)
         # Coinvariant of -I has same Gram as L (basis = identity map)
@@ -481,7 +470,7 @@ class TestCentralizerAndEigenspaceMethods:
         """For a rank-2 involution on A1+A1, ranks split as 1+1=2."""
         # A1 ⊕ A1 Gram matrix: diag(2, 2)
         gram = matrix(ZZ, [[2, 0], [0, 2]])
-        L = Lattice.from_sage(IntegralLattice(gram))
+        L = Lattice.from_gram(gram)
         iota = matrix(ZZ, [[1, 0], [0, -1]])
         assert iota in L.orthogonal_group()
         inv = L.invariant_sublattice(iota)
@@ -492,16 +481,16 @@ class TestCentralizerAndEigenspaceMethods:
 
     def test_minus_identity_is_in_centralizer_of_a2(self) -> None:
         """-I commutes with every matrix, so it is in Z_{O(A2)}(-I)."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
-        Z = L.centralizer_of_involution(iota)
+        Z = L.orthogonal_group().centralizer(iota)
         assert iota in Z
 
     def test_centralizer_of_minus_identity_equals_full_group(self) -> None:
         """-I is central, so Z_{O(A2)}(-I) = O(A2); #gens should be positive."""
         L = Lattice.A(2)
         iota = -identity_matrix(ZZ, 2)
-        Z = L.centralizer_of_involution(iota)
+        Z = L.orthogonal_group().centralizer(iota)
         gens = Z.gens()
         assert len(gens) > 0
         O = L.orthogonal_group()
@@ -511,47 +500,47 @@ class TestCentralizerAndEigenspaceMethods:
     def test_non_commuting_matrix_not_in_centralizer(self) -> None:
         """A matrix that does not commute with iota is not in Z(iota)."""
         gram = matrix(ZZ, [[2, 0], [0, 2]])
-        L = Lattice.from_sage(IntegralLattice(gram))
+        L = Lattice.from_gram(gram)
         # Involution negating second factor
         iota = matrix(ZZ, [[1, 0], [0, -1]])
         # Swap permutation: commutes only if block sizes are equal here, but
         # the swap does NOT commute with this iota (swap then negate ≠ negate then swap)
         swap = matrix(ZZ, [[0, 1], [1, 0]])
         assert swap in L.orthogonal_group()
-        Z = L.centralizer_of_involution(iota)
+        Z = L.orthogonal_group().centralizer(iota)
         # swap * iota != iota * swap: [[0,-1],[1,0]] vs [[0,1],[-1,0]]
         assert swap not in Z
 
     def test_identity_in_kernel_of_discriminant_action(self) -> None:
         """The identity acts trivially on every discriminant group."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
-        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        K = L.orthogonal_group().centralizer(iota).kernel_of_discriminant_action()
         assert identity_matrix(ZZ, 2) in K
 
     def test_minus_identity_not_in_kernel_for_a2(self) -> None:
         """A2 has discriminant group Z/3Z; -I acts nontrivially on it."""
-        L = Lattice.from_sage(IntegralLattice("A2"))
+        L = Lattice.from_gram(IntegralLattice("A2").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
-        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        K = L.orthogonal_group().centralizer(iota).kernel_of_discriminant_action()
         assert iota not in K
 
     def test_kernel_of_disc_action_trivial_for_unimodular(self) -> None:
         """U is unimodular (A_L = 0), so every isometry acts trivially on A_L."""
-        L = Lattice.from_sage(IntegralLattice("U"))
+        L = Lattice.from_gram(IntegralLattice("U").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
-        K = L.centralizer_of_involution(iota).kernel_of_discriminant_action()
+        K = L.orthogonal_group().centralizer(iota).kernel_of_discriminant_action()
         assert iota in K
 
     def test_intersection_of_centralizer_and_stabilizer(self) -> None:
         """Z(ι) ∩ Stab(v) excludes -I when -I*v ≠ v."""
-        L = Lattice.from_sage(IntegralLattice("U"))
+        L = Lattice.from_gram(IntegralLattice("U").gram_matrix())
         iota = -identity_matrix(ZZ, 2)
         from sage.all import vector
 
         v = vector(ZZ, [1, 0])
-        Z = L.centralizer_of_involution(iota)
-        stab = L.stabilizer_of_vector(v)
+        Z = L.orthogonal_group().centralizer(iota)
+        stab = L.orthogonal_group().stabilizer(v)
         combined = Z & stab
         assert identity_matrix(ZZ, 2) in combined
         assert iota not in combined  # -I*v = -v ≠ v

@@ -1,4 +1,9 @@
-from src.lattices.core.abstract import BilinearModule, QuadraticModule
+from src.lattices.categories import BilinearModules
+from src.lattices.core.abstract import (
+    BilinearModule,
+    QuadraticModule,
+    TorsionBilinearModules,
+)
 from src.lattices.core.discriminant import DiscriminantForm, DiscriminantGroup, DiscriminantGroupElement
 from src.lattices.core.elements import DualLatticeElement, FreeBilinearModuleElement, LatticeElement, RationalLatticeElement
 from src.lattices.core.free import FreeBilinearModule

@@ -354,7 +354,7 @@ def _build_complement_decomposition(lattice, w):
         quotient_discriminant(data.direct_sum_discriminant_element(generator.lift()._ambient_vector()))
         for generator in lattice_discriminant.gens()
     ]
-    iota = lattice_discriminant.hom(quotient_discriminant, iota_images)
+    iota = lattice_discriminant.hom(quotient_discriminant).element_from_images(iota_images)
     assert iota.image().cardinality() == lattice_discriminant.cardinality()
     assert quotient_discriminant.cardinality() == lattice_discriminant.cardinality()
     return _ComplementDecomposition(
@@ -413,7 +413,7 @@ def _assemble_witness_from_complement_data(lattice, left, right, complement_isom
 
 
 def _search_discriminant_form_isometries(domain, codomain):
-    assert domain.has_isomorphic_quadratic_module_to(codomain)
+    assert domain.is_isometric_to(codomain)
     domain_gens = tuple(domain.smith_form_gens())
     codomain_elements = tuple(codomain)
     candidate_lists = []
@@ -437,7 +437,7 @@ def _search_discriminant_form_isometries(domain, codomain):
 def _rank_one_discriminant_isometries(domain, codomain):
     generator = codomain.gens()[0]
     for sign in (1, -1):
-        yield domain.hom(codomain, [sign * generator])
+        yield domain.hom(codomain).element_from_images([sign * generator])
 
 
 def _combined_direct_sum_discriminant_isometry(
@@ -450,7 +450,7 @@ def _combined_direct_sum_discriminant_isometry(
     images.extend(
         right.inject_complement_discriminant(complement_isometry(generator)) for generator in left.complement_discriminant.gens()
     )
-    return left.direct_discriminant.hom(right.direct_discriminant, images)
+    return left.direct_discriminant.hom(right.direct_discriminant).element_from_images(images)
 
 
 def _gluing_subgroups_match(left, right, direct_sum_isometry):
@@ -757,11 +757,11 @@ def _ambient_discriminant_action_is_surjective(lattice) -> bool:
 def _is_discriminant_form_isometry(domain_gens, hom) -> bool:
     for left_generator in domain_gens:
         image_left = hom(left_generator)
-        if image_left.quadratic_product() != left_generator.quadratic_product():
+        if image_left.q() != left_generator.q():
             return False
         for right_generator in domain_gens:
             image_right = hom(right_generator)
-            if image_left.inner_product(image_right) != left_generator.inner_product(right_generator):
+            if image_left.b(image_right) != left_generator.b(right_generator):
                 return False
     return True
 

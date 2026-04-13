@@ -51,6 +51,8 @@ class LatticeIsometryBackend:
         """
         assert left.base_ring() is ZZ
         assert right.base_ring() is ZZ
+        left_discriminant_group = left.discriminant_group()
+        right_discriminant_group = right.discriminant_group()
         match left, right:
             case _ if left.rank() != right.rank():
                 return False
@@ -58,9 +60,9 @@ class LatticeIsometryBackend:
                 return False
             case _ if left.determinant() != right.determinant():
                 return False
-            case _ if not left.has_isomorphic_discriminant_group_to(right):
+            case _ if not left_discriminant_group.isomorphic_as_groups(right_discriminant_group):
                 return False
-            case _ if not left.has_isomorphic_discriminant_form_to(right):
+            case _ if not left_discriminant_group.is_isometric_to(right_discriminant_group):
                 return False
             case _ if not left.is_rationally_isometric_to(right):
                 return False

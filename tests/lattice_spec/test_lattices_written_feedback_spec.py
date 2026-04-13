@@ -47,11 +47,16 @@ class TestArchitectureFromWrittenSpec:
         assert issubclass(DiscriminantForm, QuadraticModule)
 
     def test_public_morphism_hierarchy_matches_the_module_spec(self):
+        BilinearModuleHomSpace = lat.BilinearModuleHomSpace
+        BilinearModuleMorphism = lat.BilinearModuleMorphism
+        LatticeHomSpace = lat.LatticeHomSpace
         RationalLatticeMorphism = lat.RationalLatticeMorphism
         RationalLatticeHomSpace = lat.RationalLatticeHomSpace
         LatticeMorphism = lat.LatticeMorphism
 
+        assert BilinearModuleHomSpace.Element is BilinearModuleMorphism
         assert RationalLatticeHomSpace.Element is RationalLatticeMorphism
+        assert issubclass(LatticeHomSpace, RationalLatticeHomSpace)
         assert issubclass(LatticeMorphism, RationalLatticeMorphism)
 
 
@@ -116,6 +121,19 @@ class TestDualAndDiscriminantSemanticsFromWrittenSpec:
         assert A.q(f_dual.discriminant_class()) == 0
         assert A.b(e_dual.discriminant_class(), f_dual.discriminant_class()) == q(1, 2)
 
+    def test_mixed_zz_module_and_qq_valued_subobjects_stay_generic(self):
+        U2 = lat.Lattice.U().rescale(2)
+        dual = U2.dual()
+        submodule = dual.span((next(iter(dual.gens())),))
+        quotient = dual.quotient_by(submodule)
+
+        assert isinstance(submodule, lat.FreeBilinearModule)
+        assert isinstance(quotient, lat.FreeBilinearModule)
+        assert submodule.base_ring() is ZZ
+        assert quotient.base_ring() is ZZ
+        assert submodule.value_ring() is QQ
+        assert quotient.value_ring() is QQ
+
     def test_discriminant_form_uses_isometry_language_and_semantic_value_maps(self):
         A2_disc = lat.Lattice.A(2).discriminant_group()
         expected = lat.DiscriminantForm.from_invariants_and_gram((3,), [[q(-2, 3)]])
@@ -145,7 +163,7 @@ class TestMorphismAndSubobjectSemanticsFromWrittenSpec:
         assert iota_U.image() == ambient.span(tuple(iota_U(g) for g in U.gens()))
         assert iota_U.is_primitive()
         assert iota_U.cokernel().is_isometric_to(U2)
-        assert iota_U.perp() == iota_U2.image()
+        assert iota_U.image().perp() == iota_U2.image()
 
     def test_orthogonal_complements_are_expressed_via_inclusions_not_bare_lattices(self):
         U = lat.Lattice.U()
@@ -153,8 +171,8 @@ class TestMorphismAndSubobjectSemanticsFromWrittenSpec:
         ambient = U + U2
         iota_U, iota_U2 = ambient.embeddings
 
-        assert iota_U.perp() == iota_U2.image()
-        assert iota_U2.perp() == iota_U.image()
+        assert iota_U.image().perp() == iota_U2.image()
+        assert iota_U2.image().perp() == iota_U.image()
 
 
 class TestGroupSemanticsFromWrittenSpec:
@@ -171,7 +189,7 @@ class TestGroupSemanticsFromWrittenSpec:
     def test_discriminant_kernel_and_centralizer_semantics_remain_structural(self):
         U = lat.Lattice.U()
         minus_identity = -identity_matrix(ZZ, 2)
-        centralizer = U.centralizer_of_involution(minus_identity)
+        centralizer = U.orthogonal_group().centralizer(minus_identity)
         kernel = centralizer.kernel_of_discriminant_action()
 
         assert minus_identity in centralizer

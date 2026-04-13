@@ -51,6 +51,10 @@ adapter code are not source-of-truth artifacts.
   insofar as they are being migrated or deleted.
 - Existing generated code must be migrated and reused where mathematically sound
   rather than discarded wholesale.
+- General verbs must live on the highest semantically valid noun; do not push
+  broadly meaningful operations down into lattice-only subclasses when they make
+  sense for `BilinearModule`, its morphisms, or its hom spaces.
+- Morphisms are hom-space elements, not containers or ambient subobjects.
 
 ## Preconditions
 
@@ -87,10 +91,13 @@ Out of scope during the redesign:
 The public package should end in this form:
 
 - `src/lattices/__init__.py`: final public exports only
-- `src/lattices/core/abstract.py`: `BilinearModule`, `QuadraticModule`
+- `src/lattices/core/abstract.py`: concrete `BilinearModule` wrapping an FGP
+  module together with a bilinear form matrix in a fixed generator order,
+  bilinear-form wrapper nouns, quadratic-module layer
 - `src/lattices/core/elements.py`: element nouns and shared element behavior
 - `src/lattices/core/free.py`: free bilinear-module semantics over general `R`
-- `src/lattices/core/torsion.py`: torsion bilinear/quadratic module semantics
+- `src/lattices/core/torsion.py`: pure-torsion specialization of the general
+  bilinear-module noun
 - `src/lattices/core/rational.py`: `RationalLattice`, `DualLattice`
 - `src/lattices/core/integral.py`: `Lattice`
 - `src/lattices/core/discriminant.py`: `DiscriminantForm`,
@@ -132,19 +139,34 @@ deleted once their contents have been moved into the target hierarchy.
 
 ### Phase B: Core noun migration
 
-- Move abstract nouns, element semantics, free-module semantics, and
+- Replace the current abstract-shell top layer with a real semantic carrier:
+  `BilinearModule` must wrap a finitely generated module presented as an FGP
+  module together with a bilinear form matrix in a fixed generator order.
+- `FreeBilinearModule` and `TorsionBilinearModule` are specializations of that
+  general noun when the torsion part or free part vanishes, respectively.
+- Keep bilinear and quadratic public semantics distinct even when a class stores
+  multiple Sage backend objects for delegation.
+- Move shared element semantics, free-module semantics, and
   rational/integral lattice semantics into the target `core/` files.
 - Replace hard-coded `ZZ` where the written spec requires general `R`.
 - Remove rejected public state:
   `ambient_parent`, `inclusion_matrix`, `projection_lattice`,
   `projection_matrix`, `scaled_element`, `lift_vector`, and any public
   `native`-style methods.
+- Lift general module verbs upward so they live on `BilinearModule` unless they
+  truly require lattice-specific structure: `gens`, `element_from`, direct
+  sums, twists, submodule generation, quotient construction, bilinear-form
+  access, and related parent-level operations.
 - Remove public Sage leakage:
   `to_sage`, `from_sage`, direct Sage-object constructor admission, and
   analogous passthroughs that let callers bypass the semantic layer.
 - Remove optional-argument constructor shapes from the public nouns and split
   the cases into explicit constructors or class methods.
 - Completion:
+  - `BilinearModule(...)` is a concrete mixed free-plus-torsion noun backed by
+    an FGP module and a bilinear form matrix,
+  - `FreeBilinearModule` and `TorsionBilinearModule` are genuine special cases
+    of that noun rather than disjoint presentation systems,
   - public module/lattice nouns are presented only by generators and Gram data,
   - membership is parent-based,
   - no ambient embedding state remains on the public nouns,
@@ -186,14 +208,32 @@ deleted once their contents have been moved into the target hierarchy.
 ### Phase D: Morphisms and homspaces
 
 - Rebuild homspace nouns first, then morphism elements as elements of those
-  spaces.
+  spaces, wrapping Sage homsets and morphisms rather than hand-rolling matrix
+  carriers.
+- Use Sage's real parent hook: custom hom construction belongs on `_Hom_`,
+  not on ad hoc `Hom` forwarding methods.
+- Custom homsets must be initialized with the bilinear-module category itself;
+  passing the homset category in directly produces the wrong Sage construction
+  path.
+- Wrapped module/lattice/discriminant elements must be genuine Sage
+  `Element`/`ElementWrapper` instances; plain Python wrappers break
+  `Map.__call__`, coercion, and category-owned morphism behavior.
 - Implement the missing constructor families and migration of existing matrix
   and generator-image logic.
-- Replace the current bogus cokernel logic with actual object construction
-  driven by the inclusion or quotient in question.
+- Replace the current bogus cokernel logic with actual bilinear-module quotient
+  construction driven by the FGP module cokernel.
+- On torsion/discriminant backends, build homomorphisms through the backend's
+  own Smith-form constructor (`_hom_from_smith`) when that is the exact Sage
+  interface, rather than reassembling maps through ad hoc image routing.
 - Move matrix-isometry checking to the semantic containment boundary of the
   relevant hom-space or orthogonal-group noun instead of repeating matrix
   equations in ad hoc methods.
+- Delete wrong-noun APIs from morphisms: no morphism `__contains__`, no
+  morphism `perp`, and no ambient-subobject semantics on morphism elements.
+- Lift general morphism verbs upward so they live on
+  `BilinearModuleMorphism` unless they genuinely require integral/rational
+  specialization: `image`, `kernel`, `cokernel`, `is_primitive`, and the
+  standard constructors through hom-space parents.
 - Completion:
   - `hom()` returns homspaces,
   - morphisms own `image`, `kernel`, `cokernel`, `is_primitive`, and related
@@ -249,6 +289,164 @@ deleted once their contents have been moved into the target hierarchy.
 - Verification:
   - file inventory,
   - grep for banned names and rejected fields.
+
+## Current Status Snapshot
+
+This section records the actual redesign state after the `_Hom_` /
+`ElementWrapper` migration slice and after comparison against
+`CONTRIBUTING.md`, the lattice spec tests, and the durable lattice memories.
+It is the current signoff surface for what remains architecturally unresolved.
+
+### What is materially in place
+
+- The target subdirectory hierarchy from Phase A exists.
+- The canonical public module `src/lattices/lattices.py` has been restored as
+  the intended semantic export surface after it was accidentally blanked by QC
+  tooling.
+- The bilinear-module category now uses Sage's real `_Hom_` hook rather than
+  ad hoc `Hom` forwarding.
+- Bilinear-module and discriminant elements are now real Sage
+  `ElementWrapper`-based elements, which fixes the previous `Map.__call__`
+  failure mode.
+- Bilinear homsets/morphisms and discriminant homsets/morphisms now wrap Sage
+  hom objects instead of pretending plain Python wrappers are sufficient.
+- Homspace selection is now stratified by semantic layer rather than always
+  collapsing to the generic bilinear homspace:
+  - lattice-to-lattice homs produce lattice morphisms;
+  - rational-lattice homs produce rational-lattice morphisms;
+  - discriminant-group homs use their own discriminant homspace.
+- Direct sums now install their canonical summands and embedding morphisms on
+  the ambient result instead of throwing away that decomposition immediately.
+- Free torsionfree bilinear modules now use explicit Sage `FGP_Module`
+  backends, which makes mixed-ring hom construction behave predictably instead
+  of collapsing onto quotient-vector-space edge cases.
+- `DualLattice` is now modeled as a free `ZZ`-module with `QQ`-valued form,
+  rather than as a raw `QQ`-vector-space lattice.
+  This restores the intended semantics of the inclusion
+  `\iota_L : L \to L^*`:
+  - unimodular inclusions are surjective,
+  - non-unimodular inclusions have torsion cokernel,
+  - `coker(\iota_L)` can now be promoted to `DiscriminantGroup`.
+- The discriminant-hom path now handles both nontrivial Smith-form data and the
+  trivial discriminant-group endomorphism case without falling back to the
+  wrong Sage homset category.
+- Morphisms now expose the missing spec-facing verbs needed by the redesign
+  slice:
+  - `is_injective`, `is_surjective`, `is_bijective`, `is_isomorphism`,
+    `is_isometry`,
+  - `direct_sum`,
+  - `perp` on subobject embeddings.
+- A manual runtime sweep of the current written-feedback spec surface now
+  passes end to end without running the global QC/lint stack.
+- The correction artifacts already record the two critical Sage-integration
+  lessons from this slice:
+  - custom hom construction belongs on `_Hom_`;
+  - wrapped elements must be genuine Sage elements.
+
+### Framing corrections carried into this plan
+
+The user corrected the execution framing in April 2026, and this plan must
+preserve those corrections explicitly:
+
+- The spec is the contract for this redesign.
+  Files under `tests/lattice_spec/` and the relevant lattice/module files under
+  `tests/sage_spec/` are normative until the user says otherwise.
+- Unimplemented spec surface is remaining required work.
+  It is not "aspirational", not optional migration material, and not an
+  external obstacle category separate from the work itself.
+- Intermediate redesign slices are not task completion.
+  This plan must not declare success while required spec surface remains
+  unimplemented.
+
+### Current remaining required work
+
+The redesign stop condition is not yet met because required spec work remains.
+The items below are unfinished implementation, not polish:
+
+- `CONTRIBUTING.md` still forbids optional/default public APIs, but the live
+  lattice surface still exposes them in files such as
+  `src/lattices/core/free.py`,
+  `src/lattices/core/rational.py`,
+  `src/lattices/core/integral.py`,
+  `src/lattices/core/discriminant.py`,
+  `src/lattices/groups/orthogonal.py`,
+  `src/lattices/morphisms/discriminant.py`,
+  `src/lattices/morphisms/homspaces.py`, and
+  `src/lattices/categories/bilinear_modules.py`.
+  These are not style nits; they violate the stated public API contract.
+- Backend encapsulation is still incomplete.
+  Public-path lattice/discriminant/group code still depends on
+  `_sage_like` / `_from_sage_like`, and discriminant comparison still reaches
+  into Sage-private data such as `_modulus` / `_modulus_qf`.
+  That remains architectural leakage under `CONTRIBUTING.md`.
+- The general module-theory surface required by `tests/sage_spec/misc.sage`
+  remains to be implemented on the noun layer:
+  free/torsion decomposition, tensor/base-change/localization/completion,
+  richer `Hom`/`End`/`Aut` support, kernels/cokernels/projections/natural maps,
+  and the stated `Tor`/`Ext`-adjacent module semantics.
+- The root/Weyl/Coxeter/Eichler surface required by
+  `tests/lattice_spec/interface_extensions.sage` and
+  `tests/sage_spec/coxeter.sage` remains to be implemented:
+  root systems, root sublattices, Weyl groups, Coxeter diagrams, reflections,
+  reflection decompositions, Eichler groups, and the associated diagram/group
+  morphism surface.
+- The discriminant and subobject enrichment required by
+  `tests/lattice_spec/interface_extensions.sage` and
+  `tests/lattice_spec/more_specs.sage` remains to be implemented:
+  isotropic-element enumerators, norm-class partitions, value maps,
+  saturated-image/submodule semantics, and the richer quotient/cokernel
+  behavior required by the written spec.
+- The witness/functionals and dual-surface API required by
+  `tests/lattice_spec/more_specs.sage` remains to be implemented:
+  witness-returning isometry checks, the exact functional/homspace constructor
+  surface, and the remaining dual/discriminant lift behavior.
+- The canonical-construction gap is still open.
+  `tests/lattice_spec/interface_semantics.sage` and
+  `tests/lattice_spec/todo_general_indefinite_isometry_spec.py` still need raw
+  `IntegralLattice`, `ambient_module()`, and basis-surgery constructions for
+  some cases, which means the noun surface is still missing required canonical
+  constructors or exact transforms.
+- The plan artifact itself was previously corrupted by a false completion
+  declaration.
+  Until this list is kept in sync with the real code/spec state, this
+  file is not a reliable signoff surface.
+
+### Immediate redesign order
+
+The next implementation slices should proceed in this order:
+
+- remove optional/default/`None`-shaped public API surfaces until the noun
+  layer conforms to `CONTRIBUTING.md`;
+- reduce public-path Sage leakage, keeping backend interop private instead of
+  admitting or comparing raw Sage objects through noun methods;
+- implement the general module-theory surface required by
+  `tests/sage_spec/misc.sage`;
+- implement the root/Weyl/Coxeter/Eichler surface required by
+  `tests/lattice_spec/interface_extensions.sage` and
+  `tests/sage_spec/coxeter.sage`;
+- implement the discriminant/subobject enrichment and witness/functionals
+  surface required by `tests/lattice_spec/interface_extensions.sage` and
+  `tests/lattice_spec/more_specs.sage`;
+- extend the noun surface so the remaining spec cases stop depending on raw
+  `IntegralLattice`, `ambient_module()`, and basis-surgery setup;
+- only after the required spec surface is implemented may this file grow a
+  completion section again.
+
+### Stop condition
+
+The redesign is complete only when all of the following are true:
+
+- the public noun surface no longer violates the `CONTRIBUTING.md` rules on
+  optional/default public APIs;
+- public lattice/discriminant/group methods no longer rely on raw Sage-object
+  admission or Sage-private invariants as part of their external contract;
+- the remaining required surface in `tests/lattice_spec/` and the relevant
+  lattice/module specs in `tests/sage_spec/` is implemented rather than being
+  downgraded, deferred, or described as optional;
+- the live spec gate is canonical and noun-based rather than mixed with raw
+  `IntegralLattice` construction patterns;
+- this plan file accurately reflects remaining required work instead of
+  declaring completion early.
 
 ## Task-Level Stop Rules
 

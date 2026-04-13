@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 from sage.all import QQ, ZZ, Integer, MatrixSpace, matrix, vector
 from sage.sets.condition_set import ConditionSet as _ConditionSet
-
 from src.lattices.core.elements import FreeBilinearModuleElement
 
 
@@ -17,9 +16,9 @@ def _as_coordinate_vector(value):
 def _acts_trivially_on_discriminant(lattice, M) -> bool:
     candidate = matrix(ZZ, M)
     for generator in lattice.discriminant_group().gens():
-        lift_vector = generator.lift()._ambient_vector()
+        lift_vector = generator.lift().to_primal_coordinates()
         diff = candidate * lift_vector - lift_vector
-        if not all(entry in ZZ for entry in diff):
+        if vector(QQ, diff).denominator() != 1:
             return False
     return True
 
@@ -197,6 +196,17 @@ class _LatticeOrthogonalSet:
         return self.subgroup(
             gens_fn=lambda: self._lattice._matrices_from_raw(indefinite_form_stabilizer_isotropic_flag(self._lattice._gram_rows(), basis_rows)),
             predicate=predicate,
+        )
+
+    def centralizer(self, value):
+        candidate = matrix(ZZ, value)
+        positive_rank, negative_rank = self._lattice.signature_pair()
+        gens_fn = None
+        if type(self) is LatticeOrthogonalGroup and ((not positive_rank) or (not negative_rank)):
+            gens_fn = lambda: self._lattice._centralizer_gens_via_gap(candidate)
+        return self.subgroup(
+            gens_fn=gens_fn,
+            predicate=lambda M, _candidate=candidate: M * _candidate == _candidate * M,
         )
 
     def find_vector_isometry(self, left, right):

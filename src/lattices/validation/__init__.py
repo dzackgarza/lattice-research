@@ -10,6 +10,4 @@ from src.lattices.validation.presentations import (
     canonical_modulo,
     clear_denominators,
     default_generator_names,
-    matrix_has_entries_in,
-    right_kernel_basis,
 )

@@ -507,12 +507,13 @@ def _compute_ambient_isotropic_orbits(lattice, orbit_kind, *, flag_depth=None):
 
 
 def _compute_ambient_stabilizer_generators(lattice, orbit_kind, isotropic_object):
+    ambient_group = lattice.orthogonal_group()
     if orbit_kind == "line":
-        return lattice.stabilizer_of_isotropic_line(isotropic_object).gens()
+        return ambient_group.stabilizer_of_isotropic_line(isotropic_object).gens()
     if orbit_kind == "plane":
-        return lattice.stabilizer_of_isotropic_plane(*isotropic_object).gens()
+        return ambient_group.stabilizer_of_isotropic_plane(*isotropic_object).gens()
     assert orbit_kind == "flag"
-    return lattice.stabilizer_of_isotropic_flag(list(isotropic_object)).gens()
+    return ambient_group.stabilizer_of_isotropic_flag(list(isotropic_object)).gens()
 
 
 def _compute_ambient_equivalence_witness(lattice, orbit_kind, left, right):

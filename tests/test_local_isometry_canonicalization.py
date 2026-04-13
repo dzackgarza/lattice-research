@@ -37,12 +37,10 @@ def test_local_isometry_canonicalization_at_prime_two():
     det_M = M_Z2.det()
     assert det_M.is_unit()
 
-    from sage.all import IntegralLattice
+    from src.lattices.lattices import Lattice
 
-    from coble_geometry_foundation import Lattice
-
-    L1 = Lattice.from_sage(IntegralLattice(A_mat))
-    L2 = Lattice.from_sage(IntegralLattice(B_mat))
+    L1 = Lattice.from_gram(A_mat)
+    L2 = Lattice.from_gram(B_mat)
 
     # Verify that the library correctly identifies them as isometric
     # This proves that our use of the Genus symbol object's equality handles

@@ -5,7 +5,7 @@ from functools import cache
 from itertools import combinations
 
 import pytest
-from src.coble_geometry_foundation import Lattice
+from src.lattices.lattices import Lattice
 
 
 def _hyperbolic_plane():
@@ -13,12 +13,12 @@ def _hyperbolic_plane():
 
 
 def _two_hyperbolic_planes():
-    return Lattice.from_sage(Lattice.U().direct_sum(Lattice.U()))
+    return Lattice.U() + Lattice.U()
 
 
 @cache
 def _t_en():
-    return Lattice.from_sage(Lattice.U().direct_sum(Lattice.U().twist(2)).direct_sum(Lattice.E(8).twist(2)))
+    return Lattice.U() + Lattice.U().twist(2) + Lattice.E(8).twist(2)
 
 
 @cache
