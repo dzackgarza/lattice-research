@@ -637,6 +637,35 @@ connecting it back to its source. If `f.cokernel()` doesn't have a
 projection morphism from `B`, it's not a cokernel -- it's a data leak.
 
 
+### Every Category Has Explicit Constructors
+
+Every category must provide simple, concrete ways to create its objects
+and morphisms from data. Objects are created from mathematical data (a
+module and a form, a ring and a matrix, etc.). Morphisms are created from
+hom spaces, which accept dicts, image lists, matrices, or callables -- but
+the morphism is never *literally equal to* any of those things.
+
+```python
+# Objects from data
+L = BilinearModule(ZZ^3 + ZZ/2, gram_matrix)
+H = L1.Hom(L2)
+
+# Morphisms from data (not equal to the data)
+f = H.element_from_dict({e: f, f: e})
+g = H.element_from_matrix(M)
+h = H.element_from_function(lambda x: ...)
+
+assert f.to_matrix() == M      # Can extract the matrix
+assert f != M                  # But the morphism is not the matrix
+assert M not in H              # And the matrix is not in the hom space
+```
+
+This applies recursively: the elements of a module are constructed via the
+module's `__call__` or `element_from` methods, not by passing raw vectors.
+The elements of a group are constructed via the group's element
+constructors, not by passing raw matrices.
+
+
 ### Automatic Category Promotion
 
 Objects promote to the richest category their invariants support. This is
@@ -685,6 +714,67 @@ confused.
 The resulting gram matrix of `n*L` is `n^2 * G`, not `n*G`.
 
 
+### Elements Are Symbolic, Not Numerical
+
+In `U`, the expression `e + f` is the formal symbol $e + f$, not the
+vector `[1, 1]`. Elements live in their parent; numerical representations
+are extracted explicitly when needed.
+
+```python
+L.<e, f> = Lattice.U()
+v = e + f               # A formal element of L
+assert v in L            # Yes
+assert [1, 1] not in L   # A list is not an element
+assert v.to_vector() == vector(ZZ, [1, 1])  # Explicit extraction
+```
+
+**Matrices are not morphisms. Vectors are not elements.** A matrix is a
+numerical representation of a morphism in a chosen basis. A vector is a
+numerical representation of an element in a chosen basis. The
+basis-dependent data is never conflated with the basis-independent object:
+
+```python
+swap = matrix(ZZ, [[0,1],[1,0]])
+assert swap not in L.O()                    # A matrix is not a hom
+assert L.O().element_from_matrix(swap) in L.O()  # Construct, then check
+```
+
+This separation defers basis-dependent choices until they are absolutely
+necessary for numerical computation. Code that works with formal elements
+and morphisms is more general, more readable, and less error-prone than
+code that works with vectors and matrices directly.
+
+**Corollary:** `is_isomorphic` checks should always be available, and
+always via an explicit witness morphism. If `A` is isomorphic to `B` but
+not by the identity, then `v in A` does NOT mean `v in B`. Only `f(v)` is
+in `B`, where `f` is the specific isomorphism. Structure is never
+implicitly transferred.
+
+
+### Validation at Construction
+
+Whether a map is a morphism in a given category is checked at construction
+time, as part of hom-space element creation -- not as a post-hoc assertion.
+
+```python
+# Good: validation happens inside element_from_matrix
+f = L.O().element_from_matrix(swap)  # Checks isometry condition internally
+assert f in L.O()                    # Redundant but readable
+
+# Bad: construct a raw object, then separately check validity
+f = SomeMap(swap)
+assert f.to_matrix().T * G * f.to_matrix() == G  # Post-hoc verification
+```
+
+This applies generally: all categories should validate their construction
+contracts at the point where objects are created. Hom spaces validate that
+maps preserve the relevant structure. Module constructors validate that the
+gram matrix is symmetric. Group element constructors validate the group
+axioms. The resulting objects are then *known* to be valid by construction,
+and post-hoc checks are unnecessary (though acceptable as spec assertions
+that encode mathematical content).
+
+
 ### Witnesses for Existence Claims
 
 Any method that answers an existence question ("is there an isometry?",
@@ -698,6 +788,10 @@ assert f in L1.Hom(L2)
 The witness is itself a mathematical object (a morphism, an element, etc.)
 that lives in the appropriate hom space or parent. It is not a matrix, a
 dict, or a boolean -- it is a proof.
+
+Conversely, all objects support `is_isomorphic_to` (or the appropriate
+variant for the category: `is_isometric_to` for bilinear modules,
+`isomorphic_as_groups` for groups, etc.).
 
 
 ### Everything Has an Underlying Set
