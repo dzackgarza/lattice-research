@@ -404,413 +404,222 @@ based on centralized predicates.
   lattice; use `L.span([..])`]
 
 
-## Vocabulary Reference
+## Style Principles
 
-The following vocabulary is extracted from the authoritative `*.sage` spec
-files in `tests/`. These are the behavioral contracts that every object in
-the hierarchy must satisfy at the appropriate level.
+The following principles are distilled from the authoritative `*.sage` spec
+files in `tests/`. They generalize the style to any new code, including
+objects and constructions not yet specced. For concrete method signatures
+and behavioral contracts, read the spec files themselves:
 
-Source files:
-- `tests/sage_spec/misc.sage` (module theory)
-- `tests/sage_spec/lattice_methods.sage` (lattice orthogonal groups, spans,
-  perps, eigenlattices, roots, Weyl, Coxeter, enumeration)
-- `tests/lattice_spec/interface_semantics.sage` (constructors, elements,
-  discriminant, orbits, stabilizers)
-- `tests/lattice_spec/interface_extensions.sage` (duals, embeddings,
-  saturation, explicit groups, Eichler)
-- `tests/lattice_spec/more_specs.sage` (dual functionals, twist vs
-  multiplication, torsion bilinear modules)
-- `tests/sage_spec/coxeter.sage` (root lattices, Coxeter diagrams, diagram
-  automorphisms, folding)
+- `tests/sage_spec/misc.sage` -- module theory
+- `tests/sage_spec/lattice_methods.sage` -- orthogonal groups, spans, perps,
+  eigenlattices, roots, Weyl, Coxeter, enumeration
+- `tests/lattice_spec/interface_semantics.sage` -- constructors, elements,
+  discriminant, orbits, stabilizers
+- `tests/lattice_spec/interface_extensions.sage` -- duals, embeddings,
+  saturation, explicit groups, Eichler
+- `tests/lattice_spec/more_specs.sage` -- dual functionals, twist vs
+  multiplication, torsion bilinear modules
+- `tests/sage_spec/coxeter.sage` -- root lattices, Coxeter diagrams,
+  folding
 
 
-### Operator Vocabulary (Expanded)
+### Write Code That Reads as Mathematics
 
-The syntax sugar table in this document gives short descriptions. The
-following clarifies critical distinctions visible in the specs.
+Prefer syntax that mirrors how a mathematician would write it on a
+blackboard. Sage's preparser and operator overloading exist precisely for
+this.
 
-**`+` is external direct sum, `L.span([..])` is internal span:**
+| Prefer | Avoid |
+|--------|-------|
+| `ZZ^n` | `FreeModule(ZZ, n)` |
+| `ZZ/2` | `ZZ.quotient(ZZ.ideal(2))` |
+| `2*ZZ` | `ZZ.ideal(2)` |
+| `M + N` | `M.direct_sum(N)` |
+| `M * N` | `M.tensor_product(N)` |
+| `B / A` | `B.quotient_by(A)` |
+| `L^G` | `G.invariant_sublattice()` |
+| `G <= H` | `G.is_subgroup_of(H)` |
+| `f^2 == id` | `f.is_involution()` (as a definition; ok as a convenience) |
+
+The test for whether syntax is right: could you copy-paste it into a
+textbook and have it be understood? `ZZ^3` reads as "$\mathbb{Z}^3$";
+`FreeModule(ZZ, 3)` reads as a Java constructor.
+
+
+### Containment Over Equations
+
+The single most important principle. To verify a property of an object,
+**check that it lives in the right set**, don't reproduce the defining
+equations of that set.
+
+**Bad:**
 ```python
-e.span() + f.span() != L.span([e,f])
+assert all(m in ZZ for m in M.gram_matrix().list())
+assert f.to_matrix().T * G * f.to_matrix() == G
 ```
-The left side is the external direct sum (forces off-diagonal gram entries
-to zero). The right side is the internal span within `L` (preserves the
-bilinear form of `L`). These are **not** interchangeable.
 
-**`L.twist(n)` vs `n * L`:**
-`L.twist(n)` scales the gram matrix by `n`. `n * L` scales the generators
-by `n`, i.e. `n * L := {n*v | v in L}`. Generally `n * L` is isometric to
-`L.twist(n^2)`, not `L.twist(n)`.
-
+**Good:**
 ```python
-assert U.twist(2).gram_matrix() == 2 * U.gram_matrix()
-assert not (2*U).is_isometric(U.twist(2))
+assert M.gram_matrix() in GL(n, ZZ)
+assert f in L.O()
 ```
 
-**`L^G` is the invariant sublattice:**
+Why: `f in O(L)` asserts a *mathematical theorem* -- that `f` is an
+isometry. The manual matrix equation asserts a *programming fact* that
+happens to be equivalent. The set-membership version:
+
+- Has one source of truth for the defining equation (inside `O(L).__contains__`)
+- Prevents convention drift (left vs right action, transpose conventions)
+- Reads like mathematics
+- Generalizes: the same pattern works for `f in Hom(L_1, L_2)`,
+  `v in ZZ^n`, `M in Modules(ZZ)`, `G in Groups`
+
+**Corollary -- assert mathematical content, not implementation
+tautologies:**
+
 ```python
-assert L^G == G.invariant_sublattice()
+# Rich mathematical fact: base change preserves module structure
+assert L.base_change(ZZ/2) in Modules(ZZ) and L.base_change(ZZ/2) in Modules(ZZ/2)
+
+# Tautology: reads back a constructor argument
+assert L.base_ring() == ZZ
 ```
 
-**Canonical isomorphisms are equalities:**
-When a canonical isomorphism exists, `==` should hold:
+The first tells you something about the *category theory* of base change.
+The second tells you nothing you didn't already know from constructing `L`.
+Prefer assertions that would be nontrivial theorems.
+
+
+### Canonical Isomorphisms Are Equalities
+
+When a canonical isomorphism exists in mathematics, `==` should hold in
+code:
+
 ```python
-assert M/(2*M) == M.tensor(Z2)
-assert M.base_change(Z2) == M.tensor(Z2)
+assert M/(2*M) == M.tensor(ZZ/2)
+assert M.base_change(ZZ/2) == M.tensor(ZZ/2)
 assert M.dual() == M.Hom(ZZ)
-```
-
-**`<=` for subgroup containment:**
-```python
-assert G <= L.O()  # G.is_subgroup_of(L.O())
-```
-
-
-### Construction Vocabulary
-
-**Named lattice constructors** (class methods on `Lattice`):
-- `Lattice.Z()` -- rank-1 lattice with gram `[[1]]`
-- `Lattice.U()` -- hyperbolic plane
-- `Lattice.A(n)`, `Lattice.D(n)`, `Lattice.E(n)` -- root lattices
-- `Lattice.II(p, q)` -- unique even unimodular lattice of signature `(p,q)`
-- `Lattice.I(p, q)` -- unique odd unimodular lattice of signature `(p,q)`
-- `Lattice.k3()` -- K3 lattice
-- `Lattice.coble_picard()` -- Coble Picard lattice
-- `Lattice.from_gram(matrix)` -- construct from gram matrix
-- `Lattice.from_string("U(2) + A_1")` -- parse LaTeX-like notation
-- `Lattice.root_lattice("A4")` -- root lattice by Dynkin type
-
-**Module constructor** (general bilinear modules):
-- `FreeBilinearModule(R, gram_matrix)` -- over any PID `R`
-- `BilinearModule(R, gram_matrix)` -- including torsion, e.g.
-  `BilinearModule(ZZ/(2*ZZ), matrix(...))`
-
-**Generator assignment syntax** (Sage preparser sugar):
-```python
-L.<e, f> = Lattice.U()
-M.<x, y, z> = ZZ^3
-R.<r1, r2, r3, r4> = L.root_system()
-G.<n1, n2, n3, n4> = L.coxeter_diagram()
-```
-
-
-### Element Vocabulary
-
-Every element of a bilinear module should support:
-
-| Method | Returns | Semantics |
-|--------|---------|-----------|
-| `v * w` or `v.inner_product(w)` | scalar | `beta(v, w)` |
-| `v^2` or `v * v` | scalar | `beta(v, v)` (norm) |
-| `v.is_isotropic()` | bool | `v^2 == 0` |
-| `v.is_primitive()` | bool | not `k*w` for any `k >= 2`, `w in L` |
-| `v.divisibility()` | integer | `gcd{beta(v, w) : w in L}` |
-| `v.discriminant_class()` | element of `A_L` | image in discriminant group |
-| `v.span()` | subobject | `L.span([v])` |
-| `v.perp()` | subobject | orthogonal complement in ambient |
-| `v.inclusion()` | morphism | `v.span() -> L` |
-| `v.isotropic_reduction()` | bilinear module | `v.perp() / v` (when `v` isotropic) |
-| `v.reflection()` | isometry | `s_v(x) = x - (2*beta(v,x)/beta(v,v))*v` (non-isotropic `v`) |
-| `v.is_root()` | bool | `s_v` is an integral isometry |
-| `v.stabilizer()` | group | `{g in O(L) : g(v) = v}` |
-
-
-### Morphism Vocabulary
-
-Every morphism `f: A -> B` of bilinear modules should support:
-
-| Method | Returns | Semantics |
-|--------|---------|-----------|
-| `f.domain()` | bilinear module | source |
-| `f.codomain()` | bilinear module | target |
-| `f(v)` | element | apply to element |
-| `f.apply_to([v1, v2])` | list | apply to sequence |
-| `f.to_matrix()` | matrix | matrix representation |
-| `f.to_dict()` | dict | generator-image pairs |
-| `f.is_injective()` | bool | trivial kernel |
-| `f.is_surjective()` | bool | image equals codomain |
-| `f.is_bijective()` | bool | injective and surjective |
-| `f.is_isomorphism()` | bool | bijective (as bilinear modules) |
-| `f.is_isometry()` | bool | preserves the bilinear form |
-| `f.is_identity()` | bool | identity morphism |
-| `f.is_involution()` | bool | `f^2 == id` |
-| `f.is_primitive()` | bool | cokernel is torsion-free |
-| `f.order()` | integer | smallest `n` with `f^n == id` |
-| `f.kernel()` | bilinear module | kernel as explicit module |
-| `f.cokernel()` | bilinear module | cokernel as explicit module |
-| `f.image()` | subobject | image with inclusion |
-| `f.lift(element)` | element | find some preimage |
-| `f.inverse()` | morphism | inverse (when bijective) |
-| `f.direct_sum(g)` | morphism | `f + g: A1+A2 -> B1+B2` |
-| `f.base_change(S)` | morphism | extend scalars to `S` |
-| `f.cyclic_subgroup()` | group | `<f>` (when `f` is an automorphism) |
-| `f.as_word_in_reflections()` | list | decompose into reflections |
-
-
-### Cokernel Contract
-
-When `f: A -> B` has nontrivial cokernel, the cokernel object must carry:
-
-```python
-C = f.cokernel()        # Explicit bilinear module
-pi = C.projection()     # The morphism pi: B -> C
-assert pi.is_surjective()
-assert pi.kernel() == f.image()
-
-# Cokernel generators lift
-c_bar = next(iter(C.gens()))
-assert c_bar.lift() in B  # Lift back to B
-
-# Cokernel has invariants (for FGP modules)
-assert C.invariants() == [2, 3]  # Smith normal form invariants
-```
-
-
-### Hom Space Vocabulary
-
-For `H = A.Hom(B)`:
-
-| Method | Returns | Semantics |
-|--------|---------|-----------|
-| `H.element_from_dict({...})` | morphism | preferred construction |
-| `H.element_from_images([...])` | morphism | images of generators |
-| `H.element_from_matrix(M)` | morphism | from matrix representation |
-| `H.element_from_function(f)` | morphism | from any callable |
-| `H.natural_map()` | morphism | canonical map (when exists) |
-
-**End/Aut:**
-```python
-assert M.End() == M.Hom(M)
-assert M.End().identity() in M.Aut()
-assert M.End() in Monoids
-assert M.Aut() in Groups
-```
-
-
-### Orthogonal Group Vocabulary
-
-For `G = L.orthogonal_group()` (abbreviated `L.O()`):
-
-| Method | Returns | Semantics |
-|--------|---------|-----------|
-| `G.stabilizer(v)` | subgroup | `{g : g(v) = v}` |
-| `G.stabilizer_of_isotropic_line(v)` | subgroup | `{g : g(<v>) = <v>}` |
-| `G.centralizer(f)` | subgroup | `{g : gf = fg}` |
-| `G.kernel_of_discriminant_action()` | subgroup | `ker(G -> O(A_L))` |
-| `G.isotropic_line_orbits()` | set | orbits of isotropic lines |
-| `G.isotropic_plane_orbits()` | set | orbits of isotropic planes |
-| `G.isotropic_flag_orbits(dim)` | set | orbits of isotropic flags |
-| `G.isotropic_lines_are_equivalent(e, f)` | bool | same orbit |
-| `G.special_orthogonal_subgroup()` | subgroup | `SO(L)` |
-| `G.inclusion()` | morphism | into `O(L)` (for subgroups) |
-| `G.index()` | integer | `[O(L) : G]` |
-| `G.identity()` | morphism | identity isometry |
-| `G.element_from_matrix(M)` | isometry | validate and construct |
-| `G.from_matrix(M)` | isometry | alias |
-| `G.subgroup_from_gens([...])` | subgroup | subgroup by generators |
-| `G.invariant_sublattice()` | sublattice | `L^G` |
-| `G.coinvariant_sublattice()` | sublattice | `(L^G)^perp` |
-| `G.invariant_coinvariant_sublattice_pair()` | pair | both at once |
-
-**Convenience abbreviations:**
-- `L.O()` = `L.orthogonal_group()`
-- `L.W()` = `L.weyl_group()`
-- `L.E()` = `L.eichler_group()`
-- `L.O_plus()` = stable orthogonal group
-- `L.Aut()` = `L.O()` (for lattices, automorphisms = isometries)
-- `L.b(v, w)` = bilinear form evaluation
-
-
-### Dual and Discriminant Vocabulary
-
-**Dual lattice elements are functionals:**
-```python
-L_dual = L.dual()
-e_star, f_star = L_dual.gens()
-assert e_star in L.Hom(Lattice.Z())   # Each dual element is a morphism L -> ZZ
-assert e_star(e) == 1 and e_star(f) == 0   # Dual basis
-```
-
-**The inclusion morphism `iota_L: L -> L*`:**
-```python
-iota = L.dual().inclusion_morphism()
-assert iota(e) == L.Hom(Lattice.Z()).from_dict({e: L.b(e,e), f: L.b(e,f)})
-```
-
-**Discriminant group from cokernel:**
-```python
 assert L.discriminant_group() == L.dual() / L
 ```
 
-**Discriminant class of elements:**
-```python
-assert e.discriminant_class() in A_L
-assert e.discriminant_class().lift() in L.dual()
-```
-
-**Discriminant form methods:**
-```python
-A = L.discriminant_group()
-assert A.b(g1, g2) == QQ(1, 2)          # Bilinear form (QQ/ZZ-valued)
-assert A.q(g1) == 0                       # Quadratic form (QQ/2ZZ-valued)
-assert A.isotropic_elements() == {...}    # {g : q(g) == 0}
-assert A.elements_of_norm(k) == {...}     # {g : q(g) == k}
-assert A.value_map() == {0: {...}, 1: {...}}  # norm -> elements
-```
+This is not just sugar. It enforces that the universal property is actually
+implemented: the base change of `M` to `ZZ/2` must *be* the tensor product,
+not merely be isomorphic to it.
 
 
-### Direct Sum Structure
+### Verbs Live on the Right Noun
 
-When `L = L1 + L2`:
+Every mathematical verb belongs on the object that *owns* that concept.
+When in doubt, ask: "In a textbook, what object is the subject of this
+sentence?"
 
-```python
-L1p, L2p = L.summands
-iota_1, iota_2 = L.embeddings
+- Stabilizers, centralizers, orbits -> methods on the group, not the lattice
+- Perp, span -> methods on the element or subobject, not the ambient space
+- Kernel, cokernel, image -> methods on the morphism
+- Invariants (delta, coparity) -> methods on the lattice, not its
+  discriminant group
 
-assert iota_1.domain().is_isometric_to(L1)
-assert iota_1.image().perp() == iota_2.image()
-assert iota_1.is_primitive()
-assert iota_1.cokernel().is_isomorphic_to(L2)
+**Bad:** `L.centralizer_of_involution(f)` -- the lattice is not computing
+centralizers; the group is.
 
-# Direct sum of embeddings
-iota = iota_1.direct_sum(iota_2)
-assert iota.is_bijective() and iota.is_isomorphism()
-```
+**Good:** `L.O().centralizer(f)` -- the orthogonal group owns the concept.
 
-
-### Span and Subobject Vocabulary
-
-**Spans are constructed from an ambient lattice:**
-```python
-S = L.span([v1, v2, v3])    # Internal span within L
-assert S.inclusion() in S.Hom(L)
-assert S.perp() == ...       # Perp within L
-```
-
-**Perps are defined with respect to inclusion morphisms:**
-```python
-assert e.perp() == e.span().perp()
-```
-
-**Saturation:**
-```python
-assert S.is_saturated()      # Cokernel of inclusion is torsion-free
-assert S.saturation() == L   # Smallest saturated overlattice
-assert S.inclusion().index() == 2
-```
+This generalizes: if you're adding a new verb and it feels awkward on the
+noun you've chosen, you probably need a different noun.
 
 
-### Root and Weyl Vocabulary
+### Constructions Return Objects, Not Data
+
+Every categorical construction (kernel, cokernel, image, dual, span, perp,
+etc.) must return a fully-formed object in the appropriate category, not
+raw data.
+
+- `f.kernel()` returns a bilinear module, not a matrix or a list of vectors
+- `f.cokernel()` returns a bilinear module with `.projection()` and `.lift()`
+- `v.span()` returns a subobject (with inclusion morphism), not a set
+- `L.dual()` returns a bilinear module whose elements are functionals
+
+The returned object must be complete: it must live in the right category,
+support all the verbs that category provides, and have correct morphisms
+connecting it back to its source. If `f.cokernel()` doesn't have a
+projection morphism from `B`, it's not a cokernel -- it's a data leak.
+
+
+### Automatic Category Promotion
+
+Objects promote to the richest category their invariants support. This is
+not optional; all constructions must check and promote.
 
 ```python
-L.roots()                    # ConditionSet of roots (v with v^2 = -2 and s_v integral)
-L.root_sublattice()          # Sublattice spanned by roots
-L.is_root_lattice()          # Root sublattice == L
-
-v.reflection()               # s_v: the reflection isometry
-s.is_reflection()            # True if s = s_v for some root v
-s.reflection_decomposition() # Decompose into product of reflections
-
-L.W()                        # Weyl group = group generated by reflections in roots
-L.W().gens()                 # Set of generating reflections
-L.W().coxeter_diagram()      # Weighted graph of root angles
-
-eichler_transvection(e, r)   # Eichler transvection for isotropic e, root r in e.perp()
-L.E()                        # Eichler group
-```
-
-
-### Coxeter Diagram Vocabulary
-
-```python
-G = L.coxeter_diagram()
-G.subdiagram_poset()         # Poset of sub-diagrams
-G.subdiagram({0, 1})         # Sub-diagram on node subset
-G.adjacency_matrix()         # Weighted adjacency
-G.is_connected()
-G.Aut()                      # Weight-preserving graph automorphisms
-
-# Diagram morphisms from root morphisms
-fold = G.Hom(G).element_from_dict({n1: n4, n2: n3, ...})
-root_fold.diagram_morphism()  # Convenience
-```
-
-
-### Category Promotion
-
-Objects automatically promote to the richest category their invariants
-support. This is not optional: quotients, subobjects, and constructions
-must check and promote.
-
-```python
-# Degenerate bilinear module, not a lattice
-assert e.span() in BilinearModules(ZZ)
+assert e.span() in BilinearModules(ZZ)         # Degenerate, not a lattice
 assert e.span() not in Lattices(ZZ)
-
-# Quotienting can produce a lattice
-assert e.perp()/e in Lattices(ZZ)   # Isotropic reduction is nondegenerate
-
-# Root sublattices promote
-assert r.span() in RootLattices
-
-# Hyperbolic lattices promote
-assert L.is_hyperbolic()
-assert L in HyperbolicLattices
+assert e.perp()/e in Lattices(ZZ)              # Quotient happens to be nondegenerate
 ```
 
+The principle: **don't force the user to know in advance what category the
+result will land in.** When a quotient of bilinear modules happens to be
+nondegenerate, it should automatically be a `Lattice`, not a generic
+`BilinearModule` that the user must manually cast. Similarly, a root
+sublattice should automatically be in `RootLattices`, a hyperbolic lattice
+in `HyperbolicLattices`, etc.
 
-### Enumeration Contract
 
-All countable objects must support iteration. The iteration should "spiral"
-outward from small elements:
+### Operators Mean One Thing
+
+Each operator has exactly one mathematical meaning across the entire
+hierarchy. Never overload an operator to mean different things in different
+contexts.
+
+| Operator | Universal meaning |
+|----------|-------------------|
+| `+` | Direct sum (external). Never "span" or "union" |
+| `*` | Tensor product (of modules), or composition (of morphisms) |
+| `/` | Cokernel of the natural inclusion |
+| `^` | Power: `L^n` = n-fold direct sum, `f^n` = n-fold composition, `L^G` = invariant sublattice |
+| `in` | Category or parent containment. Never automatic coercion |
+| `&` | Intersection (of sets, groups, condition sets) |
+| `|` | Union / join |
+| `<=` | Subset / subgroup containment |
+
+**Critical distinction -- `+` vs `span`:**
+`e.span() + f.span()` is the *external* direct sum (zero off-diagonal
+entries). `L.span([e, f])` is the *internal* span within `L` (inherits the
+bilinear form of `L`). These are mathematically different and must not be
+confused.
+
+**Critical distinction -- `twist` vs scalar multiplication:**
+`L.twist(n)` scales the *form* by `n`: the gram matrix becomes `n*G`.
+`n*L` scales the *generators* by `n`: the sublattice `{n*v : v in L}`.
+The resulting gram matrix of `n*L` is `n^2 * G`, not `n*G`.
+
+
+### Witnesses for Existence Claims
+
+Any method that answers an existence question ("is there an isometry?",
+"is this isomorphic?") should optionally return a witness:
 
 ```python
-# ZZ^n has a canonical enumeration via diagonal argument
-assert {zero_vector, e_1, -e_1, e_2, -e_2, ...} <= set(itertools.islice(ZZ^4, 20))
-
-# Lattice enumeration delegates to ZZ^n enumeration via coordinates
-assert {L.zero(), e, -e, f, -f} <= set(L.enumerate(5))
-
-# Convenience for bounded slicing
-L.enumerate(bound=20)  # == itertools.islice(L, 20)
+is_isom, f = L1.is_isometric_to(L2, witness=True)
+assert f in L1.Hom(L2)
 ```
 
-
-### Witness Pattern
-
-Methods that answer existence questions should optionally return witnesses:
-
-```python
-is_isom, witness = L1.is_isometric_to(L2, witness=True)
-assert is_isom and witness.is_isometry()
-assert witness in L1.Hom(L2)
-
-is_isom, witness = G.is_isomorphic_to(H, witness=True)
-assert is_isom and witness.is_isomorphism()
-assert witness in G.Hom(H)
-```
-
-When `witness=False` (default), return only the boolean.
+The witness is itself a mathematical object (a morphism, an element, etc.)
+that lives in the appropriate hom space or parent. It is not a matrix, a
+dict, or a boolean -- it is a proof.
 
 
-### Isometry Comparison Hierarchy
+### Everything Iterates
 
-Lattice comparison has a strict hierarchy of conditions, from weakest to
-strongest:
+All countable mathematical objects must support `__iter__`. Infinite objects
+use lazy generators that "spiral" outward from small elements. The key
+principle: **iteration follows the mathematical structure**, not an
+implementation-convenient ordering.
 
-```python
-L.is_rationally_isometric_to(M)       # Over QQ
-L.is_locally_isometric_to(M, p)       # Over ZZ_p for prime p
-L.is_in_same_genus_as(M)              # Locally isometric at all primes
-L.is_isometric_to(M)                  # Over ZZ (strongest)
-```
-
-Each condition implies the ones above it. The discriminant group provides
-obstructions:
-```python
-A_L.isomorphic_as_groups(A_M)         # Necessary for genus
-A_L.is_isometric_to(A_M)             # Stronger: isometric as forms
-```
+For `ZZ^n`, this means a diagonal-argument enumeration that visits elements
+of increasing norm. For a group, this means enumerating by word length in
+generators. The user should be able to find any element by iterating long
+enough, without needing to know the implementation strategy.
 
 
 ## Spec Authority and Execution Discipline
