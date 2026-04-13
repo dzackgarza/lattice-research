@@ -1,3 +1,4 @@
+# NOTE: this is NOT a "stale" API. Do not delete or overwrite any specs
 from pathlib import Path
 import sys
 
@@ -11,8 +12,13 @@ assert U2.is_even()
 O_U2 = U2.orthogonal_group()
 swap = matrix(ZZ, [[0, 1], [1, 0]])
 minus_I2 = -identity_matrix(ZZ, 2)
-assert swap in O_U2
-assert minus_I2 in O_U2
+assert swap not in O_U2 # A matrix is not a hom
+assert O_U2.element_from_matrix(swap) in O_U2 # Checks isometry condition
+assert minus_I2 not in O_U2 # A matrix is not a hom
+assert O_U2(minus_I2) in O_U2 # __call__ is a thin dispatcher
+
+swap = O_U2(swap)
+minus_I2 = O_U2(minus_I2) # Proper constructions, don't work with raw matrices: work with semantic homs that have matrix REPRESENTATIONS
 
 centralizer = O_U2.centralizer(minus_I2)
 assert minus_I2 in centralizer

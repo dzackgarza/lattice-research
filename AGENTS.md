@@ -25,7 +25,8 @@ read that file before acting. The required dependency order is:
 - build foundational rings/fields/finitely generated module semantics,
 - build general bilinear-module category and nouns,
 - promote to lattice/dual/discriminant specializations,
-- then finish orthogonal/root/Weyl/Coxeter/Eichler and indefinite-isometry work.
+- then finish orthogonal/root/Weyl/Coxeter/Eichler and indefinite-isometry work,
+- and defer any actual spec revision to the final human-in-the-loop review step.
 
 ## Worktree Policy
 
