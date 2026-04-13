@@ -446,6 +446,14 @@ The test for whether syntax is right: could you copy-paste it into a
 textbook and have it be understood? `ZZ^3` reads as "$\mathbb{Z}^3$";
 `FreeModule(ZZ, 3)` reads as a Java constructor.
 
+**This requires extensive operator overloading.** Every object must
+implement all mathematically meaningful dunder methods: `__eq__`,
+`__contains__`, `__add__`, `__mul__`, `__rmul__`, `__sub__`, `__pow__`,
+`__truediv__`, `__and__`, `__or__`, `__le__`, `__iter__`, `__abs__`, etc.
+If a mathematical operation exists for the object, the corresponding Python
+operator must work. No object should force the user into method-call syntax
+for an operation that has standard mathematical notation.
+
 
 ### Containment Over Equations
 
@@ -491,21 +499,104 @@ The second tells you nothing you didn't already know from constructing `L`.
 Prefer assertions that would be nontrivial theorems.
 
 
-### Canonical Isomorphisms Are Equalities
+### Categories Over Classes
 
-When a canonical isomorphism exists in mathematics, `==` should hold in
-code:
+Never use `isinstance` or `hasattr` to determine what an object is. These
+are Python implementation details. Use category containment instead --
+this is the mathematically meaningful test, and it is what determines
+interoperability.
+
+**Bad:**
+```python
+isinstance(M, FreeModule)
+hasattr(f, 'kernel')
+type(L) == IntegralLattice
+```
+
+**Good:**
+```python
+M in Modules(ZZ)
+f in L.Hom(L)
+L in Lattices(ZZ)
+```
+
+Why: the literal Python class is an implementation artifact. What matters
+is which *category* the object lives in, because that determines which
+verbs it supports, what morphisms exist between it and other objects, and
+how constructions (limits, colimits, functors) apply to it. An object can
+be in `Modules(ZZ)` and `Modules(ZZ/2)` simultaneously; no `isinstance`
+check can express this.
+
+This applies equally to dispatch: where Python code would use `isinstance`
+to branch, mathematical code should branch on category membership.
+
+
+### Specs Assert Nontrivial Mathematics
+
+Spec assertions should encode real computations and mathematical facts, not
+just "construct and check the type." The right way to spec an object is to
+do the math by hand, then record the calculation so that anyone can
+rederive it and verify the assertion independently.
+
+**Bad spec -- construction check:**
+```python
+G = L.orthogonal_group()
+assert G is not None
+assert len(G.gens()) > 0
+```
+
+**Good spec -- explicit mathematical content:**
+```python
+G = L.O()
+f1 = G.element_from_matrix(minus_I2)
+f2 = G.element_from_matrix(swap)
+assert f1 in G and f2 in G                     # Category containment
+assert f1^2 == G.identity() and f2^2 == G.identity()  # Orders
+assert {F.to_matrix() for F in G} == {id, m1, m2, m1*m2}  # Exhaustive enumeration
+assert [f2(x) for x in [e,f]] == [f, e]        # Explicit evaluation on generators
+assert G.stabilizer(e+f) == f2.cyclic_subgroup()  # Structural consequence
+```
+
+The good spec:
+- Constructs morphisms explicitly from matrices, routed through hom sets
+- Shows they generate the group by enumerating it
+- Evaluates them on specific generators to verify the computation
+- Asserts structural consequences (stabilizer equals a specific subgroup)
+- Tests categorical interop (where objects live, what categories they're in)
+- Can be independently verified by hand
+
+Every assertion should be something a mathematician would find nontrivial
+enough to write as a lemma, or an explicit computation they would include
+in a proof.
+
+
+### Equality Means Canonical Isomorphism
+
+`==` has a precise mathematical meaning: two objects are equal when there
+is a *canonical* isomorphism between them -- one that is uniquely
+determined by the universal property, not one chosen by an algorithm.
 
 ```python
-assert M/(2*M) == M.tensor(ZZ/2)
-assert M.base_change(ZZ/2) == M.tensor(ZZ/2)
-assert M.dual() == M.Hom(ZZ)
-assert L.discriminant_group() == L.dual() / L
+assert M/(2*M) == M.tensor(ZZ/2)          # Universal property of tensor
+assert M.base_change(ZZ/2) == M.tensor(ZZ/2)  # Universal property of base change
+assert M.dual() == M.Hom(ZZ)              # Definition of dual
+assert L.discriminant_group() == L.dual() / L  # Definition of discriminant group
 ```
 
 This is not just sugar. It enforces that the universal property is actually
 implemented: the base change of `M` to `ZZ/2` must *be* the tensor product,
 not merely be isomorphic to it.
+
+**For lattices:** `L1 == L2` means isometric via the identity matrix --
+i.e., the same lattice, not just an isomorphic one. `L1.is_isometric_to(L2)`
+is the weaker statement.
+
+**For subobjects:** a subobject whose inclusion morphism is the identity is
+`==` to the ambient object restricted to those generators. A subobject with
+a nontrivial inclusion is `is_isometric_to` but not `==`.
+
+**For morphisms:** `f == g` means equal domains, equal codomains, and equal
+matrix representations (or equivalently, equal on all generators).
 
 
 ### Verbs Live on the Right Noun
@@ -609,17 +700,33 @@ that lives in the appropriate hom space or parent. It is not a matrix, a
 dict, or a boolean -- it is a proof.
 
 
-### Everything Iterates
+### Everything Has an Underlying Set
 
-All countable mathematical objects must support `__iter__`. Infinite objects
-use lazy generators that "spiral" outward from small elements. The key
-principle: **iteration follows the mathematical structure**, not an
-implementation-convenient ordering.
+Every mathematical object carries an underlying set. This set must be a
+real object: it has a cardinality, it supports membership testing via `in`,
+and it supports iteration via `__iter__`. This is not optional
+infrastructure -- it is the mathematical content.
 
-For `ZZ^n`, this means a diagonal-argument enumeration that visits elements
-of increasing norm. For a group, this means enumerating by word length in
-generators. The user should be able to find any element by iterating long
-enough, without needing to know the implementation strategy.
+```python
+assert (ZZ/4).as_set() == {(ZZ/4)(0), (ZZ/4)(1), (ZZ/4)(2), (ZZ/4)(3)}
+assert (ZZ^3).rank() == 3  # Finite rank but infinite cardinality
+```
+
+**Generators on everything:** All countable objects support `__iter__`.
+Infinite objects use lazy generators that "spiral" outward from small
+elements. Iteration follows the mathematical structure, not an
+implementation-convenient ordering. For `ZZ^n`, this means a
+diagonal-argument enumeration visiting elements of increasing norm. For
+a group, this means enumerating by word length in generators.
+
+**Cardinality on everything:** `len()` for finite objects, and
+mathematically meaningful cardinality invariants for infinite ones (rank
+for free modules, invariants for FGP modules, etc.).
+
+The user should be able to iterate over the elements of any hom space, any
+group, any lattice, any discriminant group -- anything with a well-defined
+underlying set. The implementation may be lazy, but the *contract* is that
+the set exists and can be queried.
 
 
 ## Spec Authority and Execution Discipline
