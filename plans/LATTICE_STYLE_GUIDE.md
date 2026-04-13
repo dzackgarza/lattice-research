@@ -455,6 +455,33 @@ operator must work. No object should force the user into method-call syntax
 for an operation that has standard mathematical notation.
 
 
+### Exact and Algebraic, Never Floating Point
+
+All computations must remain exact and symbolic. Never use `RR`, `CC`,
+floating point, or numerical approximation as a working medium. Instead,
+name the minimal ring or field extension where the computation lives
+exactly.
+
+| Prefer | Avoid |
+|--------|-------|
+| `cos(pi/3)` as a symbolic expression | `0.5` or `RR(0.5)` |
+| `QQ[pi]` (transcendental extension) for Coxeter angles | `RR` or `QQbar` |
+| `QQ(sqrt(2))` (algebraic extension) when needed | `AA` or `RDF` |
+| `Zp(5)` (exact p-adics) | floating-point approximations |
+| `n()` called explicitly and late, only for display | numerical intermediates |
+
+The principle: every intermediate value should live in a named exact ring.
+If you compute `cos(pi/3)`, keep it as the symbolic expression `cos(pi/3)`
+or as `QQ(1/2)` -- either way it's exact. An angle matrix should live in
+`GL(n, QQ[pi])`, not `GL(n, RR)`.
+
+This is not a performance concern; it is a correctness concern. Floating
+point breaks equality testing, breaks containment checks, and silently
+introduces errors that are invisible until they compound. Exact arithmetic
+makes `==`, `in`, and all the other mathematical operators actually
+trustworthy.
+
+
 ### Containment Over Equations
 
 The single most important principle. To verify a property of an object,
