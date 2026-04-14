@@ -345,3 +345,68 @@ $$ \boxed{ \left( \operatorname{coker}(f_{S_2}),\ \bar\beta:
 with $E = \operatorname{im}(f_{S_2})$.
 
 That is the clean version.
+
+## Recovering the Discriminant Form
+
+To recover the **discriminant form**, the specialization is not $S_1 = \mathbb{Z}$, $S_2
+= \mathbb{Q}$.
+
+It is $R = \mathbb{Z}$, $S_1 = S_2 = \mathbb{Z}$, with different coefficient modules
+$M_1 = \mathbb{Z}$, $M_2 = \mathbb{Q}$.
+
+Why: the second source module is $L^\#$, and $L^\#$ is generally only a
+$\mathbb{Z}$-module, not a $\mathbb{Q}$-module.
+So it does not define an object over $S_2 = \mathbb{Q}$.
+
+The correct two objects are:
+
+- $(L, \beta_1)$, with $\beta_1 \in
+  \operatorname{Hom}*{\mathbb{Z}}(\operatorname{Sym}^2*{\mathbb{Z}}(L), \mathbb{Z})$,
+- $(L^\#, \beta_2)$, with $\beta_2 \in
+  \operatorname{Hom}*{\mathbb{Z}}(\operatorname{Sym}^2*{\mathbb{Z}}(L^\#), \mathbb{Q})$,
+
+where $\beta_2$ is just the extended rational form restricted to $L^\#$.
+
+**The morphism is:**
+
+- $g = \mathrm{id}_{\mathbb{Z}}$,
+- $f = \iota_L: L \to L^\#$,
+- $h: \mathbb{Z} \hookrightarrow \mathbb{Q}$.
+
+Now apply the cokernel construction in the symmetric category.
+
+**First module cokernel:**
+
+$$ Q = \operatorname{coker}_{\mathbb{Z}}(f) = L^\#/L = A_L. $$
+
+**First coefficient cokernel:**
+
+$$ N_0 = \operatorname{coker}_{\mathbb{Z}}(h) = \mathbb{Q}/\mathbb{Z}. $$
+
+Now check the extra cross-term quotient.
+Here $E = \operatorname{im}(f) = L \subseteq L^\#$. The cross-terms are
+
+$$ \beta_2(E \cdot L^\#) = \beta_2(L \cdot L^\#) \subseteq \mathbb{Z} $$
+
+by the definition of $L^\#$. Therefore their image in $N_0 = \mathbb{Q}/\mathbb{Z}$ is
+already zero.
+
+So there is **no further quotient** to take.
+
+**Hence the cokernel object is exactly**
+
+$$ \left( A_L, \bar\beta \right), \qquad \bar\beta \in
+\operatorname{Hom}*{\mathbb{Z}}\big(\operatorname{Sym}^2*{\mathbb{Z}}(A_L),
+\mathbb{Q}/\mathbb{Z}\big), $$
+
+with
+
+$$ \bar\beta([x], [y]) = \beta_2(x, y) \bmod \mathbb{Z}. $$
+
+So in the enlarged category, the discriminant form is recovered as the cokernel of
+
+$$ (L, \beta: \operatorname{Sym}^2_{\mathbb{Z}}(L) \to \mathbb{Z}) \longrightarrow
+(L^\#, \beta: \operatorname{Sym}^2_{\mathbb{Z}}(L^\#) \to \mathbb{Q}). $$
+
+The mistake in choosing $S_2 = \mathbb{Q}$ was that it gives the rational ambient
+object, but **not** the discriminant object.
