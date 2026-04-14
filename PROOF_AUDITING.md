@@ -57,8 +57,8 @@ Reject any script exhibiting:
   construct semantically
 - **Ad-hoc lattice construction**: `diagonal_matrix()` instead of foundation library
   constructors
-- **Legacy file loading**: `load("coble_geometry.sage")` — only
-  `coble_geometry_foundation.sage` is canonical
+- **Legacy file loading**: `load("coble_geometry.sage")` -- only
+  `src.lattices` foundation constructors are canonical
 - **Output files**: `*_results.txt`, `*_output.txt` — the script itself is the artifact
 
 ### 3A. Structural QC Warning Classes
@@ -179,7 +179,7 @@ A result is UNVERIFIED unless:
 
 ### Lattice Computations
 
-- Use `coble_geometry_foundation.sage` constructors — never ad-hoc
+- Use `src.lattices` foundation constructors -- never ad-hoc
 - Orthogonal groups: construct as matrix group via Sage/GAP, not by filtering
 - Stabilizers: use `gap.Stabilizer()` on the matrix group
 - Orbits: use `gap.Orbits()`, not bounded enumeration

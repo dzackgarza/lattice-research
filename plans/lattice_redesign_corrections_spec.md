@@ -1,16 +1,15 @@
 # Lattice Redesign Corrections Spec
 
 This file is a durable preservation artifact for detailed user corrections that
-must remain available even if chat context is compacted.
+must remain available even if chat context is compacted. The normalized design
+directives distilled from these corrections now live in
+`plans/LATTICE_STYLE_GUIDE.md`.
 
 Canonical related sources:
 
-- [theory/spec_backups/lattices_written_spec_backup.py](./spec_backups/lattices_written_spec_backup.py)
+- [theory/spec_backups/lattices_written_spec_backup.py](../theory/spec_backups/lattices_written_spec_backup.py)
 - [src/lattices/lattices.py](../src/lattices/lattices.py)
-
-This file is not a replacement for the written lattice spec backup. It records
-additional corrections and prohibitions stated after the initial redesign
-attempts.
+- [plans/LATTICE_STYLE_GUIDE.md](./LATTICE_STYLE_GUIDE.md) (distilled rules)
 
 ## Raw User Correction
 
@@ -42,149 +41,6 @@ Recorded on 2026-04-13. Preserved verbatim from the user messages.
 
 > Make sure the plan and documents are clear about everything I've corrected you on in the last few turns
 
-## Normalized Design Directives
-
-The following are implementation directives distilled from the raw correction.
-These are not new ideas; they restate the user's correction in structured form.
-
-### Public mathematical model
-
-- A bilinear module is presented by canonical generators of `R^n` together with
-  a Gram matrix.
-- `BilinearModules(R)` is a genuine new Sage category of pairs `(M, \beta)`,
-  not merely an informal wrapper convention around existing module parents.
-- This must be defined generally over a Sage ring `R`, not hard-coded to `ZZ`
-  except where a class specifically models integral lattices.
-- Public lattice/module nouns are not naturally embedded in ambient spaces.
-- Public nouns must not carry `inclusion_matrix`, `projection_matrix`,
-  `projection_lattice`, or similar ambient-embedding state.
-- Specific embeddings and subobjects must be represented separately, not baked
-  into the core noun.
-- `gens()` is semantically well-defined throughout the hierarchy and should not
-  be omitted.
-- Membership is a parent check: coordinate vectors are not automatically
-  elements of a lattice.
-- `L.element_from(v)` is the semantic conversion from coordinates to an element.
-
-### Spec authority and execution discipline
-
-- The lattice spec is authoritative.
-  If a behavior appears in the normative spec files, it is required target
-  behavior until the user explicitly revises that status.
-- Do not describe unmet spec surface as "aspirational", "optional",
-  "migration-only", or otherwise outside the redesign gate merely because the
-  implementation does not satisfy it yet.
-- Do not describe unfinished required implementation as a "blocker".
-  It is remaining required work on the spec itself.
-- Do not treat completion of a local redesign slice as completion of the task.
-  The task ends only when the required spec surface is actually implemented.
-- The redesign plan is a signoff artifact and must stay truthful.
-  It must not claim architectural completion while required spec work remains.
-
-### API hierarchy and file organization
-
-- The redesign must use a real hierarchy of files under a subdirectory
-  structure, not a monolithic public file.
-- The existing generated code should be migrated into the organized hierarchy,
-  not discarded and restarted from scratch.
-- Public API terminology should be semantic and stable; do not preserve stale
-  names from older designs.
-
-### Typing, validation, and dispatch
-
-- Do not use `hasattr` or ad hoc runtime probing where proper typing and
-  dispatch are intended.
-- Add real type annotations throughout the hierarchy.
-- Use Pydantic validation rather than loose assertions for public-object
-  validation.
-- Do not use `pass` where simple ABCs should be defined.
-- Do not use `assert False` in places where mathematically meaningful objects
-  must be constructed.
-
-### Anti-wrapper / anti-slop rules
-
-- Do not introduce helper functions that merely wrap obvious one-line Sage
-  functionality.
-- Do not create helpers like `zero_gram` when `zero_matrix()` already exists.
-- Do not create helpers like identity-column builders when `identity_matrix()`
-  already exists.
-- Do not create row-oriented constructor helpers when the semantics are really
-  about generators or standard objects already available in Sage.
-
-### Terminology and interop
-
-- Do not expose `native` terminology on the public API.
-- If Sage interop must exist, use explicit "sage-like" extraction, not leaked
-  wrapper passthroughs.
-- Constructors should build and store their internal Sage object themselves.
-- Separate class methods may accept Sage objects and convert them internally.
-- No public object should require a Sage object as its constructor input.
-
-### Semantics explicitly rejected
-
-- `signature_vector` on the public API.
-- `merge_orbit_constraints` or parallel subgroup-constraint bookkeeping when
-  `ConditionSet` should express subgroup restrictions directly.
-- `scaled_element` as a semantic public operation on free-module elements.
-- `submodule_from_rows`; submodules are defined by generators, not matrix rows
-  as a public noun.
-- `projection_lattice`; lattices do not canonically project onto sublattices.
-- `lift_vector`; lifts in this context are elements of `L^*`, not bare vectors.
-- `vec_to_list` style shims.
-- old shim names like `has_isomorphic_group_structure_to`.
-- ill-defined invariants or algorithms such as the cited `p-rank` method.
-
-### Morphisms and categorical semantics
-
-- `hom()` should construct a hom-space, not require images directly.
-- Elements of a hom-space are the morphisms.
-- Bilinear-module objects need category-owned elements and morphisms, not plain
-  Python wrappers carrying Sage objects on the side.
-- The category should be hooked properly through Sage parent/category
-  machinery, modeled on `sage.categories.modules`, with its own parent methods,
-  element methods, and homset category.
-- The actual Sage hook for custom homset construction is `_Hom_`; redefining
-  `Hom` alone is not sufficient.
-- Wrapped elements must be real Sage elements (`Element` /
-  `ElementWrapper`-based), not plain Python wrappers carrying Sage objects on
-  the side, or Sage morphisms will not compose through `Map.__call__`.
-- The implementation should extend or properly model Sage morphism/homset
-  semantics where specified.
-- Morphisms are not containers; no morphism class should define semantic
-  containment for arbitrary values.
-- `perp` / orthogonal-complement verbs do not belong on morphisms; those belong
-  on the relevant subobject or ambient bilinear-module noun.
-- General verbs should live as high in the hierarchy as their semantics allow:
-  on `BilinearModule`, `BilinearModuleMorphism`, `BilinearModuleHomSpace`, and
-  only specialize lower when extra structure genuinely appears.
-- The omitted morphism and hom-space methods described in the written spec must
-  be implemented.
-- Cokernels must construct the correct mathematical object, which may be a
-  lattice, torsion bilinear module, discriminant form, or another appropriate
-  object depending on the context.
-- `A_L := coker(L -> L^*)` must be modeled correctly.
-- On discriminant/torsion backends, hom construction should defer to Sage's
-  Smith-form hom constructor where that is the backend's exact interface.
-- Dual lattices are rational lattices and may be quotiented by more than the
-  original lattice.
-
-### Invariants and theory placement
-
-- `delta` / `coparity` are invariants of lattices `L`, not of discriminant
-  groups `A_L`.
-- `outside_domain` should not be a separate ad hoc notion when the meaningful
-  predicate is `is_p_elementary(2)`.
-- Isometry verification belongs in the containment semantics of `O(L)`, not
-  scattered matrix-equation assertions.
-
-### Group semantics
-
-- Orthogonal-group semantics live on `L.orthogonal_group()`.
-- Stabilizers and related verbs belong on orthogonal groups, e.g.
-  `L.orthogonal_group().stabilizer(v)`.
-- Implementation details like `_definite_orthogonal_group_generators` are not
-  the public semantic surface.
-
 ## Non-Negotiable Preservation Rule
 
 The generated redesign code must be reorganized and corrected, not discarded
@@ -197,6 +53,7 @@ wholesale. The correct procedure is:
 
 ## Source of Truth Rule
 
-When future work is done on the lattice redesign, consult this file and
-`theory/spec_backups/lattices_written_spec_backup.py` before changing the public
-interface.
+When future work is done on the lattice redesign, consult
+`plans/LATTICE_STYLE_GUIDE.md` (distilled rules) and
+`theory/spec_backups/lattices_written_spec_backup.py` before changing the
+public interface.

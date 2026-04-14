@@ -13,8 +13,9 @@ working codomains, and enriched FGP module operations.
 - `plans/lattice_redesign_corrections_spec.md`
 - `plans/lattice_interface_redesign_plan.md` (noun inventory, verb
   attachment, inheritance diagram)
-- `plans/CONTRIBUTING.md` (code style, no indirection, no try/except, glue
+- `CONTRIBUTING.md` (code style, no indirection, no try/except, glue
   not math)
+- `plans/LATTICE_STYLE_GUIDE.md` (lattice-specific conventions)
 - `tests/lattice_spec/interface_semantics.sage`
 - `tests/lattice_spec/interface_extensions.sage`
 - `tests/lattice_spec/more_specs.sage`
@@ -66,7 +67,7 @@ Each step depends on the previous steps being stable. The ordering follows
 
 Before starting any step, re-read the relevant block of
 `plans/lattice_redesign_corrections_spec.md` and
-`plans/CONTRIBUTING.md`.
+`CONTRIBUTING.md` and `plans/LATTICE_STYLE_GUIDE.md`.
 
 
 ### Step 1: Categories

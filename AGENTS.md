@@ -16,15 +16,17 @@ This file contains only project-specific operational details not covered by thos
 
 ## CURRENT PLAN
 
-For the lattice/module redesign, the current execution plan is
-[theory/lattice_interface_redesign_plan.md](./theory/lattice_interface_redesign_plan.md).
+For the lattice/module redesign, the current execution plans are:
+- [plans/PHASE_0_SAGE_PATCHES.md](./plans/PHASE_0_SAGE_PATCHES.md) -- Sage monkeypatches
+- [plans/PHASE_1_BILINEAR_MODULES.md](./plans/PHASE_1_BILINEAR_MODULES.md) -- BilinearModule foundation
+- [plans/LATTICE_STYLE_GUIDE.md](./plans/LATTICE_STYLE_GUIDE.md) -- lattice-specific conventions
+- [plans/lattice_redesign_corrections_spec.md](./plans/lattice_redesign_corrections_spec.md) -- raw corrections archive
 
 If the task touches `src/lattices/`, `tests/lattice_spec/`, or `tests/sage_spec/`,
-read that file before acting. The required dependency order is:
-- restore the canonical public export boundary,
-- build foundational rings/fields/finitely generated module semantics,
-- build general bilinear-module category and nouns,
-- promote to lattice/dual/discriminant specializations,
+read those files before acting. The required dependency order is:
+- build foundational rings/fields/finitely generated module semantics (Phase 0),
+- build general bilinear-module category and nouns (Phase 1, Steps 1-7),
+- promote to lattice/dual/discriminant specializations (Phase 1, Steps 8-11),
 - then finish orthogonal/root/Weyl/Coxeter/Eichler and indefinite-isometry work,
 - and defer any actual spec revision to the final human-in-the-loop review step.
 
