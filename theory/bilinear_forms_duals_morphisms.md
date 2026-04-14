@@ -89,3 +89,70 @@ entries are the $\beta(e_j,e_i)$ is exactly that
 $$ \operatorname{ad}_\beta(e_j) = \sum_i \beta(e_j,e_i) e_i^*. $$
 
 That is the whole coordinate computation, done correctly.
+
+## The Complete Diagram
+
+The right way to express everything is with the single diagram:
+
+$$ \begin{array}{ccccc} && L && \\
+& \swarrow_{\operatorname{ad}_\beta} & \downarrow_i & \searrow^{j} & \\
+L^* & \xleftarrow{\ \lambda\ } & L^\# & \xrightarrow{\ \iota\ } & L_K \end{array} $$
+
+with
+
+$$ j = \iota \circ i, \qquad \operatorname{ad}_\beta = \lambda \circ i. $$
+
+Everything here is abstract.
+
+## Choosing Bases and Defining the Matrix $G$
+
+Now choose a basis $(e_1,\dots,e_n)$ of $L$, and let $(e_1^*,\dots,e_n^*)$ be the dual
+basis of $L^*$. Do **not** define $G$ as a matrix of numbers first.
+Define it as:
+
+$$ G := [\operatorname{ad}*\beta]*{(e_j) \to (e_i^*)}. $$
+
+So $G$ is the matrix representing the morphism $\operatorname{ad}_\beta: L \to L^*$.
+
+If $\lambda: L^\# \to L^*$ is an isomorphism, for example in the usual nondegenerate
+finite free situation, define elements $(f_1,\dots,f_n \in L^\#)$ by
+
+$$ \lambda(f_i) = e_i^*. $$
+
+This gives a basis of $L^\#$.
+
+Also $L_K$ has the basis $(e_1 \otimes 1,\dots,e_n \otimes 1)$.
+
+Now the matrices of the five arrows are:
+
+- $[j]_{(e_j) \to (e_j \otimes 1)} = I$
+- $[\lambda]_{(f_j) \to (e_i^*)} = I$
+- $[\operatorname{ad}*\beta]*{(e_j) \to (e_i^*)} = G$
+- $[i]_{(e_j) \to (f_i)} = G$
+- $[\iota]_{(f_j) \to (e_i \otimes 1)} = G^{-1}$
+
+And these are forced by the commutative diagram:
+
+From $\operatorname{ad}_\beta = \lambda \circ i$, we get $G = I \cdot [i]$, so $[i] =
+G$.
+
+From $j = \iota \circ i$, we get $I = [\iota] \cdot G$, so $[\iota] = G^{-1}$.
+
+That is the clean abstract meaning of "$G$" and "$G^{-1}$" in this picture:
+
+- **$G$** is the matrix of the morphism $L \to L^*$, and equally of $L \to L^\#$ once
+  $L^\#$ is based via $\lambda$.
+- **$G^{-1}$** is the matrix of the inclusion $L^\# \hookrightarrow L_K$ in those chosen
+  bases.
+- **$G^{-1}$** is **not** defining $L^\#$; it is only the matrix of that inclusion after
+  the basis of $L^\#$ has been chosen through $\lambda^{-1}(e_i^*)$.
+
+One should not write things like $G^t x \in R^n$ unless one has already fixed
+identifications with free coordinate modules.
+The invariant content is in the morphisms; the matrices come only afterward.
+
+## The Non-Isomorphic Case
+
+The one caveat is that none of the $G^{-1}$ language exists unless $\lambda$ is an
+isomorphism. Without that, the diagram still exists, but there is no basis of $L^\#$
+induced from $L^*$, and no inverse matrix to discuss.
