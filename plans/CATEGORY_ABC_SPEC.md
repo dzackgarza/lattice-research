@@ -1,210 +1,321 @@
-# BilinearModules Category: ABC Contracts
+# ModulesWithForms Category: ABC Contracts
 
-Authoritative specification of the abstract interface that any
-implementation of the `BilinearModules` Sage category must honor.
+Authoritative specification of the category-level contract for the lattice
+redesign.
 
-These ABCs form the **contract** for the category level. They define what
-a developer building a new backend (Julia, combinatorial free module,
-polynomial ring) must implement to get the full algebraic geometry DSL.
-The concrete classes (PHASE_2 through PHASE_5) implement these contracts;
-the style guide enforces them as a check-gate.
+This file supersedes the earlier `BilinearModules`-first framing. The
+canonical top-level category is now `ModulesWithForms(R)`, modeled on
+`sage.categories.modules.Modules` and specialized to finitely generated
+modules over a PID.
 
-For the motivation behind the category/concrete split and the Sage
-hierarchy being replaced, see `LATTICE_STYLE_GUIDE.md §Design Goal`.
+An object of `ModulesWithForms(R)` is a pair `(M, f)` where:
 
----
+- `R` is a PID,
+- `K := Frac(R)`,
+- `M` is a finitely generated `R`-module, with free and torsion parts in
+  general,
+- `f` is either:
+  - a bilinear morphism `M \otimes_R M -> S`, or
+  - a quadratic morphism `M -> S`,
+- `S` is either:
+  - a subring of `K` containing `R`, or
+  - a quotient of `K`, presently required at minimum to support `K/R`
+    and `K/2R`.
 
-## `BilinearForm` ABC
+Concrete implementations may enforce the currently supported codomain
+families by assertions and validation. The public contract is about the
+mathematics, not the current backend limits.
 
-A `BilinearForm` is a symmetric R-bilinear map `beta: M × M -> C` for
-some codomain `C`. It is a separate object from the module: a module
-carries a form, but the form is its own entity with its own contract.
+The category owns the Sage-style subcategory machinery:
+
+- `Bilinear()`
+- `Quadratic()`
+- `Free()`
+- `Torsion()`
+- `NonDegenerate()`
+- `Integral()`
+- `Rational()`
+- `TensorProducts()`
+- `CartesianProducts()`
+- `DualObjects()`
+- `Homsets()`
+
+Downstream categories are intersections of these axioms. For example:
+
+```text
+Lattices(R)
+    := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()
+
+RationalLattices(R)
+    := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()
+```
+
+The older names `BilinearModules` and `QuadraticModules`, if retained at
+all, are thin aliases for these subcategories. They are not separate
+top-level category contracts anymore.
+
+
+## Form Codomains
+
+The codomain descriptor remains a separate validated object. It records:
+
+- the base PID `R`,
+- the fraction field `K = Frac(R)`,
+- the actual codomain `S`,
+- whether `S` is a subring codomain or a quotient codomain.
+
+The required first-pass codomain strata are:
+
+- `Integral`: `S = R`
+- `Rational`: `S = K`
+- quotient-valued examples used by discriminant descent:
+  - `S = K / R`
+  - `S = K / 2R`
+
+These codomain predicates are orthogonal to the free/torsion and
+bilinear/quadratic predicates.
+
+
+## Form ABCs
 
 ```python
 from abc import ABC, abstractmethod
 
-class BilinearForm(ABC):
+
+class Form(ABC):
 
     @abstractmethod
-    def domain(self) -> BilinearModule: ...
-    """The bilinear module M this form lives on."""
+    def domain(self) -> ModuleWithForm: ...
+    """The object (M, f) this form belongs to."""
 
     @abstractmethod
     def codomain(self) -> FormCodomain: ...
-    """The FormCodomain descriptor: C = ZZ, QQ, QQ/ZZ, or QQ/2ZZ."""
+    """The codomain descriptor for the values of the form."""
+
+    @abstractmethod
+    def arity(self) -> int: ...
+    """1 for quadratic forms, 2 for bilinear forms."""
+
+
+class BilinearForm(Form):
+
+    def arity(self) -> int:
+        return 2
 
     @abstractmethod
     def gram_matrix(self) -> Matrix: ...
-    """Gram matrix G with G_ij = beta(e_i, e_j) for canonical gens e_i.
-    Entries are in codomain.ring (the actual Sage ring).
-    Must be symmetric: G == G.T"""
+    """Gram matrix with respect to the canonical generators."""
 
     @abstractmethod
-    def evaluate(self, v: BilinearModuleElement,
-                 w: BilinearModuleElement) -> object: ...
-    """Evaluate beta(v, w). Return value is an element of codomain.ring.
-    Axioms:
-        evaluate(v, w) == evaluate(w, v)       (symmetry)
-        evaluate(r*v, w) == r * evaluate(v, w) (bilinearity)
-    """
+    def evaluate(
+        self,
+        left: ModuleWithFormElement,
+        right: ModuleWithFormElement,
+    ) -> object: ...
+    """Evaluate the bilinear form."""
+
+
+class QuadraticForm(Form):
+
+    def arity(self) -> int:
+        return 1
+
+    @abstractmethod
+    def gram_matrix(self) -> Matrix: ...
+    """Quadratic Gram data with respect to the canonical generators."""
+
+    @abstractmethod
+    def evaluate(self, element: ModuleWithFormElement) -> object: ...
+    """Evaluate the quadratic form."""
+
+    @abstractmethod
+    def polar_bilinear_form(self) -> BilinearForm: ...
+    """Return the associated polar bilinear form."""
 ```
 
-A `QuadraticForm` is a **separate** ABC from `BilinearForm`. A quadratic
-form `q: M -> C` satisfies `q(r*v) = r^2 * q(v)` and the polarization
-`beta_q(v,w) = q(v+w) - q(v) - q(w)` is bilinear. Note `beta_q(v,v) =
-2*q(v)`, so a quadratic form is NOT the same as `v ↦ beta(v,v)`. The map
-`Quad_R(M) -> Bil_R(M)` sending `q ↦ beta_q` and the map
-`Bil_R(M) -> Quad_R(M)` sending `beta ↦ (v ↦ beta(v,v))` are NOT
-inverses in general; they are inverses only when `2 ∈ R^×`. See
-`QuadraticModules` ABC for the full interface and conversion methods.
+Quadratic structure is a refinement, not the default organizing principle.
+The common base is meant to support `L`, `L^*`, and `A_L` uniformly with a
+bilinear-first public vocabulary. In particular, code may use `v.q()`
+uniformly for diagonal evaluation:
+
+- on bilinear objects: `v.q() := b(v, v)`,
+- on quadratic objects: `v.q()` is the genuine quadratic value.
 
 
-## `BilinearModules.ParentMethods` ABC
+## `ModulesWithForms(R)`
 
 ```python
-class BilinearModules(Category_module):
+class ModulesWithForms(Category_module):
+    """Category of finitely generated R-modules equipped with a form."""
+
+    def super_categories(self):
+        return [Modules(self.base_ring()).FinitelyPresented()]
+
+    def additional_structure(self):
+        return self
+```
+
+`additional_structure()` returns `self`, not `None`: a module map between
+two objects with forms is not automatically form-preserving.
+
+
+## `ModulesWithForms.SubcategoryMethods`
+
+This category should reproduce and specialize the Sage machinery exposed by
+`sage.categories.modules.Modules`, especially the pattern around
+`SubcategoryMethods`, `TensorProducts`, `CartesianProducts`, and
+`DualObjects`.
+
+```python
+class ModulesWithForms(Category_module):
+
+    class SubcategoryMethods:
+
+        @cached_method
+        def base_ring(self):
+            ...
+
+        @cached_method
+        def Bilinear(self):
+            return self._with_axiom("Bilinear")
+
+        @cached_method
+        def Quadratic(self):
+            return self._with_axiom("Quadratic")
+
+        @cached_method
+        def Free(self):
+            return self._with_axiom("Free")
+
+        @cached_method
+        def Torsion(self):
+            return self._with_axiom("Torsion")
+
+        @cached_method
+        def NonDegenerate(self):
+            return self._with_axiom("NonDegenerate")
+
+        @cached_method
+        def Integral(self):
+            return self._with_axiom("Integral")
+
+        @cached_method
+        def Rational(self):
+            return self._with_axiom("Rational")
+
+        @cached_method
+        def TensorProducts(self):
+            return TensorProductsCategory.category_of(self)
+
+        @cached_method
+        def CartesianProducts(self):
+            return CartesianProductsCategory.category_of(self)
+
+        @cached_method
+        def DualObjects(self):
+            return DualObjectsCategory.category_of(self)
+
+        dual = DualObjects
+```
+
+Semantics of the main axioms:
+
+- `Bilinear`: the primary form has arity 2.
+- `Quadratic`: the primary form has arity 1.
+- `Free`: the underlying module is torsion-free and free of finite rank.
+- `Torsion`: the underlying module is finite torsion.
+- `NonDegenerate`: the associated bilinear pairing has zero radical.
+- `Integral`: codomain is exactly `R`.
+- `Rational`: codomain is exactly `K = Frac(R)`.
+
+Objects may carry more structure than one axiom records. For example, an
+even discriminant form may be implemented as a torsion bilinear object with
+an additional quadratic refinement. The category contract should not force a
+second top-level hierarchy for that case.
+
+
+## `ModulesWithForms.ParentMethods`
+
+```python
+class ModulesWithForms(Category_module):
 
     class ParentMethods(ABC):
 
         @abstractmethod
-        def bilinear_form(self) -> BilinearForm: ...
-        """The BilinearForm object encoding beta: M x M -> C."""
+        def form(self) -> Form: ...
+        """The primary form carried by this object."""
 
         @abstractmethod
-        def gens(self) -> tuple[BilinearModuleElement, ...]: ...
-        """Canonical generators. No ordering guarantee beyond consistency."""
+        def gens(self) -> tuple[ModuleWithFormElement, ...]: ...
+        """Canonical generators."""
 
         @abstractmethod
-        def zero(self) -> BilinearModuleElement: ...
-        """The additive identity of M."""
+        def zero(self) -> ModuleWithFormElement: ...
+        """The additive identity."""
 
         @abstractmethod
         def base_ring(self) -> Ring: ...
-        """The base ring R (usually ZZ)."""
+        """The PID R."""
 
         @abstractmethod
-        def free_part(self) -> FreeBilinearModule: ...
-        """The free part of M as a BilinearModule.
-        For free modules: returns self.
-        For torsion modules: returns the rank-0 zero module."""
+        def free_part(self) -> ModuleWithForm: ...
+        """The free summand with the restricted/induced form data."""
 
         @abstractmethod
-        def torsion_part(self) -> TorsionBilinearModule: ...
-        """The torsion part of M as a BilinearModule.
-        For free modules: returns the zero module.
-        For torsion modules: returns self."""
+        def torsion_part(self) -> ModuleWithForm: ...
+        """The torsion summand with the restricted/induced form data."""
 
         @abstractmethod
-        def Hom(self, other: BilinearModule) -> BilinearModuleHomSpace: ...
-        """The hom space Hom(self, other) in BilinearModules(R).
-        This is our public API. It may internally call the stored Sage
-        object's _Hom_ hook, but that is an implementation detail."""
+        def Hom(self, other: ModuleWithForm) -> ModuleWithFormHomSpace: ...
+        """The hom space in ModulesWithForms(R)."""
 
         @abstractmethod
-        def dual(self) -> BilinearModule: ...
-        """Dual module Hom(M, R) with the induced form."""
+        def dual(self) -> ModuleWithForm: ...
+        """The dual object in the appropriate DualObjects subcategory."""
 
         @abstractmethod
-        def twist(self, scalar: RingElement) -> BilinearModule: ...
-        """Module M with form scaled by scalar: beta_new = scalar * beta.
-        Gram matrix becomes: scalar * G.
-        NOT the same as scalar * M (see scalar multiplication semantics)."""
-
-        @abstractmethod
-        def span(self, elements: Iterable[BilinearModuleElement]
-                 ) -> BilinearModule: ...
-        """Sub-bilinear-module generated by elements, with restricted form."""
+        def span(
+            self,
+            elements: Iterable[ModuleWithFormElement],
+        ) -> ModuleWithForm: ...
+        """The subobject generated by the given elements."""
 
         @abstractmethod
         def cardinality(self) -> CardinalNumber: ...
-        """Cardinality of the underlying set.
-        Infinity for free modules, a positive integer for finite torsion modules.
-        Every set has a cardinality; this is axiomatic, not torsion-specific."""
+        """Cardinality of the underlying set."""
 
-        @abstractmethod
-        def free_rank(self) -> int: ...
-        """Rank of the free part of this module.
-        - Free modules: equals rank().
-        - Torsion modules: returns 0.
-        - Mixed modules: rank of the free summand.
-        Defined on ALL bilinear modules, not just free ones."""
-
-        @abstractmethod
-        def signature_triple(self) -> tuple[int, int, int]: ...
-        """Signature (p, q, n) of the bilinear form over RR:
-        p = number of positive eigenvalues,
-        q = number of negative eigenvalues,
-        n = dimension of the radical = dim{v | beta(v,w)=0 for all w}.
-        Nondegeneracy is NOT required (n may be nonzero).
-        Defined on ALL bilinear modules."""
-
-        @abstractmethod
-        def to_quadratic_module(self) -> QuadraticModule: ...
-        """Return the quadratic module (M, q) where q(v) = beta(v, v).
-        The polar form of q is beta_q(v,w) = q(v+w)-q(v)-q(w) = 2*beta(v,w),
-        NOT beta itself. Use this map when 2 is invertible in R or when you
-        explicitly want the doubled form. For even lattices, a different
-        convention (q(v) = beta(v,v)/2) is available via to_even_quadratic_module()."""
-
-        # --- Derived methods (not abstract; follow from the axioms) ---
-
-        def b(self, v: BilinearModuleElement,
-              w: BilinearModuleElement) -> object:
-            """Evaluate beta(v, w). Convenience wrapper for bilinear_form().evaluate."""
-            return self.bilinear_form().evaluate(v, w)
-
-        def gram_matrix(self) -> Matrix:
-            """Gram matrix of the bilinear form w.r.t. canonical generators."""
-            return self.bilinear_form().gram_matrix()
-
-        def End(self) -> BilinearModuleHomSpace:
-            """End(M) = Hom(M, M)."""
+        def End(self) -> ModuleWithFormHomSpace:
             return self.Hom(self)
 ```
 
-### What is NOT in `ParentMethods` and why
-
-| Property | Lives on | Reason |
-|----------|----------|--------|
-| `rank()` | `FreeBilinearModule` | Only free modules have a rank. |
-| `free_rank()` | `BilinearModules.ParentMethods` | **All** modules have a free rank (0 for torsion). Axiomatic. |
-| `cardinality()` | `BilinearModules.ParentMethods` | **All** modules have a cardinality, possibly infinite. Axiomatic. |
-| `signature_triple()` | `BilinearModules.ParentMethods` | Defined for **all** bilinear modules; `n` = radical rank (0 when nondegenerate). |
-| `to_quadratic_module()` | `BilinearModules.ParentMethods` | Map `Bil_R(M) → Quad_R(M)`; always defined. |
-| `is_even()`, `determinant()` | `Lattice` | Lattice-specific invariants. |
-| `discriminant_group()` | `Lattice` | Specific to the L→L*→A_L path. |
-| `roots()`, `weyl_group()` | `RootLattice` | Root-lattice-specific. |
+The generic contract intentionally stays thin. Arity-specific operations
+belong to the `Bilinear()` and `Quadratic()` refinements.
 
 
-## `BilinearModules.ElementMethods` ABC
+## `ModulesWithForms.ElementMethods`
 
 ```python
+class ModulesWithForms(Category_module):
+
     class ElementMethods(ABC):
 
         @abstractmethod
-        def parent(self) -> BilinearModule: ...
-        """The parent bilinear module of this element."""
+        def parent(self) -> ModuleWithForm: ...
 
         @abstractmethod
-        def __add__(self, other: BilinearModuleElement
-                    ) -> BilinearModuleElement: ...
-        """Addition: v + w in M."""
+        def __add__(self, other: ModuleWithFormElement) -> ModuleWithFormElement: ...
 
         @abstractmethod
-        def __neg__(self) -> BilinearModuleElement: ...
-        """Negation: -v."""
+        def __neg__(self) -> ModuleWithFormElement: ...
 
         @abstractmethod
-        def _lmul_(self, scalar: RingElement) -> BilinearModuleElement: ...
-        """Left R-scalar action: scalar * v. Sage hook for module action."""
+        def _lmul_(self, scalar: RingElement) -> ModuleWithFormElement: ...
 
         @abstractmethod
-        def _rmul_(self, scalar: RingElement) -> BilinearModuleElement: ...
-        """Right R-scalar action: v * scalar. For commutative R equals _lmul_."""
+        def _rmul_(self, scalar: RingElement) -> ModuleWithFormElement: ...
 
         @abstractmethod
-        def __rmul__(self, scalar: RingElement) -> BilinearModuleElement: ...
-        """Python hook for `scalar * self`; delegates to _lmul_."""
+        def __rmul__(self, scalar: RingElement) -> ModuleWithFormElement: ...
 
         @abstractmethod
         def __eq__(self, other: object) -> bool: ...
@@ -214,260 +325,310 @@ class BilinearModules(Category_module):
 
         @abstractmethod
         def to_vector(self) -> Vector: ...
-        """Coordinate vector w.r.t. parent().gens(). Basis-dependent extraction."""
+        """Coordinates with respect to parent().gens()."""
 
-        # --- Derived (not abstract) ---
-
-        def __mul__(self, other) -> object:
-            """Dispatch on type of other:
-            - other is a BilinearModuleElement in same parent: bilinear product beta(self, other)
-            - other is a ring scalar: right scalar action self * scalar via _rmul_
-            These are distinguished by parent membership, not isinstance checks."""
-            if hasattr(other, 'parent') and other.parent() is self.parent():
-                return self.parent().b(self, other)
-            return self._rmul_(other)
-
-        def is_isotropic(self) -> bool:
-            """Whether beta(self, self) == 0. Uses bilinear self-product, NOT a quadratic form value."""
-            return self.parent().b(self, self) == 0
-
-        def span(self) -> BilinearModule:
-            """Sub-bilinear-module generated by self."""
+        def span(self) -> ModuleWithForm:
             return self.parent().span([self])
-
-        def __sub__(self, other: BilinearModuleElement) -> BilinearModuleElement:
-            return self + (-other)
 ```
 
+Uniform diagonal syntax:
 
-## `BilinearModules.MorphismMethods` ABC
+- `v.q()` is allowed everywhere.
+- In `Bilinear()`, it means `b(v, v)`.
+- In `Quadratic()`, it means evaluation of the quadratic form.
+
+
+## `ModulesWithForms.MorphismMethods`
 
 ```python
+class ModulesWithForms(Category_module):
+
     class MorphismMethods(ABC):
 
         @abstractmethod
-        def domain(self) -> BilinearModule: ...
-        """Domain module M."""
+        def domain(self) -> ModuleWithForm: ...
 
         @abstractmethod
-        def codomain(self) -> BilinearModule: ...
-        """Codomain module N."""
+        def codomain(self) -> ModuleWithForm: ...
 
         @abstractmethod
-        def __call__(self, v: BilinearModuleElement
-                     ) -> BilinearModuleElement: ...
-        """Evaluate the morphism: f(v) in codomain.
-        Must satisfy:
-            f(v + w) == f(v) + f(w)  (additivity)
-            f(r * v) == r * f(v)     (R-linearity)"""
+        def __call__(self, v: ModuleWithFormElement) -> ModuleWithFormElement: ...
 
         @abstractmethod
         def to_matrix(self) -> Matrix: ...
-        """Matrix of f w.r.t. domain.gens() and codomain.gens().
-        Column j = coordinates of f(e_j) in codomain generators."""
+        """Matrix with respect to canonical generators."""
 
         @abstractmethod
-        def kernel(self) -> BilinearModule: ...
-        """ker(f) with bilinear form restricted from domain."""
+        def kernel(self) -> ModuleWithForm: ...
 
         @abstractmethod
-        def image(self) -> BilinearModule: ...
-        """im(f) with bilinear form restricted from codomain."""
+        def image(self) -> ModuleWithForm: ...
 
         @abstractmethod
-        def cokernel(self) -> BilinearModule: ...
-        """coker(f) = codomain / im(f) with descended bilinear form."""
+        def cokernel(self) -> ModuleWithForm: ...
+        """The actual cokernel object with descended form data."""
 
         @abstractmethod
-        def is_isometry(self) -> bool: ...
-        """Whether f preserves the bilinear form: beta_N(f(v),f(w)) == beta_M(v,w)."""
-
-        # --- Derived ---
+        def is_form_preserving(self) -> bool: ...
 
         def is_injective(self) -> bool:
-            return self.kernel() == BilinearModules(self.domain().base_ring()).zero()
+            ...
 
         def is_surjective(self) -> bool:
-            return self.cokernel() == BilinearModules(self.domain().base_ring()).zero()
+            ...
 
         def is_bijective(self) -> bool:
             return self.is_injective() and self.is_surjective()
-
-        def is_isomorphism(self) -> bool:
-            return self.is_bijective()
-
-        def __mul__(self, other: BilinearModuleMorphism
-                    ) -> BilinearModuleMorphism:
-            """Composition: (self * other)(v) = self(other(v))."""
-            ...
 ```
 
+Important negative constraints from the corrections:
 
-## `BilinearModules.Homsets.ParentMethods` ABC
+- morphisms are not containers,
+- morphisms do not have `perp`,
+- cokernels must construct the correct target object rather than a helper
+  invariant package.
+
+
+## `ModulesWithForms.Homsets.ParentMethods`
 
 ```python
+class ModulesWithForms(Category_module):
+
     class Homsets(HomsetsCategory):
+
+        def extra_super_categories(self):
+            return [Modules(self.base_category().base_ring())]
 
         class ParentMethods(ABC):
 
             @abstractmethod
-            def domain(self) -> BilinearModule: ...
+            def domain(self) -> ModuleWithForm: ...
 
             @abstractmethod
-            def codomain(self) -> BilinearModule: ...
+            def codomain(self) -> ModuleWithForm: ...
 
             @abstractmethod
             def element_from_dict(
-                self, mapping: dict[BilinearModuleElement, BilinearModuleElement]
-            ) -> BilinearModuleMorphism: ...
-            """Construct morphism from {generator: image} dict. Preferred."""
+                self,
+                mapping: dict[ModuleWithFormElement, ModuleWithFormElement],
+            ) -> ModuleWithFormMorphism: ...
 
             @abstractmethod
-            def element_from_matrix(
-                self, M: Matrix
-            ) -> BilinearModuleMorphism: ...
-            """Construct morphism from matrix w.r.t. domain/codomain gens."""
+            def element_from_matrix(self, matrix_data: Matrix) -> ModuleWithFormMorphism: ...
 
             @abstractmethod
             def element_from_images(
-                self, images: Sequence[BilinearModuleElement]
-            ) -> BilinearModuleMorphism: ...
-            """Construct morphism from ordered images of domain generators."""
+                self,
+                images: Sequence[ModuleWithFormElement],
+            ) -> ModuleWithFormMorphism: ...
 
             @abstractmethod
             def __contains__(self, f: object) -> bool: ...
-            """True iff f is a morphism M->N preserving module structure.
-            For isometry hom spaces, also checks form preservation."""
 
-            # --- Derived ---
+            def identity(self) -> ModuleWithFormMorphism:
+                ...
 
-            def identity(self) -> BilinearModuleMorphism:
-                assert self.domain() == self.codomain()
-                return self.element_from_matrix(
-                    identity_matrix(self.domain().base_ring(),
-                                    len(self.domain().gens()))
-                )
-
-            def zero(self) -> BilinearModuleMorphism:
-                n = len(list(self.domain().gens()))
-                m = len(list(self.codomain().gens()))
-                return self.element_from_matrix(
-                    zero_matrix(self.domain().base_ring(), m, n)
-                )
+            def zero(self) -> ModuleWithFormMorphism:
+                ...
 ```
 
+Hom-space containment owns the structural checks. If a specialized homset
+represents isometries, its `__contains__` method owns the form-preservation
+test.
 
-## `QuadraticModules` ABC
 
-A quadratic module `(M, q)` over `R` is independent from a bilinear module.
-The form `q: M -> C` satisfies:
-- `q(r*v) = r^2 * q(v)` (homogeneity of degree 2)
-- `beta_q(v,w) := q(v+w) - q(v) - q(w)` is `R`-bilinear (polarization)
+## Bilinear Refinement
 
-Note: `beta_q(v,v) = 2*q(v)`. The map `Quad_R(M) -> Bil_R(M)` is `q ↦ beta_q`.
-The map `Bil_R(M) -> Quad_R(M)` is `beta ↦ (v ↦ beta(v,v))`, and its
-polar form is `2*beta`, not `beta`. They are inverse only when `2 ∈ R^×`.
+`ModulesWithForms(R).Bilinear()` is the primary working stratum for Phases
+0 and 1.
 
 ```python
-class QuadraticForm(ABC):
+class ModulesWithForms(Category_module):
 
-    @abstractmethod
-    def domain(self) -> QuadraticModule: ...
-    """The quadratic module M this form lives on."""
+    class Bilinear(CategoryWithAxiom_over_base_ring):
 
-    @abstractmethod
-    def codomain(self) -> Ring: ...
-    """The codomain C: a subring of R.fraction_field(), or a quotient
-    (e.g. QQ/2ZZ for discriminant forms). NOT the same as the bilinear
-    form's codomain (which would be QQ/ZZ for the same object)."""
+        class ParentMethods(ABC):
 
-    @abstractmethod
-    def gram_matrix(self) -> Matrix: ...
-    """Matrix M such that q(v) = v^T * M * v for coordinate vectors v.
-    For a quadratic form, M is symmetric with q(e_i) = M_ii.
-    The bilinear polar form matrix is M + M^T = 2*M (for symmetric M).
-    Symbolic form: q(x1,...,xn) = sum_{i<=j} m_ij * xi * xj."""
+            @abstractmethod
+            def bilinear_form(self) -> BilinearForm: ...
 
-    @abstractmethod
-    def evaluate(self, v: QuadraticModuleElement) -> object: ...
-    """Evaluate q(v). Return value is an element of codomain."""
+            def form(self) -> BilinearForm:
+                return self.bilinear_form()
 
-    @abstractmethod
-    def polar_bilinear_form(self) -> BilinearForm: ...
-    """Return the polar bilinear form beta_q where
-    beta_q(v,w) = q(v+w) - q(v) - q(w).
-    Note: beta_q(v,v) = 2*q(v)."""
+            def b(
+                self,
+                left: ModuleWithFormElement,
+                right: ModuleWithFormElement,
+            ) -> object:
+                return self.bilinear_form().evaluate(left, right)
 
+            def gram_matrix(self) -> Matrix:
+                return self.bilinear_form().gram_matrix()
 
-class QuadraticModules(CategoryWithAxiom_over_base_ring):
+            @abstractmethod
+            def twist(self, scalar: RingElement) -> ModuleWithForm: ...
 
-    class ParentMethods(ABC):
+            @abstractmethod
+            def radical(self) -> ModuleWithForm: ...
 
-        @abstractmethod
-        def quadratic_form(self) -> QuadraticForm: ...
-        """The quadratic form q on this module."""
+        class ElementMethods(ABC):
 
-        @abstractmethod
-        def associated_bilinear_module(self) -> BilinearModule: ...
-        """Return (M, beta_q) where beta_q = polar form of q.
-        The Gram matrix of beta_q is G + G^T = 2*G where G = quadratic Gram matrix.
-        This is the canonical map Quad_R(M) -> Bil_R(M)."""
+            def b(self, other: ModuleWithFormElement) -> object:
+                return self.parent().b(self, other)
 
-        # --- Derived ---
+            def q(self) -> object:
+                return self.parent().b(self, self)
 
-        def quadratic_gram_matrix(self) -> Matrix:
-            """Matrix M with q(v) = v^T M v. Entries in codomain."""
-            return self.quadratic_form().gram_matrix()
+            def is_isotropic(self) -> bool:
+                return self.q() == 0
 
-        def symbolic_form(self, variable_names=None) -> Polynomial:
-            """Return q as a polynomial sum_{i<=j} m_ij * xi * xj.
-            Symbolic and matrix representations are interchangeable."""
-            ...
+        class MorphismMethods(ABC):
 
-    class ElementMethods(ABC):
-
-        @abstractmethod
-        def q(self) -> object: ...
-        """Evaluate the quadratic form: q(self).
-        This is NOT beta(self, self). The two are related by:
-            beta_q(v, v) = 2*q(v)
-        so q(v) = beta_q(v,v)/2 only when 2 is invertible."""
-
-        def is_isotropic(self) -> bool:
-            """Whether q(self) == 0 in the codomain."""
-            return self.q() == 0
+            def is_isometry(self) -> bool:
+                return self.is_form_preserving()
 ```
 
-### Conversion maps between `BilinearModules` and `QuadraticModules`
+This is the layer used for lattices, rational lattices, duals, and the
+first-pass treatment of discriminant objects.
 
+
+## Quadratic Refinement
+
+`ModulesWithForms(R).Quadratic()` is a refinement used when the genuine
+quadratic data matters, for example for `K/2R`-valued refinements.
+
+```python
+class ModulesWithForms(Category_module):
+
+    class Quadratic(CategoryWithAxiom_over_base_ring):
+
+        class ParentMethods(ABC):
+
+            @abstractmethod
+            def quadratic_form(self) -> QuadraticForm: ...
+
+            def form(self) -> QuadraticForm:
+                return self.quadratic_form()
+
+            @abstractmethod
+            def associated_bilinear_object(self) -> ModuleWithForm: ...
+            """The same underlying module equipped with the polar form."""
+
+            def polar_bilinear_form(self) -> BilinearForm:
+                return self.quadratic_form().polar_bilinear_form()
+
+        class ElementMethods(ABC):
+
+            def q(self) -> object:
+                return self.parent().quadratic_form().evaluate(self)
 ```
-Bil_R(M) ---[to_quadratic_module()]---> Quad_R(M)
-              beta |--> q_beta where q_beta(v) = beta(v,v)
-              polar form of q_beta = 2*beta, NOT beta
 
-Quad_R(M) --[associated_bilinear_module()]---> Bil_R(M)
-              q |--> beta_q where beta_q(v,w) = q(v+w)-q(v)-q(w)
-              beta_q(v,v) = 2*q(v)
+Quadratic objects should not fork the architecture. They sit inside the
+same `ModulesWithForms` framework and reuse the same module, morphism,
+homset, tensor, Cartesian-product, and dual machinery whenever the
+mathematics allows it.
 
-Composition (to_quadratic o associated_bilinear)(q)(v) = beta_q(v,v) = 2*q(v)  [NOT q]
-Composition (associated_bilinear o to_quadratic)(beta)(v,w) = 2*beta(v,w)      [NOT beta]
-These are inverses only when 2 is invertible in R.
+
+## Tensor Products, Cartesian Products, and Duals
+
+The category must expose Sage-style construction subcategories analogous to
+`sage.categories.modules.Modules`.
+
+```python
+class ModulesWithForms(Category_module):
+
+    class CartesianProducts(CartesianProductsCategory):
+
+        def extra_super_categories(self):
+            return [self.base_category()]
+
+    class TensorProducts(TensorProductsCategory):
+
+        def extra_super_categories(self):
+            return [self.base_category()]
+
+        class ParentMethods(ABC):
+
+            @abstractmethod
+            def tensor_factors(self) -> tuple[ModuleWithForm, ...]: ...
 ```
 
-For even lattices over ZZ (where `beta(v,v) ∈ 2ZZ`), the conventional
-half-integral quadratic form `q_half(v) = beta(v,v)/2 ∈ ZZ` is a separate
-map not recoverable from the above. It satisfies `beta_{q_half}(v,w) = beta(v,w)`
-(an honest inverse) and is available via `to_even_quadratic_module()` on `Lattice`.
+Required semantics:
+
+- `CartesianProducts` model direct products with componentwise module
+  structure and product form data.
+- `TensorProducts` model tensor products of objects with forms whenever the
+  codomain arithmetic supports the induced form; the first required target
+  is the bilinear integral/rational stratum.
+- `DualObjects()` mirrors the Sage construction but is not required to stay
+  inside the same codomain stratum. For example, the dual of an integral
+  nondegenerate free bilinear object typically lands in the rational
+  bilinear stratum.
 
 
-## Notes on Sage wiring
+## Cokernels and Discriminant Descent
 
-- `_Hom_` is Sage's **internal hook** for hom-set construction. It is an
-  implementation detail. Our public API is `M.Hom(N)`, which may internally
-  use `_Hom_` but never exposes it.
-- Wrapped elements must be real Sage elements (`Element` /
-  `ElementWrapper`-based), not plain Python wrappers, or Sage morphisms will
-  not compose through `Map.__call__`.
-- The category should be hooked through Sage's parent/category machinery,
-  modeled on `sage.categories.modules`, with its own `ParentMethods`,
-  `ElementMethods`, and `HomsetsCategory`.
+This is the main reason the contract is organized at the
+`ModulesWithForms` level rather than around separate lattice and
+discriminant hierarchies.
+
+Suppose:
+
+- `(L_2, beta_2)` is a free bilinear object over `R` with codomain `K`,
+- `i: L_1 -> L_2` is a morphism in `ModulesWithForms(R).Bilinear()`,
+- `beta_2(v, i(L_1)) \subseteq R` for every `v in L_2`.
+
+Then the cokernel `coker(i)` carries a well-defined descended bilinear form
+with codomain `K/R`:
+
+```text
+beta_bar([v], [w]) := beta_2(v, w) mod R  in K/R.
+```
+
+This is the abstract mechanism behind:
+
+```text
+L  ->  L^*  ->  A_L = coker(L -> L^*).
+```
+
+If additional quadratic data descends, it should be expressed as a
+quadratic refinement on the same cokernel object, typically with codomain
+`K/2R`.
+
+Implementation note:
+
+- the public object is the actual cokernel of a specific morphism,
+- computing it via Smith normal form invariants is acceptable internally,
+- presenting only the invariant package is not acceptable as the public
+  semantics.
+
+
+## Named Downstream Categories
+
+These names are ordinary intersections of `ModulesWithForms` axioms:
+
+```text
+Lattices(R)
+    := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()
+
+RationalLattices(R)
+    := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()
+
+DiscriminantBilinearModules(R)
+    := ModulesWithForms(R).Bilinear().Torsion()
+       with quotient-valued codomain, typically K/R
+```
+
+The point is that `L`, `L^*`, and `A_L` live in one framework and differ by
+intersecting axioms, not by switching between unrelated object systems.
+
+
+## Notes on Sage Wiring
+
+- The design should follow the category pattern of
+  `sage.categories.modules.Modules`, especially the source around
+  `SubcategoryMethods`, `CartesianProducts`, and `TensorProducts`.
+- `_Hom_` is an internal Sage hook. The public contract is `M.Hom(N)`.
+- Elements must be genuine Sage `Element` or `ElementWrapper` instances.
+- Concrete implementations may store Sage, Julia, or other backend objects,
+  but those are calculation engines, not the public API.

@@ -1,16 +1,17 @@
-# Phase 3: Morphisms, HomSpaces, and the Cokernel Machine
+# Phase 3: Concrete Morphism Wrappers and the Cokernel Machine
 
-Build the morphism layer for `BilinearModules(R)`: hom spaces as genuine
-Sage homsets, morphisms as Sage `Morphism` instances (not matrices),
-kernel/image/cokernel returning proper bilinear module objects, and
-validation at construction. The cokernel method is the single most critical
-piece -- it must automatically promote to the correct BilinearModule
-subclass, enabling the discriminant descent `L -> L* -> A_L` in Phase 4.
+Build the concrete morphism layer on top of `ModulesWithForms(R)`: thin
+hom-space wrappers as genuine Sage homsets, thin morphism wrappers as Sage
+`Morphism` instances (not matrices), kernel/image/cokernel returning proper
+objects in the relevant meets of `ModulesWithForms(R)`, and validation at
+construction. The cokernel method is still the single most critical piece:
+it must produce the correct descended object and enable the discriminant
+descent `L -> L* -> A_L` in Phase 4.
 
-**Depends on:** Phase 2 (categories, forms, core objects). HomSpaces
-dispatch through the category's `_Hom_` hook defined in Phase 2. Morphism
-kernel/image/cokernel return `FreeBilinearModule` or
-`TorsionBilinearModule` objects from Phase 2.
+**Depends on:** Phase 2 (`ModulesWithForms` category mixins, forms,
+codomains, and thin concrete carriers). Generic homset and morphism
+interfaces are already specified in the category definitions from Phase 2;
+Phase 3 supplies the concrete wrapper classes and the quotient algorithms.
 
 **Supersedes:** PHASE_1 Steps 8 and 13.
 
@@ -24,9 +25,11 @@ mathematical object, explicit morphisms replace implicit identifications.
 
 ```
 src/lattices/
+    categories/
+        modules_with_forms.py     # category-owned homset/morphism mixins
     morphisms/
-        homspaces.py              # BilinearModuleHomSpace hierarchy
-        bilinear.py               # BilinearModuleMorphism hierarchy
+        homspaces.py              # thin concrete hom-space wrappers
+        bilinear.py               # thin concrete morphism wrappers
     validation/
         presentations.py          # (extend) MorphismFromImagesModel, MorphismFromMatrixModel
 ```
@@ -35,20 +38,22 @@ src/lattices/
 ## Implementation Steps
 
 
-### Step 3.1: BilinearModuleHomSpace
+### Step 3.1: Concrete Hom-Space Wrappers
 
 **File:** `morphisms/homspaces.py`
 
 **Existing code:** 107-line `BilinearModuleHomSpace(Homset)` with
 `element_from_dict`, `element_from_matrix`, `element_from_images`.
 
-This is a genuine Sage `Homset`, registered via `_Hom_` dispatch in
-the `BilinearModules(R)` category (Phase 2). It lives in
-`BilinearModules(R).Homsets()` and is itself a module over R.
+This is a genuine Sage `Homset`, registered via category dispatch from
+`ModulesWithForms(R)`. The important correction is that the generic
+hom-space behavior already lives in
+`ModulesWithForms(...).Homsets.ParentMethods`; this file only supplies the
+concrete wrappers and constructors.
 
 ```python
 class BilinearModuleHomSpace(Homset):
-    """Hom(M, N) in BilinearModules(R).
+    """Hom(M, N) in ModulesWithForms(R).Bilinear().
 
     Elements are BilinearModuleMorphisms. Construction is via
     element_from_dict or element_from_matrix, never by coercing
@@ -101,8 +106,9 @@ BilinearModuleHomSpace(Homset)
 |   +-- DiscriminantGroupHomSpace   (Phase 4)
 ```
 
-Phase 3 implements `BilinearModuleHomSpace` and
-`FreeBilinearModuleHomSpace`. The rest are stubs populated in Phase 4.
+Phase 3 implements the concrete bilinear hom-space wrappers. The later
+phase-specific names remain thin refinements layered on the same category
+machinery.
 
 **Key decisions:**
 
@@ -115,28 +121,30 @@ Phase 3 implements `BilinearModuleHomSpace` and
   spaces. The `__call__` on the hom space is a thin dispatcher that routes
   matrices through `element_from_matrix`.
 
-- **Module structure.** `Hom(M, N)` is an R-module: morphisms can be added
-  and scaled. This comes from the `Homsets` extra super-category declared
-  in the `BilinearModules` category (Phase 2).
+- **Module structure.** `Hom(M, N)` is an `R`-module: morphisms can be
+  added and scaled. This comes from the `Homsets` extra super-category
+  declared in `ModulesWithForms` during Phase 2.
 
-- **`_Hom_` dispatch.** The category's `ParentMethods._Hom_` examines
-  domain and codomain to select the most specific HomSpace subclass. This
-  is the one acceptable place for type-based dispatch on a small fixed set.
+- **Dispatch by meets.** The category examines domain and codomain
+  predicates to select the most specific hom-space wrapper. This should be
+  driven by category membership and meets, not by ad hoc parallel
+  hierarchies.
 
 
-### Step 3.2: BilinearModuleMorphism
+### Step 3.2: Concrete Morphism Wrappers
 
 **File:** `morphisms/bilinear.py`
 
 **Existing code:** 123-line `BilinearModuleMorphism(Morphism)` with
 `to_matrix`, `kernel`, `image`, `cokernel`, `is_isometry`.
 
-A genuine Sage `Morphism` instance. NOT a matrix, NOT a container.
-Stores domain, codomain, and the underlying FGP module morphism.
+A genuine Sage `Morphism` instance. NOT a matrix, NOT a container. As with
+hom spaces, the generic behavior belongs to the category mixins; this file
+provides the concrete wrapper and storage.
 
 ```python
 class BilinearModuleMorphism(Morphism):
-    """A morphism in BilinearModules(R).
+    """A morphism in ModulesWithForms(R).Bilinear().
 
     Internally wraps an FGP module morphism. The bilinear form
     is NOT automatically preserved -- containment in a hom space
@@ -200,7 +208,8 @@ discriminant-specific methods (`order`, `is_involution`, `is_reflection`,
 
 **File:** `morphisms/bilinear.py` (methods on `BilinearModuleMorphism`)
 
-Kernel and image return proper BilinearModule objects, not raw FGP modules.
+Kernel and image return proper objects in the relevant
+`ModulesWithForms(R).Bilinear()` meets, not raw FGP modules.
 
 ```python
 def kernel(self) -> BilinearModule:
@@ -213,7 +222,7 @@ def kernel(self) -> BilinearModule:
     restricted_gram = self._restrict_gram_to_submodule(
         fgp_kernel, self.domain()
     )
-    return BilinearModule.from_module_and_gram(
+    return ModuleWithForm.from_module_and_form_data(
         fgp_kernel, restricted_gram,
         self.domain().bilinear_form().codomain()
     )
@@ -228,18 +237,18 @@ def image(self) -> BilinearModule:
     restricted_gram = self._restrict_gram_to_submodule(
         fgp_image, self.codomain()
     )
-    return BilinearModule.from_module_and_gram(
+    return ModuleWithForm.from_module_and_form_data(
         fgp_image, restricted_gram,
         self.codomain().bilinear_form().codomain()
     )
 ```
 
-Both delegate to `BilinearModule.from_module_and_gram` (Phase 2), which
-automatically promotes to the correct subclass (free, torsion, etc.).
+Both delegate to the Phase 2 promotion machinery, which should land the
+result in the richest correct meet.
 
-**The zero module.** `kernel()` of an injective morphism returns the zero
-bilinear module: `BilinearModules(R).zero()`. This is a `FreeBilinearModule`
-of rank 0 with an empty Gram matrix.
+**The zero object.** `kernel()` of an injective morphism returns the zero
+object in the relevant bilinear meet:
+`ModulesWithForms(R).Bilinear().zero()`.
 
 
 ### Step 3.4: The Cokernel Method
@@ -250,7 +259,7 @@ This is the SINGLE most critical method in the entire design. It:
 - Computes the FGP cokernel module
 - Descends the bilinear form to the quotient
 - Determines the correct codomain for the descended form
-- Automatically promotes to the correct BilinearModule subclass
+- Automatically promotes to the correct meet/category realization
 
 ```python
 def cokernel(self) -> BilinearModule:
@@ -272,7 +281,7 @@ def cokernel(self) -> BilinearModule:
     )
 
     # 4. Promote to correct type
-    return BilinearModule.from_module_and_gram(
+    return ModuleWithForm.from_module_and_form_data(
         fgp_cokernel, cokernel_gram, induced_codomain
     )
 ```
@@ -299,17 +308,19 @@ codomain depends on the input forms:
 The critical case: `iota: L -> L*` has integral domain and rational
 codomain, so the cokernel form lands in `QQ/ZZ`.
 
-**Automatic promotion.** `BilinearModule.from_module_and_gram` (Phase 2)
-examines the cokernel module's properties to determine the correct subclass:
-- Free module + integral codomain + nondegenerate -> can be `Lattice` (Phase 4)
-- Torsion module + torsion_bilinear codomain + source lattice metadata
-  -> `DiscriminantGroup` (Phase 4)
-- Torsion module + torsion_bilinear codomain + no source
-  -> `TorsionBilinearModule`
-- Free module + rational codomain -> `RationalLattice` (Phase 4)
+**Automatic promotion.** Phase 2's promotion machinery examines:
 
-Phase 3 handles the first and third cases. Phase 4 adds the promotion
-paths for `Lattice`, `RationalLattice`, and `DiscriminantGroup`.
+- form arity,
+- free vs torsion,
+- nondegeneracy,
+- codomain stratum,
+- any source-lattice metadata carried by the morphism.
+
+The output should then land in the richest correct meet, for example:
+
+- `ModulesWithForms(R).Bilinear().Torsion()`
+- `ModulesWithForms(R).Bilinear().Free().Rational()`
+- later in Phase 4, the named lattice and discriminant meets.
 
 
 ### Step 3.5: Cokernel Contract (Projection and Lift)
@@ -355,7 +366,7 @@ wraps the result as an element of the codomain.
 **File:** `morphisms/homspaces.py` (convenience on `BilinearModule`)
 
 ```python
-# On BilinearModule (Phase 2 parent, wired in Phase 3):
+# On ModulesWithForms(...).ParentMethods (wired concretely in Phase 3):
 def End(self) -> BilinearModuleHomSpace:
     """Endomorphism ring End(M) = Hom(M, M)."""
     return self.Hom(self)
@@ -447,8 +458,7 @@ class MorphismFromMatrixModel(BaseModel):
   `as_word_in_reflections`) -- Phase 5
 - **Orthogonal groups** -- Phase 5
 - **`DiscriminantGroupMorphism`, `DiscriminantFormMorphism`** -- Phase 4
-- **Enumeration of hom spaces** -- deferred (requires ZZ^m enumeration
-  from Phase 2 to be applied to matrix spaces)
+- **Enumeration of hom spaces** -- deferred
 
 
 ## Functional Checkpoint
@@ -457,7 +467,7 @@ Run in a Sage session after completing Phase 3:
 
 ```python
 import src.sage_patches
-from src.lattices.categories.bilinear_modules import BilinearModules
+from src.lattices.categories.modules_with_forms import ModulesWithForms
 from src.lattices.core.free import FreeBilinearModule
 
 # ------------------------------------------------------------------
@@ -467,7 +477,7 @@ from src.lattices.core.free import FreeBilinearModule
 L.<e, f> = FreeBilinearModule(ZZ, matrix(ZZ, [[0,1],[1,0]]))
 M.<g, h> = FreeBilinearModule(ZZ, matrix(ZZ, [[0,1],[1,0]]))
 H = L.Hom(M)
-assert H in BilinearModules(ZZ).Homsets()
+assert H in ModulesWithForms(ZZ).Bilinear().Homsets()
 assert H in Modules(ZZ)
 
 # ------------------------------------------------------------------
@@ -510,7 +520,7 @@ assert swap.is_isometry()
 # Kernel of an isomorphism is zero
 # ------------------------------------------------------------------
 
-assert swap.kernel() == BilinearModules(ZZ).zero()
+assert swap.kernel() == ModulesWithForms(ZZ).Bilinear().zero()
 assert swap.kernel().rank() == 0
 
 # ------------------------------------------------------------------
@@ -522,7 +532,7 @@ assert diag.is_injective()  # Injective over ZZ (det != 0)
 assert not diag.is_surjective()
 
 C = diag.cokernel()
-assert C in BilinearModules(ZZ)
+assert C in ModulesWithForms(ZZ).Bilinear()
 assert C.invariants() == [2, 3]
 assert C.cardinality() == 6
 
@@ -545,7 +555,7 @@ assert pi(c2.lift()) == c2
 # ------------------------------------------------------------------
 
 im = diag.image()
-assert im in BilinearModules(ZZ)
+assert im in ModulesWithForms(ZZ).Bilinear()
 assert im.rank() == 2
 # Image inherits bilinear form from codomain
 assert im.gram_matrix() == diag.to_matrix().transpose() * M.gram_matrix() * diag.to_matrix()
@@ -615,7 +625,7 @@ assert not bad.is_isometry()
 S = L.span([e])
 # S is a rank-1 degenerate sub-bilinear-module
 Q = L / S  # Quotient via cokernel of inclusion
-assert Q in BilinearModules(ZZ)
+assert Q in ModulesWithForms(ZZ).Bilinear()
 
 # ------------------------------------------------------------------
 # Module-level morphism specs from sage_spec/misc.sage
@@ -629,15 +639,15 @@ f = H12.element_from_matrix(matrix(ZZ, 2, [0,1,1,0]))
 assert f in H12
 assert f(g1) == h2 and f(g2) == h1
 assert f.to_matrix() == matrix(ZZ, 2, [0,1,1,0])
-assert f.is_injective() and f.kernel() == BilinearModules(ZZ).zero()
-assert f.is_surjective() and f.cokernel() == BilinearModules(ZZ).zero()
+assert f.is_injective() and f.kernel() == ModulesWithForms(ZZ).Bilinear().zero()
+assert f.is_surjective() and f.cokernel() == ModulesWithForms(ZZ).Bilinear().zero()
 assert f.is_bijective() and f.is_isomorphism()
 
 # Nontrivial cokernel with projection/lift
 g = H12.element_from_images([2*h1, 3*h2])
 assert g.to_matrix() == diagonal_matrix(ZZ, [2,3])
 C = g.cokernel()
-assert C in BilinearModules(ZZ)
+assert C in ModulesWithForms(ZZ).Bilinear()
 c1_bar, c2_bar = tuple(C.gens())
 pi = C.projection()
 assert pi(h1) == c1_bar and pi(h2) == c2_bar
@@ -654,5 +664,5 @@ assert pi.kernel() == M2.span([2*h1, 3*h2])
 | Sage `Morphism` composition may conflict with our `__mul__` | Test early; use `_call_` not `__call__` for element evaluation |
 | FGP module cokernel may not carry enough metadata for form descent | Compute form descent explicitly from generator lifts, not from FGP internals |
 | `__contains__` on HomSpace may be slow for large-rank modules | Isometry check reduces to `M^T G_N M == G_M`, which is O(n^3); acceptable |
-| Cokernel promotion to DiscriminantGroup requires source lattice metadata | Phase 3 promotes to TorsionBilinearModule only; Phase 4 adds DiscriminantGroup path |
+| Cokernel promotion to named discriminant objects requires source lattice metadata | Phase 3 promotes to the generic torsion bilinear meet; Phase 4 adds the named discriminant path |
 | Direct sum of morphisms requires matching summand structure | Assert domain/codomain compatibility at construction; block diagonal matrix is unambiguous |

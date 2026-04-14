@@ -1,10 +1,23 @@
-# Phase 2: Category, Forms, and Core Objects
+# Phase 2: ModulesWithForms Integration Layer
 
-Build the `BilinearModules(R)` category, form codomain abstraction, and
-the core parent/element hierarchy: free and torsion bilinear modules over
-arbitrary PID R (primarily R = ZZ). At the end of this phase, one can
-construct bilinear modules, create symbolic elements, evaluate forms,
-perform direct sums, and check category containment.
+Build the `ModulesWithForms(R)` integration layer, form codomain
+abstraction, and the thin concrete carriers that realize the category
+mixins. The architectural correction for this phase is:
+
+- `ModulesWithForms(R)` is the single top-level category,
+- bilinear/quadratic, free/torsion, nondegenerate, integral/rational, and
+  similar notions are subcategory axioms,
+- much of the generic parent, element, morphism, and homset behavior lives
+  directly in the category definitions as `ParentMethods`,
+  `ElementMethods`, `MorphismMethods`, and `Homsets.ParentMethods`,
+- the concrete files under `core/` and `morphisms/` are thin stateful
+  carriers, wrappers, and promotion points, not a competing conceptual
+  hierarchy.
+
+At the end of this phase, one can construct modules with forms, create
+symbolic elements, evaluate forms, perform direct sums, use category meets
+such as `ModulesWithForms(ZZ).Bilinear().Free()`, and rely on generic
+homset and morphism scaffolding supplied by the category layer.
 
 **Depends on:** Phase 0 (Sage patches), especially `QQ/ZZ` and `QQ/2ZZ`
 as working codomains, enriched FGP module operations, and `+` = direct sum.
@@ -12,6 +25,7 @@ as working codomains, enriched FGP module operations, and `+` = direct sum.
 **Supersedes:** PHASE_1 Steps 1-7.
 
 **Style guide:** `plans/LATTICE_STYLE_GUIDE.md`.
+**Category contract:** `plans/CATEGORY_ABC_SPEC.md`.
 Every object built here must satisfy: elements are symbolic (not numerical),
 containment over equations, categories over classes, operators overloaded,
 validation at construction, exact arithmetic only.
@@ -22,15 +36,21 @@ validation at construction, exact arithmetic only.
 ```
 src/lattices/
     categories/
-        bilinear_modules.py       # BilinearModules(R), FreeBilinearModules, TorsionBilinearModules
-        quadratic_modules.py      # QuadraticModules(R)
+        modules_with_forms.py     # top-level category + most generic mixins
+        bilinear_modules.py       # Bilinear() convenience facade / alias layer
+        quadratic_modules.py      # Quadratic() convenience facade / alias layer
+        free_bilinear_modules.py  # Bilinear().Free()
+        torsion_bilinear_modules.py  # Bilinear().Torsion()
+        lattices.py               # Bilinear().Free().NonDegenerate().Integral()
+        rational_lattices.py      # Bilinear().Free().NonDegenerate().Rational()
+        discriminant_quadratic_forms.py  # quotient-valued torsion quadratic meet
     core/
         codomains.py              # FormCodomain
         forms.py                  # BilinearForm, QuadraticForm
-        abstract.py               # BilinearModule, QuadraticModule (abstract parents)
-        elements.py               # Element hierarchy (ElementWrapper-based)
-        free.py                   # FreeBilinearModule, FreeQuadraticModule
-        torsion.py                # TorsionBilinearModule, TorsionQuadraticModule
+        abstract.py               # thin concrete parent carriers only
+        elements.py               # thin ElementWrapper classes only
+        free.py                   # concrete free carriers
+        torsion.py                # concrete torsion carriers
     validation/
         presentations.py          # Pydantic validators for all Phase 2 constructors
 ```
@@ -39,161 +59,117 @@ src/lattices/
 ## Implementation Steps
 
 
-### Step 2.1: BilinearModules(R) Category
+### Step 2.1: `ModulesWithForms(R)` Category
 
-**File:** `categories/bilinear_modules.py`
+**Files:** `categories/modules_with_forms.py`, thin alias files in
+`categories/`
 
-**Existing code:** 35-line minimal category inheriting `Category_module`
-with `_Hom_` dispatch.
+**Existing code:** fragmented category files centered on the legacy
+`BilinearModules(R)` nomenclature.
 
-Model on `sage.categories.modules.Modules`. This is the foundation
-everything else hooks into via Sage's category/parent machinery.
+Model the top-level category on `sage.categories.modules.Modules`. This is
+the foundation everything else hooks into via Sage's category/parent
+machinery.
 
-**Category/concrete split:** The category defines ONLY the axiomatic
-contract -- what any implementation of `BilinearModules` must provide,
-expressed as ABCs. Everything implementation-specific (rank for free
-modules, signature for lattices, roots for root lattices, internal Sage
-objects) lives on concrete subclasses. The full ABC contracts and the
-reasoning behind each choice is in `LATTICE_STYLE_GUIDE.md` under
-"Category Interface vs. Concrete Implementation".
+The major correction is that the category definition now owns much of the
+generic behavior. In particular, Phase 2 should implement or stub in
+category mixins for:
 
-Key corrections vs. naive design:
-- `rank` is NOT in the category -- only free modules have a rank
-- `_Hom_` is NOT in the category -- it's a Sage internal hook; our public
-  method is `Hom(other)`
-- `gram_matrix` is a DERIVED method on the category (from `bilinear_form()`)
-  -- not abstract, since it can always be computed as `bilinear_form().gram_matrix()`
-- Every abstract method has explicit type annotations
+- `ParentMethods`
+- `ElementMethods`
+- `MorphismMethods`
+- `Homsets.ParentMethods`
+- `SubcategoryMethods`
+
+Those mixins define the generic semantics for modules with forms and are
+reused by all downstream meets.
 
 ```python
-class BilinearModules(Category_module):
-    """Category of pairs (M, beta) where M is a f.g. R-module
-    and beta: M x M -> C is a symmetric bilinear form."""
+class ModulesWithForms(Category_module):
+    """Category of finitely generated R-modules equipped with a form."""
 
     def super_categories(self):
-        return [Modules(self.base_ring())]
+        return [Modules(self.base_ring()).FinitelyPresented()]
 
     def additional_structure(self):
-        return self  # Adds the form as genuine extra structure
+        return self
+
+    class SubcategoryMethods:
+        def Bilinear(self): ...
+        def Quadratic(self): ...
+        def Free(self): ...
+        def Torsion(self): ...
+        def NonDegenerate(self): ...
+        def Integral(self): ...
+        def Rational(self): ...
+        def TensorProducts(self): ...
+        def CartesianProducts(self): ...
+        def DualObjects(self): ...
 
     class ParentMethods(ABC):
-        # === Abstract: every implementation MUST provide these ===
-        @abstractmethod
-        def bilinear_form(self) -> BilinearForm: ...   # the form object
-        @abstractmethod
-        def gens(self) -> tuple[BilinearModuleElement, ...]: ...
-        @abstractmethod
-        def zero(self) -> BilinearModuleElement: ...
-        @abstractmethod
+        def form(self) -> Form: ...
+        def gens(self) -> tuple[ModuleWithFormElement, ...]: ...
+        def zero(self) -> ModuleWithFormElement: ...
         def base_ring(self) -> Ring: ...
-        @abstractmethod
-        def free_part(self) -> FreeBilinearModule: ...
-        @abstractmethod
-        def torsion_part(self) -> TorsionBilinearModule: ...
-        @abstractmethod
-        def Hom(self, other: BilinearModule) -> BilinearModuleHomSpace: ...
-        @abstractmethod
-        def dual(self) -> BilinearModule: ...
-        @abstractmethod
-        def twist(self, scalar) -> BilinearModule: ...
-        @abstractmethod
-        def span(self, elements) -> BilinearModule: ...
-
-        @abstractmethod
-        def cardinality(self): ...  # CardinalNumber; Infinity for free, int for torsion
-
-        # === Derived: follow from the abstract interface above ===
-        def b(self, v, w): return self.bilinear_form().evaluate(v, w)
-        def gram_matrix(self): return self.bilinear_form().gram_matrix()
-        def End(self): return self.Hom(self)
+        def free_part(self) -> ModuleWithForm: ...
+        def torsion_part(self) -> ModuleWithForm: ...
+        def Hom(self, other: ModuleWithForm) -> ModuleWithFormHomSpace: ...
+        def dual(self) -> ModuleWithForm: ...
+        def span(self, elements) -> ModuleWithForm: ...
 
     class ElementMethods(ABC):
-        @abstractmethod
-        def parent(self) -> BilinearModule: ...
-        @abstractmethod
-        def __add__(self, other) -> BilinearModuleElement: ...
-        @abstractmethod
-        def __neg__(self) -> BilinearModuleElement: ...
-        @abstractmethod
-        def __rmul__(self, scalar) -> BilinearModuleElement: ...
-        @abstractmethod
-        def __eq__(self, other) -> bool: ...
-        @abstractmethod
-        def __hash__(self) -> int: ...
-        @abstractmethod
+        def parent(self) -> ModuleWithForm: ...
+        def __add__(self, other) -> ModuleWithFormElement: ...
+        def __neg__(self) -> ModuleWithFormElement: ...
+        def __rmul__(self, scalar) -> ModuleWithFormElement: ...
         def to_vector(self) -> Vector: ...
 
-        # === Derived ===
-        def __mul__(self, other): return self.parent().b(self, other)
-        def q(self): return self.parent().b(self, self)
-        def is_isotropic(self): return self.q() == 0
-        def span(self): return self.parent().span([self])
-
     class MorphismMethods(ABC):
-        @abstractmethod
-        def domain(self) -> BilinearModule: ...
-        @abstractmethod
-        def codomain(self) -> BilinearModule: ...
-        @abstractmethod
-        def __call__(self, v: BilinearModuleElement) -> BilinearModuleElement: ...
-        @abstractmethod
+        def domain(self) -> ModuleWithForm: ...
+        def codomain(self) -> ModuleWithForm: ...
+        def __call__(self, v) -> ModuleWithFormElement: ...
         def to_matrix(self) -> Matrix: ...
-        @abstractmethod
-        def kernel(self) -> BilinearModule: ...
-        @abstractmethod
-        def image(self) -> BilinearModule: ...
-        @abstractmethod
-        def cokernel(self) -> BilinearModule: ...
-        @abstractmethod
-        def is_isometry(self) -> bool: ...
-
-        # === Derived ===
-        def is_injective(self): return self.kernel() == zero_module(self.domain())
-        def is_surjective(self): return self.cokernel() == zero_module(self.codomain())
-        def is_bijective(self): return self.is_injective() and self.is_surjective()
+        def kernel(self) -> ModuleWithForm: ...
+        def image(self) -> ModuleWithForm: ...
+        def cokernel(self) -> ModuleWithForm: ...
 
     class Homsets(HomsetsCategory):
         def extra_super_categories(self):
             return [Modules(self.base_category().base_ring())]
-
-        class ParentMethods(ABC):
-            @abstractmethod
-            def domain(self) -> BilinearModule: ...
-            @abstractmethod
-            def codomain(self) -> BilinearModule: ...
-            @abstractmethod
-            def element_from_dict(self, mapping) -> BilinearModuleMorphism: ...
-            @abstractmethod
-            def element_from_matrix(self, M) -> BilinearModuleMorphism: ...
-            @abstractmethod
-            def element_from_images(self, images) -> BilinearModuleMorphism: ...
-            @abstractmethod
-            def __contains__(self, f) -> bool: ...
 ```
 
-**Subcategories:**
-- `FreeBilinearModules(BilinearModules)` -- for free underlying module
-- `TorsionBilinearModules(BilinearModules)` -- for torsion underlying module
+**Downstream categories are mostly meets, not fresh architectures.**
+Required examples:
 
-Similarly `QuadraticModules(R)` in `quadratic_modules.py` with
-`quadratic_form()` and `polar_form()` in ParentMethods.
+- `ModulesWithForms(R).Bilinear()`
+- `ModulesWithForms(R).Quadratic()`
+- `ModulesWithForms(R).Bilinear().Free()`
+- `ModulesWithForms(R).Bilinear().Torsion()`
+- `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`
+- `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`
+
+Thin compatibility facades such as `BilinearModules`, `QuadraticModules`,
+`FreeBilinearModules`, `TorsionBilinearModules`, `Lattices`, and
+`RationalLattices` may remain as names, but they should be trivial wrappers
+or aliases for those meets and should inherit the Sage mixins from the
+category machinery rather than redefining them.
 
 **Key decisions:**
-- `additional_structure` returns `self` -- signals genuine extra structure
-  beyond Modules(R), affects Sage's hom-set construction.
-- `_Hom_` dispatches to correct HomSpace subclass (Phase 3 fills these in;
-  Phase 2 provides a minimal stub).
-- Element `__mul__` must dispatch correctly: `element * element` = bilinear
-  product (scalar), `parent * parent` = tensor product (module). These are
-  different Python objects so no ambiguity.
+- `rank` is not on the generic top-level category.
+- `_Hom_` is internal Sage plumbing; the public contract is `Hom`.
+- `TensorProducts`, `CartesianProducts`, and `DualObjects` come from the
+  same category layer, not from a later ad hoc hierarchy.
+- Generic element, morphism, and homset behavior should not be restated in
+  concrete carrier files.
 
 
 ### Step 2.2: FormCodomain
 
 **File:** `core/codomains.py`
 
-Lightweight Pydantic-validated descriptor for the codomain of a
-bilinear/quadratic form. This determines where form values land.
+Lightweight Pydantic-validated descriptor for the codomain of a form. This
+determines where form values land and which meet predicates (`Integral`,
+`Rational`, quotient-valued torsion cases) hold.
 
 ```python
 class FormCodomain(BaseModel):
@@ -232,7 +208,7 @@ The `codomain` field is a real Sage parent (Phase 0 makes QQ/ZZ work).
 Form evaluation coerces into this parent via `codomain(value)`.
 
 
-### Step 2.3: BilinearForm and QuadraticForm
+### Step 2.3: Form Helper Objects
 
 **File:** `core/forms.py`
 
@@ -256,29 +232,36 @@ QuadraticForm stores a gram matrix and evaluates `q(v) = v^T G v` with
 coercion into the quadratic codomain. Its `polar_form()` returns the
 associated BilinearForm.
 
+These are helper objects, not an alternative category layer.
 
-### Step 2.4: BilinearModule Abstract Parent
+
+### Step 2.4: Thin Concrete Parent Carriers and Promotion
 
 **File:** `core/abstract.py`
 
 **Existing code:** 298-line `BilinearModule(Parent)` -- migrate and
 correct per corrections spec.
 
-The abstract parent for all bilinear modules. Stores a BilinearForm object
-(not just a Gram matrix), declares category membership, and provides the
-`_element_constructor_` for element creation.
+Concrete parent classes are now thin carriers for state, backend handles,
+and promotion hooks. They should not duplicate generic semantics already
+owned by `ModulesWithForms(...).ParentMethods`.
 
 **Constructor surface:**
-- `BilinearModule.from_gram(R, gram_matrix)` -- primary for free modules
-- `BilinearModule.from_module_and_gram(module, gram_matrix, codomain)` --
-  for torsion/mixed
-- `BilinearModule.from_cokernel(morphism)` -- Phase 3 fills this in
+- `ModuleWithForm.from_gram(R, gram_matrix)` -- primary for free modules
+- `ModuleWithForm.from_module_and_form_data(module, gram_matrix, codomain)`
+  -- for torsion/mixed
+- `ModuleWithForm.from_cokernel(morphism)` -- Phase 3 fills this in
 
-Automatic promotion: `from_gram` / `from_module_and_gram` detect the most
-specific correct subclass and return it (FreeBilinearModule,
-TorsionBilinearModule, etc.). This is the only place where type-based
-dispatch occurs, and it dispatches on a small fixed set of mathematical
-properties (free vs torsion, codomain type), not on Python classes.
+Automatic promotion lands objects in the richest correct meet:
+
+- bilinear vs quadratic,
+- free vs torsion,
+- nondegenerate vs degenerate,
+- integral vs rational vs quotient-valued.
+
+The concrete constructors should therefore decide category membership by
+mathematical predicates, then let Sage's category machinery supply the
+appropriate mixins.
 
 **What to migrate from existing code:**
 - `Parent.__init__` with correct category
@@ -303,7 +286,7 @@ properties (free vs torsion, codomain type), not on Python classes.
 - `__iter__` = lazy enumeration of elements
 
 
-### Step 2.5: Elements
+### Step 2.5: Thin Element Wrappers Backed by Category Mixins
 
 **File:** `core/elements.py`
 
@@ -311,6 +294,8 @@ properties (free vs torsion, codomain type), not on Python classes.
 
 All elements MUST be genuine Sage `ElementWrapper` instances wrapping the
 underlying FGP module element. Non-negotiable for `Map.__call__` to work.
+Most element behavior should live in `ModulesWithForms(...).ElementMethods`
+or its meets; the concrete classes in `core/elements.py` should be thin.
 
 **Hierarchy:**
 ```
@@ -331,7 +316,7 @@ Phase 2 implements `BilinearModuleElement`, `FreeBilinearModuleElement`,
 `TorsionBilinearModuleElement`, and the Quadratic variants. Phase 4
 subclasses are stubbed.
 
-**BilinearModuleElement methods:**
+**Bilinear element behavior should primarily come from the category mixins:**
 - `__mul__(other)` -- bilinear product when other is an element; delegates
   to parent's BilinearForm
 - `q()` / `norm()` -- `self * self`
@@ -353,14 +338,15 @@ subclasses are stubbed.
 not the vector `[1, 1]`. `[1, 0] not in L` must hold.
 
 
-### Step 2.6: FreeBilinearModule
+### Step 2.6: Concrete Free and Torsion Carriers
 
-**File:** `core/free.py`
+**Files:** `core/free.py`, `core/torsion.py`, and the thin downstream
+concrete carriers introduced by later phases.
 
-**Existing code:** 72-line `FreeBilinearModule(BilinearModule)`.
-
-A free bilinear module is `(R^n, Gram matrix)`. Internally wraps
-`FGP_Module(ZZ^n, zero_submodule)` from Phase 0 enrichment.
+The concrete free and torsion classes carry presentation data and backend
+handles. Their category membership should come from meets such as
+`ModulesWithForms(R).Bilinear().Free()` and
+`ModulesWithForms(R).Bilinear().Torsion()`.
 
 **Key methods:**
 - `span(elements)` -- sub-bilinear-module within `self` generated by given
@@ -382,34 +368,12 @@ Sage's preparser calling `_first_ngens(2)`. Verify this works natively
 on the `FGP_Module` wrapper; patch if needed.
 
 
-### Step 2.7: TorsionBilinearModule
+At this stage, the required concrete carriers are:
 
-**File:** `core/torsion.py`
-
-**Existing code:** 46-line `TorsionBilinearModule(BilinearModule)`.
-
-Default codomain is `FormCodomain.torsion_bilinear(R)`. Form evaluation
-coerces into QQ/ZZ (Phase 0 patches).
-
-**Constructor:**
-- `TorsionBilinearModule.from_invariants_and_gram(invariants, gram)` --
-  direct construction from Smith invariants and a Gram matrix with entries
-  in K/R.
-
-**Methods:**
-- `invariants()` -- Smith normal form invariants of the torsion part
-- `cardinality()` -- overrides abstract; returns product of invariants (finite)
-- `is_p_elementary(p)` -- all invariants are p
-- `p_rank(p)` -- number of invariant-p summands
-
-Note: `cardinality()` is abstract on ALL bilinear modules (every set has
-a cardinality). Free modules return `Infinity`; torsion modules override
-with their finite cardinality. Both are valid cardinalities.
-
-**Element methods at TorsionBilinearModuleElement level:**
-- `additive_order()` -- order in the underlying group
-- `b(g1, g2)` -- bilinear form value in QQ/ZZ (convenience on parent)
-- `q(g)` -- quadratic form value in QQ/2ZZ (convenience on parent)
+- free bilinear, not assumed nondegenerate,
+- torsion bilinear, not assumed nondegenerate,
+- enough quadratic/torsion scaffolding to support later discriminant
+  refinement without introducing a second architecture.
 
 
 ### Step 2.8: Pydantic Validation
@@ -432,14 +396,17 @@ nontrivial mathematical properties. No per-field validation.
 
 ## Explicitly Out of Scope for Phase 2
 
-- **Morphisms and hom spaces** -- Phase 3
+- **Concrete homset and morphism wrapper classes** -- Phase 3
 - **Cokernel, kernel, image** -- Phase 3
 - **Dual lattices, discriminant groups** -- Phase 4
 - **Lattice named constructors** (`Lattice.U()`, etc.) -- Phase 4
 - **Orthogonal groups** -- Phase 5
 - **Tor/Ext functors** -- deferred indefinitely
-- **QuadraticModules refinement** -- only stub; full implementation
-  alongside discriminant forms in Phase 4
+- **Heavy quotient algorithms** -- Phase 3
+
+Note: generic morphism and homset semantics are NOT out of scope anymore.
+They belong in the category mixins delivered here, even if their concrete
+wrapper classes and quotient algorithms are finished in Phase 3.
 
 
 ## Functional Checkpoint
@@ -449,17 +416,19 @@ Run in a Sage session after completing Phase 2:
 ```python
 import src.sage_patches
 
-from src.lattices.categories.bilinear_modules import BilinearModules
+from src.lattices.categories.modules_with_forms import ModulesWithForms
 from src.lattices.core.free import FreeBilinearModule
 from src.lattices.core.torsion import TorsionBilinearModule
 from src.lattices.core.codomains import FormCodomain
 
 # Category exists and is genuine
-assert BilinearModules(ZZ) in Categories
+assert ModulesWithForms(ZZ) in Categories
+assert ModulesWithForms(ZZ).Bilinear() in Categories
 
 # Free bilinear module construction + category containment
 L = FreeBilinearModule(ZZ, matrix(ZZ, [[0,1],[1,0]]))
-assert L in BilinearModules(ZZ)
+assert L in ModulesWithForms(ZZ).Bilinear()
+assert L in ModulesWithForms(ZZ).Bilinear().Free()
 assert L in Modules(ZZ)
 assert L.gram_matrix() == matrix(ZZ, [[0,1],[1,0]])
 
@@ -478,7 +447,7 @@ assert L.bilinear_form().codomain() == FormCodomain.integral(ZZ)
 # Direct sum via +
 M = L + L
 assert M.rank() == 4
-assert M in BilinearModules(ZZ)
+assert M in ModulesWithForms(ZZ).Bilinear()
 assert M.gram_matrix() == block_diagonal_matrix(
     L.gram_matrix(), L.gram_matrix()
 )
@@ -492,7 +461,7 @@ assert L2.gram_matrix() == 2 * L.gram_matrix()
 
 # Span and perp
 S = L.span([e])
-assert S in BilinearModules(ZZ)
+assert S in ModulesWithForms(ZZ).Bilinear()
 assert S.is_degenerate()
 assert S.perp() == S
 
@@ -500,8 +469,8 @@ assert S.perp() == S
 T = TorsionBilinearModule.from_invariants_and_gram(
     [2, 2], matrix(QQ, [[0, QQ(1,2)], [QQ(1,2), 0]])
 )
-assert T in BilinearModules(ZZ)
-assert T in TorsionBilinearModules(ZZ)
+assert T in ModulesWithForms(ZZ).Bilinear()
+assert T in ModulesWithForms(ZZ).Bilinear().Torsion()
 assert T.bilinear_form().codomain() == FormCodomain.torsion_bilinear(ZZ)
 g1, g2 = T.gens()
 assert T.b(g1, g2) == QQ(1,2)
@@ -519,5 +488,5 @@ assert L.zero() in first_few
 |------|-----------|
 | Element `__mul__` conflicts with Sage's coercion model | Only override on our ElementWrapper subclass; Sage elements use different dispatch |
 | `_first_ngens` may not work on wrapped FGP modules | Test early; patch if needed |
-| Category caching may interfere with `in BilinearModules(ZZ)` | Use `__contains__` override, not cached category membership |
+| Category caching may interfere with meet-based containment checks | Use `__contains__` override, not cached category membership |
 | Torsion form evaluation depends on Phase 0 QQ/ZZ arithmetic | Verify Phase 0 is complete before starting torsion modules |

@@ -79,47 +79,33 @@ any implementation of a category must provide**. Everything else belongs
 on the concrete classes.
 
 **Rule: put something in the category only if someone implementing
-`BilinearModules` from scratch with completely different internals would
+`ModulesWithForms` from scratch with completely different internals would
 need to implement it.** The test: could they implement it using a
 polynomial ring, a Julia object, or a combinatorial free module as the
 internal representation, and have every category method work unchanged?
 
-The full ABC contracts -- `BilinearForm`, `BilinearModules.ParentMethods`,
-`BilinearModules.ElementMethods`, `BilinearModules.MorphismMethods`, and
-`BilinearModules.Homsets.ParentMethods` -- are specified in
-**`CATEGORY_ABC_SPEC.md`**. Any contribution implementing these categories
-must honor those contracts exactly.
+The full category contract now lives exclusively in
+**`CATEGORY_ABC_SPEC.md`**. Its source of truth is:
 
-**Summary of abstract/derived split:**
+- `ModulesWithForms(R)` as the top-level category of pairs `(M, f)`
+- bilinear and quadratic structure as refinements, not separate top-level
+  contracts
+- Sage-style `SubcategoryMethods`, `Homsets`, `TensorProducts`,
+  `CartesianProducts`, and `DualObjects`, modeled on
+  `sage.categories.modules.Modules`
+- codomain and module-theoretic axioms such as `Free`, `Torsion`,
+  `NonDegenerate`, `Integral`, and `Rational`
 
-| Method | Layer | Abstract or derived? |
-|--------|-------|----------------------|
-| `bilinear_form()`, `gens()`, `zero()`, `base_ring()` | `ParentMethods` | Abstract |
-| `free_part()`, `torsion_part()`, `Hom()`, `dual()`, `twist()`, `span()` | `ParentMethods` | Abstract |
-| `cardinality()`, `free_rank()`, `signature_triple()`, `to_quadratic_module()` | `ParentMethods` | Abstract |
-| `b()`, `gram_matrix()`, `End()` | `ParentMethods` | Derived |
-| `parent()`, `__add__()`, `__neg__()`, `_lmul_()`, `_rmul_()`, `__rmul__()`, `__eq__()`, `__hash__()`, `to_vector()` | `ElementMethods` | Abstract |
-| `__mul__()` (bilinear product OR scalar), `is_isotropic()`, `span()`, `__sub__()` | `ElementMethods` | Derived |
-| `domain()`, `codomain()`, `__call__()`, `to_matrix()`, `kernel()`, `image()`, `cokernel()`, `is_isometry()` | `MorphismMethods` | Abstract |
-| `is_injective()`, `is_surjective()`, `is_bijective()`, `is_isomorphism()`, `__mul__()` | `MorphismMethods` | Derived |
-| `domain()`, `codomain()`, `element_from_dict()`, `element_from_matrix()`, `element_from_images()`, `__contains__()` | `Homsets.ParentMethods` | Abstract |
-| `identity()`, `zero()` | `Homsets.ParentMethods` | Derived |
-
-The abstract methods are exactly those for which no default implementation
-can be derived from other abstract methods alone. If a method CAN be
-derived (e.g., `gram_matrix()` from `bilinear_form().gram_matrix()`), it
-is derived, not abstract.
-
-**The former ABC code blocks have been removed from this file.** They now
-live exclusively in `CATEGORY_ABC_SPEC.md` -- one source of truth.
+This file is style guidance only. Do not restate the ABCs here.
 
 
 ## Public Mathematical Model
 
-- A bilinear module is presented by canonical generators of `R^n` together
-  with a Gram matrix.
-- `BilinearModules(R)` is a genuine new Sage category of pairs `(M, beta)`,
-  not merely an informal wrapper convention around existing module parents.
+- The working base is a module with form, presented by canonical generators
+  together with its form data.
+- `ModulesWithForms(R)` is a genuine new Sage category of pairs `(M, f)`,
+  with `Bilinear()` and `Quadratic()` as refinements, not merely an
+  informal wrapper convention around existing module parents.
 - This must be defined generally over a Sage ring `R`, not hard-coded to `ZZ`
   except where a class specifically models integral lattices.
 - Public lattice/module nouns are not naturally embedded in ambient spaces.
@@ -1056,7 +1042,7 @@ Objects promote to the richest category their invariants support. This is
 not optional; all constructions must check and promote.
 
 ```python
-assert e.span() in BilinearModules(ZZ)         # Degenerate, not a lattice
+assert e.span() in ModulesWithForms(ZZ).Bilinear()  # Degenerate, not a lattice
 assert e.span() not in Lattices(ZZ)
 assert e.perp()/e in Lattices(ZZ)              # Quotient happens to be nondegenerate
 ```

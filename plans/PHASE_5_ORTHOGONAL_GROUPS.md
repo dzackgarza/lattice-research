@@ -8,9 +8,11 @@ Weyl groups, Eichler transvections. Coxeter diagrams with subdiagram posets
 and automorphisms. After this phase, the entire spec surface from
 `tests/lattice_spec/*.sage` and `tests/sage_spec/*.sage` becomes runnable.
 
-**Depends on:** Phase 4 (Lattice class, dual lattices, discriminant groups).
-Orthogonal group elements are morphisms in `L.Hom(L)` from Phase 3.
-Stabilizers and eigenlattices use `span`, `perp`, `inclusion` from Phases 2-4.
+**Depends on:** Phase 4 (the meet-based lattice, rational-lattice, and
+discriminant objects built on `ModulesWithForms`). Orthogonal group
+elements are endomorphisms `L.Hom(L)` supplied by the Phase 2/3 category
+and wrapper machinery. Stabilizers and eigenlattices use `span`, `perp`,
+and inclusion/cokernel semantics from Phases 2-4.
 
 **Supersedes:** PHASE_1 Step 12, plus the extended group-theoretic spec
 surface from all spec files.
@@ -105,8 +107,8 @@ classes. See Step 5.2.
 **File:** `groups/orthogonal.py`
 
 A `LatticeOrthogonalGroup` is the group `O(L)` of isometries of `L`.
-Its elements are `LatticeMorphism` instances (Phase 4 subclass of
-`BilinearModuleMorphism`) living in `L.End()`. It is a genuine Sage
+Its elements are the endomorphisms of the lattice object in
+`L.End()` that satisfy the isometry predicate. It is a genuine Sage
 `Parent` whose elements are morphisms, not matrices.
 
 ```python

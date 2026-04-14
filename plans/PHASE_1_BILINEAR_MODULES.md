@@ -11,11 +11,27 @@
 >
 > Use the PHASE_2-5 documents as the authoritative implementation plans.
 
-Build the `BilinearModules(R)` category and parent hierarchy over arbitrary
-PID R (primarily R = ZZ). The central design goal: the discriminant form
-descent -- from integral lattice L through dual L\* to discriminant group
-A\_L with induced QQ/ZZ-valued form -- falls out of the general machinery
-rather than being special-cased for free vs torsion modules.
+Build the `ModulesWithForms(R)` foundation over arbitrary PID `R`
+(primarily `R = ZZ`). The central design goal is now:
+
+- one top-level category of pairs `(M, f)`,
+- bilinear and quadratic structure as refinements,
+- free, torsion, nondegenerate, integral, rational, and related notions as
+  subcategory axioms,
+- downstream categories such as lattices, rational lattices, and
+  discriminant forms defined by meets of those axioms,
+- the discriminant descent `L -> L* -> A_L` falling out of one abstract
+  cokernel machine rather than from separate free/torsion object systems.
+
+This archival Phase 1 document should therefore be read through the
+following correction:
+
+- the old conceptual split between “categories” and “core” is obsolete,
+- the `ModulesWithForms` category definition owns most of the generic
+  `ParentMethods`, `ElementMethods`, `MorphismMethods`, and
+  `Homsets.ParentMethods`,
+- concrete parent files exist only as thin stateful carriers and promotion
+  points.
 
 **Depends on:** Phase 0 (Sage patches), especially `QQ/ZZ` and `QQ/2ZZ` as
 working codomains, and enriched FGP module operations.
@@ -33,7 +49,7 @@ working codomains, and enriched FGP module operations.
 - `tests/sage_spec/lattice_methods.sage`
 
 
-## Target File Structure
+## Corrected Target Structure
 
 ```
 src/lattices/
@@ -41,18 +57,24 @@ src/lattices/
     lattices.py                          # Lattice class + named constructors, public entry
     categories/
         __init__.py
-        bilinear_modules.py              # BilinearModules(R) category
-        quadratic_modules.py             # QuadraticModules(R) category
+        modules_with_forms.py            # top-level category and most mixin machinery
+        bilinear_modules.py              # thin Bilinear() alias / convenience facade
+        quadratic_modules.py             # thin Quadratic() alias / convenience facade
+        free_bilinear_modules.py         # Bilinear().Free()
+        torsion_bilinear_modules.py      # Bilinear().Torsion()
+        lattices.py                      # Bilinear().Free().NonDegenerate().Integral()
+        rational_lattices.py             # Bilinear().Free().NonDegenerate().Rational()
+        discriminant_quadratic_forms.py  # Torsion().Quadratic().NonDegenerate() + quotient-valued codomain assertions
     core/
         __init__.py
-        codomains.py                     # FormCodomain, QuotientFormCodomain
-        forms.py                         # BilinearForm, QuadraticForm
-        abstract.py                      # BilinearModule, QuadraticModule parents
-        elements.py                      # All element classes
-        free.py                          # FreeBilinearModule, FreeQuadraticModule
-        torsion.py                       # TorsionBilinearModule, TorsionQuadraticModule
-        rational.py                      # RationalLattice, DualLattice
-        discriminant.py                  # DiscriminantGroup, DiscriminantForm
+        codomains.py                     # FormCodomain helpers
+        forms.py                         # BilinearForm, QuadraticForm helper objects
+        abstract.py                      # thin concrete parent carriers only
+        elements.py                      # thin concrete element classes backing category mixins
+        free.py                          # concrete free parents
+        torsion.py                       # concrete torsion parents
+        rational.py                      # concrete rational-lattice parents
+        discriminant.py                  # concrete discriminant parents
     morphisms/
         __init__.py
         homspaces.py                     # All HomSpace classes
@@ -68,7 +90,8 @@ src/lattices/
 
 The existing `src/lattices/` code is migrated and corrected, not discarded
 (`plans/lattice_redesign_corrections_spec.md`, Non-Negotiable Preservation
-Rule).
+Rule). The critical architectural correction is that category mixins now
+carry the generic semantics; concrete files should be as thin as possible.
 
 
 ## Implementation Order
@@ -77,8 +100,14 @@ Each step depends on the previous steps being stable. The ordering follows
 `.serena/memories/lattices/interface/redesign_dependency_order.md`.
 
 Before starting any step, re-read the relevant block of
-`plans/lattice_redesign_corrections_spec.md` and
-`CONTRIBUTING.md` and `plans/LATTICE_STYLE_GUIDE.md`.
+`plans/lattice_redesign_corrections_spec.md`,
+`CONTRIBUTING.md`, `plans/LATTICE_STYLE_GUIDE.md`, and
+`plans/CATEGORY_ABC_SPEC.md`.
+
+The detailed, authoritative version of this architectural correction lives
+in `PHASE_2_CORE_OBJECTS.md`, `PHASE_3_MORPHISMS.md`, and
+`PHASE_4_DISCRIMINANT_DESCENT.md`. The monolithic steps below are retained
+only as archival decomposition notes.
 
 
 ### Step 1: Categories

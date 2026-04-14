@@ -156,3 +156,82 @@ The invariant content is in the morphisms; the matrices come only afterward.
 The one caveat is that none of the $G^{-1}$ language exists unless $\lambda$ is an
 isomorphism. Without that, the diagram still exists, but there is no basis of $L^\#$
 induced from $L^*$, and no inverse matrix to discuss.
+
+## Categorical Formulation: Fibered Categories over $R$-Alg
+
+The mistake in naive formulations is treating everything as though it already lived in
+one ambient module category.
+It does not.
+The objects live over varying coefficient rings, so the right framework is a
+category fibered over $R$-Alg, or equivalently a pseudofunctor
+
+$$ S \longmapsto \mathrm{BilForm}(S), $$
+
+where $\mathrm{BilForm}(S)$ is the category of $S$-modules equipped with $S$-valued
+$S$-bilinear forms.
+
+### Definition for a Fixed Base Ring
+
+Concretely, for a fixed $R$-algebra $S$, an object is $(L, b)$ with $L \in S$-Mod and
+$b: L \otimes_S L \to S$ an $S$-module morphism.
+
+### Base Change and Morphisms
+
+Now let $g: S_1 \to S_2$ be a morphism in $R$-Alg.
+As usual, $g$ gives a base-change functor
+
+$$ G = g_* := S_2 \otimes_{S_1}(-): S_1\text{-Mod} \to S_2\text{-Mod}. $$
+
+So the right notion of morphism $(L_1, b_1) \to (L_2, b_2)$ lying over $g$ is not
+directly a square between $L_1 \otimes_{S_1} L_1$ and $L_2 \otimes_{S_2} L_2$, because
+those live in different categories.
+The correct datum is an $S_2$-module morphism
+
+$$ \varphi: S_2 \otimes_{S_1} L_1 \to L_2 $$
+
+such that the following diagram in the single category $S_2$-Mod commutes:
+
+$$ \begin{array}{ccc} (S_2 \otimes_{S_1} L_1) \otimes_{S_2} (S_2 \otimes_{S_1} L_1) &
+\xrightarrow{\ \varphi\otimes\varphi\ } & L_2\otimes_{S_2}L_2\\
+\downarrow & & \downarrow b_2\\
+S_2\otimes_{S_1}(L_1\otimes_{S_1}L_1) & \xrightarrow{\ S_2\otimes b_1\ } &
+S_2\otimes_{S_1}S_1\cong S_2 \end{array} $$
+
+where the left vertical arrow is the canonical associativity/base-change isomorphism.
+
+That is the honest one-category statement.
+
+### Unpacking to Semilinear Maps
+
+Now, if you unpack $\varphi$, it is equivalent by adjunction to an $R$-linear map $f:
+L_1 \to L_2$ satisfying
+
+$$ f(sx) = g(s)f(x) \qquad (s\in S_1, x\in L_1), $$
+
+so $f$ is $g$-semilinear.
+In those terms, the commutative diagram above becomes exactly
+
+$$ b_2(fx,fy) = g\!\left(b_1(x,y)\right).
+$$
+
+### Summary: Clean Categorical Definition
+
+The correction is right in two ways:
+
+1. One should not say "restrict scalars and draw a square" unless one has explicitly
+   chosen to work in $R$-Mod.
+   The more natural formulation is to work in the target category $S_2$-Mod after
+   applying the base-change functor determined by $g$.
+
+2. The object really is not just an $R$-module with an $R$-bilinear map.
+   It is an $R$-module together with an $S$-module structure and an $S$-bilinear form
+   $b\in\operatorname{Hom}_S(L\otimes_SL,S)$.
+
+**Clean definition:**
+
+- **Objects over $S$**: pairs $(L,b)$ with $L\in S$-Mod and $b:L\otimes_SL\to S$ in
+  $S$-Mod;
+- **Morphisms over $g:S_1\to S_2$**: maps $\varphi:S_2\otimes_{S_1}L_1\to L_2$ in
+  $S_2$-Mod making the base-changed form diagram commute.
+
+That is the precise categorical version of what was described above.

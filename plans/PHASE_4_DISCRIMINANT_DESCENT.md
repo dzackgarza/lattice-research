@@ -1,16 +1,22 @@
-# Phase 4: Dual Lattices, Discriminant Descent, and the Lattice Class
+# Phase 4: Lattice Meets, Duals, and Discriminant Descent
 
-Build the complete discriminant descent pipeline: `Lattice` named
-constructors, dual lattices whose elements are functionals, the cokernel
-path `L -> L* -> A_L` producing a `DiscriminantGroup` automatically,
-discriminant form values in `QQ/ZZ` and `QQ/2ZZ`, lift and
-`discriminant_class`. The Lattice class becomes the primary user-facing
-entry point.
+Build the downstream meet-based categories on top of `ModulesWithForms(R)`:
 
-**Depends on:** Phase 3 (morphisms, hom spaces, cokernel machine). The
-discriminant group is literally `iota.cokernel()` where `iota: L -> L*`
-is the inclusion morphism -- Phase 3's cokernel with Phase 4's form
-descent and automatic promotion to `DiscriminantGroup`.
+- `Lattices(R) = ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`
+- `RationalLattices(R) = ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`
+- quotient-valued torsion refinements for discriminant objects, including
+  the quadratic refinement layer used for discriminant forms.
+
+This phase implements the complete discriminant descent pipeline:
+named lattice constructors, dual lattices whose elements are functionals,
+the cokernel path `L -> L* -> A_L`, quotient-valued discriminant data,
+lift, and `discriminant_class`.
+
+**Depends on:** Phase 3 (concrete morphism wrappers and the cokernel
+machine). The discriminant group is literally `iota.cokernel()` where
+`iota: L -> L*` is the inclusion morphism. Phase 3 provides the quotient
+machinery; Phase 4 provides the named lattice/discriminant meets and the
+additional quotient-valued form semantics.
 
 **Supersedes:** PHASE_1 Steps 9, 10, and 11.
 
@@ -25,6 +31,10 @@ isomorphism, explicit morphisms for all embeddings.
 
 ```
 src/lattices/
+    categories/
+        rational_lattices.py      # meet-based rational lattice category facade
+        lattices.py               # meet-based lattice category facade
+        discriminant_quadratic_forms.py  # torsion quadratic quotient-valued meet
     core/
         rational.py               # RationalLattice, DualLattice
         discriminant.py           # DiscriminantGroup, DiscriminantForm
@@ -40,15 +50,17 @@ src/lattices/
 ## Implementation Steps
 
 
-### Step 4.1: RationalLattice
+### Step 4.1: Rational Lattice Meet
 
 **File:** `core/rational.py`
 
 **Existing code:** 126-line `RationalLattice(FreeBilinearModule)`.
 
-A `FreeBilinearModule` with `FormCodomain.rational(R)`. The bilinear
-form takes values in `K = Frac(R)` (for R = ZZ, values in QQ). This is
-the natural home for `L*` and for scalar multiples like `(1/2)*L`.
+A concrete carrier realizing the meet
+`ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`.
+The bilinear form takes values in `K = Frac(R)` (for `R = ZZ`, values in
+`QQ`). This is the natural home for `L*` and for scalar multiples like
+`(1/2)*L`.
 
 ```python
 class RationalLattice(FreeBilinearModule):
@@ -71,13 +83,13 @@ This is NOT the same as `L.twist(1/n^2)` -- twist scales the form, scalar
 multiplication scales the elements.
 
 
-### Step 4.2: DualLattice
+### Step 4.2: Dual Lattice Objects
 
 **File:** `core/rational.py`
 
 **Existing code:** Part of the 126-line file.
 
-`DualLattice` is a `RationalLattice` with:
+`DualLattice` is a rational-lattice object with:
 - A reference to the source lattice `L`
 - An `inclusion_morphism()` returning `iota_L: L -> L*` with matrix `G`
 - Gram matrix `G^{-1}` (the inverse Gram in the dual basis)
@@ -139,16 +151,25 @@ For `U(2)` with Gram `[[0,2],[2,0]]`:
 - `ep_dual.discriminant_class() == g1` (nontrivial in `A_{U(2)}`)
 
 
-### Step 4.3: DiscriminantGroup
+### Step 4.3: Discriminant Objects
 
 **File:** `core/discriminant.py`
 
-**Existing code:** 230-line `DiscriminantGroup(TorsionBilinearModule, QuadraticModule)`.
+**Existing code:** a mixed old hierarchy centered on
+`DiscriminantGroup(TorsionBilinearModule, QuadraticModule)`.
 
-The discriminant group `A_L = L*/L` is a `TorsionBilinearModule` with:
-- Bilinear form values in `QQ/ZZ`
-- Quadratic form values in `QQ/2ZZ` (when L is even)
-- A reference to the source lattice for lift and discriminant_class
+The corrected architecture is:
+
+- the underlying quotient object first lands in the torsion bilinear meet,
+- any quadratic refinement is additional structure on the same quotient,
+- named discriminant categories are meet-based facades rather than a second
+  independent architecture.
+
+At minimum, Phase 4 must support the standard discriminant descent cases:
+
+- bilinear values in `K/R` (for `R = ZZ`, `QQ/ZZ`),
+- quadratic refinement in the quotient-valued codomain used by the even
+  discriminant form path.
 
 **Construction via cokernel (the critical path):**
 ```python
@@ -157,10 +178,10 @@ iota = L.dual().inclusion_morphism()   # iota: L -> L*
 A_L = iota.cokernel()                  # coker(L -> L*) = L*/L
 ```
 
-Phase 3's cokernel machine handles the FGP quotient and form descent.
-Phase 4 adds the promotion logic: when the cokernel of a morphism
-`L -> L*` (where `L*` is a `DualLattice` with source `L`) produces a
-torsion module, promote to `DiscriminantGroup`.
+Phase 3's cokernel machine handles the FGP quotient and generic form
+descent. Phase 4 adds the promotion logic so the result lands in the
+appropriate named discriminant meet when the source data identifies the
+standard `L -> L* -> A_L` path.
 
 **Direct construction (for testing):**
 ```python
@@ -195,23 +216,24 @@ def from_invariants_and_gram(cls, invariants, gram):
   `g.lift() in L.dual()` must hold.
 - `discriminant_class()` is identity on discriminant group elements
 
-**DiscriminantForm** is the quadratic refinement -- a
-`TorsionQuadraticModule` storing both bilinear and quadratic forms. In
-practice, `DiscriminantGroup` already carries both forms, so
-`DiscriminantForm` may be the same class or a thin view.
+**Discriminant quadratic forms** are the torsion quadratic, quotient-valued
+refinement layer. They should be treated as the meet-based quadratic
+subcategory on top of the same quotient object, not as a separate base
+architecture.
 
 
-### Step 4.4: The Lattice Class
+### Step 4.4: The Lattice Meet and Concrete Carrier
 
 **File:** `lattices.py`
 
 **Existing code:** 344-line `Lattice(RationalLattice)` with named
 constructors and backend delegation.
 
-`Lattice` is the primary user-facing class. It is a `FreeBilinearModule`
-(specifically a `RationalLattice`) with `FormCodomain.integral(ZZ)` and a
-cached Sage `IntegralLattice` backend for delegation of expensive
-computations.
+`Lattice` is the primary user-facing concrete carrier for the meet
+`ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`. It may
+internally reuse the free/rational concrete carriers, but its public
+semantics come from category membership rather than from the old inheritance
+story.
 
 **Dual backends.** Every `Lattice` stores both a Sage and a Julia
 representation. The Julia backend (via `~/sage-julia-bridge`) handles
@@ -430,9 +452,8 @@ Run in a Sage session after completing Phase 4:
 ```python
 import src.sage_patches
 from src.lattices.lattices import Lattice
-from src.lattices.categories.bilinear_modules import (
-    BilinearModules, Lattices
-)
+from src.lattices.categories.modules_with_forms import ModulesWithForms
+from src.lattices.categories.lattices import Lattices
 from src.lattices.core.codomains import FormCodomain
 
 # ------------------------------------------------------------------
@@ -456,7 +477,7 @@ assert Lattice.from_string("U(2) + A_1").is_isometric_to(
 # Lattice is a BilinearModule in the right categories
 # ------------------------------------------------------------------
 
-assert U in BilinearModules(ZZ)
+assert U in ModulesWithForms(ZZ).Bilinear()
 assert U in Lattices(ZZ)
 assert U in Modules(ZZ)
 
