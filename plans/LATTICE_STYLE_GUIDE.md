@@ -295,9 +295,212 @@ assert f.is_involution(), "Non-involutions are not yet supported"
 
 ## ConditionSets and Membership
 
-Each object we use should truly have some kind of underlying Sage set. Wire
-a **ConditionSet** that can be used to check abstract membership "lazily"
-based on centralized predicates.
+### Uniformization Principle
+
+Every object in the hierarchy has two components:
+
+1. **A universe set** -- the maximal ambient set from which elements of this
+   type can come. Usually countable and canonically enumerable.
+2. **A predicate** -- a condition on the universe that narrows it to exactly
+   this object's elements. For most "plain" objects the predicate is trivially
+   true (every element of the universe is in the object). For subobjects the
+   predicate is nontrivial.
+
+Together these form a `ConditionSet(universe, predicate)` that owns all
+membership testing for the object. `x in obj` means exactly:
+`x in universe` and `predicate(x)`.
+
+### Universe Choices
+
+| Object type | Universe |
+|-------------|----------|
+| `M = ZZ^n` (free module) | `ZZ^n` (all integer vectors of length n) |
+| `T = ZZ/a + ZZ/b` (torsion module) | `ZZ/a × ZZ/b` (finite product) |
+| `L` (integral lattice, rank n) | `ZZ^n` |
+| `L*` (dual lattice) | `QQ^n` |
+| `O(L)` (orthogonal group) | `GL_n(ZZ)` with predicate `M^T G_L M == G_L` |
+| `Hom(L1, L2)` | `Mat_{m×n}(ZZ)` with predicate = module morphism condition |
+| Submodule `S <= M` | Same universe as `M`, predicate = span containment |
+| `G.centralizer(f)` in `O(L)` | Same universe as `G`, predicate = `O(L)` predicate AND commutativity |
+| `G.stabilizer(v)` in `O(L)` | Same universe as `G`, predicate = `O(L)` predicate AND fixation |
+
+The universe is always **the natural ambient object from which elements
+are drawn**. Picking a too-small universe (e.g., using `O(L)` itself as
+the universe for a subgroup) forces all membership testing through the
+parent object, which is fine; picking a too-large universe (e.g., all
+matrices over QQ) creates unnecessary predicate complexity.
+
+### Predicate Composition via Native ConditionSet Operators
+
+Sage's `ConditionSet` already implements `&` (intersection) and `|` (union).
+**Use these native operators -- never hand-roll conjunction or disjunction
+classes.**
+
+```python
+isometry_cs  = ConditionSet(universe, IsometryPredicate(G_L))
+commute_cs   = ConditionSet(universe, CentralizerPredicate(f))
+fixation_cs  = ConditionSet(universe, StabilizerPredicate(v))
+
+centralizer_cs  = isometry_cs & commute_cs      # ConditionSet &
+stabilizer_cs   = isometry_cs & fixation_cs     # ConditionSet &
+combined_cs     = centralizer_cs & stabilizer_cs  # chain as needed
+```
+
+`x in combined_cs` reduces to: `x in universe` and
+`IsometryPredicate(G_L)(x)` and `CentralizerPredicate(f)(x)` and
+`StabilizerPredicate(v)(x)`.
+
+This is why `&` and `|` work uniformly on any pair of subgroups,
+submodules, or condition sets without special-casing.
+
+From the specs:
+```python
+combined = O_U.centralizer(f_neg) & O_U.stabilizer(e)
+# predicate(g) = is_isometry(g) AND g*f_neg == f_neg*g AND g(e) == e
+assert O_U.identity() in combined    # identity satisfies all three
+assert f_neg not in combined         # f_neg(e) = -e, fails fixation
+```
+
+### Centralized Predicates
+
+**Common predicates must be defined once and referenced everywhere.**
+Do not reproduce the matrix equation `M^T G M == G` at every call site.
+Instead, define once:
+
+```python
+# predicates.py -- centralized predicate definitions
+
+class IsometryPredicate:
+    """f preserves the bilinear form: M^T G M == G."""
+    def __init__(self, gram_matrix):
+        self._G = gram_matrix
+
+    def __call__(self, f):
+        M = f.to_matrix()
+        return M.T * self._G * M == self._G
+
+class CentralizerPredicate:
+    """f commutes with g: f * g == g * f."""
+    def __init__(self, g):
+        self._g = g
+
+    def __call__(self, f):
+        return f * self._g == self._g * f
+
+class StabilizerPredicate:
+    """f fixes v: f(v) == v."""
+    def __init__(self, v):
+        self._v = v
+
+    def __call__(self, f):
+        return f(self._v) == self._v
+
+class LinePredicate:
+    """f preserves <v>: f(v) in {v, -v}."""
+    def __init__(self, v):
+        self._v = v
+
+    def __call__(self, f):
+        return f(self._v) == self._v or f(self._v) == -self._v
+```
+
+All subgroup constructors (`centralizer`, `stabilizer`,
+`stabilizer_of_isotropic_line`, `kernel_of_discriminant_action`, etc.)
+compose these centralized predicates rather than writing new matrix
+equations.
+
+### Example: O(L) and Its Subgroups
+
+```python
+# O(L):
+# universe = GL_n(ZZ)
+# condition_set = ConditionSet(GL_n(ZZ), IsometryPredicate(G_L))
+
+O_L = LatticeOrthogonalGroup(L)
+
+# centralizer(f): intersect O(L)'s ConditionSet with a new one
+commute_cs = ConditionSet(GL_n(ZZ), CentralizerPredicate(f))
+centralizer_f = LatticeOrthogonalSubgroup(O_L, O_L.condition_set & commute_cs)
+
+# stabilizer(v): intersect O(L)'s ConditionSet with a new one
+fix_cs = ConditionSet(GL_n(ZZ), StabilizerPredicate(v))
+stabilizer_v = LatticeOrthogonalSubgroup(O_L, O_L.condition_set & fix_cs)
+
+# Intersection via native &:
+# ConditionSet & ConditionSet uses Sage's built-in operator
+combined = centralizer_f & stabilizer_v
+# combined.condition_set = (O_L.condition_set & commute_cs) & fix_cs
+```
+
+**The result:** `__contains__` on any subgroup reduces to one `ConditionSet`
+membership test. No ad-hoc matrix equations scattered across methods.
+Predicate logic is compositional and uses only Sage's existing machinery.
+
+
+## Julia Backend via sage-julia-bridge
+
+The project at `~/sage-julia-bridge` provides a lightweight bridge to a
+long-lived Julia subprocess. It evaluates Julia code, converts results
+(integers, rationals, vectors, matrices) back to Sage objects, and
+supports packages such as Oscar/Hecke/Nemo loaded on the Julia side.
+
+**When to use the Julia backend.** Julia's lattice packages (Oscar, Hecke)
+handle algorithms where Sage is weak or absent:
+
+| Method | Preferred backend |
+|--------|------------------|
+| Indefinite integral isometry | Julia (Oscar/Hecke `is_isometric`) |
+| Genus computations, local conditions | Julia (Hecke `genus`) |
+| Class groups, automorphism groups | Julia (Hecke `automorphism_group`) |
+| Fast LLL / short vectors | Julia (if ever needed -- see Banned) |
+| Quadratic form theory (genus symbols) | Julia (Hecke) |
+| Discriminant form classification | Sage (small group methods are fine) |
+| Direct sums, spans, cokernel | Sage (our own morphism machinery) |
+| Named constructors, parsing | Sage (our own code) |
+
+**Architectural rule.** Every `Lattice` object stores TWO backends:
+
+```python
+class Lattice(RationalLattice):
+    _sage_lattice: IntegralLattice    # Sage backend (always present)
+    _julia_lattice: object | None     # Julia repr, lazily initialized
+```
+
+The Julia representation is lazily constructed on first use of a
+Julia-backed method. It is NOT part of the public API -- callers use
+`L.is_isometric_to(M)`, not `L._julia_lattice`. Backends are an
+implementation detail.
+
+**Bridge usage pattern:**
+
+```python
+from sage_julia_bridge import julia
+
+def _julia_repr(self):
+    """Lazily construct Julia lattice from Gram matrix."""
+    if self._julia_lattice is None:
+        julia.eval("using Hecke")
+        julia.set("G", self.gram_matrix())
+        self._julia_lattice = julia.eval("integer_lattice(G)")
+    return self._julia_lattice
+
+def is_isometric_to(self, other, witness=False):
+    """Isometry check, delegated to Julia for indefinite lattices."""
+    self._julia_repr()
+    other._julia_repr()
+    julia.set("G1", self.gram_matrix())
+    julia.set("G2", other.gram_matrix())
+    result = julia.sage(
+        "is_isometric_with_isometry(integer_lattice(G1), integer_lattice(G2))"
+    )
+    # result is (bool, matrix) or similar; parse and wrap
+    ...
+```
+
+**No leakage.** The Julia session is an internal implementation detail.
+Public callers never receive Julia objects, never see Oscar/Hecke types,
+and never construct the bridge directly. The bridge is accessed only
+through methods on our objects.
 
 
 ## Invariants and Theory Placement
@@ -861,6 +1064,44 @@ dict, or a boolean -- it is a proof.
 Conversely, all objects support `is_isomorphic_to` (or the appropriate
 variant for the category: `is_isometric_to` for bilinear modules,
 `isomorphic_as_groups` for groups, etc.).
+
+
+### Every Object Has a Universe and a Predicate
+
+Every object carries two things: a **universe set** (the maximal ambient
+set elements can come from) and a **predicate** (the condition that
+narrows the universe to exactly this object's members). Together they form
+a `ConditionSet` that owns all membership testing.
+
+For a "plain" module or lattice, the predicate is trivially true: every
+element of the universe (e.g., `ZZ^n`) is in the object. For a subobject,
+the predicate is nontrivial: centralizers add a commutativity condition,
+stabilizers add a fixation condition, orthogonal groups add an isometry
+condition. But in all cases the architecture is the same.
+
+```python
+# O(L): universe = GL_n(ZZ), predicate = M^T G M == G
+O_L = L.O()
+
+# Centralizer: same universe, AND commutativity with f
+C_f = O_L.centralizer(f)
+
+# Stabilizer: same universe, AND fixes v
+S_v = O_L.stabilizer(v)
+
+# Intersection via & = AND of predicates
+# x in (C_f & S_v)  iff  x in O_L and f*x == x*f and x(v) == v
+combined = C_f & S_v
+```
+
+**Predicates are centralized, not repeated.** Define `IsometryPredicate`,
+`CentralizerPredicate`, `StabilizerPredicate`, etc. once in
+`predicates.py`. All subgroup and subobject constructors compose these
+centralized predicates instead of writing inline matrix equations. The
+defining equation `M^T G M == G` appears exactly once in the codebase.
+
+See the "ConditionSets and Membership" section for the full architectural
+details and universe-choice table.
 
 
 ### Everything Has an Underlying Set

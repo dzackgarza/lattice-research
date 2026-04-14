@@ -31,10 +31,73 @@ src/lattices/
         roots.py                  # Root systems, reflections, Weyl groups
         eichler.py                # Eichler transvections and Eichler group
         coxeter.py                # Coxeter diagrams, subdiagram posets
+    predicates.py                 # Centralized predicate classes (see style guide)
 ```
 
 
 ## Implementation Steps
+
+
+### Step 5.0: Centralized Predicates
+
+**File:** `predicates.py`
+
+Every subgroup, subobject, and ConditionSet is built from predicates
+defined once here and composed at call sites. No inline matrix equations
+elsewhere in the codebase.
+
+```python
+class IsometryPredicate:
+    """f preserves the bilinear form: M^T G M == G."""
+    def __init__(self, gram_matrix: Matrix):
+        self._G = gram_matrix
+
+    def __call__(self, f: Morphism) -> bool:
+        M = f.to_matrix()
+        return M.T * self._G * M == self._G
+
+class CentralizerPredicate:
+    """f commutes with g: f * g == g * f."""
+    def __init__(self, g: Morphism):
+        self._g = g
+
+    def __call__(self, f: Morphism) -> bool:
+        return f * self._g == self._g * f
+
+class StabilizerPredicate:
+    """f fixes element v: f(v) == v."""
+    def __init__(self, v):
+        self._v = v
+
+    def __call__(self, f: Morphism) -> bool:
+        return f(self._v) == self._v
+
+class LinePredicate:
+    """f preserves the line <v>: f(v) in {v, -v}."""
+    def __init__(self, v):
+        self._v = v
+
+    def __call__(self, f: Morphism) -> bool:
+        return f(self._v) == self._v or f(self._v) == -self._v
+
+class DiscriminantKernelPredicate:
+    """f acts trivially on A_L: each discriminant class is fixed."""
+    def __init__(self, lattice):
+        self._A_L = lattice.discriminant_group()
+
+    def __call__(self, f: Morphism) -> bool:
+        for g in self._A_L.gens():
+            if f(g.lift()).discriminant_class() != g:
+                return False
+        return True
+```
+
+**Rule:** Any method checking "is `f` an isometry" calls
+`IsometryPredicate(G)(f)`. The equation `M^T G M == G` appears exactly
+once: inside `IsometryPredicate.__call__`. Composition of predicates
+(intersection, union) is done by constructing `ConditionSet` objects and
+using their native `&` and `|` operators -- not by hand-rolling conjunction
+classes. See Step 5.2.
 
 
 ### Step 5.1: LatticeOrthogonalGroup
@@ -123,55 +186,92 @@ assert O_U2.element_from_matrix(swap) in O_U2
 
 **File:** `groups/orthogonal.py`
 
-Subgroups of `O(L)` share the same element type but restrict membership.
+Subgroups of `O(L)` share the same universe (`GL_n(ZZ)`) but add
+predicates on top of the isometry predicate. All predicates come from
+`predicates.py` -- no inline conditions here.
 
 ```python
 class LatticeOrthogonalSubgroup(LatticeOrthogonalGroup):
-    """A subgroup of O(L) defined by a membership predicate."""
+    """A subgroup of O(L) defined by a ConditionSet.
 
-    def __init__(self, ambient_group, predicate, generators=None):
+    Stores a ConditionSet over the same universe as O(L). Membership,
+    intersection (&), and union (|) all delegate to the native
+    ConditionSet operators -- no hand-rolled predicate conjunction.
+    """
+
+    def __init__(self, ambient_group, condition_set):
         self._ambient = ambient_group
-        self._predicate = predicate
-        self._generators = generators
-        ...
+        self._condition_set = condition_set  # ConditionSet object
 
     def __contains__(self, f):
-        return f in self._ambient and self._predicate(f)
+        if not isinstance(f, Morphism):
+            return False
+        return f in self._condition_set
+
+    def __and__(self, other):
+        # ConditionSet & ConditionSet via native operator
+        return LatticeOrthogonalSubgroup(
+            self._ambient,
+            self._condition_set & other._condition_set
+        )
+
+    def __or__(self, other):
+        # ConditionSet | ConditionSet via native operator
+        return LatticeOrthogonalSubgroup(
+            self._ambient,
+            self._condition_set | other._condition_set
+        )
 ```
 
-**Standard subgroups:**
-- `special_orthogonal_subgroup()` / `SO(L)` -- `det(f) == 1`
-- `kernel_of_discriminant_action()` -- `ker(O(L) -> O(A_L))`
-- `stabilizer(v)` -- `{f in O(L) : f(v) == v}`
-- `stabilizer_of_isotropic_line(v)` -- `{f in O(L) : f(<v>) == <v>}`
-  (note: `f(v)` may be `-v`, but the line `<v>` is preserved)
-- `centralizer(g)` -- `{f in O(L) : f * g == g * f}`
+**Standard subgroup constructors** on `LatticeOrthogonalGroup`. Each
+creates a fresh `ConditionSet(universe, predicate)` and intersects with
+`self._condition_set` using native `ConditionSet &`:
 
-**Stabilizer semantics.** Stabilizer dispatch depends on the argument:
-- `stabilizer(v)` for element `v`: pointwise stabilizer, `f(v) == v`
-- `stabilizer(S)` for submodule `S`: setwise stabilizer, `f(S) == S`
-
-From the specs:
 ```python
-assert minus_I2 not in U.O().stabilizer(e)        # -e != e
-assert minus_I2 in U.O().stabilizer(e.span())     # -I preserves <e>
-```
+def centralizer(self, g):
+    new_cs = ConditionSet(self._universe, CentralizerPredicate(g))
+    return LatticeOrthogonalSubgroup(self, self._condition_set & new_cs)
 
-**Intersection via `&`:**
-```python
-def __and__(self, other):
-    """Intersection of subgroups."""
-    return LatticeOrthogonalSubgroup(
-        self._ambient,
-        lambda f: f in self and f in other
+def stabilizer(self, arg):
+    if arg in self._lattice:  # Element stabilizer
+        new_cs = ConditionSet(self._universe, StabilizerPredicate(arg))
+    else:  # Submodule: setwise, each generator must be fixed
+        cs = ConditionSet(self._universe, StabilizerPredicate(arg.gens()[0]))
+        for v in arg.gens()[1:]:
+            cs = cs & ConditionSet(self._universe, StabilizerPredicate(v))
+        new_cs = cs
+    return LatticeOrthogonalSubgroup(self, self._condition_set & new_cs)
+
+def stabilizer_of_isotropic_line(self, v):
+    new_cs = ConditionSet(self._universe, LinePredicate(v))
+    return LatticeOrthogonalSubgroup(self, self._condition_set & new_cs)
+
+def kernel_of_discriminant_action(self):
+    new_cs = ConditionSet(
+        self._universe, DiscriminantKernelPredicate(self._lattice)
     )
+    return LatticeOrthogonalSubgroup(self, self._condition_set & new_cs)
+
+def special_orthogonal_subgroup(self):
+    det_one_cs = ConditionSet(
+        self._universe, lambda f: f.to_matrix().det() == 1
+    )
+    return LatticeOrthogonalSubgroup(self, self._condition_set & det_one_cs)
 ```
+
+**Stabilizer semantics.** Dispatch based on argument type:
+- `stabilizer(v)` for element: `f(v) == v` via `StabilizerPredicate`
+- `stabilizer(S)` for submodule: setwise, each generator fixed
 
 From the specs:
 ```python
+assert minus_I2 not in U.O().stabilizer(e)      # -e != e: StabilizerPredicate fails
+assert minus_I2 in U.O().stabilizer(e.span())   # -I permutes generators of <e>: LinePredicate
+
 combined = O_U.centralizer(f_neg) & O_U.stabilizer(e)
-assert O_U.identity() in combined
-assert f_neg not in combined
+# predicate = IsometryPredicate(G_U) & CentralizerPredicate(f_neg) & StabilizerPredicate(e)
+assert O_U.identity() in combined   # identity satisfies all three
+assert f_neg not in combined        # f_neg(e) = -e, fails StabilizerPredicate
 ```
 
 

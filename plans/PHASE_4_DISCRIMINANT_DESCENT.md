@@ -213,6 +213,34 @@ constructors and backend delegation.
 cached Sage `IntegralLattice` backend for delegation of expensive
 computations.
 
+**Dual backends.** Every `Lattice` stores both a Sage and a Julia
+representation. The Julia backend (via `~/sage-julia-bridge`) handles
+algorithms where Sage is weak: indefinite isometry, genus computations,
+automorphism groups. Both are internal implementation details; callers
+use our public API.
+
+```python
+class Lattice(RationalLattice):
+    # Internal backends -- never exposed publicly
+    _sage_lattice: IntegralLattice       # Sage backend (always present)
+    _julia_lattice: object | None = None  # Lazily initialized on first use
+
+    def _julia_repr(self):
+        """Lazily construct the Julia lattice from our Gram matrix."""
+        if self._julia_lattice is None:
+            from sage_julia_bridge import julia
+            julia.eval("using Hecke")
+            julia.set("G", self.gram_matrix())
+            self._julia_lattice = julia.eval("integer_lattice(G)")
+        return self._julia_lattice
+```
+
+Isometry methods (`is_isometric_to`, `is_locally_isometric_to`,
+`is_in_same_genus_as`) delegate to the Julia backend internally and
+convert the result back to Sage types. See the Julia Backend section in
+`plans/LATTICE_STYLE_GUIDE.md` for the usage pattern and the table of
+which methods go to which backend.
+
 **Named constructors:**
 ```python
 class Lattice(RationalLattice):
