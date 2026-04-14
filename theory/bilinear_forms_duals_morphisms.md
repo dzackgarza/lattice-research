@@ -235,3 +235,45 @@ The correction is right in two ways:
   $S_2$-Mod making the base-changed form diagram commute.
 
 That is the precise categorical version of what was described above.
+
+## Canonical Definition: Triple Morphisms
+
+The correct categorical definition is:
+
+An object is a pair $(L, \beta)$, where $\beta \in
+\operatorname{Hom}_S(\operatorname{Sym}^2_S(L), M)$, where the typing of $\beta$ already
+implicitly includes:
+
+- a commutative $R$-algebra $S$,
+- the $S$-module structure on $L$,
+- the $S$-module structure on $M$,
+- hence also all induced $R$-module structures via $R \to S$.
+
+A morphism $(L_1, \beta_1) \to (L_2, \beta_2)$ is a triple $(f, g, h)$, where:
+
+- $g: S_1 \to S_2$ is an $R$-algebra morphism,
+- $f, h$ are maps compatible with the structure maps after base change along $g$.
+
+Precisely: let $G_g := S_2 \otimes_{S_1}(-): S_1\text{-Mod} \to S_2\text{-Mod}$. Then
+the actual data are $S_2$-linear maps
+
+$$ \widetilde f: G_g(L_1) \to L_2, \qquad \widetilde h: G_g(M_1) \to M_2, $$
+
+such that the square in the single category $S_2$-Mod commutes:
+
+$$ \begin{array}{ccc} G_g(\operatorname{Sym}^2_{S_1}(L_1)) & \xrightarrow{\
+G_g(\beta_1)\ } & G_g(M_1) \\
+\downarrow^{\operatorname{Sym}^2(\widetilde f)} & & \downarrow^{\widetilde h} \\
+\operatorname{Sym}^2_{S_2}(L_2) & \xrightarrow{\ \beta_2\ } & M_2. \end{array} $$
+
+The conditions that $f$ and $h$ "respect scalar multiplication via $g$" are not extra
+axioms beyond this. They are exactly what it means for the relevant squares with the
+structure morphisms $R \to S_i$, the $S_i$-actions on $L_i$, and the $S_i$-actions on
+$M_i$ to commute after base change.
+
+The elementwise formulas like
+
+$$ f(sx) = g(s)f(x), \qquad h(sm) = g(s)h(m) $$
+
+are just the unpacking of the commuting-structure-morphism condition, not additional
+data.
