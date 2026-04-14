@@ -95,10 +95,11 @@ must honor those contracts exactly.
 | Method | Layer | Abstract or derived? |
 |--------|-------|----------------------|
 | `bilinear_form()`, `gens()`, `zero()`, `base_ring()` | `ParentMethods` | Abstract |
-| `free_part()`, `torsion_part()`, `Hom()`, `dual()`, `twist()`, `span()`, `cardinality()` | `ParentMethods` | Abstract |
+| `free_part()`, `torsion_part()`, `Hom()`, `dual()`, `twist()`, `span()` | `ParentMethods` | Abstract |
+| `cardinality()`, `free_rank()`, `signature_triple()`, `to_quadratic_module()` | `ParentMethods` | Abstract |
 | `b()`, `gram_matrix()`, `End()` | `ParentMethods` | Derived |
-| `parent()`, `__add__()`, `__neg__()`, `__rmul__()`, `__eq__()`, `__hash__()`, `to_vector()` | `ElementMethods` | Abstract |
-| `__mul__()`, `q()`, `is_isotropic()`, `span()`, `__sub__()` | `ElementMethods` | Derived |
+| `parent()`, `__add__()`, `__neg__()`, `_lmul_()`, `_rmul_()`, `__rmul__()`, `__eq__()`, `__hash__()`, `to_vector()` | `ElementMethods` | Abstract |
+| `__mul__()` (bilinear product OR scalar), `is_isotropic()`, `span()`, `__sub__()` | `ElementMethods` | Derived |
 | `domain()`, `codomain()`, `__call__()`, `to_matrix()`, `kernel()`, `image()`, `cokernel()`, `is_isometry()` | `MorphismMethods` | Abstract |
 | `is_injective()`, `is_surjective()`, `is_bijective()`, `is_isomorphism()`, `__mul__()` | `MorphismMethods` | Derived |
 | `domain()`, `codomain()`, `element_from_dict()`, `element_from_matrix()`, `element_from_images()`, `__contains__()` | `Homsets.ParentMethods` | Abstract |

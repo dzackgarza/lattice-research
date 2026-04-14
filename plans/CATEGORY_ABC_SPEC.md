@@ -49,9 +49,14 @@ class BilinearForm(ABC):
     """
 ```
 
-A `QuadraticForm` (separate ABC, not the same as `BilinearForm`) is
-`q: M -> C` with `q(v) = beta(v, v)` and `beta` recovered as the
-polarization `beta(v,w) = q(v+w) - q(v) - q(w)`.
+A `QuadraticForm` is a **separate** ABC from `BilinearForm`. A quadratic
+form `q: M -> C` satisfies `q(r*v) = r^2 * q(v)` and the polarization
+`beta_q(v,w) = q(v+w) - q(v) - q(w)` is bilinear. Note `beta_q(v,v) =
+2*q(v)`, so a quadratic form is NOT the same as `v ↦ beta(v,v)`. The map
+`Quad_R(M) -> Bil_R(M)` sending `q ↦ beta_q` and the map
+`Bil_R(M) -> Quad_R(M)` sending `beta ↦ (v ↦ beta(v,v))` are NOT
+inverses in general; they are inverses only when `2 ∈ R^×`. See
+`QuadraticModules` ABC for the full interface and conversion methods.
 
 
 ## `BilinearModules.ParentMethods` ABC
@@ -116,6 +121,31 @@ class BilinearModules(Category_module):
         Infinity for free modules, a positive integer for finite torsion modules.
         Every set has a cardinality; this is axiomatic, not torsion-specific."""
 
+        @abstractmethod
+        def free_rank(self) -> int: ...
+        """Rank of the free part of this module.
+        - Free modules: equals rank().
+        - Torsion modules: returns 0.
+        - Mixed modules: rank of the free summand.
+        Defined on ALL bilinear modules, not just free ones."""
+
+        @abstractmethod
+        def signature_triple(self) -> tuple[int, int, int]: ...
+        """Signature (p, q, n) of the bilinear form over RR:
+        p = number of positive eigenvalues,
+        q = number of negative eigenvalues,
+        n = dimension of the radical = dim{v | beta(v,w)=0 for all w}.
+        Nondegeneracy is NOT required (n may be nonzero).
+        Defined on ALL bilinear modules."""
+
+        @abstractmethod
+        def to_quadratic_module(self) -> QuadraticModule: ...
+        """Return the quadratic module (M, q) where q(v) = beta(v, v).
+        The polar form of q is beta_q(v,w) = q(v+w)-q(v)-q(w) = 2*beta(v,w),
+        NOT beta itself. Use this map when 2 is invertible in R or when you
+        explicitly want the doubled form. For even lattices, a different
+        convention (q(v) = beta(v,v)/2) is available via to_even_quadratic_module()."""
+
         # --- Derived methods (not abstract; follow from the axioms) ---
 
         def b(self, v: BilinearModuleElement,
@@ -136,10 +166,11 @@ class BilinearModules(Category_module):
 
 | Property | Lives on | Reason |
 |----------|----------|--------|
-| `rank()` | `FreeBilinearModule` | Only free modules have a rank. A general BilinearModule has `free_part().rank()` at best. |
-| `free_rank()` | `FreeBilinearModule` | Same reason. |
-| `cardinality()` | `BilinearModules.ParentMethods` | **All** modules have a cardinality, possibly infinite. Free modules have infinite cardinality; torsion modules have finite cardinality. Axiomatic -- every set has a cardinality. |
-| `signature()` | `Lattice` | Requires nondegeneracy + real embedding. |
+| `rank()` | `FreeBilinearModule` | Only free modules have a rank. |
+| `free_rank()` | `BilinearModules.ParentMethods` | **All** modules have a free rank (0 for torsion). Axiomatic. |
+| `cardinality()` | `BilinearModules.ParentMethods` | **All** modules have a cardinality, possibly infinite. Axiomatic. |
+| `signature_triple()` | `BilinearModules.ParentMethods` | Defined for **all** bilinear modules; `n` = radical rank (0 when nondegenerate). |
+| `to_quadratic_module()` | `BilinearModules.ParentMethods` | Map `Bil_R(M) → Quad_R(M)`; always defined. |
 | `is_even()`, `determinant()` | `Lattice` | Lattice-specific invariants. |
 | `discriminant_group()` | `Lattice` | Specific to the L→L*→A_L path. |
 | `roots()`, `weyl_group()` | `RootLattice` | Root-lattice-specific. |
@@ -164,8 +195,16 @@ class BilinearModules(Category_module):
         """Negation: -v."""
 
         @abstractmethod
+        def _lmul_(self, scalar: RingElement) -> BilinearModuleElement: ...
+        """Left R-scalar action: scalar * v. Sage hook for module action."""
+
+        @abstractmethod
+        def _rmul_(self, scalar: RingElement) -> BilinearModuleElement: ...
+        """Right R-scalar action: v * scalar. For commutative R equals _lmul_."""
+
+        @abstractmethod
         def __rmul__(self, scalar: RingElement) -> BilinearModuleElement: ...
-        """Left R-scalar multiplication: r * v."""
+        """Python hook for `scalar * self`; delegates to _lmul_."""
 
         @abstractmethod
         def __eq__(self, other: object) -> bool: ...
@@ -179,17 +218,18 @@ class BilinearModules(Category_module):
 
         # --- Derived (not abstract) ---
 
-        def __mul__(self, other: BilinearModuleElement) -> object:
-            """Bilinear product beta(self, other). Returns element of form codomain."""
-            return self.parent().b(self, other)
-
-        def q(self) -> object:
-            """Quadratic value beta(self, self)."""
-            return self.parent().b(self, self)
+        def __mul__(self, other) -> object:
+            """Dispatch on type of other:
+            - other is a BilinearModuleElement in same parent: bilinear product beta(self, other)
+            - other is a ring scalar: right scalar action self * scalar via _rmul_
+            These are distinguished by parent membership, not isinstance checks."""
+            if hasattr(other, 'parent') and other.parent() is self.parent():
+                return self.parent().b(self, other)
+            return self._rmul_(other)
 
         def is_isotropic(self) -> bool:
-            """Whether beta(self, self) == 0."""
-            return self.q() == 0
+            """Whether beta(self, self) == 0. Uses bilinear self-product, NOT a quadratic form value."""
+            return self.parent().b(self, self) == 0
 
         def span(self) -> BilinearModule:
             """Sub-bilinear-module generated by self."""
@@ -315,6 +355,109 @@ class BilinearModules(Category_module):
                     zero_matrix(self.domain().base_ring(), m, n)
                 )
 ```
+
+
+## `QuadraticModules` ABC
+
+A quadratic module `(M, q)` over `R` is independent from a bilinear module.
+The form `q: M -> C` satisfies:
+- `q(r*v) = r^2 * q(v)` (homogeneity of degree 2)
+- `beta_q(v,w) := q(v+w) - q(v) - q(w)` is `R`-bilinear (polarization)
+
+Note: `beta_q(v,v) = 2*q(v)`. The map `Quad_R(M) -> Bil_R(M)` is `q ↦ beta_q`.
+The map `Bil_R(M) -> Quad_R(M)` is `beta ↦ (v ↦ beta(v,v))`, and its
+polar form is `2*beta`, not `beta`. They are inverse only when `2 ∈ R^×`.
+
+```python
+class QuadraticForm(ABC):
+
+    @abstractmethod
+    def domain(self) -> QuadraticModule: ...
+    """The quadratic module M this form lives on."""
+
+    @abstractmethod
+    def codomain(self) -> Ring: ...
+    """The codomain C: a subring of R.fraction_field(), or a quotient
+    (e.g. QQ/2ZZ for discriminant forms). NOT the same as the bilinear
+    form's codomain (which would be QQ/ZZ for the same object)."""
+
+    @abstractmethod
+    def gram_matrix(self) -> Matrix: ...
+    """Matrix M such that q(v) = v^T * M * v for coordinate vectors v.
+    For a quadratic form, M is symmetric with q(e_i) = M_ii.
+    The bilinear polar form matrix is M + M^T = 2*M (for symmetric M).
+    Symbolic form: q(x1,...,xn) = sum_{i<=j} m_ij * xi * xj."""
+
+    @abstractmethod
+    def evaluate(self, v: QuadraticModuleElement) -> object: ...
+    """Evaluate q(v). Return value is an element of codomain."""
+
+    @abstractmethod
+    def polar_bilinear_form(self) -> BilinearForm: ...
+    """Return the polar bilinear form beta_q where
+    beta_q(v,w) = q(v+w) - q(v) - q(w).
+    Note: beta_q(v,v) = 2*q(v)."""
+
+
+class QuadraticModules(CategoryWithAxiom_over_base_ring):
+
+    class ParentMethods(ABC):
+
+        @abstractmethod
+        def quadratic_form(self) -> QuadraticForm: ...
+        """The quadratic form q on this module."""
+
+        @abstractmethod
+        def associated_bilinear_module(self) -> BilinearModule: ...
+        """Return (M, beta_q) where beta_q = polar form of q.
+        The Gram matrix of beta_q is G + G^T = 2*G where G = quadratic Gram matrix.
+        This is the canonical map Quad_R(M) -> Bil_R(M)."""
+
+        # --- Derived ---
+
+        def quadratic_gram_matrix(self) -> Matrix:
+            """Matrix M with q(v) = v^T M v. Entries in codomain."""
+            return self.quadratic_form().gram_matrix()
+
+        def symbolic_form(self, variable_names=None) -> Polynomial:
+            """Return q as a polynomial sum_{i<=j} m_ij * xi * xj.
+            Symbolic and matrix representations are interchangeable."""
+            ...
+
+    class ElementMethods(ABC):
+
+        @abstractmethod
+        def q(self) -> object: ...
+        """Evaluate the quadratic form: q(self).
+        This is NOT beta(self, self). The two are related by:
+            beta_q(v, v) = 2*q(v)
+        so q(v) = beta_q(v,v)/2 only when 2 is invertible."""
+
+        def is_isotropic(self) -> bool:
+            """Whether q(self) == 0 in the codomain."""
+            return self.q() == 0
+```
+
+### Conversion maps between `BilinearModules` and `QuadraticModules`
+
+```
+Bil_R(M) ---[to_quadratic_module()]---> Quad_R(M)
+              beta |--> q_beta where q_beta(v) = beta(v,v)
+              polar form of q_beta = 2*beta, NOT beta
+
+Quad_R(M) --[associated_bilinear_module()]---> Bil_R(M)
+              q |--> beta_q where beta_q(v,w) = q(v+w)-q(v)-q(w)
+              beta_q(v,v) = 2*q(v)
+
+Composition (to_quadratic o associated_bilinear)(q)(v) = beta_q(v,v) = 2*q(v)  [NOT q]
+Composition (associated_bilinear o to_quadratic)(beta)(v,w) = 2*beta(v,w)      [NOT beta]
+These are inverses only when 2 is invertible in R.
+```
+
+For even lattices over ZZ (where `beta(v,v) ∈ 2ZZ`), the conventional
+half-integral quadratic form `q_half(v) = beta(v,v)/2 ∈ ZZ` is a separate
+map not recoverable from the above. It satisfies `beta_{q_half}(v,w) = beta(v,w)`
+(an honest inverse) and is available via `to_even_quadratic_module()` on `Lattice`.
 
 
 ## Notes on Sage wiring
