@@ -1,1 +1,6 @@
 from src.lattices.categories.bilinear_modules import BilinearModules
+from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
+from src.lattices.categories.torsion_bilinear_modules import TorsionBilinearModules
+from src.lattices.categories.quadratic_modules import QuadraticModules, TorsionQuadraticModules
+from src.lattices.categories.rational_lattices import RationalLattices
+from src.lattices.categories.lattices import Lattices
