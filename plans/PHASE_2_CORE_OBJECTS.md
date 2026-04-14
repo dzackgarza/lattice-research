@@ -99,6 +99,9 @@ class BilinearModules(Category_module):
         @abstractmethod
         def span(self, elements) -> BilinearModule: ...
 
+        @abstractmethod
+        def cardinality(self): ...  # CardinalNumber; Infinity for free, int for torsion
+
         # === Derived: follow from the abstract interface above ===
         def b(self, v, w): return self.bilinear_form().evaluate(v, w)
         def gram_matrix(self): return self.bilinear_form().gram_matrix()
@@ -293,7 +296,7 @@ properties (free vs torsion, codomain type), not on Python classes.
 **Operators required:**
 - `__add__` = direct sum
 - `__pow__` = n-fold direct sum (`L^3 == L + L + L`)
-- `__mul__` = scalar twist on parent (`n * L` means `{n*v : v in L}`)
+- `__mul__` / `__rmul__` = scalar submodule: `n * L` returns the submodule `{n*v : v in L}`, with Gram matrix `n^2 * G`. This is a SUBMODULE of `L` of index `n^{rank(L)}`, **not** a twist. It is isometric to `L.twist(n^2)` but is a different object. For `L = ZZ`, `n * ZZ = nZZ` is the ideal `(n)` in ZZ.
 - `__truediv__` = quotient (stub; Phase 3 fills in via cokernel)
 - `__eq__` = canonical isomorphism (identity-matrix isometry for lattices)
 - `__contains__` = parent check (never automatic coercion)
@@ -394,10 +397,14 @@ coerces into QQ/ZZ (Phase 0 patches).
   in K/R.
 
 **Methods:**
-- `invariants()` -- Smith normal form invariants
-- `cardinality()` -- product of invariants
+- `invariants()` -- Smith normal form invariants of the torsion part
+- `cardinality()` -- overrides abstract; returns product of invariants (finite)
 - `is_p_elementary(p)` -- all invariants are p
 - `p_rank(p)` -- number of invariant-p summands
+
+Note: `cardinality()` is abstract on ALL bilinear modules (every set has
+a cardinality). Free modules return `Infinity`; torsion modules override
+with their finite cardinality. Both are valid cardinalities.
 
 **Element methods at TorsionBilinearModuleElement level:**
 - `additive_order()` -- order in the underlying group

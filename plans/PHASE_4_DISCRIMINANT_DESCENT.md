@@ -330,9 +330,15 @@ class Lattice(RationalLattice):
   lattice elements
 
 **Twist vs multiplication distinction** (from `more_specs.sage`):
-- `L.twist(n)` scales the FORM: `G_{twist} = n * G`
-- `n * L` scales the ELEMENTS: `{n*v | v in L}`, isometric to `L.twist(n^2)`
-- These are NOT the same: `not (2*U).is_isometric_to(U.twist(2))`
+- `L.twist(n)` scales the FORM: `G_{twist} = n * G`. Returns a new bilinear
+  module with the same generators but scaled form.
+- `n * L` = `{n*v | v in L}` is a SUBMODULE of `L` of index `n^{rank(L)}`.
+  Its generators are `{n*e_i}`, so its Gram matrix is `n^2 * G_L` (each
+  bilinear product scales by `n^2`). It is isometric to `L.twist(n^2)`.
+- These are NOT the same: `not (2*U).is_isometric_to(U.twist(2))`.
+  `2*U` has Gram `4*G_U`; `U.twist(2)` has Gram `2*G_U`.
+- For `L = ZZ` as a ZZ-module: `n * ZZ` is the ideal `(n)` -- simultaneously
+  a submodule of `ZZ` and an ideal.
 
 **Direct sum structure.** `L1 + L2` returns a lattice with:
 - `summands` attribute: `(L1_copy, L2_copy)`
