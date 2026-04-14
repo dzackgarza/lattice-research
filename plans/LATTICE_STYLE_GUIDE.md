@@ -27,24 +27,39 @@ of isotropic vectors.
 corresponding paragraph in a paper?** If a computation requires five
 lines of plumbing before it gets to the mathematics, the API has failed.
 
-Sage already has three (or more) separate, largely incompatible
-hierarchies for finitely generated modules:
+### The Sage module ecosystem we are replacing
 
-- `sage.modules.free_module` / `FreeModule`
-- `sage.modules.fg_pid_module` / `FGP_Module`
-- `sage.quadratic_forms.quadratic_form` / `QuadraticForm`
-- `sage.modules.torsion_quadratic_module` / `TorsionQuadraticModule`
-- `sage.modules.lattice_homomorphism`
+Sage has multiple largely incompatible hierarchies for finitely generated
+modules and lattices, none suited for general indefinite lattice theory:
 
-Each has different conventions, different levels of support for
-indefinite forms, different assumptions about ambient spaces, and
-different naming. None is suited for the kind of mathematical prose this
-project requires.
+| Module | Role | Limitation |
+|--------|------|------------|
+| `sage.modules.free_module.FreeModule` | Free R-modules, linear algebra | No bilinear form |
+| `sage.modules.fg_pid_module.FGP_Module` | Finitely generated modules over PIDs, quotients | No form; cokernel machinery used internally |
+| `sage.tensor.modules.finite_rank_free_module.FiniteRankFreeModule` | Tensor calculus, multilinear algebra over arbitrary rings; no choice of basis | No inner product machinery |
+| `sage.combinat.free_module.CombinatorialFreeModule` | Free modules indexed by combinatorial sets (roots, monomials) | No bilinear form; used for Weyl algebras, symmetric functions, etc. |
+| `sage.quadratic_forms.quadratic_form.QuadraticForm` | Quadratic forms over ZZ/QQ | **Assumes positive-definite without validation.** Algorithms often silently wrong on indefinite input. |
+| `sage.modules.torsion_quadratic_module.TorsionQuadraticModule` | Torsion quadratic modules, discriminant groups | Separate hierarchy, no unified parent with free modules |
+| `sage.modules.lattice_homomorphism` | Lattice morphisms | Minimal, tied to ambient-space model |
+
+**The definiteness trap.** Most Sage lattice/form code was written for
+definite (positive or negative definite) forms. It was never validated
+against indefinite inputs. Code that "happens to work" on indefinite forms
+is not the same as code that is correct -- it is an accident, and it will
+fail in subtle ways. We must re-derive everything from first principles
+and not assume any Sage algorithm is correct for indefinite forms without
+independent verification.
+
+**`FiniteRankFreeModule` and `CombinatorialFreeModule`** are useful for
+specific sub-computations (tensor products of root spaces, Weyl algebra
+actions, symmetric function theory connected to root systems) and will be
+recovered as backends for relevant computations. They are not discarded,
+just not the primary API.
 
 **We are not extending any of these hierarchies.** We are building a
 unified replacement that:
 - Works uniformly for free, torsion, and mixed modules
-- Works for indefinite forms without special-casing
+- Works for indefinite forms with correct validation
 - Defines a vocabulary that matches the algebraic geometry literature
 - Supports the discriminant descent `L → L* → A_L` as a first-class
   operation built on general cokernel machinery
@@ -59,74 +74,322 @@ without changing any public-facing method.
 ## Category Interface vs. Concrete Implementation
 
 The Sage category framework (`Category`, `ParentMethods`,
-`ElementMethods`, `MorphismMethods`, etc.) has a specific purpose: it
-defines the **minimum interface any implementation of a category must
-provide**. Everything else belongs on the concrete classes.
+`ElementMethods`, `MorphismMethods`, etc.) defines the **minimum interface
+any implementation of a category must provide**. Everything else belongs
+on the concrete classes.
 
-**Rule: put something in the category only if someone writing a fresh
-implementation of `BilinearModules` from scratch -- with a completely
-different internal representation -- would need to implement it.**
+**Rule: put something in the category only if someone implementing
+`BilinearModules` from scratch with completely different internals would
+need to implement it.** The test: could they implement it using a
+polynomial ring, a Julia object, or a combinatorial free module as the
+internal representation, and have every category method work unchanged?
 
-### What belongs in the category
+The category defines each interface layer as an **abstract base class**:
+every method is `@abstractmethod`, with explicit type annotations. The
+category's job is to specify the contract precisely -- not to provide
+implementations. All implementations live on the concrete classes.
 
-`BilinearModules.ParentMethods` should contain the mathematical axioms
-of a bilinear module: the things a client can call on ANY bilinear module
-regardless of whether it is free, torsion, over `ZZ`, or over some other
-PID.
+### ABC Contract: `BilinearForm`
+
+Before the module hierarchy, define the form object. A `BilinearForm` is
+a symmetric R-bilinear map `beta: M × M -> C` for some codomain `C`.
+
+```python
+class BilinearForm(ABC):
+    @abstractmethod
+    def domain(self) -> BilinearModule: ...
+    """The bilinear module M this form lives on."""
+
+    @abstractmethod
+    def codomain(self) -> FormCodomain: ...
+    """The FormCodomain descriptor: C = ZZ, QQ, QQ/ZZ, or QQ/2ZZ."""
+
+    @abstractmethod
+    def gram_matrix(self) -> Matrix: ...
+    """Gram matrix G with G_ij = beta(e_i, e_j) for canonical gens e_i."""
+    # Entries are in codomain.ring (the actual Sage ring).
+    # Must be symmetric: G == G.T
+
+    @abstractmethod
+    def evaluate(self, v: BilinearModuleElement,
+                 w: BilinearModuleElement) -> object: ...
+    """Evaluate beta(v, w). Return value is an element of codomain.ring."""
+    # Axioms: evaluate(v, w) == evaluate(w, v)  (symmetry)
+    #         evaluate(r*v, w) == r * evaluate(v, w)  (bilinearity)
+```
+
+A `QuadraticForm` (separate ABC, not the same as `BilinearForm`) is
+`q: M -> C` with `q(v) = beta(v, v)` and `beta` recovered as the
+polarization `beta(v,w) = q(v+w) - q(v) - q(w)`.
+
+
+### ABC Contract: `BilinearModules.ParentMethods`
 
 ```python
 class BilinearModules(Category_module):
-    class ParentMethods:
-        # Axiomatic interface: every BilinearModule must provide these.
-        def gram_matrix(self): ...         # the Gram matrix
-        def bilinear_form(self): ...       # the BilinearForm object
-        def gens(self): ...                # canonical generators
-        def rank(self): ...                # module rank
-        def dual(self): ...                # dual as a BilinearModule
-        def twist(self, scalar): ...       # scale the form
-        def span(self, elements): ...      # internal span
-        def _Hom_(self, codomain, category=None): ...
 
-    class ElementMethods:
-        # Operations on elements that follow from the axioms.
-        def bilinear_product_with(self, other): ...  # beta(v, w)
-        def q(self): ...                             # beta(v, v)
-        def is_isotropic(self): ...                  # q(v) == 0
-        def to_vector(self): ...                     # basis-dep extraction
+    class ParentMethods(ABC):
 
-    class MorphismMethods:
-        # Categorical properties of morphisms.
-        def is_isometry(self): ...
-        def kernel(self): ...
-        def cokernel(self): ...
-        def image(self): ...
+        @abstractmethod
+        def bilinear_form(self) -> BilinearForm: ...
+        """The BilinearForm object encoding beta: M x M -> C."""
+
+        @abstractmethod
+        def gens(self) -> tuple[BilinearModuleElement, ...]: ...
+        """Canonical generators. No ordering guarantee beyond consistency."""
+
+        @abstractmethod
+        def zero(self) -> BilinearModuleElement: ...
+        """The additive identity of M."""
+
+        @abstractmethod
+        def base_ring(self) -> Ring: ...
+        """The base ring R (usually ZZ)."""
+
+        @abstractmethod
+        def free_part(self) -> FreeBilinearModule: ...
+        """The free part of M as a BilinearModule."""
+        # For free modules: returns self.
+        # For torsion modules: returns the rank-0 zero module.
+
+        @abstractmethod
+        def torsion_part(self) -> TorsionBilinearModule: ...
+        """The torsion part of M as a BilinearModule."""
+        # For free modules: returns the zero module.
+        # For torsion modules: returns self.
+
+        @abstractmethod
+        def Hom(self, other: BilinearModule) -> BilinearModuleHomSpace: ...
+        """The hom space Hom(self, other) in BilinearModules(R)."""
+        # This is our public API. It may internally call the stored Sage
+        # object's _Hom_ hook, but that is an implementation detail.
+
+        @abstractmethod
+        def dual(self) -> BilinearModule: ...
+        """Dual module Hom(M, R) with the induced form."""
+
+        @abstractmethod
+        def twist(self, scalar: RingElement) -> BilinearModule: ...
+        """Module M with form scaled by scalar: beta_new = scalar * beta."""
+
+        @abstractmethod
+        def span(self, elements: Iterable[BilinearModuleElement]
+                 ) -> BilinearModule: ...
+        """Sub-bilinear-module generated by elements, with restricted form."""
+
+        # --- Derived methods (not abstract; follow from the axioms) ---
+
+        def b(self, v: BilinearModuleElement,
+              w: BilinearModuleElement) -> object:
+            """Evaluate beta(v, w). Convenience wrapper for bilinear_form().evaluate."""
+            return self.bilinear_form().evaluate(v, w)
+
+        def gram_matrix(self) -> Matrix:
+            """Gram matrix of the bilinear form w.r.t. canonical generators."""
+            return self.bilinear_form().gram_matrix()
+
+        def End(self) -> BilinearModuleHomSpace:
+            """End(M) = Hom(M, M)."""
+            return self.Hom(self)
 ```
 
-### What does NOT belong in the category
+**What is NOT here and why:**
 
-- `_sage_lattice`, `_fgp_module`, `_julia_lattice` -- internal backends
-- `signature_pair()`, `is_even()`, `determinant()` -- lattice-specific
-  properties that don't apply to all bilinear modules
-- `discriminant_group()`, `dual()` with the specific cokernel path --
-  these are computed differently for free vs torsion modules
-- `roots()`, `weyl_group()`, `coxeter_diagram()` -- root lattice extras
+| Property | Lives on | Reason |
+|----------|----------|--------|
+| `rank()` | `FreeBilinearModule` | Only free modules have a rank. A general BilinearModule has `free_part().rank()` at best. |
+| `free_rank()` | `FreeBilinearModule` | Same reason. |
+| `cardinality()` | `TorsionBilinearModule` | Only torsion modules are finite. |
+| `signature()` | `Lattice` | Requires nondegeneracy + real embedding. |
+| `is_even()`, `determinant()` | `Lattice` | Lattice-specific invariants. |
+| `discriminant_group()` | `Lattice` | Specific to the L→L*→A_L path. |
+| `roots()`, `weyl_group()` | `RootLattice` | Root-lattice-specific. |
 
-These belong on the **concrete subclasses** where they make sense:
-`FreeBilinearModule`, `Lattice`, `RootLattice`, etc.
 
-The category methods are the skeleton. Concrete classes add the flesh.
+### ABC Contract: `BilinearModules.ElementMethods`
+
+```python
+    class ElementMethods(ABC):
+
+        @abstractmethod
+        def parent(self) -> BilinearModule: ...
+        """The parent bilinear module of this element."""
+
+        @abstractmethod
+        def __add__(self, other: BilinearModuleElement
+                    ) -> BilinearModuleElement: ...
+        """Addition: v + w in M."""
+
+        @abstractmethod
+        def __neg__(self) -> BilinearModuleElement: ...
+        """Negation: -v."""
+
+        @abstractmethod
+        def __rmul__(self, scalar: RingElement) -> BilinearModuleElement: ...
+        """Left R-scalar multiplication: r * v."""
+
+        @abstractmethod
+        def __eq__(self, other: object) -> bool: ...
+
+        @abstractmethod
+        def __hash__(self) -> int: ...
+
+        @abstractmethod
+        def to_vector(self) -> Vector: ...
+        """Coordinate vector w.r.t. parent().gens(). Basis-dependent extraction."""
+
+        # --- Derived (not abstract) ---
+
+        def __mul__(self, other: BilinearModuleElement) -> object:
+            """Bilinear product beta(self, other). Returns element of form codomain."""
+            return self.parent().b(self, other)
+
+        def q(self) -> object:
+            """Quadratic value beta(self, self)."""
+            return self.parent().b(self, self)
+
+        def is_isotropic(self) -> bool:
+            """Whether beta(self, self) == 0."""
+            return self.q() == 0
+
+        def span(self) -> BilinearModule:
+            """Sub-bilinear-module generated by self."""
+            return self.parent().span([self])
+
+        def __sub__(self, other: BilinearModuleElement) -> BilinearModuleElement:
+            return self + (-other)
+
+        def __mul_scalar__(self, scalar):
+            return scalar * self
+```
+
+
+### ABC Contract: `BilinearModules.MorphismMethods`
+
+```python
+    class MorphismMethods(ABC):
+
+        @abstractmethod
+        def domain(self) -> BilinearModule: ...
+        """Domain module M."""
+
+        @abstractmethod
+        def codomain(self) -> BilinearModule: ...
+        """Codomain module N."""
+
+        @abstractmethod
+        def __call__(self, v: BilinearModuleElement
+                     ) -> BilinearModuleElement: ...
+        """Evaluate the morphism: f(v) in codomain."""
+        # Must satisfy: f(v + w) == f(v) + f(w)  (additivity)
+        #               f(r * v) == r * f(v)       (R-linearity)
+
+        @abstractmethod
+        def to_matrix(self) -> Matrix: ...
+        """Matrix of f w.r.t. domain.gens() and codomain.gens().
+        Column j = coordinates of f(e_j) in codomain generators."""
+
+        @abstractmethod
+        def kernel(self) -> BilinearModule: ...
+        """ker(f) with bilinear form restricted from domain."""
+
+        @abstractmethod
+        def image(self) -> BilinearModule: ...
+        """im(f) with bilinear form restricted from codomain."""
+
+        @abstractmethod
+        def cokernel(self) -> BilinearModule: ...
+        """coker(f) = codomain / im(f) with descended bilinear form."""
+
+        @abstractmethod
+        def is_isometry(self) -> bool: ...
+        """Whether f preserves the bilinear form: beta_N(f(v),f(w)) == beta_M(v,w)."""
+
+        # --- Derived ---
+
+        def is_injective(self) -> bool:
+            return self.kernel() == BilinearModules(self.domain().base_ring()).zero()
+
+        def is_surjective(self) -> bool:
+            return self.cokernel() == BilinearModules(self.domain().base_ring()).zero()
+
+        def is_bijective(self) -> bool:
+            return self.is_injective() and self.is_surjective()
+
+        def is_isomorphism(self) -> bool:
+            return self.is_bijective()
+
+        def __mul__(self, other: BilinearModuleMorphism
+                    ) -> BilinearModuleMorphism:
+            """Composition: (self * other)(v) = self(other(v))."""
+            ...
+```
+
+
+### ABC Contract: `BilinearModules.Homsets.ParentMethods`
+
+```python
+    class Homsets(HomsetsCategory):
+
+        class ParentMethods(ABC):
+
+            @abstractmethod
+            def domain(self) -> BilinearModule: ...
+
+            @abstractmethod
+            def codomain(self) -> BilinearModule: ...
+
+            @abstractmethod
+            def element_from_dict(
+                self, mapping: dict[BilinearModuleElement, BilinearModuleElement]
+            ) -> BilinearModuleMorphism: ...
+            """Construct morphism from {generator: image} dict. Preferred."""
+
+            @abstractmethod
+            def element_from_matrix(
+                self, M: Matrix
+            ) -> BilinearModuleMorphism: ...
+            """Construct morphism from matrix w.r.t. domain/codomain gens."""
+
+            @abstractmethod
+            def element_from_images(
+                self, images: Sequence[BilinearModuleElement]
+            ) -> BilinearModuleMorphism: ...
+            """Construct morphism from ordered images of domain generators."""
+
+            @abstractmethod
+            def __contains__(self, f: object) -> bool: ...
+            """True iff f is a morphism M->N preserving module structure.
+            For isometry hom spaces, also checks form preservation."""
+
+            # --- Derived ---
+
+            def identity(self) -> BilinearModuleMorphism:
+                assert self.domain() == self.codomain()
+                return self.element_from_matrix(
+                    identity_matrix(self.domain().base_ring(),
+                                    len(self.domain().gens()))
+                )
+
+            def zero(self) -> BilinearModuleMorphism:
+                n = len(list(self.domain().gens()))
+                m = len(list(self.codomain().gens()))
+                return self.element_from_matrix(
+                    zero_matrix(self.domain().base_ring(), m, n)
+                )
+```
 
 ### Why this matters
 
-If category methods carry implementation details (specific Sage object
-types, specific computation strategies), then changing a backend breaks
-the category contract. The category should be stable even when the entire
-internal implementation is replaced with Julia.
+The ABCs are the **contract** that any future implementation must honor.
+If someone writes a `BilinearModule` backed by Julia objects, or backed
+by `FiniteRankFreeModule`, or backed by a combinatorial free module for
+a root system, they implement these ABCs and get the entire algebraic
+geometry DSL for free.
 
-A useful test: **could someone implement `BilinearModules` over a
-polynomial ring, using a completely different set of internal objects,
-and have all the category methods work without modification?** If the
-answer is yes, the category is well-designed.
+The category methods are the stable vocabulary. The concrete classes are
+its instantiations over specific backends. Keeping them separate means
+backends are interchangeable without breaking the mathematical interface.
 
 
 ## Public Mathematical Model
