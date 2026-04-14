@@ -10,6 +10,125 @@ CONTRIBUTING.md and the normalized design directives from the user
 corrections in `lattice_redesign_corrections_spec.md`.
 
 
+## Design Goal: A Mathematical DSL
+
+This project is **not** a typical software library and should not be
+designed like one.
+
+The goal is a **domain-specific language for lattice theory in algebraic
+geometry** -- specifically the kind of lattice theory that appears in the
+work of Nikulin, Looijenga, Miranda–Morrison, Gritsenko–Nikulin, and
+similar authors. The primary users are mathematicians running computations
+in support of a paper: checking discriminant form invariants, verifying
+genus conditions, constructing orthogonal group elements, tracing orbits
+of isotropic vectors.
+
+**The standard for usability is: can the code be read aloud as the
+corresponding paragraph in a paper?** If a computation requires five
+lines of plumbing before it gets to the mathematics, the API has failed.
+
+Sage already has three (or more) separate, largely incompatible
+hierarchies for finitely generated modules:
+
+- `sage.modules.free_module` / `FreeModule`
+- `sage.modules.fg_pid_module` / `FGP_Module`
+- `sage.quadratic_forms.quadratic_form` / `QuadraticForm`
+- `sage.modules.torsion_quadratic_module` / `TorsionQuadraticModule`
+- `sage.modules.lattice_homomorphism`
+
+Each has different conventions, different levels of support for
+indefinite forms, different assumptions about ambient spaces, and
+different naming. None is suited for the kind of mathematical prose this
+project requires.
+
+**We are not extending any of these hierarchies.** We are building a
+unified replacement that:
+- Works uniformly for free, torsion, and mixed modules
+- Works for indefinite forms without special-casing
+- Defines a vocabulary that matches the algebraic geometry literature
+- Supports the discriminant descent `L → L* → A_L` as a first-class
+  operation built on general cokernel machinery
+- Carries internal Sage/Julia objects for computation, but exposes only a
+  clean mathematical API
+
+The internal Sage/Julia objects are **calculation engines**, not the
+public interface. They may be swapped out, supplemented, or replaced
+without changing any public-facing method.
+
+
+## Category Interface vs. Concrete Implementation
+
+The Sage category framework (`Category`, `ParentMethods`,
+`ElementMethods`, `MorphismMethods`, etc.) has a specific purpose: it
+defines the **minimum interface any implementation of a category must
+provide**. Everything else belongs on the concrete classes.
+
+**Rule: put something in the category only if someone writing a fresh
+implementation of `BilinearModules` from scratch -- with a completely
+different internal representation -- would need to implement it.**
+
+### What belongs in the category
+
+`BilinearModules.ParentMethods` should contain the mathematical axioms
+of a bilinear module: the things a client can call on ANY bilinear module
+regardless of whether it is free, torsion, over `ZZ`, or over some other
+PID.
+
+```python
+class BilinearModules(Category_module):
+    class ParentMethods:
+        # Axiomatic interface: every BilinearModule must provide these.
+        def gram_matrix(self): ...         # the Gram matrix
+        def bilinear_form(self): ...       # the BilinearForm object
+        def gens(self): ...                # canonical generators
+        def rank(self): ...                # module rank
+        def dual(self): ...                # dual as a BilinearModule
+        def twist(self, scalar): ...       # scale the form
+        def span(self, elements): ...      # internal span
+        def _Hom_(self, codomain, category=None): ...
+
+    class ElementMethods:
+        # Operations on elements that follow from the axioms.
+        def bilinear_product_with(self, other): ...  # beta(v, w)
+        def q(self): ...                             # beta(v, v)
+        def is_isotropic(self): ...                  # q(v) == 0
+        def to_vector(self): ...                     # basis-dep extraction
+
+    class MorphismMethods:
+        # Categorical properties of morphisms.
+        def is_isometry(self): ...
+        def kernel(self): ...
+        def cokernel(self): ...
+        def image(self): ...
+```
+
+### What does NOT belong in the category
+
+- `_sage_lattice`, `_fgp_module`, `_julia_lattice` -- internal backends
+- `signature_pair()`, `is_even()`, `determinant()` -- lattice-specific
+  properties that don't apply to all bilinear modules
+- `discriminant_group()`, `dual()` with the specific cokernel path --
+  these are computed differently for free vs torsion modules
+- `roots()`, `weyl_group()`, `coxeter_diagram()` -- root lattice extras
+
+These belong on the **concrete subclasses** where they make sense:
+`FreeBilinearModule`, `Lattice`, `RootLattice`, etc.
+
+The category methods are the skeleton. Concrete classes add the flesh.
+
+### Why this matters
+
+If category methods carry implementation details (specific Sage object
+types, specific computation strategies), then changing a backend breaks
+the category contract. The category should be stable even when the entire
+internal implementation is replaced with Julia.
+
+A useful test: **could someone implement `BilinearModules` over a
+polynomial ring, using a completely different set of internal objects,
+and have all the category methods work without modification?** If the
+answer is yes, the category is well-designed.
+
+
 ## Public Mathematical Model
 
 - A bilinear module is presented by canonical generators of `R^n` together
@@ -70,6 +189,56 @@ theory, which is not what we want at all.
 No public object should require a Sage object as its constructor input.
 Constructors build and store their internal Sage object themselves.
 Separate class methods may accept Sage objects and convert them internally.
+
+### Internal Objects Are Calculation Engines, Not the API
+
+Our objects may carry many internal Sage (and Julia) objects simultaneously:
+
+| Internal field | Role |
+|----------------|------|
+| `_fgp_module: FGP_Module` | Underlying module arithmetic, Smith form, quotients |
+| `_sage_lattice: IntegralLattice` | Sage's lattice methods (definite algorithms) |
+| `_quadratic_form: QuadraticForm` | Sage's quadratic form classification |
+| `_torsion_module: TorsionQuadraticModule` | Torsion arithmetic |
+| `_julia_lattice: object` | Julia/Hecke backend for indefinite algorithms |
+
+**None of these are ever accessible from the public API.** They exist
+because they have implementations of algorithms we need. When we call
+`L.discriminant_group().is_p_elementary(2)`, we are NOT asking the user
+to construct a `TorsionQuadraticModule` -- we are asking a mathematical
+question about L, and the answer happens to be computed via an internal
+Sage object.
+
+**The discipline:**
+
+```python
+# Bad: leak the internal object so the user can call Sage methods on it
+def sage_lattice(self):
+    return self._sage_lattice  # BAD -- user now depends on Sage API
+
+# Bad: expose the internal representation to work around a missing method
+def inner_product_matrix(self):  # BAD -- wrong name, Sage convention
+    return self._sage_lattice.inner_product_matrix()
+
+# Good: expose the correct mathematical method using the internal object
+def gram_matrix(self):
+    return self._fgp_module.gram_matrix()  # delegates, correct name
+
+# Good: when a method is missing, add it to OUR API with the right name,
+# delegating internally
+def signature(self):
+    return self._sage_lattice.signature_pair()  # correct name on our API
+```
+
+**When a needed method is missing:** float it to the spec as a required
+addition, add it to our public API with the correct mathematical name, and
+implement it by delegating to whichever internal object already does the
+computation. Never add a `get_sage_lattice()` escape hatch.
+
+The point of this discipline: when we eventually remove the
+`_sage_lattice` backend and replace it with Julia calls, nothing in the
+public-facing code changes. The mathematical vocabulary is stable; the
+calculation engines are interchangeable.
 
 
 ## Mathematical Syntax Sugar
