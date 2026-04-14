@@ -1,5 +1,16 @@
 # Phase 1: BilinearModule and QuadraticModule Foundation
 
+> **Superseded.** This document is retained as an archival reference.
+> The 13 monolithic steps below have been broken into four detailed
+> implementation phases with independent functional checkpoints:
+>
+> - `PHASE_2_CORE_OBJECTS.md` -- Steps 1-7 (Categories, Forms, Core Objects)
+> - `PHASE_3_MORPHISMS.md` -- Steps 8, 13 (Morphisms, HomSpaces, Cokernel)
+> - `PHASE_4_DISCRIMINANT_DESCENT.md` -- Steps 9-11 (Dual, Discriminant, Lattice)
+> - `PHASE_5_ORTHOGONAL_GROUPS.md` -- Step 12 (Orthogonal Groups, Roots, Weyl, Coxeter)
+>
+> Use the PHASE_2-5 documents as the authoritative implementation plans.
+
 Build the `BilinearModules(R)` category and parent hierarchy over arbitrary
 PID R (primarily R = ZZ). The central design goal: the discriminant form
 descent -- from integral lattice L through dual L\* to discriminant group
