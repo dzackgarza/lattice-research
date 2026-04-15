@@ -54,8 +54,8 @@ class Lattices(CategoryWithAxiom_over_base_ring):
     """
 
     def super_categories(self):
-        from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
         from sage.rings.integer_ring import ZZ
+        from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
         return [FreeBilinearModules(ZZ)]
 
     # -----------------------------------------------------------------------

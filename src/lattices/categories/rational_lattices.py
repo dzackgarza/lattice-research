@@ -24,7 +24,6 @@ EXAMPLES::
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 
 
 class RationalLattices(CategoryWithAxiom_over_base_ring):
@@ -55,8 +54,8 @@ class RationalLattices(CategoryWithAxiom_over_base_ring):
     """
 
     def super_categories(self):
-        from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
         from sage.rings.rational_field import QQ
+        from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
         return [FreeBilinearModules(QQ)]
 
     class ParentMethods:

@@ -37,6 +37,8 @@ validation at construction, exact arithmetic only.
 src/lattices/
     categories/
         modules_with_forms.py     # top-level category + most generic mixins
+        bilinear_forms.py         # thin facade for the bilinear form stratum
+        quadratic_forms.py        # thin facade for the quadratic form stratum
         bilinear_modules.py       # Bilinear() convenience facade / alias layer
         quadratic_modules.py      # Quadratic() convenience facade / alias layer
         free_bilinear_modules.py  # Bilinear().Free()
@@ -149,8 +151,10 @@ Required examples:
 - `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`
 
 Thin compatibility facades such as `BilinearModules`, `QuadraticModules`,
-`FreeBilinearModules`, `TorsionBilinearModules`, `Lattices`, and
-`RationalLattices` may remain as names, but they should be trivial wrappers
+`FreeBilinearModules`, `TorsionBilinearModules`, `Lattices`,
+`RationalLattices`, and `DiscriminantQuadraticForms`, together with
+subordinate form-stratum names such as `BilinearForms` and
+`QuadraticForms`, may remain as names, but they should be trivial wrappers
 or aliases for those meets and should inherit the Sage mixins from the
 category machinery rather than redefining them.
 

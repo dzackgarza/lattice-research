@@ -90,6 +90,10 @@ The full category contract now lives exclusively in
 - `ModulesWithForms(R)` as the top-level category of pairs `(M, f)`
 - bilinear and quadratic structure as refinements, not separate top-level
   contracts
+- named facades such as `BilinearModules`, `QuadraticModules`,
+  `FreeBilinearModules`, `TorsionBilinearModules`, `Lattices`,
+  `RationalLattices`, and `DiscriminantQuadraticForms` are just meets or
+  thin aliases on top of that category
 - Sage-style `SubcategoryMethods`, `Homsets`, `TensorProducts`,
   `CartesianProducts`, and `DualObjects`, modeled on
   `sage.categories.modules.Modules`

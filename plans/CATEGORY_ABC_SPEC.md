@@ -17,10 +17,28 @@ An object of `ModulesWithForms(R)` is a pair `(M, f)` where:
 - `f` is either:
   - a bilinear morphism `M \otimes_R M -> S`, or
   - a quadratic morphism `M -> S`,
-- `S` is either:
-  - a subring of `K` containing `R`, or
-  - a quotient of `K`, presently required at minimum to support `K/R`
-    and `K/2R`.
+- `S` is a first-pass front-door codomain in `{R, K}` with
+  `K := Frac(R)`.
+
+The category is written for arbitrary finitely generated PID modules, so
+objects may be mixed:
+
+```text
+M = F ⊕ T
+```
+
+with `F` free and `T` torsion. The generic interface must therefore be
+defined at the mixed-module level rather than only on free lattices.
+
+Scope control for the first implementation pass is deliberate:
+
+- generic constructors at the `ModulesWithForms(R)` / `Bilinear()` /
+  `Quadratic()` level assert that the primary form takes values in either
+  `R` or `K`,
+- quotient-valued codomains such as `K/R` and `K/2R` enter only through
+  explicit categorical descent, most importantly cokernels,
+- this up-front restriction exists to prevent scope creep while the mixed
+  kernel/image/cokernel machinery is being built.
 
 Concrete implementations may enforce the currently supported codomain
 families by assertions and validation. The public contract is about the
@@ -43,16 +61,36 @@ The category owns the Sage-style subcategory machinery:
 Downstream categories are intersections of these axioms. For example:
 
 ```text
+BilinearModules(R)
+    := ModulesWithForms(R).Bilinear()
+
+QuadraticModules(R)
+    := ModulesWithForms(R).Quadratic()
+
+FreeBilinearModules(R)
+    := ModulesWithForms(R).Bilinear().Free()
+
+TorsionBilinearModules(R)
+    := ModulesWithForms(R).Bilinear().Torsion()
+
 Lattices(R)
     := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()
 
 RationalLattices(R)
     := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()
+
+DiscriminantQuadraticForms(R)
+    := ModulesWithForms(R).Quadratic().Torsion().NonDegenerate()
+       with quotient-valued codomain, typically K/R or K/2R
 ```
 
 The older names `BilinearModules` and `QuadraticModules`, if retained at
 all, are thin aliases for these subcategories. They are not separate
 top-level category contracts anymore.
+
+Likewise, `BilinearForms` and `QuadraticForms` should be treated as thin
+facade names for the bilinear and quadratic form strata subordinate to
+`ModulesWithForms(R)`, not as independent foundations.
 
 
 ## Form Codomains
@@ -64,13 +102,18 @@ The codomain descriptor remains a separate validated object. It records:
 - the actual codomain `S`,
 - whether `S` is a subring codomain or a quotient codomain.
 
-The required first-pass codomain strata are:
+The required first-pass front-door codomain strata are:
 
 - `Integral`: `S = R`
 - `Rational`: `S = K`
-- quotient-valued examples used by discriminant descent:
-  - `S = K / R`
-  - `S = K / 2R`
+
+Quotient-valued codomains are not arbitrary front-door inputs in this
+phase. They are descended codomains attached to explicit torsion or
+discriminant objects produced from morphisms. The first required descended
+examples are:
+
+- `S = K / R`
+- `S = K / 2R`
 
 These codomain predicates are orthogonal to the free/torsion and
 bilinear/quadratic predicates.
@@ -291,6 +334,12 @@ class ModulesWithForms(Category_module):
 The generic contract intentionally stays thin. Arity-specific operations
 belong to the `Bilinear()` and `Quadratic()` refinements.
 
+For a mixed object `M = F ⊕ T`, `free_part()` and `torsion_part()` must be
+real objects in the relevant meets of `ModulesWithForms(R)`, not raw
+underlying modules or invariant summaries. They are the category-level
+handles that allow kernel, image, and cokernel constructions to stay
+honest on arbitrary finitely generated PID modules.
+
 
 ## `ModulesWithForms.ElementMethods`
 
@@ -387,6 +436,38 @@ Important negative constraints from the corrections:
 - morphisms do not have `perp`,
 - cokernels must construct the correct target object rather than a helper
   invariant package.
+
+
+## Mixed-Module Kernels, Images, and Cokernels
+
+The motivating case is not only the free lattice path `L -> L^* -> A_L`.
+The generic machinery must work for arbitrary finitely generated
+`R`-modules with forms:
+
+```text
+M = F_M ⊕ T_M
+N = F_N ⊕ T_N.
+```
+
+Required semantics:
+
+- `kernel(f)` is the actual kernel object with the form restricted from the
+  domain; it may itself be free, torsion, or mixed.
+- `image(f)` is the actual image object with the form restricted from the
+  codomain; it may itself be free, torsion, or mixed.
+- `cokernel(f)` is the actual quotient object `N / im(f)` together with the
+  descended form data; it is not an SNF-invariant package, even when SNF is
+  the internal algorithm used to construct it.
+- promotion into `Free()`, `Torsion()`, `Integral()`, `Rational()`,
+  `NonDegenerate()`, or quotient-valued discriminant meets happens after
+  the categorical object has been constructed, not instead of it.
+
+This is what allows:
+
+- mixed-to-mixed morphisms to stay inside one framework,
+- free-to-rational morphisms to produce torsion cokernels when appropriate,
+- discriminant descent to be one special case of the generic cokernel
+  machine rather than a separate architecture.
 
 
 ## `ModulesWithForms.Homsets.ParentMethods`
@@ -491,6 +572,11 @@ class ModulesWithForms(Category_module):
 This is the layer used for lattices, rational lattices, duals, and the
 first-pass treatment of discriminant objects.
 
+For the first implementation pass, the primary bilinear form on a generic
+object in this stratum is asserted to be either `R`-valued or `K`-valued.
+Quotient-valued bilinear codomains are introduced by explicit descent on
+actual cokernel objects, not by arbitrary top-level constructor inputs.
+
 
 ## Quadratic Refinement
 
@@ -527,6 +613,11 @@ Quadratic objects should not fork the architecture. They sit inside the
 same `ModulesWithForms` framework and reuse the same module, morphism,
 homset, tensor, Cartesian-product, and dual machinery whenever the
 mathematics allows it.
+
+As in the bilinear stratum, the front-door quadratic codomain is asserted
+to be either `R` or `K` in the first pass. Quotient-valued quadratic data
+belongs on descended torsion/discriminant objects produced by the cokernel
+machine.
 
 
 ## Tensor Products, Cartesian Products, and Duals
@@ -572,6 +663,14 @@ This is the main reason the contract is organized at the
 `ModulesWithForms` level rather than around separate lattice and
 discriminant hierarchies.
 
+The generic construction order is:
+
+1. build the actual module kernel/image/cokernel in the finitely generated
+   PID module sense,
+2. determine whether the bilinear or quadratic data descends,
+3. construct the descended form object on that quotient,
+4. promote the resulting object into the richest correct meet.
+
 Suppose:
 
 - `(L_2, beta_2)` is a free bilinear object over `R` with codomain `K`,
@@ -608,6 +707,18 @@ Implementation note:
 These names are ordinary intersections of `ModulesWithForms` axioms:
 
 ```text
+BilinearModules(R)
+    := ModulesWithForms(R).Bilinear()
+
+QuadraticModules(R)
+    := ModulesWithForms(R).Quadratic()
+
+FreeBilinearModules(R)
+    := ModulesWithForms(R).Bilinear().Free()
+
+TorsionBilinearModules(R)
+    := ModulesWithForms(R).Bilinear().Torsion()
+
 Lattices(R)
     := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()
 
@@ -617,6 +728,10 @@ RationalLattices(R)
 DiscriminantBilinearModules(R)
     := ModulesWithForms(R).Bilinear().Torsion()
        with quotient-valued codomain, typically K/R
+
+DiscriminantQuadraticForms(R)
+    := ModulesWithForms(R).Quadratic().Torsion().NonDegenerate()
+       with quotient-valued codomain, typically K/R or K/2R
 ```
 
 The point is that `L`, `L^*`, and `A_L` live in one framework and differ by

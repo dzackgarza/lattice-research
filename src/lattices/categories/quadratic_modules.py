@@ -76,7 +76,6 @@ well-defined, e.g., for even lattices).
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 
 
 class QuadraticModules(CategoryWithAxiom_over_base_ring):

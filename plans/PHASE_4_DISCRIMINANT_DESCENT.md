@@ -165,6 +165,16 @@ The corrected architecture is:
 - named discriminant categories are meet-based facades rather than a second
   independent architecture.
 
+In particular, the named quadratic facade should be treated as
+
+```text
+DiscriminantQuadraticForms(R)
+    := ModulesWithForms(R).Quadratic().Torsion().NonDegenerate()
+       with quotient-valued codomain, typically K/R or K/2R
+```
+
+and not as a separate base class tower.
+
 At minimum, Phase 4 must support the standard discriminant descent cases:
 
 - bilinear values in `K/R` (for `R = ZZ`, `QQ/ZZ`),
