@@ -13,7 +13,7 @@ O_U2 = U2.orthogonal_group()
 swap = matrix(ZZ, [[0, 1], [1, 0]])
 minus_I2 = -identity_matrix(ZZ, 2)
 assert swap not in O_U2 # A matrix is not a hom
-assert O_U2.element_from_matrix(swap) in O_U2 # Checks isometry condition
+assert O_U2.from_matrix(swap) in O_U2 # Checks isometry condition
 assert minus_I2 not in O_U2 # A matrix is not a hom
 assert O_U2(minus_I2) in O_U2 # __call__ is a thin dispatcher
 
@@ -49,7 +49,7 @@ assert iota_U.image().perp() == iota_U2.image()
 assert iota_U2.image().perp() == iota_U.image()
 assert ambient_sum.quotient_by(iota_U.image()).is_isometric_to(U2)
 
-swap_morphism = U.O().element_from_dict({e: f, f: e})
+swap_morphism = U.O().from_dict({e: f, f: e})
 assert swap_morphism.to_matrix() == swap
 # assert minus_I2 in U.orthogonal_group().stabilizer_of_isotropic_line(e)
 # assert swap not in U.orthogonal_group().stabilizer_of_isotropic_line(e)

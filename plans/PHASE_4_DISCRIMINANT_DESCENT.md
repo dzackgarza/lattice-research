@@ -114,7 +114,7 @@ class DualLattice(RationalLattice):
         Matrix representation is G (the Gram matrix of L).
         """
         H = self._source_lattice.Hom(self)
-        return H.element_from_matrix(self._source_lattice.gram_matrix())
+        return H.from_matrix(self._source_lattice.gram_matrix())
 
     def source_lattice(self):
         return self._source_lattice

@@ -6,9 +6,10 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.modules.module import Module
-from sage.rings.ring import Ring
-from sage.structure.element import Element, Matrix, RingElement
+from sage.categories.morphism import Morphism
+from sage.rings.integer import Integer
+from sage.structure.element import Element, Matrix
+from sage.structure.parent import Parent
 
 from .homsets import ModulesWithFormsHomsets
 
@@ -17,7 +18,7 @@ if TYPE_CHECKING:
 
 
 class BilinearForms(CategoryWithAxiom_over_base_ring):
-    r"""Spec class for bilinear form objects associated to modules with forms."""
+    r"""Spec class for symmetric bilinear form objects in ``ModulesWithForms``."""
 
     # @override CategoryWithAxiom_over_base_ring.super_categories
     @final
@@ -37,11 +38,23 @@ class BilinearForms(CategoryWithAxiom_over_base_ring):
 
     class ParentMethods(ABC):
         @abstractmethod
-        def domain(self) -> Module:
+        def ambient_module(self) -> Parent:
             ...
 
         @abstractmethod
-        def codomain(self) -> Ring:
+        def domain(self) -> Parent:
+            ...
+
+        @abstractmethod
+        def codomain(self) -> Parent:
+            ...
+
+        @final
+        def tensor_degree(self) -> Integer:
+            return Integer(2)
+
+        @abstractmethod
+        def scalar_action_endomorphism(self) -> Morphism:
             ...
 
         @final
@@ -53,7 +66,7 @@ class BilinearForms(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstractmethod
-        def evaluate(self, left: Element, right: Element) -> RingElement:
+        def evaluate(self, left: Element, right: Element | None = None) -> Element:
             ...
 
         @abstractmethod

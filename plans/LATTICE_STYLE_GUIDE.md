@@ -228,7 +228,7 @@ category-level constructions:
 | `n * A` | The submodule `{n*v : v in A}`. **NOT** `A.twist(n)`. Gram matrix is `n^2 * G_A`. For `A = R` as an R-module, `n*A` is the ideal `(n)` in R. |
 | `f + g` | Usually a map $A_1 \oplus A_2 \to B_1 \oplus B_2$ |
 | `f * g` | Usually composition (when defined) |
-| `n * f` | Usually `Hom(L_1, L_2).element_from_matrix(n * f.to_matrix())` |
+| `n * f` | Usually `Hom(L_1, L_2).from_matrix(n * f.to_matrix())` |
 | `x in L` | Validates that `x.parent() == L` -- a lattice does not "contain" a vector |
 | `f in O(L)` | Checks isometry |
 | `f in Hom(L_1, L_2)` | Checks isometry |
@@ -254,15 +254,15 @@ The `__call__` method usually handles polymorphic coercion:
   matrix to a homomorphism
 
 These should ultimately be defined on `classmethod`s, e.g.
-`H.element_from_matrix(...)`, and the `__call__` method should be a thin
+`H.from_matrix(...)`, and the `__call__` method should be a thin
 localized "router".
 
 The specs demonstrate this consistently for orthogonal groups:
 ```python
 swap = matrix(ZZ, [[0, 1], [1, 0]])
 assert swap not in O_U2             # A matrix is not a hom
-assert O_U2(swap) in O_U2           # __call__ dispatches to element_from_matrix
-assert O_U2.element_from_matrix(swap) in O_U2  # Explicit construction
+assert O_U2(swap) in O_U2           # __call__ dispatches to from_matrix
+assert O_U2.from_matrix(swap) in O_U2  # Explicit construction
 ```
 
 
@@ -308,8 +308,8 @@ domain/codomain and explicitly construct using element methods.
 morphism.
 
 Create morphisms via:
-- `H.element_from_dict(...)` (preferred)
-- `H.element_from_matrix(...)`
+- `H.from_dict(...)` (preferred)
+- `H.from_matrix(...)`
 
 Homs should have a reasonable method of infinite enumeration. Since every
 $f \in \operatorname{Hom}(L_1, L_2)$ is a $\mathbb{Z}$-matrix, we can
@@ -922,8 +922,8 @@ assert len(G.gens()) > 0
 **Good spec -- explicit mathematical content:**
 ```python
 G = L.O()
-f1 = G.element_from_matrix(minus_I2)
-f2 = G.element_from_matrix(swap)
+f1 = G.from_matrix(minus_I2)
+f2 = G.from_matrix(swap)
 assert f1 in G and f2 in G                     # Category containment
 assert f1^2 == G.identity() and f2^2 == G.identity()  # Orders
 assert {F.to_matrix() for F in G} == {id, m1, m2, m1*m2}  # Exhaustive enumeration
@@ -1025,8 +1025,8 @@ L = BilinearModule(ZZ^3 + ZZ/2, gram_matrix)
 H = L1.Hom(L2)
 
 # Morphisms from data (not equal to the data)
-f = H.element_from_dict({e: f, f: e})
-g = H.element_from_matrix(M)
+f = H.from_dict({e: f, f: e})
+g = H.from_matrix(M)
 h = H.element_from_function(lambda x: ...)
 
 assert f.to_matrix() == M      # Can extract the matrix
@@ -1110,7 +1110,7 @@ basis-dependent data is never conflated with the basis-independent object:
 ```python
 swap = matrix(ZZ, [[0,1],[1,0]])
 assert swap not in L.O()                    # A matrix is not a hom
-assert L.O().element_from_matrix(swap) in L.O()  # Construct, then check
+assert L.O().from_matrix(swap) in L.O()  # Construct, then check
 ```
 
 This separation defers basis-dependent choices until they are absolutely
@@ -1173,8 +1173,8 @@ Whether a map is a morphism in a given category is checked at construction
 time, as part of hom-space element creation -- not as a post-hoc assertion.
 
 ```python
-# Good: validation happens inside element_from_matrix
-f = L.O().element_from_matrix(swap)  # Checks isometry condition internally
+# Good: validation happens inside from_matrix
+f = L.O().from_matrix(swap)  # Checks isometry condition internally
 assert f in L.O()                    # Redundant but readable
 
 # Bad: construct a raw object, then separately check validity

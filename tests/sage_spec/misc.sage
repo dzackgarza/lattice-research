@@ -1,7 +1,10 @@
 Z2 = ZZ / (2*ZZ)
 Z4 = ZZ / (4*ZZ)
+R = 2*ZZ
 assert Z2^2 == Z2.direct_product(Z2)
 assert not Z2^2.is_isomorphic_to(Z4)
+assert ZZ in Modules(ZZ)
+assert R in Modules(ZZ)
 assert Z2 in Modules(ZZ)
 assert Z2 in Modules(Z2)
 assert Z2 == ZZ/2 # Syntax sugar
@@ -41,18 +44,18 @@ M.<x,y,z> = ZZ^3
 Md = M.dual()
 assert Md == M.Hom(ZZ)
 
-f = M.Hom(ZZ).element_from_dict({
+f = M.Hom(ZZ).from_dict({
 	x: 1,
 	y: 3,
 	z: 5
-})
-assert f == M.Hom(ZZ).element_from_images([1,3,5])
-assert f == M.Hom(ZZ).element_from_matrix(matrix(ZZ, 1, [1,3,5]))
+}) # Convenience: interpret n as n*g where g is a positive generator
+assert f == M.Hom(ZZ).from_images([1,3,5])
+assert f == M.Hom(ZZ).from_matrix(matrix(ZZ, 1, [1,3,5]))
 assert f.to_matrix() == matrix(ZZ, [1,3,5])
 assert f.to_dict().values() == [1,3,5]
 
 R = QQ/ZZ
-assert R in Rings # Need a working model of this ring
+assert R in Modules(ZZ) # Need a working model of this ZZ-module
 assert R(1/2) == R(3/2) # Coerce QQ elements to quotient
 assert R(3/2).lift() == QQ(1/2) # Canonical representatives in [0, 1)
 
@@ -65,7 +68,7 @@ assert Zp(5).fraction_field() == Qp(5) # Need Qp to exist as a field for "local"
 
 ZZ_L5 = ZZ.localize(5)
 assert ZZ_L5 == Localization(ZZ, [5])
-assert ZZ_L5 == ZZ.adjoint(1/5)
+assert ZZ_L5 == ZZ.adjoin(1/5)
 assert ZZ_L5 == ZZ.invert(5)
 assert 1/5 in ZZ_L5 and 1/3 not in ZZ_L5
 
@@ -95,7 +98,7 @@ M1.<g1,g2> = ZZ^2
 M2.<h1, h2> = ZZ^2
 H = M1.Hom(M2) 
 assert H in Modules(ZZ) 
-f = H.element_from_matrix(matrix(ZZ, 2, [0,1,1,0]))
+f = H.from_matrix(matrix(ZZ, 2, [0,1,1,0]))
 # f is the "swap" morphism
 assert f in H and not f in M1.Hom(ZZ^3)
 assert f in (ZZ^2).Hom(ZZ^2) # Domain and codomain are canonically ZZ^2,
@@ -112,7 +115,7 @@ assert f.image() == M2 # Image is a module
 assert f.lift(h1) == g2 and f.lift(h2) == g1 # Find some preimage
 
 # Real kernels and cokernel support
-g = H.element_from_images([2*h1, 3*h2])
+g = H.from_images([2*h1, 3*h2])
 assert g.to_matrix() == diagonal_matrix(ZZ, [2,3])
 assert g.cokernel() == ZZ/2 + ZZ/3
 assert g.cokernel() in Modules(ZZ)
@@ -154,6 +157,3 @@ assert list(map(lambda x: x.lift(), f.cokernel())) == [M(0), M(1)]
 pi = f.cokernel().projection()
 assert pi(M(0)) == pi(M(2)) and pi(M(1)) == pi(M(3))
 # Coker(f) = {[0] + im(f), [1] + im(f)} as cosets
-
-
-

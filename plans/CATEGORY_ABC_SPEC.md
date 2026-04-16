@@ -3,25 +3,117 @@
 Authoritative specification of the category-level contract for the lattice
 redesign.
 
-This file supersedes the earlier `BilinearModules`-first framing. The
-canonical top-level category is now `ModulesWithForms(R)`, modeled on
-`sage.categories.modules.Modules` and specialized to finitely generated
-modules over a PID.
+This file supersedes the earlier `BilinearModules`-first framing, but the
+new `.sage` workflow specs show that the true foundation is broader than
+forms alone. The current code-spec split is therefore:
+
+- `rings.py` defines `ModuleBaseRings`, a Sage category that is a subcategory
+  of `Rings().PrincipalIdealDomains().Commutative()`.  Existing ring parents
+  are enrolled into this category at installation time via
+  `ring._refine_category_(ModuleBaseRings())`.  No new ring classes are
+  created; Sage's dynamic dispatch then serves the category's `ParentMethods`
+  overrides for those ring instances.
+- `Modules(R)` patches Sage's `Modules(R)` surface for finitely presented
+  PID-module structure independent of forms,
+- `Modules(R).WithForm()` is the form-bearing refinement, implemented by
+  `ModulesWithForms(R)`.
+
+`ModulesWithForms(R)` remains the category of pairs `(M, f)`, but it is no
+longer the only foundational contract in the spec surface. It now sits on
+top of the plain module layer rather than carrying all module semantics
+itself.
+
+This is an extend-and-specialize design, not a blank-slate replacement of
+Sage. The ring/module foundation works directly with Sage's existing ring
+parents, free modules, finitely presented quotient modules, homspaces,
+tensor/exterior/symmetric algebra constructions, localizations, completions,
+and quotient objects such as `QQ/ZZ`; the redesign adds the missing
+category-level semantics and interoperable contracts on top of those
+existing parents by refining their categories.
+
+`ModuleBaseRings` targets commutative PIDs: base rings for which the
+finitely presented module category has a structure theorem usable by the
+redesign.  The current scope is expressed as a subcategory of
+`Rings().PrincipalIdealDomains().Commutative()`.  A later scope can enlarge
+this to Dedekind domains, including rings of integers of number fields with
+class number greater than one, once the module layer represents the
+necessary ideal-class and projective-module data.
+
+The explicit target base-ring families are:
+
+- `ZZ`,
+- `Zp(p)` p-adic integer rings,
+- `QQ`,
+- `RR`,
+- `CC`,
+- `QQbar`,
+- finite fields `GF(p^n)`.
+
+The `ModuleBaseRings.ParentMethods` overrides drive the enriched surface:
+
+- `r * R` / `R * r` → principal ideal as an *ideal-submodule* (Sage ideal
+  with category refined to carry `R`-module structure),
+- `R / I` → finitely presented `R`-module quotient object,
+- `R^n` → enriched free module in the redesigned `Modules(R)` surface,
+- `R.localize(...)`, `R.completion(...)`, `R.fraction_field()` → ring
+  returned with `_refine_category_(ModuleBaseRings())` applied so
+  downstream expressions keep propagating.
+
+Typical installation sequence (called by `import src.sage_patches`):
+
+```python
+from src.sage_patches.ring_base_category import install
+install()  # calls ZZ._refine_category_(ModuleBaseRings()), etc.
+```
+
+after which ordinary expressions like `2*ZZ`, `ZZ/(2*ZZ)`, and `ZZ^3`
+already land in the enriched spec surface without any object-wrapping.
+
+The membership hooks must agree with this class-extension strategy. In
+particular:
+
+```python
+R = 2 * ZZ
+Z2 = ZZ / R
+
+assert ZZ in Modules(ZZ)
+assert R in Modules(ZZ)
+assert Z2 in Modules(ZZ)
+assert Z2 in Modules(Z2)
+assert ZZ^3 in Modules(ZZ)
+```
+
+These assertions are not optional sugar. They are the reason the ring layer
+must override the native Sage methods `__mul__`, `__pow__`, `ideal`, and
+`quotient` for the target rings.  The override contract — call `super()` for
+the native construction, then call `_refine_category_` on the returned parent
+— is the same in each case.  `ModuleBaseRings.ParentMethods` houses all of
+those overrides; `ring._refine_category_(ModuleBaseRings())` at installation
+time is what activates Sage's dispatch into those methods.
+
+So the design is not "leave every existing method untouched and only bolt on
+new names," nor "create new subclasses for every ring family."  Sage's
+`_refine_category_` mechanism lets the category's `ParentMethods` selectively
+override native Sage methods on existing ring instances precisely where Sage
+would otherwise return a parent outside the enriched module category.
 
 An object of `ModulesWithForms(R)` is a pair `(M, f)` where:
 
-- `R` is a PID,
-- `K := Frac(R)`,
-- `M` is a finitely generated `R`-module, with free and torsion parts in
+- `R` is a commutative PID,
+- `M` is a finitely presented `R`-module, with free and torsion parts in
   general,
-- `f` is either:
-  - a bilinear morphism `M \otimes_R M -> S`, or
-  - a quadratic morphism `M -> S`,
-- `S` is a first-pass front-door codomain in `{R, K}` with
-  `K := Frac(R)`.
+- `f` is semilinear tensor-degree data with domain some graded piece or
+  quotient of the tensor algebra of `M`,
+- the current named branches are:
+  - bilinear: degree `2`, `sigma = id_R`, with source `M \otimes_R M` or a
+    descended quotient such as `Sym_R^2(M)`,
+  - quadratic: degree `1`, `sigma(r) = r^2`,
+- the same general pair layer is broad enough to host future degree-two
+  refinements such as alternating data factoring through `\Lambda_R^2(M)`,
+- `S` is an arbitrary `R`-module.
 
-The category is written for arbitrary finitely generated PID modules, so
-objects may be mixed:
+The with-form layer is written for arbitrary finitely generated PID
+modules, so objects may be mixed:
 
 ```text
 M = F ⊕ T
@@ -30,21 +122,19 @@ M = F ⊕ T
 with `F` free and `T` torsion. The generic interface must therefore be
 defined at the mixed-module level rather than only on free lattices.
 
-Scope control for the first implementation pass is deliberate:
+The first required codomain examples are:
 
-- generic constructors at the `ModulesWithForms(R)` / `Bilinear()` /
-  `Quadratic()` level assert that the primary form takes values in either
-  `R` or `K`,
-- quotient-valued codomains such as `K/R` and `K/2R` enter only through
-  explicit categorical descent, most importantly cokernels,
-- this up-front restriction exists to prevent scope creep while the mixed
-  kernel/image/cokernel machinery is being built.
+- `S = R` for integral bilinear/quadratic modules,
+- `S = Frac(R)` for rational bilinear/quadratic modules,
+- `S = Frac(R) / R` and `S = Frac(R) / 2R` for discriminant-style torsion
+  forms,
+- `S = QQ / ZZ` and `S = QQ / 2ZZ` in the `R = ZZ` workflow from
+  `misc.sage`.
 
-Concrete implementations may enforce the currently supported codomain
-families by assertions and validation. The public contract is about the
-mathematics, not the current backend limits.
+The public contract is therefore module-valued from the start. Ring-valued
+forms are important special cases, not the general definition.
 
-The category owns the Sage-style subcategory machinery:
+The with-form layer owns the Sage-style subcategory machinery:
 
 - `Bilinear()`
 - `Quadratic()`
@@ -58,7 +148,8 @@ The category owns the Sage-style subcategory machinery:
 - `DualObjects()`
 - `Homsets()`
 
-Downstream categories are intersections of these axioms. For example:
+Downstream with-form categories are intersections of these axioms. For
+example:
 
 ```text
 BilinearModules(R)
@@ -86,34 +177,34 @@ DiscriminantQuadraticForms(R)
 
 The older names `BilinearModules` and `QuadraticModules`, if retained at
 all, are thin aliases for these subcategories. They are not separate
-top-level category contracts anymore.
+top-level foundations anymore; the plain-module layer now lives in
+`Modules(R)`.
 
 Likewise, `BilinearForms` and `QuadraticForms` should be treated as thin
 facade names for the bilinear and quadratic form strata subordinate to
 `ModulesWithForms(R)`, not as independent foundations.
 
+The trigger for this split is the new module-level contract in
+`tests/sage_spec/module_methods.sage`: duals as literal hom-objects,
+submodules with stored embeddings, saturation/index/cokernel/lift
+semantics, `Aut` and invariant/coinvariant constructions, tensor/exterior/
+symmetric algebra surfaces, and base-change functors all exist before any
+form data is attached. `research_workflows.sage` then consumes those
+module-level nouns when building the lattice workflows.
+
 
 ## Form Codomains
 
-The codomain descriptor remains a separate validated object. It records:
+The codomain of a form is an actual `R`-module parent. The spec should not
+introduce a fake codomain descriptor type when Sage already has genuine
+module parents for the interesting examples.
 
-- the base PID `R`,
-- the fraction field `K = Frac(R)`,
-- the actual codomain `S`,
-- whether `S` is a subring codomain or a quotient codomain.
+Important codomain strata remain:
 
-The required first-pass front-door codomain strata are:
-
-- `Integral`: `S = R`
-- `Rational`: `S = K`
-
-Quotient-valued codomains are not arbitrary front-door inputs in this
-phase. They are descended codomains attached to explicit torsion or
-discriminant objects produced from morphisms. The first required descended
-examples are:
-
-- `S = K / R`
-- `S = K / 2R`
+- `Integral`: codomain `S = R`,
+- `Rational`: codomain `S = Frac(R)`,
+- discriminant-style quotient codomains such as `Frac(R) / R`,
+  `Frac(R) / 2R`, `QQ / ZZ`, and `QQ / 2ZZ`.
 
 These codomain predicates are orthogonal to the free/torsion and
 bilinear/quadratic predicates.
@@ -125,55 +216,50 @@ bilinear/quadratic predicates.
 from abc import ABC, abstractmethod
 
 
-class Form(ABC):
+class ModuleForm(ABC):
 
     @abstractmethod
-    def domain(self) -> ModuleWithForm: ...
-    """The object (M, f) this form belongs to."""
+    def ambient_module(self) -> FinitelyGeneratedRModule: ...
+    """The underlying module M in the pair (M, f)."""
 
     @abstractmethod
-    def codomain(self) -> FormCodomain: ...
-    """The codomain descriptor for the values of the form."""
+    def domain(self) -> Parent: ...
+    """The actual tensor-degree source used to represent the datum."""
 
     @abstractmethod
-    def arity(self) -> int: ...
-    """1 for quadratic forms, 2 for bilinear forms."""
+    def codomain(self) -> FinitelyGeneratedRModule: ...
+    """The target R-module S."""
 
+    @abstractmethod
+    def tensor_degree(self) -> Integer: ...
 
-class BilinearForm(Form):
+    @abstractmethod
+    def scalar_action_endomorphism(self) -> RingEndomorphism: ...
+    """The semilinearity twist sigma on the base ring."""
 
-    def arity(self) -> int:
-        return 2
+    @abstractmethod
+    def evaluate(self, value) -> ModuleElement: ...
 
     @abstractmethod
     def gram_matrix(self) -> Matrix: ...
-    """Gram matrix with respect to the canonical generators."""
 
+
+class BilinearForm(ModuleForm):
     @abstractmethod
     def evaluate(
         self,
-        left: ModuleWithFormElement,
-        right: ModuleWithFormElement,
-    ) -> object: ...
-    """Evaluate the bilinear form."""
-
-
-class QuadraticForm(Form):
-
-    def arity(self) -> int:
-        return 1
+        left,
+        right=None,
+    ) -> ModuleElement: ...
+    """Evaluate on a degree-two tensor source, with optional pair syntax."""
 
     @abstractmethod
-    def gram_matrix(self) -> Matrix: ...
-    """Quadratic Gram data with respect to the canonical generators."""
+    def associated_quadratic_form(self) -> QuadraticForm: ...
 
-    @abstractmethod
-    def evaluate(self, element: ModuleWithFormElement) -> object: ...
-    """Evaluate the quadratic form."""
 
+class QuadraticForm(ModuleForm):
     @abstractmethod
-    def polar_bilinear_form(self) -> BilinearForm: ...
-    """Return the associated polar bilinear form."""
+    def associated_bilinear_form(self) -> BilinearForm: ...
 ```
 
 Quadratic structure is a refinement, not the default organizing principle.
@@ -192,7 +278,7 @@ class ModulesWithForms(Category_module):
     """Category of finitely generated R-modules equipped with a form."""
 
     def super_categories(self):
-        return [Modules(self.base_ring()).FinitelyPresented()]
+        return [Modules(self.base_ring()).WithBasis().FinitelyPresented()]
 
     def additional_structure(self):
         return self
@@ -489,16 +575,16 @@ class ModulesWithForms(Category_module):
             def codomain(self) -> ModuleWithForm: ...
 
             @abstractmethod
-            def element_from_dict(
+            def from_dict(
                 self,
                 mapping: dict[ModuleWithFormElement, ModuleWithFormElement],
             ) -> ModuleWithFormMorphism: ...
 
             @abstractmethod
-            def element_from_matrix(self, matrix_data: Matrix) -> ModuleWithFormMorphism: ...
+            def from_matrix(self, matrix_data: Matrix) -> ModuleWithFormMorphism: ...
 
             @abstractmethod
-            def element_from_images(
+            def from_images(
                 self,
                 images: Sequence[ModuleWithFormElement],
             ) -> ModuleWithFormMorphism: ...
@@ -520,8 +606,8 @@ test.
 
 ## Bilinear Refinement
 
-`ModulesWithForms(R).Bilinear()` is the primary working stratum for Phases
-0 and 1.
+`ModulesWithForms(R).Bilinear()` is the symmetric degree-two,
+`sigma = id_R` working stratum for Phases 0 and 1.
 
 ```python
 class ModulesWithForms(Category_module):
@@ -531,26 +617,20 @@ class ModulesWithForms(Category_module):
         class ParentMethods(ABC):
 
             @abstractmethod
-            def bilinear_form(self) -> BilinearForm: ...
-
-            def form(self) -> BilinearForm:
-                return self.bilinear_form()
+            def form(self) -> BilinearForm: ...
 
             def b(
                 self,
                 left: ModuleWithFormElement,
                 right: ModuleWithFormElement,
             ) -> object:
-                return self.bilinear_form().evaluate(left, right)
+                return self.form().evaluate(left, right)
 
             def gram_matrix(self) -> Matrix:
-                return self.bilinear_form().gram_matrix()
+                return self.form().gram_matrix()
 
             @abstractmethod
-            def twist(self, scalar: RingElement) -> ModuleWithForm: ...
-
-            @abstractmethod
-            def radical(self) -> ModuleWithForm: ...
+            def associated_quadratic_module(self) -> ModuleWithForm: ...
 
         class ElementMethods(ABC):
 
@@ -558,7 +638,7 @@ class ModulesWithForms(Category_module):
                 return self.parent().b(self, other)
 
             def q(self) -> object:
-                return self.parent().b(self, self)
+                return self.parent().associated_quadratic_module().form().evaluate(self)
 
             def is_isotropic(self) -> bool:
                 return self.q() == 0
@@ -570,18 +650,15 @@ class ModulesWithForms(Category_module):
 ```
 
 This is the layer used for lattices, rational lattices, duals, and the
-first-pass treatment of discriminant objects.
-
-For the first implementation pass, the primary bilinear form on a generic
-object in this stratum is asserted to be either `R`-valued or `K`-valued.
-Quotient-valued bilinear codomains are introduced by explicit descent on
-actual cokernel objects, not by arbitrary top-level constructor inputs.
+bilinear side of discriminant descent. Its actual source may be
+`M \otimes_R M` or a descended symmetric quotient such as `Sym^2_R(M)`,
+but the public convenience API still evaluates on pairs `(v, w)`.
 
 
 ## Quadratic Refinement
 
-`ModulesWithForms(R).Quadratic()` is a refinement used when the genuine
-quadratic data matters, for example for `K/2R`-valued refinements.
+`ModulesWithForms(R).Quadratic()` is the degree-one semilinear refinement,
+with `sigma(r) = r^2` in the current lattice workflow.
 
 ```python
 class ModulesWithForms(Category_module):
@@ -591,33 +668,27 @@ class ModulesWithForms(Category_module):
         class ParentMethods(ABC):
 
             @abstractmethod
-            def quadratic_form(self) -> QuadraticForm: ...
-
-            def form(self) -> QuadraticForm:
-                return self.quadratic_form()
+            def form(self) -> QuadraticForm: ...
 
             @abstractmethod
-            def associated_bilinear_object(self) -> ModuleWithForm: ...
-            """The same underlying module equipped with the polar form."""
-
-            def polar_bilinear_form(self) -> BilinearForm:
-                return self.quadratic_form().polar_bilinear_form()
+            def associated_bilinear_module(self) -> ModuleWithForm: ...
 
         class ElementMethods(ABC):
 
             def q(self) -> object:
-                return self.parent().quadratic_form().evaluate(self)
+                return self.parent().form().evaluate(self)
+
+            def b(self, other: ModuleWithFormElement) -> object:
+                return self.parent().associated_bilinear_module().form().evaluate(
+                    self,
+                    other,
+                )
 ```
 
 Quadratic objects should not fork the architecture. They sit inside the
 same `ModulesWithForms` framework and reuse the same module, morphism,
 homset, tensor, Cartesian-product, and dual machinery whenever the
 mathematics allows it.
-
-As in the bilinear stratum, the front-door quadratic codomain is asserted
-to be either `R` or `K` in the first pass. Quotient-valued quadratic data
-belongs on descended torsion/discriminant objects produced by the cokernel
-machine.
 
 
 ## Tensor Products, Cartesian Products, and Duals
@@ -725,7 +796,7 @@ Lattices(R)
 RationalLattices(R)
     := ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()
 
-DiscriminantBilinearModules(R)
+DiscriminantBilinearForms(R)
     := ModulesWithForms(R).Bilinear().Torsion()
        with quotient-valued codomain, typically K/R
 

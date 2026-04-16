@@ -75,7 +75,7 @@ assert e1.dual() in M.Hom(R)
 assert e1(3*e1 + 2e2) in R
 
 M1.<a1, a2>, M2.<b1, b2> = ZZ^2, ZZ^2
-f = M1.Hom(M2).element_from_dict({a1: b1, a2:2*b1})
+f = M1.Hom(M2).from_dict({a1: b1, a2:2*b1})
 M_f = matrix(R, 2, [1,0,0,2])
 assert f != M_f and f.to_matrix() == M_f
 assert f.is_injective() and not f.is_surjective() and not f.is_bijective()
@@ -89,7 +89,7 @@ assert len( f.cokernel().gens() ) == 1 and f.cokernel.gen(0).lift() == b2 # Coke
 
 M, N = ZZ, ZZ
 
-f = M.Hom(N).element_from_list_of_images([2]) # g_1 -> 2*g_2
+f = M.Hom(N).from_list_of_images([2]) # g_1 -> 2*g_2
 assert f.image() == 2*ZZ
 assert f.index() == 2 # [codom(f): im(f)]
 assert f.image().is_submodule_of(N) # Submodules have witnessing inclusions
@@ -103,7 +103,7 @@ assert not f in M.End()
 assert not f in M.Aut()
 assert f.lift(N(4)) == M(2) # Can find SOME preimage of anything in the image.
 
-f = M.Hom(M).element_from_tuple_of_images((2,)) # Same formula
+f = M.Hom(M).from_tuple_of_images((2,)) # Same formula
 assert f.formula(["x"]) == 2*x # x -> 2*x makes sense when domain = codomain
 assert M.Hom(M) == M.End()
 assert M.Hom(M) != M.Aut()
@@ -309,7 +309,7 @@ assert len(T_M.algebra_gens()} == 3 # Free ZZ-algebra on {"a", "b", "c"}
 
 M = ZZ^2
 T_M.<e,f> == M.tensor_algebra() # Algebra generators
-b = (M*M).Hom(ZZ).element_from_dict({
+b = (M*M).Hom(ZZ).from_dict({
 	e@e: 0,
 	e@f: 1,
 	f@e: 1,

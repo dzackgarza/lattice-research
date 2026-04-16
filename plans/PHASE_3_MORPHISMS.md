@@ -43,7 +43,7 @@ src/lattices/
 **File:** `morphisms/homspaces.py`
 
 **Existing code:** 107-line `BilinearModuleHomSpace(Homset)` with
-`element_from_dict`, `element_from_matrix`, `element_from_images`.
+`from_dict`, `from_matrix`, `from_images`.
 
 This is a genuine Sage `Homset`, registered via category dispatch from
 `ModulesWithForms(R)`. The important correction is that the generic
@@ -56,13 +56,13 @@ class BilinearModuleHomSpace(Homset):
     """Hom(M, N) in ModulesWithForms(R).Bilinear().
 
     Elements are BilinearModuleMorphisms. Construction is via
-    element_from_dict or element_from_matrix, never by coercing
+    from_dict or from_matrix, never by coercing
     a raw matrix.
     """
 
     Element = BilinearModuleMorphism
 
-    def element_from_dict(self, mapping: dict) -> BilinearModuleMorphism:
+    def from_dict(self, mapping: dict) -> BilinearModuleMorphism:
         """Construct morphism from {generator: image} dict.
 
         This is the PREFERRED construction method. The dict maps
@@ -70,7 +70,7 @@ class BilinearModuleHomSpace(Homset):
         """
         ...
 
-    def element_from_matrix(self, M: Matrix) -> BilinearModuleMorphism:
+    def from_matrix(self, M: Matrix) -> BilinearModuleMorphism:
         """Construct morphism from matrix representation.
 
         Converts to dict internally: column j is the image of
@@ -78,7 +78,7 @@ class BilinearModuleHomSpace(Homset):
         """
         ...
 
-    def element_from_images(self, images: list) -> BilinearModuleMorphism:
+    def from_images(self, images: list) -> BilinearModuleMorphism:
         """Construct from ordered list of images of domain generators."""
         ...
 
@@ -119,7 +119,7 @@ machinery.
 - **Matrices are NOT in hom spaces.** `matrix(ZZ, [[0,1],[1,0]]) not in H`
   must hold. Only constructed `BilinearModuleMorphism` objects live in hom
   spaces. The `__call__` on the hom space is a thin dispatcher that routes
-  matrices through `element_from_matrix`.
+  matrices through `from_matrix`.
 
 - **Module structure.** `Hom(M, N)` is an `R`-module: morphisms can be
   added and scaled. This comes from the `Homsets` extra super-category
@@ -484,7 +484,7 @@ assert H in Modules(ZZ)
 # Morphism from dict (preferred construction)
 # ------------------------------------------------------------------
 
-swap = H.element_from_dict({e: h, f: g})
+swap = H.from_dict({e: h, f: g})
 assert swap in H
 assert swap(e) == h and swap(f) == g
 
@@ -492,7 +492,7 @@ assert swap(e) == h and swap(f) == g
 # Morphism from matrix
 # ------------------------------------------------------------------
 
-swap2 = H.element_from_matrix(matrix(ZZ, [[0,1],[1,0]]))
+swap2 = H.from_matrix(matrix(ZZ, [[0,1],[1,0]]))
 assert swap2 == swap
 
 # ------------------------------------------------------------------
@@ -527,7 +527,7 @@ assert swap.kernel().rank() == 0
 # Nontrivial kernel and cokernel
 # ------------------------------------------------------------------
 
-diag = H.element_from_matrix(diagonal_matrix(ZZ, [2, 3]))
+diag = H.from_matrix(diagonal_matrix(ZZ, [2, 3]))
 assert diag.is_injective()  # Injective over ZZ (det != 0)
 assert not diag.is_surjective()
 
@@ -574,14 +574,14 @@ assert E.identity().to_matrix() == identity_matrix(ZZ, 2)
 # Composition
 # ------------------------------------------------------------------
 
-f1 = L.End().element_from_dict({e: f, f: e})
-f2 = L.End().element_from_dict({e: -e, f: -f})
+f1 = L.End().from_dict({e: f, f: e})
+f2 = L.End().from_dict({e: -e, f: -f})
 f3 = f1 * f2  # Composition: f3(x) = f1(f2(x))
 assert f3(e) == -f and f3(f) == -e
 assert f3.to_matrix() == f1.to_matrix() * f2.to_matrix()
 
 # Composition is associative
-f4 = L.End().element_from_dict({e: e + f, f: f})
+f4 = L.End().from_dict({e: e + f, f: f})
 assert (f1 * f2) * f4 == f1 * (f2 * f4)
 
 # ------------------------------------------------------------------
@@ -614,7 +614,7 @@ assert f1.is_isometry()
 assert f1 in L.End()
 
 # This morphism does NOT preserve the form
-bad = L.End().element_from_matrix(matrix(ZZ, [[1, 1], [0, 1]]))
+bad = L.End().from_matrix(matrix(ZZ, [[1, 1], [0, 1]]))
 assert not bad.is_isometry()
 # bad is still in End(L) as a module morphism, but not as an isometry
 
@@ -635,7 +635,7 @@ M1.<g1, g2> = FreeBilinearModule(ZZ, identity_matrix(ZZ, 2))
 M2.<h1, h2> = FreeBilinearModule(ZZ, identity_matrix(ZZ, 2))
 H12 = M1.Hom(M2)
 
-f = H12.element_from_matrix(matrix(ZZ, 2, [0,1,1,0]))
+f = H12.from_matrix(matrix(ZZ, 2, [0,1,1,0]))
 assert f in H12
 assert f(g1) == h2 and f(g2) == h1
 assert f.to_matrix() == matrix(ZZ, 2, [0,1,1,0])
@@ -644,7 +644,7 @@ assert f.is_surjective() and f.cokernel() == ModulesWithForms(ZZ).Bilinear().zer
 assert f.is_bijective() and f.is_isomorphism()
 
 # Nontrivial cokernel with projection/lift
-g = H12.element_from_images([2*h1, 3*h2])
+g = H12.from_images([2*h1, 3*h2])
 assert g.to_matrix() == diagonal_matrix(ZZ, [2,3])
 C = g.cokernel()
 assert C in ModulesWithForms(ZZ).Bilinear()

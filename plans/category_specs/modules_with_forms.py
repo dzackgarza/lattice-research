@@ -1,17 +1,14 @@
-"""Spec stub for ``ModulesWithForms(R)``."""
+"""Spec stub for ``Modules(R).WithForm()`` a.k.a. ``ModulesWithForms(R)``."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Iterable, Iterator
 from typing import final
 
-from sage.categories.category import Category
 from sage.categories.cartesian_product import CartesianProductsCategory
+from sage.categories.category import Category
 from sage.categories.category_types import Category_module
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.categories.homset import Hom, Homset
-from sage.categories.modules import Modules
 from sage.categories.morphism import Morphism
 from sage.categories.principal_ideal_domains import PrincipalIdealDomains
 from sage.categories.tensor import TensorProductsCategory
@@ -20,29 +17,53 @@ from sage.misc.lazy_import import LazyImport
 from sage.modules.module import Module
 from sage.rings.integer import Integer
 from sage.rings.ring import Ring
-from sage.structure.element import Element, InfinityElement, Matrix, RingElement, Vector
+from sage.structure.element import Element, Matrix
 from sage.structure.parent import Parent
 
-Cardinality = Integer | InfinityElement
+from .homsets import ModulesWithFormsHomsets
+from .modules import Modules
 
 
-class ModuleForm(Morphism, ABC):
-    """Abstract base class for form morphisms."""
+class ModuleForm(ABC):
+    r"""
+    Abstract base class for tensor-degree semilinear data on an ``R``-module.
+
+    The datum attached to a pair ``(L, f)`` is a map with domain some graded
+    piece or quotient of the tensor algebra of ``L`` and codomain an
+    ``R``-module ``S``. The current workflow specializes this general layer to
+    symmetric bilinear forms and quadratic forms.
+    """
 
     @abstractmethod
-    def domain(self) -> Module:
+    def base_ring(self) -> Ring:
         ...
 
     @abstractmethod
-    def codomain(self) -> Ring:
+    def ambient_module(self) -> Parent:
         ...
 
     @abstractmethod
-    def evaluate(self, value: Element) -> RingElement:
+    def domain(self) -> Parent:
+        ...
+
+    @abstractmethod
+    def codomain(self) -> Parent:
+        ...
+
+    @abstractmethod
+    def tensor_degree(self) -> Integer:
+        ...
+
+    @abstractmethod
+    def scalar_action_endomorphism(self) -> Morphism:
         ...
 
     @abstractmethod
     def gram_matrix(self) -> Matrix:
+        ...
+
+    @abstractmethod
+    def evaluate(self, value: Element) -> Element:
         ...
 
     @abstractmethod
@@ -54,19 +75,21 @@ class ModuleForm(Morphism, ABC):
         ...
 
 
-class BilinearForm(ModuleForm):
-    """Abstract base class for bilinear forms `L \\otimes_R L -> R`."""
+class BilinearForm(ModuleForm, Morphism, ABC):
+    r"""
+    Abstract base class for symmetric bilinear data of degree ``2``.
+
+    Concretely, this is the bilinear branch of the pair category, with actual
+    source a degree-two tensor construction on ``L`` such as ``L \otimes_R L``
+    or ``Sym^2_R(L)`` and scalar action twisted by ``id_R``.
+    """
+
+    @final
+    def tensor_degree(self) -> Integer:
+        return Integer(2)
 
     @abstractmethod
-    def underlying_module(self) -> Module:
-        ...
-
-    @abstractmethod
-    def evaluate(
-        self,
-        value: Element,
-        right: Element | None = None,
-    ) -> RingElement:
+    def evaluate(self, value: Element, right: Element | None = None) -> Element:
         ...
 
     @abstractmethod
@@ -75,67 +98,55 @@ class BilinearForm(ModuleForm):
 
 
 class QuadraticForm(ModuleForm):
-    """Abstract base class for quadratic forms `L -> R`."""
+    r"""
+    Abstract base class for quadratic data of degree ``1``.
+
+    These maps are semilinear rather than linear: ``q(r * v) = sigma(r) q(v)``
+    for a chosen endomorphism ``sigma`` of the base ring. In the current
+    lattice workflow, ``sigma(r) = r^2``.
+    """
+
+    @final
+    def tensor_degree(self) -> Integer:
+        return Integer(1)
 
     @abstractmethod
     def associated_bilinear_form(self) -> BilinearForm:
         ...
 
 
-from .homsets import ModulesWithFormsHomsets
-
-
-class ModulesWithForms(Category_module):
+class ModulesWithForms(CategoryWithAxiom_over_base_ring):
     r"""
-    Spec stub for the category of finitely generated modules with forms.
+    Category of pairs ``(L, f)`` with ``L`` a finitely presented ``R``-module
+    and ``f`` semilinear tensor-degree data with values in an ``R``-module.
 
-    An object is a pair ``(M, f)`` with ``M = F ⊕ T`` a finitely generated
-    module over a commutative PID ``R`` and ``f`` a primary bilinear or
-    quadratic form. Front-door construction is restricted to forms valued in
-    ``R`` or its fraction field ``K``. Quotient-valued codomains such as
-    ``K / R`` and ``K / 2R`` appear by explicit descent on actual cokernel
-    objects.
+    Accessible as ``Modules(R).WithForm()``.
     """
 
-    Homsets = LazyImport("plans.category_specs.homsets", "ModulesWithFormsHomsets")
-    DualObjects = LazyImport("plans.category_specs.dual_objects", "ModulesWithFormsDualObjects")
-    Torsion = LazyImport(
-        "plans.category_specs.torsion_modules_with_forms",
-        "TorsionModulesWithForms",
-    )
+    Homsets = LazyImport("category_specs.homsets", "ModulesWithFormsHomsets")
+    DualObjects = LazyImport("category_specs.dual_objects", "ModulesWithFormsDualObjects")
+    BilinearForms = LazyImport("category_specs.bilinear_form", "BilinearForms")
 
-    BilinearForms = LazyImport("plans.category_specs.bilinear_form", "BilinearForms")
-
-    # @override Category_module.__classcall_private__
-    @staticmethod
-    @final
-    def __classcall_private__(cls, base_ring: Ring):
-        if base_ring not in PrincipalIdealDomains():
-            raise TypeError("ModulesWithForms is only defined over commutative PIDs")
-        return super(ModulesWithForms, cls).__classcall__(cls, base_ring)
-
-    # @override Category_module.super_categories
+    # @override CategoryWithAxiom_over_base_ring.super_categories
     @final
     def super_categories(self) -> list[Category]:
-        return [Modules(self.base_ring()).WithBasis().FinitelyPresented()]
+        return [Modules(self.base_ring())]
 
-    # @override Category_module.additional_structure
+    # @override CategoryWithAxiom_over_base_ring.additional_structure
     @final
-    def additional_structure(self) -> Category:
-        # Morphisms are required to preserve the attached form.
+    def additional_structure(self):
         return self
 
-    # @override Category_module._repr_object_names
+    # @override CategoryWithAxiom_over_base_ring._repr_object_names
     @final
     def _repr_object_names(self) -> str:
         return f"modules with forms over {self.base_ring()}"
 
-    # @override Category_module._latex_
+    # @override CategoryWithAxiom_over_base_ring._latex_
     def _latex_(self) -> str:
         ...
 
     class SubcategoryMethods:
-        # @override Modules.SubcategoryMethods.base_ring
         @final
         @cached_method
         def base_ring(self) -> Ring:
@@ -181,7 +192,6 @@ class ModulesWithForms(Category_module):
         def Rational(self) -> Category:
             return self._with_axiom("Rational")
 
-        # @override Modules.SubcategoryMethods.DualObjects
         @final
         @cached_method
         def DualObjects(self) -> Category:
@@ -189,13 +199,11 @@ class ModulesWithForms(Category_module):
 
         dual = DualObjects
 
-        # @override Modules.SubcategoryMethods.TensorProducts
         @final
         @cached_method
         def TensorProducts(self) -> Category:
             return ModulesWithForms.TensorProducts.category_of(self)
 
-        # @override Modules.SubcategoryMethods.CartesianProducts
         @final
         @cached_method
         def CartesianProducts(self) -> Category:
@@ -206,6 +214,7 @@ class ModulesWithForms(Category_module):
         def BilinearForms(self) -> Category:
             return ModulesWithForms.BilinearForms(self.base_ring())
 
+        @abstractmethod
         def zero_module(self) -> Parent:
             ...
 
@@ -324,6 +333,62 @@ class ModulesWithForms(Category_module):
                 class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
                     ...
 
+    class Torsion(CategoryWithAxiom_over_base_ring):
+        # @override CategoryWithAxiom_over_base_ring.super_categories
+        @final
+        def super_categories(self):
+            return [ModulesWithForms(self.base_ring())]
+
+        # @override CategoryWithAxiom_over_base_ring._repr_object_names
+        @final
+        def _repr_object_names(self) -> str:
+            return "torsion modules with forms"
+
+        # @override CategoryWithAxiom_over_base_ring._latex_
+        def _latex_(self) -> str:
+            ...
+
+        class ParentMethods(ABC):
+            @abstractmethod
+            def invariants(self) -> tuple[Element, ...]:
+                ...
+
+            @abstractmethod
+            def p_part(self, p: Element) -> Parent:
+                ...
+
+            @abstractmethod
+            def is_p_elementary(self, p: Element) -> bool:
+                ...
+
+        class ElementMethods(ABC):
+            @abstractmethod
+            def order(self) -> Element:
+                ...
+
+        class MorphismMethods(ABC):
+            ...
+
+        class Homsets(ModulesWithFormsHomsets):
+            class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
+                ...
+
+            class ElementMethods(ModulesWithFormsHomsets.ElementMethods):
+                ...
+
+            class MorphismMethods(ModulesWithFormsHomsets.MorphismMethods):
+                ...
+
+            class Endset(ModulesWithFormsHomsets.Endset):
+                class ParentMethods(ModulesWithFormsHomsets.Endset.ParentMethods):
+                    ...
+
+                class ElementMethods(ModulesWithFormsHomsets.Endset.ElementMethods):
+                    ...
+
+                class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
+                    ...
+
     class Free(CategoryWithAxiom_over_base_ring):
         # @override CategoryWithAxiom_over_base_ring.super_categories
         @final
@@ -339,13 +404,25 @@ class ModulesWithForms(Category_module):
         def _latex_(self) -> str:
             ...
 
-        class ParentMethods:
-            ...
+        class ParentMethods(ABC):
+            @abstractmethod
+            def rank(self) -> Integer:
+                ...
 
-        class ElementMethods:
-            ...
+            @final
+            def free_rank(self) -> Integer:
+                return self.rank()
 
-        class MorphismMethods:
+        class ElementMethods(ABC):
+            @abstractmethod
+            def divisibility(self) -> Element:
+                ...
+
+            @abstractmethod
+            def is_primitive(self) -> bool:
+                ...
+
+        class MorphismMethods(ABC):
             ...
 
         class Homsets(ModulesWithFormsHomsets):
@@ -383,13 +460,51 @@ class ModulesWithForms(Category_module):
         def _latex_(self) -> str:
             ...
 
-        class ParentMethods:
+        class ParentMethods(ABC):
+            @abstractmethod
+            def signature_pair(self) -> tuple[Integer, Integer]:
+                ...
+
+            @abstractmethod
+            def determinant(self) -> Element:
+                ...
+
+            @abstractmethod
+            def discriminant(self) -> Element:
+                ...
+
+            @abstractmethod
+            def rational_span(self) -> Parent:
+                ...
+
+            @abstractmethod
+            def is_isometric_to(
+                self,
+                other: Parent,
+                witness: bool = False,
+            ) -> bool | tuple[bool, Morphism]:
+                ...
+
+            @abstractmethod
+            def is_rationally_isometric_to(self, other: Parent) -> bool:
+                ...
+
+            @abstractmethod
+            def is_locally_isometric_to(self, other: Parent, p: Element) -> bool:
+                ...
+
+            @abstractmethod
+            def orthogonal_group(self) -> Parent:
+                ...
+
+            @final
+            def O(self) -> Parent:
+                return self.orthogonal_group()
+
+        class ElementMethods(ABC):
             ...
 
-        class ElementMethods:
-            ...
-
-        class MorphismMethods:
+        class MorphismMethods(ABC):
             ...
 
         class Homsets(ModulesWithFormsHomsets):
@@ -427,13 +542,37 @@ class ModulesWithForms(Category_module):
         def _latex_(self) -> str:
             ...
 
-        class ParentMethods:
-            ...
+        class ParentMethods(ABC):
+            @abstractmethod
+            def is_even(self) -> bool:
+                ...
 
-        class ElementMethods:
-            ...
+            @final
+            def is_odd(self) -> bool:
+                return not self.is_even()
 
-        class MorphismMethods:
+            @abstractmethod
+            def is_unimodular(self) -> bool:
+                ...
+
+            @abstractmethod
+            def nikulin_invariants(self) -> tuple[Integer, ...]:
+                ...
+
+            @abstractmethod
+            def discriminant_group(self) -> Parent:
+                ...
+
+            @abstractmethod
+            def to_quadratic_module(self) -> Parent:
+                ...
+
+        class ElementMethods(ABC):
+            @abstractmethod
+            def is_root(self) -> bool:
+                ...
+
+        class MorphismMethods(ABC):
             ...
 
         class Homsets(ModulesWithFormsHomsets):
@@ -471,13 +610,17 @@ class ModulesWithForms(Category_module):
         def _latex_(self) -> str:
             ...
 
-        class ParentMethods:
-            ...
+        class ParentMethods(ABC):
+            @abstractmethod
+            def orthogonal_complement_of(self, submodule: Parent) -> Parent:
+                ...
 
-        class ElementMethods:
-            ...
+        class ElementMethods(ABC):
+            @abstractmethod
+            def is_integral(self) -> bool:
+                ...
 
-        class MorphismMethods:
+        class MorphismMethods(ABC):
             ...
 
         class Homsets(ModulesWithFormsHomsets):
@@ -501,8 +644,6 @@ class ModulesWithForms(Category_module):
                     ...
 
     class Bilinear(CategoryWithAxiom_over_base_ring):
-        r"""External category class for the ``Bilinear`` axiom."""
-
         # @override CategoryWithAxiom_over_base_ring.super_categories
         @final
         def super_categories(self):
@@ -518,8 +659,6 @@ class ModulesWithForms(Category_module):
             ...
 
         class ParentMethods(ABC):
-            # @override ModulesWithForms.ParentMethods.form
-            # type override only
             @abstractmethod
             def form(self) -> BilinearForm:
                 ...
@@ -528,140 +667,13 @@ class ModulesWithForms(Category_module):
             def associated_quadratic_module(self) -> Parent:
                 ...
 
-            # @override ModulesWithForms.ParentMethods.b
             @final
-            def b(
-                self,
-                left: Element,
-                right: Element,
-            ) -> RingElement:
+            def b(self, left: Element, right: Element) -> Element:
                 return self.form().evaluate(left, right)
 
-            # @override ModulesWithForms.ParentMethods.q
             @final
-            def q(self, value: Element) -> RingElement:
+            def q(self, value: Element) -> Element:
                 return self.associated_quadratic_module().form().evaluate(value)
-
-        class ElementMethods(ABC):
-            ...
-
-        class MorphismMethods(ABC):
-            ...
-
-        class Homsets(ModulesWithFormsHomsets):
-            class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
-                ...
-
-            class ElementMethods(ModulesWithFormsHomsets.ElementMethods):
-                ...
-
-            class MorphismMethods(ModulesWithFormsHomsets.MorphismMethods):
-                ...
-
-            class Endset(ModulesWithFormsHomsets.Endset):
-                class ParentMethods(ModulesWithFormsHomsets.Endset.ParentMethods):
-                    ...
-
-                class ElementMethods(ModulesWithFormsHomsets.Endset.ElementMethods):
-                    ...
-
-                class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
-                    ...
-
-    class Quadratic(CategoryWithAxiom_over_base_ring):
-        r"""External category class for the ``Quadratic`` axiom."""
-
-        # @override CategoryWithAxiom_over_base_ring.super_categories
-        @final
-        def super_categories(self):
-            return [ModulesWithForms(self.base_ring())]
-
-        # @override CategoryWithAxiom_over_base_ring._repr_object_names
-        @final
-        def _repr_object_names(self) -> str:
-            return "quadratic modules with forms"
-
-        # @override CategoryWithAxiom_over_base_ring._latex_
-        def _latex_(self) -> str:
-            ...
-
-        class ParentMethods(ABC):
-            # @override ModulesWithForms.ParentMethods.form
-            # type override only
-            @abstractmethod
-            def form(self) -> QuadraticForm:
-                ...
-
-            @abstractmethod
-            def associated_bilinear_module(self) -> Parent:
-                ...
-
-            # @override ModulesWithForms.ParentMethods.q
-            @final
-            def q(self, value: Element) -> RingElement:
-                return self.form().evaluate(value)
-
-            # @override ModulesWithForms.ParentMethods.b
-            @final
-            def b(
-                self,
-                left: Element,
-                right: Element,
-            ) -> RingElement:
-                return self.associated_bilinear_module().form().evaluate(left, right)
-
-        class ElementMethods(ABC):
-            ...
-
-        class MorphismMethods(ABC):
-            ...
-
-        class Homsets(ModulesWithFormsHomsets):
-            class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
-                ...
-
-            class ElementMethods(ModulesWithFormsHomsets.ElementMethods):
-                ...
-
-            class MorphismMethods(ModulesWithFormsHomsets.MorphismMethods):
-                ...
-
-            class Endset(ModulesWithFormsHomsets.Endset):
-                class ParentMethods(ModulesWithFormsHomsets.Endset.ParentMethods):
-                    ...
-
-                class ElementMethods(ModulesWithFormsHomsets.Endset.ElementMethods):
-                    ...
-
-                class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
-                    ...
-
-    class FreeBilinearModules(CategoryWithAxiom_over_base_ring):
-        r"""Spec class for the meet ``Bilinear ∧ Free``."""
-
-        # @override CategoryWithAxiom_over_base_ring.super_categories
-        @final
-        def super_categories(self):
-            return [ModulesWithForms(self.base_ring()).Bilinear().Free()]
-
-        # @override CategoryWithAxiom_over_base_ring._repr_object_names
-        @final
-        def _repr_object_names(self) -> str:
-            return "free bilinear modules with forms"
-
-        # @override CategoryWithAxiom_over_base_ring._latex_
-        def _latex_(self) -> str:
-            ...
-
-        class ParentMethods(ABC):
-            @abstractmethod
-            def rank(self) -> Integer:
-                ...
-
-            # @override ModulesWithForms.ParentMethods.free_rank
-            @final
-            def free_rank(self) -> Integer:
-                return self.rank()
 
             @abstractmethod
             def is_positive_definite(self) -> bool:
@@ -680,129 +692,9 @@ class ModulesWithForms(Category_module):
                 return not self.is_definite()
 
         class ElementMethods(ABC):
-            @abstractmethod
-            def divisibility(self) -> RingElement:
-                ...
-
-            @abstractmethod
-            def is_primitive(self) -> bool:
-                ...
-
-        class MorphismMethods(ABC):
-            ...
-
-        class Homsets(ModulesWithFormsHomsets):
-            class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
-                ...
-
-            class ElementMethods(ModulesWithFormsHomsets.ElementMethods):
-                ...
-
-            class MorphismMethods(ModulesWithFormsHomsets.MorphismMethods):
-                ...
-
-            class Endset(ModulesWithFormsHomsets.Endset):
-                class ParentMethods(ModulesWithFormsHomsets.Endset.ParentMethods):
-                    ...
-
-                class ElementMethods(ModulesWithFormsHomsets.Endset.ElementMethods):
-                    ...
-
-                class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
-                    ...
-
-    class Lattices(CategoryWithAxiom_over_base_ring):
-        r"""Spec class for the meet ``Bilinear ∧ Free ∧ NonDegenerate ∧ Integral``."""
-
-        # @override CategoryWithAxiom_over_base_ring.super_categories
-        @final
-        def super_categories(self):
-            return [ModulesWithForms(self.base_ring()).Bilinear().Free().NonDegenerate().Integral()]
-
-        # @override CategoryWithAxiom_over_base_ring._repr_object_names
-        @final
-        def _repr_object_names(self) -> str:
-            return "lattices"
-
-        # @override CategoryWithAxiom_over_base_ring._latex_
-        def _latex_(self) -> str:
-            ...
-
-        class ParentMethods(ABC):
-            @abstractmethod
-            def signature_pair(self) -> tuple[Integer, Integer]:
-                ...
-
-            @abstractmethod
-            def determinant(self) -> RingElement:
-                ...
-
             @final
-            def discriminant(self) -> RingElement:
-                return abs(self.determinant())
-
-            @abstractmethod
-            def is_even(self) -> bool:
-                ...
-
-            @final
-            def is_odd(self) -> bool:
-                return not self.is_even()
-
-            @final
-            def is_unimodular(self) -> bool:
-                return self.discriminant() == 1
-
-            @abstractmethod
-            def nikulin_invariants(self) -> tuple[Integer, ...]:
-                ...
-
-            @abstractmethod
-            def discriminant_group(self) -> Parent:
-                ...
-
-            @abstractmethod
-            def rational_span(self) -> Parent:
-                ...
-
-            @abstractmethod
-            def is_isometric_to(
-                self,
-                other: Parent,
-                witness: bool = False,
-            ) -> bool | tuple[bool, Morphism]:
-                ...
-
-            @abstractmethod
-            def is_rationally_isometric_to(self, other: Parent) -> bool:
-                ...
-
-            @abstractmethod
-            def is_locally_isometric_to(
-                self, other: Parent, p: RingElement
-            ) -> bool:
-                ...
-
-            @abstractmethod
-            def orthogonal_group(self) -> Parent:
-                ...
-
-            @final
-            def O(self) -> Parent:
-                return self.orthogonal_group()
-
-            @abstractmethod
-            def to_quadratic_module(self) -> Parent:
-                ...
-
-        class ElementMethods(ABC):
-            @abstractmethod
-            def norm(self) -> RingElement:
-                ...
-
-            @abstractmethod
-            def is_root(self) -> bool:
-                ...
+            def norm(self) -> Element:
+                return self.q()
 
             @abstractmethod
             def reflection(self) -> Morphism:
@@ -835,103 +727,37 @@ class ModulesWithForms(Category_module):
                 class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
                     ...
 
-    class RationalLattices(CategoryWithAxiom_over_base_ring):
-        r"""Spec class for the meet ``Bilinear ∧ Free ∧ NonDegenerate ∧ Rational``."""
-
+    class Quadratic(CategoryWithAxiom_over_base_ring):
         # @override CategoryWithAxiom_over_base_ring.super_categories
         @final
         def super_categories(self):
-            return [ModulesWithForms(self.base_ring()).Bilinear().Free().NonDegenerate().Rational()]
+            return [ModulesWithForms(self.base_ring())]
 
         # @override CategoryWithAxiom_over_base_ring._repr_object_names
         @final
         def _repr_object_names(self) -> str:
-            return "rational lattices"
+            return "quadratic modules with forms"
 
         # @override CategoryWithAxiom_over_base_ring._latex_
         def _latex_(self) -> str:
             ...
 
         class ParentMethods(ABC):
-            @abstractmethod
-            def signature_pair(self) -> tuple[Integer, Integer]:
-                ...
-
-            @abstractmethod
-            def orthogonal_complement_of(
-                self, submodule: Parent
-            ) -> Parent:
-                ...
-
-        class ElementMethods(ABC):
-            @abstractmethod
-            def is_integral(self) -> bool:
-                ...
-
-        class MorphismMethods(ABC):
-            ...
-
-        class Homsets(ModulesWithFormsHomsets):
-            class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
-                ...
-
-            class ElementMethods(ModulesWithFormsHomsets.ElementMethods):
-                ...
-
-            class MorphismMethods(ModulesWithFormsHomsets.MorphismMethods):
-                ...
-
-            class Endset(ModulesWithFormsHomsets.Endset):
-                class ParentMethods(ModulesWithFormsHomsets.Endset.ParentMethods):
-                    ...
-
-                class ElementMethods(ModulesWithFormsHomsets.Endset.ElementMethods):
-                    ...
-
-                class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
-                    ...
-
-    class DiscriminantQuadraticForms(CategoryWithAxiom_over_base_ring):
-        r"""Spec class for the descended meet ``Quadratic ∧ Torsion ∧ NonDegenerate``."""
-
-        # @override CategoryWithAxiom_over_base_ring.super_categories
-        @final
-        def super_categories(self):
-            return [ModulesWithForms(self.base_ring()).Quadratic().Torsion().NonDegenerate()]
-
-        # @override CategoryWithAxiom_over_base_ring._repr_object_names
-        @final
-        def _repr_object_names(self) -> str:
-            return "discriminant quadratic forms"
-
-        # @override CategoryWithAxiom_over_base_ring._latex_
-        def _latex_(self) -> str:
-            ...
-
-        class ParentMethods(ABC):
-            @abstractmethod
-            def associated_discriminant_bilinear_form(self) -> BilinearForm:
-                ...
-
-            # @override ModulesWithForms.ParentMethods.form
-            # type override only
             @abstractmethod
             def form(self) -> QuadraticForm:
                 ...
 
-            # @override ModulesWithForms.ParentMethods.q
+            @abstractmethod
+            def associated_bilinear_module(self) -> Parent:
+                ...
+
             @final
-            def q(self, value: Element) -> RingElement:
+            def q(self, value: Element) -> Element:
                 return self.form().evaluate(value)
 
-            # @override ModulesWithForms.ParentMethods.b
             @final
-            def b(
-                self,
-                left: Element,
-                right: Element,
-            ) -> RingElement:
-                return self.associated_discriminant_bilinear_form().evaluate(left, right)
+            def b(self, left: Element, right: Element) -> Element:
+                return self.associated_bilinear_module().form().evaluate(left, right)
 
         class ElementMethods(ABC):
             ...
@@ -959,7 +785,7 @@ class ModulesWithForms(Category_module):
                 class MorphismMethods(ModulesWithFormsHomsets.Endset.MorphismMethods):
                     ...
 
-    class ParentMethods(ABC):
+    class ParentMethods(Modules.ParentMethods, ABC):
         @abstractmethod
         def underlying_module(self) -> Module:
             ...
@@ -968,64 +794,36 @@ class ModulesWithForms(Category_module):
         def form(self) -> ModuleForm:
             ...
 
-        @abstractmethod
-        def b(
-            self,
-            left: Element,
-            right: Element,
-        ) -> RingElement:
-            ...
-
-        @abstractmethod
-        def q(self, value: Element) -> RingElement:
-            ...
-
-        @abstractmethod
-        def gens(self) -> tuple[Element, ...]:
-            ...
+        @final
+        def form_codomain(self) -> Parent:
+            return self.form().codomain()
 
         @final
-        def gen(self, index: int) -> Element:
-            return self.gens()[index]
+        def form_domain(self) -> Parent:
+            return self.form().domain()
+
+        @final
+        def tensor_degree(self) -> Integer:
+            return self.form().tensor_degree()
+
+        @final
+        def scalar_action_endomorphism(self) -> Morphism:
+            return self.form().scalar_action_endomorphism()
 
         @abstractmethod
-        def __iter__(self) -> Iterator[Element]:
+        def b(self, left: Element, right: Element) -> Element:
             ...
 
         @abstractmethod
-        def zero(self) -> Element:
+        def q(self, value: Element) -> Element:
             ...
 
         @abstractmethod
-        def zero_submodule(self) -> Parent:
+        def is_bilinear(self) -> bool:
             ...
 
         @abstractmethod
-        def base_ring(self) -> Ring:
-            ...
-
-        @abstractmethod
-        def free_part(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def torsion_part(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def dual(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def is_free(self) -> bool:
-            ...
-
-        @abstractmethod
-        def is_torsion(self) -> bool:
-            ...
-
-        @abstractmethod
-        def is_torsionfree(self) -> bool:
+        def is_quadratic(self) -> bool:
             ...
 
         @abstractmethod
@@ -1041,73 +839,21 @@ class ModulesWithForms(Category_module):
             ...
 
         @abstractmethod
-        def free_rank(self) -> Integer:
+        def is_isometric_to(
+            self,
+            other: Parent,
+            witness: bool = False,
+        ) -> bool | tuple[bool, Morphism]:
             ...
 
         @abstractmethod
-        def cardinality(self) -> Cardinality:
-            ...
-
-        @abstractmethod
-        def is_finite(self) -> bool:
-            ...
-
-        @abstractmethod
-        def is_isometric_to(self, other: Parent) -> bool:
-            ...
-
-        @final
-        def Hom(self, other: Parent) -> Homset:
-            return Hom(self, other, category=self.category())
-
-        @final
-        def End(self) -> Homset:
-            return self.Hom(self)
-
-        @final
-        def Aut(self) -> Parent:
-            return self.End().Aut()
-
-        @abstractmethod
-        def direct_sum(self, *others: Parent) -> Parent:
-            ...
-
-        @abstractmethod
-        def tensor(self, *others: Parent) -> Parent:
-            ...
-
-        @abstractmethod
-        def span(self, elements: Iterable[Element]) -> Parent:
-            ...
-
-        @abstractmethod
-        def random_element(self) -> Element:
-            ...
-
-        @abstractmethod
-        def _lmul_(self, scalar: RingElement) -> Parent:
+        def zero_submodule(self) -> Parent:
             ...
 
         @abstractmethod
         def base_change(self, ring: Ring) -> Parent:
             ...
 
-        @final
-        def __add__(self, other: Parent) -> Parent:
-            return self.direct_sum(other)
-
-        @final
-        def __mul__(self, other: Parent) -> Parent:
-            return self.tensor(other)
-
-        @final
-        def __rmul__(self, scalar: RingElement) -> Parent:
-            return self._lmul_(scalar)
-
-        @abstractmethod
-        def __contains__(self, value: object) -> bool:
-            ...
-
         @abstractmethod
         def __eq__(self, other: object) -> bool:
             ...
@@ -1124,215 +870,52 @@ class ModulesWithForms(Category_module):
         def _latex_(self) -> str:
             ...
 
-    class ElementMethods(ABC):
-        @abstractmethod
-        def parent(self) -> Parent:
-            ...
-
+    class ElementMethods(Modules.ElementMethods, ABC):
         @final
-        def b(self, other: Element) -> RingElement:
+        def b(self, other: Element) -> Element:
             return self.parent().b(self, other)
 
         @final
-        def q(self) -> RingElement:
+        def q(self) -> Element:
             return self.parent().q(self)
 
+    class MorphismMethods(Modules.MorphismMethods, ABC):
         @abstractmethod
-        def __add__(self, other: Element) -> Element:
+        def is_isometry(self) -> bool:
             ...
 
         @abstractmethod
-        def __neg__(self) -> Element:
+        def adjoint(self) -> Morphism:
             ...
-
-        @abstractmethod
-        def _lmul_(self, scalar: RingElement) -> Element:
-            ...
-
-        @final
-        def __rmul__(self, scalar: RingElement) -> Element:
-            return self._lmul_(scalar)
-
-        @abstractmethod
-        def to_vector(self) -> Vector:
-            ...
-
-        @final
-        def span(self) -> Parent:
-            return self.parent().span([self])
-
-        @abstractmethod
-        def __eq__(self, other: object) -> bool:
-            ...
-
-        @abstractmethod
-        def __hash__(self) -> int:
-            ...
-
-        @abstractmethod
-        def _repr_(self) -> str:
-            ...
-
-        @abstractmethod
-        def _latex_(self) -> str:
-            ...
-
-    class MorphismMethods(ABC):
-        @abstractmethod
-        def parent(self) -> Homset:
-            ...
-
-        @abstractmethod
-        def domain(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def codomain(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def __call__(self, value: Element) -> Element:
-            ...
-
-        @abstractmethod
-        def to_matrix(self) -> Matrix:
-            ...
-
-        @final
-        def to_tuple_of_images(self) -> tuple[Element, ...]:
-            return tuple(self(generator) for generator in self.domain().gens())
-
-        @final
-        def to_list_of_images(self) -> list[Element]:
-            return list(self.to_tuple_of_images())
-
-        @final
-        def to_dict(self) -> dict[Element, Element]:
-            return {
-                generator: image
-                for generator, image in zip(
-                    self.domain().gens(),
-                    self.to_tuple_of_images(),
-                    strict=True,
-                )
-            }
-
-        @abstractmethod
-        def kernel(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def image(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def cokernel(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def index(self) -> Cardinality:
-            ...
-
-        @abstractmethod
-        def lift(self, value: Element) -> Element:
-            ...
-
-        @abstractmethod
-        def saturation(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def intersection(self, other: Morphism) -> Parent:
-            ...
-
-        @abstractmethod
-        def is_injective(self) -> bool:
-            ...
-
-        @abstractmethod
-        def is_surjective(self) -> bool:
-            ...
-
-        @final
-        def is_bijective(self) -> bool:
-            return self.is_injective() and self.is_surjective()
-
-        @abstractmethod
-        def direct_sum(self, other: Morphism) -> Morphism:
-            ...
-
-        @abstractmethod
-        def tensor(self, other: Morphism) -> Morphism:
-            ...
-
-        @abstractmethod
-        def base_change(self, ring: Ring) -> Morphism:
-            ...
-
-        @abstractmethod
-        def __mul__(self, other: Morphism) -> Morphism:
-            ...
-
-        @abstractmethod
-        def __eq__(self, other: object) -> bool:
-            ...
-
-        @abstractmethod
-        def __hash__(self) -> int:
-            ...
-
-        @abstractmethod
-        def _repr_(self) -> str:
-            ...
-
-        @abstractmethod
-        def _latex_(self) -> str:
-            ...
-
-
-def TorsionBilinearModules(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Torsion().Bilinear()``."""
-
-    return ModulesWithForms(base_ring).Torsion().Bilinear()
 
 
 def BilinearModules(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Bilinear()``."""
-
     return ModulesWithForms(base_ring).Bilinear()
 
 
 def QuadraticModules(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Quadratic()``."""
-
     return ModulesWithForms(base_ring).Quadratic()
 
 
 def FreeBilinearModules(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Bilinear().Free()``."""
-
     return ModulesWithForms(base_ring).Bilinear().Free()
 
 
-def Lattices(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()``."""
+def TorsionBilinearModules(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
+    return ModulesWithForms(base_ring).Torsion().Bilinear()
 
+
+def Lattices(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
     return ModulesWithForms(base_ring).Bilinear().Free().NonDegenerate().Integral()
 
 
 def RationalLattices(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()``."""
-
     return ModulesWithForms(base_ring).Bilinear().Free().NonDegenerate().Rational()
 
 
 def DiscriminantQuadraticForms(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Quadratic().Torsion().NonDegenerate()``."""
-
     return ModulesWithForms(base_ring).Quadratic().Torsion().NonDegenerate()
 
 
 def DiscriminantBilinearForms(base_ring: Ring) -> CategoryWithAxiom_over_base_ring:
-    r"""Named meet ``ModulesWithForms(R).Bilinear().Torsion().NonDegenerate()``."""
-
     return ModulesWithForms(base_ring).Bilinear().Torsion().NonDegenerate()

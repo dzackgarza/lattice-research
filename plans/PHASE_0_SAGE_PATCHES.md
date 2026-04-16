@@ -11,28 +11,60 @@ new files under `src/sage_patches/` that can be imported independently.
 
 Canonical spec: `tests/sage_spec/misc.sage`.
 
+Implementation model: define a new Sage category `ModuleBaseRings`, a
+subcategory of `Rings().PrincipalIdealDomains().Commutative()`, and install it
+into the target ring parents via `_refine_category_`.  No new Python class is
+created for each ring family; the ring object's `__class__` does not change;
+native Sage coercions, arithmetic, and completions are fully preserved.
+
+The `ParentMethods` of `ModuleBaseRings` define the selected overrides:
+`__pow__` to return enriched free modules, `ideal()` / `__mul__` / `__rmul__`
+to return *ideal-submodule* objects (Sage ideals whose categories are refined
+to also carry `R`-module structure), and `quotient()` to return finitely
+presented `R`-module objects.  Each override calls `super()` to obtain the
+native Sage result and then calls `result._refine_category_(...)` on it.
+
+The front-door entry point is `install()` in `ring_base_category.py`, which
+iterates over the target rings and calls
+`ring._refine_category_(ModuleBaseRings())` on each.  After that call, Sage's
+dynamic dispatch automatically serves the `ParentMethods` overrides for
+that ring instance without any monkeypatching.
+
+The base-ring enrichment targets commutative base rings whose finitely
+presented module categories have a usable structure theorem. Phase 0 keeps
+that scope at PIDs, specifically `ZZ`, `Zp(p)`, `QQ`, `RR`, `CC`, `QQbar`,
+and finite fields `GF(p^n)`. Later phases may widen the same interface to
+Dedekind domains, including rings of integers of number fields with class
+number greater than one, once ideal-class and projective-module data are part
+of the module layer.
+
+There is no implementation-class split by ring family.  All target rings are
+enriched by the single `ModuleBaseRings` category via `_refine_category_`.
+
 
 ## File Structure
 
 ```
 src/sage_patches/
-    __init__.py              # imports _install.install(); calls it
-    ring_quotients.py        # ZZ/n syntax, ring quotient as ZZ-module
+    __init__.py              # imports install(); calls it on module import
+    ring_base_category.py    # ModuleBaseRings category + install()
+    ideal_submodule.py       # IdealSubmodule category; _refine_category_ target for ideals
     fraction_quotients.py    # QQ/ZZ, QQ/nZZ quotient modules
-    module_enrichment.py     # ZZ^n: dual, tensor, base_change, + = direct sum
+    module_enrichment.py     # Enriched Modules(R) surface; _refine_category_ for free/FGP modules
     module_operations.py     # free_part, torsion_part, generator assignment
-    hom_enrichment.py        # Hom spaces: element_from_*, cokernel().projection()
-    completions.py           # ZZ.complete(p), ZZ.localize(p)
-    _install.py              # Single entry point that applies all patches
+    hom_enrichment.py        # Hom spaces: from_*, cokernel().projection()
+    completions.py           # ZZ.complete(p) and ZZ.localize(p) convenience aliases
+    _install.py              # Single entry point that calls each module's install()
 ```
 
 ## Dependency Order
 
 ```
-ring_quotients          (no internal deps)
-fraction_quotients      (depends on ring_quotients)
-completions             (no internal deps)
-module_enrichment       (depends on ring_quotients, fraction_quotients)
+ring_base_category      (no internal deps — defines ModuleBaseRings, calls _refine_category_ on target rings)
+ideal_submodule         (depends on ring_base_category — category injected into Sage ideal objects)
+fraction_quotients      (depends on ideal_submodule — QQ/ZZ refined as module)
+completions             (depends on ring_base_category — localization/completion refinement)
+module_enrichment       (depends on ring_base_category, ideal_submodule, fraction_quotients)
 module_operations       (depends on module_enrichment)
 hom_enrichment          (depends on module_enrichment, module_operations)
 _install                (imports and applies all of the above)
@@ -42,7 +74,7 @@ _install                (imports and applies all of the above)
 ## Module-by-Module Design
 
 
-### `ring_quotients.py` -- ZZ/n syntax and ring quotient identification
+### `ring_base_category.py` -- ModuleBaseRings category and installation
 
 #### What Sage provides natively
 
@@ -53,32 +85,37 @@ _install                (imports and applies all of the above)
 
 #### What to build
 
-Monkeypatch `IntegerRing_class.__truediv__` to interpret `ZZ / n` as
-`ZZ.quotient(n * ZZ)` when `n` is an integer, and as `ZZ.quotient(I)` when
-`n` is a ZZ-ideal.
+Define the `ModuleBaseRings` category (see `category_specs/rings.py`) with
+`ParentMethods.quotient()` interpreting `R / n` as `R.quotient(n * R)` when
+`n` is an element, and as `R.quotient(I)` when `n` is an `R`-ideal.  The
+`__truediv__` final method on `ParentMethods` delegates to `quotient()`, so
+`ZZ / 2` and `ZZ / (2*ZZ)` both route through the single override.
 
-```python
-def _zz_truediv(self, other):
-    if other in ZZ:
-        return self.quotient(ZZ.ideal(ZZ(other)))
-    if isinstance(other, Ideal_generic) and other.ring() is ZZ:
-        return self.quotient(other)
-    return _original_zz_truediv(self, other)
-```
+The `quotient()` override calls Sage's native `quotient()` via `super()`, then
+refines the returned ring via `result._refine_category_(...)` so
+`IntegerModRing(n)` becomes a finitely presented `ZZ`-module object.  No
+direct monkeypatch of `IntegerRing_class.__truediv__` is needed.
 
-Monkeypatch category containment so `IntegerModRing(n) in Modules(ZZ)` is
-True. Z/nZ IS a cyclic ZZ-module; this is mathematically correct. The
-cleanest approach: patch `Modules(ZZ).__contains__` to also accept
-`IntegerModRing` instances. This avoids deep surgery on Sage's category
-caching infrastructure.
+The `install()` function calls `ZZ._refine_category_(ModuleBaseRings())` (and
+similarly for `QQ`, `Zp(p)`, etc.), after which `ZZ.quotient`, `ZZ.__pow__`,
+and `ZZ.ideal` all dispatch through `ModuleBaseRings.ParentMethods`.
+
+Category containment (`IntegerModRing(n) in Modules(ZZ)`) is handled by
+patching `Modules(ZZ).__contains__` to also accept any parent whose category
+is a join including `ModuleBaseRings()` or whose `base_ring()` is `ZZ` and
+whose `_refine_category_` has already been called.  This avoids deep surgery
+on Sage's category caching infrastructure.
 
 #### Spec assertions covered
 
 ```python
 Z2 = ZZ / (2*ZZ)
 Z4 = ZZ / (4*ZZ)
+R = 2*ZZ
 assert Z2 == ZZ/2
 assert Z4 == ZZ/4
+assert ZZ in Modules(ZZ)
+assert R in Modules(ZZ)
 assert Z2 in Modules(ZZ)
 assert Z2 in Modules(Z2)
 assert Z2.is_field() and not Z4.is_field()
@@ -117,7 +154,7 @@ for form evaluation.
 
 ```python
 R = QQ/ZZ
-assert R in Rings
+assert R in Modules(ZZ)
 assert R(1/2) == R(3/2)
 assert R(3/2).lift() == QQ(1/2)
 ```
@@ -142,13 +179,19 @@ assert R(3/2).lift() == QQ(1/2)
 
 #### What to build
 
-```python
-# One-liners on IntegerRing_class:
-IntegerRing_class.complete = lambda self, p: Zp(p)
-IntegerRing_class.localize = lambda self, p: Localization(ZZ, (p,))
-```
+`ModuleBaseRings.ParentMethods` already provides `complete` and `localize` as
+`@final` aliases for `completion` and `localization` respectively.  The
+`completion` override in `ParentMethods` calls Sage's native `completion()`
+via `super()` and then refines the returned ring with `_refine_category_`.
+The `localization` override does the same.
 
-These are mathematically unambiguous and require no design decisions.
+The `completions.py` module therefore only needs to ensure that the
+`ModuleBaseRings` category is installed (i.e., `ring_base_category.install()`
+has been called) before any `complete`/`localize` call is made.  No
+additional attribute assignments on `IntegerRing_class` are needed.
+
+These are mathematically unambiguous and require no design decisions beyond
+the `_refine_category_` pattern.
 
 #### Spec assertions covered
 
@@ -202,6 +245,11 @@ Monkeypatch onto `FreeModule_ambient_pid` and/or `FGP_Module_class`:
 **Base change:**
 - `base_change(S)` = `self.tensor(S)` where S is a ring viewed as a
   ZZ-module via the structure map.
+
+**Ring-power hook:**
+- patch the relevant ring-parent `__pow__` / `free_module` path so `ZZ^n`
+  and more generally `R^n` return enriched module objects rather than raw
+  Sage `FreeModule` parents.
 
 **Direct sum as `+`:**
 - Redefine `__add__` on our enriched modules to mean direct sum, NOT span.
@@ -290,12 +338,12 @@ M.<x,y,z> = ZZ^3  # generator assignment
 #### What to build
 
 **On hom spaces (`FreeModuleHomspace` / `FGP_Homset_class`):**
-- `element_from_dict(mapping)`: Given `{gen_i: image_i}`, construct the
+- `from_dict(mapping)`: Given `{gen_i: image_i}`, construct the
   morphism. This resolves the dict to a matrix and delegates to the native
   constructor.
-- `element_from_images(images)`: Given a list of images for each generator,
-  construct. Sugar for `element_from_dict(dict(zip(domain.gens(), images)))`.
-- `element_from_matrix(M)`: Named constructor wrapping the existing
+- `from_images(images)`: Given a list of images for each generator,
+  construct. Sugar for `from_dict(dict(zip(domain.gens(), images)))`.
+- `from_matrix(M)`: Named constructor delegating to the existing
   `__call__` dispatch.
 - `element_from_function(f)`: Apply f to each generator, check it defines a
   morphism.
@@ -326,14 +374,14 @@ M1.<g1,g2> = ZZ^2
 M2.<h1, h2> = ZZ^2
 H = M1.Hom(M2)
 assert H in Modules(ZZ)
-f = H.element_from_matrix(matrix(ZZ, 2, [0,1,1,0]))
+f = H.from_matrix(matrix(ZZ, 2, [0,1,1,0]))
 assert f in H
 assert f(g1) == h2 and f(g2) == h1
 assert f.to_matrix() == matrix(ZZ, 2, [0,1,1,0])
 assert f.is_injective() and f.kernel() == Modules(ZZ).zero()
 assert f.is_surjective() and f.cokernel() == Modules(ZZ).zero()
 
-g = H.element_from_images([2*h1, 3*h2])
+g = H.from_images([2*h1, 3*h2])
 assert g.cokernel() == ZZ/2 + ZZ/3
 pi = g.cokernel().projection()
 assert pi.is_surjective()
@@ -350,10 +398,16 @@ assert M1.Aut() in Groups
 Each module defines an `install()` function. `_install.py` calls all of them
 in dependency order. Calling `import src.sage_patches` installs all patches.
 
-Every monkeypatch must:
-- Save the original method (if any) before overwriting.
-- Be idempotent (check if already installed).
-- Log what it patches (via standard logging).
+Every `install()` call must:
+- Check `ring.category()` before calling `_refine_category_` to be idempotent.
+- Log which ring parents were refined (via standard logging).
+
+Because `_refine_category_` is the mechanism for ring enrichment (not class
+creation or method assignment), there is no "original method" to save for ring
+parents.  The Sage category dispatch stack handles fallthrough automatically.
+Module-level patches (direct attribute assignments on `FreeModule_ambient_pid`
+etc.) that are still required must follow the save-original / idempotent
+pattern as before.
 
 
 ## Explicitly Out of Scope
