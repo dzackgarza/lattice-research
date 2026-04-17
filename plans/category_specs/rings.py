@@ -9,16 +9,16 @@ redesign adds ``ModuleBaseIdeals(R)`` as the ring-ideal refinement layer, and
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
+from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.rings.integer import Integer
-from sage.rings.ring import Ring
 from sage.structure.element import RingElement as SageRingElement
 
 if TYPE_CHECKING:
@@ -90,7 +90,7 @@ class ModuleBaseIdeals(Category_ideal):
         ...
 
 
-class ModuleBaseRings(CategoryWithAxiom):
+class ModuleBaseRings(Category_singleton):
     r"""
     Subcategory of ``Rings().PrincipalIdealDomains().Commutative()`` whose
     ring parents produce objects in the redesigned module surface.
@@ -349,11 +349,11 @@ CompleteRingCategoryObject = ModuleBaseRings.Complete.ParentMethods
 # Runs at import time.  Idempotent: checks ring.category() before refining.
 
 def _refine_target_rings() -> None:
+    from sage.rings.complex_mpfr import CC
     from sage.rings.integer_ring import ZZ
+    from sage.rings.qqbar import QQbar
     from sage.rings.rational_field import QQ
     from sage.rings.real_mpfr import RR
-    from sage.rings.complex_mpfr import CC
-    from sage.rings.qqbar import QQbar
     _cat = ModuleBaseRings()
     for ring in (ZZ, QQ, RR, CC, QQbar):
         if _cat not in ring.category().super_categories():

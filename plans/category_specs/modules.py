@@ -32,14 +32,17 @@ view.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Iterable, Iterator, Sequence
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from typing import TYPE_CHECKING, Any, final
 
+import sage.categories.category_with_axiom as _cwa
 from sage.categories.category import Category
 from sage.categories.category_types import Category_module
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.dual import DualObjectsCategory
 from sage.categories.homset import Hom, Homset
+from sage.categories.homsets import HomsetsCategory
+from sage.categories.magmatic_algebras import MagmaticAlgebras
 from sage.categories.modules import Modules as SageModules
 from sage.categories.principal_ideal_domains import PrincipalIdealDomains
 from sage.categories.quotients import QuotientsCategory
@@ -53,16 +56,14 @@ from sage.structure.element import InfinityElement, Matrix, Vector
 from sage.structure.parent import Parent
 
 from .homsets import (
-    EndomorphismAlgebraCategoryObject,
-    EndomorphismAlgebraElement,
     ModuleAutomorphism,
     ModuleAutomorphismGroup,
-    ModuleAutomorphismSets,
-    ModuleHomsets,
 )
 
 if TYPE_CHECKING:
     from .rings import ModuleBaseRingElement, ModuleBaseRingsCategoryObject
+
+_cwa.all_axioms += ("WithGenerators", "Projective")
 
 Cardinality = Integer | InfinityElement
 ElementOrder = Integer | InfinityElement
@@ -100,7 +101,7 @@ class Modules(Category_module):
     def __classcall_private__(cls, base_ring: Ring):
         if base_ring not in PrincipalIdealDomains():
             raise TypeError(f"Modules spec requires a commutative PID; got {base_ring!r}")
-        return super(Modules, cls).__classcall__(cls, base_ring)
+        return super().__classcall__(cls, base_ring)
 
     @final
     def super_categories(self) -> list[Category]:
@@ -181,6 +182,16 @@ class Modules(Category_module):
 
         @final
         @cached_method
+        def FinitelyPresented(self) -> Modules.FinitelyPresented:
+            return self._with_axiom("FinitelyPresented")
+
+        @final
+        @cached_method
+        def Projective(self) -> Modules.Projective:
+            return self._with_axiom("Projective")
+
+        @final
+        @cached_method
         def Ideals(self) -> Modules.Ideals:
             return self._with_axiom("Ideals")
 
@@ -215,16 +226,6 @@ class Modules(Category_module):
             return Modules.DualObjects.category_of(self)
 
         dual_objects = DualObjects
-
-        @final
-        @cached_method
-        def AutomorphismSets(self) -> Modules.AutomorphismSets:
-            return Modules.AutomorphismSets.category_of(self)
-
-        @final
-        @cached_method
-        def Autsets(self) -> Modules.AutomorphismSets:
-            return self.AutomorphismSets()
 
         @final
         @cached_method
@@ -265,15 +266,64 @@ class Modules(Category_module):
 
         class ParentMethods:
             @abstractmethod
-            def gens(self) -> tuple[ModuleElement, ...]: ...
+            def module_generators(self) -> tuple[ModuleElement, ...]:
+                """Distinguished finite generating tuple. NOT a basis."""
+                ...
+
+            @final
+            def gens(self) -> tuple[ModuleElement, ...]:
+                return self.module_generators()
 
             @final
             def gen(self, index: int) -> ModuleElement:
-                return self.gens()[index]
+                return self.module_generators()[index]
 
             @final
             def ngens(self) -> Integer:
-                return Integer(len(self.gens()))
+                return Integer(len(self.module_generators()))
+
+            @abstractmethod
+            def hom(self, im_gens, codomain=None, check=True):
+                """Define a morphism by images of module_generators()."""
+                ...
+
+        class ElementMethods: ...
+        class MorphismMethods: ...
+
+    class FinitelyPresented(CategoryWithAxiom_over_base_ring):
+        r"""Finitely presented modules -- implies WithGenerators over a PID."""
+
+        def extra_super_categories(self):
+            return [self.base_category().WithGenerators()]
+
+        @final
+        def _repr_object_names(self) -> str:
+            return "finitely presented modules"
+
+        def _latex_(self) -> str: ...
+
+        class ParentMethods: ...
+        class ElementMethods: ...
+        class MorphismMethods: ...
+
+    class Projective(CategoryWithAxiom_over_base_ring):
+        r"""Projective modules -- have a Steinitz class but not necessarily a basis."""
+
+        @final
+        def super_categories(self):
+            return [Modules(self.base_ring()).WithGenerators()]
+
+        @final
+        def _repr_object_names(self) -> str:
+            return "projective modules"
+
+        def _latex_(self) -> str: ...
+
+        class ParentMethods:
+            @abstractmethod
+            def steinitz_class(self):
+                """The Steinitz class in the ideal class group."""
+                ...
 
         class ElementMethods: ...
         class MorphismMethods: ...
@@ -298,6 +348,11 @@ class Modules(Category_module):
             @final
             def free_rank(self) -> Integer:
                 return self.rank()
+
+            @abstractmethod
+            def basis(self):
+                """A basis for this free module."""
+                ...
 
             @abstractmethod
             def tensor_module(
@@ -352,8 +407,13 @@ class Modules(Category_module):
 
         class ParentMethods:
             @abstractmethod
-            def invariants(self) -> tuple[ModuleBaseRingElement, ...]:
+            def invariant_factors(self) -> tuple[ModuleBaseRingElement, ...]:
                 r"""The nonzero SNF diagonal entries ``(d_1, ..., d_k)``."""
+                ...
+
+            @abstractmethod
+            def annihilator(self) -> IdealSubmodulesCategoryObject:
+                """The annihilator ideal of the torsion module."""
                 ...
 
             @abstractmethod
@@ -484,8 +544,8 @@ class Modules(Category_module):
 
         @final
         def extra_super_categories(self):
-            base = self.base_category()
-            return [base, base.Homsets()]
+            R = self.base_category().base_ring()
+            return [Modules(R).FinitelyPresented()]
 
         @final
         def _repr_object_names(self) -> str:
@@ -524,103 +584,6 @@ class Modules(Category_module):
             def __call__(self, value: ModuleElement) -> ModuleBaseRingElement: ...
 
         class MorphismMethods: ...
-
-    class AutomorphismSets(AutomorphismSetsCategory):
-        r"""
-        Automorphism groups of finitely presented ``R``-modules.
-
-        ``Aut_R(M)`` is the group of units of ``End_R(M)``.  Its elements are
-        represented by invertible endomorphisms and therefore carry both group
-        operations and the module morphism interface.
-        """
-
-        @final
-        def extra_super_categories(self):
-            return [Groups()]
-
-        @final
-        def _repr_object_names(self) -> str:
-            return "automorphism groups of modules"
-
-        def _latex_(self) -> str: ...
-
-        class ParentMethods:
-
-            @abstractmethod
-            def module(self) -> ModulesCategoryObject: ...
-
-            @final
-            def object(self) -> ModulesCategoryObject:
-                return self.module()
-
-            @abstractmethod
-            def endomorphism_algebra(self) -> EndomorphismAlgebraCategoryObject: ...
-
-            @final
-            def endomorphism_set(self) -> EndomorphismAlgebraCategoryObject:
-                return self.endomorphism_algebra()
-
-            @abstractmethod
-            def inclusion(self) -> ModulesMorphismObject:
-                r"""Inject ``Aut_R(M)`` into ``End_R(M)`` as the unit group."""
-                ...
-
-            @abstractmethod
-            def from_endomorphism(self, value: EndomorphismAlgebraElement) -> ModuleAutomorphism:
-                r"""Return the unit represented by an invertible endomorphism."""
-                ...
-
-            @abstractmethod
-            def identity(self) -> ModuleAutomorphism: ...
-
-            @final
-            def one(self) -> ModuleAutomorphism:
-                return self.identity()
-
-            @abstractmethod
-            def __contains__(self, value: Any) -> bool: ...
-
-            @abstractmethod
-            def _repr_(self) -> str: ...
-
-            @abstractmethod
-            def _latex_(self) -> str: ...
-
-        class ElementMethods:
-
-            @abstractmethod
-            def parent(self) -> ModuleAutomorphismGroup: ...
-
-            @abstractmethod
-            def endomorphism(self) -> EndomorphismAlgebraElement: ...
-
-            @abstractmethod
-            def as_unit(self) -> EndomorphismAlgebraElement: ...
-
-            # @override Modules.MorphismMethods.domain
-            @abstractmethod
-            def domain(self) -> ModulesCategoryObject: ...
-
-            # @override Modules.MorphismMethods.codomain
-            @final
-            def codomain(self) -> ModulesCategoryObject:
-                return self.domain()
-
-            @abstractmethod
-            def __call__(self, value: ModuleElement) -> ModuleElement: ...
-
-            @abstractmethod
-            def inverse(self) -> ModuleAutomorphism: ...
-
-            @final
-            def __invert__(self) -> ModuleAutomorphism:
-                return self.inverse()
-
-            @abstractmethod
-            def to_matrix(self) -> Matrix: ...
-
-            @abstractmethod
-            def __mul__(self, other: ModuleAutomorphism) -> ModuleAutomorphism: ...
 
     # ------------------------------------------------------------------
     # ParentMethods
@@ -971,7 +934,8 @@ class Modules(Category_module):
 
         @final
         def extra_super_categories(self):
-            return [Modules(self.base_category().base_ring())]
+            R = self.base_category().base_ring()
+            return [Modules(R).FinitelyPresented()]
 
         # @overload homset category base ring
         @final
@@ -1142,7 +1106,6 @@ SubmoduleCategoryObject = Modules.Subobjects.ParentMethods
 QuotientModuleCategoryObject = Modules.Quotients.ParentMethods
 DualModuleCategoryObject = Modules.DualObjects.ParentMethods
 DualModuleElement = Modules.DualObjects.ElementMethods
-AutomorphismGroupCategoryObject = Modules.AutomorphismSets.ParentMethods
-AutomorphismGroupElement = Modules.AutomorphismSets.ElementMethods
+ProjectiveModuleCategoryObject = Modules.Projective.ParentMethods
 EndomorphismAlgebraCategoryObject = Modules.Homsets.Endset.ParentMethods
 EndomorphismAlgebraElement = Modules.Homsets.Endset.ElementMethods

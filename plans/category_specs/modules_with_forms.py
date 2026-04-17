@@ -7,10 +7,8 @@ from typing import final
 
 from sage.categories.cartesian_product import CartesianProductsCategory
 from sage.categories.category import Category
-from sage.categories.category_types import Category_module
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.morphism import Morphism
-from sage.categories.principal_ideal_domains import PrincipalIdealDomains
 from sage.categories.tensor import TensorProductsCategory
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -696,6 +694,10 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             def norm(self) -> Element:
                 return self.q()
 
+            @final
+            def is_isotropic(self) -> bool:
+                return self.q() == 0
+
             @abstractmethod
             def reflection(self) -> Morphism:
                 ...
@@ -705,7 +707,9 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
                 ...
 
         class MorphismMethods(ABC):
-            ...
+            @final
+            def is_isometry(self) -> bool:
+                return self.is_form_preserving()
 
         class Homsets(ModulesWithFormsHomsets):
             class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
@@ -880,6 +884,11 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             return self.parent().q(self)
 
     class MorphismMethods(Modules.MorphismMethods, ABC):
+        @abstractmethod
+        def is_form_preserving(self) -> bool:
+            """Whether this morphism preserves the form data."""
+            ...
+
         @abstractmethod
         def is_isometry(self) -> bool:
             ...

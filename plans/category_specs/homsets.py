@@ -6,9 +6,8 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from typing import Any, final
 
-from sage.categories.category import Category, CategoryWithParameters
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.categories.covariant_functorial_construction import FunctorialConstructionCategory
+import sage.categories.category_with_axiom as _cwa
+from sage.categories.category_with_axiom import CategoryWithAxiom, CategoryWithAxiom_over_base_ring
 from sage.categories.groups import Groups
 from sage.categories.homsets import HomsetsCategory
 from sage.categories.magmatic_algebras import MagmaticAlgebras
@@ -17,6 +16,8 @@ from sage.misc.cachefunc import cached_method
 from sage.rings.ring import Ring
 from sage.structure.element import Element, Matrix
 from sage.structure.parent import Parent
+
+_cwa.all_axioms += ("Autset",)
 
 
 class ModuleAutomorphism(ABC):
@@ -108,79 +109,6 @@ class ModuleAutomorphismGroup(ABC):
 
     @abstractmethod
     def __contains__(self, value: Any) -> bool: ...
-
-
-class AutomorphismSetsCategory(FunctorialConstructionCategory, CategoryWithParameters):
-    r"""
-    Functorial category of automorphism groups of category objects.
-
-    This is the missing Sage-style analogue of ``Homsets().Endset()`` for
-    automorphism groups.  For any category ``C``, ``Aut_C(X)`` is a group under
-    composition.  Module categories refine this by tying ``Aut_R(M)`` to the
-    unit group of ``End_R(M)`` and to the matrix presentation of ``M``.
-    """
-
-    _functor_category = "AutomorphismSets"
-
-    @classmethod
-    def default_super_categories(cls, category: Category):
-        return [Groups()]
-
-    class ParentMethods(ABC):
-        @abstractmethod
-        def object(self) -> Parent: ...
-
-        @abstractmethod
-        def endomorphism_set(self) -> Parent: ...
-
-        @abstractmethod
-        def inclusion(self) -> Morphism: ...
-
-        @abstractmethod
-        def one(self) -> Any: ...
-
-    class ElementMethods(ABC):
-        @abstractmethod
-        def endomorphism(self) -> Any: ...
-
-
-class ModuleAutomorphismSets(AutomorphismSetsCategory):
-    r"""Automorphism groups of finitely presented ``R``-modules."""
-
-    @final
-    def extra_super_categories(self):
-        return [Groups()]
-
-    @final
-    def _repr_object_names(self) -> str:
-        return "automorphism groups of modules"
-
-    def _latex_(self) -> str:
-        ...
-
-    class ParentMethods(ModuleAutomorphismGroup):
-        @final
-        def object(self) -> Parent:
-            return self.module()
-
-        @final
-        def endomorphism_set(self) -> EndomorphismAlgebraCategoryObject:
-            return self.endomorphism_algebra()
-
-        @abstractmethod
-        def matrix_group(self) -> Parent:
-            r"""
-            Matrix subgroup representing ``Aut_R(M)``.
-
-            For free ``M = R^n`` this is exactly ``GL_n(R)``.  For a general
-            finite presentation it is the subgroup of the ambient
-            ``GL(V)`` whose matrices preserve the presentation and descend to
-            automorphisms of the quotient module.
-            """
-            ...
-
-    class ElementMethods(ModuleAutomorphism):
-        ...
 
 
 class ModuleHomsets(HomsetsCategory):
@@ -372,6 +300,52 @@ class ModuleHomsets(HomsetsCategory):
         class MorphismMethods(ABC):
             ...
 
+        class SubcategoryMethods:
+            def Autset(self):
+                """Return the subcategory of automorphism sets."""
+                return self._with_axiom("Autset")
+
+        class Autset(CategoryWithAxiom):
+            r"""
+            Automorphism groups of finitely presented ``R``-modules.
+
+            ``Aut_R(M)`` is the group of units of ``End_R(M)``.  Reached via
+            ``Endset()._with_axiom("Autset")``.
+            """
+
+            def extra_super_categories(self):
+                return [Groups()]
+
+            @final
+            def _repr_object_names(self) -> str:
+                return "automorphism groups of modules"
+
+            def _latex_(self) -> str: ...
+
+            class ParentMethods(ModuleAutomorphismGroup):
+                @final
+                def object(self) -> Parent:
+                    return self.module()
+
+                @final
+                def endomorphism_set(self) -> EndomorphismAlgebraCategoryObject:
+                    return self.endomorphism_algebra()
+
+                @abstractmethod
+                def matrix_group(self) -> Parent:
+                    r"""
+                    Matrix subgroup representing ``Aut_R(M)``.
+
+                    For free ``M = R^n`` this is exactly ``GL_n(R)``.  For a
+                    general finite presentation it is the subgroup of the
+                    ambient ``GL(V)`` whose matrices preserve the presentation
+                    and descend to automorphisms of the quotient module.
+                    """
+                    ...
+
+            class ElementMethods(ModuleAutomorphism):
+                ...
+
 
 EndomorphismAlgebraCategoryObject = ModuleHomsets.Endset.ParentMethods
 EndomorphismAlgebraElement = ModuleHomsets.Endset.ElementMethods
@@ -431,6 +405,10 @@ class ModulesWithFormsHomsets(ModuleHomsets):
 
         @abstractmethod
         def __contains__(self, value: object) -> bool:
+            ...
+
+        @abstractmethod
+        def zero(self) -> Morphism:
             ...
 
         @abstractmethod

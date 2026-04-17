@@ -32,7 +32,10 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
     # @override DualObjectsCategory.extra_super_categories
     @final
     def extra_super_categories(self):
-        return [self.base_category()]
+        from .modules import Modules
+        base = self.base_category()
+        R = base.base_ring()
+        return [base, Modules(R).FinitelyPresented()]
 
     # @override DualObjectsCategory._repr_object_names
     @final
