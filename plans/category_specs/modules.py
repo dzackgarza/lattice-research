@@ -390,6 +390,12 @@ class Modules(Category_module):
             @abstractmethod
             def __getitem__(self, index: int) -> ModuleBaseRingElement: ...
 
+            @abstractmethod
+            def divisibility(self) -> ModuleBaseRingElement: ...
+
+            @abstractmethod
+            def is_primitive(self) -> bool: ...
+
         class MorphismMethods: ...
 
     class Torsion(CategoryWithAxiom_over_base_ring):
@@ -544,8 +550,7 @@ class Modules(Category_module):
 
         @final
         def extra_super_categories(self):
-            R = self.base_category().base_ring()
-            return [Modules(R).FinitelyPresented()]
+            return [self.base_category().Homsets()]
 
         @final
         def _repr_object_names(self) -> str:

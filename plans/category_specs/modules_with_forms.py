@@ -347,22 +347,10 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             ...
 
         class ParentMethods(ABC):
-            @abstractmethod
-            def invariants(self) -> tuple[Element, ...]:
-                ...
-
-            @abstractmethod
-            def p_part(self, p: Element) -> Parent:
-                ...
-
-            @abstractmethod
-            def is_p_elementary(self, p: Element) -> bool:
-                ...
+            ...
 
         class ElementMethods(ABC):
-            @abstractmethod
-            def order(self) -> Element:
-                ...
+            ...
 
         class MorphismMethods(ABC):
             ...
@@ -403,22 +391,10 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             ...
 
         class ParentMethods(ABC):
-            @abstractmethod
-            def rank(self) -> Integer:
-                ...
-
-            @final
-            def free_rank(self) -> Integer:
-                return self.rank()
+            ...
 
         class ElementMethods(ABC):
-            @abstractmethod
-            def divisibility(self) -> Element:
-                ...
-
-            @abstractmethod
-            def is_primitive(self) -> bool:
-                ...
+            ...
 
         class MorphismMethods(ABC):
             ...
