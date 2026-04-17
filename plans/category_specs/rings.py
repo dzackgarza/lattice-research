@@ -333,18 +333,6 @@ class ModuleBaseRings(Category_singleton):
     class MorphismMethods: ...
 
 
-# Type aliases: use XCategoryObject in annotations instead of X.ParentMethods.
-ModuleBaseRingsCategoryObject = ModuleBaseRings.ParentMethods
-ModuleBaseRingElement = ModuleBaseRings.ElementMethods
-RingElement = ModuleBaseRingElement
-SageRawRingElement = SageRingElement
-ModuleBaseRingsMorphismObject = ModuleBaseRings.MorphismMethods
-RingMorphism = ModuleBaseRingsMorphismObject
-ModuleBaseIdealCategoryObject = ModuleBaseIdeals.ParentMethods
-LocalRingCategoryObject = ModuleBaseRings.Local.ParentMethods
-CompleteRingCategoryObject = ModuleBaseRings.Complete.ParentMethods
-
-
 # --- Module-level category refinement ----------------------------------------
 # Runs at import time.  Idempotent: checks ring.category() before refining.
 
