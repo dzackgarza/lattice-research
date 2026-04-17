@@ -25,6 +25,8 @@ BilinearFormSpace = TwistedForms.Bilinear.ParentMethods
 BilinearForm = TwistedForms.Bilinear.ElementMethods
 QuadraticFormSpace = TwistedForms.Quadratic.ParentMethods
 QuadraticForm = TwistedForms.Quadratic.ElementMethods
+LinearFormSpace = TwistedForms.Linear.ParentMethods
+LinearForm = TwistedForms.Linear.ElementMethods
 
 Cardinality = Integer | InfinityElement
 
@@ -47,7 +49,7 @@ RModEndsetElement = Modules.Homsets.Endset.ElementMethods
 RModAutset = Modules.Homsets.Endset.Autset.ParentMethods
 RModAutsetElement = Modules.Homsets.Endset.Autset.ElementMethods
 DualModule = Modules.DualObjects.ParentMethods
-DualModuleElement = Modules.DualObjects.ElementMethods
+RModDualElement = Modules.DualObjects.ElementMethods
 
 # RModWithForm = ModulesWithForms(R)
 RModWithForm = ModulesWithForms

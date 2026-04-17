@@ -37,9 +37,8 @@ from typing import TYPE_CHECKING, Any, final
 
 import sage.categories.category_with_axiom as _cwa
 from sage.categories.category import Category
-from sage.categories.category_types import Category_over_base_ring
+from sage.categories.category_over_base_ring import Category_over_base_ring
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.categories.dual import DualObjectsCategory
 from sage.categories.homset import Hom, Homset
 from sage.categories.homsets import HomsetsCategory
 from sage.categories.magmatic_algebras import MagmaticAlgebras
@@ -49,7 +48,6 @@ from sage.categories.quotients import QuotientsCategory
 from sage.categories.subobjects import SubobjectsCategory
 from sage.categories.tensor import TensorProductsCategory
 from sage.misc.cachefunc import cached_method
-from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import Infinity
 from sage.rings.integer import Integer
 from sage.rings.ring import Ring
@@ -215,32 +213,28 @@ class Modules(Category_over_base_ring):
         def Subobjects(self) -> Modules.Subobjects:
             return Modules.Subobjects.category_of(self)
 
-        @final
-        @cached_method
-        def SubObjects(self) -> Modules.Subobjects:
-            return self.Subobjects()
-
-        @final
-        @cached_method
-        def Submodules(self) -> Modules.Subobjects:
-            return self.Subobjects()
+        Submodules = Subobjects
+        SubObjects = Subobjects
 
         @final
         @cached_method
         def Quotients(self) -> Modules.Quotients:
             return Modules.Quotients.category_of(self)
 
-        @final
-        @cached_method
-        def QuotientObjects(self) -> Modules.Quotients:
-            return self.Quotients()
+        QuotientObjects = Quotients
 
         @final
         @cached_method
-        def DualObjects(self) -> Modules.DualObjects:
-            return Modules.DualObjects.category_of(self)
+        def DualObjects(self) -> Category:
+            return self.TwistedForms().Linear()
 
         dual_objects = DualObjects
+
+        @final
+        @cached_method
+        def TwistedForms(self) -> Category:
+            from .twisted_forms import TwistedForms
+            return TwistedForms(self.base_ring())
 
         @final
         @cached_method
@@ -566,57 +560,28 @@ class Modules(Category_over_base_ring):
 
     QuotientObjects = Quotients
 
-    class DualObjects(DualObjectsCategory):
-        r"""
-        Dual objects ``M^* = Hom_R(M, R)`` in the module hierarchy.
-
-        A dual parent is an actual Sage homset parent ``Hom_R(M, R)`` refined
-        into ``Modules(R).DualObjects()``.  The homset category supplies the
-        homset parent methods, and Sage's ``Homset._abstract_element_class``
-        supplies the morphism-class behavior for its elements.
-        """
+    class WithForm(CategoryWithAxiom_over_base_ring):
+        r"""Refinement for modules equipped with form data."""
 
         @final
-        def extra_super_categories(self):
-            return [self.base_category().Homsets()]
+        def super_categories(self):
+            return [self.base_category()]
+
+        @final
+        def additional_structure(self):
+            return self.base_category().TwistedForms()
 
         @final
         def _repr_object_names(self) -> str:
-            return "dual objects of modules"
+            return "modules with forms"
 
         def _latex_(self) -> str: ...
 
         class ParentMethods:
-            # @override DualObjectsCategory.ParentMethods.dual_of
-            @abstractmethod
-            def dual_of(self) -> RModule: ...
-
-            @final
-            def as_linear_dual(self) -> Homset:
-                return self
-
-            @abstractmethod
-            def natural_pairing(self) -> RModHomsetElement: ...
-
-            @abstractmethod
-            def _repr_(self) -> str: ...
-
-            @abstractmethod
-            def _latex_(self) -> str: ...
+            ...
 
         class ElementMethods:
-            @final
-            def as_linear_functional(self) -> RModHomsetElement:
-                return self
-
-            @final
-            def evaluate(self, value: RModuleElement) -> ModuleBaseRingElement:
-                return self(value)
-
-            @abstractmethod
-            def __call__(self, value: RModuleElement) -> ModuleBaseRingElement: ...
-
-        class MorphismMethods: ...
+            ...
 
     # ------------------------------------------------------------------
     # ParentMethods
@@ -1124,4 +1089,8 @@ class Modules(Category_over_base_ring):
 
             class MorphismMethods: ...
 
-    WithForm = LazyImport('category_specs.modules_with_forms', 'ModulesWithForms')
+
+from .twisted_forms import TwistedForms
+
+Modules.DualObjects = TwistedForms.Linear
+TwistedForms.Linear._base_category_class = (Modules,)
