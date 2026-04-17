@@ -3,7 +3,20 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import final
+from typing import TYPE_CHECKING, final
+
+if TYPE_CHECKING:
+    from .types import (
+        BilinearForm,
+        BilinearFormSpace,
+        QuadraticForm,
+        QuadraticFormSpace,
+        Ring,
+        RingElement,
+        RingMorphism,
+        RModuleElement,
+        TwistedForm,
+    )
 
 import sage.categories.category_with_axiom as _cwa
 from sage.categories.cartesian_product import CartesianProductsCategory
@@ -25,7 +38,7 @@ from .modules import Modules
 _cwa.all_axioms += ("NonDegenerate", "Integral", "Rational")
 
 
-class ModuleForm(ABC):
+class TwistedForm(ABC):
     r"""
     Abstract base class for tensor-degree semilinear data on an ``R``-module.
 
@@ -56,7 +69,7 @@ class ModuleForm(ABC):
         ...
 
     @abstractmethod
-    def scalar_action_endomorphism(self) -> Morphism:
+    def scalar_action_endomorphism(self) -> RingMorphism:
         ...
 
     @abstractmethod
@@ -64,7 +77,7 @@ class ModuleForm(ABC):
         ...
 
     @abstractmethod
-    def evaluate(self, value: Element) -> Element:
+    def evaluate(self, value: Element) -> RingElement:
         ...
 
     @abstractmethod
@@ -76,7 +89,7 @@ class ModuleForm(ABC):
         ...
 
 
-class BilinearForm(ModuleForm, Morphism, ABC):
+class BilinearForm(TwistedForm, Morphism, ABC):
     r"""
     Abstract base class for symmetric bilinear data of degree ``2``.
 
@@ -90,7 +103,7 @@ class BilinearForm(ModuleForm, Morphism, ABC):
         return Integer(2)
 
     @abstractmethod
-    def evaluate(self, value: Element, right: Element | None = None) -> Element:
+    def evaluate(self, value: RModuleElement, right: RModuleElement | None = None) -> RingElement:
         ...
 
     @abstractmethod
@@ -98,7 +111,7 @@ class BilinearForm(ModuleForm, Morphism, ABC):
         ...
 
 
-class QuadraticForm(ModuleForm):
+class QuadraticForm(TwistedForm):
     r"""
     Abstract base class for quadratic data of degree ``1``.
 
@@ -126,7 +139,15 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
 
     Homsets = LazyImport("category_specs.homsets", "ModulesWithFormsHomsets")
     DualObjects = LazyImport("category_specs.dual_objects", "ModulesWithFormsDualObjects")
-    BilinearForms = LazyImport("category_specs.bilinear_form", "BilinearForms")
+    @staticmethod
+    def BilinearForms(base_ring: Ring):
+        from .twisted_forms import TwistedForms
+        return TwistedForms(base_ring).Bilinear()
+
+    @staticmethod
+    def QuadraticForms(base_ring: Ring):
+        from .twisted_forms import TwistedForms
+        return TwistedForms(base_ring).Quadratic()
 
     # @override CategoryWithAxiom_over_base_ring.super_categories
     @final
@@ -136,7 +157,8 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
     # @override CategoryWithAxiom_over_base_ring.additional_structure
     @final
     def additional_structure(self):
-        return self
+        from .twisted_forms import TwistedForms
+        return TwistedForms(self.base_ring())
 
     # @override CategoryWithAxiom_over_base_ring._repr_object_names
     @final
@@ -212,8 +234,13 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
 
         @final
         @cached_method
-        def BilinearForms(self) -> Category:
+        def BilinearForms(self) -> BilinearFormSpace:
             return ModulesWithForms.BilinearForms(self.base_ring())
+
+        @final
+        @cached_method
+        def QuadraticForms(self) -> QuadraticFormSpace:
+            return ModulesWithForms.QuadraticForms(self.base_ring())
 
         @abstractmethod
         def zero_module(self) -> Parent:
@@ -594,6 +621,12 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
         def super_categories(self):
             return [ModulesWithForms(self.base_ring())]
 
+        # @override CategoryWithAxiom_over_base_ring.additional_structure
+        @final
+        def additional_structure(self):
+            from .twisted_forms import TwistedForms
+            return TwistedForms(self.base_ring()).Bilinear()
+
         # @override CategoryWithAxiom_over_base_ring._repr_object_names
         @final
         def _repr_object_names(self) -> str:
@@ -682,6 +715,12 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
         def super_categories(self):
             return [ModulesWithForms(self.base_ring())]
 
+        # @override CategoryWithAxiom_over_base_ring.additional_structure
+        @final
+        def additional_structure(self):
+            from .twisted_forms import TwistedForms
+            return TwistedForms(self.base_ring()).Quadratic()
+
         # @override CategoryWithAxiom_over_base_ring._repr_object_names
         @final
         def _repr_object_names(self) -> str:
@@ -740,7 +779,7 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstractmethod
-        def form(self) -> ModuleForm:
+        def form(self) -> TwistedForm:
             ...
 
         @final

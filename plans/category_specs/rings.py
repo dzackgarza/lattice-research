@@ -21,11 +21,16 @@ from sage.categories.rings import Rings as SageRings
 from sage.rings.integer import Integer
 
 if TYPE_CHECKING:
-    from .modules import (
-        FreeModuleCategoryObject,
-        IdealSubmodulesCategoryObject,
-        ModulesCategoryObject,
-        TorsionModuleCategoryObject,
+    from .types import (
+        CompleteRing,
+        FreeModule,
+        Ideal,
+        LocalRing,
+        Ring,
+        RingElement,
+        RingIdeal,
+        RModule,
+        TorsionModule,
     )
 
 Names = str | tuple[str, ...] | None
@@ -42,7 +47,7 @@ class ModuleBaseIdeals(Category_ideal):
     ``Modules(ZZ).Ideals()``.
     """
 
-    def __init__(self, ring: ModuleBaseRingsCategoryObject):
+    def __init__(self, ring: Ring):
         if ring not in ModuleBaseRings():
             raise TypeError(f"ring must be refined into ModuleBaseRings(); got {ring!r}")
         Category_ideal.__init__(self, ring)
@@ -58,29 +63,29 @@ class ModuleBaseIdeals(Category_ideal):
     class ParentMethods:
 
         # @override Ideal_generic.ring
-        def ring(self) -> ModuleBaseRingsCategoryObject: ...
+        def ring(self) -> Ring: ...
 
         # @override Ideal_generic.base_ring
         # @overload ideal parent base ring
-        def base_ring(self) -> ModuleBaseRingsCategoryObject: ...
+        def base_ring(self) -> Ring: ...
 
         # @override Ideal_generic.gens
-        def gens(self) -> tuple[ModuleBaseRingElement, ...]: ...
+        def gens(self) -> tuple[RingElement, ...]: ...
 
         # @override Ideal_generic.gen
-        def gen(self, index: int = 0) -> ModuleBaseRingElement: ...
+        def gen(self, index: int = 0) -> RingElement: ...
 
         # @override Ideal_generic.random_element
-        def random_element(self, *args, **kwds) -> ModuleBaseRingElement: ...
+        def random_element(self, *args, **kwds) -> RingElement: ...
 
         # @override Ideal_generic.reduce
-        def reduce(self, value: ModuleBaseRingElement) -> ModuleBaseRingElement: ...
+        def reduce(self, value: RingElement) -> RingElement: ...
 
         # @override Ideal_pid.gcd
-        def gcd(self, other: ModuleBaseIdealCategoryObject) -> ModuleBaseIdealCategoryObject: ...
+        def gcd(self, other: RingIdeal) -> RingIdeal: ...
 
         # @override Ideal_pid.lcm
-        def lcm(self, other: ModuleBaseIdealCategoryObject) -> ModuleBaseIdealCategoryObject: ...
+        def lcm(self, other: RingIdeal) -> RingIdeal: ...
 
     class ElementMethods:
         ...
@@ -133,7 +138,7 @@ class ModuleBaseRings(Category_singleton):
 
         class ParentMethods:
             @abstractmethod
-            def maximal_ideal(self) -> IdealSubmodulesCategoryObject: ...
+            def maximal_ideal(self) -> Ideal: ...
 
         class ElementMethods:
             ...
@@ -169,15 +174,15 @@ class ModuleBaseRings(Category_singleton):
 
         # @override CommutativeRings.unit_ideal
         @abstractmethod
-        def unit_ideal(self) -> IdealSubmodulesCategoryObject: ...
+        def unit_ideal(self) -> Ideal: ...
 
         # @override CommutativeRings.nilradical
         @abstractmethod
-        def nilradical(self) -> IdealSubmodulesCategoryObject: ...
+        def nilradical(self) -> Ideal: ...
 
         # @override CommutativeRings.ideal
         @abstractmethod
-        def ideal(self, generator: RingElement, **kwds) -> IdealSubmodulesCategoryObject:
+        def ideal(self, generator: RingElement, **kwds) -> Ideal:
             r"""
             Calls ``super().ideal(generator)``, then refines the result into
             ``ModuleBaseIdeals(self)`` and ``Modules(self).Ideals()``.
@@ -186,22 +191,22 @@ class ModuleBaseRings(Category_singleton):
 
         # @override Ring.__mul__
         @abstractmethod
-        def __mul__(self, generator: RingElement) -> IdealSubmodulesCategoryObject:
+        def __mul__(self, generator: RingElement) -> Ideal:
             r"""Delegates to ``self.ideal(generator)``."""
             ...
 
         # @override Ring.__rmul__
         @abstractmethod
-        def __rmul__(self, generator: RingElement) -> IdealSubmodulesCategoryObject: ...
+        def __rmul__(self, generator: RingElement) -> Ideal: ...
 
         # @override CommutativeRings.quotient
         @abstractmethod
         def quotient(
             self,
-            modulus: RingElement | IdealSubmodulesCategoryObject,
+            modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModuleCategoryObject:
+        ) -> TorsionModule:
             r"""
             Calls ``super().quotient(modulus)``, then refines the result via
             ``result._refine_category_(Modules(self).Torsion())``.
@@ -212,30 +217,30 @@ class ModuleBaseRings(Category_singleton):
         @abstractmethod
         def quo(
             self,
-            modulus: RingElement | IdealSubmodulesCategoryObject,
+            modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModuleCategoryObject: ...
+        ) -> TorsionModule: ...
 
         @final
         def quotient_ring(
             self,
-            modulus: RingElement | IdealSubmodulesCategoryObject,
+            modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModuleCategoryObject:
+        ) -> TorsionModule:
             return self.quotient(modulus, names=names, **kwds)
 
         @final
         def __truediv__(
             self,
-            modulus: RingElement | IdealSubmodulesCategoryObject,
-        ) -> TorsionModuleCategoryObject:
+            modulus: RingElement | Ideal,
+        ) -> TorsionModule:
             return self.quotient(modulus)
 
         # @override Ring.__pow__
         @abstractmethod
-        def __pow__(self, n: Integer) -> FreeModuleCategoryObject:
+        def __pow__(self, n: Integer) -> FreeModule:
             r"""
             Calls Sage's native ``__pow__`` via ``super()``, then refines
             the result via ``result._refine_category_(Modules(self).Free())``.
@@ -263,7 +268,7 @@ class ModuleBaseRings(Category_singleton):
         @abstractmethod
         def derivation_module(
             self, codomain=None, twist=None
-        ) -> ModulesCategoryObject:
+        ) -> RModule:
             r"""
             Calls ``super().derivation_module(...)``, then refines the result
             into ``Modules(self)``.
@@ -274,7 +279,7 @@ class ModuleBaseRings(Category_singleton):
         @abstractmethod
         def localization(
             self, *extra_units: RingElement, **kwds
-        ) -> LocalRingCategoryObject:
+        ) -> LocalRing:
             r"""
             Calls ``super().localization(*extra_units)``, then refines the
             returned ring via
@@ -289,7 +294,7 @@ class ModuleBaseRings(Category_singleton):
             place: RingElement,
             prec: Integer | None = None,
             extras: dict | None = None,
-        ) -> CompleteRingCategoryObject:
+        ) -> CompleteRing:
             r"""
             Calls ``super().completion(place, prec)``, then refines the
             returned ring via
@@ -299,7 +304,7 @@ class ModuleBaseRings(Category_singleton):
 
         # @override Ring.fraction_field
         @abstractmethod
-        def fraction_field(self) -> ModuleBaseRingsCategoryObject:
+        def fraction_field(self) -> Ring:
             r"""
             Calls ``super().fraction_field()``, then refines the returned
             field via ``result._refine_category_(ModuleBaseRings())``.
@@ -316,10 +321,10 @@ class ModuleBaseRings(Category_singleton):
     class ElementMethods:
 
         @abstractmethod
-        def parent(self) -> ModuleBaseRingsCategoryObject: ...
+        def parent(self) -> Ring: ...
 
         @abstractmethod
-        def principal_ideal(self) -> IdealSubmodulesCategoryObject:
+        def principal_ideal(self) -> Ideal:
             """Sugar for ``self.parent().ideal(self)``."""
             ...
 

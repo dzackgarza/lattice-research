@@ -4,7 +4,15 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
-from typing import Any, final
+from typing import TYPE_CHECKING, Any, final
+
+if TYPE_CHECKING:
+    from .types import (
+        RModAutset,
+        RModAutsetElement,
+        RModEndset,
+        RModEndsetElement,
+    )
 
 import sage.categories.category_with_axiom as _cwa
 from sage.categories.category_with_axiom import CategoryWithAxiom, CategoryWithAxiom_over_base_ring
@@ -20,7 +28,7 @@ from sage.structure.parent import Parent
 _cwa.all_axioms += ("Autset",)
 
 
-class ModuleAutomorphism(ABC):
+class RModAutsetElement(ABC):
     r"""
     An automorphism of a finitely presented ``R``-module.
 
@@ -29,7 +37,7 @@ class ModuleAutomorphism(ABC):
     """
 
     @abstractmethod
-    def parent(self) -> ModuleAutomorphismGroup: ...
+    def parent(self) -> RModAutset: ...
 
     @abstractmethod
     def domain(self) -> Parent: ...
@@ -42,26 +50,26 @@ class ModuleAutomorphism(ABC):
     def __call__(self, value: Element) -> Element: ...
 
     @abstractmethod
-    def endomorphism(self) -> EndomorphismAlgebraElement: ...
+    def endomorphism(self) -> RModEndsetElement: ...
 
     @abstractmethod
-    def as_unit(self) -> EndomorphismAlgebraElement: ...
+    def as_unit(self) -> RModEndsetElement: ...
 
     @abstractmethod
-    def inverse(self) -> ModuleAutomorphism: ...
+    def inverse(self) -> RModAutsetElement: ...
 
     @final
-    def __invert__(self) -> ModuleAutomorphism:
+    def __invert__(self) -> RModAutsetElement:
         return self.inverse()
 
     @abstractmethod
     def to_matrix(self) -> Matrix: ...
 
     @abstractmethod
-    def __mul__(self, other: ModuleAutomorphism) -> ModuleAutomorphism: ...
+    def __mul__(self, other: RModAutsetElement) -> RModAutsetElement: ...
 
 
-class ModuleAutomorphismGroup(ABC):
+class RModAutset(ABC):
     r"""
     The group ``Aut_R(M)`` of units of ``End_R(M)``.
 
@@ -73,10 +81,10 @@ class ModuleAutomorphismGroup(ABC):
     def module(self) -> Parent: ...
 
     @abstractmethod
-    def endomorphism_algebra(self) -> EndomorphismAlgebraCategoryObject: ...
+    def endomorphism_algebra(self) -> RModEndset: ...
 
     @final
-    def unit_group_of(self) -> EndomorphismAlgebraCategoryObject:
+    def unit_group_of(self) -> RModEndset:
         return self.endomorphism_algebra()
 
     @abstractmethod
@@ -90,19 +98,19 @@ class ModuleAutomorphismGroup(ABC):
         ...
 
     @abstractmethod
-    def identity(self) -> ModuleAutomorphism: ...
+    def identity(self) -> RModAutsetElement: ...
 
     @final
-    def one(self) -> ModuleAutomorphism:
+    def one(self) -> RModAutsetElement:
         return self.identity()
 
     @abstractmethod
-    def from_endomorphism(self, value: EndomorphismAlgebraElement) -> ModuleAutomorphism:
+    def from_endomorphism(self, value: RModEndsetElement) -> RModAutsetElement:
         r"""Coerce an invertible endomorphism into ``Aut_R(M)``."""
         ...
 
     @abstractmethod
-    def __iter__(self) -> Iterator[ModuleAutomorphism]: ...
+    def __iter__(self) -> Iterator[RModAutsetElement]: ...
 
     @abstractmethod
     def order(self) -> Any: ...
@@ -269,20 +277,20 @@ class ModuleHomsets(HomsetsCategory):
                 ...
 
             @abstractmethod
-            def from_matrix(self, matrix_data: Matrix) -> EndomorphismAlgebraElement:
+            def from_matrix(self, matrix_data: Matrix) -> RModEndsetElement:
                 ...
 
             @abstractmethod
-            def Aut(self) -> ModuleAutomorphismGroup:
+            def Aut(self) -> RModAutset:
                 ...
 
             @final
-            def unit_group(self) -> ModuleAutomorphismGroup:
+            def unit_group(self) -> RModAutset:
                 return self.Aut()
 
         class ElementMethods(ABC):
             @abstractmethod
-            def parent(self) -> EndomorphismAlgebraCategoryObject:
+            def parent(self) -> RModEndset:
                 ...
 
             @abstractmethod
@@ -290,15 +298,15 @@ class ModuleHomsets(HomsetsCategory):
                 ...
 
             @abstractmethod
-            def inverse(self) -> EndomorphismAlgebraElement:
+            def inverse(self) -> RModEndsetElement:
                 ...
 
             @final
-            def __invert__(self) -> EndomorphismAlgebraElement:
+            def __invert__(self) -> RModEndsetElement:
                 return self.inverse()
 
             @abstractmethod
-            def as_automorphism(self) -> ModuleAutomorphism:
+            def as_automorphism(self) -> RModAutsetElement:
                 ...
 
         class MorphismMethods(ABC):
@@ -326,13 +334,13 @@ class ModuleHomsets(HomsetsCategory):
 
             def _latex_(self) -> str: ...
 
-            class ParentMethods(ModuleAutomorphismGroup):
+            class ParentMethods(RModAutset):
                 @final
                 def object(self) -> Parent:
                     return self.module()
 
                 @final
-                def endomorphism_set(self) -> EndomorphismAlgebraCategoryObject:
+                def endomorphism_set(self) -> RModEndset:
                     return self.endomorphism_algebra()
 
                 @abstractmethod
@@ -347,7 +355,7 @@ class ModuleHomsets(HomsetsCategory):
                     """
                     ...
 
-            class ElementMethods(ModuleAutomorphism):
+            class ElementMethods(RModAutsetElement):
                 ...
 
 

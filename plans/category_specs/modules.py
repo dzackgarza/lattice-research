@@ -37,7 +37,7 @@ from typing import TYPE_CHECKING, Any, final
 
 import sage.categories.category_with_axiom as _cwa
 from sage.categories.category import Category
-from sage.categories.category_types import Category_module
+from sage.categories.category_types import Category_over_base_ring
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.dual import DualObjectsCategory
 from sage.categories.homset import Hom, Homset
@@ -58,11 +58,25 @@ from sage.structure.parent import Parent
 
 from .homsets import (
     ModuleAutomorphism,
-    ModuleAutomorphismGroup,
+    RModAutset,
 )
 
 if TYPE_CHECKING:
     from .rings import ModuleBaseRingElement, ModuleBaseRingsCategoryObject
+    from .types import (
+        DualModule,
+        DualModuleElement,
+        FreeModule,
+        Ideal,
+        QuotientModule,
+        RModEndset,
+        RModEndsetElement,
+        RModHomsetElement,
+        RModule,
+        RModuleElement,
+        SubModule,
+        TorsionModule,
+    )
 
 _cwa.all_axioms += ("WithGenerators", "Projective")
 
@@ -74,15 +88,15 @@ class BaseChangeFunctor(ABC):
     r"""Functor that tensors an ``R``-module (or morphism) with a ring map ``R → S``."""
 
     @abstractmethod
-    def apply_to_object(self, module: ModulesCategoryObject) -> ModulesCategoryObject:
+    def apply_to_object(self, module: RModule) -> RModule:
         ...
 
     @abstractmethod
-    def apply_to_morphism(self, morphism: ModulesMorphismObject) -> ModulesMorphismObject:
+    def apply_to_morphism(self, morphism: RModHomsetElement) -> RModHomsetElement:
         ...
 
 
-class Modules(Category_module):
+class Modules(Category_over_base_ring):
     r"""
     Category of finitely presented ``R``-modules with canonical generators,
     as a subcategory of ``SageModules(R).FinitelyPresented()``.
@@ -123,7 +137,7 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
 
     @abstractmethod
-    def free_module(self, n: Integer) -> FreeModuleCategoryObject:
+    def free_module(self, n: Integer) -> FreeModule:
         r"""
         Return ``R^n``.
 
@@ -133,7 +147,7 @@ class Modules(Category_module):
         ...
 
     @abstractmethod
-    def from_elements(self, elements: Sequence[ModuleBaseRingElement]) -> ModulesCategoryObject:
+    def from_elements(self, elements: Sequence[ModuleBaseRingElement]) -> RModule:
         r"""
         Return ``R/d_1 ⊕ ... ⊕ R/d_k`` from the sequence ``[d_1, ..., d_k]``.
 
@@ -145,7 +159,7 @@ class Modules(Category_module):
         ...
 
     @abstractmethod
-    def from_presentation_matrix(self, A: Matrix) -> ModulesCategoryObject:
+    def from_presentation_matrix(self, A: Matrix) -> RModule:
         r"""
         Construct from an arbitrary presentation matrix.
 
@@ -234,7 +248,7 @@ class Modules(Category_module):
             return self._with_axiom("WithForm")
 
         @abstractmethod
-        def zero_module(self) -> ModulesCategoryObject: ...
+        def zero_module(self) -> RModule: ...
 
         @abstractmethod
         def base_change(self, ring: ModuleBaseRingsCategoryObject) -> Modules: ...
@@ -243,10 +257,10 @@ class Modules(Category_module):
         def base_change_functor(self, ring: ModuleBaseRingsCategoryObject) -> BaseChangeFunctor: ...
 
         @abstractmethod
-        def random_module(self) -> ModulesCategoryObject: ...
+        def random_module(self) -> RModule: ...
 
         @abstractmethod
-        def an_object(self) -> ModulesCategoryObject: ...
+        def an_object(self) -> RModule: ...
 
     # ------------------------------------------------------------------
     # Subcategories
@@ -267,16 +281,16 @@ class Modules(Category_module):
 
         class ParentMethods:
             @abstractmethod
-            def module_generators(self) -> tuple[ModuleElement, ...]:
+            def module_generators(self) -> tuple[RModuleElement, ...]:
                 """Distinguished finite generating tuple. NOT a basis."""
                 ...
 
             @final
-            def gens(self) -> tuple[ModuleElement, ...]:
+            def gens(self) -> tuple[RModuleElement, ...]:
                 return self.module_generators()
 
             @final
-            def gen(self, index: int) -> ModuleElement:
+            def gen(self, index: int) -> RModuleElement:
                 return self.module_generators()[index]
 
             @final
@@ -358,7 +372,7 @@ class Modules(Category_module):
             @abstractmethod
             def tensor_module(
                 self, contravariant_degree: int, covariant_degree: int
-            ) -> FreeModuleCategoryObject: ...
+            ) -> FreeModule: ...
 
             @abstractmethod
             def tensor_algebra(self) -> Parent: ...
@@ -370,13 +384,13 @@ class Modules(Category_module):
             def symmetric_algebra(self) -> Parent: ...
 
             @abstractmethod
-            def wedge_power(self, degree: int) -> FreeModuleCategoryObject: ...
+            def wedge_power(self, degree: int) -> FreeModule: ...
 
             @abstractmethod
-            def determinant_module(self) -> FreeModuleCategoryObject: ...
+            def determinant_module(self) -> FreeModule: ...
 
             @abstractmethod
-            def linear_form(self, coefficients: Sequence[ModuleBaseRingElement]) -> ModulesMorphismObject:
+            def linear_form(self, coefficients: Sequence[ModuleBaseRingElement]) -> RModHomsetElement:
                 r"""
                 Return the linear functional ``M → R`` whose value on
                 generator ``g_i`` is ``coefficients[i]``.
@@ -419,12 +433,12 @@ class Modules(Category_module):
                 ...
 
             @abstractmethod
-            def annihilator(self) -> IdealSubmodulesCategoryObject:
+            def annihilator(self) -> Ideal:
                 """The annihilator ideal of the torsion module."""
                 ...
 
             @abstractmethod
-            def p_part(self, p: ModuleBaseRingElement) -> TorsionModuleCategoryObject: ...
+            def p_part(self, p: ModuleBaseRingElement) -> TorsionModule: ...
 
             @abstractmethod
             def is_p_elementary(self, p: ModuleBaseRingElement) -> bool: ...
@@ -489,17 +503,17 @@ class Modules(Category_module):
 
         class ParentMethods:
             @final
-            def ambient(self) -> ModulesCategoryObject:
+            def ambient(self) -> RModule:
                 return self.inclusion().codomain()
 
             @abstractmethod
-            def inclusion(self) -> ModulesMorphismObject: ...
+            def inclusion(self) -> RModHomsetElement: ...
 
             @abstractmethod
-            def intersect(self, other: SubmoduleCategoryObject) -> SubmoduleCategoryObject: ...
+            def intersect(self, other: SubModule) -> SubModule: ...
 
             @final
-            def __and__(self, other: SubmoduleCategoryObject) -> SubmoduleCategoryObject:
+            def __and__(self, other: SubModule) -> SubModule:
                 return self.intersect(other)
 
             @abstractmethod
@@ -532,7 +546,7 @@ class Modules(Category_module):
 
         class ParentMethods:
             @abstractmethod
-            def projection(self) -> ModulesMorphismObject: ...
+            def projection(self) -> RModHomsetElement: ...
 
         class ElementMethods: ...
         class MorphismMethods: ...
@@ -541,7 +555,7 @@ class Modules(Category_module):
         class Homsets(HomsetsCategory):
             class ElementMethods:
                 @abstractmethod
-                def evaluate(self, *args: Any) -> ModuleElement:
+                def evaluate(self, *args: Any) -> RModuleElement:
                     r"""
                     Evaluate this tensor-hom morphism.
                     
@@ -575,14 +589,14 @@ class Modules(Category_module):
         class ParentMethods:
             # @override DualObjectsCategory.ParentMethods.dual_of
             @abstractmethod
-            def dual_of(self) -> ModulesCategoryObject: ...
+            def dual_of(self) -> RModule: ...
 
             @final
             def as_linear_dual(self) -> Homset:
                 return self
 
             @abstractmethod
-            def natural_pairing(self) -> ModulesMorphismObject: ...
+            def natural_pairing(self) -> RModHomsetElement: ...
 
             @abstractmethod
             def _repr_(self) -> str: ...
@@ -592,15 +606,15 @@ class Modules(Category_module):
 
         class ElementMethods:
             @final
-            def as_linear_functional(self) -> ModulesMorphismObject:
+            def as_linear_functional(self) -> RModHomsetElement:
                 return self
 
             @final
-            def evaluate(self, value: ModuleElement) -> ModuleBaseRingElement:
+            def evaluate(self, value: RModuleElement) -> ModuleBaseRingElement:
                 return self(value)
 
             @abstractmethod
-            def __call__(self, value: ModuleElement) -> ModuleBaseRingElement: ...
+            def __call__(self, value: RModuleElement) -> ModuleBaseRingElement: ...
 
         class MorphismMethods: ...
 
@@ -620,23 +634,23 @@ class Modules(Category_module):
             ...
 
         @abstractmethod
-        def __iter__(self) -> Iterator[ModuleElement]: ...
+        def __iter__(self) -> Iterator[RModuleElement]: ...
 
         @abstractmethod
-        def zero(self) -> ModuleElement: ...
+        def zero(self) -> RModuleElement: ...
 
         # @overload module parent base ring
         @abstractmethod
         def base_ring(self) -> ModuleBaseRingsCategoryObject: ...
 
         @abstractmethod
-        def free_part(self) -> FreeModuleCategoryObject: ...
+        def free_part(self) -> FreeModule: ...
 
         @abstractmethod
-        def torsion_part(self) -> TorsionModuleCategoryObject: ...
+        def torsion_part(self) -> TorsionModule: ...
 
         @abstractmethod
-        def dual(self) -> DualModuleCategoryObject:
+        def dual(self) -> DualModule:
             r"""
             The ``R``-dual ``Hom_R(M, R)`` as an object of
             ``Modules(R).DualObjects()``.
@@ -646,8 +660,8 @@ class Modules(Category_module):
         @abstractmethod
         def annihilator(
             self,
-            value: ModuleElement | SubmoduleCategoryObject | None = None,
-        ) -> IdealSubmodulesCategoryObject:
+            value: RModuleElement | SubModule | None = None,
+        ) -> Ideal:
             r"""
             Annihilator ideal.
 
@@ -680,64 +694,64 @@ class Modules(Category_module):
             return self.cardinality() != Infinity
 
         @abstractmethod
-        def is_isomorphic_to(self, other: ModulesCategoryObject) -> bool: ...
+        def is_isomorphic_to(self, other: RModule) -> bool: ...
 
         @final
-        def Hom(self, other: ModulesCategoryObject) -> Homset:
+        def Hom(self, other: RModule) -> Homset:
             return Hom(self, other, category=self.category())
 
         @final
-        def End(self) -> EndomorphismAlgebraCategoryObject:
+        def End(self) -> RModEndset:
             return self.Hom(self)
 
         @final
-        def Aut(self) -> ModuleAutomorphismGroup:
+        def Aut(self) -> RModAutset:
             return self.End().unit_group()
 
         @abstractmethod
-        def direct_sum(self, *others: ModulesCategoryObject) -> ModulesCategoryObject: ...
+        def direct_sum(self, *others: RModule) -> RModule: ...
 
         @abstractmethod
-        def tensor(self, *others: ModulesCategoryObject) -> ModulesCategoryObject: ...
+        def tensor(self, *others: RModule) -> RModule: ...
 
         @abstractmethod
         def span(
             self,
-            elements: Iterable[ModuleElement] | ModuleBaseRingElement,
-        ) -> SubmoduleCategoryObject: ...
+            elements: Iterable[RModuleElement] | ModuleBaseRingElement,
+        ) -> SubModule: ...
 
         @abstractmethod
-        def submodule(self, generators: Iterable[ModuleElement]) -> SubmoduleCategoryObject: ...
+        def submodule(self, generators: Iterable[RModuleElement]) -> SubModule: ...
 
         @abstractmethod
-        def submodules(self) -> Iterable[SubmoduleCategoryObject]: ...
+        def submodules(self) -> Iterable[SubModule]: ...
 
         @abstractmethod
         def is_submodule_of(
             self,
-            other: ModulesCategoryObject,
-            morphism: ModulesMorphismObject | None = None,
+            other: RModule,
+            morphism: RModHomsetElement | None = None,
         ) -> bool: ...
 
         @abstractmethod
-        def quotient(self, submodule: SubmoduleCategoryObject) -> QuotientModuleCategoryObject: ...
+        def quotient(self, submodule: SubModule) -> QuotientModule: ...
 
         @final
-        def __truediv__(self, submodule: SubmoduleCategoryObject) -> QuotientModuleCategoryObject:
+        def __truediv__(self, submodule: SubModule) -> QuotientModule:
             return self.quotient(submodule)
 
         @abstractmethod
-        def saturation(self) -> SubmoduleCategoryObject: ...
+        def saturation(self) -> SubModule: ...
 
         @abstractmethod
         def is_primitive(self) -> bool: ...
 
         @final
-        def __add__(self, other: ModulesCategoryObject) -> ModulesCategoryObject:
+        def __add__(self, other: RModule) -> RModule:
             return self.direct_sum(other)
 
         @abstractmethod
-        def _mul_(self, other: ModuleBaseRingElement | ModulesCategoryObject) -> ModulesCategoryObject:
+        def _mul_(self, other: ModuleBaseRingElement | RModule) -> RModule:
             r"""
             Dispatch multiplication by type.
 
@@ -748,16 +762,16 @@ class Modules(Category_module):
             ...
 
         @final
-        def __mul__(self, other: ModuleBaseRingElement | ModulesCategoryObject) -> ModulesCategoryObject:
+        def __mul__(self, other: ModuleBaseRingElement | RModule) -> RModule:
             return self._mul_(other)
 
         @abstractmethod
-        def _lmul_(self, scalar: ModuleBaseRingElement) -> SubmoduleCategoryObject:
+        def _lmul_(self, scalar: ModuleBaseRingElement) -> SubModule:
             r"""Return the submodule ``scalar · self = {scalar · m | m ∈ self}``."""
             ...
 
         @final
-        def __rmul__(self, scalar: ModuleBaseRingElement) -> SubmoduleCategoryObject:
+        def __rmul__(self, scalar: ModuleBaseRingElement) -> SubModule:
             return self._lmul_(scalar)
 
         @abstractmethod
@@ -776,7 +790,7 @@ class Modules(Category_module):
     class ElementMethods:
 
         @abstractmethod
-        def parent(self) -> ModulesCategoryObject: ...
+        def parent(self) -> RModule: ...
 
         @abstractmethod
         def order(self) -> ElementOrder:
@@ -784,7 +798,7 @@ class Modules(Category_module):
             ...
 
         @abstractmethod
-        def annihilator(self) -> IdealSubmodulesCategoryObject:
+        def annihilator(self) -> Ideal:
             r"""Annihilator ideal ``{r ∈ R | r·self = 0}``."""
             ...
 
@@ -801,20 +815,20 @@ class Modules(Category_module):
             ...
 
         @final
-        def span(self) -> SubmoduleCategoryObject:
+        def span(self) -> SubModule:
             return self.parent().span([self])
 
         @abstractmethod
-        def __add__(self, other: ModuleElement) -> ModuleElement: ...
+        def __add__(self, other: RModuleElement) -> RModuleElement: ...
 
         @abstractmethod
-        def __neg__(self) -> ModuleElement: ...
+        def __neg__(self) -> RModuleElement: ...
 
         @abstractmethod
-        def _lmul_(self, scalar: ModuleBaseRingElement) -> ModuleElement: ...
+        def _lmul_(self, scalar: ModuleBaseRingElement) -> RModuleElement: ...
 
         @final
-        def __rmul__(self, scalar: ModuleBaseRingElement) -> ModuleElement:
+        def __rmul__(self, scalar: ModuleBaseRingElement) -> RModuleElement:
             return self._lmul_(scalar)
 
         @abstractmethod
@@ -831,38 +845,38 @@ class Modules(Category_module):
 
         # @override Morphism.domain
         @abstractmethod
-        def domain(self) -> ModulesCategoryObject: ...
+        def domain(self) -> RModule: ...
 
         # @override Morphism.codomain
         @abstractmethod
-        def codomain(self) -> ModulesCategoryObject: ...
+        def codomain(self) -> RModule: ...
 
         @abstractmethod
-        def __call__(self, value: ModuleElement) -> ModuleElement: ...
+        def __call__(self, value: RModuleElement) -> RModuleElement: ...
 
         @abstractmethod
         def to_matrix(self) -> Matrix: ...
 
         @final
-        def to_tuple_of_images(self) -> tuple[ModuleElement, ...]:
+        def to_tuple_of_images(self) -> tuple[RModuleElement, ...]:
             return tuple(self(g) for g in self.domain().gens())
 
         @final
-        def to_list_of_images(self) -> list[ModuleElement]:
+        def to_list_of_images(self) -> list[RModuleElement]:
             return list(self.to_tuple_of_images())
 
         @final
-        def to_dict(self) -> dict[ModuleElement, ModuleElement]:
+        def to_dict(self) -> dict[RModuleElement, RModuleElement]:
             return dict(zip(self.domain().gens(), self.to_tuple_of_images(), strict=True))
 
         @abstractmethod
-        def image(self) -> SubmoduleCategoryObject: ...
+        def image(self) -> SubModule: ...
 
         @abstractmethod
-        def kernel(self) -> SubmoduleCategoryObject: ...
+        def kernel(self) -> SubModule: ...
 
         @abstractmethod
-        def cokernel(self) -> QuotientModuleCategoryObject: ...
+        def cokernel(self) -> QuotientModule: ...
 
         @abstractmethod
         def index(self) -> Cardinality:
@@ -870,10 +884,10 @@ class Modules(Category_module):
             ...
 
         @abstractmethod
-        def lift(self, value: ModuleElement) -> ModuleElement: ...
+        def lift(self, value: RModuleElement) -> RModuleElement: ...
 
         @abstractmethod
-        def lift_generators(self) -> tuple[ModuleElement, ...]:
+        def lift_generators(self) -> tuple[RModuleElement, ...]:
             r"""
             Lift the generators of ``codomain`` to elements of ``domain``
             along this morphism.
@@ -881,10 +895,10 @@ class Modules(Category_module):
             ...
 
         @abstractmethod
-        def saturation(self) -> SubmoduleCategoryObject: ...
+        def saturation(self) -> SubModule: ...
 
         @abstractmethod
-        def invariant_submodule(self) -> SubmoduleCategoryObject:
+        def invariant_submodule(self) -> SubModule:
             r"""
             Subobject of ``domain`` fixed by this endomorphism.
 
@@ -893,7 +907,7 @@ class Modules(Category_module):
             ...
 
         @abstractmethod
-        def coinvariant_submodule(self) -> QuotientModuleCategoryObject:
+        def coinvariant_submodule(self) -> QuotientModule:
             r"""
             Quotient of ``domain`` by the image of ``(id - self)``.
 
@@ -926,18 +940,18 @@ class Modules(Category_module):
         def is_primitive(self) -> bool: ...
 
         @abstractmethod
-        def direct_sum(self, other: ModulesMorphismObject) -> ModulesMorphismObject: ...
+        def direct_sum(self, other: RModHomsetElement) -> RModHomsetElement: ...
 
         @abstractmethod
-        def tensor(self, other: ModulesMorphismObject) -> ModulesMorphismObject: ...
+        def tensor(self, other: RModHomsetElement) -> RModHomsetElement: ...
 
         @abstractmethod
         def base_change(
             self, ring: ModuleBaseRingsCategoryObject
-        ) -> ModulesMorphismObject: ...
+        ) -> RModHomsetElement: ...
 
         @abstractmethod
-        def __mul__(self, other: ModulesMorphismObject) -> ModulesMorphismObject: ...
+        def __mul__(self, other: RModHomsetElement) -> RModHomsetElement: ...
 
         @abstractmethod
         def _repr_(self) -> str: ...
@@ -971,11 +985,11 @@ class Modules(Category_module):
 
             # @override Homset.domain
             @abstractmethod
-            def domain(self) -> ModulesCategoryObject: ...
+            def domain(self) -> RModule: ...
 
             # @override Homset.codomain
             @abstractmethod
-            def codomain(self) -> ModulesCategoryObject: ...
+            def codomain(self) -> RModule: ...
 
             # @overload homset parent base ring
             @final
@@ -985,28 +999,28 @@ class Modules(Category_module):
 
             @abstractmethod
             def from_dict(
-                self, mapping: Mapping[ModuleElement, ModuleElement]
-            ) -> ModulesMorphismObject: ...
+                self, mapping: Mapping[RModuleElement, RModuleElement]
+            ) -> RModHomsetElement: ...
 
             @abstractmethod
             def from_images(
-                self, images: Sequence[ModuleElement]
-            ) -> ModulesMorphismObject: ...
+                self, images: Sequence[RModuleElement]
+            ) -> RModHomsetElement: ...
 
             @final
             def from_tuple_of_images(
-                self, images: tuple[ModuleElement, ...]
-            ) -> ModulesMorphismObject:
+                self, images: tuple[RModuleElement, ...]
+            ) -> RModHomsetElement:
                 return self.from_images(images)
 
             @abstractmethod
-            def from_matrix(self, matrix_data: Matrix) -> ModulesMorphismObject: ...
+            def from_matrix(self, matrix_data: Matrix) -> RModHomsetElement: ...
 
             @abstractmethod
-            def natural_map(self) -> ModulesMorphismObject: ...
+            def natural_map(self) -> RModHomsetElement: ...
 
             @abstractmethod
-            def __call__(self, data: Any) -> ModulesMorphismObject: ...
+            def __call__(self, data: Any) -> RModHomsetElement: ...
 
             @abstractmethod
             def __contains__(self, value: Any) -> bool: ...
@@ -1044,22 +1058,22 @@ class Modules(Category_module):
             class ParentMethods:
 
                 @final
-                def module(self) -> ModulesCategoryObject:
+                def module(self) -> RModule:
                     return self.domain()
 
                 @abstractmethod
-                def identity(self) -> ModulesMorphismObject: ...
+                def identity(self) -> RModHomsetElement: ...
 
                 @final
-                def id(self) -> ModulesMorphismObject:
+                def id(self) -> RModHomsetElement:
                     return self.identity()
 
                 @final
-                def one(self) -> ModulesMorphismObject:
+                def one(self) -> RModHomsetElement:
                     return self.identity()
 
                 @abstractmethod
-                def zero(self) -> ModulesMorphismObject: ...
+                def zero(self) -> RModHomsetElement: ...
 
                 @abstractmethod
                 def matrix_algebra_quotient(self) -> Parent:
@@ -1075,19 +1089,19 @@ class Modules(Category_module):
                     ...
 
                 @abstractmethod
-                def from_matrix(self, matrix_data: Matrix) -> EndomorphismAlgebraElement: ...
+                def from_matrix(self, matrix_data: Matrix) -> RModEndsetElement: ...
 
                 @abstractmethod
-                def Aut(self) -> ModuleAutomorphismGroup: ...
+                def Aut(self) -> RModAutset: ...
 
                 @final
-                def unit_group(self) -> ModuleAutomorphismGroup:
+                def unit_group(self) -> RModAutset:
                     return self.Aut()
 
             class ElementMethods:
 
                 @abstractmethod
-                def parent(self) -> EndomorphismAlgebraCategoryObject: ...
+                def parent(self) -> RModEndset: ...
 
                 @abstractmethod
                 def is_unit(self) -> bool:
@@ -1095,12 +1109,12 @@ class Modules(Category_module):
                     ...
 
                 @abstractmethod
-                def inverse(self) -> EndomorphismAlgebraElement:
+                def inverse(self) -> RModEndsetElement:
                     r"""Inverse in ``End_R(M)``; defined exactly for units."""
                     ...
 
                 @final
-                def __invert__(self) -> EndomorphismAlgebraElement:
+                def __invert__(self) -> RModEndsetElement:
                     return self.inverse()
 
                 @abstractmethod

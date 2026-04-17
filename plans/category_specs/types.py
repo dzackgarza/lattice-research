@@ -4,15 +4,19 @@
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 
-from .modules import Modules
+from .modules import Ideals, Modules
 from .modules_with_forms import ModulesWithForms
-from .rings import ModuleBaseRings
+from .rings import ModuleBaseIdeals, ModuleBaseRings
 from .twisted_forms import TwistedForms
 
 # Generic / Support
 Ring = ModuleBaseRings.ParentMethods
 RingElement = ModuleBaseRings.ElementMethods
 RingMorphism = ModuleBaseRings.MorphismMethods
+
+RingIdeal = ModuleBaseIdeals.ParentMethods
+LocalRing = ModuleBaseRings.Local.ParentMethods
+CompleteRing = ModuleBaseRings.Complete.ParentMethods
 
 # Twisted Forms
 TwistedFormSpace = TwistedForms.ParentMethods
@@ -28,10 +32,12 @@ Cardinality = Integer | InfinityElement
 RMod = Modules
 RModule = Modules.ParentMethods
 RModuleElement = Modules.ElementMethods
+FreeModule = Modules.Free.ParentMethods
+TorsionModule = Modules.Torsion.ParentMethods
+ProjectiveModule = Modules.Projective.ParentMethods
 SubModule = Modules.Subobjects.ParentMethods
 TensorProductRModule = Modules.TensorProducts.ParentMethods
 
-from .modules import Ideals
 Ideal = Ideals.ParentMethods
 
 RModHomset = Modules.Homsets.ParentMethods

@@ -5,15 +5,18 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, final
 
+if TYPE_CHECKING:
+    from .types import (
+        BilinearForm,
+        RingElement,
+        RModHomsetElement,
+        RModuleElement,
+        RModuleWithForm,
+    )
+
 from sage.categories.dual import DualObjectsCategory
-from sage.categories.morphism import Morphism
-from sage.structure.element import Element, RingElement
-from sage.structure.parent import Parent
 
 from .homsets import ModulesWithFormsHomsets
-
-if TYPE_CHECKING:
-    from .modules_with_forms import BilinearForm
 
 
 class ModulesWithFormsDualObjects(DualObjectsCategory):
@@ -45,7 +48,7 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
     class ParentMethods(ABC):
         # @override DualObjectsCategory.ParentMethods.dual_of
         @abstractmethod
-        def dual_of(self) -> Parent:
+        def dual_of(self) -> RModuleWithForm:
             ...
 
         # @override DualObjectsCategory.ParentMethods.natural_pairing
@@ -54,11 +57,11 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
             ...
 
         @final
-        def formal_dual_basis(self) -> tuple[Morphism, ...]:
+        def formal_dual_basis(self) -> tuple[RModHomsetElement, ...]:
             return self.gens()
 
         @abstractmethod
-        def source_form_as_dual_tensor(self) -> Element:
+        def source_form_as_dual_tensor(self) -> RModuleElement:
             ...
 
         @abstractmethod
@@ -71,11 +74,11 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
 
     class ElementMethods(ABC):
         @abstractmethod
-        def __call__(self, value: Element) -> RingElement:
+        def __call__(self, value: RModuleElement) -> RingElement:
             ...
 
         @abstractmethod
-        def __mul__(self, value: Element | Morphism) -> RingElement:
+        def __mul__(self, value: RModuleElement | RModHomsetElement) -> RingElement:
             ...
 
     class MorphismMethods(ABC):

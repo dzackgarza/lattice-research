@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import final
+
 import sage.categories.category_with_axiom as _cwa
 from sage.categories.category import Category
 from sage.categories.category_types import Category_over_base_ring
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.rings.integer import Integer
 from sage.structure.element import Matrix
-from sage.structure.parent import Parent
 
 from .types import (
     BilinearForm,
@@ -19,7 +19,6 @@ from .types import (
     QuadraticFormSpace,
     RingMorphism,
     RModule,
-    RModuleElement,
     TensorProductRModule,
 )
 
