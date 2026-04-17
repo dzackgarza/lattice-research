@@ -440,40 +440,8 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
                 ...
 
             @abstractmethod
-            def determinant(self) -> Element:
-                ...
-
-            @abstractmethod
-            def discriminant(self) -> Element:
-                ...
-
-            @abstractmethod
             def rational_span(self) -> Parent:
                 ...
-
-            @abstractmethod
-            def is_isometric_to(
-                self,
-                other: Parent,
-                witness: bool = False,
-            ) -> bool | tuple[bool, Morphism]:
-                ...
-
-            @abstractmethod
-            def is_rationally_isometric_to(self, other: Parent) -> bool:
-                ...
-
-            @abstractmethod
-            def is_locally_isometric_to(self, other: Parent, p: Element) -> bool:
-                ...
-
-            @abstractmethod
-            def orthogonal_group(self) -> Parent:
-                ...
-
-            @final
-            def O(self) -> Parent:
-                return self.orthogonal_group()
 
         class ElementMethods(ABC):
             ...
@@ -683,9 +651,7 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
                 ...
 
         class MorphismMethods(ABC):
-            @final
-            def is_isometry(self) -> bool:
-                return self.is_form_preserving()
+            ...
 
         class Homsets(ModulesWithFormsHomsets):
             class ParentMethods(ModulesWithFormsHomsets.ParentMethods):
@@ -827,6 +793,30 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstractmethod
+        def determinant(self) -> Element:
+            ...
+
+        @abstractmethod
+        def discriminant(self) -> Element:
+            ...
+
+        @abstractmethod
+        def is_rationally_isometric_to(self, other: Parent) -> bool:
+            ...
+
+        @abstractmethod
+        def is_locally_isometric_to(self, other: Parent, p: Element) -> bool:
+            ...
+
+        @abstractmethod
+        def orthogonal_group(self) -> Parent:
+            ...
+
+        @final
+        def O(self) -> Parent:
+            return self.orthogonal_group()
+
+        @abstractmethod
         def zero_submodule(self) -> Parent:
             ...
 
@@ -860,15 +850,6 @@ class ModulesWithForms(CategoryWithAxiom_over_base_ring):
             return self.parent().q(self)
 
     class MorphismMethods(Modules.MorphismMethods, ABC):
-        @abstractmethod
-        def is_form_preserving(self) -> bool:
-            """Whether this morphism preserves the form data."""
-            ...
-
-        @abstractmethod
-        def is_isometry(self) -> bool:
-            ...
-
         @abstractmethod
         def adjoint(self) -> Morphism:
             ...

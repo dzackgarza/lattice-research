@@ -191,6 +191,10 @@ class ModuleHomsets(HomsetsCategory):
             ...
 
         @abstractmethod
+        def zero(self) -> Morphism:
+            ...
+
+        @abstractmethod
         def _repr_(self) -> str:
             ...
 
@@ -347,10 +351,6 @@ class ModuleHomsets(HomsetsCategory):
                 ...
 
 
-EndomorphismAlgebraCategoryObject = ModuleHomsets.Endset.ParentMethods
-EndomorphismAlgebraElement = ModuleHomsets.Endset.ElementMethods
-
-
 class ModulesWithFormsHomsets(ModuleHomsets):
     r"""Homset category for modules with forms."""
 
@@ -374,50 +374,7 @@ class ModulesWithFormsHomsets(ModuleHomsets):
         ...
 
     class ParentMethods(ABC):
-        @abstractmethod
-        def domain(self) -> Parent:
-            ...
-
-        @abstractmethod
-        def codomain(self) -> Parent:
-            ...
-
-        @final
-        @cached_method
-        def base_ring(self) -> Ring:
-            return self.domain().base_ring()
-
-        @abstractmethod
-        def from_dict(self, mapping: Mapping[Element, Element]) -> Morphism:
-            ...
-
-        @abstractmethod
-        def from_images(self, images: Sequence[Element]) -> Morphism:
-            ...
-
-        @abstractmethod
-        def from_matrix(self, matrix_data: Matrix) -> Morphism:
-            ...
-
-        @abstractmethod
-        def __call__(self, data: object) -> Morphism:
-            ...
-
-        @abstractmethod
-        def __contains__(self, value: object) -> bool:
-            ...
-
-        @abstractmethod
-        def zero(self) -> Morphism:
-            ...
-
-        @abstractmethod
-        def _repr_(self) -> str:
-            ...
-
-        @abstractmethod
-        def _latex_(self) -> str:
-            ...
+        ...
 
     class ElementMethods(ABC):
         ...
@@ -436,25 +393,7 @@ class ModulesWithFormsHomsets(ModuleHomsets):
             ...
 
         class ParentMethods(ABC):
-            @abstractmethod
-            def identity(self) -> Morphism:
-                ...
-
-            @final
-            def id(self) -> Morphism:
-                return self.identity()
-
-            @abstractmethod
-            def Aut(self) -> Parent:
-                ...
-
-            @abstractmethod
-            def _repr_(self) -> str:
-                ...
-
-            @abstractmethod
-            def _latex_(self) -> str:
-                ...
+            ...
 
         class ElementMethods(ABC):
             ...

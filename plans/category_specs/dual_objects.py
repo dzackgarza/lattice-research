@@ -55,10 +55,6 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
             ...
 
         @final
-        def as_linear_dual(self) -> Homset:
-            return self
-
-        @final
         def formal_dual_basis(self) -> tuple[Morphism, ...]:
             return self.gens()
 
@@ -75,14 +71,6 @@ class ModulesWithFormsDualObjects(DualObjectsCategory):
             ...
 
     class ElementMethods(ABC):
-        @final
-        def as_linear_functional(self) -> Morphism:
-            return self
-
-        @final
-        def evaluate(self, value: Element) -> RingElement:
-            return self(value)
-
         @abstractmethod
         def __call__(self, value: Element) -> RingElement:
             ...

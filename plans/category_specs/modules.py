@@ -1097,20 +1097,3 @@ class Modules(Category_module):
             class MorphismMethods: ...
 
     WithForm = LazyImport('category_specs.modules_with_forms', 'ModulesWithForms')
-
-
-# Type aliases: use XCategoryObject in annotations instead of X.ParentMethods.
-ModulesCategoryObject = Modules.ParentMethods
-ModuleElement = Modules.ElementMethods
-ModulesMorphismObject = Modules.MorphismMethods
-ModuleMorphism = ModulesMorphismObject
-FreeModuleCategoryObject = Modules.Free.ParentMethods
-TorsionModuleCategoryObject = Modules.Torsion.ParentMethods
-IdealSubmodulesCategoryObject = Modules.Ideals.ParentMethods
-SubmoduleCategoryObject = Modules.Subobjects.ParentMethods
-QuotientModuleCategoryObject = Modules.Quotients.ParentMethods
-DualModuleCategoryObject = Modules.DualObjects.ParentMethods
-DualModuleElement = Modules.DualObjects.ElementMethods
-ProjectiveModuleCategoryObject = Modules.Projective.ParentMethods
-EndomorphismAlgebraCategoryObject = Modules.Homsets.Endset.ParentMethods
-EndomorphismAlgebraElement = Modules.Homsets.Endset.ElementMethods
