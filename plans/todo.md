@@ -79,3 +79,16 @@ Define the following centrally (e.g., in a `types.py`) by aliasing them to the r
 - `BilinearForm`: `BilinearForms.ParentMethods`
 - `QuadraticForm`: `QuadraticForms.ParentMethods`
 - `Cardinality` (N \cup {∞}): `Integer | InfinityElement`
+
+### 4. Refactor Forms into `TwistedForms` Category
+Currently, `ModulesWithForms` is doing too much and forms (`BilinearForm`, `QuadraticForm`) are handled somewhat manually. We need to introduce a rigorous category for the forms themselves:
+
+1. **Define `TwistedForms` Category**:
+   - Objects are elements of $\text{Hom}_R(T_R(M)[k], R)^\sigma$.
+   - Here $T_R(M)$ is the tensor algebra of $M$ in $R$-Mod, $[k]$ denotes the $k$-th graded piece, and $\sigma \in \text{Aut}(R)$.
+   - These represent forms where $f(r \cdot m) = \sigma(r) \cdot f(m)$ twisted by an automorphism.
+   - This category should have explicit `.Bilinear()` and `.Quadratic()` subcategories.
+
+2. **Refactor `ModulesWithForms`**:
+   - `ModulesWithForms` should be redefined as a subcategory of `Modules(R)` equipped with extra structure.
+   - The extra structure is specifically an object from the `TwistedForms` category.

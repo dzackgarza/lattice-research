@@ -5,6 +5,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
+import sage.categories.category_with_axiom as _cwa
 from sage.categories.cartesian_product import CartesianProductsCategory
 from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
@@ -20,6 +21,8 @@ from sage.structure.parent import Parent
 
 from .homsets import ModulesWithFormsHomsets
 from .modules import Modules
+
+_cwa.all_axioms += ("NonDegenerate", "Integral", "Rational")
 
 
 class ModuleForm(ABC):

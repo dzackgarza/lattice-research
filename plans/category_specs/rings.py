@@ -19,7 +19,6 @@ from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.rings.integer import Integer
-from sage.structure.element import RingElement as SageRingElement
 
 if TYPE_CHECKING:
     from .modules import (

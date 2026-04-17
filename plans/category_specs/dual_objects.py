@@ -6,7 +6,6 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.dual import DualObjectsCategory
-from sage.categories.homset import Homset
 from sage.categories.morphism import Morphism
 from sage.structure.element import Element, RingElement
 from sage.structure.parent import Parent

@@ -47,6 +47,7 @@ from sage.categories.modules import Modules as SageModules
 from sage.categories.principal_ideal_domains import PrincipalIdealDomains
 from sage.categories.quotients import QuotientsCategory
 from sage.categories.subobjects import SubobjectsCategory
+from sage.categories.tensor import TensorProductsCategory
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import Infinity
@@ -535,6 +536,19 @@ class Modules(Category_module):
 
         class ElementMethods: ...
         class MorphismMethods: ...
+
+    class TensorProducts(TensorProductsCategory):
+        class Homsets(HomsetsCategory):
+            class ElementMethods:
+                @abstractmethod
+                def evaluate(self, *args: Any) -> ModuleElement:
+                    r"""
+                    Evaluate this tensor-hom morphism.
+                    
+                    Can be called with either a single tensor product element,
+                    or a tuple of module elements representing a pure tensor.
+                    """
+                    ...
 
     QuotientObjects = Quotients
 
