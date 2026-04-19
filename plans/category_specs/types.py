@@ -4,7 +4,7 @@
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 
-from .modules import Ideals, Modules
+from .modules import Modules
 from .modules_with_forms import ModulesWithForms
 from .rings import ModuleBaseIdeals, ModuleBaseRings
 from .twisted_forms import TwistedForms
@@ -14,7 +14,6 @@ Ring = ModuleBaseRings.ParentMethods
 RingElement = ModuleBaseRings.ElementMethods
 RingMorphism = ModuleBaseRings.MorphismMethods
 
-RingIdeal = ModuleBaseIdeals.ParentMethods
 LocalRing = ModuleBaseRings.Local.ParentMethods
 CompleteRing = ModuleBaseRings.Complete.ParentMethods
 
@@ -40,7 +39,7 @@ ProjectiveModule = Modules.Projective.ParentMethods
 SubModule = Modules.Subobjects.ParentMethods
 TensorProductRModule = Modules.TensorProducts.ParentMethods
 
-Ideal = Ideals.ParentMethods
+Ideal = ModuleBaseIdeals.ParentMethods
 
 RModHomset = Modules.Homsets.ParentMethods
 RModHomsetElement = Modules.Homsets.ElementMethods

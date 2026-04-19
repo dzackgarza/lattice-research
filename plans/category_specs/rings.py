@@ -16,9 +16,10 @@ from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
 from sage.categories.category_with_axiom import CategoryWithAxiom
-from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.rings.integer import Integer
+
+from .modules import Modules
 
 if TYPE_CHECKING:
     from .types import (
@@ -28,9 +29,7 @@ if TYPE_CHECKING:
         LocalRing,
         Ring,
         RingElement,
-        RingIdeal,
         RModule,
-        TorsionModule,
     )
 
 Names = str | tuple[str, ...] | None
@@ -41,19 +40,27 @@ class ModuleBaseIdeals(Category_ideal):
     Sage ideals of a refined module base ring.
 
     Objects are existing ``Ideal_generic`` / ``Ideal_pid`` instances whose
-    categories have been refined into this category.  This is not a ring
-    category: an ideal such as ``2*ZZ`` is an ideal object, and the
-    module-facing subobject interpretation is supplied separately by
-    ``Modules(ZZ).Ideals()``.
+    categories have been refined into this category.
+    
+    This category represents ideals as submodules of the free rank-1 module
+    ``R^1``. Its super-categories include ``Modules(R).Free().Subobjects()``.
     """
 
-    def __init__(self, ring: Ring):
-        if ring not in ModuleBaseRings():
-            raise TypeError(f"ring must be refined into ModuleBaseRings(); got {ring!r}")
-        Category_ideal.__init__(self, ring)
-
     def super_categories(self) -> list[Category]:
-        return [CommutativeRingIdeals(self.ring())]
+        from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
+        R = self.ring()
+        return [
+            CommutativeRingIdeals(R),
+            Modules(R).Free().Subobjects(),
+        ]
+
+    @classmethod
+    def from_ideal(cls, sage_ideal) -> Ideal:
+        r"""
+        Return the subobject corresponding to the given Sage ideal.
+        """
+        # Implementation will refine the sage_ideal into this category
+        return sage_ideal
 
     def _repr_object_names(self) -> str:
         return "module-base ideals"
@@ -61,37 +68,13 @@ class ModuleBaseIdeals(Category_ideal):
     def _latex_(self) -> str: ...
 
     class ParentMethods:
+        @final
+        def ideal(self):
+            r"""Return the underlying Sage ideal."""
+            return self
 
-        # @override Ideal_generic.ring
-        def ring(self) -> Ring: ...
-
-        # @override Ideal_generic.base_ring
-        # @overload ideal parent base ring
-        def base_ring(self) -> Ring: ...
-
-        # @override Ideal_generic.gens
-        def gens(self) -> tuple[RingElement, ...]: ...
-
-        # @override Ideal_generic.gen
-        def gen(self, index: int = 0) -> RingElement: ...
-
-        # @override Ideal_generic.random_element
-        def random_element(self, *args, **kwds) -> RingElement: ...
-
-        # @override Ideal_generic.reduce
-        def reduce(self, value: RingElement) -> RingElement: ...
-
-        # @override Ideal_pid.gcd
-        def gcd(self, other: RingIdeal) -> RingIdeal: ...
-
-        # @override Ideal_pid.lcm
-        def lcm(self, other: RingIdeal) -> RingIdeal: ...
-
-    class ElementMethods:
-        ...
-
-    class MorphismMethods:
-        ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
 
 class ModuleBaseRings(Category_singleton):
@@ -206,10 +189,10 @@ class ModuleBaseRings(Category_singleton):
             modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModule:
+        ) -> RModule:
             r"""
-            Calls ``super().quotient(modulus)``, then refines the result via
-            ``result._refine_category_(Modules(self).Torsion())``.
+            Calls ``super().quotient(modulus)``, then refines the result into
+            ``Modules(self)``.
             """
             ...
 
@@ -220,7 +203,7 @@ class ModuleBaseRings(Category_singleton):
             modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModule: ...
+        ) -> RModule: ...
 
         @final
         def quotient_ring(
@@ -228,14 +211,14 @@ class ModuleBaseRings(Category_singleton):
             modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> TorsionModule:
+        ) -> RModule:
             return self.quotient(modulus, names=names, **kwds)
 
         @final
         def __truediv__(
             self,
             modulus: RingElement | Ideal,
-        ) -> TorsionModule:
+        ) -> RModule:
             return self.quotient(modulus)
 
         # @override Ring.__pow__
@@ -335,6 +318,9 @@ class ModuleBaseRings(Category_singleton):
         def _latex_(self) -> str: ...
 
     class MorphismMethods: ...
+
+
+from .modules import Modules # noqa
 
 
 # --- Module-level category refinement ----------------------------------------
