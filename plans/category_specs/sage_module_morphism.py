@@ -1,104 +1,75 @@
+r"""Spec for the homset/morphism layer over ``Modules(R)``.
+
+Defines:
+    RModuleHomsets             -- the category of R-module homsets Hom_R(M, N)
+    RModuleHomsets.Forms       -- forms Hom_R(T_R(M)[p,q], S) (linear,
+                                  bilinear, quadratic, symmetric, ...)
+    RModuleHomsets.Endset      -- End_R(M) as an R-algebra
+    RModuleHomsets.Endset.Autset
+                               -- Aut_R(M) as the group of units of End_R(M)
+"""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any, Callable
+
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
+from sage.categories.groups import Groups
 from sage.categories.homsets import HomsetsCategory
 from sage.categories.magmatic_algebras import MagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
-from sage.structure.groups import Groups
 
-from .sage_modules import Modules
+if TYPE_CHECKING:
+    from typing import Self
 
+    from sage.rings.infinity import InfinityElement
+    from sage.rings.integer import Integer
 
-class RModuleHomsets(HomsetsCategory):
-    r"""
-    The category of R-module homsets Hom_R(M, N).
-    Objects are homsets; elements are R-module morphisms.
-    """
-
-    def extra_super_categories(self):
-        r"""
-        Hom_R(M, N) is an R-module for any M, N.
-        """
-        return [self.base_category()]
-
-    class SubcategoryMethods:
-        @cached_method
-        def Endset(self):
-            return self._with_axiom("Endset")
-
-        @cached_method
-        def Autset(self):
-            return self._with_axiom("Autset")
-
-        def Forms(self):
-            return self._with_axiom("Forms")
-        
-    class Forms(CategoryWithAxiom_over_base_ring):
-        r"""
-        R-modules of the form Hom_R(T_R(M)[p,q], S) where T_R(M)[p,q]
-        is the (p,q) part of the bitensor R-algebra of M and S is 
-        an R-submodule of K := Frac(R).
-        """
-        class ParentMethods:
-            def form_degree(self) -> tuple[int, int]:
-                r"""Return (p,q)."""
-                ...
-            def is_integral(self) -> bool: ...
-            def is_rational(self) -> bool: 
-                r"""True if it takes a non-integral value."""
-                ...
-            def base_module(self) -> RModule:
-                r"""If this is Hom_R(T_R(M)[p,q], S), return M."""
-                ...
-
-        class SubcategoryMethods:
-            def Rational(self):
-                r"""S = K: Hom_R(M, K)"""
-                return self._with_axiom("Rational")
-            def Integral(self):
-                r"""S = R: Hom_R(M, R)"""
-                return self._with_axiom("Integral")
-            def Linear(self):
-                r"""(1,0)-forms: Hom_R(M, S)."""
-                return self._with_axiom("Linear")
-            def Bilinear(self):
-                r"""(1,1)-forms: Hom_R(M\otimes_R M^*, S)."""
-                return self._with_axiom("Bilinear")
-            def Quadratic(self):
-                r"""Twisted (1,0)-forms: Hom_R(M, S^\sigma) """
-                return self._with_axiom("Quadratic")
-            def NonDegenerate(self):
-                r"""Forms with trivial kernels."""
-                return self._with_axiom("NonDegenerate")
-            def Symmetric(self):
-                r"""Symmetric (n,0)-forms: Hom_R(Sym^n_R(M), S)."""
-                return self._with_axiom("Symmetric")
-            def Alternating(self):
-                r"""Alternating (n,0)-forms: Hom_R(\Lambda^n_R(M), S)."""
-                return self._with_axiom("Alternating")
-
-    ParentMethods = _RModHomsetObjects
-    ElementMethods = _RModMorphisms
-
-    Endset = _Endsets
-    Autset = _Autsets
+    Cardinality = Integer | InfinityElement
+    RingElement = Any
+    RModule = Any
+    RModuleElement = Any
+    RModuleMorphism = Any
+    RModHomset = Any
+    SubModule = Any
+    QuotientModule = Any
+    BilinearForm = Any
+    BilinearFormsModule = Any
+    QuadraticForm = Any
+    QuadraticFormsModule = Any
+    RModAutSet = Any
+    RModuleEndomorphism = Any
+    RModuleHomsetElement = Any
 
 
-class _Quadratic:
+# ---------------------------------------------------------------------------
+# Forms-axiom helpers (wired into RModuleHomsets.Forms below)
+# ---------------------------------------------------------------------------
+
+class _Bilinear(CategoryWithAxiom_over_base_ring):
+    class ParentMethods:
+        def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
+
+    class ElementMethods:
+        def associated_quadratic_form(self) -> QuadraticForm: ...
+
+        def b(
+            self, v: RModuleElement, w: RModuleElement
+        ) -> RModuleElement:
+            return self.evaluate(v.tensor(w))
+
+
+class _Quadratic(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
         def associated_bilinear_forms(self) -> BilinearFormsModule: ...
+
     class ElementMethods:
         def associated_bilinear_form(self) -> BilinearForm: ...
+
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.evaluate(v)
 
-
-class _Bilinear:
-    class ParentMethods:
-        def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
-    class ElementMethods:
-        def associated_quadratic_form(self) -> QuadraticForm: ...
-        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.evaluate(v.tensor(w))
 
 # ---------------------------------------------------------------------------
 # Homset-level (parent) methods
@@ -107,8 +78,8 @@ class _Bilinear:
 class _RModHomsetObjects:
     def domain(self) -> RModule: ...
     def codomain(self) -> RModule: ...
-    def __call__(self) -> RModuleMorphism: ...
-    def __contains__(self) -> bool: ...
+    def __call__(self, *args, **kwds) -> RModuleMorphism: ...
+    def __contains__(self, obj: Any) -> bool: ...
 
     @cached_method
     def zero(self):
@@ -117,10 +88,9 @@ class _RModHomsetObjects:
 
     @abstract_method
     def natural_morphism(self) -> RModuleHomsetElement:
-        r"""
-        The morphism in Hom_R(M, N) sending e_i -> f_i for all generators
-        e_i of M and f_i of N.  As a matrix: [Id | 0] or [Id | 0]^t,
-        rectangular with 1 along the diagonal.
+        r"""The morphism in Hom_R(M, N) sending e_i -> f_i for all
+        generators e_i of M and f_i of N.  As a matrix this is ``[Id | 0]``
+        or ``[Id | 0]^t``: rectangular with 1s along the diagonal.
         """
         ...
 
@@ -145,10 +115,10 @@ class _RModMorphisms:
 
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
-    def __call__(self, m: RModuleElement | SubModule) -> RModuleElement | SubModule:
-        r"""
-        f(m) is f applied to m; f(M) is the image submodule of f.
-        """
+    def __call__(
+        self, m: RModuleElement | SubModule
+    ) -> RModuleElement | SubModule:
+        r"""``f(m)`` is f applied to m; ``f(M)`` is the image submodule of f."""
         ...
 
     def compose(self, f: Self) -> Self: ...
@@ -160,105 +130,46 @@ class _RModMorphisms:
     def is_bijective(self) -> bool: ...
     def is_endomorphism(self) -> bool: ...
     def is_automorphism(self) -> bool: ...
-    
+
     def index(self) -> Cardinality: ...
     def direct_sum(self, f: Self) -> Self: ...
 
     def __add__(self, f: Self) -> Self:
-        r"""
-        (f + g)(m) := f(m) + g(m), pointwise addition in Hom_R(M, N).
-        """
+        r"""``(f + g)(m) := f(m) + g(m)``, pointwise addition in Hom_R(M, N)."""
         ...
 
     def tensor(self, f: Self) -> Self: ...
 
     def scale(self, r: RingElement) -> Self:
-        r"""
-        (r*f)(m) := r*f(m) = f(r.m)
-        """
+        r"""``(r*f)(m) := r * f(m) = f(r.m)``."""
         ...
 
     def _mul_(self, data: RingElement | Self) -> Self:
-        case data:
-            match data = RingElement():
-                return self.scale(data)
-            match data = RModMorphism():
-                return self.tensor(data)
-            match _:
-                assert_never()
+        # Concrete impls dispatch on RingElement (-> scale)
+        # vs another RModMorphism (-> tensor).
+        ...
 
     def is_primitive(self) -> bool:
-        r"""
-        f: M->N is primitive iff coker(f) is torsionfree.
-        """
+        r"""``f: M -> N`` is primitive iff coker(f) is torsionfree."""
         return self.cokernel().is_torsionfree()
 
     def lift(self, m: RModuleElement) -> RModuleElement:
-        r"""
-        Return any element m' such that f(m') = m.
-        """
+        r"""Return any element ``m'`` such that ``f(m') = m``."""
         ...
 
     def dual(self) -> Self:
-        r"""
-        Given f in Hom_R(A, B), return f^* in Hom_R(B^*, A^*) where
-        f^*(\phi) \da \phi \circ f.  [Also called the adjoint or transpose]
-        Satisfies: <f(m), \phi>_{nat,N} = <m, f^*(\phi)>_{nat,M}.
+        r"""Given f in Hom_R(A, B), return f^* in Hom_R(B^*, A^*) where
+        f^*(\phi) := \phi \circ f.  (Also called the adjoint or transpose.)
+        Satisfies ``<f(m), \phi>_{nat,N} = <m, f^*(\phi)>_{nat,M}``.
         """
         ...
 
     def saturation(self) -> Self:
-        r"""
-        Given f in Hom_R(A, B), find the inclusion g of im(f) into Sat_B(im(f)) 
-        and return h := g * f in Hom_R(A, B) so that im(h) is saturated.
+        r"""Given f in Hom_R(A, B), find the inclusion ``g`` of im(f) into
+        Sat_B(im(f)) and return ``h := g \circ f`` in Hom_R(A, B) so that
+        im(h) is saturated.
         """
         return self.image().saturation().inclusion().compose(self)
-
-
-# ---------------------------------------------------------------------------
-# Endset subcategory
-# ---------------------------------------------------------------------------
-
-class _Endsets(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        r"""
-        End_R(M) is an R-algebra.
-        """
-        R = self.base_ring()
-        return [MagmaticAlgebras(R), Modules(R)]
-
-    class ParentMethods:
-        def base_module(self) -> RModule:
-            r"""
-            If this is End_R(M), return M.
-            """
-            ...
-
-        def Aut(self) -> RModAutSet: ...
-        def unit_group(self) -> RModAutSet: ...
-        def identity(self) -> RModuleEndomorphism: ...
-        # Do not define as_automorphism -- promotion of invertible objects
-        # should happen automatically.
-
-    ElementMethods = _RModEndomorphisms
-
-
-# ---------------------------------------------------------------------------
-# Autset subcategory
-# ---------------------------------------------------------------------------
-
-class _Autsets(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        r"""
-        Aut_R(M) := End_R(M)^* is the group of units of End_R(M).
-        """
-        return [self.base_category().Endset(), Groups()]
-
-    class ParentMethods:
-        def is_aut_set(self) -> bool:
-            return True
-
-    ElementMethods = _RModAutomorphisms
 
 
 # ---------------------------------------------------------------------------
@@ -267,19 +178,18 @@ class _Autsets(CategoryWithAxiom_over_base_ring):
 
 class _RModEndomorphisms:
     def order(self) -> Cardinality:
-        r"""
-        The minimal n such that f^n = id, or infinity if none exists.
+        r"""The minimal n such that f^n = id, or infinity if none exists.
         Equivalently the cardinality of {f^n | n in NN}.
         """
         ...
 
     def is_automorphism(self) -> bool: ...
     def is_invertible(self) -> bool: ...
-    def inverse(self) -> bool: 
-        r"""
-        assert self.is_automorphism() first.
-        """
+
+    def inverse(self) -> Self:
+        r"""Asserts ``self.is_automorphism()`` first."""
         ...
+
     def __pow__(self, n: int) -> Self: ...
 
 
@@ -311,3 +221,149 @@ class _RModAutomorphisms:
 
     def inverse(self) -> Self: ...
     def __pow__(self, n: int) -> Self: ...
+
+
+# ---------------------------------------------------------------------------
+# Endset and Autset subcategories
+# ---------------------------------------------------------------------------
+
+class _Endsets(CategoryWithAxiom_over_base_ring):
+    def extra_super_categories(self):
+        r"""End_R(M) is an R-algebra."""
+        # Deferred to avoid circular import with sage_modules.
+        from .sage_modules import Modules
+        R = self.base_ring()
+        return [MagmaticAlgebras(R), Modules(R)]
+
+    class ParentMethods:
+        def base_module(self) -> RModule:
+            r"""If this is End_R(M), return M."""
+            ...
+
+        def Aut(self) -> RModAutSet: ...
+        def unit_group(self) -> RModAutSet: ...
+        def identity(self) -> RModuleEndomorphism: ...
+        # Do not define ``as_automorphism`` -- promotion of invertible
+        # objects should happen automatically.
+
+    ElementMethods = _RModEndomorphisms
+
+
+class _Autsets(CategoryWithAxiom_over_base_ring):
+    def extra_super_categories(self):
+        r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
+        return [self.base_category().Endset(), Groups()]
+
+    class ParentMethods:
+        def is_aut_set(self) -> bool:
+            return True
+
+    ElementMethods = _RModAutomorphisms
+
+
+_Endsets.Autset = _Autsets
+
+
+# ---------------------------------------------------------------------------
+# Forms axiom subcategory
+# ---------------------------------------------------------------------------
+
+class _Forms(CategoryWithAxiom_over_base_ring):
+    r"""R-modules of the form ``Hom_R(T_R(M)[p,q], S)`` where ``T_R(M)[p,q]``
+    is the (p, q) part of the bitensor R-algebra of M and ``S`` is an
+    R-submodule of ``K := Frac(R)``.
+    """
+
+    class ParentMethods:
+        def form_degree(self) -> tuple[int, int]:
+            r"""Return ``(p, q)``."""
+            ...
+
+        def is_integral(self) -> bool: ...
+
+        def is_rational(self) -> bool:
+            r"""True if it takes a non-integral value."""
+            ...
+
+        def base_module(self) -> RModule:
+            r"""If this is ``Hom_R(T_R(M)[p,q], S)``, return ``M``."""
+            ...
+
+    class SubcategoryMethods:
+        @cached_method
+        def Rational(self):
+            r"""``S = K``: ``Hom_R(M, K)``."""
+            return self._with_axiom("Rational")
+
+        @cached_method
+        def Integral(self):
+            r"""``S = R``: ``Hom_R(M, R)``."""
+            return self._with_axiom("Integral")
+
+        @cached_method
+        def Linear(self):
+            r"""(1, 0)-forms: ``Hom_R(M, S)``."""
+            return self._with_axiom("Linear")
+
+        @cached_method
+        def Bilinear(self):
+            r"""(1, 1)-forms: ``Hom_R(M \otimes_R M^*, S)``."""
+            return self._with_axiom("Bilinear")
+
+        @cached_method
+        def Quadratic(self):
+            r"""Twisted (1, 0)-forms: ``Hom_R(M, S^\sigma)``."""
+            return self._with_axiom("Quadratic")
+
+        @cached_method
+        def NonDegenerate(self):
+            r"""Forms with trivial kernels."""
+            return self._with_axiom("NonDegenerate")
+
+        @cached_method
+        def Symmetric(self):
+            r"""Symmetric (n, 0)-forms: ``Hom_R(Sym^n_R(M), S)``."""
+            return self._with_axiom("Symmetric")
+
+        @cached_method
+        def Alternating(self):
+            r"""Alternating (n, 0)-forms: ``Hom_R(\Lambda^n_R(M), S)``."""
+            return self._with_axiom("Alternating")
+
+    Bilinear = _Bilinear
+    Quadratic = _Quadratic
+
+
+# ---------------------------------------------------------------------------
+# RModuleHomsets: the homset category proper
+# ---------------------------------------------------------------------------
+
+class RModuleHomsets(HomsetsCategory):
+    r"""The category of R-module homsets ``Hom_R(M, N)``.
+
+    Objects are homsets; elements are R-module morphisms.
+    """
+
+    def extra_super_categories(self):
+        r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
+        return [self.base_category()]
+
+    class SubcategoryMethods:
+        @cached_method
+        def Endset(self):
+            return self._with_axiom("Endset")
+
+        @cached_method
+        def Autset(self):
+            return self._with_axiom("Autset")
+
+        @cached_method
+        def Forms(self):
+            return self._with_axiom("Forms")
+
+    ParentMethods = _RModHomsetObjects
+    ElementMethods = _RModMorphisms
+
+    Endset = _Endsets
+    Autset = _Autsets
+    Forms = _Forms
