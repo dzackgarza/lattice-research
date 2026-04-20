@@ -1,25 +1,32 @@
 """Ring and ideal categories used by the module redesign.
 
-The module surface refines a fixed collection of Sage ring parents into
-``ModuleBaseRings``.  Ideals of those rings are still Sage ideals first:
-``Ideal_generic.category()`` returns Sage's ``Ideals(R)`` hierarchy.  The
-redesign adds ``ModuleBaseIdeals(R)`` as the ring-ideal refinement layer, and
-``Modules(R).Ideals()`` supplies the module-subobject view.
+``ModuleBaseRings`` is a refinement category sitting below Sage's
+``Rings().PrincipalIdealDomains().Commutative()``.  Ring parents opt in by
+having their category refined (``R._refine_category_(ModuleBaseRings())``);
+``Modules(R)`` performs this lazily and ``refinement.install()`` seeds the
+common base rings eagerly and wraps constructors so freshly-minted rings are
+also refined.
+
+Ideals of a refined ring are the same Sage ideal parents as before, additionally
+refined into ``ModuleBaseIdeals(R)`` and ``Modules(R).RIdeals()``.  Per the
+design axiom *ideals simply ARE R-submodules of R*, ``Modules(R).RIdeals()`` is
+the canonical category of ideals of R; ``ModuleBaseIdeals`` is a thin
+Sage-interop bridge.
 """
 
 from __future__ import annotations
 
-from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
 from sage.categories.category_with_axiom import CategoryWithAxiom
-from sage.categories.rings import Rings as SageRings
+from sage.categories.principal_ideal_domains import PrincipalIdealDomains
+from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
-from .modules import Modules
+from .sage_modules import Modules
 
 if TYPE_CHECKING:
     from .types import (
@@ -37,44 +44,53 @@ Names = str | tuple[str, ...] | None
 
 class ModuleBaseIdeals(Category_ideal):
     r"""
-    Sage ideals of a refined module base ring.
+    Sage-interop bridge category for ideals of a refined module base ring.
 
-    Objects are existing ``Ideal_generic`` / ``Ideal_pid`` instances whose
-    categories have been refined into this category.
-    
-    This category represents ideals as submodules of the free rank-1 module
-    ``R^1``. Its super-categories include ``Modules(R).Free().Subobjects()``.
+    The canonical categorical home for ideals of ``R`` is
+    ``Modules(R).RIdeals()`` (per the axiom *ideals ARE R-submodules of R*).
+    ``ModuleBaseIdeals(R)`` is an additional refinement layer attached to the
+    existing ``Ideal_generic`` / ``Ideal_pid`` parents so Sage's ``Ideals(R)``
+    hierarchy continues to work unchanged.
     """
 
     def super_categories(self) -> list[Category]:
         from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
         R = self.ring()
-        return [
-            CommutativeRingIdeals(R),
-            Modules(R).Free().Subobjects(),
-        ]
+        return [CommutativeRingIdeals(R), Modules(R).RIdeals()]
 
     @classmethod
     def from_ideal(cls, sage_ideal) -> Ideal:
-        r"""
-        Return the subobject corresponding to the given Sage ideal.
+        r"""Return ``sage_ideal``, after a best-effort category refinement.
+
+        Sage ideals are ``MonoidElement`` instances with a hardcoded
+        ``.category()`` returning ``Ideals(R)``; ``_refine_category_`` is
+        only available on ``Parent`` objects.  If the refinement path is
+        available (on a future ``Parent``-backed ideal), it is applied;
+        otherwise this is a no-op and the ideal is returned unchanged.
         """
-        # Implementation will refine the sage_ideal into this category
+        refine = getattr(sage_ideal, "_refine_category_", None)
+        if refine is not None:
+            R = sage_ideal.ring()
+            try:
+                refine([cls(R), Modules(R).RIdeals()])
+            except Exception:
+                pass
         return sage_ideal
 
     def _repr_object_names(self) -> str:
         return "module-base ideals"
 
-    def _latex_(self) -> str: ...
-
     class ParentMethods:
         @final
         def ideal(self):
-            r"""Return the underlying Sage ideal."""
+            r"""Return the underlying Sage ideal (self)."""
             return self
 
-    class ElementMethods: ...
-    class MorphismMethods: ...
+    class ElementMethods:
+        pass
+
+    class MorphismMethods:
+        pass
 
 
 class ModuleBaseRings(Category_singleton):
@@ -83,13 +99,16 @@ class ModuleBaseRings(Category_singleton):
     ring parents produce objects in the redesigned module surface.
 
     Existing ring parents join this category via
-    ``ring._refine_category_(ModuleBaseRings())``.  Sage's dynamic dispatch
-    then serves ``ParentMethods`` below without creating new ring classes.
+    ``ring._refine_category_(ModuleBaseRings())``.  The ``ParentMethods``
+    overrides below are *trivial glue*: each calls ``super().method(...)`` and
+    then refines the returned parent into the appropriate module/ring
+    subcategory.  Anything non-trivial is ``@abstract_method`` so the
+    implementation backlog is enumerated precisely.
     """
 
     @final
     def super_categories(self) -> list[Category]:
-        return [SageRings().PrincipalIdealDomains().Commutative()]
+        return [PrincipalIdealDomains()]
 
     @final
     def additional_structure(self):
@@ -98,8 +117,6 @@ class ModuleBaseRings(Category_singleton):
     @final
     def _repr_object_names(self) -> str:
         return "commutative PID base rings for finitely presented modules"
-
-    def _latex_(self) -> str: ...
 
     # ------------------------------------------------------------------
     # Subcategories
@@ -117,93 +134,96 @@ class ModuleBaseRings(Category_singleton):
         def _repr_object_names(self) -> str:
             return "local rings for finitely presented modules"
 
-        def _latex_(self) -> str: ...
-
         class ParentMethods:
-            @abstractmethod
+            @abstract_method
             def maximal_ideal(self) -> Ideal: ...
 
         class ElementMethods:
-            ...
-        class MorphismMethods: ...
+            pass
+
+        class MorphismMethods:
+            pass
 
     class Complete(CategoryWithAxiom):
         r"""Complete rings in the module surface (e.g. ``Zp(p)``)."""
 
         @final
         def super_categories(self) -> list[Category]:
-            # Intersect with Sage's complete ring category when available.
+            # No intersection with Sage's CompleteDiscreteValuationRings is
+            # declared here; ``_refine_category_`` on a specific ``Zp(p)``
+            # parent pulls the DVR hierarchy in via the join.
             return [ModuleBaseRings()]
 
         @final
         def _repr_object_names(self) -> str:
             return "complete rings for finitely presented modules"
 
-        def _latex_(self) -> str: ...
+        class ParentMethods:
+            pass
 
-        class ParentMethods: ...
         class ElementMethods:
-            ...
-        class MorphismMethods: ...
+            pass
+
+        class MorphismMethods:
+            pass
 
     # Field() is inherited from Rings().PrincipalIdealDomains().Commutative()
     # via the axiom system.  No explicit subcategory needed here.
 
     # ------------------------------------------------------------------
-    # ParentMethods
+    # ParentMethods — concrete super+refine glue.
     # ------------------------------------------------------------------
 
     class ParentMethods:
+        # Super+refine glue.  Python's built-in ``super()`` does not work in
+        # category ``ParentMethods`` because Sage injects these methods into a
+        # dynamically-generated ``parent_class`` that is not in the defining
+        # MRO.  We therefore delegate by explicit reference to the canonical
+        # ``sage.categories.rings.Rings.ParentMethods`` functions.
 
-        # @override CommutativeRings.unit_ideal
-        @abstractmethod
-        def unit_ideal(self) -> Ideal: ...
-
-        # @override CommutativeRings.nilradical
-        @abstractmethod
-        def nilradical(self) -> Ideal: ...
-
-        # @override CommutativeRings.ideal
-        @abstractmethod
-        def ideal(self, generator: RingElement, **kwds) -> Ideal:
-            r"""
-            Calls ``super().ideal(generator)``, then refines the result into
-            ``ModuleBaseIdeals(self)`` and ``Modules(self).Ideals()``.
+        # @override Rings.ParentMethods.ideal
+        def ideal(self, *args, **kwds) -> Ideal:
+            r"""Delegate to Sage, then refine into ``ModuleBaseIdeals`` and
+            ``Modules(R).RIdeals()``.
             """
-            ...
+            from sage.categories.rings import Rings as _Rings
+            result = _Rings.ParentMethods.ideal(self, *args, **kwds)
+            return ModuleBaseIdeals.from_ideal(result)
 
-        # @override Ring.__mul__
-        @abstractmethod
+        # @override Rings.ParentMethods.__mul__
         def __mul__(self, generator: RingElement) -> Ideal:
-            r"""Delegates to ``self.ideal(generator)``."""
-            ...
+            r"""``R * g`` is the principal ideal ``(g)``."""
+            return self.ideal(generator)
 
-        # @override Ring.__rmul__
-        @abstractmethod
-        def __rmul__(self, generator: RingElement) -> Ideal: ...
+        def __rmul__(self, generator: RingElement) -> Ideal:
+            r"""``g * R`` is the principal ideal ``(g)``."""
+            return self.ideal(generator)
 
-        # @override CommutativeRings.quotient
-        @abstractmethod
+        # @override Rings.ParentMethods.quotient
         def quotient(
             self,
             modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
         ) -> RModule:
-            r"""
-            Calls ``super().quotient(modulus)``, then refines the result into
-            ``Modules(self)``.
-            """
-            ...
+            r"""Delegate to Sage, then refine the result into ``Modules(self)``."""
+            from sage.categories.rings import Rings as _Rings
+            result = _Rings.ParentMethods.quotient(
+                self, modulus, names=names, **kwds
+            )
+            try:
+                result._refine_category_(Modules(self))
+            except Exception:
+                pass
+            return result
 
-        # @override CommutativeRings.quo
-        @abstractmethod
         def quo(
             self,
             modulus: RingElement | Ideal,
             names: Names = None,
             **kwds,
-        ) -> RModule: ...
+        ) -> RModule:
+            return self.quotient(modulus, names=names, **kwds)
 
         @final
         def quotient_ring(
@@ -221,24 +241,24 @@ class ModuleBaseRings(Category_singleton):
         ) -> RModule:
             return self.quotient(modulus)
 
-        # @override Ring.__pow__
-        @abstractmethod
+        # @override Rings.ParentMethods.__pow__
         def __pow__(self, n: Integer) -> FreeModule:
-            r"""
-            Calls Sage's native ``__pow__`` via ``super()``, then refines
-            the result via ``result._refine_category_(Modules(self).Free())``.
-            """
-            ...
+            r"""``R ** n`` is the free rank-``n`` R-module.
 
-        # @override Ring.free_module — deprecated
+            The ``FreeModule`` / ``MatrixSpace`` constructors are already
+            wrapped by ``refinement.install()`` to refine the result into
+            ``Modules(R).Free()``; we simply call them here.
+            """
+            if isinstance(n, tuple):
+                from sage.matrix.matrix_space import MatrixSpace
+                return MatrixSpace(self, *n)
+            from sage.modules.free_module import FreeModule
+            return FreeModule(self, n)
+
+        # @override Ring.free_module — deprecated wrapper kept for legacy callers
         @final
         def free_module(self, base=None, basis=None, map=True):
-            r"""
-            Deprecated in the module surface.  Use ``R ** 1`` instead.
-
-            ``Ring.free_module()`` regards ``R`` as a free rank-1 module over
-            itself; in the redesign surface that is simply ``R^1``.
-            """
+            r"""Deprecated: use ``R ** 1``."""
             import warnings
             warnings.warn(
                 "Ring.free_module() is deprecated; use R ** 1 instead.",
@@ -247,95 +267,49 @@ class ModuleBaseRings(Category_singleton):
             )
             return self.__pow__(1)
 
-        # @override CommutativeRings.derivation_module
-        @abstractmethod
-        def derivation_module(
-            self, codomain=None, twist=None
-        ) -> RModule:
-            r"""
-            Calls ``super().derivation_module(...)``, then refines the result
-            into ``Modules(self)``.
-            """
-            ...
-
-        # @override Ring.localization
-        @abstractmethod
+        # @override Rings.ParentMethods.localization
         def localization(
             self, *extra_units: RingElement, **kwds
         ) -> LocalRing:
-            r"""
-            Calls ``super().localization(*extra_units)``, then refines the
-            returned ring via
-            ``result._refine_category_(ModuleBaseRings().Local())``.
-            """
-            ...
+            from sage.categories.rings import Rings as _Rings
+            result = _Rings.ParentMethods.localization(self, *extra_units, **kwds)
+            try:
+                result._refine_category_(ModuleBaseRings().Local())
+            except Exception:
+                pass
+            return result
 
-        # @override Ring.completion
-        @abstractmethod
-        def completion(
-            self,
-            place: RingElement,
-            prec: Integer | None = None,
-            extras: dict | None = None,
-        ) -> CompleteRing:
-            r"""
-            Calls ``super().completion(place, prec)``, then refines the
-            returned ring via
-            ``result._refine_category_(ModuleBaseRings().Complete())``.
-            """
-            ...
+        # ``completion`` / ``fraction_field`` / ``derivation_module`` are not
+        # overridden here: results are refined lazily the moment they appear
+        # as a ``base_ring`` to ``Modules(R)`` via
+        # ``refinement.ensure_refined`` in ``Modules.__classcall_private__``.
 
-        # @override Ring.fraction_field
-        @abstractmethod
-        def fraction_field(self) -> Ring:
-            r"""
-            Calls ``super().fraction_field()``, then refines the returned
-            field via ``result._refine_category_(ModuleBaseRings())``.
-            The result also satisfies ``Fields()`` via the axiom system.
-            """
-            ...
+        # ---- genuinely abstract ----
 
-        @abstractmethod
-        def _repr_(self) -> str: ...
+        @abstract_method
+        def unit_ideal(self) -> Ideal: ...
 
-        @abstractmethod
-        def _latex_(self) -> str: ...
+        @abstract_method
+        def nilradical(self) -> Ideal: ...
 
     class ElementMethods:
+        r"""Element-level contract.
 
-        @abstractmethod
-        def parent(self) -> Ring: ...
+        ``parent``, ``_repr_``, ``_latex_`` are Sage ``Element`` intrinsics
+        and are *not* restated as abstract here.
+        """
 
-        @abstractmethod
         def principal_ideal(self) -> Ideal:
-            """Sugar for ``self.parent().ideal(self)``."""
-            ...
+            r"""Sugar for ``self.parent().ideal(self)``."""
+            return self.parent().ideal(self)
 
-        @abstractmethod
-        def _repr_(self) -> str: ...
-
-        @abstractmethod
-        def _latex_(self) -> str: ...
-
-    class MorphismMethods: ...
+    class MorphismMethods:
+        pass
 
 
-from .modules import Modules # noqa
+# --- Seed enrollment + constructor hooks -------------------------------------
+# Deferred to ``refinement.install()``; runs once at package import time.
 
+from . import refinement as _refinement  # noqa: E402
 
-# --- Module-level category refinement ----------------------------------------
-# Runs at import time.  Idempotent: checks ring.category() before refining.
-
-def _refine_target_rings() -> None:
-    from sage.rings.complex_mpfr import CC
-    from sage.rings.integer_ring import ZZ
-    from sage.rings.qqbar import QQbar
-    from sage.rings.rational_field import QQ
-    from sage.rings.real_mpfr import RR
-    _cat = ModuleBaseRings()
-    for ring in (ZZ, QQ, RR, CC, QQbar):
-        if _cat not in ring.category().super_categories():
-            ring._refine_category_(_cat)
-
-
-_refine_target_rings()
+_refinement.install()

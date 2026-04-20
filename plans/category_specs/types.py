@@ -1,13 +1,16 @@
-"""Centralized type aliases for the module and module-with-forms hierarchies."""
+"""Centralized type aliases for the module hierarchy.
+
+Only aliases backed by files that exist in this tree are exposed.  The
+``ModulesWithForms`` / ``TwistedForms`` aliases from earlier drafts are
+dropped until those spec files land.
+"""
 
 
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 
-from .modules import Modules
-from .modules_with_forms import ModulesWithForms
 from .rings import ModuleBaseIdeals, ModuleBaseRings
-from .twisted_forms import TwistedForms
+from .sage_modules import Modules
 
 # Generic / Support
 Ring = ModuleBaseRings.ParentMethods
@@ -16,16 +19,6 @@ RingMorphism = ModuleBaseRings.MorphismMethods
 
 LocalRing = ModuleBaseRings.Local.ParentMethods
 CompleteRing = ModuleBaseRings.Complete.ParentMethods
-
-# Twisted Forms
-TwistedFormSpace = TwistedForms.ParentMethods
-TwistedForm = TwistedForms.ElementMethods
-BilinearFormSpace = TwistedForms.Bilinear.ParentMethods
-BilinearForm = TwistedForms.Bilinear.ElementMethods
-QuadraticFormSpace = TwistedForms.Quadratic.ParentMethods
-QuadraticForm = TwistedForms.Quadratic.ElementMethods
-LinearFormSpace = TwistedForms.Linear.ParentMethods
-LinearForm = TwistedForms.Linear.ElementMethods
 
 Cardinality = Integer | InfinityElement
 
@@ -49,16 +42,3 @@ RModAutset = Modules.Homsets.Endset.Autset.ParentMethods
 RModAutsetElement = Modules.Homsets.Endset.Autset.ElementMethods
 DualModule = Modules.DualObjects.ParentMethods
 RModDualElement = Modules.DualObjects.ElementMethods
-
-# RModWithForm = ModulesWithForms(R)
-RModWithForm = ModulesWithForms
-RModuleWithForm = ModulesWithForms.ParentMethods
-RModuleWithFormElement = ModulesWithForms.ElementMethods
-RModWithFormHomset = ModulesWithForms.Homsets.ParentMethods
-RModWithFormHomsetElement = ModulesWithForms.Homsets.ElementMethods
-RModWithFormEndset = ModulesWithForms.Homsets.Endset.ParentMethods
-RModWithFormEndsetElement = ModulesWithForms.Homsets.Endset.ElementMethods
-RModWithFormAutset = ModulesWithForms.Homsets.Endset.Autset.ParentMethods
-RModWithFormAutsetElement = ModulesWithForms.Homsets.Endset.Autset.ElementMethods
-DualModuleWithForm = ModulesWithForms.DualObjects.ParentMethods
-DualModuleWithFormElement = ModulesWithForms.DualObjects.ElementMethods

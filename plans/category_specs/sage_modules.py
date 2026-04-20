@@ -168,20 +168,24 @@ class _RModObjects:
     def __truediv__(self, N: SubModule) -> QuotientModule:
         return self.quotient(N)
 
+    @abstract_method
     def torsion_submodule(self) -> SubModule:
         r"""M_tors := <{m in M | r*m = 0 for some r in R}>
                     = <{m in M | Ann_R(m) != 0}>.
         """
         ...
 
+    @abstract_method
     def tensor_algebra(self) -> RModule:
         r"""Return T_R(M) := \bigoplus_n \bigoplus_{p+q=n} T_R(M)[p,q]."""
         ...
 
+    @abstract_method
     def base_change(self, S: Ring) -> RModule:
         r"""Return a representation of M_S := M \otimes_R S in S-Mod."""
         ...
 
+    @abstract_method
     def module_structure(self) -> ModuleStructure:
         r"""The map sigma: R x M -> M such that r.m := sigma(r, m).
 
@@ -191,51 +195,87 @@ class _RModObjects:
         """
         ...
 
+    @abstract_method
     def modify_module_structure(self, sigma: ModuleStructure):
         r"""Define a new module structure sigma': R -> End_R(M) so that
         r.m = sigma'(r)(m), replacing the existing sigma.
         """
         ...
 
+    @abstract_method
     def symmetric_algebra(self) -> RModule: ...
+
+    @abstract_method
     def alternating_algebra(self) -> RModule: ...
+
+    @abstract_method
     def dual(self) -> DualRModule: ...
+
+    @abstract_method
     def Hom(self, N: RModule) -> RModuleHomset: ...
+
+    @abstract_method
     def End(self) -> RModuleEndSet: ...
+
+    @abstract_method
     def Aut(self) -> RModuleAutSet: ...
 
+    @abstract_method
     def determinant_module(self) -> RModule:
         r"""Return \Lambda^n_R(M), the top exterior power of M."""
         ...
 
+    @abstract_method
     def __contains__(self, data: RModuleElement | SubModule) -> bool:
-        # Concrete impls dispatch on RModuleElement vs SubModule; spec only.
+        r"""Concrete impls dispatch on RModuleElement vs SubModule."""
         ...
 
+    @abstract_method
     def cardinality(self) -> Cardinality: ...
+
+    @abstract_method
     def is_finite(self) -> bool: ...
+
+    @abstract_method
     def is_free(self) -> bool: ...
+
+    @abstract_method
     def is_torsion(self) -> bool: ...
+
+    @abstract_method
     def is_torsionfree(self) -> bool: ...
+
+    @abstract_method
     def is_projective(self) -> bool: ...
+
+    @abstract_method
     def is_isomorphic_to(self, other: RModule) -> bool: ...
+
+    @abstract_method
     def is_submodule_of(self, other: RModule) -> bool: ...
 
+    @abstract_method
     def direct_sum(self, other: RModule | Sequence[RModule]) -> RModule: ...
+
+    @abstract_method
     def tensor(self, other: RModule | Sequence[RModule]) -> RModule: ...
+
+    @abstract_method
     def span(self, elts: RModuleElement | Sequence[RModuleElement]) -> SubModule: ...
 
     def __add__(self, other: RModule) -> RModule:
         return self.direct_sum(other)
 
+    @abstract_method
     def __mul__(self, other: RingElement | RModule) -> RModule:
-        # r * M := submodule spanned by {r*m | m in M};
-        # N * M := the tensor product M \otimes_R N.
-        # Concrete impls dispatch.
+        r"""``r * M`` = submodule spanned by ``{r*m | m in M}``;
+        ``N * M`` = the tensor product ``M \otimes_R N``.
+        """
         ...
 
     # Do not define: submodule(), _mul_, _rmul_, _lmul_
 
+    @abstract_method
     def natural_pairing(self) -> RModuleForm:
         r"""The (1,1) form b: M \otimes_R M^* -> R defined by
         b(v, w^*) := w^*(v).
@@ -257,19 +297,26 @@ class _RModElements:
     def annihilator(self) -> Ideal:
         return self.span().annihilator()
 
+    @abstract_method
     def cyclic_submodule(self) -> SubModule: ...
 
     def is_primitive(self) -> bool:
         return self.span().inclusion().is_primitive()
 
+    @abstract_method
     def __add__(self, m: RModuleElement) -> RModuleElement: ...
+
+    @abstract_method
     def __mul__(self, r: RingElement) -> RModuleElement: ...
 
     def __neg__(self) -> RModuleElement:
         R = self.base_ring()
         return R(-1) * self
 
+    @abstract_method
     def _lmul_(self, r: RingElement) -> RModuleElement: ...
+
+    @abstract_method
     def _rmul_(self, r: RingElement) -> RModuleElement: ...
 
     # TODO: define R*m := m.span() when R == m.base_ring(), or base-change.
@@ -296,12 +343,16 @@ class _Subobjects(SubobjectsCategory):
     TODO: enumerate methods already provided by Sage's SubobjectsCategory.
     """
 
+    @abstract_method
     def as_subobject_of_self(self, M: RModule) -> SubModule:
         r"""Regard M as a submodule of itself via the identity."""
         ...
 
     class ParentMethods:
-        def parent(self) -> RModule: ...
+        @abstract_method
+        def ambient_module(self) -> RModule:
+            r"""The ambient R-module of which ``self`` is a submodule."""
+            ...
 
         @abstract_method
         def inclusion(self): ...
@@ -321,8 +372,10 @@ class _Subobjects(SubobjectsCategory):
         def lift(self, m: RModuleElement) -> RModuleElement:
             return self.inclusion()(m)
 
+        @abstract_method
         def saturation(self) -> SubModule: ...
 
+        @abstract_method
         def __le__(self, other: RModule) -> bool: ...
 
         def quotient_module(self) -> QuotientModule:
@@ -369,6 +422,7 @@ class _TensorProducts(TensorProductsCategory):
         @abstract_method
         def tensor_factors(self) -> list[RModule]: ...
 
+        @abstract_method
         def lift_from_product(
             self, elts: Sequence[RModuleElement]
         ) -> RModuleElement:
@@ -407,6 +461,7 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
     r"""Non-full subcategory of pairs (M, f) with f a form on M."""
 
     class ParentMethods:
+        @abstract_method
         def form(self) -> RModuleMorphism: ...
 
     class SubcategoryMethods:
@@ -564,6 +619,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     class ElementMethods: ...
 
     class MorphismMethods:
+        @abstract_method
         def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
 
@@ -598,7 +654,7 @@ class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
         """
         result = [self.base_category().FinitelyGenerated()]
         R = self.base_ring()
-        if (R in Categories() and R.is_subcategory(FinSet)) or R in Finset:
+        if (R in Categories() and R.is_subcategory(FinSet)) or R in FinSet:
             # ``Modules(PrincipalIdealDomains())`` is admissible, so
             # ``base_ring`` may itself be a category of rings.
             result.append(FinSet)
@@ -643,6 +699,14 @@ class Modules(Category_module):
         from sage.categories.fields import Fields
         from sage.categories.integral_domains import IntegralDomains
         from sage.categories.principal_ideal_domains import PrincipalIdealDomains
+
+        # Lazy enrollment: any ring referenced as Modules(R) is refined
+        # into ModuleBaseRings() if it satisfies the PID+Commutative gate.
+        try:
+            from . import refinement
+            refinement.ensure_refined(base_ring)
+        except ImportError:
+            pass
 
         result = super().__classcall__(cls, base_ring)
         if not dispatch:
@@ -932,3 +996,14 @@ class Modules(Category_module):
 # - iteration on countable objects
 # - __contains__ methods
 # - to/from_X for X = dict, images, matrix, function
+
+
+# ---------------------------------------------------------------------------
+# Wire FinitelyPresentedModulesOverPID as the axiom meet
+# FinitelyPresented() ∩ OverPID().  Deferred to avoid a circular import
+# with sage_special_modules (which imports this module's ``Modules``).
+# ---------------------------------------------------------------------------
+
+from .sage_special_modules import FinitelyPresentedModulesOverPID  # noqa: E402
+
+_FinitelyPresented.OverPID = FinitelyPresentedModulesOverPID

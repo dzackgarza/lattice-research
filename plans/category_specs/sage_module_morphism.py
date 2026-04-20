@@ -49,9 +49,11 @@ if TYPE_CHECKING:
 
 class _Bilinear(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
+        @abstract_method
         def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
 
     class ElementMethods:
+        @abstract_method
         def associated_quadratic_form(self) -> QuadraticForm: ...
 
         def b(
@@ -62,9 +64,11 @@ class _Bilinear(CategoryWithAxiom_over_base_ring):
 
 class _Quadratic(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
+        @abstract_method
         def associated_bilinear_forms(self) -> BilinearFormsModule: ...
 
     class ElementMethods:
+        @abstract_method
         def associated_bilinear_form(self) -> BilinearForm: ...
 
         def q(self, v: RModuleElement) -> RModuleElement:
@@ -76,9 +80,16 @@ class _Quadratic(CategoryWithAxiom_over_base_ring):
 # ---------------------------------------------------------------------------
 
 class _RModHomsetObjects:
+    @abstract_method
     def domain(self) -> RModule: ...
+
+    @abstract_method
     def codomain(self) -> RModule: ...
+
+    @abstract_method
     def __call__(self, *args, **kwds) -> RModuleMorphism: ...
+
+    @abstract_method
     def __contains__(self, obj: Any) -> bool: ...
 
     @cached_method
@@ -100,7 +111,7 @@ class _RModHomsetObjects:
 # ---------------------------------------------------------------------------
 
 class _RModMorphisms:
-    def parent(self) -> RModHomset: ...
+    # ``parent`` is a Sage ``Element`` intrinsic and is not restated here.
 
     def domain(self) -> RModule:
         return self.parent().domain()
@@ -108,55 +119,88 @@ class _RModMorphisms:
     def codomain(self) -> RModule:
         return self.parent().codomain()
 
+    @abstract_method
     def kernel(self) -> SubModule: ...
+
+    @abstract_method
     def cokernel(self) -> QuotientModule: ...
+
+    @abstract_method
     def image(self) -> SubModule: ...
+
+    @abstract_method
     def coimage(self) -> SubModule: ...
 
+    @abstract_method
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
+    @abstract_method
     def __call__(
         self, m: RModuleElement | SubModule
     ) -> RModuleElement | SubModule:
         r"""``f(m)`` is f applied to m; ``f(M)`` is the image submodule of f."""
         ...
 
+    @abstract_method
     def compose(self, f: Self) -> Self: ...
 
+    @abstract_method
     def is_identity(self) -> bool: ...
+
+    @abstract_method
     def is_isomorphism(self) -> bool: ...
+
+    @abstract_method
     def is_injective(self) -> bool: ...
+
+    @abstract_method
     def is_surjective(self) -> bool: ...
+
+    @abstract_method
     def is_bijective(self) -> bool: ...
+
+    @abstract_method
     def is_endomorphism(self) -> bool: ...
+
+    @abstract_method
     def is_automorphism(self) -> bool: ...
 
+    @abstract_method
     def index(self) -> Cardinality: ...
+
+    @abstract_method
     def direct_sum(self, f: Self) -> Self: ...
 
+    @abstract_method
     def __add__(self, f: Self) -> Self:
         r"""``(f + g)(m) := f(m) + g(m)``, pointwise addition in Hom_R(M, N)."""
         ...
 
+    @abstract_method
     def tensor(self, f: Self) -> Self: ...
 
+    @abstract_method
     def scale(self, r: RingElement) -> Self:
         r"""``(r*f)(m) := r * f(m) = f(r.m)``."""
         ...
 
+    @abstract_method
     def _mul_(self, data: RingElement | Self) -> Self:
-        # Concrete impls dispatch on RingElement (-> scale)
-        # vs another RModMorphism (-> tensor).
+        r"""Concrete impls dispatch on ``RingElement`` (-> ``scale``)
+        vs another ``RModMorphism`` (-> ``tensor``).
+        """
         ...
 
     def is_primitive(self) -> bool:
         r"""``f: M -> N`` is primitive iff coker(f) is torsionfree."""
         return self.cokernel().is_torsionfree()
 
+    @abstract_method
     def lift(self, m: RModuleElement) -> RModuleElement:
         r"""Return any element ``m'`` such that ``f(m') = m``."""
         ...
 
+    @abstract_method
     def dual(self) -> Self:
         r"""Given f in Hom_R(A, B), return f^* in Hom_R(B^*, A^*) where
         f^*(\phi) := \phi \circ f.  (Also called the adjoint or transpose.)
@@ -177,19 +221,25 @@ class _RModMorphisms:
 # ---------------------------------------------------------------------------
 
 class _RModEndomorphisms:
+    @abstract_method
     def order(self) -> Cardinality:
         r"""The minimal n such that f^n = id, or infinity if none exists.
         Equivalently the cardinality of {f^n | n in NN}.
         """
         ...
 
+    @abstract_method
     def is_automorphism(self) -> bool: ...
+
+    @abstract_method
     def is_invertible(self) -> bool: ...
 
+    @abstract_method
     def inverse(self) -> Self:
         r"""Asserts ``self.is_automorphism()`` first."""
         ...
 
+    @abstract_method
     def __pow__(self, n: int) -> Self: ...
 
 
@@ -219,7 +269,10 @@ class _RModAutomorphisms:
     def image(self) -> SubModule:
         return self.codomain()
 
+    @abstract_method
     def inverse(self) -> Self: ...
+
+    @abstract_method
     def __pow__(self, n: int) -> Self: ...
 
 
@@ -236,12 +289,18 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
         return [MagmaticAlgebras(R), Modules(R)]
 
     class ParentMethods:
+        @abstract_method
         def base_module(self) -> RModule:
             r"""If this is End_R(M), return M."""
             ...
 
+        @abstract_method
         def Aut(self) -> RModAutSet: ...
+
+        @abstract_method
         def unit_group(self) -> RModAutSet: ...
+
+        @abstract_method
         def identity(self) -> RModuleEndomorphism: ...
         # Do not define ``as_automorphism`` -- promotion of invertible
         # objects should happen automatically.
@@ -275,16 +334,20 @@ class _Forms(CategoryWithAxiom_over_base_ring):
     """
 
     class ParentMethods:
+        @abstract_method
         def form_degree(self) -> tuple[int, int]:
             r"""Return ``(p, q)``."""
             ...
 
+        @abstract_method
         def is_integral(self) -> bool: ...
 
+        @abstract_method
         def is_rational(self) -> bool:
             r"""True if it takes a non-integral value."""
             ...
 
+        @abstract_method
         def base_module(self) -> RModule:
             r"""If this is ``Hom_R(T_R(M)[p,q], S)``, return ``M``."""
             ...
