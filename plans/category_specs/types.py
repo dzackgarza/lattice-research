@@ -9,16 +9,16 @@ dropped until those spec files land.
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 
-from .rings import ModuleBaseIdeals, ModuleBaseRings
+from .rings import Rings, _RingIdeals
 from .sage_modules import Modules
 
 # Generic / Support
-Ring = ModuleBaseRings.ParentMethods
-RingElement = ModuleBaseRings.ElementMethods
-RingMorphism = ModuleBaseRings.MorphismMethods
+Ring = Rings.ParentMethods
+RingElement = Rings.ElementMethods
+RingMorphism = Rings.MorphismMethods
 
-LocalRing = ModuleBaseRings.Local.ParentMethods
-CompleteRing = ModuleBaseRings.Complete.ParentMethods
+LocalRing = Rings.Local.ParentMethods
+CompleteRing = Rings.Complete.ParentMethods
 
 Cardinality = Integer | InfinityElement
 
@@ -32,7 +32,7 @@ ProjectiveModule = Modules.Projective.ParentMethods
 SubModule = Modules.Subobjects.ParentMethods
 TensorProductRModule = Modules.TensorProducts.ParentMethods
 
-Ideal = ModuleBaseIdeals.ParentMethods
+Ideal = _RingIdeals.ParentMethods
 
 RModHomset = Modules.Homsets.ParentMethods
 RModHomsetElement = Modules.Homsets.ElementMethods

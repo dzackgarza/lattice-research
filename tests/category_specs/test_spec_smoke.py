@@ -1,36 +1,24 @@
-"""Spec smoke for ``plans.category_specs``.
+"""Phase 3 end-state assertions for ``plans.category_specs``.
 
-Two concerns, intentionally separated:
-
-1. **Instantiation** — importing the package and running the three
-   canonical constructions (``ZZ ** 2``, ``ZZ.quotient(6 * ZZ)``,
-   ``ZZ.ideal(6)``) must succeed.  These exercise the super+refine glue
-   in ``ModuleBaseRings.ParentMethods``.
-
-2. **Abstract-method discovery** — every ``@abstract_method`` on the
-   parent-side / element-side surface must fail uniformly, i.e. raise
-   a ``NotImplementedError`` (the standard failure emitted by Sage's
-   ``abstract_method`` decorator).  The list this test produces *is* the
-   implementation backlog.  Any method that returns ``None`` or raises a
-   different exception type signals a spec gap (missing decorator or
-   silent ``...`` body) that must be fixed.
+These tests record mathematical behavior expected after concrete category
+interceptors and constructor redefinitions are installed.
 """
 
 from __future__ import annotations
 
 import importlib
-from typing import Any
 
 import pytest
-from sage.all import GF, QQ, ZZ, FiniteField
-from sage.rings.padics.factory import Zp
+from sage.all import QQ, ZZ
 
-# Eagerly import the spec package so ``refinement.install()`` runs.
 importlib.import_module("plans.category_specs")
 
-from plans.category_specs.rings import ModuleBaseIdeals, ModuleBaseRings  # noqa: E402
-from plans.category_specs.sage_modules import Modules  # noqa: E402
+rings = importlib.import_module("plans.category_specs.rings")
+sage_modules = importlib.import_module("plans.category_specs.sage_modules")
 
+RingIdeals = rings.RingIdeals
+Rings = rings.Rings
+Modules = sage_modules.Modules
 
 # ---------------------------------------------------------------------------
 # 1. Instantiation
@@ -39,16 +27,17 @@ from plans.category_specs.sage_modules import Modules  # noqa: E402
 class TestInstantiation:
     def test_pow_returns_free_module(self):
         M = ZZ ** 2
-        assert M is not None
         assert M.rank() == 2
+        assert M in Modules(ZZ).Free().FinitelyPresented()
 
     def test_quotient_returns_ring(self):
         Q = ZZ.quotient(6 * ZZ)
-        assert Q is not None
+        assert Q in Modules(ZZ).FinitelyPresented()
 
     def test_ideal_returns_ideal(self):
         I = ZZ.ideal(6)
         assert I.gens() == (6,)
+        assert I in RingIdeals(ZZ)
 
 
 # ---------------------------------------------------------------------------
@@ -58,20 +47,29 @@ class TestInstantiation:
 class TestSeedEnrollment:
     @pytest.mark.parametrize("R", [ZZ, QQ])
     def test_core_ring_is_refined(self, R):
-        assert R in ModuleBaseRings()
+        assert R in Rings()
 
     def test_gf_is_refined(self):
-        assert GF(7) in ModuleBaseRings()
+        from sage.all import GF
+
+        assert GF(7) in Rings()
+
+    def test_finite_field_alias_is_refined(self):
+        from sage.all import FiniteField
+
+        assert FiniteField(11) in Rings()
 
     def test_zp_is_refined(self):
-        assert Zp(5) in ModuleBaseRings()
+        from sage.rings.padics.factory import Zp
+
+        assert Zp(5) in Rings()
 
     def test_install_is_idempotent(self):
         from plans.category_specs import refinement
         # Calling install() a second time must be a no-op.
         refinement.install()
         refinement.install()
-        assert ZZ in ModuleBaseRings()
+        assert ZZ in Rings()
 
 
 # ---------------------------------------------------------------------------
@@ -86,88 +84,89 @@ class TestNonRegression:
         assert (ZZ ** 2).rank() == 2
 
     def test_zp_precision_cap(self):
+        from sage.rings.padics.factory import Zp
+
         assert Zp(5).precision_cap() > 0
 
 
 # ---------------------------------------------------------------------------
-# 4. Abstract-method discovery sweep
+# 4. Constructor-specific promotion contracts
 # ---------------------------------------------------------------------------
-# For each surface we instantiate a concrete parent/element from Sage's
-# existing implementation and then try to invoke every ``@abstract_method``
-# declared on the corresponding ``ParentMethods`` / ``ElementMethods``.
-# Every call is expected to raise ``NotImplementedError`` — the uniform
-# failure mode produced by ``sage.misc.abstract_method``.  Any other result
-# (``None``, ``AttributeError``, ``TypeError`` from a ``...``-returns-None
-# chain) is a spec gap and fails the test.
 
-def _abstract_names(methods_class: Any) -> list[str]:
-    """Return the names of ``@abstract_method``-decorated functions on a
-    spec ``*Methods`` class.
-    """
-    from sage.misc.abstract_method import AbstractMethod
-    result = []
-    for name, member in methods_class.__dict__.items():
-        if isinstance(member, AbstractMethod):
-            result.append(name)
-    return sorted(result)
+class TestConstructorPromotion:
+    def test_free_module_constructor_promotes_to_free_finitely_presented(self):
+        from sage.modules.free_module import FreeModule
 
+        M = FreeModule(ZZ, 3)
+        assert M.rank() == 3
+        assert M in Modules(ZZ).Free().FinitelyPresented()
 
-def _call_and_record(target: Any, name: str) -> dict[str, Any]:
-    """Invoke ``target.name(...)`` with a small probe and record the outcome."""
-    method = getattr(target, name, None)
-    record: dict[str, Any] = {"name": name, "outcome": None, "detail": None}
-    if method is None:
-        record["outcome"] = "missing"
-        return record
-    # Minimal positional probes: most abstracts take no args or one arg.
-    probes = [(), (target,), (0,)]
-    for args in probes:
-        try:
-            method(*args)
-        except NotImplementedError as exc:
-            record["outcome"] = "not_implemented"
-            record["detail"] = str(exc)
-            return record
-        except TypeError:
-            # Signature mismatch — try the next probe.
-            continue
-        except Exception as exc:  # noqa: BLE001 — spec-gap reporter
-            record["outcome"] = type(exc).__name__
-            record["detail"] = str(exc)
-            return record
-        else:
-            record["outcome"] = "returned_without_raise"
-            return record
-    record["outcome"] = "no_matching_signature"
-    return record
+    def test_vector_space_constructor_promotes_to_free_finitely_presented_over_field(self):
+        from sage.modules.free_module import VectorSpace
 
+        V = VectorSpace(QQ, 4)
+        assert V.dimension() == 4
+        assert V in Modules(QQ).Free().FinitelyPresented()
+        assert V in Modules(QQ).OverField()
 
-class TestAbstractMethodSweep:
-    """For each category ``*Methods`` surface, invoke every abstract method
-    on an instantiated object and verify the uniform failure mode.
-    """
+    def test_combinatorial_free_module_all_alias_promotes_only_to_free(self):
+        from sage.all import CombinatorialFreeModule
 
-    def test_rings_parent_methods_abstracts_are_loud(self):
-        names = _abstract_names(ModuleBaseRings.ParentMethods)
-        results = [_call_and_record(ZZ, n) for n in names]
-        # The surface MUST declare at least some abstracts.
-        assert names, "No abstract methods on ModuleBaseRings.ParentMethods"
-        # Every abstract must be loud (NotImplementedError) — no silent Nones.
-        silent = [r for r in results if r["outcome"] == "returned_without_raise"]
-        assert not silent, f"Silent abstracts (return None): {silent}"
+        M = CombinatorialFreeModule(QQ, ZZ)
+        assert M in Modules(QQ).Free()
+        assert M not in Modules(QQ).FinitelyPresented()
 
-    def test_modules_parent_methods_abstracts_are_loud(self):
-        names = _abstract_names(Modules.ParentMethods)
-        assert names
-        M = ZZ ** 2
-        results = [_call_and_record(M, n) for n in names]
-        silent = [r for r in results if r["outcome"] == "returned_without_raise"]
-        assert not silent, f"Silent abstracts (return None): {silent}"
+    def test_matrix_space_all_alias_promotes_to_free_finitely_presented(self):
+        from sage.all import MatrixSpace
 
-    def test_modules_element_methods_abstracts_are_loud(self):
-        names = _abstract_names(Modules.ElementMethods)
-        assert names
-        m = (ZZ ** 2).zero()
-        results = [_call_and_record(m, n) for n in names]
-        silent = [r for r in results if r["outcome"] == "returned_without_raise"]
-        assert not silent, f"Silent abstracts (return None): {silent}"
+        M = MatrixSpace(ZZ, 2, 3)
+        assert M.nrows() == 2
+        assert M.ncols() == 3
+        assert M in Modules(ZZ).Free().FinitelyPresented()
+
+    def test_univariate_polynomial_ring_over_field_is_ring(self):
+        from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
+
+        R = PolynomialRing(QQ, "x")
+        assert R in Rings()
+
+    def test_multivariate_polynomial_ring_over_field_is_not_promoted_to_pid(self):
+        from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
+
+        R = PolynomialRing(QQ, ("x", "y"))
+        assert R not in Rings()
+
+    def test_polynomial_ring_over_nonfield_is_not_promoted_to_pid(self):
+        from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
+
+        R = PolynomialRing(ZZ, "x")
+        assert R not in Rings()
+
+    def test_univariate_laurent_polynomial_ring_over_field_is_ring(self):
+        from sage.rings.polynomial.laurent_polynomial_ring import LaurentPolynomialRing
+
+        R = LaurentPolynomialRing(QQ, "x")
+        assert R in Rings()
+
+    def test_univariate_power_series_ring_over_field_is_ring(self):
+        from sage.rings.power_series_ring import PowerSeriesRing
+
+        R = PowerSeriesRing(QQ, "t")
+        assert R in Rings()
+
+    def test_integer_mod_ring_constructor_promotes_to_finitely_presented_zz_module(self):
+        from sage.rings.finite_rings.integer_mod_ring import IntegerModRing
+
+        R = IntegerModRing(9)
+        assert R.order() == 9
+        assert R in Modules(ZZ).FinitelyPresented()
+
+    def test_number_field_constructor_promotes_field_and_preserves_integer_ring(self):
+        from sage.all import QuadraticField
+        from sage.categories.dedekind_domains import DedekindDomains
+
+        K = QuadraticField(5, "a")
+        assert K in Rings()
+        OK = K.ring_of_integers()
+        assert OK in DedekindDomains()
+        assert Modules(OK) == Modules(OK).OverDedekindDomain()

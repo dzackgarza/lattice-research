@@ -36,8 +36,10 @@ Naming convention used throughout this directory (canonical types):
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Callable, Sequence, Tuple
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any
 
+from sage.categories import category_with_axiom as _category_with_axiom
 from sage.categories.bimodules import Bimodules
 from sage.categories.cartesian_product import CartesianProductsCategory
 from sage.categories.category import Category
@@ -85,7 +87,7 @@ if TYPE_CHECKING:
     RModuleForm = Any
     OrderedSet = Any
     ModuleStructure = (
-        Callable[[Tuple[RingElement, RModuleElement]], RModuleElement]
+        Callable[[tuple[RingElement, RModuleElement]], RModuleElement]
         | Callable[[RingElement], RingEndomorphism]
     )
 
@@ -95,6 +97,46 @@ if TYPE_CHECKING:
 # ---------------------------------------------------------------------------
 
 FinSet = Sets().Finite()
+
+_CUSTOM_AXIOMS = (
+    "OverIntegralDomain",
+    "OverDedekindDomain",
+    "OverPID",
+    "OverCommutativeRing",
+    "OverField",
+    "OverLocalRing",
+    "OverCompleteRing",
+    "Free",
+    "FiniteRank",
+    "Torsion",
+    "Torsionfree",
+    "Projective",
+    "WithOrderedGeneratingSet",
+    "FinitelyGenerated",
+    "FinitelyPresented",
+    "RIdeals",
+    "WithForms",
+    "Bilinear",
+    "Quadratic",
+    "Symmetric",
+    "Alternating",
+    "Nondegenerate",
+    "Integral",
+    "Rational",
+)
+
+
+def _register_custom_axioms() -> None:
+    missing = tuple(
+        axiom
+        for axiom in _CUSTOM_AXIOMS
+        if axiom not in _category_with_axiom.all_axioms
+    )
+    if missing:
+        _category_with_axiom.all_axioms += missing
+
+
+_register_custom_axioms()
 
 
 # ---------------------------------------------------------------------------
@@ -139,6 +181,54 @@ class _RModObjects:
     ``linear_combination(...)`` is intentionally not provided here: when
     elements are implemented properly the parent does not need it.
     """
+
+    def is_over_integral_domain(self) -> bool:
+        return False
+
+    def is_over_dedekind_domain(self) -> bool:
+        return False
+
+    def is_over_pid(self) -> bool:
+        return False
+
+    def is_over_commutative_ring(self) -> bool:
+        return False
+
+    def is_over_field(self) -> bool:
+        return False
+
+    def is_over_local_ring(self) -> bool:
+        return False
+
+    def is_over_complete_ring(self) -> bool:
+        return False
+
+    def is_free(self) -> bool:
+        return False
+
+    def is_torsion(self) -> bool:
+        return False
+
+    def is_torsionfree(self) -> bool:
+        return False
+
+    def is_projective(self) -> bool:
+        return False
+
+    def is_finite(self) -> bool:
+        return False
+
+    def has_ordered_generating_set(self) -> bool:
+        return False
+
+    def is_finitely_generated(self) -> bool:
+        return False
+
+    def is_finitely_presented(self) -> bool:
+        return False
+
+    def is_ideal(self) -> bool:
+        return False
 
     @cached_method
     def tensor_square(self):
@@ -232,21 +322,6 @@ class _RModObjects:
 
     @abstract_method
     def cardinality(self) -> Cardinality: ...
-
-    @abstract_method
-    def is_finite(self) -> bool: ...
-
-    @abstract_method
-    def is_free(self) -> bool: ...
-
-    @abstract_method
-    def is_torsion(self) -> bool: ...
-
-    @abstract_method
-    def is_torsionfree(self) -> bool: ...
-
-    @abstract_method
-    def is_projective(self) -> bool: ...
 
     @abstract_method
     def is_isomorphic_to(self, other: RModule) -> bool: ...
@@ -513,6 +588,103 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
 
 
 # ---------------------------------------------------------------------------
+# Base-ring property subcategories
+# ---------------------------------------------------------------------------
+
+class _OverIntegralDomain(CategoryWithAxiom_over_base_ring):
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_integral_domain()
+
+    class ParentMethods:
+        def is_over_integral_domain(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
+    def extra_super_categories(self):
+        return [self.base_category().OverIntegralDomain()]
+
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_dedekind_domain()
+
+    class ParentMethods:
+        def is_over_dedekind_domain(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverPID(CategoryWithAxiom_over_base_ring):
+    def extra_super_categories(self):
+        return [self.base_category().OverDedekindDomain()]
+
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_pid()
+
+    class ParentMethods:
+        def is_over_pid(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverCommutativeRing(CategoryWithAxiom_over_base_ring):
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_commutative_ring()
+
+    class ParentMethods:
+        def is_over_commutative_ring(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverField(CategoryWithAxiom_over_base_ring):
+    def extra_super_categories(self):
+        return [self.base_category().OverPID()]
+
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_field()
+
+    class ParentMethods:
+        def is_over_field(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverLocalRing(CategoryWithAxiom_over_base_ring):
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_local_ring()
+
+    class ParentMethods:
+        def is_over_local_ring(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class _OverCompleteRing(CategoryWithAxiom_over_base_ring):
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_over_complete_ring()
+
+    class ParentMethods:
+        def is_over_complete_ring(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+# ---------------------------------------------------------------------------
 # Axiomatic subcategories (Free / Torsion / Torsionfree / Projective)
 # ---------------------------------------------------------------------------
 
@@ -540,6 +712,9 @@ class _Free(CategoryWithAxiom_over_base_ring):
         r"""Every free R-module is projective."""
         return [self.base_category().Projective()]
 
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_free()
+
     class SubcategoryMethods:
         @cached_method
         def FiniteRank(self):
@@ -552,6 +727,9 @@ class _Free(CategoryWithAxiom_over_base_ring):
     FiniteRank = _FreeFiniteRank
 
     class ParentMethods:
+        def is_free(self) -> bool:
+            return True
+
         @abstract_method
         def rank(self) -> Cardinality:
             r"""Rank is only well-defined for free R-modules; equals the
@@ -562,13 +740,25 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
 class _Torsion(CategoryWithAxiom_over_base_ring):
     r"""TODO: a torsion module over a finite ring is finite."""
-    class ParentMethods: ...
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_torsion()
+
+    class ParentMethods:
+        def is_torsion(self) -> bool:
+            return True
+
     class ElementMethods: ...
     class MorphismMethods: ...
 
 
 class _Torsionfree(CategoryWithAxiom_over_base_ring):
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_torsionfree()
+
     class ParentMethods:
+        def is_torsionfree(self) -> bool:
+            return True
+
         # override
         def annihilator(self) -> Ideal:
             r"""Ann_R(M) = <0>, the zero ideal of R regarded as an
@@ -582,7 +772,13 @@ class _Torsionfree(CategoryWithAxiom_over_base_ring):
 
 
 class _Projective(CategoryWithAxiom_over_base_ring):
-    class ParentMethods: ...
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_projective()
+
+    class ParentMethods:
+        def is_projective(self) -> bool:
+            return True
+
     class ElementMethods: ...
     class MorphismMethods: ...
 
@@ -597,7 +793,13 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     the direct sum is ordered.  ``S`` need not be finite.
     """
 
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.has_ordered_generating_set()
+
     class ParentMethods:
+        def has_ordered_generating_set(self) -> bool:
+            return True
+
         @abstract_method
         def gens(self) -> OrderedSet: ...
 
@@ -634,6 +836,13 @@ class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
     def extra_super_categories(self):
         return [self.base_category().WithOrderedGeneratingSet()]
 
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_finitely_generated()
+
+    class ParentMethods:
+        def is_finitely_generated(self) -> bool:
+            return True
+
 
 class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
     r"""Modules M that can be written as <S | R> with S \subseteq M a finite
@@ -660,6 +869,13 @@ class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
             result.append(FinSet)
         return result
 
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_finitely_presented()
+
+    class ParentMethods:
+        def is_finitely_presented(self) -> bool:
+            return True
+
 
 # ---------------------------------------------------------------------------
 # Ideals as a named subcategory of Modules(R).Subobjects()
@@ -669,13 +885,19 @@ class _RIdeals(CategoryWithAxiom_over_base_ring):
     r"""Ideals of R viewed as submodules of R^1.
 
     This is the named-subcategory entry point ``Modules(R).RIdeals``; the
-    parallel ring-side refinement lives in ``rings.ModuleBaseIdeals``.
+    parallel ring-side refinement lives in the private ring ideal bridge.
     """
 
     def extra_super_categories(self):
         return [self.base_category().Subobjects()]
 
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_ideal()
+
     class ParentMethods:
+        def is_ideal(self) -> bool:
+            return True
+
         # gens() not defined unless R is Noetherian.
         # don't leak the sage ideal: refine all ring-related categories
         # Should hook into a redefinition that overrides existing ideals category
@@ -699,14 +921,6 @@ class Modules(Category_module):
         from sage.categories.fields import Fields
         from sage.categories.integral_domains import IntegralDomains
         from sage.categories.principal_ideal_domains import PrincipalIdealDomains
-
-        # Lazy enrollment: any ring referenced as Modules(R) is refined
-        # into ModuleBaseRings() if it satisfies the PID+Commutative gate.
-        try:
-            from . import refinement
-            refinement.ensure_refined(base_ring)
-        except ImportError:
-            pass
 
         result = super().__classcall__(cls, base_ring)
         if not dispatch:
@@ -910,6 +1124,10 @@ class Modules(Category_module):
         def WithForms(self):
             return self._with_axiom("WithForms")
 
+        @cached_method
+        def RIdeals(self):
+            return self._with_axiom("RIdeals")
+
     # ----- Method providers (parents/elements/morphisms/homsets) ------------
 
     ParentMethods = _RModObjects
@@ -922,6 +1140,14 @@ class Modules(Category_module):
     RIdeals = _RIdeals
 
     # ----- Axiomatic subcategories ------------------------------------------
+
+    OverIntegralDomain = _OverIntegralDomain
+    OverDedekindDomain = _OverDedekindDomain
+    OverPID = _OverPID
+    OverCommutativeRing = _OverCommutativeRing
+    OverField = _OverField
+    OverLocalRing = _OverLocalRing
+    OverCompleteRing = _OverCompleteRing
 
     Free = _Free
     Torsion = _Torsion
@@ -999,11 +1225,36 @@ class Modules(Category_module):
 
 
 # ---------------------------------------------------------------------------
-# Wire FinitelyPresentedModulesOverPID as the axiom meet
-# FinitelyPresented() ∩ OverPID().  Deferred to avoid a circular import
-# with sage_special_modules (which imports this module's ``Modules``).
+# Wire custom axiom classes.
 # ---------------------------------------------------------------------------
 
-from .sage_special_modules import FinitelyPresentedModulesOverPID  # noqa: E402
+for _axiom, _category_class in (
+    ("OverIntegralDomain", _OverIntegralDomain),
+    ("OverDedekindDomain", _OverDedekindDomain),
+    ("OverPID", _OverPID),
+    ("OverCommutativeRing", _OverCommutativeRing),
+    ("OverField", _OverField),
+    ("OverLocalRing", _OverLocalRing),
+    ("OverCompleteRing", _OverCompleteRing),
+    ("Free", _Free),
+    ("Torsion", _Torsion),
+    ("Torsionfree", _Torsionfree),
+    ("Projective", _Projective),
+    ("WithOrderedGeneratingSet", _WithOrderedGeneratingSet),
+    ("FinitelyGenerated", _FinitelyGenerated),
+    ("FinitelyPresented", _FinitelyPresented),
+    ("RIdeals", _RIdeals),
+    ("WithForms", _WithForms),
+    ("Bilinear", _BilinearModules),
+    ("Quadratic", _QuadraticModules),
+):
+    _category_class._base_category_class_and_axiom = (Modules, _axiom)
 
-_FinitelyPresented.OverPID = FinitelyPresentedModulesOverPID
+_FreeFiniteRank._base_category_class_and_axiom = (_Free, "FiniteRank")
+
+# The specialized ``FinitelyPresented() ∩ OverPID()`` implementation in
+# ``sage_special_modules`` is intentionally not installed here yet.  Installing
+# it as ``_FinitelyPresented.OverPID`` recursively re-enters
+# ``FinitelyPresented().OverPID()`` once ``OverPID`` is registered as a real
+# axiom.  The generic axiom join composes correctly and keeps the category
+# surface usable until the meet class is wired with a non-recursive base.
