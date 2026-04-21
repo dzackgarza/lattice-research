@@ -39,6 +39,7 @@ from sage.categories.unique_factorization_domains import (
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
+from sage.rings.integer import Integer
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
 from sage.rings.lazy_series_ring import LazyLaurentSeriesRing, LazyPowerSeriesRing
 from sage.rings.multi_power_series_ring import MPowerSeriesRing_generic
@@ -46,7 +47,6 @@ from sage.rings.polynomial.multi_polynomial_ring_base import MPolynomialRing_bas
 from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
-from sage.rings.integer import Integer
 
 if TYPE_CHECKING:
     from ..types import Ideal, LocalRing, RingElement
@@ -104,6 +104,11 @@ def _singleton_categories_for_sage_ring(root, R):
 
 
 class _CommutativeRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py (references Rings class)
+
+    def _repr_object_names(self) -> str:
+        return "commutative rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings(), SageCommutativeRings()]
 
@@ -163,6 +168,11 @@ class _CommutativeRings(CategoryWithAxiom):
 
 
 class _FiniteRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "finite rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings(), SageRings().Finite()]
 
@@ -181,6 +191,11 @@ class _FiniteRings(CategoryWithAxiom):
 
 
 class _DivisionRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "division rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings(), SageDivisionRings()]
 
@@ -195,6 +210,11 @@ class _DivisionRings(CategoryWithAxiom):
 
 
 class _TopologicalRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "topological rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings(), SageRings().Topological()]
 
@@ -216,6 +236,11 @@ class _TopologicalRings(CategoryWithAxiom):
 
 
 class _Fields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_CommutativeRings, "Field")
+
+    def _repr_object_names(self) -> str:
+        return "fields"
+
     def super_categories(self) -> list[Any]:
         return [
             SageFields(),
@@ -285,8 +310,23 @@ class _Fields(CategoryWithAxiom):
         @abstract_method
         def vector_space(self, *args, **kwds): ...
 
+    class ElementMethods:
+        @abstract_method
+        def is_square(self) -> bool: ...
+
+        @abstract_method
+        def inverse(self): ...
+
+        @abstract_method
+        def inverse_of_unit(self): ...
+
 
 class _IntegralDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_CommutativeRings, "IntegralDomains")
+
+    def _repr_object_names(self) -> str:
+        return "integral domains"
+
     def super_categories(self) -> list[Any]:
         return [SageIntegralDomains(), _CommutativeRings()]
 
@@ -337,8 +377,21 @@ class _IntegralDomains(CategoryWithAxiom):
         @abstract_method
         def class_group(self, *args, **kwds): ...
 
+    class ElementMethods:
+        @abstract_method
+        def divides(self, other) -> bool: ...
+
+    class MorphismMethods:
+        @abstract_method
+        def extend_to_fraction_field(self): ...
+
 
 class _NoetherianRings(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_CommutativeRings, "Noetherian")
+
+    def _repr_object_names(self) -> str:
+        return "noetherian rings"
+
     def super_categories(self) -> list[Any]:
         return [SageNoetherianRings(), _CommutativeRings()]
 
@@ -353,6 +406,11 @@ class _NoetherianRings(CategoryWithAxiom):
 
 
 class _ReducedRings(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_CommutativeRings, "Reduced")
+
+    def _repr_object_names(self) -> str:
+        return "reduced rings"
+
     def super_categories(self) -> list[Any]:
         return [_CommutativeRings()]
 
@@ -368,6 +426,11 @@ class _ReducedRings(CategoryWithAxiom):
 
 
 class _GcdDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "Gcd")
+
+    def _repr_object_names(self) -> str:
+        return "gcd domains"
+
     def super_categories(self) -> list[Any]:
         return [SageGcdDomains(), _IntegralDomains()]
 
@@ -381,8 +444,23 @@ class _GcdDomains(CategoryWithAxiom):
         @abstract_method
         def gcd(self, *args, **kwds): ...
 
+    class ElementMethods:
+        @abstract_method
+        def gcd(self, other): ...
+
+        @abstract_method
+        def lcm(self, other): ...
+
+        @abstract_method
+        def xgcd(self, other): ...
+
 
 class _UniqueFactorizationDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "UniqueFactorization")
+
+    def _repr_object_names(self) -> str:
+        return "unique factorization domains"
+
     def super_categories(self) -> list[Any]:
         return [SageUniqueFactorizationDomains(), _GcdDomains()]
 
@@ -395,8 +473,26 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
         def is_unique_factorization_domain(self, proof=True) -> bool:
             return True
 
+    class ElementMethods:
+        @abstract_method
+        def factor(self, *args, **kwds): ...
+
+        @abstract_method
+        def is_irreducible(self) -> bool: ...
+
+        @abstract_method
+        def is_prime(self) -> bool: ...
+
+        @abstract_method
+        def radical(self): ...
+
 
 class _PrincipalIdealDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
+
+    def _repr_object_names(self) -> str:
+        return "principal ideal domains"
+
     def super_categories(self) -> list[Any]:
         return [SagePrincipalIdealDomains(), _UniqueFactorizationDomains()]
 
@@ -414,6 +510,11 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
 
 
 class _EuclideanDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "Euclidean")
+
+    def _repr_object_names(self) -> str:
+        return "euclidean domains"
+
     def super_categories(self) -> list[Any]:
         return [SageEuclideanDomains(), _PrincipalIdealDomains()]
 
@@ -426,8 +527,20 @@ class _EuclideanDomains(CategoryWithAxiom):
         def is_euclidean_domain(self) -> bool:
             return True
 
+    class ElementMethods:
+        @abstract_method
+        def euclidean_degree(self): ...
+
+        @abstract_method
+        def quo_rem(self, other): ...
+
 
 class _IntegrallyClosedDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "IntegrallyClosed")
+
+    def _repr_object_names(self) -> str:
+        return "integrally closed domains"
+
     def super_categories(self) -> list[Any]:
         return [_IntegralDomains()]
 
@@ -443,6 +556,11 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
 
 
 class _DedekindDomains(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_IntegralDomains, "Dedekind")
+
+    def _repr_object_names(self) -> str:
+        return "Dedekind domains"
+
     def super_categories(self) -> list[Any]:
         return [
             SageDedekindDomains(),
@@ -466,6 +584,11 @@ class _DedekindDomains(CategoryWithAxiom):
 
 
 class _ValuedRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "valued rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings()]
 
@@ -488,6 +611,11 @@ class _ValuedRings(CategoryWithAxiom):
 
 
 class _DiscreteValuationRings(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_ValuedRings, "DiscretelyValued")
+
+    def _repr_object_names(self) -> str:
+        return "discrete valuation rings"
+
     def super_categories(self) -> list[Any]:
         return [SageDiscreteValuationRings(), _ValuedRings()]
 
@@ -506,8 +634,15 @@ class _DiscreteValuationRings(CategoryWithAxiom):
         @abstract_method
         def residue_field(self, *args, **kwds): ...
 
+    class ElementMethods:
+        @abstract_method
+        def valuation(self): ...
+
 
 class _DiscreteValuationFields(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "discrete valuation fields"
+
     def super_categories(self) -> list[Any]:
         return [SageDiscreteValuationFields(), _Fields(), _DiscreteValuationRings()]
 
@@ -522,6 +657,11 @@ class _DiscreteValuationFields(Category_singleton):
 
 
 class _CompleteRings(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_TopologicalRings, "Complete")
+
+    def _repr_object_names(self) -> str:
+        return "complete rings"
+
     def super_categories(self) -> list[Any]:
         return [_TopologicalRings()]
 
@@ -537,6 +677,11 @@ class _CompleteRings(CategoryWithAxiom):
 
 
 class _LocalRings(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_CommutativeRings, "Local")
+
+    def _repr_object_names(self) -> str:
+        return "local rings"
+
     def super_categories(self) -> list[Any]:
         return [_CommutativeRings()]
 
@@ -555,6 +700,9 @@ class _LocalRings(CategoryWithAxiom):
 
 
 class _CompleteDiscreteValuationRings(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "complete discrete valuation rings"
+
     def super_categories(self) -> list[Any]:
         return [
             SageCompleteDiscreteValuationRings(),
@@ -574,6 +722,9 @@ class _CompleteDiscreteValuationRings(Category_singleton):
 
 
 class _CompleteDiscreteValuationFields(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "complete discrete valuation fields"
+
     def super_categories(self) -> list[Any]:
         return [
             SageCompleteDiscreteValuationFields(),
@@ -593,6 +744,11 @@ class _CompleteDiscreteValuationFields(Category_singleton):
 
 
 class _FiniteFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Fields, "Finite")
+
+    def _repr_object_names(self) -> str:
+        return "finite fields"
+
     def super_categories(self) -> list[Any]:
         return [SageFiniteFields(), _Fields(), _FiniteRings()]
 
@@ -611,6 +767,11 @@ class _FiniteFields(CategoryWithAxiom):
 
 
 class _NumberFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Fields, "NumberFields")
+
+    def _repr_object_names(self) -> str:
+        return "number fields"
+
     def super_categories(self) -> list[Any]:
         return [SageNumberFields(), _Fields()]
 
@@ -650,8 +811,26 @@ class _NumberFields(CategoryWithAxiom):
         @abstract_method
         def zeta_function(self, *args, **kwds) -> Any: ...
 
+    class ElementMethods:
+        @abstract_method
+        def norm(self): ...
+
+        @abstract_method
+        def trace(self): ...
+
+        @abstract_method
+        def minpoly(self, *args, **kwds): ...
+
+        @abstract_method
+        def charpoly(self, *args, **kwds): ...
+
 
 class _AlgebraicallyClosedFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Fields, "AlgebraicallyClosed")
+
+    def _repr_object_names(self) -> str:
+        return "algebraically closed fields"
+
     def super_categories(self) -> list[Any]:
         return [_Fields()]
 
@@ -664,6 +843,11 @@ class _AlgebraicallyClosedFields(CategoryWithAxiom):
 
 
 class _LocalFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Fields, "LocalFields")
+
+    def _repr_object_names(self) -> str:
+        return "local fields"
+
     def super_categories(self) -> list[Any]:
         return [_Fields(), _TopologicalRings()]
 
@@ -676,6 +860,11 @@ class _LocalFields(CategoryWithAxiom):
 
 
 class _GlobalFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Fields, "GlobalFields")
+
+    def _repr_object_names(self) -> str:
+        return "global fields"
+
     def super_categories(self) -> list[Any]:
         return [_Fields()]
 
@@ -700,6 +889,11 @@ class _GlobalFields(CategoryWithAxiom):
 
 
 class _ArchimedeanGlobalFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_GlobalFields, "Archimedean")
+
+    def _repr_object_names(self) -> str:
+        return "archimedean global fields"
+
     def super_categories(self) -> list[Any]:
         return [_GlobalFields()]
 
@@ -712,6 +906,11 @@ class _ArchimedeanGlobalFields(CategoryWithAxiom):
 
 
 class _NonArchimedeanGlobalFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_GlobalFields, "NonArchimedean")
+
+    def _repr_object_names(self) -> str:
+        return "nonarchimedean global fields"
+
     def super_categories(self) -> list[Any]:
         return [_GlobalFields()]
 
@@ -724,6 +923,11 @@ class _NonArchimedeanGlobalFields(CategoryWithAxiom):
 
 
 class _QuadraticNumberFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_NumberFields, "Quadratic")
+
+    def _repr_object_names(self) -> str:
+        return "quadratic number fields"
+
     def super_categories(self) -> list[Any]:
         return [_NumberFields()]
 
@@ -736,6 +940,11 @@ class _QuadraticNumberFields(CategoryWithAxiom):
 
 
 class _CyclotomicFields(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_NumberFields, "Cyclotomic")
+
+    def _repr_object_names(self) -> str:
+        return "cyclotomic fields"
+
     def super_categories(self) -> list[Any]:
         return [_NumberFields()]
 
@@ -748,6 +957,9 @@ class _CyclotomicFields(CategoryWithAxiom):
 
 
 class _QuotientFields(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "quotient fields"
+
     def super_categories(self) -> list[Any]:
         return [SageQuotientFields(), _Fields()]
 
@@ -760,6 +972,9 @@ class _QuotientFields(Category_singleton):
 
 
 class _ZZ(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "integer ring"
+
     def super_categories(self) -> list[Any]:
         return [
             _EuclideanDomains(),
@@ -779,6 +994,9 @@ class _ZZ(Category_singleton):
 
 
 class _QQ(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "rational field"
+
     def super_categories(self) -> list[Any]:
         return [
             _Fields(),
@@ -800,6 +1018,9 @@ class _QQ(Category_singleton):
 
 
 class _RR(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "real field with 53 bits of precision"
+
     def super_categories(self) -> list[Any]:
         return [_Fields(), _CompleteRings(), _LocalFields()]
 
@@ -815,6 +1036,9 @@ class _RR(Category_singleton):
 
 
 class _CC(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "complex field with 53 bits of precision"
+
     def super_categories(self) -> list[Any]:
         return [_Fields(), _CompleteRings(), _LocalFields(), _AlgebraicallyClosedFields()]
 
@@ -830,6 +1054,11 @@ class _CC(Category_singleton):
 
 
 class _PolynomialRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "polynomial rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings()]
 
@@ -851,6 +1080,11 @@ class _PolynomialRings(CategoryWithAxiom):
 
 
 class _PuiseuxSeriesRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "Puiseux series rings"
+
     def super_categories(self) -> list[Any]:
         return [Rings()]
 
@@ -866,6 +1100,11 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
 
 
 class _LaurentSeriesRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "Laurent series rings"
+
     def super_categories(self) -> list[Any]:
         return [_PuiseuxSeriesRings()]
 
@@ -881,6 +1120,11 @@ class _LaurentSeriesRings(CategoryWithAxiom):
 
 
 class _PowerSeriesRings(CategoryWithAxiom):
+    # _base_category_class_and_axiom set in __init__.py
+
+    def _repr_object_names(self) -> str:
+        return "power series rings"
+
     def super_categories(self) -> list[Any]:
         return [_LaurentSeriesRings()]
 
