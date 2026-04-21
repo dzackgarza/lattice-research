@@ -77,7 +77,7 @@ from .specialized import (
 )
 
 if TYPE_CHECKING:
-    from ..types import FreeModule, Ideal, LocalRing, RingElement, RModule
+    from ..types import FreeModule, Ideal, RingElement, RModule
 
 _register_custom_axioms()
 
@@ -91,6 +91,21 @@ class _RingObjectMethods:
 
     def is_ring(self) -> bool:
         return True
+
+    @abstract_method
+    def characteristic(self) -> Integer: ...
+
+    @abstract_method
+    def is_exact(self) -> bool: ...
+
+    @abstract_method
+    def zeta(self, n: Integer = 2, *args, **kwds): ...
+
+    @abstract_method
+    def zeta_order(self) -> Integer: ...
+
+    @abstract_method
+    def zero_ideal(self) -> Ideal: ...
 
     @abstract_method
     def is_commutative_ring(self): ...
@@ -237,9 +252,6 @@ class _RingObjectMethods:
     def free_module(self, base=None, basis=None, map=True) -> FreeModule: ...
 
     @abstract_method
-    def localization(self, *extra_units: RingElement, **kwds) -> LocalRing: ...
-
-    @abstract_method
     def unit_ideal(self) -> Ideal: ...
 
     @abstract_method
@@ -265,14 +277,29 @@ class _RingElementMethods:
     @abstract_method
     def is_nilpotent(self) -> bool: ...
 
-    @abstract_method
-    def is_idempotent(self) -> bool: ...
+    def is_idempotent(self) -> bool:
+        return self * self == self
 
     @abstract_method
     def additive_order(self): ...
 
     @abstract_method
     def multiplicative_order(self): ...
+
+    @abstract_method
+    def is_square(self) -> bool: ...
+
+    @abstract_method
+    def abs(self): ...
+
+    @abstract_method
+    def nth_root(self, n: Integer, *args, **kwds): ...
+
+    @abstract_method
+    def sqrt(self, *args, **kwds): ...
+
+    @abstract_method
+    def powers(self, n: Integer) -> list: ...
 
     def principal_ideal(self) -> Ideal:
         return self.parent().principal_ideal(self)
@@ -308,6 +335,18 @@ class _RingMorphismMethods:
 
     @abstract_method
     def is_zero(self) -> bool: ...
+
+    @abstract_method
+    def kernel(self) -> Ideal: ...
+
+    @abstract_method
+    def section(self): ...
+
+    @abstract_method
+    def pre_compose(self, other): ...
+
+    @abstract_method
+    def post_compose(self, other): ...
 
 
 # ---------------------------------------------------------------------------
@@ -430,15 +469,17 @@ class Rings(Category_singleton):
     )
 
     def __contains__(self, R: Any) -> bool:
-        try:
-            if R.category().is_subcategory(self):
+        match R:
+            case _ if R in Categories() and R.category().is_subcategory(self):
                 return True
-        except AttributeError:
-            pass
-        return R in SageRings()
+            case _ if R in SageRings():
+                return True
+            case _:
+                # TODO: check if THIS category is anywhere in the object's ambient category hierarchy.
+                return False
 
     @final
-    def super_categories(self) -> list[Any]:
+    def super_categories(self) -> list[Category]:
         return [SageRings()]
 
     @final
@@ -474,6 +515,10 @@ class Rings(Category_singleton):
     def from_sage_ring(self, R: Any):
         r"""Refine ``R`` into every redesigned category mirrored by Sage."""
         refined_categories = [self]
+        # TODO: this is inelegant. Just find the smallest ring-related category that 
+        # R is contained in, and refine the ring to the corresponding category
+        # in this hierarchy. There should be a 1-to-1 matching for all known rings.
+        # Make it explicit, not a shotgun guess like this.
         for sage_category, refined_category in self._sage_category_refinements().items():
             if R in sage_category:
                 refined_categories.append(refined_category())

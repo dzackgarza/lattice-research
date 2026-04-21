@@ -11,7 +11,7 @@ Defines:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.groups import Groups

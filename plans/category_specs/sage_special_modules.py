@@ -24,14 +24,12 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.homsets import HomsetsCategory
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
-
-from .sage_modules import Modules
 
 if TYPE_CHECKING:
     Cardinality = Any

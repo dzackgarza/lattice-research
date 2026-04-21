@@ -164,6 +164,9 @@ class _CommutativeRings(CategoryWithAxiom):
         def localization(self, *extra_units: RingElement, **kwds) -> LocalRing: ...
 
         @abstract_method
+        def extension(self, poly, name=None, *args, **kwds): ...
+
+        @abstract_method
         def over(self, *args, **kwds): ...
 
 
@@ -311,9 +314,6 @@ class _Fields(CategoryWithAxiom):
         def vector_space(self, *args, **kwds): ...
 
     class ElementMethods:
-        @abstract_method
-        def is_square(self) -> bool: ...
-
         @abstract_method
         def inverse(self): ...
 
@@ -609,6 +609,12 @@ class _ValuedRings(CategoryWithAxiom):
         @abstract_method
         def valuation(self, *args, **kwds): ...
 
+        @abstract_method
+        def completion(self, *args, **kwds): ...
+
+        @abstract_method
+        def roots_of_unity(self): ...
+
 
 class _DiscreteValuationRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (_ValuedRings, "DiscretelyValued")
@@ -632,7 +638,13 @@ class _DiscreteValuationRings(CategoryWithAxiom):
         def uniformizer(self, *args, **kwds): ...
 
         @abstract_method
+        def uniformizer_pow(self, n: Integer): ...
+
+        @abstract_method
         def residue_field(self, *args, **kwds): ...
+
+        @abstract_method
+        def residue_characteristic(self) -> Integer: ...
 
     class ElementMethods:
         @abstract_method
@@ -765,6 +777,21 @@ class _FiniteFields(CategoryWithAxiom):
         @abstract_method
         def order(self) -> Integer: ...
 
+        @abstract_method
+        def multiplicative_generator(self): ...
+
+        @abstract_method
+        def primitive_element(self): ...
+
+        @abstract_method
+        def modulus(self): ...
+
+        @abstract_method
+        def galois_group(self, *args, **kwds): ...
+
+        @abstract_method
+        def dual_basis(self): ...
+
 
 class _NumberFields(CategoryWithAxiom):
     _base_category_class_and_axiom = (_Fields, "NumberFields")
@@ -795,6 +822,78 @@ class _NumberFields(CategoryWithAxiom):
     class ParentMethods:
         def is_number_field(self) -> bool:
             return True
+
+        @abstract_method
+        def degree(self) -> Integer: ...
+
+        @abstract_method
+        def absolute_degree(self) -> Integer: ...
+
+        @abstract_method
+        def signature(self) -> tuple: ...
+
+        @abstract_method
+        def discriminant(self, *args, **kwds): ...
+
+        @abstract_method
+        def absolute_discriminant(self, *args, **kwds): ...
+
+        @abstract_method
+        def galois_group(self, *args, **kwds): ...
+
+        @abstract_method
+        def galois_closure(self, *args, **kwds): ...
+
+        @abstract_method
+        def automorphisms(self): ...
+
+        @abstract_method
+        def class_number(self, *args, **kwds) -> Integer: ...
+
+        @abstract_method
+        def integral_basis(self, *args, **kwds): ...
+
+        @abstract_method
+        def power_basis(self): ...
+
+        @abstract_method
+        def reduced_basis(self, *args, **kwds): ...
+
+        @abstract_method
+        def different(self): ...
+
+        @abstract_method
+        def places(self, *args, **kwds): ...
+
+        @abstract_method
+        def real_embeddings(self, *args, **kwds): ...
+
+        @abstract_method
+        def complex_embeddings(self, *args, **kwds): ...
+
+        @abstract_method
+        def roots_of_unity(self): ...
+
+        @abstract_method
+        def regulator(self, *args, **kwds): ...
+
+        @abstract_method
+        def units(self, *args, **kwds): ...
+
+        @abstract_method
+        def conductor(self, *args, **kwds): ...
+
+        @abstract_method
+        def prime_above(self, p, *args, **kwds): ...
+
+        @abstract_method
+        def primes_above(self, p, *args, **kwds): ...
+
+        @abstract_method
+        def S_units(self, S, *args, **kwds): ...
+
+        @abstract_method
+        def S_class_group(self, S, *args, **kwds): ...
 
         @abstract_method
         def ring_of_integers(self, *args, **kwds) -> Any: ...
@@ -1078,6 +1177,24 @@ class _PolynomialRings(CategoryWithAxiom):
         @abstract_method
         def gens(self, *args, **kwds): ...
 
+        @abstract_method
+        def change_ring(self, R): ...
+
+        @abstract_method
+        def change_var(self, var): ...
+
+        @abstract_method
+        def monomials_of_degree(self, n: Integer): ...
+
+        @abstract_method
+        def monics(self, *args, **kwds): ...
+
+        @abstract_method
+        def cyclotomic_polynomial(self, n: Integer): ...
+
+        @abstract_method
+        def weil_polynomials(self, *args, **kwds): ...
+
 
 class _PuiseuxSeriesRings(CategoryWithAxiom):
     # _base_category_class_and_axiom set in __init__.py
@@ -1118,6 +1235,12 @@ class _LaurentSeriesRings(CategoryWithAxiom):
         def is_laurent_series_ring(self) -> bool:
             return True
 
+        @abstract_method
+        def default_prec(self): ...
+
+        @abstract_method
+        def change_ring(self, R): ...
+
 
 class _PowerSeriesRings(CategoryWithAxiom):
     # _base_category_class_and_axiom set in __init__.py
@@ -1140,3 +1263,9 @@ class _PowerSeriesRings(CategoryWithAxiom):
 
         @abstract_method
         def default_prec(self): ...
+
+        @abstract_method
+        def change_ring(self, R): ...
+
+        @abstract_method
+        def change_var(self, var): ...

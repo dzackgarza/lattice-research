@@ -1,4 +1,5 @@
-from typing import Callable, Iterable, TypeVar
+from collections.abc import Callable, Iterable
+from typing import TypeVar
 
 T = TypeVar("T")
 def partition_list(L: list[T], f: Callable[T, bool]) -> tuple[list[T], list[T]]:
