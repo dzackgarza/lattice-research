@@ -47,6 +47,7 @@ if TYPE_CHECKING:
 # Forms-axiom helpers (wired into RModuleHomsets.Forms below)
 # ---------------------------------------------------------------------------
 
+
 class _Bilinear(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
         @abstract_method
@@ -56,9 +57,7 @@ class _Bilinear(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def associated_quadratic_form(self) -> QuadraticForm: ...
 
-        def b(
-            self, v: RModuleElement, w: RModuleElement
-        ) -> RModuleElement:
+        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             return self.evaluate(v.tensor(w))
 
 
@@ -79,6 +78,7 @@ class _Quadratic(CategoryWithAxiom_over_base_ring):
 # Homset-level (parent) methods
 # ---------------------------------------------------------------------------
 
+
 class _RModHomsetObjects:
     @abstract_method
     def domain(self) -> RModule: ...
@@ -95,6 +95,7 @@ class _RModHomsetObjects:
     @cached_method
     def zero(self):
         from sage.misc.constant_function import ConstantFunction
+
         return self(ConstantFunction(self.codomain().zero()))
 
     @abstract_method
@@ -109,6 +110,7 @@ class _RModHomsetObjects:
 # ---------------------------------------------------------------------------
 # Morphism (element) methods
 # ---------------------------------------------------------------------------
+
 
 class _RModMorphisms:
     # ``parent`` is a Sage ``Element`` intrinsic and is not restated here.
@@ -135,9 +137,7 @@ class _RModMorphisms:
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
     @abstract_method
-    def __call__(
-        self, m: RModuleElement | SubModule
-    ) -> RModuleElement | SubModule:
+    def __call__(self, m: RModuleElement | SubModule) -> RModuleElement | SubModule:
         r"""``f(m)`` is f applied to m; ``f(M)`` is the image submodule of f."""
         ...
 
@@ -220,6 +220,7 @@ class _RModMorphisms:
 # Endomorphism element methods
 # ---------------------------------------------------------------------------
 
+
 class _RModEndomorphisms:
     @abstract_method
     def order(self) -> Cardinality:
@@ -246,6 +247,7 @@ class _RModEndomorphisms:
 # ---------------------------------------------------------------------------
 # Automorphism element methods
 # ---------------------------------------------------------------------------
+
 
 class _RModAutomorphisms:
     def is_automorphism(self) -> bool:
@@ -280,11 +282,13 @@ class _RModAutomorphisms:
 # Endset and Autset subcategories
 # ---------------------------------------------------------------------------
 
+
 class _Endsets(CategoryWithAxiom_over_base_ring):
     def extra_super_categories(self):
         r"""End_R(M) is an R-algebra."""
         # Deferred to avoid circular import with sage_modules.
-        from .sage_modules import Modules
+        from . import Modules
+
         R = self.base_ring()
         return [MagmaticAlgebras(R), Modules(R)]
 
@@ -302,6 +306,7 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def identity(self) -> RModuleEndomorphism: ...
+
         # Do not define ``as_automorphism`` -- promotion of invertible
         # objects should happen automatically.
 
@@ -326,6 +331,7 @@ _Endsets.Autset = _Autsets
 # ---------------------------------------------------------------------------
 # Forms axiom subcategory
 # ---------------------------------------------------------------------------
+
 
 class _Forms(CategoryWithAxiom_over_base_ring):
     r"""R-modules of the form ``Hom_R(T_R(M)[p,q], S)`` where ``T_R(M)[p,q]``
@@ -400,6 +406,7 @@ class _Forms(CategoryWithAxiom_over_base_ring):
 # ---------------------------------------------------------------------------
 # RModuleHomsets: the homset category proper
 # ---------------------------------------------------------------------------
+
 
 class RModuleHomsets(HomsetsCategory):
     r"""The category of R-module homsets ``Hom_R(M, N)``.

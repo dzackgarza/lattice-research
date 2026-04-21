@@ -60,8 +60,8 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from .sage_module_morphism import RModuleHomsets, _RModMorphisms
-from .utils import partition_list
+from ..utils import partition_list
+from .homsets import RModuleHomsets, _RModMorphisms
 
 if TYPE_CHECKING:
     from sage.matrix.matrix0 import Matrix
@@ -86,10 +86,7 @@ if TYPE_CHECKING:
     Ideal = Any
     RModuleForm = Any
     OrderedSet = Any
-    ModuleStructure = (
-        Callable[[tuple[RingElement, RModuleElement]], RModuleElement]
-        | Callable[[RingElement], RingEndomorphism]
-    )
+    ModuleStructure = Callable[[tuple[RingElement, RModuleElement]], RModuleElement] | Callable[[RingElement], RingEndomorphism]
 
 
 # ---------------------------------------------------------------------------
@@ -127,11 +124,7 @@ _CUSTOM_AXIOMS = (
 
 
 def _register_custom_axioms() -> None:
-    missing = tuple(
-        axiom
-        for axiom in _CUSTOM_AXIOMS
-        if axiom not in _category_with_axiom.all_axioms
-    )
+    missing = tuple(axiom for axiom in _CUSTOM_AXIOMS if axiom not in _category_with_axiom.all_axioms)
     if missing:
         _category_with_axiom.all_axioms += missing
 
@@ -142,6 +135,7 @@ _register_custom_axioms()
 # ---------------------------------------------------------------------------
 # Categories of categories
 # ---------------------------------------------------------------------------
+
 
 class Categories(Category_singleton):
     r"""A shim to define an infty-category of (Sage) categories."""
@@ -163,9 +157,7 @@ class Categories(Category_singleton):
             (D for D in C.super_categories() if hasattr(D, "base_ring")),
             None,
         )
-        assert base_ring_cat is not None, (
-            f"No super category of {C} is a category over a base ring."
-        )
+        assert base_ring_cat is not None, f"No super category of {C} is a category over a base ring."
         return base_ring_cat.base_ring()
 
 
@@ -174,6 +166,7 @@ class Categories(Category_singleton):
 # ---------------------------------------------------------------------------
 # Note: these classes are bound to Modules below as inner-method providers.
 # They reference Modules-level types only via string annotations.
+
 
 class _RModObjects:
     r"""ParentMethods for ``Modules(R)``.
@@ -261,7 +254,7 @@ class _RModObjects:
     @abstract_method
     def torsion_submodule(self) -> SubModule:
         r"""M_tors := <{m in M | r*m = 0 for some r in R}>
-                    = <{m in M | Ann_R(m) != 0}>.
+        = <{m in M | Ann_R(m) != 0}>.
         """
         ...
 
@@ -359,7 +352,6 @@ class _RModObjects:
 
 
 class _RModElements:
-
     def span(self) -> SubModule:
         return self.parent().span([self])
 
@@ -400,6 +392,7 @@ class _RModElements:
 # ---------------------------------------------------------------------------
 # Functorial constructions (Subobjects / Quotients / Tensor / Cartesian / Dual)
 # ---------------------------------------------------------------------------
+
 
 class _DualObjects(DualObjectsCategory):
     r"""Dual modules M^* := Hom_R(M, R) viewed as integral linear forms."""
@@ -498,9 +491,7 @@ class _TensorProducts(TensorProductsCategory):
         def tensor_factors(self) -> list[RModule]: ...
 
         @abstract_method
-        def lift_from_product(
-            self, elts: Sequence[RModuleElement]
-        ) -> RModuleElement:
+        def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
             r"""Given an ordered set {m_1, ..., m_n} with m_i in M_i, where
             this module is M = M_1 \otimes_R ... \otimes_R M_n, lift the
             product element (m_1, ..., m_n) to m_1 \otimes ... \otimes m_n.
@@ -523,14 +514,13 @@ class _CartesianProducts(CartesianProductsCategory):
 
     class ElementMethods:
         def _lmul_(self, x: Any):
-            return self.parent()._cartesian_product_of_elements(
-                x * y for y in self.cartesian_factors()
-            )
+            return self.parent()._cartesian_product_of_elements(x * y for y in self.cartesian_factors())
 
 
 # ---------------------------------------------------------------------------
 # Forms-axiom subcategory placeholders (wired into Modules.WithForms below)
 # ---------------------------------------------------------------------------
+
 
 class _WithForms(CategoryWithAxiom_over_base_ring):
     r"""Non-full subcategory of pairs (M, f) with f a form on M."""
@@ -591,6 +581,7 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
 # Base-ring property subcategories
 # ---------------------------------------------------------------------------
 
+
 class _OverIntegralDomain(CategoryWithAxiom_over_base_ring):
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.is_over_integral_domain()
@@ -600,6 +591,7 @@ class _OverIntegralDomain(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -615,6 +607,7 @@ class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -630,6 +623,7 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -642,6 +636,7 @@ class _OverCommutativeRing(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -657,6 +652,7 @@ class _OverField(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -669,6 +665,7 @@ class _OverLocalRing(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -681,12 +678,14 @@ class _OverCompleteRing(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
 # Axiomatic subcategories (Free / Torsion / Torsionfree / Projective)
 # ---------------------------------------------------------------------------
+
 
 class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     def extra_super_categories(self):
@@ -699,7 +698,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         return [self.base_category().FinitelyGenerated()]
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -740,6 +741,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
 class _Torsion(CategoryWithAxiom_over_base_ring):
     r"""TODO: a torsion module over a finite ring is finite."""
+
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.is_torsion()
 
@@ -748,6 +750,7 @@ class _Torsion(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -768,6 +771,7 @@ class _Torsionfree(CategoryWithAxiom_over_base_ring):
             return R.ideal(R.zero())
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -780,12 +784,14 @@ class _Projective(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
 # Generation properties
 # ---------------------------------------------------------------------------
+
 
 class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     r"""There exists an ordered set ``S = {s_1 <= s_2 <= ...}`` and a
@@ -881,6 +887,7 @@ class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
 # Ideals as a named subcategory of Modules(R).Subobjects()
 # ---------------------------------------------------------------------------
 
+
 class _RIdeals(CategoryWithAxiom_over_base_ring):
     r"""Ideals of R viewed as submodules of R^1.
 
@@ -904,6 +911,7 @@ class _RIdeals(CategoryWithAxiom_over_base_ring):
         ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -911,8 +919,8 @@ class _RIdeals(CategoryWithAxiom_over_base_ring):
 # The Modules(R) category
 # ---------------------------------------------------------------------------
 
-class Modules(Category_module):
 
+class Modules(Category_module):
     @staticmethod
     def __classcall_private__(cls, base_ring, dispatch=True):
         # Imports inside method to avoid cycles at module load.
@@ -971,6 +979,7 @@ class Modules(Category_module):
 
     def free_module(self, n: int) -> FreeModule:
         from sage.rings.semirings.non_negative_integer_semiring import NN
+
         assert n in NN, f"Negative integers are not well-defined ranks: {n}"
         if n == 0:
             return self.zero_module()
@@ -981,15 +990,12 @@ class Modules(Category_module):
         ``M := R/r_1 \oplus ... \oplus R/r_n``, where R/0 := R.
         """
         from sage.categories.rings import Rings as _Rings
+
         if not elts:
             return self.zero_module()
-        assert all(r.parent() in _Rings() for r in elts), (
-            f"All element parents must be rings: {elts}"
-        )
+        assert all(r.parent() in _Rings() for r in elts), f"All element parents must be rings: {elts}"
         R = elts[0].parent()
-        assert all(r.parent() is R for r in elts), (
-            f"Elements must share a common ring: {[r.parent() for r in elts]}"
-        )
+        assert all(r.parent() is R for r in elts), f"Elements must share a common ring: {[r.parent() for r in elts]}"
         zs, rs = partition_list(elts, lambda x: x.is_zero())
         F = self.free_module(len(zs))
         T = sum(self.torsion_module(r) for r in rs)
@@ -1007,10 +1013,7 @@ class Modules(Category_module):
         if hasattr(M, "smith_form"):
             D, _, _ = M.smith_form()
             return self.from_ring_elements(D.diagonal())
-        raise TypeError(
-            f"Matrix {M} does not appear to support elementary_divisors "
-            f"or smith_form."
-        )
+        raise TypeError(f"Matrix {M} does not appear to support elementary_divisors or smith_form.")
 
     class SubcategoryMethods:
         r"""Methods available on every subcategory, not just Modules(R)."""
@@ -1169,15 +1172,15 @@ class Modules(Category_module):
     DualObjects = _DualObjects
 
     ## Extra structure
-    Filtered = LazyImport('sage.categories.filtered_modules', 'FilteredModules')
-    Graded = LazyImport('sage.categories.graded_modules', 'GradedModules')
-    Super = LazyImport('sage.categories.super_modules', 'SuperModules')
+    Filtered = LazyImport("sage.categories.filtered_modules", "FilteredModules")
+    Graded = LazyImport("sage.categories.graded_modules", "GradedModules")
+    Super = LazyImport("sage.categories.super_modules", "SuperModules")
 
     # ----- Forms / lattice surface -----------------------------------------
 
-    WithForms = _WithForms          # Non-full subcategory of pairs (M, f).
-    Bilinear = _BilinearModules     # (M, b): b: M \otimes_R M -> S.
-    Quadratic = _QuadraticModules   # (M, q): q: M -> S^\sigma.
+    WithForms = _WithForms  # Non-full subcategory of pairs (M, f).
+    Bilinear = _BilinearModules  # (M, b): b: M \otimes_R M -> S.
+    Quadratic = _QuadraticModules  # (M, q): q: M -> S^\sigma.
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
     # b a symmetric nondegenerate integral bilinear form.
 
