@@ -6,8 +6,6 @@ install concrete category interceptors and constructor redefinitions.
 """
 
 from . import (
+    modules,  # noqa: F401  (was sage_modules / sage_module_morphism / sage_special_modules)
     rings,  # noqa: F401
-    sage_module_morphism,  # noqa: F401
-    sage_modules,  # noqa: F401  (ensures Modules is importable)
-    sage_special_modules,  # noqa: F401
 )

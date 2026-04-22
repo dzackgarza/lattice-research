@@ -14,9 +14,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.categories.groups import Groups
+from sage.categories.groups import Groups as SageGroups
 from sage.categories.homsets import HomsetsCategory
-from sage.categories.magmatic_algebras import MagmaticAlgebras
+from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
@@ -290,7 +290,7 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
         from . import Modules
 
         R = self.base_ring()
-        return [MagmaticAlgebras(R), Modules(R)]
+        return [SageMagmaticAlgebras(R), Modules(R)]
 
     class ParentMethods:
         @abstract_method
@@ -316,7 +316,7 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
 class _Autsets(CategoryWithAxiom_over_base_ring):
     def extra_super_categories(self):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
-        return [self.base_category().Endset(), Groups()]
+        return [self.base_category().Endset(), SageGroups()]
 
     class ParentMethods:
         def is_aut_set(self) -> bool:

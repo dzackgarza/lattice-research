@@ -1,12 +1,13 @@
 r"""Spec for the (R,R)-bimodule category ``Modules(R)``.
 
-This is a scaffold for the lattice/module rewrite.  It defines the category
-of R-modules over a base ring (or a category of base rings), together with
-its axiomatic and functorial subcategories sufficient to support the
-bilinear-form / lattice surface in the companion files
-``sage_module_morphism.py`` and ``sage_special_modules.py``.
+Naming convention — Sage vs. ours:
+    Modules(R)          -- our category of R-modules (this file)
+    SageModules(R)      -- sage.categories.modules.Modules(R)
+    CommutativeRings()  -- our Rings().Commutative()
+    SageCommutativeRings -- sage.categories.commutative_rings.CommutativeRings
+    (similarly for Fields, IntegralDomains, PrincipalIdealDomains, etc.)
 
-Naming convention used throughout this directory (canonical types):
+Canonical type aliases used throughout this package:
     Matrix, vector            -- Sage primitives
     Category                  -- a Sage category
     RMod                      -- the Modules(R) category itself
@@ -20,13 +21,11 @@ Naming convention used throughout this directory (canonical types):
     RModAutomorphism          -- an element in some Aut_R(M)
     SubModule                 -- an element in RMod.Subobjects()
     QuotientModule            -- an element in RMod.Quotients()
-    RModTwistedForms          -- the category of twisted forms
-    TwistedForm               -- an object in RModTwistedForms
-    RModDual                  -- the Modules dual category, equals linear twisted forms
+    RModDual                  -- the Modules dual category (= linear twisted forms)
     DualRModule               -- M^* for some RModule M; an object in RModDual
-    Rings                     -- the promoted category of rings
+    Rings                     -- our promoted category of rings
     Ring                      -- an object in Rings
-    Ideals                    -- the promoted category of ideals of R as a
+    Ideals                    -- our promoted category of ideals of R as a
                                  subcategory of Modules(R).Subobjects()
     Ideal                     -- an object in Ideals
     RingMorphism              -- a morphism in Rings
@@ -40,7 +39,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories import category_with_axiom as _category_with_axiom
-from sage.categories.bimodules import Bimodules
+from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.cartesian_product import CartesianProductsCategory
 from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
@@ -61,6 +60,27 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..utils import partition_list
+from .axioms import (
+    _BilinearModules,
+    _FinitelyGenerated,
+    _FinitelyPresented,
+    _Free,
+    _FreeFiniteRank,
+    _OverCommutativeRing,
+    _OverCompleteRing,
+    _OverDedekindDomain,
+    _OverField,
+    _OverIntegralDomain,
+    _OverLocalRing,
+    _OverPID,
+    _Projective,
+    _QuadraticModules,
+    _RIdeals,
+    _Torsion,
+    _Torsionfree,
+    _WithForms,
+    _WithOrderedGeneratingSet,
+)
 from .homsets import RModuleHomsets, _RModMorphisms
 
 if TYPE_CHECKING:
@@ -133,7 +153,7 @@ _register_custom_axioms()
 
 
 # ---------------------------------------------------------------------------
-# Categories of categories
+# Categories-of-categories shim
 # ---------------------------------------------------------------------------
 
 
@@ -164,8 +184,6 @@ class Categories(Category_singleton):
 # ---------------------------------------------------------------------------
 # ParentMethods / ElementMethods for Modules(R)
 # ---------------------------------------------------------------------------
-# Note: these classes are bound to Modules below as inner-method providers.
-# They reference Modules-level types only via string annotations.
 
 
 class _RModObjects:
@@ -345,9 +363,7 @@ class _RModObjects:
 
     @abstract_method
     def natural_pairing(self) -> RModuleForm:
-        r"""The (1,1) form b: M \otimes_R M^* -> R defined by
-        b(v, w^*) := w^*(v).
-        """
+        r"""The (1,1) form b: M \otimes_R M^* -> R defined by b(v, w^*) := w^*(v)."""
         ...
 
 
@@ -518,404 +534,6 @@ class _CartesianProducts(CartesianProductsCategory):
 
 
 # ---------------------------------------------------------------------------
-# Forms-axiom subcategory placeholders (wired into Modules.WithForms below)
-# ---------------------------------------------------------------------------
-
-
-class _WithForms(CategoryWithAxiom_over_base_ring):
-    r"""Non-full subcategory of pairs (M, f) with f a form on M."""
-
-    class ParentMethods:
-        @abstract_method
-        def form(self) -> RModuleMorphism: ...
-
-    class SubcategoryMethods:
-        @cached_method
-        def Bilinear(self):
-            r"""(M, b) with b: M \otimes_R M -> S, possibly degenerate."""
-            return self._with_axiom("Bilinear")
-
-        @cached_method
-        def Quadratic(self):
-            r"""(M, q) with q: M -> S^\sigma, possibly degenerate."""
-            return self._with_axiom("Quadratic")
-
-        @cached_method
-        def Symmetric(self):
-            return self._with_axiom("Symmetric")
-
-        @cached_method
-        def Alternating(self):
-            return self._with_axiom("Alternating")
-
-        @cached_method
-        def Nondegenerate(self):
-            return self._with_axiom("Nondegenerate")
-
-        @cached_method
-        def Integral(self):
-            return self._with_axiom("Integral")
-
-        @cached_method
-        def Rational(self):
-            return self._with_axiom("Rational")
-
-
-class _BilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Modules with a bilinear form b: M \otimes_R M -> S."""
-
-    class ParentMethods:
-        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.form().b(v, w)
-
-
-class _QuadraticModules(CategoryWithAxiom_over_base_ring):
-    r"""Modules with a quadratic form q: M -> S^\sigma."""
-
-    class ParentMethods:
-        def q(self, v: RModuleElement) -> RModuleElement:
-            return self.form().q(v)
-
-
-# ---------------------------------------------------------------------------
-# Base-ring property subcategories
-# ---------------------------------------------------------------------------
-
-
-class _OverIntegralDomain(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_integral_domain()
-
-    class ParentMethods:
-        def is_over_integral_domain(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        return [self.base_category().OverIntegralDomain()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_dedekind_domain()
-
-    class ParentMethods:
-        def is_over_dedekind_domain(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverPID(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        return [self.base_category().OverDedekindDomain()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_pid()
-
-    class ParentMethods:
-        def is_over_pid(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverCommutativeRing(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_commutative_ring()
-
-    class ParentMethods:
-        def is_over_commutative_ring(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverField(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        return [self.base_category().OverPID()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_field()
-
-    class ParentMethods:
-        def is_over_field(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverLocalRing(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_local_ring()
-
-    class ParentMethods:
-        def is_over_local_ring(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _OverCompleteRing(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_over_complete_ring()
-
-    class ParentMethods:
-        def is_over_complete_ring(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-# ---------------------------------------------------------------------------
-# Axiomatic subcategories (Free / Torsion / Torsionfree / Projective)
-# ---------------------------------------------------------------------------
-
-
-class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
-    def extra_super_categories(self):
-        r"""A finite-rank free module is exactly a finitely generated free
-        module.
-
-        TODO: a finite-rank free module over a finite ring is itself finite.
-        TODO: externalize this category entirely.
-        """
-        return [self.base_category().FinitelyGenerated()]
-
-    class ParentMethods: ...
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _Free(CategoryWithAxiom_over_base_ring):
-    r"""Free R-modules.  Does not assume finitely generated or finitely
-    presented; e.g. ``\bigoplus_{z \in CC} CC`` is a free CC-module.
-    """
-
-    def extra_super_categories(self):
-        r"""Every free R-module is projective."""
-        return [self.base_category().Projective()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_free()
-
-    class SubcategoryMethods:
-        @cached_method
-        def FiniteRank(self):
-            r"""Rank is only well-defined for free modules.  This is the
-            subcategory where the rank is finite, so M \cong R^n for some
-            n < \infty.
-            """
-            return self._with_axiom("FiniteRank")
-
-    FiniteRank = _FreeFiniteRank
-
-    class ParentMethods:
-        def is_free(self) -> bool:
-            return True
-
-        @abstract_method
-        def rank(self) -> Cardinality:
-            r"""Rank is only well-defined for free R-modules; equals the
-            cardinality of any generating set (which may be infinite).
-            """
-            return self.gens().cardinality()
-
-
-class _Torsion(CategoryWithAxiom_over_base_ring):
-    r"""TODO: a torsion module over a finite ring is finite."""
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_torsion()
-
-    class ParentMethods:
-        def is_torsion(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _Torsionfree(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_torsionfree()
-
-    class ParentMethods:
-        def is_torsionfree(self) -> bool:
-            return True
-
-        # override
-        def annihilator(self) -> Ideal:
-            r"""Ann_R(M) = <0>, the zero ideal of R regarded as an
-            R-submodule of R.
-            """
-            R = self.base_ring()
-            return R.ideal(R.zero())
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-class _Projective(CategoryWithAxiom_over_base_ring):
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_projective()
-
-    class ParentMethods:
-        def is_projective(self) -> bool:
-            return True
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-# ---------------------------------------------------------------------------
-# Generation properties
-# ---------------------------------------------------------------------------
-
-
-class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
-    r"""There exists an ordered set ``S = {s_1 <= s_2 <= ...}`` and a
-    surjection ``f: R^S \cong R[s_1] \oplus R[s_2] \oplus ... -> M`` where
-    the direct sum is ordered.  ``S`` need not be finite.
-    """
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.has_ordered_generating_set()
-
-    class ParentMethods:
-        def has_ordered_generating_set(self) -> bool:
-            return True
-
-        @abstract_method
-        def gens(self) -> OrderedSet: ...
-
-        def ngens(self) -> Cardinality:
-            return self.gens().cardinality()
-
-        def gen(self, i):
-            return self.gens()[i]
-
-    class Homsets(HomsetsCategory):
-        class ParentMethods:
-            @abstract_method
-            def from_function(self, f: Callable[[Any], Any]):
-                r"""A morphism f: M_1 -> M_2 can be defined from a
-                set-theoretic function f: S_1 -> S_2 on the generating sets.
-                """
-                ...
-
-    class ElementMethods: ...
-
-    class MorphismMethods:
-        @abstract_method
-        def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
-
-
-class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
-    r"""Modules M which admit a surjection f: R^n -> M for some n < \infty.
-
-    Implies a preferred choice of generating set.  Does NOT imply finitely
-    presented: ker(f) need not be finitely generated.  Counterexample: any
-    ideal I in a non-Noetherian ring.
-    """
-
-    def extra_super_categories(self):
-        return [self.base_category().WithOrderedGeneratingSet()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_finitely_generated()
-
-    class ParentMethods:
-        def is_finitely_generated(self) -> bool:
-            return True
-
-
-class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
-    r"""Modules M that can be written as <S | R> with S \subseteq M a finite
-    generating set and R a finite set of relations.
-
-    Equivalently, M can be written as ``M := coker_R(f: R^m -> R^n)``.
-    Finitely presented implies finitely generated, but the converse fails:
-    if R is non-Noetherian and I \subseteq R is an ideal that is not
-    finitely generated, then R/I is finitely generated but not finitely
-    presented (the presentation 0 -> I -> R -> R/I -> 0 has non-fg kernel).
-    """
-
-    def extra_super_categories(self):
-        r"""Finitely presented means there is a preferred finite presentation.
-
-        If the base ring (or category of base rings) is finite, then every
-        finitely presented module is itself finite.
-        """
-        result = [self.base_category().FinitelyGenerated()]
-        R = self.base_ring()
-        if (R in Categories() and R.is_subcategory(FinSet)) or R in FinSet:
-            # ``Modules(PrincipalIdealDomains())`` is admissible, so
-            # ``base_ring`` may itself be a category of rings.
-            result.append(FinSet)
-        return result
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_finitely_presented()
-
-    class ParentMethods:
-        def is_finitely_presented(self) -> bool:
-            return True
-
-
-# ---------------------------------------------------------------------------
-# Ideals as a named subcategory of Modules(R).Subobjects()
-# ---------------------------------------------------------------------------
-
-
-class _RIdeals(CategoryWithAxiom_over_base_ring):
-    r"""Ideals of R viewed as submodules of R^1.
-
-    This is the named-subcategory entry point ``Modules(R).RIdeals``; the
-    parallel ring-side refinement lives in the private ring ideal bridge.
-    """
-
-    def extra_super_categories(self):
-        return [self.base_category().Subobjects()]
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_ideal()
-
-    class ParentMethods:
-        def is_ideal(self) -> bool:
-            return True
-
-        # gens() not defined unless R is Noetherian.
-        # don't leak the sage ideal: refine all ring-related categories
-        # Should hook into a redefinition that overrides existing ideals category
-        ...
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
-
-
-# ---------------------------------------------------------------------------
 # The Modules(R) category
 # ---------------------------------------------------------------------------
 
@@ -923,49 +541,41 @@ class _RIdeals(CategoryWithAxiom_over_base_ring):
 class Modules(Category_module):
     @staticmethod
     def __classcall_private__(cls, base_ring, dispatch=True):
-        # Imports inside method to avoid cycles at module load.
-        from sage.categories.commutative_rings import CommutativeRings
-        from sage.categories.dedekind_domains import DedekindDomains
-        from sage.categories.fields import Fields
-        from sage.categories.integral_domains import IntegralDomains
-        from sage.categories.principal_ideal_domains import PrincipalIdealDomains
+        from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
+        from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDomains
+        from sage.categories.fields import Fields as SageFields
+        from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
+        from sage.categories.principal_ideal_domains import PrincipalIdealDomains as SagePrincipalIdealDomains
 
         result = super().__classcall__(cls, base_ring)
         if not dispatch:
             return result
         # Cascade from most structure to least.
-        if base_ring in Fields():
+        if base_ring in SageFields():
             return result._with_axiom("OverField")
-        if base_ring in PrincipalIdealDomains():
-            # Every field is a PID
+        if base_ring in SagePrincipalIdealDomains():
             return result._with_axiom("OverPID")
-        if base_ring in DedekindDomains():
-            # Every PID is a Dedekind domain
+        if base_ring in SageDedekindDomains():
             return result._with_axiom("OverDedekindDomain")
-        if base_ring in IntegralDomains():
-            # Every Dedekind domain is an integral domain
+        if base_ring in SageIntegralDomains():
             return result._with_axiom("OverIntegralDomain")
-        if base_ring in CommutativeRings():
+        if base_ring in SageCommutativeRings():
             return result._with_axiom("OverCommutativeRing")
         # TODO: full ring dispatching.
         # TODO: handle Noetherian non-commutative rings.
-        # TODO: layer these subcategories appropriately.
-        # No special axioms for non-commutative rings yet.
         return result
 
     def super_categories(self):
         R = self.base_ring()
-        return [Bimodules(R, R)]
+        return [SageBimodules(R, R)]
 
     def additional_structure(self):
-        r"""Return ``None`` if this is a full subcategory of
-        ``self.super_categories()``; return ``self`` otherwise.
-
-        Here, R-Mod morphisms are exactly (R, R)-biMod morphisms.
-        """
+        r"""Return ``None`` because R-Mod morphisms are exactly (R,R)-biMod morphisms."""
         return None
 
+    # ------------------------------------------------------------------
     # Constructors
+    # ------------------------------------------------------------------
 
     def zero_module(self) -> RModule: ...
 
@@ -989,11 +599,11 @@ class Modules(Category_module):
         r"""Given an ordered subset {r_1, ..., r_n} of R, return
         ``M := R/r_1 \oplus ... \oplus R/r_n``, where R/0 := R.
         """
-        from sage.categories.rings import Rings as _Rings
+        from sage.categories.rings import Rings as SageRings
 
         if not elts:
             return self.zero_module()
-        assert all(r.parent() in _Rings() for r in elts), f"All element parents must be rings: {elts}"
+        assert all(r.parent() in SageRings() for r in elts), f"All element parents must be rings: {elts}"
         R = elts[0].parent()
         assert all(r.parent() is R for r in elts), f"Elements must share a common ring: {[r.parent() for r in elts]}"
         zs, rs = partition_list(elts, lambda x: x.is_zero())
@@ -1015,15 +625,14 @@ class Modules(Category_module):
             return self.from_ring_elements(D.diagonal())
         raise TypeError(f"Matrix {M} does not appear to support elementary_divisors or smith_form.")
 
-    class SubcategoryMethods:
-        r"""Methods available on every subcategory, not just Modules(R)."""
+    # ------------------------------------------------------------------
+    # SubcategoryMethods — available on every subcategory of Modules(R)
+    # ------------------------------------------------------------------
 
+    class SubcategoryMethods:
         @cached_method
         def base_ring(self) -> Ring:
             return Categories.base_ring(self)
-
-        # ---- Axiomatic subcategories -----------------------------------
-        # TODO: attach axiom automatically based on R in init.
 
         ## Ring properties
 
@@ -1087,7 +696,7 @@ class Modules(Category_module):
         def FinitelyPresented(self):
             return self._with_axiom("FinitelyPresented")
 
-        # ---- Functorial constructions -----------------------------------
+        ## Functorial constructions
 
         @cached_method
         def Subobjects(self):
@@ -1105,7 +714,7 @@ class Modules(Category_module):
         def DualObjects(self):
             return DualObjectsCategory.category_of(self)
 
-        dual = DualObjects  # Convenience alias
+        dual = DualObjects
 
         ## Extra structure
 
@@ -1121,7 +730,7 @@ class Modules(Category_module):
         def Super(self):
             return SuperModulesCategory.category_of(self)
 
-        # ---- Axiomatic extra structure ---------------------------------
+        ## Forms
 
         @cached_method
         def WithForms(self):
@@ -1131,18 +740,24 @@ class Modules(Category_module):
         def RIdeals(self):
             return self._with_axiom("RIdeals")
 
-    # ----- Method providers (parents/elements/morphisms/homsets) ------------
+    # ------------------------------------------------------------------
+    # Method providers
+    # ------------------------------------------------------------------
 
     ParentMethods = _RModObjects
     ElementMethods = _RModElements
     MorphismMethods = _RModMorphisms
     Homsets = RModuleHomsets
 
-    # ----- Named subcategories ----------------------------------------------
+    # ------------------------------------------------------------------
+    # Named subcategories
+    # ------------------------------------------------------------------
 
     RIdeals = _RIdeals
 
-    # ----- Axiomatic subcategories ------------------------------------------
+    # ------------------------------------------------------------------
+    # Axiomatic subcategories — ring properties
+    # ------------------------------------------------------------------
 
     OverIntegralDomain = _OverIntegralDomain
     OverDedekindDomain = _OverDedekindDomain
@@ -1152,17 +767,26 @@ class Modules(Category_module):
     OverLocalRing = _OverLocalRing
     OverCompleteRing = _OverCompleteRing
 
+    # ------------------------------------------------------------------
+    # Axiomatic subcategories — homological
+    # ------------------------------------------------------------------
+
     Free = _Free
     Torsion = _Torsion
     Torsionfree = _Torsionfree
     Projective = _Projective
 
-    ## Generation properties
+    # ------------------------------------------------------------------
+    # Axiomatic subcategories — generation
+    # ------------------------------------------------------------------
+
     WithOrderedGeneratingSet = _WithOrderedGeneratingSet
     FinitelyGenerated = _FinitelyGenerated
     FinitelyPresented = _FinitelyPresented
 
-    # ----- Functorial constructions ----------------------------------------
+    # ------------------------------------------------------------------
+    # Functorial constructions
+    # ------------------------------------------------------------------
 
     Subobjects = _Subobjects
     SubModules = Subobjects
@@ -1171,14 +795,15 @@ class Modules(Category_module):
     CartesianProducts = _CartesianProducts
     DualObjects = _DualObjects
 
-    ## Extra structure
     Filtered = LazyImport("sage.categories.filtered_modules", "FilteredModules")
     Graded = LazyImport("sage.categories.graded_modules", "GradedModules")
     Super = LazyImport("sage.categories.super_modules", "SuperModules")
 
-    # ----- Forms / lattice surface -----------------------------------------
+    # ------------------------------------------------------------------
+    # Forms / lattice surface
+    # ------------------------------------------------------------------
 
-    WithForms = _WithForms  # Non-full subcategory of pairs (M, f).
+    WithForms = _WithForms       # Non-full subcategory of pairs (M, f).
     Bilinear = _BilinearModules  # (M, b): b: M \otimes_R M -> S.
     Quadratic = _QuadraticModules  # (M, q): q: M -> S^\sigma.
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
@@ -1228,7 +853,7 @@ class Modules(Category_module):
 
 
 # ---------------------------------------------------------------------------
-# Wire custom axiom classes.
+# Wire custom axiom classes to their (base category, axiom name) pairs.
 # ---------------------------------------------------------------------------
 
 for _axiom, _category_class in (
@@ -1256,7 +881,7 @@ for _axiom, _category_class in (
 _FreeFiniteRank._base_category_class_and_axiom = (_Free, "FiniteRank")
 
 # The specialized ``FinitelyPresented() ∩ OverPID()`` implementation in
-# ``sage_special_modules`` is intentionally not installed here yet.  Installing
+# ``specialized.py`` is intentionally not installed here yet.  Installing
 # it as ``_FinitelyPresented.OverPID`` recursively re-enters
 # ``FinitelyPresented().OverPID()`` once ``OverPID`` is registered as a real
 # axiom.  The generic axiom join composes correctly and keeps the category

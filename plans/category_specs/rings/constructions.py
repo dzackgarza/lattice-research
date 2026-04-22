@@ -166,3 +166,180 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
 
         def structure_codomain(self):
             return self.structure_ring()
+
+
+class _Category_over_base_integer_pair(CategoryWithParameters):
+    r"""Base class for categories indexed by a base ring and two integers."""
+
+    parameter_name = "integer_pair"
+
+    @staticmethod
+    def __classcall_private__(cls, base_ring, n: int, m: int | None = None):
+        if m is None:
+            m = n
+        return super().__classcall__(cls, base_ring, Integer(n), Integer(m))
+
+    def __init__(self, base_ring: Any, n: Integer, m: Integer):
+        self._base_ring = base_ring
+        self._n = Integer(n)
+        self._m = Integer(m)
+        Category.__init__(self)
+
+    def base_ring(self) -> Any:
+        return self._base_ring
+
+    def nrows(self) -> Integer:
+        return self._n
+
+    def ncols(self) -> Integer:
+        return self._m
+
+    def _make_named_class_key(self, name: str):
+        return (self._base_ring, self._n, self._m)
+
+    def super_categories(self) -> list[Any]:
+        from . import Rings
+        return [Rings()]
+
+
+class _MatrixAlgebras(_Category_over_base_integer_pair):
+    r"""Category of rings of square matrices over a base ring.
+
+    ``_MatrixAlgebras(R, n, n)`` is the category whose single object is
+    ``MatrixSpace(R, n, n)``.
+    """
+
+    def __init__(self, base_ring: Any, n: Integer, m: Integer):
+        if Integer(n) != Integer(m):
+            raise ValueError("matrix rings require square matrix spaces")
+        super().__init__(base_ring, n, m)
+
+    def _repr_object_names(self) -> str:
+        return f"rings of {self._n} by {self._n} matrices over {self._base_ring}"
+
+    def __contains__(self, R: Any) -> bool:
+        from sage.matrix.matrix_space import MatrixSpace
+
+        return (
+            isinstance(R, MatrixSpace)
+            and R.base_ring() == self.base_ring()
+            and Integer(R.nrows()) == self.nrows()
+            and Integer(R.ncols()) == self.nrows()
+        )
+
+    def object(self):
+        from sage.matrix.matrix_space import MatrixSpace
+
+        return MatrixSpace(self.base_ring(), self.nrows(), self.ncols())
+
+    def super_categories(self) -> list[Any]:
+        from . import Rings
+        cats: list[Any] = [Rings()]
+        if self._n == 1:
+            from .specialized import _CommutativeRings
+            if self._base_ring in _CommutativeRings():
+                cats.append(_CommutativeRings())
+        return cats
+
+    class ParentMethods:
+        @abstract_method
+        def base_ring(self): ...
+
+        @abstract_method
+        def nrows(self) -> Integer: ...
+
+        @abstract_method
+        def ncols(self) -> Integer: ...
+
+        @abstract_method
+        def dims(self) -> tuple[Integer, Integer]: ...
+
+        @abstract_method
+        def matrix(self, *args, **kwds): ...
+
+        @abstract_method
+        def rank(self) -> Integer: ...
+
+        @abstract_method
+        def echelon_form(self, *args, **kwds): ...
+
+        @abstract_method
+        def column_space(self): ...
+
+        @abstract_method
+        def row_space(self): ...
+
+        @abstract_method
+        def diagonal_matrix(self, *args, **kwds): ...
+
+        @abstract_method
+        def identity_matrix(self): ...
+
+        @abstract_method
+        def zero_matrix(self): ...
+
+        @abstract_method
+        def change_ring(self, R): ...
+
+        @abstract_method
+        def matrix_space(self, nrows=None, ncols=None, sparse=False): ...
+
+        @abstract_method
+        def basis(self): ...
+
+        @abstract_method
+        def dimension(self) -> Integer: ...
+
+        @abstract_method
+        def from_vector(self, v, *args, **kwds): ...
+
+        @abstract_method
+        def is_dense(self) -> bool: ...
+
+        @abstract_method
+        def is_sparse(self) -> bool: ...
+
+        @abstract_method
+        def intersection(self, other): ...
+
+        @abstract_method
+        def submodule(self, *args, **kwds): ...
+
+        @abstract_method
+        def annihilator(self, *args, **kwds): ...
+
+    class SquareParentMethods:
+        r"""Methods available only on square matrix rings (n == m)."""
+
+        @abstract_method
+        def center(self): ...
+
+        @abstract_method
+        def center_basis(self): ...
+
+        @abstract_method
+        def radical(self, *args, **kwds): ...
+
+        @abstract_method
+        def radical_basis(self, *args, **kwds): ...
+
+        @abstract_method
+        def subalgebra(self, *args, **kwds): ...
+
+        @abstract_method
+        def derivations_basis(self): ...
+
+        @abstract_method
+        def hochschild_complex(self, *args, **kwds): ...
+
+        @abstract_method
+        def has_standard_involution(self) -> bool: ...
+
+        @abstract_method
+        def idempotent_lift(self, *args, **kwds): ...
+
+        @abstract_method
+        def peirce_decomposition(self): ...
+
+        @abstract_method
+        def semisimple_quotient(self): ...

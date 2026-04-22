@@ -10,17 +10,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final
 
+from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.rings.integer import Integer
 
-from ..sage_modules import Modules
+from ..modules import Modules
 from ._selectors import (
-    _build_sage_category_refinements,
     _register_custom_axioms,
     _RingNamedShortcuts,
     _RingSubcategorySelectors,
@@ -32,18 +31,20 @@ from .constructions import (
     _Subobjects,
     _Subquotients,
 )
+from .constructions import _MatrixAlgebras
 from .specialized import (
     _CC,
     _QQ,
+    _Qp,
     _RR,
     _ZZ,
+    _Zp,
     _AlgebraicallyClosedFields,
     _ArchimedeanGlobalFields,
     _CommutativeRings,
     _CompleteDiscreteValuationFields,
     _CompleteDiscreteValuationRings,
     _CompleteRings,
-    _construction_categories_for_sage_ring,
     _CyclotomicFields,
     _DedekindDomains,
     _DiscreteValuationFields,
@@ -70,14 +71,13 @@ from .specialized import (
     _QuadraticNumberFields,
     _QuotientFields,
     _ReducedRings,
-    _singleton_categories_for_sage_ring,
     _TopologicalRings,
     _UniqueFactorizationDomains,
     _ValuedRings,
 )
 
 if TYPE_CHECKING:
-    from ..types import FreeModule, Ideal, RingElement, RModule
+    from ..types import Ideal
 
 _register_custom_axioms()
 
@@ -89,23 +89,8 @@ _register_custom_axioms()
 class _RingObjectMethods:
     r"""Abstract parent methods for all objects in ``Rings``."""
 
-    def is_ring(self) -> bool:
-        return True
-
-    @abstract_method
-    def characteristic(self) -> Integer: ...
-
     @abstract_method
     def is_exact(self) -> bool: ...
-
-    @abstract_method
-    def zeta(self, n: Integer = 2, *args, **kwds): ...
-
-    @abstract_method
-    def zeta_order(self) -> Integer: ...
-
-    @abstract_method
-    def zero_ideal(self) -> Ideal: ...
 
     @abstract_method
     def is_commutative_ring(self): ...
@@ -135,12 +120,6 @@ class _RingObjectMethods:
     def is_complete_discrete_valuation_field(self): ...
 
     @abstract_method
-    def is_integral_domain(self): ...
-
-    @abstract_method
-    def is_noetherian(self): ...
-
-    @abstract_method
     def is_pid(self): ...
 
     @abstract_method
@@ -153,13 +132,7 @@ class _RingObjectMethods:
     def is_euclidean_domain(self): ...
 
     @abstract_method
-    def is_field(self): ...
-
-    @abstract_method
     def is_reduced(self): ...
-
-    @abstract_method
-    def is_integrally_closed(self): ...
 
     @abstract_method
     def is_dedekind_domain(self): ...
@@ -212,51 +185,6 @@ class _RingObjectMethods:
     @abstract_method
     def is_cyclotomic_field(self): ...
 
-    @abstract_method
-    def ideal(self, *args, **kwds) -> Ideal: ...
-
-    @abstract_method
-    def principal_ideal(self, generator: RingElement) -> Ideal: ...
-
-    @abstract_method
-    def quotient(
-        self,
-        modulus: RingElement | Ideal,
-        names: str | tuple[str, ...] | None = None,
-        **kwds,
-    ) -> RModule: ...
-
-    @abstract_method
-    def quo(
-        self,
-        modulus: RingElement | Ideal,
-        names: str | tuple[str, ...] | None = None,
-        **kwds,
-    ) -> RModule: ...
-
-    @abstract_method
-    def quotient_ring(
-        self,
-        modulus: RingElement | Ideal,
-        names: str | tuple[str, ...] | None = None,
-        **kwds,
-    ) -> RModule: ...
-
-    @abstract_method
-    def __truediv__(self, modulus: RingElement | Ideal) -> RModule: ...
-
-    @abstract_method
-    def __pow__(self, n: Integer) -> FreeModule: ...
-
-    @abstract_method
-    def free_module(self, base=None, basis=None, map=True) -> FreeModule: ...
-
-    @abstract_method
-    def unit_ideal(self) -> Ideal: ...
-
-    @abstract_method
-    def nilradical(self) -> Ideal: ...
-
 
 # ---------------------------------------------------------------------------
 # Ring element method surface — universal ring element abstract interface
@@ -264,9 +192,6 @@ class _RingObjectMethods:
 
 class _RingElementMethods:
     r"""Abstract element methods present on all ring elements."""
-
-    @abstract_method
-    def is_unit(self) -> bool: ...
 
     @abstract_method
     def is_zero(self) -> bool: ...
@@ -470,7 +395,7 @@ class Rings(Category_singleton):
 
     def __contains__(self, R: Any) -> bool:
         match R:
-            case _ if R in Categories() and R.category().is_subcategory(self):
+            case _ if isinstance(R, Category) and R.is_subcategory(self):
                 return True
             case _ if R in SageRings():
                 return True
@@ -507,25 +432,7 @@ class Rings(Category_singleton):
     Quotients = _Quotients
     RingsUnder = _RingsUnder
     RingsOver = _RingsOver
-
-    @cached_method
-    def _sage_category_refinements(self):
-        return _build_sage_category_refinements()
-
-    def from_sage_ring(self, R: Any):
-        r"""Refine ``R`` into every redesigned category mirrored by Sage."""
-        refined_categories = [self]
-        # TODO: this is inelegant. Just find the smallest ring-related category that 
-        # R is contained in, and refine the ring to the corresponding category
-        # in this hierarchy. There should be a 1-to-1 matching for all known rings.
-        # Make it explicit, not a shotgun guess like this.
-        for sage_category, refined_category in self._sage_category_refinements().items():
-            if R in sage_category:
-                refined_categories.append(refined_category())
-        refined_categories.extend(_singleton_categories_for_sage_ring(self, R))
-        refined_categories.extend(_construction_categories_for_sage_ring(self, R))
-        R._refine_category_(refined_categories)
-        return R
+    MatrixAlgebras = _MatrixAlgebras
 
     ParentMethods = _RingObjectMethods
     ElementMethods = _RingElementMethods

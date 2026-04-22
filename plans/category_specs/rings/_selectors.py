@@ -2,43 +2,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from sage.categories import category_with_axiom as _category_with_axiom
-from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.categories.complete_discrete_valuation import (
-    CompleteDiscreteValuationFields as SageCompleteDiscreteValuationFields,
-)
-from sage.categories.complete_discrete_valuation import (
-    CompleteDiscreteValuationRings as SageCompleteDiscreteValuationRings,
-)
-from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDomains
-from sage.categories.discrete_valuation import (
-    DiscreteValuationFields as SageDiscreteValuationFields,
-)
-from sage.categories.discrete_valuation import (
-    DiscreteValuationRings as SageDiscreteValuationRings,
-)
-from sage.categories.division_rings import DivisionRings as SageDivisionRings
-from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanDomains
-from sage.categories.fields import Fields as SageFields
-from sage.categories.finite_fields import FiniteFields as SageFiniteFields
-from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
-from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-from sage.categories.noetherian_rings import NoetherianRings as SageNoetherianRings
-from sage.categories.number_fields import NumberFields as SageNumberFields
-from sage.categories.principal_ideal_domains import (
-    PrincipalIdealDomains as SagePrincipalIdealDomains,
-)
-from sage.categories.quotient_fields import QuotientFields as SageQuotientFields
-from sage.categories.rings import Rings as SageRings
-from sage.categories.unique_factorization_domains import (
-    UniqueFactorizationDomains as SageUniqueFactorizationDomains,
-)
 from sage.misc.cachefunc import cached_method
-
-if TYPE_CHECKING:
-    pass
 
 _CUSTOM_AXIOMS = (
     "Commutative",
@@ -84,50 +49,6 @@ def _register_custom_axioms() -> None:
     )
     if missing:
         _category_with_axiom.all_axioms += missing
-
-
-def _build_sage_category_refinements():
-    from .specialized import (
-        _CommutativeRings,
-        _CompleteDiscreteValuationFields,
-        _CompleteDiscreteValuationRings,
-        _DedekindDomains,
-        _DiscreteValuationFields,
-        _DiscreteValuationRings,
-        _DivisionRings,
-        _EuclideanDomains,
-        _Fields,
-        _FiniteFields,
-        _FiniteRings,
-        _GcdDomains,
-        _IntegralDomains,
-        _NoetherianRings,
-        _NumberFields,
-        _PrincipalIdealDomains,
-        _QuotientFields,
-        _UniqueFactorizationDomains,
-    )
-
-    return {
-        SageCompleteDiscreteValuationFields(): _CompleteDiscreteValuationFields,
-        SageCompleteDiscreteValuationRings(): _CompleteDiscreteValuationRings,
-        SageDiscreteValuationFields(): _DiscreteValuationFields,
-        SageDiscreteValuationRings(): _DiscreteValuationRings,
-        SageFiniteFields(): _FiniteFields,
-        SageNumberFields(): _NumberFields,
-        SageQuotientFields(): _QuotientFields,
-        SageFields(): _Fields,
-        SageEuclideanDomains(): _EuclideanDomains,
-        SagePrincipalIdealDomains(): _PrincipalIdealDomains,
-        SageUniqueFactorizationDomains(): _UniqueFactorizationDomains,
-        SageGcdDomains(): _GcdDomains,
-        SageDedekindDomains(): _DedekindDomains,
-        SageIntegralDomains(): _IntegralDomains,
-        SageCommutativeRings(): _CommutativeRings,
-        SageNoetherianRings(): _NoetherianRings,
-        SageDivisionRings(): _DivisionRings,
-        SageRings().Finite(): _FiniteRings,
-    }
 
 
 class _RingSubcategorySelectors:
@@ -267,6 +188,11 @@ class _RingSubcategorySelectors:
 
 class _RingNamedShortcuts:
     r"""Mixin providing named category accessor shortcuts on ``Rings``."""
+
+    @cached_method
+    def NamedRings(self):
+        from .specialized import _NamedRings
+        return _NamedRings()
 
     @cached_method
     def CommutativeRings(self):
@@ -409,3 +335,80 @@ class _RingNamedShortcuts:
     @cached_method
     def QQ(self):
         return self.Fields().QQ()
+
+    @cached_method
+    def QQbar(self):
+        from .specialized import _QQbar
+        return _QQbar()
+
+    @cached_method
+    def AA(self):
+        from .specialized import _AA
+        return _AA()
+
+    @cached_method
+    def RealFields(self):
+        from .specialized import _RealFields
+        return _RealFields()
+
+    @cached_method
+    def ComplexFields(self):
+        from .specialized import _ComplexFields
+        return _ComplexFields()
+
+    @cached_method
+    def IntegerModRings(self):
+        from .specialized import _IntegerModRings
+        return _IntegerModRings()
+
+    @cached_method
+    def Zp(self):
+        from .specialized import _Zp
+        return _Zp()
+
+    @cached_method
+    def Qp(self):
+        from .specialized import _Qp
+        return _Qp()
+
+    @cached_method
+    def PolynomialRing(self, base_ring=None):
+        from .specialized import _PolynomialRings
+
+        category = _PolynomialRings()
+        if base_ring is None:
+            return category
+        return category.RingsUnder(base_ring)
+
+    @cached_method
+    def MatrixRing(self, base_ring, n):
+        from .constructions import _MatrixAlgebras
+
+        return _MatrixAlgebras(base_ring, n, n)
+
+    @cached_method
+    def PowerSeriesRing(self, base_ring=None):
+        from .specialized import _PowerSeriesRings
+
+        category = _PowerSeriesRings()
+        if base_ring is None:
+            return category
+        return category.RingsUnder(base_ring)
+
+    @cached_method
+    def LaurentSeriesRing(self, base_ring=None):
+        from .specialized import _LaurentSeriesRings
+
+        category = _LaurentSeriesRings()
+        if base_ring is None:
+            return category
+        return category.RingsUnder(base_ring)
+
+    @cached_method
+    def PuiseuxSeriesRing(self, base_ring=None):
+        from .specialized import _PuiseuxSeriesRings
+
+        category = _PuiseuxSeriesRings()
+        if base_ring is None:
+            return category
+        return category.RingsUnder(base_ring)

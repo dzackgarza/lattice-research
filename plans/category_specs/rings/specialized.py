@@ -39,23 +39,42 @@ from sage.categories.unique_factorization_domains import (
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
+from sage.matrix.matrix_space import MatrixSpace
+from sage.rings.abc import ComplexBallField as SageComplexBallField
+from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
+from sage.rings.abc import ComplexField as SageComplexField
+from sage.rings.abc import ComplexIntervalField as SageComplexIntervalField
+from sage.rings.abc import RealBallField as SageRealBallField
+from sage.rings.abc import RealDoubleField as SageRealDoubleField
+from sage.rings.abc import RealField as SageRealField
+from sage.rings.abc import RealIntervalField as SageRealIntervalField
+from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
 from sage.rings.integer import Integer
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
 from sage.rings.lazy_series_ring import LazyLaurentSeriesRing, LazyPowerSeriesRing
 from sage.rings.multi_power_series_ring import MPowerSeriesRing_generic
+from sage.rings.number_field.number_field import (
+    NumberField_cyclotomic,
+    NumberField_quadratic,
+)
 from sage.rings.polynomial.multi_polynomial_ring_base import MPolynomialRing_base
 from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
 if TYPE_CHECKING:
-    from ..types import Ideal, LocalRing, RingElement
+    from ..types import Ideal
 
 
 def Rings(*args, **kwds):
     from . import Rings as _Rings
 
     return _Rings(*args, **kwds)
+
+
+def _refine_named_ring(R: Any, *categories: Any):
+    R._refine_category_([Rings(), *categories])
+    return R
 
 
 _SAGE_POLYNOMIAL_RING_CLASSES = (PolynomialRing_generic, MPolynomialRing_base)
@@ -77,32 +96,6 @@ _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES = (
 )
 
 
-def _construction_categories_for_sage_ring(root, R):
-    if isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES):
-        return [root.PowerSeries().RingsUnder(R.base_ring())]
-    if isinstance(R, _SAGE_LAURENT_SERIES_RING_CLASSES):
-        return [root.LaurentSeries().RingsUnder(R.base_ring())]
-    if isinstance(R, _SAGE_PUISEUX_SERIES_RING_CLASSES):
-        return [root.PuiseuxSeries().RingsUnder(R.base_ring())]
-    if isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES):
-        return [root.Polynomial().RingsUnder(R.base_ring())]
-    return []
-
-
-def _singleton_categories_for_sage_ring(root, R):
-    from sage.all import CC, QQ, RR, ZZ
-
-    if R is ZZ:
-        return [root.ZZ()]
-    if R is QQ:
-        return [root.QQ()]
-    if R is RR:
-        return [root.Fields().RR()]
-    if R is CC:
-        return [root.Fields().CC()]
-    return []
-
-
 class _CommutativeRings(CategoryWithAxiom):
     # _base_category_class_and_axiom set in __init__.py (references Rings class)
 
@@ -110,7 +103,7 @@ class _CommutativeRings(CategoryWithAxiom):
         return "commutative rings"
 
     def super_categories(self) -> list[Any]:
-        return [Rings(), SageCommutativeRings()]
+        return [SageCommutativeRings(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
         return R in SageCommutativeRings() or (
@@ -149,25 +142,7 @@ class _CommutativeRings(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def derivation(self, *args, **kwds): ...
-
-        @abstract_method
-        def derivation_module(self, *args, **kwds): ...
-
-        @abstract_method
-        def frobenius_endomorphism(self, *args, **kwds): ...
-
-        @abstract_method
-        def krull_dimension(self): ...
-
-        @abstract_method
-        def localization(self, *extra_units: RingElement, **kwds) -> LocalRing: ...
-
-        @abstract_method
         def extension(self, poly, name=None, *args, **kwds): ...
-
-        @abstract_method
-        def over(self, *args, **kwds): ...
 
 
 class _FiniteRings(CategoryWithAxiom):
@@ -177,7 +152,7 @@ class _FiniteRings(CategoryWithAxiom):
         return "finite rings"
 
     def super_categories(self) -> list[Any]:
-        return [Rings(), SageRings().Finite()]
+        return [SageRings().Finite(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
         return R in SageRings().Finite() or (R in self.base_category() and R.is_finite())
@@ -200,7 +175,7 @@ class _DivisionRings(CategoryWithAxiom):
         return "division rings"
 
     def super_categories(self) -> list[Any]:
-        return [Rings(), SageDivisionRings()]
+        return [SageDivisionRings(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
         return R in SageDivisionRings() or (
@@ -219,7 +194,7 @@ class _TopologicalRings(CategoryWithAxiom):
         return "topological rings"
 
     def super_categories(self) -> list[Any]:
-        return [Rings(), SageRings().Topological()]
+        return [SageRings().Topological(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
         return R in SageRings().Topological() or (
@@ -294,31 +269,9 @@ class _Fields(CategoryWithAxiom):
     def CC(self):
         return _CC()
 
-    class ParentMethods:
-        def is_field(self) -> bool:
-            return True
-
-        @abstract_method
-        def algebraic_closure(self, *args, **kwds): ...
-
-        @abstract_method
-        def an_embedding(self, *args, **kwds): ...
-
-        @abstract_method
-        def fraction_field(self): ...
-
-        @abstract_method
-        def prime_subfield(self, *args, **kwds): ...
-
-        @abstract_method
-        def vector_space(self, *args, **kwds): ...
-
     class ElementMethods:
         @abstract_method
         def inverse(self): ...
-
-        @abstract_method
-        def inverse_of_unit(self): ...
 
 
 class _IntegralDomains(CategoryWithAxiom):
@@ -368,14 +321,8 @@ class _IntegralDomains(CategoryWithAxiom):
             return self._with_axiom("Dedekind")
 
     class ParentMethods:
-        def is_integral_domain(self) -> bool:
-            return True
-
         @abstract_method
         def fraction_field(self): ...
-
-        @abstract_method
-        def class_group(self, *args, **kwds): ...
 
     class ElementMethods:
         @abstract_method
@@ -399,10 +346,6 @@ class _NoetherianRings(CategoryWithAxiom):
         return R in SageNoetherianRings() or (
             R in self.base_category() and R.is_noetherian()
         )
-
-    class ParentMethods:
-        def is_noetherian(self) -> bool:
-            return True
 
 
 class _ReducedRings(CategoryWithAxiom):
@@ -469,10 +412,6 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_unique_factorization_domain()
         )
 
-    class ParentMethods:
-        def is_unique_factorization_domain(self, proof=True) -> bool:
-            return True
-
     class ElementMethods:
         @abstract_method
         def factor(self, *args, **kwds): ...
@@ -482,9 +421,6 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
 
         @abstract_method
         def is_prime(self) -> bool: ...
-
-        @abstract_method
-        def radical(self): ...
 
 
 class _PrincipalIdealDomains(CategoryWithAxiom):
@@ -505,9 +441,6 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
         def is_pid(self) -> bool:
             return True
 
-        @abstract_method
-        def content(self, *args, **kwds): ...
-
 
 class _EuclideanDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "Euclidean")
@@ -522,17 +455,6 @@ class _EuclideanDomains(CategoryWithAxiom):
         return R in SageEuclideanDomains() or (
             R in self.base_category() and R.is_euclidean_domain()
         )
-
-    class ParentMethods:
-        def is_euclidean_domain(self) -> bool:
-            return True
-
-    class ElementMethods:
-        @abstract_method
-        def euclidean_degree(self): ...
-
-        @abstract_method
-        def quo_rem(self, other): ...
 
 
 class _IntegrallyClosedDomains(CategoryWithAxiom):
@@ -579,9 +501,6 @@ class _DedekindDomains(CategoryWithAxiom):
         def is_dedekind_domain(self) -> bool:
             return True
 
-        def krull_dimension(self):
-            return Integer(1)
-
 
 class _ValuedRings(CategoryWithAxiom):
     # _base_category_class_and_axiom set in __init__.py
@@ -623,7 +542,7 @@ class _DiscreteValuationRings(CategoryWithAxiom):
         return "discrete valuation rings"
 
     def super_categories(self) -> list[Any]:
-        return [SageDiscreteValuationRings(), _ValuedRings()]
+        return [SageDiscreteValuationRings(), _EuclideanDomains(), _ValuedRings()]
 
     def __contains__(self, R: Any) -> bool:
         return R in SageDiscreteValuationRings() or (
@@ -635,20 +554,10 @@ class _DiscreteValuationRings(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def uniformizer(self, *args, **kwds): ...
-
-        @abstract_method
         def uniformizer_pow(self, n: Integer): ...
 
         @abstract_method
-        def residue_field(self, *args, **kwds): ...
-
-        @abstract_method
         def residue_characteristic(self) -> Integer: ...
-
-    class ElementMethods:
-        @abstract_method
-        def valuation(self): ...
 
 
 class _DiscreteValuationFields(Category_singleton):
@@ -711,6 +620,34 @@ class _LocalRings(CategoryWithAxiom):
         def residue_field(self, *args, **kwds) -> Any: ...
 
 
+class _CompleteDiscreteValuationObjects(Category_singleton):
+    r"""Common element surface for complete discrete valuation rings and fields."""
+
+    def _repr_object_names(self) -> str:
+        return "complete discrete valuation rings and fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_CompleteRings(), _ValuedRings()]
+
+    def __contains__(self, R: Any) -> bool:
+        return R in _CompleteDiscreteValuationRings() or (
+            R in _CompleteDiscreteValuationFields()
+        )
+
+    class ElementMethods:
+        @abstract_method
+        def valuation(self): ...
+
+        @abstract_method
+        def denominator(self): ...
+
+        @abstract_method
+        def numerator(self): ...
+
+        @abstract_method
+        def lift_to_precision(self, absprec=None): ...
+
+
 class _CompleteDiscreteValuationRings(Category_singleton):
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings"
@@ -718,6 +655,7 @@ class _CompleteDiscreteValuationRings(Category_singleton):
     def super_categories(self) -> list[Any]:
         return [
             SageCompleteDiscreteValuationRings(),
+            _CompleteDiscreteValuationObjects(),
             _CompleteRings(),
             _DiscreteValuationRings(),
         ]
@@ -740,6 +678,7 @@ class _CompleteDiscreteValuationFields(Category_singleton):
     def super_categories(self) -> list[Any]:
         return [
             SageCompleteDiscreteValuationFields(),
+            _CompleteDiscreteValuationObjects(),
             _CompleteRings(),
             _DiscreteValuationFields(),
         ]
@@ -787,6 +726,9 @@ class _FiniteFields(CategoryWithAxiom):
         def modulus(self): ...
 
         @abstract_method
+        def factored_order(self): ...
+
+        @abstract_method
         def galois_group(self, *args, **kwds): ...
 
         @abstract_method
@@ -822,6 +764,12 @@ class _NumberFields(CategoryWithAxiom):
     class ParentMethods:
         def is_number_field(self) -> bool:
             return True
+
+        @abstract_method
+        def is_quadratic(self) -> bool: ...
+
+        @abstract_method
+        def is_cyclotomic(self) -> bool: ...
 
         @abstract_method
         def degree(self) -> Integer: ...
@@ -906,9 +854,6 @@ class _NumberFields(CategoryWithAxiom):
 
         @abstract_method
         def completion(self, *args, **kwds) -> Any: ...
-
-        @abstract_method
-        def zeta_function(self, *args, **kwds) -> Any: ...
 
     class ElementMethods:
         @abstract_method
@@ -1031,9 +976,16 @@ class _QuadraticNumberFields(CategoryWithAxiom):
         return [_NumberFields()]
 
     def __contains__(self, R: Any) -> bool:
+        if isinstance(R, NumberField_quadratic):
+            return True
+        if R in SageNumberFields():
+            return R.degree() == 2
         return R in self.base_category() and R.is_quadratic_number_field()
 
     class ParentMethods:
+        def is_quadratic(self) -> bool:
+            return True
+
         def is_quadratic_number_field(self) -> bool:
             return True
 
@@ -1048,9 +1000,16 @@ class _CyclotomicFields(CategoryWithAxiom):
         return [_NumberFields()]
 
     def __contains__(self, R: Any) -> bool:
+        if isinstance(R, NumberField_cyclotomic):
+            return True
+        if R in SageNumberFields():
+            return False
         return R in self.base_category() and R.is_cyclotomic_field()
 
     class ParentMethods:
+        def is_cyclotomic(self) -> bool:
+            return True
+
         def is_cyclotomic_field(self) -> bool:
             return True
 
@@ -1068,6 +1027,676 @@ class _QuotientFields(Category_singleton):
     class ParentMethods:
         def is_quotient_field(self) -> bool:
             return True
+
+
+class _PAdicRings(Category_singleton):
+    r"""Common category for Sage p-adic rings and fields."""
+
+    def _repr_object_names(self) -> str:
+        return "p-adic rings and fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_CompleteRings(), _ValuedRings()]
+
+    def __contains__(self, R: Any) -> bool:
+        from sage.rings.padics.generic_nodes import pAdicFieldGeneric, pAdicRingGeneric
+
+        return isinstance(R, (pAdicFieldGeneric, pAdicRingGeneric))
+
+    class ParentMethods:
+        @abstract_method
+        def prime(self) -> Integer: ...
+
+        @abstract_method
+        def precision_cap(self) -> Integer: ...
+
+        @abstract_method
+        def teichmuller(self, x): ...
+
+        @abstract_method
+        def teichmuller_system(self): ...
+
+        @abstract_method
+        def inertia_subring(self): ...
+
+        @abstract_method
+        def residue_ring(self): ...
+
+        @abstract_method
+        def residue_system(self): ...
+
+        @abstract_method
+        def ground_ring(self): ...
+
+        @abstract_method
+        def ground_ring_of_tower(self): ...
+
+        @abstract_method
+        def ramification_index(self, K=None) -> Integer: ...
+
+        @abstract_method
+        def e(self, K=None) -> Integer: ...
+
+        @abstract_method
+        def inertia_degree(self, K=None) -> Integer: ...
+
+        @abstract_method
+        def f(self, K=None) -> Integer: ...
+
+        @abstract_method
+        def absolute_e(self) -> Integer: ...
+
+        @abstract_method
+        def absolute_f(self) -> Integer: ...
+
+        @abstract_method
+        def absolute_ramification_index(self) -> Integer: ...
+
+        @abstract_method
+        def absolute_inertia_degree(self) -> Integer: ...
+
+        @abstract_method
+        def relative_degree(self) -> Integer: ...
+
+        @abstract_method
+        def relative_e(self) -> Integer: ...
+
+        @abstract_method
+        def relative_f(self) -> Integer: ...
+
+        @abstract_method
+        def relative_ramification_index(self) -> Integer: ...
+
+        @abstract_method
+        def relative_inertia_degree(self) -> Integer: ...
+
+        @abstract_method
+        def print_mode(self): ...
+
+        @abstract_method
+        def change(self, *args, **kwds): ...
+
+        @abstract_method
+        def ext(self, *args, **kwds): ...
+
+        @abstract_method
+        def frobenius_endomorphism(self, *args, **kwds): ...
+
+        @abstract_method
+        def maximal_unramified_subextension(self): ...
+
+        @abstract_method
+        def defining_polynomial(self, *args, **kwds): ...
+
+        @abstract_method
+        def integer_ring(self): ...
+
+        @abstract_method
+        def exact_ring(self): ...
+
+        @abstract_method
+        def metric(self): ...
+
+        @abstract_method
+        def metric_function(self): ...
+
+        @abstract_method
+        def dist(self, x, y): ...
+
+        @abstract_method
+        def is_capped_absolute(self) -> bool:
+            ...
+
+        @abstract_method
+        def is_capped_relative(self) -> bool:
+            ...
+
+        @abstract_method
+        def is_fixed_mod(self) -> bool:
+            ...
+
+        @abstract_method
+        def is_floating_point(self) -> bool:
+            ...
+
+        @abstract_method
+        def is_relaxed(self) -> bool:
+            ...
+
+        @abstract_method
+        def is_lattice_prec(self) -> bool:
+            ...
+
+        @abstract_method
+        def has_pth_root(self) -> bool:
+            ...
+
+        @abstract_method
+        def has_root_of_unity(self, n) -> bool:
+            ...
+
+
+class _AlgebraicFields(Category_singleton):
+    r"""Common category for Sage's ``AA`` and ``QQbar`` parents."""
+
+    def _repr_object_names(self) -> str:
+        return "algebraic real and complex fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_Fields(), Rings().Characteristic(0)]
+
+    def __contains__(self, x):
+        from sage.all import AA, QQbar
+
+        return x is AA or x is QQbar
+
+    class ParentMethods:
+        @abstract_method
+        def default_interval_prec(self): ...
+
+        @abstract_method
+        def common_polynomial(self, poly): ...
+
+        @abstract_method
+        def polynomial_root(self, poly, interval, multiplicity=1): ...
+
+
+class _NamedRings(Category_singleton):
+    r"""Facade for Sage's named ring constructors and named singleton rings."""
+
+    def _repr_object_names(self) -> str:
+        return "named Sage rings and ring constructors"
+
+    def super_categories(self) -> list[Any]:
+        return [Rings()]
+
+    def __contains__(self, R: Any) -> bool:
+        if isinstance(R, MatrixSpace):
+            return R.nrows() == R.ncols()
+        return any(
+            R in category
+            for category in (
+                _ZZ(),
+                _QQ(),
+                _QQbar(),
+                _AA(),
+                _RR(),
+                _CC(),
+                _Zp(),
+                _Qp(),
+                _IntegerModRings(),
+                _RealFields(),
+                _ComplexFields(),
+                _RealDoubleFields(),
+                _ComplexDoubleFields(),
+                _RealIntervalFields(),
+                _ComplexIntervalFields(),
+                _RealBallFields(),
+                _ComplexBallFields(),
+                _FiniteFields(),
+                _NumberFields(),
+                _QuadraticNumberFields(),
+                _CyclotomicFields(),
+                _PolynomialRings(),
+                _PowerSeriesRings(),
+                _LaurentSeriesRings(),
+                _PuiseuxSeriesRings(),
+            )
+        )
+
+    def ZZ(self):
+        from sage.all import ZZ
+
+        return _refine_named_ring(ZZ, _ZZ())
+
+    def QQ(self):
+        from sage.all import QQ
+
+        return _refine_named_ring(QQ, _QQ())
+
+    def QQbar(self):
+        from sage.all import QQbar
+
+        return _refine_named_ring(QQbar, _QQbar())
+
+    def AA(self):
+        from sage.all import AA
+
+        return _refine_named_ring(AA, _AA())
+
+    def RR(self):
+        from sage.all import RR
+
+        return _refine_named_ring(RR, _RR())
+
+    def CC(self):
+        from sage.all import CC
+
+        return _refine_named_ring(CC, _CC())
+
+    def RDF(self):
+        from sage.all import RDF
+
+        return _refine_named_ring(RDF, _RealDoubleFields())
+
+    def CDF(self):
+        from sage.all import CDF
+
+        return _refine_named_ring(CDF, _ComplexDoubleFields())
+
+    def RIF(self):
+        from sage.all import RIF
+
+        return _refine_named_ring(RIF, _RealIntervalFields())
+
+    def CIF(self):
+        from sage.all import CIF
+
+        return _refine_named_ring(CIF, _ComplexIntervalFields())
+
+    def RealField(self, *args, **kwds):
+        from sage.all import RR, RealField
+
+        R = RealField(*args, **kwds)
+        categories = [_RealFields()]
+        if R is RR:
+            categories.append(_RR())
+        return _refine_named_ring(R, *categories)
+
+    def ComplexField(self, *args, **kwds):
+        from sage.all import CC, ComplexField
+
+        R = ComplexField(*args, **kwds)
+        categories = [_ComplexFields()]
+        if R is CC:
+            categories.append(_CC())
+        return _refine_named_ring(R, *categories)
+
+    def RealBallField(self, *args, **kwds):
+        from sage.all import RealBallField
+
+        return _refine_named_ring(
+            RealBallField(*args, **kwds), _RealBallFields()
+        )
+
+    def ComplexBallField(self, *args, **kwds):
+        from sage.all import ComplexBallField
+
+        return _refine_named_ring(
+            ComplexBallField(*args, **kwds), _ComplexBallFields()
+        )
+
+    def IntegerModRing(self, *args, **kwds):
+        from sage.all import IntegerModRing
+
+        return _refine_named_ring(
+            IntegerModRing(*args, **kwds), _IntegerModRings()
+        )
+
+    def Zmod(self, *args, **kwds):
+        from sage.all import Zmod
+
+        return _refine_named_ring(Zmod(*args, **kwds), _IntegerModRings())
+
+    def Integers(self, *args, **kwds):
+        from sage.all import Integers
+
+        return _refine_named_ring(Integers(*args, **kwds), _IntegerModRings())
+
+    def GF(self, *args, **kwds):
+        from sage.all import GF
+
+        return _refine_named_ring(GF(*args, **kwds), _FiniteFields())
+
+    def FiniteField(self, *args, **kwds):
+        from sage.all import FiniteField
+
+        return _refine_named_ring(FiniteField(*args, **kwds), _FiniteFields())
+
+    def NumberField(self, *args, **kwds):
+        from sage.all import NumberField
+
+        R = NumberField(*args, **kwds)
+        categories = [_NumberFields()]
+        if R.degree() == 2:
+            categories.append(_QuadraticNumberFields())
+        if isinstance(R, NumberField_cyclotomic):
+            categories.append(_CyclotomicFields())
+        return _refine_named_ring(R, *categories)
+
+    def QuadraticField(self, *args, **kwds):
+        from sage.all import QuadraticField
+
+        return _refine_named_ring(
+            QuadraticField(*args, **kwds), _QuadraticNumberFields()
+        )
+
+    def CyclotomicField(self, *args, **kwds):
+        from sage.all import CyclotomicField
+
+        return _refine_named_ring(
+            CyclotomicField(*args, **kwds), _CyclotomicFields()
+        )
+
+    def Zp(self, *args, **kwds):
+        from sage.all import Zp
+
+        return _refine_named_ring(Zp(*args, **kwds), _Zp())
+
+    def Qp(self, *args, **kwds):
+        from sage.all import Qp
+
+        return _refine_named_ring(Qp(*args, **kwds), _Qp())
+
+    def Zq(self, *args, **kwds):
+        from sage.all import Zq
+
+        return _refine_named_ring(Zq(*args, **kwds), _Zp())
+
+    def Qq(self, *args, **kwds):
+        from sage.all import Qq
+
+        return _refine_named_ring(Qq(*args, **kwds), _Qp())
+
+    def PolynomialRing(self, *args, **kwds):
+        from sage.all import PolynomialRing
+
+        R = PolynomialRing(*args, **kwds)
+        return _refine_named_ring(
+            R,
+            _PolynomialRings().RingsUnder(R.base_ring()),
+        )
+
+    def PowerSeriesRing(self, *args, **kwds):
+        from sage.all import PowerSeriesRing
+
+        R = PowerSeriesRing(*args, **kwds)
+        return _refine_named_ring(
+            R,
+            _PowerSeriesRings().RingsUnder(R.base_ring()),
+        )
+
+    def LaurentSeriesRing(self, *args, **kwds):
+        from sage.all import LaurentSeriesRing
+
+        R = LaurentSeriesRing(*args, **kwds)
+        return _refine_named_ring(
+            R,
+            _LaurentSeriesRings().RingsUnder(R.base_ring()),
+        )
+
+    def PuiseuxSeriesRing(self, *args, **kwds):
+        from sage.all import PuiseuxSeriesRing
+
+        R = PuiseuxSeriesRing(*args, **kwds)
+        return _refine_named_ring(
+            R,
+            _PuiseuxSeriesRings().RingsUnder(R.base_ring()),
+        )
+
+    def MatrixRing(self, base_ring, n, *args, **kwds):
+        from .constructions import _MatrixAlgebras
+
+        R = MatrixSpace(base_ring, n, n, *args, **kwds)
+        return _refine_named_ring(
+            R,
+            _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols()),
+        )
+
+
+class _IntegerModRings(Category_singleton):
+    r"""Category of Sage rings ``IntegerModRing(n)`` and aliases."""
+
+    def _repr_object_names(self) -> str:
+        return "integer residue class rings"
+
+    def super_categories(self) -> list[Any]:
+        return [_FiniteRings(), _CommutativeRings()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, IntegerModRing_generic)
+
+    class ParentMethods:
+        @abstract_method
+        def modulus(self): ...
+
+        @abstract_method
+        def factored_order(self): ...
+
+        @abstract_method
+        def unit_gens(self, **kwds): ...
+
+        @abstract_method
+        def multiplicative_generator(self): ...
+
+
+class _RealPrecisionFields(Category_singleton):
+    r"""Common category for Sage real approximate fields with fixed precision."""
+
+    def _repr_object_names(self) -> str:
+        return "real precision fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(
+            R,
+            (
+                SageRealField,
+                SageRealDoubleField,
+                SageRealIntervalField,
+                SageRealBallField,
+            ),
+        )
+
+    class ParentMethods:
+        @abstract_method
+        def precision(self): ...
+
+        @abstract_method
+        def complex_field(self): ...
+
+
+class _ComplexPrecisionFields(Category_singleton):
+    r"""Common category for Sage complex approximate fields with fixed precision."""
+
+    def _repr_object_names(self) -> str:
+        return "complex precision fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(
+            R,
+            (
+                SageComplexField,
+                SageComplexDoubleField,
+                SageComplexIntervalField,
+                SageComplexBallField,
+            ),
+        )
+
+    class ParentMethods:
+        @abstract_method
+        def precision(self): ...
+
+
+class _ScientificNotationFields(Category_singleton):
+    r"""Approximate fields whose display mode supports scientific notation."""
+
+    def _repr_object_names(self) -> str:
+        return "scientific-notation fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_Fields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(
+            R,
+            (
+                SageRealField,
+                SageComplexField,
+                SageRealIntervalField,
+                SageComplexIntervalField,
+            ),
+        )
+
+    class ParentMethods:
+        @abstract_method
+        def scientific_notation(self, status=None): ...
+
+
+class _RealFields(Category_singleton):
+    r"""Category of Sage real floating point fields ``RealField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "real fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_RealPrecisionFields(), _ScientificNotationFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageRealField)
+
+
+class _ComplexFields(Category_singleton):
+    r"""Category of Sage complex floating point fields ``ComplexField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "complex fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_ComplexPrecisionFields(), _ScientificNotationFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageComplexField)
+
+
+class _RealDoubleFields(Category_singleton):
+    r"""Category of Sage real double fields ``RDF``."""
+
+    def _repr_object_names(self) -> str:
+        return "real double fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_RealPrecisionFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageRealDoubleField)
+
+
+class _ComplexDoubleFields(Category_singleton):
+    r"""Category of Sage complex double fields ``CDF``."""
+
+    def _repr_object_names(self) -> str:
+        return "complex double fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_ComplexPrecisionFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageComplexDoubleField)
+
+
+class _RealIntervalFields(Category_singleton):
+    r"""Category of Sage real interval fields ``RealIntervalField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "real interval fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_RealPrecisionFields(), _ScientificNotationFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageRealIntervalField)
+
+    class ParentMethods:
+        @abstract_method
+        def middle_field(self): ...
+
+
+class _ComplexIntervalFields(Category_singleton):
+    r"""Category of Sage complex interval fields ``ComplexIntervalField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "complex interval fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_ComplexPrecisionFields(), _ScientificNotationFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageComplexIntervalField)
+
+    class ParentMethods:
+        @abstract_method
+        def real_field(self): ...
+
+        @abstract_method
+        def middle_field(self): ...
+
+
+class _RealBallFields(Category_singleton):
+    r"""Category of Sage real ball fields ``RealBallField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "real ball fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_RealPrecisionFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageRealBallField)
+
+
+class _ComplexBallFields(Category_singleton):
+    r"""Category of Sage complex ball fields ``ComplexBallField(prec)``."""
+
+    def _repr_object_names(self) -> str:
+        return "complex ball fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_ComplexPrecisionFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        return isinstance(R, SageComplexBallField)
+
+
+class _QQbar(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "algebraic field"
+
+    def super_categories(self) -> list[Any]:
+        return [_AlgebraicFields()]
+
+    def __contains__(self, x):
+        from sage.all import QQbar
+
+        return x is QQbar
+
+    def object(self):
+        from sage.all import QQbar
+
+        return QQbar
+
+
+class _AA(Category_singleton):
+    def _repr_object_names(self) -> str:
+        return "algebraic real field"
+
+    def super_categories(self) -> list[Any]:
+        return [_AlgebraicFields()]
+
+    def __contains__(self, x):
+        from sage.all import AA
+
+        return x is AA
+
+    def object(self):
+        from sage.all import AA
+
+        return AA
 
 
 class _ZZ(Category_singleton):
@@ -1121,7 +1750,7 @@ class _RR(Category_singleton):
         return "real field with 53 bits of precision"
 
     def super_categories(self) -> list[Any]:
-        return [_Fields(), _CompleteRings(), _LocalFields()]
+        return [_RealFields(), _Fields(), _CompleteRings(), _LocalFields()]
 
     def __contains__(self, x):
         from sage.all import RR
@@ -1139,7 +1768,13 @@ class _CC(Category_singleton):
         return "complex field with 53 bits of precision"
 
     def super_categories(self) -> list[Any]:
-        return [_Fields(), _CompleteRings(), _LocalFields(), _AlgebraicallyClosedFields()]
+        return [
+            _ComplexFields(),
+            _Fields(),
+            _CompleteRings(),
+            _LocalFields(),
+            _AlgebraicallyClosedFields(),
+        ]
 
     def __contains__(self, x):
         from sage.all import CC
@@ -1150,6 +1785,49 @@ class _CC(Category_singleton):
         from sage.all import CC
 
         return CC
+
+
+class _Zp(Category_singleton):
+    r"""Category of p-adic integer rings (all primes p, all precision types)."""
+
+    def _repr_object_names(self) -> str:
+        return "p-adic integer rings"
+
+    def super_categories(self) -> list[Any]:
+        return [_PAdicRings(), _CompleteDiscreteValuationRings(), _LocalRings()]
+
+    def __contains__(self, R: Any) -> bool:
+        from sage.rings.padics.generic_nodes import pAdicRingGeneric
+
+        return isinstance(R, pAdicRingGeneric)
+
+
+class _Qp(Category_singleton):
+    r"""Category of p-adic fields (all primes p, all precision types)."""
+
+    def _repr_object_names(self) -> str:
+        return "p-adic fields"
+
+    def super_categories(self) -> list[Any]:
+        return [_PAdicRings(), _CompleteDiscreteValuationFields(), _LocalFields()]
+
+    def __contains__(self, R: Any) -> bool:
+        from sage.rings.padics.generic_nodes import pAdicFieldGeneric
+
+        return isinstance(R, pAdicFieldGeneric)
+
+    class ParentMethods:
+        @abstract_method
+        def composite(self, *args, **kwds): ...
+
+        @abstract_method
+        def subfield(self, *args, **kwds): ...
+
+        @abstract_method
+        def subfields_of_degree(self, n: Integer): ...
+
+        @abstract_method
+        def exact_field(self): ...
 
 
 class _PolynomialRings(CategoryWithAxiom):
@@ -1215,6 +1893,24 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
         def is_puiseux_series_ring(self) -> bool:
             return True
 
+        @abstract_method
+        def change_ring(self, R): ...
+
+        @abstract_method
+        def gen(self, n=0): ...
+
+        @abstract_method
+        def gens(self): ...
+
+        @abstract_method
+        def ngens(self): ...
+
+        @abstract_method
+        def laurent_series_ring(self): ...
+
+        @abstract_method
+        def default_prec(self): ...
+
 
 class _LaurentSeriesRings(CategoryWithAxiom):
     # _base_category_class_and_axiom set in __init__.py
@@ -1237,6 +1933,18 @@ class _LaurentSeriesRings(CategoryWithAxiom):
 
         @abstract_method
         def default_prec(self): ...
+
+        @abstract_method
+        def gen(self, n=0): ...
+
+        @abstract_method
+        def gens(self): ...
+
+        @abstract_method
+        def ngens(self): ...
+
+        @abstract_method
+        def power_series_ring(self): ...
 
         @abstract_method
         def change_ring(self, R): ...
@@ -1263,6 +1971,18 @@ class _PowerSeriesRings(CategoryWithAxiom):
 
         @abstract_method
         def default_prec(self): ...
+
+        @abstract_method
+        def gen(self, n=0): ...
+
+        @abstract_method
+        def gens(self): ...
+
+        @abstract_method
+        def ngens(self): ...
+
+        @abstract_method
+        def laurent_series_ring(self): ...
 
         @abstract_method
         def change_ring(self, R): ...
