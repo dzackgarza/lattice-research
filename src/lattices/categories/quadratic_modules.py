@@ -238,7 +238,6 @@ class TorsionQuadraticModules(CategoryWithAxiom_over_base_ring):
     """
 
     class ParentMethods:
-
         @abstract_method
         def signature_pair(self):
             r"""

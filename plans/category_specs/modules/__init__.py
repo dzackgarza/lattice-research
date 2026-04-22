@@ -35,27 +35,19 @@ Canonical type aliases used throughout this package:
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories import category_with_axiom as _category_with_axiom
 from sage.categories.bimodules import Bimodules as SageBimodules
-from sage.categories.cartesian_product import CartesianProductsCategory
-from sage.categories.category import Category
-from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_module
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.dual import DualObjectsCategory
 from sage.categories.filtered_modules import FilteredModulesCategory
 from sage.categories.graded_modules import GradedModulesCategory
-from sage.categories.homsets import HomsetsCategory
-from sage.categories.objects import Objects
 from sage.categories.quotients import QuotientsCategory
-from sage.categories.sets_cat import Sets
 from sage.categories.subobjects import SubobjectsCategory
 from sage.categories.super_modules import SuperModulesCategory
-from sage.categories.tensor import TensorProductFunctor, TensorProductsCategory, tensor
-from sage.misc.abstract_method import abstract_method
+from sage.categories.tensor import TensorProductsCategory
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -81,7 +73,18 @@ from .axioms import (
     _WithForms,
     _WithOrderedGeneratingSet,
 )
+from .constructions import (
+    _CartesianProducts,
+    _DualObjects,
+    _Quotients,
+    _Subobjects,
+    _TensorProducts,
+)
 from .homsets import RModuleHomsets, _RModMorphisms
+from .methods import _RModElements, _RModObjects
+from .named import _NamedModules
+from .support import Categories
+from .support import FinSet as FinSet
 
 if TYPE_CHECKING:
     from sage.matrix.matrix0 import Matrix
@@ -91,7 +94,6 @@ if TYPE_CHECKING:
     Cardinality = Integer | InfinityElement
     Ring = Any
     RingElement = Any
-    RingEndomorphism = Any
     RModule = Any
     RModuleElement = Any
     RModuleMorphism = Any
@@ -106,14 +108,6 @@ if TYPE_CHECKING:
     Ideal = Any
     RModuleForm = Any
     OrderedSet = Any
-    ModuleStructure = Callable[[tuple[RingElement, RModuleElement]], RModuleElement] | Callable[[RingElement], RingEndomorphism]
-
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-
-FinSet = Sets().Finite()
 
 _CUSTOM_AXIOMS = (
     "OverIntegralDomain",
@@ -153,387 +147,6 @@ _register_custom_axioms()
 
 
 # ---------------------------------------------------------------------------
-# Categories-of-categories shim
-# ---------------------------------------------------------------------------
-
-
-class Categories(Category_singleton):
-    r"""A shim to define an infty-category of (Sage) categories."""
-
-    def super_categories(self):
-        return [Objects()]
-
-    def __contains__(self, C: Any) -> bool:
-        return isinstance(C, Category)
-
-    @classmethod
-    def is_over_a_ring(cls, C: Category) -> bool:
-        assert C in Categories(), f"Object is not a category: {C}"
-        return any(hasattr(D, "base_ring") for D in C.super_categories())
-
-    @classmethod
-    def base_ring(cls, C: Category) -> Ring:
-        base_ring_cat = next(
-            (D for D in C.super_categories() if hasattr(D, "base_ring")),
-            None,
-        )
-        assert base_ring_cat is not None, f"No super category of {C} is a category over a base ring."
-        return base_ring_cat.base_ring()
-
-
-# ---------------------------------------------------------------------------
-# ParentMethods / ElementMethods for Modules(R)
-# ---------------------------------------------------------------------------
-
-
-class _RModObjects:
-    r"""ParentMethods for ``Modules(R)``.
-
-    ``linear_combination(...)`` is intentionally not provided here: when
-    elements are implemented properly the parent does not need it.
-    """
-
-    def is_over_integral_domain(self) -> bool:
-        return False
-
-    def is_over_dedekind_domain(self) -> bool:
-        return False
-
-    def is_over_pid(self) -> bool:
-        return False
-
-    def is_over_commutative_ring(self) -> bool:
-        return False
-
-    def is_over_field(self) -> bool:
-        return False
-
-    def is_over_local_ring(self) -> bool:
-        return False
-
-    def is_over_complete_ring(self) -> bool:
-        return False
-
-    def is_free(self) -> bool:
-        return False
-
-    def is_torsion(self) -> bool:
-        return False
-
-    def is_torsionfree(self) -> bool:
-        return False
-
-    def is_projective(self) -> bool:
-        return False
-
-    def is_finite(self) -> bool:
-        return False
-
-    def has_ordered_generating_set(self) -> bool:
-        return False
-
-    def is_finitely_generated(self) -> bool:
-        return False
-
-    def is_finitely_presented(self) -> bool:
-        return False
-
-    def is_ideal(self) -> bool:
-        return False
-
-    @cached_method
-    def tensor_square(self):
-        return self.tensor_power(2)
-
-    def tensor_power(self, n: int):
-        match n:
-            case 0:
-                return self.base_ring()
-            case _ if n >= 1:
-                return tensor(n * [self])
-            case _ if n <= -1:
-                return tensor((-n) * [self.dual()])
-            case _:
-                raise ValueError(f"Unsupported tensor power: {n}")
-
-    def tensor_module(self, p: int, q: int):
-        assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
-        return tensor([self.tensor_power(p), self.dual().tensor_power(q)])
-
-    def quotient(self, N: SubModule) -> QuotientModule:
-        return N.inclusion().cokernel()
-
-    @abstract_method
-    def annihilator(self) -> Ideal: ...
-
-    def __truediv__(self, N: SubModule) -> QuotientModule:
-        return self.quotient(N)
-
-    @abstract_method
-    def torsion_submodule(self) -> SubModule:
-        r"""M_tors := <{m in M | r*m = 0 for some r in R}>
-        = <{m in M | Ann_R(m) != 0}>.
-        """
-        ...
-
-    @abstract_method
-    def tensor_algebra(self) -> RModule:
-        r"""Return T_R(M) := \bigoplus_n \bigoplus_{p+q=n} T_R(M)[p,q]."""
-        ...
-
-    @abstract_method
-    def base_change(self, S: Ring) -> RModule:
-        r"""Return a representation of M_S := M \otimes_R S in S-Mod."""
-        ...
-
-    @abstract_method
-    def module_structure(self) -> ModuleStructure:
-        r"""The map sigma: R x M -> M such that r.m := sigma(r, m).
-
-        May equivalently be interpreted as a ring morphism
-        sigma: R -> End_R(M), where r.m := sigma(r)(m).  Made explicit so
-        that M can be twisted by composing with a ring endomorphism.
-        """
-        ...
-
-    @abstract_method
-    def modify_module_structure(self, sigma: ModuleStructure):
-        r"""Define a new module structure sigma': R -> End_R(M) so that
-        r.m = sigma'(r)(m), replacing the existing sigma.
-        """
-        ...
-
-    @abstract_method
-    def symmetric_algebra(self) -> RModule: ...
-
-    @abstract_method
-    def alternating_algebra(self) -> RModule: ...
-
-    @abstract_method
-    def dual(self) -> DualRModule: ...
-
-    @abstract_method
-    def Hom(self, N: RModule) -> RModuleHomset: ...
-
-    @abstract_method
-    def End(self) -> RModuleEndSet: ...
-
-    @abstract_method
-    def Aut(self) -> RModuleAutSet: ...
-
-    @abstract_method
-    def determinant_module(self) -> RModule:
-        r"""Return \Lambda^n_R(M), the top exterior power of M."""
-        ...
-
-    @abstract_method
-    def __contains__(self, data: RModuleElement | SubModule) -> bool:
-        r"""Concrete impls dispatch on RModuleElement vs SubModule."""
-        ...
-
-    @abstract_method
-    def cardinality(self) -> Cardinality: ...
-
-    @abstract_method
-    def is_isomorphic_to(self, other: RModule) -> bool: ...
-
-    @abstract_method
-    def is_submodule_of(self, other: RModule) -> bool: ...
-
-    @abstract_method
-    def direct_sum(self, other: RModule | Sequence[RModule]) -> RModule: ...
-
-    @abstract_method
-    def tensor(self, other: RModule | Sequence[RModule]) -> RModule: ...
-
-    @abstract_method
-    def span(self, elts: RModuleElement | Sequence[RModuleElement]) -> SubModule: ...
-
-    def __add__(self, other: RModule) -> RModule:
-        return self.direct_sum(other)
-
-    @abstract_method
-    def __mul__(self, other: RingElement | RModule) -> RModule:
-        r"""``r * M`` = submodule spanned by ``{r*m | m in M}``;
-        ``N * M`` = the tensor product ``M \otimes_R N``.
-        """
-        ...
-
-    # Do not define: submodule(), _mul_, _rmul_, _lmul_
-
-    @abstract_method
-    def natural_pairing(self) -> RModuleForm:
-        r"""The (1,1) form b: M \otimes_R M^* -> R defined by b(v, w^*) := w^*(v)."""
-        ...
-
-
-class _RModElements:
-    def span(self) -> SubModule:
-        return self.parent().span([self])
-
-    def inclusion(self) -> RModuleMorphism:
-        Rm = self.span()
-        f = Rm.inclusion()
-        assert f in Rm.Hom(self.parent())
-        return f
-
-    def annihilator(self) -> Ideal:
-        return self.span().annihilator()
-
-    @abstract_method
-    def cyclic_submodule(self) -> SubModule: ...
-
-    def is_primitive(self) -> bool:
-        return self.span().inclusion().is_primitive()
-
-    @abstract_method
-    def __add__(self, m: RModuleElement) -> RModuleElement: ...
-
-    @abstract_method
-    def __mul__(self, r: RingElement) -> RModuleElement: ...
-
-    def __neg__(self) -> RModuleElement:
-        R = self.base_ring()
-        return R(-1) * self
-
-    @abstract_method
-    def _lmul_(self, r: RingElement) -> RModuleElement: ...
-
-    @abstract_method
-    def _rmul_(self, r: RingElement) -> RModuleElement: ...
-
-    # TODO: define R*m := m.span() when R == m.base_ring(), or base-change.
-
-
-# ---------------------------------------------------------------------------
-# Functorial constructions (Subobjects / Quotients / Tensor / Cartesian / Dual)
-# ---------------------------------------------------------------------------
-
-
-class _DualObjects(DualObjectsCategory):
-    r"""Dual modules M^* := Hom_R(M, R) viewed as integral linear forms."""
-
-    def extra_super_categories(self):
-        r"""The dual M^* of an R-module is an integral linear form, i.e. an
-        object of ``Modules(R).Homsets().Forms().Linear().Integral()``.
-        """
-        return [self.base_category().Homsets().Forms().Linear().Integral()]
-
-
-class _Subobjects(SubobjectsCategory):
-    r"""Submodule category.  Extends ``RegressiveCovariantConstructionCategory``
-    so ``C.Subobjects()`` is always a subcategory of ``C``.
-
-    TODO: enumerate methods already provided by Sage's SubobjectsCategory.
-    """
-
-    @abstract_method
-    def as_subobject_of_self(self, M: RModule) -> SubModule:
-        r"""Regard M as a submodule of itself via the identity."""
-        ...
-
-    class ParentMethods:
-        @abstract_method
-        def ambient_module(self) -> RModule:
-            r"""The ambient R-module of which ``self`` is a submodule."""
-            ...
-
-        @abstract_method
-        def inclusion(self): ...
-
-        @abstract_method
-        def intersect(self, N: SubModule) -> SubModule: ...
-
-        def __and__(self, N: SubModule) -> SubModule:
-            return self.intersect(N)
-
-        def index(self) -> Cardinality:
-            return self.inclusion().index()
-
-        def is_primitive(self) -> bool:
-            return self.inclusion().is_primitive()
-
-        def lift(self, m: RModuleElement) -> RModuleElement:
-            return self.inclusion()(m)
-
-        @abstract_method
-        def saturation(self) -> SubModule: ...
-
-        @abstract_method
-        def __le__(self, other: RModule) -> bool: ...
-
-        def quotient_module(self) -> QuotientModule:
-            return self.inclusion().cokernel()
-
-
-class _Quotients(QuotientsCategory):
-    r"""Quotient module category.  Extends
-    ``RegressiveCovariantConstructionCategory`` so ``C.Quotients()`` is always
-    a subcategory of ``C``.
-
-    TODO: enumerate methods already provided by Sage's QuotientsCategory.
-    """
-
-    class ParentMethods:
-        @abstract_method
-        def projection(self): ...
-
-    class ElementMethods:
-        def lift(self) -> RModuleElement:
-            return self.projection().lift(self)
-
-
-class _TensorProducts(TensorProductsCategory):
-    r"""Tensor products of R-modules.
-
-    TODO: verify
-    r * (m_1 \otimes ... \otimes m_n)
-        = (r * m_1) \otimes ... \otimes m_n
-        = m_1 \otimes ... \otimes (r * m_n)
-    holds at the level of the spec.
-    """
-
-    @cached_method
-    def extra_super_categories(self):
-        r"""Declare that M \otimes_R N is again an R-module."""
-        return [self.base_category()]
-
-    class ParentMethods:
-        def construction(self):
-            factors = self.tensor_factors()
-            return (TensorProductFunctor(), factors)
-
-        @abstract_method
-        def tensor_factors(self) -> list[RModule]: ...
-
-        @abstract_method
-        def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
-            r"""Given an ordered set {m_1, ..., m_n} with m_i in M_i, where
-            this module is M = M_1 \otimes_R ... \otimes_R M_n, lift the
-            product element (m_1, ..., m_n) to m_1 \otimes ... \otimes m_n.
-            """
-            ...
-
-
-class _CartesianProducts(CartesianProductsCategory):
-    def extra_super_categories(self):
-        r"""Declare that M x N is again an R-module."""
-        return [self.base_category()]
-
-    class ParentMethods:
-        def __init_extra__(self):
-            factors = self._sets
-            assert len(factors) > 0, f"No factors found in {self}: {factors}"
-            R = factors[0].base_ring()
-            assert all(Mi.base_ring() is R for Mi in factors)
-            self._base = R
-
-    class ElementMethods:
-        def _lmul_(self, x: Any):
-            return self.parent()._cartesian_product_of_elements(x * y for y in self.cartesian_factors())
-
-
-# ---------------------------------------------------------------------------
 # The Modules(R) category
 # ---------------------------------------------------------------------------
 
@@ -561,8 +174,8 @@ class Modules(Category_module):
             return result._with_axiom("OverIntegralDomain")
         if base_ring in SageCommutativeRings():
             return result._with_axiom("OverCommutativeRing")
-        # TODO: full ring dispatching.
-        # TODO: handle Noetherian non-commutative rings.
+        # TODO: full ring dispatching. -- [needs approach]
+        # TODO: handle Noetherian non-commutative rings. -- [needs approach]
         return result
 
     def super_categories(self):
@@ -576,6 +189,11 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
     # Constructors
     # ------------------------------------------------------------------
+
+    @cached_method
+    def NamedModules(self):
+        r"""Return the named Sage module constructor collector over ``self.base_ring()``."""
+        return _NamedModules(self)
 
     def zero_module(self) -> RModule: ...
 
@@ -696,6 +314,13 @@ class Modules(Category_module):
         def FinitelyPresented(self):
             return self._with_axiom("FinitelyPresented")
 
+        ## Named Sage-backed constructors
+
+        @cached_method
+        def NamedModules(self):
+            r"""Return the named Sage module constructor collector over this base ring."""
+            return _NamedModules(self)
+
         ## Functorial constructions
 
         @cached_method
@@ -803,7 +428,7 @@ class Modules(Category_module):
     # Forms / lattice surface
     # ------------------------------------------------------------------
 
-    WithForms = _WithForms       # Non-full subcategory of pairs (M, f).
+    WithForms = _WithForms  # Non-full subcategory of pairs (M, f).
     Bilinear = _BilinearModules  # (M, b): b: M \otimes_R M -> S.
     Quadratic = _QuadraticModules  # (M, q): q: M -> S^\sigma.
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
@@ -813,7 +438,7 @@ class Modules(Category_module):
 # ---------------------------------------------------------------------------
 # Composed surfaces (aspirational; resolved once axiom chains are populated)
 # ---------------------------------------------------------------------------
-# TODO: immediately restrict to Dedekind domains, then to PIDs.  Bilinear /
+# TODO: immediately restrict to Dedekind domains, then to PIDs.  Bilinear / -- [needs approach]
 # quadratic modules and (rational) lattices are wanted over PIDs (so they
 # are free of finite rank).
 #
@@ -841,7 +466,7 @@ class Modules(Category_module):
 
 
 # ---------------------------------------------------------------------------
-# TODO: subcategory-specific surface
+# TODO: subcategory-specific surface -- [needs approach]
 # ---------------------------------------------------------------------------
 # - to_matrix
 # - identify when Hom_R(M, N) is a matrix algebra

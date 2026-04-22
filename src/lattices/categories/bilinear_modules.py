@@ -91,19 +91,15 @@ class BilinearModules(Category_module):
     # Subcategory declarations (lazy to avoid import cycles)
     # -----------------------------------------------------------------------
 
-    Free = LazyImport(
-        'src.lattices.categories.free_bilinear_modules', 'FreeBilinearModules')
-    Torsion = LazyImport(
-        'src.lattices.categories.torsion_bilinear_modules', 'TorsionBilinearModules')
-    WithQuadraticForm = LazyImport(
-        'src.lattices.categories.quadratic_modules', 'QuadraticModules')
+    Free = LazyImport("src.lattices.categories.free_bilinear_modules", "FreeBilinearModules")
+    Torsion = LazyImport("src.lattices.categories.torsion_bilinear_modules", "TorsionBilinearModules")
+    WithQuadraticForm = LazyImport("src.lattices.categories.quadratic_modules", "QuadraticModules")
 
     # -----------------------------------------------------------------------
     # SubcategoryMethods  (available on any subcategory of BilinearModules)
     # -----------------------------------------------------------------------
 
     class SubcategoryMethods:
-
         @cached_method
         def base_ring(self):
             r"""
@@ -118,10 +114,9 @@ class BilinearModules(Category_module):
                 Integer Ring
             """
             for C in self.super_categories():
-                if hasattr(C, 'base_ring'):
+                if hasattr(C, "base_ring"):
                     return C.base_ring()
-            raise AttributeError(
-                f"no super category of {self} has a base_ring")
+            raise AttributeError(f"no super category of {self} has a base_ring")
 
         @cached_method
         def Free(self):
@@ -133,7 +128,7 @@ class BilinearModules(Category_module):
                 sage: BilinearModules(ZZ).Free()   # not tested
                 Category of free bilinear modules over Integer Ring
             """
-            return self._with_axiom('Free')
+            return self._with_axiom("Free")
 
         @cached_method
         def Torsion(self):
@@ -145,7 +140,7 @@ class BilinearModules(Category_module):
                 sage: BilinearModules(ZZ).Torsion()   # not tested
                 Category of torsion bilinear modules over Integer Ring
             """
-            return self._with_axiom('Torsion')
+            return self._with_axiom("Torsion")
 
         @cached_method
         def WithQuadraticForm(self):
@@ -157,7 +152,7 @@ class BilinearModules(Category_module):
                 sage: BilinearModules(ZZ).WithQuadraticForm()   # not tested
                 Category of quadratic modules over Integer Ring
             """
-            return self._with_axiom('WithQuadraticForm')
+            return self._with_axiom("WithQuadraticForm")
 
     # -----------------------------------------------------------------------
     # ParentMethods
@@ -683,13 +678,11 @@ class BilinearModules(Category_module):
 
         def is_injective(self):
             r"""Return ``True`` iff ``self.kernel()`` is the zero module."""
-            return self.kernel() == self.domain().category()(
-                self.domain().base_ring()).zero()
+            return self.kernel() == self.domain().category()(self.domain().base_ring()).zero()
 
         def is_surjective(self):
             r"""Return ``True`` iff ``self.cokernel()`` is the zero module."""
-            return self.cokernel() == self.codomain().category()(
-                self.codomain().base_ring()).zero()
+            return self.cokernel() == self.codomain().category()(self.codomain().base_ring()).zero()
 
         def is_bijective(self):
             r"""Return ``True`` iff ``self`` is injective and surjective."""
@@ -827,20 +820,19 @@ class BilinearModules(Category_module):
 
                 Only defined when ``self.domain() == self.codomain()``.
                 """
-                assert self.domain() == self.codomain(), \
-                    "identity requires domain == codomain"
+                assert self.domain() == self.codomain(), "identity requires domain == codomain"
                 from sage.matrix.constructor import identity_matrix
+
                 n = len(self.domain().gens())
-                return self.element_from_matrix(
-                    identity_matrix(self.domain().base_ring(), n))
+                return self.element_from_matrix(identity_matrix(self.domain().base_ring(), n))
 
             def zero(self):
                 r"""Return the zero morphism ``0: M → N``."""
                 from sage.matrix.constructor import zero_matrix
+
                 n = len(list(self.domain().gens()))
                 m = len(list(self.codomain().gens()))
-                return self.element_from_matrix(
-                    zero_matrix(self.domain().base_ring(), m, n))
+                return self.element_from_matrix(zero_matrix(self.domain().base_ring(), m, n))
 
         class Endset(CategoryWithAxiom_over_base_ring):
             r"""
@@ -861,10 +853,10 @@ class BilinearModules(Category_module):
                     [Category of magmatic algebras over Integer Ring]
                 """
                 from sage.categories.magmatic_algebras import MagmaticAlgebras
+
                 return [MagmaticAlgebras(self.base_category().base_ring())]
 
             class ParentMethods:
-
                 @abstract_method
                 def Aut(self):
                     r"""
@@ -901,14 +893,11 @@ class BilinearModules(Category_module):
             return [self.base_category()]
 
         class ParentMethods:
-
             @abstract_method
             def summands(self):
                 r"""Return the tuple of summands `(M_1, \ldots, M_k)`."""
 
         class ElementMethods:
-
             def _lmul_(self, scalar):
                 r"""Return ``scalar * self`` component-wise."""
-                return self.parent()._cartesian_product_of_elements(
-                    scalar * v for v in self.cartesian_factors())
+                return self.parent()._cartesian_product_of_elements(scalar * v for v in self.cartesian_factors())

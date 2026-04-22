@@ -24,9 +24,10 @@ Modules = sage_modules.Modules
 # 1. Instantiation
 # ---------------------------------------------------------------------------
 
+
 class TestInstantiation:
     def test_pow_returns_free_module(self):
-        M = ZZ ** 2
+        M = ZZ**2
         assert M.rank() == 2
         assert M in Modules(ZZ).Free().FinitelyPresented()
 
@@ -43,6 +44,7 @@ class TestInstantiation:
 # ---------------------------------------------------------------------------
 # 2. Seed enrollment + idempotent install
 # ---------------------------------------------------------------------------
+
 
 class TestSeedEnrollment:
     @pytest.mark.parametrize("R", [ZZ, QQ])
@@ -66,6 +68,7 @@ class TestSeedEnrollment:
 
     def test_install_is_idempotent(self):
         from plans.category_specs import refinement
+
         # Calling install() a second time must be a no-op.
         refinement.install()
         refinement.install()
@@ -76,12 +79,13 @@ class TestSeedEnrollment:
 # 3. Non-regression sanity
 # ---------------------------------------------------------------------------
 
+
 class TestNonRegression:
     def test_ideal_gens_round_trip(self):
         assert ZZ.ideal(6).gens() == (6,)
 
     def test_free_module_rank(self):
-        assert (ZZ ** 2).rank() == 2
+        assert (ZZ**2).rank() == 2
 
     def test_zp_precision_cap(self):
         from sage.rings.padics.factory import Zp
@@ -92,6 +96,7 @@ class TestNonRegression:
 # ---------------------------------------------------------------------------
 # 4. Constructor-specific promotion contracts
 # ---------------------------------------------------------------------------
+
 
 class TestConstructorPromotion:
     def test_free_module_constructor_promotes_to_free_finitely_presented(self):

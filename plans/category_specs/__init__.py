@@ -5,7 +5,6 @@ records the mathematical hierarchy and abstract method surfaces; later phases
 install concrete category interceptors and constructor redefinitions.
 """
 
-from . import (
-    modules,  # noqa: F401  (was sage_modules / sage_module_morphism / sage_special_modules)
-    rings,  # noqa: F401
-)
+from . import modules as modules
+from . import rings as rings
+from . import sets as sets

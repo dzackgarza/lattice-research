@@ -5,7 +5,6 @@ Only aliases backed by files that exist in this tree are exposed.  The
 dropped until those spec files land.
 """
 
-
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 
@@ -22,7 +21,6 @@ CompleteRing = Rings.Complete.ParentMethods
 
 Cardinality = Integer | InfinityElement
 
-# RMod = Modules(R)
 RMod = Modules
 RModule = Modules.ParentMethods
 RModuleElement = Modules.ElementMethods

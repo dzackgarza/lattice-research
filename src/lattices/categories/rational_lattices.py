@@ -56,10 +56,10 @@ class RationalLattices(CategoryWithAxiom_over_base_ring):
     def super_categories(self):
         from sage.rings.rational_field import QQ
         from src.lattices.categories.free_bilinear_modules import FreeBilinearModules
+
         return [FreeBilinearModules(QQ)]
 
     class ParentMethods:
-
         @abstract_method
         def signature_pair(self):
             r"""
@@ -129,7 +129,6 @@ class RationalLattices(CategoryWithAxiom_over_base_ring):
             """
 
     class ElementMethods:
-
         @abstract_method
         def is_integral(self):
             r"""

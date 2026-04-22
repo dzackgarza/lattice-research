@@ -139,7 +139,7 @@ the singular points) IS the monodromy of the family.
   with certified precision. The matrices generate the monodromy group.
 - Algorithm: analytic continuation via numerical_transition_matrix along carefully
   chosen Voronoi-like paths, using ball arithmetic for certified error bounds.
-  Two modes: `algorithm='connect'` (default), `algorithm='binsplit'` (more robust).
+ Two modes: `algorithm='connect'` (default), `algorithm='binsplit'` (more ).
 
 **Note on availability**: `ore_algebra` is NOT a standard Sage package and is not
 currently installed. It is available from https://github.com/mkauers/ore_algebra .

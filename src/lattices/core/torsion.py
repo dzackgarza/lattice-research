@@ -36,11 +36,7 @@ class TorsionBilinearModule(BilinearModule):
         return self.element_from(self.base_ring()(scalar) * element.to_vector())
 
     def __eq__(self, other):
-        return (
-            type(other) is type(self)
-            and other.base_ring() == self.base_ring()
-            and other.gram_matrix() == self.gram_matrix()
-        )
+        return type(other) is type(self) and other.base_ring() == self.base_ring() and other.gram_matrix() == self.gram_matrix()
 
     def __hash__(self):
         return hash((type(self), self.base_ring(), tuple(self.gram_matrix().list())))

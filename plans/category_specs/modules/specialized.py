@@ -90,9 +90,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             return sum(1 for r in self.invariant_factors() if r.is_zero())
 
         @abstract_method
-        def element_from_vector(
-            self, vec: Sequence[RingElement]
-        ) -> RModuleElement: ...
+        def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement: ...
 
     # ------------------------------------------------------------------
     # ElementMethods
@@ -114,17 +112,13 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     class Homsets(HomsetsCategory):
         class ParentMethods:
             @abstract_method
-            def from_dict(
-                self, mapping: dict
-            ) -> RModuleMorphism: ...
+            def from_dict(self, mapping: dict) -> RModuleMorphism: ...
 
             @abstract_method
             def from_matrix(self, M: Matrix) -> RModuleMorphism: ...
 
             @abstract_method
-            def from_images(
-                self, images: Sequence[RModuleElement]
-            ) -> RModuleMorphism: ...
+            def from_images(self, images: Sequence[RModuleElement]) -> RModuleMorphism: ...
 
         class ElementMethods:
             @abstract_method

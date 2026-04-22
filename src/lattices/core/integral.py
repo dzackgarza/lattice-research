@@ -93,8 +93,7 @@ class Lattice(RationalLattice):
     def overlattice(self, glue_vectors):
         dual = self.dual()
         glue_tuple = tuple(
-            dual.element_from_primal_coordinates(vector(QQ, glue_vector)).to_primal_coordinates()
-            for glue_vector in glue_vectors
+            dual.element_from_primal_coordinates(vector(QQ, glue_vector)).to_primal_coordinates() for glue_vector in glue_vectors
         )
         return type(self)._from_sage_like(self._sage_lattice.overlattice(glue_tuple))
 
@@ -314,14 +313,20 @@ class Lattice(RationalLattice):
         if (not positive_rank) or (not negative_rank):
             gens_fn = self._definite_orthogonal_group_generators
         else:
-            gens_fn = lambda: self._matrices_from_raw(indefinite_form_automorphism_group(self._gram_rows()))
+
+            def gens_fn():
+                return self._matrices_from_raw(indefinite_form_automorphism_group(self._gram_rows()))
+
         return LatticeOrthogonalGroup.from_lattice(self, gens_fn)
 
     def isotropic_line_orbits(self):
         return [self.element_from(row) for rows in indefinite_form_isotropic_k_plane(self._gram_rows(), 1) for row in rows]
 
     def isotropic_plane_orbits(self):
-        return [(self.element_from(rows[0]), self.element_from(rows[1])) for rows in indefinite_form_isotropic_k_plane(self._gram_rows(), 2)]
+        return [
+            (self.element_from(rows[0]), self.element_from(rows[1]))
+            for rows in indefinite_form_isotropic_k_plane(self._gram_rows(), 2)
+        ]
 
     def isotropic_flag_orbits(self, depth: int):
         return [[self.element_from(row) for row in rows] for rows in indefinite_form_isotropic_k_flag(self._gram_rows(), depth)]
@@ -341,4 +346,7 @@ class Lattice(RationalLattice):
         definite_gram = -self.gram_matrix() if positive_rank == 0 else self.gram_matrix()
         orthogonal_group = IntegralLattice(definite_gram).orthogonal_group()
         centralizer = orthogonal_group.gap().Centralizer(orthogonal_group(involution_matrix).gap())
-        return [self._column_action_isometry_from_row_action_matrix(orthogonal_group(generator).matrix()) for generator in centralizer.GeneratorsOfGroup()]
+        return [
+            self._column_action_isometry_from_row_action_matrix(orthogonal_group(generator).matrix())
+            for generator in centralizer.GeneratorsOfGroup()
+        ]

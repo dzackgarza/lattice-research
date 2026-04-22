@@ -36,10 +36,10 @@ from sage.categories.rings import Rings as SageRings
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
 )
+from sage.matrix.matrix_space import MatrixSpace
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-from sage.matrix.matrix_space import MatrixSpace
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
 from sage.rings.abc import ComplexField as SageComplexField
@@ -88,12 +88,8 @@ _SAGE_LAURENT_SERIES_RING_CLASSES = (
     LazyLaurentSeriesRing,
 )
 _SAGE_PUISEUX_SERIES_RING_CLASSES = (SagePuiseuxSeriesRing,)
-_SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES = (
-    _SAGE_LAURENT_SERIES_RING_CLASSES + _SAGE_POWER_SERIES_RING_CLASSES
-)
-_SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES = (
-    _SAGE_PUISEUX_SERIES_RING_CLASSES + _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
-)
+_SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES = _SAGE_LAURENT_SERIES_RING_CLASSES + _SAGE_POWER_SERIES_RING_CLASSES
+_SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES = _SAGE_PUISEUX_SERIES_RING_CLASSES + _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
 
 
 class _CommutativeRings(CategoryWithAxiom):
@@ -106,9 +102,7 @@ class _CommutativeRings(CategoryWithAxiom):
         return [SageCommutativeRings(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageCommutativeRings() or (
-            R in self.base_category() and R.is_commutative_ring()
-        )
+        return R in SageCommutativeRings() or (R in self.base_category() and R.is_commutative_ring())
 
     IntegralDomains = LazyImport(__name__, "_IntegralDomains")
     Field = LazyImport(__name__, "_Fields")
@@ -178,9 +172,7 @@ class _DivisionRings(CategoryWithAxiom):
         return [SageDivisionRings(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageDivisionRings() or (
-            R in self.base_category() and R.is_division_ring()
-        )
+        return R in SageDivisionRings() or (R in self.base_category() and R.is_division_ring())
 
     class ParentMethods:
         def is_division_ring(self) -> bool:
@@ -197,9 +189,7 @@ class _TopologicalRings(CategoryWithAxiom):
         return [SageRings().Topological(), Rings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageRings().Topological() or (
-            R in self.base_category() and R.is_topological_ring()
-        )
+        return R in SageRings().Topological() or (R in self.base_category() and R.is_topological_ring())
 
     Complete = LazyImport(__name__, "_CompleteRings")
 
@@ -284,9 +274,7 @@ class _IntegralDomains(CategoryWithAxiom):
         return [SageIntegralDomains(), _CommutativeRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageIntegralDomains() or (
-            R in self.base_category() and R.is_integral_domain()
-        )
+        return R in SageIntegralDomains() or (R in self.base_category() and R.is_integral_domain())
 
     Gcd = LazyImport(__name__, "_GcdDomains")
     UniqueFactorization = LazyImport(__name__, "_UniqueFactorizationDomains")
@@ -343,9 +331,7 @@ class _NoetherianRings(CategoryWithAxiom):
         return [SageNoetherianRings(), _CommutativeRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageNoetherianRings() or (
-            R in self.base_category() and R.is_noetherian()
-        )
+        return R in SageNoetherianRings() or (R in self.base_category() and R.is_noetherian())
 
 
 class _ReducedRings(CategoryWithAxiom):
@@ -408,9 +394,7 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
         return [SageUniqueFactorizationDomains(), _GcdDomains()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageUniqueFactorizationDomains() or (
-            R in self.base_category() and R.is_unique_factorization_domain()
-        )
+        return R in SageUniqueFactorizationDomains() or (R in self.base_category() and R.is_unique_factorization_domain())
 
     class ElementMethods:
         @abstract_method
@@ -433,9 +417,7 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
         return [SagePrincipalIdealDomains(), _UniqueFactorizationDomains()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SagePrincipalIdealDomains() or (
-            R in self.base_category() and R.is_pid()
-        )
+        return R in SagePrincipalIdealDomains() or (R in self.base_category() and R.is_pid())
 
     class ParentMethods:
         def is_pid(self) -> bool:
@@ -452,9 +434,7 @@ class _EuclideanDomains(CategoryWithAxiom):
         return [SageEuclideanDomains(), _PrincipalIdealDomains()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageEuclideanDomains() or (
-            R in self.base_category() and R.is_euclidean_domain()
-        )
+        return R in SageEuclideanDomains() or (R in self.base_category() and R.is_euclidean_domain())
 
 
 class _IntegrallyClosedDomains(CategoryWithAxiom):
@@ -493,9 +473,7 @@ class _DedekindDomains(CategoryWithAxiom):
         ]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageDedekindDomains() or (
-            R in self.base_category() and R.is_dedekind_domain()
-        )
+        return R in SageDedekindDomains() or (R in self.base_category() and R.is_dedekind_domain())
 
     class ParentMethods:
         def is_dedekind_domain(self) -> bool:
@@ -545,9 +523,7 @@ class _DiscreteValuationRings(CategoryWithAxiom):
         return [SageDiscreteValuationRings(), _EuclideanDomains(), _ValuedRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageDiscreteValuationRings() or (
-            R in self.base_category() and R.is_discrete_valuation_ring()
-        )
+        return R in SageDiscreteValuationRings() or (R in self.base_category() and R.is_discrete_valuation_ring())
 
     class ParentMethods:
         def is_discrete_valuation_ring(self) -> bool:
@@ -568,9 +544,7 @@ class _DiscreteValuationFields(Category_singleton):
         return [SageDiscreteValuationFields(), _Fields(), _DiscreteValuationRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageDiscreteValuationFields() or (
-            R in _Fields() and R.is_discrete_valuation_field()
-        )
+        return R in SageDiscreteValuationFields() or (R in _Fields() and R.is_discrete_valuation_field())
 
     class ParentMethods:
         def is_discrete_valuation_field(self) -> bool:
@@ -630,9 +604,7 @@ class _CompleteDiscreteValuationObjects(Category_singleton):
         return [_CompleteRings(), _ValuedRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in _CompleteDiscreteValuationRings() or (
-            R in _CompleteDiscreteValuationFields()
-        )
+        return R in _CompleteDiscreteValuationRings() or (R in _CompleteDiscreteValuationFields())
 
     class ElementMethods:
         @abstract_method
@@ -662,8 +634,7 @@ class _CompleteDiscreteValuationRings(Category_singleton):
 
     def __contains__(self, R: Any) -> bool:
         return R in SageCompleteDiscreteValuationRings() or (
-            R in _DiscreteValuationRings()
-            and R.is_complete_discrete_valuation_ring()
+            R in _DiscreteValuationRings() and R.is_complete_discrete_valuation_ring()
         )
 
     class ParentMethods:
@@ -685,8 +656,7 @@ class _CompleteDiscreteValuationFields(Category_singleton):
 
     def __contains__(self, R: Any) -> bool:
         return R in SageCompleteDiscreteValuationFields() or (
-            R in _DiscreteValuationFields()
-            and R.is_complete_discrete_valuation_field()
+            R in _DiscreteValuationFields() and R.is_complete_discrete_valuation_field()
         )
 
     class ParentMethods:
@@ -745,9 +715,7 @@ class _NumberFields(CategoryWithAxiom):
         return [SageNumberFields(), _Fields()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in SageNumberFields() or (
-            R in self.base_category() and R.is_number_field()
-        )
+        return R in SageNumberFields() or (R in self.base_category() and R.is_number_field())
 
     Quadratic = LazyImport(__name__, "_QuadraticNumberFields")
     Cyclotomic = LazyImport(__name__, "_CyclotomicFields")
@@ -1144,36 +1112,28 @@ class _PAdicRings(Category_singleton):
         def dist(self, x, y): ...
 
         @abstract_method
-        def is_capped_absolute(self) -> bool:
-            ...
+        def is_capped_absolute(self) -> bool: ...
 
         @abstract_method
-        def is_capped_relative(self) -> bool:
-            ...
+        def is_capped_relative(self) -> bool: ...
 
         @abstract_method
-        def is_fixed_mod(self) -> bool:
-            ...
+        def is_fixed_mod(self) -> bool: ...
 
         @abstract_method
-        def is_floating_point(self) -> bool:
-            ...
+        def is_floating_point(self) -> bool: ...
 
         @abstract_method
-        def is_relaxed(self) -> bool:
-            ...
+        def is_relaxed(self) -> bool: ...
 
         @abstract_method
-        def is_lattice_prec(self) -> bool:
-            ...
+        def is_lattice_prec(self) -> bool: ...
 
         @abstract_method
-        def has_pth_root(self) -> bool:
-            ...
+        def has_pth_root(self) -> bool: ...
 
         @abstract_method
-        def has_root_of_unity(self, n) -> bool:
-            ...
+        def has_root_of_unity(self, n) -> bool: ...
 
 
 class _AlgebraicFields(Category_singleton):
@@ -1201,14 +1161,11 @@ class _AlgebraicFields(Category_singleton):
         def polynomial_root(self, poly, interval, multiplicity=1): ...
 
 
-class _NamedRings(Category_singleton):
-    r"""Facade for Sage's named ring constructors and named singleton rings."""
+class _NamedRings:
+    r"""Constructor collector for Sage's named ring entry points."""
 
-    def _repr_object_names(self) -> str:
-        return "named Sage rings and ring constructors"
-
-    def super_categories(self) -> list[Any]:
-        return [Rings()]
+    def __repr__(self) -> str:
+        return "named Sage ring constructors"
 
     def __contains__(self, R: Any) -> bool:
         if isinstance(R, MatrixSpace):
@@ -1315,23 +1272,17 @@ class _NamedRings(Category_singleton):
     def RealBallField(self, *args, **kwds):
         from sage.all import RealBallField
 
-        return _refine_named_ring(
-            RealBallField(*args, **kwds), _RealBallFields()
-        )
+        return _refine_named_ring(RealBallField(*args, **kwds), _RealBallFields())
 
     def ComplexBallField(self, *args, **kwds):
         from sage.all import ComplexBallField
 
-        return _refine_named_ring(
-            ComplexBallField(*args, **kwds), _ComplexBallFields()
-        )
+        return _refine_named_ring(ComplexBallField(*args, **kwds), _ComplexBallFields())
 
     def IntegerModRing(self, *args, **kwds):
         from sage.all import IntegerModRing
 
-        return _refine_named_ring(
-            IntegerModRing(*args, **kwds), _IntegerModRings()
-        )
+        return _refine_named_ring(IntegerModRing(*args, **kwds), _IntegerModRings())
 
     def Zmod(self, *args, **kwds):
         from sage.all import Zmod
@@ -1367,16 +1318,12 @@ class _NamedRings(Category_singleton):
     def QuadraticField(self, *args, **kwds):
         from sage.all import QuadraticField
 
-        return _refine_named_ring(
-            QuadraticField(*args, **kwds), _QuadraticNumberFields()
-        )
+        return _refine_named_ring(QuadraticField(*args, **kwds), _QuadraticNumberFields())
 
     def CyclotomicField(self, *args, **kwds):
         from sage.all import CyclotomicField
 
-        return _refine_named_ring(
-            CyclotomicField(*args, **kwds), _CyclotomicFields()
-        )
+        return _refine_named_ring(CyclotomicField(*args, **kwds), _CyclotomicFields())
 
     def Zp(self, *args, **kwds):
         from sage.all import Zp
@@ -1840,10 +1787,7 @@ class _PolynomialRings(CategoryWithAxiom):
         return [Rings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in self.base_category() and (
-            isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES)
-            or isinstance(R, self.parent_class)
-        )
+        return R in self.base_category() and (isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES) or isinstance(R, self.parent_class))
 
     class ParentMethods:
         def is_polynomial_ring(self) -> bool:
@@ -1885,8 +1829,7 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
 
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (
-            isinstance(R, _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES)
-            or isinstance(R, self.parent_class)
+            isinstance(R, _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES) or isinstance(R, self.parent_class)
         )
 
     class ParentMethods:
@@ -1923,8 +1866,7 @@ class _LaurentSeriesRings(CategoryWithAxiom):
 
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (
-            isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES)
-            or isinstance(R, self.parent_class)
+            isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES) or isinstance(R, self.parent_class)
         )
 
     class ParentMethods:
@@ -1960,10 +1902,7 @@ class _PowerSeriesRings(CategoryWithAxiom):
         return [_LaurentSeriesRings()]
 
     def __contains__(self, R: Any) -> bool:
-        return R in self.base_category() and (
-            isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES)
-            or isinstance(R, self.parent_class)
-        )
+        return R in self.base_category() and (isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES) or isinstance(R, self.parent_class))
 
     class ParentMethods:
         def is_power_series_ring(self) -> bool:

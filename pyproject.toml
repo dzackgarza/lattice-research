@@ -17,9 +17,9 @@ source = ["src"]
 omit = ["src/external/*"]
 
 [tool.deptry]
-extend_exclude = ["\\.venv", "\\.worktrees", "coble_research_lean", "src/external", "carat", ".*\\.ipynb"]
+extend_exclude = ["\\.venv", "\\.worktrees", "coble_research_lean", "src/external", "src/backends/external", "carat", ".*\\.ipynb"]
 ignore_notebooks = true
-per_rule_ignores = {DEP001 = ["sage"], DEP003 = ["sage"]}
+per_rule_ignores = {DEP001 = ["sage", "ore_algebra", "pydantic"], DEP003 = ["sage"]}
 
 [tool.importlinter]
 root_package = "research"

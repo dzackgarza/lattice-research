@@ -869,7 +869,7 @@ $s_v(x) = x - \frac{2(x \cdot v)}{v^2}v$, a priori defined over $L \otimes \math
 actually lies in $O(L)$. The integrality condition is $\frac{2\,\mathrm{div}(v)}{v^2}
 \in \mathbb{Z}$.
 
-Note that $v$ and $-v$ both generate the same rank-1 sublattice and define the same
+ $v$ and $-v$ both generate the same rank-1 sublattice and define the same
 reflection $s_v = s_{-v}$, so a root is really a property of the sublattice $\langle v
 \rangle$. By convention we choose the generator with $v^2 < 0$ (appropriate for
 negative-definite and hyperbolic lattices in our setting).

@@ -125,7 +125,7 @@ MyFGModules(ZZ)                   # specific: ZZ-modules (ZZ is a Dedekind domai
 The `_subcategory_hook_` in `Category_over_base_ring` handles the containment check
 `MyFGModules(ZZ).is_subcategory(MyFGModules(DedekindDomains()))` automatically.
 
-For a PID-restricted version, substitute `PrincipalIdealDomains()`. Note that
+For a PID-restricted version, substitute `PrincipalIdealDomains()`. 
 `PrincipalIdealDomains` is a `Category_singleton` (not a `Category`), so the
 `isinstance(base, Category)` branch handles it correctly.
 

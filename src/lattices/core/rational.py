@@ -111,7 +111,9 @@ class DualLattice(RationalLattice):
         presentation = CoordinatePresentation(module_ring=QQ, rank=self.ngens(), coordinates=coordinates)
         dual_coordinates = self._source_lattice.gram_matrix() * presentation.coordinates.column()
         dual_vector = vector(QQ, dual_coordinates.column(0))
-        assert dual_vector.denominator().is_one(), "Primal coordinates define a dual-lattice element exactly when the dual coordinates are integral"
+        assert dual_vector.denominator().is_one(), (
+            "Primal coordinates define a dual-lattice element exactly when the dual coordinates are integral"
+        )
         return self.element_from_dual_coordinates(vector(ZZ, dual_vector))
 
     def primal_coordinates_of(self, value):
@@ -120,7 +122,8 @@ class DualLattice(RationalLattice):
         return vector(QQ, primal.column(0))
 
     def discriminant_class_of(self, value):
-        return self._source_lattice.discriminant_group()(value if value.parent() is self else self.element_from_dual_coordinates(value))
+        element = value if value.parent() is self else self.element_from_dual_coordinates(value)
+        return self._source_lattice.discriminant_group()(element)
 
     def discriminant_group(self):
         return self._source_lattice.discriminant_group()

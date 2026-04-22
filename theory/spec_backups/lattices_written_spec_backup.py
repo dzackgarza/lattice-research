@@ -35,9 +35,9 @@ And when M is torsion, we refer to this as a (quadratic) discriminant form, or
 just a discriminant form.
 """
 
-# TODO: should use e.g. Pydantic and move mathematical assertions into
+# TODO: should use e.g. Pydantic and move mathematical assertions into -- [needs approach]
 # validation functions.
-# TODO: new requirement, do not use inheritance with Sage-native lattice
+# TODO: new requirement, do not use inheritance with Sage-native lattice -- [needs approach]
 # objects for now. Instead, use a completely separate class hierarchy and
 # composition by storing internal objects. Hook into low-level Sage constructs:
 # HomSet, Morphism, FreeModule_ambient_pid_with_category or FGP_Module, etc.
@@ -119,7 +119,7 @@ just a discriminant form.
 #   [module-like].
 
 
-# TODO: most file paths were updated. Need to rename and sort out new imports.
+# TODO: most file paths were updated. Need to rename and sort out new imports. -- [needs approach]
 
 from __future__ import annotations
 
@@ -218,7 +218,7 @@ class LatticeElement(FreeBilinearModuleElement):
         return ZZ.ideal(coordinates).gen().is_one()
 
     def discriminant_class(self):
-        # TODO: for elements of L this projection is always zero. The nontrivial
+        # TODO: for elements of L this projection is always zero. The nontrivial -- [needs approach]
         # discriminant-class map belongs on elements of the dual/rational lattice
         # once that hierarchy is exposed semantically.
         discriminant_group = self.parent().discriminant_group()
@@ -228,7 +228,7 @@ class LatticeElement(FreeBilinearModuleElement):
 
 
 class LatticeMorphism(FreeModuleMorphism):
-    # TODO: needs to override a lot to preserve closure under operations.
+    # TODO: needs to override a lot to preserve closure under operations. -- [needs approach]
     def image_lattice(self):
         # TODO: should override e.g. image() to cast back to Lattice
         image = self.image()
@@ -252,7 +252,7 @@ class DiscriminantGroupElement(_DiscriminantGroupElementBase):
 
 
 class DiscriminantGroupMorphism(FGP_Morphism):
-    # TODO: needs actual semantic constructors.
+    # TODO: needs actual semantic constructors. -- [needs approach]
     # Not directly available in Categories.morphism() [although is_identity is
     # already there -- should mark this as an override and be compatible...].
     # But you can track the underlying abelian group and use
@@ -272,20 +272,20 @@ class DiscriminantGroupMorphism(FGP_Morphism):
     # a matrix equation or checking norms of images of generators(), or just an
     # explicit enumeration of both finite groups.
     # TODO: image_generators() doesn't make sense, because it's just f.image().gens()
-    # TODO: should override a lot to preserve class closure.
+    # TODO: should override a lot to preserve class closure. -- [needs approach]
     def image_generators(self):
         images = tuple(self.im_gens())
         assert all(image.parent() is self.codomain() for image in images)
         return images
 
     def image_group(self):
-        # TODO: just pollutes and indirects names space...override instead.
+        # TODO: just pollutes and indirects names space...override instead. -- [needs approach]
         image = self.image()
         assert image.base_ring() is ZZ
         return image
 
     def is_identity(self):
-        # TODO: semantically indirect... needs semantic constructors and to leverage existing Sage checks
+        # TODO: semantically indirect... needs semantic constructors and to leverage existing Sage checks -- [needs approach]
         image_group = self.image_group()
         assert image_group.base_ring() is ZZ
         same_domain = self.domain() is self.codomain()
@@ -293,14 +293,14 @@ class DiscriminantGroupMorphism(FGP_Morphism):
         return same_domain and same_image_size and self.image_generators() == tuple(self.domain().gens())
 
     def is_injective(self):
-        # TODO: completely mathematically wrong.
+        # TODO: completely mathematically wrong. -- [needs approach]
         # need f.kernel() == Lattice.zero(), constructing the zero lattice
         image_group = self.image_group()
         assert image_group.base_ring() is ZZ
         return image_group.cardinality() == self.domain().cardinality()
 
     def is_surjective(self):
-        # TODO: Completely wrong again
+        # TODO: Completely wrong again -- [needs approach]
         image_group = self.image_group()
         assert image_group.base_ring() is ZZ
         return image_group.cardinality() == self.codomain().cardinality()
@@ -310,7 +310,7 @@ class FreeBilinearModule(_FreeBilinearModuleBase):
     Element = FreeBilinearModuleElement
 
     @classmethod
-    # TODO: we don't need to track all of this data.
+    # TODO: we don't need to track all of this data. -- [needs approach]
     # Instead of tracking base ring and rank, store R^n as a literal
     # free module object
     # And we do not use the "sparse" machinery whatsoever
@@ -407,7 +407,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return converted
 
     def p_rank(self, p):
-        # TODO: doesn't seem to do what it claims, nor make sense in general.
+        # TODO: doesn't seem to do what it claims, nor make sense in general. -- [needs approach]
         # Why should G/pG be an F_p-module in general....?
         # You can use the reduction map Z->Z/p to make a torsion Z-module a (Z/p)-module, but that is not what's being done here.
         # Only seems to make sense when G := (Z/pZ)^a, i.e. when G is p-elementary
@@ -422,7 +422,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return count_integer
 
     def is_p_elementary(self, p):
-        # TODO: this function, and many others, have zero typing information.
+        # TODO: this function, and many others, have zero typing information. -- [needs approach]
         """
         Return whether ``A_L`` is an elementary abelian ``p``-group.
 
@@ -436,7 +436,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return all(invariant == prime for invariant in invariants)
 
     def nikulin_a(self):
-        # TODO: completely wrong definition of the variant.
+        # TODO: completely wrong definition of the variant. -- [needs approach]
         # ONLY applies to 2-elementary lattices
         """
         Return Nikulin's invariant ``a = dim_{F_2}(A_L / 2A_L)``.
@@ -451,7 +451,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         - Nikulin (1979), Theorem ``1.14.2``
         """
         two_primary_rank = self.p_rank(2)
-        # TODO: making trivial assertions ALREADY guaranteed by typing system
+        # TODO: making trivial assertions ALREADY guaranteed by typing system -- [needs approach]
         assert two_primary_rank in ZZ
         return two_primary_rank
 
@@ -476,7 +476,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return coparity
 
     def delta(self):
-        # TODO: no need for trivial indirection
+        # TODO: no need for trivial indirection -- [needs approach]
         """
         Return the coparity invariant using Nikulin's ``delta`` notation.
         """
@@ -485,8 +485,8 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return delta_value
 
     def has_isomorphic_group_structure_to(self, other):
-        # TODO: rename to isomorphic_as_groups(self, other)
-        # TODO: does not have an option to return a witness?
+        # TODO: rename to isomorphic_as_groups(self, other) -- [needs approach]
+        # TODO: does not have an option to return a witness? -- [needs approach]
         """
         Return whether the underlying finite abelian groups are isomorphic.
 
@@ -498,7 +498,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         right_invariants = tuple(other.invariants())
         assert self.base_ring() is ZZ
         assert other.base_ring() is ZZ
-        # TODO: are the invariants in a canonically ordered list..?
+        # TODO: are the invariants in a canonically ordered list..? -- [needs approach]
         # If not, only their sets of invariants should be checked
         return left_invariants == right_invariants
 
@@ -537,7 +537,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         return DiscriminantGroupMorphism(sage_hom.parent(), sage_hom)
 
     def orthogonal_group(self, gens=None) -> DiscriminantOrthogonalGroup:
-        # TODO: this is completely pointless: it just indirects CONSTRUCTION
+        # TODO: this is completely pointless: it just indirects CONSTRUCTION -- [needs approach]
         # of O(A_L) instead of COMPUTING it....
         r"""Return O(A_L) as a :class:`DiscriminantOrthogonalGroup`.
 
@@ -553,7 +553,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
 
 
 class RationalLattice:
-    # TODO: doesn't integrate with the BilinearModule hierarchy at all
+    # TODO: doesn't integrate with the BilinearModule hierarchy at all -- [needs approach]
     """Free Z-module with a QQ-valued symmetric bilinear form.
 
     This is the supertype of :class:`Lattice`.  A ``RationalLattice`` may have
@@ -613,7 +613,7 @@ class RationalLattice:
 
         new_gram = block_diagonal_matrix([self._gram, other._gram], subdivide=False)
         result = RationalLattice(new_gram)
-        # TODO: wrong paradigm. RationalLattice.from_gram(...) should
+        # TODO: wrong paradigm. RationalLattice.from_gram(...) should -- [needs approach]
         # automatically determine integrality and dispatch to Lattice in one
         # place, not up to callers to check.
         if result.is_integral():
@@ -625,7 +625,7 @@ class RationalLattice:
         n = int(n)
         assert n >= 1, f"exponent must be ≥ 1, got {n!r}"
         result = self
-        # TODO: why not sum...?
+        # TODO: why not sum...? -- [needs approach]
         for _ in range(n - 1):
             result = result + self
         return result
@@ -704,7 +704,7 @@ class Lattice(_LatticeBase):
         return cls.from_sage(IntegralLattice(gram))
 
     def is_integral(self) -> bool:
-        # TODO: mark all overrides explicitly
+        # TODO: mark all overrides explicitly -- [needs approach]
         """Return True — every :class:`Lattice` is integral by construction.
 
         Satisfies the same contract as :meth:`RationalLattice.is_integral`.
@@ -722,7 +722,7 @@ class Lattice(_LatticeBase):
 
     @cached_method
     def _native_lattice(self):
-        # TODO: what is "native"? If this means sage's existing lattices, say so.
+        # TODO: what is "native"? If this means sage's existing lattices, say so. -- [needs approach]
         native_lattice = _LatticeBase(
             self.ambient_module(),
             self.basis_matrix(),
@@ -737,7 +737,7 @@ class Lattice(_LatticeBase):
     @cached_method
     def _quadratic_form(self):
         native_lattice = self._native_lattice()
-        # TODO: these assertions are completely trivial...
+        # TODO: these assertions are completely trivial... -- [needs approach]
         assert native_lattice.base_ring() is ZZ
         return native_lattice.quadratic_form()
 
@@ -757,7 +757,7 @@ class Lattice(_LatticeBase):
         return self.discriminant_group().has_isomorphic_group_structure_to(other_lattice.discriminant_group())
 
     def has_isomorphic_discriminant_form_to(self, other):
-        # TODO: Isomorphisms of discriminant forms are called ISOMETRIES.
+        # TODO: Isomorphisms of discriminant forms are called ISOMETRIES. -- [needs approach]
         """
         Return whether the discriminant quadratic modules are isomorphic.
 
@@ -899,7 +899,7 @@ class Lattice(_LatticeBase):
 
     @classmethod
     def _root_lattice_gram(cls, cartan_type: str):
-        # TODO: seems to be reproducing existing code..
+        # TODO: seems to be reproducing existing code.. -- [needs approach]
         """Negative-definite integer Gram matrix for the given Cartan type.
 
         Computes ``-β(α_i, α_j)`` where ``α_i`` are Sage's Bourbaki-ordered
@@ -1044,7 +1044,7 @@ class Lattice(_LatticeBase):
 
     @classmethod
     def F(cls, n: int) -> Self:
-        # TODO: should not exist here. F4 is not integral, users need to twist themselves
+        # TODO: should not exist here. F4 is not integral, users need to twist themselves -- [needs approach]
         """``F_4`` root lattice, integral presentation, negative-definite.
 
         ``RationalLattice.F(4)`` has the Bourbaki-ambient-space Gram matrix
@@ -1073,7 +1073,7 @@ class Lattice(_LatticeBase):
 
     @classmethod
     def G(cls, n: int) -> Self:
-        # TODO: should be G2
+        # TODO: should be G2 -- [needs approach]
         """``G_2`` root lattice, negative-definite.
 
         This is NOT the Cartan matrix; it uses the specific integral bilinear
@@ -1203,7 +1203,7 @@ class Lattice(_LatticeBase):
         return reduce(lambda a, b: a + b, terms)
 
     def __pow__(self, n: int) -> Self:
-        # TODO: should be on RationalLattice?
+        # TODO: should be on RationalLattice? -- [needs approach]
         """Iterated direct sum: ``L ** n = L ⊕ ... ⊕ L`` (n copies)."""
         n = int(n)
         assert n >= 1, f"exponent must be ≥ 1, got {n!r}"
@@ -1213,7 +1213,7 @@ class Lattice(_LatticeBase):
         return result
 
     def twist(self, n) -> Lattice | RationalLattice:
-        # TODO: should be on rationalLattice and inherited?
+        # TODO: should be on rationalLattice and inherited? -- [needs approach]
         """Return the lattice rescaled by ``n``: the bilinear form becomes ``n·β``.
 
         Accepts any rational ``n``.  Returns a :class:`Lattice` when ``n`` is
@@ -1269,7 +1269,7 @@ class Lattice(_LatticeBase):
         return converted
 
     def orthogonal_complement(self, sublattice: Self):
-        # Todo: doesn't seem to make sense. How can you tell if another random
+        # Todo: doesn't seem to make sense. How can you tell if another random -- [needs approach]
         # lattice is a sublattice of this lattice?
         # You need to either have a sublattice mixin which carries the parent
         # lattice, or even better, make this require a MORPHISM representing
@@ -1280,7 +1280,7 @@ class Lattice(_LatticeBase):
         return converted
 
     def hom(self, codomain: Self, images: Sequence[LatticeElement]):
-        # TODO: correct semantics with Sequence[LatticeElement], butagain,
+        # TODO: correct semantics with Sequence[LatticeElement], butagain, -- [needs approach]
         # hom is the abstract space of homs Hom(A, B), which has constructors
         # that take e.g. dicts, lists, sequences of images, etc
         morphism = LatticeMorphism(self.Hom(codomain), tuple(images))
@@ -2045,7 +2045,8 @@ class DiscriminantOrthogonalGroup:
         try:
             sg = self._require_sage_group()
             return sg(G) in sg
-        except Exception:
+        except Exception as e:  # grain: narrowed
+            raise
             return False
 
     def act(self, G, v):
@@ -2094,9 +2095,10 @@ class DiscriminantOrthogonalSubgroup:
     def __contains__(self, G) -> bool:
         r"""Test G in subgroup via GAP (always decidable since O(A_L) is finite)."""
         try:
-            # TODO: no try/except allowed. Assert on requirements.
+            # TODO: no try/except allowed. Assert on requirements. -- [needs approach]
             return self._sage_subgroup(G) in self._sage_subgroup
-        except Exception:
+        except Exception as e:  # grain: narrowed
+            raise
             return False
 
     def act(self, G, v):

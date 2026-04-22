@@ -42,11 +42,7 @@ _CUSTOM_AXIOMS = (
 
 
 def _register_custom_axioms() -> None:
-    missing = tuple(
-        axiom
-        for axiom in _CUSTOM_AXIOMS
-        if axiom not in _category_with_axiom.all_axioms
-    )
+    missing = tuple(axiom for axiom in _CUSTOM_AXIOMS if axiom not in _category_with_axiom.all_axioms)
     if missing:
         _category_with_axiom.all_axioms += missing
 
@@ -77,11 +73,13 @@ class _RingSubcategorySelectors:
     @cached_method
     def Characteristic(self, p):
         from .constructions import _CharacteristicRings
+
         return _CharacteristicRings(self, p)
 
     @cached_method
     def KrullDimension(self, n):
         from .constructions import _KrullDimension
+
         return _KrullDimension(self, n)
 
     @cached_method
@@ -103,26 +101,31 @@ class _RingSubcategorySelectors:
     @cached_method
     def Subquotients(self):
         from .constructions import _Subquotients
+
         return _Subquotients.category_of(self)
 
     @cached_method
     def Subobjects(self):
         from .constructions import _Subobjects
+
         return _Subobjects.category_of(self)
 
     @cached_method
     def Quotients(self):
         from .constructions import _Quotients
+
         return _Quotients.category_of(self)
 
     @cached_method
     def RingsUnder(self, structure_ring):
         from .constructions import _RingsUnder
+
         return _RingsUnder.category_of(self, structure_ring)
 
     @cached_method
     def RingsOver(self, structure_ring):
         from .constructions import _RingsOver
+
         return _RingsOver.category_of(self, structure_ring)
 
     @cached_method
@@ -192,21 +195,25 @@ class _RingNamedShortcuts:
     @cached_method
     def NamedRings(self):
         from .specialized import _NamedRings
+
         return _NamedRings()
 
     @cached_method
     def CommutativeRings(self):
         from .specialized import _CommutativeRings
+
         return _CommutativeRings()
 
     @cached_method
     def DivisionRings(self):
         from .specialized import _DivisionRings
+
         return _DivisionRings()
 
     @cached_method
     def FiniteRings(self):
         from .specialized import _FiniteRings
+
         return _FiniteRings()
 
     @cached_method
@@ -224,66 +231,79 @@ class _RingNamedShortcuts:
     @cached_method
     def NoetherianRings(self):
         from .specialized import _NoetherianRings
+
         return _NoetherianRings()
 
     @cached_method
     def GcdDomains(self):
         from .specialized import _GcdDomains
+
         return _GcdDomains()
 
     @cached_method
     def UniqueFactorizationDomains(self):
         from .specialized import _UniqueFactorizationDomains
+
         return _UniqueFactorizationDomains()
 
     @cached_method
     def PrincipalIdealDomains(self):
         from .specialized import _PrincipalIdealDomains
+
         return _PrincipalIdealDomains()
 
     @cached_method
     def EuclideanDomains(self):
         from .specialized import _EuclideanDomains
+
         return _EuclideanDomains()
 
     @cached_method
     def DedekindDomains(self):
         from .specialized import _DedekindDomains
+
         return _DedekindDomains()
 
     @cached_method
     def ValuedRings(self):
         from .specialized import _ValuedRings
+
         return _ValuedRings()
 
     @cached_method
     def DiscreteValuationRings(self):
         from .specialized import _DiscreteValuationRings
+
         return _DiscreteValuationRings()
 
     @cached_method
     def DiscreteValuationFields(self):
         from .specialized import _DiscreteValuationFields
+
         return _DiscreteValuationFields()
 
     @cached_method
     def CompleteRings(self):
         from .specialized import _CompleteRings
+
         return _CompleteRings()
 
     @cached_method
     def CompleteDiscreteValuationRings(self):
         from .specialized import _CompleteDiscreteValuationRings
+
         return _CompleteDiscreteValuationRings()
 
     @cached_method
     def CompleteDiscreteValuationFields(self):
         from .specialized import _CompleteDiscreteValuationFields
+
         return _CompleteDiscreteValuationFields()
 
     @cached_method
     def LocalRings(self):
         from .specialized import _LocalRings
+
         return _LocalRings()
 
     @cached_method
@@ -325,11 +345,13 @@ class _RingNamedShortcuts:
     @cached_method
     def QuotientFields(self):
         from .specialized import _QuotientFields
+
         return _QuotientFields()
 
     @cached_method
     def ZZ(self):
         from .specialized import _ZZ
+
         return _ZZ()
 
     @cached_method
@@ -339,36 +361,43 @@ class _RingNamedShortcuts:
     @cached_method
     def QQbar(self):
         from .specialized import _QQbar
+
         return _QQbar()
 
     @cached_method
     def AA(self):
         from .specialized import _AA
+
         return _AA()
 
     @cached_method
     def RealFields(self):
         from .specialized import _RealFields
+
         return _RealFields()
 
     @cached_method
     def ComplexFields(self):
         from .specialized import _ComplexFields
+
         return _ComplexFields()
 
     @cached_method
     def IntegerModRings(self):
         from .specialized import _IntegerModRings
+
         return _IntegerModRings()
 
     @cached_method
     def Zp(self):
         from .specialized import _Zp
+
         return _Zp()
 
     @cached_method
     def Qp(self):
         from .specialized import _Qp
+
         return _Qp()
 
     @cached_method

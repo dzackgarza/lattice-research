@@ -39,8 +39,7 @@ class TorsionBilinearModules(CategoryWithAxiom_over_base_ring):
 
     # Discriminant forms (torsion modules equipped with a quadratic form
     # taking values in QQ/2ZZ) are a further subcategory.
-    DiscriminantForms = LazyImport(
-        'src.lattices.categories.quadratic_modules', 'TorsionQuadraticModules')
+    DiscriminantForms = LazyImport("src.lattices.categories.quadratic_modules", "TorsionQuadraticModules")
 
     class ParentMethods:
         r"""
@@ -124,6 +123,7 @@ class TorsionBilinearModules(CategoryWithAxiom_over_base_ring):
                 4
             """
             from sage.misc.misc_c import prod
+
             return prod(self.invariants())
 
         @abstract_method

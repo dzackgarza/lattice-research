@@ -47,13 +47,10 @@ class FreeBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     # Subcategories available on free bilinear modules
-    Lattices = LazyImport(
-        'src.lattices.categories.lattices', 'Lattices')
-    RationalLattices = LazyImport(
-        'src.lattices.categories.rational_lattices', 'RationalLattices')
+    Lattices = LazyImport("src.lattices.categories.lattices", "Lattices")
+    RationalLattices = LazyImport("src.lattices.categories.rational_lattices", "RationalLattices")
 
     class SubcategoryMethods:
-
         @cached_method
         def NonDegenerate(self):
             r"""
@@ -70,7 +67,7 @@ class FreeBilinearModules(CategoryWithAxiom_over_base_ring):
                 sage: BilinearModules(ZZ).Free().NonDegenerate()   # not tested
                 Category of nondegenerate free bilinear modules over Integer Ring
             """
-            return self._with_axiom('NonDegenerate')
+            return self._with_axiom("NonDegenerate")
 
     class ParentMethods:
         r"""

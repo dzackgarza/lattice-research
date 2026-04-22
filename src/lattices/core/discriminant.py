@@ -148,7 +148,9 @@ class DiscriminantGroup(TorsionBilinearModule, QuadraticModule):
         if type(value) is self._sage_group.element_class and value.parent() is self._sage_group:
             return self.Element(self, value)
         if isinstance(value, RationalLatticeElement):
-            assert self._lattice is not None, "Projecting a rational lattice element to a discriminant class requires a source lattice"
+            assert self._lattice is not None, (
+                "Projecting a rational lattice element to a discriminant class requires a source lattice"
+            )
             primal_coordinates = value.to_primal_coordinates()
             dual_coordinates = self._lattice.gram_matrix() * primal_coordinates.column()
             assert vector(QQ, dual_coordinates.column(0)).denominator().is_one(), (
@@ -188,7 +190,10 @@ class DiscriminantGroup(TorsionBilinearModule, QuadraticModule):
         assert isinstance(other, DiscriminantGroup), "Discriminant-form isometry is defined on discriminant-group nouns"
         left_normal_form = self._sage_group.normal_form()
         right_normal_form = other._sage_group.normal_form()
-        same_value_module = self._sage_group._modulus == other._sage_group._modulus and self._sage_group._modulus_qf == other._sage_group._modulus_qf
+        same_value_module = (
+            self._sage_group._modulus == other._sage_group._modulus
+            and self._sage_group._modulus_qf == other._sage_group._modulus_qf
+        )
         return (
             same_value_module
             and left_normal_form.invariants() == right_normal_form.invariants()

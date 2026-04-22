@@ -23,7 +23,11 @@ class DiscriminantGroupHomSpace(Homset):
         return self._domain._hom_from_smith(tuple(presentation.images))
 
     def __contains__(self, morphism):
-        return isinstance(morphism, DiscriminantGroupMorphism) and morphism.parent() is self and morphism._fgp_morphism in self._fgp_homset
+        return (
+            isinstance(morphism, DiscriminantGroupMorphism)
+            and morphism.parent() is self
+            and morphism._fgp_morphism in self._fgp_homset
+        )
 
 
 class DiscriminantGroupMorphism(Morphism):
@@ -54,7 +58,10 @@ class DiscriminantGroupMorphism(Morphism):
 
     def cokernel(self):
         codomain_lattice = self.codomain().lattice() if self.codomain()._lattice is not None else None
-        return self.codomain()._from_sage_like(self.codomain()._sage_like() / self._fgp_morphism.image(), lattice=codomain_lattice)
+        return self.codomain()._from_sage_like(
+            self.codomain()._sage_like() / self._fgp_morphism.image(),
+            lattice=codomain_lattice,
+        )
 
     def lift(self, value):
         return self.domain()(self._fgp_morphism.lift(self.codomain()(value)._sage_like()))

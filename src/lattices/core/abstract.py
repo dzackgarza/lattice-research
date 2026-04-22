@@ -166,10 +166,7 @@ class BilinearModule(Parent):
         else:
             submodule_gram = matrix(
                 self.value_ring(),
-                [
-                    [left.inner_product(right) for right in submodule_generators]
-                    for left in submodule_generators
-                ],
+                [[left.inner_product(right) for right in submodule_generators] for left in submodule_generators],
             )
         wrapped = BilinearModule.from_presented_module(submodule, submodule_gram, value_ring=self.value_ring())
         wrapped._ambient = self
@@ -276,15 +273,13 @@ class BilinearModule(Parent):
         return getattr(type(self), "Element", FreeBilinearModuleElement)
 
     def __repr__(self):
-        return (
-            f"{type(self).__name__}(invariants={self.invariants()!r}, "
-            f"gram={self.gram_matrix()!r})"
-        )
+        return f"{type(self).__name__}(invariants={self.invariants()!r}, gram={self.gram_matrix()!r})"
 
 
 class QuadraticModule:
     def q(self, value):
         return self(value) * self(value)
+
 
 class _TorsionBilinearModulesCategory:
     def __contains__(self, value):
@@ -294,5 +289,6 @@ class _TorsionBilinearModulesCategory:
 
     def __repr__(self):
         return "TorsionBilinearModules"
+
 
 TorsionBilinearModules = _TorsionBilinearModulesCategory()

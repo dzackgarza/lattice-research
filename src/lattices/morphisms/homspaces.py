@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING
 
 from sage.all import QQ, ZZ
 from sage.categories.homset import Homset
+from src.lattices.morphisms.lattice import BilinearModuleMorphism, LatticeMorphism, RationalLatticeMorphism
 from src.lattices.validation.presentations import GeneratorImagePresentation, MorphismPresentation
 
 if TYPE_CHECKING:
     from src.lattices.core.abstract import BilinearModule
     from src.lattices.core.elements import FreeBilinearModuleElement
-    from src.lattices.morphisms.lattice import BilinearModuleMorphism
 
 
 class BilinearModuleHomSpace(Homset):
@@ -88,7 +88,10 @@ class BilinearModuleHomSpace(Homset):
             isinstance(morphism, BilinearModuleMorphism)
             and morphism.parent() is self
             and morphism._fgp_morphism in self._fgp_homset
-            and morphism.to_matrix().transpose() * self._codomain.gram_matrix() * morphism.to_matrix() == self._domain.gram_matrix()
+            and (
+                morphism.to_matrix().transpose() * self._codomain.gram_matrix() * morphism.to_matrix()
+                == self._domain.gram_matrix()
+            )
         )
 
 
@@ -99,8 +102,6 @@ class RationalLatticeHomSpace(BilinearModuleHomSpace):
 class LatticeHomSpace(RationalLatticeHomSpace):
     pass
 
-
-from src.lattices.morphisms.lattice import BilinearModuleMorphism, LatticeMorphism, RationalLatticeMorphism
 
 BilinearModuleHomSpace.Element = BilinearModuleMorphism
 RationalLatticeHomSpace.Element = RationalLatticeMorphism

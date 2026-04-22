@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TypeAlias
 
 from pydantic import BaseModel, ConfigDict, model_validator
 from sage.all import QQ, ZZ, Integer, lcm, matrix, vector
@@ -13,9 +12,9 @@ from sage.structure.element import Vector
 from sage.structure.element_wrapper import ElementWrapper
 from sage.structure.parent import Parent
 
-ScalarLike: TypeAlias = int | Integer | Rational
-MatrixInput: TypeAlias = Matrix | Sequence[Sequence[ScalarLike]]
-VectorInput: TypeAlias = Vector | ElementWrapper | Sequence[ScalarLike]
+type ScalarLike = int | Integer | Rational
+type MatrixInput = Matrix | Sequence[Sequence[ScalarLike]]
+type VectorInput = Vector | ElementWrapper | Sequence[ScalarLike]
 
 
 def default_generator_names(rank: int) -> tuple[str, ...]:
@@ -196,7 +195,9 @@ class DiscriminantPresentation(BaseModel):
         gram_matrix = matrix(QQ, self.gram)
         assert gram_matrix.nrows() == gram_matrix.ncols(), "Discriminant Gram matrix must be square"
         assert gram_matrix == gram_matrix.transpose(), "Discriminant Gram matrix must be symmetric"
-        assert gram_matrix.nrows() == len(invariant_factors), "Invariant factors and discriminant Gram matrix must have the same rank"
+        assert gram_matrix.nrows() == len(invariant_factors), (
+            "Invariant factors and discriminant Gram matrix must have the same rank"
+        )
         assert all(
             invariant_factors[i] * invariant_factors[j] * gram_matrix[i, j] in ZZ
             for i in range(len(invariant_factors))

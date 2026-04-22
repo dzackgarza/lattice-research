@@ -25,55 +25,135 @@ from ._selectors import (
     _RingSubcategorySelectors,
 )
 from .constructions import (
+    _MatrixAlgebras,
     _Quotients,
     _RingsOver,
     _RingsUnder,
     _Subobjects,
     _Subquotients,
 )
-from .constructions import _MatrixAlgebras
 from .specialized import (
-    _CC,
-    _QQ,
-    _Qp,
-    _RR,
-    _ZZ,
-    _Zp,
-    _AlgebraicallyClosedFields,
-    _ArchimedeanGlobalFields,
-    _CommutativeRings,
-    _CompleteDiscreteValuationFields,
-    _CompleteDiscreteValuationRings,
-    _CompleteRings,
-    _CyclotomicFields,
-    _DedekindDomains,
-    _DiscreteValuationFields,
-    _DiscreteValuationRings,
-    _DivisionRings,
-    _EuclideanDomains,
-    _Fields,
-    _FiniteFields,
-    _FiniteRings,
-    _GcdDomains,
-    _GlobalFields,
-    _IntegralDomains,
-    _IntegrallyClosedDomains,
-    _LaurentSeriesRings,
-    _LocalFields,
-    _LocalRings,
-    _NoetherianRings,
-    _NonArchimedeanGlobalFields,
-    _NumberFields,
-    _PolynomialRings,
-    _PowerSeriesRings,
-    _PrincipalIdealDomains,
-    _PuiseuxSeriesRings,
-    _QuadraticNumberFields,
-    _QuotientFields,
-    _ReducedRings,
-    _TopologicalRings,
-    _UniqueFactorizationDomains,
-    _ValuedRings,
+    _CC as _CC,
+)
+from .specialized import (
+    _QQ as _QQ,
+)
+from .specialized import (
+    _RR as _RR,
+)
+from .specialized import (
+    _ZZ as _ZZ,
+)
+from .specialized import (
+    _AlgebraicallyClosedFields as _AlgebraicallyClosedFields,
+)
+from .specialized import (
+    _ArchimedeanGlobalFields as _ArchimedeanGlobalFields,
+)
+from .specialized import (
+    _CommutativeRings as _CommutativeRings,
+)
+from .specialized import (
+    _CompleteDiscreteValuationFields as _CompleteDiscreteValuationFields,
+)
+from .specialized import (
+    _CompleteDiscreteValuationRings as _CompleteDiscreteValuationRings,
+)
+from .specialized import (
+    _CompleteRings as _CompleteRings,
+)
+from .specialized import (
+    _CyclotomicFields as _CyclotomicFields,
+)
+from .specialized import (
+    _DedekindDomains as _DedekindDomains,
+)
+from .specialized import (
+    _DiscreteValuationFields as _DiscreteValuationFields,
+)
+from .specialized import (
+    _DiscreteValuationRings as _DiscreteValuationRings,
+)
+from .specialized import (
+    _DivisionRings as _DivisionRings,
+)
+from .specialized import (
+    _EuclideanDomains as _EuclideanDomains,
+)
+from .specialized import (
+    _Fields as _Fields,
+)
+from .specialized import (
+    _FiniteFields as _FiniteFields,
+)
+from .specialized import (
+    _FiniteRings as _FiniteRings,
+)
+from .specialized import (
+    _GcdDomains as _GcdDomains,
+)
+from .specialized import (
+    _GlobalFields as _GlobalFields,
+)
+from .specialized import (
+    _IntegralDomains as _IntegralDomains,
+)
+from .specialized import (
+    _IntegrallyClosedDomains as _IntegrallyClosedDomains,
+)
+from .specialized import (
+    _LaurentSeriesRings as _LaurentSeriesRings,
+)
+from .specialized import (
+    _LocalFields as _LocalFields,
+)
+from .specialized import (
+    _LocalRings as _LocalRings,
+)
+from .specialized import (
+    _NoetherianRings as _NoetherianRings,
+)
+from .specialized import (
+    _NonArchimedeanGlobalFields as _NonArchimedeanGlobalFields,
+)
+from .specialized import (
+    _NumberFields as _NumberFields,
+)
+from .specialized import (
+    _PolynomialRings as _PolynomialRings,
+)
+from .specialized import (
+    _PowerSeriesRings as _PowerSeriesRings,
+)
+from .specialized import (
+    _PrincipalIdealDomains as _PrincipalIdealDomains,
+)
+from .specialized import (
+    _PuiseuxSeriesRings as _PuiseuxSeriesRings,
+)
+from .specialized import (
+    _Qp as _Qp,
+)
+from .specialized import (
+    _QuadraticNumberFields as _QuadraticNumberFields,
+)
+from .specialized import (
+    _QuotientFields as _QuotientFields,
+)
+from .specialized import (
+    _ReducedRings as _ReducedRings,
+)
+from .specialized import (
+    _TopologicalRings as _TopologicalRings,
+)
+from .specialized import (
+    _UniqueFactorizationDomains as _UniqueFactorizationDomains,
+)
+from .specialized import (
+    _ValuedRings as _ValuedRings,
+)
+from .specialized import (
+    _Zp as _Zp,
 )
 
 if TYPE_CHECKING:
@@ -85,6 +165,7 @@ _register_custom_axioms()
 # ---------------------------------------------------------------------------
 # Ring parent method surface — ABC, no default return values
 # ---------------------------------------------------------------------------
+
 
 class _RingObjectMethods:
     r"""Abstract parent methods for all objects in ``Rings``."""
@@ -185,10 +266,14 @@ class _RingObjectMethods:
     @abstract_method
     def is_cyclotomic_field(self): ...
 
+    def __pow__(self, n: Integer):
+        return Modules(self).NamedModules().FreeModule(n)
+
 
 # ---------------------------------------------------------------------------
 # Ring element method surface — universal ring element abstract interface
 # ---------------------------------------------------------------------------
+
 
 class _RingElementMethods:
     r"""Abstract element methods present on all ring elements."""
@@ -234,6 +319,7 @@ class _RingElementMethods:
 # Ring morphism method surface — universal ring homomorphism abstract interface
 # ---------------------------------------------------------------------------
 
+
 class _RingMorphismMethods:
     r"""Abstract morphism methods present on all ring homomorphisms."""
 
@@ -277,6 +363,7 @@ class _RingMorphismMethods:
 # ---------------------------------------------------------------------------
 # Ideal category — parent/element/morphism surfaces
 # ---------------------------------------------------------------------------
+
 
 class _RingIdealParentMethods:
     r"""Abstract parent methods for ring ideals."""
@@ -384,14 +471,13 @@ class _RingIdeals(Category_ideal):
 # Rings — the root category
 # ---------------------------------------------------------------------------
 
+
 class Rings(Category_singleton):
     r"""Replacement ring category, staged below Sage's existing ``Rings``."""
 
     # Inject named shortcuts from _RingNamedShortcuts (Category_singleton forbids
     # multiple inheritance, so we merge the mixin's methods into the class namespace).
-    locals().update(
-        {k: v for k, v in vars(_RingNamedShortcuts).items() if not k.startswith("_")}
-    )
+    locals().update({k: v for k, v in vars(_RingNamedShortcuts).items() if not k.startswith("_")})
 
     def __contains__(self, R: Any) -> bool:
         match R:
@@ -400,7 +486,7 @@ class Rings(Category_singleton):
             case _ if R in SageRings():
                 return True
             case _:
-                # TODO: check if THIS category is anywhere in the object's ambient category hierarchy.
+                # TODO: check if THIS category is anywhere in the object's ambient category hierarchy. -- [needs approach]
                 return False
 
     @final

@@ -147,8 +147,12 @@ class _LatticeOrthogonalSet:
 
         target = sage_vector(ZZ, list(_as_coordinate_vector(value)))
         raw_value = [int(entry) for entry in target]
+
+        def _stab_vec_gens():
+            return self._lattice._matrices_from_raw(indefinite_form_stabilizer_vector(self._lattice._gram_rows(), raw_value))
+
         return self.subgroup(
-            gens_fn=lambda: self._lattice._matrices_from_raw(indefinite_form_stabilizer_vector(self._lattice._gram_rows(), raw_value)),
+            gens_fn=_stab_vec_gens,
             predicate=lambda M, _target=target: M * _target == _target,
         )
 
@@ -159,8 +163,14 @@ class _LatticeOrthogonalSet:
         target = sage_vector(ZZ, list(_as_coordinate_vector(value)))
         line = self._lattice._sage_like().ambient_module().span([target])
         raw_value = [int(entry) for entry in target]
+
+        def _stab_line_gens():
+            return self._lattice._matrices_from_raw(
+                indefinite_form_stabilizer_isotropic_line(self._lattice._gram_rows(), raw_value)
+            )
+
         return self.subgroup(
-            gens_fn=lambda: self._lattice._matrices_from_raw(indefinite_form_stabilizer_isotropic_line(self._lattice._gram_rows(), raw_value)),
+            gens_fn=_stab_line_gens,
             predicate=lambda M, _target=target, _line=line: M * _target in _line,
         )
 
@@ -179,7 +189,7 @@ class _LatticeOrthogonalSet:
                     [int(entry) for entry in right_vector],
                 )
             ),
-            predicate=lambda M, _left=left_vector, _right=right_vector, _plane=plane: M * _left in _plane and M * _right in _plane,
+            predicate=lambda M, _l=left_vector, _r=right_vector, _p=plane: M * _l in _p and M * _r in _p,
         )
 
     def stabilizer_of_isotropic_flag(self, ordered_basis):
@@ -193,17 +203,22 @@ class _LatticeOrthogonalSet:
         def predicate(M, _columns=columns, _strata=strata):
             return all(M * column in stratum for column, stratum in zip(_columns, _strata, strict=True))
 
-        return self.subgroup(
-            gens_fn=lambda: self._lattice._matrices_from_raw(indefinite_form_stabilizer_isotropic_flag(self._lattice._gram_rows(), basis_rows)),
-            predicate=predicate,
-        )
+        def _flag_gens():
+            return self._lattice._matrices_from_raw(
+                indefinite_form_stabilizer_isotropic_flag(self._lattice._gram_rows(), basis_rows)
+            )
+
+        return self.subgroup(gens_fn=_flag_gens, predicate=predicate)
 
     def centralizer(self, value):
         candidate = matrix(ZZ, value)
         positive_rank, negative_rank = self._lattice.signature_pair()
         gens_fn = None
         if type(self) is LatticeOrthogonalGroup and ((not positive_rank) or (not negative_rank)):
-            gens_fn = lambda: self._lattice._centralizer_gens_via_gap(candidate)
+
+            def gens_fn():
+                return self._lattice._centralizer_gens_via_gap(candidate)
+
         return self.subgroup(
             gens_fn=gens_fn,
             predicate=lambda M, _candidate=candidate: M * _candidate == _candidate * M,
@@ -283,7 +298,10 @@ class LatticeOrthogonalSubgroup(_LatticeOrthogonalSet):
         return result
 
     def __init__(self, parent: LatticeOrthogonalGroup, gens_fn=None, predicate=None, finite_quotient_presentation=None):
-        condition = parent.condition_set if predicate is None else parent.condition_set & _ConditionSet(MatrixSpace(ZZ, parent.lattice.rank()), predicate)
+        if predicate is None:
+            condition = parent.condition_set
+        else:
+            condition = parent.condition_set & _ConditionSet(MatrixSpace(ZZ, parent.lattice.rank()), predicate)
         super().__init__(
             parent.lattice,
             condition,

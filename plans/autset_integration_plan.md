@@ -74,7 +74,7 @@ Homsets  →  Endsets (axiom: Endset, extra_super: Monoids)
   - `FiniteFieldHomset` (`src/sage/rings/finite_rings/homset.py`)
 - **Refactoring Goals**:
   - Change category assignment from `Groups()` to `SomeCategory().Endsets().Autsets()`
-  - Leverage `extra_super_categories` for automatic group structure
+ - `extra_super_categories` for automatic group structure
   - Ensure proper `domain()` and `codomain()` pointing to the acting object
   - Enable categorical coercion maps `Aut(M) → End(M)`
   - Make `Aut(M)` return the same object as `M.automorphism_group()` via

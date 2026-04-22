@@ -23,7 +23,7 @@ Recorded on 2026-04-13. Preserved verbatim from the user messages.
 
 > And morphisms can not "contain" anything...
 
-> Note that a morphism can not have a "perp" either
+> a morphism can not have a "perp" either
 
 > You also have most methods too far down the hierarchy: almost everything makes sense for objects in BilinearModules, their morphisms, hom spaces, etc
 

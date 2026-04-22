@@ -116,8 +116,7 @@ class FreeBilinearModuleElement(ElementWrapper):
         return rendered
 
 
-class RationalLatticeElement(FreeBilinearModuleElement):
-    ...
+class RationalLatticeElement(FreeBilinearModuleElement): ...
 
 
 class DualLatticeElement(RationalLatticeElement):

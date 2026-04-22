@@ -54,10 +54,7 @@ class _CharacteristicRings(_Category_over_base_integer):
         return self.base_integer()
 
     def _repr_object_names(self):
-        return (
-            f"{self.base_category()._repr_object_names()} "
-            f"of characteristic {self.characteristic()}"
-        )
+        return f"{self.base_category()._repr_object_names()} of characteristic {self.characteristic()}"
 
     class ParentMethods:
         @abstract_method
@@ -74,10 +71,7 @@ class _KrullDimension(_Category_over_base_integer):
         return self.base_integer()
 
     def _repr_object_names(self):
-        return (
-            f"{self.base_category()._repr_object_names()} "
-            f"of Krull dimension {self.dimension()}"
-        )
+        return f"{self.base_category()._repr_object_names()} of Krull dimension {self.dimension()}"
 
     class ParentMethods:
         @abstract_method
@@ -199,6 +193,7 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
 
     def super_categories(self) -> list[Any]:
         from . import Rings
+
         return [Rings()]
 
 
@@ -234,9 +229,11 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
 
     def super_categories(self) -> list[Any]:
         from . import Rings
+
         cats: list[Any] = [Rings()]
         if self._n == 1:
             from .specialized import _CommutativeRings
+
             if self._base_ring in _CommutativeRings():
                 cats.append(_CommutativeRings())
         return cats
