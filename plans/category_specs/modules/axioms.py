@@ -19,17 +19,27 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
+    from typing import Protocol
+
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
+    from sage.categories.morphism import Morphism
+    from sage.rings.ideal import Ideal_generic
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
     Cardinality = Integer | InfinityElement
-    RingElement = Any
-    RModule = Any
-    RModuleElement = Any
-    RModuleMorphism = Any
-    SubModule = Any
-    Ideal = Any
-    OrderedSet = Any
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    RModuleMorphism = Morphism
+    SubModule = Parent
+    Ideal = Ideal_generic
+
+    class OrderedSet(Protocol):
+        def cardinality(self) -> Cardinality: ...
+
+        def __getitem__(self, key: object) -> RModuleElement: ...
 
 
 # ---------------------------------------------------------------------------
@@ -266,7 +276,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     class Homsets(HomsetsCategory):
         class ParentMethods:
             @abstract_method
-            def from_function(self, f: Callable[[Any], Any]):
+            def from_function(self, f: Callable[[RModuleElement], RModuleElement]):
                 r"""A morphism f: M_1 -> M_2 can be defined from a
                 set-theoretic function f: S_1 -> S_2 on the generating sets.
                 """

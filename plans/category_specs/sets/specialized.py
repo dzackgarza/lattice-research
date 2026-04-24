@@ -35,6 +35,8 @@ from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
+from ..utils import refine_category
+
 if TYPE_CHECKING:
     Cardinality = Any
     SetElement = Any
@@ -49,8 +51,7 @@ def Sets():
 
 
 def _refine_named_set(S: Any, *categories: Any):
-    S._refine_category_([Sets(), *categories])
-    return S
+    return refine_category(S, [Sets(), *categories])
 
 
 def _joined_super_categories(*categories: Any) -> list[Any]:

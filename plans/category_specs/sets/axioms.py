@@ -26,6 +26,8 @@ from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
+from ..utils import refine_category
+
 if TYPE_CHECKING:
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
@@ -43,8 +45,7 @@ def Sets():
 
 
 def _refine_named_set(S: Any, *categories: Any):
-    S._refine_category_([Sets(), *categories])
-    return S
+    return refine_category(S, [Sets(), *categories])
 
 
 # ---------------------------------------------------------------------------

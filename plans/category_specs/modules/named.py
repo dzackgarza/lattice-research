@@ -9,14 +9,31 @@ from sage.categories.category import Category
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 
+from ..utils import refine_category
+
 if TYPE_CHECKING:
-    Cardinality = Any
-    Matrix = Any
-    RingElement = Any
-    RModule = Any
-    RModuleElement = Any
-    RModuleMorphism = Any
-    SubModule = Any
+    from typing import Protocol, TypeVar
+
+    from sage.categories.morphism import Morphism
+    from sage.matrix.matrix0 import Matrix
+    from sage.rings.infinity import InfinityElement
+    from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
+
+    Cardinality = Integer | InfinityElement
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    RModuleMorphism = Morphism
+    SubModule = Parent
+
+    class _RefinableModuleLike(Protocol):
+        def base_ring(self) -> Parent: ...
+
+        def _refine_category_(self, categories: Sequence[Category]) -> None: ...
+
+    RefinedModuleT = TypeVar("RefinedModuleT", bound=_RefinableModuleLike)
 
 
 def Modules(*args, **kwds):
@@ -25,13 +42,12 @@ def Modules(*args, **kwds):
     return _Modules(*args, **kwds)
 
 
-def _refine_named_module(M: Any, *categories: Any):
+def _refine_named_module(M: RefinedModuleT, *categories: Category) -> RefinedModuleT:
     R = M.base_ring()
-    M._refine_category_([Modules(R), *categories])
-    return M
+    return refine_category(M, [Modules(R), *categories])
 
 
-def _joined_super_categories(*categories: Any) -> list[Any]:
+def _joined_super_categories(*categories: Category) -> list[Category]:
     return Category.join(categories, as_list=True)
 
 
@@ -129,7 +145,7 @@ class _NamedModules:
     def RingObjectsAsModules(self):
         return _RingObjectsAsModules(self.base_ring())
 
-    def _category_for_free_module(self, M: Any):
+    def _category_for_free_module(self, M: RModule) -> Category:
         if M in self.FreeQuadraticModules():
             return self.FreeQuadraticModules()
         if M in self.VectorSpaceQuotients():
@@ -158,7 +174,7 @@ class _NamedModules:
             return self.FreeModulesOverIntegralDomains()
         return self.FreeModulesWithStandardBasis()
 
-    def _category_for_quotient_module(self, M: Any):
+    def _category_for_quotient_module(self, M: RModule) -> Category:
         if M in self.VectorSpaceQuotients():
             return self.VectorSpaceQuotients()
         if M in self.FreeModuleQuotients():
@@ -369,6 +385,13 @@ class _FreeModulesOverIntegralDomains(_NamedModuleCategory):
             Modules(R).FinitelyPresented(),
             Modules(R).OverIntegralDomain(),
         )
+
+    class ParentMethods:
+        @abstract_method
+        def intersection(self, other) -> SubModule: ...
+
+        @abstract_method
+        def saturation(self, *args, **kwds) -> SubModule: ...
 
 
 class _FreeModulesOverPIDs(_NamedModuleCategory):

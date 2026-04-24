@@ -25,25 +25,32 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.homsets import HomsetsCategory
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    Cardinality = Any
-    Ideal = Any
-    Matrix = Any
-    RingElement = Any
-    RModule = Any
-    RModuleElement = Any
-    RModuleMorphism = Any
-    SubModule = Any
+    from sage.categories.morphism import Morphism
+    from sage.matrix.matrix0 import Matrix
+    from sage.rings.ideal import Ideal_generic
+    from sage.rings.infinity import InfinityElement
+    from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
-    Lattice = Any
-    DiscriminantGroup = Any
-    OrthogonalGroup = Any
+    Cardinality = Integer | InfinityElement
+    Ideal = Ideal_generic
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    RModuleMorphism = Morphism
+    SubModule = Parent
+
+    Lattice = Parent
+    DiscriminantGroup = Parent
+    OrthogonalGroup = Parent
 
 
 class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):

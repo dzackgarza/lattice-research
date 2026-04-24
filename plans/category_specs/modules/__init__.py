@@ -36,7 +36,7 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories import category_with_axiom as _category_with_axiom
 from sage.categories.bimodules import Bimodules as SageBimodules
@@ -87,27 +87,38 @@ from .support import Categories
 from .support import FinSet as FinSet
 
 if TYPE_CHECKING:
+    from typing import Protocol
+
+    from sage.categories.homset import Homset
+    from sage.categories.morphism import Morphism
     from sage.matrix.matrix0 import Matrix
+    from sage.rings.ideal import Ideal_generic
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
     Cardinality = Integer | InfinityElement
-    Ring = Any
-    RingElement = Any
-    RModule = Any
-    RModuleElement = Any
-    RModuleMorphism = Any
-    RModuleHomset = Any
-    RModuleEndSet = Any
-    RModuleAutSet = Any
-    DualRModule = Any
-    FreeModule = Any
-    TorsionModule = Any
-    SubModule = Any
-    QuotientModule = Any
-    Ideal = Any
-    RModuleForm = Any
-    OrderedSet = Any
+    Ring = Parent
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    RModuleMorphism = Morphism
+    RModuleHomset = Homset
+    RModuleEndSet = Homset
+    RModuleAutSet = Homset
+    DualRModule = Parent
+    FreeModule = Parent
+    TorsionModule = Parent
+    SubModule = Parent
+    QuotientModule = Parent
+    Ideal = Ideal_generic
+    RModuleForm = Morphism
+
+    class OrderedSet(Protocol):
+        def cardinality(self) -> Cardinality: ...
+
+        def __getitem__(self, key: object) -> RModuleElement: ...
 
 _CUSTOM_AXIOMS = (
     "OverIntegralDomain",

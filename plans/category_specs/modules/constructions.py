@@ -3,7 +3,7 @@ r"""Functorial construction categories for ``Modules(R)``."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.cartesian_product import CartesianProductsCategory
 from sage.categories.dual import DualObjectsCategory
@@ -16,12 +16,15 @@ from sage.misc.cachefunc import cached_method
 if TYPE_CHECKING:
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
     Cardinality = Integer | InfinityElement
-    QuotientModule = Any
-    RModule = Any
-    RModuleElement = Any
-    SubModule = Any
+    QuotientModule = Parent
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    SubModule = Parent
 
 
 class _DualObjects(DualObjectsCategory):
@@ -146,5 +149,5 @@ class _CartesianProducts(CartesianProductsCategory):
             self._base = R
 
     class ElementMethods:
-        def _lmul_(self, x: Any):
+        def _lmul_(self, x: RingElement):
             return self.parent()._cartesian_product_of_elements(x * y for y in self.cartesian_factors())

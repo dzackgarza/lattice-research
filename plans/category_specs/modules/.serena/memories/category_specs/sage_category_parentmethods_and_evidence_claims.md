@@ -39,3 +39,49 @@ Sage builds dynamic parent, element, morphism, and homset classes from the concr
 - Searching the changed spec files should not show direct implementation calls to `.ParentMethods.` except citations/comments explicitly documenting upstream APIs.
 - Runtime failures from abstract methods shadowing Sage implementations should be addressed by inspecting the refined object's MRO and category supercategories.
 - Runtime verification should inspect the refined object's MRO and category supercategories, not validate direct `ParentMethods` forwarding.
+
+## Category-Spec Design Philosophy
+
+This applies to both `plans/category_specs/rings` and `plans/category_specs/modules`.
+
+The new category hierarchy is an ABC/spec hierarchy. Its job is to record the mathematically correct method surface at the correct categorical level of generality, not to weaken itself until all current Sage concrete objects instantiate cleanly.
+
+Constructor collectors such as `Rings().NamedRings()` and `Modules(R).NamedModules()` are convenience method collectors and implementation bridges. They are not axioms and not categories. Their methods call existing Sage constructors and then refine the resulting concrete object into the new spec hierarchy.
+
+Named implementation categories for constructor outputs may describe the method surface of known Sage-backed objects, but they should not become ad hoc composite axioms. If a real chained subcategory is needed, use Sage's `_base_category_class_and_axiom` mechanism only for literal chained category registration, with empty intermediate classes as needed.
+
+## ABC Failures Are Not Automatically Bugs
+
+An abstract-method failure after refinement has to be classified before editing:
+
+- If Sage already implements the method through a concrete class or upstream Sage category and the new spec shadows it, the category graph or MRO composition is wrong. Fix `super_categories()` / category registration so the implementation is visible.
+- If the method is mathematically required at that categorical level but Sage has no implementation for some concrete object, the failure is a surfaced implementation gap. Do not remove or move the abstract method merely to make a smoke test pass.
+- If the method is not mathematically required at that level, then the spec placement is wrong and should be moved to the correct subcategory.
+
+In particular, methods such as `intersection` and `saturation` can belong in an integral-domain free-module spec even if Sage currently implements them only for narrower classes such as PID-backed free modules. Existing non-uniformity is part of what this spec work is intended to expose.
+
+## Modules-Specific Vocabulary
+
+The local module hierarchy should use the new vocabulary such as `WithGeneratingSet` / `WithOrderedGeneratingSet` rather than exposing Sage's `WithBasis` as the public design concept. Sage categories such as `ModulesWithBasis(R)` can still be included as upstream implementation supercategories when needed for Sage's existing method providers, but that is an implementation-composition detail, not the new public vocabulary.
+
+## Runtime Verification Protocol
+
+Do not use "all refined objects can access every declared method without an abstract-method failure" as the success criterion. That test confuses spec correctness with current implementation coverage.
+
+Use these checks instead:
+
+- For methods implemented on concrete Sage classes, confirm the concrete class remains before the spec category in the refined object's MRO.
+- For methods implemented by upstream Sage categories, confirm the relevant Sage category is in `super_categories()` and appears in the final dynamic MRO before any local abstract declaration that would shadow it.
+- For methods intentionally abstract because Sage lacks a general implementation, record the observed failure as an implementation gap, not as a reason to weaken the spec.
+- Keep direct `.ParentMethods.` calls out of implementation code.
+
+## Current Module Task Recovery Protocol
+
+Before continuing module-spec implementation, treat the current staged module work as suspect and audit it against this memory.
+
+Required first recovery checks:
+
+- Restore any spec weakening done only because a refined Sage object raised an abstract-method error. Known example: `_FreeModulesOverIntegralDomains` must keep `intersection` and `saturation` if those are the intended integral-domain free-module ABC surface.
+- Re-evaluate `_RModObjects.quotient` and any other fallback methods added to make existing Sage calls pass. Keep them only if they are genuine new categorical behavior, not compatibility patches that hide missing implementations or malformed category composition.
+- Separate verification output into three categories: concrete implementation satisfied, upstream Sage category implementation satisfied through MRO, and intentional implementation gap surfaced by the ABC.
+- When user corrections imply prior discussion exists, read the transcript or memory first. Do not reconstruct the design philosophy from a short reminder.

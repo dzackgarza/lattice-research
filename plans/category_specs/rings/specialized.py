@@ -62,6 +62,8 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
+from ..utils import refine_category
+
 if TYPE_CHECKING:
     from ..types import Ideal
 
@@ -73,8 +75,7 @@ def Rings(*args, **kwds):
 
 
 def _refine_named_ring(R: Any, *categories: Any):
-    R._refine_category_([Rings(), *categories])
-    return R
+    return refine_category(R, [Rings(), *categories])
 
 
 _SAGE_POLYNOMIAL_RING_CLASSES = (PolynomialRing_generic, MPolynomialRing_base)

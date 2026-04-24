@@ -23,24 +23,28 @@ from sage.misc.cachefunc import cached_method
 if TYPE_CHECKING:
     from typing import Self
 
+    from sage.categories.homset import Homset
+    from sage.categories.morphism import Morphism
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
     Cardinality = Integer | InfinityElement
-    RingElement = Any
-    RModule = Any
-    RModuleElement = Any
-    RModuleMorphism = Any
-    RModHomset = Any
-    SubModule = Any
-    QuotientModule = Any
-    BilinearForm = Any
-    BilinearFormsModule = Any
-    QuadraticForm = Any
-    QuadraticFormsModule = Any
-    RModAutSet = Any
-    RModuleEndomorphism = Any
-    RModuleHomsetElement = Any
+    RingElement = Element
+    RModule = Parent
+    RModuleElement = Element
+    RModuleMorphism = Morphism
+    RModHomset = Homset
+    SubModule = Parent
+    QuotientModule = Parent
+    BilinearForm = Morphism
+    BilinearFormsModule = Homset
+    QuadraticForm = Morphism
+    QuadraticFormsModule = Homset
+    RModAutSet = Homset
+    RModuleEndomorphism = Morphism
+    RModuleHomsetElement = Morphism
 
 
 # ---------------------------------------------------------------------------

@@ -3,32 +3,37 @@ r"""Base ParentMethods and ElementMethods for ``Modules(R)``."""
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.tensor import tensor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
+    from sage.categories.homset import Homset
+    from sage.categories.morphism import Morphism
+    from sage.rings.ideal import Ideal_generic
     from sage.rings.infinity import InfinityElement
     from sage.rings.integer import Integer
+    from sage.structure.element import Element
+    from sage.structure.parent import Parent
 
     Cardinality = Integer | InfinityElement
-    DualRModule = Any
-    Ideal = Any
-    QuotientModule = Any
-    Ring = Any
-    RingElement = Any
-    RingEndomorphism = Any
-    RModule = Any
-    RModuleAutSet = Any
-    RModuleElement = Any
-    ModuleStructure = Callable[[tuple[RingElement, RModuleElement]], RModuleElement] | Callable[[RingElement], RingEndomorphism]
-    RModuleEndSet = Any
-    RModuleForm = Any
-    RModuleHomset = Any
-    RModuleMorphism = Any
-    SubModule = Any
+    DualRModule = Parent
+    Ideal = Ideal_generic
+    QuotientModule = Parent
+    Ring = Parent
+    RingElement = Element
+    RingEndomorphism = Morphism
+    RModule = Parent
+    RModuleAutSet = Homset
+    RModuleElement = Element
+    ModuleStructure = Callable[[RingElement, RModuleElement], RModuleElement] | Callable[[RingElement], RingEndomorphism]
+    RModuleEndSet = Homset
+    RModuleForm = Morphism
+    RModuleHomset = Homset
+    RModuleMorphism = Morphism
+    SubModule = Parent
 
 
 class _RModObjects:
@@ -104,12 +109,6 @@ class _RModObjects:
     def tensor_module(self, p: int, q: int):
         assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
         return tensor([self.tensor_power(p), self.dual().tensor_power(q)])
-
-    def quotient(self, N: SubModule, *args, **kwds) -> QuotientModule:
-        quotient_module = getattr(self, "quotient_module", None)
-        if quotient_module is not None:
-            return quotient_module(N, *args, **kwds)
-        return N.inclusion().cokernel()
 
     @abstract_method
     def annihilator(self) -> Ideal: ...

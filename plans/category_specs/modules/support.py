@@ -10,7 +10,9 @@ from sage.categories.objects import Objects
 from sage.categories.sets_cat import Sets
 
 if TYPE_CHECKING:
-    Ring = Any
+    from sage.structure.parent import Parent
+
+    Ring = Parent
 
 
 FinSet = Sets().Finite()
