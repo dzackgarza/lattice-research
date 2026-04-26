@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from sage.categories import category_with_axiom as _category_with_axiom
+from sage.categories.homset import End as SageEnd
+from sage.categories.homset import Hom as SageHom
 from sage.misc.cachefunc import cached_method
 
 _CUSTOM_AXIOMS = (
@@ -129,6 +131,12 @@ class _RingSubcategorySelectors:
         return _RingsOver.category_of(self, structure_ring)
 
     @cached_method
+    def AlgebrasOver(self, structure_ring):
+        from .matrix_algebras import _AlgebrasOver
+
+        return _AlgebrasOver(structure_ring)
+
+    @cached_method
     def PolynomialRings(self):
         return self.Polynomial()
 
@@ -191,6 +199,16 @@ class _RingSubcategorySelectors:
 
 class _RingNamedShortcuts:
     r"""Mixin providing named category accessor shortcuts on ``Rings``."""
+
+    def Hom(self, domain, codomain):
+        from .homsets import RingHomsets
+
+        return RingHomsets.from_sage_homset(SageHom(domain, codomain, category=self))
+
+    def End(self, ring):
+        from .homsets import _Endsets
+
+        return _Endsets.from_sage_endset(SageEnd(ring, category=self))
 
     @cached_method
     def NamedRings(self):
@@ -411,7 +429,7 @@ class _RingNamedShortcuts:
 
     @cached_method
     def MatrixRing(self, base_ring, n):
-        from .constructions import _MatrixAlgebras
+        from .matrix_algebras import _MatrixAlgebras
 
         return _MatrixAlgebras(base_ring, n, n)
 

@@ -41,7 +41,7 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
     raise TypeError(f"Can't refine category of {type(X).__name__}: unimplemented abstract methods: {detail_str}")
 
 
-def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = False) -> Parent:
+def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = True) -> Parent:
     X._refine_category_(C)
     _validate_no_missing_abc_methods(X)
     if test:

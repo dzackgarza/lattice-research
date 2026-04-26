@@ -161,7 +161,12 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         """
         return [self.base_category().FinitelyGenerated()]
 
-    class ParentMethods: ...
+    class ParentMethods:
+        @abstract_method
+        def basis(self, *args, **kwds): ...
+
+        @abstract_method
+        def dimension(self) -> Cardinality: ...
 
     class ElementMethods: ...
 

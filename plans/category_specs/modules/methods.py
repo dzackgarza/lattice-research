@@ -193,6 +193,12 @@ class _RModObjects:
     @abstract_method
     def tensor(self, other: RModule | Sequence[RModule]) -> RModule: ...
 
+    def submodule(self, elts: RModuleElement | Sequence[RModuleElement], *args, **kwds) -> SubModule:
+        return self.span(elts)
+
+    @abstract_method
+    def intersection(self, other: SubModule) -> SubModule: ...
+
     @abstract_method
     def span(self, elts: RModuleElement | Sequence[RModuleElement]) -> SubModule: ...
 

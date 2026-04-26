@@ -19,13 +19,13 @@ Subcategory lattice (our hierarchy)::
     Sets()
     ├─ .Finite()                  → FiniteSets
     ├─ .Infinite()                → InfiniteSets
-    ├─ .Enumerated()              → EnumeratedSets
-    │   ├─ .Finite()              → FiniteEnumeratedSets
-    │   └─ .Infinite()            → InfiniteEnumeratedSets
+    ├─ .Countable()               → CountableSets
+    │   ├─ .Finite()              → FiniteCountableSets
+    │   └─ .Infinite()            → InfiniteCountableSets
+    ├─ .Uncountable()             → UncountableSets
     ├─ .Facade()                  → FacadeSets
     ├─ .Topological()             → TopologicalSets
     │   └─ .Metric()              → MetricSets
-    ├─ .WithBooleanOps()          → WithBooleanOps
     └─ .TotallyOrdered()          → TotallyOrdered
 """
 
@@ -41,16 +41,16 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 from .axioms import (
-    _EnumeratedSets,
+    _CountableSets,
     _FacadeSets,
-    _FiniteEnumeratedSets,
+    _FiniteCountableSets,
     _FiniteSets,
-    _InfiniteEnumeratedSets,
+    _InfiniteCountableSets,
     _InfiniteSets,
     _MetricSets,
     _TopologicalSets,
     _TotallyOrdered,
-    _WithBooleanOps,
+    _UncountableSets,
 )
 from .specialized import _NamedSets
 
@@ -130,6 +130,104 @@ class _SetObjectMethods:
     @abstract_method
     def is_finite(self) -> bool:
         r"""Return whether ``self`` is a finite set."""
+        ...
+
+    def is_enumerated(self) -> bool:
+        r"""Return whether ``self`` is an enumerated set."""
+        return False
+
+    def is_facade(self) -> bool:
+        r"""Return whether ``self`` is a facade set."""
+        return False
+
+    def is_topological(self) -> bool:
+        r"""Return whether ``self`` is a topological set."""
+        return False
+
+    def is_metric(self) -> bool:
+        r"""Return whether ``self`` is a metric set."""
+        return False
+
+    def is_totally_ordered(self) -> bool:
+        r"""Return whether ``self`` is a totally ordered set."""
+        return False
+
+    # ------------------------------------------------------------------
+    # Boolean operations (mathematically universal for sets)
+    # ------------------------------------------------------------------
+
+    @abstract_method
+    def is_subset(self, other) -> bool:
+        r"""Return whether ``self`` is a subset of ``other``."""
+        ...
+
+    @abstract_method
+    def is_superset(self, other) -> bool:
+        r"""Return whether ``self`` is a superset of ``other``."""
+        ...
+
+    def __le__(self, other) -> bool:
+        return self.is_subset(other)
+
+    def __ge__(self, other) -> bool:
+        return self.is_superset(other)
+
+    @abstract_method
+    def union(self, X) -> SageSet:
+        r"""Return the set-theoretic union ``self ∪ X``."""
+        ...
+
+    @abstract_method
+    def intersection(self, X) -> SageSet:
+        r"""Return the set-theoretic intersection ``self ∩ X``."""
+        ...
+
+    @abstract_method
+    def difference(self, X) -> SageSet:
+        r"""Return the set-theoretic difference ``self \ X``."""
+        ...
+
+    @abstract_method
+    def symmetric_difference(self, X) -> SageSet:
+        r"""Return the symmetric difference ``self △ X``."""
+        ...
+
+    @abstract_method
+    def complement(self) -> SageSet:
+        r"""Return the complement of ``self`` in its ambient space.
+
+        Requires the ambient set to be defined by context.
+        """
+        ...
+
+    def __or__(self, X) -> SageSet:
+        return self.union(X)
+
+    def __and__(self, X) -> SageSet:
+        return self.intersection(X)
+
+    def __xor__(self, X) -> SageSet:
+        return self.symmetric_difference(X)
+
+    def __add__(self, X) -> SageSet:
+        return self.union(X)
+
+    def __sub__(self, X) -> SageSet:
+        return self.difference(X)
+
+    @abstract_method
+    def subsets(self, size=None) -> SageSet:
+        r"""Return the :class:`Subsets` object for ``self``."""
+        ...
+
+    @abstract_method
+    def subsets_lattice(self):
+        r"""Return the lattice of subsets ordered by containment (finite only).宣
+        ...
+
+    @abstract_method
+    def _sympy_(self):
+        r"""Return an equivalent SymPy set."""
         ...
 
 
@@ -230,13 +328,11 @@ class Sets(Category_singleton):
 
         Sets().Finite()          -- finite sets
         Sets().Infinite()        -- infinite sets
-        Sets().Enumerated()      -- enumerated sets (with a canonical enumeration)
-        Sets().Enumerated().Finite()   -- finite enumerated sets
-        Sets().Enumerated().Infinite() -- infinite enumerated sets
+        Sets().Countable()       -- countable sets
+        Sets().Uncountable()     -- uncountable sets
         Sets().Facade()          -- facade sets (elements live in another parent)
         Sets().Topological()     -- topological sets
         Sets().Topological().Metric()  -- metric sets
-        Sets().WithBooleanOps()  -- sets supporting ∪, ∩, \, △
         Sets().TotallyOrdered()  -- totally ordered sets
 
     Named set constructors::
@@ -283,8 +379,12 @@ class Sets(Category_singleton):
             return self._with_axiom("Infinite")
 
         @cached_method
-        def Enumerated(self):
-            return self._with_axiom("Enumerated")
+        def Countable(self):
+            return self._with_axiom("Countable")
+
+        @cached_method
+        def Uncountable(self):
+            return self._with_axiom("Uncountable")
 
         @cached_method
         def Facade(self):
@@ -297,10 +397,6 @@ class Sets(Category_singleton):
         @cached_method
         def Metric(self):
             return self._with_axiom("Metric")
-
-        @cached_method
-        def WithBooleanOps(self):
-            return self._with_axiom("WithBooleanOps")
 
         @cached_method
         def TotallyOrdered(self):
@@ -346,11 +442,11 @@ class Sets(Category_singleton):
 
     Finite = _FiniteSets
     Infinite = _InfiniteSets
-    Enumerated = _EnumeratedSets
+    Countable = _CountableSets
+    Uncountable = _UncountableSets
     Facade = _FacadeSets
     Topological = _TopologicalSets
     Metric = _MetricSets
-    WithBooleanOps = _WithBooleanOps
     TotallyOrdered = _TotallyOrdered
 
     # ------------------------------------------------------------------
@@ -368,15 +464,15 @@ class Sets(Category_singleton):
 
 _FiniteSets._base_category_class_and_axiom = (Sets, "Finite")
 _InfiniteSets._base_category_class_and_axiom = (Sets, "Infinite")
-_EnumeratedSets._base_category_class_and_axiom = (Sets, "Enumerated")
+_CountableSets._base_category_class_and_axiom = (Sets, "Countable")
+_UncountableSets._base_category_class_and_axiom = (Sets, "Uncountable")
 _FacadeSets._base_category_class_and_axiom = (Sets, "Facade")
 _TopologicalSets._base_category_class_and_axiom = (Sets, "Topological")
-_WithBooleanOps._base_category_class_and_axiom = (Sets, "WithBooleanOps")
 _TotallyOrdered._base_category_class_and_axiom = (Sets, "TotallyOrdered")
 
-# Axiom chains: EnumeratedSets.Finite, EnumeratedSets.Infinite
-_FiniteEnumeratedSets._base_category_class_and_axiom = (_EnumeratedSets, "Finite")
-_InfiniteEnumeratedSets._base_category_class_and_axiom = (_EnumeratedSets, "Infinite")
+# Axiom chains: Countable.Finite, Countable.Infinite
+_FiniteCountableSets._base_category_class_and_axiom = (Sets().Countable, "Finite")
+_InfiniteCountableSets._base_category_class_and_axiom = (Sets().Countable, "Infinite")
 
 # Axiom chains: TopologicalSets.Metric
 _MetricSets._base_category_class_and_axiom = (_TopologicalSets, "Metric")

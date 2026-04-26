@@ -1,0 +1,54 @@
+default:
+    @just --list
+
+[private]
+_clean-sage-artifacts:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    find . -type f -name '*.sage.py' -delete
+
+smoke:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean-sage-artifacts >/dev/null
+    }
+    trap cleanup EXIT
+
+    smoke_files=(
+        "sets/smoketest.sage"
+        "rings/smoketest.sage"
+        "modules/smoketest.sage"
+    )
+
+    for test_file in "${smoke_files[@]}"; do
+        echo "==> sage ${test_file}"
+        sage "${test_file}"
+    done
+
+test: smoke
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean-sage-artifacts >/dev/null
+    }
+    trap cleanup EXIT
+
+    test_dirs=(
+        "sets/regression"
+        "rings/regression"
+        "rings/new_spec"
+        "modules/tests"
+    )
+
+    while IFS= read -r test_file; do
+        echo "==> sage ${test_file}"
+        sage "${test_file}"
+    done < <(
+        find "${test_dirs[@]}" -type f -name '*.sage' \
+            ! -name 'smoketest.sage' \
+            | sort
+    )

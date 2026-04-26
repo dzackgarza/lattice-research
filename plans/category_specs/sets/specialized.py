@@ -38,10 +38,10 @@ from sage.misc.abstract_method import abstract_method
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    Cardinality = Any
-    SetElement = Any
-    SageSet = Any
-    SetMap = Any
+    from ..types import (
+        Cardinality,
+        SetElement,
+    )
 
 
 def Sets():
@@ -59,32 +59,18 @@ def _joined_super_categories(*categories: Any) -> list[Any]:
 
 
 # ---------------------------------------------------------------------------
-# Base class for singleton named set categories
-# ---------------------------------------------------------------------------
-
-
-class _NamedSetCategory(Category_singleton):
-    r"""Abstract base for singleton named Sage-backed set categories."""
-
-    def set_category(self):
-        return Sets()
-
-
-# ---------------------------------------------------------------------------
 # Set(X) wrapper objects
 # ---------------------------------------------------------------------------
 
 
-class _SetObjects(_NamedSetCategory):
+class _SetObjects(Category_singleton):
     r"""Category of ``Set(X)`` wrapper objects (``Set_object`` and subclasses).
 
     The ``Set`` factory wraps an almost arbitrary object as a Sage parent.
-    Exposes set-theoretic operations via ``Set_base``, ``Set_boolean_operators``,
-    and ``Set_add_sub_operators`` mix-ins.
     """
 
     def super_categories(self) -> list[Any]:
-        return _joined_super_categories(Sets().WithBooleanOps())
+        return _joined_super_categories(Sets())
 
     class ParentMethods:
         @abstract_method
@@ -129,13 +115,14 @@ class _SetObjects(_NamedSetCategory):
             ...
 
 
-class _SetObjectsEnumerated(_NamedSetCategory):
+class _SetObjectsEnumerated(Category_singleton):
     r"""Category for ``Set_object_enumerated`` — finite frozenset-backed ``Set(X)`` objects."""
 
     def super_categories(self) -> list[Any]:
         return _joined_super_categories(
             _SetObjects(),
-            Sets().Enumerated().Finite(),
+            Sets().Countable().Finite()
+,
         )
 
     class ParentMethods:
@@ -161,7 +148,7 @@ class _SetObjectsEnumerated(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _FiniteEnumeratedSetObjects(_NamedSetCategory):
+class _FiniteEnumeratedSetObjects(Category_singleton):
     r"""Category for ``FiniteEnumeratedSet([...])`` objects.
 
     These are tuple-backed, facade, uniquely-represented finite enumerated sets.
@@ -201,7 +188,7 @@ class _FiniteEnumeratedSetObjects(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _IntegerRangeSets(_NamedSetCategory):
+class _IntegerRangeSets(Category_singleton):
     r"""Category for ``IntegerRange`` objects (finite or infinite arithmetic progressions).
 
     Finite:  both endpoints finite  → ``FiniteEnumeratedSets().Facade()``
@@ -242,7 +229,7 @@ class _IntegerRangeSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _NonNegativeIntegersSets(_NamedSetCategory):
+class _NonNegativeIntegersSets(Category_singleton):
     r"""Category for the set ``ℕ₀ = {0, 1, 2, ...}`` (``NonNegativeIntegers``).
 
     Elements are plain Sage ``Integer`` objects with parent ``ZZ``; this is a
@@ -275,7 +262,7 @@ class _NonNegativeIntegersSets(_NamedSetCategory):
         def an_element(self) -> SetElement: ...
 
 
-class _PositiveIntegersSets(_NamedSetCategory):
+class _PositiveIntegersSets(Category_singleton):
     r"""Category for the set ``ℕ₊ = {1, 2, 3, ...}`` (``PositiveIntegers``).
 
     Subclass of :class:`_NonNegativeIntegersSets` with ``first()`` = 1 and
@@ -297,7 +284,7 @@ class _PositiveIntegersSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _PrimesSets(_NamedSetCategory):
+class _PrimesSets(Category_singleton):
     r"""Category for ``Primes()`` — the set of all prime numbers.
 
     With congruence conditions (``modulus``, ``classes``), the set is finite
@@ -340,7 +327,7 @@ class _PrimesSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _RealSets(_NamedSetCategory):
+class _RealSets(Category_singleton):
     r"""Category for ``RealSet`` — subsets of ℝ as finite unions of intervals.
 
     ``RealSet`` inherits ``Set_base``, ``Set_boolean_operators``, and
@@ -434,7 +421,7 @@ class _RealSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _RecursivelyEnumeratedSets(_NamedSetCategory):
+class _RecursivelyEnumeratedSets(Category_singleton):
     r"""Category for ``RecursivelyEnumeratedSet`` — sets defined by seeds + successor function.
 
     Supports four structure types (dispatch in constructor):
@@ -484,7 +471,7 @@ class _RecursivelyEnumeratedSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _DisjointUnionEnumeratedSets(_NamedSetCategory):
+class _DisjointUnionEnumeratedSets(Category_singleton):
     r"""Category for ``DisjointUnionEnumeratedSets`` — concatenation of enumerated families.
 
     Options:
@@ -517,7 +504,7 @@ class _DisjointUnionEnumeratedSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _CartesianProductSets(_NamedSetCategory):
+class _CartesianProductSets(Category_singleton):
     r"""Category for ``CartesianProduct`` — raw data structure for Cartesian products.
 
     Use ``cartesian_product(...)`` at the user level to get the full fledged
@@ -559,7 +546,7 @@ class _CartesianProductSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _ConditionSets(_NamedSetCategory):
+class _ConditionSets(Category_singleton):
     r"""Category for ``ConditionSet`` — subset of a universe satisfying predicates.
 
     ``ConditionSet(ZZ, is_even)`` returns the set of even integers.
@@ -606,7 +593,7 @@ class _ConditionSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _ImageSets(_NamedSetCategory):
+class _ImageSets(Category_singleton):
     r"""Category for ``ImageSubobject`` — image ``{f(x) | x ∈ X}`` of a set under a map.
 
     Options:
@@ -636,7 +623,7 @@ class _ImageSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _TotallyOrderedFiniteSets(_NamedSetCategory):
+class _TotallyOrderedFiniteSets(Category_singleton):
     r"""Category for ``TotallyOrderedFiniteSet`` — finite set with user-specified total order.
 
     Category: ``FiniteEnumeratedSets()`` and ``Posets()``.
@@ -646,7 +633,8 @@ class _TotallyOrderedFiniteSets(_NamedSetCategory):
 
     def super_categories(self) -> list[Any]:
         return _joined_super_categories(
-            Sets().Enumerated().Finite(),
+            Sets().Countable().Finite()
+,
             Sets().TotallyOrdered(),
         )
 
@@ -695,7 +683,7 @@ class _TotallyOrderedFiniteSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _FiniteSetMapsSets(_NamedSetCategory):
+class _FiniteSetMapsSets(Category_singleton):
     r"""Category for ``FiniteSetMaps`` — the set of all maps between two finite sets.
 
     Category: ``FiniteMonoids()`` (endo-maps) or ``FiniteEnumeratedSets()`` (general).
@@ -725,7 +713,7 @@ class _FiniteSetMapsSets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _FamilySets(_NamedSetCategory):
+class _FamilySets(Category_singleton):
     r"""Category for ``Family`` — an indexed family ``(f_i)_{i ∈ I}``.
 
     The ``Family`` factory returns one of:
@@ -779,7 +767,7 @@ class _FamilySets(_NamedSetCategory):
 # ---------------------------------------------------------------------------
 
 
-class _EnumeratedSetsFromIterator(_NamedSetCategory):
+class _EnumeratedSetsFromIterator(Category_singleton):
     r"""Category for ``EnumeratedSetFromIterator`` — enumerated set from a callable.
 
     Built from a callable ``f`` that returns an iterator each time it is called.
