@@ -9,12 +9,13 @@ import sys
 sys.path.insert(0, '/home/dzack/research')
 
 from pytest import raises
-from sage.all import QQ
 from plans.category_specs.modules import Modules
+from plans.category_specs.rings import Rings
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
+QQ = Rings().NamedRings().QQ()
 MQQ = Modules(QQ).NamedModules()
 
 # ---------------------------------------------------------------------------

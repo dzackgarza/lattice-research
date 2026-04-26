@@ -8,12 +8,13 @@ import sys
 sys.path.insert(0, '/home/dzack/research')
 
 from pytest import raises
-from sage.all import ZZ
 from plans.category_specs.modules import Modules
+from plans.category_specs.rings import Rings
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
+ZZ = Rings().NamedRings().ZZ()
 MZZ = Modules(ZZ).NamedModules()
 
 # ---------------------------------------------------------------------------

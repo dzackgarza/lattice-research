@@ -71,8 +71,8 @@ if TYPE_CHECKING:
     from ..types import (
         AbelianGroup,
         Cardinality,
-        ComplexInterval,
         CompleteRing,
+        ComplexInterval,
         Field,
         Group,
         Ideal,
@@ -1753,6 +1753,10 @@ class _QQbar(Category_singleton):
             self, poly: Polynomial, interval: RealInterval | ComplexInterval, multiplicity: Integer | int = 1
         ) -> RingElement: ...
 
+    class ElementMethods:
+        @override
+        def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
+
 
 class _AA(Category_singleton):
     def _repr_object_names(self) -> str:
@@ -1776,6 +1780,10 @@ class _AA(Category_singleton):
         def polynomial_root(
             self, poly: Polynomial, interval: RealInterval, multiplicity: Integer | int = 1
         ) -> RingElement: ...
+
+    class ElementMethods:
+        @override
+        def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
 
 
 class _ZZ(Category_singleton):

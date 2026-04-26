@@ -21,10 +21,10 @@ from sage.misc.cachefunc import cached_method
 if TYPE_CHECKING:
     from typing import Protocol
 
-    from sage.rings.infinity import InfinityElement
-    from sage.rings.integer import Integer
     from sage.categories.morphism import Morphism
     from sage.rings.ideal import Ideal_generic
+    from sage.rings.infinity import InfinityElement
+    from sage.rings.integer import Integer
     from sage.structure.element import Element
     from sage.structure.parent import Parent
 

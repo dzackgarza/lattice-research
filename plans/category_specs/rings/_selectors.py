@@ -2,51 +2,9 @@
 
 from __future__ import annotations
 
-from sage.categories import category_with_axiom as _category_with_axiom
 from sage.categories.homset import End as SageEnd
 from sage.categories.homset import Hom as SageHom
 from sage.misc.cachefunc import cached_method
-
-_CUSTOM_AXIOMS = (
-    "Commutative",
-    "Division",
-    "Finite",
-    "Topological",
-    "WithValuation",
-    "Characteristic",
-    "Polynomial",
-    "PowerSeries",
-    "LaurentSeries",
-    "PuiseuxSeries",
-    "Field",
-    "IntegralDomains",
-    "Noetherian",
-    "Local",
-    "KrullDimension",
-    "Reduced",
-    "Gcd",
-    "UniqueFactorization",
-    "PrincipalIdeal",
-    "Euclidean",
-    "IntegrallyClosed",
-    "Dedekind",
-    "DiscretelyValued",
-    "Complete",
-    "NumberFields",
-    "AlgebraicallyClosed",
-    "LocalFields",
-    "GlobalFields",
-    "Archimedean",
-    "NonArchimedean",
-    "Quadratic",
-    "Cyclotomic",
-)
-
-
-def _register_custom_axioms() -> None:
-    missing = tuple(axiom for axiom in _CUSTOM_AXIOMS if axiom not in _category_with_axiom.all_axioms)
-    if missing:
-        _category_with_axiom.all_axioms += missing
 
 
 class _RingSubcategorySelectors:
@@ -132,9 +90,9 @@ class _RingSubcategorySelectors:
 
     @cached_method
     def AlgebrasOver(self, structure_ring):
-        from .matrix_algebras import _AlgebrasOver
+        from ..algebras import Algebras
 
-        return _AlgebrasOver(structure_ring)
+        return Algebras(structure_ring)
 
     @cached_method
     def PolynomialRings(self):

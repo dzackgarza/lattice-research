@@ -38,7 +38,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
-from sage.categories import category_with_axiom as _category_with_axiom
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.category_types import Category_module
 from sage.categories.dual import DualObjectsCategory
@@ -119,42 +118,6 @@ if TYPE_CHECKING:
         def cardinality(self) -> Cardinality: ...
 
         def __getitem__(self, key: object) -> RModuleElement: ...
-
-_CUSTOM_AXIOMS = (
-    "OverIntegralDomain",
-    "OverDedekindDomain",
-    "OverPID",
-    "OverCommutativeRing",
-    "OverField",
-    "OverLocalRing",
-    "OverCompleteRing",
-    "Free",
-    "FiniteRank",
-    "Torsion",
-    "Torsionfree",
-    "Projective",
-    "WithOrderedGeneratingSet",
-    "FinitelyGenerated",
-    "FinitelyPresented",
-    "RIdeals",
-    "WithForms",
-    "Bilinear",
-    "Quadratic",
-    "Symmetric",
-    "Alternating",
-    "Nondegenerate",
-    "Integral",
-    "Rational",
-)
-
-
-def _register_custom_axioms() -> None:
-    missing = tuple(axiom for axiom in _CUSTOM_AXIOMS if axiom not in _category_with_axiom.all_axioms)
-    if missing:
-        _category_with_axiom.all_axioms += missing
-
-
-_register_custom_axioms()
 
 
 # ---------------------------------------------------------------------------

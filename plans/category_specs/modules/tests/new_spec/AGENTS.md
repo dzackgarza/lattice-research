@@ -1,0 +1,1 @@
+../../../rings/new_spec/AGENTS.md

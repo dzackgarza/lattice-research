@@ -2045,7 +2045,7 @@ class DiscriminantOrthogonalGroup:
         try:
             sg = self._require_sage_group()
             return sg(G) in sg
-        except Exception as e:  # grain: narrowed
+        except Exception:  # grain: narrowed
             raise
             return False
 
@@ -2097,7 +2097,7 @@ class DiscriminantOrthogonalSubgroup:
         try:
             # TODO: no try/except allowed. Assert on requirements. -- [needs approach]
             return self._sage_subgroup(G) in self._sage_subgroup
-        except Exception as e:  # grain: narrowed
+        except Exception:  # grain: narrowed
             raise
             return False
 

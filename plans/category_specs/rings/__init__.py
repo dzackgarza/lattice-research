@@ -22,7 +22,6 @@ from sage.rings.integer import Integer
 from ..modules import Modules
 from ..utils import refine_category
 from ._selectors import (
-    _register_custom_axioms,
     _RingNamedShortcuts,
     _RingSubcategorySelectors,
 )
@@ -174,8 +173,6 @@ if TYPE_CHECKING:
         RingHomset,
         RingMorphism,
     )
-
-_register_custom_axioms()
 
 
 # ---------------------------------------------------------------------------

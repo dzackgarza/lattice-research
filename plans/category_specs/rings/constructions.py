@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.category import Category, CategoryWithParameters
 from sage.categories.category_types import Category_over_base_ring

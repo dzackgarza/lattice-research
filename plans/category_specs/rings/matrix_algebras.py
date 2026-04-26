@@ -1,79 +1,19 @@
-"""Matrix-algebra and algebra-over-a-ring categories."""
+"""Matrix-algebra categories."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category import Category
-from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
+from ..algebras import Algebras
 from ..modules import Modules
 from .constructions import _Category_over_base_integer_pair
 
 if TYPE_CHECKING:
     from ..types import Ring, RingElement
-
-
-def Rings(*args, **kwds):
-    from . import Rings as _Rings
-
-    return _Rings(*args, **kwds)
-
-
-class _AlgebrasOver(Category_over_base_ring):
-    r"""Ring objects equipped with a structure map from a fixed base ring."""
-
-    def _repr_object_names(self) -> str:
-        return f"algebras over {self.base_ring()}"
-
-    def super_categories(self) -> list[Category]:
-        R = self.base_ring()
-        return [
-            Rings().RingsUnder(R),
-            Modules(R).NamedModules().RingObjectsAsModules(),
-        ]
-
-    class ParentMethods:
-        @abstract_method
-        def base_ring(self) -> Ring: ...
-
-        @abstract_method
-        def change_ring(self, R: Ring) -> Ring: ...
-
-        @abstract_method
-        def center(self): ...
-
-        @abstract_method
-        def center_basis(self): ...
-
-        @abstract_method
-        def radical(self, *args, **kwds): ...
-
-        @abstract_method
-        def radical_basis(self, *args, **kwds): ...
-
-        @abstract_method
-        def subalgebra(self, *args, **kwds): ...
-
-        @abstract_method
-        def derivations_basis(self): ...
-
-        @abstract_method
-        def hochschild_complex(self, *args, **kwds): ...
-
-        @abstract_method
-        def has_standard_involution(self) -> bool: ...
-
-        @abstract_method
-        def idempotent_lift(self, *args, **kwds): ...
-
-        @abstract_method
-        def peirce_decomposition(self): ...
-
-        @abstract_method
-        def semisimple_quotient(self): ...
 
 
 class _MatrixAlgebras(_Category_over_base_integer_pair):
@@ -109,7 +49,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         cats: list[Category] = [
-            _AlgebrasOver(R),
+            Algebras(R),
             Modules(R).Free().FiniteRank(),
         ]
         if self._n == 1:
