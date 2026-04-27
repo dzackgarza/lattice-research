@@ -402,11 +402,15 @@ This is self-documenting: the class name explicitly states what the methods are 
 
 ## No Splicing
 
-Never add methods to a category class after its definition (e.g.
-`MyCategory.ParentMethods.foo = ...` at module level).
-All methods must be declared inside the class body.
+Never add methods or classes to a category class after its definition (e.g.
+`MyCategory.ParentMethods.foo = ...` or `MyCategory.MySubcategory = ...` at module level).
+All methods and subcategory attributes must be declared inside the class body.
 Splicing fragments documentation and makes the spec impossible to read as a single
 coherent document.
+
+For subcategories and other complex attributes, use the `LazyImport` pattern
+(as seen in `sets/__init__.py`) to wire them into the category class while
+avoiding circularity and reducing import overhead.
 
 ## Method Overrides
 
