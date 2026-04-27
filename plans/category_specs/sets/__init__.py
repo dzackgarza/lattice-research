@@ -74,6 +74,7 @@ from .homsets import SetHomsets
 
 if TYPE_CHECKING:
     from ..types import (
+        Algebra,
         CountableSet,
         FiniteSet,
         Group,
@@ -151,7 +152,7 @@ class _SetObjectMethods:
         return self.union(other)
 
     @abstract_method
-    def algebra(self, base_ring: Ring, category: Category | None = None) -> Any:
+    def algebra(self, base_ring: Ring, category: Category | None = None) -> Algebra:
         r"""Return the algebra of this set over ``base_ring``."""
         ...
 
@@ -638,12 +639,12 @@ class Sets(Category_singleton):
         def ImageSubobject(
             self,
             f: SetMorphism,
-            domain_subset: Set,
+            domain_subset: Subset,
             *,
             category: Category | None = None,
             is_injective: bool | None = None,
             inverse: SetMorphism | None = None,
-        ) -> Set:
+        ) -> Subset:
             r"""Return ``ImageSubobject(f, domain_subset)``, refined into its subcategory."""
             from sage.sets.image_set import ImageSubobject as SageIS
 

@@ -93,7 +93,7 @@ pattern to ensure they operate as functorial constructions across the entire
 hierarchy.
 
 Mandatory methods in `SubcategoryMethods`:
-- `Subobjects()`
+- `Subobjects()` (alias `Subsets` or `Submodules` where appropriate)
 - `Quotients()`
 - `Subquotients()`
 - `ObjectsOver()`
@@ -110,6 +110,9 @@ class SubcategoryMethods:
     def Subobjects(self):
         from .subcategories.constructions.subobjects import _Subobjects
         return _Subobjects.category_of(self)
+
+    def Subsets(self):
+        return self.Subobjects()
 
     @cached_method
     def Homsets(self):

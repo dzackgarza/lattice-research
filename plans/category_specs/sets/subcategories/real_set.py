@@ -14,7 +14,6 @@ if TYPE_CHECKING:
         RealNumber,
         RealOpenSet,
         RealSubset,
-        Set,
         SetElement,
         SympySet,
     )
@@ -49,7 +48,7 @@ class _RealSets(Category_singleton):
         def get_interval(self, i: int) -> RealInterval: ...
 
         @abstract_method
-        def ambient(self) -> Set: ...
+        def ambient(self) -> RealSubset: ...
 
         @abstract_method
         def lift(self, x: SetElement) -> SetElement: ...
