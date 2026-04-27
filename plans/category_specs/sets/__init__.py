@@ -192,7 +192,7 @@ class _SetMorphismMethods:
     def codomain(self) -> Set: ...
 
     @abstract_method
-    def image(self, domain_subset: Set | None = None) -> Set:
+    def image(self, domain_subset: Subset | None = None) -> Subset:
         r"""Return the image of ``domain_subset`` or of the full domain."""
         ...
 

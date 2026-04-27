@@ -111,8 +111,7 @@ class SubcategoryMethods:
         from .subcategories.constructions.subobjects import _Subobjects
         return _Subobjects.category_of(self)
 
-    def Subsets(self):
-        return self.Subobjects()
+    Subsets = Subobjects
 
     @cached_method
     def Homsets(self):

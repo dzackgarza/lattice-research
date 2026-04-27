@@ -20,7 +20,7 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets.utils import refine_automorphism_set_from_endset
 
 if TYPE_CHECKING:
-    from ..types import Cardinality, Set, SetAutset, SetElement, SetEndset, SetMorphism
+    from ..types import Cardinality, Set, SetAutset, SetElement, SetEndset, SetMorphism, Subset
 
 
 class _SetHomsetObjects:
@@ -48,10 +48,10 @@ class _SetMorphisms:
     def __call__(self, x: SetElement) -> SetElement: ...
 
     @abstract_method
-    def image(self, domain_subset: Set | None = None) -> Set: ...
+    def image(self, domain_subset: Subset | None = None) -> Subset: ...
 
     @abstract_method
-    def pre_image(self, y: SetElement) -> Set: ...
+    def pre_image(self, y: SetElement) -> Subset: ...
 
     @abstract_method
     def is_injective(self) -> bool: ...
