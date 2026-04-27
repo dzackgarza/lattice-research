@@ -81,21 +81,19 @@ The module docstring of `__init__.py` must faithfully record the full subcategor
 hierarchy as a tree, showing the mathematical relationships between all subcategories
 defined in that subtree.
 
-**SubcategoryMethods** provides methods available on the category object itself for
-navigating to further restricted subcategories (e.g. `Sets().Finite()` returns the
-finite sets subcategory).
+**SubcategoryMethods** is an inner class defined in every top-level category's
+`__init__.py`. Its methods are available on every subcategory instance (e.g.,
+`Sets().Finite().Subobjects()` returns the category of finite subsets).
 
-**Mandatory Construction Wiring**: Every top-level category MUST include the
-following methods in its `SubcategoryMethods` class as explicit boilerplate.
-These methods are required for all categories, even if their implementation is
-mathematically trivial for that category. They MUST follow the pattern
-`Construction.category_of(self)` to ensure they operate as functorial
-constructions that restrict any subcategory to its appropriate sub-subcategory
-(e.g., `Sets().Finite().Subobjects()` must return the category of finite
-subsets).
+**Mandatory Construction Boilerplate**: Every top-level category MUST include the
+following methods in its `SubcategoryMethods` class. These methods must be
+present in every subtree, regardless of whether the construction is trivial for
+that category. They MUST follow the literal `Construction.category_of(self)`
+pattern to ensure they operate as functorial constructions across the entire
+hierarchy.
 
-Mandatory boilerplate methods:
-- `Subobjects()` (and category-specific aliases like `Subsets`, `Submodules`)
+Mandatory methods in `SubcategoryMethods`:
+- `Subobjects()`
 - `Quotients()`
 - `Subquotients()`
 - `ObjectsOver()`
@@ -105,30 +103,22 @@ Mandatory boilerplate methods:
 - `Endsets()`
 - `Autsets()`
 
-Literal implementation pattern (to be repeated for each):
+Literal implementation example:
 ```python
-@cached_method
-def Subobjects(self):
-    from .subcategories.constructions.subobjects import _Subobjects
-    return _Subobjects.category_of(self)
+class SubcategoryMethods:
+    @cached_method
+    def Subobjects(self):
+        from .subcategories.constructions.subobjects import _Subobjects
+        return _Subobjects.category_of(self)
 
-@cached_method
-def CartesianProducts(self):
-    from .subcategories.constructions.cartesian_products import _CartesianProducts
-    return _CartesianProducts.category_of(self)
-
-@cached_method
-def Homsets(self):
-    from .subcategories.constructions.homsets import _Homsets
-    return _Homsets.category_of(self)
+    @cached_method
+    def Homsets(self):
+        from .subcategories.constructions.homsets import _Homsets
+        return _Homsets.category_of(self)
 ```
 
-This wiring ensures that the construction logic (defined in the `constructions/`
-directory) is correctly applied across the entire hierarchy through the
-`category_of` mechanism.
-
-Other constructions like `TensorProducts()` should be added only where
-mathematically appropriate (e.g., for modules or algebras), following the same
+Other constructions like `TensorProducts()` should be added to
+`SubcategoryMethods` only where mathematically appropriate, following the same
 pattern.
 
 **Axiomatic subcategories** must be wired to real classes that add genuine spec work.
@@ -159,12 +149,6 @@ that the category has a complete implementation.
 Do not collapse axiomatic restrictions into implementation categories merely because
 some restricted cases are computable. Further restrictions such as finite generation,
 basis data, or base-ring hypotheses determine the algorithms.
-
-**Subobject, quotient, homset, and product categories** must always be wired up,
-with mathematically expressive aliases: `Subsets = Subobjects`,
-`Submodules = Subobjects`, `Quotients = Quotients`, `Homsets = Homsets`,
-`Endsets = Endsets`, `Autsets = Autsets`, `CartesianProducts = CartesianProducts`,
-etc.
 
 **Subobject types in `types.py`**: types like `Subset`, `Submodule`, `QuotientModule`
 must be defined in `types.py` and used explicitly in method signatures to express
@@ -359,18 +343,6 @@ Never destructively replace or monkey-patch Sage internals.
   (e.g. `Sets().Constructors()`, `Rings().Constructors()`,
   `Modules(R).Constructors()`) for all Sage constructor entry points known to that
   category. Constructor wrappers must be collected here, not scattered.
-- Every category subtree must properly declare its construction categories:
-  `Subobjects`, `Subquotients`, `Quotients`, `ObjectsOver`, `ObjectsUnder`,
-  `CartesianProducts`, `Homsets`, `Endsets`, and `Autsets` (including all of
-  their elements), even if the implementations are mostly trivial. They must be
-  declared explicitly in the subtree's `__init__.py` and located in
-  `subcategories/constructions/` to ensure a uniform surface across the entire
-  hierarchy.
-- **Construction Boilerplate**: Construction categories follow a uniform
-  implementation pattern: `C.category_of(self)`. This is because they are functorial
-  constructions that restrict any subcategory to its appropriate sub-subcategory
-  of subobjects, quotients, homs, etc. (e.g., `Sets().Finite().Subobjects()` returns
-  the category of finite subsets).
 - Method surface separation is strict: a method belongs in the category whose axioms are
   the minimum required for it to be well-defined.
   Ring-theoretic methods must not appear in `Sets`; module-theoretic methods must not
