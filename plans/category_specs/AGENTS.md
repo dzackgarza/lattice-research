@@ -414,6 +414,14 @@ Never let Sage and local names collide silently.
 
 ## Smoketest and Triage
 
+**Workflow Rule**: If there are any design, architectural, layout, or other
+spec violations (e.g., missing construction wiring, improper directory structure),
+DO NOT run smoke tests. Running tests against a flawed architecture produces
+noise that causes thrash.
+Instead, resolve all violations first. Prompt the user only when you believe the
+spec is complete and correct according to all directives. Only after user
+confirmation should you proceed to run smoke tests and update triage documents.
+
 Each subtree's `smoketest.sage` must:
 - Add the repo root to `sys.path` so `category_specs` is importable.
 - Import only from this spec hierarchy (not bare Sage globals).
