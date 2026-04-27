@@ -317,6 +317,11 @@ category_specs/
 
 - Axioms are defined and registered **only** in the root `axioms.py`. No subtree defines
   or registers axioms.
+- Axiom names are global mathematical vocabulary. Define and register each axiom name
+  exactly once, then reuse it across categories when it expresses the same restriction.
+  Examples: `Commutative`, `FiniteDimensional`, `Semisimple`, and `WithBasis`.
+  If the same word would mean different mathematics in two category families, choose a
+  more specific name instead of overloading the axiom.
 - No `specialized.py`, `named.py`, `constructions.py`, or other flat aggregator files.
 - `subcategories/` may nest arbitrarily to reflect the mathematical hierarchy.
   A subcategory with many sub-subcategories gets its own subdirectory (e.g.
@@ -542,6 +547,13 @@ splicing.
 - All methods must be defined at the **highest category** for which they are universally
   well-defined.
 - Do not duplicate method definitions at lower levels if the parent already covers it.
+
+## Git and Commit Workflow
+
+- **Spec Work Commits**: When committing intermediate spec work, use the
+  `--no-verify` flag (e.g., `git commit -m "..." --no-verify`). This allows
+  checkpointing progress without being blocked by linting or testing hooks that
+  may fail while the spec is incomplete or the architecture is being refactored.
 
 ## Testing (sage_gaps)
 
