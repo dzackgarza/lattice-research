@@ -228,8 +228,7 @@ category_specs/
     │   ├── constructions/
     │   │   ├── subobjects.py
     │   │   ├── subquotients.py
-    │   │   ├── quotients.py
-    │   │   └── isomorphic_objects.py
+    │   │   └── quotients.py
     │   ├── free.py
     │   └── ...
     ├── homsets.py       # subtree-specific Homset/Endset/Autset categories
