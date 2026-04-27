@@ -7,6 +7,21 @@
   Prefer explicit types and signatures everywhere. Duck-typing is a runtime concern:
   if a third party provides an implementation that quacks like ours, they can use
   the category methods, but we never rely on duck-typing for design or architecture.
+- **No Variadic Signatures**: We do not accept variadic type signatures (`*args`,
+  `**kwargs`) on our spec.
+  1.  **Verify Sage Actuals**: Check the Sage source and written documentation for
+      the corresponding method. Typically, Sage methods that appear variadic are
+      actually constrained to a finite set of input patterns and shapes.
+  2.  **Named, Non-Positional Arguments**: The spec must force named,
+      non-positional arguments that remain compatible with existing positional
+      calls in Sage.
+  3.  **Use @overload**: When there are truly multiple input patterns, split them
+      into an `@overload` pattern documenting each specific mathematical
+      signature.
+  4.  **Mathematical Types Only**: Never add "shortcut" types (e.g.,
+      `MyCategoryInputDataShape`) that have no mathematical meaning and only serve
+      as software engineering helpers. Every type must reflect a real mathematical
+      concept.
 - `__contains__` always takes `Any` as its argument type.
   Never use `object`.
 - All types are defined in `types.py`. No type aliases, `TypeAlias` definitions, or
