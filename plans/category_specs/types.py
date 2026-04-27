@@ -12,6 +12,7 @@ from sage.categories.morphism import Morphism as SageMorphism
 from sage.combinat.posets.posets import FinitePoset as SagePoset
 from sage.groups.abelian_gps.abelian_group import AbelianGroup_class
 from sage.groups.group import Group as SageGroup
+from sage.homology.hochschild_complex import HochschildComplex
 from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
@@ -115,6 +116,10 @@ RAlgebra = Algebras
 Algebra = Algebras.ParentMethods
 AlgebraElement = Algebras.ElementMethods
 AlgebraMorphism = Algebras.MorphismMethods
+AlgebraElementFamily = AbstractFamily
+AlgebraBasisIndex = SageElement
+AlgebraBasis = AbstractFamily
+HochschildChainComplex = HochschildComplex
 
 # Sets
 from .sets import Sets

@@ -37,6 +37,16 @@ methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
 
+**Explicit Method Surfaces**:
+Each subcategory MUST explicitly state its `ParentMethods`, `ElementMethods`,
+`MorphismMethods`, and `SubcategoryMethods` classes (as applicable).
+To document the full surface inherited from supercategories and facilitate future
+refactoring, every subcategory must list **ALL methods inherited that it can
+override**.
+Methods that are not currently being overridden with a concrete implementation or a
+refined `@abstract_method` signature MUST be included with a `...` body.
+This ensures the subcategory file serves as a complete map of its own API surface.
+
 **One Source of Truth for Utils**:
 All **truly reusable GENERAL logic** belongs in the top-level `utils.py`. This is
 reserved for software engineering tasks like converting data types (generators, lists,

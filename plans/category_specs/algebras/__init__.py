@@ -3,9 +3,16 @@
 Subcategory hierarchy::
 
     Algebras(R)
-
-Concrete algebra subcategories are added under ``subcategories/`` once their Sage
-surfaces have been inventoried.
+    |-- Commutative()
+    |-- WithBasis()
+    |   `-- FiniteDimensional()
+    |-- FiniteDimensional()
+    |-- Semisimple()
+    |-- Subobjects()
+    |-- Quotients()
+    |-- CartesianProducts()
+    |-- TensorProducts()
+    `-- DualObjects()
 """
 
 from __future__ import annotations
@@ -21,16 +28,21 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..modules import Modules
+from .subcategories.constructions.cartesian_products import _CartesianProducts
+from .subcategories.constructions.dual_objects import _DualObjects
+from .subcategories.constructions.quotients import _Quotients
+from .subcategories.constructions.subobjects import _Subobjects
+from .subcategories.constructions.tensor_products import _TensorProducts
 
 if TYPE_CHECKING:
     from ..types import (
         Algebra,
         AlgebraElement,
+        AlgebraElementFamily,
         AlgebraMorphism,
         HochschildChainComplex,
         RModule,
         Ring,
-        SetFamily,
     )
 
 
@@ -42,7 +54,7 @@ class _AlgebraParentMethods:
     def change_ring(self, R: Ring) -> Algebra: ...
 
     @abstract_method
-    def algebra_generators(self) -> SetFamily: ...
+    def algebra_generators(self) -> AlgebraElementFamily: ...
 
     @abstract_method
     def center(self) -> Algebra: ...
@@ -142,23 +154,23 @@ class Algebras(Category_over_base_ring):
 
         @cached_method
         def Subobjects(self):
-            return self.__class__.Subobjects.category_of(self)
+            return _Subobjects.category_of(self)
 
         @cached_method
         def Quotients(self):
-            return self.__class__.Quotients.category_of(self)
+            return _Quotients.category_of(self)
 
         @cached_method
         def CartesianProducts(self):
-            return self.__class__.CartesianProducts.category_of(self)
+            return _CartesianProducts.category_of(self)
 
         @cached_method
         def TensorProducts(self):
-            return self.__class__.TensorProducts.category_of(self)
+            return _TensorProducts.category_of(self)
 
         @cached_method
         def DualObjects(self):
-            return self.__class__.DualObjects.category_of(self)
+            return _DualObjects.category_of(self)
 
     class Constructors:
         r"""Algebra constructors over a fixed base ring.
@@ -190,11 +202,8 @@ class Algebras(Category_over_base_ring):
     )
     Semisimple = LazyImport("category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras")
 
-    Subobjects = LazyImport("category_specs.algebras.subcategories.constructions.subobjects", "_Subobjects")
-    Quotients = LazyImport("category_specs.algebras.subcategories.constructions.quotients", "_Quotients")
-    CartesianProducts = LazyImport(
-        "category_specs.algebras.subcategories.constructions.cartesian_products",
-        "_CartesianProducts",
-    )
-    TensorProducts = LazyImport("category_specs.algebras.subcategories.constructions.tensor_products", "_TensorProducts")
-    DualObjects = LazyImport("category_specs.algebras.subcategories.constructions.dual_objects", "_DualObjects")
+    Subobjects = _Subobjects
+    Quotients = _Quotients
+    CartesianProducts = _CartesianProducts
+    TensorProducts = _TensorProducts
+    DualObjects = _DualObjects

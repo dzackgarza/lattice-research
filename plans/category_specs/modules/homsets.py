@@ -19,6 +19,7 @@ from sage.categories.homsets import HomsetsCategory
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ..homsets.utils import refine_automorphism_set_from_endset
 
@@ -284,6 +285,9 @@ class _RModAutomorphisms:
 
 
 class _Endsets(CategoryWithAxiom_over_base_ring):
+    _base_category_class_and_axiom = (RModuleHomsets, "Endset")
+    Autset = LazyImport(__name__, "_Autsets")
+
     def extra_super_categories(self):
         r"""End_R(M) is an R-algebra."""
         # Deferred to avoid circular import with sage_modules.
@@ -314,6 +318,8 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
 
 
 class _Autsets(CategoryWithAxiom_over_base_ring):
+    _base_category_class_and_axiom = (RModuleHomsets, "Autset")
+
     def extra_super_categories(self):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
         return [self.base_category().Endset(), SageGroups()]
@@ -329,10 +335,6 @@ class _Autsets(CategoryWithAxiom_over_base_ring):
             return True
 
     ElementMethods = _RModAutomorphisms
-
-
-_Endsets.Autset = _Autsets
-
 
 # ---------------------------------------------------------------------------
 # Forms axiom subcategory

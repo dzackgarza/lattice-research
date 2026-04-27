@@ -13,14 +13,14 @@ from typing import TYPE_CHECKING, Any, final
 from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
+from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.homset import End as SageEnd
 from sage.categories.homset import Hom as SageHom
-from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
+from sage.matrix.matrix_space import MatrixSpace
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-from sage.matrix.matrix_space import MatrixSpace
 from sage.rings.integer import Integer
 from sage.rings.number_field.number_field import NumberField_cyclotomic
 
@@ -35,6 +35,7 @@ from .subcategories.constructions.rings_over import _RingsOver
 from .subcategories.constructions.rings_under import _RingsUnder
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
+
 _CommutativeRings = LazyImport("category_specs.rings.subcategories.commutative", "_CommutativeRings")
 _FiniteRings = LazyImport("category_specs.rings.subcategories.finite", "_FiniteRings")
 _DivisionRings = LazyImport("category_specs.rings.subcategories.division", "_DivisionRings")

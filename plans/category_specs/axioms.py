@@ -13,18 +13,30 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
+# Shared Axioms
+# ---------------------------------------------------------------------------
+
+SHARED_AXIOMS = (
+    "Commutative",
+    "Finite",
+    "FiniteDimensional",
+    "Semisimple",
+    "Topological",
+    "WithBasis",
+)
+
+
+# ---------------------------------------------------------------------------
 # Sets Axioms
 # ---------------------------------------------------------------------------
 
 SET_AXIOMS = (
     "Countable",
     "Uncountable",
-    "Finite",
     "Infinite",
     "Facade",
     "TotallyOrdered",
     "Graded",
-    "Topological",
     "Metric",
 )
 
@@ -34,10 +46,7 @@ SET_AXIOMS = (
 # ---------------------------------------------------------------------------
 
 RING_AXIOMS = (
-    "Commutative",
     "Division",
-    "Finite",
-    "Topological",
     "WithValuation",
     "Characteristic",
     "Polynomial",
@@ -64,7 +73,7 @@ RING_AXIOMS = (
     "GlobalFields",
     "Archimedean",
     "NonArchimedean",
-    "Quadratic",
+    "QuadraticNumberField",
     "Cyclotomic",
 )
 
@@ -117,7 +126,7 @@ HOMSET_AXIOMS = (
 # Registration Logic
 # ---------------------------------------------------------------------------
 
-ALL_AXIOMS = SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + HOMSET_AXIOMS
+ALL_AXIOMS = SHARED_AXIOMS + SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + HOMSET_AXIOMS
 
 
 def register_axioms(axioms: Iterable[str]) -> None:
