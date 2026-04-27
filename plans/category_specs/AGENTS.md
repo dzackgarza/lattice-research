@@ -93,7 +93,7 @@ pattern to ensure they operate as functorial constructions across the entire
 hierarchy.
 
 Mandatory methods in `SubcategoryMethods`:
-- `Subobjects()` (alias `Subsets` or `Submodules` where appropriate)
+- `Subobjects()` (and aliases like `Subsets = Subobjects`)
 - `Quotients()`
 - `Subquotients()`
 - `ObjectsOver()`
@@ -118,6 +118,11 @@ class SubcategoryMethods:
         from .subcategories.constructions.homsets import _Homsets
         return _Homsets.category_of(self)
 ```
+
+Note that these are distinct from the attributes on the category class itself
+(e.g., `Sets().Homsets`), which typically return the base construction category
+for that subtree (e.g., `Homsets = SetHomsets`). The `SubcategoryMethods`
+boilerplate is what enables navigation like `Sets().Finite().Homsets()`.
 
 Other constructions like `TensorProducts()` should be added to
 `SubcategoryMethods` only where mathematically appropriate, following the same
