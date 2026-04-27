@@ -220,7 +220,7 @@ category_specs/
 │   ├── docs/
 │   └── tests/
 ├── justfile
-└── <subtree>/            # e.g. sets/, rings/, modules/, algebras/, topological_spaces/
+└── <subtree>/            # e.g. sets/, rings/, modules/, algebras/, posets/, topological_spaces/
     ├── AGENTS.md         # subtree goals and task list
     ├── __init__.py       # defines category, ParentMethods, ElementMethods,
     │                     # MorphismMethods, Constructors; imports from subcategories/
@@ -229,13 +229,13 @@ category_specs/
     │   ├── constructions/
     │   │   ├── subobjects.py
     │   │   ├── subquotients.py
-    │   │   ├── quotients.py
-    │   │   └── homsets.py    # subtree-specific Homset/Endset/Autset categories
+    │   │   └── quotients.py
     │   ├── free.py
     │   └── ...
+    ├── homsets.py        # subtree-specific Homset/Endset/Autset categories
     ├── smoketest.sage    # exercises every Constructors() entry point
     ├── docs/
-    │   ├── TRIAGE.md         # current smoketest failures, grouped by blocker
+    │   ├── TRIAGE.md         # current structural blockers and genuine Sage gaps
     │   ├── SAGE_INVENTORY.md # full Sage category surface: classes, methods, on-disk paths
     │   └── MAPPING.md        # decisions mapping Sage categories → our hierarchy, with mathematical justification
     └── tests/
@@ -253,8 +253,8 @@ category_specs/
   leaf or has few children.
 - Construction-style subcategories live under `subcategories/`, split by mathematical
   notion. Use `subcategories/constructions/<notion>.py` for attachable Sage
-  construction categories such as subobjects, quotients, subquotients, homsets,
-  endsets, and autsets. These classes may extend Sage functorial construction
+  construction categories such as subobjects, quotients, subquotients, objects-over,
+  and objects-under. These classes may extend Sage functorial construction
   classes and use `category_of`; the target organization still places the category
   surface by mathematical notion.
 - If a subcategory introduces a genuinely independent and complex method surface (new
@@ -313,6 +313,11 @@ Never destructively replace or monkey-patch Sage internals.
   trivial. They must be declared explicitly in the subtree's `__init__.py` and
   located in `subcategories/constructions/` to ensure a uniform surface across the
   entire hierarchy.
+- **Construction Boilerplate**: Construction categories follow a uniform
+  implementation pattern: `C.category_of(self)`. This is because they are functorial
+  constructions that restrict any subcategory to its appropriate sub-subcategory
+  of subobjects, quotients, homs, etc. (e.g., `Sets().Finite().Subobjects()` returns
+  the category of finite subsets).
 - Method surface separation is strict: a method belongs in the category whose axioms are
   the minimum required for it to be well-defined.
   Ring-theoretic methods must not appear in `Sets`; module-theoretic methods must not

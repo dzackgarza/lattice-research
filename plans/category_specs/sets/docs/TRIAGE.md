@@ -15,11 +15,10 @@ smoke output is intentionally not the source of truth for this pass.
 - `Subsets = Subobjects` is wired through
   `subcategories/constructions/subobjects.py`, and `Quotients` is wired through
   `subcategories/constructions/quotients.py`.
-- Sage `Subquotients`, `IsomorphicObjects`, `WithRealizations`, `Realizations`,
-  `Homsets`, and `Endsets` are now recorded in the mapping docs as required
-  construction-category surfaces. They are not optional runtime conveniences.
-- `Autsets` is project vocabulary for automorphism sets. The target is explicit
-  top-level wiring specialized by `sets/homsets.py`.
+- Sage `Subquotients`, `IsomorphicObjects`, `WithRealizations`, and `Realizations`
+  are split under `subcategories/constructions/`.
+- `Homsets`, `Endsets`, and project `Autsets` are explicit through `sets/homsets.py`,
+  with generic Autset construction owned by the root `homsets/` subtree.
 - Real-line vocabulary distinguishes `RealSubset`, `RealOpenSet`, and `RealInterval`.
   An open interval is an example of a `RealOpenSet`; a general `RealOpenSet` need not be
   an interval.
@@ -29,6 +28,10 @@ smoke output is intentionally not the source of truth for this pass.
   and `PrimesInArithmeticProgressions` are type vocabulary for subobjects of that prime
   set, not separate top-level categories unless Sage exposes distinct parent objects
   with required methods.
+- `Sets().Graded()` maps Sage `SetsWithGrading()` to a graded-set axiom.
+- `Sets().GSets(G)` is the parameterized category of sets with an action of `G`.
+- `Posets()`, `Posets().Lattice()`, and `Posets().Lattice().Finite()` live in the
+  promoted `posets/` subtree.
 
 ## Audit Conclusions
 
@@ -44,14 +47,12 @@ smoke output is intentionally not the source of truth for this pass.
   `Sets().Constructors().cartesian_product` target therefore takes
   `factors: Sequence[Set]`; untyped constructor-level `*args/**kwargs` signatures are
   not justified by the Sage constructor.
-- `SetsWithGrading()` maps to `Sets().Graded()` with `Sets().WithGrading()` as a
-  Sage-compatibility alias. The required method surface is `grading_set`,
-  `graded_component`, optional `subset`, `grading`, `generating_series`, and
-  `_test_graded_components`.
+- `SetsWithGrading()` maps to `Sets().Graded()`. The required method surface is
+  `grading_set`, `graded_component`, optional `subset`, `grading`, `generating_series`,
+  and `_test_graded_components`.
 - `GSets(G)` maps inside the set subtree as the parameterized subcategory
   `Sets().GSets(G)`. The Sage source gives the mathematical category and base
-  parameter; the project spec should add group-action vocabulary in `types.py` rather
-  than treating `G`-sets as named constructors.
+  parameter; `types.py` now carries `GSet` and group-action vocabulary.
 - `Posets`, `LatticePosets`, and `FiniteLatticePosets` are promoted to a `posets`
   subtree. They remain set-structured categories, but their method surfaces are
   independent: posets require order methods; lattice posets require meet and join;
@@ -61,21 +62,18 @@ smoke output is intentionally not the source of truth for this pass.
   comparisons; poset comparisons are `le`, `lt`, `ge`, and `gt` on ordered sets. The
   spec should not conflate finite-set rich comparison with partial order.
 
-## Required Spec Changes Identified By The Audit
+## Implemented Structural Changes
 
-- Add construction-category files for `subquotients.py`, `isomorphic_objects.py`,
-  `with_realizations.py`, and `realizations.py` under the organized construction
-  subdirectory.
-- Expand `sets/homsets.py` so `Sets().Homsets()`, `Sets().Endsets()`, and the project
-  `Autsets` surface are explicit without reading generic category code.
-- Add `subcategories/graded.py` and `subcategories/group_actions.py` for graded sets
+- Construction-category files exist for `subquotients.py`, `isomorphic_objects.py`,
+  `with_realizations.py`, and `realizations.py`.
+- `sets/homsets.py` declares the set-specific Homset, Endset, and Autset method
+  surfaces without post-class axiom splicing.
+- `subcategories/graded.py` and `subcategories/group_actions.py` specify graded sets
   and `G`-sets.
-- Add or cross-link a promoted `posets/` subtree with files for posets, lattice posets,
-  and finite lattice posets.
-- Tighten `types.py` with `Subset`, `QuotientSet`, `SetSubquotient`,
-  `IsomorphicSetObject`, `SetWithRealizations`, `SetRealization`, `GradedSet`,
-  `GSet`, `Poset`, `LatticePoset`, `FiniteLatticePoset`, `SetHomset`, `SetEndset`,
-  and `SetAutset` vocabulary anchored to Sage objects or project refinements.
+- The promoted `posets/` subtree specifies posets, lattice posets, and finite lattice
+  posets.
+- `types.py` carries the corresponding set, subquotient, realization, graded-set,
+  `G`-set, and poset vocabulary.
 
 ## Source note: project `Autsets`
 
@@ -102,19 +100,3 @@ smoke output is intentionally not the source of truth for this pass.
   vocabulary only where method signatures require it.
 - Confidence: Medium.
 - Gaps: Sage git history and package version metadata have not been searched.
-
-## Source note: `_Sets()` in Cartesian-product wiring
-
-- Searched: hosted Sage `develop` URL supplied for `sage/sets/set.py`, raw Sage
-  `develop` `sage/sets/cartesian_product.py`, installed
-  `sage/sets/cartesian_product.py`, installed `sage/categories/sets_cat.py`, and local
-  Probe searches for `_Sets` near Cartesian product and set category code.
-- Found: The searched Cartesian-product sources import or use `Sets` directly and expose
-  `CartesianProducts` category wiring, but I did not find a local `def _Sets()` in those
-  searched locations.
-- Conclusion: inference -- I believe the `_Sets()` reference is either in a different
-  Sage file/version, in generated/preparsed source not yet searched, or needs a broader
-  Sage develop-tree search before it can be mapped.
-- Confidence: Low.
-- Gaps: full Sage develop repository search, Sage git history, and release-skew
-  comparison have not been performed.

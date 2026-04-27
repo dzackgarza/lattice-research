@@ -651,9 +651,9 @@ test infrastructure, non-parent utility, or non-set-theoretic behavior.
 
 ## Wider Construction Inventory
 
-This pass was triggered by the Sage develop source for `sage/sets/set.py` and the
-category docs for `sage.categories.sets_cat`. It is documentation-only: it records
-surfaces that the hierarchy must map before another spec-code pass changes classes.
+This inventory is anchored in the Sage develop source for `sage/sets/set.py` and the
+category docs for `sage.categories.sets_cat`. It records the surfaces that the spec
+subtree maps into concrete category files.
 
 ### Functorial and categorical constructions
 
@@ -674,8 +674,8 @@ surfaces that the hierarchy must map before another spec-code pass changes class
 
 | Sage category | Source anchor | Mathematical meaning | Target mapping and method surface |
 | --- | --- | --- | --- |
-| `SetsWithGrading()` | `sage/categories/sets_with_grading.py` | A set `S` with decomposition `S = \biguplus_{i in I} S_i`, grading function `S -> I`, and graded components. | `sets/subcategories/graded.py`; canonical `Sets().Graded()`, with `Sets().WithGrading()` as Sage-compatibility alias. Required methods: `grading_set`, `subset`, `graded_component`, `grading`, `generating_series`, `_test_graded_components`. |
-| `GSets(G)` | `sage/categories/g_sets.py` | Sets equipped with an action of a fixed group `G`. | `sets/subcategories/group_actions.py`; public category `Sets().GSets(G)`. Sage source records category parameter `G` and supercategory `[Sets()]`; project types must add `GSet` and group-action vocabulary. |
+| `SetsWithGrading()` | `sage/categories/sets_with_grading.py` | A set `S` with decomposition `S = \biguplus_{i in I} S_i`, grading function `S -> I`, and graded components. | `sets/subcategories/graded.py`; canonical `Sets().Graded()`. Required methods: `grading_set`, `subset`, `graded_component`, `grading`, `generating_series`, `_test_graded_components`. |
+| `GSets(G)` | `sage/categories/g_sets.py` | Sets equipped with an action of a fixed group `G`. | `sets/subcategories/group_actions.py`; public category `Sets().GSets(G)`. Sage source records category parameter `G` and supercategory `[Sets()]`; `types.py` carries `GSet` and group-action vocabulary. |
 | `Posets()` | `sage/categories/posets.py` | Sets with a partial order. | Promoted `posets/` subtree. Required root methods include `le`, `lt`, `ge`, `gt`, `upper_covers`, `lower_covers`, `order_ideal`, `order_filter`, `directed_subset`, principal lower/upper sets, toggles, chain and antichain predicates, and Cartesian-product posets. |
 | `LatticePosets()` | `sage/categories/lattice_posets.py` | Posets where every pair has a meet and join. | `posets/subcategories/lattice.py`, not module/cryptographic lattice vocabulary. Required methods: `meet`, `join`. |
 | `FiniteLatticePosets()` | `sage/categories/finite_lattice_posets.py` | Finite posets that are lattices. | `posets/subcategories/finite_lattice.py`, the finite refinement of order-theoretic lattices. Required methods include join/meet irreducibles, irreducibles poset, and `is_lattice_morphism`. |
