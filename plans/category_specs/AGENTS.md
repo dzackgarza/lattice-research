@@ -408,9 +408,21 @@ All methods and subcategory attributes must be declared inside the class body.
 Splicing fragments documentation and makes the spec impossible to read as a single
 coherent document.
 
-For subcategories and other complex attributes, use the `LazyImport` pattern
-(as seen in `sets/__init__.py`) to wire them into the category class while
-avoiding circularity and reducing import overhead.
+**The LazyImport Pattern**:
+To wire subcategories into a category while avoiding circular imports (e.g., when a
+subcategory file needs to import the parent category for registration), use
+`sage.misc.lazy_import.LazyImport` at the class level:
+
+```python
+class MyCategory(Category):
+    # ...
+    MySubcategory = LazyImport("category_specs.subtree.subcategories.file", "_MySubcategoryClass")
+```
+
+This ensures the subcategory module is only loaded when the attribute is accessed,
+breaking the import cycle and keeping the category definition clean and centralized.
+All subcategory wiring must follow this pattern instead of module-level assignment or
+splicing.
 
 ## Method Overrides
 
