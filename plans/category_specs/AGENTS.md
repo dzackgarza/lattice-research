@@ -300,6 +300,12 @@ Never destructively replace or monkey-patch Sage internals.
   (e.g. `Sets().Constructors()`, `Rings().Constructors()`,
   `Modules(R).Constructors()`) for all Sage constructor entry points known to that
   category. Constructor wrappers must be collected here, not scattered.
+- Every category subtree must properly declare its construction categories
+  (`Subobjects`, `Subquotients`, `Quotients`) and the entire hom package
+  (`Homsets`, `Endsets`, `Autsets` and all of their elements), even if the
+  implementations are mostly trivial. They must be declared explicitly in the
+  subtree's `__init__.py` and `homsets.py` to ensure a uniform surface across the
+  entire hierarchy.
 - Method surface separation is strict: a method belongs in the category whose axioms are
   the minimum required for it to be well-defined.
   Ring-theoretic methods must not appear in `Sets`; module-theoretic methods must not
