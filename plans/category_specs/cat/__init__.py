@@ -23,29 +23,46 @@ Cat()
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, final
+from typing import TYPE_CHECKING, Any, ClassVar, final
 
-from sage.categories.category import Category as _SageCategory
-from sage.categories.category import CategoryWithParameters as _SageCategoryWithParameters
-from sage.categories.category_singleton import Category_singleton as _SageCategorySingleton
-from sage.categories.category_types import Category_ideal as _SageCategoryIdeal
-from sage.categories.category_types import Category_module as _SageCategoryModule
-from sage.categories.category_types import Category_over_base as _SageCategoryOverBase
-from sage.categories.category_types import Category_over_base_ring as _SageCategoryOverBaseRing
-from sage.categories.category_with_axiom import CategoryWithAxiom as _SageCategoryWithAxiom
-from sage.categories.category_with_axiom import (
-    CategoryWithAxiom_over_base_ring as _SageCategoryWithAxiomOverBaseRing,
-)
-from sage.categories.category_with_axiom import CategoryWithAxiom_singleton as _SageCategoryWithAxiomSingleton
 from sage.categories.functor import Functor
-from sage.categories.homsets import Homsets as _SageHomsets
-from sage.categories.homsets import HomsetsCategory as _SageHomsetsCategory
 from sage.categories.pushout import ConstructionFunctor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
-from sage.misc.constant_function import ConstantFunction
 from sage.misc.lazy_import import LazyImport
-from sage.structure.dynamic_class import DynamicMetaclass
+
+from .base_category_types import (
+    Category,
+    CategoryWithAxiom,
+    CategoryWithAxiom_over_base_ring,
+    CategoryWithParameters,
+    Category_ideal,
+    Category_module,
+    Category_over_base,
+    Category_over_base_ring,
+    Category_singleton,
+    Homsets,
+    HomsetsCategory,
+    HomsetsOf,
+    _SageCategory,
+    _SageCategoryIdeal,
+    _SageCategoryModule,
+    _SageCategoryOverBase,
+    _SageCategoryOverBaseRing,
+    _SageCategorySingleton,
+    _SageCategoryWithParameters,
+    _SageCategoryWithAxiom,
+    _SageCategoryWithAxiomOverBaseRing,
+    _SageCategoryWithAxiomSingleton,
+    _SageHomsets,
+    _SageHomsetsCategory,
+    _SageHomsetsOf,
+    _register_category_class_from_classcall,
+    _undynamic_category_class,
+)
+
+if TYPE_CHECKING:
+    from ..types import CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets
 
 _REGRESSIVE_CONSTRUCTION_NAMES = (
     "Subobjects",
@@ -55,140 +72,6 @@ _REGRESSIVE_CONSTRUCTION_NAMES = (
     "ObjectsUnder",
     "CartesianProducts",
 )
-
-
-def _undynamic_category_class(category_cls: type) -> type:
-    if isinstance(category_cls, DynamicMetaclass):
-        return category_cls.__base__
-    return category_cls
-
-
-def _register_category_class_from_classcall(category_cls: type[_SageCategory]) -> type[_SageCategory]:
-    category_cls = _undynamic_category_class(category_cls)
-    cat_cls = globals().get("Cat")
-    if cat_cls is not None and issubclass(category_cls, _SageCategory):
-        cat_cls.register_category(category_cls)
-    return category_cls
-
-
-class Category(_SageCategory):
-    r"""Registered re-export of Sage's ``Category`` base class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategory.__classcall__(cls, *args, **options)
-
-
-class CategoryWithParameters(_SageCategoryWithParameters):
-    r"""Registered re-export of Sage's ``CategoryWithParameters`` base class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryWithParameters.__classcall__(cls, *args, **options)
-
-
-class CategoryWithAxiom(_SageCategoryWithAxiom):
-    r"""Registered re-export of Sage's ``CategoryWithAxiom`` base class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryWithAxiom.__classcall__(cls, *args, **options)
-
-    def __init__(self, base_category) -> None:
-        if isinstance(base_category, _SageCategorySingleton) and not isinstance(self, _SageCategoryWithAxiomSingleton):
-            cls = self.__class__
-            assert cls.__base__ in (CategoryWithAxiom, _SageCategoryWithAxiom)
-            cls.__bases__ = (_SageCategoryWithAxiomSingleton,) + cls.__bases__[1:]
-        self._base_category = base_category
-        _SageCategory.__init__(self)
-
-
-class CategoryWithAxiom_over_base_ring(_SageCategoryWithAxiomOverBaseRing):
-    r"""Registered re-export of Sage's base-ring axiom category class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryWithAxiomOverBaseRing.__classcall__(cls, *args, **options)
-
-
-class Category_over_base(_SageCategoryOverBase):
-    r"""Registered re-export of Sage's ``Category_over_base`` class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryOverBase.__classcall__(cls, *args, **options)
-
-
-class Category_over_base_ring(_SageCategoryOverBaseRing):
-    r"""Registered re-export of Sage's ``Category_over_base_ring`` class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryOverBaseRing.__classcall__(cls, *args, **options)
-
-
-class Category_module(_SageCategoryModule):
-    r"""Registered re-export of Sage's module category base class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryModule.__classcall__(cls, *args, **options)
-
-
-class Category_ideal(_SageCategoryIdeal):
-    r"""Registered re-export of Sage's ideal category base class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageCategoryIdeal.__classcall__(cls, *args, **options)
-
-
-class HomsetsCategory(_SageHomsetsCategory):
-    r"""Registered re-export of Sage's homsets functorial category class."""
-
-    @staticmethod
-    def __classcall__(cls, *args, **options):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageHomsetsCategory.__classcall__(cls, *args, **options)
-
-
-class Homsets(_SageHomsets):
-    r"""Registered re-export of Sage's singleton ``Homsets`` category."""
-
-    @staticmethod
-    def __classcall__(cls, *args):
-        cls = _register_category_class_from_classcall(cls)
-        return _SageHomsets.__classcall__(cls, *args)
-
-
-class Category_singleton(_SageCategorySingleton):
-    r"""Registered re-export of Sage's singleton category base class.
-
-    Sage forbids indirect subclasses of ``Category_singleton``.  This wrapper
-    extends its ``__classcall__`` path directly, preserving singleton caching
-    while allowing project categories to inherit from this registered re-export.
-    """
-
-    @staticmethod
-    def __classcall__(cls, *args):
-        cls = _register_category_class_from_classcall(cls)
-        assert (
-            cls.__mro__[1] is Category_singleton
-            or cls.__mro__[1] is _SageCategoryWithAxiomSingleton
-        ), f"{cls} is not a direct subclass of {Category_singleton}"
-        obj = super(_SageCategorySingleton, cls).__classcall__(cls, *args)
-        cls._set_classcall(ConstantFunction(obj))
-        obj.__class__._set_classcall(ConstantFunction(obj))
-        return obj
-
 
 class _CategorySubcategoryMethodMixins:
     r"""Universal ``SubcategoryMethods`` bodies for registered category objects."""
@@ -221,8 +104,32 @@ class _CategorySubcategoryMethodMixins:
         return Cat.construction_class(self, "CartesianProducts").category_of(self)
 
 
+class _GenericCategoryObjectMethods:
+    r"""Baseline methods on objects X of any registered category C."""
+
+    # Object-level hom/end/aut selectors:
+    # for an object X in a category C, X.Hom(Y), X.End(), and X.Aut()
+    # are the parents Hom_C(X, Y), End_C(X), and Aut_C(X). These are
+    # mixed into C.ParentMethods for every category object C registered in Cat.
+
+    @abstract_method
+    def Hom(self, codomain: Any): ...
+
+    def End(self):
+        return self.Hom(self)
+
+    def Aut(self):
+        return self.End().Aut()
+
+
 class _CategoryObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
+
+    # Category-level hom/end/aut selectors:
+    # mathematically, for a category C, C.Hom(), C.End(), and C.Aut()
+    # (currently exposed here as Homsets(), Endsets(), and Autsets())
+    # are categories whose objects are Hom_C(X, Y), End_C(X), and Aut_C(X).
+    # These are not the object-level methods X.Hom(Y), X.End(), and X.Aut().
 
     @abstract_method
     def Subobjects(self) -> Category: ...
@@ -242,7 +149,30 @@ class _CategoryObjectMethods:
     @abstract_method
     def CartesianProducts(self) -> Category: ...
 
-    def _sage_categories(self) -> tuple[Category, ...]:
+    @abstract_method
+    def Homsets(self) -> CategoryOfHomsets: ...
+
+    @cached_method
+    def Endsets(self) -> CategoryOfEndsets:
+        return self.Homsets().Endset()
+
+    @cached_method
+    def Autsets(self) -> CategoryOfAutsets:
+        return self.Homsets().Autset()
+
+    @cached_method
+    def Hom(self) -> CategoryOfHomsets:
+        return self.Homsets()
+
+    @cached_method
+    def End(self) -> CategoryOfEndsets:
+        return self.Endsets()
+
+    @cached_method
+    def Aut(self) -> CategoryOfAutsets:
+        return self.Autsets()
+
+    def _sage_super_categories(self) -> tuple[Category, ...]:
         r"""Return Sage categories this category intentionally extends."""
         return ()
 
@@ -259,7 +189,7 @@ class _CategoryObjectMethods:
 
     def _contains_object(self, candidate: Any) -> bool:
         sage_classes = self._sage_object_classes()
-        if isinstance(candidate, sage_classes) or any(candidate in C for C in self._sage_categories()):
+        if isinstance(candidate, sage_classes) or any(candidate in C for C in self._sage_super_categories()):
             return True
         try:
             category = candidate.category()
@@ -270,6 +200,7 @@ class _CategoryObjectMethods:
     def _contains_morphism(self, candidate: Any) -> bool:
         return isinstance(candidate, self._sage_morphism_classes())
 
+    @final
     def __contains__(self, candidate: Any) -> bool:
         if isinstance(candidate, _SageCategory):
             return self._contains_subcategory(candidate)
@@ -290,22 +221,12 @@ class _CategoryObjectMethods:
     __ge__ = geq
 
 
-class _CategoryElementMethods:
-    r"""Methods on category elements.
-
-    This is intentionally empty until the spec needs category elements distinct
-    from category objects themselves.
-    """
+class _CategoryElementMethods(_GenericCategoryObjectMethods):
+    r"""Baseline methods mixed into ParentMethods of registered categories."""
 
 
 class _CategoryMorphismMethods:
     r"""Methods on morphisms in ``Cat()``, i.e. functors."""
-
-    @abstract_method
-    def domain(self) -> Category: ...
-
-    @abstract_method
-    def codomain(self) -> Category: ...
 
     @abstract_method
     def __call__(self, category: Category) -> Category: ...
@@ -341,7 +262,7 @@ class _CategoryConstructionFunctorMethods(_CategoryMorphismMethods):
     def common_base(self, other_functor: ConstructionFunctor, self_bases, other_bases): ...
 
 
-class Cat(Category_singleton):
+class Cat(_SageCategorySingleton):
     r"""Singleton category whose objects are Sage/project category objects."""
 
     _registered_category_classes: ClassVar[set[type[Category]]] = set()
@@ -358,6 +279,7 @@ class Cat(Category_singleton):
         _SageCategoryIdeal,
         _SageHomsets,
         _SageHomsetsCategory,
+        _SageHomsetsOf,
     )
 
     def __contains__(self, candidate: Any) -> bool:
@@ -390,18 +312,30 @@ class Cat(Category_singleton):
         return None
 
     @cached_method
-    def Homsets(self) -> Category:
+    def Homsets(self) -> CategoryOfHomsets:
         from .homsets import CatHomsets
 
         return CatHomsets.category_of(self)
 
     @cached_method
-    def Endsets(self) -> Category:
+    def Endsets(self) -> CategoryOfEndsets:
         return self.Homsets().Endset()
 
     @cached_method
-    def Autsets(self) -> Category:
+    def Autsets(self) -> CategoryOfAutsets:
         return self.Homsets().Autset()
+
+    @cached_method
+    def Hom(self) -> CategoryOfHomsets:
+        return self.Homsets()
+
+    @cached_method
+    def End(self) -> CategoryOfEndsets:
+        return self.Endsets()
+
+    @cached_method
+    def Aut(self) -> CategoryOfAutsets:
+        return self.Autsets()
 
     @classmethod
     def register_category(
@@ -515,7 +449,10 @@ class Cat(Category_singleton):
             "Coslice",
             "CartesianProducts",
         ):
-            namespace[name] = getattr(_CategorySubcategoryMethodMixins, name)
+            if hasattr(_CategorySubcategoryMethodMixins, name):
+                namespace[name] = getattr(_CategorySubcategoryMethodMixins, name)
+            else:
+                namespace[name] = getattr(_CategoryObjectMethods, name)
 
         namespace["__module__"] = category_cls.__module__
         namespace["__doc__"] = f"Subcategory methods for {category_cls.__name__}, mixed by Cat.register_category."
@@ -535,6 +472,15 @@ class Cat(Category_singleton):
         "category_specs.cat.subcategories.constructions.cartesian_products",
         "_CartesianProducts",
     )
+    _cat_registered_constructions = {
+        "Subobjects": Subobjects,
+        "Quotients": Quotients,
+        "Subquotients": Subquotients,
+        "ObjectsOver": ObjectsOver,
+        "ObjectsUnder": ObjectsUnder,
+        "CartesianProducts": CartesianProducts,
+    }
+
     class Constructors:
         r"""Constructor namespace for category-level entry points.
 

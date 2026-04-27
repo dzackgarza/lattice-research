@@ -2,8 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Matrix, RingElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,30 +40,26 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _TorsionQuadraticModules(Category_over_base_ring):
     r"""Finite ``ZZ``-modules equipped with a torsion quadratic form."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).Torsion(),
             Modules(R).WithForms().Quadratic(),
             Modules(R).FinitelyPresented(),
-        )
+        ]
 
     class ParentMethods:
         @abstract_method
-        def gram_matrix_quadratic(self): ...
+        def gram_matrix_quadratic(self) -> Matrix: ...
 
         @abstract_method
-        def gram_matrix_bilinear(self): ...
+        def gram_matrix_bilinear(self) -> Matrix: ...
 
         @abstract_method
-        def invariants(self): ...
+        def invariants(self) -> tuple[RingElement, ...]: ...
 
         @abstract_method
-        def brown_invariant(self, *args, **kwds): ...
+        def brown_invariant(self) -> RingElement: ...

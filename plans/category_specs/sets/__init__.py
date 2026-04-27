@@ -62,13 +62,13 @@ from __future__ import annotations
 from collections.abc import Callable, Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
-from sage.categories.category import Category
-from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
+from sage.rings.infinity import infinity
 
+from ..cat import Cat, Category, Category_singleton
 from ..utils import refine_category
 from .homsets import SetHomsets
 
@@ -78,20 +78,20 @@ if TYPE_CHECKING:
         CountableSet,
         FiniteSet,
         Group,
-        IntegerRangeBound,
+        InfinityElement,
+        Integer,
+        RealInterval,
         RealNumber,
         RealOpenSet,
-        RealSetComponent,
         RealSubset,
         Ring,
         Set,
         SetAutset,
         SetElement,
-        SetFamily,
         SetEndset,
+        SetFamily,
         SetHomset,
         SetMorphism,
-        SetPredicate,
         Subset,
         SympySet,
     )
@@ -112,9 +112,6 @@ class _SetObjectMethods:
 
     @abstract_method
     def _element_constructor_(self, x: SetElement) -> SetElement: ...
-
-    @abstract_method
-    def _element_constructor_from_element_class(self, *args, **keywords) -> SetElement: ...
 
     @abstract_method
     def is_parent_of(self, element: SetElement) -> bool: ...
@@ -159,15 +156,6 @@ class _SetObjectMethods:
     @abstract_method
     def _sympy_(self) -> SympySet: ...
 
-    @abstract_method
-    def Hom(self, codomain: Set) -> SetHomset: ...
-
-    @abstract_method
-    def End(self) -> SetEndset: ...
-
-    @abstract_method
-    def Aut(self) -> SetAutset: ...
-
 
 class _SetElementMethods:
     r"""Methods on elements of objects in ``Sets()``."""
@@ -176,10 +164,10 @@ class _SetElementMethods:
     def __eq__(self, other: SetElement) -> bool: ...
 
     @abstract_method
-    def __hash__(self) -> int: ...
+    def __hash__(self) -> Integer: ...
 
     @abstract_method
-    def cartesian_product(self, *elements: SetElement) -> SetElement: ...
+    def cartesian_product(self, elements: Sequence[SetElement]) -> SetElement: ...
 
 
 class _SetMorphismMethods:
@@ -240,7 +228,7 @@ class Sets(Category_singleton):
 
     def __contains__(self, S: Any) -> bool:
         match S:
-            case _ if isinstance(S, Category) and S.is_subcategory(self):
+            case _ if S in Cat() and S.is_subcategory(self):
                 return True
             case _ if S in SageSets():
                 return True
@@ -261,101 +249,68 @@ class Sets(Category_singleton):
 
     class SubcategoryMethods:
         @cached_method
-        def Finite(self):
+        def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
         @cached_method
-        def Infinite(self):
+        def Infinite(self) -> Category:
             return self._with_axiom("Infinite")
 
         @cached_method
-        def Countable(self):
+        def Countable(self) -> Category:
             return self._with_axiom("Countable")
 
         @cached_method
-        def Uncountable(self):
+        def Uncountable(self) -> Category:
             return self._with_axiom("Uncountable")
 
         @cached_method
-        def Facade(self):
+        def Facade(self) -> Category:
             return self._with_axiom("Facade")
 
         @cached_method
-        def Topological(self):
+        def Topological(self) -> Category:
             return self._with_axiom("Topological")
 
         @cached_method
-        def Metric(self):
+        def Metric(self) -> Category:
             return self._with_axiom("Metric")
 
         @cached_method
-        def TotallyOrdered(self):
+        def TotallyOrdered(self) -> Category:
             return self._with_axiom("TotallyOrdered")
 
         @cached_method
-        def Graded(self):
+        def Graded(self) -> Category:
             return self._with_axiom("Graded")
 
         @cached_method
-        def GSets(self, acting_group: Group):
+        def GSets(self, acting_group: Group) -> Category:
             from .subcategories.group_actions import _GSets
 
             return _GSets(acting_group, self)
 
         @cached_method
-        def CartesianProducts(self):
-            from sage.categories.cartesian_product import CartesianProductsCategory
-            return CartesianProductsCategory.category_of(self)
-
-        @cached_method
-        def Subquotients(self):
-            from .subcategories.constructions.subquotients import _Subquotients
-
-            return _Subquotients.category_of(self)
-
-        @cached_method
-        def Quotients(self):
-            from .subcategories.constructions.quotients import _Quotients
-            return _Quotients.category_of(self)
-
-        @cached_method
-        def Subobjects(self):
-            from .subcategories.constructions.subobjects import _Subobjects
-            return _Subobjects.category_of(self)
-
-        @cached_method
-        def Subsets(self):
+        def Subsets(self) -> Category:
             return self.Subobjects()
 
         @cached_method
-        def IsomorphicObjects(self):
+        def IsomorphicObjects(self) -> Category:
             from .subcategories.constructions.isomorphic_objects import _IsomorphicObjects
 
             return _IsomorphicObjects.category_of(self)
 
         @cached_method
-        def WithRealizations(self):
+        def WithRealizations(self) -> Category:
             from .subcategories.constructions.with_realizations import _WithRealizations
 
             return _WithRealizations.category_of(self)
 
         @cached_method
-        def Realizations(self):
+        def Realizations(self) -> Category:
             from .subcategories.constructions.realizations import _Realizations
 
             return _Realizations.category_of(self)
-
-        @cached_method
-        def Homsets(self):
-            return SetHomsets()
-
-        @cached_method
-        def Endsets(self):
-            return self.Homsets().Endset()
-
-        @cached_method
-        def Autsets(self):
-            return self.Homsets().Autset()
 
     # ------------------------------------------------------------------
     # Constructors -- named Sage set entry points
@@ -401,10 +356,10 @@ class Sets(Category_singleton):
 
         def IntegerRange(
             self,
-            begin: IntegerRangeBound,
-            end: IntegerRangeBound | None = None,
-            step: IntegerRangeBound = 1,
-            middle_point: IntegerRangeBound | None = None,
+            begin: Integer | InfinityElement,
+            end: Integer | InfinityElement | None = None,
+            step: Integer = 1,
+            middle_point: Integer | None = None,
         ) -> CountableSet:
             r"""Return the integer arithmetic progression determined by the bounds."""
             from sage.sets.integer_range import IntegerRange as SageIR
@@ -437,8 +392,8 @@ class Sets(Category_singleton):
 
             return refine_category(SagePrimes(proof), [Sets(), _PrimesSets()])
 
-        def RealSet(self, intervals: Sequence[RealSetComponent], *, normalized: bool = True) -> RealSubset:
-            r"""Return a real subset represented by interval components."""
+        def RealSet(self, intervals: Sequence[RealInterval], *, normalized: bool = True) -> RealSubset:
+            r"""Return a real subset represented as a finite union of real intervals."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
@@ -566,7 +521,7 @@ class Sets(Category_singleton):
             successors: Callable[[SetElement], Iterable[SetElement]],
             *,
             enumeration: str = "depth",
-            max_depth: float = float("inf"),
+            max_depth: Integer | InfinityElement = infinity,
             post_process: Callable[[SetElement], SetElement] | None = None,
             facade: bool | None = None,
             category: Category | None = None,
@@ -624,7 +579,7 @@ class Sets(Category_singleton):
         def ConditionSet(
             self,
             universe: Set,
-            predicates: Sequence[SetPredicate],
+            predicates: Sequence[Callable[[SetElement], bool]],
             *,
             names: str | tuple[str, ...] | None = None,
             category: Category | None = None,
@@ -666,8 +621,8 @@ class Sets(Category_singleton):
 
         def FiniteSetMaps(
             self,
-            domain: FiniteSet | int,
-            codomain: FiniteSet | int | None = None,
+            domain: FiniteSet | Integer,
+            codomain: FiniteSet | Integer | None = None,
             *,
             action: str = "left",
             category: Category | None = None,
@@ -748,20 +703,7 @@ class Sets(Category_singleton):
         r"""Return the named Sage set constructor collector."""
         return self.__class__._Constructors(self)
 
-    @cached_method
-    def Homsets(self):
-        r"""Return the category of set homsets."""
-        return SetHomsets()
-
-    @cached_method
-    def Endsets(self):
-        r"""Return the category of set endsets."""
-        return self.Homsets().Endset()
-
-    @cached_method
-    def Autsets(self):
-        r"""Return the category of set autsets."""
-        return self.Homsets().Autset()
+    Homsets = SetHomsets
 
     # ------------------------------------------------------------------
     # Axiomatic subcategories and construction categories
@@ -778,6 +720,9 @@ class Sets(Category_singleton):
     Metric = LazyImport("category_specs.topological_spaces", "_MetricSpaces")
     Subquotients = LazyImport("category_specs.sets.subcategories.constructions.subquotients", "_Subquotients")
     Subobjects = LazyImport("category_specs.sets.subcategories.constructions.subobjects", "_Subobjects")
+    ObjectsOver = LazyImport("category_specs.sets.subcategories.constructions.objects_over", "_ObjectsOver")
+    ObjectsUnder = LazyImport("category_specs.sets.subcategories.constructions.objects_under", "_ObjectsUnder")
+    CartesianProducts = LazyImport("category_specs.sets.subcategories.constructions.cartesian_products", "_CartesianProducts")
     Subsets = Subobjects
     Quotients = LazyImport("category_specs.sets.subcategories.constructions.quotients", "_Quotients")
     IsomorphicObjects = LazyImport(

@@ -2,7 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +12,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Matrix, RingElement, RModule, RModuleElement, RModuleMorphism
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,19 +41,15 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FinitelyGeneratedPIDQuotientModules(Category_over_base_ring):
     r"""Sage ``FGP_Module_class`` objects represented as ``V/W`` over a PID."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).FinitelyPresented(),
             Modules(R).OverPID(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.modules.fg_pid.fgp_module import FGP_Module_class
@@ -78,13 +73,18 @@ class _FinitelyGeneratedPIDQuotientModules(Category_over_base_ring):
         def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement: ...
 
         @abstract_method
-        def invariants(self): ...
+        def invariants(self, include_ones: bool = False) -> tuple[RingElement, ...]: ...
 
         @abstract_method
-        def smith_form_gens(self): ...
+        def smith_form_gens(self) -> tuple[RModuleElement, ...]: ...
 
         @abstract_method
-        def hom(self, images, *args, **kwds) -> RModuleMorphism: ...
+        def hom(
+            self,
+            images: RModuleMorphism | Matrix | Sequence[RModuleElement] | Mapping[RModuleElement, RModuleElement],
+            codomain: RModule | None = None,
+            check: bool = True,
+        ) -> RModuleMorphism: ...
 
         @abstract_method
         def V(self) -> RModule: ...

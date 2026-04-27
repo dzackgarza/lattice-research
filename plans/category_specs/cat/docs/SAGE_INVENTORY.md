@@ -1,211 +1,252 @@
 # Cat Sage Inventory
 
-This inventory is the source grounding for the `cat/` subtree. `Cat()` is a
-category of category objects, so the relevant Sage surface is Sage's category
-implementation itself plus Sage's functor and functorial-construction machinery.
+This inventory grounds the `cat/` subtree in Sage's installed category, functor,
+homset, and functorial-construction machinery. It surveys low-level framework
+classes, not the full list of mathematical categories.
 
 Installed Sage source root:
 
 `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/`
 
-## Category Objects
+## Category Base Classes
 
 ### `sage.categories.category.Category`
 
 Source: `category.py`
 
-Relevant methods and signatures:
+Relevant surface:
 
 | Line | Method | Cat use |
 | --- | --- | --- |
+| 131 | `class Category` | Base class for Sage mathematical categories. |
 | 643 | `_subcategory_hook_(self, category)` | Fast path for subcategory checks. |
 | 687 | `__contains__(self, x)` | Sage membership checks `x.category().is_subcategory(self)`. |
-| 1492 | `_make_named_class(self, name, method_provider, cache=False, picklable=True)` | Builds dynamic parent/element/morphism classes from nested method providers. |
+| 1492 | `_make_named_class(...)` | Builds dynamic parent/element/morphism classes from nested method providers. |
 | 1664 | `parent_class(self)` | Exposes `ParentMethods` inheritance for objects in a category. |
 | 1714 | `element_class(self)` | Exposes `ElementMethods` inheritance for elements. |
 | 1765 | `morphism_class(self)` | Exposes `MorphismMethods` inheritance for morphisms. |
 | 1788 | `required_methods(self)` | Reports required and optional abstract parent/element methods. |
-| 1803 | `is_subcategory(self, c)` | Sage's category-order predicate: natural forgetful functor from `self` to `c`. |
+| 1803 | `is_subcategory(self, c)` | Sage's category-order predicate. |
 | 2089 | `_with_axiom(self, axiom)` | Constructs axiom subcategories. |
-| 2125 | `_with_axioms(self, axioms)` | Constructs multiple axiom subcategories. |
-| 2332 | `join(categories, as_list=False, ignore_axioms=(), axioms=())` | Join/intersection operation in the category lattice. |
-| 2536 | `category(self)` | Sage currently places category objects in `Objects()`. |
+| 2332 | `join(categories, ...)` | Join/intersection operation in the category lattice. |
+| 2536 | `category(self)` | Installed Sage places category objects in `Objects()`. |
 
-Consequence for `cat/`: `Cat.ParentMethods` is the right place to declare the
-uniform containment hooks that later categories should inherit or copy:
-`_sage_super_categories`, `_sage_object_classes`, `_sage_morphism_classes`, and
-`__contains__`.
+### `sage.categories.category.CategoryWithParameters`
+
+Source: `category.py`, line 2717.
+
+Relevant methods: `_make_named_class`, `_make_named_class_key`, `_cmp_key`,
+`_subcategory_hook_`.
+
+Use: base for parameterized category classes whose generated classes depend on
+parameters such as base rings.
+
+### `sage.categories.category.JoinCategory`
+
+Source: `category.py`, line 3004.
+
+Relevant methods: `super_categories`, `additional_structure`, `_subcategory_hook_`,
+`is_subcategory`, `_with_axiom`, `_without_axiom`, `_repr_object_names`, `_repr_`.
+
+Use: Sage's category lattice join object.
 
 ### `sage.categories.category_singleton.Category_singleton`
 
-Source: `category_singleton.py`
+Source: `category_singleton.py`.
 
-Use: base class for singleton category objects such as `Cat()`.
+Relevant methods: `__classcall__`, `__contains__`.
+
+Use: singleton base for categories such as `Cat()`, `Sets()`, and `Rings()`.
+
+### `sage.categories.category_with_axiom`
+
+Relevant classes:
+
+| Class | Source line | Relevant methods |
+| --- | --- | --- |
+| `CategoryWithAxiom` | 1861 | `_base_category_class_and_axiom`, `_axiom`, `__classcall__`, `__classget__`, `extra_super_categories`, `super_categories`, `base_category`, `axioms` |
+| `CategoryWithAxiom_over_base_ring` | 2504 | Base-ring axiom category class. |
+| `CategoryWithAxiom_singleton` | 2528 | Singleton axiom category class. |
+
+Use: axiom restrictions such as `Finite`, `Endset`, and base-ring variants.
+
+### `sage.categories.category_types`
+
+Relevant classes:
+
+| Class | Source line | Relevant methods |
+| --- | --- | --- |
+| `Category_over_base` | 148 | `base`, `_make_named_class_key`, `_repr_object_names`, `_latex_` |
+| `Category_over_base_ring` | 348 | `base_ring`, `_subcategory_hook_`, `__contains__` |
+| `Category_module` | 578 | Module-category base marker. |
+| `Category_ideal` | 582 | `an_instance`, `ring`, `__contains__`, `__call__` |
+
+Use: base-object and base-ring category families.
+
+## Category-Object Runtime Facts
+
+Installed Sage category instances such as `Sets()`, `Rings()`, and `Modules(ZZ)`
+report `category() == Objects()`. Sage gives category-object navigation such as
+`Homsets()` and `Endsets()` through generated category classes, not by making
+category objects ordinary parents of a separate `Cat` category.
+
+Consequence for this subtree: `Cat.ParentMethods` is the canonical specification
+surface, and `Cat.register_category` adapts that surface into Sage's category-object
+method path for registered project categories.
 
 ## Functors
 
 ### `sage.categories.functor.Functor`
 
-Source: `functor.pyx`
+Source: `functor.pyx`.
 
-Relevant methods and signatures:
+Relevant methods:
 
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 63 | `cdef class Functor(SageObject)` | Base class for functors between categories. |
-| 164 | `__init__(self, domain, codomain)` | Domain and codomain must be Sage `Category` instances. |
-| 216 | `_apply_functor(self, x)` | Object-level functor action; subclasses should override. |
-| 235 | `_apply_functor_to_morphism(self, f)` | Morphism-level functor action; default builds induced hom. |
-| 272 | `_coerce_into_domain(self, x)` | Domain membership/coercion hook. |
-| 320 | `__call__(self, x)` | Dispatches to morphism action or object action, then checks codomain. |
-| 389 | `domain(self)` | Source category. |
-| 401 | `codomain(self)` | Target category. |
-| 451 | `ForgetfulFunctor_generic(Functor)` | Sage's forgetful functor class. |
-| 541 | `IdentityFunctor_generic(ForgetfulFunctor_generic)` | Sage's identity functor class. |
-| 626 | `IdentityFunctor(C)` | Public identity-functor constructor. |
-| 646 | `ForgetfulFunctor(domain, codomain)` | Public forgetful-functor constructor; requires subcategory relation. |
+| Method | Cat use |
+| --- | --- |
+| `__init__(self, domain, codomain)` | Domain and codomain are Sage `Category` instances. |
+| `_apply_functor(self, x)` | Object-level functor action. |
+| `_apply_functor_to_morphism(self, f)` | Morphism-level functor action. |
+| `_coerce_into_domain(self, x)` | Domain membership/coercion hook. |
+| `__call__(self, x)` | Dispatches to object or morphism action and checks codomain. |
+| `domain(self)` | Source category. |
+| `codomain(self)` | Target category. |
 
-Consequence for `cat/`: functors are morphism-like objects in `Cat()`. The
-spec mirrors Sage's `_coerce_into_domain`, `_apply_functor`,
-`_apply_functor_to_morphism`, `domain`, `codomain`, and `__call__` hooks.
+Installed subclasses and constructors:
+
+| Class or constructor | Cat use |
+| --- | --- |
+| `ForgetfulFunctor_generic` | Concrete forgetful functors. |
+| `IdentityFunctor_generic` | Identity functors. |
+| `IdentityFunctor(C)` | Public identity-functor constructor. |
+| `ForgetfulFunctor(domain, codomain)` | Public forgetful-functor constructor for subcategory relations. |
+
+Consequence for `cat/`: functors are elements of `A.Hom(B)`, not objects of
+`Cat()`.
 
 ### `sage.categories.pushout.ConstructionFunctor`
 
-Source: `pushout.py`
+Source: `pushout.py`, line 45.
 
-Relevant methods and signatures:
+Relevant methods: `__mul__`, `pushout`, `__eq__`, `__hash__`, `_repr_`, `merge`,
+`commutes`, `expand`, `common_base`, `_raise_common_base_exception_`, and the
+`coercion_reversed` flag.
 
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 45 | `class ConstructionFunctor(Functor)` | Construction functors are functors with coercion/pushout rules. |
-| 128 | `__mul__(self, other)` | Composition in functorial notation. |
-| 163 | `pushout(self, other)` | Rank-ordered composition for construction towers. |
-| 187 | `__eq__(self, other)` | Mathematical-equivalence comparison, usually refined in subclasses. |
-| 223 | `__hash__(self)` | Hash by representation. |
-| 239 | `_repr_(self)` | Default construction-functor representation. |
-| 259 | `merge(self, other) -> Self | None` | Combines compatible construction functors. |
-| 284 | `commutes(self, other)` | Rank-tie commutation hook. |
-| 309 | `expand(self)` | Decomposes composite constructions. |
-| 333 | `coercion_reversed = False` | Direction flag used by coercion/pushout logic. |
-| 335 | `common_base(self, other_functor, self_bases, other_bases)` | Last-resort common-base hook. |
-| 378 | `_raise_common_base_exception_(...)` | Standard coercion error path. |
+### `sage.categories.pushout.CompositeConstructionFunctor`
 
-Consequence for `cat/`: construction functors are a distinguished morphism
-surface, but they are still Sage `Functor` instances. `Cat()` records the extra
-pushout/merge/commutation methods without rebuilding Sage's coercion model.
+Source: `pushout.py`, line 419.
+
+Relevant methods: `_apply_functor_to_morphism`, `_apply_functor`, `__eq__`,
+`__hash__`, `__mul__`, `_repr_`, and `expand`.
+
+Consequence for `cat/`: construction functors are a specialized functor surface, not
+a separate kind of category object.
 
 ## Functorial Construction Categories
 
 ### `sage.categories.covariant_functorial_construction.FunctorialConstructionCategory`
 
-Source: `covariant_functorial_construction.py`
+Source: `covariant_functorial_construction.py`, line 231.
 
-Relevant methods:
+Relevant methods: `_base_category_class`, `__classcall__`, `__classget__`,
+`category_of`, `base_category`, `extra_super_categories`, `super_categories`,
+`_repr_object_names`, and `_latex_`.
 
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 231 | `class FunctorialConstructionCategory(Category)` | Abstract base for categories `F_Cat`. |
-| 238 | `_base_category_class(cls)` | Recovers the base category class for non-nested constructions. |
-| 298 | `__classcall__(cls, category=None, *args)` | Makes `F(C)` a shorthand for `C.F()`. |
-| 328 | `__classget__(cls, base_category, base_category_class)` | Descriptor hook for nested construction categories. |
-| 389 | `category_of(cls, category, *args)` | Canonical construction-category entry point. |
-| 423 | `__init__(self, category, *args)` | Stores `base_category` and construction arguments. |
-| 447 | `base_category(self)` | Returns the source category. |
-| 462 | `extra_super_categories(self)` | Additional construction-specific supers. |
-| 477 | `super_categories(self)` | Joins defaults with extra supers. |
-| 492 | `_repr_object_names(self)` | Standard representation. |
-| 501 | `_latex_(self)` | Standard LaTeX representation. |
+### `CovariantConstructionCategory`
 
-### `CovariantConstructionCategory` and `RegressiveCovariantConstructionCategory`
+Source: `covariant_functorial_construction.py`, line 516.
 
-Source: `covariant_functorial_construction.py`
+Relevant methods: `default_super_categories`, `is_construction_defined_by_base`,
+and `additional_structure`.
 
-Relevant methods:
+### `RegressiveCovariantConstructionCategory`
 
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 516 | `class CovariantConstructionCategory(FunctorialConstructionCategory)` | Base for covariant construction categories. |
-| 523 | `default_super_categories(cls, category, *args)` | Joins constructions on supercategories of `category`. |
-| 592 | `is_construction_defined_by_base(self)` | Detects whether the base category defines the construction. |
-| 629 | `additional_structure(self) -> Self | None` | Determines whether the construction adds structure. |
-| 662 | `class RegressiveCovariantConstructionCategory(CovariantConstructionCategory)` | Base for constructions whose objects remain in the base category. |
-| 669 | `default_super_categories(cls, category, *args)` | Adds the base category itself to the construction's supercategories. |
+Source: `covariant_functorial_construction.py`, line 662.
 
-Consequence for `cat/`: standard category constructions should use
-`category_of(...)` entry points. Subobjects, quotients, subquotients, objects over,
-objects under, and Cartesian products should not use ad hoc category factories.
+Relevant method: `default_super_categories`.
+
+Consequence for `cat/`: standard constructions should use `category_of(...)` entry
+points instead of ad hoc factories.
 
 ## Standard Construction Categories
 
-### `sage.categories.subobjects.SubobjectsCategory`
-
-Source: `subobjects.py`
-
-Relevant surface:
-
-| Line | Method | Cat use |
+| Sage class | Source | Relevant surface |
 | --- | --- | --- |
-| 20 | `class SubobjectsCategory(RegressiveCovariantConstructionCategory)` | Base for `C.Subobjects()`. |
-| 25 | `default_super_categories(cls, category)` | Joins `category.Subquotients()` with regressive defaults. |
+| `SubobjectsCategory` | `subobjects.py:20` | Base for `C.Subobjects()`; default supers join `C.Subquotients()`. |
+| `QuotientsCategory` | `quotients.py:20` | Base for `C.Quotients()`; default supers join `C.Subquotients()`. |
+| `SubquotientsCategory` | `subquotients.py:19` | Base for `C.Subquotients()`. |
+| `CartesianProductsCategory` | `cartesian_product.py:226` | Base for `C.CartesianProducts()`; includes product repr and idempotence. |
 
-### `sage.categories.quotients.QuotientsCategory`
-
-Source: `quotients.py`
-
-Relevant surface:
-
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 20 | `class QuotientsCategory(RegressiveCovariantConstructionCategory)` | Base for `C.Quotients()`. |
-| 25 | `default_super_categories(cls, category)` | Joins `category.Subquotients()` with regressive defaults. |
-
-### `sage.categories.subquotients.SubquotientsCategory`
-
-Source: `subquotients.py`
-
-Relevant surface:
-
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 19 | `class SubquotientsCategory(RegressiveCovariantConstructionCategory)` | Base for `C.Subquotients()`. |
-
-### `sage.categories.cartesian_product.CartesianProductsCategory`
-
-Source: `cartesian_product.py`
-
-Relevant surface:
-
-| Line | Method | Cat use |
-| --- | --- | --- |
-| 226 | `class CartesianProductsCategory(CovariantConstructionCategory)` | Base for `C.CartesianProducts()`. |
-| 243 | `_repr_object_names(self)` | Standard names for Cartesian-product categories. |
-| 253 | `CartesianProducts(self) -> Self` | Idempotence by associativity of products. |
-| 269 | `base_ring(self)` | Delegates base ring to the underlying category. |
+## Homsets And Endsets
 
 ### `sage.categories.homsets.HomsetsCategory`
 
-Source: `homsets.py`
+Source: `homsets.py`, line 19.
 
-Relevant surface:
+Relevant methods:
 
 | Line | Method | Cat use |
 | --- | --- | --- |
-| 19 | `class HomsetsCategory(FunctorialConstructionCategory, CategoryWithParameters)` | Base for `C.Homsets()`. |
-| 24 | `default_super_categories(cls, category)` | Uses full supercategories, nested homsets, or a `HomsetsOf` fallback. |
+| 24 | `default_super_categories(cls, category)` | Computes homset-category supers; falls back to `HomsetsOf`. |
 | 123 | `_test_homsets_category(self, **options)` | Generic homsets-category test. |
-| 141 | `base(self)` | Finds base object for based hom categories. |
-| 158 | `_make_named_class_key(self, name)` | Keys named classes by the base category's corresponding class. |
+| 141 | `base(self)` | Finds a base object for based hom categories. |
+| 158 | `_make_named_class_key(self, name)` | Keys generated classes by the base category's corresponding class. |
 
-Consequence for `cat/`: `CatHomsets` is a small wrapper around functor homsets.
-It should stay compatible with the repository's generic `homsets/` vocabulary, but
-it must not pretend Sage has a separate upstream `Autsets` category.
+### `sage.categories.homsets.HomsetsOf`
+
+Source: `homsets.py`, line 175.
+
+Relevant methods: `_repr_object_names`, `super_categories`.
+
+Use: Sage's fallback category for homsets of a category that does not define its own
+homset category.
+
+### `sage.categories.homsets.Homsets`
+
+Source: `homsets.py`, line 239.
+
+Relevant surface:
+
+- `super_categories()` returns `[Sets()]`.
+- `SubcategoryMethods.Endset()` returns the `Endset` axiom.
+- nested `Endset` begins at line 299 and adds monoid structure.
+- `Homsets.ParentMethods.is_endomorphism_set()` tests whether a homset has equal
+  domain and codomain.
+
+### `sage.categories.homset`
+
+Relevant surface:
+
+| Line | Item | Cat use |
+| --- | --- | --- |
+| 498 | `End(X, category=None)` | Public endomorphism-set constructor. |
+| 580 | `class Homset` | Parent class for morphism collections. |
+| 611 | `Homset.__init__(X, Y, category=None, base=None, check=True)` | Stores domain/codomain and assigns `category.Endsets()` when `X is Y`. |
+| 1316 | `is_Endset(x)` | Deprecated; use `isinstance(..., Homset)` plus `is_endomorphism_set()`. |
+
+Consequence for `cat/`: `Cat` reuses Sage's `Hom`/`End` constructors and
+`Homset` parent. The local subtree defines the homset category surface, not a
+separate Cat-only homset parent.
+
+## Autsets
+
+- Searched: installed `sage/categories/homsets.py`, installed
+  `sage/categories/homset.py`, official Sage documentation pages for category and
+  homset machinery, and local `category_specs/homsets/__init__.py`.
+- Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`,
+  `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage `Autset`
+  category class.
+- Conclusion: inference -- project `Autset` vocabulary is a local extension over
+  Sage's generic homset layer.
+- Confidence: High.
+- Gaps: I did not search Sage's full git history or third-party Sage extensions.
 
 ## Local Cat Files
 
 | File | Purpose |
 | --- | --- |
-| `cat/__init__.py` | Declares `Cat()`, uniform containment hooks, construction navigation, and functor surfaces. |
-| `cat/homsets.py` | Declares functor homsets, endofunctor sets, autofunctor sets, and construction-functor method surface. |
+| `cat/__init__.py` | Declares `Cat()`, registered Sage category bases, category-object methods, and construction navigation. |
+| `cat/homsets.py` | Declares the `Cat().Homsets()` category refinement and functor method surfaces. |
 | `cat/subcategories/constructions/subobjects.py` | Category-level subobjects: subcategories. |
 | `cat/subcategories/constructions/quotients.py` | Category-level quotients. |
 | `cat/subcategories/constructions/subquotients.py` | Category-level subquotients. |

@@ -123,15 +123,15 @@ class _NumberFields(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
-        def QuadraticNumberField(self):
+        def QuadraticNumberField(self) -> Category:
             return self._with_axiom("QuadraticNumberField")
 
         @cached_method
-        def Quadratic(self):
+        def Quadratic(self) -> Category:
             return self.QuadraticNumberField()
 
         @cached_method
-        def Cyclotomic(self):
+        def Cyclotomic(self) -> Category:
             return self._with_axiom("Cyclotomic")
 
     class ParentMethods:
@@ -187,21 +187,21 @@ class _NumberFields(CategoryWithAxiom):
         def power_basis(self) -> tuple[RingElement, ...]: ...
 
         @abstract_method
-        def reduced_basis(self, prec: Integer | int | None = None) -> tuple[RingElement, ...]: ...
+        def reduced_basis(self, prec: Integer | None = None) -> tuple[RingElement, ...]: ...
 
         @abstract_method
         def different(self) -> Ideal: ...
 
         @abstract_method
         def places(
-            self, all_complex: bool = False, prec: Integer | int | None = None
+            self, all_complex: bool = False, prec: Integer | None = None
         ) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
-        def real_embeddings(self, prec: Integer | int = 53) -> tuple[RingMorphism, ...]: ...
+        def real_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
-        def complex_embeddings(self, prec: Integer | int = 53) -> tuple[RingMorphism, ...]: ...
+        def complex_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
         def roots_of_unity(self) -> list[RingElement]: ...
@@ -219,10 +219,10 @@ class _NumberFields(CategoryWithAxiom):
         def conductor(self, check_abelian: bool = True) -> Integer: ...
 
         @abstract_method
-        def prime_above(self, x: RingElement, degree: Integer | int | None = None) -> PrimeIdeal: ...
+        def prime_above(self, x: RingElement, degree: Integer | None = None) -> PrimeIdeal: ...
 
         @abstract_method
-        def primes_above(self, x: RingElement, degree: Integer | int | None = None) -> list[PrimeIdeal]: ...
+        def primes_above(self, x: RingElement, degree: Integer | None = None) -> list[PrimeIdeal]: ...
 
         @abstract_method
         def S_units(self, S: Sequence[PrimeIdeal], proof: bool = True) -> list[RingElement]: ...

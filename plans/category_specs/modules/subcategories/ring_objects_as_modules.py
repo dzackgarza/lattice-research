@@ -2,8 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Ring, RingMorphism, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,10 +40,6 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _RingObjectsAsModules(Category_over_base_ring):
     r"""Ring objects regarded as modules over their structure ring."""
 
@@ -55,10 +49,10 @@ class _RingObjectsAsModules(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def structure_ring(self): ...
+        def structure_ring(self) -> Ring: ...
 
         @abstract_method
-        def structure_map(self, *args, **kwds): ...
+        def structure_map(self) -> RingMorphism: ...
 
         @abstract_method
-        def module_generators(self, *args, **kwds): ...
+        def module_generators(self) -> tuple[RModuleElement, ...]: ...

@@ -16,7 +16,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
     _functor_category = "RingsOver"
 
     @classmethod
-    def default_super_categories(cls, category, ambient):
+    def default_super_categories(cls, category: Category, ambient: Ring):
         from ... import Rings
 
         return Category.join(
@@ -26,7 +26,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
             ]
         )
 
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return f"rings over {self.base_ring()}"
 
     class ParentMethods:

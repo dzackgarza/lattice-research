@@ -15,26 +15,18 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 from . import Category
+from ..homsets import AutsetsOf, EndsetsOf, HomsetsOf
 
 
 class _CatHomsetObjectMethods:
     @abstract_method
-    def domain(self) -> Category: ...
-
-    @abstract_method
-    def codomain(self) -> Category: ...
+    def __call__(self, functor: Functor) -> Functor: ...
 
     @abstract_method
     def __contains__(self, functor: Any) -> bool: ...
 
 
 class _CatFunctorMethods:
-    @abstract_method
-    def domain(self) -> Category: ...
-
-    @abstract_method
-    def codomain(self) -> Category: ...
-
     @abstract_method
     def __call__(self, category: Category) -> Category: ...
 
@@ -68,58 +60,55 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
 
 
 class _CatEndofunctorMethods(_CatFunctorMethods):
-    @abstract_method
-    def fixed_points(self) -> Category: ...
+    def is_endofunctor(self) -> bool:
+        return self.domain() == self.codomain()
 
 
 class _CatAutofunctorMethods(_CatEndofunctorMethods):
-    @abstract_method
-    def inverse(self) -> Functor: ...
+    def is_autofunctor(self) -> bool:
+        return True
 
 
-class CatHomsets(Category):
+class CatHomsets(HomsetsOf):
     r"""Homsets of functors between categories."""
 
     def __init__(self, base_category: Category) -> None:
-        Category.__init__(self)
-        self._base_category = base_category
+        super().__init__(base_category)
 
     @classmethod
     def category_of(cls, base_category: Category) -> CatHomsets:
         return cls(base_category)
-
-    def base_category(self) -> Category:
-        return self._base_category
-
-    def super_categories(self) -> list[Category]:
-        return []
 
     def _repr_object_names(self) -> str:
         return f"functor homsets internal to {self.base_category()}"
 
     @cached_method
     def Endset(self) -> Category:
-        return CatEndsets.category_of(self.base_category())
+        return _CatEndsets(self.base_category())
 
     @cached_method
     def Autset(self) -> Category:
-        return CatAutsets.category_of(self.base_category())
+        return _CatAutsets(self.base_category())
 
     ParentMethods = _CatHomsetObjectMethods
     ElementMethods = _CatFunctorMethods
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
 
 
-class CatEndsets(CatHomsets):
+class _CatEndsets(EndsetsOf):
     r"""Endofunctor sets of a category."""
 
     def _repr_object_names(self) -> str:
         return f"endofunctor sets internal to {self.base_category()}"
 
+    @cached_method
+    def Autset(self) -> Category:
+        return _CatAutsets(self.base_category())
+
     ElementMethods = _CatEndofunctorMethods
 
 
-class CatAutsets(CatEndsets):
+class _CatAutsets(AutsetsOf):
     r"""Autofunctor sets of a category."""
 
     def _repr_object_names(self) -> str:

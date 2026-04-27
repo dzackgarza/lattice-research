@@ -13,9 +13,23 @@ category-spec hierarchy. It is not a history of deleted files.
 
 Constructor signatures must follow Sage's documented input shapes. `PowerSeriesRing`,
 `LaurentSeriesRing`, `PuiseuxSeriesRing`, and `MatrixRing` expose their structured
-parameters directly. `PolynomialRing` remains variadic because Sage's own constructor
-documents several mutually incompatible positional forms and explicitly records that
-signature as not sensibly expressible by ordinary Python parameters.
+parameters directly. `PolynomialRing` exposes Sage's finite variable-specification
+casework as overloads: `name`, `names`, `var_array`, and the names-external `n` form.
+The implementation may delegate to Sage's variadic factory, but the spec surface is
+closed to the documented parameters: `base_ring`, `n`, `name`, `names`, `var_array`,
+`sparse`, `order`, and `implementation`.
+
+## Signature Typing Decisions
+
+Ring dimensions, generator indices, generator counts, precisions, p-adic print bounds,
+orders, degrees, and multiplicities are Sage integer quantities. The spec uses
+`Integer` from `types.py` instead of accepting both native Python `int` and
+`Integer`. Constructor bodies may still pass these values to Sage's factories, but the
+category-spec surface is mathematically typed.
+
+Matrix-ring diagonal construction takes a sequence of ring elements. The previous
+`Any` surface hid the mathematical input: diagonal entries form an ordered finite
+family in the base ring.
 
 ## Subcategory Layout
 

@@ -2,8 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Literal
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Integer, Matrix, Polyhedron, RealNumber, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,34 +40,55 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _IntegerLattices(Category_over_base_ring):
     r"""Sage integer lattices, including LLL/BKZ-backed lattice methods."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).Subobjects(),
             Modules(R).WithOrderedGeneratingSet(),
             Modules(R).OverPID(),
             Modules(R).WithForms().Bilinear(),
-        )
+        ]
 
     class ParentMethods:
         @abstract_method
-        def gram_matrix(self): ...
+        def gram_matrix(self) -> Matrix: ...
 
         @abstract_method
-        def LLL(self, *args, **kwds): ...
+        def LLL(
+            self,
+            delta: RealNumber | None = None,
+            eta: RealNumber | None = None,
+            algorithm: str = "fpLLL:wrapper",
+            fp: str | None = None,
+            prec: Integer = 0,
+            early_red: bool = False,
+            use_givens: bool = False,
+            use_siegel: bool = False,
+            transformation: bool = False,
+        ) -> Matrix: ...
 
         @abstract_method
-        def BKZ(self, *args, **kwds): ...
+        def BKZ(
+            self,
+            delta: RealNumber | None = None,
+            algorithm: str = "fpLLL",
+            fp: str | None = None,
+            block_size: Integer = 10,
+            prune: Integer = 0,
+            use_givens: bool = False,
+            precision: Integer = 0,
+            proof: bool | None = None,
+        ) -> Matrix: ...
 
         @abstract_method
-        def shortest_vector(self, *args, **kwds): ...
+        def shortest_vector(
+            self,
+            update_reduced_basis: bool = True,
+            algorithm: Literal["fplll", "pari"] = "fplll",
+        ) -> RModuleElement: ...
 
         @abstract_method
-        def voronoi_cell(self, *args, **kwds): ...
+        def voronoi_cell(self, radius: RealNumber | None = None) -> Polyhedron: ...

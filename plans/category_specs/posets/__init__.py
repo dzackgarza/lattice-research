@@ -4,8 +4,11 @@ Subcategory hierarchy::
 
     Posets()
     |-- Finite()
-    `-- Lattice()
-        `-- Finite()
+    |-- Lattice()
+    |   `-- Finite()
+    `-- Homsets()
+        |-- Endset()
+        `-- Autset()
 
 The root category specifies sets equipped with a partial order. Lattice posets
 are order-theoretic meet/join lattices, not module lattices.
@@ -16,13 +19,14 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import TYPE_CHECKING, Any, final
 
-from sage.categories.category import Category
 from sage.categories.posets import Posets as SagePosets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
+from ..cat import Cat, Category
 from ..sets import Sets
+from .homsets import PosetHomsets
 
 if TYPE_CHECKING:
     from ..types import PosetElement, PosetMorphism, PosetSubset
@@ -152,7 +156,7 @@ class Posets(Category):
 
     def __contains__(self, obj: Any) -> bool:
         match obj:
-            case _ if isinstance(obj, Category) and obj.is_subcategory(self):
+            case _ if obj in Cat() and obj.is_subcategory(self):
                 return True
             case _ if obj in SagePosets():
                 return True
@@ -165,17 +169,30 @@ class Posets(Category):
 
     class SubcategoryMethods:
         @cached_method
-        def Finite(self):
+        def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
         @cached_method
-        def Lattice(self):
+        def Lattice(self) -> Category:
             from .subcategories.lattice import _LatticePosets
 
             return _LatticePosets()
 
+        @cached_method
+        def Homsets(self) -> Category:
+            return PosetHomsets.category_of(self)
+
+        @cached_method
+        def Endsets(self) -> Category:
+            return self.Homsets().Endset()
+
+        @cached_method
+        def Autsets(self) -> Category:
+            return self.Homsets().Autset()
+
     Finite = LazyImport("category_specs.posets.subcategories.finite", "_FinitePosets")
     Lattice = LazyImport("category_specs.posets.subcategories.lattice", "_LatticePosets")
+    Homsets = PosetHomsets
 
     ParentMethods = _PosetParentMethods
     ElementMethods = _PosetElementMethods

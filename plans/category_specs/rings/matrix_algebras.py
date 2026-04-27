@@ -13,7 +13,9 @@ from ..modules import Modules
 from .subcategories.constructions.parameterized import _Category_over_base_integer_pair
 
 if TYPE_CHECKING:
-    from ..types import MatrixEntryOrder, Ring, RingElement
+    from collections.abc import Sequence
+
+    from ..types import FreeModule, Matrix, MatrixSpace, Ring, RingElement
 
 
 class _MatrixAlgebras(_Category_over_base_integer_pair):
@@ -24,8 +26,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
     """
 
     def __init__(self, base_ring: Ring, n: Integer, m: Integer):
-        if Integer(n) != Integer(m):
-            raise ValueError("matrix rings require square matrix spaces")
+        assert Integer(n) == Integer(m), "matrix rings require square matrix spaces"
         super().__init__(base_ring, n, m)
 
     def _repr_object_names(self) -> str:
@@ -70,22 +71,36 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def dims(self) -> tuple[Integer, Integer]: ...
 
         @abstract_method
-        def matrix(self, *args, **kwds) -> RingElement: ...
+        def matrix(
+            self,
+            x: Matrix | RingElement | Sequence[RingElement] | Sequence[Sequence[RingElement]] | None = None,
+            *,
+            coerce: bool = True,
+        ) -> RingElement: ...
 
         @abstract_method
         def rank(self) -> Integer: ...
 
         @abstract_method
-        def echelon_form(self, *args, **kwds): ...
+        def echelon_form(
+            self,
+            algorithm: str | None = "default",
+            cutoff: Integer = Integer(0),
+            height_guess: Integer | None = None,
+            proof: bool | None = None,
+            include_zero_rows: bool = True,
+            transformation: bool = False,
+            D: RingElement | None = None,
+        ) -> RingElement | tuple[RingElement, RingElement]: ...
 
         @abstract_method
-        def column_space(self): ...
+        def column_space(self) -> FreeModule: ...
 
         @abstract_method
-        def row_space(self): ...
+        def row_space(self) -> FreeModule: ...
 
         @abstract_method
-        def diagonal_matrix(self, entries: Any) -> RingElement: ...
+        def diagonal_matrix(self, entries: Sequence[RingElement]) -> RingElement: ...
 
         @abstract_method
         def identity_matrix(self) -> RingElement: ...
@@ -94,13 +109,18 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def zero_matrix(self) -> RingElement: ...
 
         @abstract_method
-        def matrix_space(self, nrows=None, ncols=None, sparse=False): ...
+        def matrix_space(
+            self,
+            nrows: Integer | None = None,
+            ncols: Integer | None = None,
+            sparse: bool = False,
+        ) -> MatrixSpace: ...
 
         @abstract_method
         def from_vector(
             self,
             vector: RingElement,
-            order: MatrixEntryOrder = None,
+            order: Sequence[tuple[Integer, Integer]] | None = None,
             coerce: bool = True,
         ) -> RingElement: ...
 

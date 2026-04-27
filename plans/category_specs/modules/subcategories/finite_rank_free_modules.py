@@ -12,8 +12,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Integer, ModuleBasis, RModMorphism, RModule, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,19 +41,15 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FiniteRankFreeModules(Category_over_base_ring):
     r"""Basis-free finite-rank free modules for tensor calculus."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).Free().FiniteRank(),
             Modules(R).FinitelyPresented(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
@@ -63,25 +58,46 @@ class _FiniteRankFreeModules(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def rank(self): ...
+        def rank(self) -> Integer: ...
 
         @abstract_method
-        def basis(self, *args, **kwds): ...
+        def basis(
+            self,
+            symbol: str | Sequence[str],
+            latex_symbol: str | Sequence[str] | None = None,
+            from_family: Sequence[RModuleElement] | None = None,
+            indices: Sequence[Integer] | None = None,
+            latex_indices: Sequence[str] | None = None,
+            symbol_dual: str | Sequence[str] | None = None,
+            latex_symbol_dual: str | Sequence[str] | None = None,
+        ) -> ModuleBasis: ...
 
         @abstract_method
-        def bases(self): ...
+        def bases(self) -> list[ModuleBasis]: ...
 
         @abstract_method
-        def default_basis(self): ...
+        def default_basis(self) -> ModuleBasis: ...
 
         @abstract_method
-        def set_default_basis(self, basis): ...
+        def set_default_basis(self, basis: ModuleBasis) -> None: ...
 
         @abstract_method
-        def tensor_module(self, k, l, *args, **kwds): ...
+        def tensor_module(
+            self,
+            k: Integer,
+            l: Integer,
+            *,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> RModule: ...
 
         @abstract_method
-        def exterior_power(self, p): ...
+        def exterior_power(self, p: Integer) -> RModule: ...
 
         @abstract_method
-        def alternating_form(self, degree, name=None, latex_name=None): ...
+        def alternating_form(
+            self,
+            degree: Integer,
+            name: str | None = None,
+            latex_name: str | None = None,
+        ) -> RModMorphism: ...

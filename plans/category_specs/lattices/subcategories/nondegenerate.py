@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     pass
 
 from plans.category_specs.modules.subcategories.axiomatic import _BilinearModules
-from plans.category_specs.types import RModuleElement, SubModule
+from plans.category_specs.types import SubModule
 
 
 class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):

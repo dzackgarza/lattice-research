@@ -10,7 +10,7 @@ from sage.categories.finite_posets import FinitePosets as SageFinitePosets
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import PosetElement, PosetMorphism, PosetSubset
+    from ...types import FiniteLatticePoset, Poset, PosetElement, PosetMorphism, PosetSubset
 
 from .. import Posets
 
@@ -25,12 +25,12 @@ class _FinitePosets(CategoryWithAxiom):
 
     class ParentMethods:
         @abstract_method
-        def is_poset_morphism(self, f: PosetMorphism, codomain) -> bool:
+        def is_poset_morphism(self, f: PosetMorphism, codomain: Poset) -> bool:
             r"""Return whether ``f`` is order-preserving into ``codomain``."""
             ...
 
         @abstract_method
-        def order_ideals_lattice(self, facade: bool = True):
+        def order_ideals_lattice(self, facade: bool = True) -> FiniteLatticePoset:
             r"""Return the finite distributive lattice of order ideals."""
             ...
 

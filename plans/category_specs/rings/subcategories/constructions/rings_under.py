@@ -16,7 +16,7 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
     _functor_category = "RingsUnder"
 
     @classmethod
-    def default_super_categories(cls, category, base):
+    def default_super_categories(cls, category: Category, base: Ring):
         from ... import Rings
 
         return Category.join(
@@ -27,7 +27,7 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
             ]
         )
 
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return f"rings under {self.base_ring()}"
 
     class ParentMethods:

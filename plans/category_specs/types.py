@@ -5,20 +5,26 @@ Only aliases backed by files that exist in this tree are exposed.  The
 dropped until those spec files land.
 """
 
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 
+from sage.categories.cartesian_product import CartesianProductFunctor as SageCartesianProductFunctor
 from sage.categories.homset import Homset as SageHomset
 from sage.categories.morphism import Morphism as SageMorphism
 from sage.combinat.posets.posets import FinitePoset as SagePoset
+from sage.graphs.digraph import DiGraph as SageDiGraph
 from sage.groups.abelian_gps.abelian_group import AbelianGroup_class
 from sage.groups.group import Group as SageGroup
+from sage.homology.free_resolution import FreeResolution as SageFreeResolution
 from sage.homology.hochschild_complex import HochschildComplex
 from sage.matrix.matrix2 import Matrix as SageMatrix
+from sage.matrix.matrix_space import MatrixSpace as SageMatrixSpace
 from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 from sage.rings.polynomial.polynomial_element import Polynomial as SagePolynomial
+from sage.rings.polynomial.term_order import TermOrder as SageTermOrder
+from sage.rings.qqbar import AlgebraicPolynomialTracker
 from sage.rings.real_mpfi import RealIntervalFieldElement
 from sage.rings.real_mpfr import RealNumber as SageRealNumber
 from sage.rings.valuation.valuation import DiscretePseudoValuation
@@ -30,12 +36,14 @@ from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
 from .algebras import Algebras
-from .homsets import Homsets
+from .homsets import Autsets, Endsets, Homsets
 from .modules import Modules
+from .modules.homsets import RModuleHomsets
 from .posets import Posets
 from .posets.subcategories.finite_lattice import _FiniteLatticePosets
 from .posets.subcategories.lattice import _LatticePosets
 from .rings import Rings, _RingIdeals
+from .rings.homsets import RingHomsets
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
@@ -44,38 +52,43 @@ from .rings.subcategories.local import _LocalRings
 CategoryObject = SageParent
 CategoryElement = SageElement
 Matrix = SageMatrix
+MatrixSpace = SageMatrixSpace
+DiGraph = SageDiGraph
+CartesianProductFunctor = SageCartesianProductFunctor
+CategoryOfHomsets = Homsets
+CategoryOfEndsets = Endsets
+CategoryOfAutsets = Autsets
 HomsetObject = Homsets.ParentMethods
 HomsetElement = Homsets.ElementMethods
-Endset = Homsets.Endset.ParentMethods
-EndsetElement = Homsets.Endset.ElementMethods
-Autset = Homsets.Autset.ParentMethods
-AutsetElement = Homsets.Autset.ElementMethods
+Endset = Endsets.ParentMethods
+EndsetElement = Endsets.ElementMethods
+Autset = Autsets.ParentMethods
+AutsetElement = Autsets.ElementMethods
 Ring = Rings.ParentMethods
 Field = _Fields.ParentMethods
 RingElement = Rings.ElementMethods
 RingMorphism = Rings.MorphismMethods
-RingHomset = Rings.Homsets.ParentMethods
+RingHomset = RingHomsets.ParentMethods
 RingHomsetElement = Rings.MorphismMethods
-RingEndset = Rings.Homsets.Endset.ParentMethods
-RingEndsetElement = Rings.Homsets.Endset.ElementMethods
-RingAutset = Rings.Homsets.Endset.Autset.ParentMethods
-RingAutsetElement = Rings.Homsets.Endset.Autset.ElementMethods
+RingEndset = RingHomsets.Endset.ParentMethods
+RingEndsetElement = RingHomsets.Endset.ElementMethods
+RingAutset = RingHomsets.Autset.ParentMethods
+RingAutsetElement = RingHomsets.Autset.ElementMethods
 Group = SageGroup
 AbelianGroup = AbelianGroup_class
 Monoid = Monoid_class
 Polynomial = SagePolynomial
-PolynomialRingConstructorData = Ring | int | Integer | str | Sequence[str] | bool | None
+AlgebraicPolynomial = AlgebraicPolynomialTracker
+TermOrder = SageTermOrder
 RealNumberInterval = RealIntervalFieldElement
 ComplexInterval = ComplexIntervalFieldElement
-Interval = RealNumberInterval | ComplexInterval
 Valuation = DiscretePseudoValuation
 
 LocalRing = _LocalRings.ParentMethods
 CompleteRing = _CompleteRings.ParentMethods
 
-MatrixEntryOrder = Sequence[tuple[int, int]] | None
 Cardinality = Integer | InfinityElement
-IntegerRangeBound = int | Integer | InfinityElement
+FreeResolution = SageFreeResolution
 
 RMod = Modules
 RModule = Modules.ParentMethods
@@ -94,12 +107,12 @@ Ideal = _RingIdeals.ParentMethods
 PrimeIdeal = Ideal
 MaximalIdeal = PrimeIdeal
 
-RModHomset = Modules.Homsets.ParentMethods
-RModHomsetElement = Modules.Homsets.ElementMethods
-RModEndset = Modules.Homsets.Endset.ParentMethods
-RModEndsetElement = Modules.Homsets.Endset.ElementMethods
-RModAutset = Modules.Homsets.Endset.Autset.ParentMethods
-RModAutsetElement = Modules.Homsets.Endset.Autset.ElementMethods
+RModHomset = RModuleHomsets.ParentMethods
+RModHomsetElement = RModuleHomsets.ElementMethods
+RModEndset = RModuleHomsets.Endset.ParentMethods
+RModEndsetElement = RModuleHomsets.Endset.ElementMethods
+RModAutset = RModuleHomsets.Autset.ParentMethods
+RModAutsetElement = RModuleHomsets.Autset.ElementMethods
 RModuleEndSet = RModEndset
 RModuleAutSet = RModAutset
 RModEndomorphism = RModEndsetElement
@@ -107,11 +120,12 @@ RModAutomorphism = RModAutsetElement
 RModuleEndomorphism = RModEndomorphism
 RModuleHomsetElement = RModMorphism
 RModAutSet = RModAutset
-DualModule = Modules.DualObjects.ParentMethods
-RModDualElement = Modules.DualObjects.ElementMethods
+DualModule = RModule
+RModDualElement = RModuleElement
 RModuleForm = RModMorphism
 ModuleStructure = RModMorphism
-RModuleElementClass = type[SageElement]
+ModuleBasis = AbstractFamily | Sequence[RModuleElement]
+Polyhedron = SageParent
 BilinearFormsModule = SageHomset
 BilinearForm = SageMorphism
 QuadraticFormsModule = SageHomset
@@ -121,12 +135,11 @@ RAlgebra = Algebras
 Algebra = Algebras.ParentMethods
 AlgebraElement = Algebras.ElementMethods
 AlgebraMorphism = Algebras.MorphismMethods
-AlgebraElementFamily = AbstractFamily
-AlgebraBasisIndex = SageElement
 AlgebraBasis = AbstractFamily
 HochschildChainComplex = HochschildComplex
 
 # Sets
+from .posets.homsets import PosetHomsets
 from .sets import Sets
 from .sets.homsets import SetHomsets
 from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
@@ -160,47 +173,24 @@ SetHomset = SetHomsets.ParentMethods
 SetHomsetElement = SetHomsets.ElementMethods
 SetEndset = SetHomsets.Endset.ParentMethods
 SetEndsetElement = SetHomsets.Endset.ElementMethods
-SetAutset = SetHomsets.Autset.ParentMethods
+SetAutset = Autset
 SetAutsetElement = SetHomsets.Autset.ElementMethods
 Morphism = SageMorphism
 Endomorphism = SageMorphism
 Automorphism = SageMorphism
 FiniteSetMap = FiniteSetMap_MN
-MorphismConstructorData = (
-    Morphism
-    | CategoryObject
-    | CategoryElement
-    | Matrix
-    | Callable[[CategoryElement], CategoryElement]
-    | Sequence[CategoryElement]
-    | None
-)
-SetMorphismConstructorData = (
-    SetMorphism
-    | SetElement
-    | Set
-    | FiniteSetMap
-    | Callable[[SetElement], SetElement]
-    | Sequence[SetElement]
-    | None
-)
-FiniteSetMapConstructorData = FiniteSetMap | Sequence[SetElement] | dict[SetElement, SetElement]
-TestOptionValue = CategoryObject | CategoryElement | bool | int | Integer | str | None
 SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
 GroupElement = SageElement
 GroupAction = SageMorphism
-SetPredicate = Callable[[SageElement], bool]
-ModuleBasisKeys = SetFamily | Set
 
 RealNumber = SageRealNumber
 TopologicalSpace = _TopologicalSpaces.ParentMethods
 MetricSpace = _MetricSpaces.ParentMethods
+TopologicalSpaceMorphism = SageMorphism
 RealSubset = Subset
 RealOpenSet = OpenSubset
 RealInterval = InternalRealInterval
-RealIntervalComponent = RealInterval
-RealSetComponent = RealInterval | tuple[RealNumber, RealNumber] | tuple[RealNumber, RealNumber, bool, bool]
 MetricBall = OpenSubset
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
@@ -208,6 +198,9 @@ SympySet = SageSympySet
 Poset = Posets.ParentMethods
 PosetElement = Posets.ElementMethods
 PosetMorphism = Posets.MorphismMethods
+PosetHomset = PosetHomsets.ParentMethods
+PosetEndset = PosetHomsets.Endset.ParentMethods
+PosetAutset = Autset
 PosetSubset = Subset
 LatticePoset = _LatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods

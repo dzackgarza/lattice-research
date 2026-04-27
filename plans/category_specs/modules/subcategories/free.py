@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
+from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -12,7 +13,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Cardinality
+    from ...types import Cardinality, ModuleBasis
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
@@ -29,7 +30,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @cached_method
-        def FiniteRank(self):
+        def FiniteRank(self) -> Category:
             return self._with_axiom("FiniteRank")
 
     class ParentMethods:
@@ -52,7 +53,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def basis(self, *args, **kwds): ...
+        def basis(self) -> ModuleBasis: ...
 
         @abstract_method
         def dimension(self) -> Cardinality: ...

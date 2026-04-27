@@ -8,7 +8,16 @@ categories, not as set-local duplicates.
 Subcategory hierarchy::
 
     TopologicalSpaces() = Sets().Topological()
-    `-- Metric() = Sets().Metric()
+    |-- Metric() = Sets().Metric()
+    |-- Subobjects()
+    |-- Quotients()
+    |-- Subquotients()
+    |-- ObjectsOver()
+    |-- ObjectsUnder()
+    |-- CartesianProducts()
+    `-- Homsets()
+        |-- Endset()
+        `-- Autset()
 
 Constructor entry points live under ``TopologicalSpaces().Constructors()`` once Sage
 topological-space constructors are inventoried.
@@ -18,14 +27,20 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
+from ..cat import Category, CategoryWithAxiom
 from ..sets import Sets
+from .homsets import TopologicalSpaceHomsets
+from .subcategories.constructions.cartesian_products import _CartesianProducts
+from .subcategories.constructions.objects_over import _ObjectsOver
+from .subcategories.constructions.objects_under import _ObjectsUnder
+from .subcategories.constructions.quotients import _Quotients
+from .subcategories.constructions.subobjects import _Subobjects
+from .subcategories.constructions.subquotients import _Subquotients
 
 if TYPE_CHECKING:
     from ..types import TopologicalSpace
@@ -64,6 +79,7 @@ class _TopologicalSpaces(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods
+    Homsets = TopologicalSpaceHomsets
     Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
 
     def _repr_object_names(self) -> str:
@@ -86,8 +102,15 @@ class _TopologicalSpaces(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
-        def Metric(self):
+        def Metric(self) -> Category:
             return self._with_axiom("Metric")
+
+    Subobjects = _Subobjects
+    Quotients = _Quotients
+    Subquotients = _Subquotients
+    ObjectsOver = _ObjectsOver
+    ObjectsUnder = _ObjectsUnder
+    CartesianProducts = _CartesianProducts
 
 
 TopologicalSpaces = _TopologicalSpaces

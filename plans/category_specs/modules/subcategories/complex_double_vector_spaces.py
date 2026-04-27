@@ -9,11 +9,8 @@ from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from .. import Modules
-
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import RingElement, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,10 +39,6 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _ComplexDoubleVectorSpaces(Category_over_base_ring):
     r"""Sage ``CDF^n`` vector spaces backed by complex double vectors."""
 
@@ -60,4 +53,4 @@ class _ComplexDoubleVectorSpaces(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def coordinates(self, v): ...
+        def coordinates(self, v: RModuleElement | Sequence[RingElement]) -> RModuleElement | Sequence[RingElement]: ...

@@ -7,58 +7,32 @@ automorphisms of sets.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, overload
 
-from sage.categories.category_with_axiom import CategoryWithAxiom
-from sage.categories.groups import Groups as SageGroups
-from sage.categories.homsets import HomsetsCategory
-from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets.utils import refine_automorphism_set_from_endset
+from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
     from ..types import (
-        Cardinality,
+        FiniteSetMap,
         Set,
         SetAutset,
         SetElement,
         SetEndset,
         SetMorphism,
-        SetMorphismConstructorData,
         Subset,
     )
 
 
 class _SetHomsetObjects:
-    @abstract_method
-    def domain(self) -> Set: ...
-
-    @abstract_method
-    def codomain(self) -> Set: ...
-
-    @abstract_method
-    def __call__(self, *data: SetMorphismConstructorData, **options: SetMorphismConstructorData) -> SetMorphism: ...
-
-    @abstract_method
-    def __contains__(self, obj: Any) -> bool: ...
+    r"""Set-specific homset parent methods; generic homset methods are inherited."""
 
 
 class _SetMorphisms:
-    @abstract_method
-    def domain(self) -> Set: ...
-
-    @abstract_method
-    def codomain(self) -> Set: ...
-
-    @abstract_method
-    def __call__(self, x: SetElement) -> SetElement: ...
-
-    @abstract_method
-    def image(self, domain_subset: Subset | None = None) -> Subset: ...
-
     @abstract_method
     def pre_image(self, y: SetElement) -> Subset: ...
 
@@ -76,44 +50,23 @@ class _SetMorphisms:
 
 
 class _SetEndomorphisms:
-    @abstract_method
-    def is_invertible(self) -> bool: ...
-
-    @abstract_method
-    def inverse(self) -> SetMorphism: ...
-
-    @abstract_method
-    def order(self) -> Cardinality: ...
+    r"""Set-specific endomorphism methods; generic endomorphism methods are inherited."""
 
 
 class _SetAutomorphisms:
-    def is_invertible(self) -> bool:
-        return True
-
-    def is_injective(self) -> bool:
-        return True
-
-    def is_surjective(self) -> bool:
-        return True
-
-    def is_bijective(self) -> bool:
-        return True
-
-    def is_isomorphism(self) -> bool:
-        return True
-
-    @abstract_method
-    def inverse(self) -> SetMorphism: ...
-
-    @abstract_method
-    def order(self) -> Cardinality: ...
+    r"""Set-specific automorphism methods; generic automorphism methods are inherited."""
 
 
-class SetHomsets(HomsetsCategory):
+class SetHomsets(HomsetsOf):
     r"""Category of homsets between sets."""
 
+    # Category-level Sets.Hom() / Sets().Homsets() construction:
+    # objects are set-map parents Hom_Sets(X, Y). Set-map predicates
+    # such as is_injective, is_surjective, and is_bijective belong here
+    # on ElementMethods, not on the generic category of all morphisms.
+
     def extra_super_categories(self) -> list:
-        return [SageSets()]
+        return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method
@@ -130,56 +83,25 @@ class SetHomsets(HomsetsCategory):
     Autset = LazyImport(__name__, "_SetAutsets")
 
 
-class _SetEndsets(CategoryWithAxiom):
+class _SetEndsets(GenericEndsets):
+    # Category-level Sets.End() / Sets().Homsets().Endset() construction:
+    # objects are endomap parents End_Sets(X), not individual endomorphisms.
+    _functor_category = "Endset"
     _base_category_class_and_axiom = (SetHomsets, "Endset")
     Autset = LazyImport(__name__, "_SetAutsets")
-
-    def extra_super_categories(self) -> list:
-        return [SageSets()]
 
     class ParentMethods:
         @abstract_method
         def base_set(self) -> Set: ...
 
-        @abstract_method
-        def domain(self) -> Set: ...
-
-        @abstract_method
-        def codomain(self) -> Set: ...
-
-        @abstract_method
-        def identity(self) -> SetMorphism: ...
-
-        @abstract_method
-        def Aut(self) -> SetAutset: ...
-
     ElementMethods = _SetEndomorphisms
 
 
-class _SetAutsets(CategoryWithAxiom):
+class _SetAutsets(GenericAutsets):
+    # Category-level Sets.Aut() / Sets().Homsets().Autset() construction:
+    # objects are automorphism parents Aut_Sets(X), with set-map specs
+    # inherited from SetHomsets and automorphism specs from GenericAutsets.
+    _functor_category = "Autset"
     _base_category_class_and_axiom = (SetHomsets, "Autset")
-
-    def extra_super_categories(self) -> list:
-        return [self.base_category().Endset(), SageGroups(), SageSets()]
-
-    def from_endset(self, endset: SetEndset) -> SetAutset:
-        r"""Refine the generic Autset over ``endset``.
-
-        The repository-level homset layer owns ConditionSet-based Autset construction.
-        """
-        return refine_automorphism_set_from_endset(endset, self)
-
-    class ParentMethods:
-        @abstract_method
-        def endset(self) -> SetEndset: ...
-
-        def domain(self) -> Set:
-            return self.endset().domain()
-
-        def codomain(self) -> Set:
-            return self.endset().codomain()
-
-        @abstract_method
-        def identity(self) -> SetMorphism: ...
 
     ElementMethods = _SetAutomorphisms

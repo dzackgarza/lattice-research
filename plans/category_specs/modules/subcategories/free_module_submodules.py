@@ -2,7 +2,6 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Matrix, ModuleBasis, Ring, RModule, SubModule
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,10 +40,6 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FreeModuleSubmodules(Category_over_base_ring):
     r"""Submodules created by ``M.submodule(...)`` or ``span(...)``."""
 
@@ -63,16 +57,16 @@ class _FreeModuleSubmodules(Category_over_base_ring):
         def ambient_module(self) -> RModule: ...
 
         @abstract_method
-        def basis_matrix(self, *args, **kwds) -> Matrix: ...
+        def basis_matrix(self, ring: Ring | None = None) -> Matrix: ...
 
         @abstract_method
-        def echelon_basis_matrix(self, *args, **kwds) -> Matrix: ...
+        def echelonized_basis_matrix(self) -> Matrix: ...
 
         @abstract_method
-        def echelonized_basis(self, *args, **kwds): ...
+        def echelonized_basis(self) -> ModuleBasis: ...
 
         @abstract_method
-        def coordinate_module(self, *args, **kwds): ...
+        def coordinate_module(self, V: RModule) -> RModule: ...
 
         @abstract_method
-        def saturation(self, *args, **kwds) -> SubModule: ...
+        def saturation(self) -> SubModule: ...

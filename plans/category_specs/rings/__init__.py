@@ -9,11 +9,8 @@ existing Sage ring categories where Sage provides them.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, overload
 
-from sage.categories.category import Category
-from sage.categories.category_singleton import Category_singleton
-from sage.categories.category_types import Category_ideal
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.homset import End as SageEnd
 from sage.categories.homset import Hom as SageHom
@@ -25,12 +22,14 @@ from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 from sage.rings.number_field.number_field import NumberField_cyclotomic
 
+from ..cat import Cat, Category, Category_ideal, Category_singleton
 from ..modules import Modules
 from ..utils import refine_category
 from .homsets import RingHomsets
 from .matrix_algebras import (
     _MatrixAlgebras,
 )
+from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.rings_over import _RingsOver
 from .subcategories.constructions.rings_under import _RingsUnder
@@ -104,13 +103,13 @@ if TYPE_CHECKING:
         Matrix,
         Monoid,
         Polynomial,
-        PolynomialRingConstructorData,
         Ring,
         RingAutset,
         RingElement,
         RingEndset,
         RingHomset,
         RingMorphism,
+        TermOrder,
     )
 
 
@@ -218,13 +217,12 @@ class _RingObjectMethods:
     @abstract_method
     def ideal_monoid(self) -> Monoid: ...
 
-    @abstract_method
     def Hom(self, codomain: Ring) -> RingHomset:
-        return Rings().Hom(self, codomain)
+        return RingHomsets.from_sage_homset(SageHom(self, codomain, category=Rings()))
 
     def End(self) -> RingEndset:
         r"""Return End(self) = Hom(self, self)."""
-        return Rings().End(self)
+        return Rings().Endsets().from_sage_endset(SageEnd(self, category=Rings()))
 
     def Aut(self) -> RingAutset:
         r"""Return Aut(self) as the invertible subset of End(self)."""
@@ -267,7 +265,15 @@ class _RingElementMethods:
     def abs(self) -> RingElement: ...
 
     @abstract_method
-    def nth_root(self, n: Integer, *args, **kwds) -> RingElement | list[RingElement]: ...
+    def nth_root(
+        self,
+        n: Integer,
+        extend: bool = False,
+        all: bool = False,
+        algorithm: str | None = None,
+        cunningham: bool = False,
+        prec: Integer | None = None,
+    ) -> RingElement | list[RingElement]: ...
 
     @abstract_method
     def sqrt(
@@ -344,13 +350,13 @@ class _RingIdealParentMethods:
     def ring(self) -> Ring: ...
 
     @abstract_method
-    def gen(self, i: int = 0) -> RingElement: ...
+    def gen(self, i: Integer = 0) -> RingElement: ...
 
     @abstract_method
     def gens(self) -> tuple[RingElement, ...]: ...
 
     @abstract_method
-    def ngens(self) -> int: ...
+    def ngens(self) -> Integer: ...
 
     @abstract_method
     def gens_reduced(self) -> tuple[RingElement, ...]: ...
@@ -392,7 +398,17 @@ class _RingIdealParentMethods:
     def reduce(self, f: RingElement) -> RingElement: ...
 
     @abstract_method
-    def random_element(self, *args, **kwds) -> RingElement: ...
+    def random_element(
+        self,
+        degree: Integer | tuple[Integer, Integer] | None = None,
+        compute_gb: bool = False,
+        terms: Cardinality | None = None,
+        choose_degree: bool = False,
+        monic: bool = False,
+        coefficient_lower_bound: Integer | None = None,
+        coefficient_upper_bound: Integer | None = None,
+        distribution: str | None = None,
+    ) -> RingElement: ...
 
 
 class _RingIdealElementMethods:
@@ -426,7 +442,7 @@ class _RingIdeals(Category_ideal):
         return [CommutativeRingIdeals(R), Modules(R).RIdeals()]
 
     @classmethod
-    def from_sage_ideal(cls, sage_ideal) -> Ideal:
+    def from_sage_ideal(cls, sage_ideal: Ideal) -> Ideal:
         R = sage_ideal.ring()
         return refine_category(sage_ideal.parent(), [cls(R), Modules(R).RIdeals()])
 
@@ -533,7 +549,7 @@ class Rings(Category_singleton):
 
             return refine_category(CIF, [Rings(), _ComplexIntervalFields()])
 
-        def RealField(self, prec: int | Integer = 53, sci_not: bool = False, rnd: str = "RNDN") -> Ring:
+        def RealField(self, prec: Integer = 53, sci_not: bool = False, rnd: str = "RNDN") -> Ring:
             from sage.all import RR, RealField
 
             R = RealField(prec=prec, sci_not=sci_not, rnd=rnd)
@@ -542,7 +558,7 @@ class Rings(Category_singleton):
                 categories.append(_RR())
             return refine_category(R, [Rings(), *categories])
 
-        def ComplexField(self, prec: int | Integer = 53, names: str | None = None) -> Ring:
+        def ComplexField(self, prec: Integer = 53, names: str | None = None) -> Ring:
             from sage.all import CC, ComplexField
 
             R = ComplexField(prec=prec, names=names)
@@ -551,19 +567,19 @@ class Rings(Category_singleton):
                 categories.append(_CC())
             return refine_category(R, [Rings(), *categories])
 
-        def RealBallField(self, prec: int | Integer = 53) -> Ring:
+        def RealBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import RealBallField
 
             return refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
 
-        def ComplexBallField(self, prec: int | Integer = 53) -> Ring:
+        def ComplexBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import ComplexBallField
 
             return refine_category(ComplexBallField(prec), [Rings(), _ComplexBallFields()])
 
         def IntegerModRing(
             self,
-            order: int | Integer = 0,
+            order: Integer = 0,
             is_field: bool = False,
             category: Category | None = None,
         ) -> Ring:
@@ -573,7 +589,7 @@ class Rings(Category_singleton):
 
         def Zmod(
             self,
-            order: int | Integer = 0,
+            order: Integer = 0,
             is_field: bool = False,
             category: Category | None = None,
         ) -> Ring:
@@ -583,7 +599,7 @@ class Rings(Category_singleton):
 
         def Integers(
             self,
-            order: int | Integer = 0,
+            order: Integer = 0,
             is_field: bool = False,
             category: Category | None = None,
         ) -> Ring:
@@ -593,7 +609,7 @@ class Rings(Category_singleton):
 
         def GF(
             self,
-            order: int | Integer,
+            order: Integer,
             name: str | None = None,
             modulus: Polynomial | str | None = None,
             names: str | None = None,
@@ -626,7 +642,7 @@ class Rings(Category_singleton):
 
         def FiniteField(
             self,
-            order: int | Integer,
+            order: Integer,
             name: str | None = None,
             modulus: Polynomial | str | None = None,
             names: str | None = None,
@@ -666,7 +682,7 @@ class Rings(Category_singleton):
             embedding: RingElement | Sequence[RingElement] | None = None,
             latex_name: str | Sequence[str] | None = None,
             assume_disc_small: bool = False,
-            maximize_at_primes: Sequence[int | Integer] | None = None,
+            maximize_at_primes: Sequence[Integer] | None = None,
             structure: RingMorphism | Sequence[RingMorphism] | None = None,
             *,
             latex_names: str | Sequence[str] | None = None,
@@ -694,7 +710,7 @@ class Rings(Category_singleton):
 
         def QuadraticField(
             self,
-            D: RingElement | int | Integer,
+            D: RingElement | Integer,
             name: str = "a",
             check: bool = True,
             embedding: bool | RingElement = True,
@@ -709,7 +725,7 @@ class Rings(Category_singleton):
 
         def CyclotomicField(
             self,
-            n: int | Integer = 0,
+            n: Integer = 0,
             names: str | None = None,
             embedding: bool | RingElement = True,
         ) -> Ring:
@@ -719,8 +735,8 @@ class Rings(Category_singleton):
 
         def Zp(
             self,
-            p: int | Integer,
-            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            p: Integer,
+            prec: Integer | tuple[Integer, Integer] | None = None,
             type: str = "capped-rel",
             print_mode: str | None = None,
             names: str | None = None,
@@ -728,7 +744,7 @@ class Rings(Category_singleton):
             print_pos: bool | None = None,
             print_sep: str | None = None,
             print_alphabet: str | None = None,
-            print_max_terms: int | Integer | None = None,
+            print_max_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
             label: str | None = None,
@@ -756,8 +772,8 @@ class Rings(Category_singleton):
 
         def Qp(
             self,
-            p: int | Integer,
-            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            p: Integer,
+            prec: Integer | tuple[Integer, Integer] | None = None,
             type: str = "capped-rel",
             print_mode: str | None = None,
             names: str | None = None,
@@ -765,7 +781,7 @@ class Rings(Category_singleton):
             print_pos: bool | None = None,
             print_sep: str | None = None,
             print_alphabet: str | None = None,
-            print_max_terms: int | Integer | None = None,
+            print_max_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
             label: str | None = None,
@@ -793,8 +809,8 @@ class Rings(Category_singleton):
 
         def Zq(
             self,
-            q: int | Integer | tuple[int | Integer, int | Integer] | Sequence[tuple[int | Integer, int | Integer]],
-            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
+            prec: Integer | tuple[Integer, Integer] | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
             names: str | None = None,
@@ -803,9 +819,9 @@ class Rings(Category_singleton):
             res_name: str | None = None,
             print_pos: bool | None = None,
             print_sep: str | None = None,
-            print_max_ram_terms: int | Integer | None = None,
-            print_max_unram_terms: int | Integer | None = None,
-            print_max_terse_terms: int | Integer | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
             implementation: str = "FLINT",
@@ -836,8 +852,8 @@ class Rings(Category_singleton):
 
         def Qq(
             self,
-            q: int | Integer | tuple[int | Integer, int | Integer] | Sequence[tuple[int | Integer, int | Integer]],
-            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
+            prec: Integer | tuple[Integer, Integer] | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
             names: str | None = None,
@@ -846,9 +862,9 @@ class Rings(Category_singleton):
             res_name: str | None = None,
             print_pos: bool | None = None,
             print_sep: str | None = None,
-            print_max_ram_terms: int | Integer | None = None,
-            print_max_unram_terms: int | Integer | None = None,
-            print_max_terse_terms: int | Integer | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
             show_prec: bool | None = None,
             check: bool = True,
             implementation: str = "FLINT",
@@ -877,26 +893,142 @@ class Rings(Category_singleton):
                 [Rings(), _Qp()],
             )
 
+        @overload
         def PolynomialRing(
             self,
-            *args: PolynomialRingConstructorData,
-            **kwds: PolynomialRingConstructorData,
+            base_ring: Ring,
+            *,
+            name: str,
+            n: Integer | None = None,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
+        @overload
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            names: str | Sequence[str],
+            n: Integer | None = None,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
+        @overload
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            var_array: str | Sequence[str],
+            n: Integer | tuple[Integer, ...] | None = None,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
+        @overload
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            n: Integer,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            n: Integer | tuple[Integer, ...] | None = None,
+            name: str | None = None,
+            names: str | Sequence[str] | None = None,
+            var_array: str | Sequence[str] | None = None,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
         ) -> Ring:
             from sage.all import PolynomialRing
 
-            R = PolynomialRing(*args, **kwds)
+            if name is not None:
+                R = (
+                    PolynomialRing(
+                        base_ring,
+                        name=name,
+                        sparse=sparse,
+                        order=order,
+                        implementation=implementation,
+                    )
+                    if n is None
+                    else PolynomialRing(
+                        base_ring,
+                        n,
+                        names=name,
+                        sparse=sparse,
+                        order=order,
+                        implementation=implementation,
+                    )
+                )
+            elif names is not None:
+                R = (
+                    PolynomialRing(
+                        base_ring,
+                        names=names,
+                        sparse=sparse,
+                        order=order,
+                        implementation=implementation,
+                    )
+                    if n is None
+                    else PolynomialRing(
+                        base_ring,
+                        n,
+                        names=names,
+                        sparse=sparse,
+                        order=order,
+                        implementation=implementation,
+                    )
+                )
+            elif var_array is not None:
+                variable_count = (
+                    n
+                    if n is not None
+                    else len(var_array.split(","))
+                    if isinstance(var_array, str)
+                    else len(var_array)
+                )
+                variable_counts = variable_count if isinstance(variable_count, tuple) else (variable_count,)
+                R = PolynomialRing(
+                    base_ring,
+                    *variable_counts,
+                    var_array=var_array,
+                    sparse=sparse,
+                    order=order,
+                    implementation=implementation,
+                )
+            else:
+                R = PolynomialRing(
+                    base_ring,
+                    n,
+                    sparse=sparse,
+                    order=order,
+                    implementation=implementation,
+                )
             return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())])
 
         def PowerSeriesRing(
             self,
             base_ring: Ring,
             name: str | None = None,
-            arg2: int | Integer | str | None = None,
+            arg2: Integer | str | None = None,
             names: str | Sequence[str] | None = None,
             sparse: bool = False,
-            default_prec: int | Integer | None = None,
+            default_prec: Integer | None = None,
             order: str = "negdeglex",
-            num_gens: int | Integer | None = None,
+            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import PowerSeriesRing
@@ -918,12 +1050,12 @@ class Rings(Category_singleton):
             self,
             base_ring: Ring,
             name: str | None = None,
-            arg2: int | Integer | str | None = None,
+            arg2: Integer | str | None = None,
             names: str | Sequence[str] | None = None,
             sparse: bool = False,
-            default_prec: int | Integer | None = None,
+            default_prec: Integer | None = None,
             order: str = "negdeglex",
-            num_gens: int | Integer | None = None,
+            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import LaurentSeriesRing
@@ -945,12 +1077,12 @@ class Rings(Category_singleton):
             self,
             base_ring: Ring,
             name: str | None = None,
-            arg2: int | Integer | str | None = None,
+            arg2: Integer | str | None = None,
             names: str | Sequence[str] | None = None,
             sparse: bool = False,
-            default_prec: int | Integer | None = None,
+            default_prec: Integer | None = None,
             order: str = "negdeglex",
-            num_gens: int | Integer | None = None,
+            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import PuiseuxSeriesRing
@@ -971,7 +1103,7 @@ class Rings(Category_singleton):
         def MatrixRing(
             self,
             base_ring: Ring,
-            n: int | Integer,
+            n: Integer,
             sparse: bool = False,
             implementation: str | type[Matrix] | None = None,
         ) -> Ring:
@@ -985,18 +1117,9 @@ class Rings(Category_singleton):
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
-    def Hom(self, domain: Ring, codomain: Ring) -> RingHomset:
-        return RingHomsets.from_sage_homset(SageHom(domain, codomain, category=self))
-
-    def End(self, ring: Ring) -> RingEndset:
-        return self.Endsets().from_sage_endset(SageEnd(ring, category=self))
-
-    def Aut(self, ring: Ring) -> RingAutset:
-        return self.Autsets().from_endset(self.End(ring))
-
     def __contains__(self, R: Any) -> bool:
         match R:
-            case _ if isinstance(R, Category) and R.is_subcategory(self):
+            case _ if R in Cat() and R.is_subcategory(self):
                 return True
             case _ if hasattr(R, "category") and R.category().is_subcategory(self):
                 return True
@@ -1007,7 +1130,9 @@ class Rings(Category_singleton):
 
     @final
     def super_categories(self) -> list[Category]:
-        return [SageRings()]
+        from ..sets import Sets
+
+        return [Sets(), SageRings()]
 
     @final
     def additional_structure(self) -> Category | None:
@@ -1017,147 +1142,129 @@ class Rings(Category_singleton):
         r"""Mixin providing ``SubcategoryMethods`` axiom and functorial selectors."""
 
         @cached_method
-        def Commutative(self):
+        def Commutative(self) -> Category:
             return self._with_axiom("Commutative")
 
         @cached_method
-        def Division(self):
+        def Division(self) -> Category:
             return self._with_axiom("Division")
 
         @cached_method
-        def Finite(self):
+        def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
         @cached_method
-        def Topological(self):
+        def Topological(self) -> Category:
             return self._with_axiom("Topological")
 
         @cached_method
-        def WithValuation(self):
+        def WithValuation(self) -> Category:
             return self._with_axiom("WithValuation")
 
         @cached_method
-        def Characteristic(self, p):
+        def Characteristic(self, p: Integer) -> Category:
             from .subcategories.constructions.characteristic import _CharacteristicRings
 
             return _CharacteristicRings(self, p)
 
         @cached_method
-        def KrullDimension(self, n):
+        def KrullDimension(self, n: Integer) -> Category:
             from .subcategories.constructions.krull_dimension import _KrullDimension
 
             return _KrullDimension(self, n)
 
         @cached_method
-        def Polynomial(self):
+        def Polynomial(self) -> Category:
             return self._with_axiom("Polynomial")
 
         @cached_method
-        def PowerSeries(self):
+        def PowerSeries(self) -> Category:
             return self._with_axiom("PowerSeries")
 
         @cached_method
-        def LaurentSeries(self):
+        def LaurentSeries(self) -> Category:
             return self._with_axiom("LaurentSeries")
 
         @cached_method
-        def PuiseuxSeries(self):
+        def PuiseuxSeries(self) -> Category:
             return self._with_axiom("PuiseuxSeries")
 
         @cached_method
-        def Subquotients(self):
-            from .subcategories.constructions.subquotients import _Subquotients
-
-            return _Subquotients.category_of(self)
-
-        @cached_method
-        def Subobjects(self):
-            from .subcategories.constructions.subobjects import _Subobjects
-
-            return _Subobjects.category_of(self)
-
-        @cached_method
-        def Quotients(self):
-            from .subcategories.constructions.quotients import _Quotients
-
-            return _Quotients.category_of(self)
-
-        @cached_method
-        def RingsUnder(self, structure_ring):
+        def RingsUnder(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_under import _RingsUnder
 
             return _RingsUnder.category_of(self, structure_ring)
 
         @cached_method
-        def RingsOver(self, structure_ring):
+        def RingsOver(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_over import _RingsOver
 
             return _RingsOver.category_of(self, structure_ring)
 
         @cached_method
-        def AlgebrasOver(self, structure_ring):
+        def AlgebrasOver(self, structure_ring: Ring) -> Category:
             from ..algebras import Algebras
 
             return Algebras(structure_ring)
 
         @cached_method
-        def PolynomialRings(self):
+        def PolynomialRings(self) -> Category:
             return self.Polynomial()
 
         @cached_method
-        def PolynomialRingsOver(self, structure_ring):
+        def PolynomialRingsOver(self, structure_ring: Ring) -> Category:
             return self.Polynomial().RingsUnder(structure_ring)
 
         @cached_method
-        def PolynomialOver(self, structure_ring):
+        def PolynomialOver(self, structure_ring: Ring) -> Category:
             return self.PolynomialRingsOver(structure_ring)
 
         @cached_method
-        def PowerSeriesRings(self):
+        def PowerSeriesRings(self) -> Category:
             return self.PowerSeries()
 
         @cached_method
-        def PowerSeriesRingsOver(self, structure_ring):
+        def PowerSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeries().RingsUnder(structure_ring)
 
         @cached_method
-        def PowerSeriesOver(self, structure_ring):
+        def PowerSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeriesRingsOver(structure_ring)
 
         @cached_method
-        def LaurentSeriesRings(self):
+        def LaurentSeriesRings(self) -> Category:
             return self.LaurentSeries()
 
         @cached_method
-        def LaurentSeriesRingsOver(self, structure_ring):
+        def LaurentSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeries().RingsUnder(structure_ring)
 
         @cached_method
-        def LaurentSeriesOver(self, structure_ring):
+        def LaurentSeriesOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeriesRingsOver(structure_ring)
 
         @cached_method
-        def PuiseuxSeriesRings(self):
+        def PuiseuxSeriesRings(self) -> Category:
             return self.PuiseuxSeries()
 
         @cached_method
-        def PuiseuxSeriesRingsOver(self, structure_ring):
+        def PuiseuxSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeries().RingsUnder(structure_ring)
 
         @cached_method
-        def PuiseuxSeriesOver(self, structure_ring):
+        def PuiseuxSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeriesRingsOver(structure_ring)
 
         @cached_method
-        def QuotientRingsOf(self, structure_ring):
+        def QuotientRingsOf(self, structure_ring: Ring) -> Category:
             return self.Quotients().RingsUnder(structure_ring)
 
         @cached_method
-        def QuotientsOf(self, structure_ring):
+        def QuotientsOf(self, structure_ring: Ring) -> Category:
             return self.QuotientRingsOf(structure_ring)
 
         @cached_method
-        def SubringsOf(self, structure_ring):
+        def SubringsOf(self, structure_ring: Ring) -> Category:
             return self.Subobjects().RingsOver(structure_ring)
 
 
@@ -1180,17 +1287,12 @@ class Rings(Category_singleton):
     Quotients = _Quotients
     RingsUnder = _RingsUnder
     RingsOver = _RingsOver
+    ObjectsUnder = _RingsUnder
+    ObjectsOver = _RingsOver
+    CartesianProducts = _CartesianProducts
     MatrixAlgebras = _MatrixAlgebras
 
     Homsets = RingHomsets
-
-    @cached_method
-    def Endsets(self) -> Category:
-        return self.Homsets().Endset()
-
-    @cached_method
-    def Autsets(self) -> Category:
-        return self.Homsets().Autset()
 
     ParentMethods = _RingObjectMethods
     ElementMethods = _RingElementMethods

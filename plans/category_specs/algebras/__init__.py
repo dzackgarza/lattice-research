@@ -10,9 +10,15 @@ Subcategory hierarchy::
     |-- Semisimple()
     |-- Subobjects()
     |-- Quotients()
+    |-- Subquotients()
+    |-- ObjectsOver()
+    |-- ObjectsUnder()
     |-- CartesianProducts()
     |-- TensorProducts()
-    `-- DualObjects()
+    |-- DualObjects()
+    `-- Homsets()
+        |-- Endset()
+        `-- Autset()
 """
 
 from __future__ import annotations
@@ -21,29 +27,32 @@ from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.algebras import Algebras as SageAlgebras
-from sage.categories.category import Category
-from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
+from ..cat import Cat, Category, Category_over_base_ring
 from ..modules import Modules
+from .homsets import AlgebraHomsets
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
+from .subcategories.constructions.objects_over import _ObjectsOver
+from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.subobjects import _Subobjects
+from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
 
 if TYPE_CHECKING:
     from ..types import (
         Algebra,
         AlgebraElement,
-        AlgebraElementFamily,
         AlgebraMorphism,
         HochschildChainComplex,
-        RModule,
         RAlgebra,
         Ring,
+        RModule,
+        SetFamily,
     )
 
 
@@ -55,7 +64,7 @@ class _AlgebraParentMethods:
     def change_ring(self, R: Ring) -> Algebra: ...
 
     @abstract_method
-    def algebra_generators(self) -> AlgebraElementFamily: ...
+    def algebra_generators(self) -> SetFamily: ...
 
     @abstract_method
     def center(self) -> Algebra: ...
@@ -112,7 +121,7 @@ class Algebras(Category_over_base_ring):
 
     def __contains__(self, A: Any) -> bool:
         match A:
-            case _ if isinstance(A, Category) and A.is_subcategory(self):
+            case _ if A in Cat() and A.is_subcategory(self):
                 return True
             case _ if A in SageAlgebras(self.base_ring()):
                 return True
@@ -135,42 +144,31 @@ class Algebras(Category_over_base_ring):
     ParentMethods = _AlgebraParentMethods
     ElementMethods = _AlgebraElementMethods
     MorphismMethods = _AlgebraMorphismMethods
+    Homsets = AlgebraHomsets
 
     class SubcategoryMethods:
         @cached_method
-        def Commutative(self):
+        def Commutative(self) -> Category:
             return self._with_axiom("Commutative")
 
         @cached_method
-        def WithBasis(self):
+        def WithBasis(self) -> Category:
             return self._with_axiom("WithBasis")
 
         @cached_method
-        def FiniteDimensional(self):
+        def FiniteDimensional(self) -> Category:
             return self._with_axiom("FiniteDimensional")
 
         @cached_method
-        def Semisimple(self):
+        def Semisimple(self) -> Category:
             return self._with_axiom("Semisimple")
 
         @cached_method
-        def Subobjects(self):
-            return _Subobjects.category_of(self)
-
-        @cached_method
-        def Quotients(self):
-            return _Quotients.category_of(self)
-
-        @cached_method
-        def CartesianProducts(self):
-            return _CartesianProducts.category_of(self)
-
-        @cached_method
-        def TensorProducts(self):
+        def TensorProducts(self) -> Category:
             return _TensorProducts.category_of(self)
 
         @cached_method
-        def DualObjects(self):
+        def DualObjects(self) -> Category:
             return _DualObjects.category_of(self)
 
     class Constructors:
@@ -205,6 +203,9 @@ class Algebras(Category_over_base_ring):
 
     Subobjects = _Subobjects
     Quotients = _Quotients
+    Subquotients = _Subquotients
+    ObjectsOver = _ObjectsOver
+    ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
     TensorProducts = _TensorProducts
     DualObjects = _DualObjects

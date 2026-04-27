@@ -8,13 +8,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from category_specs.cat import Cat
+from category_specs.types import CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets
 from category_specs.algebras import Algebras
 from category_specs.modules import Modules
 from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
 from sage.all import ZZ
-from sage.categories.functor import IdentityFunctor
 
 
 failures = []
@@ -40,8 +40,16 @@ smoke_case("Cat constructor namespace", lambda: C.Constructors())
 smoke_case("Sets() is an object of Cat()", lambda: require(Sets() in C))
 smoke_case("Sets().Finite() is an object of Cat()", lambda: require(Sets().Finite() in C))
 smoke_case("ordinary Sage objects are not objects of Cat()", lambda: require(ZZ not in C))
-smoke_case("functors are not objects of Cat()", lambda: require(IdentityFunctor(Sets()) not in C))
-
+smoke_case("Cat.ParentMethods declares Hom", lambda: require(hasattr(Cat.ParentMethods, "Hom")))
+smoke_case("Cat.ParentMethods declares End", lambda: require(hasattr(Cat.ParentMethods, "End")))
+smoke_case("Cat.ParentMethods declares Aut", lambda: require(hasattr(Cat.ParentMethods, "Aut")))
+smoke_case("Cat.ParentMethods declares Homsets", lambda: require(hasattr(Cat.ParentMethods, "Homsets")))
+smoke_case("Cat.ParentMethods declares Endsets", lambda: require(hasattr(Cat.ParentMethods, "Endsets")))
+smoke_case("Cat.ParentMethods declares Autsets", lambda: require(hasattr(Cat.ParentMethods, "Autsets")))
+smoke_case(
+    "types exposes hom/end/aut category aliases",
+    lambda: require(CategoryOfHomsets is not None and CategoryOfEndsets is not None and CategoryOfAutsets is not None),
+)
 for category in registered_roots:
     smoke_case(f"{category} is an object of Cat()", lambda category=category: require(category in C))
     smoke_case(

@@ -3,87 +3,34 @@ r"""CommutativeRings ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, assert_never, override
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category import Category
-from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.categories.complete_discrete_valuation import (
-    CompleteDiscreteValuationFields as SageCompleteDiscreteValuationFields,
-)
-from sage.categories.complete_discrete_valuation import (
-    CompleteDiscreteValuationRings as SageCompleteDiscreteValuationRings,
-)
-from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDomains
-from sage.categories.discrete_valuation import (
-    DiscreteValuationFields as SageDiscreteValuationFields,
-)
-from sage.categories.discrete_valuation import (
-    DiscreteValuationRings as SageDiscreteValuationRings,
-)
-from sage.categories.division_rings import DivisionRings as SageDivisionRings
-from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanDomains
-from sage.categories.fields import Fields as SageFields
-from sage.categories.finite_fields import FiniteFields as SageFiniteFields
-from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
-from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-from sage.categories.noetherian_rings import NoetherianRings as SageNoetherianRings
-from sage.categories.number_fields import NumberFields as SageNumberFields
-from sage.categories.principal_ideal_domains import (
-    PrincipalIdealDomains as SagePrincipalIdealDomains,
-)
-from sage.categories.quotient_fields import QuotientFields as SageQuotientFields
-from sage.categories.rings import Rings as SageRings
-from sage.categories.unique_factorization_domains import (
-    UniqueFactorizationDomains as SageUniqueFactorizationDomains,
-)
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-from sage.rings.abc import ComplexBallField as SageComplexBallField
-from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
-from sage.rings.abc import ComplexField as SageComplexField
-from sage.rings.abc import ComplexIntervalField as SageComplexIntervalField
-from sage.rings.abc import RealBallField as SageRealBallField
-from sage.rings.abc import RealDoubleField as SageRealDoubleField
-from sage.rings.abc import RealField as SageRealField
-from sage.rings.abc import RealIntervalField as SageRealIntervalField
-from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
 from sage.rings.integer import Integer
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
 from sage.rings.lazy_series_ring import LazyLaurentSeriesRing, LazyPowerSeriesRing
 from sage.rings.multi_power_series_ring import MPowerSeriesRing_generic
-from sage.rings.number_field.number_field import (
-    NumberField_cyclotomic,
-    NumberField_quadratic,
-)
 from sage.rings.polynomial.multi_polynomial_ring_base import MPolynomialRing_base
 from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
-from sage.structure.factorization import Factorization
 
 from .. import Rings
 
 if TYPE_CHECKING:
     from ...types import (
-        AbelianGroup,
         Cardinality,
         CompleteRing,
-        ComplexInterval,
-        Field,
-        Group,
         Ideal,
-        LocalRing,
-        MaximalIdeal,
-        Polynomial,
-        PrimeIdeal,
-        RealInterval,
+        Integer,
         Ring,
         RingElement,
         RingMorphism,
-        Valuation,
     )
 
 _SAGE_POLYNOMIAL_RING_CLASSES = (PolynomialRing_generic, MPolynomialRing_base)
@@ -179,23 +126,23 @@ class _CommutativeRings(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
-        def IntegralDomains(self):
+        def IntegralDomains(self) -> Category:
             return self._with_axiom("IntegralDomains")
 
         @cached_method
-        def Field(self):
+        def Field(self) -> Category:
             return self._with_axiom("Field")
 
         @cached_method
-        def Noetherian(self):
+        def Noetherian(self) -> Category:
             return self._with_axiom("Noetherian")
 
         @cached_method
-        def Local(self):
+        def Local(self) -> Category:
             return self._with_axiom("Local")
 
         @cached_method
-        def Reduced(self):
+        def Reduced(self) -> Category:
             return self._with_axiom("Reduced")
 
     class ParentMethods:
@@ -211,7 +158,7 @@ class _CommutativeRings(CategoryWithAxiom):
 
         @abstract_method
         # Computable via Macaulay2 (m2) backend.
-        def ngens(self) -> int: ...
+        def ngens(self) -> Integer: ...
 
         @abstract_method
         # Computable via Macaulay2 (m2) backend.
@@ -231,5 +178,12 @@ class _CommutativeRings(CategoryWithAxiom):
             poly: RingElement,
             name: str | None = None,
             names: str | Sequence[str] | None = None,
-            **kwds,
+            *,
+            latex_name: str | None = None,
+            latex_names: str | Sequence[str] | None = None,
+            map: bool = False,
+            embedding: RingMorphism | None = None,
+            implementation: str | None = None,
+            prec: Integer | None = None,
+            print_mode: str | None = None,
         ) -> Ring: ...

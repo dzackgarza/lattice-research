@@ -8,8 +8,8 @@ from sage.categories.finite_dimensional_algebras_with_basis import (
     FiniteDimensionalAlgebrasWithBasis as SageFiniteDimensionalAlgebrasWithBasis,
 )
 
-from .with_basis import _AlgebrasWithBasis
 from .. import Algebras
+from .with_basis import _AlgebrasWithBasis
 
 
 class _FiniteDimensionalAlgebrasWithBasis(CategoryWithAxiom_over_base_ring):

@@ -1,0 +1,61 @@
+r"""Homset, endset, and autset categories for algebras."""
+
+from __future__ import annotations
+
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, overload
+
+from sage.misc.abstract_method import abstract_method
+from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
+
+from ..cat import Category
+from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+
+if TYPE_CHECKING:
+    from ..types import Algebra, AlgebraElement, AlgebraMorphism
+
+
+class _AlgebraHomsetObjects:
+    r"""Algebra-specific homset parent methods; generic homset methods are inherited."""
+
+
+class _AlgebraHomomorphisms:
+    @abstract_method
+    def kernel(self) -> Algebra: ...
+
+
+class AlgebraHomsets(HomsetsOf):
+    r"""Category of algebra homsets."""
+
+    def extra_super_categories(self):
+        return [Homsets().Of(self.base_category())]
+
+    class SubcategoryMethods:
+        @cached_method
+        def Endset(self) -> Category:
+            return self._with_axiom("Endset")
+
+        @cached_method
+        def Autset(self) -> Category:
+            return self._with_axiom("Autset")
+
+    ParentMethods = _AlgebraHomsetObjects
+    ElementMethods = _AlgebraHomomorphisms
+    Endset = LazyImport(__name__, "_AlgebraEndsets")
+    Autset = LazyImport(__name__, "_AlgebraAutsets")
+
+
+class _AlgebraEndsets(GenericEndsets):
+    _functor_category = "Endset"
+    _base_category_class_and_axiom = (AlgebraHomsets, "Endset")
+    Autset = LazyImport(__name__, "_AlgebraAutsets")
+
+    class ParentMethods:
+        @abstract_method
+        def base_algebra(self) -> Algebra: ...
+
+
+class _AlgebraAutsets(GenericAutsets):
+    _functor_category = "Autset"
+    _base_category_class_and_axiom = (AlgebraHomsets, "Autset")

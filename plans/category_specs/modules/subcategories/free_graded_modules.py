@@ -2,8 +2,8 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from collections.abc import Mapping, Sequence
+from typing import TYPE_CHECKING
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +12,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Integer, Matrix, ModuleBasis, RModule, RModuleElement, RModuleMorphism
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,26 +41,27 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FreeGradedModules(Category_over_base_ring):
     r"""Free graded modules over connected graded algebras."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(Modules(R).Free(), Modules(R).Graded())
+        return [Modules(R).Free(), Modules(R).Graded()]
 
     class ParentMethods:
         @abstract_method
-        def generator_degrees(self): ...
+        def generator_degrees(self) -> tuple[Integer, ...]: ...
 
         @abstract_method
-        def basis(self, degree=None): ...
+        def basis(self, degree: Integer | None = None) -> ModuleBasis: ...
 
         @abstract_method
-        def suspension(self, t=1): ...
+        def suspension(self, t: Integer = 1) -> RModule: ...
 
         @abstract_method
-        def hom(self, codomain, values, *args, **kwds) -> RModuleMorphism: ...
+        def hom(
+            self,
+            codomain: RModule,
+            values: RModuleMorphism | Matrix | Sequence[RModuleElement] | Mapping[RModuleElement, RModuleElement],
+            check: bool = True,
+        ) -> RModuleMorphism: ...

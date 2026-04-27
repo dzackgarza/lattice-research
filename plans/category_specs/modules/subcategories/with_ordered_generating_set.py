@@ -12,7 +12,7 @@ from sage.misc.abstract_method import abstract_method
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, RModuleElement
+    from ...types import Cardinality, Integer, RModuleElement, RModuleMorphism
 
 
 class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
@@ -31,13 +31,13 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
         def ngens(self) -> Cardinality:
             return self.gens().cardinality()
 
-        def gen(self, i):
+        def gen(self, i: Integer) -> RModuleElement:
             return self.gens()[i]
 
     class Homsets(HomsetsCategory):
         class ParentMethods:
             @abstract_method
-            def from_function(self, f: Callable[[RModuleElement], RModuleElement]): ...
+            def from_function(self, f: Callable[[RModuleElement], RModuleElement]) -> RModuleMorphism: ...
 
     class ElementMethods: ...
 

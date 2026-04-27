@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
+from sage.categories.algebras_with_basis import AlgebrasWithBasis as SageAlgebrasWithBasis
 from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.categories.algebras_with_basis import AlgebrasWithBasis as SageAlgebrasWithBasis
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
@@ -15,11 +15,11 @@ from .. import Algebras
 if TYPE_CHECKING:
     from ...types import (
         AlgebraBasis,
-        AlgebraBasisIndex,
         AlgebraElement,
-        AlgebraElementFamily,
+        CategoryElement,
         HochschildChainComplex,
         RModule,
+        SetFamily,
     )
 
 
@@ -44,13 +44,13 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
         def basis(self) -> AlgebraBasis: ...
 
         @abstract_method
-        def one_basis(self) -> AlgebraBasisIndex: ...
+        def one_basis(self) -> CategoryElement: ...
 
         @abstract_method
-        def product_on_basis(self, left: AlgebraBasisIndex, right: AlgebraBasisIndex) -> AlgebraElement: ...
+        def product_on_basis(self, left: CategoryElement, right: CategoryElement) -> AlgebraElement: ...
 
         @abstract_method
-        def algebra_generators(self) -> AlgebraElementFamily: ...
+        def algebra_generators(self) -> SetFamily: ...
 
         @abstract_method
         def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex: ...

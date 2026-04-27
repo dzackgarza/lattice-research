@@ -2,13 +2,14 @@ r"""One-object subcategory for Sage ``TotallyOrderedFiniteSet`` parents."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, SetElement
+    from ...types import Cardinality, Integer, SetElement
 
 
 from .. import Sets
@@ -28,16 +29,16 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         def le(self, x: SetElement, y: SetElement) -> bool: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def rank(self, x: SetElement) -> int: ...
+        def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def unrank(self, n: int) -> SetElement: ...
+        def unrank(self, n: Integer) -> SetElement: ...
 
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...

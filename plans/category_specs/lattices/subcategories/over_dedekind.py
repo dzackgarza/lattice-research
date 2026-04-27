@@ -30,11 +30,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.misc.abstract_method import abstract_method
-
 from plans.category_specs.lattices.subcategories.integral import _IntegralBilinearModules
 from plans.category_specs.types import RingElement, RModule, SubModule
+from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
+from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
     pass

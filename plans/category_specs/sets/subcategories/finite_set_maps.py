@@ -2,7 +2,8 @@ r"""One-object subcategory for Sage finite sets of maps."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from collections.abc import Callable, Iterator, Sequence
+from typing import TYPE_CHECKING, Any, overload
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -11,7 +12,6 @@ if TYPE_CHECKING:
     from ...types import (
         Cardinality,
         FiniteSetMap,
-        FiniteSetMapConstructorData,
         Set,
         SetElement,
     )
@@ -49,16 +49,29 @@ class _FiniteSetMapsSets(Category_singleton):
         def an_element(self) -> SetElement: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[FiniteSetMap]: ...
 
         @abstract_method
         def _from_list_(self, v: list[SetElement]) -> FiniteSetMap: ...
 
+        @overload
+        def _element_constructor_(self, finite_map: FiniteSetMap, check: bool = True) -> FiniteSetMap: ...
+
+        @overload
+        def _element_constructor_(
+            self,
+            function: Callable[[SetElement], SetElement],
+            check: bool = True,
+        ) -> FiniteSetMap: ...
+
+        @overload
+        def _element_constructor_(self, images: Sequence[SetElement], check: bool = True) -> FiniteSetMap: ...
+
         @abstract_method
         def _element_constructor_(
             self,
-            *data: FiniteSetMapConstructorData,
-            **keywords: FiniteSetMapConstructorData,
+            data: FiniteSetMap | Callable[[SetElement], SetElement] | Sequence[SetElement],
+            check: bool = True,
         ) -> FiniteSetMap: ...
 
         @abstract_method

@@ -2,7 +2,6 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +11,8 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Matrix, Ring, RModule
+
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,19 +41,15 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _VectorSubspacesWithOrderedGeneratingSet(Category_over_base_ring):
     r"""Embedded vector subspaces with an ordered Sage basis."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             _VectorSubspaces(R),
             Modules(R).WithOrderedGeneratingSet(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.modules.free_module import FreeModule_submodule_with_basis_field
@@ -63,7 +58,7 @@ class _VectorSubspacesWithOrderedGeneratingSet(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def basis_matrix(self, *args, **kwds) -> Matrix: ...
+        def basis_matrix(self, ring: Ring | None = None) -> Matrix: ...
 
         @abstract_method
-        def coordinate_module(self, *args, **kwds): ...
+        def coordinate_module(self, V: RModule) -> RModule: ...

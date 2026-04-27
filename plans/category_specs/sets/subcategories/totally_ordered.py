@@ -8,7 +8,7 @@ from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import SetElement
+    from ...types import Integer, SetElement
 
 from .. import Sets
 
@@ -27,10 +27,10 @@ class _TotallyOrdered(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def rank(self, x: SetElement) -> int: ...
+        def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def unrank(self, n: int) -> SetElement: ...
+        def unrank(self, n: Integer) -> SetElement: ...
 
         @abstract_method
         def min(self) -> SetElement: ...

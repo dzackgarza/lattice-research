@@ -2,13 +2,14 @@ r"""One-object subcategory for Sage ``NonNegativeIntegers()``."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import SetElement, SympySet
+    from ...types import Integer, SetElement, SympySet
 
 
 from .. import Sets
@@ -31,7 +32,7 @@ class _NonNegativeIntegersSets(Category_singleton):
         def _element_constructor_(self, i: SetElement) -> SetElement: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def an_element(self) -> SetElement: ...
@@ -43,7 +44,7 @@ class _NonNegativeIntegersSets(Category_singleton):
         def next(self, o: SetElement) -> SetElement: ...
 
         @abstract_method
-        def unrank(self, rnk: int) -> SetElement: ...
+        def unrank(self, rnk: Integer) -> SetElement: ...
 
         @abstract_method
         def _sympy_(self) -> SympySet: ...

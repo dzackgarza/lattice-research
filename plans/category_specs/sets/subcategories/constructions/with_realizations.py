@@ -5,11 +5,12 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
+from sage.categories.category import Category
 from sage.categories.with_realizations import WithRealizationsCategory
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ....types import SetRealization, SetWithRealizations
+    from ....types import SetRealization
 
 
 class _WithRealizations(WithRealizationsCategory):
@@ -32,7 +33,7 @@ class _WithRealizations(WithRealizationsCategory):
             ...
 
         @abstract_method
-        def Realizations(self):
+        def Realizations(self) -> Category:
             r"""Return the category of realizations of this parent."""
             ...
 

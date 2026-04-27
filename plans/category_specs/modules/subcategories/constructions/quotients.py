@@ -8,7 +8,7 @@ from sage.categories.quotients import QuotientsCategory
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ....types import RModuleElement
+    from ....types import RModMorphism, RModuleElement
 
 
 class _Quotients(QuotientsCategory):
@@ -16,7 +16,7 @@ class _Quotients(QuotientsCategory):
 
     class ParentMethods:
         @abstract_method
-        def projection(self): ...
+        def projection(self) -> RModMorphism: ...
 
     class ElementMethods:
         def lift(self) -> RModuleElement:

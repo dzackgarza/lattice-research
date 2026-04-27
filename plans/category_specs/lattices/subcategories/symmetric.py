@@ -7,11 +7,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.misc.abstract_method import abstract_method
-
 from plans.category_specs.modules.subcategories.axiomatic import _BilinearModules
 from plans.category_specs.types import SubModule
+from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
+from sage.misc.abstract_method import abstract_method
 
 
 class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):

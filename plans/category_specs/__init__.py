@@ -6,6 +6,7 @@ install concrete category interceptors and constructor redefinitions.
 """
 
 from . import algebras as algebras
+from . import cat as cat
 from . import homsets as homsets
 from . import modules as modules
 from . import posets as posets

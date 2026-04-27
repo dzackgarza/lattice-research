@@ -2,8 +2,9 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+import operator
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, Literal
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +13,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import Algebra, CategoryElement, Group, Matrix, Monoid, RModule, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,19 +42,15 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _RepresentationModules(Category_over_base_ring):
     r"""Group and semigroup representations implemented with bases."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).Free(),
             Modules(R).WithOrderedGeneratingSet(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.modules.with_basis.representation import Representation_abstract
@@ -63,19 +59,35 @@ class _RepresentationModules(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def semigroup(self): ...
+        def semigroup(self) -> Group | Monoid: ...
 
         @abstract_method
-        def side(self): ...
+        def side(self) -> Literal["left", "right", "twosided"]: ...
 
         @abstract_method
-        def algebra(self): ...
+        def algebra(self) -> Algebra: ...
 
         @abstract_method
-        def representation_matrix(self, g, *args, **kwds): ...
+        def representation_matrix(
+            self,
+            g: CategoryElement,
+            side: Literal["left", "right"] | None = None,
+            sparse: bool = False,
+        ) -> Matrix: ...
 
         @abstract_method
-        def invariant_module(self, *args, **kwds) -> RModule: ...
+        def invariant_module(
+            self,
+            S: Group | None = None,
+            action: Callable[[CategoryElement, RModuleElement], RModuleElement] = operator.mul,
+            action_on_basis: Callable[[CategoryElement, CategoryElement], RModuleElement] | None = None,
+            side: Literal["left", "right"] | None = None,
+        ) -> RModule: ...
 
         @abstract_method
-        def cell_module(self, *args, **kwds) -> RModule: ...
+        def cell_module(
+            self,
+            index: CategoryElement,
+            prefix: str = "W",
+            names: str | tuple[str, ...] | None = None,
+        ) -> RModule: ...

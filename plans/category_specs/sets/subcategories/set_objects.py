@@ -8,13 +8,14 @@ Two concrete implementations:
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Set, SetElement, Subset, SympySet
+    from ...types import Cardinality, Integer, Set, SetElement, Subset, SympySet
 
 
 from .. import Sets
@@ -28,7 +29,7 @@ class _SetObjects(Category_singleton):
 
     class ParentMethods:
         @abstract_method
-        def object(self):
+        def object(self) -> object:
             r"""Return the underlying wrapped object."""
             ...
 
@@ -36,12 +37,12 @@ class _SetObjects(Category_singleton):
         def __contains__(self, x: Any) -> bool: ...
 
         @abstract_method
-        def __richcmp__(self, right: Any, op: int) -> bool:
+        def __richcmp__(self, right: Any, op: Integer) -> bool:
             r"""Compare the wrapped Sage object using Sage's wrapper comparison semantics."""
             ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def _an_element_(self) -> SetElement: ...
@@ -68,7 +69,7 @@ class _SetObjects(Category_singleton):
         def is_finite(self) -> bool: ...
 
         @abstract_method
-        def subsets(self, size=None) -> Set: ...
+        def subsets(self, size: Integer | None = None) -> Set: ...
 
         @abstract_method
         def subsets_lattice(self) -> Set:
@@ -93,15 +94,15 @@ class _SetObjectsEnumerated(Category_singleton):
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def __len__(self) -> int: ...
+        def __len__(self) -> Integer: ...
 
         @abstract_method
-        def __richcmp__(self, other: Any, op: int) -> bool:
+        def __richcmp__(self, other: Any, op: Integer) -> bool:
             r"""Compare finite wrapper sets using Sage's finite-enumerated semantics."""
             ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def list(self) -> list[SetElement]: ...

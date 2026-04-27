@@ -12,7 +12,7 @@ from sage.misc.abstract_method import abstract_method
 from .lattice import _LatticePosets
 
 if TYPE_CHECKING:
-    from ...types import FiniteLatticePoset, PosetElement
+    from ...types import FiniteLatticePoset, LatticePoset, PosetElement
 
 
 class _FiniteLatticePosets(CategoryWithAxiom):
@@ -50,6 +50,6 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             ...
 
         @abstract_method
-        def is_lattice_morphism(self, f: Callable[[PosetElement], PosetElement], codomain) -> bool:
+        def is_lattice_morphism(self, f: Callable[[PosetElement], PosetElement], codomain: LatticePoset) -> bool:
             r"""Return whether ``f`` preserves finite meets and joins."""
             ...

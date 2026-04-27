@@ -17,10 +17,10 @@ class _Category_over_base_integer(CategoryWithParameters):
     parameter_name = "integer"
 
     @staticmethod
-    def __classcall_private__(cls, category, base_integer):
+    def __classcall_private__(cls, category: Category, base_integer: Integer):
         return super().__classcall__(cls, category, Integer(base_integer))
 
-    def __init__(self, category, base_integer):
+    def __init__(self, category: Category, base_integer: Integer) -> None:
         self._base_category = category
         self._base_integer = Integer(base_integer)
         Category.__init__(self)
@@ -34,7 +34,7 @@ class _Category_over_base_integer(CategoryWithParameters):
     def super_categories(self) -> list[Category]:
         return [self.base_category()]
 
-    def _make_named_class_key(self, name):
+    def _make_named_class_key(self, name: str):
         return (self.base_category(), self.base_integer())
 
 
@@ -44,7 +44,7 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
     parameter_name = "integer_pair"
 
     @staticmethod
-    def __classcall_private__(cls, base_ring, n: int, m: int | None = None):
+    def __classcall_private__(cls, base_ring: Ring, n: Integer, m: Integer | None = None):
         if m is None:
             m = n
         return super().__classcall__(cls, base_ring, Integer(n), Integer(m))

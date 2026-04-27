@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -25,29 +26,29 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @cached_method
-        def Bilinear(self):
+        def Bilinear(self) -> Category:
             return self._with_axiom("Bilinear")
 
         @cached_method
-        def Quadratic(self):
+        def Quadratic(self) -> Category:
             return self._with_axiom("Quadratic")
 
         @cached_method
-        def Symmetric(self):
+        def Symmetric(self) -> Category:
             return self._with_axiom("Symmetric")
 
         @cached_method
-        def Alternating(self):
+        def Alternating(self) -> Category:
             return self._with_axiom("Alternating")
 
         @cached_method
-        def Nondegenerate(self):
+        def Nondegenerate(self) -> Category:
             return self._with_axiom("Nondegenerate")
 
         @cached_method
-        def Integral(self):
+        def Integral(self) -> Category:
             return self._with_axiom("Integral")
 
         @cached_method
-        def Rational(self):
+        def Rational(self) -> Category:
             return self._with_axiom("Rational")

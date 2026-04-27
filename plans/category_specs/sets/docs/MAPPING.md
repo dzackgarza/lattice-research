@@ -118,12 +118,40 @@ subcategory boundaries.
 | `RecursivelyEnumeratedSet(...)` | `RecursivelyEnumeratedSets` | Recursively enumerable countable sets and forests. The forest-specific methods are part of the same Sage constructor family. |
 | `DisjointUnionEnumeratedSets(family)` | `DisjointUnionSets` | Countable coproduct/disjoint union of an indexed family. |
 | `CartesianProduct(...)` / `cartesian_product(...)` | `CartesianProductSets` | Product of sets; element projections belong to element methods. |
-| `ConditionSet(universe, predicates...)` | `PredicateSubsets` or `ConditionSets` | Sage names the ambient set via `ambient()` and predicates via `arguments()`; old `universe()`/`predicates()` names need explicit alias decisions before use. |
+| `ConditionSet(universe, predicates...)` | `ConditionSets` | A condition set is a predicate-defined subset of its universe. Sage names the ambient set via `ambient()` and predicate data via `arguments()`; `universe()` and `predicates()` are documented aliases for that mathematical surface. |
 | `ImageSubobject(f, X)` | `ImageSets` | Image subobject under a map; must include `ambient`, `lift`, and `retract`. |
 | `TotallyOrderedFiniteSet(elements)` | `TotallyOrderedFiniteSets` | Finite set with order relation `le`; element comparison methods are mathematical when elements are non-facade. |
 | `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` | Finite set of functions. Endomap variants expose monoid identity as `one()`, not only `identity()`. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
+
+## Signature Typing Decisions
+
+Rank, unrank, projection index, component index, and recursion-depth parameters are
+mathematically integer-valued. The spec uses `Integer`, and uses
+`Integer | InfinityElement` only where Sage's written documentation explicitly allows
+infinite bounds, such as `IntegerRange` begin/end values and recursive-enumeration
+depth bounds. It does not introduce an `IntegerRangeBound` alias because that only
+renames a simple union without adding mathematical vocabulary.
+
+Cartesian product element construction is typed as a sequence of set elements. This
+matches the product object mathematically: an element of `X_1 x ... x X_n` is an
+ordered tuple-like family with one component in each factor, not an unstructured
+variadic call surface.
+
+Real-set method signatures use `RealSubset` and `RealInterval`. The former is the
+mathematical object for finite Boolean operations on subsets of the real line; the
+latter is the mathematical object returned by interval accessors. Endpoint tuples are
+Sage constructor data, not a subcategory or type vocabulary item, so they appear only
+through explicit constructor methods such as `RealSetInterval`, `OpenRealInterval`, and
+`ClosedRealInterval`.
+
+Sage forwarding and test-suite hooks are inventory items, not mathematical method
+surface. `Sets.ParentMethods._element_constructor_from_element_class(*args,
+**keywords)` forwards to an arbitrary element-class constructor, so it has no finite
+mathematical signature. `SetsWithGrading.ParentMethods._test_graded_components(**options)`
+is Sage `TestSuite` plumbing. Both are omitted from the public spec surface rather than
+preserved as variadic API.
 
 ## Sage Primes Source Note
 

@@ -22,7 +22,7 @@ class _TensorProducts(TensorProductsCategory):
         return [self.base_category()]
 
     class ParentMethods:
-        def construction(self):
+        def construction(self) -> tuple[TensorProductFunctor, list[RModule]]:
             factors = self.tensor_factors()
             return (TensorProductFunctor(), factors)
 

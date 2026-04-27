@@ -2,13 +2,14 @@ r"""One-object subcategory for Sage ``FiniteEnumeratedSet`` parents."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, SetElement
+    from ...types import Cardinality, Integer, SetElement
 
 
 from .. import Sets
@@ -28,7 +29,7 @@ class _FiniteEnumeratedSetObjects(Category_singleton):
         def __contains__(self, x: SetElement) -> bool: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def list(self) -> list[SetElement]: ...
@@ -49,10 +50,10 @@ class _FiniteEnumeratedSetObjects(Category_singleton):
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def rank(self, x: SetElement) -> int: ...
+        def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def unrank(self, i: int) -> SetElement: ...
+        def unrank(self, i: Integer) -> SetElement: ...
 
         @abstract_method
         def __call__(self, el: SetElement) -> SetElement: ...

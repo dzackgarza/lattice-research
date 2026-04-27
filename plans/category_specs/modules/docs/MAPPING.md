@@ -20,9 +20,21 @@ Constructor signatures should expose the structured Sage inputs from
 `rank_or_basis_keys`, `sparse`, `inner_product_matrix`, `with_basis`, `rank`, and
 `basis_keys`; `VectorSpace` takes the analogous dimension/basis-key parameters; and
 `FreeQuadraticModule` takes `rank`, `inner_product_matrix`, `sparse`, and
-`inner_product_ring`. When upstream Sage exposes variadic implementation options, keep
-that variability on the corresponding constructor-family method and keep ordinary
-categorical method surfaces explicit.
+`inner_product_ring`. When upstream Sage implements these surfaces with `*args` or
+`**kwds`, the spec should not mirror that plumbing unless the written Sage
+documentation proves a genuinely open-ended mathematical input family. The target
+surface is the finite documented casework.
+
+Integer-valued module data uses `Integer`, not `int | Integer`: ranks, dimensions,
+tensor powers, tensor bidegrees, start indices, graded generator degrees, polynomial
+variable counts, and series precisions. The constructor namespace may pass these values
+to Sage factories, but the spec surface records the Sage mathematical type.
+
+Type vocabulary should name mathematical objects, not implementation containers.
+Generating sets, coordinate vectors, tensor symmetry data, and element-class hooks are
+spelled directly as sequences, module elements, tuples, or element classes unless the
+name introduces an independent mathematical noun such as `ModuleBasis` or
+`Cardinality`.
 
 ## Axiomatic Restrictions
 
@@ -45,8 +57,8 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 | Sage surface | Target surface | Rationale |
 | --- | --- | --- |
 | `Modules(R).Homsets()` | `modules/homsets.py` and top-level `homsets/` | Module homsets are sets of `R`-linear maps. Sage makes them modules over `R` and gives the parent method `zero()`. |
-| `Modules(R).Endsets()` / `Modules(R).Homsets().Endset()` | `modules/homsets.py` plus generic `Endsets` | Module endsets are homsets with equal domain and codomain. Sage's `Modules.Homsets.Endset` adds magmatic-algebra structure over `R`. |
-| Project `Modules(R).Autsets()` | generic `Autsets` with module specialization | A module automorphism set is the invertible part of `End(M)`. This belongs in the hom/end/aut hierarchy, not in constructor namespaces. |
+| `Modules(R).Endsets()` / `Modules(R).Homsets().Endset()` | `modules/homsets.py` plus generic `HomsetsOf(Modules(R)).Endset()` | Module endsets are homsets with equal domain and codomain. Sage's `Modules.Homsets.Endset` adds magmatic-algebra structure over `R`, so the project declares `End_R(M)` as an `R`-algebra in addition to the generic endset structure. |
+| Project `Modules(R).Autsets()` | generic `HomsetsOf(Modules(R)).Autset()` with module specialization | `Aut_R(M)` is the invertible part of `End_R(M)`. The root homsets layer owns the Autset construction; `modules/homsets.py` declares only module-specific names and extra structure. |
 | `Modules(R).CartesianProducts()` | `subcategories/constructions/cartesian_products.py` | Cartesian products of modules are direct products with componentwise module operations and common base-ring bookkeeping. |
 | `Modules(R).TensorProducts()` | `subcategories/constructions/tensor_products.py` | Tensor products are functorial constructions with `tensor_factors()` and construction data. |
 | `Modules(R).DualObjects()` / `dual()` | `subcategories/constructions/dual_objects.py` | Linear duals are covariant functorial construction objects in Sage; graded duals are not separated by the Sage `DualObjects` category. |
@@ -58,6 +70,16 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 | `Modules(R).Filtered()` | `subcategories/filtered.py` | Filtered modules are attachable restrictions/constructions on module subcategories. Sage notes interaction with `WithBasis`; the project mapping keeps it as its own mathematical file. |
 | `Modules(R).FiniteDimensional()` | `subcategories/finite_dimensional.py` | Finite-dimensionality is an axiomatic restriction. Over finite base rings, Sage adds finite-set structure. |
 | `Modules(R).FinitelyPresented()` | `subcategories/finitely_presented.py` | Finitely presented modules are an axiomatic restriction. Concrete finitely presented graded/PID modules are implementation families under the constructor namespace. |
+
+## Homset Extra-Structure Decision
+
+`R-Mod` is the first concrete model for hom/end/aut extra structure. The generic layer
+declares that `Hom_R(M, N)`, `End_R(M)`, and `Aut_R(M)` are homsets, endsets, and
+autsets internal to `Modules(R)`. The module subtree additionally declares that
+`Hom_R(M, N)` is an `R`-module and `End_R(M)` is an object of `Algebras(R)`, retaining
+Sage's `MagmaticAlgebras(R)` supercategory for upstream compatibility. Autset
+construction still comes from the generic layer because `Aut_R(M)` is defined by
+invertibility inside `End_R(M)` and dispatched through the module endset category.
 
 ## Topological Modules
 

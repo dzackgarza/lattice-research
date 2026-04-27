@@ -18,6 +18,7 @@ smoke:
     trap cleanup EXIT
 
     smoke_files=(
+        "cat/smoketest.sage"
         "homsets/smoketest.sage"
         "sets/smoketest.sage"
         "topological_spaces/smoketest.sage"
@@ -41,6 +42,7 @@ test: smoke
     trap cleanup EXIT
 
     test_dirs=(
+        "cat/tests"
         "homsets/tests"
         "sets/tests/regression"
         "sets/tests/new_spec"

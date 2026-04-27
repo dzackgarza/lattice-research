@@ -2,8 +2,8 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Literal
 
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
@@ -12,8 +12,19 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from sage.categories.category import Category
+
+    from ...types import (
+        CategoryElement,
+        FreeResolution,
+        Integer,
+        Matrix,
+        Ring,
+        RingElement,
+        RModule,
+        RModuleElement,
+        RModuleMorphism,
+    )
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,32 +53,50 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FinitelyPresentedGradedModules(Category_over_base_ring):
     r"""Cokernels of maps between free graded modules."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).FinitelyPresented(),
             Modules(R).Graded(),
-        )
+        ]
 
     class ParentMethods:
         @abstract_method
-        def generator_degrees(self): ...
+        def generator_degrees(self) -> tuple[Integer, ...]: ...
 
         @abstract_method
-        def relations(self): ...
+        def relations(self) -> tuple[RModuleElement, ...]: ...
 
         @abstract_method
-        def presentation(self): ...
+        def presentation(self) -> RModule: ...
 
         @abstract_method
-        def free_resolution(self, *args, **kwds): ...
+        def free_resolution(
+            self,
+            name: str = "S",
+            *,
+            graded: bool = False,
+            degrees: Sequence[Integer] | None = None,
+            shifts: Sequence[Integer] | None = None,
+            algorithm: str = "heuristic",
+        ) -> FreeResolution: ...
 
         @abstract_method
-        def module_morphism(self, *args, **kwds) -> RModuleMorphism: ...
+        def module_morphism(
+            self,
+            on_basis: Callable[[CategoryElement], RModuleElement] | None = None,
+            matrix: Matrix | None = None,
+            function: Callable[[RModuleElement], RModuleElement] | None = None,
+            diagonal: Callable[[CategoryElement], RingElement] | None = None,
+            triangular: Literal["upper", "lower"] | None = None,
+            unitriangular: bool | Literal["upper", "lower"] = False,
+            *,
+            codomain: RModule | Ring | None = None,
+            category: Category | None = None,
+            zero: RModuleElement | RingElement | None = None,
+            position: Integer = 0,
+            side: Literal["left", "right"] = "left",
+        ) -> RModuleMorphism: ...

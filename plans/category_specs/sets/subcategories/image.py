@@ -2,13 +2,14 @@ r"""One-object subcategories for images of sets under maps."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Set, SetElement, SympySet
+    from ...types import Cardinality, Integer, Set, SetElement, SympySet
 
 
 from .. import Sets
@@ -28,7 +29,7 @@ class _ImageSets(Category_singleton):
         def __ne__(self, other: Set) -> bool: ...
 
         @abstract_method
-        def __hash__(self) -> int: ...
+        def __hash__(self) -> Integer: ...
 
         @abstract_method
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
@@ -46,7 +47,7 @@ class _ImageSets(Category_singleton):
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...

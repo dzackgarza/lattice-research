@@ -24,7 +24,7 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING
 
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
@@ -34,7 +34,7 @@ from sage.misc.abstract_method import abstract_method
 if TYPE_CHECKING:
     from ...types import (
         DiscriminantGroup,
-        Lattice,
+        Integer,
         Matrix,
         OrthogonalGroup,
         RingElement,
@@ -62,10 +62,9 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         r"""Return the finitely presented module ``coker(matrix)`` over a PID."""
         if hasattr(matrix, "elementary_divisors"):
             return module_category.from_invariant_factors(matrix.elementary_divisors())
-        if hasattr(matrix, "smith_form"):
-            diagonal_matrix, _, _ = matrix.smith_form()
-            return module_category.from_invariant_factors(diagonal_matrix.diagonal())
-        raise TypeError(f"Matrix {matrix} does not appear to support elementary_divisors or smith_form.")
+        assert hasattr(matrix, "smith_form"), f"Matrix {matrix} must support elementary_divisors or smith_form."
+        diagonal_matrix, _, _ = matrix.smith_form()
+        return module_category.from_invariant_factors(diagonal_matrix.diagonal())
 
     # ------------------------------------------------------------------
     # ParentMethods
@@ -94,7 +93,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Torsion summand ``T`` of ``M = R^k \oplus T``."""
             ...
 
-        def free_rank(self) -> int:
+        def free_rank(self) -> Integer:
             return sum(1 for r in self.invariant_factors() if r.is_zero())
 
         @abstract_method
@@ -142,7 +141,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def to_tuple(self) -> tuple: ...
 
             @abstract_method
-            def to_function(self): ...
+            def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
     # ------------------------------------------------------------------
     # Torsion subcategory

@@ -9,7 +9,7 @@ from sage.categories.finite_sets import FiniteSets as SageFiniteSets
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, SetElement
+    from ...types import Cardinality, Integer, SetElement
 
 from .. import Sets
 
@@ -33,7 +33,7 @@ class _FiniteSets(CategoryWithAxiom):
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
-        def __len__(self) -> int:
+        def __len__(self) -> Integer:
             return int(self.cardinality())
 
         @abstract_method
@@ -46,6 +46,11 @@ class _FiniteSets(CategoryWithAxiom):
         def random_element(self) -> SetElement: ...
 
         @abstract_method
-        def unrank_range(self, start=None, stop=None, step=None) -> list[SetElement]:
+        def unrank_range(
+            self,
+            start: Integer | None = None,
+            stop: Integer | None = None,
+            step: Integer | None = None,
+        ) -> list[SetElement]:
             r"""Return elements at rank positions ``[start, stop)`` with stride ``step``."""
             ...

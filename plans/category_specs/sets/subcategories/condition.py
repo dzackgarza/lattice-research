@@ -2,6 +2,7 @@ r"""One-object subcategory for ``ConditionSet`` -- subset defined by predicates.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING
 
 from sage.categories.category_singleton import Category_singleton
@@ -49,7 +50,7 @@ class _ConditionSets(Category_singleton):
             ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def _element_constructor_(self, x: SetElement) -> SetElement: ...

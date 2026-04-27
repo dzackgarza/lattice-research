@@ -2,13 +2,14 @@ r"""One-object subcategory for Sage indexed families."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Set, SetElement, SetFamily, SetMorphism
+    from ...types import Cardinality, Integer, Set, SetElement, SetFamily, SetMorphism
 
 
 from .. import Sets
@@ -49,13 +50,13 @@ class _FamilySets(Category_singleton):
         def __contains__(self, x: Any) -> bool: ...
 
         @abstract_method
-        def __len__(self) -> int: ...
+        def __len__(self) -> Integer: ...
 
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def __getitem__(self, i: SetElement) -> SetElement: ...

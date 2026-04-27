@@ -3,7 +3,8 @@
 Source for this pass: Sage `sage/categories/homsets.py`, the project subtree
 homset files, and the user directive to create a root homsets subtree.
 
-Runtime smoke validation has not been run in this pass.
+Runtime smoke validation now instantiates `Homsets()`, `Homsets().Endset()`,
+`Homsets().Autset()`, and the `Cat` functor hom/end/aut layers.
 
 ## Audit Conclusions
 
@@ -12,14 +13,24 @@ Runtime smoke validation has not been run in this pass.
   category subtree.
 - Sage already supplies `HomsetsCategory`, `Homsets`, and `Homsets.Endset`; the project
   extends these constructions rather than replacing them.
-- Generic autset construction belongs in `homsets/utils.py`. Subtrees should call
-  `refine_automorphism_set_from_endset` instead of recreating `ConditionSet` logic.
-- Set, ring, module, and algebra homset files remain responsible only for
-  category-specific morphism laws.
+- Sage's `Homsets().Endset()` is a valid category. Sage models it as an axiom of
+  `Homsets`, not as an independent functorial construction, so the project adds
+  `EndsetsCategory` and the visible constructor `Endsets().Of(C)`.
+- Generic autset construction belongs in `homsets/utils.py` and is exposed through
+  `GenericAutsets`. Subtrees inherit it instead of calling the helper directly.
+- Set, ring, module, algebra, and topological-space homset files remain responsible
+  only for category-specific morphism laws and genuinely additional structure.
 
 ## Integration Results
 
-- `rings/homsets.py` now delegates autset construction to the root helper.
-- `sets/homsets.py` now delegates autset construction to the root helper.
-- `modules/homsets.py` now exposes autset refinement through the root helper.
+- `rings/homsets.py` now inherits generic autset construction through
+  `GenericAutsets`.
+- `sets/homsets.py` now inherits generic autset construction through
+  `GenericAutsets`.
+- `modules/homsets.py` now establishes the extra-structure pattern: `Hom_R(M, N)` is
+  an `R`-module and `End_R(M)` is an `R`-algebra, while Autset construction remains
+  generic.
+- `algebras/homsets.py` and `topological_spaces/homsets.py` now declare their
+  hom/end/aut categories as extension points for algebra homomorphisms, continuous
+  maps, and homeomorphisms.
 - `types.py` now exposes generic hom/end/aut vocabulary from `homsets`.

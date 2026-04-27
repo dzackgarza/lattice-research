@@ -2,7 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Iterable
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +12,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import CategoryElement, RingElement, RModuleElement
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,10 +41,6 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _CombinatorialFreeModules(Category_over_base_ring):
     r"""Sage ``CombinatorialFreeModule`` objects with arbitrary basis keys."""
 
@@ -53,11 +48,11 @@ class _CombinatorialFreeModules(Category_over_base_ring):
         from sage.categories.modules_with_basis import ModulesWithBasis
 
         R = self.base_ring()
-        return _super_category_list(
+        return [
             ModulesWithBasis(R),
             Modules(R).Free(),
             Modules(R).WithOrderedGeneratingSet(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.combinat.free_module import CombinatorialFreeModule
@@ -66,11 +61,15 @@ class _CombinatorialFreeModules(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def monomial(self, i) -> RModuleElement: ...
+        def monomial(self, i: CategoryElement) -> RModuleElement: ...
 
         @abstract_method
-        def linear_combination(self, iter_of_elements_coeff, *args, **kwds): ...
+        def linear_combination(
+            self,
+            iter_of_elements_coeff: Iterable[tuple[RModuleElement, RingElement]],
+            factor_on_left: bool = True,
+        ) -> RModuleElement: ...
 
     class ElementMethods:
         @abstract_method
-        def monomial_coefficients(self, copy=True): ...
+        def monomial_coefficients(self, copy: bool = True) -> dict[CategoryElement, RingElement]: ...

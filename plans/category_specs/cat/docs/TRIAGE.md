@@ -1,70 +1,59 @@
 # Cat Triage
 
-Source for this pass: `cat/docs/SAGE_INVENTORY.md`, `cat/docs/MAPPING.md`, and the
+Source for this pass: `cat/docs/SAGE_INVENTORY.md`, `cat/docs/MAPPING.md`,
+installed Sage source under `sage/categories/`, official Sage documentation, and the
 local smoke surface `cat/smoketest.sage`.
-
-The `cat` subtree is intentionally barebones, but it now has the required
-documentation spine and a Sage-grounded method surface.
 
 ## Current Alignment
 
-- `Cat()` declares Sage/project category objects as objects of the category of
+- `Cat()` accepts Sage/project category objects as objects of the category of
   categories.
-- `Cat()` treats Sage `Functor` and `ConstructionFunctor` instances as
-  morphism-like objects for uniform containment.
-- `Cat.ParentMethods` owns the uniform containment hooks:
-  `_sage_super_categories`, `_sage_object_classes`, `_sage_morphism_classes`, and
-  `__contains__`.
-- `leq`, `geq`, `<=`, and `>=` are shorthands for Sage's `is_subcategory` order.
-- Standard construction navigation is declared for `Subobjects`, `Quotients`,
-  `Subquotients`, `ObjectsOver`, `ObjectsUnder`, `CartesianProducts`, `Homsets`,
-  `Endsets`, and `Autsets`.
-- `Cat().Constructors()` is present as an explicitly empty constructor namespace.
-- Nontrivial implementation code is not present; `cat/implementations/AGENTS.md`
-  documents that this is currently spec-only.
-
-## Corrections From The First Scaffold
-
-- The original inventory only listed Sage modules. It now records concrete Sage
-  classes, method signatures, source files, and source lines for category,
-  functor, construction-functor, construction-category, and homset machinery.
-- `Cat().__contains__` no longer bypasses the uniform containment hooks. It now
-  delegates to the same subcategory/object/morphism check used by
-  `Cat.ParentMethods`.
-- The smoke surface now uses the subtree `smoke_case` pattern and covers the empty
-  constructor namespace, functor containment, slice/coslice construction, and
-  standard construction methods.
-- The implementation directory is tracked and explicitly marked as empty for now.
+- `Cat().__contains__` is intentionally object-only: functors are elements of
+  `A.Hom(B)`, not objects of `Cat()`.
+- `Cat.ParentMethods` is the canonical surface for category-object operations:
+  `Hom`, `End`, `Aut`, `leq`, `geq`, `<=`, and `>=`.
+- Registration preserves the re-exported Sage base-class mechanism and adapts the
+  canonical `Cat.ParentMethods` surface into Sage's category-object method path.
+- `A.Hom(B)` and `A.End()` reuse Sage `Hom`/`End` parents in category `Cat()`.
+- `A.Aut()` refines `A.End()` through the generic repository-level `Autset`
+  construction.
+- `CatHomsets` inherits the generic `HomsetsOf` pattern; `_CatEndsets` and
+  `_CatAutsets` inherit `GenericEndsets` and `GenericAutsets`.
+- Generic homset object methods such as `domain` and `codomain` come from the
+  repository-level homset surface. Cat only adds the functor-specific element
+  surface.
+- The previous `fixed_points()` endofunctor method was removed. Sage provides no
+  general computable fixed-point operation for endofunctors.
 
 ## Remaining Design Work
 
-- Existing top-level categories have not yet been refactored to inherit or copy the
-  `Cat.ParentMethods` containment mixin. That is a follow-up refactor, not part of
-  the stub.
-- `CatHomsets` is a direct local wrapper. It does not yet inherit from the
-  repository's `HomsetsOf` class.
-- Natural transformations are not modeled. The current morphism surface is Sage
-  functors and construction functors only.
-- The list of `_sage_morphism_classes()` is intentionally conservative:
-  `Functor` and `ConstructionFunctor`. Additional Sage functor subclasses should be
-  added only when a concrete method surface needs them.
-
-## Source Note: `CatHomsets` And Generic `HomsetsOf`
-
-- Searched: local `category_specs/homsets/__init__.py`,
-  `sage/categories/homsets.py`, and the first `CatHomsets` smoke attempt.
-- Found: the generic project `HomsetsOf` owns `Endset` and `Autset` axiom classes
-  whose base-category wiring currently assumes `HomsetsOf`; direct subclassing for
-  `CatHomsets` produced an axiom/base-class mismatch during `Endset` construction.
-- Conclusion: inference -- keep `CatHomsets` as a direct category wrapper until
-  generic homsets can accept category-specific element surfaces without breaking
-  `Endset` and `Autset` registration.
-- Confidence: Medium.
-- Gaps: I have not done a full redesign of the top-level `homsets/` subtree in this
+- Some subtree category classes already define direct `Hom` methods for their own
+  object-level homset constructors. Those direct methods may shadow the Cat-level
+  category-object `Hom` at runtime and should be reviewed in a later uniformization
   pass.
+- Natural transformations are not modeled. The current Cat morphism surface is Sage
+  functors and construction functors.
+- The generic Sage functor API does not provide a uniform invertibility certificate.
+  Concrete autofunctor membership beyond the generic `Autset` condition remains a
+  future refinement.
+
+## Source Note: Sage Generic Autsets
+
+- Searched: installed
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/homsets.py`,
+  installed `sage/categories/homset.py`, official Sage documentation pages for
+  category and homset machinery, and local `category_specs/homsets/__init__.py`.
+- Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`,
+  `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage
+  `Autset` category class.
+- Conclusion: inference -- project `Autset` vocabulary is an extension over Sage's
+  generic homset layer, while `Endset` maps to Sage's existing axiom.
+- Confidence: High.
+- Gaps: I did not search Sage's full git history or third-party Sage extensions.
 
 ## Validation Scope
 
 Run `sage cat/smoketest.sage` after layout and documentation edits are complete.
-This smoke is structural only; it does not prove that existing project categories
-already use the new containment mixin.
+This smoke is structural. It checks Cat instantiation, category-object membership,
+functor homset instantiation, and standard construction navigation. It does not prove
+that all other subtrees have completed the later uniformization refactor.

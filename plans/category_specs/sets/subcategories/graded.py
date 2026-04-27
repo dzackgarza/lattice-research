@@ -9,7 +9,7 @@ from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGra
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import GradedSet, Set, SetElement, SetGeneratingSeries, TestOptionValue
+    from ...types import GradedSet, Set, SetElement, SetGeneratingSeries
 
 from .. import Sets
 
@@ -49,11 +49,6 @@ class _GradedSets(CategoryWithAxiom):
         @abstract_method
         def generating_series(self) -> SetGeneratingSeries:
             r"""Return the generating series of graded-component cardinalities."""
-            ...
-
-        @abstract_method
-        def _test_graded_components(self, **options: TestOptionValue) -> None:
-            r"""Check that sample graded components match the grading map."""
             ...
 
 

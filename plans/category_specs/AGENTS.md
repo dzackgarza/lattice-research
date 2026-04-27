@@ -18,7 +18,11 @@
   3.  **Use @overload**: When there are truly multiple input patterns, split them
       into an `@overload` pattern documenting each specific mathematical
       signature.
-  4.  **Mathematical Types Only**: Never add "shortcut" types (e.g.,
+  4.  **Closed Implementation**: The final concrete implementation of a method
+      with overloads MUST be "closed": it should handle exactly the patterns
+      defined in the overloads (typically using `match/case` on types or data
+      shapes) and must NOT use `*args` or `**kwargs` for catch-all forwarding.
+  5.  **Mathematical Types Only**: Never add "shortcut" types (e.g.,
       `MyCategoryInputDataShape`) that have no mathematical meaning and only serve
       as software engineering helpers. Every type must reflect a real mathematical
       concept.
@@ -28,6 +32,35 @@
   ad-hoc types anywhere else — not in `TYPE_CHECKING` blocks, not at the top of axiom or
   other files, not inline.
   Import from `types.py`.
+- **No Python Native Scalars**: Never use native Python scalar types (`int`, `float`,
+  `complex`) in type signatures or code when a Sage equivalent exists. Sage's
+  preparser automatically promotes these to `Integer`, `RealNumber`, etc. To ensure
+  mathematical consistency and support for Sage's numerical methods (like
+  arbitrary precision), always use the Sage types from `types.py` (e.g. use
+  `Integer` instead of `int`).
+- **Prefer Mathematical Collections**: Avoid using Python native `list` or `tuple`
+  for mathematical collections, as they lack semantic meaning.
+  - Use **Ordered Sets** (from Sage) when a collection is finite, has no
+    duplicates, and the order is mathematically relevant.
+  - Use **Families** (indexed by another set) for collections where elements may
+    be repeated or the index set is not just $\{1, \dots, n\}$ (e.g., a basis of
+    an infinite-dimensional space).
+  - For **finite-rank or finite-dimensional** objects, a basis or generating set
+    must be an actual Sage object representing an **ordered set** of distinct
+    elements (e.g., $x_1, \dots, x_n$ in $X$), not a Python `list`, `tuple`, or
+    unordered `set`.
+- **Prefer Generators for Countable Collections**: For countable or infinite
+  collections, prefer returning Python generators over explicit lists or tuples.
+  This supports lazy evaluation and allows for filtering or mapping without
+  prematurely "unwrapping" infinite objects into memory. Methods like
+  `.elements()` should return generators whenever the underlying set is
+  countable, deferring concrete collection creation to the caller.
+- **Deep ConditionSet Integration**: For subsets or filtered collections (e.g.,
+  even integers, automorphisms within an endset), prefer using Sage's
+  `ConditionSet` to define containment via predicates. This allows for clean
+  mathematical expressions (e.g., `1+i in (CC - RR)`) and deferred evaluation.
+  When an ambient object exists, containment should be defined by deferring to
+  the predicates of a `ConditionSet` over that ambient universe.
 - Type names reflect **real mathematical vocabulary**, inspired by the SageMath
   **written docs** (not just type signatures — read the actual mathematics):
   - Objects: `Polynomial`, `RealNumber`, `ComplexNumber`, `RingElement`, `PowerSeries`,
@@ -279,12 +312,12 @@ following the same organizational principle as other category surfaces.
 ### File organization
 
 - **Top level**: `homsets/` defines the generic wiring shared across all subtrees —
-  base classes, generic `Hom`/`End`/`Aut` dispatch, and the Autset integration layer
-  (see below). This is the single place where Autset-as-ConditionSet machinery is
-  implemented.
+  `HomsetsOf(C)`, `HomsetsOf(C).Endset()`, `HomsetsOf(C).Autset()`, generic
+  `Hom`/`End`/`Aut` dispatch, and the Autset integration layer (see below). This is
+  the single place where Autset-as-ConditionSet machinery is implemented.
 - **Per subtree**: `<subtree>/homsets.py` defines subtree-specific homset categories
   (e.g. `SetHomsets`, `RingHomsets`) and their `ParentMethods`/`ElementMethods`. These
-  import and inherit from the top-level `homsets/` base classes.
+  import and inherit from `HomsetsOf`, `GenericEndsets`, and `GenericAutsets`.
 
 ### Autsets are wired repo-wide
 
@@ -300,24 +333,31 @@ subtree must define:
 - The `Autset` parent class, constructed from an `Endset` plus an invertibility
   condition.
 - Generic `ParentMethods` and `ElementMethods` available on all Autsets regardless of
-  the ambient category (e.g. `group_structure`, `inverse`, `composition`).
-- Generic `MorphismMethods` on the elements of Autsets (i.e. `Automorphism` methods like
-  `inverse`, `order`, `is_involution`).
+  the ambient category (e.g. `endset`, `domain`, `codomain`, `identity`, `inverse`,
+  `composition`, `is_invertible`, `group_structure`, and `order`).
+- Generic element methods on Autsets (i.e. `Automorphism` methods like `inverse` and
+  `order`, including predicates such as `is_involution`).
 
 ### What subtrees own vs. what the top level owns
 
 | Concern | Owner | Examples |
 | --- | --- | --- |
-| Generic Hom/End/Aut construction and dispatch | Top-level `homsets/` | `Aut(X)` builder, ConditionSet integration, `Autset` base class |
-| Generic methods on all Autsets | Top-level `homsets/` | `Autset.ParentMethods.group_structure`, `Autset.ElementMethods.inverse` |
+| Generic Hom/End/Aut construction and dispatch | Top-level `homsets/` | `HomsetsOf(C)`, `Aut(X)` builder, ConditionSet integration, `Autset` base class |
+| Generic methods on all Autsets | Top-level `homsets/` | `Autset.ParentMethods.group_structure`, `Autset.ParentMethods.identity`, `Autset.ElementMethods.inverse` |
 | Category-specific Autset properties | Subtree `<subtree>/homsets.py` | `Aut_{Set}(X).ParentMethods.is_transitive`, `Aut_{Ring}(X).ElementMethods.preserves_units` |
 | Category-specific Homset/Endset definitions | Subtree `<subtree>/homsets.py` | `SetHomsets`, `RingEndsets`, `RModHomsets` |
-| Wiring `Aut` into a subtree's category namespace | Subtree `<subtree>/__init__.py` | `Sets().Aut(X)` delegates to generic `Aut(X)` with the subtree's Endset |
+| Wiring Homsets/Endsets/Autsets into a subtree's category namespace | Subtree `<subtree>/__init__.py` | `Sets().Homsets()`, `Sets().Endsets()`, and `Sets().Autsets()` delegate to the subtree homset category |
 
 Subtrees focus on **categorical properties**: what methods should `Aut_{Set}(X)` have,
 what supercategories and additional structure it carries, how it refines the generic
 Autset. They must never reimplement the generic ConditionSet-on-Endset machinery that
 produces an Autset from an Endset.
+
+The first model for extra structure is `R-Mod`: `Modules(R).Homsets()` inherits the
+generic `HomsetsOf(Modules(R))` hierarchy and also declares the module structure on
+`Hom_R(M, N)`. Its endset subcategory additionally declares the algebra structure on
+`End_R(M)`. Other subtrees follow the same rule: declare only the additional
+mathematical structure that genuinely exists in that category.
 
 ### Morphism, Endomorphism, and Automorphism element types
 
@@ -341,6 +381,7 @@ category_specs/
 ├── axioms.py             # ALL axiom definitions and registration — single source of truth
 ├── types.py              # ALL type aliases — single source of truth
 ├── utils.py             # shared utilities (refine_category, etc.)
+├── cat/                 # category of categories; shared category-object boilerplate
 ├── homsets/             # generic Hom/End/Aut dispatch, Autset wiring, base classes
 │   ├── AGENTS.md
 │   ├── __init__.py
@@ -352,6 +393,7 @@ category_specs/
     ├── AGENTS.md         # subtree goals and task list
     ├── __init__.py       # defines category, ParentMethods, ElementMethods,
     │                     # MorphismMethods, Constructors; imports from subcategories/
+    ├── homsets.py        # subtree-specific Homset/Endset/Autset categories
     ├── subcategories/    # one .py file per mathematical subcategory (no __init__.py)
     │   ├── finite.py
     │   ├── constructions/
@@ -360,8 +402,7 @@ category_specs/
     │   │   ├── quotients.py
     │   │   ├── objects_over.py
     │   │   ├── objects_under.py
-    │   │   ├── cartesian_products.py
-    │   │   └── homsets.py    # subtree-specific Homset/Endset/Autset categories
+    │   │   └── cartesian_products.py
     │   ├── free.py
     │   └── ...
     ├── implementations/  # nontrivial implementations (mirrors subcategories/ hierarchy)
@@ -630,6 +671,21 @@ are missing or broken in Sage as-is, proving the motivation for the spec.
 - `with raises(...)` / `pytest.raises(...)` constructions are **only** permitted in
   `sage_gaps/` files. They are banned everywhere else.
 - Do not import or use any class from this spec hierarchy in `sage_gaps/` tests.
+
+## Testing (regression)
+
+Regression tests verify that objects constructed through our refined API behave
+identically to the original Sage objects and meet all mathematical invariants.
+
+- **Canonical Constructors Only**: Every test must construct its objects through the
+  category namespace (e.g., `Rings().Constructors().ZZ()`). Never bypass the API
+  with bare Sage globals or ad-hoc creation (`Matrix(...)`, `QuadraticForm(...)`).
+- **Use JSON Fixtures**: Use JSON fixture data from `tests/fixtures/` for
+  parametrized tests. Assert results against known literature values or proven
+  Sage outputs.
+- **Surface API Gaps**: If the canonical API is insufficient to express a test, do
+  not use a workaround. This is a signal that the spec or its constructors need
+  extension; document the gap and surface it for review.
 
 ## Testing (new_spec)
 

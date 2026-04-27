@@ -8,7 +8,7 @@ from sage.categories.subobjects import SubobjectsCategory
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ....types import Cardinality, QuotientModule, RModule, RModuleElement, SubModule
+    from ....types import Cardinality, QuotientModule, RModMorphism, RModule, RModuleElement, SubModule
 
 
 class _Subobjects(SubobjectsCategory):
@@ -26,7 +26,7 @@ class _Subobjects(SubobjectsCategory):
             ...
 
         @abstract_method
-        def inclusion(self): ...
+        def inclusion(self) -> RModMorphism: ...
 
         @abstract_method
         def intersect(self, N: SubModule) -> SubModule: ...

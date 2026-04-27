@@ -2,6 +2,7 @@ r"""One-object subcategory for Sage disjoint unions of enumerated sets."""
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
@@ -28,7 +29,7 @@ class _DisjointUnionEnumeratedSets(Category_singleton):
         def __contains__(self, x: Any) -> bool: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def an_element(self) -> SetElement: ...

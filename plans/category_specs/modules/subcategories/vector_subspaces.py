@@ -2,7 +2,6 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from ...types import RModule
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,16 +40,12 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _VectorSubspaces(Category_over_base_ring):
     r"""Embedded Sage vector subspaces created by ``span`` and ``subspace``."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(_VectorSpaces(R), Modules(R).Subobjects())
+        return [_VectorSpaces(R), Modules(R).Subobjects()]
 
     def __contains__(self, M: Any) -> bool:
         from sage.modules.free_module import FreeModule_submodule_field
@@ -66,4 +60,4 @@ class _VectorSubspaces(Category_over_base_ring):
         def complement(self) -> RModule: ...
 
         @abstract_method
-        def is_subspace(self, other) -> bool: ...
+        def is_subspace(self, other: RModule) -> bool: ...

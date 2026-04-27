@@ -2,7 +2,6 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_types import Category_over_base_ring
@@ -12,8 +11,9 @@ from sage.misc.lazy_import import LazyImport
 from .. import Modules
 
 if TYPE_CHECKING:
-    from sage.matrix.matrix0 import Matrix
-    from ...types import Cardinality, RingElement, RModule, RModuleElement, RModuleMorphism, SubModule
+    from collections.abc import Sequence
+
+    from ...types import Cardinality, Matrix, ModuleBasis, Ring, RingElement, RModule, RModuleElement, SubModule
 
 _FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
 _FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
@@ -42,19 +42,15 @@ _TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.tors
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
-def _super_category_list(*categories):
-    return list(categories)
-
-
 class _FreeModulesWithStandardBasis(Category_over_base_ring):
     r"""Sage ``FreeModule(R, n, with_basis='standard')`` objects."""
 
     def super_categories(self):
         R = self.base_ring()
-        return _super_category_list(
+        return [
             Modules(R).Free().FiniteRank(),
             Modules(R).FinitelyPresented(),
-        )
+        ]
 
     def __contains__(self, M: Any) -> bool:
         from sage.modules.free_module import FreeModule_ambient
@@ -63,44 +59,58 @@ class _FreeModulesWithStandardBasis(Category_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def degree(self): ...
+        def degree(self) -> Cardinality: ...
 
         @abstract_method
         def rank(self) -> Cardinality: ...
 
         @abstract_method
-        def basis(self): ...
+        def basis(self) -> ModuleBasis: ...
 
         @abstract_method
-        def gens(self): ...
+        def gens(self) -> tuple[RModuleElement, ...]: ...
 
         @abstract_method
-        def echelonized_basis(self, *args, **kwds): ...
+        def echelonized_basis(self) -> ModuleBasis: ...
 
         @abstract_method
-        def basis_matrix(self, *args, **kwds): ...
+        def basis_matrix(self, ring: Ring | None = None) -> Matrix: ...
 
         @abstract_method
-        def span(self, gens, *args, **kwds) -> SubModule: ...
+        def span(
+            self,
+            gens: RModule | Matrix | Sequence[RModuleElement] | Sequence[Sequence[RingElement]],
+            check: bool = True,
+            already_echelonized: bool = False,
+        ) -> SubModule: ...
 
         @abstract_method
-        def submodule(self, gens, *args, **kwds) -> SubModule: ...
+        def submodule(
+            self,
+            gens: RModule | Matrix | Sequence[RModuleElement] | Sequence[Sequence[RingElement]],
+            check: bool = True,
+            already_echelonized: bool = False,
+        ) -> SubModule: ...
 
         @abstract_method
-        def linear_combination_of_basis(self, coeffs): ...
+        def linear_combination_of_basis(self, coeffs: Sequence[RingElement]) -> RModuleElement: ...
 
         @abstract_method
-        def coordinate_vector(self, v, *args, **kwds): ...
+        def coordinate_vector(
+            self,
+            v: RModuleElement | Sequence[RingElement],
+            check: bool = True,
+        ) -> RModuleElement | Sequence[RingElement]: ...
 
     class ElementMethods:
         @abstract_method
-        def list(self): ...
+        def list(self) -> list[RingElement]: ...
 
         @abstract_method
-        def vector(self): ...
+        def vector(self) -> RModuleElement | Sequence[RingElement]: ...
 
         @abstract_method
-        def degree(self): ...
+        def degree(self) -> Cardinality: ...
 
         @abstract_method
-        def support(self): ...
+        def support(self) -> list[Integer]: ...

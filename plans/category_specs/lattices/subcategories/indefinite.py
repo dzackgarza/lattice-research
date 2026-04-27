@@ -11,9 +11,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-
 from plans.category_specs.lattices.subcategories.symmetric import _SymmetricBilinearModules
+from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 
 
 class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):

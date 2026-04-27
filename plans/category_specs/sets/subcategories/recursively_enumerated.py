@@ -2,13 +2,14 @@ r"""One-object subcategory for Sage recursively enumerated sets."""
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterator
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Set, SetElement
+    from ...types import Cardinality, CategoryElement, DiGraph, InfinityElement, Integer, Set, SetElement
 
 
 from .. import Sets
@@ -22,10 +23,10 @@ class _RecursivelyEnumeratedSets(Category_singleton):
 
     class ParentMethods:
         @abstract_method
-        def __len__(self) -> int: ...
+        def __len__(self) -> Integer: ...
 
         @abstract_method
-        def __iter__(self): ...
+        def __iter__(self) -> Iterator[SetElement]: ...
 
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
@@ -34,22 +35,30 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def graded_component_iterator(self): ...
+        def graded_component_iterator(self) -> Iterator[Set]: ...
 
         @abstract_method
-        def elements_of_depth_iterator(self, depth: int): ...
+        def elements_of_depth_iterator(self, depth: Integer) -> Iterator[SetElement]: ...
 
         @abstract_method
-        def breadth_first_search_iterator(self, max_depth=None): ...
+        def breadth_first_search_iterator(
+            self,
+            max_depth: Integer | InfinityElement | None = None,
+        ) -> Iterator[SetElement]: ...
 
         @abstract_method
-        def naive_search_iterator(self): ...
+        def naive_search_iterator(self) -> Iterator[SetElement]: ...
 
         @abstract_method
-        def depth_first_search_iterator(self): ...
+        def depth_first_search_iterator(self) -> Iterator[SetElement]: ...
 
         @abstract_method
-        def to_digraph(self, max_depth=None, loops: bool = True, multiedges: bool = True): ...
+        def to_digraph(
+            self,
+            max_depth: Integer | InfinityElement | None = None,
+            loops: bool = True,
+            multiedges: bool = True,
+        ) -> DiGraph: ...
 
         @abstract_method
         def roots(self) -> Set: ...
@@ -58,6 +67,11 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def children(self, x: SetElement) -> Set: ...
 
         @abstract_method
-        def map_reduce(self, map_function=None, reduce_function=None, reduce_init=None):
+        def map_reduce(
+            self,
+            map_function: Callable[[SetElement], CategoryElement] | None = None,
+            reduce_function: Callable[[CategoryElement, CategoryElement], CategoryElement] | None = None,
+            reduce_init: CategoryElement | Integer | None = None,
+        ) -> CategoryElement | Integer:
             r"""Run Sage's recursive map-reduce traversal."""
             ...
