@@ -18,7 +18,10 @@ smoke:
     trap cleanup EXIT
 
     smoke_files=(
+        "homsets/smoketest.sage"
         "sets/smoketest.sage"
+        "topological_spaces/smoketest.sage"
+        "algebras/smoketest.sage"
         "rings/smoketest.sage"
         "modules/smoketest.sage"
     )
@@ -38,9 +41,15 @@ test: smoke
     trap cleanup EXIT
 
     test_dirs=(
-        "sets/regression"
-        "rings/regression"
-        "rings/new_spec"
+        "homsets/tests"
+        "sets/tests/regression"
+        "sets/tests/new_spec"
+        "sets/tests/sage_gaps"
+        "topological_spaces/tests"
+        "algebras/tests"
+        "rings/tests/regression"
+        "rings/tests/new_spec"
+        "rings/tests/sage_gaps"
         "modules/tests"
     )
 

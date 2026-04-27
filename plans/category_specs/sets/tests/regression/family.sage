@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().Family()
+# Tests for Sets().Constructors().Family()
 # Assertions sourced from sage.sets.family.Family doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # List input: family indexed by {0,...,len-1}  (Family function docstring)

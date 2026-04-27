@@ -2,9 +2,14 @@ r"""Facade set subcategory."""
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Any
+
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
+
+if TYPE_CHECKING:
+    from ...types import SetElement
 
 from .. import Sets
 
@@ -23,7 +28,7 @@ class _FacadeSets(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def _element_constructor_(self, element):
+        def _element_constructor_(self, element: SetElement) -> SetElement:
             r"""Coerce ``element`` from any facade parent."""
             ...
 
@@ -31,3 +36,12 @@ class _FacadeSets(CategoryWithAxiom):
         def facade_for(self) -> tuple:
             r"""Return the tuple of parents this set is a facade for."""
             ...
+
+        @abstract_method
+        def is_parent_of(self, element: SetElement) -> bool: ...
+
+        @abstract_method
+        def __contains__(self, element: Any) -> bool: ...
+
+        @abstract_method
+        def _an_element_(self) -> SetElement: ...

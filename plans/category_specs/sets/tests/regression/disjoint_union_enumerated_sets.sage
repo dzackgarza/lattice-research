@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().DisjointUnionEnumeratedSets()
+# Tests for Sets().Constructors().DisjointUnionEnumeratedSets()
 # Assertions sourced from sage.sets.disjoint_union_enumerated_sets doctests.
 
 import sys
@@ -7,7 +7,7 @@ from plans.category_specs.sets import Sets
 from sage.all import infinity
 from sage.sets.finite_enumerated_set import FiniteEnumeratedSet
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # List input: two FiniteEnumeratedSets  (class docstring)

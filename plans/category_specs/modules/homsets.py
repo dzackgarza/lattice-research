@@ -20,31 +20,27 @@ from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAl
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
+from ..homsets.utils import refine_automorphism_set_from_endset
+
 if TYPE_CHECKING:
     from typing import Self
 
-    from sage.categories.homset import Homset
-    from sage.categories.morphism import Morphism
-    from sage.rings.infinity import InfinityElement
-    from sage.rings.integer import Integer
-    from sage.structure.element import Element
-    from sage.structure.parent import Parent
-
-    Cardinality = Integer | InfinityElement
-    RingElement = Element
-    RModule = Parent
-    RModuleElement = Element
-    RModuleMorphism = Morphism
-    RModHomset = Homset
-    SubModule = Parent
-    QuotientModule = Parent
-    BilinearForm = Morphism
-    BilinearFormsModule = Homset
-    QuadraticForm = Morphism
-    QuadraticFormsModule = Homset
-    RModAutSet = Homset
-    RModuleEndomorphism = Morphism
-    RModuleHomsetElement = Morphism
+    from ..types import (
+        BilinearForm,
+        BilinearFormsModule,
+        Cardinality,
+        QuadraticForm,
+        QuadraticFormsModule,
+        QuotientModule,
+        RingElement,
+        RModAutset,
+        RModEndomorphism,
+        RModEndset,
+        RModMorphism,
+        RModule,
+        RModuleElement,
+        SubModule,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -91,7 +87,7 @@ class _RModHomsetObjects:
     def codomain(self) -> RModule: ...
 
     @abstract_method
-    def __call__(self, *args, **kwds) -> RModuleMorphism: ...
+    def __call__(self, *args, **kwds) -> RModMorphism: ...
 
     @abstract_method
     def __contains__(self, obj: Any) -> bool: ...
@@ -103,7 +99,7 @@ class _RModHomsetObjects:
         return self(ConstantFunction(self.codomain().zero()))
 
     @abstract_method
-    def natural_morphism(self) -> RModuleHomsetElement:
+    def natural_morphism(self) -> RModMorphism:
         r"""The morphism in Hom_R(M, N) sending e_i -> f_i for all
         generators e_i of M and f_i of N.  As a matrix this is ``[Id | 0]``
         or ``[Id | 0]^t``: rectangular with 1s along the diagonal.
@@ -303,13 +299,13 @@ class _Endsets(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
-        def Aut(self) -> RModAutSet: ...
+        def Aut(self) -> RModAutset: ...
 
         @abstract_method
-        def unit_group(self) -> RModAutSet: ...
+        def unit_group(self) -> RModAutset: ...
 
         @abstract_method
-        def identity(self) -> RModuleEndomorphism: ...
+        def identity(self) -> RModEndomorphism: ...
 
         # Do not define ``as_automorphism`` -- promotion of invertible
         # objects should happen automatically.
@@ -322,7 +318,13 @@ class _Autsets(CategoryWithAxiom_over_base_ring):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
         return [self.base_category().Endset(), SageGroups()]
 
+    def from_endset(self, endset: RModEndset) -> RModAutset:
+        return refine_automorphism_set_from_endset(endset, self)
+
     class ParentMethods:
+        @abstract_method
+        def endset(self) -> RModEndset: ...
+
         def is_aut_set(self) -> bool:
             return True
 

@@ -1,0 +1,25 @@
+r"""Finitely generated modules."""
+
+from __future__ import annotations
+
+from typing import Any
+
+from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
+
+from .. import Modules
+
+
+class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
+    r"""Modules admitting a surjection from ``R^n`` for some finite ``n``."""
+
+    _base_category_class_and_axiom = (Modules, "FinitelyGenerated")
+
+    def extra_super_categories(self):
+        return [self.base_category().WithOrderedGeneratingSet()]
+
+    def __contains__(self, M: Any) -> bool:
+        return M in self.base_category() and M.is_finitely_generated()
+
+    class ParentMethods:
+        def is_finitely_generated(self) -> bool:
+            return True

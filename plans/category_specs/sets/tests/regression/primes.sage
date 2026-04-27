@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().Primes()
+# Tests for Sets().Constructors().Primes()
 # Assertions sourced from sage.sets.primes.Primes doctests.
 # Each assertion verifies the wrapped object recovers the same behaviour
 # as the underlying Sage Primes() object.
@@ -8,7 +8,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, infinity
 
-P = Sets().NamedSets().Primes()
+P = Sets().Constructors().Primes()
 
 # ---------------------------------------------------------------------------
 # Cardinality and membership  (Primes class docstring)
@@ -40,4 +40,4 @@ assert P.an_element() == 43
 # Uniqueness: two calls return the same object  (__classcall__ doctest)
 # ---------------------------------------------------------------------------
 
-assert Sets().NamedSets().Primes() == P
+assert Sets().Constructors().Primes() == P

@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().EnumeratedSetFromIterator()
+# Tests for Sets().Constructors().EnumeratedSetFromIterator()
 # Assertions sourced from sage.sets.set_from_iterator.EnumeratedSetFromIterator doctests.
 
 import sys
@@ -7,7 +7,7 @@ from plans.category_specs.sets import Sets
 from sage.all import FiniteEnumeratedSets, InfiniteEnumeratedSets, xsrange
 from itertools import count
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Finite set from xsrange  (EnumeratedSetFromIterator.__init__ doctest)

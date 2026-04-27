@@ -10,11 +10,13 @@ from sage.categories.homsets import HomsetsCategory
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
+from ..homsets.utils import refine_automorphism_set_from_endset
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    from ..types import Ring, RingAutset, RingEndset, RingMorphism
+    from ..types import Ideal, Ring, RingAutset, RingEndset, RingMorphism
 
 
 class _RingHomsetObjects:
@@ -29,6 +31,44 @@ class _RingHomsetObjects:
 
     @abstract_method
     def __contains__(self, obj: RingMorphism) -> bool: ...
+
+
+class _RingHomomorphisms:
+    @abstract_method
+    def domain(self) -> Ring: ...
+
+    @abstract_method
+    def codomain(self) -> Ring: ...
+
+    @abstract_method
+    def image(self, I: Ideal | None = None) -> Ideal: ...
+
+    @abstract_method
+    def is_injective(self) -> bool: ...
+
+    @abstract_method
+    def is_surjective(self) -> bool: ...
+
+    @abstract_method
+    def is_endomorphism(self) -> bool: ...
+
+    @abstract_method
+    def is_identity(self) -> bool: ...
+
+    @abstract_method
+    def is_zero(self) -> bool: ...
+
+    @abstract_method
+    def kernel(self) -> Ideal: ...
+
+    @abstract_method
+    def section(self) -> RingMorphism: ...
+
+    @abstract_method
+    def pre_compose(self, other: RingMorphism) -> RingMorphism: ...
+
+    @abstract_method
+    def post_compose(self, other: RingMorphism) -> RingMorphism: ...
 
 
 class _RingEndomorphisms:
@@ -47,7 +87,35 @@ class _RingAutomorphisms:
     def inverse(self) -> RingMorphism: ...
 
 
+class RingHomsets(HomsetsCategory):
+    @classmethod
+    def from_sage_homset(cls, homset):
+        from . import Rings
+
+        return refine_category(homset, Rings().Homsets())
+
+    def extra_super_categories(self):
+        return [SageSets()]
+
+    class SubcategoryMethods:
+        @cached_method
+        def Endset(self):
+            return self._with_axiom("Endset")
+
+        @cached_method
+        def Autset(self):
+            return self._with_axiom("Autset")
+
+    ParentMethods = _RingHomsetObjects
+    ElementMethods = _RingHomomorphisms
+    Endset = LazyImport(__name__, "_Endsets")
+    Autset = LazyImport(__name__, "_Autsets")
+
+
 class _Endsets(CategoryWithAxiom):
+    _base_category_class_and_axiom = (RingHomsets, "Endset")
+    Autset = LazyImport(__name__, "_Autsets")
+
     def extra_super_categories(self):
         from . import Rings
 
@@ -80,15 +148,14 @@ class _Endsets(CategoryWithAxiom):
 
 
 class _Autsets(CategoryWithAxiom):
+    _base_category_class_and_axiom = (RingHomsets, "Autset")
+
     def extra_super_categories(self):
         return [self.base_category().Endset(), SageGroups(), SageSets()]
 
     @classmethod
     def from_endset(cls, endset: RingEndset) -> RingAutset:
-        from sage.sets.condition_set import ConditionSet as SageConditionSet
-
-        autset = SageConditionSet(endset, lambda f: f.is_invertible())
-        return refine_category(autset, cls())
+        return refine_automorphism_set_from_endset(endset, cls())
 
     class ParentMethods:
         def base_ring(self) -> Ring:
@@ -121,34 +188,3 @@ class _Autsets(CategoryWithAxiom):
             return self
 
     ElementMethods = _RingAutomorphisms
-
-
-_Endsets.Autset = _Autsets
-
-
-class RingHomsets(HomsetsCategory):
-    @classmethod
-    def from_sage_homset(cls, homset):
-        from . import Rings
-
-        return refine_category(homset, Rings().Homsets())
-
-    def extra_super_categories(self):
-        return [SageSets()]
-
-    class SubcategoryMethods:
-        @cached_method
-        def Endset(self):
-            return self._with_axiom("Endset")
-
-        @cached_method
-        def Autset(self):
-            return self._with_axiom("Autset")
-
-    ParentMethods = _RingHomsetObjects
-    Endset = _Endsets
-    Autset = _Autsets
-
-
-_Endsets._base_category_class_and_axiom = (RingHomsets, "Endset")
-_Autsets._base_category_class_and_axiom = (RingHomsets, "Autset")

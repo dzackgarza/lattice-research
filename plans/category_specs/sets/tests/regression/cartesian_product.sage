@@ -1,14 +1,14 @@
-# Tests for Sets().NamedSets().CartesianProduct()
+# Tests for Sets().Constructors().CartesianProduct()
 # Assertions sourced from sage.sets.cartesian_product.CartesianProduct doctests.
 # Note: The canonical high-level constructor is `cartesian_product([...])`;
-# this tests that Sets().NamedSets().CartesianProduct() recovers the same behaviour.
+# this tests that Sets().Constructors().CartesianProduct() recovers the same behaviour.
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, QQ, GF, cartesian_product as sage_cartesian_product
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # cartesian_factors  (class docstring)

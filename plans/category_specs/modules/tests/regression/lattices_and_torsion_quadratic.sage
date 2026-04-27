@@ -1,5 +1,5 @@
-# Tests for Modules(ZZ).NamedModules().IntegerLattice and
-# Modules(ZZ).NamedModules().TorsionQuadraticForm.
+# Tests for Modules(ZZ).Constructors().IntegerLattice and
+# Modules(ZZ).Constructors().TorsionQuadraticForm.
 #
 # Assertions sourced from official Sage examples in:
 # - sage.modules.free_module_integer
@@ -13,7 +13,7 @@ sys.path.insert(0, '/home/dzack/research')
 from sage.all import QQ, ZZ, diagonal_matrix, matrix, vector
 from plans.category_specs.modules import Modules
 
-MZZ = Modules(ZZ).NamedModules()
+MZZ = Modules(ZZ).Constructors()
 
 # ---------------------------------------------------------------------------
 # IntegerLattice(...)  (free_module_integer docs)

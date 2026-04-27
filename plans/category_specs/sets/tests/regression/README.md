@@ -3,7 +3,7 @@
 These files prove that the `Sets()` spec does not break existing Sage code.
 Each test takes a constructor that previously worked through bare Sage
 (`Primes()`, `IntegerRange(...)`, etc.) and runs the same documented examples
-through the spec-wrapped call (`Sets().NamedSets().X(...)`).  If anything
+through the spec-wrapped call (`Sets().Constructors().X(...)`).  If anything
 breaks, the spec has introduced a regression.
 
 Every assertion was copied verbatim from the Sage source doctests cited below;

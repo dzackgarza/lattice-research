@@ -1,4 +1,4 @@
-# Tests for Modules(R).NamedModules().FreeModule / VectorSpace / span /
+# Tests for Modules(R).Constructors().FreeModule / VectorSpace / span /
 # quotient_module / ring-side module constructions.
 #
 # Assertions sourced from official Sage examples in:
@@ -11,8 +11,8 @@ sys.path.insert(0, '/home/dzack/research')
 from sage.all import QQ, ZZ, identity_matrix, infinity, matrix
 from plans.category_specs.modules import Modules
 
-MZZ = Modules(ZZ).NamedModules()
-MQQ = Modules(QQ).NamedModules()
+MZZ = Modules(ZZ).Constructors()
+MQQ = Modules(QQ).Constructors()
 
 # ---------------------------------------------------------------------------
 # Ambient free modules and vector spaces  (free_module.py examples)

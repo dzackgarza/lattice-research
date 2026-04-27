@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().Set()
+# Tests for Sets().Constructors().Set()
 # Assertions sourced from sage.sets.set doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, QQ
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic construction, duplicate removal  (Set function docstring)

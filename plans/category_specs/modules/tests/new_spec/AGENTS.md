@@ -1,1 +1,3 @@
-../../../rings/new_spec/AGENTS.md
+# AGENTS.md — modules/tests/new_spec
+
+Tests here specify the local module category surface.

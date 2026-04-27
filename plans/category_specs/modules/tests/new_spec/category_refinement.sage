@@ -15,8 +15,8 @@ from plans.category_specs.rings import Rings
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-QQ = Rings().NamedRings().QQ()
-MQQ = Modules(QQ).NamedModules()
+QQ = Rings().Constructors().QQ()
+MQQ = Modules(QQ).Constructors()
 
 # ---------------------------------------------------------------------------
 # QuotientModuleWithBasis should refine to quotient / generating-set surfaces

@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().RealSet()
+# Tests for Sets().Constructors().RealSet()
 # Assertions sourced from sage.sets.real_set.RealSet doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import oo
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Open interval from two numbers  (class docstring)

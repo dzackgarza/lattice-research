@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().ConditionSet()
+# Tests for Sets().Constructors().ConditionSet()
 # Assertions sourced from sage.sets.condition_set.ConditionSet doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, is_even, is_odd, is_prime, IntegerModRing
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic predicate: even integers  (class docstring)

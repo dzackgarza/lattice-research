@@ -21,10 +21,10 @@ SET_AXIOMS = (
     "Uncountable",
     "Finite",
     "Infinite",
+    "Facade",
     "TotallyOrdered",
     "Topological",
     "Metric",
-    "WithBooleanOps",
 )
 
 
@@ -95,8 +95,20 @@ MODULE_AXIOMS = (
     "Symmetric",
     "Alternating",
     "Nondegenerate",
+    "Indefinite",
+    "Definite",
     "Integral",
     "Rational",
+)
+
+
+# ---------------------------------------------------------------------------
+# Homset Axioms
+# ---------------------------------------------------------------------------
+
+HOMSET_AXIOMS = (
+    "Endset",
+    "Autset",
 )
 
 
@@ -104,7 +116,7 @@ MODULE_AXIOMS = (
 # Registration Logic
 # ---------------------------------------------------------------------------
 
-ALL_AXIOMS = SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS
+ALL_AXIOMS = SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + HOMSET_AXIOMS
 
 
 def register_axioms(axioms: Iterable[str]) -> None:

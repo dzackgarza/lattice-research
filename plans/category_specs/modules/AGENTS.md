@@ -2,7 +2,7 @@
 GOAL: record the entirety of the existing set of module methods as a proper set of ABC specs on specific sets of subcategories.
 This should operate as a replacement for the categories SageX where X = FreeModule(...), CombinatorialFreeModule(...), etc, which operates non-destructively by intercepting and overwriting all constructors, using existing implementations wherever possible, and refining the results to lie in the new subcategory hierarchy.
 Tasks:
-    - Ensure all named constructors for all modules in sage appear as methods on Modules(R).NamedModules()
+    - Ensure all named constructors for all modules in sage appear as methods on Modules(R).Constructors()
     - Ensure all known types of modules in the sage codebase map to a specific subcategory speccing their methods as ParentMethods, ElementMethods, MorphismMethods, etc.
     - Ensure there are constructions that regard rings R as rank 1 free R-modules, (fractional) ideals as submodules, invertible ideals as projective submodules, polynomial rings R[x_1,...,x_n] as R-modules, similarly for power series rings, matrix rings, and other constructions on rings
     - Ensure that all constructions in sage are collected onto this category, where one calls the existing sage constructor and refines the category of the result.

@@ -10,10 +10,10 @@ from sage.rings.integer import Integer
 
 from ..algebras import Algebras
 from ..modules import Modules
-from .constructions import _Category_over_base_integer_pair
+from .subcategories.constructions.parameterized import _Category_over_base_integer_pair
 
 if TYPE_CHECKING:
-    from ..types import Ring, RingElement
+    from ..types import MatrixEntryOrder, Ring, RingElement
 
 
 class _MatrixAlgebras(_Category_over_base_integer_pair):
@@ -31,7 +31,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
     def _repr_object_names(self) -> str:
         return f"rings of {self._n} by {self._n} matrices over {self._base_ring}"
 
-    def __contains__(self, R: object) -> bool:
+    def __contains__(self, R: Any) -> bool:
         from sage.matrix.matrix_space import MatrixSpace
 
         return (
@@ -53,7 +53,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             Modules(R).Free().FiniteRank(),
         ]
         if self._n == 1:
-            from .specialized import _CommutativeRings
+            from .subcategories.commutative import _CommutativeRings
 
             if R in _CommutativeRings():
                 cats.append(_CommutativeRings())
@@ -100,7 +100,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def from_vector(
             self,
             vector: RingElement,
-            order: Any = None,
+            order: MatrixEntryOrder = None,
             coerce: bool = True,
         ) -> RingElement: ...
 

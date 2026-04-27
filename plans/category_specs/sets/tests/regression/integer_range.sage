@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().IntegerRange()
+# Tests for Sets().Constructors().IntegerRange()
 # Assertions sourced from sage.sets.integer_range doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import Integer, Infinity, infinity
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic finite ranges  (class docstring)

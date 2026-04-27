@@ -1,0 +1,55 @@
+r"""One-object subcategory for Sage ``IntegerRange`` parents."""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
+
+from sage.categories.category_singleton import Category_singleton
+from sage.misc.abstract_method import abstract_method
+
+if TYPE_CHECKING:
+    from ...types import Cardinality, SetElement
+
+
+def _Sets():
+    from .. import Sets as _S
+
+    return _S()
+
+
+class _IntegerRangeSets(Category_singleton):
+    r"""Arithmetic progressions of integers, finite or infinite by bounds."""
+
+    def super_categories(self) -> list:
+        return [_Sets().Countable().Facade()]
+
+    class ParentMethods:
+        @abstract_method
+        def _element_constructor_(self, el: SetElement) -> SetElement: ...
+
+        @abstract_method
+        def __contains__(self, elt: Any) -> bool: ...
+
+        @abstract_method
+        def cardinality(self) -> Cardinality: ...
+
+        @abstract_method
+        def rank(self, x: SetElement) -> int: ...
+
+        @abstract_method
+        def unrank(self, n: int) -> SetElement: ...
+
+        @abstract_method
+        def __getitem__(self, i: int) -> SetElement: ...
+
+        @abstract_method
+        def __iter__(self): ...
+
+        @abstract_method
+        def _an_element_(self) -> SetElement: ...
+
+        @abstract_method
+        def first(self) -> SetElement: ...
+
+        @abstract_method
+        def next(self, elt: SetElement) -> SetElement: ...

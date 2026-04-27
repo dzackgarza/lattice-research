@@ -8,157 +8,91 @@ existing Sage ring categories where Sage provides them.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_types import Category_ideal
+from sage.categories.homset import End as SageEnd
+from sage.categories.homset import Hom as SageHom
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
+from sage.matrix.matrix_space import MatrixSpace
 from sage.rings.integer import Integer
+from sage.rings.number_field.number_field import NumberField_cyclotomic
 
 from ..modules import Modules
 from ..utils import refine_category
-from ._selectors import (
-    _RingNamedShortcuts,
-    _RingSubcategorySelectors,
-)
-from .constructions import (
-    _Quotients,
-    _RingsOver,
-    _RingsUnder,
-    _Subobjects,
-    _Subquotients,
-)
 from .homsets import RingHomsets
 from .matrix_algebras import (
     _MatrixAlgebras,
 )
-from .specialized import (
-    _CC as _CC,
-)
-from .specialized import (
-    _QQ as _QQ,
-)
-from .specialized import (
-    _RR as _RR,
-)
-from .specialized import (
-    _ZZ as _ZZ,
-)
-from .specialized import (
-    _AlgebraicallyClosedFields as _AlgebraicallyClosedFields,
-)
-from .specialized import (
-    _ArchimedeanGlobalFields as _ArchimedeanGlobalFields,
-)
-from .specialized import (
-    _CommutativeRings as _CommutativeRings,
-)
-from .specialized import (
-    _CompleteDiscreteValuationFields as _CompleteDiscreteValuationFields,
-)
-from .specialized import (
-    _CompleteDiscreteValuationRings as _CompleteDiscreteValuationRings,
-)
-from .specialized import (
-    _CompleteRings as _CompleteRings,
-)
-from .specialized import (
-    _CyclotomicFields as _CyclotomicFields,
-)
-from .specialized import (
-    _DedekindDomains as _DedekindDomains,
-)
-from .specialized import (
-    _DiscreteValuationFields as _DiscreteValuationFields,
-)
-from .specialized import (
-    _DiscreteValuationRings as _DiscreteValuationRings,
-)
-from .specialized import (
-    _DivisionRings as _DivisionRings,
-)
-from .specialized import (
-    _EuclideanDomains as _EuclideanDomains,
-)
-from .specialized import (
-    _Fields as _Fields,
-)
-from .specialized import (
-    _FiniteFields as _FiniteFields,
-)
-from .specialized import (
-    _FiniteRings as _FiniteRings,
-)
-from .specialized import (
-    _GcdDomains as _GcdDomains,
-)
-from .specialized import (
-    _GlobalFields as _GlobalFields,
-)
-from .specialized import (
-    _IntegralDomains as _IntegralDomains,
-)
-from .specialized import (
-    _IntegrallyClosedDomains as _IntegrallyClosedDomains,
-)
-from .specialized import (
-    _LaurentSeriesRings as _LaurentSeriesRings,
-)
-from .specialized import (
-    _LocalFields as _LocalFields,
-)
-from .specialized import (
-    _LocalRings as _LocalRings,
-)
-from .specialized import (
-    _NoetherianRings as _NoetherianRings,
-)
-from .specialized import (
-    _NonArchimedeanGlobalFields as _NonArchimedeanGlobalFields,
-)
-from .specialized import (
-    _NumberFields as _NumberFields,
-)
-from .specialized import (
-    _PolynomialRings as _PolynomialRings,
-)
-from .specialized import (
-    _PowerSeriesRings as _PowerSeriesRings,
-)
-from .specialized import (
-    _PrincipalIdealDomains as _PrincipalIdealDomains,
-)
-from .specialized import (
-    _PuiseuxSeriesRings as _PuiseuxSeriesRings,
-)
-from .specialized import (
-    _Qp as _Qp,
-)
-from .specialized import (
-    _QuadraticNumberFields as _QuadraticNumberFields,
-)
-from .specialized import (
-    _QuotientFields as _QuotientFields,
-)
-from .specialized import (
-    _ReducedRings as _ReducedRings,
-)
-from .specialized import (
-    _TopologicalRings as _TopologicalRings,
-)
-from .specialized import (
-    _UniqueFactorizationDomains as _UniqueFactorizationDomains,
-)
-from .specialized import (
-    _ValuedRings as _ValuedRings,
-)
-from .specialized import (
-    _Zp as _Zp,
-)
+from .subcategories.constructions.quotients import _Quotients
+from .subcategories.constructions.rings_over import _RingsOver
+from .subcategories.constructions.rings_under import _RingsUnder
+from .subcategories.constructions.subobjects import _Subobjects
+from .subcategories.constructions.subquotients import _Subquotients
+_CommutativeRings = LazyImport("category_specs.rings.subcategories.commutative", "_CommutativeRings")
+_FiniteRings = LazyImport("category_specs.rings.subcategories.finite", "_FiniteRings")
+_DivisionRings = LazyImport("category_specs.rings.subcategories.division", "_DivisionRings")
+_TopologicalRings = LazyImport("category_specs.rings.subcategories.topological", "_TopologicalRings")
+_Fields = LazyImport("category_specs.rings.subcategories.field", "_Fields")
+_IntegralDomains = LazyImport("category_specs.rings.subcategories.integral_domain", "_IntegralDomains")
+_NoetherianRings = LazyImport("category_specs.rings.subcategories.noetherian", "_NoetherianRings")
+_ReducedRings = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
+_GcdDomains = LazyImport("category_specs.rings.subcategories.gcd_domain", "_GcdDomains")
+_UniqueFactorizationDomains = LazyImport("category_specs.rings.subcategories.unique_factorization_domain", "_UniqueFactorizationDomains")
+_PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principal_ideal_domain", "_PrincipalIdealDomains")
+_EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
+_IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
+_DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
+_ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
+_DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
+_DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
+_CompleteRings = LazyImport("category_specs.rings.subcategories.complete", "_CompleteRings")
+_LocalRings = LazyImport("category_specs.rings.subcategories.local", "_LocalRings")
+_CompleteDiscreteValuationObjects = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_object", "_CompleteDiscreteValuationObjects")
+_CompleteDiscreteValuationRings = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_ring", "_CompleteDiscreteValuationRings")
+_CompleteDiscreteValuationFields = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_field", "_CompleteDiscreteValuationFields")
+_FiniteFields = LazyImport("category_specs.rings.subcategories.finite_field", "_FiniteFields")
+_NumberFields = LazyImport("category_specs.rings.subcategories.number_field", "_NumberFields")
+_AlgebraicallyClosedFields = LazyImport("category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields")
+_LocalFields = LazyImport("category_specs.rings.subcategories.local_field", "_LocalFields")
+_GlobalFields = LazyImport("category_specs.rings.subcategories.global_field", "_GlobalFields")
+_ArchimedeanGlobalFields = LazyImport("category_specs.rings.subcategories.archimedean_global_field", "_ArchimedeanGlobalFields")
+_NonArchimedeanGlobalFields = LazyImport("category_specs.rings.subcategories.nonarchimedean_global_field", "_NonArchimedeanGlobalFields")
+_QuadraticNumberFields = LazyImport("category_specs.rings.subcategories.quadratic_number_field", "_QuadraticNumberFields")
+_CyclotomicFields = LazyImport("category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields")
+_QuotientFields = LazyImport("category_specs.rings.subcategories.quotient_field", "_QuotientFields")
+_PAdicRings = LazyImport("category_specs.rings.subcategories.p_adic_ring", "_PAdicRings")
+_AlgebraicFields = LazyImport("category_specs.rings.subcategories.algebraic_field", "_AlgebraicFields")
+_IntegerModRings = LazyImport("category_specs.rings.subcategories.integer_mod_ring", "_IntegerModRings")
+_RealPrecisionFields = LazyImport("category_specs.rings.subcategories.real_precision_field", "_RealPrecisionFields")
+_ComplexPrecisionFields = LazyImport("category_specs.rings.subcategories.complex_precision_field", "_ComplexPrecisionFields")
+_ScientificNotationFields = LazyImport("category_specs.rings.subcategories.scientific_notation_field", "_ScientificNotationFields")
+_RealFields = LazyImport("category_specs.rings.subcategories.real_field", "_RealFields")
+_ComplexFields = LazyImport("category_specs.rings.subcategories.complex_field", "_ComplexFields")
+_RealDoubleFields = LazyImport("category_specs.rings.subcategories.real_double_field", "_RealDoubleFields")
+_ComplexDoubleFields = LazyImport("category_specs.rings.subcategories.complex_double_field", "_ComplexDoubleFields")
+_RealIntervalFields = LazyImport("category_specs.rings.subcategories.real_interval_field", "_RealIntervalFields")
+_ComplexIntervalFields = LazyImport("category_specs.rings.subcategories.complex_interval_field", "_ComplexIntervalFields")
+_RealBallFields = LazyImport("category_specs.rings.subcategories.real_ball_field", "_RealBallFields")
+_ComplexBallFields = LazyImport("category_specs.rings.subcategories.complex_ball_field", "_ComplexBallFields")
+_QQbar = LazyImport("category_specs.rings.subcategories.algebraic_closure_of_rational_field", "_QQbar")
+_AA = LazyImport("category_specs.rings.subcategories.real_algebraic_field", "_AA")
+_ZZ = LazyImport("category_specs.rings.subcategories.integer_ring", "_ZZ")
+_QQ = LazyImport("category_specs.rings.subcategories.rational_field", "_QQ")
+_RR = LazyImport("category_specs.rings.subcategories.real_field_53", "_RR")
+_CC = LazyImport("category_specs.rings.subcategories.complex_field_53", "_CC")
+_Zp = LazyImport("category_specs.rings.subcategories.p_adic_integer_ring", "_Zp")
+_Qp = LazyImport("category_specs.rings.subcategories.p_adic_field", "_Qp")
+_PolynomialRings = LazyImport("category_specs.rings.subcategories.polynomial_ring", "_PolynomialRings")
+_PuiseuxSeriesRings = LazyImport("category_specs.rings.subcategories.puiseux_series_ring", "_PuiseuxSeriesRings")
+_LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_series_ring", "_LaurentSeriesRings")
+_PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 if TYPE_CHECKING:
     from ..types import (
@@ -292,7 +226,7 @@ class _RingObjectMethods:
         return Rings().Autsets().from_endset(self.End())
 
     def __pow__(self, n: Integer) -> FreeModule:
-        return Modules(self).NamedModules().FreeModule(n)
+        return Modules(self).Constructors().FreeModule(n)
 
 
 # ---------------------------------------------------------------------------
@@ -388,9 +322,6 @@ class _RingMorphismMethods:
 
     @abstract_method
     def post_compose(self, other: RingMorphism) -> RingMorphism: ...
-
-
-RingHomsets.ElementMethods = _RingMorphismMethods
 
 
 # ---------------------------------------------------------------------------
@@ -507,20 +438,240 @@ class _RingIdeals(Category_ideal):
 class Rings(Category_singleton):
     r"""Replacement ring category, staged below Sage's existing ``Rings``."""
 
-    # Inject named shortcuts from _RingNamedShortcuts (Category_singleton forbids
-    # multiple inheritance, so we merge the mixin's methods into the class namespace).
-    locals().update({k: v for k, v in vars(_RingNamedShortcuts).items() if not k.startswith("_")})
+    class Constructors:
+        r"""Constructor collector for Sage ring entry points."""
 
-    def __contains__(self, R: object) -> bool:
+        def __repr__(self) -> str:
+            return "Sage ring constructors"
+
+        def __contains__(self, R: Any) -> bool:
+            if isinstance(R, MatrixSpace):
+                return R.nrows() == R.ncols()
+            return any(
+                R in category
+                for category in (
+                    _ZZ(),
+                    _QQ(),
+                    _QQbar(),
+                    _AA(),
+                    _RR(),
+                    _CC(),
+                    _Zp(),
+                    _Qp(),
+                    _IntegerModRings(),
+                    _RealFields(),
+                    _ComplexFields(),
+                    _RealDoubleFields(),
+                    _ComplexDoubleFields(),
+                    _RealIntervalFields(),
+                    _ComplexIntervalFields(),
+                    _RealBallFields(),
+                    _ComplexBallFields(),
+                    _FiniteFields(),
+                    _NumberFields(),
+                    _QuadraticNumberFields(),
+                    _CyclotomicFields(),
+                    _PolynomialRings(),
+                    _PowerSeriesRings(),
+                    _LaurentSeriesRings(),
+                    _PuiseuxSeriesRings(),
+                )
+            )
+
+        def ZZ(self):
+            from sage.all import ZZ
+
+            return refine_category(ZZ, [Rings(), _ZZ()])
+
+        def QQ(self):
+            from sage.all import QQ
+
+            return refine_category(QQ, [Rings(), _QQ()])
+
+        def QQbar(self):
+            from sage.all import QQbar
+
+            return refine_category(QQbar, [Rings(), _QQbar()])
+
+        def AA(self):
+            from sage.all import AA
+
+            return refine_category(AA, [Rings(), _AA()])
+
+        def RR(self):
+            from sage.all import RR
+
+            return refine_category(RR, [Rings(), _RR()])
+
+        def CC(self):
+            from sage.all import CC
+
+            return refine_category(CC, [Rings(), _CC()])
+
+        def RDF(self):
+            from sage.all import RDF
+
+            return refine_category(RDF, [Rings(), _RealDoubleFields()])
+
+        def CDF(self):
+            from sage.all import CDF
+
+            return refine_category(CDF, [Rings(), _ComplexDoubleFields()])
+
+        def RIF(self):
+            from sage.all import RIF
+
+            return refine_category(RIF, [Rings(), _RealIntervalFields()])
+
+        def CIF(self):
+            from sage.all import CIF
+
+            return refine_category(CIF, [Rings(), _ComplexIntervalFields()])
+
+        def RealField(self, *args, **kwds):
+            from sage.all import RR, RealField
+
+            R = RealField(*args, **kwds)
+            categories = [_RealFields()]
+            if R is RR:
+                categories.append(_RR())
+            return refine_category(R, [Rings(), *categories])
+
+        def ComplexField(self, *args, **kwds):
+            from sage.all import CC, ComplexField
+
+            R = ComplexField(*args, **kwds)
+            categories = [_ComplexFields()]
+            if R is CC:
+                categories.append(_CC())
+            return refine_category(R, [Rings(), *categories])
+
+        def RealBallField(self, *args, **kwds):
+            from sage.all import RealBallField
+
+            return refine_category(RealBallField(*args, **kwds), [Rings(), _RealBallFields()])
+
+        def ComplexBallField(self, *args, **kwds):
+            from sage.all import ComplexBallField
+
+            return refine_category(ComplexBallField(*args, **kwds), [Rings(), _ComplexBallFields()])
+
+        def IntegerModRing(self, *args, **kwds):
+            from sage.all import IntegerModRing
+
+            return refine_category(IntegerModRing(*args, **kwds), [Rings(), _IntegerModRings()])
+
+        def Zmod(self, *args, **kwds):
+            from sage.all import Zmod
+
+            return refine_category(Zmod(*args, **kwds), [Rings(), _IntegerModRings()])
+
+        def Integers(self, *args, **kwds):
+            from sage.all import Integers
+
+            return refine_category(Integers(*args, **kwds), [Rings(), _IntegerModRings()])
+
+        def GF(self, *args, **kwds):
+            from sage.all import GF
+
+            return refine_category(GF(*args, **kwds), [Rings(), _FiniteFields()])
+
+        def FiniteField(self, *args, **kwds):
+            from sage.all import FiniteField
+
+            return refine_category(FiniteField(*args, **kwds), [Rings(), _FiniteFields()])
+
+        def NumberField(self, *args, **kwds):
+            from sage.all import NumberField
+
+            R = NumberField(*args, **kwds)
+            categories = [_NumberFields()]
+            if R.degree() == 2:
+                categories.append(_QuadraticNumberFields())
+            if isinstance(R, NumberField_cyclotomic):
+                categories.append(_CyclotomicFields())
+            return refine_category(R, [Rings(), *categories])
+
+        def QuadraticField(self, *args, **kwds):
+            from sage.all import QuadraticField
+
+            return refine_category(QuadraticField(*args, **kwds), [Rings(), _QuadraticNumberFields()])
+
+        def CyclotomicField(self, *args, **kwds):
+            from sage.all import CyclotomicField
+
+            return refine_category(CyclotomicField(*args, **kwds), [Rings(), _CyclotomicFields()])
+
+        def Zp(self, *args, **kwds):
+            from sage.all import Zp
+
+            return refine_category(Zp(*args, **kwds), [Rings(), _Zp()])
+
+        def Qp(self, *args, **kwds):
+            from sage.all import Qp
+
+            return refine_category(Qp(*args, **kwds), [Rings(), _Qp()])
+
+        def Zq(self, *args, **kwds):
+            from sage.all import Zq
+
+            return refine_category(Zq(*args, **kwds), [Rings(), _Zp()])
+
+        def Qq(self, *args, **kwds):
+            from sage.all import Qq
+
+            return refine_category(Qq(*args, **kwds), [Rings(), _Qp()])
+
+        def PolynomialRing(self, *args, **kwds):
+            from sage.all import PolynomialRing
+
+            R = PolynomialRing(*args, **kwds)
+            return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())])
+
+        def PowerSeriesRing(self, *args, **kwds):
+            from sage.all import PowerSeriesRing
+
+            R = PowerSeriesRing(*args, **kwds)
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+
+        def LaurentSeriesRing(self, *args, **kwds):
+            from sage.all import LaurentSeriesRing
+
+            R = LaurentSeriesRing(*args, **kwds)
+            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
+
+        def PuiseuxSeriesRing(self, *args, **kwds):
+            from sage.all import PuiseuxSeriesRing
+
+            R = PuiseuxSeriesRing(*args, **kwds)
+            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
+
+        def MatrixRing(self, base_ring, n, *args, **kwds):
+            R = MatrixSpace(base_ring, n, n, *args, **kwds)
+            return refine_category(R, [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())])
+
+    _Constructors = Constructors
+
+    @cached_method
+    def Constructors(self):
+        r"""Return the Sage ring constructor collector."""
+        return self.__class__._Constructors()
+
+    def Hom(self, domain: Ring, codomain: Ring) -> RingHomset:
+        return RingHomsets.from_sage_homset(SageHom(domain, codomain, category=self))
+
+    def End(self, ring: Ring) -> RingEndset:
+        return self.Endsets().from_sage_endset(SageEnd(ring, category=self))
+
+    def Aut(self, ring: Ring) -> RingAutset:
+        return self.Autsets().from_endset(self.End(ring))
+
+    def __contains__(self, R: Any) -> bool:
         match R:
             case _ if isinstance(R, Category) and R.is_subcategory(self):
                 return True
-            case _ if hasattr(R, "category"):
-                try:
-                    if R.category().is_subcategory(self):
-                        return True
-                except Exception:
-                    pass
+            case _ if hasattr(R, "category") and R.category().is_subcategory(self):
+                return True
             case _ if R in SageRings():
                 return True
             case _:
@@ -534,7 +685,153 @@ class Rings(Category_singleton):
     def additional_structure(self) -> Category | None:
         return None
 
-    SubcategoryMethods = _RingSubcategorySelectors
+    class SubcategoryMethods:
+        r"""Mixin providing ``SubcategoryMethods`` axiom and functorial selectors."""
+
+        @cached_method
+        def Commutative(self):
+            return self._with_axiom("Commutative")
+
+        @cached_method
+        def Division(self):
+            return self._with_axiom("Division")
+
+        @cached_method
+        def Finite(self):
+            return self._with_axiom("Finite")
+
+        @cached_method
+        def Topological(self):
+            return self._with_axiom("Topological")
+
+        @cached_method
+        def WithValuation(self):
+            return self._with_axiom("WithValuation")
+
+        @cached_method
+        def Characteristic(self, p):
+            from .subcategories.constructions.characteristic import _CharacteristicRings
+
+            return _CharacteristicRings(self, p)
+
+        @cached_method
+        def KrullDimension(self, n):
+            from .subcategories.constructions.krull_dimension import _KrullDimension
+
+            return _KrullDimension(self, n)
+
+        @cached_method
+        def Polynomial(self):
+            return self._with_axiom("Polynomial")
+
+        @cached_method
+        def PowerSeries(self):
+            return self._with_axiom("PowerSeries")
+
+        @cached_method
+        def LaurentSeries(self):
+            return self._with_axiom("LaurentSeries")
+
+        @cached_method
+        def PuiseuxSeries(self):
+            return self._with_axiom("PuiseuxSeries")
+
+        @cached_method
+        def Subquotients(self):
+            from .subcategories.constructions.subquotients import _Subquotients
+
+            return _Subquotients.category_of(self)
+
+        @cached_method
+        def Subobjects(self):
+            from .subcategories.constructions.subobjects import _Subobjects
+
+            return _Subobjects.category_of(self)
+
+        @cached_method
+        def Quotients(self):
+            from .subcategories.constructions.quotients import _Quotients
+
+            return _Quotients.category_of(self)
+
+        @cached_method
+        def RingsUnder(self, structure_ring):
+            from .subcategories.constructions.rings_under import _RingsUnder
+
+            return _RingsUnder.category_of(self, structure_ring)
+
+        @cached_method
+        def RingsOver(self, structure_ring):
+            from .subcategories.constructions.rings_over import _RingsOver
+
+            return _RingsOver.category_of(self, structure_ring)
+
+        @cached_method
+        def AlgebrasOver(self, structure_ring):
+            from ..algebras import Algebras
+
+            return Algebras(structure_ring)
+
+        @cached_method
+        def PolynomialRings(self):
+            return self.Polynomial()
+
+        @cached_method
+        def PolynomialRingsOver(self, structure_ring):
+            return self.Polynomial().RingsUnder(structure_ring)
+
+        @cached_method
+        def PolynomialOver(self, structure_ring):
+            return self.PolynomialRingsOver(structure_ring)
+
+        @cached_method
+        def PowerSeriesRings(self):
+            return self.PowerSeries()
+
+        @cached_method
+        def PowerSeriesRingsOver(self, structure_ring):
+            return self.PowerSeries().RingsUnder(structure_ring)
+
+        @cached_method
+        def PowerSeriesOver(self, structure_ring):
+            return self.PowerSeriesRingsOver(structure_ring)
+
+        @cached_method
+        def LaurentSeriesRings(self):
+            return self.LaurentSeries()
+
+        @cached_method
+        def LaurentSeriesRingsOver(self, structure_ring):
+            return self.LaurentSeries().RingsUnder(structure_ring)
+
+        @cached_method
+        def LaurentSeriesOver(self, structure_ring):
+            return self.LaurentSeriesRingsOver(structure_ring)
+
+        @cached_method
+        def PuiseuxSeriesRings(self):
+            return self.PuiseuxSeries()
+
+        @cached_method
+        def PuiseuxSeriesRingsOver(self, structure_ring):
+            return self.PuiseuxSeries().RingsUnder(structure_ring)
+
+        @cached_method
+        def PuiseuxSeriesOver(self, structure_ring):
+            return self.PuiseuxSeriesRingsOver(structure_ring)
+
+        @cached_method
+        def QuotientRingsOf(self, structure_ring):
+            return self.Quotients().RingsUnder(structure_ring)
+
+        @cached_method
+        def QuotientsOf(self, structure_ring):
+            return self.QuotientRingsOf(structure_ring)
+
+        @cached_method
+        def SubringsOf(self, structure_ring):
+            return self.Subobjects().RingsOver(structure_ring)
+
 
     # ----- Axiomatic subcategories -----------------------------------------
 
@@ -571,20 +868,3 @@ class Rings(Category_singleton):
     ElementMethods = _RingElementMethods
     MorphismMethods = _RingMorphismMethods
 
-
-# ---------------------------------------------------------------------------
-# Wire _base_category_class_and_axiom for subcategories rooted at Rings
-# ---------------------------------------------------------------------------
-# Only classes whose base is the ``Rings`` class (from this module) require
-# post-definition assignment; all other chains are defined inline in
-# specialized.py.
-
-_CommutativeRings._base_category_class_and_axiom = (Rings, "Commutative")
-_DivisionRings._base_category_class_and_axiom = (Rings, "Division")
-_FiniteRings._base_category_class_and_axiom = (Rings, "Finite")
-_TopologicalRings._base_category_class_and_axiom = (Rings, "Topological")
-_ValuedRings._base_category_class_and_axiom = (Rings, "WithValuation")
-_PolynomialRings._base_category_class_and_axiom = (Rings, "Polynomial")
-_LaurentSeriesRings._base_category_class_and_axiom = (Rings, "LaurentSeries")
-_PuiseuxSeriesRings._base_category_class_and_axiom = (Rings, "PuiseuxSeries")
-_PowerSeriesRings._base_category_class_and_axiom = (Rings, "PowerSeries")

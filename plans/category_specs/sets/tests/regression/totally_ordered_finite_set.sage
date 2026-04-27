@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().TotallyOrderedFiniteSet()
+# Tests for Sets().Constructors().TotallyOrderedFiniteSet()
 # Assertions sourced from sage.sets.totally_ordered_finite_set doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic construction, cardinality  (class docstring)

@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().FiniteEnumeratedSet()
+# Tests for Sets().Constructors().FiniteEnumeratedSet()
 # Assertions sourced from sage.sets.finite_enumerated_set.FiniteEnumeratedSet doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic construction, list, cardinality, first  (class docstring)

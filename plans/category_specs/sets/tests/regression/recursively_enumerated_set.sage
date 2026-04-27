@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().RecursivelyEnumeratedSet()
+# Tests for Sets().Constructors().RecursivelyEnumeratedSet()
 # Assertions sourced from sage.sets.recursively_enumerated_set module doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import FiniteEnumeratedSets
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # No-structure set: linear combinations of 2 and 3  (module docstring)

@@ -2,7 +2,7 @@ r"""Finite set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.finite_sets import FiniteSets as SageFiniteSets
@@ -23,7 +23,7 @@ class _FiniteSets(CategoryWithAxiom):
     def super_categories(self) -> list:
         return [SageFiniteSets(), Sets().Countable()]
 
-    def __contains__(self, S) -> bool:
+    def __contains__(self, S: Any) -> bool:
         return S in SageFiniteSets() or (S in self.base_category() and S.is_finite())
 
     class ParentMethods:
@@ -45,6 +45,7 @@ class _FiniteSets(CategoryWithAxiom):
         @abstract_method
         def random_element(self) -> SetElement: ...
 
+        @abstract_method
         def unrank_range(self, start=None, stop=None, step=None) -> list[SetElement]:
             r"""Return elements at rank positions ``[start, stop)`` with stride ``step``."""
-            return list(self.iterator_range(start, stop, step))
+            ...

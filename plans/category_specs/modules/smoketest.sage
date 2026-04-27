@@ -33,42 +33,42 @@ def smoke_case(label, build):
 
 
 R6 = IntegerModRing(6)
-NM6 = Modules(R6).NamedModules()
+NM6 = Modules(R6).Constructors()
 smoke_case(
-    "modules.FreeModulesWithStandardBasis via Modules(Zmod(6)).NamedModules().FreeModule(2)",
+    "modules.FreeModulesWithStandardBasis via Modules(Zmod(6)).Constructors().FreeModule(2)",
     lambda: expect_in(NM6.FreeModule(2), NM6.FreeModulesWithStandardBasis()),
 )
 
 PZ = PolynomialRing(ZZ, "x")
-NMPZ = Modules(PZ).NamedModules()
+NMPZ = Modules(PZ).Constructors()
 smoke_case(
-    "modules.FreeModulesOverIntegralDomains via Modules(ZZ['x']).NamedModules().FreeModule(2)",
+    "modules.FreeModulesOverIntegralDomains via Modules(ZZ['x']).Constructors().FreeModule(2)",
     lambda: expect_in(NMPZ.FreeModule(2), NMPZ.FreeModulesOverIntegralDomains()),
 )
 
-NMZZ = Modules(ZZ).NamedModules()
+NMZZ = Modules(ZZ).Constructors()
 smoke_case(
-    "modules.FreeModulesOverPIDs via Modules(ZZ).NamedModules().FreeModule(2)",
+    "modules.FreeModulesOverPIDs via Modules(ZZ).Constructors().FreeModule(2)",
     lambda: expect_in(NMZZ.FreeModule(2), NMZZ.FreeModulesOverPIDs()),
 )
 
-NMQQ = Modules(QQ).NamedModules()
+NMQQ = Modules(QQ).Constructors()
 smoke_case(
-    "modules.VectorSpaces via Modules(QQ).NamedModules().VectorSpace(2)",
+    "modules.VectorSpaces via Modules(QQ).Constructors().VectorSpace(2)",
     lambda: expect_in(NMQQ.VectorSpace(2), NMQQ.VectorSpaces()),
 )
 smoke_case(
     "modules.RealDoubleVectorSpaces via refine_category(FreeModule(RDF, 2), RealDoubleVectorSpaces())",
     lambda: expect_in(
-        refine_category(FreeModule(RDF, 2), Modules(RDF).NamedModules().RealDoubleVectorSpaces()),
-        Modules(RDF).NamedModules().RealDoubleVectorSpaces(),
+        refine_category(FreeModule(RDF, 2), Modules(RDF).Constructors().RealDoubleVectorSpaces()),
+        Modules(RDF).Constructors().RealDoubleVectorSpaces(),
     ),
 )
 smoke_case(
     "modules.ComplexDoubleVectorSpaces via refine_category(FreeModule(CDF, 2), ComplexDoubleVectorSpaces())",
     lambda: expect_in(
-        refine_category(FreeModule(CDF, 2), Modules(CDF).NamedModules().ComplexDoubleVectorSpaces()),
-        Modules(CDF).NamedModules().ComplexDoubleVectorSpaces(),
+        refine_category(FreeModule(CDF, 2), Modules(CDF).Constructors().ComplexDoubleVectorSpaces()),
+        Modules(CDF).Constructors().ComplexDoubleVectorSpaces(),
     ),
 )
 
@@ -94,18 +94,18 @@ smoke_case(
 )
 
 smoke_case(
-    "modules.FreeQuadraticModules via Modules(ZZ).NamedModules().FreeQuadraticModule(2, [[2, 1], [1, 2]])",
+    "modules.FreeQuadraticModules via Modules(ZZ).Constructors().FreeQuadraticModule(2, [[2, 1], [1, 2]])",
     lambda: expect_in(
         NMZZ.FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]])),
         NMZZ.FreeQuadraticModules(),
     ),
 )
 smoke_case(
-    "modules.CombinatorialFreeModules via Modules(QQ).NamedModules().CombinatorialFreeModule(['a', 'b'])",
+    "modules.CombinatorialFreeModules via Modules(QQ).Constructors().CombinatorialFreeModule(['a', 'b'])",
     lambda: expect_in(NMQQ.CombinatorialFreeModule(["a", "b"]), NMQQ.CombinatorialFreeModules()),
 )
 smoke_case(
-    "modules.FiniteRankFreeModules via Modules(QQ).NamedModules().FiniteRankFreeModule(2)",
+    "modules.FiniteRankFreeModules via Modules(QQ).Constructors().FiniteRankFreeModule(2)",
     lambda: expect_in(NMQQ.FiniteRankFreeModule(2), NMQQ.FiniteRankFreeModules()),
 )
 
@@ -172,14 +172,14 @@ smoke_case(
 
 E = ExteriorAlgebra(QQ, names=("x", "y"))
 xE, yE = E.gens()
-NME = Modules(E).NamedModules()
+NME = Modules(E).Constructors()
 
 smoke_case(
-    "modules.FreeGradedModules via Modules(ExteriorAlgebra(QQ)).NamedModules().FreeGradedModule(E, (-1, 3))",
+    "modules.FreeGradedModules via Modules(ExteriorAlgebra(QQ)).Constructors().FreeGradedModule(E, (-1, 3))",
     lambda: expect_in(NME.FreeGradedModule(E, (-1, 3)), NME.FreeGradedModules()),
 )
 smoke_case(
-    "modules.FinitelyPresentedGradedModules via Modules(ExteriorAlgebra(QQ)).NamedModules().FPModule(E, [0, 1], [[x, 1]])",
+    "modules.FinitelyPresentedGradedModules via Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(E, [0, 1], [[x, 1]])",
     lambda: expect_in(
         NME.FPModule(E, [0, 1], [[xE, E.one()]]),
         NME.FinitelyPresentedGradedModules(),
@@ -190,28 +190,28 @@ K = GF(5**3, "z")
 z = K.gen()
 Sore = OrePolynomialRing(K, K.frobenius_endomorphism(), names="X")
 X = Sore.gen()
-NMK = Modules(K).NamedModules()
+NMK = Modules(K).Constructors()
 
 smoke_case(
-    "modules.OreModules via Modules(GF(5^3)).NamedModules().OreQuotientModule(S, X^2 + z)",
+    "modules.OreModules via Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z)",
     lambda: expect_in(NMK.OreQuotientModule(Sore, X**2 + z), NMK.OreModules()),
 )
 smoke_case(
-    "modules.IntegerLattices via Modules(ZZ).NamedModules().IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]])",
+    "modules.IntegerLattices via Modules(ZZ).Constructors().IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]])",
     lambda: expect_in(
         NMZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]]),
         NMZZ.IntegerLattices(),
     ),
 )
 smoke_case(
-    "modules.TorsionQuadraticModules via Modules(ZZ).NamedModules().TorsionQuadraticForm([[1, 1/2], [1/2, 1]])",
+    "modules.TorsionQuadraticModules via Modules(ZZ).Constructors().TorsionQuadraticForm([[1, 1/2], [1/2, 1]])",
     lambda: expect_in(
         NMZZ.TorsionQuadraticForm(matrix(QQ, [[1, QQ(1) / 2], [QQ(1) / 2, 1]])),
         NMZZ.TorsionQuadraticModules(),
     ),
 )
 smoke_case(
-    "modules.RingObjectsAsModules via Modules(ZZ).NamedModules().polynomial_ring_as_module('t')",
+    "modules.RingObjectsAsModules via Modules(ZZ).Constructors().polynomial_ring_as_module('t')",
     lambda: expect_in(NMZZ.polynomial_ring_as_module("t"), NMZZ.RingObjectsAsModules()),
 )
 

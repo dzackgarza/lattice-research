@@ -1,4 +1,4 @@
-# Tests for Modules(R).NamedModules().CombinatorialFreeModule and related
+# Tests for Modules(R).Constructors().CombinatorialFreeModule and related
 # submodule / quotient workflows.
 #
 # Assertions sourced from official Sage examples in:
@@ -12,8 +12,8 @@ sys.path.insert(0, '/home/dzack/research')
 from sage.all import QQ, ZZ
 from plans.category_specs.modules import Modules
 
-MQQ = Modules(QQ).NamedModules()
-MZZ = Modules(ZZ).NamedModules()
+MQQ = Modules(QQ).Constructors()
+MZZ = Modules(ZZ).Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic named-basis operations  (combinat.free_module docstring)

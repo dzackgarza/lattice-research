@@ -1,11 +1,11 @@
-# Tests for Sets().NamedSets().FiniteSetMaps()
+# Tests for Sets().Constructors().FiniteSetMaps()
 # Assertions sourced from sage.sets.finite_set_maps.FiniteSetMaps doctests.
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Maps from {a,b} to {3,4,5}  (class docstring)

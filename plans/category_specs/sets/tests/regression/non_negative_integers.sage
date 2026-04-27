@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().NonNegativeIntegers() and .PositiveIntegers()
+# Tests for Sets().Constructors().NonNegativeIntegers() and .PositiveIntegers()
 # Assertions sourced from sage.sets.non_negative_integers and positive_integers doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, QQbar, RIF, infinity
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # NonNegativeIntegers  (class docstring and method doctests)

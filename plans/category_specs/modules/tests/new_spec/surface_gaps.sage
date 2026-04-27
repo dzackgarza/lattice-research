@@ -14,8 +14,8 @@ from plans.category_specs.rings import Rings
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-ZZ = Rings().NamedRings().ZZ()
-MZZ = Modules(ZZ).NamedModules()
+ZZ = Rings().Constructors().ZZ()
+MZZ = Modules(ZZ).Constructors()
 
 # ---------------------------------------------------------------------------
 # FGP quotient modules: required surface in _FinitelyGeneratedPIDQuotientModules

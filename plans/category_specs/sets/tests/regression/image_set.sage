@@ -1,4 +1,4 @@
-# Tests for Sets().NamedSets().ImageSubobject()
+# Tests for Sets().Constructors().ImageSubobject()
 # Assertions sourced from sage.sets.image_set.ImageSubobject doctests.
 
 import sys
@@ -6,7 +6,7 @@ sys.path.insert(0, '/home/dzack/research')
 from plans.category_specs.sets import Sets
 from sage.all import ZZ, QQ, EnumeratedSets
 
-NS = Sets().NamedSets()
+NS = Sets().Constructors()
 
 # ---------------------------------------------------------------------------
 # Basic image: even integers as image of x -> 2x on ZZ  (_element_constructor_)

@@ -11,7 +11,7 @@ from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as S
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, SetElement
+    from ...types import Cardinality, Set, SetElement, SetMorphism
 
 from .. import Sets
 
@@ -39,6 +39,9 @@ class _CountableSets(CategoryWithAxiom):
         def __iter__(self): ...
 
         @abstract_method
+        def __getitem__(self, i: int) -> SetElement: ...
+
+        @abstract_method
         def first(self) -> SetElement: ...
 
         @abstract_method
@@ -50,23 +53,72 @@ class _CountableSets(CategoryWithAxiom):
         @abstract_method
         def rank(self, e: SetElement) -> int: ...
 
-        def is_empty(self) -> bool:
-            for _ in self:
-                return False
-            return True
+        @abstract_method
+        def cardinality(self) -> Cardinality: ...
 
+        @abstract_method
+        def __len__(self) -> int: ...
+
+        @abstract_method
+        def tuple(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def list(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def is_empty(self) -> bool: ...
+
+        @abstract_method
         def iterator_range(self, start=None, stop=None, step=None):
             r"""Iterate over rank range ``[start, stop)`` with stride ``step``."""
-            step = 1 if step is None else step
-            start = 0 if start is None else start
-            if stop is None:
-                i = start
-                while True:
-                    yield self.unrank(i)
-                    i += step
-            else:
-                for j in range(start, stop, step):
-                    yield self.unrank(j)
+            ...
+
+        @abstract_method
+        def unrank_range(self, start=None, stop=None, step=None) -> list[SetElement]: ...
+
+        @abstract_method
+        def _tuple_from_iterator(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def _tuple_from_list(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def _list_from_iterator(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def _first_from_iterator(self) -> SetElement: ...
+
+        @abstract_method
+        def _next_from_iterator(self, obj: SetElement) -> SetElement: ...
+
+        @abstract_method
+        def _unrank_from_iterator(self, r: int) -> SetElement: ...
+
+        @abstract_method
+        def _rank_from_iterator(self, x: SetElement) -> int: ...
+
+        @abstract_method
+        def _iterator_from_list(self): ...
+
+        @abstract_method
+        def _iterator_from_next(self): ...
+
+        @abstract_method
+        def _iterator_from_unrank(self): ...
+
+        @abstract_method
+        def _an_element_from_iterator(self) -> SetElement: ...
+
+        @abstract_method
+        def _some_elements_from_iterator(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def random_element(self) -> SetElement: ...
+
+        @abstract_method
+        def map(self, f: SetMorphism, name: str | None = None, *, is_injective: bool = True) -> Set:
+            r"""Return the image of this enumerated set under ``f``."""
+            ...
 
 
 class _FiniteCountableSets(CategoryWithAxiom):
@@ -81,16 +133,32 @@ class _FiniteCountableSets(CategoryWithAxiom):
         return [SageFiniteEnumeratedSets(), Sets().Countable(), Sets().Finite()]
 
     class ParentMethods:
-        def random_element(self) -> SetElement:
-            import random
-            return random.choice(self.list())
+        @abstract_method
+        def random_element(self) -> SetElement: ...
 
-        def _cardinality_from_iterator(self) -> Cardinality:
-            from sage.rings.integer import Integer
-            return Integer(sum(1 for _ in self))
+        @abstract_method
+        def _cardinality_from_iterator(self) -> Cardinality: ...
 
-        def _list_from_iterator(self) -> list[SetElement]:
-            return list(iter(self))
+        @abstract_method
+        def _cardinality_from_list(self) -> Cardinality: ...
+
+        @abstract_method
+        def _list_from_iterator(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def _unrank_from_list(self, r: int) -> SetElement: ...
+
+        @abstract_method
+        def _random_element_from_unrank(self) -> SetElement: ...
+
+        @abstract_method
+        def _last_from_iterator(self) -> SetElement: ...
+
+        @abstract_method
+        def _last_from_unrank(self) -> SetElement: ...
+
+        @abstract_method
+        def last(self) -> SetElement: ...
 
 
 class _InfiniteCountableSets(CategoryWithAxiom):
@@ -103,3 +171,13 @@ class _InfiniteCountableSets(CategoryWithAxiom):
 
     def super_categories(self) -> list:
         return [SageInfiniteEnumeratedSets(), Sets().Countable(), Sets().Infinite()]
+
+    class ParentMethods:
+        @abstract_method
+        def random_element(self) -> SetElement: ...
+
+        @abstract_method
+        def tuple(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def list(self) -> list[SetElement]: ...
