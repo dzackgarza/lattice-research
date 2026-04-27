@@ -70,33 +70,9 @@ class _TopologicalSpaces(CategoryWithAxiom):
     def super_categories(self) -> list[Category]:
         return [SageSets().Topological(), Sets()]
 
-    class SubcategoryMethods:
-        @cached_method
-        def Metric(self):
-            return self._with_axiom("Metric")
-
-
-class TopologicalSpaces(Category_singleton):
-    r"""Public category object for topological spaces."""
-
-    ParentMethods = _TopologicalSpaceObjectMethods
-
-    def __contains__(self, X: Any) -> bool:
-        match X:
-            case _ if isinstance(X, Category) and X.is_subcategory(Sets().Topological()):
-                return True
-            case _ if X in SageSets().Topological():
-                return True
-            case _:
-                return False
-
-    @final
-    def super_categories(self) -> list[Category]:
-        return [Sets().Topological()]
-
     @cached_method
     def Metric(self):
-        return _MetricSpaces()
+        return self._with_axiom("Metric")
 
     class Constructors:
         r"""Topological-space constructors.
@@ -110,7 +86,13 @@ class TopologicalSpaces(Category_singleton):
     def Constructors(self):
         return self.__class__._Constructors()
 
+    class SubcategoryMethods:
+        @cached_method
+        def Metric(self):
+            return self._with_axiom("Metric")
 
+
+TopologicalSpaces = _TopologicalSpaces
 TopologicalSpace = _TopologicalSpaces
 
 

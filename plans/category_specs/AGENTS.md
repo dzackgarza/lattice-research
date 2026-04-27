@@ -53,23 +53,22 @@ Existing Sage objects must pass regression tests with nearly all methods declare
 abstract. The only allowed violations are genuine Sage gaps, which are recorded
 exclusively in `sage_gaps/` tests.
 
-**Trivial implementations (<= 10 lines) are encouraged when they express basic
-categorical relationships.** The spec should remain readable as a mathematical
-document, but trivial glue that expresses identity or definition is preferred over
-indirection to `utils.py`.
+**The Art of Trivial Implementations**:
+Mostly trivial implementations (<= 10 lines) MUST remain on the category surface
+when they express basic categorical identity or definition. Moving such glue to
+`utils.py` is an anti-pattern that obscures the mathematical structure of the spec.
 
-Permitted concrete method bodies include:
+Permitted concrete bodies on category and subcategory surfaces include:
 - Trivially true/false predicates (e.g., `is_finite() -> True`)
-- Delegations and aliases (one-liners with no logic)
 - Explicit `match/case` logic for category membership or simple dispatch
-- Simple transformations, pass-throughs, and wraps/refinements (e.g., calling
-  `refine_category` with a fixed set of arguments)
 - Methods defined purely in terms of other `@abstract_method` declarations on the
-  same surface (e.g., `is_bijective` in terms of `is_injective` and `is_surjective`)
+  same surface (e.g., `is_bijective` defined via `is_injective` and `is_surjective`)
+- Simple transformations and pass-throughs
+- Wraps and refinements (e.g., calling `refine_category` with fixed arguments)
 
 **Truly complex implementations are banned.** Anything involving iteration logic
-(loops), heavy computation, `try/except` (which is banned everywhere), or
-substantial branching belongs in the top-level `utils.py`.
+(loops), heavy computation, or substantial branching belongs in the top-level
+`utils.py`.
 `try/except` is banned everywhere.
 
 ## Category Architecture
