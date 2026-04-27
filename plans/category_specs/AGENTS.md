@@ -35,7 +35,13 @@ A subcategory definition should read as a mathematical document: what the subcat
 is, what its supercategories are, what methods an object in it must have, and what
 methods Sage already provides.
 Almost no software engineering should appear inside subcategory definitions.
-All helper functions and glue belong in `utils.py`.
+
+**One Source of Truth for Utils**:
+All helper functions and glue belong in the top-level `utils.py`.
+Subtrees must not define their own `utils.py` for general utility code; any truly
+general helper (e.g., category refinement, list partitioning, ABC validation) must live
+in the root `utils.py` and be imported by subtrees.
+This ensures a single, coherent implementation of all project-wide machinery.
 
 **Completeness**: the spec must fully capture all existing Sage methods on objects in
 each subcategory as `@abstract_method` declarations.
