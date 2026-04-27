@@ -59,7 +59,7 @@ canonical constructors before refining the result into this hierarchy.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category import Category
@@ -74,17 +74,23 @@ from .homsets import SetHomsets
 
 if TYPE_CHECKING:
     from ..types import (
+        CountableSet,
         FiniteSet,
         Group,
+        IntegerRangeBound,
         RealNumber,
         RealOpenSet,
+        RealSetComponent,
         RealSubset,
         Set,
         SetAutset,
         SetElement,
+        SetFamily,
         SetEndset,
         SetHomset,
         SetMorphism,
+        SetPredicate,
+        Subset,
         SympySet,
     )
 
@@ -384,13 +390,19 @@ class Sets(Category_singleton):
 
             return refine_category(SageFES(elements), [Sets(), _FiniteEnumeratedSetObjects()])
 
-        def IntegerRange(self, *args, **kwds):
-            r"""Return an ``IntegerRange``, refined into its subcategory."""
+        def IntegerRange(
+            self,
+            begin: IntegerRangeBound,
+            end: IntegerRangeBound | None = None,
+            step: IntegerRangeBound = 1,
+            middle_point: IntegerRangeBound | None = None,
+        ) -> CountableSet:
+            r"""Return the integer arithmetic progression determined by the bounds."""
             from sage.sets.integer_range import IntegerRange as SageIR
 
             from .subcategories.integer_range import _IntegerRangeSets
 
-            return refine_category(SageIR(*args, **kwds), [Sets(), _IntegerRangeSets()])
+            return refine_category(SageIR(begin, end, step, middle_point), [Sets(), _IntegerRangeSets()])
 
         def NonNegativeIntegers(self):
             r"""Return ``NonNegativeIntegers()``, refined into its subcategory."""
@@ -408,21 +420,21 @@ class Sets(Category_singleton):
 
             return refine_category(SagePP(), [Sets(), _PositiveIntegersSets()])
 
-        def Primes(self, *args, **kwds):
-            r"""Return ``Primes(*args, **kwds)``, refined into its subcategory."""
+        def Primes(self, proof: bool = True) -> CountableSet:
+            r"""Return the full Sage set of prime integers."""
             from sage.sets.primes import Primes as SagePrimes
 
             from .subcategories.primes import _PrimesSets
 
-            return refine_category(SagePrimes(*args, **kwds), [Sets(), _PrimesSets()])
+            return refine_category(SagePrimes(proof), [Sets(), _PrimesSets()])
 
-        def RealSet(self, *args, **kwds) -> RealSubset:
-            r"""Return a ``RealSet``, refined into its subcategory."""
+        def RealSet(self, intervals: Sequence[RealSetComponent], *, normalized: bool = True) -> RealSubset:
+            r"""Return a real subset represented by interval components."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet(*args, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet(*intervals, normalized=normalized), [Sets(), _RealSets()])
 
         def RealSetInterval(
             self,
@@ -431,7 +443,7 @@ class Sets(Category_singleton):
             *,
             lower_closed: bool | None = None,
             upper_closed: bool | None = None,
-            **kwds: object,
+            normalized: bool = True,
         ) -> RealSubset:
             r"""Return ``RealSet.interval(lower, upper, ...)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
@@ -443,100 +455,137 @@ class Sets(Category_singleton):
                 upper,
                 lower_closed=lower_closed,
                 upper_closed=upper_closed,
-                **kwds,
+                normalized=normalized,
             )
             return refine_category(S, [Sets(), _RealSets()])
 
-        def OpenRealInterval(self, lower: RealNumber, upper: RealNumber, **kwds: object) -> RealOpenSet:
+        def OpenRealInterval(self, lower: RealNumber, upper: RealNumber, *, normalized: bool = True) -> RealOpenSet:
             r"""Return ``RealSet.open(lower, upper)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.open(lower, upper, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.open(lower, upper, normalized=normalized), [Sets(), _RealSets()])
 
-        def ClosedRealInterval(self, lower: RealNumber, upper: RealNumber, **kwds: object) -> RealSubset:
+        def ClosedRealInterval(self, lower: RealNumber, upper: RealNumber, *, normalized: bool = True) -> RealSubset:
             r"""Return ``RealSet.closed(lower, upper)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.closed(lower, upper, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.closed(lower, upper, normalized=normalized), [Sets(), _RealSets()])
 
-        def RealPoint(self, point: RealNumber, **kwds: object) -> RealSubset:
+        def RealPoint(self, point: RealNumber, *, normalized: bool = True) -> RealSubset:
             r"""Return ``RealSet.point(point)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.point(point, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.point(point, normalized=normalized), [Sets(), _RealSets()])
 
-        def OpenClosedRealInterval(self, lower: RealNumber, upper: RealNumber, **kwds: object) -> RealSubset:
+        def OpenClosedRealInterval(
+            self,
+            lower: RealNumber,
+            upper: RealNumber,
+            *,
+            normalized: bool = True,
+        ) -> RealSubset:
             r"""Return ``RealSet.open_closed(lower, upper)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.open_closed(lower, upper, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.open_closed(lower, upper, normalized=normalized), [Sets(), _RealSets()])
 
-        def ClosedOpenRealInterval(self, lower: RealNumber, upper: RealNumber, **kwds: object) -> RealSubset:
+        def ClosedOpenRealInterval(
+            self,
+            lower: RealNumber,
+            upper: RealNumber,
+            *,
+            normalized: bool = True,
+        ) -> RealSubset:
             r"""Return ``RealSet.closed_open(lower, upper)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.closed_open(lower, upper, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.closed_open(lower, upper, normalized=normalized), [Sets(), _RealSets()])
 
-        def UnboundedBelowClosedRealInterval(self, bound: RealNumber, **kwds: object) -> RealSubset:
+        def UnboundedBelowClosedRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealSubset:
             r"""Return ``RealSet.unbounded_below_closed(bound)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.unbounded_below_closed(bound, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.unbounded_below_closed(bound, normalized=normalized), [Sets(), _RealSets()])
 
-        def UnboundedBelowOpenRealInterval(self, bound: RealNumber, **kwds: object) -> RealOpenSet:
+        def UnboundedBelowOpenRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealOpenSet:
             r"""Return ``RealSet.unbounded_below_open(bound)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.unbounded_below_open(bound, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.unbounded_below_open(bound, normalized=normalized), [Sets(), _RealSets()])
 
-        def UnboundedAboveClosedRealInterval(self, bound: RealNumber, **kwds: object) -> RealSubset:
+        def UnboundedAboveClosedRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealSubset:
             r"""Return ``RealSet.unbounded_above_closed(bound)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.unbounded_above_closed(bound, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.unbounded_above_closed(bound, normalized=normalized), [Sets(), _RealSets()])
 
-        def UnboundedAboveOpenRealInterval(self, bound: RealNumber, **kwds: object) -> RealOpenSet:
+        def UnboundedAboveOpenRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealOpenSet:
             r"""Return ``RealSet.unbounded_above_open(bound)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.unbounded_above_open(bound, **kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.unbounded_above_open(bound, normalized=normalized), [Sets(), _RealSets()])
 
-        def RealLine(self, **kwds: object) -> RealSubset:
+        def RealLine(self, *, normalized: bool = True) -> RealSubset:
             r"""Return ``RealSet.real_line()``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
             from .subcategories.real_set import _RealSets
 
-            return refine_category(SageRealSet.real_line(**kwds), [Sets(), _RealSets()])
+            return refine_category(SageRealSet.real_line(normalized=normalized), [Sets(), _RealSets()])
 
-        def RecursivelyEnumeratedSet(self, seeds, successors, *args, **kwds):
+        def RecursivelyEnumeratedSet(
+            self,
+            seeds: Iterable[SetElement],
+            successors: Callable[[SetElement], Iterable[SetElement]],
+            *,
+            enumeration: str = "depth",
+            max_depth: float = float("inf"),
+            post_process: Callable[[SetElement], SetElement] | None = None,
+            facade: bool | None = None,
+            category: Category | None = None,
+        ) -> CountableSet:
             r"""Return a ``RecursivelyEnumeratedSet``, refined into its subcategory."""
             from sage.sets.recursively_enumerated_set import RecursivelyEnumeratedSet as SageRES
 
             from .subcategories.recursively_enumerated import _RecursivelyEnumeratedSets
 
-            S = SageRES(seeds, successors, *args, **kwds)
+            S = SageRES(
+                seeds,
+                successors,
+                enumeration=enumeration,
+                max_depth=max_depth,
+                post_process=post_process,
+                facade=facade,
+                category=category,
+            )
             return refine_category(S, [Sets(), _RecursivelyEnumeratedSets()])
 
-        def DisjointUnionEnumeratedSets(self, family, **kwds):
+        def DisjointUnionEnumeratedSets(
+            self,
+            family: SetFamily | Iterable[Set],
+            *,
+            facade: bool = True,
+            keepkey: bool = False,
+            category: Category | None = None,
+        ) -> CountableSet:
             r"""Return a ``DisjointUnionEnumeratedSets``, refined into its subcategory."""
             from sage.sets.disjoint_union_enumerated_sets import (
                 DisjointUnionEnumeratedSets as SageDUES,
@@ -544,49 +593,75 @@ class Sets(Category_singleton):
 
             from .subcategories.disjoint_union import _DisjointUnionEnumeratedSets
 
-            S = SageDUES(family, **kwds)
+            S = SageDUES(family, facade=facade, keepkey=keepkey, category=category)
             return refine_category(S, [Sets(), _DisjointUnionEnumeratedSets()])
 
-        def CartesianProduct(self, factors: Sequence[Set], **kwds: Any) -> Set:
+        def CartesianProduct(
+            self,
+            factors: Sequence[Set],
+            *,
+            category: Category | None = None,
+            flatten: bool = False,
+        ) -> Set:
             r"""Return the Cartesian product of a sequence of set parents."""
             from sage.sets.cartesian_product import CartesianProduct as SageCP
 
             from .subcategories.cartesian_product import _CartesianProductSets
 
-            category = kwds.pop("category", Sets().CartesianProducts())
-            S = SageCP(tuple(factors), category=category, **kwds)
+            product_category = Sets().CartesianProducts() if category is None else category
+            S = SageCP(tuple(factors), category=product_category, flatten=flatten)
             return refine_category(S, [Sets(), _CartesianProductSets()])
 
-        def ConditionSet(self, universe, *predicates, **kwds):
+        def ConditionSet(
+            self,
+            universe: Set,
+            predicates: Sequence[SetPredicate],
+            *,
+            names: str | tuple[str, ...] | None = None,
+            category: Category | None = None,
+        ) -> Subset:
             r"""Return a ``ConditionSet``, refined into its subcategory."""
             from sage.sets.condition_set import ConditionSet as SageCS
 
             from .subcategories.condition import _ConditionSets
 
-            return refine_category(SageCS(universe, *predicates, **kwds), [Sets(), _ConditionSets()])
+            return refine_category(SageCS(universe, *predicates, names=names, category=category), [Sets(), _ConditionSets()])
 
-        def ImageSubobject(self, f, domain_subset, **kwds):
+        def ImageSubobject(
+            self,
+            f: SetMorphism,
+            domain_subset: Set,
+            *,
+            category: Category | None = None,
+            is_injective: bool | None = None,
+            inverse: SetMorphism | None = None,
+        ) -> Set:
             r"""Return ``ImageSubobject(f, domain_subset)``, refined into its subcategory."""
             from sage.sets.image_set import ImageSubobject as SageIS
 
             from .subcategories.image import _ImageSets
 
-            return refine_category(SageIS(f, domain_subset, **kwds), [Sets(), _ImageSets()])
+            return refine_category(
+                SageIS(f, domain_subset, category=category, is_injective=is_injective, inverse=inverse),
+                [Sets(), _ImageSets()],
+            )
 
-        def TotallyOrderedFiniteSet(self, elements, **kwds):
+        def TotallyOrderedFiniteSet(self, elements: Iterable[SetElement], *, facade: bool = True) -> FiniteSet:
             r"""Return a ``TotallyOrderedFiniteSet``, refined into its subcategory."""
             from sage.sets.totally_ordered_finite_set import TotallyOrderedFiniteSet as SageTOFS
 
             from .subcategories.totally_ordered_finite import _TotallyOrderedFiniteSets
 
-            S = SageTOFS(elements, **kwds)
+            S = SageTOFS(elements, facade=facade)
             return refine_category(S, [Sets(), _TotallyOrderedFiniteSets()])
 
         def FiniteSetMaps(
             self,
             domain: FiniteSet | int,
             codomain: FiniteSet | int | None = None,
-            **kwds: Any,
+            *,
+            action: str = "left",
+            category: Category | None = None,
         ) -> FiniteSet:
             r"""Return the finite set of all functions ``domain -> codomain``.
 
@@ -598,25 +673,56 @@ class Sets(Category_singleton):
 
             from .subcategories.finite_set_maps import _FiniteSetMapsSets
 
-            S = SageFSM(domain, **kwds) if codomain is None else SageFSM(domain, codomain, **kwds)
+            if codomain is None:
+                S = SageFSM(domain, action=action, category=category)
+            else:
+                S = SageFSM(domain, codomain, action=action, category=category)
             return refine_category(S, [Sets(), _FiniteSetMapsSets()])
 
-        def Family(self, indices, function=None, **kwds):
+        def Family(
+            self,
+            indices: Iterable[SetElement] | Set,
+            function: Callable[[SetElement], SetElement] | None = None,
+            *,
+            hidden_keys: Sequence[SetElement] = (),
+            hidden_function: Callable[[SetElement], SetElement] | None = None,
+            lazy: bool = False,
+            name: str | None = None,
+        ) -> SetFamily:
             r"""Return a ``Family``, refined into its subcategory."""
             from sage.sets.family import Family as SageFamily
 
             from .subcategories.family import _FamilySets
 
-            S = SageFamily(indices, **kwds) if function is None else SageFamily(indices, function, **kwds)
+            S = SageFamily(
+                indices,
+                function,
+                hidden_keys=list(hidden_keys),
+                hidden_function=hidden_function,
+                lazy=lazy,
+                name=name,
+            )
             return refine_category(S, [Sets(), _FamilySets()])
 
-        def EnumeratedSetFromIterator(self, f, args=(), **kwds):
+        def EnumeratedSetFromIterator(
+            self,
+            f: Callable[..., Iterable[SetElement]],
+            args: tuple = (),
+            kwds: dict | None = None,
+            *,
+            name: str | None = None,
+            category: Category | None = None,
+            cache: bool = False,
+        ) -> CountableSet:
             r"""Return an ``EnumeratedSetFromIterator``, refined into its subcategory."""
             from sage.sets.set_from_iterator import EnumeratedSetFromIterator as SageESFI
 
             from .subcategories.enumerated_from_iterator import _EnumeratedSetsFromIterator
 
-            return refine_category(SageESFI(f, args, **kwds), [Sets(), _EnumeratedSetsFromIterator()])
+            return refine_category(
+                SageESFI(f, args=args, kwds=kwds, name=name, category=category, cache=cache),
+                [Sets(), _EnumeratedSetsFromIterator()],
+            )
 
         def cartesian_product(self, factors: Sequence[Set]) -> Set:
             r"""Return Sage's categorical Cartesian product of ``factors``."""

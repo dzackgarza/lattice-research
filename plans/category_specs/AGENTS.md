@@ -81,11 +81,37 @@ The module docstring of `__init__.py` must faithfully record the full subcategor
 hierarchy as a tree, showing the mathematical relationships between all subcategories
 defined in that subtree.
 
-**`SubcategoryMethods`** provides methods available on the category object itself for
+**SubcategoryMethods** provides methods available on the category object itself for
 navigating to further restricted subcategories (e.g. `Sets().Finite()` returns the
 finite sets subcategory).
 
+**Mandatory Construction Wiring**: Every top-level category MUST define the following
+functorial constructions in its `SubcategoryMethods` class. These methods must use
+the `C.category_of(self)` pattern to ensure they correctly restrict any
+subcategory instance to its appropriate sub-subcategory of subobjects, quotients, etc.
+
+- `Subobjects()` (with category-specific aliases like `Subsets`, `Submodules`)
+- `Quotients()`
+- `Subquotients()`
+- `ObjectsOver()`
+- `ObjectsUnder()`
+- `Homsets()`
+- `Endsets()`
+- `Autsets()`
+
+Example implementation in `SubcategoryMethods`:
+```python
+@cached_method
+def Subobjects(self):
+    from .subcategories.constructions.subobjects import _Subobjects
+    return _Subobjects.category_of(self)
+```
+
+Other constructions like `TensorProducts()` or `CartesianProducts()` should be added
+only to categories where they are mathematically well-defined.
+
 **Axiomatic subcategories** must be wired to real classes that add genuine spec work.
+
 E.g. `Sets().Finite()` is not just structural — the linked class must declare that
 `is_finite()` returns `True`, `is_countable()` returns `True`, `__len__` is defined,
 etc.
@@ -229,10 +255,12 @@ category_specs/
     │   ├── constructions/
     │   │   ├── subobjects.py
     │   │   ├── subquotients.py
-    │   │   └── quotients.py
+    │   │   ├── quotients.py
+    │   │   ├── objects_over.py
+    │   │   ├── objects_under.py
+    │   │   └── homsets.py    # subtree-specific Homset/Endset/Autset categories
     │   ├── free.py
     │   └── ...
-    ├── homsets.py        # subtree-specific Homset/Endset/Autset categories
     ├── smoketest.sage    # exercises every Constructors() entry point
     ├── docs/
     │   ├── TRIAGE.md         # current structural blockers and genuine Sage gaps
@@ -253,10 +281,11 @@ category_specs/
   leaf or has few children.
 - Construction-style subcategories live under `subcategories/`, split by mathematical
   notion. Use `subcategories/constructions/<notion>.py` for attachable Sage
-  construction categories such as subobjects, quotients, subquotients, objects-over,
-  and objects-under. These classes may extend Sage functorial construction
-  classes and use `category_of`; the target organization still places the category
-  surface by mathematical notion.
+  construction categories such as subobjects, quotients, subquotients, homsets,
+  endsets, autsets, objects-over, and objects-under. These classes may extend Sage
+  functorial construction classes and use `category_of`; the target organization
+  still places the category surface by mathematical notion.
+
 - If a subcategory introduces a genuinely independent and complex method surface (new
   `ParentMethods`, `ElementMethods`, `MorphismMethods`), promote it to its own top-level
   subtree rather than burying it.
@@ -308,11 +337,11 @@ Never destructively replace or monkey-patch Sage internals.
   `Modules(R).Constructors()`) for all Sage constructor entry points known to that
   category. Constructor wrappers must be collected here, not scattered.
 - Every category subtree must properly declare its construction categories:
-  `Subobjects`, `Subquotients`, `Quotients`, `Homsets`, `Endsets`, and `Autsets`
-  (including all of their elements), even if the implementations are mostly
-  trivial. They must be declared explicitly in the subtree's `__init__.py` and
-  located in `subcategories/constructions/` to ensure a uniform surface across the
-  entire hierarchy.
+  `Subobjects`, `Subquotients`, `Quotients`, `ObjectsOver`, `ObjectsUnder`,
+  `Homsets`, `Endsets`, and `Autsets` (including all of their elements), even if the
+  implementations are mostly trivial. They must be declared explicitly in the
+  subtree's `__init__.py` and located in `subcategories/constructions/` to ensure a
+  uniform surface across the entire hierarchy.
 - **Construction Boilerplate**: Construction categories follow a uniform
   implementation pattern: `C.category_of(self)`. This is because they are functorial
   constructions that restrict any subcategory to its appropriate sub-subcategory
