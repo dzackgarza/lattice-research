@@ -23,6 +23,7 @@ SET_AXIOMS = (
     "Infinite",
     "Facade",
     "TotallyOrdered",
+    "Graded",
     "Topological",
     "Metric",
 )

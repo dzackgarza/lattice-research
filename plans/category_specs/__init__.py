@@ -8,6 +8,7 @@ install concrete category interceptors and constructor redefinitions.
 from . import algebras as algebras
 from . import homsets as homsets
 from . import modules as modules
+from . import posets as posets
 from . import rings as rings
 from . import sets as sets
 from . import topological_spaces as topological_spaces

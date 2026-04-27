@@ -30,6 +30,9 @@ from sympy.sets.sets import Set as SageSympySet
 from .algebras import Algebras
 from .homsets import Homsets
 from .modules import Modules
+from .posets import Posets
+from .posets.subcategories.finite_lattice import _FiniteLatticePosets
+from .posets.subcategories.lattice import _LatticePosets
 from .rings import Rings, _RingIdeals
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
@@ -163,9 +166,13 @@ RealIntervalComponent = RealInterval
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
 SympySet = SageSympySet
-Poset = SagePoset
-LatticePoset = SagePoset
-FiniteLatticePoset = SagePoset
+Poset = Posets.ParentMethods
+PosetElement = Posets.ElementMethods
+PosetMorphism = Posets.MorphismMethods
+PosetSubset = Subset
+LatticePoset = _LatticePosets.ParentMethods
+FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
+SageFinitePoset = SagePoset
 Lattice = SageParent
 DiscriminantGroup = SageParent
 OrthogonalGroup = SageGroup

@@ -21,10 +21,15 @@ Subcategory hierarchy::
     |-- Topological()
     |   `-- Metric()
     |-- TotallyOrdered()
+    |-- Graded()
+    |-- GSets(G)
     |-- CartesianProducts()
+    |-- Subquotients()
     |-- Subobjects() / Subsets()
     |-- Quotients()
     |-- IsomorphicObjects()
+    |-- WithRealizations()
+    |-- Realizations()
     `-- Homsets()
         |-- Endset()
         `-- Autset()
@@ -70,6 +75,7 @@ from .homsets import SetHomsets
 if TYPE_CHECKING:
     from ..types import (
         FiniteSet,
+        Group,
         RealNumber,
         RealOpenSet,
         RealSubset,
@@ -272,14 +278,25 @@ class Sets(Category_singleton):
             return self._with_axiom("TotallyOrdered")
 
         @cached_method
+        def Graded(self):
+            return self._with_axiom("Graded")
+
+        @cached_method
+        def GSets(self, acting_group: Group):
+            from .subcategories.group_actions import _GSets
+
+            return _GSets(acting_group, self)
+
+        @cached_method
         def CartesianProducts(self):
             from sage.categories.cartesian_product import CartesianProductsCategory
             return CartesianProductsCategory.category_of(self)
 
         @cached_method
         def Subquotients(self):
-            from sage.categories.subquotients import SubquotientsCategory
-            return SubquotientsCategory.category_of(self)
+            from .subcategories.constructions.subquotients import _Subquotients
+
+            return _Subquotients.category_of(self)
 
         @cached_method
         def Quotients(self):
@@ -297,8 +314,21 @@ class Sets(Category_singleton):
 
         @cached_method
         def IsomorphicObjects(self):
-            from sage.categories.isomorphic_objects import IsomorphicObjectsCategory
-            return IsomorphicObjectsCategory.category_of(self)
+            from .subcategories.constructions.isomorphic_objects import _IsomorphicObjects
+
+            return _IsomorphicObjects.category_of(self)
+
+        @cached_method
+        def WithRealizations(self):
+            from .subcategories.constructions.with_realizations import _WithRealizations
+
+            return _WithRealizations.category_of(self)
+
+        @cached_method
+        def Realizations(self):
+            from .subcategories.constructions.realizations import _Realizations
+
+            return _Realizations.category_of(self)
 
         @cached_method
         def Homsets(self):
@@ -629,10 +659,24 @@ class Sets(Category_singleton):
     Facade = LazyImport("category_specs.sets.subcategories.facade", "_FacadeSets")
     Topological = LazyImport("category_specs.topological_spaces", "_TopologicalSpaces")
     TotallyOrdered = LazyImport("category_specs.sets.subcategories.totally_ordered", "_TotallyOrdered")
+    Graded = LazyImport("category_specs.sets.subcategories.graded", "_GradedSets")
     Metric = LazyImport("category_specs.topological_spaces", "_MetricSpaces")
+    Subquotients = LazyImport("category_specs.sets.subcategories.constructions.subquotients", "_Subquotients")
     Subobjects = LazyImport("category_specs.sets.subcategories.constructions.subobjects", "_Subobjects")
     Subsets = Subobjects
     Quotients = LazyImport("category_specs.sets.subcategories.constructions.quotients", "_Quotients")
+    IsomorphicObjects = LazyImport(
+        "category_specs.sets.subcategories.constructions.isomorphic_objects",
+        "_IsomorphicObjects",
+    )
+    WithRealizations = LazyImport(
+        "category_specs.sets.subcategories.constructions.with_realizations",
+        "_WithRealizations",
+    )
+    Realizations = LazyImport(
+        "category_specs.sets.subcategories.constructions.realizations",
+        "_Realizations",
+    )
 
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
