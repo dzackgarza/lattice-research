@@ -82,6 +82,7 @@ if TYPE_CHECKING:
         RealOpenSet,
         RealSetComponent,
         RealSubset,
+        Ring,
         Set,
         SetAutset,
         SetElement,
@@ -127,7 +128,14 @@ class _SetObjectMethods:
     def construction(self): ...
 
     @abstract_method
-    def cartesian_product(self, factors: Sequence[Set], **kwargs: Any) -> Set:
+    def cartesian_product(
+        self,
+        factors: Sequence[Set],
+        *,
+        category: Category | None = None,
+        extra_category: Category | None = None,
+        flatten: bool = False,
+    ) -> Set:
         r"""Return the Cartesian product of ``self`` with the parent sets in ``factors``."""
         ...
 
@@ -143,7 +151,7 @@ class _SetObjectMethods:
         return self.union(other)
 
     @abstract_method
-    def algebra(self, base_ring, category=None, **kwds):
+    def algebra(self, base_ring: Ring, category: Category | None = None) -> Any:
         r"""Return the algebra of this set over ``base_ring``."""
         ...
 

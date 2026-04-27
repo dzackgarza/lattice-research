@@ -5,7 +5,7 @@ Only aliases backed by files that exist in this tree are exposed.  The
 dropped until those spec files land.
 """
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 
 from sage.categories.homset import Homset as SageHomset
 from sage.categories.morphism import Morphism as SageMorphism
@@ -69,6 +69,7 @@ CompleteRing = _CompleteRings.ParentMethods
 
 MatrixEntryOrder = Sequence[tuple[int, int]] | None
 Cardinality = Integer | InfinityElement
+IntegerRangeBound = int | Integer | InfinityElement
 
 RMod = Modules
 RModule = Modules.ParentMethods
@@ -155,6 +156,7 @@ SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
 GroupElement = SageElement
 GroupAction = SageMorphism
+SetPredicate = Callable[[SageElement], bool]
 
 RealNumber = SageRealNumber
 TopologicalSpace = _TopologicalSpaces.ParentMethods
@@ -163,6 +165,7 @@ RealSubset = Subset
 RealOpenSet = Subset
 RealInterval = InternalRealInterval
 RealIntervalComponent = RealInterval
+RealSetComponent = RealInterval | tuple[RealNumber, RealNumber] | tuple[RealNumber, RealNumber, bool, bool]
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
 SympySet = SageSympySet

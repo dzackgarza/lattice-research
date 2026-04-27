@@ -85,12 +85,17 @@ defined in that subtree.
 navigating to further restricted subcategories (e.g. `Sets().Finite()` returns the
 finite sets subcategory).
 
-**Mandatory Construction Wiring**: Every top-level category MUST define the following
-functorial constructions in its `SubcategoryMethods` class. These methods must use
-the `C.category_of(self)` pattern to ensure they correctly restrict any
-subcategory instance to its appropriate sub-subcategory of subobjects, quotients, etc.
+**Mandatory Construction Wiring**: Every top-level category MUST include the
+following methods in its `SubcategoryMethods` class as explicit boilerplate.
+These methods are required for all categories, even if their implementation is
+mathematically trivial for that category. They MUST follow the pattern
+`Construction.category_of(self)` to ensure they operate as functorial
+constructions that restrict any subcategory to its appropriate sub-subcategory
+(e.g., `Sets().Finite().Subobjects()` must return the category of finite
+subsets).
 
-- `Subobjects()` (with category-specific aliases like `Subsets`, `Submodules`)
+Mandatory boilerplate methods:
+- `Subobjects()` (and category-specific aliases like `Subsets`, `Submodules`)
 - `Quotients()`
 - `Subquotients()`
 - `ObjectsOver()`
@@ -99,16 +104,25 @@ subcategory instance to its appropriate sub-subcategory of subobjects, quotients
 - `Endsets()`
 - `Autsets()`
 
-Example implementation in `SubcategoryMethods`:
+Literal implementation pattern (to be repeated for each):
 ```python
 @cached_method
 def Subobjects(self):
     from .subcategories.constructions.subobjects import _Subobjects
     return _Subobjects.category_of(self)
+
+@cached_method
+def Homsets(self):
+    from .subcategories.constructions.homsets import _Homsets
+    return _Homsets.category_of(self)
 ```
 
-Other constructions like `TensorProducts()` or `CartesianProducts()` should be added
-only to categories where they are mathematically well-defined.
+This wiring ensures that the construction logic (defined in the `constructions/`
+directory) is correctly applied across the entire hierarchy through the
+`category_of` mechanism.
+
+Other constructions like `TensorProducts()` or `CartesianProducts()` should be
+added only where mathematically appropriate, following the same pattern.
 
 **Axiomatic subcategories** must be wired to real classes that add genuine spec work.
 
