@@ -42,6 +42,7 @@ if TYPE_CHECKING:
         AlgebraMorphism,
         HochschildChainComplex,
         RModule,
+        RAlgebra,
         Ring,
     )
 
@@ -179,13 +180,13 @@ class Algebras(Category_over_base_ring):
         surfaces are inventoried in ``docs/SAGE_INVENTORY.md``.
         """
 
-        def __init__(self, category):
+        def __init__(self, category: RAlgebra) -> None:
             self._category = category
 
-        def category(self):
+        def category(self) -> RAlgebra:
             return self._category
 
-        def base_ring(self):
+        def base_ring(self) -> Ring:
             return self.category().base_ring()
 
     _Constructors = Constructors

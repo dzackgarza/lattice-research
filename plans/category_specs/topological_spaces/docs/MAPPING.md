@@ -9,3 +9,4 @@ not a set-local duplicate.
 | `Sets().Topological()` | `TopologicalSpaces()` | A set with a topology is precisely a topological space. | There is one category surface, exposed from both names. |
 | `Sets().Metric()` | `TopologicalSpaces().Metric()` | A metric space is a topological space whose topology is induced by a metric. | Metric methods refine the topological-space surface through the `Metric` axiom. |
 | `RealSet` topology | `TopologicalSpaces()` plus `Sets().Subobjects()` | A real subset inherits topology from the real line and is also a subobject of that ambient line. | Real-line methods use `RealSubset`, `RealOpenSet`, and `RealInterval` vocabulary. |
+| Metric balls | `MetricBall` type vocabulary | In any metric space, an open ball is an open subset of the underlying set. | `ball(center, radius)` returns `MetricBall`, not a generic set. |

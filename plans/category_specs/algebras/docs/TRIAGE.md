@@ -4,9 +4,11 @@
 
 - `Algebras(R)` exists as a top-level category over a base ring.
 - Algebra-specific parent methods are centralized in `algebras/__init__.py`.
-- The first structural subcategories are split into one file each:
+- The first shared-axiom subcategories are split into one file each:
   `Commutative`, `WithBasis`, `FiniteDimensional`, `FiniteDimensional().WithBasis()`,
   and `Semisimple`.
+- These subcategories reuse the global axiom names from `axioms.py` and add only the
+  algebra-specific method surfaces forced by those restrictions.
 - Algebra construction categories are split under `subcategories/constructions/` for
   subobjects, quotients, Cartesian products, tensor products, and dual objects.
 

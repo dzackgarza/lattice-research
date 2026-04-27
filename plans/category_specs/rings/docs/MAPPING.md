@@ -11,6 +11,12 @@ category-spec hierarchy. It is not a history of deleted files.
 | Root shortcuts such as `Rings().ZZ()` | `Rings().Constructors().ZZ()` | Constructor shortcuts do not belong on the category root. The category root documents mathematics; `Constructors()` owns Sage entry points. |
 | Parameterized families such as `RealField(prec)` and `Zp(p)` | Constructor methods returning objects refined into precision, valuation, or local-field subcategories | The parameterized family is not a one-object category; fixed objects such as `RR` and `CC` may have singleton refinements. |
 
+Constructor signatures must follow Sage's documented input shapes. `PowerSeriesRing`,
+`LaurentSeriesRing`, `PuiseuxSeriesRing`, and `MatrixRing` expose their structured
+parameters directly. `PolynomialRing` remains variadic because Sage's own constructor
+documents several mutually incompatible positional forms and explicitly records that
+signature as not sensibly expressible by ordinary Python parameters.
+
 ## Subcategory Layout
 
 | Current source surface | Target file organization | Rationale |

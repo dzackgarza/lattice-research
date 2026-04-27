@@ -12,7 +12,7 @@ from sage.misc.abstract_method import abstract_method
 from .. import _TopologicalSpaces
 
 if TYPE_CHECKING:
-    from ...types import RealNumber, Set, SetElement
+    from ...types import MetricBall, RealNumber, SetElement
 
 
 class _MetricSpaceObjectMethods:
@@ -25,7 +25,7 @@ class _MetricSpaceObjectMethods:
     def metric(self, x: SetElement, y: SetElement) -> RealNumber: ...
 
     @abstract_method
-    def ball(self, center: SetElement, radius: RealNumber) -> Set: ...
+    def ball(self, center: SetElement, radius: RealNumber) -> MetricBall: ...
 
     @abstract_method
     def dist(self, x: SetElement, y: SetElement) -> RealNumber: ...

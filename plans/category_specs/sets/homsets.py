@@ -20,7 +20,16 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets.utils import refine_automorphism_set_from_endset
 
 if TYPE_CHECKING:
-    from ..types import Cardinality, Set, SetAutset, SetElement, SetEndset, SetMorphism, Subset
+    from ..types import (
+        Cardinality,
+        Set,
+        SetAutset,
+        SetElement,
+        SetEndset,
+        SetMorphism,
+        SetMorphismConstructorData,
+        Subset,
+    )
 
 
 class _SetHomsetObjects:
@@ -31,7 +40,7 @@ class _SetHomsetObjects:
     def codomain(self) -> Set: ...
 
     @abstract_method
-    def __call__(self, *args: object, **kwds: object) -> SetMorphism: ...
+    def __call__(self, *data: SetMorphismConstructorData, **options: SetMorphismConstructorData) -> SetMorphism: ...
 
     @abstract_method
     def __contains__(self, obj: Any) -> bool: ...

@@ -6,7 +6,7 @@ Source for this initial pass: the existing set subtree topological surface and S
 | Sage surface | Target category | Method surface to represent |
 | --- | --- | --- |
 | `SageSets().Topological()` | `TopologicalSpaces()` = `Sets().Topological()` | `is_connected`, `closure`, `interior`, `boundary`, `is_open`, `is_closed`, `is_compact`. |
-| `SageSets().Metric()` | `TopologicalSpaces().Metric()` = `Sets().Metric()` | `metric`, `ball`, `dist`, plus the inherited topological-space surface. |
+| `SageSets().Metric()` | `TopologicalSpaces().Metric()` = `Sets().Metric()` | `metric`, `ball -> MetricBall`, `dist`, plus the inherited topological-space surface. |
 
 ## Inventory Gaps
 

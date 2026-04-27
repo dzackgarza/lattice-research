@@ -13,6 +13,7 @@ from sage.combinat.posets.posets import FinitePoset as SagePoset
 from sage.groups.abelian_gps.abelian_group import AbelianGroup_class
 from sage.groups.group import Group as SageGroup
 from sage.homology.hochschild_complex import HochschildComplex
+from sage.matrix.matrix2 import Matrix as SageMatrix
 from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
@@ -42,6 +43,7 @@ from .rings.subcategories.local import _LocalRings
 # Generic / Support
 CategoryObject = SageParent
 CategoryElement = SageElement
+Matrix = SageMatrix
 HomsetObject = Homsets.ParentMethods
 HomsetElement = Homsets.ElementMethods
 Endset = Homsets.Endset.ParentMethods
@@ -107,6 +109,8 @@ RModAutSet = RModAutset
 DualModule = Modules.DualObjects.ParentMethods
 RModDualElement = Modules.DualObjects.ElementMethods
 RModuleForm = RModMorphism
+ModuleStructure = RModMorphism
+RModuleElementClass = type[SageElement]
 BilinearFormsModule = SageHomset
 BilinearForm = SageMorphism
 QuadraticFormsModule = SageHomset
@@ -142,6 +146,8 @@ UncountableSet = Sets.Uncountable.ParentMethods
 GradedSet = _GradedSets.ParentMethods
 GSet = _GSets.ParentMethods
 Subset = SetSubobjects.ParentMethods
+OpenSubset = Subset
+ClosedSubset = Subset
 SetSubquotient = SetSubquotients.ParentMethods
 QuotientSet = SetQuotients.ParentMethods
 IsomorphicSetObject = SetIsomorphicObjects.ParentMethods
@@ -159,20 +165,42 @@ Morphism = SageMorphism
 Endomorphism = SageMorphism
 Automorphism = SageMorphism
 FiniteSetMap = FiniteSetMap_MN
+MorphismConstructorData = (
+    Morphism
+    | CategoryObject
+    | CategoryElement
+    | Matrix
+    | Callable[[CategoryElement], CategoryElement]
+    | Sequence[CategoryElement]
+    | None
+)
+SetMorphismConstructorData = (
+    SetMorphism
+    | SetElement
+    | Set
+    | FiniteSetMap
+    | Callable[[SetElement], SetElement]
+    | Sequence[SetElement]
+    | None
+)
+FiniteSetMapConstructorData = FiniteSetMap | Sequence[SetElement] | dict[SetElement, SetElement]
+TestOptionValue = CategoryObject | CategoryElement | bool | int | Integer | str | None
 SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
 GroupElement = SageElement
 GroupAction = SageMorphism
 SetPredicate = Callable[[SageElement], bool]
+ModuleBasisKeys = SetFamily | Set
 
 RealNumber = SageRealNumber
 TopologicalSpace = _TopologicalSpaces.ParentMethods
 MetricSpace = _MetricSpaces.ParentMethods
 RealSubset = Subset
-RealOpenSet = Subset
+RealOpenSet = OpenSubset
 RealInterval = InternalRealInterval
 RealIntervalComponent = RealInterval
 RealSetComponent = RealInterval | tuple[RealNumber, RealNumber] | tuple[RealNumber, RealNumber, bool, bool]
+MetricBall = OpenSubset
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
 SympySet = SageSympySet

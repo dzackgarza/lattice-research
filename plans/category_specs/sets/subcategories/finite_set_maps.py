@@ -8,7 +8,13 @@ from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, FiniteSetMap, Set, SetElement
+    from ...types import (
+        Cardinality,
+        FiniteSetMap,
+        FiniteSetMapConstructorData,
+        Set,
+        SetElement,
+    )
 
 
 from .. import Sets
@@ -49,7 +55,11 @@ class _FiniteSetMapsSets(Category_singleton):
         def _from_list_(self, v: list[SetElement]) -> FiniteSetMap: ...
 
         @abstract_method
-        def _element_constructor_(self, *args: object, **keywords: object) -> FiniteSetMap: ...
+        def _element_constructor_(
+            self,
+            *data: FiniteSetMapConstructorData,
+            **keywords: FiniteSetMapConstructorData,
+        ) -> FiniteSetMap: ...
 
         @abstract_method
         def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap: ...

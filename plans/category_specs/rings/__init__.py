@@ -8,6 +8,7 @@ existing Sage ring categories where Sage provides them.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category import Category
@@ -100,7 +101,9 @@ if TYPE_CHECKING:
         Cardinality,
         FreeModule,
         Ideal,
+        Matrix,
         Monoid,
+        Polynomial,
         Ring,
         RingAutset,
         RingElement,
@@ -479,113 +482,208 @@ class Rings(Category_singleton):
                 )
             )
 
-        def ZZ(self):
+        def ZZ(self) -> Ring:
             from sage.all import ZZ
 
             return refine_category(ZZ, [Rings(), _ZZ()])
 
-        def QQ(self):
+        def QQ(self) -> Ring:
             from sage.all import QQ
 
             return refine_category(QQ, [Rings(), _QQ()])
 
-        def QQbar(self):
+        def QQbar(self) -> Ring:
             from sage.all import QQbar
 
             return refine_category(QQbar, [Rings(), _QQbar()])
 
-        def AA(self):
+        def AA(self) -> Ring:
             from sage.all import AA
 
             return refine_category(AA, [Rings(), _AA()])
 
-        def RR(self):
+        def RR(self) -> Ring:
             from sage.all import RR
 
             return refine_category(RR, [Rings(), _RR()])
 
-        def CC(self):
+        def CC(self) -> Ring:
             from sage.all import CC
 
             return refine_category(CC, [Rings(), _CC()])
 
-        def RDF(self):
+        def RDF(self) -> Ring:
             from sage.all import RDF
 
             return refine_category(RDF, [Rings(), _RealDoubleFields()])
 
-        def CDF(self):
+        def CDF(self) -> Ring:
             from sage.all import CDF
 
             return refine_category(CDF, [Rings(), _ComplexDoubleFields()])
 
-        def RIF(self):
+        def RIF(self) -> Ring:
             from sage.all import RIF
 
             return refine_category(RIF, [Rings(), _RealIntervalFields()])
 
-        def CIF(self):
+        def CIF(self) -> Ring:
             from sage.all import CIF
 
             return refine_category(CIF, [Rings(), _ComplexIntervalFields()])
 
-        def RealField(self, *args, **kwds):
+        def RealField(self, prec: int | Integer = 53, sci_not: bool = False, rnd: str = "RNDN") -> Ring:
             from sage.all import RR, RealField
 
-            R = RealField(*args, **kwds)
+            R = RealField(prec=prec, sci_not=sci_not, rnd=rnd)
             categories = [_RealFields()]
             if R is RR:
                 categories.append(_RR())
             return refine_category(R, [Rings(), *categories])
 
-        def ComplexField(self, *args, **kwds):
+        def ComplexField(self, prec: int | Integer = 53, names: str | None = None) -> Ring:
             from sage.all import CC, ComplexField
 
-            R = ComplexField(*args, **kwds)
+            R = ComplexField(prec=prec, names=names)
             categories = [_ComplexFields()]
             if R is CC:
                 categories.append(_CC())
             return refine_category(R, [Rings(), *categories])
 
-        def RealBallField(self, *args, **kwds):
+        def RealBallField(self, prec: int | Integer = 53) -> Ring:
             from sage.all import RealBallField
 
-            return refine_category(RealBallField(*args, **kwds), [Rings(), _RealBallFields()])
+            return refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
 
-        def ComplexBallField(self, *args, **kwds):
+        def ComplexBallField(self, prec: int | Integer = 53) -> Ring:
             from sage.all import ComplexBallField
 
-            return refine_category(ComplexBallField(*args, **kwds), [Rings(), _ComplexBallFields()])
+            return refine_category(ComplexBallField(prec), [Rings(), _ComplexBallFields()])
 
-        def IntegerModRing(self, *args, **kwds):
+        def IntegerModRing(
+            self,
+            order: int | Integer = 0,
+            is_field: bool = False,
+            category: Category | None = None,
+        ) -> Ring:
             from sage.all import IntegerModRing
 
-            return refine_category(IntegerModRing(*args, **kwds), [Rings(), _IntegerModRings()])
+            return refine_category(IntegerModRing(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
-        def Zmod(self, *args, **kwds):
+        def Zmod(
+            self,
+            order: int | Integer = 0,
+            is_field: bool = False,
+            category: Category | None = None,
+        ) -> Ring:
             from sage.all import Zmod
 
-            return refine_category(Zmod(*args, **kwds), [Rings(), _IntegerModRings()])
+            return refine_category(Zmod(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
-        def Integers(self, *args, **kwds):
+        def Integers(
+            self,
+            order: int | Integer = 0,
+            is_field: bool = False,
+            category: Category | None = None,
+        ) -> Ring:
             from sage.all import Integers
 
-            return refine_category(Integers(*args, **kwds), [Rings(), _IntegerModRings()])
+            return refine_category(Integers(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
-        def GF(self, *args, **kwds):
+        def GF(
+            self,
+            order: int | Integer,
+            name: str | None = None,
+            modulus: Polynomial | str | None = None,
+            names: str | None = None,
+            impl: str | None = None,
+            proof: bool | None = None,
+            check_prime: bool = True,
+            check_irreducible: bool = True,
+            prefix: str | None = None,
+            repr: str | None = None,
+            elem_cache: bool | None = None,
+        ) -> Ring:
             from sage.all import GF
 
-            return refine_category(GF(*args, **kwds), [Rings(), _FiniteFields()])
+            return refine_category(
+                GF(
+                    order,
+                    name=name,
+                    modulus=modulus,
+                    names=names,
+                    impl=impl,
+                    proof=proof,
+                    check_prime=check_prime,
+                    check_irreducible=check_irreducible,
+                    prefix=prefix,
+                    repr=repr,
+                    elem_cache=elem_cache,
+                ),
+                [Rings(), _FiniteFields()],
+            )
 
-        def FiniteField(self, *args, **kwds):
+        def FiniteField(
+            self,
+            order: int | Integer,
+            name: str | None = None,
+            modulus: Polynomial | str | None = None,
+            names: str | None = None,
+            impl: str | None = None,
+            proof: bool | None = None,
+            check_prime: bool = True,
+            check_irreducible: bool = True,
+            prefix: str | None = None,
+            repr: str | None = None,
+            elem_cache: bool | None = None,
+        ) -> Ring:
             from sage.all import FiniteField
 
-            return refine_category(FiniteField(*args, **kwds), [Rings(), _FiniteFields()])
+            return refine_category(
+                FiniteField(
+                    order,
+                    name=name,
+                    modulus=modulus,
+                    names=names,
+                    impl=impl,
+                    proof=proof,
+                    check_prime=check_prime,
+                    check_irreducible=check_irreducible,
+                    prefix=prefix,
+                    repr=repr,
+                    elem_cache=elem_cache,
+                ),
+                [Rings(), _FiniteFields()],
+            )
 
-        def NumberField(self, *args, **kwds):
+        def NumberField(
+            self,
+            polynomial: Polynomial | Sequence[Polynomial],
+            name: str | Sequence[str] | None = None,
+            check: bool = True,
+            names: str | Sequence[str] | None = None,
+            embedding: RingElement | Sequence[RingElement] | None = None,
+            latex_name: str | Sequence[str] | None = None,
+            assume_disc_small: bool = False,
+            maximize_at_primes: Sequence[int | Integer] | None = None,
+            structure: RingMorphism | Sequence[RingMorphism] | None = None,
+            *,
+            latex_names: str | Sequence[str] | None = None,
+        ) -> Ring:
             from sage.all import NumberField
 
-            R = NumberField(*args, **kwds)
+            R = NumberField(
+                polynomial,
+                name=name,
+                check=check,
+                names=names,
+                embedding=embedding,
+                latex_name=latex_name,
+                assume_disc_small=assume_disc_small,
+                maximize_at_primes=maximize_at_primes,
+                structure=structure,
+                latex_names=latex_names,
+            )
             categories = [_NumberFields()]
             if R.degree() == 2:
                 categories.append(_QuadraticNumberFields())
@@ -593,62 +691,286 @@ class Rings(Category_singleton):
                 categories.append(_CyclotomicFields())
             return refine_category(R, [Rings(), *categories])
 
-        def QuadraticField(self, *args, **kwds):
+        def QuadraticField(
+            self,
+            D: RingElement | int | Integer,
+            name: str = "a",
+            check: bool = True,
+            embedding: bool | RingElement = True,
+            latex_name: str = "sqrt",
+        ) -> Ring:
             from sage.all import QuadraticField
 
-            return refine_category(QuadraticField(*args, **kwds), [Rings(), _QuadraticNumberFields()])
+            return refine_category(
+                QuadraticField(D, name=name, check=check, embedding=embedding, latex_name=latex_name),
+                [Rings(), _QuadraticNumberFields()],
+            )
 
-        def CyclotomicField(self, *args, **kwds):
+        def CyclotomicField(
+            self,
+            n: int | Integer = 0,
+            names: str | None = None,
+            embedding: bool | RingElement = True,
+        ) -> Ring:
             from sage.all import CyclotomicField
 
-            return refine_category(CyclotomicField(*args, **kwds), [Rings(), _CyclotomicFields()])
+            return refine_category(CyclotomicField(n, names=names, embedding=embedding), [Rings(), _CyclotomicFields()])
 
-        def Zp(self, *args, **kwds):
+        def Zp(
+            self,
+            p: int | Integer,
+            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            type: str = "capped-rel",
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: int | Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            label: str | None = None,
+        ) -> Ring:
             from sage.all import Zp
 
-            return refine_category(Zp(*args, **kwds), [Rings(), _Zp()])
+            return refine_category(
+                Zp(
+                    p,
+                    prec=prec,
+                    type=type,
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    label=label,
+                ),
+                [Rings(), _Zp()],
+            )
 
-        def Qp(self, *args, **kwds):
+        def Qp(
+            self,
+            p: int | Integer,
+            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            type: str = "capped-rel",
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: int | Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            label: str | None = None,
+        ) -> Ring:
             from sage.all import Qp
 
-            return refine_category(Qp(*args, **kwds), [Rings(), _Qp()])
+            return refine_category(
+                Qp(
+                    p,
+                    prec=prec,
+                    type=type,
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    label=label,
+                ),
+                [Rings(), _Qp()],
+            )
 
-        def Zq(self, *args, **kwds):
+        def Zq(
+            self,
+            q: int | Integer | tuple[int | Integer, int | Integer] | Sequence[tuple[int | Integer, int | Integer]],
+            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: int | Integer | None = None,
+            print_max_unram_terms: int | Integer | None = None,
+            print_max_terse_terms: int | Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
             from sage.all import Zq
 
-            return refine_category(Zq(*args, **kwds), [Rings(), _Zp()])
+            return refine_category(
+                Zq(
+                    q,
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Zp()],
+            )
 
-        def Qq(self, *args, **kwds):
+        def Qq(
+            self,
+            q: int | Integer | tuple[int | Integer, int | Integer] | Sequence[tuple[int | Integer, int | Integer]],
+            prec: int | Integer | tuple[int | Integer, int | Integer] | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: int | Integer | None = None,
+            print_max_unram_terms: int | Integer | None = None,
+            print_max_terse_terms: int | Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
             from sage.all import Qq
 
-            return refine_category(Qq(*args, **kwds), [Rings(), _Qp()])
+            return refine_category(
+                Qq(
+                    q,
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Qp()],
+            )
 
-        def PolynomialRing(self, *args, **kwds):
+        def PolynomialRing(self, *args, **kwds) -> Ring:
             from sage.all import PolynomialRing
 
             R = PolynomialRing(*args, **kwds)
             return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())])
 
-        def PowerSeriesRing(self, *args, **kwds):
+        def PowerSeriesRing(
+            self,
+            base_ring: Ring,
+            name: str | None = None,
+            arg2: int | Integer | str | None = None,
+            names: str | Sequence[str] | None = None,
+            sparse: bool = False,
+            default_prec: int | Integer | None = None,
+            order: str = "negdeglex",
+            num_gens: int | Integer | None = None,
+            implementation: str | None = None,
+        ) -> Ring:
             from sage.all import PowerSeriesRing
 
-            R = PowerSeriesRing(*args, **kwds)
+            R = PowerSeriesRing(
+                base_ring,
+                name=name,
+                arg2=arg2,
+                names=names,
+                sparse=sparse,
+                default_prec=default_prec,
+                order=order,
+                num_gens=num_gens,
+                implementation=implementation,
+            )
             return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
 
-        def LaurentSeriesRing(self, *args, **kwds):
+        def LaurentSeriesRing(
+            self,
+            base_ring: Ring,
+            name: str | None = None,
+            arg2: int | Integer | str | None = None,
+            names: str | Sequence[str] | None = None,
+            sparse: bool = False,
+            default_prec: int | Integer | None = None,
+            order: str = "negdeglex",
+            num_gens: int | Integer | None = None,
+            implementation: str | None = None,
+        ) -> Ring:
             from sage.all import LaurentSeriesRing
 
-            R = LaurentSeriesRing(*args, **kwds)
+            R = LaurentSeriesRing(
+                base_ring,
+                name=name,
+                arg2=arg2,
+                names=names,
+                sparse=sparse,
+                default_prec=default_prec,
+                order=order,
+                num_gens=num_gens,
+                implementation=implementation,
+            )
             return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
 
-        def PuiseuxSeriesRing(self, *args, **kwds):
+        def PuiseuxSeriesRing(
+            self,
+            base_ring: Ring,
+            name: str | None = None,
+            arg2: int | Integer | str | None = None,
+            names: str | Sequence[str] | None = None,
+            sparse: bool = False,
+            default_prec: int | Integer | None = None,
+            order: str = "negdeglex",
+            num_gens: int | Integer | None = None,
+            implementation: str | None = None,
+        ) -> Ring:
             from sage.all import PuiseuxSeriesRing
 
-            R = PuiseuxSeriesRing(*args, **kwds)
+            R = PuiseuxSeriesRing(
+                base_ring,
+                name=name,
+                arg2=arg2,
+                names=names,
+                sparse=sparse,
+                default_prec=default_prec,
+                order=order,
+                num_gens=num_gens,
+                implementation=implementation,
+            )
             return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
 
-        def MatrixRing(self, base_ring, n, *args, **kwds):
-            R = MatrixSpace(base_ring, n, n, *args, **kwds)
+        def MatrixRing(
+            self,
+            base_ring: Ring,
+            n: int | Integer,
+            sparse: bool = False,
+            implementation: str | type[Matrix] | None = None,
+        ) -> Ring:
+            R = MatrixSpace(base_ring, n, n, sparse=sparse, implementation=implementation)
             return refine_category(R, [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())])
 
     _Constructors = Constructors
@@ -868,4 +1190,3 @@ class Rings(Category_singleton):
     ParentMethods = _RingObjectMethods
     ElementMethods = _RingElementMethods
     MorphismMethods = _RingMorphismMethods
-

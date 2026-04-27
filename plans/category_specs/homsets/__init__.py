@@ -42,6 +42,7 @@ if TYPE_CHECKING:
         Endomorphism,
         Endset,
         Morphism,
+        MorphismConstructorData,
     )
 
 
@@ -53,7 +54,7 @@ class _HomsetObjectMethods(SageHomsets.ParentMethods):
     def codomain(self) -> CategoryObject: ...
 
     @abstract_method
-    def __call__(self, *args: object, **kwds: object) -> Morphism: ...
+    def __call__(self, *data: MorphismConstructorData, **options: MorphismConstructorData) -> Morphism: ...
 
     @abstract_method
     def __contains__(self, obj: Any) -> bool: ...

@@ -38,3 +38,6 @@ represent.
 - `one_basis()` and `product_on_basis()` use `AlgebraBasisIndex`, since Sage basis
   multiplication is indexed by the basis keys.
 - `algebra_generators()` returns an `AlgebraElementFamily`, not a generic set family.
+- `WithBasis`, `FiniteDimensional`, `Commutative`, and `Semisimple` use the shared
+  axiom names registered in `axioms.py`; this subtree contributes only the
+  algebra-specific method surfaces for those restrictions.

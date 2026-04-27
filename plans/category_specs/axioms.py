@@ -1,7 +1,9 @@
 r"""Centralized axiom registration for the category spec redesign.
 
-This file collects all custom axioms used across the project and registers them
-into Sage's category system.  Axioms are organized by their category of origin.
+This file registers each project axiom name exactly once.  Axioms that express
+the same mathematical restriction across several categories live in
+``SHARED_AXIOMS``; category-specific groups contain only names whose meaning is
+specific to that category family.
 """
 
 from __future__ import annotations

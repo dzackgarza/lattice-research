@@ -15,6 +15,15 @@ category-spec hierarchy.
 | Quotient modules and FGP modules | `Modules(R).Quotients()` plus finite-presentation/base-ring refinements | Quotients are construction categories attachable to arbitrary module subcategories. |
 | Ring objects viewed as modules | `Modules(R).Constructors().RingObjectAsModule(...)` | The ring object supplies the module structure; ring-specific methods remain in `rings`. |
 
+Constructor signatures should expose the structured Sage inputs from
+`docs/SAGE_INVENTORY.md`. For example, `FreeModule` takes
+`rank_or_basis_keys`, `sparse`, `inner_product_matrix`, `with_basis`, `rank`, and
+`basis_keys`; `VectorSpace` takes the analogous dimension/basis-key parameters; and
+`FreeQuadraticModule` takes `rank`, `inner_product_matrix`, `sparse`, and
+`inner_product_ring`. When upstream Sage exposes variadic implementation options, keep
+that variability on the corresponding constructor-family method and keep ordinary
+categorical method surfaces explicit.
+
 ## Axiomatic Restrictions
 
 `Free`, `Torsion`, `Torsionfree`, `Projective`, `FinitelyGenerated`,

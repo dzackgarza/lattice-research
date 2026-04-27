@@ -154,10 +154,33 @@ Other constructions like `TensorProducts()` should be added to
 pattern.
 
 **Axiomatic subcategories** must be wired to real classes that add genuine spec work.
-
 E.g. `Sets().Finite()` is not just structural — the linked class must declare that
 `is_finite()` returns `True`, `is_countable()` returns `True`, `__len__` is defined,
 etc.
+
+## Axiom Philosophy and Mathematical Precision
+
+- **Axiom Reuse**: Prefer to reuse existing axiom names (e.g., `Commutative`,
+  `FiniteDimensional`, `Semisimple`, `WithBasis`) rather than redefining new names for
+  each category. Define and register each axiom name exactly once in `axioms.py`, then
+  reuse it across subtrees when it expresses the same mathematical restriction.
+  If the same word would mean fundamentally different mathematics in two category
+  families, choose a more specific name instead of overloading the axiom.
+- **Axioms Carry Witnesses**: Every axiom is interpreted as carrying a witness. For
+  example, `FinitelyGenerated` doesn't just mean the abstract existence of a
+  generating set; it means the objects in that category MUST carry the actual **data**
+  of a finite generating set witnessing the property.
+- **Terminology**: Axioms like `WithBasis` (which could equally be `HasBasis`) imply
+  the object carries the data of a witnessing set.
+- **Mathematical Precision vs. Sage Looseness**: Do not use "basis" or "dimension"
+  as loosely as Sage:
+  - Modules can have generating sets that are NOT bases.
+  - Rings may not satisfy the Invariant Basis Property (IBP).
+  - `dimension` is strictly defined for free $R$-modules (or in specific geometric
+    contexts like topological spaces), not as a general synonym for "size".
+- **Documentation of Discrepancies**: Be careful with Sage's terminological looseness.
+  Any discrepancies or inaccuracies in Sage's model compared to precise mathematics
+  MUST be documented in the subtree's `MAPPING.md` or `TRIAGE.md` for future improvement.
 
 ### Direct implementation categories vs. axiomatic restrictions
 
@@ -317,11 +340,6 @@ category_specs/
 
 - Axioms are defined and registered **only** in the root `axioms.py`. No subtree defines
   or registers axioms.
-- Axiom names are global mathematical vocabulary. Define and register each axiom name
-  exactly once, then reuse it across categories when it expresses the same restriction.
-  Examples: `Commutative`, `FiniteDimensional`, `Semisimple`, and `WithBasis`.
-  If the same word would mean different mathematics in two category families, choose a
-  more specific name instead of overloading the axiom.
 - No `specialized.py`, `named.py`, `constructions.py`, or other flat aggregator files.
 - `subcategories/` may nest arbitrarily to reflect the mathematical hierarchy.
   A subcategory with many sub-subcategories gets its own subdirectory (e.g.
