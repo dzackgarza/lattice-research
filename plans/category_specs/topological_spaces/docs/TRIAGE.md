@@ -2,10 +2,12 @@
 
 ## Current Alignment
 
-- `TopologicalSpaces()` owns the topological-space method surface.
-- `TopologicalSpaces().Metric()` owns metric-space methods.
-- `Sets().Topological()` and `Sets().Metric()` remain navigation aliases into this
-  topological-space hierarchy.
+- `TopologicalSpaces()` is the same target category surface as
+  `Sets().Topological()`: a set equipped with a topology is a topological space.
+- `TopologicalSpaces().Metric()` is the same metric-space refinement exposed by
+  `Sets().Metric()`.
+- The subtree does not keep a separate wrapper category around `Sets().Topological()`.
+  The axiom-backed category is the public category.
 
 ## Outstanding Decisions Needed
 

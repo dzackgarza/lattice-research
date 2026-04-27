@@ -38,12 +38,15 @@ Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
 
 **One Source of Truth for Utils**:
-All non-trivial helper functions and general-purpose logic belong in the top-level
-`utils.py`.
-Subtrees must not define their own `utils.py` for general utility code; any truly
-general helper (e.g., category refinement, list partitioning, ABC validation) must live
-in the root `utils.py` and be imported by subtrees.
-This ensures a single, coherent implementation of all project-wide machinery.
+All **truly reusable GENERAL logic** belongs in the top-level `utils.py`. This is
+reserved for software engineering tasks like converting data types (generators, lists,
+etc.), category refinement machinery, and project-wide ABC validation.
+
+**Nontrivial Implementations**:
+Implementations that are not trivial (as defined in "The Art of Trivial
+Implementations") must be factored into an `implementations/` subdirectory within
+each subtree. The structure and naming of this directory MUST mirror the
+`subcategories/` hierarchy exactly.
 Categorical glue that is trivial (<= 10 lines) and specific to a subtree belongs on
 the category surface itself.
 
@@ -287,6 +290,10 @@ category_specs/
     │   │   └── homsets.py    # subtree-specific Homset/Endset/Autset categories
     │   ├── free.py
     │   └── ...
+    ├── implementations/  # nontrivial implementations (mirrors subcategories/ hierarchy)
+    │   ├── finite/       # implementations of finite objects
+    │   ├── free/         # implementations of free objects
+    │   └── ...
     ├── smoketest.sage    # exercises every Constructors() entry point
     ├── docs/
     │   ├── TRIAGE.md         # current structural blockers and genuine Sage gaps
@@ -317,6 +324,25 @@ category_specs/
   subtree rather than burying it.
   E.g. `lattices/` and `algebras/` are top-level, not nested inside
   `modules/subcategories/`.
+
+## Implementation Rules
+
+Nontrivial implementations (those in the `implementations/` subdirectory) must follow
+these technical requirements:
+
+1.  **Direct Extension**: Every implementation must extend a class that exists as a
+    spec file in the `subcategories/` hierarchy.
+2.  **Completeness**: Implement ALL `@abstract_method` declarations from the spec
+    and any parent specs.
+3.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
+    `dataclasses`, raw classes, or other modeling libraries are banned.
+4.  **Classmethod Constructors**: Use `classmethod` constructors for all object
+    creation (e.g., `MyImpl.from_data(...)`).
+5.  **Post-init Validation**: Use a **single post-init validator**
+    (`model_post_init` in Pydantic v2) for all state validation after construction.
+6.  **Public Registration**: All implementations must be registered in the
+    corresponding top-level category's `Constructors()` inner class. This is the
+    exclusive public entry point for using the implementation.
 
 ## super_categories
 

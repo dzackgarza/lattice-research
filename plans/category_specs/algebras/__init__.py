@@ -10,6 +10,7 @@ surfaces have been inventoried.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.algebras import Algebras as SageAlgebras
@@ -17,17 +18,20 @@ from sage.categories.category import Category
 from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ..modules import Modules
 
 if TYPE_CHECKING:
-    from ..types import Ring
-
-
-def Rings(*args, **kwds):
-    from ..rings import Rings as _Rings
-
-    return _Rings(*args, **kwds)
+    from ..types import (
+        Algebra,
+        AlgebraElement,
+        AlgebraMorphism,
+        HochschildChainComplex,
+        RModule,
+        Ring,
+        SetFamily,
+    )
 
 
 class _AlgebraParentMethods:
@@ -35,40 +39,51 @@ class _AlgebraParentMethods:
     def base_ring(self) -> Ring: ...
 
     @abstract_method
-    def change_ring(self, R: Ring): ...
+    def change_ring(self, R: Ring) -> Algebra: ...
 
     @abstract_method
-    def center(self): ...
+    def algebra_generators(self) -> SetFamily: ...
 
     @abstract_method
-    def center_basis(self): ...
+    def center(self) -> Algebra: ...
 
     @abstract_method
-    def radical(self, *args, **kwds): ...
+    def center_basis(self) -> Sequence[AlgebraElement]: ...
 
     @abstract_method
-    def radical_basis(self, *args, **kwds): ...
+    def radical(self) -> Algebra: ...
 
     @abstract_method
-    def subalgebra(self, *args, **kwds): ...
+    def radical_basis(self) -> Sequence[AlgebraElement]: ...
 
     @abstract_method
-    def derivations_basis(self): ...
+    def subalgebra(
+        self,
+        generators: Iterable[AlgebraElement],
+        category: Category | None = None,
+    ) -> Algebra: ...
 
     @abstract_method
-    def hochschild_complex(self, *args, **kwds): ...
+    def derivations_basis(self) -> Sequence[AlgebraMorphism]: ...
+
+    @abstract_method
+    def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex: ...
 
     @abstract_method
     def has_standard_involution(self) -> bool: ...
 
     @abstract_method
-    def idempotent_lift(self, *args, **kwds): ...
+    def idempotent_lift(self, x: AlgebraElement) -> AlgebraElement: ...
 
     @abstract_method
-    def peirce_decomposition(self): ...
+    def peirce_decomposition(
+        self,
+        idempotents: Sequence[AlgebraElement] | None = None,
+        check: bool = True,
+    ) -> Sequence[Sequence[Algebra]]: ...
 
     @abstract_method
-    def semisimple_quotient(self): ...
+    def semisimple_quotient(self) -> Algebra: ...
 
 
 class _AlgebraElementMethods:
@@ -96,6 +111,8 @@ class Algebras(Category_over_base_ring):
 
     @final
     def super_categories(self) -> list[Category]:
+        from ..rings import Rings
+
         R = self.base_ring()
         return [
             Rings().RingsUnder(R),
@@ -105,6 +122,43 @@ class Algebras(Category_over_base_ring):
     ParentMethods = _AlgebraParentMethods
     ElementMethods = _AlgebraElementMethods
     MorphismMethods = _AlgebraMorphismMethods
+
+    class SubcategoryMethods:
+        @cached_method
+        def Commutative(self):
+            return self._with_axiom("Commutative")
+
+        @cached_method
+        def WithBasis(self):
+            return self._with_axiom("WithBasis")
+
+        @cached_method
+        def FiniteDimensional(self):
+            return self._with_axiom("FiniteDimensional")
+
+        @cached_method
+        def Semisimple(self):
+            return self._with_axiom("Semisimple")
+
+        @cached_method
+        def Subobjects(self):
+            return self.__class__.Subobjects.category_of(self)
+
+        @cached_method
+        def Quotients(self):
+            return self.__class__.Quotients.category_of(self)
+
+        @cached_method
+        def CartesianProducts(self):
+            return self.__class__.CartesianProducts.category_of(self)
+
+        @cached_method
+        def TensorProducts(self):
+            return self.__class__.TensorProducts.category_of(self)
+
+        @cached_method
+        def DualObjects(self):
+            return self.__class__.DualObjects.category_of(self)
 
     class Constructors:
         r"""Algebra constructors over a fixed base ring.
@@ -127,3 +181,20 @@ class Algebras(Category_over_base_ring):
     @cached_method
     def Constructors(self):
         return self.__class__._Constructors(self)
+
+    Commutative = LazyImport("category_specs.algebras.subcategories.commutative", "_CommutativeAlgebras")
+    WithBasis = LazyImport("category_specs.algebras.subcategories.with_basis", "_AlgebrasWithBasis")
+    FiniteDimensional = LazyImport(
+        "category_specs.algebras.subcategories.finite_dimensional",
+        "_FiniteDimensionalAlgebras",
+    )
+    Semisimple = LazyImport("category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras")
+
+    Subobjects = LazyImport("category_specs.algebras.subcategories.constructions.subobjects", "_Subobjects")
+    Quotients = LazyImport("category_specs.algebras.subcategories.constructions.quotients", "_Quotients")
+    CartesianProducts = LazyImport(
+        "category_specs.algebras.subcategories.constructions.cartesian_products",
+        "_CartesianProducts",
+    )
+    TensorProducts = LazyImport("category_specs.algebras.subcategories.constructions.tensor_products", "_TensorProducts")
+    DualObjects = LazyImport("category_specs.algebras.subcategories.constructions.dual_objects", "_DualObjects")

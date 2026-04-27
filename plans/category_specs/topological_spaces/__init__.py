@@ -23,6 +23,7 @@ from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ..sets import Sets
 
@@ -63,16 +64,13 @@ class _TopologicalSpaces(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods
+    Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
 
     def _repr_object_names(self) -> str:
         return "topological spaces"
 
     def super_categories(self) -> list[Category]:
         return [SageSets().Topological(), Sets()]
-
-    @cached_method
-    def Metric(self):
-        return self._with_axiom("Metric")
 
     class Constructors:
         r"""Topological-space constructors.
