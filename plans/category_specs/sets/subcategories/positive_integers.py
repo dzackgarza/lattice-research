@@ -10,20 +10,15 @@ from sage.misc.abstract_method import abstract_method
 if TYPE_CHECKING:
     from ...types import SetElement, SympySet
 
+from .. import Sets
 from .integer_range import _IntegerRangeSets
-
-
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
 
 
 class _PositiveIntegersSets(Category_singleton):
     r"""The countably infinite facade set ``{1, 2, 3, ...}`` inside ``ZZ``."""
 
     def super_categories(self) -> list:
-        return [_IntegerRangeSets(), _Sets().Countable().Infinite().Facade()]
+        return [_IntegerRangeSets(), Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
         @abstract_method

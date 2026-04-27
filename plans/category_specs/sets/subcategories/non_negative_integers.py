@@ -11,17 +11,14 @@ if TYPE_CHECKING:
     from ...types import SetElement, SympySet
 
 
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
+from .. import Sets
 
 
 class _NonNegativeIntegersSets(Category_singleton):
     r"""The countably infinite facade set ``{0, 1, 2, ...}`` inside ``ZZ``."""
 
     def super_categories(self) -> list:
-        return [_Sets().Countable().Infinite().Facade()]
+        return [Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
         def is_finite(self) -> bool:

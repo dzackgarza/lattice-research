@@ -17,16 +17,14 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Set, SetElement, Subset, SympySet
 
 
-def _Sets():
-    from .. import Sets as _S
-    return _S()
+from .. import Sets
 
 
 class _SetObjects(Category_singleton):
     r"""Category of ``Set_object`` wrappers (general)."""
 
     def super_categories(self) -> list:
-        return [_Sets()]
+        return [Sets()]
 
     class ParentMethods:
         @abstract_method
@@ -85,7 +83,7 @@ class _SetObjectsEnumerated(Category_singleton):
     r"""Category for ``Set_object_enumerated`` -- finite frozenset-backed ``Set(X)`` objects."""
 
     def super_categories(self) -> list:
-        return [_SetObjects(), _Sets().Countable().Finite()]
+        return [_SetObjects(), Sets().Countable().Finite()]
 
     class ParentMethods:
         def is_finite(self) -> bool:

@@ -12,7 +12,6 @@ from sage.categories.morphism import Morphism as SageMorphism
 from sage.combinat.posets.posets import FinitePoset as SagePoset
 from sage.groups.abelian_gps.abelian_group import AbelianGroup_class
 from sage.groups.group import Group as SageGroup
-from sage.matrix.matrix0 import Matrix
 from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
@@ -24,6 +23,7 @@ from sage.rings.valuation.valuation import DiscretePseudoValuation
 from sage.sets.family import AbstractFamily
 from sage.sets.finite_set_map_cy import FiniteSetMap_MN
 from sage.sets.real_set import InternalRealInterval
+from sage.structure.element import Element as SageElement
 from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
@@ -113,8 +113,14 @@ AlgebraMorphism = Algebras.MorphismMethods
 # Sets
 from .sets import Sets
 from .sets.homsets import SetHomsets
+from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
 from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
+from .sets.subcategories.constructions.realizations import _Realizations as SetRealizations
 from .sets.subcategories.constructions.subobjects import _Subobjects as SetSubobjects
+from .sets.subcategories.constructions.subquotients import _Subquotients as SetSubquotients
+from .sets.subcategories.constructions.with_realizations import _WithRealizations as SetWithRealizationsCategory
+from .sets.subcategories.graded import _GradedSets
+from .sets.subcategories.group_actions import _GSets
 from .topological_spaces import _MetricSpaces, _TopologicalSpaces
 
 Set = Sets.ParentMethods
@@ -122,8 +128,14 @@ FiniteSet = Sets.Finite.ParentMethods
 CountableSet = Sets.Countable.ParentMethods
 InfiniteSet = Sets.Infinite.ParentMethods
 UncountableSet = Sets.Uncountable.ParentMethods
+GradedSet = _GradedSets.ParentMethods
+GSet = _GSets.ParentMethods
 Subset = SetSubobjects.ParentMethods
+SetSubquotient = SetSubquotients.ParentMethods
 QuotientSet = SetQuotients.ParentMethods
+IsomorphicSetObject = SetIsomorphicObjects.ParentMethods
+SetWithRealizations = SetWithRealizationsCategory.ParentMethods
+SetRealization = SetRealizations.ParentMethods
 SetElement = Sets.ElementMethods
 SetMorphism = Sets.MorphismMethods
 SetHomset = SetHomsets.ParentMethods
@@ -137,6 +149,9 @@ Endomorphism = SageMorphism
 Automorphism = SageMorphism
 FiniteSetMap = FiniteSetMap_MN
 SetFamily = AbstractFamily
+SetGeneratingSeries = SageParent
+GroupElement = SageElement
+GroupAction = SageMorphism
 
 RealNumber = SageRealNumber
 TopologicalSpace = _TopologicalSpaces.ParentMethods
@@ -149,6 +164,8 @@ PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
 SympySet = SageSympySet
 Poset = SagePoset
+LatticePoset = SagePoset
+FiniteLatticePoset = SagePoset
 Lattice = SageParent
 DiscriminantGroup = SageParent
 OrthogonalGroup = SageGroup

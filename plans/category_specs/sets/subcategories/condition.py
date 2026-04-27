@@ -11,9 +11,7 @@ if TYPE_CHECKING:
     from ...types import Set, SetElement, Subset, SympySet
 
 
-def _Sets():
-    from .. import Sets as _S
-    return _S()
+from .. import Sets
 
 
 class _ConditionSets(Category_singleton):
@@ -24,7 +22,7 @@ class _ConditionSets(Category_singleton):
     """
 
     def super_categories(self) -> list:
-        return [_Sets().Subobjects()]
+        return [Sets().Subobjects()]
 
     class ParentMethods:
         @abstract_method

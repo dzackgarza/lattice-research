@@ -15,6 +15,7 @@ from sage.categories.homsets import HomsetsCategory
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ..homsets.utils import refine_automorphism_set_from_endset
 
@@ -99,7 +100,31 @@ class _SetAutomorphisms:
     def order(self) -> Cardinality: ...
 
 
+class SetHomsets(HomsetsCategory):
+    r"""Category of homsets between sets."""
+
+    def extra_super_categories(self) -> list:
+        return [SageSets()]
+
+    class SubcategoryMethods:
+        @cached_method
+        def Endset(self) -> SetEndset:
+            return self._with_axiom("Endset")
+
+        @cached_method
+        def Autset(self) -> SetAutset:
+            return self._with_axiom("Autset")
+
+    ParentMethods = _SetHomsetObjects
+    ElementMethods = _SetMorphisms
+    Endset = LazyImport(__name__, "_SetEndsets")
+    Autset = LazyImport(__name__, "_SetAutsets")
+
+
 class _SetEndsets(CategoryWithAxiom):
+    _base_category_class_and_axiom = (SetHomsets, "Endset")
+    Autset = LazyImport(__name__, "_SetAutsets")
+
     def extra_super_categories(self) -> list:
         return [SageSets()]
 
@@ -123,6 +148,8 @@ class _SetEndsets(CategoryWithAxiom):
 
 
 class _SetAutsets(CategoryWithAxiom):
+    _base_category_class_and_axiom = (SetHomsets, "Autset")
+
     def extra_super_categories(self) -> list:
         return [self.base_category().Endset(), SageGroups(), SageSets()]
 
@@ -147,31 +174,3 @@ class _SetAutsets(CategoryWithAxiom):
         def identity(self) -> SetMorphism: ...
 
     ElementMethods = _SetAutomorphisms
-
-
-_SetEndsets.Autset = _SetAutsets
-
-
-class SetHomsets(HomsetsCategory):
-    r"""Category of homsets between sets."""
-
-    def extra_super_categories(self) -> list:
-        return [SageSets()]
-
-    class SubcategoryMethods:
-        @cached_method
-        def Endset(self) -> SetEndset:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        def Autset(self) -> SetAutset:
-            return self._with_axiom("Autset")
-
-    ParentMethods = _SetHomsetObjects
-    ElementMethods = _SetMorphisms
-    Endset = _SetEndsets
-    Autset = _SetAutsets
-
-
-_SetEndsets._base_category_class_and_axiom = (SetHomsets, "Endset")
-_SetAutsets._base_category_class_and_axiom = (SetHomsets, "Autset")

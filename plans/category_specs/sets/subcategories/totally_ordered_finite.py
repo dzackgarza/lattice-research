@@ -11,17 +11,14 @@ if TYPE_CHECKING:
     from ...types import Cardinality, SetElement
 
 
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
+from .. import Sets
 
 
 class _TotallyOrderedFiniteSets(Category_singleton):
     r"""Finite sets equipped with a user-specified total order."""
 
     def super_categories(self) -> list:
-        return [_Sets().Countable().Finite(), _Sets().TotallyOrdered()]
+        return [Sets().Countable().Finite(), Sets().TotallyOrdered()]
 
     class ParentMethods:
         @abstract_method

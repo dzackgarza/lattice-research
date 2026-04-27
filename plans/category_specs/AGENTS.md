@@ -215,7 +215,6 @@ category_specs/
 ├── homsets/             # generic Hom/End/Aut dispatch, Autset wiring, base classes
 │   ├── AGENTS.md
 │   ├── __init__.py
-│   ├── utils.py
 │   ├── smoketest.sage
 │   ├── docs/
 │   └── tests/
@@ -228,7 +227,9 @@ category_specs/
     │   ├── finite.py
     │   ├── constructions/
     │   │   ├── subobjects.py
-    │   │   └── quotients.py
+    │   │   ├── subquotients.py
+    │   │   ├── quotients.py
+    │   │   └── isomorphic_objects.py
     │   ├── free.py
     │   └── ...
     ├── homsets.py       # subtree-specific Homset/Endset/Autset categories

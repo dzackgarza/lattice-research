@@ -11,17 +11,14 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Set, SetElement, SympySet
 
 
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
+from .. import Sets
 
 
 class _ImageSets(Category_singleton):
     r"""Image subobjects ``{f(x) | x in X}`` under a set map."""
 
     def super_categories(self) -> list:
-        return [_Sets().Subobjects()]
+        return [Sets().Subobjects()]
 
     class ParentMethods:
         @abstract_method

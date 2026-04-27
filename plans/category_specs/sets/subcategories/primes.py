@@ -11,10 +11,7 @@ if TYPE_CHECKING:
     from ...types import SetElement
 
 
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
+from .. import Sets
 
 
 class _PrimesSets(Category_singleton):
@@ -26,7 +23,7 @@ class _PrimesSets(Category_singleton):
     """
 
     def super_categories(self) -> list:
-        return [_Sets().Countable().Infinite().Facade()]
+        return [Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
         @abstract_method

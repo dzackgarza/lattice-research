@@ -20,17 +20,14 @@ if TYPE_CHECKING:
     )
 
 
-def _Sets():
-    from .. import Sets as _S
-
-    return _S()
+from .. import Sets
 
 
 class _RealSets(Category_singleton):
     r"""Sage real subsets represented as finite unions of real intervals."""
 
     def super_categories(self) -> list:
-        return [_Sets().Topological(), _Sets().Subobjects()]
+        return [Sets().Topological(), Sets().Subobjects()]
 
     class ParentMethods:
         @abstract_method
