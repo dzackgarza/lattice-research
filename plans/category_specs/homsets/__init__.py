@@ -22,7 +22,7 @@ morphism laws, but they do not recreate the autset construction.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.groups import Groups as SageGroups
@@ -31,6 +31,18 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 from .utils import refine_automorphism_set_from_endset
+
+if TYPE_CHECKING:
+    from ..types import (
+        Autset,
+        Automorphism,
+        Cardinality,
+        CategoryElement,
+        CategoryObject,
+        Endomorphism,
+        Endset,
+        Morphism,
+    )
 
 
 class _HomsetObjectMethods(SageHomsets.ParentMethods):
@@ -41,7 +53,7 @@ class _HomsetObjectMethods(SageHomsets.ParentMethods):
     def codomain(self) -> CategoryObject: ...
 
     @abstract_method
-    def __call__(self, *args: object, **kwds: object) -> HomsetMorphism: ...
+    def __call__(self, *args: object, **kwds: object) -> Morphism: ...
 
     @abstract_method
     def __contains__(self, obj: Any) -> bool: ...
@@ -83,7 +95,7 @@ class _EndsetObjectMethods(SageHomsets.Endset.ParentMethods):
     @abstract_method
     def identity(self) -> Endomorphism: ...
 
-    def Aut(self) -> AutomorphismSet:
+    def Aut(self) -> Autset:
         return Homsets().Autset().from_endset(self)
 
 
@@ -100,7 +112,7 @@ class _EndomorphismMethods:
 
 class _AutsetObjectMethods:
     @abstract_method
-    def endset(self) -> EndomorphismSet: ...
+    def endset(self) -> Endset: ...
 
     def domain(self) -> CategoryObject:
         return self.endset().domain()
@@ -111,7 +123,7 @@ class _AutsetObjectMethods:
     def identity(self) -> Automorphism:
         return self.endset().identity()
 
-    def Aut(self) -> AutomorphismSet:
+    def Aut(self) -> Autset:
         return self
 
 
@@ -163,7 +175,7 @@ class Homsets(SageHomsets):
             return [self.base_category().Endset(), SageGroups()]
 
         @classmethod
-        def from_endset(cls, endset: EndomorphismSet) -> AutomorphismSet:
+        def from_endset(cls, endset: Endset) -> Autset:
             return refine_automorphism_set_from_endset(endset, cls())
 
         class ParentMethods(_AutsetObjectMethods):

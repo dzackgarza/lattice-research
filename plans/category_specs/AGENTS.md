@@ -34,14 +34,18 @@ have** — not to implement anything.
 A subcategory definition should read as a mathematical document: what the subcategory
 is, what its supercategories are, what methods an object in it must have, and what
 methods Sage already provides.
-Almost no software engineering should appear inside subcategory definitions.
+Subcategory definitions focus on categorical declaration; non-trivial software
+engineering belongs in `utils.py`.
 
 **One Source of Truth for Utils**:
-All helper functions and glue belong in the top-level `utils.py`.
+All non-trivial helper functions and general-purpose logic belong in the top-level
+`utils.py`.
 Subtrees must not define their own `utils.py` for general utility code; any truly
 general helper (e.g., category refinement, list partitioning, ABC validation) must live
 in the root `utils.py` and be imported by subtrees.
 This ensures a single, coherent implementation of all project-wide machinery.
+Categorical glue that is trivial (<= 10 lines) and specific to a subtree belongs on
+the category surface itself.
 
 **Completeness**: the spec must fully capture all existing Sage methods on objects in
 each subcategory as `@abstract_method` declarations.
@@ -49,15 +53,23 @@ Existing Sage objects must pass regression tests with nearly all methods declare
 abstract. The only allowed violations are genuine Sage gaps, which are recorded
 exclusively in `sage_gaps/` tests.
 
-**Non-trivial implementations are banned inside subcategory definitions.** The only
-concrete method bodies permitted are:
-- Trivially true/false predicates (e.g. `def is_finite(self) -> bool: return True`)
-- One-liners that delegate to another method with no branching or logic (e.g.
-  `def __gt__(self, other): return other.__lt__(self)`)
+**Trivial implementations (<= 10 lines) are encouraged when they express basic
+categorical relationships.** The spec should remain readable as a mathematical
+document, but trivial glue that expresses identity or definition is preferred over
+indirection to `utils.py`.
 
-Anything more complex — iteration logic, branching, imports, computations — belongs in
-`utils.py` as a helper that the method calls, or must be left as an `@abstract_method`
-for implementations to define themselves.
+Permitted concrete method bodies include:
+- Trivially true/false predicates (e.g., `is_finite() -> True`)
+- Delegations and aliases (one-liners with no logic)
+- Explicit `match/case` logic for category membership or simple dispatch
+- Simple transformations, pass-throughs, and wraps/refinements (e.g., calling
+  `refine_category` with a fixed set of arguments)
+- Methods defined purely in terms of other `@abstract_method` declarations on the
+  same surface (e.g., `is_bijective` in terms of `is_injective` and `is_surjective`)
+
+**Truly complex implementations are banned.** Anything involving iteration logic
+(loops), heavy computation, `try/except` (which is banned everywhere), or
+substantial branching belongs in the top-level `utils.py`.
 `try/except` is banned everywhere.
 
 ## Category Architecture
@@ -75,7 +87,8 @@ is defined in its subtree's `__init__.py`. That file defines exactly:
 **`__init__.py` is the public API document.** Reading it must be sufficient to
 understand the full public surface of the category: its method surfaces, its axiomatic
 subcategories, its constructions, and its constructors.
-Keep it clean — no implementation, no glue.
+Keep it readable — only include the trivial categorical glue and wiring permitted by
+the Spec Philosophy.
 
 The module docstring of `__init__.py` must faithfully record the full subcategory
 hierarchy as a tree, showing the mathematical relationships between all subcategories

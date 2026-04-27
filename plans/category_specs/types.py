@@ -39,6 +39,8 @@ from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
 
 # Generic / Support
+CategoryObject = SageParent
+CategoryElement = SageElement
 HomsetObject = Homsets.ParentMethods
 HomsetElement = Homsets.ElementMethods
 Endset = Homsets.Endset.ParentMethods

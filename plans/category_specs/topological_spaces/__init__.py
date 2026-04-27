@@ -2,13 +2,13 @@ r"""Topological-space category surface.
 
 Topological spaces are sets with a topology. This subtree owns the category
 ``TopologicalSpaces()`` and its metric-space subcategory. The set category exposes
-``Sets().Topological()`` and ``Sets().Metric()`` as navigation to these same
-mathematical categories.
+``Sets().Topological()`` and ``Sets().Metric()`` as the same mathematical
+categories, not as set-local duplicates.
 
 Subcategory hierarchy::
 
-    TopologicalSpaces() / Sets().Topological()
-    `-- Metric() / Sets().Metric()
+    TopologicalSpaces() = Sets().Topological()
+    `-- Metric() = Sets().Metric()
 
 Constructor entry points live under ``TopologicalSpaces().Constructors()`` once Sage
 topological-space constructors are inventoried.
@@ -16,10 +16,9 @@ topological-space constructors are inventoried.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING
 
 from sage.categories.category import Category
-from sage.categories.category_singleton import Category_singleton
 from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
