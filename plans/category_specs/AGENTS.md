@@ -100,6 +100,7 @@ Mandatory boilerplate methods:
 - `Subquotients()`
 - `ObjectsOver()`
 - `ObjectsUnder()`
+- `CartesianProducts()`
 - `Homsets()`
 - `Endsets()`
 - `Autsets()`
@@ -112,6 +113,11 @@ def Subobjects(self):
     return _Subobjects.category_of(self)
 
 @cached_method
+def CartesianProducts(self):
+    from .subcategories.constructions.cartesian_products import _CartesianProducts
+    return _CartesianProducts.category_of(self)
+
+@cached_method
 def Homsets(self):
     from .subcategories.constructions.homsets import _Homsets
     return _Homsets.category_of(self)
@@ -121,8 +127,9 @@ This wiring ensures that the construction logic (defined in the `constructions/`
 directory) is correctly applied across the entire hierarchy through the
 `category_of` mechanism.
 
-Other constructions like `TensorProducts()` or `CartesianProducts()` should be
-added only where mathematically appropriate, following the same pattern.
+Other constructions like `TensorProducts()` should be added only where
+mathematically appropriate (e.g., for modules or algebras), following the same
+pattern.
 
 **Axiomatic subcategories** must be wired to real classes that add genuine spec work.
 
@@ -153,9 +160,10 @@ Do not collapse axiomatic restrictions into implementation categories merely bec
 some restricted cases are computable. Further restrictions such as finite generation,
 basis data, or base-ring hypotheses determine the algorithms.
 
-**Subobject, quotient, and homset categories** must always be wired up, with
-mathematically expressive aliases: `Subsets = Subobjects`, `Submodules = Subobjects`,
-`Quotients = Quotients`, `Homsets = Homsets`, `Endsets = Endsets`, `Autsets = Autsets`,
+**Subobject, quotient, homset, and product categories** must always be wired up,
+with mathematically expressive aliases: `Subsets = Subobjects`,
+`Submodules = Subobjects`, `Quotients = Quotients`, `Homsets = Homsets`,
+`Endsets = Endsets`, `Autsets = Autsets`, `CartesianProducts = CartesianProducts`,
 etc.
 
 **Subobject types in `types.py`**: types like `Subset`, `Submodule`, `QuotientModule`
@@ -272,6 +280,7 @@ category_specs/
     │   │   ├── quotients.py
     │   │   ├── objects_over.py
     │   │   ├── objects_under.py
+    │   │   ├── cartesian_products.py
     │   │   └── homsets.py    # subtree-specific Homset/Endset/Autset categories
     │   ├── free.py
     │   └── ...
@@ -352,10 +361,11 @@ Never destructively replace or monkey-patch Sage internals.
   category. Constructor wrappers must be collected here, not scattered.
 - Every category subtree must properly declare its construction categories:
   `Subobjects`, `Subquotients`, `Quotients`, `ObjectsOver`, `ObjectsUnder`,
-  `Homsets`, `Endsets`, and `Autsets` (including all of their elements), even if the
-  implementations are mostly trivial. They must be declared explicitly in the
-  subtree's `__init__.py` and located in `subcategories/constructions/` to ensure a
-  uniform surface across the entire hierarchy.
+  `CartesianProducts`, `Homsets`, `Endsets`, and `Autsets` (including all of
+  their elements), even if the implementations are mostly trivial. They must be
+  declared explicitly in the subtree's `__init__.py` and located in
+  `subcategories/constructions/` to ensure a uniform surface across the entire
+  hierarchy.
 - **Construction Boilerplate**: Construction categories follow a uniform
   implementation pattern: `C.category_of(self)`. This is because they are functorial
   constructions that restrict any subcategory to its appropriate sub-subcategory
