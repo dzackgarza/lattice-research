@@ -2,6 +2,11 @@
 
 ## Type System Rules
 
+- **No Duck-Typing**: We do not "believe" in duck-typing in mathematical code, or
+  variadic signatures, unless it is absolutely forced upon us by legacy Sage code.
+  Prefer explicit types and signatures everywhere. Duck-typing is a runtime concern:
+  if a third party provides an implementation that quacks like ours, they can use
+  the category methods, but we never rely on duck-typing for design or architecture.
 - `__contains__` always takes `Any` as its argument type.
   Never use `object`.
 - All types are defined in `types.py`. No type aliases, `TypeAlias` definitions, or
@@ -36,6 +41,27 @@ is, what its supercategories are, what methods an object in it must have, and wh
 methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
+
+**Spec vs. Implementation Dichotomy**:
+- **Specs**: Read like mathematical properties, assertions, wiring, and methods one
+  can expect on subcategories. They are intended for implementers and consumers.
+  Virtually no categories should define `__init__` methods, UNLESS the
+  implementation is truly trivial (e.g., just bootstrapping or wrapping some other
+  existing implementation).
+- **Implementations**: Read like mathematical algorithms (e.g., calling GAP for
+  orbits, finding automorphism generators). They contain minimal software
+  engineering, wiring, or glue, and zero new mathematical assumptions or public
+  methods beyond the spec. They are intended to be rarely read.
+- **Categorical Glue**: Categories handle "software engineering" principles like
+  routing constructors (e.g., determining if $R$ is a PID to route `FreeModule(R, n)`
+  to a specialized constructor).
+
+**Implementations in Specs**:
+Some implementations CAN go into category specs when they are suitably abstractly
+defined in terms of other ABCs, abstract methods, or existing implementations.
+Example: if `Modules(R).FreeModule(R, n)` exists, defining `Ring.__pow__` to return
+`R^n` within the category spec is permitted as it is mostly trivial wiring with no
+"real" mathematical work beyond the glue.
 
 **Explicit Method Surfaces**:
 Each subcategory MUST explicitly state its `ParentMethods`, `ElementMethods`,
@@ -340,6 +366,11 @@ category_specs/
 
 - Axioms are defined and registered **only** in the root `axioms.py`. No subtree defines
   or registers axioms.
+- Axiom names are global mathematical vocabulary. Define and register each axiom name
+  exactly once, then reuse it across categories when it expresses the same restriction.
+  Examples: `Commutative`, `FiniteDimensional`, `Semisimple`, and `WithBasis`.
+  If the same word would mean different mathematics in two category families, choose a
+  more specific name instead of overloading the axiom.
 - No `specialized.py`, `named.py`, `constructions.py`, or other flat aggregator files.
 - `subcategories/` may nest arbitrarily to reflect the mathematical hierarchy.
   A subcategory with many sub-subcategories gets its own subdirectory (e.g.

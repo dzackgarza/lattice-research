@@ -104,6 +104,7 @@ if TYPE_CHECKING:
         Matrix,
         Monoid,
         Polynomial,
+        PolynomialRingConstructorData,
         Ring,
         RingAutset,
         RingElement,
@@ -876,7 +877,11 @@ class Rings(Category_singleton):
                 [Rings(), _Qp()],
             )
 
-        def PolynomialRing(self, *args, **kwds) -> Ring:
+        def PolynomialRing(
+            self,
+            *args: PolynomialRingConstructorData,
+            **kwds: PolynomialRingConstructorData,
+        ) -> Ring:
             from sage.all import PolynomialRing
 
             R = PolynomialRing(*args, **kwds)

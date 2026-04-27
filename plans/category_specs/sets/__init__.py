@@ -375,13 +375,13 @@ class Sets(Category_singleton):
             Sets().Constructors().IntegerRange(2, 100, 5)
         """
 
-        def __init__(self, category):
+        def __init__(self, category: Sets) -> None:
             self._category = category
 
         def __repr__(self) -> str:
             return "Sets constructors"
 
-        def Set(self, X=None):
+        def Set(self, X: Set | Iterable[SetElement] | None = None) -> Set:
             r"""Return ``Set(X)``, refined into its one-object subcategory."""
             from sage.sets.set import Set as SageSet
 
@@ -391,7 +391,7 @@ class Sets(Category_singleton):
             extra = _SetObjectsEnumerated() if S.is_finite() else _SetObjects()
             return refine_category(S, [Sets(), extra])
 
-        def FiniteEnumeratedSet(self, elements):
+        def FiniteEnumeratedSet(self, elements: Iterable[SetElement]) -> FiniteSet:
             r"""Return ``FiniteEnumeratedSet(elements)``, refined into its subcategory."""
             from sage.sets.finite_enumerated_set import FiniteEnumeratedSet as SageFES
 
@@ -413,7 +413,7 @@ class Sets(Category_singleton):
 
             return refine_category(SageIR(begin, end, step, middle_point), [Sets(), _IntegerRangeSets()])
 
-        def NonNegativeIntegers(self):
+        def NonNegativeIntegers(self) -> CountableSet:
             r"""Return ``NonNegativeIntegers()``, refined into its subcategory."""
             from sage.sets.non_negative_integers import NonNegativeIntegers as SageNN
 
@@ -421,7 +421,7 @@ class Sets(Category_singleton):
 
             return refine_category(SageNN(), [Sets(), _NonNegativeIntegersSets()])
 
-        def PositiveIntegers(self):
+        def PositiveIntegers(self) -> CountableSet:
             r"""Return ``PositiveIntegers()``, refined into its subcategory."""
             from sage.sets.positive_integers import PositiveIntegers as SagePP
 

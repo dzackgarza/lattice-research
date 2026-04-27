@@ -64,6 +64,7 @@ Group = SageGroup
 AbelianGroup = AbelianGroup_class
 Monoid = Monoid_class
 Polynomial = SagePolynomial
+PolynomialRingConstructorData = Ring | int | Integer | str | Sequence[str] | bool | None
 RealNumberInterval = RealIntervalFieldElement
 ComplexInterval = ComplexIntervalFieldElement
 Interval = RealNumberInterval | ComplexInterval

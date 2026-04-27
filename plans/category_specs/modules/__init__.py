@@ -127,6 +127,7 @@ if TYPE_CHECKING:
         Matrix,
         ModuleBasisKeys,
         ModuleStructure,
+        PolynomialRingConstructorData,
         ProjectiveModule,
         QuotientModule,
         Ring,
@@ -737,7 +738,11 @@ class Modules(Category_module):
             R = ideal.ring()
             return self._refine_constructed_module(ideal, Modules(R).RIdeals(), Modules(R).Projective())
 
-        def polynomial_ring_as_module(self, *args, **kwds) -> RModule:
+        def polynomial_ring_as_module(
+            self,
+            *args: PolynomialRingConstructorData,
+            **kwds: PolynomialRingConstructorData,
+        ) -> RModule:
             from ..rings import Rings
 
             S = Rings().Constructors().PolynomialRing(self.base_ring(), *args, **kwds)
