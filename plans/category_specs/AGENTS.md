@@ -71,12 +71,12 @@
   ad-hoc types anywhere else — not in `TYPE_CHECKING` blocks, not at the top of axiom or
   other files, not inline.
   Import from `types.py`.
-- **No Python Native Scalars**: Never use native Python scalar types (`int`, `float`,
-  `complex`) in type signatures or code when a Sage equivalent exists. Sage's
-  preparser automatically promotes these to `Integer`, `RealNumber`, etc. To ensure
-  mathematical consistency and support for Sage's numerical methods (like
-  arbitrary precision), always use the Sage types from `types.py` (e.g. use
-  `Integer` instead of `int`).
+- **No Python Native Scalar Types In Signatures**: Never use native Python scalar
+  types (`int`, `float`, `complex`) as type annotations when a Sage equivalent exists.
+  Use the Sage types from `types.py` instead, e.g. `Integer` instead of `int`.
+  Literal scalar values are allowed as defaults and examples: `n: Integer = 3` is
+  valid Sage-style spec notation and should not be rewritten to `Integer(3)` merely to
+  satisfy this rule.
 - **Prefer Mathematical Collections**: Avoid using Python native `list` or `tuple`
   for mathematical collections, as they lack semantic meaning.
   - Use **Ordered Sets** (from Sage) when a collection is finite, has no
@@ -941,12 +941,14 @@ explicit method-surface audits and should not replace construction-level checks.
 Each subtree's `smoketest.sage` must:
 - Add the repo root to `sys.path` so `category_specs` is importable.
 - Import only from this spec hierarchy (not bare Sage globals).
-- Define a `smoke_case(label, build)` helper that catches all exceptions, appends
-  failures to a `failures` list, and logs a warning — it must never raise.
-- Call `smoke_case` for **every** constructor in the subtree's `Constructors()`
+- Declare labeled mathematical statements using the shared smoke assertion helper from
+  `utils.py`.
+- Include a statement for **every** constructor in the subtree's `Constructors()`
   namespace.
-  Labels must identify the target spec class and the constructor call.
-- End with `assert not failures, "\n".join(failures)` so a failed run exits nonzero.
+  Labels must identify the target spec class and constructor call.
+- Let assertion failures exit nonzero. Do not catch exceptions or aggregate failures in
+  the smoke file; exception-catching contradicts the subtree error-handling rules and
+  hides the first implementer-facing missing obligation.
 
 Each subtree's `docs/TRIAGE.md`:
 - Is the canonical record of current `smoketest.sage` failures, grouped by missing
