@@ -124,7 +124,7 @@ subcategory boundaries.
 | `TotallyOrderedFiniteSet(elements)` | `TotallyOrderedFiniteSets` | Finite set with order relation `le`; element comparison methods are mathematical when elements are non-facade. |
 | `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` | Finite set of functions. Endomap variants expose monoid identity as `one()`, not only `identity()`. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
-| `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
+| `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. The project constructor admits a nullary iterator factory. Sage's `args`/`kwds` parameterization is arbitrary callable plumbing, not set-theoretic data, so it is not exposed as a public constructor shape. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
 
 ## Sage `Set_object` Method Mapping Decisions
 

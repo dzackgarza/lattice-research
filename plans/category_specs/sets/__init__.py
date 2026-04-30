@@ -738,21 +738,19 @@ class Sets(Category_singleton):
         @final
         def EnumeratedSetFromIterator(
             self,
-            f: Callable[..., Iterable[SetElement]],
-            args: tuple = (),
-            kwds: dict | None = None,
+            iterator_factory: Callable[[], Iterable[SetElement]],
             *,
             name: str | None = None,
             category: Category | None = None,
             cache: bool = False,
         ) -> CountableSet:
-            r"""Return an ``EnumeratedSetFromIterator``, refined into its subcategory."""
+            r"""Return a callable-backed enumerated set from a nullary iterator factory."""
             from sage.sets.set_from_iterator import EnumeratedSetFromIterator as SageESFI
 
             from .subcategories.enumerated_from_iterator import _EnumeratedSetsFromIterator
 
             return refine_category(
-                SageESFI(f, args=args, kwds=kwds, name=name, category=category, cache=cache),
+                SageESFI(iterator_factory, name=name, category=category, cache=cache),
                 [Sets(), _EnumeratedSetsFromIterator()],
             )
 

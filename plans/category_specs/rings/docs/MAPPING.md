@@ -14,10 +14,14 @@ category-spec hierarchy. It is not a history of deleted files.
 Constructor signatures must follow Sage's documented input shapes. `PowerSeriesRing`,
 `LaurentSeriesRing`, `PuiseuxSeriesRing`, and `MatrixRing` expose their structured
 parameters directly. `PolynomialRing` exposes Sage's finite variable-specification
-casework as overloads: `name`, `names`, `var_array`, and the names-external `n` form.
-The implementation may delegate to Sage's variadic factory, but the spec surface is
-closed to the documented parameters: `base_ring`, `n`, `name`, `names`, `var_array`,
-`sparse`, `order`, and `implementation`.
+casework as overloads: `name`, `n` with `name`, `names`, `n` with `names`, single-count
+`var_array`, and the names-external `n` form. Sage's higher-dimensional `var_array`
+shape accepts an unbounded positional dimension list such as
+`PolynomialRing(ZZ, 2, 3, 4, var_array='m')`; this pass does not admit that shape
+because the public spec has no mathematical finite-indexing vocabulary for it yet. The
+implementation may delegate to Sage's variadic factory, but the spec surface is closed
+to the documented parameters: `base_ring`, `n`, `name`, `names`, `var_array`, `sparse`,
+`order`, and `implementation`.
 
 ## Signature Typing Decisions
 

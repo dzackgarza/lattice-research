@@ -888,7 +888,18 @@ class Rings(Category_singleton):
             base_ring: Ring,
             *,
             name: str,
-            n: Integer | None = None,
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
+        @overload
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            n: Integer,
+            name: str,
             sparse: bool | None = None,
             order: str | TermOrder = "degrevlex",
             implementation: str | None = None,
@@ -900,7 +911,6 @@ class Rings(Category_singleton):
             base_ring: Ring,
             *,
             names: str | Sequence[str],
-            n: Integer | None = None,
             sparse: bool | None = None,
             order: str | TermOrder = "degrevlex",
             implementation: str | None = None,
@@ -911,8 +921,8 @@ class Rings(Category_singleton):
             self,
             base_ring: Ring,
             *,
-            var_array: str | Sequence[str],
-            n: Integer | tuple[Integer, ...] | None = None,
+            n: Integer,
+            names: str | Sequence[str],
             sparse: bool | None = None,
             order: str | TermOrder = "degrevlex",
             implementation: str | None = None,
@@ -929,12 +939,24 @@ class Rings(Category_singleton):
             implementation: str | None = None,
         ) -> Ring: ...
 
+        @overload
+        def PolynomialRing(
+            self,
+            base_ring: Ring,
+            *,
+            n: Integer,
+            var_array: str | Sequence[str],
+            sparse: bool | None = None,
+            order: str | TermOrder = "degrevlex",
+            implementation: str | None = None,
+        ) -> Ring: ...
+
         @final
         def PolynomialRing(
             self,
             base_ring: Ring,
             *,
-            n: Integer | tuple[Integer, ...] | None = None,
+            n: Integer | None = None,
             name: str | None = None,
             names: str | Sequence[str] | None = None,
             var_array: str | Sequence[str] | None = None,
@@ -943,6 +965,9 @@ class Rings(Category_singleton):
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import PolynomialRing
+
+            variable_spec_count = sum(spec is not None for spec in (name, names, var_array))
+            assert variable_spec_count <= 1, "PolynomialRing expects at most one named variable specification"
 
             if name is not None:
                 R = (
@@ -957,7 +982,7 @@ class Rings(Category_singleton):
                     else PolynomialRing(
                         base_ring,
                         n,
-                        names=name,
+                        name=name,
                         sparse=sparse,
                         order=order,
                         implementation=implementation,
@@ -983,23 +1008,17 @@ class Rings(Category_singleton):
                     )
                 )
             elif var_array is not None:
-                variable_count = (
-                    n
-                    if n is not None
-                    else len(var_array.split(","))
-                    if isinstance(var_array, str)
-                    else len(var_array)
-                )
-                variable_counts = variable_count if isinstance(variable_count, tuple) else (variable_count,)
+                assert n is not None, "PolynomialRing var_array construction expects n"
                 R = PolynomialRing(
                     base_ring,
-                    *variable_counts,
+                    n,
                     var_array=var_array,
                     sparse=sparse,
                     order=order,
                     implementation=implementation,
                 )
             else:
+                assert n is not None, "PolynomialRing expects name, names, var_array, or n"
                 R = PolynomialRing(
                     base_ring,
                     n,
