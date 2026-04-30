@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, final
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Cardinality
@@ -23,7 +23,7 @@ class _InfiniteSets(CategoryWithAxiom):
         return "infinite sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageSets().Infinite(), Sets()]
 
     @final

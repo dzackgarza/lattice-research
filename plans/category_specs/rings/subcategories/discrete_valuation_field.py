@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.categories.discrete_valuation import (
     DiscreteValuationFields as SageDiscreteValuationFields,
 )
@@ -100,7 +100,7 @@ class _DiscreteValuationFields(Category_singleton):
         return "discrete valuation fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageDiscreteValuationFields(), _Fields(), _DiscreteValuationRings()]
 
     @final

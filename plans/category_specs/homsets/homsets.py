@@ -93,7 +93,7 @@ class UniversalHomElementMethods:
 class HomCategory(SageHomsetsBase):
     r"""Category of all hom categories."""
 
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return super().super_categories()
 
     class SubcategoryMethods:

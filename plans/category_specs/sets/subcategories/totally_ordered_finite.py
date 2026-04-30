@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _TotallyOrderedFiniteSets(Category_singleton):
     r"""Finite sets equipped with a user-specified total order."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable().Finite(), Sets().TotallyOrdered()]
 
     class ParentMethods:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import final
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Sets
 
 
@@ -16,7 +16,7 @@ class _UncountableSets(CategoryWithAxiom):
         return "uncountable sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Infinite()]
 
     class ParentMethods:

@@ -11,14 +11,40 @@ Several construction subcategories inherit raw Sage construction bases directly
 must be re-exported through `cat/base_category_types.py` before construction files are
 considered compliant.
 
-## Sage Collection Signatures
+## Collection Signature Ambiguities
 
-The static type audit still finds many `list[...]`, `tuple[...]`, `dict[...]`, and
-`set[...]` signatures in method surfaces, especially for Sage methods named `list`,
-`tuple`, `gens`, `signature`, `basis`, `automorphisms`, and result pairs such as
-`galois_closure`. Decide whether specs should preserve Sage-exact collection shapes, or
-whether these must be redesigned to mathematical Sage objects such as families, ordered
-sets, condition sets, generators, or dedicated result parents before they are compliant.
+Typed finite collection signatures are not themselves design blockers. Shapes such as
+`galois_closure() -> Field | tuple[Field, RingMorphism]`,
+`list[RingMorphism]`, `tuple[RingElement, ...]`, and
+`dict[RingElement, Integer]` are compliant when they transparently state finite
+mathematical data. The remaining collection-signature questions are narrower:
+
+- `sets/subcategories/countable.py` still declares eager collection methods on
+  countable and infinite-countable surfaces: `_CountableSets.ParentMethods.tuple`,
+  `list`, `unrank_range`, `_tuple_from_iterator`, `_tuple_from_list`,
+  `_list_from_iterator`, `_some_elements_from_iterator`,
+  `_FiniteCountableSets.ParentMethods._list_from_iterator`, and
+  `_InfiniteCountableSets.ParentMethods.tuple`/`list`. Sage inventory records these
+  as `EnumeratedSets`, `FiniteEnumeratedSets`, and `InfiniteEnumeratedSets` surfaces,
+  while the local rule says infinite or lazy collections should prefer generators.
+  Decide whether eager `list`/`tuple` are admitted on infinite countable sets, whether
+  they should be finite-only with iterator/range methods on countable and infinite
+  countable sets, or whether the infinite Sage methods should be mapped as
+  non-admitted Sage surfaces.
+- `sets/subcategories/condition.py` has `arguments() -> tuple` and
+  `predicates() -> tuple`, with `predicates()` currently returning `arguments()`.
+  The set inventory says Sage `ConditionSet.arguments()` exposes the ambient set plus
+  predicate/symbolic argument data, while the project constructor takes
+  `predicates: Sequence[Callable[[SetElement], bool]]`. Decide whether the project
+  surface should split `predicates()` from the raw Sage `arguments()` surface, typed as
+  `tuple[Callable[[SetElement], bool], ...]`; and if `arguments()` remains public,
+  decide what exact typed product it returns.
+- `rings/subcategories/p_adic_ring.py` declares
+  `change(..., print_alphabet: dict[str, str] | None = None, ...)`. This is display
+  configuration, not finite mathematical data. Decide whether display-only Sage
+  options belong in this spec surface, and if they do, whether this argument needs a
+  named Sage/project display type or an explicit mapping as localized non-mathematical
+  Sage interop.
 
 ## Explicit Surface Inventory Completeness
 

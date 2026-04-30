@@ -10,7 +10,7 @@ from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageF
 from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as SageInfiniteEnumeratedSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, Set, SetElement, SetMorphism
@@ -32,7 +32,7 @@ class _CountableSets(CategoryWithAxiom):
         return "countable sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets(), SageEnumeratedSets()]
 
     class ParentMethods:
@@ -149,7 +149,7 @@ class _FiniteCountableSets(CategoryWithAxiom):
         return "finite countable sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageFiniteEnumeratedSets(), Sets().Countable(), Sets().Finite()]
 
     class ParentMethods:
@@ -194,7 +194,7 @@ class _InfiniteCountableSets(CategoryWithAxiom):
         return "infinite countable sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageInfiniteEnumeratedSets(), Sets().Countable(), Sets().Infinite()]
 
     class ParentMethods:

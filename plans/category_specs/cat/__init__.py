@@ -174,7 +174,7 @@ class Cat(_SageCategorySingleton):
         return _SageCategory.meet(categories)
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return []
 
     @final

@@ -19,7 +19,7 @@ from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 from sage.structure.factorization import Factorization
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import (
@@ -108,7 +108,7 @@ class _FiniteFields(CategoryWithAxiom):
         return "finite fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageFiniteFields(), _Fields(), _FiniteRings()]
 
     @final

@@ -6,7 +6,7 @@ from typing import final
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -109,7 +109,7 @@ class _PAdicRings(Category_singleton):
         return "p-adic rings and fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_CompleteRings(), _ValuedRings()]
 
     @final

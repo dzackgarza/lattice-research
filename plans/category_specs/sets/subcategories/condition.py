@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _ConditionSets(Category_singleton):
@@ -23,7 +24,7 @@ class _ConditionSets(Category_singleton):
     """
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Subobjects()]
 
     class ParentMethods:

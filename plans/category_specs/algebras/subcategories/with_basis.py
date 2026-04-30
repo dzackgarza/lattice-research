@@ -6,7 +6,7 @@ from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.algebras_with_basis import AlgebrasWithBasis as SageAlgebrasWithBasis
-from ...cat import CategoryWithAxiom_over_base_ring
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
@@ -33,7 +33,7 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
     )
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Algebras(R), SageAlgebrasWithBasis(R)]
 

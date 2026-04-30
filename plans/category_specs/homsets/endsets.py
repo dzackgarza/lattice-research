@@ -45,7 +45,7 @@ class EndCategory(CategoryWithAxiom_singleton):
 
     _base_category_class_and_axiom = (HomCategory, "Endset")
 
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         from sage.categories.homsets import Homsets as SageHomsets
 
         return [SageHomsets().Endset()]
@@ -94,7 +94,7 @@ class EndCategoryOf(CategoryWithAxiom):
     # Category-level construction: C.EndCategory() has objects End_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         return [EndCategory()]
 
     @final

@@ -20,7 +20,7 @@ class _LatticePosets(Category):
     r"""Posets in which every pair has a meet and join."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Posets(), SageLatticePosets()]
 
     class SubcategoryMethods:

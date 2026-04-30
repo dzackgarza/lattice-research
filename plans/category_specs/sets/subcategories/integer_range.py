@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _IntegerRangeSets(Category_singleton):
     r"""Arithmetic progressions of integers, finite or infinite by bounds."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable().Facade()]
 
     class ParentMethods:

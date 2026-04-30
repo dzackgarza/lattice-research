@@ -115,7 +115,7 @@ class _NumberFields(CategoryWithAxiom):
         return "number fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageNumberFields(), _Fields()]
 
     @final

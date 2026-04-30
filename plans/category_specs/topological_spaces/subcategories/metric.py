@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, final
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import _TopologicalSpaces
 
 if TYPE_CHECKING:
@@ -42,7 +42,7 @@ class _MetricSpaces(CategoryWithAxiom):
         return "metric spaces"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageSets().Metric(), _TopologicalSpaces()]
 
     class ElementMethods: ...

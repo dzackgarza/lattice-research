@@ -35,7 +35,7 @@ class _Category_over_base_integer(CategoryWithParameters):
         return self._base_integer
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [self.base_category()]
 
     @final
@@ -81,7 +81,7 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
         return (self._base_ring, self._n, self._m)
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         from ... import Rings
 
         return [Rings()]

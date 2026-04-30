@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, final
 from sage.categories.finite_lattice_posets import FiniteLatticePosets as SageFiniteLatticePosets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 from .lattice import _LatticePosets
 
 if TYPE_CHECKING:
@@ -21,7 +21,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
     _base_category_class_and_axiom = (_LatticePosets, "Finite")
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_LatticePosets(), SageFiniteLatticePosets()]
 
     class ParentMethods:

@@ -102,7 +102,7 @@ class _GlobalFields(CategoryWithAxiom):
         return "global fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_Fields()]
 
     @final

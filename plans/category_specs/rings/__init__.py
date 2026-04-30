@@ -397,7 +397,7 @@ class _RingIdeals(Category_ideal):
         return "ring ideals"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         R = self.ring()
         return [CommutativeRingIdeals(R), Modules(R).RIdeals()]
 
@@ -1136,7 +1136,7 @@ class Rings(Category_singleton):
         return (SageRings(),)
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         from ..sets import Sets
 
         return [Sets(), SageRings()]

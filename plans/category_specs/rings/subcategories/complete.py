@@ -14,7 +14,7 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     pass
@@ -100,7 +100,7 @@ class _CompleteRings(CategoryWithAxiom):
         return "complete rings"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_TopologicalRings()]
 
     @final

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
@@ -104,7 +104,7 @@ class _IntegerModRings(Category_singleton):
         return "integer residue class rings"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_FiniteRings(), _CommutativeRings()]
 
     @final

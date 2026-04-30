@@ -107,7 +107,7 @@ class _ValuedRings(CategoryWithAxiom):
         return "valued rings"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Rings()]
 
     @final

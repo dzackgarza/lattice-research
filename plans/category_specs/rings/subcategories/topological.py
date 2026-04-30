@@ -104,7 +104,7 @@ class _TopologicalRings(CategoryWithAxiom):
         return "topological rings"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageRings().Topological(), Rings()]
 
     @final

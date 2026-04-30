@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import RealIntervalField as SageRealIntervalField
@@ -103,7 +103,7 @@ class _RealIntervalFields(Category_singleton):
         return "real interval fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_RealPrecisionFields(), _ScientificNotationFields()]
 
     @final

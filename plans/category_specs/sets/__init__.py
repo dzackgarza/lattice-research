@@ -272,7 +272,7 @@ class Sets(Category_singleton):
         return (SageSets(),)
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageSets()]
 
     @final

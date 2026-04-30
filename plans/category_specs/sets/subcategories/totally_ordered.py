@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Integer, SetElement
@@ -22,7 +22,7 @@ class _TotallyOrdered(CategoryWithAxiom):
         return "totally ordered sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets()]
 
     class ParentMethods:

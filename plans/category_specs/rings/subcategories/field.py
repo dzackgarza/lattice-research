@@ -110,7 +110,7 @@ class _Fields(CategoryWithAxiom):
         return "fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [
             SageFields(),
             _CommutativeRings(),

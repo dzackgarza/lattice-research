@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _FamilySets(Category_singleton):
     r"""Indexed families ``(f_i)_{i in I}``, finite, lazy, trivial, or enumerated."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
 
     class ParentMethods:

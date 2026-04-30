@@ -84,7 +84,7 @@ class CatHomCategory(HomCategoryOf):
         return f"functor hom categories internal to {self.base_category()}"
 
     @final
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _CatHomCategoryObjectMethods

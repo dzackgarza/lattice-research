@@ -6,7 +6,7 @@ from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, override
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -111,7 +111,7 @@ class _QQ(Category_singleton):
         return "rational field"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [
             _Fields(),
             _QuotientFields(),

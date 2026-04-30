@@ -115,7 +115,7 @@ class _CommutativeRings(CategoryWithAxiom):
         return "commutative rings"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageCommutativeRings(), Rings()]
 
     @final

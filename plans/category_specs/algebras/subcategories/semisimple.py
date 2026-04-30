@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import Any
 
-from ...cat import CategoryWithAxiom_over_base_ring
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.categories.semisimple_algebras import SemisimpleAlgebras as SageSemisimpleAlgebras
 
 from .. import Algebras
@@ -17,7 +17,7 @@ class _SemisimpleAlgebras(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (Algebras, "Semisimple")
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Algebras(R), SageSemisimpleAlgebras(R)]
 

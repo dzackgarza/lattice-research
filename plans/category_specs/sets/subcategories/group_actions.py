@@ -33,7 +33,7 @@ class _GSets(Category):
         return f"{self._acting_group}-sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [self._base_category, SageGSets(self._acting_group)]
 
     class ParentMethods:

@@ -8,6 +8,7 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..cat import Category
 
 if TYPE_CHECKING:
     from ..types import Poset
@@ -39,7 +40,7 @@ class PosetHomCategory(HomCategoryOf):
     r"""Category of homs whose elements are order-preserving maps."""
 
     @final
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _PosetHomCategoryObjectMethods

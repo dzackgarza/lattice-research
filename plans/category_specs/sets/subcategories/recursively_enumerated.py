@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _RecursivelyEnumeratedSets(Category_singleton):
     r"""Sets generated from seeds and successor functions."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
 
     class ParentMethods:

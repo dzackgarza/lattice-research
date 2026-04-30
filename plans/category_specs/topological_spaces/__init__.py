@@ -103,7 +103,7 @@ class _TopologicalSpaces(CategoryWithAxiom):
         return "topological spaces"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageSets().Topological(), Sets()]
 
     class Constructors:

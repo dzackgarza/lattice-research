@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _ImageSets(Category_singleton):
     r"""Image subobjects ``{f(x) | x in X}`` under a set map."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Subobjects()]
 
     class ParentMethods:

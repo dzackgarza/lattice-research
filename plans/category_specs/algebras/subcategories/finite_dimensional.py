@@ -6,7 +6,7 @@ from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
-from ...cat import CategoryWithAxiom_over_base_ring
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.rings.infinity import infinity
 
@@ -22,7 +22,7 @@ class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (Algebras, "FiniteDimensional")
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Algebras(self.base_ring())]
 
     @final

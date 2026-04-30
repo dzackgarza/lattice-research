@@ -128,7 +128,7 @@ class Algebras(Category_over_base_ring):
         return f"algebras over {self.base_ring()}"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         from ..rings import Rings
 
         R = self.base_ring()

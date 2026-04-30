@@ -7,10 +7,10 @@ from typing import TYPE_CHECKING, Any, final
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
-    from ...types import SetElement
+    from ...types import Set, SetElement
 
 from .. import Sets
 
@@ -23,7 +23,7 @@ class _FacadeSets(CategoryWithAxiom):
         return "facade sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageSets().Facade(), Sets()]
 
     class ParentMethods:
@@ -37,7 +37,7 @@ class _FacadeSets(CategoryWithAxiom):
             ...
 
         @abstract_method
-        def facade_for(self) -> tuple:
+        def facade_for(self) -> tuple[Set, ...]:
             r"""Return the tuple of parents this set is a facade for."""
             ...
 

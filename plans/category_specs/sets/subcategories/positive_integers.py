@@ -12,13 +12,14 @@ if TYPE_CHECKING:
 
 from .. import Sets
 from .integer_range import _IntegerRangeSets
+from ...cat import Category
 
 
 class _PositiveIntegersSets(Category_singleton):
     r"""The countably infinite facade set ``{1, 2, 3, ...}`` inside ``ZZ``."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_IntegerRangeSets(), Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:

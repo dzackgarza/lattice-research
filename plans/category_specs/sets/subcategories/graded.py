@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, final
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import GradedSet, Set, SetElement, SetGeneratingSeries
@@ -25,7 +25,7 @@ class _GradedSets(CategoryWithAxiom):
         return "graded sets"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets(), SageSetsWithGrading()]
 
     class ParentMethods:

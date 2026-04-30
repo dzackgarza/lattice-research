@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _DisjointUnionEnumeratedSets(Category_singleton):
     r"""Countable coproduct of an indexed family of enumerated sets."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
 
     class ParentMethods:

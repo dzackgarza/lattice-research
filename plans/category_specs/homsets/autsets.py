@@ -69,7 +69,7 @@ class AutCategory(CategoryWithAxiom_singleton):
 
     _base_category_class_and_axiom = (EndCategory, "Autset")
 
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         return [EndCategory()]
 
     def from_end_category(self, end_category: End) -> Aut:
@@ -115,7 +115,7 @@ class AutCategoryOf(CategoryWithAxiom):
     # Category-level construction: C.AutCategory() has objects Aut_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
-    def extra_super_categories(self) -> list:
+    def extra_super_categories(self) -> list[Category]:
         return [AutCategory()]
 
     def from_end_category(self, end_category: End) -> Aut:

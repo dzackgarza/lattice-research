@@ -153,7 +153,7 @@ class Posets(Category):
         return (SagePosets(),)
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets(), SagePosets()]
 
     class SubcategoryMethods:

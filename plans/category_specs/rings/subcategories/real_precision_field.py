@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import RealBallField as SageRealBallField
@@ -109,7 +109,7 @@ class _RealPrecisionFields(Category_singleton):
         return "real precision fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
     @final

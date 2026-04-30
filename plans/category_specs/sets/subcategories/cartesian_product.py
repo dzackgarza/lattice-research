@@ -12,13 +12,14 @@ if TYPE_CHECKING:
     from ...types import CartesianProductFunctor, Integer, Set, SetElement, SetMorphism, SympySet
 
 from .. import Sets
+from ...cat import Category
 
 
 class _CartesianProductSets(Category_singleton):
     r"""Cartesian products of sets and their tuple-like elements."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().CartesianProducts()]
 
     class ParentMethods:

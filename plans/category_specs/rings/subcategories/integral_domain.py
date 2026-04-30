@@ -110,7 +110,7 @@ class _IntegralDomains(CategoryWithAxiom):
         return "integral domains"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [SageIntegralDomains(), _CommutativeRings()]
 
     @final

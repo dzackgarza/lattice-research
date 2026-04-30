@@ -13,13 +13,14 @@ if TYPE_CHECKING:
 
 
 from .. import Sets
+from ...cat import Category
 
 
 class _FiniteEnumeratedSetObjects(Category_singleton):
     r"""Tuple-backed finite facade sets from ``sage.sets.finite_enumerated_set``."""
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [Sets().Countable().Finite().Facade()]
 
     class ParentMethods:

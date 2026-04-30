@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 from typing import TYPE_CHECKING, Any
 
-from ...cat import Category_singleton
+from ...cat import Category, Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexField as SageComplexField
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -100,7 +100,7 @@ class _ComplexFields(Category_singleton):
         return "complex fields"
 
     @final
-    def super_categories(self) -> list:
+    def super_categories(self) -> list[Category]:
         return [_ComplexPrecisionFields(), _ScientificNotationFields()]
 
     @final
