@@ -14,6 +14,9 @@ must supply an iterator (via `__iter__`).
 Consequence: objects that lie in `SageEnumeratedSets()` are refined to
 `Sets().Countable()`. The spec class `_CountableSets` therefore declares
 `super_categories = [Sets(), SageEnumeratedSets()]`.
+Project countability does not include conversion to a finite Python collection:
+`list(ZZ)` and `tuple(ZZ)` have no mathematical finite value. Those conversions
+belong to finite countable sets.
 
 ## Sage `FiniteEnumeratedSets` → our `Sets().Countable().Finite()`
 
@@ -83,10 +86,10 @@ subcategory boundaries.
 | --- | --- | --- | --- |
 | `SetsWithPartialMaps()` | `Sets()` inherited through Sage | Sage places `Sets()` below sets with partial maps. The project does not need a separate public partial-map category for the set-object inventory. | `Sets.super_categories()` keeps `SageSets()`, so Sage's inherited category behavior remains available. |
 | `Sets()` | `Sets()` | Base category of parents whose elements support membership and basic element construction. | Root method surface includes operations meaningful for arbitrary sets, including union. Ambient-dependent operations such as intersection, difference, symmetric difference, and complement use `Subset` vocabulary under `Subsets = Subobjects`. |
-| `EnumeratedSets()` | `Sets().Countable()` | Sage defines enumerated sets as finite or countable sets/multisets with a canonical enumeration. Countability is the set-level mathematical property; enumeration methods are the computable witness. | Countable sets must declare iterator/rank/unrank/list/tuple/range surfaces inherited from Sage. Multiset caveat remains a documented boundary. |
+| `EnumeratedSets()` | `Sets().Countable()` | Sage defines enumerated sets as finite or countable sets/multisets with a canonical enumeration. Countability is the set-level mathematical property; enumeration methods are the computable witness. | Countable sets declare iteration, rank/unrank, nth-element, and iterator-range surfaces. Full finite collection conversions are not countability data. Multiset caveat remains a documented boundary. |
 | `FiniteSets()` | `Sets().Finite()` | Finite sets have finite cardinality independent of enumeration. | `Finite` declares `is_finite() -> True`, cardinality, finite listing, and finite subquotient behavior. |
-| `FiniteEnumeratedSets()` | `Sets().Countable().Finite()` | Finite enumerated sets combine finite cardinality with explicit enumeration. | The finite-countable subcategory owns finite enumeration helpers such as `last`, random-by-unrank, cardinality-from-list/iterator, and finite Cartesian product rank/unrank. |
-| `InfiniteEnumeratedSets()` | `Sets().Countable().Infinite()` | Infinite enumerated sets are countably infinite, not listable as finite collections. | Infinite-countable declarations should state non-listability methods (`tuple`, `list`, `random_element`) as Sage surfaces without implementing exception logic in the spec. |
+| `FiniteEnumeratedSets()` | `Sets().Countable().Finite()` | Finite enumerated sets combine finite cardinality with explicit enumeration. | The finite-countable subcategory owns finite enumeration helpers such as `list`, `tuple`, `unrank_range`, `last`, random-by-unrank, cardinality-from-list/iterator, and finite Cartesian product rank/unrank. |
+| `InfiniteEnumeratedSets()` | `Sets().Countable().Infinite()` | Infinite enumerated sets are countably infinite, not listable as finite collections. | Infinite-countable declarations keep countable iteration/rank surfaces and do not admit Sage's eager `tuple`/`list` methods as project category obligations. |
 | `FacadeSets()` | `Sets().Facade()` | Elements are represented by elements of another parent. | `facade_for`, facade element construction, and facade parent checks belong here. |
 | Sage `TopologicalSpaces()` for `RealSet` | `TopologicalSpaces()` / `Sets().Topological()` plus `Sets().Subobjects()` when an ambient real line is present | A `RealSet` is a topological subset of the real line, and a set with a topology is precisely a topological space. | `RealSet` refinement must preserve Sage topological behavior and declare real-line subobject operations. |
 | Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union with any other set in `Sets()`. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |

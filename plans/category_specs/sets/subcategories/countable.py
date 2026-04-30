@@ -62,15 +62,6 @@ class _CountableSets(CategoryWithAxiom):
         def cardinality(self) -> Cardinality: ...
 
         @abstract_method
-        def __len__(self) -> Integer: ...
-
-        @abstract_method
-        def tuple(self) -> tuple[SetElement, ...]: ...
-
-        @abstract_method
-        def list(self) -> list[SetElement]: ...
-
-        @abstract_method
         def is_empty(self) -> bool: ...
 
         @abstract_method
@@ -82,23 +73,6 @@ class _CountableSets(CategoryWithAxiom):
         ) -> Iterator[SetElement]:
             r"""Iterate over rank range ``[start, stop)`` with stride ``step``."""
             ...
-
-        @abstract_method
-        def unrank_range(
-            self,
-            start: Integer | None = None,
-            stop: Integer | None = None,
-            step: Integer | None = None,
-        ) -> list[SetElement]: ...
-
-        @abstract_method
-        def _tuple_from_iterator(self) -> tuple[SetElement, ...]: ...
-
-        @abstract_method
-        def _tuple_from_list(self) -> tuple[SetElement, ...]: ...
-
-        @abstract_method
-        def _list_from_iterator(self) -> list[SetElement]: ...
 
         @abstract_method
         def _first_from_iterator(self) -> SetElement: ...
@@ -113,9 +87,6 @@ class _CountableSets(CategoryWithAxiom):
         def _rank_from_iterator(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def _iterator_from_list(self) -> Iterator[SetElement]: ...
-
-        @abstract_method
         def _iterator_from_next(self) -> Iterator[SetElement]: ...
 
         @abstract_method
@@ -123,9 +94,6 @@ class _CountableSets(CategoryWithAxiom):
 
         @abstract_method
         def _an_element_from_iterator(self) -> SetElement: ...
-
-        @abstract_method
-        def _some_elements_from_iterator(self) -> list[SetElement]: ...
 
         @abstract_method
         def random_element(self) -> SetElement: ...
@@ -154,6 +122,38 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
     class ParentMethods:
         @abstract_method
+        def __len__(self) -> Integer: ...
+
+        @abstract_method
+        def tuple(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def list(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def unrank_range(
+            self,
+            start: Integer | None = None,
+            stop: Integer | None = None,
+            step: Integer | None = None,
+        ) -> list[SetElement]: ...
+
+        @abstract_method
+        def _tuple_from_iterator(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def _tuple_from_list(self) -> tuple[SetElement, ...]: ...
+
+        @abstract_method
+        def _list_from_iterator(self) -> list[SetElement]: ...
+
+        @abstract_method
+        def _iterator_from_list(self) -> Iterator[SetElement]: ...
+
+        @abstract_method
+        def _some_elements_from_iterator(self) -> list[SetElement]: ...
+
+        @abstract_method
         def random_element(self) -> SetElement: ...
 
         @abstract_method
@@ -161,9 +161,6 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
         @abstract_method
         def _cardinality_from_list(self) -> Cardinality: ...
-
-        @abstract_method
-        def _list_from_iterator(self) -> list[SetElement]: ...
 
         @abstract_method
         def _unrank_from_list(self, r: Integer) -> SetElement: ...
@@ -200,12 +197,6 @@ class _InfiniteCountableSets(CategoryWithAxiom):
     class ParentMethods:
         @abstract_method
         def random_element(self) -> SetElement: ...
-
-        @abstract_method
-        def tuple(self) -> tuple[SetElement, ...]: ...
-
-        @abstract_method
-        def list(self) -> list[SetElement]: ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

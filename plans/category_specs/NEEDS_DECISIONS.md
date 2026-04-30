@@ -19,18 +19,6 @@ Typed finite collection signatures are not themselves design blockers. Shapes su
 `dict[RingElement, Integer]` are compliant when they transparently state finite
 mathematical data. The remaining collection-signature questions are narrower:
 
-- `sets/subcategories/countable.py` still declares eager collection methods on
-  countable and infinite-countable surfaces: `_CountableSets.ParentMethods.tuple`,
-  `list`, `unrank_range`, `_tuple_from_iterator`, `_tuple_from_list`,
-  `_list_from_iterator`, `_some_elements_from_iterator`,
-  `_FiniteCountableSets.ParentMethods._list_from_iterator`, and
-  `_InfiniteCountableSets.ParentMethods.tuple`/`list`. Sage inventory records these
-  as `EnumeratedSets`, `FiniteEnumeratedSets`, and `InfiniteEnumeratedSets` surfaces,
-  while the local rule says infinite or lazy collections should prefer generators.
-  Decide whether eager `list`/`tuple` are admitted on infinite countable sets, whether
-  they should be finite-only with iterator/range methods on countable and infinite
-  countable sets, or whether the infinite Sage methods should be mapped as
-  non-admitted Sage surfaces.
 - `sets/subcategories/condition.py` has `arguments() -> tuple` and
   `predicates() -> tuple`, with `predicates()` currently returning `arguments()`.
   The set inventory says Sage `ConditionSet.arguments()` exposes the ambient set plus
