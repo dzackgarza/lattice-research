@@ -21,6 +21,7 @@ smoke:
         "cat/smoketest.sage"
         "homsets/smoketest.sage"
         "sets/smoketest.sage"
+        "posets/smoketest.sage"
         "topological_spaces/smoketest.sage"
         "algebras/smoketest.sage"
         "rings/smoketest.sage"
