@@ -1,19 +1,42 @@
-default:
+default: _clean-generated-artifacts
     @just --list
 
 [private]
-_clean-sage-artifacts:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd {{justfile_directory()}}
-    find . -type f -name '*.sage.py' -delete
+_clean-generated-artifacts:
+    #!/usr/bin/env python3
+    import shutil
+    from pathlib import Path
 
-smoke:
+    root = Path(r"{{justfile_directory()}}")
+
+    for pattern in ("*.sage.py", "*.orig"):
+        for path in root.rglob(pattern):
+            if path.is_file() or path.is_symlink():
+                path.unlink()
+
+    for dirname in ("__pycache__", ".serena"):
+        directories = sorted(root.rglob(dirname), key=lambda path: len(path.parts), reverse=True)
+        for path in directories:
+            if path.is_dir():
+                shutil.rmtree(path)
+
+    directories = sorted(
+        (path for path in root.rglob("*") if path.is_dir()),
+        key=lambda path: len(path.parts),
+        reverse=True,
+    )
+    for path in directories:
+        try:
+            path.rmdir()
+        except OSError:
+            pass
+
+smoke: _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
     cleanup() {
-        just --justfile {{justfile()}} _clean-sage-artifacts >/dev/null
+        just --justfile {{justfile()}} _clean-generated-artifacts >/dev/null
     }
     trap cleanup EXIT
 
@@ -42,12 +65,12 @@ smoke:
         exit 1
     fi
 
-test: smoke
+test: smoke _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
     cleanup() {
-        just --justfile {{justfile()}} _clean-sage-artifacts >/dev/null
+        just --justfile {{justfile()}} _clean-generated-artifacts >/dev/null
     }
     trap cleanup EXIT
 

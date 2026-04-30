@@ -143,12 +143,12 @@ Sage's built-in regressive constructions.
 
 Mapping:
 
-- `A.Hom(B)` returns Sage's `Hom(A, B, category=Cat())` parent;
-- `A.End()` returns Sage's `End(A, category=Cat())` parent;
-- `A.Aut()` refines `A.End()` through the repository-level generic `Autset`
-  construction;
+- `C.Hom()` is the category-level functorial construction whose objects are
+  `Hom_C(A, B)` for objects `A, B` of `C`;
+- `Cat().Hom()` is therefore the category of functor homsets;
+- `A.Hom(B)` returns Sage's `Hom(A, B, category=Cat())` parent when `A` and `B`
+  are category objects;
 - `A.Hom(B).category()` is `Cat().Homsets()`;
-- `A.End().category()` is `Cat().Endsets()`;
 - homset elements are Sage `Functor` instances;
 - construction functors are a specialized functor method surface, not category
   objects.

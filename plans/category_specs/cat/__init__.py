@@ -35,7 +35,7 @@ Cat()
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, overload
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -78,25 +78,31 @@ from .base_category_types import (
 )
 
 if TYPE_CHECKING:
-    from ..types import Autset, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Endset, Homset
+    from ..types import CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Homset
 
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
-    # Object-level hom/end/aut selectors:
-    # for a category object X in Cat(), X.Hom(Y), X.End(), and X.Aut()
-    # are the parents Hom_Cat(X, Y), End_Cat(X), and Aut_Cat(X).
+    # Closed arity split:
+    # C.Hom() is the category-level homset construction internal to C.
+    # C.Hom(D) is the object-level homspace Hom_Cat(C, D).
 
-    @abstract_method
+    @overload
+    def Hom(self) -> CategoryOfHomsets: ...
+
+    @overload
     def Hom(self, codomain: Category) -> Homset: ...
 
-    @final
-    def End(self) -> Endset:
-        return self.Hom(self)
+    @abstract_method
+    def Hom(self, codomain: Category | None = None) -> CategoryOfHomsets | Homset: ...
 
     @final
-    def Aut(self) -> Autset:
-        return self.End().Aut()
+    def End(self) -> CategoryOfEndsets:
+        return self.Endsets()
+
+    @final
+    def Aut(self) -> CategoryOfAutsets:
+        return self.Autsets()
 
     @final
     def is_join_category(self) -> bool:
