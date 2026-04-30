@@ -23,6 +23,12 @@ belong to finite countable sets.
 Countable-set enumeration should be specified through mathematical/Python protocol
 surface, not through Sage's fallback helper names.
 
+Python's built-in `list(X)` and `tuple(X)` conversions consume the iterable protocol;
+there is no project category method to add for this behavior. Do not define Sage-style
+`.list()`/`.tuple()` methods, and do not introduce `__list__` or `__tuple__` hooks.
+Finite countable sets only need to be iterable, with finite cardinality/length where
+the protocol requires it.
+
 | Sage surface | Project surface | Project call recovering Sage behavior | Mapping decision |
 | --- | --- | --- | --- |
 | `__iter__()` | `__iter__()` | `iter(X)` or `for x in X` | The iterator witnesses countability. |
