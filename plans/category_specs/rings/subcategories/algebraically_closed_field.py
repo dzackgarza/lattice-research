@@ -117,3 +117,6 @@ class _AlgebraicallyClosedFields(CategoryWithAxiom):
         @final
         def algebraic_closure(self) -> Field:
             return self
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

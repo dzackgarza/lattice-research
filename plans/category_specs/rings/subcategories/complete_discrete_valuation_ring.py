@@ -118,3 +118,6 @@ class _CompleteDiscreteValuationRings(Category_singleton):
         @final
         def is_complete_discrete_valuation_ring(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

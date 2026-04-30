@@ -29,3 +29,6 @@ class _SemisimpleAlgebras(CategoryWithAxiom_over_base_ring):
         @final
         def is_semisimple(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

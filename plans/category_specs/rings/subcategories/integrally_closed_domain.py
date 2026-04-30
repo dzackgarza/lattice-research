@@ -117,3 +117,6 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
         @final
         def integral_closure(self) -> Ring:
             return self
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

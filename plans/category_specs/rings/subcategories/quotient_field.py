@@ -109,3 +109,6 @@ class _QuotientFields(Category_singleton):
         @final
         def is_quotient_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

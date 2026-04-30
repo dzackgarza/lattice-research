@@ -111,3 +111,6 @@ class _LocalFields(CategoryWithAxiom):
         @final
         def is_local_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

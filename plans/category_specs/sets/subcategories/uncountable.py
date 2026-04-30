@@ -27,3 +27,6 @@ class _UncountableSets(CategoryWithAxiom):
         @final
         def is_uncountable(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

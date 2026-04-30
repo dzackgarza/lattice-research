@@ -35,3 +35,6 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         @final
         def structure_codomain(self) -> TopologicalSpace:
             return self.structure_space()
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

@@ -20,3 +20,6 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.form().q(v)
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

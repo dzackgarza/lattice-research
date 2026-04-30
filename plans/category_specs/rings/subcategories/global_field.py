@@ -127,3 +127,6 @@ class _GlobalFields(CategoryWithAxiom):
         @final
         def is_global_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

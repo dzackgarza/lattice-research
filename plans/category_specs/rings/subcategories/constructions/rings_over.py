@@ -48,3 +48,6 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
         @final
         def structure_codomain(self) -> Ring:
             return self.structure_ring()
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

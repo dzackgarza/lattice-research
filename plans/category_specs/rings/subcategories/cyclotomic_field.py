@@ -123,3 +123,6 @@ class _CyclotomicFields(CategoryWithAxiom):
         @final
         def is_cyclotomic_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

@@ -35,3 +35,6 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         @final
         def structure_codomain(self) -> Poset:
             return self
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

@@ -23,3 +23,5 @@ class _Quotients(QuotientsCategory):
         @final
         def lift(self) -> RModuleElement:
             return self.projection().lift(self)
+
+    class MorphismMethods: ...

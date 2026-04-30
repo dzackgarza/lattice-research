@@ -56,3 +56,5 @@ class _TotallyOrdered(CategoryWithAxiom):
         @final
         def __ge__(self, other: SetElement) -> bool:
             return other.__le__(self)
+
+    class MorphismMethods: ...

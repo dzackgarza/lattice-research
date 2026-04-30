@@ -66,5 +66,8 @@ class _Subobjects(SubobjectsCategory):
         def __sub__(self, X: Subset) -> Subset:
             return self.difference(X)
 
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
 
 Subsets = _Subobjects

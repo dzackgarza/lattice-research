@@ -29,3 +29,6 @@ class _CommutativeAlgebras(CategoryWithAxiom_over_base_ring):
         @final
         def is_commutative(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

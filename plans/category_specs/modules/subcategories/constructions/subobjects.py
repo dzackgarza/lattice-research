@@ -57,3 +57,6 @@ class _Subobjects(SubobjectsCategory):
         @final
         def quotient_module(self) -> QuotientModule:
             return self.inclusion().cokernel()
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

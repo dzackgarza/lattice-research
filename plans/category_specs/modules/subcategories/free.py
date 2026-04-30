@@ -46,6 +46,9 @@ class _Free(CategoryWithAxiom_over_base_ring):
             r"""Return the cardinality of a basis."""
             ...
 
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
 
 class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     r"""Finite-rank free modules."""

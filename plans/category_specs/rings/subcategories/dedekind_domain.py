@@ -119,3 +119,6 @@ class _DedekindDomains(CategoryWithAxiom):
         @final
         def is_dedekind_domain(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

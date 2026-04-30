@@ -20,3 +20,6 @@ class _BilinearModules(CategoryWithAxiom_over_base_ring):
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             return self.form().b(v, w)
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

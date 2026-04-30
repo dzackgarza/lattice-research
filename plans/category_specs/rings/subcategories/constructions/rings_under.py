@@ -49,3 +49,6 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
         @final
         def structure_codomain(self) -> Ring:
             return self
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

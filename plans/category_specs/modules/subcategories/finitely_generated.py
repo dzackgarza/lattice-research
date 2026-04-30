@@ -25,3 +25,6 @@ class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
         @final
         def is_finitely_generated(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

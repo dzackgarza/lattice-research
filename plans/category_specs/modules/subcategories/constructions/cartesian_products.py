@@ -29,3 +29,5 @@ class _CartesianProducts(CartesianProductsCategory):
         @final
         def _lmul_(self, x: RingElement) -> RModuleElement:
             return self.parent()._cartesian_product_of_elements(x * y for y in self.cartesian_factors())
+
+    class MorphismMethods: ...

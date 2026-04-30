@@ -118,3 +118,6 @@ class _CompleteDiscreteValuationFields(Category_singleton):
         @final
         def is_complete_discrete_valuation_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

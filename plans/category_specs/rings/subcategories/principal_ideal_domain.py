@@ -127,3 +127,6 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
         @final
         def gcd(self, r: RingElement, s: RingElement) -> RingElement:
             return self.ideal_generator(self.ideal(r, s))
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

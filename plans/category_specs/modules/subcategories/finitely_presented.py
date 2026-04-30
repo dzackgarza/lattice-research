@@ -25,3 +25,6 @@ class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
         @final
         def is_finitely_presented(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

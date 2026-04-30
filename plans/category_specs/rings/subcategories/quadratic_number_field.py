@@ -123,3 +123,6 @@ class _QuadraticNumberFields(CategoryWithAxiom):
         @final
         def is_quadratic_number_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

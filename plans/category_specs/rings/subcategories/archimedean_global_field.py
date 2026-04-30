@@ -111,3 +111,6 @@ class _ArchimedeanGlobalFields(CategoryWithAxiom):
         @final
         def is_archimedean_global_field(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

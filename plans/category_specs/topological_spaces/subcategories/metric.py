@@ -44,3 +44,6 @@ class _MetricSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list:
         return [SageSets().Metric(), _TopologicalSpaces()]
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

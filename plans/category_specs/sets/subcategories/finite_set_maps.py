@@ -85,3 +85,6 @@ class _FiniteSetMapsSets(Category_singleton):
         def identity(self) -> FiniteSetMap:
             r"""Mathematical alias for Sage's endomap monoid identity."""
             return self.one()
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

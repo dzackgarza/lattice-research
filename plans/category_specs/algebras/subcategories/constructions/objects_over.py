@@ -36,3 +36,6 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         @final
         def structure_codomain(self) -> Algebra:
             return self.structure_algebra()
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

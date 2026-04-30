@@ -123,3 +123,6 @@ class _TopologicalRings(CategoryWithAxiom):
         @final
         def is_topological_ring(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

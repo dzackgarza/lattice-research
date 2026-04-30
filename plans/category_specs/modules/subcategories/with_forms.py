@@ -59,3 +59,6 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
         @final
         def Rational(self) -> Category:
             return self._with_axiom("Rational")
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

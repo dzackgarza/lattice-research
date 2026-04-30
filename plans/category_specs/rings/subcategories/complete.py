@@ -111,3 +111,6 @@ class _CompleteRings(CategoryWithAxiom):
         @final
         def is_complete_ring(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

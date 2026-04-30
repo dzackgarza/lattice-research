@@ -113,3 +113,6 @@ class _DivisionRings(CategoryWithAxiom):
         @final
         def is_division_ring(self) -> bool:
             return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

@@ -327,3 +327,6 @@ class _QQ(Category_singleton):
         @final
         def absolute_field(self, names: str) -> Field:
             return self.as_number_field().absolute_field(names)
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

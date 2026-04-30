@@ -122,3 +122,6 @@ class _Zp(Category_singleton):
                     return self
                 case unreachable:
                     assert_never(unreachable)
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

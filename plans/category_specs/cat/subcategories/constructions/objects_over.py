@@ -29,5 +29,8 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         def structure_codomain(self) -> Category:
             return self.structure_category()
 
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
 
 SliceCategories = _ObjectsOver
