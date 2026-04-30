@@ -8,15 +8,9 @@ equivalent to ``\det(G) \neq 0``.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-
-if TYPE_CHECKING:
-    pass
-
 from ...modules.subcategories.bilinear import _BilinearModules
 from ...types import SubModule
 
@@ -35,9 +29,7 @@ class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Nondegenerate")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_nondegenerate()
+    _defining_predicates = ("is_nondegenerate",)
 
     class ParentMethods:
         def is_nondegenerate(self) -> bool:

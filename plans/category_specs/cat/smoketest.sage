@@ -125,6 +125,24 @@ SMOKE_STATEMENTS = (
     ("Modules(ZZ).OverPID() refines Modules(ZZ)", lambda _: Modules(ZZ).OverPID().is_subcategory(Modules(ZZ))),
     ("Modules(ZZ).OverPID().Subobjects() is a category", lambda _: Modules(ZZ).OverPID().Subobjects() in C),
     ("Cat().Subobjects() is a category", lambda _: C.Subobjects() in C),
+    ("Sets() is not registered as a Cat subobject", lambda _: Sets() not in C.Subobjects()),
+    ("Modules(ZZ).WithForms() is registered as a Cat subobject", lambda _: Modules(ZZ).WithForms() in C.Subobjects()),
+    (
+        "Modules(ZZ).WithForms() records Modules(ZZ) as ambient category",
+        lambda _: Modules(ZZ).WithForms().ambient_category() is Modules(ZZ),
+    ),
+    (
+        "Modules(ZZ).WithForms() exposes has_form as its defining predicate",
+        lambda _: Modules(ZZ).WithForms().defining_predicates() == ("has_form",),
+    ),
+    (
+        "Modules(ZZ).WithForms().Bilinear() is registered as a Cat subobject",
+        lambda _: Modules(ZZ).WithForms().Bilinear() in C.Subobjects(),
+    ),
+    (
+        "Modules(ZZ).WithForms().Bilinear() exposes is_bilinear as its defining predicate",
+        lambda _: Modules(ZZ).WithForms().Bilinear().defining_predicates() == ("is_bilinear",),
+    ),
     ("Cat().Quotients() is a category", lambda _: C.Quotients() in C),
     ("Cat().Subquotients() is a category", lambda _: C.Subquotients() in C),
     ("Cat().ObjectsOver(Sets()) is a category", lambda _: C.ObjectsOver(Sets()) in C),

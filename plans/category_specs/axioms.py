@@ -115,6 +115,18 @@ MODULE_AXIOMS = (
 
 
 # ---------------------------------------------------------------------------
+# Lattice Axioms
+# ---------------------------------------------------------------------------
+
+LATTICE_AXIOMS = (
+    "Lattice",
+    "OverIntegers",
+    "Even",
+    "Unimodular",
+)
+
+
+# ---------------------------------------------------------------------------
 # Sage Hom Axiom Hooks
 # ---------------------------------------------------------------------------
 
@@ -128,7 +140,7 @@ HOMSET_AXIOMS = (
 # Registration Logic
 # ---------------------------------------------------------------------------
 
-ALL_AXIOMS = SHARED_AXIOMS + SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + HOMSET_AXIOMS
+ALL_AXIOMS = SHARED_AXIOMS + SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + LATTICE_AXIOMS + HOMSET_AXIOMS
 
 
 def register_axioms(axioms: Iterable[str]) -> None:

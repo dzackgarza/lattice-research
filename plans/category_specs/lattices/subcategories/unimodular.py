@@ -1,0 +1,23 @@
+r"""Unimodular lattices."""
+
+from __future__ import annotations
+
+from typing import final
+
+from ...cat import CategoryWithAxiom_over_base_ring
+from ..chain import _Lattices
+
+
+class _UnimodularLattices(CategoryWithAxiom_over_base_ring):
+    r"""Integral lattices whose discriminant group is trivial."""
+
+    _base_category_class_and_axiom = (_Lattices, "Unimodular")
+    _defining_predicates = ("is_unimodular",)
+
+    class ParentMethods:
+        @final
+        def is_unimodular(self) -> bool:
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...

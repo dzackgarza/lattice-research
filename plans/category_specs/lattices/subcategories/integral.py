@@ -15,8 +15,6 @@ because the condition ``b(v, L) \subseteq R`` requires both that ``b`` is
 
 from __future__ import annotations
 
-from typing import Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -50,9 +48,7 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Integral")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_integral()
+    _defining_predicates = ("is_integral",)
 
     class ParentMethods:
         def is_integral(self) -> bool:

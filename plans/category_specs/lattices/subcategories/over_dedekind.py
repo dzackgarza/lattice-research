@@ -28,8 +28,6 @@ This is the tier at which the following become well-defined:
 
 from __future__ import annotations
 
-from typing import Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -44,7 +42,7 @@ from ...types import (
     SignaturePair,
     SubModule,
 )
-from .integral import _IntegralBilinearModules
+from ..chain import _Lattices
 
 
 class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
@@ -62,16 +60,16 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
         True
     """
 
-    _base_category_class_and_axiom = (_IntegralBilinearModules, "OverDedekindDomain")
-
-    def __contains__(self, M: Any) -> bool:
-        return (
-            M in self.base_category()
-            and M.is_over_dedekind_domain()
-            and M.is_torsionfree()
-        )
+    _base_category_class_and_axiom = (_Lattices, "OverDedekindDomain")
+    _defining_predicates = ("is_over_dedekind_domain", "is_torsionfree")
 
     class ParentMethods:
+        def is_over_dedekind_domain(self) -> bool:
+            return True
+
+        def is_torsionfree(self) -> bool:
+            return True
+
         @abstract_method
         def rank(self) -> Integer:
             r"""Return the rank of ``L`` as an ``R``-module.

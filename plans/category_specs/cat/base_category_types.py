@@ -85,6 +85,49 @@ _SageHomsetsOf = SageHomsetsOf
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
 
 
+def _static_category_class(category: SageCategory) -> type:
+    cls = category.__class__
+    if isinstance(cls, DynamicMetaclass):
+        return cls.__base__
+    return cls
+
+
+def _local_parent_methods(category: SageCategory) -> type | None:
+    return getattr(_static_category_class(category), "ParentMethods", None)
+
+
+def _declared_defining_predicates(category: SageCategory) -> tuple[str, ...]:
+    predicates = getattr(_static_category_class(category), "_defining_predicates", None)
+    assert predicates is not None, f"{category} must declare _defining_predicates"
+    predicates = tuple(predicates)
+    assert predicates, f"{category} must declare at least one defining predicate"
+    assert all(isinstance(predicate, str) and predicate for predicate in predicates), (
+        f"{category} has invalid defining predicates: {predicates}"
+    )
+    return predicates
+
+
+def _validate_defining_predicates(category: SageCategory, predicates: tuple[str, ...]) -> None:
+    ambient_parent_class = category.base_category().parent_class
+    local_parent_methods = _local_parent_methods(category)
+    missing_from_ambient = tuple(
+        predicate for predicate in predicates if not hasattr(ambient_parent_class, predicate)
+    )
+    missing_from_subcategory = tuple(
+        predicate
+        for predicate in predicates
+        if local_parent_methods is None or predicate not in local_parent_methods.__dict__
+    )
+    assert not missing_from_ambient, (
+        f"{category} defining predicates are not exposed on ambient category "
+        f"{category.base_category()}: {missing_from_ambient}"
+    )
+    assert not missing_from_subcategory, (
+        f"{category} defining predicates are not implemented on its ParentMethods: "
+        f"{missing_from_subcategory}"
+    )
+
+
 def _cat_category():
     from . import Cat
 
@@ -357,6 +400,20 @@ class _CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
         self._init_cat_object()
         SageCategoryWithAxiom.__init__(self, base_category)
 
+    @final
+    def ambient_category(self) -> SageCategory:
+        return self.base_category()
+
+    @final
+    def defining_predicates(self) -> tuple[str, ...]:
+        predicates = _declared_defining_predicates(self)
+        _validate_defining_predicates(self, predicates)
+        return predicates
+
+    @final
+    def defining_predicate(self, candidate: CategoryObject) -> bool:
+        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
+
 
 class _CategoryWithAxiom_singleton(
     _SingletonAxiomClasscallMixin,
@@ -370,6 +427,20 @@ class _CategoryWithAxiom_singleton(
         self._init_cat_object()
         SageCategoryWithAxiomSingleton.__init__(self, base_category)
 
+    @final
+    def ambient_category(self) -> SageCategory:
+        return self.base_category()
+
+    @final
+    def defining_predicates(self) -> tuple[str, ...]:
+        predicates = _declared_defining_predicates(self)
+        _validate_defining_predicates(self, predicates)
+        return predicates
+
+    @final
+    def defining_predicate(self, candidate: CategoryObject) -> bool:
+        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
+
 
 class _CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOverBaseRing, Parent):
     r"""Parent-backed re-export of Sage's base-ring axiom category base."""
@@ -377,6 +448,20 @@ class _CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOv
     def __init__(self, base_category: SageCategory) -> None:
         self._init_cat_object()
         SageCategoryWithAxiomOverBaseRing.__init__(self, base_category)
+
+    @final
+    def ambient_category(self) -> SageCategory:
+        return self.base_category()
+
+    @final
+    def defining_predicates(self) -> tuple[str, ...]:
+        predicates = _declared_defining_predicates(self)
+        _validate_defining_predicates(self, predicates)
+        return predicates
+
+    @final
+    def defining_predicate(self, candidate: CategoryObject) -> bool:
+        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
 class _Category_over_base(_CatObjectMixin, SageCategoryOverBase, Parent):

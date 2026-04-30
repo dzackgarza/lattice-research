@@ -49,6 +49,8 @@ smoke: _clean-generated-artifacts
         "algebras/smoketest.sage"
         "rings/smoketest.sage"
         "modules/smoketest.sage"
+        "lattices/chain_smoketest.sage"
+        "lattices/smoketest.sage"
     )
 
     failures=()
@@ -64,6 +66,17 @@ smoke: _clean-generated-artifacts
         printf '  %s\n' "${failures[@]}"
         exit 1
     fi
+
+smoke-file test_file: _clean-generated-artifacts
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean-generated-artifacts >/dev/null
+    }
+    trap cleanup EXIT
+
+    sage "{{test_file}}"
 
 test: smoke _clean-generated-artifacts
     #!/usr/bin/env bash

@@ -10,8 +10,6 @@ quadratic forms over ``\mathbb{Q}``.
 
 from __future__ import annotations
 
-from typing import Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -31,9 +29,7 @@ class _RationalBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Rational")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_rational()
+    _defining_predicates = ("is_rational",)
 
     class ParentMethods:
         def is_rational(self) -> bool:

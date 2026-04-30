@@ -4,6 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
+from sage.misc.abstract_method import abstract_method
+from sage.misc.lazy_import import LazyImport
+
 from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import _WithForms
 
@@ -15,11 +18,37 @@ class _BilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Pairs ``(M, b)`` with ``b`` bilinear on ``M``."""
 
     _base_category_class_and_axiom = (_WithForms, "Bilinear")
+    _defining_predicates = ("is_bilinear",)
 
     class ParentMethods:
+        @final
+        def is_bilinear(self) -> bool:
+            return True
+
+        @abstract_method
+        def is_symmetric(self) -> bool: ...
+
+        @abstract_method
+        def is_alternating(self) -> bool: ...
+
+        @abstract_method
+        def is_nondegenerate(self) -> bool: ...
+
+        @abstract_method
+        def is_integral(self) -> bool: ...
+
+        @abstract_method
+        def is_rational(self) -> bool: ...
+
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             return self.form().b(v, w)
 
     class ElementMethods: ...
     class MorphismMethods: ...
+
+    Symmetric = LazyImport("category_specs.lattices.subcategories.symmetric", "_SymmetricBilinearModules")
+    Alternating = LazyImport("category_specs.lattices.subcategories.alternating", "_AlternatingBilinearModules")
+    Nondegenerate = LazyImport("category_specs.lattices.subcategories.nondegenerate", "_NondegenerateBilinearModules")
+    Integral = LazyImport("category_specs.lattices.subcategories.integral", "_IntegralBilinearModules")
+    Rational = LazyImport("category_specs.lattices.subcategories.rational", "_RationalBilinearModules")

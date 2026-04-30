@@ -15,8 +15,13 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
     r"""Pairs ``(M, q)`` with ``q`` quadratic on ``M``."""
 
     _base_category_class_and_axiom = (_WithForms, "Quadratic")
+    _defining_predicates = ("is_quadratic",)
 
     class ParentMethods:
+        @final
+        def is_quadratic(self) -> bool:
+            return True
+
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.form().q(v)

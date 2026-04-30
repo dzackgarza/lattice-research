@@ -8,8 +8,6 @@ A symmetric bilinear form is *definite* iff it is either positive-definite
 
 from __future__ import annotations
 
-from typing import Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -35,9 +33,7 @@ class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_SymmetricBilinearModules, "Definite")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_definite()
+    _defining_predicates = ("is_definite",)
 
     class ParentMethods:
         def is_definite(self) -> bool:

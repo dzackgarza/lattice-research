@@ -222,6 +222,22 @@ class _RModObjects:
     def is_ideal(self) -> bool:
         return False
 
+    @final
+    def has_form(self) -> bool:
+        return False
+
+    @final
+    def is_bilinear(self) -> bool:
+        return False
+
+    @final
+    def is_quadratic(self) -> bool:
+        return False
+
+    @final
+    def is_lattice(self) -> bool:
+        return False
+
     @cached_method
     @final
     def tensor_square(self):
@@ -1232,8 +1248,6 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
 
     WithForms = LazyImport("category_specs.modules.subcategories.with_forms", "_WithForms")
-    Bilinear = LazyImport("category_specs.modules.subcategories.bilinear", "_BilinearModules")
-    Quadratic = LazyImport("category_specs.modules.subcategories.quadratic", "_QuadraticModules")
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
     # b a symmetric nondegenerate integral bilinear form.
 

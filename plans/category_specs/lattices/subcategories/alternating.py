@@ -6,8 +6,6 @@ which implies ``b(v, w) = -b(w, v)`` (skew-symmetry) when ``2`` is invertible.
 
 from __future__ import annotations
 
-from typing import Any
-
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...modules.subcategories.bilinear import _BilinearModules
 
@@ -27,9 +25,7 @@ class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Alternating")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_alternating()
+    _defining_predicates = ("is_alternating",)
 
     class ParentMethods:
         def is_alternating(self) -> bool:

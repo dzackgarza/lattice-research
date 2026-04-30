@@ -54,6 +54,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     r"""Finite-rank free modules."""
 
     _base_category_class_and_axiom = (_Free, "FiniteRank")
+    WithForms = LazyImport("category_specs.lattices.chain", "_FiniteRankFreeModulesWithForms")
 
     @final
     def extra_super_categories(self):

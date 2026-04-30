@@ -5,8 +5,6 @@ A symmetric bilinear form satisfies ``b(v, w) = b(w, v)`` for all ``v``, ``w``.
 
 from __future__ import annotations
 
-from typing import Any
-
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -28,13 +26,23 @@ class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Symmetric")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_symmetric()
+    _defining_predicates = ("is_symmetric",)
 
     class ParentMethods:
         def is_symmetric(self) -> bool:
             return True
+
+        @abstract_method
+        def is_definite(self) -> bool: ...
+
+        @abstract_method
+        def is_indefinite(self) -> bool: ...
+
+        @abstract_method
+        def is_positive_definite(self) -> bool: ...
+
+        @abstract_method
+        def is_negative_definite(self) -> bool: ...
 
         @abstract_method
         def orthogonal_submodule_to(self, S: SubModule) -> SubModule:

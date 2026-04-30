@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, final
 from sage.categories.category import Category
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -19,8 +20,19 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
     r"""Non-full category of pairs ``(M, f)`` with a form on ``M``."""
 
     _base_category_class_and_axiom = (Modules, "WithForms")
+    _defining_predicates = ("has_form",)
 
     class ParentMethods:
+        @final
+        def has_form(self) -> bool:
+            return True
+
+        @abstract_method
+        def is_bilinear(self) -> bool: ...
+
+        @abstract_method
+        def is_quadratic(self) -> bool: ...
+
         @abstract_method
         def form(self) -> RModuleMorphism: ...
 
@@ -62,3 +74,6 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
     class MorphismMethods: ...
+
+    Bilinear = LazyImport("category_specs.modules.subcategories.bilinear", "_BilinearModules")
+    Quadratic = LazyImport("category_specs.modules.subcategories.quadratic", "_QuadraticModules")

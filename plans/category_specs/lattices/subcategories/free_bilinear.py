@@ -11,7 +11,7 @@ genuine matrix (entries in ``S``), and the first tier at which
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from sage.misc.abstract_method import abstract_method
 
@@ -60,11 +60,12 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_BilinearModules, "Free")
-
-    def __contains__(self, M: Any) -> bool:
-        return M in self.base_category() and M.is_free() and M.is_bilinear()
+    _defining_predicates = ("is_free",)
 
     class ParentMethods:
+        def is_free(self) -> bool:
+            return True
+
         @abstract_method
         def rank(self) -> Integer:
             r"""Return the rank of the underlying free ``R``-module.
