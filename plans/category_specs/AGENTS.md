@@ -67,10 +67,20 @@
     of copying the runtime check through the codebase.
 - `__contains__` always takes `Any` as its argument type.
   Never use `object`.
-- All types are defined in `types.py`. No type aliases, `TypeAlias` definitions, or
-  ad-hoc types anywhere else — not in `TYPE_CHECKING` blocks, not at the top of axiom or
-  other files, not inline.
-  Import from `types.py`.
+- **Standard Type Packages**: Each category or subcategory module owns a uniform local
+  package of mathematical type names for the category it defines.  For a category
+  named `X`, the standard package is:
+  `XCategory`, `XObject`, `XElement`, `XMorphism`, `XHomCategory`,
+  `XEndCategory`, `XAutCategory`, `XHom`, `XEnd`, `XAut`,
+  `XEndomorphism`, and `XAutomorphism`.
+  These names are direct pointers to the category class, its method surfaces, and its
+  Hom/End/Aut category surfaces; they are not software helper aliases.
+- `types.py` imports and re-exports standard type packages, then decides conventional
+  mathematical aliases such as `Ring = RingsObject`, `RModule = ModulesObject`, or
+  `Polynomial` as an element type in the appropriate polynomial-ring subcategory.
+  Outside a category module's standard package and `types.py`, do not define type
+  aliases, `TypeAlias` definitions, or ad-hoc types — not in `TYPE_CHECKING` blocks,
+  not at the top of axiom or other files, not inline. Import from `types.py`.
 - **No `__all__` Export Lists**: Do not use an explicit all-export pattern in this
   subtree. Public and private surfaces are communicated by names: `_PrivateName` is a
   private implementation or local spec entry point, and `PublicName` is importable.

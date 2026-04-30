@@ -23,7 +23,7 @@ from sage.rings.number_field.number_field import NumberField_cyclotomic
 from ..cat import Cat, Category, Category_ideal, Category_singleton
 from ..modules import Modules
 from ..utils import refine_category
-from .homsets import RingHomCategory
+from .homsets import RingAutCategory, RingEndCategory, RingHomCategory
 from .matrix_algebras import (
     _MatrixAlgebras,
 )
@@ -1333,3 +1333,17 @@ class Rings(Category_singleton):
     ParentMethods = _RingObjectMethods
     ElementMethods = _RingElementMethods
     MorphismMethods = _RingMorphismMethods
+
+
+RingsCategory = Rings
+RingsObject = Rings.ParentMethods
+RingsElement = Rings.ElementMethods
+RingsMorphism = Rings.MorphismMethods
+RingsHomCategory = RingHomCategory
+RingsEndCategory = RingEndCategory
+RingsAutCategory = RingAutCategory
+RingsHom = RingHomCategory.ParentMethods
+RingsEnd = RingEndCategory.ParentMethods
+RingsAut = RingAutCategory.ParentMethods
+RingsEndomorphism = RingEndCategory.ElementMethods
+RingsAutomorphism = RingAutCategory.ElementMethods

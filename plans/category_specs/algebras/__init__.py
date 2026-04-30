@@ -33,7 +33,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, Category_over_base_ring
 from ..modules import Modules
-from .homsets import AlgebraHomCategory
+from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -215,3 +215,17 @@ class Algebras(Category_over_base_ring):
     CartesianProducts = _CartesianProducts
     TensorProducts = _TensorProducts
     DualObjects = _DualObjects
+
+
+AlgebrasCategory = Algebras
+AlgebrasObject = Algebras.ParentMethods
+AlgebrasElement = Algebras.ElementMethods
+AlgebrasMorphism = Algebras.MorphismMethods
+AlgebrasHomCategory = AlgebraHomCategory
+AlgebrasEndCategory = AlgebraEndCategory
+AlgebrasAutCategory = AlgebraAutCategory
+AlgebrasHom = AlgebraHomCategory.ParentMethods
+AlgebrasEnd = AlgebraEndCategory.ParentMethods
+AlgebrasAut = AlgebraAutCategory.ParentMethods
+AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
+AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods

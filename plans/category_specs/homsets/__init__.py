@@ -8,3 +8,18 @@ from .homsets import HomCategory, HomCategoryConstruction, HomCategoryOf, Univer
 
 GenericEndCategory = EndCategoryOf
 GenericAutCategory = AutCategoryOf
+
+HomCategoriesCategory = HomCategory
+HomCategoriesObject = HomCategory.ParentMethods
+HomCategoriesElement = HomCategory.ElementMethods
+HomCategoriesMorphism = HomCategory.MorphismMethods
+
+EndCategoriesCategory = EndCategory
+EndCategoriesObject = EndCategory.ParentMethods
+EndCategoriesElement = EndCategory.ElementMethods
+EndCategoriesMorphism = EndCategory.MorphismMethods
+
+AutCategoriesCategory = AutCategory
+AutCategoriesObject = AutCategory.ParentMethods
+AutCategoriesElement = AutCategory.ElementMethods
+AutCategoriesMorphism = AutCategory.MorphismMethods

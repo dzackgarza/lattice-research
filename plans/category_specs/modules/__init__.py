@@ -54,7 +54,7 @@ from ..cat import (
     TensorProductsCategory,
 )
 from ..utils import refine_category
-from .homsets import RModuleHomCategory, _RModMorphisms
+from .homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory, _RModMorphisms
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -1286,3 +1286,17 @@ class Modules(Category_module):
 # ``FinitelyPresented().OverPID()`` once ``OverPID`` is registered as a real
 # axiom.  The generic axiom join composes correctly and keeps the category
 # surface usable until the meet class is wired with a non-recursive base.
+
+
+ModulesCategory = Modules
+ModulesObject = Modules.ParentMethods
+ModulesElement = Modules.ElementMethods
+ModulesMorphism = Modules.MorphismMethods
+ModulesHomCategory = RModuleHomCategory
+ModulesEndCategory = RModuleEndCategory
+ModulesAutCategory = RModuleAutCategory
+ModulesHom = RModuleHomCategory.ParentMethods
+ModulesEnd = RModuleEndCategory.ParentMethods
+ModulesAut = RModuleAutCategory.ParentMethods
+ModulesEndomorphism = RModuleEndCategory.ElementMethods
+ModulesAutomorphism = RModuleAutCategory.ElementMethods

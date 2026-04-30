@@ -26,7 +26,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category
 from ..sets import Sets
-from .homsets import PosetHomCategory
+from .homsets import PosetAutCategory, PosetEndCategory, PosetHomCategory
 
 if TYPE_CHECKING:
     from ..types import PosetElement, PosetSubset
@@ -199,3 +199,17 @@ class Posets(Category):
     ParentMethods = _PosetParentMethods
     ElementMethods = _PosetElementMethods
     MorphismMethods = _PosetMorphismMethods
+
+
+PosetsCategory = Posets
+PosetsObject = Posets.ParentMethods
+PosetsElement = Posets.ElementMethods
+PosetsMorphism = Posets.MorphismMethods
+PosetsHomCategory = PosetHomCategory
+PosetsEndCategory = PosetEndCategory
+PosetsAutCategory = PosetAutCategory
+PosetsHom = PosetHomCategory.ParentMethods
+PosetsEnd = PosetEndCategory.ParentMethods
+PosetsAut = PosetAutCategory.ParentMethods
+PosetsEndomorphism = PosetEndCategory.ElementMethods
+PosetsAutomorphism = PosetAutCategory.ElementMethods

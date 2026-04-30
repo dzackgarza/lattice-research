@@ -1,8 +1,8 @@
-"""Centralized type aliases for the module hierarchy.
+"""Centralized type aliases for the category specification hierarchy.
 
-Only aliases backed by files that exist in this tree are exposed.  The
-``ModulesWithForms`` / ``TwistedForms`` aliases from earlier drafts are
-dropped until those spec files land.
+Category modules publish their standard mathematical type packages locally.
+This file imports those packages and chooses conventional aliases such as
+``Ring = RingsObject`` or ``RModule = ModulesObject``.
 """
 
 from collections.abc import Sequence
@@ -35,15 +35,94 @@ from sage.structure.element import Element as SageElement
 from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
-from .algebras import Algebras
-from .homsets import AutCategory, EndCategory, HomCategory
-from .modules import Modules
-from .modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
-from .posets import Posets
+from .algebras import (
+    AlgebrasAut,
+    AlgebrasAutCategory,
+    AlgebrasAutomorphism,
+    AlgebrasCategory,
+    AlgebrasElement,
+    AlgebrasEnd,
+    AlgebrasEndCategory,
+    AlgebrasEndomorphism,
+    AlgebrasHom,
+    AlgebrasHomCategory,
+    AlgebrasMorphism,
+    AlgebrasObject,
+)
+from .cat import (
+    CatAut,
+    CatAutCategory,
+    CatAutomorphism,
+    CatCategory,
+    CatElement,
+    CatEnd,
+    CatEndCategory,
+    CatEndomorphism,
+    CatHom,
+    CatHomCategory,
+    CatMorphism,
+    CatObject,
+    Category,
+)
+from .homsets import (
+    AutCategoriesCategory,
+    AutCategoriesElement,
+    AutCategoriesMorphism,
+    AutCategoriesObject,
+    EndCategoriesCategory,
+    EndCategoriesElement,
+    EndCategoriesMorphism,
+    EndCategoriesObject,
+    HomCategoriesCategory,
+    HomCategoriesElement,
+    HomCategoriesMorphism,
+    HomCategoriesObject,
+)
+from .modules import (
+    ModulesAut,
+    ModulesAutCategory,
+    ModulesAutomorphism,
+    ModulesCategory,
+    ModulesElement,
+    ModulesEnd,
+    ModulesEndCategory,
+    ModulesEndomorphism,
+    ModulesHom,
+    ModulesHomCategory,
+    ModulesMorphism,
+    ModulesObject,
+)
+from .posets import (
+    PosetsAut,
+    PosetsAutCategory,
+    PosetsAutomorphism,
+    PosetsCategory,
+    PosetsElement,
+    PosetsEnd,
+    PosetsEndCategory,
+    PosetsEndomorphism,
+    PosetsHom,
+    PosetsHomCategory,
+    PosetsMorphism,
+    PosetsObject,
+)
 from .posets.subcategories.finite_lattice import _FiniteLatticePosets
 from .posets.subcategories.lattice import _LatticePosets
-from .rings import Rings, _RingIdeals
-from .rings.homsets import RingAutCategory, RingEndCategory, RingHomCategory
+from .rings import (
+    RingsAut,
+    RingsAutCategory,
+    RingsAutomorphism,
+    RingsCategory,
+    RingsElement,
+    RingsEnd,
+    RingsEndCategory,
+    RingsEndomorphism,
+    RingsHom,
+    RingsHomCategory,
+    RingsMorphism,
+    RingsObject,
+    _RingIdeals,
+)
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
@@ -55,24 +134,24 @@ Matrix = SageMatrix
 MatrixSpace = SageMatrixSpace
 DiGraph = SageDiGraph
 CartesianProductFunctor = SageCartesianProductFunctor
-CategoryOfHomCategories = HomCategory
-CategoryOfEndCategories = EndCategory
-CategoryOfAutCategories = AutCategory
-Hom = HomCategory.ParentMethods
-End = EndCategory.ParentMethods
-Aut = AutCategory.ParentMethods
+CategoryOfHomCategories = HomCategoriesCategory
+CategoryOfEndCategories = EndCategoriesCategory
+CategoryOfAutCategories = AutCategoriesCategory
+Hom = HomCategoriesObject
+End = EndCategoriesObject
+Aut = AutCategoriesObject
 Morphism = SageMorphism
 Endomorphism = SageMorphism
 Automorphism = SageMorphism
-Ring = Rings.ParentMethods
+Ring = RingsObject
 Field = _Fields.ParentMethods
-RingElement = Rings.ElementMethods
-RingMorphism = Rings.MorphismMethods
-RingHom = RingHomCategory.ParentMethods
-RingEnd = RingEndCategory.ParentMethods
-RingAut = RingAutCategory.ParentMethods
-RingEndomorphism = RingEndCategory.ElementMethods
-RingAutomorphism = RingAutCategory.ElementMethods
+RingElement = RingsElement
+RingMorphism = RingsMorphism
+RingHom = RingsHom
+RingEnd = RingsEnd
+RingAut = RingsAut
+RingEndomorphism = RingsEndomorphism
+RingAutomorphism = RingsAutomorphism
 Group = SageGroup
 AbelianGroup = AbelianGroup_class
 Monoid = Monoid_class
@@ -89,30 +168,30 @@ CompleteRing = _CompleteRings.ParentMethods
 Cardinality = Integer | InfinityElement
 FreeResolution = SageFreeResolution
 
-RMod = Modules
-RModule = Modules.ParentMethods
-RModuleElement = Modules.ElementMethods
-RModMorphism = Modules.MorphismMethods
+RMod = ModulesCategory
+RModule = ModulesObject
+RModuleElement = ModulesElement
+RModMorphism = ModulesMorphism
 RModuleMorphism = RModMorphism
-FreeModule = Modules.Free.ParentMethods
-TorsionModule = Modules.Torsion.ParentMethods
-ProjectiveModule = Modules.Projective.ParentMethods
-SubModule = Modules.Subobjects.ParentMethods
+FreeModule = ModulesCategory.Free.ParentMethods
+TorsionModule = ModulesCategory.Torsion.ParentMethods
+ProjectiveModule = ModulesCategory.Projective.ParentMethods
+SubModule = ModulesCategory.Subobjects.ParentMethods
 Submodule = SubModule
-QuotientModule = Modules.Quotients.ParentMethods
-TensorProductRModule = Modules.TensorProducts.ParentMethods
+QuotientModule = ModulesCategory.Quotients.ParentMethods
+TensorProductRModule = ModulesCategory.TensorProducts.ParentMethods
 
 Ideal = _RingIdeals.ParentMethods
 PrimeIdeal = Ideal
 MaximalIdeal = PrimeIdeal
 
-RModHom = RModuleHomCategory.ParentMethods
-RModEnd = RModuleEndCategory.ParentMethods
-RModAut = RModuleAutCategory.ParentMethods
+RModHom = ModulesHom
+RModEnd = ModulesEnd
+RModAut = ModulesAut
 RModuleEnd = RModEnd
 RModuleAut = RModAut
-RModEndomorphism = RModuleEndCategory.ElementMethods
-RModAutomorphism = RModuleAutCategory.ElementMethods
+RModEndomorphism = ModulesEndomorphism
+RModAutomorphism = ModulesAutomorphism
 RModuleEndomorphism = RModEndomorphism
 RModuleAutomorphism = RModAutomorphism
 DualModule = RModule
@@ -126,17 +205,28 @@ BilinearForm = SageMorphism
 QuadraticFormsModule = SageHomset
 QuadraticForm = SageMorphism
 
-RAlgebra = Algebras
-Algebra = Algebras.ParentMethods
-AlgebraElement = Algebras.ElementMethods
-AlgebraMorphism = Algebras.MorphismMethods
+RAlgebra = AlgebrasCategory
+Algebra = AlgebrasObject
+AlgebraElement = AlgebrasElement
+AlgebraMorphism = AlgebrasMorphism
 AlgebraBasis = AbstractFamily
 HochschildChainComplex = HochschildComplex
 
 # Sets
-from .posets.homsets import PosetAutCategory, PosetEndCategory, PosetHomCategory
-from .sets import Sets
-from .sets.homsets import SetAutCategory, SetEndCategory, SetHomCategory
+from .sets import (
+    SetsAut,
+    SetsAutCategory,
+    SetsAutomorphism,
+    SetsCategory,
+    SetsElement,
+    SetsEnd,
+    SetsEndCategory,
+    SetsEndomorphism,
+    SetsHom,
+    SetsHomCategory,
+    SetsMorphism,
+    SetsObject,
+)
 from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
 from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
 from .sets.subcategories.constructions.realizations import _Realizations as SetRealizations
@@ -145,13 +235,38 @@ from .sets.subcategories.constructions.subquotients import _Subquotients as SetS
 from .sets.subcategories.constructions.with_realizations import _WithRealizations as SetWithRealizationsCategory
 from .sets.subcategories.graded import _GradedSets
 from .sets.subcategories.group_actions import _GSets
-from .topological_spaces import _MetricSpaces, _TopologicalSpaces
+from .topological_spaces import (
+    MetricSpacesAut,
+    MetricSpacesAutCategory,
+    MetricSpacesAutomorphism,
+    MetricSpacesCategory,
+    MetricSpacesElement,
+    MetricSpacesEnd,
+    MetricSpacesEndCategory,
+    MetricSpacesEndomorphism,
+    MetricSpacesHom,
+    MetricSpacesHomCategory,
+    MetricSpacesMorphism,
+    MetricSpacesObject,
+    TopologicalSpacesAut,
+    TopologicalSpacesAutCategory,
+    TopologicalSpacesAutomorphism,
+    TopologicalSpacesCategory,
+    TopologicalSpacesElement,
+    TopologicalSpacesEnd,
+    TopologicalSpacesEndCategory,
+    TopologicalSpacesEndomorphism,
+    TopologicalSpacesHom,
+    TopologicalSpacesHomCategory,
+    TopologicalSpacesMorphism,
+    TopologicalSpacesObject,
+)
 
-Set = Sets.ParentMethods
-FiniteSet = Sets.Finite.ParentMethods
-CountableSet = Sets.Countable.ParentMethods
-InfiniteSet = Sets.Infinite.ParentMethods
-UncountableSet = Sets.Uncountable.ParentMethods
+Set = SetsObject
+FiniteSet = SetsCategory.Finite.ParentMethods
+CountableSet = SetsCategory.Countable.ParentMethods
+InfiniteSet = SetsCategory.Infinite.ParentMethods
+UncountableSet = SetsCategory.Uncountable.ParentMethods
 GradedSet = _GradedSets.ParentMethods
 GSet = _GSets.ParentMethods
 Subset = SetSubobjects.ParentMethods
@@ -162,13 +277,13 @@ QuotientSet = SetQuotients.ParentMethods
 IsomorphicSetObject = SetIsomorphicObjects.ParentMethods
 SetWithRealizations = SetWithRealizationsCategory.ParentMethods
 SetRealization = SetRealizations.ParentMethods
-SetElement = Sets.ElementMethods
-SetMorphism = Sets.MorphismMethods
-SetHom = SetHomCategory.ParentMethods
-SetEnd = SetEndCategory.ParentMethods
-SetAut = SetAutCategory.ParentMethods
-SetEndomorphism = SetEndCategory.ElementMethods
-SetAutomorphism = SetAutCategory.ElementMethods
+SetElement = SetsElement
+SetMorphism = SetsMorphism
+SetHom = SetsHom
+SetEnd = SetsEnd
+SetAut = SetsAut
+SetEndomorphism = SetsEndomorphism
+SetAutomorphism = SetsAutomorphism
 FiniteSetMap = FiniteSetMap_MN
 SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
@@ -176,9 +291,9 @@ GroupElement = SageElement
 GroupAction = SageMorphism
 
 RealNumber = SageRealNumber
-TopologicalSpace = _TopologicalSpaces.ParentMethods
-MetricSpace = _MetricSpaces.ParentMethods
-TopologicalSpaceMorphism = SageMorphism
+TopologicalSpace = TopologicalSpacesObject
+MetricSpace = MetricSpacesObject
+TopologicalSpaceMorphism = TopologicalSpacesMorphism
 RealSubset = Subset
 RealOpenSet = OpenSubset
 RealInterval = InternalRealInterval
@@ -186,12 +301,12 @@ MetricBall = OpenSubset
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
 SympySet = SageSympySet
-Poset = Posets.ParentMethods
-PosetElement = Posets.ElementMethods
-PosetMorphism = Posets.MorphismMethods
-PosetHom = PosetHomCategory.ParentMethods
-PosetEnd = PosetEndCategory.ParentMethods
-PosetAut = PosetAutCategory.ParentMethods
+Poset = PosetsObject
+PosetElement = PosetsElement
+PosetMorphism = PosetsMorphism
+PosetHom = PosetsHom
+PosetEnd = PosetsEnd
+PosetAut = PosetsAut
 PosetSubset = Subset
 LatticePoset = _LatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods

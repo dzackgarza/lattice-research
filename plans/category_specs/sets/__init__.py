@@ -69,7 +69,7 @@ from sage.rings.infinity import infinity
 
 from ..cat import Cat, Category, Category_singleton
 from ..utils import refine_category
-from .homsets import SetHomCategory
+from .homsets import SetAutCategory, SetEndCategory, SetHomCategory
 
 if TYPE_CHECKING:
     from ..types import (
@@ -809,3 +809,17 @@ class Sets(Category_singleton):
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
     MorphismMethods = _SetMorphismMethods
+
+
+SetsCategory = Sets
+SetsObject = Sets.ParentMethods
+SetsElement = Sets.ElementMethods
+SetsMorphism = Sets.MorphismMethods
+SetsHomCategory = SetHomCategory
+SetsEndCategory = SetEndCategory
+SetsAutCategory = SetAutCategory
+SetsHom = SetHomCategory.ParentMethods
+SetsEnd = SetEndCategory.ParentMethods
+SetsAut = SetAutCategory.ParentMethods
+SetsEndomorphism = SetEndCategory.ElementMethods
+SetsAutomorphism = SetAutCategory.ElementMethods

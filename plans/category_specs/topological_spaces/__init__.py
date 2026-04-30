@@ -35,7 +35,7 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import Category
 from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
-from .homsets import TopologicalSpaceHomCategory
+from .homsets import TopologicalSpaceAutCategory, TopologicalSpaceEndCategory, TopologicalSpaceHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
@@ -140,3 +140,30 @@ TopologicalSpace = _TopologicalSpaces
 from .subcategories.metric import _MetricSpaces
 
 MetricSpace = _MetricSpaces
+
+MetricSpacesCategory = _MetricSpaces
+MetricSpacesObject = _MetricSpaces.ParentMethods
+MetricSpacesElement = _MetricSpaces.ElementMethods
+MetricSpacesMorphism = _MetricSpaces.MorphismMethods
+MetricSpacesHomCategory = TopologicalSpaceHomCategory
+MetricSpacesEndCategory = TopologicalSpaceEndCategory
+MetricSpacesAutCategory = TopologicalSpaceAutCategory
+MetricSpacesHom = TopologicalSpaceHomCategory.ParentMethods
+MetricSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
+MetricSpacesAut = TopologicalSpaceAutCategory.ParentMethods
+MetricSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
+MetricSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods
+
+
+TopologicalSpacesCategory = TopologicalSpaces
+TopologicalSpacesObject = TopologicalSpaces.ParentMethods
+TopologicalSpacesElement = TopologicalSpaces.ElementMethods
+TopologicalSpacesMorphism = TopologicalSpaces.MorphismMethods
+TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
+TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
+TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
+TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
+TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
+TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
+TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
+TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods

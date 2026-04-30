@@ -222,3 +222,18 @@ class Cat(_SageCategorySingleton):
 
 
 Categories = Cat
+
+
+from .autsets import CatAutCategory
+from .endsets import CatEndCategory
+from .homsets import CatHomCategory
+
+CatCategory = Cat
+CatObject = Cat.ParentMethods
+CatElement = Cat.ElementMethods
+CatMorphism = CatHomCategory.ElementMethods
+CatHom = CatHomCategory.ParentMethods
+CatEnd = CatEndCategory.ParentMethods
+CatAut = CatAutCategory.ParentMethods
+CatEndomorphism = CatEndCategory.ElementMethods
+CatAutomorphism = CatAutCategory.ElementMethods
