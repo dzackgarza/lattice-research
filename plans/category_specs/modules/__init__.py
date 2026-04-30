@@ -53,7 +53,7 @@ from ..cat import (
     SuperModulesCategory,
     TensorProductsCategory,
 )
-from ..utils import partition_list, refine_category
+from ..utils import refine_category
 from .homsets import RModuleHomsets, _RModMorphisms
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
@@ -931,7 +931,8 @@ class Modules(Category_module):
         assert all(r.parent() in SageRings() for r in elts), f"All element parents must be rings: {elts}"
         R = elts[0].parent()
         assert all(r.parent() is R for r in elts), f"Elements must share a common ring: {[r.parent() for r in elts]}"
-        zs, rs = partition_list(elts, lambda x: x.is_zero())
+        zs = [r for r in elts if r.is_zero()]
+        rs = [r for r in elts if not r.is_zero()]
         F = self.free_module(len(zs))
         T = sum(self.torsion_module(r) for r in rs)
         return F + T
