@@ -7,12 +7,12 @@ receive through their ``SubcategoryMethods`` provider.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, final
 
 from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
-    from ..types import Category, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets
+    from ..types import Category, CategoryObject, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets
 
 
 class UniversalSubcategoryMethods:
@@ -56,14 +56,14 @@ class UniversalSubcategoryMethods:
 
     @cached_method
     @final
-    def ObjectsOver(self, structure_object: Any) -> Category:
+    def ObjectsOver(self, structure_object: CategoryObject) -> Category:
         from .subcategories.constructions.objects_over import _ObjectsOver
 
         return _ObjectsOver.category_of(self, structure_object)
 
     @cached_method
     @final
-    def ObjectsUnder(self, structure_object: Any) -> Category:
+    def ObjectsUnder(self, structure_object: CategoryObject) -> Category:
         from .subcategories.constructions.objects_under import _ObjectsUnder
 
         return _ObjectsUnder.category_of(self, structure_object)

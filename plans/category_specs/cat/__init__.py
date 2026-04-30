@@ -78,7 +78,7 @@ from .base_category_types import (
 )
 
 if TYPE_CHECKING:
-    from ..types import Autset, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Endset, HomsetObject
+    from ..types import Autset, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Endset, Homset
 
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
@@ -88,7 +88,7 @@ class _CatObjectMethods:
     # are the parents Hom_Cat(X, Y), End_Cat(X), and Aut_Cat(X).
 
     @abstract_method
-    def Hom(self, codomain: Category) -> HomsetObject: ...
+    def Hom(self, codomain: Category) -> Homset: ...
 
     @final
     def End(self) -> Endset:
@@ -138,7 +138,7 @@ class Cat(_SageCategorySingleton):
     """
 
     @final
-    def _make_named_class(self, name, method_provider, cache=False, **options):
+    def _make_named_class(self, name, method_provider, cache=False, picklable: bool = True):
         r"""Use the wrapper-layer universal subcategory-method injection.
 
         ``Cat`` cannot inherit from the Cat-backed wrapper bases because it is
@@ -152,7 +152,7 @@ class Cat(_SageCategorySingleton):
             name,
             method_provider,
             cache=cache,
-            **options,
+            picklable=picklable,
         )
 
     @final

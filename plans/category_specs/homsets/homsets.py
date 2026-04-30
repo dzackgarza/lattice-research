@@ -5,13 +5,12 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TYPE_CHECKING, final, overload
 
-from sage.categories.homsets import Homsets as SageHomsets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.dynamic_class import DynamicMetaclass
 
-from ..cat import Cat, Category, Category_singleton, CategoryWithParameters, FunctorialConstructionCategory, _SageCategory
+from ..cat import Cat, Category, CategoryWithParameters, FunctorialConstructionCategory, Homsets as BaseHomsets, _SageCategory
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, CategoryObject, Morphism
@@ -32,8 +31,9 @@ class UniversalHomsetObjectMethods:
     @abstract_method
     def codomain(self) -> CategoryObject: ...
 
+    @final
     def is_endomorphism_set(self) -> bool:
-        return self.domain() is self.codomain()
+        return self.domain() == self.codomain()
 
     @overload
     def __call__(self, morphism: Morphism) -> Morphism: ...
@@ -48,9 +48,11 @@ class UniversalHomsetObjectMethods:
 class UniversalHomsetElementMethods:
     r"""Methods on elements ``f`` of homsets."""
 
+    @final
     def domain(self) -> CategoryObject:
         return self.parent().domain()
 
+    @final
     def codomain(self) -> CategoryObject:
         return self.parent().codomain()
 
@@ -66,9 +68,11 @@ class UniversalHomsetElementMethods:
     @abstract_method
     def post_compose(self, other: Morphism) -> Morphism: ...
 
+    @final
     def is_endomorphism(self) -> bool:
-        return self.domain() is self.codomain()
+        return self.domain() == self.codomain()
 
+    @final
     def is_identity(self) -> bool:
         return self.is_endomorphism() and self == self.parent().identity()
 
@@ -79,15 +83,16 @@ class UniversalHomsetElementMethods:
     def is_isomorphism(self) -> bool:
         ...
 
+    @final
     def is_automorphism(self) -> bool:
         return self.is_endomorphism() and self.is_invertible()
 
 
-class Homsets(Category_singleton):
+class Homsets(BaseHomsets):
     r"""Category of all homsets."""
 
     def super_categories(self) -> list:
-        return [SageHomsets()]
+        return super().super_categories()
 
     class SubcategoryMethods:
         @cached_method

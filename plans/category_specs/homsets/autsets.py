@@ -22,10 +22,7 @@ def _autsets_of(category: Category) -> Category:
         endsets = category.Endset()
     else:
         endsets = category.Homsets().Endset()
-    autset = getattr(endsets, "Autset", None)
-    if autset is None:
-        return Autsets().Of(endsets)
-    return autset()
+    return endsets.Autset()
 
 
 def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:

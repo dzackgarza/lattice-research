@@ -10,6 +10,15 @@ top-level rules require every top-level category to expose `SubcategoryMethods` 
 `Constructors`. Decide whether these root homset categories must implement the full
 boilerplate or receive a documented structural exception.
 
+## Cat Object Hom/End/Aut Notation
+
+`cat/docs/MAPPING.md` describes `A.Hom(B)`, `A.End()`, and `A.Aut()` for category
+objects as object-level parents in `Cat()`, while the current Cat-backed wrapper layer
+uses zero-argument `Hom`, `End`, and `Aut` as aliases for category-level
+`Homsets`, `Endsets`, and `Autsets`. Decide whether the project reserves these names
+for object-level Cat homsets, category-level construction categories, or a closed
+arity split where only `Hom(codomain)` is object-level.
+
 ## Sage Construction Re-Exports
 
 Several construction subcategories inherit raw Sage construction bases directly
