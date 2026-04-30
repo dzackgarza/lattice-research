@@ -43,6 +43,3 @@ class EmptyCategory(Category_singleton):
         from . import Cat
 
         return category is self or category is Cat() or category in Cat()
-
-
-__all__ = ["EmptyCategory"]

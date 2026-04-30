@@ -30,9 +30,9 @@ Subcategory hierarchy::
     |-- IsomorphicObjects()
     |-- WithRealizations()
     |-- Realizations()
-    `-- Homsets()
-        |-- Endset()
-        `-- Autset()
+    `-- HomCategory()
+        |-- EndCategory()
+        `-- AutCategory()
 
 One-object constructor refinements::
 
@@ -69,7 +69,7 @@ from sage.rings.infinity import infinity
 
 from ..cat import Cat, Category, Category_singleton
 from ..utils import refine_category
-from .homsets import SetHomsets
+from .homsets import SetHomCategory
 
 if TYPE_CHECKING:
     from ..types import (
@@ -86,11 +86,11 @@ if TYPE_CHECKING:
         RealSubset,
         Ring,
         Set,
-        SetAutset,
+        SetAut,
         SetElement,
-        SetEndset,
+        SetEnd,
         SetFamily,
-        SetHomset,
+        SetHom,
         SetMorphism,
         Subset,
         SympySet,
@@ -771,7 +771,7 @@ class Sets(Category_singleton):
         r"""Return the named Sage set constructor collector."""
         return self.__class__._Constructors(self)
 
-    Homsets = SetHomsets
+    HomCategory = SetHomCategory
 
     # ------------------------------------------------------------------
     # Axiomatic subcategories and construction categories

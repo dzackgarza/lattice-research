@@ -15,9 +15,9 @@ Subcategory hierarchy::
     |-- ObjectsOver()
     |-- ObjectsUnder()
     |-- CartesianProducts()
-    `-- Homsets()
-        |-- Endset()
-        `-- Autset()
+    `-- HomCategory()
+        |-- EndCategory()
+        `-- AutCategory()
 
 Constructor entry points live under ``TopologicalSpaces().Constructors()`` once Sage
 topological-space constructors are inventoried.
@@ -35,7 +35,7 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import Category
 from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
-from .homsets import TopologicalSpaceHomsets
+from .homsets import TopologicalSpaceHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
@@ -91,7 +91,7 @@ class _TopologicalSpaces(CategoryWithAxiom):
     ParentMethods = _TopologicalSpaceObjectMethods
     ElementMethods = _TopologicalSpaceElementMethods
     MorphismMethods = _TopologicalSpaceMorphismMethods
-    Homsets = TopologicalSpaceHomsets
+    HomCategory = TopologicalSpaceHomCategory
     Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
 
     @final

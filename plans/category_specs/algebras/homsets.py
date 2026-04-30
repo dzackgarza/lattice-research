@@ -1,4 +1,4 @@
-r"""Homset, endset, and autset categories for algebras."""
+r"""Hom, end, and aut categories for algebras."""
 
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ from typing import final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import Algebra
 
 
-class _AlgebraHomsetObjects:
-    r"""Algebra-specific homset parent methods; generic homset methods are inherited."""
+class _AlgebraHomCategoryObjectMethods:
+    r"""Algebra-specific hom parent methods; generic hom methods are inherited."""
 
 
 class _AlgebraHomomorphisms:
@@ -23,24 +23,25 @@ class _AlgebraHomomorphisms:
     def kernel(self) -> Algebra: ...
 
 
-class AlgebraHomsets(HomsetsOf):
-    r"""Category of algebra homsets."""
+class AlgebraHomCategory(HomCategoryOf):
+    r"""Category of algebra homs."""
 
     @final
     def extra_super_categories(self):
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _AlgebraHomsetObjects
+    ParentMethods = _AlgebraHomCategoryObjectMethods
     ElementMethods = _AlgebraHomomorphisms
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_AlgebraEndsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "AlgebraEndCategory")
 
 
-class _AlgebraEndsets(GenericEndsets):
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (AlgebraHomsets, "Endset")
-    Autset = LazyImport(__name__, "_AlgebraAutsets")
+class AlgebraEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (AlgebraHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "AlgebraAutCategory")
 
     class ParentMethods:
         @abstract_method
@@ -50,9 +51,8 @@ class _AlgebraEndsets(GenericEndsets):
     class MorphismMethods: ...
 
 
-class _AlgebraAutsets(GenericAutsets):
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_AlgebraEndsets, "Autset")
+class AlgebraAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (AlgebraEndCategory, "Autset")
 
     class ParentMethods: ...
     class ElementMethods: ...

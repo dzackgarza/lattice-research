@@ -26,16 +26,16 @@ Cat()
 |-- ObjectsUnder()
 |-- CartesianProducts()
 |-- JoinCategories()
-`-- Homsets()
-    |-- Endset()
-    `-- Autset()
+`-- HomCategory()
+    |-- EndCategory()
+    `-- AutCategory()
 ```
 """
 
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -78,31 +78,13 @@ from .base_category_types import (
 )
 
 if TYPE_CHECKING:
-    from ..types import CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Homset
+    from ..types import Hom
 
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
-    # Closed arity split:
-    # C.Hom() is the category-level homset construction internal to C.
-    # C.Hom(D) is the object-level homspace Hom_Cat(C, D).
-
-    @overload
-    def Hom(self) -> CategoryOfHomsets: ...
-
-    @overload
-    def Hom(self, codomain: Category) -> Homset: ...
-
     @abstract_method
-    def Hom(self, codomain: Category | None = None) -> CategoryOfHomsets | Homset: ...
-
-    @final
-    def End(self) -> CategoryOfEndsets:
-        return self.Endsets()
-
-    @final
-    def Aut(self) -> CategoryOfAutsets:
-        return self.Autsets()
+    def Hom(self, codomain: Category) -> Hom: ...
 
     @final
     def is_join_category(self) -> bool:
@@ -220,7 +202,7 @@ class Cat(_SageCategorySingleton):
         "category_specs.cat.subcategories.constructions.cartesian_products",
         "_CartesianProducts",
     )
-    Homsets = LazyImport("category_specs.cat.homsets", "CatHomsets")
+    HomCategory = LazyImport("category_specs.cat.homsets", "CatHomCategory")
     JoinCategories = LazyImport("category_specs.cat.join_categories", "JoinCategories")
     EmptyCategory = LazyImport("category_specs.cat.empty_category", "EmptyCategory")
 

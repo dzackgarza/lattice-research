@@ -71,6 +71,12 @@
   ad-hoc types anywhere else — not in `TYPE_CHECKING` blocks, not at the top of axiom or
   other files, not inline.
   Import from `types.py`.
+- **No `__all__` Export Lists**: Do not use an explicit all-export pattern in this
+  subtree. Public and private surfaces are communicated by names: `_PrivateName` is a
+  private implementation or local spec entry point, and `PublicName` is importable.
+  Package `__init__.py` files may re-export public names with ordinary imports, but
+  they must not maintain `__all__` allowlists. Type checkers should warn when code
+  imports a private name; do not hide ownership mistakes by exporting private names.
 - **No Python Native Scalar Types In Signatures**: Never use native Python scalar
   types (`int`, `float`, `complex`) as type annotations when a Sage equivalent exists.
   Use the Sage types from `types.py` instead, e.g. `Integer` instead of `int`.
@@ -239,16 +245,16 @@ Use the perspective of the mathematical implementer for that category:
   complements, common ambients, and coercions between universes. For example,
   `{1, 2} ∩ {a, b}` and `[0, 1] ∩ {z in CC | |z - i| <= 1}` are real set-theoretic
   questions because they depend on common universes and embeddings.
-- A homset/endset/autset designer should own the generic facts that homs have domains
-  and codomains, endomorphisms compose with themselves, and automorphisms are
-  invertible. A set designer may declare that homs of sets are sets; a module designer
-  may declare that `Hom_R`, `End_R`, and `Aut_R` have new module-theoretic or
-  algebraic structure.
+- A hom-category/end-category/aut-category designer should own the generic facts that
+  homs have domains and codomains, endomorphisms compose with themselves, and
+  automorphisms are invertible. A set designer may declare that homs of sets are sets;
+  a module designer may declare that `Hom_R`, `End_R`, and `Aut_R` have new
+  module-theoretic or algebraic structure.
 - A set designer should not own the fact that `End(X)` is a monoid or that `Aut(X)` is
   a group; those are category-theoretic facts. The set-level question is what extra
   set-theoretic structure these objects have and how set-theoretic constructions
   interact with ambients and coercions.
-- A module homset designer should focus on module-theoretic enrichment and
+- A module hom-category designer should focus on module-theoretic enrichment and
   representability: for example, `R-Mod` is enriched over itself, `End_R(M)` is an
   `R`-module with ring structure and hence an `R`-algebra when appropriate, and
   `Aut_R(M)` may be representable as a matrix group. It should not redefine generic
@@ -313,8 +319,8 @@ Before editing a category spec, answer these questions in order:
   category, a constructor namespace, a predicate subcategory, a compatibility
   supercategory, or an implementation gap. Most bad edits in this subtree came from
   confusing these: e.g. treating `Constructors` as a category, treating Sage
-  functorial construction categories as actual functors, or treating category-level
-  `C.Hom()` and object-level `C.Hom(D)` as the same method.
+  functorial construction categories as actual functors, inventing a category-level
+  `C.Hom()` selector, or confusing object-level `C.Hom(D)` with `C.HomCategory()`.
 - **Which layer uniquely owns it?** Do not patch below that layer. Sage category-base
   wrapping belongs in `cat/base_category_types.py`; universal construction selectors
   belong in `cat/universal_subcategory_methods.py`; root category-object semantics
@@ -401,9 +407,9 @@ owning layer before editing locally.
     strict supercategory. For example, module morphisms should not be the first place
     one worries about `domain`, `codomain`, `__call__`, identity, composition, inverse,
     or invertibility.
-  - Suspect: a missing generic homset, endset, autset, morphism, Cat-object, or
-    universal subcategory-method surface, or a subtree spec written from the wrong
-    mathematical point of view.
+  - Suspect: a missing generic hom category, end category, aut category, morphism,
+    Cat-object, or universal subcategory-method surface, or a subtree spec written
+    from the wrong mathematical point of view.
   - Audit response: lift the method to the lowest mathematically correct common
     category and leave specialized subtrees to state only additional laws. Ask what a
     qualified implementer of this category should have to think about: a module spec
@@ -572,12 +578,9 @@ Universal methods:
 - `ObjectsOver()`
 - `ObjectsUnder()`
 - `CartesianProducts()`
-- `Homsets()`
-- `Endsets()`
-- `Autsets()`
-- `Hom()`
-- `End()`
-- `Aut()`
+- `HomCategory()`
+- `EndCategory()`
+- `AutCategory()`
 
 Literal implementation example:
 ```python
@@ -592,26 +595,21 @@ class UniversalSubcategoryMethods:
 
     @cached_method
     @final
-    def Homsets(self):
-        from .base_category_types import HomsetsCategory
-        return HomsetsCategory.category_of(self)
-
-    @cached_method
-    @final
-    def Hom(self):
-        return self.Homsets()
+    def HomCategory(self):
+        from ..homsets import HomCategoryConstruction
+        return HomCategoryConstruction.category_of(self)
 ```
 
 Note that these are distinct from the attributes on the category class itself
-(e.g., `Sets().Homsets`), which typically return the base construction category
-for that subtree (e.g., `Homsets = SetHomsets`). The universal `SubcategoryMethods`
-surface is what enables navigation like `Sets().Finite().Homsets()`.
+(e.g., `Sets().HomCategory`), which return the base construction category for that
+subtree (e.g., `HomCategory = SetHomCategory`). The universal
+`SubcategoryMethods` surface is what enables navigation like
+`Sets().Finite().HomCategory()`.
 
-`Hom` has two mathematical arities on category objects: `C.Hom()` is the universal
-category-level construction, while `C.Hom(D)` is the object-level homspace because
-`C` is also an object of `Cat()`. The wrapped category base handles this with a closed
-two-case overload/dispatch bridge. Do not replace this with variadic forwarding or
-try/except type guessing.
+`C.Hom()` is not a category-level construction. For category objects `C, D in Cat()`,
+`C.Hom(D)` is the object-level functor category `Hom_{Cat}(C, D)`. The category-level
+construction is `C.HomCategory()`, and its evaluated constructor is
+`C.HomCategory().Of(A, B)` for objects `A, B in C`.
 
 Other constructions like `TensorProducts()` should be added to
 `SubcategoryMethods` only where mathematically appropriate, following the same
@@ -693,80 +691,80 @@ per mathematical subcategory, named using real mathematical vocabulary (e.g.
 these files directly.
 Nothing in `specialized.py`, `named.py`, or any other flat aggregator file.
 
-## Homsets, Endsets, and Autsets
+## Hom, End, and Aut Categories
 
-Homsets (`Hom(X, Y)`), Endsets (`End(X) = Hom(X, X)`), and Autsets (`Aut(X) ⊂ End(X)`)
-each have their own separate files at both the top level and within each subtree,
-following the same organizational principle as other category surfaces.
+Hom categories (`Hom_C`), end categories (`End_C`), and aut categories (`Aut_C`) each
+have their own separate files at both the top level and within each subtree, following
+the same organizational principle as other category surfaces.
 
 ### File organization
 
 - **Top level**: `homsets/` defines the generic wiring shared across all subtrees —
-  `HomsetsOf(C)`, `HomsetsOf(C).Endset()`,
-  `HomsetsOf(C).Endset().Autset()`, generic `Hom`/`End`/`Aut` dispatch, and the
-  Autset integration layer (see below). This is the single place where
-  Autset-as-ConditionSet machinery is implemented.
-- **Per subtree**: `<subtree>/homsets.py` defines subtree-specific homset categories
-  (e.g. `SetHomsets`, `RingHomsets`) and their `ParentMethods`/`ElementMethods`. These
-  import and inherit from `HomsetsOf`, `GenericEndsets`, and `GenericAutsets`.
+  `HomCategoryOf(C)`, `HomCategoryOf(C).EndCategory()`,
+  `HomCategoryOf(C).EndCategory().AutCategory()`, evaluated constructors `Of(...)`,
+  and the aut-category integration layer. This is the single place where `Aut_C(A)`
+  as a `ConditionSet` over `End_C(A)` is implemented.
+- **Per subtree**: `<subtree>/homsets.py` defines subtree-specific hom categories
+  (e.g. `SetHomCategory`, `RingHomCategory`) and their
+  `ParentMethods`/`ElementMethods`. These import and inherit from `HomCategoryOf`,
+  `GenericEndCategory`, and `GenericAutCategory`.
 
-### Autsets are wired repo-wide
+### Aut Categories Are Wired Repo-Wide
 
-Sage has no native Autset category — it provides `Homsets` and `Endsets` but nothing for
-automorphism groups.
-**Autsets must be integrated at the top level, once, so that individual subtrees never
+Sage has no native generic aut category — it provides `Homsets` and the `Endset` axiom
+hook, but nothing for automorphism groups.
+**Aut categories must be integrated at the top level, once, so that individual subtrees never
 reinvent this wiring.**
 
-An Autset is mathematically an Endset with an underlying `ConditionSet` that checks
+An aut category object is mathematically an end category object with an underlying `ConditionSet` that checks
 invertibility: `Aut(X) = {f ∈ End(X) | f is invertible}`. The top-level `homsets/`
 subtree must define:
 
-- The `Autset` parent class, constructed from an `Endset` plus an invertibility
-  condition.
-- Generic `ParentMethods` and `ElementMethods` available on all Autsets regardless of
-  the ambient category (e.g. `endset`, `domain`, `codomain`, `identity`, `inverse`,
+- The `Aut` parent class, constructed from an `End` plus an invertibility condition.
+- Generic `ParentMethods` and `ElementMethods` available on all aut categories
+  regardless of the ambient category (e.g. `end_category`, `domain`, `codomain`, `identity`, `inverse`,
   `composition`, `is_invertible`, `group_structure`, and `order`).
-- Generic element methods on Autsets (i.e. `Automorphism` methods like `inverse` and
+- Generic element methods on aut categories (i.e. `Automorphism` methods like `inverse` and
   `order`, including predicates such as `is_involution`).
 
-`Autset` is an axiom on an endset category, not directly on a homset category.
-Homset-level `Autset()` methods are convenience selectors and must return
-`self.Endset().Autset()`. A concrete homset class attaches only `Endset = ...`; the
-matching concrete endset class attaches `Autset = ...`.
+Sage still requires the axiom hook names `Endset` and `Autset` for `_with_axiom(...)`.
+Those names are interop hooks, not public project selectors. Public navigation is
+`HomCategory()`, `EndCategory()`, `AutCategory()`, and evaluated constructors
+`HomCategory().Of(A, B)`, `EndCategory().Of(A)`, `AutCategory().Of(A)`.
 
 ### What subtrees own vs. what the top level owns
 
 | Concern | Owner | Examples |
 | --- | --- | --- |
-| Generic Hom/End/Aut construction and dispatch | Top-level `homsets/` | `HomsetsOf(C)`, `Aut(X)` builder, ConditionSet integration, `Autset` base class |
-| Generic methods on all Autsets | Top-level `homsets/` | `Autset.ParentMethods.group_structure`, `Autset.ParentMethods.identity`, `Autset.ElementMethods.inverse` |
-| Category-specific Autset properties | Subtree `<subtree>/homsets.py` | `Aut_{Set}(X).ParentMethods.is_transitive`, `Aut_{Ring}(X).ElementMethods.preserves_units` |
-| Category-specific Homset/Endset definitions | Subtree `<subtree>/homsets.py` | `SetHomsets`, `RingEndsets`, `RModHomsets` |
-| Wiring Homsets/Endsets/Autsets into a subtree's category namespace | Subtree `<subtree>/__init__.py` | `Sets().Homsets()`, `Sets().Endsets()`, and `Sets().Autsets()` delegate to the subtree homset category |
+| Generic Hom/End/Aut construction and dispatch | Top-level `homsets/` | `HomCategoryOf(C)`, `AutCategory().Of(A)`, ConditionSet integration |
+| Generic methods on all aut categories | Top-level `homsets/` | `Aut.ParentMethods.identity`, `Aut.ElementMethods.inverse` |
+| Category-specific aut properties | Subtree `<subtree>/homsets.py` | `Aut_{Set}(X).ParentMethods.is_transitive`, `Aut_{Ring}(X).ElementMethods.preserves_units` |
+| Category-specific Hom/End/Aut definitions | Subtree `<subtree>/homsets.py` | `SetHomCategory`, `RingHomCategory`, `RModuleHomCategory` |
+| Wiring Hom/End/Aut into a subtree's category namespace | Subtree `<subtree>/__init__.py` | `Sets().HomCategory()`, `Sets().EndCategory()`, and `Sets().AutCategory()` delegate to the subtree hom category |
 
 Subtrees focus on **categorical properties**: what methods should `Aut_{Set}(X)` have,
 what supercategories and additional structure it carries, how it refines the generic
-Autset. They must never reimplement the generic ConditionSet-on-Endset machinery that
-produces an Autset from an Endset.
+aut category. They must never reimplement the generic ConditionSet-on-End machinery that
+produces `Aut_C(A)` from `End_C(A)`.
 
-The first model for extra structure is `R-Mod`: `Modules(R).Homsets()` inherits the
-generic `HomsetsOf(Modules(R))` hierarchy and also declares the module structure on
-`Hom_R(M, N)`. Its endset subcategory additionally declares the algebra structure on
-`End_R(M)`. Other subtrees follow the same rule: declare only the additional
-mathematical structure that genuinely exists in that category.
+The first model for extra structure is `R-Mod`: `Modules(R).HomCategory()` inherits
+the generic `HomCategoryOf(Modules(R))` hierarchy and also declares the module
+structure on `Hom_R(M, N)`. Its end subcategory additionally declares the algebra
+structure on `End_R(M)`. Other subtrees follow the same rule: declare only the
+additional mathematical structure that genuinely exists in that category.
 
 ### Morphism, Endomorphism, and Automorphism element types
 
 The element types follow the same naming convention as other morphism types (see Type
 System Rules):
 
-- `Morphism` — element of a Homset
-- `Endomorphism` — element of an Endset (a `Morphism` where domain = codomain)
-- `Automorphism` — element of an Autset (an invertible `Endomorphism`)
+- `Morphism` — element of `Hom_C(A, B)`
+- `Endomorphism` — element of `End_C(A) = Hom_C(A, A)`
+- `Automorphism` — element of `Aut_C(A)`, the invertible part of `End_C(A)`
 
 These are defined in `types.py` and used in method signatures throughout.
 Each subtree's `homsets.py` declares `ElementMethods` for its specific
-Homset/Endset/Autset element types, inheriting from the top-level base methods.
+Hom/End/Aut element types, inheriting from the top-level base methods.
 
 ## File Tree
 
@@ -778,7 +776,7 @@ category_specs/
 ├── types.py              # ALL type aliases — single source of truth
 ├── utils.py             # shared utilities (refine_category, etc.)
 ├── cat/                 # category of categories; shared category-object boilerplate
-├── homsets/             # generic Hom/End/Aut dispatch, Autset wiring, base classes
+├── homsets/             # generic Hom/End/Aut category dispatch, Autset interop wiring, base classes
 │   ├── AGENTS.md
 │   ├── __init__.py
 │   ├── smoketest.sage
@@ -789,7 +787,7 @@ category_specs/
     ├── AGENTS.md         # subtree goals and task list
     ├── __init__.py       # defines category, ParentMethods, ElementMethods,
     │                     # MorphismMethods, Constructors; imports from subcategories/
-    ├── homsets.py        # subtree-specific Homset/Endset/Autset categories
+    ├── homsets.py        # subtree-specific HomCategory/EndCategory/AutCategory refinements
     ├── subcategories/    # one .py file per mathematical subcategory (no __init__.py)
     │   ├── finite.py
     │   ├── constructions/
@@ -830,8 +828,8 @@ category_specs/
   leaf or has few children.
 - Construction-style subcategories live under `subcategories/`, split by mathematical
   notion. Use `subcategories/constructions/<notion>.py` for attachable Sage
-  construction categories such as subobjects, quotients, subquotients, homsets,
-  endsets, autsets, objects-over, and objects-under. These classes may extend Sage
+  construction categories such as subobjects, quotients, subquotients, hom categories,
+  end categories, aut categories, objects-over, and objects-under. These classes may extend Sage
   functorial construction classes and use `category_of`; the target organization
   still places the category surface by mathematical notion.
 
@@ -934,9 +932,10 @@ Passing by weakening a spec, bypassing a constructor, catching away an error, or
 checking a shallow implementation detail is a regression.
 
 Smoke assertions should exercise the mathematical surface directly. Prefer
-construction calls such as `C.Aut()` or `C.Constructors().ZZ()` over proxy checks such
-as `hasattr(C, "Aut")`. Runtime provider/mixin inspections are allowed only for
-explicit method-surface audits and should not replace construction-level checks.
+construction calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over
+proxy checks such as `hasattr(C, "AutCategory")`. Runtime provider/mixin inspections
+are allowed only for explicit method-surface audits and should not replace
+construction-level checks.
 
 Each subtree's `smoketest.sage` must:
 - Add the repo root to `sys.path` so `category_specs` is importable.

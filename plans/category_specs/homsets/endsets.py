@@ -1,4 +1,4 @@
-r"""Endset categories and endomorphism method surfaces."""
+r"""End categories and endomorphism method surfaces."""
 
 from __future__ import annotations
 
@@ -9,20 +9,20 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .homsets import Homsets, HomsetsCategory
+from .homsets import HomCategory, HomCategoryConstruction
 
 if TYPE_CHECKING:
-    from ..types import Autset, Endomorphism
+    from ..types import CategoryObject, End, Endomorphism
 
 
-def _endsets_of(category: Category) -> Category:
-    if category.is_subcategory(Homsets()):
-        return category.Endset()
-    return category.Homsets().Endset()
+def _end_categories_of(category: Category) -> Category:
+    if category.is_subcategory(HomCategory()):
+        return category.EndCategory()
+    return category.HomCategory().EndCategory()
 
 
-class UniversalEndsetObjectMethods:
-    r"""Methods on objects ``End_C(A)`` of an endset category."""
+class UniversalEndObjectMethods:
+    r"""Methods on objects ``End_C(A)`` of an end category."""
 
     @final
     def is_endomorphism_set(self) -> bool:
@@ -31,22 +31,19 @@ class UniversalEndsetObjectMethods:
     @abstract_method
     def identity(self) -> Endomorphism: ...
 
-    def Aut(self) -> Autset:
-        return self.category().Autset().from_endset(self)
 
-
-class UniversalEndsetElementMethods:
-    r"""Methods on elements of endsets."""
+class UniversalEndElementMethods:
+    r"""Methods on elements of end categories."""
 
     @final
     def is_endomorphism(self) -> bool:
         return True
 
 
-class Endsets(CategoryWithAxiom_singleton):
-    r"""Category of all endomorphism sets."""
+class EndCategory(CategoryWithAxiom_singleton):
+    r"""Category of all endomorphism categories."""
 
-    _base_category_class_and_axiom = (Homsets, "Endset")
+    _base_category_class_and_axiom = (HomCategory, "Endset")
 
     def extra_super_categories(self) -> list:
         from sage.categories.homsets import Homsets as SageHomsets
@@ -56,68 +53,61 @@ class Endsets(CategoryWithAxiom_singleton):
     class SubcategoryMethods:
         @cached_method
         @final
-        def Autset(self) -> Category:
+        def AutCategory(self) -> Category:
             return self._with_axiom("Autset")
 
-
-    @cached_method
-    def Of(self, category: Category) -> Category:
-        r"""Return the generic category of endsets internal to ``category``."""
-        if category.is_subcategory(Homsets()):
-            return category.Endset()
-        return category.Homsets().Endset()
-
-    ParentMethods = UniversalEndsetObjectMethods
-    ElementMethods = UniversalEndsetElementMethods
+    ParentMethods = UniversalEndObjectMethods
+    ElementMethods = UniversalEndElementMethods
     class MorphismMethods: ...
 
-    Autset = LazyImport("category_specs.homsets.autsets", "Autsets")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport("category_specs.homsets.autsets", "AutCategory")
 
 
-class EndsetsCategory(HomsetsCategory):
-    r"""Functorial construction category for ``C.Endsets()``."""
+class EndCategoryConstruction(HomCategoryConstruction):
+    r"""Functorial construction category for ``C.EndCategory()``."""
 
-    _functor_category = "Endsets"
+    _functor_category = "EndCategory"
 
     class ParentMethods: ...
     class ElementMethods: ...
     class MorphismMethods: ...
 
+    @final
+    def Of(self, domain: CategoryObject) -> End:
+        r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
+        return self.base_category().HomCategory().Of(domain, domain)
+
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
-        if cls is EndsetsOf:
-            return Endsets()
+        if cls is EndCategoryOf:
+            return EndCategory()
         super_categories = category.super_categories()
         if not super_categories:
-            return Endsets()
-        return Category.join([_endsets_of(super_category) for super_category in super_categories])
+            return EndCategory()
+        return Category.join([_end_categories_of(super_category) for super_category in super_categories])
 
 
-class EndsetsOf(CategoryWithAxiom):
+class EndCategoryOf(CategoryWithAxiom):
     r"""Generic category whose objects are ``End_C(A)``."""
 
-    # Category-level construction: Endsets().Of(C) has objects End_C(A).
-    # Category-object zero-argument C.End() selects C.Endsets(); object-level
-    # endomorphism parents are Hom(A, A), expressed as A.Hom(A).
+    # Category-level construction: C.EndCategory() has objects End_C(A).
+    # Its Of(A) constructor evaluates the construction at A.
 
     def extra_super_categories(self) -> list:
-        return [Endsets()]
+        return [EndCategory()]
+
+    @final
+    def Of(self, domain: CategoryObject) -> End:
+        r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
+        return self.base_category().Of(domain, domain)
 
     class SubcategoryMethods:
         @cached_method
         @final
-        def Autset(self) -> Category:
+        def AutCategory(self) -> Category:
             return self._with_axiom("Autset")
 
-    ParentMethods = UniversalEndsetObjectMethods
-    ElementMethods = UniversalEndsetElementMethods
+    ParentMethods = UniversalEndObjectMethods
+    ElementMethods = UniversalEndElementMethods
     class MorphismMethods: ...
-
-
-__all__ = [
-    "Endsets",
-    "EndsetsCategory",
-    "EndsetsOf",
-    "UniversalEndsetElementMethods",
-    "UniversalEndsetObjectMethods",
-]

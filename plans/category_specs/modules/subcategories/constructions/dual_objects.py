@@ -13,7 +13,7 @@ class _DualObjects(DualObjectsCategory):
     @final
     def extra_super_categories(self):
         r"""The dual M^* is an integral linear form."""
-        return [self.base_category().Homsets().Forms().Linear().Integral()]
+        return [self.base_category().HomCategory().Forms().Linear().Integral()]
 
     class ParentMethods: ...
     class ElementMethods: ...

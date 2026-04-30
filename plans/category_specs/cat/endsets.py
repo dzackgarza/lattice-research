@@ -1,4 +1,4 @@
-r"""Endsets internal to ``Cat()``."""
+r"""End categories internal to ``Cat()``."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ from typing import final
 
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import EndsetsOf
-from .homsets import CatHomsets, _CatFunctorMethods
+from ..homsets import EndCategoryOf
+from .homsets import CatHomCategory, _CatFunctorMethods
 
 
 class _CatEndofunctorMethods(_CatFunctorMethods):
@@ -16,20 +16,18 @@ class _CatEndofunctorMethods(_CatFunctorMethods):
         return self.domain() == self.codomain()
 
 
-class CatEndsets(EndsetsOf):
-    r"""Endofunctor sets of a category."""
+class CatEndCategory(EndCategoryOf):
+    r"""Endofunctor category of a category."""
 
-    _base_category_class_and_axiom = (CatHomsets, "Endset")
+    _base_category_class_and_axiom = (CatHomCategory, "Endset")
 
     @final
     def _repr_object_names(self) -> str:
-        return f"endofunctor sets internal to {self.base_category()}"
+        return f"endofunctor categories internal to {self.base_category()}"
 
     ElementMethods = _CatEndofunctorMethods
     class ParentMethods: ...
     class MorphismMethods: ...
 
-    Autset = LazyImport("category_specs.cat.autsets", "CatAutsets")
-
-
-__all__ = ["CatEndsets"]
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport("category_specs.cat.autsets", "CatAutCategory")

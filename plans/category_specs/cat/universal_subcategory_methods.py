@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, final
 from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
-    from ..types import Category, CategoryObject, CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets
+    from ..types import Category, CategoryObject, CategoryOfAutCategories, CategoryOfEndCategories, CategoryOfHomCategories
 
 
 class UniversalSubcategoryMethods:
@@ -80,35 +80,17 @@ class UniversalSubcategoryMethods:
 
     @cached_method
     @final
-    def Homsets(self) -> CategoryOfHomsets:
-        from .base_category_types import HomsetsCategory
+    def HomCategory(self) -> CategoryOfHomCategories:
+        from ..homsets import HomCategoryConstruction
 
-        return HomsetsCategory.category_of(self)
-
-    @cached_method
-    @final
-    def Endsets(self) -> CategoryOfEndsets:
-        return self.Homsets().Endset()
+        return HomCategoryConstruction.category_of(self)
 
     @cached_method
     @final
-    def Autsets(self) -> CategoryOfAutsets:
-        return self.Endsets().Autset()
+    def EndCategory(self) -> CategoryOfEndCategories:
+        return self.HomCategory().EndCategory()
 
     @cached_method
     @final
-    def Hom(self) -> CategoryOfHomsets:
-        return self.Homsets()
-
-    @cached_method
-    @final
-    def End(self) -> CategoryOfEndsets:
-        return self.Endsets()
-
-    @cached_method
-    @final
-    def Aut(self) -> CategoryOfAutsets:
-        return self.Autsets()
-
-
-__all__ = ["UniversalSubcategoryMethods"]
+    def AutCategory(self) -> CategoryOfAutCategories:
+        return self.EndCategory().AutCategory()

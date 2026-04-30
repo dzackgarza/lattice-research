@@ -6,9 +6,9 @@ Subcategory hierarchy::
     |-- Finite()
     |-- Lattice()
     |   `-- Finite()
-    `-- Homsets()
-        |-- Endset()
-        `-- Autset()
+    `-- HomCategory()
+        |-- EndCategory()
+        `-- AutCategory()
 
 The root category specifies sets equipped with a partial order. Lattice posets
 are order-theoretic meet/join lattices, not module lattices.
@@ -26,7 +26,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category
 from ..sets import Sets
-from .homsets import PosetHomsets
+from .homsets import PosetHomCategory
 
 if TYPE_CHECKING:
     from ..types import PosetElement, PosetSubset
@@ -194,7 +194,7 @@ class Posets(Category):
         "category_specs.posets.subcategories.constructions.cartesian_products",
         "_CartesianProducts",
     )
-    Homsets = PosetHomsets
+    HomCategory = PosetHomCategory
 
     ParentMethods = _PosetParentMethods
     ElementMethods = _PosetElementMethods

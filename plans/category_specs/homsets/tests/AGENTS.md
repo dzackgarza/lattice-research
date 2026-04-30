@@ -1,4 +1,4 @@
-# homsets tests
+# hom category tests
 
-Homset tests verify the generic hom/end/autset surface only. Category-specific
+Hom-category tests verify the generic hom/end/aut category surface only. Category-specific
 morphism laws belong in the corresponding subtree tests.

@@ -40,8 +40,8 @@ this spec and does not re-export `leq`, `geq`, `<=`, or `>=`.
 `Cat.ParentMethods` is the single source of truth for operations every category
 object should expose:
 
-- `Hom()` / `End()` / `Aut()` for category-level homset, endset, and autset
-  constructions;
+- `HomCategory()` / `EndCategory()` / `AutCategory()` for category-level hom, end,
+  and aut constructions;
 - `Hom(D)` for the object-level functor homspace in `Cat`;
 - `leq`, `geq`, `<=`, and `>=` for the Sage category order between ordinary
   category objects;
@@ -105,9 +105,9 @@ Sage functorial construction categories map directly to category-object methods:
 | `QuotientsCategory` | `C.Quotients()` | `subcategories/constructions/quotients.py` |
 | `SubquotientsCategory` | `C.Subquotients()` | `subcategories/constructions/subquotients.py` |
 | `CartesianProductsCategory` | `C.CartesianProducts()` | `subcategories/constructions/cartesian_products.py` |
-| `HomsetsCategory` | `C.Homsets()` / `C.Hom()` | `homsets.py` |
-| `HomsetsCategory.Endset()` | `C.Endsets()` / `C.End()` | `endsets.py` |
-| `HomsetsCategory.Autset()` | `C.Autsets()` / `C.Aut()` | `autsets.py` |
+| `HomsetsCategory` | `C.HomCategory()` | `homsets.py` |
+| `HomsetsCategory.Endset()` | `C.EndCategory()` | `endsets.py` |
+| `HomsetsCategory.Autset()` | `C.AutCategory()` | `autsets.py` |
 | `JoinCategory` | `Cat().JoinCategories()` containment | `join_categories.py` |
 
 The universal selectors for the standard construction rows live in
@@ -115,11 +115,9 @@ The universal selectors for the standard construction rows live in
 construction classes, and Sage's `category_of(...)` machinery resolves the specific
 construction for the receiver.
 
-For wrapped ordinary category objects, `Hom` has a closed two-case arity split in
-`base_category_types._CatObjectMixin`: `C.Hom()` is the category-level construction,
-and `C.Hom(D)` delegates to Sage's parent homspace for functors `C -> D`. `End()` and
-`Aut()` are the category-level construction aliases; the object-level endomorphism
-functor space is `C.Hom(C)`.
+For wrapped ordinary category objects, `C.Hom(D)` delegates to Sage's parent homspace
+for functors `C -> D`. The category-level construction is `C.HomCategory()`. The
+object-level endomorphism functor space is `C.Hom(C)`.
 
 For `Cat()`, `Subobjects` means subcategories, `Quotients` means quotient
 categories, `Subquotients` means category-level subquotients, and
@@ -142,28 +140,28 @@ These classes use Sage's `RegressiveCovariantConstructionCategory` plus
 `Category_over_base`, so they follow the same `category_of(...)` entry point as
 Sage's built-in regressive constructions.
 
-## Homsets, Endsets, and Autsets
+## Hom, End, and Aut Categories
 
-`CatHomsets` is the category of functor homsets internal to `Cat()`.
+`CatHomCategory` is the category of functor categories internal to `Cat()`.
 
 Mapping:
 
-- `C.Hom()` is the category-level functorial construction whose objects are
+- `C.HomCategory()` is the category-level functorial construction whose objects are
   `Hom_C(A, B)` for objects `A, B` of `C`;
-- `Cat().Hom()` is therefore the category of functor homsets;
+- `C.HomCategory().Of(A, B)` is `Hom_C(A, B)`;
+- `Cat().HomCategory()` is therefore the category of functor categories;
 - `A.Hom(B)` returns Sage's `Hom(A, B, category=Cat())` parent when `A` and `B`
   are category objects;
-- `A.Hom(B).category()` is `Cat().Homsets()`;
-- `A.Hom(A)` is the object-level endofunctor parent; `A.End()` is the category-level
-  endset construction selector;
-- homset elements are Sage `Functor` instances;
+- `A.Hom(B).category()` is `Cat().HomCategory()`;
+- `A.Hom(A)` is the object-level endofunctor parent;
+- hom elements are Sage `Functor` instances;
 - construction functors are a specialized functor method surface, not category
   objects.
 
-The repository-level `homsets/` subtree owns generic homset/endset/autset
-vocabulary such as `domain`, `codomain`, `Endset`, and `Autset`. The Cat subtree
-adds only the functor-specific element surface and the `CatHomsets`, `CatEndsets`,
-and `CatAutsets` category refinements. These live in separate files:
+The repository-level `homsets/` subtree owns generic hom/end/aut vocabulary such as
+`domain`, `codomain`, `EndCategory`, and `AutCategory`. The Cat subtree adds only the
+functor-specific element surface and the `CatHomCategory`, `CatEndCategory`, and
+`CatAutCategory` refinements. These live in separate files:
 `cat/homsets.py`, `cat/endsets.py`, and `cat/autsets.py`.
 
 ## Constructors

@@ -53,9 +53,7 @@ Rules:
 - For any ordinary category `C`, `X in C` can mean object membership or morphism
   membership according to that category's own containment semantics. For `C = Cat()`,
   membership is category-object membership at this level; functors live in `A.Hom(B)`
-  for category objects `A, B in Cat()`. Endofunctors live in `A.Hom(A)`. The
-  zero-argument names `A.End()` and `A.Aut()` on category objects are category-level
-  construction selectors, not object-level functor parents.
+  for category objects `A, B in Cat()`. Endofunctors live in `A.Hom(A)`.
 - `leq` and `geq` are readable shorthands for Sage's subcategory relation between
   ordinary category objects. Do not re-export those aliases on `Cat()` itself:
   this spec does not place the root infinity-category object inside a larger modeled
@@ -63,31 +61,26 @@ Rules:
 - Distinguish object-level and category-level Hom notation:
   - If `A, B in Cat()`, then `A.Hom(B)` is the object-level homspace of functors
     from `A` to `B`.
-  - `Cat().Hom()` is the category-level construction whose objects are functor
-    homsets `A.Hom(B)` as `A, B` range over objects of `Cat()`.
-  - More generally, if `D` is a subcategory of `Cat()`, then `D.Hom()` restricts
-    that category-level construction to objects of `D`.
-  For wrapped ordinary categories, `base_category_types._CatObjectMixin.Hom` is the
-  closed arity bridge forced by Python's single-dispatch method lookup: `C.Hom()`
-  returns the category-level construction, while `C.Hom(D)` delegates to Sage's parent
-  Hom implementation for the object-level functor homspace.
+  - `Cat().HomCategory()` is the category-level construction whose objects are
+    functor categories `A.Hom(B)` as `A, B` range over objects of `Cat()`.
+  - `C.Hom()` does not exist as a category-level selector. Use `C.HomCategory()`.
+  For wrapped ordinary categories, `base_category_types._CatObjectMixin.Hom`
+  delegates `C.Hom(D)` to Sage's parent Hom implementation for the object-level
+  functor category.
 - Standard construction selectors (`Subobjects`, `Quotients`, `Subquotients`,
-  `ObjectsOver`, `ObjectsUnder`, `CartesianProducts`, `Homsets`, `Endsets`,
-  `Autsets`, `Hom`, `End`, `Aut`) are defined once in
+  `ObjectsOver`, `ObjectsUnder`, `CartesianProducts`, `HomCategory`, `EndCategory`,
+  `AutCategory`) are defined once in
   `universal_subcategory_methods.py` and mixed into ordinary category
   `SubcategoryMethods` by the wrapped base-category layer. Do not duplicate them in
   lower subtrees unless a category has a genuinely more specific mathematical
   construction to expose.
-- Follow the homset organization pattern inside this subtree too: `cat/homsets.py`,
-  `cat/endsets.py`, and `cat/autsets.py` are separate files. Do not fold endset/autset
-  classes into `cat/homsets.py`.
-- In the `Cat` homset layer, `Autset` is based on `CatEndsets`, not on `CatHomsets`.
-  `CatHomsets.Autset()` is only a convenience selector returning
-  `CatHomsets.Endset().Autset()`.
-- `Cat().Autsets()` and `C.Autsets()` for ordinary category objects route through
-  `Endsets().Autset()`. Audits should ask whether a functor autset is being treated as
-  a direct homset axiom; if so, the construction has likely been classified at the
-  wrong layer.
+- Follow the hom-category organization pattern inside this subtree too:
+  `cat/homsets.py`, `cat/endsets.py`, and `cat/autsets.py` are separate files. Do not
+  fold end/aut category classes into `cat/homsets.py`.
+- In the `Cat` hom layer, `AutCategory` is based on `CatEndCategory`, not directly on
+  `CatHomCategory`. Audits should ask whether a functor aut category is being treated
+  as a direct hom-category axiom; if so, the construction has likely been classified at
+  the wrong layer.
 - Sage functors and Sage construction functors are morphism-like objects in this
   subtree. Sage `ConstructionFunctor` methods such as `pushout`, `merge`, `commutes`,
   `expand`, and `common_base` belong to actual functors from

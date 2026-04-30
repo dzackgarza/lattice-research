@@ -1,4 +1,4 @@
-r"""Homsets internal to ``Cat()``.
+r"""Hom categories internal to ``Cat()``.
 
 Morphisms in ``Cat()`` are functors between categories.  Sage already has a
 substantial functor and construction-functor implementation; this file only
@@ -14,11 +14,11 @@ from sage.categories.pushout import ConstructionFunctor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import Homsets, HomsetsOf
+from ..homsets import HomCategoryOf
 from . import Category
 
 
-class _CatHomsetObjectMethods:
+class _CatHomCategoryObjectMethods:
     @abstract_method
     def __call__(self, functor: Functor) -> Functor: ...
 
@@ -67,8 +67,8 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
     def common_base(self, other_functor: ConstructionFunctor, self_bases, other_bases): ...
 
 
-class CatHomsets(HomsetsOf):
-    r"""Homsets of functors between categories."""
+class CatHomCategory(HomCategoryOf):
+    r"""Hom category of functors between categories."""
 
     @final
     def __init__(self, base_category: Category) -> None:
@@ -76,23 +76,24 @@ class CatHomsets(HomsetsOf):
 
     @classmethod
     @final
-    def category_of(cls, base_category: Category) -> CatHomsets:
+    def category_of(cls, base_category: Category) -> CatHomCategory:
         return cls(base_category)
 
     @final
     def _repr_object_names(self) -> str:
-        return f"functor homsets internal to {self.base_category()}"
+        return f"functor hom categories internal to {self.base_category()}"
 
     @final
     def extra_super_categories(self) -> list:
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _CatHomsetObjectMethods
+    ParentMethods = _CatHomCategoryObjectMethods
     ElementMethods = _CatFunctorMethods
     class MorphismMethods: ...
 
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
-    Endset = LazyImport("category_specs.cat.endsets", "CatEndsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport("category_specs.cat.endsets", "CatEndCategory")
 
 
 SageFunctor = Functor

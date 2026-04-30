@@ -1,26 +1,10 @@
-r"""Generic homset, endset, and autset category specs."""
+r"""Generic hom, end, and aut category specs."""
 
 from __future__ import annotations
 
-from .autsets import Autsets, AutsetsCategory, AutsetsOf, UniversalAutsetElementMethods, UniversalAutsetObjectMethods
-from .endsets import Endsets, EndsetsCategory, EndsetsOf, UniversalEndsetElementMethods, UniversalEndsetObjectMethods
-from .homsets import Homsets, HomsetsCategory, HomsetsOf, UniversalHomsetElementMethods, UniversalHomsetObjectMethods
+from .autsets import AutCategory, AutCategoryConstruction, AutCategoryOf, UniversalAutElementMethods, UniversalAutObjectMethods
+from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf, UniversalEndElementMethods, UniversalEndObjectMethods
+from .homsets import HomCategory, HomCategoryConstruction, HomCategoryOf, UniversalHomElementMethods, UniversalHomObjectMethods
 
-GenericEndsets = EndsetsOf
-GenericAutsets = AutsetsOf
-
-
-__all__ = [
-    "Autsets",
-    "AutsetsCategory",
-    "Endsets",
-    "EndsetsCategory",
-    "Homsets",
-    "HomsetsCategory",
-    "UniversalAutsetElementMethods",
-    "UniversalAutsetObjectMethods",
-    "UniversalEndsetElementMethods",
-    "UniversalEndsetObjectMethods",
-    "UniversalHomsetElementMethods",
-    "UniversalHomsetObjectMethods",
-]
+GenericEndCategory = EndCategoryOf
+GenericAutCategory = AutCategoryOf

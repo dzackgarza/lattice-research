@@ -1,4 +1,4 @@
-r"""Homset, endset, and autset categories for posets."""
+r"""Hom, end, and aut categories for posets."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import Poset
 
 
-class _PosetHomsetObjects:
-    r"""Poset-specific homset parent methods; generic homset methods are inherited."""
+class _PosetHomCategoryObjectMethods:
+    r"""Poset-specific hom parent methods; generic hom methods are inherited."""
 
 
 class _OrderPreservingMaps:
@@ -35,24 +35,25 @@ class _PosetAutomorphisms:
         return True
 
 
-class PosetHomsets(HomsetsOf):
-    r"""Category of homsets whose elements are order-preserving maps."""
+class PosetHomCategory(HomCategoryOf):
+    r"""Category of homs whose elements are order-preserving maps."""
 
     @final
     def extra_super_categories(self) -> list:
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _PosetHomsetObjects
+    ParentMethods = _PosetHomCategoryObjectMethods
     ElementMethods = _OrderPreservingMaps
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_PosetEndsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "PosetEndCategory")
 
 
-class _PosetEndsets(GenericEndsets):
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (PosetHomsets, "Endset")
-    Autset = LazyImport(__name__, "_PosetAutsets")
+class PosetEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (PosetHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "PosetAutCategory")
 
     class ParentMethods:
         @abstract_method
@@ -62,9 +63,8 @@ class _PosetEndsets(GenericEndsets):
     class MorphismMethods: ...
 
 
-class _PosetAutsets(GenericAutsets):
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_PosetEndsets, "Autset")
+class PosetAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (PosetEndCategory, "Autset")
 
     class ParentMethods: ...
     ElementMethods = _PosetAutomorphisms

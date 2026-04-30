@@ -13,11 +13,11 @@ Canonical type aliases used throughout this package:
     RMod                      -- the Modules(R) category itself
     RModule                   -- an object M in RMod
     RModuleElement            -- an element in some M
-    RModHomset                -- Hom_R(M, N) for some M, N in RMod
+    RModHom                   -- Hom_R(M, N) for some M, N in RMod
     RModMorphism              -- an element in some Hom_R(M, N)
-    RModEndset                -- End_R(M) for some M in RMod
+    RModEnd                   -- End_R(M) for some M in RMod
     RModEndomorphism          -- an element in some End_R(M)
-    RModAutset                -- Aut_R(M) for some M in RMod
+    RModAut                   -- Aut_R(M) for some M in RMod
     RModAutomorphism          -- an element in some Aut_R(M)
     SubModule                 -- an element in RMod.Subobjects()
     QuotientModule            -- an element in RMod.Quotients()
@@ -54,7 +54,7 @@ from ..cat import (
     TensorProductsCategory,
 )
 from ..utils import refine_category
-from .homsets import RModuleHomsets, _RModMorphisms
+from .homsets import RModuleHomCategory, _RModMorphisms
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -136,9 +136,9 @@ if TYPE_CHECKING:
         Ring,
         RingElement,
         RMod,
-        RModAutset,
-        RModEndset,
-        RModHomset,
+        RModAut,
+        RModEnd,
+        RModHom,
         RModMorphism,
         RModule,
         RModuleElement,
@@ -1170,7 +1170,7 @@ class Modules(Category_module):
     ParentMethods = _RModObjects
     ElementMethods = _RModElements
     MorphismMethods = _RModMorphisms
-    Homsets = RModuleHomsets
+    HomCategory = RModuleHomCategory
 
     # ------------------------------------------------------------------
     # Named subcategories

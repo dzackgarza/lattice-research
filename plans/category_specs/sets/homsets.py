@@ -1,6 +1,6 @@
-r"""Set-specific homset, endset, and autset categories.
+r"""Set-specific hom, end, and aut categories.
 
-Generic Autset construction belongs in the repository-level homset layer. This file
+Generic aut construction belongs in the repository-level hom layer. This file
 only declares the set-theoretic method surfaces: functions, endomorphisms, and
 automorphisms of sets.
 """
@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import (
@@ -22,8 +22,8 @@ if TYPE_CHECKING:
     )
 
 
-class _SetHomsetObjects:
-    r"""Set-specific homset parent methods; generic homset methods are inherited."""
+class _SetHomCategoryObjectMethods:
+    r"""Set-specific hom parent methods; generic hom methods are inherited."""
 
 
 class _SetMorphisms:
@@ -53,31 +53,32 @@ class _SetAutomorphisms:
     r"""Set-specific automorphism methods; generic automorphism methods are inherited."""
 
 
-class SetHomsets(HomsetsOf):
-    r"""Category of homsets between sets."""
+class SetHomCategory(HomCategoryOf):
+    r"""Category of homs between sets."""
 
-    # Category-level Sets.Hom() / Sets().Homsets() construction:
+    # Category-level Sets().HomCategory() construction:
     # objects are set-map parents Hom_Sets(X, Y). Set-map predicates
     # such as is_injective, is_surjective, and is_bijective belong here
     # on ElementMethods, not on the generic category of all morphisms.
 
     @final
     def extra_super_categories(self) -> list:
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _SetHomsetObjects
+    ParentMethods = _SetHomCategoryObjectMethods
     ElementMethods = _SetMorphisms
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_SetEndsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "SetEndCategory")
 
 
-class _SetEndsets(GenericEndsets):
-    # Category-level Sets.End() / Sets().Homsets().Endset() construction:
+class SetEndCategory(GenericEndCategory):
+    # Category-level Sets().EndCategory() construction:
     # objects are endomap parents End_Sets(X), not individual endomorphisms.
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (SetHomsets, "Endset")
-    Autset = LazyImport(__name__, "_SetAutsets")
+    _base_category_class_and_axiom = (SetHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "SetAutCategory")
 
     class ParentMethods:
         @abstract_method
@@ -87,12 +88,11 @@ class _SetEndsets(GenericEndsets):
     class MorphismMethods: ...
 
 
-class _SetAutsets(GenericAutsets):
-    # Category-level Sets.Aut() / Sets().Homsets().Autset() construction:
+class SetAutCategory(GenericAutCategory):
+    # Category-level Sets().AutCategory() construction:
     # objects are automorphism parents Aut_Sets(X), with set-map specs
-    # inherited from SetHomsets and automorphism specs from GenericAutsets.
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_SetEndsets, "Autset")
+    # inherited from SetHomCategory and automorphism specs from GenericAutCategory.
+    _base_category_class_and_axiom = (SetEndCategory, "Autset")
 
     class ParentMethods: ...
     ElementMethods = _SetAutomorphisms

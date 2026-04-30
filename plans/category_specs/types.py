@@ -36,14 +36,14 @@ from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
 from .algebras import Algebras
-from .homsets import Autsets, Endsets, Homsets
+from .homsets import AutCategory, EndCategory, HomCategory
 from .modules import Modules
-from .modules.homsets import RModuleHomsets
+from .modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from .posets import Posets
 from .posets.subcategories.finite_lattice import _FiniteLatticePosets
 from .posets.subcategories.lattice import _LatticePosets
 from .rings import Rings, _RingIdeals
-from .rings.homsets import RingHomsets
+from .rings.homsets import RingAutCategory, RingEndCategory, RingHomCategory
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
@@ -55,12 +55,12 @@ Matrix = SageMatrix
 MatrixSpace = SageMatrixSpace
 DiGraph = SageDiGraph
 CartesianProductFunctor = SageCartesianProductFunctor
-CategoryOfHomsets = Homsets
-CategoryOfEndsets = Endsets
-CategoryOfAutsets = Autsets
-Homset = Homsets.ParentMethods
-Endset = Endsets.ParentMethods
-Autset = Autsets.ParentMethods
+CategoryOfHomCategories = HomCategory
+CategoryOfEndCategories = EndCategory
+CategoryOfAutCategories = AutCategory
+Hom = HomCategory.ParentMethods
+End = EndCategory.ParentMethods
+Aut = AutCategory.ParentMethods
 Morphism = SageMorphism
 Endomorphism = SageMorphism
 Automorphism = SageMorphism
@@ -68,11 +68,11 @@ Ring = Rings.ParentMethods
 Field = _Fields.ParentMethods
 RingElement = Rings.ElementMethods
 RingMorphism = Rings.MorphismMethods
-RingHomset = RingHomsets.ParentMethods
-RingEndset = RingHomsets.Endset.ParentMethods
-RingAutset = RingHomsets.Endset.Autset.ParentMethods
-RingEndomorphism = RingHomsets.Endset.ElementMethods
-RingAutomorphism = RingHomsets.Endset.Autset.ElementMethods
+RingHom = RingHomCategory.ParentMethods
+RingEnd = RingEndCategory.ParentMethods
+RingAut = RingAutCategory.ParentMethods
+RingEndomorphism = RingEndCategory.ElementMethods
+RingAutomorphism = RingAutCategory.ElementMethods
 Group = SageGroup
 AbelianGroup = AbelianGroup_class
 Monoid = Monoid_class
@@ -106,15 +106,15 @@ Ideal = _RingIdeals.ParentMethods
 PrimeIdeal = Ideal
 MaximalIdeal = PrimeIdeal
 
-RModHomset = RModuleHomsets.ParentMethods
-RModEndset = RModuleHomsets.Endset.ParentMethods
-RModAutset = RModuleHomsets.Endset.Autset.ParentMethods
-RModuleEndSet = RModEndset
-RModuleAutSet = RModAutset
-RModEndomorphism = RModuleHomsets.Endset.ElementMethods
-RModAutomorphism = RModuleHomsets.Endset.Autset.ElementMethods
+RModHom = RModuleHomCategory.ParentMethods
+RModEnd = RModuleEndCategory.ParentMethods
+RModAut = RModuleAutCategory.ParentMethods
+RModuleEnd = RModEnd
+RModuleAut = RModAut
+RModEndomorphism = RModuleEndCategory.ElementMethods
+RModAutomorphism = RModuleAutCategory.ElementMethods
 RModuleEndomorphism = RModEndomorphism
-RModAutSet = RModAutset
+RModuleAutomorphism = RModAutomorphism
 DualModule = RModule
 RModDualElement = RModuleElement
 RModuleForm = RModMorphism
@@ -134,9 +134,9 @@ AlgebraBasis = AbstractFamily
 HochschildChainComplex = HochschildComplex
 
 # Sets
-from .posets.homsets import PosetHomsets
+from .posets.homsets import PosetAutCategory, PosetEndCategory, PosetHomCategory
 from .sets import Sets
-from .sets.homsets import SetHomsets
+from .sets.homsets import SetAutCategory, SetEndCategory, SetHomCategory
 from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
 from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
 from .sets.subcategories.constructions.realizations import _Realizations as SetRealizations
@@ -164,11 +164,11 @@ SetWithRealizations = SetWithRealizationsCategory.ParentMethods
 SetRealization = SetRealizations.ParentMethods
 SetElement = Sets.ElementMethods
 SetMorphism = Sets.MorphismMethods
-SetHomset = SetHomsets.ParentMethods
-SetEndset = SetHomsets.Endset.ParentMethods
-SetAutset = SetHomsets.Endset.Autset.ParentMethods
-SetEndomorphism = SetHomsets.Endset.ElementMethods
-SetAutomorphism = SetHomsets.Endset.Autset.ElementMethods
+SetHom = SetHomCategory.ParentMethods
+SetEnd = SetEndCategory.ParentMethods
+SetAut = SetAutCategory.ParentMethods
+SetEndomorphism = SetEndCategory.ElementMethods
+SetAutomorphism = SetAutCategory.ElementMethods
 FiniteSetMap = FiniteSetMap_MN
 SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
@@ -189,9 +189,9 @@ SympySet = SageSympySet
 Poset = Posets.ParentMethods
 PosetElement = Posets.ElementMethods
 PosetMorphism = Posets.MorphismMethods
-PosetHomset = PosetHomsets.ParentMethods
-PosetEndset = PosetHomsets.Endset.ParentMethods
-PosetAutset = PosetHomsets.Endset.Autset.ParentMethods
+PosetHom = PosetHomCategory.ParentMethods
+PosetEnd = PosetEndCategory.ParentMethods
+PosetAut = PosetAutCategory.ParentMethods
 PosetSubset = Subset
 LatticePoset = _LatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods

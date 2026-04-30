@@ -55,9 +55,9 @@ multi-object parameterized subcategories.
 
 | Sage surface | Target surface | Rationale |
 | --- | --- | --- |
-| `Rings().Homsets()` | `rings/homsets.py` and top-level `homsets/` | Ring morphisms are structure-preserving maps. The ring-specific file declares ring-homomorphism vocabulary; the top-level homset hierarchy owns generic hom/end/aut set behavior. |
-| `Rings().Endsets()` | `rings/homsets.py` plus generic `Endsets` | Endomorphism sets are homsets with equal domain and codomain. The ring subtree should specify ring endomorphism methods without duplicating generic endset category logic. |
-| Project `Rings().Autsets()` | generic `Autsets` with ring specialization | A ring automorphism set is the bijective part of `End(R)`. The target should expose this explicitly because `Aut` appears in Sage ring objects even when category-level wiring is inherited. |
+| `Rings().Homsets()` | `Rings().HomCategory()` in `rings/homsets.py` and top-level `homsets/` | Ring morphisms are structure-preserving maps. The ring-specific file declares ring-homomorphism vocabulary; the top-level hom category hierarchy owns generic hom/end/aut behavior. |
+| `Rings().Endsets()` | `Rings().EndCategory()` plus generic end-category wiring | Endomorphism objects are `End(R) = Hom(R, R)`. The ring subtree specifies ring endomorphism methods without duplicating generic end-category logic. |
+| Sage/project automorphism surfaces | `Rings().AutCategory()` with ring specialization | A ring automorphism object is the bijective part of `End(R)`. The target exposes this explicitly because `Aut` appears in Sage ring objects even when category-level wiring is inherited. |
 | `Rings().CartesianProducts()` | `subcategories/constructions/cartesian_products.py` | A product of rings is a ring with componentwise operations. Signatures should use sequence vocabulary for the factors unless Sage source proves a different mathematical input shape. |
 | `Rings().Subquotients()` | `subcategories/constructions/subquotients.py` | Quotients and subobjects share the ambient/lift/retract construction. Ring documentation must keep this parent construction visible instead of jumping directly to quotient rings. |
 | `Rings().Subobjects()` | `subcategories/constructions/subobjects.py` | Ring subobjects are subrings in ring categories, not arbitrary subsets. Ideals belong to their own ring-side vocabulary when they are not themselves ring objects. |

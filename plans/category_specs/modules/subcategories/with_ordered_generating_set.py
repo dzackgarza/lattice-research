@@ -5,10 +5,10 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
-from sage.categories.homsets import HomsetsCategory
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -38,7 +38,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
         def gen(self, i: Integer) -> RModuleElement:
             return self.gens()[i]
 
-    class Homsets(HomsetsCategory):
+    class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstract_method
             def from_function(self, f: Callable[[RModuleElement], RModuleElement]) -> RModuleMorphism: ...

@@ -1,13 +1,12 @@
-# Homsets Triage
+# Hom Category Triage
 
 Source for this pass: Sage `sage/categories/homsets.py`, the project subtree
-homset files, and the user directive to create a root homsets subtree.
+hom-category files, and the user directive to create a root hom-category subtree.
 
-Runtime smoke validation now instantiates `Homsets()`, `Homsets().Endset()`,
-`Homsets().Endset().Autset()` through the `Homsets().Autset()` convenience selector,
-and the `Cat` functor hom/end/aut layers.
+Spec smokes now state the `HomCategory`, `EndCategory`, and `AutCategory` frontier.
+Sage names such as `Homsets` and `Endset` appear only as inventoried interop hooks.
 
 ## Current Smoke Frontier
 
-No additional homsets-specific missing obligation is recorded in this file. Mapping
+No additional hom-category-specific missing obligation is recorded in this file. Mapping
 and ownership decisions live in `homsets/docs/MAPPING.md`.

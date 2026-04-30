@@ -1,4 +1,4 @@
-r"""Mathematical smoke surface for the generic homsets subtree."""
+r"""Mathematical smoke surface for the generic hom category subtree."""
 
 import pathlib
 import sys
@@ -8,7 +8,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from category_specs.cat import Cat
-from category_specs.homsets import Autsets, Endsets, Homsets
+from category_specs.homsets import AutCategory, EndCategory, HomCategory
 from category_specs.modules import Modules
 from category_specs.posets import Posets
 from category_specs.rings import Rings
@@ -21,73 +21,55 @@ from sage.all import ZZ
 C = Cat()
 
 SMOKE_STATEMENTS = (
-    ("Homsets() is a category", lambda _: Homsets() in C),
-    ("Homsets().Endset() is a category", lambda _: Homsets().Endset() in C),
-    ("Homsets().Autset() is a category", lambda _: Homsets().Autset() in C),
-    ("Homsets().Of(Cat()) is a category", lambda _: Homsets().Of(Cat()) in C),
-    ("Endsets().Of(Cat()) is a category", lambda _: Endsets().Of(Cat()) in C),
-    ("Autsets().Of(Cat()) is a category", lambda _: Autsets().Of(Cat()) in C),
-    ("Cat().Hom() is Cat().Homsets()", lambda _: C.Hom() is C.Homsets()),
-    ("Cat().End() is Cat().Hom().Endset()", lambda _: C.End() is C.Hom().Endset()),
-    ("Cat().Aut() is Cat().End().Autset()", lambda _: C.Aut() is C.End().Autset()),
-    ("Sets().Homsets() is a category", lambda _: Sets().Homsets() in C),
-    ("Sets().Homsets().Endset() is a category", lambda _: Sets().Homsets().Endset() in C),
-    ("Sets().Homsets().Endset().Autset() is a category", lambda _: Sets().Homsets().Endset().Autset() in C),
-    ("Endsets().Of(Sets()) is Sets().Homsets().Endset()", lambda _: Endsets().Of(Sets()) is Sets().Homsets().Endset()),
-    ("Autsets().Of(Sets()) is Sets().Homsets().Endset().Autset()", lambda _: Autsets().Of(Sets()) is Sets().Homsets().Endset().Autset()),
-    ("Sets().Homsets() refines set homsets", lambda _: Sets().Homsets().is_subcategory(Sets().Homsets())),
-    ("Sets().Endsets() refines set endsets", lambda _: Sets().Endsets().is_subcategory(Sets().Homsets().Endset())),
-    ("Sets().Autsets() refines set autsets", lambda _: Sets().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
-    ("Rings().Homsets() is a category", lambda _: Rings().Homsets() in C),
-    ("Rings().Homsets().Endset() is a category", lambda _: Rings().Homsets().Endset() in C),
-    ("Rings().Homsets().Endset().Autset() is a category", lambda _: Rings().Homsets().Endset().Autset() in C),
-    ("Endsets().Of(Rings()) is Rings().Homsets().Endset()", lambda _: Endsets().Of(Rings()) is Rings().Homsets().Endset()),
-    ("Autsets().Of(Rings()) is Rings().Homsets().Endset().Autset()", lambda _: Autsets().Of(Rings()) is Rings().Homsets().Endset().Autset()),
-    ("Rings().Homsets() refines set homsets", lambda _: Rings().Homsets().is_subcategory(Sets().Homsets())),
-    ("Rings().Endsets() refines set endsets", lambda _: Rings().Endsets().is_subcategory(Sets().Homsets().Endset())),
-    ("Rings().Autsets() refines set autsets", lambda _: Rings().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
-    ("Posets().Homsets() is a category", lambda _: Posets().Homsets() in C),
-    ("Posets().Homsets().Endset() is a category", lambda _: Posets().Homsets().Endset() in C),
-    ("Posets().Homsets().Endset().Autset() is a category", lambda _: Posets().Homsets().Endset().Autset() in C),
-    ("Endsets().Of(Posets()) is Posets().Homsets().Endset()", lambda _: Endsets().Of(Posets()) is Posets().Homsets().Endset()),
-    ("Autsets().Of(Posets()) is Posets().Homsets().Endset().Autset()", lambda _: Autsets().Of(Posets()) is Posets().Homsets().Endset().Autset()),
-    ("Posets().Homsets() refines set homsets", lambda _: Posets().Homsets().is_subcategory(Sets().Homsets())),
-    ("Posets().Endsets() refines set endsets", lambda _: Posets().Endsets().is_subcategory(Sets().Homsets().Endset())),
-    ("Posets().Autsets() refines set autsets", lambda _: Posets().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
-    ("TopologicalSpaces().Homsets() is a category", lambda _: TopologicalSpaces().Homsets() in C),
-    ("TopologicalSpaces().Homsets().Endset() is a category", lambda _: TopologicalSpaces().Homsets().Endset() in C),
-    ("TopologicalSpaces().Homsets().Endset().Autset() is a category", lambda _: TopologicalSpaces().Homsets().Endset().Autset() in C),
+    ("HomCategory() is a category", lambda _: HomCategory() in C),
+    ("EndCategory() is a category", lambda _: EndCategory() in C),
+    ("AutCategory() is a category", lambda _: AutCategory() in C),
+    ("Cat().HomCategory() is a category", lambda _: C.HomCategory() in C),
+    ("Cat().EndCategory() is a category", lambda _: C.EndCategory() in C),
+    ("Cat().AutCategory() is a category", lambda _: C.AutCategory() in C),
+    ("Cat().EndCategory() is Cat().HomCategory().EndCategory()", lambda _: C.EndCategory() is C.HomCategory().EndCategory()),
+    ("Cat().AutCategory() is Cat().EndCategory().AutCategory()", lambda _: C.AutCategory() is C.EndCategory().AutCategory()),
+    ("Sets().HomCategory() is a category", lambda _: Sets().HomCategory() in C),
+    ("Sets().EndCategory() is a category", lambda _: Sets().EndCategory() in C),
+    ("Sets().AutCategory() is a category", lambda _: Sets().AutCategory() in C),
+    ("Sets().EndCategory() refines its hom end category", lambda _: Sets().EndCategory().is_subcategory(Sets().HomCategory().EndCategory())),
     (
-        "Endsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset()",
-        lambda _: Endsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset(),
+        "Sets().AutCategory() refines its end aut category",
+        lambda _: Sets().AutCategory().is_subcategory(Sets().EndCategory().AutCategory()),
+    ),
+    ("Rings().HomCategory() is a category", lambda _: Rings().HomCategory() in C),
+    ("Rings().EndCategory() is a category", lambda _: Rings().EndCategory() in C),
+    ("Rings().AutCategory() is a category", lambda _: Rings().AutCategory() in C),
+    ("Rings().HomCategory() refines set hom categories", lambda _: Rings().HomCategory().is_subcategory(Sets().HomCategory())),
+    ("Rings().EndCategory() refines set end categories", lambda _: Rings().EndCategory().is_subcategory(Sets().EndCategory())),
+    ("Rings().AutCategory() refines set aut categories", lambda _: Rings().AutCategory().is_subcategory(Sets().AutCategory())),
+    ("Posets().HomCategory() is a category", lambda _: Posets().HomCategory() in C),
+    ("Posets().EndCategory() is a category", lambda _: Posets().EndCategory() in C),
+    ("Posets().AutCategory() is a category", lambda _: Posets().AutCategory() in C),
+    ("Posets().HomCategory() refines set hom categories", lambda _: Posets().HomCategory().is_subcategory(Sets().HomCategory())),
+    ("Posets().EndCategory() refines set end categories", lambda _: Posets().EndCategory().is_subcategory(Sets().EndCategory())),
+    ("Posets().AutCategory() refines set aut categories", lambda _: Posets().AutCategory().is_subcategory(Sets().AutCategory())),
+    ("TopologicalSpaces().HomCategory() is a category", lambda _: TopologicalSpaces().HomCategory() in C),
+    ("TopologicalSpaces().EndCategory() is a category", lambda _: TopologicalSpaces().EndCategory() in C),
+    ("TopologicalSpaces().AutCategory() is a category", lambda _: TopologicalSpaces().AutCategory() in C),
+    (
+        "TopologicalSpaces().HomCategory() refines set hom categories",
+        lambda _: TopologicalSpaces().HomCategory().is_subcategory(Sets().HomCategory()),
     ),
     (
-        "Autsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset().Autset()",
-        lambda _: Autsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset().Autset(),
+        "TopologicalSpaces().EndCategory() refines set end categories",
+        lambda _: TopologicalSpaces().EndCategory().is_subcategory(Sets().EndCategory()),
     ),
     (
-        "TopologicalSpaces().Homsets() refines set homsets",
-        lambda _: TopologicalSpaces().Homsets().is_subcategory(Sets().Homsets()),
+        "TopologicalSpaces().AutCategory() refines set aut categories",
+        lambda _: TopologicalSpaces().AutCategory().is_subcategory(Sets().AutCategory()),
     ),
-    (
-        "TopologicalSpaces().Endsets() refines set endsets",
-        lambda _: TopologicalSpaces().Endsets().is_subcategory(Sets().Homsets().Endset()),
-    ),
-    (
-        "TopologicalSpaces().Autsets() refines set autsets",
-        lambda _: TopologicalSpaces().Autsets().is_subcategory(Sets().Homsets().Endset().Autset()),
-    ),
-    ("Modules(ZZ).Homsets() is a category", lambda _: Modules(ZZ).Homsets() in C),
-    ("Modules(ZZ).Homsets().Endset() is a category", lambda _: Modules(ZZ).Homsets().Endset() in C),
-    ("Modules(ZZ).Homsets().Endset().Autset() is a category", lambda _: Modules(ZZ).Homsets().Endset().Autset() in C),
-    ("Endsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset()", lambda _: Endsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset()),
-    (
-        "Autsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset().Autset()",
-        lambda _: Autsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset().Autset(),
-    ),
-    ("Modules(ZZ).Homsets() refines set homsets", lambda _: Modules(ZZ).Homsets().is_subcategory(Sets().Homsets())),
-    ("Modules(ZZ).Endsets() refines set endsets", lambda _: Modules(ZZ).Endsets().is_subcategory(Sets().Homsets().Endset())),
-    ("Modules(ZZ).Autsets() refines set autsets", lambda _: Modules(ZZ).Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
+    ("Modules(ZZ).HomCategory() is a category", lambda _: Modules(ZZ).HomCategory() in C),
+    ("Modules(ZZ).EndCategory() is a category", lambda _: Modules(ZZ).EndCategory() in C),
+    ("Modules(ZZ).AutCategory() is a category", lambda _: Modules(ZZ).AutCategory() in C),
+    ("Modules(ZZ).HomCategory() refines set hom categories", lambda _: Modules(ZZ).HomCategory().is_subcategory(Sets().HomCategory())),
+    ("Modules(ZZ).EndCategory() refines set end categories", lambda _: Modules(ZZ).EndCategory().is_subcategory(Sets().EndCategory())),
+    ("Modules(ZZ).AutCategory() refines set aut categories", lambda _: Modules(ZZ).AutCategory().is_subcategory(Sets().AutCategory())),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)

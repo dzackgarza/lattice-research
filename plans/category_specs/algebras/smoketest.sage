@@ -29,7 +29,7 @@ SMOKE_STATEMENTS = (
     ("Algebras(ZZ).CartesianProducts() is an object of Cat()", lambda _: A.CartesianProducts() in Cat()),
     ("Algebras(ZZ).TensorProducts() is an object of Cat()", lambda _: A.TensorProducts() in Cat()),
     ("Algebras(ZZ).DualObjects() is an object of Cat()", lambda _: A.DualObjects() in Cat()),
-    ("Algebras(ZZ).Homsets() is an object of Cat()", lambda _: A.Homsets() in Cat()),
+    ("Algebras(ZZ).HomCategory() is an object of Cat()", lambda _: A.HomCategory() in Cat()),
     (
         "Algebras(ZZ).Constructors() has admitted mathematical constructor cases",
         lambda _: False,

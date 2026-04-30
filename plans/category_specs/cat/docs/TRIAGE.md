@@ -13,12 +13,12 @@ local smoke surface `cat/smoketest.sage`.
 - Natural transformations are not modeled. The current Cat morphism surface is Sage
   functors and construction functors.
 - The generic Sage functor API does not provide a uniform invertibility certificate.
-  Concrete autofunctor membership beyond the generic `Autset` condition remains a
+  Concrete autofunctor membership beyond the generic aut-category condition remains a
   future refinement.
 
 ## Validation Scope
 
 Run `sage cat/smoketest.sage` after layout and documentation edits are complete.
 This smoke is structural. It checks Cat instantiation, category-object membership,
-functor homset instantiation, and standard construction navigation. It does not prove
+functor HomCategory instantiation, and standard construction navigation. It does not prove
 that all other subtrees have completed the later uniformization refactor.

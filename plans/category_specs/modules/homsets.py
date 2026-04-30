@@ -1,12 +1,11 @@
-r"""Spec for the homset/morphism layer over ``Modules(R)``.
+r"""Spec for the hom/morphism layer over ``Modules(R)``.
 
 Defines:
-    RModuleHomsets             -- the category of R-module homsets Hom_R(M, N)
-    RModuleHomsets.Forms       -- forms Hom_R(T_R(M)[p,q], S) (linear,
+    RModuleHomCategory         -- the category of R-module homs Hom_R(M, N)
+    RModuleHomCategory.Forms   -- forms Hom_R(T_R(M)[p,q], S) (linear,
                                   bilinear, quadratic, symmetric, ...)
-    RModuleHomsets.Endset      -- End_R(M) as an R-algebra
-    RModuleHomsets.Endset.Autset
-                               -- Aut_R(M) as the group of units of End_R(M)
+    Modules(R).EndCategory()   -- category whose objects are End_R(M)
+    Modules(R).AutCategory()   -- category whose objects are Aut_R(M)
 """
 
 from __future__ import annotations
@@ -19,7 +18,7 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category, CategoryWithAxiom_over_base_ring
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from typing import Self
@@ -33,7 +32,7 @@ if TYPE_CHECKING:
         QuadraticFormsModule,
         QuotientModule,
         RingElement,
-        RModAutset,
+        RModAut,
         RModMorphism,
         RModule,
         RModuleElement,
@@ -42,7 +41,7 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# Forms-axiom helpers (wired into RModuleHomsets.Forms below)
+# Forms-axiom helpers (wired into RModuleHomCategory.Forms below)
 # ---------------------------------------------------------------------------
 
 
@@ -79,11 +78,11 @@ class _Quadratic(CategoryWithAxiom_over_base_ring):
 
 
 # ---------------------------------------------------------------------------
-# Homset-level (parent) methods
+# Hom-level parent methods
 # ---------------------------------------------------------------------------
 
 
-class _RModHomsetObjects:
+class _RModHomCategoryObjectMethods:
     @cached_method
     @final
     def zero(self):
@@ -184,7 +183,7 @@ class _RModEndomorphisms:
 
 
 class _RModAutomorphisms:
-    r"""Module-specific automorphism methods; generic autset methods are inherited."""
+    r"""Module-specific automorphism methods; generic aut-category methods are inherited."""
 
 
 # ---------------------------------------------------------------------------
@@ -273,20 +272,20 @@ class _Forms(CategoryWithAxiom_over_base_ring):
 
 
 # ---------------------------------------------------------------------------
-# RModuleHomsets: the homset category proper
+# RModuleHomCategory: the hom category proper
 # ---------------------------------------------------------------------------
 
 
-class RModuleHomsets(HomsetsOf):
-    r"""The category of R-module homsets ``Hom_R(M, N)``.
+class RModuleHomCategory(HomCategoryOf):
+    r"""The category of R-module homs ``Hom_R(M, N)``.
 
-    Objects are homsets; elements are R-module morphisms.
+    Objects are hom parents; elements are R-module morphisms.
     """
 
     @final
     def extra_super_categories(self):
         r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
-        return [Homsets().Of(self.base_category()), self.base_category()]
+        return [HomCategoryOf(self.base_category()), self.base_category()]
 
     class SubcategoryMethods:
         @cached_method
@@ -294,23 +293,24 @@ class RModuleHomsets(HomsetsOf):
         def Forms(self) -> Category:
             return self._with_axiom("Forms")
 
-    ParentMethods = _RModHomsetObjects
+    ParentMethods = _RModHomCategoryObjectMethods
     ElementMethods = _RModMorphisms
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_Endsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "RModuleEndCategory")
     Forms = _Forms
 
 
 # ---------------------------------------------------------------------------
-# Endset and Autset subcategories
+# End and aut subcategories
 # ---------------------------------------------------------------------------
 
 
-class _Endsets(GenericEndsets):
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (RModuleHomsets, "Endset")
-    Autset = LazyImport(__name__, "_Autsets")
+class RModuleEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (RModuleHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "RModuleAutCategory")
 
     @final
     def extra_super_categories(self):
@@ -328,7 +328,7 @@ class _Endsets(GenericEndsets):
             ...
 
         @abstract_method
-        def unit_group(self) -> RModAutset: ...
+        def unit_group(self) -> RModAut: ...
 
         # Do not define ``as_automorphism`` -- promotion of invertible
         # objects should happen automatically.
@@ -337,9 +337,8 @@ class _Endsets(GenericEndsets):
     class MorphismMethods: ...
 
 
-class _Autsets(GenericAutsets):
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_Endsets, "Autset")
+class RModuleAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (RModuleEndCategory, "Autset")
 
     @final
     def extra_super_categories(self):
@@ -347,7 +346,7 @@ class _Autsets(GenericAutsets):
         return super().extra_super_categories()
 
     class ParentMethods:
-        r"""Module-specific autset parent methods; generic autset methods are inherited."""
+        r"""Module-specific aut parent methods; generic aut methods are inherited."""
 
     ElementMethods = _RModAutomorphisms
     class MorphismMethods: ...

@@ -1,4 +1,4 @@
-"""Homset/endset/autset layer for ``Rings()``."""
+"""Hom/end/aut layer for ``Rings()``."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    from ..types import Ideal, Ring, RingAutset, RingEndset, RingHomset, RingMorphism
+    from ..types import Ideal, Ring, RingAut, RingEnd, RingHom, RingMorphism
 
 
-class _RingHomsetObjects:
-    r"""Ring-specific homset parent methods; generic homset methods are inherited."""
+class _RingHomCategoryObjectMethods:
+    r"""Ring-specific hom parent methods; generic hom methods are inherited."""
 
 
 class _RingHomomorphisms:
@@ -37,36 +37,37 @@ class _RingAutomorphisms:
     r"""Ring-specific automorphism methods; generic automorphism methods are inherited."""
 
 
-class RingHomsets(HomsetsOf):
+class RingHomCategory(HomCategoryOf):
     @classmethod
     @final
-    def from_sage_homset(cls, homset: RingHomset) -> RingHomset:
+    def from_sage_hom(cls, hom: RingHom) -> RingHom:
         from . import Rings
 
-        return refine_category(homset, Rings().Homsets())
+        return refine_category(hom, Rings().HomCategory())
 
     @final
     def extra_super_categories(self):
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _RingHomsetObjects
+    ParentMethods = _RingHomCategoryObjectMethods
     ElementMethods = _RingHomomorphisms
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_Endsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "RingEndCategory")
 
 
-class _Endsets(GenericEndsets):
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (RingHomsets, "Endset")
-    Autset = LazyImport(__name__, "_Autsets")
+class RingEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (RingHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "RingAutCategory")
 
     @classmethod
     @final
-    def from_sage_endset(cls, endset: RingEndset) -> RingEndset:
+    def from_sage_end(cls, end: RingEnd) -> RingEnd:
         from . import Rings
 
-        return refine_category(endset, Rings().Homsets().Endset())
+        return refine_category(end, Rings().EndCategory())
 
     class ParentMethods:
         @abstract_method
@@ -75,24 +76,23 @@ class _Endsets(GenericEndsets):
             ...
 
         @final
-        def unit_group(self) -> RingAutset:
-            return self.Aut()
+        def unit_group(self) -> RingAut:
+            return self.category().AutCategory().from_end_category(self)
 
     ElementMethods = _RingEndomorphisms
     class MorphismMethods: ...
 
 
-class _Autsets(GenericAutsets):
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_Endsets, "Autset")
+class RingAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (RingEndCategory, "Autset")
 
     class ParentMethods:
         @final
         def base_ring(self) -> Ring:
-            return self.endset().base_ring()
+            return self.end_category().base_ring()
 
         @final
-        def unit_group(self) -> RingAutset:
+        def unit_group(self) -> RingAut:
             return self
 
     ElementMethods = _RingAutomorphisms

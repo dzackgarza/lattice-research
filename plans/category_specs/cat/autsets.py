@@ -1,11 +1,11 @@
-r"""Autsets internal to ``Cat()``."""
+r"""Aut categories internal to ``Cat()``."""
 
 from __future__ import annotations
 
 from typing import final
 
-from ..homsets import AutsetsOf
-from .endsets import CatEndsets, _CatEndofunctorMethods
+from ..homsets import AutCategoryOf
+from .endsets import CatEndCategory, _CatEndofunctorMethods
 
 
 class _CatAutofunctorMethods(_CatEndofunctorMethods):
@@ -14,18 +14,15 @@ class _CatAutofunctorMethods(_CatEndofunctorMethods):
         return True
 
 
-class CatAutsets(AutsetsOf):
-    r"""Autofunctor sets of a category."""
+class CatAutCategory(AutCategoryOf):
+    r"""Autofunctor category of a category."""
 
-    _base_category_class_and_axiom = (CatEndsets, "Autset")
+    _base_category_class_and_axiom = (CatEndCategory, "Autset")
 
     @final
     def _repr_object_names(self) -> str:
-        return f"autofunctor sets internal to {self.base_category()}"
+        return f"autofunctor categories internal to {self.base_category()}"
 
     ElementMethods = _CatAutofunctorMethods
     class ParentMethods: ...
     class MorphismMethods: ...
-
-
-__all__ = ["CatAutsets"]

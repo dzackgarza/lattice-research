@@ -23,7 +23,7 @@ SMOKE_STATEMENTS = (
     ("Posets().Quotients() is an object of Cat()", lambda _: P.Quotients() in Cat()),
     ("Posets().Subquotients() is an object of Cat()", lambda _: P.Subquotients() in Cat()),
     ("Posets().CartesianProducts() is an object of Cat()", lambda _: P.CartesianProducts() in Cat()),
-    ("Posets().Homsets() is an object of Cat()", lambda _: P.Homsets() in Cat()),
+    ("Posets().HomCategory() is an object of Cat()", lambda _: P.HomCategory() in Cat()),
     (
         "Posets().Constructors() has admitted mathematical constructor cases",
         lambda _: False,

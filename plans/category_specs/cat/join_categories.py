@@ -35,6 +35,3 @@ class JoinCategories(Category_singleton):
     @final
     def __contains__(self, candidate: Any) -> bool:
         return is_join_category(candidate)
-
-
-__all__ = ["JoinCategories", "is_join_category"]

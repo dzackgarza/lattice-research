@@ -237,9 +237,9 @@ Relevant surface:
 | `cat/universal_subcategory_methods.py` | Defines the shared literal `SubcategoryMethods` construction selectors for category objects. |
 | `cat/empty_category.py` | Declares the bottom category object, separate from join-category logic. |
 | `cat/join_categories.py` | Declares the Sage `JoinCategory` containment predicate and subcategory. |
-| `cat/homsets.py` | Declares the `Cat().Homsets()` category refinement and functor method surfaces. |
-| `cat/endsets.py` | Declares the `Cat().Endsets()` category refinement. |
-| `cat/autsets.py` | Declares the `Cat().Autsets()` category refinement. |
+| `cat/homsets.py` | Declares the `Cat().HomCategory()` refinement and functor method surfaces. |
+| `cat/endsets.py` | Declares the `Cat().EndCategory()` refinement. |
+| `cat/autsets.py` | Declares the `Cat().AutCategory()` refinement. |
 | `cat/subcategories/constructions/subobjects.py` | Category-level subobjects: subcategories. |
 | `cat/subcategories/constructions/quotients.py` | Category-level quotients. |
 | `cat/subcategories/constructions/subquotients.py` | Category-level subquotients. |

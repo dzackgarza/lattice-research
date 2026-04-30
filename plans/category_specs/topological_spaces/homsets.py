@@ -1,4 +1,4 @@
-r"""Homset, endset, and autset categories for topological spaces."""
+r"""Hom, end, and aut categories for topological spaces."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import TopologicalSpace
 
 
-class _TopologicalHomsetObjects:
-    r"""Topological homset parent methods; generic homset methods are inherited."""
+class _TopologicalHomCategoryObjectMethods:
+    r"""Topological hom parent methods; generic hom methods are inherited."""
 
 
 class _ContinuousMaps:
@@ -31,24 +31,25 @@ class _Homeomorphisms:
         return True
 
 
-class TopologicalSpaceHomsets(HomsetsOf):
-    r"""Category of homsets whose elements are continuous maps."""
+class TopologicalSpaceHomCategory(HomCategoryOf):
+    r"""Category of homs whose elements are continuous maps."""
 
     @final
     def extra_super_categories(self):
-        return [Homsets().Of(self.base_category())]
+        return [HomCategoryOf(self.base_category())]
 
-    ParentMethods = _TopologicalHomsetObjects
+    ParentMethods = _TopologicalHomCategoryObjectMethods
     ElementMethods = _ContinuousMaps
     class MorphismMethods: ...
 
-    Endset = LazyImport(__name__, "_TopologicalEndsets")
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "TopologicalSpaceEndCategory")
 
 
-class _TopologicalEndsets(GenericEndsets):
-    _functor_category = "Endset"
-    _base_category_class_and_axiom = (TopologicalSpaceHomsets, "Endset")
-    Autset = LazyImport(__name__, "_TopologicalAutsets")
+class TopologicalSpaceEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (TopologicalSpaceHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "TopologicalSpaceAutCategory")
 
     class ParentMethods:
         @abstract_method
@@ -58,9 +59,8 @@ class _TopologicalEndsets(GenericEndsets):
     class MorphismMethods: ...
 
 
-class _TopologicalAutsets(GenericAutsets):
-    _functor_category = "Autset"
-    _base_category_class_and_axiom = (_TopologicalEndsets, "Autset")
+class TopologicalSpaceAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (TopologicalSpaceEndCategory, "Autset")
 
     class ParentMethods: ...
     ElementMethods = _Homeomorphisms

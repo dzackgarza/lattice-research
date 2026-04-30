@@ -16,9 +16,9 @@ Subcategory hierarchy::
     |-- CartesianProducts()
     |-- TensorProducts()
     |-- DualObjects()
-    `-- Homsets()
-        |-- Endset()
-        `-- Autset()
+    `-- HomCategory()
+        |-- EndCategory()
+        `-- AutCategory()
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, Category_over_base_ring
 from ..modules import Modules
-from .homsets import AlgebraHomsets
+from .homsets import AlgebraHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -141,7 +141,7 @@ class Algebras(Category_over_base_ring):
     ParentMethods = _AlgebraParentMethods
     ElementMethods = _AlgebraElementMethods
     MorphismMethods = _AlgebraMorphismMethods
-    Homsets = AlgebraHomsets
+    HomCategory = AlgebraHomCategory
 
     class SubcategoryMethods:
         @cached_method

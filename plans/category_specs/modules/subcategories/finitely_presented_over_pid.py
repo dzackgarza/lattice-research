@@ -27,11 +27,11 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final
 
-from sage.categories.homsets import HomsetsCategory
 from sage.matrix.matrix2 import Matrix as SageMatrix
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction
 
 if TYPE_CHECKING:
     from ...types import (
@@ -117,10 +117,10 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
     # ------------------------------------------------------------------
-    # Homsets
+    # Hom category
     # ------------------------------------------------------------------
 
-    class Homsets(HomsetsCategory):
+    class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstract_method
             def from_dict(self, mapping: dict) -> RModMorphism: ...

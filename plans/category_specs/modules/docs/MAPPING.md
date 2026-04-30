@@ -56,9 +56,9 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 
 | Sage surface | Target surface | Rationale |
 | --- | --- | --- |
-| `Modules(R).Homsets()` | `modules/homsets.py` and top-level `homsets/` | Module homsets are sets of `R`-linear maps. Sage makes them modules over `R` and gives the parent method `zero()`. |
-| `Modules(R).Endsets()` / `Modules(R).Homsets().Endset()` | `modules/homsets.py` plus generic `HomsetsOf(Modules(R)).Endset()` | Module endsets are homsets with equal domain and codomain. Sage's `Modules.Homsets.Endset` adds magmatic-algebra structure over `R`, so the project declares `End_R(M)` as an `R`-algebra in addition to the generic endset structure. |
-| Project `Modules(R).Autsets()` | generic `HomsetsOf(Modules(R)).Autset()` with module specialization | `Aut_R(M)` is the invertible part of `End_R(M)`. The root homsets layer owns the Autset construction; `modules/homsets.py` declares only module-specific names and extra structure. |
+| `Modules(R).Homsets()` | `Modules(R).HomCategory()` in `modules/homsets.py` and top-level `homsets/` | Module hom categories have objects `Hom_R(M, N)`, the sets of `R`-linear maps. Sage makes those hom objects modules over `R` and gives the parent method `zero()`. |
+| `Modules(R).Endsets()` / `Modules(R).Homsets().Endset()` | `Modules(R).EndCategory()` plus generic `Modules(R).HomCategory().EndCategory()` | Module end categories have objects `End_R(M) = Hom_R(M, M)`. Sage's `Modules.Homsets.Endset` adds magmatic-algebra structure over `R`, so the project declares `End_R(M)` as an `R`-algebra in addition to the generic end-category structure. |
+| Sage/project automorphism surfaces | `Modules(R).AutCategory()` with module specialization | `Aut_R(M)` is the invertible part of `End_R(M)`. The root hom category layer owns the aut-category construction; `modules/homsets.py` declares only module-specific names and extra structure. |
 | `Modules(R).CartesianProducts()` | `subcategories/constructions/cartesian_products.py` | Cartesian products of modules are direct products with componentwise module operations and common base-ring bookkeeping. |
 | `Modules(R).TensorProducts()` | `subcategories/constructions/tensor_products.py` | Tensor products are functorial constructions with `tensor_factors()` and construction data. |
 | `Modules(R).DualObjects()` / `dual()` | `subcategories/constructions/dual_objects.py` | Linear duals are covariant functorial construction objects in Sage; graded duals are not separated by the Sage `DualObjects` category. |
@@ -71,15 +71,16 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 | `Modules(R).FiniteDimensional()` | `subcategories/finite_dimensional.py` | Finite-dimensionality is an axiomatic restriction. Over finite base rings, Sage adds finite-set structure. |
 | `Modules(R).FinitelyPresented()` | `subcategories/finitely_presented.py` | Finitely presented modules are an axiomatic restriction. Concrete finitely presented graded/PID modules are implementation families under the constructor namespace. |
 
-## Homset Extra-Structure Decision
+## Hom-Category Extra-Structure Decision
 
 `R-Mod` is the first concrete model for hom/end/aut extra structure. The generic layer
-declares that `Hom_R(M, N)`, `End_R(M)`, and `Aut_R(M)` are homsets, endsets, and
-autsets internal to `Modules(R)`. The module subtree additionally declares that
-`Hom_R(M, N)` is an `R`-module and `End_R(M)` is an object of `Algebras(R)`, retaining
-Sage's `MagmaticAlgebras(R)` supercategory for upstream compatibility. Autset
-construction still comes from the generic layer because `Aut_R(M)` is defined by
-invertibility inside `End_R(M)` and dispatched through the module endset category.
+declares that `Modules(R).HomCategory()`, `Modules(R).EndCategory()`, and
+`Modules(R).AutCategory()` have objects `Hom_R(M, N)`, `End_R(M)`, and `Aut_R(M)`.
+The module subtree additionally declares that `Hom_R(M, N)` is an `R`-module and
+`End_R(M)` is an object of `Algebras(R)`, retaining Sage's `MagmaticAlgebras(R)`
+supercategory for upstream compatibility. Aut-category construction still comes from
+the generic layer because `Aut_R(M)` is defined by invertibility inside `End_R(M)` and
+dispatched through the module end category.
 
 ## Topological Modules
 

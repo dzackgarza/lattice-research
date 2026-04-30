@@ -63,7 +63,7 @@ from sage.structure.parent import Parent
 from .universal_subcategory_methods import UniversalSubcategoryMethods
 
 if TYPE_CHECKING:
-    from ..types import CategoryOfAutsets, CategoryOfEndsets, CategoryOfHomsets, Homset
+    from ..types import Hom
 
 _SageCategory = SageCategory
 _SageCategoryWithParameters = SageCategoryWithParameters
@@ -236,42 +236,11 @@ class _CatObjectMixin:
         """
         return CategoryObject.category(self)
 
-    @overload
-    def Hom(self) -> CategoryOfHomsets:
-        ...
-
-    @overload
-    def Hom(self, codomain: SageCategory) -> Homset:
-        ...
-
     @final
-    def Hom(self, codomain: SageCategory | None = None) -> CategoryOfHomsets | Homset:
-        r"""Return category-level or object-level Homs using a closed arity split.
-
-        A wrapped category object has two mathematical roles.  As a category
-        ``C``, ``C.Hom()`` is the universal construction category
-        ``Hom_C``.  As an object of ``Cat()``, ``C.Hom(D)`` is Sage's parent
-        homspace ``Hom_Cat(C, D)`` of functors from ``C`` to ``D``.
-
-        Python cannot keep two methods with the same name on one receiver and
-        dispatch by arity.  The wrapper mixin is before ``Parent`` in the MRO,
-        so this method is the single closed bridge: the zero-argument case is
-        the category-level construction, and the one-argument case delegates
-        to Sage's existing parent Hom implementation.
-        """
-        if codomain is None:
-            return self.Homsets()
+    def Hom(self, codomain: SageCategory) -> Hom:
+        r"""Return ``Hom_{Cat}(self, codomain)``."""
+        assert codomain in self.category(), "codomain must be an object of Cat()"
         return Parent.Hom(self, codomain)
-
-    @final
-    def End(self) -> CategoryOfEndsets:
-        r"""Return the category-level endomorphism-set construction."""
-        return self.Endsets()
-
-    @final
-    def Aut(self) -> CategoryOfAutsets:
-        r"""Return the category-level automorphism-set construction."""
-        return self.Autsets()
 
     def _make_named_class(self, name, method_provider, cache=False, picklable: bool = True):
         r"""Inject Cat's universal ``SubcategoryMethods`` into wrapped categories.
@@ -685,36 +654,3 @@ AlgebrasCategory = _AlgebrasCategory
 FilteredModulesCategory = _FilteredModulesCategory
 GradedModulesCategory = _GradedModulesCategory
 SuperModulesCategory = _SuperModulesCategory
-
-
-__all__ = [
-    "AlgebrasCategory",
-    "CartesianProductsCategory",
-    "Category",
-    "CategoryWithAxiom",
-    "CategoryWithAxiom_singleton",
-    "CategoryWithAxiom_over_base_ring",
-    "CategoryWithParameters",
-    "Category_ideal",
-    "Category_module",
-    "Category_over_base",
-    "Category_over_base_ring",
-    "Category_singleton",
-    "CovariantConstructionCategory",
-    "DualObjectsCategory",
-    "FilteredModulesCategory",
-    "FunctorialConstructionCategory",
-    "GradedModulesCategory",
-    "Homsets",
-    "HomsetsCategory",
-    "HomsetsOf",
-    "IsomorphicObjectsCategory",
-    "QuotientsCategory",
-    "RealizationsCategory",
-    "RegressiveCovariantConstructionCategory",
-    "SubobjectsCategory",
-    "SubquotientsCategory",
-    "SuperModulesCategory",
-    "TensorProductsCategory",
-    "WithRealizationsCategory",
-]

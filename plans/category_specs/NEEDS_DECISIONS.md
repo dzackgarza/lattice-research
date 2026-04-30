@@ -3,13 +3,6 @@
 These are design blockers, not mechanical audit findings. Mechanical compliance issues
 should be fixed in code; only items that require a human design choice belong here.
 
-## Homset Root Boilerplate
-
-`Homsets`, `Endsets`, and `Autsets` behave as root construction categories, but the
-top-level rules require every top-level category to expose `SubcategoryMethods` and
-`Constructors`. Decide whether these root homset categories must implement the full
-boilerplate or receive a documented structural exception.
-
 ## Sage Construction Re-Exports
 
 Several construction subcategories inherit raw Sage construction bases directly
