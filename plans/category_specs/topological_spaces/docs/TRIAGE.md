@@ -15,3 +15,14 @@
   `TopologicalSpaces().Constructors()`.
 - Decide how topological rings, modules, and algebras should inherit from this subtree
   once those category subtrees are reorganized.
+
+## Current Smoke Frontier
+
+`topological_spaces/smoketest.sage` currently reaches the deliberate constructor
+sentinel:
+
+- `TopologicalSpaces().Constructors() has admitted constructor cases` fails because no
+  concrete topological-space constructor has been admitted yet.
+
+The Sage warning about `Sets.Topological` not being a `CategoryWithAxiom` is also still
+visible during smoke runs and belongs to the topological inheritance decision above.

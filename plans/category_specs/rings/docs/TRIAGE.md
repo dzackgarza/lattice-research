@@ -3,9 +3,8 @@
 Source for the current documentation pass: `rings/docs/SAGE_INVENTORY.md`,
 `rings/docs/MAPPING.md`, Sage written category docs, and local Sage category source.
 
-This file records documentation blockers before runtime validation. Existing constructor
-refinement failures remain below as runtime blockers, but they are not the source of
-truth for the current organization pass.
+This file records the current `rings/smoketest.sage` frontier. The smoke is expected
+to fail until the listed missing surfaces and structural blockers are implemented.
 
 ## Current Alignment
 
@@ -65,82 +64,42 @@ truth for the current organization pass.
 - Gaps: full Sage develop-tree search and ring-family-by-ring-family realization audit
   were not completed in this pass.
 
-## Missing `completion`
+## Category Base-Class Mismatch
 
-These constructors fail with `AssertionError: Not implemented method: completion`.
+These constructors currently fail while refining through nested axiom categories.
+The error reports matching class names with nonmatching class identity, so this is a
+category-construction/cache boundary issue, not a missing ring method.
 
-- `Rings().Constructors().RR()`
-- `Rings().Constructors().CC()`
-- `Rings().Constructors().RDF()`
-- `Rings().Constructors().CDF()`
-- `Rings().Constructors().RIF()`
-- `Rings().Constructors().CIF()`
-- `Rings().Constructors().RealField(100)`
-- `Rings().Constructors().ComplexField(100)`
-- `Rings().Constructors().RealBallField(100)`
-- `Rings().Constructors().ComplexBallField(100)`
-- `Rings().Constructors().Zp(5)`
-- `Rings().Constructors().Qp(5)`
-- `Rings().Constructors().Zq((5, 2), names='a')`
-- `Rings().Constructors().Qq((5, 2), names='a')`
+- `_IntegralDomains` over `_CommutativeRings`:
+  `Rings().Constructors().ZZ()`
+- `_Fields` over `_CommutativeRings`:
+  `Rings().Constructors().QQ()`, `QQbar()`, `AA()`, `RR()`, `CC()`, `RDF()`,
+  `CDF()`, `RIF()`, `CIF()`, `RealField(100)`, `ComplexField(100)`,
+  `RealBallField(100)`, `ComplexBallField(100)`, `GF(5)`,
+  `NumberField(x^3 - 2, 'a')`, `QuadraticField(5, 'a')`, and
+  `CyclotomicField(5)`.
+- `_CompleteRings` over `_TopologicalRings`:
+  `Rings().Constructors().Zp(5)`, `Qp(5)`, `Zq((5, 2), names='a')`, and
+  `Qq((5, 2), names='a')`.
 
-## Missing `gcd`
+## Missing `_sympy_`
 
-These constructors fail with `AssertionError: Not implemented method: gcd`.
-
-- `Rings().Constructors().ZZ()`
-- `Rings().Constructors().QQbar()`
-- `Rings().Constructors().AA()`
-- `Rings().Constructors().GF(5)`
-- `Rings().Constructors().NumberField(x^3 - 2, 'a')`
-- `Rings().Constructors().CyclotomicField(5)`
-
-## Missing `S_class_group`
-
-This constructor fails with `AssertionError: Not implemented method: S_class_group`.
-
-- `Rings().Constructors().QQ()`
-
-## Missing `is_algebraically_closed`
-
-These constructors fail with `AssertionError: Not implemented method: is_algebraically_closed`.
+These constructors refine far enough to expose the next missing Sage/project method:
 
 - `Rings().Constructors().IntegerModRing(6)`
-- `Rings().Constructors().PolynomialRing(ZZ, 't')`
-
-## Missing `Aut`
-
-This constructor fails with `AssertionError: Not implemented method: Aut`.
-
-- `Rings().Constructors().QuadraticField(5, 'a')`
-
-## Missing `extension`
-
-These constructors fail with `AssertionError: Not implemented method: extension`.
-
+- `Rings().Constructors().PolynomialRing(ZZ, name='t')`
 - `Rings().Constructors().PowerSeriesRing(ZZ, 't')`
 - `Rings().Constructors().LaurentSeriesRing(ZZ, 't')`
 - `Rings().Constructors().PuiseuxSeriesRing(QQ, 't')`
-
-## Missing `End`
-
-This constructor now fails with `AssertionError: Not implemented method: End`.
-
 - `Rings().Constructors().MatrixRing(ZZ, 2)`
-
-This changed after removing module-theoretic redeclarations from the
-matrix-algebra ring spec. The previous `annihilator` failure was a spec
-placement error in the ring construction-category surface; once matrix algebras inherit
-their module surface instead of redeclaring it locally, refinement reaches
-the next real missing surface on the Sage object.
 
 ## Consequence
 
-The ring subtree records the constructor-level missing-method inventory separately from
-the structural layout. Structural files now use the forward AGENTS.md pattern:
-constructor entry points are inner methods on `Rings.Constructors`, navigation is on
-`Rings.SubcategoryMethods`, and ring-family specs live in mathematical subcategory
-files.
+The current ring smoke failures are implementer-facing: the next work is either fixing
+the category-base identity mismatch in the axiom construction path or implementing the
+listed missing `_sympy_` surface on the relevant refined parents. Matrix algebra
+ownership remains a separate design decision; do not hide it by moving or weakening the
+matrix smoke.
 
 ## Outstanding Decisions Needed
 

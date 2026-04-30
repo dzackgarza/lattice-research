@@ -17,3 +17,13 @@
 - Decide the first concrete constructor entries for `Algebras(R).Constructors()`.
 - Decide how matrix algebras should be split between `rings`, `modules`, and `algebras`
   without duplicating inherited method surfaces.
+
+## Current Smoke Frontier
+
+`algebras/smoketest.sage` currently fails in two expected places:
+
+- `Algebras(ZZ).DualObjects()` fails while Sage/project axiom inference tries to build
+  the nested `category_specs.modules.homsets._Forms` class of `RModuleHomsets`.
+  This is a module-homset/form-axiom blocker, not an algebra constructor issue.
+- `Algebras(ZZ).Constructors() has admitted constructor cases` is the deliberate
+  sentinel for the unresolved algebra constructor inventory.

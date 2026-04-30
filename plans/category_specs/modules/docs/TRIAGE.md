@@ -3,9 +3,8 @@
 Source for the current documentation pass: `modules/docs/SAGE_INVENTORY.md`,
 `modules/docs/MAPPING.md`, Sage written category docs, and local Sage category source.
 
-This file records module-side organizational blockers and the runtime failures already
-known from the existing constructor inventory. Runtime failures are not the source of
-truth for the organization pass.
+This file records the current `modules/smoketest.sage` frontier. The smoke is expected
+to fail until the listed missing surfaces and structural blockers are implemented.
 
 ## Current Alignment
 
@@ -38,38 +37,38 @@ truth for the organization pass.
   `FinitelyPresentedModulesOverPID.from_matrix`, because Smith-form and
   elementary-divisor representations belong to finitely presented modules over PIDs.
 
-## Broad blocker: missing `Aut`
+## Dynamic Category Key Mismatch
 
-These constructors fail with `AssertionError: Not implemented method: Aut`.
+These constructors fail with `KeyError` values such as `(256, 145)` and `(256, 156)`.
+The failures happen in Sage/category dynamic-class lookup, so they are not missing
+module methods:
 
-- `Modules(Zmod(6)).Constructors().FreeModule(2)`  
-  Category target: `FreeModulesWithStandardBasis`
-- `Modules(ZZ['x']).Constructors().FreeModule(2)`  
-  Category target: `FreeModulesOverIntegralDomains`
-- `Modules(ZZ).Constructors().FreeModule(2)`  
-  Category target: `FreeModulesOverPIDs`
-- `Modules(QQ).Constructors().VectorSpace(2)`  
-  Category target: `VectorSpaces`
+- `Modules(Zmod(6)).Constructors().FreeModule(2)`
+- `Modules(ZZ['x']).Constructors().FreeModule(2)`
+- `Modules(ZZ).Constructors().FreeModule(2)`
 - `refine_category(FreeModule(RDF, 2), Modules(RDF).Constructors().RealDoubleVectorSpaces())`
 - `refine_category(FreeModule(CDF, 2), Modules(CDF).Constructors().ComplexDoubleVectorSpaces())`
 - `refine_category(V.subspace(...), Modules(QQ).Constructors().VectorSubspaces())`
 - `refine_category(V.subspace_with_basis(...), Modules(QQ).Constructors().VectorSubspacesWithOrderedGeneratingSet())`
 - `refine_category(V.quotient_module(W), Modules(QQ).Constructors().VectorSpaceQuotients())`
-- `Modules(ZZ).Constructors().FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]]))`
 - `Modules(QQ).Constructors().CombinatorialFreeModule(['a', 'b'])`
 - `Modules(QQ).Constructors().FiniteRankFreeModule(2)`
-- `refine_category(M.submodule(...), Modules(ZZ).Constructors().FreeModuleSubmodules())`
 - `refine_category(M.submodule_with_basis(...), Modules(ZZ).Constructors().FreeModuleSubmodulesWithOrderedGeneratingSet())`
 - `refine_category(M.quotient_module(S), Modules(ZZ).Constructors().FreeModuleQuotients())`
 - `refine_category(C.submodule([a + b]), Modules(QQ).Constructors().SubmodulesWithOrderedGeneratingSet())`
 - `refine_category(C.quotient_module(CS), Modules(QQ).Constructors().QuotientModulesWithOrderedGeneratingSet())`
 - `refine_category(SymmetricGroup(3).regular_representation(QQ), Modules(QQ).Constructors().RepresentationModules())`
 - `refine_category(M / W, Modules(ZZ).Constructors().FinitelyGeneratedPIDQuotientModules())`
-- `Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z)`
-- `Modules(ZZ).Constructors().IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]])`
-- `Modules(ZZ).Constructors().TorsionQuadraticForm(matrix(QQ, [[1, 1/2], [1/2, 1]]))`
 
-At the moment this single abstract-method gap blocks most of the module subtree from reaching any more specialized validation.
+## Form-Axiom Base Mismatch
+
+These constructors fail because bilinear/quadratic form categories are being created
+with `Modules` where their axiom category expects `WithForms`:
+
+- `Modules(QQ).Constructors().VectorSpace(2)`
+- `Modules(ZZ).Constructors().FreeQuadraticModule(2, [[2, 1], [1, 2]])`
+- `Modules(ZZ).Constructors().IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]])`
+- `Modules(ZZ).Constructors().TorsionQuadraticForm([[1, 1/2], [1/2, 1]])`
 
 ## Graded-module base-category mismatch
 
@@ -80,25 +79,36 @@ These constructors fail with:
 - `Modules(ExteriorAlgebra(QQ)).Constructors().FreeGradedModule(E, (-1, 3))`
 - `Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(E, [0, 1], [[x, 1]])`
 
-This is not a missing-method failure. It is a category-construction mismatch between Sage's graded-module functorial machinery and the replacement `category_specs.modules.Modules` root.
+This is not a missing-method failure. It is a category-construction mismatch between
+Sage's graded-module functorial machinery and the replacement
+`category_specs.modules.Modules` root.
 
-## Ring-object-as-module failure inherited from ring refinement
+## Missing Methods Reached After Refinement
 
-This constructor fails with `AssertionError: Not implemented method: is_algebraically_closed`.
+These failures are the next concrete method surfaces exposed by refinement:
 
-- `Modules(ZZ).Constructors().polynomial_ring_as_module(name='t')`
+- `refine_category(M.submodule(...), Modules(ZZ).Constructors().FreeModuleSubmodules())`
+  reaches `AssertionError: Not implemented method: _sympy_`.
+- `Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z)` reaches
+  `AssertionError: Not implemented method: _an_element_from_iterator`.
+- `Modules(ZZ).Constructors().polynomial_ring_as_module(name='t')` reaches
+  `AssertionError: Not implemented method: _sympy_` through the underlying ring
+  refinement.
 
-This failure comes from refining the underlying polynomial ring object, not from a module-specific method gap.
+The ring-object-as-module failure comes from refining the underlying polynomial ring
+object, not from a module-specific method gap.
 
 ## Consequence
 
-The module subtree currently has three distinct blockers:
+The module subtree currently has four distinct blockers:
 
-- one dominant abstract-method gap, `Aut`
+- dynamic category-key mismatches in Sage/category generated class lookup
+- form-axiom base-category mismatches for bilinear and quadratic module families
 - one functorial-category incompatibility, `GradedModules`
-- one inherited ring-side gap, `is_algebraically_closed` on ring objects viewed as modules
+- missing `_sympy_` / `_an_element_from_iterator` surfaces reached after refinement
 
-The `Aut` surface is the first blocker to remove if the goal is to expose the next layer of module-specific missing methods.
+Do not hide these failures with `pytest.raises` or raw Sage bypasses. The smoke should
+continue to expose them through `Modules(R).Constructors()`.
 
 ## Outstanding Decisions Needed
 

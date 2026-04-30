@@ -2,8 +2,8 @@
 
 Source for this pass: `sets/docs/SAGE_INVENTORY.md` and `sets/docs/MAPPING.md`.
 
-This triage records the documentation audit results before runtime validation. Runtime
-smoke output is intentionally not the source of truth for this pass.
+This triage records the current `sets/smoketest.sage` frontier together with the
+documentation audit context needed to interpret those failures.
 
 ## Current Alignment
 
@@ -75,12 +75,22 @@ smoke output is intentionally not the source of truth for this pass.
 - `types.py` carries the corresponding set, subquotient, realization, graded-set,
   `G`-set, and poset vocabulary.
 
-## Runtime Smoke Note
+## Current Smoke Frontier
 
 - `sets/smoketest.sage` now exercises `RealSet` with an actual Sage real-interval
   object, matching the admitted `Sets().Constructors().RealSet(intervals=...)` shape.
-  The smoke still fails on existing abstract-method sentinels, not on tuple/list
-  interval data.
+- The smoke still fails on existing abstract-method sentinels, not on tuple/list
+  interval data or constructor call-shape mismatches.
+- Missing `_element_constructor_`: `Set(ZZ)`, `Set([1, 2, 3])`, and
+  `RealSet([RealSet.open(0, 1).get_interval(0)])`.
+- Missing `_an_element_from_iterator`: `FiniteEnumeratedSet`, `IntegerRange`,
+  `RecursivelyEnumeratedSet`, `DisjointUnionEnumeratedSets`, `CartesianProduct`,
+  `ImageSubobject`, `TotallyOrderedFiniteSet`, `FiniteSetMaps`, `Family`, and
+  categorical `cartesian_product`.
+- Missing `__len__`: `NonNegativeIntegers`, `PositiveIntegers`, and
+  `EnumeratedSetFromIterator`.
+- Missing `__iter__`: `Primes`.
+- Missing `algebra`: `ConditionSet(ZZ, even predicate)`.
 
 ## Source note: project `Autsets`
 
