@@ -52,8 +52,10 @@ Rules:
   - `_sage_morphism_classes()`
 - For any ordinary category `C`, `X in C` can mean object membership or morphism
   membership according to that category's own containment semantics. For `C = Cat()`,
-  membership is category-object membership at this level; functors live in `A.Hom(B)`,
-  `A.End()`, and `A.Aut()` for category objects `A, B in Cat()`.
+  membership is category-object membership at this level; functors live in `A.Hom(B)`
+  for category objects `A, B in Cat()`. Endofunctors live in `A.Hom(A)`. The
+  zero-argument names `A.End()` and `A.Aut()` on category objects are category-level
+  construction selectors, not object-level functor parents.
 - `leq` and `geq` are readable shorthands for Sage's subcategory relation between
   ordinary category objects. Do not re-export those aliases on `Cat()` itself:
   this spec does not place the root infinity-category object inside a larger modeled

@@ -11,15 +11,16 @@ local smoke surface `cat/smoketest.sage`.
 - `Cat().__contains__` is intentionally object-only: functors are elements of
   `A.Hom(B)`, not objects of `Cat()`.
 - `Cat.ParentMethods` is the canonical surface for ordinary category-object
-  operations: `Hom`, `End`, `Aut`, `leq`, `geq`, `<=`, and `>=`. The root
-  `Cat()` object itself deliberately does not re-export the comparison aliases.
+  operations: the closed-arity `Hom`, category-level `End` and `Aut`, `leq`, `geq`,
+  `<=`, and `>=`. The root `Cat()` object itself deliberately does not re-export the
+  comparison aliases.
 - The re-exported Sage base-class wrappers preserve Sage category behavior while
   registering ordinary project categories as objects of `Cat()`.
 - The wrapper layer, not `Cat()` itself, adapts universal construction selectors into
   Sage's generated `SubcategoryMethods` path.
-- `A.Hom(B)` and `A.End()` reuse Sage `Hom`/`End` parents in category `Cat()`.
-- `A.Aut()` refines `A.End()` through the generic repository-level `Autset`
-  construction.
+- `A.Hom(B)` reuses Sage's `Hom(A, B, category=Cat())` parent.
+- `A.Hom(A)` is the object-level endofunctor parent. `A.End()` and `A.Aut()` are
+  category-level construction selectors on category objects.
 - `CatHomsets` inherits the generic `HomsetsOf` pattern; `_CatEndsets` and
   `_CatAutsets` inherit `GenericEndsets` and `GenericAutsets`.
 - Generic homset object methods such as `domain` and `codomain` come from the

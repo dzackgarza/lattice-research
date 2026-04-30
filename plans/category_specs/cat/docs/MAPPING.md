@@ -40,7 +40,9 @@ this spec and does not re-export `leq`, `geq`, `<=`, or `>=`.
 `Cat.ParentMethods` is the single source of truth for operations every category
 object should expose:
 
-- `Hom(D)`, `End()`, and `Aut()` for functor homsets in `Cat`;
+- `Hom()` / `End()` / `Aut()` for category-level homset, endset, and autset
+  constructions;
+- `Hom(D)` for the object-level functor homspace in `Cat`;
 - `leq`, `geq`, `<=`, and `>=` for the Sage category order between ordinary
   category objects;
 - containment hooks for categories that need object and morphism membership:
@@ -66,8 +68,8 @@ For `C = Cat()`, this specializes to category-object membership only. Functor
 membership is expressed by the relevant homset:
 
 - `F in A.Hom(B)` for functors `A -> B`;
-- `F in A.End()` for endofunctors of `A`;
-- `F in A.Aut()` for autofunctors of `A`.
+- `F in A.Hom(A)` for endofunctors of `A`;
+- autofunctors are the invertible elements of `A.Hom(A)`.
 
 ## Functors
 
@@ -114,7 +116,7 @@ For wrapped ordinary category objects, `Hom` has a closed two-case arity split i
 `base_category_types._CatObjectMixin`: `C.Hom()` is the category-level construction,
 and `C.Hom(D)` delegates to Sage's parent homspace for functors `C -> D`. `End()` and
 `Aut()` are the category-level construction aliases; the object-level endomorphism
-functor space is still available as `C.Hom(C)`.
+functor space is `C.Hom(C)`.
 
 For `Cat()`, `Subobjects` means subcategories, `Quotients` means quotient
 categories, `Subquotients` means category-level subquotients, and
@@ -149,6 +151,8 @@ Mapping:
 - `A.Hom(B)` returns Sage's `Hom(A, B, category=Cat())` parent when `A` and `B`
   are category objects;
 - `A.Hom(B).category()` is `Cat().Homsets()`;
+- `A.Hom(A)` is the object-level endofunctor parent; `A.End()` is the category-level
+  endset construction selector;
 - homset elements are Sage `Functor` instances;
 - construction functors are a specialized functor method surface, not category
   objects.
