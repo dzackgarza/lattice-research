@@ -18,6 +18,29 @@ Project countability does not include conversion to a finite Python collection:
 `list(ZZ)` and `tuple(ZZ)` have no mathematical finite value. Those conversions
 belong to finite countable sets.
 
+### Enumeration Protocol Mapping
+
+Countable-set enumeration should be specified through mathematical/Python protocol
+surface, not through Sage's fallback helper names.
+
+| Sage surface | Project surface | Mapping decision |
+| --- | --- | --- |
+| `__iter__()` | `__iter__()` | The iterator witnesses countability. |
+| `unrank(n)` and `__getitem__(n)` | `X[n]` / `__getitem__(n: Integer)` | This is the nth-element map for the chosen enumeration. `unrank` is Sage vocabulary for the same map and should not be a second primary project method. |
+| `rank(e)` | `rank(e)` | Keep this as the index-of map for the chosen enumeration: it is the partial inverse of `X[n]`. It is meaningful for infinite countable sets, but the spec makes no complexity promise. |
+| `iterator_range`, `unrank_range`, slice `__getitem__` | Python slicing/range protocol, when admitted | These are range conveniences over the enumeration, not independent category structure. |
+| `first()` and `next(e)` | derived enumeration conveniences | `first()` is `X[0]`; `next(e)` is the successor in the chosen enumeration, equivalently `X[rank(e) + 1]` when `rank(e)` is available. |
+| `tuple()`, `list()` | `tuple(X)`, `list(X)` on finite countable sets | These are finite Python conversions. They are not countable-set methods and are not admitted on infinite countable sets. |
+| `set()`, `frozenset()` | no project method | Python hash-set export loses the project/Sage set object and is not a category obligation. |
+| `_first_from_iterator`, `_next_from_iterator`, `_unrank_from_iterator`, `_rank_from_iterator`, `_iterator_from_list`, `_iterator_from_next`, `_iterator_from_unrank`, `_tuple_from_iterator`, `_tuple_from_list`, `_list_from_iterator`, `_cardinality_from_list`, `_cardinality_from_iterator`, `_unrank_from_list` | no project method | These are Sage implementation fallbacks and cache bridges. They belong in inventory only, not in the spec surface. |
+
+Sage's generic `_rank_from_iterator` is brute-force iteration: it returns the first
+position where the element appears, and on an infinite enumerated set it need not
+terminate when the element is absent. Concrete Sage parents may and often do provide
+faster rank/unrank formulas, such as arithmetic formulas for integer ranges or mixed
+radix formulas for finite Cartesian products. The project spec records the semantic
+rank map, not the fallback algorithm.
+
 ## Sage `FiniteEnumeratedSets` → our `Sets().Countable().Finite()`
 
 Finite enumerated sets are both finite and countable.
@@ -86,10 +109,10 @@ subcategory boundaries.
 | --- | --- | --- | --- |
 | `SetsWithPartialMaps()` | `Sets()` inherited through Sage | Sage places `Sets()` below sets with partial maps. The project does not need a separate public partial-map category for the set-object inventory. | `Sets.super_categories()` keeps `SageSets()`, so Sage's inherited category behavior remains available. |
 | `Sets()` | `Sets()` | Base category of parents whose elements support membership and basic element construction. | Root method surface includes operations meaningful for arbitrary sets, including union. Ambient-dependent operations such as intersection, difference, symmetric difference, and complement use `Subset` vocabulary under `Subsets = Subobjects`. |
-| `EnumeratedSets()` | `Sets().Countable()` | Sage defines enumerated sets as finite or countable sets/multisets with a canonical enumeration. Countability is the set-level mathematical property; enumeration methods are the computable witness. | Countable sets declare iteration, rank/unrank, nth-element, and iterator-range surfaces. Full finite collection conversions are not countability data. Multiset caveat remains a documented boundary. |
+| `EnumeratedSets()` | `Sets().Countable()` | Sage defines enumerated sets as finite or countable sets/multisets with a canonical enumeration. Countability is the set-level mathematical property; enumeration methods are the computable witness. | Countable sets declare iteration, nth-element/indexing, rank, and range protocol surfaces. Sage `unrank` maps to `__getitem__`; Sage fallback helpers stay inventory-only. Full finite collection conversions are not countability data. Multiset caveat remains a documented boundary. |
 | `FiniteSets()` | `Sets().Finite()` | Finite sets have finite cardinality independent of enumeration. | `Finite` declares `is_finite() -> True`, cardinality, finite listing, and finite subquotient behavior. |
-| `FiniteEnumeratedSets()` | `Sets().Countable().Finite()` | Finite enumerated sets combine finite cardinality with explicit enumeration. | The finite-countable subcategory owns finite enumeration helpers such as `list`, `tuple`, `unrank_range`, `last`, random-by-unrank, cardinality-from-list/iterator, and finite Cartesian product rank/unrank. |
-| `InfiniteEnumeratedSets()` | `Sets().Countable().Infinite()` | Infinite enumerated sets are countably infinite, not listable as finite collections. | Infinite-countable declarations keep countable iteration/rank surfaces and do not admit Sage's eager `tuple`/`list` methods as project category obligations. |
+| `FiniteEnumeratedSets()` | `Sets().Countable().Finite()` | Finite enumerated sets combine finite cardinality with explicit enumeration. | The finite-countable subcategory owns finite Python conversions such as `list(X)`, `tuple(X)`, `len(X)`, finite range/slice results, `last`, and finite random element generation. Sage list/cache helper names stay inventory-only. |
+| `InfiniteEnumeratedSets()` | `Sets().Countable().Infinite()` | Infinite enumerated sets are countably infinite, not listable as finite collections. | Infinite-countable declarations keep iteration, indexing, and rank semantics, but do not admit Sage's eager `tuple`/`list` methods as project category obligations. |
 | `FacadeSets()` | `Sets().Facade()` | Elements are represented by elements of another parent. | `facade_for`, facade element construction, and facade parent checks belong here. |
 | Sage `TopologicalSpaces()` for `RealSet` | `TopologicalSpaces()` / `Sets().Topological()` plus `Sets().Subobjects()` when an ambient real line is present | A `RealSet` is a topological subset of the real line, and a set with a topology is precisely a topological space. | `RealSet` refinement must preserve Sage topological behavior and declare real-line subobject operations. |
 | Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union with any other set in `Sets()`. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |
@@ -150,8 +173,9 @@ mapped to the mathematical surfaces they witness.
 | `intersection`, `difference`, `symmetric_difference`, `complement` | `Sets().Subobjects()` / `Subsets` | These require a common ambient set, so they are subset/subobject operations. |
 | `Set_object_union`, `Set_object_intersection`, `Set_object_difference`, `Set_object_symmetric_difference` | operation result parents, not public project category names | These Sage classes witness concrete outputs of set operations. The project maps their method surface to union on `Sets()` and subobject operations on `Sets().Subobjects()` rather than exposing the wrapper class names. |
 | `__richcmp__`, `issubset`, `issuperset` | root set comparison surface | The project exposes rich comparison with set-theoretic semantics: equality is equality of elements, `<=` is subset, `<` is proper subset, `>=` is superset, and `>` is proper superset. This replaces Sage wrapper comparison semantics. |
-| `list()`, `tuple()`, `set()`, `frozenset()` on finite wrappers | finite/countable enumeration surfaces where mathematically admitted | Finite enumerated sets may expose finite enumeration. Python-native container export is admitted only when a named constructor/category owns that finite enumerated surface. |
-| `random_element()`, `rank`, `unrank`, `first`, `last`, `next` | finite/countable enumeration subcategories | These are enumeration methods, not wrapper methods. |
+| `list()`, `tuple()` on finite wrappers | `list(X)`, `tuple(X)` for finite countable sets | Finite enumerated sets may expose finite enumeration through Python conversion protocols. Do not make Sage's `.list()` and `.tuple()` names primary project methods. |
+| `set()`, `frozenset()` on finite wrappers | no project method | Python hash-set export is not a project set object and is not admitted as category vocabulary. |
+| `rank`, `unrank`, `first`, `last`, `next` | enumeration protocol surfaces | `rank(e)` is the index-of map and remains meaningful for infinite countable sets. Sage `unrank(n)` maps to `X[n]`; `first`, `last`, and `next` are derived enumeration conveniences, with `last` finite-only. |
 
 ## Rich Comparison Mapping Decisions
 
