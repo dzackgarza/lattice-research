@@ -3,7 +3,8 @@ GOAL: record the entirety of the existing collection of set methods as a proper 
 This should operate as a replacement for the categories SageX where X = Sets, FiniteEnumeratedSets, etc, which operates non-destructively by intercepting and overwriting all constructors, using existing implementations wherever possible, and refining the results to lie in the new subcategory hierarchy.
 Tasks:
     - Ensure all named sets have a specific one-object subcategory speccing their methods, e.g. Sets().Primes() = {P} is the one-object category whose one object is sage's current implementation of the set of primes, refined into the new set subcategory hierarchy.
-    - Find and list all named sage sets X and expose Sets().NamedSets().X() to return it. 
+    - Find and list all named Sage set constructors X and expose
+      Sets().Constructors().X() to return the corresponding refined set object.
     - Spot-check at runtime to find all methods on these set objects, and ensure *all* set-specific methods are reflected in the spec as an abstractmethod in some subcategory's parentmethods (do not try to automate or script this, just manual checks)
     - This requires reviewing code: ring-theoretic methods do not go here, only methods that only depend on the underlying set, e.g. cardinality()
     - Check all upstream concrete ring implementations for set-related methods and ensure they're all in the spec
