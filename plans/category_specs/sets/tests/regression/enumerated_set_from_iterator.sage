@@ -2,9 +2,10 @@
 # Assertions sourced from sage.sets.set_from_iterator.EnumeratedSetFromIterator doctests.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
-from sage.all import FiniteEnumeratedSets, InfiniteEnumeratedSets, xsrange
+from category_specs.sets import Sets
+from sage.all import FiniteEnumeratedSets, InfiniteEnumeratedSets, infinity, xsrange
 from itertools import count
 
 NS = Sets().Constructors()
@@ -24,7 +25,7 @@ S_fin = NS.EnumeratedSetFromIterator(
 
 E_inf = NS.EnumeratedSetFromIterator(
     count, args=(0,), category=InfiniteEnumeratedSets(), cache=True)
-assert E_inf.cardinality() == float('inf') or True  # just verify it doesn't raise
+assert E_inf.cardinality() == infinity
 
 e1 = iter(E_inf)
 e2 = iter(E_inf)

@@ -3,7 +3,7 @@ r"""Finite order-theoretic lattice poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.finite_lattice_posets import FiniteLatticePosets as SageFiniteLatticePosets
 from sage.misc.abstract_method import abstract_method
@@ -20,6 +20,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_LatticePosets, "Finite")
 
+    @final
     def super_categories(self) -> list:
         return [_LatticePosets(), SageFiniteLatticePosets()]
 

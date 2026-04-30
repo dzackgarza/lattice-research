@@ -2,7 +2,7 @@ r"""Slice construction category of topological spaces over a fixed space."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -17,6 +17,7 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
 
     _functor_category = "ObjectsOver"
 
+    @final
     def _repr_object_names(self) -> str:
         return f"topological spaces over {self.base()}"
 
@@ -27,8 +28,10 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         @abstract_method
         def structure_map(self) -> Morphism: ...
 
+        @final
         def structure_domain(self) -> TopologicalSpace:
             return self
 
+        @final
         def structure_codomain(self) -> TopologicalSpace:
             return self.structure_space()

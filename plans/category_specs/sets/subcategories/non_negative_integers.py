@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``NonNegativeIntegers()``."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -18,10 +18,12 @@ from .. import Sets
 class _NonNegativeIntegersSets(Category_singleton):
     r"""The countably infinite facade set ``{0, 1, 2, ...}`` inside ``ZZ``."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
+        @final
         def is_finite(self) -> bool:
             return False
 

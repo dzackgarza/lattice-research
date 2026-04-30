@@ -3,7 +3,7 @@ r"""One-object subcategory for ``ConditionSet`` -- subset defined by predicates.
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -22,6 +22,7 @@ class _ConditionSets(Category_singleton):
     It is a predicate-defined subobject of its ambient set.
     """
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Subobjects()]
 
@@ -31,6 +32,7 @@ class _ConditionSets(Category_singleton):
             r"""Return the ambient set from which elements are drawn."""
             ...
 
+        @final
         def universe(self) -> Set:
             r"""Alias for Sage's ``ambient()`` vocabulary."""
             return self.ambient()
@@ -40,6 +42,7 @@ class _ConditionSets(Category_singleton):
             r"""Return the tuple of defining predicates and symbolic arguments."""
             ...
 
+        @final
         def predicates(self) -> tuple:
             r"""Alias for the predicate data exposed through ``arguments()``."""
             return self.arguments()

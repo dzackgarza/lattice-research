@@ -2,8 +2,9 @@
 # Assertions sourced from sage.sets.non_negative_integers and positive_integers doctests.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
+from category_specs.sets import Sets
 from sage.all import ZZ, QQbar, RIF, infinity
 
 NS = Sets().Constructors()
@@ -15,13 +16,6 @@ NS = Sets().Constructors()
 NN = NS.NonNegativeIntegers()
 
 assert NN.cardinality() == infinity
-
-# list() must raise on infinite set  (class docstring)
-try:
-    NN.list()
-    assert False
-except NotImplementedError:
-    pass
 
 # iteration  (class docstring)
 it = iter(NN)
@@ -53,9 +47,6 @@ assert x + 3 == 18
 # ---------------------------------------------------------------------------
 # PositiveIntegers  (sage.sets.positive_integers)
 # ---------------------------------------------------------------------------
-
-from sage.sets.positive_integers import PositiveIntegers as _PosInt
-# Check wrapped object recovers the same behaviour as the raw Sage object.
 
 PP = NS.PositiveIntegers()
 

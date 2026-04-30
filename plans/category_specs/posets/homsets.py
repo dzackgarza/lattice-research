@@ -2,7 +2,7 @@ r"""Homset, endset, and autset categories for posets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -31,6 +31,7 @@ class _PosetEndomorphisms:
 
 
 class _PosetAutomorphisms:
+    @final
     def is_order_automorphism(self) -> bool:
         return True
 
@@ -38,15 +39,18 @@ class _PosetAutomorphisms:
 class PosetHomsets(HomsetsOf):
     r"""Category of homsets whose elements are order-preserving maps."""
 
+    @final
     def extra_super_categories(self) -> list:
         return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Endset(self) -> PosetEndset:
             return self._with_axiom("Endset")
 
         @cached_method
+        @final
         def Autset(self) -> PosetAutset:
             return self.Endset().Autset()
 

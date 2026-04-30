@@ -2,7 +2,7 @@ r"""Totally ordered set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -17,13 +17,16 @@ from .. import Sets
 class _TotallyOrdered(CategoryWithAxiom):
     _base_category_class_and_axiom = (Sets, "TotallyOrdered")
 
+    @final
     def _repr_object_names(self) -> str:
         return "totally ordered sets"
 
+    @final
     def super_categories(self) -> list:
         return [Sets()]
 
     class ParentMethods:
+        @final
         def is_totally_ordered(self) -> bool:
             return True
 
@@ -46,8 +49,10 @@ class _TotallyOrdered(CategoryWithAxiom):
         @abstract_method
         def __le__(self, other: SetElement) -> bool: ...
 
+        @final
         def __gt__(self, other: SetElement) -> bool:
             return other.__lt__(self)
 
+        @final
         def __ge__(self, other: SetElement) -> bool:
             return other.__le__(self)

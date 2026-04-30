@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``RealSet`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING, Any, overload, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -27,6 +27,7 @@ from .. import Sets
 class _RealSets(Category_singleton):
     r"""Sage real subsets represented as finite unions of real intervals."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Topological(), Sets().Subobjects()]
 

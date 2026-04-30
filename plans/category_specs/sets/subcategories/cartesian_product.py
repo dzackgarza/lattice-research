@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage Cartesian products of sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -17,6 +17,7 @@ from .. import Sets
 class _CartesianProductSets(Category_singleton):
     r"""Cartesian products of sets and their tuple-like elements."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().CartesianProducts()]
 

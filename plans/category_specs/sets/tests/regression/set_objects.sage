@@ -2,8 +2,9 @@
 # Assertions sourced from sage.sets.set doctests.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
+from category_specs.sets import Sets
 from sage.all import ZZ, QQ
 
 NS = Sets().Constructors()

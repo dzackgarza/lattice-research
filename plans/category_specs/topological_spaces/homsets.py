@@ -2,7 +2,7 @@ r"""Homset, endset, and autset categories for topological spaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -28,6 +28,7 @@ class _ContinuousMaps:
 
 
 class _Homeomorphisms:
+    @final
     def is_homeomorphism(self) -> bool:
         return True
 
@@ -35,15 +36,18 @@ class _Homeomorphisms:
 class TopologicalSpaceHomsets(HomsetsOf):
     r"""Category of homsets whose elements are continuous maps."""
 
+    @final
     def extra_super_categories(self):
         return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Endset(self) -> Category:
             return self._with_axiom("Endset")
 
         @cached_method
+        @final
         def Autset(self) -> Category:
             return self.Endset().Autset()
 

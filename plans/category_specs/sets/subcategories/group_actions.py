@@ -2,7 +2,7 @@ r"""Parameterized category of G-sets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 from sage.categories.g_sets import GSets as SageGSets
@@ -17,18 +17,22 @@ from .. import Sets
 class _GSets(Category):
     r"""Sets equipped with an action of a fixed group ``G``."""
 
+    @final
     def __init__(self, acting_group: Group, base_category: Category | None = None) -> None:
         Category.__init__(self)
         self._acting_group = acting_group
         self._base_category = Sets() if base_category is None else base_category
 
+    @final
     def acting_group(self) -> Group:
         r"""Return the group acting on the objects of this category."""
         return self._acting_group
 
+    @final
     def _repr_object_names(self) -> str:
         return f"{self._acting_group}-sets"
 
+    @final
     def super_categories(self) -> list:
         return [self._base_category, SageGSets(self._acting_group)]
 

@@ -2,7 +2,7 @@ r"""One-object subcategory for Sage ``Primes()``."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -22,6 +22,7 @@ class _PrimesSets(Category_singleton):
     ``PrimesInArithmeticProgressions`` type vocabulary.
     """
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Countable().Infinite().Facade()]
 

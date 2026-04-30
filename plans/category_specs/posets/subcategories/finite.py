@@ -3,7 +3,7 @@ r"""Finite poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
 from sage.misc.abstract_method import abstract_method
@@ -21,6 +21,7 @@ class _FinitePosets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Posets, "Finite")
 
+    @final
     def super_categories(self) -> list:
         return [Posets(), SageFinitePosets()]
 

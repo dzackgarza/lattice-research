@@ -75,6 +75,13 @@ smoke output is intentionally not the source of truth for this pass.
 - `types.py` carries the corresponding set, subquotient, realization, graded-set,
   `G`-set, and poset vocabulary.
 
+## Runtime Smoke Note
+
+- `sets/smoketest.sage` now exercises `RealSet` with an actual Sage real-interval
+  object, matching the admitted `Sets().Constructors().RealSet(intervals=...)` shape.
+  The smoke still fails on existing abstract-method sentinels, not on tuple/list
+  interval data.
+
 ## Source note: project `Autsets`
 
 - Searched: local Sage `sage/categories/homsets.py`, `sage/categories/homset.py`,

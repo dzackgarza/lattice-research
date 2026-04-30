@@ -2,8 +2,9 @@
 # Assertions sourced from sage.sets.finite_set_maps.FiniteSetMaps doctests.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
+from category_specs.sets import Sets
 
 NS = Sets().Constructors()
 

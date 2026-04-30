@@ -50,6 +50,7 @@ if TYPE_CHECKING:
 class _TopologicalSpaceObjectMethods:
     r"""Methods on objects in the category of topological spaces."""
 
+    @final
     def is_topological(self) -> bool:
         return True
 
@@ -93,9 +94,11 @@ class _TopologicalSpaces(CategoryWithAxiom):
     Homsets = TopologicalSpaceHomsets
     Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
 
+    @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageSets().Topological(),)
 
+    @final
     def _repr_object_names(self) -> str:
         return "topological spaces"
 
@@ -112,11 +115,13 @@ class _TopologicalSpaces(CategoryWithAxiom):
     _Constructors = Constructors
 
     @cached_method
+    @final
     def Constructors(self):
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Metric(self) -> Category:
             return self._with_axiom("Metric")
 

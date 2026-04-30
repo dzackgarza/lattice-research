@@ -4,8 +4,9 @@
 # as the underlying Sage Primes() object.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
+from category_specs.sets import Sets
 from sage.all import ZZ, infinity
 
 P = Sets().Constructors().Primes()

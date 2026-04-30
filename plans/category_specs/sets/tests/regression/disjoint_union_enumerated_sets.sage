@@ -2,10 +2,10 @@
 # Assertions sourced from sage.sets.disjoint_union_enumerated_sets doctests.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
+from category_specs.sets import Sets
 from sage.all import infinity
-from sage.sets.finite_enumerated_set import FiniteEnumeratedSet
 
 NS = Sets().Constructors()
 
@@ -14,8 +14,8 @@ NS = Sets().Constructors()
 # ---------------------------------------------------------------------------
 
 U1 = NS.DisjointUnionEnumeratedSets((
-    FiniteEnumeratedSet([1, 2, 3]),
-    FiniteEnumeratedSet([4, 5, 6])))
+    NS.FiniteEnumeratedSet([1, 2, 3]),
+    NS.FiniteEnumeratedSet([4, 5, 6])))
 assert U1.list() == [1, 2, 3, 4, 5, 6]
 assert U1.cardinality() == 6
 
@@ -24,8 +24,8 @@ assert U1.cardinality() == 6
 # ---------------------------------------------------------------------------
 
 U2 = NS.DisjointUnionEnumeratedSets({
-    1: FiniteEnumeratedSet([1, 2, 3]),
-    2: FiniteEnumeratedSet([4, 5, 6])})
+    1: NS.FiniteEnumeratedSet([1, 2, 3]),
+    2: NS.FiniteEnumeratedSet([4, 5, 6])})
 assert U2.list() == [1, 2, 3, 4, 5, 6]
 assert U2.cardinality() == 6
 
@@ -34,11 +34,11 @@ assert U2.cardinality() == 6
 # ---------------------------------------------------------------------------
 
 U1a = NS.DisjointUnionEnumeratedSets({
-    1: FiniteEnumeratedSet([1, 2, 3]),
-    2: FiniteEnumeratedSet([4, 5, 6])})
+    1: NS.FiniteEnumeratedSet([1, 2, 3]),
+    2: NS.FiniteEnumeratedSet([4, 5, 6])})
 U1b = NS.DisjointUnionEnumeratedSets({
-    1: FiniteEnumeratedSet([1, 2, 3]),
-    2: FiniteEnumeratedSet([4, 5, 6])})
+    1: NS.FiniteEnumeratedSet([1, 2, 3]),
+    2: NS.FiniteEnumeratedSet([4, 5, 6])})
 assert U1a == U1b
 assert U1a is U1b
 
@@ -55,8 +55,8 @@ assert 7 not in U1
 # ---------------------------------------------------------------------------
 
 U_iter = NS.DisjointUnionEnumeratedSets((
-    FiniteEnumeratedSet([10, 11]),
-    FiniteEnumeratedSet([20, 21])))
+    NS.FiniteEnumeratedSet([10, 11]),
+    NS.FiniteEnumeratedSet([20, 21])))
 assert list(U_iter) == [10, 11, 20, 21]
 
 # ---------------------------------------------------------------------------
@@ -64,9 +64,8 @@ assert list(U_iter) == [10, 11, 20, 21]
 # ---------------------------------------------------------------------------
 
 from sage.combinat.permutation import Permutations
-from sage.sets.family import Family
 
-U_perm = NS.DisjointUnionEnumeratedSets(Family([0, 1, 2, 3], Permutations))
+U_perm = NS.DisjointUnionEnumeratedSets(NS.Family([0, 1, 2, 3], Permutations))
 # 1 + 1 + 2 + 6 = 10
 assert U_perm.cardinality() == 10
 
@@ -74,9 +73,7 @@ assert U_perm.cardinality() == 10
 # Infinite union cardinality  (cardinality doctest)
 # ---------------------------------------------------------------------------
 
-from sage.sets.non_negative_integers import NonNegativeIntegers
-
-U_inf = NS.DisjointUnionEnumeratedSets(Family(NonNegativeIntegers(), Permutations))
+U_inf = NS.DisjointUnionEnumeratedSets(NS.Family(NS.NonNegativeIntegers(), Permutations))
 assert U_inf.cardinality() == infinity
 
 # ---------------------------------------------------------------------------

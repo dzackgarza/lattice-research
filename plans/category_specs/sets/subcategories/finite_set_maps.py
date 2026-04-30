@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage finite sets of maps."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator, Sequence
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING, Any, overload, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -29,6 +29,7 @@ class _FiniteSetMapsSets(Category_singleton):
     element ``one()``.
     """
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Countable().Finite()]
 
@@ -80,6 +81,7 @@ class _FiniteSetMapsSets(Category_singleton):
         @abstract_method
         def one(self) -> FiniteSetMap: ...
 
+        @final
         def identity(self) -> FiniteSetMap:
             r"""Mathematical alias for Sage's endomap monoid identity."""
             return self.one()

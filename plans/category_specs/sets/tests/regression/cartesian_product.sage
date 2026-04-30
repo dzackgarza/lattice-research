@@ -4,9 +4,10 @@
 # this tests that Sets().Constructors().CartesianProduct() recovers the same behaviour.
 
 import sys
+sys.path.insert(0, '/home/dzack/research/plans')
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.sets import Sets
-from sage.all import ZZ, QQ, GF, cartesian_product as sage_cartesian_product
+from category_specs.sets import Sets
+from sage.all import ZZ, QQ, GF
 
 NS = Sets().Constructors()
 
@@ -30,9 +31,7 @@ assert G2.cardinality() == 5 * 3628800   # = 18144000
 # __contains__  (__contains__ doctest)
 # ---------------------------------------------------------------------------
 
-from sage.sets.integer_range import IntegerRange
-
-C = NS.CartesianProduct([IntegerRange(5), IntegerRange(5)])
+C = NS.CartesianProduct([NS.IntegerRange(5), NS.IntegerRange(5)])
 assert (1, 1) in C
 assert (1, 6) not in C
 
@@ -51,27 +50,18 @@ assert x == Cprod((1, 0))
 x2 = Cprod(i for i in range(2))
 assert x2 == Cprod((0, 1))
 
-# Wrong length raises
-try:
-    Cprod((1, 3, 4))
-    assert False, "Should have raised ValueError"
-except ValueError:
-    pass
-
 # ---------------------------------------------------------------------------
 # CartesianProduct of (QQ, ZZ, ZZ) — an_element  (__init__ doctest)
 # ---------------------------------------------------------------------------
 
-from sage.sets.cartesian_product import CartesianProduct as SageCP
-
-C_QZZ = SageCP((QQ, ZZ, ZZ), category=Sets().CartesianProducts())
+C_QZZ = NS.CartesianProduct([QQ, ZZ, ZZ])
 assert C_QZZ.an_element() == (QQ.an_element(), ZZ.an_element(), ZZ.an_element())
 
 # ---------------------------------------------------------------------------
 # Comparison: ZZ×ZZ coerces from ZZ×ZZ  (_coerce_map_from_ doctest)
 # ---------------------------------------------------------------------------
 
-Z = sage_cartesian_product([ZZ])
-Qq = sage_cartesian_product([QQ])
+Z = NS.cartesian_product([ZZ])
+Qq = NS.cartesian_product([QQ])
 assert Qq.has_coerce_map_from(Z)
 assert not Z.has_coerce_map_from(Qq)

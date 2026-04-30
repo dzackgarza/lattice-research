@@ -2,7 +2,7 @@ r"""Metric spaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 class _MetricSpaceObjectMethods:
     r"""Methods on metric spaces."""
 
+    @final
     def is_metric(self) -> bool:
         return True
 
@@ -36,8 +37,10 @@ class _MetricSpaces(CategoryWithAxiom):
     _base_category_class_and_axiom = (_TopologicalSpaces, "Metric")
     ParentMethods = _MetricSpaceObjectMethods
 
+    @final
     def _repr_object_names(self) -> str:
         return "metric spaces"
 
+    @final
     def super_categories(self) -> list:
         return [SageSets().Metric(), _TopologicalSpaces()]

@@ -40,12 +40,15 @@ class _PosetParentMethods:
         r"""Return whether ``x <= y`` in this poset."""
         ...
 
+    @final
     def lt(self, x: PosetElement, y: PosetElement) -> bool:
         return self.le(x, y) and x != y
 
+    @final
     def ge(self, x: PosetElement, y: PosetElement) -> bool:
         return self.le(y, x)
 
+    @final
     def gt(self, x: PosetElement, y: PosetElement) -> bool:
         return self.lt(y, x)
 
@@ -154,6 +157,7 @@ class _PosetMorphismMethods:
 class Posets(Category):
     r"""Category of sets equipped with a partial order."""
 
+    @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SagePosets(),)
 
@@ -163,10 +167,12 @@ class Posets(Category):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
         @cached_method
+        @final
         def Lattice(self) -> Category:
             from .subcategories.lattice import _LatticePosets
 

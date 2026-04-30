@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage disjoint unions of enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -18,6 +18,7 @@ from .. import Sets
 class _DisjointUnionEnumeratedSets(Category_singleton):
     r"""Countable coproduct of an indexed family of enumerated sets."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Countable()]
 

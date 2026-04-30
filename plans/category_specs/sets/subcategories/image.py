@@ -3,7 +3,7 @@ r"""One-object subcategories for images of sets under maps."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -18,6 +18,7 @@ from .. import Sets
 class _ImageSets(Category_singleton):
     r"""Image subobjects ``{f(x) | x in X}`` under a set map."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Subobjects()]
 

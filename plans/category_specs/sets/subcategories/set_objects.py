@@ -9,7 +9,7 @@ Two concrete implementations:
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ from .. import Sets
 class _SetObjects(Category_singleton):
     r"""Category of ``Set_object`` wrappers (general)."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets()]
 
@@ -83,10 +84,12 @@ class _SetObjects(Category_singleton):
 class _SetObjectsEnumerated(Category_singleton):
     r"""Category for ``Set_object_enumerated`` -- finite frozenset-backed ``Set(X)`` objects."""
 
+    @final
     def super_categories(self) -> list:
         return [_SetObjects(), Sets().Countable().Finite()]
 
     class ParentMethods:
+        @final
         def is_finite(self) -> bool:
             return True
 

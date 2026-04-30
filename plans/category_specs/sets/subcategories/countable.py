@@ -3,7 +3,7 @@ r"""Countable set subcategories (countable, and finite/infinite countable)."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
 from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
@@ -27,13 +27,16 @@ class _CountableSets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Sets, "Countable")
 
+    @final
     def _repr_object_names(self) -> str:
         return "countable sets"
 
+    @final
     def super_categories(self) -> list:
         return [Sets(), SageEnumeratedSets()]
 
     class ParentMethods:
+        @final
         def is_countable(self) -> bool:
             return True
 
@@ -138,9 +141,11 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_CountableSets, "Finite")
 
+    @final
     def _repr_object_names(self) -> str:
         return "finite countable sets"
 
+    @final
     def super_categories(self) -> list:
         return [SageFiniteEnumeratedSets(), Sets().Countable(), Sets().Finite()]
 
@@ -178,9 +183,11 @@ class _InfiniteCountableSets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_CountableSets, "Infinite")
 
+    @final
     def _repr_object_names(self) -> str:
         return "infinite countable sets"
 
+    @final
     def super_categories(self) -> list:
         return [SageInfiniteEnumeratedSets(), Sets().Countable(), Sets().Infinite()]
 

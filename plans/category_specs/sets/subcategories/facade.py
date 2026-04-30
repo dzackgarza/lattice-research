@@ -2,7 +2,7 @@ r"""Facade set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -18,13 +18,16 @@ from .. import Sets
 class _FacadeSets(CategoryWithAxiom):
     _base_category_class_and_axiom = (Sets, "Facade")
 
+    @final
     def _repr_object_names(self) -> str:
         return "facade sets"
 
+    @final
     def super_categories(self) -> list:
         return [SageSets().Facade(), Sets()]
 
     class ParentMethods:
+        @final
         def is_facade(self) -> bool:
             return True
 

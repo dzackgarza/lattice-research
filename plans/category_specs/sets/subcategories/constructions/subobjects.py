@@ -6,7 +6,7 @@ category so it can attach to arbitrary subcategories via ``category_of``.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -50,15 +50,19 @@ class _Subobjects(SubobjectsCategory):
             r"""Return the complement of ``self`` in its ambient set."""
             ...
 
+        @final
         def __or__(self, X: Subset) -> Subset:
             return self.union(X)
 
+        @final
         def __and__(self, X: Subset) -> Subset:
             return self.intersection(X)
 
+        @final
         def __xor__(self, X: Subset) -> Subset:
             return self.symmetric_difference(X)
 
+        @final
         def __sub__(self, X: Subset) -> Subset:
             return self.difference(X)
 

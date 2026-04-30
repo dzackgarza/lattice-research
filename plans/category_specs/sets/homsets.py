@@ -7,7 +7,7 @@ automorphisms of sets.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -39,9 +39,11 @@ class _SetMorphisms:
     @abstract_method
     def is_surjective(self) -> bool: ...
 
+    @final
     def is_bijective(self) -> bool:
         return self.is_injective() and self.is_surjective()
 
+    @final
     def is_isomorphism(self) -> bool:
         return self.is_bijective()
 
@@ -62,15 +64,18 @@ class SetHomsets(HomsetsOf):
     # such as is_injective, is_surjective, and is_bijective belong here
     # on ElementMethods, not on the generic category of all morphisms.
 
+    @final
     def extra_super_categories(self) -> list:
         return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Endset(self) -> SetEndset:
             return self._with_axiom("Endset")
 
         @cached_method
+        @final
         def Autset(self) -> SetAutset:
             return self.Endset().Autset()
 

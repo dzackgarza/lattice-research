@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``IntegerRange`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -18,6 +18,7 @@ from .. import Sets
 class _IntegerRangeSets(Category_singleton):
     r"""Arithmetic progressions of integers, finite or infinite by bounds."""
 
+    @final
     def super_categories(self) -> list:
         return [Sets().Countable().Facade()]
 

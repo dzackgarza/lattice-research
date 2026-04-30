@@ -6,6 +6,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from sage.sets.real_set import RealSet as SageRealSet
 
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
@@ -57,8 +58,8 @@ smoke_case(
     lambda: C.Primes(),
 )
 smoke_case(
-    "sets.RealSets via RealSet((0, 1))",
-    lambda: C.RealSet((0, 1)),
+    "sets.RealSets via RealSet([RealSet.open(0, 1).get_interval(0)])",
+    lambda: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]),
 )
 smoke_case(
     "sets.RecursivelyEnumeratedSets via RecursivelyEnumeratedSet([0], n |-> [n + 1])",
@@ -76,7 +77,7 @@ smoke_case(
 )
 smoke_case(
     "sets.ConditionSets via ConditionSet(ZZ, even predicate)",
-    lambda: C.ConditionSet(ZZ, lambda n: n % 2 == 0),
+    lambda: C.ConditionSet(ZZ, [lambda n: n % 2 == 0]),
 )
 smoke_case(
     "sets.ImageSets via ImageSubobject(n |-> n + 1, IntegerRange(3))",
@@ -99,8 +100,8 @@ smoke_case(
     lambda: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])),
 )
 smoke_case(
-    "sets.CartesianProductSets via cartesian_product(IntegerRange(2), IntegerRange(3))",
-    lambda: C.cartesian_product(C.IntegerRange(2), C.IntegerRange(3)),
+    "sets.CartesianProductSets via cartesian_product([IntegerRange(2), IntegerRange(3)])",
+    lambda: C.cartesian_product([C.IntegerRange(2), C.IntegerRange(3)]),
 )
 
 assert not failures, "\n".join(failures)

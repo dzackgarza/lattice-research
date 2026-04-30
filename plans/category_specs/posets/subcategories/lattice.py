@@ -2,7 +2,7 @@ r"""Order-theoretic lattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 from sage.categories.lattice_posets import LatticePosets as SageLatticePosets
@@ -19,11 +19,13 @@ if TYPE_CHECKING:
 class _LatticePosets(Category):
     r"""Posets in which every pair has a meet and join."""
 
+    @final
     def super_categories(self) -> list:
         return [Posets(), SageLatticePosets()]
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
