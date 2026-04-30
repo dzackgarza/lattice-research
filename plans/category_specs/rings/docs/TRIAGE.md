@@ -101,11 +101,6 @@ listed missing `_sympy_` surface on the relevant refined parents. Matrix algebra
 ownership remains a separate design decision; do not hide it by moving or weakening the
 matrix smoke.
 
-## Outstanding Decisions Needed
-
-- Decide which topological-ring methods should be inherited from `topological_spaces`
-  and which methods are genuinely ring-specific.
-
 ## Constructor Identity Notes
 
 `RealField`, `ComplexField`, `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, and `ComplexBallField` are constructor families parameterized by precision (and related options). `RR`, `CC`, `RIF`, and `CIF` are fixed named objects at Sage's default precision choices for their respective families.

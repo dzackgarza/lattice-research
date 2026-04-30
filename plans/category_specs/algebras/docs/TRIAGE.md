@@ -12,12 +12,6 @@
 - Algebra construction categories are split under `subcategories/constructions/` for
   subobjects, quotients, Cartesian products, tensor products, and dual objects.
 
-## Outstanding Decisions Needed
-
-- Decide the first concrete constructor entries for `Algebras(R).Constructors()`.
-- Decide how matrix algebras should be split between `rings`, `modules`, and `algebras`
-  without duplicating inherited method surfaces.
-
 ## Current Smoke Frontier
 
 `algebras/smoketest.sage` currently fails in two expected places:

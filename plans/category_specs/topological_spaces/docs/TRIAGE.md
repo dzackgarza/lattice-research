@@ -9,13 +9,6 @@
 - The subtree does not keep a separate wrapper category around `Sets().Topological()`.
   The axiom-backed category is the public category.
 
-## Outstanding Decisions Needed
-
-- Decide which Sage constructors, if any, belong in
-  `TopologicalSpaces().Constructors()`.
-- Decide how topological rings, modules, and algebras should inherit from this subtree
-  once those category subtrees are reorganized.
-
 ## Current Smoke Frontier
 
 `topological_spaces/smoketest.sage` currently reaches the deliberate constructor
@@ -25,4 +18,5 @@ sentinel:
   concrete topological-space constructor has been admitted yet.
 
 The Sage warning about `Sets.Topological` not being a `CategoryWithAxiom` is also still
-visible during smoke runs and belongs to the topological inheritance decision above.
+visible during smoke runs and belongs to the centralized topological inheritance
+decision in `NEEDS_DECISIONS.md`.

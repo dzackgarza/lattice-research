@@ -520,7 +520,7 @@ Also provides decorators `@set_from_function` and `@set_from_method`. Key method
 | `IntegerRange` | `sets/integer_range.py` | `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` | depends |
 | `NonNegativeIntegers` | `sets/non_negative_integers.py` | `InfiniteEnumeratedSets().Facade()` | no |
 | `PositiveIntegers` | `sets/positive_integers.py` | `InfiniteEnumeratedSets().Facade()` | no |
-| `Primes` | `sets/primes.py` | `InfiniteEnumeratedSets().Facade()` | no for the full prime set; prime subsets are subobjects |
+| `Primes` | `sets/primes.py` | `InfiniteEnumeratedSets().Facade()` | no for the full prime set; hosted docs also describe congruence-data prime subsets |
 | `RealSet` | `sets/real_set.py` | `TopologicalSpaces()` | no |
 | `RecursivelyEnumeratedSet` | `sets/recursively_enumerated_set.pyx` | `EnumeratedSets()` | depends |
 | `DisjointUnionEnumeratedSets` | `sets/disjoint_union_enumerated_sets.py` | `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` | depends |
@@ -636,10 +636,8 @@ classes, categories, constructors, and methods before project mapping decisions.
 - Sage `EnumeratedSets` includes finite and countable sets or multisets with a canonical
   enumeration.
 - Sage boolean mixins are implementation artifacts on concrete set parents.
-- Installed Sage source for `Primes` does not expose the prime-subset API selected by
-  congruence data that is described by the hosted docs in this environment. Treat those
-  prime subsets as a documentation/source mismatch until a direct source anchor is
-  found.
+- Installed Sage source for `Primes` exposes the full-prime-set parent methods above;
+  hosted docs describe congruence-data prime subsets as an additional surface.
 
 ## Wider Construction Inventory
 

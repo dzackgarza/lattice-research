@@ -6,10 +6,10 @@ export SAGE_PYTEST := "1"
 test_timing_dir := env_var_or_default("COBLE_RESEARCH_TEST_TIMING_DIR", justfile_directory() / ".cache/test_timings")
 
 # Show available recipes
-default:
+default: _clean
     @just --list
 
-uv-setup:
+uv-setup: _clean
     @echo "Setting up uv environment..."
     uv sync
 
@@ -18,8 +18,19 @@ _clean:
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
-    find . -path './.worktrees' -prune -o -type f -name '*.orig' -exec rm -f {} +
-    find . -path './.worktrees' -prune -o -type f -name '*.sage.py' -exec rm -f {} +
+    find . \
+        -path './.git' -prune -o \
+        -path './.worktrees' -prune -o \
+        -type f \( -name '*.orig' -o -name '*.sage.py' \) \
+        -exec rm -f {} +
+    find . \
+        -path './.git' -prune -o \
+        -path './.worktrees' -prune -o \
+        -type d -empty -print0 \
+        | sort -rz \
+        | while IFS= read -r -d '' path; do
+            rmdir "$path" 2>/dev/null || true
+        done
 
 [private]
 _record-test-timing timing_dir label started_at finished_at duration_seconds exit_status:
@@ -61,7 +72,7 @@ _record-test-timing timing_dir label started_at finished_at duration_seconds exi
 # Foundation Library
 # ==============================================================================
 
-test:
+test: _clean
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -84,11 +95,10 @@ test:
             "$status"
     }
     trap 'status=$?; trap - EXIT; record_timing "$status"; exit "$status"' EXIT
-    just _clean
     just -f /home/dzack/ai/quality-control/justfile -d {{justfile_directory()}} test
     just _clean
 
-test-ci:
+test-ci: _clean
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}

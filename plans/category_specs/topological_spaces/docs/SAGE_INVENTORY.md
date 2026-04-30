@@ -3,10 +3,10 @@
 Source for this initial pass: the existing set subtree topological surface and Sage
 `Sets().Topological()` / `Sets().Metric()` navigation.
 
-| Sage surface | Target category | Method surface to represent |
+| Sage surface | Sage meaning | Method surface |
 | --- | --- | --- |
-| `SageSets().Topological()` | `TopologicalSpaces()` = `Sets().Topological()` | `is_connected`, `closure`, `interior`, `boundary`, `is_open`, `is_closed`, `is_compact`. |
-| `SageSets().Metric()` | `TopologicalSpaces().Metric()` = `Sets().Metric()` | `metric`, `ball -> MetricBall`, `dist`, plus the inherited topological-space surface. |
+| `SageSets().Topological()` | Sage topological refinement under `Sets()` | `is_connected`, `closure`, `interior`, `boundary`, `is_open`, `is_closed`, `is_compact`. |
+| `SageSets().Metric()` | Sage metric refinement under `Sets()` | `metric`, `ball`, `dist`, plus the inherited topological-space surface. |
 
 ## Inventory Gaps
 

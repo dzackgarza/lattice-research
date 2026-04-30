@@ -109,10 +109,3 @@ The module subtree currently has four distinct blockers:
 
 Do not hide these failures with `pytest.raises` or raw Sage bypasses. The smoke should
 continue to expose them through `Modules(R).Constructors()`.
-
-## Outstanding Decisions Needed
-
-- Decide how `FinitelyPresentedModulesOverPID` should be wired without recursive
-  `FinitelyPresented().OverPID()` registration.
-- Decide how topological-module structure inherits from `topological_spaces` and
-  topological rings without duplicating method surfaces.

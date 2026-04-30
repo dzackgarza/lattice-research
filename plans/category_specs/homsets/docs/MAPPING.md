@@ -14,6 +14,13 @@ project hom/end/aut hierarchy.
 | Sage has no independent `EndsetsCategory` functorial construction | `EndsetsCategory` and `Endsets().Of(C)` | The project adds this construction layer so `C.Endsets()` has the same uniform shape as `C.Homsets()`. |
 | Sage has no generic `Autset` axiom in the audited file | `Homsets().Endset().Autset()` | The project adds the missing automorphism-set construction once, as the invertible part of an endset. `Homsets().Autset()` is only a convenience selector that delegates through `Endset()`. |
 
+## Project Extension Surface
+
+| Project surface | Mathematical meaning | Method surface to represent |
+| --- | --- | --- |
+| `Homsets().Endset().Autset()` | Automorphism sets, i.e. the invertible part of an endomorphism set. | Parent: `endset`, `domain`, `codomain`, `identity`, `Aut`; element: `is_invertible`, `is_injective`, `is_surjective`, `is_bijective`, `is_isomorphism`, `inverse`, `order`. |
+| `Autsets.from_endset` | Generic construction of `Aut(X)` from `End(X)`. | Builds a Sage `ConditionSet` over the endset using the autset predicate, then refines through the requested autset category. |
+
 ## Subtree Contract
 
 Subtree homset files use `Homsets().Of(C)`, `Endsets().Of(C)`, and `Autsets().Of(C)`

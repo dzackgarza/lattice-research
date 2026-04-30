@@ -15,7 +15,7 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import HomsetsOf
+from ..homsets import Homsets, HomsetsOf
 from . import Category
 
 
@@ -83,6 +83,10 @@ class CatHomsets(HomsetsOf):
     @final
     def _repr_object_names(self) -> str:
         return f"functor homsets internal to {self.base_category()}"
+
+    @final
+    def extra_super_categories(self) -> list:
+        return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method

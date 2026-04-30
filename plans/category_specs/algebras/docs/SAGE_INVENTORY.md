@@ -1,11 +1,10 @@
 # Algebras Sage Inventory
 
-This inventory records Sage algebra surfaces that the local `Algebras(R)` spec must
-represent.
+This inventory records Sage algebra surfaces.
 
 ## Category Surfaces
 
-| Sage surface | Target vocabulary to inventory |
+| Sage surface | Sage method surface |
 | --- | --- |
 | `sage.categories.algebras.Algebras` | Root algebra parent, element, morphism, homset, and constructor surfaces. |
 | `sage.categories.algebras_with_basis.AlgebrasWithBasis` | Basis-dependent algebra operations, structure constants, and module-with-basis inheritance. |
@@ -16,7 +15,7 @@ represent.
 | Polynomial, quotient, and finite-dimensional algebras | Algebra constructors and subcategories once their Sage surfaces are inventoried. |
 | Sage algebra construction categories | Subobjects, quotients, Cartesian products, tensor products, and dual objects under `subcategories/constructions/`. |
 
-## Method Surface From Current Spec
+## Sage Algebra Method Names To Source-Anchor
 
 - `base_ring`
 - `change_ring`
@@ -31,13 +30,3 @@ represent.
 - `idempotent_lift`
 - `peirce_decomposition`
 - `semisimple_quotient`
-
-## Local Vocabulary Decisions
-
-- `basis()` returns an `AlgebraBasis`, a Sage family of algebra elements.
-- `one_basis()` and `product_on_basis()` use `AlgebraBasisIndex`, since Sage basis
-  multiplication is indexed by the basis keys.
-- `algebra_generators()` returns an `AlgebraElementFamily`, not a generic set family.
-- `WithBasis`, `FiniteDimensional`, `Commutative`, and `Semisimple` use the shared
-  axiom names registered in `axioms.py`; this subtree contributes only the
-  algebra-specific method surfaces for those restrictions.

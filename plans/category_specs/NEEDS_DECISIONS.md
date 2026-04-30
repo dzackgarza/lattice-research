@@ -57,6 +57,18 @@ considered complete.
 while the algebra docs say algebra-specific surface should live under `Algebras(R)`.
 Decide the final ownership split across `rings`, `modules`, and `algebras`.
 
+## Algebra Constructor Inventory
+
+`Algebras(R).Constructors()` currently has no admitted concrete constructor entries.
+Decide the first Sage-backed algebra constructors to admit before algebra smoke
+validation can be meaningful.
+
+## Finitely Presented Module Wiring
+
+`FinitelyPresentedModulesOverPID` must be wired without recursive
+`FinitelyPresented().OverPID()` registration. Decide the category path and constructor
+ownership before the module constructor surface is considered complete.
+
 ## Topological Constructors And Inheritance
 
 Topological-space constructors are not admitted yet, and the inheritance path for
