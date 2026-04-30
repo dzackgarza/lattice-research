@@ -91,11 +91,6 @@ report `category() == Objects()`. Sage gives category-object navigation such as
 `Homsets()` and `Endsets()` through generated category classes, not by making
 category objects ordinary parents of a separate `Cat` category.
 
-Consequence for this subtree: the Cat-backed wrappers in `base_category_types.py`
-are the local integration point. They make ordinary project categories parents whose
-category is `Cat()`, and they flatten `UniversalSubcategoryMethods` into Sage's
-generated `SubcategoryMethods` path.
-
 ## Functors
 
 ### `sage.categories.functor.Functor`
@@ -123,9 +118,6 @@ Installed subclasses and constructors:
 | `IdentityFunctor(C)` | Public identity-functor constructor. |
 | `ForgetfulFunctor(domain, codomain)` | Public forgetful-functor constructor for subcategory relations. |
 
-Consequence for `cat/`: functors are elements of `A.Hom(B)`, not objects of
-`Cat()`.
-
 ### `sage.categories.pushout.ConstructionFunctor`
 
 Source: `pushout.py`, line 45.
@@ -143,9 +135,6 @@ Source: `pushout.py`, line 419.
 
 Relevant methods: `_apply_functor_to_morphism`, `_apply_functor`, `__eq__`,
 `__hash__`, `__mul__`, `_repr_`, and `expand`.
-
-Consequence for `cat/`: construction functors are a specialized functor surface, not
-a separate kind of category object.
 
 ## Functorial Construction Categories
 
@@ -169,10 +158,6 @@ and `additional_structure`.
 Source: `covariant_functorial_construction.py`, line 662.
 
 Relevant method: `default_super_categories`.
-
-Consequence for `cat/`: standard constructions should use `category_of(...)` entry
-points instead of ad hoc factories. These classes are category objects, not the
-`ConstructionFunctor` objects that provide `pushout`, `merge`, or `common_base`.
 
 ## Standard Construction Categories
 
@@ -230,10 +215,6 @@ Relevant surface:
 | 611 | `Homset.__init__(X, Y, category=None, base=None, check=True)` | Stores domain/codomain and assigns `category.Endsets()` when `X is Y`. |
 | 1316 | `is_Endset(x)` | Deprecated; use `isinstance(..., Homset)` plus `is_endomorphism_set()`. |
 
-Consequence for `cat/`: `Cat` reuses Sage's `Hom`/`End` constructors and
-`Homset` parent. The local subtree defines the homset category surface, not a
-separate Cat-only homset parent.
-
 ## Autsets
 
 - Searched: installed `sage/categories/homsets.py`, installed
@@ -242,8 +223,8 @@ separate Cat-only homset parent.
 - Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`,
   `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage `Autset`
   category class.
-- Conclusion: inference -- project `Autset` vocabulary is a local extension over
-  Sage's generic homset layer.
+- Conclusion: inference -- the searched Sage installation has generic homset and
+  endset categories, but no generic `Autset` category class.
 - Confidence: High.
 - Gaps: I did not search Sage's full git history or third-party Sage extensions.
 

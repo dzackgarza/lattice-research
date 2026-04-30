@@ -4,32 +4,7 @@ Source for this pass: `cat/docs/SAGE_INVENTORY.md`, `cat/docs/MAPPING.md`,
 installed Sage source under `sage/categories/`, official Sage documentation, and the
 local smoke surface `cat/smoketest.sage`.
 
-## Current Alignment
-
-- `Cat()` accepts Sage/project category objects as objects of the category of
-  categories.
-- `Cat().__contains__` is intentionally object-only: functors are elements of
-  `A.Hom(B)`, not objects of `Cat()`.
-- `Cat.ParentMethods` is the canonical surface for ordinary category-object
-  operations: the closed-arity `Hom`, category-level `End` and `Aut`, `leq`, `geq`,
-  `<=`, and `>=`. The root `Cat()` object itself deliberately does not re-export the
-  comparison aliases.
-- The re-exported Sage base-class wrappers preserve Sage category behavior while
-  registering ordinary project categories as objects of `Cat()`.
-- The wrapper layer, not `Cat()` itself, adapts universal construction selectors into
-  Sage's generated `SubcategoryMethods` path.
-- `A.Hom(B)` reuses Sage's `Hom(A, B, category=Cat())` parent.
-- `A.Hom(A)` is the object-level endofunctor parent. `A.End()` and `A.Aut()` are
-  category-level construction selectors on category objects.
-- `CatHomsets` inherits the generic `HomsetsOf` pattern; `_CatEndsets` and
-  `_CatAutsets` inherit `GenericEndsets` and `GenericAutsets`.
-- Generic homset object methods such as `domain` and `codomain` come from the
-  repository-level homset surface. Cat only adds the functor-specific element
-  surface.
-- The previous `fixed_points()` endofunctor method was removed. Sage provides no
-  general computable fixed-point operation for endofunctors.
-
-## Remaining Design Work
+## Current Smoke Frontier
 
 - Some subtree category classes already define direct `Hom` methods for their own
   object-level homset constructors. Those direct methods may shadow the Cat-level
@@ -40,20 +15,6 @@ local smoke surface `cat/smoketest.sage`.
 - The generic Sage functor API does not provide a uniform invertibility certificate.
   Concrete autofunctor membership beyond the generic `Autset` condition remains a
   future refinement.
-
-## Source Note: Sage Generic Autsets
-
-- Searched: installed
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/homsets.py`,
-  installed `sage/categories/homset.py`, official Sage documentation pages for
-  category and homset machinery, and local `category_specs/homsets/__init__.py`.
-- Found: Sage provides `HomsetsCategory`, `HomsetsOf`, `Homsets`, `Homsets.Endset`,
-  `Hom(...)`, `End(...)`, and `Homset`. I found no installed generic Sage
-  `Autset` category class.
-- Conclusion: inference -- project `Autset` vocabulary is an extension over Sage's
-  generic homset layer, while `Endset` maps to Sage's existing axiom.
-- Confidence: High.
-- Gaps: I did not search Sage's full git history or third-party Sage extensions.
 
 ## Validation Scope
 

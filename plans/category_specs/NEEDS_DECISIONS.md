@@ -69,12 +69,13 @@ validation can be meaningful.
 `FinitelyPresented().OverPID()` registration. Decide the category path and constructor
 ownership before the module constructor surface is considered complete.
 
-## Topological Constructors And Inheritance
+## Topological Constructor Inventory
 
-Topological-space constructors are not admitted yet, and the inheritance path for
-topological rings, modules, and algebras is still undecided. Decide the constructor
-inventory and whether topological structure is inherited directly from
-`TopologicalSpaces()` or through set/ring/module-specific refinements.
+The inheritance path is decided in the mapping docs: topological rings, modules, and
+algebras inherit their topological-space surface from `topological_spaces` and their
+algebraic surface from their own subtree. The remaining user decision is the
+constructor inventory: which Sage topological-space constructor families should be
+admitted first, and which named `Constructors()` paths should expose them.
 
 ## Poset Constructor Inventory
 

@@ -6,37 +6,6 @@ Source for the current documentation pass: `modules/docs/SAGE_INVENTORY.md`,
 This file records the current `modules/smoketest.sage` frontier. The smoke is expected
 to fail until the listed missing surfaces and structural blockers are implemented.
 
-## Current Alignment
-
-- Constructor entry points are exposed as `Modules(R).Constructors()`.
-- Construction categories are split under `subcategories/constructions/`.
-- `Modules(R).NamedModules()` is not part of the forward surface. The canonical
-  constructor namespace is `Modules(R).Constructors()`.
-- Homsets, endsets, and automorphism sets are explicit category surfaces. Generic
-  hom/end/aut behavior belongs to top-level `homsets/`; module-specific linear
-  structure belongs to `modules/homsets.py`.
-- Axiomatic restrictions are split into one mathematical file per restriction under
-  `subcategories/`.
-- Sage-backed module families are split into one file per family under
-  `subcategories/`.
-- Subobjects are submodules in module categories. Quotients, subquotients, tensor
-  products, duals, graded modules, and filtered modules are attachable categorical
-  constructions, not constructor buckets.
-
-## Audit Conclusions Before Runtime Validation
-
-- Axiomatic module restrictions live in mathematical files such as `free.py`,
-  `projective.py`, `finitely_presented.py`, and `over_pid.py`.
-- Sage-backed implementation families live in files such as
-  `vector_spaces.py`, `free_modules_over_pids.py`,
-  `finitely_generated_pid_quotient_modules.py`, and
-  `torsion_quadratic_modules.py`.
-- Root module method surfaces live in `modules/__init__.py` as `_RModObjects` and
-  `_RModElements`, matching the top-level category owner.
-- `Modules.from_matrix` delegates matrix cokernel construction to
-  `FinitelyPresentedModulesOverPID.from_matrix`, because Smith-form and
-  elementary-divisor representations belong to finitely presented modules over PIDs.
-
 ## Dynamic Category Key Mismatch
 
 These constructors fail with `KeyError` values such as `(256, 145)` and `(256, 156)`.
@@ -98,7 +67,7 @@ These failures are the next concrete method surfaces exposed by refinement:
 The ring-object-as-module failure comes from refining the underlying polynomial ring
 object, not from a module-specific method gap.
 
-## Consequence
+## Current Blocker Groups
 
 The module subtree currently has four distinct blockers:
 

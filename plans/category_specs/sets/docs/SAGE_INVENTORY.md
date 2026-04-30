@@ -591,7 +591,7 @@ Source pass:
   and `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/`.
 
 This section is the working Sage inventory for the redesign pass. It records Sage
-classes, categories, constructors, and methods before project mapping decisions.
+classes, categories, constructors, and methods.
 
 ### Category Method Surfaces
 

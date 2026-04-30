@@ -1,8 +1,8 @@
 # Sage Module Inventory
 
 This is a source-backed inventory of upstream Sage module-related constructors,
-classes, categories, and method surfaces. It is organized around the category-spec
-coverage questions for this subtree, but it records Sage facts only.
+classes, categories, and method surfaces. It is organized by Sage module-family
+surface and records Sage facts only.
 
 This file does not describe downstream implementation status, constructor-hook
 status, or mappings from Sage objects into another hierarchy.
@@ -86,8 +86,8 @@ general concrete categories. They are distinct from constructors such as
 | --- | --- | --- |
 | `Modules(R).Homsets()` | `categories/modules.py:719-820` | Sets of `R`-linear maps between modules; Sage makes homsets modules over `R` and supplies zero morphisms. |
 | `Modules(R).Endsets()` | `categories/modules.py:820-850` and generic homset endset machinery | Endomorphism sets of modules; Sage adds magmatic-algebra structure over `R`. |
-| Project `Modules(R).Autsets()` | project target to audit against Sage module endomorphism and isomorphism methods | Automorphism sets are invertible module endomorphisms and should be explicit in the hom/end/aut hierarchy. |
-| `Modules(R).CartesianProducts()` | `categories/modules.py:880-934` | Cartesian/direct products of modules with componentwise module structure; factors should be recorded as a sequence of module parents. |
+| Sage module automorphism surfaces | concrete module homspaces and morphism methods | Sage module sources expose bijectivity, inverse, isomorphism, and endomorphism behavior on concrete homspaces and morphisms; no separate Sage `Modules(R).Autsets()` category is inventoried here. |
+| `Modules(R).CartesianProducts()` | `categories/modules.py:880-934` | Cartesian/direct products of modules with componentwise module structure and common base-ring bookkeeping. |
 | `Modules(R).TensorProducts()` | `categories/modules.py:241-267` and `:934-980` | Tensor products of modules, with `tensor_factors()` and construction data. |
 | `Modules(R).DualObjects()` / `dual()` | `categories/modules.py:268-335` | Linear dual objects, modeled as a covariant functorial construction in Sage; graded duals are not separated there. |
 | `Modules(R).Subquotients()` | inherited from `Sets.SubcategoryMethods.Subquotients()` | Constructive subquotients of modules, with ambient module, lift, and retract. |

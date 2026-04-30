@@ -10,10 +10,10 @@ This inventory records Sage algebra surfaces.
 | `sage.categories.algebras_with_basis.AlgebrasWithBasis` | Basis-dependent algebra operations, structure constants, and module-with-basis inheritance. |
 | `sage.categories.commutative_algebras.CommutativeAlgebras` | Commutative algebra restriction. |
 | `sage.categories.finite_dimensional_algebras_with_basis.FiniteDimensionalAlgebrasWithBasis` | Finite-dimensional basis-dependent radical, center, idempotent-lift, Peirce, and semisimple-quotient methods. |
-| `sage.categories.semisimple_algebras.SemisimpleAlgebras` | Semisimple algebra restriction and semisimple quotient targets. |
-| Matrix algebras and square matrix spaces | Algebra objects inheriting ring and module surfaces without redeclaring them in `rings`. |
-| Polynomial, quotient, and finite-dimensional algebras | Algebra constructors and subcategories once their Sage surfaces are inventoried. |
-| Sage algebra construction categories | Subobjects, quotients, Cartesian products, tensor products, and dual objects under `subcategories/constructions/`. |
+| `sage.categories.semisimple_algebras.SemisimpleAlgebras` | Semisimple algebra restriction and semisimple quotient methods. |
+| Matrix algebras and square matrix spaces | Algebra objects that also carry ring and module category structure in Sage. |
+| Polynomial, quotient, and finite-dimensional algebra sources | Sage constructor families that produce algebra objects. |
+| Sage algebra construction categories | Subobjects, quotients, Cartesian products, tensor products, and dual objects. |
 
 ## Sage Algebra Method Names To Source-Anchor
 

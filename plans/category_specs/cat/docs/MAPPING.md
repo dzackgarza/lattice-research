@@ -92,6 +92,9 @@ This is distinct from Sage `FunctorialConstructionCategory` classes such as
 methods like `C.Subobjects()`, not functors with domains, codomains, and object/morphism
 actions.
 
+Sage provides no general computable fixed-point operation for arbitrary endofunctors,
+so `fixed_points()` is not a Cat-level functor method surface.
+
 ## Standard Constructions
 
 Sage functorial construction categories map directly to category-object methods:

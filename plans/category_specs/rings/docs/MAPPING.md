@@ -31,6 +31,14 @@ Matrix-ring diagonal construction takes a sequence of ring elements. The previou
 `Any` surface hid the mathematical input: diagonal entries form an ordered finite
 family in the base ring.
 
+Precision-family identities are exact Sage identity facts, not informal equality:
+`RR is RealField(53)`, `CC is ComplexField(53)`,
+`RIF is RealIntervalField(53)`, and `CIF is ComplexIntervalField(53)` are true.
+`RDF is RealField(53)`, `CDF is ComplexField(53)`, `RR is RDF`, and `CC is CDF`
+are false. Thus `RR`, `CC`, `RIF`, and `CIF` may have fixed-object refinements,
+while `RealField(...)`, `ComplexField(...)`, and related precision families remain
+multi-object parameterized subcategories.
+
 ## Subcategory Layout
 
 | Current source surface | Target file organization | Rationale |

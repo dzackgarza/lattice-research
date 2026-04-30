@@ -12,5 +12,5 @@ Source for this initial pass: the existing set subtree topological surface and S
 
 - Sage topological-space constructors beyond set-backed objects have not yet been
   inventoried.
-- Interactions with topological rings, modules, and algebras need a later pass after
-  those subtrees are reorganized.
+- Sage topological ring, module, and algebra category surfaces are not inventoried in
+  this file.

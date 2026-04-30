@@ -7,35 +7,7 @@ Runtime smoke validation now instantiates `Homsets()`, `Homsets().Endset()`,
 `Homsets().Endset().Autset()` through the `Homsets().Autset()` convenience selector,
 and the `Cat` functor hom/end/aut layers.
 
-## Audit Conclusions
+## Current Smoke Frontier
 
-- The project needs a root `homsets` subtree, not a flat `homsets.py`, because homsets,
-  endsets, autsets, and their element surfaces are shared across every mathematical
-  category subtree.
-- Sage already supplies `HomsetsCategory`, `Homsets`, and `Homsets.Endset`; the project
-  extends these constructions rather than replacing them.
-- Sage's `Homsets().Endset()` is a valid category. Sage models it as an axiom of
-  `Homsets`, not as an independent functorial construction, so the project adds
-  `EndsetsCategory` and the visible constructor `Endsets().Of(C)`.
-- Generic autset construction belongs in `homsets/autsets.py` and is exposed through
-  `GenericAutsets`. Subtrees inherit it instead of calling the helper directly.
-- `Autset` is an axiom on endsets. Homset-level `Autset()` methods are convenience
-  selectors that return `self.Endset().Autset()`.
-- Set, ring, module, algebra, and topological-space homset files remain responsible
-  only for category-specific morphism laws and genuinely additional structure.
-
-## Integration Results
-
-- `rings/homsets.py` now inherits generic autset construction through
-  `GenericAutsets`.
-- `sets/homsets.py` now inherits generic autset construction through
-  `GenericAutsets`.
-- `modules/homsets.py` now establishes the extra-structure pattern: `Hom_R(M, N)` is
-  an `R`-module and `End_R(M)` is an `R`-algebra, while Autset construction remains
-  generic.
-- Module autsets inherit the endomorphism power spec from module endsets. They do not
-  re-declare `__pow__`.
-- `algebras/homsets.py` and `topological_spaces/homsets.py` now declare their
-  hom/end/aut categories as extension points for algebra homomorphisms, continuous
-  maps, and homeomorphisms.
-- `types.py` now exposes generic hom/end/aut vocabulary from `homsets`.
+No additional homsets-specific missing obligation is recorded in this file. Mapping
+and ownership decisions live in `homsets/docs/MAPPING.md`.
