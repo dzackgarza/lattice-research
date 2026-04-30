@@ -23,16 +23,26 @@ belong to finite countable sets.
 Countable-set enumeration should be specified through mathematical/Python protocol
 surface, not through Sage's fallback helper names.
 
-| Sage surface | Project surface | Mapping decision |
-| --- | --- | --- |
-| `__iter__()` | `__iter__()` | The iterator witnesses countability. |
-| `unrank(n)` and `__getitem__(n)` | `X[n]` / `__getitem__(n: Integer)` | This is the nth-element map for the chosen enumeration. `unrank` is Sage vocabulary for the same map and should not be a second primary project method. |
-| `rank(e)` | `rank(e)` | Keep this as the index-of map for the chosen enumeration: it is the partial inverse of `X[n]`. It is meaningful for infinite countable sets, but the spec makes no complexity promise. |
-| `iterator_range`, `unrank_range`, slice `__getitem__` | Python slicing/range protocol, when admitted | These are range conveniences over the enumeration, not independent category structure. |
-| `first()` and `next(e)` | derived enumeration conveniences | `first()` is `X[0]`; `next(e)` is the successor in the chosen enumeration, equivalently `X[rank(e) + 1]` when `rank(e)` is available. |
-| `tuple()`, `list()` | `tuple(X)`, `list(X)` on finite countable sets | These are finite Python conversions. They are not countable-set methods and are not admitted on infinite countable sets. |
-| `set()`, `frozenset()` | no project method | Python hash-set export loses the project/Sage set object and is not a category obligation. |
-| `_first_from_iterator`, `_next_from_iterator`, `_unrank_from_iterator`, `_rank_from_iterator`, `_iterator_from_list`, `_iterator_from_next`, `_iterator_from_unrank`, `_tuple_from_iterator`, `_tuple_from_list`, `_list_from_iterator`, `_cardinality_from_list`, `_cardinality_from_iterator`, `_unrank_from_list` | no project method | These are Sage implementation fallbacks and cache bridges. They belong in inventory only, not in the spec surface. |
+| Sage surface | Project surface | Project call recovering Sage behavior | Mapping decision |
+| --- | --- | --- | --- |
+| `__iter__()` | `__iter__()` | `iter(X)` or `for x in X` | The iterator witnesses countability. |
+| `unrank(n)` and `__getitem__(n)` | `X[n]` / `__getitem__(n: Integer)` | Replace `X.unrank(n)` with `X[n]`. | This is the nth-element map for the chosen enumeration. `unrank` is Sage vocabulary for the same map and should not be a second primary project method. |
+| `rank(e)` | `rank(e)` | Keep `X.rank(e)`. | Keep this as the index-of map for the chosen enumeration: it is the partial inverse of `X[n]`. It is meaningful for infinite countable sets, but the spec makes no complexity promise. |
+| `iterator_range(start, stop, step)` | range/slice iteration protocol, when admitted | Use `iter(X[start:stop:step])` or `(X[n] for n in range(start, stop, step))`, depending on the admitted slice return object. | This is a range convenience over the enumeration, not independent category structure. |
+| `unrank_range(start, stop, step)` | finite range/slice materialization, finite-only | Use `list(X[start:stop:step])` for finite countable sets. | Materializing a whole range is a finite collection operation. It is not a countable-set obligation. |
+| `first()` | derived enumeration convenience | Replace `X.first()` with `X[0]`. | The first element is the zeroth element of the chosen enumeration. |
+| `next(e)` | derived enumeration convenience | Replace `X.next(e)` with `X[X.rank(e) + 1]` when `rank(e)` is defined. | This recovers Sage successor behavior from the rank and nth-element maps. |
+| `last()` | finite-only enumeration convenience | Replace `X.last()` with `X[len(X) - 1]` on finite countable sets. | Last element is finite-only. |
+| `tuple()` and `list()` | finite Python conversions | Replace `X.tuple()` with `tuple(X)` and `X.list()` with `list(X)` on finite countable sets. | These are finite Python conversions. They are not countable-set methods and are not admitted on infinite countable sets. |
+| `set()` and `frozenset()` | no project method | No replacement. If a finite project set is needed, use the admitted finite-set constructor rather than Python hash-set export. | Python hash-set export loses the project/Sage set object and is not a category obligation. |
+| `_first_from_iterator` | no project method | Recover with `next(iter(X))` or `X[0]` when indexing is available. | Sage fallback helper; inventory-only. |
+| `_next_from_iterator(obj)` | no project method | Recover with `X[X.rank(obj) + 1]` when `rank(obj)` is available. | Sage fallback helper; inventory-only. |
+| `_unrank_from_iterator(r)` and `_unrank_from_list(r)` | no project method | Recover with `X[r]`. | Sage fallback/cache helper; inventory-only. |
+| `_rank_from_iterator(x)` | no project method | Recover with `X.rank(x)`. | Sage fallback helper; inventory-only. |
+| `_iterator_from_list`, `_iterator_from_next`, `_iterator_from_unrank` | no project method | Recover with `iter(X)`. | Sage iterator-construction helpers; inventory-only. |
+| `_tuple_from_iterator`, `_tuple_from_list` | no project method | Recover with `tuple(X)` on finite countable sets. | Sage finite materialization/cache helpers; inventory-only. |
+| `_list_from_iterator` | no project method | Recover with `list(X)` on finite countable sets. | Sage finite materialization/cache helper; inventory-only. |
+| `_cardinality_from_list`, `_cardinality_from_iterator` | no project method | Recover with `X.cardinality()` or `len(X)` when a finite Python length is needed. | Sage cache/fallback helpers; inventory-only. |
 
 Sage's generic `_rank_from_iterator` is brute-force iteration: it returns the first
 position where the element appears, and on an infinite enumerated set it need not
