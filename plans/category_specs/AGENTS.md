@@ -122,12 +122,16 @@
   enumerated collections, prefer returning Python generators over explicit
   finite containers. This supports lazy evaluation and allows filtering or
   mapping without prematurely unwrapping infinite objects into memory.
-- **Deep ConditionSet Integration**: For subsets or filtered collections (e.g.,
-  even integers, automorphisms within an endset), prefer using Sage's
-  `ConditionSet` to define containment via predicates. This allows for clean
-  mathematical expressions (e.g., `1+i in (CC - RR)`) and deferred evaluation.
-  When an ambient object exists, containment should be defined by deferring to
-  the predicates of a `ConditionSet` over that ambient universe.
+- **Deep ConditionSet Integration**: Predicate-defined subsets and filtered
+  subobjects are public subobjects, not raw `ConditionSet` API. For subsets or
+  filtered collections (e.g., even integers, automorphisms within an endset), use
+  Sage's `ConditionSet` only as localized interop backing for containment via
+  predicates. This allows clean mathematical expressions (e.g., `1+i in (CC -
+  RR)`) and deferred evaluation while preserving the public vocabulary:
+  `Sets().Subobjects().Of(ambient, predicates)` for subsets, and the analogous
+  subobject category surface for other categories. Raw `ConditionSet.arguments()`
+  and symbolic predicate plumbing stay in Sage inventory or interop files; they
+  are not category-spec methods.
 - Type names reflect **real mathematical vocabulary**, inspired by the SageMath
   **written docs** (not just type signatures — read the actual mathematics):
   - Objects: `Polynomial`, `RealNumber`, `ComplexNumber`, `RingElement`, `PowerSeries`,

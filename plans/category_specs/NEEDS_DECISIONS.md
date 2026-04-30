@@ -17,16 +17,8 @@ Typed finite collection signatures are not themselves design blockers. Shapes su
 `galois_closure() -> Field | tuple[Field, RingMorphism]`,
 `list[RingMorphism]`, `tuple[RingElement, ...]`, and
 `dict[RingElement, Integer]` are compliant when they transparently state finite
-mathematical data. The remaining collection-signature questions are narrower:
+mathematical data. The remaining collection-signature question is narrower:
 
-- `sets/subcategories/condition.py` has `arguments() -> tuple` and
-  `predicates() -> tuple`, with `predicates()` currently returning `arguments()`.
-  The set inventory says Sage `ConditionSet.arguments()` exposes the ambient set plus
-  predicate/symbolic argument data, while the project constructor takes
-  `predicates: Sequence[Callable[[SetElement], bool]]`. Decide whether the project
-  surface should split `predicates()` from the raw Sage `arguments()` surface, typed as
-  `tuple[Callable[[SetElement], bool], ...]`; and if `arguments()` remains public,
-  decide what exact typed product it returns.
 - `rings/subcategories/p_adic_ring.py` declares
   `change(..., print_alphabet: dict[str, str] | None = None, ...)`. This is display
   configuration, not finite mathematical data. Decide whether display-only Sage

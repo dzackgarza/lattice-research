@@ -45,7 +45,6 @@ One-object constructor refinements::
     RecursivelyEnumeratedSets
     DisjointUnionEnumeratedSets
     CartesianProductSets
-    ConditionSets
     ImageSets
     TotallyOrderedFiniteSets
     FiniteSetMapsSets
@@ -637,22 +636,6 @@ class Sets(Category_singleton):
             product_category = Sets().CartesianProducts() if category is None else category
             S = SageCP(tuple(factors), category=product_category, flatten=flatten)
             return refine_category(S, [Sets(), _CartesianProductSets()])
-
-        @final
-        def ConditionSet(
-            self,
-            universe: Set,
-            predicates: Sequence[Callable[[SetElement], bool]],
-            *,
-            names: str | tuple[str, ...] | None = None,
-            category: Category | None = None,
-        ) -> Subset:
-            r"""Return a ``ConditionSet``, refined into its subcategory."""
-            from sage.sets.condition_set import ConditionSet as SageCS
-
-            from .subcategories.condition import _ConditionSets
-
-            return refine_category(SageCS(universe, *predicates, names=names, category=category), [Sets(), _ConditionSets()])
 
         @final
         def ImageSubobject(

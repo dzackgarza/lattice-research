@@ -18,7 +18,7 @@ no values were invented.  No `try/except` — a failure is a finding.
 | `totally_ordered_finite_set.sage` | `sage.sets.totally_ordered_finite_set` |
 | `disjoint_union_enumerated_sets.sage` | `sage.sets.disjoint_union_enumerated_sets` |
 | `recursively_enumerated_set.sage` | `sage.sets.recursively_enumerated_set` |
-| `condition_set.sage` | `sage.sets.condition_set.ConditionSet` |
+| `condition_set.sage` | `sage.sets.condition_set.ConditionSet` through `Sets().Subobjects().Of(...)` |
 | `image_set.sage` | `sage.sets.image_set.ImageSubobject` |
 | `finite_set_maps.sage` | `sage.sets.finite_set_maps.FiniteSetMaps` |
 | `family.sage` | `sage.sets.family.Family` |

@@ -22,4 +22,4 @@ decisions live in `sets/docs/MAPPING.md`.
 - Missing `__len__`: `NonNegativeIntegers`, `PositiveIntegers`, and
   `EnumeratedSetFromIterator`.
 - Missing `__iter__`: `Primes`.
-- Missing `algebra`: `ConditionSet(ZZ, even predicate)`.
+- Missing `algebra`: `Sets().Subobjects().Of(ZZ, predicates=(even predicate,))`.
