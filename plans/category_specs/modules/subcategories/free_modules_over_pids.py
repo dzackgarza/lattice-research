@@ -2,7 +2,7 @@ r"""Sage-backed module family category."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -45,6 +45,7 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _FreeModulesOverPIDs(Category_over_base_ring):
     r"""Standard-basis free modules over principal ideal domains."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [

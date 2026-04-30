@@ -6,10 +6,13 @@
 # - doc.sagemath.org reference/modules/free_module.html
 
 import sys
-sys.path.insert(0, '/home/dzack/research')
+from pathlib import Path
+
+THIS_FILE = Path(__file__).resolve()
+sys.path.insert(0, str(THIS_FILE.parents[4]))
 
 from sage.all import QQ, ZZ, identity_matrix, infinity, matrix
-from plans.category_specs.modules import Modules
+from category_specs.modules import Modules
 
 MZZ = Modules(ZZ).Constructors()
 MQQ = Modules(QQ).Constructors()
@@ -59,7 +62,7 @@ R1 = MZZ.ring_as_rank_one_module()
 assert R1.rank() == 1
 assert R1.basis_matrix() == matrix(ZZ, [[1]])
 
-S = MZZ.polynomial_ring_as_module('x')
+S = MZZ.polynomial_ring_as_module(name='x')
 assert S.base_ring() == ZZ
 assert S.structure_ring() == ZZ
 assert S.structure_map()(ZZ(3)) == S(3)

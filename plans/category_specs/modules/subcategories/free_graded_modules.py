@@ -3,7 +3,7 @@ r"""Sage-backed module family category."""
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -44,6 +44,7 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _FreeGradedModules(Category_over_base_ring):
     r"""Free graded modules over connected graded algebras."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [Modules(R).Free(), Modules(R).Graded()]

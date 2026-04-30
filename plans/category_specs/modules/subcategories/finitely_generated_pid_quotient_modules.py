@@ -3,7 +3,7 @@ r"""Sage-backed module family category."""
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -44,6 +44,7 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _FinitelyGeneratedPIDQuotientModules(Category_over_base_ring):
     r"""Sage ``FGP_Module_class`` objects represented as ``V/W`` over a PID."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [
@@ -51,6 +52,7 @@ class _FinitelyGeneratedPIDQuotientModules(Category_over_base_ring):
             Modules(R).OverPID(),
         ]
 
+    @final
     def __contains__(self, M: Any) -> bool:
         from sage.modules.fg_pid.fgp_module import FGP_Module_class
 

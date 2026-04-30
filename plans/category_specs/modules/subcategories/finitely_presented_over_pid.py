@@ -25,9 +25,10 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.homsets import HomsetsCategory
+from sage.matrix.matrix2 import Matrix as SageMatrix
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -52,6 +53,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     finitely presented module decomposes as a direct sum of cyclic modules.
     """
 
+    @final
     def extra_super_categories(self):
         return [
             self.base_category().FinitelyPresented(),
@@ -59,13 +61,11 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         ]
 
     @classmethod
+    @final
     def from_matrix(cls, module_category, matrix: Matrix) -> RModule:
         r"""Return the finitely presented module ``coker(matrix)`` over a PID."""
-        if hasattr(matrix, "elementary_divisors"):
-            return module_category.from_invariant_factors(matrix.elementary_divisors())
-        assert hasattr(matrix, "smith_form"), f"Matrix {matrix} must support elementary_divisors or smith_form."
-        diagonal_matrix, _, _ = matrix.smith_form()
-        return module_category.from_invariant_factors(diagonal_matrix.diagonal())
+        assert isinstance(matrix, SageMatrix), f"Matrix presentation must be a Sage matrix: {matrix}"
+        return module_category.from_invariant_factors(matrix.elementary_divisors())
 
     # ------------------------------------------------------------------
     # ParentMethods
@@ -94,6 +94,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Torsion summand ``T`` of ``M = R^k \oplus T``."""
             ...
 
+        @final
         def free_rank(self) -> Integer:
             return sum(1 for r in self.invariant_factors() if r.is_zero())
 
@@ -159,6 +160,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
                 """
                 ...
 
+            @final
             def is_p_elementary(self, p: RingElement) -> bool:
                 r"""``M`` is p-elementary iff ``M == M.p_part(p)``."""
                 return self == self.p_part(p)

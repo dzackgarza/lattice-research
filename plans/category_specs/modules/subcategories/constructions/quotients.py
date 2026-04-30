@@ -2,7 +2,7 @@ r"""Quotient modules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -20,5 +20,6 @@ class _Quotients(QuotientsCategory):
         def projection(self) -> RModMorphism: ...
 
     class ElementMethods:
+        @final
         def lift(self) -> RModuleElement:
             return self.projection().lift(self)

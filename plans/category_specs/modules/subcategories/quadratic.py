@@ -2,7 +2,7 @@ r"""Modules equipped with quadratic forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import _WithForms
@@ -17,5 +17,6 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (_WithForms, "Quadratic")
 
     class ParentMethods:
+        @final
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.form().q(v)

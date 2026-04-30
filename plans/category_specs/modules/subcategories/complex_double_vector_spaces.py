@@ -3,7 +3,7 @@ r"""Sage-backed module family category."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -43,10 +43,12 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _ComplexDoubleVectorSpaces(Category_over_base_ring):
     r"""Sage ``CDF^n`` vector spaces backed by complex double vectors."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [_VectorSpaces(R)]
 
+    @final
     def __contains__(self, M: Any) -> bool:
         from sage.modules.free_module import ComplexDoubleVectorSpace_class
 

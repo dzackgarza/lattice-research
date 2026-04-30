@@ -2,7 +2,7 @@ r"""Slice construction category of modules under a fixed module."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -17,6 +17,7 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
 
     _functor_category = "ObjectsUnder"
 
+    @final
     def _repr_object_names(self) -> str:
         return f"modules under {self.base()}"
 
@@ -27,8 +28,10 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         @abstract_method
         def structure_map(self) -> RModMorphism: ...
 
+        @final
         def structure_domain(self) -> RModule:
             return self.structure_module()
 
+        @final
         def structure_codomain(self) -> RModule:
             return self

@@ -7,10 +7,13 @@
 # - doc.sagemath.org reference/modules/modules_with_basis.html
 
 import sys
-sys.path.insert(0, '/home/dzack/research')
+from pathlib import Path
+
+THIS_FILE = Path(__file__).resolve()
+sys.path.insert(0, str(THIS_FILE.parents[4]))
 
 from sage.all import QQ, ZZ
-from plans.category_specs.modules import Modules
+from category_specs.modules import Modules
 
 MQQ = Modules(QQ).Constructors()
 MZZ = Modules(ZZ).Constructors()

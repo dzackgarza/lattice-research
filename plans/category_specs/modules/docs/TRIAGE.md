@@ -86,7 +86,7 @@ This is not a missing-method failure. It is a category-construction mismatch bet
 
 This constructor fails with `AssertionError: Not implemented method: is_algebraically_closed`.
 
-- `Modules(ZZ).Constructors().polynomial_ring_as_module('t')`
+- `Modules(ZZ).Constructors().polynomial_ring_as_module(name='t')`
 
 This failure comes from refining the underlying polynomial ring object, not from a module-specific method gap.
 

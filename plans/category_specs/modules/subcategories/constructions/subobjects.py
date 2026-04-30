@@ -2,7 +2,7 @@ r"""Submodules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
@@ -32,15 +32,19 @@ class _Subobjects(SubobjectsCategory):
         @abstract_method
         def intersect(self, N: SubModule) -> SubModule: ...
 
+        @final
         def __and__(self, N: SubModule) -> SubModule:
             return self.intersect(N)
 
+        @final
         def index(self) -> Cardinality:
             return self.inclusion().index()
 
+        @final
         def is_primitive(self) -> bool:
             return self.inclusion().is_primitive()
 
+        @final
         def lift(self, m: RModuleElement) -> RModuleElement:
             return self.inclusion()(m)
 
@@ -50,5 +54,6 @@ class _Subobjects(SubobjectsCategory):
         @abstract_method
         def __le__(self, other: RModule) -> bool: ...
 
+        @final
         def quotient_module(self) -> QuotientModule:
             return self.inclusion().cokernel()

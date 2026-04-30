@@ -211,8 +211,8 @@ smoke_case(
     ),
 )
 smoke_case(
-    "modules.RingObjectsAsModules via Modules(ZZ).Constructors().polynomial_ring_as_module('t')",
-    lambda: expect_in(NMZZ.polynomial_ring_as_module("t"), NMZZ.RingObjectsAsModules()),
+    "modules.RingObjectsAsModules via Modules(ZZ).Constructors().polynomial_ring_as_module(name='t')",
+    lambda: expect_in(NMZZ.polynomial_ring_as_module(name="t"), NMZZ.RingObjectsAsModules()),
 )
 
 assert not failures, "\n".join(failures)

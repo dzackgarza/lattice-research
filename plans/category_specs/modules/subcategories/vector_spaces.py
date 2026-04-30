@@ -3,7 +3,7 @@ r"""Sage-backed module family category."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -44,6 +44,7 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _VectorSpaces(Category_over_base_ring):
     r"""Sage vector spaces ``VectorSpace(K, n)`` and ``K^n`` for fields K."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [
@@ -55,6 +56,7 @@ class _VectorSpaces(Category_over_base_ring):
             Modules(R).OverField(),
         ]
 
+    @final
     def __contains__(self, M: Any) -> bool:
         from sage.modules.free_module import FreeModule_ambient_field
 

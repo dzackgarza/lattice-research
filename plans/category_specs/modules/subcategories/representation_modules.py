@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import operator
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -45,6 +45,7 @@ _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_ob
 class _RepresentationModules(Category_over_base_ring):
     r"""Group and semigroup representations implemented with bases."""
 
+    @final
     def super_categories(self):
         R = self.base_ring()
         return [
@@ -52,6 +53,7 @@ class _RepresentationModules(Category_over_base_ring):
             Modules(R).WithOrderedGeneratingSet(),
         ]
 
+    @final
     def __contains__(self, M: Any) -> bool:
         from sage.modules.with_basis.representation import Representation_abstract
 

@@ -8,10 +8,13 @@
 # - doc.sagemath.org reference/modules/torsion_quadratic_module.html
 
 import sys
-sys.path.insert(0, '/home/dzack/research')
+from pathlib import Path
+
+THIS_FILE = Path(__file__).resolve()
+sys.path.insert(0, str(THIS_FILE.parents[4]))
 
 from sage.all import QQ, ZZ, diagonal_matrix, matrix, vector
-from plans.category_specs.modules import Modules
+from category_specs.modules import Modules
 
 MZZ = Modules(ZZ).Constructors()
 

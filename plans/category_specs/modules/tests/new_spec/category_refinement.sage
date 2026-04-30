@@ -2,15 +2,17 @@
 #
 # These assertions intentionally encode current failures of the wrapped Sage
 # implementations against the local module-category spec in
-# plans/category_specs/modules/named.py.
+# plans/category_specs/modules/__init__.py and modules/subcategories/.
 
 import logging
 import sys
-sys.path.insert(0, '/home/dzack/research')
+from pathlib import Path
 
-from pytest import raises
-from plans.category_specs.modules import Modules
-from plans.category_specs.rings import Rings
+THIS_FILE = Path(__file__).resolve()
+sys.path.insert(0, str(THIS_FILE.parents[4]))
+
+from category_specs.modules import Modules
+from category_specs.rings import Rings
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -34,13 +36,11 @@ logger.warning(
     "Spec mismatch: modules-with-basis quotients should lie in Modules(QQ).Quotients(), "
     "but the wrapped Sage quotient currently does not refine into that subcategory."
 )
-with raises(AssertionError):
-    assert Y in Modules(QQ).Quotients()
+assert Y in Modules(QQ).Quotients()
 
 logger.warning(
     "Spec mismatch: quotient refinement should compose under axiom chaining, so a modules-with-basis "
     "quotient should lie in Modules(QQ).Quotients().WithOrderedGeneratingSet(), but the current "
     "wrapped Sage quotient does not."
 )
-with raises(AssertionError):
-    assert Y in Modules(QQ).Quotients().WithOrderedGeneratingSet()
+assert Y in Modules(QQ).Quotients().WithOrderedGeneratingSet()

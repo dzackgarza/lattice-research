@@ -2,7 +2,7 @@ r"""Modules equipped with forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 from sage.misc.abstract_method import abstract_method
@@ -26,29 +26,36 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Bilinear(self) -> Category:
             return self._with_axiom("Bilinear")
 
         @cached_method
+        @final
         def Quadratic(self) -> Category:
             return self._with_axiom("Quadratic")
 
         @cached_method
+        @final
         def Symmetric(self) -> Category:
             return self._with_axiom("Symmetric")
 
         @cached_method
+        @final
         def Alternating(self) -> Category:
             return self._with_axiom("Alternating")
 
         @cached_method
+        @final
         def Nondegenerate(self) -> Category:
             return self._with_axiom("Nondegenerate")
 
         @cached_method
+        @final
         def Integral(self) -> Category:
             return self._with_axiom("Integral")
 
         @cached_method
+        @final
         def Rational(self) -> Category:
             return self._with_axiom("Rational")
