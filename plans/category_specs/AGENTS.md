@@ -150,6 +150,66 @@ an `n`th element operation, implementers of that category must provide it; the a
 of implementations is an implementation gap, not a reason to remove the mathematical
 requirement.
 
+**Inventory, Mapping, and Spec Smokes Are Different Artifacts**:
+Do not import generic software-engineering meanings of "inventory", "mapping", or
+"smoke test" into this subtree.
+
+- **Sage inventory** records Sage facts only: source files, documented constructors,
+  signatures, classes, categories, methods, and observed Sage behavior. It is not the
+  place to decide project admission, deprecation, interop status, or mathematical
+  replacement. Do not write phrases such as "not admitted", "project surface",
+  "target mapping", or "excluded interop" in `SAGE_INVENTORY.md`.
+- **Mapping docs** translate each inventoried Sage surface into the project
+  mathematics. Every Sage class, constructor, and method in the inventory must map to
+  exactly one of: a project category surface, a named constructor path, a
+  mathematically justified non-mapping, or an explicit `NEEDS_DECISIONS.md` item.
+  Never delete or ignore a Sage method because the Sage class or constructor around it
+  is mathematically wrong.
+- **Rejecting an invalid Sage constructor does not reject its method evidence.** For
+  example, generic `Set(X)` wrapping is ill-defined as a mathematical constructor, but
+  `Set_object.__contains__`, `__iter__`, `cardinality`, `is_empty`, `is_finite`,
+  `subsets`, `subsets_lattice`, `_sympy_`, Boolean operations, and rich comparisons
+  still inform where those methods belong in the project category hierarchy.
+- **Invalid or variadic Sage constructors must be enumerated into named mathematical
+  paths.** Do not preserve an arbitrary variadic wrapper and do not replace it with
+  another implementation-shaped alias. For instance, `Set(ZZ)` maps to `ZZ in Sets()`
+  because `ZZ` is already a set object, while finite iterable inputs such as
+  `Set([1, 2, 3])` map to a named finite-enumerated constructor such as
+  `Sets().Constructors().from_iterable(elements)`.
+- **Unsurfaced mapping decisions are failures.** If an agent decides a Sage surface is
+  non-mapped, moved to a strict supercategory, or replaced by a named constructor, that
+  decision must appear in mapping docs or `NEEDS_DECISIONS.md` with the mathematical
+  reason. Do not hide decisions by deleting smokes, deleting abstract methods, or
+  reclassifying evidence as "interop".
+
+**Spec Smokes Are Executable Spec Frontiers**:
+Smokes in this subtree are not implementation smoke tests. They are executable
+frontiers for the category specification.
+
+- A spec smoke uses the project spec surface and asserts mathematical facts:
+  membership in project categories, cardinalities, rankings, subset relations, form
+  laws, Hom/End/Aut semantics, constructor routing to named mathematical objects, and
+  other obligations stated by the spec.
+- A spec smoke must fail with implementer-facing missing obligations. It should collect
+  the current frontier when useful, but the collected failures must be mathematical
+  failures, not constructor-liveness checks.
+- A spec smoke must not assert that an object "exists", is non-`None`, is truthy, or
+  merely constructs without raising. It must not use raw Python containers or raw Sage
+  quirks as the main oracle when a project category predicate or method should express
+  the claim.
+- If a smoke cannot state the intended claim using project category vocabulary, the
+  result is not a weaker smoke. The result is a missing spec-surface finding that must
+  be mapped, added to the spec, or recorded as a decision.
+- Avoid assertion-wrapper ceremony in smokes. A helper is acceptable only when it
+  preserves mathematical content and materially improves frontier reporting. Do not add
+  generic `require`, `assert_not_none`, truthiness checks, or other software-testing
+  scaffolding that hides the mathematical assertion.
+- Regression tests are separate from spec smokes. Regression tests may use Sage
+  examples as source evidence, but they still prove project-owned mathematical
+  behavior through project vocabulary. They are not a license to compare against raw
+  Python containers or current Sage implementation quirks as a substitute for a spec
+  assertion.
+
 Audit with a reference-textbook mindset. Ask what Bourbaki, Atiyah-MacDonald,
 Dummit-Foote, Hatcher, Hartshorne, the Stacks Project, or the relevant Sage written
 documentation would consider part of the structure. Use "theory of mind" for the
