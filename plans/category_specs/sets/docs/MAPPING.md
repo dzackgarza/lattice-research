@@ -49,7 +49,7 @@ subcategory file that owns its spec.
 | Set axiom names | Root `category_specs/axioms.py` plus axiom classes under `sets/subcategories/` | Axiom names have one root registration point; set axiom classes own the mathematical method surfaces. |
 | Specialized set-object surfaces | One mathematical subcategory file per Sage concept under `sets/subcategories/` | The file structure follows mathematical vocabulary, not implementation history. |
 | Named set constructors | `Sets().Constructors()` on `sets/__init__.py` | Constructors are entry points, not subcategories. |
-| Sage `Set(X)` / `Set_object` wrappers | no admitted category file | Sage implements this surface, but arbitrary object wrapping is not a mathematical set constructor. Valid cases must be decomposed into named constructors with explicit set semantics; the generic wrapper is a Sage design defect for this spec, not a project category. |
+| Sage `Set(X)` / `Set_object` wrappers | no admitted wrapper category; method surface remapped below | Sage implements this surface, but arbitrary object wrapping is not a mathematical set constructor. Its methods are still evidence for project set surfaces, so each method is mapped explicitly instead of being silently dropped. |
 | `_FiniteEnumeratedSetObjects` | `subcategories/finite_enumerated_set.py` | Finite enumerated sets have their own Sage-backed method surface. |
 | `_IntegerRangeSets` | `subcategories/integer_range.py` | Integer ranges are arithmetic progressions with finite or infinite countable behavior. |
 | `_NonNegativeIntegersSets` | `subcategories/non_negative_integers.py` | Nonnegative integers are a named countably infinite subset of `ZZ`. |
@@ -89,7 +89,7 @@ subcategory boundaries.
 | `InfiniteEnumeratedSets()` | `Sets().Countable().Infinite()` | Infinite enumerated sets are countably infinite, not listable as finite collections. | Infinite-countable declarations should state non-listability methods (`tuple`, `list`, `random_element`) as Sage surfaces without implementing exception logic in the spec. |
 | `FacadeSets()` | `Sets().Facade()` | Elements are represented by elements of another parent. | `facade_for`, facade element construction, and facade parent checks belong here. |
 | Sage `TopologicalSpaces()` for `RealSet` | `TopologicalSpaces()` / `Sets().Topological()` plus `Sets().Subobjects()` when an ambient real line is present | A `RealSet` is a topological subset of the real line, and a set with a topology is precisely a topological space. | `RealSet` refinement must preserve Sage topological behavior and declare real-line subobject operations. |
-| Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union as a set operation. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |
+| Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union with any other set in `Sets()`. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |
 | `SubobjectsCategory` | `Sets().Subobjects()` / alias `Subsets` | In the category of sets, subobjects are exactly subsets. The same construction must remain attachable to arbitrary set subcategories via Sage's functorial construction/category-of machinery. | The set subtree exposes `Subsets = Subobjects` and uses `Subset` type vocabulary in signatures. Its implementation lives in `subcategories/constructions/subobjects.py`, not a monolithic `constructions.py`. |
 | `QuotientsCategory` | `Sets().Quotients()` | Quotient sets are equivalence-class objects. Like subobjects, quotient categories are attachable construction categories, not singleton categories. | `subcategories/constructions/quotients.py` owns the set-specific quotient scaffold and `types.py` exposes `QuotientSet`. |
 | `SubquotientsCategory` | `Sets().Subquotients()` | Sage's constructive subquotients are the primitive construction behind quotients and subobjects: an object has an ambient object, a lift, and a retract. | `subcategories/constructions/subquotients.py` owns the ambient/lift/retract surface. |
@@ -107,7 +107,8 @@ subcategory boundaries.
 
 | Sage constructor | Project subcategory | Notes |
 | --- | --- | --- |
-| `Set(X)` | not admitted as a project constructor | The generic Sage wrapper does not define a mathematical construction from an arbitrary object to a set. Named cases with real set semantics belong in `Sets().Constructors()` individually; for example finite explicit collections use `FiniteEnumeratedSet(elements)`, and real-line subsets use the `RealSet` constructors. |
+| `Set(X)` | not admitted as a project constructor | The generic Sage wrapper does not define a mathematical construction from an arbitrary object to a set. Cases are enumerated into non-variadic, named paths: `Set(ZZ)` is replaced by `ZZ in Sets()` because `ZZ` is already a set object; finite explicit iterables use `Sets().Constructors().from_iterable(elements)`; real-line subsets use the `RealSet` constructors; other valid cases must receive their own named constructors before admission. |
+| finite iterable input formerly routed through `Set([..])`, `Set(tuple(..))`, ordered dictionaries, or other finite iterable wrappers | `Sets().Constructors().from_iterable(elements)` | This constructor creates a finite enumerated set by enumeration. It is the project replacement for finite iterable wrapping, and it keeps the public API non-variadic and mathematically explicit. |
 | `FiniteEnumeratedSet(elements)` | `FiniteEnumeratedSetObjects` | Tuple-backed finite facade set. Include `last`, `__call__`, and element construction in the spec. |
 | `IntegerRange(...)` | `IntegerRangeSets` | Arithmetic progression of integers. Finite/infinite status depends on bounds; the one-object category should refine through countable facade sets and let Sage/category membership expose finiteness. |
 | `NonNegativeIntegers()` | `NonNegativeIntegerSets` | Countably infinite facade subset of `ZZ`. |
@@ -124,6 +125,47 @@ subcategory boundaries.
 | `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` | Finite set of functions. Endomap variants expose monoid identity as `one()`, not only `identity()`. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
+
+## Sage `Set_object` Method Mapping Decisions
+
+Sage's `Set_object` and `Set_object_enumerated` method surface is inventoried in
+`SAGE_INVENTORY.md`. The generic wrapper category is not admitted, but the methods are
+mapped to the mathematical surfaces they witness.
+
+| Sage surface | Project mapping | Decision |
+| --- | --- | --- |
+| `object()` | no public project method | The wrapped Python object is Sage implementation state, not mathematical structure. Named constructors expose their mathematical data directly instead of exposing a generic underlying object. |
+| `__contains__(x)` | `Sets.ParentMethods.__contains__` | Membership is part of every set. |
+| `__iter__()` | `Sets().Countable().ParentMethods.__iter__` | Iteration witnesses countability, not arbitrary sethood. |
+| `_an_element_()` / `an_element()` | `Sets.ParentMethods.an_element` | Producing an element is a root set method. |
+| `cardinality()` | `Sets.ParentMethods.cardinality` | Cardinality is defined for every set. |
+| `is_empty()` / `is_finite()` | `Sets.ParentMethods.is_empty` and `Sets.ParentMethods.is_finite` | These predicates are defined for every set. |
+| `subsets(size=None)` / `subsets_lattice()` | `Sets.ParentMethods.subsets` and `Sets.ParentMethods.subsets_lattice` | The power set and subset lattice are set-theoretic constructions, not wrapper-specific methods. |
+| `_sympy_()` | `Sets.ParentMethods._sympy_` | SymPy conversion is a general set export surface where available. |
+| `union(other)` | `Sets.ParentMethods.union` | Union is defined for any two objects in the category of sets. |
+| `intersection`, `difference`, `symmetric_difference`, `complement` | `Sets().Subobjects()` / `Subsets` | These require a common ambient set, so they are subset/subobject operations. |
+| `__richcmp__`, `issubset`, `issuperset` | root set comparison surface | The project exposes rich comparison with set-theoretic semantics: equality is equality of elements, `<=` is subset, `<` is proper subset, `>=` is superset, and `>` is proper superset. This replaces Sage wrapper comparison semantics. |
+| `list()`, `tuple()`, `set()`, `frozenset()` on finite wrappers | finite/countable enumeration surfaces where mathematically admitted | Finite enumerated sets may expose finite enumeration. Python-native container export is admitted only when a named constructor/category owns that finite enumerated surface. |
+| `random_element()`, `rank`, `unrank`, `first`, `last`, `next` | finite/countable enumeration subcategories | These are enumeration methods, not wrapper methods. |
+
+## Rich Comparison Mapping Decisions
+
+Sage exposes rich comparison through several surfaces:
+`Set_object.__richcmp__`, `Set_object_enumerated.__richcmp__`, finite wrapper
+`issubset`/`issuperset`, and ordered-set element `_richcmp_`.
+
+The project mapping is:
+
+- Set-object rich comparison belongs on `Sets()` and is redefined set-theoretically.
+  It must not inherit Sage's arbitrary-wrapper comparison behavior.
+- Subset order is comparison of set objects by inclusion: `A <= B` means `A` is a
+  subset of `B`, and `A < B` means proper subset.
+- Poset element comparison remains separate: `Posets.ParentMethods.le/lt/ge/gt` and
+  ordered-set element comparisons compare elements of an ordered set, not set objects
+  by inclusion.
+- Finite enumerated wrapper equality and Python `set`/`frozenset` comparison behavior
+  are not copied as implementation quirks; finite set comparison uses the same
+  set-theoretic comparison surface as every set.
 
 ## Signature Typing Decisions
 

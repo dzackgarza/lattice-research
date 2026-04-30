@@ -31,7 +31,9 @@ documentation audit context needed to interpret those failures.
 - Sage `Set(X)` exists in upstream Sage, but the generic wrapper is not an admitted
   project constructor. It attempts to regard an arbitrary object as a set without a
   mathematical construction that supplies the `Sets()` obligations. Known valid cases
-  must be exposed as named constructors with explicit set semantics.
+  must be exposed as named constructors with explicit set semantics: `ZZ` is already
+  tested as an object of `Sets()`, and finite iterables are routed through
+  `Sets().Constructors().from_iterable(elements)`.
 - `Sets().Graded()` maps Sage `SetsWithGrading()` to a graded-set axiom.
 - `Sets().GSets(G)` is the parameterized category of sets with an action of `G`.
 - `Posets()`, `Posets().Lattice()`, and `Posets().Lattice().Finite()` live in the
@@ -40,11 +42,12 @@ documentation audit context needed to interpret those failures.
 ## Audit Conclusions
 
 - Sage set wrappers expose `intersection`, `difference`, and `symmetric_difference`,
-  but the wrapper itself is not a valid project category surface. The project target is
-  to declare `union` on root sets, and declare `intersection`, `difference`,
-  `symmetric_difference`, and complement on `Subsets = Subobjects` with `Subset`
-  signatures. Any named constructor admitted from the Sage wrapper family must first
-  define its mathematical set semantics directly.
+  but the wrapper itself is not a valid project category surface. The method surface is
+  still mapped: `union` belongs to root sets; `intersection`, `difference`,
+  `symmetric_difference`, and complement belong to `Subsets = Subobjects` with
+  `Subset` signatures; `__contains__`, `cardinality`, `is_empty`, `is_finite`,
+  `subsets`, `subsets_lattice`, and `_sympy_` belong to root sets; and `__iter__`
+  belongs to countable sets.
 - Cartesian products have two Sage input shapes: the standalone constructor receives a
   sequence or tuple of parent sets, while parent methods support
   `X.cartesian_product(Y, Z, category=..., extra_category=...)`. The
@@ -61,10 +64,12 @@ documentation audit context needed to interpret those failures.
   subtree. They remain set-structured categories, but their method surfaces are
   independent: posets require order methods; lattice posets require meet and join;
   finite lattice posets add irreducible-element and lattice-morphism methods.
-- Rich comparison is split by mathematical meaning. Sage `Set_object.__richcmp__` and
-  `Set_object_enumerated.__richcmp__` are wrapper implementation behavior, not project
-  subset order. Poset comparisons are `le`, `lt`, `ge`, and `gt` on ordered sets. The
-  spec should not conflate finite-set rich comparison with partial order.
+- Rich comparison is split by mathematical meaning and exposed. Sage
+  `Set_object.__richcmp__`, `Set_object_enumerated.__richcmp__`, and finite-wrapper
+  `issubset`/`issuperset` map to root set-theoretic comparison: equality by elements,
+  subset, proper subset, superset, and proper superset. Poset comparisons remain
+  `le`, `lt`, `ge`, and `gt` on elements of ordered sets. The spec must not conflate
+  set inclusion with poset element order.
 
 ## Implemented Structural Changes
 
@@ -82,11 +87,18 @@ documentation audit context needed to interpret those failures.
   were removed from the admitted surface. Upstream `sage.sets.set` remains inventoried
   as a known Sage source whose valid cases must be decomposed into named project
   constructors.
+- `Sets.ParentMethods` now exposes the root set methods witnessed by Sage's wrapper
+  surface, including set-theoretic rich comparison and subset predicates.
+- `Sets().Constructors().from_iterable(elements)` is the named finite iterable
+  constructor replacing finite uses of Sage `Set([..])`.
 
 ## Current Smoke Frontier
 
 - `sets/smoketest.sage` now exercises `RealSet` with an actual Sage real-interval
   object, matching the admitted `Sets().Constructors().RealSet(intervals=...)` shape.
+- `sets/smoketest.sage` documents the `Set(ZZ)` replacement by checking `ZZ in Sets()`
+  and documents the `Set([1, 2, 3])` replacement through
+  `Sets().Constructors().from_iterable([1, 2, 3])`.
 - The smoke still fails on existing abstract-method sentinels, not on tuple/list
   interval data, constructor call-shape mismatches, or arbitrary `Set(X)` wrapping.
 - Missing `_element_constructor_`: `RealSet([RealSet.open(0, 1).get_interval(0)])`.

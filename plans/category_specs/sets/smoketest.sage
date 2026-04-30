@@ -15,6 +15,11 @@ logger = logging.getLogger("category_specs.sets.smoketest")
 failures = []
 
 
+def require(condition, label="condition failed"):
+    if not condition:
+        raise AssertionError(label)
+
+
 def smoke_case(label, build):
     try:
         build()
@@ -29,6 +34,14 @@ def smoke_case(label, build):
 
 C = Sets().Constructors()
 
+smoke_case(
+    "sets.ZZ is already in Sets(), replacing Set(ZZ)",
+    lambda: require(ZZ in Sets(), "ZZ should be a set object without wrapping"),
+)
+smoke_case(
+    "sets.from_iterable([1, 2, 3]) replaces Set([1, 2, 3])",
+    lambda: C.from_iterable([1, 2, 3]),
+)
 smoke_case(
     "sets.FiniteEnumeratedSetObjects via FiniteEnumeratedSet([1, 2, 3])",
     lambda: C.FiniteEnumeratedSet([1, 2, 3]),

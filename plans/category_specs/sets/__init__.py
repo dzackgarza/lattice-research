@@ -74,6 +74,7 @@ from .homsets import SetHomsets
 if TYPE_CHECKING:
     from ..types import (
         Algebra,
+        Cardinality,
         CountableSet,
         FiniteSet,
         Group,
@@ -122,6 +123,15 @@ class _SetObjectMethods:
     def some_elements(self) -> list[SetElement]: ...
 
     @abstract_method
+    def cardinality(self) -> Cardinality: ...
+
+    @abstract_method
+    def is_empty(self) -> bool: ...
+
+    @abstract_method
+    def is_finite(self) -> bool: ...
+
+    @abstract_method
     def construction(self): ...
 
     @abstract_method
@@ -148,6 +158,57 @@ class _SetObjectMethods:
     @final
     def __add__(self, other: Set) -> Set:
         return self.union(other)
+
+    @abstract_method
+    def is_subset(self, other: Set) -> bool:
+        r"""Return whether ``self`` is a subset of ``other``."""
+        ...
+
+    @final
+    def is_proper_subset(self, other: Set) -> bool:
+        r"""Return whether ``self`` is a proper subset of ``other``."""
+        return self.is_subset(other) and not other.is_subset(self)
+
+    @final
+    def is_superset(self, other: Set) -> bool:
+        r"""Return whether ``self`` contains ``other`` as a subset."""
+        return other.is_subset(self)
+
+    @final
+    def is_proper_superset(self, other: Set) -> bool:
+        r"""Return whether ``self`` properly contains ``other``."""
+        return other.is_proper_subset(self)
+
+    @abstract_method
+    def __richcmp__(self, other: Set, op: Integer) -> bool:
+        r"""Compare sets using equality and subset/proper-subset relations."""
+        ...
+
+    @final
+    def __le__(self, other: Set) -> bool:
+        return self.is_subset(other)
+
+    @final
+    def __lt__(self, other: Set) -> bool:
+        return self.is_proper_subset(other)
+
+    @final
+    def __ge__(self, other: Set) -> bool:
+        return self.is_superset(other)
+
+    @final
+    def __gt__(self, other: Set) -> bool:
+        return self.is_proper_superset(other)
+
+    @abstract_method
+    def subsets(self, size: Integer | None = None) -> Set:
+        r"""Return the set of subsets, optionally with fixed cardinality ``size``."""
+        ...
+
+    @abstract_method
+    def subsets_lattice(self) -> Set:
+        r"""Return the lattice of subsets ordered by inclusion."""
+        ...
 
     @abstract_method
     def algebra(self, base_ring: Ring, category: Category | None = None) -> Algebra:
@@ -344,6 +405,11 @@ class Sets(Category_singleton):
         @final
         def __repr__(self) -> str:
             return "Sets constructors"
+
+        @final
+        def from_iterable(self, elements: Iterable[SetElement]) -> FiniteSet:
+            r"""Return the finite enumerated set whose elements are read from ``elements``."""
+            return self.FiniteEnumeratedSet(elements)
 
         @final
         def FiniteEnumeratedSet(self, elements: Iterable[SetElement]) -> FiniteSet:
