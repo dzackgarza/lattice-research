@@ -112,6 +112,8 @@ class Homsets(BaseHomsets):
 
     ParentMethods = UniversalHomsetObjectMethods
     ElementMethods = UniversalHomsetElementMethods
+    class MorphismMethods: ...
+
     Endset = LazyImport("category_specs.homsets.endsets", "Endsets")
 
 
@@ -120,6 +122,21 @@ class HomsetsCategory(FunctorialConstructionCategory, CategoryWithParameters):
 
     _functor_category = "Homsets"
     _base_category_class = (_SageCategory,)
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def Endset(self) -> Category:
+            return self._with_axiom("Endset")
+
+        @cached_method
+        @final
+        def Autset(self) -> Category:
+            return self.Endset().Autset()
+
+    class ParentMethods: ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
     @classmethod
     @final
@@ -195,6 +212,10 @@ class HomsetsOf(HomsetsCategory):
         else:
             object_names = base_category._repr_object_names()
         return f"homsets of {object_names}"
+
+    class ParentMethods: ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
 
 __all__ = [

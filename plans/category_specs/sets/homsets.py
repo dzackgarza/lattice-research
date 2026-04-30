@@ -10,7 +10,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
@@ -18,9 +17,7 @@ from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 if TYPE_CHECKING:
     from ..types import (
         Set,
-        SetAutset,
         SetElement,
-        SetEndset,
         Subset,
     )
 
@@ -68,19 +65,10 @@ class SetHomsets(HomsetsOf):
     def extra_super_categories(self) -> list:
         return [Homsets().Of(self.base_category())]
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Endset(self) -> SetEndset:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> SetAutset:
-            return self.Endset().Autset()
-
     ParentMethods = _SetHomsetObjects
     ElementMethods = _SetMorphisms
+    class MorphismMethods: ...
+
     Endset = LazyImport(__name__, "_SetEndsets")
 
 
@@ -96,6 +84,7 @@ class _SetEndsets(GenericEndsets):
         def base_set(self) -> Set: ...
 
     ElementMethods = _SetEndomorphisms
+    class MorphismMethods: ...
 
 
 class _SetAutsets(GenericAutsets):
@@ -105,4 +94,6 @@ class _SetAutsets(GenericAutsets):
     _functor_category = "Autset"
     _base_category_class_and_axiom = (_SetEndsets, "Autset")
 
+    class ParentMethods: ...
     ElementMethods = _SetAutomorphisms
+    class MorphismMethods: ...

@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     from ...types import (
         Cardinality,
         FiniteSetMap,
-        Set,
         SetElement,
     )
 
@@ -34,12 +33,6 @@ class _FiniteSetMapsSets(Category_singleton):
         return [Sets().Countable().Finite()]
 
     class ParentMethods:
-        @abstract_method
-        def domain(self) -> Set: ...
-
-        @abstract_method
-        def codomain(self) -> Set: ...
-
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
@@ -77,14 +70,6 @@ class _FiniteSetMapsSets(Category_singleton):
 
         @abstract_method
         def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap: ...
-
-        @abstract_method
-        def one(self) -> FiniteSetMap: ...
-
-        @final
-        def identity(self) -> FiniteSetMap:
-            r"""Mathematical alias for Sage's endomap monoid identity."""
-            return self.one()
 
     class ElementMethods: ...
     class MorphismMethods: ...

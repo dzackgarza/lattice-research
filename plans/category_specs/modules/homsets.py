@@ -59,6 +59,8 @@ class _Bilinear(CategoryWithAxiom_over_base_ring):
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             return self.evaluate(v.tensor(w))
 
+    class MorphismMethods: ...
+
 
 class _Quadratic(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
@@ -72,6 +74,8 @@ class _Quadratic(CategoryWithAxiom_over_base_ring):
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
             return self.evaluate(v)
+
+    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -264,6 +268,8 @@ class _Forms(CategoryWithAxiom_over_base_ring):
 
     Bilinear = _Bilinear
     Quadratic = _Quadratic
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -285,21 +291,12 @@ class RModuleHomsets(HomsetsOf):
     class SubcategoryMethods:
         @cached_method
         @final
-        def Endset(self) -> Category:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> Category:
-            return self.Endset().Autset()
-
-        @cached_method
-        @final
         def Forms(self) -> Category:
             return self._with_axiom("Forms")
 
     ParentMethods = _RModHomsetObjects
     ElementMethods = _RModMorphisms
+    class MorphismMethods: ...
 
     Endset = LazyImport(__name__, "_Endsets")
     Forms = _Forms
@@ -337,6 +334,7 @@ class _Endsets(GenericEndsets):
         # objects should happen automatically.
 
     ElementMethods = _RModEndomorphisms
+    class MorphismMethods: ...
 
 
 class _Autsets(GenericAutsets):
@@ -352,3 +350,4 @@ class _Autsets(GenericAutsets):
         r"""Module-specific autset parent methods; generic autset methods are inherited."""
 
     ElementMethods = _RModAutomorphisms
+    class MorphismMethods: ...

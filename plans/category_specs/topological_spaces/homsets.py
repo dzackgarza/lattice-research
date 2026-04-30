@@ -5,10 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
@@ -40,19 +38,10 @@ class TopologicalSpaceHomsets(HomsetsOf):
     def extra_super_categories(self):
         return [Homsets().Of(self.base_category())]
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Endset(self) -> Category:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> Category:
-            return self.Endset().Autset()
-
     ParentMethods = _TopologicalHomsetObjects
     ElementMethods = _ContinuousMaps
+    class MorphismMethods: ...
+
     Endset = LazyImport(__name__, "_TopologicalEndsets")
 
 
@@ -65,9 +54,14 @@ class _TopologicalEndsets(GenericEndsets):
         @abstract_method
         def base_space(self) -> TopologicalSpace: ...
 
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
 
 class _TopologicalAutsets(GenericAutsets):
     _functor_category = "Autset"
     _base_category_class_and_axiom = (_TopologicalEndsets, "Autset")
 
+    class ParentMethods: ...
     ElementMethods = _Homeomorphisms
+    class MorphismMethods: ...

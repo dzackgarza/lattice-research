@@ -26,6 +26,9 @@ class CatEndsets(EndsetsOf):
         return f"endofunctor sets internal to {self.base_category()}"
 
     ElementMethods = _CatEndofunctorMethods
+    class ParentMethods: ...
+    class MorphismMethods: ...
+
     Autset = LazyImport("category_specs.cat.autsets", "CatAutsets")
 
 

@@ -114,6 +114,8 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Generator of ``Ann_R(m) = Ann_R(<m>)``."""
             ...
 
+    class MorphismMethods: ...
+
     # ------------------------------------------------------------------
     # Homsets
     # ------------------------------------------------------------------
@@ -145,6 +147,8 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             @abstract_method
             def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
+        class MorphismMethods: ...
+
     # ------------------------------------------------------------------
     # Torsion subcategory
     # ------------------------------------------------------------------
@@ -164,6 +168,9 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def is_p_elementary(self, p: RingElement) -> bool:
                 r"""``M`` is p-elementary iff ``M == M.p_part(p)``."""
                 return self == self.p_part(p)
+
+        class ElementMethods: ...
+        class MorphismMethods: ...
 
     # ------------------------------------------------------------------
     # Lattices subcategory
@@ -200,3 +207,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def stable_special_orthogonal_group(self) -> OrthogonalGroup:
                 r"""``SO^+(L)``."""
                 ...
+
+        class ElementMethods: ...
+        class MorphismMethods: ...

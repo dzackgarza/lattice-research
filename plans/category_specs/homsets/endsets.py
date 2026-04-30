@@ -69,6 +69,8 @@ class Endsets(CategoryWithAxiom_singleton):
 
     ParentMethods = UniversalEndsetObjectMethods
     ElementMethods = UniversalEndsetElementMethods
+    class MorphismMethods: ...
+
     Autset = LazyImport("category_specs.homsets.autsets", "Autsets")
 
 
@@ -76,6 +78,10 @@ class EndsetsCategory(HomsetsCategory):
     r"""Functorial construction category for ``C.Endsets()``."""
 
     _functor_category = "Endsets"
+
+    class ParentMethods: ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
@@ -105,6 +111,7 @@ class EndsetsOf(CategoryWithAxiom):
 
     ParentMethods = UniversalEndsetObjectMethods
     ElementMethods = UniversalEndsetElementMethods
+    class MorphismMethods: ...
 
 
 __all__ = [

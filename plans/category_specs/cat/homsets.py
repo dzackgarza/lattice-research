@@ -12,7 +12,6 @@ from typing import Any, final
 from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import Homsets, HomsetsOf
@@ -88,19 +87,10 @@ class CatHomsets(HomsetsOf):
     def extra_super_categories(self) -> list:
         return [Homsets().Of(self.base_category())]
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Endset(self) -> Category:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> Category:
-            return self.Endset().Autset()
-
     ParentMethods = _CatHomsetObjectMethods
     ElementMethods = _CatFunctorMethods
+    class MorphismMethods: ...
+
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
     Endset = LazyImport("category_specs.cat.endsets", "CatEndsets")
 

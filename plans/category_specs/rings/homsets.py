@@ -5,10 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 from ..utils import refine_category
 
@@ -51,19 +49,10 @@ class RingHomsets(HomsetsOf):
     def extra_super_categories(self):
         return [Homsets().Of(self.base_category())]
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Endset(self) -> Category:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> Category:
-            return self.Endset().Autset()
-
     ParentMethods = _RingHomsetObjects
     ElementMethods = _RingHomomorphisms
+    class MorphismMethods: ...
+
     Endset = LazyImport(__name__, "_Endsets")
 
 
@@ -90,6 +79,7 @@ class _Endsets(GenericEndsets):
             return self.Aut()
 
     ElementMethods = _RingEndomorphisms
+    class MorphismMethods: ...
 
 
 class _Autsets(GenericAutsets):
@@ -106,3 +96,4 @@ class _Autsets(GenericAutsets):
             return self
 
     ElementMethods = _RingAutomorphisms
+    class MorphismMethods: ...

@@ -24,6 +24,8 @@ class CatAutsets(AutsetsOf):
         return f"autofunctor sets internal to {self.base_category()}"
 
     ElementMethods = _CatAutofunctorMethods
+    class ParentMethods: ...
+    class MorphismMethods: ...
 
 
 __all__ = ["CatAutsets"]

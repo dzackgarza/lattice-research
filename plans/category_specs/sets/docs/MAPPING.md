@@ -62,7 +62,7 @@ subcategory file that owns its spec.
 | `_ConditionSets` | `subcategories/condition.py` | Predicate-defined subsets use Sage vocabulary `ambient()` and `arguments()`. |
 | `_ImageSets` | `subcategories/image.py` | Images are subobjects under a map. |
 | `_TotallyOrderedFiniteSets` | `subcategories/totally_ordered_finite.py` | Finite total orders have parent and element comparison surfaces. |
-| `_FiniteSetMapsSets` | `subcategories/finite_set_maps.py` | Finite map sets include finite-set and endomap-monoid behavior. |
+| `_FiniteSetMapsSets` | `subcategories/finite_set_maps.py` | Finite map sets own finite enumeration and element-construction surfaces. Generic homset data such as domain/codomain, and endomap identity for the endomap case, belong to the homset/endset refinement. |
 | `_FamilySets` | `subcategories/family.py` | Indexed families have finite, lazy, trivial, and enumerated variants. |
 | `_EnumeratedSetsFromIterator` | `subcategories/enumerated_from_iterator.py` | Callable-backed enumerated sets expose iterator and cache surfaces. |
 | Sage subquotient construction surface | `subcategories/constructions/subquotients.py` | Subobjects and quotients are special cases of constructive subquotients, so the parent construction must be explicit. |
@@ -122,7 +122,7 @@ subcategory boundaries.
 | `ConditionSet(universe, predicates...)` | `ConditionSets` | A condition set is a predicate-defined subset of its universe. Sage names the ambient set via `ambient()` and predicate data via `arguments()`; `universe()` and `predicates()` are documented aliases for that mathematical surface. |
 | `ImageSubobject(f, X)` | `ImageSets` | Image subobject under a map; must include `ambient`, `lift`, and `retract`. |
 | `TotallyOrderedFiniteSet(elements)` | `TotallyOrderedFiniteSets` | Finite set with order relation `le`; element comparison methods are mathematical when elements are non-facade. |
-| `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` | Finite set of functions. Endomap variants expose monoid identity as `one()`, not only `identity()`. |
+| `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` plus the set homset/endset refinement | Finite set of functions. The finite-set subcategory owns finite enumeration and constructor surfaces; the homset layer owns `domain`/`codomain`, and the endset layer owns identity for endomap variants. Sage's `one()` remains inventory evidence for the endset identity surface, not a finite-set-only method. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. The project constructor admits a nullary iterator factory. Sage's `args`/`kwds` parameterization is arbitrary callable plumbing, not set-theoretic data, so it is not exposed as a public constructor shape. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
 

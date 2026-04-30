@@ -90,12 +90,17 @@ class Autsets(CategoryWithAxiom_singleton):
 
     ParentMethods = UniversalAutsetObjectMethods
     ElementMethods = UniversalAutsetElementMethods
+    class MorphismMethods: ...
 
 
 class AutsetsCategory(EndsetsCategory):
     r"""Functorial construction category for ``C.Autsets()``."""
 
     _functor_category = "Autsets"
+
+    class ParentMethods: ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
@@ -123,6 +128,7 @@ class AutsetsOf(CategoryWithAxiom):
 
     ParentMethods = UniversalAutsetObjectMethods
     ElementMethods = UniversalAutsetElementMethods
+    class MorphismMethods: ...
 
 
 __all__ = [

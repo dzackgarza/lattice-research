@@ -2,14 +2,12 @@ r"""Homset, endset, and autset categories for algebras."""
 
 from __future__ import annotations
 
-from typing import final
 from typing import TYPE_CHECKING
+from typing import final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
@@ -32,19 +30,10 @@ class AlgebraHomsets(HomsetsOf):
     def extra_super_categories(self):
         return [Homsets().Of(self.base_category())]
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Endset(self) -> Category:
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def Autset(self) -> Category:
-            return self.Endset().Autset()
-
     ParentMethods = _AlgebraHomsetObjects
     ElementMethods = _AlgebraHomomorphisms
+    class MorphismMethods: ...
+
     Endset = LazyImport(__name__, "_AlgebraEndsets")
 
 
@@ -57,7 +46,14 @@ class _AlgebraEndsets(GenericEndsets):
         @abstract_method
         def base_algebra(self) -> Algebra: ...
 
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
 
 class _AlgebraAutsets(GenericAutsets):
     _functor_category = "Autset"
     _base_category_class_and_axiom = (_AlgebraEndsets, "Autset")
+
+    class ParentMethods: ...
+    class ElementMethods: ...
+    class MorphismMethods: ...
