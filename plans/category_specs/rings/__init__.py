@@ -217,17 +217,21 @@ class _RingObjectMethods:
     @abstract_method
     def ideal_monoid(self) -> Monoid: ...
 
+    @final
     def Hom(self, codomain: Ring) -> RingHomset:
         return RingHomsets.from_sage_homset(SageHom(self, codomain, category=Rings()))
 
+    @final
     def End(self) -> RingEndset:
         r"""Return End(self) = Hom(self, self)."""
         return Rings().Endsets().from_sage_endset(SageEnd(self, category=Rings()))
 
+    @final
     def Aut(self) -> RingAutset:
         r"""Return Aut(self) as the invertible subset of End(self)."""
         return Rings().Autsets().from_endset(self.End())
 
+    @final
     def __pow__(self, n: Integer) -> FreeModule:
         return Modules(self).Constructors().FreeModule(n)
 
@@ -249,6 +253,7 @@ class _RingElementMethods:
     @abstract_method
     def is_nilpotent(self) -> bool: ...
 
+    @final
     def is_idempotent(self) -> bool:
         return self * self == self
 
@@ -286,6 +291,7 @@ class _RingElementMethods:
     @abstract_method
     def powers(self, n: Integer) -> list[RingElement]: ...
 
+    @final
     def principal_ideal(self) -> Ideal:
         return self.parent().principal_ideal(self)
 
@@ -343,6 +349,7 @@ class _RingMorphismMethods:
 class _RingIdealParentMethods:
     r"""Abstract parent methods for ring ideals."""
 
+    @final
     def is_ideal(self) -> bool:
         return True
 
@@ -434,14 +441,17 @@ class _RingIdealMorphismMethods:
 class _RingIdeals(Category_ideal):
     r"""Ideals of a ring in the redesigned category surface."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "ring ideals"
 
+    @final
     def super_categories(self) -> list:
         R = self.ring()
         return [CommutativeRingIdeals(R), Modules(R).RIdeals()]
 
     @classmethod
+    @final
     def from_sage_ideal(cls, sage_ideal: Ideal) -> Ideal:
         R = sage_ideal.ring()
         return refine_category(sage_ideal.parent(), [cls(R), Modules(R).RIdeals()])
@@ -462,9 +472,11 @@ class Rings(Category_singleton):
     class Constructors:
         r"""Constructor collector for Sage ring entry points."""
 
+        @final
         def __repr__(self) -> str:
             return "Sage ring constructors"
 
+        @final
         def __contains__(self, R: Any) -> bool:
             if isinstance(R, MatrixSpace):
                 return R.nrows() == R.ncols()
@@ -499,56 +511,67 @@ class Rings(Category_singleton):
                 )
             )
 
+        @final
         def ZZ(self) -> Ring:
             from sage.all import ZZ
 
             return refine_category(ZZ, [Rings(), _ZZ()])
 
+        @final
         def QQ(self) -> Ring:
             from sage.all import QQ
 
             return refine_category(QQ, [Rings(), _QQ()])
 
+        @final
         def QQbar(self) -> Ring:
             from sage.all import QQbar
 
             return refine_category(QQbar, [Rings(), _QQbar()])
 
+        @final
         def AA(self) -> Ring:
             from sage.all import AA
 
             return refine_category(AA, [Rings(), _AA()])
 
+        @final
         def RR(self) -> Ring:
             from sage.all import RR
 
             return refine_category(RR, [Rings(), _RR()])
 
+        @final
         def CC(self) -> Ring:
             from sage.all import CC
 
             return refine_category(CC, [Rings(), _CC()])
 
+        @final
         def RDF(self) -> Ring:
             from sage.all import RDF
 
             return refine_category(RDF, [Rings(), _RealDoubleFields()])
 
+        @final
         def CDF(self) -> Ring:
             from sage.all import CDF
 
             return refine_category(CDF, [Rings(), _ComplexDoubleFields()])
 
+        @final
         def RIF(self) -> Ring:
             from sage.all import RIF
 
             return refine_category(RIF, [Rings(), _RealIntervalFields()])
 
+        @final
         def CIF(self) -> Ring:
             from sage.all import CIF
 
             return refine_category(CIF, [Rings(), _ComplexIntervalFields()])
 
+        @final
         def RealField(self, prec: Integer = 53, sci_not: bool = False, rnd: str = "RNDN") -> Ring:
             from sage.all import RR, RealField
 
@@ -558,6 +581,7 @@ class Rings(Category_singleton):
                 categories.append(_RR())
             return refine_category(R, [Rings(), *categories])
 
+        @final
         def ComplexField(self, prec: Integer = 53, names: str | None = None) -> Ring:
             from sage.all import CC, ComplexField
 
@@ -567,16 +591,19 @@ class Rings(Category_singleton):
                 categories.append(_CC())
             return refine_category(R, [Rings(), *categories])
 
+        @final
         def RealBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import RealBallField
 
             return refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
 
+        @final
         def ComplexBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import ComplexBallField
 
             return refine_category(ComplexBallField(prec), [Rings(), _ComplexBallFields()])
 
+        @final
         def IntegerModRing(
             self,
             order: Integer = 0,
@@ -587,6 +614,7 @@ class Rings(Category_singleton):
 
             return refine_category(IntegerModRing(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
+        @final
         def Zmod(
             self,
             order: Integer = 0,
@@ -597,6 +625,7 @@ class Rings(Category_singleton):
 
             return refine_category(Zmod(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
+        @final
         def Integers(
             self,
             order: Integer = 0,
@@ -607,6 +636,7 @@ class Rings(Category_singleton):
 
             return refine_category(Integers(order, is_field=is_field, category=category), [Rings(), _IntegerModRings()])
 
+        @final
         def GF(
             self,
             order: Integer,
@@ -640,6 +670,7 @@ class Rings(Category_singleton):
                 [Rings(), _FiniteFields()],
             )
 
+        @final
         def FiniteField(
             self,
             order: Integer,
@@ -673,6 +704,7 @@ class Rings(Category_singleton):
                 [Rings(), _FiniteFields()],
             )
 
+        @final
         def NumberField(
             self,
             polynomial: Polynomial | Sequence[Polynomial],
@@ -708,6 +740,7 @@ class Rings(Category_singleton):
                 categories.append(_CyclotomicFields())
             return refine_category(R, [Rings(), *categories])
 
+        @final
         def QuadraticField(
             self,
             D: RingElement | Integer,
@@ -723,6 +756,7 @@ class Rings(Category_singleton):
                 [Rings(), _QuadraticNumberFields()],
             )
 
+        @final
         def CyclotomicField(
             self,
             n: Integer = 0,
@@ -733,6 +767,7 @@ class Rings(Category_singleton):
 
             return refine_category(CyclotomicField(n, names=names, embedding=embedding), [Rings(), _CyclotomicFields()])
 
+        @final
         def Zp(
             self,
             p: Integer,
@@ -770,6 +805,7 @@ class Rings(Category_singleton):
                 [Rings(), _Zp()],
             )
 
+        @final
         def Qp(
             self,
             p: Integer,
@@ -807,6 +843,7 @@ class Rings(Category_singleton):
                 [Rings(), _Qp()],
             )
 
+        @final
         def Zq(
             self,
             q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
@@ -850,6 +887,7 @@ class Rings(Category_singleton):
                 [Rings(), _Zp()],
             )
 
+        @final
         def Qq(
             self,
             q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
@@ -940,6 +978,7 @@ class Rings(Category_singleton):
             implementation: str | None = None,
         ) -> Ring: ...
 
+        @final
         def PolynomialRing(
             self,
             base_ring: Ring,
@@ -1019,6 +1058,7 @@ class Rings(Category_singleton):
                 )
             return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())])
 
+        @final
         def PowerSeriesRing(
             self,
             base_ring: Ring,
@@ -1046,6 +1086,7 @@ class Rings(Category_singleton):
             )
             return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
 
+        @final
         def LaurentSeriesRing(
             self,
             base_ring: Ring,
@@ -1073,6 +1114,7 @@ class Rings(Category_singleton):
             )
             return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
 
+        @final
         def PuiseuxSeriesRing(
             self,
             base_ring: Ring,
@@ -1100,6 +1142,7 @@ class Rings(Category_singleton):
             )
             return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
 
+        @final
         def MatrixRing(
             self,
             base_ring: Ring,
@@ -1113,10 +1156,12 @@ class Rings(Category_singleton):
     _Constructors = Constructors
 
     @cached_method
+    @final
     def Constructors(self):
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
+    @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageRings(),)
 
@@ -1134,128 +1179,157 @@ class Rings(Category_singleton):
         r"""Mixin providing ``SubcategoryMethods`` axiom and functorial selectors."""
 
         @cached_method
+        @final
         def Commutative(self) -> Category:
             return self._with_axiom("Commutative")
 
         @cached_method
+        @final
         def Division(self) -> Category:
             return self._with_axiom("Division")
 
         @cached_method
+        @final
         def Finite(self) -> Category:
             return self._with_axiom("Finite")
 
         @cached_method
+        @final
         def Topological(self) -> Category:
             return self._with_axiom("Topological")
 
         @cached_method
+        @final
         def WithValuation(self) -> Category:
             return self._with_axiom("WithValuation")
 
         @cached_method
+        @final
         def Characteristic(self, p: Integer) -> Category:
             from .subcategories.constructions.characteristic import _CharacteristicRings
 
             return _CharacteristicRings(self, p)
 
         @cached_method
+        @final
         def KrullDimension(self, n: Integer) -> Category:
             from .subcategories.constructions.krull_dimension import _KrullDimension
 
             return _KrullDimension(self, n)
 
         @cached_method
+        @final
         def Polynomial(self) -> Category:
             return self._with_axiom("Polynomial")
 
         @cached_method
+        @final
         def PowerSeries(self) -> Category:
             return self._with_axiom("PowerSeries")
 
         @cached_method
+        @final
         def LaurentSeries(self) -> Category:
             return self._with_axiom("LaurentSeries")
 
         @cached_method
+        @final
         def PuiseuxSeries(self) -> Category:
             return self._with_axiom("PuiseuxSeries")
 
         @cached_method
+        @final
         def RingsUnder(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_under import _RingsUnder
 
             return _RingsUnder.category_of(self, structure_ring)
 
         @cached_method
+        @final
         def RingsOver(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_over import _RingsOver
 
             return _RingsOver.category_of(self, structure_ring)
 
         @cached_method
+        @final
         def AlgebrasOver(self, structure_ring: Ring) -> Category:
             from ..algebras import Algebras
 
             return Algebras(structure_ring)
 
         @cached_method
+        @final
         def PolynomialRings(self) -> Category:
             return self.Polynomial()
 
         @cached_method
+        @final
         def PolynomialRingsOver(self, structure_ring: Ring) -> Category:
             return self.Polynomial().RingsUnder(structure_ring)
 
         @cached_method
+        @final
         def PolynomialOver(self, structure_ring: Ring) -> Category:
             return self.PolynomialRingsOver(structure_ring)
 
         @cached_method
+        @final
         def PowerSeriesRings(self) -> Category:
             return self.PowerSeries()
 
         @cached_method
+        @final
         def PowerSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeries().RingsUnder(structure_ring)
 
         @cached_method
+        @final
         def PowerSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeriesRingsOver(structure_ring)
 
         @cached_method
+        @final
         def LaurentSeriesRings(self) -> Category:
             return self.LaurentSeries()
 
         @cached_method
+        @final
         def LaurentSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeries().RingsUnder(structure_ring)
 
         @cached_method
+        @final
         def LaurentSeriesOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeriesRingsOver(structure_ring)
 
         @cached_method
+        @final
         def PuiseuxSeriesRings(self) -> Category:
             return self.PuiseuxSeries()
 
         @cached_method
+        @final
         def PuiseuxSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeries().RingsUnder(structure_ring)
 
         @cached_method
+        @final
         def PuiseuxSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeriesRingsOver(structure_ring)
 
         @cached_method
+        @final
         def QuotientRingsOf(self, structure_ring: Ring) -> Category:
             return self.Quotients().RingsUnder(structure_ring)
 
         @cached_method
+        @final
         def QuotientsOf(self, structure_ring: Ring) -> Category:
             return self.QuotientRingsOf(structure_ring)
 
         @cached_method
+        @final
         def SubringsOf(self, structure_ring: Ring) -> Category:
             return self.Subobjects().RingsOver(structure_ring)
 

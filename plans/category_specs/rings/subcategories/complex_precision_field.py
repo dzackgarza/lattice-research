@@ -2,9 +2,10 @@ r"""ComplexPrecisionFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexBallField as SageComplexBallField
@@ -101,12 +102,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _ComplexPrecisionFields(Category_singleton):
     r"""Common category for Sage complex approximate fields with fixed precision."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "complex precision fields"
 
+    @final
     def super_categories(self) -> list:
         return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(
             R,

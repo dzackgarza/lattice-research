@@ -2,6 +2,7 @@ r"""Rings of fixed Krull dimension."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import Any
 
 from sage.misc.abstract_method import abstract_method
@@ -13,12 +14,15 @@ from .parameterized import _Category_over_base_integer
 class _KrullDimension(_Category_over_base_integer):
     parameter_name = "Krull dimension"
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.krull_dimension() == self.dimension()
 
+    @final
     def dimension(self) -> Integer:
         return self.base_integer()
 
+    @final
     def _repr_object_names(self):
         return f"{self.base_category()._repr_object_names()} of Krull dimension {self.dimension()}"
 

@@ -2,6 +2,7 @@ r"""PrincipalIdealDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any, override
 
 from sage.categories.principal_ideal_domains import (
@@ -100,23 +101,29 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _PrincipalIdealDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
 
+    @final
     def _repr_object_names(self) -> str:
         return "principal ideal domains"
 
+    @final
     def super_categories(self) -> list:
         return [SagePrincipalIdealDomains(), _UniqueFactorizationDomains()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SagePrincipalIdealDomains() or (R in self.base_category() and R.is_pid())
 
     class ParentMethods:
+        @final
         def is_pid(self) -> bool:
             return True
 
+        @final
         def ideal_generator(self, I: Ideal) -> RingElement:
             assert I.is_principal(), "PID ideal_generator expects a principal ideal"
             return I.gen()
 
         @override
+        @final
         def gcd(self, r: RingElement, s: RingElement) -> RingElement:
             return self.ideal_generator(self.ideal(r, s))

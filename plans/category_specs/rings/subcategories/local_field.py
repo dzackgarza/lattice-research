@@ -2,6 +2,7 @@ r"""LocalFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.misc.lazy_import import LazyImport
@@ -94,15 +95,19 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _LocalFields(CategoryWithAxiom):
     _base_category_class_and_axiom = (_Fields, "LocalFields")
 
+    @final
     def _repr_object_names(self) -> str:
         return "local fields"
 
+    @final
     def super_categories(self) -> list:
         return [_Fields(), _TopologicalRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_local_field()
 
     class ParentMethods:
+        @final
         def is_local_field(self) -> bool:
             return True

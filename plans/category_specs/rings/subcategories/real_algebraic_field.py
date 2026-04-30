@@ -2,9 +2,10 @@ r"""AA ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any, override
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -96,17 +97,21 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _AA(Category_singleton):
+    @final
     def _repr_object_names(self) -> str:
         return "algebraic real field"
 
+    @final
     def super_categories(self) -> list:
         return [_AlgebraicFields()]
 
+    @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import AA
 
         return x is AA
 
+    @final
     def object(self):
         from sage.all import AA
 

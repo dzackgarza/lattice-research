@@ -2,9 +2,10 @@ r"""ZZ ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
 from sage.rings.lazy_series_ring import LazyLaurentSeriesRing, LazyPowerSeriesRing
@@ -93,9 +94,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ZZ(Category_singleton):
+    @final
     def _repr_object_names(self) -> str:
         return "integer ring"
 
+    @final
     def super_categories(self) -> list:
         return [
             _EuclideanDomains(),
@@ -103,11 +106,13 @@ class _ZZ(Category_singleton):
             Rings().Characteristic(0),
         ]
 
+    @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import ZZ
 
         return x is ZZ
 
+    @final
     def object(self):
         from sage.all import ZZ
 

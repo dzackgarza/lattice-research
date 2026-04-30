@@ -2,9 +2,10 @@ r"""AlgebraicFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -103,12 +104,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _AlgebraicFields(Category_singleton):
     r"""Common category for Sage's ``AA`` and ``QQbar`` parents."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "algebraic real and complex fields"
 
+    @final
     def super_categories(self) -> list:
         return [_Fields(), Rings().Characteristic(0)]
 
+    @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import AA, QQbar
 

@@ -2,10 +2,11 @@ r"""NumberFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -109,12 +110,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _NumberFields(CategoryWithAxiom):
     _base_category_class_and_axiom = (_Fields, "NumberFields")
 
+    @final
     def _repr_object_names(self) -> str:
         return "number fields"
 
+    @final
     def super_categories(self) -> list:
         return [SageNumberFields(), _Fields()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageNumberFields() or (R in self.base_category() and R.is_number_field())
 
@@ -124,18 +128,22 @@ class _NumberFields(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def QuadraticNumberField(self) -> Category:
             return self._with_axiom("QuadraticNumberField")
 
         @cached_method
+        @final
         def Quadratic(self) -> Category:
             return self.QuadraticNumberField()
 
         @cached_method
+        @final
         def Cyclotomic(self) -> Category:
             return self._with_axiom("Cyclotomic")
 
     class ParentMethods:
+        @final
         def is_number_field(self) -> bool:
             return True
 

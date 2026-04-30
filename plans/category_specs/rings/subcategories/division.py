@@ -2,6 +2,7 @@ r"""DivisionRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.division_rings import DivisionRings as SageDivisionRings
@@ -96,15 +97,19 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _DivisionRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "Division")
 
+    @final
     def _repr_object_names(self) -> str:
         return "division rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageDivisionRings(), Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageDivisionRings() or (R in self.base_category() and R.is_division_ring())
 
     class ParentMethods:
+        @final
         def is_division_ring(self) -> bool:
             return True

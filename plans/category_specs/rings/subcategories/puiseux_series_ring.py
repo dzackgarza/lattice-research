@@ -2,6 +2,7 @@ r"""PuiseuxSeriesRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, override
 
@@ -102,22 +103,27 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _PuiseuxSeriesRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "PuiseuxSeries")
 
+    @final
     def _repr_object_names(self) -> str:
         return "Puiseux series rings"
 
+    @final
     def super_categories(self) -> list:
         return [Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (
             isinstance(R, _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES) or isinstance(R, self.parent_class)
         )
 
     class ParentMethods:
+        @final
         def is_puiseux_series_ring(self) -> bool:
             return True
 
         @override
+        @final
         def extension(
             self,
             poly: RingElement,

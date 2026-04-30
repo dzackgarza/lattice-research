@@ -2,6 +2,7 @@ r"""DedekindDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDomains
@@ -96,9 +97,11 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _DedekindDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "Dedekind")
 
+    @final
     def _repr_object_names(self) -> str:
         return "Dedekind domains"
 
+    @final
     def super_categories(self) -> list:
         return [
             SageDedekindDomains(),
@@ -108,9 +111,11 @@ class _DedekindDomains(CategoryWithAxiom):
             Rings().KrullDimension(1),
         ]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageDedekindDomains() or (R in self.base_category() and R.is_dedekind_domain())
 
     class ParentMethods:
+        @final
         def is_dedekind_domain(self) -> bool:
             return True

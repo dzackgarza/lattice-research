@@ -2,6 +2,7 @@ r"""IntegrallyClosedDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.misc.lazy_import import LazyImport
@@ -96,18 +97,23 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _IntegrallyClosedDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "IntegrallyClosed")
 
+    @final
     def _repr_object_names(self) -> str:
         return "integrally closed domains"
 
+    @final
     def super_categories(self) -> list:
         return [_IntegralDomains()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_integrally_closed()
 
     class ParentMethods:
+        @final
         def is_integrally_closed(self) -> bool:
             return True
 
+        @final
         def integral_closure(self) -> Ring:
             return self

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
@@ -42,20 +43,24 @@ class _RingAutomorphisms:
 
 class RingHomsets(HomsetsOf):
     @classmethod
+    @final
     def from_sage_homset(cls, homset: RingHomset) -> RingHomset:
         from . import Rings
 
         return refine_category(homset, Rings().Homsets())
 
+    @final
     def extra_super_categories(self):
         return [Homsets().Of(self.base_category())]
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Endset(self) -> Category:
             return self._with_axiom("Endset")
 
         @cached_method
+        @final
         def Autset(self) -> Category:
             return self.Endset().Autset()
 
@@ -70,6 +75,7 @@ class _Endsets(GenericEndsets):
     Autset = LazyImport(__name__, "_Autsets")
 
     @classmethod
+    @final
     def from_sage_endset(cls, endset: RingEndset) -> RingEndset:
         from . import Rings
 
@@ -81,6 +87,7 @@ class _Endsets(GenericEndsets):
             """If this is End(R), return R."""
             ...
 
+        @final
         def unit_group(self) -> RingAutset:
             return self.Aut()
 
@@ -92,9 +99,11 @@ class _Autsets(GenericAutsets):
     _base_category_class_and_axiom = (_Endsets, "Autset")
 
     class ParentMethods:
+        @final
         def base_ring(self) -> Ring:
             return self.endset().base_ring()
 
+        @final
         def __call__(
             self,
             data: RingMorphism | RingElement | Sequence[RingElement],
@@ -103,6 +112,7 @@ class _Autsets(GenericAutsets):
         ) -> RingMorphism:
             return self.endset()(data, check=check, base_map=base_map)
 
+        @final
         def unit_group(self) -> RingAutset:
             return self
 

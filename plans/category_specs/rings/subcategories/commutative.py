@@ -2,10 +2,11 @@ r"""CommutativeRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -109,12 +110,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _CommutativeRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "Commutative")
 
+    @final
     def _repr_object_names(self) -> str:
         return "commutative rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageCommutativeRings(), Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageCommutativeRings() or (R in self.base_category() and R.is_commutative_ring())
 
@@ -126,26 +130,32 @@ class _CommutativeRings(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def IntegralDomains(self) -> Category:
             return self._with_axiom("IntegralDomains")
 
         @cached_method
+        @final
         def Field(self) -> Category:
             return self._with_axiom("Field")
 
         @cached_method
+        @final
         def Noetherian(self) -> Category:
             return self._with_axiom("Noetherian")
 
         @cached_method
+        @final
         def Local(self) -> Category:
             return self._with_axiom("Local")
 
         @cached_method
+        @final
         def Reduced(self) -> Category:
             return self._with_axiom("Reduced")
 
     class ParentMethods:
+        @final
         def is_commutative_ring(self) -> bool:
             return True
 

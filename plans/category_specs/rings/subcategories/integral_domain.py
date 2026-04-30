@@ -2,10 +2,11 @@ r"""IntegralDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -104,12 +105,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _IntegralDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_CommutativeRings, "IntegralDomains")
 
+    @final
     def _repr_object_names(self) -> str:
         return "integral domains"
 
+    @final
     def super_categories(self) -> list:
         return [SageIntegralDomains(), _CommutativeRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageIntegralDomains() or (R in self.base_category() and R.is_integral_domain())
 
@@ -122,26 +126,32 @@ class _IntegralDomains(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Gcd(self) -> Category:
             return self._with_axiom("Gcd")
 
         @cached_method
+        @final
         def UniqueFactorization(self) -> Category:
             return self._with_axiom("UniqueFactorization")
 
         @cached_method
+        @final
         def PrincipalIdeal(self) -> Category:
             return self._with_axiom("PrincipalIdeal")
 
         @cached_method
+        @final
         def Euclidean(self) -> Category:
             return self._with_axiom("Euclidean")
 
         @cached_method
+        @final
         def IntegrallyClosed(self) -> Category:
             return self._with_axiom("IntegrallyClosed")
 
         @cached_method
+        @final
         def Dedekind(self) -> Category:
             return self._with_axiom("Dedekind")
 

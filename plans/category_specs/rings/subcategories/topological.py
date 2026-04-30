@@ -2,9 +2,10 @@ r"""TopologicalRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.categories.rings import Rings as SageRings
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -98,12 +99,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _TopologicalRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "Topological")
 
+    @final
     def _repr_object_names(self) -> str:
         return "topological rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageRings().Topological(), Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageRings().Topological() or (R in self.base_category() and R.is_topological_ring())
 
@@ -111,9 +115,11 @@ class _TopologicalRings(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Complete(self) -> Category:
             return self._with_axiom("Complete")
 
     class ParentMethods:
+        @final
         def is_topological_ring(self) -> bool:
             return True

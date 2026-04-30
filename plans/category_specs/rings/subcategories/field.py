@@ -2,9 +2,10 @@ r"""Fields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any, assert_never, override
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.categories.fields import Fields as SageFields
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -104,9 +105,11 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _Fields(CategoryWithAxiom):
     _base_category_class_and_axiom = (_CommutativeRings, "Field")
 
+    @final
     def _repr_object_names(self) -> str:
         return "fields"
 
+    @final
     def super_categories(self) -> list:
         return [
             SageFields(),
@@ -119,6 +122,7 @@ class _Fields(CategoryWithAxiom):
             Rings().KrullDimension(0),
         ]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageFields() or (R in self.base_category() and R.is_field())
 
@@ -130,30 +134,37 @@ class _Fields(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def NumberFields(self) -> Category:
             return self._with_axiom("NumberFields")
 
         @cached_method
+        @final
         def AlgebraicallyClosed(self) -> Category:
             return self._with_axiom("AlgebraicallyClosed")
 
         @cached_method
+        @final
         def LocalFields(self) -> Category:
             return self._with_axiom("LocalFields")
 
         @cached_method
+        @final
         def GlobalFields(self) -> Category:
             return self._with_axiom("GlobalFields")
 
     @cached_method
+    @final
     def QQ(self):
         return _QQ()
 
     @cached_method
+    @final
     def RR(self):
         return _RR()
 
     @cached_method
+    @final
     def CC(self):
         return _CC()
 
@@ -165,6 +176,7 @@ class _Fields(CategoryWithAxiom):
         def algebraic_closure(self) -> Field: ...
 
         @override
+        @final
         def gcd(self, r: RingElement, s: RingElement) -> RingElement:
             match (r.is_zero() and s.is_zero()):
                 case True:
@@ -176,6 +188,7 @@ class _Fields(CategoryWithAxiom):
                     assert_never(unreachable)
 
         @override
+        @final
         def completion(self, I: Ideal) -> CompleteRing:
             # Field case split: only the zero and unit ideals exist.
             match I:

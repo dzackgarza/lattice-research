@@ -2,9 +2,10 @@ r"""ValuedRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
+from ...cat import Category
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -101,12 +102,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _ValuedRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "WithValuation")
 
+    @final
     def _repr_object_names(self) -> str:
         return "valued rings"
 
+    @final
     def super_categories(self) -> list:
         return [Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_valued_ring()
 
@@ -114,10 +118,12 @@ class _ValuedRings(CategoryWithAxiom):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def DiscretelyValued(self) -> Category:
             return self._with_axiom("DiscretelyValued")
 
     class ParentMethods:
+        @final
         def is_valued_ring(self) -> bool:
             return True
 

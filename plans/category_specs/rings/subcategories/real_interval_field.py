@@ -2,9 +2,10 @@ r"""RealIntervalFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import RealIntervalField as SageRealIntervalField
@@ -97,12 +98,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _RealIntervalFields(Category_singleton):
     r"""Category of Sage real interval fields ``RealIntervalField(prec)``."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "real interval fields"
 
+    @final
     def super_categories(self) -> list:
         return [_RealPrecisionFields(), _ScientificNotationFields()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, SageRealIntervalField)
 

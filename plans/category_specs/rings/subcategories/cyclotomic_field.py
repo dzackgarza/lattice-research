@@ -2,6 +2,7 @@ r"""CyclotomicFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
@@ -98,12 +99,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _CyclotomicFields(CategoryWithAxiom):
     _base_category_class_and_axiom = (_NumberFields, "Cyclotomic")
 
+    @final
     def _repr_object_names(self) -> str:
         return "cyclotomic fields"
 
+    @final
     def super_categories(self) -> list:
         return [_NumberFields()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         if isinstance(R, NumberField_cyclotomic):
             return True
@@ -112,8 +116,10 @@ class _CyclotomicFields(CategoryWithAxiom):
         return R in self.base_category() and R.is_cyclotomic_field()
 
     class ParentMethods:
+        @final
         def is_cyclotomic(self) -> bool:
             return True
 
+        @final
         def is_cyclotomic_field(self) -> bool:
             return True

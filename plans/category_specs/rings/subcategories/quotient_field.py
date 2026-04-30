@@ -2,9 +2,10 @@ r"""QuotientFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.categories.quotient_fields import QuotientFields as SageQuotientFields
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -92,15 +93,19 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _QuotientFields(Category_singleton):
+    @final
     def _repr_object_names(self) -> str:
         return "quotient fields"
 
+    @final
     def super_categories(self) -> list:
         return [SageQuotientFields(), _Fields()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageQuotientFields() or (R in _Fields() and R.is_quotient_field())
 
     class ParentMethods:
+        @final
         def is_quotient_field(self) -> bool:
             return True

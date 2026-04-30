@@ -2,6 +2,7 @@ r"""EuclideanDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanDomains
@@ -95,11 +96,14 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _EuclideanDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "Euclidean")
 
+    @final
     def _repr_object_names(self) -> str:
         return "euclidean domains"
 
+    @final
     def super_categories(self) -> list:
         return [SageEuclideanDomains(), _PrincipalIdealDomains()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageEuclideanDomains() or (R in self.base_category() and R.is_euclidean_domain())

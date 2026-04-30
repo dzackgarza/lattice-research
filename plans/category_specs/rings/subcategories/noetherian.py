@@ -2,6 +2,7 @@ r"""NoetherianRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.noetherian_rings import NoetherianRings as SageNoetherianRings
@@ -95,11 +96,14 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _NoetherianRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (_CommutativeRings, "Noetherian")
 
+    @final
     def _repr_object_names(self) -> str:
         return "noetherian rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageNoetherianRings(), _CommutativeRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageNoetherianRings() or (R in self.base_category() and R.is_noetherian())

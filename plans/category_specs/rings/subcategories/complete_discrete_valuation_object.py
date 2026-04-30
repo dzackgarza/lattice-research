@@ -2,9 +2,10 @@ r"""CompleteDiscreteValuationObjects ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -98,12 +99,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _CompleteDiscreteValuationObjects(Category_singleton):
     r"""Common element surface for complete discrete valuation rings and fields."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings and fields"
 
+    @final
     def super_categories(self) -> list:
         return [_CompleteRings(), _ValuedRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in _CompleteDiscreteValuationRings() or (R in _CompleteDiscreteValuationFields())
 

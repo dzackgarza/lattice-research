@@ -2,6 +2,7 @@ r"""GcdDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
@@ -98,16 +99,20 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _GcdDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "Gcd")
 
+    @final
     def _repr_object_names(self) -> str:
         return "gcd domains"
 
+    @final
     def super_categories(self) -> list:
         return [SageGcdDomains(), _IntegralDomains()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageGcdDomains() or (R in self.base_category() and R.is_gcd_domain())
 
     class ParentMethods:
+        @final
         def is_gcd_domain(self) -> bool:
             return True
 

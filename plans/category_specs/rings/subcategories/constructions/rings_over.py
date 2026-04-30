@@ -2,9 +2,10 @@ r"""Rings over a fixed ambient ring."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING
 
-from sage.categories.category import Category
+from ....cat import Category
 
 from ....cat import Category_over_base_ring, RegressiveCovariantConstructionCategory
 
@@ -16,6 +17,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
     _functor_category = "RingsOver"
 
     @classmethod
+    @final
     def default_super_categories(cls, category: Category, ambient: Ring):
         from ... import Rings
 
@@ -26,18 +28,23 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
             ]
         )
 
+    @final
     def _repr_object_names(self) -> str:
         return f"rings over {self.base_ring()}"
 
     class ParentMethods:
+        @final
         def structure_ring(self) -> Ring:
             return self.base_ring()
 
+        @final
         def structure_map(self) -> RingMorphism:
             return self.structure_ring().coerce_map_from(self)
 
+        @final
         def structure_domain(self) -> Ring:
             return self
 
+        @final
         def structure_codomain(self) -> Ring:
             return self.structure_ring()

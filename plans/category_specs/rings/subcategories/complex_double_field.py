@@ -2,9 +2,10 @@ r"""ComplexDoubleFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -94,11 +95,14 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _ComplexDoubleFields(Category_singleton):
     r"""Category of Sage complex double fields ``CDF``."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "complex double fields"
 
+    @final
     def super_categories(self) -> list:
         return [_ComplexPrecisionFields()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, SageComplexDoubleField)

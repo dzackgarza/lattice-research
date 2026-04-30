@@ -2,9 +2,10 @@ r"""CompleteDiscreteValuationRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.categories.complete_discrete_valuation import (
     CompleteDiscreteValuationRings as SageCompleteDiscreteValuationRings,
 )
@@ -94,9 +95,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CompleteDiscreteValuationRings(Category_singleton):
+    @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings"
 
+    @final
     def super_categories(self) -> list:
         return [
             SageCompleteDiscreteValuationRings(),
@@ -105,11 +108,13 @@ class _CompleteDiscreteValuationRings(Category_singleton):
             _DiscreteValuationRings(),
         ]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageCompleteDiscreteValuationRings() or (
             R in _DiscreteValuationRings() and R.is_complete_discrete_valuation_ring()
         )
 
     class ParentMethods:
+        @final
         def is_complete_discrete_valuation_ring(self) -> bool:
             return True

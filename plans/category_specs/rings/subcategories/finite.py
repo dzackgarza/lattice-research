@@ -2,6 +2,7 @@ r"""FiniteRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.rings import Rings as SageRings
@@ -98,16 +99,20 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _FiniteRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "Finite")
 
+    @final
     def _repr_object_names(self) -> str:
         return "finite rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageRings().Finite(), Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageRings().Finite() or (R in self.base_category() and R.is_finite())
 
     class ParentMethods:
+        @final
         def is_finite(self) -> bool:
             return True
 

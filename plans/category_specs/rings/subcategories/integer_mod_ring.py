@@ -2,9 +2,10 @@ r"""IntegerModRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
@@ -98,12 +99,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _IntegerModRings(Category_singleton):
     r"""Category of Sage rings ``IntegerModRing(n)`` and aliases."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "integer residue class rings"
 
+    @final
     def super_categories(self) -> list:
         return [_FiniteRings(), _CommutativeRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, IntegerModRing_generic)
 

@@ -2,6 +2,7 @@ r"""PolynomialRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, override
 
@@ -104,20 +105,25 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _PolynomialRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (Rings, "Polynomial")
 
+    @final
     def _repr_object_names(self) -> str:
         return "polynomial rings"
 
+    @final
     def super_categories(self) -> list:
         return [Rings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES) or isinstance(R, self.parent_class))
 
     class ParentMethods:
+        @final
         def is_polynomial_ring(self) -> bool:
             return True
 
         @override
+        @final
         def extension(
             self,
             poly: RingElement,
@@ -141,6 +147,7 @@ class _PolynomialRings(CategoryWithAxiom):
             return self.change_ring(base_ext)
 
         @override
+        @final
         def completion(self, I: Ideal) -> CompleteRing:
             from sage.rings.infinity import oo
 

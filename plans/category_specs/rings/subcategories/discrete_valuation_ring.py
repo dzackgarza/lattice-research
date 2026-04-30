@@ -2,6 +2,7 @@ r"""DiscreteValuationRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.discrete_valuation import (
@@ -101,16 +102,20 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _DiscreteValuationRings(CategoryWithAxiom):
     _base_category_class_and_axiom = (_ValuedRings, "DiscretelyValued")
 
+    @final
     def _repr_object_names(self) -> str:
         return "discrete valuation rings"
 
+    @final
     def super_categories(self) -> list:
         return [SageDiscreteValuationRings(), _EuclideanDomains(), _ValuedRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageDiscreteValuationRings() or (R in self.base_category() and R.is_discrete_valuation_ring())
 
     class ParentMethods:
+        @final
         def is_discrete_valuation_ring(self) -> bool:
             return True
 

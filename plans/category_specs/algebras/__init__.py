@@ -119,9 +119,11 @@ class _AlgebraMorphismMethods:
 class Algebras(Category_over_base_ring):
     r"""Category of algebras over a fixed base ring."""
 
+    @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageAlgebras(self.base_ring()),)
 
+    @final
     def _repr_object_names(self) -> str:
         return f"algebras over {self.base_ring()}"
 
@@ -143,26 +145,32 @@ class Algebras(Category_over_base_ring):
 
     class SubcategoryMethods:
         @cached_method
+        @final
         def Commutative(self) -> Category:
             return self._with_axiom("Commutative")
 
         @cached_method
+        @final
         def WithBasis(self) -> Category:
             return self._with_axiom("WithBasis")
 
         @cached_method
+        @final
         def FiniteDimensional(self) -> Category:
             return self._with_axiom("FiniteDimensional")
 
         @cached_method
+        @final
         def Semisimple(self) -> Category:
             return self._with_axiom("Semisimple")
 
         @cached_method
+        @final
         def TensorProducts(self) -> Category:
             return _TensorProducts.category_of(self)
 
         @cached_method
+        @final
         def DualObjects(self) -> Category:
             return _DualObjects.category_of(self)
 
@@ -176,15 +184,18 @@ class Algebras(Category_over_base_ring):
         def __init__(self, category: RAlgebra) -> None:
             self._category = category
 
+        @final
         def category(self) -> RAlgebra:
             return self._category
 
+        @final
         def base_ring(self) -> Ring:
             return self.category().base_ring()
 
     _Constructors = Constructors
 
     @cached_method
+    @final
     def Constructors(self):
         return self.__class__._Constructors(self)
 

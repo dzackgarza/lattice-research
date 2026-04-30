@@ -2,6 +2,7 @@ r"""UniqueFactorizationDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.unique_factorization_domains import (
@@ -99,12 +100,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _UniqueFactorizationDomains(CategoryWithAxiom):
     _base_category_class_and_axiom = (_IntegralDomains, "UniqueFactorization")
 
+    @final
     def _repr_object_names(self) -> str:
         return "unique factorization domains"
 
+    @final
     def super_categories(self) -> list:
         return [SageUniqueFactorizationDomains(), _GcdDomains()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         return R in SageUniqueFactorizationDomains() or (R in self.base_category() and R.is_unique_factorization_domain())
 

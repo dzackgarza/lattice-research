@@ -2,9 +2,10 @@ r"""Parameterized ring construction category helpers."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING
 
-from sage.categories.category import Category, CategoryWithParameters
+from ....cat import Category, CategoryWithParameters
 from sage.rings.integer import Integer
 
 if TYPE_CHECKING:
@@ -25,15 +26,19 @@ class _Category_over_base_integer(CategoryWithParameters):
         self._base_integer = Integer(base_integer)
         Category.__init__(self)
 
+    @final
     def base_category(self) -> Category:
         return self._base_category
 
+    @final
     def base_integer(self) -> Integer:
         return self._base_integer
 
+    @final
     def super_categories(self) -> list:
         return [self.base_category()]
 
+    @final
     def _make_named_class_key(self, name: str):
         return (self.base_category(), self.base_integer())
 
@@ -55,18 +60,23 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
         self._m = Integer(m)
         Category.__init__(self)
 
+    @final
     def base_ring(self) -> Ring:
         return self._base_ring
 
+    @final
     def nrows(self) -> Integer:
         return self._n
 
+    @final
     def ncols(self) -> Integer:
         return self._m
 
+    @final
     def _make_named_class_key(self, name: str):
         return (self._base_ring, self._n, self._m)
 
+    @final
     def super_categories(self) -> list:
         from ... import Rings
 

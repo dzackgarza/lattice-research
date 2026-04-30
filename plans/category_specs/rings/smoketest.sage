@@ -81,8 +81,8 @@ smoke_case(
     lambda: NR.Qq((5, 2), names="a"),
 )
 smoke_case(
-    "rings._PolynomialRings via Constructors().PolynomialRing(ZZ, 't')",
-    lambda: NR.PolynomialRing(ZZ, "t"),
+    "rings._PolynomialRings via Constructors().PolynomialRing(ZZ, name='t')",
+    lambda: NR.PolynomialRing(ZZ, name="t"),
 )
 smoke_case(
     "rings._PowerSeriesRings via Constructors().PowerSeriesRing(ZZ, 't')",

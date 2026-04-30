@@ -2,9 +2,10 @@ r"""Zp ring subcategory spec."""
 
 from __future__ import annotations
 
+from typing import final
 from typing import TYPE_CHECKING, Any, assert_never, override
 
-from sage.categories.category_singleton import Category_singleton
+from ...cat import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
 from sage.rings.lazy_series_ring import LazyLaurentSeriesRing, LazyPowerSeriesRing
@@ -96,12 +97,15 @@ _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_
 class _Zp(Category_singleton):
     r"""Category of p-adic integer rings (all primes p, all precision types)."""
 
+    @final
     def _repr_object_names(self) -> str:
         return "p-adic integer rings"
 
+    @final
     def super_categories(self) -> list:
         return [_PAdicRings(), _CompleteDiscreteValuationRings(), _LocalRings()]
 
+    @final
     def __contains__(self, R: Any) -> bool:
         from sage.rings.padics.generic_nodes import pAdicRingGeneric
 
@@ -109,6 +113,7 @@ class _Zp(Category_singleton):
 
     class ParentMethods:
         @override
+        @final
         def completion(self, I: Ideal) -> CompleteRing:
             match I:
                 case _ if I.is_zero():
