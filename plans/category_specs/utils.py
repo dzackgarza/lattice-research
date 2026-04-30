@@ -34,7 +34,7 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
             details.append(f"{name} ({owner.__name__})")
 
     detail_str = ", ".join(details)
-    raise TypeError(f"Can't refine category of {type(X).__name__}: unimplemented abstract methods: {detail_str}")
+    assert not missing, f"Can't refine category of {type(X).__name__}: unimplemented abstract methods: {detail_str}"
 
 
 def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = True) -> Parent:
@@ -46,11 +46,5 @@ def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = Tr
 
 
 def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]], ...]) -> None:
-    failures: list[str] = []
     for message, statement in statements:
-        try:
-            assert statement(None), message
-        except Exception as exc:
-            failures.append(f"{message}: {type(exc).__name__}: {exc}")
-
-    assert not failures, "\n".join(failures)
+        assert statement(None), message
