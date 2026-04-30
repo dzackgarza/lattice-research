@@ -29,7 +29,7 @@ from ..sets import Sets
 from .homsets import PosetHomsets
 
 if TYPE_CHECKING:
-    from ..types import Poset, PosetElement, PosetMorphism, PosetSubset
+    from ..types import PosetElement, PosetSubset
 
 
 class _PosetParentMethods:
@@ -140,15 +140,6 @@ class _PosetElementMethods:
 
 class _PosetMorphismMethods:
     r"""Order-preserving maps between posets."""
-
-    @abstract_method
-    def domain(self) -> Poset: ...
-
-    @abstract_method
-    def codomain(self) -> Poset: ...
-
-    @abstract_method
-    def __call__(self, x: PosetElement) -> PosetElement: ...
 
     @abstract_method
     def is_order_preserving(self) -> bool: ...

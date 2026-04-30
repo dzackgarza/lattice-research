@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing import final
-from collections.abc import Sequence
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -15,7 +13,7 @@ from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    from ..types import Ideal, Ring, RingAutset, RingElement, RingEndset, RingHomset, RingMorphism
+    from ..types import Ideal, Ring, RingAutset, RingEndset, RingHomset, RingMorphism
 
 
 class _RingHomsetObjects:
@@ -102,15 +100,6 @@ class _Autsets(GenericAutsets):
         @final
         def base_ring(self) -> Ring:
             return self.endset().base_ring()
-
-        @final
-        def __call__(
-            self,
-            data: RingMorphism | RingElement | Sequence[RingElement],
-            check: bool = True,
-            base_map: RingMorphism | None = None,
-        ) -> RingMorphism:
-            return self.endset()(data, check=check, base_map=base_map)
 
         @final
         def unit_group(self) -> RingAutset:

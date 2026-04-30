@@ -12,8 +12,6 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, overload
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
-from sage.categories.homset import End as SageEnd
-from sage.categories.homset import Hom as SageHom
 from sage.categories.rings import Rings as SageRings
 from sage.matrix.matrix_space import MatrixSpace
 from sage.misc.abstract_method import abstract_method
@@ -104,10 +102,7 @@ if TYPE_CHECKING:
         Monoid,
         Polynomial,
         Ring,
-        RingAutset,
         RingElement,
-        RingEndset,
-        RingHomset,
         RingMorphism,
         TermOrder,
     )
@@ -218,20 +213,6 @@ class _RingObjectMethods:
     def ideal_monoid(self) -> Monoid: ...
 
     @final
-    def Hom(self, codomain: Ring) -> RingHomset:
-        return RingHomsets.from_sage_homset(SageHom(self, codomain, category=Rings()))
-
-    @final
-    def End(self) -> RingEndset:
-        r"""Return End(self) = Hom(self, self)."""
-        return Rings().Endsets().from_sage_endset(SageEnd(self, category=Rings()))
-
-    @final
-    def Aut(self) -> RingAutset:
-        r"""Return Aut(self) as the invertible subset of End(self)."""
-        return Rings().Autsets().from_endset(self.End())
-
-    @final
     def __pow__(self, n: Integer) -> FreeModule:
         return Modules(self).Constructors().FreeModule(n)
 
@@ -305,25 +286,7 @@ class _RingMorphismMethods:
     r"""Abstract morphism methods present on all ring homomorphisms."""
 
     @abstract_method
-    def domain(self) -> Ring: ...
-
-    @abstract_method
-    def codomain(self) -> Ring: ...
-
-    @abstract_method
     def image(self, I: Ideal | None = None) -> Ideal: ...
-
-    @abstract_method
-    def is_injective(self) -> bool: ...
-
-    @abstract_method
-    def is_surjective(self) -> bool: ...
-
-    @abstract_method
-    def is_endomorphism(self) -> bool: ...
-
-    @abstract_method
-    def is_identity(self) -> bool: ...
 
     @abstract_method
     def is_zero(self) -> bool: ...
@@ -333,12 +296,6 @@ class _RingMorphismMethods:
 
     @abstract_method
     def section(self) -> RingMorphism: ...
-
-    @abstract_method
-    def pre_compose(self, other: RingMorphism) -> RingMorphism: ...
-
-    @abstract_method
-    def post_compose(self, other: RingMorphism) -> RingMorphism: ...
 
 
 # ---------------------------------------------------------------------------
@@ -429,13 +386,7 @@ class _RingIdealElementMethods:
 
 
 class _RingIdealMorphismMethods:
-    r"""Abstract morphism methods for ring ideal homomorphisms."""
-
-    @abstract_method
-    def domain(self) -> Ideal: ...
-
-    @abstract_method
-    def codomain(self) -> Ideal: ...
+    r"""Ring-ideal-specific morphism methods; generic morphism methods are inherited."""
 
 
 class _RingIdeals(Category_ideal):

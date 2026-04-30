@@ -236,12 +236,6 @@ class _SetMorphismMethods:
     r"""Methods on morphisms between sets."""
 
     @abstract_method
-    def domain(self) -> Set: ...
-
-    @abstract_method
-    def codomain(self) -> Set: ...
-
-    @abstract_method
     def image(self, domain_subset: Subset | None = None) -> Subset:
         r"""Return the image of ``domain_subset`` or of the full domain."""
         ...
@@ -257,24 +251,7 @@ class _SetMorphismMethods:
         return self.is_injective() and self.is_surjective()
 
     @abstract_method
-    def __call__(self, x: SetElement) -> SetElement: ...
-
-    @abstract_method
     def pre_image(self, y: SetElement) -> Subset: ...
-
-    @abstract_method
-    def pre_compose(self, other: SetMorphism) -> SetMorphism:
-        r"""Return the composition ``self`` after ``other``."""
-        ...
-
-    @abstract_method
-    def post_compose(self, other: SetMorphism) -> SetMorphism:
-        r"""Return the composition ``other`` after ``self``."""
-        ...
-
-    @final
-    def is_isomorphism(self) -> bool:
-        return self.is_bijective()
 
 
 # ---------------------------------------------------------------------------

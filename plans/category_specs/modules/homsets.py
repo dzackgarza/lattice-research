@@ -117,9 +117,6 @@ class _RModMorphisms:
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
     @abstract_method
-    def compose(self, f: Self) -> Self: ...
-
-    @abstract_method
     def index(self) -> Cardinality: ...
 
     @abstract_method
@@ -164,7 +161,7 @@ class _RModMorphisms:
         Sat_B(im(f)) and return ``h := g \circ f`` in Hom_R(A, B) so that
         im(h) is saturated.
         """
-        return self.image().saturation().inclusion().compose(self)
+        return self.image().saturation().inclusion().pre_compose(self)
 
 
 # ---------------------------------------------------------------------------
@@ -183,13 +180,7 @@ class _RModEndomorphisms:
 
 
 class _RModAutomorphisms:
-    @final
-    def is_automorphism(self) -> bool:
-        return True
-
-    @final
-    def image(self) -> SubModule:
-        return self.codomain()
+    r"""Module-specific automorphism methods; generic autset methods are inherited."""
 
 
 # ---------------------------------------------------------------------------
@@ -358,8 +349,6 @@ class _Autsets(GenericAutsets):
         return super().extra_super_categories()
 
     class ParentMethods:
-        @final
-        def is_aut_set(self) -> bool:
-            return True
+        r"""Module-specific autset parent methods; generic autset methods are inherited."""
 
     ElementMethods = _RModAutomorphisms
