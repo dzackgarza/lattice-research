@@ -1,152 +1,151 @@
-r"""Mathematical smoke surface for the category-of-categories subtree.
-
-This file exercises category behavior, not implementation internals.  It should
-instantiate the category constructions this subtree claims to expose and let
-missing or miswired implementations fail naturally.
-"""
+r"""Mathematical smoke surface for the category-of-categories subtree."""
 
 import pathlib
 import sys
-import traceback
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from category_specs.algebras import Algebras
 from category_specs.cat import Category, Cat
 from category_specs.homsets import Homsets as GenericHomsets
-from category_specs.algebras import Algebras
 from category_specs.modules import Modules
 from category_specs.posets import Posets
 from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
+from category_specs.utils import assert_smoke_statements
 from sage.all import ZZ
 from sage.categories.functor import IdentityFunctor
 
 
-failures = []
-
-
-def smoke_case(label, build):
-    try:
-        build()
-    except Exception as exc:
-        trace = traceback.format_exc(limit=8)
-        failures.append(f"{label}: {type(exc).__name__}: {exc}\n{trace}")
-
-
-def require(condition, label="condition failed"):
-    if not condition:
-        raise AssertionError(label)
-
-
-def require_subobject_category(category):
-    subobjects = category.Subobjects()
-    require(subobjects in C)
-
-
-def require_homset_categories(category):
-    require(category.Homsets() in C, f"{category}.Homsets() not in Cat()")
-    require(category.Endsets() in C, f"{category}.Endsets() not in Cat()")
-    require(category.Autsets() in C, f"{category}.Autsets() not in Cat()")
-    require(category.Hom() in C, f"{category}.Hom() not in Cat()")
-    require(category.End() in C, f"{category}.End() not in Cat()")
-    require(category.Aut() in C, f"{category}.Aut() not in Cat()")
-
-
-def require_object_hom(category):
-    homset = category.Hom(category)
-    require(homset.domain() is category, f"{category}.Hom({category}).domain() mismatch: {homset.domain()!r}")
-    require(homset.codomain() is category, f"{category}.Hom({category}).codomain() mismatch: {homset.codomain()!r}")
-
-
-def require_cat_constructions(category):
-    require(category.Subobjects() in C)
-    require(category.Quotients() in C)
-    require(category.Subquotients() in C)
-    require(category.ObjectsOver(Sets()) in C)
-    require(category.ObjectsUnder(Sets()) in C)
-    require(category.CartesianProducts() in C)
-
-
 C = Cat()
-category_objects = (Sets(), Rings(), Modules(ZZ), Algebras(ZZ), TopologicalSpaces())
-joined_category = Category.join([Rings(), Posets()])
 empty_category = C.Constructors().EmptyCategory()
+joined_category = Category.join([Rings(), Posets()])
 
-smoke_case("Cat singleton", lambda: Cat())
-smoke_case("Cat() is not an object of itself", lambda: require(C not in C))
-smoke_case("singleton category positional reconstruction", lambda: require(Sets() is Sets().__class__()))
-smoke_case("singleton axiom category passes Sage axiom test", lambda: Sets().Finite()._test_category_with_axiom())
-smoke_case("base-ring category positional reconstruction", lambda: require(Modules(ZZ) is Modules(ZZ).__class__(ZZ)))
-smoke_case("axiom category positional reconstruction", lambda: require(Sets().Finite() is Sets().Finite().__class__(Sets())))
-smoke_case(
-    "generic homsets positional reconstruction",
-    lambda: require(GenericHomsets().Of(Cat()) is GenericHomsets().Of(Cat()).__class__(Cat())),
+SMOKE_STATEMENTS = (
+    ("Cat() is singleton-valued", lambda _: Cat() is C),
+    ("Cat() is not an object of itself", lambda _: C not in C),
+    ("Sets() reconstructs as its singleton category object", lambda _: Sets() is Sets().__class__()),
+    ("Sets().Finite() reconstructs as its axiom category object", lambda _: Sets().Finite() is Sets().Finite().__class__(Sets())),
+    ("Modules(ZZ) reconstructs with base ring ZZ", lambda _: Modules(ZZ) is Modules(ZZ).__class__(ZZ)),
+    ("Generic Homsets().Of(Cat()) is a category", lambda _: GenericHomsets().Of(Cat()) in C),
+    ("EmptyCategory() is an object of Cat()", lambda _: empty_category in C),
+    ("Sets() is not an object of EmptyCategory()", lambda _: Sets() not in empty_category),
+    ("ZZ is not an object of EmptyCategory()", lambda _: ZZ not in empty_category),
+    ("EmptyCategory() is below Sets()", lambda _: empty_category.is_subcategory(Sets())),
+    ("EmptyCategory() is below Rings()", lambda _: empty_category.is_subcategory(Rings())),
+    ("Sets() is not below EmptyCategory()", lambda _: not Sets().is_subcategory(empty_category)),
+    ("Cat().meet([]) is EmptyCategory()", lambda _: C.meet([]) is empty_category),
+    ("Cat().join([Rings(), Posets()]) is a category", lambda _: C.join([Rings(), Posets()]) in C),
+    ("Cat().join([Rings(), Posets()]) is a join category", lambda _: C.join([Rings(), Posets()]) in C.JoinCategories()),
+    ("Sets() is not a join category", lambda _: Sets() not in C.JoinCategories()),
+    ("Sets().is_join_category() is false", lambda _: not Sets().is_join_category()),
+    ("Cat().meet([Rings(), Posets()]) is a category", lambda _: C.meet([Rings(), Posets()]) in C),
+    ("Cat().meet([Rings(), Posets()]) is below Rings()", lambda _: C.meet([Rings(), Posets()]).is_subcategory(Rings())),
+    ("Cat().meet([Rings(), Posets()]) is below Posets()", lambda _: C.meet([Rings(), Posets()]).is_subcategory(Posets())),
+    ("IdentityFunctor(Sets()) is not an object of Cat()", lambda _: IdentityFunctor(Sets()) not in C),
+    ("Sage join category is recognized as a Cat join category", lambda _: joined_category in C.JoinCategories()),
+    ("Homsets().Of(joined category) is a category", lambda _: GenericHomsets().Of(joined_category) in C),
+    ("Sets() is an object of Cat()", lambda _: Sets() in C),
+    ("Sets().Finite() is an object of Cat()", lambda _: Sets().Finite() in C),
+    ("ZZ is not an object of Cat()", lambda _: ZZ not in C),
+    ("Rings() is an object of Cat()", lambda _: Rings() in C),
+    ("Modules(ZZ) is an object of Cat()", lambda _: Modules(ZZ) in C),
+    ("Algebras(ZZ) is an object of Cat()", lambda _: Algebras(ZZ) in C),
+    ("TopologicalSpaces() is an object of Cat()", lambda _: TopologicalSpaces() in C),
+    ("Sets().Subobjects() is a category", lambda _: Sets().Subobjects() in C),
+    ("Sets().Quotients() is a category", lambda _: Sets().Quotients() in C),
+    ("Sets().Subquotients() is a category", lambda _: Sets().Subquotients() in C),
+    ("Sets().ObjectsOver(Sets()) is a category", lambda _: Sets().ObjectsOver(Sets()) in C),
+    ("Sets().ObjectsUnder(Sets()) is a category", lambda _: Sets().ObjectsUnder(Sets()) in C),
+    ("Sets().CartesianProducts() is a category", lambda _: Sets().CartesianProducts() in C),
+    ("Sets().Homsets() is a category", lambda _: Sets().Homsets() in C),
+    ("Sets().Endsets() is a category", lambda _: Sets().Endsets() in C),
+    ("Sets().Autsets() is a category", lambda _: Sets().Autsets() in C),
+    ("Sets().Hom() is a category", lambda _: Sets().Hom() in C),
+    ("Sets().End() is a category", lambda _: Sets().End() in C),
+    ("Sets().Aut() is a category", lambda _: Sets().Aut() in C),
+    ("Sets().Hom(Sets()) has domain Sets()", lambda _: Sets().Hom(Sets()).domain() is Sets()),
+    ("Sets().Hom(Sets()) has codomain Sets()", lambda _: Sets().Hom(Sets()).codomain() is Sets()),
+    ("Rings().Subobjects() is a category", lambda _: Rings().Subobjects() in C),
+    ("Rings().Quotients() is a category", lambda _: Rings().Quotients() in C),
+    ("Rings().Subquotients() is a category", lambda _: Rings().Subquotients() in C),
+    ("Rings().ObjectsOver(Sets()) is a category", lambda _: Rings().ObjectsOver(Sets()) in C),
+    ("Rings().ObjectsUnder(Sets()) is a category", lambda _: Rings().ObjectsUnder(Sets()) in C),
+    ("Rings().CartesianProducts() is a category", lambda _: Rings().CartesianProducts() in C),
+    ("Rings().Homsets() is a category", lambda _: Rings().Homsets() in C),
+    ("Rings().Endsets() is a category", lambda _: Rings().Endsets() in C),
+    ("Rings().Autsets() is a category", lambda _: Rings().Autsets() in C),
+    ("Rings().Hom() is a category", lambda _: Rings().Hom() in C),
+    ("Rings().End() is a category", lambda _: Rings().End() in C),
+    ("Rings().Aut() is a category", lambda _: Rings().Aut() in C),
+    ("Rings().Hom(Rings()) has domain Rings()", lambda _: Rings().Hom(Rings()).domain() is Rings()),
+    ("Rings().Hom(Rings()) has codomain Rings()", lambda _: Rings().Hom(Rings()).codomain() is Rings()),
+    ("Modules(ZZ).Subobjects() is a category", lambda _: Modules(ZZ).Subobjects() in C),
+    ("Modules(ZZ).Quotients() is a category", lambda _: Modules(ZZ).Quotients() in C),
+    ("Modules(ZZ).Subquotients() is a category", lambda _: Modules(ZZ).Subquotients() in C),
+    ("Modules(ZZ).ObjectsOver(Sets()) is a category", lambda _: Modules(ZZ).ObjectsOver(Sets()) in C),
+    ("Modules(ZZ).ObjectsUnder(Sets()) is a category", lambda _: Modules(ZZ).ObjectsUnder(Sets()) in C),
+    ("Modules(ZZ).CartesianProducts() is a category", lambda _: Modules(ZZ).CartesianProducts() in C),
+    ("Modules(ZZ).Homsets() is a category", lambda _: Modules(ZZ).Homsets() in C),
+    ("Modules(ZZ).Endsets() is a category", lambda _: Modules(ZZ).Endsets() in C),
+    ("Modules(ZZ).Autsets() is a category", lambda _: Modules(ZZ).Autsets() in C),
+    ("Modules(ZZ).Hom() is a category", lambda _: Modules(ZZ).Hom() in C),
+    ("Modules(ZZ).End() is a category", lambda _: Modules(ZZ).End() in C),
+    ("Modules(ZZ).Aut() is a category", lambda _: Modules(ZZ).Aut() in C),
+    ("Modules(ZZ).Hom(Modules(ZZ)) has domain Modules(ZZ)", lambda _: Modules(ZZ).Hom(Modules(ZZ)).domain() is Modules(ZZ)),
+    ("Modules(ZZ).Hom(Modules(ZZ)) has codomain Modules(ZZ)", lambda _: Modules(ZZ).Hom(Modules(ZZ)).codomain() is Modules(ZZ)),
+    ("Algebras(ZZ).Subobjects() is a category", lambda _: Algebras(ZZ).Subobjects() in C),
+    ("Algebras(ZZ).Quotients() is a category", lambda _: Algebras(ZZ).Quotients() in C),
+    ("Algebras(ZZ).Subquotients() is a category", lambda _: Algebras(ZZ).Subquotients() in C),
+    ("Algebras(ZZ).ObjectsOver(Sets()) is a category", lambda _: Algebras(ZZ).ObjectsOver(Sets()) in C),
+    ("Algebras(ZZ).ObjectsUnder(Sets()) is a category", lambda _: Algebras(ZZ).ObjectsUnder(Sets()) in C),
+    ("Algebras(ZZ).CartesianProducts() is a category", lambda _: Algebras(ZZ).CartesianProducts() in C),
+    ("Algebras(ZZ).Homsets() is a category", lambda _: Algebras(ZZ).Homsets() in C),
+    ("Algebras(ZZ).Endsets() is a category", lambda _: Algebras(ZZ).Endsets() in C),
+    ("Algebras(ZZ).Autsets() is a category", lambda _: Algebras(ZZ).Autsets() in C),
+    ("Algebras(ZZ).Hom() is a category", lambda _: Algebras(ZZ).Hom() in C),
+    ("Algebras(ZZ).End() is a category", lambda _: Algebras(ZZ).End() in C),
+    ("Algebras(ZZ).Aut() is a category", lambda _: Algebras(ZZ).Aut() in C),
+    ("Algebras(ZZ).Hom(Algebras(ZZ)) has domain Algebras(ZZ)", lambda _: Algebras(ZZ).Hom(Algebras(ZZ)).domain() is Algebras(ZZ)),
+    ("Algebras(ZZ).Hom(Algebras(ZZ)) has codomain Algebras(ZZ)", lambda _: Algebras(ZZ).Hom(Algebras(ZZ)).codomain() is Algebras(ZZ)),
+    ("TopologicalSpaces().Subobjects() is a category", lambda _: TopologicalSpaces().Subobjects() in C),
+    ("TopologicalSpaces().Quotients() is a category", lambda _: TopologicalSpaces().Quotients() in C),
+    ("TopologicalSpaces().Subquotients() is a category", lambda _: TopologicalSpaces().Subquotients() in C),
+    ("TopologicalSpaces().ObjectsOver(Sets()) is a category", lambda _: TopologicalSpaces().ObjectsOver(Sets()) in C),
+    ("TopologicalSpaces().ObjectsUnder(Sets()) is a category", lambda _: TopologicalSpaces().ObjectsUnder(Sets()) in C),
+    ("TopologicalSpaces().CartesianProducts() is a category", lambda _: TopologicalSpaces().CartesianProducts() in C),
+    ("TopologicalSpaces().Homsets() is a category", lambda _: TopologicalSpaces().Homsets() in C),
+    ("TopologicalSpaces().Endsets() is a category", lambda _: TopologicalSpaces().Endsets() in C),
+    ("TopologicalSpaces().Autsets() is a category", lambda _: TopologicalSpaces().Autsets() in C),
+    ("TopologicalSpaces().Hom() is a category", lambda _: TopologicalSpaces().Hom() in C),
+    ("TopologicalSpaces().End() is a category", lambda _: TopologicalSpaces().End() in C),
+    ("TopologicalSpaces().Aut() is a category", lambda _: TopologicalSpaces().Aut() in C),
+    (
+        "TopologicalSpaces().Hom(TopologicalSpaces()) has domain TopologicalSpaces()",
+        lambda _: TopologicalSpaces().Hom(TopologicalSpaces()).domain() is TopologicalSpaces(),
+    ),
+    (
+        "TopologicalSpaces().Hom(TopologicalSpaces()) has codomain TopologicalSpaces()",
+        lambda _: TopologicalSpaces().Hom(TopologicalSpaces()).codomain() is TopologicalSpaces(),
+    ),
+    ("Modules(ZZ).OverPID() is an object of Cat()", lambda _: Modules(ZZ).OverPID() in C),
+    ("Modules(ZZ).OverPID() refines Modules(ZZ)", lambda _: Modules(ZZ).OverPID().is_subcategory(Modules(ZZ))),
+    ("Modules(ZZ).OverPID().Subobjects() is a category", lambda _: Modules(ZZ).OverPID().Subobjects() in C),
+    ("Cat().Subobjects() is a category", lambda _: C.Subobjects() in C),
+    ("Cat().Quotients() is a category", lambda _: C.Quotients() in C),
+    ("Cat().Subquotients() is a category", lambda _: C.Subquotients() in C),
+    ("Cat().ObjectsOver(Sets()) is a category", lambda _: C.ObjectsOver(Sets()) in C),
+    ("Cat().ObjectsUnder(Sets()) is a category", lambda _: C.ObjectsUnder(Sets()) in C),
+    ("Cat().CartesianProducts() is a category", lambda _: C.CartesianProducts() in C),
+    ("Cat().Homsets() is a category", lambda _: C.Homsets() in C),
+    ("Cat().Endsets() is a category", lambda _: C.Endsets() in C),
+    ("Cat().Autsets() is a category", lambda _: C.Autsets() in C),
+    ("Cat().Hom() is a category", lambda _: C.Hom() in C),
+    ("Cat().End() is a category", lambda _: C.End() in C),
+    ("Cat().Aut() is a category", lambda _: C.Aut() in C),
 )
-smoke_case("Cat constructor namespace", lambda: C.Constructors())
-smoke_case("Cat().Constructors().EmptyCategory()", lambda: C.Constructors().EmptyCategory())
-smoke_case("EmptyCategory() is an object of Cat()", lambda: require(empty_category in C))
-smoke_case("EmptyCategory() is empty", lambda: require(Sets() not in empty_category and ZZ not in empty_category))
-smoke_case("EmptyCategory() is below Sets()", lambda: require(empty_category.is_subcategory(Sets())))
-smoke_case("EmptyCategory() is below Rings()", lambda: require(empty_category.is_subcategory(Rings())))
-smoke_case("ordinary categories are not below EmptyCategory()", lambda: require(not Sets().is_subcategory(empty_category)))
-smoke_case("Cat().meet([]) is EmptyCategory()", lambda: require(C.meet([]) is empty_category))
-smoke_case("Cat().join(...) returns a join category", lambda: require(C.join([Rings(), Posets()]) in C.JoinCategories()))
-smoke_case(
-    "Cat().meet(...) delegates to Sage category meet",
-    lambda: require(C.meet([Rings(), Posets()]) == Category.meet([Rings(), Posets()])),
-)
-smoke_case(
-    "Cat().JoinCategories() recognizes Sage join categories",
-    lambda: require(joined_category in C.JoinCategories() and Sets() not in C.JoinCategories()),
-)
-smoke_case("join category is recognized through Cat surface", lambda: require(joined_category in C.JoinCategories()))
-smoke_case("ordinary category predicate rejects join category", lambda: require(not Sets().is_join_category()))
-smoke_case("functors are not objects of Cat()", lambda: require(IdentityFunctor(Sets()) not in C))
-smoke_case(
-    "HomsetsOf join category repr uses Cat join-category surface",
-    lambda: require(GenericHomsets().Of(joined_category)._repr_object_names() == "homsets of rings and posets"),
-)
-smoke_case("Sets() is an object of Cat()", lambda: require(Sets() in C))
-smoke_case("Sets().Finite() is an object of Cat()", lambda: require(Sets().Finite() in C))
-smoke_case("ordinary Sage objects are not objects of Cat()", lambda: require(ZZ not in C))
-for category in category_objects:
-    smoke_case(f"{category} is an object of Cat()", lambda category=category: require(category in C))
-    smoke_case(
-        f"{category}.Subobjects() constructs a category",
-        lambda category=category: require_subobject_category(category),
-    )
-    smoke_case(
-        f"{category}.Homsets/Endsets/Autsets/Hom/End/Aut construct categories",
-        lambda category=category: require_homset_categories(category),
-    )
-    smoke_case(
-        f"{category}.Hom({category}) constructs the object-level homspace",
-        lambda category=category: require_object_hom(category),
-    )
 
-smoke_case("Modules(ZZ).OverPID().Subobjects()", lambda: Modules(ZZ).OverPID().Subobjects())
-smoke_case("Modules(ZZ).OverPID() is an object of Cat()", lambda: require(Modules(ZZ).OverPID() in C))
-smoke_case(
-    "Modules(ZZ).OverPID() refines Modules(ZZ)",
-    lambda: require(Modules(ZZ).OverPID().is_subcategory(Modules(ZZ))),
-)
-smoke_case("Sets().Hom(Sets()) has the expected domain", lambda: require(Sets().Hom(Sets()).domain() is Sets()))
-smoke_case("Sets().Hom(Sets()) has the expected codomain", lambda: require(Sets().Hom(Sets()).codomain() is Sets()))
-smoke_case("Cat().Subobjects()", lambda: C.Subobjects())
-smoke_case("Cat().Quotients()", lambda: C.Quotients())
-smoke_case("Cat().Subquotients()", lambda: C.Subquotients())
-smoke_case("Cat().ObjectsOver(Sets())", lambda: C.ObjectsOver(Sets()))
-smoke_case("Cat().ObjectsUnder(Sets())", lambda: C.ObjectsUnder(Sets()))
-smoke_case("Cat().CartesianProducts()", lambda: C.CartesianProducts())
-smoke_case("Cat().Homsets()", lambda: C.Homsets())
-smoke_case("Cat().Endsets()", lambda: C.Endsets())
-smoke_case("Cat().Autsets()", lambda: C.Autsets())
-smoke_case("Cat().Hom()", lambda: C.Hom())
-smoke_case("Cat().End()", lambda: C.End())
-smoke_case("Cat().Aut()", lambda: C.Aut())
-smoke_case("Cat constructions are category objects", lambda: require_cat_constructions(C))
-
-assert not failures, "\n".join(failures)
+assert_smoke_statements(SMOKE_STATEMENTS)

@@ -6,41 +6,28 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.cat import Cat
 from category_specs.posets import Posets
-
-
-failures = []
-
-
-def require(condition, label="condition failed"):
-    if not condition:
-        raise AssertionError(label)
-
-
-def smoke_case(label, build):
-    try:
-        build()
-    except Exception as exc:
-        failures.append(f"{label}: {type(exc).__name__}: {exc}")
+from category_specs.utils import assert_smoke_statements
 
 
 P = Posets()
 
-smoke_case("Posets() is an object of Cat()", lambda: require(P in Cat()))
-smoke_case("Posets().Finite()", lambda: P.Finite())
-smoke_case("Posets().Lattice()", lambda: P.Lattice())
-smoke_case("Posets().Lattice().Finite()", lambda: P.Lattice().Finite())
-smoke_case("Posets().Subobjects()", lambda: P.Subobjects())
-smoke_case("Posets().Quotients()", lambda: P.Quotients())
-smoke_case("Posets().Subquotients()", lambda: P.Subquotients())
-smoke_case("Posets().CartesianProducts()", lambda: P.CartesianProducts())
-smoke_case("Posets().Homsets()", lambda: P.Homsets())
-smoke_case("Posets().Constructors() exists", lambda: P.Constructors())
-smoke_case(
-    "Posets().Constructors() has admitted constructor cases",
-    lambda: require(
-        False,
-        "no poset constructors have been admitted; decide the constructor inventory in NEEDS_DECISIONS.md",
+SMOKE_STATEMENTS = (
+    ("Posets() is an object of Cat()", lambda _: P in Cat()),
+    ("Posets().Finite() is an object of Cat()", lambda _: P.Finite() in Cat()),
+    ("Posets().Lattice() is an object of Cat()", lambda _: P.Lattice() in Cat()),
+    ("Posets().Lattice().Finite() is an object of Cat()", lambda _: P.Lattice().Finite() in Cat()),
+    ("Posets().Finite() is a subcategory of Posets()", lambda _: P.Finite().is_subcategory(P)),
+    ("Posets().Lattice() is a subcategory of Posets()", lambda _: P.Lattice().is_subcategory(P)),
+    ("Posets().Lattice().Finite() is a subcategory of Posets().Lattice()", lambda _: P.Lattice().Finite().is_subcategory(P.Lattice())),
+    ("Posets().Subobjects() is an object of Cat()", lambda _: P.Subobjects() in Cat()),
+    ("Posets().Quotients() is an object of Cat()", lambda _: P.Quotients() in Cat()),
+    ("Posets().Subquotients() is an object of Cat()", lambda _: P.Subquotients() in Cat()),
+    ("Posets().CartesianProducts() is an object of Cat()", lambda _: P.CartesianProducts() in Cat()),
+    ("Posets().Homsets() is an object of Cat()", lambda _: P.Homsets() in Cat()),
+    (
+        "Posets().Constructors() has admitted mathematical constructor cases",
+        lambda _: False,
     ),
 )
 
-assert not failures, "\n".join(failures)
+assert_smoke_statements(SMOKE_STATEMENTS)

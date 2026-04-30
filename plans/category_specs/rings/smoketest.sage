@@ -1,104 +1,98 @@
 from pathlib import Path
-import logging
 import sys
 
 THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.rings import Rings
-
-
-logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
-logger = logging.getLogger("category_specs.rings.smoketest")
-
-failures = []
-
-
-def smoke_case(label, build):
-    try:
-        build()
-    except Exception as exc:
-        message = (
-            f"{label}: failed to instantiate/refine the target spec surface "
-            f"({type(exc).__name__}: {exc})"
-        )
-        failures.append(message)
-        logger.warning(message)
+from category_specs.utils import assert_smoke_statements
 
 
 NR = Rings().Constructors()
 PQ = PolynomialRing(QQ, "x")
 x = PQ.gen()
 
-smoke_case("rings._ZZ via Constructors().ZZ()", lambda: NR.ZZ())
-smoke_case("rings._QQ via Constructors().QQ()", lambda: NR.QQ())
-smoke_case("rings._QQbar via Constructors().QQbar()", lambda: NR.QQbar())
-smoke_case("rings._AA via Constructors().AA()", lambda: NR.AA())
-smoke_case("rings._RR via Constructors().RR()", lambda: NR.RR())
-smoke_case("rings._CC via Constructors().CC()", lambda: NR.CC())
-smoke_case("rings._RealDoubleFields via Constructors().RDF()", lambda: NR.RDF())
-smoke_case("rings._ComplexDoubleFields via Constructors().CDF()", lambda: NR.CDF())
-smoke_case("rings._RealIntervalFields via Constructors().RIF()", lambda: NR.RIF())
-smoke_case("rings._ComplexIntervalFields via Constructors().CIF()", lambda: NR.CIF())
-smoke_case("rings._RealFields via Constructors().RealField(100)", lambda: NR.RealField(100))
-smoke_case(
-    "rings._ComplexFields via Constructors().ComplexField(100)",
-    lambda: NR.ComplexField(100),
-)
-smoke_case(
-    "rings._RealBallFields via Constructors().RealBallField(100)",
-    lambda: NR.RealBallField(100),
-)
-smoke_case(
-    "rings._ComplexBallFields via Constructors().ComplexBallField(100)",
-    lambda: NR.ComplexBallField(100),
-)
-smoke_case(
-    "rings._IntegerModRings via Constructors().IntegerModRing(6)",
-    lambda: NR.IntegerModRing(6),
-)
-smoke_case("rings._FiniteFields via Constructors().GF(5)", lambda: NR.GF(5))
-smoke_case(
-    "rings._NumberFields via Constructors().NumberField(x^3 - 2, 'a')",
-    lambda: NR.NumberField(x**3 - 2, "a"),
-)
-smoke_case(
-    "rings._QuadraticNumberFields via Constructors().QuadraticField(5, 'a')",
-    lambda: NR.QuadraticField(5, "a"),
-)
-smoke_case(
-    "rings._CyclotomicFields via Constructors().CyclotomicField(5)",
-    lambda: NR.CyclotomicField(5),
-)
-smoke_case("rings._Zp via Constructors().Zp(5)", lambda: NR.Zp(5))
-smoke_case("rings._Qp via Constructors().Qp(5)", lambda: NR.Qp(5))
-smoke_case(
-    "rings._Zp via Constructors().Zq((5, 2), names='a')",
-    lambda: NR.Zq((5, 2), names="a"),
-)
-smoke_case(
-    "rings._Qp via Constructors().Qq((5, 2), names='a')",
-    lambda: NR.Qq((5, 2), names="a"),
-)
-smoke_case(
-    "rings._PolynomialRings via Constructors().PolynomialRing(ZZ, name='t')",
-    lambda: NR.PolynomialRing(ZZ, name="t"),
-)
-smoke_case(
-    "rings._PowerSeriesRings via Constructors().PowerSeriesRing(ZZ, 't')",
-    lambda: NR.PowerSeriesRing(ZZ, "t"),
-)
-smoke_case(
-    "rings._LaurentSeriesRings via Constructors().LaurentSeriesRing(ZZ, 't')",
-    lambda: NR.LaurentSeriesRing(ZZ, "t"),
-)
-smoke_case(
-    "rings._PuiseuxSeriesRings via Constructors().PuiseuxSeriesRing(QQ, 't')",
-    lambda: NR.PuiseuxSeriesRing(QQ, "t"),
-)
-smoke_case(
-    "rings._MatrixAlgebras via Constructors().MatrixRing(ZZ, 2)",
-    lambda: NR.MatrixRing(ZZ, 2),
+SMOKE_STATEMENTS = (
+    ("Constructors().ZZ() is a ring", lambda _: NR.ZZ() in Rings()),
+    ("Constructors().ZZ() has characteristic 0", lambda _: NR.ZZ().characteristic() == 0),
+    ("Constructors().ZZ() is not finite", lambda _: not NR.ZZ().is_finite()),
+    ("Constructors().QQ() is a field", lambda _: NR.QQ() in Rings().Commutative().Field()),
+    ("Constructors().QQ() has characteristic 0", lambda _: NR.QQ().characteristic() == 0),
+    ("Constructors().QQ() is a number field", lambda _: NR.QQ().is_number_field()),
+    ("Constructors().QQbar() is a field", lambda _: NR.QQbar() in Rings().Commutative().Field()),
+    ("Constructors().QQbar() has characteristic 0", lambda _: NR.QQbar().characteristic() == 0),
+    ("Constructors().QQbar() is algebraically closed", lambda _: NR.QQbar().is_algebraically_closed()),
+    ("Constructors().AA() is a field", lambda _: NR.AA() in Rings().Commutative().Field()),
+    ("Constructors().AA() has characteristic 0", lambda _: NR.AA().characteristic() == 0),
+    ("Constructors().RR() is a field", lambda _: NR.RR() in Rings().Commutative().Field()),
+    ("Constructors().RR() has characteristic 0", lambda _: NR.RR().characteristic() == 0),
+    ("Constructors().RR() has precision 53", lambda _: NR.RR().precision() == 53),
+    ("Constructors().CC() is a field", lambda _: NR.CC() in Rings().Commutative().Field()),
+    ("Constructors().CC() has characteristic 0", lambda _: NR.CC().characteristic() == 0),
+    ("Constructors().CC() has precision 53", lambda _: NR.CC().precision() == 53),
+    ("Constructors().RDF() is a field", lambda _: NR.RDF() in Rings().Commutative().Field()),
+    ("Constructors().RDF() has characteristic 0", lambda _: NR.RDF().characteristic() == 0),
+    ("Constructors().RDF() has precision 53", lambda _: NR.RDF().precision() == 53),
+    ("Constructors().CDF() is a field", lambda _: NR.CDF() in Rings().Commutative().Field()),
+    ("Constructors().CDF() has characteristic 0", lambda _: NR.CDF().characteristic() == 0),
+    ("Constructors().CDF() has precision 53", lambda _: NR.CDF().precision() == 53),
+    ("Constructors().RIF() is a field", lambda _: NR.RIF() in Rings().Commutative().Field()),
+    ("Constructors().RIF() has characteristic 0", lambda _: NR.RIF().characteristic() == 0),
+    ("Constructors().CIF() is a field", lambda _: NR.CIF() in Rings().Commutative().Field()),
+    ("Constructors().CIF() has characteristic 0", lambda _: NR.CIF().characteristic() == 0),
+    ("Constructors().RealField(100) is a field", lambda _: NR.RealField(100) in Rings().Commutative().Field()),
+    ("Constructors().RealField(100) has precision 100", lambda _: NR.RealField(100).precision() == 100),
+    ("Constructors().ComplexField(100) is a field", lambda _: NR.ComplexField(100) in Rings().Commutative().Field()),
+    ("Constructors().ComplexField(100) has precision 100", lambda _: NR.ComplexField(100).precision() == 100),
+    ("Constructors().RealBallField(100) is a field", lambda _: NR.RealBallField(100) in Rings().Commutative().Field()),
+    ("Constructors().RealBallField(100) has precision 100", lambda _: NR.RealBallField(100).precision() == 100),
+    ("Constructors().ComplexBallField(100) is a field", lambda _: NR.ComplexBallField(100) in Rings().Commutative().Field()),
+    ("Constructors().ComplexBallField(100) has precision 100", lambda _: NR.ComplexBallField(100).precision() == 100),
+    ("Constructors().IntegerModRing(6) is finite", lambda _: NR.IntegerModRing(6) in Rings().Finite()),
+    ("Constructors().IntegerModRing(6) has order 6", lambda _: NR.IntegerModRing(6).order() == 6),
+    ("Constructors().IntegerModRing(6) has characteristic 6", lambda _: NR.IntegerModRing(6).characteristic() == 6),
+    ("Constructors().GF(5) is a finite field", lambda _: NR.GF(5) in Rings().Commutative().Field().Finite()),
+    ("Constructors().GF(5) has cardinality 5", lambda _: NR.GF(5).cardinality() == 5),
+    ("Constructors().GF(5) has characteristic 5", lambda _: NR.GF(5).characteristic() == 5),
+    ("Constructors().NumberField(x^3 - 2, 'a') is a number field", lambda _: NR.NumberField(x**3 - 2, "a") in Rings().Commutative().Field().NumberFields()),
+    ("Constructors().NumberField(x^3 - 2, 'a') has degree 3", lambda _: NR.NumberField(x**3 - 2, "a").degree() == 3),
+    ("Constructors().QuadraticField(5, 'a') is quadratic", lambda _: NR.QuadraticField(5, "a") in Rings().Commutative().Field().NumberFields().Quadratic()),
+    ("Constructors().QuadraticField(5, 'a') has degree 2", lambda _: NR.QuadraticField(5, "a").degree() == 2),
+    ("Constructors().CyclotomicField(5) is cyclotomic", lambda _: NR.CyclotomicField(5) in Rings().Commutative().Field().NumberFields().Cyclotomic()),
+    ("Constructors().CyclotomicField(5) has degree 4", lambda _: NR.CyclotomicField(5).degree() == 4),
+    ("Constructors().Zp(5) is a commutative ring", lambda _: NR.Zp(5) in Rings().Commutative()),
+    ("Constructors().Zp(5) has prime 5", lambda _: NR.Zp(5).prime() == 5),
+    ("Constructors().Qp(5) is a field", lambda _: NR.Qp(5) in Rings().Commutative().Field()),
+    ("Constructors().Qp(5) has prime 5", lambda _: NR.Qp(5).prime() == 5),
+    ("Constructors().Zq((5, 2), names='a') is a commutative ring", lambda _: NR.Zq((5, 2), names="a") in Rings().Commutative()),
+    ("Constructors().Zq((5, 2), names='a') has prime 5", lambda _: NR.Zq((5, 2), names="a").prime() == 5),
+    ("Constructors().Qq((5, 2), names='a') is a field", lambda _: NR.Qq((5, 2), names="a") in Rings().Commutative().Field()),
+    ("Constructors().Qq((5, 2), names='a') has prime 5", lambda _: NR.Qq((5, 2), names="a").prime() == 5),
+    (
+        "Constructors().PolynomialRing(ZZ, name='t') is a polynomial ring over ZZ",
+        lambda _: NR.PolynomialRing(ZZ, name="t") in Rings().PolynomialRingsOver(ZZ),
+    ),
+    ("Constructors().PolynomialRing(ZZ, name='t') has base ring ZZ", lambda _: NR.PolynomialRing(ZZ, name="t").base_ring() is ZZ),
+    ("Constructors().PolynomialRing(ZZ, name='t') has one generator", lambda _: NR.PolynomialRing(ZZ, name="t").ngens() == 1),
+    (
+        "Constructors().PowerSeriesRing(ZZ, 't') is a power-series ring over ZZ",
+        lambda _: NR.PowerSeriesRing(ZZ, "t") in Rings().PowerSeriesRingsOver(ZZ),
+    ),
+    ("Constructors().PowerSeriesRing(ZZ, 't') has base ring ZZ", lambda _: NR.PowerSeriesRing(ZZ, "t").base_ring() is ZZ),
+    (
+        "Constructors().LaurentSeriesRing(ZZ, 't') is a Laurent-series ring over ZZ",
+        lambda _: NR.LaurentSeriesRing(ZZ, "t") in Rings().LaurentSeriesRingsOver(ZZ),
+    ),
+    ("Constructors().LaurentSeriesRing(ZZ, 't') has base ring ZZ", lambda _: NR.LaurentSeriesRing(ZZ, "t").base_ring() is ZZ),
+    (
+        "Constructors().PuiseuxSeriesRing(QQ, 't') is a Puiseux-series ring over QQ",
+        lambda _: NR.PuiseuxSeriesRing(QQ, "t") in Rings().PuiseuxSeriesRingsOver(QQ),
+    ),
+    ("Constructors().PuiseuxSeriesRing(QQ, 't') has base ring QQ", lambda _: NR.PuiseuxSeriesRing(QQ, "t").base_ring() is QQ),
+    ("Constructors().MatrixRing(ZZ, 2) is a matrix algebra over ZZ", lambda _: NR.MatrixRing(ZZ, 2) in Rings().MatrixAlgebras(ZZ, 2, 2)),
+    ("Constructors().MatrixRing(ZZ, 2) has 2 rows", lambda _: NR.MatrixRing(ZZ, 2).nrows() == 2),
+    ("Constructors().MatrixRing(ZZ, 2) has 2 columns", lambda _: NR.MatrixRing(ZZ, 2).ncols() == 2),
+    ("Constructors().MatrixRing(ZZ, 2) has base ring ZZ", lambda _: NR.MatrixRing(ZZ, 2).base_ring() is ZZ),
 )
 
-assert not failures, "\n".join(failures)
+assert_smoke_statements(SMOKE_STATEMENTS)

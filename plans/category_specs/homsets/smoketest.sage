@@ -14,88 +14,80 @@ from category_specs.posets import Posets
 from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
+from category_specs.utils import assert_smoke_statements
 from sage.all import ZZ
 
 
-failures = []
-
-
-def require(condition, label="condition failed"):
-    if not condition:
-        raise AssertionError(label)
-
-
-def subcategory_label(left, right):
-    super_categories = left.super_categories()
-    super_details = [
-        f"{super_category!r} ({super_category.__class__!r}, is target: {super_category is right})"
-        for super_category in super_categories
-    ]
-    return f"{left} not below {right} ({right.__class__!r}); immediate supercategories: {super_details}"
-
-
-def has_declared_supercategory(left, right, seen=None):
-    seen = set() if seen is None else seen
-    if left is right:
-        return True
-    if id(left) in seen:
-        return False
-    seen.add(id(left))
-    return any(has_declared_supercategory(super_category, right, seen) for super_category in left.super_categories())
-
-
-def smoke_case(label, build):
-    try:
-        build()
-    except Exception as exc:
-        failures.append(f"{label}: {type(exc).__name__}: {exc}")
-
-
-def require_root_homsets():
-    require(Homsets() in Cat())
-    require(Homsets().Endset() in Cat())
-    require(Homsets().Autset() in Cat())
-    require(Homsets().Of(Cat()) in Cat())
-    require(Endsets().Of(Cat()) in Cat())
-    require(Autsets().Of(Cat()) in Cat())
-
-
-def require_category_homsets(category):
-    homsets = category.Homsets()
-    endsets = homsets.Endset()
-    autsets = homsets.Autset()
-    require(homsets in Cat(), f"{homsets} is not an object of Cat()")
-    require(endsets in Cat(), f"{endsets} is not an object of Cat()")
-    require(autsets in Cat(), f"{autsets} is not an object of Cat()")
-    require(Endsets().Of(category) is endsets, f"Endsets().Of({category}) did not route through Homsets().Endset()")
-    require(Autsets().Of(category) is autsets, f"Autsets().Of({category}) did not route through Endset().Autset()")
-
-
-def require_set_enriched_homsets(category):
-    homsets = category.Homsets()
-    endsets = homsets.Endset()
-    autsets = homsets.Autset()
-    set_homsets = Sets().Homsets()
-    set_endsets = set_homsets.Endset()
-    set_autsets = set_homsets.Autset()
-    require(has_declared_supercategory(homsets, set_homsets), subcategory_label(homsets, set_homsets))
-    require(has_declared_supercategory(endsets, set_endsets), subcategory_label(endsets, set_endsets))
-    require(has_declared_supercategory(autsets, set_autsets), subcategory_label(autsets, set_autsets))
-
-
 C = Cat()
-H = C.Hom()
-E = C.End()
-A = C.Aut()
 
-smoke_case("root homsets/endsets/autsets are category objects", require_root_homsets)
-smoke_case("Cat().Hom/End/Aut route to category-level constructions", lambda: require(H is C.Homsets()))
-smoke_case("Cat().End() routes through Cat().Hom().Endset()", lambda: require(E is H.Endset()))
-smoke_case("Cat().Aut() routes through Cat().End().Autset()", lambda: require(A is E.Autset()))
+SMOKE_STATEMENTS = (
+    ("Homsets() is a category", lambda _: Homsets() in C),
+    ("Homsets().Endset() is a category", lambda _: Homsets().Endset() in C),
+    ("Homsets().Autset() is a category", lambda _: Homsets().Autset() in C),
+    ("Homsets().Of(Cat()) is a category", lambda _: Homsets().Of(Cat()) in C),
+    ("Endsets().Of(Cat()) is a category", lambda _: Endsets().Of(Cat()) in C),
+    ("Autsets().Of(Cat()) is a category", lambda _: Autsets().Of(Cat()) in C),
+    ("Cat().Hom() is Cat().Homsets()", lambda _: C.Hom() is C.Homsets()),
+    ("Cat().End() is Cat().Hom().Endset()", lambda _: C.End() is C.Hom().Endset()),
+    ("Cat().Aut() is Cat().End().Autset()", lambda _: C.Aut() is C.End().Autset()),
+    ("Sets().Homsets() is a category", lambda _: Sets().Homsets() in C),
+    ("Sets().Homsets().Endset() is a category", lambda _: Sets().Homsets().Endset() in C),
+    ("Sets().Homsets().Endset().Autset() is a category", lambda _: Sets().Homsets().Endset().Autset() in C),
+    ("Endsets().Of(Sets()) is Sets().Homsets().Endset()", lambda _: Endsets().Of(Sets()) is Sets().Homsets().Endset()),
+    ("Autsets().Of(Sets()) is Sets().Homsets().Endset().Autset()", lambda _: Autsets().Of(Sets()) is Sets().Homsets().Endset().Autset()),
+    ("Sets().Homsets() refines set homsets", lambda _: Sets().Homsets().is_subcategory(Sets().Homsets())),
+    ("Sets().Endsets() refines set endsets", lambda _: Sets().Endsets().is_subcategory(Sets().Homsets().Endset())),
+    ("Sets().Autsets() refines set autsets", lambda _: Sets().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
+    ("Rings().Homsets() is a category", lambda _: Rings().Homsets() in C),
+    ("Rings().Homsets().Endset() is a category", lambda _: Rings().Homsets().Endset() in C),
+    ("Rings().Homsets().Endset().Autset() is a category", lambda _: Rings().Homsets().Endset().Autset() in C),
+    ("Endsets().Of(Rings()) is Rings().Homsets().Endset()", lambda _: Endsets().Of(Rings()) is Rings().Homsets().Endset()),
+    ("Autsets().Of(Rings()) is Rings().Homsets().Endset().Autset()", lambda _: Autsets().Of(Rings()) is Rings().Homsets().Endset().Autset()),
+    ("Rings().Homsets() refines set homsets", lambda _: Rings().Homsets().is_subcategory(Sets().Homsets())),
+    ("Rings().Endsets() refines set endsets", lambda _: Rings().Endsets().is_subcategory(Sets().Homsets().Endset())),
+    ("Rings().Autsets() refines set autsets", lambda _: Rings().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
+    ("Posets().Homsets() is a category", lambda _: Posets().Homsets() in C),
+    ("Posets().Homsets().Endset() is a category", lambda _: Posets().Homsets().Endset() in C),
+    ("Posets().Homsets().Endset().Autset() is a category", lambda _: Posets().Homsets().Endset().Autset() in C),
+    ("Endsets().Of(Posets()) is Posets().Homsets().Endset()", lambda _: Endsets().Of(Posets()) is Posets().Homsets().Endset()),
+    ("Autsets().Of(Posets()) is Posets().Homsets().Endset().Autset()", lambda _: Autsets().Of(Posets()) is Posets().Homsets().Endset().Autset()),
+    ("Posets().Homsets() refines set homsets", lambda _: Posets().Homsets().is_subcategory(Sets().Homsets())),
+    ("Posets().Endsets() refines set endsets", lambda _: Posets().Endsets().is_subcategory(Sets().Homsets().Endset())),
+    ("Posets().Autsets() refines set autsets", lambda _: Posets().Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
+    ("TopologicalSpaces().Homsets() is a category", lambda _: TopologicalSpaces().Homsets() in C),
+    ("TopologicalSpaces().Homsets().Endset() is a category", lambda _: TopologicalSpaces().Homsets().Endset() in C),
+    ("TopologicalSpaces().Homsets().Endset().Autset() is a category", lambda _: TopologicalSpaces().Homsets().Endset().Autset() in C),
+    (
+        "Endsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset()",
+        lambda _: Endsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset(),
+    ),
+    (
+        "Autsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset().Autset()",
+        lambda _: Autsets().Of(TopologicalSpaces()) is TopologicalSpaces().Homsets().Endset().Autset(),
+    ),
+    (
+        "TopologicalSpaces().Homsets() refines set homsets",
+        lambda _: TopologicalSpaces().Homsets().is_subcategory(Sets().Homsets()),
+    ),
+    (
+        "TopologicalSpaces().Endsets() refines set endsets",
+        lambda _: TopologicalSpaces().Endsets().is_subcategory(Sets().Homsets().Endset()),
+    ),
+    (
+        "TopologicalSpaces().Autsets() refines set autsets",
+        lambda _: TopologicalSpaces().Autsets().is_subcategory(Sets().Homsets().Endset().Autset()),
+    ),
+    ("Modules(ZZ).Homsets() is a category", lambda _: Modules(ZZ).Homsets() in C),
+    ("Modules(ZZ).Homsets().Endset() is a category", lambda _: Modules(ZZ).Homsets().Endset() in C),
+    ("Modules(ZZ).Homsets().Endset().Autset() is a category", lambda _: Modules(ZZ).Homsets().Endset().Autset() in C),
+    ("Endsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset()", lambda _: Endsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset()),
+    (
+        "Autsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset().Autset()",
+        lambda _: Autsets().Of(Modules(ZZ)) is Modules(ZZ).Homsets().Endset().Autset(),
+    ),
+    ("Modules(ZZ).Homsets() refines set homsets", lambda _: Modules(ZZ).Homsets().is_subcategory(Sets().Homsets())),
+    ("Modules(ZZ).Endsets() refines set endsets", lambda _: Modules(ZZ).Endsets().is_subcategory(Sets().Homsets().Endset())),
+    ("Modules(ZZ).Autsets() refines set autsets", lambda _: Modules(ZZ).Autsets().is_subcategory(Sets().Homsets().Endset().Autset())),
+)
 
-set_like_categories = (Sets(), Rings(), Posets(), TopologicalSpaces(), Modules(ZZ))
-for category in set_like_categories:
-    smoke_case(f"{category}.Homsets/Endsets/Autsets are category objects", lambda category=category: require_category_homsets(category))
-    smoke_case(f"{category}.Homsets/Endsets/Autsets refine set homsets", lambda category=category: require_set_enriched_homsets(category))
-
-assert not failures, "\n".join(failures)
+assert_smoke_statements(SMOKE_STATEMENTS)

@@ -1,4 +1,5 @@
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
+from typing import Any
 
 from sage.categories.category import Category
 from sage.misc.abstract_method import AbstractMethod
@@ -42,3 +43,14 @@ def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = Tr
     if test:
         X._test_not_implemented_methods()
     return X
+
+
+def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]], ...]) -> None:
+    failures: list[str] = []
+    for message, statement in statements:
+        try:
+            assert statement(None), message
+        except Exception as exc:
+            failures.append(f"{message}: {type(exc).__name__}: {exc}")
+
+    assert not failures, "\n".join(failures)

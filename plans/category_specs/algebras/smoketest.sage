@@ -6,44 +6,34 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.algebras import Algebras
 from category_specs.cat import Cat
+from category_specs.utils import assert_smoke_statements
 from sage.all import ZZ
-
-
-failures = []
-
-
-def require(condition, label="condition failed"):
-    if not condition:
-        raise AssertionError(label)
-
-
-def smoke_case(label, build):
-    try:
-        build()
-    except Exception as exc:
-        failures.append(f"{label}: {type(exc).__name__}: {exc}")
 
 
 A = Algebras(ZZ)
 
-smoke_case("Algebras(ZZ) is an object of Cat()", lambda: require(A in Cat()))
-smoke_case("Algebras(ZZ).Commutative()", lambda: A.Commutative())
-smoke_case("Algebras(ZZ).WithBasis()", lambda: A.WithBasis())
-smoke_case("Algebras(ZZ).FiniteDimensional()", lambda: A.FiniteDimensional())
-smoke_case("Algebras(ZZ).Semisimple()", lambda: A.Semisimple())
-smoke_case("Algebras(ZZ).Subobjects()", lambda: A.Subobjects())
-smoke_case("Algebras(ZZ).Quotients()", lambda: A.Quotients())
-smoke_case("Algebras(ZZ).Subquotients()", lambda: A.Subquotients())
-smoke_case("Algebras(ZZ).CartesianProducts()", lambda: A.CartesianProducts())
-smoke_case("Algebras(ZZ).TensorProducts()", lambda: A.TensorProducts())
-smoke_case("Algebras(ZZ).DualObjects()", lambda: A.DualObjects())
-smoke_case("Algebras(ZZ).Homsets()", lambda: A.Homsets())
-smoke_case(
-    "Algebras(ZZ).Constructors() has admitted constructor cases",
-    lambda: require(
-        False,
-        "no algebra constructors have been admitted; decide first concrete constructor cases in NEEDS_DECISIONS.md",
+SMOKE_STATEMENTS = (
+    ("Algebras(ZZ) is an object of Cat()", lambda _: A in Cat()),
+    ("Algebras(ZZ) has base ring ZZ", lambda _: A.base_ring() is ZZ),
+    ("Algebras(ZZ).Commutative() is an object of Cat()", lambda _: A.Commutative() in Cat()),
+    ("Algebras(ZZ).WithBasis() is an object of Cat()", lambda _: A.WithBasis() in Cat()),
+    ("Algebras(ZZ).FiniteDimensional() is an object of Cat()", lambda _: A.FiniteDimensional() in Cat()),
+    ("Algebras(ZZ).Semisimple() is an object of Cat()", lambda _: A.Semisimple() in Cat()),
+    ("Algebras(ZZ).Commutative() is a subcategory of Algebras(ZZ)", lambda _: A.Commutative().is_subcategory(A)),
+    ("Algebras(ZZ).WithBasis() is a subcategory of Algebras(ZZ)", lambda _: A.WithBasis().is_subcategory(A)),
+    ("Algebras(ZZ).FiniteDimensional() is a subcategory of Algebras(ZZ)", lambda _: A.FiniteDimensional().is_subcategory(A)),
+    ("Algebras(ZZ).Semisimple() is a subcategory of Algebras(ZZ)", lambda _: A.Semisimple().is_subcategory(A)),
+    ("Algebras(ZZ).Subobjects() is an object of Cat()", lambda _: A.Subobjects() in Cat()),
+    ("Algebras(ZZ).Quotients() is an object of Cat()", lambda _: A.Quotients() in Cat()),
+    ("Algebras(ZZ).Subquotients() is an object of Cat()", lambda _: A.Subquotients() in Cat()),
+    ("Algebras(ZZ).CartesianProducts() is an object of Cat()", lambda _: A.CartesianProducts() in Cat()),
+    ("Algebras(ZZ).TensorProducts() is an object of Cat()", lambda _: A.TensorProducts() in Cat()),
+    ("Algebras(ZZ).DualObjects() is an object of Cat()", lambda _: A.DualObjects() in Cat()),
+    ("Algebras(ZZ).Homsets() is an object of Cat()", lambda _: A.Homsets() in Cat()),
+    (
+        "Algebras(ZZ).Constructors() has admitted mathematical constructor cases",
+        lambda _: False,
     ),
 )
 
-assert not failures, "\n".join(failures)
+assert_smoke_statements(SMOKE_STATEMENTS)
