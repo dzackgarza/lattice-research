@@ -1057,7 +1057,18 @@ splicing.
 
 - All methods must be defined at the **highest category** for which they are universally
   well-defined.
-- Do not duplicate method definitions at lower levels if the parent already covers it.
+- Every subcategory should declare the method-surface entry points it owns:
+  `ParentMethods`, `ElementMethods`, `MorphismMethods`, and the Hom/End/Aut
+  subcategory overrides when those surfaces exist.
+- A lower category may override a universal method surface to specialize the
+  mathematics, refine codomains, expose enriched structure, or declare extra
+  supercategories. For example, an `R`-module hom category may record that the category
+  is self-enriched instead of merely inheriting the ambient Hom surface unchanged.
+- If a subcategory has no new methods or refinements yet, still create the explicit
+  entry point with a `...` body. The stub marks where future specs belong.
+- Do not copy inherited method logic at lower levels only to restate behavior. Stub the
+  entry point, or override only the part where the lower category adds genuine
+  mathematical content.
 
 ## Git and Commit Workflow
 
