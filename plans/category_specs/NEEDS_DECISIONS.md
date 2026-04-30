@@ -11,21 +11,6 @@ Several construction subcategories inherit raw Sage construction bases directly
 must be re-exported through `cat/base_category_types.py` before construction files are
 considered compliant.
 
-## Collection Signature Ambiguities
-
-Typed finite collection signatures are not themselves design blockers. Shapes such as
-`galois_closure() -> Field | tuple[Field, RingMorphism]`,
-`list[RingMorphism]`, `tuple[RingElement, ...]`, and
-`dict[RingElement, Integer]` are compliant when they transparently state finite
-mathematical data. The remaining collection-signature question is narrower:
-
-- `rings/subcategories/p_adic_ring.py` declares
-  `change(..., print_alphabet: dict[str, str] | None = None, ...)`. This is display
-  configuration, not finite mathematical data. Decide whether display-only Sage
-  options belong in this spec surface, and if they do, whether this argument needs a
-  named Sage/project display type or an explicit mapping as localized non-mathematical
-  Sage interop.
-
 ## Explicit Surface Inventory Completeness
 
 Many subcategory classes define only the methods they refine locally. The local policy

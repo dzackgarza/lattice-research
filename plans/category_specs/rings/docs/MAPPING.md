@@ -43,11 +43,19 @@ are false. Thus `RR`, `CC`, `RIF`, and `CIF` may have fixed-object refinements,
 while `RealField(...)`, `ComplexField(...)`, and related precision families remain
 multi-object parameterized subcategories.
 
+Sage p-adic `change(...)` calls split into mathematical operations. Precision changes
+map to `change_precision(precision, precision_type=None)` on `Rings().Approximate()`.
+Changing `type='capped-abs'` supplies the optional `precision_type`. Changing
+`p=17` maps to `change_prime(17)` on p-adic rings and fields. Switching
+`field=True` maps to `fraction_field()`. Print-mode changes are display interop and
+use the private convenience method `_change_print_mode(print_mode)`.
+
 ## Subcategory Layout
 
 | Current source surface | Target file organization | Rationale |
 | --- | --- | --- |
 | Ring family category surface | `subcategories/<mathematical_name>.py` or nested directories | Files should correspond to mathematical subcategories: `field.py`, `finite.py`, `integral_domain.py`, `valuation/`, `number_fields/`, and so on. |
+| Approximate ring surface | `subcategories/approximate.py` | Precision control is common to real/complex precision families and p-adic rings/fields. The shared mathematical method is `change_precision`, not Sage's raw `change(...)` option bag. |
 | Construction-category surface | `subcategories/constructions/<notion>.py` | Constructions such as subobjects, quotients, rings under, rings over, characteristic, and Krull dimension are attachable categorical constructions and are split by notion. |
 | Matrix ring/algebra surface | `algebras` plus ring refinement | Matrix rings are algebras over their base ring and modules over that base. Algebraic methods belong in `algebras`; ring methods belong in `rings`; module methods belong in `modules`. |
 

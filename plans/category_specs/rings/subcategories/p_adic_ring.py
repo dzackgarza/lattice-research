@@ -21,6 +21,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 if TYPE_CHECKING:
     from ...types import (
         CompleteRing,
+        Field,
         Polynomial,
         RealNumber,
         Ring,
@@ -56,6 +57,7 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
+_ApproximateRings = LazyImport("category_specs.rings.subcategories.approximate", "_ApproximateRings")
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
@@ -110,7 +112,7 @@ class _PAdicRings(Category_singleton):
 
     @final
     def super_categories(self) -> list[Category]:
-        return [_CompleteRings(), _ValuedRings()]
+        return [_ApproximateRings(), _CompleteRings(), _ValuedRings()]
 
     @final
     def __contains__(self, R: Any) -> bool:
@@ -189,26 +191,16 @@ class _PAdicRings(Category_singleton):
         def print_mode(self) -> str: ...
 
         @abstract_method
-        def change(
-            self,
-            *,
-            type: str | None = None,
-            p: Integer | None = None,
-            print_mode: str | None = None,
-            print_pos: bool | None = None,
-            print_sep: str | None = None,
-            print_alphabet: dict[str, str] | None = None,
-            show_prec: bool | None = None,
-            check: bool | None = None,
-            label: str | None = None,
-            var_name: str | None = None,
-            res_name: str | None = None,
-            unram_name: str | None = None,
-            ram_name: str | None = None,
-            names: str | None = None,
-            modulus: Polynomial | None = None,
-            prec: Integer | None = None,
-        ) -> CompleteRing: ...
+        def change_precision(self, precision: Integer, precision_type: str | None = None) -> CompleteRing: ...
+
+        @abstract_method
+        def change_prime(self, p: Integer) -> CompleteRing: ...
+
+        @abstract_method
+        def fraction_field(self) -> Field: ...
+
+        @abstract_method
+        def _change_print_mode(self, print_mode: str) -> CompleteRing: ...
 
         @abstract_method
         def ext(

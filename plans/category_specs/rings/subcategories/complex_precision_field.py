@@ -24,7 +24,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 from .. import Rings
 
 if TYPE_CHECKING:
-    pass
+    from ...types import Field
 
 _SAGE_POLYNOMIAL_RING_CLASSES = (PolynomialRing_generic, MPolynomialRing_base)
 _SAGE_POWER_SERIES_RING_CLASSES = (
@@ -54,6 +54,7 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
+_ApproximateRings = LazyImport("category_specs.rings.subcategories.approximate", "_ApproximateRings")
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
@@ -108,7 +109,7 @@ class _ComplexPrecisionFields(Category_singleton):
 
     @final
     def super_categories(self) -> list[Category]:
-        return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+        return [_ApproximateRings(), _Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
     @final
     def __contains__(self, R: Any) -> bool:
@@ -125,6 +126,9 @@ class _ComplexPrecisionFields(Category_singleton):
     class ParentMethods:
         @abstract_method
         def precision(self) -> Integer: ...
+
+        @abstract_method
+        def change_precision(self, precision: Integer, precision_type: str | None = None) -> Field: ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

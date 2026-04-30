@@ -56,6 +56,7 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
+_ApproximateRings = LazyImport("category_specs.rings.subcategories.approximate", "_ApproximateRings")
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
@@ -110,7 +111,7 @@ class _RealPrecisionFields(Category_singleton):
 
     @final
     def super_categories(self) -> list[Category]:
-        return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+        return [_ApproximateRings(), _Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
     @final
     def __contains__(self, R: Any) -> bool:
@@ -127,6 +128,9 @@ class _RealPrecisionFields(Category_singleton):
     class ParentMethods:
         @abstract_method
         def precision(self) -> Integer: ...
+
+        @abstract_method
+        def change_precision(self, precision: Integer, precision_type: str | None = None) -> Field: ...
 
         @abstract_method
         def complex_field(self) -> Field: ...

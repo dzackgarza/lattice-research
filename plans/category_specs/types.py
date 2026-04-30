@@ -123,6 +123,12 @@ from .rings import (
     RingsObject,
     _RingIdeals,
 )
+from .rings.subcategories.approximate import (
+    ApproximateRingsCategory,
+    ApproximateRingsElement,
+    ApproximateRingsMorphism,
+    ApproximateRingsObject,
+)
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
@@ -152,6 +158,10 @@ RingEnd = RingsEnd
 RingAut = RingsAut
 RingEndomorphism = RingsEndomorphism
 RingAutomorphism = RingsAutomorphism
+ApproximateRing = ApproximateRingsObject
+ApproximateRingElement = ApproximateRingsElement
+ApproximateRingMorphism = ApproximateRingsMorphism
+ApproximateRingCategory = ApproximateRingsCategory
 Group = SageGroup
 AbelianGroup = AbelianGroup_class
 Monoid = Monoid_class
