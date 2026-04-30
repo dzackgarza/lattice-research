@@ -93,23 +93,35 @@
   Literal scalar values are allowed as defaults and examples: `n: Integer = 3` is
   valid Sage-style spec notation and should not be rewritten to `Integer(3)` merely to
   satisfy this rule.
-- **Prefer Mathematical Collections**: Avoid using Python native `list` or `tuple`
-  for mathematical collections, as they lack semantic meaning.
-  - Use **Ordered Sets** (from Sage) when a collection is finite, has no
-    duplicates, and the order is mathematically relevant.
-  - Use **Families** (indexed by another set) for collections where elements may
-    be repeated or the index set is not just $\{1, \dots, n\}$ (e.g., a basis of
-    an infinite-dimensional space).
-  - For **finite-rank or finite-dimensional** objects, a basis or generating set
-    must be an actual Sage object representing an **ordered set** of distinct
-    elements (e.g., $x_1, \dots, x_n$ in $X$), not a Python `list`, `tuple`, or
-    unordered `set`.
-- **Prefer Generators for Countable Collections**: For countable or infinite
-  collections, prefer returning Python generators over explicit lists or tuples.
-  This supports lazy evaluation and allows for filtering or mapping without
-  prematurely "unwrapping" infinite objects into memory. Methods like
-  `.elements()` should return generators whenever the underlying set is
-  countable, deferring concrete collection creation to the caller.
+- **Typed Finite Collections Are Mathematical Vocabulary**: The ban is on
+  untyped or non-mathematical primitive containers, not on finite collection
+  notation itself.  A typed finite collection such as `list[Field]`,
+  `tuple[RingElement, ...]`, `tuple[SetMorphism, RingMorphism]`, or
+  `dict[RingElement, Integer]` is acceptable when it transparently states the
+  mathematical data returned by the method.
+  - Do not treat Sage's Python return container as a typed source of truth.
+    Sage source is usually untyped; Sage code and written docs are evidence to
+    translate into project mathematical vocabulary.
+  - Do not invent wrapper names merely to avoid `list`, `tuple`, or `dict`.
+    A name such as `GaloisClosureWithEmbedding` hides the obvious product
+    `tuple[Field, RingMorphism]` unless it is already a standard mathematical
+    object with independent structure and methods.
+  - Bare `list`, bare `tuple`, bare `dict`, containers whose entries are not
+    mathematical types, and containers used as vague implementation data shapes
+    are noncompliant. Replace them with typed finite collections or with the
+    actual mathematical object.
+  - Python `set[...]` is almost never correct in signatures. Sets in this
+    subtree should be Sage/project set objects in `Sets()`, not Python hash-set
+    containers.
+  - Use **Ordered Sets** when the object itself is a finite set with no
+    duplicates and mathematically meaningful order. Use **Families** when the
+    object is indexed by another set or when repetitions matter. Use typed
+    `list`, `tuple`, or `dict` when the intended finite data is exactly an
+    ordered list, finite product, or finite association.
+- **Prefer Generators for Infinite or Lazy Collections**: For infinite or lazily
+  enumerated collections, prefer returning Python generators over explicit
+  finite containers. This supports lazy evaluation and allows filtering or
+  mapping without prematurely unwrapping infinite objects into memory.
 - **Deep ConditionSet Integration**: For subsets or filtered collections (e.g.,
   even integers, automorphisms within an endset), prefer using Sage's
   `ConditionSet` to define containment via predicates. This allows for clean
