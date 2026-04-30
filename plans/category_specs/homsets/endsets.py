@@ -91,7 +91,8 @@ class EndsetsOf(CategoryWithAxiom):
     r"""Generic category whose objects are ``End_C(A)``."""
 
     # Category-level construction: Endsets().Of(C) has objects End_C(A).
-    # It is distinct from the object-level parent A.End() = End_C(A).
+    # Category-object zero-argument C.End() selects C.Endsets(); object-level
+    # endomorphism parents are Hom(A, A), expressed as A.Hom(A).
 
     def extra_super_categories(self) -> list:
         return [Endsets()]

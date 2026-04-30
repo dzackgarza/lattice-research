@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Sequence
 
 from sage.categories.category import Category
 from sage.misc.abstract_method import AbstractMethod
@@ -7,30 +7,14 @@ from sage.structure.parent import Parent
 PROJECT_MODULE_PREFIX = "category_specs."
 
 
-def partition_list[T](L: list[T], f: Callable[[T], bool]) -> tuple[list[T], list[T]]:
-    return [x for x in L if f(x)], [x for x in L if not f(x)]
-
-
-def partition_set[T](L: set[T], f: Callable[[T], bool]) -> tuple[set[T], set[T]]:
-    return {x for x in L if f(x)}, {x for x in L if not f(x)}
-
-
-def partition_gen[T](L: Iterable[T], f: Callable[[T], bool]) -> tuple[Iterable[T], Iterable[T]]:
-    return filter(f, L), filter(lambda x: not f(x), L)
-
-
-def _is_abstract_method(attr: object) -> bool:
-    return isinstance(attr, AbstractMethod)
-
-
-def _is_project_method_provider(cls: type[object]) -> bool:
+def _is_project_method_provider(cls: type) -> bool:
     return getattr(cls, "__module__", "").startswith(PROJECT_MODULE_PREFIX)
 
 
-def _abstract_method_owner(cls: type[object], name: str) -> type[object] | None:
+def _abstract_method_owner(cls: type, name: str) -> type | None:
     for base in cls.__mro__:
         attr = base.__dict__.get(name)
-        if attr is not None and _is_abstract_method(attr) and _is_project_method_provider(base):
+        if attr is not None and isinstance(attr, AbstractMethod) and _is_project_method_provider(base):
             return base
     return None
 

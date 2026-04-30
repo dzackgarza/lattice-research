@@ -111,7 +111,9 @@ class AutsetsOf(CategoryWithAxiom):
     r"""Generic category whose objects are ``Aut_C(A)``."""
 
     # Category-level construction: Autsets().Of(C) has objects Aut_C(A).
-    # It is distinct from the object-level parent A.Aut() = Aut_C(A).
+    # Category-object zero-argument C.Aut() selects C.Autsets(); object-level
+    # autsets are the invertible endomorphisms inside A.Hom(A), where that
+    # parent exists.
 
     def extra_super_categories(self) -> list:
         return [Autsets()]
