@@ -27,10 +27,19 @@ smoke:
         "modules/smoketest.sage"
     )
 
+    failures=()
     for test_file in "${smoke_files[@]}"; do
         echo "==> sage ${test_file}"
-        sage "${test_file}"
+        if ! sage "${test_file}"; then
+            failures+=("${test_file}")
+        fi
     done
+
+    if ((${#failures[@]})); then
+        printf '\nSmoke files with failures:\n'
+        printf '  %s\n' "${failures[@]}"
+        exit 1
+    fi
 
 test: smoke
     #!/usr/bin/env bash

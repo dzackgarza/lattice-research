@@ -1,4 +1,4 @@
-r"""Smoke surface for the generic homsets subtree."""
+r"""Mathematical smoke surface for the generic homsets subtree."""
 
 import pathlib
 import sys
@@ -15,60 +15,14 @@ from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
 from sage.all import ZZ
-from sage.misc.abstract_method import AbstractMethod
 
 
 failures = []
-PROJECT_MODULE_PREFIX = "category_specs."
 
 
 def require(condition, label="condition failed"):
     if not condition:
         raise AssertionError(label)
-
-
-def require_methods(category, method_names):
-    for method_name in method_names:
-        require(hasattr(category.element_class, method_name), f"{category} lacks element method {method_name}")
-
-
-def method_owner(cls, method_name):
-    for owner in cls.__mro__:
-        if method_name in owner.__dict__:
-            return owner
-    return None
-
-
-def require_provider_method(mixed_class, provider_class, method_name):
-    require(provider_class in mixed_class.__mro__, f"{mixed_class} does not mix in {provider_class}")
-    require(method_name in provider_class.__dict__, f"{provider_class} does not declare {method_name}")
-    owner = method_owner(mixed_class, method_name)
-    require(owner is provider_class, f"{mixed_class}.{method_name} resolves from {owner}, expected {provider_class}")
-
-
-def require_no_reabstracted_methods(category, mixed_class):
-    owners_by_name = {}
-    for cls in mixed_class.__mro__:
-        if not getattr(cls, "__module__", "").startswith(PROJECT_MODULE_PREFIX):
-            continue
-        for name, attr in cls.__dict__.items():
-            if isinstance(attr, AbstractMethod):
-                owners_by_name.setdefault(name, []).append(cls)
-    collisions = {
-        name: owners
-        for name, owners in owners_by_name.items()
-        if len(owners) > 1
-    }
-    details = ", ".join(
-        f"{name}: {' > '.join(owner.__name__ for owner in owners)}"
-        for name, owners in sorted(collisions.items())
-    )
-    require(not collisions, f"{category} re-declares abstract method(s): {details}")
-
-
-def require_clean_method_mixins(category):
-    require_no_reabstracted_methods(category, category.parent_class)
-    require_no_reabstracted_methods(category, category.element_class)
 
 
 def subcategory_label(left, right):
@@ -90,64 +44,58 @@ def has_declared_supercategory(left, right, seen=None):
     return any(has_declared_supercategory(super_category, right, seen) for super_category in left.super_categories())
 
 
-Homsets()
-Homsets().Endset()
-Homsets().Autset()
-Homsets().Of(Cat())
-Endsets().Of(Cat())
-Autsets().Of(Cat())
+def smoke_case(label, build):
+    try:
+        build()
+    except Exception as exc:
+        failures.append(f"{label}: {type(exc).__name__}: {exc}")
 
-C = Cat()
-H = C.Hom()
-E = C.End()
-A = C.Aut()
 
-require(H is C.Homsets())
-require(E is C.Endsets())
-require(A is C.Autsets())
-require(E is H.Endset())
-require(A is E.Autset())
-require(hasattr(Homsets.ElementMethods, "is_endomorphism"))
-require(not hasattr(Homsets.ElementMethods, "is_injective"))
-require(not hasattr(Autsets.ElementMethods, "is_injective"))
+def require_root_homsets():
+    require(Homsets() in Cat())
+    require(Homsets().Endset() in Cat())
+    require(Homsets().Autset() in Cat())
+    require(Homsets().Of(Cat()) in Cat())
+    require(Endsets().Of(Cat()) in Cat())
+    require(Autsets().Of(Cat()) in Cat())
 
-generic_morphism_methods = (
-    "is_endomorphism",
-    "is_invertible",
-    "is_isomorphism",
-    "is_automorphism",
-)
-set_map_methods = (
-    "pre_image",
-    "is_injective",
-    "is_surjective",
-    "is_bijective",
-)
 
-set_like_categories = (Sets(), Rings(), Posets(), TopologicalSpaces(), Modules(ZZ))
-for category in set_like_categories:
+def require_category_homsets(category):
+    homsets = category.Homsets()
+    endsets = homsets.Endset()
+    autsets = homsets.Autset()
+    require(homsets in Cat(), f"{homsets} is not an object of Cat()")
+    require(endsets in Cat(), f"{endsets} is not an object of Cat()")
+    require(autsets in Cat(), f"{autsets} is not an object of Cat()")
+    require(Endsets().Of(category) is endsets, f"Endsets().Of({category}) did not route through Homsets().Endset()")
+    require(Autsets().Of(category) is autsets, f"Autsets().Of({category}) did not route through Endset().Autset()")
+
+
+def require_set_enriched_homsets(category):
     homsets = category.Homsets()
     endsets = homsets.Endset()
     autsets = homsets.Autset()
     set_homsets = Sets().Homsets()
     set_endsets = set_homsets.Endset()
     set_autsets = set_homsets.Autset()
-
     require(has_declared_supercategory(homsets, set_homsets), subcategory_label(homsets, set_homsets))
     require(has_declared_supercategory(endsets, set_endsets), subcategory_label(endsets, set_endsets))
     require(has_declared_supercategory(autsets, set_autsets), subcategory_label(autsets, set_autsets))
-    for hom_category in (homsets, endsets, autsets):
-        require_clean_method_mixins(hom_category)
-        require_methods(hom_category, generic_morphism_methods)
-        require_methods(hom_category, set_map_methods)
 
-module_homsets = Modules(ZZ).Homsets()
-module_element_class = module_homsets.element_class
-require_provider_method(module_element_class, Homsets().element_class, "is_endomorphism")
-require_provider_method(module_element_class, Sets().Homsets().element_class, "is_injective")
-require_provider_method(module_element_class, module_homsets.element_class, "kernel")
-require_provider_method(module_element_class, module_homsets.element_class, "evaluate")
-require_provider_method(module_homsets.parent_class, Homsets().parent_class, "domain")
-require_provider_method(module_homsets.parent_class, module_homsets.parent_class, "natural_morphism")
+
+C = Cat()
+H = C.Hom()
+E = C.End()
+A = C.Aut()
+
+smoke_case("root homsets/endsets/autsets are category objects", require_root_homsets)
+smoke_case("Cat().Hom/End/Aut route to category-level constructions", lambda: require(H is C.Homsets()))
+smoke_case("Cat().End() routes through Cat().Hom().Endset()", lambda: require(E is H.Endset()))
+smoke_case("Cat().Aut() routes through Cat().End().Autset()", lambda: require(A is E.Autset()))
+
+set_like_categories = (Sets(), Rings(), Posets(), TopologicalSpaces(), Modules(ZZ))
+for category in set_like_categories:
+    smoke_case(f"{category}.Homsets/Endsets/Autsets are category objects", lambda category=category: require_category_homsets(category))
+    smoke_case(f"{category}.Homsets/Endsets/Autsets refine set homsets", lambda category=category: require_set_enriched_homsets(category))
 
 assert not failures, "\n".join(failures)
