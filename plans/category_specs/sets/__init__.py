@@ -36,7 +36,6 @@ Subcategory hierarchy::
 
 One-object constructor refinements::
 
-    SetObjects, SetObjectsEnumerated
     FiniteEnumeratedSetObjects
     IntegerRangeSets
     NonNegativeIntegersSets
@@ -334,7 +333,7 @@ class Sets(Category_singleton):
         Usage::
 
             Sets().Constructors().Primes()
-            Sets().Constructors().Set(ZZ)
+            Sets().Constructors().FiniteEnumeratedSet([1, 2, 3])
             Sets().Constructors().IntegerRange(2, 100, 5)
         """
 
@@ -345,17 +344,6 @@ class Sets(Category_singleton):
         @final
         def __repr__(self) -> str:
             return "Sets constructors"
-
-        @final
-        def Set(self, X: Set | Iterable[SetElement] | None = None) -> Set:
-            r"""Return ``Set(X)``, refined into its one-object subcategory."""
-            from sage.sets.set import Set as SageSet
-
-            from .subcategories.set_objects import _SetObjects, _SetObjectsEnumerated
-
-            S = SageSet() if X is None else SageSet(X)
-            extra = _SetObjectsEnumerated() if S.is_finite() else _SetObjects()
-            return refine_category(S, [Sets(), extra])
 
         @final
         def FiniteEnumeratedSet(self, elements: Iterable[SetElement]) -> FiniteSet:

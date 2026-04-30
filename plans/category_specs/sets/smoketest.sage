@@ -30,14 +30,6 @@ def smoke_case(label, build):
 C = Sets().Constructors()
 
 smoke_case(
-    "sets.SetObjects via Set(ZZ)",
-    lambda: C.Set(ZZ),
-)
-smoke_case(
-    "sets.SetObjectsEnumerated via Set([1, 2, 3])",
-    lambda: C.Set([1, 2, 3]),
-)
-smoke_case(
     "sets.FiniteEnumeratedSetObjects via FiniteEnumeratedSet([1, 2, 3])",
     lambda: C.FiniteEnumeratedSet([1, 2, 3]),
 )

@@ -178,6 +178,20 @@ class Posets(Category):
 
             return _LatticePosets()
 
+    class Constructors:
+        r"""Poset constructors.
+
+        Concrete constructor methods are admitted after the Sage poset constructor
+        inventory is decided.
+        """
+
+    _Constructors = Constructors
+
+    @cached_method
+    @final
+    def Constructors(self):
+        return self.__class__._Constructors()
+
     Finite = LazyImport("category_specs.posets.subcategories.finite", "_FinitePosets")
     Lattice = LazyImport("category_specs.posets.subcategories.lattice", "_LatticePosets")
     Subobjects = LazyImport("category_specs.posets.subcategories.constructions.subobjects", "_Subobjects")

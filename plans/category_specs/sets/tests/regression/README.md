@@ -15,7 +15,6 @@ no values were invented.  No `try/except` — a failure is a finding.
 | `finite_enumerated_set.sage` | `sage.sets.finite_enumerated_set.FiniteEnumeratedSet` |
 | `non_negative_integers.sage` | `sage.sets.non_negative_integers`, `sage.sets.positive_integers` |
 | `integer_range.sage` | `sage.sets.integer_range` |
-| `set_objects.sage` | `sage.sets.set` |
 | `totally_ordered_finite_set.sage` | `sage.sets.totally_ordered_finite_set` |
 | `disjoint_union_enumerated_sets.sage` | `sage.sets.disjoint_union_enumerated_sets` |
 | `recursively_enumerated_set.sage` | `sage.sets.recursively_enumerated_set` |

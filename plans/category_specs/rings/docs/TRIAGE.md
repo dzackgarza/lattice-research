@@ -32,9 +32,9 @@ to fail until the listed missing surfaces and structural blockers are implemente
 - Ring subobjects are subrings in the ring category. Ideals are separate ring-side
   vocabulary unless the ideal is being regarded as a ring object in a specific
   category.
-- Ring Cartesian products are direct products with componentwise operations; constructor
-  signatures should use a sequence of ring parents at constructor level and reserve
-  variadic forms for Sage parent-method compatibility.
+- Ring Cartesian products are direct products with componentwise operations. Any Sage
+  variadic call shape must be admitted through explicit overloads or a named
+  mathematical collection parameter, not reserved as an open variadic project surface.
 - Ring realization categories use the generic realization surface. The audited
   `Rings` category source does not add ring-only realization parent methods.
 - Ring-family documentation targets are mathematical files or nested directories:

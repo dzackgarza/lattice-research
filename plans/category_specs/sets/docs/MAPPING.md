@@ -49,7 +49,7 @@ subcategory file that owns its spec.
 | Set axiom names | Root `category_specs/axioms.py` plus axiom classes under `sets/subcategories/` | Axiom names have one root registration point; set axiom classes own the mathematical method surfaces. |
 | Specialized set-object surfaces | One mathematical subcategory file per Sage concept under `sets/subcategories/` | The file structure follows mathematical vocabulary, not implementation history. |
 | Named set constructors | `Sets().Constructors()` on `sets/__init__.py` | Constructors are entry points, not subcategories. |
-| `_SetObjects`, `_SetObjectsEnumerated` | `subcategories/set_objects.py` | Wrappers from `sage.sets.set.Set` are set-object concepts. |
+| Sage `Set(X)` / `Set_object` wrappers | no admitted category file | Sage implements this surface, but arbitrary object wrapping is not a mathematical set constructor. Valid cases must be decomposed into named constructors with explicit set semantics; the generic wrapper is a Sage design defect for this spec, not a project category. |
 | `_FiniteEnumeratedSetObjects` | `subcategories/finite_enumerated_set.py` | Finite enumerated sets have their own Sage-backed method surface. |
 | `_IntegerRangeSets` | `subcategories/integer_range.py` | Integer ranges are arithmetic progressions with finite or infinite countable behavior. |
 | `_NonNegativeIntegersSets` | `subcategories/non_negative_integers.py` | Nonnegative integers are a named countably infinite subset of `ZZ`. |
@@ -107,7 +107,7 @@ subcategory boundaries.
 
 | Sage constructor | Project subcategory | Notes |
 | --- | --- | --- |
-| `Set(X)` | `SetObjects`, `FiniteSetObjects` | `Set_object_enumerated` receives the finite-countable surface. Sage boolean-operation mixins are mapped to root `union` and to `Subsets = Subobjects`, not to a project `WithBooleanOps` category. |
+| `Set(X)` | not admitted as a project constructor | The generic Sage wrapper does not define a mathematical construction from an arbitrary object to a set. Named cases with real set semantics belong in `Sets().Constructors()` individually; for example finite explicit collections use `FiniteEnumeratedSet(elements)`, and real-line subsets use the `RealSet` constructors. |
 | `FiniteEnumeratedSet(elements)` | `FiniteEnumeratedSetObjects` | Tuple-backed finite facade set. Include `last`, `__call__`, and element construction in the spec. |
 | `IntegerRange(...)` | `IntegerRangeSets` | Arithmetic progression of integers. Finite/infinite status depends on bounds; the one-object category should refine through countable facade sets and let Sage/category membership expose finiteness. |
 | `NonNegativeIntegers()` | `NonNegativeIntegerSets` | Countably infinite facade subset of `ZZ`. |

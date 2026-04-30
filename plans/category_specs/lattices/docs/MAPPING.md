@@ -45,7 +45,7 @@ The table answers: at what tier is each method first universally well-defined?
 | Method | Minimal tier | Justification |
 |--------|-------------|---------------|
 | `form()` | `WithForms` | definitional; every object in this category carries a form |
-| `evaluate(v, *args)` | `WithForms` | form evaluation on elements; lifting from cartesian product |
+| `evaluate(arguments)` | `WithForms` | form evaluation on an element of the finite Cartesian product determined by `form_degree()`; concrete arities must be closed overloads, not variadic forwarding |
 | `form_degree() -> (p,q)` | `WithForms` | (1,1) for bilinear, (1,0) for linear, etc. |
 | `b(v, w)` | `Bilinear` | bilinear evaluation; only defined once the form is bilinear |
 | `self_product(v)` | `Bilinear` | `b(v,v)`; defined for any bilinear form |
