@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.cartesian_product import CartesianProductsCategory
+from ....cat import CartesianProductsCategory
 
 if TYPE_CHECKING:
     from ....types import RingElement, RModuleElement

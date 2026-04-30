@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from plans.category_specs.modules.subcategories.axiomatic import _BilinearModules
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
+from ...cat import CategoryWithAxiom_over_base_ring
+from ...modules.subcategories.bilinear import _BilinearModules
 
 
 class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):

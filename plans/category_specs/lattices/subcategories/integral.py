@@ -17,14 +17,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from plans.category_specs.modules.subcategories.axiomatic import _BilinearModules
-from plans.category_specs.types import RModule, RModuleElement
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 
-# Placeholder types not yet in types.py
-DiscriminantGroup = RModule
-Lattice = RModule
+from ...cat import CategoryWithAxiom_over_base_ring
+from ...modules.subcategories.bilinear import _BilinearModules
+from ...types import DiscriminantGroup, Lattice, RModuleElement, RModuleMorphism
 
 
 class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
@@ -85,7 +82,7 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
-        def inclusion_morphism(self):
+        def inclusion_morphism(self) -> RModuleMorphism:
             r"""Return the canonical inclusion ``\iota: L \hookrightarrow L^*``
             sending ``v`` to ``b(v, -) \in \mathrm{Hom}_R(L, R) \cong L^*``.
 

@@ -3,7 +3,7 @@ r"""One-object subcategory for ``ConditionSet`` -- subset defined by predicates.
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -45,7 +45,7 @@ class _ConditionSets(Category_singleton):
             return self.arguments()
 
         @abstract_method
-        def __contains__(self, x: SetElement) -> bool:
+        def __contains__(self, x: Any) -> bool:
             r"""Return ``True`` iff ``x`` is in the universe and all predicates hold."""
             ...
 

@@ -2,7 +2,7 @@ r"""Dual objects of algebras."""
 
 from __future__ import annotations
 
-from sage.categories.dual import DualObjectsCategory
+from ....cat import DualObjectsCategory
 
 
 class _DualObjects(DualObjectsCategory):

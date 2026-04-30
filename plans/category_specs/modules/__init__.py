@@ -38,16 +38,21 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, overload
 
 from sage.categories.bimodules import Bimodules as SageBimodules
-from sage.categories.dual import DualObjectsCategory
-from sage.categories.filtered_modules import FilteredModulesCategory
-from sage.categories.graded_modules import GradedModulesCategory
-from sage.categories.super_modules import SuperModulesCategory
-from sage.categories.tensor import TensorProductsCategory, tensor
+from sage.categories.tensor import tensor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Cat, Category, Category_module
+from ..cat import (
+    Cat,
+    Category,
+    Category_module,
+    DualObjectsCategory,
+    FilteredModulesCategory,
+    GradedModulesCategory,
+    SuperModulesCategory,
+    TensorProductsCategory,
+)
 from ..utils import partition_list, refine_category
 from .homsets import RModuleHomsets, _RModMorphisms
 from .subcategories.constructions.cartesian_products import _CartesianProducts
@@ -369,16 +374,8 @@ class _RModElements:
 
 
 class Modules(Category_module):
-    def __contains__(self, M: Any) -> bool:
-        match M:
-            case _ if M in Cat() and M.is_subcategory(self):
-                return True
-            case _ if hasattr(M, "category") and M.category().is_subcategory(self):
-                return True
-            case _ if M in SageBimodules(self.base_ring(), self.base_ring()):
-                return True
-            case _:
-                return False
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageBimodules(self.base_ring(), self.base_ring()),)
 
     @staticmethod
     def __classcall_private__(cls, base_ring, dispatch=True):

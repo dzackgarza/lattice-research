@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, override
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.principal_ideal_domains import (
     PrincipalIdealDomains as SagePrincipalIdealDomains,
 )
@@ -17,6 +15,8 @@ from sage.rings.polynomial.multi_polynomial_ring_base import MPolynomialRing_bas
 from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import (
@@ -103,7 +103,7 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "principal ideal domains"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SagePrincipalIdealDomains(), _UniqueFactorizationDomains()]
 
     def __contains__(self, R: Any) -> bool:

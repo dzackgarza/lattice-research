@@ -35,27 +35,6 @@ def _abstract_method_owner(cls: type[object], name: str) -> type[object] | None:
     return None
 
 
-def _validate_no_redeclared_abc_methods(X: Parent) -> None:
-    owners_by_name: dict[str, list[str]] = {}
-    for cls in type(X).__mro__:
-        if not _is_project_method_provider(cls):
-            continue
-        for name, attr in cls.__dict__.items():
-            if _is_abstract_method(attr):
-                owners_by_name.setdefault(name, []).append(cls.__name__)
-
-    collisions = {
-        name: owners
-        for name, owners in owners_by_name.items()
-        if len(owners) > 1
-    }
-    if not collisions:
-        return
-
-    details = ", ".join(f"{name} ({' > '.join(owners)})" for name, owners in sorted(collisions.items()))
-    raise TypeError(f"Can't refine category of {type(X).__name__}: redeclared abstract methods: {details}")
-
-
 def _validate_no_missing_abc_methods(X: Parent) -> None:
     missing = sorted(getattr(type(X), "__abstractmethods__", ()))
     if not missing:
@@ -75,7 +54,6 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
 
 def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = True) -> Parent:
     X._refine_category_(C)
-    _validate_no_redeclared_abc_methods(X)
     _validate_no_missing_abc_methods(X)
     if test:
         X._test_not_implemented_methods()

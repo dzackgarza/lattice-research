@@ -437,7 +437,7 @@ class _RingIdeals(Category_ideal):
     def _repr_object_names(self) -> str:
         return "ring ideals"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         R = self.ring()
         return [CommutativeRingIdeals(R), Modules(R).RIdeals()]
 
@@ -1117,19 +1117,11 @@ class Rings(Category_singleton):
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
-    def __contains__(self, R: Any) -> bool:
-        match R:
-            case _ if R in Cat() and R.is_subcategory(self):
-                return True
-            case _ if hasattr(R, "category") and R.category().is_subcategory(self):
-                return True
-            case _ if R in SageRings():
-                return True
-            case _:
-                return False
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageRings(),)
 
     @final
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         from ..sets import Sets
 
         return [Sets(), SageRings()]

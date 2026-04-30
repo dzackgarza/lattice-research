@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.complete_discrete_valuation import (
     CompleteDiscreteValuationRings as SageCompleteDiscreteValuationRings,
@@ -98,7 +97,7 @@ class _CompleteDiscreteValuationRings(Category_singleton):
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [
             SageCompleteDiscreteValuationRings(),
             _CompleteDiscreteValuationObjects(),

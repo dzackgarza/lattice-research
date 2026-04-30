@@ -2,7 +2,7 @@ r"""Cartesian-product construction category for topological spaces."""
 
 from __future__ import annotations
 
-from sage.categories.cartesian_product import CartesianProductsCategory
+from ....cat import CartesianProductsCategory
 
 
 class _CartesianProducts(CartesianProductsCategory):

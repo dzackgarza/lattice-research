@@ -29,6 +29,7 @@ Relevant surface:
 | 1803 | `is_subcategory(self, c)` | Sage's category-order predicate. |
 | 2089 | `_with_axiom(self, axiom)` | Constructs axiom subcategories. |
 | 2332 | `join(categories, ...)` | Join/intersection operation in the category lattice. |
+| 2504 | `meet(categories)` | Greatest lower bound operation; installed Sage raises on the empty input. |
 | 2536 | `category(self)` | Installed Sage places category objects in `Objects()`. |
 
 ### `sage.categories.category.CategoryWithParameters`
@@ -90,9 +91,10 @@ report `category() == Objects()`. Sage gives category-object navigation such as
 `Homsets()` and `Endsets()` through generated category classes, not by making
 category objects ordinary parents of a separate `Cat` category.
 
-Consequence for this subtree: `Cat.ParentMethods` is the canonical specification
-surface, and `Cat.register_category` adapts that surface into Sage's category-object
-method path for registered project categories.
+Consequence for this subtree: the Cat-backed wrappers in `base_category_types.py`
+are the local integration point. They make ordinary project categories parents whose
+category is `Cat()`, and they flatten `UniversalSubcategoryMethods` into Sage's
+generated `SubcategoryMethods` path.
 
 ## Functors
 
@@ -132,6 +134,9 @@ Relevant methods: `__mul__`, `pushout`, `__eq__`, `__hash__`, `_repr_`, `merge`,
 `commutes`, `expand`, `common_base`, `_raise_common_base_exception_`, and the
 `coercion_reversed` flag.
 
+Runtime fact: `ConstructionFunctor` subclasses Sage `Functor`. It is a functor-like
+morphism object with domain/codomain/action semantics.
+
 ### `sage.categories.pushout.CompositeConstructionFunctor`
 
 Source: `pushout.py`, line 419.
@@ -166,7 +171,8 @@ Source: `covariant_functorial_construction.py`, line 662.
 Relevant method: `default_super_categories`.
 
 Consequence for `cat/`: standard constructions should use `category_of(...)` entry
-points instead of ad hoc factories.
+points instead of ad hoc factories. These classes are category objects, not the
+`ConstructionFunctor` objects that provide `pushout`, `merge`, or `common_base`.
 
 ## Standard Construction Categories
 
@@ -245,8 +251,14 @@ separate Cat-only homset parent.
 
 | File | Purpose |
 | --- | --- |
-| `cat/__init__.py` | Declares `Cat()`, registered Sage category bases, category-object methods, and construction navigation. |
+| `cat/__init__.py` | Declares `Cat()`, category-object methods, and Cat-specific construction navigation. |
+| `cat/base_category_types.py` | Re-exports wrapped Sage category bases and injects universal subcategory methods into wrapped categories. |
+| `cat/universal_subcategory_methods.py` | Defines the shared literal `SubcategoryMethods` construction selectors for category objects. |
+| `cat/empty_category.py` | Declares the bottom category object, separate from join-category logic. |
+| `cat/join_categories.py` | Declares the Sage `JoinCategory` containment predicate and subcategory. |
 | `cat/homsets.py` | Declares the `Cat().Homsets()` category refinement and functor method surfaces. |
+| `cat/endsets.py` | Declares the `Cat().Endsets()` category refinement. |
+| `cat/autsets.py` | Declares the `Cat().Autsets()` category refinement. |
 | `cat/subcategories/constructions/subobjects.py` | Category-level subobjects: subcategories. |
 | `cat/subcategories/constructions/quotients.py` | Category-level quotients. |
 | `cat/subcategories/constructions/subquotients.py` | Category-level subquotients. |

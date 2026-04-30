@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -18,6 +16,8 @@ from sage.rings.polynomial.multi_polynomial_ring_base import MPolynomialRing_bas
 from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     pass
@@ -101,7 +101,7 @@ class _CyclotomicFields(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "cyclotomic fields"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [_NumberFields()]
 
     def __contains__(self, R: Any) -> bool:

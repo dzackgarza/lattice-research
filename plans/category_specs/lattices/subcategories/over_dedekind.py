@@ -28,20 +28,23 @@ This is the tier at which the following become well-defined:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
-from plans.category_specs.lattices.subcategories.integral import _IntegralBilinearModules
-from plans.category_specs.types import RingElement, RModule, SubModule
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 
-if TYPE_CHECKING:
-    pass
-
-
-# Placeholder types not yet in types.py
-OrthogonalGroup = RModule
-Lattice = RModule
+from ...cat import CategoryWithAxiom_over_base_ring
+from ...types import (
+    Automorphism,
+    Integer,
+    Lattice,
+    OrthogonalGroup,
+    RingElement,
+    RModule,
+    SetFamily,
+    SignaturePair,
+    SubModule,
+)
+from .integral import _IntegralBilinearModules
 
 
 class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
@@ -70,7 +73,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def rank(self) -> int:
+        def rank(self) -> Integer:
             r"""Return the rank of ``L`` as an ``R``-module.
 
             Well-defined for torsion-free modules over a Dedekind domain
@@ -113,7 +116,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             return self.orthogonal_group().stable_subgroup()
 
         @abstract_method
-        def signature_pair(self) -> tuple[int, int]:
+        def signature_pair(self) -> SignaturePair:
             r"""Return the signature ``(n_+, n_-)`` of the form over ``\mathbb{R}``.
 
             ``n_+`` (resp. ``n_-``) is the number of positive (resp. negative)
@@ -128,7 +131,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        def signature(self) -> int:
+        def signature(self) -> Integer:
             r"""Return the signature ``n_+ - n_-`` (the index).
 
             EXAMPLES::
@@ -149,7 +152,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
-        def overlattice(self, gens) -> Lattice:
+        def overlattice(self, gens: SetFamily) -> Lattice:
             r"""Return the lattice spanned by ``self`` and ``gens``.
 
             The result is a super-lattice of ``self`` inside ``L \otimes K``;
@@ -171,7 +174,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods:
         @abstract_method
-        def reflection(self) -> object:
+        def reflection(self) -> Automorphism:
             r"""Return the orthogonal reflection ``s_v: w \mapsto w - \frac{2b(v,w)}{b(v,v)} v``.
 
             Requires ``b(v,v)`` to be a unit (or invertible) in the base ring.

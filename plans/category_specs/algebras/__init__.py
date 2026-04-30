@@ -119,26 +119,21 @@ class _AlgebraMorphismMethods:
 class Algebras(Category_over_base_ring):
     r"""Category of algebras over a fixed base ring."""
 
-    def __contains__(self, A: Any) -> bool:
-        match A:
-            case _ if A in Cat() and A.is_subcategory(self):
-                return True
-            case _ if A in SageAlgebras(self.base_ring()):
-                return True
-            case _:
-                return False
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageAlgebras(self.base_ring()),)
 
     def _repr_object_names(self) -> str:
         return f"algebras over {self.base_ring()}"
 
     @final
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         from ..rings import Rings
 
         R = self.base_ring()
         return [
             Rings().RingsUnder(R),
             Modules(R).Constructors().RingObjectsAsModules(),
+            SageAlgebras(R),
         ]
 
     ParentMethods = _AlgebraParentMethods

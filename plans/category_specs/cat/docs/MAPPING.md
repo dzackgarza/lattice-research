@@ -26,9 +26,14 @@ Mapping:
 - `C.leq(D)` means `C.is_subcategory(D)`.
 - `C.geq(D)` means `D.is_subcategory(C)`.
 - `C <= D` and `C >= D` are shorthands for the same relation.
+- `Cat().join([C, D, ...])` delegates to Sage `Category.join`.
+- `Cat().meet([C, D, ...])` delegates to Sage `Category.meet`, except that the empty
+  meet returns `Cat().Constructors().EmptyCategory()`.
 
 This follows Sage's own meaning: `C.is_subcategory(D)` asserts that there is a
-natural forgetful functor from `C` to `D`.
+natural forgetful functor from `C` to `D`. The comparison shorthands are specified
+for ordinary category objects only; `Cat()` itself is the root ambient category in
+this spec and does not re-export `leq`, `geq`, `<=`, or `>=`.
 
 ## Uniform Category-Object Surface
 
@@ -36,14 +41,15 @@ natural forgetful functor from `C` to `D`.
 object should expose:
 
 - `Hom(D)`, `End()`, and `Aut()` for functor homsets in `Cat`;
-- `leq`, `geq`, `<=`, and `>=` for the Sage category order;
+- `leq`, `geq`, `<=`, and `>=` for the Sage category order between ordinary
+  category objects;
 - containment hooks for categories that need object and morphism membership:
   `_sage_super_categories`, `_sage_object_classes`, and `_sage_morphism_classes`.
 
-Sage category instances receive ordinary category-object methods through generated
-subcategory classes, so `Cat.register_category` copies the canonical `Cat.ParentMethods`
-implementations into the registered `SubcategoryMethods` adapter. The copy is an
-implementation bridge, not a second definition.
+Wrapped category instances receive ordinary category-object methods through Sage's
+generated classes. The wrapper base layer in `base_category_types.py` is the only
+place that flattens `UniversalSubcategoryMethods` into Sage's `SubcategoryMethods`
+provider path.
 
 If a subtree already defines the same operation directly on its category class, that
 local method takes precedence at runtime and should be treated as a later refactor
@@ -75,9 +81,14 @@ The project surface records Sage's functor call model:
 - `__call__(x)` dispatching through those hooks;
 - `domain()` and `codomain()`.
 
-Construction functors are still functors, but their extra Sage surface is recorded
-separately: `pushout`, `merge`, `commutes`, `expand`, `common_base`, and
-`coercion_reversed`.
+Sage construction functors from `sage.categories.pushout` are still actual functors,
+but their extra Sage surface is recorded separately: `pushout`, `merge`, `commutes`,
+`expand`, `common_base`, and `coercion_reversed`.
+
+This is distinct from Sage `FunctorialConstructionCategory` classes such as
+`SubobjectsCategory` or `QuotientsCategory`. Those are category objects produced by
+methods like `C.Subobjects()`, not functors with domains, codomains, and object/morphism
+actions.
 
 ## Standard Constructions
 
@@ -89,7 +100,21 @@ Sage functorial construction categories map directly to category-object methods:
 | `QuotientsCategory` | `C.Quotients()` | `subcategories/constructions/quotients.py` |
 | `SubquotientsCategory` | `C.Subquotients()` | `subcategories/constructions/subquotients.py` |
 | `CartesianProductsCategory` | `C.CartesianProducts()` | `subcategories/constructions/cartesian_products.py` |
-| `HomsetsCategory` | `Cat().Homsets()` | `homsets.py` |
+| `HomsetsCategory` | `C.Homsets()` / `C.Hom()` | `homsets.py` |
+| `HomsetsCategory.Endset()` | `C.Endsets()` / `C.End()` | `endsets.py` |
+| `HomsetsCategory.Autset()` | `C.Autsets()` / `C.Aut()` | `autsets.py` |
+| `JoinCategory` | `Cat().JoinCategories()` containment | `join_categories.py` |
+
+The universal selectors for the standard construction rows live in
+`universal_subcategory_methods.py`. Individual category classes still declare their
+construction classes, and Sage's `category_of(...)` machinery resolves the specific
+construction for the receiver.
+
+For wrapped ordinary category objects, `Hom` has a closed two-case arity split in
+`base_category_types._CatObjectMixin`: `C.Hom()` is the category-level construction,
+and `C.Hom(D)` delegates to Sage's parent homspace for functors `C -> D`. `End()` and
+`Aut()` are the category-level construction aliases; the object-level endomorphism
+functor space is still available as `C.Hom(C)`.
 
 For `Cat()`, `Subobjects` means subcategories, `Quotients` means quotient
 categories, `Subquotients` means category-level subquotients, and
@@ -130,14 +155,18 @@ Mapping:
 
 The repository-level `homsets/` subtree owns generic homset/endset/autset
 vocabulary such as `domain`, `codomain`, `Endset`, and `Autset`. The Cat subtree
-adds only the functor-specific element surface and the `CatHomsets` category
-refinement, following the same `HomsetsOf`/`GenericEndsets`/`GenericAutsets`
-pattern used by the other subtrees.
+adds only the functor-specific element surface and the `CatHomsets`, `CatEndsets`,
+and `CatAutsets` category refinements. These live in separate files:
+`cat/homsets.py`, `cat/endsets.py`, and `cat/autsets.py`.
 
 ## Constructors
 
-`Cat().Constructors()` exists as an empty namespace to satisfy the subtree
-structure and make the absence of direct constructors explicit. Category objects are
-registered by being Sage/project `Category` instances. Functors are registered by
-being Sage `Functor` or `ConstructionFunctor` instances and by lying in the relevant
-functor homset.
+`Cat().Constructors()` owns category-object constructor entry points. It currently
+exposes:
+
+- `EmptyCategory()`: the bottom category object used by `Cat().meet([])` and by any
+  surface that needs the empty category as a category object.
+
+Ordinary category objects are registered by being Sage/project `Category` instances.
+Functors are registered by being Sage `Functor` or `ConstructionFunctor` instances and
+by lying in the relevant functor homset.

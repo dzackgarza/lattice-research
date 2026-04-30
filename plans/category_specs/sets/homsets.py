@@ -7,8 +7,7 @@ automorphisms of sets.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -18,12 +17,10 @@ from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
     from ..types import (
-        FiniteSetMap,
         Set,
         SetAutset,
         SetElement,
         SetEndset,
-        SetMorphism,
         Subset,
     )
 
@@ -75,12 +72,11 @@ class SetHomsets(HomsetsOf):
 
         @cached_method
         def Autset(self) -> SetAutset:
-            return self._with_axiom("Autset")
+            return self.Endset().Autset()
 
     ParentMethods = _SetHomsetObjects
     ElementMethods = _SetMorphisms
     Endset = LazyImport(__name__, "_SetEndsets")
-    Autset = LazyImport(__name__, "_SetAutsets")
 
 
 class _SetEndsets(GenericEndsets):
@@ -102,6 +98,6 @@ class _SetAutsets(GenericAutsets):
     # objects are automorphism parents Aut_Sets(X), with set-map specs
     # inherited from SetHomsets and automorphism specs from GenericAutsets.
     _functor_category = "Autset"
-    _base_category_class_and_axiom = (SetHomsets, "Autset")
+    _base_category_class_and_axiom = (_SetEndsets, "Autset")
 
     ElementMethods = _SetAutomorphisms

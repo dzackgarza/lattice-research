@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 
@@ -20,7 +19,7 @@ class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (Algebras, "FiniteDimensional")
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [Algebras(self.base_ring())]
 
     def __contains__(self, A: Any) -> bool:

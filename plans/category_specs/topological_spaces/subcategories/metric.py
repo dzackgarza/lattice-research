@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import _TopologicalSpaces
 
 if TYPE_CHECKING:
@@ -40,5 +39,5 @@ class _MetricSpaces(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "metric spaces"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageSets().Metric(), _TopologicalSpaces()]

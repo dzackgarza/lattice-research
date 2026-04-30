@@ -2,7 +2,7 @@ r"""Ring quotients."""
 
 from __future__ import annotations
 
-from sage.categories.quotients import QuotientsCategory
+from ....cat import QuotientsCategory
 
 
 class _Quotients(QuotientsCategory):

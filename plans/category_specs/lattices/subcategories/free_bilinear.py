@@ -13,18 +13,21 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from plans.category_specs.modules.subcategories.axiomatic import _BilinearModules
-from plans.category_specs.types import (
+from sage.misc.abstract_method import abstract_method
+
+from ...cat import CategoryWithAxiom_over_base_ring
+from ...modules.subcategories.bilinear import _BilinearModules
+from ...types import (
+    Integer,
     Matrix,
     RingElement,
     RModule,
+    SetFamily,
     SubModule,
 )
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from plans.category_specs.types import Ring
+    from ...types import Ring
 
 
 class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
@@ -63,7 +66,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
     class ParentMethods:
         @abstract_method
-        def rank(self) -> int:
+        def rank(self) -> Integer:
             r"""Return the rank of the underlying free ``R``-module.
 
             EXAMPLES::
@@ -147,7 +150,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
-        def span(self, gens) -> RModule:
+        def span(self, gens: SetFamily) -> RModule:
             r"""Return the sub-bilinear-module spanned by ``gens``.
 
             The result is a subobject in ``Modules(R).Free().Bilinear().Subobjects()``

@@ -5,8 +5,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.finite_fields import FiniteFields as SageFiniteFields
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -19,6 +17,8 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 from sage.structure.factorization import Factorization
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import (
@@ -105,7 +105,7 @@ class _FiniteFields(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "finite fields"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageFiniteFields(), _Fields(), _FiniteRings()]
 
     def __contains__(self, R: Any) -> bool:

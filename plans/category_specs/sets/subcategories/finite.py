@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.finite_sets import FiniteSets as SageFiniteSets
 from sage.misc.abstract_method import abstract_method
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement

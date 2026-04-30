@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.discrete_valuation import (
     DiscreteValuationFields as SageDiscreteValuationFields,
@@ -98,7 +97,7 @@ class _DiscreteValuationFields(Category_singleton):
     def _repr_object_names(self) -> str:
         return "discrete valuation fields"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageDiscreteValuationFields(), _Fields(), _DiscreteValuationRings()]
 
     def __contains__(self, R: Any) -> bool:

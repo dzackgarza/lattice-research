@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.quotients import QuotientsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import QuotientsCategory
 
 if TYPE_CHECKING:
     from ....types import QuotientSet, Set, SetElement, SetMorphism

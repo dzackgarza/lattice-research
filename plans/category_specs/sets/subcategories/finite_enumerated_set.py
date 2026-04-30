@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``FiniteEnumeratedSet`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -26,7 +26,7 @@ class _FiniteEnumeratedSetObjects(Category_singleton):
         def __bool__(self) -> bool: ...
 
         @abstract_method
-        def __contains__(self, x: SetElement) -> bool: ...
+        def __contains__(self, x: Any) -> bool: ...
 
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...

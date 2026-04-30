@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -107,7 +106,7 @@ class _RealPrecisionFields(Category_singleton):
     def _repr_object_names(self) -> str:
         return "real precision fields"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [_Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
     def __contains__(self, R: Any) -> bool:

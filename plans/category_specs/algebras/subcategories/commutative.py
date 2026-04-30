@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.categories.category import Category
 from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.commutative_algebras import CommutativeAlgebras as SageCommutativeAlgebras
 
@@ -16,7 +15,7 @@ class _CommutativeAlgebras(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (Algebras, "Commutative")
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         R = self.base_ring()
         return [Algebras(R), SageCommutativeAlgebras(R)]
 

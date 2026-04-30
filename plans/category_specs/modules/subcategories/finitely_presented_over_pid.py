@@ -27,9 +27,10 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.categories.homsets import HomsetsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ...cat import CategoryWithAxiom_over_base_ring
 
 if TYPE_CHECKING:
     from ...types import (

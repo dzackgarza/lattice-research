@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexBallField as SageComplexBallField
@@ -98,7 +97,7 @@ class _ComplexBallFields(Category_singleton):
     def _repr_object_names(self) -> str:
         return "complex ball fields"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [_ComplexPrecisionFields()]
 
     def __contains__(self, R: Any) -> bool:

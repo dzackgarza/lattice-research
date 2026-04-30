@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.category_types import Category_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
+from ...cat import Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:

@@ -57,12 +57,11 @@ class RingHomsets(HomsetsOf):
 
         @cached_method
         def Autset(self) -> Category:
-            return self._with_axiom("Autset")
+            return self.Endset().Autset()
 
     ParentMethods = _RingHomsetObjects
     ElementMethods = _RingHomomorphisms
     Endset = LazyImport(__name__, "_Endsets")
-    Autset = LazyImport(__name__, "_Autsets")
 
 
 class _Endsets(GenericEndsets):
@@ -90,7 +89,7 @@ class _Endsets(GenericEndsets):
 
 class _Autsets(GenericAutsets):
     _functor_category = "Autset"
-    _base_category_class_and_axiom = (RingHomsets, "Autset")
+    _base_category_class_and_axiom = (_Endsets, "Autset")
 
     class ParentMethods:
         def base_ring(self) -> Ring:

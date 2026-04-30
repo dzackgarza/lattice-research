@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.rings import Rings as SageRings
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -17,6 +16,7 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
 
 if TYPE_CHECKING:
@@ -101,7 +101,7 @@ class _TopologicalRings(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "topological rings"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageRings().Topological(), Rings()]
 
     def __contains__(self, R: Any) -> bool:

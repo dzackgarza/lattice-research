@@ -2,8 +2,7 @@ r"""Homset, endset, and autset categories for posets."""
 
 from __future__ import annotations
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -12,7 +11,7 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
-    from ..types import Poset, PosetAutset, PosetElement, PosetEndset, PosetMorphism, PosetSubset
+    from ..types import Poset, PosetAutset, PosetEndset
 
 
 class _PosetHomsetObjects:
@@ -49,12 +48,11 @@ class PosetHomsets(HomsetsOf):
 
         @cached_method
         def Autset(self) -> PosetAutset:
-            return self._with_axiom("Autset")
+            return self.Endset().Autset()
 
     ParentMethods = _PosetHomsetObjects
     ElementMethods = _OrderPreservingMaps
     Endset = LazyImport(__name__, "_PosetEndsets")
-    Autset = LazyImport(__name__, "_PosetAutsets")
 
 
 class _PosetEndsets(GenericEndsets):
@@ -71,6 +69,6 @@ class _PosetEndsets(GenericEndsets):
 
 class _PosetAutsets(GenericAutsets):
     _functor_category = "Autset"
-    _base_category_class_and_axiom = (PosetHomsets, "Autset")
+    _base_category_class_and_axiom = (_PosetEndsets, "Autset")
 
     ElementMethods = _PosetAutomorphisms

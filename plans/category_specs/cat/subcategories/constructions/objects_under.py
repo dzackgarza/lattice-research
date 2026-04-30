@@ -2,11 +2,10 @@ r"""Coslice construction category for categories under a fixed category."""
 
 from __future__ import annotations
 
-from sage.categories.category import Category
-from sage.categories.category_types import Category_over_base
-from sage.categories.covariant_functorial_construction import RegressiveCovariantConstructionCategory
 from sage.categories.functor import Functor
 from sage.misc.abstract_method import abstract_method
+
+from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
 
 
 class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):

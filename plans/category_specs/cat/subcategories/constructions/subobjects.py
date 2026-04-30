@@ -2,7 +2,7 @@ r"""Subobject construction category for categories."""
 
 from __future__ import annotations
 
-from sage.categories.subobjects import SubobjectsCategory
+from ... import SubobjectsCategory
 
 
 class _Subobjects(SubobjectsCategory):

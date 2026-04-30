@@ -47,7 +47,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
 
         return MatrixSpace(self.base_ring(), self.nrows(), self.ncols())
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         R = self.base_ring()
         cats: list[Category] = [
             Algebras(R),

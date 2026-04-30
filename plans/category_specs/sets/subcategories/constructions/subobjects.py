@@ -8,8 +8,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.subobjects import SubobjectsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import SubobjectsCategory
 
 if TYPE_CHECKING:
     from ....types import Set, Subset

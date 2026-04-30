@@ -2,7 +2,7 @@ r"""Ring subobjects."""
 
 from __future__ import annotations
 
-from sage.categories.subobjects import SubobjectsCategory
+from ....cat import SubobjectsCategory
 
 
 class _Subobjects(SubobjectsCategory):

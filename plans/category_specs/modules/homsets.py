@@ -11,8 +11,7 @@ Defines:
 
 from __future__ import annotations
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
@@ -29,9 +28,7 @@ if TYPE_CHECKING:
         BilinearForm,
         BilinearFormsModule,
         Cardinality,
-        CategoryElement,
         Integer,
-        Matrix,
         QuadraticForm,
         QuadraticFormsModule,
         QuotientModule,
@@ -187,9 +184,6 @@ class _RModAutomorphisms:
     def image(self) -> SubModule:
         return self.codomain()
 
-    @abstract_method
-    def __pow__(self, n: Integer) -> Self: ...
-
 
 # ---------------------------------------------------------------------------
 # Forms axiom subcategory
@@ -288,7 +282,7 @@ class RModuleHomsets(HomsetsOf):
 
         @cached_method
         def Autset(self) -> Category:
-            return self._with_axiom("Autset")
+            return self.Endset().Autset()
 
         @cached_method
         def Forms(self) -> Category:
@@ -298,7 +292,6 @@ class RModuleHomsets(HomsetsOf):
     ElementMethods = _RModMorphisms
 
     Endset = LazyImport(__name__, "_Endsets")
-    Autset = LazyImport(__name__, "_Autsets")
     Forms = _Forms
 
 
@@ -337,7 +330,7 @@ class _Endsets(GenericEndsets):
 
 class _Autsets(GenericAutsets):
     _functor_category = "Autset"
-    _base_category_class_and_axiom = (RModuleHomsets, "Autset")
+    _base_category_class_and_axiom = (_Endsets, "Autset")
 
     def extra_super_categories(self):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""

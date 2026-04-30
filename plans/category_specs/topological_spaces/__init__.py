@@ -25,14 +25,15 @@ topological-space constructors are inventoried.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category, CategoryWithAxiom
+from ..cat import Category
+from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
 from .homsets import TopologicalSpaceHomsets
 from .subcategories.constructions.cartesian_products import _CartesianProducts
@@ -74,18 +75,32 @@ class _TopologicalSpaceObjectMethods:
     def is_compact(self) -> bool: ...
 
 
+class _TopologicalSpaceElementMethods:
+    r"""Methods on points of topological spaces."""
+
+
+class _TopologicalSpaceMorphismMethods:
+    r"""Methods on morphisms of topological spaces."""
+
+
 class _TopologicalSpaces(CategoryWithAxiom):
     r"""Category of topological spaces."""
 
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods
+    ElementMethods = _TopologicalSpaceElementMethods
+    MorphismMethods = _TopologicalSpaceMorphismMethods
     Homsets = TopologicalSpaceHomsets
     Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
+
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageSets().Topological(),)
 
     def _repr_object_names(self) -> str:
         return "topological spaces"
 
-    def super_categories(self) -> list[Category]:
+    @final
+    def super_categories(self) -> list:
         return [SageSets().Topological(), Sets()]
 
     class Constructors:

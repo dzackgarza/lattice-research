@@ -5,10 +5,10 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TYPE_CHECKING
 
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.finite_lattice_posets import FiniteLatticePosets as SageFiniteLatticePosets
 from sage.misc.abstract_method import abstract_method
 
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .lattice import _LatticePosets
 
 if TYPE_CHECKING:

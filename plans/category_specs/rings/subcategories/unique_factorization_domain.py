@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
 )
@@ -19,6 +17,8 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 from sage.structure.factorization import Factorization
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     pass
@@ -102,7 +102,7 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "unique factorization domains"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageUniqueFactorizationDomains(), _GcdDomains()]
 
     def __contains__(self, R: Any) -> bool:

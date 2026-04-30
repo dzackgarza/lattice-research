@@ -5,9 +5,11 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
-from sage.categories.tensor import TensorProductFunctor, TensorProductsCategory
+from sage.categories.tensor import TensorProductFunctor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+
+from ....cat import TensorProductsCategory
 
 if TYPE_CHECKING:
     from ....types import RModule, RModuleElement

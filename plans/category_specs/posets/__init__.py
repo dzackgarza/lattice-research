@@ -29,7 +29,7 @@ from ..sets import Sets
 from .homsets import PosetHomsets
 
 if TYPE_CHECKING:
-    from ..types import PosetElement, PosetMorphism, PosetSubset
+    from ..types import Poset, PosetElement, PosetMorphism, PosetSubset
 
 
 class _PosetParentMethods:
@@ -139,10 +139,10 @@ class _PosetMorphismMethods:
     r"""Order-preserving maps between posets."""
 
     @abstract_method
-    def domain(self) -> Any: ...
+    def domain(self) -> Poset: ...
 
     @abstract_method
-    def codomain(self) -> Any: ...
+    def codomain(self) -> Poset: ...
 
     @abstract_method
     def __call__(self, x: PosetElement) -> PosetElement: ...
@@ -154,14 +154,8 @@ class _PosetMorphismMethods:
 class Posets(Category):
     r"""Category of sets equipped with a partial order."""
 
-    def __contains__(self, obj: Any) -> bool:
-        match obj:
-            case _ if obj in Cat() and obj.is_subcategory(self):
-                return True
-            case _ if obj in SagePosets():
-                return True
-            case _:
-                return False
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SagePosets(),)
 
     @final
     def super_categories(self) -> list:
@@ -178,20 +172,17 @@ class Posets(Category):
 
             return _LatticePosets()
 
-        @cached_method
-        def Homsets(self) -> Category:
-            return PosetHomsets.category_of(self)
-
-        @cached_method
-        def Endsets(self) -> Category:
-            return self.Homsets().Endset()
-
-        @cached_method
-        def Autsets(self) -> Category:
-            return self.Homsets().Autset()
-
     Finite = LazyImport("category_specs.posets.subcategories.finite", "_FinitePosets")
     Lattice = LazyImport("category_specs.posets.subcategories.lattice", "_LatticePosets")
+    Subobjects = LazyImport("category_specs.posets.subcategories.constructions.subobjects", "_Subobjects")
+    Quotients = LazyImport("category_specs.posets.subcategories.constructions.quotients", "_Quotients")
+    Subquotients = LazyImport("category_specs.posets.subcategories.constructions.subquotients", "_Subquotients")
+    ObjectsOver = LazyImport("category_specs.posets.subcategories.constructions.objects_over", "_ObjectsOver")
+    ObjectsUnder = LazyImport("category_specs.posets.subcategories.constructions.objects_under", "_ObjectsUnder")
+    CartesianProducts = LazyImport(
+        "category_specs.posets.subcategories.constructions.cartesian_products",
+        "_CartesianProducts",
+    )
     Homsets = PosetHomsets
 
     ParentMethods = _PosetParentMethods

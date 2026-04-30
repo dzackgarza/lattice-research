@@ -2,8 +2,7 @@ r"""Homset, endset, and autset categories for topological spaces."""
 
 from __future__ import annotations
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, overload
+from typing import TYPE_CHECKING
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -13,7 +12,7 @@ from ..cat import Category
 from ..homsets import GenericAutsets, GenericEndsets, Homsets, HomsetsOf
 
 if TYPE_CHECKING:
-    from ..types import CategoryElement, TopologicalSpace, TopologicalSpaceMorphism
+    from ..types import TopologicalSpace
 
 
 class _TopologicalHomsetObjects:
@@ -46,12 +45,11 @@ class TopologicalSpaceHomsets(HomsetsOf):
 
         @cached_method
         def Autset(self) -> Category:
-            return self._with_axiom("Autset")
+            return self.Endset().Autset()
 
     ParentMethods = _TopologicalHomsetObjects
     ElementMethods = _ContinuousMaps
     Endset = LazyImport(__name__, "_TopologicalEndsets")
-    Autset = LazyImport(__name__, "_TopologicalAutsets")
 
 
 class _TopologicalEndsets(GenericEndsets):
@@ -66,6 +64,6 @@ class _TopologicalEndsets(GenericEndsets):
 
 class _TopologicalAutsets(GenericAutsets):
     _functor_category = "Autset"
-    _base_category_class_and_axiom = (TopologicalSpaceHomsets, "Autset")
+    _base_category_class_and_axiom = (_TopologicalEndsets, "Autset")
 
     ElementMethods = _Homeomorphisms

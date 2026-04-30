@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.realizations import RealizationsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import RealizationsCategory
 
 if TYPE_CHECKING:
     from ....types import SetElement, SetMorphism, SetWithRealizations

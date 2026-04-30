@@ -2,7 +2,7 @@ r"""Tensor products of algebras."""
 
 from __future__ import annotations
 
-from sage.categories.tensor import TensorProductsCategory
+from ....cat import TensorProductsCategory
 
 
 class _TensorProducts(TensorProductsCategory):

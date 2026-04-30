@@ -3,21 +3,27 @@ r"""Homset categories and morphism method surfaces."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, overload
+from typing import TYPE_CHECKING, final, overload
 
+from sage.categories.homsets import Homsets as SageHomsets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
+from sage.structure.dynamic_class import DynamicMetaclass
 
-from ..cat import Category
-from ..cat import Homsets as BaseHomsets
-from ..cat import HomsetsCategory as BaseHomsetsCategory
-from ..cat import _SageCategory
+from ..cat import Cat, Category, Category_singleton, CategoryWithParameters, FunctorialConstructionCategory, _SageCategory
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, CategoryObject, Morphism
 
 
-class _HomsetParentMethods:
+def _base_class(cls: type) -> type:
+    if isinstance(cls, DynamicMetaclass):
+        return cls.__base__
+    return cls
+
+
+class UniversalHomsetObjectMethods:
     r"""Methods on objects ``Hom_C(A, B)`` of a homset category."""
 
     @abstract_method
@@ -39,7 +45,7 @@ class _HomsetParentMethods:
     def __call__(self, data: Morphism | Callable[[CategoryElement], CategoryElement]) -> Morphism: ...
 
 
-class _MorphismMethods:
+class UniversalHomsetElementMethods:
     r"""Methods on elements ``f`` of homsets."""
 
     def domain(self) -> CategoryObject:
@@ -77,47 +83,93 @@ class _MorphismMethods:
         return self.is_endomorphism() and self.is_invertible()
 
 
-class Homsets(BaseHomsets):
+class Homsets(Category_singleton):
     r"""Category of all homsets."""
 
-    def super_categories(self) -> list[Category]:
-        return [BaseHomsets()]
+    def super_categories(self) -> list:
+        return [SageHomsets()]
 
-    @cached_method
-    def Endset(self) -> Category:
-        from .endsets import Endsets
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def Endset(self) -> Category:
+            return self._with_axiom("Endset")
 
-        return Endsets()
-
-    @cached_method
-    def Autset(self) -> Category:
-        from .autsets import Autsets
-
-        return Autsets()
+        @cached_method
+        @final
+        def Autset(self) -> Category:
+            return self.Endset().Autset()
 
     @cached_method
     def Of(self, category: Category) -> Category:
         r"""Return the generic category of homsets internal to ``category``."""
         return HomsetsOf(category)
 
-    ParentMethods = _HomsetParentMethods
-    ElementMethods = _MorphismMethods
+    ParentMethods = UniversalHomsetObjectMethods
+    ElementMethods = UniversalHomsetElementMethods
+    Endset = LazyImport("category_specs.homsets.endsets", "Endsets")
 
 
-class HomsetsCategory(BaseHomsetsCategory):
+class HomsetsCategory(FunctorialConstructionCategory, CategoryWithParameters):
     r"""Functorial construction category for ``C.Homsets()``."""
 
     _functor_category = "Homsets"
     _base_category_class = (_SageCategory,)
 
     @classmethod
+    @final
     def default_super_categories(cls, category: Category) -> Category:
-        if cls is HomsetsOf:
+        r"""Return homset supercategories without repeating one construction.
+
+        Sage's homset construction is deliberately not handled like an
+        ordinary covariant functor: its own
+        ``HomsetsCategory.default_super_categories`` first looks at full
+        supercategories, and otherwise falls back to the generic
+        ``HomsetsOf`` stub.  That distinction matters here because the Cat
+        wrapper layer makes ``Homsets`` a universal construction method on
+        every project category object.  If we naively recurse through every
+        supercategory after that rewrite, a chain such as
+        ``Modules(R).OverPID() -> OverDedekind() -> OverIntegralDomain() ->
+        Modules(R)`` contributes four different dynamic
+        ``RModuleHomsets.parent_class`` and ``RModuleHomsets.element_class``
+        providers.  Each provider declares the same abstract module-homset
+        requirements, so the resulting mixed classes re-declare the same spec
+        surface several times.
+
+        The mathematical relation we need is weaker and cleaner: keep homset
+        supercategories that use a genuinely different construction class
+        (for example ``Sets().Homsets()`` under module homsets), but collapse
+        intermediate supercategories whose homsets are again the same local
+        construction.  The base category itself can still appear through
+        ``extra_super_categories`` where a concrete homset category, such as
+        ``RModuleHomsets``, declares that its objects are also modules.
+        """
+        construction_class = _base_class(cls)
+        if construction_class is HomsetsOf:
             return Homsets()
-        super_categories = category.super_categories()
-        if not super_categories:
+
+        homset_supercategories = []
+        homset_supercategory_ids = set()
+        seen_category_ids = set()
+
+        def collect_supercategory_homsets(base_category: Category) -> None:
+            for super_category in base_category.super_categories():
+                if id(super_category) in seen_category_ids:
+                    continue
+                seen_category_ids.add(id(super_category))
+                homsets = super_category.Homsets()
+                if _base_class(homsets.__class__) is construction_class:
+                    collect_supercategory_homsets(super_category)
+                    continue
+                if id(homsets) in homset_supercategory_ids:
+                    continue
+                homset_supercategories.append(homsets)
+                homset_supercategory_ids.add(id(homsets))
+
+        collect_supercategory_homsets(category)
+        if not homset_supercategories:
             return Homsets()
-        return Category.join([super_category.Homsets() for super_category in super_categories])
+        return Category.join(homset_supercategories)
 
     def _make_named_class_key(self, name: str):
         return getattr(self.base_category(), name)
@@ -133,27 +185,17 @@ class HomsetsOf(HomsetsCategory):
 
     def _repr_object_names(self) -> str:
         base_category = self.base_category()
-        try:
-            object_names = base_category._repr_object_names()
-        except ValueError:
+        if base_category in Cat().JoinCategories():
             object_names = " and ".join(category._repr_object_names() for category in base_category.super_categories())
+        else:
+            object_names = base_category._repr_object_names()
         return f"homsets of {object_names}"
-
-    @cached_method
-    def Endset(self) -> Category:
-        from .endsets import Endsets
-
-        return Endsets().Of(self.base_category())
-
-    @cached_method
-    def Autset(self) -> Category:
-        from .autsets import Autsets
-
-        return Autsets().Of(self.base_category())
 
 
 __all__ = [
     "Homsets",
     "HomsetsCategory",
     "HomsetsOf",
+    "UniversalHomsetElementMethods",
+    "UniversalHomsetObjectMethods",
 ]

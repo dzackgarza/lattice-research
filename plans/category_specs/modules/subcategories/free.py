@@ -5,11 +5,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
+from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:

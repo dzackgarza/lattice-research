@@ -9,8 +9,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.subquotients import SubquotientsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import SubquotientsCategory
 
 if TYPE_CHECKING:
     from ....types import Set, SetElement

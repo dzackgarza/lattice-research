@@ -2,7 +2,7 @@ r"""Subquotient construction category for modules."""
 
 from __future__ import annotations
 
-from sage.categories.subquotients import SubquotientsCategory
+from ....cat import SubquotientsCategory
 
 
 class _Subquotients(SubquotientsCategory):

@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_over_base_ring
-
+from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import _WithForms
 
 if TYPE_CHECKING:

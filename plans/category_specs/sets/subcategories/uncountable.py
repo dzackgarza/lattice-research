@@ -2,8 +2,7 @@ r"""Uncountable set subcategory."""
 
 from __future__ import annotations
 
-from sage.categories.category_with_axiom import CategoryWithAxiom
-
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Sets
 
 

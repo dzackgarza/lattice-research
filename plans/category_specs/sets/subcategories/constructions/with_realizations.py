@@ -6,8 +6,9 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
 from sage.categories.category import Category
-from sage.categories.with_realizations import WithRealizationsCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import WithRealizationsCategory
 
 if TYPE_CHECKING:
     from ....types import SetRealization

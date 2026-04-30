@@ -226,17 +226,11 @@ class Sets(Category_singleton):
     refinement map.
     """
 
-    def __contains__(self, S: Any) -> bool:
-        match S:
-            case _ if S in Cat() and S.is_subcategory(self):
-                return True
-            case _ if S in SageSets():
-                return True
-            case _:
-                return False
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageSets(),)
 
     @final
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageSets()]
 
     @final
@@ -289,10 +283,6 @@ class Sets(Category_singleton):
             from .subcategories.group_actions import _GSets
 
             return _GSets(acting_group, self)
-
-        @cached_method
-        def Subsets(self) -> Category:
-            return self.Subobjects()
 
         @cached_method
         def IsomorphicObjects(self) -> Category:

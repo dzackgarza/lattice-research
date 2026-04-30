@@ -10,10 +10,13 @@ local smoke surface `cat/smoketest.sage`.
   categories.
 - `Cat().__contains__` is intentionally object-only: functors are elements of
   `A.Hom(B)`, not objects of `Cat()`.
-- `Cat.ParentMethods` is the canonical surface for category-object operations:
-  `Hom`, `End`, `Aut`, `leq`, `geq`, `<=`, and `>=`.
-- Registration preserves the re-exported Sage base-class mechanism and adapts the
-  canonical `Cat.ParentMethods` surface into Sage's category-object method path.
+- `Cat.ParentMethods` is the canonical surface for ordinary category-object
+  operations: `Hom`, `End`, `Aut`, `leq`, `geq`, `<=`, and `>=`. The root
+  `Cat()` object itself deliberately does not re-export the comparison aliases.
+- The re-exported Sage base-class wrappers preserve Sage category behavior while
+  registering ordinary project categories as objects of `Cat()`.
+- The wrapper layer, not `Cat()` itself, adapts universal construction selectors into
+  Sage's generated `SubcategoryMethods` path.
 - `A.Hom(B)` and `A.End()` reuse Sage `Hom`/`End` parents in category `Cat()`.
 - `A.Aut()` refines `A.End()` through the generic repository-level `Autset`
   construction.

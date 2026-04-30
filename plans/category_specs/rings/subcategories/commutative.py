@@ -6,7 +6,6 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -20,6 +19,7 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
 
 if TYPE_CHECKING:
@@ -112,7 +112,7 @@ class _CommutativeRings(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "commutative rings"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [SageCommutativeRings(), Rings()]
 
     def __contains__(self, R: Any) -> bool:

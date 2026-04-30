@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.categories.category_types import Category_over_base
-from sage.categories.covariant_functorial_construction import RegressiveCovariantConstructionCategory
 from sage.misc.abstract_method import abstract_method
+
+from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 
 if TYPE_CHECKING:
     from ....types import Morphism, TopologicalSpace

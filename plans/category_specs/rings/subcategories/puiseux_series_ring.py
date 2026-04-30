@@ -5,8 +5,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, override
 
-from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -18,6 +16,7 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
 
 if TYPE_CHECKING:
@@ -106,7 +105,7 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
     def _repr_object_names(self) -> str:
         return "Puiseux series rings"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [Rings()]
 
     def __contains__(self, R: Any) -> bool:

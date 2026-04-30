@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, override
 
-from sage.categories.category import Category
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -100,7 +99,7 @@ class _AA(Category_singleton):
     def _repr_object_names(self) -> str:
         return "algebraic real field"
 
-    def super_categories(self) -> list[Category]:
+    def super_categories(self) -> list:
         return [_AlgebraicFields()]
 
     def __contains__(self, x: Any) -> bool:

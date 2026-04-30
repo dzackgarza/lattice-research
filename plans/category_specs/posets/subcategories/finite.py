@@ -5,9 +5,10 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import TYPE_CHECKING
 
-from sage.categories.category_with_axiom import CategoryWithAxiom
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
 from sage.misc.abstract_method import abstract_method
+
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import FiniteLatticePoset, Poset, PosetElement, PosetMorphism, PosetSubset
