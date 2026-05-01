@@ -16,7 +16,6 @@ if TYPE_CHECKING:
     from ...types import (
         AlgebraBasis,
         AlgebraElement,
-        CategoryElement,
         HochschildChainComplex,
         RModule,
         SetFamily,
@@ -44,12 +43,6 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
     class ParentMethods:
         @abstract_method
         def basis(self) -> AlgebraBasis: ...
-
-        @abstract_method
-        def one_basis(self) -> CategoryElement: ...
-
-        @abstract_method
-        def product_on_basis(self, left: CategoryElement, right: CategoryElement) -> AlgebraElement: ...
 
         @abstract_method
         def algebra_generators(self) -> SetFamily: ...

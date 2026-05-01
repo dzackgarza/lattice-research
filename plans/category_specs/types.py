@@ -49,6 +49,13 @@ from .algebras import (
     AlgebrasMorphism,
     AlgebrasObject,
 )
+from .algebras.subcategories.constructions.ideals import (
+    AlgebraIdeal,
+    AlgebraIdealsCategory,
+    AlgebraIdealsElement,
+    AlgebraIdealsMorphism,
+    AlgebraIdealsObject,
+)
 from .cat import (
     CatAut,
     CatAutCategory,
@@ -119,6 +126,22 @@ from .modules import (
     ModulesHomCategory,
     ModulesMorphism,
     ModulesObject,
+)
+from .tensor_algebra_components import (
+    Tensor,
+    TensorAlgebraComponent,
+    TensorAlgebraComponentsAut,
+    TensorAlgebraComponentsAutCategory,
+    TensorAlgebraComponentsAutomorphism,
+    TensorAlgebraComponentsCategory,
+    TensorAlgebraComponentsElement,
+    TensorAlgebraComponentsEnd,
+    TensorAlgebraComponentsEndCategory,
+    TensorAlgebraComponentsEndomorphism,
+    TensorAlgebraComponentsHom,
+    TensorAlgebraComponentsHomCategory,
+    TensorAlgebraComponentsMorphism,
+    TensorAlgebraComponentsObject,
 )
 from .posets import (
     PosetsAut,
@@ -199,6 +222,9 @@ AbelianGroup = AbelianGroup_class
 Magma = CategoryObject
 Semigroup = CategoryObject
 Monoid = Monoid_class
+AdditiveSemigroup = CategoryObject
+AdditiveMonoid = CategoryObject
+AdditiveGroup = CategoryObject
 Polynomial = SagePolynomial
 AlgebraicPolynomial = AlgebraicPolynomialTracker
 TermOrder = SageTermOrder
@@ -224,6 +250,7 @@ SubModule = ModulesCategory.Subobjects.ParentMethods
 Submodule = SubModule
 QuotientModule = ModulesCategory.Quotients.ParentMethods
 TensorProductRModule = ModulesCategory.TensorProducts.ParentMethods
+TensorAlgebraComponent = TensorAlgebraComponentsObject
 
 Ideal = _RingIdeals.ParentMethods
 PrimeIdeal = Ideal

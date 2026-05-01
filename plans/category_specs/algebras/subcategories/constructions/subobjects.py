@@ -1,4 +1,4 @@
-r"""Subalgebras and algebra ideals as subobjects."""
+r"""Subalgebras."""
 
 from __future__ import annotations
 

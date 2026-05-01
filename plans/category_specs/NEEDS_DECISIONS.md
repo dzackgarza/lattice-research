@@ -3,19 +3,6 @@
 These are design blockers, not mechanical audit findings. Mechanical compliance issues
 should be fixed in code; only items that require a human design choice belong here.
 
-## Algebra Constructors
-
-- Name additive-structure algebra constructors. Sage overloads `S.algebra(R,
-  category=...)` for additive semigroups, additive monoids, and additive groups; the
-  project API must split these into explicit mathematical constructor names.
-- Decide the typed input surface for the mapped associative-unital
-  finite-dimensional multiplication-table constructor: right-multiplication matrix
-  data, basis-name data, and target refinement.
-- Define the mathematical type for multiplication-on-basis constructor data: basis
-  index set, unit index, and product-on-basis law.
-- Decide where nonunital and nonassociative finite-dimensional Sage algebras map once
-  the corresponding magmatic or nonunital algebra subtrees exist.
-
 ## Topological Spaces
 
 - Choose whether named real-line and real-interval constructors belong to

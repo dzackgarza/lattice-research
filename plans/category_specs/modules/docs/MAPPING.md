@@ -28,7 +28,7 @@ documentation proves a genuinely open-ended mathematical input family. The targe
 surface is the finite documented casework.
 
 Integer-valued module data uses `Integer`, not `int | Integer`: ranks, dimensions,
-tensor powers, tensor bidegrees, start indices, graded generator degrees, polynomial
+tensor powers, tensor types, start indices, graded generator degrees, polynomial
 variable counts, and series precisions. The constructor namespace may pass these values
 to Sage factories, but the spec surface records the Sage mathematical type.
 
@@ -37,6 +37,26 @@ Generating sets, coordinate vectors, tensor symmetry data, and element-class hoo
 spelled directly as sequences, module elements, tuples, or element classes unless the
 name introduces an independent mathematical noun such as `ModuleBasis` or
 `Cardinality`.
+
+## Tensor Component Duals And Forms
+
+`TensorAlgebraComponents(R).DualObjects()` owns integral forms.  If
+`N = T_R(M)[p,q]`, then `N.dual()` is the tensor component `T_R(M)[q,p]`.  The
+same object is naturally interpretable as `Hom_R(T_R(M)[p,q], R)`, so the hom
+category supplies evaluation behavior rather than a separate form identity.
+
+Use these names consistently:
+
+| Surface | Meaning |
+| --- | --- |
+| `TensorAlgebraComponents(R).DualObjects()` / `dual()` | The dual-component category, a subcategory of `TensorAlgebraComponents(R)`. |
+| `tensor_type()` | The tensor type of the object itself: `(p,q)` on `T_R(M)[p,q]`, `(q,p)` on its dual. |
+| `Modules(R).HomCategory().Forms()` | Hom-layer interpretation for evaluation against the original component. |
+
+Thus ordinary linear forms are dual tensor components of type `(0,1)`. Bilinear
+forms are dual tensor components of type `(0,2)`.
+Multiplication structure tensors are not forms on `T_R(M)[1,2]`; they are tensor
+elements of type `(1,2)` constructed in `tensor_algebra_components`.
 
 ## Combinatorial Free Module Method Surface
 

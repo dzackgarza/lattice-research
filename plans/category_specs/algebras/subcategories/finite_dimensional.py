@@ -3,7 +3,6 @@ r"""Finite-dimensional algebras."""
 from __future__ import annotations
 
 from typing import final
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring
@@ -13,7 +12,7 @@ from sage.rings.infinity import infinity
 from .. import Algebras
 
 if TYPE_CHECKING:
-    from ...types import Algebra, AlgebraElement, Integer
+    from ...types import Algebra, AlgebraElement, AlgebraIdeal, Integer
 
 
 class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
@@ -34,10 +33,7 @@ class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
         def dimension(self) -> Integer: ...
 
         @abstract_method
-        def radical(self) -> Algebra: ...
-
-        @abstract_method
-        def radical_basis(self) -> Sequence[AlgebraElement]: ...
+        def radical(self) -> AlgebraIdeal: ...
 
         @abstract_method
         def semisimple_quotient(self) -> Algebra: ...

@@ -33,6 +33,10 @@ SMOKE_STATEMENTS = (
         "Algebras(ZZ).Constructors().free_algebra_from_set is admitted",
         lambda _: A.Constructors().free_algebra_from_set,
     ),
+    (
+        "Algebras(ZZ).Constructors().from_multiplication_tensor is admitted",
+        lambda _: A.Constructors().from_multiplication_tensor,
+    ),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)

@@ -235,17 +235,30 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
   reason. Do not hide decisions by deleting smokes, deleting abstract methods, or
   reclassifying evidence as "interop".
 
-**Spec Smokes Are Executable Spec Frontiers**:
-Smokes in this subtree are not implementation smoke tests. They are executable
-frontiers for the category specification.
+**Spec Smokes Surface Missing Implementations**:
+Smokes in this subtree are not pass/fail implementation tests. Their purpose is to run
+existing Sage objects through the upgraded category spec and report which methods,
+constructors, and inherited ABC obligations the current implementation does not yet
+satisfy. Most raw Sage refinements are expected to fail today because Sage objects are
+incomplete relative to this spec. The failure surface is the useful output: it tells a
+future implementer what a spec-compliant wrapper, constructor route, or replacement
+must provide.
 
 - A spec smoke uses the project spec surface and asserts mathematical facts:
   membership in project categories, cardinalities, rankings, subset relations, form
   laws, Hom/End/Aut semantics, constructor routing to named mathematical objects, and
   other obligations stated by the spec.
-- A spec smoke must fail with implementer-facing missing obligations. It should collect
-  the current frontier when useful, but the collected failures must be mathematical
-  failures, not constructor-liveness checks.
+- A spec smoke should collect all labeled failures it can reach, so one run exposes the
+  current missing-method surface. The shared collection helper exists for this purpose:
+  do not stop after the first missing method when setup can be moved into labeled
+  statements.
+- Refinement into a category brings the whole inherited ABC contract, not only the
+  headline methods of the subtree being edited.  A tensor component smoke may surface
+  `__richcmp__`, for example, because tensor component parents are still categorical
+  objects that inherit comparison obligations from set/module structure.  This is not
+  incidental implementation noise. It records that any later tensor-component wrapper
+  or implementation must satisfy the inherited comparison/subobject contract even
+  though the method name is not tensor-specific.
 - A spec smoke must not assert that an object "exists", is non-`None`, is truthy, or
   merely constructs without raising. It must not use raw Python containers or raw Sage
   quirks as the main oracle when a project category predicate or method should express
@@ -992,10 +1005,13 @@ Instead, resolve all violations first. Prompt the user only when you believe the
 spec is complete and correct according to all directives. Only after user
 confirmation should you proceed to run smoke tests and update triage documents.
 
-Smoke status is not the goal. Smokes are mathematical sensors that should fail when
-required constructors, method surfaces, or implementation refinements are missing.
-Passing by weakening a spec, bypassing a constructor, catching away an error, or
-checking a shallow implementation detail is a regression.
+Smoke status is not the goal. A smoke run is an inventory of the ways current Sage
+implementations fail to meet the upgraded spec. Many refinements should fail because
+the corresponding Sage classes do not yet provide every constructor, method surface, or
+inherited ABC method required here. The smoke output should help a future implementer
+see the full missing surface for a spec-compliant replacement. Passing by weakening a
+spec, bypassing a constructor, catching away an error, or checking a shallow
+implementation detail is a regression.
 
 Smoke assertions should exercise the mathematical surface directly. Prefer
 construction calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over

@@ -13,6 +13,7 @@ Subcategory hierarchy::
     |-- Subquotients()
     |-- ObjectsOver()
     |-- ObjectsUnder()
+    |-- Ideals(A)
     |-- CartesianProducts()
     |-- TensorProducts()
     |-- DualObjects()
@@ -37,6 +38,7 @@ from ..utils import refine_category
 from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
+from .subcategories.constructions.ideals import _Ideals
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
@@ -46,9 +48,12 @@ from .subcategories.constructions.tensor_products import _TensorProducts
 
 if TYPE_CHECKING:
     from ..types import (
+        AdditiveGroup,
+        AdditiveMonoid,
+        AdditiveSemigroup,
         Algebra,
         AlgebraElement,
-        AlgebraMorphism,
+        AlgebraIdeal,
         Group,
         HochschildChainComplex,
         Magma,
@@ -57,6 +62,7 @@ if TYPE_CHECKING:
         Ring,
         Semigroup,
         Set,
+        Tensor,
         RModule,
         SetFamily,
     )
@@ -76,13 +82,7 @@ class _AlgebraParentMethods:
     def center(self) -> Algebra: ...
 
     @abstract_method
-    def center_basis(self) -> Sequence[AlgebraElement]: ...
-
-    @abstract_method
-    def radical(self) -> Algebra: ...
-
-    @abstract_method
-    def radical_basis(self) -> Sequence[AlgebraElement]: ...
+    def radical(self) -> AlgebraIdeal: ...
 
     @abstract_method
     def subalgebra(
@@ -92,7 +92,14 @@ class _AlgebraParentMethods:
     ) -> Algebra: ...
 
     @abstract_method
-    def derivations_basis(self) -> Sequence[AlgebraMorphism]: ...
+    def derivations(self) -> RModule: ...
+
+    @abstract_method
+    def annihilator(self, elements: Iterable[AlgebraElement]) -> AlgebraIdeal: ...
+
+    @final
+    def ideals(self) -> Category:
+        return self.category().Ideals(self)
 
     @abstract_method
     def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex: ...
@@ -116,6 +123,9 @@ class _AlgebraParentMethods:
 
 class _AlgebraElementMethods:
     r"""Methods on elements of algebras."""
+
+    @abstract_method
+    def __mul__(self, other: AlgebraElement) -> AlgebraElement: ...
 
 
 class _AlgebraMorphismMethods:
@@ -180,6 +190,11 @@ class Algebras(Category_module):
         def DualObjects(self) -> Category:
             return _DualObjects.category_of(self)
 
+        @final
+        def Ideals(self, algebra: Algebra) -> Category:
+            assert algebra in self, f"Ideals expects an algebra in {self}: {algebra}"
+            return _Ideals(algebra)
+
     class Constructors:
         r"""Algebra constructors over a fixed base ring.
 
@@ -233,6 +248,33 @@ class Algebras(Category_module):
             r"""Return the group algebra over ``R``."""
             ...
 
+        @abstract_method
+        def free_algebra_from_additive_semigroup(self, semigroup: AdditiveSemigroup) -> Algebra:
+            r"""Return the ``R``-algebra induced by the additive semigroup law."""
+            ...
+
+        @abstract_method
+        def free_algebra_from_additive_monoid(self, monoid: AdditiveMonoid) -> Algebra:
+            r"""Return the ``R``-algebra induced by the additive monoid law."""
+            ...
+
+        @abstract_method
+        def free_algebra_from_additive_group(self, group: AdditiveGroup) -> Algebra:
+            r"""Return the ``R``-algebra induced by the additive group law."""
+            ...
+
+        @abstract_method
+        def from_multiplication_tensor(self, multiplication: Tensor) -> Algebra:
+            r"""Return the algebra whose product is encoded by ``multiplication``.
+
+            The tensor must lie in ``T_R(M)[1, 2]``. Its parent determines the
+            underlying module ``M``, the base ring ``R``, and the preferred
+            generating set used for coordinates; no separate basis, table, list
+            of matrices, module-element matrix, or right-multiplication data
+            belongs in this constructor surface.
+            """
+            ...
+
     _Constructors = Constructors
 
     @cached_method
@@ -253,6 +295,7 @@ class Algebras(Category_module):
     Subquotients = _Subquotients
     ObjectsOver = _ObjectsOver
     ObjectsUnder = _ObjectsUnder
+    Ideals = _Ideals
     CartesianProducts = _CartesianProducts
     TensorProducts = _TensorProducts
     DualObjects = _DualObjects

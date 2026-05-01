@@ -2,8 +2,8 @@ r"""Spec for the hom/morphism layer over ``Modules(R)``.
 
 Defines:
     RModuleHomCategory         -- the category of R-module homs Hom_R(M, N)
-    RModuleHomCategory.Forms   -- forms Hom_R(T_R(M)[p,q], S) (linear,
-                                  bilinear, quadratic, symmetric, ...)
+    RModuleHomCategory.Forms   -- hom-layer interpretation of tensor-component
+                                  duals as Hom_R(T_R(M)[p,q], S).
     Modules(R).EndCategory()   -- category whose objects are End_R(M)
     Modules(R).AutCategory()   -- category whose objects are Aut_R(M)
 
@@ -192,18 +192,17 @@ class RModuleHomCategory(HomCategoryOf):
 
 class _Forms(CategoryWithAxiom):
     r"""R-modules of the form ``Hom_R(T_R(M)[p,q], S)`` where ``T_R(M)[p,q]``
-    is the (p, q) part of the bitensor R-algebra of M and ``S`` is an
-    R-submodule of ``K := Frac(R)``.
+    is the standard tensor-type ``(p,q)`` component and ``S`` is an R-submodule
+    of ``K := Frac(R)``.
+
+    The owning category for integral forms is
+    ``TensorAlgebraComponents(R).DualObjects()``.  This hom category records the
+    evaluation interpretation of those dual tensor components.
     """
 
     _base_category_class_and_axiom = (RModuleHomCategory, "Forms")
 
     class ParentMethods:
-        @abstract_method
-        def form_degree(self) -> tuple[Integer, Integer]:
-            r"""Return ``(p, q)``."""
-            ...
-
         @abstract_method
         def is_integral(self) -> bool: ...
 
@@ -212,40 +211,35 @@ class _Forms(CategoryWithAxiom):
             r"""True if it takes a non-integral value."""
             ...
 
-        @abstract_method
-        def base_module(self) -> RModule:
-            r"""If this is ``Hom_R(T_R(M)[p,q], S)``, return ``M``."""
-            ...
-
     class SubcategoryMethods:
         @cached_method
         @final
         def Rational(self) -> Category:
-            r"""``S = K``: ``Hom_R(M, K)``."""
+            r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return self._with_axiom("Rational")
 
         @cached_method
         @final
         def Integral(self) -> Category:
-            r"""``S = R``: ``Hom_R(M, R)``."""
+            r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return self._with_axiom("Integral")
 
         @cached_method
         @final
         def Linear(self) -> Category:
-            r"""(1, 0)-forms: ``Hom_R(M, S)``."""
+            r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
             return self._with_axiom("Linear")
 
         @cached_method
         @final
         def Bilinear(self) -> Category:
-            r"""(1, 1)-forms: ``Hom_R(M \otimes_R M^*, S)``."""
+            r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
             return self._with_axiom("Bilinear")
 
         @cached_method
         @final
         def Quadratic(self) -> Category:
-            r"""Twisted (1, 0)-forms: ``Hom_R(M, S^\sigma)``."""
+            r"""Quadratic forms on ``M``."""
             return self._with_axiom("Quadratic")
 
         @cached_method
@@ -257,13 +251,13 @@ class _Forms(CategoryWithAxiom):
         @cached_method
         @final
         def Symmetric(self) -> Category:
-            r"""Symmetric (n, 0)-forms: ``Hom_R(Sym^n_R(M), S)``."""
+            r"""Symmetric forms: represented type ``(0,n)``."""
             return self._with_axiom("Symmetric")
 
         @cached_method
         @final
         def Alternating(self) -> Category:
-            r"""Alternating (n, 0)-forms: ``Hom_R(\Lambda^n_R(M), S)``."""
+            r"""Alternating forms: represented type ``(0,n)``."""
             return self._with_axiom("Alternating")
 
     Bilinear = LazyImport(__name__, "_Bilinear")
