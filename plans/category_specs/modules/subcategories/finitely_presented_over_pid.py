@@ -85,6 +85,16 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
+        def invariants(self, include_ones: bool = False) -> tuple[RingElement, ...]:
+            r"""Return the nonzero invariant factors, optionally including unit factors."""
+            ...
+
+        @abstract_method
+        def smith_form_gens(self) -> tuple[RModuleElement, ...]:
+            r"""Return generators compatible with the Smith decomposition."""
+            ...
+
+        @abstract_method
         def free_part(self) -> RModule:
             r"""Free summand ``R^k`` of ``M = R^k \oplus T``."""
             ...
