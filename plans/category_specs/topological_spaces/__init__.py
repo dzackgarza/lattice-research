@@ -21,8 +21,10 @@ Subcategory hierarchy::
         |-- EndCategory()
         `-- AutCategory()
 
-Constructor entry points live under ``TopologicalSpaces().Constructors()`` once Sage
-topological-space constructors are inventoried.
+Named set constructors live under ``Sets().Constructors()`` and refine into this
+category when they carry topological structure. ``TopologicalSpaces().Constructors()``
+is reserved for constructors whose primary mathematical output is a topological space,
+not for every named set with a topology.
 """
 
 from __future__ import annotations
@@ -37,7 +39,14 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import Category
 from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
-from .homsets import TopologicalSpaceAutCategory, TopologicalSpaceEndCategory, TopologicalSpaceHomCategory
+from .homsets import (
+    MetricSpaceAutCategory,
+    MetricSpaceEndCategory,
+    MetricSpaceHomCategory,
+    TopologicalSpaceAutCategory,
+    TopologicalSpaceEndCategory,
+    TopologicalSpaceHomCategory,
+)
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
@@ -113,7 +122,9 @@ class _TopologicalSpaces(CategoryWithAxiom):
     class Constructors:
         r"""Topological-space constructors.
 
-        No standalone Sage topological-space constructor has been admitted yet.
+        No standalone Sage topological-space constructor has been admitted. Named sets
+        such as real intervals are constructed under ``Sets().Constructors()`` and
+        refined into this subtree.
         """
 
     _Constructors = Constructors
@@ -159,14 +170,14 @@ MetricSpacesCategory = _MetricSpaces
 MetricSpacesObject = _MetricSpaces.ParentMethods
 MetricSpacesElement = _MetricSpaces.ElementMethods
 MetricSpacesMorphism = _MetricSpaces.MorphismMethods
-MetricSpacesHomCategory = TopologicalSpaceHomCategory
-MetricSpacesEndCategory = TopologicalSpaceEndCategory
-MetricSpacesAutCategory = TopologicalSpaceAutCategory
-MetricSpacesHom = TopologicalSpaceHomCategory.ParentMethods
-MetricSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
-MetricSpacesAut = TopologicalSpaceAutCategory.ParentMethods
-MetricSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
-MetricSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods
+MetricSpacesHomCategory = MetricSpaceHomCategory
+MetricSpacesEndCategory = MetricSpaceEndCategory
+MetricSpacesAutCategory = MetricSpaceAutCategory
+MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
+MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
+MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
+MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
+MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 
 
 TopologicalSpacesCategory = TopologicalSpaces

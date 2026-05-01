@@ -9,37 +9,36 @@ ownership decision.
 
 ## Current Blockers
 
-- `TopologicalSpaces().Constructors()` remains empty by design until the real-line
-  constructor namespace is chosen.
-- Local `TopologicalSpaces().Metric()` does not yet expose Sage's metric-hom
-  distinction.
+- `TopologicalSpaces().Constructors()` remains empty by design. Named set constructors
+  currently live under `Sets().Constructors()` and refine into topological categories.
 - Root topological methods now use the ambient-relative shape
   `X.is_open(U: Subset)`, `X.is_closed(U)`, `X.closure(U)`, `X.interior(U)`, and
   `X.boundary(U)`. No implementation or smoke yet proves recovery of Sage
   `RealSet.is_open()`, `RealSet.closure()`, and related subset methods through this
   ambient route.
-- Sage `RealSet(*args)` is variadic and accepts manifold-producing keyword paths.
-  The future project surface must split this into closed named constructor paths and
-  exclude the manifold paths.
+- Sage `RealSet(*args)` is variadic and accepts manifold-producing keyword paths. The
+  project surface maps admitted real-line subset construction through named
+  `Sets().Constructors()` paths and excludes the manifold paths.
 - Sage real and complex ball fields are not currently metric spaces in Sage:
   observed `RBF in Sets().Metric()` and `CBF in Sets().Metric()` are both `False`,
   and neither parent exposes `dist`. Their topological recovery belongs through
   topological ring/field work, not through pure topological-space constructors.
 
-## Decisions For Later `NEEDS_DECISIONS.md`
+## Settled Decisions
 
-- Choose whether named real-line constructors live under
-  `TopologicalSpaces().Constructors()` or under a set/real-subset constructor namespace
-  that refines into `TopologicalSpaces()`.
-- Choose whether topological subobjects also get convenience methods such as
-  `U.is_open()` and `U.closure()`, or whether only ambient methods such as
-  `X.is_open(U)` and `X.closure(U)` are required.
-- Choose whether to keep one explicit `interval(lower, upper, *, lower_closed,
-  upper_closed)` constructor or require only named interval and ray constructors.
-- Choose the metric method name: `metric(x, y)`, `metric_function()`, or a deliberately
-  documented pair matching Sage's deprecation history.
-- Choose whether metric point methods such as `point.dist(other)` belong in
-  `MetricSpacesElement`, and keep `abs()` out of pure metric spaces unless the needed
-  zero/norm structure is present.
+- Named real-line and interval constructors live under `Sets().Constructors()` for
+  discoverability, then refine into `TopologicalSpaces()` and
+  `TopologicalSpaces().Subobjects()` when they carry that structure.
+- Keep both the universal endpoint/closure constructor and named interval/ray
+  constructors. Named constructors delegate to the universal constructor.
+- `metric()` names the metric map `X x X -> RR`; `dist(x, y)` evaluates it.
+- Metric point methods such as `x.dist(y)` belong on `MetricSpacesElement` as parent
+  delegation. `abs()` stays out of pure metric spaces unless the required zero/norm
+  structure is present.
+- Metric homsets are short-map homsets. This is currently a spec-level declaration, not
+  an effectively enforced constructor behavior.
+
+## Remaining Smoke Design Work
+
 - Choose canonical smoke examples for local `Connected`, `Compact`, and
-  `Metric().Complete()` subcategories.
+  `Metric().Complete()` subcategories when smoke coverage is expanded.

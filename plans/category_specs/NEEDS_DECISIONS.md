@@ -3,19 +3,6 @@
 These are design blockers, not mechanical audit findings. Mechanical compliance issues
 should be fixed in code; only items that require a human design choice belong here.
 
-## Topological Spaces
-
-- Choose whether named real-line and real-interval constructors belong to
-  `TopologicalSpaces().Constructors()` or to a set/real-subset constructor surface
-  whose results refine into `TopologicalSpaces()`.
-- Choose whether to keep one explicit flag-bearing interval constructor or require
-  named constructors for each endpoint pattern.
-- Choose whether metric point methods such as `point.dist(other)` belong in
-  `MetricSpacesElement`.
-- Choose whether metric homsets are represented as 1-Lipschitz maps, a broader
-  Lipschitz-map category, or ordinary continuous maps plus a metric compatibility
-  predicate.
-
 ## Posets
 
 - Choose the named constructor API for the documented `Poset(...)` input cases:

@@ -10,7 +10,7 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
-    from ..types import TopologicalSpace
+    from ..types import MetricSpace, TopologicalSpace
 
 
 class _TopologicalHomCategoryObjectMethods:
@@ -28,6 +28,18 @@ class _ContinuousMaps:
 class _Homeomorphisms:
     @final
     def is_homeomorphism(self) -> bool:
+        return True
+
+
+class _ShortMaps(_ContinuousMaps):
+    @final
+    def is_short(self) -> bool:
+        return True
+
+
+class _Isometries:
+    @final
+    def is_isometry(self) -> bool:
         return True
 
 
@@ -64,4 +76,38 @@ class TopologicalSpaceAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
     ElementMethods = _Homeomorphisms
+    class MorphismMethods: ...
+
+
+class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
+    r"""Category of homs whose elements are short maps of metric spaces."""
+
+    @final
+    def extra_super_categories(self):
+        return [TopologicalSpaceHomCategory(self.base_category())]
+
+    ElementMethods = _ShortMaps
+
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "MetricSpaceEndCategory")
+
+
+class MetricSpaceEndCategory(GenericEndCategory):
+    _base_category_class_and_axiom = (MetricSpaceHomCategory, "Endset")
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport(__name__, "MetricSpaceAutCategory")
+
+    class ParentMethods:
+        @abstract_method
+        def base_space(self) -> MetricSpace: ...
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
+
+
+class MetricSpaceAutCategory(GenericAutCategory):
+    _base_category_class_and_axiom = (MetricSpaceEndCategory, "Autset")
+
+    class ParentMethods: ...
+    ElementMethods = _Isometries
     class MorphismMethods: ...
