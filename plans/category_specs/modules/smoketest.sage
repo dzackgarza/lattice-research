@@ -102,9 +102,12 @@ SMOKE_STATEMENTS = (
         lambda _: NMZZ.FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]])).rank() == 2,
     ),
     (
-        "Modules(QQ).Constructors().CombinatorialFreeModule({a, b}) is combinatorial free",
-        lambda _: NMQQ.CombinatorialFreeModule(Sets().Constructors().FiniteEnumeratedSet(["a", "b"]))
-        in NMQQ.CombinatorialFreeModules(),
+        "Modules(QQ).Constructors().CombinatorialFreeModule({a, b}) is free with ordered generators",
+        lambda _: (
+            NMQQ.CombinatorialFreeModule(Sets().Constructors().FiniteEnumeratedSet(["a", "b"])) in Modules(QQ).Free()
+            and NMQQ.CombinatorialFreeModule(Sets().Constructors().FiniteEnumeratedSet(["a", "b"]))
+            in Modules(QQ).WithOrderedGeneratingSet()
+        ),
     ),
     (
         "Modules(QQ).Constructors().CombinatorialFreeModule({a, b}) has two basis keys",

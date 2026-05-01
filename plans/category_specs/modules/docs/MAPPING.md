@@ -9,6 +9,7 @@ category-spec hierarchy.
 | --- | --- | --- |
 | `Modules(R).NamedModules()` | `Modules(R).Constructors()` | Sage constructors create module objects; they are not mathematical subcategories. |
 | `FreeModule(R, n)` and `R^n` | `Modules(R).Constructors().FreeModule(n)` refined into `Modules(R).Free()` plus finite-rank and base-ring restrictions | The constructor is concrete; `Free` is an axiomatic restriction attachable to any module subcategory. |
+| `CombinatorialFreeModule(R, basis_keys)` | `Modules(R).Constructors().CombinatorialFreeModule(basis_keys)` refined into `Modules(R).Free()` and `Modules(R).WithOrderedGeneratingSet()` | Combinatorial free modules are a Sage constructor family for free modules with explicit basis keys, not a mathematical subcategory. |
 | `VectorSpace(K, n)` | `Modules(K).Constructors().VectorSpace(n)` refined into `Modules(K).Free().FiniteRank().OverField()` | Vector spaces are modules over fields with finite-rank structure when the constructor supplies a dimension. |
 | Matrix presentations `f: R^m -> R^n` | `Modules(R).from_matrix(M)` delegating to `FinitelyPresentedModulesOverPID.from_matrix` | A matrix presentation defines `coker(f)`. Smith-form and elementary-divisor normalization are specific to finitely presented modules over PIDs, so the constructor namespace delegates to that subcategory owner. |
 | `SubmoduleWithBasis`, free-module submodules, vector subspaces | `Modules(R).Subobjects()` / `Submodules` plus ordered-generating-set refinements | In module categories, subobjects are submodules. |
@@ -36,6 +37,54 @@ spelled directly as sequences, module elements, tuples, or element classes unles
 name introduces an independent mathematical noun such as `ModuleBasis` or
 `Cardinality`.
 
+## Combinatorial Free Module Method Surface
+
+`CombinatorialFreeModule` is not a project category. Its constructor builds a free
+module with explicit basis keys, and its methods are evidence for existing or missing
+mathematical surfaces. Each inventoried method must map independently.
+
+| Sage method surface | Target surface | Rationale |
+| --- | --- | --- |
+| `rank()` / `dimension()` | `Modules(R).Free().rank()`; finite cases may also satisfy `Modules(R).Free().FiniteRank().dimension()` | The mathematical invariant is the cardinality of a basis. Sage's `dimension()` is a constructor-family alias for rank, not evidence for a `CombinatorialFreeModules` category. |
+| `basis()` and `basis().keys()` | Free module basis data, with key access attached to the ordered/indexed basis surface | A basis is structure on a free module. The basis-key set is part of the chosen basis data, not a separate implementation category. |
+| `monomial(i)` / `_monomial(i)` / `term(i, coeff)` | Basis-element and term constructors on a free module with a chosen indexed basis | These construct elements from basis indices and coefficients. They belong to the basis-bearing free-module surface, not to the Sage class name. |
+| `_sum_of_monomials(indices)` / `sum_of_terms(terms, distinct=...)` | Finite linear-combination constructors for a basis-bearing free module | These are sparse element constructors from basis terms. They should be exposed only through explicit finite linear-combination vocabulary, not through a constructor-family category. |
+| `from_vector(vector, order=..., coerce=...)` | Coordinate conversion for a free module with a chosen ordered basis | The operation depends on an ordered basis and a coordinate vector. It belongs with coordinate-vector conversion, not with the constructor that happened to create the module. |
+| `set_order(order)` / `get_order()` / `get_order_key()` / `_order_key(x)` | Ordered-basis or term-order surface refining `Modules(R).WithOrderedGeneratingSet()` | Sage lets the chosen basis order drive coordinate and term operations. The project surface should state this as ordered basis data; private order-key helpers stay interop-local. |
+| `change_ring(S)` | `Modules(R)` base-change surface, returning an object in `Modules(S)` with compatible free/basis refinements when valid | Base change is a module operation. The constructor family only supplies one implementation. |
+| `zero()` | Additive identity inherited from the module/additive-monoid structure | This is not specific to free modules with basis keys. |
+| `sum(iter_of_elements)` / `linear_combination(iter_of_elements_coeff, ...)` | No public category method unless the spec admits finite linear-combination constructors | The module laws already give addition and scalar multiplication. Sage implements parent-side aggregation for speed; that implementation detail is not itself mathematical structure. |
+| `_element_constructor_`, `_convert_map_from_`, `_coerce_map_from_`, `_from_dict` | Coercion and element-construction interop | These are Sage parent internals. Public project mappings should expose the mathematical constructors above, not raw dictionary or coercion plumbing. |
+| `construction()`, `__classcall_private__`, `__init__`, `element_class`, `_element_class`, representation hooks | Constructor/provenance or Python/Sage implementation internals | These surfaces record how Sage builds and displays the object. They are inventory evidence, but they are not mathematical category methods. |
+| `is_exact()` | Exact-arithmetic capability predicate, not a module-category predicate | This belongs to a separate exact-computation policy if admitted. It should not be smuggled into module mathematics. |
+
+Inherited `ModulesWithBasis` methods available on a `CombinatorialFreeModule` follow
+the same rule:
+
+| Sage method surface | Target surface | Rationale |
+| --- | --- | --- |
+| `basis()`, `rank()`, `dimension()`, `cardinality()`, `is_finite()` | Free-module and finite-set/cardinality surfaces | These are invariants of the module and its basis-key set. Finite cardinality belongs to set/enumerated-set structure, not to the Sage constructor family. |
+| `gens()`, `gen(i)`, `basis()` iteration | `Modules(R).WithOrderedGeneratingSet()` plus basis-bearing free-module structure | These expose the chosen ordered generators or basis elements. |
+| `module_morphism(...)` and hom-on-basis constructors | `Modules(R).HomCategory()` with ordered-basis construction helpers where admitted | A basis-defined map is a module homomorphism construction. The hom category owns the morphism object. |
+| `submodule(...)`, `quotient_module(...)`, `intersection(...)` | `Modules(R).Subobjects()`, `Modules(R).Quotients()`, and subobject intersections | These are module subobject and quotient operations. Sage's inheritance from `CombinatorialFreeModule` is only implementation reuse. |
+| `tensor(...)` and tensor element helpers | `Modules(R).TensorProducts()` | Tensor products are construction objects, not combinatorial-free-module subcategories. |
+| `random_element(...)` | No mathematical category method unless a probability distribution is specified | Random sampling is computational API, not module structure. |
+| Element coefficient access: `monomial_coefficients()`, `__getitem__`, `coefficient()`, `items()`, `support()`, `support_of_term()`, `monomials()`, `terms()`, `coefficients()` | Element coordinate/support surface for free modules with a chosen basis | These read the finite support of an element in a basis. They belong to the element surface for basis-bearing free modules. |
+| Element predicates and size: `is_zero()`, `__len__()`, `length()` | Module element zero/support-size surfaces where mathematically meaningful | Zero is general module-element structure; support length depends on a chosen basis. |
+| Leading/trailing term methods and `map_coefficients`, `map_support`, `map_support_skip_none`, `map_item` | Ordered-basis or term-order element surface; otherwise interop-local | These depend on an order or on implementation-level sparse support traversal. Admit only the mathematically stated ordered-basis cases. |
+
+`CombinatorialFreeModule_Tensor` and `CombinatorialFreeModule_CartesianProduct`
+are implementation classes for tensor-product and cartesian-product construction
+objects. Their factor accessors and structure maps map to
+`Modules(R).TensorProducts()` and `Modules(R).CartesianProducts()`, respectively.
+Their representation hooks remain Sage interop.
+
+`SubmoduleWithBasis` and `QuotientModuleWithBasis` inherit from
+`CombinatorialFreeModule` in Sage, but their mathematical ownership is subobject and
+quotient structure: `Modules(R).Subobjects()` / ordered-generating-set refinements and
+`Modules(R).Quotients()` / ordered-generating-set refinements. The inheritance is
+implementation evidence only.
+
 ## Axiomatic Restrictions
 
 `Free`, `Torsion`, `Torsionfree`, `Projective`, `FinitelyGenerated`,
@@ -50,7 +99,7 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 | --- | --- |
 | Former construction aggregator | `subcategories/constructions/subobjects.py`, `subquotients.py`, `quotients.py`, `isomorphic_objects.py`, `tensor_products.py`, `cartesian_products.py`, and `dual_objects.py`. |
 | Axiomatic module restrictions | One mathematical file per axiomatic subcategory under `subcategories/`. |
-| Sage-backed module family surface | Constructor namespace plus one mathematical subcategory file per concrete Sage-backed module family. |
+| Sage-backed module family surface | Constructor namespace plus mathematical subcategory files only where the family expresses a genuine category restriction. Constructor-only Sage families refine into existing module categories. |
 
 ## Construction-Category Mapping
 

@@ -6,8 +6,8 @@ from typing import TYPE_CHECKING, final
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
-from ..cat import Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .endsets import EndCategory, EndCategoryConstruction
+from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
+from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
@@ -112,11 +112,18 @@ class AutCategoryConstruction(EndCategoryConstruction):
 class AutCategoryOf(CategoryWithAxiom):
     r"""Generic category whose objects are ``Aut_C(A)``."""
 
+    _base_category_class_and_axiom = (EndCategoryOf, "Autset")
+
     # Category-level construction: C.AutCategory() has objects Aut_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
     def extra_super_categories(self) -> list[Category]:
-        return [AutCategory()]
+        aut_supercategories = [
+            super_category.AutCategory()
+            for super_category in self.base_category().super_categories()
+            if super_category in Cat() and super_category.is_subcategory(EndCategory())
+        ]
+        return [AutCategory(), *aut_supercategories]
 
     def from_end_category(self, end_category: End) -> Aut:
         return SageConditionSet(end_category, _is_invertible_endomorphism, category=self)

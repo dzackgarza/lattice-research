@@ -208,6 +208,14 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
   because `ZZ` is already a set object, while finite iterable inputs such as
   `Set([1, 2, 3])` map to a named finite-enumerated constructor such as
   `Sets().Constructors().from_iterable(elements)`.
+- **Sage constructor families are not automatically project subcategories.** A Sage
+  implementation class or named constructor family becomes a project subcategory only
+  when it names a real mathematical category. For example,
+  `CombinatorialFreeModule(R, basis_keys)` is a constructor on `Modules(R)`: it builds
+  a free module with explicit basis keys and then refines that object into existing
+  module categories such as `Modules(R).Free()` and
+  `Modules(R).WithOrderedGeneratingSet()`. Do not create a
+  `CombinatorialFreeModules` category.
 - **Unsurfaced mapping decisions are failures.** If an agent decides a Sage surface is
   non-mapped, moved to a strict supercategory, or replaced by a named constructor, that
   decision must appear in mapping docs or `NEEDS_DECISIONS.md` with the mathematical
@@ -345,8 +353,9 @@ Before editing a category spec, answer these questions in order:
   category, a constructor namespace, a predicate subcategory, a compatibility
   supercategory, or an implementation gap. Most bad edits in this subtree came from
   confusing these: e.g. treating `Constructors` as a category, treating Sage
-  functorial construction categories as actual functors, inventing a category-level
-  `C.Hom()` selector, or confusing object-level `C.Hom(D)` with `C.HomCategory()`.
+  construction-category values as Sage `ConstructionFunctor` instances, inventing a
+  category-level `C.Hom()` selector, or confusing object-level `C.Hom(D)` with
+  `C.HomCategory()`.
 - **Which layer uniquely owns it?** Do not patch below that layer. Sage category-base
   wrapping belongs in `cat/base_category_types.py`; universal construction selectors
   belong in `cat/universal_subcategory_methods.py`; root category-object semantics
@@ -428,6 +437,20 @@ owning layer before editing locally.
   - Audit response: read the relevant Sage source and try ordinary subclassing,
     singleton bases, `Parent` registration, `_with_axiom`, and Sage method providers
     before accepting any class manipulation.
+- **Explicit provider subclassing inside category specs**:
+  - What makes it a red flag: a nested `ParentMethods`, `ElementMethods`,
+    `MorphismMethods`, `SubcategoryMethods`, or construction-specific method provider
+    explicitly subclasses another provider class, helper class, or mixin. Sage treats
+    these nested classes as flat method providers and builds the actual generated-class
+    inheritance from `super_categories()` through `_make_named_class`.
+  - Suspect: the category relation, axiom relation, or method owner is missing or
+    modeled at the wrong layer. A provider superclass is usually an attempt to patch
+    the Python MRO instead of stating the mathematical category graph.
+  - Audit response: remove the Python inheritance from the provider design. Put shared
+    methods on the lowest mathematically correct category, express the relationship via
+    `super_categories()`, `_with_axiom`, or the proper Sage construction category, or
+    document the missing owner as a design decision. Do not copy provider methods or
+    splice method-provider bases to make a smoke pass.
 - **Strict-supercategory leaks**:
   - What makes it a red flag: a category defines methods that already make sense in a
     strict supercategory. For example, module morphisms should not be the first place
@@ -634,7 +657,8 @@ subtree (e.g., `HomCategory = SetHomCategory`). The universal
 
 `C.Hom()` is not a category-level construction. For category objects `C, D in Cat()`,
 `C.Hom(D)` is the object-level functor category `Hom_{Cat}(C, D)`. The category-level
-construction is `C.HomCategory()`, and its evaluated constructor is
+functorial construction is `Hom_*: Cat -> Cat`, sending `C` to
+`C.HomCategory() = Hom_C`; its evaluated constructor is
 `C.HomCategory().Of(A, B)` for objects `A, B in C`.
 
 Other constructions like `TensorProducts()` should be added to

@@ -97,7 +97,9 @@ so `fixed_points()` is not a Cat-level functor method surface.
 
 ## Standard Constructions
 
-Sage functorial construction categories map directly to category-object methods:
+Sage functorial construction categories map directly to category-object methods.  A
+selector such as `C.HomCategory()` evaluates the corresponding construction functor at
+`C`; the return value is the category object `Hom_C`.
 
 | Sage class | Project method | Local file |
 | --- | --- | --- |
@@ -142,7 +144,9 @@ Sage's built-in regressive constructions.
 
 ## Hom, End, and Aut Categories
 
-`CatHomCategory` is the category of functor categories internal to `Cat()`.
+`CatHomCategory` is the category of functor categories internal to `Cat()`.  The
+functorial construction is `Hom_*: Cat -> Cat`, which sends a category `C` to the
+category object `Hom_C`.
 
 Mapping:
 
@@ -155,8 +159,8 @@ Mapping:
 - `A.Hom(B).category()` is `Cat().HomCategory()`;
 - `A.Hom(A)` is the object-level endofunctor parent;
 - hom elements are Sage `Functor` instances;
-- construction functors are a specialized functor method surface, not category
-  objects.
+- Sage `ConstructionFunctor` instances have a specialized functor method surface; they
+  are not the same object as the construction-category value `Hom_C`.
 
 The repository-level `homsets/` subtree owns generic hom/end/aut vocabulary such as
 `domain`, `codomain`, `EndCategory`, and `AutCategory`. The Cat subtree adds only the

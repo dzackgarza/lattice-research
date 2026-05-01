@@ -8,20 +8,13 @@ from typing import TYPE_CHECKING, final, overload
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-from sage.structure.dynamic_class import DynamicMetaclass
 
 from sage.structure.parent import Parent
 
-from ..cat import Cat, Category, CategoryWithParameters, FunctorialConstructionCategory, Homsets as SageHomsetsBase, _SageCategory
+from ..cat import Cat, Category, FunctorialConstructionCategory, Homsets as SageHomsetsBase, _SageCategory
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, CategoryObject, Hom, Morphism
-
-
-def _base_class(cls: type) -> type:
-    if isinstance(cls, DynamicMetaclass):
-        return cls.__base__
-    return cls
 
 
 class UniversalHomObjectMethods:
@@ -115,8 +108,15 @@ class HomCategory(SageHomsetsBase):
     Endset = LazyImport("category_specs.homsets.endsets", "EndCategory")
 
 
-class HomCategoryConstruction(FunctorialConstructionCategory, CategoryWithParameters):
-    r"""Functorial construction category for ``C.HomCategory()``."""
+class HomCategoryConstruction(FunctorialConstructionCategory):
+    r"""Functorial construction category for ``C.HomCategory()``.
+
+    This is the project-owned functorial assignment ``Hom_*: Cat -> Cat``,
+    sending ``C`` to ``Hom_C``.  Sage's ``HomsetsCategory`` is inventory
+    and interop vocabulary here; it is not a source of mathematical method
+    inheritance.  The Hom method surface is declared in this file and refined
+    by subtree ``homsets.py`` files.
+    """
 
     _functor_category = "HomCategory"
     _base_category_class = (_SageCategory,)
@@ -147,64 +147,21 @@ class HomCategoryConstruction(FunctorialConstructionCategory, CategoryWithParame
     @classmethod
     @final
     def default_super_categories(cls, category: Category) -> Category:
-        r"""Return hom-category supercategories without repeating one construction.
-
-        Sage's hom construction is deliberately not handled like an
-        ordinary covariant functor: its own
-        ``HomsetsCategory.default_super_categories`` first looks at full
-        supercategories, and otherwise falls back to the generic
-        ``HomCategoryOf`` stub.  That distinction matters here because the Cat
-        wrapper layer makes ``HomCategory`` a universal construction method on
-        every project category object.  If we naively recurse through every
-        supercategory after that rewrite, a chain such as
-        ``Modules(R).OverPID() -> OverDedekind() -> OverIntegralDomain() ->
-        Modules(R)`` contributes four different dynamic
-        ``RModuleHomCategory.parent_class`` and ``RModuleHomCategory.element_class``
-        providers.  Each provider declares the same abstract module-hom
-        requirements, so the resulting mixed classes re-declare the same spec
-        surface several times.
-
-        The mathematical relation we need is weaker and cleaner: keep hom-category
-        supercategories that use a genuinely different construction class
-        (for example ``Sets().HomCategory()`` under module hom categories), but collapse
-        intermediate supercategories whose hom categories are again the same local
-        construction.  The base category itself can still appear through
-        ``extra_super_categories`` where a concrete hom category, such as
-        ``RModuleHomCategory``, declares that its objects are also modules.
-        """
-        construction_class = _base_class(cls)
-        if construction_class is HomCategoryOf:
-            return HomCategory()
-
-        hom_supercategories = []
-        hom_supercategory_ids = set()
-        seen_category_ids = set()
-
-        def collect_supercategory_hom_categories(base_category: Category) -> None:
-            for super_category in base_category.super_categories():
-                if id(super_category) in seen_category_ids:
-                    continue
-                seen_category_ids.add(id(super_category))
-                hom_category = super_category.HomCategory()
-                if _base_class(hom_category.__class__) is construction_class:
-                    collect_supercategory_hom_categories(super_category)
-                    continue
-                if id(hom_category) in hom_supercategory_ids:
-                    continue
-                hom_supercategories.append(hom_category)
-                hom_supercategory_ids.add(id(hom_category))
-
-        collect_supercategory_hom_categories(category)
+        r"""Lift Cat-level supercategories through the hom-category construction."""
+        hom_supercategories = [
+            super_category.HomCategory()
+            for super_category in category.super_categories()
+            if super_category in Cat()
+        ]
         if not hom_supercategories:
             return HomCategory()
         return Category.join(hom_supercategories)
 
-    def _make_named_class_key(self, name: str):
-        return getattr(self.base_category(), name)
-
-
 class HomCategoryOf(HomCategoryConstruction):
     r"""Generic category whose objects are ``Hom_C(A, B)``."""
+
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport("category_specs.homsets.endsets", "EndCategoryOf")
 
     # This is the category-level construction for a category C:
     # C.HomCategory() is the category whose objects are Hom_C(A, B).

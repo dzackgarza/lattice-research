@@ -8,8 +8,8 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .homsets import HomCategory, HomCategoryConstruction
+from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
+from .homsets import HomCategory, HomCategoryConstruction, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import CategoryObject, End, Endomorphism
@@ -91,11 +91,18 @@ class EndCategoryConstruction(HomCategoryConstruction):
 class EndCategoryOf(CategoryWithAxiom):
     r"""Generic category whose objects are ``End_C(A)``."""
 
+    _base_category_class_and_axiom = (HomCategoryOf, "Endset")
+
     # Category-level construction: C.EndCategory() has objects End_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
     def extra_super_categories(self) -> list[Category]:
-        return [EndCategory()]
+        end_supercategories = [
+            _end_categories_of(super_category)
+            for super_category in self.base_category().super_categories()
+            if super_category in Cat() and super_category.is_subcategory(HomCategory())
+        ]
+        return [EndCategory(), *end_supercategories]
 
     @final
     def Of(self, domain: CategoryObject) -> End:
@@ -111,3 +118,6 @@ class EndCategoryOf(CategoryWithAxiom):
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
     class MorphismMethods: ...
+
+    # Sage axiom interop hook for _with_axiom("Autset").
+    Autset = LazyImport("category_specs.homsets.autsets", "AutCategoryOf")

@@ -7,7 +7,7 @@ project hom/end/aut category hierarchy.
 
 | Sage surface | Project surface | Consequence |
 | --- | --- | --- |
-| `HomsetsCategory` | `HomCategoryConstruction` | The project extends Sage's functorial construction through the registered re-export in `category_specs.cat`. |
+| `HomsetsCategory` | `HomCategoryConstruction` | Sage identifies the homsets construction, but project `HomCategoryConstruction` owns the mathematical method surface; Sage `HomsetsCategory` is inventory/interop, not a semantic superclass. |
 | `Homsets()` | `HomCategory()` | The project root hom category supplies generic parent and element method surfaces. |
 | `HomsetsCategory.category_of(C)` | `C.HomCategory()` | The project makes the base category explicit, so `C.HomCategory()`, `C.EndCategory()`, and `C.AutCategory()` share one generic hierarchy before subtree-specific structure is added. |
 | `Homsets().Endset()` | `HomCategory().EndCategory()` | Sage's root endset category remains an interop supercategory for generic ends. |

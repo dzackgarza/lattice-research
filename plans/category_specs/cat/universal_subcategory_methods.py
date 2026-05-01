@@ -88,9 +88,17 @@ class UniversalSubcategoryMethods:
     @cached_method
     @final
     def EndCategory(self) -> CategoryOfEndCategories:
+        from ..homsets import HomCategory
+
+        if self.is_subcategory(HomCategory()):
+            return self._with_axiom("Endset")
         return self.HomCategory().EndCategory()
 
     @cached_method
     @final
     def AutCategory(self) -> CategoryOfAutCategories:
+        from ..homsets import EndCategory
+
+        if self.is_subcategory(EndCategory()):
+            return self._with_axiom("Autset")
         return self.EndCategory().AutCategory()
