@@ -208,6 +208,14 @@ class _RModObjects:
         return False
 
     @final
+    def has_basis(self) -> bool:
+        return False
+
+    @final
+    def has_ordered_basis(self) -> bool:
+        return False
+
+    @final
     def is_finitely_generated(self) -> bool:
         return False
 
@@ -1132,6 +1140,16 @@ class Modules(Category_module):
 
         @cached_method
         @final
+        def WithBasis(self) -> Category:
+            return self._with_axiom("WithBasis")
+
+        @cached_method
+        @final
+        def WithOrderedBasis(self) -> Category:
+            return self._with_axiom("WithOrderedBasis")
+
+        @cached_method
+        @final
         def WithOrderedGeneratingSet(self) -> Category:
             return self._with_axiom("WithOrderedGeneratingSet")
 
@@ -1234,6 +1252,8 @@ class Modules(Category_module):
     # Axiomatic subcategories — generation
     # ------------------------------------------------------------------
 
+    WithBasis = LazyImport("category_specs.modules.subcategories.with_basis", "_WithBasis")
+    WithOrderedBasis = LazyImport("category_specs.modules.subcategories.with_basis", "_WithOrderedBasis")
     WithOrderedGeneratingSet = LazyImport(
         "category_specs.modules.subcategories.with_ordered_generating_set", "_WithOrderedGeneratingSet"
     )
