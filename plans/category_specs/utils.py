@@ -46,5 +46,15 @@ def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = Tr
 
 
 def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]], ...]) -> None:
+    failures: list[str] = []
     for message, statement in statements:
-        assert statement(None), message
+        # This is the allowed smoke-harness exception pattern: spec smokes are
+        # frontier sensors, so one missing method must not hide the rest of the
+        # missing surface.  The failures are still reported and made fatal
+        # after every labeled statement has run.
+        try:
+            assert statement(None), message
+        except Exception as exc:
+            failures.append(f"{message}: {type(exc).__name__}: {exc}")
+
+    assert not failures, "\n".join(failures)
