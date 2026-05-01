@@ -53,6 +53,17 @@ validation can be meaningful.
 `FinitelyPresented().OverPID()` registration. Decide the category path and constructor
 ownership before the module constructor surface is considered complete.
 
+## Countable Set Fallback Helper Surface
+
+`sets/docs/MAPPING.md` maps Sage fallback helpers such as
+`_an_element_from_iterator`, `_first_from_iterator`, `_iterator_from_next`, and related
+cache/materialization helpers to inventory-only behavior, but
+`sets/subcategories/countable.py` still declares several of those helper names as
+abstract project obligations. This blocks module constructor smokes when refined finite
+modules inherit finite/countable set structure. Decide in an interactive sets-spec pass
+whether the mapping or the abstract method surface is authoritative, then update the
+other source to match.
+
 ## Topological Constructor Inventory
 
 The inheritance path is decided in the mapping docs: topological rings, modules, and
