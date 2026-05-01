@@ -2,15 +2,17 @@ r"""Modules with a specified basis."""
 
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import CategoryElement, ModuleBasis
+    from ...types import CategoryElement, ModuleBasis, RingElement, RModuleElement, RModuleMorphism
 
 
 class _WithBasis(CategoryWithAxiom_over_base_ring):
@@ -43,7 +45,70 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         def basis_index_set(self):
             return self.basis().keys()
 
-    class ElementMethods: ...
+        @abstract_method
+        def monomial(self, index: CategoryElement) -> RModuleElement:
+            r"""Return the basis element indexed by ``index``."""
+            ...
+
+        @abstract_method
+        def term(self, index: CategoryElement, coeff: RingElement | None = None) -> RModuleElement:
+            r"""Return ``coeff`` times the basis element indexed by ``index``."""
+            ...
+
+        @abstract_method
+        def linear_combination_of_basis(
+            self,
+            terms: dict[CategoryElement, RingElement] | Sequence[tuple[CategoryElement, RingElement]],
+        ) -> RModuleElement:
+            r"""Return the finite linear combination of basis terms."""
+            ...
+
+    class ElementMethods:
+        @abstract_method
+        def monomial_coefficients(self, copy: bool = True) -> dict[CategoryElement, RingElement]:
+            r"""Return the finite coefficient map in the parent's basis."""
+            ...
+
+        @abstract_method
+        def coefficient(self, index: CategoryElement) -> RingElement:
+            r"""Return the coefficient of the basis element indexed by ``index``."""
+            ...
+
+        @abstract_method
+        def support(self) -> list[CategoryElement]:
+            r"""Return the finite basis support of this element."""
+            ...
+
+        @abstract_method
+        def monomials(self) -> list[RModuleElement]:
+            r"""Return the basis monomials appearing with nonzero coefficient."""
+            ...
+
+        @abstract_method
+        def terms(self) -> list[RModuleElement]:
+            r"""Return the nonzero scalar basis terms of this element."""
+            ...
+
+        @abstract_method
+        def coefficients(self) -> list[RingElement]:
+            r"""Return the nonzero coefficients in the basis expansion."""
+            ...
+
+    class HomCategory(HomCategoryConstruction):
+        class ParentMethods:
+            @abstract_method
+            def from_basis_map(self, f: Callable[[CategoryElement], RModuleElement]) -> RModuleMorphism:
+                r"""Return the module morphism determined by a map on basis indices."""
+                ...
+
+        class ElementMethods:
+            @abstract_method
+            def on_basis(self) -> Callable[[CategoryElement], RModuleElement]:
+                r"""Return the basis-index map determining this morphism."""
+                ...
+
+        class MorphismMethods: ...
+
     class MorphismMethods: ...
 
 
