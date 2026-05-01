@@ -111,6 +111,18 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement: ...
 
+        @abstract_method
+        def V(self) -> RModule: ...
+
+        @abstract_method
+        def W(self) -> RModule: ...
+
+        @abstract_method
+        def optimized(self) -> RModule: ...
+
+        @abstract_method
+        def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism: ...
+
     # ------------------------------------------------------------------
     # ElementMethods
     # ------------------------------------------------------------------

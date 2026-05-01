@@ -21,7 +21,7 @@ ZZ = Rings().Constructors().ZZ()
 MZZ = Modules(ZZ).Constructors()
 
 # ---------------------------------------------------------------------------
-# FGP quotient modules: required surface in _FinitelyGeneratedPIDQuotientModules
+# FGP quotient modules: required surface in FinitelyPresentedModulesOverPID
 # ---------------------------------------------------------------------------
 
 V = MZZ.span([[1, 2, 5], [2, 2, 2]])
@@ -29,25 +29,25 @@ W = V.span([V.gen(0)])
 Q = MZZ.quotient_of_free_modules(V, W)
 
 logger.warning(
-    "Spec mismatch: _FinitelyGeneratedPIDQuotientModules requires free_part(), "
+    "Spec mismatch: FinitelyPresentedModulesOverPID requires free_part(), "
     "but the current Sage FGP quotient object still raises NotImplementedError."
 )
 Q.free_part()
 
 logger.warning(
-    "Spec mismatch: _FinitelyGeneratedPIDQuotientModules requires torsion_part(), "
+    "Spec mismatch: FinitelyPresentedModulesOverPID requires torsion_part(), "
     "but the current Sage FGP quotient object still raises NotImplementedError."
 )
 Q.torsion_part()
 
 logger.warning(
-    "Spec mismatch: _FinitelyGeneratedPIDQuotientModules requires element_from_vector(...), "
+    "Spec mismatch: FinitelyPresentedModulesOverPID requires element_from_vector(...), "
     "but the current Sage FGP quotient object still raises NotImplementedError."
 )
 Q.element_from_vector([0])
 
 logger.warning(
-    "Spec mismatch: _FinitelyGeneratedPIDQuotientModules types optimized() as an R-module object, "
+    "Spec mismatch: FinitelyPresentedModulesOverPID types optimized() as an R-module object, "
     "but the current Sage FGP quotient object returns a plain tuple."
 )
 assert Q.optimized() in Modules(ZZ)

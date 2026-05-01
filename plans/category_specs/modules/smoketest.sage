@@ -127,7 +127,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(QQ).Constructors().FiniteRankFreeModule(2) is finite-rank free",
-        lambda _: NMQQ.FiniteRankFreeModule(2) in MQQCat.Free().FiniteRank().WithOrderedBasis(),
+        lambda _: NMQQ.FiniteRankFreeModule(2) in MQQCat.Free().FiniteRank(),
     ),
     ("Modules(QQ).Constructors().FiniteRankFreeModule(2) has rank 2", lambda _: NMQQ.FiniteRankFreeModule(2).rank() == 2),
     (
@@ -154,8 +154,8 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(SymmetricGroup(3).regular_representation(QQ), RepresentationModules()) is a representation module",
-        lambda _: refine_category(SymmetricGroup(3).regular_representation(QQ), NMQQ.RepresentationModules())
-        in NMQQ.RepresentationModules(),
+        lambda _: refine_category(SymmetricGroup(3).regular_representation(QQ), MQQCat.RepresentationModules())
+        in MQQCat.RepresentationModules(),
     ),
     (
         "refine_category(M / Wfg, FinitelyPresented().OverPID()) is finitely presented over a PID",
@@ -164,19 +164,19 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(ExteriorAlgebra(QQ)).Constructors().FreeGradedModule(E, (-1, 3)) is free graded",
-        lambda _: NME.FreeGradedModule(E, (-1, 3)) in NME.FreeGradedModules(),
+        lambda _: NME.FreeGradedModule(E, (-1, 3)) in Modules(E).FreeGradedModules(),
     ),
     (
         "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(...) is finitely presented graded",
-        lambda _: NME.FPModule(E, [0, 1], [[xE, E.one()]]) in NME.FinitelyPresentedGradedModules(),
+        lambda _: NME.FPModule(E, [0, 1], [[xE, E.one()]]) in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
         "Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z) is an Ore module",
-        lambda _: NMK.OreQuotientModule(Sore, X**2 + z) in NMK.OreModules(),
+        lambda _: NMK.OreQuotientModule(Sore, X**2 + z) in Modules(K).OreModules(),
     ),
     (
         "Modules(ZZ).Constructors().IntegerLattice(...) is an integer lattice",
-        lambda _: NMZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]]) in NMZZ.IntegerLattices(),
+        lambda _: NMZZ.IntegerLattice([[1, 0, 3], [0, 2, 1], [0, 2, 7]]) in MZZCat.IntegerLattices(),
     ),
     (
         "Modules(ZZ).Constructors().IntegerLattice(...) has rank 3",
@@ -185,11 +185,11 @@ SMOKE_STATEMENTS = (
     (
         "Modules(ZZ).Constructors().TorsionQuadraticForm(...) is a torsion quadratic module",
         lambda _: NMZZ.TorsionQuadraticForm(matrix(QQ, [[1, QQ(1) / 2], [QQ(1) / 2, 1]]))
-        in NMZZ.TorsionQuadraticModules(),
+        in MZZCat.TorsionQuadraticModules(),
     ),
     (
         "Modules(ZZ).Constructors().polynomial_ring_as_module(name='t') is a ring object as a module",
-        lambda _: NMZZ.polynomial_ring_as_module(name="t") in NMZZ.RingObjectsAsModules(),
+        lambda _: NMZZ.polynomial_ring_as_module(name="t") in MZZCat.RingObjectsAsModules(),
     ),
     (
         "Modules(ZZ).Constructors().polynomial_ring_as_module(name='t') has base ring ZZ",

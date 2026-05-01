@@ -1,13 +1,12 @@
-r"""Sage-backed module family category."""
+r"""Modules equipped with a specified semigroup or group action."""
 
 from __future__ import annotations
 
 import operator
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, Literal, final
+from typing import TYPE_CHECKING, Literal, final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -15,34 +14,10 @@ from .. import Modules
 if TYPE_CHECKING:
     from ...types import Algebra, CategoryElement, Group, Matrix, Monoid, RModule, RModuleElement
 
-_FreeModulesWithStandardBasis = LazyImport("category_specs.modules.subcategories.free_modules_with_standard_basis", "_FreeModulesWithStandardBasis")
-_FreeModulesOverIntegralDomains = LazyImport("category_specs.modules.subcategories.free_modules_over_integral_domains", "_FreeModulesOverIntegralDomains")
-_FreeModulesOverPIDs = LazyImport("category_specs.modules.subcategories.free_modules_over_pids", "_FreeModulesOverPIDs")
-_VectorSpaces = LazyImport("category_specs.modules.subcategories.vector_spaces", "_VectorSpaces")
-_RealDoubleVectorSpaces = LazyImport("category_specs.modules.subcategories.real_double_vector_spaces", "_RealDoubleVectorSpaces")
-_ComplexDoubleVectorSpaces = LazyImport("category_specs.modules.subcategories.complex_double_vector_spaces", "_ComplexDoubleVectorSpaces")
-_VectorSubspaces = LazyImport("category_specs.modules.subcategories.vector_subspaces", "_VectorSubspaces")
-_VectorSubspacesWithOrderedGeneratingSet = LazyImport("category_specs.modules.subcategories.vector_subspaces_with_ordered_generating_set", "_VectorSubspacesWithOrderedGeneratingSet")
-_VectorSpaceQuotients = LazyImport("category_specs.modules.subcategories.vector_space_quotients", "_VectorSpaceQuotients")
-_FreeQuadraticModules = LazyImport("category_specs.modules.subcategories.free_quadratic_modules", "_FreeQuadraticModules")
-_FreeModuleSubmodules = LazyImport("category_specs.modules.subcategories.free_module_submodules", "_FreeModuleSubmodules")
-_FreeModuleSubmodulesWithOrderedGeneratingSet = LazyImport("category_specs.modules.subcategories.free_module_submodules_with_ordered_generating_set", "_FreeModuleSubmodulesWithOrderedGeneratingSet")
-_SubmodulesWithOrderedGeneratingSet = LazyImport("category_specs.modules.subcategories.submodules_with_ordered_generating_set", "_SubmodulesWithOrderedGeneratingSet")
-_QuotientModulesWithOrderedGeneratingSet = LazyImport("category_specs.modules.subcategories.quotient_modules_with_ordered_generating_set", "_QuotientModulesWithOrderedGeneratingSet")
-_FreeModuleQuotients = LazyImport("category_specs.modules.subcategories.free_module_quotients", "_FreeModuleQuotients")
-_RepresentationModules = LazyImport("category_specs.modules.subcategories.representation_modules", "_RepresentationModules")
-_FiniteRankFreeModules = LazyImport("category_specs.modules.subcategories.finite_rank_free_modules", "_FiniteRankFreeModules")
-_FinitelyGeneratedPIDQuotientModules = LazyImport("category_specs.modules.subcategories.finitely_generated_pid_quotient_modules", "_FinitelyGeneratedPIDQuotientModules")
-_FreeGradedModules = LazyImport("category_specs.modules.subcategories.free_graded_modules", "_FreeGradedModules")
-_FinitelyPresentedGradedModules = LazyImport("category_specs.modules.subcategories.finitely_presented_graded_modules", "_FinitelyPresentedGradedModules")
-_OreModules = LazyImport("category_specs.modules.subcategories.ore_modules", "_OreModules")
-_IntegerLattices = LazyImport("category_specs.modules.subcategories.integer_lattices", "_IntegerLattices")
-_TorsionQuadraticModules = LazyImport("category_specs.modules.subcategories.torsion_quadratic_modules", "_TorsionQuadraticModules")
-_RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
 
 class _RepresentationModules(Category_over_base_ring):
-    r"""Group and semigroup representations implemented with bases."""
+    r"""Modules carrying a left, right, or two-sided action."""
 
     @final
     def super_categories(self):
@@ -52,13 +27,11 @@ class _RepresentationModules(Category_over_base_ring):
             Modules(R).WithOrderedGeneratingSet(),
         ]
 
-    @final
-    def __contains__(self, M: Any) -> bool:
-        from sage.modules.with_basis.representation import Representation_abstract
-
-        return isinstance(M, Representation_abstract)
-
     class ParentMethods:
+        @final
+        def is_representation_module(self) -> bool:
+            return True
+
         @abstract_method
         def semigroup(self) -> Group | Monoid: ...
 

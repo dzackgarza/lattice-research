@@ -2,10 +2,16 @@ r"""Vector spaces and modules over fields."""
 
 from __future__ import annotations
 
-from typing import Any, final
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any, Literal, final
+
+from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
+
+if TYPE_CHECKING:
+    from ...types import RModuleElement
 
 
 class _OverField(CategoryWithAxiom_over_base_ring):
@@ -23,6 +29,14 @@ class _OverField(CategoryWithAxiom_over_base_ring):
         @final
         def is_over_field(self) -> bool:
             return True
+
+        @abstract_method
+        def linear_dependence(
+            self,
+            vectors: Sequence[RModuleElement],
+            zeros: Literal["left", "right"] = "left",
+            check: bool = True,
+        ) -> list[RModuleElement]: ...
 
     class ElementMethods: ...
 

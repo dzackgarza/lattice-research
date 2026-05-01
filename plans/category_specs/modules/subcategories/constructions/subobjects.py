@@ -31,6 +31,11 @@ class _Subobjects(SubobjectsCategory):
             r"""Return the ambient module of this submodule."""
             return self.ambient_module()
 
+        @final
+        def ambient_vector_space(self) -> RModule:
+            r"""Return the ambient vector space when the base category is over a field."""
+            return self.ambient_module()
+
         @abstract_method
         def inclusion(self) -> RModMorphism: ...
 
@@ -55,6 +60,12 @@ class _Subobjects(SubobjectsCategory):
 
         @abstract_method
         def saturation(self) -> SubModule: ...
+
+        @abstract_method
+        def complement(self) -> RModule: ...
+
+        @abstract_method
+        def is_subspace(self, other: RModule) -> bool: ...
 
         @abstract_method
         def __le__(self, other: RModule) -> bool: ...

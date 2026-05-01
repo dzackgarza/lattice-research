@@ -12,7 +12,7 @@ from ...homsets import HomCategoryConstruction
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import CategoryElement, ModuleBasis, RingElement, RModuleElement, RModuleMorphism
+    from ...types import CategoryElement, Integer, Matrix, ModuleBasis, Ring, RingElement, RModule, RModuleElement, RModuleMorphism
 
 
 class _WithBasis(CategoryWithAxiom_over_base_ring):
@@ -62,6 +62,20 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         ) -> RModuleElement:
             r"""Return the finite linear combination of basis terms."""
             ...
+
+        @abstract_method
+        def echelon_form(
+            self,
+            elements: Sequence[RModuleElement],
+            row_reduced: bool = False,
+            order: Sequence[CategoryElement] | Callable[[CategoryElement], Integer | str] | None = None,
+        ) -> list[RModuleElement]: ...
+
+        @abstract_method
+        def reduce(self, x: RModuleElement) -> RModuleElement: ...
+
+        @abstract_method
+        def cokernel_basis_indices(self) -> tuple[CategoryElement, ...]: ...
 
     class ElementMethods:
         @abstract_method
@@ -137,6 +151,51 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
         def basis_order(self) -> tuple[CategoryElement, ...]:
             return tuple(self.basis().keys())
 
-    class ElementMethods: ...
+        @final
+        def user_basis(self) -> ModuleBasis:
+            return self.basis()
+
+        @abstract_method
+        def basis_matrix(self, ring: Ring | None = None) -> Matrix: ...
+
+        @abstract_method
+        def echelonized_basis(self) -> ModuleBasis: ...
+
+        @abstract_method
+        def echelonized_basis_matrix(self) -> Matrix: ...
+
+        @abstract_method
+        def coordinate_vector(
+            self,
+            v: RModuleElement | Sequence[RingElement],
+            check: bool = True,
+        ) -> RModuleElement | Sequence[RingElement]: ...
+
+        @abstract_method
+        def coordinates(self, v: RModuleElement | Sequence[RingElement]) -> RModuleElement | Sequence[RingElement]: ...
+
+        @abstract_method
+        def from_vector(
+            self,
+            vector: RModuleElement | Sequence[RingElement],
+            order: Sequence[CategoryElement] | None = None,
+            coerce: bool = True,
+        ) -> RModuleElement: ...
+
+        @abstract_method
+        def coordinate_module(self, V: RModule) -> RModule: ...
+
+        @abstract_method
+        def matrix(self) -> Matrix: ...
+
+    class ElementMethods:
+        @abstract_method
+        def list(self) -> list[RingElement]: ...
+
+        @abstract_method
+        def vector(self) -> RModuleElement | Sequence[RingElement]: ...
+
+        @abstract_method
+        def degree(self) -> Integer: ...
 
     class MorphismMethods: ...

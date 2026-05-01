@@ -2,10 +2,15 @@ r"""Modules over principal ideal domains."""
 
 from __future__ import annotations
 
-from typing import Any, final
+from typing import TYPE_CHECKING, Any, final
+
+from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
+
+if TYPE_CHECKING:
+    from ...types import Cardinality, RModule
 
 
 class _OverPID(CategoryWithAxiom_over_base_ring):
@@ -23,6 +28,9 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
         @final
         def is_over_pid(self) -> bool:
             return True
+
+        @abstract_method
+        def index_in(self, other: RModule) -> Cardinality: ...
 
     class ElementMethods: ...
 

@@ -2,6 +2,7 @@ r"""Free modules."""
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category import Category
@@ -13,7 +14,7 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, ModuleBasis
+    from ...types import Cardinality, Integer, ModuleBasis, RModMorphism, RModule
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
@@ -65,7 +66,41 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def basis(self) -> ModuleBasis: ...
 
         @abstract_method
+        def bases(self) -> list[ModuleBasis]: ...
+
+        @abstract_method
+        def default_basis(self) -> ModuleBasis: ...
+
+        @abstract_method
+        def set_default_basis(self, basis: ModuleBasis) -> None: ...
+
+        @abstract_method
         def dimension(self) -> Cardinality: ...
+
+        @final
+        def degree(self) -> Cardinality:
+            return self.dimension()
+
+        @abstract_method
+        def tensor_module(
+            self,
+            k: Integer,
+            l: Integer,
+            *,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> RModule: ...
+
+        @abstract_method
+        def exterior_power(self, p: Integer) -> RModule: ...
+
+        @abstract_method
+        def alternating_form(
+            self,
+            degree: Integer,
+            name: str | None = None,
+            latex_name: str | None = None,
+        ) -> RModMorphism: ...
 
     class ElementMethods: ...
 

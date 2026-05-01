@@ -11,7 +11,7 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import _WithForms
 
 if TYPE_CHECKING:
-    from ...types import RModuleElement
+    from ...types import Matrix, RingElement, RModuleElement
 
 
 class _BilinearModules(CategoryWithAxiom_over_base_ring):
@@ -44,7 +44,22 @@ class _BilinearModules(CategoryWithAxiom_over_base_ring):
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             return self.form().b(v, w)
 
-    class ElementMethods: ...
+        @abstract_method
+        def inner_product_matrix(self) -> Matrix: ...
+
+        @abstract_method
+        def gram_matrix(self) -> Matrix: ...
+
+        @abstract_method
+        def uses_ambient_inner_product(self) -> bool: ...
+
+    class ElementMethods:
+        @abstract_method
+        def inner_product(self, other: RModuleElement) -> RingElement: ...
+
+        @abstract_method
+        def dot_product(self, other: RModuleElement) -> RingElement: ...
+
     class MorphismMethods: ...
 
     Symmetric = LazyImport("category_specs.lattices.subcategories.symmetric", "_SymmetricBilinearModules")
