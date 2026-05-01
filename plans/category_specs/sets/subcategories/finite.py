@@ -43,23 +43,7 @@ class _FiniteSets(CategoryWithAxiom):
             return int(self.cardinality())
 
         @abstract_method
-        def list(self) -> list[SetElement]: ...
-
-        @abstract_method
-        def tuple(self) -> tuple[SetElement, ...]: ...
-
-        @abstract_method
         def random_element(self) -> SetElement: ...
-
-        @abstract_method
-        def unrank_range(
-            self,
-            start: Integer | None = None,
-            stop: Integer | None = None,
-            step: Integer | None = None,
-        ) -> list[SetElement]:
-            r"""Return elements at rank positions ``[start, stop)`` with stride ``step``."""
-            ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

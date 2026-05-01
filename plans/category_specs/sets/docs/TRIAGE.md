@@ -7,19 +7,13 @@ decisions live in `sets/docs/MAPPING.md`.
 
 ## Current Smoke Frontier
 
-- `sets/smoketest.sage` now exercises `RealSet` with an actual Sage real-interval
-  object, matching the admitted `Sets().Constructors().RealSet(intervals=...)` shape.
-- `sets/smoketest.sage` documents the `Set(ZZ)` replacement by checking `ZZ in Sets()`
-  and documents the `Set([1, 2, 3])` replacement through
-  `Sets().Constructors().from_iterable([1, 2, 3])`.
-- The smoke still fails on existing abstract-method sentinels, not on tuple/list
-  interval data, constructor call-shape mismatches, or arbitrary `Set(X)` wrapping.
-- Missing `_element_constructor_`: `RealSet([RealSet.open(0, 1).get_interval(0)])`.
-- Missing `_an_element_from_iterator`: `FiniteEnumeratedSet`, `IntegerRange`,
-  `RecursivelyEnumeratedSet`, `DisjointUnionEnumeratedSets`, `CartesianProduct`,
-  `ImageSubobject`, `TotallyOrderedFiniteSet`, `FiniteSetMaps`, `Family`, and
-  categorical `cartesian_product`.
-- Missing `__len__`: `NonNegativeIntegers`, `PositiveIntegers`, and
-  `EnumeratedSetFromIterator`.
-- Missing `__iter__`: `Primes`.
-- Missing `algebra`: `Sets().Subobjects().Of(ZZ, predicates=(even predicate,))`.
+- `sets/smoketest.sage` now uses the mapped enumeration surface: indexed access,
+  rank, iteration, cardinality, and Python conversion protocols. It no longer uses
+  Sage `first`, `next`, `unrank`, `list`, `tuple`, range, or fallback-helper names.
+- `ZZ in Sets()` currently fails at the root containment statement.
+- Most refined set constructors currently expose missing `__richcmp__`.
+- `Primes()` currently exposes missing `__iter__`.
+- `RealSet([RealSet.open(0, 1).get_interval(0)])` currently exposes missing
+  `_element_constructor_`.
+- Sage emits a topological axiom warning because `Sets.Topological` resolves to
+  `TopologicalSpaces` rather than a local `CategoryWithAxiom` subclass.

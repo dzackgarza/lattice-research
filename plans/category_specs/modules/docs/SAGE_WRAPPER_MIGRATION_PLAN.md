@@ -75,14 +75,12 @@ Completed in the current branch:
 
 Smoke validation frontier:
 
-- `just smoke-file modules/smoketest.sage` currently stops before the module-wrapper
-  assertions because finite/countable set structure still declares
-  `_an_element_from_iterator` as an abstract method. That is the adjacent sets-spec
-  decision recorded in `../../NEEDS_DECISIONS.md`; this migration must not weaken module
-  smokes or delete adjacent set-spec methods to make module smokes pass.
-
-This is a smoke frontier for the adjacent sets subtree, not an unfinished wrapper
-migration item.
+- `just smoke-file modules/smoketest.sage` reaches the real module constructor
+  assertions and reports missing category surfaces such as `algebra`, `_sympy_`, and
+  `__richcmp__`, plus the representation/lattice key errors and graded-module base
+  category mismatch recorded in `modules/docs/TRIAGE.md`.
+- These failures are not evidence that constructor-only Sage wrapper categories should
+  be restored.
 
 ## Phase: Freeze The Wrapper Inventory
 

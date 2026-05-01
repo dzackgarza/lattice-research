@@ -40,9 +40,6 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def unrank(self, n: Integer) -> SetElement: ...
-
-        @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
         @abstract_method

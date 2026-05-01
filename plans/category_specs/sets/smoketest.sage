@@ -67,7 +67,7 @@ SMOKE_STATEMENTS = (
     ("Primes() is a countably infinite set", lambda _: C.Primes() in Sets().Countable().Infinite()),
     ("2 is prime", lambda _: 2 in C.Primes()),
     ("4 is not prime", lambda _: 4 not in C.Primes()),
-    ("Primes() has first element 2", lambda _: C.Primes().first() == 2),
+    ("Primes() indexes its first element as 2", lambda _: C.Primes()[0] == 2),
     (
         "RealSet(open interval) is a topological set",
         lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Topological(),
@@ -110,7 +110,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "RecursivelyEnumeratedSet([0], successors) ranks 3 as 3",
-        lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth").unrank(3) == 3,
+        lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth")[3] == 3,
     ),
     (
         "DisjointUnionEnumeratedSets has finite countable category",
@@ -187,7 +187,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "EnumeratedSetFromIterator([0, 1, 2]) ranks 2 as 2",
-        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])).unrank(2) == 2,
+        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]))[2] == 2,
     ),
     (
         "1 lies in EnumeratedSetFromIterator([0, 1, 2])",

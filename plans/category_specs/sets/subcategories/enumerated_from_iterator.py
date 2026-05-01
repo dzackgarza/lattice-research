@@ -9,7 +9,7 @@ from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, SetElement
+    from ...types import Cardinality, SetElement
 
 
 from .. import Sets
@@ -35,9 +35,6 @@ class _EnumeratedSetsFromIterator(Category_singleton):
 
         @abstract_method
         def an_element(self) -> SetElement: ...
-
-        @abstract_method
-        def unrank(self, i: Integer) -> SetElement: ...
 
         @abstract_method
         def _element_constructor_(self, el: SetElement) -> SetElement: ...

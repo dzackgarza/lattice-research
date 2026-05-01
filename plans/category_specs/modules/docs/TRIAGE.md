@@ -30,20 +30,17 @@ boundary to choose the mathematical refinement.
 
 ## Current Smoke Frontier
 
-`just smoke-file modules/smoketest.sage` currently stops at the first free-module
-constructor:
+`just smoke-file modules/smoketest.sage` now collects the full module constructor
+frontier. The deleted wrapper categories are not required to reach these failures.
 
-`AssertionError: Not implemented method: _an_element_from_iterator`
-
-This comes from finite/countable set structure during `refine_category` validation
-before the module-wrapper assertions are reached. It is not evidence that a deleted
-wrapper category is still required.
-
-## Adjacent Set-Spec Decision
-
-`_an_element_from_iterator` is recorded in `../../NEEDS_DECISIONS.md` as an adjacent
-sets-spec decision. The module migration must not hide that failure by weakening module
-smokes, deleting set abstract methods, or bypassing `refine_category`.
-
-Once the set decision is resolved, the module smoke should continue exposing the next
-real category-surface gap through `Modules(R).Constructors()`.
+- Missing `algebra`: standard free, vector-space, quotient, free-quadratic, and Ore
+  module constructor paths.
+- Missing `_sympy_`: vector-space and module subobject constructor paths.
+- Missing `__richcmp__`: combinatorial free modules, finite-rank free modules,
+  quotient/subobject refinements, finitely presented PID modules, and polynomial-ring
+  objects as modules.
+- `RepresentationModules()` currently raises `KeyError: (256, 247)`.
+- `IntegerLattices` and `TorsionQuadraticModules` currently raise
+  `KeyError: (256, 239)`.
+- Graded module constructors currently hit a Sage base-category mismatch between
+  `sage.categories.modules.Modules` and `category_specs.modules.Modules`.

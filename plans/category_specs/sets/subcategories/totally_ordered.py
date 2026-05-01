@@ -34,9 +34,6 @@ class _TotallyOrdered(CategoryWithAxiom):
         def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def unrank(self, n: Integer) -> SetElement: ...
-
-        @abstract_method
         def min(self) -> SetElement: ...
 
         @abstract_method

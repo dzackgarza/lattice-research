@@ -8,7 +8,7 @@ from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Integer, SetElement
+    from ...types import SetElement
 
 
 from .. import Sets
@@ -33,15 +33,6 @@ class _PrimesSets(Category_singleton):
 
         @abstract_method
         def _an_element_(self) -> SetElement: ...
-
-        @abstract_method
-        def first(self) -> SetElement: ...
-
-        @abstract_method
-        def next(self, pr: SetElement) -> SetElement: ...
-
-        @abstract_method
-        def unrank(self, n: Integer) -> SetElement: ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

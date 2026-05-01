@@ -9,7 +9,7 @@ from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
-    from ...types import Integer, SetElement, SympySet
+    from ...types import SetElement, SympySet
 
 
 from .. import Sets
@@ -42,12 +42,6 @@ class _NonNegativeIntegersSets(Category_singleton):
 
         @abstract_method
         def some_elements(self) -> list[SetElement]: ...
-
-        @abstract_method
-        def next(self, o: SetElement) -> SetElement: ...
-
-        @abstract_method
-        def unrank(self, rnk: Integer) -> SetElement: ...
 
         @abstract_method
         def _sympy_(self) -> SympySet: ...
