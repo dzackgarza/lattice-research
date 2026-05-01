@@ -26,6 +26,11 @@ class _Subobjects(SubobjectsCategory):
             r"""The ambient R-module of which ``self`` is a submodule."""
             ...
 
+        @final
+        def ambient(self) -> RModule:
+            r"""Return the ambient module of this submodule."""
+            return self.ambient_module()
+
         @abstract_method
         def inclusion(self) -> RModMorphism: ...
 
