@@ -7,7 +7,17 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_module
-from ....modules import Modules
+from ....modules import (
+    Modules,
+    ModulesAut,
+    ModulesAutCategory,
+    ModulesAutomorphism,
+    ModulesEnd,
+    ModulesEndCategory,
+    ModulesEndomorphism,
+    ModulesHom,
+    ModulesHomCategory,
+)
 
 if TYPE_CHECKING:
     from ....types import Matrix, RModuleElement, RingElement, SetFamily
@@ -47,9 +57,6 @@ class _DiscriminantGroups(Category_module):
         def primary_part(self, p: RingElement) -> "_DiscriminantGroups.ParentMethods": ...
 
         @abstract_method
-        def orthogonal_group(self): ...
-
-        @abstract_method
         def all_submodules(self) -> SetFamily: ...
 
     class ElementMethods:
@@ -66,3 +73,11 @@ LatticeDiscriminantGroupsCategory = _DiscriminantGroups
 LatticeDiscriminantGroupsObject = _DiscriminantGroups.ParentMethods
 LatticeDiscriminantGroupsElement = _DiscriminantGroups.ElementMethods
 LatticeDiscriminantGroupsMorphism = _DiscriminantGroups.MorphismMethods
+LatticeDiscriminantGroupsHomCategory = ModulesHomCategory
+LatticeDiscriminantGroupsEndCategory = ModulesEndCategory
+LatticeDiscriminantGroupsAutCategory = ModulesAutCategory
+LatticeDiscriminantGroupsHom = ModulesHom
+LatticeDiscriminantGroupsEnd = ModulesEnd
+LatticeDiscriminantGroupsAut = ModulesAut
+LatticeDiscriminantGroupsEndomorphism = ModulesEndomorphism
+LatticeDiscriminantGroupsAutomorphism = ModulesAutomorphism

@@ -11,7 +11,6 @@ from sage.all import ZZ
 
 
 A = Algebras(ZZ)
-
 SMOKE_STATEMENTS = (
     ("Algebras(ZZ) is an object of Cat()", lambda _: A in Cat()),
     ("Algebras(ZZ) has base ring ZZ", lambda _: A.base_ring() is ZZ),
@@ -31,8 +30,8 @@ SMOKE_STATEMENTS = (
     ("Algebras(ZZ).DualObjects() is an object of Cat()", lambda _: A.DualObjects() in Cat()),
     ("Algebras(ZZ).HomCategory() is an object of Cat()", lambda _: A.HomCategory() in Cat()),
     (
-        "Algebras(ZZ).Constructors() has admitted mathematical constructor cases",
-        lambda _: False,
+        "Algebras(ZZ).Constructors().free_algebra_from_set is admitted",
+        lambda _: A.Constructors().free_algebra_from_set,
     ),
 )
 

@@ -2,10 +2,27 @@
 
 ## Current Smoke Frontier
 
-`algebras/smoketest.sage` currently fails in two expected places:
+On SageMath 10.7, `just smoke-file algebras/smoketest.sage` currently fails before
+the smoke statement loop. `Algebras(ZZ)` raises while Sage tries to resolve
+`subcategory_class` during category initialization:
+
+- `AttributeError: 'sage.rings.integer_ring.IntegerRing_class' object has no attribute '_SageObject__custom_name'`
+
+The same failure occurs from a clean `HEAD` archive, so this is not introduced by the
+constructor inventory repair.
+
+The next known non-constructor frontier remains:
 
 - `Algebras(ZZ).DualObjects()` fails while Sage/project axiom inference tries to build
   the nested `category_specs.modules.homsets._Forms` class of `RModuleHomCategory`.
   This is a module hom-category/form-axiom blocker, not an algebra constructor issue.
-- `Algebras(ZZ).Constructors() has admitted constructor cases` is the deliberate
-  sentinel for the unresolved algebra constructor inventory.
+
+## Remaining Constructor Blockers
+
+| Blocker | Current status |
+| --- | --- |
+| Constructor admission | `docs/MAPPING.md` records candidate constructor targets. Free-construction names may appear as abstract spec targets, but callable implementations still require Sage-backed routing and refinement. |
+| Additive algebra constructors | Sage uses `S.algebra(R, category=...)` for additive semigroups, additive monoids, and additive groups. The project needs explicit names and input types before adding stubs. |
+| General algebra-with-basis constructor | Sage's `CombinatorialFreeModule(..., category=AlgebrasWithBasis(R))` does not itself specify multiplication. A project constructor needs a mathematical type for basis indices, the unit index, and the product-on-basis law. |
+| Nonunital and nonassociative table algebras | Sage's `FiniteDimensionalAlgebra(k, table)` defaults to magmatic algebras. This subtree only admits the associative unital specialization. |
+| Plain-set Sage `S.algebra(R)` | Closed for `Algebras(R)`: this Sage path is routed to `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=S)` / `S.free_module(R)`. The actual set-to-algebra constructor is `free_algebra_from_set`, backed by Sage `FreeAlgebra`, not by `Sets().Algebras(R)`. |

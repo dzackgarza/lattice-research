@@ -4,6 +4,10 @@ Subcategory hierarchy::
 
     Posets()
     |-- Finite()
+    |-- MeetSemilattice()
+    |   `-- Finite()
+    |-- JoinSemilattice()
+    |   `-- Finite()
     |-- Lattice()
     |   `-- Finite()
     `-- HomCategory()
@@ -164,6 +168,20 @@ class Posets(Category):
 
         @cached_method
         @final
+        def MeetSemilattice(self) -> Category:
+            from .subcategories.meet_semilattice import _MeetSemilatticePosets
+
+            return _MeetSemilatticePosets()
+
+        @cached_method
+        @final
+        def JoinSemilattice(self) -> Category:
+            from .subcategories.join_semilattice import _JoinSemilatticePosets
+
+            return _JoinSemilatticePosets()
+
+        @cached_method
+        @final
         def Lattice(self) -> Category:
             from .subcategories.lattice import _LatticePosets
 
@@ -184,6 +202,8 @@ class Posets(Category):
         return self.__class__._Constructors()
 
     Finite = LazyImport("category_specs.posets.subcategories.finite", "_FinitePosets")
+    MeetSemilattice = LazyImport("category_specs.posets.subcategories.meet_semilattice", "_MeetSemilatticePosets")
+    JoinSemilattice = LazyImport("category_specs.posets.subcategories.join_semilattice", "_JoinSemilatticePosets")
     Lattice = LazyImport("category_specs.posets.subcategories.lattice", "_LatticePosets")
     Subobjects = LazyImport("category_specs.posets.subcategories.constructions.subobjects", "_Subobjects")
     Quotients = LazyImport("category_specs.posets.subcategories.constructions.quotients", "_Quotients")

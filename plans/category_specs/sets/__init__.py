@@ -84,6 +84,7 @@ if TYPE_CHECKING:
         RealOpenSet,
         RealSubset,
         Ring,
+        RModule,
         Set,
         SetAut,
         SetElement,
@@ -209,10 +210,19 @@ class _SetObjectMethods:
         r"""Return the lattice of subsets ordered by inclusion."""
         ...
 
-    @abstract_method
-    def algebra(self, base_ring: Ring, category: Category | None = None) -> Algebra:
-        r"""Return the algebra of this set over ``base_ring``."""
-        ...
+    @final
+    def free_module(self, base_ring: Ring) -> RModule:
+        r"""Return the free ``base_ring``-module with basis indexed by this set."""
+        from ..modules import Modules
+
+        return Modules(base_ring).Constructors().CombinatorialFreeModule(basis_keys=self)
+
+    @final
+    def free_algebra(self, base_ring: Ring) -> Algebra:
+        r"""Return the free ``base_ring``-algebra on this set of generators."""
+        from ..algebras import Algebras
+
+        return Algebras(base_ring).Constructors().free_algebra_from_set(self)
 
     @abstract_method
     def _sympy_(self) -> SympySet: ...

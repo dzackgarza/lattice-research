@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING, final
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
+from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import _TopologicalSpaces
@@ -36,6 +38,7 @@ class _MetricSpaces(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_TopologicalSpaces, "Metric")
     ParentMethods = _MetricSpaceObjectMethods
+    Complete = LazyImport("category_specs.topological_spaces.subcategories.complete", "_CompleteMetricSpaces")
 
     @final
     def _repr_object_names(self) -> str:
@@ -44,6 +47,12 @@ class _MetricSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         return [SageSets().Metric(), _TopologicalSpaces()]
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def Complete(self) -> Category:
+            return self._with_axiom("Complete")
 
     class ElementMethods: ...
     class MorphismMethods: ...

@@ -28,6 +28,17 @@ These surfaces must not use exact Sage implementation class containment as their
 definition. Constructor routing may still use exact Sage class matches at the interop
 boundary to choose the mathematical refinement.
 
+## Orthogonal-Group Frontier
+
+The mathematical owner of `OrthogonalGroup` is the aut surface of a form-bearing
+module category: `C.AutCategory().Of(M)` for `C <= Modules(R).WithForms()`.
+`types.py` can therefore alias `OrthogonalGroup` to the module aut parent surface.
+
+A concrete `orthogonal_group()` parent-method stub on every formed module still needs a
+follow-up edit to `modules/subcategories/with_forms.py`, which is outside the current
+write scope. That method should return `C.AutCategory().Of(self)` for the relevant
+formed-module category, not a Sage `Group` wrapper.
+
 ## Current Smoke Frontier
 
 `just smoke-file modules/smoketest.sage` now collects the full module constructor

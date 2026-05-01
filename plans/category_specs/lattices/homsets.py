@@ -1,4 +1,10 @@
-r"""Hom, end, and aut categories for lattices."""
+r"""Hom, end, and aut categories for lattices.
+
+``LatticeAutCategory`` is the lattice specialization of the orthogonal-group
+surface: its objects are automorphism groups in the lattice category, hence
+isometries of the integral formed module. The general owner remains the
+modules-with-forms aut surface.
+"""
 
 from __future__ import annotations
 
@@ -30,7 +36,7 @@ class _LatticeMorphisms:
 
 
 class _LatticeAutomorphisms:
-    r"""Automorphisms of lattices."""
+    r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
     @final
     def is_isometry(self) -> bool:
@@ -69,7 +75,7 @@ class LatticeEndCategory(GenericEndCategory):
 
 
 class LatticeAutCategory(GenericAutCategory):
-    r"""Category of lattice automorphism objects ``Aut_Lattices(A)``."""
+    r"""Category of lattice orthogonal groups ``Aut_Lattices(A)``."""
 
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 

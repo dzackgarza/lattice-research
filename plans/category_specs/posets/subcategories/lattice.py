@@ -2,18 +2,15 @@ r"""Order-theoretic lattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import final
 
-from sage.categories.category import Category
 from sage.categories.lattice_posets import LatticePosets as SageLatticePosets
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from .. import Posets
-
-if TYPE_CHECKING:
-    from ...types import PosetElement
+from ...cat import Category
+from .join_semilattice import _JoinSemilatticePosets
+from .meet_semilattice import _MeetSemilatticePosets
 
 
 class _LatticePosets(Category):
@@ -21,7 +18,7 @@ class _LatticePosets(Category):
 
     @final
     def super_categories(self) -> list[Category]:
-        return [Posets(), SageLatticePosets()]
+        return [_MeetSemilatticePosets(), _JoinSemilatticePosets(), SageLatticePosets()]
 
     class SubcategoryMethods:
         @cached_method
@@ -31,16 +28,6 @@ class _LatticePosets(Category):
 
     Finite = LazyImport("category_specs.posets.subcategories.finite_lattice", "_FiniteLatticePosets")
 
-    class ParentMethods:
-        @abstract_method
-        def meet(self, x: PosetElement, y: PosetElement) -> PosetElement:
-            r"""Return the greatest lower bound of ``x`` and ``y``."""
-            ...
-
-        @abstract_method
-        def join(self, x: PosetElement, y: PosetElement) -> PosetElement:
-            r"""Return the least upper bound of ``x`` and ``y``."""
-            ...
-
+    class ParentMethods: ...
     class ElementMethods: ...
     class MorphismMethods: ...

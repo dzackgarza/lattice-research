@@ -78,6 +78,34 @@ from .homsets import (
     HomCategoriesMorphism,
     HomCategoriesObject,
 )
+from .lattices import (
+    LatticesAut,
+    LatticesAutCategory,
+    LatticesAutomorphism,
+    LatticesCategory,
+    LatticesElement,
+    LatticesEnd,
+    LatticesEndCategory,
+    LatticesEndomorphism,
+    LatticesHom,
+    LatticesHomCategory,
+    LatticesMorphism,
+    LatticesObject,
+)
+from .lattices.subcategories.constructions.discriminant_groups import (
+    LatticeDiscriminantGroupsAut,
+    LatticeDiscriminantGroupsAutCategory,
+    LatticeDiscriminantGroupsAutomorphism,
+    LatticeDiscriminantGroupsCategory,
+    LatticeDiscriminantGroupsElement,
+    LatticeDiscriminantGroupsEnd,
+    LatticeDiscriminantGroupsEndCategory,
+    LatticeDiscriminantGroupsEndomorphism,
+    LatticeDiscriminantGroupsHom,
+    LatticeDiscriminantGroupsHomCategory,
+    LatticeDiscriminantGroupsMorphism,
+    LatticeDiscriminantGroupsObject,
+)
 from .modules import (
     ModulesAut,
     ModulesAutCategory,
@@ -107,7 +135,11 @@ from .posets import (
     PosetsObject,
 )
 from .posets.subcategories.finite_lattice import _FiniteLatticePosets
+from .posets.subcategories.finite_join_semilattice import _FiniteJoinSemilatticePosets
+from .posets.subcategories.finite_meet_semilattice import _FiniteMeetSemilatticePosets
+from .posets.subcategories.join_semilattice import _JoinSemilatticePosets
 from .posets.subcategories.lattice import _LatticePosets
+from .posets.subcategories.meet_semilattice import _MeetSemilatticePosets
 from .rings import (
     RingsAut,
     RingsAutCategory,
@@ -164,6 +196,8 @@ ApproximateRingMorphism = ApproximateRingsMorphism
 ApproximateRingCategory = ApproximateRingsCategory
 Group = SageGroup
 AbelianGroup = AbelianGroup_class
+Magma = CategoryObject
+Semigroup = CategoryObject
 Monoid = Monoid_class
 Polynomial = SagePolynomial
 AlgebraicPolynomial = AlgebraicPolynomialTracker
@@ -318,11 +352,40 @@ PosetHom = PosetsHom
 PosetEnd = PosetsEnd
 PosetAut = PosetsAut
 PosetSubset = Subset
+MeetSemilatticePoset = _MeetSemilatticePosets.ParentMethods
+JoinSemilatticePoset = _JoinSemilatticePosets.ParentMethods
 LatticePoset = _LatticePosets.ParentMethods
+FiniteMeetSemilatticePoset = _FiniteMeetSemilatticePosets.ParentMethods
+FiniteJoinSemilatticePoset = _FiniteJoinSemilatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
 SageFinitePoset = SagePoset
-Lattice = SageParent
-DiscriminantGroup = SageParent
-OrthogonalGroup = SageGroup
+LatticeCategory = LatticesCategory
+Lattice = LatticesObject
+LatticeElement = LatticesElement
+LatticeMorphism = LatticesMorphism
+LatticeHom = LatticesHom
+LatticeEnd = LatticesEnd
+LatticeAut = LatticesAut
+LatticeHomCategory = LatticesHomCategory
+LatticeEndCategory = LatticesEndCategory
+LatticeAutCategory = LatticesAutCategory
+LatticeEndomorphism = LatticesEndomorphism
+LatticeAutomorphism = LatticesAutomorphism
+DiscriminantGroupCategory = LatticeDiscriminantGroupsCategory
+DiscriminantGroup = LatticeDiscriminantGroupsObject
+DiscriminantGroupElement = LatticeDiscriminantGroupsElement
+DiscriminantGroupMorphism = LatticeDiscriminantGroupsMorphism
+DiscriminantGroupHom = LatticeDiscriminantGroupsHom
+DiscriminantGroupEnd = LatticeDiscriminantGroupsEnd
+DiscriminantGroupAut = LatticeDiscriminantGroupsAut
+DiscriminantGroupHomCategory = LatticeDiscriminantGroupsHomCategory
+DiscriminantGroupEndCategory = LatticeDiscriminantGroupsEndCategory
+DiscriminantGroupAutCategory = LatticeDiscriminantGroupsAutCategory
+DiscriminantGroupEndomorphism = LatticeDiscriminantGroupsEndomorphism
+DiscriminantGroupAutomorphism = LatticeDiscriminantGroupsAutomorphism
+OrthogonalGroup = RModAut
+OrthogonalAutomorphism = RModAutomorphism
+LatticeOrthogonalGroup = LatticeAut
+LatticeIsometry = LatticeAutomorphism
 SignaturePair = tuple[Integer, Integer]
 IntegralRescaling = tuple[Integer, Lattice]

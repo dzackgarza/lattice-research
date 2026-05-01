@@ -322,6 +322,11 @@ symmetry, integrality, and nondegeneracy. Its method surface includes
 `maximum`, `LLL`, `short_vectors`, `enumerate_short_vectors`, and
 `enumerate_close_vectors`.
 
+`orthogonal_group(gens=None, is_finite=None)` returns a matrix group whose
+elements are isometries of the ambient vector space preserving the lattice. If
+`gens` is omitted, Sage computes generators for the full group only in the
+definite case. `automorphisms` is an alias for `orthogonal_group`.
+
 Caveats:
 
 - `IntegralLattice`, `IntegralLatticeDirectSum`, and `IntegralLatticeGluing`
@@ -509,6 +514,12 @@ and `IntegralLattice.discriminant_group(s=0)`. Parent methods include
 `AbelianGroupAutomorphismGroup_subgroup` and supplies `invariant_form`,
 element construction, `_preserves_form`, `_get_action_`,
 `_subgroup_constructor`, and representation.
+
+`TorsionQuadraticModule.orthogonal_group(gens=None, check=False)` returns the
+orthogonal group of the associated torsion quadratic form. With supplied
+generators, Sage builds the subgroup they generate after optional checks; with
+no supplied generators, Sage uses a brute-force computation for the full finite
+quadratic-form orthogonal group.
 
 Caveats:
 

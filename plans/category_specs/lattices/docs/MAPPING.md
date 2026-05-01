@@ -81,9 +81,9 @@ The table answers: at what tier is each method first universally well-defined?
 | `maximal_overlattice(p)` | `OverZZ` | algorithm uses ZZ-specific arithmetic |
 | `twist(s)` | `WithForms` | scale form by scalar; defined for any module with form |
 | `genus()` | `OverZZ` | local-global genus theory; requires ZZ (or at least Dedekind) |
-| `orthogonal_group()` | `Free + Symmetric + Nondegenerate + OverIntegralDomain` | O(L) ≤ GL_n(R); see note (5) |
-| `special_orthogonal_group()` | same as above | SO(L) |
-| `stable_orthogonal_group()` | same as above | O^+(L) |
+| `orthogonal_group()` | `Modules(R).WithForms().AutCategory()` | `O(M,b) = Aut(M,b)` in the category of modules with forms; see note (5) |
+| `special_orthogonal_group()` | lattice/matrix refinement of `orthogonal_group()` | determinant-one subgroup, defined once the aut surface has a determinant realization |
+| `stable_orthogonal_group()` | lattice/arithmetic refinement of `orthogonal_group()` | orientation or positive-cone refinement, not part of the generic formed-module owner |
 | `nikulin_invariants()` | `OverZZ + Free + Symmetric + Nondegenerate` | discriminant group invariants (l, δ) |
 | `is_isometric_to(other)` | `OverZZ + Free + Symmetric + Nondegenerate` | lattice isometry test |
 | `minimum()` | `OverZZ + Free + Symmetric` | shortest vector (requires ZZ for finiteness) |
@@ -142,12 +142,15 @@ axiom is needed only to guarantee `(S^⊥)^⊥ = S`. Abstract stub belongs at
 `Bilinear.Symmetric`. Computability (as a free module of explicit rank) requires
 nondegeneracy + free; that is an algorithm concern, not a placement concern.
 
-**(5) `orthogonal_group()` placement**: `O(L) = Aut_{isometry}(L)`. Requires: free (to
-express as matrix group GL_n(R)), nondegenerate (to have a meaningful notion of
-isometry), symmetric (orthogonal group is for symmetric forms; symplectic group is the
-alternating analogue). Place at `Free + Symmetric + Nondegenerate + OverIntegralDomain`.
-The finite-group computation for `OverZZ` uses Plesken-Souvignier; that's an algorithm
-detail, not a placement issue.
+**(5) `orthogonal_group()` placement**: `O(M,b) = Aut(M,b)` in the category of
+modules with forms. Equivalently, its elements are module automorphisms `f` such that
+`b(fv, fw) = b(v, w)`, or the corresponding form-preservation diagram commutes. This
+definition does not require freeness, nondegeneracy, or integrality, so it covers
+degenerate formed modules such as `e^perp` in `U`, rational formed modules, integral
+lattices, and finite discriminant forms. Freeness and nondegeneracy are only needed for
+particular realizations such as matrix groups inside `GL_n(R)`. The `OverZZ` definite
+lattice computation uses Plesken-Souvignier; that is an algorithm detail, not the
+mathematical owner.
 
 **(6) Torsion `gram_matrix_bilinear()`**: For `TorsionQuadraticModule = V/W`, the form
 takes values in `Q/mZ = (V^*/W^*) / (V/W)^*`. This is a *different type* from the

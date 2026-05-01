@@ -8,6 +8,8 @@ categories, not as set-local duplicates.
 Subcategory hierarchy::
 
     TopologicalSpaces() = Sets().Topological()
+    |-- Connected()
+    |-- Compact()
     |-- Metric() = Sets().Metric()
     |-- Subobjects()
     |-- Quotients()
@@ -44,7 +46,7 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 if TYPE_CHECKING:
-    from ..types import TopologicalSpace
+    from ..types import Subset
 
 
 class _TopologicalSpaceObjectMethods:
@@ -58,19 +60,19 @@ class _TopologicalSpaceObjectMethods:
     def is_connected(self) -> bool: ...
 
     @abstract_method
-    def closure(self) -> TopologicalSpace: ...
+    def closure(self, U: Subset) -> Subset: ...
 
     @abstract_method
-    def interior(self) -> TopologicalSpace: ...
+    def interior(self, U: Subset) -> Subset: ...
 
     @abstract_method
-    def boundary(self) -> TopologicalSpace: ...
+    def boundary(self, U: Subset) -> Subset: ...
 
     @abstract_method
-    def is_open(self) -> bool: ...
+    def is_open(self, U: Subset) -> bool: ...
 
     @abstract_method
-    def is_closed(self) -> bool: ...
+    def is_closed(self, U: Subset) -> bool: ...
 
     @abstract_method
     def is_compact(self) -> bool: ...
@@ -93,6 +95,8 @@ class _TopologicalSpaces(CategoryWithAxiom):
     MorphismMethods = _TopologicalSpaceMorphismMethods
     HomCategory = TopologicalSpaceHomCategory
     Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
+    Connected = LazyImport("category_specs.topological_spaces.subcategories.connected", "_ConnectedTopologicalSpaces")
+    Compact = LazyImport("category_specs.topological_spaces.subcategories.compact", "_CompactTopologicalSpaces")
 
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
@@ -120,6 +124,16 @@ class _TopologicalSpaces(CategoryWithAxiom):
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
+        @cached_method
+        @final
+        def Connected(self) -> Category:
+            return self._with_axiom("Connected")
+
+        @cached_method
+        @final
+        def Compact(self) -> Category:
+            return self._with_axiom("Compact")
+
         @cached_method
         @final
         def Metric(self) -> Category:

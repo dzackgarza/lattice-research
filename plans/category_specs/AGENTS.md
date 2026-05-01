@@ -197,6 +197,19 @@ Do not import generic software-engineering meanings of "inventory", "mapping", o
   mathematically justified non-mapping, or an explicit `NEEDS_DECISIONS.md` item.
   Never delete or ignore a Sage method because the Sage class or constructor around it
   is mathematically wrong.
+- **Mappings must preserve old functionality in migration-grade form.** Breaking API
+  changes are allowed when they modernize, standardize, or uniformize old Sage
+  surfaces, but the old functionality must still have a documented replacement path.
+  If an old method is not represented as a project method, the mapping must name the
+  new method, protocol, constructor, or refinement path that recovers its behavior.
+  This is what later supports migration-guide entries such as
+  `old_surface(...) -> new_surface(...)`.
+- **Every inventoried Sage class must remain constructible or explicitly rejected.**
+  A Sage class may become an explicit mathematical subcategory, or it may become an
+  admitted constructor that builds the original Sage object and refines it into the
+  correct project subcategory. Spec work stops at surfacing this contract: later
+  implementation work must patch or wrap refined Sage objects so they satisfy the ABC
+  contract of the category they are placed in.
 - **Rejecting an invalid Sage constructor does not reject its method evidence.** For
   example, generic `Set(X)` wrapping is ill-defined as a mathematical constructor, but
   `Set_object.__contains__`, `__iter__`, `cardinality`, `is_empty`, `is_finite`,
@@ -906,7 +919,10 @@ these technical requirements:
     (`model_post_init` in Pydantic v2) for all state validation after construction.
 6.  **Public Registration**: All implementations must be registered in the
     corresponding top-level category's `Constructors()` inner class. This is the
-    exclusive public entry point for using the implementation.
+    exclusive public entry point for using the implementation. Subcategories are
+    refinement targets and method owners, not constructor namespaces. Never add or
+    propose subcategory-local constructor paths such as
+    `Algebras(k).FiniteDimensional().WithBasis().Constructors()`.
 
 ## super_categories
 

@@ -211,11 +211,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def discriminant_group(self) -> DiscriminantGroup: ...
 
             @abstract_method
-            def orthogonal_group(self) -> OrthogonalGroup:
-                r"""``O(L)``."""
-                ...
-
-            @abstract_method
             def special_orthogonal_group(self) -> OrthogonalGroup:
                 r"""``SO(L)``."""
                 ...

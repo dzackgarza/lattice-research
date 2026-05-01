@@ -39,6 +39,16 @@ These constructors refine far enough to expose the next missing Sage/project met
 
 The current ring smoke failures are implementer-facing: the next work is either fixing
 the category-base identity mismatch in the axiom construction path or implementing the
-listed missing `_sympy_` surface on the relevant refined parents. Matrix algebra
-ownership remains a separate design decision; do not hide it by moving or weakening the
-matrix smoke.
+listed missing `_sympy_` surface on the relevant refined parents.
+
+## Matrix Algebra Surface Split
+
+Matrix-algebra ownership is no longer a root decision. The constructor may remain
+reachable as `Rings().Constructors().MatrixRing(...)` because Sage constructs a square
+matrix space that is also a ring object. The resulting object must refine into
+`Algebras(R)` and `Modules(R).Free().FiniteRank()`.
+
+The remaining work is a surface split: ring-only constructor and object-routing glue
+stays in `rings`, algebra-specific methods move to `algebras`, and free-module or
+matrix-space linear methods move to `modules`. Do not hide this by moving or weakening
+the matrix smoke.

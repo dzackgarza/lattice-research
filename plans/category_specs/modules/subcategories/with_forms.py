@@ -13,7 +13,7 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import RModuleMorphism
+    from ...types import OrthogonalGroup, RModuleMorphism
 
 
 class _WithForms(CategoryWithAxiom_over_base_ring):
@@ -35,6 +35,11 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def form(self) -> RModuleMorphism: ...
+
+        @final
+        def orthogonal_group(self) -> OrthogonalGroup:
+            r"""Return ``Aut_C(M)`` for this formed-module category ``C``."""
+            return self.category().AutCategory().Of(self)
 
     class SubcategoryMethods:
         @cached_method

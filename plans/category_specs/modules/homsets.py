@@ -6,6 +6,11 @@ Defines:
                                   bilinear, quadratic, symmetric, ...)
     Modules(R).EndCategory()   -- category whose objects are End_R(M)
     Modules(R).AutCategory()   -- category whose objects are Aut_R(M)
+
+For a form-bearing module category ``C`` such as
+``Modules(R).WithForms().Bilinear()``, the object ``C.AutCategory().Of(M)`` is the
+orthogonal group of the formed module ``M``. This is categorical ownership, not a
+generic Sage group wrapper.
 """
 
 from __future__ import annotations
@@ -17,7 +22,7 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Category, CategoryWithAxiom_over_base_ring
+from ..cat import Category, CategoryWithAxiom
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
@@ -38,43 +43,6 @@ if TYPE_CHECKING:
         RModuleElement,
         SubModule,
     )
-
-
-# ---------------------------------------------------------------------------
-# Forms-axiom helpers (wired into RModuleHomCategory.Forms below)
-# ---------------------------------------------------------------------------
-
-
-class _Bilinear(CategoryWithAxiom_over_base_ring):
-    class ParentMethods:
-        @abstract_method
-        def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
-
-    class ElementMethods:
-        @abstract_method
-        def associated_quadratic_form(self) -> QuadraticForm: ...
-
-        @final
-        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.evaluate(v.tensor(w))
-
-    class MorphismMethods: ...
-
-
-class _Quadratic(CategoryWithAxiom_over_base_ring):
-    class ParentMethods:
-        @abstract_method
-        def associated_bilinear_forms(self) -> BilinearFormsModule: ...
-
-    class ElementMethods:
-        @abstract_method
-        def associated_bilinear_form(self) -> BilinearForm: ...
-
-        @final
-        def q(self, v: RModuleElement) -> RModuleElement:
-            return self.evaluate(v)
-
-    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -187,15 +155,48 @@ class _RModAutomorphisms:
 
 
 # ---------------------------------------------------------------------------
-# Forms axiom subcategory
+# RModuleHomCategory: the hom category proper
 # ---------------------------------------------------------------------------
 
 
-class _Forms(CategoryWithAxiom_over_base_ring):
+class RModuleHomCategory(HomCategoryOf):
+    r"""The category of R-module homs ``Hom_R(M, N)``.
+
+    Objects are hom parents; elements are R-module morphisms.
+    """
+
+    @final
+    def extra_super_categories(self):
+        r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
+        return [HomCategoryOf(self.base_category()), self.base_category()]
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def Forms(self) -> Category:
+            return self._with_axiom("Forms")
+
+    ParentMethods = _RModHomCategoryObjectMethods
+    ElementMethods = _RModMorphisms
+    class MorphismMethods: ...
+
+    # Sage axiom interop hook for _with_axiom("Endset").
+    Endset = LazyImport(__name__, "RModuleEndCategory")
+    Forms = LazyImport(__name__, "_Forms")
+
+
+# ---------------------------------------------------------------------------
+# Forms axiom subcategories
+# ---------------------------------------------------------------------------
+
+
+class _Forms(CategoryWithAxiom):
     r"""R-modules of the form ``Hom_R(T_R(M)[p,q], S)`` where ``T_R(M)[p,q]``
     is the (p, q) part of the bitensor R-algebra of M and ``S`` is an
     R-submodule of ``K := Frac(R)``.
     """
+
+    _base_category_class_and_axiom = (RModuleHomCategory, "Forms")
 
     class ParentMethods:
         @abstract_method
@@ -265,41 +266,46 @@ class _Forms(CategoryWithAxiom_over_base_ring):
             r"""Alternating (n, 0)-forms: ``Hom_R(\Lambda^n_R(M), S)``."""
             return self._with_axiom("Alternating")
 
-    Bilinear = _Bilinear
-    Quadratic = _Quadratic
+    Bilinear = LazyImport(__name__, "_Bilinear")
+    Quadratic = LazyImport(__name__, "_Quadratic")
     class ElementMethods: ...
     class MorphismMethods: ...
 
 
-# ---------------------------------------------------------------------------
-# RModuleHomCategory: the hom category proper
-# ---------------------------------------------------------------------------
+class _Bilinear(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Forms, "Bilinear")
 
+    class ParentMethods:
+        @abstract_method
+        def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
 
-class RModuleHomCategory(HomCategoryOf):
-    r"""The category of R-module homs ``Hom_R(M, N)``.
+    class ElementMethods:
+        @abstract_method
+        def associated_quadratic_form(self) -> QuadraticForm: ...
 
-    Objects are hom parents; elements are R-module morphisms.
-    """
-
-    @final
-    def extra_super_categories(self):
-        r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
-        return [HomCategoryOf(self.base_category()), self.base_category()]
-
-    class SubcategoryMethods:
-        @cached_method
         @final
-        def Forms(self) -> Category:
-            return self._with_axiom("Forms")
+        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
+            return self.evaluate(v.tensor(w))
 
-    ParentMethods = _RModHomCategoryObjectMethods
-    ElementMethods = _RModMorphisms
     class MorphismMethods: ...
 
-    # Sage axiom interop hook for _with_axiom("Endset").
-    Endset = LazyImport(__name__, "RModuleEndCategory")
-    Forms = _Forms
+
+class _Quadratic(CategoryWithAxiom):
+    _base_category_class_and_axiom = (_Forms, "Quadratic")
+
+    class ParentMethods:
+        @abstract_method
+        def associated_bilinear_forms(self) -> BilinearFormsModule: ...
+
+    class ElementMethods:
+        @abstract_method
+        def associated_bilinear_form(self) -> BilinearForm: ...
+
+        @final
+        def q(self, v: RModuleElement) -> RModuleElement:
+            return self.evaluate(v)
+
+    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -338,6 +344,14 @@ class RModuleEndCategory(GenericEndCategory):
 
 
 class RModuleAutCategory(GenericAutCategory):
+    r"""Category of module automorphism groups.
+
+    When the base category is a category of modules with forms, objects of this
+    aut category are orthogonal groups: automorphisms of the underlying module
+    that preserve the form because they are automorphisms in that formed-module
+    category.
+    """
+
     _base_category_class_and_axiom = (RModuleEndCategory, "Autset")
 
     @final
