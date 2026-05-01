@@ -580,7 +580,28 @@ class Modules(Category_module):
             return _RingObjectsAsModules(self.base_ring())
 
         @final
-        def _category_for_free_module(self, M: RModule) -> Category:
+        def _standard_free_module_categories(self) -> list[Category]:
+            C = self.category()
+            return [C.Free().FiniteRank(), C.WithOrderedBasis()]
+
+        @final
+        def _submodule_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
+            C = self.category()
+            categories = [C.Subobjects()]
+            if with_ordered_basis:
+                categories.append(C.WithOrderedBasis())
+            return categories
+
+        @final
+        def _quotient_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
+            C = self.category()
+            categories = [C.Quotients()]
+            if with_ordered_basis:
+                categories.append(C.WithOrderedBasis())
+            return categories
+
+        @final
+        def _categories_for_free_module(self, M: RModule) -> list[Category]:
             from sage.modules.free_module import (
                 ComplexDoubleVectorSpace_class,
                 FreeModule_ambient_field,
@@ -594,49 +615,43 @@ class Modules(Category_module):
             from sage.modules.quotient_module import FreeModule_ambient_field_quotient
 
             if isinstance(M, FreeQuadraticModule_generic):
-                return self.FreeQuadraticModules()
+                return [*self._standard_free_module_categories(), self.category().WithForms().Quadratic()]
             if isinstance(M, FreeModule_ambient_field_quotient):
-                return self.VectorSpaceQuotients()
+                return self._quotient_categories()
             if isinstance(M, FreeModule_submodule_with_basis_field):
-                return self.VectorSubspacesWithOrderedGeneratingSet()
+                return self._submodule_categories(with_ordered_basis=True)
             if isinstance(M, FreeModule_submodule_field):
-                return self.VectorSubspaces()
+                return self._submodule_categories()
             if isinstance(M, RealDoubleVectorSpace_class):
-                return self.RealDoubleVectorSpaces()
+                return self._standard_free_module_categories()
             if isinstance(M, ComplexDoubleVectorSpace_class):
-                return self.ComplexDoubleVectorSpaces()
+                return self._standard_free_module_categories()
             if isinstance(M, FreeModule_submodule_with_basis_pid):
-                return self.FreeModuleSubmodulesWithOrderedGeneratingSet()
+                return self._submodule_categories(with_ordered_basis=True)
             if isinstance(M, FreeModule_submodule_pid):
-                return self.FreeModuleSubmodules()
+                return self._submodule_categories()
             if isinstance(M, FreeModule_ambient_field):
-                return self.VectorSpaces()
-            from sage.categories.integral_domains import IntegralDomains
-            from sage.categories.principal_ideal_domains import PrincipalIdealDomains
-
-            R = self.base_ring()
-            if R in PrincipalIdealDomains():
-                return self.FreeModulesOverPIDs()
-            if R in IntegralDomains():
-                return self.FreeModulesOverIntegralDomains()
-            return self.FreeModulesWithStandardBasis()
+                return self._standard_free_module_categories()
+            return self._standard_free_module_categories()
 
         @final
-        def _category_for_quotient_module(self, M: RModule) -> Category:
+        def _categories_for_quotient_module(self, M: RModule) -> list[Category]:
             from sage.modules.fg_pid.fgp_module import FGP_Module_class
             from sage.modules.quotient_module import FreeModule_ambient_field_quotient, QuotientModule_free_ambient
 
             if isinstance(M, FreeModule_ambient_field_quotient):
-                return self.VectorSpaceQuotients()
+                return self._quotient_categories()
             if isinstance(M, QuotientModule_free_ambient):
-                return self.FreeModuleQuotients()
+                return self._quotient_categories()
             if isinstance(M, FGP_Module_class):
-                return self.FinitelyGeneratedPIDQuotientModules()
-            return self._category_for_free_module(M)
+                C = self.category()
+                return [C.FinitelyGenerated(), C.FinitelyPresented(), C.OverPID()]
+            return self._categories_for_free_module(M)
 
         @final
         def _categories_for_combinatorial_free_module(self) -> list[Category]:
-            return [self.category().Free(), self.category().WithOrderedGeneratingSet()]
+            C = self.category()
+            return [C.Free(), C.WithBasis(), C.WithOrderedGeneratingSet()]
 
         @final
         def FreeModule(
@@ -666,9 +681,9 @@ class Modules(Category_module):
             if isinstance(M, CombinatorialFreeModule):
                 categories = self._categories_for_combinatorial_free_module()
             elif isinstance(M, FiniteRankFreeModule):
-                categories = [self.FiniteRankFreeModules()]
+                categories = self._standard_free_module_categories()
             else:
-                categories = [self._category_for_free_module(M)]
+                categories = self._categories_for_free_module(M)
             return self._refine_constructed_module(M, categories)
 
         @final
@@ -693,7 +708,7 @@ class Modules(Category_module):
                 dimension=dimension,
                 basis_keys=basis_keys,
             )
-            return self._refine_constructed_module(M, [self._category_for_free_module(M)])
+            return self._refine_constructed_module(M, self._categories_for_free_module(M))
 
         @final
         def FreeQuadraticModule(
@@ -724,7 +739,7 @@ class Modules(Category_module):
             from sage.modules.free_module import span as sage_span
 
             M = sage_span(gens, self.base_ring(), check=check, already_echelonized=already_echelonized)
-            return self._refine_constructed_module(M, [self._category_for_free_module(M)])
+            return self._refine_constructed_module(M, self._categories_for_free_module(M))
 
         @final
         def CombinatorialFreeModule(
@@ -766,17 +781,17 @@ class Modules(Category_module):
                 start_index=start_index,
                 output_formatter=output_formatter,
             )
-            return self._refine_constructed_module(M, [self.FiniteRankFreeModules()])
+            return self._refine_constructed_module(M, self._standard_free_module_categories())
 
         @final
         def quotient_of_free_modules(self, V: FreeModule, W: SubModule) -> QuotientModule:
             M = V / W
-            return self._refine_constructed_module(M, [self._category_for_quotient_module(M)])
+            return self._refine_constructed_module(M, self._categories_for_quotient_module(M))
 
         @final
         def quotient_module(self, module: RModule, submodule: SubModule, check: bool = True) -> QuotientModule:
             M = module.quotient_module(submodule, check=check)
-            return self._refine_constructed_module(M, [self._category_for_quotient_module(M)])
+            return self._refine_constructed_module(M, self._categories_for_quotient_module(M))
 
         @final
         def FPModule(
