@@ -727,7 +727,10 @@ class Modules(Category_module):
                 sparse=sparse,
                 inner_product_ring=inner_product_ring,
             )
-            return self._refine_constructed_module(M, [self.FreeQuadraticModules()])
+            return self._refine_constructed_module(
+                M,
+                [*self._standard_free_module_categories(), self.category().WithForms().Quadratic()],
+            )
 
         @final
         def span(

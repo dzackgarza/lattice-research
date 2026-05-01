@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -18,7 +17,6 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a specified basis."""
 
     _base_category_class_and_axiom = (Modules, "WithBasis")
-    WithOrderedBasis = LazyImport(__name__, "_WithOrderedBasis")
 
     @final
     def extra_super_categories(self):
@@ -31,7 +29,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
     class SubcategoryMethods:
         @final
         def WithOrderedBasis(self):
-            return self._with_axiom("WithOrderedBasis")
+            return self.base_category().WithOrderedBasis()
 
     class ParentMethods:
         @final
@@ -52,11 +50,14 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a specified ordered basis."""
 
-    _base_category_class_and_axiom = (_WithBasis, "WithOrderedBasis")
+    _base_category_class_and_axiom = (Modules, "WithOrderedBasis")
 
     @final
     def extra_super_categories(self):
-        return [self.base_category().WithOrderedGeneratingSet()]
+        return [
+            self.base_category().WithBasis(),
+            self.base_category().WithOrderedGeneratingSet(),
+        ]
 
     @final
     def __contains__(self, M: Any) -> bool:

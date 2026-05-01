@@ -97,6 +97,7 @@ MODULE_AXIOMS = (
     "Torsion",
     "Torsionfree",
     "Projective",
+    "WithOrderedBasis",
     "WithOrderedGeneratingSet",
     "FinitelyGenerated",
     "FinitelyPresented",
