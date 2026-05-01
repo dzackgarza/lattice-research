@@ -85,6 +85,95 @@ quotient structure: `Modules(R).Subobjects()` / ordered-generating-set refinemen
 `Modules(R).Quotients()` / ordered-generating-set refinements. The inheritance is
 implementation evidence only.
 
+## Sage Wrapper Subcategory Migration Mapping
+
+The old Sage-wrapper files are implementation evidence, not ownership evidence. A
+method goes to the weakest mathematical category whose hypotheses make the method
+meaningful. Constructor-only Sage families are routed through `Modules(R).Constructors()`
+and then refined into those categories.
+
+The mapping below is the phase-one owner table for the wrapper migration.
+
+| Current wrapper | Sage evidence | Constructor owner | Mathematical method owner | Deletion condition |
+| --- | --- | --- | --- | --- |
+| `_CombinatorialFreeModules` | `CombinatorialFreeModule` | `Modules(R).Constructors().CombinatorialFreeModule(...)` | `Modules(R).Free()` plus a basis-bearing refinement; ordered APIs refine further to `WithOrderedGeneratingSet()` or an ordered-basis owner | Already deleted. Keep only constructor routing and method mapping. |
+| `_FreeModulesWithStandardBasis` | `FreeModule_ambient*` | `FreeModule(R, n)` and `R^n` | finite-rank free modules with a chosen standard ordered basis | Delete after basis, coordinate, generator, submodule, and quotient methods move to free/basis/subobject/quotient owners. |
+| `_FiniteRankFreeModules` | tensor-calculus `FiniteRankFreeModule` | `Modules(R).Constructors().FiniteRankFreeModule(...)` | `Modules(R).Free().FiniteRank()` plus tensor, dual, symmetric, exterior, hom, end, and aut construction owners | Delete after finite-rank tensor-calculus methods are represented by free finite-rank and construction-category owners. |
+| `_FreeModulesOverIntegralDomains` | `FreeModule_generic_domain` | `FreeModule(R, n)` when `R` is an integral domain | `Modules(R).Free().OverIntegralDomain()` and its subobject owner | Delete after `intersection` and `saturation` move to the integral-domain free/subobject surfaces. |
+| `_FreeModulesOverPIDs` | `FreeModule_generic_pid` | `FreeModule(R, n)` when `R` is a PID | `Modules(R).Free().OverPID()`, `Modules(R).Quotients()`, and `FinitelyPresentedModulesOverPID` | Delete after PID quotient, index, Smith/Hermite, and quotient-construction methods move to PID owners. |
+| `_VectorSpaces` | `FreeModule_ambient_field` | `VectorSpace(K, n)` and `FreeModule(K, n)` for a field `K` | `Modules(K).OverField().Free().FiniteRank()` plus field-linear subobject and quotient owners | Delete after field-linear methods move to field/free/subobject/quotient surfaces. |
+| `_RealDoubleVectorSpaces` | `RealDoubleVectorSpace_class` | `VectorSpace(RDF, n)` / `FreeModule(RDF, n)` | the RDF instance of the field-vector-space owner; numeric storage is interop-only | Delete after `coordinates` is owned by the ordered-basis/coordinate surface and RDF-specific representation remains interop-only. |
+| `_ComplexDoubleVectorSpaces` | `ComplexDoubleVectorSpace_class` | `VectorSpace(CDF, n)` / `FreeModule(CDF, n)` | the CDF instance of the field-vector-space owner; numeric storage is interop-only | Delete after `coordinates` is owned by the ordered-basis/coordinate surface and CDF-specific representation remains interop-only. |
+| `_VectorSubspaces` | `FreeModule_submodule_field` | `subspace(...)`, `span(...)`, `V.subspace(...)` | `Modules(K).OverField().Subobjects()` with ambient vector-space structure | Delete after `ambient_vector_space`, `complement`, and subspace comparison live on field subobjects. |
+| `_VectorSubspacesWithOrderedGeneratingSet` | `FreeModule_submodule_with_basis_field` | `subspace_with_basis(...)` | field subobjects with chosen ordered basis/generating set | Delete after basis-matrix and coordinate-module methods move to ordered field subobjects. |
+| `_VectorSpaceQuotients` | `FreeModule_ambient_field_quotient` | `V.quotient_module(W)` for vector spaces | `Modules(K).OverField().Quotients()` | Delete after cover, relation, lift, and quotient-map methods move to field quotient owners. |
+| `_FreeModuleSubmodules` | `FreeModule_submodule_pid` | `M.submodule(...)` for PID free modules | `Modules(R).Free().OverPID().Subobjects()` | Delete after basis-matrix, echelon, coordinate, and saturation methods move to PID free subobjects. |
+| `_FreeModuleSubmodulesWithOrderedGeneratingSet` | `FreeModule_submodule_with_basis_pid` | `M.submodule_with_basis(...)` | PID free subobjects with chosen ordered basis/generating set | Delete after user-basis and basis-matrix methods move to ordered PID subobjects. |
+| `_SubmodulesWithOrderedGeneratingSet` | `SubmoduleWithBasis` | `M.submodule(...)` for modules with basis | `Modules(R).Subobjects()` refined by basis/ordered-generating-set structure | Delete after lift, reduce, echelon, cokernel-basis, and submodule comparison methods move to subobject/basis owners. |
+| `_FreeModuleQuotients` | `QuotientModule_free_ambient` | `M.quotient_module(S)` and `M / S` for free modules | `Modules(R).Free().Quotients()` plus finite-presentation owners when the quotient has PID invariant data | Delete after cover, relations, free-cover, free-relations, quotient-map, and lift methods move to quotient owners. |
+| `_QuotientModulesWithOrderedGeneratingSet` | `QuotientModuleWithBasis` | `M.quotient_module(S)` for modules with basis | `Modules(R).Quotients()` refined by basis/ordered-generating-set structure | Delete after ambient, lift, retract, and quotient-of-quotient methods move to quotient/basis owners. |
+| `_FinitelyGeneratedPIDQuotientModules` | `FGP_Module_class` | `FGP_Module(V, W)` and PID quotient syntax | `FinitelyPresentedModulesOverPID`, with torsion and finite refinements as axioms | Delete after invariant-factor, Smith-generator, free/torsion-part, vector, and hom methods move to `FinitelyPresentedModulesOverPID`. |
+| `_FreeQuadraticModules` | `FreeQuadraticModule_*` | `FreeQuadraticModule(R, n, form)` and `QuadraticSpace(K, n, form)` | free modules with bilinear/quadratic form, with PID/field refinements where needed | Keep only if rewritten as the form-bearing category; delete the Sage-class wrapper layer. |
+| `_IntegerLattices` | `IntegerLattice` and integral symmetric lattice classes | lattice constructors on `Modules(ZZ).Constructors()` | finite-rank free `ZZ`-modules with symmetric nondegenerate integral bilinear form; algorithmic reduction methods live on the lattice owner | Keep only if rewritten as the integral-lattice category; delete any Sage-class wrapper layer. |
+| `_TorsionQuadraticModules` | `TorsionQuadraticModule` | `TorsionQuadraticForm(...)` and discriminant-group constructors | finite torsion `ZZ`-modules with bilinear/quadratic form | Keep only if rewritten as the finite quadratic module category; delete the Sage-class wrapper layer. |
+| `_FreeGradedModules` | `FreeGradedModule` | `FreeGradedModule(algebra, generator_degrees, ...)` | `Modules(A).Graded().Free()` plus basis-bearing refinements | Delete after generator-degree, graded basis, suspension, and graded hom methods move to graded-free owners. |
+| `_FinitelyPresentedGradedModules` | `FPModule` | `FPModule(...)` | `Modules(A).Graded().FinitelyPresented()` | Delete after relation, presentation, resolution, minimal-presentation, and graded hom methods move to graded finitely presented owners. |
+| `_OreModules` | `OreModule`, `OreSubmodule`, `OreQuotientModule` | `OrePolynomialRing(...).quotient_module(P)` and `OreModule(...)` | modules over the relevant Ore-polynomial algebra or a stated semilinear-operator category; coefficient-ring free-module behavior remains inherited | Delete after pseudomorphism, Ore ring, matrix, span, quotient, and Ore hom methods move to that real owner. |
+| `_RepresentationModules` | `Representation_abstract` and subclasses | semigroup/group representation constructors | modules with an action of a specified semigroup/group/monoid and side | Keep only if rewritten as a parameterized representation-module category; delete the Sage-class wrapper layer. |
+| `_RingObjectsAsModules` | ring objects exposing module structure | forgetful/constructor bridge from ring or algebra objects | ring methods stay in `rings`; module generators and structure maps live on a forgetful construction or objects-over/under surface | Delete if it is only a ring-object implementation wrapper. |
+
+### Required Immediate Category Owners
+
+The migration needs these mathematical owners before constructors are fully rewired:
+
+| Owner | Role |
+| --- | --- |
+| `Modules(R).WithBasis()` | Modules equipped with a specified basis. This is the owner for `basis`, basis-key access, monomial/term constructors, support in a basis, and basis-defined morphisms. |
+| `Modules(R).WithOrderedBasis()` | Basis-bearing modules whose basis has a specified order. This refines `WithBasis()` and `WithOrderedGeneratingSet()` and owns coordinate vectors, ordered support, leading/trailing term operations, and basis matrices whose row order is meaningful. |
+| `C.Subobjects().WithBasis()` / `C.Subobjects().WithOrderedBasis()` | Subobjects equipped with chosen bases or ordered bases, including `SubmoduleWithBasis`, vector subspaces with basis, and PID free submodules with user bases. |
+| `C.Quotients().WithBasis()` / `C.Quotients().WithOrderedBasis()` | Quotients equipped with chosen normal-form bases, including `QuotientModuleWithBasis`. |
+| `Modules(R).Free().FiniteRank().OverField()` | The vector-space owner for finite-dimensional vector spaces over a field. |
+| `Modules(R).Free().OverIntegralDomain()` | The owner for free-module operations requiring an integral domain, including intersection and saturation. |
+| `Modules(R).Free().OverPID()` | The owner for free-module operations requiring a PID, including quotient construction and index computations. |
+| `Modules(R).WithForms().Bilinear()` | Modules equipped with a bilinear form. |
+| `Modules(R).WithForms().Quadratic()` | Modules equipped with a quadratic form. |
+| `Modules(ZZ).Free().FiniteRank().WithForms().Bilinear().Integral().Nondegenerate()` | The integral-lattice owner; exact spelling may change, but the chain must express free finite-rank `ZZ`-module plus integral nondegenerate symmetric bilinear form. |
+| `FinitelyPresentedModulesOverPID(...).Torsion().WithForms().Quadratic()` | The finite quadratic module owner for torsion quadratic modules and discriminant groups. |
+| `Modules(A).Graded().Free()` | Free graded modules over a graded algebra `A`. |
+| `Modules(A).Graded().FinitelyPresented()` | Finitely presented graded modules over a graded algebra `A`. |
+| `Modules(R).WithAction(S, side)` | Representation modules: modules over `R` equipped with a specified action of `S` on the given side. |
+| `Modules(R).WithOreOperator(...)` or `Modules(OreAlgebra).FiniteRankFree()` | Ore modules, depending on whether the admitted mathematical owner is semilinear-operator data or modules over the Ore algebra. |
+
+### Method Ownership Rules
+
+The same Sage implementation class can expose methods owned by several mathematical
+categories. The migration should use these rules before placing any method:
+
+| Method group | Mathematical owner |
+| --- | --- |
+| `rank`, `dimension`, basis cardinality | `Modules(R).Free()` for rank as basis cardinality; finite-dimensional aliases belong to finite-rank or field-vector owners. |
+| `basis`, `basis().keys()`, `monomial`, `term`, `from_vector`, `linear_combination_of_basis` | `WithBasis()`; ordered coordinate variants belong to `WithOrderedBasis()`. |
+| `gens`, `gen`, `ngens` | `WithOrderedGeneratingSet()` unless the methods assert basis coordinates, in which case `WithOrderedBasis()`. |
+| element `list`, `vector`, `support`, coefficient lookup, leading/trailing term methods | basis or ordered-basis element surfaces; not generic module elements. |
+| `degree`, coordinate-ring bookkeeping, dense/sparse conversion, representation hooks, `_sympy_`, `_magma_init_`, `_macaulay2_` | interop or representation details unless a mathematical invariant is explicitly stated. |
+| `linear_combination`, parent `sum`, random elements | generic computational helpers; no public category method unless the spec states finite-linear-combination or probability-distribution structure. |
+| `submodule`, `submodule_with_basis`, `span`, `zero_submodule`, submodule comparison | `Subobjects()` refined by free, field, PID, basis, or ordered-basis hypotheses as required. |
+| `intersection`, `saturation`, `denominator`, `index_in` | free modules over integral domains/PIDs and their subobject owners. |
+| `quotient_module`, `__truediv__`, `quotient_abstract`, quotient matrices | `Quotients()` refined by field, free, PID, finite-presentation, basis, or ordered-basis hypotheses. |
+| `cover`, `relations`, `free_cover`, `free_relations`, `quotient_map`, `lift_map`, `lift`, `retract` | quotient or subquotient construction owners; `lift`/`retract` for submodules belong to `Subobjects()`. |
+| Smith-form data, `invariant_factors`, `invariants`, `smith_form_gens`, `free_part`, `torsion_part`, `annihilator`, element order | `FinitelyPresentedModulesOverPID` and its torsion/finite refinements. |
+| `hom`, `_Hom_`, `module_morphism`, morphism from basis/images/matrices, `on_basis` | the relevant `HomCategory()`; basis-defined constructors refine through `WithBasis().HomCategory()`. |
+| `tensor`, `tensor_module`, tensor constructors, tensor factors | `TensorProducts()` and tensor-power construction owners. |
+| `dual`, `linear_form`, `alternating_form`, symmetric and exterior powers | `DualObjects()` or the appropriate symmetric/exterior construction owner over finite-rank free modules. |
+| `determinant`, `discriminant`, `gram_matrix`, `inner_product_matrix`, `inner_product`, quadratic product | bilinear/quadratic form-bearing module owners. |
+| `is_symmetric`, `is_alternating`, `is_nondegenerate`, `is_integral`, `is_even` | form-bearing axiom owners, not constructor wrappers. |
+| lattice reduction and enumeration: `LLL`, `BKZ`, `HKZ`, `shortest_vector`, `voronoi_cell`, `closest_vector`, `babai` | integral-lattice algorithm surface, not generic modules or generic free modules. |
+| lattice constructions: `dual_lattice`, `discriminant_group`, `orthogonal_complement`, `overlattice`, `genus`, `orthogonal_group` | integral-lattice and finite-quadratic-module owners. |
+| graded data: `generator_degrees`, homogeneous `basis`, `degree`, `connectivity`, `suspension`, `minimal_presentation`, `resolution` | graded free or graded finitely presented owners. |
+| Ore data: `ore_ring`, `twisting_morphism`, `twisting_derivation`, `pseudohom`, Ore matrix, morphism restriction/corestriction/quotient | Ore-algebra or semilinear-operator owner; ordinary free-module operations remain inherited from free finite-rank modules. |
+| representation data: `semigroup`, `side`, `representation_matrix`, `character`, invariant/twisted invariant modules, subrepresentation, quotient representation, tensor/exterior/symmetric/Schur functors | parameterized representation-module owner and its subobject, quotient, tensor, exterior, symmetric, and Schur construction owners. |
+| ring-as-module data: `structure_ring`, `structure_map`, `module_generators` | forgetful construction from rings/algebras to modules or objects-over/under structure; ring operations remain in `rings`. |
+
 ## Axiomatic Restrictions
 
 `Free`, `Torsion`, `Torsionfree`, `Projective`, `FinitelyGenerated`,
