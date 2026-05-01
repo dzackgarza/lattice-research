@@ -49,6 +49,43 @@ method coverage fourth, deletion last. Doing this in any other order invites the
 failure mode: constructors and smokes depending on wrapper categories before the real
 method owners exist.
 
+## Current Execution State
+
+Completed in the current branch:
+
+- The wrapper inventory and mapping table have been created from the Sage inventory.
+- `_CombinatorialFreeModules` has been deleted as a project subcategory. Construction
+  now routes through `Modules(R).Constructors().CombinatorialFreeModule(...)` and
+  refines into the real module categories `Free()`, `WithBasis()`, and
+  `WithOrderedGeneratingSet()`.
+- `WithBasis()` and `WithOrderedBasis()` are module axioms rather than Sage-wrapper
+  categories. `WithOrderedBasis()` is a direct `Modules` axiom with immediate
+  supercategories `WithBasis()` and `WithOrderedGeneratingSet()`.
+- Standard free-module and basis subobject/quotient routing uses functorial
+  construction categories such as `C.Free().FiniteRank().WithOrderedBasis()`,
+  `C.WithOrderedBasis().Subobjects()`, and `C.WithOrderedBasis().Quotients()`.
+- `FreeQuadraticModule` construction routes to a free finite-rank ordered-basis module
+  with quadratic-form structure rather than to a wrapper category as the long-term
+  owner.
+- Generic basis-owned methods are now represented on `WithBasis()` and
+  `WithBasis().HomCategory()`.
+- Generic subobject and quotient construction-owner surfaces are represented on the
+  module construction categories.
+- PID presentation invariant surfaces are represented on
+  `FinitelyPresentedModulesOverPID`.
+
+Open blocker:
+
+- `just smoke-file modules/smoketest.sage` currently stops before the module-wrapper
+  assertions because finite/countable set structure still declares
+  `_an_element_from_iterator` as an abstract method. That is the adjacent sets-spec
+  decision recorded in `../../NEEDS_DECISIONS.md`; this migration must not weaken module
+  smokes or delete adjacent set-spec methods to make module smokes pass.
+
+Next work starts at the first `[~]` or `[ ]` row in the class todo. A partially
+migrated row is not deletable until every inventoried method has a mathematical owner
+or an explicit non-mapping decision.
+
 ## Phase: Freeze The Wrapper Inventory
 
 Location: `modules/subcategories/`, `modules/__init__.py`,
@@ -153,7 +190,7 @@ Acceptance:
 
 Validation:
 
-- `just smoke-file plans/category_specs/modules/smoketest.sage` is the main check.
+- `just smoke-file modules/smoketest.sage` is the main check.
 - If the smoke still fails, the failure must expose a real missing category graph edge
   or mapped method owner, not a hidden wrapper dependency.
 - `git diff --check` passes.
@@ -194,8 +231,8 @@ Validation:
 
 - For each migrated class, add or update a smoke statement using a real Sage object and
   the final category owner.
-- `just smoke-file plans/category_specs/modules/smoketest.sage` passes or stops at a
-  documented blocker that is not a deleted-wrapper dependency.
+- `just smoke-file modules/smoketest.sage` passes or stops at a documented blocker that
+  is not a deleted-wrapper dependency.
 - `git diff --check` passes.
 
 Commit boundary:
@@ -227,8 +264,8 @@ Acceptance:
 
 Validation:
 
-- `just smoke-file plans/category_specs/modules/smoketest.sage`.
-- `rg "CombinatorialFreeModules|FreeModulesWithStandardBasis|VectorSubspacesWithOrderedGeneratingSet|QuotientModulesWithOrderedGeneratingSet" plans/category_specs/modules` returns only intentional documentation entries after deletion.
+- `just smoke-file modules/smoketest.sage`.
+- `rg "CombinatorialFreeModules|FreeModulesWithStandardBasis|VectorSubspacesWithOrderedGeneratingSet|QuotientModulesWithOrderedGeneratingSet" modules` returns only intentional documentation entries after deletion.
 - `git diff --check`.
 
 Commit boundary:
@@ -249,31 +286,33 @@ Commit boundary:
 
 Status markers:
 
-- `[x]` removed or routed in the current staged checkpoint;
+- `[x]` removed or routed in the current branch;
+- `[~]` partially migrated: routing, graph, or some method owners have moved, but the
+  wrapper is not deletable yet;
 - `[ ]` not started;
 - `[?]` classify before editing because the name may be a real category even though the
   current file is wrapper-shaped.
 
 | Status | Class | First mapping target | Deletion condition |
 | --- | --- | --- | --- |
-| [x] | `_CombinatorialFreeModules` | Constructor on `Modules(R)` refined to `Free()` and `WithOrderedGeneratingSet()` | Deleted in the staged checkpoint; keep only mapping docs and smokes. |
-| [ ] | `_FreeModulesWithStandardBasis` | Free modules with chosen ordered standard basis | Basis, generator, coordinate, and ambient methods moved to free/ordered-basis owners. |
-| [ ] | `_FiniteRankFreeModules` | `Modules(R).Free().FiniteRank()` | Tensor-calculus constructor routes refine to finite-rank free modules without a wrapper. |
+| [x] | `_CombinatorialFreeModules` | Constructor on `Modules(R)` refined to `Free()`, `WithBasis()`, and `WithOrderedGeneratingSet()` | Deleted in the current branch; keep only mapping docs and smokes. |
+| [~] | `_FreeModulesWithStandardBasis` | Free modules with chosen ordered standard basis | Basis, generator, coordinate, and ambient methods moved to free/ordered-basis owners. |
+| [~] | `_FiniteRankFreeModules` | `Modules(R).Free().FiniteRank()` | Tensor-calculus constructor routes refine to finite-rank free modules without a wrapper. |
 | [ ] | `_FreeModulesOverIntegralDomains` | `Modules(R).Free().OverIntegralDomain()` | Domain-specific methods live on free modules over integral domains. |
 | [ ] | `_FreeModulesOverPIDs` | `Modules(R).Free().OverPID()` | PID-specific Smith/Hermite/quotient methods live on the PID refinement. |
-| [ ] | `_VectorSpaces` | `Modules(K).Free().FiniteRank().OverField()` or the existing field-module surface | Field-specific linear algebra methods have field-category owners. |
-| [ ] | `_RealDoubleVectorSpaces` | Exact numeric field/vector-space refinement, if mathematically admitted | RDF-specific implementation methods are interop-only or owned by the field/vector-space refinement. |
-| [ ] | `_ComplexDoubleVectorSpaces` | Exact numeric field/vector-space refinement, if mathematically admitted | CDF-specific implementation methods are interop-only or owned by the field/vector-space refinement. |
-| [ ] | `_VectorSubspaces` | `Modules(K).Subobjects()` over the vector-space refinement | Subspace methods move to subobject and field-linear owners. |
-| [ ] | `_VectorSubspacesWithOrderedGeneratingSet` | Vector-space subobjects with ordered generating set | User-basis and coordinate methods move to ordered-generating-set subobject owners. |
-| [ ] | `_VectorSpaceQuotients` | `Modules(K).Quotients()` over the vector-space refinement | Quotient cover/relation/lift methods move to quotient owners. |
-| [ ] | `_FreeModuleSubmodules` | `Modules(R).Subobjects()` over free/PID module refinements | Submodule methods move to subobject owners with PID hypotheses where needed. |
-| [ ] | `_FreeModuleSubmodulesWithOrderedGeneratingSet` | Free-module subobjects with ordered generating set | User-basis methods move to ordered-generating-set subobject owners. |
-| [ ] | `_SubmodulesWithOrderedGeneratingSet` | Subobjects of modules with ordered generating sets | `SubmoduleWithBasis` implementation evidence is separated from the mathematical owner. |
-| [ ] | `_FreeModuleQuotients` | `Modules(R).Quotients()` over free module refinements | Free-cover, relation, lift, and quotient-map methods move to quotient owners. |
-| [ ] | `_QuotientModulesWithOrderedGeneratingSet` | Quotients of modules with ordered generating sets | `QuotientModuleWithBasis` implementation evidence is separated from the mathematical owner. |
-| [ ] | `_FinitelyGeneratedPIDQuotientModules` | Finitely generated or finitely presented modules over PIDs | FGP quotient methods move to PID finite-presentation owners. |
-| [?] | `_FreeQuadraticModules` | Free modules with quadratic form | Keep only if the file is rewritten as a real form-bearing category. |
+| [~] | `_VectorSpaces` | `Modules(K).Free().FiniteRank().OverField()` or the existing field-module surface | Field-specific linear algebra methods have field-category owners. |
+| [~] | `_RealDoubleVectorSpaces` | Exact numeric field/vector-space refinement, if mathematically admitted | RDF-specific implementation methods are interop-only or owned by the field/vector-space refinement. |
+| [~] | `_ComplexDoubleVectorSpaces` | Exact numeric field/vector-space refinement, if mathematically admitted | CDF-specific implementation methods are interop-only or owned by the field/vector-space refinement. |
+| [~] | `_VectorSubspaces` | `Modules(K).Subobjects()` over the vector-space refinement | Subspace methods move to subobject and field-linear owners. |
+| [~] | `_VectorSubspacesWithOrderedGeneratingSet` | Vector-space subobjects with ordered generating set | User-basis and coordinate methods move to ordered-generating-set subobject owners. |
+| [~] | `_VectorSpaceQuotients` | `Modules(K).Quotients()` over the vector-space refinement | Quotient cover/relation/lift methods move to quotient owners. |
+| [~] | `_FreeModuleSubmodules` | `Modules(R).Subobjects()` over free/PID module refinements | Submodule methods move to subobject owners with PID hypotheses where needed. |
+| [~] | `_FreeModuleSubmodulesWithOrderedGeneratingSet` | Free-module subobjects with ordered generating set | User-basis methods move to ordered-generating-set subobject owners. |
+| [~] | `_SubmodulesWithOrderedGeneratingSet` | Subobjects of modules with ordered generating sets | `SubmoduleWithBasis` implementation evidence is separated from the mathematical owner. |
+| [~] | `_FreeModuleQuotients` | `Modules(R).Quotients()` over free module refinements | Free-cover, relation, lift, and quotient-map methods move to quotient owners. |
+| [~] | `_QuotientModulesWithOrderedGeneratingSet` | Quotients of modules with ordered generating sets | `QuotientModuleWithBasis` implementation evidence is separated from the mathematical owner. |
+| [~] | `_FinitelyGeneratedPIDQuotientModules` | Finitely generated or finitely presented modules over PIDs | FGP quotient methods move to PID finite-presentation owners. |
+| [~] | `_FreeQuadraticModules` | Free modules with quadratic form | Keep only if the file is rewritten as a real form-bearing category. |
 | [?] | `_IntegerLattices` | Integral lattices as finite-rank free `ZZ`-modules with integral bilinear form | Keep only if rewritten as the lattice/form category, not as a Sage class wrapper. |
 | [?] | `_TorsionQuadraticModules` | Finite torsion modules with quadratic form | Keep only if it names the finite quadratic module category rather than Sage's implementation. |
 | [ ] | `_FreeGradedModules` | Free graded modules | Graded free methods move to `Graded().Free()` owners. |
@@ -281,3 +320,36 @@ Status markers:
 | [?] | `_OreModules` | Modules over Ore-polynomial quotient data, if admitted as mathematical structure | Constructor and pseudomorphism data are separated from any real module category owner. |
 | [?] | `_RepresentationModules` | Modules with a semigroup/group action | Keep only if rewritten as a representation-module category over the acting object. |
 | [?] | `_RingObjectsAsModules` | Constructor or forgetful functor from ring objects to modules | Delete if it is only a ring-object implementation wrapper; keep a functor/category only if mathematically specified. |
+
+## Per-Class Completion Rule
+
+A class row can move to `[x]` only after all of the following are true:
+
+- every inventoried method is mapped in `modules/docs/MAPPING.md` to a real owner or to
+  an explicit interop-only or rejected non-mapping;
+- every needed narrow category owner exists before the method is moved;
+- constructor routing and smokes use real mathematical categories, not wrapper
+  membership;
+- the wrapper file, lazy import, constructor accessor, and membership smoke are deleted
+  if the wrapper was constructor-only;
+- `rg` finds the deleted wrapper name only in migration documentation.
+
+For `[~]` rows, the next action is method-owner migration, not deletion.
+
+## Remaining Method Clusters
+
+- Ordered finite-rank coordinate surfaces: `basis_matrix`, `coordinate_vector`,
+  `coordinates`, `from_vector`, and `echelonized_basis` need narrow basis/order owners
+  before moving.
+- Field subobject and quotient surfaces: `linear_dependence`, `subspace`,
+  `complement`, `quotient_abstract`, and `lift_map` need field-linear subobject or
+  quotient owners.
+- PID free and subobject surfaces: `denominator`, `index_in`, Smith/Hermite data,
+  `span_of_basis`, `basis_matrix`, and echelon surfaces need PID-refined owners.
+- Quotient normal-form and basis surfaces: `free_cover`, `free_relations`, `lift_map`,
+  `retract`, quotient-of-quotient structure, and `cokernel_basis_indices` need quotient
+  owners with the right basis or PID hypotheses.
+- Form and lattice surfaces: determinant, discriminant, Gram data, inner products, and
+  lattice reduction need form-bearing and lattice owners before wrapper deletion.
+- Graded, Ore, representation, and ring-object bridges are not migrated yet; classify
+  them from Sage docs and source before moving methods.
