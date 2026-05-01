@@ -54,7 +54,7 @@ NMK = Modules(K).Constructors()
 SMOKE_STATEMENTS = (
     (
         "Modules(Zmod(6)).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: NM6.FreeModule(2) in MR6.Free().FiniteRank(),
+        lambda _: NM6.FreeModule(2) in MR6.Free().FiniteRank().WithOrderedBasis(),
     ),
     (
         "Modules(Zmod(6)).Constructors().FreeModule(2) has ordered basis",
@@ -64,27 +64,30 @@ SMOKE_STATEMENTS = (
     ("Modules(Zmod(6)).Constructors().FreeModule(2) has rank 2", lambda _: NM6.FreeModule(2).rank() == 2),
     (
         "Modules(ZZ['x']).Constructors().FreeModule(2) is free over an integral domain",
-        lambda _: NMPZ.FreeModule(2) in MPZ.Free().FiniteRank(),
+        lambda _: NMPZ.FreeModule(2) in MPZ.Free().FiniteRank().WithOrderedBasis(),
     ),
     ("Modules(ZZ['x']).Constructors().FreeModule(2) has base ring ZZ['x']", lambda _: NMPZ.FreeModule(2).base_ring() is PZ),
     ("Modules(ZZ['x']).Constructors().FreeModule(2) has rank 2", lambda _: NMPZ.FreeModule(2).rank() == 2),
     (
         "Modules(ZZ).Constructors().FreeModule(2) is free over a PID",
-        lambda _: NMZZ.FreeModule(2) in MZZCat.Free().FiniteRank(),
+        lambda _: NMZZ.FreeModule(2) in MZZCat.Free().FiniteRank().WithOrderedBasis(),
     ),
     ("Modules(ZZ).Constructors().FreeModule(2) has base ring ZZ", lambda _: NMZZ.FreeModule(2).base_ring() is ZZ),
     ("Modules(ZZ).Constructors().FreeModule(2) has rank 2", lambda _: NMZZ.FreeModule(2).rank() == 2),
-    ("Modules(QQ).Constructors().VectorSpace(2) is finite-rank free", lambda _: NMQQ.VectorSpace(2) in MQQCat.Free().FiniteRank()),
+    (
+        "Modules(QQ).Constructors().VectorSpace(2) is finite-rank free",
+        lambda _: NMQQ.VectorSpace(2) in MQQCat.Free().FiniteRank().WithOrderedBasis(),
+    ),
     ("Modules(QQ).Constructors().VectorSpace(2) is over a field", lambda _: NMQQ.VectorSpace(2) in MQQCat.OverField()),
     ("Modules(QQ).Constructors().VectorSpace(2) has base ring QQ", lambda _: NMQQ.VectorSpace(2).base_ring() is QQ),
     ("Modules(QQ).Constructors().VectorSpace(2) has dimension 2", lambda _: NMQQ.VectorSpace(2).dimension() == 2),
     (
         "Modules(RDF).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: Modules(RDF).Constructors().FreeModule(2) in Modules(RDF).Free().FiniteRank(),
+        lambda _: Modules(RDF).Constructors().FreeModule(2) in Modules(RDF).Free().FiniteRank().WithOrderedBasis(),
     ),
     (
         "Modules(CDF).Constructors().FreeModule(2) is finite-rank free",
-        lambda _: Modules(CDF).Constructors().FreeModule(2) in Modules(CDF).Free().FiniteRank(),
+        lambda _: Modules(CDF).Constructors().FreeModule(2) in Modules(CDF).Free().FiniteRank().WithOrderedBasis(),
     ),
     (
         "refine_category(V.subspace(...), Subobjects()) is a module subobject",
@@ -93,7 +96,8 @@ SMOKE_STATEMENTS = (
     ("refined V.subspace(...) has ambient vector space V", lambda _: refine_category(W, MQQCat.Subobjects()).ambient_vector_space() is V),
     (
         "refine_category(V.subspace_with_basis(...), Subobjects()+WithOrderedBasis() has ordered basis",
-        lambda _: refine_category(Wb, [MQQCat.Subobjects(), MQQCat.WithOrderedBasis()]) in MQQCat.WithOrderedBasis(),
+        lambda _: refine_category(Wb, MQQCat.WithOrderedBasis().Subobjects())
+        in MQQCat.WithOrderedBasis().Subobjects(),
     ),
     (
         "refine_category(V.quotient_module(W), Quotients()) is a module quotient",
@@ -123,7 +127,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(QQ).Constructors().FiniteRankFreeModule(2) is finite-rank free",
-        lambda _: NMQQ.FiniteRankFreeModule(2) in MQQCat.Free().FiniteRank(),
+        lambda _: NMQQ.FiniteRankFreeModule(2) in MQQCat.Free().FiniteRank().WithOrderedBasis(),
     ),
     ("Modules(QQ).Constructors().FiniteRankFreeModule(2) has rank 2", lambda _: NMQQ.FiniteRankFreeModule(2).rank() == 2),
     (
@@ -133,7 +137,8 @@ SMOKE_STATEMENTS = (
     ("refined M.submodule(...) has ambient module M", lambda _: refine_category(S, MZZCat.Subobjects()).ambient_module() is M),
     (
         "refine_category(M.submodule_with_basis(...), Subobjects()+WithOrderedBasis()) has ordered basis",
-        lambda _: refine_category(Sb, [MZZCat.Subobjects(), MZZCat.WithOrderedBasis()]) in MZZCat.WithOrderedBasis(),
+        lambda _: refine_category(Sb, MZZCat.WithOrderedBasis().Subobjects())
+        in MZZCat.WithOrderedBasis().Subobjects(),
     ),
     (
         "refine_category(M.quotient_module(S), Quotients()) is a module quotient",
@@ -141,11 +146,11 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(C.submodule([a + b]), Subobjects()+WithBasis()) has a basis",
-        lambda _: refine_category(CS, [MQQCat.Subobjects(), MQQCat.WithBasis()]) in MQQCat.WithBasis(),
+        lambda _: refine_category(CS, MQQCat.WithBasis().Subobjects()) in MQQCat.WithBasis().Subobjects(),
     ),
     (
         "refine_category(C.quotient_module(CS), Quotients()+WithBasis()) has a basis",
-        lambda _: refine_category(CQ, [MQQCat.Quotients(), MQQCat.WithBasis()]) in MQQCat.WithBasis(),
+        lambda _: refine_category(CQ, MQQCat.WithBasis().Quotients()) in MQQCat.WithBasis().Quotients(),
     ),
     (
         "refine_category(SymmetricGroup(3).regular_representation(QQ), RepresentationModules()) is a representation module",

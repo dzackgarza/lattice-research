@@ -582,23 +582,21 @@ class Modules(Category_module):
         @final
         def _standard_free_module_categories(self) -> list[Category]:
             C = self.category()
-            return [C.Free().FiniteRank(), C.WithOrderedBasis()]
+            return [C.Free().FiniteRank().WithOrderedBasis()]
 
         @final
         def _submodule_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
             C = self.category()
-            categories = [C.Subobjects()]
             if with_ordered_basis:
-                categories.append(C.WithOrderedBasis())
-            return categories
+                return [C.WithOrderedBasis().Subobjects()]
+            return [C.Subobjects()]
 
         @final
         def _quotient_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
             C = self.category()
-            categories = [C.Quotients()]
             if with_ordered_basis:
-                categories.append(C.WithOrderedBasis())
-            return categories
+                return [C.WithOrderedBasis().Quotients()]
+            return [C.Quotients()]
 
         @final
         def _categories_for_free_module(self, M: RModule) -> list[Category]:

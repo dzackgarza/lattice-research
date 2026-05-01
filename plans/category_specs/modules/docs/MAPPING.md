@@ -130,8 +130,8 @@ The migration needs these mathematical owners before constructors are fully rewi
 | --- | --- |
 | `Modules(R).WithBasis()` | Modules equipped with a specified basis. This is the owner for `basis`, basis-key access, monomial/term constructors, support in a basis, and basis-defined morphisms. |
 | `Modules(R).WithOrderedBasis()` | Basis-bearing modules whose basis has a specified order. This refines `WithBasis()` and `WithOrderedGeneratingSet()` and owns coordinate vectors, ordered support, leading/trailing term operations, and basis matrices whose row order is meaningful. |
-| `C.Subobjects().WithBasis()` / `C.Subobjects().WithOrderedBasis()` | Subobjects equipped with chosen bases or ordered bases, including `SubmoduleWithBasis`, vector subspaces with basis, and PID free submodules with user bases. |
-| `C.Quotients().WithBasis()` / `C.Quotients().WithOrderedBasis()` | Quotients equipped with chosen normal-form bases, including `QuotientModuleWithBasis`. |
+| `C.WithBasis().Subobjects()` / `C.WithOrderedBasis().Subobjects()` | Subobjects equipped with chosen bases or ordered bases, including `SubmoduleWithBasis`, vector subspaces with basis, and PID free submodules with user bases. The construction order uses Sage's covariant machinery so these categories are automatically subcategories of both `C.Subobjects()` and the corresponding basis-bearing category. |
+| `C.WithBasis().Quotients()` / `C.WithOrderedBasis().Quotients()` | Quotients equipped with chosen normal-form bases, including `QuotientModuleWithBasis`. The construction order keeps quotient structure functorial over the basis-bearing parent category. |
 | `Modules(R).Free().FiniteRank().OverField()` | The vector-space owner for finite-dimensional vector spaces over a field. |
 | `Modules(R).Free().OverIntegralDomain()` | The owner for free-module operations requiring an integral domain, including intersection and saturation. |
 | `Modules(R).Free().OverPID()` | The owner for free-module operations requiring a PID, including quotient construction and index computations. |
