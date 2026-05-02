@@ -15,7 +15,7 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import CartesianProductsCategory as SageCartesianProductsCategory
@@ -265,6 +265,7 @@ class _CatObjectMixin:
         Parent.__init__(self, category=None)
         CategoryObject._init_category_(self, _cat_category())
 
+    @override
     @final
     def category(self):
         r"""Return ``Cat()`` as the category of this category object.
@@ -279,6 +280,7 @@ class _CatObjectMixin:
         """
         return CategoryObject.category(self)
 
+    @override
     @final
     def Hom(self, codomain: SageCategory) -> Hom:
         r"""Return ``Hom_{Cat}(self, codomain)``."""
@@ -400,18 +402,24 @@ class _CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
         self._init_cat_object()
         SageCategoryWithAxiom.__init__(self, base_category)
 
+    @override
     @final
     def ambient_category(self) -> SageCategory:
+        r"""Return the base category of this axiom category."""
         return self.base_category()
 
+    @override
     @final
     def defining_predicates(self) -> tuple[str, ...]:
+        r"""Return the predicate names defining this axiom category."""
         predicates = _declared_defining_predicates(self)
         _validate_defining_predicates(self, predicates)
         return predicates
 
+    @override
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
+        r"""Return whether ``candidate`` satisfies every defining predicate."""
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
@@ -427,18 +435,24 @@ class _CategoryWithAxiom_singleton(
         self._init_cat_object()
         SageCategoryWithAxiomSingleton.__init__(self, base_category)
 
+    @override
     @final
     def ambient_category(self) -> SageCategory:
+        r"""Return the base category of this singleton axiom category."""
         return self.base_category()
 
+    @override
     @final
     def defining_predicates(self) -> tuple[str, ...]:
+        r"""Return the predicate names defining this singleton axiom category."""
         predicates = _declared_defining_predicates(self)
         _validate_defining_predicates(self, predicates)
         return predicates
 
+    @override
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
+        r"""Return whether ``candidate`` satisfies every defining predicate."""
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
@@ -449,18 +463,24 @@ class _CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOv
         self._init_cat_object()
         SageCategoryWithAxiomOverBaseRing.__init__(self, base_category)
 
+    @override
     @final
     def ambient_category(self) -> SageCategory:
+        r"""Return the base category of this base-ring axiom category."""
         return self.base_category()
 
+    @override
     @final
     def defining_predicates(self) -> tuple[str, ...]:
+        r"""Return the predicate names defining this base-ring axiom category."""
         predicates = _declared_defining_predicates(self)
         _validate_defining_predicates(self, predicates)
         return predicates
 
+    @override
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
+        r"""Return whether ``candidate`` satisfies every defining predicate."""
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 

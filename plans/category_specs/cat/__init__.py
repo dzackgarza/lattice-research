@@ -37,7 +37,7 @@ Cat()
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -86,11 +86,16 @@ if TYPE_CHECKING:
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
+    @override
     @abstract_method
-    def Hom(self, codomain: Category) -> Hom: ...
+    def Hom(self, codomain: Category) -> Hom:
+        r"""Return the functor hom object owned by ``Cat()``."""
+        ...
 
+    @override
     @final
     def is_join_category(self) -> bool:
+        r"""Return whether this category object is a join object in ``Cat()``."""
         from .join_categories import is_join_category
 
         return is_join_category(self)
@@ -130,6 +135,7 @@ class Cat(_SageCategorySingleton):
     specified as an object comparable inside a larger modeled category.
     """
 
+    @override
     @final
     def _make_named_class(self, name, method_provider, cache=False, picklable: bool = True):
         r"""Use the wrapper-layer universal subcategory-method injection.
@@ -148,8 +154,10 @@ class Cat(_SageCategorySingleton):
             picklable=picklable,
         )
 
+    @override
     @final
     def __contains__(self, candidate: Any) -> bool:
+        r"""Return whether ``candidate`` is an object of the category ``Cat()``."""
         from .join_categories import is_join_category
 
         if candidate is self:
@@ -178,12 +186,16 @@ class Cat(_SageCategorySingleton):
             return self.Constructors().EmptyCategory()
         return _SageCategory.meet(categories)
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return the supercategories of the root category ``Cat()``."""
         return []
 
+    @override
     @final
     def additional_structure(self):
+        r"""Return Sage's additional-structure marker for ``Cat()``."""
         return None
 
     class SubcategoryMethods:
@@ -192,6 +204,7 @@ class Cat(_SageCategorySingleton):
         @cached_method
         @final
         def JoinCategories(self) -> Category:
+            r"""Return the subcategory of join objects in ``Cat()``."""
             from .join_categories import JoinCategories
 
             return JoinCategories()

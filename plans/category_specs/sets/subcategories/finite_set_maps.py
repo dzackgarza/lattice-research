@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage finite sets of maps."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator, Sequence
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -32,6 +32,7 @@ class _FiniteSetMapsSets(Category_singleton):
     ``Sets().Constructors().FiniteSetMaps(domain, codomain)`` refines here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable().Finite()]
@@ -40,6 +41,7 @@ class _FiniteSetMapsSets(Category_singleton):
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

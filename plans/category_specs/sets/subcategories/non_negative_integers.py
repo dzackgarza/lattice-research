@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``NonNegativeIntegers()``."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,15 +24,18 @@ class _NonNegativeIntegersSets(Category_singleton):
     parent here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
+        @override
         @final
         def is_finite(self) -> bool:
             return False
 
+        @override
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
 

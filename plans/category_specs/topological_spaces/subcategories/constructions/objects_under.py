@@ -2,7 +2,7 @@ r"""Slice construction category of topological spaces under a fixed space."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -20,23 +20,30 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
 
     _functor_category = "ObjectsUnder"
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"topological spaces under {self.base()}"
 
     class ParentMethods:
         @abstract_method
-        def structure_space(self) -> TopologicalSpace: ...
+        def structure_space(self) -> TopologicalSpace:
+            r"""Return the base topological space of this object-under structure."""
+            ...
 
         @abstract_method
-        def structure_map(self) -> Morphism: ...
+        def structure_map(self) -> Morphism:
+            r"""Return the structure map from the base topological space."""
+            ...
 
         @final
         def structure_domain(self) -> TopologicalSpace:
+            r"""Return the domain of the structure map."""
             return self.structure_space()
 
         @final
         def structure_codomain(self) -> TopologicalSpace:
+            r"""Return the codomain of the structure map."""
             return self
 
     class ElementMethods: ...

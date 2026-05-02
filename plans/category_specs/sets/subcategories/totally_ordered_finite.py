@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``TotallyOrderedFiniteSet`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _TotallyOrderedFiniteSets(Category_singleton):
     as both finite countable and totally ordered.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable().Finite(), Sets().TotallyOrdered()]
@@ -44,6 +45,7 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         @abstract_method
         def rank(self, x: SetElement) -> Integer: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

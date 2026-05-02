@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage disjoint unions of enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _DisjointUnionEnumeratedSets(Category_singleton):
     Sage's disjoint-union parent here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
@@ -32,6 +33,7 @@ class _DisjointUnionEnumeratedSets(Category_singleton):
         @abstract_method
         def _is_a(self, x: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

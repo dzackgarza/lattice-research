@@ -3,7 +3,7 @@ r"""Axiomatic subcategory for finite set partitions."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -29,10 +29,12 @@ class _PartitionedSets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Sets, "Partitioned")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "sets of partitions of a fixed set"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable(), Sets().Subobjects()]
@@ -62,6 +64,7 @@ class _PartitionedSets(CategoryWithAxiom):
             r"""Construct the partition with the given blocks."""
             ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool:
             r"""Return whether ``x`` is a partition of ``base_set()``."""

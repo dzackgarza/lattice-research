@@ -7,7 +7,7 @@ category so it can attach to arbitrary subcategories via ``category_of``.
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -67,6 +67,7 @@ class _Subobjects(SubobjectsCategory):
             r"""Return the characteristic predicate inside ``ambient()``."""
             return lambda x: x in self
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool:
             r"""Return whether ``x`` lies in ``ambient()`` and satisfies ``predicate()``."""

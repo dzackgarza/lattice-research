@@ -7,7 +7,7 @@ automorphisms of sets.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -29,20 +29,30 @@ class _SetHomCategoryObjectMethods:
 
 class _SetMorphisms:
     @abstract_method
-    def pre_image(self, y: SetElement) -> Subset: ...
+    def pre_image(self, y: SetElement) -> Subset:
+        r"""Return the inverse image of ``y`` under this set morphism."""
+        ...
 
     @abstract_method
-    def is_injective(self) -> bool: ...
+    def is_injective(self) -> bool:
+        r"""Return whether this set morphism is injective."""
+        ...
 
     @abstract_method
-    def is_surjective(self) -> bool: ...
+    def is_surjective(self) -> bool:
+        r"""Return whether this set morphism is surjective."""
+        ...
 
+    @override
     @final
     def is_bijective(self) -> bool:
+        r"""Return whether this set morphism is both injective and surjective."""
         return self.is_injective() and self.is_surjective()
 
+    @override
     @final
     def is_isomorphism(self) -> bool:
+        r"""Return whether this set morphism is an isomorphism."""
         return self.is_bijective()
 
 
@@ -65,8 +75,10 @@ class SetHomCategory(HomCategoryOf):
     # such as is_injective, is_surjective, and is_bijective belong here
     # on ElementMethods, not on the generic category of all morphisms.
 
+    @override
     @final
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the generic hom-category surface refined by set maps."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _SetHomCategoryObjectMethods
@@ -87,7 +99,9 @@ class SetEndCategory(GenericEndCategory):
 
     class ParentMethods:
         @abstract_method
-        def base_set(self) -> Set: ...
+        def base_set(self) -> Set:
+            r"""Return the set whose endomorphisms this object contains."""
+            ...
 
     ElementMethods = _SetEndomorphisms
     class MorphismMethods: ...

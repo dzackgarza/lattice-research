@@ -59,7 +59,7 @@ canonical constructors before refining the result into this hierarchy.
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -109,6 +109,7 @@ if TYPE_CHECKING:
 class _SetObjectMethods:
     r"""Methods on objects of the root category ``Sets()``."""
 
+    @override
     @abstract_method
     def __contains__(self, x: Any) -> bool:
         r"""Return ``True`` if ``x`` is an element of ``self``."""
@@ -118,25 +119,39 @@ class _SetObjectMethods:
     def _element_constructor_(self, x: SetElement) -> SetElement: ...
 
     @abstract_method
-    def is_parent_of(self, element: SetElement) -> bool: ...
+    def is_parent_of(self, element: SetElement) -> bool:
+        r"""Return whether this set is the parent of ``element``."""
+        ...
 
     @abstract_method
-    def an_element(self) -> SetElement: ...
+    def an_element(self) -> SetElement:
+        r"""Return a distinguished element of this set."""
+        ...
 
     @abstract_method
-    def some_elements(self) -> list[SetElement]: ...
+    def some_elements(self) -> list[SetElement]:
+        r"""Return sample elements of this set."""
+        ...
 
     @abstract_method
-    def cardinality(self) -> Cardinality: ...
+    def cardinality(self) -> Cardinality:
+        r"""Return the cardinality of this set."""
+        ...
 
     @abstract_method
-    def is_empty(self) -> bool: ...
+    def is_empty(self) -> bool:
+        r"""Return whether this set has no elements."""
+        ...
 
     @abstract_method
-    def is_finite(self) -> bool: ...
+    def is_finite(self) -> bool:
+        r"""Return whether this set has finite cardinality."""
+        ...
 
     @abstract_method
-    def construction(self): ...
+    def construction(self):
+        r"""Return Sage construction data for this set, when it has one."""
+        ...
 
     @abstract_method
     def cartesian_product(
@@ -168,16 +183,19 @@ class _SetObjectMethods:
         r"""Return whether ``self`` is a subset of ``other``."""
         ...
 
+    @override
     @final
     def is_proper_subset(self, other: Set) -> bool:
         r"""Return whether ``self`` is a proper subset of ``other``."""
         return self.is_subset(other) and not other.is_subset(self)
 
+    @override
     @final
     def is_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subset."""
         return other.is_subset(self)
 
+    @override
     @final
     def is_proper_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` properly contains ``other``."""
@@ -242,7 +260,9 @@ class _SetElementMethods:
     def __hash__(self) -> Integer: ...
 
     @abstract_method
-    def cartesian_product(self, elements: Sequence[SetElement]) -> SetElement: ...
+    def cartesian_product(self, elements: Sequence[SetElement]) -> SetElement:
+        r"""Return the Cartesian product element with these coordinates."""
+        ...
 
 
 class _SetMorphismMethods:
@@ -254,17 +274,25 @@ class _SetMorphismMethods:
         ...
 
     @abstract_method
-    def is_injective(self) -> bool: ...
+    def is_injective(self) -> bool:
+        r"""Return whether this set morphism is injective."""
+        ...
 
     @abstract_method
-    def is_surjective(self) -> bool: ...
+    def is_surjective(self) -> bool:
+        r"""Return whether this set morphism is surjective."""
+        ...
 
+    @override
     @final
     def is_bijective(self) -> bool:
+        r"""Return whether this set morphism is both injective and surjective."""
         return self.is_injective() and self.is_surjective()
 
     @abstract_method
-    def pre_image(self, y: SetElement) -> Subset: ...
+    def pre_image(self, y: SetElement) -> Subset:
+        r"""Return the inverse image of ``y`` under this set morphism."""
+        ...
 
 
 # ---------------------------------------------------------------------------
@@ -282,16 +310,21 @@ class Sets(Category_singleton):
     refinement map.
     """
 
+    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageSets(),)
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return Sage's set category refined by this spec."""
         return [SageSets()]
 
+    @override
     @final
     def additional_structure(self):
+        r"""Return Sage's additional-structure marker for plain sets."""
         return None
 
     # ------------------------------------------------------------------
@@ -302,56 +335,67 @@ class Sets(Category_singleton):
         @cached_method
         @final
         def Finite(self) -> Category:
+            r"""Return the finite-set subcategory of this set category."""
             return self._with_axiom("Finite")
 
         @cached_method
         @final
         def Infinite(self) -> Category:
+            r"""Return the infinite-set subcategory of this set category."""
             return self._with_axiom("Infinite")
 
         @cached_method
         @final
         def Countable(self) -> Category:
+            r"""Return the countable-set subcategory of this set category."""
             return self._with_axiom("Countable")
 
         @cached_method
         @final
         def Uncountable(self) -> Category:
+            r"""Return the uncountable-set subcategory of this set category."""
             return self._with_axiom("Uncountable")
 
         @cached_method
         @final
         def Facade(self) -> Category:
+            r"""Return the facade-set subcategory of this set category."""
             return self._with_axiom("Facade")
 
         @cached_method
         @final
         def Topological(self) -> Category:
+            r"""Return the topological-set subcategory of this set category."""
             return self._with_axiom("Topological")
 
         @cached_method
         @final
         def Metric(self) -> Category:
+            r"""Return the metric-set subcategory of this set category."""
             return self._with_axiom("Metric")
 
         @cached_method
         @final
         def TotallyOrdered(self) -> Category:
+            r"""Return the totally ordered set subcategory of this set category."""
             return self._with_axiom("TotallyOrdered")
 
         @cached_method
         @final
         def Graded(self) -> Category:
+            r"""Return the graded-set subcategory of this set category."""
             return self._with_axiom("Graded")
 
         @cached_method
         @final
         def Partitioned(self) -> Category:
+            r"""Return the partitioned-set subcategory of this set category."""
             return self._with_axiom("Partitioned")
 
         @cached_method
         @final
         def GSets(self, acting_group: Group) -> Category:
+            r"""Return the category of sets with an action by ``acting_group``."""
             from .subcategories.group_actions import _GSets
 
             return _GSets(acting_group, self)
@@ -359,6 +403,7 @@ class Sets(Category_singleton):
         @cached_method
         @final
         def IsomorphicObjects(self) -> Category:
+            r"""Return the category of set objects presented by isomorphic models."""
             from .subcategories.constructions.isomorphic_objects import _IsomorphicObjects
 
             return _IsomorphicObjects.category_of(self)
@@ -366,6 +411,7 @@ class Sets(Category_singleton):
         @cached_method
         @final
         def WithRealizations(self) -> Category:
+            r"""Return the category of sets equipped with named realizations."""
             from .subcategories.constructions.with_realizations import _WithRealizations
 
             return _WithRealizations.category_of(self)
@@ -373,6 +419,7 @@ class Sets(Category_singleton):
         @cached_method
         @final
         def Realizations(self) -> Category:
+            r"""Return the category of realizations of objects in this set category."""
             from .subcategories.constructions.realizations import _Realizations
 
             return _Realizations.category_of(self)

@@ -2,7 +2,7 @@ r"""End categories and endomorphism method surfaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -24,19 +24,25 @@ def _end_categories_of(category: Category) -> Category:
 class UniversalEndObjectMethods:
     r"""Methods on objects ``End_C(A)`` of an end category."""
 
+    @override
     @final
     def is_endomorphism_set(self) -> bool:
+        r"""Return ``True`` because objects of this category are endomorphism objects."""
         return True
 
     @abstract_method
-    def identity(self) -> Endomorphism: ...
+    def identity(self) -> Endomorphism:
+        r"""Return the identity endomorphism of this end object."""
+        ...
 
 
 class UniversalEndElementMethods:
     r"""Methods on elements of end categories."""
 
+    @override
     @final
     def is_endomorphism(self) -> bool:
+        r"""Return ``True`` because elements of this category are endomorphisms."""
         return True
 
 
@@ -48,7 +54,9 @@ class EndCategory(CategoryWithAxiom_singleton):
 
     _base_category_class_and_axiom = (HomCategory, "Endset")
 
+    @override
     def extra_super_categories(self) -> list[Category]:
+        r"""Return Sage's endset axiom category refined by this spec."""
         from sage.categories.homsets import Homsets as SageHomsets
 
         return [SageHomsets().Endset()]
@@ -57,6 +65,7 @@ class EndCategory(CategoryWithAxiom_singleton):
         @cached_method
         @final
         def AutCategory(self) -> Category:
+            r"""Return the automorphism subcategory of this end category."""
             return self._with_axiom("Autset")
 
     ParentMethods = UniversalEndObjectMethods
@@ -84,8 +93,10 @@ class EndCategoryConstruction(HomCategoryConstruction):
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         return self.base_category().HomCategory().Of(domain, domain)
 
+    @override
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
+        r"""Lift category supercategories through the end-category construction."""
         if cls is EndCategoryOf:
             return EndCategory()
         super_categories = category.super_categories()
@@ -105,7 +116,9 @@ class EndCategoryOf(CategoryWithAxiom):
     # Category-level construction: C.EndCategory() has objects End_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
+    @override
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the end categories inherited from supercategories of the base."""
         end_supercategories = [
             _end_categories_of(super_category)
             for super_category in self.base_category().super_categories()
@@ -122,6 +135,7 @@ class EndCategoryOf(CategoryWithAxiom):
         @cached_method
         @final
         def AutCategory(self) -> Category:
+            r"""Return the automorphism construction over this end category."""
             return self._with_axiom("Autset")
 
     ParentMethods = UniversalEndObjectMethods

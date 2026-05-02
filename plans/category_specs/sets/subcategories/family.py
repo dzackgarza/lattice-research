@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage indexed families."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _FamilySets(Category_singleton):
     parent here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
@@ -53,6 +54,7 @@ class _FamilySets(Category_singleton):
         @abstract_method
         def has_key(self, k: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

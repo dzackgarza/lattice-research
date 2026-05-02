@@ -2,7 +2,7 @@ r"""Connected topological spaces."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from sage.categories.sets_cat import Sets as SageSets
 
@@ -19,17 +19,22 @@ class _ConnectedTopologicalSpaces(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_TopologicalSpaces, "Connected")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "connected topological spaces"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return Sage connected spaces and local topological spaces."""
         return [SageSets().Topological().Connected(), _TopologicalSpaces()]
 
     class ParentMethods:
+        @override
         @final
         def is_connected(self) -> bool:
+            r"""Return ``True`` because this object lies in connected spaces."""
             return True
 
     class ElementMethods: ...

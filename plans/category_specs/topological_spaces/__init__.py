@@ -29,7 +29,7 @@ not for every named set with a topology.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -61,30 +61,46 @@ if TYPE_CHECKING:
 class _TopologicalSpaceObjectMethods:
     r"""Methods on objects in the category of topological spaces."""
 
+    @override
     @final
     def is_topological(self) -> bool:
+        r"""Return ``True`` because this object lies in ``TopologicalSpaces()``."""
         return True
 
     @abstract_method
-    def is_connected(self) -> bool: ...
+    def is_connected(self) -> bool:
+        r"""Return whether this topological space is connected."""
+        ...
 
     @abstract_method
-    def closure(self, U: Subset) -> Subset: ...
+    def closure(self, U: Subset) -> Subset:
+        r"""Return the closure of ``U`` in this topological space."""
+        ...
 
     @abstract_method
-    def interior(self, U: Subset) -> Subset: ...
+    def interior(self, U: Subset) -> Subset:
+        r"""Return the interior of ``U`` in this topological space."""
+        ...
 
     @abstract_method
-    def boundary(self, U: Subset) -> Subset: ...
+    def boundary(self, U: Subset) -> Subset:
+        r"""Return the boundary of ``U`` in this topological space."""
+        ...
 
     @abstract_method
-    def is_open(self, U: Subset) -> bool: ...
+    def is_open(self, U: Subset) -> bool:
+        r"""Return whether ``U`` is open in this topological space."""
+        ...
 
     @abstract_method
-    def is_closed(self, U: Subset) -> bool: ...
+    def is_closed(self, U: Subset) -> bool:
+        r"""Return whether ``U`` is closed in this topological space."""
+        ...
 
     @abstract_method
-    def is_compact(self) -> bool: ...
+    def is_compact(self) -> bool:
+        r"""Return whether this topological space is compact."""
+        ...
 
 
 class _TopologicalSpaceElementMethods:
@@ -110,16 +126,20 @@ class TopologicalSpaces(CategoryWithAxiom):
     Connected = LazyImport("category_specs.topological_spaces.subcategories.connected", "_ConnectedTopologicalSpaces")
     Compact = LazyImport("category_specs.topological_spaces.subcategories.compact", "_CompactTopologicalSpaces")
 
+    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageSets().Topological(),)
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "topological spaces"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return the set-theoretic supercategories of topological spaces."""
         return [SageSets().Topological(), Sets()]
 
     class Constructors:
@@ -135,22 +155,26 @@ class TopologicalSpaces(CategoryWithAxiom):
     @cached_method
     @final
     def Constructors(self):
+        r"""Return the topological-space constructor collector."""
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
         @cached_method
         @final
         def Connected(self) -> Category:
+            r"""Return the connected-space subcategory."""
             return self._with_axiom("Connected")
 
         @cached_method
         @final
         def Compact(self) -> Category:
+            r"""Return the compact-space subcategory."""
             return self._with_axiom("Compact")
 
         @cached_method
         @final
         def Metric(self) -> Category:
+            r"""Return the metric-space subcategory."""
             return self._with_axiom("Metric")
 
     Subobjects = _Subobjects

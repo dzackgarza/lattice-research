@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``IntegerRange`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _IntegerRangeSets(Category_singleton):
     here as countable facade sets.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable().Facade()]
@@ -32,6 +33,7 @@ class _IntegerRangeSets(Category_singleton):
         @abstract_method
         def _element_constructor_(self, el: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
 

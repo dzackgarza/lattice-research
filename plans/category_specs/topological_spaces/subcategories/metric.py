@@ -2,7 +2,7 @@ r"""Metric spaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -21,8 +21,10 @@ if TYPE_CHECKING:
 class _MetricSpaceObjectMethods:
     r"""Methods on metric spaces."""
 
+    @override
     @final
     def is_metric(self) -> bool:
+        r"""Return ``True`` because this object lies in metric spaces."""
         return True
 
     @abstract_method
@@ -31,10 +33,14 @@ class _MetricSpaceObjectMethods:
         ...
 
     @abstract_method
-    def ball(self, center: SetElement, radius: RealNumber) -> MetricBall: ...
+    def ball(self, center: SetElement, radius: RealNumber) -> MetricBall:
+        r"""Return the open metric ball with given ``center`` and ``radius``."""
+        ...
 
     @abstract_method
-    def dist(self, x: SetElement, y: SetElement) -> RealNumber: ...
+    def dist(self, x: SetElement, y: SetElement) -> RealNumber:
+        r"""Return the metric distance between ``x`` and ``y``."""
+        ...
 
 
 class _MetricSpaceElementMethods:
@@ -42,6 +48,7 @@ class _MetricSpaceElementMethods:
 
     @final
     def dist(self, other: SetElement) -> RealNumber:
+        r"""Return this point's distance to ``other`` in its parent metric space."""
         return self.parent().dist(self, other)
 
 
@@ -57,18 +64,22 @@ class _MetricSpaces(CategoryWithAxiom):
     HomCategory = MetricSpaceHomCategory
     Complete = LazyImport("category_specs.topological_spaces.subcategories.complete", "_CompleteMetricSpaces")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "metric spaces"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return Sage metric spaces and local topological spaces."""
         return [SageSets().Metric(), _TopologicalSpaces()]
 
     class SubcategoryMethods:
         @cached_method
         @final
         def Complete(self) -> Category:
+            r"""Return the complete metric-space subcategory."""
             return self._with_axiom("Complete")
 
     class MorphismMethods: ...

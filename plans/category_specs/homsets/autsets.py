@@ -2,7 +2,7 @@ r"""Aut categories and automorphism method surfaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
@@ -33,34 +33,45 @@ class UniversalAutObjectMethods:
     r"""Methods on objects ``Aut_C(A)`` of an aut category."""
 
     def condition_set(self) -> Subset:
+        r"""Return the condition-set object backing this automorphism object."""
         return self
 
     def end_category(self) -> End:
+        r"""Return the ambient endomorphism object whose units form this object."""
         return self.condition_set().ambient()
 
     def domain(self) -> CategoryObject:
+        r"""Return the domain object of this automorphism object."""
         return self.end_category().domain()
 
     def codomain(self) -> CategoryObject:
+        r"""Return the codomain object of this automorphism object."""
         return self.end_category().codomain()
 
     def identity(self) -> Automorphism:
+        r"""Return the identity automorphism."""
         return self.end_category().identity()
 
 
 class UniversalAutElementMethods:
     r"""Methods on elements of aut categories."""
 
+    @override
     @final
     def is_invertible(self) -> bool:
+        r"""Return ``True`` because automorphisms are invertible."""
         return True
 
+    @override
     @final
     def is_isomorphism(self) -> bool:
+        r"""Return ``True`` because automorphisms are isomorphisms."""
         return True
 
+    @override
     @final
     def is_automorphism(self) -> bool:
+        r"""Return ``True`` because these elements lie in an automorphism object."""
         return True
 
 
@@ -72,10 +83,13 @@ class AutCategory(CategoryWithAxiom_singleton):
 
     _base_category_class_and_axiom = (EndCategory, "Autset")
 
+    @override
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the end-category layer refined by automorphism objects."""
         return [EndCategory()]
 
     def from_end_category(self, end_category: End) -> Aut:
+        r"""Return the unit subobject of an endomorphism object."""
         return SageConditionSet(end_category, _is_invertible_endomorphism, category=self)
 
     ParentMethods = UniversalAutObjectMethods
@@ -97,6 +111,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
 
     @final
     def from_end_category(self, end_category: End) -> Aut:
+        r"""Return the unit subobject of ``end_category`` for this construction."""
         return SageConditionSet(end_category, _is_invertible_endomorphism, category=self)
 
     @final
@@ -105,8 +120,10 @@ class AutCategoryConstruction(EndCategoryConstruction):
         end_category = self.base_category().EndCategory().Of(domain)
         return self.from_end_category(end_category)
 
+    @override
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
+        r"""Lift category supercategories through the automorphism construction."""
         if cls is AutCategoryOf:
             return AutCategory()
         super_categories = category.super_categories()
@@ -126,7 +143,9 @@ class AutCategoryOf(CategoryWithAxiom):
     # Category-level construction: C.AutCategory() has objects Aut_C(A).
     # Its Of(A) constructor evaluates the construction at A.
 
+    @override
     def extra_super_categories(self) -> list[Category]:
+        r"""Return automorphism categories inherited from supercategories of the base."""
         aut_supercategories = [
             super_category.AutCategory()
             for super_category in self.base_category().super_categories()
@@ -135,6 +154,7 @@ class AutCategoryOf(CategoryWithAxiom):
         return [AutCategory(), *aut_supercategories]
 
     def from_end_category(self, end_category: End) -> Aut:
+        r"""Return the automorphism subobject of ``end_category`` in this category."""
         return SageConditionSet(end_category, _is_invertible_endomorphism, category=self)
 
     @final

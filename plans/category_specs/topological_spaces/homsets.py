@@ -2,7 +2,7 @@ r"""Hom, end, and aut categories for topological spaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -19,27 +19,37 @@ class _TopologicalHomCategoryObjectMethods:
 
 class _ContinuousMaps:
     @abstract_method
-    def is_continuous(self) -> bool: ...
+    def is_continuous(self) -> bool:
+        r"""Return whether this map is continuous."""
+        ...
 
     @abstract_method
-    def preimage(self, subset: TopologicalSpace) -> TopologicalSpace: ...
+    def preimage(self, subset: TopologicalSpace) -> TopologicalSpace:
+        r"""Return the inverse image of ``subset`` as a topological subspace."""
+        ...
 
 
 class _Homeomorphisms:
+    @override
     @final
     def is_homeomorphism(self) -> bool:
+        r"""Return ``True`` because this element is a homeomorphism."""
         return True
 
 
 class _ShortMaps(_ContinuousMaps):
+    @override
     @final
     def is_short(self) -> bool:
+        r"""Return ``True`` because this element is a short map."""
         return True
 
 
 class _Isometries:
+    @override
     @final
     def is_isometry(self) -> bool:
+        r"""Return ``True`` because this element is an isometry."""
         return True
 
 
@@ -49,8 +59,10 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
     Canonical chain: ``TopologicalSpaces().HomCategory()``.
     """
 
+    @override
     @final
     def extra_super_categories(self):
+        r"""Return the generic hom-category surface refined by continuous maps."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _TopologicalHomCategoryObjectMethods
@@ -69,7 +81,9 @@ class TopologicalSpaceEndCategory(GenericEndCategory):
 
     class ParentMethods:
         @abstract_method
-        def base_space(self) -> TopologicalSpace: ...
+        def base_space(self) -> TopologicalSpace:
+            r"""Return the topological space whose endomorphisms this object contains."""
+            ...
 
     class ElementMethods: ...
     class MorphismMethods: ...
@@ -90,8 +104,10 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
     Canonical chain: ``TopologicalSpaces().Metric().HomCategory()``.
     """
 
+    @override
     @final
     def extra_super_categories(self):
+        r"""Return the continuous-map hom category refined by short maps."""
         return [TopologicalSpaceHomCategory(self.base_category())]
 
     ElementMethods = _ShortMaps
@@ -108,7 +124,9 @@ class MetricSpaceEndCategory(GenericEndCategory):
 
     class ParentMethods:
         @abstract_method
-        def base_space(self) -> MetricSpace: ...
+        def base_space(self) -> MetricSpace:
+            r"""Return the metric space whose endomorphisms this object contains."""
+            ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

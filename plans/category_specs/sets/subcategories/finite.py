@@ -2,7 +2,7 @@ r"""Finite set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.finite_sets import FiniteSets as SageFiniteSets
 from sage.misc.abstract_method import abstract_method
@@ -20,19 +20,23 @@ class _FiniteSets(CategoryWithAxiom):
     r"""Canonical chain: ``Sets().Finite()``."""
     _base_category_class_and_axiom = (Sets, "Finite")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "finite sets"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SageFiniteSets(), Sets().Countable()]
 
+    @override
     @final
     def __contains__(self, S: Any) -> bool:
         return S in SageFiniteSets() or (S in self.base_category() and S.is_finite())
 
     class ParentMethods:
+        @override
         @final
         def is_finite(self) -> bool:
             return True

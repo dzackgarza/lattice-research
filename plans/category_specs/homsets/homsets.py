@@ -3,7 +3,7 @@ r"""Hom categories and morphism method surfaces."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, final, overload
+from typing import TYPE_CHECKING, final, overload, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -21,13 +21,19 @@ class UniversalHomObjectMethods:
     r"""Methods on objects ``Hom_C(A, B)`` of a hom category."""
 
     @abstract_method
-    def domain(self) -> CategoryObject: ...
+    def domain(self) -> CategoryObject:
+        r"""Return the source object ``A`` of this hom object."""
+        ...
 
     @abstract_method
-    def codomain(self) -> CategoryObject: ...
+    def codomain(self) -> CategoryObject:
+        r"""Return the target object ``B`` of this hom object."""
+        ...
 
+    @override
     @final
     def is_endomorphism_set(self) -> bool:
+        r"""Return whether this hom object is an endomorphism object."""
         return self.domain() == self.codomain()
 
     @overload
@@ -37,7 +43,9 @@ class UniversalHomObjectMethods:
     def __call__(self, function: Callable[[CategoryElement], CategoryElement]) -> Morphism: ...
 
     @abstract_method
-    def __call__(self, data: Morphism | Callable[[CategoryElement], CategoryElement]) -> Morphism: ...
+    def __call__(self, data: Morphism | Callable[[CategoryElement], CategoryElement]) -> Morphism:
+        r"""Coerce morphism data into this hom object."""
+        ...
 
 
 class UniversalHomElementMethods:
@@ -45,41 +53,60 @@ class UniversalHomElementMethods:
 
     @final
     def domain(self) -> CategoryObject:
+        r"""Return the domain of this morphism."""
         return self.parent().domain()
 
     @final
     def codomain(self) -> CategoryObject:
+        r"""Return the codomain of this morphism."""
         return self.parent().codomain()
 
     @abstract_method
-    def __call__(self, x: CategoryElement) -> CategoryElement: ...
+    def __call__(self, x: CategoryElement) -> CategoryElement:
+        r"""Evaluate this morphism at ``x``."""
+        ...
 
     @abstract_method
-    def image(self, domain_subset: CategoryObject | None = None) -> CategoryObject: ...
+    def image(self, domain_subset: CategoryObject | None = None) -> CategoryObject:
+        r"""Return the image of ``domain_subset`` under this morphism."""
+        ...
 
     @abstract_method
-    def pre_compose(self, other: Morphism) -> Morphism: ...
+    def pre_compose(self, other: Morphism) -> Morphism:
+        r"""Return ``self`` after precomposition by ``other``."""
+        ...
 
     @abstract_method
-    def post_compose(self, other: Morphism) -> Morphism: ...
+    def post_compose(self, other: Morphism) -> Morphism:
+        r"""Return ``self`` after postcomposition by ``other``."""
+        ...
 
+    @override
     @final
     def is_endomorphism(self) -> bool:
+        r"""Return whether this morphism has equal domain and codomain."""
         return self.domain() == self.codomain()
 
+    @override
     @final
     def is_identity(self) -> bool:
+        r"""Return whether this morphism is the identity endomorphism."""
         return self.is_endomorphism() and self == self.parent().identity()
 
     @abstract_method
-    def is_invertible(self) -> bool: ...
+    def is_invertible(self) -> bool:
+        r"""Return whether this morphism has a two-sided inverse."""
+        ...
 
     @abstract_method
     def is_isomorphism(self) -> bool:
+        r"""Return whether this morphism is an isomorphism in its category."""
         ...
 
+    @override
     @final
     def is_automorphism(self) -> bool:
+        r"""Return whether this morphism is an invertible endomorphism."""
         return self.is_endomorphism() and self.is_invertible()
 
 
@@ -89,18 +116,22 @@ class HomCategory(SageHomsetsBase):
     Canonical chain: ``HomCategory()``.
     """
 
+    @override
     def super_categories(self) -> list[Category]:
+        r"""Return Sage's base hom-category supercategories."""
         return super().super_categories()
 
     class SubcategoryMethods:
         @cached_method
         @final
         def EndCategory(self) -> Category:
+            r"""Return the endomorphism subcategory of this hom category."""
             return self._with_axiom("Endset")
 
         @cached_method
         @final
         def AutCategory(self) -> Category:
+            r"""Return the automorphism subcategory of this hom category."""
             return self.EndCategory().AutCategory()
 
     ParentMethods = UniversalHomObjectMethods
@@ -130,11 +161,13 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
         @cached_method
         @final
         def EndCategory(self) -> Category:
+            r"""Return the endomorphism construction over this hom construction."""
             return self._with_axiom("Endset")
 
         @cached_method
         @final
         def AutCategory(self) -> Category:
+            r"""Return the automorphism construction over this hom construction."""
             return self.EndCategory().AutCategory()
 
     class ParentMethods: ...
@@ -149,6 +182,7 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
         assert codomain in category, "codomain must be an object of the base category"
         return Parent.Hom(domain, codomain, category=category)
 
+    @override
     @classmethod
     @final
     def default_super_categories(cls, category: Category) -> Category:
@@ -177,6 +211,7 @@ class HomCategoryOf(HomCategoryConstruction):
     # It does not define
     # set-map-only predicates such as injectivity.
 
+    @override
     def _repr_object_names(self) -> str:
         base_category = self.base_category()
         if base_category in Cat().JoinCategories():

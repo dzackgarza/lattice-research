@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage recursively enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
     recursive-enumeration parent here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
@@ -35,6 +36,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
 

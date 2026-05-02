@@ -2,7 +2,7 @@ r"""The empty category constructor target for ``Cat()``."""
 
 from __future__ import annotations
 
-from typing import Any, final
+from typing import Any, final, override
 
 from .base_category_types import Category, Category_singleton
 
@@ -13,24 +13,32 @@ class EmptyCategory(Category_singleton):
     Canonical chain: ``Cat().Constructors().EmptyCategory()``.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "empty category"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return ``Cat()`` as the only supercategory of the bottom object."""
         from . import Cat
 
         return [Cat()]
 
+    @override
     @final
     def additional_structure(self):
+        r"""Return Sage's additional-structure marker for the bottom category."""
         return None
 
+    @override
     @final
     def __contains__(self, candidate: Any) -> bool:
+        r"""Return ``False`` because the bottom category has no objects."""
         return False
 
+    @override
     @final
     def is_subcategory(self, category: Category) -> bool:
         r"""Return whether this bottom object lies under ``category``.

@@ -2,7 +2,7 @@ r"""Subobject construction category for categories."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -18,6 +18,7 @@ class _Subobjects(SubobjectsCategory):
     Canonical chain: ``Cat().Subobjects()``.
     """
 
+    @override
     @final
     def __contains__(self, candidate: Any) -> bool:
         r"""Return whether ``candidate`` is registered as a subcategory object."""
@@ -34,16 +35,19 @@ class _Subobjects(SubobjectsCategory):
         return ambient in Cat() and candidate.is_subcategory(ambient) and bool(predicates)
 
     class ParentMethods:
+        @override
         @abstract_method
         def ambient_category(self) -> Category:
             r"""Return the category in which this subcategory is defined."""
             ...
 
+        @override
         @abstract_method
         def defining_predicates(self) -> tuple[str, ...]:
             r"""Return the object predicates defining this full subcategory."""
             ...
 
+        @override
         @abstract_method
         def defining_predicate(self, candidate: CategoryObject) -> bool:
             r"""Return whether ``candidate`` satisfies all defining predicates."""

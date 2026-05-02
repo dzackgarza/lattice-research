@@ -2,7 +2,7 @@ r"""One-object subcategory for Sage ``PositiveIntegers()``."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -23,6 +23,7 @@ class _PositiveIntegersSets(Category_singleton):
     here and inherits the integer-range surface.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_IntegerRangeSets(), Sets().Countable().Infinite().Facade()]

@@ -2,7 +2,7 @@ r"""Axiomatic subcategory of graded sets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 from sage.misc.abstract_method import abstract_method
@@ -24,10 +24,12 @@ class _GradedSets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (Sets, "Graded")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "graded sets"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets(), SageSetsWithGrading()]

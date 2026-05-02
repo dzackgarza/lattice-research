@@ -3,7 +3,7 @@ r"""One-object subcategory for callable-backed enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,11 +24,13 @@ class _EnumeratedSetsFromIterator(Category_singleton):
     refines Sage's callable-backed enumerated-set parent here.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().Countable()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

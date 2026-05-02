@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage Cartesian products of sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -24,6 +24,7 @@ class _CartesianProductSets(Category_singleton):
     Sage constructs the product parent.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets().CartesianProducts()]
@@ -32,6 +33,7 @@ class _CartesianProductSets(Category_singleton):
         @abstract_method
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

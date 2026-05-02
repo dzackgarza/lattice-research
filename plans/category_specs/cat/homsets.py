@@ -7,7 +7,7 @@ declares the category-spec surface that will wrap that machinery.
 
 from __future__ import annotations
 
-from typing import Any, final
+from typing import Any, final, override
 
 from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
@@ -20,15 +20,22 @@ from . import Category
 
 class _CatHomCategoryObjectMethods:
     @abstract_method
-    def __call__(self, functor: Functor) -> Functor: ...
+    def __call__(self, functor: Functor) -> Functor:
+        r"""Coerce a Sage functor into this ``Cat()`` hom object."""
+        ...
 
+    @override
     @abstract_method
-    def __contains__(self, functor: Any) -> bool: ...
+    def __contains__(self, functor: Any) -> bool:
+        r"""Return whether ``functor`` is an element of this functor hom object."""
+        ...
 
 
 class _CatFunctorMethods:
     @abstract_method
-    def __call__(self, category: Category) -> Category: ...
+    def __call__(self, category: Category) -> Category:
+        r"""Evaluate this functor on an object of its domain category."""
+        ...
 
     @abstract_method
     def _coerce_into_domain(self, category: Category) -> Category: ...
@@ -52,19 +59,29 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
     coercion_reversed: bool = False
 
     @abstract_method
-    def pushout(self, other: ConstructionFunctor) -> ConstructionFunctor: ...
+    def pushout(self, other: ConstructionFunctor) -> ConstructionFunctor:
+        r"""Return the pushout construction functor with ``other`` in ``Cat()``."""
+        ...
 
     @abstract_method
-    def merge(self, other: ConstructionFunctor) -> ConstructionFunctor | None: ...
+    def merge(self, other: ConstructionFunctor) -> ConstructionFunctor | None:
+        r"""Return the merged construction functor with ``other`` in ``Cat()``."""
+        ...
 
     @abstract_method
-    def commutes(self, other: ConstructionFunctor) -> bool: ...
+    def commutes(self, other: ConstructionFunctor) -> bool:
+        r"""Return whether this construction functor commutes with ``other``."""
+        ...
 
     @abstract_method
-    def expand(self) -> list[ConstructionFunctor]: ...
+    def expand(self) -> list[ConstructionFunctor]:
+        r"""Return the component construction functors represented by this functor."""
+        ...
 
     @abstract_method
-    def common_base(self, other_functor: ConstructionFunctor, self_bases, other_bases): ...
+    def common_base(self, other_functor: ConstructionFunctor, self_bases, other_bases):
+        r"""Return the common base category data for this construction and ``other_functor``."""
+        ...
 
 
 class CatHomCategory(HomCategoryOf):
@@ -77,17 +94,22 @@ class CatHomCategory(HomCategoryOf):
     def __init__(self, base_category: Category) -> None:
         super().__init__(base_category)
 
+    @override
     @classmethod
     @final
     def category_of(cls, base_category: Category) -> CatHomCategory:
+        r"""Return the functor hom category internal to ``base_category``."""
         return cls(base_category)
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"functor hom categories internal to {self.base_category()}"
 
+    @override
     @final
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the generic hom-category surface refined by Cat functors."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _CatHomCategoryObjectMethods

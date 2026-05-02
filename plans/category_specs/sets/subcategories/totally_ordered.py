@@ -2,7 +2,7 @@ r"""Totally ordered set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -19,15 +19,18 @@ class _TotallyOrdered(CategoryWithAxiom):
     r"""Canonical chain: ``Sets().TotallyOrdered()``."""
     _base_category_class_and_axiom = (Sets, "TotallyOrdered")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "totally ordered sets"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Sets()]
 
     class ParentMethods:
+        @override
         @final
         def is_totally_ordered(self) -> bool:
             return True

@@ -2,7 +2,7 @@ r"""Parameterized category of G-sets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 from sage.categories.g_sets import GSets as SageGSets
@@ -31,10 +31,12 @@ class _GSets(Category):
         r"""Return the group acting on the objects of this category."""
         return self._acting_group
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"{self._acting_group}-sets"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [self._base_category, SageGSets(self._acting_group)]

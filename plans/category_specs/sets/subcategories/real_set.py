@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``RealSet`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -33,6 +33,7 @@ class _RealSets(Category_singleton):
     and then into the applicable topological subobject categories.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         from ...topological_spaces import TopologicalSpaces
@@ -109,6 +110,7 @@ class _RealSets(Category_singleton):
         @abstract_method
         def contains(self, x: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 

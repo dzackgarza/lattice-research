@@ -8,7 +8,7 @@ are tensors in those component modules.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -37,6 +37,7 @@ class _TensorAlgebraComponentParentMethods:
 
     @final
     def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
+        r"""Lift pure-product data into this tensor component."""
         assert False, f"Pure-tensor lifting for tensor algebra components is not specified yet: {elts}"
 
 
@@ -66,8 +67,10 @@ class _DualObjects(DualObjectsCategory):
     structure, not a separate tensor-component identity.
     """
 
+    @override
     @final
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the categories refined by dual tensor components."""
         base = self.base_category()
         R = base.base_ring()
         return [base, Modules(R).HomCategory().Forms().Integral()]
@@ -89,12 +92,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
     Canonical chain: ``TensorAlgebraComponents(R)``.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"tensor algebra components over {self.base_ring()}"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return the module categories satisfied by tensor-algebra components."""
         RMod = Modules(self.base_ring())
         return [RMod.TensorProducts(), RMod.Free().FiniteRank()]
 
@@ -117,12 +123,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
         def __repr__(self) -> str:
             return f"tensor algebra component constructors over {self.base_ring()}"
 
+        @override
         @final
         def category(self) -> TensorAlgebraComponents:
+            r"""Return the tensor-component category that owns these constructors."""
             return self._category
 
         @final
         def base_ring(self) -> Ring:
+            r"""Return the base ring of the owning tensor-component category."""
             return self.category().base_ring()
 
         @final
@@ -265,6 +274,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
     @cached_method
     @final
     def Constructors(self):
+        r"""Return the tensor-component constructor collector."""
         return self.__class__._Constructors(self)
 
     ParentMethods = _TensorAlgebraComponentParentMethods
