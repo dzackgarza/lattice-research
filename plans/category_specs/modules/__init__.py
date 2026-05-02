@@ -316,11 +316,23 @@ class _RModObjects:
     @abstract_method
     def is_submodule_of(self, other: RModule) -> bool: ...
 
-    @abstract_method
-    def direct_sum(self, other: RModule | Sequence[RModule]) -> RModule: ...
+    @overload
+    def direct_sum(self, other: RModule) -> RModule: ...
+
+    @overload
+    def direct_sum(self, modules: Sequence[RModule]) -> RModule: ...
 
     @abstract_method
-    def tensor(self, other: RModule | Sequence[RModule]) -> RModule: ...
+    def direct_sum(self, other: RModule) -> RModule: ...
+
+    @overload
+    def tensor(self, other: RModule) -> RModule: ...
+
+    @overload
+    def tensor(self, modules: Sequence[RModule]) -> RModule: ...
+
+    @abstract_method
+    def tensor(self, other: RModule) -> RModule: ...
 
     @abstract_method
     def intersection(self, other: SubModule) -> SubModule: ...
@@ -1165,12 +1177,15 @@ class Modules(Category_module):
         r"""Return the Sage module constructor collector over ``self.base_ring()``."""
         return self.__class__._Constructors(self)
 
+    @abstract_method
     def zero_module(self) -> RModule: ...
 
+    @abstract_method
     def R(self) -> FreeModule:
         r"""Return R as a rank 1 free R-module."""
         ...
 
+    @abstract_method
     def torsion_module(self, r: RingElement) -> TorsionModule:
         r"""Return R/r.  Asserts R != 0."""
         ...
@@ -1310,14 +1325,6 @@ class Modules(Category_module):
         @final
         def FinitelyPresented(self) -> Category:
             return self._with_axiom("FinitelyPresented")
-
-        ## Sage-backed constructors
-
-        @cached_method
-        @final
-        def Constructors(self) -> Modules.Constructors:
-            r"""Return the Sage module constructor collector over this base ring."""
-            return Modules._Constructors(self)
 
         @cached_method
         @final

@@ -184,16 +184,11 @@ class TopologicalSpaces(CategoryWithAxiom):
     ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
 
-
-TopologicalSpace = TopologicalSpaces
-
-
 from .subcategories.metric import MetricSpacesCategory
 
 MetricSpacesObject = MetricSpacesCategory.ParentMethods
 MetricSpacesElement = MetricSpacesCategory.ElementMethods
 MetricSpacesMorphism = MetricSpacesCategory.MorphismMethods
-MetricSpace = MetricSpacesObject
 MetricSpacesHomCategory = MetricSpaceHomCategory
 MetricSpacesEndCategory = MetricSpaceEndCategory
 MetricSpacesAutCategory = MetricSpaceAutCategory

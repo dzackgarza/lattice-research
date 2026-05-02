@@ -19,8 +19,7 @@ Cat()
 |-- meet(...)
 |-- Constructors()
 |   |-- EmptyCategory()
-|   |-- Aggregate()
-|   `-- AggregateFor(named_categories)
+|   `-- <registered-category>_<constructor>(...)
 |-- Subobjects()
 |-- Quotients()
 |-- Subquotients()
@@ -36,7 +35,7 @@ Cat()
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
@@ -75,10 +74,10 @@ from .base_category_types import (
     TensorProductsCategory,
     WithRealizationsCategory,
     _make_named_class_with_cat_subcategory_methods,
+    register_cat_constructor_class,
     _SageCategory,
     _SageCategorySingleton,
 )
-from ..utils import ConstructorAggregate, constructor_aggregate_for_named_categories
 
 if TYPE_CHECKING:
     from ..types import Hom
@@ -238,31 +237,7 @@ class Cat(_SageCategorySingleton):
 
             return EmptyCategory()
 
-        @final
-        def Aggregate(self) -> ConstructorAggregate:
-            r"""Return the default aggregate of top-level constructor namespaces."""
-            from ..posets import Posets
-            from ..rings import Rings
-            from ..sets import Sets
-            from ..topological_spaces import TopologicalSpaces
-
-            return ConstructorAggregate(
-                (
-                    ("cat", Cat().Constructors()),
-                    ("sets", Sets().Constructors()),
-                    ("posets", Posets().Constructors()),
-                    ("rings", Rings().Constructors()),
-                    ("topological_spaces", TopologicalSpaces().Constructors()),
-                )
-            )
-
-        @final
-        def AggregateFor(self, named_categories: Sequence[tuple[str, Category]]) -> ConstructorAggregate:
-            r"""Return a constructor aggregate over explicitly prefixed categories."""
-            return constructor_aggregate_for_named_categories(named_categories)
-
-
-Categories = Cat
+register_cat_constructor_class(Cat.Constructors, Cat())
 
 
 from .autsets import CatAutCategory

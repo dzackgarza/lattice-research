@@ -63,4 +63,3 @@ class AlgebraIdealsCategory(Category_module):
 AlgebraIdealsObject = AlgebraIdealsCategory.ParentMethods
 AlgebraIdealsElement = AlgebraIdealsCategory.ElementMethods
 AlgebraIdealsMorphism = AlgebraIdealsCategory.MorphismMethods
-AlgebraIdeal = AlgebraIdealsObject

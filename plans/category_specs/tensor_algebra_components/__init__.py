@@ -19,7 +19,17 @@ from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHom
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    from ..types import FreeModule, Integer, Matrix, Ring, RingElement, RModule, RModuleElement
+    from ..types import (
+        FreeModule,
+        Integer,
+        Matrix,
+        Ring,
+        RingElement,
+        RModule,
+        RModuleElement,
+        Tensor,
+        TensorAlgebraComponent,
+    )
 
 
 class _TensorAlgebraComponentParentMethods:
@@ -291,8 +301,6 @@ class TensorAlgebraComponents(Category_over_base_ring):
     HomCategory = RModuleHomCategory
 
 
-TensorAlgebraComponent = TensorAlgebraComponents
-
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
 TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
 TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
@@ -305,5 +313,3 @@ TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
 TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
 TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
 TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods
-
-Tensor = TensorAlgebraComponentsElement

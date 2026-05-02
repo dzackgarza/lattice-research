@@ -28,6 +28,8 @@ This is the tier at which the following become well-defined:
 
 from __future__ import annotations
 
+from typing import final
+
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -65,9 +67,11 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_over_dedekind_domain", "is_torsionfree")
 
     class ParentMethods:
+        @final
         def is_over_dedekind_domain(self) -> bool:
             return True
 
+        @final
         def is_torsionfree(self) -> bool:
             return True
 
@@ -106,6 +110,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
+        @final
         def signature(self) -> Integer:
             r"""Return the signature ``n_+ - n_-`` (the index).
 

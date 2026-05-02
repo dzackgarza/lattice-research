@@ -93,12 +93,13 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
     _Constructors = Constructors
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Constructors(self) -> LatticesCategory.Constructors:
-            return LatticesCategory._Constructors(self)
+    @cached_method
+    @final
+    def Constructors(self) -> LatticesCategory.Constructors:
+        r"""Return the lattice constructor collector over ``self.base_ring()``."""
+        return self.__class__._Constructors(self)
 
+    class SubcategoryMethods:
         @cached_method
         @final
         def OverDedekindDomain(self) -> Category:

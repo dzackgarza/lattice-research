@@ -53,9 +53,11 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     EXAMPLES::
 
-        sage: L = Modules(ZZ).Free().Bilinear().Constructors().from_gram_matrix(   # not tested
-        ...       matrix(ZZ, [[2, -1], [-1, 2]]))
-        sage: L in Modules(ZZ).Free().Bilinear()   # not tested
+        sage: L = Modules(ZZ).Constructors().FreeQuadraticModuleFromRows(   # not tested
+        ...     rank=2,
+        ...     inner_product_rows=[[2, -1], [-1, 2]],
+        ... )
+        sage: L in Modules(ZZ).WithForms().Bilinear().Free()   # not tested
         True
         sage: L.gram_matrix()   # not tested
         [2 -1]

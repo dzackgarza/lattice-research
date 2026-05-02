@@ -119,7 +119,3 @@ class CatHomCategory(HomCategoryOf):
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.cat.endsets", "CatEndCategory")
-
-
-SageFunctor = Functor
-SageConstructionFunctor = ConstructionFunctor

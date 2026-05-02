@@ -6,7 +6,8 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.cat import Cat
 from category_specs.modules import Modules
-from category_specs.tensor_algebra_components import Tensor, TensorAlgebraComponents
+from category_specs.tensor_algebra_components import TensorAlgebraComponents
+from category_specs.types import Tensor
 from category_specs.utils import assert_smoke_statements
 
 
