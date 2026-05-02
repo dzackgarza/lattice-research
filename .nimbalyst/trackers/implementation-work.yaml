@@ -1,0 +1,8 @@
+type: implementation-work
+idPrefix: impl
+statuses:
+- to-do
+- in-progress
+- blocked
+- ready-for-review
+- done

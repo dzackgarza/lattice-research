@@ -42,7 +42,8 @@ Rules:
   - `docs/SAGE_INVENTORY.md` records Sage classes, methods, signatures, and source paths.
   - `docs/MAPPING.md` records the mathematical mapping from Sage's category/functor
     machinery to the project surface.
-  - `docs/TRIAGE.md` records current blockers and validation scope.
+  - Current blockers, validation scope, and deferred uniformization work belong in
+    Nimbalyst tracker items, not subtree-local triage documents.
 - Category-object method rules live here first. Other subtrees should eventually reuse
   the `Cat.ParentMethods` surface instead of hand-writing duplicate category-object
   operations.

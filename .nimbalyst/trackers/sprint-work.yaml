@@ -1,0 +1,8 @@
+type: sprint-work
+idPrefix: sprint
+statuses:
+- planned
+- active
+- blocked
+- review
+- done

@@ -1,0 +1,8 @@
+type: research-work
+idPrefix: res
+statuses:
+- to-do
+- in-progress
+- blocked
+- validated
+- done

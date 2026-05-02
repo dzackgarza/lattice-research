@@ -1,5 +1,38 @@
 # AGENTS.md — category_specs
 
+## Tracking and Planning
+
+Use Nimbalyst tracker items as the central durable record for planning, ongoing work,
+follow-ups, blockers, decisions, and deferred compliance findings in this subtree.
+Do not create ad hoc planning, status, audit, backlog, or TODO markdown files when a
+tracker item is the appropriate durable artifact.
+
+Before creating a tracker item, read the repo-local tracking instructions in
+`.agents/skills/track/SKILL.md` and inspect `.nimbalyst/trackers/*.yaml` for custom
+tracker definitions. Custom tracker types take precedence over built-ins.
+
+Append one-line tracker items to the correct `nimbalyst-local/tracker/[type]s.md`
+file using this format:
+
+```markdown
+- Brief description #[type][id:[idPrefix]_[ulid] status:[default-status] priority:medium created:YYYY-MM-DD]
+```
+
+Use the exact `type`, `idPrefix`, and first/default status from the custom YAML when
+present. For built-in tracker types, use `bug`, `task`, `idea`, `decision`, or `plan`
+with default status `to-do`. Infer priority from the item text unless the user states it
+explicitly.
+
+Never call `tracker_create` for these items. The markdown tracker files are the source
+of truth and sync into Nimbalyst; calling a tracker tool as well would duplicate the
+entry.
+
+## Auto-Fix Policy
+
+Never "revert", "undo", or "reverse" auto-fixes produced by hooks, formatters, linters,
+or other repository tooling. If auto-fixes touch unexpected files, leave them in the
+worktree, report the tool and touched paths, and let the user decide the follow-up.
+
 ## Type System Rules
 
 - **No Duck-Typing**: We do not "believe" in duck-typing in mathematical code, or
@@ -760,7 +793,9 @@ etc.
     contexts like topological spaces), not as a general synonym for "size".
 - **Documentation of Discrepancies**: Be careful with Sage's terminological looseness.
   Any discrepancies or inaccuracies in Sage's model compared to precise mathematics
-  MUST be documented in the subtree's `MAPPING.md` or `TRIAGE.md` for future improvement.
+  MUST be documented in the subtree's `MAPPING.md` when they affect mathematical
+  mapping, or as a Nimbalyst tracker item when they are implementation-frontier,
+  decision, or deferred-work findings.
 
 ### Direct implementation categories vs. axiomatic restrictions
 
@@ -923,7 +958,6 @@ category_specs/
     │   └── ...
     ├── smoketest.sage    # exercises every Constructors() entry point
     ├── docs/
-    │   ├── TRIAGE.md         # current structural blockers and genuine Sage gaps
     │   ├── SAGE_INVENTORY.md # full Sage category surface: classes, methods, on-disk paths
     │   └── MAPPING.md        # decisions mapping Sage categories → our hierarchy, with mathematical justification
     └── tests/
@@ -1090,11 +1124,13 @@ Each subtree's `smoketest.sage` must:
   the smoke file; exception-catching contradicts the subtree error-handling rules and
   hides the first implementer-facing missing obligation.
 
-Each subtree's `docs/TRIAGE.md`:
-- Is the canonical record of current `smoketest.sage` failures, grouped by missing
-  method or structural blocker.
+Smoke frontier findings and blockers:
+- Are recorded as Nimbalyst tracker items, not subtree-local `TRIAGE.md` files.
+- Use `implementation-work` for missing methods, smoke failures, and structural
+  blockers; use `spec-work` for missing spec surface; use `design-decision` for
+  unresolved ownership or admission choices.
+- Must cite the source smoke file or mapping/inventory document in the tracker item.
 - Must be updated whenever `smoketest.sage` output changes.
-- Is sourced from the smoketest — never edited independently of running it.
 
 Justfile registration:
 - Every subtree's `smoketest.sage` must be listed in the `smoke` recipe in the root
@@ -1105,7 +1141,7 @@ Justfile registration:
 
 ## Sage Inventory and Mapping
 
-Each subtree maintains a `docs/` folder with three files:
+Each subtree maintains a `docs/` folder with two canonical files:
 
 - **`SAGE_INVENTORY.md`**: indexes every Sage class and method relevant to that subtree
   — full class name, method signatures, and on-disk path to the implementation (e.g.
@@ -1119,8 +1155,6 @@ Each subtree maintains a `docs/` folder with three files:
   Example: Sage's `EnumeratedSets` → our `Countable` axiom, because countability =
   existence of an enumeration f: X → ℕ; the spec must exhibit such a function; all Sage
   enumerated sets must refine to `Sets().Countable()`.
-
-- **`TRIAGE.md`**: see Smoketest and Triage section.
 
 ## Error Handling
 

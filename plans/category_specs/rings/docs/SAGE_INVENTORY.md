@@ -1,8 +1,8 @@
 # Rings Sage Inventory
 
 This inventory records Sage ring-category and constructor surfaces. It is
-source-facing: mappings and implementation status belong in `MAPPING.md` and
-`TRIAGE.md`.
+source-facing: mathematical mappings belong in `MAPPING.md`; implementation status,
+blockers, and deferred work belong in Nimbalyst tracker items.
 
 ## Category Surfaces
 

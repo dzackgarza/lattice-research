@@ -1,0 +1,8 @@
+type: spec-work
+idPrefix: spec
+statuses:
+- to-do
+- in-progress
+- needs-decision
+- blocked
+- done
