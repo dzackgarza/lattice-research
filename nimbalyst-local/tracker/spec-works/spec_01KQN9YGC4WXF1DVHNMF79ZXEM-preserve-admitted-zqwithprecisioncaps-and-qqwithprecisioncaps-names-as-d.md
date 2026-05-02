@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC4WXF1DVHNMF79ZXEM
   title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred
     Sage-gap frontiers with exact gap assertions

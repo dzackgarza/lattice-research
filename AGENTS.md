@@ -30,6 +30,92 @@ Do not assume a subagent can infer hidden intent from the current chat, from a t
 key, or from the orchestrator's private context. If the task definition matters, quote
 it or attach the durable artifact containing it.
 
+## Nimbalyst Tracker Workflow
+
+### Two tracker item modes
+
+**Inline items** — for built-in types (`task`, `bug`, `plan`, `decision`, `feature`, `idea`).
+Write them directly into `nimbalyst-local/tracker/tasks.md` (or the matching `[type]s.md`):
+
+```markdown
+- Remove raw ConditionSet from Aut surface #task[id:task_1777748120385_rrvdig status:to-do priority:high created:2026-05-02]
+  Description indented with 2+ spaces.
+```
+
+The indexer (`ElectronDocumentService`) scans every markdown file for lines matching
+`(.+?)\s+``#type``[...]` and upserts them into PGLite automatically.
+
+Do **not** call `tracker_create` for inline items — that creates a database-only entry with
+no backing file and produces a duplicate.
+
+**Full-document items** — for custom types (`spec-work`, `sprint-work`, `implementation-work`,
+`research-work`, `design-decision`). The entire file IS the tracker item.
+Place the file anywhere under `nimbalyst-local/tracker/<type-plural>/` and add YAML
+frontmatter using the key `trackerStatus:` (not `trackingStatus:`):
+
+```markdown
+---
+trackerStatus:
+  type: spec-work
+title: Finish category-spec dual-object Hom routing
+status: to-do
+priority: high
+tags: [cat, category-specs]
+created: '2026-05-02'
+---
+
+# Full document body here...
+```
+
+The `trackerStatus.type` value must exactly match the registered custom type name.
+All other metadata fields (`title`, `status`, `priority`, `tags`, etc.) go at the **top
+level** of the frontmatter, not nested inside `trackerStatus`.
+
+The app detects these files on startup (3 s after launch) and whenever file metadata
+changes.
+
+### Custom tracker YAML schema requirements
+
+Every file in `.nimbalyst/trackers/` must be a **complete** YAML schema or it silently
+fails to register and no full-document files of that type will appear in the GUI.
+
+Required fields (all must be present, no exceptions):
+
+```yaml
+type: my-type          # matches trackerStatus.type in markdown files
+idPrefix: mt
+displayName: My Type
+displayNamePlural: My Types
+icon: article          # Google Material icon name
+color: "#6366f1"       # hex color
+modes:
+  inline: false
+  fullDocument: true
+fields:
+  - name: title
+    type: string
+    required: true
+  - name: status
+    type: select
+    default: to-do
+    options:
+      - { value: to-do, label: To Do }
+      - { value: done, label: Done }
+  # ... other fields
+roles:
+  title: title
+  workflowStatus: status
+```
+
+If `icon`, `color`, or `fields` are missing, `parseTrackerYAML` throws, the schema is
+dropped, and the tracker GUI shows nothing for that type.
+
+### Summary of what NOT to do
+
+- Do not use `trackingStatus:` as the frontmatter key — the scanner only reads `trackerStatus:`.
+- Do not call `tracker_create` for file-backed items — it creates a DB-only row with no file.
+- Do not write an incomplete custom YAML schema — all fields listed above are required.
+
 ## CURRENT PLAN
 
 For the lattice/module redesign, the current execution plans are:

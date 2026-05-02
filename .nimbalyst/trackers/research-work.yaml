@@ -1,16 +1,65 @@
 type: research-work
 idPrefix: res
-statuses:
-- to-do
-- in-progress
-- blocked
-- validated
-- done
 displayName: Research Work
 displayNamePlural: Research Works
+icon: science
+color: "#10b981"
 modes:
   inline: false
   fullDocument: true
 sync:
   mode: shared
   scope: project
+fields:
+  - name: title
+    type: string
+    required: true
+  - name: status
+    type: select
+    default: to-do
+    options:
+      - value: to-do
+        label: To Do
+        icon: circle
+      - value: in-progress
+        label: In Progress
+        icon: motion_photos_on
+      - value: blocked
+        label: Blocked
+        icon: block
+        color: "#dc2626"
+      - value: validated
+        label: Validated
+        icon: verified
+        color: "#10b981"
+      - value: done
+        label: Done
+        icon: check_circle
+  - name: priority
+    type: select
+    options:
+      - value: low
+        label: Low
+      - value: medium
+        label: Medium
+      - value: high
+        label: High
+      - value: critical
+        label: Critical
+  - name: tags
+    type: array
+    itemType: string
+    displayInline: false
+  - name: created
+    type: datetime
+    displayInline: false
+    readOnly: true
+  - name: updated
+    type: datetime
+    displayInline: false
+    readOnly: true
+roles:
+  title: title
+  workflowStatus: status
+  priority: priority
+  tags: tags

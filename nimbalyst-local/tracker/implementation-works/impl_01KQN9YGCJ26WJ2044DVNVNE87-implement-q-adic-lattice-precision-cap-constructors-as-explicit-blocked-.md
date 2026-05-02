@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCJ26WJ2044DVNVNE87
   title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap
     surfaces rather than broken pass-throughs

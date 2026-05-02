@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WKCASMD9XVMGT6JP8K
   title: Centralize remaining category hierarchy type aliases in types.py
   type: spec-work

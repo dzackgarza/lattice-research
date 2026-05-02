@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBT3MSBTTQN08YWY5VW
   title: Sprint Cat category-object surface uniformization and constructor aggregation
     cleanup

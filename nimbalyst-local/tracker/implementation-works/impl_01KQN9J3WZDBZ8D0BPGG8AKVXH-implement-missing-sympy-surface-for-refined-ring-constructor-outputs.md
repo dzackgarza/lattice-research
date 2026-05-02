@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3WZDBZ8D0BPGG8AKVXH
   title: Implement missing _sympy_ surface for refined ring constructor outputs
   type: implementation-work

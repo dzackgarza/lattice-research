@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WJE9W76X72DAT10H4Y
   title: Finish category-spec dual-object Hom routing and move methods to their most
     general mathematical owners

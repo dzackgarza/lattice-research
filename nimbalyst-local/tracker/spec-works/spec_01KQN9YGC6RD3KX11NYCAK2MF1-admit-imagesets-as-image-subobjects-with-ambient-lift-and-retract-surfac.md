@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC6RD3KX11NYCAK2MF1
   title: Admit ImageSets as image subobjects with ambient lift and retract surface
   type: spec-work

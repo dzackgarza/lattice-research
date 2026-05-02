@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3XA3H63JK957F4EW5P4
   title: Implement and validate the isotropic Gamma orbit backend plan
   type: research-work

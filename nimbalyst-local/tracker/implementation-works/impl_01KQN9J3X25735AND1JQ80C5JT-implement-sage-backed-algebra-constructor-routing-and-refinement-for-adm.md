@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3X25735AND1JQ80C5JT
   title: Implement Sage-backed algebra constructor routing and refinement for admitted
     constructors

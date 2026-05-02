@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC7HDGCSFP6JETA3ZZG
   title: Specify partitioned-set subclass predicates crossings nestings noncrossing
     nonnesting and atomic only after subcategory admission

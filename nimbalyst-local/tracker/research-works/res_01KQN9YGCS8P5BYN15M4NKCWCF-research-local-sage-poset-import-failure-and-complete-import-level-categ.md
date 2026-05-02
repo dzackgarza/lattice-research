@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9YGCS8P5BYN15M4NKCWCF
   title: Research local Sage poset import failure and complete import-level category
     introspection for semilattice evidence

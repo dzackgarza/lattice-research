@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCHDRNXNEYEH2P134JD
   title: Implement topological ring and field refinements for topology-bearing ring
     objects without duplicating topological-space methods

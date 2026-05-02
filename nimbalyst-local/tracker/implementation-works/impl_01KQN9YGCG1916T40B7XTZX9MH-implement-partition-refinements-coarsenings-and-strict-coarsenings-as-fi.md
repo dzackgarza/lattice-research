@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCG1916T40B7XTZX9MH
   title: Implement partition refinements coarsenings and strict coarsenings as finite-set
     constructor outputs

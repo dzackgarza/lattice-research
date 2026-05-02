@@ -1,15 +1,63 @@
 type: design-decision
 idPrefix: dec
-statuses:
-- needs-decision
-- proposed
-- decided
-- superseded
 displayName: Design Decision
 displayNamePlural: Design Decisions
+icon: gavel
+color: "#8b5cf6"
 modes:
   inline: false
   fullDocument: true
 sync:
   mode: shared
   scope: project
+fields:
+  - name: title
+    type: string
+    required: true
+  - name: status
+    type: select
+    default: needs-decision
+    options:
+      - value: needs-decision
+        label: Needs Decision
+        icon: help
+      - value: proposed
+        label: Proposed
+        icon: pending
+        color: "#f59e0b"
+      - value: decided
+        label: Decided
+        icon: check_circle
+        color: "#22c55e"
+      - value: superseded
+        label: Superseded
+        icon: update
+        color: "#64748b"
+  - name: priority
+    type: select
+    options:
+      - value: low
+        label: Low
+      - value: medium
+        label: Medium
+      - value: high
+        label: High
+      - value: critical
+        label: Critical
+  - name: tags
+    type: array
+    itemType: string
+    displayInline: false
+  - name: created
+    type: datetime
+    displayInline: false
+    readOnly: true
+  - name: updated
+    type: datetime
+    displayInline: false
+    readOnly: true
+roles:
+  title: title
+  workflowStatus: status
+  priority: priority
+  tags: tags

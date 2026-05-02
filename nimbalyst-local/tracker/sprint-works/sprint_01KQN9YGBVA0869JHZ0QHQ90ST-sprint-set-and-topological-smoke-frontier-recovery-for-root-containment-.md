@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBVA0869JHZ0QHQ90ST
   title: Sprint set and topological smoke frontier recovery for root containment rich
     comparison Primes iteration RealSet ambient methods and topological axiom warning

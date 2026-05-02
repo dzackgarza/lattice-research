@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3X9KJA9682EAGX4ERPT
   title: Compute Jordan normal forms of monodromy operators for curve and surface
     families via Picard-Fuchs operators

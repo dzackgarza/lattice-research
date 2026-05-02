@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3X3Y3S80FYCGEQDEJJZ
   title: Fix Posets constructor refinement __richcmp__ failures
   type: implementation-work

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCPGDG2XCR55YCTXR53
   title: Implement poset certificate methods as separate witness-returning methods
     while keeping boolean predicates boolean

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGCCQ9EDZWW6H98WDY3X
   title: Audit the variadic signature scoping result and open owner-specific follow-ups
     for any public surface still using placeholder collapsed Sage casework

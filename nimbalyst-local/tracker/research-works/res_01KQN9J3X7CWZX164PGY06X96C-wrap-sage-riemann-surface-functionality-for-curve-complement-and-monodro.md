@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3X7CWZX164PGY06X96C
   title: Wrap Sage Riemann surface functionality for curve-complement and monodromy
     workflows

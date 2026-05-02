@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC3XPWZWJK8QHVE3GGM
   title: Specify topological ring and field recovery through topological_spaces inheritance
     rather than pure topological constructors

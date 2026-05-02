@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCN4F4M2DH9GP2A00XZ
   title: Implement TensorAlgebraComponents constructors for module-element matrices
     structure constants and multiplication-tensor handoff to Algebras(R)

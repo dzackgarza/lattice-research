@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WSR722P30PVZ4GAVKG
   title: Choose canonical smoke examples for Connected Compact and Metric Complete
     topological subcategories

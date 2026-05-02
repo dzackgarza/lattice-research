@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBXMQQA18FC7JH5NWNE
   title: Sprint module wrapper migration phase one through category graph constructor
     routing method coverage and deletion gates

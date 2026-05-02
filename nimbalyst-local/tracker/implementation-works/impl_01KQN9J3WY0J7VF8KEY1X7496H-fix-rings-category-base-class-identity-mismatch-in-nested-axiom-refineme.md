@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3WY0J7VF8KEY1X7496H
   title: Fix Rings category base-class identity mismatch in nested axiom refinement
   type: implementation-work

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: dec_01KQN9J3XCYW748M5V0K2SGJGK
   title: Decide whether equivalence relations and set partitions need a first-class
     set subtree or remain centralized Sage-backed type aliases

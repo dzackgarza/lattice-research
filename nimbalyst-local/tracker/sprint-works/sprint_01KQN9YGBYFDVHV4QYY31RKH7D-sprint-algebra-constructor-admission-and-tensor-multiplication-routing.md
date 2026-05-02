@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBYFDVHV4QYY31RKH7D
   title: Sprint algebra constructor admission and tensor multiplication routing
   type: sprint-work

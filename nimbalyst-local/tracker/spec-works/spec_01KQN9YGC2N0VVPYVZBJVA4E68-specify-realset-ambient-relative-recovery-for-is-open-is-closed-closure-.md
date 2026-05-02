@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC2N0VVPYVZBJVA4E68
   title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior
     and boundary through TopologicalSpaces

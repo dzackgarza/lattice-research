@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WNN6TDRX3X15GGJ3PN
   title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose
     methods have real mathematical owners

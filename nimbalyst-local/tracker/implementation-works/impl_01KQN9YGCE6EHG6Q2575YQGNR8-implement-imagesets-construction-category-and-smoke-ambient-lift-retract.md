@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCE6EHG6Q2575YQGNR8
   title: Implement ImageSets construction category and smoke ambient lift retract
     and image-subobject membership

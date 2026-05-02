@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBWYPFM9C6ARDXDE3WF
   title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix
     algebra surface split

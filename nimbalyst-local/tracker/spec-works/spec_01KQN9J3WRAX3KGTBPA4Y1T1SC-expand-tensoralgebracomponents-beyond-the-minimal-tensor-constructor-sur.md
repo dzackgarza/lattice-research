@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WRAX3KGTBPA4Y1T1SC
   title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface
     only after mapping symmetry storage contraction trace display and migration needs

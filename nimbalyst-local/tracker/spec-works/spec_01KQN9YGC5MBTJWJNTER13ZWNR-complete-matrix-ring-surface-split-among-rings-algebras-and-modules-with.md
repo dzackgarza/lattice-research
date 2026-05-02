@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC5MBTJWJNTER13ZWNR
   title: Complete matrix ring surface split among rings algebras and modules without
     weakening the matrix smoke

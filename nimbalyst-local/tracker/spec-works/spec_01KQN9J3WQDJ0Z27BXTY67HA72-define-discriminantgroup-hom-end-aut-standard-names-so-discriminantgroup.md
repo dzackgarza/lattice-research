@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WQDJ0Z27BXTY67HA72
   title: Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut
     can be exported

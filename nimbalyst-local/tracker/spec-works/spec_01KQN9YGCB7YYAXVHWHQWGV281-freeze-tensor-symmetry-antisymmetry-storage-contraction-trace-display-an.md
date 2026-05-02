@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGCB7YYAXVHWHQWGV281
   title: Freeze tensor symmetry antisymmetry storage contraction trace display and
     index-notation mapping before expanding TensorAlgebraComponents

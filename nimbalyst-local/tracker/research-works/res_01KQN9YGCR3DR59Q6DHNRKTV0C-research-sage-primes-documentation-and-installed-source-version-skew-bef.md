@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9YGCR3DR59Q6DHNRKTV0C
   title: Research Sage Primes documentation and installed-source version skew before
     admitting congruence-class prime subset vocabulary

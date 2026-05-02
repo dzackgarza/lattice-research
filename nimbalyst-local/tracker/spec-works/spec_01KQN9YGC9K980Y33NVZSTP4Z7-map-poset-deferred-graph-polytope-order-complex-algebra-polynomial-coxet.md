@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC9K980Y33NVZSTP4Z7
   title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter
     display and raw-interop surfaces to final owners

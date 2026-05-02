@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3X47WFCYHM2CK8G1677
   title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
     tensor component smoketest frontier

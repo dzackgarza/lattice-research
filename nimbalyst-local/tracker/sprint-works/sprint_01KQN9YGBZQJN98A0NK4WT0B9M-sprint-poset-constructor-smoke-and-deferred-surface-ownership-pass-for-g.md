@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGBZQJN98A0NK4WT0B9M
   title: Sprint poset constructor smoke and deferred surface ownership pass for graph
     polytope algebra polynomial and Coxeter surfaces

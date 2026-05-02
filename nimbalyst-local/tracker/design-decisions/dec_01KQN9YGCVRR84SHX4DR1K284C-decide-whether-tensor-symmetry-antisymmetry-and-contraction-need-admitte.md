@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: dec_01KQN9YGCVRR84SHX4DR1K284C
   title: Decide whether tensor symmetry antisymmetry and contraction need admitted
     subtrees before full tensor-calculus method mapping

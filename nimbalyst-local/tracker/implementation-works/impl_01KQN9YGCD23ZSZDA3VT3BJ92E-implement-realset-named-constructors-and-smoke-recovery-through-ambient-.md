@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCD23ZSZDA3VT3BJ92E
   title: Implement RealSet named constructors and smoke recovery through ambient-relative
     topological methods

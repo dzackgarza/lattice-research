@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCFADA7QY26RA2KSVX3
   title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned()
     and keep AllSetPartitions countable-only

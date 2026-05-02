@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WM2ASPH06AKRJQ8G82
   title: Design and scaffold TwistedForms as the form-object category for modules
     with forms

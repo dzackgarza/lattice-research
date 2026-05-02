@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WT5HMPK9GCKWAENPQ5
   title: Finish algebra constructor admission and explicit names for additive and
     table algebra construction routes

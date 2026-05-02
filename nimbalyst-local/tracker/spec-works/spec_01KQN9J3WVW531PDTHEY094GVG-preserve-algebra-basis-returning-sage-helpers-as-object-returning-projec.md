@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WVW531PDTHEY094GVG
   title: Preserve algebra basis-returning Sage helpers as object-returning project
     methods such as center radical and derivations

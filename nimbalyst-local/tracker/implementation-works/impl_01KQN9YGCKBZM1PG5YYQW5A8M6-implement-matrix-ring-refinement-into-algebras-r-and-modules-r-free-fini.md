@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCKBZM1PG5YYQW5A8M6
   title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank()
     while keeping ring-only routing in rings

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3X8ZXQCZGQBESD0EW1Y
   title: Wrap ore_algebra for Picard-Fuchs and monodromy computations
   type: research-work

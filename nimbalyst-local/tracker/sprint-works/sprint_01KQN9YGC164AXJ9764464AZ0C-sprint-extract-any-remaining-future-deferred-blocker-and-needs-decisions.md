@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGC164AXJ9764464AZ0C
   title: Sprint extract any remaining future deferred blocker and NEEDS_DECISIONS
     doc entries into tracker items after each mapping or triage edit

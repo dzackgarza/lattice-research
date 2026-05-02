@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGCA0D25CR40N85EHYZ5
   title: Review subtree direct Hom methods that shadow Cat category-object Hom and
     specify the uniform owner

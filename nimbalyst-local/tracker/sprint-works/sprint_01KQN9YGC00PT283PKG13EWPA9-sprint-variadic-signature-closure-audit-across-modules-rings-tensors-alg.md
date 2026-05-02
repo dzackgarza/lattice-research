@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: sprint_01KQN9YGC00PT283PKG13EWPA9
   title: Sprint variadic signature closure audit across modules rings tensors algebras
     lattices posets sets and real-set constructors

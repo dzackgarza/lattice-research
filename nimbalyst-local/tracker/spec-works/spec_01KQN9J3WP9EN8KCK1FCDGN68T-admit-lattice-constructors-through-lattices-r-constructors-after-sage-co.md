@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9J3WP9EN8KCK1FCDGN68T
   title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
     inventory mapping

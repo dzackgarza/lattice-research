@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: dec_01KQN9YGCTP85RXF1F56D8S08X
   title: Decide whether partitioned-set combinatorial subclasses such as noncrossing
     and atomic become axiomatic subcategories in the current set-partition pass or

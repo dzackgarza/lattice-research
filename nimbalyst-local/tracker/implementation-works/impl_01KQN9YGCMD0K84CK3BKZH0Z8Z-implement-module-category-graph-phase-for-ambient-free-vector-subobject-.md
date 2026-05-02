@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9YGCMD0K84CK3BKZH0Z8Z
   title: Implement module category graph phase for ambient free vector subobject quotient
     form graded Ore and representation surfaces

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: impl_01KQN9J3WXGKSYTRTQDP54C28J
   title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
     and graded base-category failures

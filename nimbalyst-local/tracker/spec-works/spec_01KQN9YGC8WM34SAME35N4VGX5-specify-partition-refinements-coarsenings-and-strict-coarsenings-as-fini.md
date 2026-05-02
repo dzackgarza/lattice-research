@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: spec_01KQN9YGC8WM34SAME35N4VGX5
   title: Specify partition refinements coarsenings and strict coarsenings as finite
     subsets refining through set constructors

@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3X6S2FTM78EW86S7ESR
   title: Integrate sirocco2 for fundamental groups of curve complements
   type: research-work

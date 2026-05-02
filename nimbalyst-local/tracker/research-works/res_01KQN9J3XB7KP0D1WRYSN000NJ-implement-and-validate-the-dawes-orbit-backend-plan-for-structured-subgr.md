@@ -1,5 +1,5 @@
 ---
-trackingStatus:
+trackerStatus:
   itemId: res_01KQN9J3XB7KP0D1WRYSN000NJ
   title: Implement and validate the Dawes orbit backend plan for structured subgroup
     orbit computations
