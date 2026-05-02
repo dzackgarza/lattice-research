@@ -5,3 +5,11 @@ statuses:
 - proposed
 - decided
 - superseded
+displayName: Design Decision
+displayNamePlural: Design Decisions
+modes:
+  inline: false
+  fullDocument: true
+sync:
+  mode: shared
+  scope: project

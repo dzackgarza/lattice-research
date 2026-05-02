@@ -6,3 +6,11 @@ statuses:
 - blocked
 - validated
 - done
+displayName: Research Work
+displayNamePlural: Research Works
+modes:
+  inline: false
+  fullDocument: true
+sync:
+  mode: shared
+  scope: project

@@ -6,3 +6,11 @@ statuses:
 - blocked
 - ready-for-review
 - done
+displayName: Implementation Work
+displayNamePlural: Implementation Works
+modes:
+  inline: false
+  fullDocument: true
+sync:
+  mode: shared
+  scope: project

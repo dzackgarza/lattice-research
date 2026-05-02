@@ -370,6 +370,8 @@ Every new session must:
 - Read STATE_MACHINE.md (for task execution rules)
 - Read PROOF_AUDITING.md (for audit criteria)
 - Read AGENTS.md (this file — project-specific guidance)
+- Verify that all active tasks and Nimbalyst meta artifacts are synced with `origin/main`
+- Reconcile any divergence between local and remote before declaring progress
 - Run `list_memories` for project context
 - Run automatic pruning (see "Automatic pruning" above) — this is mandatory, not
   advisory

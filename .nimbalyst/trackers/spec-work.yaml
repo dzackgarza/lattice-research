@@ -6,3 +6,11 @@ statuses:
 - needs-decision
 - blocked
 - done
+displayName: Spec Work
+displayNamePlural: Spec Works
+modes:
+  inline: false
+  fullDocument: true
+sync:
+  mode: shared
+  scope: project

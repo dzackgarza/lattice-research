@@ -6,3 +6,11 @@ statuses:
 - blocked
 - review
 - done
+displayName: Sprint Work
+displayNamePlural: Sprint Works
+modes:
+  inline: false
+  fullDocument: true
+sync:
+  mode: shared
+  scope: project
