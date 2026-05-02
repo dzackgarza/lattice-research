@@ -6,10 +6,14 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Check that smoke tests exercise all constructors, that every constructor refines
-  its result, and that constructor refinement targets the tightest subcategories
-  possible, including derived cases such as a finite-rank free module over a finite
-  ring being finite.
+- [ ] Constructor smoke coverage is complete except for abstract algebra constructor
+  families whose source categories do not yet have concrete Sage-backed routing:
+  `Algebras(R).Constructors().free_algebra_from_magma`,
+  `free_algebra_from_semigroup`, `free_algebra_from_monoid`,
+  `free_algebra_from_group`, `free_algebra_from_additive_semigroup`,
+  `free_algebra_from_additive_monoid`, `free_algebra_from_additive_group`, and
+  `from_multiplication_tensor`. The smoke admits these names but cannot yet assert
+  result refinement for them.
 - [ ] Check that refinement smokes surface the gap between current Sage implementations
   and the mathematical spec, rather than trying to make current Sage objects pass.
 - [ ] Audit for variadic specs that slipped in and create an inventory of remaining

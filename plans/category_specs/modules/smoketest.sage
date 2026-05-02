@@ -57,6 +57,10 @@ SMOKE_STATEMENTS = (
         lambda _: NM6.FreeModule(2) in MR6.Free().FiniteRank().WithOrderedBasis(),
     ),
     (
+        "Modules(Zmod(6)).Constructors().FreeModule(2) is finite over finite base ring",
+        lambda _: NM6.FreeModule(2) in MR6.Finite(),
+    ),
+    (
         "Modules(Zmod(6)).Constructors().FreeModule(2) has ordered basis",
         lambda _: NM6.FreeModule(2) in MR6.WithOrderedBasis(),
     ),
@@ -104,6 +108,10 @@ SMOKE_STATEMENTS = (
         lambda _: refine_category(Q, MQQCat.Quotients()) in MQQCat.Quotients(),
     ),
     (
+        "Modules(QQ).Constructors().quotient_module(V, W) is a module quotient",
+        lambda _: NMQQ.quotient_module(V, W) in MQQCat.Quotients(),
+    ),
+    (
         "Modules(ZZ).Constructors().FreeQuadraticModule(...) is quadratic",
         lambda _: NMZZ.FreeQuadraticModule(2, matrix(ZZ, [[2, 1], [1, 2]])) in MZZCat.WithForms().Quadratic(),
     ),
@@ -131,6 +139,10 @@ SMOKE_STATEMENTS = (
     ),
     ("Modules(QQ).Constructors().FiniteRankFreeModule(2) has rank 2", lambda _: NMQQ.FiniteRankFreeModule(2).rank() == 2),
     (
+        "Modules(ZZ).Constructors().span(...) is a module subobject",
+        lambda _: NMZZ.span([M.gen(0), M.gen(1)]) in MZZCat.Subobjects(),
+    ),
+    (
         "refine_category(M.submodule(...), Subobjects()) is a module subobject",
         lambda _: refine_category(S, MZZCat.Subobjects()) in MZZCat.Subobjects(),
     ),
@@ -143,6 +155,10 @@ SMOKE_STATEMENTS = (
     (
         "refine_category(M.quotient_module(S), Quotients()) is a module quotient",
         lambda _: refine_category(Qfree, MZZCat.Quotients()) in MZZCat.Quotients(),
+    ),
+    (
+        "Modules(ZZ).Constructors().quotient_of_free_modules(M, S) is a module quotient",
+        lambda _: NMZZ.quotient_of_free_modules(M, S) in MZZCat.Quotients(),
     ),
     (
         "refine_category(C.submodule([a + b]), Subobjects()+WithBasis()) has a basis",
@@ -188,12 +204,40 @@ SMOKE_STATEMENTS = (
         in MZZCat.TorsionQuadraticModules(),
     ),
     (
+        "Modules(ZZ).Constructors().ring_as_rank_one_module() is rank-one free",
+        lambda _: NMZZ.ring_as_rank_one_module() in MZZCat.Free().FiniteRank().WithOrderedBasis(),
+    ),
+    (
+        "Modules(ZZ).Constructors().ideal_as_submodule((6)) is an ideal submodule",
+        lambda _: NMZZ.ideal_as_submodule(ZZ.ideal(6)) in MZZCat.RIdeals(),
+    ),
+    (
+        "Modules(ZZ).Constructors().invertible_ideal_as_projective_submodule((1)) is projective",
+        lambda _: NMZZ.invertible_ideal_as_projective_submodule(ZZ.ideal(1)) in MZZCat.Projective(),
+    ),
+    (
         "Modules(ZZ).Constructors().polynomial_ring_as_module(name='t') is a ring object as a module",
         lambda _: NMZZ.polynomial_ring_as_module(name="t") in MZZCat.RingObjectsAsModules(),
     ),
     (
         "Modules(ZZ).Constructors().polynomial_ring_as_module(name='t') has base ring ZZ",
         lambda _: NMZZ.polynomial_ring_as_module(name="t").base_ring() is ZZ,
+    ),
+    (
+        "Modules(ZZ).Constructors().power_series_ring_as_module('t') is a ring object as a module",
+        lambda _: NMZZ.power_series_ring_as_module("t") in MZZCat.RingObjectsAsModules(),
+    ),
+    (
+        "Modules(ZZ).Constructors().laurent_series_ring_as_module('t') is a ring object as a module",
+        lambda _: NMZZ.laurent_series_ring_as_module("t") in MZZCat.RingObjectsAsModules(),
+    ),
+    (
+        "Modules(ZZ).Constructors().puiseux_series_ring_as_module('t') is a ring object as a module",
+        lambda _: NMZZ.puiseux_series_ring_as_module("t") in MZZCat.RingObjectsAsModules(),
+    ),
+    (
+        "Modules(ZZ).Constructors().matrix_ring_as_module(2) is a ring object as a module",
+        lambda _: NMZZ.matrix_ring_as_module(2) in MZZCat.RingObjectsAsModules(),
     ),
 )
 

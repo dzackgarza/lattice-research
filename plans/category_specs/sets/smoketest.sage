@@ -5,6 +5,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
 from sage.sets.real_set import RealSet as SageRealSet
 
@@ -92,6 +93,47 @@ SMOKE_STATEMENTS = (
         "RealSet(open interval) has one component",
         lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
     ),
+    (
+        "RealSetInterval(0, 1, open) is a connected topological subobject",
+        lambda _: C.RealSetInterval(0, 1, lower_closed=False, upper_closed=False) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "OpenRealInterval(0, 1) is an open real subobject",
+        lambda _: C.OpenRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "ClosedRealInterval(0, 1) is a compact connected real subobject",
+        lambda _: C.ClosedRealInterval(0, 1) in TopologicalSpaces().Compact().Connected().Subobjects(),
+    ),
+    (
+        "RealPoint(0) is a compact connected real subobject",
+        lambda _: C.RealPoint(0) in TopologicalSpaces().Compact().Connected().Subobjects(),
+    ),
+    (
+        "OpenClosedRealInterval(0, 1) is a connected real subobject",
+        lambda _: C.OpenClosedRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "ClosedOpenRealInterval(0, 1) is a connected real subobject",
+        lambda _: C.ClosedOpenRealInterval(0, 1) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "UnboundedBelowClosedRealInterval(1) is a connected real subobject",
+        lambda _: C.UnboundedBelowClosedRealInterval(1) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "UnboundedBelowOpenRealInterval(1) is a connected real subobject",
+        lambda _: C.UnboundedBelowOpenRealInterval(1) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "UnboundedAboveClosedRealInterval(0) is a connected real subobject",
+        lambda _: C.UnboundedAboveClosedRealInterval(0) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    (
+        "UnboundedAboveOpenRealInterval(0) is a connected real subobject",
+        lambda _: C.UnboundedAboveOpenRealInterval(0) in TopologicalSpaces().Connected().Subobjects(),
+    ),
+    ("RealLine() is a connected real subobject", lambda _: C.RealLine() in TopologicalSpaces().Connected().Subobjects()),
     (
         "RecursivelyEnumeratedSet([0], successors) is countable",
         lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth") in Sets().Countable(),
@@ -192,6 +234,42 @@ SMOKE_STATEMENTS = (
     (
         "1 lies in EnumeratedSetFromIterator([0, 1, 2])",
         lambda _: 1 in C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])),
+    ),
+    ("AllSetPartitions() is countable", lambda _: C.AllSetPartitions() in Sets().Countable()),
+    ("SetPartitions([1, 2, 3]) is partitioned", lambda _: C.SetPartitions([1, 2, 3]) in Sets().Partitioned()),
+    (
+        "SetPartitionsWithBlockCount([1, 2, 3], 2) is partitioned",
+        lambda _: C.SetPartitionsWithBlockCount([1, 2, 3], 2) in Sets().Partitioned(),
+    ),
+    (
+        "SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) is partitioned",
+        lambda _: C.SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) in Sets().Partitioned(),
+    ),
+    ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
+    (
+        "SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) in C.SetPartitions([1, 2, 3]),
+    ),
+    (
+        "SetPartitionFromRestrictedGrowthWordIntertwining([0, 1, 0]) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRestrictedGrowthWordIntertwining([0, 1, 0]) in C.SetPartitions([1, 2, 3]),
+    ),
+    ("SetPartitionFromArcs([(1, 3)], 3) lies over {1,2,3}", lambda _: C.SetPartitionFromArcs([(1, 3)], 3) in C.SetPartitions([1, 2, 3])),
+    (
+        "SetPartitionFromRookPlacementArcs([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRookPlacementArcs([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+    ),
+    (
+        "SetPartitionFromRookPlacementGamma([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRookPlacementGamma([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+    ),
+    (
+        "SetPartitionFromRookPlacementRho([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRookPlacementRho([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
+    ),
+    (
+        "SetPartitionFromRookPlacementPsi([(1, 2)], 3) lies over {1,2,3}",
+        lambda _: C.SetPartitionFromRookPlacementPsi([(1, 2)], 3) in C.SetPartitions([1, 2, 3]),
     ),
     (
         "cartesian_product([IntegerRange(2), IntegerRange(3)]) is finite countable",
