@@ -14,8 +14,6 @@ the archive.
   `free_algebra_from_additive_monoid`, `free_algebra_from_additive_group`, and
   `from_multiplication_tensor`. The smoke admits these names but cannot yet assert
   result refinement for them.
-- [ ] Check that refinement smokes surface the gap between current Sage implementations
-  and the mathematical spec, rather than trying to make current Sage objects pass.
 - [ ] Audit for variadic specs that slipped in and create an inventory of remaining
   variadic signatures.
 - [ ] Scope each remaining variadic Sage surface by reading the docs and source,
