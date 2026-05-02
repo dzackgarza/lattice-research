@@ -12,13 +12,22 @@ from category_specs.lattices import Lattices
 from category_specs.lattices.subcategories.over_integers import _LatticesOverIntegers as LatticesOverIntegers
 from category_specs.modules import Modules
 from category_specs.utils import assert_smoke_statements
-from sage.all import ZZ
+from sage.all import IntegralLattice, ZZ
 
 
 C = Cat()
 MZZ = Modules(ZZ, dispatch=False)
 LATTICE_AMBIENT = MZZ.Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 LZZ = Lattices(ZZ)
+
+
+def a2_short_vectors_below_three():
+    return IntegralLattice("A2").short_vectors(3)
+
+
+def a2_short_vectors_below_three_up_to_sign():
+    return LatticesOverIntegers.ParentMethods.short_vectors_up_to_sign(IntegralLattice("A2"), 3)
+
 
 SMOKE_STATEMENTS = (
     ("Lattices(ZZ) is an object of Cat()", lambda _: LZZ in C),
@@ -32,10 +41,14 @@ SMOKE_STATEMENTS = (
     ("Lattices(ZZ).DualObjects() is an object of Cat()", lambda _: LZZ.DualObjects() in C),
     ("Lattices(ZZ).DualLattices() aliases DualObjects()", lambda _: LZZ.DualLattices() is LZZ.DualObjects()),
     ("Lattices(ZZ).Even() exposes is_even as its defining predicate", lambda _: LZZ.Even().defining_predicates() == ("is_even",)),
+    (
+        "IntegralLattice('A2').short_vectors(3) has six roots of norm 2",
+        lambda _: len(a2_short_vectors_below_three()[2]) == 6,
+    ),
     ("Lattices(ZZ).OverIntegers().ParentMethods.short_vectors is admitted", lambda _: LatticesOverIntegers.ParentMethods.short_vectors),
     (
-        "Lattices(ZZ).OverIntegers().ParentMethods.short_vectors_up_to_sign is admitted",
-        lambda _: LatticesOverIntegers.ParentMethods.short_vectors_up_to_sign,
+        "IntegralLattice('A2').short_vectors_up_to_sign(3) has three roots modulo sign",
+        lambda _: len(a2_short_vectors_below_three_up_to_sign()[2]) == 3,
     ),
 )
 

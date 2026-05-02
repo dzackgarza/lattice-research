@@ -8,6 +8,7 @@ from category_specs.modules import Modules
 from category_specs.modules.subcategories.constructions.quotients import _Quotients as ModuleQuotients
 from category_specs.sets import Sets
 from category_specs.utils import assert_smoke_statements, refine_category
+from sage.modules.fp_graded.free_module import FreeGradedModule
 
 
 R6 = IntegerModRing(6)
@@ -51,6 +52,35 @@ z = K.gen()
 Sore = OrePolynomialRing(K, K.frobenius_endomorphism(), names="X")
 X = Sore.gen()
 NMK = Modules(K).Constructors()
+
+
+def fp_module_from_identity_cokernel():
+    F = FreeGradedModule(E, [0, 1])
+    return NME.FPModuleFromCokernelMap(Hom(F, F).identity())
+
+
+def integer_lattice_from_cyclotomic_order_element():
+    K5 = CyclotomicField(5)
+    O5 = K5.ring_of_integers()
+    return NMZZ.IntegerLatticeFromOrderElement(O5(K5.gen()))
+
+
+def rational_quotient_split_methods_have_one_dimensional_outputs():
+    V = VectorSpace(QQ, 3)
+    W = V.subspace([V.gen(2)])
+    Q = V.quotient_module(W)
+    methods = ModuleQuotients.ParentMethods
+    relation_matrix = matrix(QQ, [[1, 0]])
+    quotient_by_submodule = methods.quotient_by_submodule(Q, Q.subspace([Q.gen(0)]))
+    quotient_by_generators = methods.quotient_by_generators(Q, [Q.gen(0)])
+    quotient_by_relation_matrix = methods.quotient_by_relation_matrix(Q, relation_matrix)
+    quotient_by_relation_rows = methods.quotient_by_relation_rows(Q, [[1, 0]])
+    assert quotient_by_submodule.dimension() == 1
+    assert quotient_by_generators.dimension() == 1
+    assert quotient_by_relation_matrix.dimension() == 1
+    assert quotient_by_relation_rows.dimension() == 1
+    return True
+
 
 SMOKE_STATEMENTS = (
     (
@@ -210,20 +240,8 @@ SMOKE_STATEMENTS = (
         lambda _: NMZZ.quotient_of_free_modules(M, S) in MZZCat.Quotients(),
     ),
     (
-        "Modules(ZZ).Quotients().ParentMethods.quotient_by_submodule is admitted",
-        lambda _: ModuleQuotients.ParentMethods.quotient_by_submodule,
-    ),
-    (
-        "Modules(ZZ).Quotients().ParentMethods.quotient_by_generators is admitted",
-        lambda _: ModuleQuotients.ParentMethods.quotient_by_generators,
-    ),
-    (
-        "Modules(ZZ).Quotients().ParentMethods.quotient_by_relation_matrix is admitted",
-        lambda _: ModuleQuotients.ParentMethods.quotient_by_relation_matrix,
-    ),
-    (
-        "Modules(ZZ).Quotients().ParentMethods.quotient_by_relation_rows is admitted",
-        lambda _: ModuleQuotients.ParentMethods.quotient_by_relation_rows,
+        "Modules(QQ).Quotients().ParentMethods quotient_by_* split methods produce one-dimensional quotient vectorspaces",
+        lambda _: rational_quotient_split_methods_have_one_dimensional_outputs(),
     ),
     (
         "refine_category(C.submodule([a + b]), Subobjects()+WithBasis()) has a basis",
@@ -262,8 +280,8 @@ SMOKE_STATEMENTS = (
         in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
-        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromCokernelMap is admitted",
-        lambda _: NME.FPModuleFromCokernelMap,
+        "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromCokernelMap(identity) is trivial",
+        lambda _: fp_module_from_identity_cokernel().is_trivial(),
     ),
     (
         "Modules(GF(5^3)).Constructors().OreQuotientModule(S, X^2 + z) is an Ore module",
@@ -286,8 +304,8 @@ SMOKE_STATEMENTS = (
         lambda _: NMZZ.IntegerLatticeFromBasisRows([[1, 0, 3], [0, 2, 1], [0, 2, 7]]).rank() == 3,
     ),
     (
-        "Modules(ZZ).Constructors().IntegerLatticeFromOrderElement is admitted",
-        lambda _: NMZZ.IntegerLatticeFromOrderElement,
+        "Modules(ZZ).Constructors().IntegerLatticeFromOrderElement(zeta_5) has rank 4",
+        lambda _: integer_lattice_from_cyclotomic_order_element().rank() == 4,
     ),
     (
         "Modules(ZZ).Constructors().TorsionQuadraticForm(...) is a torsion quadratic module",
