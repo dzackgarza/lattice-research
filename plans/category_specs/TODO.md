@@ -28,8 +28,6 @@ the archive.
   fixture implementing them; `Lattices(ZZ).OverIntegers().ParentMethods.short_vectors`
   and `short_vectors_up_to_sign` are abstract lattice obligations without a concrete
   lattice fixture refined far enough to exercise the project method names.
-- [ ] Add an early warning for redundant abstract-method redefinitions, preferably as a
-  `just` recipe or script, so specs do not restate inherited obligations.
 - [ ] Audit for uniformizing opportunities across category trees where several modules
   express the same mathematical construction with different names or shapes.
 - [ ] Add mathematical docstrings whenever a spec introduces a new method. The docstring
