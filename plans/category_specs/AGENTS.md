@@ -11,17 +11,48 @@ Before creating a tracker item, read the repo-local tracking instructions in
 `.agents/skills/track/SKILL.md` and inspect `.nimbalyst/trackers/*.yaml` for custom
 tracker definitions. Custom tracker types take precedence over built-ins.
 
-Append one-line tracker items to the correct `nimbalyst-local/tracker/[type]s.md`
-file using this format:
+Use the tracker mode declared in YAML.
+
+For tracker definitions with `modes.fullDocument: true`, create one markdown file per
+item under `nimbalyst-local/tracker/[type]s/`. The file must use `trackingStatus`
+frontmatter and a real body, not a one-line description:
+
+```markdown
+---
+trackingStatus:
+  itemId: [idPrefix]_[ulid]
+  title: Brief description
+  type: [type]
+  status: [default-status]
+  priority: medium
+  assignee: null
+  tags:
+    - category-specs
+  created: YYYY-MM-DD
+  updated: YYYY-MM-DDTHH:MM:SS.000Z
+---
+```
+
+Full-document tracker bodies must include enough context for another agent to execute
+the work without recovering chat history. Use at least: `Summary`,
+`Source Provenance`, `Context`, `Acceptance Criteria`, `Dependencies And Boundaries`,
+and `Work Log`. The aggregate `nimbalyst-local/tracker/[type]s.md` file is only an
+index for full-document trackers and must not contain duplicate inline tracker tags.
+
+For tracker definitions with `modes.inline: true` and no full-document mode, append a
+one-line item to `nimbalyst-local/tracker/[type]s.md`:
 
 ```markdown
 - Brief description #[type][id:[idPrefix]_[ulid] status:[default-status] priority:medium created:YYYY-MM-DD]
 ```
 
-Use the exact `type`, `idPrefix`, and first/default status from the custom YAML when
-present. For built-in tracker types, use `bug`, `task`, `idea`, `decision`, or `plan`
-with default status `to-do`. Infer priority from the item text unless the user states it
-explicitly.
+Use the exact `type`, `idPrefix`, and first/default status from the custom YAML. For
+built-in tracker types, use `bug`, `task`, `idea`, `decision`, or `plan` with default
+status `to-do` unless a local YAML definition says otherwise. Infer priority from the
+item text unless the user states it explicitly.
+
+When migrating old docs, preserve substantive source context inside the per-item body.
+Do not replace real task content with one-line summaries.
 
 Never call `tracker_create` for these items. The markdown tracker files are the source
 of truth and sync into Nimbalyst; calling a tracker tool as well would duplicate the

@@ -53,6 +53,36 @@ Defined in `.nimbalyst/trackers/*.yaml`. Common custom types:
 
 ## Item Format
 
+Use the mode declared by `.nimbalyst/trackers/[type].yaml` when a YAML definition
+exists.
+
+For `modes.fullDocument: true`, create one markdown file per item under
+`nimbalyst-local/tracker/[type]s/` with `trackingStatus` frontmatter:
+
+```markdown
+---
+trackingStatus:
+  itemId: [idPrefix]_[ulid]
+  title: Brief description
+  type: [type]
+  status: [default-status]
+  priority: medium
+  assignee: null
+  tags:
+    - relevant-tag
+  created: YYYY-MM-DD
+  updated: YYYY-MM-DDTHH:MM:SS.000Z
+---
+```
+
+Full-document task bodies must include the real task content, not only a title. Use at
+least: `Summary`, `Source Provenance`, `Context`, `Acceptance Criteria`,
+`Dependencies And Boundaries`, and `Work Log`. Keep
+`nimbalyst-local/tracker/[type]s.md` as an index for full-document trackers; do not add
+duplicate inline tracker tags there.
+
+For inline-only trackers, use:
+
 ```markdown
 - [Brief description] #[type][id:[idPrefix]_[ulid] status:[default-status] priority:medium created:YYYY-MM-DD]
 ```
@@ -70,8 +100,18 @@ The `[type]` and `[idPrefix]` come from the tracker YAML definition. The `[defau
    - "critical", "urgent", "blocking" -> high/critical
    - "nice to have", "minor", "low" -> low
    - Otherwise -> medium
-7. Add to `nimbalyst-local/tracker/[type]s.md` (pluralize the type name)
-8. Confirm where the item was tracked
+7. If the tracker has `modes.fullDocument: true`, write the full task file under
+   `nimbalyst-local/tracker/[type]s/` and update the aggregate file only as an index.
+8. If the tracker is inline-only, add to `nimbalyst-local/tracker/[type]s.md`
+   (pluralize the type name)
+9. Confirm where the item was tracked
+
+## Migration Requirements
+
+When converting existing docs into tracker items, preserve source paths, original
+headings or lines, execution context, acceptance criteria, and boundaries in the
+per-item body. Do not collapse a real task into a one-line tracker row when the tracker
+supports full documents.
 
 ## CRITICAL: Do NOT Call tracker_create
 
