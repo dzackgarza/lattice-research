@@ -587,6 +587,14 @@ class Posets(Category):
             r"""Return ``poset`` refined as a finite lattice."""
             return self._refine_lattice(self._raw_poset(poset))
 
+    _Constructors = Constructors
+
+    @cached_method
+    @final
+    def Constructors(self):
+        r"""Return the named Sage poset constructor collector."""
+        return self.__class__._Constructors()
+
     Finite = LazyImport("category_specs.posets.subcategories.finite", "_FinitePosets")
     MeetSemilattice = LazyImport("category_specs.posets.subcategories.meet_semilattice", "_MeetSemilatticePosets")
     JoinSemilattice = LazyImport("category_specs.posets.subcategories.join_semilattice", "_JoinSemilatticePosets")

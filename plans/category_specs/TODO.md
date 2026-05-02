@@ -6,12 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Build a constructor aggregation mechanism that mirrors Sage's mixin logic but
-  exposes constructors in one discoverable place. The collector can live outside
-  `Sets().Constructors()` and be populated by `Cat` at runtime by iterating over
-  registered categories and adding prefixed names, such as
-  `Posets().Constructors().from_digraph()` becoming `posets_from_digraph()` on the
-  aggregate collector.
 - [ ] Uniformize type exports by adding namespace objects such as `LatticeTypes`, with
   standard entries like `LatticeTypes.Category = LatticesCategory`, so callers can use
   one public namespace instead of importing every type alias individually.

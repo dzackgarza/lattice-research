@@ -176,6 +176,23 @@ exposes:
 - `EmptyCategory()`: the bottom category object used by `Cat().meet([])` and by any
   surface that needs the empty category as a category object.
 
+It also exposes constructor discoverability without moving constructor ownership:
+
+- `Aggregate()`: a runtime collector over zero-parameter top-level constructor
+  namespaces, currently `Cat()`, `Sets()`, `Posets()`, `Rings()`, and
+  `TopologicalSpaces()`.
+- `AggregateFor(named_categories)`: a collector over explicit `(prefix, category)`
+  pairs, used when the constructor namespace is parameterized by data such as a base
+  ring.
+
+Aggregate names are deterministic: the category prefix and constructor method name are
+joined by an underscore. For example,
+`Posets().Constructors().poset_from_digraph(...)` is exposed as
+`Cat().Constructors().Aggregate().posets_poset_from_digraph(...)`. The aggregate also
+provides `names()` for discoverability. This is instance-level binding of existing
+constructor callables, not class splicing, Sage method-provider manipulation, or a new
+owner for the constructors.
+
 Ordinary category objects are registered by being Sage/project `Category` instances.
 Functors are registered by being Sage `Functor` or `ConstructionFunctor` instances and
 by lying in the relevant functor homset.
