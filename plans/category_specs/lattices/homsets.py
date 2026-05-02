@@ -16,7 +16,7 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
-    from ..types import Lattice, Matrix
+    from ..types import Lattice, LatticeOrthogonalGroup, Matrix
 
 
 class _LatticeHomCategoryObjectMethods:
@@ -89,6 +89,26 @@ class LatticeAutCategory(GenericAutCategory):
 
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
-    class ParentMethods: ...
+    class ParentMethods:
+        @abstract_method
+        def special_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return the determinant-one subgroup of this lattice orthogonal group."""
+            ...
+
+        @abstract_method
+        def stable_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return the orientation-preserving subgroup of this lattice orthogonal group."""
+            ...
+
+        @final
+        def special_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO(L)``, the determinant-one subgroup of this orthogonal group."""
+            return self.special_subgroup()
+
+        @final
+        def stable_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``O^+(L)``, the stable subgroup of this orthogonal group."""
+            return self.stable_subgroup()
+
     ElementMethods = _LatticeAutomorphisms
     class MorphismMethods: ...

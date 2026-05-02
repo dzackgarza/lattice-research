@@ -102,19 +102,6 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        def special_orthogonal_group(self) -> OrthogonalGroup:
-            r"""Return ``SO(L) = \{\varphi \in O(L) : \det(\varphi) = 1\}``."""
-            return self.orthogonal_group().special_subgroup()
-
-        def stable_orthogonal_group(self) -> OrthogonalGroup:
-            r"""Return ``O^+(L)`` (orientation-preserving autometries of the
-            real extension of ``L``).
-
-            Elements satisfy ``\det(\varphi_\mathbb{R}) = +1`` where
-            ``\varphi_\mathbb{R}`` is the induced map on ``L \otimes \mathbb{R}``.
-            """
-            return self.orthogonal_group().stable_subgroup()
-
         @abstract_method
         def signature_pair(self) -> SignaturePair:
             r"""Return the signature ``(n_+, n_-)`` of the form over ``\mathbb{R}``.

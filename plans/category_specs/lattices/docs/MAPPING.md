@@ -88,8 +88,8 @@ The table answers: at what tier is each method first universally well-defined?
 | `twist(s)` | `WithForms` | scale form by scalar; defined for any module with form |
 | `genus()` | `OverZZ` | local-global genus theory; requires ZZ (or at least Dedekind) |
 | `orthogonal_group()` | `Modules(R).WithForms().AutCategory()` | `O(M,b) = Aut(M,b)` in the category of modules with forms; see note (5) |
-| `special_orthogonal_group()` | lattice/matrix refinement of `orthogonal_group()` | determinant-one subgroup, defined once the aut surface has a determinant realization |
-| `stable_orthogonal_group()` | lattice/arithmetic refinement of `orthogonal_group()` | orientation or positive-cone refinement, not part of the generic formed-module owner |
+| `special_orthogonal_group()` | `Lattices(R).AutCategory()` parent-method refinement | determinant-one subgroup of the lattice orthogonal group, defined once the aut surface has a determinant realization |
+| `stable_orthogonal_group()` | `Lattices(R).AutCategory()` parent-method refinement | orientation or positive-cone refinement of the lattice orthogonal group, not a method on lattice objects |
 | `nikulin_invariants()` | `OverZZ + Free + Symmetric + Nondegenerate` | discriminant group invariants (l, δ) |
 | `is_isometric_to(other)` | `OverZZ + Free + Symmetric + Nondegenerate` | lattice isometry test |
 | `minimum()` | `OverZZ + Free + Symmetric` | shortest vector (requires ZZ for finiteness) |
@@ -275,3 +275,10 @@ forms-owned classes. They exist only to preserve old import paths.
 Former ordinary lattice-element calls to `v.discriminant_class()` are represented as
 `L.inclusion_morphism()(v).discriminant_class()` or, equivalently, the zero element of
 `L.discriminant_group()`.
+
+Former lattice-object calls to `L.special_orthogonal_group()` and
+`L.stable_orthogonal_group()` are represented by first taking the lattice aut object:
+`L.orthogonal_group().special_orthogonal_group()` and
+`L.orthogonal_group().stable_orthogonal_group()`. The subgroup constructors live on
+`Lattices(R).AutCategory().ParentMethods`; `special_subgroup()` and
+`stable_subgroup()` are the primitive subgroup selectors there.

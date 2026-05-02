@@ -90,9 +90,6 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def reduce(self, x: RModuleElement) -> RModuleElement: ...
 
-        @abstract_method
-        def cokernel_basis_indices(self) -> tuple[CategoryElement, ...]: ...
-
     class ElementMethods:
         @abstract_method
         def monomial_coefficients(self, copy: bool = True) -> dict[CategoryElement, RingElement]:

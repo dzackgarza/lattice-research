@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
@@ -60,13 +59,6 @@ class EndCategory(CategoryWithAxiom_singleton):
         from sage.categories.homsets import Homsets as SageHomsets
 
         return [SageHomsets().Endset()]
-
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def AutCategory(self) -> Category:
-            r"""Return the automorphism subcategory of this end category."""
-            return self._with_axiom("Autset")
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
@@ -130,13 +122,6 @@ class EndCategoryOf(CategoryWithAxiom):
     def Of(self, domain: CategoryObject) -> End:
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         return self.base_category().Of(domain, domain)
-
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def AutCategory(self) -> Category:
-            r"""Return the automorphism construction over this end category."""
-            return self._with_axiom("Autset")
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods

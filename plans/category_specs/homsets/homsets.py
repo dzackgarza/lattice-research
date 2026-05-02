@@ -6,7 +6,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, final, overload, override
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
 
@@ -121,19 +120,6 @@ class HomCategory(SageHomsetsBase):
         r"""Return Sage's base hom-category supercategories."""
         return super().super_categories()
 
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def EndCategory(self) -> Category:
-            r"""Return the endomorphism subcategory of this hom category."""
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def AutCategory(self) -> Category:
-            r"""Return the automorphism subcategory of this hom category."""
-            return self.EndCategory().AutCategory()
-
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
     class MorphismMethods: ...
@@ -156,19 +142,6 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
 
     _functor_category = "HomCategory"
     _base_category_class = (_SageCategory,)
-
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def EndCategory(self) -> Category:
-            r"""Return the endomorphism construction over this hom construction."""
-            return self._with_axiom("Endset")
-
-        @cached_method
-        @final
-        def AutCategory(self) -> Category:
-            r"""Return the automorphism construction over this hom construction."""
-            return self.EndCategory().AutCategory()
 
     class ParentMethods: ...
     class ElementMethods: ...

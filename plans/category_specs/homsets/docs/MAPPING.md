@@ -53,6 +53,17 @@ Construction categories do not define method surfaces; root categories and subtr
 categories do. Concrete hom categories attach an `Endset` axiom hook; concrete end
 categories attach an `Autset` axiom hook. Those hook names exist for Sage interop only.
 
+Selector ownership:
+
+| Old local surface | Project surface | Rationale |
+| --- | --- | --- |
+| `HomCategory.SubcategoryMethods.EndCategory()` | inherited `Cat` universal `EndCategory()` selector | The universal selector already detects hom-category objects and applies the `Endset` axiom hook. The local method duplicated that selector. |
+| `HomCategory.SubcategoryMethods.AutCategory()` | inherited `Cat` universal `AutCategory()` selector | Automorphism selection factors through the universal end selector and the `Autset` axiom hook. |
+| `HomCategoryConstruction.SubcategoryMethods.EndCategory()` | inherited `Cat` universal `EndCategory()` selector | Construction categories are still category objects; the universal selector produces the same `Endset` refinement. |
+| `HomCategoryConstruction.SubcategoryMethods.AutCategory()` | inherited `Cat` universal `AutCategory()` selector | The construction-level aut selector is inherited, not locally owned. |
+| `EndCategory.SubcategoryMethods.AutCategory()` | inherited `Cat` universal `AutCategory()` selector | The universal selector already detects end-category objects and applies `Autset`. |
+| `EndCategoryOf.SubcategoryMethods.AutCategory()` | inherited `Cat` universal `AutCategory()` selector | The generic end-category construction has no separate aut-navigation law beyond the universal selector. |
+
 ## Extra Structure Pattern
 
 `modules/homsets.py` is the model for this pattern. `Modules(R).HomCategory()`

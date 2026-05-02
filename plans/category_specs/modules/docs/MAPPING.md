@@ -106,6 +106,15 @@ quotient structure: `Modules(R).Subobjects()` / ordered-generating-set refinemen
 `Modules(R).Quotients()` / ordered-generating-set refinements. The inheritance is
 implementation evidence only.
 
+Basis-coordinate audit:
+
+| Old or audited surface | Project surface | Rationale |
+| --- | --- | --- |
+| `Modules(R).WithBasis().linear_combination_of_basis(terms)` | unchanged on `Modules(R).WithBasis().ParentMethods` | A finite sum of indexed basis terms is genuine structure of a module equipped with a specified basis. |
+| `Modules(R).WithBasis().cokernel_basis_indices()` | `Modules(R).Quotients().ParentMethods.cokernel_basis_indices()` | These are normal-form basis indices for a quotient/cokernel, not a property of every basis-bearing module. |
+| `Modules(R).WithBasis().HomCategory().from_basis_map(f)` | unchanged on `WithBasis().HomCategory().ParentMethods` | A map from basis indices determines a unique module morphism from a basis-bearing domain. The hom object owns the resulting morphism construction. |
+| `Modules(R).WithBasis().HomCategory().ElementMethods.on_basis()` | unchanged on `WithBasis().HomCategory().ElementMethods` | This reads the basis-index function determining a basis-defined morphism, so it belongs to the basis-refined hom surface. |
+
 ## Sage Wrapper Subcategory Migration Mapping
 
 The old Sage-wrapper files are implementation evidence, not ownership evidence. A
@@ -183,6 +192,7 @@ categories. The migration should use these rules before placing any method:
 | `intersection`, `saturation`, `denominator`, `index_in` | free modules over integral domains/PIDs and their subobject owners. |
 | `quotient_module`, `__truediv__`, `quotient_abstract`, quotient matrices | `Quotients()` refined by field, free, PID, finite-presentation, basis, or ordered-basis hypotheses. |
 | `cover`, `relations`, `free_cover`, `free_relations`, `quotient_map`, `lift_map`, `lift`, `retract` | quotient or subquotient construction owners; `lift`/`retract` for submodules belong to `Subobjects()`. |
+| `cokernel_basis_indices` | quotient owners with basis or PID normal-form hypotheses. |
 | Smith-form data, `invariant_factors`, `invariants`, `smith_form_gens`, `free_part`, `torsion_part`, `annihilator`, element order | `FinitelyPresentedModulesOverPID` and its torsion/finite refinements. |
 | `hom`, `_Hom_`, `module_morphism`, morphism from basis/images/matrices, `on_basis` | the relevant `HomCategory()`; basis-defined constructors refine through `WithBasis().HomCategory()`. |
 | `tensor`, `tensor_module`, tensor constructors, tensor factors | `TensorProducts()` and tensor-power construction owners. |

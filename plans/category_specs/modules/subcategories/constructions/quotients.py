@@ -10,7 +10,7 @@ from sage.misc.abstract_method import abstract_method
 from ....cat import QuotientsCategory
 
 if TYPE_CHECKING:
-    from ....types import Matrix, RingElement, RModMorphism, RModule, RModuleElement
+    from ....types import CategoryElement, Matrix, RingElement, RModMorphism, RModule, RModuleElement
 
 
 class _Quotients(QuotientsCategory):
@@ -57,6 +57,11 @@ class _Quotients(QuotientsCategory):
 
         @abstract_method
         def retract(self, x: RModuleElement) -> RModuleElement: ...
+
+        @abstract_method
+        def cokernel_basis_indices(self) -> tuple[CategoryElement, ...]:
+            r"""Return the basis indices surviving in this quotient normal form."""
+            ...
 
         @override
         @abstract_method
