@@ -6,9 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Uniformize type exports by adding namespace objects such as `LatticeTypes`, with
-  standard entries like `LatticeTypes.Category = LatticesCategory`, so callers can use
-  one public namespace instead of importing every type alias individually.
 - [ ] Ensure main category classes are defined in package `__init__.py` files. The
   initializer should be the readable index into the subtree, with subcategory files
   holding the detailed method surfaces.
