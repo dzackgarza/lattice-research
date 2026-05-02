@@ -6,9 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Ensure main category classes are defined in package `__init__.py` files. The
-  initializer should be the readable index into the subtree, with subcategory files
-  holding the detailed method surfaces.
 - [ ] Standardize construction-category vocabulary. For example, `DualLattices` should
   not introduce a nonstandard verb when the existing categorical construction is
   `C.DualObjects()`.

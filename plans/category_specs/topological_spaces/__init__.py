@@ -95,7 +95,7 @@ class _TopologicalSpaceMorphismMethods:
     r"""Methods on morphisms of topological spaces."""
 
 
-class _TopologicalSpaces(CategoryWithAxiom):
+class TopologicalSpaces(CategoryWithAxiom):
     r"""Category of topological spaces."""
 
     _base_category_class_and_axiom = (Sets, "Topological")
@@ -158,8 +158,8 @@ class _TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-TopologicalSpaces = _TopologicalSpaces
-TopologicalSpace = _TopologicalSpaces
+_TopologicalSpaces = TopologicalSpaces
+TopologicalSpace = TopologicalSpaces
 
 
 from .subcategories.metric import _MetricSpaces
