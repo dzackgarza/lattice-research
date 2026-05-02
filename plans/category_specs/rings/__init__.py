@@ -1143,28 +1143,10 @@ class Rings(Category_singleton):
             implementation: str = "FLINT",
         ) -> Ring:
             assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
-            from sage.all import Zq
-
-            return refine_category(
-                Zq(
-                    q,
-                    prec=(relative_cap, absolute_cap),
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
-                ),
-                [Rings(), _Zp()],
+            assert False, (
+                "Installed Sage has no unramified Zq extension constructor for split "
+                "lattice relative/absolute precision caps; keep this admitted name "
+                "deferred until Sage exposes a lattice-precision extension route."
             )
 
         @final
@@ -1322,28 +1304,10 @@ class Rings(Category_singleton):
             implementation: str = "FLINT",
         ) -> Ring:
             assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
-            from sage.all import Qq
-
-            return refine_category(
-                Qq(
-                    q,
-                    prec=(relative_cap, absolute_cap),
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
-                ),
-                [Rings(), _Qp()],
+            assert False, (
+                "Installed Sage has no unramified Qq extension constructor for split "
+                "lattice relative/absolute precision caps; keep this admitted name "
+                "deferred until Sage exposes a lattice-precision extension route."
             )
 
         @overload

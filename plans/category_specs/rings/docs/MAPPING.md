@@ -35,7 +35,7 @@ The remaining variadic ring factories are split as follows:
 | `Zq(q, ...)` / `Qq(q, ...)` with integer prime power | `Zq(q, ...)` / `Qq(q, ...)` | Cardinality route. |
 | `Zq((p, n), ...)` / `Qq((p, n), ...)` | `ZqFromPrimePower(p, degree=n, ...)` / `QqFromPrimePower(...)` | Prime-power pair route. |
 | `Zq([(p, n)], ...)` / `Qq([(p, n)], ...)` | `ZqFromPrimePowerFactorization(factorization=...)` / `QqFromPrimePowerFactorization(...)` | Factorization route. |
-| `Zq(..., prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qq` analogue | `ZqWithPrecisionCaps(...)` / `QqWithPrecisionCaps(...)` | Extension constructors inherit the same lattice precision split. |
+| `Zq(..., prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qq` analogue | Deferred admitted names `ZqWithPrecisionCaps(...)` / `QqWithPrecisionCaps(...)` | The split is mathematically meaningful, but installed Sage does not expose a working unramified extension parent for lattice precision caps. |
 | `PowerSeriesRing(R, name, default_prec=...)` | `PowerSeriesRing(base_ring=R, name=..., default_prec=...)` | Univariate power-series route. Sage's deprecated positional precision route maps to the named `default_prec`. |
 | `PowerSeriesRing(R, names=...)` or comma-separated/list names | `MultivariatePowerSeriesRing(base_ring=R, names=..., num_gens=...)` | Multivariate named-generator route. |
 | `PowerSeriesRing(R, n, prefix, ...)` | `MultivariatePowerSeriesRingWithGeneratorPrefix(base_ring=R, prefix=..., num_gens=n, ...)` | Prefix-plus-count route. |
@@ -104,6 +104,46 @@ use the private convenience method `_change_print_mode(print_mode)`.
 `structure_domain()` and `structure_codomain()` methods now map to the Cat-owned
 universal structure-morphism surface through `structure_morphism().domain()` and
 `structure_morphism().codomain()`.
+
+## Deferred Q-Adic Lattice Precision
+
+`ZpWithPrecisionCaps` and `QpWithPrecisionCaps` are concrete because Sage's `Zp` and
+`Qp` base constructors canonicalize lattice precision pairs. The corresponding
+unramified extension names `ZqWithPrecisionCaps` and `QqWithPrecisionCaps` are retained
+as admitted split names, but their bodies assert the installed Sage gap instead of
+passing through to a broken constructor path.
+
+- Searched: `rings/docs/MAPPING.md`, `rings/docs/SAGE_INVENTORY.md`,
+  `rings/smoketest.sage`, `rings/__init__.py`, Sage
+  `sage/rings/padics/factory.py` around `get_key_base`, `Zq`, `Qq`, and
+  `pAdicExtension_class`, Sage `sage/rings/padics/padic_extension_leaves.py`,
+  Sage `sage/rings/padics/generic_nodes.py`, and Sage
+  `sage/rings/padics/local_generic.py`. Runtime probes covered direct Sage
+  `Zq(25, prec=4, type="lattice-cap", names="a")`,
+  `Zq(25, prec=(4, 8), type="lattice-cap", names="a")`,
+  `Qq(25, prec=4, type="lattice-cap", names="a")`,
+  `Qq(25, prec=(4, 8), type="lattice-cap", names="a")`, the analogous
+  `lattice-float` pair routes, `check=False` factorization routes, and explicit
+  `Zp(..., type="lattice-cap").extension(...)` /
+  `Qp(..., type="lattice-cap").extension(...)` routes.
+- Found: Sage `Zp`/`Qp` base constructors canonicalize lattice precision pairs through
+  `get_key_base`, and `pAdicLatticeGeneric` stores separate relative and absolute
+  caps. Installed Sage `Zq`/`Qq` extension constructors document q-adic `prec` as an
+  integer cap and coerce non-`Integer` precision with `prec = Integer(prec)` before
+  calling `ExtensionFactory`. Direct q-adic pair precision fails with `TypeError:
+  unable to coerce <class 'tuple'> to an integer`. Scalar lattice-cap q-adic routes
+  and explicit lattice-base extension routes fail before returning a usable extension
+  parent. The installed `ext_table` has unramified extension leaves for
+  capped-relative, capped-absolute, fixed-modulus, and floating-point bases, but no
+  lattice extension leaf keyed by `pAdicRingLattice` or `pAdicFieldLattice`.
+- Conclusion: inference -- no real installed Sage construction path currently realizes
+  unramified q-adic extensions with split lattice relative/absolute precision caps.
+  These names remain deferred frontiers until Sage exposes an extension-specific
+  lattice-precision route or an upstream fix.
+- Confidence: High.
+- Gaps: upstream Sage issue trackers, unreleased Sage branches, and Sage developer
+  discussion were not searched in this pass; the conclusion is limited to the installed
+  Sage source, installed written docs, and direct local runtime probes.
 
 ## Axiom vs. Implementation Decision
 

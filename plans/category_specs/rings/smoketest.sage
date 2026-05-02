@@ -94,11 +94,19 @@ SMOKE_STATEMENTS = (
         "Constructors().ZqFromPrimePowerFactorization([(5, 2)], names='a') has prime 5",
         lambda _: NR.ZqFromPrimePowerFactorization([(5, 2)], names="a").prime() == 5,
     ),
+    (
+        "Constructors().ZqWithPrecisionCaps(25, 4, 8, names='a') is a deferred Sage-extension frontier",
+        lambda _: NR.ZqWithPrecisionCaps(25, 4, 8, names="a").prime() == 5,
+    ),
     ("Constructors().Qq(25, names='a') is a field", lambda _: NR.Qq(25, names="a") in Rings().Commutative().Field()),
     ("Constructors().QqFromPrimePower(5, 2, names='a') has prime 5", lambda _: NR.QqFromPrimePower(5, 2, names="a").prime() == 5),
     (
         "Constructors().QqFromPrimePowerFactorization([(5, 2)], names='a') has prime 5",
         lambda _: NR.QqFromPrimePowerFactorization([(5, 2)], names="a").prime() == 5,
+    ),
+    (
+        "Constructors().QqWithPrecisionCaps(25, 4, 8, names='a') is a deferred Sage-extension frontier",
+        lambda _: NR.QqWithPrecisionCaps(25, 4, 8, names="a").prime() == 5,
     ),
     (
         "Constructors().PolynomialRing(ZZ, name='t') is a polynomial ring over ZZ",
