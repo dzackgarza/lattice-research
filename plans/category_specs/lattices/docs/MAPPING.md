@@ -110,7 +110,7 @@ The table answers: at what tier is each method first universally well-defined?
 | `lift(v)` | `Torsion` (element) | lift to dual lattice |
 | `divisibility(v)` | `Free` (element) | gcd{a ∈ R : v = a·w for w ∈ L} |
 | `is_primitive(v)` | `Free` (element) | divisibility is a unit |
-| `discriminant_class(v)` | `Free + Nondegenerate + OverIntegralDomain` (element) | image of v in L^*/L |
+| `discriminant_class(x)` | `Lattices(R).DualObjects()` (element) | quotient map `L^* -> L^*/L`; ordinary `v in L` maps to the zero class via `L -> L^*`; see note (8) |
 | `reflection(v)` | `Free + Symmetric + Nondegenerate` (element) | s_v(w) = w - 2b(v,w)/b(v,v) · v |
 | `is_root(v)` | `Free + Symmetric + Integral` (element) | b(v,v) ∈ {-2, 2} |
 | `norm(v)` | `Bilinear` (element) — see note (7) | b(v,v); defined for any bilinear form |
@@ -169,6 +169,13 @@ lattice convention (appears in `Lattices.ElementMethods`). The name `self_produc
 appears in our `BilinearModules.ElementMethods`. Both belong at `Bilinear` (element).
 In the spec we use `self_product` at the generic bilinear level and provide `norm` as an
 alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
+
+**(8) `discriminant_class(x)` ownership**: The nontrivial map is the quotient
+`L^* -> L^*/L`, so the method belongs to elements of
+`Lattices(R).DualObjects()`. The former ordinary lattice-element reading is recovered
+by first applying the inclusion `L -> L^*`; its discriminant class is necessarily the
+zero element of `L.discriminant_group()`, so it is not a separate element obligation on
+`L`.
 
 ---
 
@@ -258,3 +265,7 @@ module ownership lives in `forms`.
 `modules/subcategories/quadratic.py`, `modules/subcategories/torsion_quadratic_modules.py`,
 and the old generic formed-module files in `lattices/subcategories/` re-export the
 forms-owned classes. They exist only to preserve old import paths.
+
+Former ordinary lattice-element calls to `v.discriminant_class()` are represented as
+`L.inclusion_morphism()(v).discriminant_class()` or, equivalently, the zero element of
+`L.discriminant_group()`.

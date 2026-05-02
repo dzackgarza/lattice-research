@@ -9,7 +9,7 @@ from sage.misc.abstract_method import abstract_method
 from ....cat import DualObjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Lattice, LatticeMorphism
+    from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism
 
 
 class _DualObjects(DualObjectsCategory):
@@ -29,7 +29,11 @@ class _DualObjects(DualObjectsCategory):
         @abstract_method
         def inclusion_morphism(self) -> LatticeMorphism: ...
 
-    class ElementMethods: ...
+    class ElementMethods:
+        @abstract_method
+        def discriminant_class(self) -> DiscriminantGroupElement:
+            r"""Return the image of this dual-lattice element in ``L^*/L``."""
+            ...
     class MorphismMethods: ...
 
 

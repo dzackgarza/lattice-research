@@ -8,9 +8,7 @@ the archive.
 
 - [ ] Spot-check every public method for mathematical well-definedness and nontrivial
   content. If a method is meaningful only on a different object, move it to that
-  owner or expose it through the relevant morphism. For example,
-  `discriminant_class()` is nontrivial for dual-lattice elements via
-  `L^* -> L^*/L`, but it is always zero on elements of `L`.
+  owner or expose it through the relevant morphism.
 - [ ] Check that smoke tests exercise all constructors, that every constructor refines
   its result, and that constructor refinement targets the tightest subcategories
   possible, including derived cases such as a finite-rank free module over a finite
@@ -27,5 +25,4 @@ the archive.
 - [ ] Audit for uniformizing opportunities across category trees where several modules
   express the same mathematical construction with different names or shapes.
 - [ ] Add mathematical docstrings whenever a spec introduces a new method. The docstring
-  should define the method mathematically, e.g. explaining what
-  `discriminant_class()` means rather than merely restating its return type.
+  should define the method mathematically rather than merely restating its return type.

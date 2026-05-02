@@ -23,7 +23,7 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import _BilinearModules
 
 if TYPE_CHECKING:
-    from ...types import DiscriminantGroup, Lattice, RModuleElement, RModuleMorphism
+    from ...types import DiscriminantGroup, Lattice, RModuleMorphism
 
 
 class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
@@ -135,15 +135,7 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-    class ElementMethods:
-        @abstract_method
-        def discriminant_class(self) -> RModuleElement:
-            r"""Return the image of this element in the discriminant group ``L^*/L``.
-
-            For ``v \in L^*`` this is its class in ``L^*/L``; for ``v \in L``
-            this is the identity element.
-            """
-            ...
+    class ElementMethods: ...
 
     class MorphismMethods: ...
 

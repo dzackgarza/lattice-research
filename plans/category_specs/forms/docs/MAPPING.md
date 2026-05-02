@@ -42,6 +42,8 @@ subtree.
 
 Lattices are integral, nondegenerate, symmetric, finite-rank free bilinear modules with
 the additional named `Lattice` axiom. Formed-module methods such as `b`, `gram_matrix`,
-`dual_lattice`, and `orthogonal_group` remain owned by forms. Lattice-specific
-specializations such as `OverIntegers`, `Even`, `Unimodular`, and lattice construction
-categories remain owned by `lattices`.
+`dual_lattice`, and `orthogonal_group` remain owned by forms. The quotient class map
+`L^* -> L^*/L` belongs to `Lattices(R).DualObjects().ElementMethods` because it is
+nontrivial on dual-lattice elements and zero on ordinary elements of `L`.
+Lattice-specific specializations such as `OverIntegers`, `Even`, `Unimodular`, and
+lattice construction categories remain owned by `lattices`.
