@@ -53,3 +53,8 @@ coverage.xml
 
 # Models
 models/
+
+carat
+src/backends/external/vinbergs_algorithm/
+theory/dutsik_polyhedral
+
