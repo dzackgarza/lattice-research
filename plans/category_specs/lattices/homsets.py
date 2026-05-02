@@ -100,6 +100,11 @@ class LatticeAutCategory(GenericAutCategory):
             r"""Return the orientation-preserving subgroup of this lattice orthogonal group."""
             ...
 
+        @abstract_method
+        def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
+            r"""Return the determinant-one subgroup of the stable lattice orthogonal group."""
+            ...
+
         @final
         def special_orthogonal_group(self) -> LatticeOrthogonalGroup:
             r"""Return ``SO(L)``, the determinant-one subgroup of this orthogonal group."""
@@ -109,6 +114,11 @@ class LatticeAutCategory(GenericAutCategory):
         def stable_orthogonal_group(self) -> LatticeOrthogonalGroup:
             r"""Return ``O^+(L)``, the stable subgroup of this orthogonal group."""
             return self.stable_subgroup()
+
+        @final
+        def stable_special_orthogonal_group(self) -> LatticeOrthogonalGroup:
+            r"""Return ``SO^+(L)``, the determinant-one stable subgroup of this orthogonal group."""
+            return self.stable_special_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
     class MorphismMethods: ...

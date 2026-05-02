@@ -17,7 +17,7 @@ from ..cat import CategoryWithAxiom_over_base_ring
 from ..modules.subcategories.free import _FreeFiniteRank
 
 if TYPE_CHECKING:
-    from ..types import DiscriminantGroup, Lattice, RModuleElement, RModuleMorphism, SubModule
+    from ..types import DiscriminantGroup, Lattice, OrthogonalGroup, RModuleElement, RModuleMorphism, SubModule
 
 
 class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
@@ -42,6 +42,11 @@ class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def form(self) -> RModuleMorphism: ...
+
+        @final
+        def orthogonal_group(self) -> OrthogonalGroup:
+            r"""Return ``Aut_C(M)`` for this finite-rank formed-module category ``C``."""
+            return self.category().AutCategory().Of(self)
 
     class ElementMethods: ...
     class MorphismMethods: ...

@@ -38,7 +38,6 @@ if TYPE_CHECKING:
         DiscriminantGroup,
         Integer,
         Matrix,
-        OrthogonalGroup,
         RingElement,
         RModMorphism,
         RModule,
@@ -215,21 +214,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
             @abstract_method
             def discriminant_group(self) -> DiscriminantGroup: ...
-
-            @abstract_method
-            def special_orthogonal_group(self) -> OrthogonalGroup:
-                r"""``SO(L)``."""
-                ...
-
-            @abstract_method
-            def stable_orthogonal_group(self) -> OrthogonalGroup:
-                r"""``O^+(L)``."""
-                ...
-
-            @abstract_method
-            def stable_special_orthogonal_group(self) -> OrthogonalGroup:
-                r"""``SO^+(L)``."""
-                ...
 
         class ElementMethods: ...
         class MorphismMethods: ...

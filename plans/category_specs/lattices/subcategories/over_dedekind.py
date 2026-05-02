@@ -11,7 +11,6 @@ ideal ``I``, so the rank is well-defined.
 
 This is the tier at which the following become well-defined:
 
-- ``orthogonal_group()`` — ``O(L) \leq \mathrm{GL}(L)``
 - ``signature_pair()`` — via base-change to an archimedean completion of ``K``
 - ``is_primitive(S)`` — whether a submodule ``S \subseteq L`` is primitive
 - ``index_in(other)`` — index ``[\text{other} : L]``
@@ -24,6 +23,7 @@ This is the tier at which the following become well-defined:
     are first defined at the ``Bilinear().Integral()`` tier — they only require
     ``R`` to be an integral domain with fraction field ``K``, not a Dedekind domain.
     ``orthogonal_complement(S)`` is first defined at ``Bilinear().Symmetric()``.
+    ``orthogonal_group()`` is inherited from the formed-module aut-category owner.
 """
 
 from __future__ import annotations
@@ -35,7 +35,6 @@ from ...types import (
     Automorphism,
     Integer,
     Lattice,
-    OrthogonalGroup,
     RingElement,
     RModule,
     SetFamily,
@@ -88,17 +87,6 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
 
             For lattices: ``S \subseteq L`` is primitive iff ``L/S`` is free,
             i.e. ``S = L \cap (S \otimes K)`` inside ``L \otimes K``.
-            """
-            ...
-
-        @abstract_method
-        def orthogonal_group(self) -> OrthogonalGroup:
-            r"""Return the orthogonal group ``O(L) = \{\varphi \in \mathrm{GL}(L) : b(\varphi v, \varphi w) = b(v,w)\}``.
-
-            EXAMPLES::
-
-                sage: Lattice.U().orthogonal_group()   # not tested
-                Orthogonal group of the hyperbolic plane ...
             """
             ...
 
