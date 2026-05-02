@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 from .. import Sets
 
 
-class _GradedSets(CategoryWithAxiom):
+class GradedSetsCategory(CategoryWithAxiom):
     r"""Sets equipped with a grading map to a grading set.
 
     Canonical chain: ``Sets().Graded()``.
@@ -64,4 +64,6 @@ class _GradedSets(CategoryWithAxiom):
     class MorphismMethods: ...
 
 
-GradedSet = _GradedSets
+GradedSetsObject = GradedSetsCategory.ParentMethods
+GradedSetsElement = GradedSetsCategory.ElementMethods
+GradedSetsMorphism = GradedSetsCategory.MorphismMethods

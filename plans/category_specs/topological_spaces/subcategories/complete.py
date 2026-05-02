@@ -8,7 +8,7 @@ from sage.categories.sets_cat import Sets as SageSets
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .metric import _MetricSpaces
+from .metric import MetricSpacesCategory
 
 
 class _CompleteMetricSpaces(CategoryWithAxiom):
@@ -17,7 +17,7 @@ class _CompleteMetricSpaces(CategoryWithAxiom):
     Canonical chain: ``TopologicalSpaces().Metric().Complete()``.
     """
 
-    _base_category_class_and_axiom = (_MetricSpaces, "Complete")
+    _base_category_class_and_axiom = (MetricSpacesCategory, "Complete")
 
     @override
     @final
@@ -28,7 +28,7 @@ class _CompleteMetricSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage complete metric spaces and local metric spaces."""
-        return [SageSets().Metric().Complete(), _MetricSpaces()]
+        return [SageSets().Metric().Complete(), MetricSpacesCategory()]
 
     class ParentMethods:
         @override

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from ..chain import _Lattices
+from ..chain import LatticesCategory
 
 
 class _UnimodularLattices(CategoryWithAxiom_over_base_ring):
@@ -14,7 +14,7 @@ class _UnimodularLattices(CategoryWithAxiom_over_base_ring):
     Canonical chain: ``Lattices(R).Unimodular()``.
     """
 
-    _base_category_class_and_axiom = (_Lattices, "Unimodular")
+    _base_category_class_and_axiom = (LatticesCategory, "Unimodular")
     _defining_predicates = ("is_unimodular",)
 
     class ParentMethods:

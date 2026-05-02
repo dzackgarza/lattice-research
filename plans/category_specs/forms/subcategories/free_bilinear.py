@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import (
@@ -31,7 +31,7 @@ if TYPE_CHECKING:
     )
 
 
-class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
+class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Free ``R``-modules of finite rank equipped with a bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Free()``.
@@ -62,7 +62,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
         [-1  2]
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Free")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Free")
     _defining_predicates = ("is_free",)
 
     class ParentMethods:
@@ -247,7 +247,6 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
             ...
 
 
-FreeBilinearModulesCategory = _FreeBilinearModules
-FreeBilinearModulesObject = _FreeBilinearModules.ParentMethods
-FreeBilinearModulesElement = _FreeBilinearModules.ElementMethods
-FreeBilinearModulesMorphism = _FreeBilinearModules.MorphismMethods
+FreeBilinearModulesObject = FreeBilinearModulesCategory.ParentMethods
+FreeBilinearModulesElement = FreeBilinearModulesCategory.ElementMethods
+FreeBilinearModulesMorphism = FreeBilinearModulesCategory.MorphismMethods

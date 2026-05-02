@@ -41,7 +41,7 @@ from ...types import (
     SignaturePair,
     SubModule,
 )
-from ..chain import _Lattices
+from ..chain import LatticesCategory
 
 
 class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
@@ -61,7 +61,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
         True
     """
 
-    _base_category_class_and_axiom = (_Lattices, "OverDedekindDomain")
+    _base_category_class_and_axiom = (LatticesCategory, "OverDedekindDomain")
     _defining_predicates = ("is_over_dedekind_domain", "is_torsionfree")
 
     class ParentMethods:

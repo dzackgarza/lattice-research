@@ -20,13 +20,13 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import DiscriminantGroup, Lattice, RModuleMorphism
 
 
-class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
+class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules with an ``R``-valued (integral) bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Integral()``.
@@ -53,7 +53,7 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
         ``\mathbb{Q}``; it is integral iff the denominators are trivial.
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Integral")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Integral")
     _defining_predicates = ("is_integral",)
 
     class ParentMethods:
@@ -140,7 +140,6 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-IntegralBilinearModulesCategory = _IntegralBilinearModules
-IntegralBilinearModulesObject = _IntegralBilinearModules.ParentMethods
-IntegralBilinearModulesElement = _IntegralBilinearModules.ElementMethods
-IntegralBilinearModulesMorphism = _IntegralBilinearModules.MorphismMethods
+IntegralBilinearModulesObject = IntegralBilinearModulesCategory.ParentMethods
+IntegralBilinearModulesElement = IntegralBilinearModulesCategory.ElementMethods
+IntegralBilinearModulesMorphism = IntegralBilinearModulesCategory.MorphismMethods

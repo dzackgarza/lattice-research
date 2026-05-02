@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from ....types import Algebra
 
 
-class _Ideals(Category_module):
+class AlgebraIdealsCategory(Category_module):
     r"""``R``-submodules that are ideals in an ``R``-algebra.
 
     Canonical chain: ``Algebras(R).Ideals(A)``.
@@ -60,8 +60,7 @@ class _Ideals(Category_module):
     class MorphismMethods: ...
 
 
-AlgebraIdealsCategory = _Ideals
-AlgebraIdealsObject = _Ideals.ParentMethods
-AlgebraIdealsElement = _Ideals.ElementMethods
-AlgebraIdealsMorphism = _Ideals.MorphismMethods
+AlgebraIdealsObject = AlgebraIdealsCategory.ParentMethods
+AlgebraIdealsElement = AlgebraIdealsCategory.ElementMethods
+AlgebraIdealsMorphism = AlgebraIdealsCategory.MorphismMethods
 AlgebraIdeal = AlgebraIdealsObject

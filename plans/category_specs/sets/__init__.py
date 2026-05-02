@@ -382,9 +382,9 @@ class Sets(Category_singleton):
         @final
         def WithRealizations(self) -> Category:
             r"""Return the category of sets equipped with named realizations."""
-            from .subcategories.constructions.with_realizations import _WithRealizations
+            from .subcategories.constructions.with_realizations import SetsWithRealizations
 
-            return _WithRealizations.category_of(self)
+            return SetsWithRealizations.category_of(self)
 
         @cached_method
         @final
@@ -836,9 +836,9 @@ class Sets(Category_singleton):
             r"""Return the set of all partitions of ``base_set``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import _PartitionedSets
+            from .subcategories.partitioned import PartitionedSetsCategory
 
-            return refine_category(SageSetPartitions(base_set), [Sets(), _PartitionedSets()])
+            return refine_category(SageSetPartitions(base_set), [Sets(), PartitionedSetsCategory()])
 
         @final
         def SetPartitionsWithBlockCount(
@@ -849,9 +849,9 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` into ``block_count`` blocks."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import _PartitionedSets
+            from .subcategories.partitioned import PartitionedSetsCategory
 
-            return refine_category(SageSetPartitions(base_set, block_count), [Sets(), _PartitionedSets()])
+            return refine_category(SageSetPartitions(base_set, block_count), [Sets(), PartitionedSetsCategory()])
 
         @final
         def SetPartitionsWithBlockSizes(
@@ -862,9 +862,9 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` with the given block-size partition."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import _PartitionedSets
+            from .subcategories.partitioned import PartitionedSetsCategory
 
-            return refine_category(SageSetPartitions(base_set, block_sizes), [Sets(), _PartitionedSets()])
+            return refine_category(SageSetPartitions(base_set, block_sizes), [Sets(), PartitionedSetsCategory()])
 
         @final
         def SetPartition(
@@ -975,13 +975,13 @@ class Sets(Category_singleton):
     Countable = LazyImport("category_specs.sets.subcategories.countable", "_CountableSets")
     Uncountable = LazyImport("category_specs.sets.subcategories.uncountable", "_UncountableSets")
     Facade = LazyImport("category_specs.sets.subcategories.facade", "_FacadeSets")
-    Topological = LazyImport("category_specs.topological_spaces", "_TopologicalSpaces")
+    Topological = LazyImport("category_specs.topological_spaces", "TopologicalSpaces")
     TotallyOrdered = LazyImport("category_specs.sets.subcategories.totally_ordered", "_TotallyOrdered")
-    Graded = LazyImport("category_specs.sets.subcategories.graded", "_GradedSets")
-    Partitioned = LazyImport("category_specs.sets.subcategories.partitioned", "_PartitionedSets")
-    Metric = LazyImport("category_specs.topological_spaces", "_MetricSpaces")
+    Graded = LazyImport("category_specs.sets.subcategories.graded", "GradedSetsCategory")
+    Partitioned = LazyImport("category_specs.sets.subcategories.partitioned", "PartitionedSetsCategory")
+    Metric = LazyImport("category_specs.topological_spaces", "MetricSpacesCategory")
     Subquotients = LazyImport("category_specs.sets.subcategories.constructions.subquotients", "_Subquotients")
-    Subobjects = LazyImport("category_specs.sets.subcategories.constructions.subobjects", "_Subobjects")
+    Subobjects = LazyImport("category_specs.sets.subcategories.constructions.subobjects", "Subsets")
     ObjectsOver = LazyImport("category_specs.sets.subcategories.constructions.objects_over", "_ObjectsOver")
     ObjectsUnder = LazyImport("category_specs.sets.subcategories.constructions.objects_under", "_ObjectsUnder")
     CartesianProducts = LazyImport("category_specs.sets.subcategories.constructions.cartesian_products", "_CartesianProducts")
@@ -993,7 +993,7 @@ class Sets(Category_singleton):
     )
     WithRealizations = LazyImport(
         "category_specs.sets.subcategories.constructions.with_realizations",
-        "_WithRealizations",
+        "SetsWithRealizations",
     )
     Realizations = LazyImport(
         "category_specs.sets.subcategories.constructions.realizations",

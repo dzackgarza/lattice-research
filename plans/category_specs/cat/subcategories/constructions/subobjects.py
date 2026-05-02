@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from ....types import Category, CategoryObject
 
 
-class _Subobjects(SubobjectsCategory):
+class Subcategories(SubobjectsCategory):
     r"""Subcategories viewed as subobjects in ``Cat()``.
 
     Canonical chain: ``Cat().Subobjects()``.
@@ -57,4 +57,3 @@ class _Subobjects(SubobjectsCategory):
     class MorphismMethods: ...
 
 
-Subcategories = _Subobjects

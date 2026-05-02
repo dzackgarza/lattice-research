@@ -5,5 +5,4 @@ from ...forms.subcategories.quadratic import (
     QuadraticModulesElement,
     QuadraticModulesMorphism,
     QuadraticModulesObject,
-    _QuadraticModules,
 )

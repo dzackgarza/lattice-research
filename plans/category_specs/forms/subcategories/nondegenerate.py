@@ -13,13 +13,13 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import SubModule
 
 
-class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
+class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a nondegenerate bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Nondegenerate()``.
@@ -34,7 +34,7 @@ class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
         positive-definite, or integral.  Those are separate axioms.
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Nondegenerate")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Nondegenerate")
     _defining_predicates = ("is_nondegenerate",)
 
     class ParentMethods:
@@ -66,7 +66,6 @@ class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-NondegenerateBilinearModulesCategory = _NondegenerateBilinearModules
-NondegenerateBilinearModulesObject = _NondegenerateBilinearModules.ParentMethods
-NondegenerateBilinearModulesElement = _NondegenerateBilinearModules.ElementMethods
-NondegenerateBilinearModulesMorphism = _NondegenerateBilinearModules.MorphismMethods
+NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
+NondegenerateBilinearModulesElement = NondegenerateBilinearModulesCategory.ElementMethods
+NondegenerateBilinearModulesMorphism = NondegenerateBilinearModulesCategory.MorphismMethods

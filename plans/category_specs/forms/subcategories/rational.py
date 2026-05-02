@@ -15,13 +15,13 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import IntegralRescaling
 
 
-class _RationalBilinearModules(CategoryWithAxiom_over_base_ring):
+class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules with a ``K = \mathrm{Frac}(R)``-valued bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Rational()``.
@@ -34,7 +34,7 @@ class _RationalBilinearModules(CategoryWithAxiom_over_base_ring):
     of finite rank with a ``\mathbb{Q}``-valued symmetric bilinear form.
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Rational")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Rational")
     _defining_predicates = ("is_rational",)
 
     class ParentMethods:
@@ -60,7 +60,6 @@ class _RationalBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-RationalBilinearModulesCategory = _RationalBilinearModules
-RationalBilinearModulesObject = _RationalBilinearModules.ParentMethods
-RationalBilinearModulesElement = _RationalBilinearModules.ElementMethods
-RationalBilinearModulesMorphism = _RationalBilinearModules.MorphismMethods
+RationalBilinearModulesObject = RationalBilinearModulesCategory.ParentMethods
+RationalBilinearModulesElement = RationalBilinearModulesCategory.ElementMethods
+RationalBilinearModulesMorphism = RationalBilinearModulesCategory.MorphismMethods

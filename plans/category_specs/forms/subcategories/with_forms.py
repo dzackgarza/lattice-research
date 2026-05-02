@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from ...types import OrthogonalGroup, RModuleMorphism
 
 
-class _WithForms(CategoryWithAxiom_over_base_ring):
+class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Non-full category of pairs ``(M, f)`` with a form on ``M``.
 
     Canonical chain: ``Modules(R).WithForms()``.
@@ -91,11 +91,10 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
     class ElementMethods: ...
     class MorphismMethods: ...
 
-    Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "_BilinearModules")
-    Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "_QuadraticModules")
+    Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "BilinearModulesCategory")
+    Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "QuadraticModulesCategory")
 
 
-FormedModulesCategory = _WithForms
-FormedModulesObject = _WithForms.ParentMethods
-FormedModulesElement = _WithForms.ElementMethods
-FormedModulesMorphism = _WithForms.MorphismMethods
+FormedModulesObject = FormedModulesCategory.ParentMethods
+FormedModulesElement = FormedModulesCategory.ElementMethods
+FormedModulesMorphism = FormedModulesCategory.MorphismMethods

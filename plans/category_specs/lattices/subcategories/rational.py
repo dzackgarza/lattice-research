@@ -5,5 +5,4 @@ from ...forms.subcategories.rational import (
     RationalBilinearModulesElement,
     RationalBilinearModulesMorphism,
     RationalBilinearModulesObject,
-    _RationalBilinearModules,
 )

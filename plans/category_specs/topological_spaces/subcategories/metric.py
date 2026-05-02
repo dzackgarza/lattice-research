@@ -11,7 +11,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import _TopologicalSpaces
+from .. import TopologicalSpaces
 from ..homsets import MetricSpaceHomCategory
 
 if TYPE_CHECKING:
@@ -52,13 +52,13 @@ class _MetricSpaceElementMethods:
         return self.parent().dist(self, other)
 
 
-class _MetricSpaces(CategoryWithAxiom):
+class MetricSpacesCategory(CategoryWithAxiom):
     r"""Category of metric spaces.
 
     Canonical chain: ``TopologicalSpaces().Metric()``.
     """
 
-    _base_category_class_and_axiom = (_TopologicalSpaces, "Metric")
+    _base_category_class_and_axiom = (TopologicalSpaces, "Metric")
     ParentMethods = _MetricSpaceObjectMethods
     ElementMethods = _MetricSpaceElementMethods
     HomCategory = MetricSpaceHomCategory
@@ -73,7 +73,7 @@ class _MetricSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage metric spaces and local topological spaces."""
-        return [SageSets().Metric(), _TopologicalSpaces()]
+        return [SageSets().Metric(), TopologicalSpaces()]
 
     class SubcategoryMethods:
         @cached_method

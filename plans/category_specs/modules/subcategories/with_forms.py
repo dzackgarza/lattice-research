@@ -5,5 +5,4 @@ from ...forms.subcategories.with_forms import (
     FormedModulesElement,
     FormedModulesMorphism,
     FormedModulesObject,
-    _WithForms,
 )

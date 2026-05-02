@@ -9,10 +9,10 @@ from __future__ import annotations
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 
-class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):
+class AlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with an alternating bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Alternating()``.
@@ -28,7 +28,7 @@ class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):
         ``v, w`` (assuming ``\mathrm{char}(R) \neq 2``).
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Alternating")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Alternating")
     _defining_predicates = ("is_alternating",)
 
     class ParentMethods:
@@ -46,7 +46,6 @@ class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-AlternatingBilinearModulesCategory = _AlternatingBilinearModules
-AlternatingBilinearModulesObject = _AlternatingBilinearModules.ParentMethods
-AlternatingBilinearModulesElement = _AlternatingBilinearModules.ElementMethods
-AlternatingBilinearModulesMorphism = _AlternatingBilinearModules.MorphismMethods
+AlternatingBilinearModulesObject = AlternatingBilinearModulesCategory.ParentMethods
+AlternatingBilinearModulesElement = AlternatingBilinearModulesCategory.ElementMethods
+AlternatingBilinearModulesMorphism = AlternatingBilinearModulesCategory.MorphismMethods

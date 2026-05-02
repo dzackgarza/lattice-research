@@ -5,5 +5,4 @@ from ...forms.subcategories.integral import (
     IntegralBilinearModulesElement,
     IntegralBilinearModulesMorphism,
     IntegralBilinearModulesObject,
-    _IntegralBilinearModules,
 )

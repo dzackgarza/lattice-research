@@ -5,5 +5,4 @@ from ...forms.subcategories.torsion_quadratic_modules import (
     TorsionQuadraticModulesElement,
     TorsionQuadraticModulesMorphism,
     TorsionQuadraticModulesObject,
-    _TorsionQuadraticModules,
 )

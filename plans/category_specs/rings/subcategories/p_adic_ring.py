@@ -57,7 +57,7 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
-_ApproximateRings = LazyImport("category_specs.rings.subcategories.approximate", "_ApproximateRings")
+ApproximateRingsCategory = LazyImport("category_specs.rings.subcategories.approximate", "ApproximateRingsCategory")
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
@@ -118,7 +118,7 @@ class _PAdicRings(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [_ApproximateRings(), _CompleteRings(), _ValuedRings()]
+        return [ApproximateRingsCategory(), _CompleteRings(), _ValuedRings()]
 
     @override
     @final

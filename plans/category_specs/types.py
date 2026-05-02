@@ -415,10 +415,10 @@ from .sets import (
 from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
 from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
 from .sets.subcategories.constructions.realizations import _Realizations as SetRealizations
-from .sets.subcategories.constructions.subobjects import _Subobjects as SetSubobjects
+from .sets.subcategories.constructions.subobjects import Subsets as SetSubobjects
 from .sets.subcategories.constructions.subquotients import _Subquotients as SetSubquotients
-from .sets.subcategories.constructions.with_realizations import _WithRealizations as SetWithRealizationsCategory
-from .sets.subcategories.graded import _GradedSets
+from .sets.subcategories.constructions.with_realizations import SetsWithRealizations as SetWithRealizationsCategory
+from .sets.subcategories.graded import GradedSetsCategory
 from .sets.subcategories.group_actions import _GSets
 from .sets.subcategories.partitioned import (
     PartitionedSetsAut,
@@ -466,7 +466,7 @@ FiniteSet = SetsCategory.Finite.ParentMethods
 CountableSet = SetsCategory.Countable.ParentMethods
 InfiniteSet = SetsCategory.Infinite.ParentMethods
 UncountableSet = SetsCategory.Uncountable.ParentMethods
-GradedSet = _GradedSets.ParentMethods
+GradedSet = GradedSetsCategory.ParentMethods
 GSet = _GSets.ParentMethods
 Subset = SetSubobjects.ParentMethods
 OpenSubset = Subset

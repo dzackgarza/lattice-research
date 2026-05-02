@@ -5,5 +5,4 @@ from ...forms.subcategories.alternating import (
     AlternatingBilinearModulesElement,
     AlternatingBilinearModulesMorphism,
     AlternatingBilinearModulesObject,
-    _AlternatingBilinearModules,
 )

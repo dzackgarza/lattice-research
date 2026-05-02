@@ -10,13 +10,13 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import _BilinearModules
+from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import SubModule
 
 
-class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):
+class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a symmetric bilinear form ``b: M \times M \to S``.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric()``.
@@ -31,7 +31,7 @@ class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):
     Neither requires nondegeneracy.
     """
 
-    _base_category_class_and_axiom = (_BilinearModules, "Symmetric")
+    _base_category_class_and_axiom = (BilinearModulesCategory, "Symmetric")
     _defining_predicates = ("is_symmetric",)
 
     class ParentMethods:
@@ -89,7 +89,6 @@ class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-SymmetricBilinearModulesCategory = _SymmetricBilinearModules
-SymmetricBilinearModulesObject = _SymmetricBilinearModules.ParentMethods
-SymmetricBilinearModulesElement = _SymmetricBilinearModules.ElementMethods
-SymmetricBilinearModulesMorphism = _SymmetricBilinearModules.MorphismMethods
+SymmetricBilinearModulesObject = SymmetricBilinearModulesCategory.ParentMethods
+SymmetricBilinearModulesElement = SymmetricBilinearModulesCategory.ElementMethods
+SymmetricBilinearModulesMorphism = SymmetricBilinearModulesCategory.MorphismMethods

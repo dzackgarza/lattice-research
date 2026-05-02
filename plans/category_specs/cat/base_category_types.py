@@ -371,7 +371,7 @@ class _SingletonAxiomClasscallMixin:
 # Wrapper bases intentionally use ``_CatObjectMixin, SageCategoryBase, Parent``.
 # The order is what lets Sage keep ownership of category semantics while the
 # object is still a ``Parent`` whose category is ``Cat()``.
-class _Category(_CatObjectMixin, SageCategory, Parent):
+class Category(_CatObjectMixin, SageCategory, Parent):
     r"""Parent-backed re-export of Sage's ``Category`` base class."""
 
     def __init__(self) -> None:
@@ -379,7 +379,7 @@ class _Category(_CatObjectMixin, SageCategory, Parent):
         SageCategory.__init__(self)
 
 
-class _CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent):
+class CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent):
     r"""Parent-backed re-export of Sage's parameterized category base."""
 
     def __init__(self) -> None:
@@ -387,7 +387,7 @@ class _CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Paren
         SageCategoryWithParameters.__init__(self)
 
 
-class _Category_singleton(_SingletonClasscallMixin, _CatObjectMixin, SageCategorySingleton, Parent):
+class Category_singleton(_SingletonClasscallMixin, _CatObjectMixin, SageCategorySingleton, Parent):
     r"""Parent-backed re-export of Sage's singleton category base."""
 
     def __init__(self) -> None:
@@ -395,7 +395,7 @@ class _Category_singleton(_SingletonClasscallMixin, _CatObjectMixin, SageCategor
         SageCategorySingleton.__init__(self)
 
 
-class _CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
+class CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
     r"""Parent-backed re-export of Sage's category-with-axiom base."""
 
     def __init__(self, base_category: SageCategory) -> None:
@@ -423,7 +423,7 @@ class _CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
-class _CategoryWithAxiom_singleton(
+class CategoryWithAxiom_singleton(
     _SingletonAxiomClasscallMixin,
     _CatObjectMixin,
     SageCategoryWithAxiomSingleton,
@@ -456,7 +456,7 @@ class _CategoryWithAxiom_singleton(
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
-class _CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOverBaseRing, Parent):
+class CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOverBaseRing, Parent):
     r"""Parent-backed re-export of Sage's base-ring axiom category base."""
 
     def __init__(self, base_category: SageCategory) -> None:
@@ -484,7 +484,7 @@ class _CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOv
         return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
 
 
-class _Category_over_base(_CatObjectMixin, SageCategoryOverBase, Parent):
+class Category_over_base(_CatObjectMixin, SageCategoryOverBase, Parent):
     r"""Parent-backed re-export of Sage's category-over-base base."""
 
     def __init__(self, base: CategoryObject, name: str | None = None) -> None:
@@ -492,7 +492,7 @@ class _Category_over_base(_CatObjectMixin, SageCategoryOverBase, Parent):
         SageCategoryOverBase.__init__(self, base, name)
 
 
-class _Category_over_base_ring(_CatObjectMixin, SageCategoryOverBaseRing, Parent):
+class Category_over_base_ring(_CatObjectMixin, SageCategoryOverBaseRing, Parent):
     r"""Parent-backed re-export of Sage's category-over-base-ring base."""
 
     def __init__(self, base: CategoryObject, name: str | None = None) -> None:
@@ -500,7 +500,7 @@ class _Category_over_base_ring(_CatObjectMixin, SageCategoryOverBaseRing, Parent
         SageCategoryOverBaseRing.__init__(self, base, name)
 
 
-class _Category_module(_CatObjectMixin, SageCategoryModule, Parent):
+class Category_module(_CatObjectMixin, SageCategoryModule, Parent):
     r"""Parent-backed re-export of Sage's module category base."""
 
     def __init__(self, base: CategoryObject, name: str | None = None) -> None:
@@ -508,7 +508,7 @@ class _Category_module(_CatObjectMixin, SageCategoryModule, Parent):
         SageCategoryModule.__init__(self, base, name)
 
 
-class _Category_ideal(_CatObjectMixin, SageCategoryIdeal, Parent):
+class Category_ideal(_CatObjectMixin, SageCategoryIdeal, Parent):
     r"""Parent-backed re-export of Sage's ideal category base."""
 
     def __init__(self, ambient: CategoryObject, name: str | None = None) -> None:
@@ -516,7 +516,7 @@ class _Category_ideal(_CatObjectMixin, SageCategoryIdeal, Parent):
         SageCategoryIdeal.__init__(self, ambient, name)
 
 
-class _HomsetsCategory(_CatObjectMixin, SageHomsetsCategory, Parent):
+class HomsetsCategory(_CatObjectMixin, SageHomsetsCategory, Parent):
     r"""Parent-backed re-export of Sage's homsets construction category."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -524,7 +524,7 @@ class _HomsetsCategory(_CatObjectMixin, SageHomsetsCategory, Parent):
         SageHomsetsCategory.__init__(self, category)
 
 
-class _HomsetsOf(_CatObjectMixin, SageHomsetsOf, Parent):
+class HomsetsOf(_CatObjectMixin, SageHomsetsOf, Parent):
     r"""Parent-backed re-export of Sage's category-specific homsets base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -532,7 +532,7 @@ class _HomsetsOf(_CatObjectMixin, SageHomsetsOf, Parent):
         SageHomsetsOf.__init__(self, category)
 
 
-class _Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
+class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
     r"""Parent-backed re-export of Sage's singleton homsets category."""
 
     def __init__(self) -> None:
@@ -547,7 +547,7 @@ class _Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         This override is forced by Sage's singleton-axiom descriptor, not by
         project semantics.  Sage's ``Homsets.Endset`` nested class records the
         raw Sage ``Homsets`` class as its base category class.  If the wrapped
-        ``_Homsets`` inherits that descriptor directly, Sage sees the wrapped
+        ``Homsets`` inherits that descriptor directly, Sage sees the wrapped
         base class and raises the assertion in
         ``sage/categories/category_with_axiom.py``,
         ``CategoryWithAxiom.__classget__``.
@@ -563,7 +563,7 @@ class _Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         return SageHomsets().Endset()
 
 
-class _FunctorialConstructionCategory(_CatObjectMixin, SageFunctorialConstructionCategory, Parent):
+class FunctorialConstructionCategory(_CatObjectMixin, SageFunctorialConstructionCategory, Parent):
     r"""Parent-backed base for Sage functorial construction categories.
 
     This class is the missing part of the wrapping boundary.  Sage
@@ -588,7 +588,7 @@ class _FunctorialConstructionCategory(_CatObjectMixin, SageFunctorialConstructio
         SageFunctorialConstructionCategory.__init__(self, category)
 
 
-class _CovariantConstructionCategory(_CatObjectMixin, SageCovariantConstructionCategory, Parent):
+class CovariantConstructionCategory(_CatObjectMixin, SageCovariantConstructionCategory, Parent):
     r"""Parent-backed re-export of Sage's covariant construction base."""
 
     @overload
@@ -605,7 +605,7 @@ class _CovariantConstructionCategory(_CatObjectMixin, SageCovariantConstructionC
         SageCovariantConstructionCategory.__init__(self, category, structure_object)
 
 
-class _RegressiveCovariantConstructionCategory(
+class RegressiveCovariantConstructionCategory(
     _CatObjectMixin,
     SageRegressiveCovariantConstructionCategory,
     Parent,
@@ -626,7 +626,7 @@ class _RegressiveCovariantConstructionCategory(
         SageRegressiveCovariantConstructionCategory.__init__(self, category, structure_object)
 
 
-class _SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
+class SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
     r"""Parent-backed re-export of Sage's subobject construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -634,7 +634,7 @@ class _SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
         SageSubobjectsCategory.__init__(self, category)
 
 
-class _QuotientsCategory(_CatObjectMixin, SageQuotientsCategory, Parent):
+class QuotientsCategory(_CatObjectMixin, SageQuotientsCategory, Parent):
     r"""Parent-backed re-export of Sage's quotient construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -642,7 +642,7 @@ class _QuotientsCategory(_CatObjectMixin, SageQuotientsCategory, Parent):
         SageQuotientsCategory.__init__(self, category)
 
 
-class _SubquotientsCategory(_CatObjectMixin, SageSubquotientsCategory, Parent):
+class SubquotientsCategory(_CatObjectMixin, SageSubquotientsCategory, Parent):
     r"""Parent-backed re-export of Sage's subquotient construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -650,7 +650,7 @@ class _SubquotientsCategory(_CatObjectMixin, SageSubquotientsCategory, Parent):
         SageSubquotientsCategory.__init__(self, category)
 
 
-class _CartesianProductsCategory(_CatObjectMixin, SageCartesianProductsCategory, Parent):
+class CartesianProductsCategory(_CatObjectMixin, SageCartesianProductsCategory, Parent):
     r"""Parent-backed re-export of Sage's Cartesian-product construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -658,7 +658,7 @@ class _CartesianProductsCategory(_CatObjectMixin, SageCartesianProductsCategory,
         SageCartesianProductsCategory.__init__(self, category)
 
 
-class _IsomorphicObjectsCategory(_CatObjectMixin, SageIsomorphicObjectsCategory, Parent):
+class IsomorphicObjectsCategory(_CatObjectMixin, SageIsomorphicObjectsCategory, Parent):
     r"""Parent-backed re-export of Sage's isomorphic-object construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -666,7 +666,7 @@ class _IsomorphicObjectsCategory(_CatObjectMixin, SageIsomorphicObjectsCategory,
         SageIsomorphicObjectsCategory.__init__(self, category)
 
 
-class _RealizationsCategory(_CatObjectMixin, SageRealizationsCategory, Parent):
+class RealizationsCategory(_CatObjectMixin, SageRealizationsCategory, Parent):
     r"""Parent-backed re-export of Sage's realization construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -674,7 +674,7 @@ class _RealizationsCategory(_CatObjectMixin, SageRealizationsCategory, Parent):
         SageRealizationsCategory.__init__(self, category)
 
 
-class _WithRealizationsCategory(_CatObjectMixin, SageWithRealizationsCategory, Parent):
+class WithRealizationsCategory(_CatObjectMixin, SageWithRealizationsCategory, Parent):
     r"""Parent-backed re-export of Sage's with-realizations construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -682,7 +682,7 @@ class _WithRealizationsCategory(_CatObjectMixin, SageWithRealizationsCategory, P
         SageWithRealizationsCategory.__init__(self, category)
 
 
-class _DualObjectsCategory(_CatObjectMixin, SageDualObjectsCategory, Parent):
+class DualObjectsCategory(_CatObjectMixin, SageDualObjectsCategory, Parent):
     r"""Parent-backed re-export of Sage's dual-object construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -690,7 +690,7 @@ class _DualObjectsCategory(_CatObjectMixin, SageDualObjectsCategory, Parent):
         SageDualObjectsCategory.__init__(self, category)
 
 
-class _TensorProductsCategory(_CatObjectMixin, SageTensorProductsCategory, Parent):
+class TensorProductsCategory(_CatObjectMixin, SageTensorProductsCategory, Parent):
     r"""Parent-backed re-export of Sage's tensor-product construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -698,7 +698,7 @@ class _TensorProductsCategory(_CatObjectMixin, SageTensorProductsCategory, Paren
         SageTensorProductsCategory.__init__(self, category)
 
 
-class _AlgebrasCategory(_CatObjectMixin, SageAlgebrasCategory, Parent):
+class AlgebrasCategory(_CatObjectMixin, SageAlgebrasCategory, Parent):
     r"""Parent-backed re-export of Sage's algebra functor construction base."""
 
     def __init__(self, category: SageCategory, base_ring: CategoryObject) -> None:
@@ -706,7 +706,7 @@ class _AlgebrasCategory(_CatObjectMixin, SageAlgebrasCategory, Parent):
         SageAlgebrasCategory.__init__(self, category, base_ring)
 
 
-class _FilteredModulesCategory(_CatObjectMixin, SageFilteredModulesCategory, Parent):
+class FilteredModulesCategory(_CatObjectMixin, SageFilteredModulesCategory, Parent):
     r"""Parent-backed re-export of Sage's filtered-module construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -714,7 +714,7 @@ class _FilteredModulesCategory(_CatObjectMixin, SageFilteredModulesCategory, Par
         SageFilteredModulesCategory.__init__(self, category)
 
 
-class _GradedModulesCategory(_CatObjectMixin, SageGradedModulesCategory, Parent):
+class GradedModulesCategory(_CatObjectMixin, SageGradedModulesCategory, Parent):
     r"""Parent-backed re-export of Sage's graded-module construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -722,7 +722,7 @@ class _GradedModulesCategory(_CatObjectMixin, SageGradedModulesCategory, Parent)
         SageGradedModulesCategory.__init__(self, category)
 
 
-class _SuperModulesCategory(_CatObjectMixin, SageSuperModulesCategory, Parent):
+class SuperModulesCategory(_CatObjectMixin, SageSuperModulesCategory, Parent):
     r"""Parent-backed re-export of Sage's super-module construction base."""
 
     def __init__(self, category: SageCategory) -> None:
@@ -730,32 +730,3 @@ class _SuperModulesCategory(_CatObjectMixin, SageSuperModulesCategory, Parent):
         SageSuperModulesCategory.__init__(self, category)
 
 
-Category = _Category
-CategoryWithParameters = _CategoryWithParameters
-CategoryWithAxiom = _CategoryWithAxiom
-CategoryWithAxiom_singleton = _CategoryWithAxiom_singleton
-CategoryWithAxiom_over_base_ring = _CategoryWithAxiom_over_base_ring
-Category_over_base = _Category_over_base
-Category_over_base_ring = _Category_over_base_ring
-Category_module = _Category_module
-Category_ideal = _Category_ideal
-HomsetsCategory = _HomsetsCategory
-HomsetsOf = _HomsetsOf
-Homsets = _Homsets
-Category_singleton = _Category_singleton
-FunctorialConstructionCategory = _FunctorialConstructionCategory
-CovariantConstructionCategory = _CovariantConstructionCategory
-RegressiveCovariantConstructionCategory = _RegressiveCovariantConstructionCategory
-SubobjectsCategory = _SubobjectsCategory
-QuotientsCategory = _QuotientsCategory
-SubquotientsCategory = _SubquotientsCategory
-CartesianProductsCategory = _CartesianProductsCategory
-IsomorphicObjectsCategory = _IsomorphicObjectsCategory
-RealizationsCategory = _RealizationsCategory
-WithRealizationsCategory = _WithRealizationsCategory
-DualObjectsCategory = _DualObjectsCategory
-TensorProductsCategory = _TensorProductsCategory
-AlgebrasCategory = _AlgebrasCategory
-FilteredModulesCategory = _FilteredModulesCategory
-GradedModulesCategory = _GradedModulesCategory
-SuperModulesCategory = _SuperModulesCategory

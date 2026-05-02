@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Set, SetElement, SetPartition, Subset
 
 
-class _PartitionedSets(CategoryWithAxiom):
+class PartitionedSetsCategory(CategoryWithAxiom):
     r"""Sets whose elements are partitions of a fixed base set.
 
     Canonical chain: ``Sets().Partitioned()``.
@@ -140,10 +140,9 @@ class _PartitionedSets(CategoryWithAxiom):
     class MorphismMethods: ...
 
 
-PartitionedSetsCategory = _PartitionedSets
-PartitionedSetsObject = _PartitionedSets.ParentMethods
-PartitionedSetsElement = _PartitionedSets.ElementMethods
-PartitionedSetsMorphism = _PartitionedSets.MorphismMethods
+PartitionedSetsObject = PartitionedSetsCategory.ParentMethods
+PartitionedSetsElement = PartitionedSetsCategory.ElementMethods
+PartitionedSetsMorphism = PartitionedSetsCategory.MorphismMethods
 PartitionedSetsHomCategory = SetHomCategory
 PartitionedSetsEndCategory = SetEndCategory
 PartitionedSetsAutCategory = SetAutCategory

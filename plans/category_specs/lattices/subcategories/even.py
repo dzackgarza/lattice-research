@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from ..chain import _Lattices
+from ..chain import LatticesCategory
 
 
 class _EvenLattices(CategoryWithAxiom_over_base_ring):
@@ -14,7 +14,7 @@ class _EvenLattices(CategoryWithAxiom_over_base_ring):
     Canonical chain: ``Lattices(R).Even()``.
     """
 
-    _base_category_class_and_axiom = (_Lattices, "Even")
+    _base_category_class_and_axiom = (LatticesCategory, "Even")
     _defining_predicates = ("is_even",)
 
     class ParentMethods:

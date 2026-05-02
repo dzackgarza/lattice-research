@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from ...types import Matrix, RingElement
 
 
-class _TorsionQuadraticModules(Category_over_base_ring):
+class TorsionQuadraticModulesCategory(Category_over_base_ring):
     r"""Finite ``ZZ``-modules equipped with a torsion quadratic form.
 
     Canonical chain: ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
@@ -49,7 +49,6 @@ class _TorsionQuadraticModules(Category_over_base_ring):
     class MorphismMethods: ...
 
 
-TorsionQuadraticModulesCategory = _TorsionQuadraticModules
-TorsionQuadraticModulesObject = _TorsionQuadraticModules.ParentMethods
-TorsionQuadraticModulesElement = _TorsionQuadraticModules.ElementMethods
-TorsionQuadraticModulesMorphism = _TorsionQuadraticModules.MorphismMethods
+TorsionQuadraticModulesObject = TorsionQuadraticModulesCategory.ParentMethods
+TorsionQuadraticModulesElement = TorsionQuadraticModulesCategory.ElementMethods
+TorsionQuadraticModulesMorphism = TorsionQuadraticModulesCategory.MorphismMethods

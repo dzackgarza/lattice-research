@@ -2,11 +2,10 @@ r"""Compatibility route for the old dual-lattice construction name."""
 
 from __future__ import annotations
 
-from .dual_objects import _DualObjects
+from .dual_objects import LatticeDualObjectsCategory
 
 
-_DualLattices = _DualObjects
-DualLatticesCategory = _DualObjects
-DualLatticesObject = _DualObjects.ParentMethods
-DualLatticesElement = _DualObjects.ElementMethods
-DualLatticesMorphism = _DualObjects.MorphismMethods
+DualLatticesCategory = LatticeDualObjectsCategory
+DualLatticesObject = LatticeDualObjectsCategory.ParentMethods
+DualLatticesElement = LatticeDualObjectsCategory.ElementMethods
+DualLatticesMorphism = LatticeDualObjectsCategory.MorphismMethods

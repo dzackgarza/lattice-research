@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from ....types import Lattice, SetFamily
 
 
-class _OrthogonalDirectSums(Category_module):
+class OrthogonalDirectSumsCategory(Category_module):
     r"""Orthogonal direct sums of lattices.
 
     Canonical chain: ``Lattices(R).OrthogonalDirectSums()``.
@@ -39,7 +39,6 @@ class _OrthogonalDirectSums(Category_module):
     class MorphismMethods: ...
 
 
-OrthogonalDirectSumsCategory = _OrthogonalDirectSums
-OrthogonalDirectSumsObject = _OrthogonalDirectSums.ParentMethods
-OrthogonalDirectSumsElement = _OrthogonalDirectSums.ElementMethods
-OrthogonalDirectSumsMorphism = _OrthogonalDirectSums.MorphismMethods
+OrthogonalDirectSumsObject = OrthogonalDirectSumsCategory.ParentMethods
+OrthogonalDirectSumsElement = OrthogonalDirectSumsCategory.ElementMethods
+OrthogonalDirectSumsMorphism = OrthogonalDirectSumsCategory.MorphismMethods

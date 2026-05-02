@@ -37,14 +37,12 @@ from .subcategories.bilinear import (
     BilinearModulesElement,
     BilinearModulesMorphism,
     BilinearModulesObject,
-    _BilinearModules,
 )
 from .subcategories.quadratic import (
     QuadraticModulesCategory,
     QuadraticModulesElement,
     QuadraticModulesMorphism,
     QuadraticModulesObject,
-    _QuadraticModules,
 )
 from .subcategories.torsion_quadratic_modules import (
     TorsionQuadraticModulesCategory,
@@ -57,7 +55,6 @@ from .subcategories.with_forms import (
     FormedModulesElement,
     FormedModulesMorphism,
     FormedModulesObject,
-    _WithForms,
 )
 
 if TYPE_CHECKING:

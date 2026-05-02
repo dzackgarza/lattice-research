@@ -5,5 +5,4 @@ from ...forms.subcategories.bilinear import (
     BilinearModulesElement,
     BilinearModulesMorphism,
     BilinearModulesObject,
-    _BilinearModules,
 )

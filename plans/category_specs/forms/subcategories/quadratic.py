@@ -5,19 +5,19 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import _WithForms
+from .with_forms import FormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import RModuleElement
 
 
-class _QuadraticModules(CategoryWithAxiom_over_base_ring):
+class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Pairs ``(M, q)`` with ``q`` quadratic on ``M``.
 
     Canonical chain: ``Modules(R).WithForms().Quadratic()``.
     """
 
-    _base_category_class_and_axiom = (_WithForms, "Quadratic")
+    _base_category_class_and_axiom = (FormedModulesCategory, "Quadratic")
     _defining_predicates = ("is_quadratic",)
 
     class ParentMethods:
@@ -35,7 +35,6 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-QuadraticModulesCategory = _QuadraticModules
-QuadraticModulesObject = _QuadraticModules.ParentMethods
-QuadraticModulesElement = _QuadraticModules.ElementMethods
-QuadraticModulesMorphism = _QuadraticModules.MorphismMethods
+QuadraticModulesObject = QuadraticModulesCategory.ParentMethods
+QuadraticModulesElement = QuadraticModulesCategory.ElementMethods
+QuadraticModulesMorphism = QuadraticModulesCategory.MorphismMethods

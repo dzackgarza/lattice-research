@@ -5,5 +5,4 @@ from ...forms.subcategories.indefinite import (
     IndefiniteBilinearModulesElement,
     IndefiniteBilinearModulesMorphism,
     IndefiniteBilinearModulesObject,
-    _IndefiniteBilinearModules,
 )

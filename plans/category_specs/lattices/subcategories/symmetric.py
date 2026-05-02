@@ -5,5 +5,4 @@ from ...forms.subcategories.symmetric import (
     SymmetricBilinearModulesElement,
     SymmetricBilinearModulesMorphism,
     SymmetricBilinearModulesObject,
-    _SymmetricBilinearModules,
 )

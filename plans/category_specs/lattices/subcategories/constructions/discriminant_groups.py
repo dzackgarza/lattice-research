@@ -23,7 +23,7 @@ if TYPE_CHECKING:
     from ....types import Matrix, RingElement, RModuleElement, SetFamily
 
 
-class _DiscriminantGroups(Category_module):
+class LatticeDiscriminantGroupsCategory(Category_module):
     r"""Finite torsion modules with the discriminant form of a lattice.
 
     Canonical chain: ``Lattices(R).DiscriminantGroups()``.
@@ -57,7 +57,7 @@ class _DiscriminantGroups(Category_module):
         def brown_invariant(self) -> RingElement: ...
 
         @abstract_method
-        def primary_part(self, p: RingElement) -> _DiscriminantGroups.ParentMethods: ...
+        def primary_part(self, p: RingElement) -> LatticeDiscriminantGroupsCategory.ParentMethods: ...
 
         @abstract_method
         def all_submodules(self) -> SetFamily: ...
@@ -72,10 +72,9 @@ class _DiscriminantGroups(Category_module):
     class MorphismMethods: ...
 
 
-LatticeDiscriminantGroupsCategory = _DiscriminantGroups
-LatticeDiscriminantGroupsObject = _DiscriminantGroups.ParentMethods
-LatticeDiscriminantGroupsElement = _DiscriminantGroups.ElementMethods
-LatticeDiscriminantGroupsMorphism = _DiscriminantGroups.MorphismMethods
+LatticeDiscriminantGroupsObject = LatticeDiscriminantGroupsCategory.ParentMethods
+LatticeDiscriminantGroupsElement = LatticeDiscriminantGroupsCategory.ElementMethods
+LatticeDiscriminantGroupsMorphism = LatticeDiscriminantGroupsCategory.MorphismMethods
 LatticeDiscriminantGroupsHomCategory = ModulesHomCategory
 LatticeDiscriminantGroupsEndCategory = ModulesEndCategory
 LatticeDiscriminantGroupsAutCategory = ModulesAutCategory

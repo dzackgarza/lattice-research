@@ -21,7 +21,7 @@ if TYPE_CHECKING:
     from ...types import Integer, Ring
 
 
-class _ApproximateRings(Category_singleton):
+class ApproximateRingsCategory(Category_singleton):
     r"""Rings whose elements are represented with finite or capped precision.
 
     Constructor target: precision and p-adic ring constructors under
@@ -70,7 +70,6 @@ class _ApproximateRings(Category_singleton):
     class MorphismMethods: ...
 
 
-ApproximateRingsCategory = _ApproximateRings
-ApproximateRingsObject = _ApproximateRings.ParentMethods
-ApproximateRingsElement = _ApproximateRings.ElementMethods
-ApproximateRingsMorphism = _ApproximateRings.MorphismMethods
+ApproximateRingsObject = ApproximateRingsCategory.ParentMethods
+ApproximateRingsElement = ApproximateRingsCategory.ElementMethods
+ApproximateRingsMorphism = ApproximateRingsCategory.MorphismMethods

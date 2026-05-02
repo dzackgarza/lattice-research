@@ -8,19 +8,19 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import _WithForms
+from .with_forms import FormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import Matrix, RingElement, RModuleElement
 
 
-class _BilinearModules(CategoryWithAxiom_over_base_ring):
+class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Pairs ``(M, b)`` with ``b`` bilinear on ``M``.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear()``.
     """
 
-    _base_category_class_and_axiom = (_WithForms, "Bilinear")
+    _base_category_class_and_axiom = (FormedModulesCategory, "Bilinear")
     _defining_predicates = ("is_bilinear",)
 
     class ParentMethods:
@@ -87,14 +87,13 @@ class _BilinearModules(CategoryWithAxiom_over_base_ring):
 
     class MorphismMethods: ...
 
-    Symmetric = LazyImport("category_specs.forms.subcategories.symmetric", "_SymmetricBilinearModules")
-    Alternating = LazyImport("category_specs.forms.subcategories.alternating", "_AlternatingBilinearModules")
-    Nondegenerate = LazyImport("category_specs.forms.subcategories.nondegenerate", "_NondegenerateBilinearModules")
-    Integral = LazyImport("category_specs.forms.subcategories.integral", "_IntegralBilinearModules")
-    Rational = LazyImport("category_specs.forms.subcategories.rational", "_RationalBilinearModules")
+    Symmetric = LazyImport("category_specs.forms.subcategories.symmetric", "SymmetricBilinearModulesCategory")
+    Alternating = LazyImport("category_specs.forms.subcategories.alternating", "AlternatingBilinearModulesCategory")
+    Nondegenerate = LazyImport("category_specs.forms.subcategories.nondegenerate", "NondegenerateBilinearModulesCategory")
+    Integral = LazyImport("category_specs.forms.subcategories.integral", "IntegralBilinearModulesCategory")
+    Rational = LazyImport("category_specs.forms.subcategories.rational", "RationalBilinearModulesCategory")
 
 
-BilinearModulesCategory = _BilinearModules
-BilinearModulesObject = _BilinearModules.ParentMethods
-BilinearModulesElement = _BilinearModules.ElementMethods
-BilinearModulesMorphism = _BilinearModules.MorphismMethods
+BilinearModulesObject = BilinearModulesCategory.ParentMethods
+BilinearModulesElement = BilinearModulesCategory.ElementMethods
+BilinearModulesMorphism = BilinearModulesCategory.MorphismMethods

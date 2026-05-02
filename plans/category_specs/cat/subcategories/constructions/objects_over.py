@@ -25,7 +25,7 @@ def structure_codomain(self) -> CategoryObject:
     return self.structure_morphism().codomain()
 
 
-class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
+class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_base):
     r"""Categories ``D`` equipped with a functor ``D -> C``.
 
     Canonical chain: ``Cat().ObjectsOver(T)``.
@@ -61,4 +61,3 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
     class MorphismMethods: ...
 
 
-SliceCategories = _ObjectsOver

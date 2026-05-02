@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from ....types import Set, SetElement, Subset, SympySet
 
 
-class _Subobjects(SubobjectsCategory):
+class Subsets(SubobjectsCategory):
     r"""Subobjects of sets, equivalently subsets with an ambient set.
 
     Canonical chain: ``Sets().Subobjects()``.
@@ -123,4 +123,3 @@ class _Subobjects(SubobjectsCategory):
     class MorphismMethods: ...
 
 
-Subsets = _Subobjects

@@ -5,5 +5,4 @@ from ...forms.subcategories.free_bilinear import (
     FreeBilinearModulesElement,
     FreeBilinearModulesMorphism,
     FreeBilinearModulesObject,
-    _FreeBilinearModules,
 )

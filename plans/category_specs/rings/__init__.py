@@ -48,7 +48,7 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
-_ApproximateRings = LazyImport("category_specs.rings.subcategories.approximate", "_ApproximateRings")
+ApproximateRingsCategory = LazyImport("category_specs.rings.subcategories.approximate", "ApproximateRingsCategory")
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
@@ -1651,7 +1651,7 @@ class Rings(Category_singleton):
         @cached_method
         @final
         def Approximate(self) -> Category:
-            return _ApproximateRings()
+            return ApproximateRingsCategory()
 
         @cached_method
         @final

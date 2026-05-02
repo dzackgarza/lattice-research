@@ -13,10 +13,10 @@ from typing import final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import _SymmetricBilinearModules
+from .symmetric import SymmetricBilinearModulesCategory
 
 
-class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
+class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a definite (positive or negative definite)
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric().Definite()``.
@@ -36,7 +36,7 @@ class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
         True
     """
 
-    _base_category_class_and_axiom = (_SymmetricBilinearModules, "Definite")
+    _base_category_class_and_axiom = (SymmetricBilinearModulesCategory, "Definite")
     _defining_predicates = ("is_definite",)
 
     class ParentMethods:
@@ -76,7 +76,6 @@ class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-DefiniteBilinearModulesCategory = _DefiniteBilinearModules
-DefiniteBilinearModulesObject = _DefiniteBilinearModules.ParentMethods
-DefiniteBilinearModulesElement = _DefiniteBilinearModules.ElementMethods
-DefiniteBilinearModulesMorphism = _DefiniteBilinearModules.MorphismMethods
+DefiniteBilinearModulesObject = DefiniteBilinearModulesCategory.ParentMethods
+DefiniteBilinearModulesElement = DefiniteBilinearModulesCategory.ElementMethods
+DefiniteBilinearModulesMorphism = DefiniteBilinearModulesCategory.MorphismMethods

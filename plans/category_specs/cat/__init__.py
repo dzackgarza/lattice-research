@@ -211,11 +211,11 @@ class Cat(_SageCategorySingleton):
 
     ParentMethods = _CatObjectMethods
     ElementMethods = _CategoryElementMethods
-    Subobjects = LazyImport("category_specs.cat.subcategories.constructions.subobjects", "_Subobjects")
+    Subobjects = LazyImport("category_specs.cat.subcategories.constructions.subobjects", "Subcategories")
     Quotients = LazyImport("category_specs.cat.subcategories.constructions.quotients", "_Quotients")
     Subquotients = LazyImport("category_specs.cat.subcategories.constructions.subquotients", "_Subquotients")
-    ObjectsOver = LazyImport("category_specs.cat.subcategories.constructions.objects_over", "_ObjectsOver")
-    ObjectsUnder = LazyImport("category_specs.cat.subcategories.constructions.objects_under", "_ObjectsUnder")
+    ObjectsOver = LazyImport("category_specs.cat.subcategories.constructions.objects_over", "SliceCategories")
+    ObjectsUnder = LazyImport("category_specs.cat.subcategories.constructions.objects_under", "CosliceCategories")
     CartesianProducts = LazyImport(
         "category_specs.cat.subcategories.constructions.cartesian_products",
         "_CartesianProducts",

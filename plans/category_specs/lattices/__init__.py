@@ -43,12 +43,12 @@ from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
 from ..forms.chain import (
-    _IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from ..modules import Modules
 from .homsets import LatticeAutCategory, LatticeEndCategory, LatticeHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
-from .subcategories.constructions.dual_objects import _DualObjects
+from .subcategories.constructions.dual_objects import LatticeDualObjectsCategory
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
@@ -59,13 +59,13 @@ if TYPE_CHECKING:
     from ..types import Ring
 
 
-class _Lattices(CategoryWithAxiom_over_base_ring):
+class LatticesCategory(CategoryWithAxiom_over_base_ring):
     r"""Lattices over ``R`` as the named endpoint of the lattice axiom chain.
 
     Canonical chain: ``Lattices(R)``.
     """
 
-    _base_category_class_and_axiom = (_IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules, "Lattice")
+    _base_category_class_and_axiom = (IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory, "Lattice")
     _defining_predicates = ("is_lattice",)
 
     @final
@@ -76,7 +76,7 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
         r"""Lattice constructor entry points over ``self.base_ring()``."""
 
         @final
-        def __init__(self, category: _Lattices) -> None:
+        def __init__(self, category: LatticesCategory) -> None:
             self._category = category
 
         @final
@@ -84,7 +84,7 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
             return f"lattice constructors over {self.base_ring()}"
 
         @final
-        def category(self) -> _Lattices:
+        def category(self) -> LatticesCategory:
             return self._category
 
         @final
@@ -96,8 +96,8 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
     class SubcategoryMethods:
         @cached_method
         @final
-        def Constructors(self) -> _Lattices.Constructors:
-            return _Lattices._Constructors(self)
+        def Constructors(self) -> LatticesCategory.Constructors:
+            return LatticesCategory._Constructors(self)
 
         @cached_method
         @final
@@ -127,7 +127,7 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
         @cached_method
         @final
         def DualObjects(self) -> Category:
-            return _DualObjects.category_of(self)
+            return LatticeDualObjectsCategory.category_of(self)
 
         @cached_method
         @final
@@ -138,23 +138,23 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
         @cached_method
         @final
         def Overlattices(self) -> Category:
-            from .subcategories.constructions.overlattices import _Overlattices
+            from .subcategories.constructions.overlattices import OverlatticesCategory
 
-            return _Overlattices(self.base_ring())
+            return OverlatticesCategory(self.base_ring())
 
         @cached_method
         @final
         def OrthogonalDirectSums(self) -> Category:
-            from .subcategories.constructions.orthogonal_direct_sums import _OrthogonalDirectSums
+            from .subcategories.constructions.orthogonal_direct_sums import OrthogonalDirectSumsCategory
 
-            return _OrthogonalDirectSums(self.base_ring())
+            return OrthogonalDirectSumsCategory(self.base_ring())
 
         @cached_method
         @final
         def DiscriminantGroups(self) -> Category:
-            from .subcategories.constructions.discriminant_groups import _DiscriminantGroups
+            from .subcategories.constructions.discriminant_groups import LatticeDiscriminantGroupsCategory
 
-            return _DiscriminantGroups(self.base_ring())
+            return LatticeDiscriminantGroupsCategory(self.base_ring())
 
     class ParentMethods:
         @final
@@ -181,16 +181,19 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
     ObjectsOver = _ObjectsOver
     ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
-    DualObjects = _DualObjects
-    DualLattices = LazyImport("category_specs.lattices.subcategories.constructions.dual_lattices", "_DualLattices")
-    Overlattices = LazyImport("category_specs.lattices.subcategories.constructions.overlattices", "_Overlattices")
+    DualObjects = LatticeDualObjectsCategory
+    DualLattices = LazyImport(
+        "category_specs.lattices.subcategories.constructions.dual_lattices",
+        "DualLatticesCategory",
+    )
+    Overlattices = LazyImport("category_specs.lattices.subcategories.constructions.overlattices", "OverlatticesCategory")
     OrthogonalDirectSums = LazyImport(
         "category_specs.lattices.subcategories.constructions.orthogonal_direct_sums",
-        "_OrthogonalDirectSums",
+        "OrthogonalDirectSumsCategory",
     )
     DiscriminantGroups = LazyImport(
         "category_specs.lattices.subcategories.constructions.discriminant_groups",
-        "_DiscriminantGroups",
+        "LatticeDiscriminantGroupsCategory",
     )
 
 
@@ -208,21 +211,20 @@ def _lattice_chain(base_ring: Ring) -> Category:
     )
 
 
-def lattice_category(base_ring: Ring) -> _Lattices:
+def lattice_category(base_ring: Ring) -> LatticesCategory:
     r"""Return ``Lattices(base_ring)`` as the named lattice axiom endpoint."""
     return _lattice_chain(base_ring).Lattice()
 
 
 @final
-def Lattices(base_ring: Ring) -> _Lattices:
+def Lattices(base_ring: Ring) -> LatticesCategory:
     r"""Return the named lattice axiom category over ``base_ring``."""
     return lattice_category(base_ring)
 
 
-LatticesCategory = _Lattices
-LatticesObject = _Lattices.ParentMethods
-LatticesElement = _Lattices.ElementMethods
-LatticesMorphism = _Lattices.MorphismMethods
+LatticesObject = LatticesCategory.ParentMethods
+LatticesElement = LatticesCategory.ElementMethods
+LatticesMorphism = LatticesCategory.MorphismMethods
 LatticesHomCategory = LatticeHomCategory
 LatticesEndCategory = LatticeEndCategory
 LatticesAutCategory = LatticeAutCategory

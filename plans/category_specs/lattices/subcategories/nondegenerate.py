@@ -5,5 +5,4 @@ from ...forms.subcategories.nondegenerate import (
     NondegenerateBilinearModulesElement,
     NondegenerateBilinearModulesMorphism,
     NondegenerateBilinearModulesObject,
-    _NondegenerateBilinearModules,
 )

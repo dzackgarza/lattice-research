@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from ....types import SetRealization
 
 
-class _WithRealizations(WithRealizationsCategory):
+class SetsWithRealizations(WithRealizationsCategory):
     r"""Sets whose elements may be represented in several concrete realizations.
 
     Canonical chain: ``Sets().WithRealizations()``.
@@ -45,4 +45,3 @@ class _WithRealizations(WithRealizationsCategory):
     class MorphismMethods: ...
 
 
-SetsWithRealizations = _WithRealizations

@@ -64,7 +64,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_Free, "FiniteRank")
-    WithForms = LazyImport("category_specs.forms.chain", "_FiniteRankFreeModulesWithForms")
+    WithForms = LazyImport("category_specs.forms.chain", "FiniteRankFreeFormedModulesCategory")
 
     @override
     @final

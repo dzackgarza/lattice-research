@@ -11,7 +11,7 @@ from ... import Category, Category_over_base, RegressiveCovariantConstructionCat
 from .objects_over import structure_codomain, structure_domain
 
 
-class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):
+class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_base):
     r"""Categories ``D`` equipped with a functor ``C -> D``.
 
     Canonical chain: ``Cat().ObjectsUnder(T)``.
@@ -47,4 +47,3 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
     class MorphismMethods: ...
 
 
-CosliceCategories = _ObjectsUnder

@@ -122,7 +122,7 @@ class TopologicalSpaces(CategoryWithAxiom):
     ElementMethods = _TopologicalSpaceElementMethods
     MorphismMethods = _TopologicalSpaceMorphismMethods
     HomCategory = TopologicalSpaceHomCategory
-    Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "_MetricSpaces")
+    Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory")
     Connected = LazyImport("category_specs.topological_spaces.subcategories.connected", "_ConnectedTopologicalSpaces")
     Compact = LazyImport("category_specs.topological_spaces.subcategories.compact", "_CompactTopologicalSpaces")
 
@@ -185,18 +185,15 @@ class TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-_TopologicalSpaces = TopologicalSpaces
 TopologicalSpace = TopologicalSpaces
 
 
-from .subcategories.metric import _MetricSpaces
+from .subcategories.metric import MetricSpacesCategory
 
-MetricSpace = _MetricSpaces
-
-MetricSpacesCategory = _MetricSpaces
-MetricSpacesObject = _MetricSpaces.ParentMethods
-MetricSpacesElement = _MetricSpaces.ElementMethods
-MetricSpacesMorphism = _MetricSpaces.MorphismMethods
+MetricSpacesObject = MetricSpacesCategory.ParentMethods
+MetricSpacesElement = MetricSpacesCategory.ElementMethods
+MetricSpacesMorphism = MetricSpacesCategory.MorphismMethods
+MetricSpace = MetricSpacesObject
 MetricSpacesHomCategory = MetricSpaceHomCategory
 MetricSpacesEndCategory = MetricSpaceEndCategory
 MetricSpacesAutCategory = MetricSpaceAutCategory

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism
 
 
-class _DualObjects(DualObjectsCategory):
+class LatticeDualObjectsCategory(DualObjectsCategory):
     r"""Dual lattices ``L^* = {v in L_K | b(v, L) subset R}``.
 
     Canonical chain: ``Lattices(R).DualObjects()``.
@@ -37,7 +37,6 @@ class _DualObjects(DualObjectsCategory):
     class MorphismMethods: ...
 
 
-LatticeDualObjectsCategory = _DualObjects
-LatticeDualObjectsObject = _DualObjects.ParentMethods
-LatticeDualObjectsElement = _DualObjects.ElementMethods
-LatticeDualObjectsMorphism = _DualObjects.MorphismMethods
+LatticeDualObjectsObject = LatticeDualObjectsCategory.ParentMethods
+LatticeDualObjectsElement = LatticeDualObjectsCategory.ElementMethods
+LatticeDualObjectsMorphism = LatticeDualObjectsCategory.MorphismMethods

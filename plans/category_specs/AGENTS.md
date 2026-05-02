@@ -97,6 +97,14 @@
   Package `__init__.py` files may re-export public names with ordinary imports, but
   they must not maintain `__all__` allowlists. Type checkers should warn when code
   imports a private name; do not hide ownership mistakes by exporting private names.
+- **No Private-Class/Public-Alias Indirection**: Do not define a top-level class with a
+  private name and then immediately publish it through a public alias such as
+  `PublicClass = _PrivateClass` or `PublicClassCategory = _PrivateClass`. This adds
+  needless indirection and defeats the naming convention above. If a class is public,
+  declare it with the public name. The public API is already visible by reading the
+  file's top-level functions and classes and filtering out names that begin with `_`.
+  Use the file-level docstring to document the public API and its organization; do not
+  recreate an export list through alias bookkeeping.
 - **No Python Native Scalar Types In Signatures**: Never use native Python scalar
   types (`int`, `float`, `complex`) as type annotations when a Sage equivalent exists.
   Use the Sage types from `types.py` instead, e.g. `Integer` instead of `int`.

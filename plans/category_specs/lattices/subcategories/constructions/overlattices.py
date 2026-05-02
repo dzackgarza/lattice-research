@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from ....types import Cardinality, Lattice, LatticeMorphism
 
 
-class _Overlattices(Category_module):
+class OverlatticesCategory(Category_module):
     r"""Overlattices of a lattice inside its rational span.
 
     Canonical chain: ``Lattices(R).Overlattices(L)``.
@@ -42,7 +42,6 @@ class _Overlattices(Category_module):
     class MorphismMethods: ...
 
 
-OverlatticesCategory = _Overlattices
-OverlatticesObject = _Overlattices.ParentMethods
-OverlatticesElement = _Overlattices.ElementMethods
-OverlatticesMorphism = _Overlattices.MorphismMethods
+OverlatticesObject = OverlatticesCategory.ParentMethods
+OverlatticesElement = OverlatticesCategory.ElementMethods
+OverlatticesMorphism = OverlatticesCategory.MorphismMethods

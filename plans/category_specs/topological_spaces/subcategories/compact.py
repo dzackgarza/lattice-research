@@ -8,7 +8,7 @@ from sage.categories.sets_cat import Sets as SageSets
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import _TopologicalSpaces
+from .. import TopologicalSpaces
 
 
 class _CompactTopologicalSpaces(CategoryWithAxiom):
@@ -17,7 +17,7 @@ class _CompactTopologicalSpaces(CategoryWithAxiom):
     Canonical chain: ``TopologicalSpaces().Compact()``.
     """
 
-    _base_category_class_and_axiom = (_TopologicalSpaces, "Compact")
+    _base_category_class_and_axiom = (TopologicalSpaces, "Compact")
 
     @override
     @final
@@ -28,7 +28,7 @@ class _CompactTopologicalSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage compact spaces and local topological spaces."""
-        return [SageSets().Topological().Compact(), _TopologicalSpaces()]
+        return [SageSets().Topological().Compact(), TopologicalSpaces()]
 
     class ParentMethods:
         @override

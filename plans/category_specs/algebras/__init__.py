@@ -46,7 +46,7 @@ from ..utils import refine_category
 from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
-from .subcategories.constructions.ideals import _Ideals
+from .subcategories.constructions.ideals import AlgebraIdealsCategory
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
@@ -367,7 +367,7 @@ class Algebras(Category_module):
         def Ideals(self, algebra: Algebra) -> Category:
             r"""Return the category of ideals in ``algebra``."""
             assert algebra in self, f"Ideals expects an algebra in {self}: {algebra}"
-            return _Ideals(algebra)
+            return AlgebraIdealsCategory(algebra)
 
     class Constructors:
         r"""Algebra constructors over a fixed base ring.
@@ -594,7 +594,7 @@ class Algebras(Category_module):
     Subquotients = _Subquotients
     ObjectsOver = _ObjectsOver
     ObjectsUnder = _ObjectsUnder
-    Ideals = _Ideals
+    Ideals = AlgebraIdealsCategory
     CartesianProducts = _CartesianProducts
     TensorProducts = _TensorProducts
     DualObjects = _DualObjects

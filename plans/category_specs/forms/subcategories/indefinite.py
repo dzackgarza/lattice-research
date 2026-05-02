@@ -12,10 +12,10 @@ from __future__ import annotations
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import _SymmetricBilinearModules
+from .symmetric import SymmetricBilinearModulesCategory
 
 
-class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
+class IndefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with an indefinite symmetric bilinear form.
 
     Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric().Indefinite()``.
@@ -35,7 +35,7 @@ class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
         True
     """
 
-    _base_category_class_and_axiom = (_SymmetricBilinearModules, "Indefinite")
+    _base_category_class_and_axiom = (SymmetricBilinearModulesCategory, "Indefinite")
     _defining_predicates = ("is_indefinite",)
 
     class ParentMethods:
@@ -63,7 +63,6 @@ class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
-IndefiniteBilinearModulesCategory = _IndefiniteBilinearModules
-IndefiniteBilinearModulesObject = _IndefiniteBilinearModules.ParentMethods
-IndefiniteBilinearModulesElement = _IndefiniteBilinearModules.ElementMethods
-IndefiniteBilinearModulesMorphism = _IndefiniteBilinearModules.MorphismMethods
+IndefiniteBilinearModulesObject = IndefiniteBilinearModulesCategory.ParentMethods
+IndefiniteBilinearModulesElement = IndefiniteBilinearModulesCategory.ElementMethods
+IndefiniteBilinearModulesMorphism = IndefiniteBilinearModulesCategory.MorphismMethods

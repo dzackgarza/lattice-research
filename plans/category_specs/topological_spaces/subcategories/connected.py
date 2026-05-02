@@ -8,7 +8,7 @@ from sage.categories.sets_cat import Sets as SageSets
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import _TopologicalSpaces
+from .. import TopologicalSpaces
 
 
 class _ConnectedTopologicalSpaces(CategoryWithAxiom):
@@ -17,7 +17,7 @@ class _ConnectedTopologicalSpaces(CategoryWithAxiom):
     Canonical chain: ``TopologicalSpaces().Connected()``.
     """
 
-    _base_category_class_and_axiom = (_TopologicalSpaces, "Connected")
+    _base_category_class_and_axiom = (TopologicalSpaces, "Connected")
 
     @override
     @final
@@ -28,7 +28,7 @@ class _ConnectedTopologicalSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage connected spaces and local topological spaces."""
-        return [SageSets().Topological().Connected(), _TopologicalSpaces()]
+        return [SageSets().Topological().Connected(), TopologicalSpaces()]
 
     class ParentMethods:
         @override
