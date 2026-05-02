@@ -4,12 +4,6 @@ This list tracks live category-spec work. It is not a decision log; concrete hum
 choices live in `NEEDS_DECISIONS.md`. Completed items leave this file; git history is
 the archive.
 
-## Remaining Implementation Todo
-
-- [ ] Standardize construction-category vocabulary. For example, `DualLattices` should
-  not introduce a nonstandard verb when the existing categorical construction is
-  `C.DualObjects()`.
-
 ## Audit Todo
 
 - [ ] Document the axiom chain for each concrete class. For example,

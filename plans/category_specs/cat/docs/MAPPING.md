@@ -107,15 +107,23 @@ selector such as `C.HomCategory()` evaluates the corresponding construction func
 | `QuotientsCategory` | `C.Quotients()` | `subcategories/constructions/quotients.py` |
 | `SubquotientsCategory` | `C.Subquotients()` | `subcategories/constructions/subquotients.py` |
 | `CartesianProductsCategory` | `C.CartesianProducts()` | `subcategories/constructions/cartesian_products.py` |
+| `TensorProductsCategory` | `C.TensorProducts()` where tensor products are defined | `subcategories/constructions/tensor_products.py` |
+| `DualObjectsCategory` | `C.DualObjects()` where dual objects are defined | `subcategories/constructions/dual_objects.py` |
+| `IsomorphicObjectsCategory` | `C.IsomorphicObjects()` where isomorphic-object transport is defined | `subcategories/constructions/isomorphic_objects.py` |
+| Local slice construction | `C.ObjectsOver(T)` | `subcategories/constructions/objects_over.py` |
+| Local coslice construction | `C.ObjectsUnder(T)` | `subcategories/constructions/objects_under.py` |
 | `HomsetsCategory` | `C.HomCategory()` | `homsets.py` |
 | `HomsetsCategory.Endset()` | `C.EndCategory()` | `endsets.py` |
 | `HomsetsCategory.Autset()` | `C.AutCategory()` | `autsets.py` |
 | `JoinCategory` | `Cat().JoinCategories()` containment | `join_categories.py` |
 
-The universal selectors for the standard construction rows live in
-`universal_subcategory_methods.py`. Individual category classes still declare their
-construction classes, and Sage's `category_of(...)` machinery resolves the specific
-construction for the receiver.
+The universal selectors for `Subobjects`, `Quotients`, `Subquotients`,
+`ObjectsOver`, `ObjectsUnder`, and `CartesianProducts` live in
+`universal_subcategory_methods.py`. Other standard construction names, such as
+`TensorProducts()` and `DualObjects()`, are exposed by the subtrees where the
+mathematics is available. Individual category classes still declare their construction
+classes, and Sage's `category_of(...)` machinery resolves the specific construction
+for the receiver.
 
 For wrapped ordinary category objects, `C.Hom(D)` delegates to Sage's parent homspace
 for functors `C -> D`. The category-level construction is `C.HomCategory()`. The

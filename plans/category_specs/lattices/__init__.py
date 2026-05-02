@@ -23,7 +23,8 @@ Subcategory hierarchy::
     |-- ObjectsOver()
     |-- ObjectsUnder()
     |-- CartesianProducts()
-    |-- DualLattices()
+    |-- DualObjects()
+    |   `-- DualLattices() compatibility alias
     |-- Overlattices()
     |-- OrthogonalDirectSums()
     |-- DiscriminantGroups()
@@ -47,6 +48,7 @@ from ..forms.chain import (
 from ..modules import Modules
 from .homsets import LatticeAutCategory, LatticeEndCategory, LatticeHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
+from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
 from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
@@ -121,10 +123,14 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
 
         @cached_method
         @final
-        def DualLattices(self) -> Category:
-            from .subcategories.constructions.dual_lattices import _DualLattices
+        def DualObjects(self) -> Category:
+            return _DualObjects.category_of(self)
 
-            return _DualLattices(self.base_ring())
+        @cached_method
+        @final
+        def DualLattices(self) -> Category:
+            r"""Compatibility alias for the standard ``DualObjects()`` construction."""
+            return self.DualObjects()
 
         @cached_method
         @final
@@ -172,6 +178,7 @@ class _Lattices(CategoryWithAxiom_over_base_ring):
     ObjectsOver = _ObjectsOver
     ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
+    DualObjects = _DualObjects
     DualLattices = LazyImport("category_specs.lattices.subcategories.constructions.dual_lattices", "_DualLattices")
     Overlattices = LazyImport("category_specs.lattices.subcategories.constructions.overlattices", "_Overlattices")
     OrthogonalDirectSums = LazyImport(

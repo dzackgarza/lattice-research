@@ -8,9 +8,10 @@ the old generic files under `lattices/subcategories/` are compatibility imports.
 ## Current Smoke Frontier
 
 `lattices/chain_smoketest.sage` and `lattices/smoketest.sage` cover Cat registration,
-the ambient module chain, Hom/End/Aut construction, Subobjects construction, and the
-`Even()` predicate surface. Constructor admission remains outside the current smoke
-surface: `lattices/AGENTS.md` requires concrete constructors to enter through
+the ambient module chain, Hom/End/Aut construction, Subobjects construction,
+`DualObjects()` construction vocabulary with the `DualLattices()` compatibility alias,
+and the `Even()` predicate surface. Constructor admission remains outside the current
+smoke surface: `lattices/AGENTS.md` requires concrete constructors to enter through
 `Lattices(R).Constructors()` after Sage constructor inventory mapping.
 
 ## Orthogonal-Group Frontier

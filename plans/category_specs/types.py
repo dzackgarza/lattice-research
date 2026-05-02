@@ -158,6 +158,12 @@ from .lattices.subcategories.constructions.discriminant_groups import (
     LatticeDiscriminantGroupsMorphism,
     LatticeDiscriminantGroupsObject,
 )
+from .lattices.subcategories.constructions.dual_objects import (
+    LatticeDualObjectsCategory,
+    LatticeDualObjectsElement,
+    LatticeDualObjectsMorphism,
+    LatticeDualObjectsObject,
+)
 from .modules import (
     ModulesAut,
     ModulesAutCategory,

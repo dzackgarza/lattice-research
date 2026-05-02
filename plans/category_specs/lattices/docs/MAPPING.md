@@ -35,7 +35,8 @@ lattices/subcategories/
 ├── even.py                _EvenLattices
 ├── unimodular.py          _UnimodularLattices
 └── constructions/
-    ├── dual_lattices.py
+    ├── dual_objects.py    _DualObjects      (= Lattices(R).DualObjects())
+    ├── dual_lattices.py   compatibility alias for DualObjects()
     ├── overlattices.py
     ├── orthogonal_direct_sums.py
     └── discriminant_groups.py
@@ -168,6 +169,26 @@ lattice convention (appears in `Lattices.ElementMethods`). The name `self_produc
 appears in our `BilinearModules.ElementMethods`. Both belong at `Bilinear` (element).
 In the spec we use `self_product` at the generic bilinear level and provide `norm` as an
 alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
+
+---
+
+## Construction-Category Vocabulary
+
+The canonical dual construction name is `Lattices(R).DualObjects()`, matching the
+standard Sage/project construction category `DualObjectsCategory`. The old
+`Lattices(R).DualLattices()` spelling is a compatibility alias only; new specs and
+mappings should use `DualObjects()`.
+
+Other lattice construction names audited in this pass are not duplicate spellings of
+standard construction categories:
+
+| Lattice surface | Relationship to standard construction vocabulary | Decision |
+| --- | --- | --- |
+| `DualObjects()` | Standard dual-object construction; objects are dual lattices `L^*`. | Canonical surface. |
+| `DualLattices()` | Old lattice-specific spelling of the same `DualObjectsCategory`. | Compatibility alias. |
+| `Overlattices()` | Objects under a fixed lattice with finite-index, same-rational-span, inherited-form conditions. | Keep as lattice-specific refinement, not a replacement for `ObjectsUnder(base)`. |
+| `OrthogonalDirectSums()` | Cartesian-product construction plus the orthogonal block-sum form and summand access. | Keep as refinement below `CartesianProducts()`. |
+| `DiscriminantGroups()` | Finite torsion formed modules `L^*/L` with discriminant-form data. | Keep as lattice-specific quotient/form construction, not generic `Quotients()`. |
 
 ---
 
