@@ -41,9 +41,11 @@ class _InfiniteSets(CategoryWithAxiom):
         def is_finite(self) -> bool:
             return False
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def is_empty(self) -> bool: ...
 

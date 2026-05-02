@@ -13,34 +13,6 @@ the archive.
   `topological_spaces/`; foldable binary operations with overload stubs outside the
   scoped pass; and abstract method families whose mathematical owner is not locally
   obvious from the docstring.
-  Scoped leftovers from this pass are exact set-subcategory provenance families:
-  `sets/subcategories/cartesian_product.py::_CartesianProductSets` category hooks,
-  `ParentMethods`, and `ElementMethods`;
-  `sets/subcategories/countable.py::_CountableSets`,
-  `_FiniteCountableSets`, and `_InfiniteCountableSets` category hooks and
-  enumeration/cardinality/random-element methods;
-  `sets/subcategories/disjoint_union.py::_DisjointUnionEnumeratedSets`;
-  `sets/subcategories/enumerated_from_iterator.py::_EnumeratedSetsFromIterator`;
-  `sets/subcategories/facade.py::_FacadeSets`;
-  `sets/subcategories/family.py::_FamilySets`;
-  `sets/subcategories/finite.py::_FiniteSets`;
-  `sets/subcategories/finite_enumerated_set.py::_FiniteEnumeratedSetObjects`;
-  `sets/subcategories/finite_set_maps.py::_FiniteSetMapsSets`;
-  `sets/subcategories/graded.py::_GradedSets.super_categories`;
-  `sets/subcategories/group_actions.py::_GSets.__init__` and
-  `_GSets.super_categories`;
-  `sets/subcategories/image.py::_ImageSets`;
-  `sets/subcategories/infinite.py::_InfiniteSets`;
-  `sets/subcategories/integer_range.py::_IntegerRangeSets`;
-  `sets/subcategories/non_negative_integers.py::_NonNegativeIntegersSets`;
-  `sets/subcategories/partitioned.py::_PartitionedSets.super_categories`;
-  `sets/subcategories/positive_integers.py::_PositiveIntegersSets`;
-  `sets/subcategories/primes.py::_PrimesSets`;
-  `sets/subcategories/real_set.py::_RealSets.ParentMethods` real-subset operations;
-  `sets/subcategories/recursively_enumerated.py::_RecursivelyEnumeratedSets`;
-  `sets/subcategories/totally_ordered.py::_TotallyOrdered`;
-  `sets/subcategories/totally_ordered_finite.py::_TotallyOrderedFiniteSets`; and
-  `sets/subcategories/uncountable.py::_UncountableSets`.
 - [ ] Audit every method for highest valid mathematical placement. Place each method
   where implementers primarily think about the corresponding abstraction; for example,
   algebra specs should not restate set-theoretic domain and codomain obligations for

@@ -36,6 +36,7 @@ class _PrimesSets(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def _an_element_(self) -> SetElement: ...
 

@@ -39,21 +39,27 @@ class _ImageSets(Category_singleton):
         @abstract_method
         def __hash__(self) -> Integer: ...
 
+        @override
         @abstract_method
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def ambient(self) -> Set: ...
 
+        @override
         @abstract_method
         def lift(self, x: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def retract(self, x: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
@@ -61,9 +67,11 @@ class _ImageSets(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def _an_element_(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def _sympy_(self) -> SympySet: ...
 

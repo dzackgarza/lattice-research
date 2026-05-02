@@ -30,18 +30,24 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         return [Sets().Countable().Finite(), Sets().TotallyOrdered()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def _element_constructor_(self, data: SetElement) -> SetElement: ...
 
         @abstract_method
-        def le(self, x: SetElement, y: SetElement) -> bool: ...
+        def le(self, x: SetElement, y: SetElement) -> bool:
+            r"""Return whether ``x`` is at most ``y`` in the finite total order."""
+            ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def rank(self, x: SetElement) -> Integer: ...
 
@@ -49,28 +55,35 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def min(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def max(self) -> SetElement: ...
 
     class ElementMethods:
+        @override
         @abstract_method
         def __eq__(self, other: SetElement) -> bool: ...
 
         @abstract_method
         def __ne__(self, other: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __lt__(self, other: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __le__(self, other: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __gt__(self, other: SetElement) -> bool: ...
 
+        @override
         @abstract_method
         def __ge__(self, other: SetElement) -> bool: ...
 

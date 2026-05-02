@@ -38,6 +38,7 @@ class _FiniteSetMapsSets(Category_singleton):
         return [Sets().Countable().Finite()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
@@ -45,9 +46,11 @@ class _FiniteSetMapsSets(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def an_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[FiniteSetMap]: ...
 
@@ -67,6 +70,7 @@ class _FiniteSetMapsSets(Category_singleton):
         @overload
         def _element_constructor_(self, images: Sequence[SetElement], check: bool = True) -> FiniteSetMap: ...
 
+        @override
         @abstract_method
         def _element_constructor_(
             self,
@@ -75,7 +79,9 @@ class _FiniteSetMapsSets(Category_singleton):
         ) -> FiniteSetMap: ...
 
         @abstract_method
-        def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap: ...
+        def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap:
+            r"""Construct the finite map represented by the finite association ``d``."""
+            ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

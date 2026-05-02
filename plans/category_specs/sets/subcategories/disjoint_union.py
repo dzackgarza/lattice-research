@@ -37,12 +37,15 @@ class _DisjointUnionEnumeratedSets(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def an_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 

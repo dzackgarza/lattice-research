@@ -36,13 +36,19 @@ class _TotallyOrdered(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def rank(self, x: SetElement) -> Integer: ...
+        def rank(self, x: SetElement) -> Integer:
+            r"""Return the order rank of ``x`` in this totally ordered set."""
+            ...
 
         @abstract_method
-        def min(self) -> SetElement: ...
+        def min(self) -> SetElement:
+            r"""Return the least element of this totally ordered set."""
+            ...
 
         @abstract_method
-        def max(self) -> SetElement: ...
+        def max(self) -> SetElement:
+            r"""Return the greatest element of this totally ordered set."""
+            ...
 
     class ElementMethods:
         @abstract_method
@@ -51,10 +57,12 @@ class _TotallyOrdered(CategoryWithAxiom):
         @abstract_method
         def __le__(self, other: SetElement) -> bool: ...
 
+        @override
         @final
         def __gt__(self, other: SetElement) -> bool:
             return other.__lt__(self)
 
+        @override
         @final
         def __ge__(self, other: SetElement) -> bool:
             return other.__le__(self)

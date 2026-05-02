@@ -46,21 +46,31 @@ class _CountableSets(CategoryWithAxiom):
         def is_countable(self) -> bool:
             return True
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
-        def __getitem__(self, i: Integer) -> SetElement: ...
+        def __getitem__(self, i: Integer) -> SetElement:
+            r"""Return the ``i``-th element in the chosen enumeration."""
+            ...
 
+        @override
         @abstract_method
-        def rank(self, e: SetElement) -> Integer: ...
+        def rank(self, e: SetElement) -> Integer:
+            r"""Return the enumeration index of ``e``."""
+            ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def is_empty(self) -> bool: ...
 
+        @override
         @abstract_method
         def random_element(self) -> SetElement: ...
 
@@ -92,9 +102,11 @@ class _FiniteCountableSets(CategoryWithAxiom):
         return [SageFiniteEnumeratedSets(), Sets().Countable(), Sets().Finite()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def __len__(self) -> Integer: ...
 
+        @override
         @abstract_method
         def random_element(self) -> SetElement: ...
 
@@ -121,6 +133,7 @@ class _InfiniteCountableSets(CategoryWithAxiom):
         return [SageInfiniteEnumeratedSets(), Sets().Countable(), Sets().Infinite()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def random_element(self) -> SetElement: ...
 

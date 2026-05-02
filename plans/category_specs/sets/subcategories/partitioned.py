@@ -50,11 +50,13 @@ class _PartitionedSets(CategoryWithAxiom):
             r"""Return the cardinality of ``base_set()``."""
             ...
 
+        @override
         @final
         def ambient(self) -> Set:
             r"""Return the powerset-of-powerset ambient set containing ``self``."""
             return self.base_set().subsets().subsets()
 
+        @override
         @abstract_method
         def _element_constructor_(
             self,
@@ -70,11 +72,13 @@ class _PartitionedSets(CategoryWithAxiom):
             r"""Return whether ``x`` is a partition of ``base_set()``."""
             ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality:
             r"""Return the number of partitions in ``self``."""
             ...
 
+        @override
         @abstract_method
         def random_element(self) -> SetPartition:
             r"""Return a random partition in ``self``."""

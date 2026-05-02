@@ -29,9 +29,11 @@ class _PositiveIntegersSets(Category_singleton):
         return [_IntegerRangeSets(), Sets().Countable().Infinite().Facade()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def an_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def _sympy_(self) -> SympySet: ...
 

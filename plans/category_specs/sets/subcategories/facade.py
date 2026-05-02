@@ -36,6 +36,7 @@ class _FacadeSets(CategoryWithAxiom):
         def is_facade(self) -> bool:
             return True
 
+        @override
         @abstract_method
         def _element_constructor_(self, element: SetElement) -> SetElement:
             r"""Coerce ``element`` from any facade parent."""
@@ -46,6 +47,7 @@ class _FacadeSets(CategoryWithAxiom):
             r"""Return the tuple of parents this set is a facade for."""
             ...
 
+        @override
         @abstract_method
         def is_parent_of(self, element: SetElement) -> bool: ...
 
@@ -53,6 +55,7 @@ class _FacadeSets(CategoryWithAxiom):
         @abstract_method
         def __contains__(self, element: Any) -> bool: ...
 
+        @override
         @abstract_method
         def _an_element_(self) -> SetElement: ...
 

@@ -37,24 +37,32 @@ class _FiniteEnumeratedSetObjects(Category_singleton):
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def an_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def random_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def rank(self, x: SetElement) -> Integer: ...
 
         @abstract_method
-        def __call__(self, el: SetElement) -> SetElement: ...
+        def __call__(self, el: SetElement) -> SetElement:
+            r"""Return the finite enumerated element represented by ``el``."""
+            ...
 
+        @override
         @abstract_method
         def _element_constructor_(self, el: SetElement) -> SetElement: ...
 

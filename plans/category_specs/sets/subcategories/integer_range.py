@@ -30,6 +30,7 @@ class _IntegerRangeSets(Category_singleton):
         return [Sets().Countable().Facade()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def _element_constructor_(self, el: SetElement) -> SetElement: ...
 
@@ -37,18 +38,23 @@ class _IntegerRangeSets(Category_singleton):
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def rank(self, x: SetElement) -> Integer: ...
 
+        @override
         @abstract_method
         def __getitem__(self, i: Integer) -> SetElement: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def _an_element_(self) -> SetElement: ...
 

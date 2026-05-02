@@ -41,30 +41,42 @@ class _RealSets(Category_singleton):
         return [Sets().Topological(), Sets().Subobjects(), TopologicalSpaces().Subobjects()]
 
     class ParentMethods:
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[RealInterval]: ...
 
         @abstract_method
-        def n_components(self) -> Integer: ...
+        def n_components(self) -> Integer:
+            r"""Return the number of interval components of this real subset."""
+            ...
 
+        @override
         @abstract_method
         def cardinality(self) -> Cardinality: ...
 
+        @override
         @abstract_method
         def is_empty(self) -> bool: ...
 
         @abstract_method
-        def is_universe(self) -> bool: ...
+        def is_universe(self) -> bool:
+            r"""Return whether this real subset is the whole real line."""
+            ...
 
         @abstract_method
-        def get_interval(self, i: Integer) -> RealInterval: ...
+        def get_interval(self, i: Integer) -> RealInterval:
+            r"""Return the ``i``-th interval component of this real subset."""
+            ...
 
+        @override
         @abstract_method
         def ambient(self) -> RealSubset: ...
 
+        @override
         @abstract_method
         def lift(self, x: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def retract(self, x: SetElement) -> SetElement: ...
 
@@ -74,6 +86,7 @@ class _RealSets(Category_singleton):
         @overload
         def union(self, real_set_collection: Sequence[RealSubset]) -> RealSubset: ...
 
+        @override
         @abstract_method
         def union(
             self,
@@ -86,6 +99,7 @@ class _RealSets(Category_singleton):
         @overload
         def intersection(self, real_set_collection: Sequence[RealSubset]) -> RealSubset: ...
 
+        @override
         @abstract_method
         def intersection(
             self,
@@ -93,62 +107,92 @@ class _RealSets(Category_singleton):
         ) -> RealSubset: ...
 
         @abstract_method
-        def inf(self) -> RealNumber: ...
+        def inf(self) -> RealNumber:
+            r"""Return the infimum of this subset of the real line."""
+            ...
 
         @abstract_method
-        def sup(self) -> RealNumber: ...
+        def sup(self) -> RealNumber:
+            r"""Return the supremum of this subset of the real line."""
+            ...
 
+        @override
         @abstract_method
         def complement(self) -> RealSubset: ...
 
+        @override
         @abstract_method
         def difference(self, other: RealSubset) -> RealSubset: ...
 
+        @override
         @abstract_method
         def symmetric_difference(self, other: RealSubset) -> RealSubset: ...
 
         @abstract_method
-        def contains(self, x: SetElement) -> bool: ...
+        def contains(self, x: SetElement) -> bool:
+            r"""Return whether the real point ``x`` lies in this real subset."""
+            ...
 
         @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
 
+        @override
         @abstract_method
         def is_subset(self, other: RealSubset) -> bool: ...
 
         @abstract_method
-        def is_open(self) -> bool: ...
+        def is_open(self) -> bool:
+            r"""Return whether this real subset is open in the real topology."""
+            ...
 
         @abstract_method
-        def is_closed(self) -> bool: ...
+        def is_closed(self) -> bool:
+            r"""Return whether this real subset is closed in the real topology."""
+            ...
 
         @abstract_method
-        def closure(self) -> RealSubset: ...
+        def closure(self) -> RealSubset:
+            r"""Return the topological closure of this real subset."""
+            ...
 
         @abstract_method
-        def interior(self) -> RealOpenSet: ...
+        def interior(self) -> RealOpenSet:
+            r"""Return the topological interior of this real subset."""
+            ...
 
         @abstract_method
-        def boundary(self) -> RealSubset: ...
+        def boundary(self) -> RealSubset:
+            r"""Return the topological boundary of this real subset."""
+            ...
 
         @staticmethod
         @abstract_method
-        def convex_hull(real_set_collection: Sequence[RealSubset]) -> RealSubset: ...
+        def convex_hull(real_set_collection: Sequence[RealSubset]) -> RealSubset:
+            r"""Return the least real interval containing the given real subsets."""
+            ...
 
         @abstract_method
-        def is_connected(self) -> bool: ...
+        def is_connected(self) -> bool:
+            r"""Return whether this real subset is connected."""
+            ...
 
         @abstract_method
-        def is_disjoint(self, other: RealSubset) -> bool: ...
+        def is_disjoint(self, other: RealSubset) -> bool:
+            r"""Return whether this real subset is disjoint from ``other``."""
+            ...
 
         @staticmethod
         @abstract_method
-        def are_pairwise_disjoint(real_set_collection: Sequence[RealSubset]) -> bool: ...
+        def are_pairwise_disjoint(real_set_collection: Sequence[RealSubset]) -> bool:
+            r"""Return whether the real subsets are pairwise disjoint."""
+            ...
 
+        @override
         @abstract_method
         def _an_element_(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def _sympy_(self) -> SympySet: ...
 

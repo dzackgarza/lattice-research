@@ -39,18 +39,23 @@ class _NonNegativeIntegersSets(Category_singleton):
         @abstract_method
         def __contains__(self, elt: Any) -> bool: ...
 
+        @override
         @abstract_method
         def _element_constructor_(self, i: SetElement) -> SetElement: ...
 
+        @override
         @abstract_method
         def __iter__(self) -> Iterator[SetElement]: ...
 
+        @override
         @abstract_method
         def an_element(self) -> SetElement: ...
 
+        @override
         @abstract_method
         def some_elements(self) -> list[SetElement]: ...
 
+        @override
         @abstract_method
         def _sympy_(self) -> SympySet: ...
 

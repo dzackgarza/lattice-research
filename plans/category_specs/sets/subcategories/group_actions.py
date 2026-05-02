@@ -20,6 +20,7 @@ class _GSets(Category):
     Canonical chain: ``Sets().GSets(G)``.
     """
 
+    @override
     @final
     def __init__(self, acting_group: Group, base_category: Category | None = None) -> None:
         Category.__init__(self)
