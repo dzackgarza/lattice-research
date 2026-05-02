@@ -4,12 +4,12 @@ from pathlib import Path
 THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
-from category_specs.algebras import Algebras
+from category_specs.algebras import Algebras, AssociativeAlgebras, MagmaticAlgebras
 from category_specs.cat import Cat
 from category_specs.sets import Sets
 from category_specs.tensor_algebra_components import TensorAlgebraComponents
 from category_specs.utils import assert_smoke_statements
-from sage.all import GF, IntegerModRing, ZZ
+from sage.all import GF, IntegerModRing, QQ, ZZ
 from sage.categories.magmas import Magmas
 from sage.categories.semigroups import Semigroups
 from sage.groups.perm_gps.permgroup_named import CyclicPermutationGroup
@@ -18,6 +18,10 @@ from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
 
 def A():
     return Algebras(ZZ)
+
+
+def AQ():
+    return Algebras(QQ)
 
 
 def multiplicative_monoid_source():
@@ -32,10 +36,10 @@ def additive_source():
     return GF(3)
 
 
-def multiplication_tensor():
-    M = FiniteRankFreeModule(ZZ, 2, name="M")
+def multiplication_tensor(R):
+    M = FiniteRankFreeModule(R, 2, name="M")
     e = M.basis("e")
-    return TensorAlgebraComponents(ZZ).Constructors().from_module_element_matrix(
+    return TensorAlgebraComponents(R).Constructors().from_module_element_matrix(
         M,
         [
             [e[0], e[1]],
@@ -56,6 +60,11 @@ SMOKE_STATEMENTS = (
     ("Algebras(ZZ).WithBasis() is a subcategory of Algebras(ZZ)", lambda _: A().WithBasis().is_subcategory(A())),
     ("Algebras(ZZ).FiniteDimensional() is a subcategory of Algebras(ZZ)", lambda _: A().FiniteDimensional().is_subcategory(A())),
     ("Algebras(ZZ).Semisimple() is a subcategory of Algebras(ZZ)", lambda _: A().Semisimple().is_subcategory(A())),
+    ("Algebras(ZZ) is a subcategory of associative algebras", lambda _: A().is_subcategory(AssociativeAlgebras(ZZ))),
+    (
+        "AssociativeAlgebras(ZZ) is a subcategory of magmatic algebras",
+        lambda _: AssociativeAlgebras(ZZ).is_subcategory(MagmaticAlgebras(ZZ)),
+    ),
     ("Algebras(ZZ).Subobjects() is an object of Cat()", lambda _: A().Subobjects() in Cat()),
     ("Algebras(ZZ).Quotients() is an object of Cat()", lambda _: A().Quotients() in Cat()),
     ("Algebras(ZZ).Subquotients() is an object of Cat()", lambda _: A().Subquotients() in Cat()),
@@ -76,12 +85,12 @@ SMOKE_STATEMENTS = (
         in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_magma constructs Sage magmatic algebra before the project target gap",
-        lambda _: A().Constructors().free_algebra_from_magma(Magmas().example()) in A(),
+        "Algebras(ZZ).Constructors().free_algebra_from_magma routes to project magmatic algebras",
+        lambda _: A().Constructors().free_algebra_from_magma(Magmas().example()) in MagmaticAlgebras(ZZ),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_semigroup constructs Sage associative algebra before the project target gap",
-        lambda _: A().Constructors().free_algebra_from_semigroup(Semigroups().example()) in A(),
+        "Algebras(ZZ).Constructors().free_algebra_from_semigroup routes to project associative nonunital algebras",
+        lambda _: A().Constructors().free_algebra_from_semigroup(Semigroups().example()) in AssociativeAlgebras(ZZ),
     ),
     (
         "Algebras(ZZ).Constructors().free_algebra_from_monoid(Z/3Z) executes the Sage monoid-algebra route",
@@ -92,8 +101,8 @@ SMOKE_STATEMENTS = (
         lambda _: A().Constructors().free_algebra_from_group(multiplicative_group_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup constructs Sage associative algebra before the project target gap",
-        lambda _: A().Constructors().free_algebra_from_additive_semigroup(additive_source()) in A(),
+        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup routes to project associative nonunital algebras",
+        lambda _: A().Constructors().free_algebra_from_additive_semigroup(additive_source()) in AssociativeAlgebras(ZZ),
     ),
     (
         "Algebras(ZZ).Constructors().free_algebra_from_additive_monoid(GF(3), +) executes the Sage additive-monoid route",
@@ -104,8 +113,12 @@ SMOKE_STATEMENTS = (
         lambda _: A().Constructors().free_algebra_from_additive_group(additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().from_multiplication_tensor is wired to the project tensor surface",
-        lambda _: A().Constructors().from_multiplication_tensor(multiplication_tensor()) in A(),
+        "Algebras(QQ).Constructors().from_multiplication_tensor builds a finite-dimensional algebra parent",
+        lambda _: AQ().Constructors().from_multiplication_tensor(multiplication_tensor(QQ)) in AQ().WithBasis().FiniteDimensional(),
+    ),
+    (
+        "Algebras(ZZ).Constructors().from_multiplication_tensor builds a finite-rank algebra parent",
+        lambda _: A().Constructors().from_multiplication_tensor(multiplication_tensor(ZZ)) in MagmaticAlgebras(ZZ),
     ),
 )
 

@@ -9,6 +9,8 @@ SageMath 10.7 (`sage --version`: `SageMath version 10.7, Release Date:
 | Source | Evidence used |
 | --- | --- |
 | Sage docs: `reference/categories/sage/categories/algebras.html` | Definition of `Algebras`, supercategories, `Semisimple`, `Supercommutative`, `TensorProducts`, and `WithBasis`. |
+| Sage source: `sage/categories/magmatic_algebras.py` | `MagmaticAlgebras(R)` as modules over `R` with bilinear multiplication, with `Associative` and `Unital` axiom endpoints. |
+| Sage source: `sage/categories/associative_algebras.py` | `AssociativeAlgebras(R)` as not-necessarily-unital associative algebras and an axiom subcategory of `MagmaticAlgebras(R)`. |
 | Sage docs: `reference/categories/sage/categories/algebras_with_basis.html` | Definition of `AlgebrasWithBasis`, example parent, `basis`, `one_basis`, `algebra_generators`, `hochschild_complex`, tensor/cartesian products, and `example`. |
 | Sage docs: `reference/categories/sage/categories/finite_dimensional_algebras_with_basis.html` | Definition of finite-dimensional algebras with basis and the radical, center, subalgebra, ideal, idempotent, Peirce, Cartan, and semisimple quotient methods. |
 | Sage docs: `reference/categories/sage/categories/commutative_algebras.html` | `CommutativeAlgebras(R)` as `Algebras(R).Commutative()` and tensor-product consequences. |
@@ -28,6 +30,8 @@ SageMath 10.7 (`sage --version`: `SageMath version 10.7, Release Date:
 
 | Sage surface | Source | Sage method surface |
 | --- | --- | --- |
+| `sage.categories.magmatic_algebras.MagmaticAlgebras(base_ring)` | `sage/categories/magmatic_algebras.py` | Category of `R`-modules equipped with a bilinear multiplication; Sage documents that it is neither necessarily associative nor necessarily unital. |
+| `sage.categories.associative_algebras.AssociativeAlgebras(base_ring)` | `sage/categories/associative_algebras.py` | Category of associative, not necessarily unital, algebras; Sage makes it `MagmaticAlgebras(R).Associative()` and explicitly not a subcategory of current Sage `Algebras(R)`. |
 | `sage.categories.algebras.Algebras(base_category)` | `sage/categories/algebras.py` | Category of associative unital algebras over a base ring. Lazy subcategories include `Commutative`, `WithBasis`, `Semisimple`, `Super`, `Filtered`, and `Graded`. |
 | `sage.categories.algebras_with_basis.AlgebrasWithBasis(base_category)` | `sage/categories/algebras_with_basis.py` | Algebras with a distinguished basis. Sage gives `example(alphabet=('a', 'b', 'c'))` and inherits unital-algebra-with-basis methods such as `one`, `one_basis`, and `product_on_basis`. |
 | `sage.categories.finite_dimensional_algebras_with_basis.FiniteDimensionalAlgebrasWithBasis(base_category)` | `sage/categories/finite_dimensional_algebras_with_basis.py` | Finite-dimensional associative unital algebras with basis. This is the method-rich finite-dimensional surface for radical, center, idempotents, Peirce decomposition, Cartan invariants, and semisimple quotient. |

@@ -1,6 +1,8 @@
 # Algebras Mapping
 
-`Algebras(R)` is the category of algebras over `R`. Algebra-specific methods belong in
+`MagmaticAlgebras(R)` is the category of `R`-modules with bilinear multiplication.
+`AssociativeAlgebras(R)` adds associativity without requiring a unit.
+`Algebras(R)` is the associative unital endpoint. Algebra-specific methods belong in
 this subtree. Ring and module methods are inherited from `rings` and `modules`.
 
 | Source surface | Target surface | Rationale |
@@ -8,20 +10,20 @@ this subtree. Ring and module methods are inherited from `rings` and `modules`.
 | Matrix-ring algebra methods | `Algebras(R)` plus matrix-algebra subcategories | A matrix ring is also an algebra over its base ring; algebra methods should not be redeclared in the ring subtree. |
 | `FreeAlgebra(R, n, names)` and `algebras.Free(R, n, names)` | `Algebras(R).Constructors().free_algebra_from_set(generators=S)` | This is the true free associative unital `R`-algebra on a set of symbols. Sage's `Sets().example().algebra(R)` is not this construction. |
 | Plain-set Sage `S.algebra(R)` and `Sets().Algebras(R)` | `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=S)`, exposed by `S.free_module(R)` | Sage already constructs the free `R`-module with basis indexed by `S` on this path. The spec routes that Sage source surface to `Modules(R)` and rejects it as evidence for an `Algebras(R)` constructor. |
-| `S.algebra(R)` where the selected source category is `Magmas()` | `Algebras(R).Constructors().free_algebra_from_magma(magma=S)` | This names the free functor from magmas to the corresponding category of `R`-algebra objects with bilinear multiplication. |
-| `S.algebra(R)` where the selected source category is `Semigroups()` | `Algebras(R).Constructors().free_algebra_from_semigroup(semigroup=S)` | This names the free functor from semigroups to the corresponding associative `R`-algebra objects. |
+| `S.algebra(R)` where the selected source category is `Magmas()` | `Algebras(R).Constructors().free_algebra_from_magma(magma=S)` returning an object in `MagmaticAlgebras(R)` | This names the free functor from magmas to `R`-modules with bilinear multiplication. It is not necessarily associative or unital, so the target is the magmatic algebra category rather than the current unital-associative `Algebras(R)` endpoint. |
+| `S.algebra(R)` where the selected source category is `Semigroups()` | `Algebras(R).Constructors().free_algebra_from_semigroup(semigroup=S)` returning an object in `AssociativeAlgebras(R)` | This names the free functor from semigroups to associative, not necessarily unital, `R`-algebra objects. |
 | `S.algebra(R)` for a Sage monoid `S` | `Algebras(R).Constructors().free_algebra_from_monoid(monoid=S)` | This is the monoid algebra `R[S]`, the free construction relative to the multiplicative-monoid forgetful functor. |
 | `G.algebra(R)` for a Sage group `G`; `GroupAlgebra(G, R)` | `Algebras(R).Constructors().free_algebra_from_group(group=G)` | The essential image of the group free functor lands in Hopf algebras over `R`; as an `R`-algebra it is the group algebra `R[G]`. |
-| `S.algebra(R, category=AdditiveSemigroups())` | `Algebras(R).Constructors().free_algebra_from_additive_semigroup(semigroup=S)` | This is the semigroup algebra using the additively written operation as multiplication of basis elements. |
+| `S.algebra(R, category=AdditiveSemigroups())` | `Algebras(R).Constructors().free_algebra_from_additive_semigroup(semigroup=S)` returning an object in `AssociativeAlgebras(R)` | This is the semigroup algebra using the additively written operation as multiplication of basis elements. The target is associative and not necessarily unital. |
 | `S.algebra(R, category=AdditiveMonoids())` | `Algebras(R).Constructors().free_algebra_from_additive_monoid(monoid=S)` | This is the monoid algebra using the additively written operation and zero element as multiplicative unit data. |
 | `S.algebra(R, category=AdditiveGroups())` | `Algebras(R).Constructors().free_algebra_from_additive_group(group=S)` | This is the group algebra using the additively written group law. |
 | `FiniteDimensionalAlgebra(k, table, assume_associative=True, assume_unital=True)` | First construct `mu: Tensor` through `TensorAlgebraComponents(k).Constructors().from_module_element_matrix(...)` or another tensor interop constructor, then call `Algebras(k).Constructors().from_multiplication_tensor(multiplication=mu)`. | Bespoke table/list/matrix shapes are tensor interop inputs, not algebra constructor inputs. The algebra constructor has one canonical product input: a tensor in `T_R(M)[1, 2]`. The tensor's parent determines the base module, the base ring, and the preferred generating set. |
-| `FiniteDimensionalAlgebra(k, table)` without both associative and unital assumptions | Mathematically justified non-mapping to `Algebras(k)`; map to magmatic or associative nonunital algebra surfaces when those subtrees exist. | Sage says the default object is a magmatic algebra, not necessarily associative or unital. |
+| `FiniteDimensionalAlgebra(k, table)` without both associative and unital assumptions | `MagmaticAlgebras(k)` by default, with `AssociativeAlgebras(k)` when associativity is part of the category data | Sage says the default object is a magmatic algebra, not necessarily associative or unital. Associative but nonunital table data is not a current `Algebras(k)` object. |
 | `AlgebrasWithBasis(R)` | `Algebras(R).WithBasis()` | `WithBasis` is shared module/vector-space vocabulary. The distinguished basis is structure on the algebra; multiplication remains element multiplication. |
 | `CombinatorialFreeModule(R, basis_keys, category=AlgebrasWithBasis(R))` | `Algebras(R).Constructors().from_multiplication_tensor(multiplication=mu)` after constructing `mu` in `TensorAlgebraComponents(R)` | Sage uses this as infrastructure for algebras with basis, but the constructor alone supplies only the module with basis. The project constructor must specify the multiplication tensor mathematically; Sage `product_on_basis` is only an interop hook derived from that tensor. |
 | `basis()` on an algebra with a distinguished basis | `AlgebraBasis` | The chosen basis is part of the structure of `WithBasis`; basis-returning helpers for derived subobjects are not separate public surfaces. |
 | `one_basis()` | `one() -> AlgebraElement` plus constructor unit data when the unit is supplied by coordinates | Sage exposes the basis index of the unit when the unit is a basis vector. The project surface exposes the unit as an algebra element; a basis index is interop data only. |
-| `product_on_basis(i, j)` | `AlgebraElement.__mul__` on basis elements, extended bilinearly to all algebra elements | Sage exposes multiplication through basis indices. The project surface is element multiplication; construction supplies the multiplication tensor that makes `e_i * e_j` evaluate. |
+| `product_on_basis(i, j)` | `MagmaticAlgebraElement.__mul__` on basis elements, inherited by associative and unital algebra endpoints | Sage exposes multiplication through basis indices. The project surface is element multiplication; construction supplies the multiplication tensor that makes `e_i * e_j` evaluate. |
 | `algebra_generators()` | `AlgebraElementFamily` | Algebra generators form a family of algebra elements, not a generic set family. |
 | `FiniteDimensionalAlgebrasWithBasis(R)` | `Algebras(R).FiniteDimensional().WithBasis()` | `FiniteDimensional` is shared vector-space vocabulary. This intersection is where Sage implements radical, center, idempotent lifting, Peirce decomposition, and semisimple quotients for algebras with basis. |
 | `SemisimpleAlgebras(R)` | `Algebras(R).Semisimple()` | Semisimplicity uses the shared `Semisimple` axiom; algebra subcategories supply the algebra-specific method surface. |
@@ -85,9 +87,9 @@ Concrete constructor status:
 | `free_algebra_from_group(G)` | Sage `G.algebra(R, category=Groups())`, refined to `Algebras(R).WithBasis()`. Group-specific Hopf structure remains a later refinement, not a separate constructor path. |
 | `free_algebra_from_additive_monoid(M)` | Sage `M.algebra(R, category=AdditiveMonoids())`, refined to `Algebras(R).WithBasis()`. The additive zero supplies the algebra unit. |
 | `free_algebra_from_additive_group(G)` | Sage `G.algebra(R, category=AdditiveGroups())`, refined to `Algebras(R).WithBasis()`. |
-| `free_algebra_from_magma(M)` | Sage `M.algebra(R, category=Magmas())` is executed and verified to land in `sage.categories.magmatic_algebras.MagmaticAlgebras(R).WithBasis()`. The remaining gap is a project-owned magmatic/nonassociative algebra category target; current `Algebras(R)` is the unital associative endpoint. |
-| `free_algebra_from_semigroup(S)` | Sage `S.algebra(R, category=Semigroups())` is executed and verified to land in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`. The remaining gap is a project-owned nonunital associative-algebra category target. |
-| `free_algebra_from_additive_semigroup(S)` | Sage `S.algebra(R, category=AdditiveSemigroups())` is executed and verified to land in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`. This is the additive analogue of the semigroup route and has the same missing project target. |
+| `free_algebra_from_magma(M)` | Sage `M.algebra(R, category=Magmas())` is executed, verified in `sage.categories.magmatic_algebras.MagmaticAlgebras(R).WithBasis()`, and refined to project `MagmaticAlgebras(R)`. |
+| `free_algebra_from_semigroup(S)` | Sage `S.algebra(R, category=Semigroups())` is executed, verified in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`, and refined to project `AssociativeAlgebras(R)`. |
+| `free_algebra_from_additive_semigroup(S)` | Sage `S.algebra(R, category=AdditiveSemigroups())` is executed, verified in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`, and refined to project `AssociativeAlgebras(R)`. |
 
 ## Plain-Set Sage Algebra Route
 
@@ -118,7 +120,14 @@ module-valued product data into the canonical tensor before algebra construction
 begins.
 
 Current implementation status: `from_multiplication_tensor(multiplication=mu)`
-validates `mu.tensor_type() == (1, 2)`, checks the tensor base ring, and reads
-`mu.structure_constants()` against `mu.base_module().rank()`. The remaining
-implementation gap is a Sage-backed finite-rank algebra parent constructor from a base
-module plus the `(1, 2)` tensor's coordinate structure constants.
+validates `mu.tensor_type() == (1, 2)`, checks the tensor base ring, reads
+`mu.structure_constants()` against `mu.base_module().rank()`, converts those constants
+to Sage's right-multiplication table convention, and calls Sage
+`FiniteDimensionalAlgebra(R, table, category=MagmaticAlgebras(R).FiniteDimensional().WithBasis())`.
+Sage's constructor prose names a field input, but the classcall has no field guard and
+Sage's magmatic-algebra category method converts algebras with basis by passing
+`R = self.base_ring()` to the same constructor. The result is refined to project
+`MagmaticAlgebras(R)` and to `AssociativeAlgebras(R)` or
+`Algebras(R).FiniteDimensional().WithBasis()` when the constructed table satisfies the
+corresponding laws. Field-only algorithms on those parents remain method-level
+frontiers, not constructor gaps.

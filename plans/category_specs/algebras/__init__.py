@@ -24,15 +24,23 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from collections.abc import Iterable, Sequence
+from typing import TYPE_CHECKING, Any, final, override
 
+from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
 from sage.categories.algebras import Algebras as SageAlgebras
+from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
-from ..cat import Cat, Category, Category_module
+from ..cat import (
+    Cat,
+    Category,
+    Category_module,
+    Category_over_base_ring,
+    CategoryWithAxiom_over_base_ring,
+)
 from ..modules import Modules
 from ..utils import refine_category
 from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
@@ -54,9 +62,13 @@ if TYPE_CHECKING:
         Algebra,
         AlgebraElement,
         AlgebraIdeal,
+        AssociativeAlgebra,
         Group,
         HochschildChainComplex,
+        Integer,
         Magma,
+        MagmaticAlgebra,
+        Matrix,
         Monoid,
         RAlgebra,
         Ring,
@@ -66,6 +78,99 @@ if TYPE_CHECKING:
         SetFamily,
         Tensor,
     )
+
+
+class _MagmaticAlgebraParentMethods:
+    r"""Methods on modules equipped with a bilinear multiplication."""
+
+
+class _MagmaticAlgebraElementMethods:
+    r"""Methods on elements of magmatic algebras."""
+
+    @abstract_method
+    def __mul__(self, other: AlgebraElement) -> AlgebraElement:
+        r"""Return the bilinear product of this element with ``other``."""
+        ...
+
+
+class _MagmaticAlgebraMorphismMethods:
+    r"""Methods on magmatic algebra morphisms."""
+
+
+class MagmaticAlgebras(Category_over_base_ring):
+    r"""Category of modules over ``R`` equipped with a bilinear multiplication.
+
+    Canonical chain: ``MagmaticAlgebras(R)``.
+    """
+
+    @override
+    @final
+    def _sage_super_categories(self) -> tuple[Category, ...]:
+        return (SageMagmaticAlgebras(self.base_ring()),)
+
+    @override
+    @final
+    def _repr_object_names(self) -> str:
+        return f"magmatic algebras over {self.base_ring()}"
+
+    @override
+    @final
+    def super_categories(self) -> list[Category]:
+        r"""Return module and Sage magmatic-algebra supercategories."""
+        R = self.base_ring()
+        return [Modules(R), SageMagmaticAlgebras(R)]
+
+    @override
+    @final
+    def additional_structure(self):
+        r"""Return ``None`` because the multiplication is already morphism data."""
+        return None
+
+    @override
+    @final
+    def __contains__(self, A: Any) -> bool:
+        r"""Return whether ``A`` is a Sage magmatic algebra over this base ring."""
+        return A in SageMagmaticAlgebras(self.base_ring())
+
+    ParentMethods = _MagmaticAlgebraParentMethods
+    ElementMethods = _MagmaticAlgebraElementMethods
+    MorphismMethods = _MagmaticAlgebraMorphismMethods
+
+    Associative = LazyImport("category_specs.algebras", "AssociativeAlgebras")
+
+
+class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
+    r"""Category of associative, not necessarily unital, algebras over ``R``.
+
+    Canonical chain: ``MagmaticAlgebras(R).Associative()``.
+    """
+
+    _base_category_class_and_axiom = (MagmaticAlgebras, "Associative")
+
+    @override
+    @final
+    def super_categories(self) -> list[Category]:
+        r"""Return magmatic and Sage associative-algebra supercategories."""
+        R = self.base_ring()
+        return [MagmaticAlgebras(R), SageAssociativeAlgebras(R)]
+
+    @override
+    @final
+    def __contains__(self, A: Any) -> bool:
+        r"""Return whether ``A`` is a Sage associative algebra over this base ring."""
+        return (
+            A in MagmaticAlgebras(self.base_ring())
+            and A in SageAssociativeAlgebras(self.base_ring())
+        )
+
+    class ParentMethods:
+        @final
+        def is_associative(self) -> bool:
+            r"""Return ``True`` for objects in the associative algebra category."""
+            return True
+
+    class ElementMethods: ...
+    class MorphismMethods: ...
 
 
 class _AlgebraParentMethods:
@@ -181,11 +286,6 @@ class _AlgebraParentMethods:
 class _AlgebraElementMethods:
     r"""Methods on elements of algebras."""
 
-    @abstract_method
-    def __mul__(self, other: AlgebraElement) -> AlgebraElement:
-        r"""Return the algebra product of this element with ``other``."""
-        ...
-
 
 class _AlgebraMorphismMethods:
     r"""Methods on algebra morphisms."""
@@ -215,6 +315,7 @@ class Algebras(Category_module):
 
         R = self.base_ring()
         return [
+            AssociativeAlgebras(R),
             Rings().RingsUnder(R),
             Modules(R),
             SageAlgebras(R),
@@ -295,6 +396,14 @@ class Algebras(Category_module):
             return refine_category(algebra, [self.category(), *categories])
 
         @final
+        def _refine_constructed_magmatic_algebra(
+            self,
+            algebra: MagmaticAlgebra,
+            categories: Sequence[Category],
+        ) -> MagmaticAlgebra:
+            return refine_category(algebra, [MagmaticAlgebras(self.base_ring()), *categories])
+
+        @final
         def _sage_algebra_from_source(
             self,
             source: Magma | Semigroup | Monoid | Group | AdditiveSemigroup | AdditiveMonoid | AdditiveGroup,
@@ -310,13 +419,14 @@ class Algebras(Category_module):
             source: Magma | Semigroup | AdditiveSemigroup,
             source_category: Category,
             target_category: Category,
-        ) -> Algebra:
+            project_target_category: Category,
+        ) -> MagmaticAlgebra:
             assert source in source_category, f"Expected source in {source_category}: {source}"
             algebra = source.algebra(self.base_ring(), category=source_category)
             assert algebra in target_category, (
                 f"Sage constructed algebra should lie in {target_category}: {algebra.category()}"
             )
-            return algebra
+            return self._refine_constructed_magmatic_algebra(algebra, [project_target_category, target_category])
 
         @final
         def free_algebra_from_set(self, generators: Set) -> Algebra:
@@ -328,29 +438,29 @@ class Algebras(Category_module):
             return self._refine_constructed_algebra(algebra, [self.category().WithBasis()])
 
         @final
-        def free_algebra_from_magma(self, magma: Magma) -> Algebra:
+        def free_algebra_from_magma(self, magma: Magma) -> MagmaticAlgebra:
             r"""Return the free ``R``-algebra object generated by ``magma``."""
             from sage.categories.magmas import Magmas
-            from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 
             target = SageMagmaticAlgebras(self.base_ring()).WithBasis()
-            algebra = self._sage_algebra_from_source_with_target(magma, Magmas(), target)
-            assert False, (
-                f"Sage constructs {algebra.category()} in {target}, but category_specs "
-                "has no project magmatic/nonassociative algebra target yet"
+            return self._sage_algebra_from_source_with_target(
+                magma,
+                Magmas(),
+                target,
+                MagmaticAlgebras(self.base_ring()),
             )
 
         @final
-        def free_algebra_from_semigroup(self, semigroup: Semigroup) -> Algebra:
+        def free_algebra_from_semigroup(self, semigroup: Semigroup) -> AssociativeAlgebra:
             r"""Return the free ``R``-algebra object generated by ``semigroup``."""
-            from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
             from sage.categories.semigroups import Semigroups
 
             target = SageAssociativeAlgebras(self.base_ring()).WithBasis()
-            algebra = self._sage_algebra_from_source_with_target(semigroup, Semigroups(), target)
-            assert False, (
-                f"Sage constructs {algebra.category()} in {target}, but category_specs "
-                "has no project nonunital associative-algebra target yet"
+            return self._sage_algebra_from_source_with_target(
+                semigroup,
+                Semigroups(),
+                target,
+                AssociativeAlgebras(self.base_ring()),
             )
 
         @final
@@ -368,16 +478,16 @@ class Algebras(Category_module):
             return self._sage_algebra_from_source(group, Groups())
 
         @final
-        def free_algebra_from_additive_semigroup(self, semigroup: AdditiveSemigroup) -> Algebra:
+        def free_algebra_from_additive_semigroup(self, semigroup: AdditiveSemigroup) -> AssociativeAlgebra:
             r"""Return the ``R``-algebra induced by the additive semigroup law."""
             from sage.categories.additive_semigroups import AdditiveSemigroups
-            from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
 
             target = SageAssociativeAlgebras(self.base_ring()).WithBasis()
-            algebra = self._sage_algebra_from_source_with_target(semigroup, AdditiveSemigroups(), target)
-            assert False, (
-                f"Sage constructs {algebra.category()} in {target}, but category_specs "
-                "has no project nonunital associative-algebra target yet"
+            return self._sage_algebra_from_source_with_target(
+                semigroup,
+                AdditiveSemigroups(),
+                target,
+                AssociativeAlgebras(self.base_ring()),
             )
 
         @final
@@ -395,7 +505,30 @@ class Algebras(Category_module):
             return self._sage_algebra_from_source(group, AdditiveGroups())
 
         @final
-        def from_multiplication_tensor(self, multiplication: Tensor) -> Algebra:
+        def _right_multiplication_table(
+            self,
+            structure_constants: Sequence[Matrix],
+            rank: Integer,
+        ) -> Sequence[Matrix]:
+            from sage.matrix.constructor import matrix
+
+            assert all(
+                constants.nrows() == rank and constants.ncols() == rank
+                for constants in structure_constants
+            ), f"Each structure-constant matrix must be {rank} by {rank}: {structure_constants}"
+            return tuple(
+                matrix(
+                    self.base_ring(),
+                    [
+                        [structure_constants[output][left, right] for output in range(rank)]
+                        for left in range(rank)
+                    ],
+                )
+                for right in range(rank)
+            )
+
+        @final
+        def from_multiplication_tensor(self, multiplication: Tensor) -> MagmaticAlgebra:
             r"""Return the algebra whose product is encoded by ``multiplication``.
 
             The tensor must lie in ``T_R(M)[1, 2]``. Its parent determines the
@@ -415,11 +548,30 @@ class Algebras(Category_module):
             assert len(structure_constants) == base_module.rank(), (
                 f"Expected one coordinate matrix for each output generator of {base_module}: {structure_constants}"
             )
-            assert False, (
-                "from_multiplication_tensor extracted tensor structure constants, "
-                "but still needs a Sage-backed finite-rank algebra parent "
-                "constructor from a base module plus a (1, 2) tensor"
-            )
+            from sage.algebras.finite_dimensional_algebras.finite_dimensional_algebra import FiniteDimensionalAlgebra
+
+            R = self.base_ring()
+            table = self._right_multiplication_table(structure_constants, base_module.rank())
+            sage_magmatic_target = SageMagmaticAlgebras(R).FiniteDimensional().WithBasis()
+            algebra = FiniteDimensionalAlgebra(R, table, category=sage_magmatic_target)
+            categories: list[Category] = [sage_magmatic_target]
+            if algebra.is_associative():
+                categories.extend(
+                    [
+                        AssociativeAlgebras(R),
+                        SageAssociativeAlgebras(R).FiniteDimensional().WithBasis(),
+                    ]
+                )
+                if algebra.is_unitary():
+                    categories.extend(
+                        [
+                            self.category(),
+                            self.category().FiniteDimensional(),
+                            self.category().WithBasis(),
+                            self.category().WithBasis().FiniteDimensional(),
+                        ]
+                    )
+            return self._refine_constructed_magmatic_algebra(algebra, categories)
 
     _Constructors = Constructors
 
@@ -460,3 +612,12 @@ AlgebrasEnd = AlgebraEndCategory.ParentMethods
 AlgebrasAut = AlgebraAutCategory.ParentMethods
 AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
 AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
+
+MagmaticAlgebrasCategory = MagmaticAlgebras
+MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
+MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
+MagmaticAlgebrasMorphism = MagmaticAlgebras.MorphismMethods
+AssociativeAlgebrasCategory = AssociativeAlgebras
+AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
+AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
+AssociativeAlgebrasMorphism = AssociativeAlgebras.MorphismMethods

@@ -39,6 +39,10 @@ from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
 from .algebras import (
+    AssociativeAlgebrasCategory,
+    AssociativeAlgebrasElement,
+    AssociativeAlgebrasMorphism,
+    AssociativeAlgebrasObject,
     AlgebrasAut,
     AlgebrasAutCategory,
     AlgebrasAutomorphism,
@@ -51,6 +55,10 @@ from .algebras import (
     AlgebrasHomCategory,
     AlgebrasMorphism,
     AlgebrasObject,
+    MagmaticAlgebrasCategory,
+    MagmaticAlgebrasElement,
+    MagmaticAlgebrasMorphism,
+    MagmaticAlgebrasObject,
 )
 from .cat import (
     CatAut,
@@ -378,6 +386,14 @@ RAlgebra = AlgebrasCategory
 Algebra = AlgebrasObject
 AlgebraElement = AlgebrasElement
 AlgebraMorphism = AlgebrasMorphism
+MagmaticAlgebraCategory = MagmaticAlgebrasCategory
+MagmaticAlgebra = MagmaticAlgebrasObject
+MagmaticAlgebraElement = MagmaticAlgebrasElement
+MagmaticAlgebraMorphism = MagmaticAlgebrasMorphism
+AssociativeAlgebraCategory = AssociativeAlgebrasCategory
+AssociativeAlgebra = AssociativeAlgebrasObject
+AssociativeAlgebraElement = AssociativeAlgebrasElement
+AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
 AlgebraBasis = AbstractFamily
 HochschildChainComplex = HochschildComplex
 
@@ -701,6 +717,20 @@ class AlgebraTypes:
     Aut = AlgebrasAut
     Endomorphism = AlgebrasEndomorphism
     Automorphism = AlgebrasAutomorphism
+
+
+class MagmaticAlgebraTypes:
+    Category = staticmethod(MagmaticAlgebrasCategory)
+    Object = MagmaticAlgebrasObject
+    Element = MagmaticAlgebrasElement
+    Morphism = MagmaticAlgebrasMorphism
+
+
+class AssociativeAlgebraTypes:
+    Category = staticmethod(AssociativeAlgebrasCategory)
+    Object = AssociativeAlgebrasObject
+    Element = AssociativeAlgebrasElement
+    Morphism = AssociativeAlgebrasMorphism
 
 
 class PosetTypes:
