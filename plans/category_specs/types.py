@@ -60,6 +60,7 @@ from .algebras import (
     MagmaticAlgebrasMorphism,
     MagmaticAlgebrasObject,
 )
+from .algebras.subcategories.constructions.ideals import AlgebraIdealsObject
 from .cat import (
     CatAut,
     CatAutCategory,
@@ -231,7 +232,6 @@ from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
 from .tensor_algebra_components import (
-    TensorAlgebraComponent,
     TensorAlgebraComponentsAut,
     TensorAlgebraComponentsAutCategory,
     TensorAlgebraComponentsAutomorphism,
@@ -309,6 +309,7 @@ Submodule = SubModule
 QuotientModule = ModulesCategory.Quotients.ParentMethods
 TensorProductRModule = ModulesCategory.TensorProducts.ParentMethods
 TensorAlgebraComponent = TensorAlgebraComponentsObject
+Tensor = TensorAlgebraComponentsElement
 
 Ideal = _RingIdeals.ParentMethods
 PrimeIdeal = Ideal
@@ -395,6 +396,7 @@ AssociativeAlgebra = AssociativeAlgebrasObject
 AssociativeAlgebraElement = AssociativeAlgebrasElement
 AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
 AlgebraBasis = AbstractFamily
+AlgebraIdeal = AlgebraIdealsObject
 HochschildChainComplex = HochschildComplex
 
 # Sets

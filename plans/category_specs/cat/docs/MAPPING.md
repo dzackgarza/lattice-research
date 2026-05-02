@@ -190,28 +190,36 @@ functor-specific element surface and the `CatHomCategory`, `CatEndCategory`, and
 
 ## Constructors
 
-`Cat().Constructors()` owns category-object constructor entry points. It currently
-exposes:
+`Constructors` is a plain collection class. A category opts in by defining a
+`Constructors` collector that advertises named constructors for objects it owns or
+constructs and then refines into its hierarchy. The collector is not a category, not a
+functorial construction, and not a subcategory namespace.
+
+`Cat().Constructors()` owns category-object constructor entry points and constructor
+collection. It currently exposes:
 
 - `EmptyCategory()`: the bottom category object used by `Cat().meet([])` and by any
   surface that needs the empty category as a category object.
 
-It also exposes constructor discoverability without moving constructor ownership:
+It also exposes constructor discoverability without moving constructor ownership. There
+is no public registration call and no separate aggregate object. The declaration is the
+existence of an explicit nested `Constructors` class on a category object. During Cat
+object initialization, backend code inspects that class and installs deterministic
+prefixed forwarding methods on `Cat.Constructors`.
 
-- `Aggregate()`: a runtime collector over zero-parameter top-level constructor
-  namespaces, currently `Cat()`, `Sets()`, `Posets()`, `Rings()`, and
-  `TopologicalSpaces()`.
-- `AggregateFor(named_categories)`: a collector over explicit `(prefix, category)`
-  pairs, used when the constructor namespace is parameterized by data such as a base
-  ring.
+Prefixed names are the category prefix and constructor method name joined by an
+underscore. A category-local constructor name must not repeat the category noun in a
+`category_from_*` pattern: use `C.Constructors().from_xyz(...)`, so Cat exposes
+`cat_prefix_from_xyz(...)`. For example, `Posets().Constructors().from_digraph(...)`
+is exposed as `Cat().Constructors().posets_from_digraph(...)`. These methods forward
+to the original category-owned constructor collector; they do not move constructor
+ownership to `Cat`.
 
-Aggregate names are deterministic: the category prefix and constructor method name are
-joined by an underscore. For example,
-`Posets().Constructors().poset_from_digraph(...)` is exposed as
-`Cat().Constructors().Aggregate().posets_poset_from_digraph(...)`. The aggregate also
-provides `names()` for discoverability. This is instance-level binding of existing
-constructor callables, not class splicing, Sage method-provider manipulation, or a new
-owner for the constructors.
+Constructor placement is a style boundary in this spec. Prefer explicit top-level
+category collectors because they are easy to audit and collect. Do not enforce that
+preference with runtime guards whose only effect is to reject proper subcategories; a
+future registered subcategory collector may be valid if it is a deliberate opt-in
+surface.
 
 Ordinary category objects are registered by being Sage/project `Category` instances.
 Functors are registered by being Sage `Functor` or `ConstructionFunctor` instances and

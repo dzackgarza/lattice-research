@@ -15,6 +15,8 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
+from collections.abc import Callable
+from functools import wraps
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
@@ -83,6 +85,9 @@ _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
 
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
+_CAT_CONSTRUCTOR_METADATA_NAMES = frozenset({"base_ring", "category", "names"})
+_CAT_CONSTRUCTOR_CLASS: type | None = None
+_CAT_CONSTRUCTOR_OWNERS: dict[str, SageCategory] = {}
 
 
 def _static_category_class(category: SageCategory) -> type:
@@ -90,6 +95,139 @@ def _static_category_class(category: SageCategory) -> type:
     if isinstance(cls, DynamicMetaclass):
         return cls.__base__
     return cls
+
+
+def _identifier_fragment(text: str) -> str:
+    characters: list[str] = []
+    previous_was_underscore = True
+    for character in text.lower():
+        if character.isalnum():
+            characters.append(character)
+            previous_was_underscore = False
+        elif not previous_was_underscore:
+            characters.append("_")
+            previous_was_underscore = True
+    return "".join(characters).strip("_")
+
+
+def _camel_case_to_snake(name: str) -> str:
+    characters: list[str] = []
+    for index, character in enumerate(name):
+        if character.isupper() and index and not name[index - 1].isupper():
+            characters.append("_")
+        characters.append(character.lower())
+    return _identifier_fragment("".join(characters))
+
+
+def _singular_prefix(prefix: str) -> str:
+    if prefix.endswith("ies"):
+        return f"{prefix[:-3]}y"
+    if prefix.endswith("s"):
+        return prefix[:-1]
+    return prefix
+
+
+def _explicit_constructors_provider(category: SageCategory) -> type | None:
+    category_class = _static_category_class(category)
+    for provider_name in ("Constructors", "_Constructors"):
+        provider = category_class.__dict__.get(provider_name)
+        if isinstance(provider, type):
+            return provider
+    return None
+
+
+def _cat_constructor_prefix(category: SageCategory) -> str:
+    prefix = _camel_case_to_snake(_static_category_class(category).__name__)
+    base_getter = getattr(category, "base_ring", None)
+    if callable(base_getter):
+        base_ring = base_getter()
+        if base_ring is not None:
+            return f"{prefix}_{_identifier_fragment(str(base_ring))}"
+    return prefix
+
+
+def _validate_cat_constructor_method_name(prefix: str, constructor_name: str) -> None:
+    normalized_name = _camel_case_to_snake(constructor_name)
+    forbidden_starts = {f"{prefix}_from_", f"{_singular_prefix(prefix)}_from_"}
+    assert not any(normalized_name.startswith(start) for start in forbidden_starts), (
+        f"{constructor_name} repeats Cat constructor prefix {prefix}; use from_* locally"
+    )
+
+
+def _cat_constructor_method_names(prefix: str, provider: type) -> tuple[str, ...]:
+    names: list[str] = []
+    for name, value in provider.__dict__.items():
+        if (
+            name.startswith("_")
+            or name in _CAT_CONSTRUCTOR_METADATA_NAMES
+            or not name.isidentifier()
+            or not callable(value)
+            or getattr(value, "_cat_constructor_generated_forwarder", False)
+        ):
+            continue
+        _validate_cat_constructor_method_name(prefix, name)
+        names.append(name)
+    return tuple(names)
+
+
+def _cat_constructor_forwarder(prefix: str, constructor_name: str) -> Callable[..., Any]:
+    def forwarded_constructor(self, *args: Any, **kwargs: Any) -> Any:
+        constructors = _CAT_CONSTRUCTOR_OWNERS[prefix].Constructors()
+        return getattr(constructors, constructor_name)(*args, **kwargs)
+
+    forwarded_constructor.__name__ = f"{prefix}_{constructor_name}"
+    forwarded_constructor.__qualname__ = f"Cat.Constructors.{prefix}_{constructor_name}"
+    forwarded_constructor.__doc__ = f"Forward to ``{prefix}.Constructors().{constructor_name}``."
+    forwarded_constructor._cat_constructor_generated_forwarder = True
+    return forwarded_constructor
+
+
+def _install_cat_constructor_methods() -> None:
+    if _CAT_CONSTRUCTOR_CLASS is None:
+        return
+    for prefix, category in sorted(_CAT_CONSTRUCTOR_OWNERS.items()):
+        provider = _explicit_constructors_provider(category)
+        if provider is None:
+            continue
+        for constructor_name in _cat_constructor_method_names(prefix, provider):
+            method_name = f"{prefix}_{constructor_name}"
+            existing = getattr(_CAT_CONSTRUCTOR_CLASS, method_name, None)
+            assert existing is None or getattr(existing, "__name__", None) == method_name, (
+                f"duplicate Cat constructor method: {method_name}"
+            )
+            if existing is None:
+                setattr(
+                    _CAT_CONSTRUCTOR_CLASS,
+                    method_name,
+                    _cat_constructor_forwarder(prefix, constructor_name),
+                )
+
+
+def register_cat_constructor_class(
+    constructor_class: type,
+    root_category: SageCategory | None = None,
+) -> None:
+    r"""Register ``Cat.Constructors`` as the backend aggregation target."""
+    global _CAT_CONSTRUCTOR_CLASS
+
+    assert _CAT_CONSTRUCTOR_CLASS is None or _CAT_CONSTRUCTOR_CLASS is constructor_class, (
+        "Cat.Constructors class already registered"
+    )
+    _CAT_CONSTRUCTOR_CLASS = constructor_class
+    if root_category is not None:
+        _register_cat_constructor_owner(root_category)
+    _install_cat_constructor_methods()
+
+
+def _register_cat_constructor_owner(category: SageCategory) -> None:
+    provider = _explicit_constructors_provider(category)
+    if provider is None:
+        return
+    prefix = _cat_constructor_prefix(category)
+    existing = _CAT_CONSTRUCTOR_OWNERS.get(prefix)
+    assert existing is None or existing is category, f"duplicate Cat constructor prefix: {prefix}"
+    _CAT_CONSTRUCTOR_OWNERS[prefix] = category
+    _install_cat_constructor_methods()
 
 
 def _local_parent_methods(category: SageCategory) -> type | None:
@@ -225,6 +363,22 @@ class _CatObjectMixin:
     that preserves Sage's category framework while making categories themselves
     parent objects in ``Cat()``.
     """
+
+    def __init_subclass__(cls, **kwargs: Any) -> None:
+        super().__init_subclass__(**kwargs)
+        initializer = cls.__dict__.get("__init__")
+        if initializer is None:
+            return
+        if getattr(initializer, "_cat_constructor_registration_wrapper", False):
+            return
+
+        @wraps(initializer)
+        def initialize_and_register(self, *args: Any, **kwargs: Any) -> None:
+            initializer(self, *args, **kwargs)
+            _register_cat_constructor_owner(self)
+
+        initialize_and_register._cat_constructor_registration_wrapper = True
+        cls.__init__ = initialize_and_register
 
     @final
     def _init_cat_object(self) -> None:
@@ -728,5 +882,3 @@ class SuperModulesCategory(_CatObjectMixin, SageSuperModulesCategory, Parent):
     def __init__(self, category: SageCategory) -> None:
         self._init_cat_object()
         SageSuperModulesCategory.__init__(self, category)
-
-

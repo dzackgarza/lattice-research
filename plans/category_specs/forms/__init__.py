@@ -69,9 +69,6 @@ def FormedModules(base_ring: Ring) -> Category:
 
     return Modules(base_ring, dispatch=False).WithForms()
 
-
-Forms = FormedModules
-
 FormedModulesHomCategory = RModuleHomCategory
 FormedModulesEndCategory = RModuleEndCategory
 FormedModulesAutCategory = RModuleAutCategory

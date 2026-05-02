@@ -87,7 +87,18 @@ Rules:
   `sage.categories.pushout`, not to Sage `FunctorialConstructionCategory` category
   objects such as `C.Subobjects()`. Keep this distinction explicit before adding
   wrappers elsewhere.
-- `Cat().Constructors()` currently owns `EmptyCategory()` as the bottom category entry
-  point.
+- `Constructors` classes are plain opt-in constructor collectors, not category objects
+  or construction categories. They advertise named constructors for the category
+  surface that owns them. An explicit nested `Constructors` class is the declaration;
+  do not add a separate public registration method or construction category.
+- `Cat().Constructors()` owns `EmptyCategory()` as the bottom category entry point and
+  owns constructor collection. The Cat backend collects methods from explicit
+  `C.Constructors` classes under deterministic prefixed names such as `C_x_y_z`,
+  without moving constructor ownership to `Cat` or exposing `Aggregate()`/
+  `AggregateFor(...)`. Generic constructor names must not repeat the category noun:
+  use `C.Constructors().from_xyz(...)`, so Cat exposes `cat_prefix_from_xyz(...)`,
+  rather than `C.Constructors().category_from_xyz(...)`.
+- Prefer top-level category constructor collectors in this spec. This is a documented
+  placement convention, not a runtime law enforced with assertion guards.
 - Nontrivial algorithms belong under `implementations/`; trivial Sage wiring stays
   on the category surface.

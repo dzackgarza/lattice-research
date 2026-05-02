@@ -311,6 +311,30 @@ duplication" or "make smokes pass"; it is:
   programmer-shaped vocabulary;
 - ignore current implementation difficulty until the mathematical owner is settled.
 
+When spawning a subagent from an interactive chat, always call `wait_agent` and keep the
+main turn open until the subagent returns or reaches an explicit blocker. Do not spawn a
+subagent, report only that it was spawned, and end the turn while the user has no
+in-thread completion summary. If asynchronous delegation is explicitly requested, state
+that exception before ending the turn.
+
+When subagent model selection is available, attempt to use Codex Spark for bounded
+audit, review, and exploration work before spending higher-cost model budget. Its usage
+is metered separately from the main Codex budget and currently has substantial cheap
+capacity. Escalate only when the task requires deeper reasoning than Spark can
+reasonably provide.
+
+Subagent audit prompts must transfer the actual judgment required for the task, not
+just a surface prohibition or a regex-shaped hunt. Before asking a subagent to find or
+fix violations, state the governing source of truth, the mathematical or architectural
+principle being audited, the ownership boundary, and the distinction between a wrong
+object and a right object in the wrong place. Require classification before remedy:
+each finding should say whether the object is correct and correctly owned, correct but
+misplaced, incorrect in substance, merely compatibility/runtime surface, or outside the
+audit scope. Do not prime a subagent toward deletion, replacement, or mechanical
+compliance before that classification is made. Correct vocabulary, theory, and source
+material must be preserved; when the problem is ownership or placement, the expected
+remedy is to move or centralize it, not erase it.
+
 **Strict-Supercategory Separation of Concerns**:
 A category spec should define only structure that first becomes meaningful at that
 category, and not in any strict supercategory. This is the main category-theoretic
@@ -948,12 +972,29 @@ these technical requirements:
     creation (e.g., `MyImpl.from_data(...)`).
 5.  **Post-init Validation**: Use a **single post-init validator**
     (`model_post_init` in Pydantic v2) for all state validation after construction.
-6.  **Public Registration**: All implementations must be registered in the
-    corresponding top-level category's `Constructors()` inner class. This is the
-    exclusive public entry point for using the implementation. Subcategories are
-    refinement targets and method owners, not constructor namespaces. Never add or
-    propose subcategory-local constructor paths such as
-    `Algebras(k).FiniteDimensional().WithBasis().Constructors()`.
+6.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
+    selected category surfaces. It is not a category, not a functorial construction,
+    and not a refinement target. The declaration is the existence of an explicit
+    nested `Constructors` class on a category object; do not add a separate public
+    registration method, flag, or construction category for this. In this spec work,
+    constructor collectors should live on explicit top-level category surfaces by style
+    and readability, rather than on deeply nested subcategories. Do not add assertion
+    guards or other runtime enforcement whose only purpose is to prove that a
+    constructor collector is top-level.
+7.  **Constructor Collection**: The intended public surface is the canonical collection
+    exposed directly from `Cat().Constructors()`: Cat backend code observes category
+    objects, collects methods under each explicit `C.Constructors`, and exposes
+    prefixed forwarding methods such as `C_x_y_z`. There is no public
+    `Aggregate()`/`AggregateFor(...)` layer. Do not repeat the category noun in
+    generic constructor names: prefer `C.Constructors().from_xyz(...)`, which Cat
+    exposes as `cat_prefix_from_xyz(...)`, rather than
+    `C.Constructors().category_from_xyz(...)`.
+8.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
+    method owners, not constructor namespaces. Do not add or propose constructor paths
+    such as `Algebras(k).FiniteDimensional().WithBasis().Constructors()` merely because
+    Sage has a constructor family or because an implementation can refine into that
+    subcategory. Put the advertised constructor on the chosen category collector and
+    refine the constructed object afterward.
 
 ## super_categories
 

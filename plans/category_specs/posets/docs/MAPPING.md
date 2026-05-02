@@ -54,19 +54,19 @@ documented Sage input cases are non-variadic adaptations that route through the
 same finite poset construction surface or through existing-poset refinement.
 
 The implemented constructor names are:
-- `poset_from_digraph`, the canonical finite-poset constructor;
-- `poset_from_relations`;
-- `poset_from_order_predicate`;
-- `poset_from_cover_predicate`;
-- `poset_from_upper_covers_dict`;
-- `poset_from_upper_covers`;
-- `poset_from_existing`.
+- `from_digraph`, the canonical finite-poset constructor;
+- `from_relations`;
+- `from_order_predicate`;
+- `from_cover_predicate`;
+- `from_upper_covers_dict`;
+- `from_upper_covers`;
+- `from_existing`.
 
 `MeetSemilattice(...)`, `JoinSemilattice(...)`, and `LatticePoset(...)` map to
 finite refinement constructors over the same named input cases, with the extra
-assertion that meets, joins, or both exist. Their names are formed by replacing
-the `poset_` prefix above with `meet_semilattice_`, `join_semilattice_`, or
-`lattice_`.
+assertion that meets, joins, or both exist. Their names use the mathematical target
+object, such as `meet_semilattice_from_digraph`, `join_semilattice_from_digraph`, or
+`lattice_from_digraph`.
 
 `FinitePosets_n(n)` maps to a finite enumerated-set constructor for isomorphism
 classes of posets on `n` elements. It should not become a poset subcategory.

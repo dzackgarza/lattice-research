@@ -442,41 +442,6 @@ class Rings(Category_singleton):
             return "Sage ring constructors"
 
         @final
-        def __contains__(self, R: Any) -> bool:
-            if isinstance(R, MatrixSpace):
-                return R.nrows() == R.ncols()
-            return any(
-                R in category
-                for category in (
-                    _ZZ(),
-                    _QQ(),
-                    _QQbar(),
-                    _AA(),
-                    _RR(),
-                    _CC(),
-                    _Zp(),
-                    _Qp(),
-                    _IntegerModRings(),
-                    _RealFields(),
-                    _ComplexFields(),
-                    _RealDoubleFields(),
-                    _ComplexDoubleFields(),
-                    _RealIntervalFields(),
-                    _ComplexIntervalFields(),
-                    _RealBallFields(),
-                    _ComplexBallFields(),
-                    _FiniteFields(),
-                    _NumberFields(),
-                    _QuadraticNumberFields(),
-                    _CyclotomicFields(),
-                    _PolynomialRings(),
-                    _PowerSeriesRings(),
-                    _LaurentSeriesRings(),
-                    _PuiseuxSeriesRings(),
-                )
-            )
-
-        @final
         def ZZ(self) -> Ring:
             from sage.all import ZZ
 

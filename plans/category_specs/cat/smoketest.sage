@@ -20,10 +20,12 @@ from sage.categories.functor import IdentityFunctor
 
 
 C = Cat()
-empty_category = C.Constructors().EmptyCategory()
-aggregate_constructors = C.Constructors().Aggregate()
-module_constructors = C.Constructors().AggregateFor((("modules", Modules(ZZ)),))
-joined_category = Category.join([Rings(), Posets()])
+registered_set_category = Sets()
+registered_ring_category = Rings()
+registered_poset_category = Posets()
+cat_constructors = C.Constructors()
+empty_category = cat_constructors.EmptyCategory()
+joined_category = Category.join([registered_ring_category, registered_poset_category])
 
 SMOKE_STATEMENTS = (
     ("Cat() is singleton-valued", lambda _: Cat() is C),
@@ -39,19 +41,14 @@ SMOKE_STATEMENTS = (
     ("EmptyCategory() is below Rings()", lambda _: empty_category.is_subcategory(Rings())),
     ("Sets() is not below EmptyCategory()", lambda _: not Sets().is_subcategory(empty_category)),
     ("Cat().meet([]) is EmptyCategory()", lambda _: C.meet([]) is empty_category),
-    ("Cat constructor aggregate lists EmptyCategory", lambda _: "cat_EmptyCategory" in aggregate_constructors.names()),
-    ("Cat constructor aggregate lists ring integers", lambda _: "rings_ZZ" in aggregate_constructors.names()),
     (
-        "Cat constructor aggregate lists poset digraph constructor",
-        lambda _: "posets_poset_from_digraph" in aggregate_constructors.names(),
+        "Cat constructor collection invokes EmptyCategory constructor",
+        lambda _: cat_constructors.cat_EmptyCategory() is empty_category,
     ),
     (
-        "Cat constructor aggregate invokes EmptyCategory constructor",
-        lambda _: aggregate_constructors.cat_EmptyCategory() is empty_category,
-    ),
-    (
-        "Cat constructor aggregate supports explicit parameterized categories",
-        lambda _: "modules_FreeModule" in module_constructors.names(),
+        "Cat constructor collection invokes set partition constructor",
+        lambda _: sorted(map(sorted, cat_constructors.sets_SetPartition([[1, 2], [3]])))
+        == [[1, 2], [3]],
     ),
     ("Cat().join([Rings(), Posets()]) is a category", lambda _: C.join([Rings(), Posets()]) in C),
     ("Cat().join([Rings(), Posets()]) is a join category", lambda _: C.join([Rings(), Posets()]) in C.JoinCategories()),

@@ -303,7 +303,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_digraph(
+        def from_digraph(
             self,
             digraph: DiGraph,
             *,
@@ -327,7 +327,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_relations(
+        def from_relations(
             self,
             elements: Iterable[PosetElement],
             relations: Iterable[tuple[PosetElement, PosetElement]],
@@ -352,7 +352,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_order_predicate(
+        def from_order_predicate(
             self,
             elements: Iterable[PosetElement],
             le: Callable[[PosetElement, PosetElement], bool],
@@ -376,7 +376,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_cover_predicate(
+        def from_cover_predicate(
             self,
             elements: Iterable[PosetElement],
             covers: Callable[[PosetElement, PosetElement], bool],
@@ -400,7 +400,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_upper_covers_dict(
+        def from_upper_covers_dict(
             self,
             upper_covers: dict[PosetElement, Sequence[PosetElement]],
             *,
@@ -422,7 +422,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_upper_covers(
+        def from_upper_covers(
             self,
             upper_covers: Sequence[Sequence[PosetElement]],
             *,
@@ -444,7 +444,7 @@ class Posets(Category):
             )
 
         @final
-        def poset_from_existing(self, poset: Poset) -> Poset:
+        def from_existing(self, poset: Poset) -> Poset:
             r"""Return ``poset`` refined into the project finite-poset category."""
             return self._refine_constructed_poset(self._raw_poset(poset), [])
 
