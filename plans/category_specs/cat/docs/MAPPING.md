@@ -150,6 +150,18 @@ These classes use Sage's `RegressiveCovariantConstructionCategory` plus
 `Category_over_base`, so they follow the same `category_of(...)` entry point as
 Sage's built-in regressive constructions.
 
+Objects in any slice or coslice construction expose the universal structure-morphism
+surface:
+
+- `structure_morphism()` returns the distinguished morphism into or out of the fixed
+  object;
+- `structure_domain()` is `structure_morphism().domain()`;
+- `structure_codomain()` is `structure_morphism().codomain()`.
+
+Set, topological-space, and other lower categories may keep local names such as
+`structure_map()` or `structure_functor()` for the category-specific morphism type,
+but they do not restate `structure_domain()` or `structure_codomain()`.
+
 ## Hom, End, and Aut Categories
 
 `CatHomCategory` is the category of functor categories internal to `Cat()`.  The

@@ -2,12 +2,27 @@ r"""Slice construction category for categories over a fixed category."""
 
 from __future__ import annotations
 
-from typing import override
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.functor import Functor
 from sage.misc.abstract_method import abstract_method
 
 from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
+
+if TYPE_CHECKING:
+    from ....types import CategoryObject
+
+
+@final
+def structure_domain(self) -> CategoryObject:
+    r"""Return the domain of the structure morphism."""
+    return self.structure_morphism().domain()
+
+
+@final
+def structure_codomain(self) -> CategoryObject:
+    r"""Return the codomain of the structure morphism."""
+    return self.structure_morphism().codomain()
 
 
 class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
@@ -33,13 +48,14 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
             r"""Return the structure functor from this category to ``C``."""
             ...
 
-        def structure_domain(self) -> Category:
-            r"""Return the domain category of the structure functor."""
-            return self
+        @override
+        @final
+        def structure_morphism(self) -> Functor:
+            r"""Return the structure functor as the structure morphism in ``Cat()``."""
+            return self.structure_functor()
 
-        def structure_codomain(self) -> Category:
-            r"""Return the codomain category of the structure functor."""
-            return self.structure_category()
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

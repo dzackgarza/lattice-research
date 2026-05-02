@@ -17,7 +17,6 @@ from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import (
-        Set,
         SetElement,
         Subset,
     )
@@ -31,6 +30,11 @@ class _SetMorphisms:
     @abstract_method
     def pre_image(self, y: SetElement) -> Subset:
         r"""Return the inverse image of ``y`` under this set morphism."""
+        ...
+
+    @abstract_method
+    def preimage(self, subset: Subset) -> Subset:
+        r"""Return the inverse image of ``subset`` under this set morphism."""
         ...
 
     @abstract_method
@@ -97,12 +101,7 @@ class SetEndCategory(GenericEndCategory):
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "SetAutCategory")
 
-    class ParentMethods:
-        @abstract_method
-        def base_set(self) -> Set:
-            r"""Return the set whose endomorphisms this object contains."""
-            ...
-
+    class ParentMethods: ...
     ElementMethods = _SetEndomorphisms
     class MorphismMethods: ...
 

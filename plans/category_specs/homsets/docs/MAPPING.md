@@ -23,6 +23,10 @@ project hom/end/aut category hierarchy.
 | `C.AutCategory().Of(A)` | `Aut_C(A)`, the invertible part of `End_C(A)`. | Parent: `end_category`, `domain`, `codomain`, `identity`; element: `is_invertible`, `is_isomorphism`, `inverse`, `order`. |
 | `AutCategory.from_end_category` | Generic construction of `Aut_C(A)` from `End_C(A)`. | Builds a Sage `ConditionSet` over the end object using the aut predicate, then refines through the requested aut category. |
 
+Because `End_C(A)` is `Hom_C(A, A)`, the object `A` is already represented by the
+generic hom-object methods `domain()` and `codomain()`. Subtree aliases such as
+`base_set()` or `base_space()` are redundant and map to `domain()` for migration.
+
 ## Subtree Contract
 
 Subtree hom-category files use `HomCategoryOf(C)`, `GenericEndCategory`, and

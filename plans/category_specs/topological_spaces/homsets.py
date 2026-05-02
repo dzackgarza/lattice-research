@@ -2,16 +2,12 @@ r"""Hom, end, and aut categories for topological spaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
-
-if TYPE_CHECKING:
-    from ..types import MetricSpace, TopologicalSpace
-
 
 class _TopologicalHomCategoryObjectMethods:
     r"""Topological hom parent methods; generic hom methods are inherited."""
@@ -21,11 +17,6 @@ class _ContinuousMaps:
     @abstract_method
     def is_continuous(self) -> bool:
         r"""Return whether this map is continuous."""
-        ...
-
-    @abstract_method
-    def preimage(self, subset: TopologicalSpace) -> TopologicalSpace:
-        r"""Return the inverse image of ``subset`` as a topological subspace."""
         ...
 
 
@@ -79,12 +70,7 @@ class TopologicalSpaceEndCategory(GenericEndCategory):
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "TopologicalSpaceAutCategory")
 
-    class ParentMethods:
-        @abstract_method
-        def base_space(self) -> TopologicalSpace:
-            r"""Return the topological space whose endomorphisms this object contains."""
-            ...
-
+    class ParentMethods: ...
     class ElementMethods: ...
     class MorphismMethods: ...
 
@@ -122,12 +108,7 @@ class MetricSpaceEndCategory(GenericEndCategory):
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "MetricSpaceAutCategory")
 
-    class ParentMethods:
-        @abstract_method
-        def base_space(self) -> MetricSpace:
-            r"""Return the metric space whose endomorphisms this object contains."""
-            ...
-
+    class ParentMethods: ...
     class ElementMethods: ...
     class MorphismMethods: ...
 

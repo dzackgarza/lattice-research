@@ -21,6 +21,14 @@ not a set-local duplicate.
 | Sage metric homsets | `TopologicalSpaces().Metric().HomCategory()` as short maps | The standard category of metric spaces uses distance-nonincreasing maps as morphisms; these are continuous maps with Lipschitz constant at most 1. | The spec records short-map morphisms even though current constructors do not enforce this effectively. Continuous maps remain the root topological hom notion. |
 | Sage product metric | `TopologicalSpaces().Metric().CartesianProducts()` | Product metric is the maximum of factor distances in Sage. | Keep metric product behavior in the metric subcategory, separate from product topology. |
 
+Continuous maps inherit set-map inverse-image vocabulary from `Sets().HomCategory()`:
+`f.preimage(U)` is the inverse image of a subset under the underlying set map. The
+topological refinement is expressed by the ambient topological-space methods on subsets,
+not by a second topological-only `preimage` obligation. Endomorphism objects use the
+generic end-domain vocabulary: `End_Top(X).domain()` names the underlying space, so
+`base_space()` is not a separate abstract method on topological or metric end
+categories.
+
 ## Root Topological Method Mapping
 
 The root space owns predicates and transforms that take a subset of a space. This is

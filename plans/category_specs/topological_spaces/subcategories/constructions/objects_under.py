@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
+from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
 
 if TYPE_CHECKING:
     from ....types import Morphism, TopologicalSpace
@@ -36,15 +37,14 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
             r"""Return the structure map from the base topological space."""
             ...
 
+        @override
         @final
-        def structure_domain(self) -> TopologicalSpace:
-            r"""Return the domain of the structure map."""
-            return self.structure_space()
+        def structure_morphism(self) -> Morphism:
+            r"""Return the structure map as the universal structure morphism."""
+            return self.structure_map()
 
-        @final
-        def structure_codomain(self) -> TopologicalSpace:
-            r"""Return the codomain of the structure map."""
-            return self
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

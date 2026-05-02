@@ -67,18 +67,6 @@ class _RealSets(Category_singleton):
             r"""Return the ``i``-th interval component of this real subset."""
             ...
 
-        @override
-        @abstract_method
-        def ambient(self) -> RealSubset: ...
-
-        @override
-        @abstract_method
-        def lift(self, x: SetElement) -> SetElement: ...
-
-        @override
-        @abstract_method
-        def retract(self, x: SetElement) -> SetElement: ...
-
         @overload
         def union(self, other: RealSubset) -> RealSubset: ...
 
@@ -90,7 +78,9 @@ class _RealSets(Category_singleton):
         def union(
             self,
             other: RealSubset | Sequence[RealSubset],
-        ) -> RealSubset: ...
+        ) -> RealSubset:
+            r"""Return the finite-interval-normalized union."""
+            ...
 
         @overload
         def intersection(self, other: RealSubset) -> RealSubset: ...
@@ -103,7 +93,9 @@ class _RealSets(Category_singleton):
         def intersection(
             self,
             other: RealSubset | Sequence[RealSubset],
-        ) -> RealSubset: ...
+        ) -> RealSubset:
+            r"""Return the finite-interval-normalized intersection."""
+            ...
 
         @abstract_method
         def inf(self) -> RealNumber:
@@ -117,15 +109,21 @@ class _RealSets(Category_singleton):
 
         @override
         @abstract_method
-        def complement(self) -> RealSubset: ...
+        def complement(self) -> RealSubset:
+            r"""Return the finite-interval-normalized complement in the real line."""
+            ...
 
         @override
         @abstract_method
-        def difference(self, other: RealSubset) -> RealSubset: ...
+        def difference(self, other: RealSubset) -> RealSubset:
+            r"""Return the finite-interval-normalized set difference."""
+            ...
 
         @override
         @abstract_method
-        def symmetric_difference(self, other: RealSubset) -> RealSubset: ...
+        def symmetric_difference(self, other: RealSubset) -> RealSubset:
+            r"""Return the finite-interval-normalized symmetric difference."""
+            ...
 
         @abstract_method
         def contains(self, x: SetElement) -> bool:
@@ -135,10 +133,6 @@ class _RealSets(Category_singleton):
         @override
         @abstract_method
         def __contains__(self, x: Any) -> bool: ...
-
-        @override
-        @abstract_method
-        def is_subset(self, other: RealSubset) -> bool: ...
 
         @staticmethod
         @abstract_method
