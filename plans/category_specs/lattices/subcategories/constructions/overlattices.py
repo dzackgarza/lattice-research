@@ -9,7 +9,7 @@ from sage.misc.abstract_method import abstract_method
 from ....cat import Category_module
 
 if TYPE_CHECKING:
-    from ....types import Cardinality, Lattice, LatticeMorphism, Ring
+    from ....types import Cardinality, Lattice, LatticeMorphism
 
 
 class _Overlattices(Category_module):

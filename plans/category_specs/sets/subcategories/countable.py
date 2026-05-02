@@ -10,7 +10,8 @@ from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageF
 from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as SageInfiniteEnumeratedSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, Set, SetElement, SetMorphism

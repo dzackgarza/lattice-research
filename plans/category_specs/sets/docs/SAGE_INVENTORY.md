@@ -480,6 +480,58 @@ Key methods:
 
 * * *
 
+### `SetPartition` / `SetPartitions` — `src/sage/combinat/set_partition.py`
+
+`SetPartition` is an immutable partition of a finite set.  Sage represents a
+partition as a set of pairwise disjoint nonempty subsets whose union is the base set.
+`SetPartitions(s)` is the `Parent` of all partitions of `s`; `SetPartitions(n)` uses
+`{1, ..., n}` as the base set.  `SetPartitions(s, k)` restricts to partitions into
+`k` blocks, and `SetPartitions(s, part)` restricts to partitions with the given block
+sizes.
+
+`SetPartitions()` is the countable parent of all finite set partitions.  Fixed-base
+parents are finite enumerated sets.
+
+Key `SetPartition` methods:
+
+| Method | Description |
+| --- | --- |
+| `base_set()` | Union of all blocks |
+| `base_set_cardinality()` / `size` | Cardinality of the base set |
+| `cardinality()` | Number of blocks |
+| `standard_form()` | Blocks as sorted lists when possible |
+| `shape()` / `to_partition()` | Integer partition of block sizes |
+| `__mul__()` / `inf` | Infimum in the refinement lattice |
+| `sup(t)` | Supremum in the refinement lattice |
+| `arcs()`, `openers()`, `closers()` | Arc-diagram data |
+| `to_restricted_growth_word(...)` | Restricted-growth-word encodings |
+| `to_rook_placement(...)` | Rook-placement encodings |
+| `crossings()`, `nestings()` | Crossing and nesting data |
+| `is_noncrossing()`, `is_nonnesting()` | Crossing/nesting predicates |
+| `standardization()`, `restriction(I)` | Derived partitions on standard or restricted base sets |
+| `refinements()`, `coarsenings()`, `strict_coarsenings()` | Refinement/coarsening enumerations |
+
+Key `SetPartitions` parent methods:
+
+| Method | Description |
+| --- | --- |
+| `_element_constructor_(s, check=True)` | Construct a partition element from blocks |
+| `from_restricted_growth_word_blocks(w)` | Partition from restricted-growth word, block convention |
+| `from_restricted_growth_word_intertwining(w)` | Partition from restricted-growth word, intertwining convention |
+| `from_arcs(arcs, n)` | Coarsest partition of `{1, ..., n}` containing the arcs |
+| `from_rook_placement_gamma(rooks, n)` | Partition from Wachs-White gamma bijection |
+| `from_rook_placement_rho(rooks, n)` | Partition from Wachs-White rho bijection |
+| `from_rook_placement_psi(rooks, n)` | Partition from Yip psi bijection |
+| `is_less_than(s, t)` / `lt(s, t)` | Strict refinement order test |
+| `base_set()` | Fixed-base parents only |
+| `base_set_cardinality()` | Fixed-base parents only |
+| `number_of_blocks()` | Fixed-block-count parents only |
+| `shape()` | Fixed-block-size parents only |
+
+[33](#0-32) [34](#0-33) [35](#0-34)
+
+* * *
+
 ### `Family` — `src/sage/sets/family.pyx`
 
 Factory for indexed families `(f_i)_{i ∈ I}`. Returns one of several internal classes:
@@ -530,6 +582,7 @@ Also provides decorators `@set_from_function` and `@set_from_method`. Key method
 | `TotallyOrderedFiniteSet` | `sets/totally_ordered_finite_set.py` | `FiniteEnumeratedSets()` + `Posets()` | yes |
 | `FiniteSetMaps` | `sets/finite_set_maps.py` | `FiniteMonoids()` or `FiniteEnumeratedSets()` | yes |
 | `DisjointSet` | `sets/disjoint_set.pyx` | (not a Parent; union-find structure) | — |
+| `SetPartition` / `SetPartitions` | `combinat/set_partition.py` | `SetPartitions()` is `InfiniteEnumeratedSets()`; fixed-base parents are `FiniteEnumeratedSets()` | depends on parent |
 | `Family` | `sets/family.pyx` | `FiniteEnumeratedSets()` or `InfiniteEnumeratedSets()` | depends |
 | `EnumeratedSetFromIterator` | `sets/set_from_iterator.py` | `EnumeratedSets()` | depends |
 
@@ -575,6 +628,9 @@ This section maps reference markers to their source files and line numbers.
 | [30](#0-29) | `src/sage/sets/disjoint_set.pyx` | 1-100 | `DisjointSet` union-find data structure (not a Parent) |
 | [31](#0-30) | `src/sage/sets/family.pyx` | 58-100 | `Family` factory with TrivialFamily, FiniteFamily, LazyFamily, EnumeratedFamily |
 | [32](#0-31) | `src/sage/sets/set_from_iterator.py` | 73-80 | `EnumeratedSetFromIterator` with caching and decorators |
+| [33](#0-32) | `src/sage/combinat/set_partition.py` | 535-1870 | `SetPartition` element methods and combinatorial encodings |
+| [34](#0-33) | `src/sage/combinat/set_partition.py` | 1988-2572 | `SetPartitions` parent constructor and element-constructor methods |
+| [35](#0-34) | `src/sage/combinat/set_partition.py` | 2624-3212 | all, fixed-base, fixed-block-size, and fixed-block-count parent subclasses |
 
 * * *
 
@@ -582,8 +638,8 @@ This section maps reference markers to their source files and line numbers.
 
 Source pass:
 - Official docs: `doc.sagemath.org` pages for `Sets`, `EnumeratedSets`,
-  `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, and the public
-  `sage.sets` constructors.
+  `FiniteEnumeratedSets`, `InfiniteEnumeratedSets`, `FacadeSets`, set partitions,
+  and the public `sage.sets` constructors.
 - Context7: `/sagemath/documentation` for category and set constructor pages.
 - DeepWiki: `sagemath/sage`, question on set/enumerated-set public method surfaces.
 - Local Sage source:
@@ -624,6 +680,8 @@ classes, categories, constructors, and methods.
 | `DisjointUnionEnumeratedSets` | `sage/sets/disjoint_union_enumerated_sets.py` | countable disjoint union of an indexed family | `_is_a`, `__contains__`, `__iter__`, `an_element`, `cardinality`, `_element_constructor_default`, `_element_constructor_facade`, `Element`. |
 | `TotallyOrderedFiniteSet` | `sage/sets/totally_ordered_finite_set.py` | finite countable set with a total order | parent `_element_constructor_`, `le`; element methods `__eq__`, `__ne__`, `_richcmp_`, `_repr_`, `__str__`. |
 | `FiniteSetMaps` | `sage/sets/finite_set_maps.py` | finite set of maps, endomorphism monoid when domain=codomain | base `cardinality`; `FiniteSetMaps_MN`: `domain`, `codomain`, `__contains__`, `an_element`, `__iter__`, `_from_list_`, `_element_constructor_`; `FiniteSetMaps_Set`: `domain`, `codomain`, `_from_list_`, `from_dict`; endomap variants: `one`, `an_element`. |
+| `SetPartition` | `sage/combinat/set_partition.py` | immutable partition of a finite set, represented by blocks | `base_set`, `base_set_cardinality`, `cardinality`, `standard_form`, `shape`, `__mul__`/`inf`, `sup`, `arcs`, `openers`, `closers`, restricted-growth-word and rook-placement conversions, crossing/nesting predicates, `standardization`, `restriction`, `refinements`, `coarsenings`, `strict_coarsenings`. |
+| `SetPartitions` | `sage/combinat/set_partition.py` | parent of set partitions; all finite partitions or fixed-base/fixed-shape subfamilies | `_element_constructor_`, `from_restricted_growth_word_blocks`, `from_restricted_growth_word_intertwining`, `from_arcs`, rook-placement constructors, `is_less_than`, `is_strict_refinement`; fixed-base subclasses add `base_set`, `base_set_cardinality`, `cardinality`, iteration, and random element generation. |
 | `Family` | `sage/sets/family.pyx` | indexed family, finite/lazy/trivial/enumerated variants | abstract family methods: `hidden_keys`, `keys`, `values`, `items`, `zip`, `map`, `inverse_family`; finite family adds `has_key`, `__contains__`, `__len__`, `cardinality`, `__iter__`, `__getitem__`; lazy/trivial/enumerated variants specialize the same surface. |
 | `EnumeratedSetFromIterator` | `sage/sets/set_from_iterator.py` | countable set generated by a callable iterator | `__contains__`, `__iter__`, `unrank`, `_element_constructor_`, `clear_cache`; decorator helper classes are not parent objects. |
 | `RecursivelyEnumeratedSet` | `sage/sets/recursively_enumerated_set.pyx` | recursively enumerable countable set or forest | common methods: `__len__`, `__iter__`, `__contains__`, `graded_component_iterator`, `elements_of_depth_iterator`, `breadth_first_search_iterator`, `naive_search_iterator`, `depth_first_search_iterator`, `to_digraph`; forest methods: `roots`, `children`, `map_reduce`. |

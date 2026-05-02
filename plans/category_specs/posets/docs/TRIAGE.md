@@ -5,27 +5,32 @@ ordinary sets. The current hierarchy distinguishes finite posets, finite
 meet-semilattices, finite join-semilattices, and finite order-theoretic
 lattices.
 
-## Current Blockers
+## Settled Mapping Items
 
-The Sage `Poset(...)`, `MeetSemilattice(...)`, `JoinSemilattice(...)`, and
-`LatticePoset(...)` constructors are variadic compatibility surfaces. They need named
-project constructor paths and closed overload cases before implementation.
+- Poset constructors follow the repo constructor pattern: expose named,
+  non-variadic constructors for each documented Sage input shape. The acyclic
+  `DiGraph` constructor is the canonical constructor; the other documented
+  Sage shapes are explicit adaptations or existing-poset refinements.
+- Meet and join follow the global binary-operation pattern: expose the binary
+  operation and a sequence overload that folds over it. Sage's
+  `meet(x, y=None)` and `join(x, y=None)` spellings remain inventory evidence,
+  not project signatures.
+- Lattice congruences use set-theoretic vocabulary. A lattice congruence is an
+  `EquivalenceRelation`, represented concretely by `SetPartition` where Sage
+  returns one. The generated-congruence method is
+  `congruence_generated_by(blocks)`, not a lattice-specific type name.
+- Sage `certificate=True` paths map to separately named certificate methods.
+  Boolean predicates stay boolean; certificate methods return the witness data
+  documented by Sage.
+- Graph, plotting, TikZ, polytope, order-complex, algebra, and polynomial
+  surfaces are ownership/mapping work, not open design decisions. Ownership is
+  determined by the target mathematical object or by display/interop status.
 
 ## Concrete Future NEEDS_DECISIONS Items
 
-- Choose the named constructor API for the documented `Poset(...)` input cases:
-  elements plus relations, elements plus order predicate, elements plus cover
-  predicate, upper-cover dictionary, upper-cover list, acyclic `DiGraph`, and
-  existing-poset refinement.
-- Choose whether aggregate `meet(x, y=None)` and `join(x, y=None)` become
-  explicit overloads, separate finite-fold methods, or stay as Sage
-  compatibility-only behavior.
-- Choose project type names for lattice congruences before admitting
-  `congruence`, `quotient`, and `congruences_lattice` stubs.
-- Decide ownership for graph, plotting, TikZ, polytope, order-complex,
-  incidence-algebra, Möbius-algebra, and polynomial invariant surfaces.
-- Decide how certificate-returning Sage predicates should appear in project
-  signatures without `certificate` boolean overload ambiguity.
+- Decide whether equivalence relations and set partitions need a first-class
+  set subtree, or whether `SetPartition` should remain a centralized
+  Sage-backed type alias until the set-partition inventory is done.
 
 ## Evidence Gaps
 

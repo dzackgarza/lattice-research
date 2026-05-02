@@ -32,7 +32,7 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 if TYPE_CHECKING:
-    from ..types import DiscriminantGroup, Lattice, RModuleElement, RModuleMorphism, Ring, SubModule
+    from ..types import DiscriminantGroup, Lattice, Ring, RModuleElement, RModuleMorphism, SubModule
 
 
 class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):

@@ -3,11 +3,12 @@ r"""Finite-dimensional algebras with basis."""
 from __future__ import annotations
 
 from typing import final
-from ...cat import Category, CategoryWithAxiom_over_base_ring
+
 from sage.categories.finite_dimensional_algebras_with_basis import (
     FiniteDimensionalAlgebrasWithBasis as SageFiniteDimensionalAlgebrasWithBasis,
 )
 
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
 from .with_basis import _AlgebrasWithBasis
 

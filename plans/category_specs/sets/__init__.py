@@ -22,6 +22,7 @@ Subcategory hierarchy::
     |   `-- Metric()
     |-- TotallyOrdered()
     |-- Graded()
+    |-- Partitioned()
     |-- GSets(G)
     |-- CartesianProducts()
     |-- Subquotients()
@@ -79,6 +80,7 @@ if TYPE_CHECKING:
         Group,
         InfinityElement,
         Integer,
+        IntegerPartition,
         RealInterval,
         RealNumber,
         RealOpenSet,
@@ -92,6 +94,8 @@ if TYPE_CHECKING:
         SetFamily,
         SetHom,
         SetMorphism,
+        SetPartition,
+        SetPartitionSet,
         Subset,
         SympySet,
     )
@@ -337,6 +341,11 @@ class Sets(Category_singleton):
         @final
         def Graded(self) -> Category:
             return self._with_axiom("Graded")
+
+        @cached_method
+        @final
+        def Partitioned(self) -> Category:
+            return self._with_axiom("Partitioned")
 
         @cached_method
         @final
@@ -775,6 +784,129 @@ class Sets(Category_singleton):
             )
 
         @final
+        def AllSetPartitions(self) -> CountableSet:
+            r"""Return Sage's countable set of all finite set partitions."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return refine_category(SageSetPartitions(), [Sets(), Sets().Countable()])
+
+        @final
+        def SetPartitions(self, base_set: Set | Iterable[SetElement] | Integer) -> SetPartitionSet:
+            r"""Return the set of all partitions of ``base_set``."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            from .subcategories.partitioned import _PartitionedSets
+
+            return refine_category(SageSetPartitions(base_set), [Sets(), _PartitionedSets()])
+
+        @final
+        def SetPartitionsWithBlockCount(
+            self,
+            base_set: Set | Iterable[SetElement] | Integer,
+            block_count: Integer,
+        ) -> SetPartitionSet:
+            r"""Return partitions of ``base_set`` into ``block_count`` blocks."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            from .subcategories.partitioned import _PartitionedSets
+
+            return refine_category(SageSetPartitions(base_set, block_count), [Sets(), _PartitionedSets()])
+
+        @final
+        def SetPartitionsWithBlockSizes(
+            self,
+            base_set: Set | Iterable[SetElement] | Integer,
+            block_sizes: IntegerPartition | Sequence[Integer],
+        ) -> SetPartitionSet:
+            r"""Return partitions of ``base_set`` with the given block-size partition."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            from .subcategories.partitioned import _PartitionedSets
+
+            return refine_category(SageSetPartitions(base_set, block_sizes), [Sets(), _PartitionedSets()])
+
+        @final
+        def SetPartition(
+            self,
+            blocks: Iterable[Iterable[SetElement]],
+            *,
+            check: bool = True,
+        ) -> SetPartition:
+            r"""Return the partition whose blocks are ``blocks``."""
+            from sage.combinat.set_partition import SetPartition as SageSetPartition
+
+            return SageSetPartition(blocks, check=check)
+
+        @final
+        def SetPartitionFromRestrictedGrowthWordBlocks(self, word: Sequence[Integer]) -> SetPartition:
+            r"""Return the set partition encoded by ``word`` using the block convention."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_restricted_growth_word_blocks(word)
+
+        @final
+        def SetPartitionFromRestrictedGrowthWordIntertwining(self, word: Sequence[Integer]) -> SetPartition:
+            r"""Return the set partition encoded by ``word`` using the intertwining convention."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_restricted_growth_word_intertwining(word)
+
+        @final
+        def SetPartitionFromArcs(
+            self,
+            arcs: Sequence[tuple[Integer, Integer]],
+            base_set_cardinality: Integer,
+        ) -> SetPartition:
+            r"""Return the coarsest partition of ``{1, ..., n}`` containing ``arcs``."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_arcs(arcs, base_set_cardinality)
+
+        @final
+        def SetPartitionFromRookPlacementArcs(
+            self,
+            rooks: Sequence[tuple[Integer, Integer]],
+            base_set_cardinality: Integer | None = None,
+        ) -> SetPartition:
+            r"""Return the set partition encoded by a rook placement through arcs."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_rook_placement(rooks, "arcs", base_set_cardinality)
+
+        @final
+        def SetPartitionFromRookPlacementGamma(
+            self,
+            rooks: Sequence[tuple[Integer, Integer]],
+            base_set_cardinality: Integer,
+        ) -> SetPartition:
+            r"""Return the set partition encoded by the Wachs-White gamma bijection."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_rook_placement_gamma(rooks, base_set_cardinality)
+
+        @final
+        def SetPartitionFromRookPlacementRho(
+            self,
+            rooks: Sequence[tuple[Integer, Integer]],
+            base_set_cardinality: Integer,
+        ) -> SetPartition:
+            r"""Return the set partition encoded by the Wachs-White rho bijection."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_rook_placement_rho(rooks, base_set_cardinality)
+
+        @final
+        def SetPartitionFromRookPlacementPsi(
+            self,
+            rooks: Sequence[tuple[Integer, Integer]],
+            base_set_cardinality: Integer,
+        ) -> SetPartition:
+            r"""Return the set partition encoded by Yip's psi bijection."""
+            from sage.combinat.set_partition import SetPartitions as SageSetPartitions
+
+            return SageSetPartitions().from_rook_placement_psi(rooks, base_set_cardinality)
+
+        @final
         def cartesian_product(self, factors: Sequence[Set]) -> Set:
             r"""Return Sage's categorical Cartesian product of ``factors``."""
             from sage.categories.cartesian_product import cartesian_product
@@ -805,6 +937,7 @@ class Sets(Category_singleton):
     Topological = LazyImport("category_specs.topological_spaces", "_TopologicalSpaces")
     TotallyOrdered = LazyImport("category_specs.sets.subcategories.totally_ordered", "_TotallyOrdered")
     Graded = LazyImport("category_specs.sets.subcategories.graded", "_GradedSets")
+    Partitioned = LazyImport("category_specs.sets.subcategories.partitioned", "_PartitionedSets")
     Metric = LazyImport("category_specs.topological_spaces", "_MetricSpaces")
     Subquotients = LazyImport("category_specs.sets.subcategories.constructions.subquotients", "_Subquotients")
     Subobjects = LazyImport("category_specs.sets.subcategories.constructions.subobjects", "_Subobjects")

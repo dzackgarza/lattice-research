@@ -8,11 +8,14 @@ from typing import TYPE_CHECKING, final
 from sage.categories.tensor import TensorProductFunctor
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
-from ....cat import TensorProductsCategory
+from ....cat import Category, TensorProductsCategory
 
 if TYPE_CHECKING:
     from ....types import RModule, RModuleElement
+
+_TensorAlgebraComponents = LazyImport("category_specs.tensor_algebra_components", "TensorAlgebraComponents")
 
 
 class _TensorProducts(TensorProductsCategory):
@@ -37,6 +40,13 @@ class _TensorProducts(TensorProductsCategory):
         def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
             r"""Lift a product element to the tensor product."""
             ...
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def TensorAlgebraComponents(self) -> Category:
+            r"""Return the category of graded pieces ``T_R(M)[p,q]``."""
+            return _TensorAlgebraComponents(self.base_category().base_ring())
 
     class ElementMethods: ...
     class MorphismMethods: ...

@@ -106,6 +106,7 @@ subcategory file that owns its spec.
 | `_ImageSets` | `subcategories/image.py` | Images are subobjects under a map. |
 | `_TotallyOrderedFiniteSets` | `subcategories/totally_ordered_finite.py` | Finite total orders have parent and element comparison surfaces. |
 | `_FiniteSetMapsSets` | `subcategories/finite_set_maps.py` | Finite map sets own finite enumeration and element-construction surfaces. Generic homset data such as domain/codomain, and endomap identity for the endomap case, belong to the homset/endset refinement. |
+| `_PartitionedSets` | `subcategories/partitioned.py` | A set partition of `X` is a subset of `P(X)` whose blocks are nonempty, pairwise disjoint, and cover `X`; Sage's fixed-base `SetPartitions(X)` is the Sage parent whose elements are these partitions. |
 | `_FamilySets` | `subcategories/family.py` | Indexed families have finite, lazy, trivial, and enumerated variants. |
 | `_EnumeratedSetsFromIterator` | `subcategories/enumerated_from_iterator.py` | Callable-backed enumerated sets expose iterator and cache surfaces. |
 | Sage subquotient construction surface | `subcategories/constructions/subquotients.py` | Subobjects and quotients are special cases of constructive subquotients, so the parent construction must be explicit. |
@@ -135,6 +136,8 @@ subcategory boundaries.
 | Sage `TopologicalSpaces()` for `RealSet` | `TopologicalSpaces()` / `Sets().Topological()` plus `Sets().Subobjects()` when an ambient real line is present | A `RealSet` is a topological subset of the real line, and a set with a topology is precisely a topological space. | `RealSet` refinement must preserve Sage topological behavior and declare real-line subobject operations. |
 | Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union with any other set in `Sets()`. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |
 | `SubobjectsCategory` | `Sets().Subobjects()` / alias `Subsets` | In the category of sets, subobjects are exactly subsets. Predicate-defined subsets are constructed as `Sets().Subobjects().Of(ambient, predicates)` and backed by Sage `ConditionSet` under the hood. The same construction must remain attachable to arbitrary set subcategories via Sage's functorial construction/category-of machinery. | The set subtree exposes `Subsets = Subobjects` and uses `Subset` type vocabulary in signatures. Its implementation lives in `subcategories/constructions/subobjects.py`, not a monolithic `constructions.py`. Raw Sage `ConditionSet.arguments()` stays inventory-only. |
+| `SetPartitions(s)` fixed-base parents | `Sets().Partitioned()` | A partition of `s` is represented as a subset of the powerset of `s`. The fixed-base parent `SetPartitions(s)` is the set of all such partition subobjects and its elements are the actual `SetPartition` objects. | `sets/subcategories/partitioned.py` owns the partition method surface. `Sets().Constructors().SetPartitions(...)` and its fixed-block variants are the public constructor paths. `SetPartition` remains anchored to Sage's element class in `types.py`. |
+| `SetPartitions()` all finite partitions | `Sets().Countable()` | There is no fixed base set, hence no single powerset ambient object. Sage represents this as the countable parent of all finite set partitions. | The constructor path is `Sets().Constructors().AllSetPartitions()`. It is not refined into `Sets().Partitioned()` because the fixed-base powerset ambient is absent. |
 | `QuotientsCategory` | `Sets().Quotients()` | Quotient sets are equivalence-class objects. Like subobjects, quotient categories are attachable construction categories, not singleton categories. | `subcategories/constructions/quotients.py` owns the set-specific quotient scaffold and `types.py` exposes `QuotientSet`. |
 | `SubquotientsCategory` | `Sets().Subquotients()` | Sage's constructive subquotients are the primitive construction behind quotients and subobjects: an object has an ambient object, a lift, and a retract. | `subcategories/constructions/subquotients.py` owns the ambient/lift/retract surface. |
 | `IsomorphicObjectsCategory` | `Sets().IsomorphicObjects()` | An isomorphic image is simultaneously a subobject and a quotient in Sage. | `subcategories/constructions/isomorphic_objects.py` owns the lift/retract/isomorphism convention. |
@@ -170,8 +173,41 @@ subcategory boundaries.
 | `ImageSubobject(f, X)` | `ImageSets` | Image subobject under a map; must include `ambient`, `lift`, and `retract`. |
 | `TotallyOrderedFiniteSet(elements)` | `TotallyOrderedFiniteSets` | Finite set with order relation `le`; element comparison methods are mathematical when elements are non-facade. |
 | `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` plus the set homset/endset refinement | Finite set of functions. The finite-set subcategory owns finite enumeration and constructor surfaces; the homset layer owns `domain`/`codomain`, and the endset layer owns identity for endomap variants. Sage's `one()` remains inventory evidence for the endset identity surface, not a finite-set-only method. |
+| `SetPartitions()` | `Sets().Constructors().AllSetPartitions()` | Countable set of all finite set partitions. This Sage parent has no fixed base set and therefore does not refine into `Partitioned`. |
+| `SetPartitions(s)` | `Sets().Constructors().SetPartitions(base_set=s)` | Fixed-base set partitions. The result refines through `Sets().Partitioned()` because each element is a partition subobject of `P(s)`. |
+| `SetPartitions(s, k)` | `Sets().Constructors().SetPartitionsWithBlockCount(base_set=s, block_count=k)` | Fixed-base partitions with exactly `k` blocks. The block count is a named constructor parameter, not Sage's positional `part` overload. |
+| `SetPartitions(s, part)` | `Sets().Constructors().SetPartitionsWithBlockSizes(base_set=s, block_sizes=part)` | Fixed-base partitions whose block sizes are the integer partition `part`. This is the second finite Sage `part` case, separated from block count. |
+| `SetPartition(blocks, check=True)` | `Sets().Constructors().SetPartition(blocks, check=check)` | Construct the original Sage `SetPartition` element. Elements cannot be refined with `refine_category`, so the constructor returns Sage's element class while `Partitioned.ElementMethods` records the required partition surface. |
+| `SetPartitions().from_restricted_growth_word_blocks(w)` | `Sets().Constructors().SetPartitionFromRestrictedGrowthWordBlocks(word=w)` | Element constructor from a restricted-growth word using Sage's block convention. |
+| `SetPartitions().from_restricted_growth_word_intertwining(w)` | `Sets().Constructors().SetPartitionFromRestrictedGrowthWordIntertwining(word=w)` | Element constructor from a restricted-growth word using Sage's intertwining convention. |
+| `SetPartitions().from_arcs(arcs, n)` | `Sets().Constructors().SetPartitionFromArcs(arcs=arcs, base_set_cardinality=n)` | Element constructor from arcs. |
+| `from_rook_placement(..., "arcs"/"gamma"/"rho"/"psi", n)` | named rook-placement constructors on `Sets().Constructors()` | Sage's string-dispatched rook-placement constructor is split into non-variadic named constructors: `SetPartitionFromRookPlacementArcs`, `SetPartitionFromRookPlacementGamma`, `SetPartitionFromRookPlacementRho`, and `SetPartitionFromRookPlacementPsi`. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. The project constructor admits a nullary iterator factory. Sage's `args`/`kwds` parameterization is arbitrary callable plumbing, not set-theoretic data, so it is not exposed as a public constructor shape. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
+
+## Sage `SetPartition` Method Mapping Decisions
+
+Sage `SetPartition` is the element class for the fixed-base `SetPartitions(s)` parent.
+The mathematical object is a partition of a base set, equivalently a subset of the
+powerset of that base set.
+
+| Sage surface | Project mapping | Decision |
+| --- | --- | --- |
+| `base_set()` | `Partitioned.ElementMethods.base_set` | The base set is the union of all blocks. |
+| `base_set_cardinality()` / `size` | `Partitioned.ElementMethods.base_set_cardinality` | This is the size of the underlying base set. |
+| `cardinality()` | block cardinality | Sage uses `cardinality()` for the number of blocks because a partition is itself a finite set of blocks. This remains finite-set cardinality. |
+| iteration over blocks | `Partitioned.ElementMethods.blocks()` and normal iteration | The project names the mathematical subset of `P(base_set())` as `blocks()`. Iteration is implementation/protocol access to the same blocks. |
+| `__mul__()` / `inf` | `Partitioned.ElementMethods.meet(other)` | This is the meet in the refinement lattice. The Sage operator is mapped to the named lattice operation. |
+| `sup(t)` | `Partitioned.ElementMethods.join(other)` | This is the join in the refinement lattice. |
+| parent `is_less_than(s, t)` / `lt(s, t)` | `s.strictly_refines(t)` | Sage's parent-level comparison is the strict refinement relation on partition elements. |
+| `standard_form()` | `Partitioned.ElementMethods.standard_form` | Ordered-block display data remains available as a partition element method. |
+| `shape()` / `shape_partition()` / `to_partition()` | integer partition of block sizes | This maps to the integer-partition surface once that set-combinatorics subtree is admitted. Until then, keep the Sage `IntegerPartition` type alias in `types.py`. |
+| `arcs()`, `openers()`, `closers()` | partition arc-diagram surface | These are combinatorial views of an ordered finite set partition. They remain partition element methods, not poset or graph constructors. |
+| `to_restricted_growth_word_*`, `to_rook_placement_*` | named encoding/export methods on partition elements | These are encodings of a partition. Inverse construction routes through `Sets().Constructors()` named constructors. |
+| `crossings`, `nestings`, `is_noncrossing`, `is_nonnesting`, `is_atomic` | future axiomatic subcategories of partitioned sets when admitted | These predicates describe stricter combinatorial subclasses. They are mapped, but not scaffolded until a pass admits the corresponding subcategories. |
+| `standardization()`, `restriction(I)` | partition element transforms | These return new partition elements and remain partition methods. |
+| `refinements()`, `coarsenings()`, `strict_coarsenings()` | finite sets of partition elements | These return finite subsets of the partition lattice and should refine through set constructors in a later implementation pass. |
+| `plot(...)` and LaTeX/display helpers | no category method | Display output is not set-theoretic structure. |
 
 ## Sage `Set_object` Method Mapping Decisions
 

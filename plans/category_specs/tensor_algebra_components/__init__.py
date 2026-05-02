@@ -19,7 +19,7 @@ from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHom
 from ..utils import refine_category
 
 if TYPE_CHECKING:
-    from ..types import FreeModule, Integer, Matrix, RModule, RModuleElement, Ring, RingElement
+    from ..types import FreeModule, Integer, Matrix, Ring, RingElement, RModule, RModuleElement
 
 
 class _TensorAlgebraComponentParentMethods:

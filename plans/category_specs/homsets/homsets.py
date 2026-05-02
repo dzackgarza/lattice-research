@@ -8,10 +8,10 @@ from typing import TYPE_CHECKING, final, overload
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-
 from sage.structure.parent import Parent
 
-from ..cat import Cat, Category, FunctorialConstructionCategory, Homsets as SageHomsetsBase, _SageCategory
+from ..cat import Cat, Category, FunctorialConstructionCategory, _SageCategory
+from ..cat import Homsets as SageHomsetsBase
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, CategoryObject, Hom, Morphism

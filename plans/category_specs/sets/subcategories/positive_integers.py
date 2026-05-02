@@ -10,9 +10,9 @@ from sage.misc.abstract_method import abstract_method
 if TYPE_CHECKING:
     from ...types import SetElement, SympySet
 
+from ...cat import Category
 from .. import Sets
 from .integer_range import _IntegerRangeSets
-from ...cat import Category
 
 
 class _PositiveIntegersSets(Category_singleton):

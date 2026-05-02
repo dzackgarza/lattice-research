@@ -12,8 +12,8 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _FiniteEnumeratedSetObjects(Category_singleton):

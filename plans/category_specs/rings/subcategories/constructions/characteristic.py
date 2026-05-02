@@ -2,8 +2,7 @@ r"""Rings of fixed characteristic."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import Any
+from typing import Any, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer

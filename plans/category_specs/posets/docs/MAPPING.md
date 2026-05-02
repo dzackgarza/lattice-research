@@ -36,11 +36,11 @@ belongs first to join-semilattices.
 ## Constructor Mapping
 
 Sage `Poset(...)`, `MeetSemilattice(...)`, `JoinSemilattice(...)`, and
-`LatticePoset(...)` remain inventory evidence for constructor design.
-They are not exposed as project variadic constructors.
+`LatticePoset(...)` remain inventory evidence for constructor design. They are
+not exposed as project variadic constructors.
 
-The documented `Poset(...)` input cases should become named constructor paths
-under `Posets().Constructors()` after a closed-overload pass:
+The documented `Poset(...)` input cases map to named constructor paths under
+`Posets().Constructors()`:
 - elements plus relations;
 - elements plus an order predicate;
 - elements plus a cover predicate;
@@ -49,9 +49,24 @@ under `Posets().Constructors()` after a closed-overload pass:
 - acyclic `DiGraph`;
 - existing poset refinement.
 
-`MeetSemilattice(...)`, `JoinSemilattice(...)`, and `LatticePoset(...)` should
-be finite refinement constructors over the same named input cases, with the
-extra assertion that meets, joins, or both exist.
+The acyclic `DiGraph` constructor is the canonical constructor. Other
+documented Sage input cases are non-variadic adaptations that route through the
+same finite poset construction surface or through existing-poset refinement.
+
+The implemented constructor names are:
+- `poset_from_digraph`, the canonical finite-poset constructor;
+- `poset_from_relations`;
+- `poset_from_order_predicate`;
+- `poset_from_cover_predicate`;
+- `poset_from_upper_covers_dict`;
+- `poset_from_upper_covers`;
+- `poset_from_existing`.
+
+`MeetSemilattice(...)`, `JoinSemilattice(...)`, and `LatticePoset(...)` map to
+finite refinement constructors over the same named input cases, with the extra
+assertion that meets, joins, or both exist. Their names are formed by replacing
+the `poset_` prefix above with `meet_semilattice_`, `join_semilattice_`, or
+`lattice_`.
 
 `FinitePosets_n(n)` maps to a finite enumerated-set constructor for isomorphism
 classes of posets on `n` elements. It should not become a poset subcategory.
@@ -116,22 +131,37 @@ enumeration of a Hasse diagram, finite intervals, or finite linear extensions:
   `random_order_ideal`, `random_maximal_chain`,
   `random_maximal_antichain`, `random_subposet`.
 
+Sage `certificate=True` variants are mapped to separately named certificate
+methods. `height(certificate=True)` maps to `height_certificate()`;
+`width(certificate=True)` maps to `width_certificate()`;
+`is_meet_semilattice(certificate=True)` maps to
+`meet_semilattice_certificate()`; and
+`is_join_semilattice(certificate=True)` maps to
+`join_semilattice_certificate()`. The predicate methods themselves remain
+boolean.
+
 `order_ideals_lattice` maps to `Posets().Finite()` because every finite poset
 has a finite distributive lattice of order ideals.
 
 ## Posets().MeetSemilattice()
 
-`meet` maps to `Posets().MeetSemilattice()`.
-The project signature is binary at this layer.
-Sage's optional aggregate `meet(x, y=None)` behavior is a constructor/API
-compatibility item that needs a closed overload design before admission.
+`meet` maps to `Posets().MeetSemilattice()` with two signatures:
+- `meet(x: PosetElement, y: PosetElement) -> PosetElement`;
+- `meet(elements: Sequence[PosetElement]) -> PosetElement`.
+
+The sequence overload is an explicit fold over the binary meet. Sage's
+optional aggregate `meet(x, y=None)` form is inventory evidence only; the
+project surface does not expose the optional-argument spelling.
 
 ## Posets().JoinSemilattice()
 
-`join` maps to `Posets().JoinSemilattice()`.
-The project signature is binary at this layer.
-Sage's optional aggregate `join(x, y=None)` behavior is a constructor/API
-compatibility item that needs a closed overload design before admission.
+`join` maps to `Posets().JoinSemilattice()` with two signatures:
+- `join(x: PosetElement, y: PosetElement) -> PosetElement`;
+- `join(elements: Sequence[PosetElement]) -> PosetElement`.
+
+The sequence overload is an explicit fold over the binary join. Sage's
+optional aggregate `join(x, y=None)` form is inventory evidence only; the
+project surface does not expose the optional-argument spelling.
 
 ## Posets().MeetSemilattice().Finite()
 
@@ -183,14 +213,27 @@ and constructions requiring both meet and join:
   `maximal_sublattices`, `frattini_sublattice`, `skeleton`, `center`,
   `vertical_decomposition`, `vertical_composition`, `adjunct`,
   `day_doubling`, `subdirect_decomposition`;
-- congruence constructions: `congruence`, `quotient`,
-  `congruences_lattice`;
+- congruence constructions: `congruence_generated_by`, `quotient`,
+  `congruence_lattice`;
 - morphism check: `is_lattice_morphism`.
+
+Sage `congruence(blocks)` maps to `congruence_generated_by(blocks)`.
+The result is an `EquivalenceRelation`, represented by Sage's `SetPartition`
+element class and mapped through `Sets().Partitioned()` as a partition of the
+finite lattice's element set. Sage `congruences_lattice()` maps to
+`congruence_lattice()`.
+
+Sage `certificate=True` variants map to separately named certificate methods:
+`atomic_certificate()`, `coatomic_certificate()`,
+`complemented_certificate()`, `distributive_certificate()`,
+`modular_certificate()`, and `modular_elements_certificate(elements)`.
+Boolean predicates do not take a `certificate` argument.
 
 ## Deferred Non-Core Surfaces
 
-The following Sage method groups are inventoried but need separate ownership
-decisions before stubbing:
+The following Sage method groups are inventoried for later mapping. They are
+not open design decisions; ownership follows the target mathematical object or
+display/interop status:
 - graph, plotting, and TikZ views: `comparability_graph`,
   `incomparability_graph`, `frank_network`, `graphviz_string`, `plot`,
   `show`, `tikz`;

@@ -10,7 +10,10 @@ from collections.abc import Sequence
 from sage.categories.cartesian_product import CartesianProductFunctor as SageCartesianProductFunctor
 from sage.categories.homset import Homset as SageHomset
 from sage.categories.morphism import Morphism as SageMorphism
+from sage.combinat.partition import Partition as SageIntegerPartition
 from sage.combinat.posets.posets import FinitePoset as SagePoset
+from sage.combinat.set_partition import SetPartition as SageSetPartition
+from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 from sage.graphs.digraph import DiGraph as SageDiGraph
 from sage.groups.abelian_gps.abelian_group import AbelianGroup_class
 from sage.groups.group import Group as SageGroup
@@ -36,53 +39,17 @@ from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
 from .algebras import (
-    AlgebrasAut,
-    AlgebrasAutCategory,
-    AlgebrasAutomorphism,
     AlgebrasCategory,
     AlgebrasElement,
-    AlgebrasEnd,
-    AlgebrasEndCategory,
-    AlgebrasEndomorphism,
-    AlgebrasHom,
-    AlgebrasHomCategory,
     AlgebrasMorphism,
     AlgebrasObject,
 )
-from .algebras.subcategories.constructions.ideals import (
-    AlgebraIdeal,
-    AlgebraIdealsCategory,
-    AlgebraIdealsElement,
-    AlgebraIdealsMorphism,
-    AlgebraIdealsObject,
-)
-from .cat import (
-    CatAut,
-    CatAutCategory,
-    CatAutomorphism,
-    CatCategory,
-    CatElement,
-    CatEnd,
-    CatEndCategory,
-    CatEndomorphism,
-    CatHom,
-    CatHomCategory,
-    CatMorphism,
-    CatObject,
-    Category,
-)
 from .homsets import (
     AutCategoriesCategory,
-    AutCategoriesElement,
-    AutCategoriesMorphism,
     AutCategoriesObject,
     EndCategoriesCategory,
-    EndCategoriesElement,
-    EndCategoriesMorphism,
     EndCategoriesObject,
     HomCategoriesCategory,
-    HomCategoriesElement,
-    HomCategoriesMorphism,
     HomCategoriesObject,
 )
 from .lattices import (
@@ -115,65 +82,36 @@ from .lattices.subcategories.constructions.discriminant_groups import (
 )
 from .modules import (
     ModulesAut,
-    ModulesAutCategory,
     ModulesAutomorphism,
     ModulesCategory,
     ModulesElement,
     ModulesEnd,
-    ModulesEndCategory,
     ModulesEndomorphism,
     ModulesHom,
-    ModulesHomCategory,
     ModulesMorphism,
     ModulesObject,
 )
-from .tensor_algebra_components import (
-    Tensor,
-    TensorAlgebraComponent,
-    TensorAlgebraComponentsAut,
-    TensorAlgebraComponentsAutCategory,
-    TensorAlgebraComponentsAutomorphism,
-    TensorAlgebraComponentsCategory,
-    TensorAlgebraComponentsElement,
-    TensorAlgebraComponentsEnd,
-    TensorAlgebraComponentsEndCategory,
-    TensorAlgebraComponentsEndomorphism,
-    TensorAlgebraComponentsHom,
-    TensorAlgebraComponentsHomCategory,
-    TensorAlgebraComponentsMorphism,
-    TensorAlgebraComponentsObject,
-)
 from .posets import (
     PosetsAut,
-    PosetsAutCategory,
-    PosetsAutomorphism,
-    PosetsCategory,
     PosetsElement,
     PosetsEnd,
-    PosetsEndCategory,
-    PosetsEndomorphism,
     PosetsHom,
-    PosetsHomCategory,
     PosetsMorphism,
     PosetsObject,
 )
-from .posets.subcategories.finite_lattice import _FiniteLatticePosets
 from .posets.subcategories.finite_join_semilattice import _FiniteJoinSemilatticePosets
+from .posets.subcategories.finite_lattice import _FiniteLatticePosets
 from .posets.subcategories.finite_meet_semilattice import _FiniteMeetSemilatticePosets
 from .posets.subcategories.join_semilattice import _JoinSemilatticePosets
 from .posets.subcategories.lattice import _LatticePosets
 from .posets.subcategories.meet_semilattice import _MeetSemilatticePosets
 from .rings import (
     RingsAut,
-    RingsAutCategory,
     RingsAutomorphism,
-    RingsCategory,
     RingsElement,
     RingsEnd,
-    RingsEndCategory,
     RingsEndomorphism,
     RingsHom,
-    RingsHomCategory,
     RingsMorphism,
     RingsObject,
     _RingIdeals,
@@ -187,6 +125,10 @@ from .rings.subcategories.approximate import (
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
+from .tensor_algebra_components import (
+    TensorAlgebraComponent,
+    TensorAlgebraComponentsObject,
+)
 
 # Generic / Support
 CategoryObject = SageParent
@@ -286,15 +228,12 @@ HochschildChainComplex = HochschildComplex
 # Sets
 from .sets import (
     SetsAut,
-    SetsAutCategory,
     SetsAutomorphism,
     SetsCategory,
     SetsElement,
     SetsEnd,
-    SetsEndCategory,
     SetsEndomorphism,
     SetsHom,
-    SetsHomCategory,
     SetsMorphism,
     SetsObject,
 )
@@ -306,29 +245,22 @@ from .sets.subcategories.constructions.subquotients import _Subquotients as SetS
 from .sets.subcategories.constructions.with_realizations import _WithRealizations as SetWithRealizationsCategory
 from .sets.subcategories.graded import _GradedSets
 from .sets.subcategories.group_actions import _GSets
+from .sets.subcategories.partitioned import (
+    PartitionedSetsAut,
+    PartitionedSetsAutCategory,
+    PartitionedSetsAutomorphism,
+    PartitionedSetsCategory,
+    PartitionedSetsElement,
+    PartitionedSetsEnd,
+    PartitionedSetsEndCategory,
+    PartitionedSetsEndomorphism,
+    PartitionedSetsHom,
+    PartitionedSetsHomCategory,
+    PartitionedSetsMorphism,
+    PartitionedSetsObject,
+)
 from .topological_spaces import (
-    MetricSpacesAut,
-    MetricSpacesAutCategory,
-    MetricSpacesAutomorphism,
-    MetricSpacesCategory,
-    MetricSpacesElement,
-    MetricSpacesEnd,
-    MetricSpacesEndCategory,
-    MetricSpacesEndomorphism,
-    MetricSpacesHom,
-    MetricSpacesHomCategory,
-    MetricSpacesMorphism,
     MetricSpacesObject,
-    TopologicalSpacesAut,
-    TopologicalSpacesAutCategory,
-    TopologicalSpacesAutomorphism,
-    TopologicalSpacesCategory,
-    TopologicalSpacesElement,
-    TopologicalSpacesEnd,
-    TopologicalSpacesEndCategory,
-    TopologicalSpacesEndomorphism,
-    TopologicalSpacesHom,
-    TopologicalSpacesHomCategory,
     TopologicalSpacesMorphism,
     TopologicalSpacesObject,
 )
@@ -358,6 +290,23 @@ SetAutomorphism = SetsAutomorphism
 FiniteSetMap = FiniteSetMap_MN
 SetFamily = AbstractFamily
 SetGeneratingSeries = SageParent
+IntegerPartition = SageIntegerPartition
+SetPartition = SageSetPartition
+SetPartitionsParent = SageSetPartitions
+PartitionedSet = PartitionedSetsObject
+PartitionedSetElement = PartitionedSetsElement
+PartitionedSetMorphism = PartitionedSetsMorphism
+PartitionedSetHom = PartitionedSetsHom
+PartitionedSetEnd = PartitionedSetsEnd
+PartitionedSetAut = PartitionedSetsAut
+PartitionedSetEndomorphism = PartitionedSetsEndomorphism
+PartitionedSetAutomorphism = PartitionedSetsAutomorphism
+PartitionedSetHomCategory = PartitionedSetsHomCategory
+PartitionedSetEndCategory = PartitionedSetsEndCategory
+PartitionedSetAutCategory = PartitionedSetsAutCategory
+PartitionedSetCategory = PartitionedSetsCategory
+SetPartitionSet = PartitionedSet
+EquivalenceRelation = SetPartition
 GroupElement = SageElement
 GroupAction = SageMorphism
 

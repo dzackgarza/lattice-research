@@ -2,12 +2,11 @@ r"""Semisimple algebras."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import Any
+from typing import Any, final
 
-from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.categories.semisimple_algebras import SemisimpleAlgebras as SageSemisimpleAlgebras
 
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
 
 

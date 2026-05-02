@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING, final
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 from ..cat import Category
+from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
     from ..types import Poset

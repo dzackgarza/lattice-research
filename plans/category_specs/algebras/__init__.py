@@ -60,11 +60,11 @@ if TYPE_CHECKING:
         Monoid,
         RAlgebra,
         Ring,
+        RModule,
         Semigroup,
         Set,
-        Tensor,
-        RModule,
         SetFamily,
+        Tensor,
     )
 
 

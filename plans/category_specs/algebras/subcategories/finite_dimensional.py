@@ -2,13 +2,12 @@ r"""Finite-dimensional algebras."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
-from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.rings.infinity import infinity
 
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
 
 if TYPE_CHECKING:

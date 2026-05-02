@@ -35,7 +35,7 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, overload, final
+from typing import TYPE_CHECKING, Any, final, overload
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor

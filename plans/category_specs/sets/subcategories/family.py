@@ -12,8 +12,8 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Integer, Set, SetElement, SetFamily, SetMorphism
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _FamilySets(Category_singleton):

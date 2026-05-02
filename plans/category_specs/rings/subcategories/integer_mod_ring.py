@@ -2,10 +2,8 @@ r"""IntegerModRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
-from ...cat import Category, Category_singleton
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
@@ -17,6 +15,8 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 from sage.structure.factorization import Factorization
+
+from ...cat import Category, Category_singleton
 
 if TYPE_CHECKING:
     from ...types import (

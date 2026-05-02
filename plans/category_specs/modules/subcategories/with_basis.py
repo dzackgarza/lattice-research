@@ -12,7 +12,17 @@ from ...homsets import HomCategoryConstruction
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import CategoryElement, Integer, Matrix, ModuleBasis, Ring, RingElement, RModule, RModuleElement, RModuleMorphism
+    from ...types import (
+        CategoryElement,
+        Integer,
+        Matrix,
+        ModuleBasis,
+        Ring,
+        RingElement,
+        RModule,
+        RModuleElement,
+        RModuleMorphism,
+    )
 
 
 class _WithBasis(CategoryWithAxiom_over_base_ring):

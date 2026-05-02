@@ -6,7 +6,8 @@ from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .meet_semilattice import _MeetSemilatticePosets
 
 if TYPE_CHECKING:

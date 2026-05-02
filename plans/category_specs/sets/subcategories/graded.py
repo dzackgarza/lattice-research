@@ -7,7 +7,8 @@ from typing import TYPE_CHECKING, final
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import GradedSet, Set, SetElement, SetGeneratingSeries

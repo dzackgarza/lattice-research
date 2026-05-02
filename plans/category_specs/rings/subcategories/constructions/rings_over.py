@@ -2,12 +2,9 @@ r"""Rings over a fixed ambient ring."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
-from ....cat import Category
-
-from ....cat import Category_over_base_ring, RegressiveCovariantConstructionCategory
+from ....cat import Category, Category_over_base_ring, RegressiveCovariantConstructionCategory
 
 if TYPE_CHECKING:
     from ....types import Ring, RingMorphism

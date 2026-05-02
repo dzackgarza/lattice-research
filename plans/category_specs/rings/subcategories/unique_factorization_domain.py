@@ -2,8 +2,7 @@ r"""UniqueFactorizationDomains ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
@@ -19,7 +18,8 @@ from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 from sage.structure.factorization import Factorization
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     pass

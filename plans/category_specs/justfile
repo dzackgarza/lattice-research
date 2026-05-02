@@ -46,6 +46,7 @@ smoke: _clean-generated-artifacts
         "sets/smoketest.sage"
         "posets/smoketest.sage"
         "topological_spaces/smoketest.sage"
+        "tensor_algebra_components/smoketest.sage"
         "algebras/smoketest.sage"
         "rings/smoketest.sage"
         "modules/smoketest.sage"

@@ -2,8 +2,7 @@ r"""PrincipalIdealDomains ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any, override
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.principal_ideal_domains import (
     PrincipalIdealDomains as SagePrincipalIdealDomains,
@@ -17,7 +16,8 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import (

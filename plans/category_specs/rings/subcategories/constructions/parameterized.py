@@ -2,11 +2,11 @@ r"""Parameterized ring construction category helpers."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
+
+from sage.rings.integer import Integer
 
 from ....cat import Category, CategoryWithParameters
-from sage.rings.integer import Integer
 
 if TYPE_CHECKING:
     from ....types import Ring

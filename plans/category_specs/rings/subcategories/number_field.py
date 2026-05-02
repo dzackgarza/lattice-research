@@ -2,11 +2,9 @@ r"""NumberFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import final
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, final
 
-from ...cat import Category
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -20,6 +18,7 @@ from sage.rings.polynomial.polynomial_ring import PolynomialRing_generic
 from sage.rings.power_series_ring import PowerSeriesRing_generic
 from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSeriesRing
 
+from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:

@@ -12,8 +12,8 @@ if TYPE_CHECKING:
     from ...types import SetElement, SympySet
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _NonNegativeIntegersSets(Category_singleton):

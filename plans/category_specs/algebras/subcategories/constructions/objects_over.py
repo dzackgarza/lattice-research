@@ -2,8 +2,7 @@ r"""Slice construction category of algebras over a fixed algebra."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 

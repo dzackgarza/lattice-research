@@ -43,6 +43,16 @@
   4.  **Avoid Type-Narrowing `try/except`**: Because overload cases are explicit and
       closed, do not use monolithic variadic bodies with `try/except` branches to guess
       or narrow input types. Use explicit typed dispatch that matches the overload set.
+- **Binary Operations Are Foldable**: A binary operation must expose the binary
+  operation itself and, when an aggregate operation is mathematically meaningful, a
+  separate sequence overload that folds over the binary operation.
+  - Example pattern: `op(x: XElement, y: XElement) -> XElement` and
+    `op(elements: Sequence[XElement]) -> XElement`.
+  - The sequence overload is an explicit fold over the binary overload. It is not a
+    variadic signature and not an optional-argument compatibility path such as
+    `op(x, y=None)`.
+  - Do not replace the binary operation with only an aggregate operation. The binary
+    operation is the primitive mathematical surface.
 - **True Sage Wrappers**: A wrapped Sage class must subclass the Sage class it
   re-exports, add only the project-specific registration or predicate surface, and then
   be re-exported under the Sage-compatible name. Do not reconstruct a Sage class by

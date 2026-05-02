@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from typing import final
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Sets
 
 

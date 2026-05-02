@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
-from ..cat import Category
 from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ..algebras import Algebras
+from ..cat import Category
 from ..modules import Modules
 from .subcategories.constructions.parameterized import _Category_over_base_integer_pair
 

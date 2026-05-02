@@ -7,7 +7,8 @@ from typing import TYPE_CHECKING, Any, final
 from sage.categories.finite_sets import FiniteSets as SageFiniteSets
 from sage.misc.abstract_method import abstract_method
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement

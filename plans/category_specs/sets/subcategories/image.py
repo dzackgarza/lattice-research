@@ -12,8 +12,8 @@ if TYPE_CHECKING:
     from ...types import Cardinality, Integer, Set, SetElement, SympySet
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _ImageSets(Category_singleton):

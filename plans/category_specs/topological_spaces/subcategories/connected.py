@@ -6,7 +6,8 @@ from typing import final
 
 from sage.categories.sets_cat import Sets as SageSets
 
-from ...cat import Category, CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...cat import Category
+from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import _TopologicalSpaces
 
 

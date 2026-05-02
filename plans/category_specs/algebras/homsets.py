@@ -2,8 +2,7 @@ r"""Hom, end, and aut categories for algebras."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from typing import final
+from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport

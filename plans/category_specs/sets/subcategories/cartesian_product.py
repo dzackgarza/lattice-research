@@ -11,8 +11,8 @@ from sage.misc.abstract_method import abstract_method
 if TYPE_CHECKING:
     from ...types import CartesianProductFunctor, Integer, Set, SetElement, SetMorphism, SympySet
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _CartesianProductSets(Category_singleton):

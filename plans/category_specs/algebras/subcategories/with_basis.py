@@ -2,14 +2,13 @@ r"""Algebras equipped with a distinguished basis."""
 
 from __future__ import annotations
 
-from typing import final
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.algebras_with_basis import AlgebrasWithBasis as SageAlgebrasWithBasis
-from ...cat import Category, CategoryWithAxiom_over_base_ring
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
+from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
 
 if TYPE_CHECKING:

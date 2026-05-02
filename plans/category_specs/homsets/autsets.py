@@ -11,7 +11,7 @@ from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
-    from ..types import Automorphism, Aut, CategoryObject, End, Endomorphism, Subset
+    from ..types import Aut, Automorphism, CategoryObject, End, Endomorphism, Subset
 
 
 def _aut_categories_of(category: Category) -> Category:

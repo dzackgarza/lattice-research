@@ -3,6 +3,7 @@ r"""Ring quotients."""
 from __future__ import annotations
 
 from typing import final
+
 from ....cat import QuotientsCategory
 
 

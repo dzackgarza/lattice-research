@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage finite sets of maps."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator, Sequence
-from typing import TYPE_CHECKING, Any, overload, final
+from typing import TYPE_CHECKING, Any, final, overload
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
@@ -16,8 +16,8 @@ if TYPE_CHECKING:
     )
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _FiniteSetMapsSets(Category_singleton):

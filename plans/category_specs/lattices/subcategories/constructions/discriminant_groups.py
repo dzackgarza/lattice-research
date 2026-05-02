@@ -20,7 +20,7 @@ from ....modules import (
 )
 
 if TYPE_CHECKING:
-    from ....types import Matrix, RModuleElement, RingElement, SetFamily
+    from ....types import Matrix, RingElement, RModuleElement, SetFamily
 
 
 class _DiscriminantGroups(Category_module):
@@ -54,7 +54,7 @@ class _DiscriminantGroups(Category_module):
         def brown_invariant(self) -> RingElement: ...
 
         @abstract_method
-        def primary_part(self, p: RingElement) -> "_DiscriminantGroups.ParentMethods": ...
+        def primary_part(self, p: RingElement) -> _DiscriminantGroups.ParentMethods: ...
 
         @abstract_method
         def all_submodules(self) -> SetFamily: ...

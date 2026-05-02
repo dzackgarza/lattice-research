@@ -3,7 +3,8 @@ r"""Cartesian products of algebras."""
 from __future__ import annotations
 
 from typing import final
-from ....cat import Category, CartesianProductsCategory
+
+from ....cat import CartesianProductsCategory, Category
 
 
 class _CartesianProducts(CartesianProductsCategory):

@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     from ...types import SetElement
 
 
-from .. import Sets
 from ...cat import Category
+from .. import Sets
 
 
 class _PrimesSets(Category_singleton):
