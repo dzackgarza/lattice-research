@@ -2,7 +2,7 @@ r"""Even lattices."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ..chain import _Lattices
@@ -18,6 +18,7 @@ class _EvenLattices(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_even",)
 
     class ParentMethods:
+        @override
         @final
         def is_even(self) -> bool:
             return True

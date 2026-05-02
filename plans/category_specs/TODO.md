@@ -6,10 +6,16 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Mark overrides explicitly and distinguish them from genuinely new methods
-  introduced by a subcategory. A reader should be able to tell whether a method
-  refines inherited behavior or first becomes mathematically meaningful at that
-  category.
+- [ ] Continue the override/provenance audit outside the high-confidence formed-module
+  and lattice pass already started. Remaining judgment areas:
+  `algebras/`, `cat/`, `homsets/`, `modules/`, `posets/`, `rings/`, `sets/`,
+  `tensor_algebra_components/`, and `topological_spaces/`; constructor helper classes
+  (`Constructors`, `HomCategoryConstruction`, parameterized construction categories);
+  Sage/category hook methods such as `_repr_object_names`, `super_categories`,
+  `additional_structure`, `extra_super_categories`, `category_of`, `__contains__`,
+  `_element_constructor_`, and `__call__`; foldable binary operations with overload
+  stubs such as `join`, `meet`, `union`, and `intersection`; and abstract method
+  families whose mathematical owner is not locally obvious from the docstring.
 - [ ] Audit every method for highest valid mathematical placement. Place each method
   where implementers primarily think about the corresponding abstraction; for example,
   algebra specs should not restate set-theoretic domain and codomain obligations for

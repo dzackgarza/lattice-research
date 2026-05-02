@@ -9,7 +9,7 @@ All hyperbolic lattices, K3 lattices, and Lorentzian lattices are indefinite.
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .symmetric import _SymmetricBilinearModules
@@ -39,18 +39,22 @@ class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_indefinite",)
 
     class ParentMethods:
+        @override
         @final
         def is_indefinite(self) -> bool:
             return True
 
+        @override
         @final
         def is_definite(self) -> bool:
             return False
 
+        @override
         @final
         def is_positive_definite(self) -> bool:
             return False
 
+        @override
         @final
         def is_negative_definite(self) -> bool:
             return False

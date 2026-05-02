@@ -8,7 +8,7 @@ equivalent to ``\det(G) \neq 0``.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -38,6 +38,7 @@ class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_nondegenerate",)
 
     class ParentMethods:
+        @override
         @final
         def is_nondegenerate(self) -> bool:
             return True

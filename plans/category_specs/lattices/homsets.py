@@ -8,7 +8,7 @@ modules-with-forms aut surface.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -38,6 +38,7 @@ class _LatticeMorphisms:
 class _LatticeAutomorphisms:
     r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
+    @override
     @final
     def is_isometry(self) -> bool:
         return True

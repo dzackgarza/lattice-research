@@ -2,7 +2,7 @@ r"""Modules equipped with quadratic forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .with_forms import _WithForms
@@ -21,12 +21,14 @@ class _QuadraticModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_quadratic",)
 
     class ParentMethods:
+        @override
         @final
         def is_quadratic(self) -> bool:
             return True
 
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
+            r"""Introduced here: evaluate the quadratic form on a module element."""
             return self.form().q(v)
 
     class ElementMethods: ...

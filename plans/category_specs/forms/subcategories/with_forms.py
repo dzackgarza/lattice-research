@@ -2,7 +2,7 @@ r"""Modules equipped with forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 from sage.misc.abstract_method import abstract_method
@@ -26,6 +26,7 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("has_form",)
 
     class ParentMethods:
+        @override
         @final
         def has_form(self) -> bool:
             return True
@@ -48,36 +49,43 @@ class _WithForms(CategoryWithAxiom_over_base_ring):
         @cached_method
         @final
         def Bilinear(self) -> Category:
+            r"""Introduced here: select the bilinear-formed subcategory."""
             return self._with_axiom("Bilinear")
 
         @cached_method
         @final
         def Quadratic(self) -> Category:
+            r"""Introduced here: select the quadratic-formed subcategory."""
             return self._with_axiom("Quadratic")
 
         @cached_method
         @final
         def Symmetric(self) -> Category:
+            r"""Introduced here: select the symmetric-bilinear subcategory."""
             return self._with_axiom("Symmetric")
 
         @cached_method
         @final
         def Alternating(self) -> Category:
+            r"""Introduced here: select the alternating-bilinear subcategory."""
             return self._with_axiom("Alternating")
 
         @cached_method
         @final
         def Nondegenerate(self) -> Category:
+            r"""Introduced here: select the nondegenerate-bilinear subcategory."""
             return self._with_axiom("Nondegenerate")
 
         @cached_method
         @final
         def Integral(self) -> Category:
+            r"""Introduced here: select the integral-bilinear subcategory."""
             return self._with_axiom("Integral")
 
         @cached_method
         @final
         def Rational(self) -> Category:
+            r"""Introduced here: select the rational-bilinear subcategory."""
             return self._with_axiom("Rational")
 
     class ElementMethods: ...

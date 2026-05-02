@@ -6,7 +6,7 @@ which implies ``b(v, w) = -b(w, v)`` (skew-symmetry) when ``2`` is invertible.
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import _BilinearModules
@@ -32,13 +32,14 @@ class _AlternatingBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_alternating",)
 
     class ParentMethods:
+        @override
         @final
         def is_alternating(self) -> bool:
             return True
 
         @final
         def is_isotropic(self) -> bool:
-            r"""Every element is self-orthogonal: ``b(v, v) = 0`` by definition."""
+            r"""Introduced here: every element satisfies ``b(v, v) = 0``."""
             return True
 
     class ElementMethods: ...

@@ -8,7 +8,7 @@ A symmetric bilinear form is *definite* iff it is either positive-definite
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -40,14 +40,17 @@ class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_definite",)
 
     class ParentMethods:
+        @override
         @final
         def is_definite(self) -> bool:
             return True
 
+        @override
         @final
         def is_indefinite(self) -> bool:
             return False
 
+        @override
         @final
         def is_nondegenerate(self) -> bool:
             r"""Definite implies nondegenerate."""
@@ -64,6 +67,7 @@ class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods:
+        @override
         @final
         def is_anisotropic(self) -> bool:
             r"""Every nonzero element of a definite module is anisotropic."""

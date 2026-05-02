@@ -11,7 +11,7 @@ genuine matrix (entries in ``S``), and the first tier at which
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -66,6 +66,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_free",)
 
     class ParentMethods:
+        @override
         @final
         def is_free(self) -> bool:
             return True
@@ -81,6 +82,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
             """
             ...
 
+        @override
         @abstract_method
         def gram_matrix(self) -> Matrix:
             r"""Return the Gram matrix ``G`` with ``G_{ij} = b(e_i, e_j)``.
@@ -96,6 +98,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
             """
             ...
 
+        @override
         @abstract_method
         def inner_product_matrix(self) -> Matrix:
             r"""Return the inner product matrix (alias / alternative encoding).
@@ -108,7 +111,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
         @final
         def determinant(self) -> RingElement:
-            r"""Return ``\det(G)``, the determinant of the Gram matrix.
+            r"""Introduced here: return ``\det(G)``, the determinant of the Gram matrix.
 
             EXAMPLES::
 
@@ -121,7 +124,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
         @final
         def discriminant(self) -> RingElement:
-            r"""Return ``(-1)^r \det(G)`` where ``r = \mathrm{rank}(M)``.
+            r"""Introduced here: return ``(-1)^r \det(G)`` where ``r = \mathrm{rank}(M)``.
 
             This is the sign convention used by Sage's
             ``FreeQuadraticModule_generic.discriminant()``.
@@ -206,7 +209,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
         @final
         def is_primitive(self) -> bool:
-            r"""Return ``True`` iff ``v`` is primitive (divisibility is a unit)."""
+            r"""Refine the module-element primitive predicate using divisibility."""
             return self.divisibility().is_unit()
 
         @abstract_method
@@ -227,7 +230,7 @@ class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
         @final
         def self_product(self) -> RingElement:
-            r"""Return ``b(v, v)``."""
+            r"""Introduced here: return ``b(v, v)``."""
             return self.parent().b(self, self)
 
     class MorphismMethods:

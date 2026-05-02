@@ -15,7 +15,7 @@ because the condition ``b(v, L) \subseteq R`` requires both that ``b`` is
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -57,10 +57,12 @@ class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_integral",)
 
     class ParentMethods:
+        @override
         @final
         def is_integral(self) -> bool:
             return True
 
+        @override
         @final
         def is_rational(self) -> bool:
             r"""Every integral form is rational (``R \subseteq K``)."""
