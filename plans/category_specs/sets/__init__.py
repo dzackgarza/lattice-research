@@ -458,6 +458,32 @@ class Sets(Category_singleton):
             return refine_category(SagePrimes(proof), [Sets(), _PrimesSets()])
 
         @final
+        def _real_subset_categories(self, real_set: RealSubset) -> list[Category]:
+            r"""Return the project categories satisfied by a Sage real subset."""
+            from sage.categories.topological_spaces import TopologicalSpaces as SageTopologicalSpaces
+
+            from ..topological_spaces import TopologicalSpaces
+            from .subcategories.real_set import _RealSets
+
+            categories = [
+                Sets(),
+                Sets().Subobjects(),
+                Sets().Topological(),
+                _RealSets(),
+                TopologicalSpaces().Subobjects(),
+            ]
+            if real_set.is_connected():
+                categories.append(TopologicalSpaces().Connected())
+            if real_set.category().is_subcategory(SageTopologicalSpaces().Compact()):
+                categories.append(TopologicalSpaces().Compact())
+            return categories
+
+        @final
+        def _refine_real_subset(self, real_set: RealSubset) -> RealSubset:
+            r"""Refine a Sage real subset into the local set/topological hierarchy."""
+            return refine_category(real_set, self._real_subset_categories(real_set))
+
+        @final
         def RR(self) -> Set:
             r"""Return Sage ``RR`` refined as a topological set object."""
             from sage.rings.real_mpfr import RealField
@@ -465,13 +491,11 @@ class Sets(Category_singleton):
             return refine_category(RealField(), [Sets(), Sets().Topological()])
 
         @final
-        def RealSet(self, intervals: Sequence[RealInterval], *, normalized: bool = True) -> RealSubset:
+        def RealSet(self, intervals: Sequence[RealInterval], *, normalized: bool = False) -> RealSubset:
             r"""Return a real subset represented as a finite union of real intervals."""
             from sage.sets.real_set import RealSet as SageRealSet
 
-            from .subcategories.real_set import _RealSets
-
-            return refine_category(SageRealSet(*intervals, normalized=normalized), [Sets(), _RealSets()])
+            return self._refine_real_subset(SageRealSet(*tuple(intervals), normalized=normalized))
 
         @final
         def RealSetInterval(
@@ -486,8 +510,6 @@ class Sets(Category_singleton):
             r"""Return ``RealSet.interval(lower, upper, ...)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
 
-            from .subcategories.real_set import _RealSets
-
             S = SageRealSet.interval(
                 lower,
                 upper,
@@ -495,7 +517,7 @@ class Sets(Category_singleton):
                 upper_closed=upper_closed,
                 normalized=normalized,
             )
-            return refine_category(S, [Sets(), _RealSets()])
+            return self._refine_real_subset(S)
 
         @final
         def OpenRealInterval(self, lower: RealNumber, upper: RealNumber, *, normalized: bool = True) -> RealOpenSet:

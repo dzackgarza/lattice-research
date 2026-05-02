@@ -6,8 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Admit pure topological constructors under the top-level constructor surface and
-  refine named sets into their tight topological, subset, and subobject categories.
 - [ ] Add a foldable-operation decorator for binary operations. It should standardize
   the paired overload pattern `op(x: XElement, y: XElement)` and
   `op(elements: Sequence[XElement])`, and make the sequence overload an explicit fold

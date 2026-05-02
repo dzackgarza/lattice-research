@@ -13,7 +13,7 @@ from .. import Sets
 from ..homsets import SetAutCategory, SetEndCategory, SetHomCategory
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, Set, SetElement, SetPartition, Subset
+    from ...types import Cardinality, Set, SetElement, SetPartition, Subset
 
 
 class _PartitionedSets(CategoryWithAxiom):
