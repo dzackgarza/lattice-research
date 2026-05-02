@@ -251,3 +251,11 @@ display/interop status:
   `moebius_function_matrix`, `magnitude`, `spectrum`, `atkinson`;
 - display helpers and raw Sage compatibility accessors: `order_ideal_plot`,
   `unwrap`.
+
+## Slice And Coslice Structures
+
+`Posets().ObjectsOver(P)` and `Posets().ObjectsUnder(P)` own the poset-specific
+`structure_poset()` and order-preserving `structure_map()` methods. The old local
+`structure_domain()` and `structure_codomain()` methods now map to the Cat-owned
+universal structure-morphism surface via `structure_morphism().domain()` and
+`structure_morphism().codomain()`.

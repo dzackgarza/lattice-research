@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
+from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
 
 if TYPE_CHECKING:
     from ....types import Poset, PosetMorphism
@@ -36,15 +37,14 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
             r"""Return the order-preserving map from the source to this poset."""
             ...
 
+        @override
         @final
-        def structure_domain(self) -> Poset:
-            r"""Return the domain poset of the structure map."""
-            return self.structure_poset()
+        def structure_morphism(self) -> PosetMorphism:
+            r"""Return the structure map as the universal structure morphism."""
+            return self.structure_map()
 
-        @final
-        def structure_codomain(self) -> Poset:
-            r"""Return the codomain poset of the structure map."""
-            return self
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

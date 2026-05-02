@@ -35,6 +35,14 @@ this subtree. Ring and module methods are inherited from `rings` and `modules`.
 | Quotients, subobjects, Cartesian products, tensor products, duals | `Algebras(R).<Construction>()` | These are construction categories attachable to arbitrary algebra subcategories by `category_of(self)`. Algebra subobjects are subalgebras; algebra ideals live in `Algebras(R).Ideals(A)` and inherit `ambient()`, `ambient_module()`, and `inclusion()` from `Modules(R).Subobjects()`. By construction, that ambient module is the algebra `A` viewed as an `R`-module. |
 | Topological algebras | `Algebras(R)` plus `topological_spaces` | Topological-space methods belong to the topological-space subtree and should be inherited. |
 
+Slice and coslice algebra objects keep the algebra-specific names
+`structure_algebra()` and `structure_map()`. The old local
+`Algebras(R).ObjectsOver(A).ParentMethods.structure_domain()` /
+`structure_codomain()` and `Algebras(R).ObjectsUnder(A)` versions now map through the
+Cat-owned universal `structure_morphism().domain()` and
+`structure_morphism().codomain()` surface. This preserves the old behavior while
+placing domain and codomain on the generic structure-morphism owner.
+
 ## Free-Construction Routing
 
 For source categories admitted in this subtree, the public method on a source object is

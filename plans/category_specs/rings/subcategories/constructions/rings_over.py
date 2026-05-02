@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_over_base_ring, RegressiveCovariantConstructionCategory
+from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
 
 if TYPE_CHECKING:
     from ....types import Ring, RingMorphism
@@ -40,13 +41,14 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
         def structure_map(self) -> RingMorphism:
             return self.structure_ring().coerce_map_from(self)
 
+        @override
         @final
-        def structure_domain(self) -> Ring:
-            return self
+        def structure_morphism(self) -> RingMorphism:
+            r"""Return the structure map as the universal structure morphism."""
+            return self.structure_map()
 
-        @final
-        def structure_codomain(self) -> Ring:
-            return self.structure_ring()
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

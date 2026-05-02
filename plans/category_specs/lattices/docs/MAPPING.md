@@ -197,6 +197,12 @@ standard construction categories:
 | `OrthogonalDirectSums()` | Cartesian-product construction plus the orthogonal block-sum form and summand access. | Keep as refinement below `CartesianProducts()`. |
 | `DiscriminantGroups()` | Finite torsion formed modules `L^*/L` with discriminant-form data. | Keep as lattice-specific quotient/form construction, not generic `Quotients()`. |
 
+`Lattices(R).ObjectsOver(L)` and `Lattices(R).ObjectsUnder(L)` keep the
+lattice-specific `structure_lattice()` and lattice morphism `structure_map()`.
+Their former local `structure_domain()` and `structure_codomain()` implementations now
+map to the Cat-owned universal structure-morphism methods through
+`structure_morphism().domain()` and `structure_morphism().codomain()`.
+
 ---
 
 ## Sage Type → Spec Category Mapping

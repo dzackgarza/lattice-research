@@ -6,9 +6,21 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Spot-check every public method for mathematical well-definedness and nontrivial
-  content. If a method is meaningful only on a different object, move it to that
-  owner or expose it through the relevant morphism.
+- [ ] Continue the public-method well-definedness audit on these exact remaining
+  surfaces:
+  - `homsets/homsets.py`: decide whether `HomCategory.SubcategoryMethods.EndCategory`
+    and `AutCategory`, plus the corresponding construction methods, are legitimate
+    hom-category navigation or should be only the inherited universal selectors.
+  - `homsets/endsets.py`: decide whether `EndCategory.SubcategoryMethods.AutCategory`
+    and `EndCategoryOf.SubcategoryMethods.AutCategory` are legitimate end-category
+    navigation or duplicated universal selectors.
+  - `modules/subcategories/with_basis.py`: audit `linear_combination_of_basis`,
+    `cokernel_basis_indices`, `HomCategory.ParentMethods.from_basis_map`, and
+    `HomCategory.ElementMethods.on_basis` for basis-coordinate interop leakage versus
+    genuine basis-bearing module structure.
+  - `lattices/subcategories/over_dedekind.py`: decide whether
+    `special_orthogonal_group()` and `stable_orthogonal_group()` belong on lattice
+    objects or should be exposed through `Lattices(R).AutCategory()` refinements.
 - [ ] Check that smoke tests exercise all constructors, that every constructor refines
   its result, and that constructor refinement targets the tightest subcategories
   possible, including derived cases such as a finite-rank free module over a finite

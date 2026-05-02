@@ -73,6 +73,12 @@ use the private convenience method `_change_print_mode(print_mode)`.
 | `Rings().IsomorphicObjects()` | `subcategories/constructions/isomorphic_objects.py` | Transport of ring structure along an isomorphism is both subobject-like and quotient-like in Sage's construction hierarchy. |
 | `Rings().WithRealizations()` / `Rings().Realizations()` | `subcategories/constructions/with_realizations.py` and `realizations.py` using the generic realization method surface | Realization categories are categorical structure for parents with several concrete models, not constructor namespaces. The audited `Rings` category source contributes no additional ring-only realization methods. |
 
+`Rings().RingsOver(R)` and `Rings().RingsUnder(R)` own the ring-specific
+`structure_ring()` and ring morphism `structure_map()` methods. Their old local
+`structure_domain()` and `structure_codomain()` methods now map to the Cat-owned
+universal structure-morphism surface through `structure_morphism().domain()` and
+`structure_morphism().codomain()`.
+
 ## Axiom vs. Implementation Decision
 
 Use direct implementation categories only for genuinely computable implementation

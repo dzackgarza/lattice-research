@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
+from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
 
 if TYPE_CHECKING:
     from ....types import RModMorphism, RModule
@@ -32,13 +33,14 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         @abstract_method
         def structure_map(self) -> RModMorphism: ...
 
+        @override
         @final
-        def structure_domain(self) -> RModule:
-            return self.structure_module()
+        def structure_morphism(self) -> RModMorphism:
+            r"""Return the structure map as the universal structure morphism."""
+            return self.structure_map()
 
-        @final
-        def structure_codomain(self) -> RModule:
-            return self
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
+from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
 
 if TYPE_CHECKING:
     from ....types import Algebra, AlgebraMorphism
@@ -36,15 +37,14 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
             r"""Return the algebra morphism from this algebra to the target."""
             ...
 
+        @override
         @final
-        def structure_domain(self) -> Algebra:
-            r"""Return the domain algebra of the structure map."""
-            return self
+        def structure_morphism(self) -> AlgebraMorphism:
+            r"""Return the structure map as the universal structure morphism."""
+            return self.structure_map()
 
-        @final
-        def structure_codomain(self) -> Algebra:
-            r"""Return the codomain algebra of the structure map."""
-            return self.structure_algebra()
+        structure_domain = structure_domain
+        structure_codomain = structure_codomain
 
     class ElementMethods: ...
     class MorphismMethods: ...

@@ -233,6 +233,12 @@ targets only when the additional hypotheses make a real algorithmic surface poss
 | `Modules(R).FiniteDimensional()` | `subcategories/finite_dimensional.py` | Finite-dimensionality is an axiomatic restriction. Over finite base rings, Sage adds finite-set structure. |
 | `Modules(R).FinitelyPresented()` | `subcategories/finitely_presented.py` | Finitely presented modules are an axiomatic restriction. Concrete finitely presented graded/PID modules are implementation families under the constructor namespace. |
 
+For `Modules(R).ObjectsOver(M)` and `Modules(R).ObjectsUnder(M)`, the module subtree
+owns `structure_module()` and the module morphism `structure_map()`. The old local
+`structure_domain()` and `structure_codomain()` methods move to the Cat-owned universal
+structure-morphism surface via `structure_morphism().domain()` and
+`structure_morphism().codomain()`.
+
 ## Hom-Category Extra-Structure Decision
 
 `R-Mod` is the first concrete model for hom/end/aut extra structure. The generic layer
