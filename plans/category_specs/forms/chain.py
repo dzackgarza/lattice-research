@@ -45,7 +45,11 @@ class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
 
         @final
         def orthogonal_group(self) -> OrthogonalGroup:
-            r"""Return ``Aut_C(M)`` for this finite-rank formed-module category ``C``."""
+            r"""Return the automorphism group preserving the form on this module.
+
+            For ``M`` in a formed-module category ``C``, this is
+            ``Aut_C(M) = {g in Aut_R(M) : form(gv, gw) = form(v, w)}``.
+            """
             return self.category().AutCategory().Of(self)
 
     class ElementMethods: ...

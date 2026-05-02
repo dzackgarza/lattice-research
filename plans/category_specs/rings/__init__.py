@@ -1142,6 +1142,11 @@ class Rings(Category_singleton):
             check: bool = True,
             implementation: str = "FLINT",
         ) -> Ring:
+            r"""Return the unramified ``Z_p``-extension with residue field of order ``q`` and lattice precision caps.
+
+            ``relative_cap`` bounds relative precision and ``absolute_cap`` bounds
+            absolute lattice precision for the extension ring.
+            """
             assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
             assert False, (
                 "Installed Sage has no unramified Zq extension constructor for split "
@@ -1303,6 +1308,11 @@ class Rings(Category_singleton):
             check: bool = True,
             implementation: str = "FLINT",
         ) -> Ring:
+            r"""Return the unramified ``Q_p``-extension with residue field of order ``q`` and lattice precision caps.
+
+            ``relative_cap`` bounds relative precision and ``absolute_cap`` bounds
+            absolute lattice precision for the extension field.
+            """
             assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
             assert False, (
                 "Installed Sage has no unramified Qq extension constructor for split "

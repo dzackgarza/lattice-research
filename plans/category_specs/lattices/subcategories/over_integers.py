@@ -34,11 +34,13 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
         def minimum(self) -> RingElement: ...
 
         @abstract_method
-        def short_vectors(self, bound: RingElement) -> SetFamily: ...
+        def short_vectors(self, bound: RingElement) -> SetFamily:
+            r"""Return vectors ``v`` whose norm ``b(v, v)`` is at most ``bound``."""
+            ...
 
         @final
         def short_vectors_up_to_sign(self, bound: RingElement) -> SetFamily:
-            r"""Return short vectors modulo the sign involution ``v |-> -v``."""
+            r"""Return representatives for the sign orbits ``{v, -v}`` in ``short_vectors(bound)``."""
             return self.short_vectors(bound, up_to_sign_flag=True)
 
         @abstract_method

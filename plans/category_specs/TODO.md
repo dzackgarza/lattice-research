@@ -5,6 +5,3 @@ choices live in `NEEDS_DECISIONS.md`. Completed items leave this file; git histo
 the archive.
 
 ## Audit Todo
-
-- [ ] Add mathematical docstrings whenever a spec introduces a new method. The docstring
-  should define the method mathematically rather than merely restating its return type.
