@@ -14,8 +14,6 @@ the archive.
   `free_algebra_from_additive_monoid`, `free_algebra_from_additive_group`, and
   `from_multiplication_tensor`. The smoke admits these names but cannot yet assert
   result refinement for them.
-- [ ] Audit for variadic specs that slipped in and create an inventory of remaining
-  variadic signatures.
 - [ ] Scope each remaining variadic Sage surface by reading the docs and source,
   tracing the finite code paths, splitting the surface into named methods or
   constructors, recording the mapping, and stubbing the resulting spec methods.
