@@ -6,14 +6,16 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Constructor smoke coverage is complete except for abstract algebra constructor
-  families whose source categories do not yet have concrete Sage-backed routing:
+- [ ] Constructor smoke coverage is complete except for algebra constructor routes
+  whose current target category or tensor interop surface is still missing:
   `Algebras(R).Constructors().free_algebra_from_magma`,
-  `free_algebra_from_semigroup`, `free_algebra_from_monoid`,
-  `free_algebra_from_group`, `free_algebra_from_additive_semigroup`,
-  `free_algebra_from_additive_monoid`, `free_algebra_from_additive_group`, and
-  `from_multiplication_tensor`. The smoke admits these names but cannot yet assert
-  result refinement for them.
+  `free_algebra_from_semigroup`, `free_algebra_from_additive_semigroup`, and
+  `from_multiplication_tensor`. The monoid, group, additive-monoid, and
+  additive-group routes now execute Sage-backed constructor paths. The remaining
+  nonunital source routes validate concrete Sage sources before asserting the missing
+  magmatic/nonunital algebra target; the tensor route validates a `(1, 2)` tensor
+  before asserting the missing tensor structure-constant extraction and finite-rank
+  algebra parent construction surface.
 - [ ] Promote admitted-name variadic-split smoke coverage to concrete regression
   examples when the missing fixtures or implementations exist:
   `Modules(E).Constructors().FPModuleFromCokernelMap` needs a concrete graded-module

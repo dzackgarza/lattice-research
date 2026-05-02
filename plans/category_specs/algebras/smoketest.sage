@@ -8,11 +8,38 @@ from category_specs.algebras import Algebras
 from category_specs.cat import Cat
 from category_specs.sets import Sets
 from category_specs.utils import assert_smoke_statements
-from sage.all import ZZ
+from sage.all import GF, IntegerModRing, ZZ
+from sage.categories.magmas import Magmas
+from sage.categories.semigroups import Semigroups
+from sage.groups.perm_gps.permgroup_named import CyclicPermutationGroup
+from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
 
 
 def A():
     return Algebras(ZZ)
+
+
+def multiplicative_monoid_source():
+    return IntegerModRing(3)
+
+
+def multiplicative_group_source():
+    return CyclicPermutationGroup(3)
+
+
+def additive_source():
+    return GF(3)
+
+
+def multiplication_tensor():
+    M = FiniteRankFreeModule(ZZ, 2, name="M")
+    M.basis("e")
+    mu = M.tensor((1, 2), name="mu")
+    mu[:] = [
+        [[1, 0], [0, 1]],
+        [[0, 1], [1, 0]],
+    ]
+    return mu
 
 
 SMOKE_STATEMENTS = (
@@ -46,36 +73,36 @@ SMOKE_STATEMENTS = (
         in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_magma is admitted",
-        lambda _: A().Constructors().free_algebra_from_magma,
+        "Algebras(ZZ).Constructors().free_algebra_from_magma validates a Sage magma source before the target gap",
+        lambda _: A().Constructors().free_algebra_from_magma(Magmas().example()) in A(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_semigroup is admitted",
-        lambda _: A().Constructors().free_algebra_from_semigroup,
+        "Algebras(ZZ).Constructors().free_algebra_from_semigroup validates a Sage semigroup source before the target gap",
+        lambda _: A().Constructors().free_algebra_from_semigroup(Semigroups().example()) in A(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_monoid is admitted",
-        lambda _: A().Constructors().free_algebra_from_monoid,
+        "Algebras(ZZ).Constructors().free_algebra_from_monoid(Z/3Z) executes the Sage monoid-algebra route",
+        lambda _: A().Constructors().free_algebra_from_monoid(multiplicative_monoid_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_group is admitted",
-        lambda _: A().Constructors().free_algebra_from_group,
+        "Algebras(ZZ).Constructors().free_algebra_from_group(C3) executes the Sage group-algebra route",
+        lambda _: A().Constructors().free_algebra_from_group(multiplicative_group_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup is admitted",
-        lambda _: A().Constructors().free_algebra_from_additive_semigroup,
+        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup validates an additive source before the target gap",
+        lambda _: A().Constructors().free_algebra_from_additive_semigroup(additive_source()) in A(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_monoid is admitted",
-        lambda _: A().Constructors().free_algebra_from_additive_monoid,
+        "Algebras(ZZ).Constructors().free_algebra_from_additive_monoid(GF(3), +) executes the Sage additive-monoid route",
+        lambda _: A().Constructors().free_algebra_from_additive_monoid(additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_group is admitted",
-        lambda _: A().Constructors().free_algebra_from_additive_group,
+        "Algebras(ZZ).Constructors().free_algebra_from_additive_group(GF(3), +) executes the Sage additive-group route",
+        lambda _: A().Constructors().free_algebra_from_additive_group(additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().from_multiplication_tensor is admitted",
-        lambda _: A().Constructors().from_multiplication_tensor,
+        "Algebras(ZZ).Constructors().from_multiplication_tensor validates a (1,2) tensor before the extraction gap",
+        lambda _: A().Constructors().from_multiplication_tensor(multiplication_tensor()) in A(),
     ),
 )
 
