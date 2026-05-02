@@ -7,6 +7,7 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 from category_specs.algebras import Algebras
 from category_specs.cat import Cat
 from category_specs.sets import Sets
+from category_specs.tensor_algebra_components import TensorAlgebraComponents
 from category_specs.utils import assert_smoke_statements
 from sage.all import GF, IntegerModRing, ZZ
 from sage.categories.magmas import Magmas
@@ -33,13 +34,15 @@ def additive_source():
 
 def multiplication_tensor():
     M = FiniteRankFreeModule(ZZ, 2, name="M")
-    M.basis("e")
-    mu = M.tensor((1, 2), name="mu")
-    mu[:] = [
-        [[1, 0], [0, 1]],
-        [[0, 1], [1, 0]],
-    ]
-    return mu
+    e = M.basis("e")
+    return TensorAlgebraComponents(ZZ).Constructors().from_module_element_matrix(
+        M,
+        [
+            [e[0], e[1]],
+            [e[1], e[0]],
+        ],
+        name="mu",
+    )
 
 
 SMOKE_STATEMENTS = (
@@ -73,11 +76,11 @@ SMOKE_STATEMENTS = (
         in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_magma validates a Sage magma source before the target gap",
+        "Algebras(ZZ).Constructors().free_algebra_from_magma constructs Sage magmatic algebra before the project target gap",
         lambda _: A().Constructors().free_algebra_from_magma(Magmas().example()) in A(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_semigroup validates a Sage semigroup source before the target gap",
+        "Algebras(ZZ).Constructors().free_algebra_from_semigroup constructs Sage associative algebra before the project target gap",
         lambda _: A().Constructors().free_algebra_from_semigroup(Semigroups().example()) in A(),
     ),
     (
@@ -89,7 +92,7 @@ SMOKE_STATEMENTS = (
         lambda _: A().Constructors().free_algebra_from_group(multiplicative_group_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup validates an additive source before the target gap",
+        "Algebras(ZZ).Constructors().free_algebra_from_additive_semigroup constructs Sage associative algebra before the project target gap",
         lambda _: A().Constructors().free_algebra_from_additive_semigroup(additive_source()) in A(),
     ),
     (
@@ -101,7 +104,7 @@ SMOKE_STATEMENTS = (
         lambda _: A().Constructors().free_algebra_from_additive_group(additive_source()) in A().WithBasis(),
     ),
     (
-        "Algebras(ZZ).Constructors().from_multiplication_tensor validates a (1,2) tensor before the extraction gap",
+        "Algebras(ZZ).Constructors().from_multiplication_tensor is wired to the project tensor surface",
         lambda _: A().Constructors().from_multiplication_tensor(multiplication_tensor()) in A(),
     ),
 )

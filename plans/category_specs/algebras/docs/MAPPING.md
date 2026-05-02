@@ -85,9 +85,9 @@ Concrete constructor status:
 | `free_algebra_from_group(G)` | Sage `G.algebra(R, category=Groups())`, refined to `Algebras(R).WithBasis()`. Group-specific Hopf structure remains a later refinement, not a separate constructor path. |
 | `free_algebra_from_additive_monoid(M)` | Sage `M.algebra(R, category=AdditiveMonoids())`, refined to `Algebras(R).WithBasis()`. The additive zero supplies the algebra unit. |
 | `free_algebra_from_additive_group(G)` | Sage `G.algebra(R, category=AdditiveGroups())`, refined to `Algebras(R).WithBasis()`. |
-| `free_algebra_from_magma(M)` | Precise stub only. Sage routes this to magmatic algebras; this subtree has no magmatic/nonassociative algebra target yet. |
-| `free_algebra_from_semigroup(S)` | Precise stub only. Sage routes this to associative algebras that need not be unital; this subtree has no nonunital associative-algebra target yet. |
-| `free_algebra_from_additive_semigroup(S)` | Precise stub only. This is the additive analogue of the semigroup route and has the same missing nonunital target. |
+| `free_algebra_from_magma(M)` | Sage `M.algebra(R, category=Magmas())` is executed and verified to land in `sage.categories.magmatic_algebras.MagmaticAlgebras(R).WithBasis()`. The remaining gap is a project-owned magmatic/nonassociative algebra category target; current `Algebras(R)` is the unital associative endpoint. |
+| `free_algebra_from_semigroup(S)` | Sage `S.algebra(R, category=Semigroups())` is executed and verified to land in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`. The remaining gap is a project-owned nonunital associative-algebra category target. |
+| `free_algebra_from_additive_semigroup(S)` | Sage `S.algebra(R, category=AdditiveSemigroups())` is executed and verified to land in `sage.categories.associative_algebras.AssociativeAlgebras(R).WithBasis()`. This is the additive analogue of the semigroup route and has the same missing project target. |
 
 ## Plain-Set Sage Algebra Route
 
@@ -118,7 +118,7 @@ module-valued product data into the canonical tensor before algebra construction
 begins.
 
 Current implementation status: `from_multiplication_tensor(multiplication=mu)`
-validates `mu.tensor_type() == (1, 2)` and that `mu.base_module()` is over the
-constructor base ring, then asserts the remaining implementation gap. The missing
-surface is a public tensor structure-constant extraction method and a Sage-backed
-finite-rank algebra parent constructor from a base module plus the `(1, 2)` tensor.
+validates `mu.tensor_type() == (1, 2)`, checks the tensor base ring, and reads
+`mu.structure_constants()` against `mu.base_module().rank()`. The remaining
+implementation gap is a Sage-backed finite-rank algebra parent constructor from a base
+module plus the `(1, 2)` tensor's coordinate structure constants.

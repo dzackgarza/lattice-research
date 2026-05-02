@@ -54,6 +54,14 @@ class _TensorElementMethods:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
+    @final
+    def structure_constants(self) -> Sequence[Matrix]:
+        r"""Return coordinate structure constants encoded by a product tensor."""
+        assert self.tensor_type() == (1, 2), (
+            f"Structure constants are only defined for multiplication tensors of type (1, 2): {self.tensor_type()}"
+        )
+        return self[:]
+
 
 class _TensorMorphismMethods:
     r"""Morphisms between tensor component modules."""

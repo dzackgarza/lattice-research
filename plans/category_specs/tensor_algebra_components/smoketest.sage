@@ -24,8 +24,11 @@ def multiplication_tensor():
     return constructors.from_module_element_matrix(
         M,
         [
-            [preferred_generators[0], preferred_generators[1]],
-            [preferred_generators[1], preferred_generators[0]],
+            [preferred_generators[0], 2 * preferred_generators[0] + 3 * preferred_generators[1]],
+            [
+                5 * preferred_generators[0] + 7 * preferred_generators[1],
+                11 * preferred_generators[0] + 13 * preferred_generators[1],
+            ],
         ],
         name="mu",
     )
@@ -72,6 +75,14 @@ SMOKE_STATEMENTS = (
     ("matrix constructor leaves parent recoverable", lambda _: scalar_matrix_tensor().parent().base_module() is M),
     ("module-element matrix constructor returns a (1,2) tensor", lambda _: multiplication_tensor().tensor_type() == (1, 2)),
     ("module-element matrix constructor leaves parent recoverable", lambda _: multiplication_tensor().parent().base_module() is M),
+    (
+        "module-element matrix tensor exposes multiplication structure constants",
+        lambda _: tuple(multiplication_tensor().structure_constants())
+        == (
+            matrix(ZZ, [[1, 2], [5, 11]]),
+            matrix(ZZ, [[0, 3], [7, 13]]),
+        ),
+    ),
     ("matrix-list constructor remains tensor interop", lambda _: legacy_matrix_list_tensor().tensor_type() == (1, 2)),
 )
 

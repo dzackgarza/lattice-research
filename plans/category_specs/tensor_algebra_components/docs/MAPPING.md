@@ -14,6 +14,7 @@ This file maps the narrow Sage tensor-free-module surface into the project
 | `t[:]`, `t.set_comp(basis)[:]`, indexed component assignment | Named interop constructors on `TensorAlgebraComponents(R).Constructors()` using the base module's preferred generating set | Component arrays are coordinate inputs for constructing tensor elements, not public tensor objects. The old catch-all `from_components(...)` surface is private helper code only; public callers use the named matrix, module-element matrix, multidimensional-list, or list-of-matrices route. Sage's explicit `basis` plumbing is not part of the project constructor surface. |
 | Matrix over `R` | `TensorAlgebraComponents(R).Constructors().from_matrix(base_module=M, entries=B)` | A scalar-valued bilinear form `M \otimes_R M -> R` is a covariant `(0,2)` tensor. |
 | Matrix of module elements `Sequence[Sequence[RModuleElement]]` | `TensorAlgebraComponents(R).Constructors().from_module_element_matrix(base_module=M, entries=products)` | A multiplication table with entries in `M` is the bilinear map `M \otimes_R M -> M`, hence a structure tensor in `M \otimes_R M^* \otimes_R M^*` of type `(1,2)`. |
+| Multiplication tensor structure constants | `Tensor.structure_constants()` | A tensor of type `(1,2)` determines coordinate structure constants in the preferred generating set of its base module. Algebra constructors may read this canonical tensor surface instead of accepting Sage table/list shapes directly. |
 | Lists of matrices for component data | `TensorAlgebraComponents(R).Constructors().from_matrices(...)` | This is an admitted interop shape for old table-like data. The return value is a tensor element. |
 | Multidimensional lists for component data | `TensorAlgebraComponents(R).Constructors().from_multidimensional_list(...)` | This is an admitted interop shape for coordinate data. The return value is a tensor element. |
 | Catch-all component data | no public constructor; private `_from_components(...)` helper only | Shape unions are implementation-local. Public callers use the named constructor matching the data they hold. |
@@ -47,4 +48,6 @@ An algebra multiplication on a finite-rank free module `M` should be validated a
 interop may accept multiplication tables as `Sequence[Sequence[RModuleElement]]` or
 legacy lists of matrices, but those shapes belong here. `Algebras(R).Constructors()`
 receives only the tensor element after this subtree has converted the shape into
-canonical tensor data.
+canonical tensor data. Its only public extraction surface is
+`Tensor.structure_constants()`, which recovers the coordinate structure constants
+encoded by the tensor.
