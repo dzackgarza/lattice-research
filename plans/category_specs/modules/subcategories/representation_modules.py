@@ -17,7 +17,11 @@ if TYPE_CHECKING:
 
 
 class _RepresentationModules(Category_over_base_ring):
-    r"""Modules carrying a left, right, or two-sided action."""
+    r"""Modules carrying a left, right, or two-sided action.
+
+    Constructor target: Sage representation constructors refine here as
+    modules equipped with the specified semigroup, group, or monoid action.
+    """
 
     @final
     def super_categories(self):

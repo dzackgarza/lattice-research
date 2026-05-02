@@ -92,6 +92,13 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CC(Category_singleton):
+    r"""Sage's precision-53 complex field.
+
+    Constructor target: ``Rings().Constructors().CC()`` and
+    ``Rings().Constructors().ComplexField(53)`` refine here when Sage returns
+    the canonical ``CC`` object.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "complex field with 53 bits of precision"

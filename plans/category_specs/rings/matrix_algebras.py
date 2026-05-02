@@ -23,6 +23,9 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
 
     ``_MatrixAlgebras(R, n, n)`` is the category whose single object is
     ``MatrixSpace(R, n, n)``.
+
+    Constructor target: square ``Rings().Constructors().MatrixRing(R, n)`` and
+    square matrix-space constructors refine here.
     """
 
     def __init__(self, base_ring: Ring, n: Integer, m: Integer):

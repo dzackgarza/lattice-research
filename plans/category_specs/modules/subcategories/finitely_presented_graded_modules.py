@@ -28,7 +28,11 @@ if TYPE_CHECKING:
 
 
 class _FinitelyPresentedGradedModules(Category_over_base_ring):
-    r"""Cokernels of maps between free graded modules."""
+    r"""Cokernels of maps between free graded modules.
+
+    Constructor target: ``Modules(R).Constructors().FPModule(...)`` refines
+    here as ``Modules(R).Graded().FinitelyPresented()``.
+    """
 
     @final
     def super_categories(self):

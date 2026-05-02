@@ -95,6 +95,12 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _DiscreteValuationFields(Category_singleton):
+    r"""Discrete valuation fields.
+
+    Constructor target: valued field constructors such as
+    ``Rings().Constructors().Qp(...)`` refine through this category.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "discrete valuation fields"

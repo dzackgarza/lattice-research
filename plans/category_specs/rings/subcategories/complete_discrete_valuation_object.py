@@ -97,7 +97,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CompleteDiscreteValuationObjects(Category_singleton):
-    r"""Common element surface for complete discrete valuation rings and fields."""
+    r"""Common element surface for complete discrete valuation rings and fields.
+
+    Constructor target: complete discrete valuation ring and field families
+    refine through this shared element-surface category.
+    """
 
     @final
     def _repr_object_names(self) -> str:

@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _FamilySets(Category_singleton):
-    r"""Indexed families ``(f_i)_{i in I}``, finite, lazy, trivial, or enumerated."""
+    r"""Indexed families ``(f_i)_{i in I}``, finite, lazy, trivial, or enumerated.
+
+    Constructor target:
+    ``Sets().Constructors().Family(indices, function)`` refines Sage's family
+    parent here.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

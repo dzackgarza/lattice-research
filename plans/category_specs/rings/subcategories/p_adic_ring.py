@@ -104,7 +104,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _PAdicRings(Category_singleton):
-    r"""Common category for Sage p-adic rings and fields."""
+    r"""Common category for Sage p-adic rings and fields.
+
+    Constructor target: p-adic constructors under ``Rings().Constructors()``
+    refine through this valued approximate family.
+    """
 
     @final
     def _repr_object_names(self) -> str:

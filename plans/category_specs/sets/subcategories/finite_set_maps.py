@@ -27,6 +27,9 @@ class _FiniteSetMapsSets(Category_singleton):
     functions ``A -> B``.  The endomap case ``FiniteSetMaps(A)`` is the full
     transformation monoid of ``A`` under composition; Sage names its identity
     element ``one()``.
+
+    Constructor target:
+    ``Sets().Constructors().FiniteSetMaps(domain, codomain)`` refines here.
     """
 
     @final

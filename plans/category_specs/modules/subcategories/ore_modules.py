@@ -15,7 +15,11 @@ if TYPE_CHECKING:
 
 
 class _OreModules(Category_over_base_ring):
-    r"""Finite free modules over an Ore polynomial ring quotient."""
+    r"""Finite free modules over an Ore polynomial ring quotient.
+
+    Constructor target: ``Modules(R).Constructors().OreQuotientModule(...)``
+    refines Sage Ore quotient modules here.
+    """
 
     @final
     def super_categories(self):

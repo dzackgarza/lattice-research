@@ -97,7 +97,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ScientificNotationFields(Category_singleton):
-    r"""Approximate fields whose display mode supports scientific notation."""
+    r"""Approximate fields whose display mode supports scientific notation.
+
+    Constructor target: real and complex floating or interval field
+    constructors refine here when Sage exposes scientific notation control.
+    """
 
     @final
     def _repr_object_names(self) -> str:

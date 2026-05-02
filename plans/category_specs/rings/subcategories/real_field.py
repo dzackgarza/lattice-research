@@ -93,7 +93,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _RealFields(Category_singleton):
-    r"""Category of Sage real floating point fields ``RealField(prec)``."""
+    r"""Category of Sage real floating point fields ``RealField(prec)``.
+
+    Constructor target: ``Rings().Constructors().RealField(prec)`` refines
+    here; the precision-53 singleton also refines into ``_RR``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

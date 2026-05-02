@@ -93,7 +93,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _RealBallFields(Category_singleton):
-    r"""Category of Sage real ball fields ``RealBallField(prec)``."""
+    r"""Category of Sage real ball fields ``RealBallField(prec)``.
+
+    Constructor target: ``Rings().Constructors().RealBallField(prec)`` refines
+    here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

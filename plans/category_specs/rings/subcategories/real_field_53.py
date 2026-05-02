@@ -92,6 +92,13 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _RR(Category_singleton):
+    r"""Sage's precision-53 real field.
+
+    Constructor target: ``Rings().Constructors().RR()`` and
+    ``Rings().Constructors().RealField(53)`` refine here when Sage returns the
+    canonical ``RR`` object.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "real field with 53 bits of precision"

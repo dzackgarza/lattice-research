@@ -93,6 +93,12 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _QuotientFields(Category_singleton):
+    r"""Quotient fields.
+
+    Constructor target: field constructors whose objects are fraction fields,
+    including ``QQ``, refine through this category.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "quotient fields"

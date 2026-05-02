@@ -97,6 +97,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _AA(Category_singleton):
+    r"""Sage's field of real algebraic numbers.
+
+    Constructor target: ``Rings().Constructors().AA()`` refines here.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "algebraic real field"

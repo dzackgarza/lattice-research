@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _NonNegativeIntegersSets(Category_singleton):
-    r"""The countably infinite facade set ``{0, 1, 2, ...}`` inside ``ZZ``."""
+    r"""The countably infinite facade set ``{0, 1, 2, ...}`` inside ``ZZ``.
+
+    Constructor target:
+    ``Sets().Constructors().NonNegativeIntegers()`` refines Sage's named
+    parent here.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

@@ -22,7 +22,12 @@ if TYPE_CHECKING:
 
 
 class _ApproximateRings(Category_singleton):
-    r"""Rings whose elements are represented with finite or capped precision."""
+    r"""Rings whose elements are represented with finite or capped precision.
+
+    Constructor target: precision and p-adic ring constructors under
+    ``Rings().Constructors()`` refine here when they carry mutable precision
+    data.
+    """
 
     @final
     def _repr_object_names(self) -> str:

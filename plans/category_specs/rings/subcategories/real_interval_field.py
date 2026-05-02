@@ -96,7 +96,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _RealIntervalFields(Category_singleton):
-    r"""Category of Sage real interval fields ``RealIntervalField(prec)``."""
+    r"""Category of Sage real interval fields ``RealIntervalField(prec)``.
+
+    Constructor target: ``Rings().Constructors().RealIntervalField(prec)`` and
+    the fixed ``RIF`` constructor refine here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

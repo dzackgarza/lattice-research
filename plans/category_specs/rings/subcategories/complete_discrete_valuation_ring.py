@@ -95,6 +95,12 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CompleteDiscreteValuationRings(Category_singleton):
+    r"""Complete discrete valuation rings.
+
+    Constructor target: complete valued ring families such as
+    ``Rings().Constructors().Zp(...)`` refine here.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings"

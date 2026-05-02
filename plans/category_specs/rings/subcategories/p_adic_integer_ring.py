@@ -95,7 +95,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _Zp(Category_singleton):
-    r"""Category of p-adic integer rings (all primes p, all precision types)."""
+    r"""Category of p-adic integer rings (all primes p, all precision types).
+
+    Constructor target: ``Rings().Constructors().Zp(...)`` and compatible
+    p-adic integer-ring constructors refine here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

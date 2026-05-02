@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _TotallyOrderedFiniteSets(Category_singleton):
-    r"""Finite sets equipped with a user-specified total order."""
+    r"""Finite sets equipped with a user-specified total order.
+
+    Constructor target:
+    ``Sets().Constructors().TotallyOrderedFiniteSet(elements)`` refines here
+    as both finite countable and totally ordered.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

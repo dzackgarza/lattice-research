@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _RecursivelyEnumeratedSets(Category_singleton):
-    r"""Sets generated from seeds and successor functions."""
+    r"""Sets generated from seeds and successor functions.
+
+    Constructor target:
+    ``Sets().Constructors().RecursivelyEnumeratedSet(...)`` refines Sage's
+    recursive-enumeration parent here.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

@@ -26,7 +26,12 @@ from .. import Sets
 
 
 class _RealSets(Category_singleton):
-    r"""Sage real subsets represented as finite unions of real intervals."""
+    r"""Sage real subsets represented as finite unions of real intervals.
+
+    Constructor target:
+    named real-subset constructors under ``Sets().Constructors()`` refine here
+    and then into the applicable topological subobject categories.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

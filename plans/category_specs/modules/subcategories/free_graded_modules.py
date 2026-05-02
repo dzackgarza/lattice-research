@@ -16,7 +16,11 @@ if TYPE_CHECKING:
 
 
 class _FreeGradedModules(Category_over_base_ring):
-    r"""Free graded modules over connected graded algebras."""
+    r"""Free graded modules over connected graded algebras.
+
+    Constructor target: ``Modules(R).Constructors().FreeGradedModule(...)``
+    refines here as ``Modules(R).Graded().Free()``.
+    """
 
     @final
     def super_categories(self):

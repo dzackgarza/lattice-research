@@ -16,7 +16,13 @@ from .. import Sets
 
 
 class _CartesianProductSets(Category_singleton):
-    r"""Cartesian products of sets and their tuple-like elements."""
+    r"""Cartesian products of sets and their tuple-like elements.
+
+    Constructor target:
+    ``Sets().Constructors().CartesianProduct(factors)`` and
+    ``Sets().Constructors().cartesian_product(factors)`` refine here after
+    Sage constructs the product parent.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

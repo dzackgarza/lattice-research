@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _ImageSets(Category_singleton):
-    r"""Image subobjects ``{f(x) | x in X}`` under a set map."""
+    r"""Image subobjects ``{f(x) | x in X}`` under a set map.
+
+    Constructor target:
+    ``Sets().Constructors().ImageSubobject(f, domain_subset)`` refines here as
+    a set subobject.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

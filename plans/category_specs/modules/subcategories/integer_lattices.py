@@ -15,7 +15,11 @@ if TYPE_CHECKING:
 
 
 class _IntegerLattices(Category_over_base_ring):
-    r"""Finite-rank integral bilinear modules with lattice algorithms."""
+    r"""Finite-rank integral bilinear modules with lattice algorithms.
+
+    Constructor target: ``Modules(ZZ).Constructors().IntegerLattice(...)``
+    refines here as the legacy module-side route toward ``Lattices(ZZ)``.
+    """
 
     @final
     def super_categories(self):

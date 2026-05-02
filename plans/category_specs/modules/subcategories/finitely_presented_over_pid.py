@@ -49,6 +49,11 @@ if TYPE_CHECKING:
 class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     r"""Finitely presented modules over a (commutative) PID.
 
+    Canonical chain: ``Modules(R).FinitelyPresented().OverPID()``.
+
+    Constructor target: matrix presentations and Sage ``FGP_Module`` quotient
+    constructors refine here.
+
     Refines ``Modules(R).FinitelyPresented()`` for ``R`` a PID, where every
     finitely presented module decomposes as a direct sum of cyclic modules.
     """

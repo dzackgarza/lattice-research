@@ -15,7 +15,11 @@ if TYPE_CHECKING:
 
 
 class _RingObjectsAsModules(Category_over_base_ring):
-    r"""Ring objects regarded as modules over their structure ring."""
+    r"""Ring objects regarded as modules over their structure ring.
+
+    Constructor target: ``Modules(R).Constructors().RingObjectAsModule(...)``
+    and related forgetful bridges refine here.
+    """
 
     @final
     def super_categories(self):

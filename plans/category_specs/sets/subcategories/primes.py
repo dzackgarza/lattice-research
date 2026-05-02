@@ -21,6 +21,9 @@ class _PrimesSets(Category_singleton):
     Prime subsets, including primes in arithmetic progressions, are subobjects of this
     object and are expressed through ``PrimeSubset`` and
     ``PrimesInArithmeticProgressions`` type vocabulary.
+
+    Constructor target:
+    ``Sets().Constructors().Primes()`` refines the full Sage prime set here.
     """
 
     @final

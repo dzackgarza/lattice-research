@@ -6,15 +6,6 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Document the axiom chain for each concrete class. For example,
-  `NondegenerateSymmetricFiniteRankFreeBilinearModules` should state plainly that it
-  represents `BilinearModules().Free().FiniteRank().Nondegenerate()`, or trace the
-  chain from `Modules(R)` when that is the clearer source.
-  - Covered in this pass: root category classes, `_base_category_class_and_axiom`
-    classes, hom/end/aut category classes, and standard construction-category classes.
-  - Still uncovered: named singleton and constructor-family endpoint categories such as
-    Sage named set/ring/module constructor refinements. Document those from the
-    corresponding constructor mapping before removing this item.
 - [ ] Mark overrides explicitly and distinguish them from genuinely new methods
   introduced by a subcategory. A reader should be able to tell whether a method
   refines inherited behavior or first becomes mathematically meaningful at that

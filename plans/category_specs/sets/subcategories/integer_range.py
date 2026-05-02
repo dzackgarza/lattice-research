@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _IntegerRangeSets(Category_singleton):
-    r"""Arithmetic progressions of integers, finite or infinite by bounds."""
+    r"""Arithmetic progressions of integers, finite or infinite by bounds.
+
+    Constructor target:
+    ``Sets().Constructors().IntegerRange(...)`` refines Sage integer ranges
+    here as countable facade sets.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

@@ -102,7 +102,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _RealPrecisionFields(Category_singleton):
-    r"""Common category for Sage real approximate fields with fixed precision."""
+    r"""Common category for Sage real approximate fields with fixed precision.
+
+    Constructor target: real floating, interval, ball, and double-field
+    constructors refine through this precision-family category.
+    """
 
     @final
     def _repr_object_names(self) -> str:

@@ -93,6 +93,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ZZ(Category_singleton):
+    r"""Sage's integer ring.
+
+    Constructor target: ``Rings().Constructors().ZZ()`` refines here.
+    """
+
     @final
     def _repr_object_names(self) -> str:
         return "integer ring"

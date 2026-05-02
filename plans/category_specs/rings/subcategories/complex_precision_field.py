@@ -100,7 +100,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ComplexPrecisionFields(Category_singleton):
-    r"""Common category for Sage complex approximate fields with fixed precision."""
+    r"""Common category for Sage complex approximate fields with fixed precision.
+
+    Constructor target: complex floating, interval, ball, and double-field
+    constructors refine through this precision-family category.
+    """
 
     @final
     def _repr_object_names(self) -> str:

@@ -93,7 +93,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ComplexBallFields(Category_singleton):
-    r"""Category of Sage complex ball fields ``ComplexBallField(prec)``."""
+    r"""Category of Sage complex ball fields ``ComplexBallField(prec)``.
+
+    Constructor target: ``Rings().Constructors().ComplexBallField(prec)``
+    refines here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

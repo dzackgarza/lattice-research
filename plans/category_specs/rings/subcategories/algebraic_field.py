@@ -101,7 +101,12 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _AlgebraicFields(Category_singleton):
-    r"""Common category for Sage's ``AA`` and ``QQbar`` parents."""
+    r"""Common category for Sage's ``AA`` and ``QQbar`` parents.
+
+    Constructor target: ``Rings().Constructors().AA()`` and
+    ``Rings().Constructors().QQbar()`` refine into this fixed algebraic-field
+    family.
+    """
 
     @final
     def _repr_object_names(self) -> str:

@@ -16,7 +16,12 @@ from .integer_range import _IntegerRangeSets
 
 
 class _PositiveIntegersSets(Category_singleton):
-    r"""The countably infinite facade set ``{1, 2, 3, ...}`` inside ``ZZ``."""
+    r"""The countably infinite facade set ``{1, 2, 3, ...}`` inside ``ZZ``.
+
+    Constructor target:
+    ``Sets().Constructors().PositiveIntegers()`` refines Sage's named parent
+    here and inherits the integer-range surface.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

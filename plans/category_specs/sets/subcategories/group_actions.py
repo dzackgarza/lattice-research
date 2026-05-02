@@ -15,7 +15,10 @@ from .. import Sets
 
 
 class _GSets(Category):
-    r"""Sets equipped with an action of a fixed group ``G``."""
+    r"""Sets equipped with an action of a fixed group ``G``.
+
+    Canonical chain: ``Sets().GSets(G)``.
+    """
 
     @final
     def __init__(self, acting_group: Group, base_category: Category | None = None) -> None:

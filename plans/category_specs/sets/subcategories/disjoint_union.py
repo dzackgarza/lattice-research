@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _DisjointUnionEnumeratedSets(Category_singleton):
-    r"""Countable coproduct of an indexed family of enumerated sets."""
+    r"""Countable coproduct of an indexed family of enumerated sets.
+
+    Constructor target:
+    ``Sets().Constructors().DisjointUnionEnumeratedSets(family)`` refines
+    Sage's disjoint-union parent here.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

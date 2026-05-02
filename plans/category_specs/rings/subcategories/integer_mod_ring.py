@@ -97,7 +97,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _IntegerModRings(Category_singleton):
-    r"""Category of Sage rings ``IntegerModRing(n)`` and aliases."""
+    r"""Category of Sage rings ``IntegerModRing(n)`` and aliases.
+
+    Constructor target: ``IntegerModRing``, ``Zmod``, and ``Integers``
+    methods on ``Rings().Constructors()`` refine here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

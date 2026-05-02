@@ -17,7 +17,12 @@ from .. import Sets
 
 
 class _FiniteEnumeratedSetObjects(Category_singleton):
-    r"""Tuple-backed finite facade sets from ``sage.sets.finite_enumerated_set``."""
+    r"""Tuple-backed finite facade sets from ``sage.sets.finite_enumerated_set``.
+
+    Constructor target:
+    ``Sets().Constructors().FiniteEnumeratedSet(elements)`` refines here as a
+    finite countable facade set.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

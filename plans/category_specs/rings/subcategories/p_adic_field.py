@@ -98,7 +98,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _Qp(Category_singleton):
-    r"""Category of p-adic fields (all primes p, all precision types)."""
+    r"""Category of p-adic fields (all primes p, all precision types).
+
+    Constructor target: ``Rings().Constructors().Qp(...)`` and compatible
+    p-adic field constructors refine here.
+    """
 
     @final
     def _repr_object_names(self) -> str:

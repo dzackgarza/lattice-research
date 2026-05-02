@@ -93,7 +93,11 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _ComplexFields(Category_singleton):
-    r"""Category of Sage complex floating point fields ``ComplexField(prec)``."""
+    r"""Category of Sage complex floating point fields ``ComplexField(prec)``.
+
+    Constructor target: ``Rings().Constructors().ComplexField(prec)`` refines
+    here; the precision-53 singleton also refines into ``_CC``.
+    """
 
     @final
     def _repr_object_names(self) -> str:
