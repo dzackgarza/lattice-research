@@ -9,7 +9,10 @@ from ..chain import _Lattices
 
 
 class _UnimodularLattices(CategoryWithAxiom_over_base_ring):
-    r"""Integral lattices whose discriminant group is trivial."""
+    r"""Integral lattices whose discriminant group is trivial.
+
+    Canonical chain: ``Lattices(R).Unimodular()``.
+    """
 
     _base_category_class_and_axiom = (_Lattices, "Unimodular")
     _defining_predicates = ("is_unimodular",)

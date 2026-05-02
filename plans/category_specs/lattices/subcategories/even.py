@@ -9,7 +9,10 @@ from ..chain import _Lattices
 
 
 class _EvenLattices(CategoryWithAxiom_over_base_ring):
-    r"""Integral lattices whose self-products are even."""
+    r"""Integral lattices whose self-products are even.
+
+    Canonical chain: ``Lattices(R).Even()``.
+    """
 
     _base_category_class_and_axiom = (_Lattices, "Even")
     _defining_predicates = ("is_even",)

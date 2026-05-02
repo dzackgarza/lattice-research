@@ -162,6 +162,8 @@ class _RModAutomorphisms:
 class RModuleHomCategory(HomCategoryOf):
     r"""The category of R-module homs ``Hom_R(M, N)``.
 
+    Canonical chain: ``Modules(R).HomCategory()``.
+
     Objects are hom parents; elements are R-module morphisms.
     """
 
@@ -192,6 +194,8 @@ class RModuleHomCategory(HomCategoryOf):
 
 class _Forms(CategoryWithAxiom):
     r"""R-modules of the form ``Hom_R(T_R(M)[p,q], S)`` where ``T_R(M)[p,q]``
+
+    Canonical chain: ``Modules(R).HomCategory().Forms()``.
     is the standard tensor-type ``(p,q)`` component and ``S`` is an R-submodule
     of ``K := Frac(R)``.
 
@@ -267,6 +271,7 @@ class _Forms(CategoryWithAxiom):
 
 
 class _Bilinear(CategoryWithAxiom):
+    r"""Canonical chain: ``Modules(R).HomCategory().Forms().Bilinear()``."""
     _base_category_class_and_axiom = (_Forms, "Bilinear")
 
     class ParentMethods:
@@ -285,6 +290,7 @@ class _Bilinear(CategoryWithAxiom):
 
 
 class _Quadratic(CategoryWithAxiom):
+    r"""Canonical chain: ``Modules(R).HomCategory().Forms().Quadratic()``."""
     _base_category_class_and_axiom = (_Forms, "Quadratic")
 
     class ParentMethods:
@@ -308,6 +314,7 @@ class _Quadratic(CategoryWithAxiom):
 
 
 class RModuleEndCategory(GenericEndCategory):
+    r"""Canonical chain: ``Modules(R).EndCategory()``."""
     _base_category_class_and_axiom = (RModuleHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "RModuleAutCategory")
@@ -339,6 +346,8 @@ class RModuleEndCategory(GenericEndCategory):
 
 class RModuleAutCategory(GenericAutCategory):
     r"""Category of module automorphism groups.
+
+    Canonical chain: ``Modules(R).AutCategory()``.
 
     When the base category is a category of modules with forms, objects of this
     aut category are orthogonal groups: automorphisms of the underlying module

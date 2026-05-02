@@ -22,6 +22,8 @@ if TYPE_CHECKING:
 class _NondegenerateBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a nondegenerate bilinear form.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Nondegenerate()``.
+
     Nondegeneracy means the map ``v \mapsto b(v, -)`` is injective.
     For free finitely generated modules over an integral domain this is
     equivalent to ``\det(\text{Gram matrix}) \ne 0``.

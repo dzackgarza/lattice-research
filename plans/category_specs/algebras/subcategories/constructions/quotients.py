@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Quotients(QuotientsCategory):
-    r"""Quotient objects in a category of algebras."""
+    r"""Quotient objects in a category of algebras.
+
+    Canonical chain: ``Algebras(R).Quotients()``.
+    """
 
     class ParentMethods:
         @abstract_method

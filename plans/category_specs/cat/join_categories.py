@@ -16,7 +16,10 @@ def is_join_category(candidate: Any) -> bool:
 
 
 class JoinCategories(Category_singleton):
-    r"""Subcategory of ``Cat()`` whose objects are Sage join categories."""
+    r"""Subcategory of ``Cat()`` whose objects are Sage join categories.
+
+    Canonical chain: ``Cat().JoinCategories()``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

@@ -391,7 +391,10 @@ class _RingIdealMorphismMethods:
 
 
 class _RingIdeals(Category_ideal):
-    r"""Ideals of a ring in the redesigned category surface."""
+    r"""Ideals of a ring in the redesigned category surface.
+
+    Canonical chain: ``Rings().Ideals(R)``.
+    """
 
     @final
     def _repr_object_names(self) -> str:
@@ -419,7 +422,10 @@ class _RingIdeals(Category_ideal):
 
 
 class Rings(Category_singleton):
-    r"""Replacement ring category, staged below Sage's existing ``Rings``."""
+    r"""Replacement ring category, staged below Sage's existing ``Rings``.
+
+    Canonical chain: ``Rings()``.
+    """
 
     class Constructors:
         r"""Constructor collector for Sage ring entry points."""

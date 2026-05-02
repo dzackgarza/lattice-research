@@ -15,7 +15,10 @@ if TYPE_CHECKING:
 
 
 class _WithRealizations(WithRealizationsCategory):
-    r"""Sets whose elements may be represented in several concrete realizations."""
+    r"""Sets whose elements may be represented in several concrete realizations.
+
+    Canonical chain: ``Sets().WithRealizations()``.
+    """
 
     class ParentMethods:
         @abstract_method

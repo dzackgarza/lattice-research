@@ -17,7 +17,10 @@ if TYPE_CHECKING:
 
 
 class _WithForms(CategoryWithAxiom_over_base_ring):
-    r"""Non-full category of pairs ``(M, f)`` with a form on ``M``."""
+    r"""Non-full category of pairs ``(M, f)`` with a form on ``M``.
+
+    Canonical chain: ``Modules(R).WithForms()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "WithForms")
     _defining_predicates = ("has_form",)

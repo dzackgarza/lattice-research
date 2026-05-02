@@ -14,7 +14,10 @@ from .with_basis import _AlgebrasWithBasis
 
 
 class _FiniteDimensionalAlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
-    r"""Finite-dimensional algebras with a distinguished basis."""
+    r"""Finite-dimensional algebras with a distinguished basis.
+
+    Canonical chain: ``Algebras(R).WithBasis().FiniteDimensional()``.
+    """
 
     _base_category_class_and_axiom = (_AlgebrasWithBasis, "FiniteDimensional")
 

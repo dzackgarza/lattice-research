@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 
 
 class _MeetSemilatticePosets(Category):
-    r"""Posets in which every pair has a meet."""
+    r"""Posets in which every pair has a meet.
+
+    Canonical chain: ``Posets().MeetSemilattice()``.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

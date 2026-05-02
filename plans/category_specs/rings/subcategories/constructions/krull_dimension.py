@@ -11,6 +11,7 @@ from .parameterized import _Category_over_base_integer
 
 
 class _KrullDimension(_Category_over_base_integer):
+    r"""Canonical chain: ``Rings().KrullDimension(n)``."""
     parameter_name = "Krull dimension"
 
     @final

@@ -38,6 +38,8 @@ class _RingAutomorphisms:
 
 
 class RingHomCategory(HomCategoryOf):
+    r"""Canonical chain: ``Rings().HomCategory()``."""
+
     @classmethod
     @final
     def from_sage_hom(cls, hom: RingHom) -> RingHom:
@@ -58,6 +60,7 @@ class RingHomCategory(HomCategoryOf):
 
 
 class RingEndCategory(GenericEndCategory):
+    r"""Canonical chain: ``Rings().EndCategory()``."""
     _base_category_class_and_axiom = (RingHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "RingAutCategory")
@@ -84,6 +87,7 @@ class RingEndCategory(GenericEndCategory):
 
 
 class RingAutCategory(GenericAutCategory):
+    r"""Canonical chain: ``Rings().AutCategory()``."""
     _base_category_class_and_axiom = (RingEndCategory, "Autset")
 
     class ParentMethods:

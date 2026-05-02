@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Realizations(RealizationsCategory):
-    r"""Concrete realization parents of a set with realizations."""
+    r"""Concrete realization parents of a set with realizations.
+
+    Canonical chain: ``Sets().Realizations()``.
+    """
 
     class ParentMethods:
         @abstract_method

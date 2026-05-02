@@ -44,7 +44,10 @@ class _Isometries:
 
 
 class TopologicalSpaceHomCategory(HomCategoryOf):
-    r"""Category of homs whose elements are continuous maps."""
+    r"""Category of homs whose elements are continuous maps.
+
+    Canonical chain: ``TopologicalSpaces().HomCategory()``.
+    """
 
     @final
     def extra_super_categories(self):
@@ -59,6 +62,7 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
 
 
 class TopologicalSpaceEndCategory(GenericEndCategory):
+    r"""Canonical chain: ``TopologicalSpaces().EndCategory()``."""
     _base_category_class_and_axiom = (TopologicalSpaceHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "TopologicalSpaceAutCategory")
@@ -72,6 +76,7 @@ class TopologicalSpaceEndCategory(GenericEndCategory):
 
 
 class TopologicalSpaceAutCategory(GenericAutCategory):
+    r"""Canonical chain: ``TopologicalSpaces().AutCategory()``."""
     _base_category_class_and_axiom = (TopologicalSpaceEndCategory, "Autset")
 
     class ParentMethods: ...
@@ -80,7 +85,10 @@ class TopologicalSpaceAutCategory(GenericAutCategory):
 
 
 class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
-    r"""Category of homs whose elements are short maps of metric spaces."""
+    r"""Category of homs whose elements are short maps of metric spaces.
+
+    Canonical chain: ``TopologicalSpaces().Metric().HomCategory()``.
+    """
 
     @final
     def extra_super_categories(self):
@@ -93,6 +101,7 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
 
 
 class MetricSpaceEndCategory(GenericEndCategory):
+    r"""Canonical chain: ``TopologicalSpaces().Metric().EndCategory()``."""
     _base_category_class_and_axiom = (MetricSpaceHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "MetricSpaceAutCategory")
@@ -106,6 +115,7 @@ class MetricSpaceEndCategory(GenericEndCategory):
 
 
 class MetricSpaceAutCategory(GenericAutCategory):
+    r"""Canonical chain: ``TopologicalSpaces().Metric().AutCategory()``."""
     _base_category_class_and_axiom = (MetricSpaceEndCategory, "Autset")
 
     class ParentMethods: ...

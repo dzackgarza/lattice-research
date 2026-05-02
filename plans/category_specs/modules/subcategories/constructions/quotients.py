@@ -14,7 +14,10 @@ if TYPE_CHECKING:
 
 
 class _Quotients(QuotientsCategory):
-    r"""Quotient module category."""
+    r"""Quotient module category.
+
+    Canonical chain: ``Modules(R).Quotients()``.
+    """
 
     class ParentMethods:
         @abstract_method

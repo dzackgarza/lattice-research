@@ -14,7 +14,10 @@ if TYPE_CHECKING:
 
 
 class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
-    r"""Integral lattices over ``ZZ``."""
+    r"""Integral lattices over ``ZZ``.
+
+    Canonical chain: ``Lattices(R).OverDedekindDomain().OverPID().OverIntegers()``.
+    """
 
     _base_category_class_and_axiom = (_LatticesOverPID, "OverIntegers")
     _defining_predicates = ("is_over_integers",)

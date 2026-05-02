@@ -15,7 +15,10 @@ if TYPE_CHECKING:
 
 
 class _BilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Pairs ``(M, b)`` with ``b`` bilinear on ``M``."""
+    r"""Pairs ``(M, b)`` with ``b`` bilinear on ``M``.
+
+    Canonical chain: ``Modules(R).WithForms().Bilinear()``.
+    """
 
     _base_category_class_and_axiom = (_WithForms, "Bilinear")
     _defining_predicates = ("is_bilinear",)

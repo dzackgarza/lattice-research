@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Quotients(QuotientsCategory):
-    r"""Lattice quotients for quotient objects that remain in the lattice category."""
+    r"""Lattice quotients for quotient objects that remain in the lattice category.
+
+    Canonical chain: ``Lattices(R).Quotients()``.
+    """
 
     class ParentMethods:
         @abstract_method

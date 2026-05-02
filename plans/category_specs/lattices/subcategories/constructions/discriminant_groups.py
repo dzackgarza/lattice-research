@@ -24,7 +24,10 @@ if TYPE_CHECKING:
 
 
 class _DiscriminantGroups(Category_module):
-    r"""Finite torsion modules with the discriminant form of a lattice."""
+    r"""Finite torsion modules with the discriminant form of a lattice.
+
+    Canonical chain: ``Lattices(R).DiscriminantGroups()``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

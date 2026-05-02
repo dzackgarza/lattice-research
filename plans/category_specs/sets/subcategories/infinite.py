@@ -17,6 +17,7 @@ from .. import Sets
 
 
 class _InfiniteSets(CategoryWithAxiom):
+    r"""Canonical chain: ``Sets().Infinite()``."""
     _base_category_class_and_axiom = (Sets, "Infinite")
 
     @final

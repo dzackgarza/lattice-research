@@ -15,6 +15,8 @@ if TYPE_CHECKING:
 class _Quotients(QuotientsCategory):
     r"""Quotient sets as equivalence-class objects.
 
+    Canonical chain: ``Sets().Quotients()``.
+
     This remains an attachable Sage construction category: ``Sets().Quotients()``
     and ``C.Quotients()`` for a set subcategory ``C`` are built with
     ``category_of`` rather than as singleton categories.

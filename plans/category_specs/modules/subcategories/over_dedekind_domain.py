@@ -9,6 +9,7 @@ from .. import Modules
 
 
 class _OverDedekindDomain(CategoryWithAxiom_over_base_ring):
+    r"""Canonical chain: ``Modules(R).OverDedekindDomain()``."""
     _base_category_class_and_axiom = (Modules, "OverDedekindDomain")
 
     @final

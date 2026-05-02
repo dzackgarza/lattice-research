@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Category_over_base_integer(CategoryWithParameters):
-    r"""Base class for categories indexed by an integer and a base category."""
+    r"""Base class for categories indexed by an integer and a base category.
+
+    Canonical endpoint family: ``Rings().<integer-indexed construction>()``.
+    """
 
     parameter_name = "integer"
 
@@ -48,7 +51,10 @@ class _Category_over_base_integer(CategoryWithParameters):
 
 
 class _Category_over_base_integer_pair(CategoryWithParameters):
-    r"""Base class for categories indexed by a base ring and two integers."""
+    r"""Base class for categories indexed by a base ring and two integers.
+
+    Canonical endpoint family: ``Rings().<base-ring-and-integer-indexed construction>()``.
+    """
 
     parameter_name = "integer_pair"
 

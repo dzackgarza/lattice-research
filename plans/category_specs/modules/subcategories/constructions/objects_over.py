@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Modules ``N`` equipped with an ``R``-linear map ``N -> M``."""
+    r"""Modules ``N`` equipped with an ``R``-linear map ``N -> M``.
+
+    Canonical chain: ``Modules(R).ObjectsOver(T)``.
+    """
 
     _functor_category = "ObjectsOver"
 

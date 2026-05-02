@@ -6,7 +6,10 @@ from ....cat import QuotientsCategory
 
 
 class _Quotients(QuotientsCategory):
-    r"""Quotient posets."""
+    r"""Quotient posets.
+
+    Canonical chain: ``Posets().Quotients()``.
+    """
 
     class ParentMethods: ...
     class ElementMethods: ...

@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
 
 class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_ring):
+    r"""Canonical chain: ``Rings().RingsOver(R)``."""
     _functor_category = "RingsOver"
 
     @classmethod

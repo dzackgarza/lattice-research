@@ -15,7 +15,10 @@ class _CatAutofunctorMethods(_CatEndofunctorMethods):
 
 
 class CatAutCategory(AutCategoryOf):
-    r"""Autofunctor category of a category."""
+    r"""Autofunctor category of a category.
+
+    Canonical chain: ``Cat().AutCategory()``.
+    """
 
     _base_category_class_and_axiom = (CatEndCategory, "Autset")
 

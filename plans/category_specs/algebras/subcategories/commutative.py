@@ -11,7 +11,10 @@ from .. import Algebras
 
 
 class _CommutativeAlgebras(CategoryWithAxiom_over_base_ring):
-    r"""Algebras whose multiplication is commutative."""
+    r"""Algebras whose multiplication is commutative.
+
+    Canonical chain: ``Algebras(R).Commutative()``.
+    """
 
     _base_category_class_and_axiom = (Algebras, "Commutative")
 

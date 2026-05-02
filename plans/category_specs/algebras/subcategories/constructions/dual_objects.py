@@ -8,7 +8,10 @@ from ....cat import Category, DualObjectsCategory
 
 
 class _DualObjects(DualObjectsCategory):
-    r"""Dual objects in a category of algebras."""
+    r"""Dual objects in a category of algebras.
+
+    Canonical chain: ``Algebras(R).DualObjects()``.
+    """
 
     @final
     def extra_super_categories(self) -> list[Category]:

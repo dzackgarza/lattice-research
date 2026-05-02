@@ -12,7 +12,10 @@ from .. import _TopologicalSpaces
 
 
 class _CompactTopologicalSpaces(CategoryWithAxiom):
-    r"""Category of compact topological spaces."""
+    r"""Category of compact topological spaces.
+
+    Canonical chain: ``TopologicalSpaces().Compact()``.
+    """
 
     _base_category_class_and_axiom = (_TopologicalSpaces, "Compact")
 

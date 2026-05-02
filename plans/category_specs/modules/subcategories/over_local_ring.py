@@ -9,6 +9,7 @@ from .. import Modules
 
 
 class _OverLocalRing(CategoryWithAxiom_over_base_ring):
+    r"""Canonical chain: ``Modules(R).OverLocalRing()``."""
     _base_category_class_and_axiom = (Modules, "OverLocalRing")
 
     @final

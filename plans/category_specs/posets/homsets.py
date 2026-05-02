@@ -37,7 +37,10 @@ class _PosetAutomorphisms:
 
 
 class PosetHomCategory(HomCategoryOf):
-    r"""Category of homs whose elements are order-preserving maps."""
+    r"""Category of homs whose elements are order-preserving maps.
+
+    Canonical chain: ``Posets().HomCategory()``.
+    """
 
     @final
     def extra_super_categories(self) -> list[Category]:
@@ -52,6 +55,7 @@ class PosetHomCategory(HomCategoryOf):
 
 
 class PosetEndCategory(GenericEndCategory):
+    r"""Canonical chain: ``Posets().EndCategory()``."""
     _base_category_class_and_axiom = (PosetHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "PosetAutCategory")
@@ -65,6 +69,7 @@ class PosetEndCategory(GenericEndCategory):
 
 
 class PosetAutCategory(GenericAutCategory):
+    r"""Canonical chain: ``Posets().AutCategory()``."""
     _base_category_class_and_axiom = (PosetEndCategory, "Autset")
 
     class ParentMethods: ...

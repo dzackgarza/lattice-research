@@ -10,6 +10,7 @@ from .. import Sets
 
 
 class _UncountableSets(CategoryWithAxiom):
+    r"""Canonical chain: ``Sets().Uncountable()``."""
     _base_category_class_and_axiom = (Sets, "Uncountable")
 
     @final

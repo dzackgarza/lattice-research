@@ -17,7 +17,10 @@ class _CatEndofunctorMethods(_CatFunctorMethods):
 
 
 class CatEndCategory(EndCategoryOf):
-    r"""Endofunctor category of a category."""
+    r"""Endofunctor category of a category.
+
+    Canonical chain: ``Cat().EndCategory()``.
+    """
 
     _base_category_class_and_axiom = (CatHomCategory, "Endset")
 

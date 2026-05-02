@@ -15,7 +15,10 @@ if TYPE_CHECKING:
 
 
 class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
-    r"""Algebras that are finite-dimensional over their base ring."""
+    r"""Algebras that are finite-dimensional over their base ring.
+
+    Canonical chain: ``Algebras(R).FiniteDimensional()``.
+    """
 
     _base_category_class_and_axiom = (Algebras, "FiniteDimensional")
 

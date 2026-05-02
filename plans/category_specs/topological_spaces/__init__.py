@@ -96,7 +96,10 @@ class _TopologicalSpaceMorphismMethods:
 
 
 class TopologicalSpaces(CategoryWithAxiom):
-    r"""Category of topological spaces."""
+    r"""Category of topological spaces.
+
+    Canonical chain: ``TopologicalSpaces()``.
+    """
 
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods

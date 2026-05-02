@@ -19,6 +19,8 @@ if TYPE_CHECKING:
 class _SymmetricBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a symmetric bilinear form ``b: M \times M \to S``.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric()``.
+
     An ``R``-bilinear form ``b`` is *symmetric* iff ``b(v, w) = b(w, v)``
     for all ``v, w \in M``.  The Gram matrix ``G`` is symmetric: ``G = G^T``.
 

@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Posets ``Q`` equipped with an order-preserving map ``Q -> P``."""
+    r"""Posets ``Q`` equipped with an order-preserving map ``Q -> P``.
+
+    Canonical chain: ``Posets().ObjectsOver(T)``.
+    """
 
     _functor_category = "ObjectsOver"
 

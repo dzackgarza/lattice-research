@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Objects ``Y`` equipped with a structure morphism ``Y -> X``."""
+    r"""Objects ``Y`` equipped with a structure morphism ``Y -> X``.
+
+    Canonical chain: ``Sets().ObjectsOver(T)``.
+    """
 
     _functor_category = "ObjectsOver"
 

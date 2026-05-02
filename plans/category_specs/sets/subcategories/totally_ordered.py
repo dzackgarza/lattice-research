@@ -16,6 +16,7 @@ from .. import Sets
 
 
 class _TotallyOrdered(CategoryWithAxiom):
+    r"""Canonical chain: ``Sets().TotallyOrdered()``."""
     _base_category_class_and_axiom = (Sets, "TotallyOrdered")
 
     @final

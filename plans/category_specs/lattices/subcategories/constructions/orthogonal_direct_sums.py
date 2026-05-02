@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _OrthogonalDirectSums(Category_module):
-    r"""Orthogonal direct sums of lattices."""
+    r"""Orthogonal direct sums of lattices.
+
+    Canonical chain: ``Lattices(R).OrthogonalDirectSums()``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

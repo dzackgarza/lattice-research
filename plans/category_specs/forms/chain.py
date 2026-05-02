@@ -21,7 +21,10 @@ if TYPE_CHECKING:
 
 
 class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a form."""
+    r"""Finite-rank free modules equipped with a form.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms()``.
+    """
 
     _base_category_class_and_axiom = (_FreeFiniteRank, "WithForms")
     _defining_predicates = ("has_form",)
@@ -47,7 +50,10 @@ class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
 
 
 class _FiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a bilinear form."""
+    r"""Finite-rank free modules equipped with a bilinear form.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear()``.
+    """
 
     _base_category_class_and_axiom = (_FiniteRankFreeModulesWithForms, "Bilinear")
     _defining_predicates = ("is_bilinear",)
@@ -83,7 +89,10 @@ class _FiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
 
 class _SymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a symmetric bilinear form."""
+    r"""Finite-rank free modules equipped with a symmetric bilinear form.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric()``.
+    """
 
     _base_category_class_and_axiom = (_FiniteRankFreeBilinearModules, "Symmetric")
     _defining_predicates = ("is_symmetric",)
@@ -115,7 +124,10 @@ class _SymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
 
 
 class _NondegenerateSymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules with a nondegenerate symmetric bilinear form."""
+    r"""Finite-rank free modules with a nondegenerate symmetric bilinear form.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate()``.
+    """
 
     _base_category_class_and_axiom = (_SymmetricFiniteRankFreeBilinearModules, "Nondegenerate")
     _defining_predicates = ("is_nondegenerate",)
@@ -138,7 +150,10 @@ class _NondegenerateSymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_ove
 
 
 class _IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Integral nondegenerate symmetric bilinear forms on finite-rank free modules."""
+    r"""Integral nondegenerate symmetric bilinear forms on finite-rank free modules.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()``.
+    """
 
     _base_category_class_and_axiom = (_NondegenerateSymmetricFiniteRankFreeBilinearModules, "Integral")
     _defining_predicates = ("is_integral",)

@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Subobjects of sets, equivalently subsets with an ambient set."""
+    r"""Subobjects of sets, equivalently subsets with an ambient set.
+
+    Canonical chain: ``Sets().Subobjects()``.
+    """
 
     @final
     def Of(

@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _IsomorphicObjects(IsomorphicObjectsCategory):
-    r"""Sets transported along a distinguished isomorphism."""
+    r"""Sets transported along a distinguished isomorphism.
+
+    Canonical chain: ``Sets().IsomorphicObjects()``.
+    """
 
     class ParentMethods:
         @abstract_method

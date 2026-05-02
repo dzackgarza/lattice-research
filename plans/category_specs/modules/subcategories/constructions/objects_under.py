@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Modules ``N`` equipped with an ``R``-linear map ``M -> N``."""
+    r"""Modules ``N`` equipped with an ``R``-linear map ``M -> N``.
+
+    Canonical chain: ``Modules(R).ObjectsUnder(T)``.
+    """
 
     _functor_category = "ObjectsUnder"
 

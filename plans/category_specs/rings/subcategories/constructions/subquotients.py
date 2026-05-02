@@ -8,7 +8,10 @@ from ....cat import SubquotientsCategory
 
 
 class _Subquotients(SubquotientsCategory):
-    r"""Ring subquotients in the current ring category."""
+    r"""Ring subquotients in the current ring category.
+
+    Canonical chain: ``Rings().Subquotients()``.
+    """
 
     @final
     def _repr_object_names(self):

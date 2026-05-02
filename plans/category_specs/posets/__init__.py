@@ -160,7 +160,10 @@ class _PosetMorphismMethods:
 
 
 class Posets(Category):
-    r"""Category of sets equipped with a partial order."""
+    r"""Category of sets equipped with a partial order.
+
+    Canonical chain: ``Posets()``.
+    """
 
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:

@@ -11,7 +11,10 @@ from .over_dedekind import _LatticesOverDedekindDomain
 
 
 class _LatticesOverPID(CategoryWithAxiom_over_base_ring):
-    r"""Lattices whose base ring is a principal ideal domain."""
+    r"""Lattices whose base ring is a principal ideal domain.
+
+    Canonical chain: ``Lattices(R).OverDedekindDomain().OverPID()``.
+    """
 
     _base_category_class_and_axiom = (_LatticesOverDedekindDomain, "OverPID")
     _defining_predicates = ("is_over_pid",)

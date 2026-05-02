@@ -12,7 +12,10 @@ from .metric import _MetricSpaces
 
 
 class _CompleteMetricSpaces(CategoryWithAxiom):
-    r"""Category of complete metric spaces."""
+    r"""Category of complete metric spaces.
+
+    Canonical chain: ``TopologicalSpaces().Metric().Complete()``.
+    """
 
     _base_category_class_and_axiom = (_MetricSpaces, "Complete")
 

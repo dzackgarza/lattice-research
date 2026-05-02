@@ -18,7 +18,10 @@ from .. import Posets
 
 
 class _FinitePosets(CategoryWithAxiom):
-    r"""Finite partially ordered sets."""
+    r"""Finite partially ordered sets.
+
+    Canonical chain: ``Posets().Finite()``.
+    """
 
     _base_category_class_and_axiom = (Posets, "Finite")
 

@@ -84,7 +84,10 @@ class UniversalHomElementMethods:
 
 
 class HomCategory(SageHomsetsBase):
-    r"""Category of all hom categories."""
+    r"""Category of all hom categories.
+
+    Canonical chain: ``HomCategory()``.
+    """
 
     def super_categories(self) -> list[Category]:
         return super().super_categories()
@@ -110,6 +113,8 @@ class HomCategory(SageHomsetsBase):
 
 class HomCategoryConstruction(FunctorialConstructionCategory):
     r"""Functorial construction category for ``C.HomCategory()``.
+
+    Canonical chain: ``C.HomCategory()``.
 
     This is the project-owned functorial assignment ``Hom_*: Cat -> Cat``,
     sending ``C`` to ``Hom_C``.  Sage's ``HomsetsCategory`` is inventory
@@ -158,7 +163,10 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
         return Category.join(hom_supercategories)
 
 class HomCategoryOf(HomCategoryConstruction):
-    r"""Generic category whose objects are ``Hom_C(A, B)``."""
+    r"""Generic category whose objects are ``Hom_C(A, B)``.
+
+    Canonical chain: ``C.HomCategory()``.
+    """
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.homsets.endsets", "EndCategoryOf")

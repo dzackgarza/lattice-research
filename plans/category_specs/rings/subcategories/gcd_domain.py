@@ -97,6 +97,7 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _GcdDomains(CategoryWithAxiom):
+    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().Gcd()``."""
     _base_category_class_and_axiom = (_IntegralDomains, "Gcd")
 
     @final

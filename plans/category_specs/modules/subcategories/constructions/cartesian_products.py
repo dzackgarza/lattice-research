@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 
 
 class _CartesianProducts(CartesianProductsCategory):
+    r"""Canonical chain: ``Modules(R).CartesianProducts()``."""
+
     @final
     def extra_super_categories(self):
         r"""Declare that M x N is again an R-module."""

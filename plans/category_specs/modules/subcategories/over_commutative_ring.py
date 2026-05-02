@@ -9,6 +9,7 @@ from .. import Modules
 
 
 class _OverCommutativeRing(CategoryWithAxiom_over_base_ring):
+    r"""Canonical chain: ``Modules(R).OverCommutativeRing()``."""
     _base_category_class_and_axiom = (Modules, "OverCommutativeRing")
 
     @final

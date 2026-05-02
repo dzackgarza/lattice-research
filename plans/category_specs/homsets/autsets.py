@@ -65,7 +65,10 @@ class UniversalAutElementMethods:
 
 
 class AutCategory(CategoryWithAxiom_singleton):
-    r"""Category of all automorphism categories."""
+    r"""Category of all automorphism categories.
+
+    Canonical chain: ``AutCategory()``.
+    """
 
     _base_category_class_and_axiom = (EndCategory, "Autset")
 
@@ -81,7 +84,10 @@ class AutCategory(CategoryWithAxiom_singleton):
 
 
 class AutCategoryConstruction(EndCategoryConstruction):
-    r"""Functorial construction category for ``C.AutCategory()``."""
+    r"""Functorial construction category for ``C.AutCategory()``.
+
+    Canonical chain: ``C.AutCategory()``.
+    """
 
     _functor_category = "AutCategory"
 
@@ -110,7 +116,10 @@ class AutCategoryConstruction(EndCategoryConstruction):
 
 
 class AutCategoryOf(CategoryWithAxiom):
-    r"""Generic category whose objects are ``Aut_C(A)``."""
+    r"""Generic category whose objects are ``Aut_C(A)``.
+
+    Canonical chain: ``C.AutCategory()``.
+    """
 
     _base_category_class_and_axiom = (EndCategoryOf, "Autset")
 

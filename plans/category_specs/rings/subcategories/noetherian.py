@@ -94,6 +94,7 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _NoetherianRings(CategoryWithAxiom):
+    r"""Canonical chain: ``Rings().Commutative().Noetherian()``."""
     _base_category_class_and_axiom = (_CommutativeRings, "Noetherian")
 
     @final

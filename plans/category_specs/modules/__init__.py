@@ -409,6 +409,8 @@ class _RModElements:
 
 
 class Modules(Category_module):
+    r"""Canonical chain: ``Modules(R)``."""
+
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageBimodules(self.base_ring(), self.base_ring()),)

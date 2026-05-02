@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Subcategories viewed as subobjects in ``Cat()``."""
+    r"""Subcategories viewed as subobjects in ``Cat()``.
+
+    Canonical chain: ``Cat().Subobjects()``.
+    """
 
     @final
     def __contains__(self, candidate: Any) -> bool:

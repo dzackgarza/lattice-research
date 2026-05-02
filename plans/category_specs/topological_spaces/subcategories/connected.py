@@ -12,7 +12,10 @@ from .. import _TopologicalSpaces
 
 
 class _ConnectedTopologicalSpaces(CategoryWithAxiom):
-    r"""Category of connected topological spaces."""
+    r"""Category of connected topological spaces.
+
+    Canonical chain: ``TopologicalSpaces().Connected()``.
+    """
 
     _base_category_class_and_axiom = (_TopologicalSpaces, "Connected")
 

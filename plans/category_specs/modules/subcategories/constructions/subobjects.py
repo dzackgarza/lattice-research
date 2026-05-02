@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Submodule category."""
+    r"""Submodule category.
+
+    Canonical chain: ``Modules(R).Subobjects()``.
+    """
 
     @abstract_method
     def as_subobject_of_self(self, M: RModule) -> SubModule:

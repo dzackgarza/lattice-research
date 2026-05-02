@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Subobjects in a category of algebras."""
+    r"""Subobjects in a category of algebras.
+
+    Canonical chain: ``Algebras(R).Subobjects()``.
+    """
 
     class ParentMethods:
         @abstract_method

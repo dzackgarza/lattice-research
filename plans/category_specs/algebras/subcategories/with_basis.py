@@ -22,7 +22,10 @@ if TYPE_CHECKING:
 
 
 class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
-    r"""Algebras with a distinguished basis."""
+    r"""Algebras with a distinguished basis.
+
+    Canonical chain: ``Algebras(R).WithBasis()``.
+    """
 
     _base_category_class_and_axiom = (Algebras, "WithBasis")
     FiniteDimensional = LazyImport(

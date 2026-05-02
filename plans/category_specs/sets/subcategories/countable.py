@@ -22,6 +22,8 @@ from .. import Sets
 class _CountableSets(CategoryWithAxiom):
     r"""Countable sets — sets admitting an explicit enumeration (injection into N).
 
+    Canonical chain: ``Sets().Countable()``.
+
     Sage's ``EnumeratedSets`` axiom captures exactly countability: a set is
     countable iff there exists an enumeration f: X -> N, which is an iterator.
     """
@@ -69,7 +71,10 @@ class _CountableSets(CategoryWithAxiom):
 
 
 class _FiniteCountableSets(CategoryWithAxiom):
-    r"""Finite countable sets — ``Sets().Countable().Finite()``."""
+    r"""Finite countable sets — ``Sets().Countable().Finite()``.
+
+    Canonical chain: ``Sets().Countable().Finite()``.
+    """
 
     _base_category_class_and_axiom = (_CountableSets, "Finite")
 
@@ -93,7 +98,10 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
 
 class _InfiniteCountableSets(CategoryWithAxiom):
-    r"""Infinite countable sets — ``Sets().Countable().Infinite()``."""
+    r"""Infinite countable sets — ``Sets().Countable().Infinite()``.
+
+    Canonical chain: ``Sets().Countable().Infinite()``.
+    """
 
     _base_category_class_and_axiom = (_CountableSets, "Infinite")
 

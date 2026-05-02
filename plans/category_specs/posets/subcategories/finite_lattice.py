@@ -19,7 +19,10 @@ if TYPE_CHECKING:
 
 
 class _FiniteLatticePosets(CategoryWithAxiom):
-    r"""Finite lattice posets."""
+    r"""Finite lattice posets.
+
+    Canonical chain: ``Posets().Lattice().Finite()``.
+    """
 
     _base_category_class_and_axiom = (_LatticePosets, "Finite")
 

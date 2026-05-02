@@ -15,7 +15,10 @@ if TYPE_CHECKING:
 
 
 class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
-    r"""Finite posets in which every pair has a join."""
+    r"""Finite posets in which every pair has a join.
+
+    Canonical chain: ``Posets().JoinSemilattice().Finite()``.
+    """
 
     _base_category_class_and_axiom = (_JoinSemilatticePosets, "Finite")
 

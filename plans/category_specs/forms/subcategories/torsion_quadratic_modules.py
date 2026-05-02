@@ -14,7 +14,10 @@ if TYPE_CHECKING:
 
 
 class _TorsionQuadraticModules(Category_over_base_ring):
-    r"""Finite ``ZZ``-modules equipped with a torsion quadratic form."""
+    r"""Finite ``ZZ``-modules equipped with a torsion quadratic form.
+
+    Canonical chain: ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
+    """
 
     @final
     def super_categories(self):

@@ -19,7 +19,10 @@ _TensorAlgebraComponents = LazyImport("category_specs.tensor_algebra_components"
 
 
 class _TensorProducts(TensorProductsCategory):
-    r"""Tensor products of R-modules."""
+    r"""Tensor products of R-modules.
+
+    Canonical chain: ``Modules(R).TensorProducts()``.
+    """
 
     @cached_method
     @final

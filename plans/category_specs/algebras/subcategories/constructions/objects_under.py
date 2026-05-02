@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Algebras ``B`` equipped with an algebra morphism ``A -> B``."""
+    r"""Algebras ``B`` equipped with an algebra morphism ``A -> B``.
+
+    Canonical chain: ``Algebras(R).ObjectsUnder(T)``.
+    """
 
     _functor_category = "ObjectsUnder"
 

@@ -48,6 +48,8 @@ from ..chain import _Lattices
 class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
     r"""Integral bilinear modules whose base ring is a Dedekind domain.
 
+    Canonical chain: ``Lattices(R).OverDedekindDomain()``.
+
     Objects: pairs ``(L, b)`` with:
     - ``L`` finitely generated and torsion-free over a Dedekind domain ``R``
     - ``b: L \times L \to R`` symmetric, nondegenerate, integral

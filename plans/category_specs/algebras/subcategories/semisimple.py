@@ -11,7 +11,10 @@ from .. import Algebras
 
 
 class _SemisimpleAlgebras(CategoryWithAxiom_over_base_ring):
-    r"""Algebras whose Jacobson radical is zero."""
+    r"""Algebras whose Jacobson radical is zero.
+
+    Canonical chain: ``Algebras(R).Semisimple()``.
+    """
 
     _base_category_class_and_axiom = (Algebras, "Semisimple")
 

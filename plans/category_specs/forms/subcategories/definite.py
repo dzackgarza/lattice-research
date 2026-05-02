@@ -18,6 +18,8 @@ from .symmetric import _SymmetricBilinearModules
 
 class _DefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with a definite (positive or negative definite)
+
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric().Definite()``.
     symmetric bilinear form.
 
     A symmetric bilinear form ``b`` is *definite* iff every nonzero vector

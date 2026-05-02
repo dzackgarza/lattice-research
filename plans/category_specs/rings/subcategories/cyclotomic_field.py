@@ -97,6 +97,7 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CyclotomicFields(CategoryWithAxiom):
+    r"""Canonical chain: ``Rings().Commutative().Field().NumberFields().Cyclotomic()``."""
     _base_category_class_and_axiom = (_NumberFields, "Cyclotomic")
 
     @final

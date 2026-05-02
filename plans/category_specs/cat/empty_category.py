@@ -8,7 +8,10 @@ from .base_category_types import Category, Category_singleton
 
 
 class EmptyCategory(Category_singleton):
-    r"""Bottom category object in the local category-of-categories hierarchy."""
+    r"""Bottom category object in the local category-of-categories hierarchy.
+
+    Canonical chain: ``Cat().Constructors().EmptyCategory()``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

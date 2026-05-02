@@ -46,7 +46,10 @@ class _MetricSpaceElementMethods:
 
 
 class _MetricSpaces(CategoryWithAxiom):
-    r"""Category of metric spaces."""
+    r"""Category of metric spaces.
+
+    Canonical chain: ``TopologicalSpaces().Metric()``.
+    """
 
     _base_category_class_and_axiom = (_TopologicalSpaces, "Metric")
     ParentMethods = _MetricSpaceObjectMethods

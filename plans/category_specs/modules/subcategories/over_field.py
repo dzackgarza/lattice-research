@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 
 class _OverField(CategoryWithAxiom_over_base_ring):
+    r"""Canonical chain: ``Modules(R).OverField()``."""
     _base_category_class_and_axiom = (Modules, "OverField")
 
     @final

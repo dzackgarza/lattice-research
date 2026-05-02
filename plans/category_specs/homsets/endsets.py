@@ -41,7 +41,10 @@ class UniversalEndElementMethods:
 
 
 class EndCategory(CategoryWithAxiom_singleton):
-    r"""Category of all endomorphism categories."""
+    r"""Category of all endomorphism categories.
+
+    Canonical chain: ``EndCategory()``.
+    """
 
     _base_category_class_and_axiom = (HomCategory, "Endset")
 
@@ -65,7 +68,10 @@ class EndCategory(CategoryWithAxiom_singleton):
 
 
 class EndCategoryConstruction(HomCategoryConstruction):
-    r"""Functorial construction category for ``C.EndCategory()``."""
+    r"""Functorial construction category for ``C.EndCategory()``.
+
+    Canonical chain: ``C.EndCategory()``.
+    """
 
     _functor_category = "EndCategory"
 
@@ -89,7 +95,10 @@ class EndCategoryConstruction(HomCategoryConstruction):
 
 
 class EndCategoryOf(CategoryWithAxiom):
-    r"""Generic category whose objects are ``End_C(A)``."""
+    r"""Generic category whose objects are ``End_C(A)``.
+
+    Canonical chain: ``C.EndCategory()``.
+    """
 
     _base_category_class_and_axiom = (HomCategoryOf, "Endset")
 

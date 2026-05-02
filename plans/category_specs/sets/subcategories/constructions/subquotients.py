@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 
 
 class _Subquotients(SubquotientsCategory):
-    r"""Constructive subquotients of sets."""
+    r"""Constructive subquotients of sets.
+
+    Canonical chain: ``Sets().Subquotients()``.
+    """
 
     class ParentMethods:
         @abstract_method

@@ -9,7 +9,10 @@ from ... import Category, Category_over_base, RegressiveCovariantConstructionCat
 
 
 class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Categories ``D`` equipped with a functor ``C -> D``."""
+    r"""Categories ``D`` equipped with a functor ``C -> D``.
+
+    Canonical chain: ``Cat().ObjectsUnder(T)``.
+    """
 
     _functor_category = "ObjectsUnder"
 

@@ -9,6 +9,7 @@ from .. import Modules
 
 
 class _OverCompleteRing(CategoryWithAxiom_over_base_ring):
+    r"""Canonical chain: ``Modules(R).OverCompleteRing()``."""
     _base_category_class_and_axiom = (Modules, "OverCompleteRing")
 
     @final

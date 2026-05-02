@@ -19,6 +19,8 @@ if TYPE_CHECKING:
 class _PartitionedSets(CategoryWithAxiom):
     r"""Sets whose elements are partitions of a fixed base set.
 
+    Canonical chain: ``Sets().Partitioned()``.
+
     A partition of ``X`` is a subset of the powerset ``P(X)`` whose blocks are
     nonempty, pairwise disjoint, and cover ``X``.  Sage represents the parent of
     such partitions as ``SetPartitions(X)`` and each partition as a

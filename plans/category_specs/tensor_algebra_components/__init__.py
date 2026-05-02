@@ -84,7 +84,10 @@ class _DualObjects(DualObjectsCategory):
 
 
 class TensorAlgebraComponents(Category_over_base_ring):
-    r"""Category of tensor-algebra components over ``R``."""
+    r"""Category of tensor-algebra components over ``R``.
+
+    Canonical chain: ``TensorAlgebraComponents(R)``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

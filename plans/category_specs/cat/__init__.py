@@ -116,6 +116,8 @@ class _CategoryElementMethods:
 class Cat(_SageCategorySingleton):
     r"""Root category whose objects are project category objects.
 
+    Canonical chain: ``Cat()``.
+
     ``Cat`` deliberately does not use the Cat-backed wrapper bases.  The wrapper
     layer makes ordinary categories into objects of ``Cat()``; applying it to
     ``Cat`` itself would assert a self-membership statement and would turn

@@ -93,6 +93,7 @@ _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_ser
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
 
 class _CompleteRings(CategoryWithAxiom):
+    r"""Canonical chain: ``Rings().Topological().Complete()``."""
     _base_category_class_and_axiom = (_TopologicalRings, "Complete")
 
     @final

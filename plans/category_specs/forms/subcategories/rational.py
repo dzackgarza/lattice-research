@@ -24,6 +24,8 @@ if TYPE_CHECKING:
 class _RationalBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules with a ``K = \mathrm{Frac}(R)``-valued bilinear form.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Rational()``.
+
     The form takes values in the fraction field of ``R``, not necessarily
     in ``R`` itself.  An integral form is always rational; a rational form
     need not be integral.

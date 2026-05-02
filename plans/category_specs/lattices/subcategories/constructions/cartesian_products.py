@@ -8,7 +8,10 @@ from ....cat import CartesianProductsCategory
 
 
 class _CartesianProducts(CartesianProductsCategory):
-    r"""Cartesian products of lattices with the product bilinear form."""
+    r"""Cartesian products of lattices with the product bilinear form.
+
+    Canonical chain: ``Lattices(R).CartesianProducts()``.
+    """
 
     @final
     def extra_super_categories(self):

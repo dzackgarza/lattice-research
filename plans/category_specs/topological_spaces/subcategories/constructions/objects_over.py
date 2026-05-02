@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Spaces ``Y`` equipped with a continuous map ``Y -> X``."""
+    r"""Spaces ``Y`` equipped with a continuous map ``Y -> X``.
+
+    Canonical chain: ``TopologicalSpaces().ObjectsOver(T)``.
+    """
 
     _functor_category = "ObjectsOver"
 

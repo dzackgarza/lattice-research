@@ -68,7 +68,10 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
 
 
 class CatHomCategory(HomCategoryOf):
-    r"""Hom category of functors between categories."""
+    r"""Hom category of functors between categories.
+
+    Canonical chain: ``Cat().HomCategory()``.
+    """
 
     @final
     def __init__(self, base_category: Category) -> None:

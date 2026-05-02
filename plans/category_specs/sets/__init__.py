@@ -275,6 +275,8 @@ class _SetMorphismMethods:
 class Sets(Category_singleton):
     r"""Replacement set category, staged below Sage's existing ``Sets()``.
 
+    Canonical chain: ``Sets()``.
+
     Objects in ``Sets()`` are any Sage parents that lie in ``SageSets()``.
     The module docstring records the full public category hierarchy and constructor
     refinement map.

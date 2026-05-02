@@ -44,7 +44,10 @@ class _LatticeAutomorphisms:
 
 
 class LatticeHomCategory(HomCategoryOf):
-    r"""Category of lattice hom objects ``Hom_Lattices(A, B)``."""
+    r"""Category of lattice hom objects ``Hom_Lattices(A, B)``.
+
+    Canonical chain: ``Lattices(R).HomCategory()``.
+    """
 
     @final
     def extra_super_categories(self):
@@ -61,7 +64,10 @@ class LatticeHomCategory(HomCategoryOf):
 
 
 class LatticeEndCategory(GenericEndCategory):
-    r"""Category of lattice endomorphism objects ``End_Lattices(A)``."""
+    r"""Category of lattice endomorphism objects ``End_Lattices(A)``.
+
+    Canonical chain: ``Lattices(R).EndCategory()``.
+    """
 
     _base_category_class_and_axiom = (LatticeHomCategory, "Endset")
     Autset = LazyImport(__name__, "LatticeAutCategory")
@@ -75,7 +81,10 @@ class LatticeEndCategory(GenericEndCategory):
 
 
 class LatticeAutCategory(GenericAutCategory):
-    r"""Category of lattice orthogonal groups ``Aut_Lattices(A)``."""
+    r"""Category of lattice orthogonal groups ``Aut_Lattices(A)``.
+
+    Canonical chain: ``Lattices(R).AutCategory()``.
+    """
 
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 

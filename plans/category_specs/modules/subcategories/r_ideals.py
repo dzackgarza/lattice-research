@@ -9,7 +9,10 @@ from .. import Modules
 
 
 class _RIdeals(CategoryWithAxiom_over_base_ring):
-    r"""Ideals of ``R`` viewed as submodules of the rank-one module ``R``."""
+    r"""Ideals of ``R`` viewed as submodules of the rank-one module ``R``.
+
+    Canonical chain: ``Modules(R).RIdeals()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "RIdeals")
 

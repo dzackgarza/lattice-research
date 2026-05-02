@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
 
 class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
+    r"""Canonical chain: ``Rings().RingsUnder(R)``."""
     _functor_category = "RingsUnder"
 
     @classmethod

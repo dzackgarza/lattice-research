@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _DualObjects(DualObjectsCategory):
-    r"""Dual lattices ``L^* = {v in L_K | b(v, L) subset R}``."""
+    r"""Dual lattices ``L^* = {v in L_K | b(v, L) subset R}``.
+
+    Canonical chain: ``Lattices(R).DualObjects()``.
+    """
 
     @final
     def extra_super_categories(self):

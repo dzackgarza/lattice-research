@@ -18,6 +18,8 @@ from .symmetric import _SymmetricBilinearModules
 class _IndefiniteBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules equipped with an indefinite symmetric bilinear form.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Symmetric().Indefinite()``.
+
     A symmetric bilinear form ``b`` over an ordered ring is *indefinite* iff
     there exist ``v, w \in M`` with ``b(v,v) > 0`` and ``b(w,w) < 0``.
     Equivalently, the signature pair ``(p, q)`` satisfies ``p \ge 1``

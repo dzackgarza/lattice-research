@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Sublattices with the restricted bilinear form."""
+    r"""Sublattices with the restricted bilinear form.
+
+    Canonical chain: ``Lattices(R).Subobjects()``.
+    """
 
     @abstract_method
     def as_subobject_of_self(self, L: Lattice) -> Lattice:

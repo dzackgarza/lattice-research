@@ -6,7 +6,10 @@ from ....cat import SubquotientsCategory
 
 
 class _Subquotients(SubquotientsCategory):
-    r"""Algebra objects obtained as subobjects of quotients or quotients of subobjects."""
+    r"""Algebra objects obtained as subobjects of quotients or quotients of subobjects.
+
+    Canonical chain: ``Algebras(R).Subquotients()``.
+    """
 
     class ParentMethods: ...
     class ElementMethods: ...

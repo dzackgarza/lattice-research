@@ -14,7 +14,10 @@ from .meet_semilattice import _MeetSemilatticePosets
 
 
 class _LatticePosets(Category):
-    r"""Posets in which every pair has a meet and join."""
+    r"""Posets in which every pair has a meet and join.
+
+    Canonical chain: ``Posets().Lattice()``.
+    """
 
     @final
     def super_categories(self) -> list[Category]:

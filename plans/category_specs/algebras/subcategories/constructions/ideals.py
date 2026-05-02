@@ -14,7 +14,10 @@ if TYPE_CHECKING:
 
 
 class _Ideals(Category_module):
-    r"""``R``-submodules that are ideals in an ``R``-algebra."""
+    r"""``R``-submodules that are ideals in an ``R``-algebra.
+
+    Canonical chain: ``Algebras(R).Ideals(A)``.
+    """
 
     @final
     def __init__(self, algebra: Algebra) -> None:

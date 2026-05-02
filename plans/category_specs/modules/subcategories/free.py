@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
-    r"""Free modules over the base ring."""
+    r"""Free modules over the base ring.
+
+    Canonical chain: ``Modules(R).Free()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "Free")
     FiniteRank = LazyImport(__name__, "_FreeFiniteRank")
@@ -52,7 +55,10 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
 
 class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules."""
+    r"""Finite-rank free modules.
+
+    Canonical chain: ``Modules(R).Free().FiniteRank()``.
+    """
 
     _base_category_class_and_axiom = (_Free, "FiniteRank")
     WithForms = LazyImport("category_specs.forms.chain", "_FiniteRankFreeModulesWithForms")

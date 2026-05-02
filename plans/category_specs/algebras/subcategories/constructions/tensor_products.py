@@ -8,7 +8,10 @@ from ....cat import Category, TensorProductsCategory
 
 
 class _TensorProducts(TensorProductsCategory):
-    r"""Tensor products in a category of algebras."""
+    r"""Tensor products in a category of algebras.
+
+    Canonical chain: ``Algebras(R).TensorProducts()``.
+    """
 
     @final
     def extra_super_categories(self) -> list[Category]:

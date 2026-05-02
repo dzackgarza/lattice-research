@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base):
-    r"""Lattices ``M`` equipped with a lattice morphism ``L -> M``."""
+    r"""Lattices ``M`` equipped with a lattice morphism ``L -> M``.
+
+    Canonical chain: ``Lattices(R).ObjectsUnder(T)``.
+    """
 
     _functor_category = "ObjectsUnder"
 

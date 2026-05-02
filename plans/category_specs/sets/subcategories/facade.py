@@ -17,6 +17,7 @@ from .. import Sets
 
 
 class _FacadeSets(CategoryWithAxiom):
+    r"""Canonical chain: ``Sets().Facade()``."""
     _base_category_class_and_axiom = (Sets, "Facade")
 
     @final

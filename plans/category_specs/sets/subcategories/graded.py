@@ -17,7 +17,10 @@ from .. import Sets
 
 
 class _GradedSets(CategoryWithAxiom):
-    r"""Sets equipped with a grading map to a grading set."""
+    r"""Sets equipped with a grading map to a grading set.
+
+    Canonical chain: ``Sets().Graded()``.
+    """
 
     _base_category_class_and_axiom = (Sets, "Graded")
 

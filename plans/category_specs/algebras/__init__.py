@@ -133,7 +133,10 @@ class _AlgebraMorphismMethods:
 
 
 class Algebras(Category_module):
-    r"""Category of algebras over a fixed base ring."""
+    r"""Category of algebras over a fixed base ring.
+
+    Canonical chain: ``Algebras(R)``.
+    """
 
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:

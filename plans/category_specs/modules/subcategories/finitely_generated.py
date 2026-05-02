@@ -9,7 +9,10 @@ from .. import Modules
 
 
 class _FinitelyGenerated(CategoryWithAxiom_over_base_ring):
-    r"""Modules admitting a surjection from ``R^n`` for some finite ``n``."""
+    r"""Modules admitting a surjection from ``R^n`` for some finite ``n``.
+
+    Canonical chain: ``Modules(R).FinitelyGenerated()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "FinitelyGenerated")
 

@@ -55,7 +55,10 @@ class _SetAutomorphisms:
 
 
 class SetHomCategory(HomCategoryOf):
-    r"""Category of homs between sets."""
+    r"""Category of homs between sets.
+
+    Canonical chain: ``Sets().HomCategory()``.
+    """
 
     # Category-level Sets().HomCategory() construction:
     # objects are set-map parents Hom_Sets(X, Y). Set-map predicates
@@ -77,6 +80,7 @@ class SetHomCategory(HomCategoryOf):
 class SetEndCategory(GenericEndCategory):
     # Category-level Sets().EndCategory() construction:
     # objects are endomap parents End_Sets(X), not individual endomorphisms.
+    r"""Canonical chain: ``Sets().EndCategory()``."""
     _base_category_class_and_axiom = (SetHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "SetAutCategory")
@@ -93,6 +97,7 @@ class SetAutCategory(GenericAutCategory):
     # Category-level Sets().AutCategory() construction:
     # objects are automorphism parents Aut_Sets(X), with set-map specs
     # inherited from SetHomCategory and automorphism specs from GenericAutCategory.
+    r"""Canonical chain: ``Sets().AutCategory()``."""
     _base_category_class_and_axiom = (SetEndCategory, "Autset")
 
     class ParentMethods: ...

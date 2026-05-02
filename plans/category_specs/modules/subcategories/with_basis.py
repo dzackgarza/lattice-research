@@ -26,7 +26,10 @@ if TYPE_CHECKING:
 
 
 class _WithBasis(CategoryWithAxiom_over_base_ring):
-    r"""Modules equipped with a specified basis."""
+    r"""Modules equipped with a specified basis.
+
+    Canonical chain: ``Modules(R).WithBasis()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "WithBasis")
 
@@ -137,7 +140,10 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
 
 class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
-    r"""Modules equipped with a specified ordered basis."""
+    r"""Modules equipped with a specified ordered basis.
+
+    Canonical chain: ``Modules(R).WithOrderedBasis()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "WithOrderedBasis")
 

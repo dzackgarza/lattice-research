@@ -34,6 +34,8 @@ if TYPE_CHECKING:
 class _FreeBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Free ``R``-modules of finite rank equipped with a bilinear form.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Free()``.
+
     Objects are pairs ``(M, b)`` where ``M \cong R^n`` is free of finite rank
     and ``b: M \times M \to S`` is an ``R``-bilinear form.  Morphisms are
     ``R``-module maps; isometries additionally preserve ``b``.

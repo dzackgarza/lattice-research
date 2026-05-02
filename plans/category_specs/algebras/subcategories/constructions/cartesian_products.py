@@ -8,7 +8,10 @@ from ....cat import CartesianProductsCategory, Category
 
 
 class _CartesianProducts(CartesianProductsCategory):
-    r"""Cartesian products in a category of algebras."""
+    r"""Cartesian products in a category of algebras.
+
+    Canonical chain: ``Algebras(R).CartesianProducts()``.
+    """
 
     @final
     def extra_super_categories(self) -> list[Category]:

@@ -13,7 +13,10 @@ if TYPE_CHECKING:
 
 
 class _Overlattices(Category_module):
-    r"""Overlattices of a lattice inside its rational span."""
+    r"""Overlattices of a lattice inside its rational span.
+
+    Canonical chain: ``Lattices(R).Overlattices(L)``.
+    """
 
     @final
     def _repr_object_names(self) -> str:

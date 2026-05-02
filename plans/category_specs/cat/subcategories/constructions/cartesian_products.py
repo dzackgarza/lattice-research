@@ -6,7 +6,10 @@ from ... import CartesianProductsCategory
 
 
 class _CartesianProducts(CartesianProductsCategory):
-    r"""Product categories."""
+    r"""Product categories.
+
+    Canonical chain: ``Cat().CartesianProducts()``.
+    """
 
     class ParentMethods: ...
     class ElementMethods: ...

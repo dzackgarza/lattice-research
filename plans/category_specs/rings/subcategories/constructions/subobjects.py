@@ -8,7 +8,10 @@ from ....cat import SubobjectsCategory
 
 
 class _Subobjects(SubobjectsCategory):
-    r"""Ring subobjects: subrings in the current ring category."""
+    r"""Ring subobjects: subrings in the current ring category.
+
+    Canonical chain: ``Rings().Subobjects()``.
+    """
 
     @final
     def _repr_object_names(self):

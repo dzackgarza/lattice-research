@@ -60,7 +60,10 @@ if TYPE_CHECKING:
 
 
 class _Lattices(CategoryWithAxiom_over_base_ring):
-    r"""Lattices over ``R`` as the named endpoint of the lattice axiom chain."""
+    r"""Lattices over ``R`` as the named endpoint of the lattice axiom chain.
+
+    Canonical chain: ``Lattices(R)``.
+    """
 
     _base_category_class_and_axiom = (_IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules, "Lattice")
     _defining_predicates = ("is_lattice",)

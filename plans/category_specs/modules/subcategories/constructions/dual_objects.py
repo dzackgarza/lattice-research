@@ -8,7 +8,10 @@ from ....cat import DualObjectsCategory
 
 
 class _DualObjects(DualObjectsCategory):
-    r"""Dual modules M^* := Hom_R(M, R) viewed as integral linear forms."""
+    r"""Dual modules M^* := Hom_R(M, R) viewed as integral linear forms.
+
+    Canonical chain: ``Modules(R).DualObjects()``.
+    """
 
     @final
     def extra_super_categories(self):

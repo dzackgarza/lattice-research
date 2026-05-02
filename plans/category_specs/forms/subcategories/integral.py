@@ -29,6 +29,8 @@ if TYPE_CHECKING:
 class _IntegralBilinearModules(CategoryWithAxiom_over_base_ring):
     r"""Modules with an ``R``-valued (integral) bilinear form.
 
+    Canonical chain: ``Modules(R).WithForms().Bilinear().Integral()``.
+
     *Integral* means the form ``b: M \times M \to S`` has ``S = R``, as
     opposed to ``S = K = \mathrm{Frac}(R)`` (rational) or a quotient
     ``K/R`` (torsion/discriminant).

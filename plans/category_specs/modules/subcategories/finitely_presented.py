@@ -9,7 +9,10 @@ from .. import Modules
 
 
 class _FinitelyPresented(CategoryWithAxiom_over_base_ring):
-    r"""Modules presented as ``coker(f: R^m -> R^n)`` for finite ``m,n``."""
+    r"""Modules presented as ``coker(f: R^m -> R^n)`` for finite ``m,n``.
+
+    Canonical chain: ``Modules(R).FinitelyPresented()``.
+    """
 
     _base_category_class_and_axiom = (Modules, "FinitelyPresented")
 

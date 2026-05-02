@@ -12,7 +12,10 @@ if TYPE_CHECKING:
 
 
 class _QuadraticModules(CategoryWithAxiom_over_base_ring):
-    r"""Pairs ``(M, q)`` with ``q`` quadratic on ``M``."""
+    r"""Pairs ``(M, q)`` with ``q`` quadratic on ``M``.
+
+    Canonical chain: ``Modules(R).WithForms().Quadratic()``.
+    """
 
     _base_category_class_and_axiom = (_WithForms, "Quadratic")
     _defining_predicates = ("is_quadratic",)
