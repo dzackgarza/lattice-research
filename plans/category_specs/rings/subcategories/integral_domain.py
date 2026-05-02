@@ -3,7 +3,7 @@ r"""IntegralDomains ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
 from sage.misc.abstract_method import abstract_method
@@ -105,14 +105,17 @@ class _IntegralDomains(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().IntegralDomains()``."""
     _base_category_class_and_axiom = (_CommutativeRings, "IntegralDomains")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "integral domains"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SageIntegralDomains(), _CommutativeRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageIntegralDomains() or (R in self.base_category() and R.is_integral_domain())

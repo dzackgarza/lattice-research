@@ -2,7 +2,7 @@ r"""Modules over Ore-polynomial quotient data."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -21,12 +21,14 @@ class _OreModules(Category_over_base_ring):
     refines Sage Ore quotient modules here.
     """
 
+    @override
     @final
     def super_categories(self):
         R = self.base_ring()
         return [Modules(R).Free().FiniteRank()]
 
     class ParentMethods:
+        @override
         @final
         def is_ore_module(self) -> bool:
             return True

@@ -2,7 +2,7 @@ r"""ComplexBallFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexBallField as SageComplexBallField
@@ -99,14 +99,17 @@ class _ComplexBallFields(Category_singleton):
     refines here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complex ball fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_ComplexPrecisionFields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, SageComplexBallField)

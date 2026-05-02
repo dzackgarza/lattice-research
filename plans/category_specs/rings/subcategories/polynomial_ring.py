@@ -106,19 +106,23 @@ class _PolynomialRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Polynomial()``."""
     _base_category_class_and_axiom = (Rings, "Polynomial")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "polynomial rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Rings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES) or isinstance(R, self.parent_class))
 
     class ParentMethods:
+        @override
         @final
         def is_polynomial_ring(self) -> bool:
             return True

@@ -15,7 +15,7 @@ generic Sage group wrapper.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
@@ -73,6 +73,8 @@ class _RModHomCategoryObjectMethods:
 
 
 class _RModMorphisms:
+    r"""ElementMethods introduced by ``Modules(R).HomCategory()`` for R-linear maps."""
+
     # ``parent`` is a Sage ``Element`` intrinsic and is not restated here.
 
     @abstract_method
@@ -167,6 +169,7 @@ class RModuleHomCategory(HomCategoryOf):
     Objects are hom parents; elements are R-module morphisms.
     """
 
+    @override
     @final
     def extra_super_categories(self):
         r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
@@ -319,6 +322,7 @@ class RModuleEndCategory(GenericEndCategory):
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "RModuleAutCategory")
 
+    @override
     @final
     def extra_super_categories(self):
         r"""End_R(M) is an R-algebra."""
@@ -357,6 +361,7 @@ class RModuleAutCategory(GenericAutCategory):
 
     _base_category_class_and_axiom = (RModuleEndCategory, "Autset")
 
+    @override
     @final
     def extra_super_categories(self):
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""

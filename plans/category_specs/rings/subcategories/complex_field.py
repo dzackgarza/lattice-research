@@ -2,7 +2,7 @@ r"""ComplexFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.abc import ComplexField as SageComplexField
@@ -99,14 +99,17 @@ class _ComplexFields(Category_singleton):
     here; the precision-53 singleton also refines into ``_CC``.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complex fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_ComplexPrecisionFields(), _ScientificNotationFields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, SageComplexField)

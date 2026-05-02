@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
@@ -32,10 +32,12 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         assert Integer(n) == Integer(m), "matrix rings require square matrix spaces"
         super().__init__(base_ring, n, m)
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"rings of {self._n} by {self._n} matrices over {self._base_ring}"
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         from sage.matrix.matrix_space import MatrixSpace
@@ -53,6 +55,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
 
         return MatrixSpace(self.base_ring(), self.nrows(), self.ncols())
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         R = self.base_ring()

@@ -101,14 +101,17 @@ class _Zp(Category_singleton):
     p-adic integer-ring constructors refine here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "p-adic integer rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_PAdicRings(), _CompleteDiscreteValuationRings(), _LocalRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         from sage.rings.padics.generic_nodes import pAdicRingGeneric

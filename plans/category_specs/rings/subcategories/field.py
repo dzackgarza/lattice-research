@@ -105,10 +105,12 @@ class _Fields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field()``."""
     _base_category_class_and_axiom = (_CommutativeRings, "Field")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [
@@ -122,6 +124,7 @@ class _Fields(CategoryWithAxiom):
             Rings().KrullDimension(0),
         ]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageFields() or (R in self.base_category() and R.is_field())

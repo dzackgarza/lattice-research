@@ -3,7 +3,7 @@ r"""Modules with a specified basis."""
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -33,10 +33,12 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (Modules, "WithBasis")
 
+    @override
     @final
     def extra_super_categories(self):
         return [self.base_category().Free()]
 
+    @override
     @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.has_basis()
@@ -47,6 +49,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             return self.base_category().WithOrderedBasis()
 
     class ParentMethods:
+        @override
         @final
         def has_basis(self) -> bool:
             return True
@@ -147,6 +150,7 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (Modules, "WithOrderedBasis")
 
+    @override
     @final
     def extra_super_categories(self):
         return [
@@ -154,11 +158,13 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
             self.base_category().WithOrderedGeneratingSet(),
         ]
 
+    @override
     @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.has_ordered_basis()
 
     class ParentMethods:
+        @override
         @final
         def has_ordered_basis(self) -> bool:
             return True

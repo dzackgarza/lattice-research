@@ -3,7 +3,7 @@ r"""Modules with an ordered generating set."""
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -19,11 +19,13 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).WithOrderedGeneratingSet()``."""
     _base_category_class_and_axiom = (Modules, "WithOrderedGeneratingSet")
 
+    @override
     @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.has_ordered_generating_set()
 
     class ParentMethods:
+        @override
         @final
         def has_ordered_generating_set(self) -> bool:
             return True

@@ -2,7 +2,7 @@ r"""Approximate rings with explicit precision control."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.rings.abc import ComplexBallField as SageComplexBallField
@@ -29,16 +29,19 @@ class _ApproximateRings(Category_singleton):
     data.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "approximate rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         from .. import Rings
 
         return [Rings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(

@@ -2,7 +2,7 @@ r"""Rings of fixed characteristic."""
 
 from __future__ import annotations
 
-from typing import Any, final
+from typing import Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
@@ -14,6 +14,7 @@ class _CharacteristicRings(_Category_over_base_integer):
     r"""Canonical chain: ``Rings().Characteristic(n)``."""
     parameter_name = "characteristic"
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.characteristic() == self.characteristic()
@@ -22,6 +23,7 @@ class _CharacteristicRings(_Category_over_base_integer):
     def characteristic(self) -> Integer:
         return self.base_integer()
 
+    @override
     @final
     def _repr_object_names(self):
         return f"{self.base_category()._repr_object_names()} of characteristic {self.characteristic()}"

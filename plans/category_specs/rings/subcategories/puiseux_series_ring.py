@@ -104,14 +104,17 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().PuiseuxSeries()``."""
     _base_category_class_and_axiom = (Rings, "PuiseuxSeries")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "Puiseux series rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [Rings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (
@@ -119,6 +122,7 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
         )
 
     class ParentMethods:
+        @override
         @final
         def is_puiseux_series_ring(self) -> bool:
             return True

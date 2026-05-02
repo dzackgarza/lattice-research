@@ -2,7 +2,7 @@ r"""CC ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -99,10 +99,12 @@ class _CC(Category_singleton):
     the canonical ``CC`` object.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complex field with 53 bits of precision"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [
@@ -113,6 +115,7 @@ class _CC(Category_singleton):
             _AlgebraicallyClosedFields(),
         ]
 
+    @override
     @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import CC

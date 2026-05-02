@@ -2,7 +2,7 @@ r"""Slice construction category of modules over a fixed module."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -20,6 +20,7 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
 
     _functor_category = "ObjectsOver"
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"modules over {self.base()}"

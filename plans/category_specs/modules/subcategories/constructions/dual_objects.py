@@ -2,7 +2,7 @@ r"""Dual modules."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from ....cat import DualObjectsCategory
 
@@ -13,6 +13,7 @@ class _DualObjects(DualObjectsCategory):
     Canonical chain: ``Modules(R).DualObjects()``.
     """
 
+    @override
     @final
     def extra_super_categories(self):
         r"""The dual M^* is an integral linear form."""

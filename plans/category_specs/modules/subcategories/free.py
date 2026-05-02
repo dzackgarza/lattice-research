@@ -3,7 +3,7 @@ r"""Free modules."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category import Category
 from sage.misc.abstract_method import abstract_method
@@ -26,10 +26,12 @@ class _Free(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (Modules, "Free")
     FiniteRank = LazyImport(__name__, "_FreeFiniteRank")
 
+    @override
     @final
     def extra_super_categories(self):
         return [self.base_category().Projective()]
 
+    @override
     @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.is_free()
@@ -41,6 +43,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
             return self._with_axiom("FiniteRank")
 
     class ParentMethods:
+        @override
         @final
         def is_free(self) -> bool:
             return True
@@ -63,6 +66,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     _base_category_class_and_axiom = (_Free, "FiniteRank")
     WithForms = LazyImport("category_specs.forms.chain", "_FiniteRankFreeModulesWithForms")
 
+    @override
     @final
     def extra_super_categories(self):
         return [self.base_category().FinitelyGenerated()]
@@ -87,6 +91,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def degree(self) -> Cardinality:
             return self.dimension()
 
+        @override
         @abstract_method
         def tensor_module(
             self,

@@ -102,14 +102,17 @@ class _AA(Category_singleton):
     Constructor target: ``Rings().Constructors().AA()`` refines here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "algebraic real field"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_AlgebraicFields()]
 
+    @override
     @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import AA

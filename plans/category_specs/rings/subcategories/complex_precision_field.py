@@ -2,7 +2,7 @@ r"""ComplexPrecisionFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -106,14 +106,17 @@ class _ComplexPrecisionFields(Category_singleton):
     constructors refine through this precision-family category.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complex precision fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_ApproximateRings(), _Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(

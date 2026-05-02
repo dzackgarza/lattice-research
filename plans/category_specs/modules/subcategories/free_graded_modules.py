@@ -3,7 +3,7 @@ r"""Free graded modules."""
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -22,12 +22,14 @@ class _FreeGradedModules(Category_over_base_ring):
     refines here as ``Modules(R).Graded().Free()``.
     """
 
+    @override
     @final
     def super_categories(self):
         R = self.base_ring()
         return [Modules(R).Free(), Modules(R).Graded()]
 
     class ParentMethods:
+        @override
         @final
         def is_free_graded_module(self) -> bool:
             return True

@@ -2,7 +2,7 @@ r"""CompleteDiscreteValuationObjects ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -103,14 +103,17 @@ class _CompleteDiscreteValuationObjects(Category_singleton):
     refine through this shared element-surface category.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings and fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_CompleteRings(), _ValuedRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in _CompleteDiscreteValuationRings() or (R in _CompleteDiscreteValuationFields())

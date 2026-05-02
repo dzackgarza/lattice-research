@@ -2,7 +2,7 @@ r"""RealIntervalFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -102,14 +102,17 @@ class _RealIntervalFields(Category_singleton):
     the fixed ``RIF`` constructor refine here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "real interval fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_RealPrecisionFields(), _ScientificNotationFields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(R, SageRealIntervalField)

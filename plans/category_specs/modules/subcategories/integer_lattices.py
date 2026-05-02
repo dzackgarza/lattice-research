@@ -2,7 +2,7 @@ r"""Integral lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, final
+from typing import TYPE_CHECKING, final, Literal, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -21,6 +21,7 @@ class _IntegerLattices(Category_over_base_ring):
     refines here as the legacy module-side route toward ``Lattices(ZZ)``.
     """
 
+    @override
     @final
     def super_categories(self):
         R = self.base_ring()
@@ -32,6 +33,7 @@ class _IntegerLattices(Category_over_base_ring):
         ]
 
     class ParentMethods:
+        @override
         @final
         def is_lattice(self) -> bool:
             return True

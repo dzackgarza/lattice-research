@@ -3,7 +3,7 @@ r"""Finitely presented graded modules."""
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal, final
+from typing import TYPE_CHECKING, final, Literal, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -34,6 +34,7 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
     here as ``Modules(R).Graded().FinitelyPresented()``.
     """
 
+    @override
     @final
     def super_categories(self):
         R = self.base_ring()
@@ -43,6 +44,7 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
         ]
 
     class ParentMethods:
+        @override
         @final
         def is_finitely_presented_graded_module(self) -> bool:
             return True

@@ -3,7 +3,7 @@ r"""PAdicRings ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -110,14 +110,17 @@ class _PAdicRings(Category_singleton):
     refine through this valued approximate family.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "p-adic rings and fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_ApproximateRings(), _CompleteRings(), _ValuedRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         from sage.rings.padics.generic_nodes import pAdicFieldGeneric, pAdicRingGeneric

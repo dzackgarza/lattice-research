@@ -2,7 +2,7 @@ r"""CompleteDiscreteValuationFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.complete_discrete_valuation import (
     CompleteDiscreteValuationFields as SageCompleteDiscreteValuationFields,
@@ -101,10 +101,12 @@ class _CompleteDiscreteValuationFields(Category_singleton):
     ``Rings().Constructors().Qp(...)`` refine here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [
@@ -114,6 +116,7 @@ class _CompleteDiscreteValuationFields(Category_singleton):
             _DiscreteValuationFields(),
         ]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageCompleteDiscreteValuationFields() or (
@@ -121,6 +124,7 @@ class _CompleteDiscreteValuationFields(Category_singleton):
         )
 
     class ParentMethods:
+        @override
         @final
         def is_complete_discrete_valuation_field(self) -> bool:
             return True

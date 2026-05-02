@@ -2,7 +2,7 @@ r"""DiscreteValuationRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.discrete_valuation import (
     DiscreteValuationRings as SageDiscreteValuationRings,
@@ -103,19 +103,23 @@ class _DiscreteValuationRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().WithValuation().DiscretelyValued()``."""
     _base_category_class_and_axiom = (_ValuedRings, "DiscretelyValued")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "discrete valuation rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SageDiscreteValuationRings(), _EuclideanDomains(), _ValuedRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageDiscreteValuationRings() or (R in self.base_category() and R.is_discrete_valuation_ring())
 
     class ParentMethods:
+        @override
         @final
         def is_discrete_valuation_ring(self) -> bool:
             return True

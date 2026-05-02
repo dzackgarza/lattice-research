@@ -104,19 +104,23 @@ class _PowerSeriesRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().PowerSeries()``."""
     _base_category_class_and_axiom = (Rings, "PowerSeries")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "power series rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_LaurentSeriesRings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES) or isinstance(R, self.parent_class))
 
     class ParentMethods:
+        @override
         @final
         def is_power_series_ring(self) -> bool:
             return True

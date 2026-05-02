@@ -3,7 +3,7 @@ r"""NumberFields ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final
+from typing import TYPE_CHECKING, Any, final, Literal, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.abstract_method import abstract_method
@@ -110,14 +110,17 @@ class _NumberFields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field().NumberFields()``."""
     _base_category_class_and_axiom = (_Fields, "NumberFields")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "number fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SageNumberFields(), _Fields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageNumberFields() or (R in self.base_category() and R.is_number_field())
@@ -143,6 +146,7 @@ class _NumberFields(CategoryWithAxiom):
             return self._with_axiom("Cyclotomic")
 
     class ParentMethods:
+        @override
         @final
         def is_number_field(self) -> bool:
             return True

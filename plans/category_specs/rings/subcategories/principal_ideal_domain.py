@@ -102,19 +102,23 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().IntegralDomains().PrincipalIdeal()``."""
     _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "principal ideal domains"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SagePrincipalIdealDomains(), _UniqueFactorizationDomains()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SagePrincipalIdealDomains() or (R in self.base_category() and R.is_pid())
 
     class ParentMethods:
+        @override
         @final
         def is_pid(self) -> bool:
             return True

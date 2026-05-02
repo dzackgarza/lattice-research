@@ -110,10 +110,12 @@ class _QQ(Category_singleton):
     Constructor target: ``Rings().Constructors().QQ()`` refines here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "rational field"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [
@@ -124,6 +126,7 @@ class _QQ(Category_singleton):
             Rings().Characteristic(0),
         ]
 
+    @override
     @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import QQ

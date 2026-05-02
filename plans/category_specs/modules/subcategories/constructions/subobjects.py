@@ -2,7 +2,7 @@ r"""Submodules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -73,6 +73,7 @@ class _Subobjects(SubobjectsCategory):
         @abstract_method
         def __le__(self, other: RModule) -> bool: ...
 
+        @override
         @final
         def quotient_module(self) -> QuotientModule:
             return self.inclusion().cokernel()

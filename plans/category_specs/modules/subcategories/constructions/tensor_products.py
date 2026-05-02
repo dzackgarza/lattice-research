@@ -3,7 +3,7 @@ r"""Tensor products of modules."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.tensor import TensorProductFunctor
 from sage.misc.abstract_method import abstract_method
@@ -25,6 +25,7 @@ class _TensorProducts(TensorProductsCategory):
     """
 
     @cached_method
+    @override
     @final
     def extra_super_categories(self):
         r"""Declare that M tensor_R N is again an R-module."""

@@ -3,7 +3,7 @@ r"""Quotient modules."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -58,6 +58,7 @@ class _Quotients(QuotientsCategory):
         @abstract_method
         def retract(self, x: RModuleElement) -> RModuleElement: ...
 
+        @override
         @abstract_method
         def quotient_module(
             self,

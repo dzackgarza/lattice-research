@@ -2,7 +2,7 @@ r"""CompleteDiscreteValuationRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.complete_discrete_valuation import (
     CompleteDiscreteValuationRings as SageCompleteDiscreteValuationRings,
@@ -101,10 +101,12 @@ class _CompleteDiscreteValuationRings(Category_singleton):
     ``Rings().Constructors().Zp(...)`` refine here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "complete discrete valuation rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [
@@ -114,6 +116,7 @@ class _CompleteDiscreteValuationRings(Category_singleton):
             _DiscreteValuationRings(),
         ]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageCompleteDiscreteValuationRings() or (
@@ -121,6 +124,7 @@ class _CompleteDiscreteValuationRings(Category_singleton):
         )
 
     class ParentMethods:
+        @override
         @final
         def is_complete_discrete_valuation_ring(self) -> bool:
             return True

@@ -25,7 +25,7 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.matrix.matrix2 import Matrix as SageMatrix
 from sage.misc.abstract_method import abstract_method
@@ -58,6 +58,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     finitely presented module decomposes as a direct sum of cyclic modules.
     """
 
+    @override
     @final
     def extra_super_categories(self):
         return [

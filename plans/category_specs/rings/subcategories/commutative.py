@@ -3,7 +3,7 @@ r"""CommutativeRings ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
 from sage.misc.abstract_method import abstract_method
@@ -110,14 +110,17 @@ class _CommutativeRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative()``."""
     _base_category_class_and_axiom = (Rings, "Commutative")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "commutative rings"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [SageCommutativeRings(), Rings()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in SageCommutativeRings() or (R in self.base_category() and R.is_commutative_ring())
@@ -155,6 +158,7 @@ class _CommutativeRings(CategoryWithAxiom):
             return self._with_axiom("Reduced")
 
     class ParentMethods:
+        @override
         @final
         def is_commutative_ring(self) -> bool:
             return True

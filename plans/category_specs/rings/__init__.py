@@ -9,7 +9,7 @@ existing Sage ring categories where Sage provides them.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
@@ -396,10 +396,12 @@ class _RingIdeals(Category_ideal):
     Canonical chain: ``Rings().Ideals(R)``.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "ring ideals"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         R = self.ring()
@@ -428,7 +430,12 @@ class Rings(Category_singleton):
     """
 
     class Constructors:
-        r"""Constructor collector for Sage ring entry points."""
+        r"""Constructor collector for Sage ring entry points.
+
+        This helper owns constructor provenance: each method names a Sage
+        entry point and refines the result into the tightest known ring
+        subcategories.
+        """
 
         @final
         def __repr__(self) -> str:
@@ -1138,16 +1145,19 @@ class Rings(Category_singleton):
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
+    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageRings(),)
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         from ..sets import Sets
 
         return [Sets(), SageRings()]
 
+    @override
     @final
     def additional_structure(self) -> Category | None:
         return None

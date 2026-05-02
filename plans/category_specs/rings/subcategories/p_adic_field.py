@@ -3,7 +3,7 @@ r"""Qp ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -104,14 +104,17 @@ class _Qp(Category_singleton):
     p-adic field constructors refine here.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "p-adic fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_PAdicRings(), _CompleteDiscreteValuationFields(), _LocalFields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         from sage.rings.padics.generic_nodes import pAdicFieldGeneric

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -47,6 +47,7 @@ class RingHomCategory(HomCategoryOf):
 
         return refine_category(hom, Rings().HomCategory())
 
+    @override
     @final
     def extra_super_categories(self):
         return [HomCategoryOf(self.base_category())]

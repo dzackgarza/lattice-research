@@ -2,7 +2,7 @@ r"""Ring subobjects."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from ....cat import SubobjectsCategory
 
@@ -13,6 +13,7 @@ class _Subobjects(SubobjectsCategory):
     Canonical chain: ``Rings().Subobjects()``.
     """
 
+    @override
     @final
     def _repr_object_names(self):
         return f"subobjects of {self.base_category()._repr_object_names()}"

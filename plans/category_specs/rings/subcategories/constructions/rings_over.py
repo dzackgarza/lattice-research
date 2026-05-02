@@ -2,7 +2,7 @@ r"""Rings over a fixed ambient ring."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_over_base_ring, RegressiveCovariantConstructionCategory
 
@@ -26,6 +26,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
             ]
         )
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"rings over {self.base_ring()}"

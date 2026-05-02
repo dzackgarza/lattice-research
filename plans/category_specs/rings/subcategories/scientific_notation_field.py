@@ -2,7 +2,7 @@ r"""ScientificNotationFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -103,14 +103,17 @@ class _ScientificNotationFields(Category_singleton):
     constructors refine here when Sage exposes scientific notation control.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "scientific-notation fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_Fields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return isinstance(

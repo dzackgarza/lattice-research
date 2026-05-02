@@ -2,7 +2,7 @@ r"""Rings under a fixed structure ring."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_over_base_ring, CovariantConstructionCategory
 
@@ -27,6 +27,7 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
             ]
         )
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"rings under {self.base_ring()}"

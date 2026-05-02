@@ -3,7 +3,7 @@ r"""Vector spaces and modules over fields."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final
+from typing import TYPE_CHECKING, Any, final, Literal, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -18,15 +18,18 @@ class _OverField(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).OverField()``."""
     _base_category_class_and_axiom = (Modules, "OverField")
 
+    @override
     @final
     def extra_super_categories(self):
         return [self.base_category().OverPID()]
 
+    @override
     @final
     def __contains__(self, M: Any) -> bool:
         return M in self.base_category() and M.is_over_field()
 
     class ParentMethods:
+        @override
         @final
         def is_over_field(self) -> bool:
             return True

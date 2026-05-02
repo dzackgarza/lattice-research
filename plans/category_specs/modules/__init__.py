@@ -35,7 +35,7 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final, overload
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
@@ -110,6 +110,9 @@ if TYPE_CHECKING:
 
 class _RModObjects:
     r"""ParentMethods for ``Modules(R)``.
+
+    This class owns the base parent-method surface for R-modules; structural
+    subcategories override these predicates when they add module structure.
 
     ``linear_combination(...)`` is intentionally not provided here: when
     elements are implemented properly the parent does not need it.
@@ -362,6 +365,8 @@ class _RModObjects:
 
 
 class _RModElements:
+    r"""ElementMethods introduced by ``Modules(R)`` for elements of R-modules."""
+
     @final
     def span(self) -> SubModule:
         return self.parent().span([self])
@@ -411,6 +416,7 @@ class _RModElements:
 class Modules(Category_module):
     r"""Canonical chain: ``Modules(R)``."""
 
+    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageBimodules(self.base_ring(), self.base_ring()),)
@@ -442,6 +448,7 @@ class Modules(Category_module):
         # TODO: handle Noetherian non-commutative rings. -- [needs approach]
         return result
 
+    @override
     @final
     def super_categories(self):
         from ..sets import Sets
@@ -449,6 +456,7 @@ class Modules(Category_module):
         R = self.base_ring()
         return [Sets(), SageBimodules(R, R)]
 
+    @override
     @final
     def additional_structure(self):
         r"""Return ``None`` because R-Mod morphisms are exactly (R,R)-biMod morphisms."""
@@ -459,7 +467,12 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
 
     class Constructors:
-        r"""Sage module constructor entry points over ``self.base_ring()``."""
+        r"""Sage module constructor entry points over ``self.base_ring()``.
+
+        This helper owns constructor provenance: each method names a Sage
+        entry point and refines the result into the tightest known module
+        subcategories.
+        """
 
         @final
         def __init__(self, category: RMod) -> None:

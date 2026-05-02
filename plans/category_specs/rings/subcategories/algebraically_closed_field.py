@@ -2,7 +2,7 @@ r"""AlgebraicallyClosedFields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -98,14 +98,17 @@ class _AlgebraicallyClosedFields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field().AlgebraicallyClosed()``."""
     _base_category_class_and_axiom = (_Fields, "AlgebraicallyClosed")
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "algebraically closed fields"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_Fields()]
 
+    @override
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_algebraically_closed()

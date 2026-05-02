@@ -2,7 +2,7 @@ r"""RR ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.laurent_series_ring import LaurentSeriesRing as SageLaurentSeriesRing
@@ -99,14 +99,17 @@ class _RR(Category_singleton):
     canonical ``RR`` object.
     """
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return "real field with 53 bits of precision"
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
         return [_RealFields(), _Fields(), _CompleteRings(), _LocalFields()]
 
+    @override
     @final
     def __contains__(self, x: Any) -> bool:
         from sage.all import RR
