@@ -43,6 +43,7 @@ smoke: _clean-generated-artifacts
     smoke_files=(
         "cat/smoketest.sage"
         "homsets/smoketest.sage"
+        "forms/smoketest.sage"
         "sets/smoketest.sage"
         "posets/smoketest.sage"
         "topological_spaces/smoketest.sage"

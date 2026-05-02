@@ -9,21 +9,26 @@ decision, and consequence for refinement and regression tests.
 ## Hierarchy Overview
 
 ```
-Modules(R).WithForms()                          [axiomatic; stays in modules/]
-└── .Bilinear()                                 [axiomatic; stays in modules/]
-    └── .Symmetric()                            [axiomatic; stays in modules/]
-        └── .Nondegenerate()                    [axiomatic; stays in modules/]
-            └── .Indefinite()                   [axiomatic; stays in modules/]
-            └── .Definite()                     [axiomatic; stays in modules/]
+FormedModules(R) = Modules(R, dispatch=False).WithForms()  [owned in forms/]
+└── .Bilinear()                                            [owned in forms/]
+    └── .Symmetric()                                       [owned in forms/]
+        └── .Nondegenerate()                               [owned in forms/]
+            └── .Integral()                                [owned in forms/]
+                └── .Lattice()                             [named endpoint in lattices/]
 
-lattices/subcategories/
-├── with_forms.py          _WithForms              (axiom class for modules/)
-├── bilinear.py            _BilinearModules         (axiom class for modules/)
+forms/subcategories/
+├── with_forms.py          _WithForms
+├── bilinear.py            _BilinearModules
+├── quadratic.py           _QuadraticModules
 ├── symmetric.py           _SymmetricBilinearModules
 ├── nondegenerate.py       _NondegenerateBilinearModules
 ├── indefinite.py          _IndefiniteBilinearModules
 ├── definite.py            _DefiniteBilinearModules
-├── free_bilinear.py       _FreeBilinearModules     (Free + Bilinear)
+├── integral.py            _IntegralBilinearModules
+├── rational.py            _RationalBilinearModules
+└── free_bilinear.py       _FreeBilinearModules     (Free + Bilinear)
+
+lattices/subcategories/
 ├── over_dedekind.py       _LatticesOverDedekindDomain
 ├── over_pid.py            _LatticesOverPID
 ├── over_integers.py       _LatticesOverIntegers    (= Lattices(ZZ))
@@ -170,14 +175,14 @@ alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
 
 | Sage Type | Spec Category | Justification |
 |-----------|--------------|---------------|
-| `FreeQuadraticModule_generic` | `Modules(R).Free().Bilinear()` | free quadratic module over commutative ring |
-| `FreeQuadraticModule_generic_pid` | `Modules(R).Free().Bilinear().OverPID()` | adds span/span_of_basis with PID structure |
-| `FreeQuadraticModule_generic_field` | `Modules(K).Free().Bilinear().OverField()` | over a field (= vector space with form) |
-| `FreeQuadraticModule_submodule_*_pid` | `Modules(R).Free().Bilinear().Subobjects().OverPID()` | submodule of free quadratic over PID |
+| `FreeQuadraticModule_generic` | `FormedModules(R).Bilinear()` plus free finite-rank module refinements | free quadratic module over commutative ring |
+| `FreeQuadraticModule_generic_pid` | `FormedModules(R).Bilinear()` plus free finite-rank `OverPID()` refinements | adds span/span_of_basis with PID structure |
+| `FreeQuadraticModule_generic_field` | `FormedModules(K).Bilinear()` plus free finite-rank `OverField()` refinements | over a field (= vector space with form) |
+| `FreeQuadraticModule_submodule_*_pid` | forms-owned bilinear subobjects over PID | submodule of free quadratic over PID |
 | `FGP_Module_class` | `Modules(R).FinitelyPresented().OverPID()` | V/W presentation; no form |
-| `TorsionQuadraticModule` | `Modules(R).FinitelyPresented().OverPID().Torsion().Bilinear()` | V/W with Q/mZ-valued bilinear form |
-| `FreeQuadraticModule_integer_symmetric` | `Modules(ZZ).Free().Bilinear().Symmetric().Nondegenerate().Integral()` | the canonical integral lattice |
-| `QuadraticForm` | `Modules(ZZ).Free().Bilinear().Symmetric().Nondegenerate().Integral()` | same category; different presentation (upper-triangular coefficients) |
+| `TorsionQuadraticModule` | `forms.subcategories.torsion_quadratic_modules._TorsionQuadraticModules` | V/W with Q/mZ-valued bilinear form |
+| `FreeQuadraticModule_integer_symmetric` | forms-owned finite-rank free symmetric nondegenerate integral bilinear chain, then `Lattices(ZZ)` | the canonical integral lattice |
+| `QuadraticForm` | forms-owned finite-rank free symmetric nondegenerate integral bilinear chain, then `Lattices(ZZ)` | same category; different presentation (upper-triangular coefficients) |
 
 **Note on `QuadraticForm` vs `FreeQuadraticModule_integer_symmetric`**: Both represent
 the same mathematical object (an integral lattice). Sage keeps them as separate classes
@@ -186,77 +191,49 @@ constructor `Lattices(ZZ).Constructors().from_quadratic_form(qf)` converts betwe
 
 ---
 
-## What Stays in `modules/` vs What Lives in `lattices/`
+## What Lives in `forms/` vs What Lives in `lattices/`
 
-### Stays in `modules/subcategories/` (minimal attachment point only)
+### Lives in `forms/`
 
-Most consumers of `Modules(R)` are not concerned with bilinear forms. The modules
-subtree owns only the generic "module with some form" attachment:
+The forms subtree owns the formed-module hierarchy:
 
-- `_WithForms` — currently in `modules/subcategories/axiomatic.py`
-- `_BilinearModules` — same
-- `_QuadraticModules` — same
-
-These three classes will eventually each live in their own file when `axiomatic.py` is
-split, but that is a module-subtree cleanup task tracked in `modules/docs/TRIAGE.md`.
-All further specialization of forms belongs in the lattices subtree.
+- `_WithForms`
+- `_BilinearModules`
+- `_QuadraticModules`
+- `_SymmetricBilinearModules`
+- `_AlternatingBilinearModules`
+- `_NondegenerateBilinearModules`
+- `_DefiniteBilinearModules`
+- `_IndefiniteBilinearModules`
+- `_IntegralBilinearModules`
+- `_RationalBilinearModules`
+- `_FreeBilinearModules`
+- `_TorsionQuadraticModules`
 
 ### Lives in `lattices/subcategories/`
 
-All form-specialization axiom classes live here, because these are lattice-theoretic
-concerns:
+Only lattice-specific axiom classes live here:
 
-- `symmetric.py` — `_SymmetricBilinearModules`
-- `alternating.py` — `_AlternatingBilinearModules`
-- `nondegenerate.py` — `_NondegenerateBilinearModules`
-- `indefinite.py` — `_IndefiniteBilinearModules`
-- `definite.py` — `_DefiniteBilinearModules`
-- `integral.py` — `_IntegralBilinearModules`
-- `rational.py` — `_RationalBilinearModules`
-- `free_bilinear.py` — `_FreeBilinearModules` (`Free + Bilinear`; `gram_matrix()` lands here)
 - `over_dedekind.py` — `_LatticesOverDedekindDomain`
 - `over_pid.py` — `_LatticesOverPID`
 - `over_integers.py` — `_LatticesOverIntegers` (canonical `Lattices(ZZ)`)
 - `even.py` — `_EvenLattices`
 - `unimodular.py` — `_UnimodularLattices`
 
-These axiom classes set `_base_category_class_and_axiom` to point at `Modules` (or the
-appropriate parent category) — they extend the module hierarchy from the lattice side.
+The former lattice files for generic formed-module axioms are compatibility shims that
+import the forms-owned classes.
 
 ### Discriminant groups live in `lattices/subcategories/constructions/discriminant_groups.py`
 
-`DiscriminantGroups(ZZ)` = `TorsionBilinearModules(QQ/ZZ)`. The full discriminant group
-method surface lives here.
+`DiscriminantGroups(ZZ)` = finite torsion formed modules with discriminant form data.
+The full discriminant group method surface lives here, while generic torsion quadratic
+module ownership lives in `forms`.
 
 ---
 
-## Key Gap: `axiomatic.py` Must Be Split
+## Compatibility Paths
 
-`plans/category_specs/modules/subcategories/axiomatic.py` currently aggregates ~18
-axiom classes in one file. AGENTS.md §File Tree bans flat aggregators. The eventual
-split (tracked in `modules/docs/TRIAGE.md`) produces one file per class:
-
-```
-modules/subcategories/
-├── over_integral_domain.py    (_OverIntegralDomain)
-├── over_dedekind_domain.py    (_OverDedekindDomain)
-├── over_pid.py                (_OverPID)
-├── over_commutative_ring.py   (_OverCommutativeRing)
-├── over_field.py              (_OverField)
-├── over_local_ring.py         (_OverLocalRing)
-├── over_complete_ring.py      (_OverCompleteRing)
-├── free.py                    (_Free, _FreeFiniteRank)
-├── torsion.py                 (_Torsion)
-├── torsionfree.py             (_Torsionfree)
-├── projective.py              (_Projective)
-├── generating_set.py          (_WithOrderedGeneratingSet)
-├── finitely_generated.py      (_FinitelyGenerated)
-├── finitely_presented.py      (_FinitelyPresented)
-├── ideals.py                  (_RIdeals)
-├── with_forms.py              (_WithForms)
-├── bilinear.py                (_BilinearModules)
-└── quadratic.py               (_QuadraticModules)
-```
-
-This is a future cleanup task; the forms-specialization files already exist in
-`lattices/subcategories/` and do not require this split to be usable.
+`modules/subcategories/with_forms.py`, `modules/subcategories/bilinear.py`,
+`modules/subcategories/quadratic.py`, `modules/subcategories/torsion_quadratic_modules.py`,
+and the old generic formed-module files in `lattices/subcategories/` re-export the
+forms-owned classes. They exist only to preserve old import paths.

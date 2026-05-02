@@ -65,7 +65,7 @@ Completed in the current branch:
   construction categories such as `C.Free().FiniteRank().WithOrderedBasis()`,
   `C.WithOrderedBasis().Subobjects()`, and `C.WithOrderedBasis().Quotients()`.
 - `FreeQuadraticModule` construction routes to a free finite-rank ordered-basis module
-  with bilinear/quadratic form structure rather than to a wrapper category.
+  with forms-owned bilinear/quadratic structure rather than to a wrapper category.
 - Generic basis-owned methods are now represented on `WithBasis()` and
   `WithBasis().HomCategory()`.
 - Generic subobject and quotient construction-owner surfaces are represented on the
@@ -115,9 +115,9 @@ Commit boundary:
 
 Location: existing mathematical subcategories such as `free.py`,
 `finitely_generated.py`, `finitely_presented.py`, `over_field.py`,
-`over_integral_domain.py`, `over_pid.py`, `quadratic.py`, `bilinear.py`,
-`with_forms.py`, `with_ordered_generating_set.py`, construction-category files under
-`modules/subcategories/constructions/`, and hom/end/aut files where needed.
+`over_integral_domain.py`, `over_pid.py`, `with_ordered_generating_set.py`,
+construction-category files under `modules/subcategories/constructions/`,
+forms-owned files under `forms/`, and hom/end/aut files where needed.
 
 Work:
 
@@ -128,7 +128,7 @@ Work:
   module category, with ordered-generating-set refinements attached only where that
   structure is stated.
 - Ensure bilinear, quadratic, lattice, and torsion-quadratic surfaces are stated as
-  form-bearing module categories, not as wrappers around Sage form implementations.
+  forms-owned categories, not as wrappers around Sage form implementations.
 - If a Sage method requires a chained axiom subcategory that does not yet exist, define
   the immediate missing owner first rather than installing the method on a narrower
   implementation wrapper.
@@ -305,9 +305,9 @@ Status marker:
 | [x] | `_FreeModuleQuotients` | `Modules(R).Quotients()` over free module refinements | Deleted; quotient cover and relation methods live on quotient owners. |
 | [x] | `_QuotientModulesWithOrderedGeneratingSet` | Quotients of modules with bases | Deleted; quotient/basis methods live on quotient and basis owners. |
 | [x] | `_FinitelyGeneratedPIDQuotientModules` | Finitely presented modules over PIDs | Deleted; invariant and Smith-generator methods live on `FinitelyPresentedModulesOverPID`. |
-| [x] | `_FreeQuadraticModules` | Free modules with bilinear or quadratic form | Deleted; form methods live on form-bearing module categories. |
+| [x] | `_FreeQuadraticModules` | Free modules with bilinear or quadratic form | Deleted; form methods live on forms-owned categories. |
 | [x] | `_IntegerLattices` | Integral lattices as finite-rank free `ZZ`-modules with integral bilinear form | Retained as a real lattice/form category, not a Sage class wrapper. |
-| [x] | `_TorsionQuadraticModules` | Finite torsion modules with quadratic form | Retained as a real finite quadratic module category, not a Sage class wrapper. |
+| [x] | `_TorsionQuadraticModules` | Finite torsion modules with quadratic form | Moved to `forms`; module path remains a compatibility route. |
 | [x] | `_FreeGradedModules` | Free graded modules | Retained as a real graded-free category surface. |
 | [x] | `_FinitelyPresentedGradedModules` | Finitely presented graded modules | Retained as a real graded finitely presented category surface. |
 | [x] | `_OreModules` | Modules over Ore-polynomial quotient data | Retained as a real Ore-module category surface. |
@@ -340,7 +340,7 @@ All rows above satisfy the migration criterion for the Sage-wrapper layer.
 - Quotient normal-form and basis surfaces: `free_cover`, `free_relations`, `lift_map`,
   `retract`, quotient-of-quotient structure, and `cokernel_basis_indices` live on
   quotient owners with the right basis or PID hypotheses.
-- Form and lattice surfaces: Gram data, inner products, and lattice reduction live on
-  form-bearing and lattice owners.
+- Form and lattice surfaces: Gram data and inner products live on forms-owned owners;
+  lattice reduction lives on lattice owners.
 - Graded, Ore, representation, and ring-object bridges are retained only as real
   mathematical category surfaces.

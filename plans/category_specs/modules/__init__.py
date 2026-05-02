@@ -72,7 +72,7 @@ _FinitelyPresentedGradedModules = LazyImport(
 _OreModules = LazyImport("category_specs.modules.subcategories.ore_modules", "_OreModules")
 _IntegerLattices = LazyImport("category_specs.modules.subcategories.integer_lattices", "_IntegerLattices")
 _TorsionQuadraticModules = LazyImport(
-    "category_specs.modules.subcategories.torsion_quadratic_modules", "_TorsionQuadraticModules"
+    "category_specs.forms.subcategories.torsion_quadratic_modules", "_TorsionQuadraticModules"
 )
 _RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
 
@@ -1243,7 +1243,7 @@ class Modules(Category_module):
     # Forms / lattice surface
     # ------------------------------------------------------------------
 
-    WithForms = LazyImport("category_specs.modules.subcategories.with_forms", "_WithForms")
+    WithForms = LazyImport("category_specs.forms.subcategories.with_forms", "_WithForms")
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
     # b a symmetric nondegenerate integral bilinear form.
 

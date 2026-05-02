@@ -1,47 +1,9 @@
-r"""Finite torsion modules with quadratic forms."""
+r"""Compatibility import for the forms-owned torsion quadratic category."""
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING, final
-
-from sage.misc.abstract_method import abstract_method
-
-from ...cat import Category_over_base_ring
-from .. import Modules
-
-if TYPE_CHECKING:
-    from ...types import Matrix, RingElement
-
-
-
-class _TorsionQuadraticModules(Category_over_base_ring):
-    r"""Finite ``ZZ``-modules equipped with a torsion quadratic form."""
-
-    @final
-    def super_categories(self):
-        R = self.base_ring()
-        return [
-            Modules(R).Torsion(),
-            Modules(R).WithForms().Quadratic(),
-            Modules(R).FinitelyPresented(),
-        ]
-
-    class ParentMethods:
-        @final
-        def is_torsion_quadratic_module(self) -> bool:
-            return True
-
-        @abstract_method
-        def gram_matrix_quadratic(self) -> Matrix: ...
-
-        @abstract_method
-        def gram_matrix_bilinear(self) -> Matrix: ...
-
-        @abstract_method
-        def invariants(self) -> tuple[RingElement, ...]: ...
-
-        @abstract_method
-        def brown_invariant(self) -> RingElement: ...
-
-    class ElementMethods: ...
-    class MorphismMethods: ...
+from ...forms.subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesCategory,
+    TorsionQuadraticModulesElement,
+    TorsionQuadraticModulesMorphism,
+    TorsionQuadraticModulesObject,
+    _TorsionQuadraticModules,
+)

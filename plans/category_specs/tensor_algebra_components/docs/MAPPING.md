@@ -31,6 +31,9 @@ The same dual component is naturally interpretable as `Hom_R(T_R(M)[p,q], R)`.
 but it does not own the tensor component. If the original component has
 `tensor_type() == (p,q)`, the dual component has `tensor_type() == (q,p)`.
 
+The forms subtree owns formed modules: attaching such a tensor as form data to a module
+places the result in `FormedModules(R).Bilinear()` or another forms-owned refinement.
+
 | Sage/form surface | Project resurfacing |
 | --- | --- |
 | `Hom_R(T_R(M)[p,q], R)` as a form parent | `TensorAlgebraComponents(R).DualObjects()` with extra supercategory `Modules(R).HomCategory().Forms().Integral()` |

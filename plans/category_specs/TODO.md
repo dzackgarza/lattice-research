@@ -6,9 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Separate the forms subtree into its own hierarchy. Bilinear modules, quadratic
-  modules, and related formed-module categories should ultimately live there rather
-  than as incidental module subcategories.
 - [ ] Build a constructor aggregation mechanism that mirrors Sage's mixin logic but
   exposes constructors in one discoverable place. The collector can live outside
   `Sets().Constructors()` and be populated by `Cat` at runtime by iterating over

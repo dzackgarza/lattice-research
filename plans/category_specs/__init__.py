@@ -11,6 +11,7 @@ register_all()
 
 from . import algebras as algebras
 from . import cat as cat
+from . import forms as forms
 from . import homsets as homsets
 from . import lattices as lattices
 from . import modules as modules

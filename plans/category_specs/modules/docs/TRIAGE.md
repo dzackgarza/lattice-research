@@ -22,22 +22,23 @@ mathematical surfaces, not exact Sage implementation-class wrappers:
 - `OreModules`
 - `RepresentationModules`
 - `RingObjectsAsModules`
-- `TorsionQuadraticModules`
 
 These surfaces must not use exact Sage implementation class containment as their
 definition. Constructor routing may still use exact Sage class matches at the interop
 boundary to choose the mathematical refinement.
 
+`TorsionQuadraticModules` moved to `forms`; `Modules(R).TorsionQuadraticModules()` is
+only the compatibility route for Sage constructor refinement.
+
 ## Orthogonal-Group Frontier
 
-The mathematical owner of `OrthogonalGroup` is the aut surface of a form-bearing
-module category: `C.AutCategory().Of(M)` for `C <= Modules(R).WithForms()`.
+The mathematical owner of `OrthogonalGroup` is the aut surface of a forms-owned
+category: `C.AutCategory().Of(M)` for `C <= FormedModules(R)`.
 `types.py` can therefore alias `OrthogonalGroup` to the module aut parent surface.
 
-A concrete `orthogonal_group()` parent-method stub on every formed module still needs a
-follow-up edit to `modules/subcategories/with_forms.py`, which is outside the current
-write scope. That method should return `C.AutCategory().Of(self)` for the relevant
-formed-module category, not a Sage `Group` wrapper.
+The concrete `orthogonal_group()` parent-method stub now lives in
+`forms/subcategories/with_forms.py` and returns `C.AutCategory().Of(self)` for the
+relevant formed-module category, not a Sage `Group` wrapper.
 
 ## Current Smoke Frontier
 
@@ -51,7 +52,7 @@ frontier. The deleted wrapper categories are not required to reach these failure
   quotient/subobject refinements, finitely presented PID modules, and polynomial-ring
   objects as modules.
 - `RepresentationModules()` currently raises `KeyError: (256, 247)`.
-- `IntegerLattices` and `TorsionQuadraticModules` currently raise
-  `KeyError: (256, 239)`.
+- `IntegerLattices` and the `TorsionQuadraticModules` compatibility route currently
+  raise `KeyError: (256, 239)`.
 - Graded module constructors currently hit a Sage base-category mismatch between
   `sage.categories.modules.Modules` and `category_specs.modules.Modules`.

@@ -2,7 +2,8 @@
 
 The lattice subtree is admitted as a top-level category subtree. It has `AGENTS.md`,
 `__init__.py`, `homsets.py`, Sage inventory and mapping docs, construction
-subcategories, and smoke files.
+subcategories, and smoke files. Generic formed-module classes now live in `forms/`;
+the old generic files under `lattices/subcategories/` are compatibility imports.
 
 ## Current Smoke Frontier
 

@@ -16,13 +16,18 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
+from ..forms.chain import (
+    _FiniteRankFreeBilinearModules,
+    _FiniteRankFreeModulesWithForms,
+    _IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules,
+    _NondegenerateSymmetricFiniteRankFreeBilinearModules,
+    _SymmetricFiniteRankFreeBilinearModules,
+)
 from ..modules import Modules
-from ..modules.subcategories.free import _FreeFiniteRank
 from .homsets import LatticeAutCategory, LatticeEndCategory, LatticeHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -32,169 +37,7 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 if TYPE_CHECKING:
-    from ..types import DiscriminantGroup, Lattice, Ring, RModuleElement, RModuleMorphism, SubModule
-
-
-class _FiniteRankFreeModulesWithForms(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a form."""
-
-    _base_category_class_and_axiom = (_FreeFiniteRank, "WithForms")
-    _defining_predicates = ("has_form",)
-
-    class ParentMethods:
-        @final
-        def has_form(self) -> bool:
-            return True
-
-        @abstract_method
-        def is_bilinear(self) -> bool: ...
-
-        @abstract_method
-        def is_quadratic(self) -> bool: ...
-
-        @abstract_method
-        def form(self) -> RModuleMorphism: ...
-
-    class ElementMethods: ...
-    class MorphismMethods: ...
-
-    Bilinear = LazyImport(__name__, "_FiniteRankFreeBilinearModules")
-
-
-class _FiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a bilinear form."""
-
-    _base_category_class_and_axiom = (_FiniteRankFreeModulesWithForms, "Bilinear")
-    _defining_predicates = ("is_bilinear",)
-
-    class ParentMethods:
-        @final
-        def is_bilinear(self) -> bool:
-            return True
-
-        @abstract_method
-        def is_symmetric(self) -> bool: ...
-
-        @abstract_method
-        def is_alternating(self) -> bool: ...
-
-        @abstract_method
-        def is_nondegenerate(self) -> bool: ...
-
-        @abstract_method
-        def is_integral(self) -> bool: ...
-
-        @abstract_method
-        def is_rational(self) -> bool: ...
-
-        @final
-        def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.form().b(v, w)
-
-    class ElementMethods: ...
-    class MorphismMethods: ...
-
-    Symmetric = LazyImport(__name__, "_SymmetricFiniteRankFreeBilinearModules")
-
-
-class _SymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules equipped with a symmetric bilinear form."""
-
-    _base_category_class_and_axiom = (_FiniteRankFreeBilinearModules, "Symmetric")
-    _defining_predicates = ("is_symmetric",)
-
-    class ParentMethods:
-        @final
-        def is_symmetric(self) -> bool:
-            return True
-
-        @abstract_method
-        def is_definite(self) -> bool: ...
-
-        @abstract_method
-        def is_indefinite(self) -> bool: ...
-
-        @abstract_method
-        def is_positive_definite(self) -> bool: ...
-
-        @abstract_method
-        def is_negative_definite(self) -> bool: ...
-
-        @abstract_method
-        def orthogonal_submodule_to(self, S: SubModule) -> SubModule: ...
-
-    class ElementMethods: ...
-    class MorphismMethods: ...
-
-    Nondegenerate = LazyImport(__name__, "_NondegenerateSymmetricFiniteRankFreeBilinearModules")
-
-
-class _NondegenerateSymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Finite-rank free modules with a nondegenerate symmetric bilinear form."""
-
-    _base_category_class_and_axiom = (_SymmetricFiniteRankFreeBilinearModules, "Nondegenerate")
-    _defining_predicates = ("is_nondegenerate",)
-
-    class ParentMethods:
-        @final
-        def is_nondegenerate(self) -> bool:
-            return True
-
-        @abstract_method
-        def radical(self) -> SubModule: ...
-
-    class ElementMethods:
-        @abstract_method
-        def is_anisotropic(self) -> bool: ...
-
-    class MorphismMethods: ...
-
-    Integral = LazyImport(__name__, "_IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules")
-
-
-class _IntegralNondegenerateSymmetricFiniteRankFreeBilinearModules(CategoryWithAxiom_over_base_ring):
-    r"""Integral nondegenerate symmetric bilinear forms on finite-rank free modules."""
-
-    _base_category_class_and_axiom = (_NondegenerateSymmetricFiniteRankFreeBilinearModules, "Integral")
-    _defining_predicates = ("is_integral",)
-
-    class ParentMethods:
-        @final
-        def is_integral(self) -> bool:
-            return True
-
-        @final
-        def is_rational(self) -> bool:
-            return True
-
-        @abstract_method
-        def dual_lattice(self) -> Lattice: ...
-
-        @abstract_method
-        def inclusion_morphism(self) -> RModuleMorphism: ...
-
-        @abstract_method
-        def discriminant_group(self) -> DiscriminantGroup: ...
-
-        def is_unimodular(self) -> bool:
-            return self.discriminant_group().is_trivial()
-
-        @abstract_method
-        def is_even(self) -> bool: ...
-
-    class ElementMethods:
-        @abstract_method
-        def discriminant_class(self) -> RModuleElement: ...
-
-    class MorphismMethods: ...
-
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def Lattice(self) -> Category:
-            return self._with_axiom("Lattice")
-
-    Lattice = LazyImport(__name__, "_Lattices")
+    from ..types import Ring
 
 
 class _Lattices(CategoryWithAxiom_over_base_ring):

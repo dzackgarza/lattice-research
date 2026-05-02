@@ -52,6 +52,56 @@ from .homsets import (
     HomCategoriesCategory,
     HomCategoriesObject,
 )
+from .forms import (
+    BilinearModulesAut,
+    BilinearModulesAutCategory,
+    BilinearModulesAutomorphism,
+    BilinearModulesCategory,
+    BilinearModulesElement,
+    BilinearModulesEnd,
+    BilinearModulesEndCategory,
+    BilinearModulesEndomorphism,
+    BilinearModulesHom,
+    BilinearModulesHomCategory,
+    BilinearModulesMorphism,
+    BilinearModulesObject,
+    FormedModulesAut,
+    FormedModulesAutCategory,
+    FormedModulesAutomorphism,
+    FormedModulesCategory,
+    FormedModulesElement,
+    FormedModulesEnd,
+    FormedModulesEndCategory,
+    FormedModulesEndomorphism,
+    FormedModulesHom,
+    FormedModulesHomCategory,
+    FormedModulesMorphism,
+    FormedModulesObject,
+    QuadraticModulesAut,
+    QuadraticModulesAutCategory,
+    QuadraticModulesAutomorphism,
+    QuadraticModulesCategory,
+    QuadraticModulesElement,
+    QuadraticModulesEnd,
+    QuadraticModulesEndCategory,
+    QuadraticModulesEndomorphism,
+    QuadraticModulesHom,
+    QuadraticModulesHomCategory,
+    QuadraticModulesMorphism,
+    QuadraticModulesObject,
+    TorsionQuadraticModulesAut,
+    TorsionQuadraticModulesAutCategory,
+    TorsionQuadraticModulesAutomorphism,
+    TorsionQuadraticModulesCategory,
+    TorsionQuadraticModulesElement,
+    TorsionQuadraticModulesEnd,
+    TorsionQuadraticModulesEndCategory,
+    TorsionQuadraticModulesEndomorphism,
+    TorsionQuadraticModulesHom,
+    TorsionQuadraticModulesHomCategory,
+    TorsionQuadraticModulesMorphism,
+    TorsionQuadraticModulesObject,
+)
 from .lattices import (
     LatticesAut,
     LatticesAutCategory,
@@ -213,6 +263,54 @@ RModuleForm = RModMorphism
 ModuleStructure = RModMorphism
 ModuleBasis = AbstractFamily | Sequence[RModuleElement]
 Polyhedron = SageParent
+FormedModuleCategory = FormedModulesCategory
+FormedModule = FormedModulesObject
+FormedModuleElement = FormedModulesElement
+FormedModuleMorphism = FormedModulesMorphism
+FormedModuleHom = FormedModulesHom
+FormedModuleEnd = FormedModulesEnd
+FormedModuleAut = FormedModulesAut
+FormedModuleHomCategory = FormedModulesHomCategory
+FormedModuleEndCategory = FormedModulesEndCategory
+FormedModuleAutCategory = FormedModulesAutCategory
+FormedModuleEndomorphism = FormedModulesEndomorphism
+FormedModuleAutomorphism = FormedModulesAutomorphism
+BilinearModuleCategory = BilinearModulesCategory
+BilinearModule = BilinearModulesObject
+BilinearModuleElement = BilinearModulesElement
+BilinearModuleMorphism = BilinearModulesMorphism
+BilinearModuleHom = BilinearModulesHom
+BilinearModuleEnd = BilinearModulesEnd
+BilinearModuleAut = BilinearModulesAut
+BilinearModuleHomCategory = BilinearModulesHomCategory
+BilinearModuleEndCategory = BilinearModulesEndCategory
+BilinearModuleAutCategory = BilinearModulesAutCategory
+BilinearModuleEndomorphism = BilinearModulesEndomorphism
+BilinearModuleAutomorphism = BilinearModulesAutomorphism
+QuadraticModuleCategory = QuadraticModulesCategory
+QuadraticModule = QuadraticModulesObject
+QuadraticModuleElement = QuadraticModulesElement
+QuadraticModuleMorphism = QuadraticModulesMorphism
+QuadraticModuleHom = QuadraticModulesHom
+QuadraticModuleEnd = QuadraticModulesEnd
+QuadraticModuleAut = QuadraticModulesAut
+QuadraticModuleHomCategory = QuadraticModulesHomCategory
+QuadraticModuleEndCategory = QuadraticModulesEndCategory
+QuadraticModuleAutCategory = QuadraticModulesAutCategory
+QuadraticModuleEndomorphism = QuadraticModulesEndomorphism
+QuadraticModuleAutomorphism = QuadraticModulesAutomorphism
+TorsionQuadraticModuleCategory = TorsionQuadraticModulesCategory
+TorsionQuadraticModule = TorsionQuadraticModulesObject
+TorsionQuadraticModuleElement = TorsionQuadraticModulesElement
+TorsionQuadraticModuleMorphism = TorsionQuadraticModulesMorphism
+TorsionQuadraticModuleHom = TorsionQuadraticModulesHom
+TorsionQuadraticModuleEnd = TorsionQuadraticModulesEnd
+TorsionQuadraticModuleAut = TorsionQuadraticModulesAut
+TorsionQuadraticModuleHomCategory = TorsionQuadraticModulesHomCategory
+TorsionQuadraticModuleEndCategory = TorsionQuadraticModulesEndCategory
+TorsionQuadraticModuleAutCategory = TorsionQuadraticModulesAutCategory
+TorsionQuadraticModuleEndomorphism = TorsionQuadraticModulesEndomorphism
+TorsionQuadraticModuleAutomorphism = TorsionQuadraticModulesAutomorphism
 BilinearFormsModule = SageHomset
 BilinearForm = SageMorphism
 QuadraticFormsModule = SageHomset

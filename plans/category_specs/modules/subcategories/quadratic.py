@@ -1,30 +1,9 @@
-r"""Modules equipped with quadratic forms."""
+r"""Compatibility import for the forms-owned quadratic-module category."""
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING, final
-
-from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import _WithForms
-
-if TYPE_CHECKING:
-    from ...types import RModuleElement
-
-
-class _QuadraticModules(CategoryWithAxiom_over_base_ring):
-    r"""Pairs ``(M, q)`` with ``q`` quadratic on ``M``."""
-
-    _base_category_class_and_axiom = (_WithForms, "Quadratic")
-    _defining_predicates = ("is_quadratic",)
-
-    class ParentMethods:
-        @final
-        def is_quadratic(self) -> bool:
-            return True
-
-        @final
-        def q(self, v: RModuleElement) -> RModuleElement:
-            return self.form().q(v)
-
-    class ElementMethods: ...
-    class MorphismMethods: ...
+from ...forms.subcategories.quadratic import (
+    QuadraticModulesCategory,
+    QuadraticModulesElement,
+    QuadraticModulesMorphism,
+    QuadraticModulesObject,
+    _QuadraticModules,
+)
