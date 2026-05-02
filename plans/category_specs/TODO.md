@@ -6,10 +6,22 @@ the archive.
 
 ## Audit Todo
 
-- [ ] Audit every method for highest valid mathematical placement. Place each method
-  where implementers primarily think about the corresponding abstraction; for example,
-  algebra specs should not restate set-theoretic domain and codomain obligations for
-  morphisms.
+- [ ] Finish the method-placement audit outside the foundational pass, and resolve
+  these scoped leftovers:
+  - `sets/subcategories/real_set.py`: decide whether `ambient`, `lift`, `retract`,
+    `union`, `intersection`, `complement`, `difference`, `symmetric_difference`, and
+    `is_subset` need real-interval-normalized methods or should route entirely through
+    `Sets()` and `Sets().Subobjects()`.
+  - `sets/homsets.py` and `topological_spaces/homsets.py`: decide whether
+    `SetEndCategory.ParentMethods.base_set`,
+    `TopologicalSpaceEndCategory.ParentMethods.base_space`, and
+    `MetricSpaceEndCategory.ParentMethods.base_space` are useful mathematical aliases
+    or redundant with the generic `End_C(A)` domain.
+  - `topological_spaces/homsets.py`: decide whether `_ContinuousMaps.preimage` is a
+    topological subspace operation or duplicate set-map inverse-image vocabulary.
+  - `cat/`, `sets/`, and `topological_spaces/` slice/coslice construction files:
+    decide whether `structure_domain` and `structure_codomain` should be universal
+    construction vocabulary.
 - [ ] Spot-check every public method for mathematical well-definedness and nontrivial
   content. If a method is meaningful only on a different object, move it to that
   owner or expose it through the relevant morphism. For example,

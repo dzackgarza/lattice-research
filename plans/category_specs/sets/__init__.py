@@ -265,36 +265,6 @@ class _SetElementMethods:
         ...
 
 
-class _SetMorphismMethods:
-    r"""Methods on morphisms between sets."""
-
-    @abstract_method
-    def image(self, domain_subset: Subset | None = None) -> Subset:
-        r"""Return the image of ``domain_subset`` or of the full domain."""
-        ...
-
-    @abstract_method
-    def is_injective(self) -> bool:
-        r"""Return whether this set morphism is injective."""
-        ...
-
-    @abstract_method
-    def is_surjective(self) -> bool:
-        r"""Return whether this set morphism is surjective."""
-        ...
-
-    @override
-    @final
-    def is_bijective(self) -> bool:
-        r"""Return whether this set morphism is both injective and surjective."""
-        return self.is_injective() and self.is_surjective()
-
-    @abstract_method
-    def pre_image(self, y: SetElement) -> Subset:
-        r"""Return the inverse image of ``y`` under this set morphism."""
-        ...
-
-
 # ---------------------------------------------------------------------------
 # Sets -- the root category
 # ---------------------------------------------------------------------------
@@ -1032,7 +1002,7 @@ class Sets(Category_singleton):
 
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
-    MorphismMethods = _SetMorphismMethods
+    MorphismMethods = SetHomCategory.ElementMethods
 
 
 SetsCategory = Sets

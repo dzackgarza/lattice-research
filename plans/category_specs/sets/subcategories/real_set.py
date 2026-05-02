@@ -14,7 +14,6 @@ if TYPE_CHECKING:
         Integer,
         RealInterval,
         RealNumber,
-        RealOpenSet,
         RealSubset,
         SetElement,
         SympySet,
@@ -141,40 +140,10 @@ class _RealSets(Category_singleton):
         @abstract_method
         def is_subset(self, other: RealSubset) -> bool: ...
 
-        @abstract_method
-        def is_open(self) -> bool:
-            r"""Return whether this real subset is open in the real topology."""
-            ...
-
-        @abstract_method
-        def is_closed(self) -> bool:
-            r"""Return whether this real subset is closed in the real topology."""
-            ...
-
-        @abstract_method
-        def closure(self) -> RealSubset:
-            r"""Return the topological closure of this real subset."""
-            ...
-
-        @abstract_method
-        def interior(self) -> RealOpenSet:
-            r"""Return the topological interior of this real subset."""
-            ...
-
-        @abstract_method
-        def boundary(self) -> RealSubset:
-            r"""Return the topological boundary of this real subset."""
-            ...
-
         @staticmethod
         @abstract_method
         def convex_hull(real_set_collection: Sequence[RealSubset]) -> RealSubset:
             r"""Return the least real interval containing the given real subsets."""
-            ...
-
-        @abstract_method
-        def is_connected(self) -> bool:
-            r"""Return whether this real subset is connected."""
             ...
 
         @abstract_method
