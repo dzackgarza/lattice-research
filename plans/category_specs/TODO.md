@@ -6,10 +6,6 @@ the archive.
 
 ## Remaining Implementation Todo
 
-- [ ] Add a foldable-operation decorator for binary operations. It should standardize
-  the paired overload pattern `op(x: XElement, y: XElement)` and
-  `op(elements: Sequence[XElement])`, and make the sequence overload an explicit fold
-  over the binary operation.
 - [ ] Separate the forms subtree into its own hierarchy. Bilinear modules, quadratic
   modules, and related formed-module categories should ultimately live there rather
   than as incidental module subcategories.

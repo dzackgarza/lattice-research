@@ -2,13 +2,15 @@ r"""Order-theoretic meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, final, overload
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
+from ...utils import foldable_operation
 from .. import Posets
 
 if TYPE_CHECKING:
@@ -34,7 +36,14 @@ class _MeetSemilatticePosets(Category):
     )
 
     class ParentMethods:
+        @overload
+        def meet(self, x: PosetElement, y: PosetElement) -> PosetElement: ...
+
+        @overload
+        def meet(self, elements: Sequence[PosetElement]) -> PosetElement: ...
+
         @abstract_method
+        @foldable_operation
         def meet(self, x: PosetElement, y: PosetElement) -> PosetElement:
             r"""Return the greatest lower bound of ``x`` and ``y``."""
             ...
