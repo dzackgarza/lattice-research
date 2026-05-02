@@ -2,7 +2,7 @@ r"""Slice construction category of algebras over a fixed algebra."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -20,23 +20,30 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
 
     _functor_category = "ObjectsOver"
 
+    @override
     @final
     def _repr_object_names(self) -> str:
         return f"algebras over {self.base()}"
 
     class ParentMethods:
         @abstract_method
-        def structure_algebra(self) -> Algebra: ...
+        def structure_algebra(self) -> Algebra:
+            r"""Return the target algebra of this object-over structure."""
+            ...
 
         @abstract_method
-        def structure_map(self) -> AlgebraMorphism: ...
+        def structure_map(self) -> AlgebraMorphism:
+            r"""Return the algebra morphism from this algebra to the target."""
+            ...
 
         @final
         def structure_domain(self) -> Algebra:
+            r"""Return the domain algebra of the structure map."""
             return self
 
         @final
         def structure_codomain(self) -> Algebra:
+            r"""Return the codomain algebra of the structure map."""
             return self.structure_algebra()
 
     class ElementMethods: ...

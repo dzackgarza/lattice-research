@@ -2,11 +2,12 @@ r"""Hom, end, and aut categories for algebras."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
+from ..cat import Category
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
@@ -19,7 +20,9 @@ class _AlgebraHomCategoryObjectMethods:
 
 class _AlgebraHomomorphisms:
     @abstract_method
-    def kernel(self) -> Algebra: ...
+    def kernel(self) -> Algebra:
+        r"""Return the kernel algebra of this algebra homomorphism."""
+        ...
 
 
 class AlgebraHomCategory(HomCategoryOf):
@@ -28,8 +31,10 @@ class AlgebraHomCategory(HomCategoryOf):
     Canonical chain: ``Algebras(R).HomCategory()``.
     """
 
+    @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
+        r"""Return the generic hom-category surface refined by algebra maps."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _AlgebraHomCategoryObjectMethods
@@ -48,7 +53,9 @@ class AlgebraEndCategory(GenericEndCategory):
 
     class ParentMethods:
         @abstract_method
-        def base_algebra(self) -> Algebra: ...
+        def base_algebra(self) -> Algebra:
+            r"""Return the algebra whose endomorphisms this object contains."""
+            ...
 
     class ElementMethods: ...
     class MorphismMethods: ...

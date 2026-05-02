@@ -3,7 +3,7 @@ r"""Order-theoretic meet-semilattice poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, overload
+from typing import TYPE_CHECKING, final, overload, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -23,14 +23,17 @@ class _MeetSemilatticePosets(Category):
     Canonical chain: ``Posets().MeetSemilattice()``.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return posets as the strict supercategory of meet-semilattices."""
         return [Posets()]
 
     class SubcategoryMethods:
         @cached_method
         @final
         def Finite(self) -> Category:
+            r"""Return the finite meet-semilattice subcategory."""
             return self._with_axiom("Finite")
 
     Finite = LazyImport(
@@ -48,7 +51,11 @@ class _MeetSemilatticePosets(Category):
         @abstract_method
         @foldable_operation
         def meet(self, x: PosetElement, y: PosetElement) -> PosetElement:
-            r"""Return the greatest lower bound of ``x`` and ``y``."""
+            r"""Return the greatest lower bound of ``x`` and ``y``.
+
+            ``MeetSemilattice`` introduces ``meet`` as the primitive binary
+            operation; the sequence overload folds this binary operation.
+            """
             ...
 
     class ElementMethods: ...

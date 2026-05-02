@@ -2,7 +2,7 @@ r"""Hom, end, and aut categories for posets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
@@ -20,10 +20,14 @@ class _PosetHomCategoryObjectMethods:
 
 class _OrderPreservingMaps:
     @abstract_method
-    def is_order_preserving(self) -> bool: ...
+    def is_order_preserving(self) -> bool:
+        r"""Return whether this map preserves the partial order."""
+        ...
 
     @abstract_method
-    def is_order_embedding(self) -> bool: ...
+    def is_order_embedding(self) -> bool:
+        r"""Return whether this order-preserving map reflects the order."""
+        ...
 
 
 class _PosetEndomorphisms:
@@ -33,6 +37,7 @@ class _PosetEndomorphisms:
 class _PosetAutomorphisms:
     @final
     def is_order_automorphism(self) -> bool:
+        r"""Return ``True`` because this morphism is an automorphism of posets."""
         return True
 
 
@@ -42,8 +47,10 @@ class PosetHomCategory(HomCategoryOf):
     Canonical chain: ``Posets().HomCategory()``.
     """
 
+    @override
     @final
     def extra_super_categories(self) -> list[Category]:
+        r"""Return the generic hom-category surface refined by order-preserving maps."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _PosetHomCategoryObjectMethods
@@ -62,7 +69,9 @@ class PosetEndCategory(GenericEndCategory):
 
     class ParentMethods:
         @abstract_method
-        def base_poset(self) -> Poset: ...
+        def base_poset(self) -> Poset:
+            r"""Return the poset whose endomorphisms this object contains."""
+            ...
 
     ElementMethods = _PosetEndomorphisms
     class MorphismMethods: ...

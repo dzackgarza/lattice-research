@@ -2,7 +2,7 @@ r"""Finite meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -22,8 +22,10 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
 
     _base_category_class_and_axiom = (_MeetSemilatticePosets, "Finite")
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return meet-semilattice and finite-poset supercategories."""
         from .. import Posets
 
         return [_MeetSemilatticePosets(), Posets().Finite()]

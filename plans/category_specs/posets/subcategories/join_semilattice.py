@@ -3,7 +3,7 @@ r"""Order-theoretic join-semilattice poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, overload
+from typing import TYPE_CHECKING, final, overload, override
 
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -23,14 +23,17 @@ class _JoinSemilatticePosets(Category):
     Canonical chain: ``Posets().JoinSemilattice()``.
     """
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return posets as the strict supercategory of join-semilattices."""
         return [Posets()]
 
     class SubcategoryMethods:
         @cached_method
         @final
         def Finite(self) -> Category:
+            r"""Return the finite join-semilattice subcategory."""
             return self._with_axiom("Finite")
 
     Finite = LazyImport(
@@ -48,7 +51,11 @@ class _JoinSemilatticePosets(Category):
         @abstract_method
         @foldable_operation
         def join(self, x: PosetElement, y: PosetElement) -> PosetElement:
-            r"""Return the least upper bound of ``x`` and ``y``."""
+            r"""Return the least upper bound of ``x`` and ``y``.
+
+            ``JoinSemilattice`` introduces ``join`` as the primitive binary
+            operation; the sequence overload folds this binary operation.
+            """
             ...
 
     class ElementMethods: ...

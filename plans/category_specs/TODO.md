@@ -8,11 +8,11 @@ the archive.
 
 - [ ] Continue the override/provenance audit outside the high-confidence formed-module
   and lattice pass already started. Remaining judgment areas outside this pass:
-  `algebras/`, `modules/`, `posets/`, and `rings/`; constructor helper classes
-  outside `cat/`, `homsets/`, `sets/`, `tensor_algebra_components/`, and
-  `topological_spaces/`; foldable binary operations with overload stubs outside the
-  scoped pass; and abstract method families whose mathematical owner is not locally
-  obvious from the docstring.
+  `modules/` and `rings/`; constructor helper classes outside `cat/`, `homsets/`,
+  `sets/`, `tensor_algebra_components/`, `topological_spaces/`, `algebras/`, and
+  `posets/`; foldable binary operations with overload stubs outside the scoped pass;
+  and abstract method families whose mathematical owner is not locally obvious from
+  the docstring.
 - [ ] Audit every method for highest valid mathematical placement. Place each method
   where implementers primarily think about the corresponding abstraction; for example,
   algebra specs should not restate set-theoretic domain and codomain obligations for

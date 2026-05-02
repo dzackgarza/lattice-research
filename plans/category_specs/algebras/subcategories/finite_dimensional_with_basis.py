@@ -2,7 +2,7 @@ r"""Finite-dimensional algebras with basis."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import final, override
 
 from sage.categories.finite_dimensional_algebras_with_basis import (
     FiniteDimensionalAlgebrasWithBasis as SageFiniteDimensionalAlgebrasWithBasis,
@@ -21,8 +21,10 @@ class _FiniteDimensionalAlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
 
     _base_category_class_and_axiom = (_AlgebrasWithBasis, "FiniteDimensional")
 
+    @override
     @final
     def super_categories(self) -> list[Category]:
+        r"""Return finite-dimensional, with-basis, and Sage supercategories."""
         R = self.base_ring()
         return [
             Algebras(R).FiniteDimensional(),
