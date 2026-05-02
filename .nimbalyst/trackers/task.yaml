@@ -1,0 +1,10 @@
+# .nimbalyst/trackers/task.yaml
+type: task
+displayName: Task
+displayNamePlural: Tasks
+modes:
+  inline: true
+  fullDocument: false
+sync:
+  mode: shared
+  scope: project

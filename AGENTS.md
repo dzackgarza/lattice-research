@@ -14,13 +14,29 @@ exit conditions
 
 This file contains only project-specific operational details not covered by those files.
 
+## Delegation Contract Completeness
+
+Subagents do **not** know what a tracker key, task ID, plan label, or chat-local name
+"means" unless that meaning is provided in the delegation contract or is recoverable
+from an explicitly named artifact they are told to read.
+
+Before delegating, the orchestrator must provide at least:
+- the exact task statement or tracker/task body, not just an identifier like `NIM-12`
+- the concrete files or directories in scope
+- the allowed and forbidden actions
+- the expected output format and exit condition
+
+Do not assume a subagent can infer hidden intent from the current chat, from a tracker
+key, or from the orchestrator's private context. If the task definition matters, quote
+it or attach the durable artifact containing it.
+
 ## CURRENT PLAN
 
 For the lattice/module redesign, the current execution plans are:
-- [plans/PHASE_0_SAGE_PATCHES.md](./plans/PHASE_0_SAGE_PATCHES.md) -- Sage monkeypatches
-- [plans/PHASE_1_BILINEAR_MODULES.md](./plans/PHASE_1_BILINEAR_MODULES.md) -- BilinearModule foundation
-- [plans/LATTICE_STYLE_GUIDE.md](./plans/LATTICE_STYLE_GUIDE.md) -- lattice-specific conventions
-- [plans/lattice_redesign_corrections_spec.md](./plans/lattice_redesign_corrections_spec.md) -- raw corrections archive
+- [PHASE_0_SAGE_PATCHES.md](./plans/PHASE_0_SAGE_PATCHES.md) -- Sage monkeypatches
+- [PHASE_1_BILINEAR_MODULES.md](./plans/PHASE_1_BILINEAR_MODULES.md) -- BilinearModule foundation
+- [LATTICE_STYLE_GUIDE.md](./plans/LATTICE_STYLE_GUIDE.md) -- lattice-specific conventions
+- [lattice_redesign_corrections_spec.md](./plans/lattice_redesign_corrections_spec.md) -- raw corrections archive
 
 If the task touches `src/lattices/`, `tests/lattice_spec/`, or `tests/sage_spec/`,
 read those files before acting. The required dependency order is:
