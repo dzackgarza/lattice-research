@@ -672,17 +672,17 @@ class Rings(Category_singleton):
         @final
         def NumberField(
             self,
-            polynomial: Polynomial | Sequence[Polynomial],
-            name: str | Sequence[str] | None = None,
+            polynomial: Polynomial,
+            name: str | None = None,
             check: bool = True,
-            names: str | Sequence[str] | None = None,
-            embedding: RingElement | Sequence[RingElement] | None = None,
-            latex_name: str | Sequence[str] | None = None,
+            names: str | None = None,
+            embedding: RingElement | None = None,
+            latex_name: str | None = None,
             assume_disc_small: bool = False,
             maximize_at_primes: Sequence[Integer] | None = None,
-            structure: RingMorphism | Sequence[RingMorphism] | None = None,
+            structure: RingMorphism | None = None,
             *,
-            latex_names: str | Sequence[str] | None = None,
+            latex_names: str | None = None,
         ) -> Ring:
             from sage.all import NumberField
 
@@ -704,6 +704,32 @@ class Rings(Category_singleton):
             if isinstance(R, NumberField_cyclotomic):
                 categories.append(_CyclotomicFields())
             return refine_category(R, [Rings(), *categories])
+
+        @final
+        def NumberFieldTower(
+            self,
+            polynomials: Sequence[Polynomial],
+            names: str | Sequence[str],
+            check: bool = True,
+            embeddings: Sequence[RingElement] | None = None,
+            latex_names: str | Sequence[str] | None = None,
+            assume_disc_small: bool = False,
+            maximize_at_primes: Sequence[Integer] | None = None,
+            structures: Sequence[RingMorphism] | None = None,
+        ) -> Ring:
+            from sage.rings.number_field.number_field import NumberFieldTower
+
+            R = NumberFieldTower(
+                polynomials,
+                names,
+                check=check,
+                embeddings=embeddings,
+                latex_names=latex_names,
+                assume_disc_small=assume_disc_small,
+                maximize_at_primes=maximize_at_primes,
+                structures=structures,
+            )
+            return refine_category(R, [Rings(), _NumberFields()])
 
         @final
         def QuadraticField(
@@ -736,7 +762,7 @@ class Rings(Category_singleton):
         def Zp(
             self,
             p: Integer,
-            prec: Integer | tuple[Integer, Integer] | None = None,
+            prec: Integer | None = None,
             type: str = "capped-rel",
             print_mode: str | None = None,
             names: str | None = None,
@@ -771,10 +797,87 @@ class Rings(Category_singleton):
             )
 
         @final
+        def ZpWithPrecisionCaps(
+            self,
+            p: Integer,
+            relative_cap: Integer,
+            absolute_cap: Integer,
+            type: str = "lattice-cap",
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            label: str | None = None,
+        ) -> Ring:
+            assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
+            from sage.all import Zp
+
+            return refine_category(
+                Zp(
+                    p,
+                    prec=(relative_cap, absolute_cap),
+                    type=type,
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    label=label,
+                ),
+                [Rings(), _Zp()],
+            )
+
+        @final
+        def ZpRelaxed(
+            self,
+            p: Integer,
+            default_prec: Integer,
+            halting_prec: Integer,
+            secure: bool = False,
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+        ) -> Ring:
+            from sage.all import Zp
+
+            return refine_category(
+                Zp(
+                    p,
+                    prec=(default_prec, halting_prec, secure),
+                    type="relaxed",
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                ),
+                [Rings(), _Zp()],
+            )
+
+        @final
         def Qp(
             self,
             p: Integer,
-            prec: Integer | tuple[Integer, Integer] | None = None,
+            prec: Integer | None = None,
             type: str = "capped-rel",
             print_mode: str | None = None,
             names: str | None = None,
@@ -809,10 +912,87 @@ class Rings(Category_singleton):
             )
 
         @final
+        def QpWithPrecisionCaps(
+            self,
+            p: Integer,
+            relative_cap: Integer,
+            absolute_cap: Integer,
+            type: str = "lattice-cap",
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            label: str | None = None,
+        ) -> Ring:
+            assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
+            from sage.all import Qp
+
+            return refine_category(
+                Qp(
+                    p,
+                    prec=(relative_cap, absolute_cap),
+                    type=type,
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    label=label,
+                ),
+                [Rings(), _Qp()],
+            )
+
+        @final
+        def QpRelaxed(
+            self,
+            p: Integer,
+            default_prec: Integer,
+            halting_prec: Integer,
+            secure: bool = False,
+            print_mode: str | None = None,
+            names: str | None = None,
+            ram_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_alphabet: str | None = None,
+            print_max_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+        ) -> Ring:
+            from sage.all import Qp
+
+            return refine_category(
+                Qp(
+                    p,
+                    prec=(default_prec, halting_prec, secure),
+                    type="relaxed",
+                    print_mode=print_mode,
+                    names=names,
+                    ram_name=ram_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_alphabet=print_alphabet,
+                    print_max_terms=print_max_terms,
+                    show_prec=show_prec,
+                    check=check,
+                ),
+                [Rings(), _Qp()],
+            )
+
+        @final
         def Zq(
             self,
-            q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
-            prec: Integer | tuple[Integer, Integer] | None = None,
+            q: Integer,
+            prec: Integer | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
             names: str | None = None,
@@ -853,10 +1033,145 @@ class Rings(Category_singleton):
             )
 
         @final
+        def ZqFromPrimePower(
+            self,
+            p: Integer,
+            degree: Integer,
+            prec: Integer | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            from sage.all import Zq
+
+            return refine_category(
+                Zq(
+                    (p, degree),
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Zp()],
+            )
+
+        @final
+        def ZqFromPrimePowerFactorization(
+            self,
+            factorization: Sequence[tuple[Integer, Integer]],
+            prec: Integer | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            from sage.all import Zq
+
+            return refine_category(
+                Zq(
+                    factorization,
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Zp()],
+            )
+
+        @final
+        def ZqWithPrecisionCaps(
+            self,
+            q: Integer,
+            relative_cap: Integer,
+            absolute_cap: Integer,
+            type: str = "lattice-cap",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
+            from sage.all import Zq
+
+            return refine_category(
+                Zq(
+                    q,
+                    prec=(relative_cap, absolute_cap),
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Zp()],
+            )
+
+        @final
         def Qq(
             self,
-            q: Integer | tuple[Integer, Integer] | Sequence[tuple[Integer, Integer]],
-            prec: Integer | tuple[Integer, Integer] | None = None,
+            q: Integer,
+            prec: Integer | None = None,
             type: str = "capped-rel",
             modulus: Polynomial | None = None,
             names: str | None = None,
@@ -878,6 +1193,141 @@ class Rings(Category_singleton):
                 Qq(
                     q,
                     prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Qp()],
+            )
+
+        @final
+        def QqFromPrimePower(
+            self,
+            p: Integer,
+            degree: Integer,
+            prec: Integer | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            from sage.all import Qq
+
+            return refine_category(
+                Qq(
+                    (p, degree),
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Qp()],
+            )
+
+        @final
+        def QqFromPrimePowerFactorization(
+            self,
+            factorization: Sequence[tuple[Integer, Integer]],
+            prec: Integer | None = None,
+            type: str = "capped-rel",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            from sage.all import Qq
+
+            return refine_category(
+                Qq(
+                    factorization,
+                    prec=prec,
+                    type=type,
+                    modulus=modulus,
+                    names=names,
+                    print_mode=print_mode,
+                    ram_name=ram_name,
+                    res_name=res_name,
+                    print_pos=print_pos,
+                    print_sep=print_sep,
+                    print_max_ram_terms=print_max_ram_terms,
+                    print_max_unram_terms=print_max_unram_terms,
+                    print_max_terse_terms=print_max_terse_terms,
+                    show_prec=show_prec,
+                    check=check,
+                    implementation=implementation,
+                ),
+                [Rings(), _Qp()],
+            )
+
+        @final
+        def QqWithPrecisionCaps(
+            self,
+            q: Integer,
+            relative_cap: Integer,
+            absolute_cap: Integer,
+            type: str = "lattice-cap",
+            modulus: Polynomial | None = None,
+            names: str | None = None,
+            print_mode: str | None = None,
+            ram_name: str | None = None,
+            res_name: str | None = None,
+            print_pos: bool | None = None,
+            print_sep: str | None = None,
+            print_max_ram_terms: Integer | None = None,
+            print_max_unram_terms: Integer | None = None,
+            print_max_terse_terms: Integer | None = None,
+            show_prec: bool | None = None,
+            check: bool = True,
+            implementation: str = "FLINT",
+        ) -> Ring:
+            assert type.startswith("lattice-"), f"Precision caps require a lattice p-adic type: {type}"
+            from sage.all import Qq
+
+            return refine_category(
+                Qq(
+                    q,
+                    prec=(relative_cap, absolute_cap),
                     type=type,
                     modulus=modulus,
                     names=names,
@@ -1046,13 +1496,10 @@ class Rings(Category_singleton):
         def PowerSeriesRing(
             self,
             base_ring: Ring,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import PowerSeriesRing
@@ -1060,13 +1507,55 @@ class Rings(Category_singleton):
             R = PowerSeriesRing(
                 base_ring,
                 name=name,
-                arg2=arg2,
+                sparse=sparse,
+                default_prec=default_prec,
+                implementation=implementation,
+            )
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+
+        @final
+        def MultivariatePowerSeriesRing(
+            self,
+            base_ring: Ring,
+            *,
+            names: str | Sequence[str],
+            num_gens: Integer | None = None,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            order: str = "negdeglex",
+        ) -> Ring:
+            from sage.all import PowerSeriesRing
+
+            R = PowerSeriesRing(
+                base_ring,
                 names=names,
                 sparse=sparse,
                 default_prec=default_prec,
                 order=order,
                 num_gens=num_gens,
-                implementation=implementation,
+            )
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+
+        @final
+        def MultivariatePowerSeriesRingWithGeneratorPrefix(
+            self,
+            base_ring: Ring,
+            *,
+            prefix: str,
+            num_gens: Integer,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            order: str = "negdeglex",
+        ) -> Ring:
+            from sage.all import PowerSeriesRing
+
+            R = PowerSeriesRing(
+                base_ring,
+                num_gens,
+                prefix,
+                sparse=sparse,
+                default_prec=default_prec,
+                order=order,
             )
             return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
 
@@ -1074,13 +1563,10 @@ class Rings(Category_singleton):
         def LaurentSeriesRing(
             self,
             base_ring: Ring,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import LaurentSeriesRing
@@ -1088,27 +1574,27 @@ class Rings(Category_singleton):
             R = LaurentSeriesRing(
                 base_ring,
                 name=name,
-                arg2=arg2,
-                names=names,
                 sparse=sparse,
                 default_prec=default_prec,
-                order=order,
-                num_gens=num_gens,
                 implementation=implementation,
             )
+            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
+
+        @final
+        def LaurentSeriesRingFromPowerSeriesRing(self, power_series_ring: Ring) -> Ring:
+            from sage.all import LaurentSeriesRing
+
+            R = LaurentSeriesRing(power_series_ring)
             return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
 
         @final
         def PuiseuxSeriesRing(
             self,
             base_ring: Ring,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> Ring:
             from sage.all import PuiseuxSeriesRing
@@ -1116,14 +1602,17 @@ class Rings(Category_singleton):
             R = PuiseuxSeriesRing(
                 base_ring,
                 name=name,
-                arg2=arg2,
-                names=names,
                 sparse=sparse,
                 default_prec=default_prec,
-                order=order,
-                num_gens=num_gens,
                 implementation=implementation,
             )
+            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
+
+        @final
+        def PuiseuxSeriesRingFromLaurentSeriesRing(self, laurent_series_ring: Ring) -> Ring:
+            from sage.all import PuiseuxSeriesRing
+
+            R = PuiseuxSeriesRing(laurent_series_ring)
             return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
 
         @final

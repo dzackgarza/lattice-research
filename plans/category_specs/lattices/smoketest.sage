@@ -9,6 +9,7 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices
+from category_specs.lattices.subcategories.over_integers import _LatticesOverIntegers as LatticesOverIntegers
 from category_specs.modules import Modules
 from category_specs.utils import assert_smoke_statements
 from sage.all import ZZ
@@ -31,6 +32,11 @@ SMOKE_STATEMENTS = (
     ("Lattices(ZZ).DualObjects() is an object of Cat()", lambda _: LZZ.DualObjects() in C),
     ("Lattices(ZZ).DualLattices() aliases DualObjects()", lambda _: LZZ.DualLattices() is LZZ.DualObjects()),
     ("Lattices(ZZ).Even() exposes is_even as its defining predicate", lambda _: LZZ.Even().defining_predicates() == ("is_even",)),
+    ("Lattices(ZZ).OverIntegers().ParentMethods.short_vectors is admitted", lambda _: LatticesOverIntegers.ParentMethods.short_vectors),
+    (
+        "Lattices(ZZ).OverIntegers().ParentMethods.short_vectors_up_to_sign is admitted",
+        lambda _: LatticesOverIntegers.ParentMethods.short_vectors_up_to_sign,
+    ),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)

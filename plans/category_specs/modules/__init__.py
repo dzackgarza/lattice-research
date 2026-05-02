@@ -575,67 +575,148 @@ class Modules(Category_module):
         @final
         def FreeModule(
             self,
-            rank_or_basis_keys: Integer | Set | SetFamily | None = None,
+            rank: Integer,
             sparse: bool = False,
-            inner_product_matrix: Matrix | Sequence[Sequence[RingElement]] | Sequence[RingElement] | None = None,
             *,
-            with_basis: str | None = "standard",
-            rank: Integer | None = None,
-            basis_keys: Set | SetFamily | None = None,
+            inner_product_matrix: Matrix | None = None,
         ) -> RModule:
             from sage.modules.free_module import FreeModule as SageFreeModule
 
             M = SageFreeModule(
                 self.base_ring(),
-                rank_or_basis_keys,
+                rank,
                 sparse,
                 inner_product_matrix,
-                with_basis=with_basis,
-                rank=rank,
-                basis_keys=basis_keys,
             )
+            categories = self._categories_for_free_module(M)
+            return self._refine_constructed_module(M, categories)
+
+        @final
+        def FreeModuleWithBasisKeys(
+            self,
+            basis_keys: Set | SetFamily,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.modules.free_module import FreeModule as SageFreeModule
+
+            M = SageFreeModule(self.base_ring(), basis_keys, sparse)
             from sage.combinat.free_module import CombinatorialFreeModule
-            from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
 
             if isinstance(M, CombinatorialFreeModule):
                 categories = self._categories_for_combinatorial_free_module()
-            elif isinstance(M, FiniteRankFreeModule):
-                categories = self._finite_rank_free_module_categories()
             else:
                 categories = self._categories_for_free_module(M)
             return self._refine_constructed_module(M, categories)
 
         @final
+        def FreeModuleWithoutBasis(
+            self,
+            rank: Integer,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.modules.free_module import FreeModule as SageFreeModule
+
+            M = SageFreeModule(self.base_ring(), rank, sparse, with_basis=None)
+            return self._refine_constructed_module(M, self._finite_rank_free_module_categories())
+
+        @final
+        def FreeModuleWithInnerProductRows(
+            self,
+            rank: Integer,
+            inner_product_rows: Sequence[Sequence[RingElement]],
+            *,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.FreeModule(rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), inner_product_rows))
+
+        @final
+        def FreeModuleWithInnerProductEntries(
+            self,
+            rank: Integer,
+            inner_product_entries: Sequence[RingElement],
+            *,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.FreeModule(rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), rank, rank, inner_product_entries))
+
+        @final
         def VectorSpace(
             self,
-            dimension_or_basis_keys: Integer | Set | SetFamily | None = None,
+            dimension: Integer,
             sparse: bool = False,
-            inner_product_matrix: Matrix | Sequence[Sequence[RingElement]] | Sequence[RingElement] | None = None,
             *,
-            with_basis: str | None = "standard",
-            dimension: Integer | None = None,
-            basis_keys: Set | SetFamily | None = None,
+            inner_product_matrix: Matrix | None = None,
         ) -> RModule:
             from sage.modules.free_module import VectorSpace as SageVectorSpace
 
             M = SageVectorSpace(
                 self.base_ring(),
-                dimension_or_basis_keys,
+                dimension,
                 sparse,
                 inner_product_matrix,
-                with_basis=with_basis,
-                dimension=dimension,
-                basis_keys=basis_keys,
             )
             return self._refine_constructed_module(M, self._categories_for_free_module(M))
+
+        @final
+        def VectorSpaceWithBasisKeys(
+            self,
+            basis_keys: Set | SetFamily,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.modules.free_module import VectorSpace as SageVectorSpace
+
+            M = SageVectorSpace(self.base_ring(), basis_keys, sparse)
+            return self._refine_constructed_module(M, self._categories_for_combinatorial_free_module())
+
+        @final
+        def VectorSpaceWithoutBasis(
+            self,
+            dimension: Integer,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.modules.free_module import VectorSpace as SageVectorSpace
+
+            M = SageVectorSpace(self.base_ring(), dimension, sparse, with_basis=None)
+            return self._refine_constructed_module(M, self._finite_rank_free_module_categories())
+
+        @final
+        def VectorSpaceWithInnerProductRows(
+            self,
+            dimension: Integer,
+            inner_product_rows: Sequence[Sequence[RingElement]],
+            *,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.VectorSpace(dimension, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), inner_product_rows))
+
+        @final
+        def VectorSpaceWithInnerProductEntries(
+            self,
+            dimension: Integer,
+            inner_product_entries: Sequence[RingElement],
+            *,
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.VectorSpace(
+                dimension,
+                sparse=sparse,
+                inner_product_matrix=matrix(self.base_ring(), dimension, dimension, inner_product_entries),
+            )
 
         @final
         def FreeQuadraticModule(
             self,
             rank: Integer,
-            inner_product_matrix: Matrix | Sequence[Sequence[RingElement]] | Sequence[RingElement],
+            inner_product_matrix: Matrix,
             sparse: bool = False,
-            inner_product_ring: Ring | None = None,
         ) -> RModule:
             from sage.modules.free_quadratic_module import FreeQuadraticModule
 
@@ -644,7 +725,6 @@ class Modules(Category_module):
                 rank,
                 inner_product_matrix,
                 sparse=sparse,
-                inner_product_ring=inner_product_ring,
             )
             return self._refine_constructed_module(
                 M,
@@ -654,6 +734,28 @@ class Modules(Category_module):
                     self.category().WithForms().Quadratic(),
                 ],
             )
+
+        @final
+        def FreeQuadraticModuleFromRows(
+            self,
+            rank: Integer,
+            inner_product_rows: Sequence[Sequence[RingElement]],
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.FreeQuadraticModule(rank, matrix(self.base_ring(), inner_product_rows), sparse=sparse)
+
+        @final
+        def FreeQuadraticModuleFromEntries(
+            self,
+            rank: Integer,
+            inner_product_entries: Sequence[RingElement],
+            sparse: bool = False,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+
+            return self.FreeQuadraticModule(rank, matrix(self.base_ring(), rank, rank, inner_product_entries), sparse=sparse)
 
         @final
         def span(
@@ -722,14 +824,49 @@ class Modules(Category_module):
         @final
         def FPModule(
             self,
-            arg0: Algebra | RModule | RModMorphism,
-            generator_degrees: Sequence[Integer] | None = None,
+            algebra: Algebra,
+            generator_degrees: Sequence[Integer],
+            relations: Sequence[Sequence[AlgebraElement]] = (),
+            names: str | tuple[str, ...] | None = None,
+        ) -> RModule:
+            return self.FPModuleFromPresentation(
+                algebra,
+                generator_degrees=generator_degrees,
+                relations=relations,
+                names=names,
+            )
+
+        @final
+        def FPModuleFromPresentation(
+            self,
+            algebra: Algebra,
+            *,
+            generator_degrees: Sequence[Integer],
             relations: Sequence[Sequence[AlgebraElement]] = (),
             names: str | tuple[str, ...] | None = None,
         ) -> RModule:
             from sage.modules.fp_graded.module import FPModule
 
-            M = FPModule(arg0, generator_degrees=generator_degrees, relations=relations, names=names)
+            M = FPModule(algebra, generator_degrees=generator_degrees, relations=relations, names=names)
+            return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
+
+        @final
+        def FPModuleFromCokernelMap(self, defining_map: RModMorphism, names: str | tuple[str, ...] | None = None) -> RModule:
+            from sage.modules.fp_graded.module import FPModule
+
+            M = FPModule(defining_map, names=names)
+            return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
+
+        @final
+        def FPModuleFromFreeGradedModule(
+            self,
+            module: RModule,
+            names: str | tuple[str, ...] | None = None,
+        ) -> RModule:
+            from sage.modules.fp_graded.module import FPModule
+
+            assert module in self.category().FreeGradedModules(), f"Expected a free graded module: {module}"
+            M = FPModule(module, names=names)
             return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
 
         @final
@@ -751,9 +888,9 @@ class Modules(Category_module):
             return self._refine_constructed_module(M, [self.category().OreModules()])
 
         @final
-        def IntegerLattice(
+        def IntegerLatticeFromBasisMatrix(
             self,
-            basis: Matrix | Sequence[Sequence[RingElement]],
+            basis: Matrix,
             lll_reduce: bool = True,
         ) -> RModule:
             from sage.modules.free_module_integer import IntegerLattice
@@ -762,16 +899,49 @@ class Modules(Category_module):
             return self._refine_constructed_module(M, [self.category().IntegerLattices()])
 
         @final
-        def TorsionQuadraticForm(self, q: Matrix | Sequence[Sequence[RingElement]]) -> RModule:
+        def IntegerLatticeFromBasisRows(
+            self,
+            basis_rows: Sequence[Sequence[RingElement]],
+            lll_reduce: bool = True,
+        ) -> RModule:
+            from sage.matrix.constructor import matrix
+            from sage.rings.integer_ring import ZZ
+
+            return self.IntegerLatticeFromBasisMatrix(matrix(ZZ, basis_rows), lll_reduce=lll_reduce)
+
+        @final
+        def IntegerLatticeFromOrderElement(self, element: RingElement, lll_reduce: bool = True) -> RModule:
+            from sage.modules.free_module_integer import IntegerLattice
+
+            M = IntegerLattice(element, lll_reduce=lll_reduce)
+            return self._refine_constructed_module(M, [self.category().IntegerLattices()])
+
+        @final
+        def IntegerLattice(
+            self,
+            basis: Matrix,
+            lll_reduce: bool = True,
+        ) -> RModule:
+            return self.IntegerLatticeFromBasisMatrix(basis, lll_reduce=lll_reduce)
+
+        @final
+        def TorsionQuadraticForm(self, q: Matrix) -> RModule:
             from sage.modules.torsion_quadratic_module import TorsionQuadraticForm
 
             M = TorsionQuadraticForm(q)
             return self._refine_constructed_module(M, [self.category().TorsionQuadraticModules()])
 
         @final
+        def TorsionQuadraticFormFromRows(self, q_rows: Sequence[Sequence[RingElement]]) -> RModule:
+            from sage.matrix.constructor import matrix
+            from sage.rings.rational_field import QQ
+
+            return self.TorsionQuadraticForm(matrix(QQ, q_rows))
+
+        @final
         def ring_as_rank_one_module(self, ring: Ring | None = None) -> FreeModule:
             R = self.base_ring() if ring is None else ring
-            M = Modules(R).Constructors().FreeModule(1)
+            M = Modules(R).Constructors().FreeModule(rank=1)
             return self._refine_constructed_module(M, [self.category().Free().FiniteRank().WithOrderedBasis()])
 
         @final
@@ -810,7 +980,7 @@ class Modules(Category_module):
             self,
             *,
             var_array: str | Sequence[str],
-            n: Integer | tuple[Integer, ...] | None = None,
+            n: Integer,
             sparse: bool | None = None,
             order: str | TermOrder = "degrevlex",
             implementation: str | None = None,
@@ -830,7 +1000,7 @@ class Modules(Category_module):
         def polynomial_ring_as_module(
             self,
             *,
-            n: Integer | tuple[Integer, ...] | None = None,
+            n: Integer | None = None,
             name: str | None = None,
             names: str | Sequence[str] | None = None,
             var_array: str | Sequence[str] | None = None,
@@ -855,13 +1025,10 @@ class Modules(Category_module):
         @final
         def power_series_ring_as_module(
             self,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> RModule:
             from ..rings import Rings
@@ -869,26 +1036,63 @@ class Modules(Category_module):
             S = Rings().Constructors().PowerSeriesRing(
                 self.base_ring(),
                 name=name,
-                arg2=arg2,
+                sparse=sparse,
+                default_prec=default_prec,
+                implementation=implementation,
+            )
+            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+
+        @final
+        def multivariate_power_series_ring_as_module(
+            self,
+            names: str | Sequence[str],
+            *,
+            num_gens: Integer | None = None,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            order: str = "negdeglex",
+        ) -> RModule:
+            from ..rings import Rings
+
+            S = Rings().Constructors().MultivariatePowerSeriesRing(
+                self.base_ring(),
                 names=names,
+                num_gens=num_gens,
                 sparse=sparse,
                 default_prec=default_prec,
                 order=order,
+            )
+            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+
+        @final
+        def multivariate_power_series_ring_with_generator_prefix_as_module(
+            self,
+            prefix: str,
+            num_gens: Integer,
+            *,
+            sparse: bool = False,
+            default_prec: Integer | None = None,
+            order: str = "negdeglex",
+        ) -> RModule:
+            from ..rings import Rings
+
+            S = Rings().Constructors().MultivariatePowerSeriesRingWithGeneratorPrefix(
+                self.base_ring(),
+                prefix=prefix,
                 num_gens=num_gens,
-                implementation=implementation,
+                sparse=sparse,
+                default_prec=default_prec,
+                order=order,
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
         @final
         def laurent_series_ring_as_module(
             self,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> RModule:
             from ..rings import Rings
@@ -896,26 +1100,26 @@ class Modules(Category_module):
             S = Rings().Constructors().LaurentSeriesRing(
                 self.base_ring(),
                 name=name,
-                arg2=arg2,
-                names=names,
                 sparse=sparse,
                 default_prec=default_prec,
-                order=order,
-                num_gens=num_gens,
                 implementation=implementation,
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
         @final
+        def laurent_series_ring_from_power_series_as_module(self, power_series_ring: Ring) -> RModule:
+            from ..rings import Rings
+
+            S = Rings().Constructors().LaurentSeriesRingFromPowerSeriesRing(power_series_ring)
+            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+
+        @final
         def puiseux_series_ring_as_module(
             self,
-            name: str | None = None,
-            arg2: Integer | str | None = None,
-            names: str | Sequence[str] | None = None,
+            name: str,
+            *,
             sparse: bool = False,
             default_prec: Integer | None = None,
-            order: str = "negdeglex",
-            num_gens: Integer | None = None,
             implementation: str | None = None,
         ) -> RModule:
             from ..rings import Rings
@@ -923,14 +1127,17 @@ class Modules(Category_module):
             S = Rings().Constructors().PuiseuxSeriesRing(
                 self.base_ring(),
                 name=name,
-                arg2=arg2,
-                names=names,
                 sparse=sparse,
                 default_prec=default_prec,
-                order=order,
-                num_gens=num_gens,
                 implementation=implementation,
             )
+            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+
+        @final
+        def puiseux_series_ring_from_laurent_series_as_module(self, laurent_series_ring: Ring) -> RModule:
+            from ..rings import Rings
+
+            S = Rings().Constructors().PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
         @final

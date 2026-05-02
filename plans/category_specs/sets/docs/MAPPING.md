@@ -185,6 +185,12 @@ subcategory boundaries.
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. The project constructor admits a nullary iterator factory. Sage's `args`/`kwds` parameterization is arbitrary callable plumbing, not set-theoretic data, so it is not exposed as a public constructor shape. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
 
+Existing Sage calls of the form `EnumeratedSetFromIterator(f, args=..., kwds=...)`
+are recovered by closing over those arguments before constructing the project object:
+the resulting nullary iterator factory is the set-theoretic input. The old
+`args`/`kwds` plumbing remains migration guidance only and is not a category-spec
+signature.
+
 ## Sage `SetPartition` Method Mapping Decisions
 
 Sage `SetPartition` is the element class for the fixed-base `SetPartitions(s)` parent.

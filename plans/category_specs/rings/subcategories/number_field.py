@@ -167,7 +167,12 @@ class _NumberFields(CategoryWithAxiom):
         def signature(self) -> tuple[Integer, Integer]: ...
 
         @abstract_method
-        def discriminant(self, v: Sequence[RingElement] | None = None) -> Integer | RingElement: ...
+        def discriminant(self) -> Integer: ...
+
+        @abstract_method
+        def trace_pairing_discriminant(self, elements: Sequence[RingElement]) -> RingElement:
+            r"""Return the determinant of the trace pairing on ``elements``."""
+            ...
 
         @abstract_method
         def absolute_discriminant(self) -> Integer: ...
@@ -194,7 +199,17 @@ class _NumberFields(CategoryWithAxiom):
         def class_group(self, proof: bool | None = None, names: str = "c") -> AbelianGroup: ...
 
         @abstract_method
-        def integral_basis(self, v: RingElement | Sequence[RingElement] | None = None) -> tuple[RingElement, ...]: ...
+        def integral_basis(self) -> tuple[RingElement, ...]: ...
+
+        @abstract_method
+        def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
+            r"""Return an integral basis for an order maximal at ``prime``."""
+            ...
+
+        @abstract_method
+        def integral_basis_at_primes(self, primes: Sequence[Integer]) -> tuple[RingElement, ...]:
+            r"""Return an integral basis for an order maximal at each listed prime."""
+            ...
 
         @abstract_method
         def power_basis(self) -> tuple[RingElement, ...]: ...
@@ -248,16 +263,50 @@ class _NumberFields(CategoryWithAxiom):
         @abstract_method
         def ring_of_integers(
             self,
-            v: Integer | Sequence[Integer] | None = None,
             assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring: ...
 
         @abstract_method
+        def ring_of_integers_at_prime(
+            self,
+            prime: Integer,
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            r"""Return an order of integers that is maximal at ``prime``."""
+            ...
+
+        @abstract_method
+        def ring_of_integers_at_primes(
+            self,
+            primes: Sequence[Integer],
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            r"""Return an order of integers maximal at each listed prime."""
+            ...
+
+        @abstract_method
         def maximal_order(
             self,
-            v: Integer | Sequence[Integer] | None = None,
             assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring: ...
+
+        @abstract_method
+        def maximal_order_at_prime(
+            self,
+            prime: Integer,
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            r"""Return an order that is maximal at ``prime``."""
+            ...
+
+        @abstract_method
+        def maximal_order_at_primes(
+            self,
+            primes: Sequence[Integer],
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            r"""Return an order that is maximal at each listed prime."""
+            ...
 
         @abstract_method
         def absolute_field(self, names: str) -> Field: ...

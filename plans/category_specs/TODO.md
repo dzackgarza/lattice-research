@@ -14,9 +14,20 @@ the archive.
   `free_algebra_from_additive_monoid`, `free_algebra_from_additive_group`, and
   `from_multiplication_tensor`. The smoke admits these names but cannot yet assert
   result refinement for them.
-- [ ] Scope each remaining variadic Sage surface by reading the docs and source,
-  tracing the finite code paths, splitting the surface into named methods or
-  constructors, recording the mapping, and stubbing the resulting spec methods.
+- [ ] Promote admitted-name variadic-split smoke coverage to concrete regression
+  examples when the missing fixtures or implementations exist:
+  `Modules(E).Constructors().FPModuleFromCokernelMap` needs a concrete graded-module
+  morphism fixture; `Modules(ZZ).Constructors().IntegerLatticeFromOrderElement` needs
+  an absolute-order element fixture; `Rings().Constructors().ZqWithPrecisionCaps` and
+  `QqWithPrecisionCaps` need a reviewed q-adic lattice-precision path because Sage's
+  installed `Zq`/`Qq` factories coerce `prec` to an integer before constructing the
+  unramified extension; `Modules(R).Quotients().ParentMethods.quotient_by_*` are
+  abstract quotient obligations with no concrete Sage quotient implementation yet
+  exposing the split names; `Algebras(R).ParentMethods.subalgebra` and the split ideal
+  methods are abstract method names without a concrete finite-dimensional algebra
+  fixture implementing them; `Lattices(ZZ).OverIntegers().ParentMethods.short_vectors`
+  and `short_vectors_up_to_sign` are abstract lattice obligations without a concrete
+  lattice fixture refined far enough to exercise the project method names.
 - [ ] Add an early warning for redundant abstract-method redefinitions, preferably as a
   `just` recipe or script, so specs do not restate inherited obligations.
 - [ ] Audit for uniformizing opportunities across category trees where several modules

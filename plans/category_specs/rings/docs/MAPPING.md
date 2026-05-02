@@ -23,6 +23,32 @@ implementation may delegate to Sage's variadic factory, but the spec surface is 
 to the documented parameters: `base_ring`, `n`, `name`, `names`, `var_array`, `sparse`,
 `order`, and `implementation`.
 
+The remaining variadic ring factories are split as follows:
+
+| Sage surface | Project surface | Decision |
+| --- | --- | --- |
+| `NumberField(polynomial, name, ...)` | `NumberField(polynomial, name, ...)` | Single defining polynomial route. Sequence-valued metadata is not accepted here. |
+| `NumberField([f_1, ..., f_n], names, ...)` | `NumberFieldTower(polynomials, names, ...)` | Tower construction is a separate mathematical case with sequence metadata attached to the tower. |
+| `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | Scalar precision cap route. |
+| `Zp(p, prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qp` analogue | `ZpWithPrecisionCaps(...)` / `QpWithPrecisionCaps(...)` | Pair precision data is meaningful only for lattice precision, so it is named explicitly. |
+| `Zp(p, prec=(default_prec, halting_prec, secure), type='relaxed')` and `Qp` analogue | `ZpRelaxed(...)` / `QpRelaxed(...)` | Relaxed arithmetic has default, halting, and security data; it is not a generic precision tuple. |
+| `Zq(q, ...)` / `Qq(q, ...)` with integer prime power | `Zq(q, ...)` / `Qq(q, ...)` | Cardinality route. |
+| `Zq((p, n), ...)` / `Qq((p, n), ...)` | `ZqFromPrimePower(p, degree=n, ...)` / `QqFromPrimePower(...)` | Prime-power pair route. |
+| `Zq([(p, n)], ...)` / `Qq([(p, n)], ...)` | `ZqFromPrimePowerFactorization(factorization=...)` / `QqFromPrimePowerFactorization(...)` | Factorization route. |
+| `Zq(..., prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qq` analogue | `ZqWithPrecisionCaps(...)` / `QqWithPrecisionCaps(...)` | Extension constructors inherit the same lattice precision split. |
+| `PowerSeriesRing(R, name, default_prec=...)` | `PowerSeriesRing(base_ring=R, name=..., default_prec=...)` | Univariate power-series route. Sage's deprecated positional precision route maps to the named `default_prec`. |
+| `PowerSeriesRing(R, names=...)` or comma-separated/list names | `MultivariatePowerSeriesRing(base_ring=R, names=..., num_gens=...)` | Multivariate named-generator route. |
+| `PowerSeriesRing(R, n, prefix, ...)` | `MultivariatePowerSeriesRingWithGeneratorPrefix(base_ring=R, prefix=..., num_gens=n, ...)` | Prefix-plus-count route. |
+| `LaurentSeriesRing(PowerSeriesRing(...))` | `LaurentSeriesRingFromPowerSeriesRing(power_series_ring)` | Underlying power-series-ring route. |
+| `PuiseuxSeriesRing(LaurentSeriesRing(...))` | `PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)` | Underlying Laurent-series-ring route. |
+| `MatrixSpace.matrix(x=None, **kwds)` | `zero_matrix`, `matrix_from_matrix`, `matrix_from_entries`, `matrix_from_rows`, `scalar_matrix` | The no-argument, matrix, flat-entry, row-entry, and scalar cases are separate element constructors. Sage's `coerce` keyword remains a named option on the data-bearing routes. |
+
+Number-field methods with optional `v` are also split. `discriminant()` is the field
+discriminant, while `trace_pairing_discriminant(elements)` is the determinant of the
+trace pairing on supplied elements. `integral_basis()`, `ring_of_integers()`, and
+`maximal_order()` are the full-order routes; the `v=p` and `v=[p_i]` Sage paths are
+named `*_at_prime` and `*_at_primes`.
+
 ## Signature Typing Decisions
 
 Ring dimensions, generator indices, generator counts, precisions, p-adic print bounds,

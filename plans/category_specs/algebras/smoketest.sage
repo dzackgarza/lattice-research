@@ -33,6 +33,13 @@ SMOKE_STATEMENTS = (
     ("Algebras(ZZ).TensorProducts() is an object of Cat()", lambda _: A().TensorProducts() in Cat()),
     ("Algebras(ZZ).DualObjects() is an object of Cat()", lambda _: A().DualObjects() in Cat()),
     ("Algebras(ZZ).HomCategory() is an object of Cat()", lambda _: A().HomCategory() in Cat()),
+    ("Algebras(ZZ).ParentMethods.subalgebra is admitted", lambda _: A().ParentMethods.subalgebra),
+    ("Algebras(ZZ).ParentMethods.left_ideal is admitted", lambda _: A().ParentMethods.left_ideal),
+    ("Algebras(ZZ).ParentMethods.right_ideal is admitted", lambda _: A().ParentMethods.right_ideal),
+    ("Algebras(ZZ).ParentMethods.two_sided_ideal is admitted", lambda _: A().ParentMethods.two_sided_ideal),
+    ("Algebras(ZZ).ParentMethods.principal_left_ideal is admitted", lambda _: A().ParentMethods.principal_left_ideal),
+    ("Algebras(ZZ).ParentMethods.principal_right_ideal is admitted", lambda _: A().ParentMethods.principal_right_ideal),
+    ("Algebras(ZZ).ParentMethods.principal_two_sided_ideal is admitted", lambda _: A().ParentMethods.principal_two_sided_ideal),
     (
         "Algebras(ZZ).Constructors().free_algebra_from_set({x, y}) is an algebra with basis",
         lambda _: A().Constructors().free_algebra_from_set(Sets().Constructors().FiniteEnumeratedSet(["x", "y"]))

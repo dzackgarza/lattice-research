@@ -81,12 +81,24 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def dims(self) -> tuple[Integer, Integer]: ...
 
         @abstract_method
-        def matrix(
-            self,
-            x: Matrix | RingElement | Sequence[RingElement] | Sequence[Sequence[RingElement]] | None = None,
-            *,
-            coerce: bool = True,
-        ) -> RingElement: ...
+        def matrix_from_matrix(self, matrix: Matrix, *, coerce: bool = True) -> RingElement:
+            r"""Return the matrix-algebra element represented by ``matrix``."""
+            ...
+
+        @abstract_method
+        def matrix_from_entries(self, entries: Sequence[RingElement], *, coerce: bool = True) -> RingElement:
+            r"""Return the matrix whose entries are listed in row-major order."""
+            ...
+
+        @abstract_method
+        def matrix_from_rows(self, rows: Sequence[Sequence[RingElement]], *, coerce: bool = True) -> RingElement:
+            r"""Return the matrix whose rows are ``rows``."""
+            ...
+
+        @abstract_method
+        def scalar_matrix(self, scalar: RingElement, *, coerce: bool = True) -> RingElement:
+            r"""Return the scalar matrix determined by ``scalar``."""
+            ...
 
         @abstract_method
         def rank(self) -> Integer: ...

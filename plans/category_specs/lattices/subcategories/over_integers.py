@@ -37,6 +37,11 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
         def short_vectors(self, bound: RingElement) -> SetFamily: ...
 
         @abstract_method
+        def short_vectors_up_to_sign(self, bound: RingElement) -> SetFamily:
+            r"""Return short vectors modulo the sign involution ``v |-> -v``."""
+            ...
+
+        @abstract_method
         def LLL(
             self,
             delta: RingElement | None = None,

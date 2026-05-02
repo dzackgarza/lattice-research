@@ -173,7 +173,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return base_module.tensor(tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym)
 
         @final
-        def from_components(
+        def _from_components(
             self,
             base_module: FreeModule,
             tensor_type: tuple[Integer, Integer],
@@ -206,7 +206,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             assert entries.nrows() == rank and entries.ncols() == rank, (
                 f"Tensor matrix must be {rank} by {rank}: {entries.nrows()} by {entries.ncols()}"
             )
-            return self.from_components(base_module, (0, 2), entries, name=name, latex_name=latex_name)
+            return self._from_components(base_module, (0, 2), entries, name=name, latex_name=latex_name)
 
         @final
         def _module_element_coordinates(self, base_module: FreeModule, element: RModuleElement) -> Sequence[RingElement]:
@@ -241,7 +241,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 [[output_coordinates[i][j][k] for j in range(rank)] for i in range(rank)]
                 for k in range(rank)
             ]
-            return self.from_components(base_module, (1, 2), components, name=name, latex_name=latex_name)
+            return self._from_components(base_module, (1, 2), components, name=name, latex_name=latex_name)
 
         @final
         def from_multidimensional_list(
@@ -254,7 +254,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             latex_name: str | None = None,
         ) -> Tensor:
             r"""Construct a tensor from nested component lists."""
-            return self.from_components(base_module, tensor_type, entries, name=name, latex_name=latex_name)
+            return self._from_components(base_module, tensor_type, entries, name=name, latex_name=latex_name)
 
         @final
         def from_matrices(
@@ -267,7 +267,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             latex_name: str | None = None,
         ) -> Tensor:
             r"""Construct a tensor whose components are supplied as matrices."""
-            return self.from_components(base_module, tensor_type, matrices, name=name, latex_name=latex_name)
+            return self._from_components(base_module, tensor_type, matrices, name=name, latex_name=latex_name)
 
     _Constructors = Constructors
 

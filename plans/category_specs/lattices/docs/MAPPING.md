@@ -96,6 +96,7 @@ The table answers: at what tier is each method first universally well-defined?
 | `maximum()` | `OverZZ + Free + Symmetric` | longest nonzero vector in compact regions |
 | `LLL()` | `OverZZ + Free + Symmetric` | LLL reduction; ZZ-specific |
 | `short_vectors(n)` | `OverZZ + Free + Symmetric` | ZZ-specific enumeration |
+| `short_vectors(n, up_to_sign_flag=True)` | `short_vectors_up_to_sign(n)` at the same tier | Sage forwards `**kwargs` to `QuadraticForm.short_vector_list_up_to_length`; the installed source exposes the single meaningful keyword `up_to_sign_flag`. The project splits that finite case into a named method instead of exposing a keyword bag. |
 | `quadratic_form()` | `Free + Symmetric` | convert to `QuadraticForm` object |
 | `rational_span()` | `Free + OverIntegralDomain` | `L ⊗_R Frac(R)` |
 | `base_change_to(ring)` | `Free + Bilinear` | change coefficient ring |

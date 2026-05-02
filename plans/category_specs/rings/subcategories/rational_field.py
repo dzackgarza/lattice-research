@@ -187,8 +187,13 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def discriminant(self, v: Sequence[RingElement] | None = None) -> Integer | RingElement:
-            return self.as_number_field().discriminant(v=v)
+        def discriminant(self) -> Integer:
+            return self.as_number_field().discriminant()
+
+        @override
+        @final
+        def trace_pairing_discriminant(self, elements: Sequence[RingElement]) -> RingElement:
+            return self.as_number_field().discriminant(v=elements)
 
         @override
         @final
@@ -230,8 +235,18 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def integral_basis(self, v: RingElement | Sequence[RingElement] | None = None) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis(v=v)
+        def integral_basis(self) -> tuple[RingElement, ...]:
+            return self.as_number_field().integral_basis()
+
+        @override
+        @final
+        def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
+            return self.as_number_field().integral_basis(v=prime)
+
+        @override
+        @final
+        def integral_basis_at_primes(self, primes: Sequence[Integer]) -> tuple[RingElement, ...]:
+            return self.as_number_field().integral_basis(v=primes)
 
         @override
         @final
@@ -316,19 +331,53 @@ class _QQ(Category_singleton):
         @final
         def ring_of_integers(
             self,
-            v: Integer | Sequence[Integer] | None = None,
             assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().ring_of_integers(v=v, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+
+        @override
+        @final
+        def ring_of_integers_at_prime(
+            self,
+            prime: Integer,
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            return self.as_number_field().maximal_order(v=prime, assume_maximal=assume_maximal)
+
+        @override
+        @final
+        def ring_of_integers_at_primes(
+            self,
+            primes: Sequence[Integer],
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            return self.as_number_field().maximal_order(v=primes, assume_maximal=assume_maximal)
 
         @override
         @final
         def maximal_order(
             self,
-            v: Integer | Sequence[Integer] | None = None,
             assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(v=v, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+
+        @override
+        @final
+        def maximal_order_at_prime(
+            self,
+            prime: Integer,
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            return self.as_number_field().maximal_order(v=prime, assume_maximal=assume_maximal)
+
+        @override
+        @final
+        def maximal_order_at_primes(
+            self,
+            primes: Sequence[Integer],
+            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+        ) -> Ring:
+            return self.as_number_field().maximal_order(v=primes, assume_maximal=assume_maximal)
 
         @override
         @final

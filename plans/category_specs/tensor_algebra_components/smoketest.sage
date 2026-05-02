@@ -60,8 +60,9 @@ SMOKE_STATEMENTS = (
     ("component_module(M, (1, 1)) refines to tensor components", lambda _: constructors.component_module(M, (1, 1)) in C),
     ("tensor(M, (1, 1)) has tensor-component parent", lambda _: constructors.tensor(M, (1, 1), name="u").parent() in C),
     (
-        "from_components(M, (1, 1), ...) returns a (1,1) tensor",
-        lambda _: constructors.from_components(M, (1, 1), [[1, 0], [0, 1]], name="c").tensor_type() == (1, 1),
+        "from_multidimensional_list(M, (1, 1), ...) returns a (1,1) tensor",
+        lambda _: constructors.from_multidimensional_list(M, (1, 1), [[1, 0], [0, 1]], name="c").tensor_type()
+        == (1, 1),
     ),
     ("component module recovers base module", lambda _: identity_tensor().parent().base_module() is M),
     ("component module has tensor type", lambda _: identity_tensor().parent().tensor_type() == (1, 1)),

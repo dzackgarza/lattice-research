@@ -17,15 +17,36 @@ category-spec hierarchy.
 | Quotient modules and FGP modules | `Modules(R).Quotients()` plus finite-presentation/base-ring refinements | Quotients are construction categories attachable to arbitrary module subcategories. |
 | Ring objects viewed as modules | `Modules(R).Constructors().RingObjectAsModule(...)` | The ring object supplies the module structure; ring-specific methods remain in `rings`. |
 
-Constructor signatures should expose the structured Sage inputs from
-`docs/SAGE_INVENTORY.md`. For example, `FreeModule` takes
-`rank_or_basis_keys`, `sparse`, `inner_product_matrix`, `with_basis`, `rank`, and
-`basis_keys`; `VectorSpace` takes the analogous dimension/basis-key parameters; and
-`FreeQuadraticModule` takes `rank`, `inner_product_matrix`, `sparse`, and
-`inner_product_ring`. When upstream Sage implements these surfaces with `*args` or
-`**kwds`, the spec should not mirror that plumbing unless the written Sage
-documentation proves a genuinely open-ended mathematical input family. The target
-surface is the finite documented casework.
+Constructor signatures expose the finite Sage input casework as named methods instead
+of mirroring Sage's positional dispatch. The canonical rank constructors stay named
+`FreeModule(rank=...)`, `VectorSpace(dimension=...)`, and
+`FreeQuadraticModule(rank=..., inner_product_matrix=...)`. The other documented Sage
+paths are split into `FreeModuleWithBasisKeys`, `FreeModuleWithoutBasis`,
+`FreeModuleWithInnerProductRows`, `FreeModuleWithInnerProductEntries`,
+`VectorSpaceWithBasisKeys`, `VectorSpaceWithoutBasis`,
+`VectorSpaceWithInnerProductRows`, `VectorSpaceWithInnerProductEntries`,
+`FreeQuadraticModuleFromRows`, and `FreeQuadraticModuleFromEntries`. Sage's
+`inner_product_ring` path is not public because the installed Sage source immediately
+raises `NotImplementedError`.
+
+`FPModule(arg0, ...)` splits into `FPModuleFromPresentation(algebra=...)`,
+`FPModuleFromCokernelMap(defining_map=...)`, and
+`FPModuleFromFreeGradedModule(module=...)`; `FPModule(algebra, generator_degrees, ...)`
+is retained only for the presentation case. `IntegerLattice(basis, ...)` splits into
+`IntegerLatticeFromBasisMatrix`, `IntegerLatticeFromBasisRows`, and
+`IntegerLatticeFromOrderElement`. `TorsionQuadraticForm(q)` splits into matrix and
+row-list routes, with the public Sage-compatible name reserved for the matrix case.
+Quotient construction similarly splits Sage's `quotient_module` data shapes into
+`quotient_by_submodule`, `quotient_by_generators`,
+`quotient_by_relation_matrix`, and `quotient_by_relation_rows`.
+
+Ring-as-module constructors mirror the ring constructor split: polynomial
+`var_array` admits only one generator-count integer, power-series construction splits
+univariate and multivariate routes, and Laurent/Puiseux series expose explicit
+constructors from their underlying power/Laurent series rings. When upstream Sage
+implements a surface with `*args` or `**kwds`, the spec does not mirror that plumbing
+unless the written Sage documentation proves a genuinely open-ended mathematical input
+family.
 
 Integer-valued module data uses `Integer`, not `int | Integer`: ranks, dimensions,
 tensor powers, tensor types, start indices, graded generator degrees, polynomial
@@ -37,6 +58,15 @@ Generating sets, coordinate vectors, tensor symmetry data, and element-class hoo
 spelled directly as sequences, module elements, tuples, or element classes unless the
 name introduces an independent mathematical noun such as `ModuleBasis` or
 `Cardinality`.
+
+Sage's `CombinatorialFreeModule(..., **kwds)` keyword bag is not copied as a project
+constructor surface. The admitted constructor data is the basis-key set, optional
+element class, optional category refinement, prefix, and names. Remaining Sage
+keywords are display/provenance options for `IndexedGenerators` (`bracket`,
+`latex_bracket`, `latex_names`, old monomial ordering aliases, `key`, and related
+print controls). They are recovered through the Sage parent and its
+`print_options(...)` API, not through category constructors; basis/order mathematics is
+mapped to the basis and ordered-generating-set surfaces below.
 
 ## Tensor Component Duals And Forms
 
