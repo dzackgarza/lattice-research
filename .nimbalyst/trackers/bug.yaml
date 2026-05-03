@@ -1,14 +1,14 @@
-type: task
-displayName: Task
-displayNamePlural: Tasks
-icon: task_alt
-color: "#10b981"
+type: bug
+displayName: Bug
+displayNamePlural: Bugs
+icon: bug_report
+color: "#dc2626"
 
 modes:
   inline: true
   fullDocument: true
 
-idPrefix: tsk
+idPrefix: bug
 
 fields:
   - name: title
@@ -20,7 +20,7 @@ fields:
     default: to-do
     options:
       - value: to-do
-        label: Not Started
+        label: To Do
         icon: circle
       - value: in-progress
         label: In Progress
@@ -41,17 +41,10 @@ fields:
       - value: critical
         label: Critical
 
+  - name: owner
+    type: string
+
   - name: description
     type: text
-
-  - name: complexity
-    type: number
-    min: 0
-    max: 100
-
-  - name: progress
-    type: number
-    min: 0
-    max: 100
 
 inlineTemplate: "{icon} {title} {status} {priority}"

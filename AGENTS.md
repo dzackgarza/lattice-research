@@ -32,20 +32,84 @@ it or attach the durable artifact containing it.
 
 ## Nimbalyst Tracker Workflow
 
-### Two tracker item modes
+### Repository convention for tracker docs
 
-**Inline items** — for built-in types (`task`, `bug`, `plan`, `decision`, `feature`, `idea`).
-Write them directly into `nimbalyst-local/tracker/tasks.md` (or the matching `[type]s.md`):
+All planning, organization, task, bug, feature, spec, and decision documents for this repo must live under `.agents` and be organized into broad categories.
+
+- `.agents/plans/` for sprint/plan execution documents.
+- `.agents/decisions/` for documented decisions.
+- `.agents/tasks/{implementation,spec,research}` for task/bug/feature/idea work items.
+
+Do not split or mirror these by adding extra nesting layers that only track process.
+Do not create separate index files (e.g., repo-level `tasks.md` or task inventories); the GUI is already the index. Use GUI filtering/search for agent-facing work, and use CLI/YAML parsing directly against `.agents` only when scripting is needed.
+
+A plan is not a task container. A plan should define high-level phases and milestones, with each phase referencing dedicated task files where execution details live.
+
+### How a markdown doc becomes a tracker item
+
+Use YAML frontmatter in the markdown file and keep metadata in `trackerStatus`, not `trackingStatus`.
 
 ```markdown
-- Remove raw ConditionSet from Aut surface #task[id:task_1777748120385_rrvdig status:to-do priority:high created:2026-05-02]
-  Description indented with 2+ spaces.
+---
+trackerStatus:
+  type: task
+title: Remove raw ConditionSet from Aut category surface
+status: to-do
+priority: medium
+tags: [category-specs, backlog]
+created: '2026-05-03'
+complexity: 40
+progress: 10
+---
+
+# Remove raw ConditionSet from Aut category surface
+
+...body...
+```
+
+Minimal viable frontmatter is just:
+
+```markdown
+---
+trackerStatus:
+  type: bug
+title: Fix ring constructor return typing
+---
+```
+
+Accepted `trackerStatus.type` values for this repo are those with schemas in
+`.nimbalyst/trackers/*.yaml` (currently:
+`automation`, `bug`, `decision`, `feature`, `idea`, `plan`, `task`).
+
+These schema files are what the app uses to register tracker types and enable GUI pickup. A malformed/incomplete schema is dropped silently and its tracker type stops appearing in the GUI.
+
+Do not use the `create_task`/`tracker_create` flows for these items. Create or update the markdown file directly under `.agents` so the file is the source of truth and is reloaded by the GUI indexer.
+For longer-term planning, a plan file may reference broken-out task files and phase owners, but each action item must ultimately exist as its own full task file.
+
+### Two tracker item modes
+
+**Avoid inline items in general.** Use inline entries only as temporary placeholders while a broader task is being discovered and a full tracker file is being prepared.
+
+Inline items define a task but provide little context by construction. Any inline item that is ready to be solved, assigned, or actively worked on must be converted into a full markdown file under `.agents/tasks/...` before execution.
+
+**Inline items** — for built-in types (`task`, `bug`, `plan`, `decision`, `feature`, `idea`) in schema terms.
+Do not use inline entries as a final execution artifact.
+
+```markdown
+---
+trackerStatus:
+  type: bug
+title: Remove raw ConditionSet from Aut surface
+status: to-do
+---
+
+## ... body content ...
 ```
 
 The indexer (`ElectronDocumentService`) scans every markdown file for lines matching
 `(.+?)\s+``#type``[...]` and upserts them into PGLite automatically.
 
-Do **not** call `tracker_create` for inline items — that creates a database-only entry with
+Do **not** call `create_task`/`tracker_create` for inline items — that creates a database-only entry with
 no backing file and produces a duplicate.
 
 **Full-document items** — for custom types (`spec-work`, `sprint-work`, `implementation-work`,

@@ -1,14 +1,19 @@
-type: task
-displayName: Task
-displayNamePlural: Tasks
-icon: task_alt
+type: feature
+displayName: Feature
+displayNamePlural: Features
+icon: rocket_launch
 color: "#10b981"
 
 modes:
   inline: true
   fullDocument: true
 
-idPrefix: tsk
+sync:
+  mode: shared
+  scope: project
+
+idPrefix: feat
+idFormat: ulid
 
 fields:
   - name: title
@@ -20,11 +25,15 @@ fields:
     default: to-do
     options:
       - value: to-do
-        label: Not Started
+        label: To Do
         icon: circle
       - value: in-progress
         label: In Progress
         icon: motion_photos_on
+      - value: in-review
+        label: In Review
+        icon: rate_review
+        color: "#3b82f6"
       - value: done
         label: Done
         icon: check_circle
@@ -41,17 +50,24 @@ fields:
       - value: critical
         label: Critical
 
+  - name: owner
+    type: user
+
   - name: description
     type: text
 
-  - name: complexity
-    type: number
-    min: 0
-    max: 100
+  - name: releaseVersion
+    type: string
+    displayInline: true
 
-  - name: progress
-    type: number
-    min: 0
-    max: 100
+  - name: releaseNotes
+    type: text
 
-inlineTemplate: "{icon} {title} {status} {priority}"
+inlineTemplate: "{icon} {title} {status} {releaseVersion}"
+
+roles:
+  title: title
+  workflowStatus: status
+  priority: priority
+  assignee: owner
+  tags: tags
