@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior
   and boundary through TopologicalSpaces
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- sets
+- realset
+- topology
+- theme-sets-topology
 ---
+
 # Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces
 ## Summary
 
@@ -12,8 +24,8 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 
 ## Source Provenance
 
-- `plans/category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md`.
-- Original migrated line: `Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces from plans/category_specs/topological_spaces/docs/TRIAGE.md`
+- `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
+- Original migrated line: `Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces from category_specs/topological_spaces/docs/TRIAGE.md`
 
 ## Context
 

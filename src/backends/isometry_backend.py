@@ -19,12 +19,12 @@ The binary lives at ``src/external/bin/INDEF_FORM_TestEquivalence`` inside
 this repository.  See ``src/external/README.md`` for installation instructions.
 
 Sources:
-- Repo theory note: ``theory/THEORY.md``, section ``Nikulin classification``
+- Repo theory note: ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
 - Expository source used in the repo's notation: Alexeev--Engel--Garza--Schaffler,
   ``§9.2``
 - Primary source: V. V. Nikulin, ``Integer Symmetric Bilinear Forms and Some of
   Their Geometric Applications`` (1979), Theorem ``1.14.2``
-- Backend research note: ``theory/indefinite_isometry_backend.md``
+- Backend research note: ``theory/backends/indefinite-isometry.md``
 - Upstream software:
   `MathieuDutSik/polyhedral_common`, ``src_indefinite/INDEF_FORM_TestEquivalence``
 """
@@ -47,7 +47,7 @@ class LatticeIsometryBackend:
         lattices defer to Sage, surviving indefinite even ``2``-elementary
         lattices use Nikulin's classification by ``(r, a, delta)``, and the
         remaining indefinite cases delegate to the Dutour `Indefinite.jl`
-        witness search recorded in ``theory/indefinite_isometry_backend.md``.
+        witness search recorded in ``theory/backends/indefinite-isometry.md``.
         """
         assert left.base_ring() is ZZ
         assert right.base_ring() is ZZ
@@ -113,7 +113,7 @@ class LatticeIsometryBackend:
         Nikulin branch for even indefinite ``2``-elementary lattices.
 
         Sources:
-        - ``theory/THEORY.md``, section ``Nikulin classification``
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
         """
@@ -129,7 +129,7 @@ class LatticeIsometryBackend:
         back the witness matrix (a Python literal), and verifies it over ``ZZ``.
 
         Sources:
-        - ``theory/indefinite_isometry_backend.md``
+        - ``theory/backends/indefinite-isometry.md``
         - `MathieuDutSik/polyhedral_common`, ``src_indefinite/``
         """
         cache_key = (self._gram_key(left), self._gram_key(right))

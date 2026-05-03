@@ -1,0 +1,34 @@
+---
+name: research-code-style
+description: Use when writing, reviewing, or refactoring research repo code, tests,
+  mathematical APIs, Sage/Pydantic surfaces, or contribution-style compliance.
+---
+
+# Research Code Style
+
+This skill is the canonical agent-facing contribution and code-style authority for the research repo.
+
+## Canonical source
+
+The source of truth is this skill plus `references/code-style.md`.
+
+Read `references/code-style.md` before writing, reviewing, or refactoring mathematical code, tests, Sage/Pydantic surfaces, backend wrappers, constructors, equality semantics, assertions, or contribution-style compliance.
+
+## Core policy
+
+- Code must read like mathematical prose and follow definitions or theorems where possible.
+- Prefer assertions of mathematical preconditions over exceptions and defensive recovery.
+- Delegate nontrivial mathematics to Sage, GAP, Julia, Singular, Lean, or other trusted exact implementations instead of re-deriving it locally.
+- Avoid backward-compatibility shims, convenience aliases, needless indirection, optional arguments, broad types, re-export files, dataclasses, and unsourced manual calculations.
+- Use one source of truth for constructions, semantic membership checks, equality, validation, and backend boundaries.
+- Tests for nontrivial mathematics must be sourced and must prove mathematical correctness rather than encoding agent assumptions.
+
+## Routing
+
+- Load `category-spec-style` as well when the work touches `category_specs` specs, category surfaces, constructors, smoke files, or Sage mapping.
+- Load `research-orchestration` when work enters state-machine execution, delegation, self-check, or adversarial audit.
+- Load `task` or `track` when a style or correctness finding must become a Nimbalyst card.
+
+## Stop conditions
+
+Stop and surface the issue instead of patching locally when the public mathematical vocabulary lacks the noun, method, morphism, constructor, coercion, or backend bridge needed to express the task cleanly.

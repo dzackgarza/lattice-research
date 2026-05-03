@@ -3,7 +3,21 @@ trackerStatus:
   type: feature
 title: Audit the variadic signature scoping result and open owner-specific follow-ups
   for any public surface still using placeholder collapsed Sage casework
+status: to-do
+priority: critical
+planId: PLN-AUDIT-000
+tags:
+- category-specs
+- spec
+- feature
+- sage
+- rings
+- precision
+- signatures
+- audit
+- theme-audit-uniformity
 ---
+
 # Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework
 ## Summary
 
@@ -12,8 +26,8 @@ collapsed Sage casework or raw coordinate interop into broad signatures.
 
 ## Source Provenance
 
-- `plans/category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md`.
-- Original migrated line: `Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework from plans/category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md`
+- `category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md`.
+- Original migrated line: `Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework from category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md`
 
 ## Context
 

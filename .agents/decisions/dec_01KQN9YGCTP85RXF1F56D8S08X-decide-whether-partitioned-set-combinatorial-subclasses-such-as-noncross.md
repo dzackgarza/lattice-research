@@ -4,7 +4,17 @@ trackerStatus:
 title: Decide whether partitioned-set combinatorial subclasses such as noncrossing
   and atomic become axiomatic subcategories in the current set-partition pass or a
   later pass
+status: to-do
+tags:
+- category-specs
+- decision
+- sets
+- partitions
+- set-partitions
+- needs-decision
+- theme-decisions
 ---
+
 # Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass
 ## Summary
 
@@ -13,8 +23,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

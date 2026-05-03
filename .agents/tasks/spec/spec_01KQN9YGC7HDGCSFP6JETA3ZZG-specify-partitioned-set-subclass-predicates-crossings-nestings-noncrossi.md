@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Specify partitioned-set subclass predicates crossings nestings noncrossing
   nonnesting and atomic only after subcategory admission
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- sets
+- partitions
+- theme-constructor-routing
 ---
+
 # Specify partitioned-set subclass predicates crossings nestings noncrossing nonnesting and atomic only after subcategory admission
 ## Summary
 
@@ -12,8 +23,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Specify partitioned-set subclass predicates crossings nestings noncrossing nonnesting and atomic only after subcategory admission from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Specify partitioned-set subclass predicates crossings nestings noncrossing nonnesting and atomic only after subcategory admission from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

@@ -1,5 +1,5 @@
 [submodule "carat"]
-	path = carat
+	path = src/backends/external/carat
 	url = https://github.com/lbfm-rwth/carat.git
 [submodule "polyhedral_common"]
 	path = theory/dutsik_polyhedral/polyhedral_common

@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose
   methods have real mathematical owners
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+tags:
+- category-specs
+- spec
+- feature
+- sage
+- modules
+- wrappers
+- mapping
+- theme-modules-tensors
 ---
+
 # Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners
 ## Summary
 
@@ -13,8 +26,8 @@ then delete wrappers.
 
 ## Source Provenance
 
-- `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
-- Original migrated line: `Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners from plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+- `category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
+- Original migrated line: `Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners from category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
 
 ## Context
 

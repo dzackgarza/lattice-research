@@ -446,7 +446,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         still records the ``2``-primary rank of ``A_L``.
 
         Sources:
-        - ``theory/THEORY.md``, section ``Nikulin classification``
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
         """
@@ -465,7 +465,7 @@ class DiscriminantGroup(_DiscriminantGroupBase):
         the even indefinite ``2``-elementary theorem domain.
 
         Sources:
-        - ``theory/THEORY.md``, section ``Nikulin classification``
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
         """
@@ -827,7 +827,7 @@ class Lattice(_LatticeBase):
         integral-isometry backend.
 
         Sources:
-        - ``theory/THEORY.md``, discussion of genera and Nikulin's uniqueness
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, discussion of genera and Nikulin's uniqueness
           theorem
         - Sage genus documentation for integral quadratic forms
         """
@@ -842,13 +842,13 @@ class Lattice(_LatticeBase):
         lattices use Nikulin's classification by signature and
         ``(r, a, delta)``. The remaining indefinite cases are delegated to the
         Dutour `Indefinite.jl` backend documented in
-        ``theory/indefinite_isometry_backend.md``.
+        ``theory/backends/indefinite-isometry.md``.
 
         Sources:
-        - ``theory/THEORY.md``, section ``Nikulin classification``
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
-        - Generic indefinite backend: ``theory/indefinite_isometry_backend.md``
+        - Generic indefinite backend: ``theory/backends/indefinite-isometry.md``
         """
         right_lattice = self._coerce_lattice(other)
         assert right_lattice.base_ring() is ZZ
@@ -862,7 +862,7 @@ class Lattice(_LatticeBase):
         ``2``-elementary theorem domain.
 
         Sources:
-        - ``theory/THEORY.md``, section ``Nikulin classification``
+        - ``theory/foundations/reflective-two-elementary-lattices.md``, section ``Nikulin classification``
         - Alexeev--Engel--Garza--Schaffler, ``§9.2``
         - Nikulin (1979), Theorem ``1.14.2``
         """

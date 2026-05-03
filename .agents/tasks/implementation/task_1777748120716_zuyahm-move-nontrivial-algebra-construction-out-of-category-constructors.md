@@ -2,7 +2,19 @@
 trackerStatus:
   type: task
 title: Move nontrivial algebra construction out of category constructors
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- constructors
+- algebras
+- theme-constructor-routing
 ---
+
 # Move nontrivial algebra construction out of category constructors
 Source: pasted backlog 2026-05-02.
 

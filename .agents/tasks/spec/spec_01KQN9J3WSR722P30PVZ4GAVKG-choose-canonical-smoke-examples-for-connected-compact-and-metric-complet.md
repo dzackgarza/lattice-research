@@ -3,7 +3,17 @@ trackerStatus:
   type: feature
 title: Choose canonical smoke examples for Connected Compact and Metric Complete topological
   subcategories
+status: to-do
+priority: critical
+tags:
+- category-specs
+- spec
+- feature
+- smoke
+- topology
+- theme-sets-topology
 ---
+
 # Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories
 ## Summary
 
@@ -12,8 +22,8 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 
 ## Source Provenance
 
-- `plans/category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md`.
-- Original migrated line: `Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories from plans/category_specs/topological_spaces/docs/TRIAGE.md`
+- `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
+- Original migrated line: `Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories from category_specs/topological_spaces/docs/TRIAGE.md`
 
 ## Context
 

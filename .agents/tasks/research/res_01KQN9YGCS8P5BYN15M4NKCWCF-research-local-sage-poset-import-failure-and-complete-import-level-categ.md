@@ -1,9 +1,24 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Research local Sage poset import failure and complete import-level category
   introspection for semilattice evidence
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- sage
+- sets
+- posets
+- lattices
+- imports
+- theme-posets-partitions
 ---
+
 # Research local Sage poset import failure and complete import-level category introspection for semilattice evidence
 ## Summary
 
@@ -13,8 +28,8 @@ semilattice category introspection.
 
 ## Source Provenance
 
-- `plans/category_specs/posets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/posets/docs/TRIAGE.md`.
-- Original migrated line: `Research local Sage poset import failure and complete import-level category introspection for semilattice evidence from plans/category_specs/posets/docs/TRIAGE.md`
+- `category_specs/posets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/posets/docs/TRIAGE.md`.
+- Original migrated line: `Research local Sage poset import failure and complete import-level category introspection for semilattice evidence from category_specs/posets/docs/TRIAGE.md`
 
 ## Context
 

@@ -1,0 +1,24 @@
+---
+name: category-framework-design
+description: Use when designing or reviewing category refinement order, Sage category creation, Hom/End/Aut structures, autsets, WithGenerators/FinitelyPresented axioms, dual-object routing, or constructor interception policy.
+---
+
+# Category Framework Design
+
+This skill owns Sage category-framework design references migrated from the retired `plans/` directory.
+
+## Load references by task
+
+- `references/category-refinement-phases.md`: load before staging category hierarchy, concrete interceptors, or top-level constructor redefinitions.
+- `references/category-creation-notes.md`: load for `_refine_category_`, `Category_singleton`, `Category_over_base_ring`, and category cache behavior.
+- `references/axioms-with-generators-finitely-presented.md`: load for WithGenerators, FinitelyPresented, Dedekind/PID module categories, Homsets, Endsets, Autsets, and corrected axiom hierarchy.
+- `references/homsets-structural-core.md`: load for Homsets as module objects, dual modules, Endset algebra structure, and rank semantics.
+- `references/autset-categories-path.md`: load for source-backed Autset admission and Endset construction path.
+- `references/autset-integration-plan.md`: load when decomposing Autset implementation cards.
+
+## Hard rules
+
+- Static hierarchy and method surface come before constructor interception.
+- Runtime inspection may inform the source map but must not become generic runtime discovery in the spec.
+- Autsets are structural category objects below Endsets, not ad hoc group wrappers.
+- Dual-object routing must reflect the mathematical Hom object when applicable.

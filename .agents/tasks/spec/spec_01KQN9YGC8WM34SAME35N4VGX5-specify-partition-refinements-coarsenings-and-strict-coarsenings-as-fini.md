@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Specify partition refinements coarsenings and strict coarsenings as finite
   subsets refining through set constructors
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- constructors
+- sets
+- partitions
+- theme-constructor-routing
 ---
+
 # Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors
 ## Summary
 
@@ -12,8 +24,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

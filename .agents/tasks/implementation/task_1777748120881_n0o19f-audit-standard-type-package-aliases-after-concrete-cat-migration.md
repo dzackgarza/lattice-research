@@ -2,7 +2,20 @@
 trackerStatus:
   type: task
 title: Audit standard type-package aliases after concrete Cat migration
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- cat
+- types
+- audit
+- theme-audit-uniformity
 ---
+
 # Audit standard type-package aliases after concrete Cat migration
 Source: pasted backlog 2026-05-02.
 

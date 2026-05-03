@@ -1,15 +1,25 @@
-# src/external
+# src/backends/external
 
 Vendored third-party binaries and Python wrappers used by the research codebase.
 This directory is excluded from repo quality-control checks.
+
+## carat/ — CARAT submodule
+
+`carat/` is the upstream CARAT submodule from
+`https://github.com/lbfm-rwth/carat.git`.
+
+Use it only through documented backend-routing work. The repo capability audit is
+`theory/backends/carat.md`; the important boundary is that CARAT is useful for
+positive-definite form automorphism/isometry work and finite matrix-group auxiliary
+work, not as a general indefinite lattice backend.
 
 ## py_polyhedral/ — Python wrapper
 
 `py_polyhedral/` is vendored from
 [MathieuDutSik/py_polyhedral](https://github.com/MathieuDutSik/py_polyhedral),
-modified so `get_binary_path` resolves against `src/external/bin/`.
+modified so `get_binary_path` resolves against `src/backends/external/bin/`.
 All Python code in the research codebase accesses polyhedral_common binaries
-through this wrapper (e.g. `from src.external.py_polyhedral import indefinite_form_test_equivalence`).
+through this wrapper.
 Missing binaries raise `FileNotFoundError` at call time with a pointer to this file.
 
 ## bin/ — polyhedral_common binaries

@@ -1,0 +1,121 @@
+// Copyright (C) 2022 Mathieu Dutour Sikiric <mathieu.dutour@gmail.com>
+#ifndef SRC_SHORT_SHORT_SHORTESTCONFIGSTABEQUICANINV_H_
+#define SRC_SHORT_SHORT_SHORTESTCONFIGSTABEQUICANINV_H_
+
+// clang-format off
+#include "Shvec_exact.h"
+#include "LatticeStabEquiCan.h"
+// clang-format on
+
+template <typename Tint> struct SHVreduced {
+  MyMatrix<Tint> SHVred;
+  MyMatrix<Tint> ReductionMatrix;
+};
+
+template <typename Tint>
+SHVreduced<Tint> SHORT_GetLLLreduction_Kernel(MyMatrix<Tint> const &eSHV,
+                                              std::ostream &os) {
+  int n = eSHV.rows();
+  int nbVect = eSHV.cols();
+  using Tfield = typename overlying_field<Tint>::field_type;
+  auto GetGram = [&](MyMatrix<Tint> const &uSHV) -> MyMatrix<Tfield> {
+    MyMatrix<Tfield> TheGram = ZeroMatrix<Tfield>(n, n);
+    for (int iVect = 0; iVect < nbVect; iVect++)
+      for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+          TheGram(i, j) += uSHV(iVect, i) * uSHV(iVect, j);
+    return TheGram;
+  };
+  MyMatrix<Tfield> TheGram = GetGram(eSHV);
+  LLLreduction<Tfield, Tint> res = LLLreducedBasis<Tfield, Tint>(TheGram, os);
+  MyMatrix<Tfield> TheRemainder = res.GramMatRed;
+  MyMatrix<Tint> TheTrans = res.Pmat;
+  MyMatrix<Tint> Pmat = TransposedMat(TheTrans);
+  MyMatrix<Tint> eSHVred = eSHV * Pmat;
+#ifdef SANITY_CHECK_SHORTEST_CONFIG
+  if (!TestEqualityMatrix(GetGram(eSHVred), TheRemainder)) {
+    std::cerr << "SHORT: Matrix error somewhere\n";
+    throw TerminalException{1};
+  }
+#endif
+  return {std::move(eSHVred), std::move(Pmat)};
+}
+
+template <typename T, typename Tint> struct ShortIso {
+  MyMatrix<T> GramMat;
+  MyMatrix<Tint> SHVdisc;
+};
+
+template <typename T, typename Tint>
+MyMatrix<T> SHORT_GetGram(MyMatrix<Tint> const &M, [[maybe_unused]] std::ostream &os) {
+  int n = M.cols();
+  int nbVect = M.rows();
+#ifdef DEBUG_SHORTEST_CONFIG
+  os << "nbVect=" << nbVect << "\n";
+#endif
+  MyMatrix<T> Amat = ZeroMatrix<T>(n, n);
+  for (int iVect = 0; iVect < nbVect; iVect++) {
+    MyVector<Tint> eVect_Tint = GetMatrixRow(M, iVect);
+    MyVector<T> eVect_T = UniversalVectorConversion<T, Tint>(eVect_Tint);
+    MyMatrix<T> pMat = RankOneMatrix(eVect_T);
+    Amat += pMat;
+  }
+  MyMatrix<T> TheGramMat = Inverse(Amat);
+  return TheGramMat;
+}
+
+template <typename T, typename Tint>
+ShortIso<T, Tint> SHORT_GetInformation(MyMatrix<Tint> const &M,
+                                       std::ostream &os) {
+  MyMatrix<T> TheGramMat = SHORT_GetGram<T,Tint>(M, os);
+  MyMatrix<Tint> SHV =
+      ExtractInvariantVectorFamilyZbasis<T, Tint>(TheGramMat, os);
+  MyMatrix<Tint> Mc1 = 2 * M;
+  MyMatrix<Tint> Mc2 = -2 * M;
+  MyMatrix<Tint> Mcopy = Concatenate(Mc1, Mc2);
+  MyMatrix<Tint> SHVret = Concatenate(SHV, Mcopy);
+  return {std::move(TheGramMat), std::move(SHVret)};
+}
+
+template <typename T, typename Tint>
+std::optional<MyMatrix<Tint>> SHORT_TestEquivalence(MyMatrix<Tint> const &M1,
+                                                    MyMatrix<Tint> const &M2,
+                                                    std::ostream &os) {
+  ShortIso<T, Tint> eRec1 = SHORT_GetInformation<T, Tint>(M1, os);
+  ShortIso<T, Tint> eRec2 = SHORT_GetInformation<T, Tint>(M2, os);
+  return ArithmeticEquivalence_inner<T, Tint>(eRec1.GramMat, eRec1.SHVdisc,
+                                              eRec2.GramMat, eRec2.SHVdisc, os);
+}
+
+template <typename T, typename Tint, typename Tgroup>
+std::vector<MyMatrix<Tint>> SHORT_GetStabilizer(MyMatrix<Tint> const &M,
+                                                std::ostream &os) {
+  ShortIso<T, Tint> eRec1 = SHORT_GetInformation<T, Tint>(M, os);
+  return ArithmeticAutomorphismGroup_inner<T, Tint, Tgroup>(eRec1.GramMat,
+                                                            eRec1.SHVdisc, os);
+}
+
+template <typename T, typename Tint>
+MyMatrix<Tint> SHORT_Canonicalize(MyMatrix<Tint> const &M, std::ostream &os) {
+  ShortIso<T, Tint> eRec1 = SHORT_GetInformation<T, Tint>(M, os);
+  std::vector<MyMatrix<T>> ListMat{eRec1.GramMat};
+  MyMatrix<Tint> Basis = ComputeCanonicalForm_inner<T, Tint>(ListMat, eRec1.SHVdisc, os);
+  MyMatrix<Tint> BasisInv = Inverse(Basis);
+  MyMatrix<Tint> M_can = M * BasisInv;
+  return M_can;
+}
+
+template <typename T, typename Tint>
+size_t SHORT_Invariant(MyMatrix<Tint> const &eSpann, std::ostream &os) {
+  ShortIso<T, Tint> eShIso = SHORT_GetInformation<T, Tint>(eSpann, os);
+  size_t seed = 146;
+  std::vector<MyMatrix<T>> ListMat{eShIso.GramMat};
+  MyMatrix<T> SHV_T = UniversalMatrixConversion<T,Tint>(eShIso.SHVdisc);
+  int n_row = SHV_T.rows();
+  std::vector<T> Vdiag(n_row, 0);
+  return GetInvariant_ListMat_Vdiag<T, T>(seed, SHV_T, ListMat, Vdiag, os);
+}
+
+// clang-format off
+#endif  // SRC_SHORT_SHORT_SHORTESTCONFIGSTABEQUICANINV_H_
+// clang-format on

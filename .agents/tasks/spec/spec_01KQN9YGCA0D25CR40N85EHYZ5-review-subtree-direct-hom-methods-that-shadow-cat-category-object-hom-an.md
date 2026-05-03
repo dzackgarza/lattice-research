@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Review subtree direct Hom methods that shadow Cat category-object Hom and specify
   the uniform owner
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+tags:
+- category-specs
+- spec
+- feature
+- hom-end-aut
+- cat
+- forms
+- theme-category-core
 ---
+
 # Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner
 ## Summary
 
@@ -12,8 +24,8 @@ work for category-object Hom behavior and functor/autofunctor modeling.
 
 ## Source Provenance
 
-- `plans/category_specs/cat/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/cat/docs/TRIAGE.md`.
-- Original migrated line: `Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner from plans/category_specs/cat/docs/TRIAGE.md`
+- `category_specs/cat/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/cat/docs/TRIAGE.md`.
+- Original migrated line: `Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner from category_specs/cat/docs/TRIAGE.md`
 
 ## Context
 

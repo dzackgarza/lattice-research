@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Design and scaffold TwistedForms as the form-object category for modules with
   forms
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+phasePlan: PLN-LAT-020
+tags:
+- category-specs
+- spec
+- feature
+- modules
+- forms
+- theme-modules-tensors
 ---
+
 # Design and scaffold TwistedForms as the form-object category for modules with forms
 ## Summary
 

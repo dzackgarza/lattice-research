@@ -1,8 +1,18 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Implement and validate the isotropic Gamma orbit backend plan
+status: to-do
+priority: medium
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- research-backend
+- theme-research-sources
 ---
+
 # Implement and validate the isotropic Gamma orbit backend plan
 ## Summary
 
@@ -12,8 +22,8 @@ splitting.
 
 ## Source Provenance
 
-- `theory/isotropic_gamma_orbit_backend_plan.md`
-- Original migrated line: `Implement and validate the isotropic Gamma orbit backend plan from theory/isotropic_gamma_orbit_backend_plan.md`
+- `theory/algorithms/isotropic-gamma-orbit-backend.md`
+- Original migrated line: `Implement and validate the isotropic Gamma orbit backend plan from theory/algorithms/isotropic-gamma-orbit-backend.md`
 
 ## Context
 

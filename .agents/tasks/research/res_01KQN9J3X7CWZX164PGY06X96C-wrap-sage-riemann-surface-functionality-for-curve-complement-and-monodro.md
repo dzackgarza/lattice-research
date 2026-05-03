@@ -1,9 +1,20 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Wrap Sage Riemann surface functionality for curve-complement and monodromy
   workflows
+status: to-do
+priority: critical
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- sage
+- research-backend
+- theme-research-sources
 ---
+
 # Wrap Sage Riemann surface functionality for curve-complement and monodromy workflows
 ## Summary
 

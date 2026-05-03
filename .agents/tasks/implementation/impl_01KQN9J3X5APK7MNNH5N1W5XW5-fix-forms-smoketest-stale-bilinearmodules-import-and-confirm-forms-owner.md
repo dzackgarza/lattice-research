@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Fix forms smoketest stale _BilinearModules import and confirm forms owner identity
   through compatibility paths
+status: to-do
+priority: high
+planId: PLN-CAT-100
+tags:
+- category-specs
+- implementation
+- feature
+- smoke
+- modules
+- forms
+- imports
+- theme-modules-tensors
 ---
+
 # Fix forms smoketest stale _BilinearModules import and confirm forms owner identity through compatibility paths
 ## Summary
 
@@ -12,8 +25,8 @@ live in forms, while module and lattice paths preserve compatibility re-exports.
 
 ## Source Provenance
 
-- `plans/category_specs/forms/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/forms/docs/TRIAGE.md`.
-- Original migrated line: `Fix forms smoketest stale _BilinearModules import and confirm forms owner identity through compatibility paths from plans/category_specs/forms/docs/TRIAGE.md`
+- `category_specs/forms/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/forms/docs/TRIAGE.md`.
+- Original migrated line: `Fix forms smoketest stale _BilinearModules import and confirm forms owner identity through compatibility paths from category_specs/forms/docs/TRIAGE.md`
 
 ## Context
 

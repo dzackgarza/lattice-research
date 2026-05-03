@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred
   Sage-gap frontiers with exact gap assertions
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- sage
+- precision
+- theme-local-cleanup
 ---
+
 # Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions
 ## Summary
 
@@ -13,8 +24,8 @@ lattice-precision gaps.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/MAPPING.md`
-- Original migrated line: `Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions from plans/category_specs/rings/docs/MAPPING.md`
+- `category_specs/rings/docs/MAPPING.md`
+- Original migrated line: `Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions from category_specs/rings/docs/MAPPING.md`
 
 ## Context
 

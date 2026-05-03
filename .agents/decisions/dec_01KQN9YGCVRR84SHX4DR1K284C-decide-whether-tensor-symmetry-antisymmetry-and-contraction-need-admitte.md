@@ -3,7 +3,16 @@ trackerStatus:
   type: decision
 title: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees
   before full tensor-calculus method mapping
+status: to-do
+tags:
+- category-specs
+- decision
+- tensors
+- mapping
+- needs-decision
+- theme-decisions
 ---
+
 # Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping
 ## Summary
 
@@ -12,8 +21,8 @@ scope and the deferred tensor-calculus surface.
 
 ## Source Provenance
 
-- `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`.
-- Original migrated line: `Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping from plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`
+- `category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/tensor_algebra_components/docs/TRIAGE.md`.
+- Original migrated line: `Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping from category_specs/tensor_algebra_components/docs/TRIAGE.md`
 
 ## Context
 

@@ -6,7 +6,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "120-124",
         "bibliographic_key": "aegs2023compact"
       }
@@ -25,7 +25,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       }
@@ -56,7 +56,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       }
@@ -87,7 +87,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       }
@@ -118,12 +118,12 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       },
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "186-187",
         "bibliographic_key": "aegs2023compact"
       }
@@ -155,7 +155,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       }
@@ -185,7 +185,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "136-151",
         "bibliographic_key": "aegs2023compact"
       }
@@ -215,7 +215,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/pieroni_2026_coble_surfaces.md",
+        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
         "lines": "79-90",
         "bibliographic_key": "pieroni2026coble"
       }
@@ -235,7 +235,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/dolgachev_kondo_2013.md",
+        "file": "theory/references/literature/dolgachev_kondo_2013.md",
         "lines": "89-94",
         "bibliographic_key": "dolgachev2013rationality"
       }
@@ -256,7 +256,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/dolgachev_kondo_2013.md",
+        "file": "theory/references/literature/dolgachev_kondo_2013.md",
         "lines": "103-110",
         "bibliographic_key": "dolgachev2013rationality"
       }
@@ -277,7 +277,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/pieroni_2026_coble_surfaces.md",
+        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
         "lines": "737-738",
         "bibliographic_key": "pieroni2026coble"
       }
@@ -294,17 +294,17 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/pieroni_2026_coble_surfaces.md",
+        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
         "lines": "1227-1234",
         "bibliographic_key": "pieroni2026coble"
       },
       {
-        "file": "theory/literature/pieroni_2026_coble_surfaces.md",
+        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
         "lines": "1271-1283",
         "bibliographic_key": "pieroni2026coble"
       },
       {
-        "file": "theory/literature/pieroni_2026_coble_surfaces.md",
+        "file": "theory/references/literature/pieroni_2026_coble_surfaces.md",
         "lines": "1891-1892",
         "bibliographic_key": "pieroni2026coble"
       }
@@ -328,7 +328,7 @@
     "source_type": "primary_literature_extraction",
     "sources": [
       {
-        "file": "theory/literature/thas_1994.md",
+        "file": "theory/references/literature/thas_1994.md",
         "lines": "730-732",
         "bibliographic_key": "thas1994"
       }
@@ -345,7 +345,7 @@
     "source_type": "computation",
     "sources": [
       {
-        "file": "theory/literature/aegs_2023.md",
+        "file": "theory/references/literature/aegs_2023.md",
         "lines": "244-249",
         "bibliographic_key": "aegs2023compact",
         "claim": "F_{(10,10,0)} has two 0-cusps and two 1-cusps"

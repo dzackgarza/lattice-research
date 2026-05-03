@@ -2,7 +2,18 @@
 trackerStatus:
   type: task
 title: Add missing final markers and return annotations on Cat methods
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- cat
+- theme-audit-uniformity
 ---
+
 # Add missing final markers and return annotations on Cat methods
 Source: pasted backlog 2026-05-02.
 

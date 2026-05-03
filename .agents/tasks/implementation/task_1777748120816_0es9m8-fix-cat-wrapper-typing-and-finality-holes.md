@@ -2,7 +2,20 @@
 trackerStatus:
   type: task
 title: Fix Cat wrapper typing and finality holes
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- cat
+- types
+- wrappers
+- theme-audit-uniformity
 ---
+
 # Fix Cat wrapper typing and finality holes
 Source: pasted backlog 2026-05-02.
 

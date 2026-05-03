@@ -1,0 +1,87 @@
+// Copyright (C) 2022 Mathieu Dutour Sikiric <mathieu.dutour@gmail.com>
+// clang-format off
+#include "NumberTheoryBoostCppInt.h"
+#include "NumberTheoryBoostGmpInt.h"
+#include "NumberTheoryCommon.h"
+#include "NumberTheoryGmp.h"
+#include "NumberTheoryRealField.h"
+#include "NumberTheoryQuadField.h"
+#include "POLY_RecursiveDualDesc.h"
+#include "Permutation.h"
+#include "Group.h"
+// clang-format on
+
+int main(int argc, char *argv[]) {
+  try {
+    if (argc != 5) {
+      std::cerr << "POLY_ReadPartialEnum [FileGRP] [DatabaseInput] [OutFormat] "
+                   "[OutFile]\n";
+      return -1;
+    }
+    std::string FileGRP = argv[1];
+    std::string DatabaseI = argv[2];
+    std::string OutFormat = argv[3];
+    std::string OutFile = argv[4];
+    //
+    using Tidx = uint32_t;
+    using Telt = permutalib::SingleSidedPerm<Tidx>;
+    using Tint = mpz_class;
+    using T = mpq_class;
+    using Tgroup = permutalib::Group<Telt, Tint>;
+    std::ifstream GRPfs(FileGRP);
+    Tgroup GRP = ReadGroup<Tgroup>(GRPfs);
+    std::cerr << "|GRP|=" << GRP.size() << "\n";
+    std::map<Tidx, int> LFact = GRP.factor_size();
+    Tidx n_act = GRP.n_act();
+    std::cerr << "n_act=" << static_cast<size_t>(n_act) << "\n";
+    std::pair<size_t, size_t> ep = get_delta(LFact, n_act);
+    size_t delta = ep.second;
+    std::cerr << "delta=" << delta << "\n";
+    using Torbsize = uint32_t;
+    DataFaceOrbitSize<Torbsize, Tgroup> dfo(GRP);
+    //
+    std::string eFileFN = DatabaseI + ".nb";
+    std::string eFileFB = DatabaseI + ".fb";
+    std::string eFileFF = DatabaseI + ".ff";
+    std::string OFileEXT = DatabaseI + ".ext";
+    std::string OFileMethod = DatabaseI + ".method";
+    bool overwrite = false;
+    FileNumber fn(eFileFN, overwrite);
+    size_t n_orbit = fn.getval();
+    std::cerr << "n_orbit=" << n_orbit << "\n";
+    FileBool fb(eFileFB, n_orbit);
+    FileFace ff(eFileFF, delta, n_orbit);
+    std::map<size_t, size_t> map_incidence;
+    std::map<Tint, size_t> map_stabsize;
+    vectface TheOutput(n_act);
+    for (size_t i_orbit = 0; i_orbit < n_orbit; i_orbit++) {
+      size_t res = i_orbit % 1000;
+      if (res == 0) {
+        std::cerr << "i_orbit=" << i_orbit << " n_orbit=" << n_orbit << "\n";
+      }
+      Face f = ff.getface(i_orbit);
+      std::pair<Face, Tint> pair = dfo.ConvertFace(f);
+      Tint stabSize = GRP.size() / pair.second;
+      Face f_red = pair.first;
+      TheOutput.push_back(f_red);
+      size_t cnt = f_red.count();
+      map_incidence[cnt] += 1;
+      map_stabsize[stabSize] += 1;
+    }
+    std::cerr << "Full data read\n";
+    for (auto &[incidence, multiplicity] : map_incidence) {
+      std::cerr << "incidence " << incidence << " attained " << multiplicity
+                << " times\n";
+    }
+    for (auto &[stabsize, multiplicity] : map_stabsize) {
+      std::cerr << "stbsize " << stabsize << " attained " << multiplicity
+                << " times\n";
+    }
+    MyMatrix<T> EXT;
+    OutputFacets_file(EXT, GRP, TheOutput, OutFile, OutFormat, std::cerr);
+    std::cerr << "Normal termination of POLY_ReadPartialEnum\n";
+  } catch (TerminalException const &e) {
+    std::cerr << "Error in POLY_ReadPartialEnum\n";
+    exit(e.eVal);
+  }
+}

@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned()
   and keep AllSetPartitions countable-only
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- sets
+- partitions
+- set-partitions
+- theme-constructor-routing
 ---
+
 # Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only
 ## Summary
 
@@ -12,8 +25,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

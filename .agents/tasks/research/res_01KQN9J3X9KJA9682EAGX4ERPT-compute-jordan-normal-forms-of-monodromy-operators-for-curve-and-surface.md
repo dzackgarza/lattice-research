@@ -1,9 +1,21 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Compute Jordan normal forms of monodromy operators for curve and surface families
   via Picard-Fuchs operators
+status: to-do
+priority: high
+planId: PLN-CAT-100
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- forms
+- research-backend
+- theme-modules-tensors
 ---
+
 # Compute Jordan normal forms of monodromy operators for curve and surface families via Picard-Fuchs operators
 ## Summary
 

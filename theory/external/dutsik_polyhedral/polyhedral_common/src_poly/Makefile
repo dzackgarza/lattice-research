@@ -1,0 +1,55 @@
+PROGRAM		= POLY_CreateAffineBasis \
+		  POLY_cdd_skeletons POLY_SolutionMatNonnegativeComplete \
+		  POLY_redundancy POLY_redundancyGroup \
+		  POLY_IntegralPoints POLY_SkelettonClarkson \
+		  POLY_FaceLatticeGen VectFamily_ColumnReduction \
+		  POLY_lrs POLY_SmallPolytope \
+		  POLY_LinearDetermineByInequalities \
+		  POLY_IsPointedCone POLY_DirectFaceLattice \
+		  POLY_SolutionMatNonnegative POLY_cdd_LinearProgramming \
+		  POLY_dual_description POLY_dual_description_group \
+		  POLY_GetFullRankFacetSet  \
+		  POLY_GeometricallyUniqueInteriorPoint \
+		  POLY_lrs_volume POLY_lrs_triangulation POLY_TwoLaminations POLY_lrs_triang_facets
+
+SRCFILES	= POLY_c_cddlib_mpq.cpp
+
+OBJECTS		= $(SRCFILES:.cpp=.o) $(PROGRAM:%=%.o)
+
+LINKOBJECTS	= $(SRCFILES:.cpp=.o)
+
+#CC		= g++ -std=c++20 -Wall -Wextra -O2 -g -ftemplate-backtrace-limit=0 -fsanitize=float-divide-by-zero -fsignaling-nans
+CC		= g++ -std=c++20 -Wall -Wextra -O3
+#CC		= g++ -std=c++20 -Wall -Wextra -O3 -Wconversion
+#CC		= g++ -std=c++20 -Wall -Wextra -O2 -g -static-libgcc -static-libstdc++
+
+NOLINKFLAG 	= -c
+OUTPUTFLAG 	= -o
+
+CLOCAL          = -I../src_basic -I../src_number -I../src_matrix -I../src_comb -I../src_graph -I../src_group -I../src_isotropy -I../permutalib/src
+CFLAGS 		= -I$(GMP_INCDIR) -I$(LIBBLISS_INCDIR) -I$(BOOST_INCDIR) -I$(EIGEN_PATH) $(FLINT_INCLUDE) $(GLPK_INCLUDE) $(NAUTY_INCLUDE) $(CDDLIB_INCLUDE)
+CHASHMAP        = -I../basic_common_cpp/sparse-map/include/tsl/ -I../basic_common_cpp/robin-map/include/tsl/ -I../basic_common_cpp/hopscotch-map/include/tsl/
+
+#CDEFS           = -DTIMINGS -DDEBUG_SPECIFIC
+CDEFS           = $(CHOICE_COMPILATION)
+
+CTOTAL = $(CLOCAL) $(CFLAGS) $(CHASHMAP) $(CDEFS)
+
+
+LIBS		= -lm $(GMP_CXX_LINK) -pthread $(LIBBLISS_LINK) $(FLINT_LINK) $(BOOST_LINK) $(GLPK_LINK) $(NAUTY_LINK) $(CDDLIB_GMP_LINK)
+
+%.o: %.cpp
+	@echo
+	@echo compile $<
+	$(CC) $(OUTPUTFLAG) $@ $(CTOTAL) $(NOLINKFLAG) $<
+
+all:	$(PROGRAM)
+
+$(PROGRAM): 	$(OBJECTS)
+		@echo
+		@echo link $@
+		$(CC) $(LINKOBJECTS) $(DEBUGFLAG) $@.o $(LIBS) -o $@
+
+clean:;
+	rm -f *.o
+	rm -f $(PROGRAM)

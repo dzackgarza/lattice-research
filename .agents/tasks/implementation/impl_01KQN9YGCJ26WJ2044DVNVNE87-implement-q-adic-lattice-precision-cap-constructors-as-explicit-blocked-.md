@@ -3,7 +3,21 @@ trackerStatus:
   type: feature
 title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap
   surfaces rather than broken pass-throughs
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- sage
+- rings
+- precision
+- lattices
+- theme-constructor-routing
 ---
+
 # Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces rather than broken pass-throughs
 ## Summary
 
@@ -13,8 +27,8 @@ lattice-precision gaps.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/MAPPING.md`
-- Original migrated line: `Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces rather than broken pass-throughs from plans/category_specs/rings/docs/MAPPING.md`
+- `category_specs/rings/docs/MAPPING.md`
+- Original migrated line: `Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces rather than broken pass-throughs from category_specs/rings/docs/MAPPING.md`
 
 ## Context
 

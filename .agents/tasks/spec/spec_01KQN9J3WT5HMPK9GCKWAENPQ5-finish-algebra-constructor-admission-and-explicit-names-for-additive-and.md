@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Finish algebra constructor admission and explicit names for additive and table
   algebra construction routes
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- constructors
+- algebras
+- theme-constructor-routing
 ---
+
 # Finish algebra constructor admission and explicit names for additive and table algebra construction routes
 ## Summary
 
@@ -12,8 +23,8 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Source Provenance
 
-- `plans/category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/algebras/docs/TRIAGE.md`.
-- Original migrated line: `Finish algebra constructor admission and explicit names for additive and table algebra construction routes from plans/category_specs/algebras/docs/TRIAGE.md`
+- `category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`.
+- Original migrated line: `Finish algebra constructor admission and explicit names for additive and table algebra construction routes from category_specs/algebras/docs/TRIAGE.md`
 
 ## Context
 

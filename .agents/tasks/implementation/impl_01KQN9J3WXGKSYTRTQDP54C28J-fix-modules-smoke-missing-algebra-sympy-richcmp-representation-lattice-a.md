@@ -3,7 +3,22 @@ trackerStatus:
   type: feature
 title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
   and graded base-category failures
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- smoke
+- sympy
+- richcmp
+- modules
+- algebras
+- lattices
+- theme-rings-algebras
 ---
+
 # Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded base-category failures
 ## Summary
 
@@ -13,8 +28,8 @@ wrappers.
 
 ## Source Provenance
 
-- `plans/category_specs/modules/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/modules/docs/TRIAGE.md`.
-- Original migrated line: `Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded base-category failures from plans/category_specs/modules/docs/TRIAGE.md`
+- `category_specs/modules/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/modules/docs/TRIAGE.md`.
+- Original migrated line: `Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded base-category failures from category_specs/modules/docs/TRIAGE.md`
 
 ## Context
 

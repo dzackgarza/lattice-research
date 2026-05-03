@@ -2,7 +2,19 @@
 trackerStatus:
   type: task
 title: Split mixed set-constructor input shapes into named alternatives
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- constructors
+- sets
+- theme-constructor-routing
 ---
+
 # Split mixed set-constructor input shapes into named alternatives
 Source: pasted backlog 2026-05-02.
 

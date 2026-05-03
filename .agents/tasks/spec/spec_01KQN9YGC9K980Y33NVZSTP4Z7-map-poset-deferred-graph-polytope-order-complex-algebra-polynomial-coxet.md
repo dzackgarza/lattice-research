@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter
   display and raw-interop surfaces to final owners
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- sets
+- algebras
+- posets
+- mapping
+- theme-posets-partitions
 ---
+
 # Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners
 ## Summary
 
@@ -12,8 +25,8 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 
 ## Source Provenance
 
-- `plans/category_specs/posets/docs/MAPPING.md`
-- Original migrated line: `Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners from plans/category_specs/posets/docs/MAPPING.md`
+- `category_specs/posets/docs/MAPPING.md`
+- Original migrated line: `Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners from category_specs/posets/docs/MAPPING.md`
 
 ## Context
 

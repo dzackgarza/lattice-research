@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Finish category-spec dual-object Hom routing and move methods to their most
   general mathematical owners
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+phasePlan: PLN-LAT-030
+tags:
+- category-specs
+- spec
+- feature
+- hom-end-aut
+- theme-category-core
 ---
+
 # Finish category-spec dual-object Hom routing and move methods to their most general mathematical owners
 ## Summary
 

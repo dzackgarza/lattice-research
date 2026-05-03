@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects
   forms-axiom blocker
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- sage
+- algebras
+- forms
+- theme-rings-algebras
 ---
+
 # Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom blocker
 ## Summary
 
@@ -12,8 +24,8 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Source Provenance
 
-- `plans/category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/algebras/docs/TRIAGE.md`.
-- Original migrated line: `Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom blocker from plans/category_specs/algebras/docs/TRIAGE.md`
+- `category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`.
+- Original migrated line: `Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom blocker from category_specs/algebras/docs/TRIAGE.md`
 
 ## Context
 

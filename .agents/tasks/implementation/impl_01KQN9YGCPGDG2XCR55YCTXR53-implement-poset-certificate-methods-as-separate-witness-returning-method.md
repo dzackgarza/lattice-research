@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Implement poset certificate methods as separate witness-returning methods while
   keeping boolean predicates boolean
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- sets
+- posets
+- theme-posets-partitions
 ---
+
 # Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean
 ## Summary
 
@@ -12,8 +23,8 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 
 ## Source Provenance
 
-- `plans/category_specs/posets/docs/MAPPING.md`
-- Original migrated line: `Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean from plans/category_specs/posets/docs/MAPPING.md`
+- `category_specs/posets/docs/MAPPING.md`
+- Original migrated line: `Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean from category_specs/posets/docs/MAPPING.md`
 
 ## Context
 

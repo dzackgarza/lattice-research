@@ -2,6 +2,89 @@
 
 This document outlines the lattice-theoretic and computational verification tasks required to establish the moduli space of terminal Coble surfaces of K3 type.
 
+## Overall Staged Plan
+
+The numbered Coble and lattice goals below are downstream research goals. They should
+not be attacked by agents writing ad hoc matrix, polynomial, or group computations.
+The project first needs a semantic mathematical substrate: a constrained DSL, expressed
+through Sage-compatible categories and well-typed mathematical objects, in which later
+research code reads like mathematics rather than opaque calculation scripts.
+
+Phase transitions are gated. Each stage blocks the next until its vocabulary,
+specifications, implementation surface, and mathematical review are adequate for
+downstream work. QC is part of transition evidence for committed implementation work,
+but it is not the main control loop during churn-heavy spec drafting; specs are settled
+through human/LLM planning, audit, review, and rewrite before implementation gates apply.
+
+Stage: category specs and uniform vocabulary.
+Create specs extending Sage's categories so that standard constructions become uniform
+and semantic. For example, $R^n$ should be treated as a genuine free $R$-module whose
+underlying set is $R \times \cdots \times R$, not merely as a raw vector object with
+incidental methods. The first pass is abstract: expose enough vocabulary for sets,
+modules, Hom spaces, End spaces, Aut spaces, modules with forms, and refinements such
+as lattices so future work can construct real mathematical objects, prescribe maps on
+generators, and rely on hidden canonical matrix realization, validation, typing, and
+invariant checks.
+
+Stage: Sage refinement and gap discovery.
+Refine existing Sage constructions into the new category layer wherever possible.
+This phase is expected to surface implementation gaps. Those gaps are not excuses for
+local ad hoc work; they become spec, backend-research, or implementation cards. The
+goal is to discover precisely where Sage's current category philosophy can already be
+used, where it needs thin wrappers, and where the repo must own missing categorical
+semantics.
+
+Stage: owned categorical implementation layer.
+Implement or wrap Sage classes so the project owns objects satisfying its specs
+directly, without a permanent refinement dance. The implementation should leverage
+Sage, GAP, Singular, Macaulay2, Oscar/Julia, PARI/GP, CARAT, and other mature
+open-source systems wherever they already provide exact algorithms, while closing the
+semantic gaps needed by the specs. New code should mostly provide categorical
+interfaces, coercions, validation, and bridge boundaries, not reimplement mathematical
+kernels.
+
+Stage: universal categorical algorithms.
+Implement general algorithms at the highest valid categorical level. A basic example
+is deterministic enumeration: $\mathbb{Z}$ has the canonical spiral enumeration
+$0, 1, -1, 2, -2, \ldots$; finite products of explicitly countable sets should inherit
+explicit countability; free modules over explicitly countable rings should inherit
+deterministic enumeration; lattices over $\mathbb{Z}$ should then inherit bounded
+enumeration of integral vectors in a canonical order. Sage currently lacks a
+principled uniform path for this kind of free-module and lattice enumeration, but it is
+needed for Vinberg's algorithm and exhaustive experimental searches. The correct
+solution belongs in inheritable set/module/category algorithms, not in lattice-local
+loops.
+
+Stage: lattice-theoretic implementation.
+Once universal boilerplate lives in sets, modules, modules with forms, and categorical
+Hom/End/Aut objects, lattice work should focus on genuinely lattice-theoretic content.
+This includes literature-backed and source-checked implementations of discriminant
+forms, primitive embeddings, orthogonal complements, local invariants, and Nikulin-style
+criteria. The desired interface should allow semantic operations such as base-changing
+a lattice from $\mathbb{Z}$ to $\mathbb{Z}_p$ and computing standard invariants through
+exact linear algebra over the appropriate ring, rather than forcing agents to manipulate
+raw matrices and verify matrix equations by hand.
+
+Stage: scheme, variety, curve, surface, and family interfaces.
+After the lattice substrate is solid, expose cohesive category interfaces for schemes,
+varieties, complex varieties, curves, surfaces, families, divisors, Picard groups, and
+relative constructions. The vocabulary must be rich enough to express the Coble
+construction semantically. For instance, $\operatorname{Pic}(\mathbb{P}^n)$ should be
+known; for a sufficiently controlled blowup $X \to \mathbb{P}^n$, $\operatorname{Pic}(X)$
+should be computable with explicit divisor generators; and for a controlled cover
+$Y \to X$, such as a cyclic or double cover ramified in a divisor, $\operatorname{Pic}(Y)$
+should be expressible through literal pullbacks, pushforwards, ramification data, and
+group generators. This phase will likely require substantial wiring to commutative
+algebra and algebraic-geometry software rather than bespoke local algorithms.
+
+Stage: confined experimental research.
+Only after the semantic vocabulary, categorical implementation layer, lattice theory,
+and geometry interfaces are stable should agents proceed to the experimental research
+goals below. The point is to confine experimentation inside a tested mathematical
+language that recovers known primary-source results and prevents agents from computing
+"in their heads" with explicit polynomials, Jacobian matrices, raw Gram matrices, or
+untyped group actions. Most of the existing goals begin at this final stage.
+
 ## 1. Foundation: Coble Curves and Picard Lattices
 
 ### Background

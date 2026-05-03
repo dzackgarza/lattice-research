@@ -3,7 +3,21 @@ trackerStatus:
   type: feature
 title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
   tensor component smoketest frontier
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- smoke
+- constructors
+- richcmp
+- algebras
+- tensors
+- theme-constructor-routing
 ---
+
 # Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier
 ## Summary
 

@@ -2,7 +2,20 @@
 trackerStatus:
   type: task
 title: Restore binary primitives for module and set product constructors
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- constructors
+- modules
+- sets
+- theme-constructor-routing
 ---
+
 # Restore binary primitives for module and set product constructors
 Source: pasted backlog 2026-05-02.
 

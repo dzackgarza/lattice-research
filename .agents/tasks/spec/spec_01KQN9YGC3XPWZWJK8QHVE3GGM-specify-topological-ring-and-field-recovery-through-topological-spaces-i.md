@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Specify topological ring and field recovery through topological_spaces inheritance
   rather than pure topological constructors
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- constructors
+- rings
+- topology
+- theme-constructor-routing
 ---
+
 # Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
 ## Summary
 
@@ -13,9 +25,9 @@ lattice-precision gaps.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/MAPPING.md`
-- `plans/category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md`.
-- Original migrated line: `Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors from plans/category_specs/rings/docs/MAPPING.md and plans/category_specs/topological_spaces/docs/TRIAGE.md`
+- `category_specs/rings/docs/MAPPING.md`
+- `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
+- Original migrated line: `Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors from category_specs/rings/docs/MAPPING.md and category_specs/topological_spaces/docs/TRIAGE.md`
 
 ## Context
 

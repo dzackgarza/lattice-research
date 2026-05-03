@@ -1,0 +1,80 @@
+Read("../common.g");
+Read("../access_points.g");
+Print("Beginning TestSampling\n");
+
+TestSampling:=function(FileIn, method)
+    local EXT, list_facets, TheLen;
+    EXT:=ReadMatrixFile(FileIn);
+#    Print("EXT=", EXT, "\n");
+    list_facets:=sample_facet_polytope(EXT, method);
+    if is_error(list_facets) then
+        return false;
+    fi;
+    TheLen:=Length(list_facets);
+    if TheLen = 0 then
+        return false;
+    fi;
+    return true;
+end;
+
+TestRecord:=function(eRec)
+    local EXT, command, test;
+    EXT:=ReadMatrixFile(eRec.FileIn);
+    Print("|EXT|=", Length(EXT), " / ", Length(EXT[1]), "\n");
+    for command in eRec.l_command
+    do
+        Print("  command=", command, "\n");
+        test:=TestSampling(eRec.FileIn, command);
+        if test=false then
+            return false;
+        fi;
+    od;
+    return true;
+end;
+
+
+
+Lcommand1:=["lp_cdd", "lp_cdd_min"];
+Lcommand2:=["lp_cdd", "lrs_limited", "lp_cdd_min"];
+Lcommand3:=["lp_cdd", "lrs_limited", "lp_cdd_min", "sampling"];
+
+
+eRec1:=rec(FileIn:="Example_01_CUT_K333.ext", l_command:=Lcommand1);
+eRec2:=rec(FileIn:="Example_02_MET_K333.ext", l_command:=Lcommand1);
+eRec3:=rec(FileIn:="Example_03_CUT_K55.ext", l_command:=Lcommand1);
+eRec4:=rec(FileIn:="Example_04_CUT_K144.ext", l_command:=Lcommand1);
+eRec5:=rec(FileIn:="Example_05_MET_K144.ext", l_command:=Lcommand1);
+eRec6:=rec(FileIn:="Example_06_Perfect_E7.ext", l_command:=Lcommand2);
+eRec7:=rec(FileIn:="Example_07_CUT7.ext", l_command:=Lcommand2);
+eRec8:=rec(FileIn:="Example_08_MET7.ext", l_command:=Lcommand3);
+eRec9:=rec(FileIn:="Example_09_CUT8.ext", l_command:=Lcommand2);
+ListRec:=[eRec1, eRec2, eRec3, eRec4, eRec5, eRec6, eRec7, eRec8, eRec9];
+
+FullTest:=function()
+    local iRec, eRec, test;
+    iRec:=0;
+    for eRec in ListRec
+    do
+        Print("\n");
+        Print("iRec=", iRec, " / ", Length(ListRec), " FileIn=", eRec.FileIn, "\n");
+        test:=TestRecord(eRec);
+        if test=false then
+            return false;
+        fi;
+        iRec:=iRec + 1;
+    od;
+    return true;
+end;
+
+test:=FullTest();
+
+CI_Decision_Reset();
+if test=false then
+    # Error case
+    Print("Error case\n");
+else
+    # No error case
+    Print("Normal case\n");
+    CI_Write_Ok();
+fi;
+

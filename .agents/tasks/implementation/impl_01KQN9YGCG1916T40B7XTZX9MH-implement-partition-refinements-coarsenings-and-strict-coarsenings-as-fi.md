@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Implement partition refinements coarsenings and strict coarsenings as finite-set
   constructor outputs
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- sets
+- partitions
+- theme-constructor-routing
 ---
+
 # Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs
 ## Summary
 
@@ -12,8 +24,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

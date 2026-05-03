@@ -2,7 +2,19 @@
 trackerStatus:
   type: task
 title: Replace assertion-narrowed polynomial and matrix return types
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- matrix
+- types
+- theme-rings-algebras
 ---
+
 # Replace assertion-narrowed polynomial and matrix return types
 Source: pasted backlog 2026-05-02.
 

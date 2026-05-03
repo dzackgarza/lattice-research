@@ -3,7 +3,21 @@ trackerStatus:
   type: feature
 title: Implement RealSet named constructors and smoke recovery through ambient-relative
   topological methods
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- smoke
+- constructors
+- sets
+- realset
+- topology
+- theme-constructor-routing
 ---
+
 # Implement RealSet named constructors and smoke recovery through ambient-relative topological methods
 ## Summary
 
@@ -12,8 +26,8 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 
 ## Source Provenance
 
-- `plans/category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md`.
-- Original migrated line: `Implement RealSet named constructors and smoke recovery through ambient-relative topological methods from plans/category_specs/topological_spaces/docs/TRIAGE.md`
+- `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
+- Original migrated line: `Implement RealSet named constructors and smoke recovery through ambient-relative topological methods from category_specs/topological_spaces/docs/TRIAGE.md`
 
 ## Context
 

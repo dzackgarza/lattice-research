@@ -2,7 +2,20 @@
 trackerStatus:
   type: feature
 title: Fix Posets constructor refinement __richcmp__ failures
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- richcmp
+- sets
+- posets
+- theme-constructor-routing
 ---
+
 # Fix Posets constructor refinement __richcmp__ failures
 ## Summary
 
@@ -12,8 +25,8 @@ semilattice category introspection.
 
 ## Source Provenance
 
-- `plans/category_specs/posets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/posets/docs/TRIAGE.md`.
-- Original migrated line: `Fix Posets constructor refinement __richcmp__ failures from plans/category_specs/posets/docs/TRIAGE.md and posets smoketest frontier`
+- `category_specs/posets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/posets/docs/TRIAGE.md`.
+- Original migrated line: `Fix Posets constructor refinement __richcmp__ failures from category_specs/posets/docs/TRIAGE.md and posets smoketest frontier`
 
 ## Context
 

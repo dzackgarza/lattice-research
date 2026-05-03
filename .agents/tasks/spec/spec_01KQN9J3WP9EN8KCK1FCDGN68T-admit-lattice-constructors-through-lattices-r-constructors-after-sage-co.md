@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
   inventory mapping
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+tags:
+- category-specs
+- spec
+- feature
+- constructors
+- sage
+- lattices
+- mapping
+- theme-constructor-routing
 ---
+
 # Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping
 ## Summary
 
@@ -12,8 +25,8 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 ## Source Provenance
 
-- `plans/category_specs/lattices/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/lattices/docs/TRIAGE.md`.
-- Original migrated line: `Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping from plans/category_specs/lattices/docs/TRIAGE.md`
+- `category_specs/lattices/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/lattices/docs/TRIAGE.md`.
+- Original migrated line: `Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping from category_specs/lattices/docs/TRIAGE.md`
 
 ## Context
 

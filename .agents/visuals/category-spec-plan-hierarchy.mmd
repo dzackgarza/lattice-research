@@ -1,0 +1,40 @@
+%% Owned by: .agents/plans/pln-category-spec-program.md
+flowchart TD
+    P0[PLN-CAT-000<br/>Category-spec program] --> F[PLN-CAT-100<br/>Foundation kernel]
+    P0 --> L[PLN-LAT-000<br/>Lattice / ModulesWithForms roadmap]
+    P0 --> S[PLN-SAGE-000<br/>Sage surface admission]
+    P0 --> G[PLN-GEO-000<br/>Geometric expansion]
+    P0 --> A[PLN-AUDIT-000<br/>Smoke and audit stabilization]
+
+    F --> F1[PLN-CAT-110<br/>Static refinement order]
+    F --> F2[PLN-CAT-120<br/>Hom / End / Aut admission]
+    F --> FT[Critical definition cards<br/>dual routing, method owners, types, TwistedForms]
+
+    L --> L0[PLN-LAT-010<br/>Phase 0 Sage prerequisites]
+    L --> L2[PLN-LAT-020<br/>Phase 2 category and carriers]
+    L --> L3[PLN-LAT-030<br/>Phase 3 morphisms and cokernels]
+    L --> L4[PLN-LAT-040<br/>Phase 4 duals and discriminant descent]
+    L --> L5[PLN-LAT-050<br/>Phase 5 orthogonal / Coxeter layer]
+    L0 --> L2 --> L3 --> L4 --> L5
+
+    S --> SR[Rings / p-adics / matrix rings]
+    S --> SS[Sets / topology / RealSet / ImageSets]
+    S --> SA[Algebras / tensors / posets]
+    S --> SE[test_spec*.sage executable spec corpus]
+
+    G --> GS[Schemes and varieties]
+    G --> GM[Manifolds and complex manifolds]
+    G --> GT[Toric varieties through lattice category]
+
+    A --> AS[Smoke-frontier cards]
+    A --> AU[Uniformity and variadic audit cards]
+    A --> AV[vulture_whitelist.py tooling support]
+
+    classDef plan fill:#dbeafe,stroke:#2563eb,color:#111827;
+    classDef task fill:#dcfce7,stroke:#16a34a,color:#111827;
+    classDef source fill:#fef3c7,stroke:#d97706,color:#111827;
+    classDef audit fill:#fee2e2,stroke:#dc2626,color:#111827;
+
+    class P0,F,L,S,G,A,F1,F2,L0,L2,L3,L4,L5 plan;
+    class FT,SR,SS,SA,GS,GM,GT,AS,AU task;
+    class SE,AV source;

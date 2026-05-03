@@ -3,7 +3,22 @@ trackerStatus:
   type: feature
 title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration
   RealSet element-constructor and topological axiom warning
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- richcmp
+- sets
+- realset
+- topology
+- primes
+- theme-constructor-routing
 ---
+
 # Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
 ## Summary
 
@@ -13,8 +28,8 @@ construction, and topological axiom resolution.
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/sets/docs/TRIAGE.md`.
-- Original migrated line: `Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning from plans/category_specs/sets/docs/TRIAGE.md`
+- `category_specs/sets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/sets/docs/TRIAGE.md`.
+- Original migrated line: `Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning from category_specs/sets/docs/TRIAGE.md`
 
 ## Context
 

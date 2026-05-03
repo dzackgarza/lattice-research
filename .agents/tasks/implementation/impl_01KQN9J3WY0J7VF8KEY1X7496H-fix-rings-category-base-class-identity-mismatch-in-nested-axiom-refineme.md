@@ -2,7 +2,17 @@
 trackerStatus:
   type: feature
 title: Fix Rings category base-class identity mismatch in nested axiom refinement
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- rings
+- theme-constructor-routing
 ---
+
 # Fix Rings category base-class identity mismatch in nested axiom refinement
 ## Summary
 
@@ -12,8 +22,8 @@ split.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
-- Original migrated line: `Fix Rings category base-class identity mismatch in nested axiom refinement from plans/category_specs/rings/docs/TRIAGE.md`
+- `category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`.
+- Original migrated line: `Fix Rings category base-class identity mismatch in nested axiom refinement from category_specs/rings/docs/TRIAGE.md`
 
 ## Context
 

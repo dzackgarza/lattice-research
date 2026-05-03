@@ -3,7 +3,21 @@ trackerStatus:
   type: feature
 title: Complete matrix ring surface split among rings algebras and modules without
   weakening the matrix smoke
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- smoke
+- modules
+- rings
+- algebras
+- matrix
+- theme-rings-algebras
 ---
+
 # Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
 ## Summary
 
@@ -13,8 +27,8 @@ split.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
-- Original migrated line: `Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke from plans/category_specs/rings/docs/TRIAGE.md`
+- `category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`.
+- Original migrated line: `Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke from category_specs/rings/docs/TRIAGE.md`
 
 ## Context
 

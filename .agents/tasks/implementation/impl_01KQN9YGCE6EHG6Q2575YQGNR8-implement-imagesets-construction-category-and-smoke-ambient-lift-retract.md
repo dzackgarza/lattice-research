@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Implement ImageSets construction category and smoke ambient lift retract and
   image-subobject membership
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- smoke
+- sets
+- imagesets
+- theme-sets-topology
 ---
+
 # Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership
 ## Summary
 
@@ -12,8 +24,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

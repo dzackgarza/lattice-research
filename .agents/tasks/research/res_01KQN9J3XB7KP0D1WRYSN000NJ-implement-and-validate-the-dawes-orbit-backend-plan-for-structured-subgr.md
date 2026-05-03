@@ -1,9 +1,19 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Implement and validate the Dawes orbit backend plan for structured subgroup
   orbit computations
+status: to-do
+priority: medium
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- research-backend
+- theme-research-sources
 ---
+
 # Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations
 ## Summary
 
@@ -12,8 +22,8 @@ using existing lattice/group nouns and a private backend.
 
 ## Source Provenance
 
-- `theory/dawes_orbit_backend_plan.md`
-- Original migrated line: `Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations from theory/dawes_orbit_backend_plan.md`
+- `theory/algorithms/dawes-orbit-backend.md`
+- Original migrated line: `Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations from theory/algorithms/dawes-orbit-backend.md`
 
 ## Context
 

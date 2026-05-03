@@ -2,7 +2,18 @@
 trackerStatus:
   type: feature
 title: Admit ImageSets as image subobjects with ambient lift and retract surface
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- sets
+- imagesets
+- theme-sets-topology
 ---
+
 # Admit ImageSets as image subobjects with ambient lift and retract surface
 ## Summary
 
@@ -11,8 +22,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Admit ImageSets as image subobjects with ambient lift and retract surface from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Admit ImageSets as image subobjects with ambient lift and retract surface from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

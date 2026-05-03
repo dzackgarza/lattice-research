@@ -1,0 +1,656 @@
+# Category Spec Workflow Reference
+
+This is the canonical detailed workflow reference for category-spec work.
+
+Internal historical mentions of `WORKFLOW.md` refer to this skill reference unless they explicitly name another path.
+
+## Contents
+
+- [Tracking and planning](#tracking-and-planning)
+- [Theme grouping](#theme-grouping)
+- [Agent skill factoring](#agent-skill-factoring)
+- [Priority rubric](#priority-rubric)
+- [Plan creation workflow](#plan-creation-workflow)
+- [Plan files are the planning system](#plan-files-are-the-planning-system)
+- [Human-facing visual artifacts](#human-facing-visual-artifacts)
+- [TODO scratchpad and inline task markers](#todo-scratchpad-and-inline-task-markers)
+- [Retired card holding area](#retired-card-holding-area)
+- [Full task card requirements](#full-task-card-requirements)
+- [Tangential discovery procedure](#tangential-discovery-procedure)
+- [Delegation contracts](#delegation-contracts)
+- [Bug workflow](#bug-workflow)
+- [Agent execution workflow](#agent-execution-workflow)
+- [Branch and PR policy](#branch-and-pr-policy)
+- [Worktree policy](#worktree-policy)
+- [PR lifecycle](#pr-lifecycle)
+- [AI-slop risk](#ai-slop-risk)
+- [Commit discipline](#commit-discipline)
+- [Documentation lifecycle](#documentation-lifecycle)
+- [Completed-work migration](#completed-work-migration)
+- [Smoke test and triage workflow](#smoke-test-and-triage-workflow)
+
+## Reference Body
+
+# WORKFLOW.md - category_specs
+
+Read this file before planning, delegating, creating tracker items, triaging smoke
+output, preparing PRs, migrating docs, or changing workflow state in this subtree.
+
+Simple implementation agents usually do not need this file unless their task includes
+tracking, delegation, smoke triage, branch/PR policy, or status changes.
+
+This file contains workflow rules extracted from `AGENTS.md`. Category-spec style,
+mathematical naming, banned implementation patterns, and compliance rules live in
+`STYLE.md`.
+
+## Tracking and planning
+
+Use Nimbalyst tracker files as the central durable record for planning, ongoing work,
+follow-ups, blockers, decisions, and deferred compliance findings in this subtree. Do
+not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is
+the appropriate artifact.
+
+There is no separate backlog. The active tracked cards are the outstanding work set.
+When work is implemented, resolved, rejected, or superseded, move the card out of active
+paths and retire or delete it according to the retired-card policy.
+
+Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
+inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
+
+Use the standard registered tracker types only: `automation`, `bug`, `decision`,
+`feature`, `idea`, `plan`, and `task`. Classify workflow dimensions with tags and file
+placement, not derivative types.
+
+Do not create or use custom task-like types such as `spec-work`,
+`implementation-work`, `research-work`, `sprint-work`, `task-work`, or `agent-work`.
+Use tags such as `category-specs`, `spec`, `implementation`, `research`, `sprint`,
+`bug`, `smoke`, `validation`, and `docs-migration`.
+
+All Nimbalyst-backed planning and work files live under `.agents`:
+
+- `.agents/plans/` for plan and sprint-plan documents.
+- `.agents/decisions/` for decision records.
+- `.agents/tasks/implementation/` for implementation tasks, bug fixes, smoke failures,
+  and structural blockers.
+- `.agents/tasks/spec/` for spec-surface tasks and spec research.
+- `.agents/tasks/research/` for literature, Sage-source, API, and design research.
+- `.agents/retired/` for completed or retired cards kept temporarily before deletion.
+
+Create full-document tracker files with `trackerStatus` frontmatter. Keep metadata such
+as `title`, `status`, `priority`, `tags`, `complexity`, `progress`, `planId`,
+`planCode`, `sprintCode`, and `workCode` at the top level of the frontmatter.
+
+Never use `trackingStatus`. Never call `tracker_create` or `create_task` for
+markdown-backed items. The markdown file is the source of truth and syncs into
+Nimbalyst.
+
+## Theme grouping
+
+Use theme tags to group active cards into human-reviewable workstreams. Theme tags are
+not priority tags; they answer "what kind of work is this?" and make the GUI easier to
+filter.
+
+Current category-spec theme tags:
+
+- `theme-category-core`: category-object surface, Hom/End/Aut ownership, standard type
+  packages, and foundational vocabulary.
+- `theme-audit-uniformity`: variadic closure, typing uniformity, wrapper cleanup,
+  anti-slop checks, import hygiene, and audit-frontier work.
+- `theme-constructor-routing`: Sage constructor admission, named constructors,
+  refinement routing, and constructor smoke recovery.
+- `theme-rings-algebras`: rings, fields, algebras, q-adic precision, matrix rings, and
+  algebra constructors.
+- `theme-modules-tensors`: modules, tensors, lattices, forms, discriminant groups, and
+  related method surfaces.
+- `theme-sets-topology`: sets, topological spaces, RealSet, ImageSets, Primes, and
+  topology-bearing objects.
+- `theme-posets-partitions`: posets, semilattices, partitions, set partitions, and
+  combinatorial subclass decisions.
+- `theme-research-sources`: upstream Sage/source research, theoretical background, and
+  backend/library investigation.
+- `theme-decisions`: unresolved mathematical or organizational decisions.
+- `theme-plan-control`: human-approved plans and sprint-plan coordination.
+- `theme-local-cleanup`: isolated local cleanup with limited downstream effect.
+
+Maintain a high-level workstream dependency diagram when many cards are active. The
+diagram should live under `.agents/visuals/` and should group dependencies by
+workstream or plan, not every individual card.
+
+## Agent skill factoring
+
+Some repeated procedures should live as local agent skills under `.agents/skills/`.
+Skills make the procedure partially visible through their descriptions and load the full
+instructions only when relevant.
+
+Use this split:
+
+- Keep policy, source-of-truth rules, priority rubric, and current project structure in
+  `AGENTS.md`, the canonical category-spec skills, and canonical tracked docs.
+- Move repeated operational procedures into skills when agents need to discover and
+  execute them on demand.
+- Keep skill descriptions specific enough that agents can choose the right skill from
+  the available-skill list without loading every document.
+- Keep skill bodies procedural and compact. Link back to canonical docs instead of
+  duplicating long policy sections.
+
+Good candidates for local skills:
+
+- Creating and normalizing Nimbalyst cards.
+- Triage of `.agents/TODO.md` into real cards.
+- Applying the category-spec priority rubric.
+- Preparing high-level workstream dependency visuals.
+- Auditing category-spec work against the `category-spec-style` skill.
+- Retiring completed cards.
+- Preparing plan decomposition after human plan approval.
+- Spec authoring and subcategory admission workflows.
+- Sage constructor inventory and mapping workflows.
+- Smoke-frontier triage workflows.
+- Visual artifact creation for complex system orientation.
+
+Do not factor volatile source-of-truth content into skills. A skill should encode how to
+perform a repeatable procedure, not become a second copy of the current plan, current
+priority queue, or current mathematical decision.
+
+## Priority rubric
+
+Use the `priority` metadata field from the tracker schema. Do not encode priority tiers
+as tags. Tags classify topic, workstream, domain, and workflow class; `priority` orders
+work.
+
+Set `critical` when unfinished work can poison downstream work:
+
+- Foundational spec and design work.
+- Mathematically correct and complete definitions.
+- Specced vocabulary required before implementation can proceed.
+- Uniformity rules that determine future work trajectories.
+- Theoretical background sources, curated BibTeX, and canonical references needed to
+  prevent confabulation.
+- Canonical docs and anti-staleness work needed to prevent backsliding.
+- Any ambiguity that can cause agents to implement the wrong mathematics.
+
+Set `high` when other work depends on the item or delay creates redo risk:
+
+- Dependency roots in the plan/work graph.
+- Cross-domain or low-level category/code changes.
+- Simplification or consolidation work that prevents technical debt.
+- Work that, if postponed, will force later work to be rewritten.
+- Known constructor-routing, mapping, smoke-frontier, and ownership issues that affect
+  several downstream cards.
+
+Set `medium` for ordinary bounded work:
+
+- Local implementation work with clear definitions and limited blast radius.
+- Research that informs work but does not currently block foundations.
+- Cleanup that improves maintainability without changing downstream direction.
+
+Set `low` for work that should not steer the project:
+
+- World-facing READMEs and presentation polish.
+- Internal consistency checks that are not real mathematical tests.
+- Edge-case handling or tests outside main workflows.
+- Bugs that do not affect current main workflows.
+- Rewriting Sage core classes to avoid local patching/refinement when the current
+  approach is serviceable.
+- Trivial formatting and non-critical linting such as line length.
+- De-slopifying local code when it is not poisoning active work.
+- Resolving every git commit verification issue when it does not affect correctness,
+  review, or traceability.
+
+Use the high-level dependency digraph to identify dependency roots before sorting
+individual cards.
+
+## Plan creation workflow
+
+Plans are strictly human + LLM collaborative artifacts. An agent may not create an
+operative plan unilaterally, hide a plan inside its harness, or proceed from a
+chat-local plan into implementation.
+
+Creating or materially revising a plan requires this sequence:
+
+- Switch to planning mode.
+- Use the project planning tools and `.agents/plans/` structure.
+- Draft the plan with objective, scope, phases, risks, validation strategy, and known
+  task boundaries.
+- Iterate with the user until the user explicitly approves the plan.
+- Store the approved plan as a tracked `plan` file under `.agents/plans/`.
+- Decompose the approved plan into concrete tracked task, bug, feature, idea, and
+  decision files.
+- Move implementation to a separate execution stage, usually delegated for complex
+  work.
+
+Use a plan when work is multi-phase, cross-cutting, risky, ambiguous, or too large for
+one agent to execute from one card. Use a card directly when the work is clear, bounded,
+and independently executable.
+
+## Plan files are the planning system
+
+Trackable plan files are the project planning documents. If an agent harness creates or
+stores a plan internally, copy the plan into the project planning system under
+`.agents/plans/`, register it with the plan tracker, and get user approval before
+enacting it.
+
+Use the built-in `plan` tracker schema for durable initiatives and sprint plans.
+Preserve plan-card fields such as `planId`, `title`, `status`, `planType`, `priority`,
+`owner`, `tags`, `created`, `updated`, and numeric `progress`.
+
+A plan defines the durable objective, phases, milestones, risks, and validation
+strategy. Executable units belong in dedicated tracked files: `task`, `bug`, `feature`,
+`idea`, or `decision` as appropriate.
+
+Do not duplicate one initiative as both a plan and a task. Task files link to the plan;
+they do not replace it.
+
+## Human-facing visual artifacts
+
+Use visual artifacts as windows into complex systems. They crystallize structure that is
+too hard to understand from code, cards, or kanban alone. Their primary purpose is
+orientation: help a human see the shape of a complex codebase, spec tree, plan,
+dependency graph, or audit surface quickly enough to provide high-level organizational
+and directional input.
+
+Visuals support plans, task cards, decisions, audits, and reviews; they do not replace
+those tracked files.
+
+Store durable project visuals under `.agents/visuals/` unless Nimbalyst requires a
+specific colocated asset path. Link each visual from the plan, task, bug, feature,
+decision, or PR it supports.
+
+Use this routing:
+
+- Markdown WYSIWYG red/green diff approval: recommend this when the user and agent need
+  several rounds of edits on one document, especially plans, decisions, durable docs,
+  organizational policy, and source-of-truth rewrites.
+- Mermaid diagrams: use for versionable diagrams that should stay readable in markdown,
+  including category inheritance, subcategory-spec organization, constructor routing,
+  plan-to-task breakdowns, sprint timelines, dependency digraphs, state machines,
+  sequence diagrams, and entity relationships.
+- Excalidraw diagrams: use for spatial understanding, ambiguous architecture,
+  whiteboarding, decision trees, or diagrams where grouping and visual layout matter
+  more than text diff readability.
+- Data models: use for structured models that benefit from schema-like editing or
+  export, including tracker metadata models, plan/task relationships, dependency
+  entities, category/spec object relationships, and audit-state models.
+- Mockups: use for cheap HTML views that make a complex system browsable, including
+  sprint dashboards, plan decomposition views, audit status pages, category-inheritance
+  views, constructor-routing explorers, and review checklists.
+
+Use visuals when they answer one of these questions:
+
+- How does this plan break into tasks, bugs, decisions, and audits?
+- Which tasks depend on which decisions or research cards?
+- Which subcategories inherit from which mathematical surfaces?
+- Where does a Sage constructor route in the project model?
+- What is blocked, validating, accepted, or awaiting human input?
+- Which docs are canonical, superseded, or waiting for migration?
+- What high-level organizational or directional question should the human answer before
+  agents continue into details?
+
+Keep visual artifacts simple:
+
+- One visual should support one plan, decision, audit, or task cluster.
+- Every visual must link back to the tracked file that owns it.
+- Do not create visual-only outstanding-work, status, or sprint systems.
+- Update or delete visuals when their owning plan/card/decision changes.
+- Prefer Mermaid when the diagram should survive code review as plain text.
+- Prefer Excalidraw or mockups when spatial understanding or browsability matters more
+  than textual diff readability.
+
+## TODO scratchpad and inline task markers
+
+Avoid inline task markers wherever possible. Use `.agents/TODO.md` as the scratchpad
+inbox for discoveries that need investigation before they can become real cards.
+
+`.agents/TODO.md` is not an outstanding-work inventory, not a kanban lane, and not an
+execution queue. It is a receptacle for unresolved observations that need triage.
+
+Use TODO entries for:
+
+- Tangential inconsistencies discovered during work.
+- Smells that may indicate future noncompliance.
+- Bugs that need evidence before a bug card can be written.
+- Possible decisions whose ownership or stakes are unclear.
+- Follow-up research that is too far from the current task.
+
+Do not write TODO entries as executable assignments such as "fix the bug in X". Real
+work requires a full task card with context, source provenance, ownership, complexity,
+boundaries, and acceptance criteria.
+
+Inline `#task` markers inside other markdown files are allowed only when moving the note
+to `.agents/TODO.md` would destroy useful local context. Prefer a TODO entry with source
+provenance over inline markers.
+
+Periodically triage `.agents/TODO.md`:
+
+- Convert clear, bounded work into `task`, `bug`, `feature`, or `decision` files.
+- Promote multi-phase or ambiguous work into a human-approved plan.
+- Keep unresolved observations only when they still need investigation.
+- Delete resolved or invalid observations through normal git-reviewed edits.
+
+## Retired card holding area
+
+Keep active repo-local docs forward-facing. Completed cards, rejected cards, superseded
+cards, and cards that no longer represent actionable work should leave active task
+paths.
+
+Use `.agents/retired/` as a temporary holding area, not a permanent archive. Move a card
+there only after one of these is true:
+
+- The work was approved and merged or otherwise accepted by the human.
+- The work was rejected and the rejection is recorded in the card, PR, decision, or plan.
+- The work was superseded by another card, plan, decision, or canonical doc.
+- The card is kept briefly because reviewers may still need local context.
+
+Before retiring a card:
+
+- Record the durable outcome in git commit messages, PR body, linked plan history, or a
+  canonical decision/doc.
+- Update linked plans, decisions, and follow-up cards.
+- Set a terminal status supported by the tracker schema, and add `retired` or
+  `superseded` tags when useful.
+- Add a short pointer to the merge commit, PR, replacement card, or decision that now
+  carries the durable record.
+
+Do not retire durable decisions that still prevent backsliding. Keep active policy,
+architecture, naming, workflow, and mathematical-ownership decisions in
+`.agents/decisions/` or promote them into canonical docs. Retire only decisions whose
+usefulness is historical and whose effect is already preserved elsewhere.
+
+Delete retired cards when they no longer answer an active review, recovery, or migration
+question. Git history is the archive.
+
+## Full task card requirements
+
+A real task, bug, feature, or research item must be a full markdown file under
+`.agents/tasks/...`. The file must include enough context for a subagent to execute the
+work without recovering chat history or guessing hidden assumptions.
+
+Use these body sections unless a stricter local template applies:
+
+- `Summary`
+- `Source Provenance`
+- `Context`
+- `Complexity And Ownership`
+- `Acceptance Criteria`
+- `Dependencies And Boundaries`
+- `Validation Requirements`
+- `Work Log`
+
+Every sprint-scoped task should include `sprintCode`, `planCode`, `workCode`,
+`ownerAgent`, `agentRole`, `branchPolicy`, `branch`, `worktree`, `validationStatus`,
+`prStatus`, `reviewTier`, `mergeStrategy`, `mergeCommit`, and `slopRisk` when those
+values are known. If a value is unknown, explain the blocker in the body rather than
+inventing a placeholder.
+
+## Tangential discovery procedure
+
+During work, agents often find inconsistencies, bugs, missing decisions, architectural
+smells, stale docs, or possible follow-up research. Handle these findings without
+derailing the assigned task.
+
+Use this routing:
+
+- Direct blocker: stop, create or update the relevant `bug`, `task`, or `decision`
+  file, and report the blocker before proceeding.
+- Clear bounded follow-up: create the full card immediately with source provenance,
+  observed evidence, boundaries, and acceptance criteria.
+- Vague or investigative follow-up: add a concise entry to `.agents/TODO.md` with the
+  source path, observed symptom, why it matters, and what investigation would decide.
+- Ambiguous ownership or policy: create a `decision` file if the decision is already
+  clear enough to state; otherwise add a TODO entry requesting decision research.
+- High-value but tangential investigation: delegate a cheap branching subagent to
+  investigate and file the appropriate card, then continue the original task.
+- Spec/code mismatch: do not rewrite the spec. Record the mismatch as a `task`,
+  `decision`, or TODO entry depending on how well understood it is.
+
+The default is to preserve momentum on the assigned task while making the new work
+durable enough that another agent can recover it.
+
+## Delegation contracts
+
+Subagents do not know what a tracker key, task ID, plan label, or chat-local name means
+unless the delegation contract provides that meaning or points to a durable artifact
+that defines it.
+
+Before delegating, provide:
+
+- The exact task statement or tracker body, not only an identifier.
+- The concrete files or directories in scope.
+- The allowed and forbidden actions.
+- The required source docs to read.
+- The expected output format.
+- The exit condition.
+
+Implementation agents should receive one executable task card and one clear branch or
+worktree context. Validators and reviewers should receive the diff, acceptance criteria,
+linked plan, and validation expectations.
+
+## Bug workflow
+
+Before fixing a bug:
+
+- Search existing `bug` and relevant `task` files.
+- Create a `bug` file if no existing item captures the defect.
+- Link the bug to the relevant plan, sprint, source artifact, and failing evidence when
+  those exist.
+
+Do not fix a nontrivial bug from chat context alone. The bug card must explain the
+observed failure, affected files, expected behavior, boundaries, and validation.
+
+## Agent execution workflow
+
+Each sprint-scoped agent session should link to exactly one tracked task, bug, feature,
+or research file.
+
+During execution:
+
+- Record branch and worktree before implementation starts.
+- Update `status`, `progress`, `filesChanged`, validation notes, and session IDs as work
+  progresses.
+- Use `validating` or `needs-human-review` when implementation appears complete.
+- Never mark work `accepted`, native items `done`, or sprint plans `closed` without
+  human approval.
+
+## Branch and PR policy
+
+Nimbalyst plans and tracks work. GitHub PRs gate reviewed merges. Use Nimbalyst
+worktrees, file-change tracking, visual diffs, and AI-assisted commit drafting to
+prepare clean branches; do not use them to bypass review.
+
+Use `branchPolicy` on every sprint-scoped executable item:
+
+| Policy | Use |
+| --- | --- |
+| `direct-main` | Tiny reversible administrative changes that are not canonical docs, production logic, active sprint deliverables, or code-path-critical. |
+| `local-branch` | Spike, experiment, discarded prototype, or exploratory session. |
+| `branch-no-pr` | Throwaway branch used to prepare a later grouped branch. |
+| `draft-pr` | Useful but incomplete work needing early reviewer visibility. |
+| `formal-pr` | Normal mergeable feature, bug fix, refactor, docs update, or test update. |
+| `external-review-pr` | High-risk, ambiguous, security-sensitive, architecture-changing, generated, or AI-slop-prone work. |
+
+Use `formal-pr` or stricter for production logic, future-agent docs, normal docs
+updates, tests, refactors, bug fixes, or changes that touch more than one subsystem.
+
+Use `external-review-pr` for public API, schema, data model, permissions, auth,
+billing, security, migration logic, canonical-doc rewrites, generated migrations,
+generated prose, large diffs, unrelated files, or work that tests alone cannot verify.
+
+Branch names use this form:
+
+```text
+spr-YY.NN/<plan-code>/<work-code>-<short-slug>
+```
+
+Use this form for spikes:
+
+```text
+spike/YY.NN/<work-code>-<short-slug>
+```
+
+A branch may contain multiple work items only when the PR says it is grouped and lists
+each item.
+
+## Worktree policy
+
+Use a worktree for nontrivial code work, parallel agent sessions, high-risk
+implementation, large refactors, experiments, and PR preparation.
+
+Record `branch`, `worktree`, `branchPolicy`, `githubPr`, `prStatus`, `reviewTier`,
+`mergeStrategy`, and `mergeCommit` in the linked tracker file as values become known.
+
+## PR lifecycle
+
+Every reviewed PR follows this lifecycle:
+
+```text
+branch created
+  -> agent implements
+  -> local diff reviewed in Nimbalyst
+  -> commits cleaned
+  -> draft PR opened
+  -> CI/checks run
+  -> independent review
+  -> changes addressed
+  -> final docs migration check
+  -> human merge
+  -> tracker/plan updated
+  -> worktree removed or archived
+```
+
+A draft PR may become ready only when:
+
+- The branch has no unrelated changes.
+- The PR body is complete.
+- Acceptance criteria are checked.
+- Validation results are listed.
+- Stale-document effects are declared.
+- Nimbalyst tracker metadata has branch, PR, validation status, and files changed
+  populated.
+
+The implementing agent must not self-certify high-risk work. Review high or severe
+slop-risk work with a human reviewer, a code owner, or an independent agent session
+that receives the PR diff and acceptance criteria rather than the implementation
+transcript.
+
+## AI-slop risk
+
+Every executable item should set `slopRisk` when agent-generated implementation,
+prose, tests, migration, or policy is involved.
+
+| Risk | Meaning | Required process |
+| --- | --- | --- |
+| `low` | Small, narrow, easily verified change. | Local diff review or normal PR. |
+| `medium` | Bounded generated code or docs. | Formal PR plus tests or documented validation. |
+| `high` | Generated refactor, generated docs, migration, public behavior, or ambiguous requirements. | External-review PR. |
+| `severe` | Security, auth, data loss, destructive migration, legal/compliance text, or architectural rewrite. | External reviewer, code owner, and explicit human approval. |
+
+Use this validator stance for high-risk reviews:
+
+```text
+Review this PR for hallucinated requirements, overbroad implementation, incorrect
+assumptions, stale documentation, fake tests, hidden behavior changes, and mismatch with
+the linked Nimbalyst plan. Do not assume the implementing agent was correct. Verify from
+code, docs, tests, and the PR diff.
+```
+
+## Commit discipline
+
+Use Conventional Commit first lines:
+
+```text
+<type>(<scope>): <description>
+```
+
+Allowed types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `chore`, `ci`,
+`style`, and `revert`.
+
+Commit bodies should state why the change exists, what changed, validation performed,
+and references to sprint, plan, work item, and PR. Keep each commit to one semantic
+change unless the PR will squash noisy intermediate commits into a detailed final
+message.
+
+Before each commit:
+
+- Review every changed file in the Nimbalyst visual diff.
+- Separate unrelated changes.
+- Stage only intended files or hunks.
+- Let an agent draft the commit message only after staging is correct.
+- Human-edit the final message.
+
+Agents must not commit unreviewed generated files, unrelated edits, secrets, temporary
+scratch files, obsolete docs without a supersession marker, or unexplained snapshot
+updates.
+
+## Documentation lifecycle
+
+Before using a plan or docs file as authority, check its frontmatter. Treat only active
+canonical guidance as current. Use archived, superseded, deprecated, and draft files
+only as historical context.
+
+Every documentation-changing PR must answer: will this confuse a future agent?
+
+Before merge:
+
+- Search for old names, old commands, old file paths, and obsolete workflow steps.
+- Update canonical docs first.
+- Move historical docs to archive paths when they should no longer guide new work.
+- Add `supersededBy` pointers when preserving history.
+- Delete duplicate drafts when they have no archival value.
+- Update `.agents/plans/` and relevant navigation surfaces.
+- Update root `AGENTS.md`, subtree `AGENTS.md`, or the relevant category-spec skill if agent
+  behavior changed.
+- Update tracker files with final PR and merge metadata.
+- Add a `decision` file if the migration changes project policy.
+
+## Completed-work migration
+
+When a PR is merged:
+
+- Set `prStatus: merged`.
+- Record `mergeCommit`.
+- Set `validationStatus: approved` after approval.
+- Mark `status: accepted` only after human approval.
+- Append the PR and merge commit to the linked plan history.
+- Move completed plans out of active planning only when they no longer control ongoing
+  work.
+- Remove or archive the worktree.
+- Delete the remote branch unless release support needs it.
+- Close or defer remaining tracker items.
+- Record carryover as new work items, not vague leftovers in old docs.
+
+## Smoke test and triage workflow
+
+If design, architectural, layout, or spec violations are known, do not run smoke tests.
+Resolve those violations first. Smoke runs against a flawed architecture produce noise
+that causes thrash.
+
+Smoke status is not the goal. A smoke run inventories how current Sage implementations
+fail to meet the upgraded spec. Passing by weakening a spec, bypassing a constructor,
+catching away an error, or checking a shallow implementation detail is a regression.
+
+Smoke assertions should exercise the mathematical surface directly. Prefer construction
+calls such as `C.AutCategory().Of(A)` or `C.Constructors().ZZ()` over proxy checks such
+as `hasattr(C, "AutCategory")`.
+
+Each subtree's `smoketest.sage` must:
+
+- Add the repo root to `sys.path` so `category_specs` is importable.
+- Import only from this spec hierarchy.
+- Declare labeled mathematical statements using the shared smoke assertion helper from
+  `utils.py`.
+- Include a statement for every constructor in the subtree's `Constructors()` namespace.
+- Let assertion failures exit nonzero.
+
+Smoke frontier findings and blockers:
+
+- Are recorded as Nimbalyst tracker files, not subtree-local `TRIAGE.md` files.
+- Use `task`, `bug`, or `feature` files under `.agents/tasks/implementation/` for
+  missing methods, smoke failures, and structural blockers.
+- Use `task` files under `.agents/tasks/spec/` for missing spec surface.
+- Use `decision` files under `.agents/decisions/` for unresolved ownership or admission
+  choices.
+- Cite the source smoke file or mapping/inventory document in the tracker file.
+- Update the tracker file whenever `smoketest.sage` output changes.
+
+Every subtree's `smoketest.sage` must be listed in the `smoke` recipe in the root
+`justfile`. `just smoke` runs all smoketests. `just test` runs `smoke` first, then all
+`regression/` and `new_spec/` files.

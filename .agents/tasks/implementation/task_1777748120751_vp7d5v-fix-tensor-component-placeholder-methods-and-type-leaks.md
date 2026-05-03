@@ -2,7 +2,19 @@
 trackerStatus:
   type: task
 title: Fix tensor-component placeholder methods and type leaks
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- tensors
+- types
+- theme-audit-uniformity
 ---
+
 # Fix tensor-component placeholder methods and type leaks
 Source: pasted backlog 2026-05-02.
 

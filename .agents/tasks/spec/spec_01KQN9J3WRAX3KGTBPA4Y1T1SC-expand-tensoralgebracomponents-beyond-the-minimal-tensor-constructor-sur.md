@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface
   only after mapping symmetry storage contraction trace display and migration needs
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- constructors
+- algebras
+- tensors
+- mapping
+- theme-constructor-routing
 ---
+
 # Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs
 ## Summary
 
@@ -12,8 +25,8 @@ scope and the deferred tensor-calculus surface.
 
 ## Source Provenance
 
-- `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`.
-- Original migrated line: `Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs from plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`
+- `category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/tensor_algebra_components/docs/TRIAGE.md`.
+- Original migrated line: `Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs from category_specs/tensor_algebra_components/docs/TRIAGE.md`
 
 ## Context
 

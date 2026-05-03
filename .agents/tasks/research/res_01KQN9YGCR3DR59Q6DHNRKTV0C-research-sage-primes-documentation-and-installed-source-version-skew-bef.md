@@ -1,9 +1,22 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Research Sage Primes documentation and installed-source version skew before
   admitting congruence-class prime subset vocabulary
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- sage
+- sets
+- primes
+- theme-sets-topology
 ---
+
 # Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary
 ## Summary
 
@@ -12,8 +25,8 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `plans/category_specs/sets/docs/MAPPING.md`
-- Original migrated line: `Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary from plans/category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/MAPPING.md`
+- Original migrated line: `Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary from category_specs/sets/docs/MAPPING.md`
 
 ## Context
 

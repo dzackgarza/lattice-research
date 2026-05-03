@@ -2,7 +2,17 @@
 trackerStatus:
   type: feature
 title: Centralize remaining category hierarchy type aliases in types.py
+status: to-do
+priority: critical
+planId: PLN-CAT-100
+tags:
+- category-specs
+- spec
+- feature
+- types
+- theme-audit-uniformity
 ---
+
 # Centralize remaining category hierarchy type aliases in types.py
 ## Summary
 

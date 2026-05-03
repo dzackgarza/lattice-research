@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Implement TensorAlgebraComponents constructors for module-element matrices
   structure constants and multiplication-tensor handoff to Algebras(R)
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- modules
+- algebras
+- tensors
+- theme-constructor-routing
 ---
+
 # Implement TensorAlgebraComponents constructors for module-element matrices structure constants and multiplication-tensor handoff to Algebras(R)
 ## Summary
 
@@ -12,8 +25,8 @@ object interpretation, and the algebra multiplication-tensor handoff.
 
 ## Source Provenance
 
-- `plans/category_specs/tensor_algebra_components/docs/MAPPING.md`
-- Original migrated line: `Implement TensorAlgebraComponents constructors for module-element matrices structure constants and multiplication-tensor handoff to Algebras(R) from plans/category_specs/tensor_algebra_components/docs/MAPPING.md`
+- `category_specs/tensor_algebra_components/docs/MAPPING.md`
+- Original migrated line: `Implement TensorAlgebraComponents constructors for module-element matrices structure constants and multiplication-tensor handoff to Algebras(R) from category_specs/tensor_algebra_components/docs/MAPPING.md`
 
 ## Context
 

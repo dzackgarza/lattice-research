@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation
   mapping before expanding TensorAlgebraComponents
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- spec
+- feature
+- algebras
+- tensors
+- mapping
+- theme-rings-algebras
 ---
+
 # Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents
 ## Summary
 
@@ -12,8 +24,8 @@ scope and the deferred tensor-calculus surface.
 
 ## Source Provenance
 
-- `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`.
-- Original migrated line: `Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents from plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`
+- `category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/tensor_algebra_components/docs/TRIAGE.md`.
+- Original migrated line: `Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents from category_specs/tensor_algebra_components/docs/TRIAGE.md`
 
 ## Context
 

@@ -1,4 +1,4 @@
-"""Phase 3 end-state assertions for ``plans.category_specs``.
+"""Phase 3 end-state assertions for ``category_specs``.
 
 These tests record mathematical behavior expected after concrete category
 interceptors and constructor redefinitions are installed.
@@ -11,10 +11,10 @@ import importlib
 import pytest
 from sage.all import QQ, ZZ
 
-importlib.import_module("plans.category_specs")
+importlib.import_module("category_specs")
 
-rings = importlib.import_module("plans.category_specs.rings")
-sage_modules = importlib.import_module("plans.category_specs.sage_modules")
+rings = importlib.import_module("category_specs.rings")
+sage_modules = importlib.import_module("category_specs.sage_modules")
 
 RingIdeals = rings.RingIdeals
 Rings = rings.Rings
@@ -67,7 +67,7 @@ class TestSeedEnrollment:
         assert Zp(5) in Rings()
 
     def test_install_is_idempotent(self):
-        from plans.category_specs import refinement
+        from category_specs import refinement
 
         # Calling install() a second time must be a no-op.
         refinement.install()

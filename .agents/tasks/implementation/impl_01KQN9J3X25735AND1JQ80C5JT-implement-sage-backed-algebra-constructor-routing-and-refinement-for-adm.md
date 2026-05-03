@@ -3,7 +3,19 @@ trackerStatus:
   type: feature
 title: Implement Sage-backed algebra constructor routing and refinement for admitted
   constructors
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- constructors
+- sage
+- algebras
+- theme-constructor-routing
 ---
+
 # Implement Sage-backed algebra constructor routing and refinement for admitted constructors
 ## Summary
 
@@ -12,8 +24,8 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Source Provenance
 
-- `plans/category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/algebras/docs/TRIAGE.md`.
-- Original migrated line: `Implement Sage-backed algebra constructor routing and refinement for admitted constructors from plans/category_specs/algebras/docs/TRIAGE.md`
+- `category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`.
+- Original migrated line: `Implement Sage-backed algebra constructor routing and refinement for admitted constructors from category_specs/algebras/docs/TRIAGE.md`
 
 ## Context
 

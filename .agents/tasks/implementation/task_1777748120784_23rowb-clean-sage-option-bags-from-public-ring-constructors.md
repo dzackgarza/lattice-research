@@ -2,7 +2,21 @@
 trackerStatus:
   type: task
 title: Clean Sage option bags from public ring constructors
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- constructors
+- sage
+- rings
+- signatures
+- theme-audit-uniformity
 ---
+
 # Clean Sage option bags from public ring constructors
 Source: pasted backlog 2026-05-02.
 

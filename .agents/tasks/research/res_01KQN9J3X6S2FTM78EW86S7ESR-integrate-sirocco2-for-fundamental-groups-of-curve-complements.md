@@ -1,8 +1,18 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Integrate sirocco2 for fundamental groups of curve complements
+status: to-do
+priority: medium
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- research-backend
+- theme-research-sources
 ---
+
 # Integrate sirocco2 for fundamental groups of curve complements
 ## Summary
 

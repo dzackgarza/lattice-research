@@ -3,7 +3,20 @@ trackerStatus:
   type: feature
 title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank()
   while keeping ring-only routing in rings
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+tags:
+- category-specs
+- implementation
+- feature
+- modules
+- rings
+- algebras
+- matrix
+- theme-constructor-routing
 ---
+
 # Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings
 ## Summary
 
@@ -13,8 +26,8 @@ split.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
-- Original migrated line: `Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings from plans/category_specs/rings/docs/TRIAGE.md`
+- `category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`.
+- Original migrated line: `Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings from category_specs/rings/docs/TRIAGE.md`
 
 ## Context
 

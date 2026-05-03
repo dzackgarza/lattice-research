@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Implement module category graph phase for ambient free vector subobject quotient
   form graded Ore and representation surfaces
+status: to-do
+priority: high
+planId: PLN-CAT-100
+tags:
+- category-specs
+- implementation
+- feature
+- modules
+- forms
+- theme-modules-tensors
 ---
+
 # Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces
 ## Summary
 
@@ -13,8 +24,8 @@ then delete wrappers.
 
 ## Source Provenance
 
-- `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
-- Original migrated line: `Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces from plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+- `category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
+- Original migrated line: `Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces from category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
 
 ## Context
 

@@ -2,7 +2,18 @@
 trackerStatus:
   type: task
 title: Split boolean and optional return-shape signatures
+status: to-do
+priority: critical
+planId: PLN-AUDIT-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- signatures
+- theme-audit-uniformity
 ---
+
 # Split boolean and optional return-shape signatures
 Source: pasted backlog 2026-05-02.
 

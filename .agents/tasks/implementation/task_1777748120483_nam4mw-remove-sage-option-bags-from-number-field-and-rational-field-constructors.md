@@ -2,7 +2,20 @@
 trackerStatus:
   type: task
 title: Remove Sage option bags from number-field and rational-field constructors
+status: to-do
+priority: critical
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- implementation
+- task
+- constructors
+- sage
+- signatures
+- theme-audit-uniformity
 ---
+
 # Remove Sage option bags from number-field and rational-field constructors
 Source: pasted backlog 2026-05-02.
 

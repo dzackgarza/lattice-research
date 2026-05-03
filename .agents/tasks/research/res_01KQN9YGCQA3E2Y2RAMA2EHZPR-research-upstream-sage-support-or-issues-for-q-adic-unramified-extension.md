@@ -1,9 +1,23 @@
 ---
 trackerStatus:
-  type: plan
+  type: task
 title: Research upstream Sage support or issues for q-adic unramified extensions with
   split lattice precision caps
+status: to-do
+priority: high
+planId: PLN-SAGE-000
+progress: 0
+tags:
+- category-specs
+- research
+- task
+- sage
+- rings
+- precision
+- lattices
+- theme-rings-algebras
 ---
+
 # Research upstream Sage support or issues for q-adic unramified extensions with split lattice precision caps
 ## Summary
 
@@ -13,8 +27,8 @@ lattice-precision gaps.
 
 ## Source Provenance
 
-- `plans/category_specs/rings/docs/MAPPING.md`
-- Original migrated line: `Research upstream Sage support or issues for q-adic unramified extensions with split lattice precision caps from plans/category_specs/rings/docs/MAPPING.md`
+- `category_specs/rings/docs/MAPPING.md`
+- Original migrated line: `Research upstream Sage support or issues for q-adic unramified extensions with split lattice precision caps from category_specs/rings/docs/MAPPING.md`
 
 ## Context
 

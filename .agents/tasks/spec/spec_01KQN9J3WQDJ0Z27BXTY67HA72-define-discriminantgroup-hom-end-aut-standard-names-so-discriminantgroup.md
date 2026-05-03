@@ -3,7 +3,18 @@ trackerStatus:
   type: feature
 title: Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut
   can be exported
+status: to-do
+priority: critical
+planId: PLN-CAT-120
+phasePlan: PLN-LAT-040
+tags:
+- category-specs
+- spec
+- feature
+- hom-end-aut
+- theme-category-core
 ---
+
 # Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut can be exported
 ## Summary
 
@@ -12,8 +23,8 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 ## Source Provenance
 
-- `plans/category_specs/lattices/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/lattices/docs/TRIAGE.md`.
-- Original migrated line: `Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut can be exported from plans/category_specs/lattices/docs/TRIAGE.md`
+- `category_specs/lattices/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/lattices/docs/TRIAGE.md`.
+- Original migrated line: `Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut can be exported from category_specs/lattices/docs/TRIAGE.md`
 
 ## Context
 
