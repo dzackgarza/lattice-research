@@ -50,6 +50,7 @@ coverage.xml
 # Cache and temporary data
 .cache/
 .serena/cache/
+.grain.toml
 
 # Models
 models/
@@ -57,4 +58,3 @@ models/
 carat
 src/backends/external/vinbergs_algorithm/
 theory/dutsik_polyhedral
-
