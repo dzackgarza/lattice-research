@@ -124,6 +124,25 @@ the same rule:
 | Element predicates and size: `is_zero()`, `__len__()`, `length()` | Module element zero/support-size surfaces where mathematically meaningful | Zero is general module-element structure; support length depends on a chosen basis. |
 | Leading/trailing term methods and `map_coefficients`, `map_support`, `map_support_skip_none`, `map_item` | Ordered-basis or term-order element surface; otherwise interop-local | These depend on an order or on implementation-level sparse support traversal. Admit only the mathematically stated ordered-basis cases. |
 
+## Rank, Primitive Elements, And Divisibility Boundary
+
+`rank()` is a parent method on `Modules(R).Free()`. Finite-rank free modules may also
+expose `dimension()` as a basis-cardinality convention.
+
+Do not admit a free-module element method named `divisibility()` from coordinate gcds,
+chosen generators, or a putative divisor relation `v = a*w`. That premise is not a
+source-grounded module definition here, and it must not be conflated with lattice/form
+divisibility.
+
+The generic module-element predicate `v.is_primitive()` is already routed through the
+cyclic submodule inclusion `v.span().inclusion().is_primitive()`, i.e. through the
+primitive morphism/submodule notion. It is not a unit-divisibility predicate unless a
+later source-grounded proof establishes that equivalence under explicit hypotheses.
+
+The sourced divisibility surface for formed elements belongs in the symmetric bilinear
+forms subtree: for `b: M x M -> S`, `divisibility(v)` is the submodule
+`<b(v, M)> <= S`; when `S = R`, this is an ideal of `R`.
+
 `CombinatorialFreeModule_Tensor` and `CombinatorialFreeModule_CartesianProduct`
 are implementation classes for tensor-product and cartesian-product construction
 objects. Their factor accessors and structure maps map to

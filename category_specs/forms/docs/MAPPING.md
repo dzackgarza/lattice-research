@@ -11,6 +11,7 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 | `Modules(R).WithForms().Bilinear()` | `forms.subcategories.bilinear._BilinearModules` | Owns bilinear evaluation and generic bilinear predicates. |
 | `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic._QuadraticModules` | Owns quadratic evaluation. |
 | Symmetric, alternating, nondegenerate, definite, indefinite, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
+| `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
 | Free bilinear modules | `forms.subcategories.free_bilinear._FreeBilinearModules` | First tier where Gram matrices, determinant, and discriminant are universally meaningful. |
 | Finite-rank free formed-module chain used by `Lattices(R)` | `forms.chain` | Lattices imports this chain and adds only the named `Lattice` endpoint. |
 | Finite torsion quadratic modules | `forms.subcategories.torsion_quadratic_modules._TorsionQuadraticModules` | Modules keeps `TorsionQuadraticModules()` as a compatibility constructor route. |
@@ -37,6 +38,18 @@ through `forms`.
 A scalar-valued bilinear form may be constructed there as a `(0,2)` tensor. The object
 becomes a formed module only when attached as form data to a module category in this
 subtree.
+
+## Symmetric Bilinear Divisibility
+
+For a symmetric bilinear module `(M, b)` with `b: M x M -> S`, the element
+divisibility surface is:
+
+`divisibility(v) = < b(v, w) : w in M > <= S`.
+
+This is a submodule of the form codomain `S`. In the scalar-valued case `S = R`, it is
+an ideal of `R`. Coordinate gcds, principal generators, or old Sage lattice
+presentations are only possible representations after extra hypotheses are recorded;
+they are not the mathematical definition and do not create a free-module owner.
 
 ## Boundary With Lattices
 

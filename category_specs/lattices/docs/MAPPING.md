@@ -109,8 +109,8 @@ The table answers: at what tier is each method first universally well-defined?
 | `value_module_qf()` | `Torsion + Quadratic` | Q/nZ containing QF values |
 | `additive_order(v)` | `Torsion` (element) | order in torsion group |
 | `lift(v)` | `Torsion` (element) | lift to dual lattice |
-| `divisibility(v)` | `Free` (element) | gcd{a ∈ R : v = a·w for w ∈ L} |
-| `is_primitive(v)` | `Free` (element) | divisibility is a unit |
+| `divisibility(v)` | `Bilinear.Symmetric` (element) | pairing-image submodule `<b(v, L)> <= S`; for scalar-valued forms `S = R`, this is an ideal; see note (9) |
+| `is_primitive(v)` | `Modules` (element) | cyclic submodule primitive predicate via `v.span().inclusion().is_primitive()`; not a unit-divisibility rule without a source-grounded equivalence proof |
 | `discriminant_class(x)` | `Lattices(R).DualObjects()` (element) | quotient map `L^* -> L^*/L`; ordinary `v in L` maps to the zero class via `L -> L^*`; see note (8) |
 | `reflection(v)` | `Free + Symmetric + Nondegenerate` (element) | s_v(w) = w - 2b(v,w)/b(v,v) · v |
 | `is_root(v)` | `Free + Symmetric + Integral` (element) | b(v,v) ∈ {-2, 2} |
@@ -177,6 +177,13 @@ alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
 by first applying the inclusion `L -> L^*`; its discriminant class is necessarily the
 zero element of `L.discriminant_group()`, so it is not a separate element obligation on
 `L`.
+
+**(9) `divisibility(v)` ownership**: For a symmetric bilinear module `(M, b)` with
+`b: M x M -> S`, the invariant definition is the `R`-submodule
+`<b(v, w) : w in M>` of `S`. In the scalar-valued case this is an ideal of `R`.
+Principal generators and gcd presentations are representation choices under extra
+hypotheses; they are not the owner definition and must not be replaced by coordinate
+content in `Modules(R).Free()`.
 
 ---
 

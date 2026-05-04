@@ -20,7 +20,6 @@ from .bilinear import BilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import (
-        Integer,
         Matrix,
         Ring,
         RingElement,
@@ -42,13 +41,16 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     **New at this tier** (compared to ``Modules(R).WithForms().Bilinear()``):
 
     - ``gram_matrix()`` — matrix ``G`` with ``G_{ij} = b(e_i, e_j)``
-    - ``rank()`` — the rank ``n`` of ``M \cong R^n``
     - ``determinant()`` — ``\det(G)``
     - ``discriminant()`` — ``(-1)^r \det(G)``
     - ``direct_sum(other)`` — orthogonal direct sum with block-diagonal Gram matrix
     - ``tensor_product(other)`` — tensor product with Kronecker product Gram matrix
     - ``span(gens)`` — sub-bilinear-module spanned by generators
     - ``base_change_to(ring)`` — reinterpret over a different ring
+
+    Rank is inherited from ``Modules(R).Free()``. Element divisibility is not a
+    free-bilinear owner; the symmetric-bilinear owner is the pairing-image submodule
+    ``\langle b(v, M) \rangle`` of the form codomain.
 
     EXAMPLES::
 
@@ -71,17 +73,6 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def is_free(self) -> bool:
             return True
-
-        @abstract_method
-        def rank(self) -> Integer:
-            r"""Return the rank of the underlying free ``R``-module.
-
-            EXAMPLES::
-
-                sage: Lattice.U().rank()   # not tested
-                2
-            """
-            ...
 
         @override
         @abstract_method
@@ -192,27 +183,6 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods:
-        @abstract_method
-        def divisibility(self) -> RingElement:
-            r"""Return the divisibility of ``v``:
-            ``\gcd\{a \in R : v = a \cdot w \text{ for some } w \in M\}``.
-
-            An element is *primitive* iff its divisibility is a unit.
-
-            EXAMPLES::
-
-                sage: L = Lattice.U()   # not tested
-                sage: e = L.gen(0)   # not tested
-                sage: e.divisibility()   # not tested
-                1
-            """
-            ...
-
-        @final
-        def is_primitive(self) -> bool:
-            r"""Refine the module-element primitive predicate using divisibility."""
-            return self.divisibility().is_unit()
-
         @abstract_method
         def perp(self) -> SubModule:
             r"""Return the orthogonal complement ``v^\perp = \{w \in M : b(v,w) = 0\}``.

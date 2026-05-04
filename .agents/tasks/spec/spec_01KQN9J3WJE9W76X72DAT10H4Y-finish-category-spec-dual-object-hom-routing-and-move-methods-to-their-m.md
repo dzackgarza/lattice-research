@@ -65,7 +65,7 @@ The dual-object/Hom owner rule is now recorded in
 `category_specs/modules/docs/MAPPING.md`. The remaining work is represented by the
 following active leaves:
 
-- `spec_20260504_modules_free_primitive_divisibility_owner.md`
+- `spec_20260504_forms_symmetric_bilinear_divisibility_owner.md`
 - `spec_20260504_forms_isometry_hom_containment_owner.md`
 - `spec_01KQN9J3WKCASMD9XVMGT6JP8K-centralize-remaining-category-hierarchy-type-aliases-in-types-py.md`
 - `spec_01KQN9J3WM2ASPH06AKRJQ8G82-design-and-scaffold-twistedforms-as-the-form-object-category-for-modules.md`
@@ -93,6 +93,9 @@ minimal in the dependency poset.
 - 2026-05-04: Added the dual-object Hom-routing rule to
   `category_specs/modules/docs/MAPPING.md`.
 - 2026-05-04: Split remaining method-owner work into
-  `spec_20260504_modules_free_primitive_divisibility_owner.md` and
+  `spec_20260504_forms_symmetric_bilinear_divisibility_owner.md` and
   `spec_20260504_forms_isometry_hom_containment_owner.md`; existing type-alias and
   TwistedForms cards already cover the other independent outcomes.
+- 2026-05-04: Corrected the divisibility leaf after human review rejected the
+  free-module coordinate/content premise; the active leaf now owns
+  symmetric-bilinear pairing-image divisibility.
