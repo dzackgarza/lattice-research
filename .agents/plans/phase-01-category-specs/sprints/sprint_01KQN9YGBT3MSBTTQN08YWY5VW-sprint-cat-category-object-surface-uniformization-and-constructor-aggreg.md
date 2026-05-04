@@ -20,6 +20,18 @@ tags:
 ---
 
 # Sprint Cat category-object surface uniformization and constructor aggregation cleanup
+
+## Sprint Grounding Requirements
+
+This sprint coordinates approved leaves; it is not mathematical definition authority.
+Before a sprint item changes a spec, constructor, mapping, type, or implementation
+surface, its card must cite the canonical source path, exact definition, owner category,
+hypotheses, codomain/return object, and proof or Sage-evidence obligations.
+
+If a sprint finding lacks that grounding, the sprint action is source mining, decision
+capture, or splitting into a prerequisite card. QC and smoke findings identify work, but
+they do not define the mathematical surface being repaired.
+
 ## Summary
 
 The deleted Cat triage recorded structural Cat smoke scope and future uniformization

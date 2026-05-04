@@ -27,6 +27,19 @@ Organize the geometry category research cards that identify source-backed catego
 vocabulary for schemes, varieties, manifolds, polytopes, and toric interfaces before
 any implementation card is created.
 
+
+## Mathematical Grounding Requirements
+
+This geometry plan is source-admission work, not a license for ad hoc algebraic-geometry
+interfaces. Each child card must cite the relevant literature, Sage/Singular/Macaulay2/
+Oscar documentation, or local theory note before admitting a category, constructor,
+backend, invariant, or morphism.
+
+The grounding record must state the geometric object, morphism or construction,
+hypotheses, return object, and backend evidence. If the software only exposes raw
+polynomials, matrices, or option bags, the child card must translate them into project
+category vocabulary or split a source/backend decision first.
+
 ## Source Provenance
 
 - Parent plan: `PLN-GEO-000`.

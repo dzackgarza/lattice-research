@@ -26,6 +26,19 @@ parentPlan: PLN-CAT-100
 
 Turn `CATEGORY_REFINEMENT_PHASES.md` into the governing order for category-spec admission: static hierarchy first, concrete interceptors second, top-level constructor redefinitions last.
 
+
+## Definition Grounding Requirements
+
+This category-core plan coordinates spec work; it does not authorize definitions by
+itself. Each child card must ground any category, axiom, Hom/End/Aut surface,
+constructor, method, predicate, type alias, or mapping decision before spec edits.
+
+Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
+`category_specs/*/docs/SAGE_INVENTORY.md`, Sage written docs/source, local category-spec
+skills, and `theory/references/index.md` when a standard mathematical claim is involved.
+The card must record exact definition, owner category, hypotheses, codomain/return
+object, and proof obligations for equivalence or Sage translation.
+
 ## Source corpus
 
 - `plans/CATEGORY_REFINEMENT_PHASES.md`

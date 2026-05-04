@@ -25,6 +25,19 @@ tags:
 Implement or wrap Sage classes so project objects satisfy the specs directly, while
 leveraging mature open-source mathematical software for exact kernels.
 
+
+## Definition Grounding Gate
+
+Phase 03 implementation work may start only from accepted specs and Phase 02 gap records.
+Each implementation card must name the public mathematical noun being implemented, the
+source-grounded definition, hypotheses, return/codomain, and backend or Sage object used
+as the exact computation carrier.
+
+Use `category_specs/*/docs/MAPPING.md`, `category_specs/*/docs/SAGE_INVENTORY.md`,
+`theory/backends/software-capability-map.md`, and `research-software-wiring` before
+writing local algorithms. If no backend or owned category surface can express the noun,
+file a backend-gap or base-vocabulary prerequisite before implementation.
+
 ## Entry criteria
 
 - [ ] Phase 01 specs are approved for the target surfaces.

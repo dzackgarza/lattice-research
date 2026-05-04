@@ -26,6 +26,19 @@ Implement algorithms at the highest valid categorical level, such as explicit
 countability and deterministic enumeration for sets, finite products, free modules, and
 lattices over countable rings.
 
+
+## Definition Grounding Gate
+
+Universal algorithms require theorem-level grounding before implementation. Each child
+card must state the categorical level where the algorithm is valid, source definitions,
+hypotheses, output object, termination or finiteness argument, and proof obligations for
+functoriality, invariance, or compatibility with refinements.
+
+Use the accepted set/module/Hom/End/Aut specs, `theory/algorithms/`,
+`theory/references/index.md`, and backend capability notes before adding local
+algorithmic code. A familiar special case is not enough to generalize an algorithm to a
+higher category.
+
 ## Entry criteria
 
 - [ ] Owned categorical surfaces exist for the relevant universal objects.

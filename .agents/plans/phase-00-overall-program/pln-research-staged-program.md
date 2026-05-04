@@ -26,6 +26,23 @@ Downstream Coble research is blocked until the semantic category, lattice, and g
 language exists and can express the relevant mathematical arguments without ad hoc raw
 matrix or polynomial scripts.
 
+
+## Program Grounding Requirements
+
+This program plan is a routing spine, not direct mathematical authority. Every child
+phase and executable card must carry its own grounding before work advances:
+
+- canonical source path or literature reference;
+- exact mathematical definition and owner category/object;
+- hypotheses, base ring, codomain, and return object;
+- proof obligations for equivalence, choice-independence, or backend translation;
+- validation or audit artifact required before promotion.
+
+Use `GOAL.md`, `.agents/current-goal-phase.md`, `theory/index.md`,
+`theory/references/index.md`, and the approved child phase plans as the control layer.
+Downstream Coble claims must additionally cite the relevant literature entries and the
+semantic category/lattice/geometry artifacts that express the claim.
+
 ## Phase tree
 
 - `PLN-PHASE-01`: category specs and semantic vocabulary.

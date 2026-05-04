@@ -28,6 +28,19 @@ Expose semantic interfaces for schemes, varieties, complex varieties, curves, su
 families, divisors, Picard groups, blowups, covers, and Coble-specific relative
 constructions.
 
+
+## Mathematical Grounding Gate
+
+Geometry interface work must start from sourced scheme/variety/surface/family
+vocabulary, not raw polynomial or matrix calculations. Each child card must name the
+geometric object, morphism, divisor/Picard construction, hypotheses, return object, and
+software backend or literature source that justifies the operation.
+
+Use `theory/references/index.md`, `theory/moduli/`, geometry source-admission cards,
+Sage/Singular/Macaulay2/Oscar documentation, and accepted category specs before adding
+interfaces. Coble-specific claims remain blocked until the geometry and lattice objects
+can express the claim semantically.
+
 ## Lean and Aristotle thread
 
 Extend the formalization vocabulary only where the geometry interfaces have stabilized.

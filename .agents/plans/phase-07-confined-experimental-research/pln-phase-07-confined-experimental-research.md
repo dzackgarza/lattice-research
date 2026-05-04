@@ -29,6 +29,18 @@ the previous phases. Results must be reviewable as mathematical chains of argume
 as opaque raw computations. Mature claims should be transitioned toward paper prose and,
 where feasible, formalized proof artifacts.
 
+
+## Mathematical Grounding Gate
+
+Experimental research in this phase must be confined inside the accepted semantic
+substrate. Every experiment card must cite the theorem, conjecture, or source claim it
+is probing, the constructed mathematical objects, hypotheses, expected output object,
+and the validated category/lattice/geometry APIs used to compute it.
+
+Use `GOAL.md`, `theory/references/index.md`, accepted Phase 01-06 artifacts, and proof or
+backend audit records. Raw computations, chat-derived expectations, or unsourced matrix
+models cannot be promoted to evidence for Coble claims.
+
 ## Lean and Aristotle thread
 
 Formalization becomes a first-class output in this phase. The correct route is still

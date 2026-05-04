@@ -28,6 +28,19 @@ Build the genuinely lattice-theoretic layer once universal category boilerplate 
 place: discriminant forms, primitive embeddings, local invariants, orthogonal groups,
 base change, and Nikulin-style criteria expressed semantically.
 
+
+## Mathematical Grounding Gate
+
+Lattice-theoretic work must cite primary mathematical sources before implementation or
+claim promotion. Cards touching discriminant forms, primitive embeddings, local
+invariants, orthogonal complements, genus criteria, or Nikulin-style results must record
+exact definitions, hypotheses, return objects, and proof or literature obligations.
+
+Use `theory/references/index.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`,
+`.agents/skills/lattice-redesign/references/category-abc-spec.md`, and backend capability
+notes. Computations are supporting evidence unless the card states the exact theorem or
+certificate being proved and routes it through proof audit.
+
 ## Lean and Aristotle thread
 
 Start formalizing small lattice definitions and lemmas once the corresponding semantic

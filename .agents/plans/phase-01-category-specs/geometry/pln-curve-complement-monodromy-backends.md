@@ -28,6 +28,19 @@ Group the curve-complement, Riemann-surface, Sirocco, ore_algebra, Picard-Fuchs,
 monodromy research cards under one leaf plan so backend evidence is collected before
 geometry-facing implementation work is proposed.
 
+
+## Mathematical Grounding Requirements
+
+This geometry plan is source-admission work, not a license for ad hoc algebraic-geometry
+interfaces. Each child card must cite the relevant literature, Sage/Singular/Macaulay2/
+Oscar documentation, or local theory note before admitting a category, constructor,
+backend, invariant, or morphism.
+
+The grounding record must state the geometric object, morphism or construction,
+hypotheses, return object, and backend evidence. If the software only exposes raw
+polynomials, matrices, or option bags, the child card must translate them into project
+category vocabulary or split a source/backend decision first.
+
 ## Source Provenance
 
 - Parent plan: `PLN-GEO-000`.

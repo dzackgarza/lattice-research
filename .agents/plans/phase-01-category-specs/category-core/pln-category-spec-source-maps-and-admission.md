@@ -27,6 +27,19 @@ parentPlan: PLN-CAT-000
 
 Preserve and route the non-lattice root `plans` source maps into an approved research/admission workflow before they drive implementation.
 
+
+## Definition Grounding Requirements
+
+This category-core plan coordinates spec work; it does not authorize definitions by
+itself. Each child card must ground any category, axiom, Hom/End/Aut surface,
+constructor, method, predicate, type alias, or mapping decision before spec edits.
+
+Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
+`category_specs/*/docs/SAGE_INVENTORY.md`, Sage written docs/source, local category-spec
+skills, and `theory/references/index.md` when a standard mathematical claim is involved.
+The card must record exact definition, owner category, hypotheses, codomain/return
+object, and proof obligations for equivalence or Sage translation.
+
 ## Current State
 
 Several root plan files are source maps or design notes rather than executable implementation plans. They are valuable, but they should not remain free-floating planning authorities outside Nimbalyst.

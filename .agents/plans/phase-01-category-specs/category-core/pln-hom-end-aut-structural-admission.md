@@ -25,6 +25,17 @@ parentPlan: PLN-CAT-100
 
 Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework instead of ad hoc group or ConditionSet surfaces.
 
+
+## Definition Grounding Requirements
+
+Hom/End/Aut work must state the ambient category, source and target objects, membership
+condition, and returned Hom/End/Aut parent or morphism object before code or spec edits.
+Direct `A.Hom(B)` routing, lower HomCategory refinements, endomorphism surfaces, and
+automorphism predicates each need source-backed ownership in mapping docs or Sage source.
+
+Matrix, function, or predicate checks are implementation evidence only after the
+categorical Hom/End/Aut definition and hypotheses are fixed.
+
 ## Source corpus
 
 - `plans/homsets_structural_core.md`
