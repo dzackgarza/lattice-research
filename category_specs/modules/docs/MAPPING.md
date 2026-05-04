@@ -290,6 +290,40 @@ supercategory for upstream compatibility. Aut-category construction still comes 
 the generic layer because `Aut_R(M)` is defined by invertibility inside `End_R(M)` and
 dispatched through the module end category.
 
+## Dual Objects As Hom Objects
+
+`Modules(R).DualObjects()` owns linear dual modules. For an object `M in Modules(R)`,
+the mathematical meaning is
+
+```text
+M^* = Hom_R(M, R).
+```
+
+The public construction surface is therefore `M.dual()` as an object lying in
+`Modules(R).DualObjects()`, but the category-theoretic content must route through the
+module hom layer. The dual object is simultaneously:
+
+- a dual object in `Modules(R).DualObjects()`;
+- a hom object in `Modules(R).HomCategory()` with codomain the rank-one module `R`;
+- an `R`-module, through the module-hom extra structure.
+
+The implementation target in `subcategories/constructions/dual_objects.py` is to keep
+the extra-supercategory chain routed through `Modules(R).HomCategory()`, specifically
+the linear integral form surface, instead of shortcutting directly to `Modules(R)`.
+This preserves the fact that elements of `M^*` are both module elements and morphisms
+`M -> R`.
+
+Migration consequences:
+
+- `RModule.dual()` is a named construction into `Modules(R).DualObjects()`, not a
+  separate forms-local helper.
+- the dual of a morphism `f: A -> B` belongs to
+  `Modules(R).HomCategory().ElementMethods` as `f.dual(): B^* -> A^*`;
+- public type aliases for `DualModule` and dual elements must point to the
+  `DualObjects` method surfaces, not to plain `RModule` aliases;
+- tensor-component duals and future `TwistedForms` may refine this construction, but
+  they do not replace the module-level linear dual owner.
+
 ## Topological Modules
 
 Topological module structure should inherit the topological-space surface from

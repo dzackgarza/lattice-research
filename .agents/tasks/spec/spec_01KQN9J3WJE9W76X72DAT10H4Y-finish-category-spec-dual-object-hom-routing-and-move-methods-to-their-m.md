@@ -1,8 +1,9 @@
 ---
 trackerStatus:
   type: feature
-title: Finish category-spec dual-object Hom routing and move methods to their most general mathematical owners
-status: to-do
+title: Finish category-spec dual-object Hom routing and move methods to their most
+  general mathematical owners
+status: blocked
 priority: critical
 planId: PLN-CAT-120
 phasePlan: PLN-LAT-030
@@ -12,6 +13,9 @@ tags:
 - feature
 - hom-end-aut
 - theme-category-core
+complexity: 85
+progress: 45
+updated: '2026-05-04'
 ---
 
 # Finish category-spec dual-object Hom routing and move methods to their most general mathematical owners
@@ -23,7 +27,7 @@ category.
 
 ## Source Provenance
 
-- `plans/todo.md`
+- `plans/todo.md`; recover deleted source with `git show f3c2a1b^:plans/todo.md`.
 - Original migrated line: `Finish category-spec dual-object Hom routing and move methods to their most general mathematical owners from plans/todo.md`
 
 ## Context
@@ -47,7 +51,48 @@ category.
 - If execution reveals a missing mathematical owner, constructor, or category graph edge, split that as a new tracker item instead of patching around it.
 - Preserve the original source path in updates so future agents can trace why this item exists.
 
+## Split Outcome
+
+This card is not an atomic execution leaf. The recovered `plans/todo.md` source bundles
+four independent outcomes:
+
+- dual objects as Hom objects;
+- method ownership generalization;
+- centralized type aliases;
+- a future `TwistedForms` category.
+
+The dual-object/Hom owner rule is now recorded in
+`category_specs/modules/docs/MAPPING.md`. The remaining work is represented by the
+following active leaves:
+
+- `spec_20260504_modules_free_primitive_divisibility_owner.md`
+- `spec_20260504_forms_isometry_hom_containment_owner.md`
+- `spec_01KQN9J3WKCASMD9XVMGT6JP8K-centralize-remaining-category-hierarchy-type-aliases-in-types-py.md`
+- `spec_01KQN9J3WM2ASPH06AKRJQ8G82-design-and-scaffold-twistedforms-as-the-form-object-category-for-modules.md`
+
+This parent card is blocked on those leaves. Do not execute it directly as if it were
+minimal in the dependency poset.
+
+## Complexity And Ownership
+
+- Owner/role: category-spec planning/spec agent for Hom/End/Aut and module/form
+  ownership.
+- Complexity: `85` (plan-scale after preflight).
+- Rationale: the recovered source combines dual-object Hom routing, method migration,
+  public type aliases, and TwistedForms design. Those are independent outcomes with
+  different owners and validation surfaces.
+- Split/promote note: this card has been decomposed into the active leaves listed in
+  `Split Outcome`; keep it blocked until those leaves are resolved or superseded by
+  human-approved plan changes.
+
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-04: Recovered deleted source from `git show f3c2a1b^:plans/todo.md` and
+  preflighted the card as non-atomic.
+- 2026-05-04: Added the dual-object Hom-routing rule to
+  `category_specs/modules/docs/MAPPING.md`.
+- 2026-05-04: Split remaining method-owner work into
+  `spec_20260504_modules_free_primitive_divisibility_owner.md` and
+  `spec_20260504_forms_isometry_hom_containment_owner.md`; existing type-alias and
+  TwistedForms cards already cover the other independent outcomes.
