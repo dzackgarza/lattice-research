@@ -33,6 +33,20 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 5: Orthogonal Groups, Roots, Weyl, Eichler, and Coxeter
 
+## Definition Grounding Gate
+
+Before any Phase 5 child card edits code or specs, it must record source-grounded
+definitions and hypotheses for orthogonal groups, stabilizers, centralizers,
+discriminant kernels, roots, reflections, Weyl groups, Eichler transvections, isotropic
+orbits, Coxeter diagrams, and any backend-specific algorithmic claim.
+
+Use `.agents/skills/lattice-redesign/references/category-abc-spec.md` for
+Hom/Aut-owned group semantics, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+for public API placement, `theory/references/index.md` for Nikulin/Sterk/Vinberg-style
+standard claims, and `theory/backends/software-capability-map.md` before adding local
+algorithm code. Group predicates live on group/Hom/Aut parents, not as ad hoc lattice
+helpers.
+
 Build the full group-theoretic layer on top of the lattice hierarchy:
 orthogonal groups with explicit element construction routed through hom
 spaces, stabilizers, centralizers, kernel of discriminant action, isotropic

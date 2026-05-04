@@ -37,6 +37,10 @@ semilattice category introspection.
 - certificate=True Sage paths map to separately named witness-returning certificate methods.
 - Sage semilattice category evidence remains incomplete because local Sage imports failed before category introspection.
 
+## Decision Grounding Required
+
+This decision cannot be settled from migrated backlog text alone. Before moving to `decided`, record the source paths inspected, the exact mathematical or category-theoretic alternatives, hypotheses and owner categories, consequences for public methods/constructors/types, and any proof or Sage-evidence obligations. Negative Sage-source findings must use the five-field search format.
+
 ## Acceptance Criteria
 
 - [ ] The decision record lists the alternatives, selected outcome, rationale, consequences, and affected tracker items.

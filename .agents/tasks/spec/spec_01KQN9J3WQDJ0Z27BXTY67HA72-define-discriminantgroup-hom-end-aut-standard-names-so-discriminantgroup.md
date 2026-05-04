@@ -33,6 +33,28 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
+## Definition Grounding Required
+
+Before adding `DiscriminantGroupHom`, `DiscriminantGroupEnd`, or
+`DiscriminantGroupAut`, record the discriminant object definition and the Hom/End/Aut
+membership condition:
+
+- canonical sources:
+  - `category_specs/lattices/docs/MAPPING.md`;
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`, especially
+    cokernels and discriminant descent;
+  - `theory/foundations/bilinear-forms-duals-morphisms.md`;
+  - `theory/references/index.md` for literature-backed discriminant-form claims;
+- object: for a lattice `L`, `A_L` is the quotient/cokernel object `L^*/L`, with its
+  descended quotient-valued bilinear or quadratic form data when present;
+- Hom condition: morphisms are group/module morphisms preserving the relevant descended
+  form data; End and Aut are the corresponding endomorphism and automorphism parents;
+- codomain: Hom/End/Aut parent or morphism object, not a raw matrix, list, or Sage
+  torsion object;
+- proof obligations: any generator-matrix or Sage torsion-module representation must be
+  proven equivalent to the quotient/cokernel definition under explicit presentation
+  choices.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.

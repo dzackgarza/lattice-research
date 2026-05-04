@@ -30,6 +30,28 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 2: ModulesWithForms Integration Layer
 
+## Definition Grounding Gate
+
+This migrated phase text is not sufficient authority for public form/module semantics.
+Before executing a child card, record the canonical definition source, hypotheses,
+codomain, and choice-independence obligations for each touched noun or method.
+
+Required source layer for this phase:
+
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md` for
+  `ModulesWithForms(R)` as pairs `(M, f)`, bilinear/quadratic branches, form codomains,
+  and presented object identity;
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` and
+  `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+  for no-ambient-space, no-helper, and presentation-sensitive API rules;
+- `theory/foundations/bilinear-forms-duals-morphisms.md` for bilinear morphisms before
+  coordinate/matrix presentations;
+- `theory/spec_backups/lattices_written_spec_backup.py` as mined source material, not
+  direct implementation authority.
+
+Do not admit coordinate gcd, ambient-vector, mutable-basis, or Sage-native definite
+lattice conventions into this phase without a separate sourced decision.
+
 Build the `ModulesWithForms(R)` integration layer, form codomain
 abstraction, and the thin concrete carriers that realize the category
 mixins. The architectural correction for this phase is:

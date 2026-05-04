@@ -30,6 +30,21 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 3: Concrete Morphism Wrappers and the Cokernel Machine
 
+## Definition Grounding Gate
+
+Before any Phase 3 child card edits code, it must record the source-grounded definitions
+for Hom spaces, morphisms, form-preserving containment, isometries, kernel, image,
+cokernel, projection, and lift. The grounding must name the morphism direction, source
+and target categories, the form codomain, and the object returned by each quotient or
+lift operation.
+
+Canonical sources for this phase are
+`.agents/skills/lattice-redesign/references/category-abc-spec.md`,
+`.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, and
+`theory/foundations/bilinear-forms-duals-morphisms.md`. Matrix equations may be used
+only as implementation checks inside Hom/Aut parents after the categorical statement is
+fixed.
+
 Build the concrete morphism layer on top of `ModulesWithForms(R)`: thin
 hom-space wrappers as genuine Sage homsets, thin morphism wrappers as Sage
 `Morphism` instances (not matrices), kernel/image/cokernel returning proper

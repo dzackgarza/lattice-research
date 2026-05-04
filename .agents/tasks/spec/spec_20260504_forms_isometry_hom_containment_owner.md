@@ -50,6 +50,31 @@ hom object in the category of modules carrying that form. Orthogonal groups are 
 aut objects in the formed-module category, not ad hoc boolean filters on ordinary
 module morphisms.
 
+## Definition Grounding
+
+- Canonical sources:
+  - `category_specs/cat/docs/MAPPING.md` for direct `A.Hom(B)` ownership and
+    Hom/End/Aut routing.
+  - `category_specs/forms/docs/MAPPING.md` for formed-module ownership of bilinear
+    evaluation and orthogonal groups.
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`, "Presented
+    Object Identity" and morphism semantics.
+  - `theory/foundations/bilinear-forms-duals-morphisms.md`, "Base Change and
+    Morphisms".
+- Definition: a morphism of bilinear `R`-modules
+  `f: (M1, beta1) -> (M2, beta2)` is an `R`-module morphism satisfying
+  `beta1(v, w) = beta2(f(v), f(w))` for all `v, w in M1`. An isometry is an
+  isomorphism with this property.
+- Owner: the formed-module Hom category owns containment/form-preservation; the Aut
+  category owns invertible form-preserving endomorphisms.
+- Hypotheses: source and target carry compatible bilinear form data over the same base
+  ring or an explicitly recorded semilinear/base-change map.
+- Codomain/return object: containment returns membership in a Hom/Aut parent, not a
+  standalone boolean method unless documented as a compatibility alias over that
+  membership.
+- Proof obligations: any matrix criterion must be proven equivalent to the categorical
+  form-preservation equation under explicit presentation/basis hypotheses.
+
 ## Complexity And Ownership
 
 - Owner/role: category-spec spec implementer for Hom/End/Aut and forms.
@@ -92,3 +117,6 @@ module morphisms.
 
 - 2026-05-04: Created by splitting the non-atomic dual-object/method-generalization
   card into a concrete Hom-containment owner leaf.
+- 2026-05-04: Added definition grounding for formed-module isometry as Hom/Aut
+  containment, with matrix criteria demoted to implementation checks under explicit
+  presentation hypotheses.

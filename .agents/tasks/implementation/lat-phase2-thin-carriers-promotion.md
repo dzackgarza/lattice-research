@@ -29,6 +29,14 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
+## Definition Grounding Required Before Implementation
+
+This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+
+For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+
+If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+
 ## Context
 
 This card exists because the old phase document mixed high-level planning with executable substeps. The migration splits that material into a phase plan plus leaf cards so an implementation agent can work from one bounded contract.

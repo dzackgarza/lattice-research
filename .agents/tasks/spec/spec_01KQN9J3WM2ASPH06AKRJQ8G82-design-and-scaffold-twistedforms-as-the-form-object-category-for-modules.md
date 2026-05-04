@@ -34,6 +34,27 @@ category.
 - types.py should own standard mathematical aliases for module objects, elements, Hom/End/Aut objects, dual modules, forms, and scalar categories.
 - TwistedForms should be a real form-object category rather than ad hoc form handling inside ModulesWithForms.
 
+## Definition Grounding Required
+
+`TwistedForms` is not executable as scaffold work until its mathematical object is
+defined. The first action on this card is source mining and decision capture, not code.
+
+Required grounding before any scaffold:
+
+- source path/reference for the form-object category and the meaning of "twisted";
+- exact object data, including source tensor degree, codomain, and scalar-action or
+  semilinearity twist;
+- owner category and relation to `Modules(R).WithForms()`, bilinear, quadratic,
+  alternating, and tensor-component surfaces;
+- morphism/Hom containment condition;
+- proof obligation that the new category is not just an alias, compatibility shim, or
+  helper around existing `FormedModules` surfaces.
+
+Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
+`category_specs/forms/docs/MAPPING.md`,
+`category_specs/tensor_algebra_components/docs/MAPPING.md`, and
+`theory/foundations/bilinear-forms-duals-morphisms.md` as starting sources.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
@@ -51,4 +72,3 @@ category.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

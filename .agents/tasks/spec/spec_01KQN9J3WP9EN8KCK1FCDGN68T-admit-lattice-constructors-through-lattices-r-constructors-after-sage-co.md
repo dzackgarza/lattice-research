@@ -36,6 +36,27 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
+## Definition Grounding Required
+
+Before admitting any constructor, record the mathematical object constructed, the
+presentation data, the base ring, the form codomain, and the category meet it must land
+in. Constructor names and Sage call paths are not definitions.
+
+Canonical sources:
+
+- `category_specs/lattices/docs/MAPPING.md` and `category_specs/lattices/docs/SAGE_INVENTORY.md`;
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md` for presented
+  lattice/module-with-form objects;
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` for
+  the no-ambient-space and presentation-sensitive equality rules;
+- `theory/spec_backups/lattices_written_spec_backup.py` as source material to mine;
+- Sage written docs/source only for constructor behavior, not for importing Sage's
+  ambient-vector-space convention into the public semantics.
+
+Any constructor whose target object cannot be stated through `Lattices(R).Constructors()`
+and the current category vocabulary must be split into source-mining or base-vocabulary
+work before admission.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.

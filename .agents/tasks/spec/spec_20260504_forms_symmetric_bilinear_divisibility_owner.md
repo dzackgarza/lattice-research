@@ -61,6 +61,24 @@ For symmetric bilinear modules, `b(v, M)` is invariantly defined without choosin
 basis. Its generated submodule of the form codomain is the correct mathematical object.
 For scalar-valued forms this submodule is an ideal of the base ring.
 
+## Definition Grounding
+
+- Canonical sources:
+  - Human mathematical correction recorded in this card.
+  - `theory/foundations/bilinear-forms-duals-morphisms.md` for the invariant pairing
+    map before coordinate presentations.
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md` for forms with
+    arbitrary module-valued codomains.
+  - `theory/spec_backups/lattices_written_spec_backup.py` only as mined source
+    material showing the old pairing-based lattice surface.
+- Definition: for a symmetric bilinear module `(M, b)` with `b: M x M -> S`,
+  `divisibility(m)` is the `R`-submodule `<b(m, w) : w in M>` of `S`.
+- Hypotheses: `M` is an `R`-module with symmetric `R`-bilinear form data and explicit
+  codomain `S`.
+- Codomain/return object: a submodule of `S`; when `S = R`, an ideal of `R`.
+- Proof obligations: principal generators, gcds, coordinate content, or equivalence to
+  a primitive predicate require separate hypotheses and proof before admission.
+
 ## Complexity And Ownership
 
 - Owner/role: category-spec spec implementer for the modules/forms boundary.

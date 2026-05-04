@@ -29,15 +29,40 @@ Organize the lattice redesign around the actual dependency chain: Sage/module pr
 
 ## Source corpus
 
-- `plans/CATEGORY_ABC_SPEC.md`
-- `plans/LATTICE_STYLE_GUIDE.md`
-- `plans/lattice_redesign_corrections_spec.md`
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
+- `theory/spec_backups/lattices_written_spec_backup.py`
 - `plans/PHASE_0_SAGE_PATCHES.md`
 - Deleted superseded crosswalk: `plans/PHASE_1_BILINEAR_MODULES.md`
 - `plans/PHASE_2_CORE_OBJECTS.md`
 - `plans/PHASE_3_MORPHISMS.md`
 - `plans/PHASE_4_DISCRIMINANT_DESCENT.md`
 - `plans/PHASE_5_ORTHOGONAL_GROUPS.md`
+
+The skill-local files and `theory/` files are the current durable source layer. The
+old phase-plan files remain migration provenance and implementation inventory, not
+standalone authority for definitions.
+
+## Mathematical Grounding Rules
+
+Every lattice/module/form child card must ground public vocabulary before execution:
+
+- modules with forms are pairs `(M, f)` over an explicit base ring with an explicit
+  form source and codomain;
+- a bilinear form is stated first as a morphism/pairing, with matrices appearing only
+  after a presentation or generator choice is fixed;
+- changing generators or basis data changes the presented object, even when the result
+  is isometric;
+- duals, discriminant groups, isometries, cokernels, primitive predicates,
+  divisibility, and orthogonal-group operations must cite exact definitions and
+  hypotheses before code or spec surfaces are moved;
+- old code in `theory/spec_backups/` is source material to mine, not an API to copy.
+
+Cards that cannot state source, definition, hypotheses, codomain/return object, and
+choice-independence or equivalence obligations are blocked only for that leaf; the
+correct continuation is a source-mining, decision, or split prerequisite.
 
 ## Phase tree
 

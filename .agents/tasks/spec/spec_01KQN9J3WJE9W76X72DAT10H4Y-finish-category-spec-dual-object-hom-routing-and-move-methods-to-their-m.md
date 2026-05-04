@@ -37,6 +37,21 @@ category.
 - types.py should own standard mathematical aliases for module objects, elements, Hom/End/Aut objects, dual modules, forms, and scalar categories.
 - TwistedForms should be a real form-object category rather than ad hoc form handling inside ModulesWithForms.
 
+## Definition-Grounded Split Policy
+
+This parent card is not definition authority. Each child leaf must carry its own
+grounding record before spec edits:
+
+- source path/reference;
+- exact mathematical definition and owner category;
+- hypotheses and base-ring/codomain conditions;
+- return object or public surface;
+- proof obligations for equivalences, presentation choices, or Sage-compatibility
+  translations.
+
+If a child leaf cannot state those fields, it is blocked only for that leaf and must be
+split into source-mining or decision work. Do not execute this parent directly.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.

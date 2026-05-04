@@ -30,6 +30,21 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 0: Sage Patches
 
+## Definition Grounding Gate
+
+This migrated phase text is implementation inventory, not standalone definition
+authority. Before executing a child card, record the source-grounded definitions for
+the touched public nouns and methods: `ModuleBaseRings`, ideal-submodules,
+quotient modules, enriched free/FGP modules, localizations, completions, Hom
+enrichment, and cokernel/projection/lift surfaces.
+
+Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
+`.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`,
+`theory/foundations/bilinear-forms-duals-morphisms.md`, and Sage written docs/source
+before treating any old phase-plan prose as operative. If a Sage patch term is
+ambiguous or conflicts with the current category-spec source, block that leaf and file
+the source-mining or decision prerequisite.
+
 Standalone monkeypatch modules that make existing Sage objects support the
 syntax and semantics required by `tests/sage_spec/misc.sage`. These patches
 are **prerequisites** for Phase 1: the BilinearModule category cannot work

@@ -29,6 +29,10 @@ scope and the deferred tensor-calculus surface.
 - Current scope includes component modules T_R(M)[p,q], central Tensor type, constructor stubs, scalar matrix constructors as (0,2) tensors, and module-element matrix constructors as (1,2) tensors.
 - Deferred work includes exhaustive tensor calculus method mapping, symmetry and antisymmetry subtrees, component storage API, contraction, trace, display, index notation, and detailed migration for old component containers.
 
+## Decision Grounding Required
+
+This decision cannot be settled from migrated backlog text alone. Before moving to `decided`, record the source paths inspected, the exact mathematical or category-theoretic alternatives, hypotheses and owner categories, consequences for public methods/constructors/types, and any proof or Sage-evidence obligations. Negative Sage-source findings must use the five-field search format.
+
 ## Acceptance Criteria
 
 - [ ] The decision record lists the alternatives, selected outcome, rationale, consequences, and affected tracker items.

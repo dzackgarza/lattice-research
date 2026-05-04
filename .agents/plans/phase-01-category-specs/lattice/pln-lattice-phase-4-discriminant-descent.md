@@ -28,6 +28,25 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 4: Lattice Meets, Duals, and Discriminant Descent
 
+## Definition Grounding Gate
+
+Before any Phase 4 child card edits code or specs, it must record the exact definitions
+and hypotheses for `Lattices(R)`, rational lattices, dual lattices, discriminant
+objects, quotient-valued forms, `discriminant_class`, lift, named lattice constructors,
+and primitive/inclusion predicates. In particular, the card must distinguish:
+
+- dual elements as functionals or dual-lattice elements, not raw vectors;
+- `A_L` as the cokernel/quotient object `L^*/L`, not a coordinate container;
+- discriminant-form data as quotient-valued bilinear or quadratic form data with an
+  explicit codomain;
+- presented-object equality from isometry.
+
+Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
+`.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`,
+`theory/foundations/bilinear-forms-duals-morphisms.md`, and
+`theory/references/index.md` before importing claims from old phase prose or Sage
+lattice conventions.
+
 Build the downstream meet-based categories on top of `ModulesWithForms(R)`:
 
 - `Lattices(R) = ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`

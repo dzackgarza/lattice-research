@@ -36,6 +36,19 @@ then delete wrappers.
 - Method moves require a mathematical owner for every wrapper method; ordered-basis, forms, finite-rank, PID, and field hypotheses must not be broadened.
 - Wrapper deletion comes last and requires references to deleted wrappers to disappear outside intentional documentation or tracker provenance.
 
+## Definition Grounding Required
+
+For every method or wrapper candidate touched by this card, record the exact
+mathematical owner, hypotheses, and return object before moving or deleting it. The
+wrapper migration plan and old wrapper names are provenance only. Use
+`category_specs/modules/docs/MAPPING.md`, `category_specs/modules/docs/SAGE_INVENTORY.md`,
+Sage written docs/source, and the relevant form/lattice mapping when a method crosses
+subtrees.
+
+If a method depends on ordered bases, chosen generators, form codomains, PID/field
+hypotheses, or finite-rank assumptions, those assumptions must be explicit in the card
+or child task before the method is generalized.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
@@ -53,4 +66,3 @@ then delete wrappers.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
