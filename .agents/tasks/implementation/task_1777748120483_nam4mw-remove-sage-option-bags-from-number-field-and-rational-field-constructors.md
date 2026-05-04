@@ -4,7 +4,7 @@ trackerStatus:
 title: Remove Sage option bags from number-field and rational-field constructors
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 progress: 0
 tags:
 - category-specs

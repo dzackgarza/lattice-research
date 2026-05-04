@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement RealSet named constructors and smoke recovery through ambient-relative
-  topological methods
+title: Implement RealSet named constructors and smoke recovery through ambient-relative topological methods
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - implementation

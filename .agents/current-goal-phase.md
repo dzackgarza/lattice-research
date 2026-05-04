@@ -34,6 +34,10 @@ Blocked by default:
 - QC-driven code cleanup unrelated to an approved phase transition or implementation card.
 - Rolling back formatter, linter, or hook auto-fixes.
 
+These defaults block only attempts to do that downstream or unrelated work. They do not
+block phase-01 spec execution, source mining, audit drafting, decision capture, or
+decomposition under approved phase-01 plans.
+
 ## Phase dependency
 
 Each stage in `GOAL.md` blocks the next. It is pointless to attempt Coble research before
@@ -55,6 +59,10 @@ QC is not the controlling activity during churn-heavy spec work. Specs undergo h
 planning, audit, review, and rewrite before settling. During the spec phase, agents
 should not chase incidental QC failures or hook noise unless the user explicitly asks
 for QC work or the repo is being prepared for a phase transition.
+
+If QC, implementation validation, or a downstream research guard fails during ordinary
+spec work, record the finding in the appropriate card/TODO/decision only when durable
+tracking is needed, then continue another approved active spec leaf.
 
 When a phase transition is proposed, QC becomes mandatory for the affected committed
 implementation surface. Passing QC is evidence for moving between phases; it is not a

@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 
 class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).WithOrderedGeneratingSet()``."""
+
     _base_category_class_and_axiom = (Modules, "WithOrderedGeneratingSet")
 
     @override
@@ -47,6 +48,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
             def from_function(self, f: Callable[[RModuleElement], RModuleElement]) -> RModuleMorphism: ...
 
         class ElementMethods: ...
+
         class MorphismMethods: ...
 
     class ElementMethods: ...

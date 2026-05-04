@@ -4,7 +4,7 @@ trackerStatus:
 title: Split mixed set-constructor input shapes into named alternatives
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 progress: 0
 tags:
 - category-specs

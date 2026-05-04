@@ -5,7 +5,7 @@ F = R^3
 T = R/2
 M = F + T
 assert M == F.direct_sum(T)
-assert M.free_part(), M.torsion_part() == F, T
+assert (M.free_part(), M.torsion_part()) == (F, T)
 
 
 assert not F.is_finite() and T.is_finite() 
@@ -40,11 +40,11 @@ assert M.dual() == R^3 # Hom_R(F+T,R) == Hom(F, R) doesn't see torsion.
 e1, e2, e3, t1 = M.gens()
 assert all(x.order() == Infty for x in [e1, e2, e3]) and t1.order() == 2
 
-e1d, e2d, e3d == M.dual().gens()
+e1d, e2d, e3d = M.dual().gens()
 assert all(x in M.Hom(R) for x in M.dual().gens()) # Literal functionals
 
 assert e1d * e1 == e1d.evaluate(e1) # Multiplication := natural evaluation pairing
-assert el1(e1) == e1d.evaluate(e1) # Functionals can be called to evaluate
+assert e1d(e1) == e1d.evaluate(e1) # Functionals can be called to evaluate
 # Form 3x3 matrix of pairings e_i^*(e_j), assert == \delta_{ij}
 assert matrix(R, 3, lambda i,j: M.dual().gen(i) * M.gen(j))  == identity_matrix(R, 3)
 
@@ -72,9 +72,10 @@ assert {(M*M).gens()} == {e_i.tensor(e_j) for e_i in M.gens() for e_j in M.gens(
 e1, e2, e3 = M.gens()
 assert M.dual().gens() == [e1.dual(), e2.dual(), e3.dual()]
 assert e1.dual() in M.Hom(R)
-assert e1(3*e1 + 2e2) in R
+assert e1(3*e1 + 2*e2) in R
 
-M1.<a1, a2>, M2.<b1, b2> = ZZ^2, ZZ^2
+M1.<a1, a2> = ZZ^2
+M2.<b1, b2> = ZZ^2
 f = M1.Hom(M2).from_dict({a1: b1, a2:2*b1})
 M_f = matrix(R, 2, [1,0,0,2])
 assert f != M_f and f.to_matrix() == M_f
@@ -118,7 +119,7 @@ assert M.base_ring() == R and M.base_ring() != M # M is no longer considered a r
 p = M(3)
 
 assert M.annihilator(p) == Modules(ZZ).zero()
-assert M.annihilator(M(0)) = ZZ
+assert M.annihilator(M(0)) == ZZ
 
 M == ZZ/3
 assert [x.annihilator() for x in M] == [ZZ, 3*ZZ, 3*ZZ]
@@ -155,7 +156,7 @@ assert M_G.lift_generators() == {a} # Choose SOME lifts, use natural ordering on
 assert M_G.gens() == [i(a)] and M_G.gens() == [i(b)]
 assert M^G.is_isomorphic_to(ZZ) and M^G == ZZ # Natural morphism: (a+b)-> 1
 
-R.<x,y>= = PolynomialRing(ZZ, 2)
+R.<x,y> = PolynomialRing(ZZ, 2)
 M = R^3 # Free module of rank 3 on R
 assert M in Modules(R)
 assert M.rank() == 3 # Rank over ZZ[x,y], not ZZ!
@@ -192,7 +193,7 @@ assert not i.is_isomorphism()
 R = ZZ
 M.<a, b> = R^2
 assert a.to_vector() == matrix(R, 1, [1,0])
-assert b.to_vector() == matrix(R, 1, [0,1)]
+assert b.to_vector() == matrix(R, 1, [0,1])
 assert M == R.direct_sum(R) # Coerces to R-modules
 assert M == R + R # Categorically, R^n := \oplus_{i=1}^n R is repeated summing
 assert a[0] == 1 and a[1] == 0 # Indexing extracts the coefficient of the i'th generator
@@ -232,7 +233,7 @@ assert M.base_change(Zp(3)) in Modules(Zp(3)) # p-adic rings should be supported
 assert Modules(ZZ).random_module() in Modules(ZZ) # Ability to generate random elements
 assert Modules(ZZ).an_object() in Modules(ZZ) # Ability to get a sample object
 
-M1, M2, M3 == 3*[ZZ^1]
+M1, M2, M3 = 3*[ZZ^1]
 f1 = M1.Hom(M3).natural_map() # For f: R^n->R^m, always sends the first m generators of R^n to the generators of R^m
 assert f1.is_identity() # In this case, n=m=3, so this is the identity matrix
 assert f1.formula("x") == x
@@ -305,10 +306,10 @@ assert T_M[2] == M * M # Tensor over ZZ
 
 assert {T_M.gens()}.is_infinite() # Or something similar, module generators are words in {"a", "b", "c"}
 
-assert len(T_M.algebra_gens()} == 3 # Free ZZ-algebra on {"a", "b", "c"}
+assert len(T_M.algebra_gens()) == 3 # Free ZZ-algebra on {"a", "b", "c"}
 
 M = ZZ^2
-T_M.<e,f> == M.tensor_algebra() # Algebra generators
+T_M.<e,f> = M.tensor_algebra() # Algebra generators
 b = (M*M).Hom(ZZ).from_dict({
 	e@e: 0,
 	e@f: 1,
@@ -317,7 +318,7 @@ b = (M*M).Hom(ZZ).from_dict({
 }) # A bilinear form clearly corresponding to U
 assert b in (M*M).dual() # ZZ-linear dual
 assert b(e@e) == 0 and b(e@f) == 1 and b(f@e) == 1 and b(f@f) == 0
-assert b(e,e) == 0 and b(e,f) == 1 and b(f,e) == 1 abd b(f,f) == 0 # Convenience: lift elements of MxM to M\otimes_ZZ M
+assert b(e,e) == 0 and b(e,f) == 1 and b(f,e) == 1 and b(f,f) == 0 # Convenience: lift elements of MxM to M\otimes_ZZ M
 
 assert Lattices(ZZ).from_tensor_pair(M, b) == Lattices.U() # Isometric by the identity
 assert Lattices(ZZ).from_tensor_pair(M, b).gram_matrix() == matrix(ZZ, 2, [0,1,1,0])
@@ -339,7 +340,7 @@ assert f.contract( M([1,1,1]) ) == 1 + 2 + 3 # Interpret elements of M as (1,0) 
 
 E_M.<a,b,c> = M.exterior_algebra() # Alternating tensors
 assert a*a == a.wedge(a) # Multiplication is always the algebra multiplication here
-assert a*a,b*b,c*c == 3 * [E_M.zero()]
+assert (a*a, b*b, c*c) == tuple(3 * [E_M.zero()])
 assert E_M.num_graded_pieces() == 4
 assert E_M.graded_pieces == [ZZ, M, M.wedge_power(2), M.wedge_power(3)]
 assert M.determinant_module() == M.wedge_power(3)

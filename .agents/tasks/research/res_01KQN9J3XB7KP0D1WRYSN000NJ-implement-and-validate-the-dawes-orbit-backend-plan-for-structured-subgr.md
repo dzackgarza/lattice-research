@@ -1,8 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: Implement and validate the Dawes orbit backend plan for structured subgroup
-  orbit computations
+title: Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations
 status: to-do
 priority: medium
 progress: 0
@@ -12,6 +11,8 @@ tags:
 - task
 - research-backend
 - theme-research-sources
+- theme-modules-tensors
+planId: PLN-LAT-050
 ---
 
 # Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations

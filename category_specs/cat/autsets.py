@@ -30,5 +30,7 @@ class CatAutCategory(AutCategoryOf):
         return f"autofunctor categories internal to {self.base_category()}"
 
     ElementMethods = _CatAutofunctorMethods
+
     class ParentMethods: ...
+
     class MorphismMethods: ...

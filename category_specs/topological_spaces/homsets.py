@@ -9,6 +9,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
+
 class _TopologicalHomCategoryObjectMethods:
     r"""Topological hom parent methods; generic hom methods are inherited."""
 
@@ -58,6 +59,7 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
 
     ParentMethods = _TopologicalHomCategoryObjectMethods
     ElementMethods = _ContinuousMaps
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -66,21 +68,27 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
 
 class TopologicalSpaceEndCategory(GenericEndCategory):
     r"""Canonical chain: ``TopologicalSpaces().EndCategory()``."""
+
     _base_category_class_and_axiom = (TopologicalSpaceHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "TopologicalSpaceAutCategory")
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 class TopologicalSpaceAutCategory(GenericAutCategory):
     r"""Canonical chain: ``TopologicalSpaces().AutCategory()``."""
+
     _base_category_class_and_axiom = (TopologicalSpaceEndCategory, "Autset")
 
     class ParentMethods: ...
+
     ElementMethods = _Homeomorphisms
+
     class MorphismMethods: ...
 
 
@@ -104,19 +112,25 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
 
 class MetricSpaceEndCategory(GenericEndCategory):
     r"""Canonical chain: ``TopologicalSpaces().Metric().EndCategory()``."""
+
     _base_category_class_and_axiom = (MetricSpaceHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "MetricSpaceAutCategory")
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 class MetricSpaceAutCategory(GenericAutCategory):
     r"""Canonical chain: ``TopologicalSpaces().Metric().AutCategory()``."""
+
     _base_category_class_and_axiom = (MetricSpaceEndCategory, "Autset")
 
     class ParentMethods: ...
+
     ElementMethods = _Isometries
+
     class MorphismMethods: ...

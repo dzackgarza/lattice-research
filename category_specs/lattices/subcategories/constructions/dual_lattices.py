@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from .dual_objects import LatticeDualObjectsCategory
 
-
 DualLatticesCategory = LatticeDualObjectsCategory
 DualLatticesObject = LatticeDualObjectsCategory.ParentMethods
 DualLatticesElement = LatticeDualObjectsCategory.ElementMethods

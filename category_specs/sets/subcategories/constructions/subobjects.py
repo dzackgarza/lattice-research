@@ -120,6 +120,5 @@ class Subsets(SubobjectsCategory):
             return self.difference(X)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
-
-

@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement orthogonal subgroups through ConditionSet composition'
+title: Implement orthogonal subgroups through ConditionSet composition
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,11 +9,12 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-050
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - orthogonal-groups
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- orthogonal-groups
+- theme-modules-tensors
 ---
 
 # Implement orthogonal subgroups through ConditionSet composition

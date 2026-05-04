@@ -3,10 +3,11 @@ trackerStatus:
   type: plan
 title: Sprint Cat category-object surface uniformization and constructor aggregation
   cleanup
-status: needs-approval
-planId: SPR-CAT-CORE-01KQN9
+status: in-progress
+planId: SPR-CAT-SURFACE-01KQN9
 planType: sprint-plan
 priority: critical
+updated: '2026-05-03'
 parentPlan: PLN-CAT-100
 tags:
 - category-specs

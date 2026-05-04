@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import operator
 from collections.abc import Callable
-from typing import TYPE_CHECKING, final, Literal, override
+from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -13,7 +13,6 @@ from .. import Modules
 
 if TYPE_CHECKING:
     from ...types import Algebra, CategoryElement, Group, Matrix, Monoid, RModule, RModuleElement
-
 
 
 class _RepresentationModules(Category_over_base_ring):
@@ -73,4 +72,5 @@ class _RepresentationModules(Category_over_base_ring):
         ) -> RModule: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

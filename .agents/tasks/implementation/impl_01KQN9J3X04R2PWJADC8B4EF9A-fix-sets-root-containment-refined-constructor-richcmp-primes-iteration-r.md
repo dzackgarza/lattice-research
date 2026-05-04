@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration
-  RealSet element-constructor and topological axiom warning
+title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - implementation

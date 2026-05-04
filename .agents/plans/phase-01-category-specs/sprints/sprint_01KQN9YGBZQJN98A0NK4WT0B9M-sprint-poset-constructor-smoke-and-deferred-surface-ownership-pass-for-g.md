@@ -1,10 +1,9 @@
 ---
 trackerStatus:
   type: plan
-title: Sprint poset constructor smoke and deferred surface ownership pass for graph
-  polytope algebra polynomial and Coxeter surfaces
-status: needs-approval
-planId: SPR-CAT-SAGE-01KQN9
+title: Sprint poset constructor smoke and deferred surface ownership pass for graph polytope algebra polynomial and Coxeter surfaces
+status: approved
+planId: SPR-POSETS-PART-01KQN9
 planType: sprint-plan
 priority: high
 parentPlan: PLN-SAGE-000

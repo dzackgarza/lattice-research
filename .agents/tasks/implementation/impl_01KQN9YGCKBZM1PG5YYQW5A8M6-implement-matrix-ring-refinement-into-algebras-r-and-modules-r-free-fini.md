@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank()
-  while keeping ring-only routing in rings
+title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - implementation

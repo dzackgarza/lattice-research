@@ -3,7 +3,7 @@ r"""Vector spaces and modules over fields."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, Literal, override
+from typing import TYPE_CHECKING, Any, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
 class _OverField(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).OverField()``."""
+
     _base_category_class_and_axiom = (Modules, "OverField")
 
     @override

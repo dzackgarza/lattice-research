@@ -1,8 +1,7 @@
 ---
 trackerStatus:
   type: decision
-title: Decide whether equivalence relations and set partitions need a first-class
-  set subtree or remain centralized Sage-backed type aliases
+title: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases
 status: to-do
 tags:
 - category-specs
@@ -14,6 +13,7 @@ tags:
 - types
 - needs-decision
 - theme-decisions
+planId: SPR-POSETS-PART-01KQN9
 ---
 
 # Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases

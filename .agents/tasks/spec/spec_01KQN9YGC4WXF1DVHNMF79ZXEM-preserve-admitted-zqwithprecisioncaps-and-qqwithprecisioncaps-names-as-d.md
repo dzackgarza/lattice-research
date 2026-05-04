@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred
-  Sage-gap frontiers with exact gap assertions
+title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - spec

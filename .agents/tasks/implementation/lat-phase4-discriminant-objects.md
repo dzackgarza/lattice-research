@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement discriminant quotient objects and form data'
+title: Implement discriminant quotient objects and form data
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-040
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - discriminant-groups
-  - duals
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- discriminant-groups
+- duals
+- theme-modules-tensors
 ---
 
 # Implement discriminant quotient objects and form data

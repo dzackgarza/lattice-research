@@ -101,6 +101,7 @@ class _DualObjects(DualObjectsCategory):
             return (q, p)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -242,23 +243,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
         ) -> Tensor:
             r"""Construct the ``(1,2)`` tensor encoded by module-valued products."""
             rank = base_module.rank()
-            output_coordinates = [
-                [self._module_element_coordinates(base_module, element) for element in row]
-                for row in entries
-            ]
-            assert len(output_coordinates) == rank, (
-                f"Module-element matrix must have {rank} rows: {len(output_coordinates)}"
-            )
+            output_coordinates = [[self._module_element_coordinates(base_module, element) for element in row] for row in entries]
+            assert len(output_coordinates) == rank, f"Module-element matrix must have {rank} rows: {len(output_coordinates)}"
             assert all(len(row) == rank for row in output_coordinates), (
                 f"Module-element matrix rows must all have length {rank}: {output_coordinates}"
             )
             assert all(len(coordinates) == rank for row in output_coordinates for coordinates in row), (
                 f"Each product must have {rank} coordinates in {base_module}: {output_coordinates}"
             )
-            components = [
-                [[output_coordinates[i][j][k] for j in range(rank)] for i in range(rank)]
-                for k in range(rank)
-            ]
+            components = [[[output_coordinates[i][j][k] for j in range(rank)] for i in range(rank)] for k in range(rank)]
             return self._from_components(base_module, (1, 2), components, name=name, latex_name=latex_name)
 
         @final

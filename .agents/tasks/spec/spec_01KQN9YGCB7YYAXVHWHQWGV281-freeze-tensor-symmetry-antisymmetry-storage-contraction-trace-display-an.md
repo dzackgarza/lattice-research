@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation
-  mapping before expanding TensorAlgebraComponents
+title: Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - spec

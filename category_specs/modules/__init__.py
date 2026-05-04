@@ -35,7 +35,7 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final, overload, override
+from typing import TYPE_CHECKING, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
@@ -44,7 +44,6 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import (
-    Cat,
     Category,
     Category_module,
     DualObjectsCategory,
@@ -93,9 +92,6 @@ if TYPE_CHECKING:
         Ring,
         RingElement,
         RMod,
-        RModAut,
-        RModEnd,
-        RModHom,
         RModMorphism,
         RModule,
         RModuleElement,
@@ -420,6 +416,7 @@ class _RModElements:
 
     # TODO: define R*m := m.span() when R == m.base_ring(), or base-change.
 
+
 # ---------------------------------------------------------------------------
 # The Modules(R) category
 # ---------------------------------------------------------------------------
@@ -653,7 +650,9 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.matrix.constructor import matrix
 
-            return self.FreeModule(rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), rank, rank, inner_product_entries))
+            return self.FreeModule(
+                rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), rank, rank, inner_product_entries)
+            )
 
         @final
         def VectorSpace(
@@ -1022,15 +1021,19 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().PolynomialRing(
-                self.base_ring(),
-                n=n,
-                name=name,
-                names=names,
-                var_array=var_array,
-                sparse=sparse,
-                order=order,
-                implementation=implementation,
+            S = (
+                Rings()
+                .Constructors()
+                .PolynomialRing(
+                    self.base_ring(),
+                    n=n,
+                    name=name,
+                    names=names,
+                    var_array=var_array,
+                    sparse=sparse,
+                    order=order,
+                    implementation=implementation,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1045,12 +1048,16 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().PowerSeriesRing(
-                self.base_ring(),
-                name=name,
-                sparse=sparse,
-                default_prec=default_prec,
-                implementation=implementation,
+            S = (
+                Rings()
+                .Constructors()
+                .PowerSeriesRing(
+                    self.base_ring(),
+                    name=name,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    implementation=implementation,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1066,13 +1073,17 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().MultivariatePowerSeriesRing(
-                self.base_ring(),
-                names=names,
-                num_gens=num_gens,
-                sparse=sparse,
-                default_prec=default_prec,
-                order=order,
+            S = (
+                Rings()
+                .Constructors()
+                .MultivariatePowerSeriesRing(
+                    self.base_ring(),
+                    names=names,
+                    num_gens=num_gens,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    order=order,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1088,13 +1099,17 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().MultivariatePowerSeriesRingWithGeneratorPrefix(
-                self.base_ring(),
-                prefix=prefix,
-                num_gens=num_gens,
-                sparse=sparse,
-                default_prec=default_prec,
-                order=order,
+            S = (
+                Rings()
+                .Constructors()
+                .MultivariatePowerSeriesRingWithGeneratorPrefix(
+                    self.base_ring(),
+                    prefix=prefix,
+                    num_gens=num_gens,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    order=order,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1109,12 +1124,16 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().LaurentSeriesRing(
-                self.base_ring(),
-                name=name,
-                sparse=sparse,
-                default_prec=default_prec,
-                implementation=implementation,
+            S = (
+                Rings()
+                .Constructors()
+                .LaurentSeriesRing(
+                    self.base_ring(),
+                    name=name,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    implementation=implementation,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1136,12 +1155,16 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().PuiseuxSeriesRing(
-                self.base_ring(),
-                name=name,
-                sparse=sparse,
-                default_prec=default_prec,
-                implementation=implementation,
+            S = (
+                Rings()
+                .Constructors()
+                .PuiseuxSeriesRing(
+                    self.base_ring(),
+                    name=name,
+                    sparse=sparse,
+                    default_prec=default_prec,
+                    implementation=implementation,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 
@@ -1161,11 +1184,15 @@ class Modules(Category_module):
         ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().MatrixRing(
-                self.base_ring(),
-                n,
-                sparse=sparse,
-                implementation=implementation,
+            S = (
+                Rings()
+                .Constructors()
+                .MatrixRing(
+                    self.base_ring(),
+                    n,
+                    sparse=sparse,
+                    implementation=implementation,
+                )
             )
             return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
 

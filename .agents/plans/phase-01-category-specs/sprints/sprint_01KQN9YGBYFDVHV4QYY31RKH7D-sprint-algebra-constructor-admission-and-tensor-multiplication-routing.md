@@ -2,8 +2,8 @@
 trackerStatus:
   type: plan
 title: Sprint algebra constructor admission and tensor multiplication routing
-status: needs-approval
-planId: SPR-CAT-SAGE-01KQN9
+status: approved
+planId: SPR-ALG-TENSOR-01KQN9
 planType: sprint-plan
 priority: high
 parentPlan: PLN-SAGE-000

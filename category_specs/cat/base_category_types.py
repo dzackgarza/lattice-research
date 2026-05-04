@@ -65,7 +65,7 @@ from sage.structure.parent import Parent
 from .universal_subcategory_methods import UniversalSubcategoryMethods
 
 if TYPE_CHECKING:
-    from ..types import Hom
+    from ..types import Category, Hom
 
 _SageCategory = SageCategory
 _SageCategoryWithParameters = SageCategoryWithParameters
@@ -248,21 +248,15 @@ def _declared_defining_predicates(category: SageCategory) -> tuple[str, ...]:
 def _validate_defining_predicates(category: SageCategory, predicates: tuple[str, ...]) -> None:
     ambient_parent_class = category.base_category().parent_class
     local_parent_methods = _local_parent_methods(category)
-    missing_from_ambient = tuple(
-        predicate for predicate in predicates if not hasattr(ambient_parent_class, predicate)
-    )
+    missing_from_ambient = tuple(predicate for predicate in predicates if not hasattr(ambient_parent_class, predicate))
     missing_from_subcategory = tuple(
-        predicate
-        for predicate in predicates
-        if local_parent_methods is None or predicate not in local_parent_methods.__dict__
+        predicate for predicate in predicates if local_parent_methods is None or predicate not in local_parent_methods.__dict__
     )
     assert not missing_from_ambient, (
-        f"{category} defining predicates are not exposed on ambient category "
-        f"{category.base_category()}: {missing_from_ambient}"
+        f"{category} defining predicates are not exposed on ambient category {category.base_category()}: {missing_from_ambient}"
     )
     assert not missing_from_subcategory, (
-        f"{category} defining predicates are not implemented on its ParentMethods: "
-        f"{missing_from_subcategory}"
+        f"{category} defining predicates are not implemented on its ParentMethods: {missing_from_subcategory}"
     )
 
 
@@ -421,7 +415,7 @@ class _CatObjectMixin:
 
     @override
     @final
-    def category(self):
+    def category(self) -> Category:
         r"""Return ``Cat()`` as the category of this category object.
 
         This is the only direct semantic override in the mixin.  Without it,
@@ -695,7 +689,7 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
 
     @cached_method
     @final
-    def Endset(self):
+    def Endset(self) -> SageCategory:
         r"""Return Sage's existing root category of endomorphism sets.
 
         This override is forced by Sage's singleton-axiom descriptor, not by

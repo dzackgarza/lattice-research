@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement centralized predicates for orthogonal subgroup surfaces'
+title: Implement centralized predicates for orthogonal subgroup surfaces
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,11 +9,12 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-050
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - orthogonal-groups
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- orthogonal-groups
+- theme-modules-tensors
 ---
 
 # Implement centralized predicates for orthogonal subgroup surfaces

@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: Research staged semantic mathematics program
-status: needs-approval
+status: approved
 planId: PLN-RESEARCH-000
 planType: program
 priority: critical

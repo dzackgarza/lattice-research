@@ -11,13 +11,13 @@ H = L_K3.End()
 
 # del Pezzo
 I_dp = H.from_block_dict({
-	u1: -u1
-	u2: u3
-	u3: u2
-	e1: -e1
-	e3: -e3
+	u1: -u1,
+	u2: u3,
+	u3: u2,
+	e1: -e1,
+	e3: -e3,
 })
-assert I_dp = -1 * U.O().identity()) + (U + U).O().permuate_factors((1,2)) - (E8 +E8).O().identity()
+assert I_dp == -1 * U.O().identity() + (U + U).O().permute_factors((1,2)) - (E8 + E8).O().identity()
 # If L = \bigoplus_i^n L_i is an n-fold sum, permutations sigma in S_n define self-isometries. Here (1,2) is cycle notation.
 assert I_dp.is_involution() and I_dp.order() == 2
 assert I_dp in L_K3.O()
@@ -40,15 +40,15 @@ assert T_dp.embedding().is_primitive()
 # Enriques
 
 I_en = H.from_block_dict({
-	u1: -u1
-	u2: u3
-	u3: u2
-	e1: e3
-	e3: e1
+	u1: -u1,
+	u2: u3,
+	u3: u2,
+	e1: e3,
+	e3: e1,
 
 })
 
-assert I_en = -U.O().id() + (U+U).O().swap() + (E8+E8).O().swap() # Convenienve/sugar
+assert I_en == -U.O().id() + (U+U).O().swap() + (E8+E8).O().swap() # Convenienve/sugar
 assert I_en.is_involution() and I_en.order() == 2 and I_en in L_K3.O()
 
 S_en, T_en = I_en.invariant_coinvariant_pair() 
@@ -73,7 +73,7 @@ I_nik = H.from_block_dict({
 	u2: u2,
 	u3: u3,
 	e1: -e2,
-	e2: -e1
+	e2: -e1,
 })
 
 assert I_nik == (U^3).O().identity() - (E8^2).O().swap()
@@ -92,7 +92,7 @@ assert T_nik.is_isometric_to( E8.twist(2) )
 assert S_nik.embedding().is_primitive() # Subobjects have embedding data attached.
 assert T_nik.embedding().is_primitive() 
 
-assert I_nik = I_dp * I_en
+assert I_nik == I_dp * I_en
 
 assert L_K3.subgroup([I_nik, I_dp, I_en]).is_isomorphic_to(ZZ/2 + ZZ/2)
 
@@ -107,7 +107,7 @@ assert G.stabilizer(S_nik) == G.stabilizer(T_nik) == G.centralizer(I_nik)
 # But this is what we actually use in the paper
 ep, fp = S_dp.gens() # U(2)
 h = ep + fp
-assert h^2 = 4
+assert h^2 == 4
 
 Stab_h = G.stabilizer(h)
 Cent_inv = G.centralizer(I_en)

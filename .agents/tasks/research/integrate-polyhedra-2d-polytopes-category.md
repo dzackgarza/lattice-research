@@ -4,7 +4,7 @@ trackerStatus:
 title: Research category integration for polyhedra as 2d polytopes
 status: to-do
 priority: high
-planId: PLN-GEO-000
+planId: PLN-GEO-010
 tags:
 - category-specs
 - research

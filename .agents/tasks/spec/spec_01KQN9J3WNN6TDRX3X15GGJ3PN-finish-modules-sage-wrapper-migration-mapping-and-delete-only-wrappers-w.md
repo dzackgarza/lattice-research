@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose
-  methods have real mathematical owners
+title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: SPR-MODULE-WRAPPER-01KQN9
 tags:
 - category-specs
 - spec

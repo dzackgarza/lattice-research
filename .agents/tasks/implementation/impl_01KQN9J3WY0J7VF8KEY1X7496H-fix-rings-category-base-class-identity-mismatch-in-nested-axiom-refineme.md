@@ -4,7 +4,7 @@ trackerStatus:
 title: Fix Rings category base-class identity mismatch in nested axiom refinement
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - implementation

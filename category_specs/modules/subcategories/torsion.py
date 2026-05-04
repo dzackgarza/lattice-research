@@ -10,6 +10,7 @@ from .. import Modules
 
 class _Torsion(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).Torsion()``."""
+
     _base_category_class_and_axiom = (Modules, "Torsion")
 
     @override

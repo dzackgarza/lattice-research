@@ -43,6 +43,7 @@ class AlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 

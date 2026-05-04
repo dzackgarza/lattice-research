@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     from ...types import Matrix, Polynomial, Ring, RModMorphism, RModuleElement
 
 
-
 class _OreModules(Category_over_base_ring):
     r"""Finite free modules over an Ore polynomial ring quotient.
 
@@ -49,4 +48,5 @@ class _OreModules(Category_over_base_ring):
         def cyclic_vector(self) -> RModuleElement: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Admit named lattice constructors through lattice meets'
+title: Admit named lattice constructors through lattice meets
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-040
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - discriminant-groups
-  - duals
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- discriminant-groups
+- duals
+- theme-modules-tensors
 ---
 
 # Admit named lattice constructors through lattice meets

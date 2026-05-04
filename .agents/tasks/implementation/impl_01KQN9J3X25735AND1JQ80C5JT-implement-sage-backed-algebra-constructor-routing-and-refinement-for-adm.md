@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement Sage-backed algebra constructor routing and refinement for admitted
-  constructors
+title: Implement Sage-backed algebra constructor routing and refinement for admitted constructors
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - implementation

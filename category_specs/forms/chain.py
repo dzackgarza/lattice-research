@@ -53,6 +53,7 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
             return self.category().AutCategory().Of(self)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     Bilinear = LazyImport(__name__, "FiniteRankFreeBilinearModulesCategory")
@@ -92,6 +93,7 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             return self.form().b(v, w)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     Symmetric = LazyImport(__name__, "SymmetricFiniteRankFreeBilinearModulesCategory")
@@ -127,6 +129,7 @@ class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base
         def orthogonal_submodule_to(self, S: SubModule) -> SubModule: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     Nondegenerate = LazyImport(__name__, "NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory")
@@ -217,9 +220,15 @@ SymmetricFiniteRankFreeBilinearModulesObject = SymmetricFiniteRankFreeBilinearMo
 SymmetricFiniteRankFreeBilinearModulesElement = SymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
 SymmetricFiniteRankFreeBilinearModulesMorphism = SymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
 
-NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
-NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
-NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+)
 
 IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods

@@ -4,7 +4,7 @@ trackerStatus:
 title: Replace assertion-narrowed polynomial and matrix return types
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 progress: 0
 tags:
 - category-specs

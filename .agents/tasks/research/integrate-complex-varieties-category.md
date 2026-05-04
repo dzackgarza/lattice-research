@@ -4,7 +4,7 @@ trackerStatus:
 title: Research category integration for complex varieties
 status: to-do
 priority: high
-planId: PLN-GEO-000
+planId: PLN-GEO-010
 tags:
 - category-specs
 - research

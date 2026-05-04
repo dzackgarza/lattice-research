@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Category-spec program organization and work graph'
-status: needs-approval
+title: Category-spec program organization and work graph
+status: approved
 planId: PLN-CAT-000
 planType: program
 priority: critical
@@ -11,10 +11,11 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - theme-plan-control
-  - theme-category-core
+- category-specs
+- plan
+- theme-plan-control
+- theme-category-core
+parentPlan: PLN-PHASE-01
 ---
 
 # Category-spec program organization and work graph
@@ -36,11 +37,12 @@ The old `plans/` tree was not one backlog. It contained six different things:
 
 ## Plan tree
 
+- `PLN-CAT-010`: source maps, constructor routing, and admission research.
 - `PLN-CAT-100`: category foundation kernel and method ownership.
-- `PLN-LAT-000`: lattice and ModulesWithForms roadmap.
-- `PLN-SAGE-000`: Sage surface, constructor admission, and concrete category families.
-- `PLN-GEO-000`: geometric category expansion.
 - `PLN-AUDIT-000`: smoke, audit, and uniformity stabilization.
+
+Leaf task ownership is encoded by each card's `planId`. Parent plans own only
+subplans, not executable cards.
 
 ## Operating rule
 

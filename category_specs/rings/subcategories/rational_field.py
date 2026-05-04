@@ -54,7 +54,9 @@ _IntegralDomains = LazyImport("category_specs.rings.subcategories.integral_domai
 _NoetherianRings = LazyImport("category_specs.rings.subcategories.noetherian", "_NoetherianRings")
 _ReducedRings = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
 _GcdDomains = LazyImport("category_specs.rings.subcategories.gcd_domain", "_GcdDomains")
-_UniqueFactorizationDomains = LazyImport("category_specs.rings.subcategories.unique_factorization_domain", "_UniqueFactorizationDomains")
+_UniqueFactorizationDomains = LazyImport(
+    "category_specs.rings.subcategories.unique_factorization_domain", "_UniqueFactorizationDomains"
+)
 _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principal_ideal_domain", "_PrincipalIdealDomains")
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
@@ -64,16 +66,26 @@ _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discret
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
 _CompleteRings = LazyImport("category_specs.rings.subcategories.complete", "_CompleteRings")
 _LocalRings = LazyImport("category_specs.rings.subcategories.local", "_LocalRings")
-_CompleteDiscreteValuationObjects = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_object", "_CompleteDiscreteValuationObjects")
-_CompleteDiscreteValuationRings = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_ring", "_CompleteDiscreteValuationRings")
-_CompleteDiscreteValuationFields = LazyImport("category_specs.rings.subcategories.complete_discrete_valuation_field", "_CompleteDiscreteValuationFields")
+_CompleteDiscreteValuationObjects = LazyImport(
+    "category_specs.rings.subcategories.complete_discrete_valuation_object", "_CompleteDiscreteValuationObjects"
+)
+_CompleteDiscreteValuationRings = LazyImport(
+    "category_specs.rings.subcategories.complete_discrete_valuation_ring", "_CompleteDiscreteValuationRings"
+)
+_CompleteDiscreteValuationFields = LazyImport(
+    "category_specs.rings.subcategories.complete_discrete_valuation_field", "_CompleteDiscreteValuationFields"
+)
 _FiniteFields = LazyImport("category_specs.rings.subcategories.finite_field", "_FiniteFields")
 _NumberFields = LazyImport("category_specs.rings.subcategories.number_field", "_NumberFields")
-_AlgebraicallyClosedFields = LazyImport("category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields")
+_AlgebraicallyClosedFields = LazyImport(
+    "category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields"
+)
 _LocalFields = LazyImport("category_specs.rings.subcategories.local_field", "_LocalFields")
 _GlobalFields = LazyImport("category_specs.rings.subcategories.global_field", "_GlobalFields")
 _ArchimedeanGlobalFields = LazyImport("category_specs.rings.subcategories.archimedean_global_field", "_ArchimedeanGlobalFields")
-_NonArchimedeanGlobalFields = LazyImport("category_specs.rings.subcategories.nonarchimedean_global_field", "_NonArchimedeanGlobalFields")
+_NonArchimedeanGlobalFields = LazyImport(
+    "category_specs.rings.subcategories.nonarchimedean_global_field", "_NonArchimedeanGlobalFields"
+)
 _QuadraticNumberFields = LazyImport("category_specs.rings.subcategories.quadratic_number_field", "_QuadraticNumberFields")
 _CyclotomicFields = LazyImport("category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields")
 _QuotientFields = LazyImport("category_specs.rings.subcategories.quotient_field", "_QuotientFields")
@@ -82,7 +94,9 @@ _AlgebraicFields = LazyImport("category_specs.rings.subcategories.algebraic_fiel
 _IntegerModRings = LazyImport("category_specs.rings.subcategories.integer_mod_ring", "_IntegerModRings")
 _RealPrecisionFields = LazyImport("category_specs.rings.subcategories.real_precision_field", "_RealPrecisionFields")
 _ComplexPrecisionFields = LazyImport("category_specs.rings.subcategories.complex_precision_field", "_ComplexPrecisionFields")
-_ScientificNotationFields = LazyImport("category_specs.rings.subcategories.scientific_notation_field", "_ScientificNotationFields")
+_ScientificNotationFields = LazyImport(
+    "category_specs.rings.subcategories.scientific_notation_field", "_ScientificNotationFields"
+)
 _RealFields = LazyImport("category_specs.rings.subcategories.real_field", "_RealFields")
 _ComplexFields = LazyImport("category_specs.rings.subcategories.complex_field", "_ComplexFields")
 _RealDoubleFields = LazyImport("category_specs.rings.subcategories.real_double_field", "_RealDoubleFields")
@@ -103,6 +117,7 @@ _PolynomialRings = LazyImport("category_specs.rings.subcategories.polynomial_rin
 _PuiseuxSeriesRings = LazyImport("category_specs.rings.subcategories.puiseux_series_ring", "_PuiseuxSeriesRings")
 _LaurentSeriesRings = LazyImport("category_specs.rings.subcategories.laurent_series_ring", "_LaurentSeriesRings")
 _PowerSeriesRings = LazyImport("category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings")
+
 
 class _QQ(Category_singleton):
     r"""Sage's rational field.
@@ -209,9 +224,7 @@ class _QQ(Category_singleton):
             names: str | None = None,
             gc_numbering: bool | None = None,
         ) -> Group:
-            return self.as_number_field().galois_group(
-                type=type, algorithm=algorithm, names=names, gc_numbering=gc_numbering
-            )
+            return self.as_number_field().galois_group(type=type, algorithm=algorithm, names=names, gc_numbering=gc_numbering)
 
         @override
         @final
@@ -265,9 +278,7 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def places(
-            self, all_complex: bool = False, prec: Integer | None = None
-        ) -> tuple[RingMorphism, ...]:
+        def places(self, all_complex: bool = False, prec: Integer | None = None) -> tuple[RingMorphism, ...]:
             return self.as_number_field().places(all_complex=all_complex, prec=prec)
 
         @override
@@ -322,9 +333,7 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def S_class_group(
-            self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c"
-        ) -> AbelianGroup:
+        def S_class_group(self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c") -> AbelianGroup:
             return self.as_number_field().S_class_group(S, proof=proof, names=names)
 
         @override
@@ -385,4 +394,5 @@ class _QQ(Category_singleton):
             return self.as_number_field().absolute_field(names)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

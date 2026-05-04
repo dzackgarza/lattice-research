@@ -28,7 +28,7 @@ class EmptyCategory(Category_singleton):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> None:
         r"""Return Sage's additional-structure marker for the bottom category."""
         return None
 

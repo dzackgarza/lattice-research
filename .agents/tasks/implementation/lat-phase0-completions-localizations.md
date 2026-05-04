@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement completion and localization refinement aliases'
+title: Implement completion and localization refinement aliases
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-010
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - sage
-  - modules
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- sage
+- modules
+- theme-modules-tensors
 ---
 
 # Implement completion and localization refinement aliases

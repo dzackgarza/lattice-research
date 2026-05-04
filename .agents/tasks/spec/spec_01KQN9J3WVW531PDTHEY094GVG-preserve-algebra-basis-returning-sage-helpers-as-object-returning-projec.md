@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Preserve algebra basis-returning Sage helpers as object-returning project methods
-  such as center radical and derivations
+title: Preserve algebra basis-returning Sage helpers as object-returning project methods such as center radical and derivations
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - spec

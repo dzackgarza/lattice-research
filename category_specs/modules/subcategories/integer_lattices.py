@@ -2,7 +2,7 @@ r"""Integral lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, Literal, override
+from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -11,7 +11,6 @@ from .. import Modules
 
 if TYPE_CHECKING:
     from ...types import Integer, Matrix, Polyhedron, RealNumber, RModuleElement
-
 
 
 class _IntegerLattices(Category_over_base_ring):
@@ -79,4 +78,5 @@ class _IntegerLattices(Category_over_base_ring):
         def voronoi_cell(self, radius: RealNumber | None = None) -> Polyhedron: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

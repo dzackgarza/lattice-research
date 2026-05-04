@@ -5,17 +5,19 @@ records the mathematical hierarchy and abstract method surfaces; later phases
 install concrete category interceptors and constructor redefinitions.
 """
 
+from importlib import import_module
+
 from .axioms import register_all
 
 register_all()
 
-from . import algebras as algebras
-from . import cat as cat
-from . import forms as forms
-from . import homsets as homsets
-from . import lattices as lattices
-from . import modules as modules
-from . import posets as posets
-from . import rings as rings
-from . import sets as sets
-from . import topological_spaces as topological_spaces
+algebras = import_module("category_specs.algebras")
+cat = import_module("category_specs.cat")
+forms = import_module("category_specs.forms")
+homsets = import_module("category_specs.homsets")
+lattices = import_module("category_specs.lattices")
+modules = import_module("category_specs.modules")
+posets = import_module("category_specs.posets")
+rings = import_module("category_specs.rings")
+sets = import_module("category_specs.sets")
+topological_spaces = import_module("category_specs.topological_spaces")

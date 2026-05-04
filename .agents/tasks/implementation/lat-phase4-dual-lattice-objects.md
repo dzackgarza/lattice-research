@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement dual lattice objects as functionals'
+title: Implement dual lattice objects as functionals
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-040
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - discriminant-groups
-  - duals
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- discriminant-groups
+- duals
+- theme-modules-tensors
 ---
 
 # Implement dual lattice objects as functionals

@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     from ...types import Ring, RingMorphism, RModuleElement
 
 
-
 class _RingObjectsAsModules(Category_over_base_ring):
     r"""Ring objects regarded as modules over their structure ring.
 
@@ -43,4 +42,5 @@ class _RingObjectsAsModules(Category_over_base_ring):
         def module_generators(self) -> tuple[RModuleElement, ...]: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

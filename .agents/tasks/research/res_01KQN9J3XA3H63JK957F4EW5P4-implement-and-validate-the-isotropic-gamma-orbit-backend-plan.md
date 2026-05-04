@@ -11,6 +11,8 @@ tags:
 - task
 - research-backend
 - theme-research-sources
+- theme-modules-tensors
+planId: PLN-LAT-050
 ---
 
 # Implement and validate the isotropic Gamma orbit backend plan

@@ -3,7 +3,7 @@ r"""Finitely presented graded modules."""
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, final, Literal, override
+from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
 
@@ -24,7 +24,6 @@ if TYPE_CHECKING:
         RModuleElement,
         RModuleMorphism,
     )
-
 
 
 class _FinitelyPresentedGradedModules(Category_over_base_ring):
@@ -87,4 +86,5 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
         ) -> RModuleMorphism: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

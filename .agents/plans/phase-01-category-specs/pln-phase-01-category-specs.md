@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: Phase 01 category specs and semantic vocabulary
-status: needs-approval
+status: approved
 planId: PLN-PHASE-01
 planType: phase-plan
 priority: critical
@@ -29,10 +29,14 @@ morphisms rather than manipulating raw matrices, vectors, and equations directly
 
 ## Current plan groups
 
-- `category-core/`: category foundation, refinement order, Hom/End/Aut admission, Sage source maps, constructor admission, and smoke/audit stabilization.
-- `lattice/`: ModulesWithForms and lattice roadmap plans currently expressed as spec-phase dependency plans.
-- `geometry/`: geometric category expansion planning for later scheme, variety, curve, surface, and family vocabulary.
-- `sprints/`: existing sprint-plan files migrated from category-spec triage work.
+- `category-core/`: phase-01 program control, source-map admission, category foundation, Hom/End/Aut, Sage admission, and audit control.
+- `lattice/`: ModulesWithForms and lattice roadmap plans expressed as spec-phase dependency plans.
+- `geometry/`: geometric source-admission and curve/monodromy backend research plans.
+- `sprints/`: leaf sprint plans that own executable cards by `planId`.
+
+The connected plan spine is `PLN-RESEARCH-000` -> `PLN-PHASE-01` ->
+`PLN-CAT-000`; all active phase-01 tasks and decisions now point to leaf plans
+under that spine.
 
 ## Exit criteria
 

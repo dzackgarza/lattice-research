@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement ImageSets construction category and smoke ambient lift retract and
-  image-subobject membership
+title: Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - implementation

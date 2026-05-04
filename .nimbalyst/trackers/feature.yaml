@@ -29,6 +29,10 @@ fields:
     label: In Review
     icon: rate_review
     color: '#3b82f6'
+  - value: blocked
+    label: Blocked
+    icon: block
+    color: '#dc2626'
   - value: done
     label: Done
     icon: check_circle

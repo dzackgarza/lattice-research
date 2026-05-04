@@ -79,7 +79,12 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
         ...
 
     @abstract_method
-    def common_base(self, other_functor: ConstructionFunctor, self_bases, other_bases):
+    def common_base(
+        self,
+        other_functor: ConstructionFunctor,
+        self_bases: tuple[Category, ...],
+        other_bases: tuple[Category, ...],
+    ) -> Category:
         r"""Return the common base category data for this construction and ``other_functor``."""
         ...
 
@@ -114,6 +119,7 @@ class CatHomCategory(HomCategoryOf):
 
     ParentMethods = _CatHomCategoryObjectMethods
     ElementMethods = _CatFunctorMethods
+
     class MorphismMethods: ...
 
     ConstructionFunctorMethods = _CatConstructionFunctorMethods

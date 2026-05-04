@@ -148,12 +148,12 @@ M = ZZ/4
 h = M.End().element_from_function(lambda x: 2*x)
 assert M.as_set() == {M(0), M(1), M(2), M(3)}
 assert M.as_set() == {M(4), M(5), M(6), M(7)}
-assert {f(x) for x in M} = {M(0), M(2)}
-assert f.image() == M.span([M(0), M(2)])
-assert f.kernel() == M.span([M(0)])
+assert {h(x) for x in M} == {M(0), M(2)}
+assert h.image() == M.span([M(0), M(2)])
+assert h.kernel() == M.span([M(0)])
 assert M.span([M(0)]) == Modules(ZZ).zero()
-assert f.cokernel() == ZZ/2 
-assert list(map(lambda x: x.lift(), f.cokernel())) == [M(0), M(1)]
-pi = f.cokernel().projection()
+assert h.cokernel() == ZZ/2 
+assert list(map(lambda x: x.lift(), h.cokernel())) == [M(0), M(1)]
+pi = h.cokernel().projection()
 assert pi(M(0)) == pi(M(2)) and pi(M(1)) == pi(M(3))
 # Coker(f) = {[0] + im(f), [1] + im(f)} as cosets

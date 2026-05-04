@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Category-spec source maps constructor routing and admission research'
-status: needs-approval
+title: Category-spec source maps constructor routing and admission research
+status: approved
 planId: PLN-CAT-010
 planType: research-plan
 priority: critical
@@ -11,13 +11,14 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 10
 tags:
-  - category-specs
-  - plan
-  - research
-  - sage
-  - constructors
-  - theme-research-sources
-  - theme-constructor-routing
+- category-specs
+- plan
+- research
+- sage
+- constructors
+- theme-research-sources
+- theme-constructor-routing
+parentPlan: PLN-CAT-000
 ---
 
 # Category-spec source maps constructor routing and admission research
@@ -52,6 +53,11 @@ This plan owns research and admission around:
 - WithGenerators, FinitelyPresented, Dedekind/PID module axioms, and structural patterns.
 - Category creation and `_refine_category_` mechanics.
 - Homsets as the structural core for modules, duals, endsets, and autsets.
+
+## Subplans
+
+- `PLN-SAGE-000`: Sage surface constructor admission and concrete category families.
+- `PLN-GEO-000`: geometric category expansion research program.
 
 ## Non-goals
 

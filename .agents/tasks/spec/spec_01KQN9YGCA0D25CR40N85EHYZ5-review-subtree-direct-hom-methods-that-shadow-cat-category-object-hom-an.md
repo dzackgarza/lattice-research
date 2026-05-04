@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Review subtree direct Hom methods that shadow Cat category-object Hom and specify
-  the uniform owner
+title: Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: PLN-CAT-120
 tags:
 - category-specs
 - spec

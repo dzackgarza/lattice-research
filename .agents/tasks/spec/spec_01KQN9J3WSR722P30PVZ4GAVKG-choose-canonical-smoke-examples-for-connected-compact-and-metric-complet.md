@@ -1,8 +1,7 @@
 ---
 trackerStatus:
   type: feature
-title: Choose canonical smoke examples for Connected Compact and Metric Complete topological
-  subcategories
+title: Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories
 status: to-do
 priority: critical
 tags:
@@ -12,6 +11,7 @@ tags:
 - smoke
 - topology
 - theme-sets-topology
+planId: SPR-SETS-TOPO-01KQN9
 ---
 
 # Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories

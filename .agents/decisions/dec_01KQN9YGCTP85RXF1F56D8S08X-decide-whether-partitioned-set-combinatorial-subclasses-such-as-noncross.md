@@ -1,9 +1,7 @@
 ---
 trackerStatus:
   type: decision
-title: Decide whether partitioned-set combinatorial subclasses such as noncrossing
-  and atomic become axiomatic subcategories in the current set-partition pass or a
-  later pass
+title: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass
 status: to-do
 tags:
 - category-specs
@@ -13,6 +11,7 @@ tags:
 - set-partitions
 - needs-decision
 - theme-decisions
+planId: SPR-POSETS-PART-01KQN9
 ---
 
 # Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass

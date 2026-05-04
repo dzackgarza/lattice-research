@@ -1,10 +1,9 @@
 ---
 trackerStatus:
   type: plan
-title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra
-  surface split
-status: needs-approval
-planId: SPR-CAT-SAGE-01KQN9
+title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra surface split
+status: approved
+planId: SPR-RINGS-PADIC-01KQN9
 planType: sprint-plan
 priority: high
 parentPlan: PLN-SAGE-000

@@ -18,6 +18,7 @@ from .. import Sets
 
 class _FiniteSets(CategoryWithAxiom):
     r"""Canonical chain: ``Sets().Finite()``."""
+
     _base_category_class_and_axiom = (Sets, "Finite")
 
     @override
@@ -56,4 +57,5 @@ class _FiniteSets(CategoryWithAxiom):
             ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

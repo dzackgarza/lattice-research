@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Geometric category expansion research program'
-status: needs-approval
+title: Geometric category expansion research program
+status: approved
 planId: PLN-GEO-000
 planType: research-program
 priority: high
@@ -11,11 +11,12 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - research
-  - geometry
-  - theme-research-sources
+- category-specs
+- plan
+- research
+- geometry
+- theme-research-sources
+parentPlan: PLN-CAT-010
 ---
 
 # Geometric category expansion research program
@@ -24,19 +25,12 @@ tags:
 
 Group the high-priority geometric category research cards so schemes, varieties, manifolds, polytopes, toric varieties, and related categories enter the system through source-backed vocabulary and dependency-aware planning.
 
-## Owned existing cards
+## Subplans
 
-- `integrate-schemes-category.md`
-- `integrate-varieties-category.md`
-- `integrate-complex-varieties-category.md`
-- `integrate-polytopes-category.md`
-- `integrate-polyhedra-2d-polytopes-category.md`
-- `integrate-smooth-manifolds-category.md`
-- `integrate-complex-manifolds-category.md`
-- `integrate-complex-algebraic-curves-category.md`
-- `integrate-complex-algebraic-surfaces-category.md`
-- `integrate-families-of-varieties-category.md`
-- `integrate-toric-varieties-with-lattice-category.md`
+- `PLN-GEO-010`: geometric category source admission research.
+- `PLN-GEO-020`: curve complement and monodromy backend research.
+
+Leaf task ownership is encoded by child cards' `planId` values.
 
 ## Dependency intuition
 

@@ -9,9 +9,11 @@ tags:
 - research
 - todo-migration
 - external-integration
+- theme-research-sources
 created: '2026-05-03'
 complexity: 35
 progress: 0
+planId: PLN-GEO-020
 ---
 
 # Research Sirocco integration for curve-complement fundamental groups

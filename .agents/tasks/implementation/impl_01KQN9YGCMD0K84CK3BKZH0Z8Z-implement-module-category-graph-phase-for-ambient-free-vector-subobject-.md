@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement module category graph phase for ambient free vector subobject quotient
-  form graded Ore and representation surfaces
+title: Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces
 status: to-do
 priority: high
-planId: PLN-CAT-100
+planId: SPR-MODULE-WRAPPER-01KQN9
 tags:
 - category-specs
 - implementation

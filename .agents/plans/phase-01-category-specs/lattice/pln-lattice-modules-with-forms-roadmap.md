@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Lattice and ModulesWithForms roadmap'
-status: needs-approval
+title: Lattice and ModulesWithForms roadmap
+status: approved
 planId: PLN-LAT-000
 planType: implementation-roadmap
 priority: critical
@@ -10,15 +10,15 @@ owner: Zack
 created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
-parentPlan: PLN-CAT-000
+parentPlan: PLN-CAT-100
 tags:
-  - category-specs
-  - plan
-  - lattices
-  - modules
-  - forms
-  - theme-modules-tensors
-  - theme-category-core
+- category-specs
+- plan
+- lattices
+- modules
+- forms
+- theme-modules-tensors
+- theme-category-core
 ---
 
 # Lattice and ModulesWithForms roadmap

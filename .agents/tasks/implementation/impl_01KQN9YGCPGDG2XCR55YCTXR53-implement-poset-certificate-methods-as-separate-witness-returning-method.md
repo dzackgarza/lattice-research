@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement poset certificate methods as separate witness-returning methods while
-  keeping boolean predicates boolean
+title: Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - implementation

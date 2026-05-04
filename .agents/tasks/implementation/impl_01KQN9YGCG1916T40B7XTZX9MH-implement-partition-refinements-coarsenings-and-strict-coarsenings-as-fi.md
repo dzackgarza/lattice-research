@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement partition refinements coarsenings and strict coarsenings as finite-set
-  constructor outputs
+title: Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - implementation

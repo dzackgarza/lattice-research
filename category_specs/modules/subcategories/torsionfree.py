@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
 class _Torsionfree(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).Torsionfree()``."""
+
     _base_category_class_and_axiom = (Modules, "Torsionfree")
 
     @override

@@ -11,7 +11,7 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
-    from ...types import GradedSet, Set, SetElement, SetGeneratingSeries
+    from ...types import Set, SetElement, SetGeneratingSeries
 
 from .. import Sets
 
@@ -61,6 +61,7 @@ class GradedSetsCategory(CategoryWithAxiom):
             ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 

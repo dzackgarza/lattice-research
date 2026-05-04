@@ -122,6 +122,7 @@ class HomCategory(SageHomsetsBase):
 
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -144,7 +145,9 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     _base_category_class = (_SageCategory,)
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     @final
@@ -161,13 +164,12 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     def default_super_categories(cls, category: Category) -> Category:
         r"""Lift Cat-level supercategories through the hom-category construction."""
         hom_supercategories = [
-            super_category.HomCategory()
-            for super_category in category.super_categories()
-            if super_category in Cat()
+            super_category.HomCategory() for super_category in category.super_categories() if super_category in Cat()
         ]
         if not hom_supercategories:
             return HomCategory()
         return Category.join(hom_supercategories)
+
 
 class HomCategoryOf(HomCategoryConstruction):
     r"""Generic category whose objects are ``Hom_C(A, B)``.
@@ -194,5 +196,7 @@ class HomCategoryOf(HomCategoryConstruction):
         return f"hom categories of {object_names}"
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...

@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap
-  surfaces rather than broken pass-throughs
+title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces rather than broken pass-throughs
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - implementation

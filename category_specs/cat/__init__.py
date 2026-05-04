@@ -36,6 +36,7 @@ Cat()
 from __future__ import annotations
 
 from collections.abc import Iterable
+from importlib import import_module
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
@@ -44,43 +45,108 @@ from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
 
 from .base_category_types import (
-    AlgebrasCategory,
-    CartesianProductsCategory,
-    Category,
-    Category_ideal,
-    Category_module,
-    Category_over_base,
-    Category_over_base_ring,
-    Category_singleton,
-    CategoryWithAxiom,
-    CategoryWithAxiom_over_base_ring,
-    CategoryWithAxiom_singleton,
-    CategoryWithParameters,
-    CovariantConstructionCategory,
-    DualObjectsCategory,
-    FilteredModulesCategory,
-    FunctorialConstructionCategory,
-    GradedModulesCategory,
-    Homsets,
-    HomsetsCategory,
-    HomsetsOf,
-    IsomorphicObjectsCategory,
-    QuotientsCategory,
-    RealizationsCategory,
-    RegressiveCovariantConstructionCategory,
-    SubobjectsCategory,
-    SubquotientsCategory,
-    SuperModulesCategory,
-    TensorProductsCategory,
-    WithRealizationsCategory,
-    _make_named_class_with_cat_subcategory_methods,
-    register_cat_constructor_class,
-    _SageCategory,
-    _SageCategorySingleton,
+    AlgebrasCategory as AlgebrasCategory,
+)
+from .base_category_types import (
+    CartesianProductsCategory as CartesianProductsCategory,
+)
+from .base_category_types import (
+    Category as Category,
+)
+from .base_category_types import (
+    Category_ideal as Category_ideal,
+)
+from .base_category_types import (
+    Category_module as Category_module,
+)
+from .base_category_types import (
+    Category_over_base as Category_over_base,
+)
+from .base_category_types import (
+    Category_over_base_ring as Category_over_base_ring,
+)
+from .base_category_types import (
+    Category_singleton as Category_singleton,
+)
+from .base_category_types import (
+    CategoryWithAxiom as CategoryWithAxiom,
+)
+from .base_category_types import (
+    CategoryWithAxiom_over_base_ring as CategoryWithAxiom_over_base_ring,
+)
+from .base_category_types import (
+    CategoryWithAxiom_singleton as CategoryWithAxiom_singleton,
+)
+from .base_category_types import (
+    CategoryWithParameters as CategoryWithParameters,
+)
+from .base_category_types import (
+    CovariantConstructionCategory as CovariantConstructionCategory,
+)
+from .base_category_types import (
+    DualObjectsCategory as DualObjectsCategory,
+)
+from .base_category_types import (
+    FilteredModulesCategory as FilteredModulesCategory,
+)
+from .base_category_types import (
+    FunctorialConstructionCategory as FunctorialConstructionCategory,
+)
+from .base_category_types import (
+    GradedModulesCategory as GradedModulesCategory,
+)
+from .base_category_types import (
+    Homsets as Homsets,
+)
+from .base_category_types import (
+    HomsetsCategory as HomsetsCategory,
+)
+from .base_category_types import (
+    HomsetsOf as HomsetsOf,
+)
+from .base_category_types import (
+    IsomorphicObjectsCategory as IsomorphicObjectsCategory,
+)
+from .base_category_types import (
+    QuotientsCategory as QuotientsCategory,
+)
+from .base_category_types import (
+    RealizationsCategory as RealizationsCategory,
+)
+from .base_category_types import (
+    RegressiveCovariantConstructionCategory as RegressiveCovariantConstructionCategory,
+)
+from .base_category_types import (
+    SubobjectsCategory as SubobjectsCategory,
+)
+from .base_category_types import (
+    SubquotientsCategory as SubquotientsCategory,
+)
+from .base_category_types import (
+    SuperModulesCategory as SuperModulesCategory,
+)
+from .base_category_types import (
+    TensorProductsCategory as TensorProductsCategory,
+)
+from .base_category_types import (
+    WithRealizationsCategory as WithRealizationsCategory,
+)
+from .base_category_types import (
+    _make_named_class_with_cat_subcategory_methods as _make_named_class_with_cat_subcategory_methods,
+)
+from .base_category_types import (
+    _SageCategory as _SageCategory,
+)
+from .base_category_types import (
+    _SageCategorySingleton as _SageCategorySingleton,
+)
+from .base_category_types import (
+    register_cat_constructor_class as register_cat_constructor_class,
 )
 
 if TYPE_CHECKING:
     from ..types import Hom
+
 
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
@@ -136,7 +202,13 @@ class Cat(_SageCategorySingleton):
 
     @override
     @final
-    def _make_named_class(self, name, method_provider, cache=False, picklable: bool = True):
+    def _make_named_class(
+        self,
+        name,
+        method_provider,
+        cache: bool = False,
+        picklable: bool = True,
+    ) -> type:
         r"""Use the wrapper-layer universal subcategory-method injection.
 
         ``Cat`` cannot inherit from the Cat-backed wrapper bases because it is
@@ -193,7 +265,7 @@ class Cat(_SageCategorySingleton):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> None:
         r"""Return Sage's additional-structure marker for ``Cat()``."""
         return None
 
@@ -237,12 +309,17 @@ class Cat(_SageCategorySingleton):
 
             return EmptyCategory()
 
+
 register_cat_constructor_class(Cat.Constructors, Cat())
 
 
-from .autsets import CatAutCategory
-from .endsets import CatEndCategory
-from .homsets import CatHomCategory
+_cat_autsets = import_module("category_specs.cat.autsets")
+_cat_endsets = import_module("category_specs.cat.endsets")
+_cat_homsets = import_module("category_specs.cat.homsets")
+
+CatAutCategory = _cat_autsets.CatAutCategory
+CatEndCategory = _cat_endsets.CatEndCategory
+CatHomCategory = _cat_homsets.CatHomCategory
 
 CatCategory = Cat
 CatObject = Cat.ParentMethods

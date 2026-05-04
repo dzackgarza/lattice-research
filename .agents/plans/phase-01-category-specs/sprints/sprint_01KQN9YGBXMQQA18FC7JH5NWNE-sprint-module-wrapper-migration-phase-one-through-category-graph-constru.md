@@ -1,10 +1,9 @@
 ---
 trackerStatus:
   type: plan
-title: Sprint module wrapper migration phase one through category graph constructor
-  routing method coverage and deletion gates
-status: needs-approval
-planId: SPR-CAT-CORE-01KQN9
+title: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates
+status: approved
+planId: SPR-MODULE-WRAPPER-01KQN9
 planType: sprint-plan
 priority: critical
 parentPlan: PLN-CAT-100

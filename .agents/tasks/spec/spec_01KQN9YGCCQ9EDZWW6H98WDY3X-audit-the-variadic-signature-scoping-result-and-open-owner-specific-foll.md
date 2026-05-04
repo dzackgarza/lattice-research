@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Audit the variadic signature scoping result and open owner-specific follow-ups
-  for any public surface still using placeholder collapsed Sage casework
+title: Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework
 status: to-do
 priority: critical
-planId: PLN-AUDIT-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 tags:
 - category-specs
 - spec

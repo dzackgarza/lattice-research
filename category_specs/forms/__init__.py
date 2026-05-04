@@ -11,51 +11,118 @@ from typing import TYPE_CHECKING, final
 
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
-    SymmetricFiniteRankFreeBilinearModulesCategory,
-    SymmetricFiniteRankFreeBilinearModulesElement,
-    SymmetricFiniteRankFreeBilinearModulesMorphism,
-    SymmetricFiniteRankFreeBilinearModulesObject,
-    FiniteRankFreeBilinearModulesCategory,
-    FiniteRankFreeBilinearModulesElement,
-    FiniteRankFreeBilinearModulesMorphism,
-    FiniteRankFreeBilinearModulesObject,
-    FiniteRankFreeFormedModulesCategory,
-    FiniteRankFreeFormedModulesElement,
-    FiniteRankFreeFormedModulesMorphism,
-    FiniteRankFreeFormedModulesObject,
+    FiniteRankFreeBilinearModulesCategory as FiniteRankFreeBilinearModulesCategory,
+)
+from .chain import (
+    FiniteRankFreeBilinearModulesElement as FiniteRankFreeBilinearModulesElement,
+)
+from .chain import (
+    FiniteRankFreeBilinearModulesMorphism as FiniteRankFreeBilinearModulesMorphism,
+)
+from .chain import (
+    FiniteRankFreeBilinearModulesObject as FiniteRankFreeBilinearModulesObject,
+)
+from .chain import (
+    FiniteRankFreeFormedModulesCategory as FiniteRankFreeFormedModulesCategory,
+)
+from .chain import (
+    FiniteRankFreeFormedModulesElement as FiniteRankFreeFormedModulesElement,
+)
+from .chain import (
+    FiniteRankFreeFormedModulesMorphism as FiniteRankFreeFormedModulesMorphism,
+)
+from .chain import (
+    FiniteRankFreeFormedModulesObject as FiniteRankFreeFormedModulesObject,
+)
+from .chain import (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory as _IntegralNondegenerateSymmetricCategory,
+)
+from .chain import (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement as _IntegralNondegenerateSymmetricElement,
+)
+from .chain import (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism as _IntegralNondegenerateSymmetricMorphism,
+)
+from .chain import (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject as _IntegralNondegenerateSymmetricObject,
+)
+from .chain import (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory as NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+)
+from .chain import (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesElement as NondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
+)
+from .chain import (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism as NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
+)
+from .chain import (
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesObject as NondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
+)
+from .chain import (
+    SymmetricFiniteRankFreeBilinearModulesCategory as SymmetricFiniteRankFreeBilinearModulesCategory,
+)
+from .chain import (
+    SymmetricFiniteRankFreeBilinearModulesElement as SymmetricFiniteRankFreeBilinearModulesElement,
+)
+from .chain import (
+    SymmetricFiniteRankFreeBilinearModulesMorphism as SymmetricFiniteRankFreeBilinearModulesMorphism,
+)
+from .chain import (
+    SymmetricFiniteRankFreeBilinearModulesObject as SymmetricFiniteRankFreeBilinearModulesObject,
 )
 from .subcategories.bilinear import (
-    BilinearModulesCategory,
-    BilinearModulesElement,
-    BilinearModulesMorphism,
-    BilinearModulesObject,
+    BilinearModulesCategory as BilinearModulesCategory,
+)
+from .subcategories.bilinear import (
+    BilinearModulesElement as BilinearModulesElement,
+)
+from .subcategories.bilinear import (
+    BilinearModulesMorphism as BilinearModulesMorphism,
+)
+from .subcategories.bilinear import (
+    BilinearModulesObject as BilinearModulesObject,
 )
 from .subcategories.quadratic import (
-    QuadraticModulesCategory,
-    QuadraticModulesElement,
-    QuadraticModulesMorphism,
-    QuadraticModulesObject,
+    QuadraticModulesCategory as QuadraticModulesCategory,
+)
+from .subcategories.quadratic import (
+    QuadraticModulesElement as QuadraticModulesElement,
+)
+from .subcategories.quadratic import (
+    QuadraticModulesMorphism as QuadraticModulesMorphism,
+)
+from .subcategories.quadratic import (
+    QuadraticModulesObject as QuadraticModulesObject,
 )
 from .subcategories.torsion_quadratic_modules import (
-    TorsionQuadraticModulesCategory,
-    TorsionQuadraticModulesElement,
-    TorsionQuadraticModulesMorphism,
-    TorsionQuadraticModulesObject,
+    TorsionQuadraticModulesCategory as TorsionQuadraticModulesCategory,
+)
+from .subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesElement as TorsionQuadraticModulesElement,
+)
+from .subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesMorphism as TorsionQuadraticModulesMorphism,
+)
+from .subcategories.torsion_quadratic_modules import (
+    TorsionQuadraticModulesObject as TorsionQuadraticModulesObject,
 )
 from .subcategories.with_forms import (
-    FormedModulesCategory,
-    FormedModulesElement,
-    FormedModulesMorphism,
-    FormedModulesObject,
+    FormedModulesCategory as FormedModulesCategory,
 )
+from .subcategories.with_forms import (
+    FormedModulesElement as FormedModulesElement,
+)
+from .subcategories.with_forms import (
+    FormedModulesMorphism as FormedModulesMorphism,
+)
+from .subcategories.with_forms import (
+    FormedModulesObject as FormedModulesObject,
+)
+
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = _IntegralNondegenerateSymmetricCategory
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = _IntegralNondegenerateSymmetricElement
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = _IntegralNondegenerateSymmetricMorphism
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = _IntegralNondegenerateSymmetricObject
 
 if TYPE_CHECKING:
     from ..cat import Category
@@ -68,6 +135,7 @@ def FormedModules(base_ring: Ring) -> Category:
     from ..modules import Modules
 
     return Modules(base_ring, dispatch=False).WithForms()
+
 
 FormedModulesHomCategory = RModuleHomCategory
 FormedModulesEndCategory = RModuleEndCategory

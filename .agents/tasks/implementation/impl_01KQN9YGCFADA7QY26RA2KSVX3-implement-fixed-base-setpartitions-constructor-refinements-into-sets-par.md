@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned()
-  and keep AllSetPartitions countable-only
+title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - implementation

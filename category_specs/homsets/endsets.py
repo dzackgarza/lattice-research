@@ -62,6 +62,7 @@ class EndCategory(CategoryWithAxiom_singleton):
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Autset").
@@ -77,7 +78,9 @@ class EndCategoryConstruction(HomCategoryConstruction):
     _functor_category = "EndCategory"
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     @final
@@ -125,6 +128,7 @@ class EndCategoryOf(CategoryWithAxiom):
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Autset").

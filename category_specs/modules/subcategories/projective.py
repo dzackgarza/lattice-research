@@ -10,6 +10,7 @@ from .. import Modules
 
 class _Projective(CategoryWithAxiom_over_base_ring):
     r"""Canonical chain: ``Modules(R).Projective()``."""
+
     _base_category_class_and_axiom = (Modules, "Projective")
 
     @override

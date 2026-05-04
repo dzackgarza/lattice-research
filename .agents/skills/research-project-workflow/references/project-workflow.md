@@ -49,6 +49,11 @@ Do not use `create_task` or `tracker_create` for these items. Create or update t
 
 Keep active `.agents` paths forward-facing. After human approval, merge, rejection, or supersession, move completed or retired cards out of active task paths and into `.agents/retired/` only while they remain useful for short-term reference. Durable history belongs in git commits, PRs, plan history, and canonical decisions/docs, not in permanent piles of completed cards.
 
+When an active card cannot proceed, set `status: blocked` if its tracker schema
+supports that value, record the exact blocker in the body, and link or create the
+prerequisite task, bug, research item, or decision. A blocked card remains active until
+it is accepted, rejected, or superseded.
+
 ## Inline items
 
 Avoid inline items in general. Use inline entries only as temporary placeholders while a broader task is being discovered and a full tracker file is being prepared.

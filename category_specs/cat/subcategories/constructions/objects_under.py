@@ -20,6 +20,7 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
     _functor_category = "ObjectsUnder"
 
     @override
+    @final
     def _repr_object_names(self) -> str:
         return f"categories under {self.base()}"
 
@@ -44,6 +45,5 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
-
-

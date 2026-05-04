@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement constructor validation models for Phase 2 carriers'
+title: Implement constructor validation models for Phase 2 carriers
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,10 +9,11 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-020
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- theme-modules-tensors
 ---
 
 # Implement constructor validation models for Phase 2 carriers

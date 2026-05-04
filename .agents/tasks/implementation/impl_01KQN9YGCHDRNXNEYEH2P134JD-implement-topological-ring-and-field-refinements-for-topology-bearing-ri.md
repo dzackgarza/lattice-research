@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement topological ring and field refinements for topology-bearing ring
-  objects without duplicating topological-space methods
+title: Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - implementation

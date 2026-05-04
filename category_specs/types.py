@@ -39,10 +39,6 @@ from sage.structure.parent import Parent as SageParent
 from sympy.sets.sets import Set as SageSympySet
 
 from .algebras import (
-    AssociativeAlgebrasCategory,
-    AssociativeAlgebrasElement,
-    AssociativeAlgebrasMorphism,
-    AssociativeAlgebrasObject,
     AlgebrasAut,
     AlgebrasAutCategory,
     AlgebrasAutomorphism,
@@ -55,6 +51,10 @@ from .algebras import (
     AlgebrasHomCategory,
     AlgebrasMorphism,
     AlgebrasObject,
+    AssociativeAlgebrasCategory,
+    AssociativeAlgebrasElement,
+    AssociativeAlgebrasMorphism,
+    AssociativeAlgebrasObject,
     MagmaticAlgebrasCategory,
     MagmaticAlgebrasElement,
     MagmaticAlgebrasMorphism,
@@ -74,20 +74,6 @@ from .cat import (
     CatHomCategory,
     CatMorphism,
     CatObject,
-)
-from .homsets import (
-    AutCategoriesCategory,
-    AutCategoriesElement,
-    AutCategoriesMorphism,
-    AutCategoriesObject,
-    EndCategoriesCategory,
-    EndCategoriesElement,
-    EndCategoriesMorphism,
-    EndCategoriesObject,
-    HomCategoriesCategory,
-    HomCategoriesElement,
-    HomCategoriesMorphism,
-    HomCategoriesObject,
 )
 from .forms import (
     BilinearModulesAut,
@@ -139,6 +125,20 @@ from .forms import (
     TorsionQuadraticModulesMorphism,
     TorsionQuadraticModulesObject,
 )
+from .homsets import (
+    AutCategoriesCategory,
+    AutCategoriesElement,
+    AutCategoriesMorphism,
+    AutCategoriesObject,
+    EndCategoriesCategory,
+    EndCategoriesElement,
+    EndCategoriesMorphism,
+    EndCategoriesObject,
+    HomCategoriesCategory,
+    HomCategoriesElement,
+    HomCategoriesMorphism,
+    HomCategoriesObject,
+)
 from .lattices import (
     LatticesAut,
     LatticesAutCategory,
@@ -166,12 +166,6 @@ from .lattices.subcategories.constructions.discriminant_groups import (
     LatticeDiscriminantGroupsHomCategory,
     LatticeDiscriminantGroupsMorphism,
     LatticeDiscriminantGroupsObject,
-)
-from .lattices.subcategories.constructions.dual_objects import (
-    LatticeDualObjectsCategory,
-    LatticeDualObjectsElement,
-    LatticeDualObjectsMorphism,
-    LatticeDualObjectsObject,
 )
 from .modules import (
     ModulesAut,
@@ -231,6 +225,50 @@ from .rings.subcategories.approximate import (
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
+from .sets import (
+    SetsAut,
+    SetsAutCategory,
+    SetsAutomorphism,
+    SetsCategory,
+    SetsElement,
+    SetsEnd,
+    SetsEndCategory,
+    SetsEndomorphism,
+    SetsHom,
+    SetsHomCategory,
+    SetsMorphism,
+    SetsObject,
+)
+from .sets.subcategories.constructions.isomorphic_objects import (
+    _IsomorphicObjects as SetIsomorphicObjects,
+)
+from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
+from .sets.subcategories.constructions.realizations import (
+    _Realizations as SetRealizations,
+)
+from .sets.subcategories.constructions.subobjects import Subsets as SetSubobjects
+from .sets.subcategories.constructions.subquotients import (
+    _Subquotients as SetSubquotients,
+)
+from .sets.subcategories.constructions.with_realizations import (
+    SetsWithRealizations as SetWithRealizationsCategory,
+)
+from .sets.subcategories.graded import GradedSetsCategory
+from .sets.subcategories.group_actions import _GSets
+from .sets.subcategories.partitioned import (
+    PartitionedSetsAut,
+    PartitionedSetsAutCategory,
+    PartitionedSetsAutomorphism,
+    PartitionedSetsCategory,
+    PartitionedSetsElement,
+    PartitionedSetsEnd,
+    PartitionedSetsEndCategory,
+    PartitionedSetsEndomorphism,
+    PartitionedSetsHom,
+    PartitionedSetsHomCategory,
+    PartitionedSetsMorphism,
+    PartitionedSetsObject,
+)
 from .tensor_algebra_components import (
     TensorAlgebraComponentsAut,
     TensorAlgebraComponentsAutCategory,
@@ -244,6 +282,32 @@ from .tensor_algebra_components import (
     TensorAlgebraComponentsHomCategory,
     TensorAlgebraComponentsMorphism,
     TensorAlgebraComponentsObject,
+)
+from .topological_spaces import (
+    MetricSpacesAut,
+    MetricSpacesAutCategory,
+    MetricSpacesAutomorphism,
+    MetricSpacesCategory,
+    MetricSpacesElement,
+    MetricSpacesEnd,
+    MetricSpacesEndCategory,
+    MetricSpacesEndomorphism,
+    MetricSpacesHom,
+    MetricSpacesHomCategory,
+    MetricSpacesMorphism,
+    MetricSpacesObject,
+    TopologicalSpacesAut,
+    TopologicalSpacesAutCategory,
+    TopologicalSpacesAutomorphism,
+    TopologicalSpacesCategory,
+    TopologicalSpacesElement,
+    TopologicalSpacesEnd,
+    TopologicalSpacesEndCategory,
+    TopologicalSpacesEndomorphism,
+    TopologicalSpacesHom,
+    TopologicalSpacesHomCategory,
+    TopologicalSpacesMorphism,
+    TopologicalSpacesObject,
 )
 
 # Generic / Support
@@ -400,68 +464,6 @@ AlgebraIdeal = AlgebraIdealsObject
 HochschildChainComplex = HochschildComplex
 
 # Sets
-from .sets import (
-    SetsAut,
-    SetsAutCategory,
-    SetsAutomorphism,
-    SetsCategory,
-    SetsElement,
-    SetsEnd,
-    SetsEndCategory,
-    SetsEndomorphism,
-    SetsHom,
-    SetsHomCategory,
-    SetsMorphism,
-    SetsObject,
-)
-from .sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects as SetIsomorphicObjects
-from .sets.subcategories.constructions.quotients import _Quotients as SetQuotients
-from .sets.subcategories.constructions.realizations import _Realizations as SetRealizations
-from .sets.subcategories.constructions.subobjects import Subsets as SetSubobjects
-from .sets.subcategories.constructions.subquotients import _Subquotients as SetSubquotients
-from .sets.subcategories.constructions.with_realizations import SetsWithRealizations as SetWithRealizationsCategory
-from .sets.subcategories.graded import GradedSetsCategory
-from .sets.subcategories.group_actions import _GSets
-from .sets.subcategories.partitioned import (
-    PartitionedSetsAut,
-    PartitionedSetsAutCategory,
-    PartitionedSetsAutomorphism,
-    PartitionedSetsCategory,
-    PartitionedSetsElement,
-    PartitionedSetsEnd,
-    PartitionedSetsEndCategory,
-    PartitionedSetsEndomorphism,
-    PartitionedSetsHom,
-    PartitionedSetsHomCategory,
-    PartitionedSetsMorphism,
-    PartitionedSetsObject,
-)
-from .topological_spaces import (
-    MetricSpacesAut,
-    MetricSpacesAutCategory,
-    MetricSpacesAutomorphism,
-    MetricSpacesCategory,
-    MetricSpacesElement,
-    MetricSpacesEnd,
-    MetricSpacesEndCategory,
-    MetricSpacesEndomorphism,
-    MetricSpacesHom,
-    MetricSpacesHomCategory,
-    MetricSpacesMorphism,
-    MetricSpacesObject,
-    TopologicalSpacesAut,
-    TopologicalSpacesAutCategory,
-    TopologicalSpacesAutomorphism,
-    TopologicalSpacesCategory,
-    TopologicalSpacesElement,
-    TopologicalSpacesEnd,
-    TopologicalSpacesEndCategory,
-    TopologicalSpacesEndomorphism,
-    TopologicalSpacesHom,
-    TopologicalSpacesHomCategory,
-    TopologicalSpacesMorphism,
-    TopologicalSpacesObject,
-)
 
 Set = SetsObject
 FiniteSet = SetsCategory.Finite.ParentMethods

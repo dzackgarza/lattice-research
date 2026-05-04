@@ -183,6 +183,7 @@ class RModuleHomCategory(HomCategoryOf):
 
     ParentMethods = _RModHomCategoryObjectMethods
     ElementMethods = _RModMorphisms
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -269,12 +270,15 @@ class _Forms(CategoryWithAxiom):
 
     Bilinear = LazyImport(__name__, "_Bilinear")
     Quadratic = LazyImport(__name__, "_Quadratic")
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 class _Bilinear(CategoryWithAxiom):
     r"""Canonical chain: ``Modules(R).HomCategory().Forms().Bilinear()``."""
+
     _base_category_class_and_axiom = (_Forms, "Bilinear")
 
     class ParentMethods:
@@ -294,6 +298,7 @@ class _Bilinear(CategoryWithAxiom):
 
 class _Quadratic(CategoryWithAxiom):
     r"""Canonical chain: ``Modules(R).HomCategory().Forms().Quadratic()``."""
+
     _base_category_class_and_axiom = (_Forms, "Quadratic")
 
     class ParentMethods:
@@ -318,6 +323,7 @@ class _Quadratic(CategoryWithAxiom):
 
 class RModuleEndCategory(GenericEndCategory):
     r"""Canonical chain: ``Modules(R).EndCategory()``."""
+
     _base_category_class_and_axiom = (RModuleHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "RModuleAutCategory")
@@ -345,6 +351,7 @@ class RModuleEndCategory(GenericEndCategory):
         # objects should happen automatically.
 
     ElementMethods = _RModEndomorphisms
+
     class MorphismMethods: ...
 
 
@@ -371,4 +378,5 @@ class RModuleAutCategory(GenericAutCategory):
         r"""Module-specific aut parent methods; generic aut methods are inherited."""
 
     ElementMethods = _RModAutomorphisms
+
     class MorphismMethods: ...

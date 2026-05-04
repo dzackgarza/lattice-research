@@ -4,7 +4,7 @@ trackerStatus:
 title: Admit ImageSets as image subobjects with ambient lift and retract surface
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - spec

@@ -32,7 +32,9 @@ class CatEndCategory(EndCategoryOf):
         return f"endofunctor categories internal to {self.base_category()}"
 
     ElementMethods = _CatEndofunctorMethods
+
     class ParentMethods: ...
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Autset").

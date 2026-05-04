@@ -57,7 +57,7 @@ assert e.perp() not in Lattices(ZZ) and e.perp()/e in Lattices(ZZ) # Promotion
 
 
 
-L.<e,f> == Lattice.U()
+L.<e,f> = Lattice.U()
 M = (e+f).span() + (e-f).span()
 assert M.inclusion().index() == 2 # [L:M]=2
 
@@ -68,7 +68,7 @@ assert iota.is_involution() and iota.order() == 2 and iota^2 == L.End().identity
 assert iota in L.O()
 assert L.O() == L.Aut()
 G = L.O().subgroup_from_gens([iota])
-assert G = iota.cyclic_subgroup() # Convenience
+assert G == iota.cyclic_subgroup() # Convenience
 assert G.is_subgroup_of(L.O())
 assert G <= L.O() # Convenience
 
@@ -80,7 +80,7 @@ assert L^G == L_inv # Convenience
 
 assert L_inv == (e+f).span() and L_coinv == (e-f).span()
 assert L_inv + L_coinv == M
-assert L/M == BilinearModule(ZZ/2, matrix(ZZ, 1, [0])
+assert L/M == BilinearModule(ZZ/2, matrix(ZZ, 1, [0]))
 assert not M.is_isometric(L)
 assert M.base_change(QQ).is_isometric(L.base_change(QQ))
 
@@ -101,20 +101,20 @@ assert [(f1*f2)(x) for x in [e,f]] == [-f, -e]
 
 assert {F.to_matrix() for F in L.O()} == {id, m1, m2, m1*m2}
 assert {F for F in L.O()} == {f_id, f1, f2, f1*f2}
-assert {F in L.O() if F(e) == e} == {f_id}
+assert {F for F in L.O() if F(e) == e} == {f_id}
 assert L.O().stabilizer(e) == f_id.cyclic_subgroup() # Identity
-assert {F in L.O() if F(f) == f} == {f_id}
+assert {F for F in L.O() if F(f) == f} == {f_id}
 assert L.O().stabilizer(f) == f_id.cyclic_subgroup() # Identity
 
 assert [F(e) for F in [id, f1, f2, f1*f2]] == [e, -e, f, -f]
 assert [F(f) for F in [id, f1, f2, f1*f2]] == [f, -f, e, -e]
 assert [F(e+f) for F in [id, f1, f2, f1*f2]] == [e+f,-(e+f),f+e,-(f+e)]
 
-assert {F in L.O() if F(e+f) == e+f} == {f_id, f2}
+assert {F for F in L.O() if F(e+f) == e+f} == {f_id, f2}
 assert L.O().stabilizer(e+f) == f2.cyclic_subgroup()
 assert f2.cyclic_subgroup() == ZZ/2 # Canonical iso
 
-assert {F in L.O() if F(e-f) == e-f} == {f_id,f1*f2}
+assert {F for F in L.O() if F(e-f) == e-f} == {f_id,f1*f2}
 assert L.O().stabilizer(e-f) == (f1*f2).cyclic_subgroup()
 assert (f1*f2).cyclic_subgroup() == ZZ/2 # Canonical iso
 

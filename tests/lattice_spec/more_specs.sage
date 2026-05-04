@@ -75,7 +75,7 @@ ep, fp = U2.gens()
 # multiplication is not twisting:
 assert not (2*U).is_isometric(U2)
 # Instead, c*L := {c*v | v in L}, so generally c*L is isometric to L.twist(c^2).
-e2, f2 = (2U).gens()
+e2, f2 = (2*U).gens()
 assert e2 == 2*e # Automatically regard n*v as an element of L \cap nL
 assert f2 == 2*f
 assert e2*f2 == (2*e)*(2*f)

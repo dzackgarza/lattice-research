@@ -32,6 +32,7 @@ class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
             return self.form().q(v)
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 

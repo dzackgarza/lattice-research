@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface
-  only after mapping symmetry storage contraction trace display and migration needs
+title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - spec

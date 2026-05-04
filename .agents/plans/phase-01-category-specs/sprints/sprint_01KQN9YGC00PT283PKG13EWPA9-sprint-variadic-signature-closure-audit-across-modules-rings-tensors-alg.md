@@ -1,13 +1,12 @@
 ---
 trackerStatus:
   type: plan
-title: Sprint variadic signature closure audit across modules rings tensors algebras
-  lattices posets sets and real-set constructors
-status: needs-approval
-planId: SPR-CAT-SAGE-01KQN9
+title: Sprint variadic signature closure audit across modules rings tensors algebras lattices posets sets and real-set constructors
+status: approved
+planId: SPR-VARIADIC-AUDIT-01KQN9
 planType: sprint-plan
 priority: high
-parentPlan: PLN-SAGE-000
+parentPlan: PLN-AUDIT-000
 tags:
 - category-specs
 - plan

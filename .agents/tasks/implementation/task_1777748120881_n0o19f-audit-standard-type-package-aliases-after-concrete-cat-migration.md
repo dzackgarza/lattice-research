@@ -4,7 +4,7 @@ trackerStatus:
 title: Audit standard type-package aliases after concrete Cat migration
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: SPR-CAT-SURFACE-01KQN9
 progress: 0
 tags:
 - category-specs

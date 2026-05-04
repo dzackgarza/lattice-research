@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Fix forms smoketest stale _BilinearModules import and confirm forms owner identity
-  through compatibility paths
+title: Fix forms smoketest stale _BilinearModules import and confirm forms owner identity through compatibility paths
 status: to-do
 priority: high
-planId: PLN-CAT-100
+planId: SPR-MODULE-WRAPPER-01KQN9
 tags:
 - category-specs
 - implementation

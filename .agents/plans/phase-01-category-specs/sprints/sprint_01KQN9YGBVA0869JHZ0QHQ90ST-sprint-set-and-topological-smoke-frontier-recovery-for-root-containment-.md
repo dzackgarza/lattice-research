@@ -1,10 +1,9 @@
 ---
 trackerStatus:
   type: plan
-title: Sprint set and topological smoke frontier recovery for root containment rich
-  comparison Primes iteration RealSet ambient methods and topological axiom warning
-status: needs-approval
-planId: SPR-CAT-SAGE-01KQN9
+title: Sprint set and topological smoke frontier recovery for root containment rich comparison Primes iteration RealSet ambient methods and topological axiom warning
+status: approved
+planId: SPR-SETS-TOPO-01KQN9
 planType: sprint-plan
 priority: high
 parentPlan: PLN-SAGE-000

@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Finish algebra constructor admission and explicit names for additive and table
-  algebra construction routes
+title: Finish algebra constructor admission and explicit names for additive and table algebra construction routes
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - spec

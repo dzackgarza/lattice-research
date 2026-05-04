@@ -5,7 +5,12 @@
 ## Always-active invariants
 
 - For plan-to-execution routing, atomicity, delegation stages, and acceptance process, load `research-state-machine`. For proof, evidence, fraud detection, and audit sufficiency, load `research-proof-auditing` when relevant.
+- For any git operation, load `git-guidelines` and follow its checkpoint, staging, commit, branch, push, and PR rules. User requests to skip verification skip validation runs, not intentional staging or provenance.
 - Implementation, self-check, and adversarial audit are separate roles when `research-state-machine` requires them.
+- Delegate according to complexity. When delegation is appropriate and the task is
+  within Codex Spark's expected competence, prefer Codex Spark
+  (`gpt-5.3-codex-spark`) because usage is plentiful; reserve stronger models for
+  high-complexity, proof-heavy, architecture-heavy, or high-risk work.
 - Do not substitute a nearby task for the user's stated directive.
 - Do not mark work accepted, done, or closed without human approval.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
@@ -15,7 +20,9 @@
 - `GOAL.md` is read-only. Source authority for literature and standard claims lives in `theory/references/index.md`.
 - Mathematical implementation work must prefer wiring mature open-source mathematical software over bespoke algorithms. Load `research-software-wiring` before writing or delegating mathematical implementation code.
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan. The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are blocked until prerequisite vocabulary and specs exist.
-- QC is a gate for commits, implementation surfaces, and phase transitions. During churn-heavy spec work, do not chase incidental QC failures unless the user explicitly asks for QC work or a phase transition is being prepared.
+- QC is phase-transition evidence, not the control loop for spec work. During churn-heavy spec work, do not treat QC failures, hook noise, or unrelated implementation validation failures as blockers for approved spec-plan execution. QC blocks only a claimed phase transition or a user-requested QC/implementation integration pass; otherwise record the finding and continue the approved spec work.
+- Blockers are phase-local and path-local unless proven otherwise. A downstream-phase guard, implementation-only gate, QC failure outside a transition/integration pass, oversized card, missing vocabulary, or missing backend bridge is not a reason to exit the active goal while approved phase-local spec, research, decision, or decomposition cards remain. Stop only the affected card/path, create or update the prerequisite card/decision/research item, and continue another approved active leaf.
+- Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.
 - Never roll back, undo, or reverse auto-fixes produced by hooks, formatters, linters, or other repository tooling. Carry them forward and report unexpected touched paths.
 
 ## Skill index
@@ -27,6 +34,7 @@ Load these skills when their trigger matches the task:
 - `research-proof-auditing`: computational proof audit, formal proof audit, evidence sufficiency, fraud indicators, Sage/GAP/Lean/Aristotle verification, and acceptance of mathematical claims.
 - `research-project-workflow`: Nimbalyst tracker files, `.agents` plans/cards, TODO triage, retired cards, visual windows, and plan decomposition.
 - `research-scheduling`: scheduled wakeups, recurring maintenance, old schedule migration, autonomous cadence, and routing scheduled actions through `.agents` cards/plans.
+- `git-guidelines`: required for staging, committing, branching, pushing, PRs, and any other git operation.
 - `task` or `track`: creation or migration of individual tracker items.
 - `research-repo-structure`: file placement, cleanup, pruning, root-level directories, scratch work, deleted files, specs, debris, and durable artifacts.
 - `research-code-style`: contribution policy, mathematical code style, tests, Sage/Pydantic surfaces, constructors, equality, assertions, and implementation compliance.

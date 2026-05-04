@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Specify topological ring and field recovery through topological_spaces inheritance
-  rather than pure topological constructors
+title: Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - spec

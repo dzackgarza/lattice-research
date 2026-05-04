@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior
-  and boundary through TopologicalSpaces
+title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 tags:
 - category-specs
 - spec

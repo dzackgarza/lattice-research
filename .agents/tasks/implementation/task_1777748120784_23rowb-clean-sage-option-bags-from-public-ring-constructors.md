@@ -4,7 +4,7 @@ trackerStatus:
 title: Clean Sage option bags from public ring constructors
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 progress: 0
 tags:
 - category-specs

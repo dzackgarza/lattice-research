@@ -57,6 +57,7 @@ class AlgebraIdealsCategory(Category_module):
             return self.is_left_ideal() and self.is_right_ideal()
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 

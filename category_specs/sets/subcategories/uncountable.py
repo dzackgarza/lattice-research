@@ -11,6 +11,7 @@ from .. import Sets
 
 class _UncountableSets(CategoryWithAxiom):
     r"""Canonical chain: ``Sets().Uncountable()``."""
+
     _base_category_class_and_axiom = (Sets, "Uncountable")
 
     @override
@@ -35,4 +36,5 @@ class _UncountableSets(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

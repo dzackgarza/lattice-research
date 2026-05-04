@@ -14,7 +14,6 @@ if TYPE_CHECKING:
     from ...types import Integer, Matrix, ModuleBasis, RModule, RModuleElement, RModuleMorphism
 
 
-
 class _FreeGradedModules(Category_over_base_ring):
     r"""Free graded modules over connected graded algebras.
 
@@ -52,4 +51,5 @@ class _FreeGradedModules(Category_over_base_ring):
         ) -> RModuleMorphism: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

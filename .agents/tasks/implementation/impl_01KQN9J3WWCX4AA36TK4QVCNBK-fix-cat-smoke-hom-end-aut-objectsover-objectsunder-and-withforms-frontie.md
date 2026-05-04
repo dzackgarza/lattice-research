@@ -4,7 +4,7 @@ trackerStatus:
 title: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: PLN-CAT-120
 tags:
 - category-specs
 - implementation

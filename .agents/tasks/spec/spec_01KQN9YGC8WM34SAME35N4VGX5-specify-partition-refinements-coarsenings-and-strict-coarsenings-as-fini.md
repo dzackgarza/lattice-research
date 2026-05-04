@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Specify partition refinements coarsenings and strict coarsenings as finite
-  subsets refining through set constructors
+title: Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - spec

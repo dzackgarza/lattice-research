@@ -55,6 +55,7 @@ class PosetHomCategory(HomCategoryOf):
 
     ParentMethods = _PosetHomCategoryObjectMethods
     ElementMethods = _OrderPreservingMaps
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -63,6 +64,7 @@ class PosetHomCategory(HomCategoryOf):
 
 class PosetEndCategory(GenericEndCategory):
     r"""Canonical chain: ``Posets().EndCategory()``."""
+
     _base_category_class_and_axiom = (PosetHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "PosetAutCategory")
@@ -74,13 +76,17 @@ class PosetEndCategory(GenericEndCategory):
             ...
 
     ElementMethods = _PosetEndomorphisms
+
     class MorphismMethods: ...
 
 
 class PosetAutCategory(GenericAutCategory):
     r"""Canonical chain: ``Posets().AutCategory()``."""
+
     _base_category_class_and_axiom = (PosetEndCategory, "Autset")
 
     class ParentMethods: ...
+
     ElementMethods = _PosetAutomorphisms
+
     class MorphismMethods: ...

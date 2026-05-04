@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Static category refinement and constructor interception order'
-status: needs-approval
+title: Static category refinement and constructor interception order
+status: approved
 planId: PLN-CAT-110
 planType: spec-plan
 priority: critical
@@ -11,12 +11,13 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - category-refinement
-  - constructors
-  - theme-category-core
-  - theme-constructor-routing
+- category-specs
+- plan
+- category-refinement
+- constructors
+- theme-category-core
+- theme-constructor-routing
+parentPlan: PLN-CAT-100
 ---
 
 # Static category refinement and constructor interception order
@@ -37,12 +38,10 @@ Turn `CATEGORY_REFINEMENT_PHASES.md` into the governing order for category-spec 
 - Concrete category interceptors: refine returned parents only from the correct owner method.
 - Top-level constructor redefinitions: call Sage constructors once, then refine through the target category.
 
-## Leaf work
+## Leaf ownership
 
-- `task_1777748120685_4vx3gb`: import and LazyImport bloat in ring subcategory constructors.
-- `task_1777748120483_nam4mw`: number-field and rational-field option bags.
-- `task_1777748120784_23rowb`: public ring constructor option bags.
-- `task_1777748120529_yqjmy7`: mixed set-constructor input shapes.
+This plan records the ordering rule. Domain-specific constructor and signature
+cards live under the Sage sprint leaf plans or `SPR-VARIADIC-AUDIT-01KQN9`.
 
 ## Acceptance Criteria
 

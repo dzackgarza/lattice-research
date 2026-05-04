@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: task
-title: Research upstream Sage support or issues for q-adic unramified extensions with
-  split lattice precision caps
+title: Research upstream Sage support or issues for q-adic unramified extensions with split lattice precision caps
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 progress: 0
 tags:
 - category-specs

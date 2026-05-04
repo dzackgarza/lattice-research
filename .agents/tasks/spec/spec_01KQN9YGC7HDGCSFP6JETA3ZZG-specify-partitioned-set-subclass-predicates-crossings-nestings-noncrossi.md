@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Specify partitioned-set subclass predicates crossings nestings noncrossing
-  nonnesting and atomic only after subcategory admission
+title: Specify partitioned-set subclass predicates crossings nestings noncrossing nonnesting and atomic only after subcategory admission
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - spec

@@ -94,6 +94,7 @@ class AutCategory(CategoryWithAxiom_singleton):
 
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
+
     class MorphismMethods: ...
 
 
@@ -106,7 +107,9 @@ class AutCategoryConstruction(EndCategoryConstruction):
     _functor_category = "AutCategory"
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     @final
@@ -165,4 +168,5 @@ class AutCategoryOf(CategoryWithAxiom):
 
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
+
     class MorphismMethods: ...

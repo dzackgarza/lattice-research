@@ -18,6 +18,7 @@ from .. import Sets
 
 class _InfiniteSets(CategoryWithAxiom):
     r"""Canonical chain: ``Sets().Infinite()``."""
+
     _base_category_class_and_axiom = (Sets, "Infinite")
 
     @override
@@ -50,4 +51,5 @@ class _InfiniteSets(CategoryWithAxiom):
         def is_empty(self) -> bool: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

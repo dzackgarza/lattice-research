@@ -34,6 +34,7 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
     _functor_category = "ObjectsOver"
 
     @override
+    @final
     def _repr_object_names(self) -> str:
         return f"categories over {self.base()}"
 
@@ -58,6 +59,5 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
-
-

@@ -4,7 +4,7 @@ trackerStatus:
 title: Remove strict-supercategory leaks from image-set and schematic-set constructors
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 progress: 0
 tags:
 - category-specs

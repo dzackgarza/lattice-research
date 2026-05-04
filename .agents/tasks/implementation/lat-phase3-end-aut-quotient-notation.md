@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement End Aut and quotient notation through homset machinery'
+title: Implement End Aut and quotient notation through homset machinery
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-030
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - morphisms
-  - homsets
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- morphisms
+- homsets
+- theme-modules-tensors
 ---
 
 # Implement End Aut and quotient notation through homset machinery

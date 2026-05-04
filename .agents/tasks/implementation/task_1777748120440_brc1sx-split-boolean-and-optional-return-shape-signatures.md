@@ -4,7 +4,7 @@ trackerStatus:
 title: Split boolean and optional return-shape signatures
 status: to-do
 priority: critical
-planId: PLN-AUDIT-000
+planId: SPR-VARIADIC-AUDIT-01KQN9
 progress: 0
 tags:
 - category-specs

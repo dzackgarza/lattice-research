@@ -39,6 +39,7 @@ class AlgebraHomCategory(HomCategoryOf):
 
     ParentMethods = _AlgebraHomCategoryObjectMethods
     ElementMethods = _AlgebraHomomorphisms
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -47,6 +48,7 @@ class AlgebraHomCategory(HomCategoryOf):
 
 class AlgebraEndCategory(GenericEndCategory):
     r"""Canonical chain: ``Algebras(R).EndCategory()``."""
+
     _base_category_class_and_axiom = (AlgebraHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "AlgebraAutCategory")
@@ -58,13 +60,17 @@ class AlgebraEndCategory(GenericEndCategory):
             ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
 class AlgebraAutCategory(GenericAutCategory):
     r"""Canonical chain: ``Algebras(R).AutCategory()``."""
+
     _base_category_class_and_axiom = (AlgebraEndCategory, "Autset")
 
     class ParentMethods: ...
+
     class ElementMethods: ...
+
     class MorphismMethods: ...

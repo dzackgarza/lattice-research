@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Implement TensorAlgebraComponents constructors for module-element matrices
-  structure constants and multiplication-tensor handoff to Algebras(R)
+title: Implement TensorAlgebraComponents constructors for module-element matrices structure constants and multiplication-tensor handoff to Algebras(R)
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - implementation

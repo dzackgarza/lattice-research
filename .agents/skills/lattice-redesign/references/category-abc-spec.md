@@ -134,6 +134,52 @@ The first required codomain examples are:
 The public contract is therefore module-valued from the start. Ring-valued
 forms are important special cases, not the general definition.
 
+## Presented Object Identity
+
+This section migrates the mathematical model from the opening docstring of
+`theory/spec_backups/lattices_written_spec_backup.py`.
+
+The formal objects are modules with form data. In the bilinear branch, a
+bilinear `R`-module is a pair `(M, beta)` where `M` is a finitely generated
+or finitely presented `R`-module and `beta` is bilinear form data on
+`M tensor_R M`. The standard integral codomain is `R`; rational variants use
+`K = Frac(R)`.
+
+Concrete free objects are presented objects. A free bilinear module is not
+only an abstract isometry class; it is represented as a triple `(M, beta, B)`
+where `B` is the selected generating set. The Gram matrix is the matrix of
+`beta` in `B`. Changing the selected generators changes the presented object.
+The result may be isometric or isomorphic to the original, but it is not the
+same object by equality.
+
+This is the central divergence from Sage's ambient-vector-space convention.
+Do not treat a lattice as a mutable embedded submodule with a preferred basis
+that may be silently changed. Basis change, reduction, normalization, and
+isometry discovery must return explicit objects and morphism witnesses.
+
+Named special cases:
+
+- an `R`-lattice is a free, finitely generated bilinear `R`-module with the
+  relevant nondegeneracy/integrality predicates;
+- when `R = ZZ`, `Lattice` means the integral `ZZ` case;
+- a rational lattice is the same free object with form values in `K`, and an
+  integral lattice is also a rational lattice by codomain extension;
+- a torsion bilinear module may have form values in `K/R` or `K/2R`;
+- for `R = ZZ`, a bilinear discriminant form uses `QQ/ZZ` or `QQ/2ZZ`;
+- the underlying torsion module, when the form is ignored, is the
+  discriminant group;
+- a quadratic module is a pair `(M, q)`, with associated quadratic space
+  `(M tensor_R K, q tensor_R id_K)`;
+- torsion quadratic modules with quotient-valued codomain are discriminant
+  quadratic forms.
+
+Morphism semantics follow the object model. A morphism of bilinear
+`R`-modules is an `R`-module morphism `f: M1 -> M2` such that
+`beta1(v, w) = beta2(f(v), f(w))` for all source elements. An isomorphism
+with this property is an isometry. Matrix equations are implementation
+checks inside the appropriate Hom or automorphism parent, not public
+substitutes for morphisms.
+
 The with-form layer owns the Sage-style subcategory machinery:
 
 - `Bilinear()`

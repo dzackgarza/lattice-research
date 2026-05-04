@@ -41,6 +41,16 @@ Read `references/execution-kernel.md` before moving work from planning into exec
 - Do not let an implementing agent mark work accepted, done, or closed.
 - Do not claim `GOAL.md` discharge without final composed-goal audit and human approval.
 
+Hard stops are scoped to the affected card, path, or promotion claim unless the current
+approved phase has no other executable leaves. When a hard stop fires, file or update
+the prerequisite card/decision/research item, then continue another approved active
+leaf. Do not exit the user's active goal merely because one path is blocked.
+
+Before reporting that all paths are blocked, enumerate the approved active plans and
+leaf cards considered, name each current-phase blocker, and exclude downstream guards,
+non-transition QC failures, and implementation-only gates that do not apply to current
+spec work.
+
 ## Load with
 
 - Load `research-project-workflow` for Nimbalyst plan/card mechanics.

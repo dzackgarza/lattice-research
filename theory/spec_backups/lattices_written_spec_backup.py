@@ -1,4 +1,4 @@
-"""
+r"""
 Let R be a Dedekind domain (usually assumed a PID).
 A bilinear R-module is a pair (M, \beta) where M is finitely generated
 R-module M \cong R^n and \beta: M\otimes_R M -> R is a symmetric bilinear form.

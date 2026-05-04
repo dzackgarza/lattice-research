@@ -35,35 +35,31 @@ class _MissingFoldArgument: ...
 _MISSING_FOLD_ARGUMENT = _MissingFoldArgument()
 
 
-def _fold_nonempty_binary_operation(
-    operation: Callable[[_FoldParent, _FoldElement, _FoldElement], _FoldElement],
-    parent: _FoldParent,
-    elements: Sequence[_FoldElement],
-) -> _FoldElement:
-    assert len(elements) >= 1, (
-        "foldable binary operation requires a nonempty sequence"
-    )
+def _fold_nonempty_binary_operation[FoldParent, FoldElement](
+    operation: Callable[[FoldParent, FoldElement, FoldElement], FoldElement],
+    parent: FoldParent,
+    elements: Sequence[FoldElement],
+) -> FoldElement:
+    assert len(elements) >= 1, "foldable binary operation requires a nonempty sequence"
     result = elements[0]
     for element in elements[1:]:
         result = operation(parent, result, element)
     return result
 
 
-def foldable_operation(
-    operation: Callable[[_FoldParent, _FoldElement, _FoldElement], _FoldElement],
-) -> _FoldableOperation[_FoldParent, _FoldElement]:
+def foldable_operation[FoldParent, FoldElement](
+    operation: Callable[[FoldParent, FoldElement, FoldElement], FoldElement],
+) -> _FoldableOperation[FoldParent, FoldElement]:
     r"""Decorate a binary method with the standard nonempty-sequence fold."""
 
     @wraps(operation)
     def folded_operation(
-        parent: _FoldParent,
-        left_or_elements: _FoldElement | Sequence[_FoldElement],
-        right: _FoldElement | _MissingFoldArgument = _MISSING_FOLD_ARGUMENT,
-    ) -> _FoldElement:
+        parent: FoldParent,
+        left_or_elements: FoldElement | Sequence[FoldElement],
+        right: FoldElement | _MissingFoldArgument = _MISSING_FOLD_ARGUMENT,
+    ) -> FoldElement:
         if right is _MISSING_FOLD_ARGUMENT:
-            assert isinstance(left_or_elements, Sequence), (
-                "sequence overload requires a finite sequence"
-            )
+            assert isinstance(left_or_elements, Sequence), "sequence overload requires a finite sequence"
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
@@ -71,11 +67,11 @@ def foldable_operation(
             )
         return operation(
             parent,
-            cast(_FoldElement, left_or_elements),
-            cast(_FoldElement, right),
+            cast(FoldElement, left_or_elements),
+            cast(FoldElement, right),
         )
 
-    return cast(_FoldableOperation[_FoldParent, _FoldElement], folded_operation)
+    return cast(_FoldableOperation[FoldParent, FoldElement], folded_operation)
 
 
 def _is_project_method_provider(cls: type) -> bool:

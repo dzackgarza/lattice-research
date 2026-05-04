@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: 'Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer'
-status: needs-approval
+status: approved
 planId: PLN-LAT-050
 planType: implementation-phase
 priority: high

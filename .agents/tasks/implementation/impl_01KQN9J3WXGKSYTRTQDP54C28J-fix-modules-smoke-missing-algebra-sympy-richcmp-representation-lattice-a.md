@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
-  and graded base-category failures
+title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded base-category failures
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - implementation

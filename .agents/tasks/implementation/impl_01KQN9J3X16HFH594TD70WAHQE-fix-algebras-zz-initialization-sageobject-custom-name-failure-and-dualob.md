@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects
-  forms-axiom blocker
+title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom blocker
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - implementation

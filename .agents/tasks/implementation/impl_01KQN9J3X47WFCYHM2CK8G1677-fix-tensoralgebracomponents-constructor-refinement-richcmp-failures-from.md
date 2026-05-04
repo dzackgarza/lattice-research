@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
-  tensor component smoketest frontier
+title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
 - implementation

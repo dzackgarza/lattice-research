@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: task
-title: Research Sage Primes documentation and installed-source version skew before
-  admitting congruence-class prime subset vocabulary
+title: Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-SETS-TOPO-01KQN9
 progress: 0
 tags:
 - category-specs

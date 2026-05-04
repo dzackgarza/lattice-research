@@ -67,7 +67,7 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity
 
-from ..cat import Cat, Category, Category_singleton
+from ..cat import Category, Category_singleton
 from ..utils import refine_category
 from .homsets import SetAutCategory, SetEndCategory, SetHomCategory
 
@@ -88,11 +88,8 @@ if TYPE_CHECKING:
         Ring,
         RModule,
         Set,
-        SetAut,
         SetElement,
-        SetEnd,
         SetFamily,
-        SetHom,
         SetMorphism,
         SetPartition,
         SetPartitionSet,

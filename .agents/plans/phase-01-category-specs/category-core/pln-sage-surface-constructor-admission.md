@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Sage surface constructor admission and concrete category families'
-status: needs-approval
+title: Sage surface constructor admission and concrete category families
+status: approved
 planId: PLN-SAGE-000
 planType: research-and-admission-plan
 priority: critical
@@ -11,12 +11,13 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - sage
-  - constructors
-  - theme-constructor-routing
-  - theme-research-sources
+- category-specs
+- plan
+- sage
+- constructors
+- theme-constructor-routing
+- theme-research-sources
+parentPlan: PLN-CAT-010
 ---
 
 # Sage surface constructor admission and concrete category families
@@ -43,11 +44,13 @@ Organize Sage source maps and concrete family specs into a constructor-admission
 
 ## Owned existing plans
 
-- Ring axiom identity mismatch and matrix surface split sprint.
-- Set and topological smoke frontier recovery sprint.
-- Algebra constructor admission sprint.
-- Poset constructor smoke and deferred surface ownership sprint.
-- Variadic signature closure audit sprint.
+- `SPR-SETS-TOPO-01KQN9`: set and topological smoke frontier recovery.
+- `SPR-RINGS-PADIC-01KQN9`: ring axiom identity, q-adic precision, and matrix algebra surface split.
+- `SPR-ALG-TENSOR-01KQN9`: algebra constructor admission and tensor multiplication routing.
+- `SPR-POSETS-PART-01KQN9`: poset constructor smoke and partition ownership.
+
+Cross-domain signature closure belongs to `SPR-VARIADIC-AUDIT-01KQN9` under
+`PLN-AUDIT-000`.
 
 ## Acceptance Criteria
 

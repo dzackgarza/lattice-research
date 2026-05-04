@@ -4,7 +4,7 @@ trackerStatus:
 title: Wrap ore_algebra for Picard-Fuchs and monodromy computations
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: PLN-GEO-020
 progress: 0
 tags:
 - category-specs
@@ -13,6 +13,7 @@ tags:
 - algebras
 - research-backend
 - theme-rings-algebras
+- theme-research-sources
 ---
 
 # Wrap ore_algebra for Picard-Fuchs and monodromy computations

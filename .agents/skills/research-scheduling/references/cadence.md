@@ -24,7 +24,9 @@ At session startup, read `AGENTS.md`, `GOAL.md`, current Nimbalyst state, and th
 
 ### Card-driven work blocks
 
-Select work from active `.agents` cards by dependency, priority rubric, current plan, and human direction. Execute through `research-state-machine` when work moves from planning to implementation or claim promotion.
+Select work from active `.agents` cards by dependency, the relevant priority-rubric
+skill, current plan, and human direction. Execute through `research-state-machine` when
+work moves from planning to implementation or claim promotion.
 
 ### Scheduled wakeups
 

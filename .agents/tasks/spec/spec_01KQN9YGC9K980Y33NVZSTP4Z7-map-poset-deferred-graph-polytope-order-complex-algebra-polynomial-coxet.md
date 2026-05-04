@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter
-  display and raw-interop surfaces to final owners
+title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - spec

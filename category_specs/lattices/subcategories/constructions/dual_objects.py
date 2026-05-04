@@ -34,6 +34,7 @@ class LatticeDualObjectsCategory(DualObjectsCategory):
         def discriminant_class(self) -> DiscriminantGroupElement:
             r"""Return the image of this dual-lattice element in ``L^*/L``."""
             ...
+
     class MorphismMethods: ...
 
 

@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement validation for morphism construction and containment'
+title: Implement validation for morphism construction and containment
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-030
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - morphisms
-  - homsets
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- morphisms
+- homsets
+- theme-modules-tensors
 ---
 
 # Implement validation for morphism construction and containment

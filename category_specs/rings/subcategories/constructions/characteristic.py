@@ -12,6 +12,7 @@ from .parameterized import _Category_over_base_integer
 
 class _CharacteristicRings(_Category_over_base_integer):
     r"""Canonical chain: ``Rings().Characteristic(n)``."""
+
     parameter_name = "characteristic"
 
     @override
@@ -33,4 +34,5 @@ class _CharacteristicRings(_Category_over_base_integer):
         def characteristic(self) -> Integer: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

@@ -29,6 +29,7 @@ not for every named set with a topology.
 
 from __future__ import annotations
 
+from importlib import import_module
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
@@ -184,19 +185,31 @@ class TopologicalSpaces(CategoryWithAxiom):
     ObjectsUnder = _ObjectsUnder
     CartesianProducts = _CartesianProducts
 
-from .subcategories.metric import MetricSpacesCategory
 
-MetricSpacesObject = MetricSpacesCategory.ParentMethods
-MetricSpacesElement = MetricSpacesCategory.ElementMethods
-MetricSpacesMorphism = MetricSpacesCategory.MorphismMethods
-MetricSpacesHomCategory = MetricSpaceHomCategory
-MetricSpacesEndCategory = MetricSpaceEndCategory
-MetricSpacesAutCategory = MetricSpaceAutCategory
-MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
-MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
-MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
-MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
-MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
+def _load_metric_spaces_exports() -> None:
+    metric_module = import_module("category_specs.topological_spaces.subcategories.metric")
+    metric_category = metric_module.MetricSpacesCategory
+
+    global MetricSpacesCategory
+    MetricSpacesCategory = metric_category
+    globals().update(
+        {
+            "MetricSpacesObject": MetricSpacesCategory.ParentMethods,
+            "MetricSpacesElement": MetricSpacesCategory.ElementMethods,
+            "MetricSpacesMorphism": MetricSpacesCategory.MorphismMethods,
+            "MetricSpacesHomCategory": MetricSpaceHomCategory,
+            "MetricSpacesEndCategory": MetricSpaceEndCategory,
+            "MetricSpacesAutCategory": MetricSpaceAutCategory,
+            "MetricSpacesHom": MetricSpaceHomCategory.ParentMethods,
+            "MetricSpacesEnd": MetricSpaceEndCategory.ParentMethods,
+            "MetricSpacesAut": MetricSpaceAutCategory.ParentMethods,
+            "MetricSpacesEndomorphism": MetricSpaceEndCategory.ElementMethods,
+            "MetricSpacesAutomorphism": MetricSpaceAutCategory.ElementMethods,
+        }
+    )
+
+
+_load_metric_spaces_exports()
 
 
 TopologicalSpacesCategory = TopologicalSpaces

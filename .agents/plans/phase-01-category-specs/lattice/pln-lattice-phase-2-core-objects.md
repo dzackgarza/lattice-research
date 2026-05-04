@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: 'Phase 2 ModulesWithForms core category and carrier integration'
-status: needs-approval
+status: approved
 planId: PLN-LAT-020
 planType: implementation-phase
 priority: critical

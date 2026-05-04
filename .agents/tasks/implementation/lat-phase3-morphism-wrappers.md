@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement concrete bilinear module morphism wrappers'
+title: Implement concrete bilinear module morphism wrappers
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-030
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - morphisms
-  - homsets
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- morphisms
+- homsets
+- theme-modules-tensors
 ---
 
 # Implement concrete bilinear module morphism wrappers

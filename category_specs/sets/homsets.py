@@ -87,6 +87,7 @@ class SetHomCategory(HomCategoryOf):
 
     ParentMethods = _SetHomCategoryObjectMethods
     ElementMethods = _SetMorphisms
+
     class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
@@ -97,12 +98,15 @@ class SetEndCategory(GenericEndCategory):
     # Category-level Sets().EndCategory() construction:
     # objects are endomap parents End_Sets(X), not individual endomorphisms.
     r"""Canonical chain: ``Sets().EndCategory()``."""
+
     _base_category_class_and_axiom = (SetHomCategory, "Endset")
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport(__name__, "SetAutCategory")
 
     class ParentMethods: ...
+
     ElementMethods = _SetEndomorphisms
+
     class MorphismMethods: ...
 
 
@@ -111,8 +115,11 @@ class SetAutCategory(GenericAutCategory):
     # objects are automorphism parents Aut_Sets(X), with set-map specs
     # inherited from SetHomCategory and automorphism specs from GenericAutCategory.
     r"""Canonical chain: ``Sets().AutCategory()``."""
+
     _base_category_class_and_axiom = (SetEndCategory, "Autset")
 
     class ParentMethods: ...
+
     ElementMethods = _SetAutomorphisms
+
     class MorphismMethods: ...

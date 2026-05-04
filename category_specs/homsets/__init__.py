@@ -16,9 +16,51 @@ individual category families.
 
 from __future__ import annotations
 
-from .autsets import AutCategory, AutCategoryConstruction, AutCategoryOf, UniversalAutElementMethods, UniversalAutObjectMethods
-from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf, UniversalEndElementMethods, UniversalEndObjectMethods
-from .homsets import HomCategory, HomCategoryConstruction, HomCategoryOf, UniversalHomElementMethods, UniversalHomObjectMethods
+from .autsets import (
+    AutCategory,
+)
+from .autsets import (
+    AutCategoryConstruction as AutCategoryConstruction,
+)
+from .autsets import (
+    AutCategoryOf as AutCategoryOf,
+)
+from .autsets import (
+    UniversalAutElementMethods as UniversalAutElementMethods,
+)
+from .autsets import (
+    UniversalAutObjectMethods as UniversalAutObjectMethods,
+)
+from .endsets import (
+    EndCategory,
+)
+from .endsets import (
+    EndCategoryConstruction as EndCategoryConstruction,
+)
+from .endsets import (
+    EndCategoryOf as EndCategoryOf,
+)
+from .endsets import (
+    UniversalEndElementMethods as UniversalEndElementMethods,
+)
+from .endsets import (
+    UniversalEndObjectMethods as UniversalEndObjectMethods,
+)
+from .homsets import (
+    HomCategory,
+)
+from .homsets import (
+    HomCategoryConstruction as HomCategoryConstruction,
+)
+from .homsets import (
+    HomCategoryOf as HomCategoryOf,
+)
+from .homsets import (
+    UniversalHomElementMethods as UniversalHomElementMethods,
+)
+from .homsets import (
+    UniversalHomObjectMethods as UniversalHomObjectMethods,
+)
 
 GenericEndCategory = EndCategoryOf
 GenericAutCategory = AutCategoryOf

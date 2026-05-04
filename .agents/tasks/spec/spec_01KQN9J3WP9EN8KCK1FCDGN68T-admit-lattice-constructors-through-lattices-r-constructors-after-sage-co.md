@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
-  inventory mapping
+title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: PLN-LAT-040
 tags:
 - category-specs
 - spec
@@ -15,6 +14,7 @@ tags:
 - lattices
 - mapping
 - theme-constructor-routing
+- theme-modules-tensors
 ---
 
 # Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping

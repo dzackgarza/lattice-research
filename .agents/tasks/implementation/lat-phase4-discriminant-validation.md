@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement discriminant descent validation models'
+title: Implement discriminant descent validation models
 status: to-do
 priority: high
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 55
 progress: 0
 planId: PLN-LAT-040
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - discriminant-groups
-  - duals
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- discriminant-groups
+- duals
+- theme-modules-tensors
 ---
 
 # Implement discriminant descent validation models

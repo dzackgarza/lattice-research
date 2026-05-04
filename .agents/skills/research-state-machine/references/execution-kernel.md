@@ -38,6 +38,32 @@ Before execution, reject or split any card that hides major work. Hidden major w
 
 If the shared mathematical base lacks the noun, method, morphism, coercion, constructor, or backend bridge needed to express the task cleanly, stop and create the base task. Do not patch around the gap locally.
 
+This stop is path-local. It blocks the current implementation or claim path, not the
+active phase. After creating or updating the prerequisite task, continue another
+approved active leaf if one exists.
+
+### Continuation and blocker test
+
+An agent may report that there is no path forward only after checking the current
+phase marker, approved plans, and active leaf cards. Every remaining active leaf must
+have a concrete current-phase blocker.
+
+The following are not global blockers during approved spec-phase work:
+
+- QC failures outside a user-requested QC pass, commit integration pass, or phase
+  transition.
+- Downstream-phase guards against Coble, lattice implementation, raw matrix, orbit,
+  or geometry computations.
+- Overscoped cards that can be split, promoted to an approved plan, or decomposed.
+- Missing vocabulary or backend bridges when a prerequisite spec, decision, research,
+  or implementation-gap card can be filed.
+- Human approval gates for acceptance, closure, or phase transition when ordinary
+  approved leaf execution remains.
+
+If a spec leaf can advance through source mining, writing/refining a spec, centralizing
+terminology, drafting audit criteria, capturing a decision, splitting work, or filing a
+prerequisite, continue there.
+
 ### Execute
 
 Run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed.

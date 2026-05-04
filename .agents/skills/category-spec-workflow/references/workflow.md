@@ -9,7 +9,7 @@ Internal historical mentions of `WORKFLOW.md` refer to this skill reference unle
 - [Tracking and planning](#tracking-and-planning)
 - [Theme grouping](#theme-grouping)
 - [Agent skill factoring](#agent-skill-factoring)
-- [Priority rubric](#priority-rubric)
+- [Rubric skills](#rubric-skills)
 - [Plan creation workflow](#plan-creation-workflow)
 - [Plan files are the planning system](#plan-files-are-the-planning-system)
 - [Human-facing visual artifacts](#human-facing-visual-artifacts)
@@ -53,6 +53,11 @@ the appropriate artifact.
 There is no separate backlog. The active tracked cards are the outstanding work set.
 When work is implemented, resolved, rejected, or superseded, move the card out of active
 paths and retire or delete it according to the retired-card policy.
+
+Approved plans and active tracked cards are the concrete continuation surface. During
+the spec phase, do not replace execution with abstract blocker discussion. Select an
+approved active spec leaf and advance it unless that leaf has a concrete current-phase
+blocker.
 
 Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
 inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
@@ -124,7 +129,7 @@ instructions only when relevant.
 
 Use this split:
 
-- Keep policy, source-of-truth rules, priority rubric, and current project structure in
+- Keep policy, source-of-truth rules, rubric routing, and current project structure in
   `AGENTS.md`, the canonical category-spec skills, and canonical tracked docs.
 - Move repeated operational procedures into skills when agents need to discover and
   execute them on demand.
@@ -137,7 +142,7 @@ Good candidates for local skills:
 
 - Creating and normalizing Nimbalyst cards.
 - Triage of `.agents/TODO.md` into real cards.
-- Applying the category-spec priority rubric.
+- Applying the category-spec priority and complexity rubrics.
 - Preparing high-level workstream dependency visuals.
 - Auditing category-spec work against the `category-spec-style` skill.
 - Retiring completed cards.
@@ -151,53 +156,15 @@ Do not factor volatile source-of-truth content into skills. A skill should encod
 perform a repeatable procedure, not become a second copy of the current plan, current
 priority queue, or current mathematical decision.
 
-## Priority rubric
+## Rubric skills
 
-Use the `priority` metadata field from the tracker schema. Do not encode priority tiers
-as tags. Tags classify topic, workstream, domain, and workflow class; `priority` orders
-work.
+Use the rubric skills instead of duplicating scoring rules in workflow docs:
 
-Set `critical` when unfinished work can poison downstream work:
+- Load `category-spec-priority-rubric` before setting or reviewing `priority`.
+- Load `category-spec-complexity-rubric` before setting or reviewing `complexity`,
+  deciding whether a card is atomic, or promoting/splitting cards.
 
-- Foundational spec and design work.
-- Mathematically correct and complete definitions.
-- Specced vocabulary required before implementation can proceed.
-- Uniformity rules that determine future work trajectories.
-- Theoretical background sources, curated BibTeX, and canonical references needed to
-  prevent confabulation.
-- Canonical docs and anti-staleness work needed to prevent backsliding.
-- Any ambiguity that can cause agents to implement the wrong mathematics.
-
-Set `high` when other work depends on the item or delay creates redo risk:
-
-- Dependency roots in the plan/work graph.
-- Cross-domain or low-level category/code changes.
-- Simplification or consolidation work that prevents technical debt.
-- Work that, if postponed, will force later work to be rewritten.
-- Known constructor-routing, mapping, smoke-frontier, and ownership issues that affect
-  several downstream cards.
-
-Set `medium` for ordinary bounded work:
-
-- Local implementation work with clear definitions and limited blast radius.
-- Research that informs work but does not currently block foundations.
-- Cleanup that improves maintainability without changing downstream direction.
-
-Set `low` for work that should not steer the project:
-
-- World-facing READMEs and presentation polish.
-- Internal consistency checks that are not real mathematical tests.
-- Edge-case handling or tests outside main workflows.
-- Bugs that do not affect current main workflows.
-- Rewriting Sage core classes to avoid local patching/refinement when the current
-  approach is serviceable.
-- Trivial formatting and non-critical linting such as line length.
-- De-slopifying local code when it is not poisoning active work.
-- Resolving every git commit verification issue when it does not affect correctness,
-  review, or traceability.
-
-Use the high-level dependency digraph to identify dependency roots before sorting
-individual cards.
+Priority orders work. Complexity measures execution burden and decomposition pressure.
 
 ## Plan creation workflow
 
@@ -389,8 +356,11 @@ derailing the assigned task.
 
 Use this routing:
 
-- Direct blocker: stop, create or update the relevant `bug`, `task`, or `decision`
-  file, and report the blocker before proceeding.
+- Direct blocker: stop the affected card/path, create or update the relevant `bug`,
+  `task`, or `decision` file, set the affected leaf card to `status: blocked` when
+  the tracker schema supports it, record the blocking reason in the card body, and
+  continue another approved active leaf unless every remaining leaf is also blocked in
+  the current phase.
 - Clear bounded follow-up: create the full card immediately with source provenance,
   observed evidence, boundaries, and acceptance criteria.
 - Vague or investigative follow-up: add a concise entry to `.agents/TODO.md` with the
@@ -404,6 +374,11 @@ Use this routing:
 
 The default is to preserve momentum on the assigned task while making the new work
 durable enough that another agent can recover it.
+
+False global blockers during spec work include downstream research guards, QC failures
+outside a phase transition or requested QC pass, implementation-only validation gates,
+missing backend bridges that can be filed as research/implementation-gap work, and
+overscoped cards that can be split or promoted through the approved planning process.
 
 ## Delegation contracts
 
@@ -419,6 +394,7 @@ Before delegating, provide:
 - The required source docs to read.
 - The expected output format.
 - The exit condition.
+- The distinction between card-local blockers and global goal exit criteria.
 
 Implementation agents should receive one executable task card and one clear branch or
 worktree context. Validators and reviewers should receive the diff, acceptance criteria,
@@ -446,6 +422,9 @@ During execution:
 - Record branch and worktree before implementation starts.
 - Update `status`, `progress`, `filesChanged`, validation notes, and session IDs as work
   progresses.
+- Use `status: blocked` on the affected leaf card when execution cannot proceed until a
+  named prerequisite, decision, source, backend, or human input exists. Record the
+  exact blocker and the follow-up card/decision/source needed to unblock it.
 - Use `validating` or `needs-human-review` when implementation appears complete.
 - Never mark work `accepted`, native items `done`, or sprint plans `closed` without
   human approval.

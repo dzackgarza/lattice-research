@@ -4,12 +4,13 @@ trackerStatus:
 title: Research Ore algebra interface integration
 status: to-do
 priority: low
-planId: PLN-SAGE-000
+planId: PLN-GEO-020
 tags:
 - category-specs
 - research
 - todo-migration
 - external-integration
+- theme-research-sources
 created: '2026-05-03'
 complexity: 35
 progress: 0

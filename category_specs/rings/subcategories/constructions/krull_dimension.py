@@ -12,6 +12,7 @@ from .parameterized import _Category_over_base_integer
 
 class _KrullDimension(_Category_over_base_integer):
     r"""Canonical chain: ``Rings().KrullDimension(n)``."""
+
     parameter_name = "Krull dimension"
 
     @override
@@ -33,4 +34,5 @@ class _KrullDimension(_Category_over_base_integer):
         def krull_dimension(self) -> Integer: ...
 
     class ElementMethods: ...
+
     class MorphismMethods: ...

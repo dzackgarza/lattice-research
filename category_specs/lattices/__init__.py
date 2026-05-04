@@ -163,6 +163,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     HomCategory = LatticeHomCategory
@@ -200,16 +201,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
 def _lattice_chain(base_ring: Ring) -> Category:
     r"""Return the immediate ambient category for ``Lattices(base_ring)``."""
-    return (
-        Modules(base_ring, dispatch=False)
-        .Free()
-        .FiniteRank()
-        .WithForms()
-        .Bilinear()
-        .Symmetric()
-        .Nondegenerate()
-        .Integral()
-    )
+    return Modules(base_ring, dispatch=False).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 
 
 def lattice_category(base_ring: Ring) -> LatticesCategory:

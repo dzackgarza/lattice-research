@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement ModulesWithForms category and subcategory methods'
+title: Implement ModulesWithForms category and subcategory methods
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,10 +9,11 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-020
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- theme-modules-tensors
 ---
 
 # Implement ModulesWithForms category and subcategory methods

@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: 'Phase 3 morphisms homsets kernels images and cokernels'
-status: needs-approval
+status: approved
 planId: PLN-LAT-030
 planType: implementation-phase
 priority: critical

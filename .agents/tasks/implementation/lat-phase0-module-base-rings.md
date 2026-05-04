@@ -1,7 +1,7 @@
 ---
 trackerStatus:
   type: task
-title: 'Implement ModuleBaseRings category refinement and installation'
+title: Implement ModuleBaseRings category refinement and installation
 status: to-do
 priority: critical
 created: '2026-05-03'
@@ -9,12 +9,13 @@ complexity: 65
 progress: 0
 planId: PLN-LAT-010
 tags:
-  - category-specs
-  - implementation
-  - lattices
-  - phase-plan
-  - sage
-  - modules
+- category-specs
+- implementation
+- lattices
+- phase-plan
+- sage
+- modules
+- theme-modules-tensors
 ---
 
 # Implement ModuleBaseRings category refinement and installation

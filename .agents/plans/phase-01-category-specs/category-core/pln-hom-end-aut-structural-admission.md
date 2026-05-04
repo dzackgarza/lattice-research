@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Hom End Aut structural admission'
-status: needs-approval
+title: Hom End Aut structural admission
+status: approved
 planId: PLN-CAT-120
 planType: spec-plan
 priority: critical
@@ -11,11 +11,12 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - hom-end-aut
-  - autsets
-  - theme-category-core
+- category-specs
+- plan
+- hom-end-aut
+- autsets
+- theme-category-core
+parentPlan: PLN-CAT-100
 ---
 
 # Hom End Aut structural admission

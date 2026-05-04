@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Smoke audit and uniformity stabilization'
-status: needs-approval
+title: Smoke audit and uniformity stabilization
+status: approved
 planId: PLN-AUDIT-000
 planType: stabilization-plan
 priority: critical
@@ -11,11 +11,12 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - audit
-  - smoke
-  - theme-audit-uniformity
+- category-specs
+- plan
+- audit
+- smoke
+- theme-audit-uniformity
+parentPlan: PLN-CAT-000
 ---
 
 # Smoke audit and uniformity stabilization
@@ -35,6 +36,13 @@ Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper, type, 
 ## Priority rule
 
 Audit work is critical when it prevents downstream poisoning: wrong definitions, wrong method ownership, stale docs, broad variadic surfaces, fake wrappers, or public APIs that make future work implement the wrong mathematics. Routine formatting and presentation cleanup is not critical.
+
+## Subplans
+
+- `SPR-VARIADIC-AUDIT-01KQN9`: variadic signature closure across modules, rings, tensors, algebras, lattices, posets, sets, and RealSet constructors.
+
+Leaf task ownership is encoded by each card's `planId`; this parent plan should not
+own executable cards directly.
 
 ## Acceptance Criteria
 

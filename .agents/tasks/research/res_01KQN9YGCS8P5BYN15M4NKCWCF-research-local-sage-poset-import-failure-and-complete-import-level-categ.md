@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: task
-title: Research local Sage poset import failure and complete import-level category
-  introspection for semilattice evidence
+title: Research local Sage poset import failure and complete import-level category introspection for semilattice evidence
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 progress: 0
 tags:
 - category-specs

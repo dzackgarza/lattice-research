@@ -59,6 +59,7 @@ class LatticeHomCategory(HomCategoryOf):
 
     ParentMethods = _LatticeHomCategoryObjectMethods
     ElementMethods = _LatticeMorphisms
+
     class MorphismMethods: ...
 
     Endset = LazyImport(__name__, "LatticeEndCategory")
@@ -78,6 +79,7 @@ class LatticeEndCategory(GenericEndCategory):
         def base_lattice(self) -> Lattice: ...
 
     ElementMethods = _LatticeMorphisms
+
     class MorphismMethods: ...
 
 
@@ -121,4 +123,5 @@ class LatticeAutCategory(GenericAutCategory):
             return self.stable_special_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
+
     class MorphismMethods: ...

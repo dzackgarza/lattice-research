@@ -60,6 +60,7 @@ class IndefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             return False
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 

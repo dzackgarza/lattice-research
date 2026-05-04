@@ -4,7 +4,7 @@ trackerStatus:
 title: Fix tensor-component placeholder methods and type leaks
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-ALG-TENSOR-01KQN9
 progress: 0
 tags:
 - category-specs

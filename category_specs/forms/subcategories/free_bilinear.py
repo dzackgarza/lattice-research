@@ -25,7 +25,6 @@ if TYPE_CHECKING:
         Ring,
         RingElement,
         RModule,
-        RModuleElement,
         SetFamily,
         SubModule,
     )

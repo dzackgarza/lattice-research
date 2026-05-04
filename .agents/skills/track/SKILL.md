@@ -69,8 +69,9 @@ The `trackerStatus.type` value must match a registered schema. Put `title`, `sta
 `priority`, `tags`, `complexity`, `progress`, and other fields at the top level of the
 frontmatter.
 
-Set `priority` from the category-spec rubric by loading `category-spec-workflow` when
-the work is category-spec related. Do not encode priority as a tag.
+For category-spec cards, load `category-spec-priority-rubric` before setting
+`priority` and `category-spec-complexity-rubric` before setting `complexity`.
+Do not encode priority or complexity as tags.
 
 ## Body Requirements
 
@@ -80,8 +81,10 @@ chat recovery. Use at least these sections:
 - `Summary`
 - `Source Provenance`
 - `Context`
+- `Complexity And Ownership`
 - `Acceptance Criteria`
 - `Dependencies And Boundaries`
+- `Validation Requirements`
 - `Work Log`
 
 Inline tracker syntax is only for temporary discovery placeholders. Convert anything

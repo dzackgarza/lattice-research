@@ -27,15 +27,14 @@ from __future__ import annotations
 from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
 from sage.categories.algebras import Algebras as SageAlgebras
+from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import (
-    Cat,
     Category,
     Category_module,
     Category_over_base_ring,
@@ -158,10 +157,7 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is a Sage associative algebra over this base ring."""
-        return (
-            A in MagmaticAlgebras(self.base_ring())
-            and A in SageAssociativeAlgebras(self.base_ring())
-        )
+        return A in MagmaticAlgebras(self.base_ring()) and A in SageAssociativeAlgebras(self.base_ring())
 
     class ParentMethods:
         @final
@@ -170,6 +166,7 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
 
@@ -219,7 +216,8 @@ class _AlgebraParentMethods:
 
     @final
     def two_sided_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
-        r"""Return the smallest ``R``-submodule containing ``generators`` and closed under left and right multiplication by ``A``."""
+        r"""Return the smallest ``R``-submodule containing ``generators`` and
+        closed under left and right multiplication by ``A``."""
         return self.ideal_submodule(generators, side="twosided")
 
     @final
@@ -423,9 +421,7 @@ class Algebras(Category_module):
         ) -> MagmaticAlgebra:
             assert source in source_category, f"Expected source in {source_category}: {source}"
             algebra = source.algebra(self.base_ring(), category=source_category)
-            assert algebra in target_category, (
-                f"Sage constructed algebra should lie in {target_category}: {algebra.category()}"
-            )
+            assert algebra in target_category, f"Sage constructed algebra should lie in {target_category}: {algebra.category()}"
             return self._refine_constructed_magmatic_algebra(algebra, [project_target_category, target_category])
 
         @final
@@ -512,17 +508,13 @@ class Algebras(Category_module):
         ) -> Sequence[Matrix]:
             from sage.matrix.constructor import matrix
 
-            assert all(
-                constants.nrows() == rank and constants.ncols() == rank
-                for constants in structure_constants
-            ), f"Each structure-constant matrix must be {rank} by {rank}: {structure_constants}"
+            assert all(constants.nrows() == rank and constants.ncols() == rank for constants in structure_constants), (
+                f"Each structure-constant matrix must be {rank} by {rank}: {structure_constants}"
+            )
             return tuple(
                 matrix(
                     self.base_ring(),
-                    [
-                        [structure_constants[output][left, right] for output in range(rank)]
-                        for left in range(rank)
-                    ],
+                    [[structure_constants[output][left, right] for output in range(rank)] for left in range(rank)],
                 )
                 for right in range(rank)
             )

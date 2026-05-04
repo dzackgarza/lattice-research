@@ -4,7 +4,7 @@ trackerStatus:
 title: Fix Posets constructor refinement __richcmp__ failures
 status: to-do
 priority: high
-planId: PLN-SAGE-000
+planId: SPR-POSETS-PART-01KQN9
 tags:
 - category-specs
 - implementation

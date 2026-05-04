@@ -17,5 +17,8 @@ This skill owns the canonical lattice-redesign source doctrine migrated from the
 
 - The spec is the target; incomplete implementation is not evidence that the spec is stale.
 - Use noun-owned mathematical APIs, not helper-function piles.
+- Treat lattices as presented modules with forms. Changing generators or basis data
+  produces a distinct but possibly isometric object, not the same object.
+- Do not import Sage's ambient-vector-space lattice convention into public semantics.
 - Dual and discriminant semantics must route through real categorical objects and morphisms.
 - Do not preserve compatibility shims unless explicitly requested.

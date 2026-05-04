@@ -125,6 +125,39 @@ This file is style guidance only. Do not restate the ABCs here.
   element.
 
 
+## Presented Objects and Equality
+
+The formal object model is in `category-abc-spec.md`, especially
+"Presented Object Identity". This section gives the audit posture.
+
+Free bilinear modules and lattices are presented modules with forms. The
+presentation includes the selected generators. For a free object, the data is
+morally `(M, beta, B)`, where `B` is the selected generating set and the Gram
+matrix is the matrix of `beta` in `B`.
+
+Two presentations with different selected generators are distinct objects.
+They may be isometric, and an isometry may be canonical in a given
+construction, but they are not equal merely because they represent the same
+abstract isometry class. Equality is presentation-sensitive; isometry is a
+morphism-level fact with a witness in the appropriate Hom space.
+
+Audit rules:
+
+- reject code that silently changes a basis or generator set while preserving
+  object equality;
+- reject code that models a public lattice noun as an embedded ambient vector
+  subspace with mutable preferred basis;
+- require basis reduction, normalization, isometry search, and backend
+  canonicalization to return a new object plus an explicit isometry witness
+  when they change the presentation;
+- require Gram matrices to be understood as presentation data, not as a
+  universal identity for the abstract lattice;
+- require constructor and equality tests to distinguish "same presented
+  object" from "isometric object";
+- require `Lattice`/`RationalLattice`/discriminant-form implementations to
+  respect codomain changes `R`, `Frac(R)`, `Frac(R)/R`, and `Frac(R)/2R`
+  through explicit category predicates.
+
 ## No Ambient Module Assumption
 
 Sage assumes all lattices inject into some "ambient" module.

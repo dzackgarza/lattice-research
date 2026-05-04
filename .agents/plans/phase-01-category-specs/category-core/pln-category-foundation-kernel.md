@@ -1,8 +1,8 @@
 ---
 trackerStatus:
   type: plan
-title: 'Category foundation kernel and method ownership'
-status: needs-approval
+title: Category foundation kernel and method ownership
+status: approved
 planId: PLN-CAT-100
 planType: foundation-plan
 priority: critical
@@ -11,10 +11,11 @@ created: '2026-05-03'
 updated: '2026-05-03'
 progress: 0
 tags:
-  - category-specs
-  - plan
-  - theme-category-core
-  - theme-audit-uniformity
+- category-specs
+- plan
+- theme-category-core
+- theme-audit-uniformity
+parentPlan: PLN-CAT-000
 ---
 
 # Category foundation kernel and method ownership
@@ -36,15 +37,14 @@ Establish the foundational category vocabulary before downstream implementation:
 
 - `PLN-CAT-110`: static category refinement and constructor-interception order.
 - `PLN-CAT-120`: Homsets, Endsets, Autsets, duals, and automorphism surfaces.
+- `PLN-LAT-000`: lattice and ModulesWithForms roadmap.
+- `SPR-CAT-SURFACE-01KQN9`: Cat category-object surface uniformization.
+- `SPR-MODULE-WRAPPER-01KQN9`: module wrapper migration and category graph constructor routing.
 
-## Owned existing cards
+## Leaf ownership
 
-- `spec_01KQN9J3WJE9W76X72DAT10H4Y`: dual-object Hom routing and most-general method ownership.
-- `spec_01KQN9J3WKCASMD9XVMGT6JP8K`: standard type alias centralization.
-- `spec_01KQN9J3WM2ASPH06AKRJQ8G82`: TwistedForms as form-object category.
-- `task_1777748120649_eqpn1a`: final markers and return annotations on Cat methods.
-- `task_1777748120816_0es9m8`: Cat wrapper typing and finality holes.
-- `task_1777748120881_n0o19f`: audit standard type-package aliases after concrete Cat migration.
+This is an internal plan. Executable cards must point to one of its leaf subplans
+or to `PLN-CAT-120` when the task is specifically Hom/End/Aut structural work.
 
 ## Dependency rule
 

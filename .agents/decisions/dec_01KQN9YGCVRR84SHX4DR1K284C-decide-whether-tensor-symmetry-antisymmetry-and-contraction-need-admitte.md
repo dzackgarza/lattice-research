@@ -1,8 +1,7 @@
 ---
 trackerStatus:
   type: decision
-title: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees
-  before full tensor-calculus method mapping
+title: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping
 status: to-do
 tags:
 - category-specs
@@ -11,6 +10,7 @@ tags:
 - mapping
 - needs-decision
 - theme-decisions
+planId: SPR-ALG-TENSOR-01KQN9
 ---
 
 # Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping

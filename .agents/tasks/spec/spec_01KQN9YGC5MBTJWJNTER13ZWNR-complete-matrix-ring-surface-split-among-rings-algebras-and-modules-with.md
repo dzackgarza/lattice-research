@@ -1,11 +1,10 @@
 ---
 trackerStatus:
   type: feature
-title: Complete matrix ring surface split among rings algebras and modules without
-  weakening the matrix smoke
+title: Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
 status: to-do
 priority: critical
-planId: PLN-SAGE-000
+planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
 - spec

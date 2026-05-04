@@ -4,7 +4,7 @@ trackerStatus:
 title: Centralize remaining category hierarchy type aliases in types.py
 status: to-do
 priority: critical
-planId: PLN-CAT-100
+planId: SPR-CAT-SURFACE-01KQN9
 tags:
 - category-specs
 - spec

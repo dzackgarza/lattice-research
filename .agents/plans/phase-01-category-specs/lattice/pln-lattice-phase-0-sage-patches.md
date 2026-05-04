@@ -2,7 +2,7 @@
 trackerStatus:
   type: plan
 title: 'Phase 0 Sage patch prerequisites for ModulesWithForms'
-status: needs-approval
+status: approved
 planId: PLN-LAT-010
 planType: implementation-phase
 priority: critical

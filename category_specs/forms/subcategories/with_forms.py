@@ -89,6 +89,7 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
             return self._with_axiom("Rational")
 
     class ElementMethods: ...
+
     class MorphismMethods: ...
 
     Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "BilinearModulesCategory")
