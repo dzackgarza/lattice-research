@@ -15,6 +15,16 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 - Never call `tracker_create` or `create_task` for markdown-backed tracker items.
 - Never mark work `accepted`, native items `done`, or sprint plans `closed` without human approval.
 - If a category-spec rule is relevant but not in context, load the matching category-spec skill before acting. Do not guess from memory.
+- Before editing a spec, mapping, method surface, constructor, Hom/End/Aut rule,
+  invariant, or predicate, perform the definition-grounding gate from
+  `category-spec-style`: locate the exact mathematical definition and hypotheses in
+  canonical repo theory, Sage written docs/source, references, spec backups, or an
+  approved decision card. Vague migrated cards and old TODO bullets are not enough.
+  If the definition is unclear, create or update a decision/source-mining card and
+  stop that leaf.
+- For domain-specific terms with multiple plausible meanings, keep the meanings
+  separate unless a source-backed proof records exactly when they coincide. Do not
+  write a spec surface by normalizing to the most familiar interpretation of a word.
 
 ## Canonical skills
 

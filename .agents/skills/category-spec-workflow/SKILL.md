@@ -32,6 +32,9 @@ Read `references/workflow.md` before changing workflow state.
 - Approved plans plus active cards define the concrete continuation surface. Do not
   substitute abstract blocker analysis for selecting and advancing an approved active
   spec leaf.
+- A spec leaf is executable only after definition grounding: it must identify canonical
+  mathematical sources, exact definitions, hypotheses, and proof/decision obligations.
+  Vague migrated backlog text must be refined before spec editing.
 - A blocker must be tied to the current phase and current leaf. Downstream guards,
   non-transition QC failures, implementation-only gates, oversized cards that can be
   split, and missing prerequisites that can be carded do not justify exiting while

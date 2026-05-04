@@ -37,6 +37,9 @@ Read `references/execution-kernel.md` before moving work from planning into exec
 
 - Do not execute an unapproved complex plan.
 - Do not one-shot an overscoped card that hides major theorem, algorithm, convention, classification, or trusted-base work.
+- Do not execute a mathematical spec card whose definitions, hypotheses, return
+  objects, and invariance/equivalence obligations are not grounded in canonical repo
+  theory, references, Sage docs/source, spec backups, or an approved decision.
 - Do not patch around missing mathematical vocabulary or missing trusted-base operations.
 - Do not let an implementing agent mark work accepted, done, or closed.
 - Do not claim `GOAL.md` discharge without final composed-goal audit and human approval.

@@ -247,6 +247,38 @@ an `n`th element operation, implementers of that category must provide it; the a
 of implementations is an implementation gap, not a reason to remove the mathematical
 requirement.
 
+**Definition Grounding Gate**:
+Before adding or changing a category, method, predicate, invariant, constructor,
+Hom/End/Aut surface, migration rule, or mapping decision, identify the exact
+mathematical definition being specified.
+
+The grounding record must name:
+
+- the canonical source path or reference: repo theory, `theory/references/`,
+  `theory/spec_backups/`, Sage written docs/source, or an approved decision card;
+- the mathematical object and owner category;
+- the codomain/return object, not just an implementation-shaped return type;
+- the hypotheses under which the statement is meaningful;
+- the invariance or equivalence proof obligation when the surface is claimed to be
+  independent of choices or equal to another notion;
+- the migration consequence for any old Sage/project surface.
+
+Migrations from old `plans/todo.md`, deleted triage files, smoke output, inline cards,
+or user-chat summaries preserve provenance, but they are not definition authority. A
+source line saying "move divisibility to X" is not enough to specify what
+`divisibility` means, whether it is choice-independent, what object it returns, or
+when it coincides with another divisibility notion.
+
+If two meanings are plausible, keep them as separate named mathematical surfaces unless
+an explicit source-backed proof gives the exact hypotheses under which they coincide.
+Examples of high-risk words include `divisibility`, `primitive`, `rank`, `degree`,
+`dimension`, `dual`, `basis`, `isometry`, `orthogonal`, `content`, `support`,
+`order`, `kernel`, and `image`.
+
+If the exact definition cannot be grounded, do not edit the spec. Create or update a
+decision, research, or source-mining card and mark only that leaf blocked. Continuing
+with the most familiar interpretation of a term is a spec failure.
+
 **Inventory, Mapping, and Spec Smokes Are Different Artifacts**:
 Do not import generic software-engineering meanings of "inventory", "mapping", or
 "smoke test" into this subtree.

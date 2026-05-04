@@ -18,6 +18,19 @@
 - Specs, review files, theory notes, TODO files, and durable design artifacts are source material. Do not rewrite, shorten, modernize, delete, or align them to current implementation unless the user explicitly asks for that exact edit.
 - Do not preserve backward-compatibility docs, legacy references, retired policy files, or compatibility shims unless explicitly requested or retiring them is truly dangerous. Git history is the archive; prefer a clear retiring commit over keeping stale docs in the working tree.
 - `GOAL.md` is read-only. Source authority for literature and standard claims lives in `theory/references/index.md`.
+- Mathematical spec claims require definition grounding before edit. Before adding or
+  changing a mathematical definition, method owner, invariant, predicate, equivalence,
+  migration rule, or category surface, identify the canonical repo/source basis:
+  `theory/`, `theory/references/`, `theory/spec_backups/`, Sage written docs/source,
+  or an approved decision card. Migrated TODO lines, backlog cards, common terminology,
+  and plausible textbook memory are provenance, not authority. Record the source path,
+  exact definition, hypotheses, and any required invariance/equivalence proof in the
+  card or mapping doc. If no such grounding exists, stop that leaf and create a
+  source-mining or decision card instead of writing the spec.
+- Do not merge distinct mathematical notions under one name without a recorded proof
+  under explicit hypotheses. If two candidate meanings exist, keep separate named
+  surfaces or block on a decision; do not assume they coincide because they do in a
+  familiar special case.
 - Mathematical implementation work must prefer wiring mature open-source mathematical software over bespoke algorithms. Load `research-software-wiring` before writing or delegating mathematical implementation code.
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan. The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are blocked until prerequisite vocabulary and specs exist.
 - QC is phase-transition evidence, not the control loop for spec work. During churn-heavy spec work, do not treat QC failures, hook noise, or unrelated implementation validation failures as blockers for approved spec-plan execution. QC blocks only a claimed phase transition or a user-requested QC/implementation integration pass; otherwise record the finding and continue the approved spec work.

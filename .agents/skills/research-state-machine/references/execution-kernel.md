@@ -36,6 +36,19 @@ For mathematical claims, the card must state whether it is exploratory, preparat
 
 Before execution, reject or split any card that hides major work. Hidden major work includes choosing or inventing the core algorithm, building reusable exact infrastructure, proving a new reduction theorem, fixing a convention that changes downstream meaning, or solving a classification/search problem comparable to the nominal task.
 
+For mathematical spec work, preflight must also reject cards whose definitions are not
+source-grounded. A card is not ready for spec editing until it records the canonical
+source path or reference, exact definition, hypotheses, codomain/return object, and any
+proof obligation for choice-independence or equivalence with another notion. Old TODO
+lines, migrated cards, common terminology, and plausible special-case intuition do not
+meet this bar.
+
+If a term has multiple plausible meanings, or if a familiar special case suggests an
+equivalence that has not been proved under explicit hypotheses, split to a decision or
+source-mining card. Keep the affected spec leaf blocked until the distinction is
+resolved. Do not normalize bespoke project terminology to the most common textbook or
+Sage interpretation by default.
+
 If the shared mathematical base lacks the noun, method, morphism, coercion, constructor, or backend bridge needed to express the task cleanly, stop and create the base task. Do not patch around the gap locally.
 
 This stop is path-local. It blocks the current implementation or claim path, not the

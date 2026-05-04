@@ -31,6 +31,12 @@ explicit human approval.
 
 Trusted shared code must be a semantic mathematical base built from explicit nouns with methods, not a flat bag of helper functions.
 
+Public mathematical vocabulary must be source-grounded before it enters a spec. For
+each new or moved noun, method, predicate, invariant, or equivalence, record the
+definition source, hypotheses, codomain/return object, and choice-independence or
+equivalence proof obligation. If those cannot be stated, the correct artifact is a
+decision or source-mining card, not a speculative spec edit.
+
 Required public vocabulary:
 
 - `FreeBilinearModule`

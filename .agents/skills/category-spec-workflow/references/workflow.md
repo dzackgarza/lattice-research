@@ -59,6 +59,14 @@ the spec phase, do not replace execution with abstract blocker discussion. Selec
 approved active spec leaf and advance it unless that leaf has a concrete current-phase
 blocker.
 
+Spec leaves must be definition-grounded before execution. A card migrated from old
+plans, deleted triage files, smoke output, or chat context may identify an area of
+work, but it does not by itself authorize a mathematical definition or method owner.
+Before a spec edit, the card or working note must name the canonical source path,
+definition, hypotheses, return object/codomain, and any invariance or equivalence proof
+obligation. If that record is missing, the correct action is source mining, decision
+capture, or card splitting, not speculative spec writing.
+
 Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
 inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
 
@@ -336,11 +344,23 @@ Use these body sections unless a stricter local template applies:
 - `Summary`
 - `Source Provenance`
 - `Context`
+- `Mathematical Grounding` for category-spec cards that can affect definitions,
+  ownership, invariants, predicates, or morphism semantics
 - `Complexity And Ownership`
 - `Acceptance Criteria`
 - `Dependencies And Boundaries`
 - `Validation Requirements`
 - `Work Log`
+
+For category-spec cards that can change mathematical meaning, the `Mathematical
+Grounding` section must record canonical sources consulted, the exact definition being
+specified, owner category or object/morphism surface, hypotheses and choice-dependence,
+return object/codomain, proof obligations for invariance or equivalence claims, and
+unresolved decisions or source gaps.
+
+If the grounding section cannot be filled, set the affected card to `blocked` when the
+schema supports it and create the decision/source-mining leaf. Do not treat the parent
+plan, a vague TODO, a source inventory row, or a plausible common meaning as enough.
 
 Every sprint-scoped task should include `sprintCode`, `planCode`, `workCode`,
 `ownerAgent`, `agentRole`, `branchPolicy`, `branch`, `worktree`, `validationStatus`,

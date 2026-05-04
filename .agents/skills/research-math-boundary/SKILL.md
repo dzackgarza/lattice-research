@@ -19,6 +19,9 @@ Read `references/math-boundary.md` before changing shared mathematical code, lat
 
 - Trusted shared code is a semantic mathematical base built from explicit nouns with methods, not a flat bag of helpers.
 - If a task cannot be expressed cleanly through the public noun vocabulary, stop and surface a task-boundary failure.
+- If a mathematical noun, invariant, or predicate is not definition-grounded in repo
+  theory, references, spec backups, Sage docs/source, or an approved decision, stop and
+  source it before adding it to the public spec.
 - Do not solve missing foundations with ad hoc helpers inside a dependent task.
 - Compose upstream exact implementations instead of restating mathematics locally.
 - Route mathematical implementation through `research-software-wiring` before writing local algorithms.

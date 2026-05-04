@@ -29,6 +29,12 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 
 - Specced vocabulary must exist before implementation proceeds.
 - Mathematical definitions are foundational; do not treat them as ordinary code style.
+- Every spec claim must be grounded in a canonical mathematical source before edit:
+  repo theory, references, spec backups, Sage written docs/source, or an approved
+  decision card. A migrated TODO/card is provenance only, not definition authority.
+- If a term has multiple plausible meanings, or if an invariant/equivalence needs a
+  proof or hypotheses, stop the leaf and route a decision/source-mining card instead of
+  guessing the familiar meaning.
 - Complexity belongs behind mathematical nouns, not helper sprawl.
 - Do not weaken specs to make current code pass.
 - Do not rewrite specs unless the user explicitly requests that exact edit.
