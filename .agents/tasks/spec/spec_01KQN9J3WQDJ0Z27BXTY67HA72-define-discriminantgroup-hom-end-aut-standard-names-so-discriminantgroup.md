@@ -3,7 +3,7 @@ trackerStatus:
   type: feature
 title: Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut
   can be exported
-status: to-do
+status: blocked
 priority: critical
 planId: PLN-CAT-120
 phasePlan: PLN-LAT-040
@@ -51,3 +51,4 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 
+- 2026-05-04: Marked `status: blocked` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.

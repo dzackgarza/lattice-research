@@ -1,8 +1,9 @@
 ---
 trackerStatus:
   type: feature
-title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping
-status: to-do
+title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
+  inventory mapping
+status: blocked
 priority: critical
 planId: PLN-LAT-040
 tags:
@@ -53,3 +54,4 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 
+- 2026-05-04: Marked `status: blocked` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.
