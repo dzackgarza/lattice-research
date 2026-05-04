@@ -53,9 +53,29 @@ generated classes. The wrapper base layer in `base_category_types.py` is the onl
 place that flattens `UniversalSubcategoryMethods` into Sage's `SubcategoryMethods`
 provider path.
 
-If a subtree already defines the same operation directly on its category class, that
-local method takes precedence at runtime and should be treated as a later refactor
-target. The Cat-level method remains the canonical specification for category objects.
+Direct `Hom` ownership is intentionally narrow:
+
+- if `A, B in Cat()`, then `A.Hom(B)` is the object-level functor homspace
+  `Hom_{Cat}(A, B)`;
+- `A.HomCategory()` is the category-level hom-category construction over objects of
+  `A`;
+- lower subtrees may refine `HomCategory`, `EndCategory`, and `AutCategory`, but they
+  must not define a direct `Hom` method on category objects that changes the meaning
+  of `A.Hom(B)` for category objects.
+
+The migration rule is: a subtree-local direct `Hom` method that constructs set maps,
+module homomorphisms, ring homomorphisms, continuous maps, or other specialized
+morphisms belongs on the subtree hom-category surface, not on the category object
+itself. Put such constructors on the relevant `HomCategory().ParentMethods`,
+`EndCategory().ParentMethods`, `AutCategory().ParentMethods`, or the concrete
+`HomCategory().Of(A, B)` parent. Existing `HomCategory = ...` assignments and nested
+`class HomCategory(...)` refinements are admissible when they specialize the
+category-level hom construction rather than shadowing `A.Hom(B)`.
+
+As of the 2026-05-04 shadowing audit, direct `def Hom` definitions under
+`category_specs/` occur only in `cat/__init__.py` and `cat/base_category_types.py`.
+Future lower-subtree direct `Hom` definitions should be filed as implementation
+refactor work with this mapping section as the owner/migration source.
 
 ## Containment
 
