@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Finish algebra constructor admission and explicit names for additive and table algebra construction routes
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-ALG-TENSOR-01KQN9
 tags:
@@ -12,6 +12,8 @@ tags:
 - constructors
 - algebras
 - theme-constructor-routing
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Finish algebra constructor admission and explicit names for additive and table algebra construction routes
@@ -22,7 +24,11 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Source Provenance
 
-- `category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`.
+- The requested recovery path `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`
+  fails because the file still lived under `plans/category_specs/algebras/docs/TRIAGE.md`
+  at that parent commit.
+- Exact recovered prior content came from
+  `git show 8d1c21c^:plans/category_specs/algebras/docs/TRIAGE.md`.
 - Original migrated line: `Finish algebra constructor admission and explicit names for additive and table algebra construction routes from category_specs/algebras/docs/TRIAGE.md`
 
 ## Context
@@ -81,13 +87,36 @@ Rejection/retirement condition:
   list/table/matrix-shaped multiplication data directly on `Algebras(R)`, or routes the
   plain-set `S.algebra(R)` surface into `Algebras(R)` rather than `Modules(R)`.
 
+## Execution Result
+
+The constructor admission decision is now grounded in the public spec surface:
+
+- `category_specs/algebras/docs/MAPPING.md` records explicit constructor names for
+  multiplicative and additive source categories, including
+  `free_algebra_from_additive_semigroup`,
+  `free_algebra_from_additive_monoid`, and
+  `free_algebra_from_additive_group`.
+- `category_specs/algebras/__init__.py` already exposes the corresponding
+  `Algebras(R).Constructors()` methods and routes them through Sage's selected source
+  category without exposing a raw public `category=` option bag.
+- finite-dimensional table/list/matrix product data is not admitted directly on
+  `Algebras(R)`: `from_multiplication_tensor(multiplication=mu)` is the canonical
+  algebra constructor, and tensor interop data belongs first to
+  `TensorAlgebraComponents(R).Constructors()`.
+- the plain-set Sage `S.algebra(R)` route remains rejected as algebra vocabulary and
+  maps to `S.free_module(R)` / `Modules(R).Constructors().CombinatorialFreeModule(...)`.
+
+No new constructor or axiom code was needed in this pass. The remaining
+`Algebras(ZZ)` and `DualObjects()` failures recovered from the historical triage are
+not algebra-constructor admission issues.
+
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Run just smoke-file algebras/smoketest.sage after algebra category initialization or constructor changes.
-- [ ] Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module over Modules(R).
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No new implementation blocker was discovered during this docs/spec pass; recovered smoke failures remain non-constructor frontiers.
+- [x] No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage` trigger did not apply in this pass.
+- [x] Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not to `Algebras(R)`.
 
 ## Dependencies And Boundaries
 
@@ -98,3 +127,8 @@ Rejection/retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Recovered historical algebra triage from
+  `plans/category_specs/algebras/docs/TRIAGE.md`, confirmed the explicit additive
+  constructor names and multiplication-tensor constructor route in mapping/code, and
+  marked the algebra-constructor admission leaf ready for review without introducing
+  raw Sage `category=` or table-data public surfaces.
