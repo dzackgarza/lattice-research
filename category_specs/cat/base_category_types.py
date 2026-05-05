@@ -435,7 +435,15 @@ class _CatObjectMixin:
         assert codomain in self.category(), "codomain must be an object of Cat()"
         return Parent.Hom(self, codomain)
 
-    def _make_named_class(self, name, method_provider, cache=False, picklable: bool = True):
+    @override
+    @final
+    def _make_named_class(
+        self,
+        name: str,
+        method_provider: str,
+        cache: bool = False,
+        picklable: bool = True,
+    ) -> type:
         r"""Inject Cat's universal ``SubcategoryMethods`` into wrapped categories.
 
         The wrapper layer owns this Sage-integration policy; this method only
@@ -477,7 +485,7 @@ class _SingletonClasscallMixin:
 
     @staticmethod
     @final
-    def __classcall__(cls):
+    def __classcall__(cls: type[SageCategorySingleton]) -> SageCategory:
         if isinstance(cls, DynamicMetaclass):
             cls = cls.__base__
         obj = super(SageCategorySingleton, cls).__classcall__(cls)
@@ -505,7 +513,10 @@ class _SingletonAxiomClasscallMixin:
 
     @staticmethod
     @final
-    def __classcall__(cls, base_category: SageCategory | None = None):
+    def __classcall__(
+        cls: type[SageCategoryWithAxiomSingleton],
+        base_category: SageCategory | None = None,
+    ) -> SageCategory:
         if isinstance(cls, DynamicMetaclass):
             cls = cls.__base__
         if base_category is None:

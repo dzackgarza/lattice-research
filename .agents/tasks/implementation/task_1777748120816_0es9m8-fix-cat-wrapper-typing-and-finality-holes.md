@@ -2,10 +2,10 @@
 trackerStatus:
   type: task
 title: Fix Cat wrapper typing and finality holes
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-CAT-SURFACE-01KQN9
-progress: 0
+progress: 90
 tags:
 - category-specs
 - implementation
@@ -31,3 +31,46 @@ Task: fix Cat wrapper typing (explicit type parameters, correct variance), fill 
 - Item-specific evidence:
   - Multiple coupled remediation vectors are listed in one task, indicating higher coordination than isolated method edits.
   - The coupling to wrapper surfaces justifies the high band because regressions can propagate through consumers of category wrappers.
+
+## Consolidation Result
+
+This card overlaps the already-active Cat hardening card
+`.agents/tasks/implementation/task_1777748120649_eqpn1a-add-missing-final-markers-and-return-annotations-on-cat-methods.md`.
+The concrete remaining wrapper holes were fixed there rather than splitting the same
+Cat surface across two independent implementation tracks.
+
+Implemented Cat wrapper changes:
+
+- `_CatObjectMixin._make_named_class(...)` now has explicit parameter and return
+  annotations and is marked `@final`.
+- `_SingletonClasscallMixin.__classcall__(...)` and
+  `_SingletonAxiomClasscallMixin.__classcall__(...)` now have explicit `cls` and return
+  annotations.
+- Public Cat option-bag exposure remains excluded by
+  `category_specs/cat/docs/MAPPING.md`: the only live `*args` / `**kwargs` occurrences
+  under `category_specs/cat/` are private constructor-forwarding and subclass-init
+  plumbing, not mathematical constructor surfaces.
+
+Variance-specific search:
+
+- Searched: this card, the sibling Cat hardening card, `category_specs/cat/docs/MAPPING.md`,
+  `category_specs/cat/base_category_types.py`, and textual Cat-surface searches for
+  `variance`, `TypeVar`, `ParamSpec`, broad `Callable[..., Any]`, and missing Cat method
+  return annotations.
+- Found: no documented public Cat wrapper variance contract separate from the concrete
+  signature/finality holes fixed in `base_category_types.py`.
+- Conclusion: inference - this card is covered by the sibling Cat hardening implementation
+  and does not need a separate implementation track unless review identifies a specific
+  unresolved generic variance surface.
+- Confidence: Medium.
+- Gaps: no external type-checker trace naming a variance failure was found in the active
+  card text; this is not a fresh full static-type audit of all project type aliases.
+
+## Acceptance Criteria
+
+- [x] Concrete Cat wrapper typing/finality holes found in current code are fixed.
+- [x] Public Cat option-bag exposure is documented as absent outside private forwarding
+  and initialization glue.
+- [x] Duplicate active Cat hardening work is consolidated instead of expanding the
+  tracker with another parallel implementation path.
+- [ ] Human review accepts the consolidation and closes or retires the duplicate card.

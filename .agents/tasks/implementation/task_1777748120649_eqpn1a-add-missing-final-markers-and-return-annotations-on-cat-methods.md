@@ -2,11 +2,11 @@
 trackerStatus:
   type: task
 title: Add missing final markers and return annotations on Cat methods
-status: in-progress
+status: in-review
 priority: critical
 planId: SPR-CAT-SURFACE-01KQN9
 complexity: 50
-progress: 70
+progress: 90
 updated: '2026-05-03'
 tags:
 - category-specs
@@ -96,3 +96,9 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
 - 2026-05-03: Parent ran `python -m compileall category_specs/cat`; Cat files
   compile successfully. Full `just test` validation remains blocked by
   `.agents/tasks/implementation/bug-category-specs-ruff-normalization-blocker.md`.
+- 2026-05-05: Filled the remaining concrete Cat wrapper typing/finality holes in
+  `category_specs/cat/base_category_types.py`: `_CatObjectMixin._make_named_class`
+  now has explicit parameter and return annotations and is final, and both singleton
+  `__classcall__` bridges have explicit `cls` and return annotations.
+- 2026-05-05: Moved this card to `in-review`; human review is still required before
+  closure.
