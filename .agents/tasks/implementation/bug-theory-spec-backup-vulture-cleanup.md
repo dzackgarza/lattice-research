@@ -2,13 +2,13 @@
 trackerStatus:
   type: bug
 title: Mine lattice spec backup before lattice implementation
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-VARIADIC-AUDIT-01KQN9
 complexity: 78
-progress: 15
+progress: 90
 created: '2026-05-03'
-updated: '2026-05-04'
+updated: '2026-05-05'
 tags:
   - category-specs
   - spec
@@ -112,17 +112,18 @@ semantics, reusable logic, and implementation audit criteria.
 
 ## Acceptance Criteria
 
-- [ ] Inspect the backup artifact provenance and current references.
-- [ ] Review `theory/spec_backups/lattices_written_spec_backup.py` and the related
+- [x] Inspect the backup artifact provenance and current references.
+- [x] Review `theory/spec_backups/lattices_written_spec_backup.py` and the related
   lattice-redesign correction sources before speccing or implementing lattices.
-- [ ] Mine the file for mathematical conventions, public API restrictions, validation
+- [x] Mine the file for mathematical conventions, public API restrictions, validation
   expectations, and reusable implementation logic.
-- [ ] Centralize the mined theory into durable docs or skills such as the lattice style
+- [x] Centralize the mined theory into durable docs or skills such as the lattice style
   guide, category ABC guidance, subtree AGENTS files, or audit references.
-- [ ] Add explicit audit criteria that require future lattice implementations to respect
+- [x] Add explicit audit criteria that require future lattice implementations to respect
   the categorical model rather than Sage ambient-vector-space conventions.
-- [ ] Create follow-up cards for independent implementation, test, or documentation work
-  discovered during mining.
+- [x] Create follow-up cards for independent implementation, test, or documentation work
+  discovered during mining. No separable new follow-up card was identified in the
+  2026-05-05 mining pass.
 - [ ] Do not delete the backup until a lattice implementation exists that recovers most
   or all of the relevant logic and the durable theory has been centralized.
 - [ ] Get user confirmation before retiring or deleting the backup artifact.
@@ -162,3 +163,19 @@ semantics, reusable logic, and implementation audit criteria.
   after replacement lattice implementation recovers the relevant logic.
 - 2026-05-04: Mined the opening docstring into the lattice category ABC spec, lattice
   interface style guide audit criteria, and lattice-redesign skill hard rules.
+- 2026-05-05: Completed a second mining pass over the rest of the backup and related
+  lattice-redesign sources, with a read-only Codex 5.4 explorer audit. Centralized
+  additional rules into `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+  and `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`:
+  Hom-space constructors for discriminant and lattice morphisms, quotient-valued
+  discriminant codomains, discriminant-class ownership on dual/rational elements,
+  rational-to-integral constructor promotion, invariant/coinvariant subobjects as
+  endomorphism kernels, orthogonal-group action convention boundaries, theorem-domain
+  placement for Nikulin invariants, discriminant-form constructor validation, and
+  backend boundaries for definite versus indefinite centralizers.
+- 2026-05-05: Updated `.agents/skills/lattice-redesign/SKILL.md` with hard rules for
+  rational/free-bilinear promotion ownership and backend matrix normalization, and
+  fixed stale source links in
+  `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
+  The backup remains source material and must not be deleted until a replacement
+  lattice implementation recovers the relevant logic and the user approves retirement.

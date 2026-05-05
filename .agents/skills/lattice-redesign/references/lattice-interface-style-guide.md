@@ -433,6 +433,26 @@ One should have a **working vocabulary** of bilinear modules, their morphisms,
 cokernels, submodules, etc. One should **not short-circuit** this when
 constructing discriminant groups.
 
+Discriminant form values live in quotient codomains. For `R = ZZ`, the
+bilinear codomain is `QQ/ZZ` and the quadratic codomain is `QQ/2ZZ` when
+that refinement exists. A method that computes by calling `lift()` on a
+Sage torsion element must be localized interop; the public object and its
+tests should ask quotient-valued questions directly.
+
+Discriminant group morphisms follow the same Hom-space discipline as lattice
+morphisms. Constructors belong on the declared Hom object and may accept
+generator-image dictionaries, ordered images, callables, or matrices. The
+result is a morphism object; image, kernel, injectivity, surjectivity, and
+identity checks must use the morphism's actual categorical image/kernel, not
+cardinality comparisons or helper names such as `image_generators`.
+
+Nikulin-style invariants belong to the lattice theorem context. The invariant
+`a` is meaningful in the even indefinite 2-elementary branch; a generic
+`p_rank` method is not admitted unless a source-backed definition states the
+object and hypotheses. The discriminant group may expose
+`is_p_elementary(p)`, but `delta`, `coparity`, and the tuple `(r, a, delta)`
+are lattice invariants, not free-standing invariants of `A_L`.
+
 
 ## Stabilizers and Centralizers
 
@@ -460,6 +480,19 @@ assert:
 ```python
 assert f.is_involution(), "Non-involutions are not yet supported"
 ```
+
+Invariant and coinvariant sublattices are not raw-matrix methods on `L`.
+They are subobjects obtained from an endomorphism: construct
+`f in End(L)` first, then take the kernel of `f - id` or `f + id`. The same
+rule applies to centralizers: a matrix backend result is converted to an
+orthogonal-group element at the boundary, and `O(L).centralizer(f)` owns the
+predicate.
+
+Definite and indefinite backend paths are different obligations. A definite
+centralizer may route through GAP after sign-normalizing a definite Gram
+matrix, but an indefinite centralizer requires a real indefinite backend such
+as Oscar/Hecke data. Do not manufacture a fallback subgroup or placeholder
+generator set when the required backend is absent.
 
 
 ## Set Operations
@@ -613,6 +646,13 @@ combined = centralizer_f & stabilizer_v
 membership test. No ad-hoc matrix equations scattered across methods.
 Predicate logic is compositional and uses only Sage's existing machinery.
 
+Backends may use row-action matrices, but the public group API uses left
+column action. Conversion from a backend row-action matrix to a public
+orthogonal-group element is a boundary operation, after which membership in
+`O(L)` is tested only by the centralized predicate
+`G.T * gram(L) * G == gram(L)`. Do not repeat the opposite row-action equation
+in public methods.
+
 
 ## Julia Backend via sage-julia-bridge
 
@@ -688,6 +728,9 @@ through methods on our objects.
   predicate is `is_p_elementary(2)`.
 - Isometry verification belongs in the containment semantics of `O(L)`, not
   scattered matrix-equation assertions.
+- Theorem-domain warnings belong on the lattice-level method that invokes the
+  theorem. Generic discriminant-group helpers must not claim Nikulin
+  invariants outside the even indefinite 2-elementary lattice hypotheses.
 
 
 ## API Hierarchy and File Organization
@@ -710,6 +753,11 @@ through methods on our objects.
 - Do not use `pass` where simple ABCs should be defined.
 - Do not use `assert False` in places where mathematically meaningful objects
   must be constructed.
+- A discriminant form built from invariant factors and quotient-valued Gram
+  data must validate symmetry, rank agreement, positive invariant factors, and
+  compatibility `d_i * d_j * gram[i, j] in ZZ` for the chosen generators. The
+  empty invariant list still constructs the zero object in the discriminant
+  category, not `None` or a special-case data record.
 
 
 ## Anti-Wrapper / Anti-Slop Rules
@@ -1090,6 +1138,15 @@ nondegenerate, it should automatically be a `Lattice`, not a generic
 `BilinearModule` that the user must manually cast. Similarly, a root
 sublattice should automatically be in `RootLattices`, a hyperbolic lattice
 in `HyperbolicLattices`, etc.
+
+Rational-to-integral promotion has one owner. A rational free bilinear object
+constructed from a Gram matrix should decide, in that constructor or refinement
+route, whether the form is integral and then promote to `Lattice` when
+appropriate. Call sites should not each re-run their own integrality check.
+Named constructors may return the richest correct object; for example an
+integralized presentation of an `F_4` root object comes from an explicit twist
+of the rational presentation, not from hiding the rational presentation inside
+an integral-only constructor.
 
 
 ### Operators Mean One Thing

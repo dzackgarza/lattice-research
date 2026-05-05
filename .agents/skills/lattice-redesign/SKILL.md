@@ -21,4 +21,8 @@ This skill owns the canonical lattice-redesign source doctrine migrated from the
   produces a distinct but possibly isometric object, not the same object.
 - Do not import Sage's ambient-vector-space lattice convention into public semantics.
 - Dual and discriminant semantics must route through real categorical objects and morphisms.
+- Rational-to-integral promotion is owned by the rational/free-bilinear constructor
+  layer; call sites must not each invent their own cast-to-lattice rule.
+- Backend group matrices must be normalized once at the backend boundary before they
+  enter public orthogonal-group semantics.
 - Do not preserve compatibility shims unless explicitly requested.

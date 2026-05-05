@@ -657,6 +657,23 @@ Hom-space containment owns the structural checks. If a specialized homset
 represents isometries, its `__contains__` method owns the form-preservation
 test.
 
+The backup artifact records the same constructor rule for discriminant
+modules and lattices: a Hom object is the parent of morphisms, not a shortcut
+that takes images and returns a specific map. Every Hom object must therefore
+offer semantic constructors for elements:
+
+- `from_dict({g_i: h_i})` for named generators and images,
+- `from_images((h_1, ..., h_n))` when the domain generators are fixed,
+- `from_callable(f)` as a thin route that evaluates `f` on generators and
+  delegates to `from_dict`,
+- `from_matrix(M)` only as a constructor on a declared Hom object, never as
+  proof that the matrix itself is in the Hom object.
+
+Kernel, image, injectivity, and surjectivity are object-level queries on the
+constructed morphism. They must use the actual kernel/image/cokernel objects,
+not compare cardinalities of images or expose helper names such as
+`image_generators()` where `f.image().gens()` is the mathematical statement.
+
 
 ## Bilinear Refinement
 
@@ -819,12 +836,38 @@ If additional quadratic data descends, it should be expressed as a
 quadratic refinement on the same cokernel object, typically with codomain
 `K/2R`.
 
+For an integral lattice element `v in L`, the image in `A_L` is zero. The
+nontrivial discriminant-class map belongs to the dual/rational side of the
+diagram: dual elements map to cosets in `L^*/L` through the cokernel
+projection, and lattice elements enter only through the inclusion
+`\iota_L(v) = beta(v, -)`.
+
 Implementation note:
 
 - the public object is the actual cokernel of a specific morphism,
 - computing it via Smith normal form invariants is acceptable internally,
 - presenting only the invariant package is not acceptable as the public
   semantics.
+
+For an integral Gram matrix `Q`, the standard dual-basis computation is a
+backend witness for this diagram: rows of `Q^{-1}` represent dual generators
+in the chosen presentation. An orthogonal-group element acts trivially on
+`A_L` exactly when `M*x - x in L` for every such dual generator `x`. This
+criterion is a predicate for the kernel of the discriminant action, not a
+replacement for the cokernel object.
+
+The quotient codomain is part of the object, not a post-processing lift. For
+discriminant forms, values should live directly in `K/R` or `K/2R` (`QQ/ZZ`
+or `QQ/2ZZ` over `ZZ`). Code that evaluates a quotient-valued form by lifting
+to `K` and then asking whether the lift is integral is an interop workaround,
+not public semantics.
+
+Orthogonal complements, invariant subobjects, and coinvariant subobjects are
+also morphism-derived constructions. A complement requires a represented
+subobject or inclusion morphism; an invariant or coinvariant object is the
+kernel of `f - lambda * id` for a declared endomorphism `f`. Raw matrices may
+enter only through `End(M).from_matrix(...)` before these constructions are
+asked for.
 
 
 ## Named Downstream Categories
@@ -862,6 +905,13 @@ DiscriminantQuadraticForms(R)
 The point is that `L`, `L^*`, and `A_L` live in one framework and differ by
 intersecting axioms, not by switching between unrelated object systems.
 
+Constructor promotion follows the same rule. Rational/free-bilinear
+constructors own the check for whether a Gram matrix is integral and should
+promote the result to `Lattices(R)`. Named constructors may return the
+richest correct object, but they must not hide a rational presentation inside
+an integral-only API; for example, an integral `F_4` presentation is an
+explicit twist of the rational `F_4` presentation.
+
 
 ## Notes on Sage Wiring
 
@@ -872,3 +922,7 @@ intersecting axioms, not by switching between unrelated object systems.
 - Elements must be genuine Sage `Element` or `ElementWrapper` instances.
 - Concrete implementations may store Sage, Julia, or other backend objects,
   but those are calculation engines, not the public API.
+- Public lattice objects must not inherit from Sage lattice implementation
+  classes. They are presented modules with form data whose implementations
+  store Sage/Julia backends by composition and wire through Sage's category,
+  parent, element, HomSet, morphism, and finitely generated PID-module hooks.

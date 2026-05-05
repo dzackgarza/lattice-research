@@ -3,13 +3,14 @@
 This file is a durable preservation artifact for detailed user corrections that
 must remain available even if chat context is compacted. The normalized design
 directives distilled from these corrections now live in
-`plans/LATTICE_STYLE_GUIDE.md`.
+`lattice-interface-style-guide.md` and `category-abc-spec.md`.
 
 Canonical related sources:
 
-- [theory/spec_backups/lattices_written_spec_backup.py](../theory/spec_backups/lattices_written_spec_backup.py)
-- [src/lattices/lattices.py](../src/lattices/lattices.py)
-- [plans/LATTICE_STYLE_GUIDE.md](./LATTICE_STYLE_GUIDE.md) (distilled rules)
+- [theory/spec_backups/lattices_written_spec_backup.py](../../../../theory/spec_backups/lattices_written_spec_backup.py)
+- [src/lattices/lattices.py](../../../../src/lattices/lattices.py)
+- [lattice-interface-style-guide.md](./lattice-interface-style-guide.md) (distilled public API and audit rules)
+- [category-abc-spec.md](./category-abc-spec.md) (category contract and discriminant descent rules)
 
 ## Raw User Correction
 
@@ -54,6 +55,6 @@ wholesale. The correct procedure is:
 ## Source of Truth Rule
 
 When future work is done on the lattice redesign, consult
-`plans/LATTICE_STYLE_GUIDE.md` (distilled rules) and
+`lattice-interface-style-guide.md`, `category-abc-spec.md`, and
 `theory/spec_backups/lattices_written_spec_backup.py` before changing the
 public interface.
