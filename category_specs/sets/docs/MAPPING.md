@@ -137,6 +137,7 @@ subcategory boundaries.
 | Sage `Set_base` boolean mixins | Root set operations and `Sets().Subobjects()` / `Subsets` | Sage's boolean mixins are implementation artifacts, not mathematical subcategories. A set has union with any other set in `Sets()`. Intersections, differences, symmetric differences, and complements require a common ambient set and therefore live on subsets/subobjects. | Do not introduce a project `WithBooleanOps` axiom. Map Sage mixin methods to the mathematical operation surface they actually represent. |
 | `SubobjectsCategory` | `Sets().Subobjects()` / alias `Subsets` | In the category of sets, subobjects are exactly subsets. Predicate-defined subsets are constructed as `Sets().Subobjects().Of(ambient, predicates)` and backed by Sage `ConditionSet` under the hood. The same construction must remain attachable to arbitrary set subcategories via Sage's functorial construction/category-of machinery. | The set subtree exposes `Subsets = Subobjects` and uses `Subset` type vocabulary in signatures. Its implementation lives in `subcategories/constructions/subobjects.py`, not a monolithic `constructions.py`. Raw Sage `ConditionSet.arguments()` stays inventory-only. |
 | `SetPartitions(s)` fixed-base parents | `Sets().Partitioned()` | A partition of `s` is represented as a subset of the powerset of `s`. The fixed-base parent `SetPartitions(s)` is the set of all such partition subobjects and its elements are the actual `SetPartition` objects. | `sets/subcategories/partitioned.py` owns the partition method surface. `Sets().Constructors().SetPartitions(...)` and its fixed-block variants are the public constructor paths. `SetPartition` remains anchored to Sage's element class in `types.py`. |
+| `SetPartitions(s)` with `s` a finite totally ordered set | `Sets().Partitioned().FiniteTotallyOrderedBase()` | The extra hypothesis lives on the fixed base set returned by `base_set()`: Sage's crossing/nesting/atomic surfaces use the induced order on `s`, not a total order on the set of partitions itself. | This is an axiom on `Sets().Partitioned()`, not a meet with `Sets().TotallyOrdered()`. The owner records that the partition parent is finite and that its base set carries the relevant total order. |
 | `SetPartitions()` all finite partitions | `Sets().Countable()` | There is no fixed base set, hence no single powerset ambient object. Sage represents this as the countable parent of all finite set partitions. | The constructor path is `Sets().Constructors().AllSetPartitions()`. It is not refined into `Sets().Partitioned()` because the fixed-base powerset ambient is absent. |
 | `QuotientsCategory` | `Sets().Quotients()` | Quotient sets are equivalence-class objects. Like subobjects, quotient categories are attachable construction categories, not singleton categories. | `subcategories/constructions/quotients.py` owns the set-specific quotient scaffold and `types.py` exposes `QuotientSet`. |
 | `SubquotientsCategory` | `Sets().Subquotients()` | Sage's constructive subquotients are the primitive construction behind quotients and subobjects: an object has an ambient object, a lift, and a retract. | `subcategories/constructions/subquotients.py` owns the ambient/lift/retract surface. |
@@ -222,15 +223,21 @@ Admission decision for partition subclass predicates:
 - Expose `crossings()`, `nestings()`, `is_noncrossing()`, `is_nonnesting()`, and
   `is_atomic()` now on `Sets().Partitioned().ElementMethods`, with docstrings that
   state the finite totally ordered base-set hypothesis explicitly.
+- Admit the missing hypothesis owner as
+  `Sets().Partitioned().FiniteTotallyOrderedBase()`. This is an axiom on the
+  partitioned-set category because it constrains `base_set()`, and it also refines
+  through `Sets().Countable().Finite()` because a fixed-base partition parent is
+  finite when the base set is finite.
 - Do not admit `Sets().Partitioned().Noncrossing()`,
-  `Sets().Partitioned().Nonnesting()`, or `Sets().Partitioned().Atomic()` yet. The
-  current partitioned-set axiom only records "partitions of a fixed base set"; it does
-  not by itself encode that the base set is finite and totally ordered, which Sage's
-  definitions use essentially.
+  `Sets().Partitioned().Nonnesting()`, or `Sets().Partitioned().Atomic()` yet. Those
+  later subclass owners must sit over `Sets().Partitioned().FiniteTotallyOrderedBase()`
+  rather than over bare `Sets().Partitioned()`.
 - If a future pass needs the subclass objects themselves, construct them first as
-  predicate-defined subobjects of a fixed partition parent, not as global axioms. Full
-  axiom admission waits on a source-grounded category owner for partitions over finite
-  totally ordered base sets.
+  predicate-defined subobjects of a fixed partition parent in
+  `Sets().Partitioned().FiniteTotallyOrderedBase()`, not as global axioms on
+  `Sets().Partitioned()`. Full axiom admission for `Noncrossing`, `Nonnesting`, or
+  `Atomic` still needs a later source-grounded pass that fixes the exact registration
+  shape above this owner.
 
 ## Sage `Set_object` Method Mapping Decisions
 

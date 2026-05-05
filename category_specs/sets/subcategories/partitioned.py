@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -175,6 +176,52 @@ class PartitionedSetsCategory(CategoryWithAxiom):
         def is_atomic(self) -> bool:
             r"""Return whether the nonempty ordered finite partition is pipe-indecomposable."""
             ...
+
+    class MorphismMethods: ...
+
+    FiniteTotallyOrderedBase = LazyImport(
+        "category_specs.sets.subcategories.partitioned",
+        "FiniteTotallyOrderedBasePartitionedSetsCategory",
+    )
+
+
+class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
+    r"""Partitions of a fixed finite totally ordered base set.
+
+    Canonical chain: ``Sets().Partitioned().FiniteTotallyOrderedBase()``.
+
+    This owner records extra structure on ``base_set()``, not on the partition
+    set itself. It is therefore an axiom on ``Sets().Partitioned()`` rather than
+    a meet with ``Sets().TotallyOrdered()``.
+    """
+
+    _base_category_class_and_axiom = (PartitionedSetsCategory, "FiniteTotallyOrderedBase")
+    _defining_predicates = ("has_finite_totally_ordered_base_set",)
+
+    @override
+    @final
+    def _repr_object_names(self) -> str:
+        return "sets of partitions of a fixed finite totally ordered set"
+
+    @override
+    @final
+    def super_categories(self) -> list[Category]:
+        return [Sets().Partitioned(), Sets().Countable().Finite()]
+
+    class ParentMethods:
+        @override
+        @final
+        def has_finite_totally_ordered_base_set(self) -> bool:
+            r"""Return ``True`` because ``base_set()`` is finite and totally ordered."""
+            return True
+
+        @override
+        @abstract_method
+        def base_set(self) -> Set:
+            r"""Return the fixed base set, refined into a finite totally ordered set."""
+            ...
+
+    class ElementMethods: ...
 
     class MorphismMethods: ...
 
