@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -43,12 +42,16 @@ class _InfiniteSets(CategoryWithAxiom):
             return False
 
         @override
-        @abstract_method
-        def cardinality(self) -> Cardinality: ...
+        @final
+        def cardinality(self) -> Cardinality:
+            from sage.rings.infinity import infinity
+
+            return infinity
 
         @override
-        @abstract_method
-        def is_empty(self) -> bool: ...
+        @final
+        def is_empty(self) -> bool:
+            return False
 
     class ElementMethods: ...
 

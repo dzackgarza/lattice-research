@@ -66,6 +66,7 @@ from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity
+from sage.structure.richcmp import op_EQ, op_GE, op_GT, op_LE, op_LT, op_NE
 
 from ..cat import Category, Category_singleton
 from ..utils import refine_category
@@ -145,12 +146,12 @@ class _SetObjectMethods:
         r"""Return whether this set has finite cardinality."""
         ...
 
-    @abstract_method
+    @final
     def construction(self):
         r"""Return Sage construction data for this set, when it has one."""
-        ...
+        return None
 
-    @abstract_method
+    @final
     def cartesian_product(
         self,
         factors: Sequence[Set],
@@ -160,12 +161,23 @@ class _SetObjectMethods:
         flatten: bool = False,
     ) -> Set:
         r"""Return the Cartesian product of ``self`` with the parent sets in ``factors``."""
-        ...
+        from sage.categories.cartesian_product import cartesian_product
 
-    @abstract_method
+        parents = (self, *tuple(factors))
+        product_category = category or cartesian_product.category_from_parents(parents)
+        if extra_category is not None:
+            if isinstance(product_category, (list, tuple)):
+                product_category = tuple(product_category) + (extra_category,)
+            else:
+                product_category = product_category & extra_category
+        return parents[0].CartesianProduct(parents, category=product_category, flatten=flatten)
+
+    @final
     def union(self, other: Set) -> Set:
         r"""Return the set-theoretic union of ``self`` and ``other``."""
-        ...
+        from sage.sets.set import Set
+
+        return Set(self).union(Set(other))
 
     @final
     def __or__(self, other: Set) -> Set:
@@ -175,10 +187,14 @@ class _SetObjectMethods:
     def __add__(self, other: Set) -> Set:
         return self.union(other)
 
-    @abstract_method
+    @final
     def is_subset(self, other: Set) -> bool:
         r"""Return whether ``self`` is a subset of ``other``."""
-        ...
+        if self is other:
+            return True
+        if self.is_finite():
+            return all(element in other for element in self)
+        raise NotImplementedError("generic subset testing requires a finite enumerable set")
 
     @override
     @final
@@ -198,10 +214,22 @@ class _SetObjectMethods:
         r"""Return whether ``self`` properly contains ``other``."""
         return other.is_proper_subset(self)
 
-    @abstract_method
+    @final
     def __richcmp__(self, other: Set, op: Integer) -> bool:
         r"""Compare sets using equality and subset/proper-subset relations."""
-        ...
+        if op == op_LE:
+            return self.is_subset(other)
+        if op == op_LT:
+            return self.is_proper_subset(other)
+        if op == op_GE:
+            return self.is_superset(other)
+        if op == op_GT:
+            return self.is_proper_superset(other)
+        if op == op_EQ:
+            return self.is_subset(other) and other.is_subset(self)
+        if op == op_NE:
+            return not (self.is_subset(other) and other.is_subset(self))
+        raise ValueError(f"unknown rich comparison operation: {op}")
 
     @final
     def __le__(self, other: Set) -> bool:
@@ -219,15 +247,19 @@ class _SetObjectMethods:
     def __gt__(self, other: Set) -> bool:
         return self.is_proper_superset(other)
 
-    @abstract_method
+    @final
     def subsets(self, size: Integer | None = None) -> Set:
         r"""Return the set of subsets, optionally with fixed cardinality ``size``."""
-        ...
+        from sage.combinat.subset import Subsets
 
-    @abstract_method
+        if size is None:
+            return Subsets(self)
+        return Subsets(self, size)
+
+    @final
     def subsets_lattice(self) -> Set:
         r"""Return the lattice of subsets ordered by inclusion."""
-        ...
+        return self.subsets().lattice()
 
     @final
     def free_module(self, base_ring: Ring) -> RModule:
@@ -243,8 +275,13 @@ class _SetObjectMethods:
 
         return Algebras(base_ring).Constructors().free_algebra_from_set(self)
 
-    @abstract_method
-    def _sympy_(self) -> SympySet: ...
+    @final
+    def _sympy_(self) -> SympySet:
+        from sage.interfaces.sympy import sympy_init
+        from sage.interfaces.sympy_wrapper import SageSet
+
+        sympy_init()
+        return SageSet(self)
 
 
 class _SetElementMethods:
@@ -276,6 +313,13 @@ class Sets(Category_singleton):
     The module docstring records the full public category hierarchy and constructor
     refinement map.
     """
+
+    @override
+    @final
+    def __contains__(self, candidate: Any) -> bool:
+        r"""Return whether ``candidate`` is a Sage/project set parent."""
+        category = getattr(candidate, "category", None)
+        return callable(category) and category().is_subcategory(SageSets())
 
     @override
     @final

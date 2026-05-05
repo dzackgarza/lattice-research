@@ -2,9 +2,10 @@
 trackerStatus:
   type: feature
 title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
-status: to-do
+status: in-progress
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
+progress: 35
 tags:
 - category-specs
 - implementation
@@ -27,7 +28,7 @@ construction, and topological axiom resolution.
 
 ## Source Provenance
 
-- `category_specs/sets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/sets/docs/TRIAGE.md`.
+- `plans/category_specs/sets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/sets/docs/TRIAGE.md`.
 - Original migrated line: `Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning from category_specs/sets/docs/TRIAGE.md`
 
 ## Context
@@ -55,4 +56,23 @@ construction, and topological axiom resolution.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Fixed the root `Sets()` containment path so existing Sage set parents
+  such as `ZZ` are recognized through their Sage set category. Implemented the
+  project root set comparison surface with set-theoretic subset/proper-subset
+  semantics, plus concrete root defaults for SymPy export, construction metadata,
+  cartesian products, unions, subsets, and subset lattices. Added infinite-set
+  cardinality/is-empty defaults so infinite set refinements no longer shadow Sage with
+  abstract placeholders.
+- Verification:
+  - `python -m py_compile category_specs/sets/__init__.py category_specs/sets/subcategories/infinite.py` passed.
+  - `command ruff check category_specs/sets/__init__.py category_specs/sets/subcategories/infinite.py` passed after removing an unused import and fixing import spacing.
+  - `just smoke-file sets/smoketest.sage` no longer reports `ZZ in Sets()` or blanket
+    `__richcmp__` failures. The current frontier is `facade_for` on facade-backed set
+    constructors, `cardinality` on several countable/subobject constructors, Primes
+    `__iter__`, the intentionally removed `Constructors().RealSet` legacy route,
+    RealSet `_element_constructor_`, and partition `_sympy_`.
+  - `just smoke-file rings/smoketest.sage` also advanced past the previous root
+    `__richcmp__` failures; the current rings frontier is now ring-specific
+    implementation gaps such as `hilbert_polynomial`, topological `boundary`,
+    `ideal_monoid`, `_change_print_mode`, q-adic deferred constructors, and matrix
+    algebra/module MRO refinement.
