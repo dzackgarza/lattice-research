@@ -19,6 +19,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from .number_field import _NumberFields as _NumberFields
 
 if TYPE_CHECKING:
     pass
@@ -68,7 +69,6 @@ _CompleteDiscreteValuationFields = LazyImport(
     "category_specs.rings.subcategories.complete_discrete_valuation_field", "_CompleteDiscreteValuationFields"
 )
 _FiniteFields = LazyImport("category_specs.rings.subcategories.finite_field", "_FiniteFields")
-_NumberFields = LazyImport("category_specs.rings.subcategories.number_field", "_NumberFields")
 _AlgebraicallyClosedFields = LazyImport(
     "category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields"
 )

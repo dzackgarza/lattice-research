@@ -16,6 +16,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from .commutative import _CommutativeRings as _CommutativeRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -36,7 +37,6 @@ _SAGE_PUISEUX_SERIES_RING_CLASSES = (SagePuiseuxSeriesRing,)
 _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES = _SAGE_LAURENT_SERIES_RING_CLASSES + _SAGE_POWER_SERIES_RING_CLASSES
 _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES = _SAGE_PUISEUX_SERIES_RING_CLASSES + _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
 
-_CommutativeRings = LazyImport("category_specs.rings.subcategories.commutative", "_CommutativeRings")
 _FiniteRings = LazyImport("category_specs.rings.subcategories.finite", "_FiniteRings")
 _DivisionRings = LazyImport("category_specs.rings.subcategories.division", "_DivisionRings")
 _TopologicalRings = LazyImport("category_specs.rings.subcategories.topological", "_TopologicalRings")

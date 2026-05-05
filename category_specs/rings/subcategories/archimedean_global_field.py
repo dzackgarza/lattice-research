@@ -15,6 +15,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from .global_field import _GlobalFields as _GlobalFields
 
 if TYPE_CHECKING:
     pass
@@ -69,7 +70,6 @@ _AlgebraicallyClosedFields = LazyImport(
     "category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields"
 )
 _LocalFields = LazyImport("category_specs.rings.subcategories.local_field", "_LocalFields")
-_GlobalFields = LazyImport("category_specs.rings.subcategories.global_field", "_GlobalFields")
 _ArchimedeanGlobalFields = LazyImport("category_specs.rings.subcategories.archimedean_global_field", "_ArchimedeanGlobalFields")
 _NonArchimedeanGlobalFields = LazyImport(
     "category_specs.rings.subcategories.nonarchimedean_global_field", "_NonArchimedeanGlobalFields"

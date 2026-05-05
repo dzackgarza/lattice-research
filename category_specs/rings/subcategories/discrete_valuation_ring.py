@@ -20,6 +20,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from .valued import _ValuedRings as _ValuedRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -56,7 +57,6 @@ _PrincipalIdealDomains = LazyImport("category_specs.rings.subcategories.principa
 _EuclideanDomains = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
 _IntegrallyClosedDomains = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
 _DedekindDomains = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
-_ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
 _DiscreteValuationRings = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
 _DiscreteValuationFields = LazyImport("category_specs.rings.subcategories.discrete_valuation_field", "_DiscreteValuationFields")
 _CompleteRings = LazyImport("category_specs.rings.subcategories.complete", "_CompleteRings")

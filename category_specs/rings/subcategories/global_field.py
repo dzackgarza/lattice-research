@@ -16,6 +16,7 @@ from sage.rings.puiseux_series_ring import PuiseuxSeriesRing as SagePuiseuxSerie
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from .field import _Fields as _Fields
 
 if TYPE_CHECKING:
     pass
@@ -38,7 +39,6 @@ _CommutativeRings = LazyImport("category_specs.rings.subcategories.commutative",
 _FiniteRings = LazyImport("category_specs.rings.subcategories.finite", "_FiniteRings")
 _DivisionRings = LazyImport("category_specs.rings.subcategories.division", "_DivisionRings")
 _TopologicalRings = LazyImport("category_specs.rings.subcategories.topological", "_TopologicalRings")
-_Fields = LazyImport("category_specs.rings.subcategories.field", "_Fields")
 _IntegralDomains = LazyImport("category_specs.rings.subcategories.integral_domain", "_IntegralDomains")
 _NoetherianRings = LazyImport("category_specs.rings.subcategories.noetherian", "_NoetherianRings")
 _ReducedRings = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
