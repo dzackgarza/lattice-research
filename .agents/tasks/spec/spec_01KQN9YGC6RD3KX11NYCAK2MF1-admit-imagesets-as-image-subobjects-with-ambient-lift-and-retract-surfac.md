@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Admit ImageSets as image subobjects with ambient lift and retract surface
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-SETS-TOPO-01KQN9
 tags:
@@ -12,6 +12,8 @@ tags:
 - sets
 - imagesets
 - theme-sets-topology
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Admit ImageSets as image subobjects with ambient lift and retract surface
@@ -51,8 +53,8 @@ Canonical source anchors for this card are:
 
 Spec decision fixed by those sources:
 
-- owner category: `Sets().Subobjects()` / the constructive subobject surface owns the
-  image notion
+- owner category: `Sets().Subobjects()` with explicit refinement through
+  `Sets().Subquotients()` owns the image notion
 - admitted object: `ImageSets` is the public image-subobject category for images of a
   map, not a generic wrapper around arbitrary Sage `Set(X)` values
 - required public surface on the image object is `ambient`, `lift`, and `retract`
@@ -62,12 +64,14 @@ Required hypotheses and return/codomain obligations:
 - input data must include a map `f` and an ambient/source object `X` sufficient to form
   the image subobject
 - `ambient()` returns the ambient set containing the image subobject
-- `lift(...)` returns a witness in the ambient/source-side object required by the
-  subobject construction
-- `retract(...)` returns the corresponding image-side object or element in the image
-  subobject codomain, matching the constructive subobject contract
+- `lift(...)` returns an image element viewed in the ambient codomain
+- `retract(...)` returns the corresponding image-side object or element when an
+  ambient element is in the image, matching the constructive subobject contract
 - any further topological or algebraic refinement is inherited from the ambient object;
   it does not redefine the set-level image owner
+- Sage's arbitrary callable wrapping and non-parent `Set(X)` fallback are interop
+  details; the project constructor surface stays typed as `SetMorphism` plus
+  `Subset`
 
 Rejection or retirement condition:
 
@@ -77,11 +81,11 @@ Rejection or retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No implementation blocker was discovered during this spec pass.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Dependencies And Boundaries
 
@@ -92,3 +96,7 @@ Rejection or retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Admitted `_ImageSets` as a constructive image subobject/subquotient
+  surface, recorded the `ambient`/`lift`/`retract` obligations in mapping docs and
+  `image.py`, and rejected Sage's generic callable/`Set(X)` fallback as public project
+  API.

@@ -103,7 +103,7 @@ subcategory file that owns its spec.
 | `_DisjointUnionEnumeratedSets` | `subcategories/disjoint_union.py` | Disjoint unions are countable coproducts of indexed families. |
 | `_CartesianProductSets` | `subcategories/cartesian_product.py` | Cartesian products have parent and element projection surfaces. |
 | Sage `ConditionSet` backing | `subcategories/condition.py` through `subcategories/constructions/subobjects.py` | Predicate-defined subsets are subobjects. Sage `ConditionSet` is localized interop used behind `Sets().Subobjects().Of(...)`, not a public project category. |
-| `_ImageSets` | `subcategories/image.py` | Images are subobjects under a map. |
+| `_ImageSets` | `subcategories/image.py` | Images are constructive subobjects/subquotients under a map. The public surface includes `ambient`, `lift`, and `retract`; Sage's private `_map` and `_domain_subset` storage remains implementation detail unless a later source-backed need admits named accessors. |
 | `_TotallyOrderedFiniteSets` | `subcategories/totally_ordered_finite.py` | Finite total orders have parent and element comparison surfaces. |
 | `_FiniteSetMapsSets` | `subcategories/finite_set_maps.py` | Finite map sets own finite enumeration and element-construction surfaces. Generic homset data such as domain/codomain, and endomap identity for the endomap case, belong to the homset/endset refinement. |
 | `_PartitionedSets` | `subcategories/partitioned.py` | A set partition of `X` is a subset of `P(X)` whose blocks are nonempty, pairwise disjoint, and cover `X`; Sage's fixed-base `SetPartitions(X)` is the Sage parent whose elements are these partitions. |
@@ -171,7 +171,7 @@ subcategory boundaries.
 | `DisjointUnionEnumeratedSets(family)` | `DisjointUnionSets` | Countable coproduct/disjoint union of an indexed family. |
 | `CartesianProduct(...)` / `cartesian_product(...)` | `CartesianProductSets` | Product of sets; element projections belong to element methods. |
 | `ConditionSet(universe, predicates...)` | internal backing for `Sets().Subobjects().Of(universe, predicates)` | A condition set is Sage's implementation of a predicate-defined subset. The public project API names the mathematical object as a subobject/subset of its ambient set; Sage `arguments()` and raw predicate tuple plumbing remain inventory-only. |
-| `ImageSubobject(f, X)` | `ImageSets` | Image subobject under a map; must include `ambient`, `lift`, and `retract`. |
+| `ImageSubobject(f, X)` | `ImageSets` | Image subobject under a map; must include `ambient`, `lift`, and `retract`. Public project input is a set morphism `f` and a domain subset `X`; Sage's generic callable wrapping and arbitrary `Set(X)` fallback are interop details, not public constructor shapes. |
 | `TotallyOrderedFiniteSet(elements)` | `TotallyOrderedFiniteSets` | Finite set with order relation `le`; element comparison methods are mathematical when elements are non-facade. |
 | `FiniteSetMaps(domain, codomain)` | `FiniteSetMapSets` plus the set homset/endset refinement | Finite set of functions. The finite-set subcategory owns finite enumeration and constructor surfaces; the homset layer owns `domain`/`codomain`, and the endset layer owns identity for endomap variants. Sage's `one()` remains inventory evidence for the endset identity surface, not a finite-set-only method. |
 | `SetPartitions()` | `Sets().Constructors().AllSetPartitions()` | Countable set of all finite set partitions. This Sage parent has no fixed base set and therefore does not refine into `Partitioned`. |
@@ -191,6 +191,29 @@ are recovered by closing over those arguments before constructing the project ob
 the resulting nullary iterator factory is the set-theoretic input. The old
 `args`/`kwds` plumbing remains migration guidance only and is not a category-spec
 signature.
+
+## Sage `ImageSubobject` Admission Decision
+
+Sage's `ImageSubobject(f, X)` is the image of a set map on a domain subset:
+`{f(x) | x in X}`. It is a subobject of the map codomain and a constructive
+subquotient object with `ambient`, `lift`, and `retract`.
+
+Project admission:
+
+- The constructor path is
+  `Sets().Constructors().ImageSubobject(f: SetMorphism, domain_subset: Subset)`.
+- The result refines through `_ImageSets`, whose supercategories are
+  `Sets().Subobjects()` and `Sets().Subquotients()`.
+- `ambient()` returns the codomain ambient set containing the image.
+- `lift(x)` includes an image element into the ambient set.
+- `retract(x)` retracts an ambient element to the image when defined.
+
+Rejected public routes:
+
+- do not expose generic Sage `Set(X)` wrapping as a project constructor fallback;
+- do not treat Sage's arbitrary callable-to-map conversion as a public signature;
+- do not admit a free-floating image helper outside the subobject/subquotient
+  construction vocabulary.
 
 ## Sage `SetPartition` Method Mapping Decisions
 

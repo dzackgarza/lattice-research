@@ -21,13 +21,15 @@ class _ImageSets(Category_singleton):
 
     Constructor target:
     ``Sets().Constructors().ImageSubobject(f, domain_subset)`` refines here as
-    a set subobject.
+    a constructive set subobject/subquotient.  The ambient set is the codomain
+    of ``f``; ``lift`` and ``retract`` express the Sage-backed subquotient
+    representation of the image inside that ambient.
     """
 
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [Sets().Subobjects()]
+        return [Sets().Subobjects(), Sets().Subquotients()]
 
     class ParentMethods:
         @abstract_method
@@ -45,15 +47,21 @@ class _ImageSets(Category_singleton):
 
         @override
         @abstract_method
-        def ambient(self) -> Set: ...
+        def ambient(self) -> Set:
+            r"""Return the codomain ambient set containing this image."""
+            ...
 
         @override
         @abstract_method
-        def lift(self, x: SetElement) -> SetElement: ...
+        def lift(self, x: SetElement) -> SetElement:
+            r"""Lift an image element into ``ambient()``."""
+            ...
 
         @override
         @abstract_method
-        def retract(self, x: SetElement) -> SetElement: ...
+        def retract(self, x: SetElement) -> SetElement:
+            r"""Retract an ambient element to this image when defined."""
+            ...
 
         @override
         @abstract_method

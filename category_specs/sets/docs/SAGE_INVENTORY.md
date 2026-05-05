@@ -429,7 +429,10 @@ Key methods: `__contains__(x)` (applies all predicates), `ambient()`, `arguments
 
 The image `{f(x) | x ∈ X}` of a set under a map.
 Options: `is_injective` (`None`, `False`, `True`, `'check'`), `inverse`. Key methods:
-`__iter__()`, `__contains__(x)`, `cardinality()`, `an_element()`.
+`ambient()`, `lift(x)`, `retract(x)`, `__iter__()`, `__contains__(x)`,
+`cardinality()`, `an_element()`, `_sympy_()`, equality, and hash. The ambient is the
+codomain of the defining map when the map has one. Sage can wrap arbitrary callables
+and non-parent domains; the project public constructor does not expose that fallback.
 
 [27](#0-26)
 
