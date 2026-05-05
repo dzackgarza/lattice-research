@@ -64,6 +64,27 @@ class _TensorElementMethods:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
+    @abstract_method
+    def trace(self, contravariant_position: Integer, covariant_position: Integer) -> Tensor | RingElement:
+        r"""Contract one contravariant slot and one covariant slot of ``self``.
+
+        If ``tensor_type() == (1, 1)``, the result lies in the base ring. Otherwise
+        the result is a tensor in the component with tensor type
+        ``(p - 1, q - 1)`` on the same base module.
+        """
+        ...
+
+    @abstract_method
+    def contract(self, left_position: Integer, other: Tensor, right_position: Integer) -> Tensor | RingElement:
+        r"""Contract ``self`` with ``other`` along one opposite-variance index pair.
+
+        The positions are counted in Sage's tensor-argument order: all
+        contravariant slots first, then all covariant slots. The result is scalar
+        exactly when the remaining tensor type is ``(0, 0)``; otherwise it is a
+        tensor on the same base module.
+        """
+        ...
+
     @final
     def structure_constants(self) -> Sequence[Matrix]:
         r"""Return coordinate structure constants encoded by a product tensor."""

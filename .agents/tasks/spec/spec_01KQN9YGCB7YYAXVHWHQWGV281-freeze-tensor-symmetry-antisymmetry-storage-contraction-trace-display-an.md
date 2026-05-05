@@ -2,8 +2,9 @@
 trackerStatus:
   type: feature
 title: Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents
-status: to-do
+status: in-review
 priority: critical
+progress: 90
 planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
@@ -23,8 +24,9 @@ scope and the deferred tensor-calculus surface.
 
 ## Source Provenance
 
-- `category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/tensor_algebra_components/docs/TRIAGE.md`.
+- The migrated source path in the original card text is stale. The deleted file actually lived at `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md` and was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`.
 - Original migrated line: `Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents from category_specs/tensor_algebra_components/docs/TRIAGE.md`
+- Recovery check: the pre-removal file records the deferred surface exactly as `Symmetry and antisymmetry subtrees`, `Full component-storage API`, and `Tensor contraction, trace, display, and index-notation surfaces`.
 
 ## Context
 
@@ -73,11 +75,11 @@ Rejection/retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Do not expand tensor API beyond the mapped minimal surface without first freezing the deferred mapping.
-- [ ] Run just smoke-file tensor_algebra_components/smoketest.sage after constructor or refinement changes.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in `category_specs/tensor_algebra_components/docs/MAPPING.md` and, for admitted operations, `category_specs/tensor_algebra_components/__init__.py`.
+- [x] No new subtree-local TRIAGE or process document is created.
+- [x] This leaf does not expand the tensor API beyond the frozen decisions: symmetry/antisymmetry remain constructor metadata; component storage, display, and index notation remain nonpublic; contraction and trace use named tensor-element methods only.
+- [x] The stale provenance path is broadened and corrected to the deleted `plans/category_specs/.../TRIAGE.md` path.
+- [ ] Verification remains cheap and local: parse/diff checks only in this leaf; subtree smoke and global QC are intentionally not part of this review-state handoff.
 
 ## Dependencies And Boundaries
 
@@ -88,3 +90,5 @@ Rejection/retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- Recovered the deleted triage file from `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md` after the migrated `category_specs/.../TRIAGE.md` path proved stale.
+- Froze the deferred tensor-surface mapping: constructor-only `sym=` / `antisym=`, private component storage/rendering/index notation, and explicit tensor-element `trace(...)` / `contract(...)` ownership with codomain rules.
