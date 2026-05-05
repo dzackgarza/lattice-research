@@ -271,6 +271,15 @@ import the forms-owned classes.
 The full discriminant group method surface lives here, while generic torsion quadratic
 module ownership lives in `forms`.
 
+The standard type package is owned by
+`lattices/subcategories/constructions/discriminant_groups.py` and re-exported through
+`types.py` as `DiscriminantGroup`, `DiscriminantGroupElement`,
+`DiscriminantGroupMorphism`, `DiscriminantGroupHom`, `DiscriminantGroupEnd`,
+`DiscriminantGroupAut`, and the corresponding Hom/End/Aut category and element names.
+These names use the module Hom/End/Aut machinery as the categorical carrier; when the
+base category is `Lattices(R).DiscriminantGroups()`, containment is interpreted in the
+finite torsion formed-module category, not as raw matrices or Sage torsion backends.
+
 ---
 
 ## Compatibility Paths

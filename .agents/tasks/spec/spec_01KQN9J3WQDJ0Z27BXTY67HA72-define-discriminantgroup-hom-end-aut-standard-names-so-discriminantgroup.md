@@ -3,10 +3,11 @@ trackerStatus:
   type: feature
 title: Define DiscriminantGroup Hom End Aut standard names so DiscriminantGroupAut
   can be exported
-status: blocked
+status: in-review
 priority: critical
 planId: PLN-CAT-120
 phasePlan: PLN-LAT-040
+progress: 90
 tags:
 - category-specs
 - spec
@@ -61,9 +62,9 @@ Grounded target for this card:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance. No new implementation blocker was discovered; the recorded blocker was stale.
 - [ ] Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage for lattice-surface changes.
 - [ ] Do not admit lattice constructors without completing Sage constructor inventory mapping.
 
@@ -78,3 +79,9 @@ Grounded target for this card:
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 
 - 2026-05-04: Marked `status: blocked` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.
+- 2026-05-05: Rechecked `category_specs/lattices/subcategories/constructions/discriminant_groups.py`
+  and `category_specs/types.py`; the standard Hom/End/Aut names already exist and are
+  exported. Added the missing mapping note to `category_specs/lattices/docs/MAPPING.md`
+  and moved this card to `in-review` because the prior blocker is stale. This was a
+  mapping/card update only; lattice smoke commands were not run because no code surface
+  changed.
