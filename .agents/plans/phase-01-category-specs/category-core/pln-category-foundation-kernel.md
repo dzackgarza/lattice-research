@@ -37,6 +37,28 @@ skills, and `theory/references/index.md` when a standard mathematical claim is i
 The card must record exact definition, owner category, hypotheses, codomain/return
 object, and proof obligations for equivalence or Sage translation.
 
+## Admitted Definitions
+
+The foundation kernel admits these source-backed category definitions for child work:
+
+- `Cat()` owns category objects. `X in Cat()` means `X` is a Sage/project category
+  object, and functors are elements of the corresponding `A.Hom(B)` parent rather than
+  category objects. Source: `category_specs/cat/docs/MAPPING.md`.
+- Category refinement order is Sage's `C.is_subcategory(D)`, interpreted as the
+  existence of a natural forgetful functor from `C` to `D`. Project shorthands
+  `leq`, `geq`, `<=`, and `>=` are only aliases for ordinary category objects.
+  Source: `category_specs/cat/docs/MAPPING.md`.
+- Standard construction selectors such as `Subobjects()`, `Quotients()`,
+  `Subquotients()`, `CartesianProducts()`, `DualObjects()`, `HomCategory()`,
+  `EndCategory()`, and `AutCategory()` are category-object methods. A lower subtree may
+  refine them but must not redefine direct `A.Hom(B)` to mean a different object-level
+  hom. Source: `category_specs/cat/docs/MAPPING.md` and
+  `category_specs/homsets/docs/MAPPING.md`.
+- `WithGenerators` means a distinguished finite generating tuple, not a basis.
+  `FinitelyPresented` may imply `WithGenerators` in the admitted module category
+  pattern, but basis-level coordinate operations still require a basis-bearing owner.
+  Source: migrated source body in this plan plus `category_specs/modules/docs/MAPPING.md`.
+
 ## Source corpus
 
 - `plans/CATEGORY_ABC_SPEC.md`

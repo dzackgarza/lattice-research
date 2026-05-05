@@ -31,13 +31,61 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/homsets/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `src/sage_patches/hom_enrichment.py`.
+- Public hom-space owner: `Modules(R).HomCategory()` and derived homset objects
+  (`Hom`, `End`, `Aut` surfaces).
+- Morphism owner: module morphism classes backing Sage hom objects.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- `Hom(M, N)` is the set of `R`-linear maps with fixed domain/range and composition.
+- A morphism is in the hom object iff it preserves module structure; no ad hoc
+  element-wise side channels.
+- `is_primitive()` on hom is defined as torsion-free cokernel over PID bases.
+- `cokernel()` of a morphism returns a module object in `Modules(codomain.base_ring())`
+  with canonical projection map.
+
+### Return objects / codomains
+- `H.from_dict`, `H.from_images`, `H.from_matrix` return homset elements in
+  `Hom(M, N)`.
+- `f.to_matrix()` / `f.to_dict()` round-trip element data in the domain generator basis.
+- `f.base_change(S)` returns morphism in `Hom(M ⊗ S, N ⊗ S)`.
+- `M.End()` is alias for `M.Hom(M)`.
+- `M.Aut()` is a condition-set subgroup of endomorphisms with inverse present; codomain
+  remains group object (`Groups`).
+- `cokernel().projection()` returns surjective quotient map into the quotient object.
+
+### Concrete implementation work
+- On homset objects (`FreeModuleHomspace`, `FGP_Homset_class`), implement:
+  - `from_dict`, `from_images`, `from_matrix`, `element_from_function`,
+  - `natural_map`, `identity()`.
+- On morphism objects (`FreeModuleMorphism`, `FGP_Morphism`), implement:
+  - `to_matrix`, `to_dict`, `is_primitive`,
+  - `base_change(S)`,
+  - guaranteed `cokernel()` returning refined FGP module and `projection()` accessor.
+- Add `End` / `Aut` constructors consistent with hom-category ownership:
+  - `M.End() -> Hom(M, M)`,
+  - `M.Aut()` built from `End` as invertible core, not a direct matrix group wrapper.
+
+### Acceptance checks
+- `[ ]` `M = ZZ^2`, `H = M.Hom(ZZ^2)`; `H.from_matrix(...)` constructs typed homs in `H`.
+- `[ ]` `f.to_matrix()` and `f.to_dict()` are inverse round-trips under fixed generators.
+- `[ ]` `f.is_injective()` / `f.is_surjective()` agree with `kernel()==zero` and
+  `cokernel()==Modules(ZZ).zero()`.
+- `[ ]` `g = H.from_images([2*h1, 3*h2])` returns a valid hom and
+  `g.cokernel() == ZZ/2 + ZZ/3` in the intended refined codomain.
+- `[ ]` `M.End() == M.Hom(M)` and `M.End().identity() in M.Aut()`.
 
 ## Context
 

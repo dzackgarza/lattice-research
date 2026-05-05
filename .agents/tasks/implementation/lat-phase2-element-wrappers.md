@@ -29,13 +29,24 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Element wrappers in `core/elements.py` are thin `ElementWrapper` adapters over backend elements. They do
+  not define category semantics independently; semantics are owned in `ModulesWithForms(...)`
+  `ElementMethods`.\n-  - Carrier classes: `BilinearModuleElement`, `FreeBilinearModuleElement`, `TorsionBilinearModuleElement`,\n+  - Carrier classes: `BilinearModuleElement`, `FreeBilinearModuleElement`, `TorsionBilinearModuleElement`,\n    `QuadraticModuleElement`, `FreeQuadraticModuleElement`, `TorsionQuadraticModuleElement`.
+- Required element API this phase:
+  - parent access and conversion: `parent()`, `__hash__`, `__eq__`, `to_vector()`, `to_coordinates()`.
+  - arithmetic in symbolic space: `__add__`, `__sub__`, `__neg__`, scalar action via `__rmul__`/`__mul__`.
+  - bilinear/quadratic evaluation: `__mul__`/`_mul_(other)` dispatch to parent form when available,
+    with `q()`/`norm()` delegating to form evaluation.
+  - geometric predicates: `is_isotropic()` and `is_primitive()` via category-owned predicates.
+- Ownership boundaries:
+  - `span()` and inclusion maps belong to category/parent methods; wrappers only expose delegates.
+  - `additive_order()` appears on torsion elements only and delegates to parent torsion data.
+- Acceptance checks:
+  - Symbolic behavior holds (`L.<e,f>; [1,0] not in L`; `e * f` and `e.is_isotropic()` derive from form).
+  - `v + w`, `-v`, scalar actions remain closed in same parent type.
+  - `hash(v)` and equality are stable under presentation-preserving operations.
 
 ## Context
 

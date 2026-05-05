@@ -31,13 +31,29 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-030`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Source anchors:
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+  - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+  - `category_specs/homsets/docs/MAPPING.md`
+  - `category_specs/forms/docs/MAPPING.md`
+- Morphism carrier: `BilinearModuleMorphism` is a Sage `Morphism` object whose parent is a concrete homspace from `.Hom(N)`.
+- Data model: store underlying Sage/FGP morphism (`_fgp_morphism`) and expose domain/codomain via homspace parent.
+- Evaluation contract (`_call_`): map `x in domain` to `codomain`.
+- Constructor/representation contracts:
+  - `to_matrix()` returns the matrix of generator images in codomain generators, matching the constructor layout used by homspace methods.
+  - `images()` / `im_gens` return the tuple of domain-generator images.
+- Algebraic contracts:
+  - `__add__`, `__neg__`, `__sub__`, and direct sum are inherited `Hom`-module/sum operations and stay inside this homspace.
+  - `__mul__` implements composition with strict domain/codomain compatibility (`(self ∘ other)` style).
+  - `direct_sum` returns block-diagonal direct-sum morphism on `M1+M2 -> N1+N2`.
+  - `inverse()` is defined only for bijective maps (`is_bijective`); `is_isometry` delegates to form-aware containment (`self in self.parent()`).
+- Predicate contracts:
+  - `is_injective()` tests `kernel().ngens() == 0`.
+  - `is_surjective()` tests `cokernel().ngens() == 0`.
+  - `is_isomorphism()` means bijective underlying linear map (for module-level semantics).
+  - `is_primitive()` means `self.cokernel().is_torsionfree()` for lattice morphisms.
 
 ## Context
 
@@ -47,15 +63,14 @@ Target boundary: `src/lattices/morphisms/bilinear.py`.
 
 ## Acceptance Criteria
 
-- [ ] Read the cited source section before implementation.
-- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
-- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
-- [ ] Record validation commands and results before handoff.
-- [ ] Do not mark this card done without human approval.
+- [ ] `BilinearModuleMorphism` remains a `Morphism` wrapper over an underlying linear map; matrices stay representational output via `to_matrix()`, not first-class morphism elements.
+- [ ] `to_matrix()`, `images()`, and any dict/image reconstruction agree on the ordered-generator convention used by the homspace constructors.
+- [ ] Composition, additive operations, scalar action, direct sum, and `inverse()` all preserve domain/codomain orientation and return morphisms in the correct hom or end parent.
+- [ ] `is_isometry()` is equivalent to membership in the relevant form-preserving hom/end/aut object, while `is_isomorphism()` and `is_primitive()` stay module-level predicates defined through bijectivity and torsionfreeness of the cokernel.
 
 ## Dependencies And Boundaries
 
-Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+Execute within `src/lattices/morphisms/bilinear.py` using the existing homspace parent as the sole owner of domain/codomain and form-preservation semantics. Do not reintroduce matrix-first or ambient-space semantics on the public morphism surface.
 
 ## Work Log
 

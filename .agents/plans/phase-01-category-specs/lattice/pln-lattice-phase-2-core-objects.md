@@ -30,27 +30,63 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 2: ModulesWithForms Integration Layer
 
-## Definition Grounding Gate
+## Grounded Implementation Contract
 
-This migrated phase text is not sufficient authority for public form/module semantics.
-Before executing a child card, record the canonical definition source, hypotheses,
-codomain, and choice-independence obligations for each touched noun or method.
+Phase-2 is executable as written against the following concrete object-model:
 
-Required source layer for this phase:
+- `ModulesWithForms(R)` owns pairs `(M, f)` where `M` is finitely presented, `f` is a form object on tensor data
+  of `M`, and both parent/element/morphism semantics are category-owned.
+- `FormCodomain` carries the codomain parent `S` and requires first-class branch families:
+  `R`, `Frac(R)`, `Frac(R)/R`, `Frac(R)/2R`, with `QQ/ZZ`, `QQ/2ZZ` as `R=ZZ` instances.
+- Object identity is presented-object-sensitive (`M`+generators+`f`); isometric objects may be distinct.
+- Morphisms are form-preserving maps at the chosen base ring; over base change, the morphism is realized by
+  semilinear triples in `theory/foundations/bilinear-forms-duals-morphisms.md`.
+- Elements are symbolic parent elements; membership is parent check and coordinates require semantic conversion
+  (`element_from`), not automatic coercion.
+- Thin concrete carriers (`core/*`) are wrappers/state holders; public behavior lives in category mixins and
+  pydantic-gated constructors.
 
-- `.agents/skills/lattice-redesign/references/category-abc-spec.md` for
-  `ModulesWithForms(R)` as pairs `(M, f)`, bilinear/quadratic branches, form codomains,
-  and presented object identity;
-- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` and
-  `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
-  for no-ambient-space, no-helper, and presentation-sensitive API rules;
-- `theory/foundations/bilinear-forms-duals-morphisms.md` for bilinear morphisms before
-  coordinate/matrix presentations;
-- `theory/spec_backups/lattices_written_spec_backup.py` as mined source material, not
-  direct implementation authority.
+Method targets by step:
 
-Do not admit coordinate gcd, ambient-vector, mutable-basis, or Sage-native definite
-lattice conventions into this phase without a separate sourced decision.
+- Step 2.1 (`ModulesWithForms`): category mixins and subcategory lattice, including
+  `Hom`, `Homsets`, `SubcategoryMethods`, `form`, `Hom`, `Hom` spaces, and promotion-aware
+  containment checks.
+- Step 2.2 (`FormCodomain`): codomain constructors + coercion checks for the four explicit branches.
+- Step 2.3 (`Form helper objects`): `BilinearForm` and `QuadraticForm` evaluation surfaces and quadratic polar
+  conversion.
+- Step 2.4 (`thin carriers`): `from_gram`, `from_module_and_form_data`, promotion, direct sum, scalar-submodule
+  operations, membership.
+- Step 2.5 (`element wrappers`): `ElementWrapper` thin adapters + symbol-space operations.
+- Step 2.6 (`free/torsion carriers`): `span/perp/orthogonal_complement`, free/torsion invariants, torsion
+  element semantics.
+- Step 2.8 (`pydantic validation`): constructor validation models with branch-specific constraints.
+
+## Admitted Definitions
+
+Phase 2 child work may use the following exact definitions:
+
+- `ModulesWithForms(R)` object: `(M, f)` where `M` is a finitely presented `R`-module
+  and `f` is form data on a tensor-degree source or quotient of the tensor algebra of
+  `M`, with an actual `R`-module codomain `S`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Bilinear branch: degree `2`, scalar action endomorphism `sigma = id_R`, source
+  `M tensor_R M` or a descended symmetric quotient such as `Sym_R^2(M)`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Quadratic branch: degree `1` with current lattice workflow twist `sigma(r)=r^2`,
+  sharing the same module, morphism, homset, tensor, Cartesian, and dual machinery when
+  the mathematics allows it. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Form codomain `S` is a genuine `R`-module parent. The first codomain strata are
+  `S = R`, `S = Frac(R)`, `S = Frac(R)/R`, `S = Frac(R)/2R`, and for `R = ZZ`,
+  `QQ/ZZ` and `QQ/2ZZ`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Elements are real parent elements with symbolic generator coordinates; membership is
+  parent membership. Coordinate vectors define elements only through semantic
+  conversion such as `L.element_from(v)`. Source:
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- `divisibility(v)` for a symmetric bilinear element is already admitted in
+  `category_specs/forms/docs/MAPPING.md` as `<b(v,M)> <= S`; Phase 2 must not create a
+  coordinate-gcd free-module method with that name.
 
 Build the `ModulesWithForms(R)` integration layer, form codomain
 abstraction, and the thin concrete carriers that realize the category

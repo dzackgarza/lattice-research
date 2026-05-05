@@ -29,13 +29,44 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Object definition: `ModulesWithForms(R)` is a category of pairs `(M, f)` where `M` is a
+  finitely presented `R`-module (owned by the module stack) and `f` is form data on a
+  graded/quotiented tensor construction of `M` valued in an actual `R`-module parent `S`
+  (`FormCodomain`). Source-owned canonical definition is in
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Branches:
+  - `Bilinear()` — degree-2 form with `sigma = id_R`, source `M \otimes_R M` or an
+    explicitly descended symmetric quotient such as `Sym^2(M)`.
+  - `Quadratic()` — degree-1 form with the same `Module + form` pipeline and lattice-side
+    convention `sigma(r) = r^2`.
+- Morphism contract:
+  - Over equal base rings: `f: M1 -> M2` is an `R`-linear map satisfying
+    `form2(f(v), f(w)) = form1(v,w)` for all generators/elements.
+  - Over base change `g: R1 -> R2`, morphisms are triples `(g, \~f, \~h)` on base-changed
+    modules and codomains in `theory/foundations/bilinear-forms-duals-morphisms.md`.
+- Presentation semantics: two objects with different generating data (`gens`/basis) are
+  distinct even if isometric; method-level equality uses presentation identity, while isometry
+  is through hom-set containment.
+- Elements and ownership:
+  - Object-level element semantics come from `ModulesWithForms(...).ElementMethods`.
+  - Thin wrappers in `src/lattices/core/elements.py` are `ElementWrapper` adapters only.
+  - `ModulesWithForms(...).Hom(other)` and `Homsets.ParentMethods` are the public constructor
+    for morphism objects.
+- Methods this card owns:
+  - category mixins: `ParentMethods.form`, `ParentMethods.Gens`, `ParentMethods.free_part`,
+    `ParentMethods.torsion_part`, `ParentMethods.Hom`, `ElementMethods.to_vector`,
+    `MorphismMethods.{__call__,kernel,image,domain,codomain}` and `SubcategoryMethods` for
+    `Bilinear/Quadratic/Free/Torsion/NonDegenerate/Integral/Rational/CartesianProducts/
+    TensorProducts/DualObjects`.
+- Acceptance checks in scope:
+  - `L in ModulesWithForms(ZZ).Bilinear()` for phase-2 bilinear constructions.
+  - `Hom(L1, L2)` exists and returns category-owned hom-space object.
+  - `L1.Hom(L2).element_class` and `L1.Hom(L2).morphism_class` resolve to thin wrapper
+    carriers.
+  - `isinstance(m, Morphism) and m.domain() is L1 and m.codomain() is L2` for all promoted
+    hom-space constructors covered in this phase.
 
 ## Context
 

@@ -29,13 +29,32 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Helper objects are plain data-validated wrappers for form semantics, not competing category
+  constructors:
+  - `BilinearForm` stores `(domain, codomain: FormCodomain, gram_matrix)` where
+    `domain` is a `ModulesWithForms` object, `codomain` is an actual module parent, and
+    `gram_matrix` realizes the bilinear map on a chosen presentation basis.
+  - `QuadraticForm` stores `(domain, codomain: FormCodomain, gram_matrix)` and the same
+    evaluation contract, with a quadratic evaluation path and associated polar form.
+- Required method-level behavior in `core/forms.py`:
+  - `domain()`, `codomain()`, `matrix()`, `evaluate(left, right) / b(left,right)`.
+  - `quadratic_form(v)` and `bilinear_form(v,w)` entry points for the bilinear branch.
+  - `to_matrix()` and `with_codomain(...)` constructors that preserve form object identity.
+  - `polar_form()` on `QuadraticForm` producing the associated `BilinearForm`.
+- Branch-specific codomain invariants:
+  - Bilinear path uses scalar-valued pairing in the codomain parent `S`.
+  - Quadratic path computes in the same codomain family and satisfies `q(v+w)-q(v)-q(w)=b(v,w)` via
+    `polar_form`.
+- Method ownership:
+  - `form` objects own no base-change, homs, spans, or lattice-specific invariants.
+  - `ModulesWithForms(...).ElementMethods` and `ParentMethods` own evaluation call paths.
+- Acceptance checks:
+  - `BilinearForm`/`QuadraticForm` must coerce raw evaluations into `S = codomain.codomain()`.
+  - `QuadraticForm.polar_form()` returns a `BilinearForm` on same domain with codomain branch.
+  - Calling `evaluate` on vectors from the same parent but wrong coordinate rank raises input-shape
+    validation.
 
 ## Context
 

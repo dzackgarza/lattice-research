@@ -28,24 +28,64 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 4: Lattice Meets, Duals, and Discriminant Descent
 
-## Definition Grounding Gate
+## Source-Grounded Contract
 
-Before any Phase 4 child card edits code or specs, it must record the exact definitions
-and hypotheses for `Lattices(R)`, rational lattices, dual lattices, discriminant
-objects, quotient-valued forms, `discriminant_class`, lift, named lattice constructors,
-and primitive/inclusion predicates. In particular, the card must distinguish:
-
-- dual elements as functionals or dual-lattice elements, not raw vectors;
-- `A_L` as the cokernel/quotient object `L^*/L`, not a coordinate container;
-- discriminant-form data as quotient-valued bilinear or quadratic form data with an
-  explicit codomain;
-- presented-object equality from isometry.
-
-Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
+Source anchors:
+`.agents/skills/lattice-redesign/references/category-abc-spec.md`,
 `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`,
-`theory/foundations/bilinear-forms-duals-morphisms.md`, and
-`theory/references/index.md` before importing claims from old phase prose or Sage
-lattice conventions.
+`theory/foundations/bilinear-forms-duals-morphisms.md`,
+`category_specs/forms/docs/MAPPING.md`,
+`category_specs/lattices/docs/MAPPING.md`, and `theory/references/index.md`.
+
+- `Lattices(R)` is the integral meet
+  `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`.
+  `RationalLattices(R)` is the rational meet
+  `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`, with codomain
+  `K = Frac(R)`.
+- The algebraic dual `Hom_R(L, R)` and the sharp/rational dual
+  `L^# = {x in L_K : b_K(x, L) <= R}` are distinct notions. Phase 4 implements the
+  rational-dual object inside `L_K`, with basis-dependent matrices used only as
+  representations of the adjoint morphism `ad_b: L -> L^*`, `v |-> b(v,-)`.
+- The discriminant object is the actual cokernel
+  `A_L = coker(L -> L^*) = L^*/L`, not an invariant package. Its descended bilinear
+  form is quotient-valued: `bar_b([x],[y]) = b(x,y) mod R` in `K/R`; the quadratic
+  refinement uses the quotient-valued codomain required by the discriminant-form path
+  (`K/2R`, and `QQ/2ZZ` when `R = ZZ`).
+- `discriminant_class` is the quotient map from dual-lattice elements to `A_L`;
+  ordinary elements of `L` map to the zero class after inclusion. `lift()` returns an
+  element of the dual-lattice object, not a raw coordinate vector.
+- Divisibility is the pairing-image submodule
+  `<b(v, w) : w in M>` of the form codomain. In scalar-valued integral cases this is an
+  ideal; coordinate gcds are only representations under extra hypotheses.
+- Presented-object equality remains distinct from isometry. Basis change, lift, dual,
+  and discriminant construction return new objects and explicit morphisms; they do not
+  mutate a hidden ambient presentation.
+
+## Admitted Definitions
+
+Phase 4 child work may use these definitions:
+
+- `Lattices(R)` is
+  `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Integral()`. For `R = ZZ`,
+  `Lattice` is the integral lattice endpoint. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- `RationalLattices(R)` is
+  `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()` with codomain
+  `K = Frac(R)`. An integral lattice is also a rational lattice by codomain extension.
+  Source: `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- The adjoint map is `ad_b: L -> L^*`, `v |-> b(v,-)`. Matrices represent this map only
+  after bases are fixed; the invariant content is the morphism. Source:
+  `theory/foundations/bilinear-forms-duals-morphisms.md`.
+- Dual lattice elements are functionals or dual-lattice elements, not bare vectors.
+  Backend interop that needs coordinates must expose that separately from semantic
+  lifting. Sources: `theory/foundations/bilinear-forms-duals-morphisms.md` and
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- The discriminant group/object is `A_L = coker(L -> L^*) = L^*/L` with quotient-valued
+  bilinear form `bar b([x],[y]) = b(x,y) mod R` when the dual/discriminant hypotheses
+  hold. Source: `theory/foundations/bilinear-forms-duals-morphisms.md`.
+- `discriminant_class` is the quotient map from dual objects to `L^*/L`; ordinary
+  elements of `L` map to the zero class after inclusion. Source:
+  `category_specs/lattices/docs/MAPPING.md`.
 
 Build the downstream meet-based categories on top of `ModulesWithForms(R)`:
 

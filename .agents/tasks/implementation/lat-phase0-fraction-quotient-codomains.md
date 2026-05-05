@@ -31,13 +31,56 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `fraction_quotients` patch layer in `src/sage_patches/fraction_quotients.py`.
+- Target codomain owners:
+  - module form codomain family (`QQ/ZZ`, `QQ/nZZ`) as `Modules(ZZ)` objects,
+  - discriminant-bilinear form codomains in `forms` workflows.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- For divisible-group-like codomain, `QmodnZ(1)` is `QQ / ZZ` and `QmodnZ(n)` is
+  `QQ / (n*ZZ)`; equality is quotient-class equality.
+- Parent must report `base_ring() == ZZ` so it is semantically a `ZZ`-module.
+- Objects are additive modules in `Modules(ZZ)` with natural quotient map `x ↦ x mod ZZ`
+  and canonical class lift behavior.
+
+### Return objects / codomains
+- `QQ / ZZ` returns a `QmodnZ(1)` object in `Modules(ZZ)`.
+- `QQ / (n*ZZ)` returns `QmodnZ(n)` in `Modules(ZZ)` for integer/numeric `n`.
+- `QQ / (k)` where `k` is an ideal in `ZZ` should normalize through ideal path and
+  return the same quotient-class codomain.
+- `element` lift/equality must preserve canonical-class representatives (`1/2 == 3/2` in `QmodnZ(1)`).
+
+### Concrete implementation work
+- Patch `QQ.__truediv__` (and `RationalField.__truediv__`) to dispatch through:
+  - denominator `ZZ` → `QmodnZ(1)`,
+  - denominator `n*ZZ` or ideal in `ZZ` → corresponding `QmodnZ(n)`.
+- Register `QmodnZ` outputs as module parents:
+  - refine category / membership to `Modules(ZZ)`,
+  - define `base_ring()` to `ZZ`,
+  - preserve coercions from `QQ`.
+- Add targeted regression helpers in `install()` to ensure codomain availability before
+  form workflows call `FormCodomain.torsion_*` helpers.
+
+### Acceptance checks
+- `[ ]` `R = QQ / ZZ` satisfies `R in Modules(ZZ)` and `R(1/2) == R(3/2)`.
+- `[ ]` `R = QQ / (2*ZZ)` satisfies `R in Modules(ZZ)` and elements have expected
+  torsion order by coercion checks.
+- `[ ]` `R(3/2).lift()` returns a `QQ` representative in the expected class.
+- `[ ]` `isinstance(QQ / ZZ, ModuleBaseRings category owner)` (or equivalent refined
+  module parent check) holds in smoke assertions.
+- `[ ]` Discriminant codomain constructor assertions in Phase-1 form tests can instantiate
+  `QQ/ZZ` and `QQ/2ZZ` and evaluate `beta(v,w)` there.
 
 ## Context
 

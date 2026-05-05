@@ -26,15 +26,55 @@ parentPlan: PLN-CAT-100
 Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework instead of ad hoc group or ConditionSet surfaces.
 
 
-## Definition Grounding Requirements
+## Grounded Implementation Contract
 
-Hom/End/Aut work must state the ambient category, source and target objects, membership
-condition, and returned Hom/End/Aut parent or morphism object before code or spec edits.
-Direct `A.Hom(B)` routing, lower HomCategory refinements, endomorphism surfaces, and
-automorphism predicates each need source-backed ownership in mapping docs or Sage source.
+Source anchors for this plan:
 
-Matrix, function, or predicate checks are implementation evidence only after the
-categorical Hom/End/Aut definition and hypotheses are fixed.
+- `category_specs/homsets/docs/MAPPING.md`
+- `category_specs/cat/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `category_specs/lattices/docs/MAPPING.md`
+
+The structural admission target for this plan is:
+
+- `C.HomCategory().Of(A, B)` is `Hom_C(A, B)` with `domain`, `codomain`, construction,
+  containment, and composition owned by the hom-category hierarchy.
+- `C.EndCategory().Of(A)` is `End_C(A) = Hom_C(A, A)`; it is the endomorphism monoid
+  carried by the same hom-object semantics, with extra algebra structure only where the
+  module mapping admits it.
+- `C.AutCategory().Of(A)` is the invertible part of `End_C(A)`; it is a project-owned
+  aut object whose elements are endomorphisms with `inverse()` and other aut predicates.
+- `AutCategory.from_end_category` may use Sage `ConditionSet` internally, but the public
+  object returned on the category-spec surface is the project aut/subobject object.
+- For formed modules and lattices, `Aut(M, b)` is the orthogonal-group surface because
+  form-preserving automorphisms are exactly the invertible endomorphisms in the forms
+  category.
+
+Matrix, function, and predicate calculations remain implementation evidence only after
+the categorical Hom/End/Aut parent and element meanings above are fixed.
+
+## Admitted Definitions
+
+Hom/End/Aut child cards may use these definitions without re-deriving them:
+
+- `C.HomCategory().Of(A, B)` is the hom object `Hom_C(A, B)` for objects `A, B` of
+  `C`; it owns `domain`, `codomain`, identity/zero where valid, and morphism
+  construction/containment for the category. Source:
+  `category_specs/homsets/docs/MAPPING.md`.
+- `C.EndCategory().Of(A)` is `End_C(A) = Hom_C(A, A)`. Domain and codomain are already
+  the generic hom-object methods, so subtree aliases such as `base_set()` or
+  `base_space()` are migration conveniences, not new definitions. Source:
+  `category_specs/homsets/docs/MAPPING.md`.
+- `C.AutCategory().Of(A)` is the invertible part of `End_C(A)`. The generic aut
+  construction is a project extension over Sage's audited generic homset surface;
+  child work must not duplicate aut construction with raw `ConditionSet` surfaces.
+  Source: `category_specs/homsets/docs/MAPPING.md`.
+- For modules, `Hom_R(M,N)` carries `R`-module structure, and `End_R(M)` carries
+  algebra structure where the module mapping doc admits it. For formed modules,
+  orthogonal groups are `Aut(M,b)` in the category of modules with forms. Sources:
+  `category_specs/modules/docs/MAPPING.md`, `category_specs/forms/docs/MAPPING.md`,
+  `category_specs/lattices/docs/MAPPING.md`.
 
 ## Source corpus
 

@@ -39,6 +39,22 @@ skills, and `theory/references/index.md` when a standard mathematical claim is i
 The card must record exact definition, owner category, hypotheses, codomain/return
 object, and proof obligations for equivalence or Sage translation.
 
+## Admitted Definitions
+
+This plan admits the following ordering rules as source-backed constraints:
+
+- Static hierarchy comes before constructor interception. The mathematical category and
+  its method owner must be written explicitly before runtime examples are used to add
+  behavior. Source: migrated `CATEGORY_REFINEMENT_PHASES.md` body below.
+- Runtime inspection and smoke output are evidence about Sage behavior only. They do
+  not define a project category, axiom, constructor, or predicate unless the mapping doc
+  records the mathematical owner and hypotheses.
+- Constructor interception is local: a concrete method may call the inherited Sage
+  method of the same name, then refine the returned parent into the target category.
+  Constructor code must not contain hierarchy policy.
+- Top-level constructors are last-stage entry points into already specified
+  categories; they call Sage once, then refine through the target category.
+
 ## Source corpus
 
 - `plans/CATEGORY_REFINEMENT_PHASES.md`

@@ -30,20 +30,74 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 0: Sage Patches
 
-## Definition Grounding Gate
+## Grounded Implementation Contract
 
-This migrated phase text is implementation inventory, not standalone definition
-authority. Before executing a child card, record the source-grounded definitions for
-the touched public nouns and methods: `ModuleBaseRings`, ideal-submodules,
-quotient modules, enriched free/FGP modules, localizations, completions, Hom
-enrichment, and cokernel/projection/lift surfaces.
+### Canonical source set
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `category_specs/homsets/docs/MAPPING.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
 
-Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
-`.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`,
-`theory/foundations/bilinear-forms-duals-morphisms.md`, and Sage written docs/source
-before treating any old phase-plan prose as operative. If a Sage patch term is
-ambiguous or conflicts with the current category-spec source, block that leaf and file
-the source-mining or decision prerequisite.
+### Target public surface
+- Install `ModuleBaseRings` on target PID bases and route Sage ring/module behavior into
+  redesigned categories under `src/sage_patches/`.
+- Make ideal-submodule, fraction-quotient, completion/localization, module enrichment,
+  module operations, and hom enrichment changes concrete and testable at file-level targets:
+  - `ring_base_category.py`
+  - `ideal_submodule.py`
+  - `fraction_quotients.py`
+  - `completions.py`
+  - `module_enrichment.py`
+  - `module_operations.py`
+  - `hom_enrichment.py`
+
+### Contract obligations (plan-level)
+- Every child TASK card in `PLN-LAT-010` must include an explicit implementation contract
+  for:
+  1) exact noun ownership (`Modules`, `Forms`, hom sets),
+  2) method semantics (`quotient`, `tensor`, `base_change`, `dual`, `cokernel`, etc.),
+  3) codomain/return categories,
+  4) acceptance checks from `tests/sage_spec/misc.sage`.
+- Child cards should not introduce non-document source gates; all work is directly grounded
+  in the listed canonical sources and then expressed as code-level API obligations.
+- `_install.py` remains the single dependency-order entry point and must call each child
+  module `install()` after prerequisites.
+
+### Acceptance criteria (phase gate)
+- `[ ]` `tests/sage_spec/misc.sage` is executable after all module installs, including
+  discriminant-form codomain checks.
+- `[ ]` Phase 1 prerequisites are available: `FormCodomain.torsion_bilinear(ZZ)`,
+  `FormCodomain.torsion_quadratic(ZZ)`, and form evaluation into `QQ/ZZ`, `QQ/2ZZ`.
+- `[ ]` No method contracts in this phase depend on ad hoc helper methods outside mapped
+  category owners in the canonical sources.
+
+## Admitted Definitions
+
+Phase 0 child work may rely on these definitions:
+
+- `ModuleBaseRings` targets commutative PIDs used as base rings for finitely presented
+  module structure. Current target families are `ZZ`, `Zp(p)`, `QQ`, `RR`, `CC`,
+  `QQbar`, and finite fields `GF(p^n)`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- `R^n` is an enriched free `R`-module object, not a raw vector object. It should land
+  in the redesigned `Modules(R)` surface after `ModuleBaseRings` refinement. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- `r * R` and `R * r` mean the principal ideal as an ideal-submodule of `R`; for
+  `A = R` as an `R`-module, `n * A` is the submodule `{n*v : v in A}`. Sources:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md` and
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- `R / I` is a finitely presented `R`-module quotient object in the enriched module
+  surface. Quotient objects must retain module semantics even when Sage returns a ring
+  parent such as `ZZ/(n)`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Localizations, completions, and fraction fields returned from target base rings must
+  be refined back into `ModuleBaseRings` when the returned ring remains in scope, so
+  downstream module/form expressions preserve the same category vocabulary. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
 
 Standalone monkeypatch modules that make existing Sage objects support the
 syntax and semantics required by `tests/sage_spec/misc.sage`. These patches

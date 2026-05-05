@@ -31,13 +31,67 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md` (for dual-notation and morphism discipline)
+- `category_specs/rings.py` (contracted category surface)
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `ModuleBaseRings` in `src/sage_patches/ring_base_category.py`.
+- Integration boundary: ring parents are installed with
+  `ring._refine_category_(ModuleBaseRings())` and dispatch through
+  `ModuleBaseRings.ParentMethods`; no new ring classes.
+- Downstream owners are `Modules(R)` and `Modules(R).WithForms()` for form-bearing
+  modules built from those bases.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- `R` is a base ring in the enriched PID scope:
+  `ZZ`, `Zp(p)`, `QQ`, `RR`, `CC`, `QQbar`, and `GF(p^n)`.
+- `Modules(R)` methods are available on all parents reached by these overrides.
+- `r * R` / `R * r` means principal ideal object with submodule semantics
+  (`{r*x : x in R}`), not multiplication output.
+- `R / I` means the corresponding finitely presented `R`-module quotient parent.
+- `R / n` and `R.quotient(n*R)` are a single construction path through
+  `quotient()`.
+- Returned localizations/completions/fraction fields in scope stay in `ModuleBaseRings`
+  so module expressions continue to route through redesigned semantics.
+
+### Return objects / codomains
+- `R / (n*R)` / `R / (n)` ⇒ module parent intended to satisfy `parent in Modules(R)`.
+- `R^n` via `__pow__` ⇒ enriched free module parent in `Modules(R)`.
+- `R.complete(...)`, `R.localize(...)`, `R.fraction_field()` outputs remain
+  PID-family module-aware ring parents (when in scope).
+- `ideal(...)` and `R * I` / `I * R` outputs remain ideal-submodule parents with
+  module category membership.
+
+### Concrete implementation work
+- Implement `ModuleBaseRings = Rings().PrincipalIdealDomains().Commutative().Subcategory`
+  and required `ParentMethods`.
+- In `ParentMethods`, override:
+  - `__pow__` to produce enriched `R^n`,
+  - `ideal`, `__mul__`, `__rmul__` for ideal-submodule construction,
+  - `quotient` and `__truediv__` dispatch to quotient construction,
+  - `completion` / `localization` / `fraction_field` to refine returned parents.
+- Make `_refine_category_` application idempotent in `install()`.
+- Keep module-membership checks consistent with `Modules(R)` by refining ring
+  quotient and ideal outputs after native construction.
+- Wire install order via `_install.py` after module import path initialization.
+
+### Acceptance checks
+- `[ ]` `ZZ in Modules(ZZ)`, `ZZ/2 in Modules(ZZ)`, `ZZ/(2*ZZ) == ZZ/2`,
+  `ZZ/4` is not field, `ZZ/2` is field.
+- `[ ]` `QQ in Modules(QQ)` and `QQ / ZZ` routes through patched quotient path.
+- `[ ]` `2 * ZZ`, `ZZ * 2`, and `ZZ.ideal(2)` land in module-compatible categories.
+- `[ ]` `Zp(5)` and `GF(5)` produced by install still satisfy `Modules` membership
+  expectations.
+- `[ ]` `ZZ.complete(5)` and `ZZ.localize(5)` return refined ring parents that are
+  accepted by the same `Modules` membership checks.
 
 ## Context
 

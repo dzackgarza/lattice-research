@@ -31,13 +31,25 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-040`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-4-discriminant-descent.md` (Step 4.6), `category-abc-spec.md`, `category_specs/lattices/docs/MAPPING.md`, and `theory/spec_backups/lattices_written_spec_backup.py`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- `LatticeFromGramModel` and `DiscriminantGroupFromCokernelModel` are validation contracts for public parse/creation paths:
+  - `from_gram` requires symmetric integral Gram matrix and nondegeneracy (`det != 0`).
+  - discriminant validation requires `module.cardinality() == abs(det(G_L))` for cokernel input from dual inclusion.
+  - quotient form values must be reduced into `QQ/ZZ` and `QQ/2ZZ` representatives in the discriminant categories.
+  - dual/discriminant parse paths must distinguish algebraic-dual metadata from
+    rational-dual presentation data, so `lift()` and `discriminant_class()` typecheck
+    against actual dual/discriminant parents rather than raw coordinate containers.
+- These are data contracts only (Pydantic/Basemodel validation shape); they encode invariants that the public methods must satisfy before object creation.
+- Model-level predicates must remain close to source:
+  - `discriminant_group` is an actual object with inherited operations (`additive_order`, `is_isomorphic_to`, etc.), not just metadata.
+  - `A_L` presentation equality and isometry/isomorphism are category-level methods on the discriminant object.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Validation is local and schema-level.
+- Expensive checks (`is_isometric_to`, local genus checks, automorphism queries) should not be reimplemented in this layer.
 
 ## Context
 

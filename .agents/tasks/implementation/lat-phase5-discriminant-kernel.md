@@ -30,13 +30,31 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.9),
+`category_specs/lattices/docs/MAPPING.md`,
+`category_specs/forms/docs/MAPPING.md`,
+`category-abc-spec.md`, and `lattice-interface-style-guide.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- The discriminant action is the induced group morphism `O(L) -> O(A_L)` coming from
+  the quotient `A_L = L^*/L`.
+- For `f in O(L)`, the induced action on a class `g in A_L` is computed by choosing
+  `g.lift() in L^*`, applying the dual extension of `f`, then projecting back with
+  `discriminant_class()`. The action must be independent of the chosen lift because the
+  quotient kills the image of `L`.
+- `kernel_of_discriminant_action()` returns the subgroup of `O(L)` (or of a subgroup
+  `G <= O(L)`) acting trivially on every generator/class of `A_L`.
+- This subgroup lives on the orthogonal-group layer, not on the lattice as an ad hoc
+  helper. Membership is a predicate on orthogonal-group elements, composed through the
+  same `ConditionSet` architecture as stabilizers and centralizers.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- The induced action on the finite discriminant object is local once `A_L`, `lift()`,
+  and `discriminant_class()` are implemented.
+- Finite-group computations on `O(A_L)` or subgroup images may route to GAP/Sage small
+  group machinery, but this card does not introduce a separate discriminant-action
+  algorithm.
 
 ## Context
 

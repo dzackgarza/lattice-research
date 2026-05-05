@@ -31,13 +31,58 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `src/sage_patches/module_operations.py`.
+- Target category: `Modules(R).FinitelyPresented()` and `Modules(R).Free()`
+  operations that refine into the redesigned module model.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- Smith normal form invariants control free/torsion decomposition.
+- `free_part()` is the maximal free summand of an FGP module.
+- `torsion_part()` is the finite-torsion quotient (zero if no torsion factors).
+- Generator assignment (`M.<x,y> = ...`) uses `._first_ngens(n)` for ordered ambient generators;
+  fallback verification only if native path does not supply this on refined objects.
+
+### Return objects / codomains
+- `free_part()` returns an `Modules(R).Free()` parent in the same base ring.
+- `torsion_part()` returns a finitely presented torsion parent (e.g. product of cyclic
+  quotients or direct-sum torsion summand).
+- Generator tuple methods must return `M.gen(i)`-style elements in `M`.
+- `invariants()` outputs remain valid and consistent with decomposition.
+
+### Concrete implementation work
+- Implement `FGP_Module_class.free_part()`:
+  - compute Smith normal form invariants,
+  - identify zero-invariant positions as free generators,
+  - construct explicit free submodule parent.
+- Implement `FGP_Module_class.torsion_part()` from complement invariants with explicit
+  canonical presentation.
+- Validate and optionally harden `_first_ngens` to preserve the generator-binding flow
+  used by Sage preparser (`M.<x,y> = ZZ^n`).
+- Keep decomposition methods idempotent under repeated calls and stable under
+  parent equivalence in refined categories.
+
+### Acceptance checks
+- `[ ]` `M1 = ZZ^2 + ZZ/5` satisfies:
+  - `M1.free_part() == ZZ^2`,
+  - `M1.torsion_part() == ZZ/5`.
+- `[ ]` `M2 = ZZ^3 + ZZ/7` satisfies:
+  - `M2.free_part().rank() == 3`,
+  - `M2.torsion_part() == ZZ/7`.
+- `[ ]` Direct-sum decomposition returns parents in expected `is_free`/`is_torsion` states.
+- `[ ]` `M.<x,y,z> = ZZ^3` creates ordered generators and each generator index maps
+  to basis embeddings in `M`.
+- `[ ]` Smith/invariants of `ZZ/5 + ZZ/3` remain unchanged by recomposition through
+  `free_part`/`torsion_part`.
 
 ## Context
 

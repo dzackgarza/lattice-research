@@ -31,13 +31,56 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `completions.py` in `src/sage_patches/`.
+- Public category boundary remains `ModuleBaseRings` via ring refinement from
+  `ring_base_category.py`.
+- Returned objects flow into `Modules` and `Lattices` workflows through existing base-change logic.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- `complete` and `localize` are alias-style accessors for `completion` and `localization`
+  in target ring parents.
+- `ZZ.complete(p)` must refine output to `Zp(p)`-style parent with `ModuleBaseRings` category.
+- `ZZ.localize(5)` must produce `Localization(ZZ, [5])` and preserve membership in
+  module-aware ring scope when in PID family.
+- Any refined completion/localization parent remains compatible with `base_change` and
+  `fraction_field()`.
+
+### Return objects / codomains
+- `complete(p)` return type: ring parent (typically `Zp(p)`) with same base-ring
+  module semantics as `ZZ`.
+- `localize(p)` return type: localization ring object in the same enriched scope with
+  fraction map from `ZZ`.
+- `fraction_field()` remains native return (`QQ` from `ZZ`; `Qp(p)` from `Zp(p)`), but
+  must preserve refined category where applicable.
+
+### Concrete implementation work
+- Add stable alias methods:
+  - `complete = completion`
+  - `localize = localization`
+  in `ModuleBaseRings.ParentMethods` and ensure each calls `super()` then category-refines
+  returned object.
+- Ensure `completions.install()` is invoked from `_install.py` after `ring_base_category.install()`.
+- Gate all operations by ring-scope checks so non-target ring objects keep native behavior.
+- Add targeted assertions in misc test flow for `complete`/`localize` object identity and
+  membership.
+
+### Acceptance checks
+- `[ ]` `ZZ.complete(5) == Zp(5)` and membership assertions for refined ring behavior.
+- `[ ]` `ZZ.localize(5) == Localization(ZZ, [5])` and `1/5 in ZZ.localize(5)`.
+- `[ ]` `1/3 not in ZZ.localize(5)` (or equivalent non-member check).
+- `[ ]` `ZZ.fraction_field() == QQ` and `Zp(5).fraction_field() == Qp(5)` still true.
+- `[ ]` `(ZZ^3).base_change(ZZ.complete(5))` and `(ZZ^3).base_change(ZZ.localize(5))`
+  preserve enriched module behavior.
 
 ## Context
 

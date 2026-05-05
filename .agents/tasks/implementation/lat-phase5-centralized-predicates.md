@@ -30,13 +30,36 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.0),
+`category-abc-spec.md`, `forms/docs/MAPPING.md`,
+`category_specs/lattices/docs/MAPPING.md`, and
+`lattice-interface-style-guide.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Centralized predicates live in `src/lattices/predicates.py` and are the only shared containment policy.
+- Required predicate objects:
+  - `IsometryPredicate(gram)` evaluates `M^T * G * M == G` to define `f ∈ O(L)`.
+  - `CentralizerPredicate(g)` evaluates `f * g == g * f`.
+  - `StabilizerPredicate(v)` evaluates `f(v) == v`.
+  - `LinePredicate(v)` evaluates `f(v) in {v,-v}`.
+  - `DiscriminantKernelPredicate(L)` evaluates `f` acting trivially on `A_L` through
+    the quotient map `L^* -> A_L`, using `lift()` on discriminant generators and
+    `discriminant_class()` on their images.
+- These predicates are morphism predicates. The underlying universe is the relevant
+  matrix/hom realization (`GL_n(R)` or `End(L)`), but the public contract remains
+  subgroup membership in a morphism-valued parent.
+- Subgroup composition is done strictly by `ConditionSet` set operators (`&`, `|`) on predicate sets.
+- Any site that needs containment checks calls predicate objects through `LatticeOrthogonalSubgroup`/group membership, never `assert`ing raw matrix equations.
+- `f in O(L)` remains true iff `f` is a morphism `L → L` and passes `is_isometry`.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Predicate checks themselves are local and deterministic.
+- Finite subgroup enumeration or stabilizer search routes to GAP once the subgroup is
+  realized as a finite action.
+- Indefinite automorphism membership still routes through the ambient Indefinite.jl
+  isometry/automorphism adapters; this file owns the predicate layer, not the search
+  algorithms.
 
 ## Context
 

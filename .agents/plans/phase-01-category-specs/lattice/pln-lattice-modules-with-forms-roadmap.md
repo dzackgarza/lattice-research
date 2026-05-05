@@ -64,6 +64,37 @@ Cards that cannot state source, definition, hypotheses, codomain/return object, 
 choice-independence or equivalence obligations are blocked only for that leaf; the
 correct continuation is a source-mining, decision, or split prerequisite.
 
+## Admitted Definitions
+
+The roadmap admits these definitions from the current source layer:
+
+- `ModulesWithForms(R)` is the category of finitely generated or finitely presented
+  `R`-modules equipped with form data, with `R` currently scoped to commutative PIDs
+  through `ModuleBaseRings`. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- The generic object is `(M, f)`, where `M` is an `R`-module and `f` is semilinear
+  tensor-degree data with an actual `R`-module codomain `S`; scalar-valued forms
+  `S = R` are a special case, not the general definition. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Bilinear, quadratic, free, torsion, nondegenerate, integral, rational, tensor,
+  Cartesian, dual, and Homset strata are subcategory axioms or construction
+  categories, not separate foundations. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Presented object identity is generator-sensitive: a free bilinear module is
+  presented by module, form, and selected generators. Changing generators changes the
+  presented object; isometry is a morphism-level relation with a witness. Sources:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md` and
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- Form-preserving morphisms and isometries are categorical morphisms: a bilinear
+  morphism `f: M1 -> M2` satisfies `b1(v,w) = b2(f(v), f(w))`; an isometry is an
+  isomorphism with that property. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Dual and discriminant constructions are morphism/cokernel constructions. `ad_b:
+  L -> L^*` sends `v` to `b(v,-)`, and `A_L` is recovered as the cokernel quotient
+  `L^*/L` with quotient-valued form data when hypotheses hold. Sources:
+  `theory/foundations/bilinear-forms-duals-morphisms.md` and
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+
 ## Phase tree
 
 - `PLN-LAT-010`: Phase 0 Sage patch prerequisites.

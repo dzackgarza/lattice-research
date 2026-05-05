@@ -29,13 +29,29 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Canonical codomain object: `FormCodomain` is a typed descriptor carrying
+  `(base_ring: R, codomain: S)` where `S` is a genuine `R`-module parent accepting all
+  form values.
+- Required value targets:
+  - `FormCodomain.integral(R) -> S = R` (`Bilinear`/`Quadratic` integral branch),
+  - `FormCodomain.rational(R) -> S = Frac(R)`,
+  - `FormCodomain.torsion_bilinear(R) -> S = Frac(R) / R`,
+  - `FormCodomain.torsion_quadratic(R) -> S = Frac(R) / (2R)`.
+- `R = ZZ` specializations are `QQ`, `QQ/ZZ`, and `QQ/2ZZ` in the working codomain stack.
+- Method-level contract in `core/codomains.py`:
+  - `integral`, `rational`, `torsion_bilinear`, `torsion_quadratic` constructors.
+  - `coerce(value)`/call-style coercion into `S` for form evaluation.
+  - `is_torsion_valued` predicate and `contains(value)` checks against the codomain parent.
+- Ownership:
+  - `Form` objects own no matrix/ambient conventions; codomain determines branch predicates.
+  - No separate “fake codomain descriptor” is permitted beyond a validated parent holder.
+- Acceptance checks:
+  - `FormCodomain.integral(ZZ).codomain() is ZZ`.
+  - `FormCodomain.rational(ZZ).codomain() is QQ`.
+  - `FormCodomain.torsion_bilinear(ZZ).codomain() == QQ / ZZ`.
+  - `FormCodomain.torsion_quadratic(ZZ).codomain() == QQ / (2*ZZ)`.
 
 ## Context
 

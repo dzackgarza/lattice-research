@@ -30,13 +30,31 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.1), `category-abc-spec.md`, `category_specs/lattices/docs/MAPPING.md`, and `forms/docs/MAPPING.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- `orthogonal_group` is `Aut(M,b)` on the formed module category object `(M,b)`.
+- `LatticeOrthogonalGroup` is therefore a subgroup of automorphisms of `L` in the form-preserving hom category:
+  - elements are lattice morphisms, not matrices.
+  - `O(L)` membership filters on object type (`L → L`) plus form preservation predicate from predicates module.
+- `from_matrix` and `__call__` are constructor/dispatch layers:
+  - both return morphisms in `O(L)` after validation.
+  - matrix entry is always interpreted as a representation in the canonical generators, then validated by `is_isometry`.
+- `identity`, `gens`, `order`, `__iter__` stay on `LatticeOrthogonalGroup`.
+- Required semantics checks:
+  - `L.orthogonal_group().lattice() == L`;
+  - a raw matrix is not a group element until wrapped by `O(L).from_matrix(...)` or
+    `O(L)(...)`;
+  - every element of `O(L)` is a morphism in `L.End()` that preserves the form.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Exact backend routing:
+- Positive-definite finite matrix-group auxiliaries may use CARAT and GAP through
+  backend adapters.
+- Indefinite isometry testing routes to Indefinite.jl
+  (`INDEF_FORM_TestEquivalence`).
+- Indefinite automorphism-group generation routes to Indefinite.jl
+  (`INDEF_FORM_AutomorphismGroup`).
 
 ## Context
 

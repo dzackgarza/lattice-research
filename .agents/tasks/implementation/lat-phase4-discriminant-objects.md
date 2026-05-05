@@ -31,13 +31,41 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-040`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `category-abc-spec.md`, `forms/docs/MAPPING.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, `theory/spec_backups/lattices_written_spec_backup.py`, and `pln-lattice-phase-4-discriminant-descent.md` (Step 4.3).
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Discriminant object:
+  - The discriminant group is `A_L := coker(iota_L)` for `iota_L : L -> L^*`.
+  - Construction is generic cokernel machinery on `ModulesWithForms`: this is a torsion formed module with descended form in `K/R` and optional quadratic refinement in `K/2R`.
+- Quotient-valued form semantics:
+  - For bilinear object `(coker iota_L, \bar b)`, define
+    `\bar b([x], [y]) = b(x,y) mod R` in `K/R`.
+  - For associated quadratic structure, codomain is `K/2R` when available.
+  - In `R = ZZ`, this is the integral workflow `QQ/ZZ` and `QQ/2ZZ`.
+- `discriminant_class` semantics:
+  - For `x in L^*`, `discriminant_class(x)` is class of `x` in `A_L`.
+  - For `v in L` (ordinary lattice element), class is zero by factorization through inclusion `L -> L^*`.
+- Category placement:
+  - quotient-valued discriminant forms belong to torsion formed categories:
+    `ModulesWithForms(R).Quadratic().Torsion().NonDegenerate()` with the correct
+    quotient-valued codomain.
+  - discriminant group API should not collapse to raw invariant packages; `A_L` is an actual category object from the cokernel.
+- Divisibility remains a form-codomain submodule: for element `[x]` in `A_L`,
+  `divisibility([x]) = <bar_b([x], [y]) : [y] in A_L>` in the torsion value module,
+  not an integer divisor extracted from a lift.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Model/validation contract:
+- `DiscriminantGroupFromCokernelModel` validates:
+  - `module.cardinality() == abs(det(gram_matrix(L)))`;
+  - derived bilinear values are well-defined in `QQ/ZZ` (and quadratic values in `QQ/2ZZ` where present).
+  - the quotient map `L^* -> A_L` sends the image of `L` to zero, and `lift()` lands
+    back in the chosen dual-lattice presentation.
+- Equality on discriminant groups is equality of presented torsion objects; isometry is a predicate with induced morphism witness.
+
+Backend routing:
+- Cokernel descent uses existing module `cokernel()` semantics from `ModulesWithForms` and should not introduce standalone quotient arithmetic.
+- Any downstream finite classification checks (isomorphism/order checks) may use GAP/CARAT/Sage bridges as dictated by rank/definiteness in later backend rules.
 
 ## Context
 

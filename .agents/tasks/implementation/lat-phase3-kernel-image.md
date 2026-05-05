@@ -31,13 +31,25 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-030`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Source anchors:
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+  - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+  - `category_specs/forms/docs/MAPPING.md`
+  - `category_specs/lattices/docs/MAPPING.md`
+- Kernel contract:
+  - For `f: M → N` in `ModulesWithForms(R).Bilinear()`, `f.kernel()` is the categorical object `ker(f) ⊆ M`.
+  - `ker(f)` inherits the source form via restriction:
+    `β_{ker}(x, y) = β_M(x, y)` for `x, y ∈ ker(f)`.
+  - Returned category must be the meet of source predicates (free/torsion/integral/rational as applicable).
+- Image contract:
+  - `f.image()` is `im(f) ⊆ N` with form inherited from the codomain:
+    `β_{im}(f(x), f(y)) = β_N(f(x), f(y))`.
+  - Image construction must use the underlying FGP image and then wrap as a formed module in the same parent family.
+- Structural boundary:
+  - `kernel()` and `image()` are object-level constructions, not raw subspaces.
+  - `kernel()==` and `image()==` comparisons are against formed-module category zeros in the respective coefficient families.
 
 ## Context
 
@@ -47,15 +59,14 @@ Target boundary: `src/lattices/morphisms/bilinear.py`.
 
 ## Acceptance Criteria
 
-- [ ] Read the cited source section before implementation.
-- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
-- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
-- [ ] Record validation commands and results before handoff.
-- [ ] Do not mark this card done without human approval.
+- [ ] `kernel()` returns a formed subobject of the domain, not a raw relation matrix or ambient subspace, and its form is literally the restriction of the domain form.
+- [ ] `image()` returns a formed subobject of the codomain, not only generator images, and its form is the codomain form restricted to `im(f)`.
+- [ ] Free/torsion/integral/rational predicates on kernel and image are inherited through the relevant meets of `ModulesWithForms(R)` rather than hard-coded by wrapper class name.
+- [ ] Zero-kernel and full-image cases agree with the morphism predicates `is_injective()` and `is_surjective()` used elsewhere in Phase 3.
 
 ## Dependencies And Boundaries
 
-Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+Execute within `src/lattices/morphisms/bilinear.py`, using the underlying FGP kernel/image constructors only as backend data. Public results must stay categorical objects in the formed-module hierarchy.
 
 ## Work Log
 

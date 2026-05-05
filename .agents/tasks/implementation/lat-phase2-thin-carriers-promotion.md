@@ -29,13 +29,30 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Thin carrier classes in `core/abstract.py` are state-holding parents only. They must delegate core
+  algebraic behavior to `ModulesWithForms` category mixins (`ParentMethods`, `ElementMethods`,
+  `MorphismMethods`), including validation ownership, inclusion maps, span behavior, and hom
+  construction.
+- Constructor contracts:
+  - `ModuleWithForm.from_gram(R, gram_matrix, codomain=...)` for free presentations.
+  - `ModuleWithForm.from_module_and_form_data(module, gram_matrix, codomain=...)` for mixed carriers.
+  - `ModuleWithForm.from_cokernel(morphism)` remains a Phase 3 concrete implementation point.
+  - `from_quotient(...)` is a local shim only when quotient parent is provided by a tested backend.
+- Promotion contract:
+  - Carrier promotion is determined by predicates (`Bilinear`/`Quadratic`, `Free`/`Torsion`,
+    `Integral`/`Rational`, `NonDegenerate`) and returns the richest compatible meet.
+- Required method-level operators:
+  - `__add__`: direct sum / orthogonal block sum in the same carrier family.
+  - `__pow__`: `n`-fold direct sum (`L^n`).
+  - `__mul__` and `__rmul__`: scalar submodule operation using module multiplication on coordinates.
+  - `__contains__`: parent membership only; coordinates are not coerced by default.
+  - `_element_constructor_` to construct/wrap elements via owned element class.
+- Acceptance checks:
+  - `L + L` remains a `ModuleWithForm` in the expected meet.
+  - `L ^ 3` is well-typed and preserves form degree and presentation intent.
+  - `a in L` is a true parent-membership query.
 
 ## Context
 

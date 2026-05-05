@@ -31,13 +31,24 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-030`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Source anchors:
+  - `category_specs/homsets/docs/MAPPING.md`
+  - `category_specs/modules/docs/MAPPING.md`
+  - `category_specs/forms/docs/MAPPING.md`
+  - `category_specs/lattices/docs/MAPPING.md`
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- Hom/End/Aut semantics:
+  - for any formed object `M`, `M.End()` is the end object `End(M) = Hom(M, M)` in the same hom-category hierarchy as `M.Hom(M)`;
+  - `M.Aut()` is the invertible part of `End(M)`, i.e. the units in the endomorphism monoid, not a separately guessed matrix group;
+  - in the forms-owned categories, `Aut(M, b)` is the orthogonal group: automorphisms of `M` that preserve the attached form.
+- Public-construction boundary:
+  - `End` and `Aut` are category-recognized parents with domain/codomain semantics inherited from the generic hom object;
+  - Sage `ConditionSet` may appear as an internal bridge in generic aut construction, but the public surface is the project-owned aut parent/object.
+- Quotient notation:
+  - `M / N` means the cokernel of the canonical inclusion `N -> M` when `N` is a genuine subobject of `M`;
+  - the result is the categorical quotient object in `ModulesWithForms(R)` with induced quotient data, not shorthand for ambient-coordinate elimination.
 
 ## Context
 
@@ -47,15 +58,14 @@ Target boundary: `src/lattices/categories/modules_with_forms.py`.
 
 ## Acceptance Criteria
 
-- [ ] Read the cited source section before implementation.
-- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
-- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
-- [ ] Record validation commands and results before handoff.
-- [ ] Do not mark this card done without human approval.
+- [ ] `M.End()` is implemented as the same parent as `M.Hom(M)` and carries the documented endomorphism identity and composition structure.
+- [ ] `M.Aut()` is implemented as the invertible part of `M.End()`, with `inverse()` and `is_isomorphism()` coming from the aut/end hierarchy rather than ad hoc matrix predicates.
+- [ ] For formed modules and lattices, orthogonal-group semantics are expressed through `Aut(M, b)` membership, so form preservation remains the containment law for aut elements.
+- [ ] `M / N` routes through the inclusion morphism and returns the cokernel object in the formed-module hierarchy.
 
 ## Dependencies And Boundaries
 
-Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+Execute within `src/lattices/categories/modules_with_forms.py`, preserving the generic hom/end/aut construction from the category-spec mapping. Do not expose quotient notation as raw presentation syntax detached from an inclusion morphism.
 
 ## Work Log
 

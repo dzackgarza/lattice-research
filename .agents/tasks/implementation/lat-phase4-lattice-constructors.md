@@ -31,13 +31,30 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-040`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `theory/spec_backups/lattices_written_spec_backup.py`, `category-abc-spec.md`, `category_specs/lattices/docs/MAPPING.md`, and `pln-lattice-phase-4-discriminant-descent.md` (Step 4.4).
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Lattice constructors are on `Lattice` endpoints and must follow explicit meet names:
+  - `Lattice.Z()`, `Lattice.U()`, `Lattice.A(n)`, `Lattice.D(n)`, `Lattice.E(n)`, `Lattice.I(p,q)`, `Lattice.II(p,q)`, `Lattice.k3()`, `Lattice.coble_picard()`, `Lattice.root_lattice(name)`, `Lattice.from_gram(G)`, `Lattice.from_string(s)`.
+- Named constructors must return concrete `Lattice` or `RationalLattice` instances under the same constructor logic:
+  - `from_gram` builds via `RationalLattice.from_gram` and promotes to `Lattice` only when integral coefficients are integral-valued.
+- `twist(n)` is exact form scaling and changes form only.
+- Scalar multiple `n * L` is a submodule with `n^2`-scaled Gram matrix and different basis image from twist.
+- Direct sum `L1 + L2` returns a lattice with explicit summand embeddings:
+  - tuple of summands, embedding maps are subobject morphisms, and `iota_i`/projections participate in orthogonal decomposition checks (`iota_i.image().perp() == iota_j.image()` for `i != j`).
+- `discriminant_group()` path must be via `self.dual().inclusion_morphism().cokernel()` (same as plan), not a bypass API.
+- `dual()` and `discriminant_group()` must preserve the algebraic-dual versus
+  rational-dual split from the theory note: public lattice constructors build the
+  presented lattice, while the dual/discriminant constructors build the actual
+  dual/cokernel objects with explicit morphisms.
+- `from_string("U(2) + A_1")` parses to the above operations, and parser output must respect direct-sum semantics.
+- `is_isometric_to(other,witness=False)` returns witness morphism when `witness=True`, and witness lives in `L.Hom(other)`.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Constructor internals are local; invariant and comparison calls follow the phase-level backend map:
+  - integer-lattice isometry/genus/isotropic queries route to the Julia/Sage/CARAT/Indefinite stack in later cards;
+  - this file itself only wires constructor contracts and return-codomain assumptions.
 
 ## Context
 

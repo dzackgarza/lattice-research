@@ -30,13 +30,31 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.3),
+`theory/references/index.md` (Dawes), `theory/backends/software-capability-map.md`,
+and `theory/backends/indefinite-jl.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Orbits:
+  - `isotropic_line_orbits()` enumerates primitive isotropic lines modulo sign.
+  - `isotropic_plane_orbits()` enumerates primitive isotropic 2-planes modulo group action.
+  - `isotropic_flag_orbits(dim)` enumerates isotropic flags of the requested length/dimension.
+  - `isotropic_lines_are_equivalent(v,w)` is an orbit-membership predicate.
+- Sign convention is inherited from lattice primitives: lines are projective (`<v>`), so line predicates are projective and should not confuse with vector-orbit predicates.
+- For `O(L)` vs `SO(L)` semantics: `O(L)` may identify more line orbits due to determinant sign flexibility; `SO(L)` may split those orbits.
+- Orbit outputs are representatives in the semantic lattice/group categories: a line
+  orbit returns primitive isotropic line representatives, a plane orbit returns
+  primitive isotropic sublattices or their chosen generator data, and a flag orbit
+  returns nested isotropic subobject data.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing (exact):
+- Indefinite forms: use Indefinite.jl APIs:
+  - `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_GetOrbit_IsotropicKflag`.
+- Vector/isometry equivalence questions arising while comparing orbit representatives
+  route to `INDEF_FORM_TestEquivalence`.
+- Finite groups/actions: use GAP orbit/stabilizer tools.
+- This card does not introduce new local isotropic-flag enumeration engines.
 
 ## Context
 

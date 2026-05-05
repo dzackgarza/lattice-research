@@ -30,20 +30,59 @@ Migrated source: this plan contains the full content formerly stored at `plans/P
 
 # Phase 3: Concrete Morphism Wrappers and the Cokernel Machine
 
-## Definition Grounding Gate
+## Grounded Implementation Contract
 
-Before any Phase 3 child card edits code, it must record the source-grounded definitions
-for Hom spaces, morphisms, form-preserving containment, isometries, kernel, image,
-cokernel, projection, and lift. The grounding must name the morphism direction, source
-and target categories, the form codomain, and the object returned by each quotient or
-lift operation.
+Source anchors for this phase:
 
-Canonical sources for this phase are
-`.agents/skills/lattice-redesign/references/category-abc-spec.md`,
-`.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, and
-`theory/foundations/bilinear-forms-duals-morphisms.md`. Matrix equations may be used
-only as implementation checks inside Hom/Aut parents after the categorical statement is
-fixed.
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
+- `category_specs/homsets/docs/MAPPING.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `category_specs/lattices/docs/MAPPING.md`
+
+Phase 3 implementation is grounded by the following owned meanings:
+
+- `M.Hom(N)` is the categorical hom parent for formed objects. Matrices, image tuples,
+  and dicts are constructor data for elements of that parent, not morphisms.
+- A bilinear-module morphism is an `R`-linear morphism preserving the attached form.
+  Homspace containment owns this law; an isometry is a bijective such morphism.
+- `End(M)` is `Hom(M, M)`, and `Aut(M)` is the invertible part of `End(M)`. For formed
+  objects this is the orthogonal-group surface, not an ambient matrix-group shortcut.
+- `kernel(f)` and `image(f)` are actual formed subobjects with forms restricted from
+  the source and target respectively.
+- `cokernel(f)` is the actual quotient object `codomain(f) / image(f)` with descended
+  coefficient codomain obtained by first taking the coefficient cokernel and then
+  quotienting by the cross-term image `<beta(im(f) · codomain(f))>`.
+- The quotient object owns its canonical projection, while quotient elements own lift as
+  representative choice in the original codomain.
+
+Matrix equations remain implementation checks inside hom/end/aut parents after the
+categorical object, codomain, and quotient semantics above are fixed.
+
+## Admitted Definitions
+
+Phase 3 child work may use these morphism definitions:
+
+- A homspace `M.Hom(N)` is a parent whose elements are morphisms. A matrix, dict, or
+  sequence of images is constructor data for an element of that parent, not itself a
+  morphism. Sources:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md` and
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- A bilinear-module morphism is an `R`-module morphism preserving the form:
+  `b1(v,w) = b2(f(v), f(w))`. Homspace containment owns this check. An isometry is a
+  bijective form-preserving morphism. Source:
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- Morphisms are not containers and do not have `perp`. Orthogonal-complement verbs
+  belong on formed objects, subobjects, or relevant ambient bilinear-module nouns.
+  Source: `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- `kernel(f)` is the actual kernel object with form restricted from the domain;
+  `image(f)` is the actual image object with form restricted from the codomain;
+  `cokernel(f)` is `codomain/im(f)` with descended form data when descent hypotheses
+  hold. Source: `.agents/skills/lattice-redesign/references/category-abc-spec.md`.
+- For triple/base-change morphisms, the cokernel first computes module and coefficient
+  cokernels in the target fiber, then quotients coefficient data by cross-term images
+  so the form descends. Source: `theory/foundations/bilinear-forms-duals-morphisms.md`.
 
 Build the concrete morphism layer on top of `ModulesWithForms(R)`: thin
 hom-space wrappers as genuine Sage homsets, thin morphism wrappers as Sage

@@ -31,13 +31,36 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-040`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `theory/foundations/bilinear-forms-duals-morphisms.md`, `category-abc-spec.md`, `forms/docs/MAPPING.md`, and `theory/spec_backups/lattices_written_spec_backup.py` (DualLattice, dual-lattice section).
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Algebraic dual and sharp/rational dual split:
+  - Algebraic dual is `Hom_R(L, R)` in the abstract category of formed modules.
+  - Rational dual (the home used by this code) is `L_K = L ⊗_R K` equipped with the form extended to `K`, and the sublattice
+    `L^# = { x in L_K : β_K(x, L) ⊆ R }` (`K = Frac(R)`).
+  - For nondegenerate free modules, basis choices identify `L^#` with `L^*`; the
+    Gram matrix represents the adjoint map `L -> L^*`, while the inverse Gram matrix
+    represents the inclusion `L^# -> L_K` after the dual basis is chosen through
+    `lambda^{-1}(e_i^*)`.
+- `DualLattice` is a rational-lattice object living in `RationalLattice`:
+  - elements are functionals `L -> R` or `L -> K` as explicit members of the dual module, not raw ambient vectors.
+  - `source_lattice() -> L` is mandatory metadata; this is not an equality with an ambient copy.
+  - `DualLattice.from_lattice(L)` must use `L`’s Gram matrix as the linear map `ι_L: L → L^*` by convention in chosen coordinates.
+- `inclusion_morphism()` contract:
+  - returns `iota_L` in `L.Hom(dual)` and `to_matrix()` equals Gram matrix of `L` in canonical generators after the `category-abc` representation.
+  - evaluation semantics: for basis vectors `e_j`, `iota_L(e_j) = Σ_i β(e_j,e_i) e_i^*`.
+- `DualLatticeElement` and `LatticeElement` both expose:
+  - `discriminant_class()` on dual side: map to `A_L = coker(iota_L)`.
+  - `L` elements map to zero class via the inclusion path.
+- `divisibility` and `is_primitive` remain form-derived (not coordinate gcd by default):
+  `divisibility(v) = <b(v, w) : w in L>` in the form codomain, and ordinary lattice
+  elements are primitive by the presented-module inclusion data, not by ambient-vector
+  shortcuts.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend and routing:
+- `inclusion_morphism` and dual module construction stay in `ModulesWithForms`/`DualObjects`; no custom local algebra engines are introduced in this card.
+- Any finite/infinite isometry or automorphism claim using `DualLattice` is deferred to later Phase-4/5 backend decisions (currently no new math kernels in this card).
 
 ## Context
 

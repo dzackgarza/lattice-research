@@ -31,13 +31,23 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-030`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Source anchors:
+  - `.agents/plans/phase-01-category-specs/lattice/pln-lattice-phase-3-morphisms-cokernels.md` (Step 3.5)
+  - `category_specs/modules/docs/MAPPING.md`
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+  - `theory/foundations/bilinear-forms-duals-morphisms.md`
+- Projection semantics:
+  - if `C = f.cokernel()`, then `C.projection()` is the canonical quotient morphism `pi : codomain(f) -> C`;
+  - `pi` is a morphism in the relevant formed-module homspace, `pi.is_surjective()` is true, and `ker(pi) = im(f)` as categorical objects.
+- Lift semantics:
+  - each cokernel element `x_bar in C` may expose `x_bar.lift()` returning some chosen representative `x in codomain(f)` such that `pi(x) = x_bar`;
+  - this is representative data for the quotient projection, not a new section or splitting morphism;
+  - the implementation may delegate representative choice to the underlying FGP quotient lift, then wrap the representative back into the codomain object.
+- Quotient-object surface:
+  - invariants, cardinality, generators, and other quotient data belong on the cokernel object `C`, not on the original morphism;
+  - `projection()` lives on the quotient object because it is structure of the quotient, while `lift()` lives on quotient elements because it chooses representatives of quotient classes.
 
 ## Context
 
@@ -47,15 +57,14 @@ Target boundary: `src/lattices/morphisms/bilinear.py`.
 
 ## Acceptance Criteria
 
-- [ ] Read the cited source section before implementation.
-- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
-- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
-- [ ] Record validation commands and results before handoff.
-- [ ] Do not mark this card done without human approval.
+- [ ] Every cokernel object returned by Phase 3 exposes a canonical projection morphism from the original codomain, and that projection is surjective with kernel equal to the image of the original morphism.
+- [ ] `lift()` exists only as quotient-representative selection for cokernel elements and composes with `projection()` to recover the original quotient class.
+- [ ] Quotient invariants, generators, and cardinality remain properties of the cokernel object itself rather than ad hoc helpers on the original morphism wrapper.
+- [ ] The projection/lift API works for both ordinary quotient modules and the discriminant-style quotient path needed later for `L^#/L`.
 
 ## Dependencies And Boundaries
 
-Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+Execute within `src/lattices/morphisms/bilinear.py`, keeping quotient structure on the cokernel object and representative choice on cokernel elements. Do not reinterpret `lift()` as a canonical inverse to the projection.
 
 ## Work Log
 

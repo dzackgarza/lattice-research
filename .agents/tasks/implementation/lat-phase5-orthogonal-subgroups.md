@@ -30,13 +30,34 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.2),
+`category-abc-spec.md`, `forms/docs/MAPPING.md`,
+`category_specs/lattices/docs/MAPPING.md`, and `lattice-interface-style-guide.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Subgroups are predicate-defined refinements of `LatticeOrthogonalGroup` through `LatticeOrthogonalSubgroup`.
+- Constructor contracts:
+  - `centralizer(g)` adds predicate `f g = g f`.
+  - `stabilizer(v)`:
+    - if `v in L`, fixes vector (`f(v)=v`);
+    - if `v` is a submodule or flagged subobject, preserves its image setwise through
+      the subobject inclusion morphism and chosen generators, rather than comparing raw
+      ambient coordinates.
+  - `stabilizer_of_isotropic_line(v)` applies line-level predicate (`f(v) ∈ {v,-v}`).
+  - `kernel_of_discriminant_action()` adds the condition that the induced action on
+    `A_L` is identity.
+  - `special_orthogonal_subgroup()` is the determinant-one subgroup after the chosen
+    matrix realization of `O(L)` is fixed.
+- Subgroup operations are via `ConditionSet` intersection/union; no bespoke composition operators.
+- Membership semantics remains inherited from ambient orthogonal group and predicate set.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Subgroup predicates are in-memory and deterministic.
+- For finite subgroup computations (order, Schreier search, stabilizer lifts), prefer
+  GAP once a finite matrix-group realization exists.
+- For indefinite subgroup membership inherited from `O(L)`, reuse the Indefinite.jl
+  ambient group realization rather than introducing subgroup-specific local search.
 
 ## Context
 

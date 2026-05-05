@@ -29,13 +29,25 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- `validation/presentations.py` defines all Phase 2 constructor-level proof obligations for form objects and
+  carriers; validation is data-structural, not behavioral.
+- Required model contracts:
+  - `FormCodomainModel`: validate `base_ring` (PID-compatible) and `codomain` as a coherent Sage parent.
+  - `BilinearModulePresentationModel`: validate form domain/rank, square matrix shape, and branch-consistent
+    entries.
+  - `FreeModulePresentationModel`: validate free-rank realization and coefficient ring membership.
+  - `TorsionModulePresentationModel`: validate invariant tuples and torsion codomain in quotient-valued branches.
+- Required mechanics:
+  - Use `model_validator(mode="after")` for derived checks (e.g., symmetry when `symmetric=True`,
+    nondegeneracy assumptions, rank and ring branch coherence).
+  - Keep error messages actionable and branch-specific (`integral`, `rational`, `torsion_*`).
+  - Export only model-level constructors used by `core` carriers in this phase.
+- Acceptance checks:
+  - Invalid shape/ring/branch input fails before object construction.
+  - Valid models permit the corresponding `from_*` constructors in `core/abstract.py`/`core/free.py`/`core/torsion.py`.
+  - Validation does not mutate semantic state; it only rejects malformed presentations.
 
 ## Context
 

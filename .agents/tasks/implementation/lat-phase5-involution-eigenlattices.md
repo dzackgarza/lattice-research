@@ -30,13 +30,23 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.4), `category-abc-spec.md`, and `theory/spec_backups/lattices_written_spec_backup.py`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- `L.invariant_sublattice(g)` contract:
+  - Defined for involution `g ∈ O(L)` as `ker(g - id)` and expressed via kernel on hom-space.
+  - Hypothesis: `g^2 = id`; precondition for interpretation as invariant part.
+- `L.coinvariant_sublattice(g)` contract:
+  - Defined as `ker(g + id)` (−1-eigenspace lattice in free module terms).
+  - Expectation: in hyperbolic rank-2 examples `coinvariant = invariant.perp()` when form is nondegenerate.
+- Return objects are lattices with inherited forms (subobject kernels with restricted form).
+- These are lattice-level methods on `Lattice` with subobject semantics, not matrix operators.
+- Compatibility checks must use morphism arithmetic only (`g + id`, `g - id`) and kernel construction from morphism category.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Kernel/inclusion computations are category-algebraic local operations on hom-objects.
+- Any downstream group-order computations from these sublattices are delegated according to backend map (finite exact / indefinite split).
 
 ## Context
 

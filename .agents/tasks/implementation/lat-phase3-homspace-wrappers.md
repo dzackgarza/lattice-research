@@ -31,13 +31,27 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-030`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Source anchors:
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+  - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+  - `category_specs/homsets/docs/MAPPING.md`
+  - `category_specs/forms/docs/MAPPING.md`
+- Homspace semantics: for objects `M, N` in `ModulesWithForms(R).Bilinear()` (or refinements), `M.Hom(N)` is the categorical parent `Hom(M, N)`.
+  - Its elements are wrapper morphisms only (not raw matrices or bare maps).
+  - The parent carries domain and codomain and uses ambient `Hom` structure from `ModulesWithForms`.
+- Constructor-data semantics:
+  - `element_from_dict({g_i: x_i})` consumes an explicit map from `M.gens()` to `N` and returns a morphism in `M.Hom(N)`.
+  - `element_from_images((x_1, ..., x_n))` consumes ordered domain-generator images and returns a morphism in the same homspace.
+  - `element_from_matrix(A)` consumes a matrix whose column `j` is `f(e_j)` and returns `f` in `M.Hom(N)`.
+- Containment semantics (`__contains__`):
+  - valid only if `f` is a `BilinearModuleMorphism` parented by this homspace and whose underlying FGP map is in the parent fgp-homset;
+  - and form preservation holds: `N.b(f(e_i), f(e_j)) == M.b(e_i, e_j)` for all domain generators.
+- Dispatch semantics:
+  - `__call__` is a thin wrapper: pass through existing homspace elements, lift FGP morphisms from the cached fgp-homset, otherwise treat matrix-like constructor data through `element_from_matrix`.
+- Algebraic identity:
+  - `zero()` and `identity()` construct morphisms in this homspace using category-level construction, preserving source/codomain and form-aware membership constraints.
 
 ## Context
 
@@ -47,15 +61,14 @@ Target boundary: `src/lattices/morphisms/homspaces.py`.
 
 ## Acceptance Criteria
 
-- [ ] Read the cited source section before implementation.
-- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
-- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
-- [ ] Record validation commands and results before handoff.
-- [ ] Do not mark this card done without human approval.
+- [ ] `M.Hom(N)` is admitted as `ModulesWithForms(R).Bilinear().HomCategory().Of(M, N)` and retains the `R`-module parent structure documented for module homsets.
+- [ ] Dicts, ordered image tuples, and matrices are accepted only as constructor data; equivalent inputs produce the same `BilinearModuleMorphism`, while the raw constructor data itself is not an element of `M.Hom(N)`.
+- [ ] `__contains__` accepts exactly wrapper morphisms with matching domain/codomain whose underlying map is linear and form-preserving in the sense `b_N(f(v), f(w)) = b_M(v, w)` on domain generators.
+- [ ] `identity()` exists only on end objects, `zero()` exists on every hom object, and both return morphisms parented by the same homspace.
 
 ## Dependencies And Boundaries
 
-Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+Execute within `src/lattices/morphisms/homspaces.py` against the Phase 3 plan and existing `ModulesWithForms(R)` hom-category contracts. Preserve the distinction between constructor data and morphism elements; do not move form-preservation checks out of homspace containment.
 
 ## Work Log
 

@@ -29,13 +29,23 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-020`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
-
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- Concrete carriers in `core/free.py` and `core/torsion.py` implement presented objects:
+  - `FreeBilinearModule`: free finite-rank objects with form matrix data (`M ≅ R^n`).
+  - `TorsionBilinearModule`: torsion quotients/invariants with codomain in `K/R` or `K/(2R)` branches.\n-  - `Rational`/`integral` classification is property-based via `FormCodomain`.
+- Required methods in this phase:
+  - `span(gens)` returns the subobject with inherited form on generated vectors.
+  - `perp(submodule)`/`orthogonal_complement(submodule)` for symmetric forms.
+  - `is_nondegenerate()`, `is_degenerate()`.
+  - form invariants in free branch: `determinant()`, `discriminant()`, `signature_pair()`, `rank()`.
+  - torsion predicates and invariants: `is_torsion()`, `additive_order()`, `value_module()`.
+- Method ownership:
+  - Structural submodule/quotient behavior comes from category subobject/quotient surfaces where available.
+  - Torsion/discriminant-specific behavior stays in torsion carrier classes and forms-owned methods.\n-  - No legacy `is_injective`/`is_surjective`/`is_identity` ad hoc checks are introduced here.\n+- Acceptance checks:
+  - `FreeBilinearModule(...).span([e])` returns free module of expected rank and inherited form matrix.
+  - `perp()` returns complement object in same family when symmetry permits.
+  - `TorsionBilinearModule.from_invariants_and_gram(...)` validates invariants and keeps form codomain in `QQ/ZZ`/`QQ/2ZZ` when `R=ZZ`.
 
 ## Context
 

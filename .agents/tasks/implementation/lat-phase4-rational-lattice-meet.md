@@ -31,13 +31,32 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-040`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `category-abc-spec.md`, `lattice-interface-style-guide.md`, `forms/docs/MAPPING.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `pln-lattice-phase-4-discriminant-descent.md` (Step 4.1).
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- `RationalLattice` is the meet
+  `ModulesWithForms(R).Bilinear().Free().NonDegenerate().Rational()`.
+  For `R = ZZ`, this is a `QQ`-valued free symmetric nondegenerate bilinear module.
+- In this category the parent must expose:
+  - `form()`, `b(v,w)`, `gram_matrix()`;
+  - `rank()`, `gens()`, `span(...)`, `perp(...)`;
+  - `is_nondegenerate()` etc from the category axioms.
+- `from_free_module_and_gram(...)` must construct the free module and its `QQ`-valued Gram matrix in coordinates; `b(v,w)` is the coordinate evaluation in that generating set.
+- Scalar multiplication and twist are distinct:
+  - `n * L` is the submodule `{ n*v : v in L }` with generators `{ n*e_i }` and Gram matrix `n^2 G_L`.
+  - `L.twist(n)` scales the form only: Gram matrix `n*G_L`.
+  - The constructor contract is explicit in the plan (`not (2*U).is_isometric_to(U.twist(2))`).
+- `L = (1/n) * L` is represented as a free rational module with Gram `(1/n^2) G_L` and the same abstract basis semantics as other scalar multiples.
+- `divisibility(v)` remains the categorical form definition from `category-abc`:
+  `divisibility(v) = < b(v, w) : w in M > <= S`, where `S` is the form codomain.
+  For scalar-valued integral forms `S = R`, this is an ideal of `R`; for rational
+  codomain `S = K`, it is a submodule of `K`, not a coordinate gcd.
+- `__mul__` and `__add__` are module operations, not ambient-vector shortcuts.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- No new local linear-algebra engine is introduced here; this card only defines the in-memory rational-lattice meet contract.
+- For invariants needing external engines later in the phase, use the Phase 4/5 backend protocol (Indefinite/CARAT split) rather than matrix-level hand proofs.
 
 ## Context
 

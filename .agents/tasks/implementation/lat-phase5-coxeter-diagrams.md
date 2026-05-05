@@ -30,13 +30,29 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.8),
+`theory/backends/vinberg-algorithm.md`, `theory/references/index.md`,
+`category_specs/lattices/docs/MAPPING.md`, and `lattice-interface-style-guide.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
-
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+- A Coxeter diagram is the weighted graph attached to a chosen simple-root set or,
+  more generally, to root hyperplanes whose pairwise angles/Coxeter exponents are
+  already determined by a backend or finite root-system constructor.
+- `CoxeterDiagram` is therefore a local graph/poset object:
+  - nodes correspond to chosen simple roots;
+  - edge labels/weights encode the Coxeter relation data supplied by the root/Coxeter
+    backend;
+  - `subdiagram`, `subdiagram_poset`, `Aut`, and connectivity checks are local
+    operations on that weighted graph.
+- Ownership split:
+  - Vinberg-style backend code owns hyperbolic simple-root discovery and Coxeter-matrix
+    production for reflective indefinite lattices;
+  - `src/lattices/groups/coxeter.py` owns the diagram object, induced-subdiagram
+    structure, poset operations, and graph automorphisms after those roots are known.
+- For finite crystallographic root lattices, the same local object may be built from
+  standard root-system/Cartan data; for indefinite reflective cases it must consume the
+  Vinberg backend output rather than reconstructing the hyperbolic algorithm locally.
 
 ## Context
 

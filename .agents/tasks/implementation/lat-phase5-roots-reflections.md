@@ -30,13 +30,36 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-050`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Source-Grounded Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.5),
+`category_specs/lattices/docs/MAPPING.md`,
+`category_specs/forms/docs/MAPPING.md`,
+`category-abc-spec.md`, and `lattice-interface-style-guide.md`.
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+- Root semantics:
+  - a root is an integral lattice element `v` with `b(v,v) in {-2, 2}` in the phase
+    convention recorded by the plan and the lattice mapping;
+  - `is_root(v)` belongs on lattice elements;
+  - `roots()` returns the actual root subset of the lattice, not coordinate vectors.
+- Reflection semantics:
+  - for a root `v`, the reflection is the orthogonal-group element
+    `s_v(w) = w - 2 b(v,w) / b(v,v) * v`;
+  - `reflection()` returns a morphism in `O(L)`, not a matrix;
+  - `s_v(v) = -v`, `s_v^2 = id`, and containment in `O(L)` are acceptance obligations.
+- Ownership:
+  - root/reflection construction lives in `src/lattices/groups/roots.py`;
+  - orthogonal-group containment and matrix validation still live in the centralized
+    predicate and `O(L)` layers.
+- Derived objects:
+  - `root_sublattice()` is the sublattice spanned by the root set and must return a
+    lattice/subobject object with its inclusion morphism, not an ad hoc span matrix.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+Backend routing:
+- Reflection construction is local once a root is given.
+- This card does not own indefinite root enumeration or simple-root search. Hyperbolic
+  simple-root discovery belongs to the Vinberg backend path used by the Coxeter/Weyl
+  layer.
 
 ## Context
 

@@ -31,13 +31,54 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Parent plan: `PLN-LAT-010`
 - Program plan: `PLN-CAT-000`
 
-## Definition Grounding Required Before Implementation
+## Grounded Implementation Contract
 
-This card is not executable from the migrated source section alone. Before editing code, the worker must record in this card or a linked spec/decision the canonical definition source, exact mathematical object, hypotheses, return/codomain, and invariance or equivalence obligations for every public noun or method touched.
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `category_specs/AGENTS.md`
 
-For lattice/module work, start with `.agents/skills/lattice-redesign/references/category-abc-spec.md`, `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`, `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`, `theory/foundations/bilinear-forms-duals-morphisms.md`, and `theory/spec_backups/lattices_written_spec_backup.py`. Old `plans/PHASE_*.md` text is migration provenance, not standalone definition authority.
+### Public owner and target category
+- Owner: `IdealSubmodule` refinement path in `src/sage_patches/ideal_submodule.py`.
+- Parent owner: ring-side category is `ModuleBaseRings`, so ideals are treated as
+  submodule objects of the ring module and retain module semantics.
 
-If the source section conflicts with those definitions or uses ambiguous terms, stop this leaf, update it to `blocked`, and file the needed source-mining or decision card.
+### Definitions and hypotheses
+- For any target ring `R` in phase-0 scope, a principal ideal `I = (a)` is modeled
+  as a submodule of the free module `R` with canonical inclusion map `I ↪ R`.
+- `r * R` and `R * r` are aliases for `R.ideal(r)` / `R.ideal(ZZ)` style ideal-submodule
+  construction, with `r` allowed from `R` or iterable generators.
+- `R / I` is interpreted as quotient by a submodule of a module; equality and
+  coercion on ideal codomain must be via quotient-parent category methods.
+
+### Return objects / codomains
+- `R.ideal(...)`, `r * R`, and `R * r` return a module parent in
+  `Modules(R)` (at least in the enriched `R` contexts).
+- `I._as_module()` / internal coercion points produce subobjects that support:
+  - base-ring change,
+  - submodule inclusion maps,
+  - quotient construction in `src/sage_patches/module_operations.py` and `hom_enrichment.py`.
+
+### Concrete implementation work
+- Install an ideal submodule category via `_refine_category_` on ideal outputs
+  from `ModuleBaseRings` ring operations.
+- Ensure `Ring.ideal`, `__mul__`, and `__rmul__` produce the refined ideal-submodule
+  type and preserve subobject invariants (domain/range, inclusion map).
+- Patch membership hooks so `I in Modules(R)` and `I in Modules(I.base_ring())`
+  both hold for ring-ideal module objects.
+- Maintain compatibility with existing Sage internals by preserving native quotient and
+  coercion behavior while adding category/membership metadata only.
+
+### Acceptance checks
+- `[ ]` `I = 2 * ZZ`, `J = ZZ * 2`, and `K = ZZ.ideal(2)` represent the same ideal
+  object and satisfy `I == J == K`.
+- `[ ]` `I in Modules(ZZ)` and `I in Modules(I)` both true.
+- `[ ]` `I <= ZZ` and `I.inclusion().codomain() == ZZ`.
+- `[ ]` `(ZZ / I).base_ring() == ZZ` and `(ZZ / I).is_finite()` as expected in FGP checks.
+- `[ ]` `isinstance((ZZ / I), Modules(ZZ).category())` style membership checks in
+  `tests/sage_spec/misc.sage` remain stable.
 
 ## Context
 
