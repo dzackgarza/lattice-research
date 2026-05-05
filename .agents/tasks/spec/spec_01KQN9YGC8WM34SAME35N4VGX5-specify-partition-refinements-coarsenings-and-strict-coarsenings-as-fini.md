@@ -54,14 +54,17 @@ Source anchors for this leaf are already concrete enough to authorize the spec e
 
 Concrete contract for the spec edit:
 
-- Owner category for `refinements()` and `coarsenings()`:
+- Owner category for the project finite-set wrappers of Sage `refinements()` and
+  `coarsenings()`:
   `Sets().Partitioned()` on the partition element surface, with the fixed finite-base
   Sage `SetPartition` object as the source-backed witness.
-- Owner category for Sage's `strict_coarsenings()`:
+- Owner category for the project finite-set wrapper of Sage's `strict_coarsenings()`:
   `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`, because Sage's
   definition compares ordered blocks using `max(part) < min(other)`.
-- Public methods to specify: `refinements()`, `coarsenings()`, and Sage-compatible
-  `strict_coarsenings()` as partition-element methods at those split owners.
+- Public project methods to specify: `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()` as partition-element methods at those split owners.
+  Sage's concrete `refinements()`, `coarsenings()`, and `strict_coarsenings()` names
+  remain list-returning compatibility methods on Sage `SetPartition` elements.
 - Hypotheses: the input object is a partition of a finite fixed base set, so the
   refinement lattice neighborhoods determined by `refinements()` and `coarsenings()`
   are finite. Sage-compatible `strict_coarsenings()` additionally requires the finite
@@ -70,9 +73,10 @@ Concrete contract for the spec edit:
   constructors rather than a raw Python container or an untyped Sage iterator.
 - Migration consequence: do not remap these methods to poset constructors, graph
   surfaces, or free-floating helper functions; they stay attached to partition elements
-  and refine through the canonical set-constructor vocabulary. Do not treat Sage's
-  `strict_coarsenings()` as ordinary proper coarsenings: Sage defines a reflexive
-  closure and includes `self`.
+  and refine through the canonical set-constructor vocabulary. Project finite-set
+  wrappers use separate names because Sage already owns the concrete list-returning
+  names. Do not treat Sage's `strict_coarsenings()` as ordinary proper coarsenings:
+  Sage defines a reflexive closure and includes `self`.
 
 Retire or reject this leaf only if a cited mapping row is superseded by a source-backed
 owner change showing that one of these methods is not a partition-element method or does
@@ -100,3 +104,8 @@ not return a finite set object.
   Sage-compatible `strict_coarsenings()` lives on
   `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`, returns a finite
   set object in the project spec, and is not ordinary proper coarsening.
+- 2026-05-05: Updated public method names after
+  `.agents/decisions/dec_20260505_partition_element_method_shadowing.md` decided that
+  Sage's concrete list-returning names must remain compatibility methods. The project
+  finite-set methods are now `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()`.

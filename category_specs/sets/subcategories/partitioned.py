@@ -129,15 +129,15 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             r"""Return whether ``self`` is strictly finer than ``other``."""
             return self.parent().is_less_than(self, other)
 
-        @abstract_method
-        def refinements(self) -> FiniteSet:
+        @final
+        def refinement_set(self) -> FiniteSet:
             r"""Return the finite set of partition refinements, including ``self``."""
-            ...
+            return Sets().Constructors().from_iterable(self.refinements())
 
-        @abstract_method
-        def coarsenings(self) -> FiniteSet:
+        @final
+        def coarsening_set(self) -> FiniteSet:
             r"""Return the finite set of partition coarsenings, including ``self``."""
-            ...
+            return Sets().Constructors().from_iterable(self.coarsenings())
 
         @abstract_method
         def standard_form(self) -> list[list[SetElement]]:
@@ -240,10 +240,10 @@ class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
             ...
 
     class ElementMethods:
-        @abstract_method
-        def strict_coarsenings(self) -> FiniteSet:
-            r"""Return Sage's ordered strict-coarsening closure, including ``self``."""
-            ...
+        @final
+        def ordered_coarsening_closure(self) -> FiniteSet:
+            r"""Return Sage's ordered coarsening closure, including ``self``."""
+            return Sets().Constructors().from_iterable(self.strict_coarsenings())
 
     class MorphismMethods: ...
 

@@ -2,7 +2,8 @@
 trackerStatus:
   type: decision
 title: Decide how partition element methods override Sage list-returning methods
-status: to-do
+status: decided
+updated: '2026-05-05'
 tags:
 - category-specs
 - decision
@@ -65,17 +66,56 @@ the effect on public partition-element vocabulary:
 - whether the mapping/spec should be revised because the runtime surface cannot safely
   claim the Sage method names with different codomains.
 
+## Decision
+
+Use separate project finite-set method names and keep Sage's concrete names as Sage
+compatibility methods:
+
+- `refinements()` stays the Sage list-returning concrete method.
+- `coarsenings()` stays the Sage list-returning concrete method.
+- `strict_coarsenings()` stays the Sage list-returning concrete method whose ordered
+  reflexive closure semantics are preserved as Sage compatibility behavior.
+- Project finite-set surfaces are `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()`.
+
+This route preserves Sage element class behavior, avoids hidden monkeypatching, and
+keeps the project codomain claim true at runtime. The project methods route Sage's
+concrete list outputs through `Sets().Constructors().from_iterable(...)`, so the public
+project surface returns finite set objects of partition elements.
+
+Rejected routes:
+
+- True `SetPartition` element wrapper/subclass: viable later, but too heavy for this
+  leaf because it would require changing fixed-base parent element construction while
+  preserving Sage membership, coercion, and parent behavior.
+- Local monkeypatching of Sage `SetPartition`: rejected because it would silently alter
+  upstream concrete methods and create an audit hazard.
+- Keeping the project spec on the Sage names with different codomains: rejected because
+  ordinary category `ElementMethods` do not override concrete methods on the installed
+  Sage element class.
+
+Consequences:
+
+- `category_specs/sets/docs/MAPPING.md` must map the Sage names to compatibility
+  behavior and the project finite-set names to the category surface.
+- `category_specs/sets/subcategories/partitioned.py` must expose
+  `refinement_set()`, `coarsening_set()`, and `ordered_coarsening_closure()` instead of
+  abstract methods named `refinements()`, `coarsenings()`, and `strict_coarsenings()`.
+- The blocked implementation card can resume by implementing the separate project
+  method names; it must not claim that Sage's concrete names return project finite set
+  objects.
+
 ## Acceptance Criteria
 
-- [ ] The chosen route states whether public method names stay
+- [x] The chosen route states whether public method names stay
   `refinements()`, `coarsenings()`, and `strict_coarsenings()` or move to separate
   project names.
-- [ ] The decision records how element construction through
+- [x] The decision records how element construction through
   `Sets().Constructors().SetPartitions(...)` preserves Sage membership and parent
   behavior.
-- [ ] The decision forbids hidden monkeypatching unless the rationale and audit
+- [x] The decision forbids hidden monkeypatching unless the rationale and audit
   surface are explicitly accepted.
-- [ ] The implementation card can either resume with a concrete write path or be
+- [x] The implementation card can either resume with a concrete write path or be
   revised/superseded without weakening the partition mapping silently.
 
 ## Dependencies And Boundaries
@@ -90,3 +130,6 @@ the effect on public partition-element vocabulary:
 - 2026-05-05: Created after implementation preflight showed Sage concrete
   `SetPartition` methods shadow category `ElementMethods` and still return Python
   lists after parent refinement.
+- 2026-05-05: Decided to keep Sage names as list-returning compatibility methods and
+  add separate project finite-set names: `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()`.

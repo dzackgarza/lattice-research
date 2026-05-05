@@ -13,6 +13,11 @@ from sage.sets.real_set import RealSet as SageRealSet
 
 C = Sets().Constructors()
 
+
+def fixed_ordered_partition():
+    return C.SetPartitions(3)([[1, 3], [2]])
+
+
 SMOKE_STATEMENTS = (
     ("ZZ is already an object of Sets()", lambda _: ZZ in Sets()),
     ("ZZ is not finite as a set", lambda _: not ZZ.is_finite()),
@@ -262,6 +267,30 @@ SMOKE_STATEMENTS = (
         lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned().FiniteTotallyOrderedBase(),
     ),
     ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
+    (
+        "partition refinement_set() is a finite countable set",
+        lambda _: fixed_ordered_partition().refinement_set() in Sets().Countable().Finite(),
+    ),
+    (
+        "partition refinement_set() contains the source partition",
+        lambda _: fixed_ordered_partition() in fixed_ordered_partition().refinement_set(),
+    ),
+    (
+        "partition coarsening_set() is a finite countable set",
+        lambda _: fixed_ordered_partition().coarsening_set() in Sets().Countable().Finite(),
+    ),
+    (
+        "partition coarsening_set() contains the source partition",
+        lambda _: fixed_ordered_partition() in fixed_ordered_partition().coarsening_set(),
+    ),
+    (
+        "partition ordered_coarsening_closure() is a finite countable set",
+        lambda _: fixed_ordered_partition().ordered_coarsening_closure() in Sets().Countable().Finite(),
+    ),
+    (
+        "partition ordered_coarsening_closure() contains the source partition",
+        lambda _: fixed_ordered_partition() in fixed_ordered_partition().ordered_coarsening_closure(),
+    ),
     (
         "SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) lies over {1,2,3}",
         lambda _: C.SetPartitionFromRestrictedGrowthWordBlocks([0, 1, 0]) in C.SetPartitions([1, 2, 3]),

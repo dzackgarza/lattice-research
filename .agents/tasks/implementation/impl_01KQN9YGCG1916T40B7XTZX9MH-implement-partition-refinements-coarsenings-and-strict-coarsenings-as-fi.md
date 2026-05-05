@@ -2,10 +2,10 @@
 trackerStatus:
   type: feature
 title: Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs
-status: blocked
+status: in-review
 priority: high
 planId: SPR-POSETS-PART-01KQN9
-progress: 10
+progress: 90
 updated: '2026-05-05'
 tags:
 - category-specs
@@ -38,15 +38,15 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Path-Local Blocker
 
-Blocked on `.agents/decisions/dec_20260505_partition_element_method_shadowing.md`.
+Resolved by `.agents/decisions/dec_20260505_partition_element_method_shadowing.md`.
 
 Preflight evidence:
 
@@ -59,8 +59,33 @@ Preflight evidence:
   not change runtime behavior; Sage's element-class methods shadow the category method
   provider.
 
-This blocks only this finite-set-output leaf. It does not block other approved
-partition/spec work.
+Decision outcome:
+
+- Keep Sage's concrete `refinements()`, `coarsenings()`, and
+  `strict_coarsenings()` as list-returning compatibility methods.
+- Add project finite-set methods `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()`.
+- Forbid hidden monkeypatching of Sage `SetPartition`.
+
+## Implementation Result
+
+- Updated `category_specs/sets/docs/MAPPING.md` to distinguish Sage compatibility
+  method names from project finite-set method names.
+- Updated `category_specs/sets/subcategories/partitioned.py`:
+  `refinement_set()` and `coarsening_set()` live on
+  `Sets().Partitioned().ElementMethods`, and
+  `ordered_coarsening_closure()` lives on
+  `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`.
+- Each project method routes the corresponding Sage list through
+  `Sets().Constructors().from_iterable(...)`, producing a project finite set object
+  without changing Sage element construction or parent behavior.
+- Added set smokes proving the three project methods return finite countable set
+  objects and include the source partition.
+
+## Validation Notes
+
+- `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed with
+  the known Sage inherited `Sets.Topological` axiom warning.
 
 ## Dependencies And Boundaries
 
@@ -76,3 +101,5 @@ partition/spec work.
   `.agents/decisions/dec_20260505_partition_element_method_shadowing.md` and blocked
   this leaf until the project chooses wrapper, renamed project methods, monkeypatch, or
   spec-revision strategy.
+- 2026-05-05: Implemented the decision route using separate project finite-set method
+  names and moved this card to in-review.
