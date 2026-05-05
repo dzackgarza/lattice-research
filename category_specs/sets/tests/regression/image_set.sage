@@ -16,17 +16,10 @@ NS = Sets().Constructors()
 def double(x):
     return 2 * x
 
-def half(x):
-    return x // 2
-
-I = NS.ImageSubobject(double, ZZ, inverse=half)
+I = NS.ImageSubobject(double, ZZ)
 
 assert 6 in I
 assert 7 not in I
-
-# Constructing an element: I(y) finds x such that double(x) == y
-assert I(8/2) == 4
-assert I(8/2).parent() == ZZ
 
 # ---------------------------------------------------------------------------
 # Equality of ImageSubobject objects  (__eq__ doctest)

@@ -507,11 +507,11 @@ class Sets(Category_singleton):
             return refine_category(RealField(), [Sets(), Sets().Topological()])
 
         @final
-        def RealSet(self, intervals: Sequence[RealInterval], *, normalized: bool = False) -> RealSubset:
-            r"""Return a real subset represented as a finite union of real intervals."""
+        def RealSetFromIntervals(self, intervals: Sequence[RealInterval]) -> RealSubset:
+            r"""Return a real subset from a finite sequence of real intervals."""
             from sage.sets.real_set import RealSet as SageRealSet
 
-            return self._refine_real_subset(SageRealSet(*tuple(intervals), normalized=normalized))
+            return self._refine_real_subset(SageRealSet(*tuple(intervals)))
 
         @final
         def RealSetInterval(
@@ -521,7 +521,6 @@ class Sets(Category_singleton):
             *,
             lower_closed: bool,
             upper_closed: bool,
-            normalized: bool = True,
         ) -> RealSubset:
             r"""Return ``RealSet.interval(lower, upper, ...)``, refined into ``RealSets``."""
             from sage.sets.real_set import RealSet as SageRealSet
@@ -531,41 +530,37 @@ class Sets(Category_singleton):
                 upper,
                 lower_closed=lower_closed,
                 upper_closed=upper_closed,
-                normalized=normalized,
             )
             return self._refine_real_subset(S)
 
         @final
-        def OpenRealInterval(self, lower: RealNumber, upper: RealNumber, *, normalized: bool = True) -> RealOpenSet:
+        def OpenRealInterval(self, lower: RealNumber, upper: RealNumber) -> RealOpenSet:
             r"""Return ``RealSet.open(lower, upper)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 lower,
                 upper,
                 lower_closed=False,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
-        def ClosedRealInterval(self, lower: RealNumber, upper: RealNumber, *, normalized: bool = True) -> RealSubset:
+        def ClosedRealInterval(self, lower: RealNumber, upper: RealNumber) -> RealSubset:
             r"""Return ``RealSet.closed(lower, upper)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 lower,
                 upper,
                 lower_closed=True,
                 upper_closed=True,
-                normalized=normalized,
             )
 
         @final
-        def RealPoint(self, point: RealNumber, *, normalized: bool = True) -> RealSubset:
+        def RealPoint(self, point: RealNumber) -> RealSubset:
             r"""Return ``RealSet.point(point)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 point,
                 point,
                 lower_closed=True,
                 upper_closed=True,
-                normalized=normalized,
             )
 
         @final
@@ -573,8 +568,6 @@ class Sets(Category_singleton):
             self,
             lower: RealNumber,
             upper: RealNumber,
-            *,
-            normalized: bool = True,
         ) -> RealSubset:
             r"""Return ``RealSet.open_closed(lower, upper)``, refined into ``RealSets``."""
             return self.RealSetInterval(
@@ -582,7 +575,6 @@ class Sets(Category_singleton):
                 upper,
                 lower_closed=False,
                 upper_closed=True,
-                normalized=normalized,
             )
 
         @final
@@ -590,8 +582,6 @@ class Sets(Category_singleton):
             self,
             lower: RealNumber,
             upper: RealNumber,
-            *,
-            normalized: bool = True,
         ) -> RealSubset:
             r"""Return ``RealSet.closed_open(lower, upper)``, refined into ``RealSets``."""
             return self.RealSetInterval(
@@ -599,62 +589,56 @@ class Sets(Category_singleton):
                 upper,
                 lower_closed=True,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
-        def UnboundedBelowClosedRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealSubset:
+        def UnboundedBelowClosedRealInterval(self, bound: RealNumber) -> RealSubset:
             r"""Return ``RealSet.unbounded_below_closed(bound)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 -infinity,
                 bound,
                 lower_closed=False,
                 upper_closed=True,
-                normalized=normalized,
             )
 
         @final
-        def UnboundedBelowOpenRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealOpenSet:
+        def UnboundedBelowOpenRealInterval(self, bound: RealNumber) -> RealOpenSet:
             r"""Return ``RealSet.unbounded_below_open(bound)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 -infinity,
                 bound,
                 lower_closed=False,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
-        def UnboundedAboveClosedRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealSubset:
+        def UnboundedAboveClosedRealInterval(self, bound: RealNumber) -> RealSubset:
             r"""Return ``RealSet.unbounded_above_closed(bound)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 bound,
                 infinity,
                 lower_closed=True,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
-        def UnboundedAboveOpenRealInterval(self, bound: RealNumber, *, normalized: bool = True) -> RealOpenSet:
+        def UnboundedAboveOpenRealInterval(self, bound: RealNumber) -> RealOpenSet:
             r"""Return ``RealSet.unbounded_above_open(bound)``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 bound,
                 infinity,
                 lower_closed=False,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
-        def RealLine(self, *, normalized: bool = True) -> RealSubset:
+        def RealLine(self) -> RealSubset:
             r"""Return ``RealSet.real_line()``, refined into ``RealSets``."""
             return self.RealSetInterval(
                 -infinity,
                 infinity,
                 lower_closed=False,
                 upper_closed=False,
-                normalized=normalized,
             )
 
         @final
@@ -726,10 +710,6 @@ class Sets(Category_singleton):
             self,
             f: SetMorphism,
             domain_subset: Subset,
-            *,
-            category: Category | None = None,
-            is_injective: bool | None = None,
-            inverse: SetMorphism | None = None,
         ) -> Subset:
             r"""Return ``ImageSubobject(f, domain_subset)``, refined into its subcategory."""
             from sage.sets.image_set import ImageSubobject as SageIS
@@ -737,7 +717,7 @@ class Sets(Category_singleton):
             from .subcategories.image import _ImageSets
 
             return refine_category(
-                SageIS(f, domain_subset, category=category, is_injective=is_injective, inverse=inverse),
+                SageIS(f, domain_subset),
                 [Sets(), _ImageSets()],
             )
 
