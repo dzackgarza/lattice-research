@@ -70,6 +70,12 @@ All repo-local planning and work tracking lives under `.agents`. Use registered 
 
 Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`. Executable plans and cards go in `.agents`; produced artifacts go in their natural durable roots. Exploratory drafts go in gitignored `scratch/`. Mathematical notes and source-backed theory live in `theory/`. Tracker cards and plans go in `.agents/`.
 
+`src.bak/` and `tests.bak/` are a temporary quarantine for stale implementation code
+and implementation tests while phase-one category/spec work is active. Do not treat
+those trees as active first-party surfaces, do not chase lint/type failures inside
+them, and do not reactivate them except during an explicit implementation audit or
+reactivation pass.
+
 ## Theory and references shortcut
 
 Use `theory/index.md` to route durable mathematical knowledge. Use `theory/references/index.md` and `theory/references/references.bib` before writing standard-claim prose, expected values, or literature-backed justifications.

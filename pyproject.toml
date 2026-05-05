@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests/category_specs"]
 addopts = "--durations=20 --durations-min=1.0"
 cache_dir = ".cache/pytest"
 markers = [
@@ -13,11 +13,11 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["src"]
-omit = ["src/external/*"]
+source = ["category_specs"]
+omit = ["src.bak/*"]
 
 [tool.deptry]
-extend_exclude = ["\\.venv", "\\.worktrees", "coble_research_lean", "src/external", "src/backends/external", "carat", ".*\\.ipynb"]
+extend_exclude = ["\\.venv", "\\.worktrees", "coble_research_lean", "src.bak", "carat", ".*\\.ipynb"]
 ignore_notebooks = true
 per_rule_ignores = {DEP001 = ["sage", "ore_algebra", "pydantic"], DEP003 = ["sage"]}
 

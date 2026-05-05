@@ -10,6 +10,8 @@ __pycache__/
 *.orig
 *~
 .DS_Store
+src.bak/
+tests.bak/
 
 # Virtual environments
 .venv/
@@ -28,7 +30,7 @@ build/
 scratch/
 
 # Large binaries and build artifacts
-src/backends/external/bin/
+src.bak/backends/external/bin/
 codeql-db/
 *.sarif
 *.log
@@ -56,5 +58,5 @@ coverage.xml
 models/
 
 carat
-src/backends/external/vinbergs_algorithm/
+src.bak/backends/external/vinbergs_algorithm/
 theory/dutsik_polyhedral
