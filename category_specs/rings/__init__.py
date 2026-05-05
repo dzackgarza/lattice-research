@@ -9,7 +9,7 @@ existing Sage ring categories where Sage provides them.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, overload, override
+from typing import TYPE_CHECKING, Literal, final, overload, override
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
@@ -265,6 +265,39 @@ class _RingElementMethods:
     @abstract_method
     def abs(self) -> RingElement: ...
 
+    @overload
+    def nth_root(
+        self,
+        n: Integer,
+        extend: bool = False,
+        all: Literal[False] = False,
+        algorithm: str | None = None,
+        cunningham: bool = False,
+        prec: Integer | None = None,
+    ) -> RingElement: ...
+
+    @overload
+    def nth_root(
+        self,
+        n: Integer,
+        extend: bool = False,
+        all: Literal[True] = True,
+        algorithm: str | None = None,
+        cunningham: bool = False,
+        prec: Integer | None = None,
+    ) -> list[RingElement]: ...
+
+    @overload
+    def nth_root(
+        self,
+        n: Integer,
+        extend: bool = False,
+        all: bool = False,
+        algorithm: str | None = None,
+        cunningham: bool = False,
+        prec: Integer | None = None,
+    ) -> RingElement | list[RingElement]: ...
+
     @abstract_method
     def nth_root(
         self,
@@ -274,6 +307,30 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
+    ) -> RingElement | list[RingElement]: ...
+
+    @overload
+    def sqrt(
+        self,
+        extend: bool = True,
+        all: Literal[False] = False,
+        name: str | None = None,
+    ) -> RingElement: ...
+
+    @overload
+    def sqrt(
+        self,
+        extend: bool = True,
+        all: Literal[True] = True,
+        name: str | None = None,
+    ) -> list[RingElement]: ...
+
+    @overload
+    def sqrt(
+        self,
+        extend: bool = True,
+        all: bool = False,
+        name: str | None = None,
     ) -> RingElement | list[RingElement]: ...
 
     @abstract_method

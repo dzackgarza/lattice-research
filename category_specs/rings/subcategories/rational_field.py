@@ -3,7 +3,7 @@ r"""QQ ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final, override
+from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -225,6 +225,15 @@ class _QQ(Category_singleton):
             gc_numbering: bool | None = None,
         ) -> Group:
             return self.as_number_field().galois_group(type=type, algorithm=algorithm, names=names, gc_numbering=gc_numbering)
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: Literal[False] = False) -> Field: ...
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: Literal[True] = True) -> tuple[Field, RingMorphism]: ...
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
 
         @override
         @final

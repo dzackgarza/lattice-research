@@ -63,6 +63,13 @@ Matrix-ring diagonal construction takes a sequence of ring elements. The previou
 `Any` surface hid the mathematical input: diagonal entries form an ordered finite
 family in the base ring.
 
+Boolean-controlled return-shape methods use literal overloads when Sage documents a
+closed finite split. For `galois_closure(map=False)` the return object is the Galois
+closure field; for `galois_closure(map=True)` it is the pair consisting of that field
+and the embedding of the source field into it. For algebraic `nth_root(all=False)` and
+`sqrt(all=False)` the return object is one root; with `all=True` Sage returns the
+finite list of all roots. Non-literal boolean callers keep the union return shape.
+
 Precision-family identities are exact Sage identity facts, not informal equality:
 `RR is RealField(53)`, `CC is ComplexField(53)`,
 `RIF is RealIntervalField(53)`, and `CIF is ComplexIntervalField(53)` are true.

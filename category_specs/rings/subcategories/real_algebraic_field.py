@@ -2,7 +2,7 @@ r"""AA ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -145,6 +145,15 @@ class _AA(Category_singleton):
         def polynomial_root(self, poly: Polynomial, interval: RealInterval, multiplicity: Integer = 1) -> RingElement: ...
 
     class ElementMethods:
+        @overload
+        def nth_root(self, n: Integer, all: Literal[False] = False) -> RingElement: ...
+
+        @overload
+        def nth_root(self, n: Integer, all: Literal[True] = True) -> list[RingElement]: ...
+
+        @overload
+        def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
+
         @override
         def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
 

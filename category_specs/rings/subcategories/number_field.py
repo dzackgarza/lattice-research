@@ -3,7 +3,7 @@ r"""NumberFields ring subcategory spec."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final, override
+from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.abstract_method import abstract_method
@@ -201,6 +201,15 @@ class _NumberFields(CategoryWithAxiom):
             names: str | None = None,
             gc_numbering: bool | None = None,
         ) -> Group: ...
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: Literal[False] = False) -> Field: ...
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: Literal[True] = True) -> tuple[Field, RingMorphism]: ...
+
+        @overload
+        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
 
         @abstract_method
         def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
