@@ -117,20 +117,20 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return the height of the poset."""
             ...
 
-        @abstract_method
+        @final
         def height_certificate(self) -> tuple[Integer, list[PosetElement]]:
             r"""Return the height with a maximum-cardinality chain."""
-            ...
+            return self.height(certificate=True)
 
         @abstract_method
         def width(self) -> Integer:
             r"""Return the width of the poset."""
             ...
 
-        @abstract_method
+        @final
         def width_certificate(self) -> tuple[Integer, list[PosetElement]]:
             r"""Return the width with a maximum-cardinality antichain."""
-            ...
+            return self.width(certificate=True)
 
         @abstract_method
         def is_ranked(self) -> bool:
@@ -142,35 +142,35 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return the rank of ``element`` or the rank of the poset."""
             ...
 
-        @abstract_method
+        @final
         def is_poset_morphism(self, f: PosetMorphism, codomain: Poset) -> bool:
             r"""Return whether ``f`` is order-preserving into ``codomain``."""
-            ...
+            return SageFinitePosets.ParentMethods.is_poset_morphism(self, f, codomain)
 
-        @abstract_method
+        @final
         def order_ideals_lattice(self, facade: bool = True) -> FiniteLatticePoset:
             r"""Return the finite distributive lattice of order ideals."""
-            ...
+            return SageFinitePosets.ParentMethods.order_ideals_lattice(self, as_ideals=True, facade=facade)
 
         @abstract_method
         def is_meet_semilattice(self) -> bool:
             r"""Return whether every pair has a meet."""
             ...
 
-        @abstract_method
+        @final
         def meet_semilattice_certificate(self) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a meet when false."""
-            ...
+            return self.is_meet_semilattice(certificate=True)
 
         @abstract_method
         def is_join_semilattice(self) -> bool:
             r"""Return whether every pair has a join."""
             ...
 
-        @abstract_method
+        @final
         def join_semilattice_certificate(self) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a join when false."""
-            ...
+            return self.is_join_semilattice(certificate=True)
 
         @abstract_method
         def chains(self) -> Iterable[PosetSubset]:

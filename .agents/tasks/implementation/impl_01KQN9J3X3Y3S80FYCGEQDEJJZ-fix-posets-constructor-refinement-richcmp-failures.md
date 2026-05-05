@@ -2,9 +2,11 @@
 trackerStatus:
   type: feature
 title: Fix Posets constructor refinement __richcmp__ failures
-status: to-do
+status: in-review
 priority: high
 planId: SPR-POSETS-PART-01KQN9
+updated: '2026-05-05'
+progress: 90
 tags:
 - category-specs
 - implementation
@@ -38,10 +40,10 @@ semilattice category introspection.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
 - [ ] Use the five-field negative-finding format for further Sage semilattice evidence gaps.
 
 ## Dependencies And Boundaries
@@ -53,4 +55,22 @@ semilattice category introspection.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Resolved the poset constructor smoke frontier without weakening
+  constructor assertions. Root `Posets()` methods backed by Sage
+  `sage.categories.posets.Posets.ParentMethods` were made final concrete project
+  methods where the local abstract surface had shadowed Sage's implementation:
+  `directed_subset`, principal order ideal/filter, order-ideal toggles, and
+  order-ideal/order-filter/chain/antichain predicates.
+- 2026-05-05: Resolved finite-poset constructor refinement failures by wiring
+  Sage-backed final methods for `height_certificate`, `width_certificate`,
+  `meet_semilattice_certificate`, `join_semilattice_certificate`,
+  `is_poset_morphism`, and `order_ideals_lattice`.
+- 2026-05-05: Resolved the finite join-semilattice smoke frontier by adding the
+  `subjoinsemilattice` join-closure construction to the mathematically correct
+  `Posets().JoinSemilattice().Finite()` owner. Source grounding:
+  `category_specs/posets/docs/MAPPING.md` maps `subjoinsemilattice` there, while
+  Sage source places the construction in
+  `sage/combinat/posets/lattices.py`.
+- 2026-05-05 validation: `just --justfile category_specs/justfile smoke-file
+  posets/smoketest.sage` passed; `just --justfile category_specs/justfile
+  check-abstract-redefinitions` passed; `git diff --check` passed.

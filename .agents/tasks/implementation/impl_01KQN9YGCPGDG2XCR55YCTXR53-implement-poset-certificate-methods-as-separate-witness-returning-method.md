@@ -2,9 +2,11 @@
 trackerStatus:
   type: feature
 title: Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean
-status: to-do
+status: in-review
 priority: high
 planId: SPR-POSETS-PART-01KQN9
+updated: '2026-05-05'
+progress: 90
 tags:
 - category-specs
 - implementation
@@ -33,11 +35,11 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [ ] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
-- [ ] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
+- [x] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 
 ## Dependencies And Boundaries
 
@@ -48,4 +50,21 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Implemented the mapped certificate split as named final
+  project methods. Finite-poset certificate methods now delegate to Sage's
+  documented `certificate=True` behavior: `height_certificate`,
+  `width_certificate`, `meet_semilattice_certificate`, and
+  `join_semilattice_certificate`.
+- 2026-05-05: Implemented finite order-theoretic lattice certificate methods
+  by delegating to Sage's documented `certificate=True` predicate variants:
+  `atomic_certificate`, `coatomic_certificate`, `complemented_certificate`,
+  `distributive_certificate`, `modular_certificate`, and
+  `modular_elements_certificate`. Boolean predicate surfaces remain boolean.
+- 2026-05-05: While wiring Sage-backed finite lattice methods, corrected the
+  return annotations for `join_irreducibles_poset`,
+  `meet_irreducibles_poset`, and `irreducibles_poset` from lattice-poset to
+  poset. Sage's `FiniteLatticePosets.ParentMethods` source returns induced
+  subposets of irreducible elements, not generally lattices.
+- 2026-05-05 validation: `just --justfile category_specs/justfile smoke-file
+  posets/smoketest.sage` passed; `just --justfile category_specs/justfile
+  check-abstract-redefinitions` passed; `git diff --check` passed.
