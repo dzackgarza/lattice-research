@@ -45,10 +45,10 @@ class _TensorAlgebraComponentParentMethods:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @final
+    @abstract_method
     def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
         r"""Lift pure-product data into this tensor component."""
-        assert False, f"Pure-tensor lifting for tensor algebra components is not specified yet: {elts}"
+        ...
 
 
 class _TensorElementMethods:
@@ -86,12 +86,12 @@ class _TensorElementMethods:
         ...
 
     @final
-    def structure_constants(self) -> Sequence[Matrix]:
+    def structure_constants(self) -> tuple[Matrix, ...]:
         r"""Return coordinate structure constants encoded by a product tensor."""
         assert self.tensor_type() == (1, 2), (
             f"Structure constants are only defined for multiplication tensors of type (1, 2): {self.tensor_type()}"
         )
-        return self[:]
+        return tuple(self[:])
 
 
 class _TensorMorphismMethods:
@@ -249,9 +249,9 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return self._from_components(base_module, (0, 2), entries, name=name, latex_name=latex_name)
 
         @final
-        def _module_element_coordinates(self, base_module: FreeModule, element: RModuleElement) -> Sequence[RingElement]:
+        def _module_element_coordinates(self, base_module: FreeModule, element: RModuleElement) -> tuple[RingElement, ...]:
             assert element.parent() is base_module, f"Tensor output element must lie in {base_module}: {element}"
-            return element[:]
+            return tuple(element[:])
 
         @final
         def from_module_element_matrix(
@@ -305,7 +305,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Constructors:
         r"""Return the tensor-component constructor collector."""
         return self.__class__._Constructors(self)
 
