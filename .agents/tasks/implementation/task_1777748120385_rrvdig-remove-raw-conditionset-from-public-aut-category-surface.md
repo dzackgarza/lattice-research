@@ -2,10 +2,10 @@
 trackerStatus:
   type: task
 title: Remove raw ConditionSet from public Aut-category surface
-status: to-do
+status: in-review
 priority: critical
 planId: PLN-CAT-120
-progress: 0
+progress: 90
 tags:
 - category-specs
 - implementation
@@ -56,3 +56,26 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - Item-specific evidence:
   - The file names exact touch points (`condition_set`, `from_end_category`, `aut/subobject` surface) and a single authoritative target file, `category_specs/homsets/autsets.py`.
   - Complexity is driven by explicit public/private contract reshaping rather than a single implementation edit.
+
+## Implementation Result
+
+- Removed `UniversalAutObjectMethods.condition_set()` from the public aut-object
+  surface.
+- Centralized raw `SageConditionSet` construction in the private
+  `_aut_object_from_end_category(...)` bridge.
+- Kept public aut objects on the project surface through `AutCategory.from_end_category`,
+  `AutCategoryConstruction.from_end_category`, and `AutCategoryOf.from_end_category`.
+- Marked the concrete aut-object methods `end_category`, `domain`, `codomain`, and
+  `identity` as final; `domain`, `codomain`, and `identity` explicitly override the
+  generic hom/end object contracts.
+- Updated `category_specs/homsets/docs/MAPPING.md` to state that raw `ConditionSet` is
+  private implementation backing and that public aut objects expose `end_category()`
+  rather than `condition_set()`.
+
+## Acceptance Criteria
+
+- [x] Raw `SageConditionSet` no longer appears as a public aut-object method.
+- [x] `from_end_category` constructors route through a private helper.
+- [x] Public aut-object methods retain the documented `Aut_C(A)` surface.
+- [x] The homsets mapping records the private/public boundary.
+- [ ] Human review accepts the implementation and closes the card.

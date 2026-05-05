@@ -21,11 +21,15 @@ project hom/end/aut category hierarchy.
 | `C.HomCategory().Of(A, B)` | `Hom_C(A, B)` for objects `A, B in C`. | Parent: `domain`, `codomain`, `identity`, `__call__`; element: morphism predicates and composition. |
 | `C.EndCategory().Of(A)` | `End_C(A) = Hom_C(A, A)`. | Parent: endomorphism identity; element: endomorphism predicates. |
 | `C.AutCategory().Of(A)` | `Aut_C(A)`, the invertible part of `End_C(A)`. | Parent: `end_category`, `domain`, `codomain`, `identity`; element: `is_invertible`, `is_isomorphism`, `inverse`, `order`. |
-| `AutCategory.from_end_category` | Generic construction of `Aut_C(A)` from `End_C(A)`. | Builds a Sage `ConditionSet` over the end object using the aut predicate, then refines through the requested aut category. |
+| `AutCategory.from_end_category` | Generic construction of `Aut_C(A)` from `End_C(A)`. | Calls a private condition-subset bridge over the end object using the aut predicate, with the requested aut category installed as the public project surface. |
 
 Because `End_C(A)` is `Hom_C(A, A)`, the object `A` is already represented by the
 generic hom-object methods `domain()` and `codomain()`. Subtree aliases such as
 `base_set()` or `base_space()` are redundant and map to `domain()` for migration.
+
+The raw Sage `ConditionSet` is an implementation detail of the generic aut
+construction. Public aut objects expose `end_category()`, `domain()`,
+`codomain()`, and `identity()`; they do not expose a `condition_set()` method.
 
 ## Subtree Contract
 
