@@ -2,10 +2,11 @@
 trackerStatus:
   type: feature
 title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
-status: blocked
+status: in-review
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
-progress: 95
+progress: 100
+updated: '2026-05-05'
 tags:
 - category-specs
 - implementation
@@ -41,24 +42,22 @@ construction, and topological axiom resolution.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
-- [ ] Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback helper names.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
+- [x] Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback helper names.
 
 ## Dependencies And Boundaries
 
 - Keep `SAGE_INVENTORY.md` and `MAPPING.md` as the source and mapping provenance; do not recreate subtree-local `TRIAGE.md` files.
 - If execution reveals a missing mathematical owner, constructor, or category graph edge, split that as a new tracker item instead of patching around it.
 - Preserve the original source path in updates so future agents can trace why this item exists.
-- Blocked on
+- Resolved by
   `.agents/decisions/dec_20260505_realset_sage_topological_axiom_warning.md` for the
   residual Sage `Sets.Topological` warning emitted from the original Sage `RealSet`
-  category join. Functional smoke rows pass; the remaining question is whether the
-  project should strip or replace Sage RealSet category provenance, patch local
-  construction-category joins, or accept and document the warning as inherited Sage
-  behavior.
+  category join. Functional smoke rows pass; the decision accepts and documents the
+  warning as inherited Sage category-provenance behavior for the current spec phase.
 
 ## Work Log
 
@@ -117,3 +116,9 @@ construction, and topological axiom resolution.
   warning decision. The functional Sets smoke frontier is cleared, and narrower
   RealSet/ImageSubobject implementation cards were moved to `in-review` in commit
   `f606652`.
+- 2026-05-05: Moved this card to `in-review` after
+  `.agents/decisions/dec_20260505_realset_sage_topological_axiom_warning.md` decided
+  to accept and document the residual Sage warning for this phase. Validation rerun:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passes and
+  still emits the documented Sage warning from
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2074`.

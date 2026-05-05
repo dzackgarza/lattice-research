@@ -2,7 +2,8 @@
 trackerStatus:
   type: decision
 title: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning
-status: to-do
+status: decided
+updated: '2026-05-05'
 tags:
 - category-specs
 - decision
@@ -10,7 +11,6 @@ tags:
 - realset
 - topology
 - smoke
-- needs-decision
 - theme-decisions
 planId: SPR-SETS-TOPO-01KQN9
 ---
@@ -73,14 +73,14 @@ Negative findings must use the five-field search format.
 
 ## Acceptance Criteria
 
-- [ ] The decision lists the chosen option, rationale, and affected implementation or
+- [x] The decision lists the chosen option, rationale, and affected implementation or
   documentation cards.
-- [ ] The decision states whether the root Sets smoke card can move from `blocked` to
+- [x] The decision states whether the root Sets smoke card can move from `blocked` to
   `in-review` with the warning documented, or whether a concrete implementation card
   must clear the warning.
-- [ ] Any implementation consequence preserves the admitted RealSet constructor surface
+- [x] Any implementation consequence preserves the admitted RealSet constructor surface
   and does not reintroduce catch-all `Constructors().RealSet`.
-- [ ] Any accepted warning is documented in the owning card or mapping docs rather than
+- [x] Any accepted warning is documented in the owning card or mapping docs rather than
   buried in chat.
 
 ## Dependencies And Boundaries
@@ -94,3 +94,111 @@ Negative findings must use the five-field search format.
 
 - 2026-05-05: Created after commit `983a058` cleared functional Sets smoke failures but
   left Sage's inherited `Sets.Topological` warning on the RealSet path.
+- 2026-05-05: Reproduced and traced the warning; decided to accept and document it as
+  inherited Sage category-provenance behavior during the current spec phase.
+
+## Sources Reviewed
+
+- `.agents/tasks/implementation/impl_01KQN9J3X04R2PWJADC8B4EF9A-fix-sets-root-containment-refined-constructor-richcmp-primes-iteration-r.md`
+- `category_specs/sets/docs/MAPPING.md`
+- `category_specs/sets/docs/SAGE_INVENTORY.md`
+- `category_specs/topological_spaces/docs/MAPPING.md`
+- `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`
+- `category_specs/sets/smoketest.sage`
+- `category_specs/sets/__init__.py`
+- `category_specs/sets/subcategories/real_set.py`
+- `category_specs/topological_spaces/__init__.py`
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/real_set.py`
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/topological_spaces.py`
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/sets_cat.py`
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py`
+
+## Reproduction And Stack
+
+`just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passes and
+emits the warning from Sage category machinery:
+
+```text
+/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2074:
+UserWarning: Expecting Sets.Topological to be a subclass of CategoryWithAxiom ...
+got <class 'sage.categories.topological_spaces.TopologicalSpaces'>; ignoring
+```
+
+Promoting the warning to an exception with a minimal RealSet constructor call gives
+this stack:
+
+- `category_specs/sets/__init__.py:593`,
+  `Constructors.RealSetFromIntervals(...)`;
+- `category_specs/sets/__init__.py:579`, `_refine_real_subset(...)`;
+- `category_specs/utils.py:107`, `refine_category(...)`;
+- Sage `Parent._refine_category_`;
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2525`,
+  `Category.join(...)`;
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2079-2081`,
+  `_with_axiom_as_tuple(...)` recursing through supercategories;
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2074`,
+  the warning branch.
+
+Sage `RealSet.__init__` assigns original category provenance in
+`sage/sets/real_set.py:1299-1316`: a `RealSet` starts in Sage
+`TopologicalSpaces()`, then may refine through Sage `Connected`, `Subobjects`,
+`Finite`, `Infinite`, or `Compact` according to interval data.
+
+The local constructor then refines that existing Sage parent with project categories
+from `category_specs/sets/__init__.py:544-579`, including `Sets().Topological()`,
+`_RealSets()`, and topological subobject refinements. Sage's installed
+`Sets.Topological` attribute is `sage.categories.topological_spaces.TopologicalSpaces`,
+a regressive construction-category class, not a `CategoryWithAxiom` subclass. When the
+join combines the original Sage topological provenance with the local project
+`Topological` axiom, Sage tries to reapply the `Topological` axiom through Sage
+`Sets` and warns that its own `Sets.Topological` is not axiom-shaped.
+
+## Decision
+
+Accept and document the warning as inherited Sage category-provenance behavior for the
+current spec phase. The root Sets smoke card may move from `blocked` to `in-review`
+with this warning recorded.
+
+Do not strip or replace the original Sage `RealSet` category provenance in this pass.
+Do not add a local special-case around Sage's construction-category join machinery in
+this pass. Do not reintroduce the rejected catch-all `Sets().Constructors().RealSet`
+route, and do not weaken or remove the RealSet smoke rows.
+
+## Rationale
+
+The warning is not an assertion failure and not evidence that the admitted RealSet
+constructor surface is semantically wrong. It is emitted while Sage computes a category
+join during refinement, and Sage explicitly ignores the non-axiom `Sets.Topological`
+path after warning.
+
+Replacing or stripping the original Sage category would hide useful provenance from
+`sage.sets.real_set.RealSet`: Sage's constructor records connected, compact, finite,
+infinite, subobject, and topological category facts at object construction. Removing
+that category in a spec-phase smoke fix would be a larger carrier-design decision, not
+a local warning cleanup.
+
+Special-casing the join path locally would also be the wrong layer for this phase. The
+underlying mismatch is between Sage's construction-category model for
+`TopologicalSpaces()` and the project axiom-category wrapper. A local suppression would
+risk hiding real category-join problems elsewhere while only improving a passing smoke
+log.
+
+Owned RealSet carriers in the later implementation phase can avoid this mixed
+provenance problem by constructing local objects directly in the project category
+hierarchy. Until then, keeping the warning visible and documented is safer than
+mutating Sage provenance or adding a suppression path.
+
+## Consequences
+
+- The blocking Sets smoke card can move to `in-review`; the functional smoke frontier
+  is cleared, and the residual warning is documented here and on that card.
+- The admitted RealSet constructor surface remains the named set-constructor family:
+  `RealSetFromIntervals`, `RealSetInterval`, interval/ray/point constructors, and
+  `RealLine`.
+- The rejected catch-all `Sets().Constructors().RealSet(...)` route remains rejected.
+- Future implementation work may revisit this only as owned RealSet-carrier work or a
+  carefully scoped category-bridge design card, not as incidental smoke cleanup.
+
+## Affected Tracker Items
+
+- `.agents/tasks/implementation/impl_01KQN9J3X04R2PWJADC8B4EF9A-fix-sets-root-containment-refined-constructor-richcmp-primes-iteration-r.md`
