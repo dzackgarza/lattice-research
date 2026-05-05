@@ -2,8 +2,10 @@
 trackerStatus:
   type: feature
 title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs
-status: to-do
+status: in-review
 priority: critical
+progress: 90
+updated: '2026-05-05'
 planId: SPR-ALG-TENSOR-01KQN9
 tags:
 - category-specs
@@ -24,8 +26,9 @@ scope and the deferred tensor-calculus surface.
 
 ## Source Provenance
 
-- `category_specs/tensor_algebra_components/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/tensor_algebra_components/docs/TRIAGE.md`.
+- The migrated source path in the original card text is stale. The deleted file actually lived at `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`.
 - Original migrated line: `Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs from category_specs/tensor_algebra_components/docs/TRIAGE.md`
+- Recovery check: the pre-removal file records the deferred surface exactly as `Exhaustive tensor calculus method mapping`, `Symmetry and antisymmetry subtrees`, `Full component-storage API`, and `Tensor contraction, trace, display, and index-notation surfaces`.
 
 ## Context
 
@@ -70,13 +73,39 @@ Rejection/retirement condition:
   Sage tensor definition and the current mapping owner rules, or whose only support is
   the deleted triage prose without an exact owner and return-object decision.
 
+## Execution Result
+
+The required deferred-surface owner and codomain decisions now already exist in the
+frozen tensor mapping, so this leaf is review-ready without further public API edits:
+
+- `category_specs/tensor_algebra_components/docs/MAPPING.md` already records exact
+  owner, hypotheses, codomain, and migration consequences for symmetry metadata,
+  component storage, `trace(...)`, `contract(...)`, display, and index notation.
+- `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md` already records
+  the Sage tensor-definition and tensor-calculus facts that ground those decisions.
+- `category_specs/tensor_algebra_components/__init__.py` already exposes the minimal
+  admitted public tensor-calculus surface via abstract `Tensor.trace(...)` and
+  `Tensor.contract(...)` signatures, with the scalar-vs-tensor codomain rule stated
+  in the docstrings.
+
+No additional public tensor surface remains missing in this bounded spec pass. The
+remaining follow-up is implementation, not further owner mapping:
+
+- concrete Sage-backed tensor wrappers still need method bodies realizing
+  `trace(contravariant_position, covariant_position)` and
+  `contract(left_position, other, right_position)` under the already-frozen
+  signatures;
+- any surviving historical index-notation or component-container callers must be
+  migrated at call sites to constructor metadata, `trace(...)`, or explicit
+  `contract(...)` when those implementation leaves execute.
+
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Do not expand tensor API beyond the mapped minimal surface without first freezing the deferred mapping.
-- [ ] Run just smoke-file tensor_algebra_components/smoketest.sage after constructor or refinement changes.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No new implementation blocker was discovered in this bounded spec pass; the remaining work is concrete method implementation and caller migration under already-frozen signatures.
+- [x] The tensor API was not expanded past the frozen mapping in this pass; the existing admitted public surface is `trace(...)` and explicit `contract(...)` only.
+- [x] No constructor or refinement changes were made in this pass, so `tensor_algebra_components/smoketest.sage` did not apply.
 
 ## Dependencies And Boundaries
 
@@ -87,3 +116,8 @@ Rejection/retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Broadened the stale deleted-triage provenance from `category_specs/...`
+  to `plans/category_specs/...`, confirmed that the recovered triage target is fully
+  covered by freeze commit `1e10d9c`, and moved this expansion leaf to `in-review`
+  because the required owner/codomain decisions and minimal public `trace(...)` /
+  `contract(...)` tensor surface already exist.
