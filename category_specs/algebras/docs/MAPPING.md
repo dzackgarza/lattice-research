@@ -7,7 +7,7 @@ this subtree. Ring and module methods are inherited from `rings` and `modules`.
 
 | Source surface | Target surface | Rationale |
 | --- | --- | --- |
-| Matrix-ring algebra methods | `Algebras(R)` plus matrix-algebra subcategories | A matrix ring is also an algebra over its base ring; algebra methods should not be redeclared in the ring subtree. |
+| Matrix-ring algebra methods | `Algebras(R)` plus matrix-algebra subcategories | A square matrix parent over `R` is the same object returned by `Rings().Constructors().MatrixRing(...)`, refined into `Algebras(R)`. Algebra methods stay here even though the constructor owner stays in `rings`. |
 | `FreeAlgebra(R, n, names)` and `algebras.Free(R, n, names)` | `Algebras(R).Constructors().free_algebra_from_set(generators=S)` | This is the true free associative unital `R`-algebra on a set of symbols. Sage's `Sets().example().algebra(R)` is not this construction. |
 | Plain-set Sage `S.algebra(R)` and `Sets().Algebras(R)` | `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=S)`, exposed by `S.free_module(R)` | Sage already constructs the free `R`-module with basis indexed by `S` on this path. The spec routes that Sage source surface to `Modules(R)` and rejects it as evidence for an `Algebras(R)` constructor. |
 | `S.algebra(R)` where the selected source category is `Magmas()` | `Algebras(R).Constructors().free_algebra_from_magma(magma=S)` returning an object in `MagmaticAlgebras(R)` | This names the free functor from magmas to `R`-modules with bilinear multiplication. It is not necessarily associative or unital, so the target is the magmatic algebra category rather than the current unital-associative `Algebras(R)` endpoint. |
@@ -47,6 +47,22 @@ Slice and coslice algebra objects keep the algebra-specific names
 Cat-owned universal `structure_morphism().domain()` and
 `structure_morphism().codomain()` surface. This preserves the old behavior while
 placing domain and codomain on the generic structure-morphism owner.
+
+## Square Matrix Parent Recovery
+
+For a square matrix parent over a base ring `R`, the algebra owner recovers the
+`R`-algebra structure on the same parent returned by the ring constructor. The public
+surface consequences are:
+
+| Algebra surface on the square matrix parent | Owner consequence |
+| --- | --- |
+| Multiplication as an `R`-bilinear product, unit, algebra generators, center, radical, finite-dimensional algebra-with-basis methods | Owned in `Algebras(R)` and matrix-algebra refinements below it. |
+| Constructor spelling `MatrixRing(...)` or `MatrixSpace(R, n, n)` | Not reintroduced in `algebras`; constructor admission remains a `rings` responsibility. |
+| Module-only structure such as rank, basis order, coordinate vectors, and linear submodule/quotient operations | Inherited from `modules`, not duplicated here. |
+
+Migration consequence: algebra docs may rely on the square matrix parent as an
+`R`-algebra, but they must not absorb the constructor namespace or the free-module
+surface to make the matrix smoke easier.
 
 ## Free-Construction Routing
 

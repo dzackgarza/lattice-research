@@ -16,6 +16,7 @@ category-spec hierarchy.
 | `SubmoduleWithBasis`, free-module submodules, vector subspaces | `Modules(R).Subobjects()` / `Submodules` plus ordered-generating-set refinements | In module categories, subobjects are submodules. |
 | Quotient modules and FGP modules | `Modules(R).Quotients()` plus finite-presentation/base-ring refinements | Quotients are construction categories attachable to arbitrary module subcategories. |
 | Ring objects viewed as modules | `Modules(R).Constructors().RingObjectAsModule(...)` | The ring object supplies the module structure; ring-specific methods remain in `rings`. |
+| Square `MatrixRing(R, n)` / `MatrixSpace(R, n, n)` viewed over `R` | The same parent refined into `Modules(R).Free().FiniteRank()` | A square matrix parent is a free finite-rank `R`-module on the matrix-unit basis. This is module structure on the same parent, not a second constructor family. |
 
 Constructor signatures expose the finite Sage input casework as named methods instead
 of mirroring Sage's positional dispatch. The canonical rank constructors stay named
@@ -67,6 +68,25 @@ keywords are display/provenance options for `IndexedGenerators` (`bracket`,
 print controls). They are recovered through the Sage parent and its
 `print_options(...)` API, not through category constructors; basis/order mathematics is
 mapped to the basis and ordered-generating-set surfaces below.
+
+## Square Matrix Parent Recovery
+
+Sage's documented split is that rectangular matrix spaces lie in module-with-basis
+categories, while square matrix spaces refine further to algebra-with-basis categories.
+That algebra refinement does not remove the underlying free finite-rank `R`-module
+structure on the square parent.
+
+The project module owner rule is therefore:
+
+| Module surface on a square matrix parent over `R` | Owner | Codomain consequence |
+| --- | --- | --- |
+| Rank, basis, basis order, coordinate vectors, `from_vector`, submodule and quotient-module structure, module homs | `Modules(R).Free().FiniteRank()` with the usual basis-bearing refinements | The codomain stays the same square matrix parent viewed as an `R`-module. |
+| `row_space()` and `column_space()` | Ordinary free-module outputs over `R`, distinct from the square matrix parent itself | These remain separate free modules derived from the matrix parent; they do not replace the parent-as-module surface. |
+| Ring multiplication, units, ring ideals | Not owned here | These remain in `rings` and `algebras`. |
+
+Migration consequence: keep matrix-space linear methods in `modules`, including the
+square case, and keep the smoke expectation that the square matrix parent refines into
+`Modules(R).Free().FiniteRank()` simultaneously with its ring and algebra structure.
 
 ## Tensor Component Duals And Forms
 

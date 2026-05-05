@@ -2,8 +2,9 @@
 trackerStatus:
   type: feature
 title: Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
-status: to-do
+status: in-review
 priority: critical
+progress: 90
 planId: SPR-RINGS-PADIC-01KQN9
 tags:
 - category-specs
@@ -15,6 +16,7 @@ tags:
 - algebras
 - matrix
 - theme-rings-algebras
+updated: '2026-05-05'
 ---
 
 # Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
@@ -26,8 +28,18 @@ split.
 
 ## Source Provenance
 
-- `category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`.
+- The requested recovery path `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`
+  fails because the file still lived under `plans/category_specs/rings/docs/TRIAGE.md`
+  at that parent commit.
+- Exact recovered prior content came from
+  `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
 - Original migrated line: `Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke from category_specs/rings/docs/TRIAGE.md`
+- Sage written-doc and source anchors used for this leaf:
+  `https://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix_space.html`,
+  `https://doc.sagemath.org/html/en/reference/modules/sage/modules/free_module.html`,
+  `https://doc.sagemath.org/html/en/reference/rings/sage/rings/ring.html`,
+  `category_specs/modules/docs/SAGE_INVENTORY.md`,
+  and the current mapping docs in `rings`, `algebras`, and `modules`.
 
 ## Context
 
@@ -77,11 +89,11 @@ Rejection/retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
-- [ ] Confirm failures are reduced without weakening constructor membership assertions.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No new implementation blocker was discovered during this docs/spec pass; the existing implementation proof remains the matrix smoke frontier.
+- [x] No ring constructor or axiom code changed, so the `rings/smoketest.sage` trigger did not apply in this pass.
+- [x] Constructor membership assertions were not weakened; the docs now preserve simultaneous ring/algebra/module refinement as the smoke expectation.
 
 ## Dependencies And Boundaries
 
@@ -92,3 +104,11 @@ Rejection/retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- Recovered the removed rings triage wording from
+  `plans/category_specs/rings/docs/TRIAGE.md` at `8d1c21c^` after broadening the path
+  search.
+- Recorded the owner split in the mapping docs: `Rings().Constructors().MatrixRing(...)`
+  remains the constructor owner; the returned square matrix parent simultaneously
+  refines into `Rings()`, `Algebras(R)`, and `Modules(R).Free().FiniteRank()`.
+- Kept the matrix smoke requirement intact: no constructor relocation and no weakening
+  of simultaneous refinement expectations.

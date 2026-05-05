@@ -41,6 +41,7 @@ The remaining variadic ring factories are split as follows:
 | `PowerSeriesRing(R, n, prefix, ...)` | `MultivariatePowerSeriesRingWithGeneratorPrefix(base_ring=R, prefix=..., num_gens=n, ...)` | Prefix-plus-count route. |
 | `LaurentSeriesRing(PowerSeriesRing(...))` | `LaurentSeriesRingFromPowerSeriesRing(power_series_ring)` | Underlying power-series-ring route. |
 | `PuiseuxSeriesRing(LaurentSeriesRing(...))` | `PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)` | Underlying Laurent-series-ring route. |
+| `MatrixRing(R, n, sparse=..., implementation=...)` | `Rings().Constructors().MatrixRing(base_ring=R, n=n, sparse=..., implementation=...)` | The constructor entry point stays in `rings` because it builds the ambient square-matrix parent itself. Refinement into algebra and module categories happens on the returned parent rather than by relocating the constructor. |
 | `MatrixSpace.matrix(x=None, **kwds)` | `zero_matrix`, `matrix_from_matrix`, `matrix_from_entries`, `matrix_from_rows`, `scalar_matrix` | The no-argument, matrix, flat-entry, row-entry, and scalar cases are separate element constructors. Sage's `coerce` keyword remains a named option on the data-bearing routes. |
 
 Number-field methods with optional `v` are also split. `discriminant()` is the field
@@ -84,6 +85,32 @@ use the private convenience method `_change_print_mode(print_mode)`.
 | Approximate ring surface | `subcategories/approximate.py` | Precision control is common to real/complex precision families and p-adic rings/fields. The shared mathematical method is `change_precision`, not Sage's raw `change(...)` option bag. |
 | Construction-category surface | `subcategories/constructions/<notion>.py` | Constructions such as subobjects, quotients, rings under, rings over, characteristic, and Krull dimension are attachable categorical constructions and are split by notion. |
 | Matrix ring/algebra surface | `algebras` plus ring refinement | Matrix rings are algebras over their base ring and modules over that base. Algebraic methods belong in `algebras`; ring methods belong in `rings`; module methods belong in `modules`. |
+
+## Square Matrix Parent Split
+
+The square matrix parent split is fixed by the current mapping docs plus Sage's public
+behavior:
+
+- Sage documents `MatrixSpace(R, n, n)` as the parent of `n x n` matrices over `R`,
+  places square matrix spaces in an algebra-with-basis category, and still treats the
+  same parent as a ring object (`is_Ring(MatrixSpace(QQ, 2))` is true).
+- The same Sage inventory pass records rectangular `MatrixSpace(R, m, n)` in module
+  territory and square `MatrixSpace(R, n, n)` in algebra territory, so the split is
+  by public structure, not by constructor namespace.
+
+The project owner rule is therefore:
+
+| Surface on a square matrix parent over `R` | Owner | Codomain consequence |
+| --- | --- | --- |
+| Constructor entry point | `Rings().Constructors().MatrixRing(...)` | Returns the ambient square matrix parent itself. |
+| Ring operations: multiplication, unit, ideals, quotient-ring structure, ring predicates | `rings` | The codomain stays the same square matrix parent viewed in `Rings()`. |
+| Algebra operations over the base ring `R`: algebra generators, center, radical, algebra ideals, finite-dimensional algebra structure | `algebras` | The codomain stays the same parent viewed in `Algebras(R)` or a matrix-algebra refinement below it. |
+| Free finite-rank module operations over `R`: rank, basis, coordinate conversion, submodule/quotient/module hom structure | `modules` | The codomain stays the same parent viewed in `Modules(R).Free().FiniteRank()`. |
+
+Migration consequence: keep `MatrixRing` and square `MatrixSpace` constructor routing in
+`rings`, move only algebra-specific method surfaces to `algebras`, and keep free-module
+structure in `modules`. Do not weaken the matrix smoke by replacing simultaneous
+refinement checks with a single-owner shortcut.
 
 ## Construction-Category Mapping
 
