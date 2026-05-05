@@ -210,10 +210,27 @@ powerset of that base set.
 | `shape()` / `shape_partition()` / `to_partition()` | integer partition of block sizes | This maps to the integer-partition surface once that set-combinatorics subtree is admitted. Until then, keep the Sage `IntegerPartition` type alias in `types.py`. |
 | `arcs()`, `openers()`, `closers()` | partition arc-diagram surface | These are combinatorial views of an ordered finite set partition. They remain partition element methods, not poset or graph constructors. |
 | `to_restricted_growth_word_*`, `to_rook_placement_*` | named encoding/export methods on partition elements | These are encodings of a partition. Inverse construction routes through `Sets().Constructors()` named constructors. |
-| `crossings`, `nestings`, `is_noncrossing`, `is_nonnesting`, `is_atomic` | future axiomatic subcategories of partitioned sets when admitted | These predicates describe stricter combinatorial subclasses. They are mapped, but not scaffolded until a pass admits the corresponding subcategories. |
+| `crossings()`, `nestings()` | `Partitioned.ElementMethods.crossings()` and `Partitioned.ElementMethods.nestings()` | Sage defines these on `SetPartition` elements, not on the parent. They return witness data for a single partition: lists of pairs of arcs. The definitions require the finite base set to be totally ordered because the arcs are drawn by placing the ground-set elements in order on a line and linking consecutive elements in each block. |
+| `is_noncrossing()`, `is_nonnesting()` | `Partitioned.ElementMethods.is_noncrossing()` and `Partitioned.ElementMethods.is_nonnesting()` | These are boolean predicates on a single partition element, with the same finite totally ordered base-set hypothesis as `crossings()` and `nestings()`. They do not yet induce admitted category axioms because `Sets().Partitioned()` alone does not encode the required order hypothesis on the base set. |
+| `is_atomic()` | `Partitioned.ElementMethods.is_atomic()` | Sage defines atomicity for a nonempty standard set partition by pipe-indecomposability, ordering blocks by minimal element and asking whether the partition splits as `B | C`. This is again an element predicate, not a parent/category construction. It depends on the induced finite total order used for standardization, so it shares the same admission blocker as the crossing/nesting predicates. |
 | `standardization()`, `restriction(I)` | partition element transforms | These return new partition elements and remain partition methods. |
 | `refinements()`, `coarsenings()`, `strict_coarsenings()` | finite sets of partition elements | These return finite subsets of the partition lattice and should refine through set constructors in a later implementation pass. |
 | `plot(...)` and LaTeX/display helpers | no category method | Display output is not set-theoretic structure. |
+
+Admission decision for partition subclass predicates:
+
+- Expose `crossings()`, `nestings()`, `is_noncrossing()`, `is_nonnesting()`, and
+  `is_atomic()` now on `Sets().Partitioned().ElementMethods`, with docstrings that
+  state the finite totally ordered base-set hypothesis explicitly.
+- Do not admit `Sets().Partitioned().Noncrossing()`,
+  `Sets().Partitioned().Nonnesting()`, or `Sets().Partitioned().Atomic()` yet. The
+  current partitioned-set axiom only records "partitions of a fixed base set"; it does
+  not by itself encode that the base set is finite and totally ordered, which Sage's
+  definitions use essentially.
+- If a future pass needs the subclass objects themselves, construct them first as
+  predicate-defined subobjects of a fixed partition parent, not as global axioms. Full
+  axiom admission waits on a source-grounded category owner for partitions over finite
+  totally ordered base sets.
 
 ## Sage `Set_object` Method Mapping Decisions
 

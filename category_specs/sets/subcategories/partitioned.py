@@ -137,6 +137,45 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             r"""Return the arcs between consecutive elements in each ordered block."""
             ...
 
+        @abstract_method
+        def crossings(
+            self,
+        ) -> list[
+            tuple[
+                tuple[SetElement, SetElement],
+                tuple[SetElement, SetElement],
+            ]
+        ]:
+            r"""Return crossing arc pairs when the finite base set is totally ordered."""
+            ...
+
+        @abstract_method
+        def nestings(
+            self,
+        ) -> list[
+            tuple[
+                tuple[SetElement, SetElement],
+                tuple[SetElement, SetElement],
+            ]
+        ]:
+            r"""Return nesting arc pairs when the finite base set is totally ordered."""
+            ...
+
+        @abstract_method
+        def is_noncrossing(self) -> bool:
+            r"""Return whether the ordered finite partition has no crossing arcs."""
+            ...
+
+        @abstract_method
+        def is_nonnesting(self) -> bool:
+            r"""Return whether the ordered finite partition has no nesting arcs."""
+            ...
+
+        @abstract_method
+        def is_atomic(self) -> bool:
+            r"""Return whether the nonempty ordered finite partition is pipe-indecomposable."""
+            ...
+
     class MorphismMethods: ...
 
 
