@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from typing import final, override
 
-from sage.categories.sets_cat import Sets as SageSets
-
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import TopologicalSpaces
@@ -27,8 +25,8 @@ class _ConnectedTopologicalSpaces(CategoryWithAxiom):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        r"""Return Sage connected spaces and local topological spaces."""
-        return [SageSets().Topological().Connected(), TopologicalSpaces()]
+        r"""Return local topological spaces."""
+        return [TopologicalSpaces()]
 
     class ParentMethods:
         @override

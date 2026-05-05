@@ -65,10 +65,10 @@ class _FamilySets(Category_singleton):
             r"""Return the inverse family when this family is bijectively indexed."""
             ...
 
-        @abstract_method
+        @final
         def has_key(self, k: SetElement) -> bool:
             r"""Return whether ``k`` is an index key of this family."""
-            ...
+            return k in self.keys() or k in self.hidden_keys()
 
         @override
         @abstract_method

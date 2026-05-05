@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
+from sage.rings.infinity import infinity, minus_infinity
 
 if TYPE_CHECKING:
     from ...types import (
@@ -68,6 +69,14 @@ class _RealSets(Category_singleton):
         def is_universe(self) -> bool:
             r"""Return whether this real subset is the whole real line."""
             ...
+
+        @override
+        @final
+        def is_compact(self) -> bool:
+            r"""Return whether this real subset is compact in the real line."""
+            return self.is_empty() or (
+                self.is_closed() and self.inf() is not minus_infinity and self.sup() is not infinity
+            )
 
         @abstract_method
         def get_interval(self, i: Integer) -> RealInterval:

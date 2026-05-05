@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.categories.sets_cat import Sets as SageSets
+from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -73,7 +73,7 @@ class MetricSpacesCategory(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage metric spaces and local topological spaces."""
-        return [SageSets().Metric(), TopologicalSpaces()]
+        return [SageMetricSpaces(), TopologicalSpaces()]
 
     class SubcategoryMethods:
         @cached_method

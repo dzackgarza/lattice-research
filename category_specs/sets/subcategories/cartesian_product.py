@@ -6,6 +6,7 @@ from collections.abc import Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
+from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
@@ -62,8 +63,9 @@ class _CartesianProductSets(Category_singleton):
         def _coerce_map_from_(self, S: Set) -> bool | SetMorphism | None: ...
 
         @override
-        @abstract_method
-        def _sympy_(self) -> SympySet: ...
+        @final
+        def _sympy_(self) -> SympySet:
+            return SageSets.CartesianProducts.ParentMethods._sympy_(self)
 
     class ElementMethods:
         @abstract_method

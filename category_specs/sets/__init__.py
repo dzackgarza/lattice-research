@@ -65,7 +65,7 @@ from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-from sage.rings.infinity import infinity
+from sage.rings.infinity import infinity, minus_infinity
 from sage.structure.richcmp import op_EQ, op_GE, op_GT, op_LE, op_LT, op_NE
 
 from ..cat import Category, Category_singleton
@@ -113,23 +113,30 @@ class _SetObjectMethods:
         r"""Return ``True`` if ``x`` is an element of ``self``."""
         ...
 
-    @abstract_method
-    def _element_constructor_(self, x: SetElement) -> SetElement: ...
+    @final
+    def _element_constructor_(self, x: SetElement) -> SetElement:
+        if hasattr(self, "element_class"):
+            return self.element_class(self, x)
+        raise NotImplementedError("generic set element construction requires an element class")
 
-    @abstract_method
-    def is_parent_of(self, element: SetElement) -> bool:
+    @final
+    def is_parent_of(self, element: Any) -> bool:
         r"""Return whether this set is the parent of ``element``."""
-        ...
+        from sage.structure.element import parent
+
+        return parent(element) == self
 
     @abstract_method
     def an_element(self) -> SetElement:
         r"""Return a distinguished element of this set."""
         ...
 
-    @abstract_method
+    @final
     def some_elements(self) -> list[SetElement]:
         r"""Return sample elements of this set."""
-        ...
+        from sage.categories.sets_cat import Sets as SageSets
+
+        return SageSets.ParentMethods.some_elements(self)
 
     @abstract_method
     def cardinality(self) -> Cardinality:
@@ -525,17 +532,30 @@ class Sets(Category_singleton):
             from ..topological_spaces import TopologicalSpaces
             from .subcategories.real_set import _RealSets
 
+            topological_spaces = TopologicalSpaces()
             categories = [
                 Sets(),
                 Sets().Subobjects(),
                 Sets().Topological(),
                 _RealSets(),
-                TopologicalSpaces().Subobjects(),
+                topological_spaces.Subobjects(),
             ]
             if real_set.is_connected():
-                categories.append(TopologicalSpaces().Connected())
-            if real_set.category().is_subcategory(SageTopologicalSpaces().Compact()):
-                categories.append(TopologicalSpaces().Compact())
+                connected_spaces = topological_spaces.Connected()
+                categories.extend([connected_spaces, connected_spaces.Subobjects()])
+            is_compact = real_set.category().is_subcategory(SageTopologicalSpaces().Compact()) or (
+                real_set.is_empty()
+                or (
+                    real_set.is_closed()
+                    and real_set.inf() is not minus_infinity
+                    and real_set.sup() is not infinity
+                )
+            )
+            if is_compact:
+                compact_spaces = topological_spaces.Compact()
+                categories.extend([compact_spaces, compact_spaces.Subobjects()])
+                if real_set.is_connected():
+                    categories.append(compact_spaces.Connected().Subobjects())
             return categories
 
         @final
@@ -741,12 +761,14 @@ class Sets(Category_singleton):
             flatten: bool = False,
         ) -> Set:
             r"""Return the Cartesian product of a sequence of set parents."""
+            from sage.categories.cartesian_product import cartesian_product
             from sage.sets.cartesian_product import CartesianProduct as SageCP
 
             from .subcategories.cartesian_product import _CartesianProductSets
 
-            product_category = Sets().CartesianProducts() if category is None else category
-            S = SageCP(tuple(factors), category=product_category, flatten=flatten)
+            parents = tuple(factors)
+            product_category = category or cartesian_product.category_from_parents(parents)
+            S = SageCP(parents, category=product_category, flatten=flatten)
             return refine_category(S, [Sets(), _CartesianProductSets()])
 
         @final
@@ -756,12 +778,11 @@ class Sets(Category_singleton):
             domain_subset: Subset,
         ) -> Subset:
             r"""Return ``ImageSubobject(f, domain_subset)``, refined into its subcategory."""
-            from sage.sets.image_set import ImageSubobject as SageIS
-
+            from .subcategories.image import ImageSubobject as ProjectImageSubobject
             from .subcategories.image import _ImageSets
 
             return refine_category(
-                SageIS(f, domain_subset),
+                ProjectImageSubobject(f, domain_subset),
                 [Sets(), _ImageSets()],
             )
 
@@ -971,11 +992,7 @@ class Sets(Category_singleton):
         @final
         def cartesian_product(self, factors: Sequence[Set]) -> Set:
             r"""Return Sage's categorical Cartesian product of ``factors``."""
-            from sage.categories.cartesian_product import cartesian_product
-
-            from .subcategories.cartesian_product import _CartesianProductSets
-
-            return refine_category(cartesian_product(list(factors)), [Sets(), _CartesianProductSets()])
+            return self.CartesianProduct(factors)
 
     _Constructors = Constructors
 

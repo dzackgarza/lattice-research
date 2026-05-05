@@ -53,6 +53,8 @@ Audit work is critical when it prevents downstream poisoning: wrong definitions,
 ## Subplans
 
 - `SPR-VARIADIC-AUDIT-01KQN9`: variadic signature closure across modules, rings, tensors, algebras, lattices, posets, sets, and RealSet constructors.
+- `SPR-DUCKTYPE-AUDIT-20260505`: object-shape probing audit for `getattr`/`hasattr`
+  patterns that should be real type/category dispatch.
 
 Leaf task ownership is encoded by each card's `planId`; this parent plan should not
 own executable cards directly.
@@ -61,5 +63,7 @@ own executable cards directly.
 
 - [ ] Smoke failures are routed to spec, implementation, research, or decision cards by mathematical cause.
 - [ ] Audit cards link to the plan or source map whose correctness they protect.
+- [ ] Audit coverage includes duck-typed object-shape probes where category-spec code
+  should match real Sage/project types, documented wrappers, or category membership.
 - [ ] `/home/dzack/ai/quality-control/vulture_whitelist.py` remains global QC tooling support, not a planning document.
 - [ ] Compliance findings are not buried in chat or loose TODO files.

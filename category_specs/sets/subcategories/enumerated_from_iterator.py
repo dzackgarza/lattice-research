@@ -6,7 +6,13 @@ from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
+from sage.categories.finite_enumerated_sets import (
+    FiniteEnumeratedSets as SageFiniteEnumeratedSets,
+)
+from sage.categories.infinite_enumerated_sets import (
+    InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
+)
+from sage.rings.infinity import infinity
 
 if TYPE_CHECKING:
     from ...types import Cardinality, SetElement
@@ -31,29 +37,66 @@ class _EnumeratedSetsFromIterator(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
-        def __contains__(self, x: Any) -> bool: ...
+        @final
+        def is_finite(self) -> bool:
+            if self.category().is_subcategory(SageFiniteEnumeratedSets()):
+                return True
+            if self.category().is_subcategory(SageInfiniteEnumeratedSets()):
+                return False
+            raise NotImplementedError("iterator-backed set finiteness requires finite or infinite category evidence")
 
         @override
-        @abstract_method
-        def __iter__(self) -> Iterator[SetElement]: ...
+        @final
+        def __contains__(self, x: Any) -> bool:
+            return any(x == y for y in self)
 
         @override
-        @abstract_method
-        def cardinality(self) -> Cardinality: ...
+        @final
+        def __iter__(self) -> Iterator[SetElement]:
+            if hasattr(self, "_cache"):
+                return iter(self._cache)
+            return iter(
+                self._func(
+                    *getattr(self, "_args", ()),
+                    **getattr(self, "_kwds", {}),
+                )
+            )
 
         @override
-        @abstract_method
-        def an_element(self) -> SetElement: ...
+        @final
+        def cardinality(self) -> Cardinality:
+            if self.category().is_subcategory(SageInfiniteEnumeratedSets()):
+                return infinity
+            if not self.category().is_subcategory(SageFiniteEnumeratedSets()):
+                raise NotImplementedError("iterator-backed cardinality requires finite or infinite category evidence")
+            return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
 
         @override
-        @abstract_method
-        def _element_constructor_(self, el: SetElement) -> SetElement: ...
+        @final
+        def an_element(self) -> SetElement:
+            return self._an_element_()
 
-        @abstract_method
+        @override
+        @final
+        def _element_constructor_(self, el: SetElement) -> SetElement:
+            if el in self:
+                return el
+            raise ValueError(f"{el} not in {self}")
+
+        @final
         def clear_cache(self) -> None:
             r"""Clear the iterator cache of this callable-backed enumerated set."""
-            ...
+            if hasattr(self, "_cache"):
+                from sage.misc.lazy_list import lazy_list
+
+                self._cache = lazy_list(
+                    iter(
+                        self._func(
+                            *getattr(self, "_args", ()),
+                            **getattr(self, "_kwds", {}),
+                        )
+                    )
+                )
 
     class ElementMethods: ...
 

@@ -7,6 +7,7 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
+from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
 from sage.sets.real_set import RealSet as SageRealSet
 
 
@@ -71,27 +72,27 @@ SMOKE_STATEMENTS = (
     ("Primes() indexes its first element as 2", lambda _: C.Primes()[0] == 2),
     (
         "RealSet(open interval) is a topological set",
-        lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Topological(),
+        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Topological(),
     ),
     (
         "RealSet(open interval) is a subobject",
-        lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Subobjects(),
+        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]) in Sets().Subobjects(),
     ),
     (
         "RealSet(open interval) contains 1/2",
-        lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]).contains(1 / 2),
+        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).contains(1 / 2),
     ),
     (
         "RealSet(open interval) does not contain 2",
-        lambda _: not C.RealSet([SageRealSet.open(0, 1).get_interval(0)]).contains(2),
+        lambda _: not C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).contains(2),
     ),
     (
         "RealSet(open interval) is open",
-        lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]).is_open(),
+        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).is_open(),
     ),
     (
         "RealSet(open interval) has one component",
-        lambda _: C.RealSet([SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
+        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
     ),
     (
         "RealSetInterval(0, 1, open) is a connected topological subobject",
@@ -147,8 +148,8 @@ SMOKE_STATEMENTS = (
         lambda _: 3 in C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth"),
     ),
     (
-        "-1 does not lie in RecursivelyEnumeratedSet([0], successors)",
-        lambda _: -1 not in C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth"),
+        "-1 does not lie in bounded RecursivelyEnumeratedSet([0], successors)",
+        lambda _: -1 not in C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth", max_depth=3),
     ),
     (
         "RecursivelyEnumeratedSet([0], successors) ranks 3 as 3",
@@ -221,19 +222,21 @@ SMOKE_STATEMENTS = (
     ("Family(IntegerRange(3), i^2) has cardinality 3", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2).cardinality() == 3),
     (
         "EnumeratedSetFromIterator([0, 1, 2]) is finite countable",
-        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])) in Sets().Countable().Finite(),
+        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets())
+        in Sets().Countable().Finite(),
     ),
     (
         "EnumeratedSetFromIterator([0, 1, 2]) has cardinality 3",
-        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])).cardinality() == 3,
+        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets()).cardinality()
+        == 3,
     ),
     (
         "EnumeratedSetFromIterator([0, 1, 2]) ranks 2 as 2",
-        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]))[2] == 2,
+        lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets())[2] == 2,
     ),
     (
         "1 lies in EnumeratedSetFromIterator([0, 1, 2])",
-        lambda _: 1 in C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2])),
+        lambda _: 1 in C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets()),
     ),
     ("AllSetPartitions() is countable", lambda _: C.AllSetPartitions() in Sets().Countable()),
     ("SetPartitions([1, 2, 3]) is partitioned", lambda _: C.SetPartitions([1, 2, 3]) in Sets().Partitioned()),

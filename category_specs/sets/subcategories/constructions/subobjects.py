@@ -9,12 +9,13 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category, SubobjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Set, SetElement, Subset, SympySet
+    from ....types import Cardinality, Set, SetElement, Subset, SympySet
 
 
 class Subsets(SubobjectsCategory):
@@ -63,9 +64,44 @@ class Subsets(SubobjectsCategory):
             return self.ambient()
 
         @final
+        def lift(self, x: SetElement) -> SetElement:
+            r"""Include an element of this subobject into its ambient set."""
+            if x not in self:
+                raise ValueError(f"{x} is not in {self}")
+            return self.ambient()(x)
+
+        @final
+        def retract(self, x: SetElement) -> SetElement:
+            r"""Retract an ambient element to this subobject when it lies in the subset."""
+            return self(x)
+
+        @final
         def predicate(self) -> Callable[[SetElement], bool]:
             r"""Return the characteristic predicate inside ``ambient()``."""
             return lambda x: x in self
+
+        @override
+        @final
+        def is_finite(self) -> bool:
+            if self.ambient().is_finite():
+                return True
+            raise NotImplementedError("subobject finiteness requires finite ambient or explicit cardinality")
+
+        @override
+        @final
+        def is_empty(self) -> bool:
+            if self.ambient().is_finite():
+                return all(x not in self for x in self.ambient())
+            raise NotImplementedError("subobject emptiness requires finite ambient or an explicit witness search")
+
+        @override
+        @final
+        def cardinality(self) -> Cardinality:
+            if self.ambient().is_finite():
+                from sage.rings.integer import Integer
+
+                return Integer(sum(1 for x in self.ambient() if x in self))
+            raise NotImplementedError("subobject cardinality requires finite ambient or an explicit implementation")
 
         @override
         @abstract_method
@@ -73,35 +109,45 @@ class Subsets(SubobjectsCategory):
             r"""Return whether ``x`` lies in ``ambient()`` and satisfies ``predicate()``."""
             ...
 
-        @abstract_method
+        @final
         def union(self, X: Subset) -> Subset:
             r"""Return the condition-backed set-theoretic union of ``self`` and ``X``."""
-            ...
+            from ... import Sets
 
-        @abstract_method
+            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self or x in X,))
+
+        @final
         def intersection(self, X: Subset) -> Subset:
             r"""Return the condition-backed intersection of ``self`` and ``X``."""
-            ...
+            from ... import Sets
 
-        @abstract_method
+            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self and x in X,))
+
+        @final
         def difference(self, X: Subset) -> Subset:
             r"""Return the condition-backed set-theoretic difference ``self \ X``."""
-            ...
+            from ... import Sets
 
-        @abstract_method
+            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self and x not in X,))
+
+        @final
         def symmetric_difference(self, X: Subset) -> Subset:
             r"""Return the condition-backed symmetric difference of ``self`` and ``X``."""
-            ...
+            from ... import Sets
 
-        @abstract_method
+            return Sets().Subobjects().Of(self.ambient(), (lambda x: (x in self) != (x in X),))
+
+        @final
         def complement(self) -> Subset:
             r"""Return the condition-backed complement of ``self`` in its ambient set."""
-            ...
+            from ... import Sets
 
-        @abstract_method
+            return Sets().Subobjects().Of(self.ambient(), (lambda x: x not in self,))
+
+        @final
         def _sympy_(self) -> SympySet:
             r"""Return the symbolic set corresponding to this subset."""
-            ...
+            return SageSets.ParentMethods._sympy_(self)
 
         @final
         def __or__(self, X: Subset) -> Subset:

@@ -32,7 +32,6 @@ from __future__ import annotations
 from importlib import import_module
 from typing import TYPE_CHECKING, final, override
 
-from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -130,7 +129,7 @@ class TopologicalSpaces(CategoryWithAxiom):
     @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
-        return (SageSets().Topological(),)
+        return ()
 
     @override
     @final
@@ -141,7 +140,7 @@ class TopologicalSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return the set-theoretic supercategories of topological spaces."""
-        return [SageSets().Topological(), Sets()]
+        return [Sets()]
 
     class Constructors:
         r"""Topological-space constructors.

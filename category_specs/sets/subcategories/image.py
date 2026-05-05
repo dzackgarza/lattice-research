@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.misc.abstract_method import abstract_method
+from sage.sets.image_set import ImageSubobject as SageImageSubobject
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, Set, SetElement, SympySet
@@ -14,6 +15,22 @@ if TYPE_CHECKING:
 
 from ...cat import Category
 from .. import Sets
+
+
+class ImageSubobject(SageImageSubobject):
+    r"""Project wrapper for Sage image subobjects."""
+
+    @override
+    @final
+    def __contains__(self, x: Any) -> bool:
+        domain_subset = getattr(self, "_domain_subset", None)
+        if domain_subset is not None and domain_subset.is_finite():
+            return any(y == x for y in self)
+        try:
+            self._element_constructor_(x)
+        except ValueError:
+            return False
+        return True
 
 
 class _ImageSets(Category_singleton):

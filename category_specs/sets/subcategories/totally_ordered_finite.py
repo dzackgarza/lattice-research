@@ -6,6 +6,7 @@ from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
+from sage.categories.sets_cat import EmptySetError
 from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
@@ -56,12 +57,23 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         def __contains__(self, x: Any) -> bool: ...
 
         @override
-        @abstract_method
-        def min(self) -> SetElement: ...
+        @final
+        def min(self) -> SetElement:
+            try:
+                return next(iter(self))
+            except StopIteration:
+                raise EmptySetError
 
         @override
-        @abstract_method
-        def max(self) -> SetElement: ...
+        @final
+        def max(self) -> SetElement:
+            missing = object()
+            last = missing
+            for last in self:
+                pass
+            if last is missing:
+                raise EmptySetError
+            return last
 
     class ElementMethods:
         @override

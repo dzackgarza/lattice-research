@@ -5,7 +5,7 @@ title: Fix Sets root containment refined-constructor __richcmp__ Primes iteratio
 status: in-progress
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
-progress: 35
+progress: 85
 tags:
 - category-specs
 - implementation
@@ -87,3 +87,22 @@ construction, and topological axiom resolution.
   `cardinality`, image `complement`, totally ordered finite set `max`,
   finite-map/all-partition `is_parent_of`, family `_element_constructor_`,
   iterator-backed cardinality, and partition `_sympy_`.
+- 2026-05-05: Cleared the remaining functional Sets smoke frontier without adding the
+  rejected catch-all `Constructors().RealSet` route. The smoke now uses the admitted
+  `RealSetFromIntervals` constructor, RealSet parents have concrete compactness and
+  closed-bounded compact category refinement, recursive and iterator-backed set
+  behavior is concrete enough for the smoke, Cartesian products and subobjects expose
+  the required finite/cardinality/SymPy surfaces, image subobjects recover finite
+  membership/cardinality, totally ordered finite sets expose `min`/`max`, finite-map
+  and family rows pass, and partition rows pass.
+- 2026-05-05: Added `SPR-DUCKTYPE-AUDIT-20260505` and
+  `.agents/tasks/implementation/task_20260505_audit_category_spec_duck_type_object_shape_probes.md`
+  so `getattr`/`hasattr` object-shape probing is handled in the audit phase rather
+  than folded into this smoke card.
+- 2026-05-05: Validation: `just --justfile category_specs/justfile smoke-file
+  sets/smoketest.sage` passes, still emitting Sage's inherited `Sets.Topological`
+  warning from the original Sage `RealSet` category join; `just --justfile
+  category_specs/justfile smoke-file topological_spaces/smoketest.sage` passes without
+  the warning after local topological construction categories stopped invoking Sage's
+  axiom reapplication path; `just --justfile category_specs/justfile
+  check-abstract-redefinitions` passes; `git diff --check` passes.
