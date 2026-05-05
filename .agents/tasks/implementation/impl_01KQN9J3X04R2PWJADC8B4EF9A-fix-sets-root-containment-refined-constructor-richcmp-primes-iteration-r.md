@@ -2,10 +2,10 @@
 trackerStatus:
   type: feature
 title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
-status: in-progress
+status: blocked
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
-progress: 85
+progress: 95
 tags:
 - category-specs
 - implementation
@@ -52,6 +52,13 @@ construction, and topological axiom resolution.
 - Keep `SAGE_INVENTORY.md` and `MAPPING.md` as the source and mapping provenance; do not recreate subtree-local `TRIAGE.md` files.
 - If execution reveals a missing mathematical owner, constructor, or category graph edge, split that as a new tracker item instead of patching around it.
 - Preserve the original source path in updates so future agents can trace why this item exists.
+- Blocked on
+  `.agents/decisions/dec_20260505_realset_sage_topological_axiom_warning.md` for the
+  residual Sage `Sets.Topological` warning emitted from the original Sage `RealSet`
+  category join. Functional smoke rows pass; the remaining question is whether the
+  project should strip or replace Sage RealSet category provenance, patch local
+  construction-category joins, or accept and document the warning as inherited Sage
+  behavior.
 
 ## Work Log
 
@@ -106,3 +113,7 @@ construction, and topological axiom resolution.
   the warning after local topological construction categories stopped invoking Sage's
   axiom reapplication path; `just --justfile category_specs/justfile
   check-abstract-redefinitions` passes; `git diff --check` passes.
+- 2026-05-05: Marked this card `blocked` only on the residual Sage topological-axiom
+  warning decision. The functional Sets smoke frontier is cleared, and narrower
+  RealSet/ImageSubobject implementation cards were moved to `in-review` in commit
+  `f606652`.
