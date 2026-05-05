@@ -2,11 +2,11 @@
 trackerStatus:
   type: bug
 title: Normalize category_specs Ruff E501 long-line blockers
-status: in-progress
+status: in-review
 priority: medium
 planId: SPR-VARIADIC-AUDIT-01KQN9
 complexity: 64
-progress: 97
+progress: 100
 created: '2026-05-03'
 updated: '2026-05-03'
 tags:
