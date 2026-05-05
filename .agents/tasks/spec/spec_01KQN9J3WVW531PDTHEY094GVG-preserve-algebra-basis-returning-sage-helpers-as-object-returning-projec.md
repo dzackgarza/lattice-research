@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Preserve algebra basis-returning Sage helpers as object-returning project methods such as center radical and derivations
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-RINGS-PADIC-01KQN9
 tags:
@@ -14,6 +14,8 @@ tags:
 - precision
 - algebras
 - theme-rings-algebras
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Preserve algebra basis-returning Sage helpers as object-returning project methods such as center radical and derivations
@@ -24,7 +26,11 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 
 ## Source Provenance
 
-- `category_specs/algebras/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`.
+- The requested recovery path `git show 8d1c21c^:category_specs/algebras/docs/TRIAGE.md`
+  fails because the file still lived under `plans/category_specs/algebras/docs/TRIAGE.md`
+  at that parent commit.
+- Exact recovered prior content came from
+  `git show 8d1c21c^:plans/category_specs/algebras/docs/TRIAGE.md`.
 - Original migrated line: `Preserve algebra basis-returning Sage helpers as object-returning project methods such as center radical and derivations from category_specs/algebras/docs/TRIAGE.md`
 
 ## Context
@@ -73,13 +79,31 @@ Rejection/retirement condition:
 - reject any spec edit that promotes a Sage basis helper itself to the public return
   object when the mapped mathematical object is an algebra, ideal, module, or element.
 
+## Execution Result
+
+The basis-helper migration is already grounded and preserved:
+
+- `category_specs/algebras/docs/MAPPING.md` maps Sage `center_basis()` to
+  `center() -> Algebra`, `radical_basis()` to `radical() -> AlgebraIdeal`,
+  `derivations_basis()` to `derivations() -> RModule`, and
+  `annihilator_basis(...)` to `annihilator(...) -> AlgebraIdeal`.
+- `category_specs/algebras/__init__.py` exposes the object-returning abstract methods
+  `center`, `radical`, `derivations`, and `annihilator` on the algebra parent surface.
+- `AlgebraIdeal` remains the algebra-ideal object in `Algebras(R).Ideals(A)`, backed by
+  module-subobject structure rather than by a bare basis list or a ring ideal alias.
+- Sage's basis helpers remain inventory evidence for how to build those objects in a
+  later implementation pass; they are not public project codomains.
+
+No code change was required in this pass. The historical `Algebras(ZZ)` and
+`DualObjects()` smoke failures are not basis-helper ownership issues.
+
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Run just smoke-file algebras/smoketest.sage after algebra category initialization or constructor changes.
-- [ ] Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module over Modules(R).
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No new implementation blocker was discovered during this docs/spec pass; recovered smoke failures remain unrelated frontiers.
+- [x] No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage` trigger did not apply in this pass.
+- [x] Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not to `Algebras(R)`.
 
 ## Dependencies And Boundaries
 
@@ -90,3 +114,8 @@ Rejection/retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Recovered historical algebra triage from
+  `plans/category_specs/algebras/docs/TRIAGE.md`, confirmed the object-returning
+  `center`, `radical`, `derivations`, and `annihilator` surfaces in mapping/code, and
+  marked the basis-helper preservation leaf ready for review without admitting raw
+  basis-list codomains.
