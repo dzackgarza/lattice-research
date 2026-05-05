@@ -2,11 +2,11 @@
 trackerStatus:
   type: bug
 title: Resolve category_specs import-hygiene Ruff F401 and E402 blockers
-status: in-progress
+status: in-review
 priority: high
 planId: SPR-VARIADIC-AUDIT-01KQN9
 complexity: 72
-progress: 95
+progress: 100
 created: '2026-05-03'
 updated: '2026-05-03'
 tags:
@@ -97,3 +97,6 @@ placement cleanup over local Ruff bypasses.
   now passes. `python -m compileall` passes for the changed import-hygiene files.
   `just test` still fails in global Ruff normalization with 424 `E501` findings,
   now tracked by the linked long-line normalization card.
+- 2026-05-05: Forms compatibility shims were restored with the same redundant-alias
+  re-export pattern used by package aggregation surfaces. Targeted `ruff check` on
+  those shim files passed, and this card is moved to in-review for human closure.
