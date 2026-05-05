@@ -468,6 +468,21 @@ class Sets(Category_singleton):
         def __repr__(self) -> str:
             return "Sets constructors"
 
+        @staticmethod
+        def _set_partitions_categories(base_set: Set | Iterable[SetElement] | Integer) -> list[Category]:
+            r"""Return project categories for fixed-base set-partition parents."""
+            from sage.rings.integer import Integer as SageInteger
+
+            from .subcategories.partitioned import (
+                FiniteTotallyOrderedBasePartitionedSetsCategory,
+                PartitionedSetsCategory,
+            )
+
+            categories = [Sets(), PartitionedSetsCategory()]
+            if isinstance(base_set, SageInteger):
+                categories.append(FiniteTotallyOrderedBasePartitionedSetsCategory())
+            return categories
+
         @final
         def from_iterable(self, elements: Iterable[SetElement]) -> FiniteSet:
             r"""Return the finite enumerated set whose elements are read from ``elements``."""
@@ -878,9 +893,7 @@ class Sets(Category_singleton):
             r"""Return the set of all partitions of ``base_set``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import PartitionedSetsCategory
-
-            return refine_category(SageSetPartitions(base_set), [Sets(), PartitionedSetsCategory()])
+            return refine_category(SageSetPartitions(base_set), self._set_partitions_categories(base_set))
 
         @final
         def SetPartitionsWithBlockCount(
@@ -891,9 +904,7 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` into ``block_count`` blocks."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import PartitionedSetsCategory
-
-            return refine_category(SageSetPartitions(base_set, block_count), [Sets(), PartitionedSetsCategory()])
+            return refine_category(SageSetPartitions(base_set, block_count), self._set_partitions_categories(base_set))
 
         @final
         def SetPartitionsWithBlockSizes(
@@ -904,9 +915,7 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` with the given block-size partition."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            from .subcategories.partitioned import PartitionedSetsCategory
-
-            return refine_category(SageSetPartitions(base_set, block_sizes), [Sets(), PartitionedSetsCategory()])
+            return refine_category(SageSetPartitions(base_set, block_sizes), self._set_partitions_categories(base_set))
 
         @final
         def SetPartition(

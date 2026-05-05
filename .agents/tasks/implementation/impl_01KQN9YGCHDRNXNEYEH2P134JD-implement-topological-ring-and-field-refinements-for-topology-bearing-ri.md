@@ -5,6 +5,7 @@ title: Implement topological ring and field refinements for topology-bearing rin
 status: to-do
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
+updated: '2026-05-05'
 tags:
 - category-specs
 - implementation
@@ -50,4 +51,13 @@ lattice-precision gaps.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Preflighted with
+  `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`. The smoke
+  fails before topological membership assertions because topology-bearing ring
+  constructors such as `RR`, `CC`, `RDF`, `CDF`, `RIF`, `RealField(100)`,
+  `ComplexField(100)`, and `RealBallField(100)` refine into a topological surface with
+  abstract topological methods such as `boundary` still unimplemented. The same smoke
+  also reports unrelated ring-frontier failures (`hilbert_polynomial`, `ideal_monoid`,
+  q-adic deferred frontiers, and matrix-ring MRO). This finding is leaf-local evidence
+  for the topological ring implementation card and is not a global blocker for other
+  approved phase-01 leaves.

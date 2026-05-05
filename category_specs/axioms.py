@@ -39,6 +39,8 @@ SET_AXIOMS = (
     "Facade",
     "TotallyOrdered",
     "Graded",
+    "Partitioned",
+    "FiniteTotallyOrderedBase",
     "Metric",
 )
 

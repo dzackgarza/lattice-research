@@ -239,14 +239,27 @@ SMOKE_STATEMENTS = (
         lambda _: 1 in C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets()),
     ),
     ("AllSetPartitions() is countable", lambda _: C.AllSetPartitions() in Sets().Countable()),
+    ("AllSetPartitions() is not fixed-base partitioned", lambda _: C.AllSetPartitions() not in Sets().Partitioned()),
     ("SetPartitions([1, 2, 3]) is partitioned", lambda _: C.SetPartitions([1, 2, 3]) in Sets().Partitioned()),
+    (
+        "SetPartitions(3) has finite totally ordered base",
+        lambda _: C.SetPartitions(3) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+    ),
     (
         "SetPartitionsWithBlockCount([1, 2, 3], 2) is partitioned",
         lambda _: C.SetPartitionsWithBlockCount([1, 2, 3], 2) in Sets().Partitioned(),
     ),
     (
+        "SetPartitionsWithBlockCount(3, 2) has finite totally ordered base",
+        lambda _: C.SetPartitionsWithBlockCount(3, 2) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+    ),
+    (
         "SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) is partitioned",
         lambda _: C.SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) in Sets().Partitioned(),
+    ),
+    (
+        "SetPartitionsWithBlockSizes(3, [2, 1]) has finite totally ordered base",
+        lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned().FiniteTotallyOrderedBase(),
     ),
     ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
     (

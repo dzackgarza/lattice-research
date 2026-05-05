@@ -2,9 +2,11 @@
 trackerStatus:
   type: feature
 title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only
-status: to-do
+status: in-review
 priority: high
 planId: SPR-POSETS-PART-01KQN9
+progress: 90
+updated: '2026-05-05'
 tags:
 - category-specs
 - implementation
@@ -37,11 +39,34 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
+
+## Implementation Result
+
+- Registered the set-partition axioms `Partitioned` and `FiniteTotallyOrderedBase` in
+  `category_specs/axioms.py`.
+- Made `Sets().Partitioned().FiniteTotallyOrderedBase()` reachable as the scoped
+  subcategory method from `PartitionedSetsCategory`.
+- Centralized fixed-base `SetPartitions` refinement categories in
+  `Sets.Constructors._set_partitions_categories(...)`.
+- Kept `Sets().Constructors().AllSetPartitions()` refined only through `Sets()` and
+  `Sets().Countable()`.
+- Refined the Sage integer fixed-base routes `SetPartitions(3)`,
+  `SetPartitionsWithBlockCount(3, 2)`, and
+  `SetPartitionsWithBlockSizes(3, [2, 1])` into
+  `Sets().Partitioned().FiniteTotallyOrderedBase()` because Sage's integer route has
+  the standard finite ordered base `{1, ..., n}`. Iterable routes remain only
+  `Sets().Partitioned()` and do not use raw Python ordering as category evidence.
+
+## Validation Notes
+
+- `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed with
+  the pre-existing Sage inherited `Sets.Topological` warning.
+- `just --justfile category_specs/justfile check-abstract-redefinitions` passed.
 
 ## Dependencies And Boundaries
 
@@ -52,4 +77,7 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Implemented the fixed-base partition refinement route, added smoke
+  assertions proving `AllSetPartitions()` is not fixed-base `Partitioned`, and proved
+  integer fixed-base partition constructors refine through
+  `Sets().Partitioned().FiniteTotallyOrderedBase()`.

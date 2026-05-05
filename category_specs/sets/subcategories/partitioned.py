@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -193,6 +194,13 @@ class PartitionedSetsCategory(CategoryWithAxiom):
         "category_specs.sets.subcategories.partitioned",
         "FiniteTotallyOrderedBasePartitionedSetsCategory",
     )
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def FiniteTotallyOrderedBase(self) -> Category:
+            r"""Return partitions whose fixed base set is finite and totally ordered."""
+            return self._with_axiom("FiniteTotallyOrderedBase")
 
 
 class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
