@@ -153,6 +153,21 @@ For `Cat()`, `Subobjects` means subcategories, `Quotients` means quotient
 categories, `Subquotients` means category-level subquotients, and
 `CartesianProducts` means product categories.
 
+## Constructor Aggregation Forwarders
+
+`Cat().Constructors()` is an aggregator over already-scoped constructor namespaces.
+The generated forwarding methods in `base_category_types.py` may use Python
+`*args`/`**kwargs` internally because they do not define a mathematical constructor
+surface. They forward to the owning constructor method, whose signature remains the
+single public source of truth.
+
+Mapping rule:
+
+| Implementation hook | Public owner | Consequence |
+| --- | --- | --- |
+| `_cat_constructor_forwarder(...).forwarded_constructor(self, *args, **kwargs)` | The target subtree constructor, e.g. `Rings().Constructors().PolynomialRing(...)` or `Modules(R).Constructors().FreeModule(...)` | Allowed only as generated private forwarding glue. Do not treat the generated Cat method as evidence that a broad public variadic constructor is admitted. |
+| `_CatObjectMixin.__init_subclass__(cls, **kwargs)` and the local `initialize_and_register(self, *args, **kwargs)` wrapper | Python/Sage subclass initialization plumbing | Not a category-spec method surface. The wrapper exists to register constructor owners after Sage/Python initialization and does not create mathematical input casework. |
+
 ## Slice and Coslice Categories
 
 Sage does not provide a dedicated installed class for categories over or under a
