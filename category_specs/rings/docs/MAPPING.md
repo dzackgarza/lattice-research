@@ -42,8 +42,8 @@ The remaining variadic ring factories are split as follows:
 | `PowerSeriesRing(R, n, prefix, ...)` | `MultivariatePowerSeriesRingWithGeneratorPrefix(base_ring=R, prefix=..., num_gens=n, ...)` | Prefix-plus-count route. |
 | `LaurentSeriesRing(PowerSeriesRing(...))` | `LaurentSeriesRingFromPowerSeriesRing(power_series_ring)` | Underlying power-series-ring route. |
 | `PuiseuxSeriesRing(LaurentSeriesRing(...))` | `PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)` | Underlying Laurent-series-ring route. |
-| `MatrixRing(R, n, sparse=..., implementation=...)` | `Rings().Constructors().MatrixRing(base_ring=R, n=n, sparse=..., implementation=...)` | The constructor entry point stays in `rings` because it builds the ambient square-matrix parent itself. Refinement into algebra and module categories happens on the returned parent rather than by relocating the constructor. |
-| `MatrixSpace.matrix(x=None, **kwds)` | `zero_matrix`, `matrix_from_matrix`, `matrix_from_entries`, `matrix_from_rows`, `scalar_matrix` | The no-argument, matrix, flat-entry, row-entry, and scalar cases are separate element constructors. Sage's `coerce` keyword remains a named option on the data-bearing routes. |
+| `MatrixRing(R, n, sparse=False, implementation=None)` | `Rings().Constructors().MatrixRing(base_ring=R, n=n, sparse=False, implementation=None)` | The constructor entry point stays in `rings` because it builds the ambient square-matrix parent itself. Refinement into algebra and module categories happens on the returned parent rather than by relocating the constructor. |
+| `MatrixSpace.matrix(x=None, **kwds)` | `zero_matrix()`, `matrix_from_matrix(matrix, *, coerce=True)`, `matrix_from_entries(entries, *, coerce=True)`, `matrix_from_rows(rows, *, coerce=True)`, `scalar_matrix(scalar, *, coerce=True)` | The no-argument, matrix, flat-entry, row-entry, and scalar cases are separate element constructors. Sage's option bag is not public; the only admitted keyword on data-bearing routes is the named `coerce` flag. |
 
 Number-field methods with optional `v` are also split. `discriminant()` is the field
 discriminant, while `trace_pairing_discriminant(elements)` is the determinant of the
@@ -103,7 +103,7 @@ The project owner rule is therefore:
 
 | Surface on a square matrix parent over `R` | Owner | Codomain consequence |
 | --- | --- | --- |
-| Constructor entry point | `Rings().Constructors().MatrixRing(...)` | Returns the ambient square matrix parent itself. |
+| Constructor entry point | `Rings().Constructors().MatrixRing(base_ring, n, sparse=False, implementation=None)` | Returns the ambient square matrix parent itself. |
 | Ring operations: multiplication, unit, ideals, quotient-ring structure, ring predicates | `rings` | The codomain stays the same square matrix parent viewed in `Rings()`. |
 | Algebra operations over the base ring `R`: algebra generators, center, radical, algebra ideals, finite-dimensional algebra structure | `algebras` | The codomain stays the same parent viewed in `Algebras(R)` or a matrix-algebra refinement below it. |
 | Free finite-rank module operations over `R`: rank, basis, coordinate conversion, submodule/quotient/module hom structure | `modules` | The codomain stays the same parent viewed in `Modules(R).Free().FiniteRank()`. |
