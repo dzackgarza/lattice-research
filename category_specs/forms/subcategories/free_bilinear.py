@@ -35,8 +35,10 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     Canonical chain: ``Modules(R).WithForms().Bilinear().Free()``.
 
     Objects are pairs ``(M, b)`` where ``M \cong R^n`` is free of finite rank
-    and ``b: M \times M \to S`` is an ``R``-bilinear form.  Morphisms are
-    ``R``-module maps; isometries additionally preserve ``b``.
+    and ``b: M \times M \to S`` is an ``R``-bilinear form.  Morphisms in this
+    formed-module category are already the ``R``-module maps contained in the
+    formed Hom object, hence already preserve ``b``.  Isometries are the
+    isomorphisms among those formed-module morphisms.
 
     **New at this tier** (compared to ``Modules(R).WithForms().Bilinear()``):
 
@@ -211,11 +213,14 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             generators of domain and codomain."""
             ...
 
-        @abstract_method
         def is_isometry(self) -> bool:
-            r"""Return ``True`` iff this morphism preserves the bilinear form:
-            ``b_N(f(v), f(w)) = b_M(v, w)`` for all ``v, w \in M``."""
-            ...
+            r"""Return whether this formed-module morphism is an isomorphism.
+
+            Preservation of the bilinear form is owned by containment in the
+            formed-module Hom object.  This compatibility query therefore asks
+            only whether the already form-preserving morphism is an isomorphism.
+            """
+            return self.is_isomorphism()
 
 
 FreeBilinearModulesObject = FreeBilinearModulesCategory.ParentMethods

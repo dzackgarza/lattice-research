@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Route form-preserving isometry predicates through formed-module Hom containment
-status: to-do
+status: in-review
 priority: critical
 planId: PLN-CAT-120
 phasePlan: PLN-LAT-030
@@ -15,8 +15,9 @@ tags:
 - lattices
 - theme-category-core
 complexity: 65
-progress: 0
+progress: 90
 created: '2026-05-04'
+updated: '2026-05-05'
 ---
 
 # Route form-preserving isometry predicates through formed-module Hom containment
@@ -87,16 +88,43 @@ module morphisms.
 
 ## Acceptance Criteria
 
-- [ ] The forms or modules mapping docs state that form preservation is represented by
+- [x] The forms or modules mapping docs state that form preservation is represented by
   membership in the formed-module Hom category.
-- [ ] `category_specs/forms/subcategories/free_bilinear.py` does not own a redundant
+- [x] `category_specs/forms/subcategories/free_bilinear.py` does not own a redundant
   generic `is_isometry()` predicate unless it is explicitly documented as a compatibility
   alias over Hom containment.
-- [ ] Lattice hom/aut surfaces distinguish lattice isometries as morphisms/aut objects
+- [x] Lattice hom/aut surfaces distinguish lattice isometries as morphisms/aut objects
   in `Lattices(R).HomCategory()` / `Lattices(R).AutCategory()`, not as the owner of the
   generic form-preservation predicate.
-- [ ] Any implementation blockers are split into implementation cards with source
-  provenance.
+- [x] Any implementation blockers are split into implementation cards with source
+  provenance, or no new blocker remains after the local spec-surface correction.
+
+## Grounded Spec Decision
+
+Decision: form preservation is Hom containment in the relevant formed-module category.
+
+For `C <= FormedModules(R)` and objects `M, N in C`, the public form-preserving morphism
+surface is `C.HomCategory().Of(M, N)`. A candidate plain module morphism starts in
+`Modules(R).HomCategory()` and belongs to the formed-module Hom object exactly when it
+satisfies the form-compatibility equation recorded in the source grounding above.
+
+Consequences recorded in this pass:
+
+- `category_specs/forms/docs/MAPPING.md` now states the Hom-containment owner,
+  isomorphism/isometry distinction, orthogonal-group owner, and metric-isometry
+  boundary.
+- `category_specs/modules/docs/MAPPING.md` now states the same rule at the module Hom
+  layer so future module-Hom work does not reintroduce a boolean predicate owner.
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md` now aligns the ABC
+  sketch with Hom containment and treats `is_isometry()` as `is_isomorphism()` inside an
+  already form-preserving Hom object.
+- `category_specs/forms/subcategories/free_bilinear.py` and
+  `category_specs/lattices/homsets.py` now document `is_isometry()` as an isomorphism
+  compatibility query, not as the owner of form preservation.
+
+Matrix equations remain valid implementation checks only after a presentation and
+generators have been fixed; they are not the public definition of form preservation or
+isometry.
 
 ## Dependencies And Boundaries
 
@@ -120,3 +148,6 @@ module morphisms.
 - 2026-05-04: Added definition grounding for formed-module isometry as Hom/Aut
   containment, with matrix criteria demoted to implementation checks under explicit
   presentation hypotheses.
+- 2026-05-05: Updated forms/modules mapping docs, the lattice ABC source, and the
+  local free-bilinear/lattice hom surfaces so form preservation is Hom containment and
+  `is_isometry()` asks for isomorphism inside the already form-preserving Hom object.

@@ -24,15 +24,19 @@ class _LatticeHomCategoryObjectMethods:
 
 
 class _LatticeMorphisms:
-    r"""Morphisms of lattices: module morphisms preserving the bilinear form."""
+    r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
     @abstract_method
     def to_matrix(self) -> Matrix: ...
 
-    @abstract_method
     def is_isometry(self) -> bool:
-        r"""Return whether this morphism preserves the bilinear form."""
-        ...
+        r"""Return whether this lattice morphism is an isomorphism.
+
+        Form preservation is owned by containment in the lattice Hom object, which
+        refines the formed-module Hom object.  Thus the remaining isometry condition
+        for a lattice morphism is categorical isomorphism.
+        """
+        return self.is_isomorphism()
 
 
 class _LatticeAutomorphisms:

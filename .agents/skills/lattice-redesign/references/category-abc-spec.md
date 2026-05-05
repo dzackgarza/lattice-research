@@ -180,6 +180,14 @@ with this property is an isometry. Matrix equations are implementation
 checks inside the appropriate Hom or automorphism parent, not public
 substitutes for morphisms.
 
+Equivalently, form preservation is the containment condition for the formed-module Hom
+object. A plain module morphism first belongs to `Modules(R).HomCategory()`; it belongs
+to `ModulesWithForms(R).HomCategory().Of(M1, M2)` only after the form-compatibility
+condition has been checked. Public `is_form_preserving()` predicates are therefore
+compatibility queries, not mathematical owners. Inside a formed-module Hom object,
+`is_isometry()` means `is_isomorphism()`; in the endomorphism case the orthogonal group
+is the automorphism object `C.AutCategory().Of(M)`.
+
 The with-form layer owns the Sage-style subcategory machinery:
 
 - `Bilinear()`
@@ -549,8 +557,8 @@ class ModulesWithForms(Category_module):
         def cokernel(self) -> ModuleWithForm: ...
         """The actual cokernel object with descended form data."""
 
-        @abstractmethod
-        def is_form_preserving(self) -> bool: ...
+        # Form preservation is owned by Hom-space containment, not by a standalone
+        # predicate on already-promoted formed-module morphisms.
 
         def is_injective(self) -> bool:
             ...
@@ -692,7 +700,7 @@ class ModulesWithForms(Category_module):
         class MorphismMethods(ABC):
 
             def is_isometry(self) -> bool:
-                return self.is_form_preserving()
+                return self.is_isomorphism()
 ```
 
 This is the layer used for lattices, rational lattices, duals, and the

@@ -12,6 +12,8 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 | `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic._QuadraticModules` | Owns quadratic evaluation. |
 | Symmetric, alternating, nondegenerate, definite, indefinite, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
 | `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
+| Form-preserving morphisms between formed modules | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A candidate map preserves form data exactly when it is contained in the Hom object of the formed-module category. |
+| Isometries of formed modules | `C.HomCategory().Of(M, N)` plus generic isomorphism; automorphism case `C.AutCategory().Of(M)` | Form preservation is already Hom containment. The isometry question is invertibility or isomorphism inside that category. |
 | Free bilinear modules | `forms.subcategories.free_bilinear._FreeBilinearModules` | First tier where Gram matrices, determinant, and discriminant are universally meaningful. |
 | Finite-rank free formed-module chain used by `Lattices(R)` | `forms.chain` | Lattices imports this chain and adds only the named `Lattice` endpoint. |
 | Finite torsion quadratic modules | `forms.subcategories.torsion_quadratic_modules._TorsionQuadraticModules` | Modules keeps `TorsionQuadraticModules()` as a compatibility constructor route. |
@@ -58,6 +60,27 @@ Tensor-component duals remain tensor-component objects until attached as form da
 module. A future twisted-form subcategory may be admitted only if a concrete public
 method or constructor is mathematically wrong without a distinct owner beyond
 `FormedModules(R)` plus tensor-component/Hom-category structure.
+
+## Form-Preserving Morphisms And Isometries
+
+For `C <= FormedModules(R)`, the form-preserving maps from `M` to `N` are the elements
+of `C.HomCategory().Of(M, N)`. A plain `R`-module morphism belongs to
+`Modules(R).HomCategory()` first; it is promoted into the formed-module Hom object only
+when it satisfies the defining form-compatibility equation.
+
+Consequences:
+
+- do not introduce a standalone public `is_form_preserving()` predicate as the owner of
+  form preservation;
+- `is_isometry()` on a formed-module morphism is only a compatibility query for
+  isomorphism inside an already form-preserving Hom object;
+- `orthogonal_group()` is `C.AutCategory().Of(M)` for the relevant formed-module
+  category `C`;
+- matrix equations are implementation checks under explicit presentations, not the
+  public definition of preservation or isometry.
+
+Metric-space isometries in `TopologicalSpaces().HomCategory()` are a separate surface
+and must not be routed through this formed-module owner.
 
 ## Symmetric Bilinear Divisibility
 

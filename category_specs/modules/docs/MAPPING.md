@@ -309,6 +309,12 @@ supercategory for upstream compatibility. Aut-category construction still comes 
 the generic layer because `Aut_R(M)` is defined by invertibility inside `End_R(M)` and
 dispatched through the module end category.
 
+For `C <= FormedModules(R)`, preservation of form data is not a separate module-local
+boolean predicate. The object `C.HomCategory().Of(M, N)` owns the containment check for
+candidate module morphisms, and isometry is isomorphism inside that formed-module Hom
+object. In the endomorphism case, `C.AutCategory().Of(M)` is the orthogonal group.
+Matrix criteria are implementation witnesses only after a presentation has been fixed.
+
 ## Dual Objects As Hom Objects
 
 `Modules(R).DualObjects()` owns linear dual modules. For an object `M in Modules(R)`,
