@@ -221,6 +221,34 @@ The mapping below is the phase-one owner table for the wrapper migration.
 | `_RepresentationModules` | `Representation_abstract` and subclasses | semigroup/group representation constructors | modules with an action of a specified semigroup/group/monoid and side | Retained as a real representation-module category surface. |
 | `_RingObjectsAsModules` | ring objects exposing module structure | forgetful/constructor bridge from ring or algebra objects | ring methods stay in `rings`; module generators and structure maps live on a forgetful construction or objects-over/under surface | Retained as a real ring-object-as-module category surface. |
 
+### Wrapper Candidate Classification
+
+The recovered wrapper plan at
+`plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` requires every
+Sage-wrapper candidate to be classified before deletion. This mapping pass fixes the
+classification as follows.
+
+| Classification | Wrapper candidates | Migration consequence |
+| --- | --- | --- |
+| Constructor-only interop shell | `_CombinatorialFreeModules`, `_FreeModulesWithStandardBasis`, `_FiniteRankFreeModules`, `_FreeModulesOverIntegralDomains`, `_FreeModulesOverPIDs`, `_VectorSpaces`, `_RealDoubleVectorSpaces`, `_ComplexDoubleVectorSpaces`, `_VectorSubspaces`, `_VectorSubspacesWithOrderedGeneratingSet`, `_VectorSpaceQuotients`, `_FreeModuleSubmodules`, `_FreeModuleSubmodulesWithOrderedGeneratingSet`, `_SubmodulesWithOrderedGeneratingSet`, `_FreeModuleQuotients`, `_QuotientModulesWithOrderedGeneratingSet`, `_FinitelyGeneratedPIDQuotientModules` | These wrapper categories are deleted. Exact Sage implementation classes may still be matched at constructor interop boundaries, but public methods route through the constructor, subobject, quotient, basis, ordered-basis, PID, field, hom, tensor, and finite-presentation owners listed above. |
+| Forms-owned owner | `_FreeQuadraticModules`, `_TorsionQuadraticModules` | Free quadratic modules and torsion quadratic modules are not module-wrapper categories. Their Gram, bilinear, quadratic, evenness, genus, and orthogonal-group surfaces route through formed-module owners and their aut categories; module paths remain only constructor or compatibility routes. |
+| Lattice-owned owner | `_IntegerLattices` | The retained surface is a real integral-lattice/form category: finite-rank free `ZZ`-modules with integral symmetric nondegenerate bilinear form. Reduction, enumeration, gluing, dual, discriminant, and genus methods are lattice-specific surfaces, not generic module methods. |
+| Real module-category owner | `_FreeGradedModules`, `_FinitelyPresentedGradedModules`, `_OreModules`, `_RepresentationModules`, `_RingObjectsAsModules` | These retained names describe mathematical module categories or forgetful module surfaces. They are not deletion targets, and their methods stay on graded, Ore, representation, or ring-object-as-module owners with inherited ordinary module behavior. |
+
+Unresolved-owner check:
+
+- Searched: the recovered wrapper plan's class todo list, the current wrapper mapping
+  table above, `category_specs/modules/docs/SAGE_INVENTORY.md`, and exact wrapper-name
+  matches in `category_specs/modules`.
+- Found: no active wrapper candidate is assigned to an unresolved-owner bucket in this
+  mapping; deleted wrapper names remain in mapping/provenance docs, while retained code
+  names are exactly the real-category rows listed above.
+- Conclusion: inference - the wrapper migration mapping has no known unresolved
+  candidate classification left for this leaf.
+- Confidence: Medium.
+- Gaps: this is a documentation and source-map audit, not a fresh exhaustive Sage
+  source re-inventory or implementation smoke run.
+
 ### Required Immediate Category Owners
 
 The migration needs these mathematical owners before constructors are fully rewired:

@@ -2,8 +2,9 @@
 trackerStatus:
   type: feature
 title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners
-status: to-do
+status: in-review
 priority: critical
+progress: 90
 planId: SPR-MODULE-WRAPPER-01KQN9
 tags:
 - category-specs
@@ -25,8 +26,24 @@ then delete wrappers.
 
 ## Source Provenance
 
-- `category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
+- The migrated source path in the original card text is stale. The deleted file
+  actually lived at `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+  and was removed in commit `8d1c21c`; recover exact prior content with
+  `git show 8d1c21c^:plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
 - Original migrated line: `Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners from category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+- Recovery check: the pre-removal plan requires mapping first, category graph second,
+  constructors third, method ownership fourth, and wrapper deletion last.
+
+Stale-path check:
+
+- Searched: `git show 8d1c21c^:category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`,
+  then broadened with `git ls-tree -r --name-only 8d1c21c^ | rg 'SAGE_WRAPPER_MIGRATION_PLAN|modules/docs|plans/category_specs/modules'`.
+- Found: the `category_specs/...` path is absent at `8d1c21c^`; the recoverable file
+  is `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`.
+- Conclusion: inference - the card's migrated source path was stale, but the exact
+  source plan is recoverable from the deleted `plans/` tree.
+- Confidence: High.
+- Gaps: none for the existence and location of this deleted source file.
 
 ## Context
 
@@ -63,11 +80,11 @@ deletion.
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Use the phase-specific validation commands from the deleted plan when implementing a child item.
-- [ ] Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
+- [x] The mathematical owner, public surface, classification, and migration consequence are recorded in `category_specs/modules/docs/MAPPING.md`.
+- [x] No new subtree-local TRIAGE or process document is created.
+- [x] No implementation blocker was discovered in this source-map pass.
+- [x] The deleted plan's phase-specific validation commands are preserved as implementation-phase guidance; this leaf performs mapping only.
+- [x] `modules/docs/MAPPING.md` has no known unresolved wrapper-candidate bucket after this pass; closure still requires human review.
 
 ## Dependencies And Boundaries
 
@@ -78,3 +95,7 @@ deletion.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- Recovered the deleted wrapper plan from `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md` after the migrated `category_specs/...` provenance path proved stale.
+- Added a wrapper-candidate classification audit to `category_specs/modules/docs/MAPPING.md`: constructor-only interop shells, forms-owned owners, lattice-owned owner, and retained real module-category owners.
+- Checked exact wrapper-name references in `category_specs/modules`; deleted wrapper names remain in mapping/provenance documentation, while live code references are retained real-category surfaces.
+- Skipped subtree smoke and global QC intentionally; this is a documentation/source-map review-state handoff, not implementation integration or a phase transition.
