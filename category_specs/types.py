@@ -181,6 +181,7 @@ from .modules import (
     ModulesMorphism,
     ModulesObject,
 )
+from .modules.subcategories.constructions.dual_objects import _DualObjects as ModuleDualObjects
 from .posets import (
     PosetsAut,
     PosetsAutCategory,
@@ -388,8 +389,15 @@ RModEndomorphism = ModulesEndomorphism
 RModAutomorphism = ModulesAutomorphism
 RModuleEndomorphism = RModEndomorphism
 RModuleAutomorphism = RModAutomorphism
-DualModule = RModule
-RModDualElement = RModuleElement
+DualModule = ModuleDualObjects.ParentMethods
+DualModuleElement = ModuleDualObjects.ElementMethods
+DualModuleMorphism = ModuleDualObjects.MorphismMethods
+RModDual = DualModule
+RModuleDual = DualModule
+RModDualElement = DualModuleElement
+RModuleDualElement = DualModuleElement
+RModDualMorphism = DualModuleMorphism
+RModuleDualMorphism = DualModuleMorphism
 RModuleForm = RModMorphism
 ModuleStructure = RModMorphism
 ModuleBasis = AbstractFamily | Sequence[RModuleElement]

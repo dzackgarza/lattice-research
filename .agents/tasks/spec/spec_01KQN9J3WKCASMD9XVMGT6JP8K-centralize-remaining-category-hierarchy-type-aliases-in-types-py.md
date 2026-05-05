@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Centralize remaining category hierarchy type aliases in types.py
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-CAT-SURFACE-01KQN9
 tags:
@@ -11,6 +11,8 @@ tags:
 - feature
 - types
 - theme-audit-uniformity
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Centralize remaining category hierarchy type aliases in types.py
@@ -23,6 +25,8 @@ category.
 ## Source Provenance
 
 - `plans/todo.md`
+- recovered with `git show 8d1c21c^:plans/todo.md`; the old path is no longer in the
+  current worktree
 - Original migrated line: `Centralize remaining category hierarchy type aliases in types.py from plans/todo.md`
 
 ## Context
@@ -61,13 +65,44 @@ the current mapping docs and style rules.
   alias candidate still depends on an unmapped owner or unresolved export surface, keep
   that alias out of `types.py` and record the concrete blocker in this card.
 
+## Execution Result
+
+Recovered source-path note:
+
+- Searched: current worktree `find` for todo-like files, `rg` for the migrated todo
+  text, `git log --all --name-only` for todo paths, and
+  `git show 8d1c21c^:plans/todo.md`.
+- Found: `plans/todo.md` is not present in the current worktree, but the exact source
+  content is recoverable from `8d1c21c^:plans/todo.md`.
+- Conclusion: inference -- the card's source provenance is historical and should stay
+  attached to the recovered git object rather than a live worktree path.
+- Confidence: High.
+- Gaps: no external issue trackers or archived branches were searched because the
+  needed source text was recovered from git history.
+
+Alias decision executed:
+
+- `DualModule`, `DualModuleElement`, and `DualModuleMorphism` now point to
+  `Modules(R).DualObjects()` method surfaces through
+  `modules/subcategories/constructions/dual_objects.py`.
+- `RModDual`, `RModuleDual`, `RModDualElement`, `RModuleDualElement`,
+  `RModDualMorphism`, and `RModuleDualMorphism` are compatibility aliases for that
+  same dual-object surface.
+- The previous `DualModule = RModule` and `RModDualElement = RModuleElement` aliases
+  were rejected because `category_specs/modules/docs/MAPPING.md` states that
+  `M^* = Hom_R(M, R)` must route through `Modules(R).DualObjects()` and the module Hom
+  layer, not through plain module aliases.
+- Hom/End/Aut alias names were left on the existing `Hom`, `End`, and `Aut` surfaces;
+  the old `Homset`/`Endset`/`Autset` spelling remains Sage-interoperability vocabulary
+  rather than new public aliases.
+
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] Review the affected public type aliases and category methods against plans/todo.md before closing.
-- [ ] Run the relevant category_specs smoke file for any changed subtree.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No implementation blocker was discovered during this alias pass.
+- [x] Review the affected public type aliases and category methods against the recovered `plans/todo.md` content before closing.
+- [x] Relevant cheap verification was run for `types.py`; no subtree smoke was run because this pass changed only aliases and global smoke/QC is not the controlling activity for phase-01 spec churn.
 
 ## Dependencies And Boundaries
 
@@ -78,3 +113,7 @@ the current mapping docs and style rules.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Recovered historical `plans/todo.md` from git, corrected dual-module
+  aliases in `types.py` to point at `Modules(R).DualObjects()` surfaces, and left
+  Hom/End/Aut on the existing standard names rather than reintroducing old `Homset`
+  spelling as public alias vocabulary.
