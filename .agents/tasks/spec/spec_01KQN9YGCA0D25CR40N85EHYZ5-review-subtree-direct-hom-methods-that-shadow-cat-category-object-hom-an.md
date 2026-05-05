@@ -37,11 +37,26 @@ work for category-object Hom behavior and functor/autofunctor modeling.
 - Generic Sage functors do not provide a uniform invertibility certificate, so concrete autofunctor membership is a future refinement.
 - The Cat smoke is structural: Cat instantiation, category-object membership, functor HomCategory instantiation, and standard construction navigation.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Review Outcome
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Sources: `category_specs/cat/docs/MAPPING.md`,
+`category_specs/homsets/docs/MAPPING.md`, and the recovered deleted triage source
+named in `Source Provenance`.
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+The owner rule is now fixed: for category objects `A, B in Cat()`, direct `A.Hom(B)` is
+the Cat-owned functor homspace `Hom_Cat(A, B)`. Lower category subtrees may refine
+`HomCategory`, `EndCategory`, `AutCategory`, or concrete `HomCategory().Of(A, B)`
+parents for their own object-level morphisms, but they must not define a direct `Hom`
+method that changes the meaning of category-object Hom.
+
+Audit result: `rg -n "def Hom\b" category_specs` found direct `def Hom` definitions
+only in `category_specs/cat/__init__.py` and `category_specs/cat/base_category_types.py`.
+Lower-subtree matches were construction-category or nested HomCategory refinements and
+are permitted by the mapping rule.
+
+Spec consequence: future direct lower-subtree `Hom` definitions are implementation
+refactor work against the Cat mapping owner rule, not new mathematical decisions for
+this card.
 
 ## Acceptance Criteria
 

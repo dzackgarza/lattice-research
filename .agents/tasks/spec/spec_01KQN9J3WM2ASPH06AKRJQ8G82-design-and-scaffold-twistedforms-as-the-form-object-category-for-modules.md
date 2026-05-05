@@ -34,26 +34,41 @@ category.
 - types.py should own standard mathematical aliases for module objects, elements, Hom/End/Aut objects, dual modules, forms, and scalar categories.
 - TwistedForms should be a real form-object category rather than ad hoc form handling inside ModulesWithForms.
 
-## Definition Grounding Required
+## Source-Mining Contract
 
-`TwistedForms` is not executable as scaffold work until its mathematical object is
-defined. The first action on this card is source mining and decision capture, not code.
+This leaf is intentionally source-mining and decision capture, not implementation.
+The deliverable is a grounded admission decision for whether `TwistedForms` is a real
+form-object category or should be retired as an alias/helper idea.
 
-Required grounding before any scaffold:
+Current local source anchors:
 
-- source path/reference for the form-object category and the meaning of "twisted";
-- exact object data, including source tensor degree, codomain, and scalar-action or
-  semilinearity twist;
-- owner category and relation to `Modules(R).WithForms()`, bilinear, quadratic,
-  alternating, and tensor-component surfaces;
-- morphism/Hom containment condition;
-- proof obligation that the new category is not just an alias, compatibility shim, or
-  helper around existing `FormedModules` surfaces.
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`: `ModuleForm`
+  already has `domain()`, `codomain()`, `tensor_degree()`,
+  `scalar_action_endomorphism()`, and `evaluate(...)`; `ModulesWithForms(R)` owns
+  pairs `(M, f)` with bilinear and quadratic branches.
+- `theory/foundations/bilinear-forms-duals-morphisms.md`: base-change morphisms of
+  bilinear-form objects are triples with scalar-ring, module, and coefficient maps.
+- `category_specs/forms/docs/MAPPING.md`: formed modules are owned by `forms`, while
+  tensor components become forms only when attached as form data to a module.
+- `category_specs/tensor_algebra_components/docs/MAPPING.md`: tensor components own
+  `T_R(M)[p,q]`, tensor duals, and scalar-valued tensor-form construction data.
 
-Use `.agents/skills/lattice-redesign/references/category-abc-spec.md`,
-`category_specs/forms/docs/MAPPING.md`,
-`category_specs/tensor_algebra_components/docs/MAPPING.md`, and
-`theory/foundations/bilinear-forms-duals-morphisms.md` as starting sources.
+The grounded decision must state:
+
+- object data: source tensor component or quotient, codomain module, tensor degree, and
+  scalar-action/semilinearity twist;
+- owner category: whether this belongs as a `forms` subcategory, a tensor-component
+  dual-object refinement, or no new category at all;
+- morphism condition: how Hom containment compares source tensor data, codomain maps,
+  and scalar twists;
+- relation to existing branches: bilinear, quadratic, alternating, symmetric, and
+  quotient-valued discriminant forms;
+- admission test: one public method or constructor that would be mathematically wrong
+  without a distinct `TwistedForms` owner.
+
+If no such public method or constructor exists after source review, the correct outcome
+is to reject or retire `TwistedForms` as unnecessary indirection rather than scaffold a
+compatibility layer.
 
 ## Acceptance Criteria
 
