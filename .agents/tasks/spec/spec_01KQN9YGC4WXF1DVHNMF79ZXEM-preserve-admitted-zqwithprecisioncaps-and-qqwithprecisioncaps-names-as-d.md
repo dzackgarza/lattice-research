@@ -33,11 +33,35 @@ lattice-precision gaps.
 - Topological ring structure must inherit topological-space methods rather than duplicate them in ring-only files.
 - Matrix rings are rings, algebras over their base ring, and free finite-rank modules; method ownership follows that split.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Review Outcome
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Sources: `category_specs/rings/docs/MAPPING.md`,
+`category_specs/rings/docs/SAGE_INVENTORY.md`, and the migrated source line named in
+`Source Provenance`.
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+The naming decision is already grounded and should be preserved: `ZqWithPrecisionCaps`
+and `QqWithPrecisionCaps` remain admitted split constructor names under
+`Rings().Constructors()` as deferred Sage-gap frontiers, parallel to the concrete
+`ZpWithPrecisionCaps` and `QpWithPrecisionCaps` routes.
+
+Grounded owner and hypothesis rule:
+
+- the owner category remains the rings constructor namespace, not a valuation-only
+  side API;
+- the intended hypotheses are unramified q-adic extension construction with lattice
+  relative/absolute precision caps, matching the mathematically meaningful split
+  already used for p-adic base constructors;
+- the intended codomain is the corresponding q-adic ring or field parent refined into
+  the local valued/complete ring surface once Sage exposes a working constructor path.
+
+Deferred review outcome:
+
+- no new public mathematical meaning is needed on this card;
+- the exact five-field negative finding already recorded in `rings/docs/MAPPING.md`
+  is the source of truth for why these names stay deferred;
+- future work on this leaf is limited to replacing the deferred-gap assertion with a
+  source-backed working Sage route or upstream fix, not renaming or deleting the split
+  names.
 
 ## Acceptance Criteria
 
@@ -56,4 +80,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

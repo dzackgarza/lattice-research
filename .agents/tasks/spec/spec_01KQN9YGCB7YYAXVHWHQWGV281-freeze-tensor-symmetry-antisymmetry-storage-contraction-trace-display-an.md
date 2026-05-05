@@ -31,11 +31,45 @@ scope and the deferred tensor-calculus surface.
 - Current scope includes component modules T_R(M)[p,q], central Tensor type, constructor stubs, scalar matrix constructors as (0,2) tensors, and module-element matrix constructors as (1,2) tensors.
 - Deferred work includes exhaustive tensor calculus method mapping, symmetry and antisymmetry subtrees, component storage API, contraction, trace, display, index notation, and detailed migration for old component containers.
 
-## Definition Grounding Required Before Spec Edit
+## Source-Mining Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Source anchors that must be frozen into the mapping before tensor-surface expansion:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/tensor_algebra_components/docs/MAPPING.md` rows for named interop
+  constructors, `tensor_type()`, dual objects, and the rule that component arrays are
+  constructor inputs rather than public tensor objects.
+- `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md` sections
+  `Mathematical Definition Recorded By Sage`, `Construction And Recovery`, and
+  `Component Interop`.
+- The deleted triage file named in `Source Provenance` only for the list of deferred
+  migration targets that still require an owner decision.
+
+This card is a bounded source-mining and freeze leaf. It must produce a concrete mapping
+decision for each of these deferred notions:
+
+- symmetry and antisymmetry: decide whether they are tensor-component subcategories,
+  tensor-element predicates, or purely constructor metadata inherited from Sage
+  `sym=` / `antisym=` interop;
+- storage/component access: decide which coordinate views remain private interop and
+  which, if any, become typed finite collection returns on public constructors or
+  helper methods;
+- contraction and trace: identify owner category, required tensor-type hypotheses, and
+  output tensor component or scalar codomain;
+- display and index notation: decide whether the surface is mathematical notation on
+  `Tensor` elements or nonpublic rendering/interchange support.
+
+Required output of this leaf:
+
+- exact owner category for each deferred surface;
+- exact hypotheses on `tensor_type()` and base module;
+- exact return object/codomain;
+- exact migration consequence for old component-container and index-notation usages.
+
+Rejection/retirement condition:
+
+- reject any proposed public surface whose only rationale is convenience or old storage
+  API parity, and retire any migration target that cannot be stated as a source-backed
+  tensor owner rule with explicit hypotheses and codomain.
 
 ## Acceptance Criteria
 
@@ -54,4 +88,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

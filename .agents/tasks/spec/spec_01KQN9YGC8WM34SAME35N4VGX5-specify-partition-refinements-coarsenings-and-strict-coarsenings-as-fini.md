@@ -34,11 +34,39 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 - Partitioned-set predicates such as crossings, nestings, noncrossing, nonnesting, and atomic are mapped for future axiomatic subcategory admission.
 - Primes documentation and installed source are version-skewed; congruence-class prime subsets need further evidence before admission.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Source anchors for this leaf are already concrete enough to authorize the spec edit:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/sets/docs/MAPPING.md:194-216`, especially the `SetPartition`
+  method row at `:215`, which fixes `refinements()`, `coarsenings()`, and
+  `strict_coarsenings()` as finite subsets of partition elements.
+- `category_specs/sets/docs/MAPPING.md:196-208`, which fixes the same object as a
+  fixed-base partition element in the refinement lattice and locates the lattice
+  operations on `Partitioned.ElementMethods`.
+- `.agents/skills/category-spec-style/references/style.md:1139-1149`, which makes
+  `MAPPING.md` the canonical owner/migration source for subtree method placement.
+- `.agents/skills/category-spec-style/references/style.md:1229-1242`, which requires
+  the method to live at the highest category where it is universally well-defined and
+  forbids restating inherited behavior at lower levels without new mathematics.
+
+Concrete contract for the spec edit:
+
+- Owner category: `Sets().Partitioned()` on the partition element surface, with the
+  finite-base Sage `SetPartition` object as the source-backed witness.
+- Public methods to specify: `refinements()`, `coarsenings()`, and
+  `strict_coarsenings()` as partition-element methods.
+- Hypotheses: the input object is a partition of a finite fixed base set, so the
+  refinement lattice neighborhood determined by these methods is finite.
+- Return object/codomain: a finite set object of partition elements, routed through set
+  constructors rather than a raw Python container or an untyped Sage iterator.
+- Migration consequence: do not remap these methods to poset constructors, graph
+  surfaces, or free-floating helper functions; they stay attached to partition
+  elements and refine through the canonical set-constructor vocabulary.
+
+Retire or reject this leaf only if a cited mapping row is superseded by a source-backed
+owner change showing that one of these methods is not a partition-element method or does
+not return a finite set object.
 
 ## Acceptance Criteria
 
@@ -57,4 +85,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

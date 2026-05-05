@@ -35,11 +35,50 @@ lattice-precision gaps.
 - Topological ring structure must inherit topological-space methods rather than duplicate them in ring-only files.
 - Matrix rings are rings, algebras over their base ring, and free finite-rank modules; method ownership follows that split.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Canonical source anchors for this card are:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/rings/docs/MAPPING.md`:
+  - `## Topological Rings`
+  - constructor-namespace guidance keeping ring/field constructors in
+    `Rings().Constructors()`
+  - the construction-category ownership rows showing ring-side ownership for ring
+    homsets, endsets, automorphisms, products, subobjects, quotients, and realizations
+- `category_specs/topological_spaces/docs/MAPPING.md`:
+  - `Sets().Topological() -> TopologicalSpaces()`
+  - `Sets().Metric() -> TopologicalSpaces().Metric()`
+  - constructor-candidate rows explicitly excluding pure
+    `TopologicalSpaces().Constructors()` admission for interval/ball/field objects
+- `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`:
+  - numeric interval and ball surfaces showing these objects as topology-bearing
+    evidence, not pure topological-space constructors
+
+Spec decision fixed by those sources:
+
+- topological predicates and transforms are owned by `TopologicalSpaces()` and its
+  refinements
+- ring and field operations remain owned by `Rings()` and downstream ring/field
+  subcategories
+- recovery path: a topological ring or field is specified by inheritance/join of the
+  algebraic subtree with the topological-space subtree, not by admitting duplicate
+  constructors or ring-local copies of topological methods
+
+Required hypotheses and return/codomain obligations:
+
+- every candidate object must first be admitted through the ring/field constructor
+  namespace or an already grounded Sage ring/field object
+- topological methods inherited into a ring or field keep the same codomain contracts
+  recorded in `topological_spaces`: boolean predicates return `bool`; closure/interior
+  /boundary-style operations return subsets of the same ambient topological object
+- no spec edit may change the object returned by a ring constructor into a pure
+  topological-space object detached from its ring/field owner
+
+Rejection or retirement condition:
+
+- reject any edit that introduces `TopologicalSpaces().Constructors()` entries for
+  rings, fields, interval fields, or ball fields, or that duplicates topological-space
+  method ownership inside a ring-only file rather than inheriting it
 
 ## Acceptance Criteria
 
@@ -58,4 +97,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

@@ -36,11 +36,44 @@ split.
 - MatrixRing stays reachable from Rings().Constructors(), but the result must refine into Algebras(R) and Modules(R).Free().FiniteRank().
 - The matrix smoke must not be moved or weakened to hide the surface split.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Grounding anchors:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/rings/docs/MAPPING.md`, especially the rows for `MatrixRing`,
+  `MatrixSpace.matrix(...)`, and the `Matrix ring/algebra surface` organization rule.
+- `category_specs/rings/docs/SAGE_INVENTORY.md`, especially the constructor-family row
+  for `MatrixRing` and `MatrixSpace` when square.
+- `category_specs/algebras/docs/MAPPING.md`, especially the row stating that
+  matrix-ring algebra methods belong in `Algebras(R)` plus matrix-algebra
+  subcategories.
+- `category_specs/modules/docs/MAPPING.md`, especially the owner table for
+  `Modules(R).Free().FiniteRank()` and the rule that vector-space/free-module structure
+  stays in `modules`.
+
+Grounded owner rule for this leaf:
+
+- `Rings().Constructors().MatrixRing(...)` remains the constructor entry point because
+  it creates the ambient square-matrix ring object.
+- The constructed parent must refine simultaneously into the ring surface,
+  the algebra surface over its base ring, and the free finite-rank module surface over
+  that base ring.
+- Method placement follows that split: ring operations stay in `rings`, algebra
+  operations in `algebras`, and rank/basis/module operations in `modules`.
+
+Required hypotheses and codomains:
+
+- the object under discussion is a square matrix parent over a base ring `R`;
+- the ring codomain is the matrix ring parent itself;
+- the algebra codomain is the same parent viewed in `Algebras(R)` or the matrix-algebra
+  refinement;
+- the module codomain is the same parent viewed in `Modules(R).Free().FiniteRank()`.
+
+Rejection/retirement condition:
+
+- reject any spec move that collapses the owner split by relocating all matrix methods
+  into one subtree, or that weakens matrix smoke expectations to avoid proving the same
+  parent refines into rings, algebras, and modules simultaneously.
 
 ## Acceptance Criteria
 
@@ -59,4 +92,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

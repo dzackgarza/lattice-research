@@ -33,27 +33,31 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
-## Definition Grounding Required
+## Grounded Review Outcome
 
-Before adding `DiscriminantGroupHom`, `DiscriminantGroupEnd`, or
-`DiscriminantGroupAut`, record the discriminant object definition and the Hom/End/Aut
-membership condition:
+Grounded target for this card:
 
-- canonical sources:
+- Source anchors:
   - `category_specs/lattices/docs/MAPPING.md`;
-  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`, especially
-    cokernels and discriminant descent;
+  - `category_specs/homsets/docs/MAPPING.md`;
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`;
   - `theory/foundations/bilinear-forms-duals-morphisms.md`;
-  - `theory/references/index.md` for literature-backed discriminant-form claims;
-- object: for a lattice `L`, `A_L` is the quotient/cokernel object `L^*/L`, with its
-  descended quotient-valued bilinear or quadratic form data when present;
-- Hom condition: morphisms are group/module morphisms preserving the relevant descended
-  form data; End and Aut are the corresponding endomorphism and automorphism parents;
-- codomain: Hom/End/Aut parent or morphism object, not a raw matrix, list, or Sage
-  torsion object;
-- proof obligations: any generator-matrix or Sage torsion-module representation must be
-  proven equivalent to the quotient/cokernel definition under explicit presentation
-  choices.
+  - `theory/references/index.md` for literature-backed discriminant-form claims.
+- Mathematical object: for a lattice `L`, the discriminant object is the quotient
+  `A_L = L^*/L`, with the descended quotient-valued bilinear or quadratic form when the
+  ambient formed-module data provides one.
+- Hom/End/Aut contract: `DiscriminantGroupHom`, `DiscriminantGroupEnd`, and
+  `DiscriminantGroupAut` name the morphism, endomorphism, and automorphism parents for
+  form-preserving morphisms of `A_L`; they classify categorical morphisms, not raw
+  generators, matrices, or Sage torsion backends.
+- Concrete dependency: this leaf is blocked on the discriminant-group owner file
+  defining the standard Hom/End/Aut type package and export surface consistent with the
+  generic hom/end/aut hierarchy. Until that owner exists, do not export
+  `DiscriminantGroupAut` from the lattice subtree.
+- Work this card can still do while blocked: pin the exact names, object definition,
+  preservation law, and migration consequence against the mapping docs so the eventual
+  owner implementation is a direct wiring task rather than another definition-mining
+  pass.
 
 ## Acceptance Criteria
 

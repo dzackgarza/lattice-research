@@ -36,18 +36,30 @@ then delete wrappers.
 - Method moves require a mathematical owner for every wrapper method; ordered-basis, forms, finite-rank, PID, and field hypotheses must not be broadened.
 - Wrapper deletion comes last and requires references to deleted wrappers to disappear outside intentional documentation or tracker provenance.
 
-## Definition Grounding Required
+## Source-Mining Contract
 
-For every method or wrapper candidate touched by this card, record the exact
-mathematical owner, hypotheses, and return object before moving or deleting it. The
-wrapper migration plan and old wrapper names are provenance only. Use
-`category_specs/modules/docs/MAPPING.md`, `category_specs/modules/docs/SAGE_INVENTORY.md`,
-Sage written docs/source, and the relevant form/lattice mapping when a method crosses
-subtrees.
+This card is executable only as a wrapper-to-owner mapping pass, not as blanket wrapper
+deletion.
 
-If a method depends on ordered bases, chosen generators, form codomains, PID/field
-hypotheses, or finite-rank assumptions, those assumptions must be explicit in the card
-or child task before the method is generalized.
+- Primary source anchors:
+  - `category_specs/modules/docs/MAPPING.md`;
+  - `category_specs/forms/docs/MAPPING.md`;
+  - `category_specs/lattices/docs/MAPPING.md`;
+  - `.agents/skills/category-spec-style/references/style.md`;
+  - Sage written docs/source for the exact wrapper surface being migrated.
+- For each wrapper candidate, record a concrete classification before any deletion:
+  constructor-only interop shell, real module-category owner, forms-owned owner,
+  lattice-owned owner, or unresolved owner that still needs source mining.
+- For each migrated method, record the minimal owner category, explicit hypotheses
+  (`WithBasis`, ordered basis, chosen generators, PID, field, free, finite-rank, form
+  codomain, torsion, or lattice predicates), and the mathematical return object.
+- Cross-subtree moves must respect the mapping split already recorded in the docs:
+  modules own plain module structure, forms own `WithForms` and formed-module methods,
+  lattices own only the named lattice endpoints and lattice-specific construction
+  surfaces.
+- A wrapper is deletable only after every public method on it has a grounded owner and
+  no remaining non-provenance references depend on the wrapper name for public
+  semantics.
 
 ## Acceptance Criteria
 

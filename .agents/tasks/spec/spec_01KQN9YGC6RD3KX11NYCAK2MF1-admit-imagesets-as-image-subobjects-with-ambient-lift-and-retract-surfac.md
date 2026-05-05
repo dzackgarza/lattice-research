@@ -33,11 +33,47 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 - Partitioned-set predicates such as crossings, nestings, noncrossing, nonnesting, and atomic are mapped for future axiomatic subcategory admission.
 - Primes documentation and installed source are version-skewed; congruence-class prime subsets need further evidence before admission.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Canonical source anchors for this card are:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/sets/docs/MAPPING.md`:
+  - local-surface row
+    `| _ImageSets | subcategories/image.py | Images are subobjects under a map. |`
+  - constructor decision row
+    `| ImageSubobject(f, X) | ImageSets | Image subobject under a map; must include ambient, lift, and retract. |`
+  - subobject-routing rows for `ConditionSet` and constructive subobjects
+- `category_specs/sets/docs/SAGE_INVENTORY.md` if additional Sage surface detail is
+  needed for `ImageSubobject`
+- `category_specs/topological_spaces/docs/MAPPING.md` only if a future example uses
+  image subsets inside a topological ambient; it is not owner authority for the image
+  notion itself
+
+Spec decision fixed by those sources:
+
+- owner category: `Sets().Subobjects()` / the constructive subobject surface owns the
+  image notion
+- admitted object: `ImageSets` is the public image-subobject category for images of a
+  map, not a generic wrapper around arbitrary Sage `Set(X)` values
+- required public surface on the image object is `ambient`, `lift`, and `retract`
+
+Required hypotheses and return/codomain obligations:
+
+- input data must include a map `f` and an ambient/source object `X` sufficient to form
+  the image subobject
+- `ambient()` returns the ambient set containing the image subobject
+- `lift(...)` returns a witness in the ambient/source-side object required by the
+  subobject construction
+- `retract(...)` returns the corresponding image-side object or element in the image
+  subobject codomain, matching the constructive subobject contract
+- any further topological or algebraic refinement is inherited from the ambient object;
+  it does not redefine the set-level image owner
+
+Rejection or retirement condition:
+
+- reject any edit that exposes generic Sage `Set(X)` as the public constructor, drops
+  any of `ambient`/`lift`/`retract`, or relocates image ownership away from the
+  subobject construction surface without a new mapped source anchor
 
 ## Acceptance Criteria
 
@@ -56,4 +92,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

@@ -36,26 +36,31 @@ smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker
 - LatticeOrthogonalGroup is Lattices(R).AutCategory().Of(L), specializing the formed-module aut surface.
 - DiscriminantGroupAut export is blocked until discriminant_groups.py defines Hom, End, and Aut standard names.
 
-## Definition Grounding Required
+## Grounded Review Outcome
 
-Before admitting any constructor, record the mathematical object constructed, the
-presentation data, the base ring, the form codomain, and the category meet it must land
-in. Constructor names and Sage call paths are not definitions.
+Grounded admission target for this card:
 
-Canonical sources:
-
-- `category_specs/lattices/docs/MAPPING.md` and `category_specs/lattices/docs/SAGE_INVENTORY.md`;
-- `.agents/skills/lattice-redesign/references/category-abc-spec.md` for presented
-  lattice/module-with-form objects;
-- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` for
-  the no-ambient-space and presentation-sensitive equality rules;
-- `theory/spec_backups/lattices_written_spec_backup.py` as source material to mine;
-- Sage written docs/source only for constructor behavior, not for importing Sage's
-  ambient-vector-space convention into the public semantics.
-
-Any constructor whose target object cannot be stated through `Lattices(R).Constructors()`
-and the current category vocabulary must be split into source-mining or base-vocabulary
-work before admission.
+- Source anchors:
+  - `category_specs/lattices/docs/MAPPING.md`;
+  - `category_specs/modules/docs/MAPPING.md` constructor namespace;
+  - `.agents/skills/lattice-redesign/references/category-abc-spec.md`;
+  - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`;
+  - `theory/spec_backups/lattices_written_spec_backup.py`;
+  - Sage written docs/source for constructor behavior only.
+- Mathematical admission rule: each constructor admitted through
+  `Lattices(R).Constructors()` must state the presented object it builds, its
+  presentation data, base ring, form codomain, and the category meet of the resulting
+  object. Sage call paths are evidence about behavior, not the public definition.
+- Constructor families already implied by the mapping docs stay presentation-sensitive:
+  basis matrices, basis rows, quadratic-form presentations, and order-element routes
+  are distinct admitted data shapes rather than one variadic catch-all.
+- Concrete dependencies: final constructor admission is blocked until the Sage
+  constructor inventory mapping is complete and the lattice subtree's discriminant-group
+  Hom/End/Aut export gap is resolved. Those are admission blockers, not reasons to stop
+  source mining.
+- Work this card can still do while blocked: complete the constructor-by-constructor
+  source map, pin each target object and category meet, and identify any constructor
+  whose semantics still depend on missing base vocabulary instead of forcing admission.
 
 ## Acceptance Criteria
 

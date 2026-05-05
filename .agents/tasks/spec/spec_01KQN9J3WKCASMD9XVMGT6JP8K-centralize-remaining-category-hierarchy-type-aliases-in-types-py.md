@@ -32,18 +32,34 @@ category.
 - types.py should own standard mathematical aliases for module objects, elements, Hom/End/Aut objects, dual modules, forms, and scalar categories.
 - TwistedForms should be a real form-object category rather than ad hoc form handling inside ModulesWithForms.
 
-## Definition Grounding Required
+## Grounded Spec Contract
 
-Type alias centralization is not just import cleanup. Before adding or moving any alias,
-record the mathematical noun, its owner category/module, and the Sage or project class
-that anchors it. Use `category_specs/*/docs/MAPPING.md`,
-`category_specs/*/docs/SAGE_INVENTORY.md`, `category_specs/types.py`, and
-`category-spec-style` standard type-package rules.
+This card owns alias centralization only where the owner category is already grounded in
+the current mapping docs and style rules.
 
-Aliases for Hom/End/Aut, dual modules, forms, scalar categories, discriminant groups,
-or lattices must cite the category surface that owns the object. Do not create a name
-because a Sage class or software role exists if the corresponding mathematical noun is
-not grounded.
+- Standard type-package names live in `types.py` and follow
+  `.agents/skills/category-spec-style/references/style.md`: each public category
+  package names the category, object, element, morphism, Hom, End, and Aut surfaces it
+  actually owns.
+- Category-object and functor-category aliases must follow
+  `category_specs/cat/docs/MAPPING.md` and `category_specs/homsets/docs/MAPPING.md`:
+  `Hom`, `End`, and `Aut` names belong to the category whose objects and morphisms they
+  classify, and subtree aliases must refine rather than shadow the generic hom/end/aut
+  hierarchy.
+- Dual-object aliases for modules must reflect the hom routing recorded in
+  `category_specs/modules/docs/MAPPING.md` and
+  `.agents/skills/category-framework-design/references/homsets-structural-core.md`:
+  a dual module is the grounded `Hom_R(M, R)` object, not an independent wrapper role.
+- Formed-module and lattice aliases must use the owner split from
+  `category_specs/forms/docs/MAPPING.md`,
+  `category_specs/lattices/docs/MAPPING.md`, and
+  `.agents/skills/lattice-redesign/references/category-abc-spec.md`: forms own
+  `WithForms`, bilinear/quadratic, and generic dual/discriminant semantics; lattices
+  add only the named lattice endpoints and lattice-specific construction categories.
+- Discriminant-group, lattice, and scalar-category aliases may be centralized only when
+  the owning subtree already exposes the mathematical noun in its mapping doc. If an
+  alias candidate still depends on an unmapped owner or unresolved export surface, keep
+  that alias out of `types.py` and record the concrete blocker in this card.
 
 ## Acceptance Criteria
 

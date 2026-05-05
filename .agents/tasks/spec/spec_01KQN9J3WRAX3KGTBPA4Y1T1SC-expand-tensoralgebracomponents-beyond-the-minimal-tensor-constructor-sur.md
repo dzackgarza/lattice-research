@@ -32,11 +32,43 @@ scope and the deferred tensor-calculus surface.
 - Current scope includes component modules T_R(M)[p,q], central Tensor type, constructor stubs, scalar matrix constructors as (0,2) tensors, and module-element matrix constructors as (1,2) tensors.
 - Deferred work includes exhaustive tensor calculus method mapping, symmetry and antisymmetry subtrees, component storage API, contraction, trace, display, index notation, and detailed migration for old component containers.
 
-## Definition Grounding Required Before Spec Edit
+## Source-Mining Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Sources to mine before any tensor-surface expansion:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/tensor_algebra_components/docs/MAPPING.md`, especially the rows for
+  `tensor_type()`, `base_module()`, named interop constructors, and the dual-object
+  rule `T_R(M)[p,q]^* = T_R(M)[q,p]`.
+- `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`, especially the
+  Sage definition of tensors as multilinear maps `(M*)^k x M^l -> R`, the
+  `tensor_type()` and `tensor_rank()` distinction, and the component-assignment
+  interop rows.
+- The deleted source named in `Source Provenance`, but only as migration context for
+  which deferred surfaces still need an owner and return-object decision.
+
+Decisions this leaf must produce before any public expansion beyond the current minimal
+constructor surface:
+
+- For each deferred surface named in this card, identify the exact owner category:
+  `TensorAlgebraComponents(R)`, a tensor-component subcategory such as a symmetry or
+  antisymmetry refinement, `Tensor` element methods, or `Modules(R).HomCategory().Forms()`
+  when the surface is evaluation rather than tensor ownership.
+- For each deferred surface, state the hypotheses and return object/codomain. At
+  minimum this applies to symmetry/antisymmetry refinements, contraction, trace,
+  display/index-notation interop, storage/component access, and any migration route
+  from old component containers.
+- For contraction and trace, decide whether the output is another tensor component
+  `T_R(M)[p',q']`, a scalar in `R`, or only an interop/display helper, and record the
+  exact tensor-type transformation.
+- For storage or display surfaces, decide whether the public result is a tensor object,
+  a typed finite collection of coordinates, or private interop only. Do not admit raw
+  component-container APIs without a mapped mathematical owner.
+
+Rejection/retirement condition:
+
+- Retire or reject any proposed public tensor surface that cannot be anchored to the
+  Sage tensor definition and the current mapping owner rules, or whose only support is
+  the deleted triage prose without an exact owner and return-object decision.
 
 ## Acceptance Criteria
 
@@ -55,4 +87,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

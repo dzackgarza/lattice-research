@@ -35,11 +35,43 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 - Algebra construction is canonicalized to from_multiplication_tensor(multiplication=mu), where mu is a Tensor in T_R(M)[1,2].
 - Basis-returning helpers such as center_basis, radical_basis, and derivations_basis should become object-returning methods such as center, radical, and derivations.
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Grounding anchors:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/algebras/docs/MAPPING.md` rows for `basis()`, `one_basis()`,
+  `algebra_generators()`, `center_basis()`, `radical_basis()`, `derivations_basis()`,
+  and `annihilator_basis(...)`.
+- `category_specs/algebras/docs/SAGE_INVENTORY.md`, especially the method rows for
+  `AlgebrasWithBasis.ParentMethods` and
+  `FiniteDimensionalAlgebrasWithBasis.ParentMethods`.
+
+Grounded owner rule for this leaf:
+
+- Sage basis-returning helpers are inventory evidence, not the public project codomain.
+  The public owners stay on the algebra parent surface and return the mathematical
+  object named by the helper: `center() -> Algebra`, `radical() -> AlgebraIdeal`,
+  `derivations() -> RModule`, and `annihilator(...) -> AlgebraIdeal`.
+- Basis data remains structure recoverable from the returned object when that object
+  lies in `WithBasis()`. The project does not admit separate public surfaces whose only
+  codomain is a distinguished basis list or basis-index family.
+
+Required hypotheses and codomains:
+
+- `center_basis()` grounds `center() -> Algebra`, with the center owned as the
+  subalgebra spanned by that basis;
+- `radical_basis()` grounds `radical() -> AlgebraIdeal`, with the radical owned as the
+  ideal spanned by that basis;
+- `derivations_basis()` grounds `derivations() -> RModule`, with any chosen basis
+  recovered from the derivation object itself;
+- `annihilator_basis(...)` grounds `annihilator(...) -> AlgebraIdeal`;
+- `one_basis()` does not create a public basis-index API; it grounds `one() -> AlgebraElement`
+  and constructor unit data when the unit happens to be a basis vector.
+
+Rejection/retirement condition:
+
+- reject any spec edit that promotes a Sage basis helper itself to the public return
+  object when the mapped mathematical object is an algebra, ideal, module, or element.
 
 ## Acceptance Criteria
 
@@ -58,4 +90,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-

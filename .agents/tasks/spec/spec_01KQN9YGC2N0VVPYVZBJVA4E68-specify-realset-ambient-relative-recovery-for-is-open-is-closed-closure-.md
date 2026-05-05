@@ -34,11 +34,52 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 - Real and complex ball fields are not Sage metric spaces; topological recovery belongs through topological ring/field work.
 - Canonical smoke examples are still needed for Connected, Compact, and Metric().Complete().
 
-## Definition Grounding Required Before Spec Edit
+## Grounded Spec Contract
 
-This migrated card is executable for source mining and decision capture, but it does not by itself authorize a mathematical spec edit. Before moving, deleting, admitting, or generalizing any public category, method, constructor, predicate, invariant, Hom/End/Aut surface, or return type, record the canonical source path, exact definition, owner category, hypotheses, codomain/return object, and any invariance or equivalence proof obligation.
+Canonical source anchors for this spec are already present:
 
-Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/source, `theory/references/index.md` for literature-backed claims, and relevant repo `theory/` or skill-local sources. If the term is ambiguous or only supported by migrated backlog text, split to source-mining or decision work before editing specs.
+- `category_specs/topological_spaces/docs/MAPPING.md`, `Root Topological Method Mapping`
+  rows for:
+  - `RealSet.is_open() -> X.is_open(U: Subset) -> bool`
+  - `RealSet.is_closed() -> X.is_closed(U: Subset) -> bool`
+  - `RealSet.closure() -> X.closure(U: Subset) -> Subset`
+  - `RealSet.interior() -> X.interior(U: Subset) -> Subset`
+  - `RealSet.boundary() -> X.boundary(U: Subset) -> Subset`
+- `category_specs/topological_spaces/docs/SAGE_INVENTORY.md` rows for:
+  - `RealSet.is_open`
+  - `RealSet.is_closed`
+  - `RealSet.closure`
+  - `RealSet.interior`
+  - `RealSet.boundary`
+  - `RealSet.ambient`
+- `category_specs/sets/docs/MAPPING.md` and
+  `category_specs/topological_spaces/docs/MAPPING.md` constructor-routing rows keeping
+  named real-line subset constructors under `Sets().Constructors()`
+
+Spec decision fixed by these sources:
+
+- owner category: `TopologicalSpaces()` owns the public surfaces
+  `is_open`, `is_closed`, `closure`, `interior`, and `boundary`
+- subject shape: each method is ambient-relative, taking a subset `U` of an ambient
+  topological space `X`; the public recovery route for a `RealSet` subset is
+  `U.ambient().method(U)`
+- constructor ownership stays in `Sets().Constructors()`; this card must not introduce
+  `TopologicalSpaces().Constructors()` or a direct pure-topology `RealSet` constructor
+
+Required hypotheses and return/codomain obligations:
+
+- hypothesis: `U` is a subobject/subset of the ambient topological space `X`
+- `X.is_open(U)` and `X.is_closed(U)` return `bool`
+- `X.closure(U)`, `X.interior(U)`, and `X.boundary(U)` return subsets of the same
+  ambient space `X`, not bare Python containers and not detached set objects
+- any convenience method on subset objects must be explicitly documented as delegation,
+  not as a second owner for the topological notion
+
+Rejection or retirement condition:
+
+- reject any spec edit from this card that reassigns ownership to `Sets()`, introduces
+  a pure topological constructor namespace, or treats `RealSet` no-argument methods as
+  definition authority independent of their ambient space
 
 ## Acceptance Criteria
 
@@ -57,4 +98,3 @@ Use the subtree `MAPPING.md` and `SAGE_INVENTORY.md` files, Sage written docs/so
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
