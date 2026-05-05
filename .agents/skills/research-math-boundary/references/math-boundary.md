@@ -2,14 +2,15 @@
 
 ## Current lattice/module redesign plan
 
-For the lattice/module redesign, current durable planning lives under `.agents/plans/` and lattice-specific guidance lives in local skills:
+For the lattice/module redesign, current durable planning lives under the modules-with-forms feature in root `plans/`, and lattice-specific guidance lives in local skills:
 
-- `.agents/plans/pln-lattice-modules-with-forms-roadmap.md`
-- `.agents/plans/pln-lattice-phase-0-sage-patches.md`
-- `.agents/plans/pln-lattice-phase-2-core-objects.md`
-- `.agents/plans/pln-lattice-phase-3-morphisms-cokernels.md`
-- `.agents/plans/pln-lattice-phase-4-discriminant-descent.md`
-- `.agents/plans/pln-lattice-phase-5-orthogonal-groups.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES/PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS/PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS/PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT/PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/plans/PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP/PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER/PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER.md`
 - `.agents/skills/lattice-redesign/SKILL.md`
 
 If the task touches `src/lattices/`, `tests/lattice_spec/`, or `tests/sage_spec/`, read the relevant plan/skill before acting. The dependency order is: foundational rings/fields/finitely generated module semantics, then general bilinear-module category and nouns, then lattice/dual/discriminant specializations, then orthogonal/root/Weyl/Coxeter/Eichler and indefinite-isometry work, then final human-in-the-loop spec revision.

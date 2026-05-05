@@ -64,11 +64,20 @@ Every new session must read `GOAL.md`, `.agents/current-goal-phase.md`, and this
 
 ## Tracker and planning shortcut
 
-All repo-local planning and work tracking lives under `.agents`. Use registered standard tracker types from `.nimbalyst/trackers/*.yaml` and classify workflow dimensions with tags and paths. There is no separate backlog; active cards are the outstanding work set. Plans are human + LLM collaborative artifacts and must be approved before decomposition or execution. Plan files live under `.agents/plans/phase-*` according to the staged plan in `GOAL.md`.
+All active repo-local planning and work tracking lives under root `plans/`. Use
+`plans/AGENTS.md` and registered standard tracker types from
+`.nimbalyst/trackers/*.yaml`. There is no separate backlog; active cards under
+`plans/features/` are the outstanding work set. Plans are human + LLM collaborative
+artifacts and must be approved before decomposition or execution. `GOAL.md` remains the
+staged-program source; do not recreate staged phases as active tracker features.
 
 ## Repo structure shortcut
 
-Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`. Executable plans and cards go in `.agents`; produced artifacts go in their natural durable roots. Exploratory drafts go in gitignored `scratch/`. Mathematical notes and source-backed theory live in `theory/`. Tracker cards and plans go in `.agents/`.
+Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`.
+Executable plans and cards go in `plans/`; produced artifacts go in their natural
+durable roots. Exploratory drafts go in gitignored `scratch/`. Mathematical notes and
+source-backed theory live in `theory/`. Agent skills, TODO scratchpad, retirement
+holding, and phase marker files remain under `.agents/`.
 
 `src.bak/` and `tests.bak/` are a temporary quarantine for stale implementation code
 and implementation tests while phase-one category/spec work is active. Do not treat

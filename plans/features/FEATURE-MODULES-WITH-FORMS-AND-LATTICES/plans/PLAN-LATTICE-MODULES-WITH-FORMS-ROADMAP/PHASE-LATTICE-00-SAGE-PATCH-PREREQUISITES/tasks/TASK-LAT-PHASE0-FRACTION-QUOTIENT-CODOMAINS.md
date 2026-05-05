@@ -1,0 +1,116 @@
+---
+id: TASK-LAT-PHASE0-FRACTION-QUOTIENT-CODOMAINS
+trackerStatus:
+  type: task
+parents:
+- '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
+dependsOn: []
+title: Research and implement QQ modulo ZZ quotient codomains
+status: unstarted
+priority: critical
+description: Leaf implementation card derived from the old phase plan. This card is executable
+  only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
+successCriteria:
+- Read the cited source section before implementation.
+- Keep changes inside the named target boundary unless a new card or decision expands scope.
+- Preserve the mathematical semantics from the source plan and category-spec style rules.
+- Record validation commands and results before handoff.
+- Do not mark this card done without human approval.
+complexity: 65
+tags:
+- FEATURE-MODULES-WITH-FORMS-AND-LATTICES
+- PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
+- PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES
+- category-specs
+- lattices
+- phase-plan
+- sage
+- modules
+- theme-modules-tensors
+created: '2026-05-03'
+---
+# Research and implement QQ modulo ZZ quotient codomains
+
+## Summary
+
+Leaf implementation card derived from the old phase plan. This card is executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
+
+## Source Provenance
+
+- `plans/PHASE_0_SAGE_PATCHES.md`
+- Source section: fraction_quotients.py -- QQ/ZZ, QQ/nZZ quotient modules
+- Parent plan: `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES`
+- Program plan: `PLAN-CATEGORY-SPEC-PROGRAM`
+
+## Grounded Implementation Contract
+
+### Canonical sources
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`
+- `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `theory/backends/software-capability-map.md`
+
+### Public owner and target category
+- Owner: `fraction_quotients` patch layer in `src/sage_patches/fraction_quotients.py`.
+- Target codomain owners:
+  - module form codomain family (`QQ/ZZ`, `QQ/nZZ`) as `Modules(ZZ)` objects,
+  - discriminant-bilinear form codomains in `forms` workflows.
+
+### Definitions and hypotheses
+- For divisible-group-like codomain, `QmodnZ(1)` is `QQ / ZZ` and `QmodnZ(n)` is
+  `QQ / (n*ZZ)`; equality is quotient-class equality.
+- Parent must report `base_ring() == ZZ` so it is semantically a `ZZ`-module.
+- Objects are additive modules in `Modules(ZZ)` with natural quotient map `x ↦ x mod ZZ`
+  and canonical class lift behavior.
+
+### Return objects / codomains
+- `QQ / ZZ` returns a `QmodnZ(1)` object in `Modules(ZZ)`.
+- `QQ / (n*ZZ)` returns `QmodnZ(n)` in `Modules(ZZ)` for integer/numeric `n`.
+- `QQ / (k)` where `k` is an ideal in `ZZ` should normalize through ideal path and
+  return the same quotient-class codomain.
+- `element` lift/equality must preserve canonical-class representatives (`1/2 == 3/2` in `QmodnZ(1)`).
+
+### Concrete implementation work
+- Patch `QQ.__truediv__` (and `RationalField.__truediv__`) to dispatch through:
+  - denominator `ZZ` → `QmodnZ(1)`,
+  - denominator `n*ZZ` or ideal in `ZZ` → corresponding `QmodnZ(n)`.
+- Register `QmodnZ` outputs as module parents:
+  - refine category / membership to `Modules(ZZ)`,
+  - define `base_ring()` to `ZZ`,
+  - preserve coercions from `QQ`.
+- Add targeted regression helpers in `install()` to ensure codomain availability before
+  form workflows call `FormCodomain.torsion_*` helpers.
+
+### Acceptance checks
+- `[ ]` `R = QQ / ZZ` satisfies `R in Modules(ZZ)` and `R(1/2) == R(3/2)`.
+- `[ ]` `R = QQ / (2*ZZ)` satisfies `R in Modules(ZZ)` and elements have expected
+  torsion order by coercion checks.
+- `[ ]` `R(3/2).lift()` returns a `QQ` representative in the expected class.
+- `[ ]` `isinstance(QQ / ZZ, ModuleBaseRings category owner)` (or equivalent refined
+  module parent check) holds in smoke assertions.
+- `[ ]` Discriminant codomain constructor assertions in Phase-1 form tests can instantiate
+  `QQ/ZZ` and `QQ/2ZZ` and evaluate `beta(v,w)` there.
+
+## Context
+
+This card exists because the old phase document mixed high-level planning with executable substeps. The migration splits that material into a phase plan plus leaf cards so an implementation agent can work from one bounded contract.
+
+Target boundary: `src/sage_patches/fraction_quotients.py`.
+
+## Acceptance Criteria
+
+- [ ] Read the cited source section before implementation.
+- [ ] Keep changes inside the named target boundary unless a new card or decision expands scope.
+- [ ] Preserve the mathematical semantics from the source plan and category-spec style rules.
+- [ ] Record validation commands and results before handoff.
+- [ ] Do not mark this card done without human approval.
+
+## Dependencies And Boundaries
+
+Do not execute before the parent phase plan is approved and prerequisite phase cards are resolved. If the source section reveals missing vocabulary or method ownership, stop and file a decision or spec card instead of patching around it.
+
+## Work Log
+
+- Created by corpus-level `plans/` migration on 2026-05-03.

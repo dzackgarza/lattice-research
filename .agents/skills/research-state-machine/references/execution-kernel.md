@@ -11,8 +11,8 @@ No process label creates mathematical trust. Trust comes only from the artifacts
 Use five objects only:
 
 - `GOAL.md`: the read-only research objective spine.
-- `.agents/plans/*.md`: human + LLM collaborative plans and sprint plans.
-- `.agents/tasks/**`, `.agents/decisions/**`, `.agents/retired/**`: executable cards, decisions, TODO-converted work, and short-term retired cards.
+- `plans/features/**`: active feature, spec, plan, phase, task, and decision cards.
+- `.agents/current-goal-phase.md`, `.agents/TODO.md`, and `.agents/retired/**`: phase marker, scratchpad inbox, and short-term retired legacy cards.
 - Git branches, PRs, commits, and worktrees: provenance, review, and merge gates.
 - Produced artifacts in their natural durable roots: `src/`, `tests/`, `notes/`, `theory/`, `lean/`, and linked proof/computation outputs.
 
@@ -28,7 +28,7 @@ A plan records goal links, phases, dependencies, risks, acceptance strategy, and
 
 ### Specify card
 
-Each executable unit becomes a tracked card under `.agents`. The card must define the exact claim or work target, source provenance, plan or `GOAL.md` link, accepted scope, owner/role if known, complexity, dependencies, acceptance criteria, verification plan, and branch/PR policy when relevant.
+Each executable unit becomes a tracked `task` card under `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The card must define the exact claim or work target, source provenance, plan or `GOAL.md` link, accepted scope, owner/role if known, complexity, dependencies, acceptance criteria, verification plan, and branch/PR policy when relevant.
 
 For mathematical claims, the card must state whether it is exploratory, preparatory, local-claim promotion, or `GOAL.md` discharge.
 

@@ -6,9 +6,26 @@ color: '#3b82f6'
 modes:
   inline: true
   fullDocument: true
-idPrefix: pln
+idPrefix: PLAN
 idFormat: ulid
 fields:
+- name: id
+  type: string
+  readOnly: true
+  displayInline: false
+- name: parents
+  type: array
+  itemType: string
+  displayInline: false
+  required: true
+- name: dependsOn
+  type: array
+  itemType: string
+  displayInline: false
+- name: blocks
+  type: array
+  itemType: string
+  displayInline: false
 - name: title
   type: string
   required: true
@@ -16,14 +33,14 @@ fields:
 - name: status
   type: select
   required: true
-  default: needs-approval
+  default: needs-review
   options:
-  - value: needs-approval
-    label: Needs Approval
+  - value: needs-review
+    label: Needs Review
     icon: edit_note
     color: '#64748b'
-  - value: approved
-    label: Approved
+  - value: approved-and-unstarted
+    label: Approved and Unstarted
     icon: check_circle
     color: '#22c55e'
   - value: in-progress
@@ -38,13 +55,31 @@ fields:
     label: Blocked
     icon: block
     color: '#dc2626'
-- name: progress
-  type: number
-  min: 0
-  max: 100
-  default: 0
-  displayInline: false
+- name: priority
+  type: select
+  options:
+  - value: low
+    label: Low
+  - value: medium
+    label: Medium
+  - value: high
+    label: High
+  - value: critical
+    label: Critical
+- name: owner
+  type: user
 - name: tags
+  type: array
+  itemType: string
+  displayInline: false
+- name: description
+  type: text
+  required: true
+- name: successCriteria
+  type: array
+  itemType: string
+  required: true
+- name: phases
   type: array
   itemType: string
   displayInline: false
@@ -56,24 +91,17 @@ statusBarLayout:
 - row:
   - field: status
     width: 200
-  - field: priority
-    width: 150
-  - field: progress
-    width: 100
 - row:
   - field: owner
     width: 200
   - field: tags
     width: auto
-inlineTemplate: '{icon} {title} {status} {priority} {owner}'
+inlineTemplate: '{icon} {title} {status} {owner}'
 tableView:
   defaultColumns:
   - title
   - status
-  - priority
   - owner
-  - updated
-  sortable: true
   filterable: true
   exportable: true
 roles:

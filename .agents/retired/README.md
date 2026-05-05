@@ -18,4 +18,4 @@ Before moving a card here:
   the durable record.
 
 Do not retire durable decisions that still prevent backsliding. Keep those in
-`.agents/decisions/` or promote them into canonical documentation.
+`plans/features/*/decisions/` or promote them into canonical documentation.

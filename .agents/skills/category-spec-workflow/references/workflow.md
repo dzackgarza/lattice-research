@@ -70,28 +70,33 @@ capture, or card splitting, not speculative spec writing.
 Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
 inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
 
-Use the standard registered tracker types only: `automation`, `bug`, `decision`,
-`feature`, `idea`, `plan`, and `task`. Classify workflow dimensions with tags and file
-placement, not derivative types.
+Use the central planning tracker types only for active category-spec work: `feature`,
+`spec`, `plan`, `phase`, `task`, and `decision`. Executable implementation, research,
+bug-fix, smoke-triage, and audit work uses `task`; do not create active executable
+cards with legacy `bug`, `feature`, `idea`, or `automation` types.
 
 Do not create or use custom task-like types such as `spec-work`,
 `implementation-work`, `research-work`, `sprint-work`, `task-work`, or `agent-work`.
-Use tags such as `category-specs`, `spec`, `implementation`, `research`, `sprint`,
-`bug`, `smoke`, `validation`, and `docs-migration`.
+Use containment, `dependsOn`, priority, and complexity as primary workflow metadata.
+Tags such as `category-specs`, `spec`, `implementation`, `research`, `smoke`,
+`validation`, and `docs-migration` are secondary grouping aids.
 
-All Nimbalyst-backed planning and work files live under `.agents`:
+All active Nimbalyst-backed planning and work files live under root `plans/`:
 
-- `.agents/plans/` for plan and sprint-plan documents.
-- `.agents/decisions/` for decision records.
-- `.agents/tasks/implementation/` for implementation tasks, bug fixes, smoke failures,
-  and structural blockers.
-- `.agents/tasks/spec/` for spec-surface tasks and spec research.
-- `.agents/tasks/research/` for literature, Sage-source, API, and design research.
-- `.agents/retired/` for completed or retired cards kept temporarily before deletion.
+- `plans/features/FEATURE-ID/FEATURE-ID.md` for feature roots.
+- `plans/features/FEATURE-ID/specs/SPEC-ID.md` for feature-owned specs.
+- `plans/features/FEATURE-ID/decisions/DECISION-ID.md` for durable decisions.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md` for approved plans.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md` for plan phases.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md` for executable
+  tasks, including implementation, research, bug-fix, smoke-triage, and audit work.
+- `.agents/retired/` only for completed or retired legacy cards kept temporarily before
+  deletion.
 
 Create full-document tracker files with `trackerStatus` frontmatter. Keep metadata such
-as `title`, `status`, `priority`, `tags`, `complexity`, `progress`, `planId`,
-`planCode`, `sprintCode`, and `workCode` at the top level of the frontmatter.
+as `id`, `parents`, `dependsOn`, `title`, `status`, `priority`, `tags`, `complexity`,
+`owner`, and `successCriteria` at the top level of the frontmatter. Card IDs must match
+their filename stems.
 
 Never use `trackingStatus`. Never call `tracker_create` or `create_task` for
 markdown-backed items. The markdown file is the source of truth and syncs into
@@ -183,13 +188,14 @@ chat-local plan into implementation.
 Creating or materially revising a plan requires this sequence:
 
 - Switch to planning mode.
-- Use the project planning tools and `.agents/plans/` structure.
+- Use the project planning tools and root `plans/` hierarchy.
 - Draft the plan with objective, scope, phases, risks, validation strategy, and known
   task boundaries.
 - Iterate with the user until the user explicitly approves the plan.
-- Store the approved plan as a tracked `plan` file under `.agents/plans/`.
-- Decompose the approved plan into concrete tracked task, bug, feature, idea, and
-  decision files.
+- Store the approved plan as a tracked `plan` file under the owning feature's
+  `plans/PLAN-ID/` directory.
+- Decompose the approved plan into concrete tracked `phase`, `task`, `spec`, and
+  `decision` files.
 - Move implementation to a separate execution stage, usually delegated for complex
   work.
 
@@ -200,17 +206,16 @@ and independently executable.
 ## Plan files are the planning system
 
 Trackable plan files are the project planning documents. If an agent harness creates or
-stores a plan internally, copy the plan into the project planning system under
-`.agents/plans/`, register it with the plan tracker, and get user approval before
-enacting it.
+stores a plan internally, copy the plan into the project planning system under root
+`plans/`, register it with the plan tracker, and get user approval before enacting it.
 
-Use the built-in `plan` tracker schema for durable initiatives and sprint plans.
-Preserve plan-card fields such as `planId`, `title`, `status`, `planType`, `priority`,
-`owner`, `tags`, `created`, `updated`, and numeric `progress`.
+Use the built-in `plan` tracker schema for durable initiatives and sprint plans. Keep
+plan metadata aligned with `.nimbalyst/trackers/plan.yaml`.
 
 A plan defines the durable objective, phases, milestones, risks, and validation
-strategy. Executable units belong in dedicated tracked files: `task`, `bug`, `feature`,
-`idea`, or `decision` as appropriate.
+strategy. Executable units belong in dedicated tracked `task` files under plan phases;
+spec surfaces belong in `spec` files, and unresolved ownership or admission choices
+belong in `decision` files.
 
 Do not duplicate one initiative as both a plan and a task. Task files link to the plan;
 they do not replace it.
@@ -296,7 +301,8 @@ provenance over inline markers.
 
 Periodically triage `.agents/TODO.md`:
 
-- Convert clear, bounded work into `task`, `bug`, `feature`, or `decision` files.
+- Convert clear, bounded work into `task`, `spec`, or `decision` files under
+  `plans/features/`.
 - Promote multi-phase or ambiguous work into a human-approved plan.
 - Keep unresolved observations only when they still need investigation.
 - Delete resolved or invalid observations through normal git-reviewed edits.
@@ -327,17 +333,19 @@ Before retiring a card:
 
 Do not retire durable decisions that still prevent backsliding. Keep active policy,
 architecture, naming, workflow, and mathematical-ownership decisions in
-`.agents/decisions/` or promote them into canonical docs. Retire only decisions whose
-usefulness is historical and whose effect is already preserved elsewhere.
+`plans/features/*/decisions/` or promote them into canonical docs. Retire only
+decisions whose usefulness is historical and whose effect is already preserved
+elsewhere.
 
 Delete retired cards when they no longer answer an active review, recovery, or migration
 question. Git history is the archive.
 
 ## Full task card requirements
 
-A real task, bug, feature, or research item must be a full markdown file under
-`.agents/tasks/...`. The file must include enough context for a subagent to execute the
-work without recovering chat history or guessing hidden assumptions.
+A real executable item must be a full `task` markdown file under
+`plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The file must include enough
+context for a subagent to execute the work without recovering chat history or guessing
+hidden assumptions.
 
 Use these body sections unless a stricter local template applies:
 
@@ -594,7 +602,7 @@ Before merge:
 - Move historical docs to archive paths when they should no longer guide new work.
 - Add `supersededBy` pointers when preserving history.
 - Delete duplicate drafts when they have no archival value.
-- Update `.agents/plans/` and relevant navigation surfaces.
+- Update root `plans/` and relevant navigation surfaces.
 - Update root `AGENTS.md`, subtree `AGENTS.md`, or the relevant category-spec skill if agent
   behavior changed.
 - Update tracker files with final PR and merge metadata.
@@ -642,11 +650,10 @@ Each subtree's `smoketest.sage` must:
 Smoke frontier findings and blockers:
 
 - Are recorded as Nimbalyst tracker files, not subtree-local `TRIAGE.md` files.
-- Use `task`, `bug`, or `feature` files under `.agents/tasks/implementation/` for
-  missing methods, smoke failures, and structural blockers.
-- Use `task` files under `.agents/tasks/spec/` for missing spec surface.
-- Use `decision` files under `.agents/decisions/` for unresolved ownership or admission
-  choices.
+- Use `task` files under the relevant plan phase for missing methods, smoke failures,
+  structural blockers, and missing spec surface.
+- Use `decision` files under the owning feature's `decisions/` directory for unresolved
+  ownership or admission choices.
 - Cite the source smoke file or mapping/inventory document in the tracker file.
 - Update the tracker file whenever `smoketest.sage` output changes.
 

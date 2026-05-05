@@ -1,0 +1,48 @@
+# Research Planning Workspace
+
+This directory is the active Nimbalyst-backed planning workspace for the research repo.
+
+## Hierarchy
+
+Use this containment model:
+
+```text
+plans/features/FEATURE-ID/
+├── FEATURE-ID.md
+├── specs/SPEC-ID.md
+├── decisions/DECISION-ID.md
+└── plans/PLAN-ID/
+    ├── PLAN-ID.md
+    └── PHASE-ID/
+        ├── PHASE-ID.md
+        └── tasks/TASK-ID.md
+```
+
+Root features are concrete deliverable buckets, not staged-program mirrors. `GOAL.md`
+remains the source for the staged mathematical program, and `.agents/current-goal-phase.md`
+records the active phase gate.
+
+## Local Feature Buckets
+
+- `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: category specs, Sage-compatible constructors, Hom/End/Aut surfaces, source maps, and smoke/audit stabilization.
+- `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: ModulesWithForms and lattice objects, including duals, discriminant descent, morphisms, and orthogonal-group surfaces.
+- `FEATURE-GEOMETRY-CATEGORY-INTERFACES`: geometry-facing category interfaces and backend research for schemes, varieties, manifolds, curves, surfaces, families, and monodromy.
+
+## Rules
+
+- Card IDs must match filename stems.
+- `parents` records containment; `dependsOn` records blocking or prerequisite edges.
+- Specs live under the owning feature's `specs/` directory.
+- Decisions live under the owning feature's `decisions/` directory.
+- Executable implementation, research, bug, and audit work uses `trackerStatus.type: task` and lives under a phase's `tasks/` directory.
+- Do not create new active cards under `.agents/plans`, `.agents/tasks`, or `.agents/decisions`.
+- Keep metadata compact; put detailed grounding, acceptance criteria, source evidence, and work logs in the body.
+
+## Validation
+
+Run from the repo root:
+
+```bash
+just plan-validate
+git diff --check -- plans .nimbalyst/trackers AGENTS.md .agents/current-goal-phase.md
+```

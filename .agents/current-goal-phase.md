@@ -6,8 +6,9 @@ This file is the repo-local phase marker for the staged plan in `GOAL.md`. Agent
 it to avoid drifting into downstream work before the prerequisite mathematical language
 exists.
 
-The operative staged-program plan is
-`.agents/plans/phase-00-overall-program/pln-research-staged-program.md`.
+The operative staged-program source is `GOAL.md`. Do not mirror the staged program as a
+tracker feature; active tracker cards start at concrete deliverable features under
+`plans/features/`.
 
 ## Active phase
 
@@ -15,7 +16,16 @@ The repo is currently in the spec phase.
 
 Current phase plan:
 
-- `.agents/plans/phase-01-category-specs/pln-phase-01-category-specs.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-PROGRAM/PLAN-CATEGORY-SPEC-PROGRAM.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-FOUNDATION-KERNEL/PLAN-CATEGORY-FOUNDATION-KERNEL.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION.md`
+- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md`
+- `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md`
 
 Primary work:
 

@@ -6,17 +6,29 @@ color: '#8b5cf6'
 modes:
   inline: true
   fullDocument: true
-idPrefix: dec
+idPrefix: DECISION
 fields:
+- name: id
+  type: string
+  readOnly: true
+  displayInline: false
+- name: parents
+  type: array
+  itemType: string
+  displayInline: false
+- name: dependsOn
+  type: array
+  itemType: string
+  displayInline: false
 - name: title
   type: string
   required: true
 - name: status
   type: select
-  default: to-do
+  default: unstarted
   options:
-  - value: to-do
-    label: To Decide
+  - value: unstarted
+    label: Unstarted
     icon: help
   - value: in-progress
     label: Evaluating

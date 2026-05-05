@@ -1,64 +1,63 @@
 ---
-description: Track bugs, tasks, ideas, decisions, and related work items as markdown files under `.agents`.
+description: Track planning work items as markdown files under root `plans/`.
 ---
 
 # Tracking Work Items
 
-Create tracking items as markdown files under `.agents` using registered standard types
-and tags.
+Create tracking items as markdown files under `plans/features/` using registered
+standard types and tags.
 
 ## Registered Types
 
 Read `.nimbalyst/trackers/*.yaml` before creating an item. Use one of the registered
-standard types: `automation`, `bug`, `decision`, `feature`, `idea`, `plan`, or `task`.
+planning types: `feature`, `spec`, `plan`, `phase`, `decision`, or `task`.
 
-Use tags and `.agents` placement for workflow dimensions such as `spec`,
-`implementation`, `research`, `sprint`, and `category-specs`. Do not create or use
-`spec-work`, `implementation-work`, `research-work`, `sprint-work`, `task-work`, or
-`agent-work` types.
+Use tags and containment for workflow dimensions such as category-specs, implementation,
+research, sprint, smoke, validation, docs-migration, and theme groups. Do not create or
+use derivative tracker types such as `spec-work`, `implementation-work`,
+`research-work`, `sprint-work`, `task-work`, or `agent-work`.
 
 ## Destination Rules
 
-- `.agents/plans/`: plan and sprint-plan documents using `trackerStatus.type: plan`.
-- `.agents/decisions/`: decisions using `trackerStatus.type: decision`.
-- `.agents/tasks/spec/`: spec-surface work using `task`, `bug`, `feature`, or `idea`.
-- `.agents/tasks/implementation/`: implementation work using `task`, `bug`, `feature`,
-  or `idea`.
-- `.agents/tasks/research/`: research work using `task`, `bug`, `feature`, or `idea`.
+- `plans/features/FEATURE-ID/FEATURE-ID.md`: feature cards.
+- `plans/features/FEATURE-ID/specs/SPEC-ID.md`: spec cards owned by a feature.
+- `plans/features/FEATURE-ID/decisions/DECISION-ID.md`: decision cards owned by a feature.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md`: plan cards.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md`: phase cards.
+- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md`: executable task cards.
 
-Do not create aggregate tracker indexes. The GUI is the index.
-
-There is no separate backlog. Active tracked cards under `.agents` are the outstanding
-work set. Resolved, rejected, implemented, or superseded cards should leave active paths
-and move to `.agents/retired/` only while short-term reference is useful.
+Do not create aggregate tracker indexes. The GUI is the index. There is no separate
+backlog; active tracked cards under `plans/features/` are the outstanding work set.
 
 ## Frontmatter
 
-Use `trackerStatus`, not `trackingStatus`.
+Use `trackerStatus`, not `trackingStatus`. Card IDs must match filename stems.
 
 ```markdown
 ---
+id: TASK-EXAMPLE
 trackerStatus:
   type: task
+parents:
+- '[[PHASE-EXAMPLE]]'
+dependsOn: []
 title: Brief executable description
-status: to-do
+status: unstarted
 priority: medium
-tags:
-  - category-specs
-  - implementation
-created: YYYY-MM-DD
+description: Brief executable description.
+successCriteria:
+- Observable acceptance criterion.
 complexity: 40
-progress: 0
 ---
 ```
 
-The `trackerStatus.type` value must match a registered schema. Put `title`, `status`,
-`priority`, `tags`, `complexity`, `progress`, and other fields at the top level of the
-frontmatter.
+The `trackerStatus.type` value must match a registered schema. Keep metadata compact;
+put detailed grounding, acceptance criteria, examples, audit notes, and work logs in
+the body.
 
-For category-spec cards, load `category-spec-priority-rubric` before setting
-`priority` and `category-spec-complexity-rubric` before setting `complexity`.
-Do not encode priority or complexity as tags.
+For category-spec cards, load `category-spec-priority-rubric` before setting `priority`
+and `category-spec-complexity-rubric` before setting `complexity`. Do not encode
+priority or complexity as tags.
 
 ## Body Requirements
 
@@ -68,22 +67,20 @@ recovery. Use at least:
 - `Summary`
 - `Source Provenance`
 - `Context`
-- `Complexity And Ownership`
 - `Acceptance Criteria`
 - `Dependencies And Boundaries`
-- `Validation Requirements`
 - `Work Log`
 
 Inline tracker syntax is only for temporary discovery placeholders. Convert anything
-ready for assignment or execution into a full markdown file under `.agents/tasks/...`.
+ready for assignment or execution into a full markdown file under `plans/features/`.
 
 ## Execution Steps
 
 1. Read `.nimbalyst/trackers/*.yaml`.
 2. Select a registered standard type.
-3. Convert workflow words such as `spec`, `implementation`, `research`, or `sprint` into
-   tags and destination path.
-4. Generate the item file under `.agents` with `trackerStatus` frontmatter.
+3. Convert workflow words such as spec, implementation, research, or sprint into tags
+   and destination path.
+4. Generate the item file under `plans/features/` with `trackerStatus` frontmatter.
 5. Preserve source provenance and enough execution context in the body.
 6. Confirm the destination file.
 
