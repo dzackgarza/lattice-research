@@ -9,6 +9,7 @@ category-spec hierarchy. It is not a history of deleted files.
 | --- | --- | --- |
 | `Rings().NamedRings()` | `Rings().Constructors()` | Constructors are entry points into Sage objects, not mathematical subcategories. The target surface is an inner `Constructors` class on `Rings`. |
 | Root shortcuts such as `Rings().ZZ()` | `Rings().Constructors().ZZ()` | Constructor shortcuts do not belong on the category root. The category root documents mathematics; `Constructors()` owns Sage entry points. |
+| `RationalField()` / `QQ` | `Rings().Constructors().QQ()` | The rational field is a fixed object constructor with no Sage option bag on the public project surface. Rational elements are constructed by the returned field object, not by extra rational-field constructor options. |
 | Parameterized families such as `RealField(prec)` and `Zp(p)` | Constructor methods returning objects refined into precision, valuation, or local-field subcategories | The parameterized family is not a one-object category; fixed objects such as `RR` and `CC` may have singleton refinements. |
 
 Constructor signatures must follow Sage's documented input shapes. `PowerSeriesRing`,
@@ -27,8 +28,8 @@ The remaining variadic ring factories are split as follows:
 
 | Sage surface | Project surface | Decision |
 | --- | --- | --- |
-| `NumberField(polynomial, name, ...)` | `NumberField(polynomial, name, ...)` | Single defining polynomial route. Sequence-valued metadata is not accepted here. |
-| `NumberField([f_1, ..., f_n], names, ...)` | `NumberFieldTower(polynomials, names, ...)` | Tower construction is a separate mathematical case with sequence metadata attached to the tower. |
+| `NumberField(polynomial, name=None, check=True, names=None, embedding=None, latex_name=None, assume_disc_small=False, maximize_at_primes=None, structure=None, *, latex_names=None)` | `NumberField(polynomial, name=None, check=True, names=None, embedding=None, latex_name=None, assume_disc_small=False, maximize_at_primes=None, structure=None, *, latex_names=None)` | Single defining-polynomial route. Each admitted Sage option is named explicitly; sequence-valued tower metadata is not accepted here. |
+| `NumberField(polynomials, names, check=True, embeddings=None, latex_names=None, assume_disc_small=False, maximize_at_primes=None, structures=None)` | `NumberFieldTower(polynomials, names, check=True, embeddings=None, latex_names=None, assume_disc_small=False, maximize_at_primes=None, structures=None)` | Tower construction is a separate mathematical case with sequence metadata attached to the tower. |
 | `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | `Zp(p, prec=n, type=...)` / `Qp(p, prec=n, type=...)` | Scalar precision cap route. |
 | `Zp(p, prec=(relative_cap, absolute_cap), type='lattice-*')` and `Qp` analogue | `ZpWithPrecisionCaps(...)` / `QpWithPrecisionCaps(...)` | Pair precision data is meaningful only for lattice precision, so it is named explicitly. |
 | `Zp(p, prec=(default_prec, halting_prec, secure), type='relaxed')` and `Qp` analogue | `ZpRelaxed(...)` / `QpRelaxed(...)` | Relaxed arithmetic has default, halting, and security data; it is not a generic precision tuple. |

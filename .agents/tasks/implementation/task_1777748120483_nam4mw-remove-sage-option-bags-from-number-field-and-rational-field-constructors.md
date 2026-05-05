@@ -2,10 +2,10 @@
 trackerStatus:
   type: task
 title: Remove Sage option bags from number-field and rational-field constructors
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-VARIADIC-AUDIT-01KQN9
-progress: 0
+progress: 90
 tags:
 - category-specs
 - implementation
@@ -31,3 +31,44 @@ Task: excise Sage option bags from number-field and rational-field constructors,
 - Item-specific evidence:
   - The file explicitly targets constructor semantics rather than runtime algorithms, so complexity is driven by argument migration and downstream ripple through calling code.
   - No new test or acceptance list is embedded, which means the task’s own evidence focuses on implementation breadth more than checklist-driven branching.
+
+## Implementation Result
+
+- Current `Rings().Constructors().NumberField` already exposes explicit named
+  parameters for Sage's admitted single-polynomial route and does not accept `*args`,
+  `**kwargs`, `kwds`, or a generic option bag.
+- Current `Rings().Constructors().NumberFieldTower(...)` already separates the
+  sequence-polynomial tower case and exposes explicit sequence metadata parameters.
+- Current rational-field construction is the fixed-object
+  `Rings().Constructors().QQ()` route; there is no public project `RationalField(...)`
+  option surface to clean.
+- Updated `category_specs/rings/docs/MAPPING.md` so the constructor table records the
+  explicit number-field signatures and the rational-field fixed-object route instead
+  of documenting Sage ellipses.
+
+## Audit Evidence
+
+- Searched: this task card, `category_specs/rings/__init__.py`,
+  `category_specs/rings/docs/MAPPING.md`, `category_specs/rings/docs/SAGE_INVENTORY.md`,
+  `category_specs/rings/tests/regression/number_fields.sage`,
+  `category_specs/rings/tests/regression/rational_field.sage`, and textual searches for
+  `def NumberField`, `def NumberFieldTower`, `def QQ`, `RationalField`, `*args`,
+  `**kwargs`, `kwds`, `opts`, and `options` under `category_specs/rings`.
+- Found: no public number-field or rational-field constructor in current ring code
+  exposes a generic Sage option bag. The only stale option-bag language was the
+  ellipsis in the mapping table for the number-field routes.
+- Conclusion: inference - the implementation surface already satisfies this card, and
+  the durable fix was to make the mapping document match the current explicit API.
+- Confidence: High.
+- Gaps: this pass did not re-audit unrelated p-adic, matrix, polynomial, or series
+  constructor cards.
+
+## Acceptance Criteria
+
+- [x] Number-field constructor mapping records explicit public parameters.
+- [x] Number-field tower construction remains a separate named route.
+- [x] Rational-field construction is recorded as fixed-object `QQ()`, not an option-bag
+  constructor.
+- [x] Current ring code has no `*args`, `**kwargs`, `kwds`, or generic options surface
+  on the number-field/rational-field constructors.
+- [ ] Human review accepts the audit and closes the card.
