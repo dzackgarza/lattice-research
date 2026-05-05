@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.categories.finite_enumerated_sets import (
+    FiniteEnumeratedSets as SageFiniteEnumeratedSets,
+)
 from sage.categories.finite_sets import FiniteSets as SageFiniteSets
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -43,18 +45,19 @@ class _FiniteSets(CategoryWithAxiom):
             return True
 
         @override
-        @abstract_method
-        def cardinality(self) -> Cardinality: ...
+        @final
+        def cardinality(self) -> Cardinality:
+            return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
 
         @final
         def __len__(self) -> Integer:
             r"""Return the finite cardinality as a Python length."""
             return int(self.cardinality())
 
-        @abstract_method
+        @final
         def random_element(self) -> SetElement:
             r"""Return a random element of this finite set."""
-            ...
+            return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
 
     class ElementMethods: ...
 

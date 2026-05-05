@@ -76,3 +76,14 @@ construction, and topological axiom resolution.
     implementation gaps such as `hilbert_polynomial`, topological `boundary`,
     `ideal_monoid`, `_change_print_mode`, q-adic deferred constructors, and matrix
     algebra/module MRO refinement.
+- 2026-05-05: Removed another layer of local abstract shadowing by delegating
+  facade-set defaults to Sage's `FacadeSets`, countable/enumerated defaults to Sage's
+  enumerated-set providers, finite random/cardinality defaults to Sage finite
+  enumerated sets, and integer-range membership/cardinality/enumeration to
+  source-backed Sage semantics. `just --justfile category_specs/justfile
+  smoke-file sets/smoketest.sage` now reaches a narrower frontier: legacy
+  `Constructors().RealSet`, RealSet interval `_element_constructor_`, recursive and
+  disjoint-union `_element_constructor_`, Cartesian product `_sympy_`, subobject
+  `cardinality`, image `complement`, totally ordered finite set `max`,
+  finite-map/all-partition `is_parent_of`, family `_element_constructor_`,
+  iterator-backed cardinality, and partition `_sympy_`.

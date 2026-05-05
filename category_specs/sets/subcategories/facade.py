@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.categories.facade_sets import FacadeSets as SageFacadeSets
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -38,27 +38,31 @@ class _FacadeSets(CategoryWithAxiom):
             return True
 
         @override
-        @abstract_method
+        @final
         def _element_constructor_(self, element: SetElement) -> SetElement:
             r"""Coerce ``element`` from any facade parent."""
-            ...
+            return SageFacadeSets.ParentMethods._element_constructor_(self, element)
 
-        @abstract_method
-        def facade_for(self) -> tuple[Set, ...]:
+        @override
+        @final
+        def facade_for(self) -> tuple[Set, ...] | bool:
             r"""Return the tuple of parents this set is a facade for."""
-            ...
+            return SageFacadeSets.ParentMethods.facade_for(self)
 
         @override
-        @abstract_method
-        def is_parent_of(self, element: SetElement) -> bool: ...
+        @final
+        def is_parent_of(self, element: Any) -> bool:
+            return SageFacadeSets.ParentMethods.is_parent_of(self, element)
 
         @override
-        @abstract_method
-        def __contains__(self, element: Any) -> bool: ...
+        @final
+        def __contains__(self, element: Any) -> bool:
+            return SageFacadeSets.ParentMethods.__contains__(self, element)
 
         @override
-        @abstract_method
-        def _an_element_(self) -> SetElement: ...
+        @final
+        def _an_element_(self) -> SetElement:
+            return SageFacadeSets.ParentMethods._an_element_(self)
 
     class ElementMethods: ...
 

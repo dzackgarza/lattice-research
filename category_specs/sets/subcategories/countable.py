@@ -8,7 +8,6 @@ from typing import TYPE_CHECKING, final, override
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
 from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
 from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as SageInfiniteEnumeratedSets
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -47,37 +46,48 @@ class _CountableSets(CategoryWithAxiom):
             return True
 
         @override
-        @abstract_method
-        def __iter__(self) -> Iterator[SetElement]: ...
+        @final
+        def __iter__(self) -> Iterator[SetElement]:
+            return SageEnumeratedSets.ParentMethods.__iter__(self)
 
         @override
-        @abstract_method
+        @final
         def __getitem__(self, i: Integer) -> SetElement:
             r"""Return the ``i``-th element in the chosen enumeration."""
-            ...
+            return SageEnumeratedSets.ParentMethods.__getitem__(self, i)
 
         @override
-        @abstract_method
+        @final
         def rank(self, e: SetElement) -> Integer:
             r"""Return the enumeration index of ``e``."""
-            ...
+            return SageEnumeratedSets.ParentMethods.rank(self, e)
 
         @override
-        @abstract_method
-        def cardinality(self) -> Cardinality: ...
+        @final
+        def cardinality(self) -> Cardinality:
+            if self.is_finite():
+                return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
+
+            from sage.rings.infinity import infinity
+
+            return infinity
 
         @override
-        @abstract_method
-        def is_empty(self) -> bool: ...
+        @final
+        def is_empty(self) -> bool:
+            return SageEnumeratedSets.ParentMethods.is_empty(self)
 
         @override
-        @abstract_method
-        def random_element(self) -> SetElement: ...
+        @final
+        def random_element(self) -> SetElement:
+            if self.is_finite():
+                return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            return SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
 
-        @abstract_method
+        @final
         def map(self, f: SetMorphism, name: str | None = None, *, is_injective: bool = True) -> Set:
             r"""Return the image of this enumerated set under ``f``."""
-            ...
+            return SageEnumeratedSets.ParentMethods.map(self, f, name=name, is_injective=is_injective)
 
     class ElementMethods: ...
 
@@ -104,12 +114,14 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
     class ParentMethods:
         @override
-        @abstract_method
-        def __len__(self) -> Integer: ...
+        @final
+        def __len__(self) -> Integer:
+            return SageFiniteEnumeratedSets.ParentMethods.__len__(self)
 
         @override
-        @abstract_method
-        def random_element(self) -> SetElement: ...
+        @final
+        def random_element(self) -> SetElement:
+            return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
 
     class ElementMethods: ...
 
@@ -136,8 +148,9 @@ class _InfiniteCountableSets(CategoryWithAxiom):
 
     class ParentMethods:
         @override
-        @abstract_method
-        def random_element(self) -> SetElement: ...
+        @final
+        def random_element(self) -> SetElement:
+            return SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
 
     class ElementMethods: ...
 
