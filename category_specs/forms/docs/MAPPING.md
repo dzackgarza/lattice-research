@@ -7,27 +7,27 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 
 | Surface | Owner | Notes |
 | --- | --- | --- |
-| `Modules(R).WithForms()` | `forms.subcategories.with_forms._WithForms` | Modules keeps the Sage-compatible route; forms owns the class and method surface. |
-| `Modules(R).WithForms().Bilinear()` | `forms.subcategories.bilinear._BilinearModules` | Owns bilinear evaluation and generic bilinear predicates. |
-| `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic._QuadraticModules` | Owns quadratic evaluation. |
+| `Modules(R).WithForms()` | `forms.subcategories.with_forms.FormedModulesCategory` | Modules keeps the Sage-compatible route; forms owns the class and method surface. |
+| `Modules(R).WithForms().Bilinear()` | `forms.subcategories.bilinear.BilinearModulesCategory` | Owns bilinear evaluation and generic bilinear predicates. |
+| `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic.QuadraticModulesCategory` | Owns quadratic evaluation. |
 | Symmetric, alternating, nondegenerate, definite, indefinite, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
 | `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
 | Form-preserving morphisms between formed modules | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A candidate map preserves form data exactly when it is contained in the Hom object of the formed-module category. |
 | Isometries of formed modules | `C.HomCategory().Of(M, N)` plus generic isomorphism; automorphism case `C.AutCategory().Of(M)` | Form preservation is already Hom containment. The isometry question is invertibility or isomorphism inside that category. |
-| Free bilinear modules | `forms.subcategories.free_bilinear._FreeBilinearModules` | First tier where Gram matrices, determinant, and discriminant are universally meaningful. |
+| Free bilinear modules | `forms.subcategories.free_bilinear.FreeBilinearModulesCategory` | First tier where Gram matrices, determinant, and discriminant are universally meaningful. |
 | Finite-rank free formed-module chain used by `Lattices(R)` | `forms.chain` | Lattices imports this chain and adds only the named `Lattice` endpoint. |
-| Finite torsion quadratic modules | `forms.subcategories.torsion_quadratic_modules._TorsionQuadraticModules` | Modules keeps `TorsionQuadraticModules()` as a compatibility constructor route. |
-| `Lattices(R)` | `lattices.chain._Lattices` | Lattice-specific endpoint and lattice construction categories remain in `lattices`. |
+| Finite torsion quadratic modules | `forms.subcategories.torsion_quadratic_modules.TorsionQuadraticModulesCategory` | Modules keeps `TorsionQuadraticModules()` as a compatibility constructor route. |
+| `Lattices(R)` | `lattices.LatticesCategory` | Lattice-specific endpoint and lattice construction categories remain in `lattices`. |
 
 ## Compatibility Routes
 
 The module and lattice import paths remain valid:
 
-- `category_specs.modules.subcategories.with_forms._WithForms`
-- `category_specs.modules.subcategories.bilinear._BilinearModules`
-- `category_specs.modules.subcategories.quadratic._QuadraticModules`
-- `category_specs.modules.subcategories.torsion_quadratic_modules._TorsionQuadraticModules`
-- `category_specs.lattices.subcategories.symmetric._SymmetricBilinearModules`
+- `category_specs.modules.subcategories.with_forms.FormedModulesCategory`
+- `category_specs.modules.subcategories.bilinear.BilinearModulesCategory`
+- `category_specs.modules.subcategories.quadratic.QuadraticModulesCategory`
+- `category_specs.modules.subcategories.torsion_quadratic_modules.TorsionQuadraticModulesCategory`
+- `category_specs.lattices.subcategories.symmetric.SymmetricBilinearModulesCategory`
 - analogous lattice paths for alternating, nondegenerate, definite, indefinite,
   integral, rational, and free bilinear categories.
 

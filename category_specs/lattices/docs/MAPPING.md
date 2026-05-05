@@ -17,16 +17,16 @@ FormedModules(R) = Modules(R, dispatch=False).WithForms()  [owned in forms/]
                 └── .Lattice()                             [named endpoint in lattices/]
 
 forms/subcategories/
-├── with_forms.py          _WithForms
-├── bilinear.py            _BilinearModules
-├── quadratic.py           _QuadraticModules
-├── symmetric.py           _SymmetricBilinearModules
-├── nondegenerate.py       _NondegenerateBilinearModules
-├── indefinite.py          _IndefiniteBilinearModules
-├── definite.py            _DefiniteBilinearModules
-├── integral.py            _IntegralBilinearModules
-├── rational.py            _RationalBilinearModules
-└── free_bilinear.py       _FreeBilinearModules     (Free + Bilinear)
+├── with_forms.py          FormedModulesCategory
+├── bilinear.py            BilinearModulesCategory
+├── quadratic.py           QuadraticModulesCategory
+├── symmetric.py           SymmetricBilinearModulesCategory
+├── nondegenerate.py       NondegenerateBilinearModulesCategory
+├── indefinite.py          IndefiniteBilinearModulesCategory
+├── definite.py            DefiniteBilinearModulesCategory
+├── integral.py            IntegralBilinearModulesCategory
+├── rational.py            RationalBilinearModulesCategory
+└── free_bilinear.py       FreeBilinearModulesCategory     (Free + Bilinear)
 
 lattices/subcategories/
 ├── over_dedekind.py       _LatticesOverDedekindDomain
@@ -222,7 +222,7 @@ map to the Cat-owned universal structure-morphism methods through
 | `FreeQuadraticModule_generic_field` | `FormedModules(K).Bilinear()` plus free finite-rank `OverField()` refinements | over a field (= vector space with form) |
 | `FreeQuadraticModule_submodule_*_pid` | forms-owned bilinear subobjects over PID | submodule of free quadratic over PID |
 | `FGP_Module_class` | `Modules(R).FinitelyPresented().OverPID()` | V/W presentation; no form |
-| `TorsionQuadraticModule` | `forms.subcategories.torsion_quadratic_modules._TorsionQuadraticModules` | V/W with Q/mZ-valued bilinear form |
+| `TorsionQuadraticModule` | `forms.subcategories.torsion_quadratic_modules.TorsionQuadraticModulesCategory` | V/W with Q/mZ-valued bilinear form |
 | `FreeQuadraticModule_integer_symmetric` | forms-owned finite-rank free symmetric nondegenerate integral bilinear chain, then `Lattices(ZZ)` | the canonical integral lattice |
 | `QuadraticForm` | forms-owned finite-rank free symmetric nondegenerate integral bilinear chain, then `Lattices(ZZ)` | same category; different presentation (upper-triangular coefficients) |
 
@@ -239,18 +239,18 @@ constructor `Lattices(ZZ).Constructors().from_quadratic_form(qf)` converts betwe
 
 The forms subtree owns the formed-module hierarchy:
 
-- `_WithForms`
-- `_BilinearModules`
-- `_QuadraticModules`
-- `_SymmetricBilinearModules`
-- `_AlternatingBilinearModules`
-- `_NondegenerateBilinearModules`
-- `_DefiniteBilinearModules`
-- `_IndefiniteBilinearModules`
-- `_IntegralBilinearModules`
-- `_RationalBilinearModules`
-- `_FreeBilinearModules`
-- `_TorsionQuadraticModules`
+- `FormedModulesCategory`
+- `BilinearModulesCategory`
+- `QuadraticModulesCategory`
+- `SymmetricBilinearModulesCategory`
+- `AlternatingBilinearModulesCategory`
+- `NondegenerateBilinearModulesCategory`
+- `DefiniteBilinearModulesCategory`
+- `IndefiniteBilinearModulesCategory`
+- `IntegralBilinearModulesCategory`
+- `RationalBilinearModulesCategory`
+- `FreeBilinearModulesCategory`
+- `TorsionQuadraticModulesCategory`
 
 ### Lives in `lattices/subcategories/`
 
