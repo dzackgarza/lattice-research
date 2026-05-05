@@ -158,3 +158,35 @@ adjectives that must attach to arbitrary ring subcategories, such as `Commutativ
 Topological ring structure must inherit from the `topological_spaces` subtree for the
 topological-space surface and from `rings` for ring operations. It should not duplicate
 topological-space methods inside a ring-only file.
+
+Canonical public-surface anchors already exist in the spec tree:
+
+- `category_specs/rings/subcategories/topological.py` fixes the algebraic owner for the
+  ring-side category edge as `Rings().Topological()`.
+- `category_specs/topological_spaces/__init__.py` fixes the topological owner for
+  `is_open`, `is_closed`, `closure`, `interior`, `boundary`, `is_connected`, and
+  `is_compact` as `TopologicalSpaces().ParentMethods`.
+
+The recovery rule for topology-bearing rings and fields is therefore inheritance/join,
+not constructor duplication:
+
+| Candidate object family | Constructor owner | Topological owner recovered after refinement | Algebraic owner preserved after refinement | Migration consequence |
+| --- | --- | --- | --- | --- |
+| `RealField(...)`, `ComplexField(...)`, `RR`, `CC` | `Rings().Constructors()` or field refinements below it | `TopologicalSpaces()` and, when source-backed, `TopologicalSpaces().Metric()` and `TopologicalSpaces().Metric().Complete()` | `Rings()` / `Fields()` and the relevant precision-field subcategories | A field constructor still returns a field object; topological predicates arrive through category refinement, not through a topological-space constructor. |
+| `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, `ComplexBallField` | `Rings().Constructors()` or field refinements below it | `TopologicalSpaces()` only through the topological ring/field path documented here | Interval/ball field subcategories in `rings` | Interval and ball objects remain algebraic/numerical fields. Their topology-bearing methods are inherited; they are never admitted as pure `TopologicalSpaces().Constructors()` outputs. |
+| `Zp(...)`, `Qp(...)`, `Zq(...)`, `Qq(...)` and named split precision routes | `Rings().Constructors()` or field refinements below it | `TopologicalSpaces()` through `Rings().Topological()` / field refinements | p-adic and q-adic ring/field subcategories | Local-field constructors keep valuation and precision ownership in `rings`; topological recovery adds predicates and transforms without changing constructor namespace. |
+| Matrix, power-series, Laurent-series, and Puiseux-series ring families when Sage/refinement marks them topological | `Rings().Constructors()` and the relevant ring family route | `TopologicalSpaces()` through the topological ring subcategory | Ring-family and algebra/module owners already recorded in this mapping | Any topological behavior augments the existing ring/algebra/module split; it does not relocate ownership into `topological_spaces`. |
+
+Topological methods imported into a topological ring or field keep the codomain
+contracts fixed in `topological_spaces`: `is_open` and `is_closed` return `bool`,
+while `closure`, `interior`, and `boundary` return subsets of the same ambient
+topological object. Ring-local files should not restate or shadow those signatures.
+
+Rejected routes for this card:
+
+- adding `TopologicalSpaces().Constructors()` entries for rings, fields, interval
+  fields, or ball fields;
+- copying `is_open`, `is_closed`, `closure`, `interior`, `boundary`, `is_connected`,
+  or `is_compact` into a ring-only `ParentMethods` block as second owners;
+- changing a ring or field constructor so that it returns a pure topological-space
+  object detached from its algebraic category.

@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-SETS-TOPO-01KQN9
 tags:
@@ -13,6 +13,8 @@ tags:
 - rings
 - topology
 - theme-constructor-routing
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
@@ -25,7 +27,8 @@ lattice-precision gaps.
 ## Source Provenance
 
 - `category_specs/rings/docs/MAPPING.md`
-- `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
+- `category_specs/topological_spaces/docs/MAPPING.md`
+- Pre-migration triage content recovered from `git show 8d1c21c^:plans/category_specs/topological_spaces/docs/TRIAGE.md`
 - Original migrated line: `Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors from category_specs/rings/docs/MAPPING.md and category_specs/topological_spaces/docs/TRIAGE.md`
 
 ## Context
@@ -50,6 +53,12 @@ Canonical source anchors for this card are:
   - `Sets().Metric() -> TopologicalSpaces().Metric()`
   - constructor-candidate rows explicitly excluding pure
     `TopologicalSpaces().Constructors()` admission for interval/ball/field objects
+- `category_specs/rings/subcategories/topological.py`:
+  - `super_categories()` keeping the ring-side topological edge at
+    `SageRings().Topological()` and `Rings()`
+- `category_specs/topological_spaces/__init__.py`:
+  - `TopologicalSpaces().ParentMethods` ownership for `is_open`, `is_closed`,
+    `closure`, `interior`, `boundary`, `is_connected`, and `is_compact`
 - `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`:
   - numeric interval and ball surfaces showing these objects as topology-bearing
     evidence, not pure topological-space constructors
@@ -82,11 +91,40 @@ Rejection or retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
-- [ ] For topological ring work, check both ring and topological-space category membership.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No implementation blocker was discovered during this spec pass.
+- [x] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
+- [x] For topological ring work, check both ring and topological-space category membership in the existing public spec anchors.
+
+## Grounded Recovery Decision
+
+Decision: topological rings and fields recover their topological predicates and
+ambient-relative transforms through the `TopologicalSpaces()` public surface, while
+construction stays in `Rings().Constructors()` and downstream ring/field constructor
+routes.
+
+This pass records:
+
+- ring-side topological membership is expressed by `Rings().Topological()` in
+  `category_specs/rings/subcategories/topological.py`;
+- topological predicate ownership remains in
+  `category_specs/topological_spaces/__init__.py` on
+  `TopologicalSpaces().ParentMethods`;
+- mapping docs now state that real/complex precision fields, interval fields, ball
+  fields, and p-adic/q-adic rings and fields recover topological behavior by
+  inheritance/join instead of by `TopologicalSpaces().Constructors()` admission.
+
+Migration consequence:
+
+- the constructor namespace for these objects remains ring/field-owned;
+- inherited topological methods keep the codomain obligations already fixed in
+  `topological_spaces`;
+- no ring-only file becomes a second owner for `is_open`, `is_closed`, `closure`,
+  `interior`, `boundary`, `is_connected`, or `is_compact`.
+
+Validation note: runtime smoke/QC execution was intentionally skipped for this bounded
+phase-01 spec leaf. The source check here is document/spec-level only.
 
 ## Dependencies And Boundaries
 
@@ -97,3 +135,7 @@ Rejection or retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Recorded the topological ring/field inheritance route in ring and
+  topological-space mapping docs, using the existing `Rings().Topological()` and
+  `TopologicalSpaces()` public spec anchors rather than introducing new constructors
+  or duplicate method owners.

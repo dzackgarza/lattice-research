@@ -101,6 +101,42 @@ Topological rings, modules, and algebras inherit their topological-space surface
 real intervals, complex intervals, and real or complex balls should recover topological
 predicates without becoming topological-space constructors.
 
+## Topological Ring And Field Recovery
+
+The public owner for topological predicates and ambient-relative transforms stays in
+`TopologicalSpaces()`, even when the object also lies in a ring or field category. The
+existing spec anchors are:
+
+- `category_specs/topological_spaces/__init__.py`, where `TopologicalSpaces()` owns
+  `is_open`, `is_closed`, `closure`, `interior`, `boundary`, `is_connected`, and
+  `is_compact`;
+- `category_specs/rings/subcategories/topological.py`, where `Rings().Topological()`
+  records the ring-side topological category edge without redefining those methods.
+
+Accordingly, topological rings and fields recover topological behavior by
+inheritance/join:
+
+| Object kind | Entry constructor namespace | Recovered topological surface | Non-topological owner that remains primary for construction |
+| --- | --- | --- | --- |
+| Real/complex precision fields and their fixed precision objects | `Rings().Constructors()` / field constructor routes | `TopologicalSpaces()` and metric refinements when source-backed | `Rings()` / `Fields()` and precision-field subcategories |
+| Interval and ball fields | Ring/field constructor routes in `rings` | `TopologicalSpaces()` through the topological ring/field path | Interval/ball field subcategories in `rings` |
+| p-adic and q-adic rings and fields | Ring/field constructor routes in `rings` | `TopologicalSpaces()` through `Rings().Topological()` or field refinements | p-adic and q-adic ring/field subcategories |
+
+Migration consequence:
+
+- `TopologicalSpaces().Constructors()` remains empty for these objects.
+- A ring or field constructor keeps returning a ring or field object.
+- Once refined into a topological ring/field category, the object inherits
+  topological predicates from `TopologicalSpaces()` without duplicating method
+  ownership in the ring subtree.
+
+Rejection condition for future edits:
+
+- do not admit interval fields, ball fields, p-adic fields, or other rings/fields as
+  pure `TopologicalSpaces().Constructors()` entries;
+- do not move constructor ownership away from `rings`;
+- do not create ring-local duplicates of the root topological predicates or transforms.
+
 ## Resolved Constructor and Metric Decisions
 
 Named set constructors live in `Sets().Constructors()` for now. The result then refines
