@@ -74,6 +74,7 @@ from .cat import (
     CatHomCategory,
     CatMorphism,
     CatObject,
+    Category as CatBaseCategory,
 )
 from .forms import (
     BilinearModulesAut,
@@ -312,6 +313,7 @@ from .topological_spaces import (
 )
 
 # Generic / Support
+Category = CatBaseCategory
 CategoryObject = SageParent
 CategoryElement = SageElement
 Matrix = SageMatrix
