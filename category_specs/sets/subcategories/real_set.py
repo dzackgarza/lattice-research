@@ -30,6 +30,13 @@ class _RealSets(Category_singleton):
     Constructor target:
     named real-subset constructors under ``Sets().Constructors()`` refine here
     and then into the applicable topological subobject categories.
+
+    Topological predicates and transforms such as ``is_open()``, ``is_closed()``,
+    ``closure()``, ``interior()``, and ``boundary()`` are Sage compatibility methods on
+    these real-line subset parents.  The project owner is the ambient-relative
+    ``TopologicalSpaces()`` surface: ``U.ambient().closure(U)``,
+    ``U.ambient().is_open(U)``, and analogous calls.  This category records the
+    real-subset representation; it does not create a second topological owner.
     """
 
     @override

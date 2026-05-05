@@ -1,8 +1,9 @@
 ---
 trackerStatus:
   type: feature
-title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces
-status: to-do
+title: Specify RealSet ambient-relative recovery for is_open is_closed closure interior
+  and boundary through TopologicalSpaces
+status: in-review
 priority: critical
 planId: SPR-SETS-TOPO-01KQN9
 tags:
@@ -13,6 +14,8 @@ tags:
 - realset
 - topology
 - theme-sets-topology
+progress: 85
+updated: '2026-05-05'
 ---
 
 # Specify RealSet ambient-relative recovery for is_open is_closed closure interior and boundary through TopologicalSpaces
@@ -83,11 +86,35 @@ Rejection or retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No implementation blocker was discovered during this spec pass.
 - [ ] Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
-- [ ] Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors.
+- [x] Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors.
+
+## Grounded Recovery Decision
+
+Decision: RealSet topological methods recover through the ambient-relative
+`TopologicalSpaces()` surface.
+
+For a real subset `U`, the migration route is:
+
+- `U.is_open()` becomes `U.ambient().is_open(U)`;
+- `U.is_closed()` becomes `U.ambient().is_closed(U)`;
+- `U.closure()` becomes `U.ambient().closure(U)`;
+- `U.interior()` becomes `U.ambient().interior(U)`;
+- `U.boundary()` becomes `U.ambient().boundary(U)`.
+
+This pass recorded that route in `category_specs/topological_spaces/docs/MAPPING.md`
+and documented the compatibility boundary in `category_specs/sets/subcategories/real_set.py`.
+No `TopologicalSpaces().Constructors()` path or direct pure-topology `RealSet`
+constructor was admitted. No `_RealSets` wrapper methods were added, because overriding
+Sage's existing no-argument RealSet methods before the ambient methods have concrete
+implementations would create a fragile compatibility layer rather than a mathematical
+owner.
+
+Validation note: global QC and smoke execution were skipped under the current
+user-authorized skip-verification workflow for spec checkpoints.
 
 ## Dependencies And Boundaries
 
@@ -98,3 +125,6 @@ Rejection or retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Recorded the RealSet ambient-relative recovery route in topological-space
+  mapping and the real-set spec docstring. Kept Sage no-argument RealSet methods as
+  compatibility methods rather than adding overriding wrappers.

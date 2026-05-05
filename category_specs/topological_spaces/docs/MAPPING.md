@@ -45,6 +45,29 @@ turning every topological subset constructor into a root constructor.
 | `RealSet.is_connected()` as a no-argument category fact | `X.is_connected() -> bool` | Connectedness is a property of the whole topological space. | Keep no-argument connectedness at root. |
 | `RealSet.is_compact()` as a no-argument category fact | `X.is_compact() -> bool` | Compactness is a property of the whole topological space. | Keep no-argument compactness at root and add a compact subcategory. |
 
+## RealSet Ambient-Recovery Decision
+
+Real-line subset methods recover through the ambient-relative topological-space surface.
+For a real subset `U`, the public route is:
+
+- `U.ambient().is_open(U)` for openness;
+- `U.ambient().is_closed(U)` for closedness;
+- `U.ambient().closure(U)` for closure;
+- `U.ambient().interior(U)` for interior;
+- `U.ambient().boundary(U)` for boundary.
+
+The owner remains `TopologicalSpaces().ParentMethods`. `RealSet` compatibility methods
+are Sage-backed convenience methods on a topological subobject of the real line; they do
+not create a second owner and should not be specified as pure set methods. The return
+objects for `closure`, `interior`, and `boundary` are subsets of the same ambient
+topological space, refined as real-line subsets when the constructor path is Sage
+`RealSet`.
+
+Do not implement category-level wrapper methods on `_RealSets` that merely override
+Sage's existing `RealSet` methods before the ambient topological methods have concrete
+implementations. The spec obligation is the ownership route and the migration rule:
+existing Sage no-argument calls migrate conceptually to the ambient-relative form.
+
 ## Constructor Candidate Mapping
 
 `TopologicalSpaces().Constructors()` stays empty for now. Named sets belong under
