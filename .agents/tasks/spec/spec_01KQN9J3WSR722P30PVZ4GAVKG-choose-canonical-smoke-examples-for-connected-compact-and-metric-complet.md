@@ -1,8 +1,9 @@
 ---
 trackerStatus:
   type: feature
-title: Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories
-status: to-do
+title: Choose canonical smoke examples for Connected Compact and Metric Complete topological
+  subcategories
+status: in-review
 priority: critical
 tags:
 - category-specs
@@ -12,6 +13,8 @@ tags:
 - topology
 - theme-sets-topology
 planId: SPR-SETS-TOPO-01KQN9
+progress: 85
+updated: '2026-05-05'
 ---
 
 # Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories
@@ -90,11 +93,46 @@ Rejection or retirement condition:
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
 - [ ] Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
-- [ ] Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors.
+- [x] Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors.
+
+## Grounded Example Decision
+
+Decision: use two real-line subset constructors and the Sage real field as the canonical
+smoke examples.
+
+| Target | Canonical object | Owner and witness |
+| --- | --- | --- |
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` | Constructor owner is `Sets().Constructors()` through `RealSet.open(0, 1)`. The witness is object membership in `TopologicalSpaces().Connected()`. |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` | Constructor owner is `Sets().Constructors()` through `RealSet.closed(0, 1)`. The witness is object membership in `TopologicalSpaces().Compact()`. |
+| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | The Sage witness is `RR.category()` lying in complete metric spaces. Project implementation is routed through the existing topological ring/field recovery cards before this becomes a live smoke assertion. |
+
+Source observations used in this pass:
+
+- `RealSet.open(0, 1)` lies in Sage connected topological spaces and not compact spaces.
+- `RealSet.closed(0, 1)` lies in Sage connected and compact topological spaces.
+- `RR.category()` is a join containing complete metric spaces; `RR in Sets().Metric().Complete()` is true in local Sage.
+- `RealSet` examples are not Sage metric spaces, so they are not complete-metric smoke
+  candidates.
+
+Migration consequence:
+
+- Connected and compact smoke examples can be added once the topological smoke file is
+  updated for named `Sets().Constructors()` real intervals.
+- Complete metric smoke should be held to the topological ring/field recovery path,
+  already tracked by
+  `.agents/tasks/spec/spec_01KQN9YGC3XPWZWJK8QHVE3GGM-specify-topological-ring-and-field-recovery-through-topological-spaces-i.md`
+  and
+  `.agents/tasks/implementation/impl_01KQN9YGCHDRNXNEYEH2P134JD-implement-topological-ring-and-field-refinements-for-topology-bearing-ri.md`.
+- Do not use real/complex interval or ball fields as complete-metric smoke examples in
+  this subtree; they remain ring/field topology evidence.
+
+Validation note: the local Sage observation command was used for source confirmation.
+The topological smoke file itself was not run under the current user-authorized
+skip-verification workflow.
 
 ## Dependencies And Boundaries
 
@@ -105,3 +143,7 @@ Rejection or retirement condition:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Selected `OpenRealInterval(0, 1)`, `ClosedRealInterval(0, 1)`, and
+  `RR`/`Sets().Constructors().RR()` as the connected, compact, and complete-metric
+  smoke examples. Recorded the complete-metric implementation dependency on
+  topological ring/field recovery.

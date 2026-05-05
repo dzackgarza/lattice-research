@@ -117,3 +117,18 @@ Metric spaces expose `metric()` for the metric map and `dist(x, y)` for its eval
 Metric elements expose `x.dist(y)` as delegation to the parent metric space. Metric
 homsets are the short-map homsets; ordinary continuous maps remain the homsets of the
 root topological category.
+
+## Canonical Smoke Examples
+
+Use these examples for the first topological smoke assertions:
+
+| Target | Canonical object | Constructor owner | Witness |
+| --- | --- | --- | --- |
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` | `Sets().Constructors()` via `RealSet.open(0, 1)` | Sage refines `(0, 1)` into connected topological spaces; the project constructor also refines into `TopologicalSpaces().Connected()`. |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` | `Sets().Constructors()` via `RealSet.closed(0, 1)` | Sage refines `[0, 1]` into compact topological spaces; the project constructor also refines into `TopologicalSpaces().Compact()`. |
+| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | `Sets().Constructors()` for the named set object; ring ownership stays in `Rings().Constructors()` | Local Sage observation shows `RR.category()` is a join containing complete metric spaces. Project smoke should wait for the topological ring/field recovery path to refine `RR` through `TopologicalSpaces().Metric().Complete()`. |
+
+Do not use `RealIntervalField`, `ComplexIntervalField`, `RealBallField`, or
+`ComplexBallField` as complete-metric smoke examples in this subtree. The inventory
+records them as topology-bearing ring/field evidence, not as Sage metric-space parents.
+Their recovery belongs to the topological ring/field cards.
