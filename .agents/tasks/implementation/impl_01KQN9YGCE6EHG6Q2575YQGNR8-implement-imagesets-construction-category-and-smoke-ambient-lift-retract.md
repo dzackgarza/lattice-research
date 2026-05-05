@@ -2,9 +2,11 @@
 trackerStatus:
   type: feature
 title: Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership
-status: to-do
+status: in-review
 priority: high
 planId: SPR-SETS-TOPO-01KQN9
+progress: 90
+updated: '2026-05-05'
 tags:
 - category-specs
 - implementation
@@ -36,11 +38,11 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Dependencies And Boundaries
 
@@ -51,4 +53,14 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
-
+- 2026-05-05: Commit `983a058` completed the smoke-facing ImageSubobject implementation
+  against the `category_specs/sets/docs/MAPPING.md` image-subobject rows: the constructor
+  remains the typed `Sets().Constructors().ImageSubobject(f, domain_subset)` route,
+  the result refines through `ImageSets`, subobjects, and subquotients, and finite image
+  subobjects now recover membership and cardinality in the Sets smoke without exposing
+  generic Sage `Set(X)` as a public constructor.
+- 2026-05-05: Validation evidence from `983a058`: `just --justfile
+  category_specs/justfile smoke-file sets/smoketest.sage` passed; `just --justfile
+  category_specs/justfile check-abstract-redefinitions` passed; `git diff --check`
+  passed. This card is moved to `in-review`; human acceptance is still required for
+  closure.
