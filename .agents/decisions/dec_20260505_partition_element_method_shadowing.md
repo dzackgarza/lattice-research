@@ -11,7 +11,6 @@ tags:
 - partitions
 - sage
 - implementation
-- needs-decision
 - theme-decisions
 planId: SPR-POSETS-PART-01KQN9
 ---
