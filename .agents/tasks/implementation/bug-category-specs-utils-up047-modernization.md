@@ -2,13 +2,13 @@
 trackerStatus:
   type: bug
 title: Modernize category_specs utils generics for Ruff UP047
-status: in-progress
+status: in-review
 priority: medium
 planId: SPR-VARIADIC-AUDIT-01KQN9
 complexity: 24
-progress: 90
+progress: 100
 created: '2026-05-03'
-updated: '2026-05-03'
+updated: '2026-05-05'
 tags:
   - category-specs
   - implementation
@@ -79,3 +79,6 @@ package-surface risk of import hygiene or the broad mechanical footprint of `E50
 - 2026-05-03: Targeted `uvx --from ruff ruff check category_specs/utils.py` and
   `python -m compileall category_specs/utils.py` pass. Full `just test` still fails in
   category-spec Ruff normalization with 532 remaining `F401`/`E402`/`E501` blockers.
+- 2026-05-05: Moved to `in-review`; all card-local acceptance criteria and targeted
+  validation evidence were already recorded. Remaining global QC blockers are tracked
+  on the parent Ruff/vulture cards, not this UP047 leaf.
