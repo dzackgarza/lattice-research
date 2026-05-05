@@ -14,7 +14,7 @@ from .. import Sets
 from ..homsets import SetAutCategory, SetEndCategory, SetHomCategory
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Set, SetElement, SetPartition, Subset
+    from ...types import Cardinality, FiniteSet, Set, SetElement, SetPartition, Subset
 
 
 class PartitionedSetsCategory(CategoryWithAxiom):
@@ -129,6 +129,16 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             return self.parent().is_less_than(self, other)
 
         @abstract_method
+        def refinements(self) -> FiniteSet:
+            r"""Return the finite set of partition refinements, including ``self``."""
+            ...
+
+        @abstract_method
+        def coarsenings(self) -> FiniteSet:
+            r"""Return the finite set of partition coarsenings, including ``self``."""
+            ...
+
+        @abstract_method
         def standard_form(self) -> list[list[SetElement]]:
             r"""Return the blocks as sorted lists when the base set is ordered."""
             ...
@@ -221,7 +231,11 @@ class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
             r"""Return the fixed base set, refined into a finite totally ordered set."""
             ...
 
-    class ElementMethods: ...
+    class ElementMethods:
+        @abstract_method
+        def strict_coarsenings(self) -> FiniteSet:
+            r"""Return Sage's ordered strict-coarsening closure, including ``self``."""
+            ...
 
     class MorphismMethods: ...
 

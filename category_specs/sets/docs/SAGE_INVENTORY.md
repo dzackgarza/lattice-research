@@ -509,7 +509,8 @@ Key `SetPartition` methods:
 | `crossings()`, `nestings()` | Crossing and nesting data |
 | `is_noncrossing()`, `is_nonnesting()` | Crossing/nesting predicates |
 | `standardization()`, `restriction(I)` | Derived partitions on standard or restricted base sets |
-| `refinements()`, `coarsenings()`, `strict_coarsenings()` | Refinement/coarsening enumerations |
+| `refinements()`, `coarsenings()` | Refinement/coarsening enumerations returned by Sage as lists |
+| `strict_coarsenings()` | Ordered finite strict-coarsening closure returned by Sage as a list; the relation uses `max(block) < min(block)` and the closure includes the original partition |
 
 Key `SetPartitions` parent methods:
 

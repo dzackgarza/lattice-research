@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-POSETS-PART-01KQN9
 tags:
@@ -13,6 +13,8 @@ tags:
 - sets
 - partitions
 - theme-constructor-routing
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Specify partition refinements coarsenings and strict coarsenings as finite subsets refining through set constructors
@@ -52,17 +54,25 @@ Source anchors for this leaf are already concrete enough to authorize the spec e
 
 Concrete contract for the spec edit:
 
-- Owner category: `Sets().Partitioned()` on the partition element surface, with the
-  finite-base Sage `SetPartition` object as the source-backed witness.
-- Public methods to specify: `refinements()`, `coarsenings()`, and
-  `strict_coarsenings()` as partition-element methods.
+- Owner category for `refinements()` and `coarsenings()`:
+  `Sets().Partitioned()` on the partition element surface, with the fixed finite-base
+  Sage `SetPartition` object as the source-backed witness.
+- Owner category for Sage's `strict_coarsenings()`:
+  `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`, because Sage's
+  definition compares ordered blocks using `max(part) < min(other)`.
+- Public methods to specify: `refinements()`, `coarsenings()`, and Sage-compatible
+  `strict_coarsenings()` as partition-element methods at those split owners.
 - Hypotheses: the input object is a partition of a finite fixed base set, so the
-  refinement lattice neighborhood determined by these methods is finite.
+  refinement lattice neighborhoods determined by `refinements()` and `coarsenings()`
+  are finite. Sage-compatible `strict_coarsenings()` additionally requires the finite
+  totally ordered base-set owner.
 - Return object/codomain: a finite set object of partition elements, routed through set
   constructors rather than a raw Python container or an untyped Sage iterator.
 - Migration consequence: do not remap these methods to poset constructors, graph
-  surfaces, or free-floating helper functions; they stay attached to partition
-  elements and refine through the canonical set-constructor vocabulary.
+  surfaces, or free-floating helper functions; they stay attached to partition elements
+  and refine through the canonical set-constructor vocabulary. Do not treat Sage's
+  `strict_coarsenings()` as ordinary proper coarsenings: Sage defines a reflexive
+  closure and includes `self`.
 
 Retire or reject this leaf only if a cited mapping row is superseded by a source-backed
 owner change showing that one of these methods is not a partition-element method or does
@@ -70,11 +80,11 @@ not return a finite set object.
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Dependencies And Boundaries
 
@@ -85,3 +95,8 @@ not return a finite set object.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Split the owner decision after checking Sage behavior and source:
+  `refinements()` and `coarsenings()` live on `Sets().Partitioned().ElementMethods`;
+  Sage-compatible `strict_coarsenings()` lives on
+  `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`, returns a finite
+  set object in the project spec, and is not ordinary proper coarsening.

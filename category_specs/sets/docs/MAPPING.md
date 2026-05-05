@@ -215,7 +215,8 @@ powerset of that base set.
 | `is_noncrossing()`, `is_nonnesting()` | `Partitioned.ElementMethods.is_noncrossing()` and `Partitioned.ElementMethods.is_nonnesting()` | These are boolean predicates on a single partition element, with the same finite totally ordered base-set hypothesis as `crossings()` and `nestings()`. They do not yet induce admitted category axioms because `Sets().Partitioned()` alone does not encode the required order hypothesis on the base set. |
 | `is_atomic()` | `Partitioned.ElementMethods.is_atomic()` | Sage defines atomicity for a nonempty standard set partition by pipe-indecomposability, ordering blocks by minimal element and asking whether the partition splits as `B | C`. This is again an element predicate, not a parent/category construction. It depends on the induced finite total order used for standardization, so it shares the same admission blocker as the crossing/nesting predicates. |
 | `standardization()`, `restriction(I)` | partition element transforms | These return new partition elements and remain partition methods. |
-| `refinements()`, `coarsenings()`, `strict_coarsenings()` | finite sets of partition elements | These return finite subsets of the partition lattice and should refine through set constructors in a later implementation pass. |
+| `refinements()`, `coarsenings()` | `Partitioned.ElementMethods.refinements()` and `Partitioned.ElementMethods.coarsenings()` | These are finite refinement-lattice neighborhoods of a partition element. Sage returns Python lists, but the project codomain is a finite set object of partition elements routed through set constructors; both lists include `self`. |
+| `strict_coarsenings()` | `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods.strict_coarsenings()` | Sage's name does not mean "proper coarsenings." It is the reflexive-transitive closure of merging two ordered-compatible blocks with `max(A_i) < min(A_j)`, so it requires the finite totally ordered base-set owner and includes `self`. |
 | `plot(...)` and LaTeX/display helpers | no category method | Display output is not set-theoretic structure. |
 
 Admission decision for partition subclass predicates:
@@ -238,6 +239,19 @@ Admission decision for partition subclass predicates:
   `Sets().Partitioned()`. Full axiom admission for `Noncrossing`, `Nonnesting`, or
   `Atomic` still needs a later source-grounded pass that fixes the exact registration
   shape above this owner.
+
+Admission decision for partition refinement neighborhoods:
+
+- Expose `refinements()` and `coarsenings()` on
+  `Sets().Partitioned().ElementMethods`, returning finite set objects of partition
+  elements rather than Sage's raw Python lists.
+- Expose Sage's `strict_coarsenings()` only on
+  `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods`. Its definition
+  uses ordered block comparisons through `max` and `min`, and its closure is reflexive,
+  so the method includes `self`.
+- Do not use `strict_coarsenings()` as the project name for ordinary proper
+  coarsenings. If proper coarsenings are needed later, they require a separately named
+  predicate or set-constructor surface.
 
 ## Sage `Set_object` Method Mapping Decisions
 
