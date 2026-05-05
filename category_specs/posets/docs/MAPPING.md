@@ -231,26 +231,30 @@ Boolean predicates do not take a `certificate` argument.
 
 ## Deferred Non-Core Surfaces
 
-The following Sage method groups are inventoried for later mapping. They are
-not open design decisions; ownership follows the target mathematical object or
-display/interop status:
-- graph, plotting, and TikZ views: `comparability_graph`,
-  `incomparability_graph`, `frank_network`, `graphviz_string`, `plot`,
-  `show`, `tikz`;
-- polytope and order-complex constructions: `order_polytope`,
-  `chain_polytope`, `order_complex`;
-- algebra surfaces: `incidence_algebra`, `p_partition_enumerator`,
-  `moebius_algebra`, `quantum_moebius_algebra`,
-  `feichtner_yuzvinsky_ring`;
-- polynomial and Coxeter invariants: `zeta_polynomial`,
-  `apozeta_polynomial`, `chain_polynomial`, `characteristic_polynomial`,
-  `f_polynomial`, `flag_f_polynomial`, `flag_h_polynomial`,
-  `h_polynomial`, `M_triangle`, `degree_polynomial`,
-  `coxeter_polynomial`, `coxeter_transformation`, `coxeter_smith_form`,
-  `kazhdan_lusztig_polynomial`, `moebius_function`,
-  `moebius_function_matrix`, `magnitude`, `spectrum`, `atkinson`;
-- display helpers and raw Sage compatibility accessors: `order_ideal_plot`,
-  `unwrap`.
+The Sage method groups inventoried in `SAGE_INVENTORY.md` are not open design
+decisions. Their final placement follows the source finite-poset hypothesis and the
+target mathematical object or display/interop status.
+
+| Sage surface | Public owner/status | Codomain / migration consequence |
+| --- | --- | --- |
+| `comparability_graph()`, `incomparability_graph()` | `Posets().Finite().ParentMethods` graph-valued constructions | Return graph objects derived from the finite poset. Graph methods belong to a future graph subtree or Sage graph interop, not to `Posets()`. |
+| `frank_network()` | `Posets().Finite().ParentMethods` network-valued construction | Return a directed network/graph object attached to the finite poset. Flow/network algorithms belong to the graph/network codomain. |
+| `graphviz_string()`, `plot(...)`, `show(...)`, `tikz(...)`, `order_ideal_plot(...)` | display-only / export-only; no category method | Keep as notebook, plotting, TikZ, Graphviz, or Sage-display interop. Do not make display data part of the mathematical poset API. |
+| `order_polytope()`, `chain_polytope()` | finite-poset constructions with polyhedron codomain | Return polyhedron/polytope objects. Posets own the source construction; polyhedral operations belong to a polyhedra/polytope subtree or Sage polyhedron interop. |
+| `order_complex()` | finite-poset construction with simplicial-complex codomain | Return a simplicial-complex object. Simplicial-complex methods are codomain methods, not poset methods. |
+| `incidence_algebra()` | finite-poset algebra-valued construction | Return an algebra over the requested base ring. Algebra operations belong to `Algebras(R)`; the poset source method only constructs the incidence algebra. |
+| `moebius_algebra()`, `quantum_moebius_algebra()` | finite-poset algebra-valued constructions | Return algebra objects. They refine through algebra owners when admitted; their multiplication and ideals are not poset methods. |
+| `feichtner_yuzvinsky_ring()` | finite-lattice / arrangement-style ring-valued construction where Sage defines it | Return a ring/algebra object. Ring operations belong to `rings`; algebraic structure belongs to `algebras`. |
+| `p_partition_enumerator()` | finite-poset enumerator/generating-function construction | Return a generating function or symmetric/quasisymmetric-function object. The codomain owner is the relevant algebraic-combinatorics function ring once admitted. |
+| `zeta_polynomial()`, `apozeta_polynomial()`, `chain_polynomial()`, `characteristic_polynomial()`, `f_polynomial()`, `flag_f_polynomial()`, `flag_h_polynomial()`, `h_polynomial()`, `M_triangle()`, `degree_polynomial()`, `coxeter_polynomial()`, `kazhdan_lusztig_polynomial()` | finite-poset or finite-lattice polynomial invariants, according to Sage's method domain | Return polynomial objects or polynomial-like invariants. The invariant method is poset-owned; polynomial arithmetic belongs to the polynomial-ring codomain. |
+| `moebius_function()` | finite-poset invariant method | Return scalar Möbius values for comparable elements or the whole finite poset, following Sage's signature. |
+| `moebius_function_matrix()`, `coxeter_transformation()`, `coxeter_smith_form()` | finite-poset matrix-valued invariant methods | Return matrix or Smith-form data. Matrix algebra belongs to the matrix/ring/module codomain, not `Posets()`. |
+| `magnitude()`, `spectrum()`, `atkinson()` | finite-poset scalar/list/matrix invariant methods where Sage defines them | Keep as finite-poset invariants with scalar, list, or matrix codomains; downstream numeric or spectral operations belong to the returned object. |
+| `unwrap()` | raw Sage compatibility access only; no category method | May be used internally at the Sage boundary. Do not expose it as mathematical API. |
+
+Order-theoretic lattice terminology here refers only to finite lattice posets in the
+`posets` subtree. It does not import module/quadratic lattice vocabulary from
+`lattices`.
 
 ## Slice And Coslice Structures
 

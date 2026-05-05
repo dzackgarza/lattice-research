@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-POSETS-PART-01KQN9
 tags:
@@ -14,6 +14,8 @@ tags:
 - posets
 - mapping
 - theme-posets-partitions
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners
@@ -85,13 +87,33 @@ named owner or a documented display/interop exclusion. Reject individual surface
 category admission when the sources show they are presentation helpers rather than
 mathematical category methods.
 
+## Execution Result
+
+The deferred non-core block in `category_specs/posets/docs/MAPPING.md` now assigns every
+listed surface:
+
+- graph-valued constructions remain finite-poset source methods with graph/network
+  codomains; graph algorithms belong to graph/network owners;
+- display/export helpers (`graphviz_string`, `plot`, `show`, `tikz`,
+  `order_ideal_plot`) and raw `unwrap` are excluded from category API;
+- `order_polytope`, `chain_polytope`, and `order_complex` are finite-poset source
+  constructions whose returned polyhedron or simplicial-complex objects own downstream
+  methods;
+- incidence, Möbius, quantum Möbius, Feichtner-Yuzvinsky, and
+  `p_partition_enumerator` surfaces are routed by algebra/ring/function codomains;
+- polynomial, Coxeter, Möbius, matrix, magnitude, spectrum, and Atkinson surfaces are
+  finite-poset or finite-lattice invariants with polynomial/scalar/matrix codomains.
+
+No code change was required in this pass. The mapping explicitly keeps finite
+order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
+
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
-- [ ] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] No new implementation blocker was discovered during this docs/spec pass.
+- [x] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
+- [x] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 
 ## Dependencies And Boundaries
 
@@ -102,3 +124,6 @@ mathematical category methods.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Replaced the deferred non-core surface list in posets mapping with an
+  owner/status table for graph, display, polytope, order-complex, algebra, polynomial,
+  Coxeter, matrix, scalar, and raw-interop surfaces.
