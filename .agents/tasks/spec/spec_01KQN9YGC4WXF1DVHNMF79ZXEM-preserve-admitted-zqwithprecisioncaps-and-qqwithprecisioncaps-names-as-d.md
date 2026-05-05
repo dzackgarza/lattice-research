@@ -2,7 +2,7 @@
 trackerStatus:
   type: feature
 title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions
-status: to-do
+status: in-review
 priority: critical
 planId: SPR-RINGS-PADIC-01KQN9
 tags:
@@ -12,6 +12,8 @@ tags:
 - sage
 - precision
 - theme-local-cleanup
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions
@@ -62,14 +64,18 @@ Deferred review outcome:
 - future work on this leaf is limited to replacing the deferred-gap assertion with a
   source-backed working Sage route or upstream fix, not renaming or deleting the split
   names.
+- `category_specs/rings/__init__.py` already preserves the admitted public names and
+  asserts the installed Sage gap in both `ZqWithPrecisionCaps(...)` and
+  `QqWithPrecisionCaps(...)`; this card does not replace those assertions with a fake
+  implementation path.
 
 ## Acceptance Criteria
 
-- [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
-- [ ] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
-- [ ] Any implementation blocker discovered during spec work is split into an implementation-work item with source provenance.
-- [ ] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
-- [ ] For topological ring work, check both ring and topological-space category membership.
+- [x] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
+- [x] No new subtree-local TRIAGE or process document is created; follow-up work is represented as tracker items.
+- [x] The implementation blocker is the preserved Sage-gap frontier recorded in `rings/docs/MAPPING.md`; no new implementation card was created because this leaf exists to keep the admitted names deferred until a real Sage route exists.
+- [x] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
+- [x] This is not topological-ring work; the owner remains the ring constructor namespace.
 
 ## Dependencies And Boundaries
 
@@ -80,3 +86,7 @@ Deferred review outcome:
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Confirmed the existing spec state: `rings/docs/MAPPING.md` owns the
+  five-field negative finding, `rings/__init__.py` preserves both deferred constructor
+  names with explicit gap assertions, and the card is ready for review without
+  introducing a fake q-adic lattice-precision implementation path.
