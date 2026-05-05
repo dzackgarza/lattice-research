@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory
+from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import SubModule
@@ -69,3 +69,22 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
 NondegenerateBilinearModulesElement = NondegenerateBilinearModulesCategory.ElementMethods
 NondegenerateBilinearModulesMorphism = NondegenerateBilinearModulesCategory.MorphismMethods
+
+
+class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Nondegenerate bilinear modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear().Nondegenerate()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Nondegenerate")
+    _defining_predicates = ("is_nondegenerate",)
+
+    ParentMethods = NondegenerateBilinearModulesCategory.ParentMethods
+    ElementMethods = NondegenerateBilinearModulesCategory.ElementMethods
+    MorphismMethods = NondegenerateBilinearModulesCategory.MorphismMethods
+
+
+OverPIDNondegenerateBilinearModulesObject = OverPIDNondegenerateBilinearModulesCategory.ParentMethods
+OverPIDNondegenerateBilinearModulesElement = OverPIDNondegenerateBilinearModulesCategory.ElementMethods
+OverPIDNondegenerateBilinearModulesMorphism = OverPIDNondegenerateBilinearModulesCategory.MorphismMethods

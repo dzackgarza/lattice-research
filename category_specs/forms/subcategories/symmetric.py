@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory
+from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import SubModule
@@ -108,3 +108,22 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 SymmetricBilinearModulesObject = SymmetricBilinearModulesCategory.ParentMethods
 SymmetricBilinearModulesElement = SymmetricBilinearModulesCategory.ElementMethods
 SymmetricBilinearModulesMorphism = SymmetricBilinearModulesCategory.MorphismMethods
+
+
+class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Symmetric bilinear modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear().Symmetric()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Symmetric")
+    _defining_predicates = ("is_symmetric",)
+
+    ParentMethods = SymmetricBilinearModulesCategory.ParentMethods
+    ElementMethods = SymmetricBilinearModulesCategory.ElementMethods
+    MorphismMethods = SymmetricBilinearModulesCategory.MorphismMethods
+
+
+OverPIDSymmetricBilinearModulesObject = OverPIDSymmetricBilinearModulesCategory.ParentMethods
+OverPIDSymmetricBilinearModulesElement = OverPIDSymmetricBilinearModulesCategory.ElementMethods
+OverPIDSymmetricBilinearModulesMorphism = OverPIDSymmetricBilinearModulesCategory.MorphismMethods

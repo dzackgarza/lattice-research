@@ -96,6 +96,46 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
     Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "QuadraticModulesCategory")
 
 
+class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Modules over a PID equipped with a form.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms()``.
+    """
+
+    from ...modules.subcategories.over_pid import _OverPID
+
+    _base_category_class_and_axiom = (_OverPID, "WithForms")
+    _defining_predicates = ("has_form",)
+
+    ParentMethods = FormedModulesCategory.ParentMethods
+
+    class SubcategoryMethods(FormedModulesCategory.SubcategoryMethods):
+        @cached_method
+        @final
+        def Bilinear(self) -> Category:
+            r"""Select the bilinear formed-module subcategory over this PID base."""
+            from .bilinear import OverPIDBilinearModulesCategory
+
+            return OverPIDBilinearModulesCategory(self)
+
+        @cached_method
+        @final
+        def Quadratic(self) -> Category:
+            r"""Select the quadratic formed-module subcategory over this PID base."""
+            from .quadratic import OverPIDQuadraticModulesCategory
+
+            return OverPIDQuadraticModulesCategory(self)
+
+    ElementMethods = FormedModulesCategory.ElementMethods
+    MorphismMethods = FormedModulesCategory.MorphismMethods
+
+    Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory")
+    Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "OverPIDQuadraticModulesCategory")
+
+
 FormedModulesObject = FormedModulesCategory.ParentMethods
 FormedModulesElement = FormedModulesCategory.ElementMethods
 FormedModulesMorphism = FormedModulesCategory.MorphismMethods
+OverPIDFormedModulesObject = OverPIDFormedModulesCategory.ParentMethods
+OverPIDFormedModulesElement = OverPIDFormedModulesCategory.ElementMethods
+OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.MorphismMethods

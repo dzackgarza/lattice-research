@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import FormedModulesCategory
+from .with_forms import FormedModulesCategory, OverPIDFormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import RModuleElement
@@ -36,6 +36,23 @@ class QuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
     class MorphismMethods: ...
 
 
+class OverPIDQuadraticModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Quadratic formed modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Quadratic()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDFormedModulesCategory, "Quadratic")
+    _defining_predicates = ("is_quadratic",)
+
+    ParentMethods = QuadraticModulesCategory.ParentMethods
+    ElementMethods = QuadraticModulesCategory.ElementMethods
+    MorphismMethods = QuadraticModulesCategory.MorphismMethods
+
+
 QuadraticModulesObject = QuadraticModulesCategory.ParentMethods
 QuadraticModulesElement = QuadraticModulesCategory.ElementMethods
 QuadraticModulesMorphism = QuadraticModulesCategory.MorphismMethods
+OverPIDQuadraticModulesObject = OverPIDQuadraticModulesCategory.ParentMethods
+OverPIDQuadraticModulesElement = OverPIDQuadraticModulesCategory.ElementMethods
+OverPIDQuadraticModulesMorphism = OverPIDQuadraticModulesCategory.MorphismMethods

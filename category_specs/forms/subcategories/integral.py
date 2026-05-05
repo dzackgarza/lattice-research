@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory
+from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import DiscriminantGroup, Lattice, RModuleMorphism
@@ -143,3 +143,22 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 IntegralBilinearModulesObject = IntegralBilinearModulesCategory.ParentMethods
 IntegralBilinearModulesElement = IntegralBilinearModulesCategory.ElementMethods
 IntegralBilinearModulesMorphism = IntegralBilinearModulesCategory.MorphismMethods
+
+
+class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Integral bilinear modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear().Integral()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Integral")
+    _defining_predicates = ("is_integral",)
+
+    ParentMethods = IntegralBilinearModulesCategory.ParentMethods
+    ElementMethods = IntegralBilinearModulesCategory.ElementMethods
+    MorphismMethods = IntegralBilinearModulesCategory.MorphismMethods
+
+
+OverPIDIntegralBilinearModulesObject = OverPIDIntegralBilinearModulesCategory.ParentMethods
+OverPIDIntegralBilinearModulesElement = OverPIDIntegralBilinearModulesCategory.ElementMethods
+OverPIDIntegralBilinearModulesMorphism = OverPIDIntegralBilinearModulesCategory.MorphismMethods

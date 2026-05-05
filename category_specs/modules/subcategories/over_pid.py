@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -40,3 +41,5 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
     class ElementMethods: ...
 
     class MorphismMethods: ...
+
+    WithForms = LazyImport("category_specs.forms.subcategories.with_forms", "OverPIDFormedModulesCategory")

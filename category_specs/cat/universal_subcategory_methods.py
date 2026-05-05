@@ -94,6 +94,12 @@ class UniversalSubcategoryMethods:
 
     @cached_method
     @final
+    def Homsets(self) -> CategoryOfHomCategories:
+        r"""Return Sage's homset spelling as an interop alias for ``HomCategory``."""
+        return self.HomCategory()
+
+    @cached_method
+    @final
     def EndCategory(self) -> CategoryOfEndCategories:
         r"""Return the endomorphism-category construction over this category."""
         from ..homsets import HomCategory
@@ -101,6 +107,12 @@ class UniversalSubcategoryMethods:
         if self.is_subcategory(HomCategory()):
             return self._with_axiom("Endset")
         return self.HomCategory().EndCategory()
+
+    @cached_method
+    @final
+    def Endsets(self) -> CategoryOfEndCategories:
+        r"""Return Sage's endset spelling as an interop alias for ``EndCategory``."""
+        return self.EndCategory()
 
     @cached_method
     @final

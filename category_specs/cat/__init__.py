@@ -255,7 +255,10 @@ class Cat(_SageCategorySingleton):
         categories = tuple(categories)
         if not categories:
             return self.Constructors().EmptyCategory()
-        return _SageCategory.meet(categories)
+        meet_category = _SageCategory.meet(categories)
+        if all(meet_category.is_subcategory(category) for category in categories):
+            return meet_category
+        return self.Constructors().EmptyCategory()
 
     @override
     @final

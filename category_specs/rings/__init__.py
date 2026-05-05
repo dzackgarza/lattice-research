@@ -1843,8 +1843,6 @@ class Rings(Category_singleton):
     Quotients = _Quotients
     RingsUnder = _RingsUnder
     RingsOver = _RingsOver
-    ObjectsUnder = _RingsUnder
-    ObjectsOver = _RingsOver
     CartesianProducts = _CartesianProducts
     MatrixAlgebras = _MatrixAlgebras
 

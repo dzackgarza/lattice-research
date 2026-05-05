@@ -5,13 +5,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .with_forms import FormedModulesCategory
+from .with_forms import FormedModulesCategory, OverPIDFormedModulesCategory
 
 if TYPE_CHECKING:
-    from ...types import Matrix, RingElement, RModuleElement
+    from ...types import Category, Matrix, RingElement, RModuleElement
 
 
 class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -94,6 +95,72 @@ class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     Rational = LazyImport("category_specs.forms.subcategories.rational", "RationalBilinearModulesCategory")
 
 
+class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Bilinear formed modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDFormedModulesCategory, "Bilinear")
+    _defining_predicates = ("is_bilinear",)
+
+    ParentMethods = BilinearModulesCategory.ParentMethods
+
+    class SubcategoryMethods:
+        @cached_method
+        @final
+        def Symmetric(self) -> Category:
+            from .symmetric import OverPIDSymmetricBilinearModulesCategory
+
+            return OverPIDSymmetricBilinearModulesCategory(self)
+
+        @cached_method
+        @final
+        def Alternating(self) -> Category:
+            from .alternating import OverPIDAlternatingBilinearModulesCategory
+
+            return OverPIDAlternatingBilinearModulesCategory(self)
+
+        @cached_method
+        @final
+        def Nondegenerate(self) -> Category:
+            from .nondegenerate import OverPIDNondegenerateBilinearModulesCategory
+
+            return OverPIDNondegenerateBilinearModulesCategory(self)
+
+        @cached_method
+        @final
+        def Integral(self) -> Category:
+            from .integral import OverPIDIntegralBilinearModulesCategory
+
+            return OverPIDIntegralBilinearModulesCategory(self)
+
+        @cached_method
+        @final
+        def Rational(self) -> Category:
+            from .rational import OverPIDRationalBilinearModulesCategory
+
+            return OverPIDRationalBilinearModulesCategory(self)
+
+    ElementMethods = BilinearModulesCategory.ElementMethods
+    MorphismMethods = BilinearModulesCategory.MorphismMethods
+
+    Symmetric = LazyImport("category_specs.forms.subcategories.symmetric", "OverPIDSymmetricBilinearModulesCategory")
+    Alternating = LazyImport(
+        "category_specs.forms.subcategories.alternating",
+        "OverPIDAlternatingBilinearModulesCategory",
+    )
+    Nondegenerate = LazyImport(
+        "category_specs.forms.subcategories.nondegenerate",
+        "OverPIDNondegenerateBilinearModulesCategory",
+    )
+    Integral = LazyImport("category_specs.forms.subcategories.integral", "OverPIDIntegralBilinearModulesCategory")
+    Rational = LazyImport("category_specs.forms.subcategories.rational", "OverPIDRationalBilinearModulesCategory")
+
+
 BilinearModulesObject = BilinearModulesCategory.ParentMethods
 BilinearModulesElement = BilinearModulesCategory.ElementMethods
 BilinearModulesMorphism = BilinearModulesCategory.MorphismMethods
+OverPIDBilinearModulesObject = OverPIDBilinearModulesCategory.ParentMethods
+OverPIDBilinearModulesElement = OverPIDBilinearModulesCategory.ElementMethods
+OverPIDBilinearModulesMorphism = OverPIDBilinearModulesCategory.MorphismMethods

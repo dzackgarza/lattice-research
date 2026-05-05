@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory
+from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
 
 
 class AlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -50,3 +50,22 @@ class AlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 AlternatingBilinearModulesObject = AlternatingBilinearModulesCategory.ParentMethods
 AlternatingBilinearModulesElement = AlternatingBilinearModulesCategory.ElementMethods
 AlternatingBilinearModulesMorphism = AlternatingBilinearModulesCategory.MorphismMethods
+
+
+class OverPIDAlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Alternating bilinear modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear().Alternating()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Alternating")
+    _defining_predicates = ("is_alternating",)
+
+    ParentMethods = AlternatingBilinearModulesCategory.ParentMethods
+    ElementMethods = AlternatingBilinearModulesCategory.ElementMethods
+    MorphismMethods = AlternatingBilinearModulesCategory.MorphismMethods
+
+
+OverPIDAlternatingBilinearModulesObject = OverPIDAlternatingBilinearModulesCategory.ParentMethods
+OverPIDAlternatingBilinearModulesElement = OverPIDAlternatingBilinearModulesCategory.ElementMethods
+OverPIDAlternatingBilinearModulesMorphism = OverPIDAlternatingBilinearModulesCategory.MorphismMethods

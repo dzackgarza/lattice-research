@@ -47,3 +47,6 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
     class ElementMethods: ...
 
     class MorphismMethods: ...
+
+
+_ObjectsUnder = CosliceCategories

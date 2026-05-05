@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory
+from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...types import IntegralRescaling
@@ -64,3 +64,22 @@ class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 RationalBilinearModulesObject = RationalBilinearModulesCategory.ParentMethods
 RationalBilinearModulesElement = RationalBilinearModulesCategory.ElementMethods
 RationalBilinearModulesMorphism = RationalBilinearModulesCategory.MorphismMethods
+
+
+class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+    r"""Rational bilinear modules over a PID.
+
+    Canonical chain: ``Modules(R).OverPID().WithForms().Bilinear().Rational()``.
+    """
+
+    _base_category_class_and_axiom = (OverPIDBilinearModulesCategory, "Rational")
+    _defining_predicates = ("is_rational",)
+
+    ParentMethods = RationalBilinearModulesCategory.ParentMethods
+    ElementMethods = RationalBilinearModulesCategory.ElementMethods
+    MorphismMethods = RationalBilinearModulesCategory.MorphismMethods
+
+
+OverPIDRationalBilinearModulesObject = OverPIDRationalBilinearModulesCategory.ParentMethods
+OverPIDRationalBilinearModulesElement = OverPIDRationalBilinearModulesCategory.ElementMethods
+OverPIDRationalBilinearModulesMorphism = OverPIDRationalBilinearModulesCategory.MorphismMethods

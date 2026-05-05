@@ -61,3 +61,6 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
     class ElementMethods: ...
 
     class MorphismMethods: ...
+
+
+_ObjectsOver = SliceCategories
