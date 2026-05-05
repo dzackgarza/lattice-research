@@ -39,6 +39,26 @@ A scalar-valued bilinear form may be constructed there as a `(0,2)` tensor. The 
 becomes a formed module only when attached as form data to a module category in this
 subtree.
 
+## Twisted And Semilinear Form Data
+
+No separate `TwistedForms` category is admitted at this time.
+
+The grounded form-object contract already records the relevant data on the form object:
+the tensor-degree source, codomain module, and scalar-action endomorphism `sigma`.
+`ModulesWithForms(R)` therefore remains the owner for pairs `(M, f)` with semilinear
+form data, while the named forms subcategories own the cases currently admitted by the
+mapping:
+
+- bilinear forms use tensor degree `2` and `sigma = id_R`;
+- quadratic forms use tensor degree `1` with the current quadratic scalar action;
+- alternating, symmetric, integral, rational, finite-torsion, and quotient-valued cases
+  refine the existing formed-module chain.
+
+Tensor-component duals remain tensor-component objects until attached as form data to a
+module. A future twisted-form subcategory may be admitted only if a concrete public
+method or constructor is mathematically wrong without a distinct owner beyond
+`FormedModules(R)` plus tensor-component/Hom-category structure.
+
 ## Symmetric Bilinear Divisibility
 
 For a symmetric bilinear module `(M, b)` with `b: M x M -> S`, the element

@@ -340,8 +340,11 @@ Migration consequences:
   `Modules(R).HomCategory().ElementMethods` as `f.dual(): B^* -> A^*`;
 - public type aliases for `DualModule` and dual elements must point to the
   `DualObjects` method surfaces, not to plain `RModule` aliases;
-- tensor-component duals and future `TwistedForms` may refine this construction, but
-  they do not replace the module-level linear dual owner.
+- tensor-component duals and semilinear form data may refine the form object attached
+  to a module, but they do not replace the module-level linear dual owner. No separate
+  `TwistedForms` category is admitted unless the forms mapping records a concrete
+  public surface that cannot be expressed through `FormedModules(R)`,
+  tensor-component duals, and Hom-category structure.
 
 ## Topological Modules
 

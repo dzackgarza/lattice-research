@@ -1,8 +1,9 @@
 ---
 trackerStatus:
   type: feature
-title: Design and scaffold TwistedForms as the form-object category for modules with forms
-status: to-do
+title: Design and scaffold TwistedForms as the form-object category for modules with
+  forms
+status: in-review
 priority: critical
 planId: PLN-LAT-020
 phasePlan: PLN-LAT-020
@@ -13,6 +14,8 @@ tags:
 - modules
 - forms
 - theme-modules-tensors
+progress: 90
+updated: '2026-05-05'
 ---
 
 # Design and scaffold TwistedForms as the form-object category for modules with forms
@@ -70,6 +73,42 @@ If no such public method or constructor exists after source review, the correct 
 is to reject or retire `TwistedForms` as unnecessary indirection rather than scaffold a
 compatibility layer.
 
+## Grounded Admission Decision
+
+Decision: do not admit or scaffold a separate `TwistedForms` category now.
+
+Sources:
+
+- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
+- `theory/foundations/bilinear-forms-duals-morphisms.md`
+- `category_specs/forms/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md`
+- `category_specs/tensor_algebra_components/docs/MAPPING.md`
+
+Grounding:
+
+- The form object already carries the relevant "twisted" data: tensor-degree source,
+  codomain module, and scalar-action endomorphism `sigma`.
+- `ModulesWithForms(R)` already owns pairs `(M, f)` where `f` is semilinear
+  tensor-degree data valued in an actual `R`-module codomain.
+- Tensor components own tensor parents and tensor duals; they become form data only
+  when attached to a module in `FormedModules(R)`.
+- Base-change morphisms with scalar-ring, module, and coefficient maps are already
+  described by the triple-morphism source in
+  `theory/foundations/bilinear-forms-duals-morphisms.md`.
+
+Migration consequence:
+
+- Keep current public ownership in `forms` and `tensor_algebra_components`; do not add a
+  `TwistedForms` scaffold, compatibility shim, or type alias.
+- Preserve the scalar-action endomorphism on `ModuleForm` and the formed-module
+  category contract; future work may refine admitted branches such as bilinear,
+  quadratic, alternating, symmetric, integral, rational, torsion, and quotient-valued
+  forms without creating a parallel form category.
+- Reopen this decision only when a concrete public method or constructor would be
+  mathematically wrong if expressed through `FormedModules(R)`, tensor-component duals,
+  and Hom-category structure.
+
 ## Acceptance Criteria
 
 - [ ] The mathematical owner, public surface, and migration consequence are recorded in the relevant MAPPING.md or category spec file.
@@ -87,3 +126,6 @@ compatibility layer.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-05: Source-mined local form, module, tensor-component, and bilinear-morphism
+  sources. Recorded that no separate `TwistedForms` category is admitted now; semilinear
+  form data remains part of the `ModuleForm`/`FormedModules(R)` contract.
