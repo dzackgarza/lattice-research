@@ -19,7 +19,7 @@ successCriteria:
 - Backend and external software notes under `.agents/memories/theory/backends/` are assigned to the
   backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and
   Indefinite.jl material where present.
-- '`.agents/theory/spec-backups/*` is marked as mineable source material with the explicit
+- '`src.bak/spec-backups/*` is marked as mineable source material with the explicit
   warning that it is not current API authority.'
 complexity: 55
 tags:
@@ -72,8 +72,8 @@ rather than rediscovering sources ad hoc.
 - `.agents/memories/theory/backends/indefinite-isometry.md`
 - `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`
 - `.agents/memories/theory/backends/index.md`
-- `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
-- `.agents/theory/spec-backups/lattices_written_spec_backup.py`
+- `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
+- `src.bak/spec-backups/lattices_written_spec_backup.py`
 
 ## Context
 
@@ -95,13 +95,13 @@ path is not acceptable.
 - [x] The target method-inventory spec records the complete source corpus with paths and per-source scope.
 - [x] Every `category_specs/*/docs/SAGE_INVENTORY.md` and `category_specs/*/docs/MAPPING.md` file is assigned to a topical inventory task.
 - [x] Backend and external software notes under `.agents/memories/theory/backends/` are assigned to the backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and Indefinite.jl material where present.
-- [x] `.agents/theory/spec-backups/*` is marked as mineable source material with the explicit warning that it is not current API authority.
+- [x] `src.bak/spec-backups/*` is marked as mineable source material with the explicit warning that it is not current API authority.
 
 ## Dependencies And Boundaries
 
 - Do not write final method-owner rows here unless they are needed to illustrate the
   corpus assignment format.
-- Do not use `.agents/theory/spec-backups/*` as current API authority. Treat it as mathematical
+- Do not use `src.bak/spec-backups/*` as current API authority. Treat it as mathematical
   source material requiring later reconciliation.
 - If another inventory root is found, add it to the corpus and assign it to exactly one
   topical task.
@@ -115,9 +115,12 @@ path is not acceptable.
   needs-review.
 - 2026-05-06: Gate 1 review found stale source roots from the old `theory/backends/`
   and `theory/spec_backups/` paths. Updated this card and the target spec to point to
-  the visible `.agents/memories/theory/backends/` and `.agents/theory/spec-backups/`
+  the visible `.agents/memories/theory/backends/` and `src.bak/spec-backups/`
   roots, including the backend routing index and the buildings, indefinite-isometry,
   and foliation notes found by broad source search.
+- 2026-05-06: Repaired the spec-backup source root after the method-inventory spec
+  re-review found that the old `.agents/theory/spec-backups/` path is stale. The
+  current mineable source files live under `src.bak/spec-backups/`.
 
 ## Review Log
 
@@ -135,7 +138,8 @@ Findings:
   confirmed they are assigned exactly once in
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`.
 - Verified all 15 backend/spec-backup paths cited in the assignment exist under
-  `.agents/memories/theory/backends/` and `.agents/theory/spec-backups/`.
+  `.agents/memories/theory/backends/` and the current `src.bak/spec-backups/`
+  source root after the path repair above.
 - Verified the rework is provenance-only and does not weaken acceptance criteria or
   move method ownership claims.
 
