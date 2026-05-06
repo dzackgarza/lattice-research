@@ -227,6 +227,19 @@ SMOKE_STATEMENTS = (
         and Sets().Realizations().is_subcategory(Sets())
         and Sets().Realizations().__class__.__base__ is _Realizations,
     ),
+    (
+        "sets with realizations own realization-parent surfaces",
+        lambda _: abstract_method_has_name(SetsWithRealizations.ParentMethods.a_realization, "a_realization")
+        and abstract_method_has_name(SetsWithRealizations.ParentMethods.realizations, "realizations")
+        and abstract_method_has_name(SetsWithRealizations.ParentMethods.inject_shorthands, "inject_shorthands"),
+    ),
+    (
+        "set realization objects own parent and change-of-realization surfaces",
+        lambda _: abstract_method_has_name(_Realizations.ParentMethods.parent_with_realization, "parent_with_realization")
+        and abstract_method_has_name(_Realizations.ParentMethods.realization_of, "realization_of")
+        and abstract_method_has_name(_Realizations.ParentMethods.to_realization, "to_realization")
+        and abstract_method_has_name(_Realizations.ElementMethods.to_realization, "to_realization"),
+    ),
     ("even subobject of ZZ is a subobject", lambda _: Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,)) in Sets().Subobjects()),
     ("2 lies in the even subobject of ZZ", lambda _: 2 in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
     ("3 does not lie in the even subobject of ZZ", lambda _: 3 not in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),

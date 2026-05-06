@@ -321,6 +321,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/sets/__init__.py`
   findings.
+- 2026-05-06 twentieth bounded slice: set realization smoke coverage was added for
+  `SetsWithRealizations` parent realization surfaces and `_Realizations` parent/element
+  change-of-realization surfaces.
+- Validation for the twentieth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports
+  `category_specs/sets/subcategories/constructions/with_realizations.py` or
+  `category_specs/sets/subcategories/constructions/realizations.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -372,3 +380,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   coverage.
 - 2026-05-06: Completed the nineteenth bounded cleanup slice for root set
   `free_algebra` and realization construction-category smoke coverage.
+- 2026-05-06: Completed the twentieth bounded cleanup slice for set realization
+  parent and element smoke coverage.
