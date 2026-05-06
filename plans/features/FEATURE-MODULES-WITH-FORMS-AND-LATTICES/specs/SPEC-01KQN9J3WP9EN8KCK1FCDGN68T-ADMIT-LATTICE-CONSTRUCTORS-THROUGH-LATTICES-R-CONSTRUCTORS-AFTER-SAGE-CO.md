@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
   inventory mapping
-status: blocked
+status: unstarted
 priority: critical
 requirement: The deleted Lattices triage recorded the top-level lattice subtree admission,
   current smoke coverage, constructor admission boundary, and DiscriminantGroupAut
@@ -89,4 +89,4 @@ Grounded admission target for this card:
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 
-- 2026-05-04: Marked `status: blocked` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.
+- 2026-05-04: Marked `status: unstarted` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.

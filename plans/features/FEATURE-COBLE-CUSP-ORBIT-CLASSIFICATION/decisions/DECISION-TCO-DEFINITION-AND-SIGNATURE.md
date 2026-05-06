@@ -6,65 +6,55 @@ parents:
 - '[[FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION]]'
 dependsOn:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
-title: Clarify definition and signature of T_Co for Tasks 2-5
-status: in-progress
+title: Decide Coble algebraic and transcendental lattice notation
+status: decided
+chosen: T_Co is the K3 orthogonal complement of S_Co
 tags:
 - FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION
 ---
-# Decision: Clarify definition of T_Co
+# Decision: Coble algebraic and transcendental lattice notation
 
-## Problem
+## Decision
 
-'T_Co' appears in the plans with at least two candidate definitions that yield
-different signatures and therefore different mathematical frameworks:
+Use three distinct lattice names, and do not conflate them:
 
-## Requirement
+| Symbol | Definition | Signature | Rank |
+|--------|-----------|-----------|------|
+| `Pic(S)` | Picard lattice of the blowup Coble surface before K3 pullback | (1, 10) | 11 |
+| `S_Co` | Algebraic K3 pullback lattice `f^*Pic(S)` inside `Lambda_K3`; primary notation `I_{1,10}(2)` | (1, 10) | 11 |
+| `T_Co` | Orthogonal complement `S_Co^perp` in `Lambda_K3`; Dolgachev-Kondo call this `N` | (2, 9) | 11 |
+| `T_En` | Enriques period lattice `U + E_10(2)` in the Dolgachev-Kondo comparison | (2, 10) | 12 |
 
-Resolve which lattice is meant, document the relationship with T_En and S_En, and ensure
-all downstream tasks (orbit classification, arithmetic group, Coxeter diagrams, folding
-involution) agree on the same object.
+Concretely:
 
-### Candidate A: Complement of f*Pic(S) in Λ_K3
+- `Pic(S)` is the unimodular odd lattice `I_{1,10}` with the geometric line and
+  exceptional divisor basis.
+- The K3 cover doubles intersections, so the algebraic pullback lattice is
+  `S_Co = f^*Pic(S) = I_{1,10}(2)`. The diagonal spelling
+  `<2> + <-2>^10` is a presentation of that family member, not the primary name.
+- The period/transcendental lattice used for Coble cusp orbit work is
+  `T_Co = S_Co^perp` in `Lambda_K3`. It has discriminant form `q_T = -q_S` and
+  is the type-IV lattice `N = <2> + E_10(2)`. With the convention
+  `E_10 = U + E_8(-1)`, this is `<2> + U(2) + E_8(-2)`.
+- `T_Co` is not `I_{1,10}(2)`. That notation belongs to `S_Co`.
 
-From GOAL.md: the K3 cover pullback f*Pic(S) ⊂ H²(X, ℤ) has Gram
-diag(2, -2, ..., -2), rank 11, signature (1, 10). Its orthogonal complement in
-Λ_K3 (signature (3, 19)) has signature (2, 9). This is Type IV (period domain
-D(T_Co) exists). The orbit classification would use the Type IV Baily-Borel
-framework with both isotropic lines (0-cusps) and isotropic planes (1-cusps).
+## Task Routing
 
-### Candidate B: h_Co^⊥ in T_En
+- Tasks 2.1--2.2 use the discriminant form of `T_Co`.
+- Task 3.2 uses primitive isotropic planes in `T_Co`.
+- Task 4.1 uses the Coxeter/root data of the algebraic lattice `S_Co`.
+- Arithmetic-group cards use `h_Co` as an algebraic polarization class in `S_Co`.
+  When relating the Coble quotient to the Enriques period lattice, they must introduce
+  the corresponding typed Heegner vector or embedding data explicitly.
+  Dolgachev-Kondo identify `T_Co` with the orthogonal complement of a `(-2)` vector in
+  `T_En = U + E_10(2)`.
 
-From the arithmetic group definition: Γ_Co is a subgroup of O(T_En) stabilizing
-h_Co. If T_Co = h_Co^⊥ in T_En, where T_En has signature (2, 10) = U ⊕ E₁₀(2)
-and h_Co satisfies h_Co² = 2, then T_Co has signature (1, 10). This is
-hyperbolic, not Type IV, so D(T_Co) is not a Type IV period domain. The orbit
-analysis here would concern hyperbolic-lattice isotropic vectors, not Baily-Borel
-boundary components.
+## Sources
 
-### Relationship with period domain
-
-T_En (signature (2, 10)) is the period domain lattice. Its Type IV domain
-D(T_En)/Γ is the Enriques moduli space. T_Co enters the picture through the
-Coble polarization and the arithmetic group Γ_Co, but it is not itself the
-period domain lattice.
-
-## Resolution needed
-
-- Which definition of T_Co do Tasks 2.1-2.3 (isotropic orbit classification) use? If
-  Candidate A, the orbit analysis must handle a signature-(2, 9) lattice. If Candidate
-  B, the orbit analysis is about hyperbolic isotropic vectors and is NOT about
-  Baily-Borel cusps.
-
-- How does T_Co embed into T_En? What is the relationship between the complement of
-  f*Pic(S) in Λ_K3 and h_Co^⊥ in T_En? Are they isometric?
-
-- The answer should be recorded in a theory note under `theory/foundations/` so
-  downstream agents can rely on it.
-
-## Acceptance Criteria
-
-- A single definition of T_Co is chosen and documented.
-- All references to T_Co in plans, specs, and task cards are reconciled to this
-  definition or explicitly noted if they diverge.
-- The signature and discriminant group invariants are recorded.
-- The relationship with T_En (signature (2, 10)) and the period domain is stated.
+- `GOAL.md`: Picard lattice, K3 pullback lattice, orthogonal-complement lattice, and
+  Task 2 input contract.
+- `theory/references/literature/dolgachev_kondo_2013.md`: the K3 pullback lattice
+  `M`, written here as `I_{1,10}(2)`, its complement `N`, and the identification
+  `N=<2>+E_10(2)`.
+- `theory/foundations/coble-task-background.md`: task-local operational summary,
+  updated to use this notation.

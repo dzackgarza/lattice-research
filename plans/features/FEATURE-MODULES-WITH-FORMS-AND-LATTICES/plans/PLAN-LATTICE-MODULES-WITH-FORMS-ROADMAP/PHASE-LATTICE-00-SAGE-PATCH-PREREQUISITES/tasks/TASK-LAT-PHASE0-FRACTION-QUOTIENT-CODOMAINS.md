@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 dependsOn: []
 title: Research and implement QQ modulo ZZ quotient codomains
-status: blocked
+status: unstarted
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.

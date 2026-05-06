@@ -9,7 +9,7 @@ dependsOn:
 - '[[FEATURE-COBLE-K3-FOLDING-INVOLUTION]]'
 plans: []
 title: Coble arithmetic group generators
-status: blocked
+status: unstarted
 priority: high
 description: Construct Gamma_Co as a stabilizer-centralizer arithmetic subgroup and
   compute explicit generators with exact lattice-group verification.

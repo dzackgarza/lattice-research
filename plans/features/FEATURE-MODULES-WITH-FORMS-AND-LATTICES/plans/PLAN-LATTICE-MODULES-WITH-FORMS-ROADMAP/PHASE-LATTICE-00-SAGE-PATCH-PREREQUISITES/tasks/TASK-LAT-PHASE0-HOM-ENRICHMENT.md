@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-LAT-PHASE0-MODULE-ENRICHMENT]]'
 - '[[TASK-LAT-PHASE0-MODULE-OPERATIONS]]'
 title: Implement Hom spaces as enriched modules and morphism constructors
-status: blocked
+status: unstarted
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.

@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 title: Finish category-spec dual-object Hom routing and move methods to their most
   general mathematical owners
-status: blocked
+status: unstarted
 priority: critical
 requirement: The source backlog identifies category-spec design work around dual objects
   as Hom objects, method ownership generalization, centralized type aliases, and a

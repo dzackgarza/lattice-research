@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-LAT-PHASE0-MODULE-BASE-RINGS]]'
 title: Implement completion and localization refinement aliases
-status: blocked
+status: unstarted
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.

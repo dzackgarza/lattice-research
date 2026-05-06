@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 4 lattice meets duals and discriminant descent
-status: blocked
+status: unstarted
 priority: high
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_4_DISCRIMINANT_DESCENT.md`. The old `plans/` copy was removed so

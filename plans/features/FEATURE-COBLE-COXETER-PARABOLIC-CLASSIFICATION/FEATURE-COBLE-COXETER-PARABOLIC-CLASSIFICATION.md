@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-COBLE-MODULI-COMPARISON]]'
 plans: []
 title: Coble Coxeter parabolic classification
-status: blocked
+status: unstarted
 priority: high
 description: Construct the Coble Coxeter diagram from the lattice and classify maximal
   parabolic subdiagrams without hand-coded adjacency data.

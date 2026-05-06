@@ -7,6 +7,7 @@ parents:
 dependsOn: []
 title: Align global vulture whitelist with category-spec public surfaces
 status: blocked
+blocked_reason: "Requires user approval before editing /home/dzack/ai/quality-control to add category-spec whitelist entries."
 priority: high
 description: Prepare an explicit global QC whitelist proposal for category-spec public
   and Sage-dynamic surfaces currently reported by vulture as dead code.

@@ -8,6 +8,7 @@ dependsOn: []
 title: Implement topological ring and field refinements for topology-bearing ring
   objects without duplicating topological-space methods
 status: blocked
+blocked_reason: "Deferred frontier: installed Sage lacks working unramified q-adic extension path with split lattice caps."
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and
   q-adic precision routes, matrix-ring ownership, topological ring inheritance, and

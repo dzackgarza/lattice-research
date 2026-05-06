@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 15:22 UTC_
+_Generated: 2026-05-06 15:39 UTC_
 
 ## Overall
 
 - Total cards: **214**
-- Completed cards: **11**
-- Overall progress: `[#-----------------------]   5.1%`
+- Completed cards: **12**
+- Overall progress: `[#-----------------------]   5.6%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -14,24 +14,24 @@ _Generated: 2026-05-06 15:22 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 13 | 11 | 2 | 0 | 0 |
-| feature | 15 | 0 | 9 | 0 | 6 |
-| phase | 18 | 0 | 10 | 2 | 5 |
-| plan | 8 | 0 | 6 | 0 | 1 |
-| spec | 50 | 0 | 0 | 48 | 2 |
-| task | 110 | 0 | 0 | 55 | 43 |
+| decision | 13 | 12 | 1 | 0 | 0 |
+| feature | 15 | 0 | 10 | 0 | 0 |
+| phase | 18 | 0 | 10 | 2 | 0 |
+| plan | 8 | 0 | 6 | 0 | 0 |
+| spec | 50 | 0 | 0 | 48 | 0 |
+| task | 110 | 0 | 0 | 55 | 4 |
 
 ## Feature Rollup
 
 | Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[##--------------]   9.4%` | 11/117 | 15 | 77 | 6 |
-| Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Coble cusp orbit classification | `[----------------]   0.0%` | 0/2 | 1 | 0 | 1 |
-| Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
+| Coble cusp orbit classification | `[########--------]  50.0%` | 1/2 | 1 | 0 | 0 |
+| Category specs and Sage surface admission | `[##--------------]   9.4%` | 11/117 | 15 | 77 | 4 |
+| Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
+| Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
+| Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
+| Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
+| Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 11 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 |
@@ -39,7 +39,7 @@ _Generated: 2026-05-06 15:22 UTC_
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/4 | 2 | 2 | 0 |
-| Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 45 |
+| Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 0 |
 
 ## High-Priority Active Items
 
@@ -48,38 +48,28 @@ _Generated: 2026-05-06 15:22 UTC_
 - `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (`critical`, `needs-review`)
 - `phase` `PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`: Duck-type object-shape probe audit (`critical`, `in-progress`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `needs-review`)
+- `phase` `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES`: Phase 0 Sage patch prerequisites for ModulesWithForms (`critical`, `unstarted`)
+- `phase` `PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS`: Phase 2 ModulesWithForms core category and carrier integration (`critical`, `unstarted`)
+- `phase` `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`: Phase 3 morphisms homsets kernels images and cokernels (`critical`, `unstarted`)
 - `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (`critical`, `in-progress`)
 - `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-FOUNDATION-KERNEL`: Category foundation kernel and method ownership (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category-spec source maps constructor routing and admission research (`critical`, `in-progress`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
+- `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (`critical`, `approved-and-unstarted`)
 - `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: Sage surface constructor admission and concrete category families (`critical`, `in-progress`)
-- `plan` `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`: Smoke audit and uniformity stabilization (`critical`, `in-progress`)
-- `spec` `SPEC-20260505-PARTITIONED-FINITE-TOTALLY-ORDERED-BASE-OWNER`: Admit finite totally ordered base-set owner for partitioned-set subclass predicates (`critical`, `needs-review`)
-- `spec` `SPEC-01KQN9YGC6RD3KX11NYCAK2MF1-ADMIT-IMAGESETS-AS-IMAGE-SUBOBJECTS-WITH-AMBIENT-LIFT-AND-RETRACT-SURFAC`: Admit ImageSets as image subobjects with ambient lift and retract surface (`critical`, `needs-review`)
-- `spec` `SPEC-01KQN9YGCCQ9EDZWW6H98WDY3X-AUDIT-THE-VARIADIC-SIGNATURE-SCOPING-RESULT-AND-OPEN-OWNER-SPECIFIC-FOLL`: Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework (`critical`, `needs-review`)
 
 ## Blocked Items
 
-- `phase` `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES`: Phase 0 Sage patch prerequisites for ModulesWithForms (`critical`)
-- `phase` `PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS`: Phase 2 ModulesWithForms core category and carrier integration (`critical`)
-- `phase` `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`: Phase 3 morphisms homsets kernels images and cokernels (`critical`)
-- `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (`critical`)
-- `spec` `SPEC-01KQN9J3WP9EN8KCK1FCDGN68T-ADMIT-LATTICE-CONSTRUCTORS-THROUGH-LATTICES-R-CONSTRUCTORS-AFTER-SAGE-CO`: Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping (`critical`)
-- `spec` `SPEC-01KQN9J3WJE9W76X72DAT10H4Y-FINISH-CATEGORY-SPEC-DUAL-OBJECT-HOM-ROUTING-AND-MOVE-METHODS-TO-THEIR-M`: Finish category-spec dual-object Hom routing and move methods to their most general mathematical owners (`critical`)
-- `task` `TASK-LAT-PHASE5-CENTRALIZED-PREDICATES`: Implement centralized predicates for orthogonal subgroup surfaces (`critical`)
-- `task` `TASK-LAT-PHASE3-COKERNEL-PROJECTION-LIFT`: Implement cokernel projection and lift contract (`critical`)
-- `task` `TASK-LAT-PHASE3-MORPHISM-WRAPPERS`: Implement concrete bilinear module morphism wrappers (`critical`)
-- `task` `TASK-LAT-PHASE2-FREE-TORSION-CARRIERS`: Implement concrete free and torsion carriers (`critical`)
-- `task` `TASK-LAT-PHASE3-HOMSPACE-WRAPPERS`: Implement concrete Hom-space wrappers (`critical`)
-- `task` `TASK-LAT-PHASE4-DISCRIMINANT-OBJECTS`: Implement discriminant quotient objects and form data (`critical`)
-- `task` `TASK-LAT-PHASE4-DUAL-LATTICE-OBJECTS`: Implement dual lattice objects as functionals (`critical`)
-- `task` `TASK-LAT-PHASE3-END-AUT-QUOTIENT-NOTATION`: Implement End Aut and quotient notation through homset machinery (`critical`)
-- `task` `TASK-LAT-PHASE0-MODULE-ENRICHMENT`: Implement enriched finitely generated module surface (`critical`)
+- `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Align global vulture whitelist with category-spec public surfaces (`high`)
+- `task` `TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS-FOR-TOPOLOGY-BEARING-RI`: Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods (`high`)
+- `task` `TASK-1777748120685-4VX3GB-STRIP-IMPORT-AND-LAZYIMPORT-BLOAT-FROM-RING-SUBCATEGORY-CONSTRUCTORS`: Strip import and LazyImport bloat from ring subcategory constructors (`high`)
+- `task` `TASK-BUG-REPO-VULTURE-DEAD-CODE-VALIDATION-BLOCKER`: Triage global vulture dead-code validation blocker (`high`)
 
 ## Most Recently Completed
 
-- 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `7b8a5aa`: docs: admit polytope source surface)
+- 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `1bf2108`: docs: clarify Coble lattice notation)
+- 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `d53305d`: docs: decide discriminant form orbit routing)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `b55df6c`: docs: decide Picard lattice ownership)
 - 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `cd84d84`: docs: decide module sidedness surface)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `22bd1b1`: docs: reject malformed backend spellings)

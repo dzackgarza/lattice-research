@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
 dependsOn: []
 title: Implement constructor validation models for Phase 2 carriers
-status: blocked
+status: unstarted
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS` is approved.

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 dependsOn: []
 title: Implement ModuleBaseRings category refinement and installation
-status: blocked
+status: unstarted
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.

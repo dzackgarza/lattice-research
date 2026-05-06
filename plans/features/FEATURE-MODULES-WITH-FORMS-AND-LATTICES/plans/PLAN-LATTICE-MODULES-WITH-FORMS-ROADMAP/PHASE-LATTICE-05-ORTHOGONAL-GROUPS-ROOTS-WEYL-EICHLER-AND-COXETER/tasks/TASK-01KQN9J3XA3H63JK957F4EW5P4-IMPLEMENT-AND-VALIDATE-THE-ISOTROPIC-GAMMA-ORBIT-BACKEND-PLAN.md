@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 dependsOn: []
 title: Implement and validate the isotropic Gamma orbit backend plan
-status: blocked
+status: unstarted
 priority: medium
 description: The isotropic Gamma orbit backend plan targets subgroup-aware isotropic
   orbit computation for lines, planes, and flags using Dutour-Sikiric/Hulek finite

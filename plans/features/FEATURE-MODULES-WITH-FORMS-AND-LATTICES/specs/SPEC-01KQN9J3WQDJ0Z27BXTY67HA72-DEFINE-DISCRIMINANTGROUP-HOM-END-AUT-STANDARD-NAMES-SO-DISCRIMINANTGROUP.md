@@ -90,7 +90,7 @@ Grounded target for this card:
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 
-- 2026-05-04: Marked `status: blocked` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.
+- 2026-05-04: Marked `status: unstarted` because the card body already records the DiscriminantGroupAut prerequisite; continue other approved phase-01 leaves until that prerequisite is available.
 - 2026-05-05: Rechecked `category_specs/lattices/subcategories/constructions/discriminant_groups.py`
   and `category_specs/types.py`; the standard Hom/End/Aut names already exist and are
   exported. Added the missing mapping note to `category_specs/lattices/docs/MAPPING.md`

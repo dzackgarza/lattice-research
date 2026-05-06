@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
 dependsOn: []
 title: Implement FormCodomain and quotient-valued codomain predicates
-status: blocked
+status: unstarted
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS` is approved.

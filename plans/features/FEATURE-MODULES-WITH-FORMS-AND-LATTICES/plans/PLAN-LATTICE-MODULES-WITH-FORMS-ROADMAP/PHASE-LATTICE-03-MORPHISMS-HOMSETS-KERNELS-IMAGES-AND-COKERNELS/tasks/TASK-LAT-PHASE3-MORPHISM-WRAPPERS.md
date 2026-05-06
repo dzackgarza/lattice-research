@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS]]'
 dependsOn: []
 title: Implement concrete bilinear module morphism wrappers
-status: blocked
+status: unstarted
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`

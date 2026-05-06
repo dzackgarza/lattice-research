@@ -7,6 +7,7 @@ parents:
 dependsOn: []
 title: Strip import and LazyImport bloat from ring subcategory constructors
 status: blocked
+blocked_reason: "Implementation complete but commit blocked: pre-commit hook `just test` fails during global mypy with Sage/pytest import-stub errors."
 priority: high
 description: Strip import and LazyImport bloat from ring subcategory constructors
 successCriteria:

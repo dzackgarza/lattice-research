@@ -7,6 +7,7 @@ parents:
 dependsOn: []
 title: Triage global vulture dead-code validation blocker
 status: blocked
+blocked_reason: "Vulture detects 762 category-spec findings; triage needed. Depends on TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP."
 priority: high
 description: '`just test` now passes Ruff normalization and fails at the global vulture
   dead-code detection stage. The failure is broad and includes category-spec abstract/public

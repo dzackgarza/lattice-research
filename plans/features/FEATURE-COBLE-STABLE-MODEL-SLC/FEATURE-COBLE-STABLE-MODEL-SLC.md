@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-COBLE-MODULI-COMPARISON]]'
 plans: []
 title: Coble stable model slc verification
-status: blocked
+status: unstarted
 priority: high
 description: Verify the Coble stable-model and slc conditions using geometric arguments
   and semantic surface/pair vocabulary rather than hardcoded booleans.

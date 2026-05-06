@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 dependsOn: []
 title: Lattice and ModulesWithForms roadmap
-status: blocked
+status: approved-and-unstarted
 priority: critical
 owner: Zack
 description: 'Organize the lattice redesign around the actual dependency chain: Sage/module
@@ -47,6 +47,29 @@ Organize the lattice redesign around the actual dependency chain: Sage/module pr
 - `plans/PHASE_3_MORPHISMS.md`
 - `plans/PHASE_4_DISCRIMINANT_DESCENT.md`
 - `plans/PHASE_5_ORTHOGONAL_GROUPS.md`
+
+## Existing backend bridge: polyhedral_common
+
+A working Python wrapper for the polyhedral_common C++ library already exists in
+`src.bak/`. This is the intended route for all indefinite lattice computations
+(automorphism groups, isometry testing, orbit representatives, stabilizers,
+Vinberg edgewalk). Key files:
+
+- **Python wrapper module**: `src.bak/backends/external/py_polyhedral/` — exports
+  `indefinite_form_test_equivalence`, `indefinite_form_automorphism_group`,
+  `indefinite_form_get_orbit_representative`, `indefinite_form_stabilizer_vector`,
+  `lorentzian_reflective_edgewalk`, and related functions.
+- **Isometry backend**: `src.bak/backends/isometry_backend.py` — `LatticeIsometryBackend`
+  with rank/signature/determinant screening → Nikulin 2-elementary branch → general
+  indefinite polyhedral_common dispatch.
+- **Orbit backend**: `src.bak/backends/dawes_orbit_backend.py` (1034 lines) — orbit
+  and stabilizer computation for indefinite forms using the same bridge.
+- **Memory docs**: `.agents/memories/theory/external/dutsik_polyhedral/polyhedral_common/`
+  with API tables and indefinite method reference.
+
+These backends are quarantine code (moved to `src.bak/` during the spec-first phase)
+and will be reactivated when the category spec vocabulary is in place. Their interfaces
+may need wrapping to use the spec's lattice objects rather than raw Sage matrices.
 
 The skill-local files and `theory/` files are the current durable source layer. The
 old phase-plan files remain migration provenance and implementation inventory, not

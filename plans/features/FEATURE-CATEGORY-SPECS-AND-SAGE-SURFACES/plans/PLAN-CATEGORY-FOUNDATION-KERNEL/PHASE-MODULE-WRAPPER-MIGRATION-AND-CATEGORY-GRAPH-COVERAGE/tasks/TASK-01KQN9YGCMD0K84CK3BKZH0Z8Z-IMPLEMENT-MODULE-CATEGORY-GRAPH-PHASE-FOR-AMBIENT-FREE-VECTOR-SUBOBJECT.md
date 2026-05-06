@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS]]'
 title: Implement module category graph phase for ambient free vector subobject quotient
   form graded Ore and representation surfaces
-status: blocked
+status: unstarted
 priority: high
 description: 'The deleted module wrapper migration plan is a phased migration contract:
   map methods first, define the category graph, rewrite constructors, move methods

@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement and validate the Dawes orbit backend plan for structured subgroup
   orbit computations
-status: blocked
+status: unstarted
 priority: medium
 description: The Dawes backend plan targets subgroup-aware non-isotropic vector orbit
   equivalence using existing lattice/group nouns and a private backend.
