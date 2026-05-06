@@ -201,6 +201,32 @@ Assigned task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
 | `theory/backends/indefinite-isometry.md` | Indefinite isometry capability notes not covered by the Julia-specific file. |
 | `theory/backends/foliation-lib-reusable-procedures.md` | Candidate reusable procedures for foliation-related backend surfaces. |
 
+## Assembly Index And Follow-Up Links
+
+Assembly task: `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`.
+
+The inventory is assembled as one trackable spec file rather than split into sibling
+spec files. The single-file structure keeps duplicate literal method names visible
+across mathematical owners while preserving topic sections for review.
+
+Rows use the following normalized fields, with topic-specific wording only where a
+backend or candidate geometry row needs an extra routing/status phrase:
+
+- literal or source surface;
+- object level;
+- minimal or candidate owner category;
+- meaning, codomain, hypotheses, or backend route;
+- status and source path.
+
+| Section | Source task | Follow-up links |
+| --- | --- | --- |
+| Set topology and metric method rows | `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY` | `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`, `SPEC-20260505-PARTITIONED-FINITE-TOTALLY-ORDERED-BASE-OWNER` |
+| Ring algebra and module method rows | `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES` | q-adic Sage-gap rows route through existing q-adic constructor specs and implementation cards; formed divisibility is explicitly delegated to the Hom/forms/lattice section. |
+| Hom forms and lattice method rows | `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES` for malformed backend names; lattice algorithm rows point to backend-routing rows rather than local implementation permission. |
+| Poset tensor and geometry-facing method rows | `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY` | `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`, `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`, `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`, `PLAN-GEOMETRIC-SOURCE-ADMISSION`, `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` |
+| Backend and external software method rows | `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`; backend-gap rows route through `theory/backends/software-capability-map.md` and existing backend research cards. |
+| Gap audit | `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT` | Audits this assembled spec after row assembly and creates specific decision or source-mining cards for any remaining `decision-needed`, `backend-gap`, or `source-needed` rows. |
+
 ## Set Topology And Metric Method Rows
 
 Source task: `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY`.
@@ -750,3 +776,6 @@ method and which mature external system should be audited or wired.
   group, and lattice-algorithm ownership rows.
 - 2026-05-06: Added poset, finite-poset, semilattice, order-lattice, partition,
   tensor-component, and geometry-facing candidate method ownership rows.
+- 2026-05-06: Assembled the topical rows into this single trackable spec file with a
+  normalized row schema and follow-up links for decisions, backend gaps, source
+  admission, and the gap-audit leaf.

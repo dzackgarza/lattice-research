@@ -11,7 +11,7 @@ dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY]]'
 - '[[TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING]]'
 title: Assemble trackable method ownership spec files
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Assemble the topical method rows into one or more trackable spec files
@@ -65,10 +65,10 @@ real spec surface with method rows.
 
 ## Acceptance Criteria
 
-- [ ] The repository contains the final method ownership spec file or a linked family of method ownership spec files under the tracker hierarchy.
-- [ ] All topical inventory rows use the same schema and cite source paths.
-- [ ] Duplicate method names with distinct meanings are split into separate rows, and overloaded names state their hypotheses and codomains.
-- [ ] The assembled spec links follow-up implementation, audit, smoke, or decision cards without creating meta-planning tasks.
+- [x] The repository contains the final method ownership spec file or a linked family of method ownership spec files under the tracker hierarchy.
+- [x] All topical inventory rows use the same schema and cite source paths.
+- [x] Duplicate method names with distinct meanings are split into separate rows, and overloaded names state their hypotheses and codomains.
+- [x] The assembled spec links follow-up implementation, audit, smoke, or decision cards without creating meta-planning tasks.
 
 ## Dependencies And Boundaries
 
@@ -81,3 +81,8 @@ real spec surface with method rows.
 ## Work Log
 
 - 2026-05-05: Created as the spec assembly leaf for the literal method ownership inventory phase.
+- 2026-05-06: Kept the method inventory assembled in
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` as one trackable spec file,
+  added an assembly index with the normalized row schema and follow-up links, and moved
+  this task to needs-review. The separate gap-audit leaf remains responsible for
+  auditing decision-needed, backend-gap, and source-needed rows.
