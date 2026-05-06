@@ -47,8 +47,55 @@ Source inventory: `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.
   - `reference/tensor_free_modules/sage/tensor/modules/free_module_tensor.html`
   - `reference/tensor_free_modules/sage/tensor/modules/tensor_with_indices.html`
   - `reference/tensor_free_modules/sage/tensor/modules/finite_rank_free_module.html`
+- Installed Sage source files checked for this tensor-component pass:
+  - `sage/tensor/modules/finite_rank_free_module.py`
+  - `sage/tensor/modules/tensor_free_module.py`
+  - `sage/tensor/modules/free_module_tensor.py`
+  - `sage/tensor/modules/tensor_with_indices.py`
+  - `sage/tensor/modules/comp.py`
+  - `sage/tensor/modules/free_module_basis.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+## Completeness Reconciliation: Tensor Core Inventory
+
+The tensor inventory is intentionally narrow and names the tensor-free-module surface
+needed for the project `TensorAlgebraComponents` subtree. This pass checked that each
+inventoried surface has a mapping consequence:
+
+- `TensorFreeModule` and `M.tensor_module(k,l)` map to tensor component parent objects
+  in `TensorAlgebraComponents(R)`, with inherited finite-rank free module structure
+  when the base module has finite rank;
+- `FreeModuleTensor` and `M.tensor((k,l), ...)` map to `Tensor` elements, not parent
+  categories;
+- `base_module()`, `tensor_type()`, and Sage `tensor_rank()` are represented by the
+  structural base-module link, the public `(k,l)` tensor type, and derived total order
+  `sum(tensor_type())`;
+- component assignment, `Components`, `comp`, `set_comp`, `display`, and
+  `display_comp` are recorded as coordinate or display interop, not public
+  mathematical objects;
+- matrix, module-element matrix, list-of-matrices, and multidimensional-list inputs
+  are routed through named tensor constructors rather than a catch-all component
+  surface;
+- `trace` and `contract` are admitted as closed tensor-element operations with
+  explicit opposite-variance slot hypotheses and codomains;
+- `TensorWithIndices` and string-index syntax are explicitly rejected as public API,
+  with migration through named symmetry metadata, `trace`, or `contract`.
+
+Negative missing-surface finding for the narrow tensor inventory:
+
+- Searched: `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`,
+  installed Sage tensor sources `finite_rank_free_module.py`,
+  `tensor_free_module.py`, `free_module_tensor.py`, `tensor_with_indices.py`,
+  `comp.py`, and `free_module_basis.py`, plus the converted tensor mapping rows above.
+- Found: every surface named in the local tensor inventory has a corresponding
+  admitted, derived, interop-only, or rejected mapping row in this spec.
+- Conclusion: inference -- this pass found no unmapped surface inside the intentionally
+  narrow tensor-free-module inventory.
+- Confidence: Medium.
+- Gaps: Sage tensor docs outside the three inventory URLs, unreleased Sage branches,
+  and broader tensor-calculus APIs not named by this subtree inventory remain outside
+  this narrow reconciliation pass.
 
 ## Converted Mapping Content
 
