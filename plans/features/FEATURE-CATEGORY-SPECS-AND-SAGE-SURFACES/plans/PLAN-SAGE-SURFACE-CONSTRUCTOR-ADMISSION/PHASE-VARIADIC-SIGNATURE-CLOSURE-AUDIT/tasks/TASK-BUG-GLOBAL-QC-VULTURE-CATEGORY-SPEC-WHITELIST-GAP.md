@@ -416,6 +416,20 @@ violations to silence QC rather than addressing the issues they unearthed.
 - Validation for the thirty-first slice:
   `just --justfile category_specs/justfile smoke-file forms/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/forms/**` findings.
+- 2026-05-06 thirty-second bounded slice: ring smoke coverage was added for root
+  ideal-monoid, approximate, and algebra-over ownership; ring element divisibility;
+  ring Hom/End Sage-refinement constructors; field and global-field category routing;
+  reduced/localization/divisibility owner surfaces; real/complex precision change
+  owners; p-adic precision, prime-change, and print-mode mutation owners; matrix
+  zero/sparse owners; and number-field/QQ ring-of-integers-at-primes surfaces.
+- Validation for the thirty-second slice:
+  `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails
+  on the existing ring implementation frontier (`hilbert_polynomial`, `ideal_monoid`,
+  `algebraic_closure`, `_change_print_mode`, matrix MRO, and deferred q-adic
+  precision-cap constructors), but the new ring ownership assertions are not among
+  the reported failures. The vulture-only diagnostic no longer reports any
+  `category_specs/rings/**` findings. Remaining vulture findings are now isolated to
+  `category_specs/lattices/**`.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -494,3 +508,6 @@ violations to silence QC rather than addressing the issues they unearthed.
   smoke coverage, clearing `category_specs/cat/**` vulture findings.
 - 2026-05-06: Completed the thirty-first bounded cleanup slice for forms method smoke
   coverage, clearing `category_specs/forms/**` vulture findings.
+- 2026-05-06: Completed the thirty-second bounded cleanup slice for ring root,
+  Hom/End, field, q-adic, precision, divisibility, and matrix-algebra smoke coverage,
+  clearing all remaining `category_specs/rings/**` vulture findings.

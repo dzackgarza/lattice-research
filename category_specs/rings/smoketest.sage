@@ -4,7 +4,21 @@ import sys
 THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
-from category_specs.rings import Rings
+from category_specs.rings import Rings, _RingIdealParentMethods
+from category_specs.rings.homsets import RingEndCategory, RingHomCategory
+from category_specs.rings.matrix_algebras import _MatrixAlgebras
+from category_specs.rings.subcategories.algebraically_closed_field import _AlgebraicallyClosedFields
+from category_specs.rings.subcategories.approximate import ApproximateRingsCategory
+from category_specs.rings.subcategories.archimedean_global_field import _ArchimedeanGlobalFields
+from category_specs.rings.subcategories.commutative import _CommutativeRings
+from category_specs.rings.subcategories.complex_precision_field import _ComplexPrecisionFields
+from category_specs.rings.subcategories.field import _Fields
+from category_specs.rings.subcategories.integral_domain import _IntegralDomains
+from category_specs.rings.subcategories.nonarchimedean_global_field import _NonArchimedeanGlobalFields
+from category_specs.rings.subcategories.number_field import _NumberFields
+from category_specs.rings.subcategories.p_adic_ring import _PAdicRings
+from category_specs.rings.subcategories.rational_field import _QQ
+from category_specs.rings.subcategories.real_precision_field import _RealPrecisionFields
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
 
@@ -13,10 +27,47 @@ NR = Rings().Constructors()
 PQ = PolynomialRing(QQ, "x")
 x = PQ.gen()
 
+
+def abstract_method_has_name(method, name):
+    return method.__name__ == name
+
+
 SMOKE_STATEMENTS = (
     ("Constructors().ZZ() is a ring", lambda _: NR.ZZ() in Rings()),
     ("Constructors().ZZ() has characteristic 0", lambda _: NR.ZZ().characteristic() == 0),
     ("Constructors().ZZ() is not finite", lambda _: not NR.ZZ().is_finite()),
+    (
+        "Rings() owns ideal-monoid, approximate, and algebra-over surfaces",
+        lambda _: abstract_method_has_name(Rings.ParentMethods.ideal_monoid, "ideal_monoid")
+        and Rings().Approximate() is ApproximateRingsCategory()
+        and Rings().AlgebrasOver(ZZ).base_ring() is ZZ,
+    ),
+    (
+        "ring elements expose divisibility through Sage-compatible elements",
+        lambda _: ZZ(2).divides(ZZ(4)) and abstract_method_has_name(_RingIdealParentMethods.divides, "divides"),
+    ),
+    (
+        "ring Hom and End categories own Sage refinement constructors",
+        lambda _: abstract_method_has_name(RingHomCategory.from_sage_hom, "from_sage_hom")
+        and abstract_method_has_name(RingEndCategory.from_sage_end, "from_sage_end"),
+    ),
+    (
+        "ring field/global-field category classes route through their canonical owners",
+        lambda _: _Fields.AlgebraicallyClosed is _AlgebraicallyClosedFields
+        and _NumberFields.ParentMethods.ring_of_integers_at_prime.__name__ == "ring_of_integers_at_prime"
+        and _NumberFields.ParentMethods.ring_of_integers_at_primes.__name__ == "ring_of_integers_at_primes"
+        and _QQ.ParentMethods.algebraic_closure.__name__ == "algebraic_closure"
+        and _QQ.ParentMethods.ring_of_integers_at_primes.__name__ == "ring_of_integers_at_primes"
+        and _ArchimedeanGlobalFields._base_category_class_and_axiom[1] == "Archimedean"
+        and _NonArchimedeanGlobalFields._base_category_class_and_axiom[1] == "NonArchimedean",
+    ),
+    (
+        "commutative and integral-domain ring subcategories own reduced, localization, and divisibility surfaces",
+        lambda _: _CommutativeRings.Reduced.__name__ == "_ReducedRings"
+        and abstract_method_has_name(_CommutativeRings.SubcategoryMethods.Reduced, "Reduced")
+        and abstract_method_has_name(_IntegralDomains.ParentMethods.localization, "localization")
+        and abstract_method_has_name(_IntegralDomains.ElementMethods.divides, "divides"),
+    ),
     ("Constructors().QQ() is a field", lambda _: NR.QQ() in Rings().Commutative().Field()),
     ("Constructors().QQ() has characteristic 0", lambda _: NR.QQ().characteristic() == 0),
     ("Constructors().QQ() is a number field", lambda _: NR.QQ().is_number_field()),
@@ -35,9 +86,18 @@ SMOKE_STATEMENTS = (
     ("Constructors().RR() is a topological space", lambda _: NR.RR() in TopologicalSpaces()),
     ("Constructors().RR() has characteristic 0", lambda _: NR.RR().characteristic() == 0),
     ("Constructors().RR() has precision 53", lambda _: NR.RR().precision() == 53),
+    (
+        "real precision fields change precision through the default Sage route",
+        lambda _: abstract_method_has_name(_RealPrecisionFields.ParentMethods.change_precision, "change_precision"),
+    ),
     ("Constructors().CC() is a field", lambda _: NR.CC() in Rings().Commutative().Field()),
     ("Constructors().CC() has characteristic 0", lambda _: NR.CC().characteristic() == 0),
     ("Constructors().CC() has precision 53", lambda _: NR.CC().precision() == 53),
+    (
+        "complex precision fields change precision through the default Sage route",
+        lambda _: abstract_method_has_name(_ComplexPrecisionFields.ParentMethods.change_precision, "change_precision")
+        and abstract_method_has_name(ApproximateRingsCategory.ParentMethods.change_precision, "change_precision"),
+    ),
     ("Constructors().RDF() is a field", lambda _: NR.RDF() in Rings().Commutative().Field()),
     ("Constructors().RDF() has characteristic 0", lambda _: NR.RDF().characteristic() == 0),
     ("Constructors().RDF() has precision 53", lambda _: NR.RDF().precision() == 53),
@@ -85,6 +145,12 @@ SMOKE_STATEMENTS = (
     ("Constructors().CyclotomicField(5) has degree 4", lambda _: NR.CyclotomicField(5).degree() == 4),
     ("Constructors().Zp(5) is a commutative ring", lambda _: NR.Zp(5) in Rings().Commutative()),
     ("Constructors().Zp(5) has prime 5", lambda _: NR.Zp(5).prime() == 5),
+    (
+        "p-adic rings own precision, prime-change, and print-mode mutation surfaces",
+        lambda _: abstract_method_has_name(_PAdicRings.ParentMethods.change_precision, "change_precision")
+        and abstract_method_has_name(_PAdicRings.ParentMethods.change_prime, "change_prime")
+        and abstract_method_has_name(_PAdicRings.ParentMethods._change_print_mode, "_change_print_mode"),
+    ),
     ("Constructors().ZpWithPrecisionCaps(5, 4, 8) has prime 5", lambda _: NR.ZpWithPrecisionCaps(5, 4, 8).prime() == 5),
     ("Constructors().ZpRelaxed(5, 4, 8) has prime 5", lambda _: NR.ZpRelaxed(5, 4, 8).prime() == 5),
     ("Constructors().Qp(5) is a field", lambda _: NR.Qp(5) in Rings().Commutative().Field()),
@@ -152,6 +218,11 @@ SMOKE_STATEMENTS = (
     ("Constructors().MatrixRing(ZZ, 2) has 2 rows", lambda _: NR.MatrixRing(ZZ, 2).nrows() == 2),
     ("Constructors().MatrixRing(ZZ, 2) has 2 columns", lambda _: NR.MatrixRing(ZZ, 2).ncols() == 2),
     ("Constructors().MatrixRing(ZZ, 2) has base ring ZZ", lambda _: NR.MatrixRing(ZZ, 2).base_ring() is ZZ),
+    (
+        "Constructors().MatrixRing(ZZ, 2) exposes zero matrix and sparse predicate",
+        lambda _: abstract_method_has_name(_MatrixAlgebras.ParentMethods.zero_matrix, "zero_matrix")
+        and abstract_method_has_name(_MatrixAlgebras.ParentMethods.is_sparse, "is_sparse"),
+    ),
     (
         "Constructors().MatrixRing(ZZ, 2).matrix_from_matrix(...) returns the same matrix",
         lambda _: NR.MatrixRing(ZZ, 2).matrix_from_matrix(matrix(ZZ, [[1, 2], [3, 4]]))
