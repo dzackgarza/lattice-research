@@ -102,7 +102,7 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             r"""Return this partition as a subset of ``P(base_set())``."""
             from sage.sets.set import Set as SageSet
 
-            return SageSet(self)
+            return SageSet([SageSet(block) for block in self])
 
         @final
         def as_subset_of_powerset(self) -> Subset:

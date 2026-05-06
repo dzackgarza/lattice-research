@@ -295,6 +295,16 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed,
   and the vulture-only diagnostic no longer reports `category_specs/posets/**`
   findings.
+- 2026-05-06 seventeenth bounded slice: partitioned-set smoke coverage was added for
+  fixed-base partition blocks as subsets of the powerset, refinement/strict-refinement
+  order, ordered finite partition statistics, noncrossing/nonnesting predicates, and
+  finite-totally-ordered-base ownership. The slice also fixed `blocks()` so a refined
+  Sage set partition is converted through its blocks rather than passed directly to
+  `SageSet`.
+- Validation for the seventeenth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports
+  `category_specs/sets/subcategories/partitioned.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -340,3 +350,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   smoke coverage.
 - 2026-05-06: Completed the sixteenth bounded cleanup slice for poset root, Hom, slice,
   and finite semilattice smoke coverage.
+- 2026-05-06: Completed the seventeenth bounded cleanup slice for partitioned-set
+  smoke coverage and the partition blocks conversion bug.

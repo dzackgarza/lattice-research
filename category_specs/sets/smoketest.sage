@@ -5,9 +5,14 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.sets.subcategories.partitioned import (
+    FiniteTotallyOrderedBasePartitionedSetsCategory,
+    PartitionedSetsCategory,
+)
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
 from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
+from sage.sets.set import Set as SageSet
 from sage.sets.real_set import RealSet as SageRealSet
 
 
@@ -16,6 +21,14 @@ C = Sets().Constructors()
 
 def fixed_ordered_partition():
     return C.SetPartitions(3)([[1, 3], [2]])
+
+
+def single_block_ordered_partition():
+    return C.SetPartitions(3)([[1, 2, 3]])
+
+
+def abstract_method_has_name(method, name):
+    return method.__name__ == name
 
 
 SMOKE_STATEMENTS = (
@@ -279,6 +292,38 @@ SMOKE_STATEMENTS = (
         lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned().FiniteTotallyOrderedBase(),
     ),
     ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
+    (
+        "fixed-base set partitions expose blocks as subsets of the powerset",
+        lambda _: fixed_ordered_partition().as_subset_of_powerset() == SageSet([SageSet([1, 3]), SageSet([2])]),
+    ),
+    (
+        "fixed-base set partitions compare by refinement order",
+        lambda _: fixed_ordered_partition().refines(single_block_ordered_partition())
+        and fixed_ordered_partition().strictly_refines(single_block_ordered_partition())
+        and not single_block_ordered_partition().strictly_refines(fixed_ordered_partition()),
+    ),
+    (
+        "finite totally ordered set partitions expose ordered arc invariants",
+        lambda _: fixed_ordered_partition().standard_form() == [[1, 3], [2]]
+        and fixed_ordered_partition().crossings() == []
+        and fixed_ordered_partition().nestings() == []
+        and fixed_ordered_partition().is_noncrossing()
+        and fixed_ordered_partition().is_nonnesting(),
+    ),
+    (
+        "finite totally ordered partitioned-set category owns its base-set predicate",
+        lambda _: C.SetPartitions(3).has_finite_totally_ordered_base_set()
+        and FiniteTotallyOrderedBasePartitionedSetsCategory._base_category_class_and_axiom
+        == (PartitionedSetsCategory, "FiniteTotallyOrderedBase"),
+    ),
+    (
+        "partitioned-set category owns ordered finite partition statistic surfaces",
+        lambda _: abstract_method_has_name(PartitionedSetsCategory.ElementMethods.standard_form, "standard_form")
+        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.crossings, "crossings")
+        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.nestings, "nestings")
+        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.is_noncrossing, "is_noncrossing")
+        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.is_nonnesting, "is_nonnesting"),
+    ),
     (
         "partition refinement_set() is a finite countable set",
         lambda _: fixed_ordered_partition().refinement_set() in Sets().Countable().Finite(),
