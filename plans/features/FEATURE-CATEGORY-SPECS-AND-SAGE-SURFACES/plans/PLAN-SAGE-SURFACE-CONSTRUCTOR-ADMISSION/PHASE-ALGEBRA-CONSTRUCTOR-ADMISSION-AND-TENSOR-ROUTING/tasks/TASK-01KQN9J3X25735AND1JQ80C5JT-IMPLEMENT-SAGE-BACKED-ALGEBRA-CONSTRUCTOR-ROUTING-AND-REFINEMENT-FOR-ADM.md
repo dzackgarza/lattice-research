@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement Sage-backed algebra constructor routing and refinement for admitted
   constructors
-status: unstarted
+status: needs-review
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
@@ -63,3 +63,16 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 implementation review: current `category_specs/algebras/__init__.py`
+  implements the admitted Sage-backed constructor routes recorded in
+  `SPEC-MAPPING-ALGEBRAS`: true free algebras from finite sets use Sage
+  `FreeAlgebra`; magma, semigroup, monoid, group, additive-semigroup,
+  additive-monoid, and additive-group routes call Sage `S.algebra(R,
+  category=...)` only behind named project constructors; multiplication-table
+  construction is centralized through `from_multiplication_tensor(mu)`. The
+  implementation explicitly rejects the plain-set `S.algebra(R)` route as an
+  algebra constructor and leaves that surface to module construction.
+- 2026-05-06 validation: `just --justfile category_specs/justfile smoke-file
+  algebras/smoketest.sage` passes after the algebra constructor and tensor
+  component refinement work in the linked phase. Status moved to
+  `needs-review`; this does not mark the card accepted or complete.
