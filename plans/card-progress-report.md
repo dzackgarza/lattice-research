@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 13:46 UTC_
+_Generated: 2026-05-06 13:51 UTC_
 
 ## Overall
 
 - Total cards: **211**
-- Completed cards: **8**
-- Overall progress: `[#-----------------------]   3.8%`
+- Completed cards: **9**
+- Overall progress: `[#-----------------------]   4.3%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -14,7 +14,7 @@ _Generated: 2026-05-06 13:46 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 10 | 8 | 0 | 0 | 0 |
+| decision | 10 | 9 | 0 | 0 | 0 |
 | feature | 15 | 0 | 3 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
@@ -25,7 +25,7 @@ _Generated: 2026-05-06 13:46 UTC_
 
 | Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[#---------------]   6.9%` | 8/116 | 15 | 77 | 6 |
+| Category specs and Sage surface admission | `[#---------------]   7.8%` | 9/116 | 15 | 77 | 6 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble cusp orbit classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
@@ -81,6 +81,7 @@ _Generated: 2026-05-06 13:46 UTC_
 
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `22bd1b1`: docs: reject malformed backend spellings)
 - 2026-05-06 `decision` `DECISION-ORDERED-REAL-SIGNATURE-OWNER`: Decide ordered real realization owner for signature and definiteness methods (commit `d9e9842`: docs: decide ordered real signature owner)
+- 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `a281c4a`: docs: ground module root method owners)
 - 2026-05-06 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `769c718`: User-initiated Checkpoint)
 - 2026-05-06 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `769c718`: User-initiated Checkpoint)
 - 2026-05-06 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `769c718`: User-initiated Checkpoint)
