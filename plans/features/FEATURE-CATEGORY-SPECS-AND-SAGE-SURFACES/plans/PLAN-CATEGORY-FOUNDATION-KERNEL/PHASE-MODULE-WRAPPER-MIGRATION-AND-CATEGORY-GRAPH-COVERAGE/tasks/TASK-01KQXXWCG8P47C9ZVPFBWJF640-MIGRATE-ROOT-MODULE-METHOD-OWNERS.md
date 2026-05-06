@@ -161,3 +161,9 @@ source-grounded replacement owner preserves the same mathematical obligation.
   first on `AssertionError: Not implemented method: alternating_algebra`; this task
   owns the root method-owner audit needed before that smoke can reach the previous
   deleted-plan frontier.
+- 2026-05-06: Updated `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` so standard
+  commutative-ring and integral-domain module surfaces have explicit owners instead
+  of vague decision-needed rows. Added
+  `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]` for the remaining
+  sidedness, scalar-action transport, torsion-over-zero-divisor, and overloaded
+  `__mul__` conventions. Commit: `a281c4a`.
