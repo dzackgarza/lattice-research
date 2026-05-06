@@ -216,12 +216,28 @@ The work must follow repo style and compliance rules.
 - Import hygiene (no unused imports, no lazy-import bloat)
 - Type annotations present and correct
 - No AI-slop patterns (boilerplate docstrings, placeholder prose, fake tests)
-- Commit messages follow Conventional Commit format
+- Task-local agent-authored commit messages follow Conventional Commit format
 
 **Failure modes:**
 - **Style violations** → `revision-required`. Minor fixes; document which rule is violated.
 - **Anti-slop patterns** → `revision-required`. May require rewriting generated prose.
 - **Multiple style violations** → aggregate into a single checklist in the revision-required card.
+
+**Commit-history scope:**
+- Gate 6 commit-message compliance applies to the commits created to discharge the
+  card under review, especially agent-authored implementation, spec, migration, or
+  review commits.
+- Historical human checkpoint commits that are already ancestors of `origin/main`
+  are provenance, not per-card style failures. Do not convert every card touched by
+  such a checkpoint into `blocked` or `revision-required`.
+- If a historical checkpoint introduced a substantive defect, fail the gate that
+  covers the defect itself: Gate 1 for ungrounded definitions, Gate 3 for spec
+  weakening, Gate 4 for backsliding, Gate 5 for mathematical error, or Gate 6 for
+  current style/content defects. The commit message alone is not the blocker.
+- Published commits that used forbidden git operations such as `--no-verify` may
+  still be recorded as process findings, but do not treat them as global blockers
+  for unrelated ready leaves. Scope the finding to the card whose reviewed work
+  actually depends on that commit and continue other DAG-ready work.
 
 ## Review procedure
 
