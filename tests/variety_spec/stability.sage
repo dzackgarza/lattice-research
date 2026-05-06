@@ -19,7 +19,7 @@
 
 P2 = PP^2(CC)
 R3.<x_s, y_s, z_s> = PolynomialRing(CC, 3)
-R2.<x_a, y_a>       = PolynomialRing(CC, 2)
+R1.<x_a>            = PolynomialRing(CC)
 
 
 # ============================================================================
@@ -85,6 +85,7 @@ C_mixed = VarietyCurve.from_components(
 rational_comp = C_mixed.component("rational")
 genus2_comp   = C_mixed.component("genus2")
 assert rational_comp.genus() == 0
+assert genus2_comp.genus() == 2
 other_count = sum(
     rational_comp.intersection_number(other)
     for other in C_mixed.irreducible_components() if other != rational_comp

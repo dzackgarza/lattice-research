@@ -193,6 +193,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   100%-confidence findings under `category_specs/**`. The remaining category-spec
   diagnostics are 60%-confidence public surfaces that need smoke coverage, deletion,
   or source-grounded internalization.
+- 2026-05-06 fifth bounded slice: generated Sage test locals outside
+  `category_specs/**` were resolved by turning the locals into substantive assertions
+  or by correcting an unused bivariate polynomial-ring declaration to the univariate
+  ring actually used by the hyperelliptic-curve witness.
+- Validation for the fifth slice: the vulture-only diagnostic no longer reports
+  generated Sage findings under `tests/sage_spec/**` or `tests/variety_spec/**`.
+  Remaining vulture output is now concentrated in `category_specs/**`
+  60%-confidence public surfaces.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -215,3 +223,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   unused formal parameters in abstract/spec method stubs.
 - 2026-05-06: Completed the fourth bounded cleanup slice for all remaining
   100%-confidence category-spec formal-parameter findings.
+- 2026-05-06: Completed the fifth bounded cleanup slice for generated Sage test locals
+  outside `category_specs/**`.

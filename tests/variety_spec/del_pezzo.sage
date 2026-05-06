@@ -166,6 +166,7 @@ p_A = P2.point([1, 0, 0])
 p_B = P2.point([0, 1, 0])
 pi_w = P2.blowup([p_A, p_B])
 Sw   = pi_w.domain()
+assert Sw.del_pezzo_degree() == 7
 
 # Sw is WEAK del Pezzo of degree 7 because the proper transform of the
 # line through p_A and p_B is a (-2)-curve (if the two points are in special

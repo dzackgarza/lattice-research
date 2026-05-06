@@ -203,6 +203,7 @@ assert all(F.singular_locus().points()[0].is_nodal() for F in nodal_fibers)
 chi_top_X  = X_lef.topological_euler_characteristic()
 chi_top_F  = F_lef_gen.topological_euler_characteristic()   # 0 for elliptic
 n_nodal    = len(nodal_fibers)
+assert chi_top_F == 0
 assert chi_top_X == n_nodal * 1    # each nodal fiber contributes +1 to χ
 
 

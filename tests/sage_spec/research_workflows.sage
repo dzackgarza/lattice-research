@@ -120,7 +120,7 @@ p_ten = Cent_inv.coinvaraint_sublattice_projection()
 
 assert p_sen.is_surjective() and p_ten.is_surjective() # Should follow from Nikulin 79 1.5.2 and 3.6.3
 
-pre_Gamma_En2 = Stab & Cent # {g in O(L_K3) | g*I_En = I_En*g, g(h) = h}
+pre_Gamma_En2 = Stab_h & Cent_inv # {g in O(L_K3) | g*I_En = I_En*g, g(h) = h}
 
 p_ten_res = pre_Gamma_En2.coinvariant_sublattice_projection() # Restrict the domain of p_ten
 assert p_ten_res.domain() == pre_Gamma_En2 and p_ten_res.codomain() == T_en.O()

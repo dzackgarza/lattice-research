@@ -46,7 +46,7 @@ assert all(x in M.Hom(R) for x in M.dual().gens()) # Literal functionals
 assert e1d * e1 == e1d.evaluate(e1) # Multiplication := natural evaluation pairing
 assert e1d(e1) == e1d.evaluate(e1) # Functionals can be called to evaluate
 # Form 3x3 matrix of pairings e_i^*(e_j), assert == \delta_{ij}
-assert matrix(R, 3, lambda i,j: M.dual().gen(i) * M.gen(j))  == identity_matrix(R, 3)
+assert matrix(R, 3, lambda i,j: (e1d, e2d, e3d)[i] * M.gen(j)) == identity_matrix(R, 3)
 
 v = 2*e1 + 3*e2 + 5*e3
 assert e1d(v) == 2 # e_1^*(2e_1 + 3e_2 + 5e_3) = e_1^*(2e_1) = 2 e_1^*(e_1)
