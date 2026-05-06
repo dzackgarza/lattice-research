@@ -430,7 +430,7 @@ module surfaces. They are source-grounded in
 | `_change_print_mode(print_mode)` and print-option changes | private/interoperability | no public category owner | Display-mode change is Sage print interop, not ring mathematics. | Interop-only/private. Source: rings mapping signature decisions. |
 | `PowerSeriesRing(...)`, `MultivariatePowerSeriesRing(...)`, `LaurentSeriesRingFromPowerSeriesRing(...)`, `PuiseuxSeriesRingFromLaurentSeriesRing(...)` | constructor | `Rings().Constructors()` and series refinements | Series-ring construction split by univariate, multivariate, prefix-count, and underlying-series input routes. | Admitted with named routes. Source: rings mapping constructor namespace. |
 | `MatrixRing(base_ring=R, n=n, sparse=False, implementation=None)` | constructor | `Rings().Constructors()` | Constructs the ambient square matrix parent. The returned parent also refines into `Algebras(R)` and `Modules(R).Free().FiniteRank()`. | Admitted. Sources: rings mapping matrix split; modules mapping square matrix recovery. |
-| `matrix_from_matrix(matrix)`, `matrix_from_entries(entries)`, `matrix_from_rows(rows)`, `scalar_matrix(scalar)`, `diagonal_matrix(entries)`, `identity_matrix()`, `zero_matrix()` | parent / element constructor | square matrix parent under ring/algebra/module refinements | Element constructors for matrix parents; entries live in the base ring and ordered rows/entries are explicit finite data. | Admitted with named routes. Sources: rings mapping `MatrixSpace.matrix`; probe evidence from `rings/matrix_algebras.py`. |
+| `matrix_from_matrix(matrix)`, `matrix_from_entries(entries)`, `matrix_from_rows(rows)`, `scalar_matrix(scalar)`, `diagonal_matrix(entries)`, `identity_matrix()`, `zero_matrix()` | parent / element constructor | square matrix parent under ring/algebra/module refinements | Element constructors for matrix parents; entries live in the base ring and ordered rows/entries are explicit finite data. | Admitted with named routes. Sources: rings mapping `MatrixSpace.matrix`; probe evidence from `category_specs/rings/matrix_algebras.py`. |
 | `row_space()`, `column_space()`, `from_vector(vector, order=None, coerce=True)` | parent | matrix parent as `Modules(R).Free().FiniteRank()` | Derived row/column free modules and coordinate-vector-to-matrix conversion. | Admitted under module owner, not ring owner. Sources: modules inventory matrix-space row; modules mapping square matrix recovery. |
 | topological ring and field methods `is_open`, `is_closed`, `closure`, `interior`, `boundary`, `is_connected`, `is_compact` | inherited parent | `TopologicalSpaces()` through topological ring/field refinement | Topology-bearing rings inherit topological-space surfaces without duplicating method ownership in `rings`. | Admitted as inherited only. Source: rings mapping `Topological Rings`. |
 
@@ -543,7 +543,7 @@ torsion-form, and lattice surfaces. They are source-grounded in
 | `C.AutCategory().Of(A)` | category object / aut parent constructor | `C.AutCategory()` | Automorphism object `Aut_C(A)`, the invertible part of `End_C(A)`. | Admitted. Source: homsets mapping. |
 | `end_category()` | aut parent | `C.AutCategory().Of(A)` | Returns the underlying endomorphism object from which the automorphism object is cut out. | Admitted. Source: homsets mapping. |
 | `is_invertible()`, `is_isomorphism()`, `inverse()`, `order()` | aut element | `C.AutCategory().ElementMethods` | Invertibility/isomorphism predicates, inverse automorphism, and element order. Codomains are `bool`, automorphism, and order/integer data. | Admitted. Source: homsets mapping project extension surface. |
-| `AutCategory.from_end_category` | construction helper | generic aut construction in `homsets/autsets.py` | Builds the public aut object from an end object through a private condition-subset bridge. | Admitted as construction route; raw condition object stays private. Source: homsets mapping. |
+| `AutCategory.from_end_category` | construction helper | generic aut construction in `category_specs/homsets/autsets.py` | Builds the public aut object from an end object through a private condition-subset bridge. | Admitted as construction route; raw condition object stays private. Source: homsets mapping. |
 | `condition_set()` on aut objects | implementation detail | no public owner | Raw Sage `ConditionSet` bridge used to cut out invertible endomorphisms. | Rejected as public API. Source: homsets mapping. |
 | local duplicate `EndCategory()` / `AutCategory()` selectors on hom construction classes | category selector | inherited `Cat` universal selectors | Universal category selectors own end/aut navigation; local duplicates are not separate method surfaces. | Rejected as local owner. Source: homsets mapping selector ownership. |
 
@@ -624,7 +624,7 @@ torsion-form, and lattice surfaces. They are source-grounded in
 | `special_orthogonal_group()`, `stable_orthogonal_group()` | aut parent | `Lattices(R).AutCategory().ParentMethods` | Determinant-one and stable/orientation-positive subgroup selectors on the lattice aut object. | Admitted only on aut parent with determinant/orientation realization prerequisites. Source: lattices mapping compatibility paths. |
 | lattice-object `L.special_orthogonal_group()`, `L.stable_orthogonal_group()` | parent | no lattice-object owner | Former object calls route through `L.orthogonal_group().special_orthogonal_group()` and `L.orthogonal_group().stable_orthogonal_group()`. | Rejected as owner. Source: lattices mapping compatibility paths. |
 | `quadratic_form()` | parent | free symmetric formed-module presentation conversion | Converts a free symmetric bilinear presentation to a quadratic-form object/presentation. | Admitted as conversion, not a separate owner for the underlying object. Sources: lattices Sage inventory Tier 3 and Tier 4; lattices mapping. |
-| public Sage escape hatches such as `sage_lattice()`, `inner_product_matrix()` as lattice identity, ambient/inclusion/projection matrix state | implementation detail | no public lattice owner | Internal Sage/Julia objects and ambient-vector-space state are calculation engines or presentation data, not public semantics. | Rejected. Sources: lattice-redesign interface style guide and corrections spec. |
+| public Sage escape hatches such as `sage_lattice()`, `inner_product_matrix()` as lattice identity, ambient/inclusion/projection matrix state | implementation detail | no public lattice owner | Internal Sage/Julia objects and ambient-vector-space state are calculation engines or presentation data, not public semantics. | Rejected. Sources: `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` and `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`. |
 
 ## Poset Tensor And Geometry-Facing Method Rows
 
@@ -853,6 +853,11 @@ method and which mature external system should be audited or wired.
   `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`, and
   expanded the lattice style-guide reference to
   `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+- 2026-05-06: Second independent Gate 1 review found three remaining imprecise
+  references. Expanded `rings/matrix_algebras.py` to
+  `category_specs/rings/matrix_algebras.py`, `homsets/autsets.py` to
+  `category_specs/homsets/autsets.py`, and the lattice corrections source to
+  `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
 
 ## Review Log
 
@@ -873,3 +878,21 @@ Findings:
 - The `inner_product_matrix()` row cited "lattice interface style guide" without an
   exact path; the current source is
   `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+
+### Re-Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** None.
+**Gates failed:** Gate 1 Definition Grounding.
+**Outcome:** revision-required, reworked in the work log above, returned to
+`needs-review` for another independent pass.
+
+Findings:
+
+- The matrix-constructor row cited missing `rings/matrix_algebras.py`; the actual
+  path is `category_specs/rings/matrix_algebras.py`.
+- The aut construction row cited missing `homsets/autsets.py`; the actual path is
+  `category_specs/homsets/autsets.py`.
+- The lattice escape-hatch row cited "lattice-redesign interface style guide and
+  corrections spec" without exact paths; the current sources are
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` and
+  `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
