@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
   and graded base-category failures
-status: unstarted
+status: in-progress
 priority: high
 description: The deleted Modules triage recorded the post-wrapper-deletion smoke frontier
   and the surfaces still meant as mathematical categories rather than exact Sage implementation
@@ -63,3 +63,15 @@ wrappers.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 start-of-task smoke after fork-isolated smoke harness: `just
+  --justfile category_specs/justfile smoke-file modules/smoketest.sage` fails on
+  current module frontiers. The former migrated `_sympy_` headline is no longer
+  present in the filtered smoke output. Current repeated frontiers include
+  `modify_module_structure` on free/vector/ring-as-module constructors,
+  `alternating_algebra` on basis/subobject/quotient constructors, `annihilator` on
+  basisless finite-rank constructors and matrix-ring-as-module, `form` or invalid
+  form base-category routing on inner-product and quadratic constructors,
+  representation-module `KeyError`, integer-lattice and torsion-quadratic-module
+  compatibility `KeyError`, graded-module base-category mismatch against Sage
+  `Modules`, Ore characteristic-polynomial, ideal `_refine_category_`, and inherited
+  ring frontiers for polynomial/series-as-module constructors.
