@@ -114,3 +114,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   q-adic constructor docstring wraps. `uvx --from ruff ruff check --select E501
   category_specs/rings/__init__.py` and `python -m compileall
   category_specs/rings/__init__.py` now pass. Repo-wide E501 count is now 681.
+- 2026-05-06: Cleared the `category_specs/sets/__init__.py` slice with
+  `uvx --from ruff ruff format category_specs/sets/__init__.py` plus short manual
+  docstring/message wraps. `uvx --from ruff ruff check --select E501
+  category_specs/sets/__init__.py` and `python -m compileall
+  category_specs/sets/__init__.py` now pass. Repo-wide E501 count is now 616.
