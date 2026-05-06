@@ -152,8 +152,8 @@ execution tasks must resolve against source files.
 - `.agents/memories/theory/backends/indefinite-isometry.md`.
 - `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`.
 - `.agents/memories/theory/backends/index.md`.
-- `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
-  and `.agents/theory/spec-backups/lattices_written_spec_backup.py` for lattice-source mining
+- `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
+  and `src.bak/spec-backups/lattices_written_spec_backup.py` for lattice-source mining
   only, with the warning already recorded in tracker cards: these are source material,
   not current API authority.
 
@@ -208,8 +208,8 @@ Assigned task: `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES`.
 | `category_specs/forms/docs/MAPPING.md` | Formed module owners, bilinear/quadratic owners, form-preserving morphisms, isometries, divisibility as pairing-image submodule or ideal, and lattice boundary. |
 | `category_specs/lattices/docs/SAGE_INVENTORY.md` | Sage free quadratic modules, FGP modules, torsion quadratic modules, integral lattices, quadratic forms, and existing local lattice category surfaces. |
 | `category_specs/lattices/docs/MAPPING.md` | Lattice tier table, minimal method placement, construction-category vocabulary, Sage type to spec-category map, forms-vs-lattices boundary, discriminant group and compatibility paths. |
-| `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage` | Mineable late-stage lattice-method source material only; reconcile against current mapping and written spec before admitting rows. |
-| `.agents/theory/spec-backups/lattices_written_spec_backup.py` | Mineable written lattice-spec source material only; not current API authority and expected to change during lattice implementation. |
+| `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage` | Mineable late-stage lattice-method source material only; reconcile against current mapping and written spec before admitting rows. |
+| `src.bak/spec-backups/lattices_written_spec_backup.py` | Mineable written lattice-spec source material only; not current API authority and expected to change during lattice implementation. |
 
 ### Posets Tensors And Geometry-Facing Surfaces
 
@@ -527,7 +527,7 @@ torsion-form, and lattice surfaces. They are source-grounded in
 `category_specs/lattices/docs/SAGE_INVENTORY.md`,
 `category_specs/lattices/docs/MAPPING.md`,
 `category_specs/modules/docs/MAPPING.md`, and
-`theory/foundations/bilinear-forms-duals-morphisms.md`.
+`.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
 
 ### Generic Hom End And Aut Categories
 
@@ -586,7 +586,7 @@ torsion-form, and lattice surfaces. They are source-grounded in
 | Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
 | --- | --- | --- | --- | --- |
 | `gram_matrix()` | parent | `forms.subcategories.free_bilinear.FreeBilinearModulesCategory` | Gram matrix of the bilinear form in the chosen free basis. Codomain is a matrix over the form/base ring. | Admitted. Sources: forms mapping; lattices Sage inventory Tier 0; lattices mapping note (1). |
-| `inner_product_matrix()` | parent / Sage compatibility | free bilinear presentation surface, with `gram_matrix()` canonical | Sage source name for the stored form matrix. In public lattice semantics, avoid treating this as an inner product on indefinite forms. | Interop/admitted only as presentation alias if required. Sources: lattices Sage inventory Tier 0; lattice interface style guide. |
+| `inner_product_matrix()` | parent / Sage compatibility | free bilinear presentation surface, with `gram_matrix()` canonical | Sage source name for the stored form matrix. In public lattice semantics, avoid treating this as an inner product on indefinite forms. | Interop/admitted only as presentation alias if required. Sources: lattices Sage inventory Tier 0; `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`. |
 | `determinant()`, `discriminant()` | parent | `FreeBilinearModulesCategory` | Determinant of the Gram matrix and signed discriminant `(-1)^r det`. Codomain is a scalar. | Admitted. Sources: lattices Sage inventory Tier 0; lattices mapping method placement table. |
 | `rank()` | parent | `Modules(R).Free()` | Rank of the underlying free module, inherited by free bilinear modules. | Admitted via module owner. Source: lattices mapping method placement table. |
 | `signature_pair()`, `signature()` | parent | finite free symmetric formed modules with selected ordered real realization; concrete `ZZ` algorithm at lattice refinement | Positive/negative inertia and their difference after extension to the selected ordered real target. Codomains are `(Integer, Integer)` and `Integer`. Bare integral-domain/fraction-field ownership is rejected without a chosen ordering or real embedding. | Admitted with algorithm caveat. Source: `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`; lattices mapping note (2); lattices Sage inventory Tier 3. |
@@ -847,3 +847,29 @@ method and which mature external system should be audited or wired.
   admission, and the gap-audit leaf.
 - 2026-05-06: Audited remaining decision/source/backend gaps, added the Picard
   group/lattice owner decision, and marked the spec needs-review.
+- 2026-05-06: Independent Gate 1 review found three stale or imprecise source
+  references. Replaced the old `.agents/theory/spec-backups/` paths with the current
+  `src.bak/spec-backups/` paths, replaced the missing bilinear-foundations path with
+  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`, and
+  expanded the lattice style-guide reference to
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** None.
+**Gates failed:** Gate 1 Definition Grounding.
+**Outcome:** revision-required, reworked in the work log above, returned to
+`needs-review` for another independent pass.
+
+Findings:
+
+- Stale lattice spec-backup paths pointed at `.agents/theory/spec-backups/`; the
+  actual mineable source files are under `src.bak/spec-backups/`.
+- The bilinear-forms foundation path pointed at missing
+  `theory/foundations/bilinear-forms-duals-morphisms.md`; the actual source is
+  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+- The `inner_product_matrix()` row cited "lattice interface style guide" without an
+  exact path; the current source is
+  `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`.
