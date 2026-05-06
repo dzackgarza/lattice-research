@@ -45,8 +45,47 @@ Source inventory: `category_specs/homsets/docs/SAGE_INVENTORY.md`.
 - Local inventory checked: `category_specs/homsets/docs/SAGE_INVENTORY.md`.
 - Installed Sage source files checked or named by the local inventory:
   - `sage/categories/homsets.py`
+  - `sage/categories/homset.py`
+  - `sage/categories/objects.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+## Completeness Reconciliation: Generic Homset Surface
+
+This pass checked the Sage generic homset construction and parent-method surface:
+
+- `sage.categories.objects.Objects.SubcategoryMethods.Homsets()` calls
+  `HomsetsCategory.category_of(self)`, and `Endsets()` is implemented as the
+  `Endset` axiom on that homset category;
+- `sage.categories.homsets.HomsetsCategory`, `HomsetsOf`, `Homsets`, and
+  `Homsets.Endset` are represented by `C.HomCategory()`, `C.EndCategory()`, and the
+  project extension of `C.AutCategory()` as the invertible part of `End_C(A)`;
+- `sage.categories.homset.Homset` supplies parent-level `domain()`, `codomain()`,
+  `identity()`, call/coercion behavior, reverse homsets, and
+  `is_endomorphism_set()`;
+- `identity()` is mathematically an endomorphism identity and is admitted on generic
+  hom objects only under the endomorphism hypothesis; non-end homsets keep the Sage
+  error behavior as interop evidence, not as a separate project method;
+- the deprecated Sage helper `is_Endset(x)` remains compatibility evidence only; the
+  project surface is categorical containment in the end-category owner.
+
+Negative missing-surface finding for the generic homset pass:
+
+- Searched: `category_specs/homsets/docs/SAGE_INVENTORY.md`, installed Sage
+  `sage/categories/homsets.py`, `sage/categories/homset.py`,
+  `sage/categories/objects.py`, and the converted generic homset mapping rows above.
+- Found: the checked Sage generic surface consists of Homsets category construction,
+  the Endset axiom, concrete Homset parent accessors and identity/coercion behavior,
+  and a deprecated `is_Endset` compatibility helper. The converted spec represents
+  these as generic Hom/End/Aut category surfaces, Hom-object methods, end-category
+  identity behavior, or interop-only evidence.
+- Conclusion: inference -- this pass found no additional generic Sage homset surface
+  requiring a new public project owner outside the existing generic Hom/End/Aut
+  mapping.
+- Confidence: Medium.
+- Gaps: subtree-specific homsets for sets, rings, modules, algebras, posets, and
+  topological spaces remain owned by their corresponding mapping specs and are not
+  closed by this generic homsets reconciliation.
 
 ## Converted Mapping Content
 
