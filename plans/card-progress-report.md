@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 20:05 UTC_
+_Generated: 2026-05-06 20:12 UTC_
 
 ## Overall
 
-- Total cards: **218**
+- Total cards: **219**
 - Completed cards: **13**
-- Overall progress: `[#-----------------------]   6.0%`
+- Overall progress: `[#-----------------------]   5.9%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -16,10 +16,10 @@ _Generated: 2026-05-06 20:05 UTC_
 | --- | ---: | ---: | ---: | ---: | ---: |
 | decision | 13 | 13 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 |
-| phase | 18 | 0 | 10 | 2 | 0 |
-| plan | 8 | 0 | 6 | 0 | 0 |
-| spec | 54 | 0 | 0 | 51 | 0 |
-| task | 110 | 0 | 0 | 67 | 0 |
+| phase | 18 | 0 | 11 | 2 | 0 |
+| plan | 8 | 0 | 7 | 0 | 0 |
+| spec | 55 | 0 | 0 | 52 | 0 |
+| task | 110 | 0 | 0 | 68 | 0 |
 
 ## Feature Rollup
 
@@ -33,7 +33,7 @@ _Generated: 2026-05-06 20:05 UTC_
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 11 | 0 |
+| Geometry category interfaces | `[----------------]   0.0%` | 0/21 | 5 | 13 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 |
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |

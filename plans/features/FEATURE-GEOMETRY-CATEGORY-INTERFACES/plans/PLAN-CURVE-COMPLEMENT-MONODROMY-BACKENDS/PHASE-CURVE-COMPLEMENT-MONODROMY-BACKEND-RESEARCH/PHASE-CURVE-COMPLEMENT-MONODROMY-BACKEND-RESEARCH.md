@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS]]'
 dependsOn: []
 title: Curve complement and monodromy backend research
-status: unstarted
+status: in-progress
 description: 'This phase groups current cards that were previously attached directly
   to `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` or to the corresponding legacy `.agents`
   work queue. It is a routing phase: executable work remains in child task cards,
@@ -35,3 +35,8 @@ This phase groups current cards that were previously attached directly to `PLAN-
       child cards do not satisfy phase acceptance.
 - [ ] Any mathematical spec changes cite their source grounding before implementation proceeds.
 - [ ] Follow-up work is filed as tracked cards under root `plans/features/`.
+
+## Work Log
+
+- 2026-05-06: Started phase execution with
+  `[[TASK-RESEARCH-SAGE-RIEMANN-SURFACE-INTERFACE]]`.

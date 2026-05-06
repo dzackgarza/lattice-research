@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 dependsOn: []
 title: Curve complement and monodromy backend research
-status: approved-and-unstarted
+status: in-progress
 priority: high
 owner: Zack
 description: Group the curve-complement, Riemann-surface, Sirocco, ore_algebra, Picard-Fuchs,
@@ -74,3 +74,6 @@ experimentation.
 ## Work Log
 
 - 2026-05-03: Created as a leaf plan during tracker poset reorganization.
+- 2026-05-06: Started the approved backend-research plan with
+  `[[TASK-RESEARCH-SAGE-RIEMANN-SURFACE-INTERFACE]]` as the first ready
+  source-admission leaf.
