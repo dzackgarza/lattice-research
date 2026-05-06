@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 14:14 UTC_
+_Generated: 2026-05-06 14:17 UTC_
 
 ## Overall
 
@@ -18,7 +18,7 @@ _Generated: 2026-05-06 14:14 UTC_
 | feature | 15 | 0 | 6 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
-| spec | 50 | 0 | 0 | 40 | 2 |
+| spec | 50 | 0 | 0 | 41 | 2 |
 | task | 110 | 0 | 0 | 51 | 43 |
 
 ## Feature Rollup
@@ -35,7 +35,7 @@ _Generated: 2026-05-06 14:14 UTC_
 | Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 7 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 0 | 0 | 0 |
-| Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 1 | 0 |
+| Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/3 | 0 | 0 | 0 |
