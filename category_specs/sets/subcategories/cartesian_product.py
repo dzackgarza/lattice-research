@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
+from sage.sets.cartesian_product import CartesianProduct as SageCartesianProduct
 
 if TYPE_CHECKING:
     from ...types import CartesianProductFunctor, Integer, Set, SetElement, SetMorphism, SympySet
@@ -20,9 +21,12 @@ class _CartesianProductSets(Category_singleton):
     r"""Cartesian products of sets and their tuple-like elements.
 
     Constructor target:
-    ``Sets().Constructors().CartesianProduct(factors)`` and
-    ``Sets().Constructors().cartesian_product(factors)`` refine here after
-    Sage constructs the product parent.
+    ``Sets().Constructors().CartesianProduct(left, right)`` refines the binary
+    product primitive here after Sage constructs the product parent. The explicit
+    finite-factor compatibility surfaces
+    ``Sets().Constructors().CartesianProductFromFactors(factors)`` and
+    ``Sets().Constructors().cartesian_product(factors)`` refine into the same
+    one-object category.
     """
 
     @override
@@ -31,6 +35,18 @@ class _CartesianProductSets(Category_singleton):
         return [Sets().CartesianProducts()]
 
     class ParentMethods:
+        @override
+        @final
+        def cardinality(self):
+            r"""Return the product cardinality of the factor sets."""
+            return SageSets.CartesianProducts.ParentMethods.cardinality(self)
+
+        @override
+        @final
+        def is_finite(self) -> bool:
+            r"""Return whether this product set is finite."""
+            return SageSets.CartesianProducts.ParentMethods.is_finite(self)
+
         @override
         @abstract_method
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
@@ -59,8 +75,18 @@ class _CartesianProductSets(Category_singleton):
         @abstract_method
         def construction(self) -> tuple[CartesianProductFunctor, Sequence[Set]]: ...
 
-        @abstract_method
-        def _coerce_map_from_(self, S: Set) -> bool | SetMorphism | None: ...
+        @override
+        @final
+        def _coerce_map_from_(self, S: Set) -> bool | SetMorphism | None:
+            r"""Return whether ``S`` coerces into this Cartesian product."""
+            if isinstance(S, SageCartesianProduct):
+                source_factors = S.cartesian_factors()
+                target_factors = self.cartesian_factors()
+                if len(source_factors) == len(target_factors) and all(
+                    target.has_coerce_map_from(source) for target, source in zip(target_factors, source_factors)
+                ):
+                    return True
+            return None
 
         @override
         @final

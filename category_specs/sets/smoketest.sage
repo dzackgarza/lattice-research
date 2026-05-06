@@ -175,12 +175,16 @@ SMOKE_STATEMENTS = (
         == 4,
     ),
     (
-        "CartesianProduct([IntegerRange(2), IntegerRange(3)]) is finite countable",
-        lambda _: C.CartesianProduct([C.IntegerRange(2), C.IntegerRange(3)]) in Sets().Countable().Finite(),
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) is finite countable",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)) in Sets().Countable().Finite(),
     ),
     (
-        "CartesianProduct([IntegerRange(2), IntegerRange(3)]) has product cardinality",
-        lambda _: C.CartesianProduct([C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) has product cardinality",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)).cardinality() == 6,
+    ),
+    (
+        "IntegerRange(2).cartesian_product(IntegerRange(3)) has product cardinality",
+        lambda _: C.IntegerRange(2).cartesian_product(C.IntegerRange(3)).cardinality() == 6,
     ),
     ("even subobject of ZZ is a subobject", lambda _: Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,)) in Sets().Subobjects()),
     ("2 lies in the even subobject of ZZ", lambda _: 2 in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
@@ -323,6 +327,10 @@ SMOKE_STATEMENTS = (
     (
         "cartesian_product([IntegerRange(2), IntegerRange(3)]) has product cardinality",
         lambda _: C.cartesian_product([C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
+    ),
+    (
+        "CartesianProductFromFactors([IntegerRange(2), IntegerRange(3)]) has product cardinality",
+        lambda _: C.CartesianProductFromFactors([C.IntegerRange(2), C.IntegerRange(3)]).cardinality() == 6,
     ),
 )
 

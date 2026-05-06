@@ -59,7 +59,7 @@ canonical constructors before refining the result into this hierarchy.
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.sets_cat import Sets as SageSets
 from sage.misc.abstract_method import abstract_method
@@ -158,7 +158,17 @@ class _SetObjectMethods:
         r"""Return Sage construction data for this set, when it has one."""
         return None
 
-    @final
+    @overload
+    def cartesian_product(
+        self,
+        other: Set,
+        *,
+        category: Category | None = None,
+        extra_category: Category | None = None,
+        flatten: bool = False,
+    ) -> Set: ...
+
+    @overload
     def cartesian_product(
         self,
         factors: Sequence[Set],
@@ -166,18 +176,32 @@ class _SetObjectMethods:
         category: Category | None = None,
         extra_category: Category | None = None,
         flatten: bool = False,
-    ) -> Set:
-        r"""Return the Cartesian product of ``self`` with the parent sets in ``factors``."""
-        from sage.categories.cartesian_product import cartesian_product
+    ) -> Set: ...
 
-        parents = (self, *tuple(factors))
-        product_category = category or cartesian_product.category_from_parents(parents)
-        if extra_category is not None:
-            if isinstance(product_category, (list, tuple)):
-                product_category = tuple(product_category) + (extra_category,)
-            else:
-                product_category = product_category & extra_category
-        return parents[0].CartesianProduct(parents, category=product_category, flatten=flatten)
+    @final
+    def cartesian_product(
+        self,
+        other: Set | Sequence[Set],
+        *,
+        category: Category | None = None,
+        extra_category: Category | None = None,
+        flatten: bool = False,
+    ) -> Set:
+        r"""Return the binary Cartesian product, or finite-factor compatibility product."""
+        if isinstance(other, Sequence):
+            parents = (self, *tuple(other))
+            return Sets().Constructors().CartesianProductFromFactors(
+                parents,
+                category=category,
+                extra_category=extra_category,
+                flatten=flatten,
+            )
+        return Sets().Constructors().CartesianProductFromFactors(
+            (self, other),
+            category=category,
+            extra_category=extra_category,
+            flatten=flatten,
+        )
 
     @final
     def union(self, other: Set) -> Set:
@@ -768,15 +792,53 @@ class Sets(Category_singleton):
             S = SageDUES(family, facade=facade, keepkey=keepkey, category=category)
             return refine_category(S, [Sets(), _DisjointUnionEnumeratedSets()])
 
-        @final
+        @overload
+        def CartesianProduct(
+            self,
+            left: Set,
+            right: Set,
+            *,
+            category: Category | None = None,
+            flatten: bool = False,
+        ) -> Set: ...
+
+        @overload
         def CartesianProduct(
             self,
             factors: Sequence[Set],
             *,
             category: Category | None = None,
             flatten: bool = False,
+        ) -> Set: ...
+
+        @final
+        def CartesianProduct(
+            self,
+            left: Set | Sequence[Set],
+            right: Set | None = None,
+            *,
+            category: Category | None = None,
+            flatten: bool = False,
         ) -> Set:
-            r"""Return the Cartesian product of a sequence of set parents."""
+            r"""Return a binary Cartesian product, with a deprecated sequence form."""
+            if right is None:
+                if isinstance(left, Sequence):
+                    return self.CartesianProductFromFactors(left, category=category, flatten=flatten)
+                raise TypeError("CartesianProduct requires two set factors or a finite sequence of factors")
+            if isinstance(left, Sequence):
+                raise TypeError("binary CartesianProduct expects left and right set factors")
+            return self.CartesianProductFromFactors((left, right), category=category, flatten=flatten)
+
+        @final
+        def CartesianProductFromFactors(
+            self,
+            factors: Sequence[Set],
+            *,
+            category: Category | None = None,
+            extra_category: Category | None = None,
+            flatten: bool = False,
+        ) -> Set:
+            r"""Return the Cartesian product of a finite ordered sequence of set parents."""
             from sage.categories.cartesian_product import cartesian_product
             from sage.sets.cartesian_product import CartesianProduct as SageCP
 
@@ -784,6 +846,11 @@ class Sets(Category_singleton):
 
             parents = tuple(factors)
             product_category = category or cartesian_product.category_from_parents(parents)
+            if extra_category is not None:
+                if isinstance(product_category, (list, tuple)):
+                    product_category = tuple(product_category) + (extra_category,)
+                else:
+                    product_category = product_category & extra_category
             S = SageCP(parents, category=product_category, flatten=flatten)
             return refine_category(S, [Sets(), _CartesianProductSets()])
 
@@ -1001,8 +1068,8 @@ class Sets(Category_singleton):
 
         @final
         def cartesian_product(self, factors: Sequence[Set]) -> Set:
-            r"""Return Sage's categorical Cartesian product of ``factors``."""
-            return self.CartesianProduct(factors)
+            r"""Return Sage's sequence-style categorical Cartesian product of ``factors``."""
+            return self.CartesianProductFromFactors(factors)
 
     _Constructors = Constructors
 
