@@ -252,6 +252,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   fails on the existing module implementation-gap frontier, but the new with-basis
   assertions are not among the reported failures. The vulture-only diagnostic no longer
   reports `category_specs/modules/subcategories/with_basis.py` findings.
+- 2026-05-06 twelfth bounded slice: topological-space smoke coverage was added for
+  root topological axiom ownership, topological/metric/connected/compact/complete
+  predicate surfaces, topological and metric Hom/Aut element predicates, direct
+  Sage-supercategory splice policy, and objects-over/objects-under structure-space
+  surfaces.
+- Validation for the twelfth slice:
+  `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage`
+  passed, and the vulture-only diagnostic no longer reports
+  `category_specs/topological_spaces/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -287,3 +296,5 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the tenth bounded cleanup slice for forms-chain smoke coverage.
 - 2026-05-06: Completed the eleventh bounded cleanup slice for modules-with-basis
   smoke coverage.
+- 2026-05-06: Completed the twelfth bounded cleanup slice for topological-space smoke
+  coverage.
