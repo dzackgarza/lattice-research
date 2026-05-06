@@ -5,6 +5,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.rings import Rings
+from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
 
 
@@ -30,6 +31,8 @@ SMOKE_STATEMENTS = (
     ("Constructors().AA() is a field", lambda _: NR.AA() in Rings().Commutative().Field()),
     ("Constructors().AA() has characteristic 0", lambda _: NR.AA().characteristic() == 0),
     ("Constructors().RR() is a field", lambda _: NR.RR() in Rings().Commutative().Field()),
+    ("Constructors().RR() is a topological ring", lambda _: NR.RR() in Rings().Topological()),
+    ("Constructors().RR() is a topological space", lambda _: NR.RR() in TopologicalSpaces()),
     ("Constructors().RR() has characteristic 0", lambda _: NR.RR().characteristic() == 0),
     ("Constructors().RR() has precision 53", lambda _: NR.RR().precision() == 53),
     ("Constructors().CC() is a field", lambda _: NR.CC() in Rings().Commutative().Field()),

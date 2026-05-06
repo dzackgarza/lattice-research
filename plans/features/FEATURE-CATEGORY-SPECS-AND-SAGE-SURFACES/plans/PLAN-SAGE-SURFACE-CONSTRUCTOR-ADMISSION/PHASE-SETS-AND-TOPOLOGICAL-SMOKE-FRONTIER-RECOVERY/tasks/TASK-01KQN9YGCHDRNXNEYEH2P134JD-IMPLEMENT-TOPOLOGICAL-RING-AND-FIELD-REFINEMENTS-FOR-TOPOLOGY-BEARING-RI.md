@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement topological ring and field refinements for topology-bearing ring
   objects without duplicating topological-space methods
-status: revision-required
+status: needs-review
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and
   q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
@@ -52,7 +52,9 @@ lattice-precision gaps.
 - [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [x] The retained precision-field change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [x] No q-adic precision evidence was changed; existing q-adic five-field findings remain in the mapping/frontier cards.
-- [ ] Topological ring membership remains blocked on a design-preserving implementation path for inherited topological-space methods.
+- [x] Topological ring membership uses a design-preserving implementation path for
+      inherited topological-space methods, with unresolved concrete topology adapters
+      reported as runtime gaps owned by `TopologicalSpaces()`.
 
 ## Dependencies And Boundaries
 
@@ -90,14 +92,27 @@ lattice-precision gaps.
   This leaf needs design-preserving rework for how concrete topological-space behavior
   is supplied to topology-bearing ring objects while preserving the root owner
   obligations. This is rework for this task, not a `blocked` status.
+- 2026-05-06: Added a `TopologicalSpaces()`-owned runtime-gap provider for topology
+  carriers whose Sage-backed parents do not yet expose subset-topology adapters, and
+  wired `Rings().Topological()` to reuse those method bodies without subclassing its
+  Sage `ParentMethods` provider. The root `TopologicalSpaces().ParentMethods`
+  obligations remain abstract; the ring subtree now records the topological-space
+  supercategory edge and does not define independent ring-local topological methods.
+- 2026-05-06: Added ring smoke assertions that `Rings().Constructors().RR()` is both
+  a topological ring and a topological space. The prior `boundary` abstract-method
+  failure is no longer the first frontier for topology-bearing precision fields; the
+  smoke now reaches unrelated general ring frontiers such as `hilbert_polynomial`,
+  plus already-recorded `ideal_monoid`, q-adic extension, p-adic print-mode,
+  interval/ball algebraic-closure, series, and matrix-MRO frontiers. Those remaining
+  failures are not topological method-ownership blockers for this leaf.
 - Verification:
   - `python -m py_compile category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
+  - `python -m py_compile category_specs/topological_spaces/__init__.py category_specs/rings/subcategories/topological.py category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py category_specs/rings/subcategories/p_adic_ring.py` passed.
   - `git diff --check -- category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
   - `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage` passed.
   - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` remains
-    blocked by the topological-space `boundary` obligation for topology-bearing ring
-    constructors after preserving the abstract topological owner. Other ring-frontier
-    failures observed in the same smoke include `hilbert_polynomial`,
+    failing after the topological-space `boundary` frontier was cleared. Remaining
+    ring-frontier failures observed in the same smoke include `hilbert_polynomial`,
     `algebraic_closure` for complex interval/ball fields, `ideal_monoid`, q-adic
     deferred extension constructors, p-adic `_change_print_mode`, power-series
     `cardinality`, Laurent/Puiseux `completion`, matrix-ring module MRO, and

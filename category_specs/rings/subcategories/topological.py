@@ -10,6 +10,8 @@ from sage.misc.cachefunc import cached_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...topological_spaces import TopologicalSpaceRuntimeGapObjectMethods
+from ...topological_spaces import TopologicalSpaces
 from .. import Rings
 
 from ._lazy_subcategories import _CompleteRings
@@ -31,7 +33,7 @@ class _TopologicalRings(CategoryWithAxiom):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [SageRings().Topological(), Rings()]
+        return [SageRings().Topological(), TopologicalSpaces(), Rings()]
 
     @override
     @final
@@ -47,6 +49,15 @@ class _TopologicalRings(CategoryWithAxiom):
             return self._with_axiom("Complete")
 
     class ParentMethods:
+        _missing_topology_adapter = TopologicalSpaceRuntimeGapObjectMethods._missing_topology_adapter
+        is_connected = TopologicalSpaceRuntimeGapObjectMethods.is_connected
+        closure = TopologicalSpaceRuntimeGapObjectMethods.closure
+        interior = TopologicalSpaceRuntimeGapObjectMethods.interior
+        boundary = TopologicalSpaceRuntimeGapObjectMethods.boundary
+        is_open = TopologicalSpaceRuntimeGapObjectMethods.is_open
+        is_closed = TopologicalSpaceRuntimeGapObjectMethods.is_closed
+        is_compact = TopologicalSpaceRuntimeGapObjectMethods.is_compact
+
         @override
         @final
         def is_topological_ring(self) -> bool:
