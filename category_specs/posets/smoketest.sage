@@ -33,6 +33,7 @@ def raw_diamond_poset():
 
 
 diamond_poset = raw_diamond_poset()
+diamond_lattice = PC.lattice_from_upper_covers(diamond_cover_list)
 
 
 SMOKE_STATEMENTS = (
@@ -195,6 +196,32 @@ SMOKE_STATEMENTS = (
         lambda _: [0, 1, 3] in list(diamond_poset.chains())
         and [1, 2] in list(diamond_poset.antichains())
         and [list(extension) for extension in diamond_poset.linear_extensions()] == [[0, 1, 2, 3], [0, 2, 1, 3]],
+    ),
+    (
+        "finite diamond lattice complements pair opposite atoms",
+        lambda _: diamond_lattice.complements() == {0: [3], 1: [2], 2: [1], 3: [0]}
+        and diamond_lattice.complements(1) == [2],
+    ),
+    (
+        "finite diamond lattice atomic coatomic complemented and distributive certificates are positive",
+        lambda _: diamond_lattice.atomic_certificate() == (True, None)
+        and diamond_lattice.coatomic_certificate() == (True, None)
+        and diamond_lattice.complemented_certificate() == (True, None)
+        and diamond_lattice.distributive_certificate() == (True, None),
+    ),
+    (
+        "finite diamond lattice modular and semidistributive surfaces are positive",
+        lambda _: diamond_lattice.are_modular_elements([1, 2])
+        and diamond_lattice.modular_certificate() == (True, None)
+        and diamond_lattice.modular_elements_certificate([1, 2]) == (True, None)
+        and diamond_lattice.is_semidistributive(),
+    ),
+    (
+        "finite diamond lattice sublattice and congruence constructions have expected sizes",
+        lambda _: diamond_lattice.sublattice([0, 1, 3]).cardinality() == 3
+        and diamond_lattice.sublattices_lattice().cardinality() == 13
+        and diamond_lattice.congruence_generated_by([[0, 1]]) == SetPartition([[0, 1], [2, 3]])
+        and diamond_lattice.congruence_lattice().cardinality() == 4,
     ),
 )
 

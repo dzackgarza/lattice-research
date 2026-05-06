@@ -227,6 +227,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed,
   and the vulture-only diagnostic no longer reports
   `category_specs/posets/subcategories/finite.py` findings.
+- 2026-05-06 ninth bounded slice: finite-lattice smoke coverage was added for the
+  project-refined diamond lattice's complements, atomic/coatomic/complemented/
+  distributive certificates, modular and semidistributive surfaces, sublattice
+  construction, congruence generation, and congruence lattice construction.
+- Validation for the ninth slice:
+  `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed,
+  and the vulture-only diagnostic no longer reports
+  `category_specs/posets/subcategories/finite_lattice.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -256,4 +264,6 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the seventh bounded cleanup slice for centralized type alias
   smoke coverage.
 - 2026-05-06: Completed the eighth bounded cleanup slice for finite-poset smoke
+  coverage.
+- 2026-05-06: Completed the ninth bounded cleanup slice for finite-lattice smoke
   coverage.
