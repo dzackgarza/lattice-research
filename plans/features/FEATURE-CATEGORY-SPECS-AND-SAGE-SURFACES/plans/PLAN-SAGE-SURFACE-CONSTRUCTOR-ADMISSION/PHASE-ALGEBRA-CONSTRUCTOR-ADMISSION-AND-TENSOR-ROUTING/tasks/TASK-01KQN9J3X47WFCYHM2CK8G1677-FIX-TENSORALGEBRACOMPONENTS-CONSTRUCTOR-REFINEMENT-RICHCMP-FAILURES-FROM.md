@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
   tensor component smoketest frontier
-status: unstarted
+status: needs-review
 priority: high
 description: This item was migrated from the one-line tracker pass and needs its source
   context preserved in the full task body.
@@ -56,3 +56,11 @@ preserved in the full task body.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 review-ready validation: the tensor component constructor frontier was
+  discharged by
+  `[[TASK-01KQN9YGCN4F4M2DH9GP2A00XZ-IMPLEMENT-TENSORALGEBRACOMPONENTS-CONSTRUCTORS-FOR-MODULE-ELEMENT-MATRIC]]`,
+  which scoped tensor component refinement and normalized multiplication-tensor
+  structure constants to Sage matrices. Re-running `just --justfile
+  category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
+  passes. Status moved to `needs-review`; this does not mark the card accepted or
+  complete.
