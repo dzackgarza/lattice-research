@@ -409,6 +409,13 @@ violations to silence QC rather than addressing the issues they unearthed.
 - Validation for the thirtieth slice:
   `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/cat/**` findings.
+- 2026-05-06 thirty-first bounded slice: forms smoke coverage was added for
+  alternating isotropy, bilinear element inner product, free-bilinear tensor product
+  and self product, rational integral rescaling, and symmetric element divisibility
+  ownership.
+- Validation for the thirty-first slice:
+  `just --justfile category_specs/justfile smoke-file forms/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `category_specs/forms/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -485,3 +492,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   `category_specs/modules/**` vulture findings.
 - 2026-05-06: Completed the thirtieth bounded cleanup slice for Cat slice/coslice
   smoke coverage, clearing `category_specs/cat/**` vulture findings.
+- 2026-05-06: Completed the thirty-first bounded cleanup slice for forms method smoke
+  coverage, clearing `category_specs/forms/**` vulture findings.

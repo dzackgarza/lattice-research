@@ -13,8 +13,11 @@ from category_specs.forms.chain import (
     NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
     SymmetricFiniteRankFreeBilinearModulesCategory,
 )
+from category_specs.forms.subcategories.alternating import AlternatingBilinearModulesCategory
 from category_specs.forms.subcategories.bilinear import BilinearModulesCategory as FormsBilinearModulesCategory
+from category_specs.forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 from category_specs.forms.subcategories.quadratic import QuadraticModulesCategory as FormsQuadraticModulesCategory
+from category_specs.forms.subcategories.rational import RationalBilinearModulesCategory
 from category_specs.forms.subcategories.symmetric import (
     SymmetricBilinearModulesCategory as FormsSymmetricBilinearModulesCategory,
 )
@@ -144,6 +147,15 @@ SMOKE_STATEMENTS = (
         "nondegenerate and integral chain owns anisotropy and dual-lattice surfaces",
         lambda _: abstract_method_has_name(NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods.is_anisotropic, "is_anisotropic")
         and abstract_method_has_name(IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.dual_lattice, "dual_lattice"),
+    ),
+    (
+        "forms subcategory surfaces own isotropy, product, rescaling, and divisibility methods",
+        lambda _: abstract_method_has_name(AlternatingBilinearModulesCategory.ParentMethods.is_isotropic, "is_isotropic")
+        and abstract_method_has_name(FormsBilinearModulesCategory.ElementMethods.inner_product, "inner_product")
+        and abstract_method_has_name(FreeBilinearModulesCategory.ParentMethods.tensor_product, "tensor_product")
+        and abstract_method_has_name(FreeBilinearModulesCategory.ElementMethods.self_product, "self_product")
+        and abstract_method_has_name(RationalBilinearModulesCategory.ParentMethods.integral_rescaling, "integral_rescaling")
+        and abstract_method_has_name(FormsSymmetricBilinearModulesCategory.ElementMethods.divisibility, "divisibility"),
     ),
 )
 
