@@ -6,6 +6,7 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.modules import Modules
 from category_specs.modules.subcategories.constructions.quotients import _Quotients as ModuleQuotients
+from category_specs.modules.subcategories.with_basis import _WithBasis, _WithOrderedBasis
 from category_specs.sets import Sets
 from category_specs.utils import assert_smoke_statements, refine_category
 from sage.modules.fp_graded.free_module import FreeGradedModule
@@ -80,6 +81,20 @@ def rational_quotient_split_methods_have_one_dimensional_outputs():
     assert quotient_by_relation_matrix.dimension() == 1
     assert quotient_by_relation_rows.dimension() == 1
     return True
+
+
+class _BasisWitness(_WithBasis.ParentMethods):
+    def basis(self):
+        return {"a": a, "b": b}
+
+
+class _OrderedBasisWitness(_WithOrderedBasis.ParentMethods):
+    def basis(self):
+        return {"a": a, "b": b}
+
+
+def abstract_method_has_name(method, name):
+    return method.__name__ == name
 
 
 SMOKE_STATEMENTS = (
@@ -246,6 +261,32 @@ SMOKE_STATEMENTS = (
     (
         "refine_category(C.submodule([a + b]), Subobjects()+WithBasis()) has a basis",
         lambda _: refine_category(CS, MQQCat.WithBasis().Subobjects()) in MQQCat.WithBasis().Subobjects(),
+    ),
+    (
+        "Modules(QQ).WithBasis() records the with-basis axiom owner",
+        lambda _: _WithBasis._base_category_class_and_axiom == (Modules, "WithBasis"),
+    ),
+    (
+        "CombinatorialFreeModule basis element surfaces expose terms and coefficients",
+        lambda _: C.term("a", QQ(3)) == 3 * a
+        and (2 * a + 5 * b).coefficient("a") == 2
+        and (2 * a + 5 * b).monomials() == [a, b],
+    ),
+    (
+        "with-basis forwarding helpers expose basis index and ordered basis order",
+        lambda _: list(_BasisWitness().basis_index_set()) == ["a", "b"]
+        and _OrderedBasisWitness().basis_order() == ("a", "b"),
+    ),
+    (
+        "with-basis category owns abstract reduction and morphism construction surfaces",
+        lambda _: abstract_method_has_name(_WithBasis.ParentMethods.reduce, "reduce")
+        and abstract_method_has_name(_WithBasis.HomCategory.ParentMethods.from_basis_map, "from_basis_map"),
+    ),
+    (
+        "with-ordered-basis category owns coordinate and echelonized matrix surfaces",
+        lambda _: abstract_method_has_name(_WithOrderedBasis.ParentMethods.echelonized_basis_matrix, "echelonized_basis_matrix")
+        and abstract_method_has_name(_WithOrderedBasis.ParentMethods.coordinate_vector, "coordinate_vector")
+        and abstract_method_has_name(_WithOrderedBasis.ParentMethods.coordinate_module, "coordinate_module"),
     ),
     (
         "refine_category(C.quotient_module(CS), Quotients()+WithBasis()) has a basis",

@@ -242,6 +242,16 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file forms/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/forms/chain.py`
   findings.
+- 2026-05-06 eleventh bounded slice: modules-with-basis smoke coverage was added for
+  with-basis and with-ordered-basis category ownership, combinatorial-free-module
+  term/coefficient/monomial surfaces, basis-index and basis-order forwarding helpers,
+  and explicit abstract ownership of reduction, basis-map morphism construction,
+  echelonized-basis-matrix, coordinate-vector, and coordinate-module surfaces.
+- Validation for the eleventh slice:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails on the existing module implementation-gap frontier, but the new with-basis
+  assertions are not among the reported failures. The vulture-only diagnostic no longer
+  reports `category_specs/modules/subcategories/with_basis.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -275,3 +285,5 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the ninth bounded cleanup slice for finite-lattice smoke
   coverage.
 - 2026-05-06: Completed the tenth bounded cleanup slice for forms-chain smoke coverage.
+- 2026-05-06: Completed the eleventh bounded cleanup slice for modules-with-basis
+  smoke coverage.
