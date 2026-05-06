@@ -45,9 +45,133 @@ Source inventory: `category_specs/rings/docs/SAGE_INVENTORY.md`.
 - Local inventory checked: `category_specs/rings/docs/SAGE_INVENTORY.md`.
 - Installed Sage source files checked or named by the local inventory:
   - `sage/categories/rings.py`
+  - `sage/categories/rngs.py`
+  - `sage/categories/semirings.py`
+  - `sage/categories/domains.py`
+  - `sage/categories/commutative_rings.py`
+  - `sage/categories/fields.py`
+  - `sage/categories/integral_domains.py`
+  - `sage/categories/principal_ideal_domains.py`
+  - `sage/categories/euclidean_domains.py`
+  - `sage/categories/finite_fields.py`
+  - `sage/categories/quotient_fields.py`
   - `sage/rings/ideal.py`
-- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
-- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+  - `sage/rings/polynomial/polynomial_ring_constructor.py`
+  - `sage/rings/number_field/number_field.py`
+  - `sage/rings/power_series_ring.py`
+  - `sage/rings/laurent_series_ring.py`
+  - `sage/rings/puiseux_series_ring.py`
+  - `sage/rings/padics/factory.py`
+  - `sage/rings/finite_rings/finite_field_constructor.py`
+  - `sage/rings/finite_rings/integer_mod_ring.py`
+  - `sage/matrix/matrix_space.py`
+- Source access method: installed source and docstrings were read directly; method
+  listings were cross-checked from the Python AST of the installed category files.
+- Completeness status: this pass reconciles the source corpus above into the mapping
+  rows below. Remaining gaps are explicit negative findings or decision/frontier rows
+  in this spec; no separate file is edited by this task.
+
+## Sage Source Reconciliation
+
+This reconciliation is normative for the Rings mapping until the implementation specs
+split these rows into concrete category files.
+
+| Source surface | Highest mathematical owner | Mapping decision |
+| --- | --- | --- |
+| `Semirings` category axiom surface | strict supercategory of `Rings()` | Ring specs inherit semiring addition/multiplication/distributivity data; no ring method is duplicated here. |
+| `Rngs.ParentMethods.ideal_monoid`, `principal_ideal`, `zero_ideal` | `Rngs()` / nonunital ring-side ideal vocabulary | Ideal construction starts before unital rings. `Rings()` must preserve these obligations and may refine unit-ideal and quotient behavior, but must not move zero/principal ideals downward to commutative rings only. |
+| `Rngs.ParentMethods._ideal_class_` and commutative/PID overrides | private Sage ideal-class interop | Not public project API. It witnesses that ideals must stay constructible for noncommutative, commutative, and PID rings through the public ideal constructors. |
+| `Domains` and `IntegralDomains` containment/predicate methods | `Rings().NoZeroDivisors()` and `Rings().Commutative().NoZeroDivisors()` | `Domains` is the noncommutative no-zero-divisor owner; `IntegralDomains` is the commutative specialization. Field and finite-domain shortcuts are implementation evidence, not owner changes. |
+| `Rings.MorphismMethods.is_injective` | `Rings().HomCategory().MorphismMethods` | Ring-homomorphism injectivity belongs on ring morphisms. Field-domain, characteristic, kernel, cardinality, and fraction-field cases are implementation criteria for that morphism predicate. |
+| `Rings.MorphismMethods.extend_to_fraction_field` | ring morphisms between integral domains, with field codomains by identity | The source morphism must be injective when extension is nontrivial. Codomain is a morphism between fraction fields. |
+| `Rings.MorphismMethods._is_nonzero` | private ring-hom compatibility helper | Keep as interop evidence only. Public zero/nonzero morphism predicates belong to generic Hom/End surfaces and ring morphism refinements. |
+| `Rings.ParentMethods.is_ring`, `is_commutative`, `is_integral_domain`, `is_field`, `is_zero` | ring object predicates, refined by subcategory overrides | These are predicates on ring objects. Lower categories may return trivial values, but the method owner remains the highest category where the question is meaningful. |
+| `Rings.ParentMethods.is_subring` | ring-object relation / subobject vocabulary | The mathematical content is injectivity of the canonical map from one ring into another. Public mapping should phrase this through subring/subobject and structure-morphism surfaces. |
+| `Rings.ParentMethods.zeta`, `zeta_order` and `FiniteFields.ParentMethods.zeta`, `zeta_order` | finite-field roots-of-unity surface, with a broader roots-of-unity decision needed for arbitrary rings | Finite fields own the constructive root-of-unity implementation. The generic Sage ring-level methods are too broad to admit without a `RootsOfUnity` or torsion-unit owner. |
+| `Rings.ParentMethods.localization` and `IntegralDomains.ParentMethods.localization` | `IntegralDomains` localization at a multiplicative set/additional units | Localization requires an integral-domain source in the checked Sage implementation. The constructor data are the domain, additional units, optional names, normalization, and optional refinement category. |
+| `Rings.ParentMethods.bracket` / `__getitem__` | constructor dispatcher, not a public variadic method | Split into explicit constructor routes: polynomial rings, power series rings, Ore polynomial rings, algebraic extensions/number fields, and number-field orders. The raw `R[...]` dispatcher remains Sage interop. |
+| `Rings.ParentMethods._Hom_` | `Rings().HomCategory().Of(domain, codomain)` | Sage homset construction evidence maps to explicit ring hom category construction, not a root method on `Rings()`. |
+| `Rings.ParentMethods._mul_`, `__pow__`, `__truediv__` | categorical construction glue | Products, free powers, and quotients must route through product/module/quotient constructors with typed inputs; raw Python operator overloads are interop syntax. |
+| `Rings.ParentMethods.nilradical`, `unit_ideal`, `ideal`, `quotient`, `quo`, `quotient_ring` | ring ideal and quotient-ring surface | Preserve the full ideal interface: ideal generators, side for noncommutative ideals, coercion, quotient names, quotient map/retract data, and quotient-ring refinement. `quo` is an alias; `quotient` and `quotient_ring` map to the same quotient-ring constructor family. |
+| `Rings.ParentMethods.characteristic` | ring invariant | Characteristic is a ring-object invariant returning a Sage integer. Tests for additive order are implementation evidence. |
+| `Rings.ParentMethods.free_module` and `Fields.ParentMethods.vector_space` | modules over a subring/subfield | The ring method is interop evidence for a module isomorphism surface. The owner of the constructed object and maps is `Modules(base).Free().FiniteRank()`, not `rings`. |
+| `Rings.ParentMethods.random_element`, `_random_nonzero_element` | runtime sampling interop | Not a mathematical spec obligation. Keep only as Sage compatibility evidence unless a separate probabilistic/sampling category is admitted. |
+| `Rings.ParentMethods.epsilon` | approximate/topological ring precision surface | Exact rings return zero only as implementation fallback. Public ownership is `Rings().Approximate()` or a topology/precision refinement, not all rings. |
+| `Rings.ElementMethods.is_unit`, `inverse_of_unit` | ring element/unit surface | Unit predicate and inverse-of-unit belong on elements of unital rings. Field elements override by nonzero criterion. |
+| `Rings.ElementMethods._divide_if_possible` | private divisibility helper | Do not expose under this name. Public divisibility belongs to commutative/PID/Euclidean or quotient-field surfaces according to hypotheses. |
+| `CommutativeRings.ParentMethods.krull_dimension` | commutative ring invariant | Krull dimension first becomes meaningful for commutative rings. Field and PID values are subcategory overrides. |
+| `CommutativeRings.ParentMethods.over` | rings-over / ring-extension construction | Maps to `Rings().RingsOver(base)` and structure-morphism vocabulary. `gen/gens/name/names` are constructor data for the extension object, not separate categories. |
+| `CommutativeRings.ParentMethods.frobenius_endomorphism` | positive-characteristic commutative ring endomorphism | Caller is a commutative ring; input is a nonnegative Sage integer power; codomain is an endomorphism of the same ring. |
+| `CommutativeRings.ParentMethods.derivation_module`, `derivation` | derivation module over a commutative ring | The returned object is a module of derivations into a codomain algebra or along a twisting morphism. Ring mapping must point to module/hom ownership rather than a raw callable helper. |
+| `CommutativeRings.ParentMethods._pseudo_fraction_field` | private coercion interop | Not public project API. It is evidence that fraction-field and division-parent behavior must be mapped explicitly. |
+| `CommutativeRings.Finite.ParentMethods.cyclotomic_cosets` | finite commutative rings | Caller is a finite commutative ring; input is an invertible element and optional selected elements; return is a finite ordered list of finite orbits. |
+| `Fields.ParentMethods.algebraic_closure`, `an_embedding`, `prime_subfield`, `is_perfect` | fields | These are field-level constructions or predicates. `an_embedding(K)` returns a ring morphism into a field of the same characteristic when one exists. |
+| `Fields.ParentMethods.divides`, `ideal`, `fraction_field`, `integral_closure` | fields as trivial integral domains/PIDs | Field overrides preserve inherited divisibility, ideal, fraction-field, and integral-closure obligations with trivial codomains. They are not grounds for deleting the inherited surfaces. |
+| `Fields.ParentMethods._gcd_univariate_polynomial`, `_xgcd_univariate_polynomial`, `_squarefree_decomposition_univariate_polynomial` | private polynomial-algorithm hooks over fields | Public obligations belong to polynomial rings over fields and factorization/squarefree surfaces; the private hooks are implementation evidence. |
+| `Fields.ElementMethods.euclidean_degree`, `quo_rem`, `gcd`, `lcm`, `xgcd`, `factor`, `inverse_of_unit` | field elements as Euclidean/PID/UFD elements | Field element arithmetic refines inherited Euclidean and factorization surfaces. GCD/LCM are unit-normalized and need field-specific codomain notes. |
+| `PrincipalIdealDomains.ParentMethods.gcd`, `content`, `class_group` | PIDs | `gcd` and `content` are PID methods with ring-element inputs. `class_group()` is the trivial class group for PIDs and must not be generalized to arbitrary integral domains without a separate owner. |
+| `EuclideanDomains.ParentMethods.gcd_free_basis` and `ElementMethods.euclidean_degree`, `quo_rem`, `gcd` | Euclidean domains | Quotient-with-remainder and Euclidean degree are the defining constructive data. `gcd` may be implemented by Euclidean algorithm here, with PID/UFD consequences inherited upward. |
+| `FiniteFields.ParentMethods.is_perfect`, `zeta`, `zeta_order` | finite fields | Finite fields are perfect and have constructive multiplicative roots of unity. `_element_of_factored_order` is private algorithm evidence for `zeta(n)`. |
+| `QuotientFields.ElementMethods.numerator`, `denominator`, `gcd`, `lcm`, `xgcd`, `factor`, `partial_fraction_decomposition`, `derivative`, `_derivative` | quotient-field elements, with rational-function refinements where polynomial hypotheses are required | Numerator and denominator are abstract quotient-field element data. Partial fractions and derivatives require denominator factorization or polynomial/rational-function structure and should be guarded by those hypotheses in the final spec. |
+| `PolynomialRing` constructor | `Rings().Constructors().PolynomialRing(...)` split into explicit overloads | The installed source confirms the finite documented cases: one name, names, count plus names, and finite `var_array` shapes. Higher-dimensional `var_array` remains excluded until finite-indexing vocabulary exists. |
+| `NumberField` constructor | `Rings().Constructors().NumberField(...)` and `NumberFieldTower(...)` | The installed source confirms a single-polynomial route and a list/tuple polynomial tower route; `implementation` and `prec` are compatibility keywords ignored unless nontrivial values are supplied. |
+| `PowerSeriesRing`, `LaurentSeriesRing`, `PuiseuxSeriesRing` constructors | named power/Laurent/Puiseux series constructors | Univariate, multivariate, and underlying-ring routes remain split. Laurent and Puiseux constructors can accept already-built underlying series rings; those are named constructor paths, not arbitrary variadic admission. |
+| `MatrixSpace` / square matrix parent | ring constructor plus algebra/module refinement | Square matrix spaces are algebras and rings; rectangular matrix spaces are module homspaces. Matrix element construction remains split into named element constructors. |
+| `Zp`, `Qp`, `Zq`, `Qq` | p-adic and q-adic ring/field constructors | Scalar precision, lattice precision pairs, relaxed precision triples, print controls, and unramified-extension data stay named. Print controls are display interop; precision and valuation data are mathematical. |
+| `FiniteField` / `GF` and `IntegerModRing` | finite field and integer-modulo constructors | `GF` admits prime-power order, name/prefix, modulus, implementation, proof/check data, and display representation. `IntegerModRing` is a quotient-ring constructor for `ZZ/nZZ`, with field refinement only when the modulus is prime. |
+
+## Interop, Display, Runtime, And Private Helper Classification
+
+| Class | Sage surfaces | Mapping consequence |
+| --- | --- | --- |
+| Private test helpers | `_test_*`, `_contains_helper`, `_call_`, factory `create_key*`, factory `create_object` | Do not admit as public methods. They provide source evidence for invariants and constructor casework. |
+| Private implementation hooks | `_ideal_class_`, `_pseudo_fraction_field`, `_element_of_factored_order`, `_gcd_univariate_polynomial`, `_xgcd_univariate_polynomial`, `_squarefree_decomposition_univariate_polynomial`, `_derivative` | Keep private. Public mapping must name the mathematical surface they support: ideals, fraction fields, roots of unity, polynomial gcd/squarefree, or derivations. |
+| Display interop | p-adic `print_mode`, `print_pos`, `print_sep`, `print_alphabet`, `print_max_*`, `show_prec`, Sage `_repr_`, `_latex_`, `_magma_init_`, `_polymake_init_` | Not mathematical category data except where display choices affect Sage identity/equality. Public constructors may accept named display options only as interop/display options; category methods do not own them. |
+| Runtime/sampling | `random_element`, `_random_nonzero_element`, proof/check flags, implementation selectors, element caches | Not ideal-interface obligations. Keep as constructor or runtime interop parameters when preserving Sage behavior requires them. |
+| Syntax dispatchers | `R.__getitem__`, operator overloads, `quo` alias, `MatrixSpace.matrix(x=None, **kwds)` | Do not expose as catch-all methods. Split into named constructors and overloads with typed mathematical input data. |
+
+## Formal Negative Findings
+
+- Searched: `category_specs/rings/docs/SAGE_INVENTORY.md`; installed Sage
+  `sage/categories/rings.py`, `rngs.py`, `semirings.py`, `domains.py`,
+  `commutative_rings.py`, `fields.py`, `integral_domains.py`,
+  `principal_ideal_domains.py`, `euclidean_domains.py`, `finite_fields.py`, and
+  `quotient_fields.py`; AST method listing for those files.
+- Found: the local inventory names category files and constructor families, but it does
+  not enumerate the method-level Sage surfaces listed in the reconciliation table
+  above.
+- Conclusion: inference -- the local inventory is a source-area inventory, not a
+  complete method inventory; this spec now carries the method-level reconciliation for
+  Rings until the inventory is expanded.
+- Confidence: High.
+- Gaps: Cython-only methods on concrete ring element classes and external optional
+  backend methods were not exhaustively enumerated in this pass.
+
+- Searched: installed Sage `sage/categories/rings.py`, `sage/categories/rngs.py`,
+  `sage/categories/semirings.py`, `sage/categories/domains.py`, and generic Hom/End
+  category surfaces referenced by the Rings inventory.
+- Found: Sage exposes ring homsets and endsets through generic category/Homset
+  machinery and concrete ring morphism classes; no separate installed
+  `Rings().Autsets()` category class or ring-specific `Autsets` method surface was
+  found in those sources.
+- Conclusion: inference -- project `Rings().AutCategory()` must be local top-level
+  Hom/End/Aut wiring with ring specialization, not a direct wrapper of a Sage
+  ring-autset category.
+- Confidence: High.
+- Gaps: concrete ring-family automorphism methods outside the checked category files
+  were not exhaustively listed; those remain family-specific method evidence.
+
+- Searched: installed Sage `sage/categories/semirings.py` and
+  `sage/categories/domains.py`.
+- Found: `Semirings` contributes the category axiom declaration and examples but no
+  nested `ParentMethods`, `ElementMethods`, or `MorphismMethods`; `Domains` contributes
+  only the no-zero-divisor category edge and `_test_zero_divisors`.
+- Conclusion: inference -- there are no additional semiring- or domain-local public
+  method surfaces to map into the Rings spec from those two category files beyond the
+  inherited category structure and the domain predicate/test evidence.
+- Confidence: High.
+- Gaps: semiring implementations outside `sage/categories/semirings.py` were not part
+  of the Rings inventory and were not exhaustively searched.
 
 ## Converted Mapping Content
 

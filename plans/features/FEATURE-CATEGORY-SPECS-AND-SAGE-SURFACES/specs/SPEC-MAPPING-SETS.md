@@ -226,6 +226,7 @@ subcategory boundaries.
 | `HomsetsCategory` | `SetHomCategory`, `SetEndCategory`, `SetAutCategory` | Morphisms between sets are functions; endomorphisms have equal domain/codomain; automorphisms are bijections. | Generic `AutCategory` wiring belongs at the repository top level, but set-specific hom categories declare function-level methods and delegate aut construction rather than reimplement condition-set machinery. Inverse images of subsets belong to set maps as `preimage(subset)`. `Sets().HomCategory()` and `Sets().EndCategory()` are public category navigation surfaces. |
 | `Homsets().Endset()` | `SetEndCategory` | End categories have objects `End(X) = Hom(X, X)`; Sage makes generic endsets monoids. | `sets/homsets.py` exposes the set-specific end category and inherits generic end-category methods. The former `base_set()` alias is represented by the generic hom-object `domain()` on `End_Sets(X)`. |
 | Sage generic hom/end surface plus project aut target | `SetAutCategory` backed by generic `AutCategory` | `Aut(X)` is the subset of `End(X)` consisting of bijections. | This project vocabulary is wired once at the top level and specialized in `sets/homsets.py`; upstream category-naming follow-up belongs in the tracker item that cites this mapping row. |
+| `Sets.MorphismMethods` | set-morphism element surface | A morphism in `Sets()` is a function. Injectivity, inverse maps when they exist, and image subobjects are properties or constructions of set maps, not properties of the result category. | Sage `is_injective()` maps to a set-map predicate; `__invert__()` maps to `inverse()` on isomorphisms or invertible maps; `image(domain_subset=None)` constructs an `ImageSubobject(f, domain_subset)` whose result is typed by `Sets().Subobjects()`/`Sets().Subquotients()`. |
 | `SetsWithGrading()` | `Sets().Graded()` | A graded set is a disjoint union of graded components indexed by a grading set, with a grading map sending each element to its grade. | `subcategories/graded.py` owns `grading_set`, `graded_component`, optional `subset`, `grading`, `generating_series`, and `_test_graded_components`. |
 | `GSets(G)` | `Sets().GSets(G)` | A `G`-set is a set with an action of the fixed group `G`; Sage's source records `GSets(G).super_categories() == [Sets()]`. | `subcategories/group_actions.py` owns the parameterized category. `types.py` needs `GSet` and group-action vocabulary anchored to Sage group/action objects. |
 | `Posets()` | top-level `posets/` subtree, cross-linked from `sets` | A poset is a set with a partial order. Sage's required parent method is `le`; it also exposes `lt`, `ge`, `gt`, covers, order ideals, filters, chains, and antichains. | Do not bury this under ordinary set subcategories. The promoted subtree owns order methods and its own finite/lattice refinements. |
@@ -246,6 +247,9 @@ subcategory boundaries.
 | `RealSet(...)` finite interval-union input | `Sets().Constructors().RealSetFromIntervals(intervals)` refined through `RealSets` | A real set is a subset of the real line. The project constructor admits a named sequence of `InternalRealInterval` components rather than exposing Sage's variadic surface or normalization option bag; the wrapper delegates internally to Sage's documented constructor route before refinement. Real intervals and real open sets are distinct mathematical notions: open intervals are basis elements for the Euclidean topology, while open subsets may be unions such as `(1, 2) ∪ (3, 4)`. |
 | `RealSet.interval(lower, upper, lower_closed=..., upper_closed=...)` | `Sets().Constructors().RealSetInterval(lower, upper, lower_closed=..., upper_closed=...)` | This is the universal interval/ray constructor. The two endpoints and two closure booleans unambiguously determine the real subset, including `[p, q)`, `[p, q]`, rays, and the whole real line when infinite endpoints are used. |
 | `RealSet` static interval constructors | named real-subset interval constructors | Sage methods such as `RealSet.open(a, b)` and `RealSet.closed(a, b)` construct interval-shaped real subsets, not arbitrary open or closed real subsets. Static Sage constructors map to `Sets().Constructors()` entries such as `OpenRealInterval`, `ClosedRealInterval`, and `RealLine`; each named constructor delegates to `RealSetInterval` with the corresponding endpoint-closure booleans. Open interval constructors return `RealOpenSet` because an open interval is an open real subset, but a general `RealOpenSet` need not be an interval. |
+| `RealSet.open_closed(a, b)` / `closed_open(a, b)` | `HalfOpenRealInterval` named constructors | These are interval-shaped real subsets with exactly one closed endpoint. They are not generic open/closed-set constructors. |
+| `RealSet.unbounded_below_closed/open(b)` and `unbounded_above_closed/open(a)` | named real-ray constructors | Rays are subsets of the real line with one infinite endpoint and one endpoint-closure convention. They route through `RealSetInterval` with explicit endpoint data. |
+| `RealSet.real_line()` | `Sets().Constructors().RealLine()` | The real line is the ambient real set and the universe object for `RealSet` Boolean operations. It also refines through the appropriate topological and ordered structures supplied elsewhere. |
 | Real intervals, rays, real line, and future complex-ball-like named subsets | `Sets().Constructors()` first, then refinement into topological subobjects | These are named set constructions. The constructor result must refine not only into `Sets()` but also into the relevant subset/subobject and topological-space categories, e.g. real intervals refine through `RealSets`, `Sets().Subobjects()`, `TopologicalSpaces()`, and `TopologicalSpaces().Subobjects()`. Where Sage's real-subset category data proves connectedness or compactness, the result also refines into `TopologicalSpaces().Connected()` or `TopologicalSpaces().Compact()`. |
 | `RecursivelyEnumeratedSet(...)` | `RecursivelyEnumeratedSets` | Recursively enumerable countable sets and forests. The forest-specific methods are part of the same Sage constructor family. |
 | `DisjointUnionEnumeratedSets(family)` | `DisjointUnionSets` | Countable coproduct/disjoint union of an indexed family. |
@@ -264,6 +268,9 @@ subcategory boundaries.
 | `SetPartitions().from_arcs(arcs, n)` | `Sets().Constructors().SetPartitionFromArcs(arcs=arcs, base_set_cardinality=n)` | Element constructor from arcs. |
 | `from_rook_placement(..., "arcs"/"gamma"/"rho"/"psi", n)` | named rook-placement constructors on `Sets().Constructors()` | Sage's string-dispatched rook-placement constructor is split into non-variadic named constructors: `SetPartitionFromRookPlacementArcs`, `SetPartitionFromRookPlacementGamma`, `SetPartitionFromRookPlacementRho`, and `SetPartitionFromRookPlacementPsi`. |
 | `Family(indices, function)` | `Families` | Indexed family object. Include `items`, `hidden_keys`, `has_key`, and `inverse_family`. |
+| `Family.keys()`, `items()`, `values()` | `Families` indexed-family accessors | The keys are the index set, and values are the family entries. These are family methods, not ordinary set-enumeration methods. |
+| `Family.zip(other)` | `Families.zip_with(other)` | Zipping two families is an indexed-family operation over a common index set. The project name should expose the indexed construction rather than Python container vocabulary alone. |
+| `Family.map(function)` | `Families.map(function)` | Mapping a function over entries preserves the same index set and changes the value family. This belongs to indexed families. |
 | `EnumeratedSetFromIterator(f)` | `IteratorEnumeratedSets` | Callable-backed countable set. The project constructor admits a nullary iterator factory. Sage's `args`/`kwds` parameterization is arbitrary callable plumbing, not set-theoretic data, so it is not exposed as a public constructor shape. Include `clear_cache` because caching is part of the Sage-backed parent behavior. |
 
 Existing Sage calls of the form `EnumeratedSetFromIterator(f, args=..., kwds=...)`
@@ -295,6 +302,29 @@ Rejected public routes:
 - do not admit a free-floating image helper outside the subobject/subquotient
   construction vocabulary.
 
+## Sage `RealSet` Method Mapping Decisions
+
+Sage `RealSet` represents finite unions of intervals in the real line. The mathematical
+object is a real subset with topology inherited from the ambient real line, not a
+generic wrapper around interval endpoints.
+
+| Sage surface | Project mapping | Decision |
+| --- | --- | --- |
+| `n_components()` | `RealSubset.component_count()` | Counts the interval components of the normalized finite union. |
+| `get_interval(i)` | `RealSubset.component(index=i) -> RealInterval` | Component access returns an interval object, not endpoint implementation data. |
+| `is_universe()` | `RealSubset.is_real_line()` | This predicate asks whether the subset is the whole ambient real line. |
+| `contains(x)` / membership | `x in X` and `RealSubset.contains(x)` compatibility | Membership is root set structure; the named method is kept as Sage compatibility for real subsets. |
+| `is_open()` / `is_closed()` | topological predicates on real subsets | These are topological properties of a subset of the real line and refine through topological-space/subobject vocabulary. |
+| `closure()`, `interior()`, `boundary()` | topological transforms returning real subsets | These operations are defined for topological subobjects. The `RealSet` implementation witnesses the real-line finite-interval case. |
+| `boundary_points()` | `RealSubset.boundary_points()` | The finite endpoint set of the boundary is a real-subset method in the finite-interval representation. |
+| `inf()` / `sup()` | `infimum()` / `supremum()` | Bounds are order-theoretic invariants of the real subset. |
+| `measure()` | `RealSubset.measure()` | Lebesgue length is defined for finite unions of real intervals. |
+| `is_connected()` | connectedness predicate on real subsets | Connectedness is topological; `RealSet` gives a finite-interval decision procedure. |
+| `is_disjoint(other)` / `are_pairwise_disjoint(real_sets)` | disjointness predicates for real subsets | These are set-theoretic predicates specialized by the finite-interval representation. |
+| `convex_hull()` | `RealSubset.convex_hull() -> RealInterval or RealSubset` | The convex hull of a real subset is the least real interval containing it, with empty-set behavior recorded by the implementation. |
+| `normalize(...)` | constructor-normalization helper | Normalization is implementation state for finite interval unions, not a public mathematical method. |
+| `_scan*`, `_prep`, `_repr_condition`, `_sympy_condition`, `_giac_condition`, `_call_predicate`, `_is_a` | private or backend interop | These are parsing, condition-rendering, and backend plumbing surfaces. They are inventory only. |
+
 ## Sage `SetPartition` Method Mapping Decisions
 
 Sage `SetPartition` is the element class for the fixed-base `SetPartitions(s)` parent.
@@ -314,12 +344,23 @@ powerset of that base set.
 | `shape()` / `shape_partition()` / `to_partition()` | integer partition of block sizes | This maps to the integer-partition surface once that set-combinatorics subtree is admitted. Until then, keep the Sage `IntegerPartition` type alias in `types.py`. |
 | `arcs()`, `openers()`, `closers()` | partition arc-diagram surface | These are combinatorial views of an ordered finite set partition. They remain partition element methods, not poset or graph constructors. |
 | `to_restricted_growth_word_*`, `to_rook_placement_*` | named encoding/export methods on partition elements | These are encodings of a partition. Inverse construction routes through `Sets().Constructors()` named constructors. |
+| `to_permutation()` | finite ordered-base partition encoding | Sage maps a partition to a permutation by cycling entries inside each block using the induced order. This is an encoding/export method on partition elements with the finite ordered-base hypothesis. |
+| `to_rook_placement(bijection=...)` and `to_rook_placement_gamma/rho/psi()` | named rook-placement encodings | The project keeps separate names for the finite set of bijection conventions rather than exposing a string-dispatched option. |
+| `apply_permutation(perm)` | finite ordered-base partition transform | Applying a permutation relabels the base set and returns another partition element. The operation is not a permutation method; it is a partition element transform parameterized by a permutation of the base set. |
+| `conjugate()` / `pre_conjugate()` | partition involution/auxiliary transform | The public method is the partition conjugation operation when the ordered-base hypotheses are met. `pre_conjugate()` is an implementation helper for Sage's convention and stays compatibility-only unless independently grounded. |
 | `crossings()`, `nestings()` | `Partitioned.ElementMethods.crossings()` and `Partitioned.ElementMethods.nestings()` | Sage defines these on `SetPartition` elements, not on the parent. They return witness data for a single partition: lists of pairs of arcs. The definitions require the finite base set to be totally ordered because the arcs are drawn by placing the ground-set elements in order on a line and linking consecutive elements in each block. |
+| `crossings_iterator()`, `nestings_iterator()` | lazy variants of crossings/nestings | These are generator forms of the same ordered-base element invariants, not separate mathematical structures. |
+| `number_of_crossings()`, `number_of_nestings()` | cardinalities of crossings/nestings | These are finite counts of the corresponding witness sets. |
 | `is_noncrossing()`, `is_nonnesting()` | `Partitioned.ElementMethods.is_noncrossing()` and `Partitioned.ElementMethods.is_nonnesting()` | These are boolean predicates on a single partition element, with the same finite totally ordered base-set hypothesis as `crossings()` and `nestings()`. They do not yet induce admitted category axioms because `Sets().Partitioned()` alone does not encode the required order hypothesis on the base set. |
 | `is_atomic()` | `Partitioned.ElementMethods.is_atomic()` | Sage defines atomicity for a nonempty standard set partition by pipe-indecomposability, ordering blocks by minimal element and asking whether the partition splits as `B | C`. This is again an element predicate, not a parent/category construction. It depends on the induced finite total order used for standardization, so it shares the same admission blocker as the crossing/nesting predicates. |
+| `max_block_size()` | `Partitioned.ElementMethods.max_block_size()` | Maximum block cardinality is an invariant of a finite partition element. |
+| parent `number_of_blocks()` | constructor/counting family for fixed block count | This is counting/enumeration data for the parent `SetPartitions(s, k)`, not a method on arbitrary sets. It remains under set-partition constructor/enumeration vocabulary. |
 | `standardization()`, `restriction(I)` | partition element transforms | These return new partition elements and remain partition methods. |
+| parent `is_strict_refinement(s, t)` | strict refinement relation | This is the non-reflexive refinement predicate on partition elements. It belongs with the fixed-base partition parent relation surface. |
 | `refinements()`, `coarsenings()` | Sage compatibility methods; project finite-set methods are `Partitioned.ElementMethods.refinement_set()` and `Partitioned.ElementMethods.coarsening_set()` | These are finite refinement-lattice neighborhoods of a partition element. Sage returns Python lists on concrete `SetPartition` elements. The project finite-set surfaces therefore use separate names and route those lists through set constructors; both finite sets include `self`. |
 | `strict_coarsenings()` | Sage compatibility method; project finite-set method is `Sets().Partitioned().FiniteTotallyOrderedBase().ElementMethods.ordered_coarsening_closure()` | Sage's name does not mean "proper coarsenings." It is the reflexive-transitive closure of merging two ordered-compatible blocks with `max(A_i) < min(A_j)`, so it requires the finite totally ordered base-set owner and includes `self`. The project name avoids reusing Sage's misleading concrete method name while preserving the ordered closure semantics. |
+| module-level `cyclic_permutations_of_set_partition*` | combinatorial iterator helpers | These are helper algorithms used by partition combinatorics. They should not become public category methods unless a source-grounded partition-action surface requires them. |
+| `ordered_set_partition_action(...)` | ordered partition action surface requiring separate grounding | The operation is real Sage evidence, but the target category and action law need a dedicated source-grounded mapping before admission. |
 | `plot(...)` and LaTeX/display helpers | no category method | Display output is not set-theoretic structure. |
 
 Admission decision for partition subclass predicates:
@@ -370,6 +411,9 @@ mapped to the mathematical surfaces they witness.
 | --- | --- | --- |
 | `object()` | no public project method | The wrapped Python object is Sage implementation state, not mathematical structure. Named constructors expose their mathematical data directly instead of exposing a generic underlying object. |
 | `__contains__(x)` | `Sets.ParentMethods.__contains__` | Membership is part of every set. |
+| `some_elements()` | `Sets.ParentMethods.some_elements()` | Producing a finite sample is a root set convenience and test witness, not a finiteness claim. |
+| `random_element()` | root or finite-set random element surface depending on source owner | Random selection is implemented for many concrete parents. The method should live where a mathematically meaningful distribution or finite uniform distribution is specified; otherwise the Sage method remains compatibility behavior. |
+| `is_parent_of(x)` | membership/parent predicate compatibility | The mathematical question is whether `x` is an element of the parent set. Keep the Sage spelling as compatibility only if needed by upstream interop. |
 | `__iter__()` | `Sets().Countable().ParentMethods.__iter__` | Iteration witnesses countability, not arbitrary sethood. |
 | `_an_element_()` / `an_element()` | `Sets.ParentMethods.an_element` | Producing an element is a root set method. |
 | `cardinality()` | `Sets.ParentMethods.cardinality` | Cardinality is defined for every set. |
@@ -383,7 +427,13 @@ mapped to the mathematical surfaces they witness.
 | `union(other)` | `Sets.ParentMethods.union` | Union is defined for any two objects in the category of sets. |
 | `intersection`, `difference`, `symmetric_difference`, `complement` | `Sets().Subobjects()` / `Subsets` | These require a common ambient set, so they are subset/subobject operations. |
 | `Set_object_union`, `Set_object_intersection`, `Set_object_difference`, `Set_object_symmetric_difference` | operation result parents, not public project category names | These Sage classes witness concrete outputs of set operations. The project maps their method surface to union on `Sets()` and subobject operations on `Sets().Subobjects()` rather than exposing the wrapper class names. |
+| `__or__`, `__add__` | `Sets.ParentMethods.union` | Python operators are Sage compatibility spellings for union. The named mathematical method is the public surface. |
+| `__and__` | subset/subobject intersection | Intersection requires a common ambient set and therefore routes through `Sets().Subobjects()`. |
+| `__sub__` | subset/subobject difference | Difference requires a common ambient set and therefore routes through `Sets().Subobjects()`. |
+| `__xor__` | subset/subobject symmetric difference | Symmetric difference is a Boolean operation in a common ambient set. |
+| `__rmul__` | Cartesian product or repeated product compatibility | Sage operator behavior is not admitted as a public set method without a source-grounded product signature. Use named product constructors. |
 | `__richcmp__`, `issubset`, `issuperset` | root set comparison surface | The project exposes rich comparison with set-theoretic semantics: equality is equality of elements, `<=` is subset, `<` is proper subset, `>=` is superset, and `>` is proper superset. This replaces Sage wrapper comparison semantics. |
+| `__bool__`, `__len__`, `__eq__`, `__ne__` | Python protocols over emptiness, finite cardinality, and equality | Keep protocol support where Sage/Python interop requires it, but the category methods are named predicates/cardinality/equality surfaces. |
 | `list()`, `tuple()` on finite wrappers | `list(X)`, `tuple(X)` for finite countable sets | Finite enumerated sets may expose finite enumeration through Python conversion protocols. Do not make Sage's `.list()` and `.tuple()` names primary project methods. |
 | `set()`, `frozenset()` on finite wrappers | no project method | Python hash-set export is not a project set object and is not admitted as category vocabulary. |
 | `rank`, `unrank`, `first`, `last`, `next` | `rank(e)` and indexed access | `rank(e)` is the index-of map and remains meaningful for infinite countable sets. Sage `unrank(n)` maps to `X[n]`; `first`, `last`, and `next` are derived enumeration conveniences and are not project method names. |
@@ -428,12 +478,24 @@ Sage constructor data, not a subcategory or type vocabulary item, so they appear
 through explicit constructor methods such as `RealSetInterval`, `OpenRealInterval`, and
 `ClosedRealInterval`.
 
-Sage forwarding and test-suite hooks are inventory items, not mathematical method
-surface. `Sets.ParentMethods._element_constructor_from_element_class(*args,
-**keywords)` forwards to an arbitrary element-class constructor, so it has no finite
+Sage forwarding, display, import/export, source-introspection, and test-suite hooks are
+inventory items, not mathematical method surface. This includes `_test_*`, `example`,
+`extra_super_categories`, `__classcall__`, `__classcall_private__`,
+`_element_constructor_*`, `_sage_argspec_`, `_sage_input_`, `_sage_src_`,
+`_sage_src_lines_`, `_instancedoc_`, display and LaTeX-option helpers, and
+`Sets.ParentMethods._element_constructor_from_element_class(*args, **keywords)`.
+The last forwards to an arbitrary element-class constructor, so it has no finite
 mathematical signature. `SetsWithGrading.ParentMethods._test_graded_components(**options)`
-is Sage `TestSuite` plumbing. Both are omitted from the public spec surface rather than
-preserved as variadic API.
+is Sage `TestSuite` plumbing. These are omitted from the public spec surface rather
+than preserved as variadic API.
+
+## Completeness Reconciliation: Sets
+
+- Searched: local source inventory `category_specs/sets/docs/SAGE_INVENTORY.md`; installed Sage 10.7 source files `sage/categories/sets_cat.py`, `finite_sets.py`, `enumerated_sets.py`, `finite_enumerated_sets.py`, `infinite_enumerated_sets.py`, `facade_sets.py`, `sets_with_grading.py`, `g_sets.py`, `sage/sets/set.py`, `finite_enumerated_set.py`, `integer_range.py`, `non_negative_integers.py`, `positive_integers.py`, `primes.py`, `real_set.py`, `cartesian_product.py`, `condition_set.py`, `image_set.py`, `totally_ordered_finite_set.py`, `finite_set_maps.py`, `disjoint_union_enumerated_sets.py`, `set_from_iterator.py`, `sage/combinat/set_partition.py`, and `sage/sets/family.pyx`; static method-name comparisons between those files and this spec.
+- Found: previously unmapped public surfaces in set morphisms, real subsets, set partitions, families, generic set wrappers, finite/countable protocols, and Sage runtime hooks. The spec now maps them to set, subset/subobject, topological-subobject, partitioned-set, family, homset, constructor, compatibility, private, or source-grounding-deferred targets.
+- Conclusion: inference based on the checked installed Sage corpus: the core Sets mapping is source-reconciled for the files named above, and remaining unmatched names are either Python protocol/private/runtime hooks, display/backend interop, or surfaces that require later source-grounding outside this Sets mapping file.
+- Confidence: Medium.
+- Gaps: I did not exhaust every combinatorics module whose filename contains "set", every import in `sage/sets/all.py`, Sage development-branch history, or downstream constructor smoke behavior. The ordered-partition action and full noncrossing/nonnesting/atomic subclass surfaces still require dedicated source-grounded admission work before implementation.
 
 ## Sage Primes Source Note
 

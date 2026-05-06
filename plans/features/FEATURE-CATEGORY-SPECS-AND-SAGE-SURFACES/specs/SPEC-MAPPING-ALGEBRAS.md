@@ -58,16 +58,97 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
   - `sage/categories/algebras_with_basis.py`
   - `sage/categories/finite_dimensional_algebras_with_basis.py`
   - `sage/categories/algebra_functor.py`
+  - `sage/categories/algebra_modules.py`
   - `sage/categories/sets_cat.py`
   - `sage/algebras/free_algebra.py`
   - `sage/combinat/free_module.py`
   - `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`
   - `sage/categories/commutative_algebras.py`
   - `sage/categories/semisimple_algebras.py`
-- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
-  - `sage/tensor/cartesian`
+- Extra source-only surfaces found during reconciliation:
+  - `sage/categories/algebras.py`: `ElementMethods._div_()` and `DualObjects.extra_super_categories()`.
+  - `sage/categories/magmatic_algebras.py`: `ParentMethods.algebra_generators()`,
+    `WithBasis.ParentMethods.product_on_basis()`, `product()`,
+    `_product_from_product_on_basis_multiply()`,
+    `WithBasis.FiniteDimensional.ParentMethods.to_finite_dimensional_algebra()`,
+    and `derivations_basis()`.
+  - `sage/categories/finite_dimensional_algebras_with_basis.py`:
+    `ElementMethods.__invert__()` and the nested `Cellular` axiom surface.
+  - `sage/categories/algebra_functor.py`: `AlgebrasCategory.ParentMethods.coproduct_on_basis()`
+    and `GroupAlgebraFunctor._apply_functor_to_morphism()`.
+  - `sage/categories/algebra_modules.py`: `AlgebraModules(A)` for modules over a
+    commutative algebra `A`.
+  - `sage/algebras/free_algebra.py`: free-algebra display, coercion, quotient,
+    PBW-basis, monoid, and letterplace implementation helpers.
+  - `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`:
+    table, left-table, base-extension, ideal, homset, finite/cardinality, and
+    structural predicates on the concrete table-based parent.
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
-- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+- Completeness status: this spec now records the checked source corpus and the
+  method-by-method reconciliation below. Remaining missing surfaces are listed in
+  formal negative-finding format because the current write scope excludes creating
+  new follow-up cards.
+
+## Source Reconciliation
+
+| Sage surface | Reconciled target | Highest mathematical owner and consequence |
+| --- | --- | --- |
+| `Algebras.ParentMethods.characteristic()` | Inherited ring/base-ring characteristic, not an algebra-specific method | The value is `base_ring().characteristic()`. The algebra mapping preserves Sage behavior through `base_ring().characteristic()` and any ring-level `characteristic()` surface; `Algebras(R)` does not own a new method. |
+| `Algebras.ParentMethods.has_standard_involution()` | Unresolved algebra-specialized predicate | Sage's implementation is explicitly quaternion-specific and basis-dependent. Keep the existing interop obligation visible, but do not treat it as a generally grounded `Algebras(R)` method until a quaternion or involutive-algebra owner is source-grounded. |
+| `Algebras.ElementMethods._div_(y)` | Runtime interop helper | The public mathematical operation is division by an invertible element in the appropriate multiplicative/ring owner. The underscored Sage helper is not a public algebra method. |
+| `Algebras.Quotients.ParentMethods.algebra_generators()` | `algebra_generators() -> AlgebraElementFamily` on algebra quotients | The quotient owner may retract generators from the ambient algebra; the returned family remains algebra elements, not a raw Sage family. |
+| `Algebras.CartesianProducts`, `TensorProducts`, `DualObjects` | `Algebras(R).CartesianProducts()`, `TensorProducts()`, `DualObjects()` | These are construction categories on algebra subcategories. Product/tensor algebra structure belongs here; generic construction mechanics stay in Cat/universal construction surfaces. |
+| `MagmaticAlgebras.ParentMethods.algebra_generators()` | `algebra_generators() -> AlgebraElementFamily` on `MagmaticAlgebras(R)` | The notion of algebra generators only requires bilinear multiplication over `R`; associative and unital endpoints inherit it. |
+| `MagmaticAlgebras.WithBasis.ParentMethods.product_on_basis(i, j)` | Interop backing for the multiplication tensor and element multiplication | The public surface is element multiplication plus construction data. Basis-index multiplication is allowed as a Sage compatibility implementation hook for `WithBasis`, not as the canonical public constructor input. |
+| `MagmaticAlgebras.WithBasis.ParentMethods.product()` and `_product_from_product_on_basis_multiply()` | Runtime implementation helper | These implement bilinear extension from basis-index multiplication. The method is not a separate mathematical obligation beyond the multiplication operation and the chosen basis data. |
+| `MagmaticAlgebras.WithBasis.FiniteDimensional.ParentMethods.to_finite_dimensional_algebra()` | Interop conversion from a with-basis algebra to Sage's table parent | The mathematical owner is finite-dimensional algebras with basis; the project constructor still goes through `from_multiplication_tensor(multiplication=mu)`. The table parent is a Sage interop target, not the canonical source of algebra data. |
+| `MagmaticAlgebras.WithBasis.FiniteDimensional.ParentMethods.derivations_basis()` | `derivations() -> RModule` | Derivations are algebra endomorphisms satisfying the Leibniz rule. The basis-returning Sage method maps to the module/Lie algebra of derivations; a basis is recoverable only when basis data is present. |
+| `AlgebrasWithBasis.ParentMethods.hochschild_complex(M)` | `hochschild_complex(coefficients=M) -> HochschildChainComplex` | Hochschild chains require algebra structure and coefficients. The with-basis implementation is Sage evidence, but the mathematical operation belongs at the algebra level when coefficients are grounded. |
+| `AlgebrasWithBasis.ElementMethods.__invert__()` | Inherited multiplicative inverse, with with-basis implementation evidence | Invertibility is multiplicative/ring structure. The Sage basis-unit shortcut is implementation evidence, not a new with-basis algebra operation. |
+| `AlgebrasWithBasis.CartesianProducts.ParentMethods.one_from_cartesian_product_of_one_basis()` | Interop helper for Cartesian-product units | Public unit data remains `one() -> AlgebraElement`; the basis index of the unit is compatibility data. |
+| `AlgebrasWithBasis.TensorProducts.ParentMethods.one_basis()` and `product_on_basis(t1, t2)` | Tensor-product interop helpers for with-basis multiplication | Public tensor product ownership stays with `Algebras(R).TensorProducts()` and `WithBasis` basis data. Basis-index helpers remain implementation hooks. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical_basis()` | `radical() -> AlgebraIdeal` | Public surface returns the Jacobson radical ideal. Basis output is implementation evidence and must not replace the ideal interface. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.center_basis()` | `center() -> Algebra` | Public surface returns the center algebra; basis output is recoverable from the returned object when it has basis data. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.subalgebra(gens, category=None, *args, **opts)` | `subalgebra(generators) -> Algebra` | The generated subalgebra is algebra structure. Sage's category and option bag are implementation routing and are not exposed. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.ideal_submodule()` and `principal_ideal()` | Named left/right/two-sided ideal methods and principal variants | Preserve ideal-interface obligations: ideals are `Algebras(R).Ideals(A)` objects, module subobjects with left/right/two-sided predicates, ambient module, ambient algebra, and inclusion data. No side string or option bag is public API. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.orthogonal_idempotents_central_mod_radical()`, `idempotent_lift()`, `cartan_invariants_matrix()`, `isotypic_projective_modules()`, `peirce_summand()`, `peirce_decomposition()`, `is_identity_decomposition_into_orthogonal_idempotents()` | Finite-dimensional algebra method surface, refined by with-basis implementation evidence | These operations depend on finite-dimensional algebra structure and, in Sage, concrete basis algorithms. They should be owned by `Algebras(R).FiniteDimensional()` when basis-free mathematics is stated, with `WithBasis` supplying computable witnesses. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.is_commutative()` | `Algebras(R).Commutative()` predicate/refinement evidence | Commutativity is a shared axiom; this Sage method is a detection implementation, not an algebra-only public method. |
+| `FiniteDimensionalAlgebrasWithBasis.ElementMethods.to_matrix()`, `on_left_matrix()` | Representation/interoperability helpers | These are finite-dimensional regular-representation matrices. Public algebra methods should return morphisms/endormorphisms or module maps; raw matrices are interop/display data. |
+| `FiniteDimensionalAlgebrasWithBasis.ElementMethods.__invert__()` | Multiplicative inverse with finite-dimensional implementation evidence | Public ownership remains multiplicative/ring structure; the finite-dimensional matrix solve is an implementation strategy. |
+| `FiniteDimensionalAlgebrasWithBasis.Cellular` | Missing project cellular-algebra subcategory surface | Sage defines cellular algebras by a cell datum. This is a genuine mathematical subcategory of finite-dimensional algebras with basis and should become `Algebras(R).FiniteDimensional().WithBasis().Cellular()` after a tracked source-grounding decision/task. |
+| `AlgebraFunctor(base_ring).__call__(G, category=None)` and `Sets.ParentMethods.algebra(base_ring, category=None, **kwds)` | Source-category-owned `S.free_algebra(R)` methods and named `Algebras(R).Constructors().free_algebra_from_*` targets | The Sage `category=` disambiguator is not public API. The selected source category chooses the named project constructor. |
+| `AlgebrasCategory.ParentMethods.coproduct_on_basis()` for group/monoid algebra categories | Hopf/coalgebra refinement evidence | The coproduct is not owned by `Algebras(R)`. It belongs to a future Hopf/coalgebra category refinement for group-algebra essential images. |
+| `GroupAlgebraFunctor._apply_functor_to_morphism(f)` | Functorial base-change interop | This is a construction-functor runtime morphism over base-ring maps. Public algebra mapping records the group-algebra constructor; functorial base change belongs to constructor/functor interop until project functor categories are grounded. |
+| `AlgebraModules(A)` | `Modules(A)` for commutative algebra `A` | This is module-category structure over a fixed commutative algebra, not an algebra object or algebra constructor. Route it to the modules subtree; do not admit it as an Algebras method. |
+| `FreeAlgebraFactory.create_key/create_object`, `FreeAlgebra_generic._repr_/_latex_`, `_element_constructor_`, `_coerce_map_from_`, `construction()`, `AssociativeFunctor` | Constructor/runtime/display/private interop | Public constructor remains `free_algebra_from_set(generators=S)`. Generator-name parsing, unique-factory keys, letterplace backend choice, display, coercion, quotient implementation, PBW basis, and construction functor internals are compatibility evidence, not public algebra-spec methods. |
+| `FreeAlgebra_generic.gen(i)`, `gens()`, `ngens()`, `monoid()`, `degree_on_basis()`, `product_on_basis()` | With-basis/free-constructor evidence | Public generator surface is `algebra_generators() -> AlgebraElementFamily`; basis word degree is graded-algebra evidence; underlying free monoid and basis-index product are interop data. |
+| `FiniteDimensionalAlgebra.table()`, `left_table()`, `base_extend()`, `ideal()`, `_Hom_()`, `is_associative()`, `is_commutative()`, `is_unitary()`, `one()` | Concrete table-parent interop and predicate evidence | Public construction uses multiplication tensors; table matrices are an interop input to tensor constructors. Ideals route through named ideal methods. Associativity, commutativity, and unitality refine to project axiom categories rather than staying as ordinary option flags. |
+
+## Formal Negative Findings
+
+- Searched: local inventory `category_specs/algebras/docs/SAGE_INVENTORY.md`; installed Sage files under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories` matching `finite_dimensional_algebras*`; `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`.
+- Found: `sage/categories/finite_dimensional_algebras_with_basis.py` exists and defines the finite-dimensional category surface; no `sage/categories/finite_dimensional_algebras.py` file exists in the installed Sage 10.7 tree.
+- Conclusion: inference based on the installed file tree: Sage has no separate category source file for finite-dimensional algebras without basis in this installation; the concrete table parent and with-basis category are the available Sage evidence.
+- Confidence: High.
+- Gaps: Sage online development branches were not checked because the task scope is installed Sage 10.7.
+
+- Searched: local inventory source-visibility token `sage/tensor/cartesian`; installed Sage category sources `sage/categories/tensor.py`, `sage/categories/cartesian_product.py`, `sage/categories/algebras.py`, and `sage/categories/algebras_with_basis.py`.
+- Found: tensor and Cartesian-product construction category files exist under their separate Sage category modules; no installed path or module named `sage/tensor/cartesian` was found in the checked Sage source tree.
+- Conclusion: inference based on installed Sage 10.7 source: `sage/tensor/cartesian` is not a concrete source path for the Algebras mapping; tensor and Cartesian-product evidence should cite `sage/categories/tensor.py`, `sage/categories/cartesian_product.py`, and the algebra category files that specialize them.
+- Confidence: High.
+- Gaps: No web or Sage repository branch search was performed because the local task requested the installed source tree.
+
+- Searched: Sage sources `sage/categories/algebras.py`, `sage/categories/algebras_with_basis.py`, `sage/categories/finite_dimensional_algebras_with_basis.py`, `sage/categories/semisimple_algebras.py`, and `sage/algebras/free_algebra.py`.
+- Found: Sage implements `has_standard_involution()` on `Algebras.ParentMethods`, but its source comment says the algorithm is specific to quaternion algebras and depends on basis behavior; no general mathematical definition or project owner for "standard involution" was found in the checked Algebras sources.
+- Conclusion: inference based on limited source evidence: the project should not treat `has_standard_involution()` as fully grounded on all `Algebras(R)` until an involutive/quaternion-algebra owner is defined.
+- Confidence: Medium.
+- Gaps: Quaternion-algebra source files and algebra-with-involution references were not checked because they are outside the inventory-named Algebras source corpus.
+
+- Searched: Sage sources named above plus `sage/categories/algebra_functor.py` for Hopf/coalgebra methods on group-algebra constructions.
+- Found: `coproduct_on_basis()` and documented antipode/counit behavior appear in the group-algebra functor discussion, but no Hopf-algebra project mapping surface exists in this Algebras spec.
+- Conclusion: inference based on the checked sources: Hopf structure is real Sage evidence for group algebras, but it is not an `Algebras(R)` method and requires a separate Hopf/coalgebra category mapping before admission.
+- Confidence: Medium.
+- Gaps: Sage `hopf_algebras*` sources and local Hopf category specs were not checked because the assigned file is the Algebras mapping spec.
 
 ## Converted Mapping Content
 
