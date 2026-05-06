@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 dependsOn: []
 title: Audit category-spec duck-type object-shape probes
-status: unstarted
+status: needs-review
 priority: critical
 description: Audit category-spec implementation code for `getattr`, `hasattr`, optional
   attribute fallbacks, and private-slot probes that infer object shape instead of
@@ -66,16 +66,39 @@ membership/subcategory predicates.
 
 ## Acceptance Criteria
 
-- [ ] Scan `category_specs/` implementation files for `getattr`, `hasattr`, optional
+- [x] Scan `category_specs/` implementation files for `getattr`, `hasattr`, optional
   attribute fallback, and private-slot probe patterns.
-- [ ] For each finding, record whether the branch is Sage interop, a documented wrapper
+- [x] For each finding, record whether the branch is Sage interop, a documented wrapper
   boundary, real category/type dispatch, or invalid duck-type probing.
-- [ ] Replace invalid probes with real Sage/project type checks, category
+- [x] Replace invalid probes with real Sage/project type checks, category
   membership/subcategory checks, or named wrapper/accessor boundaries when the fix is
   local and source-backed.
-- [ ] Split any nonlocal or mathematically ambiguous remediation into owner-scoped
+- [x] Split any nonlocal or mathematically ambiguous remediation into owner-scoped
   follow-up cards instead of guessing inside the audit.
-- [ ] Do not weaken smokes or add broad exception-catching to hide the audit finding.
+- [x] Do not weaken smokes or add broad exception-catching to hide the audit finding.
+
+## Static Audit Result
+
+- `category_specs/cat/base_category_types.py`: constructor forwarding, provider
+  assembly, predicate validation, and Sage axiom descriptor interop. Classified as
+  documented Sage/project wrapper boundary or real category dispatch.
+- `category_specs/cat/subcategories/constructions/subobjects.py`: invalid
+  object-shape probes on `ambient_category` and `defining_predicates`. Replaced with
+  matching against the project `CategoryWithAxiom` wrapper classes before calling the
+  required methods.
+- `category_specs/sets/__init__.py`: root `Sets().__contains__` used optional
+  `category` lookup. Replaced with the real Sage `Parent` type boundary plus Sage
+  category membership. The generic `element_class` check remains classified as Sage
+  parent interop.
+- `category_specs/sets/subcategories/image.py`: local `ImageSubobject` wrapper probes
+  Sage backing storage. Classified as documented wrapper boundary.
+- `category_specs/sets/subcategories/integer_range.py`,
+  `category_specs/sets/subcategories/enumerated_from_iterator.py`, and
+  `category_specs/sets/subcategories/recursively_enumerated.py`: private-slot and
+  optional-attribute probes require Sage source grounding before rewrite. Routed to
+  `TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES`.
+- `category_specs/utils.py`: class/module and abstract-method inspection. Classified
+  as project validation boundary, not mathematical object-shape dispatch.
 
 ## Dependencies And Boundaries
 
@@ -101,3 +124,9 @@ membership/subcategory predicates.
 - 2026-05-05: Created from user correction and routing decision. This card exists so
   duck-type object-shape probing is audited deliberately during `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`, not
   opportunistically inside unrelated smoke implementation work.
+- 2026-05-06: Ran static searches for `getattr`, `hasattr`, optional fallbacks, private
+  slots, and `try`/attribute fallback patterns under `category_specs/`. Fixed the two
+  local invalid implementation probes in `Cat().Subobjects().__contains__` and
+  `Sets().__contains__`. Left source-dependent set-wrapper private-slot cases to
+  `TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES` instead of guessing.
+  No smoke assertions or spec obligations were weakened.

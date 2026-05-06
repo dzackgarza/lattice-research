@@ -1,0 +1,97 @@
+---
+id: TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES
+trackerStatus:
+  type: task
+parents:
+- '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
+dependsOn:
+- '[[TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES]]'
+title: Ground set-wrapper private-slot shape probes
+status: unstarted
+priority: high
+description: Source-audit the remaining private-slot and optional-attribute probes
+  in set-wrapper one-object categories, then either document them as Sage wrapper
+  boundaries or replace them with source-backed type, category, or accessor dispatch.
+successCriteria:
+- Sage docs/source for integer ranges, callable-backed enumerated sets, and recursively
+  enumerated sets are read before editing implementation code.
+- Each remaining probe in `integer_range.py`, `enumerated_from_iterator.py`, and `recursively_enumerated.py`
+  is classified as documented Sage wrapper storage or invalid object-shape dispatch.
+- Invalid probes are replaced with source-backed Sage/project type checks, category
+  predicates, or named wrapper/accessor boundaries.
+- Public mathematical specs, smokes, and abstract obligations are not weakened to
+  make the implementation pass.
+complexity: 55
+tags:
+- FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+- PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
+- PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT
+---
+# Ground set-wrapper private-slot shape probes
+
+## Summary
+
+Source-audit the remaining private-slot and optional-attribute probes in set-wrapper
+one-object categories, then either document them as Sage wrapper boundaries or replace
+them with source-backed type, category, or accessor dispatch.
+
+## Source Provenance
+
+- Parent audit:
+  `TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES`.
+- Style policy: `.agents/skills/category-spec-style/references/style.md`, especially
+  the no-duck-typing rule and the preference for real type/category dispatch.
+- Affected implementation surfaces:
+  `category_specs/sets/subcategories/integer_range.py`,
+  `category_specs/sets/subcategories/enumerated_from_iterator.py`, and
+  `category_specs/sets/subcategories/recursively_enumerated.py`.
+- Required Sage source/doc surfaces: Sage integer ranges, callable-backed enumerated
+  sets, and recursively enumerated forest/set implementations.
+
+## Context
+
+The first duck-type audit pass found that these set-wrapper files inspect private Sage
+storage such as `_middle_point`, `_end`, `_cache`, `_args`, `_kwds`, `_max_depth`,
+`_roots`, and `_seeds`, or probe for `successors`. These may be legitimate wrapper
+boundaries if Sage defines those storage variants as part of the concrete class family,
+but that must be grounded in source before the project treats them as acceptable.
+
+This card is intentionally separate from the initial static audit. The remediation may
+need Sage source reading and may reveal that the right replacement is a named project
+wrapper accessor rather than an immediate local rewrite.
+
+## Complexity And Ownership
+
+- Owner role: set-wrapper audit/implementation worker.
+- Complexity: 55, moderate band.
+- Rationale: the scope is confined to three related set-wrapper surfaces, but the correct
+  fix depends on Sage source details and should not be guessed from private attribute
+  names.
+
+## Acceptance Criteria
+
+- [ ] Sage docs/source for integer ranges, callable-backed enumerated sets, and
+  recursively enumerated sets are read before editing implementation code.
+- [ ] Each remaining probe in `integer_range.py`, `enumerated_from_iterator.py`, and
+  `recursively_enumerated.py` is classified as documented Sage wrapper storage or invalid
+  object-shape dispatch.
+- [ ] Invalid probes are replaced with source-backed Sage/project type checks, category
+  predicates, or named wrapper/accessor boundaries.
+- [ ] Public mathematical specs, smokes, and abstract obligations are not weakened to
+  make the implementation pass.
+
+## Dependencies And Boundaries
+
+- Do not change unrelated set constructors, smoke assertions, or mathematical method
+  ownership.
+- Do not replace Sage internals merely because they use private storage; first determine
+  whether this project is at a documented wrapper boundary.
+- If Sage source shows multiple concrete object families with different semantics, split
+  those families into separate owner cards rather than normalizing them through one
+  broad helper.
+
+## Work Log
+
+- 2026-05-06: Created from the duck-type object-shape audit after local fixes handled
+  `Sets().__contains__` and `Cat().Subobjects().__contains__`, while set-wrapper
+  private-slot cases remained source-dependent.

@@ -6,7 +6,12 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
 
-from ... import SubobjectsCategory
+from ... import (
+    CategoryWithAxiom,
+    CategoryWithAxiom_over_base_ring,
+    CategoryWithAxiom_singleton,
+    SubobjectsCategory,
+)
 
 if TYPE_CHECKING:
     from ....types import Category, CategoryObject
@@ -26,9 +31,7 @@ class Subcategories(SubobjectsCategory):
 
         if candidate not in Cat():
             return False
-        if not hasattr(candidate, "ambient_category"):
-            return False
-        if not hasattr(candidate, "defining_predicates"):
+        if not isinstance(candidate, (CategoryWithAxiom, CategoryWithAxiom_singleton, CategoryWithAxiom_over_base_ring)):
             return False
         ambient = candidate.ambient_category()
         predicates = candidate.defining_predicates()

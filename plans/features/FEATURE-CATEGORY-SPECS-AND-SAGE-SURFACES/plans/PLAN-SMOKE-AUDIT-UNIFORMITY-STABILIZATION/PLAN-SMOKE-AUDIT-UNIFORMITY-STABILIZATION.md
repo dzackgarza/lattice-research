@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Smoke audit and uniformity stabilization
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper,

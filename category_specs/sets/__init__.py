@@ -325,8 +325,9 @@ class Sets(Category_singleton):
     @final
     def __contains__(self, candidate: Any) -> bool:
         r"""Return whether ``candidate`` is a Sage/project set parent."""
-        category = getattr(candidate, "category", None)
-        return callable(category) and category().is_subcategory(SageSets())
+        from sage.structure.parent import Parent
+
+        return isinstance(candidate, Parent) and candidate.category().is_subcategory(SageSets())
 
     @override
     @final

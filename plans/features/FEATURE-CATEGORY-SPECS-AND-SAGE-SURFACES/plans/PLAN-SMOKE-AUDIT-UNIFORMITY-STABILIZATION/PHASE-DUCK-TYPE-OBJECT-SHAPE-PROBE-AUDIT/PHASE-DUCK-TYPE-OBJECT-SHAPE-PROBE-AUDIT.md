@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 dependsOn: []
 title: Duck-type object-shape probe audit
-status: unstarted
+status: in-progress
 priority: critical
 description: Audit category-spec implementation surfaces for object-shape probing
   patterns that use `getattr`, `hasattr`, optional attribute fallbacks, or private-slot
@@ -56,6 +56,7 @@ failure being fixed.
 ## Child Cards
 
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT/tasks/TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT/tasks/TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES.md`
 
 ## Acceptance Criteria
 
