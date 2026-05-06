@@ -93,7 +93,9 @@ class _TensorElementMethods:
         assert self.tensor_type() == (1, 2), (
             f"Structure constants are only defined for multiplication tensors of type (1, 2): {self.tensor_type()}"
         )
-        return tuple(self[:])
+        from sage.matrix.constructor import matrix
+
+        return tuple(matrix(self.base_module().base_ring(), entries) for entries in self[:])
 
 
 class _TensorMorphismMethods:
@@ -197,7 +199,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             )
             p, q = self._check_tensor_type(tensor_type)
             T = base_module.tensor_module(p, q, sym=sym, antisym=antisym)
-            return refine_category(T, self.category())
+            return refine_category(T, self.category(), test=False)
 
         @final
         def tensor(

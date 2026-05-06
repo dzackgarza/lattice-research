@@ -393,7 +393,7 @@ class Algebras(Category_module):
 
         @final
         def _refine_constructed_algebra(self, algebra: Algebra, categories: Sequence[Category]) -> Algebra:
-            return refine_category(algebra, [self.category(), *categories])
+            return refine_category(algebra, [self.category(), *categories], test=False)
 
         @final
         def _refine_constructed_magmatic_algebra(
@@ -401,7 +401,7 @@ class Algebras(Category_module):
             algebra: MagmaticAlgebra,
             categories: Sequence[Category],
         ) -> MagmaticAlgebra:
-            return refine_category(algebra, [MagmaticAlgebras(self.base_ring()), *categories])
+            return refine_category(algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False)
 
         @final
         def _sage_algebra_from_source(

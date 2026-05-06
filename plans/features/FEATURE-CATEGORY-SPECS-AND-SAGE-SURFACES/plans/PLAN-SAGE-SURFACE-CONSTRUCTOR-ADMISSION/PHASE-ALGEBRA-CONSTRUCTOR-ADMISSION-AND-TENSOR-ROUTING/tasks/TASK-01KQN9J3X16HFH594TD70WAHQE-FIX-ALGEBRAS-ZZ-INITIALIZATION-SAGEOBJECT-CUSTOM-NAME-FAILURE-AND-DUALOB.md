@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects
   forms-axiom blocker
-status: unstarted
+status: needs-review
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
@@ -63,3 +63,19 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 scoped start: `just --justfile category_specs/justfile smoke-file
+  algebras/smoketest.sage` failed on constructor-refinement probes before the
+  membership assertions: free/source algebra constructors reported
+  `alternating_algebra`, and multiplication-tensor constructors reported
+  `annihilator`. The constructor surfaces are source-grounded in
+  `[[SPEC-MAPPING-ALGEBRAS]]`; this pass scopes constructor refinement to category
+  membership without running global missing-method probes.
+- 2026-05-06 algebra/tensor handoff slice: algebra constructor refinement helpers now
+  use scoped category refinement without the global missing-method probe. The
+  remaining multiplication-tensor failure was routed through
+  `[[TASK-01KQN9YGCN4F4M2DH9GP2A00XZ-IMPLEMENT-TENSORALGEBRACOMPONENTS-CONSTRUCTORS-FOR-MODULE-ELEMENT-MATRIC]]`,
+  where tensor component refinement and matrix-valued `structure_constants()` were
+  fixed. Validation: `python -m py_compile category_specs/algebras/__init__.py`,
+  `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`, and
+  the tensor component smoke all pass. Status moved to `needs-review`; this does not
+  mark the card accepted or complete.

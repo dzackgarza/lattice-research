@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement TensorAlgebraComponents constructors for module-element matrices
   structure constants and multiplication-tensor handoff to Algebras(R)
-status: unstarted
+status: needs-review
 priority: high
 description: Tensor mapping fixes tensor component ownership, coordinate interop constructors,
   dual- object interpretation, and the algebra multiplication-tensor handoff.
@@ -59,3 +59,18 @@ object interpretation, and the algebra multiplication-tensor handoff.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 scoped start from algebra smoke: multiplication-tensor algebra smoke
+  failed while `TensorAlgebraComponents(R).Constructors().from_module_element_matrix`
+  called `component_module(...)`; the tensor component module refinement ran the
+  global missing-method probe and stopped on `annihilator`. The constructor already
+  validates tensor type and base-module compatibility, so this pass scopes component
+  refinement to tensor-component category membership while preserving direct method
+  frontiers.
+- 2026-05-06 tensor handoff slice: `component_module(...)` now refines tensor
+  component modules with `test=False`, and product-tensor `structure_constants()`
+  returns Sage matrices over the tensor base ring instead of raw nested component
+  lists. Validation: `python -m py_compile
+  category_specs/tensor_algebra_components/__init__.py`, `just --justfile
+  category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`, and
+  the algebra smoke all pass. Status moved to `needs-review`; this does not mark the
+  card accepted or complete.
