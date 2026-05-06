@@ -55,7 +55,9 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             use_givens: bool = False,
             use_siegel: bool = False,
             transformation: bool = False,
-        ) -> Matrix: ...
+        ) -> Matrix:
+            del delta, eta, early_red, use_givens, use_siegel, transformation
+            ...
 
     class ElementMethods: ...
 

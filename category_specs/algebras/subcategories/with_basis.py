@@ -62,6 +62,7 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
             r"""Return the Hochschild complex computed from this basis presentation."""
+            del coefficients
             ...
 
     class ElementMethods:

@@ -69,6 +69,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def term(self, index: CategoryElement, coeff: RingElement | None = None) -> RModuleElement:
             r"""Return ``coeff`` times the basis element indexed by ``index``."""
+            del coeff
             ...
 
         @abstract_method
@@ -77,6 +78,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             terms: dict[CategoryElement, RingElement] | Sequence[tuple[CategoryElement, RingElement]],
         ) -> RModuleElement:
             r"""Return the finite linear combination of basis terms."""
+            del terms
             ...
 
         @abstract_method
@@ -85,7 +87,9 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             elements: Sequence[RModuleElement],
             row_reduced: bool = False,
             order: Sequence[CategoryElement] | Callable[[CategoryElement], Integer | str] | None = None,
-        ) -> list[RModuleElement]: ...
+        ) -> list[RModuleElement]:
+            del row_reduced
+            ...
 
         @abstract_method
         def reduce(self, x: RModuleElement) -> RModuleElement: ...
@@ -199,7 +203,9 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
             vector: RModuleElement | Sequence[RingElement],
             order: Sequence[CategoryElement] | None = None,
             coerce: bool = True,
-        ) -> RModuleElement: ...
+        ) -> RModuleElement:
+            del coerce
+            ...
 
         @abstract_method
         def coordinate_module(self, V: RModule) -> RModule: ...

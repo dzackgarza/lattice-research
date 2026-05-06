@@ -66,7 +66,9 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             degrees: Sequence[Integer] | None = None,
             shifts: Sequence[Integer] | None = None,
             algorithm: str = "heuristic",
-        ) -> FreeResolution: ...
+        ) -> FreeResolution:
+            del graded, degrees, shifts
+            ...
 
         @abstract_method
         def module_morphism(
@@ -83,7 +85,9 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             zero: RModuleElement | RingElement | None = None,
             position: Integer = 0,
             side: Literal["left", "right"] = "left",
-        ) -> RModuleMorphism: ...
+        ) -> RModuleMorphism:
+            del on_basis, triangular, unitriangular, position
+            ...
 
     class ElementMethods: ...
 

@@ -90,6 +90,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def invariants(self, include_ones: bool = False) -> tuple[RingElement, ...]:
             r"""Return the nonzero invariant factors, optionally including unit factors."""
+            del include_ones
             ...
 
         @abstract_method
@@ -112,7 +113,9 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             return sum(1 for r in self.invariant_factors() if r.is_zero())
 
         @abstract_method
-        def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement: ...
+        def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement:
+            del vec
+            ...
 
         @abstract_method
         def V(self) -> RModule: ...
@@ -124,7 +127,9 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         def optimized(self) -> RModule: ...
 
         @abstract_method
-        def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism: ...
+        def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism:
+            del images
+            ...
 
     # ------------------------------------------------------------------
     # ElementMethods
@@ -148,13 +153,17 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstract_method
-            def from_dict(self, mapping: dict[RModuleElement, RModuleElement]) -> RModMorphism: ...
+            def from_dict(self, mapping: dict[RModuleElement, RModuleElement]) -> RModMorphism:
+                del mapping
+                ...
 
             @abstract_method
             def from_matrix(self, M: Matrix) -> RModMorphism: ...
 
             @abstract_method
-            def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism: ...
+            def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism:
+                del images
+                ...
 
         class ElementMethods:
             @abstract_method

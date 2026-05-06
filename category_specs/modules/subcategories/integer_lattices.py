@@ -52,7 +52,9 @@ class _IntegerLattices(Category_over_base_ring):
             use_givens: bool = False,
             use_siegel: bool = False,
             transformation: bool = False,
-        ) -> Matrix: ...
+        ) -> Matrix:
+            del delta, eta, early_red, use_givens, use_siegel, transformation
+            ...
 
         @abstract_method
         def BKZ(
@@ -65,14 +67,18 @@ class _IntegerLattices(Category_over_base_ring):
             use_givens: bool = False,
             precision: Integer = 0,
             proof: bool | None = None,
-        ) -> Matrix: ...
+        ) -> Matrix:
+            del delta, block_size, prune, use_givens
+            ...
 
         @abstract_method
         def shortest_vector(
             self,
             update_reduced_basis: bool = True,
             algorithm: Literal["fplll", "pari"] = "fplll",
-        ) -> RModuleElement: ...
+        ) -> RModuleElement:
+            del update_reduced_basis
+            ...
 
         @abstract_method
         def voronoi_cell(self, radius: RealNumber | None = None) -> Polyhedron: ...

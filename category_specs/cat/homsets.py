@@ -22,12 +22,14 @@ class _CatHomCategoryObjectMethods:
     @abstract_method
     def __call__(self, functor: Functor) -> Functor:
         r"""Coerce a Sage functor into this ``Cat()`` hom object."""
+        del functor
         ...
 
     @override
     @abstract_method
     def __contains__(self, functor: Any) -> bool:
         r"""Return whether ``functor`` is an element of this functor hom object."""
+        del functor
         ...
 
 
@@ -44,7 +46,9 @@ class _CatFunctorMethods:
     def _apply_functor(self, category: Category) -> Category: ...
 
     @abstract_method
-    def _apply_functor_to_morphism(self, functor: Functor) -> Functor: ...
+    def _apply_functor_to_morphism(self, functor: Functor) -> Functor:
+        del functor
+        ...
 
 
 class _CatConstructionFunctorMethods(_CatFunctorMethods):
@@ -86,6 +90,7 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
         other_bases: tuple[Category, ...],
     ) -> Category:
         r"""Return the common base category data for this construction and ``other_functor``."""
+        del other_functor, self_bases, other_bases
         ...
 
 

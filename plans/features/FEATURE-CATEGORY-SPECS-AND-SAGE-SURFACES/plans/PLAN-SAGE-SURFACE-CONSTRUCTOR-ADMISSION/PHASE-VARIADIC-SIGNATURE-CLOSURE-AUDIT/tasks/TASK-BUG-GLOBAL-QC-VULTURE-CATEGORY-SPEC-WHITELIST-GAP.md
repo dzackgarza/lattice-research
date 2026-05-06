@@ -171,11 +171,28 @@ violations to silence QC rather than addressing the issues they unearthed.
   than the temporary nonhomogeneous relation error. `rings/tests/regression/number_fields.sage`
   reaches the existing `hilbert_polynomial` implementation gap after the stale import
   path was corrected.
+- 2026-05-06 third bounded slice: 100%-confidence unused-parameter findings were
+  cleared in abstract/spec method stubs without changing public parameter names. The
+  affected files were `category_specs/algebras/__init__.py`,
+  `category_specs/algebras/subcategories/with_basis.py`,
+  `category_specs/cat/homsets.py`,
+  `category_specs/lattices/subcategories/over_integers.py`,
+  `category_specs/modules/subcategories/finitely_presented_graded_modules.py`,
+  `category_specs/modules/subcategories/finitely_presented_over_pid.py`,
+  `category_specs/modules/subcategories/integer_lattices.py`, and
+  `category_specs/modules/subcategories/with_basis.py`.
+- Validation for the third slice: the vulture-only diagnostic no longer reports the
+  targeted unused formal parameters from those files. Remaining 100%-confidence
+  category-spec findings are in other surfaces such as forms, rings, sets, and tensor
+  components.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
 - Spec-weakening review: this slice added smoke coverage and did not delete abstract
   methods, narrow smokes, remove constructor obligations, or move any spec surface.
+  The third slice preserved public signatures and only made existing stub bodies refer
+  to their documented parameters so vulture can distinguish intentional API from dead
+  locals.
 
 ## Work Log
 
@@ -186,3 +203,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   root package re-export usage plus category diagnostic utility usage in the Cat smoke.
 - 2026-05-06: Completed the second bounded cleanup slice for generated category-spec
   Sage findings and recorded the remaining validation frontier.
+- 2026-05-06: Completed the third bounded cleanup slice for selected 100%-confidence
+  unused formal parameters in abstract/spec method stubs.

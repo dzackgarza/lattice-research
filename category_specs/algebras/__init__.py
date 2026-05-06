@@ -253,6 +253,7 @@ class _AlgebraParentMethods:
     @abstract_method
     def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
         r"""Return the Hochschild chain complex with coefficients in ``coefficients``."""
+        del coefficients
         ...
 
     @override
@@ -273,6 +274,7 @@ class _AlgebraParentMethods:
         check: bool = True,
     ) -> Sequence[Sequence[Algebra]]:
         r"""Return the Peirce decomposition determined by ``idempotents``."""
+        del idempotents
         ...
 
     @abstract_method
