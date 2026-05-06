@@ -105,8 +105,10 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
                 raise NotImplementedError("ambient Sage free modules have a fixed canonical basis")
             return None
 
-        @abstract_method
-        def dimension(self) -> Cardinality: ...
+        @override
+        @final
+        def dimension(self) -> Cardinality:
+            return self.rank()
 
         @final
         def degree(self) -> Cardinality:

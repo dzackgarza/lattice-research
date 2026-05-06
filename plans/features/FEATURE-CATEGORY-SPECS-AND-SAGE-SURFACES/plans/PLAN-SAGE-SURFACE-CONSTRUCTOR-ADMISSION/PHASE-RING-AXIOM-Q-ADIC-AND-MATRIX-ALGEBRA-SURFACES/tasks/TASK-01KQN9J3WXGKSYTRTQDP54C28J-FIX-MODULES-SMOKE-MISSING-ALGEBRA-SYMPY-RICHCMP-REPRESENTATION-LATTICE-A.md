@@ -85,3 +85,11 @@ wrappers.
   subobject/quotient `alternating_algebra`, representation/lattice compatibility
   `KeyError`s, graded base-category mismatch, ideal `_refine_category_`, and inherited
   ring-as-module frontiers.
+- 2026-05-06 finite-rank dimension slice: implemented
+  `Modules(R).Free().FiniteRank().ParentMethods.dimension()` as `rank()`, matching the
+  mapping rule that finite-rank dimension is the cardinality of a basis. Re-running
+  the modules smoke removed the `VectorSpaceWithoutBasis(2) has dimension 2` failure;
+  the first remaining constructor-specific frontier is vector-space inner-product form
+  routing (`base must be a ring or a subcategory of Rings()`), followed by the existing
+  subobject/quotient `alternating_algebra`, representation/lattice compatibility,
+  graded, ideal, and ring-as-module frontiers.
