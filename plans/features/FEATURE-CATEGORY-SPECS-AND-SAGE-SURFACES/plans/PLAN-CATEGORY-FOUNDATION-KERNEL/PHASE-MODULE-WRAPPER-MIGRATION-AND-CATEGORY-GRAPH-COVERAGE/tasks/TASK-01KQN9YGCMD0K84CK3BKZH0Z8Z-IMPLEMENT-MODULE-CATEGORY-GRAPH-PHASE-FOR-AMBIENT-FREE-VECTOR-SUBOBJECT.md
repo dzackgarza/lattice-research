@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS]]'
 title: Implement module category graph phase for ambient free vector subobject quotient
   form graded Ore and representation surfaces
-status: in-progress
+status: blocked
 priority: high
 description: 'The deleted module wrapper migration plan is a phased migration contract:
   map methods first, define the category graph, rewrite constructors, move methods
@@ -142,3 +142,16 @@ then delete wrappers.
   Ore-module `characteristic_polynomial`, integer-lattice and torsion-quadratic
   `KeyError: (256, 260)`, ideal submodule `_refine_category_` absence, and
   ring-as-module inherited ring method gaps.
+- 2026-05-06 owner pass: moved `is_submodule_of` off arbitrary root modules and onto
+  `Modules(R).Subobjects().ParentMethods`, where ambient/inclusion data is present.
+  This preserves the method obligation under the owner recorded in
+  `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` rather than weakening it.
+- 2026-05-06 scoped smoke rerun after the owner pass:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails, but the first standard free-module frontier moved to
+  `modify_module_structure`. This path is blocked by
+  `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]`, which must decide
+  scalar-action data and transport/twist naming before implementation. Remaining
+  preserved gap evidence includes the earlier nonstandard free-module, formed-module,
+  representation, graded-module, Ore, lattice/torsion-quadratic, ideal-submodule, and
+  ring-as-module frontiers.

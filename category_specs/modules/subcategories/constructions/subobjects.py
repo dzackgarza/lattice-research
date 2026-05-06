@@ -70,6 +70,11 @@ class _Subobjects(SubobjectsCategory):
         @abstract_method
         def is_subspace(self, other: RModule) -> bool: ...
 
+        @final
+        def is_submodule_of(self, other: RModule | None = None) -> bool:
+            r"""Return whether this submodule is contained in ``other`` or its ambient."""
+            return self <= (self.ambient_module() if other is None else other)
+
         @abstract_method
         def __le__(self, other: RModule) -> bool: ...
 

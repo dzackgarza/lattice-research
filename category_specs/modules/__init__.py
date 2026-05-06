@@ -310,9 +310,6 @@ class _RModObjects:
     @abstract_method
     def is_isomorphic_to(self, other: RModule) -> bool: ...
 
-    @abstract_method
-    def is_submodule_of(self, other: RModule) -> bool: ...
-
     @overload
     def direct_sum(self, other: RModule) -> RModule: ...
 
