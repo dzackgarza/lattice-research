@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Category-spec source maps constructor routing and admission research
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: Preserve and route the non-lattice root `plans` source maps into an approved
@@ -20,8 +20,11 @@ successCriteria:
 - External/Sage-source claims cite source paths or docs before implementation.
 - Constructor admission cards identify the mathematical owner and the Sage constructor
   surface separately.
+- Every `category_specs/*/docs/MAPPING.md` file is represented by a tracked `spec`
+  card with completeness and mathematical-correctness review criteria.
 phases:
 - '[[PHASE-CATEGORY-SOURCE-MAPS-AND-CONSTRUCTOR-ADMISSION]]'
+- '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
@@ -89,6 +92,9 @@ This plan owns research and admission around:
 - [ ] Work that blocks vocabulary or method ownership becomes critical or high-priority cards.
 - [ ] External/Sage-source claims cite source paths or docs before implementation.
 - [ ] Constructor admission cards identify the mathematical owner and the Sage constructor surface separately.
+- [ ] Every `category_specs/*/docs/MAPPING.md` file has a tracked spec card and a
+      mathematical review path for completeness, well-typedness, and coherent
+      highest-category method placement.
 
 ## Decomposition Boundary
 

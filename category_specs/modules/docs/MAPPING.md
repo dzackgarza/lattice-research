@@ -272,12 +272,18 @@ The migration needs these mathematical owners before constructors are fully rewi
 | `Modules(R).WithAction(S, side)` | Representation modules: modules over `R` equipped with a specified action of `S` on the given side. |
 | `Modules(R).WithOreOperator(...)` or `Modules(OreAlgebra).FiniteRankFree()` | Ore modules, depending on whether the admitted mathematical owner is semilinear-operator data or modules over the Ore algebra. |
 
-### Method Ownership Rules
+### Method Mapping Rules
 
 The same Sage implementation class can expose methods owned by several mathematical
-categories. The migration should use these rules before placing any method:
+categories. The migration should map each Sage method to a project method signature:
+where the project method is defined, its inputs, its hypotheses, and its return type.
+Construction categories describe output structure or extra methods on constructed
+objects; they do not by themselves determine where an operation is called.
 
-| Method group | Mathematical owner |
+For root module construction signatures, use the tracked spec
+`[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]`.
+
+| Method group | Project mapping |
 | --- | --- |
 | `rank`, `dimension`, basis cardinality | `Modules(R).Free()` for rank as basis cardinality; finite-dimensional aliases belong to finite-rank or field-vector owners. |
 | `basis`, `basis().keys()`, `monomial`, `term`, `from_vector`, `linear_combination_of_basis` | `WithBasis()`; ordered coordinate variants belong to `WithOrderedBasis()`. |
@@ -285,15 +291,16 @@ categories. The migration should use these rules before placing any method:
 | element `list`, `vector`, `support`, coefficient lookup, leading/trailing term methods | basis or ordered-basis element surfaces; not generic module elements. |
 | `degree`, coordinate-ring bookkeeping, dense/sparse conversion, representation hooks, `_sympy_`, `_magma_init_`, `_macaulay2_` | interop or representation details unless a mathematical invariant is explicitly stated. |
 | `linear_combination`, parent `sum`, random elements | generic computational helpers; no public category method unless the spec states finite-linear-combination or probability-distribution structure. |
-| `submodule`, `submodule_with_basis`, `span`, `zero_submodule`, submodule comparison | `Subobjects()` refined by free, field, PID, basis, or ordered-basis hypotheses as required. |
-| `intersection`, `saturation`, `denominator`, `index_in` | free modules over integral domains/PIDs and their subobject owners. |
-| `quotient_module`, `__truediv__`, `quotient_abstract`, quotient matrices | `Quotients()` refined by field, free, PID, finite-presentation, basis, or ordered-basis hypotheses. |
+| `submodule`, `submodule_with_basis`, `span`, `zero_submodule` | Construction methods called on an ambient module `M`; they return submodules of `M`. Basis/order/PID/field hypotheses refine the signature and output subobject structure. |
+| Submodule comparison and ambient/lift/retract methods | Methods on subobject or ambient-bearing module objects. They require a specified inclusion or ambient relation, not just an abstract module isomorphism. |
+| `intersection`, `saturation`, `denominator`, `index_in` | Methods on submodules of a common ambient module, with free/integral-domain/PID hypotheses where the operation or algorithm requires them. |
+| `quotient_module`, `__truediv__`, `quotient_abstract`, quotient matrices | Construction methods called on an ambient module `M` with submodule data `N <= M`; they return `M/N`. Field/free/PID/finite-presentation/basis hypotheses refine the signature and output quotient structure. |
 | `cover`, `relations`, `free_cover`, `free_relations`, `quotient_map`, `lift_map`, `lift`, `retract` | quotient or subquotient construction owners; `lift`/`retract` for submodules belong to `Subobjects()`. |
 | `cokernel_basis_indices` | quotient owners with basis or PID normal-form hypotheses. |
 | Smith-form data, `invariant_factors`, `invariants`, `smith_form_gens`, `free_part`, `torsion_part`, `annihilator`, element order | `FinitelyPresentedModulesOverPID` and its torsion/finite refinements. |
 | `hom`, `_Hom_`, `module_morphism`, morphism from basis/images/matrices, `on_basis` | the relevant `HomCategory()`; basis-defined constructors refine through `WithBasis().HomCategory()`. |
-| `tensor`, `tensor_module`, tensor constructors, tensor factors | `TensorProducts()` and tensor-power construction owners. |
-| `dual`, `linear_form`, `alternating_form`, symmetric and exterior powers | `DualObjects()` or the appropriate symmetric/exterior construction owner over finite-rank free modules. |
+| `tensor`, `tensor_module`, tensor constructors, tensor factors | Tensor construction methods are called on modules with compatible base/sidedness data and return tensor-product modules; tensor-product objects may have additional factor/construction methods. |
+| `dual`, `linear_form`, `alternating_form`, symmetric and exterior powers | `dual()` is called on the module whose dual is being constructed. Linear-form, symmetric, and exterior surfaces require explicit finite-rank/free/projective and sidedness hypotheses before placement. |
 | `determinant`, `discriminant`, `gram_matrix`, `inner_product_matrix`, `inner_product`, quadratic product | forms-owned bilinear/quadratic module owners. |
 | `is_symmetric`, `is_alternating`, `is_nondegenerate`, `is_integral`, `is_even` | forms-owned axiom owners, not constructor wrappers. |
 | lattice reduction and enumeration: `LLL`, `BKZ`, `HKZ`, `shortest_vector`, `voronoi_cell`, `closest_vector`, `babai` | integral-lattice algorithm surface, not generic modules or generic free modules. |
