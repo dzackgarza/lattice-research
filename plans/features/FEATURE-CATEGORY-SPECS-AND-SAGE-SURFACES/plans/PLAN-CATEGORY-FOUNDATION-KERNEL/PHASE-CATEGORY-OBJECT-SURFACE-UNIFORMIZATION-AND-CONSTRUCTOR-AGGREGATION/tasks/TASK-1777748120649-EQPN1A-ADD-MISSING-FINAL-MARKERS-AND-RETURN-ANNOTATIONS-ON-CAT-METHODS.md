@@ -175,3 +175,27 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
   `c827bf9` and `769c718` do not keep this card blocked.
 - The substantive task-local commit `e5b05f9` has a conventional summary and only adds
   the requested finality and typing surface. No current Gate 6 blocker remains.
+
+### Re-review 2026-05-06 (Carson)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- `Cat()` ownership and wrapper scope were checked against `SPEC-MAPPING-CAT.md` and
+  `category_specs/cat/docs/SAGE_INVENTORY.md`.
+- The touched methods in `category_specs/cat/base_category_types.py` have `@final`
+  markers and return annotations, and the required Cat smoke pass is recorded in this
+  card.
+- Targeted diff checks found no spec or smoke weakening. Remaining `*args` and
+  `**kwargs` occurrences in `category_specs/cat/base_category_types.py` are private or
+  generated implementation glue, not admitted public variadic mathematical
+  signatures.
+
+#### Residual Risks
+
+- The reviewer did not rerun smoke in this read-only pass and relied on the recorded
+  passing Cat smoke evidence.

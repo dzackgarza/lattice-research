@@ -159,3 +159,26 @@ Findings: none. The review found the parent phase, this task, and the target spe
 agree on the current `src.bak/spec-backups/` source root. The old
 `.agents/theory/spec-backups/` string remains only in historical notes describing the
 repaired defect.
+
+### Re-review 2026-05-06 (James)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- The target method-inventory spec records the source assignment for category docs,
+  spec backups, and backend notes, including the warning that spec backups are
+  mineable source material rather than current API authority.
+- `git diff --cached` and `git diff` on the task/spec surface were empty during the
+  read-only review, so no spec weakening or backsliding was found.
+- `just plan-validate` passed with `Validated 224 root planning cards.`
+
+#### Residual Risks
+
+- Smoke tests were not run because this is a planning/spec-corpus card, not an
+  implementation validation card.
+- Downstream geometry/backend source admission remains delegated to dependent
+  inventory cards.
