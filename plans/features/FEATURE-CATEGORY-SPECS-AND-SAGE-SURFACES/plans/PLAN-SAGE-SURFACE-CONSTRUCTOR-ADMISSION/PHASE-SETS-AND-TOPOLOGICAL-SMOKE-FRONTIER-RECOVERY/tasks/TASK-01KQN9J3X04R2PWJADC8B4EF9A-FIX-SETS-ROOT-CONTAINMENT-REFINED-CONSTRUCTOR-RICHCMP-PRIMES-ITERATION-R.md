@@ -36,6 +36,12 @@ construction, and topological axiom resolution.
 
 ## Source Provenance
 
+- Canonical set mapping:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md`,
+  especially the root comparison row, constructor mapping decisions, and Sage Primes
+  source note.
+- Topological warning decision:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/decisions/DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING.md`.
 - `plans/category_specs/sets/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:plans/category_specs/sets/docs/TRIAGE.md`.
 - Original migrated line: `Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning from category_specs/sets/docs/TRIAGE.md`
 
@@ -129,3 +135,29 @@ construction, and topological axiom resolution.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passes and
   still emits the documented Sage warning from
   `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py:2074`.
+
+## Review Log
+
+### Review 2026-05-06 (parent)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** parent review passed; human approval still required before completion
+
+#### Evidence
+
+- Gate 1: root containment, root comparison, constructor routing, and Primes source
+  skew are grounded in `SPEC-MAPPING-SETS`; the residual topological warning is
+  grounded in the recorded decision.
+- Gate 2: all card acceptance criteria are checked, and the work log records the
+  relevant set, topological-space, abstract-redefinition, and diff validation results.
+- Gate 3: the card explicitly split duck-type object-shape probing into the audit
+  phase rather than folding unrelated cleanup into this smoke leaf.
+- Gate 4: the work log preserves the rejected catch-all `Constructors().RealSet` route
+  and the documented Sage topological warning; it does not weaken smokes or mapping
+  decisions to hide them.
+- Gate 5: recorded validation includes passing `sets/smoketest.sage`,
+  `topological_spaces/smoketest.sage`, `check-abstract-redefinitions`, and
+  `git diff --check`.
+- Gate 6: residual risk is limited to the accepted Sage topological-axiom warning and
+  follow-up cards for narrower RealSet/ImageSubobject implementation surfaces.
