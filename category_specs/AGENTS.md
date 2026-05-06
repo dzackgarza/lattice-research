@@ -9,6 +9,24 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 ## Always-active rules
 
 - Obey the repo root `AGENTS.md`; load `research-state-machine` for plan-to-execution routing and acceptance, and load `research-proof-auditing` for proof, evidence, and audit-sufficiency questions.
+- The category-spec project exists to specify an ideal mathematical interface inside
+  Sage's category/object universe. Current Sage implementation coverage is not the
+  adequacy standard: if current Sage already satisfied the ideal interface, this
+  project would have no reason to exist. Sage interop is still a design constraint:
+  refined Sage objects should remain usable by existing Sage code when
+  mathematically appropriate. Sage inventory is implementation evidence and a
+  feasibility witness. Inventory and mapping preserve existing Sage functionality
+  and help bound the spec to implementable mathematics, while specs must also state
+  mathematically required methods that Sage lacks.
+- Spec smokes expose gaps between current Sage/refined objects and the ideal spec.
+  A smoke failure is normally evidence for an implementation, wrapper, constructor,
+  or compliance card; it is not evidence that the spec obligation should be weakened,
+  deleted, or moved without a grounded replacement owner.
+- Before advancing a category-spec task, phase, or plan, review the staged diff, the
+  unstaged diff, and any commits created during the work for spec weakening. Deleted
+  abstract methods, removed constructor obligations, narrowed smoke assertions,
+  moved obligations without a source-grounded replacement owner, and Sage-gap-driven
+  interface shrinkage fail the gate even if smoke output improves.
 - Treat spec files, review files, theory notes, TODO files, and durable design artifacts as source material. Do not rewrite, shorten, modernize, or delete them unless the user explicitly asks for that exact edit.
 - Use Nimbalyst tracker files for planning, follow-ups, blockers, decisions, deferred compliance findings, smoke triage, and outstanding work. Do not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is the right durable artifact.
 - Use only standard registered tracker types. Classify category-spec work with tags and `.agents` paths, not custom `x-work` types.

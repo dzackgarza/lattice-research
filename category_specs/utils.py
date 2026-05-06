@@ -1,5 +1,6 @@
 from collections.abc import Callable, Sequence
 from functools import wraps
+from textwrap import dedent
 from typing import Any, Protocol, TypeVar, cast, overload
 
 from sage.categories.category import Category
@@ -123,4 +124,35 @@ def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]],
         except Exception as exc:
             failures.append(f"{message}: {type(exc).__name__}: {exc}")
 
-    assert not failures, "\n".join(failures)
+    assert not failures, _format_smoke_failure_message(failures)
+
+
+def _format_smoke_failure_message(failures: list[str]) -> str:
+    reminder = dedent(
+        """
+        Category-spec smoke failures are gap evidence, not a spec-weakening signal.
+
+        The category-spec project defines an ideal mathematical interface inside
+        Sage's category/object universe. Current Sage coverage is not the adequacy
+        standard, while Sage interop remains a design constraint where
+        mathematically appropriate. A current Sage object missing a spec method
+        usually means a wrapper, constructor, implementation, decision, or
+        source-mining card is needed.
+
+        Before editing specs, abstract methods, constructor routing, or smoke
+        assertions in response to this output, load:
+        - category-spec-style
+        - category-spec-smoke-triage
+        - category-spec-workflow
+
+        Also check repo memory:
+        - .agents/memories/category-specs-sage-interop-is-a-design-constraint.md
+
+        Do not delete, weaken, or move a spec obligation because this smoke failed
+        unless a source-grounded replacement owner preserves the mathematical surface.
+        Before advancing the task, review git diff output and any task-local commits
+        for deleted obligations, narrowed smokes, or Sage-gap-driven interface
+        shrinkage.
+        """
+    ).strip()
+    return f"{reminder}\n\nSmoke failures:\n" + "\n".join(failures)

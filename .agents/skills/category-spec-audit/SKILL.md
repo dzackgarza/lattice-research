@@ -20,12 +20,18 @@ Before auditing:
 ## Audit focus
 
 - Specced vocabulary exists before implementation proceeds.
+- Spec claims are written in serious mathematical language: object, hypotheses,
+  required data, construction/predicate, and codomain are coherent before Sage
+  evidence is used.
 - Mathematical ownership is explicit and placed at the most general correct surface.
 - Foundations are complete enough to avoid downstream rewrites.
 - Complexity is hidden behind mathematical nouns, not ad hoc helper sprawl.
 - Indirection is minimal and meaningful.
 - Sage interop is mapped, not blindly wrapped.
 - Docs and references are current enough to prevent backsliding or confabulation.
+- Staged changes, unstaged changes, and task-local commits do not weaken specs by
+  deleting obligations, narrowing smokes, or moving method surfaces without a
+  source-grounded replacement owner.
 
 ## Output routing
 

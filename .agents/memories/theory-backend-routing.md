@@ -60,6 +60,6 @@ Critical backend limitations:
 
 Gap protocol: if a needed method is not listed here, stop implementation and create/update a backend-gap research card with the exact operation, mathematical objects, candidate software, docs checked, and blocker.
 
-Source anchors: `theory/backends/software-capability-map.md`, `library-integration.md`, `abstract-to-external-mapping.md`, `comprehensive-tool-docs.md`, `oscar-lattices.md`, `gap-orbits.md`, `indefinite-jl.md`, `indefinite-isometry.md`, `carat.md`, `buildings.md`.
+Source anchors: `theory/backends/software-capability-map`, `theory/backends/library-integration`, `theory/backends/abstract-to-external-mapping`, `theory/backends/comprehensive-tool-docs`, `theory/backends/oscar-lattices`, `theory/backends/gap-orbits`, `theory/backends/indefinite-jl`, `theory/backends/indefinite-isometry`, `theory/backends/carat`, `theory/backends/buildings`.
 
 Verification: a future implementation card should name the backend call above, list the public repo noun receiving the method, and use status `preferred-backend`, `bridge-needed`, `candidate-backend`, `true-gap`, or `out-of-scope`.

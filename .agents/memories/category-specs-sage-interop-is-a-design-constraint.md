@@ -1,0 +1,19 @@
+# Category Specs: Sage Interop Is a Design Constraint
+
+## Trigger
+
+When planning, implementing, auditing, or triaging category_specs work involving Sage inventory, Sage wrappers, constructor smokes, or refined Sage objects.
+
+## Rule
+
+The category-spec project defines an ideal mathematical interface inside Sage's category/object universe. Current Sage coverage is not the adequacy standard: if current Sage already satisfied the desired interface, this project would have no reason to exist.
+
+Sage interop is still a design constraint. The project extends Sage without editing upstream source yet, and refined Sage objects should remain usable by existing Sage code when mathematically appropriate. Use Sage as implementation evidence and a feasibility witness. Existing Sage methods, constructors, docs, and algorithms help preserve functionality and prevent unimplementable wishlists. They do not cap the spec and they are not negative evidence against mathematically required methods.
+
+## Action
+
+If a smoke fails because a current Sage/refined object lacks a spec method, record an implementation, wrapper, constructor, decision, or source-mining gap. Do not delete, weaken, or move the spec obligation unless a source-grounded replacement owner preserves the mathematical surface.
+
+## Verification
+
+Task, phase, or plan acceptance for spec-surface work should locally state how the ideal-interface obligation is preserved when Sage smokes fail.

@@ -91,40 +91,40 @@ At the end of this work:
 - Dutour-Sikirić, Hulek, *Moduli of polarized Enriques surfaces -- computational
   aspects*, arXiv:2302.01679
   - subgroup cusp splitting by double cosets:
-    [Enriques_compu_rev.tex#L1172](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1172)
+    `Enriques_compu_rev.tex#L1172`
   - reduction to finite quotient:
-    [Enriques_compu_rev.tex#L1202](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1202)
+    `Enriques_compu_rev.tex#L1202`
   - primitive isotropic vector algorithm:
-    [Enriques_compu_rev.tex#L1637](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1637)
+    `Enriques_compu_rev.tex#L1637`
   - isotropic `k`-plane stabilizer/equivalence:
-    [Enriques_compu_rev.tex#L1665](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1665)
+    `Enriques_compu_rev.tex#L1665`
   - isotropic `k`-plane orbit algorithm:
-    [Enriques_compu_rev.tex#L1784](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1784)
+    `Enriques_compu_rev.tex#L1784`
   - degree-2 Enriques Case 1 counts:
-    [Enriques_compu_rev.tex#L709](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L709)
+    `Enriques_compu_rev.tex#L709`
     and
-    [Enriques_compu_rev.tex#L1282](/home/dzack/.cache/arxiv/2302.01679/Enriques_compu_rev.tex#L1282)
+    `Enriques_compu_rev.tex#L1282`
 - Sterk, *Compactifications of the period space of Enriques surfaces Part I*
 - AEGS Definition 2.6 and Lemma 3.2:
-  [aegs_2023.md#L164](/home/dzack/research/theory/references/literature/aegs_2023.md#L164),
-  [aegs_2023.md#L274](/home/dzack/research/theory/references/literature/aegs_2023.md#L274)
+  `theory/references/literature/aegs_2023.md#L164`,
+  `theory/references/literature/aegs_2023.md#L274`
 
 ### Vendored backend docs and code
 
-- [theory/external/dutsik_polyhedral/polyhedral_common/BINARIES.md](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/BINARIES.md)
-- [theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_GetOrbit_IsotropicKplane.cpp](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_GetOrbit_IsotropicKplane.cpp)
-- [theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_StabilizerIsotropicPlane.cpp](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_StabilizerIsotropicPlane.cpp)
-- [theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_DoubleCoset.h](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_DoubleCoset.h)
-- [theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_OrbitSplitting.cpp](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_OrbitSplitting.cpp)
-- [theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_LinearSpace_Stabilizer_DoubleCoset.cpp](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_LinearSpace_Stabilizer_DoubleCoset.cpp)
+- [polyhedral_common binary targets](../external/dutsik_polyhedral/polyhedral_common/BINARIES)
+- `theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_GetOrbit_IsotropicKplane.cpp`
+- `theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_StabilizerIsotropicPlane.cpp`
+- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_DoubleCoset.h`
+- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_OrbitSplitting.cpp`
+- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_LinearSpace_Stabilizer_DoubleCoset.cpp`
 
 ### Existing repo integration points
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
-- [src/external/py_polyhedral/binaries.py](/home/dzack/research/src/external/py_polyhedral/binaries.py)
-- [src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py)
-- [computations/oscar_centralizer.py](/home/dzack/research/computations/oscar_centralizer.py)
-- [tests/test_sterk_cusps.py](/home/dzack/research/tests/test_sterk_cusps.py)
+- `src/coble_geometry_foundation.py`
+- `src/external/py_polyhedral/binaries.py`
+- `src/research/dawes_orbit_backend.py`
+- `computations/oscar_centralizer.py`
+- `tests/test_sterk_cusps.py`
 
 ## Public API Target
 
@@ -155,7 +155,7 @@ methods may remain and eventually delegate to `L.orthogonal_group()`.
 
 Add a new private module:
 
-- [src/research/isotropic_gamma_orbit_backend.py](/home/dzack/research/src/research/isotropic_gamma_orbit_backend.py)
+- `src/research/isotropic_gamma_orbit_backend.py`
 
 The existing `dawes_orbit_backend` remains non-isotropic.
 
@@ -333,9 +333,9 @@ Replace manual error raising in the affected modules with assertions.
 
 ### Files to clean
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
-- [src/external/py_polyhedral/binaries.py](/home/dzack/research/src/external/py_polyhedral/binaries.py)
-- [computations/oscar_centralizer.py](/home/dzack/research/computations/oscar_centralizer.py)
+- `src/coble_geometry_foundation.py`
+- `src/external/py_polyhedral/binaries.py`
+- `computations/oscar_centralizer.py`
 - the new isotropic backend module
 
 ### Required changes
@@ -358,7 +358,7 @@ backend and direct backend dependencies.
 
 Where:
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
+- `src/coble_geometry_foundation.py`
 
 Changes:
 
@@ -391,7 +391,7 @@ Validation:
 
 Where:
 
-- [src/research/isotropic_gamma_orbit_backend.py](/home/dzack/research/src/research/isotropic_gamma_orbit_backend.py)
+- `src/research/isotropic_gamma_orbit_backend.py`
 
 Changes:
 
@@ -420,7 +420,7 @@ Validation:
 
 Where:
 
-- [src/research/isotropic_gamma_orbit_backend.py](/home/dzack/research/src/research/isotropic_gamma_orbit_backend.py)
+- `src/research/isotropic_gamma_orbit_backend.py`
 
 Changes:
 
@@ -452,8 +452,8 @@ Validation:
 
 Where:
 
-- [computations/](/home/dzack/research/computations)
-- [tests/](/home/dzack/research/tests)
+- `computations/`
+- `tests/`
 
 Changes:
 
@@ -483,10 +483,10 @@ Validation:
 
 Where:
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
-- [src/external/py_polyhedral/binaries.py](/home/dzack/research/src/external/py_polyhedral/binaries.py)
-- [computations/oscar_centralizer.py](/home/dzack/research/computations/oscar_centralizer.py)
-- [src/research/isotropic_gamma_orbit_backend.py](/home/dzack/research/src/research/isotropic_gamma_orbit_backend.py)
+- `src/coble_geometry_foundation.py`
+- `src/external/py_polyhedral/binaries.py`
+- `computations/oscar_centralizer.py`
+- `src/research/isotropic_gamma_orbit_backend.py`
 
 Changes:
 

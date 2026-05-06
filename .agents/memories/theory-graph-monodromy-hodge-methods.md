@@ -38,6 +38,6 @@ Foliation/Hodge tool store:
 - IVHS/Hodge-locus procedure names: `HodgeLocusIdeal`, `SmoothReduced`, `EquHodge`, `InterTang`, `DeformSpace`, `ConstantRank`, `DistinctHodgeLocus`.
 - Gauss-Manin/Picard-Fuchs procedure names: `gaussmanin`, `gaussmaninvf`, `gaussmaninmatrix`, `PFequ`, `PFeq`, `sysdif`, `dbeta`.
 
-Source anchors: `theory/algorithms/graph-automorphisms.md`, `theory/algorithms/subgraph-orbits.md`, `theory/algorithms/monodromy-computations.md`, `theory/backends/foliation-lib-reusable-procedures.md`.
+Source anchors: `theory/algorithms/graph-automorphisms`, `theory/algorithms/subgraph-orbits`, `theory/algorithms/monodromy-computations`, `theory/backends/foliation-lib-reusable-procedures`.
 
 Verification: future graph/monodromy/Hodge work should name the exact stored function family above and state whether the output is a group, orbit representatives, canonical labels, monodromy matrix, period data, Hodge locus ideal, or Picard-Fuchs differential equation.

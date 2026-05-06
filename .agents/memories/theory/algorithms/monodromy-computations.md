@@ -107,7 +107,7 @@ QQi.<I> = QuadraticField(-1)
 t_loop = [QQi(v) for v in [1/2 + I/2, -1/2 + I/2, -1/2 - I/2, 1/2 - I/2, 1/2 + I/2]]
 # (scale avoids t=0 and t=1 critical values; check Disc_z(f) = t^2(t-1)^2)
 M = monodromy_curve_family(f, t_loop, prec=100)
-# Expected: M = [[1,0],[-2,1]] or [[1,2],[0,1]] depending on orientation/basis
+# Expected: M = (1,0; -2,1) or (1,2; 0,1) depending on orientation/basis
 ```
 
 **Example — cuspidal degeneration y² = x³ - t**:
@@ -119,7 +119,7 @@ f = w^2 - z^3 + t
 QQi.<I> = QuadraticField(-1)
 t_loop = [QQi(v) for v in [1, -I, -1, I, 1]]  # unit square, avoids t=0
 M = monodromy_curve_family(f, t_loop, prec=100)
-# Expected: unipotent M = [[1,0],[1,1]], N = M-I, N^2 = 0 (Kodaira type I_1)
+# Expected: unipotent M = (1,0; 1,1), N = M-I, N^2 = 0 (Kodaira type I_1)
 ```
 
 ---
@@ -212,9 +212,9 @@ QQ[i] (vertices {1, -i, -1, i} scaled to avoid critical values).
 Critical values: t=0, t=1. Fundamental group π₁(ℙ¹ \ {0,1,∞}) = ⟨γ₀, γ₁ | γ₀γ₁γ∞ = 1⟩.
 
 Monodromy in standard symplectic basis {[α],[β]} of H₁(F_{1/2}, ZZ):
-  M₀ = [[1, 0], [-2, 1]]   (around t=0; transvection by the vanishing cycle δ₀)
-  M₁ = [[1, 2], [0, 1]]    (around t=1; transvection by the vanishing cycle δ₁)
-  M∞ = (M₀·M₁)⁻¹ = [[-1,-2],[2,3]]
+  M₀ = (1, 0; -2, 1)   (around t=0; transvection by the vanishing cycle δ₀)
+  M₁ = (1, 2; 0, 1)    (around t=1; transvection by the vanishing cycle δ₁)
+  M∞ = (M₀·M₁)⁻¹ = (-1, -2; 2, 3)
 
 These generate Γ(2) ⊂ SL(2,ZZ) (principal congruence subgroup of level 2).
 
@@ -223,7 +223,7 @@ These generate Γ(2) ⊂ SL(2,ZZ) (principal congruence subgroup of level 2).
 Critical value: t=0 (Δ = -27t² = 0). Fiber F_0: cuspidal cubic (genus 0 with cusp).
 Kodaira fiber type: I₁ (nodal after change of variables; the cusp is a rational
 singularity). Monodromy:
-  M = [[1, 0], [1, 1]]   (unipotent; N = M-I, N² = 0)
+  M = (1, 0; 1, 1)   (unipotent; N = M-I, N² = 0)
 This is the standard Type II unipotent in Kulikov/Persson-Pinkham classification.
 
 ### Hesse pencil x³+y³+1 = 3t·xyz (elliptic surface)

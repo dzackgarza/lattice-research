@@ -27,8 +27,21 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 
 ## Hard reminders
 
+- The spec defines the ideal mathematical interface inside Sage's category/object
+  universe, not the interface current Sage happens to satisfy.
+- Current Sage coverage is not the adequacy standard. Sage interop is still a design
+  constraint: refined Sage objects should remain usable by existing Sage code when
+  mathematically appropriate.
+- Use Sage as implementation evidence and a feasibility witness: preserve inventoried
+  Sage functionality and use it to avoid unimplementable wishlists, while still adding
+  mathematically required surfaces that Sage lacks.
 - Specced vocabulary must exist before implementation proceeds.
 - Mathematical definitions are foundational; do not treat them as ordinary code style.
+- A spec row is a mathematical claim before it is a Sage/source-map row. If it cannot
+  be stated coherently in mathematical language, it is not grounded.
+- For methods, ownership means the category of objects on which the operation is
+  defined. The category of the constructed result is codomain/target data, not by
+  itself the method owner.
 - Every spec claim must be grounded in a canonical mathematical source before edit:
   repo theory, references, spec backups, Sage written docs/source, or an approved
   decision card. A migrated TODO/card is provenance only, not definition authority.
@@ -36,7 +49,8 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
   proof or hypotheses, stop the leaf and route a decision/source-mining card instead of
   guessing the familiar meaning.
 - Complexity belongs behind mathematical nouns, not helper sprawl.
-- Do not weaken specs to make current code pass.
+- Do not weaken specs to make current code pass. A smoke failure usually records an
+  implementation or wrapper gap against the ideal spec.
 - Do not rewrite specs unless the user explicitly requests that exact edit.
 
 ## Required output behavior

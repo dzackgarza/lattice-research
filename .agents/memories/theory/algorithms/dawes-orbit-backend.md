@@ -81,11 +81,11 @@ At the end of this work:
 
 - Dawes, *Orbits in lattices*, §2.1, Algorithms 2.1-2.3, Theorem 2.3,
   Lemmas 2.4-2.5.
-- [theory/algorithms/dawes-nonisotropic-vector-orbits.md](/home/dzack/research/theory/algorithms/dawes-nonisotropic-vector-orbits.md)
-- [theory/backends/indefinite-isometry.md](/home/dzack/research/theory/backends/indefinite-isometry.md)
-- [src/external/README.md](/home/dzack/research/src/external/README.md)
-- [theory/external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods.md](/home/dzack/research/theory/external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods.md)
-- [theory/backends/oscar-lattices.md](/home/dzack/research/theory/backends/oscar-lattices.md)
+- [Dawes non-isotropic vector orbits](dawes-nonisotropic-vector-orbits)
+- [Indefinite isometry backend](../backends/indefinite-isometry)
+- `src/external/README.md`
+- [polyhedral_common indefinite methods](../external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods)
+- [Oscar lattices](../backends/oscar-lattices)
 
 ### Online backend docs
 
@@ -182,26 +182,26 @@ start from `L.orthogonal_group()`.
 
 The implementation should touch exactly four layers.
 
-- [src/external/bin](/home/dzack/research/src/external/bin)
+- `src/external/bin`
   - installed binary artifact only
-- [src/external/py_polyhedral/binaries.py](/home/dzack/research/src/external/py_polyhedral/binaries.py)
-  and [src/external/py_polyhedral/__init__.py](/home/dzack/research/src/external/py_polyhedral/__init__.py)
+- `src/external/py_polyhedral/binaries.py`
+  and `src/external/py_polyhedral/__init__.py`
   - raw subprocess wrapper layer only
-- [src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py)
+- `src/research/dawes_orbit_backend.py`
   - all backend dispatch, subgroup-spec compilation, and Dawes logic
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
+- `src/coble_geometry_foundation.py`
   - thin public methods on the existing orthogonal-group nouns
 
 It should not introduce a second semantic integration path through
-[src/research/isometry_backend.py](/home/dzack/research/src/research/isometry_backend.py).
+`src/research/isometry_backend.py`.
 That module stays responsible for whole-lattice isometry. Vector-orbit
 equivalence belongs on the orthogonal-group objects in
-[src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py).
+`src/coble_geometry_foundation.py`.
 
 ## Private API Shape
 
 All new orchestration logic lives in
-[src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py).
+`src/research/dawes_orbit_backend.py`.
 
 ### Private nouns
 
@@ -358,7 +358,7 @@ and fail there if they are false. It should not weaken the problem to ambient
 
 Files:
 
-- [src/external/bin](/home/dzack/research/src/external/bin)
+- `src/external/bin`
 
 Work:
 
@@ -379,8 +379,8 @@ Validation:
 
 Files:
 
-- [src/external/py_polyhedral/binaries.py](/home/dzack/research/src/external/py_polyhedral/binaries.py)
-- [src/external/py_polyhedral/__init__.py](/home/dzack/research/src/external/py_polyhedral/__init__.py)
+- `src/external/py_polyhedral/binaries.py`
+- `src/external/py_polyhedral/__init__.py`
 
 Work:
 
@@ -403,7 +403,7 @@ Validation:
 
 Files:
 
-- [src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py)
+- `src/research/dawes_orbit_backend.py`
 
 Work:
 
@@ -427,7 +427,7 @@ Validation:
 
 Files:
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
+- `src/coble_geometry_foundation.py`
 
 Work:
 
@@ -452,7 +452,7 @@ Validation:
 
 Files:
 
-- [src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py)
+- `src/research/dawes_orbit_backend.py`
 
 Work:
 
@@ -473,7 +473,7 @@ Validation:
 
 Files:
 
-- [src/research/dawes_orbit_backend.py](/home/dzack/research/src/research/dawes_orbit_backend.py)
+- `src/research/dawes_orbit_backend.py`
 - possibly one small OSCAR-facing internal helper if direct reuse of existing
   scripts is not enough
 
@@ -499,7 +499,7 @@ Validation:
 
 Files:
 
-- [src/coble_geometry_foundation.py](/home/dzack/research/src/coble_geometry_foundation.py)
+- `src/coble_geometry_foundation.py`
 
 Work:
 

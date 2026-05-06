@@ -1,5 +1,6 @@
 # Agent Memories
 
+- [Theory Memory System](theory/index)
 - [Backend Environment Notes](backend-environment-notes)
 - [Lattice Redesign Rules](lattice-redesign-rules)
 - [Lattice Testing And Semantics](lattice-testing-and-semantics)

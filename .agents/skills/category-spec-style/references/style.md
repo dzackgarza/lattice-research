@@ -225,12 +225,39 @@ spec structure. It preserves style and compliance material extracted from `AGENT
 ## Spec Philosophy
 
 The spec's job is to formally declare what objects in a category **are** and **must
-have** — not to implement anything.
+have** - not to implement anything.
+A category spec is an ideal mathematical interface inside Sage's category/object
+universe. Current Sage implementation coverage is not the standard of adequacy. If
+current Sage already satisfied the desired interface, this project would not need a
+category-spec layer.
+
+Sage interop is still a design constraint. The project extends Sage without editing
+upstream source yet, and refined objects should remain usable by existing Sage code
+when mathematically appropriate. Existing Sage implementations show methods,
+constructors, algorithms, categories, and documented behaviors that are already
+mathematically useful and often implementable. They help prevent an unbounded wishlist
+of methods with no credible implementation path. Treat Sage as implementation evidence
+and a feasibility witness, not as a ceiling on the spec.
+
+The spec therefore has two simultaneous obligations:
+
+- preserve existing Sage functionality by inventorying and mapping Sage methods,
+  constructors, and documented behavior into project vocabulary; and
+- state mathematically required methods and laws even when current Sage classes do not
+  provide them.
+
 A subcategory definition should read as a mathematical document: what the subcategory
 is, what its supercategories are, what methods an object in it must have, and what
 methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
+
+Method-ownership rows must be mathematical sentences, not software-routing guesses.
+For a method, first identify the object it is called on, the mathematical data it
+requires, the object or morphism it constructs or observes, and the hypotheses under
+which that operation is well-defined. The owner is the category where that sentence is
+first true. Sage inventory can then witness implementation feasibility or existing
+interop, but it cannot replace the mathematical sentence.
 
 **Mathematical Specification, Not Generic Software Engineering**:
 Switch mentalities before auditing this subtree. These files are mathematical
@@ -246,6 +273,12 @@ is inconvenient. For example, if the spec category says countable/enumerated set
 an `n`th element operation, implementers of that category must provide it; the absence
 of implementations is an implementation gap, not a reason to remove the mathematical
 requirement.
+
+Do not use Sage smoke failures as a negative vote on the spec. If a refined Sage object
+fails because it lacks an ABC method, record the implementation/wrapper/constructor gap
+or ground a replacement owner that preserves the obligation. Deleting an abstract
+method, weakening a category, or moving a method without a source-backed replacement
+owner is spec regression.
 
 **Definition Grounding Gate**:
 Before adding or changing a category, method, predicate, invariant, constructor,

@@ -23,10 +23,10 @@
 - Use `image_centralizer_in_Oq` from Oscar.jl (discriminant group lifting)
 
 **Reference documentation:**
-- **Oscar.jl lattices:** `/home/dzack/research/theory/backends/oscar-lattices.md`
-- **GAP orbits:** `/home/dzack/research/theory/backends/gap-orbits.md`
-- **Indefinite.jl:** `/home/dzack/research/theory/backends/indefinite-jl.md`
-- **buildings.sage:** `/home/dzack/research/theory/backends/buildings.md`
+- **Oscar.jl lattices:** `theory/backends/oscar-lattices`
+- **GAP orbits:** `theory/backends/gap-orbits`
+- **Indefinite.jl:** `theory/backends/indefinite-jl`
+- **buildings.sage:** `theory/backends/buildings`
 
 **Before starting ANY computation task:**
 1. Read the relevant documentation above
@@ -42,7 +42,7 @@
 
 **Use Oscar.jl instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Creation, Invariants, Discriminant groups
+**Doc:** `theory/backends/oscar-lattices` → Creation, Invariants, Discriminant groups
 
 ```julia
 using Oscar, Hecke
@@ -74,7 +74,7 @@ is_primary(T_Co, 2)
 
 **Use Oscar.jl instead - already implements Nikulin theory:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Primitive embeddings and extensions
+**Doc:** `theory/backends/oscar-lattices` → Primitive embeddings and extensions
 
 ```julia
 using Oscar, Hecke
@@ -107,7 +107,7 @@ exists, embeddings = primitive_embeddings(k3_lattice(), T_Co;
 
 **Use GAP instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/gap-orbits.md` → Orbit, Stabilizer, OrbitsDomain
+**Doc:** `theory/backends/gap-orbits` → Orbit, Stabilizer, OrbitsDomain
 
 ```gap
 # A_T = (Z/2Z)^11 with discriminant form q_T
@@ -147,7 +147,7 @@ od;
 
 **Use Oscar.jl instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Lattices with isometry, Discriminant groups
+**Doc:** `theory/backends/oscar-lattices` → Lattices with isometry, Discriminant groups
 
 ```julia
 using Oscar, Hecke
@@ -176,7 +176,7 @@ pi = discriminant_representation(T_Co, G)
 
 **Use Oscar.jl instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Lattices with isometry, Kernel sublattices
+**Doc:** `theory/backends/oscar-lattices` → Lattices with isometry, Kernel sublattices
 
 ```julia
 using Oscar, Hecke
@@ -211,7 +211,7 @@ G_image, phi = image_centralizer_in_Oq(T_En_f)
 
 **Use buildings.sage instead - THIS IS EXACTLY WHAT IT COMPUTES:**
 
-**Doc:** `/home/dzack/research/theory/backends/buildings.md` → Main classes, building()
+**Doc:** `theory/backends/buildings` → Main classes, building()
 
 ```python
 load("src/external/buildings.sage")
@@ -245,7 +245,7 @@ for plane_idx, plane_rep in enumerate(planes):
 
 **Use Oscar.jl Vinberg algorithm instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Vinberg's algorithm
+**Doc:** `theory/backends/oscar-lattices` → Vinberg's algorithm
 
 ```julia
 using Oscar
@@ -277,7 +277,7 @@ roots = vinberg_algorithm(Q, upper_bound;
 
 **Use Oscar.jl instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Primitive embeddings and extensions, Equivariant primitive extensions
+**Doc:** `theory/backends/oscar-lattices` → Primitive embeddings and extensions, Equivariant primitive extensions
 
 ```julia
 using Oscar, Hecke
@@ -311,7 +311,7 @@ exists, extensions = primitive_extensions(T_Co, S_Co;
 
 **Use Oscar.jl instead:**
 
-**Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Primitive embeddings and extensions, Admissible equivariant extensions
+**Doc:** `theory/backends/oscar-lattices` → Primitive embeddings and extensions, Admissible equivariant extensions
 
 ```julia
 using Oscar, Hecke
@@ -354,23 +354,23 @@ extensions = admissible_equivariant_primitive_extensions(Af, Bf, Cf, p, q)
 **Highest priority library integrations:**
 
 1. **buildings.sage for G3.2** - This is THE tool for isotropic plane orbits. Risk: High → Low
-   - **Doc:** `/home/dzack/research/theory/backends/buildings.md`
+   - **Doc:** `theory/backends/buildings`
    - **Function:** `building()`, `incid_rels()`
 
 2. **Oscar.jl `primitive_embeddings` for G1.3** - Nikulin theory already implemented. Risk: Medium → Low
-   - **Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Primitive embeddings
+   - **Doc:** `theory/backends/oscar-lattices` → Primitive embeddings
    - **Function:** `primitive_embeddings`
 
 3. **Oscar.jl `equivariant_primitive_extensions` for G5.1, G6.1** - Handles isometry-preserving extensions. Risk: High/Medium → Low/Medium
-   - **Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Equivariant/Admissible extensions
+   - **Doc:** `theory/backends/oscar-lattices` → Equivariant/Admissible extensions
    - **Functions:** `equivariant_primitive_extensions`, `admissible_equivariant_primitive_extensions`
 
 4. **GAP for G2.1** - Finite group orbit enumeration. Risk: Low → Very Low
-   - **Doc:** `/home/dzack/research/theory/backends/gap-orbits.md`
+   - **Doc:** `theory/backends/gap-orbits`
    - **Functions:** `Orbit`, `Orbits`, `Stabilizer`
 
 5. **Oscar.jl `image_centralizer_in_Oq` for G2.2, G3.1** - Discriminant group lifting. Risk: Medium/High → Low/Medium
-   - **Doc:** `/home/dzack/research/theory/backends/oscar-lattices.md` → Lattices with isometry
+   - **Doc:** `theory/backends/oscar-lattices` → Lattices with isometry
    - **Function:** `image_centralizer_in_Oq`
 
 **Do NOT implement from scratch:**

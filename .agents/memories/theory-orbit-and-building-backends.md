@@ -42,6 +42,6 @@ Buildings and Baily-Borel store:
 - Lemma 3.10 level store: for `L subset L'` maximal overlattice, choose `M` with `L'(M) subset L`; congruence level `N` is exponent of `L^vee / L'(M)`. Larger safe levels may be used but increase cosets.
 - Eichler transvections use `t(e,a): v -> v - (a,v)e + (e,v)a - 1/2(a,a)(e,v)e` and belong to the stable plus group. buildings.sage `eichler_equiv(x,y)` implements the primitive-isotropic equivalence element.
 
-Source anchors: `theory/algorithms/dawes-nonisotropic-vector-orbits.md`, `theory/algorithms/dawes-orbit-backend.md`, `theory/algorithms/isotropic-gamma-orbit-backend.md`, `theory/algorithms/buildings.md`, `theory/backends/buildings.md`, `theory/backends/indefinite-jl.md`.
+Source anchors: `theory/algorithms/dawes-nonisotropic-vector-orbits`, `theory/algorithms/dawes-orbit-backend`, `theory/algorithms/isotropic-gamma-orbit-backend`, `theory/algorithms/buildings`, `theory/backends/buildings`, `theory/backends/indefinite-jl`.
 
 Verification: a future orbit implementation should state the branch regime, assert the exact hypotheses before entering it, use the public group nouns above, and test with paper-backed fixtures rather than mocked orbit counts.

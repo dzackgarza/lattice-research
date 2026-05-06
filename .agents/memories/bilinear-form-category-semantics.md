@@ -47,6 +47,6 @@ Conventions to enforce:
 - `O^*(L)`/`~O(L)` is the stable orthogonal group, kernel of `O(L)->O(D(L))`.
 - `SO(L)` is determinant `1`; `SO^+(L)=O^+(L) cap SO(L)`; `~SO^+(L)=O^+(L) cap O^*(L) cap SO(L)`.
 
-Source anchors: `theory/foundations/bilinear-forms-duals-morphisms.md`, `theory/spec_backups/lattices_written_spec_backup.py`, `theory/spec_backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`, `theory/foundations/reflective-two-elementary-lattices.md`.
+Source anchors: `theory/foundations/bilinear-forms-duals-morphisms`, `.agents/theory/spec-backups/lattices_written_spec_backup.py`, `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`, and visible `theory/foundations/reflective-two-elementary-lattices.md`.
 
 Verification: a future spec should be able to name the object fiber, base-change functor, coefficient module, action convention, and return object class before adding a method row or implementation.

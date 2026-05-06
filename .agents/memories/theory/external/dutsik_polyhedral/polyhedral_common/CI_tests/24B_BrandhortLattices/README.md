@@ -1,3 +1,5 @@
+# Brandhorst Hyperbolic Lattice CI Data
+
 Data from https://doi.org/10.5281/zenodo.16319157
 From "Virtually abelian symmetry groups of hyperbolic lattices"
 Simon Brandhorst, Markus Kirschmer, Giacomo Mezzedimi

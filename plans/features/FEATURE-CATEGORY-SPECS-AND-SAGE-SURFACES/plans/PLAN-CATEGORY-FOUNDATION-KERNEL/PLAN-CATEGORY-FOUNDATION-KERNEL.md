@@ -40,6 +40,28 @@ This category-core plan coordinates spec work; it does not authorize definitions
 itself. Each child card must ground any category, axiom, Hom/End/Aut surface,
 constructor, method, predicate, type alias, or mapping decision before spec edits.
 
+Child work must use the category-spec purpose as a local acceptance rule, not only as
+background policy. The spec defines an ideal mathematical interface inside Sage's
+category/object universe. Current Sage coverage is not the adequacy standard, while
+Sage interop remains a design constraint where mathematically appropriate. Sage
+inventory is implementation evidence and a feasibility witness that helps preserve
+existing functionality and avoid unimplementable wishlists. Smoke failures record
+current implementation or wrapper gaps against the ideal interface; they are not
+evidence that a spec method should be deleted, weakened, or moved without a grounded
+replacement owner.
+
+Every child phase must include a spec-weakening review gate before advancement. Review
+the staged diff, unstaged diff, and any commits created during the child work for
+deleted abstract methods, removed constructor/category obligations, narrowed smokes,
+or obligation moves without source-grounded replacement owners. A smoke improvement
+paired with interface shrinkage fails the child work.
+
+Every child phase must also include a mathematical review gate before implementation
+work that changes method ownership or spec surfaces. Method-owner rows must be written
+as coherent mathematical claims about caller object, required data, hypotheses,
+construction or predicate, and codomain/result. Sage inventory and smoke output are
+not sufficient grounding until that mathematical sentence is valid.
+
 Required sources include the relevant `category_specs/*/docs/MAPPING.md`,
 `category_specs/*/docs/SAGE_INVENTORY.md`, Sage written docs/source, local category-spec
 skills, and `theory/references/index.md` when a standard mathematical claim is involved.
@@ -99,6 +121,8 @@ This plan blocks broad implementation when vocabulary, type aliases, dual-object
 
 - [ ] Dual objects are reconciled with Homset routing before downstream discriminant work.
 - [ ] Method ownership is moved to the most general mathematically valid category.
+- [ ] Method ownership changes preserve the ideal mathematical surface; no child task
+      treats a Sage smoke failure as negative evidence against a spec obligation.
 - [ ] Standard type aliases live in one canonical package.
 - [ ] TwistedForms is either admitted as a real category or rejected by decision card.
 - [ ] Constructor-interception work does not precede static category hierarchy and method-surface review.

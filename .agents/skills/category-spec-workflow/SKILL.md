@@ -32,6 +32,16 @@ Read `references/workflow.md` before changing workflow state.
 - Approved plans plus active cards define the concrete continuation surface. Do not
   substitute abstract blocker analysis for selecting and advancing an approved active
   spec leaf.
+- Plans, phases, and tasks that touch category specs must put the ideal-interface
+  invariant at the local decision point: specs extend Sage's category/object universe,
+  current Sage coverage is not the adequacy standard, Sage interop remains a design
+  constraint where mathematically appropriate, smokes expose current implementation
+  gaps, and spec obligations are preserved unless a grounded replacement owner carries
+  them.
+- Plans, phases, and tasks that touch category specs must also include a spec-weakening
+  review gate before advancement: inspect staged changes, unstaged changes, and any
+  task-local commits for deleted obligations, narrowed smokes, or moved spec surfaces
+  without source-grounded replacement owners.
 - A spec leaf is executable only after definition grounding: it must identify canonical
   mathematical sources, exact definitions, hypotheses, and proof/decision obligations.
   Vague migrated backlog text must be refined before spec editing.

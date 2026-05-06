@@ -34,7 +34,7 @@ Primary upstream sources reviewed:
 - Isometry testing for indefinite forms
 - Orbit representatives of vectors, isotropic k-planes, isotropic k-flags
 
-**Documentation:** `/home/dzack/research/theory/backends/indefinite-jl.md`
+**Documentation:** `theory/backends/indefinite-jl`
 
 **BibTeX:** `@article{dawes2022orbits, ...}` in `references.bib`
 

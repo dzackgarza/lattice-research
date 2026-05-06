@@ -1,15 +1,16 @@
 # Theory Index
 
-This directory is the durable mathematical knowledge base for the research repo. It is not a task tracker, agent process log, or onboarding README.
+This directory is the visible, human-facing mathematical knowledge base for the research repo. It is not a task tracker, agent process log, implementation manual, or onboarding README.
+
+Detailed implementation notes, backend manuals, algorithm plans, and preserved spec backups live in the IWE memory library under `.agents/memories/theory/`. Use `iwe tree` from the repo root to navigate them.
+
+Implementation in this repo is agent-driven. Visible theory docs should support human direction, design, steering, source validation, and spec review rather than step-by-step implementation execution.
 
 Use this routing:
 
 - `references/` for source authority: literature index, BibTeX, claim map, and extracted literature.
-- `foundations/` for durable mathematical background and definitions used across tasks.
-- `algorithms/` for mathematical algorithms and orbit/computation methods independent of one backend.
-- `backends/` for external tool capability notes, integration boundaries, backend-specific algorithms, and the existing-software-first capability map.
+- `foundations/` for durable mathematical background and definitions that humans may review directly.
 - `moduli/` for Coble/K3/Enriques moduli claims and period-domain background.
-- `external/` for vendored or externally sourced theory/tooling material retained for reference.
-- `spec_backups/` for preserved source material that still needs explicit human-directed migration before any rewrite or deletion.
+- `external/` for vendored or externally sourced non-markdown material retained for reference.
 
-Before using a theory file as authority, identify its role. Source authority comes from `references/`; algorithm and backend notes explain how to compute, but they do not replace literature-backed claims.
+Before using a visible theory file as authority, identify its role. Source authority comes from `references/`; IWE memories explain how agents should compute or implement, but they do not replace literature-backed claims.

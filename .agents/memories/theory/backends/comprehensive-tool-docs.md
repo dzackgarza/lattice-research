@@ -1315,7 +1315,7 @@ pd(M)
 
 ## Indefinite.jl: Automorphism Groups
 
-**Source:** See theory/backends/indefinite-jl.md
+**Source:** See `theory/backends/indefinite-jl`
 
 ### Automorphism Groups
 

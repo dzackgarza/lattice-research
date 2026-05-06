@@ -67,6 +67,36 @@ definition, hypotheses, return object/codomain, and any invariance or equivalenc
 obligation. If that record is missing, the correct action is source mining, decision
 capture, or card splitting, not speculative spec writing.
 
+Tracker items that touch category specs must carry the project purpose into the local
+work surface. Do not rely on a distant global reminder when the task is likely to see
+Sage failures. Plan, phase, and task bodies should state the applicable ideal-interface
+rule in their acceptance or grounding section:
+
+- category specs define the ideal mathematical interface;
+- category specs extend Sage's category/object universe without treating current
+  Sage coverage as the adequacy standard;
+- Sage interop is a design constraint where mathematically appropriate;
+- Sage is implementation evidence and a feasibility witness;
+- Sage inventory helps preserve existing functionality and avoid unimplementable
+  wishlists, but it is not a ceiling on mathematically required spec surfaces;
+- smokes expose gaps between current Sage/refined objects and the ideal spec;
+- a smoke failure is not evidence for deleting, weakening, or moving a spec obligation;
+- an obligation may move only when the replacement owner is source-grounded and the
+  replacement path preserves the mathematical surface.
+
+For smoke-frontier and wrapper-migration cards, local acceptance must explicitly reject
+smoke-driven spec weakening. The allowed result of a Sage gap is an implementation,
+wrapper, constructor, decision, or source-mining card. Passing a smoke by shrinking the
+ideal interface is a failed task, even if the command output improves.
+
+Before advancing any category-spec task, phase, or plan, run a spec-weakening review
+over the actual repository changes. Inspect `git diff --cached`, `git diff`, and any
+commits created during the work with a patch view. The review fails if it finds deleted
+abstract methods, removed constructor/category obligations, narrowed smoke assertions,
+weakened acceptance criteria, moved obligations without a source-grounded replacement
+owner, or any Sage-gap-driven interface shrinkage. Record the review result in the
+task/phase/plan acceptance notes or leave the item unadvanced.
+
 Before creating or migrating a tracker item, read `.agents/skills/track/SKILL.md` and
 inspect `.nimbalyst/trackers/*.yaml` for the registered schemas.
 

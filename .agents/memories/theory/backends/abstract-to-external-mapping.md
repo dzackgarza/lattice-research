@@ -1,7 +1,7 @@
 # Mapping of Abstract Methods to External Tools
 
 This file maps abstract methods defined in `src/coble_geometry_varieties.py` to external
-tool functionalities documented in `theory/backends/comprehensive-tool-docs.md`.
+tool functionalities documented in `theory/backends/comprehensive-tool-docs`.
 
 ## Variety Methods
 

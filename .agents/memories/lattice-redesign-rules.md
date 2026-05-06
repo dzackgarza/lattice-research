@@ -4,7 +4,7 @@
 
 - The complete execution plan is `theory/lattice_interface_redesign_plan.md`.
 - The primary durable correction artifact is `theory/lattice_redesign_corrections_spec.md`.
-- The exact backup to read alongside the correction artifact is `theory/spec_backups/lattices_written_spec_backup.py`.
+- The exact backup to read alongside the correction artifact is `.agents/theory/spec-backups/lattices_written_spec_backup.py`.
 - The canonical written semantic source remains `src/lattices/lattices.py`.
 
 Future redesign work must read the correction artifact and the backup before changing the public lattice and module hierarchy.
@@ -14,7 +14,7 @@ Future redesign work must read the correction artifact and the backup before cha
 - Do not preserve stale public layers with compatibility shims, facade modules, or parallel split implementations during the redesign.
 - Replace the public layer directly in `src/lattices/lattices.py`.
 - Move direct consumers to the new surface instead of routing through `coble_geometry_foundation`, `src/lattices/core.py`, or `src/lattices/groups.py`.
-- Keep exact backups of user-written spec and review text under `theory/spec_backups/` before rewriting.
+- Keep exact backups of user-written spec and review text under `.agents/theory/spec-backups/` before rewriting.
 
 ## Dependency Order
 

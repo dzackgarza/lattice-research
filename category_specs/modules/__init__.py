@@ -1264,6 +1264,12 @@ class Modules(Category_module):
     class SubcategoryMethods:
         @cached_method
         @final
+        def Constructors(self):
+            r"""Return the module constructor collector for this module category."""
+            return Modules._Constructors(self)
+
+        @cached_method
+        @final
         def base_ring(self) -> Ring:
             return self.base_category().base_ring()
 

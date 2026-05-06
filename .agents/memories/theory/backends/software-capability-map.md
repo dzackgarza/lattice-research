@@ -24,8 +24,8 @@ approved bespoke implementation.
 For any mathematical implementation card:
 
 - Read this file.
-- Read `theory/backends/library-integration.md` for current Coble/lattice task routing.
-- Read `theory/backends/abstract-to-external-mapping.md` for method-to-tool mappings.
+- Read `theory/backends/library-integration` for current Coble/lattice task routing.
+- Read `theory/backends/abstract-to-external-mapping` for method-to-tool mappings.
 - Read the specific backend note for the selected tool.
 - If the source or theorem basis is uncertain, use `research-source-acquisition` before implementation.
 
@@ -96,15 +96,15 @@ Each backend or domain note should state:
 
 ## Current backend notes
 
-- `abstract-to-external-mapping.md`: method-to-tool mapping for existing abstract surfaces.
-- `library-integration.md`: current Coble/lattice task routing to mature libraries.
-- `comprehensive-tool-docs.md`: extracted upstream tool documentation used by old mapping work.
-- `oscar-lattices.md`: Oscar/Hecke lattice and quadratic-form capabilities.
-- `gap-orbits.md`: GAP group-action, orbit, and stabilizer workflows.
-- `carat.md`: CARAT capability audit and positive-definite limitations.
-- `indefinite-jl.md`: indefinite lattice isometry/orbit backend notes.
-- `buildings.md`: buildings.sage capability notes.
-- `vinberg-algorithm.md`: Vinberg-specific algorithm and backend guidance.
+- `abstract-to-external-mapping`: method-to-tool mapping for existing abstract surfaces.
+- `library-integration`: current Coble/lattice task routing to mature libraries.
+- `comprehensive-tool-docs`: extracted upstream tool documentation used by old mapping work.
+- `oscar-lattices`: Oscar/Hecke lattice and quadratic-form capabilities.
+- `gap-orbits`: GAP group-action, orbit, and stabilizer workflows.
+- `carat`: CARAT capability audit and positive-definite limitations.
+- `indefinite-jl`: indefinite lattice isometry/orbit backend notes.
+- `buildings`: buildings.sage capability notes.
+- `vinberg-algorithm`: Vinberg-specific algorithm and backend guidance.
 
 ## Updating this map
 
