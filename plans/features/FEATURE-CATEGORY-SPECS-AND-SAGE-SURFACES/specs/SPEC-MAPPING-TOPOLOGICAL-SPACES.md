@@ -48,9 +48,50 @@ Source inventory: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`.
   - `sage/categories/topological_spaces.py`
   - `sage/categories/metric_spaces.py`
   - `sage/sets/real_set.py`
-  - `/home/dzack/miniforge3/envs/sage/bin/sage`
+- Runtime observation route checked by the local inventory:
+  - `/home/dzack/miniforge3/envs/sage/bin/sage -c`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+## Completeness Reconciliation: Topological And Metric Surface
+
+This pass checked the topological-space inventory against the converted mapping:
+
+- `TopologicalSpaces`, `Sets().Topological()`, connected and compact axioms, and
+  Cartesian products are represented by the root `TopologicalSpaces()` surface and its
+  construction/axiom refinements;
+- `MetricSpaces`, `Sets().Metric()`, complete metric spaces, metric products, and
+  metric homsets are represented by `TopologicalSpaces().Metric()` refinements, with
+  `metric()` naming the metric map and `dist(x, y)` naming its evaluation;
+- `RealSet` topological predicates and transforms are represented by ambient-relative
+  topological-space methods on subsets, not by pure set methods or a separate RealSet
+  owner;
+- named `RealSet` intervals, rays, points, and the real line are routed through
+  `Sets().Constructors()` and then refined into topological subobjects;
+- the variadic `RealSet(*args)` surface is rejected as public API until its finite
+  mathematical cases are expressed as closed named constructors;
+- interval and ball fields are recorded as topology-bearing ring/field evidence, not
+  topological-space constructors;
+- manifolds, schemes, varieties, polyhedra, complexes, hyperbolic models, and related
+  structured geometric objects are explicit non-mappings for this subtree because
+  their constructors belong to their own mathematical subtrees.
+
+Negative missing-surface finding for this topological pass:
+
+- Searched: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`, installed Sage
+  `sage/categories/topological_spaces.py`, `sage/categories/metric_spaces.py`,
+  `sage/sets/real_set.py`, the inventory-recorded Sage runtime observation route, and
+  the converted topological mapping rows above.
+- Found: every inventoried topological, metric, RealSet, numeric interval/ball, and
+  excluded-geometry surface is represented as an admitted topological method/category,
+  set-constructor route, ring/field recovery route, interop-only observation, or
+  explicit non-mapping in the converted spec.
+- Conclusion: inference -- this pass found no additional Sage topological-space
+  surface requiring a new public owner inside `topological_spaces`.
+- Confidence: Medium.
+- Gaps: broader Sage geometry/manifold/scheme/polyhedra sources and unreleased Sage
+  branches remain outside this topological-space subtree pass by the inventory's own
+  exclusion boundary.
 
 ## Converted Mapping Content
 
