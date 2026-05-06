@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 14:27 UTC_
+_Generated: 2026-05-06 14:30 UTC_
 
 ## Overall
 
@@ -15,10 +15,10 @@ _Generated: 2026-05-06 14:27 UTC_
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | decision | 10 | 9 | 0 | 0 | 0 |
-| feature | 15 | 0 | 8 | 0 | 6 |
+| feature | 15 | 0 | 9 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
-| spec | 50 | 0 | 0 | 45 | 2 |
+| spec | 50 | 0 | 0 | 46 | 2 |
 | task | 110 | 0 | 0 | 51 | 43 |
 
 ## Feature Rollup
@@ -34,7 +34,7 @@ _Generated: 2026-05-06 14:27 UTC_
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 7 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 0 | 0 | 0 |
+| Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 1 | 0 |
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |

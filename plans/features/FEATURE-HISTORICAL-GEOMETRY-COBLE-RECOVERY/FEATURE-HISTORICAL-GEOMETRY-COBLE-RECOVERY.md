@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY]]'
 plans: []
 title: Historical geometry and Coble vocabulary recovery
-status: unstarted
+status: in-progress
 priority: medium
 description: Recover geometry, Coble surface, K3 cover, divisor, Picard, family, and monodromy vocabulary visible in historical src.bak as future specs after geometry and lattice categories can express the constructions.
 ---
@@ -27,7 +27,12 @@ Picard groups, covers, and lattices.
 - `src.bak/varieties/varieties.py`
 - `src.bak/coble_geometry_varieties.py`
 - `src.bak/backends/foliation_backend.py`
-- IWE `theory-backend-routing`
+- `.agents/memories/theory-backend-routing.md`
+- `.agents/memories/theory/backends/software-capability-map.md`
+- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
+- `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-SCHEMES-CATEGORY.md`
+- `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-VARIETIES-CATEGORY.md`
+- `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/plans/PLAN-GEOMETRIC-SOURCE-ADMISSION/PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY.md`
 - `GOAL.md`, stages for geometry interfaces and confined Coble research.
 
 ## Recovery Boundary
