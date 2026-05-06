@@ -185,6 +185,13 @@ membership/subcategory predicates.
   `Sets.ParentMethods._element_constructor_` and `Parent.element_class` as the source
   boundary for that branch. The card is back in `needs-review`; it is not accepted or
   complete.
+- 2026-05-06 independent re-review passed Gates 1-6. The reviewer confirmed that all
+  known `getattr`/`hasattr`/private-slot probes are now classified or routed, including
+  `_SetObjectMethods._element_constructor_`; nonlocal set-wrapper cases are routed to
+  `TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES`; no spec/smoke
+  weakening or negative backsliding was found. Residual risk: full `just test` still
+  lacks a clean signal because repo-wide mypy currently fails on broad existing
+  Sage/stub/type errors.
 
 ## Work Log
 
@@ -210,3 +217,5 @@ membership/subcategory predicates.
   branch after independent review caught the omission. This follow-up changed only this
   tracker card; it did not delete abstract methods, narrow smokes, remove constructor
   obligations, or move any spec surface.
+- 2026-05-06: Recorded the independent re-review pass. The card remains
+  `needs-review` pending human acceptance; it is not marked complete.
