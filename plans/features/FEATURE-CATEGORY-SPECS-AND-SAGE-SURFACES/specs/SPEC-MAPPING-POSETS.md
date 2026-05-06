@@ -103,15 +103,19 @@ The documented `Poset(...)` input cases map to named constructor paths under
 - elements plus a cover predicate;
 - upper-cover dictionary;
 - upper-cover list;
-- acyclic `DiGraph`;
+- acyclic `DiGraph` whose edges are either declared cover relations or declared order relations;
 - existing poset refinement.
 
-The acyclic `DiGraph` constructor is the canonical constructor. Other
-documented Sage input cases are non-variadic adaptations that route through the
-same finite poset construction surface or through existing-poset refinement.
+The finite Hasse-diagram constructor is the canonical directed-graph constructor:
+the input graph is acyclic, loop-free, multi-edge-free, and transitively reduced, and
+its directed edges are cover relations. A separate finite relation-digraph constructor
+may accept an acyclic relation graph and take its transitive reduction before forming
+the Hasse diagram. Do not use a bare "acyclic DiGraph" signature without saying
+whether edges are covers or order relations.
 
 The implemented constructor names are:
-- `from_digraph`, the canonical finite-poset constructor;
+- `from_hasse_digraph`, the canonical finite-poset constructor;
+- `from_relation_digraph`, which computes the transitive reduction first;
 - `from_relations`;
 - `from_order_predicate`;
 - `from_cover_predicate`;
@@ -154,8 +158,9 @@ until an infinite/lazy relation surface is designed.
 ## Posets().Finite()
 
 The finite poset surface owns methods whose mathematics requires finite
-enumeration of a Hasse diagram, finite intervals, or finite linear extensions:
-- element listing and cardinality: `list`, `cardinality`;
+enumeration of a Hasse diagram, finite intervals, or finite linear extensions.
+Plain element listing and cardinality are inherited finite/enumerated-set surfaces,
+not order-theoretic poset owners.
 - linear-extension-aware sorting: `sorted`;
 - bounds and extremal elements: `bottom`, `top`, `has_bottom`, `has_top`,
   `is_bounded`, `minimal_elements`, `maximal_elements`;
