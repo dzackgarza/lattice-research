@@ -375,6 +375,17 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports any `category_specs/sets/**`
   findings.
+- 2026-05-06 twenty-seventh bounded slice: algebra smoke coverage was added for
+  algebra generator and derivation ownership, algebra subcategory routing,
+  with-basis finite-dimensional refinement, semisimplicity predicates, algebra
+  End-category base-algebra ownership, slice structure-algebra ownership, quotient
+  projection ownership, and ideal standard type-package surfaces.
+- Validation for the twenty-seventh slice:
+  `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage` still
+  fails on existing algebra implementation gaps (`alternating_algebra`,
+  `algebra_generators`, and `annihilator`), but the new ownership assertions are not
+  among the reported failures. The vulture-only diagnostic no longer reports any
+  `category_specs/algebras/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -441,3 +452,6 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the twenty-sixth bounded cleanup slice for set
   isomorphic-object smoke coverage, clearing all remaining `category_specs/sets/**`
   vulture findings.
+- 2026-05-06: Completed the twenty-seventh bounded cleanup slice for algebra
+  category, Hom/End, slice, quotient, ideal, and predicate smoke coverage, clearing all
+  remaining `category_specs/algebras/**` vulture findings.
