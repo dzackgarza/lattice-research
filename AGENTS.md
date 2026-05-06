@@ -15,6 +15,7 @@
 - Do not mark work accepted, done, or closed without human approval.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
 - Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. Any QC relaxation must be explicitly user-approved and implemented in the global QC system under `~/ai/quality-control`, not hidden in this repo.
+- Resist the urge to silence QC or treat it as an obstacle to work around in phase transitions. QC findings are signals that something is underspecified, unreferenced, or broken -- fix the code, don't expand the whitelist to hide the signal. If a whitelist entry is truly the last resort after code fixes are exhausted, it must be raised as an explicit human-gated request with justification.
 - Specs, review files, theory notes, TODO files, and durable design artifacts are source material. Do not rewrite, shorten, modernize, delete, or align them to current implementation unless the user explicitly asks for that exact edit.
 - Do not preserve backward-compatibility docs, legacy references, retired policy files, or compatibility shims unless explicitly requested or retiring them is truly dangerous. Git history is the archive; prefer a clear retiring commit over keeping stale docs in the working tree.
 - `GOAL.md` is read-only. Source authority for literature and standard claims lives in `theory/references/index.md`.
