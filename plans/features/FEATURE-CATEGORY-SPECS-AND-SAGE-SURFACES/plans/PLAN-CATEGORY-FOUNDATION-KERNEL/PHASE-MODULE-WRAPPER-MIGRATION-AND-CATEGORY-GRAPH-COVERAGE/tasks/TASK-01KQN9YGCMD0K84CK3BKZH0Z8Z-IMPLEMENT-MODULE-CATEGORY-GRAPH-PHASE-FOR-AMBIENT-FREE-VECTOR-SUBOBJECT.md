@@ -119,3 +119,26 @@ then delete wrappers.
   `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
   integer-lattice and torsion-quadratic `KeyError: (256, 260)`, ideal submodule
   `_refine_category_` absence, and ring-as-module inherited ring method gaps.
+- 2026-05-06 implementation pass: added finite-rank-free implementations for
+  `alternating_form`, morphism-based `base_change`, `bases`, `default_basis`,
+  `set_default_basis`, `exterior_power`, `determinant_module`, `dual`, and
+  `is_isomorphic_to`. Source grounding:
+  Sage `FiniteRankFreeModule.alternating_form`, `exterior_power`, `dual`, `bases`,
+  `default_basis`, and `set_default_basis` provide the tensor finite-rank-free
+  routes; Sage ambient free modules provide canonical `basis`, `dimension`, `rank`,
+  `change_ring`, and Hom spaces; finite-rank-free determinant is the top exterior
+  power; finite-rank-free isomorphism is equality of base ring and rank.
+- 2026-05-06 scoped smoke rerun after this pass:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails, but the first standard free-module frontier moved to
+  `is_submodule_of`. This is preserved as gap evidence because
+  `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` records `is_submodule_of` as a
+  subobject/ambient-owner surface rather than an arbitrary root-module predicate.
+  Remaining preserved gap evidence includes `alternating_algebra` on
+  basis/subobject/quotient families, `annihilator` on free modules without basis and
+  tensor-calculus finite-rank free modules, formed-module `form` obligations, QQ
+  inner-product vector-space base-category errors, representation-module
+  `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
+  Ore-module `characteristic_polynomial`, integer-lattice and torsion-quadratic
+  `KeyError: (256, 260)`, ideal submodule `_refine_category_` absence, and
+  ring-as-module inherited ring method gaps.

@@ -91,6 +91,7 @@ if TYPE_CHECKING:
         QuotientModule,
         Ring,
         RingElement,
+        RingMorphism,
         RMod,
         RModMorphism,
         RModule,
@@ -268,8 +269,8 @@ class _RModObjects:
         ...
 
     @abstract_method
-    def base_change(self, S: Ring) -> RModule:
-        r"""Return a representation of M_S := M \otimes_R S in S-Mod."""
+    def base_change(self, morphism: RingMorphism) -> RModule:
+        r"""Return a representation of M_S := S \otimes_R M in S-Mod."""
         ...
 
     @abstract_method
