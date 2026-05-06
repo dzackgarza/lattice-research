@@ -343,6 +343,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports
   `category_specs/sets/subcategories/real_set.py` findings.
+- 2026-05-06 twenty-third bounded slice: elementary set-axis smoke coverage was added
+  for finite, infinite, countable, finite-countable, infinite-countable, facade,
+  totally ordered, and uncountable category routing plus their countability/order
+  predicate surfaces.
+- Validation for the twenty-third slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports the targeted elementary set-axis
+  findings in `countable.py`, `finite.py`, `infinite.py`, `facade.py`,
+  `totally_ordered.py`, or `uncountable.py`.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -400,3 +409,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   parent and element smoke coverage.
 - 2026-05-06: Completed the twenty-second bounded cleanup slice for real-subset
   smoke coverage.
+- 2026-05-06: Completed the twenty-third bounded cleanup slice for elementary set-axis
+  category and predicate smoke coverage.

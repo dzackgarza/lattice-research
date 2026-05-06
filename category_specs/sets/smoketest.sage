@@ -7,16 +7,22 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 from category_specs.sets import Sets
 from category_specs.sets.subcategories.constructions.realizations import _Realizations
 from category_specs.sets.subcategories.constructions.with_realizations import SetsWithRealizations
+from category_specs.sets.subcategories.countable import _CountableSets, _FiniteCountableSets, _InfiniteCountableSets
+from category_specs.sets.subcategories.facade import _FacadeSets
+from category_specs.sets.subcategories.finite import _FiniteSets
 from category_specs.sets.subcategories.graded import (
     GradedSetsCategory,
     GradedSetsElement,
     GradedSetsMorphism,
     GradedSetsObject,
 )
+from category_specs.sets.subcategories.infinite import _InfiniteSets
 from category_specs.sets.subcategories.partitioned import (
     FiniteTotallyOrderedBasePartitionedSetsCategory,
     PartitionedSetsCategory,
 )
+from category_specs.sets.subcategories.totally_ordered import _TotallyOrdered
+from category_specs.sets.subcategories.uncountable import _UncountableSets
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
 from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
@@ -63,8 +69,20 @@ SMOKE_STATEMENTS = (
         lambda _: C.FiniteEnumeratedSet([1, 2, 3]) in Sets().Countable().Finite(),
     ),
     (
+        "finite/countable/infinite set category classes route through Sets",
+        lambda _: Sets.Finite is _FiniteSets
+        and Sets.Infinite is _InfiniteSets
+        and Sets.Countable is _CountableSets
+        and _FiniteCountableSets._base_category_class_and_axiom == (_CountableSets, "Finite")
+        and _InfiniteCountableSets._base_category_class_and_axiom == (_CountableSets, "Infinite"),
+    ),
+    (
         "FiniteEnumeratedSet([1, 2, 3]) has cardinality 3",
         lambda _: C.FiniteEnumeratedSet([1, 2, 3]).cardinality() == 3,
+    ),
+    (
+        "FiniteEnumeratedSet([1, 2, 3]) reports countability",
+        lambda _: C.FiniteEnumeratedSet([1, 2, 3]).is_countable(),
     ),
     (
         "FiniteEnumeratedSet([1, 2, 3]) ranks 1 as 2",
@@ -86,6 +104,7 @@ SMOKE_STATEMENTS = (
         "NonNegativeIntegers() is a countably infinite set",
         lambda _: C.NonNegativeIntegers() in Sets().Countable().Infinite(),
     ),
+    ("NonNegativeIntegers() reports countability", lambda _: C.NonNegativeIntegers().is_countable()),
     ("0 is a nonnegative integer", lambda _: 0 in C.NonNegativeIntegers()),
     ("-1 is not a nonnegative integer", lambda _: -1 not in C.NonNegativeIntegers()),
     ("NonNegativeIntegers() is not finite", lambda _: not C.NonNegativeIntegers().is_finite()),
@@ -291,6 +310,19 @@ SMOKE_STATEMENTS = (
     (
         "TotallyOrderedFiniteSet(['a', 'b', 'c']) is finite countable",
         lambda _: C.TotallyOrderedFiniteSet(["a", "b", "c"]) in Sets().Countable().Finite(),
+    ),
+    (
+        "facade, totally ordered, and uncountable set category classes route through Sets",
+        lambda _: Sets.Facade is _FacadeSets
+        and Sets.TotallyOrdered is _TotallyOrdered
+        and Sets.Uncountable is _UncountableSets
+        and abstract_method_has_name(_FacadeSets.ParentMethods.is_facade, "is_facade")
+        and abstract_method_has_name(_UncountableSets.ParentMethods.is_countable, "is_countable")
+        and abstract_method_has_name(_UncountableSets.ParentMethods.is_uncountable, "is_uncountable"),
+    ),
+    (
+        "TotallyOrderedFiniteSet(['a', 'b', 'c']) reports total ordering",
+        lambda _: C.TotallyOrderedFiniteSet(["a", "b", "c"]).is_totally_ordered(),
     ),
     (
         "TotallyOrderedFiniteSet(['a', 'b', 'c']) has cardinality 3",
