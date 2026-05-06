@@ -266,17 +266,42 @@ Source-grounded affected rows:
   square-test/root operation and non-square extension behavior. `all=False` returns a
   single square root, while `all=True` returns the finite list of all square roots
   documented by Sage for that surface.
-- `AlgebraicGenerator.nth_root(n, all=False)` is documented in installed Sage source
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/qqbar.py:4393-4429`;
-  complex-field specialization is in
-  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/complex_mpfr.pyx:3058-3079`.
-  Owner: ring element methods on algebraic and complex field element surfaces, inherited
-  by the root ring element signature only where the implementation supports the method.
-  Hypothesis: `n` is the requested positive root degree in a field/root-capable
-  element parent. `all=False` returns one selected root according to Sage's branch
-  convention; `all=True` returns the finite list of all `n`-th roots in the documented
-  codomain. The overload does not identify different branch choices as equal; it only
-  types the closed return shape.
+- `nth_root` is exposed as a root ring-element signature because installed Sage spreads
+  the same mathematical operation across several concrete ring-element families with
+  different computation controls. The admitted public option set is the finite union
+  of those source-backed controls, not a variadic option bag:
+  - finite residue elements:
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/finite_rings/integer_mod.pyx:1367-1517`
+    documents `nth_root(n, extend=False, all=False, algorithm=None, cunningham=False)`,
+    where `extend` is explicitly unimplemented, `all` controls one root versus all
+    roots, `algorithm` selects the prime-modulus algorithm, and `cunningham` selects
+    optional factorization data;
+  - algebraic elements:
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/qqbar.py:4393-4429`
+    document `nth_root(n, all=False)`;
+  - complex-field elements:
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/complex_mpfr.pyx:3058-3079`
+    document `nth_root(n, all=False)`;
+  - real-field elements:
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/real_mpfr.pyx:5422-5433`
+    document `nth_root(n, algorithm=0)`;
+  - power-series, Laurent-series, and Tate-algebra elements:
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/power_series_ring_element.pyx:1822-1833`,
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/laurent_series_ring_element.pyx:1702-1712`,
+    and
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/tate_algebra_element.pyx:1666-1676`
+    document `prec`.
+  Owner: `Rings().ElementMethods` as the broad ring-element root-extraction surface,
+  with subcategory implementations/refinements responsible for the stronger hypotheses
+  under which roots actually exist and are computable. Hypotheses: `n` is an integral
+  root degree accepted by the relevant source family; the element lies in a parent whose
+  Sage implementation supplies the requested root operation; family-specific controls
+  such as `algorithm`, `cunningham`, and `prec` are computation or precision data, not
+  mathematical owner changes. Codomain: `all=False` returns one selected root in the
+  documented parent/codomain when implemented; `all=True` returns the finite list of all
+  roots on surfaces that document an all-roots branch. The overload does not identify
+  different branch choices as equal and does not assert every ring element has every
+  root; unsupported cases may raise the family-specific Sage exception.
 
 Non-literal boolean callers keep the union return shape.
 
