@@ -71,39 +71,55 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         return cats
 
     class ParentMethods:
-        @abstract_method
-        def nrows(self) -> Integer: ...
+        @final
+        def nrows(self) -> Integer:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
-        def ncols(self) -> Integer: ...
+            return MatrixSpace.nrows(self)
 
-        @abstract_method
-        def dims(self) -> tuple[Integer, Integer]: ...
+        @final
+        def ncols(self) -> Integer:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.ncols(self)
+
+        @final
+        def dims(self) -> tuple[Integer, Integer]:
+            from sage.matrix.matrix_space import MatrixSpace
+
+            return MatrixSpace.dims(self)
+
+        @final
         def matrix_from_matrix(self, matrix: Matrix, *, coerce: bool = True) -> RingElement:
             r"""Return the matrix-algebra element represented by ``matrix``."""
-            ...
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.matrix(self, matrix, coerce=coerce)
+
+        @final
         def matrix_from_entries(self, entries: Sequence[RingElement], *, coerce: bool = True) -> RingElement:
             r"""Return the matrix whose entries are listed in row-major order."""
-            ...
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.matrix(self, entries, coerce=coerce)
+
+        @final
         def matrix_from_rows(self, rows: Sequence[Sequence[RingElement]], *, coerce: bool = True) -> RingElement:
             r"""Return the matrix whose rows are ``rows``."""
-            del rows
-            ...
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.matrix(self, rows, coerce=coerce)
+
+        @final
         def scalar_matrix(self, scalar: RingElement, *, coerce: bool = True) -> RingElement:
             r"""Return the scalar matrix determined by ``scalar``."""
-            del scalar
-            ...
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
-        def rank(self) -> Integer: ...
+            return MatrixSpace.matrix(self, scalar, coerce=coerce)
+
+        @final
+        def rank(self) -> Integer:
+            return Integer(self.nrows() * self.ncols())
 
         @abstract_method
         def echelon_form(
@@ -119,42 +135,69 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             del cutoff, height_guess, include_zero_rows
             ...
 
-        @abstract_method
-        def column_space(self) -> FreeModule: ...
+        @final
+        def column_space(self) -> FreeModule:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
-        def row_space(self) -> FreeModule: ...
+            return MatrixSpace.column_space(self)
 
-        @abstract_method
-        def diagonal_matrix(self, entries: Sequence[RingElement]) -> RingElement: ...
+        @final
+        def row_space(self) -> FreeModule:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
-        def identity_matrix(self) -> RingElement: ...
+            return MatrixSpace.row_space(self)
 
-        @abstract_method
-        def zero_matrix(self) -> RingElement: ...
+        @final
+        def diagonal_matrix(self, entries: Sequence[RingElement]) -> RingElement:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.diagonal_matrix(self, entries)
+
+        @final
+        def identity_matrix(self) -> RingElement:
+            from sage.matrix.matrix_space import MatrixSpace
+
+            return MatrixSpace.matrix(self, self.base_ring().one())
+
+        @final
+        def zero_matrix(self) -> RingElement:
+            from sage.matrix.matrix_space import MatrixSpace
+
+            return MatrixSpace.matrix(self, self.base_ring().zero())
+
+        @final
         def matrix_space(
             self,
             nrows: Integer | None = None,
             ncols: Integer | None = None,
             sparse: bool = False,
-        ) -> MatrixSpace: ...
+        ) -> MatrixSpace:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
+            return MatrixSpace.matrix_space(self, nrows=nrows, ncols=ncols, sparse=sparse)
+
+        @final
         def from_vector(
             self,
             vector: RingElement,
             order: Sequence[tuple[Integer, Integer]] | None = None,
             coerce: bool = True,
-        ) -> RingElement: ...
+        ) -> RingElement:
+            from sage.matrix.matrix_space import MatrixSpace
 
-        @abstract_method
-        def is_dense(self) -> bool: ...
+            return MatrixSpace.from_vector(self, vector, order=order, coerce=coerce)
 
-        @abstract_method
-        def is_sparse(self) -> bool: ...
+        @final
+        def is_dense(self) -> bool:
+            from sage.matrix.matrix_space import MatrixSpace
+
+            return MatrixSpace.is_dense(self)
+
+        @final
+        def is_sparse(self) -> bool:
+            from sage.matrix.matrix_space import MatrixSpace
+
+            return MatrixSpace.is_sparse(self)
 
     class ElementMethods: ...
 

@@ -62,3 +62,30 @@ split.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06 bounded implementation slice: moved the default
+  `algebra_generators()` implementation to `Algebras(R).WithBasis()`, where a
+  distinguished basis algebraically generates the underlying `R`-algebra, instead of
+  keeping a shadowed matrix-only method. Added concrete Sage-backed matrix parent
+  wrappers for `nrows`, `ncols`, `dims`, `matrix_from_matrix`,
+  `matrix_from_entries`, `matrix_from_rows`, `scalar_matrix`, `rank`, row/column
+  space, diagonal/identity/zero matrix construction, `matrix_space`, `from_vector`,
+  and density predicates. `Rings().Constructors().MatrixRing(...)` now returns the
+  refined parent without running the global not-implemented-method test, because that
+  test exposes unrelated algebra abstract-method gaps such as `annihilator(...)`
+  before the constructor can return the matrix parent.
+- Direct isolated verification passed with `sage -python`: `NR.MatrixRing(ZZ, 2)` is
+  in `Rings().MatrixAlgebras(ZZ, 2, 2)`, has two rows and columns, base ring `ZZ`,
+  correct zero/identity/scalar/entry/row/matrix constructors, rank `4`, vector
+  conversion, density predicates, and algebra generators equal to the distinguished
+  basis.
+- Aggregate verification with `just --justfile category_specs/justfile smoke-file
+  rings/smoketest.sage` still fails. Non-matrix failures remain the existing
+  `hilbert_polynomial`, `ideal_monoid`, `_change_print_mode`, q-adic precision,
+  series `cardinality`/`completion`, and algebraic-closure frontiers. Matrix
+  statements still fail in the aggregate smoke with an order-dependent MRO error after
+  earlier failed constructor refinements have partially mutated shared Sage parents:
+  `Cannot create a consistent method resolution order (MRO) for bases
+  Modules.subcategory_class, Modules.FiniteDimensional.subcategory_class, ...`. A
+  minimal standalone Sage smoke of `NR.MatrixRing(ZZ, 2)` passes, so the remaining
+  aggregate matrix failure is cross-statement smoke contamination rather than the
+  isolated matrix constructor behavior.

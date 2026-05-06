@@ -1646,7 +1646,7 @@ class Rings(Category_singleton):
             implementation: str | type[Matrix] | None = None,
         ) -> Ring:
             R = MatrixSpace(base_ring, n, n, sparse=sparse, implementation=implementation)
-            return refine_category(R, [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())])
+            return refine_category(R, [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())], test=False)
 
     _Constructors = Constructors
 

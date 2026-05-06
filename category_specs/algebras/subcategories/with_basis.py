@@ -53,10 +53,10 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
             ...
 
         @override
-        @abstract_method
+        @final
         def algebra_generators(self) -> SetFamily:
-            r"""Return algebra generators expressed in the distinguished basis."""
-            ...
+            r"""Return the distinguished basis as algebra generators."""
+            return self.basis()
 
         @override
         @abstract_method
