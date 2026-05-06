@@ -82,6 +82,12 @@ Task: excise Sage option bags from number-field and rational-field constructors,
   `hilbert_polynomial` ring-frontier gap before it can provide option-bag evidence.
   That broader runtime frontier is not part of this constructor option-bag leaf.
 
+### Re-review 2026-05-06 (Volta)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
 ## Acceptance Criteria
 
 - [x] Number-field constructor mapping records explicit public parameters.

@@ -50,7 +50,12 @@ def clear_category_diagnostic_history() -> None:
     _EMITTED_CATEGORY_DIAGNOSTICS.clear()
 
 
-def emit_category_diagnostic(message: str, *, key: str | None = None, once: bool = True) -> None:
+def emit_category_diagnostic(
+    message: str,
+    *,
+    key: str | None = None,
+    once: bool = True,
+) -> None:
     r"""Emit an opt-in category diagnostic warning.
 
     Diagnostics are disabled by default and logging-only.  They are for
@@ -113,7 +118,9 @@ def foldable_operation[FoldParent, FoldElement](
         right: FoldElement | _MissingFoldArgument = _MISSING_FOLD_ARGUMENT,
     ) -> FoldElement:
         if right is _MISSING_FOLD_ARGUMENT:
-            assert isinstance(left_or_elements, Sequence), "sequence overload requires a finite sequence"
+            assert isinstance(left_or_elements, Sequence), (
+                "sequence overload requires a finite sequence"
+            )
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
@@ -135,7 +142,11 @@ def _is_project_method_provider(cls: type) -> bool:
 def _abstract_method_owner(cls: type, name: str) -> type | None:
     for base in cls.__mro__:
         attr = base.__dict__.get(name)
-        if attr is not None and isinstance(attr, AbstractMethod) and _is_project_method_provider(base):
+        if (
+            attr is not None
+            and isinstance(attr, AbstractMethod)
+            and _is_project_method_provider(base)
+        ):
             return base
     return None
 
@@ -154,10 +165,17 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
             details.append(f"{name} ({owner.__name__})")
 
     detail_str = ", ".join(details)
-    assert not missing, f"Can't refine category of {type(X).__name__}: unimplemented abstract methods: {detail_str}"
+    assert not missing, (
+        f"Can't refine category of {type(X).__name__}: "
+        f"unimplemented abstract methods: {detail_str}"
+    )
 
 
-def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = True) -> Parent:
+def refine_category(
+    X: Parent,
+    C: Category | Sequence[Category],
+    test: bool = True,
+) -> Parent:
     X._refine_category_(C)
     _validate_no_missing_abc_methods(X)
     if test:
@@ -184,7 +202,10 @@ def _write_all(fd: int, payload: bytes) -> None:
         view = view[written:]
 
 
-def _run_smoke_statement_isolated(message: str, statement: Callable[[Any], bool]) -> str | None:
+def _run_smoke_statement_isolated(
+    message: str,
+    statement: Callable[[Any], bool],
+) -> str | None:
     if not hasattr(os, "fork"):
         return _run_smoke_statement(message, statement)
 
@@ -193,7 +214,11 @@ def _run_smoke_statement_isolated(message: str, statement: Callable[[Any], bool]
     if pid == 0:
         os.close(read_fd)
         failure = _run_smoke_statement(message, statement)
-        payload = b"" if failure is None else failure.encode("utf-8", "backslashreplace")
+        payload = (
+            b""
+            if failure is None
+            else failure.encode("utf-8", "backslashreplace")
+        )
         try:
             _write_all(write_fd, payload)
         finally:
@@ -215,13 +240,24 @@ def _run_smoke_statement_isolated(message: str, statement: Callable[[Any], bool]
         exit_status = os.WEXITSTATUS(status)
         if exit_status == 0:
             return None
-        return failure or f"{message}: smoke statement child exited with status {exit_status}"
+        return (
+            failure
+            or f"{message}: smoke statement child exited with status {exit_status}"
+        )
     if os.WIFSIGNALED(status):
-        return f"{message}: smoke statement child terminated by signal {os.WTERMSIG(status)}"
-    return failure or f"{message}: smoke statement child ended with wait status {status}"
+        return (
+            f"{message}: smoke statement child terminated "
+            f"by signal {os.WTERMSIG(status)}"
+        )
+    return (
+        failure
+        or f"{message}: smoke statement child ended with wait status {status}"
+    )
 
 
-def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]], ...]) -> None:
+def assert_smoke_statements(
+    statements: tuple[tuple[str, Callable[[Any], bool]], ...],
+) -> None:
     failures: list[str] = []
     for message, statement in statements:
         # This is the allowed smoke-harness exception pattern: spec smokes are

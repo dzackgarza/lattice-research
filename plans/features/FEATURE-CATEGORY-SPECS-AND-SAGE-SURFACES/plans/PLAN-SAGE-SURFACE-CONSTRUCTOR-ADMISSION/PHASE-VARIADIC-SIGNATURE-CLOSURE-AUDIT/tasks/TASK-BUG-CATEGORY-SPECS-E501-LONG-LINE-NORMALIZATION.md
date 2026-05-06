@@ -94,3 +94,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
 - 2026-05-03: `just test` now fails at `vulture` dead-code detection stage with
   broad pre-existing unused-code findings (hundreds of hits); no remaining `E501`
   or `Ruff format/check` errors remain from this leaf.
+- 2026-05-06: Rechecked current state and found the 2026-05-03 "no remaining `E501`"
+  note is stale. `uvx --from ruff ruff check --select E501 category_specs
+  --output-format json | jq 'length'` reports 844 current E501 findings. Cleared the
+  11 current `category_specs/utils.py` findings with mechanical wrapping only;
+  `uvx --from ruff ruff check --select E501 category_specs/utils.py`, `uvx --from
+  ruff ruff check --select UP047 category_specs/utils.py`, and `python -m compileall
+  category_specs/utils.py` now pass. Remaining E501 work stays on this ready leaf; it
+  is not a dependency blocker for unrelated DAG-ready cards.
