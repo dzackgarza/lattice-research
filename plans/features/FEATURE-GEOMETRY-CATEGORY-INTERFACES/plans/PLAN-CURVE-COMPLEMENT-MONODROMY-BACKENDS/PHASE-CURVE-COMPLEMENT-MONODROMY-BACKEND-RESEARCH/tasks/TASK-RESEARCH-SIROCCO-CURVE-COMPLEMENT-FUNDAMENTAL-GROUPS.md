@@ -101,3 +101,16 @@ Finding:
 - The card required follow-up work to be tracked, but the produced mapping spec
   listed the Sirocco public-surface choices as inline future prose rather than a
   tracked successor card.
+
+### Re-Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance.
+**Gates failed:** None.
+**Outcome:** no concrete revision findings; human approval remains required before
+marking the card complete.
+
+Findings: none. The review found the prior Gate 2 defect resolved by
+`[[DECISION-SIROCCO-PLANE-CURVE-COMPLEMENT-GROUP-SURFACE]]`, which now owns the
+public-surface choices that had been left as inline prose.
