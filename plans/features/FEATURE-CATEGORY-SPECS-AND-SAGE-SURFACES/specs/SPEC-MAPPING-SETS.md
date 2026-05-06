@@ -39,6 +39,45 @@ Source inventory: `category_specs/sets/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/sets/docs/SAGE_INVENTORY.md`.
+- Installed Sage source files checked or named by the local inventory:
+  - `sage/categories/sets_cat.py`
+  - `sage/categories/finite_sets.py`
+  - `sage/categories/enumerated_sets.py`
+  - `sage/categories/finite_enumerated_sets.py`
+  - `sage/categories/infinite_enumerated_sets.py`
+  - `sage/categories/facade_sets.py`
+  - `sage/sets/all.py`
+  - `sage/sets/set.py`
+  - `sage/sets/finite_enumerated_set.py`
+  - `sage/sets/integer_range.py`
+  - `sage/sets/non_negative_integers.py`
+  - `sage/sets/positive_integers.py`
+  - `sage/sets/primes.py`
+  - `sage/sets/real_set.py`
+  - `sage/sets/recursively_enumerated_set.pyx`
+  - `sage/sets/disjoint_union_enumerated_sets.py`
+  - `sage/sets/cartesian_product.py`
+  - `sage/sets/condition_set.py`
+  - `sage/sets/image_set.py`
+  - `sage/sets/totally_ordered_finite_set.py`
+  - `sage/sets/finite_set_maps.py`
+  - `sage/sets/disjoint_set.pyx`
+  - `sage/combinat/set_partition.py`
+  - `sage/sets/family.pyx`
+  - `sage/sets/set_from_iterator.py`
+  - `sage/categories`
+  - `sage/sets`
+  - `sage/categories/isomorphic_objects.py`
+  - `sage/categories/with_realizations.py`
+  - `sage/categories/realizations.py`
+  - additional installed source paths listed in `category_specs/sets/docs/SAGE_INVENTORY.md` beyond this ledger limit: 7
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 This file records, for each Sage category relevant to `Sets()`, the mathematical

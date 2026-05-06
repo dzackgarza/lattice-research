@@ -39,6 +39,17 @@ Source inventory: `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`.
+- Sage written documentation pages named by the local inventory:
+  - `reference/tensor_free_modules/sage/tensor/modules/free_module_tensor.html`
+  - `reference/tensor_free_modules/sage/tensor/modules/tensor_with_indices.html`
+  - `reference/tensor_free_modules/sage/tensor/modules/finite_rank_free_module.html`
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 This file maps the narrow Sage tensor-free-module surface into the project

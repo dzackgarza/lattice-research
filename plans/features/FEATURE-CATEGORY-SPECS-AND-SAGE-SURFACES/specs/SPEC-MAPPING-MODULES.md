@@ -39,6 +39,45 @@ Source inventory: `category_specs/modules/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/modules/docs/SAGE_INVENTORY.md`.
+- Installed Sage source files checked or named by the local inventory:
+  - `sage`
+  - `sage/modules/free_module.py`
+  - `sage/modules/free_quadratic_module.py`
+  - `sage/combinat/free_module.py`
+  - `sage/modules/with_basis/subquotient.py`
+  - `sage/modules/with_basis/representation.py`
+  - `sage/categories/semigroups.py`
+  - `sage/modules/fg_pid/fgp_module.py`
+  - `sage/modules/free_module_integer.py`
+  - `sage/modules/free_quadratic_module_integer_symmetric.py`
+  - `sage/modules/torsion_quadratic_module.py`
+  - `sage/tensor/modules/finite_rank_free_module.py`
+  - `sage/modules/fp_graded/free_module.py`
+  - `sage/modules/fp_graded/module.py`
+  - `sage/rings/polynomial/ore_polynomial_ring.py`
+  - `sage/modules/ore_module.py`
+  - `sage/categories/rings.py`
+  - `sage/categories/modules.py`
+  - `sage/categories/modules_with_basis.py`
+  - `sage/modules/free_module_homspace.py`
+  - `sage/modules/free_module_morphism.py`
+  - `sage/modules/matrix_morphism.py`
+  - `sage/modules/fg_pid/fgp_morphism.py`
+  - `sage/tensor/modules/free_module_homset.py`
+  - `sage/tensor/modules/free_module_morphism.py`
+  - `sage/modules/fp_graded/free_homspace.py`
+  - `sage/modules/fp_graded/homspace.py`
+  - `sage/modules/fp_graded/morphism.py`
+  - `sage/modules/ore_module_homspace.py`
+  - `sage/modules/ore_module_morphism.py`
+  - additional installed source paths listed in `category_specs/modules/docs/SAGE_INVENTORY.md` beyond this ledger limit: 21
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 This file records the forward target mapping from Sage module surfaces into the local

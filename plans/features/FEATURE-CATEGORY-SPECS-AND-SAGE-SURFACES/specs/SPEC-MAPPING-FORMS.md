@@ -39,6 +39,15 @@ Source inventory: `category_specs/forms/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/forms/docs/SAGE_INVENTORY.md`.
+- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
+  - `sage/modules/docs/SAGE_INVENTORY.md`
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 `FormedModules(R)` is the forms-subtree owner for modules equipped with forms.

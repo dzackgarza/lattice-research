@@ -39,6 +39,25 @@ Source inventory: `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/cat/docs/SAGE_INVENTORY.md`.
+- Installed Sage source files checked or named by the local inventory:
+  - `sage/categories`
+  - `sage/categories/homsets.py`
+  - `sage/categories/homset.py`
+- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
+  - `sage/sets/__init__.py`
+  - `sage/categories/constructions/subobjects.py`
+  - `sage/categories/constructions/quotients.py`
+  - `sage/categories/constructions/subquotients.py`
+  - `sage/categories/constructions/objects_over.py`
+  - `sage/categories/constructions/objects_under.py`
+  - `sage/categories/constructions/cartesian_products.py`
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 This file maps Sage's category and functor machinery to the project `Cat()` subtree.

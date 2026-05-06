@@ -39,6 +39,36 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
+- Sage written documentation pages named by the local inventory:
+  - `reference/categories/sage/categories/algebras.html`
+  - `reference/categories/sage/categories/algebras_with_basis.html`
+  - `reference/categories/sage/categories/finite_dimensional_algebras_with_basis.html`
+  - `reference/categories/sage/categories/commutative_algebras.html`
+  - `reference/categories/sage/categories/semisimple_algebras.html`
+  - `reference/categories/sage/categories/algebra_functor.html`
+  - `reference/algebras/sage/algebras/free_algebra.html`
+- Installed Sage source files checked or named by the local inventory:
+  - `sage/categories/magmatic_algebras.py`
+  - `sage/categories/associative_algebras.py`
+  - `sage/categories/algebras.py`
+  - `sage/categories/algebras_with_basis.py`
+  - `sage/categories/finite_dimensional_algebras_with_basis.py`
+  - `sage/categories/algebra_functor.py`
+  - `sage/categories/sets_cat.py`
+  - `sage/algebras/free_algebra.py`
+  - `sage/combinat/free_module.py`
+  - `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`
+  - `sage/categories/commutative_algebras.py`
+  - `sage/categories/semisimple_algebras.py`
+- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
+  - `sage/tensor/cartesian`
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 `MagmaticAlgebras(R)` is the category of `R`-modules with bilinear multiplication.

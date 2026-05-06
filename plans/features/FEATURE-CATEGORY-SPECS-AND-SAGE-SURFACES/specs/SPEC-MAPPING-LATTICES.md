@@ -39,6 +39,29 @@ Source inventory: `category_specs/lattices/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Source Coverage Ledger
+
+- Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
+- Local inventory checked: `category_specs/lattices/docs/SAGE_INVENTORY.md`.
+- Installed Sage source files checked or named by the local inventory:
+  - `sage`
+  - `sage/modules/free_quadratic_module.py`
+  - `sage/modules/fg_pid/fgp_module.py`
+  - `sage/modules/fg_pid/fgp_element.py`
+  - `sage/modules/fg_pid/fgp_morphism.py`
+  - `sage/modules/torsion_quadratic_module.py`
+  - `sage/modules/free_quadratic_module_integer_symmetric.py`
+  - `sage/quadratic_forms/quadratic_form.py`
+- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
+  - `sage/categories/bilinear_modules.py`
+  - `sage/categories/free_bilinear_modules.py`
+  - `sage/categories/lattices.py`
+  - `sage/categories/rational_lattices.py`
+  - `sage/categories/torsion_bilinear_modules.py`
+  - `sage/categories/discriminant_quadratic_forms.py`
+- Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
+- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
 ## Converted Mapping Content
 
 Records the mathematical justification for how every Sage surface maps to our hierarchy.
