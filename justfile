@@ -251,3 +251,9 @@ plan-validate:
         sys.exit(1)
 
     print(f"Validated {len(cards)} root planning cards.")
+
+plan-progress-report:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    uv run .agents/scripts/generate_card_progress_report.py --output plans/card-progress-report.md

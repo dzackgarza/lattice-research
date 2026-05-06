@@ -25,6 +25,8 @@ retiring, or interpreting root `plans/` tracker files.
 - Use only registered standard tracker types from `.nimbalyst/trackers/*.yaml`.
 - Use the root feature/plan/phase/task hierarchy for workflow dimensions. Tags are secondary grouping aids.
 - There is no separate backlog; active cards are the outstanding work set.
+- Completed feature trees should be moved under `plans/features/completed/` rather
+  than left alongside active feature roots.
 - Work top-down through feature/spec, plan, phase, and task gates. Do not create
   lower-layer cards before the owning layer is approved.
 - Plans are human + LLM collaborative artifacts and must be approved before

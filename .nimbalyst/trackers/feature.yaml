@@ -48,10 +48,24 @@ fields:
   - value: done
     label: Done
     icon: check_circle
+  - value: revision-required
+    label: Revision Required
+    icon: replay
+    color: '#f59e0b'
+  - value: revision-required
+    label: Revision Required
+    icon: replay
+    color: '#f59e0b'
   - value: blocked
     label: Blocked
     icon: block
     color: '#dc2626'
+- name: blocked_reason
+  type: text
+  displayInline: false
+- name: blocked_reason
+  type: text
+  displayInline: false
 - name: priority
   type: select
   options:

@@ -22,9 +22,11 @@ Use `.agents/current-goal-phase.md` to identify the active staged-program phase.
 `nimbalyst-local/tracker` indexes or parallel task inventories. The GUI is the index.
 
 There is no separate backlog. The active tracked cards under `plans/features/` are the
-outstanding work set. When work is implemented, resolved, rejected, or superseded, move
-the card out of active paths and retire or delete it according to the retired-card
-policy.
+outstanding work set. Completed feature trees should be moved under
+`plans/features/completed/` rather than left beside active feature roots. When work is
+implemented, resolved, rejected, or superseded, move the card out of active paths and
+retire, archive, or delete it according to the retired-card policy for that tracker
+layer.
 
 A plan is not a task container. A plan defines high-level phases and milestones. Each
 execution item must exist as its own dedicated tracked file under a phase directory.
@@ -201,10 +203,12 @@ just --justfile /home/dzack/ai/planning/justfile validate /home/dzack/research/p
 ```
 
 The reusable recipe derives structural tags, checks schemas, and regenerates
-`plans/plan-dag.md`. During manual validation runs, inspect generated tag and DAG
-changes before staging them. During commit hooks, generated tag and DAG changes are
-hook-managed and automatically staged into the commit. Do not replace validation
-failures with warnings or fallback groups.
+`plans/plan-dag.md`. The local planning workflow also generates
+`plans/card-progress-report.md` as a user-facing Markdown summary of current card
+state. During manual validation or report-generation runs, inspect generated tag, DAG,
+and report changes before staging them. During commit hooks, generated planning
+artifacts are hook-managed and automatically staged into the commit. Do not replace
+validation failures with warnings or fallback groups.
 
 Do not add timestamp metadata such as `created` or `updated` to card frontmatter unless
 the installed schema declares those fields. Strict validation treats undeclared metadata
@@ -215,9 +219,9 @@ Recommended local hook behavior: run the reusable validation recipe from pre-com
 when staged planning cards or tracker schemas change, and from post-merge/post-checkout
 when the changed paths include `plans/features/`, `plans/AGENTS.md`,
 `plans/plan-dag.md`, `.nimbalyst/trackers/`, or `.agents/current-goal-phase.md`. Hooks
-should fail on validation errors. If a hook regenerates tags or `plans/plan-dag.md`, it
-should automatically stage those generated changes so the commit records the canonical
-planning state.
+should fail on validation errors. If a hook regenerates tags, `plans/plan-dag.md`, or
+`plans/card-progress-report.md`, it should automatically stage those generated changes
+so the commit records the canonical planning state.
 
 ## Quick card queries
 

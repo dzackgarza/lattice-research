@@ -297,7 +297,16 @@ class _RModObjects:
     def alternating_algebra(self) -> RModule: ...
 
     @abstract_method
-    def dual(self) -> DualModule: ...
+    def dual(self) -> DualModule:
+        r"""Return the Hom-dual module ``Hom_R(M, R)``.
+
+        Diagnostics: when the global category diagnostic flag is enabled, emit a
+        category diagnostic if a subclass or interop path has an adjacent metric-dual
+        convention.  The diagnostic should say that this method returns the
+        evaluation-bearing Hom object; metric duals such as ``L^\#`` belong to the
+        formed/lattice metric-dual construction when that structure is present.
+        """
+        ...
 
     @abstract_method
     def determinant_module(self) -> RModule:

@@ -11,9 +11,11 @@ This skill is the canonical execution-state authority for the research repo.
 
 ## Canonical source
 
-The source of truth is this skill plus `references/execution-kernel.md`.
+The source of truth is this skill plus `references/execution-kernel.md` and `references/review-kernel.md`.
 
 Read `references/execution-kernel.md` before moving work from planning into execution, delegating implementation, judging whether a card is atomic, routing replay/attack, accepting/rejecting/splitting work, or claiming parent-plan or `GOAL.md` discharge.
+
+Read `references/review-kernel.md` before reviewing any card in `needs-review` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
 
 
 ## Core model
@@ -30,7 +32,7 @@ Read `references/execution-kernel.md` before moving work from planning into exec
 - Specify card: create a tracked card with exact claim/work target, scope, provenance, dependencies, acceptance criteria, and verification plan.
 - Preflight: reject or split hidden-major-work cards before execution.
 - Execute: run scoped implementation in the required branch/worktree and update card metadata.
-- Replay and attack: independently test the strongest claim and proof/evidence surface.
+- Review: apply the six ordered gates from `references/review-kernel.md`. Determine whether the card is `complete`/`done`, `revision-required` (rework needed), or `blocked` (prerequisite missing).
 - Promote, reject, split, or retire: human-gated promotion; otherwise split or reject and keep active paths forward-facing.
 
 ## Hard stops
@@ -57,6 +59,6 @@ spec work.
 ## Load with
 
 - Load `research-project-workflow` for Nimbalyst plan/card mechanics.
-- Load `research-proof-auditing` for proof, evidence, formal verification, and fraud checks.
+- Load `research-proof-auditing` for proof, evidence, formal verification, and fraud checks within the review kernel's Gate 5.
 - Load `research-orchestration` for subagent contracts, worktrees, self-check, adversarial audit, and durable artifact handoff.
 - Load `research-math-boundary` when preflight reveals missing foundational mathematical nouns, methods, conventions, or backend bridges.

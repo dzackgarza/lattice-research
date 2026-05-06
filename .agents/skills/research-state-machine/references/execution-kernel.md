@@ -83,7 +83,9 @@ Run nontrivial implementation in the required branch/worktree and within the car
 
 Small administrative metadata edits can be direct when the repo workflow allows them. Production code, canonical docs, mathematical infrastructure, and agent-guiding docs require branch/PR routing according to the project workflow.
 
-### Replay and attack
+### Replay and attack (formalized by the Review Kernel)
+
+The `references/review-kernel.md` formalizes this stage into a six-gate ordered protocol. See that document for the full procedure.
 
 Replay/attack is required when a card claims mathematical correctness, proof evidence, code correctness, state-machine acceptance, or parent-plan discharge. Use `research-proof-auditing` for proof and evidence sufficiency. Use independent review where failure modes must be separated from the implementation context.
 

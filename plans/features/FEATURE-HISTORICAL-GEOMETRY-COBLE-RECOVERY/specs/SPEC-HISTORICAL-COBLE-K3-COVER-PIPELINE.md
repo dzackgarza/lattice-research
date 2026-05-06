@@ -74,6 +74,9 @@ The admitted pipeline is a chain of typed objects and maps:
   anti-bicanonical divisor in `|-2K_S|` after the hypotheses are verified.
 - `S`: the Coble surface object, admitted only after the blowup and anti-canonical
   conditions are recorded.
+- `K_S^perp`: the Enriques-type numerical sublattice of `Pic(S)`.
+- `h_Co`: a degree-2 polarization class in `K_S^perp`, non-degenerately written
+  `F_1 + F_2` with `F_i^2 = 0` and `F_1.F_2 = 1`.
 - `f: X -> S`: a degree-two cover with branch divisor `B`, ramification divisor, and
   canonical-cover formula.
 - `X_smooth` or the appropriate resolved total space if the direct cover is singular;
@@ -82,6 +85,8 @@ The admitted pipeline is a chain of typed objects and maps:
   blowup maps.
 - `f^*Pic(S)`: the pullback lattice in `H^2(X, ZZ)` or the admitted K3 cohomology
   lattice context, with intersection pairing computed by pullback.
+- `tilde h_Co = f^*h_Co`: the K3-side polarization vector, with square doubled from
+  `2` to `4`.
 - comparison isometry: only after `f^*Pic(S)` exists may the implementation compare it
   to a standard presentation such as `<2> + <-2>^10`.
 
@@ -113,6 +118,11 @@ is a later formed object obtained from the intersection pairing on divisor class
 For the blowup of `P^2` at ten nodes, the expected basis is `H, E_1, ..., E_10`, with
 `H^2 = 1`, `E_i^2 = -1`, and cross-terms zero after the blowup construction proves the
 generators and incidence.
+The canonical class must be computed in this basis:
+`K_S = -3H + sum_i E_i`, and the strict transform of the sextic must have class
+`B = 6H - 2 sum_i E_i = -2K_S`. A divisor `D = aH + sum_i c_i E_i` is in
+`K_S^perp` iff `-3a - sum_i c_i = 0`; equivalently, for
+`D = aH - sum_i b_i E_i`, iff `sum_i b_i = 3a`.
 
 For a finite cover of degree two, pullback doubles intersection numbers:
 `f^*D . f^*E = 2 * (D . E)` under the hypotheses where the projection formula applies.
@@ -120,6 +130,13 @@ Thus the diagonal lattice `<2> + <-2>^10` is a verification target for the const
 pullback lattice, not an input to the construction. Discriminant groups, Nikulin
 invariants, and orthogonal complements are downstream outputs of this constructed
 lattice.
+
+The plane hyperplane class and the moduli polarization must remain separate. `H^2 = 1`,
+so `f^*H` has square `2` and is the plane-line class in the constructed K3 pullback
+lattice. The Coble moduli polarization is `h_Co in K_S^perp`, with `h_Co^2 = 2`;
+therefore its K3 pullback `tilde h_Co` has square `4`. Any implementation that computes
+arithmetic groups, folding data, or surgery vectors must name which of these classes is
+being used.
 
 ## Backend Routes
 

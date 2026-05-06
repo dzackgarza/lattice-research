@@ -4,9 +4,9 @@ A bilinear form ``b: M \times M \to K`` is *integral* iff ``b(v, w) \in R``
 for all ``v, w \in M`` (i.e. the codomain is ``R``, not a proper extension).
 For lattices over ``\mathbb{Z}`` this means the Gram matrix has integer entries.
 
-This is the minimal tier at which the *dual* is constructible:
+This is the minimal tier at which the metric dual is constructible:
 
-    ``L^* = \{v \in L \otimes_R K : b(v, L) \subseteq R\}``
+    ``L^\# = \{v \in L \otimes_R K : b(v, L) \subseteq R\}``
 
 because the condition ``b(v, L) \subseteq R`` requires both that ``b`` is
 ``R``-valued (integral) and that ``R`` is an integral domain (to form
@@ -40,11 +40,11 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     **New at this tier:**
 
-    - ``dual_lattice()`` — ``L^* = \{v \in L_K : b(v, L) \subseteq R\}``
-    - ``inclusion_morphism()`` — the canonical map ``\iota: L \to L^*``
-    - ``discriminant_group()`` — the finite quotient ``L^*/L``
+    - ``dual_lattice()`` — ``L^\# = \{v \in L_K : b(v, L) \subseteq R\}``
+    - ``inclusion_morphism()`` — the canonical map ``\iota: L \to L^\#``
+    - ``discriminant_group()`` — the finite quotient ``L^\#/L``
     - ``is_even()`` — whether ``b(v, v) \in 2R`` for all ``v``
-    - ``is_unimodular()`` — whether ``L = L^*``
+    - ``is_unimodular()`` — whether ``L = L^\#``
 
     .. NOTE::
 
@@ -70,12 +70,26 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def dual_lattice(self) -> Lattice:
-            r"""Return the dual ``L^* = \{v \in L \otimes_R K : b(v, L) \subseteq R\}``.
+            r"""Return the metric dual ``L^\# = \{v \in L_K : b(v, L) \subseteq R\}``.
 
             Here ``K = \mathrm{Frac}(R)`` is the fraction field and
             ``L_K = L \otimes_R K``.  Requires ``R`` to be an integral domain.
-            The inclusion ``L \hookrightarrow L^*`` is given by
-            ``v \mapsto b(v, -) \in \mathrm{Hom}_R(L, R) \cong L^*``.
+            The object returned by this method is the metric-dual construction inside
+            scalar extension, not by definition the Hom-dual object
+            ``\mathrm{Hom}_R(L, R)``.
+
+            Under finite free nondegenerate hypotheses, the form induces an
+            identification between ``L^\#`` and ``\mathrm{Hom}_R(L, R)`` by
+            ``x \mapsto b(x, -)``.  Any implementation that transports structure
+            through that identification must record the identification and codomain.
+
+            Diagnostics: when the global category diagnostic flag is enabled, emit a
+            category diagnostic if this method is likely to be read as returning the
+            evaluation-bearing Hom dual.  In degenerate formed-module examples, such as
+            the rank-one summand ``<e>`` of the hyperbolic plane ``U``, the diagnostic
+            should say that ``dual_lattice()`` returns the metric-dual object ``L^\#``;
+            the Hom-dual object lives under the module ``DualObjects()`` construction
+            when that construction is defined.
 
             EXAMPLES::
 
@@ -89,16 +103,15 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def inclusion_morphism(self) -> RModuleMorphism:
-            r"""Return the canonical inclusion ``\iota: L \hookrightarrow L^*``
-            sending ``v`` to ``b(v, -) \in \mathrm{Hom}_R(L, R) \cong L^*``.
+            r"""Return the canonical inclusion ``\iota: L \hookrightarrow L^\#``.
 
-            The cokernel of ``\iota`` is the discriminant group ``L^*/L``.
+            The cokernel of ``\iota`` is the discriminant group ``L^\#/L``.
             """
             ...
 
         @abstract_method
         def discriminant_group(self) -> DiscriminantGroup:
-            r"""Return the discriminant group ``A_L = L^*/L``.
+            r"""Return the discriminant group ``A_L = L^\#/L``.
 
             This is a finite torsion ``R``-module equipped with a
             ``K/R``-valued bilinear form descending from ``b``.  It is
@@ -115,7 +128,7 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @final
         def is_unimodular(self) -> bool:
-            r"""Return ``True`` iff ``L = L^*`` (i.e. ``|\det(G)| = 1``)."""
+            r"""Return ``True`` iff ``L = L^\#`` (i.e. ``|\det(G)| = 1``)."""
             return self.discriminant_group().is_trivial()
 
         @abstract_method

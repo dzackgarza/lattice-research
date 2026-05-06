@@ -24,7 +24,7 @@ Subcategory hierarchy::
     |-- ObjectsUnder()
     |-- CartesianProducts()
     |-- DualObjects()
-    |   `-- DualLattices() compatibility alias
+    |-- DualLattices()
     |-- Overlattices()
     |-- OrthogonalDirectSums()
     |-- DiscriminantGroups()
@@ -133,8 +133,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         @cached_method
         @final
         def DualLattices(self) -> Category:
-            r"""Compatibility alias for the standard ``DualObjects()`` construction."""
-            return self.DualObjects()
+            r"""Return the metric-dual lattice construction category."""
+            from .subcategories.constructions.dual_lattices import DualLatticesCategory
+
+            return DualLatticesCategory(self.base_ring())
 
         @cached_method
         @final

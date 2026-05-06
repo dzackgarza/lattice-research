@@ -128,14 +128,21 @@ The number of isotropic orbits in $A_{T_{\mathrm{Co}}}$ is not yet computed from
 ## 3. Uniqueness of 1-Cusps and $\Gamma_{\mathrm{Co}}$ Stabilizer
 
 ### Background
-The arithmetic group $\Gamma_{\mathrm{Co}}$ is the **stabilizer of the polarization** $h_{Co}$ within $O(T_{En})$, further constrained by the horizontal folding involution $\theta$:
-$$\Gamma_{\mathrm{Co}} = \text{Stab}_{O(T_{En})}(h_{Co}) \cap Z_{O(T_{En})}(\theta)$$
-In the Enriques sector, $h_{En} = e+f$ is the degree 2 polarization ($h^2=2$). The Coble polarization $h_{Co}$ is induced by the hyperplane class $E_0$.
+The arithmetic group $\Gamma_{\mathrm{Co}}$ is the **stabilizer of the typed Coble polarization data**, further constrained by the horizontal folding involution $\theta$. Downstairs on a Coble surface $S$, the degree-2 Coble polarization is the Enriques-type class
+$$h_{\mathrm{Co}}\in K_S^\perp\subset \mathrm{Pic}(S),\qquad h_{\mathrm{Co}}^2=2.$$
+In the non-degenerate case, $h_{\mathrm{Co}}=F_1+F_2$ with $F_i^2=0$ and $F_1\cdot F_2=1$. Its K3 pullback
+$$\widetilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}\in f^*(K_S^\perp)\subset S_{\mathrm{Co}}$$
+has square $4$. This mirrors the Enriques convention: the downstairs degree-2 numerical polarization has square $2$, while the K3-side vector $h=e+f\in U(2)\subset S_{\mathrm{En}}$ has square $4$. The plane-line class $E_0=f^*H$ in the Coble K3 pullback lattice is a different class: $H^2=1$ on the blowup and $E_0^2=2$ on the K3 cover.
+In the blowup basis, $K_S=-3H+\sum_iE_i$, so
+$D=aH-\sum_i b_iE_i$ lies in $K_S^\perp$ exactly when $\sum_i b_i=3a$.
+
+Accordingly, formulas for $\Gamma_{\mathrm{Co}}$ must specify whether they stabilize the downstairs class $h_{\mathrm{Co}}$, its K3 pullback $\widetilde h_{\mathrm{Co}}$, or the corresponding transported class in the Enriques comparison lattice:
+$$\Gamma_{\mathrm{Co}} = \text{Stab}(\text{typed polarization data}) \cap Z(\theta).$$
 
 ### Technical Gap
 An explicit representation of $\Gamma_{\mathrm{Co}}$ in terms of **matrix generators** is currently a stub. Construction requires the centralizer/stabilizer intersection in the Enriques sector:
-$$\Gamma_{\mathrm{Co}} = \text{Stab}_{O(\Lambda)}(h_{Co}) \cap Z_{O(\Lambda)}(\theta)$$
-where $h_{Co}^2=2$. One must also verify the **uniqueness of the 1-cusp** by checking the negative-definite quotient $J^\perp/J$ for all orbits of isotropic primitive planes $J \subset T_{Co}$ and confirming isometry with $A_1^{\oplus 7}$.
+$$\Gamma_{\mathrm{Co}} = \text{Stab}_{O(\Lambda)}(\widetilde h_{\mathrm{Co}}\ \text{or its transported Enriques-side class}) \cap Z_{O(\Lambda)}(\theta),$$
+with all parent lattices and pullback/transport maps named. One must also verify the **uniqueness of the 1-cusp** by checking the negative-definite quotient $J^\perp/J$ for all orbits of isotropic primitive planes $J \subset T_{Co}$ and confirming isometry with $A_1^{\oplus 7}$.
 
 ### Computational Verification
 - **Task 3.1**: Compute the stabilizer/centralizer intersection in the Enriques lattice to find a minimal set of generators for $\Gamma_{\mathrm{Co}}$.
@@ -159,7 +166,7 @@ The 10-node Coxeter diagram $G_{S_{\mathrm{Co}}}$ is highly connected. Confirmin
 ## 5. Explicit Involution Matrix and Sublattice Invariants
 
 ### Background
-The "horizontal folding" $\theta$ must act on $\Lambda_{\mathrm{K3}}$ such that its **invariant and coinvariant sublattices** are correctly identified with the two rank-11 lattices computed in Task 1.2: the pullback lattice coming from $\mathrm{Pic}(S)$ and its orthogonal complement. This involution swaps the polarization generators between sectors ($h_{En} \leftrightarrow h_{Co}$).
+The "horizontal folding" $\theta$ must act on $\Lambda_{\mathrm{K3}}$ such that its **invariant and coinvariant sublattices** are correctly identified with the two rank-11 lattices computed in Task 1.2: the pullback lattice coming from $\mathrm{Pic}(S)$ and its orthogonal complement. It compares the polarization generators only after the relevant K3-side pullback/transport data has been fixed: the Enriques-side K3 vector has square $4$, and the Coble-side K3 vector is $\widetilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with square $4$.
 
 ### Technical Gap
 The explicit matrix for $\theta$ on the standard basis of $U^3 \oplus E_8^2$ is missing. One must verify the **isometry classes** of the $\pm 1$ eigenspaces against the lattices computed in Task 1.2, and verify that the relevant embedding into $T_{\mathrm{En}}$ is primitive.
@@ -175,10 +182,10 @@ The explicit matrix for $\theta$ on the standard basis of $U^3 \oplus E_8^2$ is 
 Stable limits of Coble surfaces correspond to $S_2$-quotients of nodal K3 surfaces. These models are parameterized by the monodromy invariant $\ell \in \check{\mathcal{H}}$ (surgery sizes) via the construction $B(\lambda)$ (AEGS23).
 
 ### Technical Gap
-The stability of the slc pair $(Z, \epsilon C)$ for specific surgery vectors $\ell$ must be verified. One must determine the mapping from the transcendental vector $h_{Co}$ to the discretization $\ell$ on the dual complex.
+The stability of the slc pair $(Z, \epsilon C)$ for specific surgery vectors $\ell$ must be verified. One must determine the mapping from the typed Coble polarization data, usually the K3-side class $\widetilde h_{\mathrm{Co}}$, to the discretization $\ell$ on the dual complex.
 
 ### Computational Verification
-- **Task 6.1**: Map the Coble polarization $h_{Co}$ to the the surgery vector $\ell$ and verify the slc stability of the resulting stable limit.
+- **Task 6.1**: Map the typed Coble polarization data, usually the K3-side class $\widetilde h_{\mathrm{Co}}$, to the surgery vector $\ell$ and verify the slc stability of the resulting stable limit.
 
 ## 7. Authoritative References
 - **Nikulin (1979)**: *Integer symmetric bilinear forms and some of their geometric applications*. (Uniqueness of embeddings, genus cardinality).
@@ -194,7 +201,7 @@ The stability of the slc pair $(Z, \epsilon C)$ for specific surgery vectors $\e
 
 ### 8.2. Lattice Anchors
 - **Isotropic Vectors**: In $S_{\mathrm{Co}}$, primitive isotropic lines can be represented by vectors such as $v = e_0 \pm e_i$ (where $e_0^2=2, e_i^2=-2$).
-- **Polarization Basis**: The degree-2 polarization $h$ in $T_{\mathrm{En}}$ corresponds to $h = e+f$ in a standard $U$-basis, which must be identified in a basis compatible with $\theta$.
+- **Polarization Basis**: The downstairs degree-2 Enriques and Coble polarizations have square $2$. Their K3-side representatives have square $4$: on the Enriques side this is $h=e+f\in U(2)$, and on the Coble side this is $\widetilde h_{\mathrm{Co}}=f^*h_{\mathrm{Co}}$ with $h_{\mathrm{Co}}\in K_S^\perp\subset\mathrm{Pic}(S)$. The Coble plane-line class $e_0=f^*H$ has square $2$ and is not the moduli polarization.
 - **Discriminant Forms**:
   - Compute the discriminant form of the pullback lattice $f^*\mathrm{Pic}(S)$ on the K3 cover.
   - Compute the discriminant form of its orthogonal complement in $\Lambda_{\mathrm{K3}}$.

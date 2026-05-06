@@ -37,6 +37,12 @@ polynomial fallbacks.
   singularity conditions, quotient by automorphisms, and stack/coarse-space issues.
 - Construct the Coble curve, its blowup, the Picard group of the blowup, the K3 double
   cover, and the pullback of the Picard group.
+- Distinguish the plane hyperplane class `H` from the degree-2 Coble polarization
+  `h_Co`: `H^2 = 1`, `f^*H` has square `2`, while
+  `h_Co in K_S^perp subset Pic(S)` has square `2` and
+  `tilde h_Co = f^*h_Co` has square `4`.
+- Use the explicit blowup formula `K_S = -3H + sum_i E_i`; therefore
+  `D = aH - sum_i b_iE_i` is in `K_S^perp` exactly when `sum_i b_i = 3a`.
 - Compute the pullback lattice from the constructed geometry, give a canonical
   presentation, and verify any claimed isometry to standard summands.
 - State the open locus where the double-cover construction gives a smooth K3 surface.
@@ -66,6 +72,8 @@ polynomial fallbacks.
 - [ ] The computational proof constructs the Coble curve, blowup, Picard group, double
   cover, canonical class, structure-sheaf pushforward, Hodge-number calculation, and
   pullback lattice through semantic mathematical operations.
+- [ ] The proof identifies `K_S^perp ~= E_10`, the degree-2 polarization
+  `h_Co in K_S^perp`, and the K3 pullback `tilde h_Co` with the correct doubled square.
 - [ ] The derived lattice data includes the canonical presentation, primitive closure
   when required, discriminant data, orthogonal complement, and verified isometries to
   standard presentations.

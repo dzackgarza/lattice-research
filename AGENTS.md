@@ -97,7 +97,8 @@ probably belongs in `plans/`, a decision card, or git history rather than memory
 All active repo-local planning and work tracking lives under root `plans/`. Use
 `plans/AGENTS.md` and registered standard tracker types from
 `.nimbalyst/trackers/*.yaml`. There is no separate backlog; active cards under
-`plans/features/` are the outstanding work set. Plans are human + LLM collaborative
+`plans/features/` are the outstanding work set, while completed feature trees should be
+moved under `plans/features/completed/`. Plans are human + LLM collaborative
 artifacts and must be approved before decomposition or execution. `GOAL.md` remains the
 staged-program source; do not recreate staged phases as active tracker features.
 

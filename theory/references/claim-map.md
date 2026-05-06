@@ -32,6 +32,27 @@ appealing to local computation.
   - **Huybrechts K3 Lectures**: Foundational K3 lattice theory including U³ ⊕ E₈(-1)²
     structure (line 561) and Kummer lattice discriminant computations (lines 1589-1619).
 
+### Degree-2 Coble polarization and the Enriques comparison
+
+- The hyperplane class `H` on the ten-point blowup and the degree-2 Coble polarization
+  are distinct. `H^2 = 1`, and its K3 pullback is the `e_0`/plane-line class of square
+  `2` in the K3 pullback lattice.
+- For the Coble divisor inside the degree-2 Enriques moduli story, the relevant
+  downstairs polarization is `h_Co in K_S^perp subset Pic(S)`, where
+  `K_S^perp` is isomorphic to the Enriques lattice `E_10`. In the non-degenerate case
+  `h_Co = F_1 + F_2` with `F_i^2 = 0`, `F_1.F_2 = 1`, and `h_Co^2 = 2`.
+- In the blowup basis, `K_S = -3H + sum_i E_i`. Therefore
+  `D = aH - sum_i b_iE_i` is in `K_S^perp` exactly when `sum_i b_i = 3a`, and the
+  Coble boundary has class `6H - 2 sum_i E_i = -2K_S`.
+- The K3 pullback `tilde h_Co = f^*h_Co` has square `4` and lies in
+  `f^*(K_S^perp) subset S_Co`. This matches the AEGS convention where the K3-side
+  vector `h = e + f in U(2)` has square `4`, while the underlying Enriques numerical
+  polarization has degree `2`.
+- Canonical sources:
+  - **Dolgachev-Kondō (2013)**: Enriques degree-2 polarizations and the Coble
+    construction using `K_S^perp` and `h = F_1 + F_2`.
+  - **AEGS (2023)**: K3-side period-domain convention `h = e + f in U(2)`.
+
 ### Period domain and dimension count
 
 - Once the relevant K3 lattice has signature `(2,9)`, the associated Type IV period
@@ -63,5 +84,3 @@ Use the literature above for the ambient facts:
 - K3-cover/lattice setup;
 - Type IV dimension count once the lattice is fixed;
 - Torelli-based passage to the moduli description.
-
-

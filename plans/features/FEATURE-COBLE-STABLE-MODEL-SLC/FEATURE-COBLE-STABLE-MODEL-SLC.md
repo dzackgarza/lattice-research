@@ -32,6 +32,9 @@ geometric verification of the pair $(Z,\epsilon C)$ with $Z=X/\iota_{\mathrm{Enr
 
 - Compute the surgery vector from the Coble polarization and root data through semantic
   intersection operations.
+- Represent the downstairs Coble polarization as `h_Co in K_S^perp subset Pic(S)` with
+  square `2`, and use `tilde h_Co = f^*h_Co` with square `4` for K3-side
+  intersection computations.
 - Construct the dual complex model associated with the computed surgery vector.
 - Construct the quotient $Z=X/\iota_{\mathrm{Enr}}$ and the relevant boundary curve data
   in a geometry vocabulary rich enough to state pair properties.

@@ -1,3 +1,4 @@
+import logging
 from collections.abc import Callable, Sequence
 from functools import wraps
 from textwrap import dedent
@@ -8,9 +9,60 @@ from sage.misc.abstract_method import AbstractMethod
 from sage.structure.parent import Parent
 
 PROJECT_MODULE_PREFIX = "category_specs."
+CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 
 _FoldParent = TypeVar("_FoldParent")
 _FoldElement = TypeVar("_FoldElement")
+_CATEGORY_DIAGNOSTICS_ENABLED = False
+_CATEGORY_DIAGNOSTIC_LOGGER = logging.getLogger(CATEGORY_DIAGNOSTIC_LOGGER_NAME)
+_EMITTED_CATEGORY_DIAGNOSTICS: set[str] = set()
+
+
+def category_diagnostics_enabled() -> bool:
+    r"""Return whether opt-in category diagnostics are enabled."""
+    return _CATEGORY_DIAGNOSTICS_ENABLED
+
+
+def set_category_diagnostics_enabled(enabled: bool) -> None:
+    r"""Set the process-local category diagnostics flag."""
+    global _CATEGORY_DIAGNOSTICS_ENABLED
+    _CATEGORY_DIAGNOSTICS_ENABLED = enabled
+
+
+def enable_category_diagnostics() -> None:
+    r"""Enable opt-in category diagnostic logging for this process."""
+    set_category_diagnostics_enabled(True)
+
+
+def disable_category_diagnostics() -> None:
+    r"""Disable category diagnostic logging for this process."""
+    set_category_diagnostics_enabled(False)
+
+
+def category_diagnostic_logger() -> logging.Logger:
+    r"""Return the category diagnostic logger."""
+    return _CATEGORY_DIAGNOSTIC_LOGGER
+
+
+def clear_category_diagnostic_history() -> None:
+    r"""Clear the once-per-key category diagnostic history."""
+    _EMITTED_CATEGORY_DIAGNOSTICS.clear()
+
+
+def emit_category_diagnostic(message: str, *, key: str | None = None, once: bool = True) -> None:
+    r"""Emit an opt-in category diagnostic warning.
+
+    Diagnostics are disabled by default and logging-only.  They are for
+    mathematically valid but non-obvious conventions, not for recovering from
+    invalid hypotheses or implementation gaps.
+    """
+    if not _CATEGORY_DIAGNOSTICS_ENABLED:
+        return
+    if once and key is not None:
+        if key in _EMITTED_CATEGORY_DIAGNOSTICS:
+            return
+        _EMITTED_CATEGORY_DIAGNOSTICS.add(key)
+    _CATEGORY_DIAGNOSTIC_LOGGER.warning(message)
 
 
 class _FoldableOperation(Protocol[_FoldParent, _FoldElement]):

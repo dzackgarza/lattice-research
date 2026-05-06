@@ -32,6 +32,8 @@ records the active phase gate.
 
 - Card IDs must match filename stems.
 - `parents` records containment; `dependsOn` records blocking or prerequisite edges.
+- Completed feature trees live under `plans/features/completed/`, not beside active
+  feature roots.
 - Specs live under the owning feature's `specs/` directory.
 - Decisions live under the owning feature's `decisions/` directory.
 - Executable implementation, research, bug, and audit work uses `trackerStatus.type: task` and lives under a phase's `tasks/` directory.
@@ -44,5 +46,6 @@ Run from the repo root:
 
 ```bash
 just plan-validate
+just plan-progress-report
 git diff --check -- plans .nimbalyst/trackers AGENTS.md .agents/current-goal-phase.md
 ```

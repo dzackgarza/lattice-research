@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY]]'
 dependsOn: []
 title: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement
-status: in-progress
+status: decided
 tags:
 - FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY
 ---
@@ -65,9 +65,28 @@ Candidates differ in:
   wrapper, Python bridge, port to Sage, or another explicit route.
 - The resulting feature card allocates the implementation work.
 
-## Outcome
+## Decision
 
-Once decided, create or update the feature card for the Vinberg wrapping/adaptation
-implementation. The existing survey at
-`.agents/memories/theory/backends/vinberg-algorithm.md` documents all four
-implementations with enough detail to support this decision.
+**Primary backend**: polyhedral_common `LORENTZ_RunEdgewalkAlgorithm` (C++, vendored
+at `src/external/dutsik_polyhedral/polyhedral_common/`, Python wrapper at
+`src.bak/backends/external/py_polyhedral/`). Rationale:
+- Already vendored and has a working Python wrapper
+- C++ performance for root enumeration
+- Shares infrastructure with the indefinite-isometry and orbit backends
+- Sufficient for the Z-lattices in the Coble project (no number fields needed for
+  the initial targets: E₈(-1)⊕E₈(-1)⊕U⊕⟨v⟩, I₁₀,₁, etc.)
+
+**Fallback**: vinal (Python/Sage, reference implementation at
+`src.bak/backends/external/vinbergs_algorithm/references/vinal/`). Use when:
+- polyhedral_common does not support a target lattice
+- Pure Sage implementation is preferred for a specific test case
+- The algorithm needs to be adapted to the repo's category vocabulary
+
+## Implementation
+
+Created `[[TASK-LAT-VINBERG-EDGEWALK-WRAPPER]]` under
+`FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY`. The wrapping task:
+1. Verifies `lorentzian_reflective_edgewalk` accepts spec-level lattice inputs
+2. Wraps as `L.vinberg_edgewalk(control_vector)` returning a typed `VinbergResult`
+3. Tests against the Sterk-Peters worked example (rank 19, signature (1, 18))
+4. Falls back to vinal's Sage approach if the edgewalk is insufficient

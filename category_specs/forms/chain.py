@@ -180,7 +180,16 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(Catego
             return True
 
         @abstract_method
-        def dual_lattice(self) -> Lattice: ...
+        def dual_lattice(self) -> Lattice:
+            r"""Return the metric-dual lattice ``L^\#``.
+
+            Diagnostics: when the global category diagnostic flag is enabled, emit a
+            category diagnostic if this call may be confused with the Hom-dual object
+            ``Hom_R(L, R)``.  The diagnostic should name the hypotheses under which
+            the form identifies ``L^\#`` with the Hom dual, or say that no such
+            evaluation-bearing identification is being returned.
+            """
+            ...
 
         @abstract_method
         def inclusion_morphism(self) -> RModuleMorphism: ...

@@ -43,10 +43,17 @@ fields:
   - value: complete
     label: Complete
     color: '#22c55e'
+  - value: revision-required
+    label: Revision Required
+    icon: replay
+    color: '#f59e0b'
   - value: blocked
     label: Blocked
     icon: block
     color: '#dc2626'
+- name: blocked_reason
+  type: text
+  displayInline: false
 - name: priority
   type: select
   options:
