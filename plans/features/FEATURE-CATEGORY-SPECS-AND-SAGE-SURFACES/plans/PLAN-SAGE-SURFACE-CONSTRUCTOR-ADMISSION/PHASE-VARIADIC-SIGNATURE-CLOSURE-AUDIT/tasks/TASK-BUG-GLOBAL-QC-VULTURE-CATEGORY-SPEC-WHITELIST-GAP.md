@@ -312,6 +312,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports
   `category_specs/sets/subcategories/graded.py` findings.
+- 2026-05-06 nineteenth bounded slice: root set smoke coverage was extended for
+  `free_algebra` ownership and `Sets().WithRealizations()` / `Sets().Realizations()`
+  construction-category routing. A direct finite-set `free_algebra(ZZ)` smoke was not
+  added because it crosses into the existing algebra refinement gap before proving the
+  set root surface.
+- Validation for the nineteenth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `category_specs/sets/__init__.py`
+  findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -361,3 +370,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   smoke coverage and the partition blocks conversion bug.
 - 2026-05-06: Completed the eighteenth bounded cleanup slice for graded-set smoke
   coverage.
+- 2026-05-06: Completed the nineteenth bounded cleanup slice for root set
+  `free_algebra` and realization construction-category smoke coverage.

@@ -5,6 +5,8 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.sets.subcategories.constructions.realizations import _Realizations
+from category_specs.sets.subcategories.constructions.with_realizations import SetsWithRealizations
 from category_specs.sets.subcategories.graded import (
     GradedSetsCategory,
     GradedSetsElement,
@@ -208,6 +210,22 @@ SMOKE_STATEMENTS = (
     (
         "IntegerRange(2).cartesian_product(IntegerRange(3)) has product cardinality",
         lambda _: C.IntegerRange(2).cartesian_product(C.IntegerRange(3)).cardinality() == 6,
+    ),
+    (
+        "sets own free_algebra as the set-indexed free-algebra constructor surface",
+        lambda _: abstract_method_has_name(Sets.ParentMethods.free_algebra, "free_algebra"),
+    ),
+    (
+        "Sets().WithRealizations() routes to the set realization construction category",
+        lambda _: Sets.WithRealizations is SetsWithRealizations
+        and Sets().WithRealizations().is_subcategory(Sets())
+        and Sets().WithRealizations().__class__.__base__ is SetsWithRealizations,
+    ),
+    (
+        "Sets().Realizations() routes to the set realization-object construction category",
+        lambda _: Sets.Realizations is _Realizations
+        and Sets().Realizations().is_subcategory(Sets())
+        and Sets().Realizations().__class__.__base__ is _Realizations,
     ),
     ("even subobject of ZZ is a subobject", lambda _: Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,)) in Sets().Subobjects()),
     ("2 lies in the even subobject of ZZ", lambda _: 2 in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
