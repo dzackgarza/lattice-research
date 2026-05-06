@@ -133,7 +133,7 @@ ambient-vector-space lattice convention into the public semantics.
 | `ambient_module`, `ambient_vector_space`, `basis_matrix`, `inner_product_matrix`, `degree`, display `_repr_` | `free_quadratic_module.py:369`, `472`; `free_quadratic_module_integer_symmetric.py:625` | private/runtime/display/interop | Do not admit as public lattice semantics. These witness Sage's ambient implementation and may be used at backend boundaries only. Public objects expose generators, form data, and morphisms. |
 | `gram_matrix`, `determinant`, `discriminant` | `free_quadratic_module.py:390`, `408`, `439` | `Free + Bilinear` | Admit at the first free bilinear tier. Gram matrices are presentation data in selected generators, not identity of an abstract isometry class. |
 | `is_even`, `dual_lattice`, `discriminant_group` | `free_quadratic_module_integer_symmetric.py:736`, `753`, `779` | integral nondegenerate finite-rank free bilinear modules; lattice endpoint when `R = ZZ` | Admit, but the project implementation must route `discriminant_group()` through `L -> L^* -> coker`, preserving quotient-valued form codomains. |
-| `signature_pair`, Sage `signature()` as `n_+ - n_-` | `free_quadratic_module_integer_symmetric.py:839`, `855` | exact free symmetric form signature data; display/index interop for `p-q` | Preserve exact signature data. The scalar `p-q` is Sage interop/display data, not the owner of signature semantics. |
+| `signature_pair`, Sage `signature()` as `n_+ - n_-` | `free_quadratic_module_integer_symmetric.py:839`, `855` | exact free symmetric form signature data over a base with an ordered real realization; display/index interop for `p-q` | Preserve exact signature data. The scalar `p-q` is Sage interop/display data, not the owner of signature semantics. Generalizing beyond `ZZ` requires `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`; a bare integral-domain hypothesis is not enough. |
 | `orthogonal_complement`, `orthogonal_submodule_to`, element `perp` | `free_quadratic_module_integer_symmetric.py:931`; `torsion_quadratic_module.py:890` | symmetric bilinear modules and subobjects | Admit at the symmetric bilinear owner. Inputs must be subobjects/elements with parent data, not arbitrary ambient vectors. |
 | `is_primitive(M)` | `free_quadratic_module_integer_symmetric.py:901` | module subobject/inclusion predicate | Admit for subobjects via quotient torsion-freeness. Do not conflate with element divisibility unless a source-backed equivalence proof records the hypotheses. |
 | element `divisibility` | local lattice doctrine and user constraint | symmetric bilinear module elements | Required project surface. Definition is `<b(v,M)> <= S`; for scalar-valued forms it is an ideal of `R`. Sage does not supply this definition as a lattice method. |
@@ -277,17 +277,17 @@ The table answers: at what tier is each method first universally well-defined?
 | `is_symmetric()` | `Symmetric` | witness predicate |
 | `is_alternating()` | `Alternating` | witness predicate |
 | `is_nondegenerate()` | `Nondegenerate` | witness predicate |
-| `is_indefinite()` | `Indefinite` | witness predicate |
-| `is_definite()` | `Definite` | witness predicate |
+| `is_indefinite()` | `Indefinite` over ordered real realizations | witness predicate; requires a signed scalar context |
+| `is_definite()` | `Definite` over ordered real realizations | witness predicate; requires a signed scalar context |
 | `gram_matrix()` | `Free + Bilinear` | requires a basis; entries `b(e_i,e_j)` lie in R; see note (1) |
 | `inner_product_matrix()` | private/runtime/display interop only | Sage ambient-space matrix; not public lattice semantics; see reconciliation |
 | `rank()` | `Free` | rank of free module; undefined for general modules |
 | `determinant()` | `Free + Bilinear` | `det(gram_matrix)`; requires basis |
 | `discriminant()` | `Free + Bilinear` | `(-1)^r * det`; requires basis |
-| `is_positive_definite()` | `Free + Symmetric` | eigenvalue criterion needs free + symmetric |
-| `is_negative_definite()` | `Free + Symmetric` | same |
-| `signature_pair()` | `Free + Symmetric + OverIntegralDomain` | eigenvalues over Frac(R)⊗R; see note (2) |
-| `signature()` | `Free + Symmetric + OverIntegralDomain` | derived: `p - q` |
+| `is_positive_definite()` | `Free + Symmetric + ordered real realization` | eigenvalue/sign criterion needs finite free symmetric data over a scalar context with ordered real interpretation; see note (2) |
+| `is_negative_definite()` | `Free + Symmetric + ordered real realization` | same |
+| `signature_pair()` | `Free + Symmetric + ordered real realization` | inertia after scalar extension to the ordered real target; see note (2) |
+| `signature()` | `Free + Symmetric + ordered real realization` | derived Sage scalar `p - q`; signature semantics are owned by `signature_pair()` |
 | `dual_lattice()` | `Bilinear.Integral + OverIntegralDomain` | `L^*={v∈L_K:β(v,L)⊆R}` requires K=ff(R) and R-valued form; see note (3) |
 | `discriminant_group()` | `Bilinear.Integral + OverIntegralDomain` | `L^*/L`; follows from dual_lattice; see note (3) |
 | `inclusion_morphism()` | `Bilinear.Integral + OverIntegralDomain` | `ι: L → L^*`; same tier |
@@ -342,11 +342,13 @@ PID, the analogous concept is `gram_matrix_bilinear()` in Q/mZ. These are distin
 methods at distinct tiers; do NOT merge them.
 
 **(2) `signature_pair()` placement**: Sage places this at
-`FreeQuadraticModule_integer_symmetric` (= ZZ). Mathematically it is meaningful for any
-free symmetric bilinear module over an ordered integral domain via base-change to the
-fraction field and then to ℝ. We place it at `Free + Symmetric + OverIntegralDomain`;
-the `OverIntegers` tier provides the concrete algorithm. The abstract stub lives at the
-Dedekind domain level.
+`FreeQuadraticModule_integer_symmetric` (= ZZ). Mathematically, signature and positive
+or negative definiteness require finite free symmetric bilinear data plus a scalar
+context where signs make sense, such as `ZZ -> QQ -> RR` or another ordered real
+realization. A bare `OverIntegralDomain` hypothesis does not choose such a realization
+and is not enough. Until the base-ring/refinement owner is fixed by
+`[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`, the abstract owner is "free symmetric with
+ordered real realization"; the `OverIntegers` tier provides concrete Sage evidence.
 
 **(3) `dual_lattice()` placement**: `L^* = {v ∈ L_K : β(v,L) ⊆ R}` where
 `L_K = L ⊗_R K` and `K = ff(R)`. The definition makes almost no assumptions on `R`:

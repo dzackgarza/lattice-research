@@ -116,7 +116,8 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 | `Modules(R).WithForms()` | `forms.subcategories.with_forms.FormedModulesCategory` | Modules keeps the Sage-compatible route; forms owns the class and method surface. |
 | `Modules(R).WithForms().Bilinear()` | `forms.subcategories.bilinear.BilinearModulesCategory` | Owns bilinear evaluation and generic bilinear predicates. |
 | `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic.QuadraticModulesCategory` | Owns quadratic evaluation. |
-| Symmetric, alternating, nondegenerate, definite, indefinite, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
+| Symmetric, alternating, nondegenerate, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
+| Definite and indefinite bilinear axioms | `forms.subcategories.*` after ordered real realization ownership is decided | Definiteness and signature need a signed scalar context; `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` records the missing owner decision. |
 | `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
 | Form-preserving morphisms between formed modules | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A candidate map preserves form data exactly when it is contained in the Hom object of the formed-module category. |
 | Isometries of formed modules | `C.HomCategory().Of(M, N)` plus generic isomorphism; automorphism case `C.AutCategory().Of(M)` | Form preservation is already Hom containment. The isometry question is invertibility or isomorphism inside that category. |
