@@ -6,7 +6,8 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Decide public names for malformed backend-mapping source surfaces
-status: unstarted
+status: decided
+chosen: Reject malformed spellings and rename through source-grounded owners
 options:
 - name: Preserve malformed source spellings as public methods
   pros:
@@ -37,9 +38,13 @@ it does not admit those literal spellings as public project API.
 
 ## Source Provenance
 
-- `theory/backends/abstract-to-external-mapping.md`
-- `theory/backends/software-capability-map.md`
-- `theory/backends/vinberg-algorithm.md`
+- Legacy references in cards name `theory/backends/*`; in this worktree those backend
+  memory files are present under `.agents/memories/theory/backends/*`.
+- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
+- `.agents/memories/theory/backends/software-capability-map.md`
+- `.agents/memories/theory/backends/vinberg-algorithm.md`
+- `.agents/memories/theory/backends/oscar-lattices.md`
+- `.agents/memories/theory/backends/library-integration.md`
 - `category_specs/lattices/docs/MAPPING.md`
 - `category_specs/forms/docs/MAPPING.md`
 
@@ -68,7 +73,39 @@ malformed spellings must not be promoted into category specs or implementation t
 - Keep the backend rows in the method inventory as source-map coverage, but keep the
   public API blocked until this decision is resolved.
 
+## Decision
+
+Reject both malformed literal spellings as public API.
+
+`PicardeLattice.underlying_picard_group()` is not admitted. The malformed owner spelling
+`PicardeLattice` is rejected outright. The intended mathematical bridge, if admitted by
+`[[DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER]]`, must use the
+correct noun spelling `PicardLattice.underlying_picard_group()` on a Picard-lattice
+owner and must return the underlying `PicardGroup` object. Until that Picard
+group/lattice decision is made, the backend row remains source-map coverage only and is
+not implementation permission.
+
+`Lattice.vinberg_sh姚()` is not admitted and has no direct replacement public spelling
+from the backend map. The only source-grounded direction is Vinberg-algorithm work that
+returns named mathematical output: simple roots, Coxeter matrix, Gram matrix, and the
+control vector/chamber data recorded by the Vinberg backend notes. Public surfaces for
+that work must be admitted in the Phase 05 lattice/Coxeter cards and must route through
+Oscar/Vinberg reference implementations before any bespoke implementation. This
+decision only rejects the malformed spelling and confirms that it cannot appear in
+category specs, smoke tests, or implementation tasks.
+
+## Inventory Updates
+
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` now marks the malformed
+  Picard row as rejected under the literal spelling and routes the corrected bridge
+  spelling through the Picard group/lattice owner decision.
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` now marks the malformed
+  Vinberg row as rejected under the literal spelling and routes future Vinberg surfaces
+  to named algorithm-result outputs under the lattice/Coxeter Phase 05 cards.
+
 ## Work Log
 
 - 2026-05-06: Created while translating backend method rows for the literal method
   ownership inventory.
+- 2026-05-06: Rejected both malformed literal spellings as public API and recorded
+  source-grounded replacement routing.
