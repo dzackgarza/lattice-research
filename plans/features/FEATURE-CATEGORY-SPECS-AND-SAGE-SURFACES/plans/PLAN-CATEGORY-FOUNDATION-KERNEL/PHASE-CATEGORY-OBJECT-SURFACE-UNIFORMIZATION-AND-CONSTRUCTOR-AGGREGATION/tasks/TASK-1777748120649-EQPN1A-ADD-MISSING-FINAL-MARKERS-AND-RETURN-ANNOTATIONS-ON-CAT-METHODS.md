@@ -6,7 +6,11 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Add missing final markers and return annotations on Cat methods
-status: needs-review
+status: blocked
+blocked_reason: Gate 6 review found associated commits e5b05f9, c827bf9, and
+  769c718 have non-compliant commit messages; all are already contained in
+  origin/main, so remediation needs a human/process decision rather than history
+  rewrite.
 priority: critical
 description: Add missing `@final` markers and explicit return annotations on concrete
   `Cat` method surfaces, and remove public Sage option-bag exposure from the affected
@@ -133,3 +137,32 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
 - 2026-05-06: Ran the required Cat smoke recipe:
   `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`. It passed
   with exit code 0. Moved the card back to `needs-review` for human review.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
+**Gates failed:** Gate 6 Style and Compliance.
+**Outcome:** blocked, path-local.
+
+#### Gate 6 Finding: Commit Message Compliance
+
+- Associated commits `e5b05f9`, `c827bf9`, and `769c718` have non-compliant commit
+  messages for nontrivial work or checkpoints. `e5b05f9` has only a one-line
+  conventional-style summary; `c827bf9` and `769c718` are one-line
+  `User-initiated Checkpoint` commits without a conventional type prefix. The git
+  workflow requires body rationale and `Co-Authored-By` for nontrivial commits.
+- These commits are already ancestors of `origin/main`, so the orchestrator must not
+  amend, rebase, or otherwise rewrite that published history. This leaves a
+  path-local process decision: accept a forward corrective provenance note, authorize a
+  history repair outside normal rules, or keep this card blocked.
+
+#### Non-Findings
+
+- The required Cat smoke is now recorded and was rerun by the reviewer with exit code
+  0.
+- The touched Cat methods have `@final` and return annotations, and remaining
+  `*args`/`**kwargs` occurrences are private/internal forwarding hooks.
+- No spec or smoke weakening was found.
