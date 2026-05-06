@@ -9,21 +9,18 @@ dependsOn:
 title: Map Sage RiemannSurface as an analytic curve backend, not a raw wrapper target
 status: needs-review
 priority: medium
-requirement: Record how Sage `RiemannSurface` functionality should inform future
-  curve, Jacobian, Abel-Jacobi, period, and monodromy category specs before any
-  public wrapper or backend bridge is implemented.
+requirement: Record how Sage `RiemannSurface` functionality should inform future curve,
+  Jacobian, Abel-Jacobi, period, and monodromy category specs before any public wrapper
+  or backend bridge is implemented.
 acceptanceCriteria:
 - Constructor and method surfaces cite Sage documentation and installed source paths.
-- Public project owners are stated as mathematical nouns rather than Sage helper
-  names.
+- Public project owners are stated as mathematical nouns rather than Sage helper names.
 - Numerical/certified-homotopy limitations are explicit.
-- Implementation work remains blocked until curve/Jacobian/family ownership is
-  specified in a later geometry category spec.
+- Implementation work remains blocked until curve/Jacobian/family ownership is specified
+  in a later geometry category spec.
 complexity: 45
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
-- PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
-- PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
 ---
 # Sage RiemannSurface Backend Mapping
 
