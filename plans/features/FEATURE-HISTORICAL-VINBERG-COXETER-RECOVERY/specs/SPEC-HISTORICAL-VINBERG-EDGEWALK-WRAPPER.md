@@ -8,9 +8,8 @@ dependsOn:
 - '[[TASK-LAT-PHASE5-ORTHOGONAL-GROUP]]'
 - '[[SPEC-HISTORICAL-VINBERG-ALGORITHM-CONTRACT]]'
 title: Wrap polyhedral_common Lorentzian edgewalk for Vinberg algorithm
-status: blocked
+status: unstarted
 priority: medium
-blocked_reason: Requires the lattice phase 5 orthogonal-group task and the Vinberg algorithm contract before backend wrapping can be admitted.
 requirement: The Vinberg recovery feature must specify how a polyhedral_common Lorentzian edgewalk backend would be wrapped behind the typed Vinberg result contract.
 acceptanceCriteria:
 - The wrapper accepts typed hyperbolic lattice input and returns a VinbergResult with roots, Coxeter data, control vector, completeness status, and backend provenance.
@@ -20,6 +19,13 @@ tags:
 - FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY
 ---
 # Spec: polyhedral_common Lorentzian edgewalk wrapper for Vinberg algorithm
+
+## Readiness
+
+This spec is not ready to execute until its declared `dependsOn` edges are complete.
+That is ordinary DAG sequencing, not a `blocked` status. Do not attempt backend
+wrapping before `TASK-LAT-PHASE5-ORTHOGONAL-GROUP` and
+`SPEC-HISTORICAL-VINBERG-ALGORITHM-CONTRACT` are accepted.
 
 ## Strategy
 

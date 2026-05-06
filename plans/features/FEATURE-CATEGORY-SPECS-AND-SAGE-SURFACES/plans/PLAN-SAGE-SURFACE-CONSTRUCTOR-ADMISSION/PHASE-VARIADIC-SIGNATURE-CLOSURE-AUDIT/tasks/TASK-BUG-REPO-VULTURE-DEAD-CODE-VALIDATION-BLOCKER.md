@@ -6,8 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Triage global vulture dead-code validation blocker
-status: blocked
-blocked_reason: "Vulture detects 762 category-spec findings; triage needed. Depends on TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP."
+status: needs-review
 priority: high
 description: '`just test` now passes Ruff normalization and fails at the global vulture
   dead-code detection stage. The failure is broad and includes category-spec abstract/public
@@ -133,13 +132,17 @@ already preparses Sage files for vulture, and
 `/home/dzack/ai/quality-control/vulture_whitelist.py` already contains a broad
 category-spec public-surface whitelist.
 
-## Remaining Blocker
+## Remaining Validation Frontier
 
-Blocked on fresh vulture output through an allowed public QC path, or explicit user
-approval for a private vulture-only diagnostic/global-QC edit. The current public
-`just test` and commit-hook path fails earlier at repo-wide mypy on pre-existing
-Sage/stub/type errors, so the vulture stage cannot currently be refreshed without
-first clearing or explicitly bypassing that earlier validation stage.
+Fresh vulture output still needs an allowed public QC path, or explicit user approval
+for a private vulture-only diagnostic/global-QC edit. The current public `just test`
+and commit-hook path fails earlier at repo-wide mypy on pre-existing Sage/stub/type
+errors, so the vulture stage cannot currently be refreshed without first clearing or
+explicitly bypassing that earlier validation stage.
+
+This is not a blocker for the completed triage card itself: the triage result is
+recorded above and split into owner-specific follow-up cards. It is also not a global
+blocker for current spec work outside a user-requested QC pass or phase transition.
 
 ## Work Log
 

@@ -118,3 +118,26 @@ path is not acceptable.
   the visible `.agents/memories/theory/backends/` and `.agents/theory/spec-backups/`
   roots, including the backend routing index and the buildings, indefinite-isometry,
   and foliation notes found by broad source search.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding and path provenance for the source
+corpus; markdown diff check; tracker validation.
+**Gates failed:** None in the reviewed scope.
+**Outcome:** no concrete revision findings; human approval remains required before
+marking the card complete.
+
+Findings:
+
+- Verified 22 actual `category_specs/*/docs/{SAGE_INVENTORY,MAPPING}.md` files and
+  confirmed they are assigned exactly once in
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`.
+- Verified all 15 backend/spec-backup paths cited in the assignment exist under
+  `.agents/memories/theory/backends/` and `.agents/theory/spec-backups/`.
+- Verified the rework is provenance-only and does not weaken acceptance criteria or
+  move method ownership claims.
+
+Residual gap: dependent inventory tasks remain DAG-gated until this card receives
+human approval and can be marked complete.
