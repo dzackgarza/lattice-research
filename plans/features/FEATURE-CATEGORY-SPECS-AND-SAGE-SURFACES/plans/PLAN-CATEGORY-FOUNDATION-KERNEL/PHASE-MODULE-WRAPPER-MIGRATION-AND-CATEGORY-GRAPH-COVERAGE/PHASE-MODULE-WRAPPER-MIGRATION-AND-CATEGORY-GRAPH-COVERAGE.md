@@ -5,30 +5,24 @@ trackerStatus:
 parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 dependsOn: []
-title: Sprint module wrapper migration phase one through category graph constructor routing
-  method coverage and deletion gates
-status: unstarted
+title: Sprint module wrapper migration phase one through category graph constructor
+  routing method coverage and deletion gates
+status: in-progress
 priority: critical
-description: 'The deleted module wrapper migration plan is a phased migration contract: map
-  methods first, define the category graph, rewrite constructors, move methods to real owners,
-  then delete wrappers.'
+description: 'The deleted module wrapper migration plan is a phased migration contract:
+  map methods first, define the category graph, rewrite constructors, move methods
+  to real owners, then delete wrappers.'
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Use the phase-specific validation commands from the deleted plan when implementing a child
-  item.
+- Use the phase-specific validation commands from the deleted plan when implementing
+  a child item.
 - Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
-- category-specs
-- sprint
-- constructors
-- modules
-- wrappers
-- theme-plan-control
 ---
 # Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates
 

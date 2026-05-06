@@ -15,21 +15,15 @@ successCriteria:
 - The human approves this source-map plan before decomposition.
 - Each source map is classified as canonical reference, research input, phase dependency,
   or retired provenance.
-- Work that blocks vocabulary or method ownership becomes critical or high-priority cards.
+- Work that blocks vocabulary or method ownership becomes critical or high-priority
+  cards.
 - External/Sage-source claims cite source paths or docs before implementation.
-- Constructor admission cards identify the mathematical owner and the Sage constructor surface
-  separately.
+- Constructor admission cards identify the mathematical owner and the Sage constructor
+  surface separately.
 phases:
 - '[[PHASE-CATEGORY-SOURCE-MAPS-AND-CONSTRUCTOR-ADMISSION]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sage
-- constructors
-- theme-research-sources
-- theme-constructor-routing
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Category-spec source maps constructor routing and admission research
 

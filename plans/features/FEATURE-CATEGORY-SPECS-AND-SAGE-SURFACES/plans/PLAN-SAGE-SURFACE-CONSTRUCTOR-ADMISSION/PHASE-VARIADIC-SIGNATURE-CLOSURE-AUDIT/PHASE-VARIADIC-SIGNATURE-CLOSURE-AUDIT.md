@@ -5,38 +5,24 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
-title: Sprint variadic signature closure audit across modules rings tensors algebras lattices
-  posets sets and real-set constructors
-status: unstarted
+title: Sprint variadic signature closure audit across modules rings tensors algebras
+  lattices posets sets and real-set constructors
+status: in-progress
 priority: high
-description: The deleted variadic inventory records the scoping pass for public surfaces that
-  had collapsed Sage casework or raw coordinate interop into broad signatures.
+description: The deleted variadic inventory records the scoping pass for public surfaces
+  that had collapsed Sage casework or raw coordinate interop into broad signatures.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Audit public signatures for remaining *args, **kwargs, option bags, and placeholder union
-  data shapes.
-- Open owner-specific tasks for any remaining collapsed Sage casework rather than restoring
-  the inventory doc.
+- Audit public signatures for remaining *args, **kwargs, option bags, and placeholder
+  union data shapes.
+- Open owner-specific tasks for any remaining collapsed Sage casework rather than
+  restoring the inventory doc.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-- category-specs
-- sprint
-- constructors
-- modules
-- rings
-- precision
-- sets
-- algebras
-- tensors
-- posets
-- lattices
-- signatures
-- audit
-- theme-plan-control
 ---
 # Sprint variadic signature closure audit across modules rings tensors algebras lattices posets sets and real-set constructors
 

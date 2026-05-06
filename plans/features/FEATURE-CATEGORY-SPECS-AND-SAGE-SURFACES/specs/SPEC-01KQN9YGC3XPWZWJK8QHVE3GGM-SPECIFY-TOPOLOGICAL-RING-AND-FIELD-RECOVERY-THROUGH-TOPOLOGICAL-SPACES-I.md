@@ -10,27 +10,21 @@ title: Specify topological ring and field recovery through topological_spaces in
   rather than pure topological constructors
 status: needs-review
 priority: critical
-requirement: Rings mapping records constructor namespace decisions, split p-adic and q-adic
-  precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
-  lattice-precision gaps.
+requirement: Rings mapping records constructor namespace decisions, split p-adic and
+  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
+  deferred q-adic lattice-precision gaps.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No implementation blocker was discovered during this spec pass.
-- For q-adic precision items, preserve the five-field negative finding format when updating
-  evidence.
-- For topological ring work, check both ring and topological-space category membership in
-  the existing public spec anchors.
+- For q-adic precision items, preserve the five-field negative finding format when
+  updating evidence.
+- For topological ring work, check both ring and topological-space category membership
+  in the existing public spec anchors.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- constructors
-- rings
-- topology
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Specify topological ring and field recovery through topological_spaces inheritance rather than pure topological constructors
 ## Summary

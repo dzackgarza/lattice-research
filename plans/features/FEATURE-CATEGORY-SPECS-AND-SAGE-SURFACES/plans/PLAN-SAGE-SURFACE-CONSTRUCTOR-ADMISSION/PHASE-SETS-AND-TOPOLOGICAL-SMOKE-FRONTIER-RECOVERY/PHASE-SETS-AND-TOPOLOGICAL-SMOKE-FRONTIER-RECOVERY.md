@@ -5,31 +5,24 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
-title: Sprint set and topological smoke frontier recovery for root containment rich comparison
-  Primes iteration RealSet ambient methods and topological axiom warning
-status: unstarted
+title: Sprint set and topological smoke frontier recovery for root containment rich
+  comparison Primes iteration RealSet ambient methods and topological axiom warning
+status: in-progress
 priority: high
-description: The deleted Sets triage recorded the mapped enumeration smoke surface and current
-  failures for containment, rich comparison, Primes iteration, RealSet element construction,
-  and topological axiom resolution.
+description: The deleted Sets triage recorded the mapped enumeration smoke surface
+  and current failures for containment, rich comparison, Primes iteration, RealSet
+  element construction, and topological axiom resolution.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
-- Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback helper names.
+- Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback
+  helper names.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-- category-specs
-- sprint
-- smoke
-- sets
-- realset
-- topology
-- primes
-- theme-plan-control
 ---
 # Sprint set and topological smoke frontier recovery for root containment rich comparison Primes iteration RealSet ambient methods and topological axiom warning
 

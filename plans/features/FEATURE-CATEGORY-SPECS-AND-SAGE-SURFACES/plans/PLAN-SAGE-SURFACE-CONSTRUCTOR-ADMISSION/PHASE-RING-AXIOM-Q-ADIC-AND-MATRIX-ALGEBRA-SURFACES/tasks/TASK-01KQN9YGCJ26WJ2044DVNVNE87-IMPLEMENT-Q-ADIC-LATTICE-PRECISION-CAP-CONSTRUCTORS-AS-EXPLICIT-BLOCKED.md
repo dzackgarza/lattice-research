@@ -5,34 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
-title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces
-  rather than broken pass-throughs
+title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap
+  surfaces rather than broken pass-throughs
 status: unstarted
 priority: high
-description: Rings mapping records constructor namespace decisions, split p-adic and q-adic
-  precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
-  lattice-precision gaps.
+description: Rings mapping records constructor namespace decisions, split p-adic and
+  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
+  deferred q-adic lattice-precision gaps.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- For q-adic precision items, preserve the five-field negative finding format when updating
-  evidence.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- For q-adic precision items, preserve the five-field negative finding format when
+  updating evidence.
 - For topological ring work, check both ring and topological-space category membership.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
-- category-specs
-- constructors
-- sage
-- rings
-- precision
-- lattices
-- theme-constructor-routing
 ---
 # Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces rather than broken pass-throughs
 ## Summary

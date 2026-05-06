@@ -19,13 +19,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- constructors
-- sage
-- rings
-- signatures
-- theme-audit-uniformity
 ---
 # Clean Sage option bags from public ring constructors
 Source: pasted backlog 2026-05-02.

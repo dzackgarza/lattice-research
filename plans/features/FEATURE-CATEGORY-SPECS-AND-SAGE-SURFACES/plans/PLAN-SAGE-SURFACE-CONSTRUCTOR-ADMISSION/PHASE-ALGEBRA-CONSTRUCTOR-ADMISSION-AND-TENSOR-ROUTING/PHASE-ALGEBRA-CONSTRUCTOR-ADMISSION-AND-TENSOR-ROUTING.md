@@ -6,27 +6,22 @@ parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
 title: Sprint algebra constructor admission and tensor multiplication routing
-status: unstarted
+status: in-progress
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Run just smoke-file algebras/smoketest.sage after algebra category initialization or constructor
-  changes.
-- Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module over Modules(R).
+- Run just smoke-file algebras/smoketest.sage after algebra category initialization
+  or constructor changes.
+- Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module
+  over Modules(R).
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-- category-specs
-- sprint
-- constructors
-- algebras
-- tensors
-- theme-plan-control
 ---
 # Sprint algebra constructor admission and tensor multiplication routing
 

@@ -8,29 +8,25 @@ dependsOn: []
 title: Triage category_specs Ruff normalization blocker for implementation validation
 status: needs-review
 priority: high
-description: '`just test` reaches the global quality-control Ruff normalization stage but
-  fails on repo-wide `category_specs` findings. This blocks validation evidence for implementation
-  cards even when the implementation diff is narrower than the QC backlog.'
+description: '`just test` reaches the global quality-control Ruff normalization stage
+  but fails on repo-wide `category_specs` findings. This blocks validation evidence
+  for implementation cards even when the implementation diff is narrower than the
+  QC backlog.'
 successCriteria:
-- Reproduce the current `just test` Ruff blocker and preserve a concise failure summary in
-  this card.
-- Classify remaining findings by owner surface and rule family without weakening global QC.
-- Split owner-specific cards for independent cleanup surfaces that are not one coherent patch.
+- Reproduce the current `just test` Ruff blocker and preserve a concise failure summary
+  in this card.
+- Classify remaining findings by owner surface and rule family without weakening global
+  QC.
+- Split owner-specific cards for independent cleanup surfaces that are not one coherent
+  patch.
 - Carry forward formatter/linter auto-fixes already produced by repository tooling.
-- Either make `just test` pass or record exactly which linked cards remain validation blockers.
+- Either make `just test` pass or record exactly which linked cards remain validation
+  blockers.
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- ruff
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Triage category_specs Ruff normalization blocker for implementation validation
 

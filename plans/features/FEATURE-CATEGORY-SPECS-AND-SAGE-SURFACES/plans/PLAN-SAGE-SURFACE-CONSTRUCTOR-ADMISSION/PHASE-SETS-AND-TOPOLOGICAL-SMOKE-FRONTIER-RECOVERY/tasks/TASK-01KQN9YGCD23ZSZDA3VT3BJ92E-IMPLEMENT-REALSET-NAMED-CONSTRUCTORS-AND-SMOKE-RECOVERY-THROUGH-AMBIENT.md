@@ -5,34 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 dependsOn: []
-title: Implement RealSet named constructors and smoke recovery through ambient-relative topological
-  methods
+title: Implement RealSet named constructors and smoke recovery through ambient-relative
+  topological methods
 status: needs-review
 priority: high
 description: The deleted Topological Spaces triage recorded settled topological constructor
-  placement and remaining smoke design work for RealSet ambient recovery and metric examples.
+  placement and remaining smoke design work for RealSet ambient recovery and metric
+  examples.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
-- Prove RealSet method recovery through the ambient-relative route, not by adding pure topological
-  constructors.
+- Prove RealSet method recovery through the ambient-relative route, not by adding
+  pure topological constructors.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY
-- category-specs
-- smoke
-- constructors
-- sets
-- realset
-- topology
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Implement RealSet named constructors and smoke recovery through ambient-relative topological methods
 ## Summary

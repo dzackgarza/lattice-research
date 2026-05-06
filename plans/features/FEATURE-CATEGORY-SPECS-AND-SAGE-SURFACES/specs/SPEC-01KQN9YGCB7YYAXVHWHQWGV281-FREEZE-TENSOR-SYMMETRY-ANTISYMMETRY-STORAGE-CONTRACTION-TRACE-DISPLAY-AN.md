@@ -10,26 +10,22 @@ title: Freeze tensor symmetry antisymmetry storage contraction trace display and
   mapping before expanding TensorAlgebraComponents
 status: needs-review
 priority: critical
-requirement: The deleted Tensor Algebra Components triage records an intentionally minimal
-  current scope and the deferred tensor-calculus surface.
+requirement: The deleted Tensor Algebra Components triage records an intentionally
+  minimal current scope and the deferred tensor-calculus surface.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in `category_specs/tensor_algebra_components/docs/MAPPING.md`
-  and, for admitted operations, `category_specs/tensor_algebra_components/__init__.py`.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  `category_specs/tensor_algebra_components/docs/MAPPING.md` and, for admitted operations,
+  `category_specs/tensor_algebra_components/__init__.py`.
 - No new subtree-local TRIAGE or process document is created.
 - 'This leaf does not expand the tensor API beyond the frozen decisions: symmetry/antisymmetry
-  remain constructor metadata; component storage, display, and index notation remain nonpublic;
-  contraction and trace use named tensor-element methods only.'
+  remain constructor metadata; component storage, display, and index notation remain
+  nonpublic; contraction and trace use named tensor-element methods only.'
 - The stale provenance path is broadened and corrected to the deleted `plans/category_specs/.../TRIAGE.md`
   path.
-- 'Verification remains cheap and local: parse/diff checks only in this leaf; subtree smoke
-  and global QC are intentionally not part of this review-state handoff.'
+- 'Verification remains cheap and local: parse/diff checks only in this leaf; subtree
+  smoke and global QC are intentionally not part of this review-state handoff.'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- algebras
-- tensors
-- mapping
-- theme-rings-algebras
 ---
 # Freeze tensor symmetry antisymmetry storage contraction trace display and index-notation mapping before expanding TensorAlgebraComponents
 ## Summary

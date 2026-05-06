@@ -9,29 +9,23 @@ title: Implement fixed-base SetPartitions constructor refinements into Sets().Pa
   and keep AllSetPartitions countable-only
 status: needs-review
 priority: high
-description: Sets mapping is the source of truth for set constructors, rich comparison, partitioned
-  sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut ownership.
+description: Sets mapping is the source of truth for set constructors, rich comparison,
+  partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut
+  ownership.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- When implementing a set item, cite the exact mapping row and prove behavior through project
-  category vocabulary.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- When implementing a set item, cite the exact mapping row and prove behavior through
+  project category vocabulary.
 - Do not expose generic Sage Set(X) as a public project constructor.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES
-- category-specs
-- constructors
-- sets
-- partitions
-- set-partitions
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only
 ## Summary

@@ -6,31 +6,27 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
-title: Review subtree direct Hom methods that shadow Cat category-object Hom and specify the
-  uniform owner
+title: Review subtree direct Hom methods that shadow Cat category-object Hom and specify
+  the uniform owner
 status: needs-review
 priority: critical
-requirement: The deleted Cat triage recorded structural Cat smoke scope and future uniformization
-  work for category-object Hom behavior and functor/autofunctor modeling.
+requirement: The deleted Cat triage recorded structural Cat smoke scope and future
+  uniformization work for category-object Hom behavior and functor/autofunctor modeling.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - Any implementation blocker discovered during spec work is split into an implementation-work
-  item with source provenance; no current implementation blocker was discovered in this pass.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change;
-  no Cat or category-object runtime surface changed in this pass.
-- Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
+  item with source provenance; no current implementation blocker was discovered in
+  this pass.
+- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
+  change; no Cat or category-object runtime surface changed in this pass.
+- Check that direct subtree Hom methods do not hide the Cat-owned category-object
+  operation.
 complexity: 55
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- hom-end-aut
-- cat
-- forms
-- theme-category-core
-updated: '2026-05-04'
 ---
 # Review subtree direct Hom methods that shadow Cat category-object Hom and specify the uniform owner
 ## Summary

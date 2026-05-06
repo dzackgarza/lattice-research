@@ -11,25 +11,20 @@ status: approved-and-unstarted
 priority: high
 owner: Zack
 description: Group the curve-complement, Riemann-surface, Sirocco, ore_algebra, Picard-Fuchs,
-  and monodromy research cards under one leaf plan so backend evidence is collected before
-  geometry-facing implementation work is proposed.
+  and monodromy research cards under one leaf plan so backend evidence is collected
+  before geometry-facing implementation work is proposed.
 successCriteria:
-- Each child card records exact sources searched, backend capabilities, mathematical inputs,
-  and mathematical outputs.
+- Each child card records exact sources searched, backend capabilities, mathematical
+  inputs, and mathematical outputs.
 - Negative findings use the repository five-field format.
-- Any backend admission consequence is linked to a spec, decision, or implementation card.
-- No child card introduces a public backend wrapper before ownership and source evidence are
-  reviewed.
+- Any backend admission consequence is linked to a spec, decision, or implementation
+  card.
+- No child card introduces a public backend wrapper before ownership and source evidence
+  are reviewed.
 phases:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
-- category-specs
-- geometry
-- backend
-- theme-research-sources
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Curve complement and monodromy backend research
 

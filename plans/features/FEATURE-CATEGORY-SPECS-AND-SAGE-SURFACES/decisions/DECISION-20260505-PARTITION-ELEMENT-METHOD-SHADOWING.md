@@ -9,13 +9,6 @@ title: Decide how partition element methods override Sage list-returning methods
 status: decided
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- sets
-- partitions
-- sage
-- theme-decisions
-updated: '2026-05-05'
 ---
 # Decide how partition element methods override Sage list-returning methods
 

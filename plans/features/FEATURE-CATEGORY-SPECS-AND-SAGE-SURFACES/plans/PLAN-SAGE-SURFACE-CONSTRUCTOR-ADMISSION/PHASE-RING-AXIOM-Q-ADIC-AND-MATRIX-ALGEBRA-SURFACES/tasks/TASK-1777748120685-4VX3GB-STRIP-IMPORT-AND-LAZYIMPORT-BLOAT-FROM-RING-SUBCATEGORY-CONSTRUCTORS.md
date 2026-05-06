@@ -10,18 +10,12 @@ status: unstarted
 priority: high
 description: Strip import and LazyImport bloat from ring subcategory constructors
 successCriteria:
-- Strip import and LazyImport bloat from ring subcategory constructors is resolved according
-  to the body acceptance criteria.
+- Strip import and LazyImport bloat from ring subcategory constructors is resolved
+  according to the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
-- category-specs
-- task
-- constructors
-- rings
-- imports
-- theme-constructor-routing
 ---
 # Strip import and LazyImport bloat from ring subcategory constructors
 Source: pasted backlog 2026-05-02.

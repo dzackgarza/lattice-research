@@ -5,18 +5,12 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
-title: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic
-  become axiomatic subcategories in the current set-partition pass or a later pass
+title: Decide whether partitioned-set combinatorial subclasses such as noncrossing
+  and atomic become axiomatic subcategories in the current set-partition pass or a
+  later pass
 status: decided
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- sets
-- partitions
-- set-partitions
-- theme-decisions
-updated: '2026-05-05'
 ---
 # Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass
 ## Summary

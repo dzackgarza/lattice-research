@@ -8,27 +8,23 @@ dependsOn: []
 title: Integrate sirocco2 for fundamental groups of curve complements
 status: unstarted
 priority: medium
-description: The source backlog identifies category-spec design work around dual objects as
-  Hom objects, method ownership generalization, centralized type aliases, and a TwistedForms
-  category.
+description: The source backlog identifies category-spec design work around dual objects
+  as Hom objects, method ownership generalization, centralized type aliases, and a
+  TwistedForms category.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
-- Review the affected public type aliases and category methods against plans/todo.md before
-  closing.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
+- Review the affected public type aliases and category methods against plans/todo.md
+  before closing.
 - Run the relevant category_specs smoke file for any changed subtree.
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- task
-- research-backend
-- theme-research-sources
 ---
 # Integrate sirocco2 for fundamental groups of curve complements
 ## Summary

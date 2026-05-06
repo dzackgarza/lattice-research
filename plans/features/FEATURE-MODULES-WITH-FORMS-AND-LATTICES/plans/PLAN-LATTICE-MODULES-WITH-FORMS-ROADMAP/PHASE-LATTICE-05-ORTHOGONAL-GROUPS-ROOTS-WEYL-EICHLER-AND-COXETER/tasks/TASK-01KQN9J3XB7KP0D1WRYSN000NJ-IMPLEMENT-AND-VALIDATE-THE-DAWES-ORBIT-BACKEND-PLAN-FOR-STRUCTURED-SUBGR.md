@@ -5,29 +5,25 @@ trackerStatus:
 parents:
 - '[[PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 dependsOn: []
-title: Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations
+title: Implement and validate the Dawes orbit backend plan for structured subgroup
+  orbit computations
 status: unstarted
 priority: medium
-description: The Dawes backend plan targets subgroup-aware non-isotropic vector orbit equivalence
-  using existing lattice/group nouns and a private backend.
+description: The Dawes backend plan targets subgroup-aware non-isotropic vector orbit
+  equivalence using existing lattice/group nouns and a private backend.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
 - Validate subgroup-sensitive vector equivalence against exact fixtures.
 - Do not introduce a second public group hierarchy.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER
-- category-specs
-- task
-- research-backend
-- theme-research-sources
-- theme-modules-tensors
 ---
 # Implement and validate the Dawes orbit backend plan for structured subgroup orbit computations
 ## Summary

@@ -9,14 +9,6 @@ title: Decide how to handle Sage RealSet inherited Sets.Topological axiom warnin
 status: decided
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- sets
-- realset
-- topology
-- smoke
-- theme-decisions
-updated: '2026-05-05'
 ---
 # Decide how to handle Sage RealSet inherited Sets.Topological axiom warning
 

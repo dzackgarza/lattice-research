@@ -8,19 +8,15 @@ dependsOn: []
 title: Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer
 status: unstarted
 priority: high
-description: 'Migrated source: this plan contains the full content formerly stored at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`.
-  The old `plans/` copy was removed so this tracked plan is the active planning document.'
+description: 'Migrated source: this plan contains the full content formerly stored
+  at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`. The old `plans/` copy was removed so this
+  tracked plan is the active planning document.'
 successCriteria:
 - Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer child cards are complete,
   blocked with concrete blockers, or split into successor cards.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
-- category-specs
-- lattices
-- theme-modules-tensors
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 Migrated source: this plan contains the full content formerly stored at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`. The old `plans/` copy was removed so this tracked plan is the active planning document.
 

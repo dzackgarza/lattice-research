@@ -5,31 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
-title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom
-  blocker
+title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects
+  forms-axiom blocker
 status: unstarted
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- Run just smoke-file algebras/smoketest.sage after algebra category initialization or constructor
-  changes.
-- Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module over Modules(R).
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- Run just smoke-file algebras/smoketest.sage after algebra category initialization
+  or constructor changes.
+- Do not route plain-set S.algebra(R) into Algebras(R); it belongs to free_module
+  over Modules(R).
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
-- category-specs
-- sage
-- algebras
-- forms
-- theme-rings-algebras
 ---
 # Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects forms-axiom blocker
 ## Summary

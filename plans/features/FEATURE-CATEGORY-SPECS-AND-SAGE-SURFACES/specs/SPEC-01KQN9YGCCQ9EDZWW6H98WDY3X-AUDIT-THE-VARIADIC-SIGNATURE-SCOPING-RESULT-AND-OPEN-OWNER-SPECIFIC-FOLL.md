@@ -6,30 +6,23 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
-title: Audit the variadic signature scoping result and open owner-specific follow-ups for
-  any public surface still using placeholder collapsed Sage casework
+title: Audit the variadic signature scoping result and open owner-specific follow-ups
+  for any public surface still using placeholder collapsed Sage casework
 status: needs-review
 priority: critical
-requirement: The deleted variadic inventory records the scoping pass for public surfaces that
-  had collapsed Sage casework or raw coordinate interop into broad signatures.
+requirement: The deleted variadic inventory records the scoping pass for public surfaces
+  that had collapsed Sage casework or raw coordinate interop into broad signatures.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created.
 - No implementation blocker was discovered in this audit pass.
-- Public signatures were audited for remaining `*args`, `**kwargs`, option bags, and placeholder
-  union data shapes from the recovered inventory.
-- No owner-specific tasks were opened because the only remaining `*args`/`**kwargs` hits are
-  private Cat aggregation hooks, now mapped as nonpublic infrastructure.
+- Public signatures were audited for remaining `*args`, `**kwargs`, option bags, and
+  placeholder union data shapes from the recovered inventory.
+- No owner-specific tasks were opened because the only remaining `*args`/`**kwargs`
+  hits are private Cat aggregation hooks, now mapped as nonpublic infrastructure.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sage
-- rings
-- precision
-- signatures
-- audit
-- theme-audit-uniformity
 ---
 # Audit the variadic signature scoping result and open owner-specific follow-ups for any public surface still using placeholder collapsed Sage casework
 ## Summary

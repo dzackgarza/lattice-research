@@ -8,16 +8,17 @@ dependsOn: []
 title: Implement cokernel projection and lift contract
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- Every cokernel object returned by Phase 3 exposes a canonical projection morphism from the
-  original codomain, and that projection is surjective with kernel equal to the image of the
-  original morphism.
-- '`lift()` exists only as quotient-representative selection for cokernel elements and composes
-  with `projection()` to recover the original quotient class.'
-- Quotient invariants, generators, and cardinality remain properties of the cokernel object
-  itself rather than ad hoc helpers on the original morphism wrapper.
+- Every cokernel object returned by Phase 3 exposes a canonical projection morphism
+  from the original codomain, and that projection is surjective with kernel equal
+  to the image of the original morphism.
+- '`lift()` exists only as quotient-representative selection for cokernel elements
+  and composes with `projection()` to recover the original quotient class.'
+- Quotient invariants, generators, and cardinality remain properties of the cokernel
+  object itself rather than ad hoc helpers on the original morphism wrapper.
 - The projection/lift API works for both ordinary quotient modules and the discriminant-style
   quotient path needed later for `L^#/L`.
 complexity: 65
@@ -25,13 +26,6 @@ tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement cokernel projection and lift contract
 

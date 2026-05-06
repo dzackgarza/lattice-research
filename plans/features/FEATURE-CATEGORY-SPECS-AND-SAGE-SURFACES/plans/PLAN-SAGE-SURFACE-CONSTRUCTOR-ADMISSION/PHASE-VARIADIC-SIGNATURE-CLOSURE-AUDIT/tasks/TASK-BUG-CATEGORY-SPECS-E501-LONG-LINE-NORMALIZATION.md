@@ -8,12 +8,12 @@ dependsOn: []
 title: Normalize category_specs Ruff E501 long-line blockers
 status: needs-review
 priority: medium
-description: Resolve the remaining Ruff `E501` line-length blockers in `category_specs` while
-  preserving mathematical and public API meaning.
+description: Resolve the remaining Ruff `E501` line-length blockers in `category_specs`
+  while preserving mathematical and public API meaning.
 successCriteria:
 - Reproduce the remaining `E501` findings for `category_specs`.
-- Wrap long import, lazy-import, type-alias, docstring, and expression lines in the smallest
-  semantics-preserving way.
+- Wrap long import, lazy-import, type-alias, docstring, and expression lines in the
+  smallest semantics-preserving way.
 - Avoid broad rewrites, comment churn, or source-prose edits unrelated to Ruff `E501`.
 - Do not add local Ruff ignores, bypasses, whitelists, or quality-control exceptions.
 - Keep public names and import side effects stable.
@@ -22,14 +22,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- ruff
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Normalize category_specs Ruff E501 long-line blockers
 

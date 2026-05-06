@@ -5,31 +5,24 @@ trackerStatus:
 parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
-title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor
-  component smoketest frontier
+title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
+  tensor component smoketest frontier
 status: unstarted
 priority: high
-description: This item was migrated from the one-line tracker pass and needs its source context
-  preserved in the full task body.
+description: This item was migrated from the one-line tracker pass and needs its source
+  context preserved in the full task body.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Record validation commands and outcomes in this task file before closing.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
-- category-specs
-- smoke
-- constructors
-- richcmp
-- algebras
-- tensors
-- theme-constructor-routing
 ---
 # Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier
 ## Summary

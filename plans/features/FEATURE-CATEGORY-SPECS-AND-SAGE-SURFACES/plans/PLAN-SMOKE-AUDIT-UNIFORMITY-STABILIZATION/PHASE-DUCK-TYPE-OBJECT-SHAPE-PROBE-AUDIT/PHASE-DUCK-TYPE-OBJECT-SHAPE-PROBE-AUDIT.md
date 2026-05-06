@@ -8,27 +8,23 @@ dependsOn: []
 title: Duck-type object-shape probe audit
 status: unstarted
 priority: critical
-description: Audit category-spec implementation surfaces for object-shape probing patterns
-  that use `getattr`, `hasattr`, optional attribute fallbacks, or private-slot probes to infer
-  what kind of mathematical/Sage object is present. Such branches must be replaced or routed
-  through real Sage/project types, documented wrapper boundaries, or category membership.
+description: Audit category-spec implementation surfaces for object-shape probing
+  patterns that use `getattr`, `hasattr`, optional attribute fallbacks, or private-slot
+  probes to infer what kind of mathematical/Sage object is present. Such branches
+  must be replaced or routed through real Sage/project types, documented wrapper boundaries,
+  or category membership.
 successCriteria:
-- Category-spec implementation files are scanned for `getattr`, `hasattr`, optional attribute
-  fallback, and private-slot probe patterns.
-- Each finding is classified as documented Sage interop, real type/category dispatch, wrapper-boundary
-  access, or invalid duck-type probing.
-- Invalid duck-type probing is fixed in owner-scoped patches or split into concrete implementation
-  cards when the remediation is not atomic.
-- No unrelated smoke implementation card is blocked merely because this audit work remains
-  outstanding.
+- Category-spec implementation files are scanned for `getattr`, `hasattr`, optional
+  attribute fallback, and private-slot probe patterns.
+- Each finding is classified as documented Sage interop, real type/category dispatch,
+  wrapper-boundary access, or invalid duck-type probing.
+- Invalid duck-type probing is fixed in owner-scoped patches or split into concrete
+  implementation cards when the remediation is not atomic.
+- No unrelated smoke implementation card is blocked merely because this audit work
+  remains outstanding.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
-- category-specs
-- audit
-- theme-audit-uniformity
-created: '2026-05-05'
-updated: '2026-05-05'
 ---
 # Duck-type object-shape probe audit
 

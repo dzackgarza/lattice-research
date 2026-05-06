@@ -8,26 +8,22 @@ dependsOn: []
 title: Implement and validate the isotropic Gamma orbit backend plan
 status: unstarted
 priority: medium
-description: The isotropic Gamma orbit backend plan targets subgroup-aware isotropic orbit
-  computation for lines, planes, and flags using Dutour-Sikiric/Hulek finite quotient splitting.
+description: The isotropic Gamma orbit backend plan targets subgroup-aware isotropic
+  orbit computation for lines, planes, and flags using Dutour-Sikiric/Hulek finite
+  quotient splitting.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
 - Run backend tests against Sterk and degree-2 Enriques fixtures once implemented.
 - Check that no new public Gamma noun appears.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER
-- category-specs
-- task
-- research-backend
-- theme-research-sources
-- theme-modules-tensors
 ---
 # Implement and validate the isotropic Gamma orbit backend plan
 ## Summary

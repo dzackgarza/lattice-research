@@ -9,20 +9,16 @@ title: Geometric category expansion research program
 status: approved-and-unstarted
 priority: high
 owner: Zack
-description: Group the high-priority geometric category research cards so schemes, varieties,
-  manifolds, polytopes, toric varieties, and related categories enter the system through source-backed
-  vocabulary and dependency-aware planning.
+description: Group the high-priority geometric category research cards so schemes,
+  varieties, manifolds, polytopes, toric varieties, and related categories enter the
+  system through source-backed vocabulary and dependency-aware planning.
 successCriteria:
-- Each geometric category has source-backed Sage and mathematical vocabulary before implementation.
+- Each geometric category has source-backed Sage and mathematical vocabulary before
+  implementation.
 - Dependencies are recorded before implementation cards are created.
 - Toric varieties explicitly route through the lattice category integration decision.
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
-- category-specs
-- geometry
-- theme-research-sources
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Geometric category expansion research program
 

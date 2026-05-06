@@ -9,29 +9,23 @@ title: Smoke audit and uniformity stabilization
 status: approved-and-unstarted
 priority: critical
 owner: Zack
-description: Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper, type,
-  and anti-slop compliance work so it supports the foundational plan instead of becoming a
-  disconnected cleanup backlog.
+description: Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper,
+  type, and anti-slop compliance work so it supports the foundational plan instead
+  of becoming a disconnected cleanup backlog.
 successCriteria:
-- Smoke failures are routed to spec, implementation, research, or decision cards by mathematical
-  cause.
+- Smoke failures are routed to spec, implementation, research, or decision cards by
+  mathematical cause.
 - Audit cards link to the plan or source map whose correctness they protect.
-- Audit coverage includes duck-typed object-shape probes where category-spec code should match
-  real Sage/project types, documented wrappers, or category membership.
-- '`/home/dzack/ai/quality-control/vulture_whitelist.py` remains global QC tooling support,
-  not a planning document.'
+- Audit coverage includes duck-typed object-shape probes where category-spec code
+  should match real Sage/project types, documented wrappers, or category membership.
+- '`/home/dzack/ai/quality-control/vulture_whitelist.py` remains global QC tooling
+  support, not a planning document.'
 - Compliance findings are not buried in chat or loose TODO files.
 phases:
 - '[[PHASE-SMOKE-AUDIT-AND-UNIFORMITY-BACKLOG]]'
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- audit
-- smoke
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Smoke audit and uniformity stabilization
 

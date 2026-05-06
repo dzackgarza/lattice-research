@@ -16,11 +16,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
-- category-specs
-- task
-- constructors
-- algebras
-- theme-constructor-routing
 ---
 # Move nontrivial algebra construction out of category constructors
 Source: pasted backlog 2026-05-02.

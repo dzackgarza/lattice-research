@@ -1,1 +1,0 @@
-Primary durable correction artifact for the lattice redesign is theory/lattice_redesign_corrections_spec.md. It preserves the user's long-form correction verbatim plus normalized directives. Future redesign work must read it together with theory/spec_backups/lattices_written_spec_backup.py before changing the public lattice/module hierarchy.

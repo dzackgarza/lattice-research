@@ -11,24 +11,20 @@ title: Choose canonical smoke examples for Connected Compact and Metric Complete
 status: needs-review
 priority: critical
 requirement: The deleted Topological Spaces triage recorded settled topological constructor
-  placement and remaining smoke design work for RealSet ambient recovery and metric examples.
+  placement and remaining smoke design work for RealSet ambient recovery and metric
+  examples.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance.
 - Run just smoke-file topological_spaces/smoketest.sage after topological-space work.
-- Prove RealSet method recovery through the ambient-relative route, not by adding pure topological
-  constructors.
+- Prove RealSet method recovery through the ambient-relative route, not by adding
+  pure topological constructors.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- smoke
-- topology
-- theme-sets-topology
-updated: '2026-05-05'
 ---
 # Choose canonical smoke examples for Connected Compact and Metric Complete topological subcategories
 ## Summary

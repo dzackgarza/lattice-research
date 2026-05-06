@@ -6,32 +6,26 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
-title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after
-  mapping symmetry storage contraction trace display and migration needs
+title: Expand TensorAlgebraComponents beyond the minimal tensor constructor surface
+  only after mapping symmetry storage contraction trace display and migration needs
 status: needs-review
 priority: critical
-requirement: The deleted Tensor Algebra Components triage records an intentionally minimal
-  current scope and the deferred tensor-calculus surface.
+requirement: The deleted Tensor Algebra Components triage records an intentionally
+  minimal current scope and the deferred tensor-calculus surface.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
-- No new implementation blocker was discovered in this bounded spec pass; the remaining work
-  is concrete method implementation and caller migration under already-frozen signatures.
-- The tensor API was not expanded past the frozen mapping in this pass; the existing admitted
-  public surface is `trace(...)` and explicit `contract(...)` only.
+- No new implementation blocker was discovered in this bounded spec pass; the remaining
+  work is concrete method implementation and caller migration under already-frozen
+  signatures.
+- The tensor API was not expanded past the frozen mapping in this pass; the existing
+  admitted public surface is `trace(...)` and explicit `contract(...)` only.
 - No constructor or refinement changes were made in this pass, so `tensor_algebra_components/smoketest.sage`
   did not apply.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- constructors
-- algebras
-- tensors
-- mapping
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Expand TensorAlgebraComponents beyond the minimal tensor constructor surface only after mapping symmetry storage contraction trace display and migration needs
 ## Summary

@@ -5,30 +5,23 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
-title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra surface
-  split
-status: unstarted
+title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra
+  surface split
+status: in-progress
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom category
-  identity mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
-  split.'
+description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+  category identity mismatches, missing _sympy_ methods on refined parents, and the
+  matrix-ring surface split.'
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-- category-specs
-- sprint
-- rings
-- precision
-- algebras
-- matrix
-- theme-plan-control
 ---
 # Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra surface split
 

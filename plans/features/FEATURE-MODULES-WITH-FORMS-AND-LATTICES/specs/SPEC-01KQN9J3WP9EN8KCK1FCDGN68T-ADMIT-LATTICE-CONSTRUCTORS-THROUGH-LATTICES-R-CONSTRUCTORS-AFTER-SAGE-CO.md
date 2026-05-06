@@ -11,26 +11,21 @@ title: Admit lattice constructors through Lattices(R).Constructors after Sage co
 status: blocked
 priority: critical
 requirement: The deleted Lattices triage recorded the top-level lattice subtree admission,
-  current smoke coverage, constructor admission boundary, and DiscriminantGroupAut blocker.
+  current smoke coverage, constructor admission boundary, and DiscriminantGroupAut
+  blocker.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance.
 - Run just smoke-file lattices/chain_smoketest.sage and just smoke-file lattices/smoketest.sage
   for lattice-surface changes.
-- Do not admit lattice constructors without completing Sage constructor inventory mapping.
+- Do not admit lattice constructors without completing Sage constructor inventory
+  mapping.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
-- category-specs
-- constructors
-- sage
-- lattices
-- mapping
-- theme-constructor-routing
-- theme-modules-tensors
 ---
 # Admit lattice constructors through Lattices(R).Constructors after Sage constructor inventory mapping
 ## Summary

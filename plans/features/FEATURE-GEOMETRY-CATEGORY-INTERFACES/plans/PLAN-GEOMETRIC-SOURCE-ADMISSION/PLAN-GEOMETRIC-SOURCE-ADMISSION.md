@@ -10,25 +10,21 @@ title: Geometric category source admission research
 status: approved-and-unstarted
 priority: high
 owner: Zack
-description: Organize the geometry category research cards that identify source-backed category
-  vocabulary for schemes, varieties, manifolds, polytopes, and toric interfaces before any
-  implementation card is created.
+description: Organize the geometry category research cards that identify source-backed
+  category vocabulary for schemes, varieties, manifolds, polytopes, and toric interfaces
+  before any implementation card is created.
 successCriteria:
 - Every child card cites the exact sources searched and separates evidence from inference.
-- Geometry vocabulary is admitted only after mathematical owner, Sage surface, and public
-  category boundary are explicit.
-- Toric-variety work records its dependency on the lattice category surface before implementation.
-- Follow-up implementation or decision work is tracked as new cards rather than left in research
-  prose.
+- Geometry vocabulary is admitted only after mathematical owner, Sage surface, and
+  public category boundary are explicit.
+- Toric-variety work records its dependency on the lattice category surface before
+  implementation.
+- Follow-up implementation or decision work is tracked as new cards rather than left
+  in research prose.
 phases:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
-- category-specs
-- geometry
-- theme-geometric-categories
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Geometric category source admission research
 

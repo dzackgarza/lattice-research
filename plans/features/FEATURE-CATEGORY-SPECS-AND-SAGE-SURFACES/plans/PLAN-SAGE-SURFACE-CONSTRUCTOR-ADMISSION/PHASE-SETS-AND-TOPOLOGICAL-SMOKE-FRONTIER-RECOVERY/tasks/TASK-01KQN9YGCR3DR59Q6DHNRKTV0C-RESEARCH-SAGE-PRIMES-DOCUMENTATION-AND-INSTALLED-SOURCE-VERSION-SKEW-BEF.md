@@ -5,32 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 dependsOn: []
-title: Research Sage Primes documentation and installed-source version skew before admitting
-  congruence-class prime subset vocabulary
+title: Research Sage Primes documentation and installed-source version skew before
+  admitting congruence-class prime subset vocabulary
 status: unstarted
 priority: high
-description: Sets mapping is the source of truth for set constructors, rich comparison, partitioned
-  sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut ownership.
+description: Sets mapping is the source of truth for set constructors, rich comparison,
+  partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut
+  ownership.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
-- When implementing a set item, cite the exact mapping row and prove behavior through project
-  category vocabulary.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
+- When implementing a set item, cite the exact mapping row and prove behavior through
+  project category vocabulary.
 - Do not expose generic Sage Set(X) as a public project constructor.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY
-- category-specs
-- task
-- sage
-- sets
-- primes
-- theme-sets-topology
 ---
 # Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary
 ## Summary

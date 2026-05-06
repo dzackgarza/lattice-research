@@ -6,26 +6,20 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Hom End Aut structural admission
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
-description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through
-  the category framework instead of ad hoc group or ConditionSet surfaces.
+description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups
+  through the category framework instead of ad hoc group or ConditionSet surfaces.
 successCriteria:
 - '`Aut(X)` and `End(X)` are category-recognized surfaces, not isolated helper factories.'
 - Automorphism groups have domain/codomain semantics and categorical coercion to End.
-- Public APIs return project-owned aut/subobject surfaces; Sage `ConditionSet` remains an
-  implementation bridge only.
+- Public APIs return project-owned aut/subobject surfaces; Sage `ConditionSet` remains
+  an implementation bridge only.
 phases:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- hom-end-aut
-- autsets
-- theme-category-core
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Hom End Aut structural admission
 

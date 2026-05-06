@@ -10,17 +10,12 @@ status: unstarted
 priority: high
 description: Replace assertion-narrowed polynomial and matrix return types
 successCriteria:
-- Replace assertion-narrowed polynomial and matrix return types is resolved according to the
-  body acceptance criteria.
+- Replace assertion-narrowed polynomial and matrix return types is resolved according
+  to the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- matrix
-- types
-- theme-rings-algebras
 ---
 # Replace assertion-narrowed polynomial and matrix return types
 Source: pasted backlog 2026-05-02.

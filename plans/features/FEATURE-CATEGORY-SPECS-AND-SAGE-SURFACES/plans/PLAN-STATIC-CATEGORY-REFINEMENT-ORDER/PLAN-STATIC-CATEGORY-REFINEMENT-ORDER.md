@@ -10,23 +10,17 @@ status: approved-and-unstarted
 priority: critical
 owner: Zack
 description: 'Turn `CATEGORY_REFINEMENT_PHASES.md` into the governing order for category-spec
-  admission: static hierarchy first, concrete interceptors second, top-level constructor redefinitions
-  last.'
+  admission: static hierarchy first, concrete interceptors second, top-level constructor
+  redefinitions last.'
 successCriteria:
 - Runtime discovery is used only as source research, never as the operative spec.
 - Constructor routing never contains hierarchy policy.
-- Every admitted constructor has a mathematical owner and a Sage-source provenance note.
+- Every admitted constructor has a mathematical owner and a Sage-source provenance
+  note.
 phases:
 - '[[PHASE-STATIC-CATEGORY-REFINEMENT-WORK-QUEUE]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- category-refinement
-- constructors
-- theme-category-core
-- theme-constructor-routing
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Static category refinement and constructor interception order
 

@@ -10,17 +10,12 @@ status: unstarted
 priority: high
 description: Split mixed set-constructor input shapes into named alternatives
 successCriteria:
-- Split mixed set-constructor input shapes into named alternatives is resolved according to
-  the body acceptance criteria.
+- Split mixed set-constructor input shapes into named alternatives is resolved according
+  to the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- constructors
-- sets
-- theme-constructor-routing
 ---
 # Split mixed set-constructor input shapes into named alternatives
 Source: pasted backlog 2026-05-02.

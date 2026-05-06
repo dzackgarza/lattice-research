@@ -8,29 +8,23 @@ dependsOn: []
 title: Fix Posets constructor refinement __richcmp__ failures
 status: needs-review
 priority: high
-description: The deleted Posets triage recorded settled order-theoretic mapping items, a concrete
-  design decision about equivalence relations/set partitions, and evidence gaps around semilattice
-  category introspection.
+description: The deleted Posets triage recorded settled order-theoretic mapping items,
+  a concrete design decision about equivalence relations/set partitions, and evidence
+  gaps around semilattice category introspection.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
-- Use the five-field negative-finding format for further Sage semilattice evidence gaps.
+- Use the five-field negative-finding format for further Sage semilattice evidence
+  gaps.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES
-- category-specs
-- constructors
-- richcmp
-- sets
-- posets
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Fix Posets constructor refinement __richcmp__ failures
 ## Summary

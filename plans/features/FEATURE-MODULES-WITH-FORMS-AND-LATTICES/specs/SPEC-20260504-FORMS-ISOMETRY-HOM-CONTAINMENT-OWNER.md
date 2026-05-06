@@ -12,25 +12,19 @@ priority: critical
 requirement: Split the `plans/todo.md` method-generalization item into an atomic owner-fix
   card for form-preserving and isometry predicates on morphisms.
 acceptanceCriteria:
-- The forms or modules mapping docs state that form preservation is represented by membership
-  in the formed-module Hom category.
-- '`category_specs/forms/subcategories/free_bilinear.py` does not own a redundant generic
-  `is_isometry()` predicate unless it is explicitly documented as a compatibility alias over
-  Hom containment.'
-- Lattice hom/aut surfaces distinguish lattice isometries as morphisms/aut objects in `Lattices(R).HomCategory()`
-  / `Lattices(R).AutCategory()`, not as the owner of the generic form-preservation predicate.
+- The forms or modules mapping docs state that form preservation is represented by
+  membership in the formed-module Hom category.
+- '`category_specs/forms/subcategories/free_bilinear.py` does not own a redundant
+  generic `is_isometry()` predicate unless it is explicitly documented as a compatibility
+  alias over Hom containment.'
+- Lattice hom/aut surfaces distinguish lattice isometries as morphisms/aut objects
+  in `Lattices(R).HomCategory()` / `Lattices(R).AutCategory()`, not as the owner of
+  the generic form-preservation predicate.
 - Any implementation blockers are split into implementation cards with source provenance,
   or no new blocker remains after the local spec-surface correction.
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
-- category-specs
-- hom-end-aut
-- forms
-- lattices
-- theme-category-core
-created: '2026-05-04'
-updated: '2026-05-05'
 ---
 # Route form-preserving isometry predicates through formed-module Hom containment
 

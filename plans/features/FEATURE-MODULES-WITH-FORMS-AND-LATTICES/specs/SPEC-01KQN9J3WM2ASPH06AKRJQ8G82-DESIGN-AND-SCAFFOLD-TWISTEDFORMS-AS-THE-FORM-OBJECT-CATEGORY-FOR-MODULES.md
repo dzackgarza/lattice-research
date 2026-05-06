@@ -6,29 +6,25 @@ parents:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 dependsOn:
 - '[[PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
-title: Design and scaffold TwistedForms as the form-object category for modules with forms
+title: Design and scaffold TwistedForms as the form-object category for modules with
+  forms
 status: needs-review
 priority: critical
-requirement: The source backlog identifies category-spec design work around dual objects as
-  Hom objects, method ownership generalization, centralized type aliases, and a TwistedForms
-  category.
+requirement: The source backlog identifies category-spec design work around dual objects
+  as Hom objects, method ownership generalization, centralized type aliases, and a
+  TwistedForms category.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - Any implementation blocker discovered during spec work is split into an implementation-work
   item with source provenance.
-- Review the affected public type aliases and category methods against plans/todo.md before
-  closing.
+- Review the affected public type aliases and category methods against plans/todo.md
+  before closing.
 - Run the relevant category_specs smoke file for any changed subtree.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
-- category-specs
-- modules
-- forms
-- theme-modules-tensors
-updated: '2026-05-05'
 ---
 # Design and scaffold TwistedForms as the form-object category for modules with forms
 ## Summary

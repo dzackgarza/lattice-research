@@ -10,18 +10,12 @@ status: needs-review
 priority: critical
 description: Audit standard type-package aliases after concrete Cat migration
 successCriteria:
-- Audit standard type-package aliases after concrete Cat migration is resolved according to
-  the body acceptance criteria.
+- Audit standard type-package aliases after concrete Cat migration is resolved according
+  to the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
 - PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION
-- category-specs
-- task
-- cat
-- types
-- audit
-- theme-audit-uniformity
 ---
 # Audit standard type-package aliases after concrete Cat migration
 Source: pasted backlog 2026-05-02.

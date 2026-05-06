@@ -6,16 +6,18 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Sage surface constructor admission and concrete category families
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: Organize Sage source maps and concrete family specs into a constructor-admission
-  workflow. This branch governs rings, sets, topology-bearing sets, algebras, posets, matrix
-  rings, p-adic precision surfaces, and executable category-spec assertions.
+  workflow. This branch governs rings, sets, topology-bearing sets, algebras, posets,
+  matrix rings, p-adic precision surfaces, and executable category-spec assertions.
 successCriteria:
 - Sage source claims are verified before constructor admission.
-- Constructor cards separate Sage entry point, mathematical owner, and project-facing API.
-- Existing executable spec files are used as source/validation material, not as planning scratchpads.
+- Constructor cards separate Sage entry point, mathematical owner, and project-facing
+  API.
+- Existing executable spec files are used as source/validation material, not as planning
+  scratchpads.
 - No implementation uses broad variadic option bags as the public project surface.
 phases:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
@@ -25,13 +27,6 @@ phases:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sage
-- constructors
-- theme-constructor-routing
-- theme-research-sources
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Sage surface constructor admission and concrete category families
 

@@ -10,12 +10,6 @@ title: Decide whether tensor symmetry antisymmetry and contraction need admitted
 status: decided
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- tensors
-- mapping
-- theme-decisions
-updated: '2026-05-05'
 ---
 # Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping
 ## Summary

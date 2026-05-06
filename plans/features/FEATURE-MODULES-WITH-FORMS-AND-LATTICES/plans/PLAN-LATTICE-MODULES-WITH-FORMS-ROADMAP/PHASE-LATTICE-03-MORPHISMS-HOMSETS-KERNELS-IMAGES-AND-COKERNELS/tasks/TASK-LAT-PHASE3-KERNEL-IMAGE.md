@@ -8,29 +8,24 @@ dependsOn: []
 title: Implement kernel and image construction as categorical objects
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- '`kernel()` returns a formed subobject of the domain, not a raw relation matrix or ambient
-  subspace, and its form is literally the restriction of the domain form.'
-- '`image()` returns a formed subobject of the codomain, not only generator images, and its
-  form is the codomain form restricted to `im(f)`.'
-- Free/torsion/integral/rational predicates on kernel and image are inherited through the
-  relevant meets of `ModulesWithForms(R)` rather than hard-coded by wrapper class name.
-- Zero-kernel and full-image cases agree with the morphism predicates `is_injective()` and
-  `is_surjective()` used elsewhere in Phase 3.
+- '`kernel()` returns a formed subobject of the domain, not a raw relation matrix
+  or ambient subspace, and its form is literally the restriction of the domain form.'
+- '`image()` returns a formed subobject of the codomain, not only generator images,
+  and its form is the codomain form restricted to `im(f)`.'
+- Free/torsion/integral/rational predicates on kernel and image are inherited through
+  the relevant meets of `ModulesWithForms(R)` rather than hard-coded by wrapper class
+  name.
+- Zero-kernel and full-image cases agree with the morphism predicates `is_injective()`
+  and `is_surjective()` used elsewhere in Phase 3.
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement kernel and image construction as categorical objects
 

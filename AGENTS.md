@@ -62,6 +62,34 @@ Load these skills when their trigger matches the task:
 
 Every new session must read `GOAL.md`, `.agents/current-goal-phase.md`, and this file. Verify active tasks and Nimbalyst meta artifacts are synced with `origin/main` before declaring progress. Run project memories. Load `research-repo-structure` before startup pruning or cleanup. State which `GOAL.md` phase and task will be worked on and why. Do not start by reading every file in the repo.
 
+## Memory practice
+
+Use `iwe` as the memory interface for this repo. The memory library lives under
+`.agents/memories` through `.iwe/config.toml`, so read and search it with `iwe`
+before resuming related work, and add or update notes there when durable context
+would otherwise be lost.
+
+Store short, opinionated, durable notes:
+
+- important decisions that were too small for a decision card but would still
+  affect future agent choices;
+- constraints, rulings, and inputs that came out of interactive user discussion
+  and should survive chat history loss;
+- current state or status notes that help a future agent restart work correctly,
+  provided they can be kept accurate without heavy bookkeeping;
+- non-obvious environment findings, research results, and workflow rules that
+  took effort to discover.
+
+Review memories periodically with `iwe` and prune by replacement rather than
+letting stale guidance accumulate silently. If a memory is superseded, update the
+IWE note that owns that topic instead of scattering a new contradictory note.
+
+Do not turn memories into a second tracker or metadata database. Avoid complex
+manual state, exhaustive status matrices, cross-linked bookkeeping layers, or
+anything else that creates combinatorial sync work across plans, decisions,
+commits, and memories. If the information wants structured workflow state, it
+probably belongs in `plans/`, a decision card, or git history rather than memory.
+
 ## Tracker and planning shortcut
 
 All active repo-local planning and work tracking lives under root `plans/`. Use

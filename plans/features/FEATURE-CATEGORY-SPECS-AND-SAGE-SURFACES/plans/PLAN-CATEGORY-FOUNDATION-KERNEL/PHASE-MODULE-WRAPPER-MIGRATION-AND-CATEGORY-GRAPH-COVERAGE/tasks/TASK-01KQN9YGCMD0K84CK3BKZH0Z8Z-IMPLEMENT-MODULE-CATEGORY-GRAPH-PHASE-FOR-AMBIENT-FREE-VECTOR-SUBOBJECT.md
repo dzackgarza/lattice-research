@@ -5,31 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]'
 dependsOn: []
-title: Implement module category graph phase for ambient free vector subobject quotient form
-  graded Ore and representation surfaces
+title: Implement module category graph phase for ambient free vector subobject quotient
+  form graded Ore and representation surfaces
 status: unstarted
 priority: high
-description: 'The deleted module wrapper migration plan is a phased migration contract: map
-  methods first, define the category graph, rewrite constructors, move methods to real owners,
-  then delete wrappers.'
+description: 'The deleted module wrapper migration plan is a phased migration contract:
+  map methods first, define the category graph, rewrite constructors, move methods
+  to real owners, then delete wrappers.'
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- Use the phase-specific validation commands from the deleted plan when implementing a child
-  item.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- Use the phase-specific validation commands from the deleted plan when implementing
+  a child item.
 - Do not close the parent until modules/docs/MAPPING.md has no unmapped wrapper methods.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
 - PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE
-- category-specs
-- modules
-- forms
-- theme-modules-tensors
 ---
 # Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces
 ## Summary

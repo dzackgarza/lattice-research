@@ -8,32 +8,25 @@ dependsOn: []
 title: Triage global vulture dead-code validation blocker
 status: unstarted
 priority: high
-description: '`just test` now passes Ruff normalization and fails at the global vulture dead-code
-  detection stage. The failure is broad and includes category-spec abstract/public surfaces
-  plus `theory/spec_backups/lattices_written_spec_backup.py`.'
+description: '`just test` now passes Ruff normalization and fails at the global vulture
+  dead-code detection stage. The failure is broad and includes category-spec abstract/public
+  surfaces plus `theory/spec_backups/lattices_written_spec_backup.py`.'
 successCriteria:
 - Reproduce the vulture failure after Ruff normalization passes.
-- 'Classify findings by owner and cause: intentional category-spec API, Sage dynamic method
-  surface, type alias public surface, generated/backup debris, or real dead code.'
+- 'Classify findings by owner and cause: intentional category-spec API, Sage dynamic
+  method surface, type alias public surface, generated/backup debris, or real dead
+  code.'
 - Do not add project-local vulture bypasses, ignores, or QC overrides.
-- If a global QC whitelist update is necessary, document the exact proposed global change
-  and request approval before editing `/home/dzack/ai/quality-control`.
-- Split owner-specific cleanup cards for real dead code or stale backup artifacts that should
-  be fixed in this repo.
+- If a global QC whitelist update is necessary, document the exact proposed global
+  change and request approval before editing `/home/dzack/ai/quality-control`.
+- Split owner-specific cleanup cards for real dead code or stale backup artifacts
+  that should be fixed in this repo.
 - Record the remaining validation blocker after triage.
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- vulture
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Triage global vulture dead-code validation blocker
 

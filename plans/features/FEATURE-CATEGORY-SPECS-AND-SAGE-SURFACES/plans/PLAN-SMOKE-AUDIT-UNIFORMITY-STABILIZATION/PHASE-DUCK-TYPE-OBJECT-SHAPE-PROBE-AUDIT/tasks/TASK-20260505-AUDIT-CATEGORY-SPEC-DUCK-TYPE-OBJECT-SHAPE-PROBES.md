@@ -8,30 +8,24 @@ dependsOn: []
 title: Audit category-spec duck-type object-shape probes
 status: unstarted
 priority: critical
-description: Audit category-spec implementation code for `getattr`, `hasattr`, optional attribute
-  fallbacks, and private-slot probes that infer object shape instead of matching real Sage/project
-  types, documented wrappers, or category membership.
+description: Audit category-spec implementation code for `getattr`, `hasattr`, optional
+  attribute fallbacks, and private-slot probes that infer object shape instead of
+  matching real Sage/project types, documented wrappers, or category membership.
 successCriteria:
 - Scan `category_specs/` implementation files for `getattr`, `hasattr`, optional attribute
   fallback, and private-slot probe patterns.
-- For each finding, record whether the branch is Sage interop, a documented wrapper boundary,
-  real category/type dispatch, or invalid duck-type probing.
+- For each finding, record whether the branch is Sage interop, a documented wrapper
+  boundary, real category/type dispatch, or invalid duck-type probing.
 - Replace invalid probes with real Sage/project type checks, category membership/subcategory
   checks, or named wrapper/accessor boundaries when the fix is local and source-backed.
-- Split any nonlocal or mathematically ambiguous remediation into owner-scoped follow-up cards
-  instead of guessing inside the audit.
+- Split any nonlocal or mathematically ambiguous remediation into owner-scoped follow-up
+  cards instead of guessing inside the audit.
 - Do not weaken smokes or add broad exception-catching to hide the audit finding.
 complexity: 60
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
 - PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT
-- category-specs
-- task
-- audit
-- theme-audit-uniformity
-created: '2026-05-05'
-updated: '2026-05-05'
 ---
 # Audit category-spec duck-type object-shape probes
 

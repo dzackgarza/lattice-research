@@ -8,29 +8,26 @@ dependsOn: []
 title: Implement real cokernel construction and quotient promotion
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- '`cokernel()` returns a formed quotient object in the same categorical family as the codomain,
-  with quotient generators and invariants coming from the underlying quotient construction.'
-- The descended coefficient codomain is computed by `coker(h)` plus the cross-term quotient
-  `<beta_N(im(f) · N)>`; it is not modeled as a quotient of the module carrier itself.
-- The discriminant path `L -> L^#` produces `L^#/L` with form values in `QQ/ZZ`, and the implementation
-  explicitly treats the cross-term quotient as already zero in that case.
-- Free/torsion/integral/rational promotion of the cokernel object follows the quotient data
-  actually produced, including torsion quotient outputs.
+- '`cokernel()` returns a formed quotient object in the same categorical family as
+  the codomain, with quotient generators and invariants coming from the underlying
+  quotient construction.'
+- The descended coefficient codomain is computed by `coker(h)` plus the cross-term
+  quotient `<beta_N(im(f) · N)>`; it is not modeled as a quotient of the module carrier
+  itself.
+- The discriminant path `L -> L^#` produces `L^#/L` with form values in `QQ/ZZ`, and
+  the implementation explicitly treats the cross-term quotient as already zero in
+  that case.
+- Free/torsion/integral/rational promotion of the cokernel object follows the quotient
+  data actually produced, including torsion quotient outputs.
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement real cokernel construction and quotient promotion
 

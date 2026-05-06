@@ -8,12 +8,15 @@ dependsOn: []
 title: Admit named lattice constructors through lattice meets
 status: unstarted
 priority: high
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT` is
+  approved.
 successCriteria:
 - Read the cited source section before implementation.
-- Keep changes inside the named target boundary unless a new card or decision expands scope.
-- Preserve the mathematical semantics from the source plan and category-spec style rules.
+- Keep changes inside the named target boundary unless a new card or decision expands
+  scope.
+- Preserve the mathematical semantics from the source plan and category-spec style
+  rules.
 - Record validation commands and results before handoff.
 - Do not mark this card done without human approval.
 complexity: 55
@@ -21,13 +24,6 @@ tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT
-- category-specs
-- lattices
-- phase-plan
-- discriminant-groups
-- duals
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Admit named lattice constructors through lattice meets
 

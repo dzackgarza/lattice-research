@@ -5,31 +5,26 @@ trackerStatus:
 parents:
 - '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 dependsOn: []
-title: Implement poset certificate methods as separate witness-returning methods while keeping
-  boolean predicates boolean
+title: Implement poset certificate methods as separate witness-returning methods while
+  keeping boolean predicates boolean
 status: needs-review
 priority: high
-description: Posets mapping owns constructor names, finite surface methods, certificate method
-  split, deferred non-core surface ownership, and slice/coslice structure methods.
+description: Posets mapping owns constructor names, finite surface methods, certificate
+  method split, deferred non-core surface ownership, and slice/coslice structure methods.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- When closing deferred surface mapping, place each method by target mathematical object or
-  display/interop status.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- When closing deferred surface mapping, place each method by target mathematical
+  object or display/interop status.
 - Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES
-- category-specs
-- sets
-- posets
-- theme-posets-partitions
-updated: '2026-05-05'
 ---
 # Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean
 ## Summary

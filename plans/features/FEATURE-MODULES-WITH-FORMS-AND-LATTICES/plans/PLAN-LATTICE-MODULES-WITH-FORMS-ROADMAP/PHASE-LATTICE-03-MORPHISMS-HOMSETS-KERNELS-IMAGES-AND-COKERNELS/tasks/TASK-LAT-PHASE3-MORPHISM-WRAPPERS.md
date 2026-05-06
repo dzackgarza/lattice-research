@@ -8,30 +8,26 @@ dependsOn: []
 title: Implement concrete bilinear module morphism wrappers
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- '`BilinearModuleMorphism` remains a `Morphism` wrapper over an underlying linear map; matrices
-  stay representational output via `to_matrix()`, not first-class morphism elements.'
+- '`BilinearModuleMorphism` remains a `Morphism` wrapper over an underlying linear
+  map; matrices stay representational output via `to_matrix()`, not first-class morphism
+  elements.'
 - '`to_matrix()`, `images()`, and any dict/image reconstruction agree on the ordered-generator
   convention used by the homspace constructors.'
-- Composition, additive operations, scalar action, direct sum, and `inverse()` all preserve
-  domain/codomain orientation and return morphisms in the correct hom or end parent.
+- Composition, additive operations, scalar action, direct sum, and `inverse()` all
+  preserve domain/codomain orientation and return morphisms in the correct hom or
+  end parent.
 - '`is_isometry()` is equivalent to membership in the relevant form-preserving hom/end/aut
-  object, while `is_isomorphism()` and `is_primitive()` stay module-level predicates defined
-  through bijectivity and torsionfreeness of the cokernel.'
+  object, while `is_isomorphism()` and `is_primitive()` stay module-level predicates
+  defined through bijectivity and torsionfreeness of the cokernel.'
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement concrete bilinear module morphism wrappers
 

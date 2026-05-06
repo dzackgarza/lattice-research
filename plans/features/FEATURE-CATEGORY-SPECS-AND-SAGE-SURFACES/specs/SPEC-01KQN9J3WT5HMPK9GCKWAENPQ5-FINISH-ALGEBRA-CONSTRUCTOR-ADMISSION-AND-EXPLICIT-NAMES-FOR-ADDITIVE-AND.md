@@ -6,29 +6,25 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
-title: Finish algebra constructor admission and explicit names for additive and table algebra
-  construction routes
+title: Finish algebra constructor admission and explicit names for additive and table
+  algebra construction routes
 status: needs-review
 priority: critical
 requirement: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
-- No new implementation blocker was discovered during this docs/spec pass; recovered smoke
-  failures remain non-constructor frontiers.
+- No new implementation blocker was discovered during this docs/spec pass; recovered
+  smoke failures remain non-constructor frontiers.
 - No algebra category initialization or constructor code changed, so the `algebras/smoketest.sage`
   trigger did not apply in this pass.
-- Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not to `Algebras(R)`.
+- Plain-set `S.algebra(R)` remains routed to `free_module` over `Modules(R)`, not
+  to `Algebras(R)`.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- constructors
-- algebras
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Finish algebra constructor admission and explicit names for additive and table algebra construction routes
 ## Summary

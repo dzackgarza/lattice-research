@@ -5,35 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 dependsOn: []
-title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet
-  element-constructor and topological axiom warning
+title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration
+  RealSet element-constructor and topological axiom warning
 status: needs-review
 priority: high
-description: The deleted Sets triage recorded the mapped enumeration smoke surface and current
-  failures for containment, rich comparison, Primes iteration, RealSet element construction,
-  and topological axiom resolution.
+description: The deleted Sets triage recorded the mapped enumeration smoke surface
+  and current failures for containment, rich comparison, Primes iteration, RealSet
+  element construction, and topological axiom resolution.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
-- Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback helper names.
+- Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback
+  helper names.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY
-- category-specs
-- constructors
-- richcmp
-- sets
-- realset
-- topology
-- primes
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Fix Sets root containment refined-constructor __richcmp__ Primes iteration RealSet element-constructor and topological axiom warning
 ## Summary

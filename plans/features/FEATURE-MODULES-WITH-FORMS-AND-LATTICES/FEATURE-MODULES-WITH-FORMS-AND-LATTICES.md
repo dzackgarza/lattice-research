@@ -9,12 +9,10 @@ plans:
 title: Modules with forms and lattices
 status: in-progress
 priority: critical
-description: 'Deliver the typed ModulesWithForms and lattice vocabulary needed before downstream
-  lattice-theory implementation: formed modules, quotient-valued forms, dual and rational
-  lattice objects, discriminant descent, morphisms, Hom/End/Aut surfaces, and orthogonal-group
-  interfaces.'
-tags:
-- FEATURE-MODULES-WITH-FORMS-AND-LATTICES
+description: 'Deliver the typed ModulesWithForms and lattice vocabulary needed before
+  downstream lattice-theory implementation: formed modules, quotient-valued forms,
+  dual and rational lattice objects, discriminant descent, morphisms, Hom/End/Aut
+  surfaces, and orthogonal-group interfaces.'
 ---
 # Feature: Modules with forms and lattices
 

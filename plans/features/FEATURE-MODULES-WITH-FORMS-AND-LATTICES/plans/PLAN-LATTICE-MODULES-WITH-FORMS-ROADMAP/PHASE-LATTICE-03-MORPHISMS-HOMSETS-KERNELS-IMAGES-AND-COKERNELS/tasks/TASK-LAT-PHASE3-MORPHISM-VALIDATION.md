@@ -8,29 +8,24 @@ dependsOn: []
 title: Implement validation for morphism construction and containment
 status: unstarted
 priority: high
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- Validation models reject shape-mismatched matrices, incomplete generator-image data, and
-  codomain-incompatible images before homspace construction is attempted.
+- Validation models reject shape-mismatched matrices, incomplete generator-image data,
+  and codomain-incompatible images before homspace construction is attempted.
 - Validation models encode the sourced matrix convention and ordered-generator convention
-  once, so `from_dict`, `from_images`, and `from_matrix` are checked against the same data
-  contract.
-- Validation success produces constructor-ready data for morphism wrappers; containment in
-  `M.Hom(N)` still performs the form-preservation check.
-- No validation surface treats raw matrices or raw dictionaries as public morphism elements.
+  once, so `from_dict`, `from_images`, and `from_matrix` are checked against the same
+  data contract.
+- Validation success produces constructor-ready data for morphism wrappers; containment
+  in `M.Hom(N)` still performs the form-preservation check.
+- No validation surface treats raw matrices or raw dictionaries as public morphism
+  elements.
 complexity: 55
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement validation for morphism construction and containment
 

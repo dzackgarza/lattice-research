@@ -15,12 +15,11 @@ plans:
 title: Category specs and Sage surface admission
 status: in-progress
 priority: critical
-description: 'Specify a Sage-compatible categorical language for downstream research: sets,
-  modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary geometry interfaces.
-  The goal is a constrained mathematical DSL where later code constructs typed objects and
-  morphisms rather than manipulating raw matrices, vectors, and equations directly.'
-tags:
-- FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+description: 'Specify a Sage-compatible categorical language for downstream research:
+  sets, modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary
+  geometry interfaces. The goal is a constrained mathematical DSL where later code
+  constructs typed objects and morphisms rather than manipulating raw matrices, vectors,
+  and equations directly.'
 ---
 # Phase 01 category specs and semantic vocabulary
 

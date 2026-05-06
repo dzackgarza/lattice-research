@@ -8,29 +8,23 @@ dependsOn: []
 title: Wrap ore_algebra for Picard-Fuchs and monodromy computations
 status: unstarted
 priority: high
-description: The source backlog identifies category-spec design work around dual objects as
-  Hom objects, method ownership generalization, centralized type aliases, and a TwistedForms
-  category.
+description: The source backlog identifies category-spec design work around dual objects
+  as Hom objects, method ownership generalization, centralized type aliases, and a
+  TwistedForms category.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
-- Review the affected public type aliases and category methods against plans/todo.md before
-  closing.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
+- Review the affected public type aliases and category methods against plans/todo.md
+  before closing.
 - Run the relevant category_specs smoke file for any changed subtree.
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- task
-- algebras
-- research-backend
-- theme-rings-algebras
-- theme-research-sources
 ---
 # Wrap ore_algebra for Picard-Fuchs and monodromy computations
 ## Summary

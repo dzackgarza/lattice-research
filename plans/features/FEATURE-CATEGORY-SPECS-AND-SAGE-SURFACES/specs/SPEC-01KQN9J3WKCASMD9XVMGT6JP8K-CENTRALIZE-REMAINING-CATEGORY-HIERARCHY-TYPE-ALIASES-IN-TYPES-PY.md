@@ -9,26 +9,22 @@ dependsOn:
 title: Centralize remaining category hierarchy type aliases in types.py
 status: needs-review
 priority: critical
-requirement: The source backlog identifies category-spec design work around dual objects as
-  Hom objects, method ownership generalization, centralized type aliases, and a TwistedForms
-  category.
+requirement: The source backlog identifies category-spec design work around dual objects
+  as Hom objects, method ownership generalization, centralized type aliases, and a
+  TwistedForms category.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No implementation blocker was discovered during this alias pass.
-- Review the affected public type aliases and category methods against the recovered `plans/todo.md`
-  content before closing.
-- Relevant cheap verification was run for `types.py`; no subtree smoke was run because this
-  pass changed only aliases and global smoke/QC is not the controlling activity for phase-01
-  spec churn.
+- Review the affected public type aliases and category methods against the recovered
+  `plans/todo.md` content before closing.
+- Relevant cheap verification was run for `types.py`; no subtree smoke was run because
+  this pass changed only aliases and global smoke/QC is not the controlling activity
+  for phase-01 spec churn.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- types
-- theme-audit-uniformity
-updated: '2026-05-05'
 ---
 # Centralize remaining category hierarchy type aliases in types.py
 ## Summary

@@ -9,42 +9,32 @@ title: Mine lattice spec backup before lattice implementation
 status: needs-review
 priority: critical
 description: 'Resolve the QC findings in `theory/spec_backups/lattices_written_spec_backup.py`
-  by treating the file as lattice-spec source material, not as ordinary dead code. This card
-  must be addressed during lattice speccing: deeply mine the artifact and the attached user
-  corrections, centralize the resulting mathematical conventions into durable docs or skills,
-  and turn them into implementation audit criteria before any lattice implementation pass
-  proceeds.'
+  by treating the file as lattice-spec source material, not as ordinary dead code.
+  This card must be addressed during lattice speccing: deeply mine the artifact and
+  the attached user corrections, centralize the resulting mathematical conventions
+  into durable docs or skills, and turn them into implementation audit criteria before
+  any lattice implementation pass proceeds.'
 successCriteria:
 - Inspect the backup artifact provenance and current references.
 - Review `theory/spec_backups/lattices_written_spec_backup.py` and the related lattice-redesign
   correction sources before speccing or implementing lattices.
-- Mine the file for mathematical conventions, public API restrictions, validation expectations,
-  and reusable implementation logic.
-- Centralize the mined theory into durable docs or skills such as the lattice style guide,
-  category ABC guidance, subtree AGENTS files, or audit references.
-- Add explicit audit criteria that require future lattice implementations to respect the categorical
-  model rather than Sage ambient-vector-space conventions.
-- Create follow-up cards for independent implementation, test, or documentation work discovered
-  during mining. No separable new follow-up card was identified in the 2026-05-05 mining pass.
-- Do not delete the backup until a lattice implementation exists that recovers most or all
-  of the relevant logic and the durable theory has been centralized.
+- Mine the file for mathematical conventions, public API restrictions, validation
+  expectations, and reusable implementation logic.
+- Centralize the mined theory into durable docs or skills such as the lattice style
+  guide, category ABC guidance, subtree AGENTS files, or audit references.
+- Add explicit audit criteria that require future lattice implementations to respect
+  the categorical model rather than Sage ambient-vector-space conventions.
+- Create follow-up cards for independent implementation, test, or documentation work
+  discovered during mining. No separable new follow-up card was identified in the
+  2026-05-05 mining pass.
+- Do not delete the backup until a lattice implementation exists that recovers most
+  or all of the relevant logic and the durable theory has been centralized.
 - Get user confirmation before retiring or deleting the backup artifact.
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- lattice-redesign
-- docs-migration
-- audit
-- validation
-- quality-control
-- vulture
-- theory
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-05'
 ---
 # Mine lattice spec backup before lattice implementation
 

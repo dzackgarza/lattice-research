@@ -10,16 +10,12 @@ status: needs-review
 priority: critical
 description: Split boolean and optional return-shape signatures
 successCriteria:
-- Split boolean and optional return-shape signatures is resolved according to the body acceptance
-  criteria.
+- Split boolean and optional return-shape signatures is resolved according to the
+  body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- signatures
-- theme-audit-uniformity
 ---
 # Split boolean and optional return-shape signatures
 Source: pasted backlog 2026-05-02.

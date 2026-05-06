@@ -10,17 +10,12 @@ status: needs-review
 priority: critical
 description: Fix tensor-component placeholder methods and type leaks
 successCriteria:
-- Fix tensor-component placeholder methods and type leaks is resolved according to the body
-  acceptance criteria.
+- Fix tensor-component placeholder methods and type leaks is resolved according to
+  the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
-- category-specs
-- task
-- tensors
-- types
-- theme-audit-uniformity
 ---
 # Fix tensor-component placeholder methods and type leaks
 Source: pasted backlog 2026-05-02.

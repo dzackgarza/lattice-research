@@ -9,24 +9,20 @@ dependsOn:
 title: Admit ImageSets as image subobjects with ambient lift and retract surface
 status: needs-review
 priority: critical
-requirement: Sets mapping is the source of truth for set constructors, rich comparison, partitioned
-  sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut ownership.
+requirement: Sets mapping is the source of truth for set constructors, rich comparison,
+  partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut
+  ownership.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No implementation blocker was discovered during this spec pass.
-- When implementing a set item, cite the exact mapping row and prove behavior through project
-  category vocabulary.
+- When implementing a set item, cite the exact mapping row and prove behavior through
+  project category vocabulary.
 - Do not expose generic Sage Set(X) as a public project constructor.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sets
-- imagesets
-- theme-sets-topology
-updated: '2026-05-05'
 ---
 # Admit ImageSets as image subobjects with ambient lift and retract surface
 ## Summary

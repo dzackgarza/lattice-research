@@ -6,12 +6,12 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Category foundation kernel and method ownership
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: 'Establish the foundational category vocabulary before downstream implementation:
-  category refinement order, module axioms, Hom/End/Aut structure, dual-object routing, standard
-  type aliases, and method ownership.'
+  category refinement order, module axioms, Hom/End/Aut structure, dual-object routing,
+  standard type aliases, and method ownership.'
 successCriteria:
 - Dual objects are reconciled with Homset routing before downstream discriminant work.
 - Method ownership is moved to the most general mathematically valid category.
@@ -23,13 +23,9 @@ phases:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 - '[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]'
 - '[[PHASE-CATEGORY-FOUNDATION-WORK-QUEUE]]'
+- '[[PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- theme-category-core
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Category foundation kernel and method ownership
 
@@ -88,6 +84,7 @@ The foundation kernel admits these source-backed category definitions for child 
 - `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: lattice and ModulesWithForms roadmap.
 - `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Cat category-object surface uniformization.
 - `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: module wrapper migration and category graph constructor routing.
+- `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: exhaustive method inventory by minimal mathematical owner category.
 
 ## Leaf ownership
 

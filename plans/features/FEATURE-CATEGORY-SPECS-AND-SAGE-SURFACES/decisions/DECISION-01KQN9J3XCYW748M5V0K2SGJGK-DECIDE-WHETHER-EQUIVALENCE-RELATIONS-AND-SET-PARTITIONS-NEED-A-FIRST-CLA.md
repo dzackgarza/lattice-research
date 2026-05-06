@@ -5,20 +5,11 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
-title: Decide whether equivalence relations and set partitions need a first-class set subtree
-  or remain centralized Sage-backed type aliases
+title: Decide whether equivalence relations and set partitions need a first-class
+  set subtree or remain centralized Sage-backed type aliases
 status: decided
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- sage
-- sets
-- partitions
-- set-partitions
-- types
-- theme-decisions
-updated: '2026-05-05'
 ---
 # Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases
 

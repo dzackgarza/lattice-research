@@ -9,32 +9,26 @@ dependsOn:
 title: Ground symmetric-bilinear element divisibility as pairing-image submodule
 status: needs-review
 priority: critical
-requirement: 'Correct the rejected free-module reading of element divisibility. The admitted
-  surface is symmetric-bilinear: for `b: M x M -> S`, `divisibility(v)` is the `R`-submodule
-  `<b(v, M)>` of `S`.'
+requirement: 'Correct the rejected free-module reading of element divisibility. The
+  admitted surface is symmetric-bilinear: for `b: M x M -> S`, `divisibility(v)` is
+  the `R`-submodule `<b(v, M)>` of `S`.'
 acceptanceCriteria:
 - '`category_specs/modules/docs/MAPPING.md` explicitly rejects a free-module coordinate/content
-  `divisibility()` owner and records the existing module-element primitive predicate boundary.'
-- '`category_specs/forms/subcategories/symmetric.py` owns element `divisibility()` as the
-  pairing-image submodule `<b(v, M)> <= S`.'
-- '`category_specs/forms/docs/MAPPING.md` records the symmetric-bilinear owner and scalar-valued
-  ideal specialization.'
-- '`category_specs/lattices/docs/MAPPING.md` no longer maps `divisibility(v)` or element `is_primitive(v)`
-  to a free-module unit-divisibility rule.'
+  `divisibility()` owner and records the existing module-element primitive predicate
+  boundary.'
+- '`category_specs/forms/subcategories/symmetric.py` owns element `divisibility()`
+  as the pairing-image submodule `<b(v, M)> <= S`.'
+- '`category_specs/forms/docs/MAPPING.md` records the symmetric-bilinear owner and
+  scalar-valued ideal specialization.'
+- '`category_specs/lattices/docs/MAPPING.md` no longer maps `divisibility(v)` or element
+  `is_primitive(v)` to a free-module unit-divisibility rule.'
 - '`category_specs/forms/subcategories/free_bilinear.py` documents that rank is inherited
   from `Modules(R).Free()` and that divisibility is not a free-bilinear owner.'
-- Any code/spec edit is accompanied by the relevant category-spec smoke command, or the card
-  records why no runtime surface changed.
+- Any code/spec edit is accompanied by the relevant category-spec smoke command, or
+  the card records why no runtime surface changed.
 complexity: 60
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
-- category-specs
-- modules
-- forms
-- lattices
-- theme-modules-tensors
-created: '2026-05-04'
-updated: '2026-05-04'
 ---
 # Ground symmetric-bilinear element divisibility as pairing-image submodule
 

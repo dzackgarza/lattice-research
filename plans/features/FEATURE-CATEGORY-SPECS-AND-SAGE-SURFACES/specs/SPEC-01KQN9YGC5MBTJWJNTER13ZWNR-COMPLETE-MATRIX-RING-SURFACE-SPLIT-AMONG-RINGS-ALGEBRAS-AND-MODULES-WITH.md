@@ -6,34 +6,26 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
-title: Complete matrix ring surface split among rings algebras and modules without weakening
-  the matrix smoke
+title: Complete matrix ring surface split among rings algebras and modules without
+  weakening the matrix smoke
 status: needs-review
 priority: critical
-requirement: 'The deleted Rings triage recorded ring smoke blockers: nested axiom category
-  identity mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
-  split.'
+requirement: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+  category identity mismatches, missing _sympy_ methods on refined parents, and the
+  matrix-ring surface split.'
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
-- No new implementation blocker was discovered during this docs/spec pass; the existing implementation
-  proof remains the matrix smoke frontier.
-- No ring constructor or axiom code changed, so the `rings/smoketest.sage` trigger did not
-  apply in this pass.
+- No new implementation blocker was discovered during this docs/spec pass; the existing
+  implementation proof remains the matrix smoke frontier.
+- No ring constructor or axiom code changed, so the `rings/smoketest.sage` trigger
+  did not apply in this pass.
 - Constructor membership assertions were not weakened; the docs now preserve simultaneous
   ring/algebra/module refinement as the smoke expectation.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- smoke
-- modules
-- rings
-- algebras
-- matrix
-- theme-rings-algebras
-updated: '2026-05-05'
 ---
 # Complete matrix ring surface split among rings algebras and modules without weakening the matrix smoke
 ## Summary

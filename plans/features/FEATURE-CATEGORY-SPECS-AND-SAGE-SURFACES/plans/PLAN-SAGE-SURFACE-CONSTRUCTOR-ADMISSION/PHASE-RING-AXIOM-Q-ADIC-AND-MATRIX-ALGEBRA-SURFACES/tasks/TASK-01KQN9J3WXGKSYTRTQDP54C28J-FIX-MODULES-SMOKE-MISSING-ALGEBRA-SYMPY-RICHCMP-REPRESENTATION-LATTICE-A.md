@@ -5,35 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
-title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded
-  base-category failures
+title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
+  and graded base-category failures
 status: unstarted
 priority: high
 description: The deleted Modules triage recorded the post-wrapper-deletion smoke frontier
   and the surfaces still meant as mathematical categories rather than exact Sage implementation
   wrappers.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- Run just smoke-file modules/smoketest.sage and preserve the full missing-surface output
-  in tracker updates.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- Run just smoke-file modules/smoketest.sage and preserve the full missing-surface
+  output in tracker updates.
 - Do not restore constructor-only wrapper categories to make smokes pass.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
-- category-specs
-- smoke
-- sympy
-- richcmp
-- modules
-- algebras
-- lattices
-- theme-rings-algebras
 ---
 # Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice and graded base-category failures
 ## Summary

@@ -12,20 +12,16 @@ description: Research how Sage Riemann surface functionality should map into the
   vocabulary and whether it warrants wrapper, constructor, or method cards.
 successCriteria:
 - Read the Sage Riemann surface documentation and relevant source.
-- List candidate constructors, methods, and mathematical nouns relevant to category specs.
+- List candidate constructors, methods, and mathematical nouns relevant to category
+  specs.
 - Identify required decisions about ownership, naming, and allowed wrapper boundaries.
-- Create follow-up cards for any implementation or decision work that is concrete enough to
-  execute.
+- Create follow-up cards for any implementation or decision work that is concrete
+  enough to execute.
 complexity: 35
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- todo-migration
-- external-integration
-- theme-research-sources
-created: '2026-05-03'
 ---
 # Research Sage Riemann surface interface integration
 

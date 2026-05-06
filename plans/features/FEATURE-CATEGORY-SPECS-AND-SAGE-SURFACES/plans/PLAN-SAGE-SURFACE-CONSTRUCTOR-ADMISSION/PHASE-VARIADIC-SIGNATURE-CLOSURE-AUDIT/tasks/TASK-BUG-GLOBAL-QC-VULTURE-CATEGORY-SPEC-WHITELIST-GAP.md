@@ -8,12 +8,12 @@ dependsOn: []
 title: Align global vulture whitelist with category-spec public surfaces
 status: unstarted
 priority: high
-description: Prepare an explicit global QC whitelist proposal for category-spec public and
-  Sage-dynamic surfaces currently reported by vulture as dead code.
+description: Prepare an explicit global QC whitelist proposal for category-spec public
+  and Sage-dynamic surfaces currently reported by vulture as dead code.
 successCriteria:
 - Produce a categorized whitelist proposal for intentional category-spec vulture findings.
-- Keep the proposal scoped to category-spec public/dynamic surfaces; do not whitelist unrelated
-  dead code.
+- Keep the proposal scoped to category-spec public/dynamic surfaces; do not whitelist
+  unrelated dead code.
 - Request explicit user approval before editing `/home/dzack/ai/quality-control`.
 - After approval and implementation, run `just test` and record the next blocker.
 complexity: 76
@@ -21,14 +21,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- vulture
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Align global vulture whitelist with category-spec public surfaces
 

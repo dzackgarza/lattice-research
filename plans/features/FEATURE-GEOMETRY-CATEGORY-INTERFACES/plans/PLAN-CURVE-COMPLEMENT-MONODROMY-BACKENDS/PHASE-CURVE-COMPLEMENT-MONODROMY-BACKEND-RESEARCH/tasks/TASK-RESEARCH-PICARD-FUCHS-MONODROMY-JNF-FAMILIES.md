@@ -8,25 +8,21 @@ dependsOn: []
 title: Research Picard-Fuchs and monodromy JNF computations for families
 status: unstarted
 priority: low
-description: Research how to compute Jordan normal forms of monodromy operators for families
-  of curves and surfaces, including Picard-Fuchs operator routes.
+description: Research how to compute Jordan normal forms of monodromy operators for
+  families of curves and surfaces, including Picard-Fuchs operator routes.
 successCriteria:
-- Read the referenced Noether-Lefschetz/Singular material enough to understand the Picard-Fuchs
-  route.
+- Read the referenced Noether-Lefschetz/Singular material enough to understand the
+  Picard-Fuchs route.
 - Identify required backend tools and what each certifies.
-- State the exact mathematical inputs/outputs for curve-family and surface-family cases.
-- Create follow-up cards for backend decisions, category specs, and implementation tasks if
-  warranted.
+- State the exact mathematical inputs/outputs for curve-family and surface-family
+  cases.
+- Create follow-up cards for backend decisions, category specs, and implementation
+  tasks if warranted.
 complexity: 35
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- todo-migration
-- external-integration
-- theme-research-sources
-created: '2026-05-03'
 ---
 # Research Picard-Fuchs and monodromy JNF computations for families
 

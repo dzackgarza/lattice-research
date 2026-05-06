@@ -5,32 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 dependsOn: []
-title: Implement topological ring and field refinements for topology-bearing ring objects
-  without duplicating topological-space methods
+title: Implement topological ring and field refinements for topology-bearing ring
+  objects without duplicating topological-space methods
 status: unstarted
 priority: high
-description: Rings mapping records constructor namespace decisions, split p-adic and q-adic
-  precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
-  lattice-precision gaps.
+description: Rings mapping records constructor namespace decisions, split p-adic and
+  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
+  deferred q-adic lattice-precision gaps.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- For q-adic precision items, preserve the five-field negative finding format when updating
-  evidence.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- For q-adic precision items, preserve the five-field negative finding format when
+  updating evidence.
 - For topological ring work, check both ring and topological-space category membership.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY
-- category-specs
-- rings
-- topology
-- theme-constructor-routing
-updated: '2026-05-05'
 ---
 # Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods
 ## Summary

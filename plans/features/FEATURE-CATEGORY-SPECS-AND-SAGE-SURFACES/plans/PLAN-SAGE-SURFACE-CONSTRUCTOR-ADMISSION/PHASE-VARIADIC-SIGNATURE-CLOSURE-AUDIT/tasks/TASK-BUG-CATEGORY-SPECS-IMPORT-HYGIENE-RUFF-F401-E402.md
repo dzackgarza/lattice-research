@@ -8,15 +8,15 @@ dependsOn: []
 title: Resolve category_specs import-hygiene Ruff F401 and E402 blockers
 status: needs-review
 priority: high
-description: Resolve the remaining Ruff `F401` and `E402` validation blockers in package initialization
-  and type-aggregation surfaces without weakening global QC or changing public category-spec
-  meaning.
+description: Resolve the remaining Ruff `F401` and `E402` validation blockers in package
+  initialization and type-aggregation surfaces without weakening global QC or changing
+  public category-spec meaning.
 successCriteria:
 - Reproduce the current `F401` and `E402` findings for `category_specs`.
-- Preserve intentional public re-export behavior with explicit exports or equivalent repo-approved
-  structure.
-- Remove accidental unused imports and move imports to compliant positions where doing so
-  does not change semantics.
+- Preserve intentional public re-export behavior with explicit exports or equivalent
+  repo-approved structure.
+- Remove accidental unused imports and move imports to compliant positions where doing
+  so does not change semantics.
 - Do not add local Ruff bypasses, ignores, whitelists, or quality-control exceptions.
 - Record any public-surface ambiguity as a linked decision card instead of guessing.
 complexity: 72
@@ -24,14 +24,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- ruff
-- theme-audit-uniformity
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Resolve category_specs import-hygiene Ruff F401 and E402 blockers
 

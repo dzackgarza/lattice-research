@@ -8,29 +8,25 @@ dependsOn: []
 title: Implement End Aut and quotient notation through homset machinery
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- '`M.End()` is implemented as the same parent as `M.Hom(M)` and carries the documented endomorphism
-  identity and composition structure.'
-- '`M.Aut()` is implemented as the invertible part of `M.End()`, with `inverse()` and `is_isomorphism()`
-  coming from the aut/end hierarchy rather than ad hoc matrix predicates.'
-- For formed modules and lattices, orthogonal-group semantics are expressed through `Aut(M,
-  b)` membership, so form preservation remains the containment law for aut elements.
-- '`M / N` routes through the inclusion morphism and returns the cokernel object in the formed-module
-  hierarchy.'
+- '`M.End()` is implemented as the same parent as `M.Hom(M)` and carries the documented
+  endomorphism identity and composition structure.'
+- '`M.Aut()` is implemented as the invertible part of `M.End()`, with `inverse()`
+  and `is_isomorphism()` coming from the aut/end hierarchy rather than ad hoc matrix
+  predicates.'
+- For formed modules and lattices, orthogonal-group semantics are expressed through
+  `Aut(M, b)` membership, so form preservation remains the containment law for aut
+  elements.
+- '`M / N` routes through the inclusion morphism and returns the cokernel object in
+  the formed-module hierarchy.'
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement End Aut and quotient notation through homset machinery
 

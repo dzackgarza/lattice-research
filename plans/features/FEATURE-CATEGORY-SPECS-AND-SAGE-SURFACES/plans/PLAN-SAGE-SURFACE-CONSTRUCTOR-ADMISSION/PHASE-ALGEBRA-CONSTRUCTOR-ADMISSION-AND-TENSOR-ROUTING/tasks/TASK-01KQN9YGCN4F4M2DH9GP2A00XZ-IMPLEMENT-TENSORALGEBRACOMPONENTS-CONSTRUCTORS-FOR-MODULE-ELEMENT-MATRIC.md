@@ -5,31 +5,25 @@ trackerStatus:
 parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
-title: Implement TensorAlgebraComponents constructors for module-element matrices structure
-  constants and multiplication-tensor handoff to Algebras(R)
+title: Implement TensorAlgebraComponents constructors for module-element matrices
+  structure constants and multiplication-tensor handoff to Algebras(R)
 status: unstarted
 priority: high
 description: Tensor mapping fixes tensor component ownership, coordinate interop constructors,
   dual- object interpretation, and the algebra multiplication-tensor handoff.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Confirm tensor_type() == (1,2) and base-module compatibility before algebra handoff.
 - Do not expose catch-all component data as public constructor surface.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING
-- category-specs
-- constructors
-- modules
-- algebras
-- tensors
-- theme-constructor-routing
 ---
 # Implement TensorAlgebraComponents constructors for module-element matrices structure constants and multiplication-tensor handoff to Algebras(R)
 ## Summary

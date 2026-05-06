@@ -9,9 +9,9 @@ title: Category-spec program organization and work graph
 status: approved-and-unstarted
 priority: critical
 owner: Zack
-description: 'Make the `plans/` corpus navigable as one Nimbalyst-backed work graph: source
-  specifications feed high-level plans, high-level plans split into subplans, and subplans
-  own leaf task, research, bug, feature, and decision cards.'
+description: 'Make the `plans/` corpus navigable as one Nimbalyst-backed work graph:
+  source specifications feed high-level plans, high-level plans split into subplans,
+  and subplans own leaf task, research, bug, feature, and decision cards.'
 successCriteria:
 - No new work is added to loose root `plans` TODO files.
 - New work is filed as `.agents` cards under the owning plan.
@@ -21,11 +21,6 @@ successCriteria:
 - Completed cards are retired rather than retained as a permanent backlog.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- theme-plan-control
-- theme-category-core
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Category-spec program organization and work graph
 

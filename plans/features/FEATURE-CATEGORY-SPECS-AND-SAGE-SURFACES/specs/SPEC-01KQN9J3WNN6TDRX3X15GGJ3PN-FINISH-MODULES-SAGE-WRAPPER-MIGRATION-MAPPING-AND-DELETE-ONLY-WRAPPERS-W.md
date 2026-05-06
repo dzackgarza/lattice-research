@@ -6,30 +6,24 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]'
-title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods
-  have real mathematical owners
+title: Finish modules Sage-wrapper migration mapping and delete only wrappers whose
+  methods have real mathematical owners
 status: needs-review
 priority: critical
-requirement: 'The deleted module wrapper migration plan is a phased migration contract: map
-  methods first, define the category graph, rewrite constructors, move methods to real owners,
-  then delete wrappers.'
+requirement: 'The deleted module wrapper migration plan is a phased migration contract:
+  map methods first, define the category graph, rewrite constructors, move methods
+  to real owners, then delete wrappers.'
 acceptanceCriteria:
-- The mathematical owner, public surface, classification, and migration consequence are recorded
-  in `category_specs/modules/docs/MAPPING.md`.
+- The mathematical owner, public surface, classification, and migration consequence
+  are recorded in `category_specs/modules/docs/MAPPING.md`.
 - No new subtree-local TRIAGE or process document is created.
 - No implementation blocker was discovered in this source-map pass.
 - The deleted plan's phase-specific validation commands are preserved as implementation-phase
   guidance; this leaf performs mapping only.
-- '`modules/docs/MAPPING.md` has no known unresolved wrapper-candidate bucket after this pass;
-  closure still requires human review.'
+- '`modules/docs/MAPPING.md` has no known unresolved wrapper-candidate bucket after
+  this pass; closure still requires human review.'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sage
-- modules
-- wrappers
-- mapping
-- theme-modules-tensors
 ---
 # Finish modules Sage-wrapper migration mapping and delete only wrappers whose methods have real mathematical owners
 ## Summary

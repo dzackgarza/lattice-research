@@ -6,30 +6,23 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
-title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter display
-  and raw-interop surfaces to final owners
+title: Map poset deferred graph polytope order-complex algebra polynomial Coxeter
+  display and raw-interop surfaces to final owners
 status: needs-review
 priority: critical
-requirement: Posets mapping owns constructor names, finite surface methods, certificate method
-  split, deferred non-core surface ownership, and slice/coslice structure methods.
+requirement: Posets mapping owns constructor names, finite surface methods, certificate
+  method split, deferred non-core surface ownership, and slice/coslice structure methods.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - No new implementation blocker was discovered during this docs/spec pass.
-- When closing deferred surface mapping, place each method by target mathematical object or
-  display/interop status.
+- When closing deferred surface mapping, place each method by target mathematical
+  object or display/interop status.
 - Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sets
-- algebras
-- posets
-- mapping
-- theme-posets-partitions
-updated: '2026-05-05'
 ---
 # Map poset deferred graph polytope order-complex algebra polynomial Coxeter display and raw-interop surfaces to final owners
 ## Summary

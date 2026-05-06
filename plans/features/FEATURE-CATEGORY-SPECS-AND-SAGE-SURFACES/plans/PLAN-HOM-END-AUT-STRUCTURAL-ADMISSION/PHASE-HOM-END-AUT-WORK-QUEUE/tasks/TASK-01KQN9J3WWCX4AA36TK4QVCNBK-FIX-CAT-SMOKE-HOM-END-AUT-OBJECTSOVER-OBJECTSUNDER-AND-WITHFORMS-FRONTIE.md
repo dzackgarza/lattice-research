@@ -8,27 +8,23 @@ dependsOn: []
 title: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
 status: needs-review
 priority: critical
-description: The deleted Cat triage recorded structural Cat smoke scope and future uniformization
-  work for category-object Hom behavior and functor/autofunctor modeling.
+description: The deleted Cat triage recorded structural Cat smoke scope and future
+  uniformization work for category-object Hom behavior and functor/autofunctor modeling.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change.
-- Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
+- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
+  change.
+- Check that direct subtree Hom methods do not hide the Cat-owned category-object
+  operation.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION
 - PHASE-HOM-END-AUT-WORK-QUEUE
-- category-specs
-- smoke
-- hom-end-aut
-- cat
-- forms
-- theme-category-core
 ---
 # Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
 ## Summary

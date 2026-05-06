@@ -9,28 +9,22 @@ title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().F
   while keeping ring-only routing in rings
 status: unstarted
 priority: high
-description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom category
-  identity mismatches, missing _sympy_ methods on refined parents, and the matrix-ring surface
-  split.'
+description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
+  category identity mismatches, missing _sympy_ methods on refined parents, and the
+  matrix-ring surface split.'
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES
-- category-specs
-- modules
-- rings
-- algebras
-- matrix
-- theme-constructor-routing
 ---
 # Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings
 ## Summary

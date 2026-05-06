@@ -12,20 +12,15 @@ description: Remove Sage option bags from number-field and rational-field constr
 successCriteria:
 - Number-field constructor mapping records explicit public parameters.
 - Number-field tower construction remains a separate named route.
-- Rational-field construction is recorded as fixed-object `QQ()`, not an option-bag constructor.
-- Current ring code has no `*args`, `**kwargs`, `kwds`, or generic options surface on the
-  number-field/rational-field constructors.
+- Rational-field construction is recorded as fixed-object `QQ()`, not an option-bag
+  constructor.
+- Current ring code has no `*args`, `**kwargs`, `kwds`, or generic options surface
+  on the number-field/rational-field constructors.
 - Human review accepts the audit and closes the card.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- constructors
-- sage
-- signatures
-- theme-audit-uniformity
 ---
 # Remove Sage option bags from number-field and rational-field constructors
 Source: pasted backlog 2026-05-02.

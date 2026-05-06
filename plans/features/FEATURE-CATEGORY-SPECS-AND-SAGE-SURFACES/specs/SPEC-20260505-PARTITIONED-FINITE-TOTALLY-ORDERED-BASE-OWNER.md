@@ -9,28 +9,23 @@ dependsOn:
 title: Admit finite totally ordered base-set owner for partitioned-set subclass predicates
 status: needs-review
 priority: critical
-requirement: Admit the category owner needed before noncrossing, nonnesting, or atomic partition
-  subclasses can become axiomatic subcategories. The prerequisite is a source-grounded partitioned-set
-  owner that records a fixed finite totally ordered base set, rather than only a fixed base
-  set.
+requirement: Admit the category owner needed before noncrossing, nonnesting, or atomic
+  partition subclasses can become axiomatic subcategories. The prerequisite is a source-grounded
+  partitioned-set owner that records a fixed finite totally ordered base set, rather
+  than only a fixed base set.
 acceptanceCriteria:
-- The mapping docs state the exact category owner for partitions of a fixed finite totally
-  ordered base set.
+- The mapping docs state the exact category owner for partitions of a fixed finite
+  totally ordered base set.
 - The spec surface records the owner without weakening the existing `Sets().Partitioned()`
   fixed-base-set meaning.
-- The decision states whether this owner is an axiom on `Sets().Partitioned()`, a meet with
-  existing finite/totally ordered set owners, or a predicate-defined subobject route.
-- Any later `Noncrossing`, `Nonnesting`, or `Atomic` admission path is stated as a follow-up
-  implementation/spec task with exact prerequisites, not hidden in prose.
+- The decision states whether this owner is an axiom on `Sets().Partitioned()`, a
+  meet with existing finite/totally ordered set owners, or a predicate-defined subobject
+  route.
+- Any later `Noncrossing`, `Nonnesting`, or `Atomic` admission path is stated as a
+  follow-up implementation/spec task with exact prerequisites, not hidden in prose.
 complexity: 65
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sets
-- partitions
-- theme-constructor-routing
-created: '2026-05-05'
-updated: '2026-05-05'
 ---
 # Admit finite totally ordered base-set owner for partitioned-set subclass predicates
 

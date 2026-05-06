@@ -6,31 +6,26 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
-title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap
-  frontiers with exact gap assertions
+title: Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred
+  Sage-gap frontiers with exact gap assertions
 status: needs-review
 priority: critical
-requirement: Rings mapping records constructor namespace decisions, split p-adic and q-adic
-  precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
-  lattice-precision gaps.
+requirement: Rings mapping records constructor namespace decisions, split p-adic and
+  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
+  deferred q-adic lattice-precision gaps.
 acceptanceCriteria:
-- The mathematical owner, public surface, and migration consequence are recorded in the relevant
-  MAPPING.md or category spec file.
+- The mathematical owner, public surface, and migration consequence are recorded in
+  the relevant MAPPING.md or category spec file.
 - No new subtree-local TRIAGE or process document is created; follow-up work is represented
   as tracker items.
 - The implementation blocker is the preserved Sage-gap frontier recorded in `rings/docs/MAPPING.md`;
-  no new implementation card was created because this leaf exists to keep the admitted names
-  deferred until a real Sage route exists.
-- For q-adic precision items, preserve the five-field negative finding format when updating
-  evidence.
+  no new implementation card was created because this leaf exists to keep the admitted
+  names deferred until a real Sage route exists.
+- For q-adic precision items, preserve the five-field negative finding format when
+  updating evidence.
 - This is not topological-ring work; the owner remains the ring constructor namespace.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- sage
-- precision
-- theme-local-cleanup
-updated: '2026-05-05'
 ---
 # Preserve admitted ZqWithPrecisionCaps and QqWithPrecisionCaps names as deferred Sage-gap frontiers with exact gap assertions
 ## Summary

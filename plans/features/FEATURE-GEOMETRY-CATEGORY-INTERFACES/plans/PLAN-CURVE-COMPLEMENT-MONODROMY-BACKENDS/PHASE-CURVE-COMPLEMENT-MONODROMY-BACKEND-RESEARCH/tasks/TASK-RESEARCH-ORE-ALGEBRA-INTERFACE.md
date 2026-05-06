@@ -11,8 +11,8 @@ priority: low
 description: Research whether `ore_algebra` should be integrated and how its differential/operator
   surfaces relate to planned category-spec work.
 successCriteria:
-- Read upstream `ore_algebra` documentation/source enough to identify supported operator objects
-  and Sage integration points.
+- Read upstream `ore_algebra` documentation/source enough to identify supported operator
+  objects and Sage integration points.
 - Determine which project mathematical nouns would own any exposed operations.
 - Identify whether integration is needed for Picard-Fuchs or monodromy work.
 - Create concrete follow-up cards for decisions, specs, or implementation if warranted.
@@ -21,11 +21,6 @@ tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- todo-migration
-- external-integration
-- theme-research-sources
-created: '2026-05-03'
 ---
 # Research Ore algebra interface integration
 

@@ -10,12 +10,12 @@ status: approved-and-unstarted
 priority: critical
 owner: Zack
 description: 'Organize the lattice redesign around the actual dependency chain: Sage/module
-  prerequisites, category core, morphisms and cokernels, lattice/dual/discriminant descent,
-  then orthogonal and Coxeter structures.'
+  prerequisites, category core, morphisms and cokernels, lattice/dual/discriminant
+  descent, then orthogonal and Coxeter structures.'
 successCriteria:
 - Phase 0 prerequisites are complete before Phase 2 implementation starts.
-- Category vocabulary and method ownership from `PLAN-CATEGORY-FOUNDATION-KERNEL` are settled before dependent
-  implementation.
+- Category vocabulary and method ownership from `PLAN-CATEGORY-FOUNDATION-KERNEL`
+  are settled before dependent implementation.
 - Phase 3 cokernels exist before Phase 4 discriminant descent.
 - Phase 4 lattice/discriminant objects exist before Phase 5 group theory.
 - Every executable item links to exactly one phase or foundation plan.
@@ -27,14 +27,6 @@ phases:
 - '[[PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
-- category-specs
-- lattices
-- modules
-- forms
-- theme-modules-tensors
-- theme-category-core
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Lattice and ModulesWithForms roadmap
 

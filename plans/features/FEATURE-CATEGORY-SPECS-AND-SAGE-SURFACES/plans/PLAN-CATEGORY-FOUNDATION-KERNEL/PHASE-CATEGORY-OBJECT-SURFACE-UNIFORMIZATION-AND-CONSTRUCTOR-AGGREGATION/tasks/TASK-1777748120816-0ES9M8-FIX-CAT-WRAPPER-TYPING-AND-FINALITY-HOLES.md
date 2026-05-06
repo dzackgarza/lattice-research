@@ -11,21 +11,15 @@ priority: critical
 description: Fix Cat wrapper typing and finality holes
 successCriteria:
 - Concrete Cat wrapper typing/finality holes found in current code are fixed.
-- Public Cat option-bag exposure is documented as absent outside private forwarding and initialization
-  glue.
-- Duplicate active Cat hardening work is consolidated instead of expanding the tracker with
-  another parallel implementation path.
+- Public Cat option-bag exposure is documented as absent outside private forwarding
+  and initialization glue.
+- Duplicate active Cat hardening work is consolidated instead of expanding the tracker
+  with another parallel implementation path.
 - Human review accepts the consolidation and closes or retires the duplicate card.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
 - PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION
-- category-specs
-- task
-- cat
-- types
-- wrappers
-- theme-audit-uniformity
 ---
 # Fix Cat wrapper typing and finality holes
 Source: pasted backlog 2026-05-02.

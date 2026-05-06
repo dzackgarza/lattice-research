@@ -8,25 +8,20 @@ dependsOn: []
 title: Research Sirocco integration for curve-complement fundamental groups
 status: unstarted
 priority: low
-description: Research whether and how `sirocco2` should be integrated for computing or representing
-  fundamental groups of curve complements.
+description: Research whether and how `sirocco2` should be integrated for computing
+  or representing fundamental groups of curve complements.
 successCriteria:
 - Read the upstream Sirocco repository and any available documentation.
-- 'Identify the exact mathematical object(s) exposed: curve complements, fundamental groups,
-  monodromy, or related structures.'
-- Decide whether integration requires a spec card, implementation card, decision card, or
-  rejection note.
+- 'Identify the exact mathematical object(s) exposed: curve complements, fundamental
+  groups, monodromy, or related structures.'
+- Decide whether integration requires a spec card, implementation card, decision card,
+  or rejection note.
 - Record any required follow-up as tracked cards rather than inline TODOs.
 complexity: 35
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS
 - PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH
-- category-specs
-- todo-migration
-- external-integration
-- theme-research-sources
-created: '2026-05-03'
 ---
 # Research Sirocco integration for curve-complement fundamental groups
 

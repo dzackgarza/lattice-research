@@ -5,31 +5,23 @@ trackerStatus:
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
-title: Sprint poset constructor smoke and deferred surface ownership pass for graph polytope
-  algebra polynomial and Coxeter surfaces
-status: unstarted
+title: Sprint poset constructor smoke and deferred surface ownership pass for graph
+  polytope algebra polynomial and Coxeter surfaces
+status: in-progress
 priority: high
-description: Posets mapping owns constructor names, finite surface methods, certificate method
-  split, deferred non-core surface ownership, and slice/coslice structure methods.
+description: Posets mapping owns constructor names, finite surface methods, certificate
+  method split, deferred non-core surface ownership, and slice/coslice structure methods.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
-- When closing deferred surface mapping, place each method by target mathematical object or
-  display/interop status.
+- When closing deferred surface mapping, place each method by target mathematical
+  object or display/interop status.
 - Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
-- category-specs
-- sprint
-- smoke
-- constructors
-- sets
-- algebras
-- posets
-- theme-plan-control
 ---
 # Sprint poset constructor smoke and deferred surface ownership pass for graph polytope algebra polynomial and Coxeter surfaces
 

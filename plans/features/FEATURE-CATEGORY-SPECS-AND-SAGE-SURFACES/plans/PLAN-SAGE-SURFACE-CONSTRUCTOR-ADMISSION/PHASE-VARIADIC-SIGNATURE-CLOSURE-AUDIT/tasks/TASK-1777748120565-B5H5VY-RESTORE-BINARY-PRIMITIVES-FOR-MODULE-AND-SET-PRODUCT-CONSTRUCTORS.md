@@ -16,12 +16,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- task
-- constructors
-- modules
-- sets
-- theme-constructor-routing
 ---
 # Restore binary primitives for module and set product constructors
 Source: pasted backlog 2026-05-02.

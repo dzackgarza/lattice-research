@@ -8,8 +8,8 @@ dependsOn: []
 title: Modernize category_specs utils generics for Ruff UP047
 status: needs-review
 priority: medium
-description: Resolve the two Ruff `UP047` findings in `category_specs/utils.py` by using the
-  project-supported generic function syntax without changing helper behavior.
+description: Resolve the two Ruff `UP047` findings in `category_specs/utils.py` by
+  using the project-supported generic function syntax without changing helper behavior.
 successCriteria:
 - Reproduce the `UP047` findings in `category_specs/utils.py`.
 - Modernize the two generic helper signatures in place.
@@ -20,15 +20,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
-- category-specs
-- audit
-- validation
-- quality-control
-- ruff
-- theme-audit-uniformity
-- theme-local-cleanup
-created: '2026-05-03'
-updated: '2026-05-05'
 ---
 # Modernize category_specs utils generics for Ruff UP047
 

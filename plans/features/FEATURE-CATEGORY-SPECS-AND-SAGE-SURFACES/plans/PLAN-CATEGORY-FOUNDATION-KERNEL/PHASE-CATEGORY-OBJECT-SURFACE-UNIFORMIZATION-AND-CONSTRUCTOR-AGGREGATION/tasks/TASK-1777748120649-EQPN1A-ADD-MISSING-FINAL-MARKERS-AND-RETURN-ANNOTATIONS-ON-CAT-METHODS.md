@@ -8,27 +8,24 @@ dependsOn: []
 title: Add missing final markers and return annotations on Cat methods
 status: needs-review
 priority: critical
-description: Add missing `@final` markers and explicit return annotations on concrete `Cat`
-  method surfaces, and remove public Sage option-bag exposure from the affected Cat API surface.
+description: Add missing `@final` markers and explicit return annotations on concrete
+  `Cat` method surfaces, and remove public Sage option-bag exposure from the affected
+  Cat API surface.
 successCriteria:
-- Concrete Cat methods touched by the task have appropriate `@final` markers when subclass
-  override is not part of the public contract.
-- Touched methods have explicit return annotations using project/Sage mathematical types rather
-  than `Any` where a real type is available.
+- Concrete Cat methods touched by the task have appropriate `@final` markers when
+  subclass override is not part of the public contract.
+- Touched methods have explicit return annotations using project/Sage mathematical
+  types rather than `Any` where a real type is available.
 - Public Cat method signatures do not expose Sage option bags as project API.
-- No new helper registry, post-hoc splicing, class mutation, or compatibility shim is introduced.
-- Any unclear method owner is surfaced as a tracker decision or follow-up card instead of
-  being guessed inside implementation.
+- No new helper registry, post-hoc splicing, class mutation, or compatibility shim
+  is introduced.
+- Any unclear method owner is surfaced as a tracker decision or follow-up card instead
+  of being guessed inside implementation.
 complexity: 50
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
 - PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION
-- category-specs
-- task
-- cat
-- theme-audit-uniformity
-updated: '2026-05-03'
 ---
 # Add missing final markers and return annotations on Cat methods
 

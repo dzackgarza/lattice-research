@@ -8,30 +8,25 @@ dependsOn: []
 title: Implement concrete Hom-space wrappers
 status: unstarted
 priority: critical
-description: Leaf implementation card derived from the old phase plan. This card is executable
-  only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS` is approved.
+description: Leaf implementation card derived from the old phase plan. This card is
+  executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`
+  is approved.
 successCriteria:
-- '`M.Hom(N)` is admitted as `ModulesWithForms(R).Bilinear().HomCategory().Of(M, N)` and retains
-  the `R`-module parent structure documented for module homsets.'
-- Dicts, ordered image tuples, and matrices are accepted only as constructor data; equivalent
-  inputs produce the same `BilinearModuleMorphism`, while the raw constructor data itself
-  is not an element of `M.Hom(N)`.
-- '`__contains__` accepts exactly wrapper morphisms with matching domain/codomain whose underlying
-  map is linear and form-preserving in the sense `b_N(f(v), f(w)) = b_M(v, w)` on domain generators.'
-- '`identity()` exists only on end objects, `zero()` exists on every hom object, and both
-  return morphisms parented by the same homspace.'
+- '`M.Hom(N)` is admitted as `ModulesWithForms(R).Bilinear().HomCategory().Of(M, N)`
+  and retains the `R`-module parent structure documented for module homsets.'
+- Dicts, ordered image tuples, and matrices are accepted only as constructor data;
+  equivalent inputs produce the same `BilinearModuleMorphism`, while the raw constructor
+  data itself is not an element of `M.Hom(N)`.
+- '`__contains__` accepts exactly wrapper morphisms with matching domain/codomain
+  whose underlying map is linear and form-preserving in the sense `b_N(f(v), f(w))
+  = b_M(v, w)` on domain generators.'
+- '`identity()` exists only on end objects, `zero()` exists on every hom object, and
+  both return morphisms parented by the same homspace.'
 complexity: 65
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
 - PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS
-- category-specs
-- lattices
-- phase-plan
-- morphisms
-- homsets
-- theme-modules-tensors
-created: '2026-05-03'
 ---
 # Implement concrete Hom-space wrappers
 

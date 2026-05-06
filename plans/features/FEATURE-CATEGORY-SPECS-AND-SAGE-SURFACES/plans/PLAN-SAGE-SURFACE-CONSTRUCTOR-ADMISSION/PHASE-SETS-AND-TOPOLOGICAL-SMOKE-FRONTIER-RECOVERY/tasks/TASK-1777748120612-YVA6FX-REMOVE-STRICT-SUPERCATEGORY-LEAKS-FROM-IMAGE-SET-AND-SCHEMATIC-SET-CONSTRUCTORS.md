@@ -10,17 +10,12 @@ status: needs-review
 priority: critical
 description: Remove strict-supercategory leaks from image-set and schematic-set constructors
 successCriteria:
-- Remove strict-supercategory leaks from image-set and schematic-set constructors is resolved
-  according to the body acceptance criteria.
+- Remove strict-supercategory leaks from image-set and schematic-set constructors
+  is resolved according to the body acceptance criteria.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY
-- category-specs
-- task
-- constructors
-- sets
-- theme-audit-uniformity
 ---
 # Remove strict-supercategory leaks from image-set and schematic-set constructors
 Source: pasted backlog 2026-05-02.

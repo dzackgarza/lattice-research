@@ -10,22 +10,19 @@ status: unstarted
 priority: high
 description: Research and prepare the category-spec integration path for smooth manifolds.
 successCriteria:
-- Identify the mathematical definition and the intended project vocabulary for this category.
+- Identify the mathematical definition and the intended project vocabulary for this
+  category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
-  surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors,
+  Hom/End/Aut surfaces, and smoke expectations.
 - List downstream categories or tasks blocked by this integration.
-- Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
-  to proceed.
+- Create any concrete follow-up decision, spec, implementation, or source-curation
+  cards needed to proceed.
 complexity: 65
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
 - PLAN-GEOMETRIC-SOURCE-ADMISSION
 - PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH
-- category-specs
-- category-integration
-- theme-geometric-categories
-created: '2026-05-03'
 ---
 # Research category integration for smooth manifolds
 

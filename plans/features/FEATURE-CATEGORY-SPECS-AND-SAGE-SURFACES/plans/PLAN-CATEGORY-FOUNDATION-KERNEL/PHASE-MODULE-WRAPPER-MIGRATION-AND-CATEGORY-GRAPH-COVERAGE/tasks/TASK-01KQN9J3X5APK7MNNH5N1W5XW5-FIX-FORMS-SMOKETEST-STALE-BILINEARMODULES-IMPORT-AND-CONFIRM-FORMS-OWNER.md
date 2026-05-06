@@ -9,27 +9,23 @@ title: Fix forms smoketest stale _BilinearModules import and confirm forms owner
   through compatibility paths
 status: needs-review
 priority: high
-description: 'The deleted Forms triage recorded ownership separation: formed-module category
-  classes live in forms, while module and lattice paths preserve compatibility re-exports.'
+description: 'The deleted Forms triage recorded ownership separation: formed-module
+  category classes live in forms, while module and lattice paths preserve compatibility
+  re-exports.'
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken smokes
-  or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with exact
-  failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
-  categories.
+- The implementation changes only the scoped category-spec surface and does not weaken
+  smokes or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with
+  exact failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names
+  or wrapper-only categories.
 - Run just smoke-file forms/smoketest.sage after forms ownership changes.
-- Keep forms-owned category classes in forms rather than module or lattice wrapper paths.
+- Keep forms-owned category classes in forms rather than module or lattice wrapper
+  paths.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
 - PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE
-- category-specs
-- smoke
-- modules
-- forms
-- imports
-- theme-modules-tensors
 ---
 # Fix forms smoketest stale _BilinearModules import and confirm forms owner identity through compatibility paths
 ## Summary

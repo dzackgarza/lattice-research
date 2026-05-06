@@ -8,19 +8,15 @@ dependsOn: []
 title: Phase 2 ModulesWithForms core category and carrier integration
 status: unstarted
 priority: critical
-description: 'Migrated source: this plan contains the full content formerly stored at `plans/PHASE_2_CORE_OBJECTS.md`.
-  The old `plans/` copy was removed so this tracked plan is the active planning document.'
+description: 'Migrated source: this plan contains the full content formerly stored
+  at `plans/PHASE_2_CORE_OBJECTS.md`. The old `plans/` copy was removed so this tracked
+  plan is the active planning document.'
 successCriteria:
 - Phase 2 ModulesWithForms core category and carrier integration child cards are complete,
   blocked with concrete blockers, or split into successor cards.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
-- category-specs
-- lattices
-- theme-modules-tensors
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 Migrated source: this plan contains the full content formerly stored at `plans/PHASE_2_CORE_OBJECTS.md`. The old `plans/` copy was removed so this tracked plan is the active planning document.
 

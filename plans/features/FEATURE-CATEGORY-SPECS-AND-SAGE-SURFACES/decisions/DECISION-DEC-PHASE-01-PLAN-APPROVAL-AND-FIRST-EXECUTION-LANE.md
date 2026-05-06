@@ -11,14 +11,6 @@ chosen: Approve existing plans; downstream phase plans remain blocked by staged 
   until prerequisites are satisfied.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
-- category-specs
-- decision
-- plan-control
-- needs-approval
-- theme-decisions
-- theme-plan-control
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 # Decide whether to approve the phase-01 plan tree and first execution lane
 

@@ -19,12 +19,6 @@ tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION
 - PHASE-HOM-END-AUT-WORK-QUEUE
-- category-specs
-- task
-- hom-end-aut
-- sets
-- conditionset
-- theme-audit-uniformity
 ---
 # Remove raw ConditionSet from public Aut-category surface
 Source: pasted backlog 2026-05-02.

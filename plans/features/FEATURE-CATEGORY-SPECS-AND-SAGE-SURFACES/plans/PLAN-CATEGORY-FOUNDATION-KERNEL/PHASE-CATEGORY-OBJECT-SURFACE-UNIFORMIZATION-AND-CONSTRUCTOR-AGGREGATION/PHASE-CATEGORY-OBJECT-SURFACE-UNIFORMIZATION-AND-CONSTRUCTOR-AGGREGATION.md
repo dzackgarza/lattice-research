@@ -5,28 +5,24 @@ trackerStatus:
 parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 dependsOn: []
-title: Sprint Cat category-object surface uniformization and constructor aggregation cleanup
+title: Sprint Cat category-object surface uniformization and constructor aggregation
+  cleanup
 status: in-progress
 priority: critical
-description: The deleted Cat triage recorded structural Cat smoke scope and future uniformization
-  work for category-object Hom behavior and functor/autofunctor modeling.
+description: The deleted Cat triage recorded structural Cat smoke scope and future
+  uniformization work for category-object Hom behavior and functor/autofunctor modeling.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split with
-  remaining work linked.
+- Completion requires each child item to be done, superseded with rationale, or split
+  with remaining work linked.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change.
-- Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
+- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
+  change.
+- Check that direct subtree Hom methods do not hide the Cat-owned category-object
+  operation.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-FOUNDATION-KERNEL
-- category-specs
-- sprint
-- constructors
-- cat
-- forms
-- theme-plan-control
-updated: '2026-05-03'
 ---
 # Sprint Cat category-object surface uniformization and constructor aggregation cleanup
 

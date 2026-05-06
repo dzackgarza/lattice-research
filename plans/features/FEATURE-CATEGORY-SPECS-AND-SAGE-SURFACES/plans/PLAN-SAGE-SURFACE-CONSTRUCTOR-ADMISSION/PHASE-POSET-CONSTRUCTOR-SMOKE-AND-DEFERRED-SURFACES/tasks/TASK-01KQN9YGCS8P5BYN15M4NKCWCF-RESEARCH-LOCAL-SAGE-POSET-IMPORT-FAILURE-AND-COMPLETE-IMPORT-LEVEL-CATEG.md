@@ -5,35 +5,27 @@ trackerStatus:
 parents:
 - '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 dependsOn: []
-title: Research local Sage poset import failure and complete import-level category introspection
-  for semilattice evidence
+title: Research local Sage poset import failure and complete import-level category
+  introspection for semilattice evidence
 status: needs-review
 priority: high
-description: The deleted Posets triage recorded settled order-theoretic mapping items, a concrete
-  design decision about equivalence relations/set partitions, and evidence gaps around semilattice
-  category introspection.
+description: The deleted Posets triage recorded settled order-theoretic mapping items,
+  a concrete design decision about equivalence relations/set partitions, and evidence
+  gaps around semilattice category introspection.
 successCriteria:
-- The research result cites the exact sources searched and separates source evidence from
-  inference.
-- 'Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence,
-  Gaps.'
-- Any admitted design consequence is linked to a spec-work or design-decision item rather
-  than buried in prose.
+- The research result cites the exact sources searched and separates source evidence
+  from inference.
+- 'Negative findings use the repository five-field format: Searched, Found, Conclusion,
+  Confidence, Gaps.'
+- Any admitted design consequence is linked to a spec-work or design-decision item
+  rather than buried in prose.
 - Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
-- Use the five-field negative-finding format for further Sage semilattice evidence gaps.
+- Use the five-field negative-finding format for further Sage semilattice evidence
+  gaps.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES
-- category-specs
-- task
-- sage
-- sets
-- posets
-- lattices
-- imports
-- theme-posets-partitions
-updated: '2026-05-05'
 ---
 # Research local Sage poset import failure and complete import-level category introspection for semilattice evidence
 ## Summary

@@ -8,19 +8,15 @@ dependsOn: []
 title: Phase 3 morphisms homsets kernels images and cokernels
 status: unstarted
 priority: critical
-description: 'Migrated source: this plan contains the full content formerly stored at `plans/PHASE_3_MORPHISMS.md`.
-  The old `plans/` copy was removed so this tracked plan is the active planning document.'
+description: 'Migrated source: this plan contains the full content formerly stored
+  at `plans/PHASE_3_MORPHISMS.md`. The old `plans/` copy was removed so this tracked
+  plan is the active planning document.'
 successCriteria:
-- Phase 3 morphisms homsets kernels images and cokernels child cards are complete, blocked
-  with concrete blockers, or split into successor cards.
+- Phase 3 morphisms homsets kernels images and cokernels child cards are complete,
+  blocked with concrete blockers, or split into successor cards.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
-- category-specs
-- lattices
-- theme-modules-tensors
-created: '2026-05-03'
-updated: '2026-05-03'
 ---
 Migrated source: this plan contains the full content formerly stored at `plans/PHASE_3_MORPHISMS.md`. The old `plans/` copy was removed so this tracked plan is the active planning document.
 
