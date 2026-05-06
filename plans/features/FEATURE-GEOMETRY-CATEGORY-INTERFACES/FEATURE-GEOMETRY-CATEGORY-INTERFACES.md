@@ -5,7 +5,6 @@ trackerStatus:
 parents: []
 dependsOn: []
 plans:
-- '[[PLAN-GEOMETRIC-CATEGORY-EXPANSION]]'
 - '[[PLAN-GEOMETRIC-SOURCE-ADMISSION]]'
 - '[[PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS]]'
 title: Geometry category interfaces

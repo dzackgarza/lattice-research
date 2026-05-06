@@ -5,10 +5,8 @@ trackerStatus:
 parents: []
 dependsOn: []
 plans:
-- '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 - '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
-- '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
 - '[[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]'
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
@@ -49,15 +47,12 @@ affected leaf; it does not block other approved phase-01 spec leaves.
 
 ## Current Plan Groups
 
-- `PLAN-CATEGORY-SPEC-PROGRAM`: phase-01 program control.
 - `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Sage/source mapping and admission discipline.
-- `PLAN-CATEGORY-FOUNDATION-KERNEL`, `PLAN-STATIC-CATEGORY-REFINEMENT-ORDER`, and `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: core category vocabulary and ownership.
+- `PLAN-CATEGORY-FOUNDATION-KERNEL` and `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: core category vocabulary and ownership; static refinement-order policy lives in the `category-framework-design` skill and source-backed child cards.
 - `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` and `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`: constructor admission, smoke triage, and audit stabilization.
 - `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP` and the geometry feature plans: cross-feature spec-phase dependencies.
 
-The connected plan spine is `GOAL.md` -> `.agents/current-goal-phase.md` ->
-`PLAN-CATEGORY-SPEC-PROGRAM`; active phase-01 tasks are contained by phase cards under
-their owning plans.
+The connected plan spine is `GOAL.md` -> `.agents/current-goal-phase.md` -> active feature plans; active phase-01 tasks are contained by phase cards under their owning plans.
 
 ## Exit criteria
 

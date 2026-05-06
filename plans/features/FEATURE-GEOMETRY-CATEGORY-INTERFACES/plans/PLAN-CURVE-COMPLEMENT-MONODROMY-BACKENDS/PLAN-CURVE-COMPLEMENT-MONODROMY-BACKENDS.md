@@ -4,8 +4,7 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
-dependsOn:
-- '[[PLAN-GEOMETRIC-CATEGORY-EXPANSION]]'
+dependsOn: []
 title: Curve complement and monodromy backend research
 status: approved-and-unstarted
 priority: high
@@ -49,7 +48,7 @@ category vocabulary or split a source/backend decision first.
 
 ## Source Provenance
 
-- Parent plan: `PLAN-GEOMETRIC-CATEGORY-EXPANSION`.
+- Parent feature: `FEATURE-GEOMETRY-CATEGORY-INTERFACES`.
 - Active child cards are contained by this plan's phase cards.
 - Related phase boundary: phase-01 source and vocabulary research only.
 

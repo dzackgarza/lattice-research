@@ -4,8 +4,7 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
-dependsOn:
-- '[[PLAN-GEOMETRIC-CATEGORY-EXPANSION]]'
+dependsOn: []
 title: Geometric category source admission research
 status: approved-and-unstarted
 priority: high
@@ -49,7 +48,7 @@ category vocabulary or split a source/backend decision first.
 
 ## Source Provenance
 
-- Parent plan: `PLAN-GEOMETRIC-CATEGORY-EXPANSION`.
+- Parent feature: `FEATURE-GEOMETRY-CATEGORY-INTERFACES`.
 - Active child cards are contained by this plan's phase cards.
 - Current phase boundary: phase-01 category specs and semantic vocabulary only.
 
