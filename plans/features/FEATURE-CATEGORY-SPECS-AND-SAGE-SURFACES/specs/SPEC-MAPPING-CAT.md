@@ -169,14 +169,20 @@ values, dispatch, containment, coercion, or category refinement; it only permits
 background diagnostic messages for conventions that are mathematically correct but easy
 to misread.
 
-The diagnostic surface is framework-owned rather than subtree-owned. The concrete API
-may be a small `category_specs.cat.diagnostics` module or an equivalent Cat-root
-configuration object, but there must be a single source of truth for:
+The diagnostic surface is framework-owned rather than subtree-owned. The canonical API
+lives in `category_specs.utils` so every subtree can import the same process-local flag
+without creating category-specific copies:
 
-- reading whether category diagnostics are enabled;
-- enabling or disabling category diagnostics for the process;
-- emitting a category diagnostic message through the category logger;
-- silencing or filtering repeated diagnostics without changing mathematical behavior.
+- `category_diagnostics_enabled()` reads whether category diagnostics are enabled;
+- `set_category_diagnostics_enabled(enabled)` sets the process-local flag;
+- `enable_category_diagnostics()` and `disable_category_diagnostics()` are the explicit
+  toggles;
+- `emit_category_diagnostic(message, *, key=None, once=True)` emits a logging warning
+  through the category diagnostic logger only when the flag is enabled;
+- `category_diagnostic_logger()` returns the logger named
+  `category_specs.diagnostics`;
+- `clear_category_diagnostic_history()` clears the once-per-key suppression cache
+  without changing mathematical behavior.
 
 Diagnostic messages are appropriate for surprise boundaries such as:
 

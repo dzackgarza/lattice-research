@@ -72,7 +72,11 @@ as a method on every category object:
 
 | Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
 | --- | --- | --- | --- | --- |
-| global diagnostic flag | category-system configuration | category-spec runtime/configuration module | Boolean flag, disabled by default, enabling warning logs about non-obvious mathematical conventions or surprising but valid behavior. | Admitted. Source: user directive on 2026-05-06; category-spec style rule that specs must preserve mathematical nuance rather than silently normalize it away. |
+| `category_diagnostics_enabled()` | category-system configuration | `category_specs.utils` | Return whether opt-in category diagnostics are enabled for this process. Disabled by default. | Admitted. Source: user directive on 2026-05-06; `[[SPEC-MAPPING-CAT]]`. |
+| `set_category_diagnostics_enabled(enabled)` | category-system configuration | `category_specs.utils` | Set the process-local diagnostic flag. Must not change mathematical behavior, validation, dispatch, containment, coercion, or refinement. | Admitted. Source: user directive on 2026-05-06; `[[SPEC-MAPPING-CAT]]`. |
+| `enable_category_diagnostics()` / `disable_category_diagnostics()` | category-system configuration | `category_specs.utils` | Explicitly toggle opt-in category diagnostic logging for the process. | Admitted. Source: user directive on 2026-05-06; `[[SPEC-MAPPING-CAT]]`. |
+| `emit_category_diagnostic(message, *, key=None, once=True)` | category-system logging | `category_specs.utils` | Emit a category diagnostic warning only when the global flag is enabled; optional keys suppress repeated warnings without changing return values. | Admitted. Source: user directive on 2026-05-06; `[[SPEC-MAPPING-CAT]]`. |
+| `category_diagnostic_logger()` | category-system logging | `category_specs.utils` | Return the logger named `category_specs.diagnostics`; callers do not configure global logging. | Admitted. Source: user directive on 2026-05-06; `[[SPEC-MAPPING-CAT]]`. |
 | diagnostic warning docstring clause | method-definition documentation | every method whose correct behavior has source-grounded surprise conditions | The method docstring must name the exact conditions under which an implementation should emit a diagnostic warning when the global flag is enabled. | Admitted. Source: user directive on 2026-05-06. |
 
 Examples of warning-bearing methods:
