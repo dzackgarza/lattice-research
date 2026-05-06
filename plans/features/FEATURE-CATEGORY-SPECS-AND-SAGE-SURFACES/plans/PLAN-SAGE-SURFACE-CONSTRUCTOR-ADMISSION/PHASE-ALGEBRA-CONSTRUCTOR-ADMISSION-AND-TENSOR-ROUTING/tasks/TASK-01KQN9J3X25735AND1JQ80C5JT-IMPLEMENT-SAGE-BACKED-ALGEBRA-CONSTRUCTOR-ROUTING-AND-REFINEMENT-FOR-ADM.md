@@ -104,3 +104,33 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   cardinality alone canonically determines the free algebra on `S`.
 - `algebras/smoketest.sage` now checks the recorded generator presentation in addition
   to category membership.
+
+### Re-review 2026-05-06 (Parfit)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before completion
+
+#### Evidence
+
+- Gate 1 prior failure is fixed: `category_specs/algebras/__init__.py` now
+  materializes `tuple(generators)`, creates Sage names from that tuple, and records
+  `_category_specs_generator_presentation =
+  tuple(zip(generator_tuple, algebra.gens(), strict=True))`.
+- `SPEC-MAPPING-ALGEBRAS` records the chosen enumeration as presentation data, not a
+  claim that cardinality alone canonically determines the free algebra on `S`.
+- Plain-set `S.algebra(R)` remains routed to module construction, while
+  `Sets.free_algebra` routes through the named project constructor.
+- `category_specs/algebras/smoketest.sage` asserts the generator presentation witness
+  and includes that check in the algebra smoke statement.
+- Validation observed by the reviewer: `just --justfile category_specs/justfile
+  smoke-file algebras/smoketest.sage` passed; targeted diffs and
+  `git diff a074be9^ a074be9 --check` were clean.
+
+#### Residual Risks
+
+- The acceptance checkboxes remain unchecked because this is agent review evidence,
+  not human acceptance.
+- The reviewer searched decided decision cards for algebra/free-constructor
+  contradictions and found no evidence of a conflict, but did not exhaustively read
+  every decision body line-by-line.

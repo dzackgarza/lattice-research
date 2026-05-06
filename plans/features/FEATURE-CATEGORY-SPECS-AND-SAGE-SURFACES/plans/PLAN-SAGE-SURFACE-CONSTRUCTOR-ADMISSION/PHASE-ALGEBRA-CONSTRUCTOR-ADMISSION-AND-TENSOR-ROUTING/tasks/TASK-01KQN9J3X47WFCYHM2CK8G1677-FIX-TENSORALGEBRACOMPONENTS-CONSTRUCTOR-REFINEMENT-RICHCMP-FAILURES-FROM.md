@@ -104,3 +104,30 @@ preserved in the full task body.
   without treating the global missing-method probe as a public tensor API obligation.
 - The smoke pass remains evidence for the constructor-refinement path, not evidence
   for admitting or implementing a public tensor comparison method.
+
+### Re-review 2026-05-06 (Pauli)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before completion
+
+#### Evidence
+
+- Gate 1 grounding is now explicit: `__richcmp__` is recorded as Sage runtime
+  rich-comparison infrastructure from `sage/structure/richcmp.pyx`, not as a tensor
+  public method.
+- The executable card target is scoped to tensor constructor refinement, preserving
+  tensor-component membership and direct method frontiers.
+- `SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS` and the tensor admission decision continue
+  to reject catch-all storage/index/display APIs while admitting only named tensor
+  surfaces.
+- Validation observed by the reviewer: `just --justfile category_specs/justfile
+  smoke-file tensor_algebra_components/smoketest.sage`, `just --justfile
+  category_specs/justfile smoke-file algebras/smoketest.sage`, `just plan-validate`,
+  and targeted `git diff --check` all passed.
+
+#### Residual Risks
+
+- The acceptance checkboxes remain unchecked because this is agent review evidence,
+  not human acceptance.
+- Full `just smoke` was not run; this was a targeted re-review.

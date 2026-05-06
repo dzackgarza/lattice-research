@@ -79,3 +79,31 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`, and
   the tensor component smoke all pass. Status moved to `needs-review`; this does not
   mark the card accepted or complete.
+
+## Review Log
+
+### Re-review 2026-05-06 (Ampere)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before completion
+
+#### Evidence
+
+- The scoped implementation is grounded through `SPEC-MAPPING-ALGEBRAS` and the tensor
+  mapping surface rather than by weakening smoke expectations.
+- Algebra constructor refinement remains limited to project category vocabulary, and
+  multiplication-tensor construction is handed to the tensor component task that fixed
+  matrix-valued `structure_constants()`.
+- Plain-set `S.algebra(R)` remains excluded from `Algebras(R)` constructor routing and
+  belongs to module construction.
+- Validation observed by the reviewer: `just --justfile category_specs/justfile
+  smoke-file algebras/smoketest.sage`, `just --justfile category_specs/justfile
+  smoke-file tensor_algebra_components/smoketest.sage`, and `just plan-validate` all
+  passed.
+
+#### Residual Risks
+
+- The acceptance checkboxes remain unchecked because this is agent review evidence,
+  not human acceptance.
+- Full `just smoke` was not run; this was a targeted re-review.
