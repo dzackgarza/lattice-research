@@ -193,6 +193,36 @@ membership/subcategory predicates.
   lacks a clean signal because repo-wide mypy currently fails on broad existing
   Sage/stub/type errors.
 
+## Review Log
+
+### Re-review 2026-05-06 (independent audit)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before completion
+
+#### Evidence
+
+- The static audit classifies each known `getattr`/`hasattr`/private-slot probe as
+  Sage interop, documented wrapper boundary, real category/type dispatch, or routed
+  follow-up work.
+- Remaining `category_specs/` implementation matches for `getattr(` and `hasattr(`
+  are the Cat wrapper machinery, Sage `element_class` constructor interop, project
+  utility validation, OS process interop, and the source-grounded `ImageSubobject`
+  finite-domain shortcut.
+- Nonlocal set-wrapper private-slot remediation is split to
+  `[[TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES]]` rather than guessed
+  inside this audit card.
+- No smoke assertions, abstract obligations, or public mathematical specs were
+  weakened by the audit follow-ups.
+
+#### Residual Risks
+
+- Full `just test` does not yet provide a clean signal because repo-wide mypy still
+  fails on broad existing Sage/stub/type errors.
+- The acceptance checkboxes remain checked from the implementation pass, but this
+  review entry is not human acceptance or card closure.
+
 ## Work Log
 
 - 2026-05-05: Created from user correction and routing decision. This card exists so
