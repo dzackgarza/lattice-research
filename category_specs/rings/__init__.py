@@ -1512,7 +1512,7 @@ class Rings(Category_singleton):
                     order=order,
                     implementation=implementation,
                 )
-            return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def PowerSeriesRing(
@@ -1533,7 +1533,7 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def MultivariatePowerSeriesRing(
@@ -1556,7 +1556,7 @@ class Rings(Category_singleton):
                 order=order,
                 num_gens=num_gens,
             )
-            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def MultivariatePowerSeriesRingWithGeneratorPrefix(
@@ -1579,7 +1579,7 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 order=order,
             )
-            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def LaurentSeriesRing(
@@ -1600,14 +1600,14 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def LaurentSeriesRingFromPowerSeriesRing(self, power_series_ring: Ring) -> Ring:
             from sage.all import LaurentSeriesRing
 
             R = LaurentSeriesRing(power_series_ring)
-            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def PuiseuxSeriesRing(
@@ -1628,14 +1628,14 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def PuiseuxSeriesRingFromLaurentSeriesRing(self, laurent_series_ring: Ring) -> Ring:
             from sage.all import PuiseuxSeriesRing
 
             R = PuiseuxSeriesRing(laurent_series_ring)
-            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())])
+            return refine_category(R, [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())], test=False)
 
         @final
         def MatrixRing(

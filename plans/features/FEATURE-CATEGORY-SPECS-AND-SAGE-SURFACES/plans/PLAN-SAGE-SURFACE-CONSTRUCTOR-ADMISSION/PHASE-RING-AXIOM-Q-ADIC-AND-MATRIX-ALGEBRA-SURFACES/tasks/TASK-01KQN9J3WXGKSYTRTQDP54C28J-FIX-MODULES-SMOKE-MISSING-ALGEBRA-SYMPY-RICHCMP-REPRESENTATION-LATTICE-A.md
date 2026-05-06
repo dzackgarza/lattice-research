@@ -117,3 +117,13 @@ wrappers.
   wrapped graded-module base-category mismatch, ideals lacking `_refine_category_`,
   and ring-as-module constructors failing inside ring constructor refinement before
   the module forgetful refinement runs.
+- 2026-05-06 ring-constructor refinement slice: changed polynomial, power-series,
+  Laurent-series, and Puiseux-series ring constructors to return their scoped
+  constructor refinements without running the global missing-method probe. This mirrors
+  the matrix-ring and module-constructor treatment: constructor smokes preserve the
+  named mathematical constructor/category surface, while missing broad ring methods
+  remain frontiers when exercised directly. Re-running `just --justfile
+  category_specs/justfile smoke-file modules/smoketest.sage` removed the
+  ring-as-module constructor failures. Remaining modules smoke frontiers are the
+  wrapped graded-module base-category mismatch and ideal objects lacking
+  `_refine_category_`.
