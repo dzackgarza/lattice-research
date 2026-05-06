@@ -7,7 +7,7 @@ dependsOn:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 plans: []
 title: Historical indefinite backend bridge recovery
-status: unstarted
+status: in-progress
 priority: high
 description: Recover exact backend bridge contracts for indefinite isometry, automorphism, vector orbit, isotropic subspace, centralizer, and finite quotient computations exposed by historical src.bak.
 ---
@@ -28,9 +28,11 @@ software, and return data that the public lattice/category layer verifies.
 - `src.bak/backends/oscar_centralizer/`
 - `src.bak/backends/external/README.md`
 - `src.bak/backends/external/py_polyhedral/binaries.py`
-- IWE `theory-backend-routing`
-- IWE `theory/backends/indefinite-isometry`
-- IWE `theory/backends/carat`
+- `.agents/memories/theory-backend-routing.md`
+- `.agents/memories/theory/backends/indefinite-isometry.md`
+- `.agents/memories/theory/backends/indefinite-jl.md`
+- `.agents/memories/theory/backends/software-capability-map.md`
+- `.agents/memories/theory/backends/carat.md`
 
 ## Recovery Boundary
 
