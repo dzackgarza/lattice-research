@@ -121,3 +121,19 @@ Inference:
   replacement for the criterion.
 - Added canonical tracked source provenance for the `Primes()` mapping row and Sage
   Primes source note.
+
+### Re-review 2026-05-06 (Linnaeus)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** None
+**Outcome:** needs-review evidence ready for human approval; card not marked complete
+
+#### Evidence
+
+- Sources and inference are separated in the Research Result, and the installed
+  congruence-prime-subset negative finding uses the required five-field format.
+- Frontmatter criteria match the checked body criteria, including the restored
+  implementation criterion and the research-only clarification.
+- The prior Gate 3 weakening is documented and reworked within this card's scope.
+- The design consequence matches `SPEC-MAPPING-SETS.md`, and the installed Sage source
+  supports only the limited `Primes(proof=True)` surface found by this research pass.
