@@ -110,8 +110,11 @@ geometric structures on the same implementation classes.
 
 Admit these owner directions for future spec rows:
 
-- `dimension()`: owned by `Manifolds(K).FiniteDimensional()` and inherited by Sage's
-  finite-dimensional concrete manifolds.
+- `dimension()`: owned by `Manifolds(K)` in Sage's source category: `Manifolds`
+  is presented as the category of `d`-dimensional manifolds over a topological
+  field, and `dimension()` is an abstract method on `Manifolds.ParentMethods`.
+  `Manifolds(K).FiniteDimensional()` is a refinement selected by finite
+  dimensionality, not the first owner of the method in Sage's category source.
 - `chart()`, `atlas()`, `default_chart()`, transition maps, and coordinate restrictions:
   owned by presented/charted manifold refinements, not by arbitrary topological spaces.
 - `open_subset(...)`: owned by manifolds; codomain is a manifold open subobject with
@@ -174,3 +177,23 @@ This is a research/planning card, not an implementation card. Do not write categ
   `Manifolds(K).Smooth()` owner, SageManifolds source surface, Hom-map ownership, and
   downstream bridge boundaries. Existing complex-manifold and complex-variety cards
   already own the immediate bridge follow-up, so no new card is needed from this pass.
+- 2026-05-06: Reworked the `dimension()` owner guidance after Gate 1 review found
+  that Sage grounds `dimension()` on `Manifolds.ParentMethods`, not on the
+  `FiniteDimensional` axiom class.
+
+## Review Log
+
+### Review 2026-05-06 (Harvey)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Findings: Definition Grounding
+
+- `dimension()` was incorrectly listed as owned by
+  `Manifolds(K).FiniteDimensional()`. Installed Sage source places
+  `dimension()` on `Manifolds.ParentMethods`, and the Sage category docstring
+  defines `Manifolds(k)` using `d`-dimensional manifolds over a topological
+  field. This was a method-owner grounding defect introduced in commit
+  `57d93b7`.
