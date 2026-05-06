@@ -404,6 +404,11 @@ violations to silence QC rather than addressing the issues they unearthed.
   fails on the existing module implementation-gap frontier, but the new assertions are
   not among the reported failures. The vulture-only diagnostic no longer reports any
   `category_specs/modules/**` findings.
+- 2026-05-06 thirtieth bounded slice: Cat smoke coverage was added for slice and
+  coslice `structure_category()` ownership.
+- Validation for the thirtieth slice:
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `category_specs/cat/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -478,3 +483,5 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the twenty-ninth bounded cleanup slice for module subcategory,
   slice, finite-presentation, and Ore-module smoke coverage, clearing all remaining
   `category_specs/modules/**` vulture findings.
+- 2026-05-06: Completed the thirtieth bounded cleanup slice for Cat slice/coslice
+  smoke coverage, clearing `category_specs/cat/**` vulture findings.

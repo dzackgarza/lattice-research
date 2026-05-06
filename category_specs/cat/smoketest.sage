@@ -14,6 +14,8 @@ from category_specs.cat import Category, Cat
 from category_specs.cat.autsets import _CatAutofunctorMethods
 from category_specs.cat.endsets import CatEndCategory, _CatEndofunctorMethods
 from category_specs.cat.homsets import CatHomCategory, _CatConstructionFunctorMethods, _CatFunctorMethods
+from category_specs.cat.subcategories.constructions.objects_over import SliceCategories
+from category_specs.cat.subcategories.constructions.objects_under import CosliceCategories
 from category_specs.cat.subcategories.constructions.subobjects import Subcategories
 from category_specs.forms import FormedModules
 from category_specs.homsets import HomCategory
@@ -265,6 +267,11 @@ SMOKE_STATEMENTS = (
     ("Cat().AutCategory() is a category", lambda _: C.AutCategory() in C),
     ("Cat().Slice(Sets()) is ObjectsOver(Sets())", lambda _: C.Slice(Sets()) is C.ObjectsOver(Sets())),
     ("Cat().Coslice(Sets()) is ObjectsUnder(Sets())", lambda _: C.Coslice(Sets()) is C.ObjectsUnder(Sets())),
+    (
+        "Cat slice and coslice categories own structure-category surfaces",
+        lambda _: abstract_method_has_name(SliceCategories.ParentMethods.structure_category, "structure_category")
+        and abstract_method_has_name(CosliceCategories.ParentMethods.structure_category, "structure_category"),
+    ),
     ("Cat().Endsets() is EndCategory()", lambda _: C.Endsets() is C.EndCategory()),
     ("Cat().Subobjects() refines the Subcategories construction", lambda _: issubclass(C.Subobjects().__class__, Subcategories)),
     (
