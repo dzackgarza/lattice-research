@@ -7,6 +7,7 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -26,10 +27,10 @@ class _RepresentationModules(Category_over_base_ring):
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [
+        return [Category.join([
             Modules(R).Free(),
             Modules(R).WithOrderedGeneratingSet(),
-        ]
+        ])]
 
     class ParentMethods:
         @override

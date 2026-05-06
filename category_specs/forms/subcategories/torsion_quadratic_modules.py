@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from ...modules import Modules
@@ -22,11 +23,11 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [
+        return [Category.join([
             Modules(R).Torsion(),
             Modules(R).WithForms().Quadratic(),
             Modules(R).FinitelyPresented(),
-        ]
+        ])]
 
     class ParentMethods:
         @final

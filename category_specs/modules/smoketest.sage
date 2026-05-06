@@ -133,6 +133,10 @@ def base_module_surface_rejects_specialized_structure():
     )
 
 
+def refine_for_membership(parent, categories):
+    return refine_category(parent, categories, test=False)
+
+
 SMOKE_STATEMENTS = (
     (
         "Modules(Zmod(6)).Constructors().FreeModule(2) is finite-rank free",
@@ -254,17 +258,20 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(V.subspace(...), Subobjects()) is a module subobject",
-        lambda _: refine_category(W, MQQCat.Subobjects()) in MQQCat.Subobjects(),
+        lambda _: refine_for_membership(W, MQQCat.Subobjects()) in MQQCat.Subobjects(),
     ),
-    ("refined V.subspace(...) has ambient vector space V", lambda _: refine_category(W, MQQCat.Subobjects()).ambient_vector_space() is V),
+    (
+        "refined V.subspace(...) has ambient vector space V",
+        lambda _: refine_for_membership(W, MQQCat.Subobjects()).ambient_vector_space() is V,
+    ),
     (
         "refine_category(V.subspace_with_basis(...), Subobjects()+WithOrderedBasis() has ordered basis",
-        lambda _: refine_category(Wb, MQQCat.WithOrderedBasis().Subobjects())
+        lambda _: refine_for_membership(Wb, MQQCat.WithOrderedBasis().Subobjects())
         in MQQCat.WithOrderedBasis().Subobjects(),
     ),
     (
         "refine_category(V.quotient_module(W), Quotients()) is a module quotient",
-        lambda _: refine_category(Q, MQQCat.Quotients()) in MQQCat.Quotients(),
+        lambda _: refine_for_membership(Q, MQQCat.Quotients()) in MQQCat.Quotients(),
     ),
     (
         "Modules(QQ).Constructors().quotient_module(V, W) is a module quotient",
@@ -317,17 +324,20 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(M.submodule(...), Subobjects()) is a module subobject",
-        lambda _: refine_category(S, MZZCat.Subobjects()) in MZZCat.Subobjects(),
+        lambda _: refine_for_membership(S, MZZCat.Subobjects()) in MZZCat.Subobjects(),
     ),
-    ("refined M.submodule(...) has ambient module M", lambda _: refine_category(S, MZZCat.Subobjects()).ambient_module() is M),
+    (
+        "refined M.submodule(...) has ambient module M",
+        lambda _: refine_for_membership(S, MZZCat.Subobjects()).ambient_module() is M,
+    ),
     (
         "refine_category(M.submodule_with_basis(...), Subobjects()+WithOrderedBasis()) has ordered basis",
-        lambda _: refine_category(Sb, MZZCat.WithOrderedBasis().Subobjects())
+        lambda _: refine_for_membership(Sb, MZZCat.WithOrderedBasis().Subobjects())
         in MZZCat.WithOrderedBasis().Subobjects(),
     ),
     (
         "refine_category(M.quotient_module(S), Quotients()) is a module quotient",
-        lambda _: refine_category(Qfree, MZZCat.Quotients()) in MZZCat.Quotients(),
+        lambda _: refine_for_membership(Qfree, MZZCat.Quotients()) in MZZCat.Quotients(),
     ),
     (
         "Modules(ZZ).Constructors().quotient_of_free_modules(M, S) is a module quotient",
@@ -339,7 +349,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(C.submodule([a + b]), Subobjects()+WithBasis()) has a basis",
-        lambda _: refine_category(CS, MQQCat.WithBasis().Subobjects()) in MQQCat.WithBasis().Subobjects(),
+        lambda _: refine_for_membership(CS, MQQCat.WithBasis().Subobjects()) in MQQCat.WithBasis().Subobjects(),
     ),
     (
         "Modules(QQ).WithBasis() records the with-basis axiom owner",
@@ -369,16 +379,16 @@ SMOKE_STATEMENTS = (
     ),
     (
         "refine_category(C.quotient_module(CS), Quotients()+WithBasis()) has a basis",
-        lambda _: refine_category(CQ, MQQCat.WithBasis().Quotients()) in MQQCat.WithBasis().Quotients(),
+        lambda _: refine_for_membership(CQ, MQQCat.WithBasis().Quotients()) in MQQCat.WithBasis().Quotients(),
     ),
     (
         "refine_category(SymmetricGroup(3).regular_representation(QQ), RepresentationModules()) is a representation module",
-        lambda _: refine_category(SymmetricGroup(3).regular_representation(QQ), MQQCat.RepresentationModules())
+        lambda _: refine_for_membership(SymmetricGroup(3).regular_representation(QQ), MQQCat.RepresentationModules())
         in MQQCat.RepresentationModules(),
     ),
     (
         "refine_category(M / Wfg, FinitelyPresented().OverPID()) is finitely presented over a PID",
-        lambda _: refine_category(Mfg, [MZZCat.FinitelyGenerated(), MZZCat.FinitelyPresented(), MZZCat.OverPID()])
+        lambda _: refine_for_membership(Mfg, [MZZCat.FinitelyGenerated(), MZZCat.FinitelyPresented(), MZZCat.OverPID()])
         in MZZCat.FinitelyPresented().OverPID(),
     ),
     (

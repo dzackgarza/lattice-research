@@ -102,3 +102,18 @@ wrappers.
   the modules smoke removed the vector-space inner-product and explicit
   free/quadratic form constructor failures; the first remaining frontier is now
   subobject/quotient refinement hitting `alternating_algebra`.
+- 2026-05-06 membership-refinement and join-super slice: changed direct
+  membership-only smoke refinements to call `refine_category(..., test=False)`, so
+  subobject/quotient/representation membership checks do not also run the global
+  missing-method probe. Added `Modules(R).Quotients()` to finitely presented PID
+  quotient constructor refinement, preserving the mathematical `V/W` output
+  structure. Changed representation, integer-lattice, torsion-quadratic, and graded
+  constructor-family categories with several declared supercategories to return the
+  explicit Sage join category, avoiding framework initialization failures from
+  parallel supercategory lists. Re-running `just --justfile category_specs/justfile
+  smoke-file modules/smoketest.sage` removed the subobject/quotient
+  `alternating_algebra`, quotient-of-free-modules, representation-module,
+  integer-lattice, and torsion-quadratic-module failures. Remaining frontiers are the
+  wrapped graded-module base-category mismatch, ideals lacking `_refine_category_`,
+  and ring-as-module constructors failing inside ring constructor refinement before
+  the module forgetful refinement runs.

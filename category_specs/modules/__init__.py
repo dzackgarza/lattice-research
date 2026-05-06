@@ -580,7 +580,7 @@ class Modules(Category_module):
                 return self._quotient_categories()
             if isinstance(M, FGP_Module_class):
                 C = self.category()
-                return [C.FinitelyGenerated(), C.FinitelyPresented(), C.OverPID()]
+                return [C.Quotients(), C.FinitelyGenerated(), C.FinitelyPresented(), C.OverPID()]
             return self._categories_for_free_module(M)
 
         @final

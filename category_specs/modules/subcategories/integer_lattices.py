@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -24,12 +25,12 @@ class _IntegerLattices(Category_over_base_ring):
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [
+        return [Category.join([
             Modules(R).Subobjects(),
             Modules(R).WithOrderedGeneratingSet(),
             Modules(R).OverPID(),
             Modules(R).WithForms().Bilinear(),
-        ]
+        ])]
 
     class ParentMethods:
         @override

@@ -6,6 +6,7 @@ from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, final, override
 
 from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -25,7 +26,7 @@ class _FreeGradedModules(Category_over_base_ring):
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [Modules(R).Free(), Modules(R).Graded()]
+        return [Category.join([Modules(R).Free(), Modules(R).Graded()])]
 
     class ParentMethods:
         @override
