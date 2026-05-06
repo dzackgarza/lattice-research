@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP]]'
 dependsOn: []
 title: Build source corpus for literal method ownership inventory
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Enumerate the local inventory, mapping, theory, backend, and spec-backup
@@ -88,10 +88,10 @@ path is not acceptable.
 
 ## Acceptance Criteria
 
-- [ ] The target method-inventory spec records the complete source corpus with paths and per-source scope.
-- [ ] Every `category_specs/*/docs/SAGE_INVENTORY.md` and `category_specs/*/docs/MAPPING.md` file is assigned to a topical inventory task.
-- [ ] Backend and external software notes under `theory/backends/` are assigned to the backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and Indefinite.jl material where present.
-- [ ] `theory/spec_backups/*` is marked as mineable source material with the explicit warning that it is not current API authority.
+- [x] The target method-inventory spec records the complete source corpus with paths and per-source scope.
+- [x] Every `category_specs/*/docs/SAGE_INVENTORY.md` and `category_specs/*/docs/MAPPING.md` file is assigned to a topical inventory task.
+- [x] Backend and external software notes under `theory/backends/` are assigned to the backend mapping task, including Julia/Oscar, GAP, Singular, Macaulay2, CARAT, and Indefinite.jl material where present.
+- [x] `theory/spec_backups/*` is marked as mineable source material with the explicit warning that it is not current API authority.
 
 ## Dependencies And Boundaries
 
@@ -105,3 +105,7 @@ path is not acceptable.
 ## Work Log
 
 - 2026-05-05: Created as first leaf for the literal method ownership inventory phase.
+- 2026-05-06: Enumerated 22 category-spec inventory/mapping docs, 12 backend notes,
+  and two lattice spec-backup files. Added the corpus assignment to
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` and moved this task to
+  needs-review.
