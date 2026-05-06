@@ -114,8 +114,14 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 
 - 2026-05-06: A premature implementation-phase adapter was created at
   `src/sage_patches/fraction_quotients.py` during spec-phase work. It has been removed
-  by a forward cleanup commit because Sage patches are not current executable work. The
-  implementation idea remains historical evidence only, not accepted code.
+  from `main` by a forward cleanup commit because Sage patches are not current
+  executable work.
+- The already-done implementation work is intentionally preserved for the later
+  implementation phase on remote branch
+  `origin/implementation/sage-fraction-quotient-codomains`, rooted at commit
+  `cc993dfc34cedfdc4d07387ee78ec86b9bee4d9f` (`feat: refine fraction quotient
+  codomains`). Future reintegration should review that branch rather than rewriting
+  the adapter from scratch.
 - The removed adapter had been a narrow post-processing patch over Sage's existing
   `QQ / ZZ` and `QQ / (n*ZZ)` route through
   `sage.groups.additive_abelian.qmodnz.QmodnZ`; it kept quotient-class arithmetic
