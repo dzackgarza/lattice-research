@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 14:25 UTC_
+_Generated: 2026-05-06 14:27 UTC_
 
 ## Overall
 
@@ -18,7 +18,7 @@ _Generated: 2026-05-06 14:25 UTC_
 | feature | 15 | 0 | 8 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
-| spec | 50 | 0 | 0 | 44 | 2 |
+| spec | 50 | 0 | 0 | 45 | 2 |
 | task | 110 | 0 | 0 | 51 | 43 |
 
 ## Feature Rollup
@@ -38,7 +38,7 @@ _Generated: 2026-05-06 14:25 UTC_
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/3 | 1 | 1 | 0 |
+| Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 45 |
 
 ## High-Priority Active Items
