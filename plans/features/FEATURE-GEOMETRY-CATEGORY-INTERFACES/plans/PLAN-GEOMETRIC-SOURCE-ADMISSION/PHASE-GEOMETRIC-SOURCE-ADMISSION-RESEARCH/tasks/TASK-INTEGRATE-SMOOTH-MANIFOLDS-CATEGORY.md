@@ -197,3 +197,15 @@ This is a research/planning card, not an implementation card. Do not write categ
   defines `Manifolds(k)` using `d`-dimensional manifolds over a topological
   field. This was a method-owner grounding defect introduced in commit
   `57d93b7`.
+
+### Re-review 2026-05-06 (Nietzsche)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
+#### Residual Risks
+
+- This is source admission, not a final method spec. Future spec cards still need
+  full signatures and codomains for charts, tangent spaces, tensor/form objects,
+  structured-manifold refinements, and non-real/non-complex calculus conventions.
