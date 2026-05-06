@@ -277,6 +277,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/cat/homsets.py`
   findings.
+- 2026-05-06 fifteenth bounded slice: modules smoke coverage was extended for the
+  base `Modules(R)` object surface's default negative predicates for specialized
+  subcategories: lattice, representation-module, free-graded, finitely-presented
+  graded, Ore, torsion-quadratic, and ring-object-as-module.
+- Validation for the fifteenth slice:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails on the existing module implementation-gap frontier, but the new base-predicate
+  assertion is not among the reported failures. The vulture-only diagnostic no longer
+  reports the targeted `category_specs/modules/__init__.py` predicate findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -318,3 +327,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   endomorphism-set predicate smoke coverage.
 - 2026-05-06: Completed the fourteenth bounded cleanup slice for Cat functor and
   construction-functor smoke coverage.
+- 2026-05-06: Completed the fifteenth bounded cleanup slice for base module predicate
+  smoke coverage.

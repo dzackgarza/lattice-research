@@ -4,7 +4,7 @@ import sys
 THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
-from category_specs.modules import Modules
+from category_specs.modules import Modules, _RModObjects
 from category_specs.modules.subcategories.constructions.quotients import _Quotients as ModuleQuotients
 from category_specs.modules.subcategories.with_basis import _WithBasis, _WithOrderedBasis
 from category_specs.sets import Sets
@@ -93,8 +93,25 @@ class _OrderedBasisWitness(_WithOrderedBasis.ParentMethods):
         return {"a": a, "b": b}
 
 
+class _BaseModulePredicateWitness(_RModObjects):
+    pass
+
+
 def abstract_method_has_name(method, name):
     return method.__name__ == name
+
+
+def base_module_surface_rejects_specialized_structure():
+    witness = _BaseModulePredicateWitness()
+    return (
+        not witness.is_lattice()
+        and not witness.is_representation_module()
+        and not witness.is_free_graded_module()
+        and not witness.is_finitely_presented_graded_module()
+        and not witness.is_ore_module()
+        and not witness.is_torsion_quadratic_module()
+        and not witness.is_ring_object_as_module()
+    )
 
 
 SMOKE_STATEMENTS = (
@@ -232,6 +249,10 @@ SMOKE_STATEMENTS = (
         lambda _: NMQQ.FiniteRankFreeModule(2) in MQQCat.Free().FiniteRank(),
     ),
     ("Modules(QQ).Constructors().FiniteRankFreeModule(2) has rank 2", lambda _: NMQQ.FiniteRankFreeModule(2).rank() == 2),
+    (
+        "base Modules(R) object surface rejects specialized module subcategory predicates",
+        lambda _: base_module_surface_rejects_specialized_structure(),
+    ),
     (
         "Modules(ZZ).Constructors().span(...) is a module subobject",
         lambda _: NMZZ.span([M.gen(0), M.gen(1)]) in MZZCat.Subobjects(),
