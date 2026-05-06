@@ -592,6 +592,9 @@ The docstring for `M.dual()` must identify this Hom-dual meaning. If a subclass 
 interop path also has a metric-dual convention, the docstring must point to that
 separate construction and say when the global category diagnostic flag should warn
 that `dual()` is returning an evaluation-bearing Hom object rather than a metric dual.
+That flag is the disabled-by-default framework diagnostic switch specified by
+`[[SPEC-MAPPING-CAT]]`; diagnostics are logging-only and must not weaken the Hom-dual
+contract.
 
 Migration consequences:
 

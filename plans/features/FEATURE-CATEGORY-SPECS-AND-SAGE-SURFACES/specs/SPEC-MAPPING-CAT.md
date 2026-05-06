@@ -38,6 +38,9 @@ Source inventory: `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - State caller category, input data, hypotheses, return object or codomain, and source evidence before implementation depends on the row.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
+- When a public method has a convention likely to surprise a mathematically literate user,
+  its defining docstring must include a diagnostics paragraph naming the condition, the
+  convention, and the adjacent method or object that carries the other common meaning.
 
 ## Source Coverage Ledger
 
@@ -157,6 +160,47 @@ As of the 2026-05-04 shadowing audit, direct `def Hom` definitions under
 `category_specs/` occur only in `cat/__init__.py` and `cat/base_category_types.py`.
 Future lower-subtree direct `Hom` definitions should be filed as implementation
 refactor work with this mapping section as the owner/migration source.
+
+## Global Category Diagnostics
+
+The category framework must expose one global diagnostic flag and one category-system
+diagnostic logger. The flag is disabled by default. Enabling it must not change return
+values, dispatch, containment, coercion, or category refinement; it only permits
+background diagnostic messages for conventions that are mathematically correct but easy
+to misread.
+
+The diagnostic surface is framework-owned rather than subtree-owned. The concrete API
+may be a small `category_specs.cat.diagnostics` module or an equivalent Cat-root
+configuration object, but there must be a single source of truth for:
+
+- reading whether category diagnostics are enabled;
+- enabling or disabling category diagnostics for the process;
+- emitting a category diagnostic message through the category logger;
+- silencing or filtering repeated diagnostics without changing mathematical behavior.
+
+Diagnostic messages are appropriate for surprise boundaries such as:
+
+- two standard mathematical meanings sharing a name in nearby software conventions;
+- a compatibility spelling whose result is not the object a user might infer from the
+  spelling alone;
+- inherited Sage behavior that is being preserved as interop evidence, not as a
+  mathematical adequacy standard;
+- convention-dependent identifications, such as a transported structure that only exists
+  after nondegeneracy, freeness, a selected basis, a selected ordering, or another
+  recorded hypothesis.
+
+Diagnostic messages are not an error-recovery mechanism. Missing hypotheses,
+ill-defined mathematics, failed containment, invalid source grounding, or an
+implementation gap should still fail, block the affected spec leaf, or route to a
+tracked decision according to the workflow rules.
+
+Any method whose implementation should emit such a diagnostic must say so in the method
+definition docstring. The docstring should include:
+
+- the exact condition under which diagnostics should emit;
+- the mathematical convention being used;
+- the common but different interpretation the user may have expected;
+- the method, category, or object that carries that other interpretation when it exists.
 
 ## Containment
 

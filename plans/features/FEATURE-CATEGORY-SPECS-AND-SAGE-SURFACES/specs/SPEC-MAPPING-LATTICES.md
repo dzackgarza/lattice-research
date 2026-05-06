@@ -394,7 +394,10 @@ misread as the Hom dual: for example, in degenerate formed modules such as a ran
 summand `<e>` in the hyperbolic plane `U`, `L^#` is the metric-dual construction being
 returned, not an evaluation-bearing object of `Hom_R(L,R)`. In nondegenerate finite
 free cases the warning text should name the recorded form-induced identification if
-the implementation transports between `L^#` and `Hom_R(L,R)`.
+the implementation transports between `L^#` and `Hom_R(L,R)`. The warning must be
+gated by the disabled-by-default category diagnostic flag specified in
+`[[SPEC-MAPPING-CAT]]`; it is explanatory logging only and must not hide invalid
+degenerate, non-free, or non-integral inputs.
 
 **(4) `orthogonal_complement(S)` placement**: `S^⊥ = {v ∈ M : b(v,s) = 0 ∀s ∈ S}`.
 This is always a submodule. No assumptions needed beyond having a bilinear form.
