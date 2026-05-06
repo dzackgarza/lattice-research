@@ -176,6 +176,12 @@ boolean surfaces remain out of scope until separately source-grounded.
 - Added explicit frontmatter and body acceptance criteria for root extraction,
   `galois_closure`, source grounding, and out-of-scope boolean surfaces.
 
+### Re-review 2026-05-06 (Gibbs)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
 ## Out Of Scope Findings
 
 - Searched: `category_specs/cat/docs/MAPPING.md`, `category_specs/cat/docs/SAGE_INVENTORY.md`,

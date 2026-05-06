@@ -112,6 +112,12 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
   remains routed through matrix/ring-frontier cards rather than hidden as passing
   evidence here.
 
+### Re-review 2026-05-06 (Erdos)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
 ## Acceptance Criteria
 
 - [x] Matrix-ring constructor surface is explicit.
