@@ -27,7 +27,6 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final, override
 
-from sage.matrix.matrix2 import Matrix as SageMatrix
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -69,7 +68,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     @final
     def from_matrix(cls, module_category, matrix: Matrix) -> RModule:
         r"""Return the finitely presented module ``coker(matrix)`` over a PID."""
-        assert isinstance(matrix, SageMatrix), f"Matrix presentation must be a Sage matrix: {matrix}"
         return module_category.from_invariant_factors(matrix.elementary_divisors())
 
     # ------------------------------------------------------------------

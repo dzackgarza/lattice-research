@@ -1482,7 +1482,8 @@ class Rings(Category_singleton):
                     )
                 )
             elif var_array is not None:
-                assert n is not None, "PolynomialRing var_array construction expects n"
+                if n is None:
+                    raise TypeError("PolynomialRing var_array construction expects n")
                 R = PolynomialRing(
                     base_ring,
                     n,
@@ -1492,7 +1493,8 @@ class Rings(Category_singleton):
                     implementation=implementation,
                 )
             else:
-                assert n is not None, "PolynomialRing expects name, names, var_array, or n"
+                if n is None:
+                    raise TypeError("PolynomialRing expects name, names, var_array, or n")
                 R = PolynomialRing(
                     base_ring,
                     n,
