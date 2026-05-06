@@ -130,3 +130,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   `uvx --from ruff ruff check --select E501 category_specs/posets/__init__.py`
   and `python -m compileall category_specs/posets/__init__.py` now pass.
   Repo-wide E501 count is now 529.
+- 2026-05-06: Cleared the `category_specs/cat/base_category_types.py` slice with
+  `uvx --from ruff ruff format` plus manual wrapping of one long Sage import alias
+  and assertion messages. `uvx --from ruff ruff check --select E501
+  category_specs/cat/base_category_types.py` and `python -m compileall
+  category_specs/cat/base_category_types.py` now pass. Repo-wide E501 count is now
+  489.

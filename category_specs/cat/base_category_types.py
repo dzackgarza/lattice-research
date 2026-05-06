@@ -20,42 +20,66 @@ from functools import wraps
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
-from sage.categories.cartesian_product import CartesianProductsCategory as SageCartesianProductsCategory
+from sage.categories.cartesian_product import (
+    CartesianProductsCategory as SageCartesianProductsCategory,
+)
 from sage.categories.category import Category as SageCategory
-from sage.categories.category import CategoryWithParameters as SageCategoryWithParameters
-from sage.categories.category_singleton import Category_singleton as SageCategorySingleton
+from sage.categories.category import (
+    CategoryWithParameters as SageCategoryWithParameters,
+)
+from sage.categories.category_singleton import (
+    Category_singleton as SageCategorySingleton,
+)
 from sage.categories.category_types import Category_ideal as SageCategoryIdeal
 from sage.categories.category_types import Category_module as SageCategoryModule
 from sage.categories.category_types import Category_over_base as SageCategoryOverBase
-from sage.categories.category_types import Category_over_base_ring as SageCategoryOverBaseRing
-from sage.categories.category_with_axiom import CategoryWithAxiom as SageCategoryWithAxiom
+from sage.categories.category_types import (
+    Category_over_base_ring as SageCategoryOverBaseRing,
+)
+from sage.categories.category_with_axiom import (
+    CategoryWithAxiom as SageCategoryWithAxiom,
+)
 from sage.categories.category_with_axiom import (
     CategoryWithAxiom_over_base_ring as SageCategoryWithAxiomOverBaseRing,
 )
-from sage.categories.category_with_axiom import CategoryWithAxiom_singleton as SageCategoryWithAxiomSingleton
+from sage.categories.category_with_axiom import (
+    CategoryWithAxiom_singleton as SageCategoryWithAxiomSingleton,
+)
 from sage.categories.covariant_functorial_construction import (
     CovariantConstructionCategory as SageCovariantConstructionCategory,
 )
 from sage.categories.covariant_functorial_construction import (
     FunctorialConstructionCategory as SageFunctorialConstructionCategory,
 )
-from sage.categories.covariant_functorial_construction import (
-    RegressiveCovariantConstructionCategory as SageRegressiveCovariantConstructionCategory,
-)
+from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.dual import DualObjectsCategory as SageDualObjectsCategory
-from sage.categories.filtered_modules import FilteredModulesCategory as SageFilteredModulesCategory
-from sage.categories.graded_modules import GradedModulesCategory as SageGradedModulesCategory
+from sage.categories.filtered_modules import (
+    FilteredModulesCategory as SageFilteredModulesCategory,
+)
+from sage.categories.graded_modules import (
+    GradedModulesCategory as SageGradedModulesCategory,
+)
 from sage.categories.homsets import Homsets as SageHomsets
 from sage.categories.homsets import HomsetsCategory as SageHomsetsCategory
 from sage.categories.homsets import HomsetsOf as SageHomsetsOf
-from sage.categories.isomorphic_objects import IsomorphicObjectsCategory as SageIsomorphicObjectsCategory
+from sage.categories.isomorphic_objects import (
+    IsomorphicObjectsCategory as SageIsomorphicObjectsCategory,
+)
 from sage.categories.quotients import QuotientsCategory as SageQuotientsCategory
-from sage.categories.realizations import RealizationsCategory as SageRealizationsCategory
+from sage.categories.realizations import (
+    RealizationsCategory as SageRealizationsCategory,
+)
 from sage.categories.subobjects import SubobjectsCategory as SageSubobjectsCategory
-from sage.categories.subquotients import SubquotientsCategory as SageSubquotientsCategory
-from sage.categories.super_modules import SuperModulesCategory as SageSuperModulesCategory
+from sage.categories.subquotients import (
+    SubquotientsCategory as SageSubquotientsCategory,
+)
+from sage.categories.super_modules import (
+    SuperModulesCategory as SageSuperModulesCategory,
+)
 from sage.categories.tensor import TensorProductsCategory as SageTensorProductsCategory
-from sage.categories.with_realizations import WithRealizationsCategory as SageWithRealizationsCategory
+from sage.categories.with_realizations import (
+    WithRealizationsCategory as SageWithRealizationsCategory,
+)
 from sage.misc.cachefunc import cached_method
 from sage.misc.constant_function import ConstantFunction
 from sage.structure.category_object import CategoryObject
@@ -63,6 +87,10 @@ from sage.structure.dynamic_class import DynamicMetaclass
 from sage.structure.parent import Parent
 
 from .universal_subcategory_methods import UniversalSubcategoryMethods
+
+SageRegressiveCovariantConstructionCategory = (
+    sage_covariant.RegressiveCovariantConstructionCategory
+)
 
 if TYPE_CHECKING:
     from ..types import Category, Hom
@@ -79,7 +107,9 @@ _SageCategoryWithAxiomOverBaseRing = SageCategoryWithAxiomOverBaseRing
 _SageCategoryWithAxiomSingleton = SageCategoryWithAxiomSingleton
 _SageCovariantConstructionCategory = SageCovariantConstructionCategory
 _SageFunctorialConstructionCategory = SageFunctorialConstructionCategory
-_SageRegressiveCovariantConstructionCategory = SageRegressiveCovariantConstructionCategory
+_SageRegressiveCovariantConstructionCategory = (
+    SageRegressiveCovariantConstructionCategory
+)
 _SageHomsets = SageHomsets
 _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
@@ -150,7 +180,8 @@ def _validate_cat_constructor_method_name(prefix: str, constructor_name: str) ->
     normalized_name = _camel_case_to_snake(constructor_name)
     forbidden_starts = {f"{prefix}_from_", f"{_singular_prefix(prefix)}_from_"}
     assert not any(normalized_name.startswith(start) for start in forbidden_starts), (
-        f"{constructor_name} repeats Cat constructor prefix {prefix}; use from_* locally"
+        f"{constructor_name} repeats Cat constructor prefix {prefix}; "
+        "use from_* locally"
     )
 
 
@@ -170,14 +201,18 @@ def _cat_constructor_method_names(prefix: str, provider: type) -> tuple[str, ...
     return tuple(names)
 
 
-def _cat_constructor_forwarder(prefix: str, constructor_name: str) -> Callable[..., Any]:
+def _cat_constructor_forwarder(
+    prefix: str, constructor_name: str
+) -> Callable[..., Any]:
     def forwarded_constructor(self, *args: Any, **kwargs: Any) -> Any:
         constructors = _CAT_CONSTRUCTOR_OWNERS[prefix].Constructors()
         return getattr(constructors, constructor_name)(*args, **kwargs)
 
     forwarded_constructor.__name__ = f"{prefix}_{constructor_name}"
     forwarded_constructor.__qualname__ = f"Cat.Constructors.{prefix}_{constructor_name}"
-    forwarded_constructor.__doc__ = f"Forward to ``{prefix}.Constructors().{constructor_name}``."
+    forwarded_constructor.__doc__ = (
+        f"Forward to ``{prefix}.Constructors().{constructor_name}``."
+    )
     forwarded_constructor._cat_constructor_generated_forwarder = True
     return forwarded_constructor
 
@@ -192,9 +227,9 @@ def _install_cat_constructor_methods() -> None:
         for constructor_name in _cat_constructor_method_names(prefix, provider):
             method_name = f"{prefix}_{constructor_name}"
             existing = getattr(_CAT_CONSTRUCTOR_CLASS, method_name, None)
-            assert existing is None or getattr(existing, "__name__", None) == method_name, (
-                f"duplicate Cat constructor method: {method_name}"
-            )
+            assert (
+                existing is None or getattr(existing, "__name__", None) == method_name
+            ), f"duplicate Cat constructor method: {method_name}"
             if existing is None:
                 setattr(
                     _CAT_CONSTRUCTOR_CLASS,
@@ -210,9 +245,9 @@ def register_cat_constructor_class(
     r"""Register ``Cat.Constructors`` as the backend aggregation target."""
     global _CAT_CONSTRUCTOR_CLASS
 
-    assert _CAT_CONSTRUCTOR_CLASS is None or _CAT_CONSTRUCTOR_CLASS is constructor_class, (
-        "Cat.Constructors class already registered"
-    )
+    assert (
+        _CAT_CONSTRUCTOR_CLASS is None or _CAT_CONSTRUCTOR_CLASS is constructor_class
+    ), "Cat.Constructors class already registered"
     _CAT_CONSTRUCTOR_CLASS = constructor_class
     if root_category is not None:
         _register_cat_constructor_owner(root_category)
@@ -225,7 +260,9 @@ def _register_cat_constructor_owner(category: SageCategory) -> None:
         return
     prefix = _cat_constructor_prefix(category)
     existing = _CAT_CONSTRUCTOR_OWNERS.get(prefix)
-    assert existing is None or existing is category, f"duplicate Cat constructor prefix: {prefix}"
+    assert existing is None or existing is category, (
+        f"duplicate Cat constructor prefix: {prefix}"
+    )
     _CAT_CONSTRUCTOR_OWNERS[prefix] = category
     _install_cat_constructor_methods()
 
@@ -245,18 +282,29 @@ def _declared_defining_predicates(category: SageCategory) -> tuple[str, ...]:
     return predicates
 
 
-def _validate_defining_predicates(category: SageCategory, predicates: tuple[str, ...]) -> None:
+def _validate_defining_predicates(
+    category: SageCategory, predicates: tuple[str, ...]
+) -> None:
     ambient_parent_class = category.base_category().parent_class
     local_parent_methods = _local_parent_methods(category)
-    missing_from_ambient = tuple(predicate for predicate in predicates if not hasattr(ambient_parent_class, predicate))
+    missing_from_ambient = tuple(
+        predicate
+        for predicate in predicates
+        if not hasattr(ambient_parent_class, predicate)
+    )
     missing_from_subcategory = tuple(
-        predicate for predicate in predicates if local_parent_methods is None or predicate not in local_parent_methods.__dict__
+        predicate
+        for predicate in predicates
+        if local_parent_methods is None
+        or predicate not in local_parent_methods.__dict__
     )
     assert not missing_from_ambient, (
-        f"{category} defining predicates are not exposed on ambient category {category.base_category()}: {missing_from_ambient}"
+        f"{category} defining predicates are not exposed on ambient category "
+        f"{category.base_category()}: {missing_from_ambient}"
     )
     assert not missing_from_subcategory, (
-        f"{category} defining predicates are not implemented on its ParentMethods: {missing_from_subcategory}"
+        f"{category} defining predicates are not implemented on its ParentMethods: "
+        f"{missing_from_subcategory}"
     )
 
 
@@ -322,7 +370,9 @@ def _make_named_class_with_cat_subcategory_methods(
     combined_provider = _combined_subcategory_methods(local_provider)
     temporary_provider = "_cat_combined_subcategory_methods"
     setattr(category, temporary_provider, combined_provider)
-    generated_class = delegate(name, temporary_provider, cache=cache, picklable=picklable)
+    generated_class = delegate(
+        name, temporary_provider, cache=cache, picklable=picklable
+    )
     delattr(category, temporary_provider)
     return generated_class
 
@@ -546,7 +596,9 @@ class CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent
         SageCategoryWithParameters.__init__(self)
 
 
-class Category_singleton(_SingletonClasscallMixin, _CatObjectMixin, SageCategorySingleton, Parent):
+class Category_singleton(
+    _SingletonClasscallMixin, _CatObjectMixin, SageCategorySingleton, Parent
+):
     r"""Parent-backed re-export of Sage's singleton category base."""
 
     def __init__(self) -> None:
@@ -579,7 +631,9 @@ class CategoryWithAxiom(_CatObjectMixin, SageCategoryWithAxiom, Parent):
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
         r"""Return whether ``candidate`` satisfies every defining predicate."""
-        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
+        return all(
+            getattr(candidate, predicate)() for predicate in self.defining_predicates()
+        )
 
 
 class CategoryWithAxiom_singleton(
@@ -612,10 +666,14 @@ class CategoryWithAxiom_singleton(
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
         r"""Return whether ``candidate`` satisfies every defining predicate."""
-        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
+        return all(
+            getattr(candidate, predicate)() for predicate in self.defining_predicates()
+        )
 
 
-class CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOverBaseRing, Parent):
+class CategoryWithAxiom_over_base_ring(
+    _CatObjectMixin, SageCategoryWithAxiomOverBaseRing, Parent
+):
     r"""Parent-backed re-export of Sage's base-ring axiom category base."""
 
     def __init__(self, base_category: SageCategory) -> None:
@@ -640,7 +698,9 @@ class CategoryWithAxiom_over_base_ring(_CatObjectMixin, SageCategoryWithAxiomOve
     @final
     def defining_predicate(self, candidate: CategoryObject) -> bool:
         r"""Return whether ``candidate`` satisfies every defining predicate."""
-        return all(getattr(candidate, predicate)() for predicate in self.defining_predicates())
+        return all(
+            getattr(candidate, predicate)() for predicate in self.defining_predicates()
+        )
 
 
 class Category_over_base(_CatObjectMixin, SageCategoryOverBase, Parent):
@@ -717,12 +777,16 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         Otherwise the raw Sage root remains the canonical upstream category.
         """
         axiom_category = getattr(type(self), "Endset", None)
-        if isinstance(axiom_category, type) and issubclass(axiom_category, SageCategoryWithAxiom):
+        if isinstance(axiom_category, type) and issubclass(
+            axiom_category, SageCategoryWithAxiom
+        ):
             return axiom_category(self)
         return SageHomsets().Endset()
 
 
-class FunctorialConstructionCategory(_CatObjectMixin, SageFunctorialConstructionCategory, Parent):
+class FunctorialConstructionCategory(
+    _CatObjectMixin, SageFunctorialConstructionCategory, Parent
+):
     r"""Parent-backed base for Sage functorial construction categories.
 
     This class is the missing part of the wrapping boundary.  Sage
@@ -747,16 +811,22 @@ class FunctorialConstructionCategory(_CatObjectMixin, SageFunctorialConstruction
         SageFunctorialConstructionCategory.__init__(self, category)
 
 
-class CovariantConstructionCategory(_CatObjectMixin, SageCovariantConstructionCategory, Parent):
+class CovariantConstructionCategory(
+    _CatObjectMixin, SageCovariantConstructionCategory, Parent
+):
     r"""Parent-backed re-export of Sage's covariant construction base."""
 
     @overload
     def __init__(self, category: SageCategory) -> None: ...
 
     @overload
-    def __init__(self, category: SageCategory, structure_object: CategoryObject) -> None: ...
+    def __init__(
+        self, category: SageCategory, structure_object: CategoryObject
+    ) -> None: ...
 
-    def __init__(self, category: SageCategory, structure_object: CategoryObject | None = None) -> None:
+    def __init__(
+        self, category: SageCategory, structure_object: CategoryObject | None = None
+    ) -> None:
         self._init_cat_object()
         if structure_object is None:
             SageCovariantConstructionCategory.__init__(self, category)
@@ -775,14 +845,20 @@ class RegressiveCovariantConstructionCategory(
     def __init__(self, category: SageCategory) -> None: ...
 
     @overload
-    def __init__(self, category: SageCategory, structure_object: CategoryObject) -> None: ...
+    def __init__(
+        self, category: SageCategory, structure_object: CategoryObject
+    ) -> None: ...
 
-    def __init__(self, category: SageCategory, structure_object: CategoryObject | None = None) -> None:
+    def __init__(
+        self, category: SageCategory, structure_object: CategoryObject | None = None
+    ) -> None:
         self._init_cat_object()
         if structure_object is None:
             SageRegressiveCovariantConstructionCategory.__init__(self, category)
             return
-        SageRegressiveCovariantConstructionCategory.__init__(self, category, structure_object)
+        SageRegressiveCovariantConstructionCategory.__init__(
+            self, category, structure_object
+        )
 
 
 class SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
