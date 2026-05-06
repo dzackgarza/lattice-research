@@ -212,6 +212,28 @@ SMOKE_STATEMENTS = (
         lambda _: C.IntegerRange(2).cartesian_product(C.IntegerRange(3)).cardinality() == 6,
     ),
     (
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) exposes its factor keys",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))._sets_keys() == C.IntegerRange(2),
+    ),
+    (
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) has first projection",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)).cartesian_projection(0)(
+            C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))((1, 2))
+        )
+        == 1,
+    ),
+    (
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) coerces from itself",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))._coerce_map_from_(
+            C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))
+        )
+        is True,
+    ),
+    (
+        "CartesianProduct(IntegerRange(2), IntegerRange(3)) elements expose coordinate projections",
+        lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3))((1, 2)).cartesian_projection(0) == 1,
+    ),
+    (
         "sets own free_algebra as the set-indexed free-algebra constructor surface",
         lambda _: abstract_method_has_name(Sets.ParentMethods.free_algebra, "free_algebra"),
     ),
