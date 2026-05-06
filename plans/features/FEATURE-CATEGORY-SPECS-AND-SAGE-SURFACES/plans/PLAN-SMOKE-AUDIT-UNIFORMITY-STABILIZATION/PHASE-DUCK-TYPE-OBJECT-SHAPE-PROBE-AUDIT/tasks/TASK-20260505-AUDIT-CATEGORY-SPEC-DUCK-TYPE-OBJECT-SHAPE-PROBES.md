@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 dependsOn: []
 title: Audit category-spec duck-type object-shape probes
-status: needs-review
+status: revision-required
 priority: critical
 description: Audit category-spec implementation code for `getattr`, `hasattr`, optional
   attribute fallbacks, and private-slot probes that infer object shape instead of
@@ -119,6 +119,21 @@ membership/subcategory predicates.
 - If validation is skipped because this card only routes findings, record that clearly
   in the work log.
 
+## Review Findings
+
+- 2026-05-06 parent-agent review failed Gate 1, definition grounding. The audit records
+  classifications by file, but not by each probe or branch with source-grounded
+  evidence.
+- The `CategoryWithAxiom` wrapper-boundary claim must cite the exact project/Sage
+  source definitions and hypotheses for `ambient_category`, `defining_predicates`, and
+  the completeness of the wrapper class boundary.
+- The `Sets().__contains__` replacement must cite the Sage/project source defining the
+  `Parent` plus Sage-category-membership object boundary.
+- The `ImageSubobject` private-storage probe must record the source-grounded storage
+  and interop contract before it can be accepted as a documented wrapper boundary.
+- Recommended status is `revision-required`, not `blocked`: the failed review is
+  fixable inside this leaf and does not exhaust the DAG frontier.
+
 ## Work Log
 
 - 2026-05-05: Created from user correction and routing decision. This card exists so
@@ -130,3 +145,5 @@ membership/subcategory predicates.
   `Sets().__contains__`. Left source-dependent set-wrapper private-slot cases to
   `TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES` instead of guessing.
   No smoke assertions or spec obligations were weakened.
+- 2026-05-06: Parent review moved this card to `revision-required` because the recorded
+  classifications are not yet source-grounded at probe/branch granularity.

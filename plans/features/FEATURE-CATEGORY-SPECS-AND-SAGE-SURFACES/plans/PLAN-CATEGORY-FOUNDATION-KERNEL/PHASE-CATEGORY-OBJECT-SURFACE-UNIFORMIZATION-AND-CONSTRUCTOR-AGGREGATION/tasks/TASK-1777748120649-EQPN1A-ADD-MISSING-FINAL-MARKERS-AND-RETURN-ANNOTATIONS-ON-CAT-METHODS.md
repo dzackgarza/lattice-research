@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Add missing final markers and return annotations on Cat methods
-status: needs-review
+status: revision-required
 priority: critical
 description: Add missing `@final` markers and explicit return annotations on concrete
   `Cat` method surfaces, and remove public Sage option-bag exposure from the affected
@@ -88,6 +88,19 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
   bags in touched files.
 - Report any validation blocker without substituting a different test.
 
+## Review Findings
+
+- 2026-05-06 parent-agent review passed Gate 1 definition grounding: `Cat()` ownership
+  and wrapper scope are grounded in `SPEC-MAPPING-CAT.md` and the Cat inventory.
+- The review failed Gate 2 acceptance criteria. The parent phase requires
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` after Cat or
+  category-object surface changes, and this card requires the narrowest relevant
+  `just` validation.
+- The work log records failed `just test`, static option-bag search, and `compileall`,
+  but it does not record the required Cat smoke recipe even though the recipe exists.
+- Recommended status is `revision-required`, not `blocked`: the missing validation is
+  in-scope and the Cat smoke recipe exists.
+
 ## Work Log
 
 - Created from pasted backlog on 2026-05-02.
@@ -114,3 +127,5 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
   `__classcall__` bridges have explicit `cls` and return annotations.
 - 2026-05-05: Moved this card to `in-review`; human review is still required before
   closure.
+- 2026-05-06: Parent review moved this card to `revision-required`; the required Cat
+  smoke recipe has not been recorded after the Cat/category-object surface changes.
