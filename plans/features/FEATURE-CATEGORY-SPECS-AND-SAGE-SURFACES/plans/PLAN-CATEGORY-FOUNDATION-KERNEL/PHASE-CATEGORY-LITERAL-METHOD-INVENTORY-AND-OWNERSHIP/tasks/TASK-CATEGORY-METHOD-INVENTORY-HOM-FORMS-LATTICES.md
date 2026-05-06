@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write Hom End Aut forms and lattice method ownership rows
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Mine Hom/End/Aut, forms, and lattice inventories into literal method-owner
@@ -86,10 +86,10 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [ ] The target method-inventory spec contains Hom, End, Aut, forms, symmetric bilinear, quadratic, free bilinear, torsion, and lattice method tables.
-- [ ] Form divisibility is recorded as the pairing-image submodule or ideal on symmetric bilinear elements and is not conflated with free-module coordinate gcd notions.
-- [ ] Orthogonal groups are recorded as automorphism objects in the relevant formed-module category, with special or stable refinements placed only where their extra hypotheses are sourced.
-- [ ] Lattice rows distinguish forms-owned methods from lattice endpoint methods and record backend routing where an algorithm is involved.
+- [x] The target method-inventory spec contains Hom, End, Aut, forms, symmetric bilinear, quadratic, free bilinear, torsion, and lattice method tables.
+- [x] Form divisibility is recorded as the pairing-image submodule or ideal on symmetric bilinear elements and is not conflated with free-module coordinate gcd notions.
+- [x] Orthogonal groups are recorded as automorphism objects in the relevant formed-module category, with special or stable refinements placed only where their extra hypotheses are sourced.
+- [x] Lattice rows distinguish forms-owned methods from lattice endpoint methods and record backend routing where an algorithm is involved.
 
 ## Dependencies And Boundaries
 
@@ -104,3 +104,7 @@ The seed rows include:
 ## Work Log
 
 - 2026-05-05: Created as the Hom/forms/lattice leaf for the literal method ownership inventory phase.
+- 2026-05-06: Added Hom/End/Aut, module-hom, formed-module, bilinear/quadratic,
+  symmetric divisibility, free/torsion form, lattice, discriminant-object, orthogonal
+  group, and algorithm-facing lattice rows to
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Moved this task to needs-review.

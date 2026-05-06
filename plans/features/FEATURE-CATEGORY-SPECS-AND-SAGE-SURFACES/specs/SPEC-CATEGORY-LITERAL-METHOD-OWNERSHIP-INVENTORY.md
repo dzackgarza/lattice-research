@@ -424,6 +424,117 @@ module surfaces. They are source-grounded in
 | `_element_constructor_`, `_convert_map_from_`, `_coerce_map_from_`, `_from_dict`, `_repr_`, `_latex_`, `_sympy_`, `_magma_init_`, `_macaulay2_`, display and dense/sparse conversion hooks | implementation/interoperability | no public mathematical category owner unless a separate row states an invariant | Sage parent internals, coercion, display, representation, or backend bridge plumbing. | Interop-only/rejected as method-owner evidence. Source: modules mapping combinatorial and method ownership rules. |
 | `is_exact()` on combinatorial free modules | parent | no module-category predicate owner in this inventory | Exact-arithmetic capability predicate, not module structure. | Deferred to exact-computation policy if admitted. Source: modules mapping combinatorial rows. |
 
+## Hom Forms And Lattice Method Rows
+
+Source task: `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES`.
+
+These rows cover the first-pass admitted, rejected, or deferred Hom/End/Aut, forms,
+torsion-form, and lattice surfaces. They are source-grounded in
+`category_specs/homsets/docs/SAGE_INVENTORY.md`,
+`category_specs/homsets/docs/MAPPING.md`,
+`category_specs/forms/docs/SAGE_INVENTORY.md`,
+`category_specs/forms/docs/MAPPING.md`,
+`category_specs/lattices/docs/SAGE_INVENTORY.md`,
+`category_specs/lattices/docs/MAPPING.md`,
+`category_specs/modules/docs/MAPPING.md`, and
+`theory/foundations/bilinear-forms-duals-morphisms.md`.
+
+### Generic Hom End And Aut Categories
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `C.HomCategory().Of(A, B)` | category object / hom parent constructor | `C.HomCategory()` | Hom object `Hom_C(A, B)` for objects `A, B in C`. Codomain is a hom parent whose elements are morphisms in `C`. | Admitted. Sources: homsets mapping project extension surface; homsets Sage inventory. |
+| `domain()`, `codomain()` | hom parent | `C.HomCategory().Of(A, B)` | The source and target objects of the hom object. Codomain is an object of `C`. | Admitted. Source: homsets mapping project extension surface. |
+| `identity()` | end/aut parent | `C.EndCategory().Of(A)` and `C.AutCategory().Of(A)` | Identity endomorphism or automorphism of `A`. | Admitted. Source: homsets mapping project extension surface. |
+| morphism evaluation `f(x)` / `__call__` | hom element | `C.HomCategory().ElementMethods` | Evaluation of a morphism on an element of its domain. Codomain is an element of the codomain object. | Admitted. Sources: homsets mapping; bilinear forms foundations use morphism evaluation before matrix presentations. |
+| morphism composition | hom element | `C.HomCategory().ElementMethods` | Composition of compatible morphisms. Codomain is a morphism in the appropriate hom object. | Admitted. Source: homsets mapping project extension surface. |
+| `C.EndCategory().Of(A)` | category object / end parent constructor | `C.EndCategory()` | Endomorphism object `End_C(A) = Hom_C(A, A)`. | Admitted. Source: homsets mapping. |
+| `is_endomorphism_set()` | hom parent / Sage interop | `HomCategory().EndCategory()` | Boolean Sage witness that a hom object is an end object. | Admitted as interop witness, not as a separate mathematical owner. Source: homsets Sage inventory. |
+| `C.AutCategory().Of(A)` | category object / aut parent constructor | `C.AutCategory()` | Automorphism object `Aut_C(A)`, the invertible part of `End_C(A)`. | Admitted. Source: homsets mapping. |
+| `end_category()` | aut parent | `C.AutCategory().Of(A)` | Returns the underlying endomorphism object from which the automorphism object is cut out. | Admitted. Source: homsets mapping. |
+| `is_invertible()`, `is_isomorphism()`, `inverse()`, `order()` | aut element | `C.AutCategory().ElementMethods` | Invertibility/isomorphism predicates, inverse automorphism, and element order. Codomains are `bool`, automorphism, and order/integer data. | Admitted. Source: homsets mapping project extension surface. |
+| `AutCategory.from_end_category` | construction helper | generic aut construction in `homsets/autsets.py` | Builds the public aut object from an end object through a private condition-subset bridge. | Admitted as construction route; raw condition object stays private. Source: homsets mapping. |
+| `condition_set()` on aut objects | implementation detail | no public owner | Raw Sage `ConditionSet` bridge used to cut out invertible endomorphisms. | Rejected as public API. Source: homsets mapping. |
+| local duplicate `EndCategory()` / `AutCategory()` selectors on hom construction classes | category selector | inherited `Cat` universal selectors | Universal category selectors own end/aut navigation; local duplicates are not separate method surfaces. | Rejected as local owner. Source: homsets mapping selector ownership. |
+
+### Module Hom Specialization And Formed-Module Morphisms
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `zero()` on `Hom_R(M, N)` | hom parent | `Modules(R).HomCategory()` | Zero `R`-linear morphism. | Admitted. Sources: modules Sage inventory Homsets; modules mapping Hom-category extra-structure decision. |
+| `base_ring()` on `Hom_R(M, N)` | hom parent | `Modules(R).HomCategory()` | Base ring of the module-hom object. Codomain is `R`. | Admitted. Source: modules Sage inventory Homsets. |
+| `End_R(M)` as an algebra | end parent | `Modules(R).EndCategory()` | Module endomorphisms carry `R`-algebra structure in addition to generic end-category structure. | Admitted. Source: modules mapping Hom-category extra-structure decision. |
+| form-preserving Hom containment | hom parent containment | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A plain module morphism belongs to the formed-module Hom object exactly when it preserves the attached form data. | Admitted. Sources: forms mapping form-preserving morphisms; lattice-redesign category ABC morphism semantics. |
+| `is_isometry()` on a formed-module morphism | hom element compatibility query | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | Isomorphism inside an already form-preserving Hom object. Codomain is `bool`. | Admitted as compatibility query, not a separate preservation owner. Source: forms mapping. |
+| `orthogonal_group()` | parent | `C.AutCategory().Of(M)` for `C <= FormedModules(R)` | Orthogonal group `O(M, form) = Aut_C(M)`, the automorphism object in the relevant formed-module category. | Admitted. Sources: forms mapping; lattices mapping note (5); modules mapping construction-category mapping. |
+| standalone `is_form_preserving()` as a public owner | morphism predicate | no public owner | Form preservation is Hom-object containment, not a separate mathematical surface. | Rejected. Source: forms mapping. |
+| matrix equation `g^T G g = G` as owner of isometry | presentation-level check | no semantic owner | Matrix equations are implementation witnesses after presentations/bases are fixed. | Rejected as method owner. Sources: forms mapping; bilinear forms foundations. |
+
+### Formed Modules Bilinear Quadratic And Symmetric Rows
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `Modules(R).WithForms()` / `FormedModules(R)` | category object | `forms.subcategories.with_forms.FormedModulesCategory` | Modules equipped with attached semilinear form data. `Modules(R).WithForms()` is the Sage-compatible route; forms owns the class and method surface. | Admitted. Sources: forms mapping ownership; lattice-redesign category ABC. |
+| `form()` | parent | `FormedModules(R)` | Attached form object/data. Codomain is the form object with tensor source, codomain module, and scalar action. | Admitted. Source: lattices mapping method placement table. |
+| `form_degree()` | parent | `FormedModules(R)` | Tensor degree/type of the attached form data. Codomain is degree/type data. | Admitted. Source: lattices mapping method placement table. |
+| `twist(s)` | parent | `FormedModules(R)` | Same underlying module with form scaled by scalar `s`. | Admitted. Sources: forms mapping; lattices mapping method placement table. |
+| bilinear evaluation `b(v, w)` | parent/element operation | `FormedModules(R).Bilinear()` | Bilinear form evaluation. Codomain is the form codomain module `S`. | Admitted. Source: lattices mapping method placement table. |
+| `self_product(v)`, element `norm(v)` | element | `FormedModules(R).Bilinear().ElementMethods` | `b(v, v)`. `self_product` is generic; `norm` is Sage/lattice terminology for the same value. | Admitted with alias note. Source: lattices mapping note (7). |
+| `is_isotropic(v)` | element/parent | `FormedModules(R).Bilinear()` | Predicate `b(v, v) = 0`. Codomain is `bool`. | Admitted. Source: lattices mapping method placement table. |
+| `perp(v)` | element | `FormedModules(R).Bilinear().ElementMethods` | Orthogonal subobject `{w in M : b(v,w)=0}`. | Admitted. Source: lattices mapping method placement table. |
+| `orthogonal_submodule_to(S)` | parent | `FormedModules(R).Bilinear()` | Orthogonal submodule to a submodule/subobject `S`. | Admitted. Source: lattices mapping note (4). |
+| quadratic evaluation `q(v)` | parent/element operation | `FormedModules(R).Quadratic()` | Quadratic-form evaluation. Codomain is the quadratic-form codomain module. | Admitted. Source: lattices mapping method placement table. |
+| `is_symmetric()`, `is_alternating()`, `is_nondegenerate()`, `is_definite()`, `is_indefinite()`, `is_integral()`, `is_rational()` | parent predicate | forms-owned bilinear axiom refinements | Witness/refinement predicates for formed-module axioms. Codomain is `bool`; successful checks refine the category. | Admitted. Sources: forms mapping ownership; lattices mapping method placement table. |
+| `divisibility(v)` | element | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | Pairing-image submodule `<b(v,w) : w in M> <= S`; in the scalar-valued case `S = R`, this is an ideal of `R`. | Admitted. Sources: forms mapping symmetric divisibility; lattices mapping note (9); modules mapping divisibility boundary. |
+| coordinate-gcd or chosen-generator `divisibility(v)` | element | no module/lattice owner | Coordinate gcds and principal generators are representations under extra hypotheses, not the invariant definition. | Rejected. Sources: forms mapping; modules mapping rank/divisibility boundary. |
+| `orthogonal_complement(S)` | parent | `FormedModules(R).Bilinear().Symmetric()` | Symmetric left/right orthogonal complement of subobject `S`. Codomain is a submodule/subobject. | Admitted. Source: lattices mapping note (4). |
+| `is_even()` | parent | `FormedModules(R).Bilinear().Integral()` | Evenness predicate for integral bilinear forms. Codomain is `bool`. | Admitted. Sources: lattices mapping method placement table; Nikulin source listed in task provenance. |
+| `is_unimodular()` | parent | `FormedModules(R).Bilinear().Symmetric().Nondegenerate().Integral()` over an integral domain | Predicate `L = L^*` or determinant/unit condition when presented. | Admitted. Source: lattices mapping method placement table. |
+
+### Free Bilinear And Torsion Form Rows
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `gram_matrix()` | parent | `forms.subcategories.free_bilinear.FreeBilinearModulesCategory` | Gram matrix of the bilinear form in the chosen free basis. Codomain is a matrix over the form/base ring. | Admitted. Sources: forms mapping; lattices Sage inventory Tier 0; lattices mapping note (1). |
+| `inner_product_matrix()` | parent / Sage compatibility | free bilinear presentation surface, with `gram_matrix()` canonical | Sage source name for the stored form matrix. In public lattice semantics, avoid treating this as an inner product on indefinite forms. | Interop/admitted only as presentation alias if required. Sources: lattices Sage inventory Tier 0; lattice interface style guide. |
+| `determinant()`, `discriminant()` | parent | `FreeBilinearModulesCategory` | Determinant of the Gram matrix and signed discriminant `(-1)^r det`. Codomain is a scalar. | Admitted. Sources: lattices Sage inventory Tier 0; lattices mapping method placement table. |
+| `rank()` | parent | `Modules(R).Free()` | Rank of the underlying free module, inherited by free bilinear modules. | Admitted via module owner. Source: lattices mapping method placement table. |
+| `signature_pair()`, `signature()` | parent | free symmetric bilinear modules over ordered integral-domain/fraction-field hypotheses; concrete `ZZ` algorithm at lattice refinement | Signature pair and signature after suitable base change. Codomains are `(Integer, Integer)` and `Integer`. | Admitted with algorithm caveat. Source: lattices mapping note (2); lattices Sage inventory Tier 3. |
+| `direct_sum(other)` | parent | `FreeBilinearModulesCategory` | Orthogonal direct sum of formed modules. Codomain is a free bilinear formed module. | Admitted. Sources: lattices mapping; lattices Sage inventory Tier 3. |
+| `tensor_product(other)` | parent | `FreeBilinearModulesCategory` | Tensor product with induced form. Codomain is a free bilinear formed module. | Admitted. Sources: lattices mapping; lattices Sage inventory Tier 3. |
+| `base_change_to(ring)`, `rational_span()` | parent | free bilinear / free over integral domain owner | Base-change of the formed module and rational span `L tensor_R Frac(R)`. | Admitted. Sources: lattices mapping; bilinear forms foundations. |
+| `gram_matrix_bilinear()`, `gram_matrix_quadratic()` | parent | torsion bilinear/quadratic formed-module owner | Torsion Gram matrices with quotient-valued codomains such as `Q/mZ` or `Q/nZ`. | Admitted. Sources: lattices Sage inventory Tier 2; lattices mapping note (6). |
+| `value_module()`, `value_module_qf()` | parent | torsion bilinear/quadratic formed-module owner | Quotient-value modules for bilinear and quadratic torsion forms. | Admitted. Sources: lattices Sage inventory Tier 2; lattices mapping method placement table. |
+| `primary_part(m)`, `normal_form()`, `brown_invariant()` | parent | torsion formed-module refinements | Primary part, canonical normal form, and Brown invariant. | Admitted. Source: lattices Sage inventory Tier 2. |
+| `additive_order(v)`, element `lift(v)` | torsion element | torsion formed-module element methods | Additive order and lift to a covering/dual object where defined. | Admitted with torsion hypotheses. Source: lattices Sage inventory Tier 2 and FGP element rows. |
+| `all_submodules()` on torsion forms | parent | torsion finite module/form owner | Enumerates all submodules. | Admitted only with finite torsion hypotheses; can be expensive but source-backed. Source: lattices Sage inventory Tier 2. |
+
+### Lattices Discriminant Objects And Algorithmic Rows
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `Lattices(R)` | category object | `lattices.LatticesCategory` endpoint over forms-owned chain | Named endpoint for integral, nondegenerate, symmetric, finite-rank free bilinear modules. | Admitted. Sources: forms mapping boundary; lattices mapping hierarchy overview; lattice-redesign category ABC. |
+| `dual_lattice()` | parent | `Bilinear().Integral()` over integral-domain/fraction-field hypotheses, inherited by lattices | Dual formed object `L^* = {v in L_K : beta(v,L) subset R}`. | Admitted. Sources: lattices mapping note (3); bilinear forms foundations. |
+| `discriminant_group()` | parent | same dual/discriminant formed-module owner, inherited by lattices | Finite torsion formed module `L^*/L` with discriminant form data. | Admitted. Sources: lattices Sage inventory Tier 3; lattices mapping note (3). |
+| `inclusion_morphism()` | parent | `Bilinear().Integral()` over integral-domain/fraction-field hypotheses | Morphism `L -> L^*` induced by the bilinear form/adjoint map. | Admitted. Sources: lattices mapping note (3); bilinear forms foundations. |
+| `Lattices(R).DualObjects()` | construction category | lattice dual-object construction | Canonical dual construction category; objects are dual lattices/formed dual objects. | Admitted. Source: lattices mapping construction-category vocabulary. |
+| `Lattices(R).DualLattices()` | construction alias | compatibility alias only | Old lattice-specific spelling of `DualObjects()`. | Interop-only. Source: lattices mapping construction vocabulary. |
+| `discriminant_class(x)` | dual element | `Lattices(R).DualObjects().ElementMethods` | Quotient class of a dual element in `L^*/L`. | Admitted. Source: lattices mapping note (8). |
+| `discriminant_class()` on ordinary lattice elements | element | no nontrivial ordinary-element owner | Ordinary elements map to zero after inclusion `L -> L^*`; the nontrivial map is on dual elements. | Rejected as separate owner. Source: lattices mapping compatibility paths. |
+| `is_primitive(M)` / element `is_primitive(v)` | subobject/element | free module over integral domain; element case via cyclic-submodule inclusion | Primitive submodule predicate; element predicate routes through `v.span().inclusion().is_primitive()`. | Admitted with owner split. Sources: lattices mapping method placement table; modules mapping divisibility boundary. |
+| `sublattice(basis)` | parent | free bilinear modules over PID | Sublattice spanned by a basis/generating family under PID hypotheses. | Admitted. Source: lattices Sage inventory Tier 3; lattices mapping. |
+| `overlattice(gens)`, `maximal_overlattice(p)` | parent | free symmetric nondegenerate integral formed modules; `OverZZ` for maximal algorithm | Finite-index same-rational-span overlattice constructions. | Admitted with algorithm/backing caveats. Sources: lattices mapping; lattices Sage inventory Tier 3. |
+| `genus()`, `nikulin_invariants()` | parent | `Lattices(ZZ)` / `OverZZ + Free + Symmetric + Nondegenerate` | Local-global genus and discriminant invariants. | Admitted as lattice-specific algorithmic surface. Sources: lattices mapping method placement table; backend rows route Oscar/Hecke where relevant. |
+| `is_isometric_to(other)`, rational/local isometry tests | parent/hom query | `OverZZ + Free + Symmetric + Nondegenerate` plus formed-module Hom/Aut semantics | Predicate for existence of a lattice isometry; codomain is `bool` plus future witness surface when admitted. | Admitted with backend routing. Sources: lattices mapping; backend inventory rows for Indefinite.jl/Oscar/CARAT. |
+| `reflection(v)` | element | free symmetric nondegenerate formed-module element owner | Reflection `s_v(w) = w - 2b(v,w)/b(v,v) v`, with integrality of output a separate check. Codomain is an automorphism/rational automorphism witness. | Admitted. Source: lattices mapping method placement table. |
+| `is_root(v)` | element | free symmetric integral formed-module element owner | Predicate `b(v,v) in {-2, 2}` in the current source-backed root convention. | Admitted. Source: lattices mapping method placement table. |
+| `minimum()`, `maximum()`, `LLL()`, `short_vectors(n)`, `short_vectors_up_to_sign(n)`, `enumerate_short_vectors()`, `enumerate_close_vectors(target)` | parent | `Lattices(ZZ)` / `OverZZ + Free + Symmetric` algorithm surface | Reduction and vector-enumeration algorithms. Codomains are scalar extrema, reduced lattice/basis data, or iterators/families of lattice elements. | Admitted only as algorithmic rows with backend/package caveats; not evidence for positive-definite-only semantics. Sources: lattices Sage inventory Tier 3; lattices mapping method placement table. |
+| `orthogonal_group()` / `automorphisms()` on lattices | parent | `C.AutCategory().Of(L)` for the relevant formed/lattice category `C` | Lattice orthogonal group as categorical automorphisms preserving the form. Sage `automorphisms()` is an alias. | Admitted, with `automorphisms()` interop alias. Sources: forms mapping; lattices Sage inventory Tier 3; lattices mapping note (5). |
+| `special_orthogonal_group()`, `stable_orthogonal_group()` | aut parent | `Lattices(R).AutCategory().ParentMethods` | Determinant-one and stable/orientation-positive subgroup selectors on the lattice aut object. | Admitted only on aut parent with determinant/orientation realization prerequisites. Source: lattices mapping compatibility paths. |
+| lattice-object `L.special_orthogonal_group()`, `L.stable_orthogonal_group()` | parent | no lattice-object owner | Former object calls route through `L.orthogonal_group().special_orthogonal_group()` and `L.orthogonal_group().stable_orthogonal_group()`. | Rejected as owner. Source: lattices mapping compatibility paths. |
+| `quadratic_form()` | parent | free symmetric formed-module presentation conversion | Converts a free symmetric bilinear presentation to a quadratic-form object/presentation. | Admitted as conversion, not a separate owner for the underlying object. Sources: lattices Sage inventory Tier 3 and Tier 4; lattices mapping. |
+| public Sage escape hatches such as `sage_lattice()`, `inner_product_matrix()` as lattice identity, ambient/inclusion/projection matrix state | implementation detail | no public lattice owner | Internal Sage/Julia objects and ambient-vector-space state are calculation engines or presentation data, not public semantics. | Rejected. Sources: lattice-redesign interface style guide and corrections spec. |
+
 ## Backend And External Software Method Rows
 
 Source task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
@@ -529,3 +640,6 @@ method and which mature external system should be audited or wired.
 - 2026-05-06: Added ring, algebra, and module method rows covering constructor,
   basis/generator, ideal, quotient, tensor, dual, Hom, PID, graded, Ore, representation,
   matrix, and rejected interop surfaces.
+- 2026-05-06: Added Hom/End/Aut, module-hom, formed-module, bilinear/quadratic,
+  symmetric divisibility, free/torsion form, lattice, discriminant-object, orthogonal
+  group, and lattice-algorithm ownership rows.
