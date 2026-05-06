@@ -104,3 +104,16 @@ Finding:
 - The card required follow-up cards for concrete implementation or decision work,
   but the produced mapping spec left the curve/Jacobian/period-lattice ownership
   spec as inline prose rather than linking a tracked successor.
+
+### Re-Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance.
+**Gates failed:** None.
+**Outcome:** no concrete revision findings; human approval remains required before
+marking the card complete.
+
+Findings: none. The review found the prior Gate 2 defect resolved by
+`[[SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP]]`, which now tracks the geometry
+ownership spec that had been left as inline follow-up prose.
