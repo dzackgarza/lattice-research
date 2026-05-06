@@ -13,7 +13,7 @@ from category_specs.algebras import Algebras
 from category_specs.cat import Category, Cat
 from category_specs.cat.autsets import _CatAutofunctorMethods
 from category_specs.cat.endsets import CatEndCategory, _CatEndofunctorMethods
-from category_specs.cat.homsets import CatHomCategory
+from category_specs.cat.homsets import CatHomCategory, _CatConstructionFunctorMethods, _CatFunctorMethods
 from category_specs.cat.subcategories.constructions.subobjects import Subcategories
 from category_specs.forms import FormedModules
 from category_specs.homsets import HomCategory
@@ -103,6 +103,11 @@ def category_diagnostics_are_disabled_by_default_and_keyed_once():
         clear_category_diagnostic_history()
         logger.removeHandler(handler)
     return True
+
+
+def abstract_method_has_name(method, name):
+    return method.__name__ == name
+
 
 SMOKE_STATEMENTS = (
     ("Cat() is singleton-valued", lambda _: Cat() is C),
@@ -265,6 +270,21 @@ SMOKE_STATEMENTS = (
     (
         "Cat hom category exposes construction-functor method surface",
         lambda _: CatHomCategory.ConstructionFunctorMethods.__name__ == "_CatConstructionFunctorMethods",
+    ),
+    (
+        "Cat functor surface owns Sage functor coercion and evaluation methods",
+        lambda _: abstract_method_has_name(_CatFunctorMethods._coerce_into_domain, "_coerce_into_domain")
+        and abstract_method_has_name(_CatFunctorMethods._apply_functor, "_apply_functor")
+        and abstract_method_has_name(_CatFunctorMethods._apply_functor_to_morphism, "_apply_functor_to_morphism"),
+    ),
+    (
+        "Cat construction-functor surface owns Sage construction combinators",
+        lambda _: _CatConstructionFunctorMethods.coercion_reversed is False
+        and abstract_method_has_name(_CatConstructionFunctorMethods.pushout, "pushout")
+        and abstract_method_has_name(_CatConstructionFunctorMethods.merge, "merge")
+        and abstract_method_has_name(_CatConstructionFunctorMethods.commutes, "commutes")
+        and abstract_method_has_name(_CatConstructionFunctorMethods.expand, "expand")
+        and abstract_method_has_name(_CatConstructionFunctorMethods.common_base, "common_base"),
     ),
     (
         "Cat end category exposes the Autset axiom hook",

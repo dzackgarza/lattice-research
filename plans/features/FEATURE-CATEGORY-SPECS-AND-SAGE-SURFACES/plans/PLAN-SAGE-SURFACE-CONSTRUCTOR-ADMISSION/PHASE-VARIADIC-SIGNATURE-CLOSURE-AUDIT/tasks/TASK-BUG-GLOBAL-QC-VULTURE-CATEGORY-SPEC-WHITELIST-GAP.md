@@ -269,6 +269,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   and the vulture-only diagnostic no longer reports
   `category_specs/homsets/homsets.py` or `category_specs/homsets/endsets.py`
   predicate findings.
+- 2026-05-06 fourteenth bounded slice: Cat smoke coverage was extended for the
+  category-internal functor surface and Sage construction-functor combinator surface:
+  `_coerce_into_domain`, `_apply_functor`, `_apply_functor_to_morphism`,
+  `coercion_reversed`, `pushout`, `merge`, `commutes`, `expand`, and `common_base`.
+- Validation for the fourteenth slice:
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `category_specs/cat/homsets.py`
+  findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -308,3 +316,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   coverage.
 - 2026-05-06: Completed the thirteenth bounded cleanup slice for generic Hom/End
   endomorphism-set predicate smoke coverage.
+- 2026-05-06: Completed the fourteenth bounded cleanup slice for Cat functor and
+  construction-functor smoke coverage.
