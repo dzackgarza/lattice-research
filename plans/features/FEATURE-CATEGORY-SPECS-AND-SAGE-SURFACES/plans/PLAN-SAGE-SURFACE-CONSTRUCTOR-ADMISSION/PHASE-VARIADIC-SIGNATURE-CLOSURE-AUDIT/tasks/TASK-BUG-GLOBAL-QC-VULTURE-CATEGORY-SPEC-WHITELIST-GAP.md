@@ -286,6 +286,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   fails on the existing module implementation-gap frontier, but the new base-predicate
   assertion is not among the reported failures. The vulture-only diagnostic no longer
   reports the targeted `category_specs/modules/__init__.py` predicate findings.
+- 2026-05-06 sixteenth bounded slice: poset smoke coverage was extended for root
+  reverse comparisons, lower covers, order ideals, order filters, poset Hom/End/Aut
+  predicates, objects-over/objects-under structure-poset surfaces, finite meet/join
+  semilattice extremal elements, operation matrices, pseudocomplements, and generated
+  meet/join subsemilattices.
+- Validation for the sixteenth slice:
+  `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed,
+  and the vulture-only diagnostic no longer reports `category_specs/posets/**`
+  findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -329,3 +338,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   construction-functor smoke coverage.
 - 2026-05-06: Completed the fifteenth bounded cleanup slice for base module predicate
   smoke coverage.
+- 2026-05-06: Completed the sixteenth bounded cleanup slice for poset root, Hom, slice,
+  and finite semilattice smoke coverage.
