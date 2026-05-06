@@ -4,9 +4,11 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
-dependsOn: []
+dependsOn:
+- '[[TASK-LAT-PHASE0-MODULE-ENRICHMENT]]'
+- '[[TASK-LAT-PHASE0-MODULE-OPERATIONS]]'
 title: Implement Hom spaces as enriched modules and morphism constructors
-status: unstarted
+status: blocked
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
@@ -114,3 +116,11 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Work Log
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
+
+## Blocker
+
+- 2026-05-06: Path-local dependency blocker recorded from the Phase 0 dependency order.
+  This card depends on enriched module parents and module operations because Hom, End, Aut, cokernel, projection, and lift surfaces must be morphisms between the enriched module objects.
+- This is not a global blocker for the active goal; continue another approved active leaf
+  outside this dependency chain while the prerequisite decision or prerequisite cards
+  remain unresolved.

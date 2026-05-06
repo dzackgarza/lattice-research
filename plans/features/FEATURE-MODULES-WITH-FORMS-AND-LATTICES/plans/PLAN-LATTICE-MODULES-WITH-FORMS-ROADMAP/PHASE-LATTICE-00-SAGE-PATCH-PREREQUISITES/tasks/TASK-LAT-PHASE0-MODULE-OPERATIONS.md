@@ -4,9 +4,10 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
-dependsOn: []
+dependsOn:
+- '[[TASK-LAT-PHASE0-MODULE-ENRICHMENT]]'
 title: Implement free torsion and generator operations for enriched modules
-status: unstarted
+status: blocked
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
@@ -111,3 +112,11 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Work Log
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
+
+## Blocker
+
+- 2026-05-06: Path-local dependency blocker recorded from the Phase 0 dependency order.
+  This card depends on `TASK-LAT-PHASE0-MODULE-ENRICHMENT` because free/torsion decomposition and generator operations must attach to enriched module parents, not raw Sage module parents.
+- This is not a global blocker for the active goal; continue another approved active leaf
+  outside this dependency chain while the prerequisite decision or prerequisite cards
+  remain unresolved.
