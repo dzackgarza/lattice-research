@@ -57,6 +57,14 @@ Source evidence:
 - Stacks Project, Schemes, Definition 26.9.1, https://stacks.math.columbia.edu/tag/01II: a scheme is a locally ringed space locally modeled by affine schemes; morphisms are morphisms of locally ringed spaces; the category is denoted Sch.
 - Stacks Project, Fibre products of schemes, https://stacks.math.columbia.edu/tag/01JO: fiber products are scheme-level constructions defined by their universal property; affine fiber products are computed by tensor products of coordinate rings.
 - Stacks Project, Proj of a graded ring, https://stacks.math.columbia.edu/tag/01M3: Proj of a graded ring is constructed as a locally ringed space and is a scheme with standard affine opens.
+- Stacks Project, Blowing up, Definition 31.32.1, https://stacks.math.columbia.edu/tag/01OF:
+  for a scheme `X` and quasi-coherent ideal sheaf `I <= O_X` with corresponding closed
+  subscheme `Z`, the blowup of `X` along `Z` is the morphism
+  `Proj_X(⊕_{n >= 0} I^n) -> X`; `Z` is the center and the exceptional divisor is the
+  inverse image of `Z`.
+- Stacks Project, Blowing up, Lemma 31.32.2, https://stacks.math.columbia.edu/tag/0804:
+  on an affine open `U = Spec(A)` with ideal `I <= A`, the blowup restricts to
+  `Proj(⊕_{d >= 0} I^d)` and is covered by affine blowup algebras `A[I/a]`.
 
 Project vocabulary:
 
@@ -72,7 +80,13 @@ Boundary decisions:
 - A scheme is not a raw zero locus, a raw ideal, or a raw coordinate ring. Those are presentations or constructors for particular subcategories.
 - A globally defined `coordinate_ring()` is not a method on all schemes; it belongs first on affine schemes and then on explicitly presented algebraic subscheme surfaces where the returned ring is the presentation coordinate ring.
 - `fiber_product()` and `base_change()` are scheme-level constructions. Backend support may start with affine or presented cases, but the method owner is `Schemes()` or `Schemes().Over(S)` because the construction is mathematically defined there.
-- `blowup(center)` should not be forced down to varieties merely because current backend rows mention varieties. The mathematical owner is a scheme-level or noetherian/presented-scheme refinement once the center is a closed subscheme or ideal-sheaf datum and the Rees/Proj construction is sourced. The implementation backend may still be Macaulay2/Singular/Oscar for finitely presented cases.
+- `blowup(center)` should not be forced down to varieties merely because current
+  backend rows mention varieties. The mathematical owner is a scheme-level construction
+  with center data given by a closed subscheme `Z -> X` or corresponding quasi-coherent
+  ideal sheaf `I <= O_X`; the return data is a morphism `Bl_Z(X) -> X` in `Schemes()/X`
+  constructed as relative Proj of the Rees algebra. Practical implementation may
+  require noetherian, finite-type, or presented-scheme refinements and may route to
+  Macaulay2/Singular/Oscar in those finitely presented cases.
 - `rational_points(K)` is better understood as an `S`-valued point/Hom surface `Hom(Spec(K), X)`; enumeration is a computational refinement, not the definition.
 
 ## Sage Surface Survey
@@ -128,6 +142,11 @@ Admit these as scheme-level or scheme-refinement surfaces when downstream specs 
 - `defining_ideal()`, `defining_polynomials()`, `Jacobian()`, and Jacobian-matrix surfaces: owned by embedded/presented algebraic subschemes or smoothness/singularity refinements, not all schemes.
 - `point_homset(S)` and `rational_points(K)`: mathematically Hom surfaces from affine test schemes; computational enumeration belongs to finite/presented refinements.
 - `glue_along_domains()` or `GluedScheme`: scheme construction from open-immersion data; current Sage checking gaps are implementation limitations.
+- `blowup(center)` / `blow_up(center)`: owned first by `Schemes()` or the chosen
+  over-category surface when `center` is a closed subscheme or quasi-coherent ideal
+  sheaf datum on the source; the codomain is a scheme `Bl_Z(X)` equipped with its
+  structural morphism to `X`. Affine Rees-algebra charts and finite-presentation
+  backends are implementation refinements, not the mathematical owner.
 
 ## Downstream Work Unblocked Or Routed
 
@@ -163,8 +182,39 @@ No new card is needed from this scheme pass. Existing sibling cards own the rema
 - Backend surfaces surveyed for OSCAR general schemes and Macaulay2 `Spec`/`Proj` scheme-variety constructions.
 - Local dependencies and downstream cards listed explicitly.
 - Follow-up routing records that no new card is needed from this leaf because existing sibling and backend-mapping cards already own the remaining work.
+- Blowup owner guidance is now grounded in Stacks Project Definition 31.32.1 and
+  Lemma 31.32.2; no separate source-mining card is needed for the basic scheme-level
+  owner claim. Backend-specific implementations of finitely presented blowups remain
+  downstream of backend-method inventory reconciliation.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Reviewer)
+
+**Gates passed:** none.
+**Gates failed:** Gate 1 Definition Grounding.
+**Outcome:** revision-required, fixed in-card.
+
+#### Gate 1 Finding: Blowup Ownership
+
+- The card admitted `blowup(center)` ownership while saying the Rees/Proj construction
+  still needed sourcing. That violated the Gate 1 requirement that method-owner claims
+  record source, definition, owner, hypotheses, codomain/return object, and proof or
+  implementation obligations before admission.
+
+#### Rework
+
+- Added Stacks Project Definition 31.32.1 and Lemma 31.32.2 as the source basis.
+- Restated the owner claim with explicit hypotheses: source object `X` is a scheme,
+  center is a closed subscheme or quasi-coherent ideal sheaf on `X`, and the returned
+  object is the blowup scheme with structural morphism to `X`.
+- Kept backend implementation limitations as implementation refinements rather than
+  owner data.
 
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for schemes, recorded mathematical owner guidance, backend evidence, downstream routing, and the visible-backend-map negative finding.
+- 2026-05-06: Reworked the Gate 1 blowup finding by adding Stacks Project blowup
+  sources and making the center/return-object hypotheses explicit. The card remains
+  `needs-review` pending re-review; it is not marked complete.
