@@ -4,20 +4,20 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
-dependsOn: []
+dependsOn:
+- '[[TASK-INTEGRATE-SCHEMES-CATEGORY]]'
 title: Research category integration for varieties
 status: needs-review
 priority: high
 description: Research and prepare the category-spec integration path for varieties.
 successCriteria:
-- Identify the mathematical definition and the intended project vocabulary for this
-  category.
+- Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
+  surfaces, and smoke expectations.
 - List downstream categories or tasks blocked by this integration.
-- Create any concrete follow-up decision, spec, implementation, or source-curation
-  cards needed to proceed.
+- Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
+  to proceed.
 complexity: 65
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
@@ -158,8 +158,35 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
 - Follow-up routing records that no new card is needed because existing sibling and backend-mapping cards own specialization and reconciliation.
 - Correction recorded that global invariants such as arithmetic/geometric genus, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data must be owned by the broadest source-backed scheme/variety refinements, not by curve/surface categories by default.
 
+## Review Log
+
+### Review 2026-05-06 (Independent Reviewer)
+
+**Gates passed:** none.
+**Gates failed:** Gate 1 Definition Grounding.
+**Outcome:** revision-required, fixed by DAG edge.
+
+#### Gate 1 Finding: Scheme Dependency
+
+- This card treats `TASK-INTEGRATE-SCHEMES-CATEGORY` as the source-admitted scheme
+  substrate for `Varieties(k)` and related method-owner guidance, but the schemes card
+  is still `needs-review` rather than human-accepted.
+- The card therefore must not be reviewed as independent of schemes; it needs a
+  `dependsOn` edge to `TASK-INTEGRATE-SCHEMES-CATEGORY` so the DAG prevents premature
+  review or execution.
+
+#### Rework
+
+- Added `[[TASK-INTEGRATE-SCHEMES-CATEGORY]]` to `dependsOn`.
+- Did not mark the card blocked. This is ordinary DAG sequencing: the card should wait
+  until the schemes source-admission card is accepted.
+
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for varieties, chose the Stacks integral separated finite-type convention for `Varieties(k)`, recorded backend evidence, and routed broader software usage to presented scheme/variety refinements.
 - 2026-05-06: Corrected invariant ownership after source review: genus variants, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data are broad scheme/variety-refinement surfaces before curve/surface specialization.
+- 2026-05-06: Added the missing DAG dependency on the schemes source-admission card
+  after independent review caught that this card relies on an unaccepted scheme
+  substrate. The card remains `needs-review`, but the DAG should treat it as
+  dependency-waiting until schemes is accepted.
