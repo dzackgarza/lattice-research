@@ -9,7 +9,7 @@ dependsOn:
 blocks:
 - '[[TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z-IMPLEMENT-MODULE-CATEGORY-GRAPH-PHASE-FOR-AMBIENT-FREE-VECTOR-SUBOBJECT]]'
 title: Ground root module abstract-method ownership before any migration
-status: in-progress
+status: needs-review
 priority: high
 description: Audit the project abstract methods currently installed on generic `Modules(R)`
   objects and preserve each ideal-interface obligation under its grounded owner before
@@ -81,10 +81,17 @@ The current generic root abstract surface includes at least:
 - `natural_pairing`
 
 The first smoke failure is only the alphabetically earliest missing Sage implementation
-on the sampled free module. The real issue is the owner split: some of these are
-generic module obligations, some are construction-owner methods, some are subobject or
-quotient methods, and some require finite-rank, basis, dual, form, PID, or field
-hypotheses.
+on the sampled free module. The real issue is not to shrink the root surface until the
+mathematics says it is too broad. Some methods are generic module obligations, some
+require subobject, quotient, finite-rank, basis, dual, form, PID, field, or sidedness
+hypotheses, and that distinction must be proved method by method.
+
+Generic root ownership is the default whenever an operation is mathematically defined
+for arbitrary `R`-modules. A method may move off `Modules(R)` only after this task or
+`[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` records the missing datum, hypothesis,
+or counterexample showing that the operation is not well-defined for arbitrary modules.
+Current Sage gaps, smoke failures, algorithmic difficulty, or the result object's
+construction category are not evidence against root ownership.
 
 ## Mathematical Review Finding
 
@@ -119,6 +126,11 @@ source-grounded replacement owner preserves the same mathematical obligation.
 - [ ] Before any method is moved, deleted, or assigned to a narrower owner, the card
       records the source-grounded replacement owner and the preserved mathematical
       obligation.
+- [ ] Before any method is moved off `Modules(R)`, the card or linked spec records why
+      the operation itself is not mathematically defined for arbitrary modules, naming
+      the missing datum, extra hypothesis, or counterexample. If that evidence is not
+      present, the root abstract obligation remains and subcategories may only refine
+      implementation, algorithms, or return types.
 - [ ] Each method disposition is reviewed as a mathematical sentence before Sage
       inventory is used: caller object, required data, hypotheses, construction or
       predicate, and codomain/result are explicit and coherent.
@@ -167,3 +179,17 @@ source-grounded replacement owner preserves the same mathematical obligation.
   `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]` for the remaining
   sidedness, scalar-action transport, torsion-over-zero-divisor, and overloaded
   `__mul__` conventions. Commit: `a281c4a`.
+- 2026-05-06: Repaired the process drift that treated the owner table as a relocation
+  recipe. `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` now states that generic
+  root ownership is the default for operations mathematically defined on arbitrary
+  `R`-modules, and that moving a method off `Modules(R)` requires a missing datum,
+  extra hypothesis, or counterexample. Re-audited the rows for `annihilator`,
+  `tensor_algebra`, `dual`, `tensor`, and `natural_pairing` so convention or
+  implementation gaps do not by themselves move the obligation off the root.
+- 2026-05-06 smoke frontier: `just --justfile category_specs/justfile smoke-file
+  modules/smoketest.sage` still fails as gap evidence. The repeated first frontier is
+  `AssertionError: Not implemented method: alternating_algebra`; additional preserved
+  findings include QQ inner-product vector-space `ValueError`, representation-module
+  `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
+  integer-lattice and torsion-quadratic `KeyError: (256, 260)`, ideal submodule
+  `_refine_category_` absence, and ring-as-module missing ring abstract methods.

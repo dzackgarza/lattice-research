@@ -89,3 +89,15 @@ then delete wrappers.
 - Split the root abstract-method ownership blocker into `[[TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS]]` because `category_specs/modules/docs/MAPPING.md` already says dual, alternating-form, symmetric/exterior-power, determinant/form, quotient, subobject, and tensor surfaces require narrower mathematical owners rather than generic `Modules(R)` placement.
 - Validation: `just plan-validate` passed with 179 root planning cards; the central planning validator passed and regenerated `plans/plan-dag.md`.
 - Scoped smoke rerun: `just smoke-file modules/smoketest.sage` fails as expected on the recorded frontier, first with `AssertionError: Not implemented method: alternating_algebra`.
+- 2026-05-06: Root method ownership was re-audited in
+  `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` after a process drift treated
+  subcategory implementation gaps as evidence against root obligations. The next
+  implementation pass must preserve root abstract methods whenever the operation is
+  mathematically defined on arbitrary `R`-modules; moving off root requires a recorded
+  missing datum, extra hypothesis, or counterexample.
+- 2026-05-06 scoped smoke rerun: `just --justfile category_specs/justfile smoke-file
+  modules/smoketest.sage` still fails as expected on gap evidence. The repeated first
+  failure is `AssertionError: Not implemented method: alternating_algebra`; the same
+  broader frontier remains for QQ inner-product vector spaces, representation modules,
+  graded-module category-class mismatch, integer-lattice and torsion-quadratic key
+  errors, ideal submodule refinement, and ring-as-module inherited ring methods.
