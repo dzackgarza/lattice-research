@@ -7,7 +7,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY]]'
 plans: []
 title: Historical discriminant and morphism recovery
-status: unstarted
+status: in-progress
 priority: high
 description: Recover discriminant-group, quotient-valued form, Hom, End, Aut, kernel, image, cokernel, and discriminant-descent behavior from historical src.bak under the current ModulesWithForms contract.
 ---
@@ -37,9 +37,11 @@ iteration over finite torsion objects, `q` and `b` evaluation, elementary-abelia
 predicates, submodules, quotients, orthogonal submodules, Hom construction, and
 morphism kernel/image/cokernel operations.
 
-The recovered surface must make `A_L = L^*/L` a categorical cokernel with descended
-quotient-valued form data. It must not rely on a special-case quotient of a Sage object
-as the public definition.
+The recovered surface must make `A_L = L^#/L` a categorical cokernel of the metric
+inclusion `L -> L^#` with descended quotient-valued form data. It must not rely on a
+special-case quotient of a Sage object as the public definition, and it must not
+identify the metric dual `L^#` with the Hom dual `Hom_R(L,R)` unless an explicit
+form-induced transport map supplies that identification under stated hypotheses.
 
 ## Non-Preservation Boundaries
 

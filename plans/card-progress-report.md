@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 13:59 UTC_
+_Generated: 2026-05-06 14:02 UTC_
 
 ## Overall
 
@@ -15,10 +15,10 @@ _Generated: 2026-05-06 13:59 UTC_
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | decision | 10 | 9 | 0 | 0 | 0 |
-| feature | 15 | 0 | 4 | 0 | 6 |
+| feature | 15 | 0 | 5 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
-| spec | 50 | 0 | 0 | 36 | 2 |
+| spec | 50 | 0 | 0 | 37 | 2 |
 | task | 110 | 0 | 0 | 51 | 43 |
 
 ## Feature Rollup
@@ -33,7 +33,7 @@ _Generated: 2026-05-06 13:59 UTC_
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 7 | 0 |
-| Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 0 | 0 | 0 |
+| Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 1 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 0 | 0 | 0 |
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 0 | 0 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 1 | 0 |
