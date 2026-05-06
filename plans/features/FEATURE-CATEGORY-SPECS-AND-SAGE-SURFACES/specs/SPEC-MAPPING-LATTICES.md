@@ -172,6 +172,9 @@ basis, and formed-lattice owners.
 | `normal_form`, `brown_invariant` | `torsion_quadratic_module.py:408`, `939` | torsion quadratic/discriminant forms | Admit with theorem/source hypotheses recorded at use sites. `brown_invariant()` requires a `QQ/2ZZ` quadratic codomain. |
 | `genus(signature_pair)`, `is_genus(signature_pair, even=True)` | `torsion_quadratic_module.py:539`, `743` | discriminant-form plus signature theorem surface; lattice theorem context | Preserve, but do not let the result object own the method. The caller data are a discriminant form and signature hypotheses; lattice-level theorem methods must state even/odd and rank/length conditions before relying on the result. |
 | `orthogonal_group(gens=None, check=False)` on torsion quadratic modules | `torsion_quadratic_module.py:816` | `Lattices(R).DiscriminantGroups().AutCategory()` via module Hom/Aut machinery | Admit as finite torsion formed-module Aut. Raw matrices and abelian-group automorphisms are constructor inputs to the Aut parent, not elements before containment succeeds. |
+| finite `isotropic_elements()` on torsion quadratic/discriminant forms | `torsion_quadratic_module.py:154`; theory/foundations/coble-task-background.md Task 2.1 | finite torsion formed-module enumeration surface; discriminant groups inherit generic formed-module isotropic predicates | Admit as enumeration of finite carrier elements satisfying the already-generic isotropic predicate, e.g. `q(x)=0` in the quadratic codomain. Use "elements", not "vectors", unless a separate finite-vector-space structure has been constructed. This is finite-set enumeration, not a lattice-vector enumeration. |
+| finite action `orbit(x)`, `orbits(S)`, `orbit_representatives(S)` for discriminant-form automorphism groups | `torsion_quadratic_module.py:816`; `groups/fqf_orthogonal.py`; theory/foundations/coble-task-background.md Task 2.1 | `DiscriminantGroupAut` and finite group-action categories | Admit on the group/action object, not as a method owned by `nikulin_invariants()` or by the underlying abelian group alone. The acted-on set must be a typed subset of the discriminant group, such as isotropic elements. |
+| `discriminant_action()`, `image_in_discriminant_orthogonal_group()`, `kernel_of_discriminant_action()` | `torsion_quadratic_module.py:856`; theory/foundations/coble-task-background.md Tasks 2.1-2.2 | `Lattices(R).AutCategory()` for nondegenerate integral lattices with `discriminant_group()` | Admit as the canonical bridge `O(L) -> O(A_L,q_L)`. The kernel is the stable orthogonal group acting trivially on the discriminant form; subgroup names and orbit-lifting methods must route through this homomorphism. |
 | `twist(s)` on torsion quadratic modules | `torsion_quadratic_module.py:1207` | forms-owned form scaling | Admit as formed-module twist/rescale of the form codomain, with explicit codomain update. |
 
 ### Formal Negative and Corrective Findings
@@ -310,6 +313,7 @@ The table answers: at what tier is each method first universally well-defined?
 | `signature()` | `Free + Symmetric + ordered real realization` | derived Sage scalar `p - q`; signature semantics are owned by `signature_pair()` |
 | `dual_lattice()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | metric dual `L^#={v in L_K: beta(v,L) subset R}` uses the nondegenerate pairing inside scalar extension; see note (3) |
 | `discriminant_group()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L^#/L` with the descended quotient-valued form; follows from `dual_lattice()`; see note (3) |
+| `discriminant_form()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | named access to the quotient-valued bilinear/quadratic form on `L.discriminant_group()`; never just the invariant tuple |
 | `inclusion_morphism()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `i: L -> L^#`; same metric-dual tier |
 | `is_even()` | `Bilinear.Integral` | `b(m,m) in 2R for all elements m`; requires integrality but not freeness |
 | `is_unimodular()` | `Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L = L^#`, i.e. `|det|=1` |
@@ -325,7 +329,10 @@ The table answers: at what tier is each method first universally well-defined?
 | `orthogonal_group()` | `Modules(R).WithForms().AutCategory()` | `O(M,b) = Aut(M,b)` in the category of modules with forms; see note (5) |
 | `special_orthogonal_group()` | `Lattices(R).AutCategory()` parent-method refinement | determinant-one subgroup of the lattice orthogonal group, defined once the aut surface has a determinant realization |
 | `stable_orthogonal_group()` | `Lattices(R).AutCategory()` parent-method refinement | orientation or positive-cone refinement of the lattice orthogonal group, not a method on lattice objects |
-| `nikulin_invariants()` | `OverZZ + Free + Symmetric + Nondegenerate` | discriminant group invariants (l, δ) |
+| `discriminant_action()` | `Lattices(R).AutCategory()` plus lattice `discriminant_group()` data | homomorphism from lattice isometries to automorphisms of the discriminant form |
+| `image_in_discriminant_orthogonal_group()` | same as `discriminant_action()` | image subgroup of `O(A_L,q_L)` |
+| `kernel_of_discriminant_action()` | same as `discriminant_action()` | stable orthogonal subgroup acting trivially on `A_L` |
+| `nikulin_invariants()` | `OverZZ + Free + Symmetric + Nondegenerate` | convenience invariant tuple for sourced 2-elementary classification; not a substitute for `discriminant_group()` or discriminant-form orbit data |
 | `is_isometric_to(other)` | `OverZZ + Free + Symmetric + Nondegenerate` | lattice isometry test |
 | `minimum()` | `OverZZ + Free + Symmetric` | shortest vector (requires ZZ for finiteness) |
 | `maximum()` | `OverZZ + Free + Symmetric` | longest nonzero vector in compact regions |
@@ -337,6 +344,8 @@ The table answers: at what tier is each method first universally well-defined?
 | `base_change_to(ring)` | `Free + Bilinear` | change coefficient ring |
 | `gram_matrix_bilinear()` | `Torsion + Bilinear` | Gram matrix in Q/mZ; see note (6) |
 | `gram_matrix_quadratic()` | `Torsion + Quadratic` | quadratic Gram matrix |
+| `isotropic_elements()` | `Torsion + Quadratic + finite carrier` | finite enumeration of elements with `q(x)=0`; excludes infinite lattice-vector enumeration semantics |
+| `orbit(x)`, `orbits(S)`, `orbit_representatives(S)` | `FiniteGroupAction` on a typed finite set | action methods belong to the group/action object, including `DiscriminantGroupAut` acting on discriminant-group elements |
 | `brown_invariant()` | `Torsion + Bilinear + Symmetric` | global torsion QF invariant |
 | `normal_form()` | `Torsion + Bilinear + Symmetric` | canonical form |
 | `primary_part(m)` | `Torsion` | m-primary part |
@@ -444,6 +453,17 @@ Principal generators and gcd presentations are representation choices under extr
 hypotheses; they are not the owner definition and must not be replaced by coordinate
 content in `Modules(R).Free()`.
 
+**(10) Discriminant form and orbit ownership**: `nikulin_invariants()` is only a
+classification summary under explicit 2-elementary hypotheses. The object needed for
+orbit work is the discriminant group `A_L = L^#/L` together with its descended
+quotient-valued form. The predicate `is_isotropic(x)` is generic formed-module/form
+vocabulary; discriminant forms only add finite carrier enumeration such as
+`isotropic_elements()`. Orbit decomposition belongs to a finite group action, and for
+lattices the relevant action is supplied by the homomorphism `O(L) -> O(A_L,q_L)`.
+Downstream lifting theorems may use the kernel/image of this homomorphism only after
+their hypotheses have been checked against the actual computed lattice and
+discriminant form.
+
 ---
 
 ## Construction-Category Vocabulary
@@ -543,6 +563,15 @@ The standard type package is owned by
 These names use the module Hom/End/Aut machinery as the categorical carrier; when the
 base category is `Lattices(R).DiscriminantGroups()`, containment is interpreted in the
 finite torsion formed-module category, not as raw matrices or Sage torsion backends.
+
+The required finite discriminant-form surface includes named access to the bilinear and
+quadratic quotient-valued forms, inherited generic isotropic predicates, finite
+`isotropic_elements()` enumeration, and `orthogonal_group()`. Orbit decomposition is
+exposed by the resulting `DiscriminantGroupAut` or a typed finite group-action object
+through `orbit(x)`, `orbits(S)`, and `orbit_representatives(S)`. Lattice orthogonal
+groups expose `discriminant_action()`, `image_in_discriminant_orthogonal_group()`, and
+`kernel_of_discriminant_action()` to connect lattice isometries to discriminant-form
+automorphisms. These methods are not owned by `nikulin_invariants()`.
 
 ---
 

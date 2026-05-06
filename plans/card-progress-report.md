@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 15:12 UTC_
+_Generated: 2026-05-06 15:22 UTC_
 
 ## Overall
 
-- Total cards: **212**
-- Completed cards: **10**
-- Overall progress: `[#-----------------------]   4.7%`
+- Total cards: **214**
+- Completed cards: **11**
+- Overall progress: `[#-----------------------]   5.1%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -14,7 +14,7 @@ _Generated: 2026-05-06 15:12 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 11 | 10 | 0 | 0 | 0 |
+| decision | 13 | 11 | 2 | 0 | 0 |
 | feature | 15 | 0 | 9 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
@@ -25,10 +25,10 @@ _Generated: 2026-05-06 15:12 UTC_
 
 | Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[#---------------]   8.5%` | 10/117 | 15 | 77 | 6 |
+| Category specs and Sage surface admission | `[##--------------]   9.4%` | 11/117 | 15 | 77 | 6 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Coble cusp orbit classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
+| Coble cusp orbit classification | `[----------------]   0.0%` | 0/2 | 1 | 0 | 1 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
@@ -38,7 +38,7 @@ _Generated: 2026-05-06 15:12 UTC_
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
+| Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/4 | 2 | 2 | 0 |
 | Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 45 |
 
 ## High-Priority Active Items
@@ -79,6 +79,7 @@ _Generated: 2026-05-06 15:12 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `7b8a5aa`: docs: admit polytope source surface)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `b55df6c`: docs: decide Picard lattice ownership)
 - 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `cd84d84`: docs: decide module sidedness surface)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `22bd1b1`: docs: reject malformed backend spellings)

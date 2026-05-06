@@ -61,9 +61,16 @@ Exact backend routing:
   backend adapters.
 - Indefinite isometry testing routes to polyhedral_common
   (`src/external/dutsik_polyhedral/polyhedral_common`) via
-  `INDEF_FORM_TestEquivalence`.
-- Indefinite automorphism-group generation routes to polyhedral_common via
-  `INDEF_FORM_AutomorphismGroup` (Lorentzian) or the general indefinite methods.
+  `INDEF_FORM_TestEquivalence`. The Python wrapper bridge exists at
+  `src.bak/backends/external/py_polyhedral/` and exports
+  `indefinite_form_test_equivalence`, `indefinite_form_automorphism_group`,
+  `indefinite_form_get_orbit_representative`, `indefinite_form_stabilizer_vector`,
+  `lorentzian_reflective_edgewalk`, and related functions.
+- The `LatticeIsometryBackend` at `src.bak/backends/isometry_backend.py` uses this
+  bridge and is the reference for how to route indefinite isometry queries through
+  the orthongal-group surface.
+- The `DawesOrbitBackend` at `src.bak/backends/dawes_orbit_backend.py` (1034 lines)
+  uses the same bridge for orbit and stabilizer computations with indefinite forms.
 - See `.agents/memories/theory/external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods.md`
   for the full API table of the polyhedral_common bridge.
 - The Julia-based Indefinite.jl bridge is a secondary option when polyhedral_common
