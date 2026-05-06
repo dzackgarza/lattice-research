@@ -145,3 +145,17 @@ Findings:
 
 Residual gap: dependent inventory tasks remain DAG-gated until this card receives
 human approval and can be marked complete.
+
+### Re-Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance.
+**Gates failed:** None.
+**Outcome:** no concrete revision findings; human approval remains required before
+marking the card complete.
+
+Findings: none. The review found the parent phase, this task, and the target spec now
+agree on the current `src.bak/spec-backups/` source root. The old
+`.agents/theory/spec-backups/` string remains only in historical notes describing the
+repaired defect.
