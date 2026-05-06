@@ -45,8 +45,8 @@ isometries, divisibility, discriminant objects, and algorithm routing.
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `category_specs/lattices/docs/MAPPING.md`
 - `theory/foundations/bilinear-forms-duals-morphisms.md`
-- `theory/spec_backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
-- `theory/spec_backups/lattices_written_spec_backup.py`
+- `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
+- `.agents/theory/spec-backups/lattices_written_spec_backup.py`
 - Lattice memories and cards that state `src/lattices/lattices.py` is written-spec
   source material for the redesign, not a compatibility-shim target.
 

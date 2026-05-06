@@ -44,7 +44,7 @@ owners and codomains.
 - `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`
 - `category_specs/tensor_algebra_components/docs/MAPPING.md`
 - `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`
-- `theory/backends/abstract-to-external-mapping.md`
+- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
 
 ## Context
 

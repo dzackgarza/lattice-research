@@ -15,7 +15,7 @@ description: Convert theory backend and external software maps into method/backe
   Sage bridges, and related exact systems.
 successCriteria:
 - The target method-inventory spec contains backend-routing rows for every method
-  in `theory/backends/abstract-to-external-mapping.md`.
+  in `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
 - Backend rows use the routing labels from `software-capability-map.md` and name the
   mature system before any implementation card exists.
 - Variety, curve, surface, divisor, sheaf, family, Picard/lattice, group-action, isometry,
@@ -38,15 +38,19 @@ method and which mature system should implement it.
 
 ## Source Provenance
 
-- `theory/backends/software-capability-map.md`
-- `theory/backends/abstract-to-external-mapping.md`
-- `theory/backends/library-integration.md`
-- `theory/backends/comprehensive-tool-docs.md`
-- `theory/backends/oscar-lattices.md`
-- `theory/backends/gap-orbits.md`
-- `theory/backends/indefinite-jl.md`
-- `theory/backends/carat.md`
-- `theory/backends/vinberg-algorithm.md`
+- `.agents/memories/theory/backends/software-capability-map.md`
+- `.agents/memories/theory/backends/abstract-to-external-mapping.md`
+- `.agents/memories/theory/backends/library-integration.md`
+- `.agents/memories/theory/backends/comprehensive-tool-docs.md`
+- `.agents/memories/theory/backends/oscar-lattices.md`
+- `.agents/memories/theory/backends/gap-orbits.md`
+- `.agents/memories/theory/backends/indefinite-jl.md`
+- `.agents/memories/theory/backends/carat.md`
+- `.agents/memories/theory/backends/vinberg-algorithm.md`
+- `.agents/memories/theory/backends/buildings.md`
+- `.agents/memories/theory/backends/indefinite-isometry.md`
+- `.agents/memories/theory/backends/foliation-lib-reusable-procedures.md`
+- `.agents/memories/theory/backends/index.md`
 - Backend notes for Singular, Macaulay2, Sage, GAP, Oscar/Julia, CARAT, and
   Indefinite.jl as linked from those files.
 
@@ -81,7 +85,7 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [x] The target method-inventory spec contains backend-routing rows for every method in `theory/backends/abstract-to-external-mapping.md`.
+- [x] The target method-inventory spec contains backend-routing rows for every method in `.agents/memories/theory/backends/abstract-to-external-mapping.md`.
 - [x] Backend rows use the routing labels from `software-capability-map.md` and name the mature system before any implementation card exists.
 - [x] Variety, curve, surface, divisor, sheaf, family, Picard/lattice, group-action, isometry, orbit, and embedding methods are attached to mathematical owners and backend codomains.
 - [x] Missing or uncertain backend support becomes backend-gap research or decision cards instead of bespoke implementation permission.
@@ -101,6 +105,9 @@ The seed rows include:
 - 2026-05-05: Created as the backend/external-software leaf for the literal method ownership inventory phase.
 - 2026-05-06: Wrote backend-routing rows into
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including all abstract method
-  rows from `theory/backends/abstract-to-external-mapping.md`, additional group-action
+  rows from `.agents/memories/theory/backends/abstract-to-external-mapping.md`, additional group-action
   rows from the backend map, and a decision card for malformed source surfaces.
   Moved this task to needs-review.
+- 2026-05-06: Updated source provenance to the actual backend memory root and added
+  the buildings, indefinite-isometry, foliation, and backend-index files to match the
+  broadened source corpus.

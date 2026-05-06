@@ -48,10 +48,10 @@ construction first introduces each expected method.
 - Target spec card: `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`.
 - Current inventory roots: `category_specs/*/docs/SAGE_INVENTORY.md` and
   `category_specs/*/docs/MAPPING.md`.
-- External method mapping roots: `theory/backends/software-capability-map.md`,
-  `theory/backends/abstract-to-external-mapping.md`, and backend-specific notes under
-  `theory/backends/`.
-- Lattice-source warning: `theory/spec_backups/*` files may be mined for mathematical
+- External method mapping roots: `.agents/memories/theory/backends/software-capability-map.md`,
+  `.agents/memories/theory/backends/abstract-to-external-mapping.md`, and backend-specific notes under
+  `.agents/memories/theory/backends/`.
+- Lattice-source warning: `.agents/theory/spec-backups/*` files may be mined for mathematical
   content, but their interface can change and they are not current implementation
   authority.
 
