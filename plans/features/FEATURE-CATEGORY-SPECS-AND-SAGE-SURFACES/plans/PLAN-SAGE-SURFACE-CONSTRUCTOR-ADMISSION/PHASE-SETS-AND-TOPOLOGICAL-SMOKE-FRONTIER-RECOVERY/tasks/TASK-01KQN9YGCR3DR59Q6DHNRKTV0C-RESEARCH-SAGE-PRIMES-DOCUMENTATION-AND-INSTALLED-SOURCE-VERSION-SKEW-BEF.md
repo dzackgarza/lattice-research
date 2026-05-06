@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Research Sage Primes documentation and installed-source version skew before
   admitting congruence-class prime subset vocabulary
-status: unstarted
+status: needs-review
 priority: high
 description: Sets mapping is the source of truth for set constructors, rich comparison,
   partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut
@@ -48,11 +48,11 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Acceptance Criteria
 
-- [ ] The research result cites the exact sources searched and separates source evidence from inference.
-- [ ] Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence, Gaps.
-- [ ] Any admitted design consequence is linked to a spec-work or design-decision item rather than buried in prose.
-- [ ] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary.
-- [ ] Do not expose generic Sage Set(X) as a public project constructor.
+- [x] The research result cites the exact sources searched and separates source evidence from inference.
+- [x] Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence, Gaps.
+- [x] Any admitted design consequence is linked to a spec-work or design-decision item rather than buried in prose.
+- [x] No set implementation was attempted; the prerequisite implementation route is the `Primes()` row in `[[SPEC-MAPPING-SETS]]`.
+- [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Dependencies And Boundaries
 
@@ -60,6 +60,37 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 - If execution reveals a missing mathematical owner, constructor, or category graph edge, split that as a new tracker item instead of patching around it.
 - Preserve the original source path in updates so future agents can trace why this item exists.
 
+## Research Result
+
+Source evidence:
+
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md` maps Sage `Primes()` to `PrimesSets` and records that `Sets().Primes()` is the one-object category for Sage's set of prime integers.
+- The same mapping row keeps `PrimeSubset` and `PrimesInArithmeticProgressions` as subobject vocabulary of `Primes()` unless Sage exposes distinct parent objects with required method signatures.
+- `category_specs/sets/docs/SAGE_INVENTORY.md` records the installed `Primes()` category as `InfiniteEnumeratedSets().Facade()` and inventories the full-prime-set methods `__contains__`, `__iter__`, `cardinality`, `first`, `next`, `an_element`, and `unrank`.
+- Installed Sage source at `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/primes.py` defines `class Primes(Set_generic, UniqueRepresentation)`, `__classcall__(cls, proof=True)`, `__init__(self, proof)`, category `InfiniteEnumeratedSets()`, membership in `ZZ`, and the methods `_an_element_`, `first`, `next`, and `unrank`.
+- A Sage runtime probe showed signature `Primes(proof)`, category `Category of facade infinite enumerated sets`, available checked methods `__contains__`, `first`, `next`, and `unrank`, and rejection of multi-argument calls such as `Primes(5, [1, 2])`.
+
+Inference:
+
+- The installed Sage surface supports only the full set of prime integers through `Primes(proof=True)`.
+- Hosted documentation evidence already recorded in `[[SPEC-MAPPING-SETS]]` mentions congruence-data prime subsets, so the installed source and hosted documentation should be treated as version-skewed until Sage history or package metadata pins the boundary.
+- The current project spec should admit `Primes()` as the full-prime-set constructor only. Congruence-class prime subsets should remain subobjects of `Primes()` or a future named refinement only after source-backed signatures require it.
+
+## Negative Finding: Installed Congruence Prime Subsets
+
+- Searched: `category_specs/sets/docs/SAGE_INVENTORY.md`; `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md`; installed source `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/primes.py` lines 1-180; Sage runtime signature and constructor calls for `Primes()`, `Primes(5)`, `Primes(5, [1, 2])`, and `Primes(5, [1, 2], [])`; broad `rg` searches in installed `sage/sets` and `sage/rings` for `Primes`, `congruence`, `residue`, `modulus`, and `arithmetic progression`.
+- Found: Installed `sage/sets/primes.py` exposes `Primes(proof=True)` for the full prime set and no installed `Primes(modulus, classes, exceptions)` constructor surface in that file. Runtime multi-argument constructor calls fail with `TypeError`. The broad installed-source search did not reveal a relevant congruence-class `Primes` parent under `sage/sets`.
+- Conclusion: inference based on the searched local sources: the installed Sage build does not expose a Sage-backed congruence-class prime-subset parent through `Primes`, so the project should not admit that as a current Sage-backed public constructor.
+- Confidence: Medium.
+- Gaps: Sage git history, release tags, package metadata, and hosted documentation pages were not re-searched in this pass beyond the source note already recorded in `[[SPEC-MAPPING-SETS]]`. The broad installed-source `rg` search was noisy and is not an exhaustive proof that no unrelated Sage module can construct a congruence prime subset by another name.
+
+## Design Consequence
+
+- The implementation route is the existing `Primes()` mapping row in `[[SPEC-MAPPING-SETS]]`: full `Primes()` maps to `PrimesSets`.
+- Congruence-class prime subsets remain subobjects of the full prime set, or a future named `PrimesInArithmeticProgressions` refinement if a later source-grounded signature requires that vocabulary.
+- Generic Sage `Set(X)` remains rejected as a public project constructor by the same constructor-mapping table; this task does not reopen it.
+
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06: Recorded installed-source and runtime evidence for Sage `Primes()` version skew, linked the design consequence to `[[SPEC-MAPPING-SETS]]`, and left congruence-class prime subsets out of the public constructor surface pending stronger source evidence.
