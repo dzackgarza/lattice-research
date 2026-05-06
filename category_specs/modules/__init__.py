@@ -68,6 +68,7 @@ _FreeGradedModules = LazyImport("category_specs.modules.subcategories.free_grade
 _FinitelyPresentedGradedModules = LazyImport(
     "category_specs.modules.subcategories.finitely_presented_graded_modules", "_FinitelyPresentedGradedModules"
 )
+_Graded = LazyImport("category_specs.modules.subcategories.graded", "_Graded")
 _OreModules = LazyImport("category_specs.modules.subcategories.ore_modules", "_OreModules")
 _IntegerLattices = LazyImport("category_specs.modules.subcategories.integer_lattices", "_IntegerLattices")
 TorsionQuadraticModulesCategory = LazyImport(
@@ -213,6 +214,10 @@ class _RModObjects:
 
     @final
     def is_finitely_presented_graded_module(self) -> bool:
+        return False
+
+    @final
+    def is_graded(self) -> bool:
         return False
 
     @final
@@ -1393,7 +1398,7 @@ class Modules(Category_module):
         @cached_method
         @final
         def Graded(self) -> Category:
-            return GradedModulesCategory.category_of(self)
+            return self._with_axiom("Graded")
 
         @cached_method
         @final
@@ -1494,6 +1499,7 @@ class Modules(Category_module):
     )
     FinitelyGenerated = LazyImport("category_specs.modules.subcategories.finitely_generated", "_FinitelyGenerated")
     FinitelyPresented = LazyImport("category_specs.modules.subcategories.finitely_presented", "_FinitelyPresented")
+    Graded = _Graded
 
     # ------------------------------------------------------------------
     # Functorial constructions
@@ -1510,7 +1516,6 @@ class Modules(Category_module):
     DualObjects = _DualObjects
 
     Filtered = LazyImport("sage.categories.filtered_modules", "FilteredModules")
-    Graded = LazyImport("sage.categories.graded_modules", "GradedModules")
     Super = LazyImport("sage.categories.super_modules", "SuperModules")
 
     # ------------------------------------------------------------------

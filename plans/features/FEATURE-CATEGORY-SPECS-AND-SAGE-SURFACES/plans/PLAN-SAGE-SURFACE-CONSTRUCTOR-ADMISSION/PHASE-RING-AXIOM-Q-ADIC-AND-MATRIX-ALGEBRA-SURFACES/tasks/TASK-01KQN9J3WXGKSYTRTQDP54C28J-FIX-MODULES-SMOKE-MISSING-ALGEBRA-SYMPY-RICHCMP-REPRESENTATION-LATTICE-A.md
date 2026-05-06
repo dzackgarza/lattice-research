@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
   and graded base-category failures
-status: in-progress
+status: needs-review
 priority: high
 description: The deleted Modules triage recorded the post-wrapper-deletion smoke frontier
   and the surfaces still meant as mathematical categories rather than exact Sage implementation
@@ -136,3 +136,10 @@ wrappers.
   category_specs/justfile smoke-file modules/smoketest.sage` removed the ideal
   `_refine_category_` failures. The only remaining modules smoke frontier is the
   wrapped graded-module base-category mismatch.
+- 2026-05-06 graded-module slice: added a local `Modules(R).Graded()` axiom surface
+  and routed free and finitely presented graded constructor-family categories through
+  it instead of Sage's raw `GradedModules` descriptor, which expects Sage's upstream
+  `Modules` base class. `FreeGradedModules()` and `FinitelyPresentedGradedModules()`
+  now report `is_graded()`. Re-running `just --justfile category_specs/justfile
+  smoke-file modules/smoketest.sage` passes with no modules smoke failures. Status
+  moved to `needs-review`; this does not mark the card accepted or complete.

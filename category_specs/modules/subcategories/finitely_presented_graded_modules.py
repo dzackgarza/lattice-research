@@ -46,6 +46,11 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
     class ParentMethods:
         @override
         @final
+        def is_graded(self) -> bool:
+            return True
+
+        @override
+        @final
         def is_finitely_presented_graded_module(self) -> bool:
             return True
 

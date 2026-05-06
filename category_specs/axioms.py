@@ -103,6 +103,7 @@ MODULE_AXIOMS = (
     "WithOrderedGeneratingSet",
     "FinitelyGenerated",
     "FinitelyPresented",
+    "Graded",
     "RIdeals",
     "WithForms",
     "Bilinear",
