@@ -109,3 +109,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/modules/__init__.py` now pass. Repo-wide E501 count is now 755 by
   `uvx --from ruff ruff check --select E501 category_specs --output-format json |
   jq 'length'`.
+- 2026-05-06: Cleared the `category_specs/rings/__init__.py` slice with
+  `uvx --from ruff ruff format category_specs/rings/__init__.py` plus two short
+  q-adic constructor docstring wraps. `uvx --from ruff ruff check --select E501
+  category_specs/rings/__init__.py` and `python -m compileall
+  category_specs/rings/__init__.py` now pass. Repo-wide E501 count is now 681.
