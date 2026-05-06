@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Triage global vulture dead-code validation blocker
-status: unstarted
+status: blocked
 priority: high
 description: '`just test` now passes Ruff normalization and fails at the global vulture
   dead-code detection stage. The failure is broad and includes category-spec abstract/public
@@ -90,15 +90,15 @@ The blocker is split into:
 
 ## Acceptance Criteria
 
-- [ ] Reproduce the vulture failure after Ruff normalization passes.
-- [ ] Classify findings by owner and cause: intentional category-spec API, Sage dynamic
+- [x] Reproduce the vulture failure after Ruff normalization passes.
+- [x] Classify findings by owner and cause: intentional category-spec API, Sage dynamic
   method surface, type alias public surface, generated/backup debris, or real dead code.
-- [ ] Do not add project-local vulture bypasses, ignores, or QC overrides.
-- [ ] If a global QC whitelist update is necessary, document the exact proposed global
+- [x] Do not add project-local vulture bypasses, ignores, or QC overrides.
+- [x] If a global QC whitelist update is necessary, document the exact proposed global
   change and request approval before editing `/home/dzack/ai/quality-control`.
-- [ ] Split owner-specific cleanup cards for real dead code or stale backup artifacts
+- [x] Split owner-specific cleanup cards for real dead code or stale backup artifacts
   that should be fixed in this repo.
-- [ ] Record the remaining validation blocker after triage.
+- [x] Record the remaining validation blocker after triage.
 
 ## Dependencies And Boundaries
 
@@ -117,6 +117,29 @@ The blocker is split into:
 - If only triaging, preserve enough representative vulture output to route the next
   card.
 
+## Current Status
+
+The triage work is complete and split into owner-specific paths:
+
+- Category-spec intentional public/dynamic surfaces are routed to
+  `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP.md`.
+- The stale theory backup findings are routed to
+  `TASK-BUG-THEORY-SPEC-BACKUP-VULTURE-CLEANUP.md`.
+
+No project-local vulture bypass, ignore file, whitelist, or QC override was added.
+Global QC was inspected rather than modified: `/home/dzack/ai/quality-control/justfile`
+already preparses Sage files for vulture, and
+`/home/dzack/ai/quality-control/vulture_whitelist.py` already contains a broad
+category-spec public-surface whitelist.
+
+## Remaining Blocker
+
+Blocked on fresh vulture output through an allowed public QC path, or explicit user
+approval for a private vulture-only diagnostic/global-QC edit. The current public
+`just test` and commit-hook path fails earlier at repo-wide mypy on pre-existing
+Sage/stub/type errors, so the vulture stage cannot currently be refreshed without
+first clearing or explicitly bypassing that earlier validation stage.
+
 ## Work Log
 
 - 2026-05-03: Created after Ruff normalization blockers were resolved and `just test`
@@ -124,3 +147,6 @@ The blocker is split into:
 - 2026-05-03: Codex Spark read-only triage classified the failure as primarily a
   global vulture whitelist/policy gap for category-spec public dynamic surfaces, with a
   small separate theory backup cleanup surface.
+- 2026-05-06: Recorded triage completion, confirmed no local bypass was added, linked
+  the split child cards, and marked the parent blocked on fresh vulture-stage evidence
+  through public QC or explicit approval for a private vulture-only diagnostic.
