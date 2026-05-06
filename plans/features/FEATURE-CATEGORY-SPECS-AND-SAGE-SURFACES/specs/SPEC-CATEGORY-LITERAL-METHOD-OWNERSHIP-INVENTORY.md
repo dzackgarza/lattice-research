@@ -303,6 +303,79 @@ They are source-grounded in `category_specs/sets/docs/SAGE_INVENTORY.md`,
 | `set(X)`, `frozenset(X)` on finite wrappers | Python export | no project set object owner | Python hash-set export is not a project set object. | Rejected as category vocabulary. Source: sets mapping `Set_object` row. |
 | arbitrary callable conversion inside image-set constructors | constructor plumbing | no public project owner | Sage callable-to-map conversion is interop plumbing; public input is a set morphism. | Rejected. Source: image admission decision. |
 
+## Backend And External Software Method Rows
+
+Source task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
+
+These rows translate `theory/backends/abstract-to-external-mapping.md` through the
+routing statuses in `theory/backends/software-capability-map.md`. A backend row never
+approves bespoke local mathematics. It says which semantic project object should own the
+method and which mature external system should be audited or wired.
+
+### Algebraic Geometry And Sheaf Backends
+
+| Source surface | Project owner and codomain | Backend route and status | Source and consequence |
+| --- | --- | --- | --- |
+| `Variety.blowup(center)` | `Varieties().ParentMethods`; codomain is a variety or blowup object over the same base context with exceptional divisor data. | Macaulay2 Schubert2 `blowup(i)`; `bridge-needed`. | Source: `abstract-to-external-mapping.md`. Wire Macaulay2 rather than implementing blowups locally. |
+| `Variety.resolve_singularities()` | singular variety surface; codomain is a resolution morphism or resolved variety once the geometry interface fixes that object. | Singular `resbin.lib`; `candidate-backend`. | Source: abstract map. Requires support audit before implementation. |
+| `Variety.picard_group()` | variety/surface Picard-group surface; codomain is a Picard group object, with lattice realization only after source-backed construction. | Sage `PicardGroup` or Oscar integer lattices; `candidate-backend`. | Source: abstract map. Do not postulate Picard lattices as inputs. |
+| `Variety.kodaira_dimension()` | proper variety surface; codomain is an integer dimension or `-infinity` sentinel as specified by geometry docs. | Macaulay2 sheaf cohomology plus Sage interpolation; `bridge-needed`. | Source: abstract map with Stacks Tag 0BJ8 reference. Needs exact hypotheses for properness and canonical powers. |
+| `Variety.hilbert_polynomial()` | projective variety or graded coordinate object; codomain is a polynomial. | Macaulay2 `hilbertPolynomial`; `bridge-needed`. | Source: abstract map. Polynomial arithmetic belongs to the returned polynomial ring. |
+| `Variety.hodge_number(p, q)` | smooth/proper variety surface after geometry specs fix hypotheses; codomain is an integer. | Macaulay2 sheaf cohomology through `HH^i(cotangentSheaf(p, X))`; `candidate-backend`. | Source: abstract map. Requires geometry owner and package support audit. |
+| `Variety.holomorphic_euler_characteristic()` | coherent-sheaf/variety invariant surface; codomain is an integer. | Macaulay2 sheaf cohomology; `bridge-needed`. | Source: abstract map. Formula row is definition-level; backend computes dimensions. |
+| `Variety.canonical_class()` | variety/divisor surface; codomain is a divisor or canonical class object. | Macaulay2 `canonicalDivisor(X)`; `bridge-needed`. | Source: abstract map and Macaulay2 docs link in that file. |
+| `Surface.birational_involution()` | surface-specific automorphism/birational-map surface; codomain is a birational self-map object. | Sage Enriques functionality; `candidate-backend`. | Source: abstract map. Needs geometry category owner before implementation. |
+| `Blowup.exceptional_divisor()` | blowup object surface; codomain is a divisor object. | Macaulay2 Schubert2 `exceptionalDivisor`; `bridge-needed`. | Source: abstract map. |
+| `CobleSurface.from_singular_sextic()` | constructor/factory route under the future Coble surface category; codomain is a Coble surface object with provenance. | Singular for nodes plus Sage blowup; `candidate-backend`. | Source: abstract map. This is downstream of category/lattice substrate and not current implementation permission. |
+
+### Curve Plane-Curve And Divisor Backends
+
+| Source surface | Project owner and codomain | Backend route and status | Source and consequence |
+| --- | --- | --- | --- |
+| `Curve.genus()` | curve invariant surface; codomain is an integer. | Singular `brnoeth.lib: Adj_div` or Macaulay2 `geometricGenus`; `bridge-needed`. | Source: abstract map. |
+| `Curve.arithmetic_genus()` | curve invariant surface; codomain is an integer. | Singular `brnoeth.lib: Adj_div`; `bridge-needed`. | Source: abstract map. |
+| `Curve.normalization()` | curve construction surface; codomain is a normalized curve plus normalization map when the geometry owner admits it. | Sage `normalize()` or Singular `normalize`; `candidate-backend`. | Source: abstract map. |
+| `PlaneCurve.equation()` | plane-curve object surface; codomain is the defining polynomial in its coordinate ring. | Sage direct access; `preferred-backend`. | Source: abstract map. This is object data access, not an algorithmic kernel. |
+| `PlaneCurve.dual_curve()` | plane-curve construction surface; codomain is a plane curve in the dual projective plane. | Sage `dual`; `candidate-backend`. | Source: abstract map. Needs current Sage support audit before wiring. |
+| `RationalSextic.is_nodal()` | rational-sextic predicate; codomain is `bool`, with node certificates in a separate witness surface if needed. | Singular `solve.lib`; `bridge-needed`. | Source: abstract map. |
+| `RationalSextic.nodes()` | rational-sextic singularity surface; codomain is a finite set of node points with scheme/field data. | Singular `solve.lib`; `bridge-needed`. | Source: abstract map. |
+| `RationalSextic.normalization()` | rational-sextic curve construction surface; codomain is a normalization map/object. | Sage `normalize()`; `candidate-backend`. | Source: abstract map. |
+| `Divisor.riemann_roch_space_dimension()` | divisor/coherent-sheaf surface; codomain is an integer dimension. | Singular `brnoeth.lib: BrillNoether` or Macaulay2; `candidate-backend`. | Source: abstract map. |
+| `Divisor.is_ample()` | divisor positivity predicate; codomain is `bool` plus optional certificate surface. | Macaulay2 `isVeryAmple` or Nakai-Moishezon style test; `candidate-backend`. | Source: abstract map. Requires exact positivity owner and hypotheses. |
+| `Divisor.is_nef()` | divisor positivity predicate; codomain is `bool` plus optional curve-intersection witnesses. | Intersection-theory route; `candidate-backend`. | Source: abstract map. Needs backend research before implementation. |
+| `Divisor.self_intersection()` | divisor intersection surface; codomain is a scalar/intersection number. | Macaulay2 intersection theory; `bridge-needed`. | Source: abstract map. |
+| `Divisor.intersection(other)` | divisor-pairing surface; codomain is scalar, cycle, or intersection object as geometry spec decides. | Macaulay2 intersection theory; `bridge-needed`. | Source: abstract map. |
+
+### Picard Lattice Cover Sheaf And Family Backends
+
+| Source surface | Project owner and codomain | Backend route and status | Source and consequence |
+| --- | --- | --- | --- |
+| `PicardGroup.intersection_matrix()` | Picard group with intersection pairing; codomain is a Gram/intersection matrix or formed module row after the lattice owner is fixed. | Oscar `gram_matrix`; `bridge-needed`. | Source: abstract map. |
+| `PicardeLattice.underlying_picard_group()` | source surface is malformed or typo-like; intended owner appears to be a Picard-lattice wrapper returning a Picard group. | Direct mapping; `candidate-backend`. | Source: abstract map. Public spelling blocked by `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`. |
+| `DoubleCover.total_space()` | double-cover object surface; codomain is the total space object. | Sage weighted projective-space construction; `candidate-backend`. | Source: abstract map. |
+| `K3DoubleCover.cover_surface()` | K3 double-cover surface; codomain is the covered/base surface. | Sage K3 surface constructor; `candidate-backend`. | Source: abstract map. |
+| `EnriquesQuotient.k3_cover()` | Enriques quotient surface; codomain is the K3 cover object. | Sage Enriques/K3 route; `candidate-backend`. | Source: abstract map. |
+| `CoherentSheaf.h0()`, `CoherentSheaf.h1()` | coherent-sheaf cohomology surface; codomain is an integer dimension. | Macaulay2 `dim HH^0(F)` and `dim HH^1(F)`; `bridge-needed`. | Source: abstract map. |
+| `CoherentSheaf.euler_characteristic()` | coherent-sheaf invariant surface; codomain is an integer. | Macaulay2 `chi(F)`; `bridge-needed`. | Source: abstract map. |
+| `CoherentSheaf.rank()` | coherent-sheaf invariant surface; codomain is rank where defined. | Macaulay2 `rank(F)`; `bridge-needed`. | Source: abstract map. |
+| `FamilyOfVarieties.specialization()` | family surface; codomain is a specialized fiber/object. | Sage degeneration handling; `candidate-backend`. | Source: abstract map. Needs current Sage capability audit. |
+| `FamilyOfVarieties.monodromy()` | family/local-system surface; codomain is monodromy representation or operator data. | Sage monodromy; `candidate-backend`. | Source: abstract map. |
+
+### Lattice And Group-Action Backends
+
+| Source surface | Project owner and codomain | Backend route and status | Source and consequence |
+| --- | --- | --- | --- |
+| `CobleSurface.coble_lattice()` | downstream Coble surface method; codomain is a lattice or formed module constructed from geometry. | Oscar integer lattices; `candidate-backend`. | Source: abstract map. Not current-phase implementation permission. |
+| `Lattice.discriminant_group()` | lattice/discriminant construction surface; codomain is a finite discriminant group with form when applicable. | Oscar `discriminant_group(L)`; `bridge-needed`. | Sources: abstract map and `software-capability-map.md`. |
+| `Lattice.primitive_embedding()` | lattice embedding surface; codomain is embedding data or candidate embedding objects. | Oscar `primitive_embeddings(L, M)`; `bridge-needed`. | Sources: abstract map and library-integration note. |
+| `Lattice.automorphism_group()` | formed-module/lattice `AutCategory` surface; codomain is the automorphism group in the relevant category. | CARAT `Aut_grp` for positive definite forms; Indefinite.jl `automorphism_group` for indefinite forms; `candidate-backend`. | Sources: abstract map, `carat.md`, `indefinite-jl.md`. Do not force CARAT onto indefinite input. |
+| `Lattice.isometry_test()` | isometry predicate between formed modules/lattices; codomain is `bool` plus optional isometry witness. | Indefinite.jl `test_equivalence`; `bridge-needed`. | Sources: abstract map and `indefinite-jl.md`. |
+| `Lattice.orbit_representatives()` | orthogonal-group or subgroup action surface; codomain is representatives with stabilizer/certificate data when needed. | Indefinite.jl `get_orbit_representative`; `candidate-backend`. | Sources: abstract map, `indefinite-jl.md`, orbit backend notes. |
+| `Lattice.vinberg_sh姚()` | malformed source surface; intended Vinberg/chamber/root method not admitted under this literal spelling. | Vinberg algorithm through Oscar/Vinberg backend candidates; `candidate-backend`. | Sources: abstract map and `vinberg-algorithm.md`. Public spelling blocked by `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`; bespoke implementation is not approved. |
+| `GroupAction.orbit(x)` / orbit enumeration rows | group-action surface attached to finite group actions, graph automorphism actions, or orthogonal subgroup actions. | GAP `Orbit`, `OrbitsDomain`, GRAPE/Digraphs where relevant; `bridge-needed`. | Sources: `software-capability-map.md` and `gap-orbits.md`. Prefer GAP over custom orbit enumeration. |
+| `GroupAction.stabilizer(x)` | group-action surface; codomain is subgroup or stabilizer object. | GAP `Stabilizer`; `bridge-needed`. | Sources: `software-capability-map.md` and `gap-orbits.md`. |
+| centralizer/finite-image subgroup operations | automorphism-group or subgroup-action surface; codomain is subgroup or finite quotient data. | GAP, Oscar, or backend-specific finite quotient route; `candidate-backend`. | Sources: `gap-orbits.md`, `library-integration.md`, orbit/building backend notes. |
+
 ## Acceptance Criteria
 
 - [ ] Every admitted method row names the literal surface spelling, minimal owner category, mathematical definition or software interop meaning, hypotheses, codomain or return object, and source paths.
@@ -330,3 +403,5 @@ They are source-grounded in `category_specs/sets/docs/SAGE_INVENTORY.md`,
 - 2026-05-06: Added source corpus assignment by topical inventory task.
 - 2026-05-06: Added set, finite/enumerated, subobject, image, RealSet, topological,
   metric, and rejected/interop method rows.
+- 2026-05-06: Added backend and external software routing rows for the abstract method
+  map, including malformed-source follow-up routing.
