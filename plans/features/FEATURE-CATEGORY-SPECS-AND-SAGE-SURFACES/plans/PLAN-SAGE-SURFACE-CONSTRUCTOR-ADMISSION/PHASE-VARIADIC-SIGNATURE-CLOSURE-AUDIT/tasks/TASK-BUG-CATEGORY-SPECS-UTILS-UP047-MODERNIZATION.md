@@ -76,9 +76,16 @@ package-surface risk of import hygiene or the broad mechanical footprint of `E50
   `_fold_nonempty_binary_operation` and `foldable_operation` to inline generic
   function syntax, and kept the generic annotations internally consistent after Ruff's
   follow-on type-parameter rename.
-- 2026-05-03: Targeted `uvx --from ruff ruff check category_specs/utils.py` and
-  `python -m compileall category_specs/utils.py` pass. Full `just test` still fails in
-  category-spec Ruff normalization with 532 remaining `F401`/`E402`/`E501` blockers.
+- 2026-05-03: Targeted `uvx --from ruff ruff check --select UP047
+  category_specs/utils.py` and `python -m compileall category_specs/utils.py` pass.
+  Full `just test` still fails in category-spec Ruff normalization with remaining
+  `F401`/`E402`/`E501` blockers.
 - 2026-05-05: Moved to `in-review`; all card-local acceptance criteria and targeted
   validation evidence were already recorded. Remaining global QC blockers are tracked
   on the parent Ruff/vulture cards, not this UP047 leaf.
+- 2026-05-06: Re-ran `uvx --from ruff ruff check --select UP047
+  category_specs/utils.py`, `python -m compileall category_specs/utils.py`, and
+  `just plan-validate`; all passed. A broader `uvx --from ruff ruff check
+  category_specs/utils.py` fails on `E501` only, and `uvx --from ruff ruff check
+  --select E501 category_specs` reports remaining line-length findings owned by
+  `[[TASK-BUG-CATEGORY-SPECS-E501-LONG-LINE-NORMALIZATION]]`, not this UP047 leaf.
