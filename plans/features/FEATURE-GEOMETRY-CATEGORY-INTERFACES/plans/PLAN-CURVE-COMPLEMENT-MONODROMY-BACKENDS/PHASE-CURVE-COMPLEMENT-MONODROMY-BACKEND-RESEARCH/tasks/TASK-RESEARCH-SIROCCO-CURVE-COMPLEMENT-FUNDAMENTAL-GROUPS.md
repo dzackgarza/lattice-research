@@ -55,6 +55,10 @@ Do not implement a wrapper in this card. Do not assume Sirocco semantics without
   documentation/source, and local Sage import behavior. Recorded the backend
   boundary in
   `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/specs/SPEC-SIROCCO-ZARISKI-VANKAMPEN-BACKEND-MAPPING.md`.
+- 2026-05-06: Independent Gate 2 review found that the required follow-up choices
+  were still inline in the mapping spec. Added
+  `[[DECISION-SIROCCO-PLANE-CURVE-COMPLEMENT-GROUP-SURFACE]]` and linked the mapping
+  spec's follow-up consequence to that decision card.
 
 ## Research Result
 
@@ -75,3 +79,25 @@ plane curve/projection, not a raw Sirocco wrapper. The local Sage environment ha
 and a finite group presentation, but public integration still waits on geometry
 spec ownership for plane curves, complements, braid monodromy, and finitely
 presented groups.
+
+## Tracked Follow-Up
+
+- `[[DECISION-SIROCCO-PLANE-CURVE-COMPLEMENT-GROUP-SURFACE]]` owns the public
+  surface decisions for the Sirocco-backed route: complement-vs-curve method
+  owner, public braid-monodromy object status, presentation/meridian typing, and
+  affine/projective complement modeling.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding.
+**Gates failed:** Gate 2 Acceptance Criteria.
+**Outcome:** revision-required, reworked in the work log above, returned to
+`needs-review` for another independent pass.
+
+Finding:
+
+- The card required follow-up work to be tracked, but the produced mapping spec
+  listed the Sirocco public-surface choices as inline future prose rather than a
+  tracked successor card.

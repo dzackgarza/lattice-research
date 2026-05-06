@@ -153,7 +153,8 @@ presentation, not a canonical topological space object.
 ## Follow-Up Consequence
 
 No new wrapper or dependency-admission task is warranted from this card alone.
-Future geometry category specs should decide:
+The remaining public-surface choices are tracked by
+`[[DECISION-SIROCCO-PLANE-CURVE-COMPLEMENT-GROUP-SURFACE]]`, including:
 
 - whether `C.complement().fundamental_group()` or `C.fundamental_group()` is the
   public owner;
