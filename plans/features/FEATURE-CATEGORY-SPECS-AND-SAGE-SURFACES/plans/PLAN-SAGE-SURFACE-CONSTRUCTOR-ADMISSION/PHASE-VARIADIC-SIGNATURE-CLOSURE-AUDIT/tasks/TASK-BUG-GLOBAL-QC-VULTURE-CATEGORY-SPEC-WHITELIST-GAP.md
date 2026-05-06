@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Resolve category-spec vulture findings through code fixes, not whitelist entries
-status: unstarted
+status: in-progress
 priority: high
 description: 'Resolve the 762 category-spec vulture findings by fixing the code, not by
   expanding the global vulture whitelist. The whitelist approach was the wrong framing.'
@@ -140,8 +140,29 @@ violations to silence QC rather than addressing the issues they unearthed.
 - All remaining findings must either be resolved through code fixes or presented to
   the user in the final whitelist gate.
 
+## Progress
+
+- 2026-05-06 first bounded slice: root package re-export findings in
+  `category_specs/__init__.py` were resolved by adding real Cat smoke assertions that
+  use the root package module exports for `algebras`, `cat`, `forms`, `homsets`,
+  `lattices`, `modules`, `posets`, `rings`, `sets`, and `topological_spaces`.
+- The same Cat smoke slice now exercises the opt-in category diagnostic utility
+  surface in `category_specs/utils.py`: disabled-by-default behavior, enable/disable,
+  logger access, history clearing, and once-per-key emission.
+- `category_specs/cat/smoketest.sage` passes after these assertions.
+- A vulture-only diagnostic through the global QC recipe confirms these names no longer
+  appear in the vulture finding list. This diagnostic is inventory evidence only; final
+  validation remains `just test`.
+- Current public `just test` still fails before vulture at the global mypy stage with
+  the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
+  vulture cleanup, but it means final acceptance cannot yet claim full QC success.
+- Spec-weakening review: this slice added smoke coverage and did not delete abstract
+  methods, narrow smokes, remove constructor obligations, or move any spec surface.
+
 ## Work Log
 
 - 2026-05-03: Created from read-only vulture triage (original whitelist framing).
 - 2026-05-06: Reframed as code-fix task after user identified that underscore
   convention + smoke calls resolve findings without whitelist entries.
+- 2026-05-06: Moved to `in-progress` and completed the first bounded cleanup slice:
+  root package re-export usage plus category diagnostic utility usage in the Cat smoke.

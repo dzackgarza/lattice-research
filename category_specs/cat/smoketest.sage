@@ -1,5 +1,6 @@
 r"""Mathematical smoke surface for the category-of-categories subtree."""
 
+import logging
 import pathlib
 import sys
 
@@ -7,14 +8,26 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+import category_specs as category_specs_root
 from category_specs.algebras import Algebras
 from category_specs.cat import Category, Cat
+from category_specs.forms import FormedModules
+from category_specs.homsets import HomCategory
+from category_specs.lattices import Lattices
 from category_specs.modules import Modules
 from category_specs.posets import Posets
 from category_specs.rings import Rings
 from category_specs.sets import Sets
 from category_specs.topological_spaces import TopologicalSpaces
-from category_specs.utils import assert_smoke_statements
+from category_specs.utils import (
+    assert_smoke_statements,
+    category_diagnostic_logger,
+    category_diagnostics_enabled,
+    clear_category_diagnostic_history,
+    disable_category_diagnostics,
+    emit_category_diagnostic,
+    enable_category_diagnostics,
+)
 from sage.all import ZZ
 from sage.categories.functor import IdentityFunctor
 
@@ -27,9 +40,59 @@ cat_constructors = C.Constructors()
 empty_category = cat_constructors.EmptyCategory()
 joined_category = Category.join([registered_ring_category, registered_poset_category])
 
+
+class _ListHandler(logging.Handler):
+    def __init__(self, records):
+        super().__init__()
+        self._records = records
+
+    def emit(self, record):
+        self._records.append(record.getMessage())
+
+
+def category_diagnostics_are_disabled_by_default_and_keyed_once():
+    records = []
+    logger = category_diagnostic_logger()
+    handler = _ListHandler(records)
+    logger.addHandler(handler)
+    try:
+        disable_category_diagnostics()
+        clear_category_diagnostic_history()
+        emit_category_diagnostic("suppressed", key="cat-smoke")
+        assert not records
+        assert not category_diagnostics_enabled()
+
+        enable_category_diagnostics()
+        emit_category_diagnostic("shown once", key="cat-smoke")
+        emit_category_diagnostic("shown twice", key="cat-smoke")
+        assert records == ["shown once"]
+        assert category_diagnostics_enabled()
+    finally:
+        disable_category_diagnostics()
+        clear_category_diagnostic_history()
+        logger.removeHandler(handler)
+    return True
+
 SMOKE_STATEMENTS = (
     ("Cat() is singleton-valued", lambda _: Cat() is C),
     ("Cat() is not an object of itself", lambda _: C not in C),
+    (
+        "category diagnostics are disabled by default and emit once per key",
+        lambda _: category_diagnostics_are_disabled_by_default_and_keyed_once(),
+    ),
+    ("category_specs root exports Cat module", lambda _: category_specs_root.cat.Cat() is C),
+    ("category_specs root exports Sets module", lambda _: category_specs_root.sets.Sets() is registered_set_category),
+    ("category_specs root exports Rings module", lambda _: category_specs_root.rings.Rings() is registered_ring_category),
+    ("category_specs root exports Posets module", lambda _: category_specs_root.posets.Posets() is registered_poset_category),
+    ("category_specs root exports Algebras module", lambda _: category_specs_root.algebras.Algebras(ZZ) in C),
+    ("category_specs root exports Forms module", lambda _: category_specs_root.forms.FormedModules(ZZ) is FormedModules(ZZ)),
+    ("category_specs root exports Homsets module", lambda _: category_specs_root.homsets.HomCategory is HomCategory),
+    ("category_specs root exports Lattices module", lambda _: category_specs_root.lattices.Lattices is Lattices),
+    ("category_specs root exports Modules module", lambda _: category_specs_root.modules.Modules(ZZ) is Modules(ZZ)),
+    (
+        "category_specs root exports TopologicalSpaces module",
+        lambda _: category_specs_root.topological_spaces.TopologicalSpaces() is TopologicalSpaces(),
+    ),
     ("Sets() reconstructs as its singleton category object", lambda _: Sets() is Sets().__class__()),
     ("Sets().Finite() reconstructs as its axiom category object", lambda _: Sets().Finite() is Sets().Finite().__class__(Sets())),
     ("Modules(ZZ) reconstructs with base ring ZZ", lambda _: Modules(ZZ) is Modules(ZZ).__class__(ZZ)),
