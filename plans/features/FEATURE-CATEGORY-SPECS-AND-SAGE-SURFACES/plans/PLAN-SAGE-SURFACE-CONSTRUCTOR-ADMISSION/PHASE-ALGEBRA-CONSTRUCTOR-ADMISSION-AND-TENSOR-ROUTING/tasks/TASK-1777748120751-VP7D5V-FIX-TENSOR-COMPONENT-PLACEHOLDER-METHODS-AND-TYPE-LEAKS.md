@@ -10,8 +10,16 @@ status: needs-review
 priority: critical
 description: Fix tensor-component placeholder methods and type leaks
 successCriteria:
-- Fix tensor-component placeholder methods and type leaks is resolved according to
-  the body acceptance criteria.
+- The card cites the tracked canonical tensor-component mapping spec, not only the
+  legacy redirect docs.
+- Placeholder methods are either removed, made abstract with a source-backed owner, or
+  replaced by mathematically meaningful implementations.
+- Tensor-component public surfaces stay limited to mapped tensor-component methods,
+  constructor interop, and inherited module tensor-product obligations.
+- Raw Sage component slices and option-bag-shaped constructor surfaces are kept private
+  or converted to explicit typed outputs.
+- Relevant validation evidence is recorded without weakening smokes, mapping decisions,
+  or abstract obligations.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
@@ -34,7 +42,24 @@ Task: fix tensor-component placeholder methods that incorrectly return self or r
 
 ## Grounding
 
-- `category_specs/tensor_algebra_components/docs/MAPPING.md` owns the public tensor-component surface: component parents and tensor elements expose `base_module()` and `tensor_type()`, component data stays constructor interop/private storage, `Tensor.structure_constants()` is the sole public product-tensor extraction surface, and `sym=` / `antisym=` are admitted only as constructor metadata.
+- The canonical tracked tensor-component mapping is
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS.md`.
+  The legacy `category_specs/tensor_algebra_components/docs/MAPPING.md` path is only
+  source provenance for that tracked spec and must not be treated as the current
+  authority by itself.
+- `SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS` owns the public tensor-component surface:
+  component parents and tensor elements expose `base_module()` and `tensor_type()`,
+  component data stays constructor interop/private storage,
+  `Tensor.structure_constants()` is the sole public product-tensor extraction surface,
+  and `sym=` / `antisym=` are admitted only as constructor metadata.
+- `lift_from_product(elts)` is not a new tensor-component-specific public method. Its
+  source-backed owner is `Modules(R).TensorProducts().ParentMethods`, grounded in
+  `category_specs/modules/subcategories/constructions/tensor_products.py` and the
+  `SPEC-MAPPING-MODULES` tensor-products row. Tensor algebra components refine through
+  `Modules(R).TensorProducts()`, so the abstract requirement is inherited construction
+  vocabulary for tensor-product parents. The codomain is an element of the tensor
+  product parent receiving the pure-product data; tensor-component-specific coordinate
+  construction remains in `TensorAlgebraComponents(R).Constructors()`.
 - `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md` records the Sage source vocabulary for `TensorFreeModule`, `FreeModuleTensor`, `tensor_type()`, component arrays, trace, and contraction.
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGCB7YYAXVHWHQWGV281-FREEZE-TENSOR-SYMMETRY-ANTISYMMETRY-STORAGE-CONTRACTION-TRACE-DISPLAY-AN.md` freezes symmetry, component storage, trace, contraction, display, and index-notation decisions.
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9J3WRAX3KGTBPA4Y1T1SC-EXPAND-TENSORALGEBRACOMPONENTS-BEYOND-THE-MINIMAL-TENSOR-CONSTRUCTOR-SUR.md` records that implementation follow-up is concrete method/constructor surface cleanup, not more owner-planning.
@@ -61,3 +86,30 @@ Task: fix tensor-component placeholder methods that incorrectly return self or r
 - `git diff --check`
 - `just check-abstract-redefinitions` from `category_specs/`
 - `just smoke-file tensor_algebra_components/smoketest.sage` from `category_specs/` still fails on the pre-existing tensor constructor-refinement `__richcmp__` frontier tracked by `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING/tasks/TASK-01KQN9J3X47WFCYHM2CK8G1677-FIX-TENSORALGEBRACOMPONENTS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES-FROM.md`; every failed smoke assertion reports `AssertionError: Not implemented method: __richcmp__`.
+
+## Review Log
+
+### Review 2026-05-06 (Mencius)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Finding: Definition Grounding
+
+- The card cited `category_specs/tensor_algebra_components/docs/MAPPING.md` as the
+  owner, but that path is a legacy redirect. The tracked canonical owner is
+  `SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS`.
+- The key reviewed change, replacing concrete `lift_from_product(...)` with an
+  abstract requirement, did not cite a canonical source for the method's owner,
+  hypotheses, or codomain.
+
+#### Rework
+
+- Repointed the grounding section to the tracked canonical tensor mapping spec.
+- Recorded `lift_from_product(...)` as inherited `Modules(R).TensorProducts()` parent
+  vocabulary, grounded in `category_specs/modules/subcategories/constructions/tensor_products.py`
+  and `SPEC-MAPPING-MODULES`, not as a tensor-component-specific public method.
+- Replaced the tautological success criterion with concrete criteria for placeholder
+  handling, inherited owner routing, slice/option-bag cleanup, and non-weakening
+  validation.

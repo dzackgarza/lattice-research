@@ -74,3 +74,37 @@ object interpretation, and the algebra multiplication-tensor handoff.
   category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`, and
   the algebra smoke all pass. Status moved to `needs-review`; this does not mark the
   card accepted or complete.
+
+## Smoke Output
+
+2026-05-06 targeted smoke rerun:
+
+```text
+$ just --justfile category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage
+<exit 0; no stdout/stderr>
+
+$ just --justfile category_specs/justfile smoke-file algebras/smoketest.sage
+<exit 0; no stdout/stderr>
+```
+
+## Review Log
+
+### Review 2026-05-06 (Maxwell)
+
+**Gates passed:** Gate 1
+**Gates failed:** Gate 2 Acceptance Evidence
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Acceptance Evidence
+
+- The card required relevant smoke output to be updated in this task body or a linked
+  tracker item.
+- The work log recorded only a narrative summary that the smoke commands passed, not
+  the smoke output itself or a linked artifact containing that output.
+
+#### Rework
+
+- Added the exact targeted smoke commands, exit status, and empty-output artifact under
+  `Smoke Output`.
+- Preserved the distinction between agent review evidence and human acceptance; status
+  remains `needs-review`.
