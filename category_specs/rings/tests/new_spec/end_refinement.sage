@@ -2,7 +2,7 @@ import sys
 
 sys.path.insert(0, '/home/dzack/research')
 
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 
 RRings = Rings()
 NR = RRings.Constructors()

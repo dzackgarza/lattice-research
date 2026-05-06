@@ -5,7 +5,7 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 from sage.all import RR as _RR, CC as _CC, RDF as _RDF, CDF as _CDF, pi, I
 
 NR = Rings().Constructors()

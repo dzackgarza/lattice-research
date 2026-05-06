@@ -50,9 +50,8 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 - Current `VectorSpace` construction is not ring-owned. It is explicitly mapped and
   implemented under `Modules(K).Constructors()` as `VectorSpace(dimension, sparse=False,
   *, inner_product_matrix=None)` plus named basis/inner-product variants.
-- Updated `category_specs/rings/docs/MAPPING.md` so the `MatrixSpace.matrix` split
-  records the concrete public method signatures and states that Sage's option bag is
-  not public.
+- Updated `[[SPEC-MAPPING-RINGS]]` so the `MatrixSpace.matrix` split records the
+  concrete public method signatures and states that Sage's option bag is not public.
 
 ## Audit Evidence
 
@@ -72,6 +71,41 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
   card; the durable correction is the updated ring mapping plus this owner-split audit.
 - Confidence: High.
 - Gaps: this pass did not close separate algebra option-bag or module wrapper cards.
+
+## Review Log
+
+### Review 2026-05-06 (Bohr)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 6 Style and Compliance
+**Gates failed:** Gate 5 Mathematical Correctness
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 5 Finding: Whole Ring Smoke Was Not Passing Evidence
+
+- `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` exits 1 on
+  residual ring-frontier failures including `hilbert_polynomial`, `completion`,
+  `_change_print_mode`, and deferred `ZqWithPrecisionCaps` / `QqWithPrecisionCaps`.
+- Those failures are not option-bag constructor regressions, but the previous card
+  evidence did not explicitly route them or provide scoped passing verification.
+
+#### Routing And Rework
+
+- Residual `hilbert_polynomial`, `algebraic_closure`, `completion`,
+  `_change_print_mode`, and q-adic precision-cap smoke frontiers are already recorded
+  as downstream ring-frontier evidence in
+  `[[TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME]]`.
+- Deferred `ZqWithPrecisionCaps(...)` and `QqWithPrecisionCaps(...)` are explicitly
+  routed through
+  `[[TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED]]`
+  and
+  `[[TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION]]`.
+- The cited ring regression files had stale `plans.category_specs.rings` imports; these
+  were mechanically repaired to `category_specs.rings` so future verification reaches
+  the actual ring-frontier failures instead of a retired package path.
+- Scoped verification for this card's owned surface passed through the repo justfile:
+  a temporary Sage smoke checked `Rings().Constructors().MatrixRing(ZZ, 2)`, the
+  matrix-algebra category membership, and `matrix_from_matrix`,
+  `matrix_from_entries`, `matrix_from_rows`, and `scalar_matrix`.
 
 ## Acceptance Criteria
 

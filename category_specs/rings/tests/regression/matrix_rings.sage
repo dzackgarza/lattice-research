@@ -3,7 +3,7 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 from sage.all import ZZ, QQ, GF, matrix, identity_matrix
 
 NR = Rings().Constructors()
@@ -81,7 +81,7 @@ assert A_sing.rank() == 1
 # Category membership via spec
 # ---------------------------------------------------------------------------
 
-from plans.category_specs.rings import Rings as _Rings
+from category_specs.rings import Rings as _Rings
 
 assert M2Q in _Rings()
 assert M2Q not in _Rings().CommutativeRings()

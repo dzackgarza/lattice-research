@@ -4,7 +4,7 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 from sage.all import QQ, ZZ
 
 NR = Rings().Constructors()
@@ -95,7 +95,7 @@ assert P.laurent_series_ring().base_ring() is QQ
 # Hierarchy: PowerSeries ⊂ LaurentSeries ⊂ PuiseuxSeries
 # ---------------------------------------------------------------------------
 
-from plans.category_specs.rings import Rings as _Rings
+from category_specs.rings import Rings as _Rings
 
 assert NR.PowerSeriesRing(QQ, 'w') in _Rings().PowerSeries()
 assert NR.PowerSeriesRing(QQ, 'w') in _Rings().LaurentSeries()

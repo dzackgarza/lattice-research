@@ -5,7 +5,7 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 from sage.all import ZZ as _ZZ, QQ as _QQ, RR as _RR, CC as _CC
 from sage.all import RDF as _RDF, CDF as _CDF, RIF as _RIF, CIF as _CIF
 from sage.all import AA as _AA, QQbar as _QQbar

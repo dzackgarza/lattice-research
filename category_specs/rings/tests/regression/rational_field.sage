@@ -3,7 +3,7 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
+from category_specs.rings import Rings
 from sage.all import ZZ, QQ as _QQ
 
 NR = Rings().Constructors()
