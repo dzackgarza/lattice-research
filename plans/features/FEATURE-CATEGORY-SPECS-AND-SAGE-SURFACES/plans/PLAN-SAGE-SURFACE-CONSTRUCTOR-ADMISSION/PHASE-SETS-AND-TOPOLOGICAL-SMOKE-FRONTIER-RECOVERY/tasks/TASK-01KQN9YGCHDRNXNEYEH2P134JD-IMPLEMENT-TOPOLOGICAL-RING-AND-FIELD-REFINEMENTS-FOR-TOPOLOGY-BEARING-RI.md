@@ -7,8 +7,7 @@ parents:
 dependsOn: []
 title: Implement topological ring and field refinements for topology-bearing ring
   objects without duplicating topological-space methods
-status: blocked
-blocked_reason: "Deferred frontier: installed Sage lacks working unramified q-adic extension path with split lattice caps."
+status: revision-required
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and
   q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
@@ -84,13 +83,13 @@ lattice-precision gaps.
   removed abstract obligations from `TopologicalSpaces().ParentMethods` and delegated
   ambient-relative methods only for Sage `RealSet` subsets. That would have weakened
   the ideal topological-space surface to make a ring smoke frontier disappear.
-- Current blocker: topology-bearing ring objects still refine into
+- Current revision finding: topology-bearing ring objects still refine into
   `TopologicalSpaces()` and hit abstract root obligations such as `boundary`.
   Implementing those methods directly in ring files would duplicate topological
   method ownership; removing abstractness at the topological root weakens the spec.
-  This leaf needs a design decision for how concrete topological-space behavior is
-  supplied to topology-bearing ring objects while preserving the root owner
-  obligations.
+  This leaf needs design-preserving rework for how concrete topological-space behavior
+  is supplied to topology-bearing ring objects while preserving the root owner
+  obligations. This is rework for this task, not a `blocked` status.
 - Verification:
   - `python -m py_compile category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
   - `git diff --check -- category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
