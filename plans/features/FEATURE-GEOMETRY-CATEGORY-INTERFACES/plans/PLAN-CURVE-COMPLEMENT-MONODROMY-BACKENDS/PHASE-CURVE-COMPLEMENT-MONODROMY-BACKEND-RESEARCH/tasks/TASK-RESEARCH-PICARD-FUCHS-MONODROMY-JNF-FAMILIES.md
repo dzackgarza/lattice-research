@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Picard-Fuchs and monodromy JNF computations for families
-status: unstarted
+status: needs-review
 priority: low
 description: Research how to compute Jordan normal forms of monodromy operators for
   families of curves and surfaces, including Picard-Fuchs operator routes.
@@ -52,3 +52,35 @@ Do not implement monodromy or Picard-Fuchs computation in this card. Do not clai
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
+- 2026-05-06: Researched the Noether-Lefschetz `foliation.lib` source,
+  Singular Gauss-Manin manual, local quarantined foliation backend notes, Sage
+  Riemann-surface mapping, and `ore_algebra` mapping. Recorded the backend
+  boundary in
+  `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/specs/SPEC-PICARD-FUCHS-MONODROMY-BACKEND-MAPPING.md`.
+
+## Research Result
+
+This card is ready for review. No monodromy implementation is admitted from this
+pass.
+
+For curve families, there are two distinct routes that should not be conflated:
+Sage `RiemannSurface` can provide a numerical analytic route for a sequence of
+plane-curve fibers after a curve/family spec chooses a plane model and certified
+comparison data, while Picard-Fuchs/Gauss-Manin methods compute differential
+equations for periods of selected differential forms. The output basis and
+certification burden differ.
+
+For surface or higher-dimensional hypersurface families, the relevant route is
+the Gauss-Manin/Picard-Fuchs route: start with a one-parameter family, choose the
+cohomology class or differential form whose periods are being studied, compute a
+Gauss-Manin system or scalar Picard-Fuchs operator, then compute operator
+monodromy/Jordan data. This computes monodromy of the selected period local
+system only after the geometric-to-operator identification is proved or sourced.
+
+`foliation.lib` is source evidence for Gauss-Manin and Picard-Fuchs derivation in
+the Brieskorn-module/tame-hypersurface setting. `ore_algebra` is source evidence
+for downstream monodromy of a known differential operator, but its local import
+currently fails and it does not itself derive Picard-Fuchs operators from
+geometry. Macaulay2 was checked only at the general system/documentation level in
+this card; no installed local `M2` command or source-backed `PeriodIntegrals`
+route was found in the checked surface.
