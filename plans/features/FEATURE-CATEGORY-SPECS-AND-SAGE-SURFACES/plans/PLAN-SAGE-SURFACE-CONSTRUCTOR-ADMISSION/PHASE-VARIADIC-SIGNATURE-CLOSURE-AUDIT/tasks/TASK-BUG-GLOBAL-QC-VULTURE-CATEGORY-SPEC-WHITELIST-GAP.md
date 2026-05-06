@@ -430,6 +430,24 @@ violations to silence QC rather than addressing the issues they unearthed.
   the reported failures. The vulture-only diagnostic no longer reports any
   `category_specs/rings/**` findings. Remaining vulture findings are now isolated to
   `category_specs/lattices/**`.
+- 2026-05-06 thirty-third bounded slice: lattice smoke coverage was added for
+  lattice-specific construction routers, lazy construction-class attributes,
+  even/unimodular predicates, lattice End base-lattice ownership, slice structure
+  lattice ownership, subobject ambient and orthogonal-complement surfaces, metric-dual
+  lattice owner surfaces, Hom-dual standard type-package aliases, overlattice and
+  orthogonal-direct-sum type packages, discriminant-group type packages and primary
+  decomposition surfaces, and OverPID/OverIntegers/OverDedekind owner methods.
+- The same slice fixed the `category_specs.lattices.chain` compatibility surface so
+  documented imports of `LatticesCategory` from that module work. It also corrected the
+  smoke's previous `DualLattices() aliases DualObjects()` assertion: the lattice
+  redesign docs distinguish metric-dual lattices from Hom-dual objects, so the smoke now
+  records the metric-dual owner surface without conflating it with the Hom-dual
+  construction.
+- Validation for the thirty-third slice:
+  `just --justfile category_specs/justfile smoke-file lattices/smoketest.sage` passed;
+  `just --justfile category_specs/justfile smoke-file lattices/chain_smoketest.sage`
+  passed; the vulture-only diagnostic passed and no longer reports any
+  `category_specs/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -511,3 +529,7 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the thirty-second bounded cleanup slice for ring root,
   Hom/End, field, q-adic, precision, divisibility, and matrix-algebra smoke coverage,
   clearing all remaining `category_specs/rings/**` vulture findings.
+- 2026-05-06: Completed the thirty-third bounded cleanup slice for lattice
+  construction routers, Hom/End, dual-object, metric-dual, overlattice, orthogonal-sum,
+  discriminant-group, and base-ring-refinement smoke coverage, clearing all remaining
+  `category_specs/**` vulture findings.
