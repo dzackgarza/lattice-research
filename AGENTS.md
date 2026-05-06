@@ -35,6 +35,11 @@
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan. The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are blocked until prerequisite vocabulary and specs exist.
 - QC is phase-transition evidence, not the control loop for spec work. During churn-heavy spec work, do not treat QC failures, hook noise, or unrelated implementation validation failures as blockers for approved spec-plan execution. QC blocks only a claimed phase transition or a user-requested QC/implementation integration pass; otherwise record the finding and continue the approved spec work.
 - Blockers are phase-local and path-local unless proven otherwise. A downstream-phase guard, implementation-only gate, QC failure outside a transition/integration pass, oversized card, missing vocabulary, or missing backend bridge is not a reason to exit the active goal while approved phase-local spec, research, decision, or decomposition cards remain. Stop only the affected card/path, create or update the prerequisite card/decision/research item, and continue another approved active leaf.
+- Follow the planning DAG literally. Do not even attempt a task whose declared
+  dependencies are incomplete. A task with unmet `dependsOn` edges is `unstarted`, not
+  `blocked`. Reserve `blocked` for a ready current-phase leaf that cannot proceed
+  because it needs an external decision, source, credential, missing theory, or other
+  prerequisite that is not currently satisfiable through the DAG.
 - Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.
 - Never roll back, undo, or reverse auto-fixes produced by hooks, formatters, linters, or other repository tooling. Carry them forward and report unexpected touched paths.
 

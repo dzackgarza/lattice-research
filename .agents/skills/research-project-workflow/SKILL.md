@@ -27,6 +27,9 @@ retiring, or interpreting root `plans/` tracker files.
 - There is no separate backlog; active cards are the outstanding work set.
 - Completed feature trees should be moved under `plans/features/completed/` rather
   than left alongside active feature roots.
+- Execute according to the DAG. Unmet declared dependencies mean a card remains
+  `unstarted`; `blocked` is reserved for ready leaves stopped by a prerequisite that is
+  not currently satisfiable through the DAG.
 - Work top-down through feature/spec, plan, phase, and task gates. Do not create
   lower-layer cards before the owning layer is approved.
 - Plans are human + LLM collaborative artifacts and must be approved before

@@ -95,6 +95,17 @@ supports that value, record the exact blocker in the body, and link or create th
 prerequisite task, research item, or decision. A blocked card remains active until it is
 accepted, rejected, or superseded.
 
+Do not mark a card `blocked` merely because one of its declared `dependsOn` edges is
+incomplete. That is ordinary DAG ordering, not a blocker. If the dependency chain is
+not yet discharged, the downstream card is still `unstarted` and should not be
+attempted yet.
+
+Use `blocked` only for a card that would otherwise be the next ready leaf in the
+current phase, but cannot proceed because it needs an external decision, unavailable
+source, missing credential, unresolved theory obligation, missing backend proof, or
+another prerequisite that is not currently satisfiable by simply completing upstream
+cards in the DAG.
+
 ## Layer-gated workflow
 
 Build and approve cards top-down. Approval is local to the layer being approved.
@@ -113,6 +124,10 @@ Build and approve cards top-down. Approval is local to the layer being approved.
   phase's `tasks/` directory. A task is the executable contract: exact objective,
   allowed scope, dependencies, acceptance checks, and verification command or proof
   artifact.
+
+Execution order is constrained by the DAG. Do not start a task while any declared
+dependency remains incomplete. Downstream tasks wait in `unstarted` status until their
+incoming dependency edges are discharged.
 
 Do not create tasks first and backfill higher layers. Do not use plans above plans to
 simulate feature hierarchy. Do not approve a phase for execution while child tasks

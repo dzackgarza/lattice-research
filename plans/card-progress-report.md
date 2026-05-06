@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 16:26 UTC_
+_Generated: 2026-05-06 16:27 UTC_
 
 ## Overall
 
@@ -68,8 +68,8 @@ _Generated: 2026-05-06 16:26 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-06 `decision` `DECISION-VINBERG-WRAPPING-STRATEGY`: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement (commit `b0cde61`: docs: normalize Coble and Vinberg tracker specs)
 - 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `d8d172a`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-VINBERG-WRAPPING-STRATEGY`: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement (commit `d8d172a`: User-initiated Checkpoint)
 - 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `d53305d`: docs: decide discriminant form orbit routing)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `b55df6c`: docs: decide Picard lattice ownership)
 - 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `cd84d84`: docs: decide module sidedness surface)

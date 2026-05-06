@@ -45,6 +45,9 @@ Read `references/review-kernel.md` before reviewing any card in `needs-review` s
 - Do not patch around missing mathematical vocabulary or missing trusted-base operations.
 - Do not let an implementing agent mark work accepted, done, or closed.
 - Do not claim `GOAL.md` discharge without final composed-goal audit and human approval.
+- Do not treat ordinary DAG sequencing as blockage. If a card still has incomplete
+  declared dependencies, it remains `unstarted`; `blocked` applies only when a ready
+  leaf cannot proceed because of an external unsatisfied prerequisite.
 
 Hard stops are scoped to the affected card, path, or promotion claim unless the current
 approved phase has no other executable leaves. When a hard stop fires, file or update

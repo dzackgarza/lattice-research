@@ -32,6 +32,9 @@ records the active phase gate.
 
 - Card IDs must match filename stems.
 - `parents` records containment; `dependsOn` records blocking or prerequisite edges.
+- Execution follows the DAG. If a card's declared `dependsOn` prerequisites are not
+  complete, leave it `unstarted`; do not mark it `blocked` unless it was otherwise
+  ready and hit a real external prerequisite outside the satisfiable DAG.
 - Completed feature trees live under `plans/features/completed/`, not beside active
   feature roots.
 - Specs live under the owning feature's `specs/` directory.
