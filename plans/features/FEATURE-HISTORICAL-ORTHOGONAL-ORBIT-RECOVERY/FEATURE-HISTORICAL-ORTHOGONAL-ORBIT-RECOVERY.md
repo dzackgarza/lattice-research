@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY]]'
 plans: []
 title: Historical orthogonal group and orbit recovery
-status: unstarted
+status: in-progress
 priority: high
 description: Recover orthogonal group, subgroup, action, stabilizer, centralizer, isotropic orbit, and discriminant-kernel behavior from historical src.bak with category-correct Aut and subgroup semantics.
 ---
@@ -28,8 +28,10 @@ an Aut/subgroup/action API over lattice and discriminant nouns, not a public
 - `src.bak/backends/dawes_orbit_backend.py`
 - `src.bak/backends/isotropic_gamma_orbit_backend.py`
 - `src.bak/backends/external/py_polyhedral/binaries.py`
-- IWE `bilinear-form-category-semantics`
-- IWE `theory-backend-routing`
+- `.agents/memories/bilinear-form-category-semantics.md`
+- `.agents/memories/theory-backend-routing.md`
+- `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT.md`
+- `plans/features/FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY/specs/SPEC-HISTORICAL-CENTRALIZER-AND-FINITE-QUOTIENT-BACKENDS.md`
 
 ## Recovery Boundary
 
