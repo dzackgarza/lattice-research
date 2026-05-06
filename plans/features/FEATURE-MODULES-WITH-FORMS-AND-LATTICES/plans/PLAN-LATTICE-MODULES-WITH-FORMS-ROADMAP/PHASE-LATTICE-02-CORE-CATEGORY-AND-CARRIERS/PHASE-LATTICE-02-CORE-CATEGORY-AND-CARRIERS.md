@@ -12,8 +12,9 @@ description: 'Migrated source: this plan contains the full content formerly stor
   at `plans/PHASE_2_CORE_OBJECTS.md`. The old `plans/` copy was removed so this tracked
   plan is the active planning document.'
 successCriteria:
-- Child task cards are complete only after blockers are resolved, or the work is split
-  into successor cards that carry the unresolved blocker forward.
+- Child task cards are complete only after blockers are resolved, or after the
+  original card is superseded by a linked successor that remains active; blocked child
+  cards do not satisfy phase acceptance.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP

@@ -13,8 +13,8 @@ description: Posets mapping owns constructor names, finite surface methods, cert
   method split, deferred non-core surface ownership, and slice/coslice structure methods.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split
-  with remaining work linked.
+- Completion requires each child item to be done or explicitly superseded by a linked
+  successor; blocked child cards do not satisfy phase acceptance.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - When closing deferred surface mapping, place each method by target mathematical
   object or display/interop status.
@@ -55,7 +55,8 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
-- [ ] Completion requires each child item to be done, superseded with rationale, or split with remaining work linked.
+- [ ] Completion requires each child item to be done or explicitly superseded by a
+      linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
 - [ ] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
 - [ ] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.

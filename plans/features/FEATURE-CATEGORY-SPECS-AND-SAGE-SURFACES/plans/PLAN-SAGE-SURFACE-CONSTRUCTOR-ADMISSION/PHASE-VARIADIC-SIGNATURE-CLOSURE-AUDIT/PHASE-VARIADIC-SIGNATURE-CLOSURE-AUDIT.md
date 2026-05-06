@@ -13,8 +13,8 @@ description: The deleted variadic inventory records the scoping pass for public 
   that had collapsed Sage casework or raw coordinate interop into broad signatures.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split
-  with remaining work linked.
+- Completion requires each child item to be done or explicitly superseded by a linked
+  successor; blocked child cards do not satisfy phase acceptance.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Audit public signatures for remaining *args, **kwargs, option bags, and placeholder
   union data shapes.
@@ -59,7 +59,8 @@ collapsed Sage casework or raw coordinate interop into broad signatures.
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
-- [ ] Completion requires each child item to be done, superseded with rationale, or split with remaining work linked.
+- [ ] Completion requires each child item to be done or explicitly superseded by a
+      linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
 - [ ] Audit public signatures for remaining *args, **kwargs, option bags, and placeholder union data shapes.
 - [ ] Open owner-specific tasks for any remaining collapsed Sage casework rather than restoring the inventory doc.

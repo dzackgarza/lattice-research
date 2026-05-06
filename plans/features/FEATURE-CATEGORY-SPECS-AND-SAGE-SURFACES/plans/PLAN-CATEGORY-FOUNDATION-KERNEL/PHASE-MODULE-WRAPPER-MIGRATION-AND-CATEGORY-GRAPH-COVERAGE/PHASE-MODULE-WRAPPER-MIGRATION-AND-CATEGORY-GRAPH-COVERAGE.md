@@ -14,8 +14,8 @@ description: 'The deleted module wrapper migration plan is a phased migration co
   to real owners, then delete wrappers.'
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split
-  with remaining work linked.
+- Completion requires each child item to be done or explicitly superseded by a linked
+  successor; blocked child cards do not satisfy phase acceptance.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Use the phase-specific validation commands from the deleted plan when implementing
   a child item.
@@ -78,7 +78,8 @@ then delete wrappers.
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
-- [ ] Completion requires each child item to be done, superseded with rationale, or split with remaining work linked.
+- [ ] Completion requires each child item to be done or explicitly superseded by a
+      linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] Each child item that edits module specs or method surfaces states how the ideal
       interface obligation is preserved when Sage smokes fail.
 - [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.

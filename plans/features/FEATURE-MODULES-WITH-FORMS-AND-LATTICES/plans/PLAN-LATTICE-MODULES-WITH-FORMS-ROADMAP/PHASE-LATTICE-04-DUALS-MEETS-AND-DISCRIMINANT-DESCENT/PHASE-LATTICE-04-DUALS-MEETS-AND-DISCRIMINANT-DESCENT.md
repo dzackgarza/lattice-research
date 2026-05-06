@@ -13,8 +13,8 @@ description: 'Migrated source: this plan contains the full content formerly stor
   this tracked plan is the active planning document.'
 successCriteria:
 - Phase 4 lattice meets duals and discriminant descent child cards are complete only
-  after blockers are resolved, or the work is split into successor cards that carry
-  the unresolved blocker forward.
+  after blockers are resolved, or after the original card is superseded by a linked
+  successor that remains active; blocked child cards do not satisfy phase acceptance.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP

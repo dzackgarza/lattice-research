@@ -14,8 +14,8 @@ description: The deleted Sets triage recorded the mapped enumeration smoke surfa
   element construction, and topological axiom resolution.
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split
-  with remaining work linked.
+- Completion requires each child item to be done or explicitly superseded by a linked
+  successor; blocked child cards do not satisfy phase acceptance.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
 - Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback
@@ -60,7 +60,8 @@ construction, and topological axiom resolution.
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
-- [ ] Completion requires each child item to be done, superseded with rationale, or split with remaining work linked.
+- [ ] Completion requires each child item to be done or explicitly superseded by a
+      linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
 - [ ] Run just smoke-file sets/smoketest.sage after set constructor or comparison changes.
 - [ ] Preserve the mapped enumeration vocabulary and do not reintroduce Sage fallback helper names.

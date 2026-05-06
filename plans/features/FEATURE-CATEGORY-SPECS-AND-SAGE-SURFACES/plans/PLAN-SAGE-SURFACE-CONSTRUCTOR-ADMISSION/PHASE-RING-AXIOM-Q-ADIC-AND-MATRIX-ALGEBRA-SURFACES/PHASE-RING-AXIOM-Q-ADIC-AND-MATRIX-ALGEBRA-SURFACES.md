@@ -14,8 +14,8 @@ description: 'The deleted Rings triage recorded ring smoke blockers: nested axio
   matrix-ring surface split.'
 successCriteria:
 - The sprint has a bounded set of child tracker items and an explicit scope statement.
-- Completion requires each child item to be done, superseded with rationale, or split
-  with remaining work linked.
+- Completion requires each child item to be done or explicitly superseded by a linked
+  successor; blocked child cards do not satisfy phase acceptance.
 - The sprint closing note records smoke/test commands run and any unresolved blockers.
 - Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
 - Confirm failures are reduced without weakening constructor membership assertions.
@@ -58,7 +58,8 @@ split.
 ## Acceptance Criteria
 
 - [ ] The sprint has a bounded set of child tracker items and an explicit scope statement.
-- [ ] Completion requires each child item to be done, superseded with rationale, or split with remaining work linked.
+- [ ] Completion requires each child item to be done or explicitly superseded by a
+      linked successor; blocked child cards do not satisfy phase acceptance.
 - [ ] The sprint closing note records smoke/test commands run and any unresolved blockers.
 - [ ] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
 - [ ] Confirm failures are reduced without weakening constructor membership assertions.

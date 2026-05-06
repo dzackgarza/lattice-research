@@ -12,8 +12,9 @@ description: 'This phase groups current cards that were previously attached dire
   queue. It is a routing phase: executable work remains in child task cards, while
   definition-heavy work remains in feature-level spec cards.'
 successCriteria:
-- Child task cards are complete only after blockers are resolved, or the work is split
-  into successor cards that carry the unresolved blocker forward.
+- Child task cards are complete only after blockers are resolved, or after the
+  original card is superseded by a linked successor that remains active; blocked child
+  cards do not satisfy phase acceptance.
 - Any mathematical spec changes cite their source grounding before implementation
   proceeds.
 - Follow-up work is filed as tracked cards under root `plans/features/`.
@@ -29,6 +30,8 @@ This phase groups current cards that were previously attached directly to `PLAN-
 
 ## Acceptance Criteria
 
-- [ ] Child task cards are complete only after blockers are resolved, or split into successor cards that carry unresolved blockers forward.
+- [ ] Child task cards are complete only after blockers are resolved, or after the
+      original card is superseded by a linked successor that remains active; blocked
+      child cards do not satisfy phase acceptance.
 - [ ] Any mathematical spec changes cite their source grounding before implementation proceeds.
 - [ ] Follow-up work is filed as tracked cards under root `plans/features/`.
