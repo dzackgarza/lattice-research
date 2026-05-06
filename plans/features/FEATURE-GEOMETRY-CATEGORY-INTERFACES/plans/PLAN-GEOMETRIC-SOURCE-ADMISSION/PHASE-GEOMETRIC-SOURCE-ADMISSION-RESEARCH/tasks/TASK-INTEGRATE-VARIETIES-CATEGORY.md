@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
 dependsOn: []
 title: Research category integration for varieties
-status: unstarted
+status: needs-review
 priority: high
 description: Research and prepare the category-spec integration path for varieties.
 successCriteria:
@@ -46,10 +46,112 @@ This is high-priority because specced vocabulary and mathematically correct foun
 - List downstream categories or tasks blocked by this integration.
 - Create any concrete follow-up decision, spec, implementation, or source-curation cards needed to proceed.
 
-## Dependencies And Boundaries
+## Research Result
 
-This is a research/planning card, not an implementation card. Do not write category code or specs until the vocabulary, ownership boundaries, and dependencies are clear or an approved plan delegates that work.
+Status: needs review. The variety category has a source-grounded convention and backend surface map sufficient for downstream geometry cards. This card does not authorize implementation.
+
+## Mathematical Definition
+
+Source evidence:
+
+- Stacks Project, Varieties, Definition 33.3.1, https://stacks.math.columbia.edu/tag/020C: a variety over a field `k` is an integral scheme over `k` that is separated and of finite type.
+- Stacks Project, Schemes, Definition 26.9.1, https://stacks.math.columbia.edu/tag/01II: schemes are locally ringed spaces locally affine, so varieties should be represented as scheme refinements rather than as a separate non-scheme universe.
+- `TASK-INTEGRATE-SCHEMES-CATEGORY` records the repo's source-admitted scheme substrate: `Schemes()`, `Schemes().Over(S)`, `AffineSchemes()`, `ProjectiveSchemes()`, and presented algebraic-scheme refinements.
+
+Project vocabulary:
+
+- `Varieties(k)` should mean `Schemes().Over(Spec(k)).FiniteType().Separated().Integral()` by default.
+- `AffineVarieties(k)` and `ProjectiveVarieties(k)` are affine/projective refinements of `Varieties(k)`, not alternatives to schemes.
+- `SmoothVarieties(k)`, `ProperVarieties(k)`, `NormalVarieties(k)`, `GeometricallyIntegralVarieties(k)`, and similar refinements should be admitted only when a method needs the hypothesis.
+- Reducible or nonreduced algebraic sets should live under `AlgebraicSchemes()`, `PresentedSchemes()`, `ReducedPresentedSchemes()`, or explicitly named reducible/presented refinements, not under bare `Varieties(k)` unless a later human decision changes the convention.
+
+Boundary decisions:
+
+- Use the Stacks integral convention for `Varieties(k)` now. This avoids silently importing software conventions where “variety” may include reducible algebraic sets.
+- Geometric integrality is a stricter refinement, not the default, because Stacks highlights that products and base change over non-algebraically closed fields can fail to preserve integrality without geometric integrality hypotheses.
+- The phrase “complex variety” should be handled by `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY` as a base-field/base-analytic refinement over this variety convention.
+- Do not map every Sage `AlgebraicScheme_subscheme` or Macaulay2/Oscar `variety(...)` object to `Varieties(k)` until integral, separated, finite-type, and base-field hypotheses are established.
+
+## Sage Surface Survey
+
+Source evidence:
+
+- Sage algebraic schemes documentation, https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/generic/algebraic_scheme.html, exposes polynomial-equation subscheme surfaces such as `ambient_space()`, `coordinate_ring()`, `dimension()`, `affine_patch()`, `embedding_morphism()`, `defining_ideal()`, `defining_polynomials()`, `Jacobian()`, `irreducible_components()`, `is_irreducible()`, and `reduce()`.
+- Sage scheme overview, https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/overview.html, presents affine/projective ambient spaces, algebraic subschemes, and generic schemes as the organizational substrate.
+- Sage toric variety documentation, https://doc.sagemath.org/html/en/reference/schemes/sage/schemes/toric/variety.html, exposes `ToricVariety`, `ToricVariety_field`, `AffineToricVariety`, and `AffineToricVariety(...).Spec()` surfaces.
+
+Inference:
+
+Sage is mostly scheme-first for generic algebraic geometry. Its algebraic-subscheme methods are strong implementation evidence for presented affine/projective varieties once the project verifies the integral/separated/finite-type hypotheses. Sage toric variety classes are evidence for a toric-variety refinement, but that work remains under `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`.
+
+## Backend Survey
+
+Source evidence:
+
+- Macaulay2 Varieties package documentation, https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Varieties/html/, exports `Variety`, `AffineVariety`, `ProjectiveVariety`, `Spec`, `Proj`, `isSmooth`, `singularLocus`, `hilbertPolynomial`, `canonicalBundle`, `tangentSheaf`, `cotangentSheaf`, and `HH` surfaces.
+- Macaulay2 `Variety` class documentation, https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Varieties/html/___Variety.html, treats `Variety` as the common class for affine and projective varieties.
+- OSCAR affine varieties documentation, https://docs.oscar-system.org/stable/AlgebraicGeometry/AlgebraicVarieties/AffineVariety/, documents absolute affine varieties, constructors from ideals/rings, irreducibility and geometric-integrality predicates, and affine coordinate-ring surfaces.
+- OSCAR projective varieties documentation, https://docs.oscar-system.org/stable/AlgebraicGeometry/AlgebraicVarieties/ProjectiveVariety/, documents projective varieties, constructors from homogeneous ideals/graded rings, and projective invariants including sectional genus and canonical bundle surfaces.
+
+Inference:
+
+Macaulay2 and OSCAR are suitable backend candidates for finitely presented affine/projective variety computations, especially Hilbert polynomials, singular loci, smoothness, canonical bundles/classes, tangent/cotangent sheaves, and cohomology-driven invariants. Their naming is broader than the repo's `Varieties(k)` convention; adapter code must check or route hypotheses instead of trusting backend class names.
+
+## Local Category-Spec Dependencies
+
+Source evidence:
+
+- `TASK-INTEGRATE-SCHEMES-CATEGORY` supplies the immediate scheme substrate and says varieties are downstream scheme refinements.
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` lists geometry candidate rows for `blowup(center)`, `resolve_singularities()`, `picard_group()`, `kodaira_dimension()`, `hilbert_polynomial()`, `hodge_number(p,q)`, `holomorphic_euler_characteristic()`, `canonical_class()`, curve/surface/divisor/sheaf/family methods, and backend routes.
+- `SPEC-MAPPING-TOPOLOGICAL-SPACES.md` records that varieties have extra algebraic-geometric structure beyond bare topology and should map to their own mathematical subtree.
+
+Inference:
+
+The variety card should stabilize the owner convention for algebraic-geometry methods that are not merely scheme-level. It does not decide curve, surface, divisor, sheaf, family, complex, or toric details, but it constrains those cards to inherit the integral separated finite-type scheme convention unless they explicitly choose a different named refinement.
+
+## Method Ownership Guidance
+
+Admit these as variety-level or variety-refinement surfaces when downstream specs are written:
+
+- `dimension()`: first available on finite-type schemes/varieties where dimension is computationally meaningful; backend implementations may be presented-only.
+- `is_smooth()`, `singular_locus()`, and `resolve_singularities()`: owned by variety or finite-type scheme refinements with characteristic and presentation hypotheses made explicit; resolution must record characteristic restrictions.
+- `hilbert_polynomial()`: owned by projective varieties or graded/projective presented schemes, not arbitrary varieties.
+- `canonical_class()` or `canonical_bundle()`: owned by normal/smooth/proper/projective refinements as the selected divisor/sheaf model requires.
+- `kodaira_dimension()`: owned by proper variety refinements where the canonical powers and sentinel convention are fixed.
+- `hodge_number(p, q)`: owned by smooth proper varieties over fields supporting Hodge theory; complex-specific interpretation belongs to the complex variety card.
+- `picard_group()`: owned by a variety/scheme Picard surface; Picard lattice remains a separate bridge requiring surface/intersection-form hypotheses.
+- `blowup(center)`: after the schemes card, prefer a scheme-level or noetherian/presented-scheme owner with closed-subscheme center; variety-preserving blowups are refinements when the result remains in `Varieties(k)`.
+- `rational_points(K)`: treat as `Hom(Spec(K), X)` plus computational enumeration refinements, not a raw list method on all varieties.
+- `defining_ideal()` and `defining_polynomials()`: owned by embedded/presented affine/projective varieties, not all varieties.
+
+## Downstream Work Unblocked Or Routed
+
+This card gives source-grounded input to these sibling cards and downstream specs:
+
+- `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: add `k = CC` or analytic/complex-geometry structure over the integral finite-type separated variety convention.
+- `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY` and `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`: inherit curves/surfaces as dimension refinements of varieties with extra smooth/proper/projective hypotheses as needed.
+- `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`: model a family as a morphism whose fibers are varieties under hypotheses, not as a list of equations over parameters.
+- `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`: toric varieties are variety refinements depending on fan/lattice vocabulary.
+- Coble/K3 geometry and Picard-lattice cards: remain downstream of variety, surface, divisor, Picard-group, and lattice conventions.
+
+## Follow-Up Routing
+
+No new card is needed from this variety pass. Existing sibling cards own the remaining specialization work:
+
+- Complex/base-field conventions belong to `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`.
+- Curve, surface, family, and toric method ownership belongs to their existing source-admission cards.
+- The Picard group versus Picard lattice bridge remains governed by the existing category-method inventory decision path.
+- Backend-method inventory reconciliation remains in `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` and its source-admission consumers.
+
+## Acceptance Evidence
+
+- Mathematical convention recorded from Stacks Project definition of variety over a field.
+- Sage surfaces surveyed for algebraic schemes/subschemes and toric varieties.
+- Backend surfaces surveyed for Macaulay2 `Varieties` and OSCAR affine/projective varieties.
+- Local dependencies and downstream cards listed explicitly.
+- Follow-up routing records that no new card is needed because existing sibling and backend-mapping cards own specialization and reconciliation.
 
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
+- 2026-05-06: Completed source-admission research for varieties, chose the Stacks integral separated finite-type convention for `Varieties(k)`, recorded backend evidence, and routed broader software usage to presented scheme/variety refinements.
