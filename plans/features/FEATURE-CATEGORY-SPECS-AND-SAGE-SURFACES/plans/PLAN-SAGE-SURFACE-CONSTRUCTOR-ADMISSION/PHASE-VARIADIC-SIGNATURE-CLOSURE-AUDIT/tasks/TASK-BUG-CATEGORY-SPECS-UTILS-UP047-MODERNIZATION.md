@@ -89,3 +89,5 @@ package-surface risk of import hygiene or the broad mechanical footprint of `E50
   category_specs/utils.py` fails on `E501` only, and `uvx --from ruff ruff check
   --select E501 category_specs` reports remaining line-length findings owned by
   `[[TASK-BUG-CATEGORY-SPECS-E501-LONG-LINE-NORMALIZATION]]`, not this UP047 leaf.
+- 2026-05-06: Independent re-review by Planck passed Gates 1-6; human approval still
+  required before completion.

@@ -5,22 +5,49 @@ trackerStatus:
 parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
-title: Split boolean and optional return-shape signatures
+title: Split rings boolean and optional return-shape signatures
 status: needs-review
 priority: critical
-description: Split boolean and optional return-shape signatures
+description: Split the source-backed rings boolean and optional return-shape
+  signatures for root extraction and number-field Galois closures.
 successCriteria:
-- Split boolean and optional return-shape signatures is resolved according to the
-  body acceptance criteria.
+- Rings root-extraction overloads split `all=False`, `all=True`, and non-literal
+  `bool` return shapes without asserting choice-independent equality of selected
+  roots.
+- Number-field `galois_closure(map=False)`, `galois_closure(map=True)`, and
+  non-literal `bool` return shapes are split without asserting uniqueness of the
+  selected closure presentation.
+- The card records exact Sage source paths, owner categories, hypotheses, codomains,
+  and branch-choice obligations for each admitted overload family.
+- Out-of-scope Category, Map, matrix, and generic extension boolean surfaces are
+  explicitly recorded as non-executed until separately source-grounded.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
 ---
-# Split boolean and optional return-shape signatures
+# Split rings boolean and optional return-shape signatures
 Source: pasted backlog 2026-05-02.
 
-Task: split the mixed boolean|None and T|None return-type signatures on Category and Map classes into explicit @overload declarations.
+Task: split the source-backed rings boolean and optional return-shape signatures
+for root extraction and number-field Galois closures into explicit `@overload`
+declarations. The pasted backlog originally named Category and Map classes broadly;
+the executable scope of this card is the rings-only source-backed overload set
+identified in the source audit below. Category, Map, matrix, and generic extension
+boolean surfaces remain out of scope until separately source-grounded.
+
+## Acceptance Criteria
+
+- [x] Rings root-extraction overloads split `all=False`, `all=True`, and non-literal
+  `bool` return shapes without asserting choice-independent equality of selected
+  roots.
+- [x] Number-field `galois_closure(map=False)`, `galois_closure(map=True)`, and
+  non-literal `bool` return shapes are split without asserting uniqueness of the
+  selected closure presentation.
+- [x] Exact Sage source paths, owner categories, hypotheses, codomains, and
+  branch-choice obligations are recorded for each admitted overload family.
+- [x] Out-of-scope Category, Map, matrix, and generic extension boolean surfaces are
+  recorded as non-executed until separately source-grounded.
 
 ## Grounding
 
@@ -129,6 +156,25 @@ Task: split the mixed boolean|None and T|None return-type signatures on Category
 - Clarified that the broad owner is `Rings().ElementMethods`, while existence,
   computability, branch conventions, precision, and optional algorithm controls are
   family-specific implementation obligations.
+
+### Review 2026-05-06 (Lovelace)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Card Scope Did Not Match Delivered Work
+
+- The migrated task sentence still said "Category and Map classes", while the
+  grounded implementation and mapping evidence are rings-only overloads on
+  `Rings().ElementMethods` and number-field parent methods.
+- The frontmatter success criterion pointed to missing body acceptance criteria.
+
+#### Rework
+
+- Retitled and redescribed the card as the rings boolean/optional return-shape leaf.
+- Added explicit frontmatter and body acceptance criteria for root extraction,
+  `galois_closure`, source grounding, and out-of-scope boolean surfaces.
 
 ## Out Of Scope Findings
 

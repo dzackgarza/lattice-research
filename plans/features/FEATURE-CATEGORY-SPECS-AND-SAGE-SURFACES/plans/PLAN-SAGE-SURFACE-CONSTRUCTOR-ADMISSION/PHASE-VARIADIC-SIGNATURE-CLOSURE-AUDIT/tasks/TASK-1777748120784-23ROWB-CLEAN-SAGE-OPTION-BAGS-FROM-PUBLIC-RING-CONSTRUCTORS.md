@@ -102,10 +102,15 @@ Task: clean Sage option bags from public ring constructors (MatrixSpace, VectorS
 - The cited ring regression files had stale `plans.category_specs.rings` imports; these
   were mechanically repaired to `category_specs.rings` so future verification reaches
   the actual ring-frontier failures instead of a retired package path.
-- Scoped verification for this card's owned surface passed through the repo justfile:
-  a temporary Sage smoke checked `Rings().Constructors().MatrixRing(ZZ, 2)`, the
-  matrix-algebra category membership, and `matrix_from_matrix`,
-  `matrix_from_entries`, `matrix_from_rows`, and `scalar_matrix`.
+- Reproducible scoped verification for this card's owned surface now lives in
+  `category_specs/rings/tests/new_spec/matrix_constructor_option_bag_split.sage` and
+  passes with `just --justfile category_specs/justfile smoke-file
+  rings/tests/new_spec/matrix_constructor_option_bag_split.sage`.
+- Broader `category_specs/rings/tests/regression/matrix_rings.sage` still fails at
+  `M2Q.is_commutative_ring()` because that file tests wider matrix-ring predicate and
+  inherited ring behavior. That residual failure is outside this option-bag split and
+  remains routed through matrix/ring-frontier cards rather than hidden as passing
+  evidence here.
 
 ## Acceptance Criteria
 
