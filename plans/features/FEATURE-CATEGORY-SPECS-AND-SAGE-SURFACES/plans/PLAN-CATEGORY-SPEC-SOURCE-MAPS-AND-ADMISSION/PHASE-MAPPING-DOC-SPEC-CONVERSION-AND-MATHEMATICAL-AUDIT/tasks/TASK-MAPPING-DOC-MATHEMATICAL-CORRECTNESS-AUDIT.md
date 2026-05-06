@@ -18,7 +18,7 @@ dependsOn:
 - '[[SPEC-MAPPING-TOPOLOGICAL-SPACES]]'
 blocks: []
 title: Audit mapping specs for mathematical coherence and well-typed method signatures
-status: unstarted
+status: in-progress
 priority: critical
 description: Review every tracked mapping spec for mathematically meaningful owners,
   coherent method signatures, inheritance through subcategories, and rejection of
@@ -44,3 +44,11 @@ tags:
 Audit the tracked mapping specs as mathematical documents. A row passes only if its
 method or constructor is well-defined in ordinary mathematical language and its public
 signature is well typed.
+
+## Execution Start
+
+This audit is unblocked by the mapping-completeness pass. The audit must inspect
+each tracked mapping spec as a mathematical document, not as a Sage compatibility
+check: method owners are caller categories, subcategories inherit supercategory
+methods, codomains are return data rather than owners, and nonmathematical targets
+are rejected or routed to interop-only status.
