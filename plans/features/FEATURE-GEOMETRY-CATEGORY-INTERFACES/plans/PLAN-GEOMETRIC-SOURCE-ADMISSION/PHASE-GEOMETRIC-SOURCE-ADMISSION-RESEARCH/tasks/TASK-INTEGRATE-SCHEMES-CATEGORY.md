@@ -211,6 +211,21 @@ No new card is needed from this scheme pass. Existing sibling cards own the rema
 - Kept backend implementation limitations as implementation refinements rather than
   owner data.
 
+### Re-Review 2026-05-06 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance.
+**Gates failed:** none.
+**Outcome:** pass; card remains `needs-review` pending human acceptance.
+
+#### Residual Risk
+
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` still contains older candidate
+  wording for `blowup(center)`. This research card routes that reconciliation through
+  the existing backend/method inventory path rather than editing the inventory in this
+  leaf.
+
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
@@ -218,3 +233,5 @@ No new card is needed from this scheme pass. Existing sibling cards own the rema
 - 2026-05-06: Reworked the Gate 1 blowup finding by adding Stacks Project blowup
   sources and making the center/return-object hypotheses explicit. The card remains
   `needs-review` pending re-review; it is not marked complete.
+- 2026-05-06: Recorded independent re-review pass. The card remains `needs-review`
+  pending human acceptance; it is not marked complete.
