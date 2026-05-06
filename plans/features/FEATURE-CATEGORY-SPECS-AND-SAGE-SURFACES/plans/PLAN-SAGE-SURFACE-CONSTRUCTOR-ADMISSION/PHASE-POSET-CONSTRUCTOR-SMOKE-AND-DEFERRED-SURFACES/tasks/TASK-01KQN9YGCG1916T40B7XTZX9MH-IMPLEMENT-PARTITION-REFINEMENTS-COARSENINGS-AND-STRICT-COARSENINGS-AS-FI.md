@@ -35,7 +35,15 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `category_specs/sets/docs/MAPPING.md`
+- Canonical mapping rows:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md:282-286`
+  for `SetPartitions(s)` and `SetPartition(blocks, check=True)`, and
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md:360-382`
+  for partition-element operations, `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()`.
+- Grounded spec card:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGC8WM34SAME35N4VGX5-SPECIFY-PARTITION-REFINEMENTS-COARSENINGS-AND-STRICT-COARSENINGS-AS-FINI.md`.
+- Source inventory: `category_specs/sets/docs/SAGE_INVENTORY.md`.
 - Original migrated line: `Implement partition refinements coarsenings and strict coarsenings as finite-set constructor outputs from category_specs/sets/docs/MAPPING.md`
 
 ## Context
@@ -113,3 +121,26 @@ Decision outcome:
   spec-revision strategy.
 - 2026-05-05: Implemented the decision route using separate project finite-set method
   names and moved this card to in-review.
+
+## Review Log
+
+### Review 2026-05-06 (Epicurus)
+
+**Gates passed:** None
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Finding: Stale Mapping Anchors
+
+- The task cited `category_specs/sets/docs/MAPPING.md` as provenance even though that
+  file is now only a redirect to the tracked canonical mapping spec.
+- The linked specification cited stale `category_specs/sets/docs/MAPPING.md` line
+  anchors rather than the current canonical rows in `SPEC-MAPPING-SETS.md`.
+
+#### Rework
+
+- Updated this task's Source Provenance to cite the canonical tracked
+  `SPEC-MAPPING-SETS.md` rows for fixed-base partition constructors and partition
+  element methods.
+- Updated the grounded spec card to cite current `SPEC-MAPPING-SETS.md` anchors for
+  owner, hypotheses, codomain, and compatibility-name split.

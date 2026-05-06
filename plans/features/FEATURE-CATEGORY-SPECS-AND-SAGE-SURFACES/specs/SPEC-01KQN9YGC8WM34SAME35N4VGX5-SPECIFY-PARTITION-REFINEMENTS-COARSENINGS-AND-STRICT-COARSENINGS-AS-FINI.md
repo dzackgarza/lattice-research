@@ -49,12 +49,14 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 Source anchors for this leaf are already concrete enough to authorize the spec edit:
 
-- `category_specs/sets/docs/MAPPING.md:194-216`, especially the `SetPartition`
-  method row at `:215`, which fixes `refinements()`, `coarsenings()`, and
-  `strict_coarsenings()` as finite subsets of partition elements.
-- `category_specs/sets/docs/MAPPING.md:196-208`, which fixes the same object as a
-  fixed-base partition element in the refinement lattice and locates the lattice
-  operations on `Partitioned.ElementMethods`.
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md:282-286`,
+  which fixes `SetPartitions(s)` as the fixed-base partition parent and
+  `SetPartition(blocks, check=True)` as the source Sage element class whose partition
+  element surface is recorded in `Partitioned.ElementMethods`.
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md:360-382`,
+  especially the `refinements()`, `coarsenings()`, and `strict_coarsenings()` rows,
+  which fix the owner, hypotheses, codomain, and compatibility-name split for the
+  finite-set project methods.
 - `.agents/skills/category-spec-style/references/style.md:1139-1149`, which makes
   `MAPPING.md` the canonical owner/migration source for subtree method placement.
 - `.agents/skills/category-spec-style/references/style.md:1229-1242`, which requires
