@@ -102,3 +102,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff ruff check --select UP047 category_specs/utils.py`, and `python -m compileall
   category_specs/utils.py` now pass. Remaining E501 work stays on this ready leaf; it
   is not a dependency blocker for unrelated DAG-ready cards.
+- 2026-05-06: Cleared the `category_specs/modules/__init__.py` slice with
+  `uvx --from ruff ruff format category_specs/modules/__init__.py` plus two manual
+  wraps that the formatter left over. `uvx --from ruff ruff check --select E501
+  category_specs/modules/__init__.py` and `python -m compileall
+  category_specs/modules/__init__.py` now pass. Repo-wide E501 count is now 755 by
+  `uvx --from ruff ruff check --select E501 category_specs --output-format json |
+  jq 'length'`.

@@ -53,7 +53,12 @@ from ..cat import (
     TensorProductsCategory,
 )
 from ..utils import refine_category
-from .homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory, _RModMorphisms
+from .homsets import (
+    RModuleAutCategory,
+    RModuleEndCategory,
+    RModuleHomCategory,
+    _RModMorphisms,
+)
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -63,18 +68,32 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
 
-_RepresentationModules = LazyImport("category_specs.modules.subcategories.representation_modules", "_RepresentationModules")
-_FreeGradedModules = LazyImport("category_specs.modules.subcategories.free_graded_modules", "_FreeGradedModules")
+_RepresentationModules = LazyImport(
+    "category_specs.modules.subcategories.representation_modules",
+    "_RepresentationModules",
+)
+_FreeGradedModules = LazyImport(
+    "category_specs.modules.subcategories.free_graded_modules", "_FreeGradedModules"
+)
 _FinitelyPresentedGradedModules = LazyImport(
-    "category_specs.modules.subcategories.finitely_presented_graded_modules", "_FinitelyPresentedGradedModules"
+    "category_specs.modules.subcategories.finitely_presented_graded_modules",
+    "_FinitelyPresentedGradedModules",
 )
 _Graded = LazyImport("category_specs.modules.subcategories.graded", "_Graded")
-_OreModules = LazyImport("category_specs.modules.subcategories.ore_modules", "_OreModules")
-_IntegerLattices = LazyImport("category_specs.modules.subcategories.integer_lattices", "_IntegerLattices")
-TorsionQuadraticModulesCategory = LazyImport(
-    "category_specs.forms.subcategories.torsion_quadratic_modules", "TorsionQuadraticModulesCategory"
+_OreModules = LazyImport(
+    "category_specs.modules.subcategories.ore_modules", "_OreModules"
 )
-_RingObjectsAsModules = LazyImport("category_specs.modules.subcategories.ring_objects_as_modules", "_RingObjectsAsModules")
+_IntegerLattices = LazyImport(
+    "category_specs.modules.subcategories.integer_lattices", "_IntegerLattices"
+)
+TorsionQuadraticModulesCategory = LazyImport(
+    "category_specs.forms.subcategories.torsion_quadratic_modules",
+    "TorsionQuadraticModulesCategory",
+)
+_RingObjectsAsModules = LazyImport(
+    "category_specs.modules.subcategories.ring_objects_as_modules",
+    "_RingObjectsAsModules",
+)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -374,7 +393,9 @@ class _RModObjects:
         return self.span(gens, check=check, already_echelonized=already_echelonized)
 
     @abstract_method
-    def quotient_module(self, submodule: SubModule, check: bool = True) -> QuotientModule: ...
+    def quotient_module(
+        self, submodule: SubModule, check: bool = True
+    ) -> QuotientModule: ...
 
     # Do not define: _mul_, _rmul_, _lmul_
 
@@ -445,11 +466,19 @@ class Modules(Category_module):
     @staticmethod
     @final
     def __classcall_private__(cls, base_ring, dispatch=True):
-        from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-        from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDomains
+        from sage.categories.commutative_rings import (
+            CommutativeRings as SageCommutativeRings,
+        )
+        from sage.categories.dedekind_domains import (
+            DedekindDomains as SageDedekindDomains,
+        )
         from sage.categories.fields import Fields as SageFields
-        from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-        from sage.categories.principal_ideal_domains import PrincipalIdealDomains as SagePrincipalIdealDomains
+        from sage.categories.integral_domains import (
+            IntegralDomains as SageIntegralDomains,
+        )
+        from sage.categories.principal_ideal_domains import (
+            PrincipalIdealDomains as SagePrincipalIdealDomains,
+        )
 
         result = super().__classcall__(cls, base_ring)
         if not dispatch:
@@ -480,7 +509,7 @@ class Modules(Category_module):
     @override
     @final
     def additional_structure(self):
-        r"""Return ``None`` because R-Mod morphisms are exactly (R,R)-biMod morphisms."""
+        r"""Return ``None`` because R-Mod morphisms are exactly bimodule morphisms."""
         return None
 
     # ------------------------------------------------------------------
@@ -512,7 +541,9 @@ class Modules(Category_module):
             return self.category().base_ring()
 
         @final
-        def _refine_constructed_module(self, M: RModule, categories: Sequence[Category]) -> RModule:
+        def _refine_constructed_module(
+            self, M: RModule, categories: Sequence[Category]
+        ) -> RModule:
             return refine_category(M, [Modules(M.base_ring()), *categories], test=False)
 
         @final
@@ -526,14 +557,18 @@ class Modules(Category_module):
             return [C.Free().FiniteRank()]
 
         @final
-        def _submodule_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
+        def _submodule_categories(
+            self, *, with_ordered_basis: bool = False
+        ) -> list[Category]:
             C = self.category()
             if with_ordered_basis:
                 return [C.WithOrderedBasis().Subobjects()]
             return [C.Subobjects()]
 
         @final
-        def _quotient_categories(self, *, with_ordered_basis: bool = False) -> list[Category]:
+        def _quotient_categories(
+            self, *, with_ordered_basis: bool = False
+        ) -> list[Category]:
             C = self.category()
             if with_ordered_basis:
                 return [C.WithOrderedBasis().Quotients()]
@@ -555,7 +590,11 @@ class Modules(Category_module):
 
             if isinstance(M, FreeQuadraticModule_generic):
                 C = self.category()
-                return [*self._standard_free_module_categories(), C.WithForms().Bilinear(), C.WithForms().Quadratic()]
+                return [
+                    *self._standard_free_module_categories(),
+                    C.WithForms().Bilinear(),
+                    C.WithForms().Quadratic(),
+                ]
             if isinstance(M, FreeModule_ambient_field_quotient):
                 return self._quotient_categories()
             if isinstance(M, FreeModule_submodule_with_basis_field):
@@ -577,7 +616,10 @@ class Modules(Category_module):
         @final
         def _categories_for_quotient_module(self, M: RModule) -> list[Category]:
             from sage.modules.fg_pid.fgp_module import FGP_Module_class
-            from sage.modules.quotient_module import FreeModule_ambient_field_quotient, QuotientModule_free_ambient
+            from sage.modules.quotient_module import (
+                FreeModule_ambient_field_quotient,
+                QuotientModule_free_ambient,
+            )
 
             if isinstance(M, FreeModule_ambient_field_quotient):
                 return self._quotient_categories()
@@ -585,7 +627,12 @@ class Modules(Category_module):
                 return self._quotient_categories()
             if isinstance(M, FGP_Module_class):
                 C = self.category()
-                return [C.Quotients(), C.FinitelyGenerated(), C.FinitelyPresented(), C.OverPID()]
+                return [
+                    C.Quotients(),
+                    C.FinitelyGenerated(),
+                    C.FinitelyPresented(),
+                    C.OverPID(),
+                ]
             return self._categories_for_free_module(M)
 
         @final
@@ -638,7 +685,9 @@ class Modules(Category_module):
             from sage.modules.free_module import FreeModule as SageFreeModule
 
             M = SageFreeModule(self.base_ring(), rank, sparse, with_basis=None)
-            return self._refine_constructed_module(M, self._finite_rank_free_module_categories())
+            return self._refine_constructed_module(
+                M, self._finite_rank_free_module_categories()
+            )
 
         @final
         def FreeModuleWithInnerProductRows(
@@ -650,7 +699,11 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.matrix.constructor import matrix
 
-            return self.FreeModule(rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), inner_product_rows))
+            return self.FreeModule(
+                rank,
+                sparse=sparse,
+                inner_product_matrix=matrix(self.base_ring(), inner_product_rows),
+            )
 
         @final
         def FreeModuleWithInnerProductEntries(
@@ -663,7 +716,11 @@ class Modules(Category_module):
             from sage.matrix.constructor import matrix
 
             return self.FreeModule(
-                rank, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), rank, rank, inner_product_entries)
+                rank,
+                sparse=sparse,
+                inner_product_matrix=matrix(
+                    self.base_ring(), rank, rank, inner_product_entries
+                ),
             )
 
         @final
@@ -682,7 +739,9 @@ class Modules(Category_module):
                 sparse,
                 inner_product_matrix,
             )
-            return self._refine_constructed_module(M, self._categories_for_free_module(M))
+            return self._refine_constructed_module(
+                M, self._categories_for_free_module(M)
+            )
 
         @final
         def VectorSpaceWithBasisKeys(
@@ -693,7 +752,9 @@ class Modules(Category_module):
             from sage.modules.free_module import VectorSpace as SageVectorSpace
 
             M = SageVectorSpace(self.base_ring(), basis_keys, sparse)
-            return self._refine_constructed_module(M, self._categories_for_combinatorial_free_module())
+            return self._refine_constructed_module(
+                M, self._categories_for_combinatorial_free_module()
+            )
 
         @final
         def VectorSpaceWithoutBasis(
@@ -704,7 +765,9 @@ class Modules(Category_module):
             from sage.modules.free_module import VectorSpace as SageVectorSpace
 
             M = SageVectorSpace(self.base_ring(), dimension, sparse, with_basis=None)
-            return self._refine_constructed_module(M, self._finite_rank_free_module_categories())
+            return self._refine_constructed_module(
+                M, self._finite_rank_free_module_categories()
+            )
 
         @final
         def VectorSpaceWithInnerProductRows(
@@ -716,7 +779,11 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.matrix.constructor import matrix
 
-            return self.VectorSpace(dimension, sparse=sparse, inner_product_matrix=matrix(self.base_ring(), inner_product_rows))
+            return self.VectorSpace(
+                dimension,
+                sparse=sparse,
+                inner_product_matrix=matrix(self.base_ring(), inner_product_rows),
+            )
 
         @final
         def VectorSpaceWithInnerProductEntries(
@@ -731,7 +798,9 @@ class Modules(Category_module):
             return self.VectorSpace(
                 dimension,
                 sparse=sparse,
-                inner_product_matrix=matrix(self.base_ring(), dimension, dimension, inner_product_entries),
+                inner_product_matrix=matrix(
+                    self.base_ring(), dimension, dimension, inner_product_entries
+                ),
             )
 
         @final
@@ -767,7 +836,9 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.matrix.constructor import matrix
 
-            return self.FreeQuadraticModule(rank, matrix(self.base_ring(), inner_product_rows), sparse=sparse)
+            return self.FreeQuadraticModule(
+                rank, matrix(self.base_ring(), inner_product_rows), sparse=sparse
+            )
 
         @final
         def FreeQuadraticModuleFromEntries(
@@ -778,7 +849,11 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.matrix.constructor import matrix
 
-            return self.FreeQuadraticModule(rank, matrix(self.base_ring(), rank, rank, inner_product_entries), sparse=sparse)
+            return self.FreeQuadraticModule(
+                rank,
+                matrix(self.base_ring(), rank, rank, inner_product_entries),
+                sparse=sparse,
+            )
 
         @final
         def span(
@@ -789,8 +864,15 @@ class Modules(Category_module):
         ) -> SubModule:
             from sage.modules.free_module import span as sage_span
 
-            M = sage_span(gens, self.base_ring(), check=check, already_echelonized=already_echelonized)
-            return self._refine_constructed_module(M, self._categories_for_free_module(M))
+            M = sage_span(
+                gens,
+                self.base_ring(),
+                check=check,
+                already_echelonized=already_echelonized,
+            )
+            return self._refine_constructed_module(
+                M, self._categories_for_free_module(M)
+            )
 
         @final
         def CombinatorialFreeModule(
@@ -811,7 +893,9 @@ class Modules(Category_module):
                 prefix=prefix,
                 names=names,
             )
-            return self._refine_constructed_module(M, self._categories_for_combinatorial_free_module())
+            return self._refine_constructed_module(
+                M, self._categories_for_combinatorial_free_module()
+            )
 
         @final
         def FiniteRankFreeModule(
@@ -820,7 +904,9 @@ class Modules(Category_module):
             name: str | None = None,
             latex_name: str | None = None,
             start_index: Integer = 0,
-            output_formatter: Callable[[RingElement], str] | Callable[[RingElement, str], str] | None = None,
+            output_formatter: Callable[[RingElement], str]
+            | Callable[[RingElement, str], str]
+            | None = None,
         ) -> FreeModule:
             from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
 
@@ -832,17 +918,27 @@ class Modules(Category_module):
                 start_index=start_index,
                 output_formatter=output_formatter,
             )
-            return self._refine_constructed_module(M, self._finite_rank_free_module_categories())
+            return self._refine_constructed_module(
+                M, self._finite_rank_free_module_categories()
+            )
 
         @final
-        def quotient_of_free_modules(self, V: FreeModule, W: SubModule) -> QuotientModule:
+        def quotient_of_free_modules(
+            self, V: FreeModule, W: SubModule
+        ) -> QuotientModule:
             M = V / W
-            return self._refine_constructed_module(M, self._categories_for_quotient_module(M))
+            return self._refine_constructed_module(
+                M, self._categories_for_quotient_module(M)
+            )
 
         @final
-        def quotient_module(self, module: RModule, submodule: SubModule, check: bool = True) -> QuotientModule:
+        def quotient_module(
+            self, module: RModule, submodule: SubModule, check: bool = True
+        ) -> QuotientModule:
             M = module.quotient_module(submodule, check=check)
-            return self._refine_constructed_module(M, self._categories_for_quotient_module(M))
+            return self._refine_constructed_module(
+                M, self._categories_for_quotient_module(M)
+            )
 
         @final
         def FPModule(
@@ -870,15 +966,26 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.modules.fp_graded.module import FPModule
 
-            M = FPModule(algebra, generator_degrees=generator_degrees, relations=relations, names=names)
-            return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
+            M = FPModule(
+                algebra,
+                generator_degrees=generator_degrees,
+                relations=relations,
+                names=names,
+            )
+            return self._refine_constructed_module(
+                M, [self.category().FinitelyPresentedGradedModules()]
+            )
 
         @final
-        def FPModuleFromCokernelMap(self, defining_map: RModMorphism, names: str | tuple[str, ...] | None = None) -> RModule:
+        def FPModuleFromCokernelMap(
+            self, defining_map: RModMorphism, names: str | tuple[str, ...] | None = None
+        ) -> RModule:
             from sage.modules.fp_graded.module import FPModule
 
             M = FPModule(defining_map, names=names)
-            return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
+            return self._refine_constructed_module(
+                M, [self.category().FinitelyPresentedGradedModules()]
+            )
 
         @final
         def FPModuleFromFreeGradedModule(
@@ -888,9 +995,13 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.modules.fp_graded.module import FPModule
 
-            assert module in self.category().FreeGradedModules(), f"Expected a free graded module: {module}"
+            assert module in self.category().FreeGradedModules(), (
+                f"Expected a free graded module: {module}"
+            )
             M = FPModule(module, names=names)
-            return self._refine_constructed_module(M, [self.category().FinitelyPresentedGradedModules()])
+            return self._refine_constructed_module(
+                M, [self.category().FinitelyPresentedGradedModules()]
+            )
 
         @final
         def FreeGradedModule(
@@ -902,11 +1013,17 @@ class Modules(Category_module):
         ) -> RModule:
             from sage.modules.fp_graded.free_module import FreeGradedModule
 
-            M = FreeGradedModule(algebra, generator_degrees, category=category, names=names)
-            return self._refine_constructed_module(M, [self.category().FreeGradedModules()])
+            M = FreeGradedModule(
+                algebra, generator_degrees, category=category, names=names
+            )
+            return self._refine_constructed_module(
+                M, [self.category().FreeGradedModules()]
+            )
 
         @final
-        def OreQuotientModule(self, ore_polynomial_ring: Ring, polynomial: RingElement) -> RModule:
+        def OreQuotientModule(
+            self, ore_polynomial_ring: Ring, polynomial: RingElement
+        ) -> RModule:
             M = ore_polynomial_ring.quotient_module(polynomial)
             return self._refine_constructed_module(M, [self.category().OreModules()])
 
@@ -919,7 +1036,9 @@ class Modules(Category_module):
             from sage.modules.free_module_integer import IntegerLattice
 
             M = IntegerLattice(basis, lll_reduce=lll_reduce)
-            return self._refine_constructed_module(M, [self.category().IntegerLattices()])
+            return self._refine_constructed_module(
+                M, [self.category().IntegerLattices()]
+            )
 
         @final
         def IntegerLatticeFromBasisRows(
@@ -930,14 +1049,20 @@ class Modules(Category_module):
             from sage.matrix.constructor import matrix
             from sage.rings.integer_ring import ZZ
 
-            return self.IntegerLatticeFromBasisMatrix(matrix(ZZ, basis_rows), lll_reduce=lll_reduce)
+            return self.IntegerLatticeFromBasisMatrix(
+                matrix(ZZ, basis_rows), lll_reduce=lll_reduce
+            )
 
         @final
-        def IntegerLatticeFromOrderElement(self, element: RingElement, lll_reduce: bool = True) -> RModule:
+        def IntegerLatticeFromOrderElement(
+            self, element: RingElement, lll_reduce: bool = True
+        ) -> RModule:
             from sage.modules.free_module_integer import IntegerLattice
 
             M = IntegerLattice(element, lll_reduce=lll_reduce)
-            return self._refine_constructed_module(M, [self.category().IntegerLattices()])
+            return self._refine_constructed_module(
+                M, [self.category().IntegerLattices()]
+            )
 
         @final
         def IntegerLattice(
@@ -952,10 +1077,14 @@ class Modules(Category_module):
             from sage.modules.torsion_quadratic_module import TorsionQuadraticForm
 
             M = TorsionQuadraticForm(q)
-            return self._refine_constructed_module(M, [self.category().TorsionQuadraticModules()])
+            return self._refine_constructed_module(
+                M, [self.category().TorsionQuadraticModules()]
+            )
 
         @final
-        def TorsionQuadraticFormFromRows(self, q_rows: Sequence[Sequence[RingElement]]) -> RModule:
+        def TorsionQuadraticFormFromRows(
+            self, q_rows: Sequence[Sequence[RingElement]]
+        ) -> RModule:
             from sage.matrix.constructor import matrix
             from sage.rings.rational_field import QQ
 
@@ -965,21 +1094,29 @@ class Modules(Category_module):
         def ring_as_rank_one_module(self, ring: Ring | None = None) -> FreeModule:
             R = self.base_ring() if ring is None else ring
             M = Modules(R).Constructors().FreeModule(rank=1)
-            return self._refine_constructed_module(M, [self.category().Free().FiniteRank().WithOrderedBasis()])
+            return self._refine_constructed_module(
+                M, [self.category().Free().FiniteRank().WithOrderedBasis()]
+            )
 
         @final
         def ideal_as_submodule(self, ideal: Ideal) -> SubModule:
             from sage.modules.free_module import FreeModule as SageFreeModule
 
             R = ideal.ring()
-            M = SageFreeModule(R, 1).submodule([[generator] for generator in ideal.gens()])
+            M = SageFreeModule(R, 1).submodule(
+                [[generator] for generator in ideal.gens()]
+            )
             return self._refine_constructed_module(M, [Modules(R).RIdeals()])
 
         @final
-        def invertible_ideal_as_projective_submodule(self, ideal: Ideal) -> ProjectiveModule:
+        def invertible_ideal_as_projective_submodule(
+            self, ideal: Ideal
+        ) -> ProjectiveModule:
             R = ideal.ring()
             M = self.ideal_as_submodule(ideal)
-            return self._refine_constructed_module(M, [Modules(R).RIdeals(), Modules(R).Projective()])
+            return self._refine_constructed_module(
+                M, [Modules(R).RIdeals(), Modules(R).Projective()]
+            )
 
         @overload
         def polynomial_ring_as_module(
@@ -1052,7 +1189,9 @@ class Modules(Category_module):
                     implementation=implementation,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def power_series_ring_as_module(
@@ -1076,7 +1215,9 @@ class Modules(Category_module):
                     implementation=implementation,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def multivariate_power_series_ring_as_module(
@@ -1102,7 +1243,9 @@ class Modules(Category_module):
                     order=order,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def multivariate_power_series_ring_with_generator_prefix_as_module(
@@ -1128,7 +1271,9 @@ class Modules(Category_module):
                     order=order,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def laurent_series_ring_as_module(
@@ -1152,14 +1297,24 @@ class Modules(Category_module):
                     implementation=implementation,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
-        def laurent_series_ring_from_power_series_as_module(self, power_series_ring: Ring) -> RModule:
+        def laurent_series_ring_from_power_series_as_module(
+            self, power_series_ring: Ring
+        ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().LaurentSeriesRingFromPowerSeriesRing(power_series_ring)
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            S = (
+                Rings()
+                .Constructors()
+                .LaurentSeriesRingFromPowerSeriesRing(power_series_ring)
+            )
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def puiseux_series_ring_as_module(
@@ -1183,14 +1338,24 @@ class Modules(Category_module):
                     implementation=implementation,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
-        def puiseux_series_ring_from_laurent_series_as_module(self, laurent_series_ring: Ring) -> RModule:
+        def puiseux_series_ring_from_laurent_series_as_module(
+            self, laurent_series_ring: Ring
+        ) -> RModule:
             from ..rings import Rings
 
-            S = Rings().Constructors().PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            S = (
+                Rings()
+                .Constructors()
+                .PuiseuxSeriesRingFromLaurentSeriesRing(laurent_series_ring)
+            )
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
         @final
         def matrix_ring_as_module(
@@ -1211,7 +1376,9 @@ class Modules(Category_module):
                     implementation=implementation,
                 )
             )
-            return self._refine_constructed_module(S, [self.category().RingObjectsAsModules()])
+            return self._refine_constructed_module(
+                S, [self.category().RingObjectsAsModules()]
+            )
 
     _Constructors = Constructors
 
@@ -1252,9 +1419,13 @@ class Modules(Category_module):
 
         if not elts:
             return self.zero_module()
-        assert all(r.parent() in SageRings() for r in elts), f"All element parents must be rings: {elts}"
+        assert all(r.parent() in SageRings() for r in elts), (
+            f"All element parents must be rings: {elts}"
+        )
         R = elts[0].parent()
-        assert all(r.parent() is R for r in elts), f"Elements must share a common ring: {[r.parent() for r in elts]}"
+        assert all(r.parent() is R for r in elts), (
+            f"Elements must share a common ring: {[r.parent() for r in elts]}"
+        )
         zs = [r for r in elts if r.is_zero()]
         rs = [r for r in elts if not r.is_zero()]
         F = self.free_module(len(zs))
@@ -1270,7 +1441,9 @@ class Modules(Category_module):
         r"""Interpret a matrix as a representation of a morphism
         f: R^m -> R^n and return ``coker(f)``.
         """
-        from .subcategories.finitely_presented_over_pid import FinitelyPresentedModulesOverPID
+        from .subcategories.finitely_presented_over_pid import (
+            FinitelyPresentedModulesOverPID,
+        )
 
         return FinitelyPresentedModulesOverPID.from_matrix(self, M)
 
@@ -1471,13 +1644,28 @@ class Modules(Category_module):
     # Axiomatic subcategories — ring properties
     # ------------------------------------------------------------------
 
-    OverIntegralDomain = LazyImport("category_specs.modules.subcategories.over_integral_domain", "_OverIntegralDomain")
-    OverDedekindDomain = LazyImport("category_specs.modules.subcategories.over_dedekind_domain", "_OverDedekindDomain")
+    OverIntegralDomain = LazyImport(
+        "category_specs.modules.subcategories.over_integral_domain",
+        "_OverIntegralDomain",
+    )
+    OverDedekindDomain = LazyImport(
+        "category_specs.modules.subcategories.over_dedekind_domain",
+        "_OverDedekindDomain",
+    )
     OverPID = LazyImport("category_specs.modules.subcategories.over_pid", "_OverPID")
-    OverCommutativeRing = LazyImport("category_specs.modules.subcategories.over_commutative_ring", "_OverCommutativeRing")
-    OverField = LazyImport("category_specs.modules.subcategories.over_field", "_OverField")
-    OverLocalRing = LazyImport("category_specs.modules.subcategories.over_local_ring", "_OverLocalRing")
-    OverCompleteRing = LazyImport("category_specs.modules.subcategories.over_complete_ring", "_OverCompleteRing")
+    OverCommutativeRing = LazyImport(
+        "category_specs.modules.subcategories.over_commutative_ring",
+        "_OverCommutativeRing",
+    )
+    OverField = LazyImport(
+        "category_specs.modules.subcategories.over_field", "_OverField"
+    )
+    OverLocalRing = LazyImport(
+        "category_specs.modules.subcategories.over_local_ring", "_OverLocalRing"
+    )
+    OverCompleteRing = LazyImport(
+        "category_specs.modules.subcategories.over_complete_ring", "_OverCompleteRing"
+    )
 
     # ------------------------------------------------------------------
     # Axiomatic subcategories — homological
@@ -1485,20 +1673,33 @@ class Modules(Category_module):
 
     Free = LazyImport("category_specs.modules.subcategories.free", "_Free")
     Torsion = LazyImport("category_specs.modules.subcategories.torsion", "_Torsion")
-    Torsionfree = LazyImport("category_specs.modules.subcategories.torsionfree", "_Torsionfree")
-    Projective = LazyImport("category_specs.modules.subcategories.projective", "_Projective")
+    Torsionfree = LazyImport(
+        "category_specs.modules.subcategories.torsionfree", "_Torsionfree"
+    )
+    Projective = LazyImport(
+        "category_specs.modules.subcategories.projective", "_Projective"
+    )
 
     # ------------------------------------------------------------------
     # Axiomatic subcategories — generation
     # ------------------------------------------------------------------
 
-    WithBasis = LazyImport("category_specs.modules.subcategories.with_basis", "_WithBasis")
-    WithOrderedBasis = LazyImport("category_specs.modules.subcategories.with_basis", "_WithOrderedBasis")
-    WithOrderedGeneratingSet = LazyImport(
-        "category_specs.modules.subcategories.with_ordered_generating_set", "_WithOrderedGeneratingSet"
+    WithBasis = LazyImport(
+        "category_specs.modules.subcategories.with_basis", "_WithBasis"
     )
-    FinitelyGenerated = LazyImport("category_specs.modules.subcategories.finitely_generated", "_FinitelyGenerated")
-    FinitelyPresented = LazyImport("category_specs.modules.subcategories.finitely_presented", "_FinitelyPresented")
+    WithOrderedBasis = LazyImport(
+        "category_specs.modules.subcategories.with_basis", "_WithOrderedBasis"
+    )
+    WithOrderedGeneratingSet = LazyImport(
+        "category_specs.modules.subcategories.with_ordered_generating_set",
+        "_WithOrderedGeneratingSet",
+    )
+    FinitelyGenerated = LazyImport(
+        "category_specs.modules.subcategories.finitely_generated", "_FinitelyGenerated"
+    )
+    FinitelyPresented = LazyImport(
+        "category_specs.modules.subcategories.finitely_presented", "_FinitelyPresented"
+    )
     Graded = _Graded
 
     # ------------------------------------------------------------------
@@ -1522,7 +1723,9 @@ class Modules(Category_module):
     # Forms / lattice surface
     # ------------------------------------------------------------------
 
-    WithForms = LazyImport("category_specs.forms.subcategories.with_forms", "FormedModulesCategory")
+    WithForms = LazyImport(
+        "category_specs.forms.subcategories.with_forms", "FormedModulesCategory"
+    )
     # Lattices: (M, b) with M a f.g. torsionfree R-module over a domain and
     # b a symmetric nondegenerate integral bilinear form.
 
@@ -1530,7 +1733,8 @@ class Modules(Category_module):
 # ---------------------------------------------------------------------------
 # Composed surfaces (aspirational; resolved once axiom chains are populated)
 # ---------------------------------------------------------------------------
-# TODO: immediately restrict to Dedekind domains, then to PIDs.  Bilinear / -- [needs approach]
+# TODO: immediately restrict to Dedekind domains, then to PIDs.
+# Bilinear / -- [needs approach]
 # quadratic modules and (rational) lattices are wanted over PIDs (so they
 # are free of finite rank).
 #
