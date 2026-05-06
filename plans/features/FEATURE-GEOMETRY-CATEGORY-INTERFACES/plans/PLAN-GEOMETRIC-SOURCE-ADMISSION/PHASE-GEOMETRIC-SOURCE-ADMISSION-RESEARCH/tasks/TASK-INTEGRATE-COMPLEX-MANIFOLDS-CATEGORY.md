@@ -4,20 +4,20 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
-dependsOn: []
+dependsOn:
+- '[[TASK-INTEGRATE-SMOOTH-MANIFOLDS-CATEGORY]]'
 title: Research category integration for complex manifolds
 status: needs-review
 priority: high
 description: Research and prepare the category-spec integration path for complex manifolds.
 successCriteria:
-- Identify the mathematical definition and the intended project vocabulary for this
-  category.
+- Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
+  surfaces, and smoke expectations.
 - List downstream categories or tasks blocked by this integration.
-- Create any concrete follow-up decision, spec, implementation, or source-curation
-  cards needed to proceed.
+- Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
+  to proceed.
 complexity: 65
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
@@ -178,3 +178,4 @@ This is a research/planning card, not an implementation card. Do not write categ
 - 2026-05-06: Completed source-admission research for complex manifolds, recording the
   analytic `ComplexManifolds(CC)` owner, the distinction from complex algebraic
   varieties, the analytification bridge, and downstream Kähler/Hodge/K3 boundaries.
+- 2026-05-06: Added explicit DAG prerequisite edges for source-admission substrate dependencies. These are sequencing edges, not blockers; the card should wait until the prerequisite source cards are accepted.

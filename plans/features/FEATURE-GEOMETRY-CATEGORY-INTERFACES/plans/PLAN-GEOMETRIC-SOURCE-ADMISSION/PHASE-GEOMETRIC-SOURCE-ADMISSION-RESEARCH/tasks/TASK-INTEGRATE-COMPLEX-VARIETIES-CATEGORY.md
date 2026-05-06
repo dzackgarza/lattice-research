@@ -4,20 +4,20 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
-dependsOn: []
+dependsOn:
+- '[[TASK-INTEGRATE-VARIETIES-CATEGORY]]'
 title: Research category integration for complex varieties
 status: needs-review
 priority: high
 description: Research and prepare the category-spec integration path for complex varieties.
 successCriteria:
-- Identify the mathematical definition and the intended project vocabulary for this
-  category.
+- Identify the mathematical definition and the intended project vocabulary for this category.
 - Survey relevant Sage or backend surfaces and local category-spec dependencies.
-- Determine how this category relates to existing planned categories, constructors,
-  Hom/End/Aut surfaces, and smoke expectations.
+- Determine how this category relates to existing planned categories, constructors, Hom/End/Aut
+  surfaces, and smoke expectations.
 - List downstream categories or tasks blocked by this integration.
-- Create any concrete follow-up decision, spec, implementation, or source-curation
-  cards needed to proceed.
+- Create any concrete follow-up decision, spec, implementation, or source-curation cards needed
+  to proceed.
 complexity: 65
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
@@ -161,3 +161,4 @@ No new card is needed from this complex-variety pass. Existing sibling cards own
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for complex varieties, specializing the project variety convention to complex bases while keeping analytic, Hodge, and numerical-complex surfaces behind stricter refinements or bridges.
 - 2026-05-06: Corrected invariant ownership so curve/surface cards inherit arithmetic/geometric genus, Hodge, Kodaira, Euler-characteristic, and canonical surfaces from broad complex variety/scheme refinements.
+- 2026-05-06: Added explicit DAG prerequisite edges for source-admission substrate dependencies. These are sequencing edges, not blockers; the card should wait until the prerequisite source cards are accepted.
