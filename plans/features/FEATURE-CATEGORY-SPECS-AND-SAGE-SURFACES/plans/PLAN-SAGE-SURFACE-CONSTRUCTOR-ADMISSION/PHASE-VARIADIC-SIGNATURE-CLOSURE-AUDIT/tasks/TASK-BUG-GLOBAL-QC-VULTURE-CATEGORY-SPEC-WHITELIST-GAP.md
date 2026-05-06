@@ -368,6 +368,13 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `disjoint_union.py`,
   `finite_set_maps.py`, or `constructions/quotients.py` findings.
+- 2026-05-06 twenty-sixth bounded slice: isomorphic-object smoke coverage was added
+  for the distinguished `isomorphism()` surface and `Sets().IsomorphicObjects()`
+  routing.
+- Validation for the twenty-sixth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports any `category_specs/sets/**`
+  findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -431,3 +438,6 @@ violations to silence QC rather than addressing the issues they unearthed.
   recursively-enumerated-set, and G-set smoke coverage.
 - 2026-05-06: Completed the twenty-fifth bounded cleanup slice for disjoint-union,
   finite-map, and set-quotient smoke coverage.
+- 2026-05-06: Completed the twenty-sixth bounded cleanup slice for set
+  isomorphic-object smoke coverage, clearing all remaining `category_specs/sets/**`
+  vulture findings.

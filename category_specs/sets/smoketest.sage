@@ -5,6 +5,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.sets.subcategories.constructions.isomorphic_objects import _IsomorphicObjects
 from category_specs.sets.subcategories.constructions.quotients import _Quotients
 from category_specs.sets.subcategories.constructions.realizations import _Realizations
 from category_specs.sets.subcategories.constructions.with_realizations import SetsWithRealizations
@@ -346,6 +347,11 @@ SMOKE_STATEMENTS = (
         "set quotients own ambient-set and equivalence-class surfaces",
         lambda _: abstract_method_has_name(_Quotients.ParentMethods.ambient_set, "ambient_set")
         and abstract_method_has_name(_Quotients.ParentMethods.equivalence_class, "equivalence_class"),
+    ),
+    (
+        "set isomorphic objects own the distinguished-isomorphism surface",
+        lambda _: Sets().IsomorphicObjects().__class__.__base__ is _IsomorphicObjects
+        and abstract_method_has_name(_IsomorphicObjects.ParentMethods.isomorphism, "isomorphism"),
     ),
     ("even subobject of ZZ is a subobject", lambda _: Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,)) in Sets().Subobjects()),
     ("2 lies in the even subobject of ZZ", lambda _: 2 in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
