@@ -140,7 +140,11 @@ metric-dual/rational side.
 Any implementation docstring for `dual_lattice()`, lattice-side `dual()` compatibility
 spellings, or `discriminant_class()` must mention the global disabled-by-default
 category diagnostic flag from `SPEC-MAPPING-CAT` and state when to warn about Hom-dual
-versus metric-dual confusion.
+versus metric-dual confusion. In particular, if a lattice compatibility spelling such
+as `L.dual()` returns `L^#`, then in degenerate cases such as the isotropic rank-one
+sublattice `L = <e>` of a hyperbolic plane, the docstring must say that diagnostics
+should warn that `L^#` is being returned, not the evaluation-bearing Hom dual
+`Hom_R(L, R)`.
 
 ## Recovered Subobject And Morphism Surface
 

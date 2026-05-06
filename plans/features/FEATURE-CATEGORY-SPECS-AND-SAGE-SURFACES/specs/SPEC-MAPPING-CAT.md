@@ -189,6 +189,15 @@ Diagnostic messages are appropriate for surprise boundaries such as:
   after nondegeneracy, freeness, a selected basis, a selected ordering, or another
   recorded hypothesis.
 
+The motivating example is the lattice/module dual boundary. If an implementation
+supports a lattice-side compatibility spelling such as `L.dual()`, then for a
+degenerate symmetric bilinear object such as a rank-one isotropic sublattice
+`L = <e>` inside a hyperbolic plane, diagnostics should be able to warn that the
+returned metric dual `L^#` is not the Hom dual `Hom_R(L, R)`. The Hom dual is the
+evaluation-bearing dual object; the metric dual is a formed-module construction that
+becomes comparable to the Hom dual only through explicit form-induced transport under
+the stated hypotheses.
+
 Diagnostic messages are not an error-recovery mechanism. Missing hypotheses,
 ill-defined mathematics, failed containment, invalid source grounding, or an
 implementation gap should still fail, block the affected spec leaf, or route to a
