@@ -103,3 +103,16 @@ split.
   precision caps, `QuadraticField`, and `MatrixRing` MRO refinement), but the current
   `rings/smoketest.sage` frontier has shifted. The required smoke-output record was
   therefore stale even though the base-class identity mismatch fix still reproduces.
+
+### Re-review 2026-05-06 (Goodall)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
+#### Residual Risks
+
+- `rings/smoketest.sage` still fails on preserved downstream ring-frontier surfaces:
+  `hilbert_polynomial`, `algebraic_closure`, `completion`, `_change_print_mode`, and
+  deferred q-adic precision-cap constructors. Those are gap evidence for successor
+  work, not a remaining base-class identity mismatch.
