@@ -35,6 +35,16 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
 
 ## Source Provenance
 
+- Canonical RealSet/topological recovery specs:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGC2N0VVPYVZBJVA4E68-SPECIFY-REALSET-AMBIENT-RELATIVE-RECOVERY-FOR-IS-OPEN-IS-CLOSED-CLOSURE.md`
+  and
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9J3WSR722P30PVZ4GAVKG-CHOOSE-CANONICAL-SMOKE-EXAMPLES-FOR-CONNECTED-COMPACT-AND-METRIC-COMPLET.md`.
+- Constructor mapping:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md`,
+  especially the `RealSetFromIntervals`, `RealSetInterval`, named interval/ray/point,
+  and real-line rows.
+- Source inventory:
+  `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`.
 - `category_specs/topological_spaces/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/topological_spaces/docs/TRIAGE.md`.
 - Original migrated line: `Implement RealSet named constructors and smoke recovery through ambient-relative topological methods from category_specs/topological_spaces/docs/TRIAGE.md`
 
@@ -70,6 +80,13 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
   on the closed-bounded real-line subset predicate. The implementation also leaves
   `TopologicalSpaces().Constructors()` empty and keeps ambient-relative topological
   ownership in the spec/mapping.
+- 2026-05-06 scope clarification: commit `983a058` also contained broader Sets smoke
+  integration work for iterator-backed sets, recursive sets, families, image sets,
+  totally ordered finite sets, Cartesian products, subobjects, and audit-card routing.
+  Those edits are shared integration context and are not claimed as this RealSet
+  leaf's scoped implementation evidence. This card's scoped evidence is limited to
+  the RealSet constructor/refinement rows, the topological constructor non-admission,
+  and the RealSet/topological smoke assertions named above.
 - 2026-05-05: Validation evidence from `983a058`: `just --justfile
   category_specs/justfile smoke-file topological_spaces/smoketest.sage` passed;
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed
@@ -77,3 +94,28 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
   Sage `RealSet` category join; `just --justfile category_specs/justfile
   check-abstract-redefinitions` passed; `git diff --check` passed. This card is moved
   to `in-review`; human acceptance is still required for closure.
+
+## Review Log
+
+### Review 2026-05-06 (Kant)
+
+**Gates passed:** Gate 1
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Scope Evidence
+
+- The card claimed the implementation changed only the scoped category-spec surface,
+  but cited commit `983a058`, which also included broad Sets smoke-frontier work across
+  iterator-backed sets, recursively enumerated sets, families, image sets, totally
+  ordered finite sets, Cartesian products, subobjects, audit tracker files, and another
+  implementation card.
+- Validation evidence existed, but did not cure the scope mismatch.
+
+#### Rework
+
+- Added canonical RealSet/topological source provenance.
+- Clarified that the broad `983a058` commit is shared integration context and is not
+  claimed as this card's scoped implementation evidence.
+- Limited this card's evidence to the admitted RealSet constructor/refinement rows,
+  topological constructor non-admission, and RealSet/topological smoke assertions.

@@ -35,7 +35,11 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ## Source Provenance
 
-- `category_specs/sets/docs/MAPPING.md`
+- Canonical set mapping:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-SETS.md`,
+  especially the `Primes()` row and Sage Primes source note.
+- Source inventory: `category_specs/sets/docs/SAGE_INVENTORY.md`.
+- Legacy source provenance: `category_specs/sets/docs/MAPPING.md`.
 - Original migrated line: `Research Sage Primes documentation and installed-source version skew before admitting congruence-class prime subset vocabulary from category_specs/sets/docs/MAPPING.md`
 
 ## Context
@@ -51,7 +55,7 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 - [x] The research result cites the exact sources searched and separates source evidence from inference.
 - [x] Negative findings use the repository five-field format: Searched, Found, Conclusion, Confidence, Gaps.
 - [x] Any admitted design consequence is linked to a spec-work or design-decision item rather than buried in prose.
-- [x] No set implementation was attempted; the prerequisite implementation route is the `Primes()` row in `[[SPEC-MAPPING-SETS]]`.
+- [x] When implementing a set item, cite the exact mapping row and prove behavior through project category vocabulary. No set implementation was attempted in this research card; the prerequisite implementation route is the `Primes()` row in `[[SPEC-MAPPING-SETS]]`.
 - [x] Do not expose generic Sage Set(X) as a public project constructor.
 
 ## Dependencies And Boundaries
@@ -94,3 +98,26 @@ Inference:
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
 - 2026-05-06: Recorded installed-source and runtime evidence for Sage `Primes()` version skew, linked the design consequence to `[[SPEC-MAPPING-SETS]]`, and left congruence-class prime subsets out of the public constructor surface pending stronger source evidence.
+
+## Review Log
+
+### Review 2026-05-06 (Euclid)
+
+**Gates passed:** Gates 1-2
+**Gates failed:** Gate 3 Spec-Weakening
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 3 Finding: Acceptance Criterion Weakening
+
+- The frontmatter criterion required any set implementation to cite the exact mapping
+  row and prove behavior through project category vocabulary.
+- The body checklist had replaced that criterion with a different research-only
+  statement: no set implementation was attempted.
+
+#### Rework
+
+- Restored the body checklist criterion to match the frontmatter requirement.
+- Kept the research-only clarification as an explanatory second sentence, not a
+  replacement for the criterion.
+- Added canonical tracked source provenance for the `Primes()` mapping row and Sage
+  Primes source note.
