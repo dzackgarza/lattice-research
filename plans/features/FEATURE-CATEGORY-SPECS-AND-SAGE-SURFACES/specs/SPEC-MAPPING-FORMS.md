@@ -43,10 +43,64 @@ Source inventory: `category_specs/forms/docs/SAGE_INVENTORY.md`.
 
 - Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
 - Local inventory checked: `category_specs/forms/docs/SAGE_INVENTORY.md`.
-- Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
-  - `sage/modules/docs/SAGE_INVENTORY.md`
+- Cross-inventory source files checked because the forms inventory is an ownership
+  pointer rather than an independent Sage category inventory:
+  - `category_specs/modules/docs/SAGE_INVENTORY.md`
+  - `category_specs/lattices/docs/SAGE_INVENTORY.md`
+  - `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`
+- Installed Sage source files checked or named by those inventories for this forms pass:
+  - `sage/modules/free_quadratic_module.py`
+  - `sage/modules/free_quadratic_module_integer_symmetric.py`
+  - `sage/modules/torsion_quadratic_module.py`
+  - `sage/tensor/modules/tensor_free_module.py`
+  - `sage/tensor/modules/free_module_tensor.py`
+  - `sage/quadratic_forms/quadratic_form.py`
+  - `sage/quadratic_forms/quadratic_form__automorphisms.py`
+  - `sage/quadratic_forms/quadratic_form__genus.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+## Completeness Reconciliation: Forms Cross-Inventory
+
+The forms inventory names five Sage evidence families: `FreeQuadraticModule_generic`,
+`FreeQuadraticModule_integer_symmetric`, `TorsionQuadraticModule`,
+`TorsionQuadraticForm(q)`, and `TensorFreeModule` dual components. The converted
+mapping assigns all five to explicit forms, modules, lattices, or tensor-component
+owners:
+
+- free quadratic modules map to free bilinear or quadratic formed-module structure,
+  with Gram, determinant, discriminant, and inner-product surfaces first owned by
+  free bilinear modules;
+- integral symmetric Sage lattices map through the forms-owned nondegenerate symmetric
+  integral chain, with the named `Lattices(R)` endpoint adding only lattice-specific
+  specializations;
+- torsion quadratic modules map to
+  `forms.subcategories.torsion_quadratic_modules.TorsionQuadraticModulesCategory`,
+  while the old module route remains constructor compatibility;
+- tensor dual components remain tensor-component objects until attached as form data
+  to a module;
+- symmetric bilinear element divisibility is the pairing-image submodule
+  `<b(v, M)> <= S`, not a free-module coordinate-gcd surface.
+
+Negative source finding for a separate Sage forms category:
+
+- Searched: `category_specs/forms/docs/SAGE_INVENTORY.md`, `category_specs/forms/*`,
+  `category_specs/modules/docs/SAGE_INVENTORY.md`,
+  `category_specs/lattices/docs/SAGE_INVENTORY.md`,
+  `category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`, installed Sage
+  paths matching forms, free-quadratic modules, torsion-quadratic modules, tensor
+  modules, and quadratic-form files under `/home/dzack/miniforge3/envs/sage`.
+- Found: the local forms inventory intentionally delegates Sage evidence to the
+  modules, lattices, and tensor-component inventories; installed Sage exposes the
+  relevant form-bearing objects through module, tensor, and quadratic-form sources,
+  not through a distinct `sage.categories.forms` owner.
+- Conclusion: inference -- this pass found no separate installed Sage forms category
+  that should add a new forms-local mapping surface beyond the cross-inventory
+  families listed above.
+- Confidence: Medium.
+- Gaps: Sage upstream issue discussions, unreleased Sage branches, and a full
+  method-by-method reconciliation of every quadratic-form algorithm file remain
+  outside this forms-local pass and continue under the active completeness task.
 
 ## Converted Mapping Content
 
