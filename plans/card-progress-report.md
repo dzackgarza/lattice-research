@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 15:39 UTC_
+_Generated: 2026-05-06 16:26 UTC_
 
 ## Overall
 
-- Total cards: **214**
-- Completed cards: **12**
-- Overall progress: `[#-----------------------]   5.6%`
+- Total cards: **218**
+- Completed cards: **13**
+- Overall progress: `[#-----------------------]   6.0%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -14,19 +14,20 @@ _Generated: 2026-05-06 15:39 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 13 | 12 | 1 | 0 | 0 |
+| decision | 13 | 13 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 |
 | phase | 18 | 0 | 10 | 2 | 0 |
 | plan | 8 | 0 | 6 | 0 | 0 |
-| spec | 50 | 0 | 0 | 48 | 0 |
-| task | 110 | 0 | 0 | 55 | 4 |
+| spec | 54 | 0 | 0 | 51 | 1 |
+| task | 110 | 0 | 0 | 56 | 3 |
 
 ## Feature Rollup
 
 | Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Coble cusp orbit classification | `[########--------]  50.0%` | 1/2 | 1 | 0 | 0 |
-| Category specs and Sage surface admission | `[##--------------]   9.4%` | 11/117 | 15 | 77 | 4 |
+| Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
+| Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 1 |
+| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 15 | 79 | 3 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
@@ -38,7 +39,6 @@ _Generated: 2026-05-06 15:39 UTC_
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical Vinberg and Coxeter recovery | `[----------------]   0.0%` | 0/4 | 2 | 2 | 0 |
 | Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 0 |
 
 ## High-Priority Active Items
@@ -63,12 +63,13 @@ _Generated: 2026-05-06 15:39 UTC_
 
 - `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Align global vulture whitelist with category-spec public surfaces (`high`)
 - `task` `TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS-FOR-TOPOLOGY-BEARING-RI`: Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods (`high`)
-- `task` `TASK-1777748120685-4VX3GB-STRIP-IMPORT-AND-LAZYIMPORT-BLOAT-FROM-RING-SUBCATEGORY-CONSTRUCTORS`: Strip import and LazyImport bloat from ring subcategory constructors (`high`)
 - `task` `TASK-BUG-REPO-VULTURE-DEAD-CODE-VALIDATION-BLOCKER`: Triage global vulture dead-code validation blocker (`high`)
+- `spec` `SPEC-HISTORICAL-VINBERG-EDGEWALK-WRAPPER`: Wrap polyhedral_common Lorentzian edgewalk for Vinberg algorithm (`medium`)
 
 ## Most Recently Completed
 
-- 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `1bf2108`: docs: clarify Coble lattice notation)
+- 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `d8d172a`: User-initiated Checkpoint)
+- 2026-05-06 `decision` `DECISION-VINBERG-WRAPPING-STRATEGY`: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement (commit `d8d172a`: User-initiated Checkpoint)
 - 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `d53305d`: docs: decide discriminant form orbit routing)
 - 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `b55df6c`: docs: decide Picard lattice ownership)
 - 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `cd84d84`: docs: decide module sidedness surface)

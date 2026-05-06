@@ -1,7 +1,7 @@
 ---
-id: TASK-RESEARCH-ISOTROPIC-ORBIT-ENUMERATION
+id: SPEC-COBLE-ISOTROPIC-ORBIT-ENUMERATION
 trackerStatus:
-  type: task
+  type: spec
 parents:
 - '[[FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION]]'
 dependsOn:
@@ -9,15 +9,15 @@ dependsOn:
 title: Research isotropic orbit enumeration in finite discriminant groups
 status: needs-review
 priority: medium
-description: Research exact backend and theory routes for enumerating isotropic discriminant-form orbits in the Coble 2-elementary finite quadratic group.
-successCriteria:
+requirement: The Coble cusp workflow must have an exact route for enumerating isotropic discriminant-form orbits in the relevant 2-elementary finite quadratic group.
+acceptanceCriteria:
 - The output records which backend or theorem route can compute O(A,q)-orbits for the specific Coble discriminant group.
 - The recommendation states feasibility, expected inputs, and any blockers for implementation without replacing exhaustive orbit work by bounded search.
 complexity: 30
 tags:
 - FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION
 ---
-# Research: Isotropic orbit enumeration in finite discriminant groups
+# Spec: Isotropic orbit enumeration in finite discriminant groups
 
 ## Summary
 

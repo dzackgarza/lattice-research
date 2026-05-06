@@ -1,24 +1,24 @@
 ---
-id: TASK-RESEARCH-LIFTING-THEOREM-VERIFICATION
+id: SPEC-COBLE-LIFTING-THEOREM-VERIFICATION
 trackerStatus:
-  type: task
+  type: spec
 parents:
 - '[[FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION]]'
 dependsOn:
 - '[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]'
-- '[[TASK-RESEARCH-ISOTROPIC-ORBIT-ENUMERATION]]'
+- '[[SPEC-COBLE-ISOTROPIC-ORBIT-ENUMERATION]]'
 title: Verify Nikulin 1.5.2 and Eichler criterion for lattice T_Co
 status: needs-review
 priority: medium
-description: Verify the theorem hypotheses needed to lift discriminant-form isotropic orbits to primitive isotropic vector orbits in T_Co.
-successCriteria:
+requirement: The Coble cusp workflow must verify the theorem hypotheses needed to lift discriminant-form isotropic orbits to primitive isotropic vector orbits in T_Co.
+acceptanceCriteria:
 - A durable theory note records the exact Nikulin and Eichler statements, their hypotheses, and whether they apply to the computed Coble lattice.
 - Any orbit-lifting conclusion states the required group, divisibility, discriminant class, and remaining blockers without relying on notation alone.
 complexity: 35
 tags:
 - FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION
 ---
-# Research: Verify Nikulin surjectivity and orbit lifting for T_Co
+# Spec: Verify Nikulin surjectivity and orbit lifting for T_Co
 
 ## Summary
 

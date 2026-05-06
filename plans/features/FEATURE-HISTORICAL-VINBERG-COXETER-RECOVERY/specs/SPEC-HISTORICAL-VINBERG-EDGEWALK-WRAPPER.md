@@ -1,7 +1,7 @@
 ---
-id: TASK-LAT-VINBERG-EDGEWALK-WRAPPER
+id: SPEC-HISTORICAL-VINBERG-EDGEWALK-WRAPPER
 trackerStatus:
-  type: task
+  type: spec
 parents:
 - '[[FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY]]'
 dependsOn:
@@ -10,15 +10,16 @@ dependsOn:
 title: Wrap polyhedral_common Lorentzian edgewalk for Vinberg algorithm
 status: blocked
 priority: medium
-description: Wrap the polyhedral_common Lorentzian edgewalk backend behind the Vinberg result contract once the backend build and lattice API prerequisites are available.
-successCriteria:
+blocked_reason: Requires the lattice phase 5 orthogonal-group task and the Vinberg algorithm contract before backend wrapping can be admitted.
+requirement: The Vinberg recovery feature must specify how a polyhedral_common Lorentzian edgewalk backend would be wrapped behind the typed Vinberg result contract.
+acceptanceCriteria:
 - The wrapper accepts typed hyperbolic lattice input and returns a VinbergResult with roots, Coxeter data, control vector, completeness status, and backend provenance.
 - The backend route is verified against a sourced worked example or remains explicitly blocked with the missing build/API prerequisite recorded.
 complexity: 40
 tags:
 - FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY
 ---
-# Wrap polyhedral_common Lorentzian edgewalk for Vinberg algorithm
+# Spec: polyhedral_common Lorentzian edgewalk wrapper for Vinberg algorithm
 
 ## Strategy
 

@@ -84,8 +84,8 @@ at `src/external/dutsik_polyhedral/polyhedral_common/`, Python wrapper at
 
 ## Implementation
 
-Created `[[TASK-LAT-VINBERG-EDGEWALK-WRAPPER]]` under
-`FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY`. The wrapping task:
+Created `[[SPEC-HISTORICAL-VINBERG-EDGEWALK-WRAPPER]]` under
+`FEATURE-HISTORICAL-VINBERG-COXETER-RECOVERY`. The wrapping spec:
 1. Verifies `lorentzian_reflective_edgewalk` accepts spec-level lattice inputs
 2. Wraps as `L.vinberg_edgewalk(control_vector)` returning a typed `VinbergResult`
 3. Tests against the Sterk-Peters worked example (rank 19, signature (1, 18))
