@@ -219,6 +219,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file types_smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `category_specs/types.py` findings or
   generated findings from the new type smoke.
+- 2026-05-06 eighth bounded slice: finite-poset smoke coverage was added for
+  `Posets().Finite()` class routing and the finite diamond poset's top/bottom,
+  extremal elements, cover relation iterator, intervals, height/width certificates,
+  semilattice certificates, chains, antichains, and linear extensions.
+- Validation for the eighth slice:
+  `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed,
+  and the vulture-only diagnostic no longer reports
+  `category_specs/posets/subcategories/finite.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -247,3 +255,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   alias routing, end/aut predicates, subobject routing, and defining predicates.
 - 2026-05-06: Completed the seventh bounded cleanup slice for centralized type alias
   smoke coverage.
+- 2026-05-06: Completed the eighth bounded cleanup slice for finite-poset smoke
+  coverage.

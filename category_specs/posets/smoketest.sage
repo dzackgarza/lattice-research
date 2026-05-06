@@ -6,6 +6,7 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.cat import Cat
 from category_specs.posets import Posets
+from category_specs.posets.subcategories.finite import _FinitePosets
 from category_specs.utils import assert_smoke_statements
 
 
@@ -30,9 +31,14 @@ def chain_covers_predicate(a, b):
 def raw_diamond_poset():
     return Poset(diamond_covers)
 
+
+diamond_poset = raw_diamond_poset()
+
+
 SMOKE_STATEMENTS = (
     ("Posets() is an object of Cat()", lambda _: P in Cat()),
     ("Posets().Finite() is an object of Cat()", lambda _: P.Finite() in Cat()),
+    ("Posets().Finite() refines the finite poset category", lambda _: issubclass(P.Finite().__class__, _FinitePosets)),
     ("Posets().MeetSemilattice() is an object of Cat()", lambda _: P.MeetSemilattice() in Cat()),
     ("Posets().MeetSemilattice().Finite() is an object of Cat()", lambda _: P.MeetSemilattice().Finite() in Cat()),
     ("Posets().JoinSemilattice() is an object of Cat()", lambda _: P.JoinSemilattice() in Cat()),
@@ -150,6 +156,46 @@ SMOKE_STATEMENTS = (
     ("lattice_from_upper_covers_dict(...) refines to finite lattices", lambda _: PC.lattice_from_upper_covers_dict(diamond_covers) in P.Lattice().Finite()),
     ("lattice_from_upper_covers(...) refines to finite lattices", lambda _: PC.lattice_from_upper_covers(diamond_cover_list) in P.Lattice().Finite()),
     ("lattice_from_existing(...) refines to finite lattices", lambda _: PC.lattice_from_existing(raw_diamond_poset()) in P.Lattice().Finite()),
+    (
+        "finite diamond poset has the expected top and bottom",
+        lambda _: diamond_poset.bottom() == 0
+        and diamond_poset.top() == 3
+        and diamond_poset.has_bottom()
+        and diamond_poset.has_top()
+        and diamond_poset.is_bounded(),
+    ),
+    (
+        "finite diamond poset has the expected extremal elements",
+        lambda _: diamond_poset.minimal_elements() == [0] and diamond_poset.maximal_elements() == [3],
+    ),
+    (
+        "finite diamond poset exposes cover relations through list and iterator surfaces",
+        lambda _: diamond_poset.cover_relations() == [[0, 1], [0, 2], [1, 3], [2, 3]]
+        and list(diamond_poset.cover_relations_iterator()) == [[0, 1], [0, 2], [1, 3], [2, 3]],
+    ),
+    (
+        "finite diamond poset intervals distinguish open and closed intervals",
+        lambda _: diamond_poset.closed_interval(0, 3) == [0, 1, 2, 3]
+        and diamond_poset.interval(0, 3) == [0, 1, 2, 3]
+        and diamond_poset.open_interval(0, 3) == [1, 2],
+    ),
+    (
+        "finite diamond poset height and width certificates recover chains and antichains",
+        lambda _: diamond_poset.height_certificate() == (3, [0, 1, 3])
+        and diamond_poset.width_certificate() == (2, [1, 2]),
+    ),
+    (
+        "finite diamond poset is ranked and semilattice-certified",
+        lambda _: diamond_poset.is_ranked()
+        and diamond_poset.meet_semilattice_certificate() == (True, None)
+        and diamond_poset.join_semilattice_certificate() == (True, None),
+    ),
+    (
+        "finite diamond poset enumerates chains antichains and linear extensions",
+        lambda _: [0, 1, 3] in list(diamond_poset.chains())
+        and [1, 2] in list(diamond_poset.antichains())
+        and [list(extension) for extension in diamond_poset.linear_extensions()] == [[0, 1, 2, 3], [0, 2, 1, 3]],
+    ),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)
