@@ -858,6 +858,8 @@ method and which mature external system should be audited or wired.
   `category_specs/rings/matrix_algebras.py`, `homsets/autsets.py` to
   `category_specs/homsets/autsets.py`, and the lattice corrections source to
   `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
+- 2026-05-06: Third independent review passed Gates 1-6 after the source-path
+  repairs; the spec remains `needs-review` pending human acceptance.
 
 ## Review Log
 
@@ -896,3 +898,17 @@ Findings:
   corrections spec" without exact paths; the current sources are
   `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` and
   `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
+
+### Second Re-Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance.
+**Gates failed:** None.
+**Outcome:** no concrete revision findings; human approval remains required before
+marking the spec done.
+
+Findings: none. The review found the prior Gate 1 defects resolved: the matrix,
+autset, spec-backup, bilinear-foundation, and lattice-redesign citations now point to
+existing exact local source paths, and the remaining changes are provenance repairs
+without spec weakening.
