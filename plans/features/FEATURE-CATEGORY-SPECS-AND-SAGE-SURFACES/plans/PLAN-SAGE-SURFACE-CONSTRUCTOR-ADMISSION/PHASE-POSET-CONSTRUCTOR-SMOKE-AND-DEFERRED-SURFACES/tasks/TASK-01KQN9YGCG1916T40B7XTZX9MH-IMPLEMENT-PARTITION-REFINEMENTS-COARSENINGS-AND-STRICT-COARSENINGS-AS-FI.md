@@ -144,3 +144,24 @@ Decision outcome:
   element methods.
 - Updated the grounded spec card to cite current `SPEC-MAPPING-SETS.md` anchors for
   owner, hypotheses, codomain, and compatibility-name split.
+
+### Re-review 2026-05-06 (Aristotle)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** None
+**Outcome:** needs-review evidence ready for human approval; card not marked complete
+
+#### Evidence
+
+- Canonical grounding is now in this task's Source Provenance and the linked spec's
+  Grounded Spec Contract, backed by current `SPEC-MAPPING-SETS.md` rows for fixed-base
+  partition constructors and partition element methods.
+- Owner, hypotheses, codomain, and migration consequence are recorded in the linked
+  spec, with `refinement_set()`, `coarsening_set()`, and
+  `ordered_coarsening_closure()` kept as project finite-set methods separate from
+  Sage's list-returning compatibility names.
+- Implementation and smoke evidence match the admitted surface in
+  `category_specs/sets/subcategories/partitioned.py` and
+  `category_specs/sets/smoketest.sage`.
+- Validation: `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
+  passed with only the known inherited `Sets.Topological` Sage warning.
