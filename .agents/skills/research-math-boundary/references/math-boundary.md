@@ -55,9 +55,50 @@ Never add wrappers whose only effect is renaming or forwarding to a native upstr
 
 Raw matrices, vectors, dicts, and lists may appear inside implementations and backend bridges, but they are not the public mathematical vocabulary. Shared code should compose upstream exact implementations rather than restating them.
 
+Do not expose nonmathematical Sage infrastructure names such as `Parent` or `Element`
+as the public return type of mathematical surfaces unless the code is a true
+base-category bridge. In nearly all audited cases the surface should know the
+mathematical category of the result and return a typed noun such as `Lattice`,
+`LatticeElement`, `DiscriminantGroup`, or another repo-level mathematical object.
+
+If the correct abstraction level is still broader than a repo noun, use an explicit
+interop alias such as `SageCategoryObject` or `SageElement`. This keeps the audit
+surface honest: the code is admitting that the result is Sage-backed and broad, but it
+is not pretending that raw infrastructure names are satisfactory mathematical API
+design.
+
 Good shared interfaces include canonical constructors such as `Lattice.hyperbolic_plane()`, exact methods such as `lattice.discriminant_group()` or `element.inner_product(other)`, and exact transforms such as `morphism.image()` or `lattice.orthogonal_complement(sublattice)`.
 
 Bad shared interfaces include task-shaped helpers like `assert_primitive_embedding`, wrapper aliases like `lattice_determinant(L)` when `L.determinant()` already exists, free functions like `norm(v, L)` when the receiver is a mathematical noun, and `verify_*` functions that silently absorb mathematical burden.
+
+## Argument-level boundary
+
+The same boundary applies to mathematical prose and computational proof artifacts. A
+claim should be expressible as a chain of public mathematical objects and morphisms, not
+as a pile of representations with prose wrapped around it.
+
+Required proof vocabulary:
+
+- objects: schemes, varieties, curves, surfaces, divisors, line bundles, Picard groups,
+  lattices, discriminant groups, period domains, moduli spaces;
+- morphisms and constructions: blowups, covers, pullbacks, pushforwards, embeddings,
+  orthogonal complements, primitive closures, quotients, period maps, birational maps;
+- invariants as methods on the relevant nouns, not detached helper facts.
+
+Boundary failures:
+
+- a note names the expected lattice, group, moduli space, or period domain before
+  constructing it;
+- a proof says "associated to", "governed by", "correct for", or "right target" where
+  the next object should be a named map or comparison morphism;
+- code computes raw matrices, signatures, or invariants but cannot express the objects
+  and maps that make those computations relevant;
+- an immediate invariant is over-explained while the upstream construction that makes
+  the invariant meaningful is left implicit.
+
+When this happens, do not patch around it with a task-local helper or a vague note.
+Create or update the vocabulary/spec/source-mining artifact needed to express the
+mathematics at the right level.
 
 ## When the base is insufficient
 

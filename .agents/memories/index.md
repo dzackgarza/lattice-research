@@ -11,3 +11,4 @@
 - [Coble Task And Moduli Facts](coble-and-moduli-claim-boundaries)
 - [Bilinear Form And Lattice Spec Semantics](bilinear-form-category-semantics)
 - [Graph Monodromy And Hodge Tool Methods](theory-graph-monodromy-hodge-methods)
+- [Mathematical Source Report Memories](mathematical-source-report-memories)

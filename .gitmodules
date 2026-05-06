@@ -2,7 +2,7 @@
 	path = src.bak/backends/external/carat
 	url = https://github.com/lbfm-rwth/carat.git
 [submodule "polyhedral_common"]
-	path = theory/dutsik_polyhedral/polyhedral_common
+	path = src/external/dutsik_polyhedral/polyhedral_common
 	url = git@github.com:MathieuDutSik/polyhedral_common.git
 [submodule "VinbergsAlgorithmNF"]
 	path = src.bak/backends/external/vinbergs_algorithm/references/VinbergsAlgorithmNF

@@ -112,11 +112,11 @@ At the end of this work:
 ### Vendored backend docs and code
 
 - [polyhedral_common binary targets](../external/dutsik_polyhedral/polyhedral_common/BINARIES)
-- `theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_GetOrbit_IsotropicKplane.cpp`
-- `theory/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_StabilizerIsotropicPlane.cpp`
-- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_DoubleCoset.h`
-- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_OrbitSplitting.cpp`
-- `theory/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_LinearSpace_Stabilizer_DoubleCoset.cpp`
+- `src/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_GetOrbit_IsotropicKplane.cpp`
+- `src/external/dutsik_polyhedral/polyhedral_common/src_indefinite/INDEF_FORM_StabilizerIsotropicPlane.cpp`
+- `src/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_DoubleCoset.h`
+- `src/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_OrbitSplitting.cpp`
+- `src/external/dutsik_polyhedral/polyhedral_common/src_group/GRP_LinearSpace_Stabilizer_DoubleCoset.cpp`
 
 ### Existing repo integration points
 

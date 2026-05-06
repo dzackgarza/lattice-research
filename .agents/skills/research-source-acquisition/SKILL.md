@@ -25,6 +25,8 @@ Every durable theory claim needs traceable primary source material.
 - Keep the source map in `theory/references/index.md`.
 - Keep reusable extracted text in `theory/references/literature/`.
 - Update `theory/references/claim-map.md` when a source backs a standard definition, theorem, algorithm, or implementation-critical claim.
+- If mathematical research in chat, plans, specs, or notes relies on an external or web
+  source, record the result in a durable mathematical report memory with source links.
 - Do not rely on chat history, filenames, or uncited excerpts as source authority.
 
 ## Preferred workflow
@@ -44,6 +46,9 @@ Every durable theory claim needs traceable primary source material.
 - Store reusable extraction outputs as Markdown under `theory/references/literature/` with enough source provenance for another agent to identify the original paper, citation key, extraction method, and spot-check status.
 - Do not commit large PDFs by default. Commit a PDF only when the user has asked for repo-local preservation or when the existing theory/reference policy for that source requires it. Otherwise record the Zotero, local-cache, DOI, arXiv, publisher, or URL path in the source map.
 - When a source supports implementation or spec work, link it from the relevant plan, card, theory note, or category-spec artifact rather than leaving it only in `references.bib`.
+- Do not leave web-backed mathematical findings only in chat. Capture the research
+  outcome, scope, and source URLs in repo-local memory so later agents can recover the
+  argument context after compaction or session loss.
 
 ## Follow-up handling
 

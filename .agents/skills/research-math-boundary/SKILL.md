@@ -1,8 +1,8 @@
 ---
 name: research-math-boundary
-description: Use when working on mathematical shared code boundaries, lattice/module
-  foundations, Sage/GAP/Julia/Lean integration, literature-backed computation, or
-  exact backend ownership.
+description: Use when working on mathematical shared code boundaries, argument-level
+  mathematical vocabulary, lattice/module foundations, Sage/GAP/Julia/Lean
+  integration, literature-backed computation, or exact backend ownership.
 ---
 
 # Research Math Boundary
@@ -18,6 +18,13 @@ Read `references/math-boundary.md` before changing shared mathematical code, lat
 ## Core policy
 
 - Trusted shared code is a semantic mathematical base built from explicit nouns with methods, not a flat bag of helpers.
+- Mathematical arguments and computational proofs should be expressible through the
+  same semantic noun-and-morphism vocabulary; raw representations are implementation
+  details, not the public proof language.
+- Public mathematical surfaces should not leak nonmathematical Sage infrastructure
+  types such as `Parent` or `Element` except in true deep base-category or bridge
+  layers. Where a broad Sage-facing type is unavoidable, expose a deliberate alias such
+  as `SageCategoryObject` or `SageElement`.
 - If a task cannot be expressed cleanly through the public noun vocabulary, stop and surface a task-boundary failure.
 - If a mathematical noun, invariant, or predicate is not definition-grounded in repo
   theory, references, spec backups, Sage docs/source, or an approved decision, stop and

@@ -1,76 +1,119 @@
-# Moduli Dimension Claim: 9-Dimensional Period Domain for Coble Surfaces
+# Coble And K3 Period-Domain Facts
 
-This note records the standard literature-backed moduli dimension claim that the repo
-uses throughout its computational verification work.
+This note records facts used when comparing Coble constructions with lattice-polarized
+K3 period domains.
 
-## The Standard Claim
+## Type IV Domain Dimension
 
-For a Coble surface (the quotient of a K3 surface by a fixed-point-free involution
-arising from a 10-nodal rational sextic), the associated period domain has complex
-dimension 9.
+Let $L$ be a rank-$r$ lattice with signature $(2,r-2)$. Its complexification $L_\mathbb{C}$
+has dimension $r$, so $\mathbb{P}(L_\mathbb{C})$ has dimension $r-1$. The equation
+$(z,z)=0$ cuts out a quadric hypersurface of dimension $r-2$, and the positivity
+condition $(z,\bar z)>0$ selects an open component. Therefore the Type IV domain
+$D_L$ has complex dimension $r-2$.
 
-More precisely:
-- The transcendental lattice $T_{\mathrm{Co}}$ of a Coble surface has signature $(2,9)$
-  and rank 11
-- The Type IV period domain for K3 surfaces with this lattice structure is a
-  9-dimensional complex manifold
-- The moduli space of Coble surfaces (with appropriate polarization data) is described
-  via this period domain and its Baily-Borel compactification
+If the relevant period lattice has rank $11$, then $\dim D_L=9$.
 
-## Literature Attribution
+## Standard K3 Moduli Input
 
-This is a standard fact from the period-domain theory of K3 and Enriques surfaces, not a
-new repo theorem.
+The standard K3 object is the moduli space of primitively $M$-polarized K3 surfaces.
+Here $M$ is a lattice embedded primitively into $\mathrm{Pic}(X)$, with the usual
+positivity/ample-cone condition. A general point has $\mathrm{Pic}(X)=M$; special points
+may have larger Picard lattice.
 
-### Canonical Sources
+For an $M$-polarized K3 surface, the period domain is attached to
+$T=M^\perp \subset \Lambda_{\mathrm{K3}}$. Its dimension is
 
-1. **Scattone (1987)**: *On the Compactification of Moduli Spaces for Algebraic K3
-   Surfaces*
-   - Provides the Type IV period-domain and Baily-Borel compactification framework on
-     the K3 side
-   - Establishes the dimension count from the lattice signature
+$$
+\dim D_T = \operatorname{rank}(T)-2 = 20-\operatorname{rank}(M).
+$$
 
-2. **Sterk (1991)**: *Compactifications of the period space of Enriques surfaces.
-   I*
-   - Develops the Enriques-side period-space and cusp framework
-   - Connects isotropic plane orbits to boundary structure
+This is the K3-theory input to use, not a first-principles reconstruction of Torelli.
 
-3. **Dolgachev & Kondō (2013)**: *The rationality of the moduli spaces of Coble surfaces
-   and of nodal Enriques surfaces*
-   - Provides the moduli-theoretic Coble/Enriques picture
-   - Establishes rationality statements and the standard period-domain framing
+## Standard Coble-K3 Construction
 
-4. **Friedman (1984)**: *A New Proof of the Global Torelli Theorem for K3 Surfaces*
-   - Standard reference for the Torelli step (passing from lattice/period data to
-     moduli)
+Let $C \subset \mathbb{P}^2$ be a rational plane sextic with ordinary nodes
+$p_1,\ldots,p_{10}$, and let
 
-### The Claim Flow
+$$
+\sigma:S=\operatorname{Bl}_{p_1,\ldots,p_{10}}\mathbb{P}^2\to\mathbb{P}^2
+$$
 
-1. **Lattice setup** (Coble 1917, 1929; Nikulin 1979): The transcendental lattice
-   $T_{\mathrm{Co}}$ has signature $(2,9)$
-2. **Period domain** (Scattone 1987): A lattice with signature $(2,9)$ yields a Type IV
-   period domain of complex dimension 9
-3. **Moduli description** (Dolgachev-Kondō 2013, Sterk 1991): The Coble moduli space is
-   described via this period domain
-4. **Torelli** (Friedman 1984): The passage from period data to moduli is standard
-   global Torelli
+be the blowup. Write $H=\sigma^*\mathcal{O}_{\mathbb{P}^2}(1)$ and write
+$E_i$ for the exceptional divisors. Since
+$\mathrm{Pic}(\mathbb{P}^2)=\mathbb{Z}[\mathcal{O}_{\mathbb{P}^2}(1)]$, the blowup
+formula gives
 
-## Repo-Facing Consequence
+$$
+\mathrm{Pic}(S)=\mathbb{Z}H\oplus\bigoplus_{i=1}^{10}\mathbb{Z}E_i.
+$$
 
-**Use the literature above for the ambient moduli dimension claim.**
+The intersections are the standard blowup intersections:
 
-The repo's computational role is NOT to rediscover or reprove the 9-dimensional count.
-Instead, repo computations:
-- Produce exact worked examples of Coble surfaces inside this standard period-domain
-  picture
-- Verify lattice-theoretic predictions (e.g., isotropic plane orbits, stabilizer
-  computations)
-- Support the standard moduli description with explicit numerical evidence
+$$
+H^2=1,\qquad H\cdot E_i=0,\qquad E_i\cdot E_j=-\delta_{ij}.
+$$
 
-**When citing this claim in repo prose:**
-- State clearly that the 9-dimensional period domain is a standard literature fact
-- Cite Scattone (1987), Sterk (1991), Dolgachev-Kondō (2013) as the canonical source
-  chain
-- Mark any repo computation as "supporting evidence" or "exact verification" within that
-  framework, not as the primary justification
+Thus $\mathrm{Pic}(S)$ is the explicit lattice
 
+$$
+\langle 1\rangle\oplus\langle -1\rangle^{10}
+$$
+
+in the basis $(H,E_1,\ldots,E_{10})$. The canonical class is
+
+$$
+K_S=\sigma^*K_{\mathbb{P}^2}+\sum_i E_i=-3H+\sum_i E_i.
+$$
+
+The strict transform $B$ of $C$ has class
+
+$$
+B=6H-2\sum_iE_i=-2K_S.
+$$
+
+Equivalently, $B\in |2L|$ for $L=-K_S=3H-\sum_iE_i$. A section of $L^{\otimes 2}$
+with divisor $B$ defines the double cover
+
+$$
+\pi:X=\operatorname{Spec}_S(\mathcal{O}_S\oplus L^{-1})\to S,
+$$
+
+where multiplication on $L^{-1}$ is given by that section. The cover is branched along
+$B$; its ramification divisor $R\subset X$ satisfies $\pi^*B=2R$.
+
+The canonical bundle formula for a double cover gives
+
+$$
+K_X=\pi^*(K_S+L)=\pi^*(K_S-K_S)=0.
+$$
+
+Also
+
+$$
+\pi_*\mathcal{O}_X=\mathcal{O}_S\oplus L^{-1}
+  =\mathcal{O}_S\oplus K_S.
+$$
+
+Since $S$ is rational, $h^1(\mathcal{O}_S)=0$. By Serre duality,
+$h^1(K_S)=h^1(\mathcal{O}_S)=0$, so $h^1(\mathcal{O}_X)=0$. Similarly
+$\chi(\mathcal{O}_S)=\chi(K_S)=1$, hence $\chi(\mathcal{O}_X)=2$, and with
+$K_X=0$ this gives $p_g(X)=1$. Therefore the smooth double cover is a K3 surface.
+
+Finally, pullback doubles intersections:
+
+$$
+\pi^*D\cdot\pi^*D'=2(D\cdot D')
+$$
+
+for divisors $D,D'$ on $S$. Hence the pullback of the blowup Picard lattice has basis
+$(\pi^*H,\pi^*E_1,\ldots,\pi^*E_{10})$ and Gram matrix
+
+$$
+\operatorname{diag}(2,-2,\ldots,-2),
+$$
+
+so the computed pullback lattice is
+
+$$
+I_{1,10}(2)\cong \langle 2\rangle\oplus\langle -2\rangle^{10}.
+$$

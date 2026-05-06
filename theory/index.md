@@ -11,6 +11,9 @@ Use this routing:
 - `references/` for source authority: literature index, BibTeX, claim map, and extracted literature.
 - `foundations/` for durable mathematical background and definitions that humans may review directly.
 - `moduli/` for Coble/K3/Enriques moduli claims and period-domain background.
-- `external/` for vendored or externally sourced non-markdown material retained for reference.
+
+External source code belongs under `src/external/`, not `theory/`. If non-code external
+reference payloads are needed later, route them through `references/` or a clearly named
+theory subdirectory whose role is source authority rather than executable code.
 
 Before using a visible theory file as authority, identify its role. Source authority comes from `references/`; IWE memories explain how agents should compute or implement, but they do not replace literature-backed claims.

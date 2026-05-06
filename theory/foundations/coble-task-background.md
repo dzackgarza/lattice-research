@@ -44,10 +44,10 @@ Because the cover doubles intersection numbers, the expected Gram matrix is
 $\operatorname{diag}(2, -2, \dots, -2)$, i.e. $\langle 2 \rangle \oplus
 \langle -2 \rangle^{10}$.
 
-**Discriminant data are outputs.** The discriminant group and Nikulin invariants of this
-pullback lattice must be computed from the lattice returned by the geometric pipeline.
-The diagonal model predicts a 2-elementary discriminant group of order $2^{11}$, but
-that belongs to the verification target rather than the input contract.
+**Discriminant data are outputs.** The discriminant group and Nikulin invariants belong
+to the lattice returned by the geometric pipeline. The diagonal model predicts a
+2-elementary discriminant group of order $2^{11}$, but that belongs to the verification
+target rather than the input contract.
 
 **Orthogonal complement.** Only after computing the pullback lattice should one define
 its orthogonal complement in the K3 lattice and verify the complementary invariants,
@@ -150,7 +150,7 @@ theta is the horizontal folding involution.
 Gamma_Co. The polarization h_Co corresponds to the ample divisor class on the Coble
 surface, and theta encodes the Enriques involution structure.
 
-**No explicit generators have been computed.** This remains an open computational task.
+Tracker: `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`.
 
 Literature: Sterk (1991), Dolgachev-Kondo (2013).
 
@@ -171,9 +171,7 @@ subspaces have dimension 2.
 there should be exactly one O(T_Co)-orbit of primitive isotropic planes, and for any
 such plane, J^perp/J = A_1^{+7}.
 
-**Status.** The orbit uniqueness claim is UNVERIFIED computationally.
-A bounded search found 15 primitive isotropic planes with J^perp/J = diag(-2, ..., -2)
-(7 times), but the orbit computation via GAP was never performed.
+Tracker: `FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION`.
 
 Literature: Nikulin (1979), Sterk (1991), AEGS (2023), Dawes (2022).
 
@@ -192,10 +190,7 @@ These correspond to cusps in the Baily-Borel compactification.
 **Claim.** G_{S_Co} contains a unique maximal parabolic subdiagram of type B_7-tilde(2),
 corresponding to the 0-cusp with boundary lattice (9, 9, 1)_1.
 
-**Status.** UNVERIFIED. The deleted script hand-coded the adjacency matrix rather than
-deriving it from the lattice.
-The Coxeter diagram itself needs to be constructed from scratch using Vinberg's
-algorithm or equivalent.
+Tracker: `FEATURE-COBLE-COXETER-PARABOLIC-CLASSIFICATION`.
 
 Literature: AEGS (2023, Section 3), Nikulin (1979, 1980), Bourbaki (Lie Groups, Ch.
 4-6).
@@ -213,9 +208,7 @@ Literature: AEGS (2023, Section 3), Nikulin (1979, 1980), Bourbaki (Lie Groups, 
 unimodular, the orthogonal complement T = S^perp satisfies Lambda = S + T and there
 exists a sign involution acting by -I on S and +I on T.
 
-**Status.** The deleted script claimed to construct a "glued lattice model" but the
-construction was not independently verified.
-Needs reimplementation.
+Tracker: `FEATURE-COBLE-K3-FOLDING-INVOLUTION`.
 
 Literature: Nikulin (1979), Dolgachev-Kondo (2013), Sterk (1991), Pieroni (2026, Theorem
 72).
@@ -232,16 +225,11 @@ l_i = h_Co . alpha_i for roots alpha_i. Since h_Co lies in the positive-definite
 **Dual complex.** For l = 0: B(0) = S^2 with standard integral-affine structure (Type
 III degeneration, maximal unipotent monodromy).
 
-**slc stability conditions.** The five KSBA conditions (S_2, nodal singularities,
-Q-Cartier ampleness, avoidance, quotient structure) must be verified for (Z, epsilon C)
-with Z = X / iota_Enr.
+**slc stability conditions.** The five KSBA conditions for
+$(Z,\epsilon C)$, with $Z=X/\iota_{\mathrm{Enr}}$, are $S_2$, nodal singularities,
+$\mathbb{Q}$-Cartier ampleness, avoidance, and quotient structure.
 
-**Status.** The deleted script was the worst offender: 439 lines, 4 asserts, 47
-f-strings, 14 checkmarks, 8 hardcoded booleans.
-The "verification" consisted of setting is_S2 = True and then checking it later.
-The genuine mathematical argument (surgery vector vanishes by orthogonality) is trivial
-and correct, but the slc stability verification was pure prose theater.
-The slc conditions require genuine geometric arguments, not print statements.
+Tracker: `FEATURE-COBLE-STABLE-MODEL-SLC`.
 
 Literature: AEGS (2023, Sections 2.4, 6, 7), Nikulin (1979), Kollar (2013), Pieroni
 (2026, lines 1225-1280).

@@ -5,6 +5,7 @@ This is the canonical detailed proof, evidence, fraud-detection, and audit-suffi
 ## Contents
 
 - [Core Principle](#core-principle)
+- [Mathematical Argument Shape](#mathematical-argument-shape)
 - [Audit Checklist (Pre-Commit Gate)](#audit-checklist-pre-commit-gate)
   - [1. Mathematical Adequacy (Primary Gate)](#1-mathematical-adequacy-primary-gate)
   - [2. Assertion Quality](#2-assertion-quality)
@@ -78,6 +79,83 @@ from GOAL.md or the literature proves everything.
 
 * * *
 
+## Mathematical Argument Shape
+
+Research-level mathematical work must expose the dependency chain. A note is not
+adequate merely because it names the expected object, cites papers, and states the
+expected conclusion.
+
+Required argument shape:
+
+- Define the mathematical problem or moduli functor before using its expected answer.
+- Construct the objects whose invariants will be used.
+- Name the maps, embeddings, quotients, pullbacks, covers, complements, and comparison
+  morphisms that connect those objects.
+- Separate definitions, constructions, immediate consequences, standard theorem
+  invocations, computed results, and unproved claims.
+- State the exact theorem and hypotheses when invoking standard theory.
+- Treat immediate facts as immediate; do not spend citations or rhetoric on them.
+- Use citations to locate theorem statements, not to replace the argument.
+- For computational proofs, make the public proof language mathematical nouns and
+  morphisms. Raw matrices, vectors, dicts, and lists are internal realizations.
+
+### Standardness calibration
+
+Classify every "standard" claim before accepting it:
+
+| Class | Meaning | Required handling |
+| --- | --- | --- |
+| Immediate fact | Follows directly from a presentation, definition, rank, signature, Gram matrix, or standard decomposition | State the computation directly; do not cite papers as authority |
+| Trivial first-principles derivation | Follows in a few lines from definitions and basic linear algebra or algebraic geometry | Write the derivation in place; do not route it to source-mining or present it as major progress |
+| Textbook standard theorem | Reusable graduate-level or foundational material with explicit hypotheses | State theorem and hypotheses; cite a canonical source only if needed |
+| Niche research theorem | Specialized result from a paper | Cite the exact theorem/proposition and state the hypotheses |
+| Project-specific claim | Depends on this repo's construction, vocabulary, or computation | Construct or compute it; do not call it standard |
+
+Repeated correction in this repo established that agents tend to overestimate the
+difficulty of immediate lattice and period-domain facts. For example, once a Type IV
+period lattice $T$ is presented with rank $r$ and signature $(2,r-2)$, $\dim D_T=r-2$
+is immediate. If a standard lattice presentation is given, rank and signature are
+immediate from that presentation. The nontrivial obligation is to construct the lattice
+and maps that make those immediate facts relevant, not to cite authorities for the
+facts themselves.
+
+Some facts are not "standard" because they require a standard theorem; they are ordinary
+because the derivation is tiny. For a Type IV domain, one can read the definition,
+complexify the lattice, projectivize, impose the quadratic equation, and restrict to the
+open semialgebraic component. Each step has the elementary dimension change expected
+from basic linear algebra and algebraic geometry. This belongs in a few lines when
+needed.
+
+Do not place such a derivation beside a niche claim as if they had comparable proof
+weight. "The Coble moduli problem is compared to the period quotient for the lattice
+$T_{\mathrm{Co}}$" is not the same kind of claim as "the resulting Type IV domain has
+dimension $r-2$." The former can hide many assumptions: the moduli functor, geometric
+construction, K3 relation, lattice derivation, arithmetic group, period map, and
+birational or generically finite comparison. The latter is a direct calculation after
+the input is known.
+
+Progress accounting must respect this asymmetry. Proving or recording the trivial
+dimension calculation does not complete a meaningful fraction of a task whose real
+content is identifying the object, construction, theorem, or comparison map that makes
+the calculation relevant.
+
+Reject these patterns:
+
+| Pattern | Failure | Required replacement |
+| --- | --- | --- |
+| Authority chain | Papers are named but the theorem, hypotheses, and role are unstated | State the theorem used and where it enters |
+| Conclusion-smuggling name | The desired object is named before it is constructed | Derive the object from the construction |
+| Vague target language | "associated to", "governed by", "correct for", or "right target" carries the argument | Name the actual map, embedding, quotient, or birational comparison |
+| Immediate-fact inflation | Trivial consequences are framed as source-backed claims | State the immediate computation and move the burden upstream |
+| Framework avoidance | Mature theory is rederived badly or ignored | Use the standard framework and state its input data |
+| Representation-as-proof | A raw matrix or printed invariant substitutes for the mathematical construction | Construct the objects and verify the representation realizes them |
+
+If the note cannot say which objects are constructed, which maps connect them, and which
+standard theorem is being invoked under which hypotheses, stop acceptance. The artifact
+is source-mining or planning material, not proof.
+
+* * *
+
 ## Audit Checklist (Pre-Commit Gate)
 
 No computation script may be committed without passing every item below.
@@ -124,6 +202,9 @@ Reject any script exhibiting:
 - **Legacy file loading**: `load("coble_geometry.sage")` -- only
   `src.lattices` foundation constructors are canonical
 - **Output files**: `*_results.txt`, `*_output.txt` — the script itself is the artifact
+- **Chat-only source research**: externally sourced mathematical findings are cited in
+  chat or transient notes but never recorded in a durable mathematical report memory
+  with source URLs
 
 ### 3A. Structural QC Warning Classes
 
@@ -140,6 +221,9 @@ document and `research-state-machine`.
   obligations explicitly
 - **Functions operating on raw types**: code should operate on meaningful mathematical
   nouns with meaningful mathematical verbs
+- **Public returns typed as raw Sage infrastructure**: returning `Parent`, `Element`,
+  or similarly nonmathematical Sage base types from public mathematical surfaces is an
+  audit failure unless the code is a true base-category or interop bridge
 - **Free functions over mathematical nouns**: if a public function takes a lattice,
   lattice element, discriminant group, or morphism as its primary argument, review
   whether it should be a method on `Lattice`, `LatticeElement`, `DiscriminantGroup`, or
@@ -180,6 +264,9 @@ document and `research-state-machine`.
   comprehensions or generators
 - **Raw dict usage**: should be replaced by a pydantic type or another explicit
   structured mathematical record
+- **Alias laundering failure**: if a broad Sage-facing type is genuinely necessary, use
+  an explicit alias such as `SageCategoryObject` or `SageElement`; do not expose
+  naked `Parent` or `Element` names as the public mathematical return type
 - **Numerical constants**: arbitrary constants often signal bounded search or uncited
   normalization choices and require explicit justification
 - **`__all__` manipulation**: allow importing everything and rely on `_name`

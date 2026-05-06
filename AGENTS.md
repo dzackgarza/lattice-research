@@ -66,8 +66,10 @@ Every new session must read `GOAL.md`, `.agents/current-goal-phase.md`, and this
 
 Use `iwe` as the memory interface for this repo. The memory library lives under
 `.agents/memories` through `.iwe/config.toml`, so read and search it with `iwe`
-before resuming related work, and add or update notes there when durable context
-would otherwise be lost.
+when starting a new task, when resuming related work, when receiving a
+compaction/summary, and when taking over after context loss or session handoff.
+Do not rely on the summary alone when durable repo memory may already exist. Add
+or update notes there when durable context would otherwise be lost.
 
 Store short, opinionated, durable notes:
 

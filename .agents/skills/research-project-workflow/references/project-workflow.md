@@ -201,9 +201,10 @@ just --justfile /home/dzack/ai/planning/justfile validate /home/dzack/research/p
 ```
 
 The reusable recipe derives structural tags, checks schemas, and regenerates
-`plans/plan-dag.md`. If validation or hooks rewrite tags or `plans/plan-dag.md`, inspect
-and stage those generated changes deliberately. Do not replace validation failures with
-warnings or fallback groups.
+`plans/plan-dag.md`. During manual validation runs, inspect generated tag and DAG
+changes before staging them. During commit hooks, generated tag and DAG changes are
+hook-managed and automatically staged into the commit. Do not replace validation
+failures with warnings or fallback groups.
 
 Do not add timestamp metadata such as `created` or `updated` to card frontmatter unless
 the installed schema declares those fields. Strict validation treats undeclared metadata
@@ -215,7 +216,8 @@ when staged planning cards or tracker schemas change, and from post-merge/post-c
 when the changed paths include `plans/features/`, `plans/AGENTS.md`,
 `plans/plan-dag.md`, `.nimbalyst/trackers/`, or `.agents/current-goal-phase.md`. Hooks
 should fail on validation errors. If a hook regenerates tags or `plans/plan-dag.md`, it
-should leave the changes visible and require deliberate staging.
+should automatically stage those generated changes so the commit records the canonical
+planning state.
 
 ## Quick card queries
 
