@@ -189,10 +189,11 @@ Only expose the API that is specifically requested:
 - In the specs and tests
 - By other internal code
 
-**Interop with existing Sage code is not a requirement nor desired.** The
-entire point is to replace and unify the existing lattice code. Sage's
-lattice code was historically only for definite and cryptographic lattice
-theory, which is not what we want at all.
+Sage's existing lattice public API is not the adequacy standard. The project still
+lives inside Sage's category/object universe, so interop with mathematically
+appropriate Sage code remains a design constraint. The rule is that interop must pass
+through typed category objects, constructors, and backend boundaries; it must not leak
+Sage's fragmented definite-lattice conventions into the public lattice vocabulary.
 
 No public object should require a Sage object as its constructor input.
 Constructors build and store their internal Sage object themselves.
@@ -408,22 +409,35 @@ subobjects.
 This requires the subobject mixin which keeps track of inclusion morphisms.
 
 **General cokernel machinery:** Division is completely general and always
-yields some bilinear module. Special case: $\iota_L: L \to L^*$ yields the
-discriminant group $A_L$, which is a case of automatic promotion.
+yields some bilinear module. Special case: the metric inclusion
+$\iota_L^\#: L \to L^\#$ yields the discriminant group $A_L$ as a case of
+automatic promotion.
 
 
 ## Discriminant Groups and Duals
 
-One needs to carefully handle the maps:
-- $\iota_L: L \to L^* := \operatorname{Hom}_{\mathbb{Z}}(L, \mathbb{Z})$
-- $\iota_L^\sharp: L \to \{v \in L_{\mathbb{Q}} \mid \beta(v, L) \subseteq
-  \mathbb{Z}\}$
+One needs to carefully distinguish the maps:
 
-A dual lattice element is literally a morphism $f_v: L \to \mathbb{Z}$, and
-$\iota_L(v) := \beta(v, \cdot)$.
+- the module Hom dual $L^\ast := \operatorname{Hom}_{\mathbb{Z}}(L, \mathbb{Z})$,
+  whose elements are functionals and live in `Modules(ZZ).DualObjects()`;
+- the metric dual $L^\# := \{v \in L_{\mathbb{Q}} \mid \beta(v, L) \subseteq
+  \mathbb{Z}\}$, whose elements live in scalar extension and are not functionals by
+  definition;
+- the metric inclusion $\iota_L^\#: L \to L^\#$;
+- the form-induced transport $L^\# \to L^\ast$, `x |-> beta(x, -)`, which is a
+  recorded map or isomorphism only under the necessary nondegeneracy hypotheses.
 
-We regard $\iota_L$ as a morphism of rational lattices, so that
-$A_L := L^* / \iota(L)$ is actually computed as the cokernel of $\iota_L$.
+The discriminant group is computed from the metric-dual diagram:
+
+```text
+L  ->  L^#  ->  A_L = coker(L -> L^#).
+```
+
+Do not describe elements of `L^#` as "dual objects" merely because classical lattice
+notation calls `L^#` the dual lattice. Category-theoretic dual objects are
+evaluation-bearing Hom objects. In unimodular identity-form examples these
+constructions can be canonically identified, but the identification is extra structure,
+not the definition.
 
 This should NOT be abstractly constructed from invariants or SNF -- morphisms
 like $\iota_L$ should be constructible from matrices and have well-defined
@@ -1034,8 +1048,8 @@ determined by the universal property, not one chosen by an algorithm.
 ```python
 assert M/(2*M) == M.tensor(ZZ/2)          # Universal property of tensor
 assert M.base_change(ZZ/2) == M.tensor(ZZ/2)  # Universal property of base change
-assert M.dual() == M.Hom(ZZ)              # Definition of dual
-assert L.discriminant_group() == L.dual() / L  # Definition of discriminant group
+assert M.dual() == M.Hom(ZZ)              # Definition of module Hom dual
+assert L.discriminant_group() == L.dual_lattice() / L  # Metric-dual cokernel
 ```
 
 This is not just sugar. It enforces that the universal property is actually
@@ -1084,7 +1098,9 @@ raw data.
 - `f.kernel()` returns a bilinear module, not a matrix or a list of vectors
 - `f.cokernel()` returns a bilinear module with `.projection()` and `.lift()`
 - `v.span()` returns a subobject (with inclusion morphism), not a set
-- `L.dual()` returns a bilinear module whose elements are functionals
+- `M.dual()` for a module returns a Hom-dual object whose elements are functionals
+- `L.dual_lattice()` returns the metric dual `L^#`; its elements become functionals
+  only after applying a recorded form-induced transport map when the hypotheses hold
 
 The returned object must be complete: it must live in the right category,
 support all the verbs that category provides, and have correct morphisms
