@@ -7,12 +7,15 @@ parents:
 dependsOn: []
 title: Curve complement and monodromy backend research
 status: unstarted
-description: 'This phase groups current cards that were previously attached directly to `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS`
-  or to the corresponding legacy `.agents` work queue. It is a routing phase: executable work
-  remains in child task cards, while definition-heavy work remains in feature-level spec cards.'
+description: 'This phase groups current cards that were previously attached directly
+  to `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` or to the corresponding legacy `.agents`
+  work queue. It is a routing phase: executable work remains in child task cards,
+  while definition-heavy work remains in feature-level spec cards.'
 successCriteria:
-- Child task cards are complete, blocked with concrete blockers, or split into successor cards.
-- Any mathematical spec changes cite their source grounding before implementation proceeds.
+- Child task cards are complete only after blockers are resolved, or the work is split
+  into successor cards that carry the unresolved blocker forward.
+- Any mathematical spec changes cite their source grounding before implementation
+  proceeds.
 - Follow-up work is filed as tracked cards under root `plans/features/`.
 tags:
 - FEATURE-GEOMETRY-CATEGORY-INTERFACES
@@ -26,6 +29,6 @@ This phase groups current cards that were previously attached directly to `PLAN-
 
 ## Acceptance Criteria
 
-- [ ] Child task cards are complete, blocked with concrete blockers, or split into successor cards.
+- [ ] Child task cards are complete only after blockers are resolved, or split into successor cards that carry unresolved blockers forward.
 - [ ] Any mathematical spec changes cite their source grounding before implementation proceeds.
 - [ ] Follow-up work is filed as tracked cards under root `plans/features/`.

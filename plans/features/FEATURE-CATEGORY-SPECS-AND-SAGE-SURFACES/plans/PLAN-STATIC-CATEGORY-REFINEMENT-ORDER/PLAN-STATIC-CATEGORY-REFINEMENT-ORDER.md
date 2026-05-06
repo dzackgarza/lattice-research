@@ -17,8 +17,7 @@ successCriteria:
 - Constructor routing never contains hierarchy policy.
 - Every admitted constructor has a mathematical owner and a Sage-source provenance
   note.
-phases:
-- '[[PHASE-STATIC-CATEGORY-REFINEMENT-WORK-QUEUE]]'
+phases: []
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---

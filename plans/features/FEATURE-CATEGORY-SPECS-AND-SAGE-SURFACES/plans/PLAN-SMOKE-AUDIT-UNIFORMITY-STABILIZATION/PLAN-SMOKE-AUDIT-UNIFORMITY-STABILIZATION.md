@@ -22,7 +22,6 @@ successCriteria:
   support, not a planning document.'
 - Compliance findings are not buried in chat or loose TODO files.
 phases:
-- '[[PHASE-SMOKE-AUDIT-AND-UNIFORMITY-BACKLOG]]'
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES

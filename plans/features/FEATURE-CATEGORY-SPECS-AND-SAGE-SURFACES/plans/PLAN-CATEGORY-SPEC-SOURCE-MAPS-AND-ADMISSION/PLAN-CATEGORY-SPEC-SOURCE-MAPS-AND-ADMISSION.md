@@ -23,7 +23,6 @@ successCriteria:
 - Every `category_specs/*/docs/MAPPING.md` file is represented by a tracked `spec`
   card with completeness and mathematical-correctness review criteria.
 phases:
-- '[[PHASE-CATEGORY-SOURCE-MAPS-AND-CONSTRUCTOR-ADMISSION]]'
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES

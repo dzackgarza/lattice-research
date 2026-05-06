@@ -12,8 +12,8 @@ description: 'Migrated source: this plan contains the full content formerly stor
   at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`. The old `plans/` copy was removed so this
   tracked plan is the active planning document.'
 successCriteria:
-- Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer child cards are complete,
-  blocked with concrete blockers, or split into successor cards.
+- Child task cards are complete only after blockers are resolved, or the work is split
+  into successor cards that carry the unresolved blocker forward.
 tags:
 - FEATURE-MODULES-WITH-FORMS-AND-LATTICES
 - PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP
