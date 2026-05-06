@@ -35,7 +35,9 @@ split.
 
 ## Source Provenance
 
-- `category_specs/rings/docs/TRIAGE.md` was removed in commit `8d1c21c`; recover exact prior content with `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`.
+- Archived Rings triage content from commit `8d1c21c` lives at
+  `plans/category_specs/rings/docs/TRIAGE.md`; recover exact prior content with
+  `git show 8d1c21c^:plans/category_specs/rings/docs/TRIAGE.md`.
 - Original migrated line: `Implement missing _sympy_ surface for refined ring constructor outputs from category_specs/rings/docs/TRIAGE.md`
 
 ## Context
@@ -76,3 +78,22 @@ split.
   already represented by neighboring ring, matrix-ring, q-adic, and topological-ring
   tracker items. Moved to `needs-review` so a reviewer can decide whether to retire or
   merge the stale migrated card into those successor items.
+- 2026-05-06: Reworked the archived triage provenance after Gate 1 review found that
+  the recoverable source path is `plans/category_specs/rings/docs/TRIAGE.md` in
+  `8d1c21c^`, not `category_specs/rings/docs/TRIAGE.md`.
+
+## Review Log
+
+### Review 2026-05-06 (Newton)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Findings: Definition Grounding
+
+- The card cited `category_specs/rings/docs/TRIAGE.md` as the recovery path for the
+  deleted Rings triage, but `git show 8d1c21c^:category_specs/rings/docs/TRIAGE.md`
+  fails because that path did not exist in the historical tree. The archived source
+  content exists at `plans/category_specs/rings/docs/TRIAGE.md`, whose Missing
+  `_sympy_` section lists the original refined ring constructor frontier.

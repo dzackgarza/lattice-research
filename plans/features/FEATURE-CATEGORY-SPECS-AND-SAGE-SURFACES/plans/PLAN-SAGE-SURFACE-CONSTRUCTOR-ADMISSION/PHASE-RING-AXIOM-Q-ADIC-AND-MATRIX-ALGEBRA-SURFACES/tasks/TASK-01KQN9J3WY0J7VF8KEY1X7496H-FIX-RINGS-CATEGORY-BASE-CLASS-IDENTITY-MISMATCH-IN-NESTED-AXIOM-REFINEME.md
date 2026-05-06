@@ -78,7 +78,28 @@ split.
     `_CompleteRings` base entries are resolved `ClasscallMetaclass` objects, not
     `LazyImport` placeholders.
   - `just smoke-file rings/smoketest.sage` no longer reports the base category
-    class-identity mismatch. It now fails on the next tracked rings smoke surfaces:
-    `__richcmp__`, finite-ring `ideal_monoid`, p-adic `_change_print_mode`, deferred
-    q-adic precision-cap constructors, `QuadraticField(5, 'a')` constructor routing,
-    and `MatrixRing(ZZ, 2)` algebra/module MRO refinement.
+    class-identity mismatch.
+- 2026-05-06: Re-ran `just --justfile category_specs/justfile smoke-file
+  rings/smoketest.sage` during review rework. The current remaining rings smoke
+  frontier is different from the older post-implementation note: many ring and field
+  constructor assertions now stop at missing `hilbert_polynomial`; complex interval and
+  complex ball field assertions stop at missing `algebraic_closure`; finite quotient
+  ring assertions stop at missing `completion`; p-adic and q-adic constructors stop at
+  missing `_change_print_mode`; and the admitted q-adic precision-cap constructors
+  still record the deferred installed-Sage-extension frontier.
+
+## Review Log
+
+### Review 2026-05-06 (Herschel)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Findings: Acceptance Criteria
+
+- The card's previous verification note preserved an older remaining rings smoke
+  frontier (`__richcmp__`, `ideal_monoid`, p-adic `_change_print_mode`, q-adic
+  precision caps, `QuadraticField`, and `MatrixRing` MRO refinement), but the current
+  `rings/smoketest.sage` frontier has shifted. The required smoke-output record was
+  therefore stale even though the base-class identity mismatch fix still reproduces.
