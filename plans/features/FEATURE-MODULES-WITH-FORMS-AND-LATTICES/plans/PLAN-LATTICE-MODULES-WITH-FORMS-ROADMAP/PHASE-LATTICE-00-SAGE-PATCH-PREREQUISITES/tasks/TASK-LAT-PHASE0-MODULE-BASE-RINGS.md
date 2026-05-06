@@ -4,9 +4,10 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
-dependsOn: []
+dependsOn:
+- '[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]'
 title: Implement ModuleBaseRings category refinement and installation
-status: unstarted
+status: blocked
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
@@ -120,3 +121,27 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Work Log
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
+
+## Blocker
+
+- 2026-05-06: Path-local implementation blocker found during Sage preflight. A
+  live Sage 10.7 probe showed that refining `ZZ` with a toy `ModuleBaseRings`
+  category successfully adds ordinary category methods and intercepts `__pow__`
+  and `ideal`, but `ZZ / 2` still dispatches to Sage's existing unsupported
+  division slot and `ZZ.quotient(2*ZZ)` still uses Sage's native quotient method
+  rather than the refined category method. This contradicts the card's no-direct-
+  monkeypatch implementation model for `quotient()` and `__truediv__`.
+- Evidence commands run from repo root:
+  - `sage -python` probe with a toy `ModuleBaseRings.ParentMethods.__truediv__`
+    left `ZZ / 2` failing with `TypeError: unsupported operand type(s) for /`.
+  - `sage -python` probe with toy `ParentMethods.__pow__`, `ideal`, and
+    `quotient` printed calls for `ZZ**3` and `ZZ.ideal(2)`, but not for
+    `ZZ.quotient(2*ZZ)`.
+  - Sage 10.7 source inspection shows `Rings.ParentMethods.__truediv__` is
+    intentionally a rejecting method, while `RationalField.__truediv__` already
+    handles `QQ / ZZ` and `QQ / (n*ZZ)` through `QmodnZ`.
+- Required decision before this card can proceed: `[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]` must either approve a direct
+  Sage-class monkeypatch / wrapper route for integer-ring quotient syntax, or
+  revise the Phase 0 contract so `ModuleBaseRings` owns only category-refinable
+  methods while quotient syntax is handled by a separate explicit compatibility
+  patch.

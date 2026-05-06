@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 dependsOn: []
 title: Research and implement QQ modulo ZZ quotient codomains
-status: unstarted
+status: needs-review
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
@@ -109,3 +109,29 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Work Log
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
+
+## Implementation Notes
+
+- 2026-05-06: Implemented `src/sage_patches/fraction_quotients.py` as a narrow
+  Sage interop adapter. Sage already owns `QQ / ZZ` and `QQ / (n*ZZ)` through
+  `sage.groups.additive_abelian.qmodnz.QmodnZ`; the patch keeps that quotient-class
+  arithmetic and refines the returned `QmodnZ` parents into `Modules(ZZ)`.
+- The adapter patches `RationalField.__truediv__` only to post-process native
+  `QmodnZ` outputs. It does not reimplement quotient arithmetic, canonical lifts,
+  equality, or coercions.
+- The Phase 0 `ModuleBaseRings` quotient-syntax path remains separately blocked by
+  `[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]`; this card can still reach its
+  codomain surface because Sage's rational-field quotient route already exists.
+
+## Validation
+
+- `sage -python -m py_compile src/sage_patches/fraction_quotients.py` passed.
+- `sage -python` witness passed after `install()` and repeated `install()`:
+  - `QQ / ZZ in Modules(ZZ)`,
+  - `(QQ / ZZ)(1/2) == (QQ / ZZ)(3/2)`,
+  - `(QQ / ZZ)(3/2).lift() == QQ(1)/2`,
+  - `QQ / (2*ZZ) in Modules(ZZ)`,
+  - `(QQ / (2*ZZ))(1/2) == (QQ / (2*ZZ))(5/2)`,
+  - `(QQ / (2*ZZ))(5/2).lift() == QQ(1)/2`.
+- Full Phase 0 smoke was not run because upstream Phase 0 module-base, ideal, module,
+  and hom enrichment cards remain unresolved.

@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 0 Sage patch prerequisites for ModulesWithForms
-status: unstarted
+status: in-progress
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_0_SAGE_PATCHES.md`. The old `plans/` copy was removed so this tracked
@@ -538,3 +538,7 @@ Additionally, verify Phase 1 prerequisites:
 - Form evaluation `beta(v, w) mod ZZ` lands in `QQ/ZZ` correctly.
 - Cokernel of a free-module morphism produces a torsion FGP module with
   working `invariants()`, `gens()`, and `projection()`.
+
+## Work Log
+
+- 2026-05-06: Phase moved to `in-progress` because `TASK-LAT-PHASE0-FRACTION-QUOTIENT-CODOMAINS` has reached `needs-review` and `TASK-LAT-PHASE0-MODULE-BASE-RINGS` is blocked on a concrete Sage-dispatch decision.

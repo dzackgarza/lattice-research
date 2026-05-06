@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 dependsOn: []
 title: Lattice and ModulesWithForms roadmap
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: 'Organize the lattice redesign around the actual dependency chain: Sage/module
@@ -121,3 +121,9 @@ Phase 1 is gone as an active unit. It was a crosswalk from the old monolithic pl
 - [ ] Phase 3 cokernels exist before Phase 4 discriminant descent.
 - [ ] Phase 4 lattice/discriminant objects exist before Phase 5 group theory.
 - [ ] Every executable item links to exactly one phase or foundation plan.
+
+## Work Log
+
+- 2026-05-06: Plan moved to `in-progress` because Phase 0 execution has begun under
+  the approved roadmap. This records tracker-state consistency only; it does not mark
+  any phase or task accepted.
