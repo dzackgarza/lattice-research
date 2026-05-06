@@ -109,10 +109,10 @@ project hom/end/aut category hierarchy.
 
 | Project surface | Mathematical meaning | Method surface to represent |
 | --- | --- | --- |
-| `C.HomCategory().Of(A, B)` | `Hom_C(A, B)` for objects `A, B in C`. | Parent: `domain`, `codomain`, `identity`, `__call__`; element: morphism predicates and composition. |
+| `C.HomCategory().Of(A, B)` | `Hom_C(A, B)` for objects `A, B in C`. | Parent: `domain`, `codomain`, `__call__`; element: morphism predicates and composition. The identity method is not owned here unless `A = B`. |
 | `C.EndCategory().Of(A)` | `End_C(A) = Hom_C(A, A)`. | Parent: endomorphism identity; element: endomorphism predicates. |
 | `C.AutCategory().Of(A)` | `Aut_C(A)`, the invertible part of `End_C(A)`. | Parent: `end_category`, `domain`, `codomain`, `identity`; element: `is_invertible`, `is_isomorphism`, `inverse`, `order`. |
-| `AutCategory.from_end_category` | Generic construction of `Aut_C(A)` from `End_C(A)`. | Calls a private condition-subset bridge over the end object using the aut predicate, with the requested aut category installed as the public project surface. |
+| private aut-from-end bridge | Implementation construction of `Aut_C(A)` from `End_C(A)`. | The public mathematical surface is `Aut_C(A)`, the invertible elements of `End_C(A)`. A helper such as `AutCategory.from_end_category` is constructor glue, not a public method obligation. |
 
 Because `End_C(A)` is `Hom_C(A, A)`, the object `A` is already represented by the
 generic hom-object methods `domain()` and `codomain()`. Subtree aliases such as
