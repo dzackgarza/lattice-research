@@ -305,6 +305,13 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports
   `category_specs/sets/subcategories/partitioned.py` findings.
+- 2026-05-06 eighteenth bounded slice: graded-set smoke coverage was added for
+  `Sets().Graded()` ownership, the graded-set standard type package aliases, and the
+  abstract `grading_set`, `grading`, and `generating_series` surfaces.
+- Validation for the eighteenth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports
+  `category_specs/sets/subcategories/graded.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -352,3 +359,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   and finite semilattice smoke coverage.
 - 2026-05-06: Completed the seventeenth bounded cleanup slice for partitioned-set
   smoke coverage and the partition blocks conversion bug.
+- 2026-05-06: Completed the eighteenth bounded cleanup slice for graded-set smoke
+  coverage.

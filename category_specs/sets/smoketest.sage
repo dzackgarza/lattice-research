@@ -5,6 +5,12 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.sets.subcategories.graded import (
+    GradedSetsCategory,
+    GradedSetsElement,
+    GradedSetsMorphism,
+    GradedSetsObject,
+)
 from category_specs.sets.subcategories.partitioned import (
     FiniteTotallyOrderedBasePartitionedSetsCategory,
     PartitionedSetsCategory,
@@ -263,6 +269,19 @@ SMOKE_STATEMENTS = (
     (
         "1 lies in EnumeratedSetFromIterator([0, 1, 2])",
         lambda _: 1 in C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets()),
+    ),
+    (
+        "Sets().Graded() records graded-set ownership and standard type package aliases",
+        lambda _: GradedSetsCategory._base_category_class_and_axiom == (Sets, "Graded")
+        and GradedSetsObject is GradedSetsCategory.ParentMethods
+        and GradedSetsElement is GradedSetsCategory.ElementMethods
+        and GradedSetsMorphism is GradedSetsCategory.MorphismMethods,
+    ),
+    (
+        "graded-set category owns grade component and generating-series surfaces",
+        lambda _: abstract_method_has_name(GradedSetsCategory.ParentMethods.grading_set, "grading_set")
+        and abstract_method_has_name(GradedSetsCategory.ParentMethods.grading, "grading")
+        and abstract_method_has_name(GradedSetsCategory.ParentMethods.generating_series, "generating_series"),
     ),
     ("AllSetPartitions() is countable", lambda _: C.AllSetPartitions() in Sets().Countable()),
     ("AllSetPartitions() is not fixed-base partitioned", lambda _: C.AllSetPartitions() not in Sets().Partitioned()),
