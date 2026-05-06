@@ -21,6 +21,29 @@ Compute the isotropic vector, lifting, and isotropic plane orbit data for the Co
 period lattice. This feature owns the cusp-classification obligations that were
 previously embedded as unverified status notes in theory background.
 
+## Relationship to Geometry
+
+The lattice T_Co is known abstractly from the literature as `I_{1,10}(2)` or
+`⟨2⟩ ⊕ ⟨-2⟩^10` — a 2-elementary hyperbolic lattice with invariants
+`(r, a, δ) = (11, 11, 1)` (or `(11, 11, 0)` depending on the even/odd
+refinement). Its discriminant group `A_{T_Co} ≅ (ℤ/2ℤ)^11` and discriminant form
+are determined by these invariants and can be studied as pure lattice theory
+without the geometric Coble surface construction.
+
+This means:
+- The isotropic orbit enumeration in `A_{T_Co}` (Tasks 2.1-2.2) can proceed
+  using the abstract isometry type of T_Co as input, without waiting for the
+  full geometric pipeline to produce a concrete Gram matrix.
+- The geometric construction (Coble surface → K3 cover → pullback lattice →
+  T_Co embedding) is a logical prerequisite for establishing the Coble narrative
+  from first principles and proving that the computed period quotient is the
+  correct moduli space. It does not block the orbit classification, which
+  depends only on having the correct spec vocabulary — the abstract lattice
+  `I_{1,10}(2)` — and the backend capabilities to compute discriminant-form
+  orbits.
+- The orbit results are then available to verify against the geometric
+  construction when the latter is completed.
+
 ## Source Provenance
 
 - `theory/foundations/coble-task-background.md`, sections `Task 2.1`, `Task 2.2`, and

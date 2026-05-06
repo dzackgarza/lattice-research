@@ -59,10 +59,15 @@ Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.1), `category
 Exact backend routing:
 - Positive-definite finite matrix-group auxiliaries may use CARAT and GAP through
   backend adapters.
-- Indefinite isometry testing routes to Indefinite.jl
-  (`INDEF_FORM_TestEquivalence`).
-- Indefinite automorphism-group generation routes to Indefinite.jl
-  (`INDEF_FORM_AutomorphismGroup`).
+- Indefinite isometry testing routes to polyhedral_common
+  (`src/external/dutsik_polyhedral/polyhedral_common`) via
+  `INDEF_FORM_TestEquivalence`.
+- Indefinite automorphism-group generation routes to polyhedral_common via
+  `INDEF_FORM_AutomorphismGroup` (Lorentzian) or the general indefinite methods.
+- See `.agents/memories/theory/external/dutsik_polyhedral/polyhedral_common/notes/indefinite_methods.md`
+  for the full API table of the polyhedral_common bridge.
+- The Julia-based Indefinite.jl bridge is a secondary option when polyhedral_common
+  binaries are unavailable.
 
 ## Context
 

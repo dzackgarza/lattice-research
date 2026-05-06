@@ -61,6 +61,12 @@ Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.8),
 - For finite crystallographic root lattices, the same local object may be built from
   standard root-system/Cartan data; for indefinite reflective cases it must consume the
   Vinberg backend output rather than reconstructing the hyperbolic algorithm locally.
+- Vinberg's algorithm implementation is a wrapping/adaptation task, not a
+  reimplementation from scratch. The reference implementations (VinbergsAlgorithmNF in
+  Julia, AlVin in C++, vinal in Python/Sage) and the polyhedral_common Lorentzian
+  edgewalk (`LORENTZ_RunEdgewalkAlgorithm`) are available as sources. See
+  `.agents/memories/theory/backends/vinberg-algorithm.md` for the full survey and
+  wrapping strategy.
 
 ## Context
 

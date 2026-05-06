@@ -1,10 +1,10 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 15:00 UTC_
+_Generated: 2026-05-06 15:09 UTC_
 
 ## Overall
 
-- Total cards: **211**
+- Total cards: **212**
 - Completed cards: **10**
 - Overall progress: `[#-----------------------]   4.7%`
 - Active feature trees: **15**
@@ -14,25 +14,25 @@ _Generated: 2026-05-06 15:00 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 10 | 10 | 0 | 0 | 0 |
+| decision | 11 | 10 | 0 | 0 | 0 |
 | feature | 15 | 0 | 9 | 0 | 6 |
 | phase | 18 | 0 | 10 | 2 | 5 |
 | plan | 8 | 0 | 6 | 0 | 1 |
 | spec | 50 | 0 | 0 | 48 | 2 |
-| task | 110 | 0 | 0 | 53 | 43 |
+| task | 110 | 0 | 0 | 54 | 43 |
 
 ## Feature Rollup
 
 | Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Category specs and Sage surface admission | `[#---------------]   8.6%` | 10/116 | 15 | 77 | 6 |
+| Category specs and Sage surface admission | `[#---------------]   8.5%` | 10/117 | 15 | 77 | 6 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble cusp orbit classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 1 |
-| Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 9 | 0 |
+| Geometry category interfaces | `[----------------]   0.0%` | 0/20 | 3 | 10 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 |
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |

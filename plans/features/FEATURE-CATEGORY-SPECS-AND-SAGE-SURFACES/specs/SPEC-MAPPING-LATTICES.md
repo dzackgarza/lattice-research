@@ -546,6 +546,78 @@ finite torsion formed-module category, not as raw matrices or Sage torsion backe
 
 ---
 
+## Dual Convention: `dual()` vs `lattice_dual()`
+
+The metric dual `L^# = {v ∈ L_K : β(v, L) ⊆ R}` and the Hom dual
+`L^* = Hom_R(L, R)` are distinct mathematical objects kept as separate types with
+compatible surfaces.
+
+### Justification for the distinction
+
+The degenerate case `<e> ⊂ U` (a generator of the hyperbolic plane) proves the
+distinction is necessary:
+
+- The Hom dual `<e>^* = Hom_Z(<e>, Z) ≅ Z`, carrying the evaluation pairing
+  `(f, e) ↦ f(e)`. Its elements are functionals.
+- The metric dual `<e>^# = {v ∈ <e>_Q : β(v, <e>) ⊆ Z}`. Since
+  `β(e, e) = 0`, the condition `β(v, e) ∈ Z` imposes no restriction on the
+  rational multiple of `e`. So `<e>^# ≅ Q·e`, not `Z`. These are fundamentally
+  different objects — one is rank-1 free, the other is rank-1 rational.
+
+In the nondegenerate integral case, both duals are canonically isomorphic via
+`v ↦ β(v, –)`, but the isomorphism is structure-dependent (it uses the form)
+and must be recorded explicitly.
+
+### End-user convention: `lattice_dual()`
+
+The **lattice** subcategory overrides the dual surface so that users working with
+concrete lattices (integral formed modules) get the expected behavior:
+
+- `L.lattice_dual()` → the metric dual `L^#`, returned as a **lattice** (formed
+  module). This is the standard meaning of "dual lattice" in the lattice theory
+  literature and the object needed for discriminant group computations.
+- `L.dual()` → in the `Lattices(R)` category, `dual()` is overridden to call
+  `lattice_dual()`, returning the metric dual. A diagnostic-level log message
+  (gated by the global category diagnostic flag) informs the user that the metric
+  dual is being returned, not the module-theoretic Hom dual.
+- `L.hom_dual()` → the Hom dual `Hom_R(L, R)`, returned as a module. Available
+  when the module dual is needed as a bare `R`-module without the transported
+  form data.
+
+### Subcategory override rules
+
+- `Modules(R).ParentMethods.dual()` returns `Hom_R(M, R)` (the generic module
+  dual). No log warning.
+- `Lattices(R).ParentMethods.dual()` overrides to call `lattice_dual()`, with
+  the optional log warning described above.
+- `BilinearModules(R).ParentMethods.dual()` keeps the generic module dual
+  (no form transported). The metric dual `L^#` is accessed via
+  `L.dual_lattice()` at `Free + Bilinear.Symmetric.Nondegenerate.Integral`.
+- Subcategories of lattices (even, unimodular, over_integers) inherit the
+  override from `Lattices(R)`.
+
+### Diagnostic logging convention
+
+All dual-like methods that may confuse metric duals with Hom duals participate
+in the global category diagnostic system specified in `[[SPEC-MAPPING-CAT]]`:
+
+- Warnings are gated by the disabled-by-default diagnostic flag.
+- When enabled, `L.dual()` on a lattice logs: "Returning metric dual L^#;
+  use L.hom_dual() for the Hom-dual module."
+- The log level is `INFO` and the message is explanatory, not a correctness
+  check.
+- The same convention applies to `discriminant_class()` and `inclusion_morphism()`
+  — any method that returns or uses metric-dual data.
+
+### Resolved design decisions
+
+- `dual()` is NOT removed from the lattice subcategory. It is overridden to
+  return `lattice_dual()`, aligning normative lattice-theory usage.
+- `lattice_dual()` is the unambiguous name for the metric dual. No other
+  category owns this name.
+- `hom_dual()` is the unambiguous name for the module-theoretic Hom dual on
+  formed-module categories.
+
 ## Compatibility Paths
 
 `modules/subcategories/with_forms.py`, `modules/subcategories/bilinear.py`,

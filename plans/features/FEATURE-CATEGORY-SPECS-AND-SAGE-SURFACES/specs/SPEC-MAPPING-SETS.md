@@ -39,6 +39,24 @@ Source inventory: `category_specs/sets/docs/SAGE_INVENTORY.md`.
 - Reject nonmathematical targets, raw Sage implementation containers, variadic option bags, and smoke-driven interface weakening.
 - Route unresolved mathematical ownership, typing, or source-coverage gaps to tracked decisions or tasks before implementation proceeds.
 
+## Foundational Assumption: Computable Sets
+
+This spec and all downstream category specs assume **Sets** means the category of
+**computable sets**: sets whose elements admit algorithmic membership tests and,
+when countable, an algorithmic enumeration. See
+`theory/foundations/computable-sets.md` for the full justification. In practice,
+this means:
+
+- `EnumeratedSets` ↔ `Sets().Countable()` is an identification, not a weakening:
+  a set is countable iff there exists an injection `X → ℕ`, which in our
+  computational framework is witnessed by a Python iterator.
+- Every Sage object already satisfies this (Sage cannot represent
+  non-recursively-presentable sets), so this assumption does not exclude any
+  object that can actually appear in Sage.
+- The restriction is documented here and in
+  `theory/foundations/computable-sets.md` as a foundational convention, not a
+  mathematical claim about set theory.
+
 ## Source Coverage Ledger
 
 - Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.

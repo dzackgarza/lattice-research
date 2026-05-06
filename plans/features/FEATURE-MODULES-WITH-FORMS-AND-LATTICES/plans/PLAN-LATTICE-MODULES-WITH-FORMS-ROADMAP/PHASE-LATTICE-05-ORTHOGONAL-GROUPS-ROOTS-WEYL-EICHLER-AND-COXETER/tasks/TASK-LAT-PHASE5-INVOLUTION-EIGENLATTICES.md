@@ -52,6 +52,17 @@ Source anchors: `pln-lattice-phase-5-orthogonal-groups.md` (Step 5.4), `category
 - These are lattice-level methods on `Lattice` with subobject semantics, not matrix operators.
 - Compatibility checks must use morphism arithmetic only (`g + id`, `g - id`) and kernel construction from morphism category.
 
+Vocabulary requirement:
+- The involution g is an element of the lattice Aut category, represented as a
+  morphism `L.Aut()(g)`, not as a raw matrix. The `g` is constructed as a lattice
+  isometry; a matrix representation is extracted only for verification against
+  backend computations.
+- `invariant_sublattice(g)` is `g.kernel_minus_one()` expressed in the lattice's
+  subobject vocabulary (`L.Subobjects()`), not a matrix nullspace computation.
+- `coinvariant_sublattice(g)` is `g.kernel_plus_one()` by the same token.
+- The resulting sublattice objects carry inclusion morphisms into L, not bare
+  generator matrices.
+
 Backend routing:
 - Kernel/inclusion computations are category-algebraic local operations on hom-objects.
 - Any downstream group-order computations from these sublattices are delegated according to backend map (finite exact / indefinite split).

@@ -39,12 +39,38 @@ script obligation with a source-backed lattice construction.
 - Compute and verify the $+1$ and $-1$ eigenspace lattices, signatures, primitive
   embeddings, and isometry types.
 
+## Relationship to Geometry
+
+The involution θ is naturally described as the sign involution on Λ_K3 given by a
+primitive sublattice decomposition: θ acts as +1 on one summand and -1 on its
+orthogonal complement, with gluing data fixing the extension. The abstract lattice
+theory for θ can be carried out without the geometric Coble surface construction:
+
+- The primitive embedding of the pullback lattice f*Pic(S) into Λ_K3 is a
+  classification problem in lattice theory (Nikulin's primitive embedding theory),
+  solvable from the abstract isometry types.
+- θ is then the involution that restricts to +1 on f*Pic(S) and -1 on its
+  orthogonal complement. The existence and uniqueness of such an involution is
+  a purely lattice-theoretic question given the embedding data.
+- The geometric construction (Coble surface → K3 cover → pullback lattice) is a
+  logical prerequisite for establishing the Coble narrative from first principles
+  and proving that the resulting moduli spaces are the correct ones. It does not
+  block the abstract lattice computation of θ's eigenspace signatures, matrix
+  realization, and invariant sublattice isometry types — those depend only on
+  having the correct spec vocabulary, the abstract primitive embedding, and gluing
+  data, not on the geometry being fully constructed first.
+- The lattice-level results are then available to verify against the geometric
+  construction when the latter is completed.
+
 ## Non-Goals
 
 - Do not accept a hand-assembled 22-by-22 matrix without deriving the sublattices and
   gluing data.
 - Do not infer eigenspaces from desired signatures alone.
 - Do not use a matrix equality as the whole proof if the lattice construction is absent.
+- Do not describe θ in terms of raw matrix entries; use the repo's lattice Hom
+  vocabulary: construct the involution as a morphism in the Aut category, then
+  extract a matrix representation only for verification against backend computations.
 
 ## Acceptance Criteria
 
