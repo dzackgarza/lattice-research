@@ -6,7 +6,10 @@ parents:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 dependsOn: []
 title: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
-status: needs-review
+status: blocked
+blocked_reason: Gate 6 review found commit de7d5ff used --no-verify; the commit is
+  already contained in origin/main, so remediation needs a human/process decision
+  rather than history rewrite.
 priority: critical
 description: The deleted Cat triage recorded structural Cat smoke scope and future
   uniformization work for category-object Hom behavior and functor/autofunctor modeling.
@@ -98,3 +101,30 @@ work for category-object Hom behavior and functor/autofunctor modeling.
 - `git diff --check`
 - `just check-abstract-redefinitions` from `category_specs/`
 - `just smoke-file cat/smoketest.sage` from `category_specs/`
+
+## Review Log
+
+### Review 2026-05-06 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
+**Gates failed:** Gate 6 Style and Compliance.
+**Outcome:** blocked, path-local.
+
+#### Gate 6 Finding: Git Compliance
+
+- Commit `de7d5ff12f8ef11316c80c5ce89496d180124258` records that it intentionally
+  used `--no-verify`. This violates the repo git workflow rule forbidding skipped
+  hooks. The substantive Cat smoke work passed the mathematical and spec-gradient
+  gates, and `just smoke-file cat/smoketest.sage` exited 0 during review.
+- The commit is already contained in `origin/main`, so the orchestrator must not amend,
+  rebase, or otherwise rewrite that published history. This leaves a path-local
+  process decision: either accept a forward corrective provenance note, request a
+  user-approved history repair outside normal rules, or keep this card blocked.
+
+#### Non-Findings
+
+- No spec or smoke weakening was found.
+- The recorded Hom-shadowing negative finding is justified for current
+  `category_specs/`: direct `def Hom` definitions are Cat-owned in
+  `category_specs/cat/__init__.py` and `category_specs/cat/base_category_types.py`.

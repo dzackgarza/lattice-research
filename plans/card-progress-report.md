@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 21:07 UTC_
+_Generated: 2026-05-06 21:09 UTC_
 
 ## Overall
 
@@ -19,7 +19,7 @@ _Generated: 2026-05-06 21:07 UTC_
 | phase | 18 | 0 | 1 | 12 | 0 |
 | plan | 8 | 0 | 1 | 6 | 0 |
 | spec | 59 | 0 | 0 | 55 | 0 |
-| task | 110 | 0 | 0 | 71 | 0 |
+| task | 110 | 0 | 0 | 70 | 1 |
 
 ## Feature Rollup
 
@@ -27,7 +27,7 @@ _Generated: 2026-05-06 21:07 UTC_
 | --- | --- | ---: | ---: | ---: | ---: |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 3 | 102 | 0 |
+| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 3 | 101 | 1 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
@@ -61,7 +61,7 @@ _Generated: 2026-05-06 21:07 UTC_
 
 ## Blocked Items
 
-- None.
+- `task` `TASK-01KQN9J3WWCX4AA36TK4QVCNBK-FIX-CAT-SMOKE-HOM-END-AUT-OBJECTSOVER-OBJECTSUNDER-AND-WITHFORMS-FRONTIE`: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier (`critical`)
 
 ## Most Recently Completed
 
