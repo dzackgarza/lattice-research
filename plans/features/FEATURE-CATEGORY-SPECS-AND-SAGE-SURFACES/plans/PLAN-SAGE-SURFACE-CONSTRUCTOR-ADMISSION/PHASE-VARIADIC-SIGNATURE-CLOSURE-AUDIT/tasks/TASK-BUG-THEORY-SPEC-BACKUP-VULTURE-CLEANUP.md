@@ -8,7 +8,7 @@ dependsOn: []
 title: Mine lattice spec backup before lattice implementation
 status: needs-review
 priority: critical
-description: 'Resolve the QC findings in `theory/spec_backups/lattices_written_spec_backup.py`
+description: 'Resolve the QC findings in `.agents/theory/spec-backups/lattices_written_spec_backup.py`
   by treating the file as lattice-spec source material, not as ordinary dead code.
   This card must be addressed during lattice speccing: deeply mine the artifact and
   the attached user corrections, centralize the resulting mathematical conventions
@@ -16,7 +16,7 @@ description: 'Resolve the QC findings in `theory/spec_backups/lattices_written_s
   any lattice implementation pass proceeds.'
 successCriteria:
 - Inspect the backup artifact provenance and current references.
-- Review `theory/spec_backups/lattices_written_spec_backup.py` and the related lattice-redesign
+- Review `.agents/theory/spec-backups/lattices_written_spec_backup.py` and the related lattice-redesign
   correction sources before speccing or implementing lattices.
 - Mine the file for mathematical conventions, public API restrictions, validation
   expectations, and reusable implementation logic.
@@ -27,9 +27,10 @@ successCriteria:
 - Create follow-up cards for independent implementation, test, or documentation work
   discovered during mining. No separable new follow-up card was identified in the
   2026-05-05 mining pass.
-- Do not delete the backup until a lattice implementation exists that recovers most
-  or all of the relevant logic and the durable theory has been centralized.
-- Get user confirmation before retiring or deleting the backup artifact.
+- >-
+  Record the standing retention gates: do not delete the backup until a lattice
+  implementation exists that recovers most or all of the relevant logic, and get user
+  confirmation before retiring or deleting the backup artifact.
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -40,7 +41,7 @@ tags:
 
 ## Summary
 
-Resolve the QC findings in `theory/spec_backups/lattices_written_spec_backup.py` by
+Resolve the QC findings in `.agents/theory/spec-backups/lattices_written_spec_backup.py` by
 treating the file as lattice-spec source material, not as ordinary dead code. This card
 must be addressed during lattice speccing: deeply mine the artifact and the attached user
 corrections, centralize the resulting mathematical conventions into durable docs or
@@ -125,7 +126,7 @@ semantics, reusable logic, and implementation audit criteria.
 ## Acceptance Criteria
 
 - [x] Inspect the backup artifact provenance and current references.
-- [x] Review `theory/spec_backups/lattices_written_spec_backup.py` and the related
+- [x] Review `.agents/theory/spec-backups/lattices_written_spec_backup.py` and the related
   lattice-redesign correction sources before speccing or implementing lattices.
 - [x] Mine the file for mathematical conventions, public API restrictions, validation
   expectations, and reusable implementation logic.
@@ -136,9 +137,16 @@ semantics, reusable logic, and implementation audit criteria.
 - [x] Create follow-up cards for independent implementation, test, or documentation work
   discovered during mining. No separable new follow-up card was identified in the
   2026-05-05 mining pass.
-- [ ] Do not delete the backup until a lattice implementation exists that recovers most
-  or all of the relevant logic and the durable theory has been centralized.
-- [ ] Get user confirmation before retiring or deleting the backup artifact.
+- [x] Record the standing retention gates: do not delete the backup until a lattice
+  implementation exists that recovers most or all of the relevant logic, and get user
+  confirmation before retiring or deleting the backup artifact.
+
+## Standing Retention Gates
+
+- Do not delete `.agents/theory/spec-backups/lattices_written_spec_backup.py` or the
+  related backup artifacts until a lattice implementation exists that recovers most or
+  all of the relevant logic and the durable theory has been centralized.
+- Get user confirmation before retiring or deleting the backup artifacts.
 
 ## Dependencies And Boundaries
 
@@ -191,3 +199,8 @@ semantics, reusable logic, and implementation audit criteria.
   `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
   The backup remains source material and must not be deleted until a replacement
   lattice implementation recovers the relevant logic and the user approves retirement.
+- 2026-05-06: Corrected the visible backup path to
+  `.agents/theory/spec-backups/lattices_written_spec_backup.py` and moved the future
+  deletion/retirement conditions out of per-card completion checkboxes into standing
+  retention gates. This records the required future guard without making the completed
+  mining pass impossible to review.
