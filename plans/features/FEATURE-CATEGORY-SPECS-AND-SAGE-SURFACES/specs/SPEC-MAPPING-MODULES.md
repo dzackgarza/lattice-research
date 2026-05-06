@@ -76,7 +76,100 @@ Source inventory: `category_specs/modules/docs/SAGE_INVENTORY.md`.
   - `sage/modules/ore_module_morphism.py`
   - additional installed source paths listed in `category_specs/modules/docs/SAGE_INVENTORY.md` beyond this ledger limit: 21
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
-- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+- Completeness status: this ledger records the checked source corpus; the Modules
+  source reconciliation is recorded below, with remaining gaps routed through
+  `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+## Source Reconciliation Against Installed Sage 10.7
+
+This reconciliation compares the local inventory with installed Sage source under
+`/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage`. It records
+surfaces that were missing, inherited, or easy to mis-own in the converted mapping.
+Ownership follows the caller object/category. The category of an output object is
+codomain data and does not by itself own the method.
+
+### Reconciled Category And Constructor Surfaces
+
+| Sage surface checked | Source evidence | Mapping outcome |
+| --- | --- | --- |
+| `Modules(R).__classcall_private__(base_ring)` dispatching fields to vector spaces | `categories/modules.py:120-152` | Runtime dispatch. The project owner remains `Modules(R)`; vector-space output for field bases is a refinement/codomain consequence. |
+| `Modules(R).FiniteDimensional()`, `.FinitelyPresented()`, `.Filtered()`, `.Graded()`, `.WithBasis()` | `categories/modules.py:342-493` | Axiomatic or construction restrictions on `Modules(R)`. They are inherited owners for module methods satisfying their hypotheses, not constructor families. |
+| `Modules(R).TensorProducts()`, `.DualObjects()`, `.CartesianProducts()`, `.Subquotients()`, `.Subobjects()`, `.Quotients()`, `.IsomorphicObjects()` | `categories/modules.py:246-264`, `:836-980`, inherited construction-category machinery | Construction categories. Methods called on a module, subobject, quotient, tensor product, or dual object stay on that caller surface; the constructed object's category is codomain data. |
+| `Modules(R).Homsets()` and `Modules(R).Endsets()` | `categories/modules.py:724-820` | `Modules(R).HomCategory()` and `Modules(R).EndCategory()`. The hom object owns `base_ring()` and `zero()`; module end objects additionally carry algebra structure over `R`. |
+| `FreeModule(R, ...)`, `VectorSpace(K, ...)`, `span(...)`, `FreeQuadraticModule(R, ...)`, `QuadraticSpace(K, ...)` | `modules/free_module.py:311-804`, `modules/free_quadratic_module.py:86-220` | Constructor namespace entries on `Modules(R).Constructors()` or the relevant forms-owned constructor route. Positional Sage dispatch remains split into named non-variadic project constructors. |
+| `R^n`, `R^(m,n)`, and `R.free_module(...)` | `categories/rings.py:885-906`, `:1622-1686` | Ring-side bridge into module constructors. The ring method is source evidence for preserving Sage syntax; module structure is owned by `Modules(R).Free().FiniteRank()` or by matrix-space module-with-basis structure. |
+| `OrePolynomialRing(...).quotient_module(P)` and `OreModule.__classcall_private__` | `rings/polynomial/ore_polynomial_ring.py:1255`, `modules/ore_module.py:322-357`, `categories/ore_modules.py:9-174` | Constructor route into Sage's `OreModules(base, twist)` category. Project ownership remains deferred between a semilinear-operator module owner and a module-over-Ore-algebra owner until the Ore decision is recorded. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.cell_module(mu, **kwds)` | `categories/finite_dimensional_algebras_with_basis.py:1499-1653`, `modules/with_basis/cell_module.py:23-393` | Algebra-side constructor for a cell module. The module object maps to representation/cellular-module owners; the constructor is not owned by generic `Modules(R)`. |
+
+### Reconciled Method Ownership
+
+| Sage method or inherited surface | Highest correct owner | Classification and notes |
+| --- | --- | --- |
+| `base_ring`, `zero`, additive/scalar operations, `linear_combination` | `Modules(R)` or the relevant `Modules(R).HomCategory()` object when called on a homset | Admitted only as module or hom-object structure. Parent aggregation is not a separate constructor surface. |
+| `tensor_square`, `tensor`, `tensor_module`, `tensor_factors`, tensor element `apply_multilinear_morphism` | `Modules(R).TensorProducts()` with `WithBasis()` refinements when basis tensor APIs are used | Tensor-product construction and tensor-product object methods. Representation tensor products refine through representation-module owners. |
+| `dual`, `linear_form`, `alternating_form`, `dual_symmetric_power`, `dual_exterior_power` | `Modules(R).DualObjects()` and `Modules(R).HomCategory()` for `Hom_R(M, R)` content; exterior/symmetric owners require finite-rank/free/projective hypotheses | The caller is the module whose dual or tensor construction is being formed. Ordinary linear duals are not forms-owned shortcuts. |
+| `basis`, `bases`, `default_basis`, `set_default_basis`, `basis_matrix`, `coordinate_vector`, `coordinates`, `from_vector`, `element_from_coordinates` | `Modules(R).WithBasis()` and `Modules(R).WithOrderedBasis()` where row/order data is meaningful | Basis and coordinate surfaces. Sage state mutation such as `set_default_basis` is interop unless represented as a new presented object plus change-of-basis morphism. |
+| `gens`, `gen`, `ngens`, `generator`, `generators`, `generator_degrees` | `WithOrderedGeneratingSet()` or graded-free/finitely-presented graded owners when degrees are part of the structure | Generator access is not evidence for a constructor-family category. Graded degree data stays on graded module surfaces. |
+| `monomial`, `term`, `sum_of_monomials`, `sum_of_terms`, `_from_dict`, coefficient/support element methods | `Modules(R).WithBasis().ElementMethods`; ordered leading/trailing methods refine to ordered-basis or term-order owners | Public element construction/readback only when stated as basis-coordinate mathematics. Raw dictionary and private helpers are interop/private. |
+| `submodule`, `submodule_with_basis`, `span`, `zero_submodule`, subspace constructors, `ambient`, `lift`, `retract`, `reduce` | `Modules(R).Subobjects()` with `WithBasis()`, `WithOrderedBasis()`, field, PID, or Ore refinements as required | The caller is the ambient module or subobject. Output submodule category is codomain data. |
+| `intersection`, `saturation`, `denominator`, `index_in`, `index_in_saturation`, `ambient_vector_space`, `vector_space_span` | Common-ambient subobject owners with integral-domain, PID, or field hypotheses | Admitted only under the algebraic hypotheses in Sage source. Ambient/vector-space conversion is interop unless expressed as scalar extension or subobject data. |
+| `quotient`, `quotient_module`, `quotient_abstract`, `__truediv__`, `cover`, `relations`, `free_cover`, `free_relations`, `quotient_map`, `lift_map`, `cokernel_basis_indices` | `Modules(R).Quotients()` and `Modules(R).Subquotients()`, with finite-presentation, PID, field, or basis refinements | The caller is the ambient module, quotient object, or quotient morphism. Quotient normal forms belong to quotient owners, not general basis-bearing modules. |
+| `hom`, `_Hom_`, `module_morphism`, `homspace.__call__`, homspace `basis`, `identity`, `zero`, basis-map `on_basis` | `Modules(R).HomCategory()`; `WithBasis().HomCategory()` owns basis-defined constructors | Matrix/image/function constructors are hom-object constructors. Endomorphism specializations refine through `EndCategory()`. |
+| Morphism `matrix`, `rank`, `nullity`, `kernel`, `image`, `inverse_image`, `lift`, `restrict_domain`, `restrict_codomain`, `restrict`, injective/surjective/bijective predicates | `Modules(R).HomCategory().ElementMethods`, with field/PID/Ore/graded hypotheses where Sage algorithms require them | These are methods on morphisms. Kernel and image output subobjects are codomain data, not method owners. |
+| `inverse`, `side`, `side_switch`, hom arithmetic, `is_identity`, `is_zero`, `is_equal_function` | Hom/end/aut element surfaces | Invertibility promotes membership in the aut surface but does not move the caller-owned method off the morphism/end object. |
+| `general_linear_group`, `automorphism`, finite-rank `FreeModuleAutomorphism`, tensor-calculus endomorphism determinant/trace/characteristic polynomial | `Modules(R).AutCategory().Of(M)` and `Modules(R).EndCategory().Of(M)` with finite-rank/free hypotheses | Sage tensor-calculus automorphism classes are implementation witnesses for `Aut_R(M)`, not a separate module family owner. |
+| `orthogonal_group` and `automorphisms` on integral lattices or torsion quadratic modules | `C.AutCategory().Of(M)` for the relevant forms-owned category `C` | Orthogonal groups are automorphism objects in a form-preserving category. Lattice/discriminant-form presentations refine the implementation. |
+| `determinant`, `discriminant`, `gram_matrix`, `inner_product_matrix`, `_inner_product_is_dot_product`, `_inner_product_is_diagonal`, `inner_product`, `quadratic_product`, `brown_invariant`, `value_module`, `value_module_qf` | Forms-owned bilinear/quadratic module owners | `inner_product_matrix` is Sage wording; public project spelling should be form/Gram/codomain vocabulary. Private diagonal/dot-product helpers stay interop. |
+| `dual_lattice`, `discriminant_group`, `signature`, `signature_pair`, `is_even`, `is_primitive`, `orthogonal_complement`, `sublattice`, `overlattice`, `maximal_overlattice`, `genus`, `twist` | Integral-lattice and finite quadratic module owners under forms | Lattice-specific surfaces. They must not be generalized to all modules merely because Sage classes subclass free modules. |
+| `LLL`, `BKZ`, `HKZ`, `reduced_basis`, `shortest_vector`, `short_vectors`, `enumerate_short_vectors`, `enumerate_close_vectors`, `voronoi_cell`, `closest_vector`, `babai`, `minimum`, `maximum` | Integral-lattice algorithm surfaces | Algorithmic lattice surfaces. Definite/optional-package limits are implementation caveats, not reasons to weaken the lattice spec. |
+| `invariants`, `smith_form_gens`, `gens_to_smith`, `smith_to_gens`, `annihilator`, `additive_order`, finite iteration/list/cardinality | `FinitelyPresentedModulesOverPID` with torsion/finite refinements where applicable | Smith normal form and finite enumeration are PID finite-presentation structure. Element order belongs to torsion/finite PID-module element surfaces. |
+| `connectivity`, `suspension`, `minimal_presentation`, `resolution`, `submodule_inclusion`, graded morphism `solve`, `split`, `homology` | `Modules(A).Graded().Free()` or `Modules(A).Graded().FinitelyPresented()` and their hom/subobject/quotient owners | Graded algorithms stay graded; morphism-level algorithms stay on graded hom elements. |
+| `semigroup`, `side`, `representation_matrix`, `character`, `brauer_character`, invariant/twisted invariant modules, composition series/factors, Schur/exterior/symmetric representation functors | `Modules(R).WithAction(S, side)` and its representation subobject, quotient, tensor, exterior, symmetric, and Schur construction owners | Representation structure is a module with action. Semigroup/group caller constructors are source evidence for constructor routing only. |
+| `cellular_algebra`, `bilinear_form`, `bilinear_form_matrix`, `radical`, `simple_module` on `CellModule` | Deferred cellular-module owner under finite-dimensional algebras with basis, with forms and quotient-module refinements for the bilinear/radical/simple-module surfaces | Not generic module ownership. The caller is a cell module; the constructing caller is the cellular algebra. |
+| `ore_ring`, `twisting_morphism`, `twisting_derivation`, `pseudohom`, `multiplication_map`, Ore submodule/quotient morphism restriction/corestriction/quotient/modulo | Deferred Ore owner, plus ordinary inherited free-module, hom, subobject, and quotient surfaces | `categories/ore_modules.py` is present in installed Sage; project naming still needs a decision between semilinear-operator and Ore-algebra ownership. |
+| `is_sparse`, `is_dense`, `is_exact`, `some_elements`, `random_element`, `dense_module`, `sparse_module`, `element_class`, display hooks, `_sympy_`, `_magma_init_`, `_macaulay2_`, `_repr_`, `_latex_` | Private/runtime/display/interop | Not public mathematical category surfaces unless a later spec introduces exact-computation or probability-distribution structure with explicit hypotheses. |
+
+### Formal Negative And Corrective Findings
+
+Sage module autset category surface:
+
+- Searched: `category_specs/modules/docs/SAGE_INVENTORY.md`; `sage/categories/modules.py`; recursive source search under installed `sage/modules` and `sage/tensor/modules` for `Autsets`, `AutCategory`, `automorphism`, `general_linear_group`, and `orthogonal_group`.
+- Found: no installed `Modules(R).Autsets()` category in the inspected module category source. Sage exposes automorphism behavior through tensor finite-rank `general_linear_group()`/`automorphism()`, matrix-morphism invertibility predicates, and form/lattice `orthogonal_group()` methods.
+- Conclusion: inference - the project should own the generic module automorphism surface through `Modules(R).AutCategory()`, with Sage automorphism classes treated as implementation witnesses and specialization evidence.
+- Confidence: High.
+- Gaps: generated documentation pages and import-resolution aliases outside the inspected installed source tree were not exhausted.
+
+Legacy `NamedModules` surface:
+
+- Searched: `category_specs/modules/docs/SAGE_INVENTORY.md`; `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-MODULES.md`; recursive source search under installed `sage/categories` and `sage/modules` for `NamedModules`, `class NamedModules`, and `def NamedModules`.
+- Found: the mapping spec contains the legacy row `Modules(R).NamedModules()`, but the inspected installed Sage source did not expose a `NamedModules` category or method.
+- Conclusion: inference - `NamedModules` is a legacy local/wrapper vocabulary item, not a Sage 10.7 source surface; the replacement owner remains `Modules(R).Constructors()`.
+- Confidence: High.
+- Gaps: historical local deleted files and upstream Sage versions before 10.7 were not inspected in this reconciliation pass.
+
+Cell-module factory ownership:
+
+- Searched: `category_specs/modules/docs/SAGE_INVENTORY.md`; `sage/modules/with_basis/cell_module.py`; installed Sage categories and algebras for `def cell_module` and `cell_module(`.
+- Found: `CellModule` is a module class, and `FiniteDimensionalAlgebrasWithBasis.ParentMethods.cell_module(mu, **kwds)` is the visible public factory. No generic module-category `cell_module` constructor was found.
+- Conclusion: inference - cell-module construction is algebra-side, while the resulting cell module's module, form, radical, and simple-module methods map to cellular representation/form/quotient owners.
+- Confidence: High.
+- Gaps: cellular-algebra subclasses outside the searched installed categories/algebras may add specialized wrappers.
+
+Ore module category source:
+
+- Searched: `category_specs/modules/docs/SAGE_INVENTORY.md`; `sage/modules/ore_module.py`; installed `sage/categories/ore_modules.py`; recursive installed-source search for `class OreModules` and `OreModules(`.
+- Found: contrary to the local inventory's negative finding, installed Sage 10.7 includes `sage/categories/ore_modules.py` with `class OreModules(Category_over_base_ring)`, and `OreModule.__classcall_private__` references `OreModules(base, twist)`.
+- Conclusion: inference - the source-visible Sage category surface is present and must be included in future inventory updates; project ownership is still deferred because the mathematical owner name has not been chosen.
+- Confidence: High.
+- Gaps: the written Sage manual pages for Ore modules were not separately crawled in this pass.
+
+Free-module element source visibility:
+
+- Searched: Python import location for `sage.modules.free_module_element`; installed `sage/modules/free_module.py` element dispatcher; structural searches for dense vector class names recorded in the local inventory.
+- Found: the installed tree exposes `sage/modules/free_module_element.cpython-312-x86_64-linux-gnu.so`, while readable Python source for the base element implementation and several dense vector classes is not present in this environment.
+- Conclusion: inference - element-level reconciliation for dense vector internals must rely on visible dispatcher evidence, category element methods, and upstream Cython source acquisition if exact internal behavior is required.
+- Confidence: High.
+- Gaps: upstream `.pyx` source and generated Cython/C sources were not inspected.
 
 ## Converted Mapping Content
 
