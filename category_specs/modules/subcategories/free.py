@@ -14,7 +14,7 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, ModuleBasis, RModMorphism, RModule
+    from ...types import Algebra, Cardinality, Integer, ModuleBasis, RModMorphism, RModule
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
@@ -91,6 +91,20 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         @final
         def degree(self) -> Cardinality:
             return self.dimension()
+
+        @override
+        @final
+        def symmetric_algebra(self) -> Algebra:
+            from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
+
+            return PolynomialRing(self.base_ring(), names=tuple(f"x{i}" for i in range(self.rank())))
+
+        @override
+        @final
+        def alternating_algebra(self) -> Algebra:
+            from sage.algebras.clifford_algebra import ExteriorAlgebra
+
+            return ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank())))
 
         @override
         @abstract_method

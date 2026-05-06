@@ -101,3 +101,21 @@ then delete wrappers.
   broader frontier remains for QQ inner-product vector spaces, representation modules,
   graded-module category-class mismatch, integer-lattice and torsion-quadratic key
   errors, ideal submodule refinement, and ring-as-module inherited ring methods.
+- 2026-05-06 implementation pass: added finite-rank-free implementations of
+  `symmetric_algebra()` and `alternating_algebra()` in
+  `category_specs/modules/subcategories/free.py`. The implementation is source-backed:
+  Sage's `ExteriorAlgebra` documentation defines the exterior algebra of a free module
+  over a commutative ring and accepts a free module as input, while the symmetric
+  algebra of a finite free module is represented by the polynomial algebra over the
+  base ring on finite-rank generators. Direct provider validation passed on
+  `FreeModule(IntegerModRing(6), 2)`.
+- 2026-05-06 scoped smoke rerun after the finite-rank-free algebra patch:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails, but the first standard free-module frontier moved from
+  `alternating_algebra` to `alternating_form`. Remaining preserved gap evidence
+  includes `alternating_algebra` on basis/subobject/quotient families,
+  `annihilator` on free modules without basis and tensor-calculus finite-rank free
+  modules, QQ inner-product vector-space base-category errors, representation-module
+  `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
+  integer-lattice and torsion-quadratic `KeyError: (256, 260)`, ideal submodule
+  `_refine_category_` absence, and ring-as-module inherited ring method gaps.
