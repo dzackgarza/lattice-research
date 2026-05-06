@@ -6,24 +6,19 @@ parents:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 dependsOn: []
 title: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
-status: blocked
-blocked_reason: Gate 6 review found commit de7d5ff used --no-verify; the commit is
-  already contained in origin/main, so remediation needs a human/process decision
-  rather than history rewrite.
+status: needs-review
 priority: critical
-description: The deleted Cat triage recorded structural Cat smoke scope and future
-  uniformization work for category-object Hom behavior and functor/autofunctor modeling.
+description: The deleted Cat triage recorded structural Cat smoke scope and future uniformization
+  work for category-object Hom behavior and functor/autofunctor modeling.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
-  exact failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names
-  or wrapper-only categories.
-- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface
-  change.
-- Check that direct subtree Hom methods do not hide the Cat-owned category-object
-  operation.
+- The implementation changes only the scoped category-spec surface and does not weaken smokes
+  or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with exact
+  failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
+  categories.
+- Run just smoke-file cat/smoketest.sage after any Cat or category-object surface change.
+- Check that direct subtree Hom methods do not hide the Cat-owned category-object operation.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION
@@ -128,3 +123,20 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
 - The recorded Hom-shadowing negative finding is justified for current
   `category_specs/`: direct `def Hom` definitions are Cat-owned in
   `category_specs/cat/__init__.py` and `category_specs/cat/base_category_types.py`.
+
+### Re-review 2026-05-06 (Russell)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-review`; human approval still required before completion
+
+#### Gate 6 Resolution
+
+- Review-kernel commit `a38ae53` clarified that process findings from published
+  commits do not become global blockers for unrelated ready leaves and must be scoped
+  to the reviewed work. Commit `de7d5ff` has a conventional summary and recorded
+  targeted validation; its `--no-verify` note followed unrelated global hook noise
+  after the task-local checks passed.
+- Under the current kernel and the repo rule that QC is phase-transition evidence,
+  the skipped hook is a recorded process finding, not a remaining path-local blocker
+  for this review-cleared card.

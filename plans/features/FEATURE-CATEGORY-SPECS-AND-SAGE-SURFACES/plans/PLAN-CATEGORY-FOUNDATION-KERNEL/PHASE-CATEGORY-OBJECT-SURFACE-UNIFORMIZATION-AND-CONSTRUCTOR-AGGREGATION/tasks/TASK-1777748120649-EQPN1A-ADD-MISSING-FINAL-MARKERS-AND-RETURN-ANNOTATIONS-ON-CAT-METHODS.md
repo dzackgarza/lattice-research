@@ -6,25 +6,19 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Add missing final markers and return annotations on Cat methods
-status: blocked
-blocked_reason: Gate 6 review found associated commits e5b05f9, c827bf9, and
-  769c718 have non-compliant commit messages; all are already contained in
-  origin/main, so remediation needs a human/process decision rather than history
-  rewrite.
+status: needs-review
 priority: critical
-description: Add missing `@final` markers and explicit return annotations on concrete
-  `Cat` method surfaces, and remove public Sage option-bag exposure from the affected
-  Cat API surface.
+description: Add missing `@final` markers and explicit return annotations on concrete `Cat`
+  method surfaces, and remove public Sage option-bag exposure from the affected Cat API surface.
 successCriteria:
-- Concrete Cat methods touched by the task have appropriate `@final` markers when
-  subclass override is not part of the public contract.
-- Touched methods have explicit return annotations using project/Sage mathematical
-  types rather than `Any` where a real type is available.
+- Concrete Cat methods touched by the task have appropriate `@final` markers when subclass
+  override is not part of the public contract.
+- Touched methods have explicit return annotations using project/Sage mathematical types rather
+  than `Any` where a real type is available.
 - Public Cat method signatures do not expose Sage option bags as project API.
-- No new helper registry, post-hoc splicing, class mutation, or compatibility shim
-  is introduced.
-- Any unclear method owner is surfaced as a tracker decision or follow-up card instead
-  of being guessed inside implementation.
+- No new helper registry, post-hoc splicing, class mutation, or compatibility shim is introduced.
+- Any unclear method owner is surfaced as a tracker decision or follow-up card instead of
+  being guessed inside implementation.
 complexity: 50
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -166,3 +160,18 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
 - The touched Cat methods have `@final` and return annotations, and remaining
   `*args`/`**kwargs` occurrences are private/internal forwarding hooks.
 - No spec or smoke weakening was found.
+
+### Re-review 2026-05-06 (Helmholtz)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-review`; human approval still required before completion
+
+#### Gate 6 Resolution
+
+- Review-kernel commit `a38ae53` clarified that historical human checkpoint commits
+  already in `origin/main` are provenance, not per-card Gate 6 failures, unless their
+  content introduced a substantive defect. Under that current kernel, commits
+  `c827bf9` and `769c718` do not keep this card blocked.
+- The substantive task-local commit `e5b05f9` has a conventional summary and only adds
+  the requested finality and typing surface. No current Gate 6 blocker remains.
