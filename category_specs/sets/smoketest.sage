@@ -44,6 +44,14 @@ def fixed_ordered_partition():
     return C.SetPartitions(3)([[1, 3], [2]])
 
 
+def real_open_interval_01():
+    return C.OpenRealInterval(0, 1)
+
+
+def real_closed_interval_01():
+    return C.ClosedRealInterval(0, 1)
+
+
 def single_block_ordered_partition():
     return C.SetPartitions(3)([[1, 2, 3]])
 
@@ -143,8 +151,26 @@ SMOKE_STATEMENTS = (
         lambda _: not C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).contains(2),
     ),
     (
-        "RealSet(open interval) is open",
-        lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).is_open(),
+        "RealSet(open interval) is open through its ambient real line",
+        lambda _: (lambda U: U.ambient().is_open(U))(real_open_interval_01()),
+    ),
+    (
+        "RealSet(open interval) is not closed through its ambient real line",
+        lambda _: (lambda U: not U.ambient().is_closed(U))(real_open_interval_01()),
+    ),
+    (
+        "RealSet(open interval) closes through its ambient real line",
+        lambda _: (lambda U: U.ambient().closure(U) == real_closed_interval_01())(real_open_interval_01()),
+    ),
+    (
+        "RealSet(closed interval) has interior through its ambient real line",
+        lambda _: (lambda U: U.ambient().interior(U) == real_open_interval_01())(real_closed_interval_01()),
+    ),
+    (
+        "RealSet(open interval) has boundary through its ambient real line",
+        lambda _: (lambda U: U.ambient().boundary(U) == SageRealSet.point(0).union(SageRealSet.point(1)))(
+            real_open_interval_01()
+        ),
     ),
     (
         "RealSet(open interval) has one component",

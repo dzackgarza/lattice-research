@@ -119,3 +119,29 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
   claimed as this card's scoped implementation evidence.
 - Limited this card's evidence to the admitted RealSet constructor/refinement rows,
   topological constructor non-admission, and RealSet/topological smoke assertions.
+
+### Re-review 2026-05-06 (Bacon)
+
+**Gates passed:** Gate 1
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Ambient-Route Smoke Evidence
+
+- The card marked RealSet ambient-relative recovery as satisfied, but the scoped smoke
+  still exercised direct Sage compatibility `U.is_open()` rather than the required
+  ambient route `U.ambient().is_open(U)` specified in
+  `SPEC-MAPPING-TOPOLOGICAL-SPACES.md`.
+
+#### Rework
+
+- Added a constructor-bound RealSet ambient adapter that preserves Sage no-argument
+  compatibility methods while supporting `U.ambient().is_open(U)`,
+  `U.ambient().is_closed(U)`, `U.ambient().closure(U)`,
+  `U.ambient().interior(U)`, and `U.ambient().boundary(U)`.
+- Strengthened `category_specs/sets/smoketest.sage` to exercise the ambient-relative
+  RealSet route for openness, closedness, closure, interior, and boundary.
+- Validation: `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
+  passed with the known inherited `Sets.Topological` Sage warning; `just --justfile
+  category_specs/justfile smoke-file topological_spaces/smoketest.sage` passed with no
+  output; `git diff --check` passed for the touched RealSet files.

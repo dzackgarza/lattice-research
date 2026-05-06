@@ -61,6 +61,7 @@ finite-enumerated set objects.
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
+from types import MethodType
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.sets_cat import Sets as SageSets
@@ -608,7 +609,67 @@ class Sets(Category_singleton):
         @final
         def _refine_real_subset(self, real_set: RealSubset) -> RealSubset:
             r"""Refine a Sage real subset into the local set/topological hierarchy."""
-            return refine_category(real_set, self._real_subset_categories(real_set))
+            return self._install_real_subset_ambient_adapter(
+                refine_category(real_set, self._real_subset_categories(real_set))
+            )
+
+        @final
+        def _install_real_subset_ambient_adapter(self, real_set: RealSubset) -> RealSubset:
+            r"""Install the ambient-relative topological route on a refined real subset."""
+            sage_is_open = real_set.is_open
+            sage_is_closed = real_set.is_closed
+            sage_ambient = real_set.ambient
+            sage_closure = real_set.closure
+            sage_interior = real_set.interior
+            sage_boundary = real_set.boundary
+
+            def is_real_line(X):
+                if X.n_components() != 1:
+                    return False
+                interval = X.get_interval(0)
+                return interval.lower() is minus_infinity and interval.upper() is infinity
+
+            def ambient(U):
+                return U if is_real_line(U) else self._refine_real_subset(sage_ambient())
+
+            def is_open(X, U=None):
+                if U is None:
+                    return sage_is_open()
+                return U.is_subset(X) and U.is_open()
+
+            def is_closed(X, U=None):
+                if U is None:
+                    return sage_is_closed()
+                return U.is_subset(X) and U.is_closed()
+
+            def closure(X, U=None):
+                if U is None:
+                    return self._refine_real_subset(sage_closure())
+                if not U.is_subset(X):
+                    raise ValueError("closure subset must lie in its ambient real set")
+                return self._refine_real_subset(U.closure())
+
+            def interior(X, U=None):
+                if U is None:
+                    return self._refine_real_subset(sage_interior())
+                if not U.is_subset(X):
+                    raise ValueError("interior subset must lie in its ambient real set")
+                return self._refine_real_subset(U.interior())
+
+            def boundary(X, U=None):
+                if U is None:
+                    return self._refine_real_subset(sage_boundary())
+                if not U.is_subset(X):
+                    raise ValueError("boundary subset must lie in its ambient real set")
+                return self._refine_real_subset(U.boundary())
+
+            real_set.ambient = MethodType(ambient, real_set)
+            real_set.is_open = MethodType(is_open, real_set)
+            real_set.is_closed = MethodType(is_closed, real_set)
+            real_set.closure = MethodType(closure, real_set)
+            real_set.interior = MethodType(interior, real_set)
+            real_set.boundary = MethodType(boundary, real_set)
+            return real_set
 
         @final
         def RR(self) -> Set:
