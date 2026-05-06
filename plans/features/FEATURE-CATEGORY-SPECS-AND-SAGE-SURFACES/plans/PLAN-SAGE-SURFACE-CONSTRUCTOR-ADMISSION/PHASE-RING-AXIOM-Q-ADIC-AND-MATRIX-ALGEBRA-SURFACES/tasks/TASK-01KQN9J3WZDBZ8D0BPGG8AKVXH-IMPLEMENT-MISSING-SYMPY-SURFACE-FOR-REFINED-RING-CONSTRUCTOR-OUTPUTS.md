@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
 title: Implement missing _sympy_ surface for refined ring constructor outputs
-status: in-progress
+status: needs-review
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
@@ -62,3 +62,17 @@ split.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06: Audited the current ready leaf against the regenerated DAG and current
+  `rings/smoketest.sage` output. The cited `category_specs/rings/docs/TRIAGE.md` path
+  was not present at `8d1c21c^`, and a broader search found no live `_sympy_` failure
+  in the current ring smoke frontier. The current failures are earlier or separate
+  surfaces: `hilbert_polynomial`, finite-ring `ideal_monoid`, complex interval/ball
+  `algebraic_closure`, p-adic `_change_print_mode`, deferred q-adic precision-cap
+  constructors, series-ring `cardinality`/`completion`, and matrix algebra/module MRO
+  refinement.
+- 2026-05-06: No implementation patch was made for this card because the named
+  `_sympy_` target is no longer present in current ring smoke output. This is not a
+  blocked dependency state; it is a stale migrated leaf whose current smoke frontier is
+  already represented by neighboring ring, matrix-ring, q-adic, and topological-ring
+  tracker items. Moved to `needs-review` so a reviewer can decide whether to retire or
+  merge the stale migrated card into those successor items.
