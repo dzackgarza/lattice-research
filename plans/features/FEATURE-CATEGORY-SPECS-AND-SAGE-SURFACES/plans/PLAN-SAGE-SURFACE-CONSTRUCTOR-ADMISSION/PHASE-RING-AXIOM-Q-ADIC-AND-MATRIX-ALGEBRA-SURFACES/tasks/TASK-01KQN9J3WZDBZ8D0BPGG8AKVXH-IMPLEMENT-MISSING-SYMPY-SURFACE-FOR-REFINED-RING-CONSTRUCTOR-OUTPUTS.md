@@ -121,3 +121,19 @@ split.
 - The card said successor work was represented by neighboring tracker items but did
   not link those successor items, even though the parent phase requires superseded
   child work to have linked successors.
+
+### Focused Re-review 2026-05-06 (Leibniz)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** review passed; human approval still required before completion,
+retirement, or merge into successor work
+
+#### Residual Risks
+
+- The focused re-review verified the prior Gate 2 findings were resolved: the finite
+  ring frontier now records `completion`, and every successor item named in the stale
+  card resolution resolves to a real task file.
+- The reviewer did not rerun smoke in this focused read-only pass. Current smoke
+  frontier evidence remains the earlier recorded `rings/smoketest.sage` run in this
+  card and successor ring-frontier cards.
