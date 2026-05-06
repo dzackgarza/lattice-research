@@ -44,17 +44,36 @@ Source inventory: `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
 - Local inventory checked: `category_specs/cat/docs/SAGE_INVENTORY.md`.
 - Installed Sage source files checked or named by the local inventory:
-  - `sage/categories`
+  - `sage/categories/category.py`
+  - `sage/categories/category_singleton.pyx`
+  - `sage/categories/category_with_axiom.py`
+  - `sage/categories/category_types.py`
+  - `sage/categories/objects.py`
   - `sage/categories/homsets.py`
   - `sage/categories/homset.py`
+  - `sage/categories/functor.pyx`
+  - `sage/categories/pushout.py`
+  - `sage/categories/covariant_functorial_construction.py`
+  - `sage/categories/subobjects.py`
+  - `sage/categories/quotients.py`
+  - `sage/categories/subquotients.py`
+  - `sage/categories/cartesian_product.py`
+  - `sage/categories/isomorphic_objects.py`
+  - `sage/categories/dual.py`
+  - `sage/categories/tensor.py`
 - Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
   - `sage/sets/__init__.py`
-  - `sage/categories/constructions/subobjects.py`
-  - `sage/categories/constructions/quotients.py`
-  - `sage/categories/constructions/subquotients.py`
-  - `sage/categories/constructions/objects_over.py`
-  - `sage/categories/constructions/objects_under.py`
-  - `sage/categories/constructions/cartesian_products.py`
+  - checked construction modules are exposed directly as `sage/categories/*.py`,
+    not through `sage/categories/constructions/`; see the Cat core negative finding
+    below for the search record.
+  - checked local slice/coslice selectors remain project-owned construction surfaces;
+    see the Cat core negative finding below for the `objects_over.py` and
+    `objects_under.py` source search.
+- Reconciled source-path corrections:
+  - This install exposes
+    standard construction classes directly as `sage/categories/subobjects.py`,
+    `sage/categories/quotients.py`, `sage/categories/subquotients.py`, and
+    `sage/categories/cartesian_product.py`.
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
 
@@ -319,3 +338,128 @@ surface.
 Ordinary category objects are registered by being Sage/project `Category` instances.
 Functors are registered by being Sage `Functor` or `ConstructionFunctor` instances and
 by lying in the relevant functor homset.
+
+## Completeness Reconciliation: Cat Core
+
+This pass checked the local inventory, the converted mapping body, and the installed
+Sage 10.7 category source files listed in the source ledger.
+
+- `Category.__contains__` tests whether `x.category()` is a subcategory of the
+  receiver, while `Category.category()` returns `Objects()` for Sage category
+  instances. The project `Cat()` membership rule is therefore a deliberate refinement
+  of Sage's category-object runtime fact: category instances are the project objects
+  of `Cat()`, while arbitrary Sage objects continue to live in their mathematical
+  categories such as `Sets()`, `Rings()`, or `Modules(R)`.
+- `Category.is_subcategory(self, c)` is source-backed as the category order, with the
+  mathematical meaning "there is a natural forgetful functor from `self` to `c`".
+  The spec mapping of `leq`, `geq`, `<=`, and `>=` is therefore an order surface on
+  category objects, not a morphism-construction surface.
+- `Category.join(categories, ...)` is source-backed as Sage's category-lattice join.
+  Sage treats the empty join as `Objects()`, so the local `Cat().join([])` behavior
+  should remain top-category behavior unless an explicit project decision changes the
+  order convention.
+- `Category.meet(categories)` is source-backed as Sage's meet for nonempty category
+  collections and raises on an empty input. The local mapping that `Cat().meet([])`
+  returns `Cat().Constructors().EmptyCategory()` is a project completion of Sage's
+  missing bottom-category case, not an upstream Sage behavior claim.
+- `JoinCategory` remains a category object that represents an intersection condition
+  on objects and morphisms. Mapping it to `Cat().JoinCategories()` containment is
+  well-typed: membership is about recognizing join category objects, not about moving
+  methods to the constructed join result.
+- `Category_singleton` is implemented in this install as `category_singleton.pyx`.
+  Singleton status is an implementation/classcall fact for categories such as
+  `Sets()` and `Rings()`, not a separate mathematical method surface on `Cat()`.
+- `CategoryWithAxiom`, `CategoryWithAxiom_over_base_ring`, and
+  `CategoryWithAxiom_singleton` are source-backed as axiom-category implementation
+  classes. Their mapping remains style/process guidance for correct wrapper bases;
+  an axiom restriction belongs on the category where the axiom is mathematically
+  meaningful, not as a generic Cat-level method beyond the category-object machinery.
+- `Category_over_base`, `Category_over_base_ring`, `Category_module`, and
+  `Category_ideal` are source-backed as parameterized Sage category base classes.
+  Their base/base-ring/ambient data are evidence for lower subtree ownership and
+  wrapper selection, not extra Cat-level constructors.
+- `Functor` is source-backed as a morphism between category objects with domain,
+  codomain, object action, morphism action, and domain-coercion hooks. The spec
+  mapping to functor homsets is therefore the mathematically coherent owner: functor
+  elements live in `A.Hom(B)`, not as objects of `Cat()`.
+- `ConstructionFunctor` and `CompositeConstructionFunctor` subclass the Sage functor
+  surface and add pushout/coercion-combination methods. The mapped methods
+  `pushout`, `merge`, `commutes`, `expand`, `common_base`, and `coercion_reversed`
+  remain construction-functor interop surface, not evidence for turning every
+  functorial construction category into a functor element.
+- `FunctorialConstructionCategory.category_of(category, *args)` is the source-backed
+  entry point for categories produced by functorial constructions such as
+  `C.Subobjects()` or `C.CartesianProducts()`. These construction categories are
+  category objects in the project sense, distinct from `Functor` elements with
+  domain/codomain/action.
+- `CovariantConstructionCategory.default_super_categories`,
+  `RegressiveCovariantConstructionCategory.default_super_categories`,
+  `additional_structure`, and `is_construction_defined_by_base` justify the spec's
+  inheritance rule for standard construction selectors: a selector method is defined
+  on the category where the construction is meaningful, and subcategories inherit the
+  resulting method surface through Sage's supercategory machinery.
+- `SubobjectsCategory`, `QuotientsCategory`, and `SubquotientsCategory` are installed
+  directly under `sage/categories/`. Their source docstrings state that subobjects and
+  quotients are subquotients and that regressive constructions keep the constructed
+  object in the original category. The mapping to `C.Subobjects()`,
+  `C.Quotients()`, and `C.Subquotients()` is therefore a category-object construction
+  surface, not an object-local method on the produced subobject or quotient.
+- `CartesianProductsCategory` is installed directly under `sage/categories/` and
+  exposes idempotent `CartesianProducts()` plus base-ring forwarding. The mapped
+  `C.CartesianProducts()` selector is source-backed as a category-level finite product
+  construction; product-object operations belong in the owning lower category.
+- `IsomorphicObjectsCategory` is source-backed and defaults through subobjects and
+  quotients. The project `C.IsomorphicObjects()` selector is well-typed as a
+  category-object construction for images under isomorphism; it does not introduce a
+  nonmathematical "isomorphic result" owner.
+- `DualObjectsCategory` and `TensorProductsCategory` are source-backed Sage
+  construction categories, but their mathematical existence depends on the receiver
+  category. The Cat spec correctly records these as exposed by lower subtrees where
+  duals and tensor products are defined, rather than universal Cat methods.
+- `Objects.SubcategoryMethods.Homsets()` and `Endsets()` are source-backed as Sage's
+  generated homset/endset category navigation. The Cat mapping to `HomCategory()` and
+  `EndCategory()` is a project naming refinement over Sage's plural `Homsets`/
+  `Endsets` vocabulary; generic Hom/End/Aut method ownership remains in the
+  repository-level homsets spec.
+- The prior homsets reconciliation records the negative-finding evidence for Sage's
+  generic Autset gap. The Cat `AutCategory()` surface therefore remains a
+  project-owned refinement for invertible endomorphisms, with Sage `Homsets.Endset`
+  only serving as partial upstream evidence.
+- The local `ObjectsOver(T)` and `ObjectsUnder(T)` selectors remain project-owned
+  slice/coslice category surfaces. They are mathematically meaningful category-level
+  constructions, but not installed Sage standard construction modules in the checked
+  source tree.
+- `Cat().Constructors()` remains an aggregator over explicit category-owned
+  constructor collectors. Generated private forwarders with `*args`/`**kwargs` are
+  implementation glue only; they do not create public variadic mathematical
+  signatures.
+
+Negative missing-surface finding for this Cat core pass:
+
+- Searched: `category_specs/cat/docs/SAGE_INVENTORY.md`;
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-CAT.md`;
+  installed Sage 10.7 files `category.py`, `category_singleton.pyx`,
+  `category_with_axiom.py`, `category_types.py`, `objects.py`, `homsets.py`,
+  `homset.py`, `functor.pyx`, `pushout.py`,
+  `covariant_functorial_construction.py`, `subobjects.py`, `quotients.py`,
+  `subquotients.py`, `cartesian_product.py`, `isomorphic_objects.py`, `dual.py`,
+  and `tensor.py`; and a direct file search of the installed `sage/categories/`
+  root for category, functor, homset, subobject, quotient, cartesian-product,
+  tensor, dual, and object/slice construction modules.
+- Found: the checked sources support the current Cat mapping surfaces and identify
+  two stale source-path assumptions in the ledger: `category_singleton` is a `.pyx`
+  source in this installation, and Sage's standard construction modules are direct
+  `sage/categories/*.py` files rather than files under `sage/categories/constructions/`.
+  I found no additional installed Sage Cat-core public surface in this pass that
+  requires a new Cat mapping row beyond the existing category-object, order,
+  functor, standard-construction, Hom/End/Aut, and constructor-aggregation sections.
+- Conclusion: inference -- for the checked Cat-core Sage category/functor framework
+  surface, the converted Cat mapping spec is source-complete modulo lower-subtree
+  mathematical audits for tensor products, duals, slice/coslice implementation, and
+  generic Aut-category implementation ownership.
+- Confidence: Medium.
+- Gaps: this pass did not enumerate every mathematical category module under
+  `sage/categories/`; those are owned by the domain mapping specs such as sets, rings,
+  modules, algebras, posets, topology, tensors, forms, and lattices. It also did not
+  search Sage git history, third-party Sage extensions, or unavailable online HTML docs
+  beyond the installed source tree.
