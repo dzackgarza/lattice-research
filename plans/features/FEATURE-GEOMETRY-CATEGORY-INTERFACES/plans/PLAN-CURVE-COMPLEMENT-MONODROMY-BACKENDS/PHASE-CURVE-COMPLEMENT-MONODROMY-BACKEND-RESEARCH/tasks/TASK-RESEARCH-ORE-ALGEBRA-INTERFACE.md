@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Ore algebra interface integration
-status: unstarted
+status: needs-review
 priority: low
 description: Research whether `ore_algebra` should be integrated and how its differential/operator
   surfaces relate to planned category-spec work.
@@ -50,3 +50,26 @@ Do not vendor or wrap `ore_algebra` in this card. Do not invent project operator
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
+- 2026-05-06: Completed upstream source-admission pass. Read upstream README,
+  generated docs entry points, `src/ore_algebra/ore_algebra.py`, and
+  `src/ore_algebra/analytic/monodromy.py` from a temporary clone at
+  `/tmp/tmp.EtH8Hu3zIu/ore_algebra`; checked local `sage -python` import; and read
+  local memory `theory-graph-monodromy-hodge-methods`. Created
+  `[[SPEC-ORE-ALGEBRA-BACKEND-MAPPING]]` with capability mapping, Picard-Fuchs
+  boundary, and local import negative finding. Status moved to `needs-review`;
+  this does not mark the card accepted or complete.
+
+## Research Findings
+
+- `ore_algebra` is relevant to operator-level work: Ore algebras, Ore polynomials,
+  D-finite functions, closure properties, creative telescoping, desingularization,
+  guessing, analytic continuation, and monodromy matrices for differential operators.
+- Candidate project owners are future differential-operator, D-finite function,
+  local-system, and Picard-Fuchs/period category surfaces. They are not yet defined
+  in the geometry category interface.
+- For Picard-Fuchs workflows, `ore_algebra` is useful after a differential operator is
+  known. It does not by itself derive the correct Picard-Fuchs operator from an
+  arbitrary family of curves or surfaces.
+- Local import currently fails with `ImportError: cannot import name Category`, so
+  any future implementation would need a separate compatibility/environment task
+  before depending on the package.
