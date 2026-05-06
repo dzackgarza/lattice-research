@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Resolve category-spec vulture findings through code fixes, not whitelist entries
-status: in-progress
+status: needs-review
 priority: high
 description: 'Resolve the 762 category-spec vulture findings by fixing the code, not by
   expanding the global vulture whitelist. The whitelist approach was the wrong framing.'
