@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write set topology and metric method ownership rows
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Mine set, finite-set, enumerated-set, subobject, image-set, topological,
@@ -79,10 +79,10 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [ ] The target method-inventory spec contains set, finite, countable/enumerated, subobject, image-object, topological, and metric method tables.
-- [ ] `len(X)` / `__len__` is recorded as finite-set or finite-enumeration protocol ownership, not a root `Sets()` method.
-- [ ] Every set operation row states whether the owner is root `Sets()`, countable or enumerated sets, finite sets, subobjects, image subobjects, topological spaces, or metric spaces.
-- [ ] Sage wrapper and RealSet methods are either admitted with owner and codomain, mapped to named constructor or subobject routes, or rejected as interop/display/private behavior.
+- [x] The target method-inventory spec contains set, finite, countable/enumerated, subobject, image-object, topological, and metric method tables.
+- [x] `len(X)` / `__len__` is recorded as finite-set or finite-enumeration protocol ownership, not a root `Sets()` method.
+- [x] Every set operation row states whether the owner is root `Sets()`, countable or enumerated sets, finite sets, subobjects, image subobjects, topological spaces, or metric spaces.
+- [x] Sage wrapper and RealSet methods are either admitted with owner and codomain, mapped to named constructor or subobject routes, or rejected as interop/display/private behavior.
 
 ## Dependencies And Boundaries
 
@@ -97,3 +97,7 @@ The seed rows include:
 ## Work Log
 
 - 2026-05-05: Created as the sets/topology leaf for the literal method ownership inventory phase.
+- 2026-05-06: Wrote the set/topology/metric method rows into
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including finite `len(X)`
+  ownership and rejected Sage wrapper/export surfaces. Moved this task to
+  needs-review.

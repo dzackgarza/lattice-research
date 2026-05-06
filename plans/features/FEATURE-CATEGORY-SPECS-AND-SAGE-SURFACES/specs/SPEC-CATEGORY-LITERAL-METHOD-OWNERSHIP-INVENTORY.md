@@ -201,6 +201,108 @@ Assigned task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
 | `theory/backends/indefinite-isometry.md` | Indefinite isometry capability notes not covered by the Julia-specific file. |
 | `theory/backends/foliation-lib-reusable-procedures.md` | Candidate reusable procedures for foliation-related backend surfaces. |
 
+## Set Topology And Metric Method Rows
+
+Source task: `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY`.
+
+These rows cover the first-pass admitted, rejected, or deferred set/topology surfaces.
+They are source-grounded in `category_specs/sets/docs/SAGE_INVENTORY.md`,
+`category_specs/sets/docs/MAPPING.md`,
+`category_specs/topological_spaces/docs/SAGE_INVENTORY.md`, and
+`category_specs/topological_spaces/docs/MAPPING.md`.
+
+### Root Set And Construction Selectors
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `C.CartesianProducts()`, `C.Subquotients()`, `C.Quotients()`, `C.Subobjects()`, `C.IsomorphicObjects()` | category object | `Sets()` subcategory methods, inherited by set subcategories | Standard construction-category selectors on set categories. Codomain is the corresponding construction category. | Admitted. Sources: sets inventory section `Sets`; sets mapping rows for construction classes. |
+| `C.Topological()` | category object | `Sets()` selector for `TopologicalSpaces()` | Refines a set category to sets with topology; equivalent exposed surface is `TopologicalSpaces()`. | Admitted. Sources: sets inventory section `Sets`; topological mapping `Sets().Topological()`. |
+| `C.Metric()` | category object | `Sets()` selector for `TopologicalSpaces().Metric()` | Refines to metric spaces; metric spaces are topological spaces with topology induced by a metric. | Admitted. Sources: sets inventory section `Sets`; topological mapping `Sets().Metric()`. |
+| `C.Algebras(base_ring)` | category object | `Sets()` construction selector, but method rows route concrete plain-set algebra calls through modules/algebras | Sage exposes an algebra functor category. Plain-set `S.algebra(R)` is not a public algebra constructor row here. | Admitted as selector only. Sources: sets inventory section `Sets`; sets mapping row for `algebra(R, category=None)`. |
+| `C.Finite()`, `C.Infinite()`, `C.Enumerated()`, `C.Facade()` | category object | `Sets()` subcategory methods | Axiomatic/refinement selectors for finite, infinite, enumerated, and facade sets. | Admitted. Source: sets inventory section `Sets`. |
+
+### Root Set Parent Methods
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `x in X` / `X.__contains__(x)` | parent protocol | `Sets().ParentMethods` | Membership predicate for any set object. Codomain is `bool`. | Admitted. Sources: sets inventory `Sets.ParentMethods`; sets mapping `Set_object` row. |
+| `X.an_element()` / `_an_element_()` | parent method | `Sets().ParentMethods` | Produce a representative element for tests/examples. Codomain is an element of `X`; existence is implementation-dependent for empty sets. | Admitted. Sources: sets inventory `Sets.ParentMethods`; sets mapping `Set_object` row. |
+| `X.some_elements()` | parent method | `Sets().ParentMethods` | Produce finite sample elements for testing. Codomain is a finite Python list of elements, not a mathematical finite subset unless wrapped by a constructor. | Admitted as test/sample surface. Source: sets inventory `Sets.ParentMethods`. |
+| `X.cardinality()` | parent method | `Sets().ParentMethods` | Cardinality of a set, finite or infinite. Codomain is a cardinality object such as Sage integer or infinity. | Admitted. Source: sets mapping `Set_object` row. |
+| `X.is_empty()` | parent method | `Sets().ParentMethods` | Predicate for empty set. Codomain is `bool`; enumerated sets may compute it by enumeration. | Admitted. Sources: sets mapping `Set_object` row; enumerated inventory. |
+| `X.is_finite()` | parent method | `Sets().ParentMethods`; refined constant `True` on `Sets().Finite()` | Predicate for finite set. Codomain is `bool`; finite set axiom makes it constantly true. | Admitted. Sources: sets mapping `Set_object` row; finite-set inventory. |
+| `X.subsets(size=None)` | parent method | `Sets().ParentMethods` | Power-set or fixed-cardinality subset construction. Codomain is a set of subsets. | Admitted. Source: sets mapping `Set_object` row. |
+| `X.subsets_lattice()` | parent method | `Sets().ParentMethods` | Subset lattice construction of `X`. Codomain is a poset/lattice object; poset operations live in the poset subtree. | Admitted with poset codomain. Source: sets mapping `Set_object` row. |
+| `X.union(Y)` | parent method | `Sets().ParentMethods` | Set union of two set objects. Codomain is a set object. | Admitted. Source: sets mapping `Set_object` row. |
+| `X == Y`, `X <= Y`, `X < Y`, `X >= Y`, `X > Y`; `issubset`, `issuperset` | parent protocol/method | root set comparison surface | Equality is equality of elements; inequalities are subset/proper-subset and superset/proper-superset relations. Codomain is `bool`. | Admitted. Source: sets mapping `Rich Comparison Mapping Decisions`. |
+| `X.free_module(R)` | parent method | `Sets().ParentMethods` method whose constructor owner is `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=X)` | Free `R`-module on the set. Codomain is a module object, not an algebra object. | Admitted with module constructor codomain. Source: sets mapping `Set_object` row. |
+| `X.free_algebra(R)` | parent method | `Sets().ParentMethods` method whose constructor owner is `Algebras(R).Constructors().free_algebra_from_set(X)` | Free associative unital `R`-algebra generated by the set. Codomain is an algebra object. | Admitted with algebra constructor codomain. Source: sets mapping `Set_object` row. |
+| `X._sympy_()` | parent interop method | `Sets().ParentMethods` where available | Export to SymPy set representation. Codomain is a SymPy object, not project mathematical structure. | Admitted as interop. Source: sets mapping `Set_object` row. |
+
+### Enumerated Countable And Finite Set Methods
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `iter(X)` / `X.__iter__()` | parent protocol | `Sets().Countable()` / enumerated-set surface | Iteration witnesses countability or explicit enumeration, not arbitrary sethood. Codomain is an iterator over elements. | Admitted. Sources: sets mapping `Set_object` row; enumerated inventory. |
+| `X.iterator_range(start, stop, step)` | parent method | `Sets().Enumerated()` | Iterate by rank range. Requires rank/unrank-style enumeration. | Admitted. Source: enumerated inventory. |
+| `X.unrank_range(start, stop, step)` | parent method | `Sets().Enumerated()` | List elements by rank range. Codomain is a finite list of elements. | Admitted. Source: enumerated inventory. |
+| `X[n]` / `X.__getitem__(n)` | parent protocol | `Sets().Enumerated()` | Shorthand for `unrank(n)`; slices route to rank ranges. Codomain is an element or finite list of elements. | Admitted. Source: enumerated inventory. |
+| `X.unrank(n)` | parent method | `Sets().Enumerated()` | Return the element of rank `n`. Codomain is an element of `X`. | Admitted. Sources: enumerated inventory; sets mapping `rank`/`unrank` row. |
+| `X.rank(e)` | parent method | `Sets().Enumerated()` | Index-of map for enumerated sets; meaningful for infinite countable sets as well. Codomain is a nonnegative integer when defined. | Admitted. Sources: enumerated inventory; sets mapping `rank`/`unrank` row. |
+| `X.first()` | parent method | `Sets().Enumerated()` compatibility convenience | First enumerated element. This is derived from enumeration and is not a separate mathematical owner. | Admitted as derived compatibility method. Sources: enumerated inventory; sets mapping `rank`/`unrank` row. |
+| `X.next(e)` | parent method | `Sets().Enumerated()` compatibility convenience | Successor in the chosen enumeration. Codomain is an element of `X` when defined. | Admitted as derived compatibility method. Sources: enumerated inventory; sets mapping `rank`/`unrank` row. |
+| `X.random_element()` | parent method | `Sets().Enumerated()` computational surface | Random element where the implementation supplies a distribution; infinite enumerated sets may raise. Not a pure mathematical method without distribution data. | Deferred/interoperable. Source: enumerated and infinite-enumerated inventories. |
+| `len(X)` / `X.__len__()` | parent protocol | `Sets().Finite().Enumerated()` / finite enumeration protocol | Integer conversion of finite cardinality. This is not a root `Sets()` method. | Admitted only for finite enumeration. Sources: finite-enumerated inventory; sets mapping finite wrapper row. |
+| `list(X)` / `tuple(X)` | parent protocol | finite countable/enumerated sets | Python finite enumeration conversions. Do not make Sage `.list()` or `.tuple()` primary project methods. Infinite enumerated sets reject these. | Admitted as finite protocol, rejected as primary method names. Sources: sets mapping finite wrapper row; finite/infinite enumerated inventories. |
+| `X._cardinality_from_iterator()`, `_list_from_iterator()`, `_rank_from_iterator(...)`, related cache helpers | parent internals | no public project owner | Implementation support for finite enumerated sets. | Interop/private only. Source: finite-enumerated inventory. |
+
+### Subobject Image And Real-Subset Operations
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `X.intersection(Y)`, `X.difference(Y)`, `X.symmetric_difference(Y)`, `X.complement()` | parent/subobject method | `Sets().Subobjects()` / subsets with common ambient | These operations require a common ambient set. Codomain is a subset/subobject of that ambient. | Admitted under subobject owner. Source: sets mapping `Set_object` row. |
+| `ImageSubobject(f, X)` project route | constructor | `Sets().Constructors().ImageSubobject(f: SetMorphism, domain_subset: Subset)` returning `_ImageSets` | Image of a set map on a domain subset, refining through `Sets().Subobjects()` and `Sets().Subquotients()`. | Admitted as named constructor route. Source: sets mapping `Sage ImageSubobject Admission Decision`. |
+| `Y.ambient()` on image or real subset | parent/subobject method | `Sets().Subobjects()` / image-subobject refinement | Ambient codomain set containing the subobject. Codomain is a set object. | Admitted. Sources: image admission decision; RealSet inventory. |
+| `Y.lift(x)` on image subobject | parent/subquotient method | `Sets().Subquotients()` / image-subobject refinement | Include an image element into the ambient set. Codomain is an ambient element. | Admitted. Source: image admission decision. |
+| `Y.retract(x)` on image subobject | parent/subquotient method | `Sets().Subquotients()` / image-subobject refinement | Retract an ambient element to the image when defined. Codomain is an image element or partial-operation failure. | Admitted. Source: image admission decision. |
+| `RealSet.interval`, `open`, `closed`, `point`, `open_closed`, `closed_open`, unbounded ray constructors, `real_line` | constructor/static method | `Sets().Constructors()` named real-subset constructors, with topological refinements on result | Construct named real-line subsets. Constructor ownership stays in sets; topology arrives by refinement. | Admitted as named constructor routes. Sources: RealSet inventory; topological mapping constructor decisions. |
+| Variadic `RealSet(...)` | constructor | no catch-all project constructor | Sage accepts too many unrelated data shapes. Public project API uses closed named overloads. | Rejected as public catch-all. Sources: RealSet inventory; topological constructor mapping. |
+| `RealSet.union`, `intersection`, `complement`, `difference`, `is_disjoint`, `is_subset`, `are_pairwise_disjoint`, `convex_hull` | parent/subobject methods | set/subobject operations with real-line representation | Real-subset operations whose mathematical owner is ordinary set/subobject structure, sometimes with a real-line interval codomain. | Admitted under set/subobject owners. Source: RealSet inventory. |
+| `RealSet.n_components()`, `RealSet.get_interval(i)` | parent method | real-line finite-union decomposition surface | Component data of normalized finite unions of intervals. Codomain is a count/internals interval data; keep separate from root topology. | Deferred/real-subset-specific. Source: RealSet inventory. |
+
+### Topological And Metric Methods
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `X.is_open(U)` | parent method | `TopologicalSpaces()` | Openness predicate for subset `U` relative to ambient topological space `X`. Codomain is `bool`. | Admitted. Source: root topological mapping. |
+| `X.is_closed(U)` | parent method | `TopologicalSpaces()` | Closedness predicate for subset `U` relative to ambient topological space `X`. Codomain is `bool`. | Admitted. Source: root topological mapping. |
+| `X.closure(U)` | parent method | `TopologicalSpaces()` | Smallest closed subset of `X` containing `U`. Codomain is a subset of `X`. | Admitted. Source: root topological mapping. |
+| `X.interior(U)` | parent method | `TopologicalSpaces()` | Largest open subset of `X` contained in `U`. Codomain is a subset of `X`. | Admitted. Source: root topological mapping. |
+| `X.boundary(U)` | parent method | `TopologicalSpaces()` | Boundary subset determined by closure and interior. Codomain is a subset of `X`. | Admitted. Source: root topological mapping. |
+| `X.is_connected()` | parent method | `TopologicalSpaces()` / `TopologicalSpaces().Connected()` axiom fact | Predicate on the whole topological space, not a subset-transform method. Codomain is `bool`. | Admitted. Sources: root topological mapping; topological inventory. |
+| `X.is_compact()` | parent method | `TopologicalSpaces()` / `TopologicalSpaces().Compact()` axiom fact | Predicate on the whole topological space. Codomain is `bool`. | Admitted. Sources: root topological mapping; topological inventory. |
+| `U.is_open()`, `U.is_closed()`, `U.closure()`, `U.interior()`, `U.boundary()` for `RealSet` | subobject convenience | compatibility route to `U.ambient().<method>(U)` | Sage subset methods migrate to ambient-relative topological methods unless a separate subobject convenience is admitted. | Admitted only as migration/convenience route. Source: root topological mapping. |
+| `TopologicalSpaces().Connected()` | category object | `TopologicalSpaces()` subcategory method | Connected topological spaces. | Admitted. Source: topological mapping and inventory. |
+| `TopologicalSpaces().Compact()` | category object | `TopologicalSpaces()` subcategory method | Compact topological spaces. | Admitted. Source: topological mapping and inventory. |
+| `TopologicalSpaces().Metric().Complete()` | category object | `TopologicalSpaces().Metric()` subcategory method | Complete metric spaces. Completeness is metric, not purely topological. | Admitted. Source: topological mapping and metric inventory. |
+| `X.metric()` / Sage `metric_function()` | parent method | `TopologicalSpaces().Metric()` | Return the metric map `d: X x X -> RR` as a set morphism. Not the evaluated distance. | Admitted. Source: metric mapping. |
+| `X.dist(x, y)` | parent method | `TopologicalSpaces().Metric()` | Evaluate the metric map on two points. Codomain is a real-valued distance object. | Admitted. Source: metric mapping. |
+| `x.dist(y)` | element method | metric-space element convenience | Delegates to `x.parent().dist(x, y)`. Element API does not own metric structure. | Admitted as convenience. Source: metric mapping. |
+| `x.abs()` on Sage metric examples | element method | no pure topological owner | Absolute value uses additive/ring structure and zero; route through topological ring/field or normed additive owner when sourced. | Rejected from pure topological root. Source: metric mapping. |
+| `TopologicalSpaces().Metric().HomCategory()` | hom category | metric spaces | Short-map homsets: distance-nonincreasing maps, refining continuous maps. | Admitted with enforcement caveat. Source: metric mapping. |
+| `TopologicalSpaces().Metric().CartesianProducts().dist(...)` | parent method | metric cartesian products | Sage product metric is maximum of factor distances, separate from product topology. | Admitted. Source: metric mapping. |
+| `TopologicalSpaces().Constructors()` for real/complex fields, interval/ball fields, p-adic/q-adic fields | constructor | no pure topological constructor owner | These objects are constructed by rings/fields and recover topology by refinement. | Rejected as pure topological constructors. Source: topological ring and field recovery mapping. |
+
+### Rejected Or Interop-Only Set Surfaces
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `Set(X)` generic wrapping | constructor | no public project owner | Sage generic wrapper accepts arbitrary objects and does not define one mathematical construction. Named cases must be admitted separately. | Rejected. Sources: sets constructor mapping; image admission decision. |
+| `Set_object.object()` | parent method | no public project owner | Exposes wrapped Python object implementation state. | Rejected. Source: sets mapping `Set_object` row. |
+| `_repr_()`, `_latex_()`, `__hash__()` as category obligations | representation/protocol | no mathematical method owner | Display and hashing are implementation behavior, not set-theoretic structure. | Rejected as method-owner rows. Source: sets mapping `Set_object` row. |
+| `set(X)`, `frozenset(X)` on finite wrappers | Python export | no project set object owner | Python hash-set export is not a project set object. | Rejected as category vocabulary. Source: sets mapping `Set_object` row. |
+| arbitrary callable conversion inside image-set constructors | constructor plumbing | no public project owner | Sage callable-to-map conversion is interop plumbing; public input is a set morphism. | Rejected. Source: image admission decision. |
+
 ## Acceptance Criteria
 
 - [ ] Every admitted method row names the literal surface spelling, minimal owner category, mathematical definition or software interop meaning, hypotheses, codomain or return object, and source paths.
@@ -226,3 +328,5 @@ Assigned task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
 
 - 2026-05-05: Created target spec for the literal method ownership inventory workstream.
 - 2026-05-06: Added source corpus assignment by topical inventory task.
+- 2026-05-06: Added set, finite/enumerated, subobject, image, RealSet, topological,
+  metric, and rejected/interop method rows.
