@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write ring algebra and module method ownership rows
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Mine ring, algebra, and module inventories into literal method-owner
@@ -80,10 +80,10 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [ ] The target method-inventory spec contains ring, algebra, module, basis-bearing, ordered-generating-set, subobject, quotient, tensor, dual, and hom-constructor method tables.
-- [ ] Basis-dependent methods are not placed on arbitrary modules, and generator methods distinguish `WithGenerators`, ordered generators, and bases.
-- [ ] Algebra constructor and ideal rows split Sage option bags and side strings into named mathematical routes.
-- [ ] Module methods such as rank, dimension, coordinates, support, span, quotient, intersection, saturation, tensor, dual, and hom are assigned to minimal owners with hypotheses.
+- [x] The target method-inventory spec contains ring, algebra, module, basis-bearing, ordered-generating-set, subobject, quotient, tensor, dual, and hom-constructor method tables.
+- [x] Basis-dependent methods are not placed on arbitrary modules, and generator methods distinguish `WithGenerators`, ordered generators, and bases.
+- [x] Algebra constructor and ideal rows split Sage option bags and side strings into named mathematical routes.
+- [x] Module methods such as rank, dimension, coordinates, support, span, quotient, intersection, saturation, tensor, dual, and hom are assigned to minimal owners with hypotheses.
 
 ## Dependencies And Boundaries
 
@@ -97,3 +97,8 @@ The seed rows include:
 ## Work Log
 
 - 2026-05-05: Created as the algebra/module leaf for the literal method ownership inventory phase.
+- 2026-05-06: Added ring, algebra, and module method rows to
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, covering constructor splits,
+  matrix-parent ownership, ideals, quotient surfaces, basis and ordered-basis methods,
+  Hom/tensor/dual routes, PID finite-presentation rows, graded/Ore/representation
+  methods, and rejected interop surfaces. Moved this task to needs-review.
