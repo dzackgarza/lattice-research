@@ -23,10 +23,6 @@ def diamond_le(a, b):
     return (a | b) == b
 
 
-def diamond_covers_predicate(a, b):
-    return a != b and diamond_le(b, a) and bin(a ^ b).count("1") == 1
-
-
 def chain_covers_predicate(a, b):
     return b == a + 1
 

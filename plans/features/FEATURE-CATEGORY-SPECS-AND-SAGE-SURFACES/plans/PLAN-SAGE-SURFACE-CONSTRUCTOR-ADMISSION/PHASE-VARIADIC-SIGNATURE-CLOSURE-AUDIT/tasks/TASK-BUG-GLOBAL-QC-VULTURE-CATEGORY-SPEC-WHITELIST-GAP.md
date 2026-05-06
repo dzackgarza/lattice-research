@@ -153,6 +153,24 @@ violations to silence QC rather than addressing the issues they unearthed.
 - A vulture-only diagnostic through the global QC recipe confirms these names no longer
   appear in the vulture finding list. This diagnostic is inventory evidence only; final
   validation remains `just test`.
+- 2026-05-06 second bounded slice: generated Sage-file findings under
+  `category_specs/**` were resolved by using the exterior algebra generator `yE` in the
+  module smoke, deleting a genuinely dead reversed diamond-cover predicate from the
+  poset smoke, removing a stale unused number-field import, and making the finite
+  iterator witness assert its empty finite-set behavior. The same pass corrected the
+  iterator regression file to use the project constructor's nullary iterator-factory
+  contract.
+- Validation for the second slice:
+  `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` passed;
+  `just --justfile category_specs/justfile smoke-file sets/tests/regression/enumerated_set_from_iterator.sage`
+  passed; vulture-only diagnostic no longer reports generated Sage findings under
+  `category_specs/**`.
+- `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails on existing module category implementation gaps; the edited exterior-algebra
+  assertions now fail only at the pre-existing Sage/category base-class mismatch rather
+  than the temporary nonhomogeneous relation error. `rings/tests/regression/number_fields.sage`
+  reaches the existing `hilbert_polynomial` implementation gap after the stale import
+  path was corrected.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -166,3 +184,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   convention + smoke calls resolve findings without whitelist entries.
 - 2026-05-06: Moved to `in-progress` and completed the first bounded cleanup slice:
   root package re-export usage plus category diagnostic utility usage in the Cat smoke.
+- 2026-05-06: Completed the second bounded cleanup slice for generated category-spec
+  Sage findings and recorded the remaining validation frontier.

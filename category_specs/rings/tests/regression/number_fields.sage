@@ -3,8 +3,8 @@
 
 import sys
 sys.path.insert(0, '/home/dzack/research')
-from plans.category_specs.rings import Rings
-from sage.all import ZZ, QQ, polygen, sqrt, CyclotomicField as _CyclotomicField
+from category_specs.rings import Rings
+from sage.all import ZZ, QQ, polygen, sqrt
 
 NR = Rings().Constructors()
 x = polygen(QQ, 'x')

@@ -267,11 +267,11 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Modules(ExteriorAlgebra(QQ)).Constructors().FPModule(...) is finitely presented graded",
-        lambda _: NME.FPModule(E, [0, 1], [[xE, E.one()]]) in Modules(E).FinitelyPresentedGradedModules(),
+        lambda _: NME.FPModule(E, [0, 0], [[xE, yE]]) in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (
         "Modules(ExteriorAlgebra(QQ)).Constructors().FPModuleFromPresentation(...) is finitely presented graded",
-        lambda _: NME.FPModuleFromPresentation(E, generator_degrees=[0, 1], relations=[[xE, E.one()]])
+        lambda _: NME.FPModuleFromPresentation(E, generator_degrees=[0, 0], relations=[[xE, yE]])
         in Modules(E).FinitelyPresentedGradedModules(),
     ),
     (

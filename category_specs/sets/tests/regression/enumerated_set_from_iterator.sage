@@ -15,16 +15,18 @@ NS = Sets().Constructors()
 # ---------------------------------------------------------------------------
 
 S_fin = NS.EnumeratedSetFromIterator(
-    xsrange, (1, 200, -1), category=FiniteEnumeratedSets())
+    lambda: xsrange(1, 200, -1), category=FiniteEnumeratedSets())
 # xsrange(1, 200, -1) is empty (step negative, start < stop), so list is []
-# Just verify construction and category without asserting specific elements
+assert S_fin in Sets().Finite()
+assert S_fin.cardinality() == 0
+assert list(S_fin) == []
 
 # ---------------------------------------------------------------------------
 # Infinite set with cache: count from 0  (TESTS in class docstring)
 # ---------------------------------------------------------------------------
 
 E_inf = NS.EnumeratedSetFromIterator(
-    count, args=(0,), category=InfiniteEnumeratedSets(), cache=True)
+    lambda: count(0), category=InfiniteEnumeratedSets(), cache=True)
 assert E_inf.cardinality() == infinity
 
 e1 = iter(E_inf)
@@ -39,7 +41,7 @@ assert next(e2) == 3
 # ---------------------------------------------------------------------------
 
 E_fin2 = NS.EnumeratedSetFromIterator(
-    xsrange, args=(10,), category=FiniteEnumeratedSets(), cache=True)
+    lambda: xsrange(10), category=FiniteEnumeratedSets(), cache=True)
 assert list(E_fin2) == list(range(10))
 
 # ---------------------------------------------------------------------------
@@ -49,7 +51,7 @@ assert list(E_fin2) == list(range(10))
 from sage.graphs.graph_generators import graphs
 
 E_graphs = NS.EnumeratedSetFromIterator(
-    graphs, args=(3,),
+    lambda: graphs(3),
     category=FiniteEnumeratedSets(),
     name="Graphs on 3 vertices")
 assert repr(E_graphs) == "Graphs on 3 vertices"
