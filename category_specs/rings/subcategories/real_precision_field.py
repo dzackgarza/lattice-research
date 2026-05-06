@@ -150,8 +150,21 @@ class _RealPrecisionFields(Category_singleton):
         @abstract_method
         def precision(self) -> Integer: ...
 
-        @abstract_method
-        def change_precision(self, precision: Integer, precision_type: str | None = None) -> Field: ...
+        @override
+        @final
+        def change_precision(
+            self, precision: Integer, precision_type: str | None = None
+        ) -> Field:
+            assert precision_type is None, (
+                "Sage real precision-field change is source-backed for default "
+                "precision type"
+            )
+            if isinstance(
+                self, (SageRealField, SageRealDoubleField, SageRealIntervalField)
+            ):
+                return self.to_prec(precision)
+            assert isinstance(self, SageRealBallField)
+            return self.__class__(precision)
 
         @abstract_method
         def complex_field(self) -> Field: ...

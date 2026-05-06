@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement topological ring and field refinements for topology-bearing ring
   objects without duplicating topological-space methods
-status: unstarted
+status: blocked
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and
   q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
@@ -48,11 +48,11 @@ lattice-precision gaps.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
-- [ ] For topological ring work, check both ring and topological-space category membership.
+- [x] The retained implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The retained precision-field change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] No q-adic precision evidence was changed; existing q-adic five-field findings remain in the mapping/frontier cards.
+- [ ] Topological ring membership remains blocked on a design-preserving implementation path for inherited topological-space methods.
 
 ## Dependencies And Boundaries
 
@@ -73,3 +73,32 @@ lattice-precision gaps.
   q-adic deferred frontiers, and matrix-ring MRO). This finding is leaf-local evidence
   for the topological ring implementation card and is not a global blocker for other
   approved phase-01 leaves.
+- 2026-05-06: Added source-backed `change_precision` implementations for real and
+  complex precision-field categories. `RealField`, `RealDoubleField`,
+  `RealIntervalField`, `ComplexField`, `ComplexDoubleField`, and
+  `ComplexIntervalField` use Sage's `to_prec`; `RealBallField` and
+  `ComplexBallField` use their source-backed constructor route with the new
+  precision.
+- 2026-05-06: Rejected and reversed an attempted topological-root implementation that
+  removed abstract obligations from `TopologicalSpaces().ParentMethods` and delegated
+  ambient-relative methods only for Sage `RealSet` subsets. That would have weakened
+  the ideal topological-space surface to make a ring smoke frontier disappear.
+- Current blocker: topology-bearing ring objects still refine into
+  `TopologicalSpaces()` and hit abstract root obligations such as `boundary`.
+  Implementing those methods directly in ring files would duplicate topological
+  method ownership; removing abstractness at the topological root weakens the spec.
+  This leaf needs a design decision for how concrete topological-space behavior is
+  supplied to topology-bearing ring objects while preserving the root owner
+  obligations.
+- Verification:
+  - `python -m py_compile category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
+  - `git diff --check -- category_specs/rings/subcategories/real_precision_field.py category_specs/rings/subcategories/complex_precision_field.py` passed.
+  - `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage` passed.
+  - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` remains
+    blocked by the topological-space `boundary` obligation for topology-bearing ring
+    constructors after preserving the abstract topological owner. Other ring-frontier
+    failures observed in the same smoke include `hilbert_polynomial`,
+    `algebraic_closure` for complex interval/ball fields, `ideal_monoid`, q-adic
+    deferred extension constructors, p-adic `_change_print_mode`, power-series
+    `cardinality`, Laurent/Puiseux `completion`, matrix-ring module MRO, and
+    quadratic-field `alternating_form`.

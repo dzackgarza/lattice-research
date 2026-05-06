@@ -148,8 +148,21 @@ class _ComplexPrecisionFields(Category_singleton):
         @abstract_method
         def precision(self) -> Integer: ...
 
-        @abstract_method
-        def change_precision(self, precision: Integer, precision_type: str | None = None) -> Field: ...
+        @override
+        @final
+        def change_precision(
+            self, precision: Integer, precision_type: str | None = None
+        ) -> Field:
+            assert precision_type is None, (
+                "Sage complex precision-field change is source-backed for default "
+                "precision type"
+            )
+            if isinstance(
+                self, (SageComplexField, SageComplexDoubleField, SageComplexIntervalField)
+            ):
+                return self.to_prec(precision)
+            assert isinstance(self, SageComplexBallField)
+            return self.__class__(precision)
 
     class ElementMethods: ...
 
