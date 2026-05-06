@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Sprint Cat category-object surface uniformization and constructor aggregation
   cleanup
-status: in-progress
+status: needs-review
 priority: critical
 description: The deleted Cat triage recorded structural Cat smoke scope and future
   uniformization work for category-object Hom behavior and functor/autofunctor modeling.

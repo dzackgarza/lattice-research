@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Category-spec source maps constructor routing and admission research
-status: in-progress
+status: needs-review
 priority: critical
 owner: Zack
 description: Preserve and route the non-lattice root `plans` source maps into an approved

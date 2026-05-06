@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 dependsOn: []
 title: Sprint algebra constructor admission and tensor multiplication routing
-status: in-progress
+status: needs-review
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.

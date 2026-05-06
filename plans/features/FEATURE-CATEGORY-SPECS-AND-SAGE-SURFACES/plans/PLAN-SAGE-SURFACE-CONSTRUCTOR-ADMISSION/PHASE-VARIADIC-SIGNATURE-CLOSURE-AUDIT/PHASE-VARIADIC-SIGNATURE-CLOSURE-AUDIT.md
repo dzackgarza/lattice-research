@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Sprint variadic signature closure audit across modules rings tensors algebras
   lattices posets sets and real-set constructors
-status: in-progress
+status: needs-review
 priority: high
 description: The deleted variadic inventory records the scoping pass for public surfaces
   that had collapsed Sage casework or raw coordinate interop into broad signatures.

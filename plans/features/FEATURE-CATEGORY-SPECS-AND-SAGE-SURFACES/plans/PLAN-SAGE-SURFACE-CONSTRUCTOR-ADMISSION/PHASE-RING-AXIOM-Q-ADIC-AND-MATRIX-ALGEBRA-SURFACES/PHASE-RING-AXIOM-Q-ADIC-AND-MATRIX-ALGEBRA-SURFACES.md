@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra
   surface split
-status: in-progress
+status: needs-review
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the

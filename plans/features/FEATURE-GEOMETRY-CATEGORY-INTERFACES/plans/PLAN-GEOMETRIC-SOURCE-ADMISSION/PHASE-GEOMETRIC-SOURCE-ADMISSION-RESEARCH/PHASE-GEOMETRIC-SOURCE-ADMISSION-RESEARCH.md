@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-GEOMETRIC-SOURCE-ADMISSION]]'
 dependsOn: []
 title: Geometric source admission research
-status: in-progress
+status: needs-review
 description: 'This phase groups current cards that were previously attached directly
   to `PLAN-GEOMETRIC-SOURCE-ADMISSION` or to the corresponding legacy `.agents` work
   queue. It is a routing phase: executable work remains in child task cards, while

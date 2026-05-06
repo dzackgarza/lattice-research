@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 dependsOn: []
 title: Curve complement and monodromy backend research
-status: in-progress
+status: needs-review
 priority: high
 owner: Zack
 description: Group the curve-complement, Riemann-surface, Sirocco, ore_algebra, Picard-Fuchs,

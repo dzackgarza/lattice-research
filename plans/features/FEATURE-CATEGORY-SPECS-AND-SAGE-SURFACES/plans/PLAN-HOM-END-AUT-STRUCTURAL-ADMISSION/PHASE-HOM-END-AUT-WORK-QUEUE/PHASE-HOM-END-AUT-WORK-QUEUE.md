@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]'
 dependsOn: []
 title: Hom End Aut work queue
-status: in-progress
+status: needs-review
 description: 'This phase groups current cards that were previously attached directly
   to `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` or to the corresponding legacy `.agents`
   work queue. It is a routing phase: executable work remains in child task cards,

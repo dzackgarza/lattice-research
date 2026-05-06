@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 dependsOn: []
 title: Duck-type object-shape probe audit
-status: in-progress
+status: needs-review
 priority: critical
 description: Audit category-spec implementation surfaces for object-shape probing
   patterns that use `getattr`, `hasattr`, optional attribute fallbacks, or private-slot

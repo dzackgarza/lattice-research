@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Hom End Aut structural admission
-status: in-progress
+status: needs-review
 priority: critical
 owner: Zack
 description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups

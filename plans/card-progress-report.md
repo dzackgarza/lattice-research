@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 20:27 UTC_
+_Generated: 2026-05-06 20:30 UTC_
 
 ## Overall
 
@@ -16,8 +16,8 @@ _Generated: 2026-05-06 20:27 UTC_
 | --- | ---: | ---: | ---: | ---: | ---: |
 | decision | 13 | 13 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 |
-| phase | 18 | 0 | 11 | 2 | 0 |
-| plan | 8 | 0 | 7 | 0 | 0 |
+| phase | 18 | 0 | 1 | 12 | 0 |
+| plan | 8 | 0 | 1 | 6 | 0 |
 | spec | 58 | 0 | 0 | 55 | 0 |
 | task | 110 | 0 | 0 | 71 | 0 |
 
@@ -27,13 +27,13 @@ _Generated: 2026-05-06 20:27 UTC_
 | --- | --- | ---: | ---: | ---: | ---: |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 15 | 90 | 0 |
+| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 3 | 102 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Geometry category interfaces | `[----------------]   0.0%` | 0/24 | 5 | 19 | 0 |
+| Geometry category interfaces | `[----------------]   0.0%` | 0/24 | 1 | 23 | 0 |
 | Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 |
 | Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
@@ -46,18 +46,18 @@ _Generated: 2026-05-06 20:27 UTC_
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
 - `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: Modules with forms and lattices (`critical`, `in-progress`)
 - `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (`critical`, `needs-review`)
-- `phase` `PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`: Duck-type object-shape probe audit (`critical`, `in-progress`)
+- `phase` `PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`: Duck-type object-shape probe audit (`critical`, `needs-review`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `needs-review`)
 - `phase` `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES`: Phase 0 Sage patch prerequisites for ModulesWithForms (`critical`, `unstarted`)
 - `phase` `PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS`: Phase 2 ModulesWithForms core category and carrier integration (`critical`, `unstarted`)
 - `phase` `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`: Phase 3 morphisms homsets kernels images and cokernels (`critical`, `unstarted`)
-- `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (`critical`, `in-progress`)
+- `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (`critical`, `needs-review`)
 - `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-FOUNDATION-KERNEL`: Category foundation kernel and method ownership (`critical`, `in-progress`)
-- `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category-spec source maps constructor routing and admission research (`critical`, `in-progress`)
-- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
+- `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category-spec source maps constructor routing and admission research (`critical`, `needs-review`)
+- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `needs-review`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (`critical`, `approved-and-unstarted`)
-- `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: Sage surface constructor admission and concrete category families (`critical`, `in-progress`)
+- `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: Sage surface constructor admission and concrete category families (`critical`, `needs-review`)
 
 ## Blocked Items
 

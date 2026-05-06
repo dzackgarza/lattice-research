@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 dependsOn: []
 title: Geometric category source admission research
-status: in-progress
+status: needs-review
 priority: high
 owner: Zack
 description: Organize the geometry category research cards that identify source-backed

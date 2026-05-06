@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS]]'
 dependsOn: []
 title: Curve complement and monodromy backend research
-status: in-progress
+status: needs-review
 description: 'This phase groups current cards that were previously attached directly
   to `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` or to the corresponding legacy `.agents`
   work queue. It is a routing phase: executable work remains in child task cards,
