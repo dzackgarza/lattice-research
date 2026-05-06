@@ -51,7 +51,7 @@ construction first introduces each expected method.
 - External method mapping roots: `.agents/memories/theory/backends/software-capability-map.md`,
   `.agents/memories/theory/backends/abstract-to-external-mapping.md`, and backend-specific notes under
   `.agents/memories/theory/backends/`.
-- Lattice-source warning: `.agents/theory/spec-backups/*` files may be mined for mathematical
+- Lattice-source warning: `src.bak/spec-backups/*` files may be mined for mathematical
   content, but their interface can change and they are not current implementation
   authority.
 
@@ -87,3 +87,6 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 - 2026-05-06: Started phase execution by completing the source corpus assignment in the target spec.
 - 2026-05-06: Completed topical row assembly, gap audit, and decision/source routing;
   marked phase needs-review pending human acceptance.
+- 2026-05-06: Repaired the lattice spec-backup source root after child-card review
+  found the stale `.agents/theory/spec-backups/` path. The current mineable source
+  files live under `src.bak/spec-backups/`.
