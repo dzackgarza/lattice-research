@@ -53,6 +53,10 @@ SMOKE_STATEMENTS = (
         "FiniteEnumeratedSet([1, 2, 3]) is a subset of ZZ",
         lambda _: C.FiniteEnumeratedSet([1, 2, 3]).is_subset(ZZ),
     ),
+    (
+        "SingletonSet(7) is the one-element finite set {7}",
+        lambda _: C.SingletonSet(7).cardinality() == 1 and 7 in C.SingletonSet(7) and 8 not in C.SingletonSet(7),
+    ),
     ("IntegerRange(5) is a finite countable set", lambda _: C.IntegerRange(5) in Sets().Countable().Finite()),
     ("IntegerRange(5) has cardinality 5", lambda _: C.IntegerRange(5).cardinality() == 5),
     ("IntegerRange(5) ranks 2 as 2", lambda _: C.IntegerRange(5)[2] == 2),
@@ -253,6 +257,10 @@ SMOKE_STATEMENTS = (
     (
         "SetPartitions(3) has finite totally ordered base",
         lambda _: C.SetPartitions(3) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+    ),
+    (
+        "SetPartitions(FiniteEnumeratedSet([1, 2, 3])) is partitioned",
+        lambda _: C.SetPartitions(C.FiniteEnumeratedSet([1, 2, 3])) in Sets().Partitioned(),
     ),
     (
         "SetPartitionsWithBlockCount([1, 2, 3], 2) is partitioned",

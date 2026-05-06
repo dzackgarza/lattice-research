@@ -53,7 +53,9 @@ One-object constructor refinements::
     EnumeratedSetsFromIterator
 
 Constructor entry points live under ``Sets().Constructors()`` and call Sage's
-canonical constructors before refining the result into this hierarchy.
+canonical constructors before refining the result into this hierarchy. Named
+finite-set entry points such as ``SingletonSet`` route through those canonical
+finite-enumerated set objects.
 """
 
 from __future__ import annotations
@@ -523,6 +525,11 @@ class Sets(Category_singleton):
             return refine_category(SageFES(elements), [Sets(), _FiniteEnumeratedSetObjects()])
 
         @final
+        def SingletonSet(self, element: SetElement) -> FiniteSet:
+            r"""Return the singleton finite set ``{element}``."""
+            return self.FiniteEnumeratedSet((element,))
+
+        @final
         def IntegerRange(
             self,
             begin: Integer | InfinityElement,
@@ -956,12 +963,42 @@ class Sets(Category_singleton):
 
             return refine_category(SageSetPartitions(), [Sets(), Sets().Countable()])
 
+        @overload
+        def SetPartitions(self, base_set: Set) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitions(self, elements: Iterable[SetElement]) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitions(self, base_set_cardinality: Integer) -> SetPartitionSet: ...
+
         @final
         def SetPartitions(self, base_set: Set | Iterable[SetElement] | Integer) -> SetPartitionSet:
             r"""Return the set of all partitions of ``base_set``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return refine_category(SageSetPartitions(base_set), self._set_partitions_categories(base_set))
+
+        @overload
+        def SetPartitionsWithBlockCount(
+            self,
+            base_set: Set,
+            block_count: Integer,
+        ) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitionsWithBlockCount(
+            self,
+            elements: Iterable[SetElement],
+            block_count: Integer,
+        ) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitionsWithBlockCount(
+            self,
+            base_set_cardinality: Integer,
+            block_count: Integer,
+        ) -> SetPartitionSet: ...
 
         @final
         def SetPartitionsWithBlockCount(
@@ -973,6 +1010,27 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return refine_category(SageSetPartitions(base_set, block_count), self._set_partitions_categories(base_set))
+
+        @overload
+        def SetPartitionsWithBlockSizes(
+            self,
+            base_set: Set,
+            block_sizes: IntegerPartition | Sequence[Integer],
+        ) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitionsWithBlockSizes(
+            self,
+            elements: Iterable[SetElement],
+            block_sizes: IntegerPartition | Sequence[Integer],
+        ) -> SetPartitionSet: ...
+
+        @overload
+        def SetPartitionsWithBlockSizes(
+            self,
+            base_set_cardinality: Integer,
+            block_sizes: IntegerPartition | Sequence[Integer],
+        ) -> SetPartitionSet: ...
 
         @final
         def SetPartitionsWithBlockSizes(
