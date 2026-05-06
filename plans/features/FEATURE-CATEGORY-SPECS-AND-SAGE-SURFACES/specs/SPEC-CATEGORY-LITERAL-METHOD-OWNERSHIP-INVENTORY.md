@@ -54,6 +54,39 @@ Each method row must record:
 - source paths and source sections reviewed;
 - decision status: admitted, rejected, interop-only, deferred, or decision-needed;
 - downstream implementation, test, smoke, or audit card if one already exists.
+- diagnostic-warning obligation, when the method has mathematically correct behavior
+  that users are likely to misread because of Sage convention, degenerate hypotheses,
+  dual-object notation, quotient/value-codomain conventions, or another documented
+  surprise.
+
+## Global Category Diagnostics
+
+The category system must have a single global diagnostic flag for opt-in background
+logging of mathematically important surprises, nuances, and convention boundaries. It
+is disabled by default. Enabling it must not change return values, weaken validation,
+replace exceptions, or become a hidden control path; it only permits implementations to
+emit explanatory warnings through the category-spec logging channel.
+
+The implementation surface is admitted as a category-system configuration surface, not
+as a method on every category object:
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| global diagnostic flag | category-system configuration | category-spec runtime/configuration module | Boolean flag, disabled by default, enabling warning logs about non-obvious mathematical conventions or surprising but valid behavior. | Admitted. Source: user directive on 2026-05-06; category-spec style rule that specs must preserve mathematical nuance rather than silently normalize it away. |
+| diagnostic warning docstring clause | method-definition documentation | every method whose correct behavior has source-grounded surprise conditions | The method docstring must name the exact conditions under which an implementation should emit a diagnostic warning when the global flag is enabled. | Admitted. Source: user directive on 2026-05-06. |
+
+Examples of warning-bearing methods:
+
+- `L.dual_lattice()` / lattice-side `dual()` compatibility: if `L` is degenerate or
+  if the name `dual()` would invite confusion between metric dual `L^#` and Hom dual
+  `Hom_R(L,R)`, the docstring should say that the enabled diagnostic warns which
+  object is being returned and why.
+- quotient-valued discriminant forms: if a value lives in `K/R` or `K/2R`, the
+  docstring should say that the enabled diagnostic may warn when a backend computes by
+  lifting to `K` but the public value remains quotient-valued.
+- Sage-interop aliases whose Sage name carries narrower or historically misleading
+  semantics must document when the enabled diagnostic should point to the project
+  mathematical name.
 
 ## Seed Method Surfaces
 
@@ -457,7 +490,7 @@ module surfaces. They are source-grounded in
 | `dual()` | parent | `Modules(R).DualObjects()` routed through `Modules(R).HomCategory()` | Linear dual `M^* = Hom_R(M, R)`. Codomain is a dual module that is also a Hom object. | Admitted. Source: modules mapping `Dual Objects As Hom Objects`. |
 | morphism `dual()` | hom element | `Modules(R).HomCategory().ElementMethods` | Dual morphism `f^*: B^* -> A^*` for `f: A -> B`. | Admitted. Source: modules mapping dual-object consequences. |
 | Sage `ToricLattice(rank, name, dual_name, ...)` | constructor | finite-rank free `ZZ`-module with selected coordinate basis; identity-formed unimodular lattice when that presentation is part of the object | Constructs a named finite-rank free abelian lattice. For coordinate characters of a presented torus, the selected basis supplies the identity Gram matrix. The toric names `M` and `N` are notation/provenance and parent-identity data, not a toric-specific subcategory. | Admitted as module/basis/lattice constructor evidence. Source: modules mapping toric character-lattice corrective mapping; Sage `geometry/toric_lattice.py`. |
-| Sage `ToricLattice.dual()` | parent | `Modules(ZZ).DualObjects()` and identity-formed metric dual `Lattices(ZZ).DualObjects()` / `dual_lattice()` | Linear dual of the underlying finite-rank free abelian module. With the identity Gram form, `Hom_ZZ(L, ZZ)` and the metric dual `L^#` identify canonically. | Admitted via module and lattice owners. Source: modules mapping toric character-lattice corrective mapping; lattices mapping toric character-lattice boundary correction. |
+| Sage `ToricLattice.dual()` | parent | `Modules(ZZ).DualObjects()` and the identity-formed metric `dual_lattice()` compatibility path | Linear dual of the underlying finite-rank free abelian module. With the identity Gram form, `Hom_ZZ(L, ZZ)` and the metric dual `L^#` identify canonically, but the metric-dual object is not the category-theoretic `DualObjects()` owner. | Admitted via module owner and lattice metric-dual compatibility. Source: modules mapping toric character-lattice corrective mapping; lattices mapping toric character-lattice boundary correction. |
 | multiplication/evaluation of elements from dual Sage toric lattices | element pair | dual evaluation pairing, identified with the identity-form pairing after the coordinate presentation is fixed | Evaluation `Hom_ZZ(L, ZZ) x L -> ZZ`; under the standard unimodular identity form this is the associated lattice bilinear pairing. | Admitted via module dual/evaluation and identity-formed lattice owners. Source: modules mapping toric character-lattice corrective mapping; Sage `geometry/toric_lattice_element.pyx`. |
 | Sage toric `submodule`, `span`, `span_of_basis`, `intersection`, `saturation`, `quotient`, `direct_sum` | parent/subobject/construction | ordinary module subobject, basis, quotient, and direct-sum owners | Sage preserves toric-flavored parents to retain labels and prevent accidental mixing, but the mathematical operations are ordinary module operations. | Admitted via module owners. Source: modules mapping toric lattice corrective mapping; lattices mapping toric boundary correction. |
 | `tensor(...)`, `tensor_module(...)`, `tensor_factors()`, tensor-power construction methods | parent/category | `Modules(R).TensorProducts()` | Tensor product construction and factor access. Codomain is a tensor product module or factor tuple. | Admitted. Sources: modules inventory construction categories; modules mapping method rules. |
@@ -565,10 +598,10 @@ torsion-form, and lattice surfaces. They are source-grounded in
 | `dual_lattice()` | parent | `Bilinear().Integral()` over integral-domain/fraction-field hypotheses, inherited by lattices | Metric dual formed object `L^# = {v in L_K : beta(v,L) subset R}`. This is not the bare module dual `Hom_R(L,R)`. | Admitted. Sources: lattices mapping note (3); bilinear forms foundations. |
 | `discriminant_group()` | parent | same metric-dual/discriminant formed-module owner, inherited by lattices | Finite torsion formed module `L^#/L` with discriminant form data. | Admitted. Sources: lattices Sage inventory Tier 3; lattices mapping note (3). |
 | `inclusion_morphism()` | parent | `Bilinear().Integral()` over integral-domain/fraction-field hypotheses | Morphism `L -> L^#` induced by the bilinear form/adjoint map. | Admitted. Sources: lattices mapping note (3); bilinear forms foundations. |
-| `Lattices(R).DualObjects()` | construction category | metric dual lattice construction | Canonical dual construction category; objects are metric dual lattices/formed dual objects, not bare module duals unless an identification is recorded. | Admitted. Source: lattices mapping construction-category vocabulary. |
-| `Lattices(R).DualLattices()` | construction alias | compatibility alias only | Old lattice-specific spelling of `DualObjects()`. | Interop-only. Source: lattices mapping construction vocabulary. |
+| `Lattices(R).DualObjects()` | construction category | Hom-dual object construction, when a lattice-side formed Hom dual is admitted | Category dual objects are represented as `Hom_R(N, R)` and inherit hom-object/evaluation behavior. They are not metric-dual lattices `L^#`; any formed structure requires explicit transported form or separate data. | Admitted only as category-dual surface. Source: lattices mapping construction-category vocabulary. |
+| `Lattices(R).DualLattices()` | construction alias/surface | metric-dual lattice compatibility spelling | Lattice-specific spelling for the metric-dual construction `L^# = {v in L_K : beta(v,L) subset R}` if retained as a construction category. | Interop-only for metric duals. Source: lattices mapping construction vocabulary. |
 | Sage toric same-lattice dot product rejection | element pair | Sage implementation/interop limitation relative to the identity-formed project surface | Sage rejects multiplying two elements of the same toric lattice because its implementation exposes the toric dual-pair convention. For a presented coordinate-character lattice, the identity Gram matrix supplies the same-lattice bilinear form. | Corrective boundary. Source: lattices mapping toric character-lattice boundary correction; Sage `geometry/toric_lattice_element.pyx`. |
-| `discriminant_class(x)` | dual element | `Lattices(R).DualObjects().ElementMethods` | Quotient class of a metric-dual element in `L^#/L`. | Admitted. Source: lattices mapping note (8). |
+| `discriminant_class(x)` | metric-dual element | element methods of the object returned by `L.dual_lattice()` | Quotient class of a metric-dual element in `L^#/L`. This is not a category `DualObjects()` method unless the element has first been transported to a Hom dual with an explicit identification. | Admitted. Source: lattices mapping note (8). |
 | `discriminant_class()` on ordinary lattice elements | element | no nontrivial ordinary-element owner | Ordinary elements map to zero after inclusion `L -> L^#`; the nontrivial map is on metric-dual elements. | Rejected as separate owner. Source: lattices mapping compatibility paths. |
 | `is_primitive(M)` / element `is_primitive(v)` | subobject/element | free module over integral domain; element case via cyclic-submodule inclusion | Primitive submodule predicate; element predicate routes through `v.span().inclusion().is_primitive()`. | Admitted with owner split. Sources: lattices mapping method placement table; modules mapping divisibility boundary. |
 | `sublattice(basis)` | parent | free bilinear modules over PID | Sublattice spanned by a basis/generating family under PID hypotheses. | Admitted. Source: lattices Sage inventory Tier 3; lattices mapping. |

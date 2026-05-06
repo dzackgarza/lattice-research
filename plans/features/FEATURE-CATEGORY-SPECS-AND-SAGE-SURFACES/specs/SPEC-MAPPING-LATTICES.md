@@ -270,8 +270,8 @@ lattices/subcategories/
 ├── even.py                _EvenLattices
 ├── unimodular.py          _UnimodularLattices
 └── constructions/
-    ├── dual_objects.py    _DualObjects      (= Lattices(R).DualObjects())
-    ├── dual_lattices.py   compatibility alias for DualObjects()
+    ├── dual_objects.py    Hom-dual objects, when admitted with explicit formed-object data
+    ├── dual_lattices.py   metric-dual lattice construction / compatibility spelling
     ├── overlattices.py
     ├── orthogonal_direct_sums.py
     └── discriminant_groups.py
@@ -346,7 +346,7 @@ The table answers: at what tier is each method first universally well-defined?
 | `lift(v)` | `Torsion` (element) | lift to dual lattice |
 | `divisibility(v)` | `Bilinear.Symmetric` (element) | pairing-image submodule `<b(v, L)> <= S`; for scalar-valued forms `S = R`, this is an ideal; see note (9) |
 | `is_primitive(v)` | `Modules` (element) | cyclic submodule primitive predicate via `v.span().inclusion().is_primitive()`; not a unit-divisibility rule without a source-grounded equivalence proof |
-| `discriminant_class(x)` | `Lattices(R).DualObjects()` (element) | quotient map `L^# -> L^#/L`; ordinary `v in L` maps to the zero class via `L -> L^#`; see note (8) |
+| `discriminant_class(x)` | metric-dual lattice element, i.e. an element of `L.dual_lattice()` | quotient map `L^# -> L^#/L`; ordinary `v in L` maps to the zero class via `L -> L^#`; see note (8) |
 | `reflection(v)` | `Free + Symmetric + Nondegenerate` (element) | s_v(w) = w - 2b(v,w)/b(v,v) · v |
 | `is_root(v)` | `Free + Symmetric + Integral` (element) | b(v,v) ∈ {-2, 2} |
 | `norm(v)` | `Bilinear` (element) — see note (7) | b(v,v); defined for any bilinear form |
@@ -372,9 +372,11 @@ ordered real realization"; the `OverIntegers` tier provides concrete Sage eviden
 
 **(3) `dual_lattice()` placement**: `L^# = {v in L_K : beta(v,L) <= R}` where
 `L_K = L tensor_R K` and `K = Frac(R)`. This is the metric dual inside scalar
-extension, not the general module dual `L^* = Hom_R(L,R)`. The nondegenerate pairing
-gives a map from `L^#` to `Hom_R(L,R)`, and under finite projective/free hypotheses it
-can identify these modules. That identification does not by itself put an
+extension, not the general module dual `L^* = Hom_R(L,R)`, and its elements are not
+functionals by definition. The bilinear form sends `x in L^#` to the functional
+`beta(x, -)` when that expression is defined in the scalar extension, and under
+finite projective/free nondegenerate hypotheses this transport can identify `L^#`
+with `Hom_R(L,R)`. That identification does not by itself put an
 `R`-valued form on `Hom_R(L,R)`: the metric dual inherits the scalar-extended
 `K`-valued form, and any form transported to the module dual must name the
 identification and codomain. In the unimodular integral case, including the identity
@@ -382,6 +384,15 @@ Gram toric-coordinate presentation, `L = L^#` and the transported form is the or
 `R`-valued form. The discriminant group `L^#/L` is the finite quotient with descended
 form data in the nondegenerate integral lattice setting. Sage's `ZZ` implementation is
 one concrete algorithm for this owner.
+
+The method docstring for `dual_lattice()` and any lattice-side `dual()` compatibility
+surface must include the diagnostic-warning conditions. With the global category
+diagnostic flag enabled, implementations should warn when the returned object may be
+misread as the Hom dual: for example, in degenerate formed modules such as a rank-one
+summand `<e>` in the hyperbolic plane `U`, `L^#` is the metric-dual construction being
+returned, not an evaluation-bearing object of `Hom_R(L,R)`. In nondegenerate finite
+free cases the warning text should name the recorded form-induced identification if
+the implementation transports between `L^#` and `Hom_R(L,R)`.
 
 **(4) `orthogonal_complement(S)` placement**: `S^⊥ = {v ∈ M : b(v,s) = 0 ∀s ∈ S}`.
 This is always a submodule. No assumptions needed beyond having a bilinear form.
@@ -413,11 +424,13 @@ In the spec we use `self_product` at the generic bilinear level and provide `nor
 alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
 
 **(8) `discriminant_class(x)` ownership**: The nontrivial map is the quotient
-`L^# -> L^#/L`, so the method belongs to elements of
-`Lattices(R).DualObjects()`. The former ordinary lattice-element reading is recovered
-by first applying the inclusion `L -> L^#`; its discriminant class is necessarily the
-zero element of `L.discriminant_group()`, so it is not a separate element obligation on
-`L`.
+`L^# -> L^#/L`, so the method belongs to elements of the metric-dual lattice returned
+by `L.dual_lattice()`. It does not belong to category-theoretic `DualObjects()`: those
+are Hom-dual objects with evaluation behavior, while elements of `L^#` become
+functionals only after explicit transport through the bilinear form. The former
+ordinary lattice-element reading is recovered by first applying the inclusion
+`L -> L^#`; its discriminant class is necessarily the zero element of
+`L.discriminant_group()`, so it is not a separate element obligation on `L`.
 
 **(9) `divisibility(v)` ownership**: For a symmetric bilinear module `(M, b)` with
 `b: M x M -> S`, the invariant definition is the `R`-submodule
@@ -430,18 +443,23 @@ content in `Modules(R).Free()`.
 
 ## Construction-Category Vocabulary
 
-The canonical dual construction name is `Lattices(R).DualObjects()`, matching the
-standard Sage/project construction category `DualObjectsCategory`. The old
-`Lattices(R).DualLattices()` spelling is a compatibility alias only; new specs and
-mappings should use `DualObjects()`.
+The category-theoretic dual construction name `DualObjects()` is reserved for
+Hom-dual objects: parents that are objects of the category and also carry the
+hom-object/evaluation behavior coming from `Hom_R(N, R)`. It is not the owner for the
+metric-dual lattice `L^#`.
+
+The metric-dual lattice construction is `dual_lattice()` at the method level. If a
+construction-category spelling is retained for compatibility, use the lattice-specific
+`DualLattices()` spelling for that metric construction and keep it separate from
+`DualObjects()`.
 
 Other lattice construction names audited in this pass are not duplicate spellings of
 standard construction categories:
 
 | Lattice surface | Relationship to standard construction vocabulary | Decision |
 | --- | --- | --- |
-| `DualObjects()` | Standard dual-object construction; objects are metric dual lattices `L^#`, not bare module duals unless an identification is recorded. | Canonical surface. |
-| `DualLattices()` | Old lattice-specific spelling of the same `DualObjectsCategory`. | Compatibility alias. |
+| `DualObjects()` | Hom-dual object construction: objects represented as `Hom_R(N, R)` and therefore carrying hom-object/evaluation behavior. A formed-object structure requires an explicit transported form or separate data. | Category dual surface, not the metric-dual owner. |
+| `DualLattices()` | Lattice-specific metric-dual construction for `L^# = {v in L_K : beta(v,L) subset R}` when retained as a construction category. | Compatibility spelling for metric duals; keep separate from `DualObjects()`. |
 | `Overlattices()` | Objects under a fixed lattice with finite-index, same-rational-span, inherited-form conditions. | Keep as lattice-specific refinement, not a replacement for `ObjectsUnder(base)`. |
 | `OrthogonalDirectSums()` | Cartesian-product construction plus the orthogonal block-sum form and summand access. | Keep as refinement below `CartesianProducts()`. |
 | `DiscriminantGroups()` | Finite torsion formed modules `L^#/L` with discriminant-form data. | Keep as lattice-specific quotient/form construction, not generic `Quotients()`. |

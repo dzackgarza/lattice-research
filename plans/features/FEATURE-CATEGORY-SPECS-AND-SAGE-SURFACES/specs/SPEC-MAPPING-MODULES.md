@@ -146,7 +146,7 @@ owner:
 | Sage toric surface | Project owner | Mapping consequence |
 | --- | --- | --- |
 | `ToricLattice(rank, name, dual_name, ...)` | `Modules(ZZ).Constructors().FreeModule(rank)` plus selected-basis and identity-formed-lattice surfaces when the coordinate-character presentation is part of the object | The toric constructor witnesses that named finite-rank free abelian lattices must be expressible without collapsing distinct parents into `ZZ^n`. For coordinate characters, the selected basis supplies the identity Gram form, so the object also lies in the unimodular lattice surface. The names `M` and `N` are notation/provenance, not a subcategory. |
-| `ToricLattice.dual()` | `Modules(ZZ).DualObjects()` and, for the identity-formed presentation, the metric-dual `Lattices(ZZ).DualObjects()` / `dual_lattice()` | The module dual `Hom_ZZ(L, ZZ)` and the metric dual `L^#` identify canonically for the standard unimodular identity form. Sage's dual parent is implementation evidence for both the module-dual construction and the lattice-dual compatibility path. For arbitrary formed lattices this identification and any transported form on `Hom_R(L,R)` must be stated separately. |
+| `ToricLattice.dual()` | `Modules(ZZ).DualObjects()` plus the metric `dual_lattice()` compatibility path for the identity-formed presentation | The module dual `Hom_ZZ(L, ZZ)` and the metric dual `L^#` identify canonically for the standard unimodular identity form. Sage's dual parent is implementation evidence for the module-dual construction and for the metric-dual compatibility path. For arbitrary formed lattices this identification and any transported form on `Hom_R(L,R)` must be stated separately. |
 | element multiplication between elements of dual toric lattices | dual evaluation pairing, identified with the identity-form pairing after the unimodular presentation is fixed | The public surface is evaluation of a dual element on a module element; through the identity Gram form this is the associated lattice bilinear pairing. |
 | `direct_sum`, `intersection`, `saturation`, `submodule`, `span`, `span_of_basis`, `quotient` | ordinary free-module direct-sum, subobject, saturation, basis, and quotient owners | Sage returns toric-flavored parents to preserve labels and prevent accidental mixing, but the mathematical operations are the standard module operations. |
 | parent `__call__`, `_coerce_map_from_`, containment, display, plotting | constructor/interop/display surfaces | Conversion barriers and labels protect parent identity. Plotting is geometry display interop, not module structure. |
@@ -587,6 +587,11 @@ the extra-supercategory chain routed through `Modules(R).HomCategory()`, specifi
 the linear integral form surface, instead of shortcutting directly to `Modules(R)`.
 This preserves the fact that elements of `M^*` are both module elements and morphisms
 `M -> R`.
+
+The docstring for `M.dual()` must identify this Hom-dual meaning. If a subclass or
+interop path also has a metric-dual convention, the docstring must point to that
+separate construction and say when the global category diagnostic flag should warn
+that `dual()` is returning an evaluation-bearing Hom object rather than a metric dual.
 
 Migration consequences:
 

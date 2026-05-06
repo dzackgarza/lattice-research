@@ -793,10 +793,18 @@ Required semantics:
 - `TensorProducts` model tensor products of objects with forms whenever the
   codomain arithmetic supports the induced form; the first required target
   is the bilinear integral/rational stratum.
-- `DualObjects()` mirrors the Sage construction but is not required to stay
-  inside the same codomain stratum. For example, the dual of an integral
-  nondegenerate free bilinear object typically lands in the rational
-  bilinear stratum.
+- `DualObjects()` mirrors the Sage construction for category-theoretic dual
+  objects: objects represented as `Hom_R(N, R)` and therefore carrying
+  hom-object/evaluation behavior. This is not the same construction as the
+  metric dual lattice `L^#`. A formed Hom dual needs explicit form data, usually
+  transported through a recorded nondegenerate pairing when such an
+  identification exists.
+- The category system has a global diagnostic flag, disabled by default, for
+  background warning logs about mathematically correct but surprising conventions.
+  Methods with such surprise conditions must state the warning condition in their
+  docstrings. For duals, this includes warning when `dual()`/`dual_lattice()` might
+  be confused with the other dual construction, especially in degenerate cases where
+  `L^#` is not an evaluation-bearing Hom dual.
 
 
 ## Cokernels and Discriminant Descent
@@ -829,7 +837,7 @@ beta_bar([v], [w]) := beta_2(v, w) mod R  in K/R.
 This is the abstract mechanism behind:
 
 ```text
-L  ->  L^*  ->  A_L = coker(L -> L^*).
+L  ->  L^#  ->  A_L = coker(L -> L^#).
 ```
 
 If additional quadratic data descends, it should be expressed as a
@@ -837,10 +845,12 @@ quadratic refinement on the same cokernel object, typically with codomain
 `K/2R`.
 
 For an integral lattice element `v in L`, the image in `A_L` is zero. The
-nontrivial discriminant-class map belongs to the dual/rational side of the
-diagram: dual elements map to cosets in `L^*/L` through the cokernel
-projection, and lattice elements enter only through the inclusion
-`\iota_L(v) = beta(v, -)`.
+nontrivial discriminant-class map belongs to the metric-dual/rational side of
+the diagram: elements of `L^#` map to cosets in `L^#/L` through the cokernel
+projection, and lattice elements enter only through the metric inclusion
+`L -> L^#`. Elements of `L^#` are not functionals by definition; evaluation
+behavior appears only after applying the form-induced transport
+`x |-> beta(x, -)` into `Hom_R(L, R)`, when the necessary hypotheses hold.
 
 Implementation note:
 
