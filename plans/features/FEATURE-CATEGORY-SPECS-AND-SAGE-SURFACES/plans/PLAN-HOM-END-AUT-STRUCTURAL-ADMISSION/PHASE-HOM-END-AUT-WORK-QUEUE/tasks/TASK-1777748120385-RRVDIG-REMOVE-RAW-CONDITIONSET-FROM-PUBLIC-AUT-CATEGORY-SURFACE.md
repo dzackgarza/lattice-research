@@ -118,3 +118,28 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - Added targeted homsets smoke coverage for the public Aut object surface.
 - `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed
   with exit code 0.
+
+### Re-review 2026-05-06 (Fermat)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- The prior Gate 2 public-surface leak is fixed: raw `SageConditionSet(...)` now lives
+  only in `_condition_aut_object_from_end_category(...)`, and the public
+  `_aut_object_from_end_category(...)` refines that backing object with
+  `refine_category(..., [aut_category])`.
+- `SPEC-MAPPING-HOMSETS.md` grounds the boundary: raw `ConditionSet` is implementation
+  detail, while public aut objects expose `end_category()`, `domain()`, `codomain()`,
+  and `identity()`, not `condition_set()`.
+- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` exited 0.
+
+#### Residual Risks
+
+- The underlying implementation object is still Sage `ConditionSet` by design; raw
+  Python type introspection will still reveal the backing class.
+- Full category-spec smoke still fails in unrelated posets and rings smoke files, so
+  this review supports only the Hom/End/Aut card and not a global phase transition.

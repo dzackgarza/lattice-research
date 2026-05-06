@@ -115,3 +115,25 @@ Task: audit standard type-package aliases (Set, Matrix, etc.) and ensure they po
 
 - Ran the scoped Cat smoke route above from the repo root. It passed with exit code 0
   and no output.
+
+### Re-review 2026-05-06 (Faraday)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- The prior Gate 2 failure is fixed: the scoped Cat smoke command
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` exited 0.
+- The task-local code change is only the `Category as CatBaseCategory` import and
+  `Category = CatBaseCategory` alias in `category_specs/types.py`.
+- Targeted checks confirmed direct `Hom` definitions remain Cat-owned.
+
+#### Residual Risks
+
+- `just test` was not rerun; this card records existing global mypy/stub failures as
+  non-phase-local.
+- Commit `ee61dc1` records `--no-verify`; the reviewer treated this as a recorded
+  process risk, not a current card blocker.
