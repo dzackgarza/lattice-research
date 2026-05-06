@@ -119,3 +119,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   docstring/message wraps. `uvx --from ruff ruff check --select E501
   category_specs/sets/__init__.py` and `python -m compileall
   category_specs/sets/__init__.py` now pass. Repo-wide E501 count is now 616.
+- 2026-05-06: Cleared the
+  `category_specs/rings/subcategories/_lazy_subcategories.py` slice with
+  `uvx --from ruff ruff format`. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/_lazy_subcategories.py` and `python -m
+  compileall category_specs/rings/subcategories/_lazy_subcategories.py` now pass.
+  Repo-wide E501 count is now 571.
