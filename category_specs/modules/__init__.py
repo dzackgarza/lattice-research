@@ -508,7 +508,7 @@ class Modules(Category_module):
 
         @final
         def _refine_constructed_module(self, M: RModule, categories: Sequence[Category]) -> RModule:
-            return refine_category(M, [Modules(M.base_ring()), *categories])
+            return refine_category(M, [Modules(M.base_ring()), *categories], test=False)
 
         @final
         def _standard_free_module_categories(self) -> list[Category]:

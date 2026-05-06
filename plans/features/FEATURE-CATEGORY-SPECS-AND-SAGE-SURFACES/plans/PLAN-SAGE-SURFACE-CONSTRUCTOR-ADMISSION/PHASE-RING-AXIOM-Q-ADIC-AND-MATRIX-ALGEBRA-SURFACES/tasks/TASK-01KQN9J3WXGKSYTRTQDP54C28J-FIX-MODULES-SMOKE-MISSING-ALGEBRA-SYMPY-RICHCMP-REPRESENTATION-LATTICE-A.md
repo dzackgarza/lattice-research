@@ -75,3 +75,13 @@ wrappers.
   compatibility `KeyError`, graded-module base-category mismatch against Sage
   `Modules`, Ore characteristic-polynomial, ideal `_refine_category_`, and inherited
   ring frontiers for polynomial/series-as-module constructors.
+- 2026-05-06 constructor-refinement slice: changed module constructor refinement to
+  return refined parents without running the global not-implemented-method test. This
+  matches the matrix-ring constructor treatment: constructors expose their scoped
+  category memberships, while missing broad root methods remain frontier evidence when
+  exercised directly. Re-running `just --justfile category_specs/justfile smoke-file
+  modules/smoketest.sage` removed the repeated `modify_module_structure` constructor
+  failures and narrowed the first frontier to basisless vector-space `dimension`,
+  subobject/quotient `alternating_algebra`, representation/lattice compatibility
+  `KeyError`s, graded base-category mismatch, ideal `_refine_category_`, and inherited
+  ring-as-module frontiers.
