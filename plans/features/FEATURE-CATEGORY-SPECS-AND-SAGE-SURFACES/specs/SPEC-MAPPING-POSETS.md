@@ -51,7 +51,9 @@ Source inventory: `category_specs/posets/docs/SAGE_INVENTORY.md`.
   - `sage/combinat/posets/posets.py`
   - `sage/combinat/posets/lattices.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
-- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+- Completeness status: this ledger records the checked source corpus; the Posets
+  method reconciliation is recorded in `Completeness Reconciliation: Posets` below,
+  with remaining gaps routed through `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
 
 ## Converted Mapping Content
 

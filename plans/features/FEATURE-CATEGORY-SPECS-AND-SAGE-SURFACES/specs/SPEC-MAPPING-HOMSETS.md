@@ -48,7 +48,9 @@ Source inventory: `category_specs/homsets/docs/SAGE_INVENTORY.md`.
   - `sage/categories/homset.py`
   - `sage/categories/objects.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
-- Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+- Completeness status: this ledger records the checked source corpus; the generic
+  homset reconciliation is recorded below, with remaining gaps routed through
+  `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
 
 ## Completeness Reconciliation: Generic Homset Surface
 
