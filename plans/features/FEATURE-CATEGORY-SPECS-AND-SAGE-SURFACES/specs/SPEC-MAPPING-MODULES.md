@@ -74,6 +74,8 @@ Source inventory: `category_specs/modules/docs/SAGE_INVENTORY.md`.
   - `sage/modules/fp_graded/morphism.py`
   - `sage/modules/ore_module_homspace.py`
   - `sage/modules/ore_module_morphism.py`
+  - `sage/geometry/toric_lattice.py`
+  - `sage/geometry/toric_lattice_element.pyx`
   - additional installed source paths listed in `category_specs/modules/docs/SAGE_INVENTORY.md` beyond this ledger limit: 21
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; the Modules
@@ -128,6 +130,26 @@ codomain data and does not by itself own the method.
 | `cellular_algebra`, `bilinear_form`, `bilinear_form_matrix`, `radical`, `simple_module` on `CellModule` | Deferred cellular-module owner under finite-dimensional algebras with basis, with forms and quotient-module refinements for the bilinear/radical/simple-module surfaces | Not generic module ownership. The caller is a cell module; the constructing caller is the cellular algebra. |
 | `ore_ring`, `twisting_morphism`, `twisting_derivation`, `pseudohom`, `multiplication_map`, Ore submodule/quotient morphism restriction/corestriction/quotient/modulo | Deferred Ore owner, plus ordinary inherited free-module, hom, subobject, and quotient surfaces | `categories/ore_modules.py` is present in installed Sage; project naming still needs a decision between semilinear-operator and Ore-algebra ownership. |
 | `is_sparse`, `is_dense`, `is_exact`, `some_elements`, `random_element`, `dense_module`, `sparse_module`, `element_class`, display hooks, `_sympy_`, `_magma_init_`, `_macaulay2_`, `_repr_`, `_latex_` | Private/runtime/display/interop | Not public mathematical category surfaces unless a later spec introduces exact-computation or probability-distribution structure with explicit hypotheses. |
+
+### Toric Character-Lattice Corrective Mapping
+
+Sage's `sage.geometry.toric_lattice.ToricLattice` is implementation evidence for
+presented coordinate-character and cocharacter lattices, not evidence for a separate
+toric-lattice owner. `ToricLattice_generic` subclasses Sage PID free-module classes,
+and its distinctive behavior is parent identity, naming, conversion barriers between
+distinct lattices, and convenient toric notation for a lattice and its dual. For a
+presented coordinate torus, the coordinate characters give a selected basis; with the
+identity Gram matrix this is a unimodular formed lattice. The mathematical methods
+exposed there must be mapped to the highest ordinary module, basis, or formed-lattice
+owner:
+
+| Sage toric surface | Project owner | Mapping consequence |
+| --- | --- | --- |
+| `ToricLattice(rank, name, dual_name, ...)` | `Modules(ZZ).Constructors().FreeModule(rank)` plus selected-basis and identity-formed-lattice surfaces when the coordinate-character presentation is part of the object | The toric constructor witnesses that named finite-rank free abelian lattices must be expressible without collapsing distinct parents into `ZZ^n`. For coordinate characters, the selected basis supplies the identity Gram form, so the object also lies in the unimodular lattice surface. The names `M` and `N` are notation/provenance, not a subcategory. |
+| `ToricLattice.dual()` | `Modules(ZZ).DualObjects()` and, for the identity-formed presentation, the metric-dual `Lattices(ZZ).DualObjects()` / `dual_lattice()` | The module dual `Hom_ZZ(L, ZZ)` and the metric dual `L^#` identify canonically for the standard unimodular identity form. Sage's dual parent is implementation evidence for both the module-dual construction and the lattice-dual compatibility path. For arbitrary formed lattices this identification and any transported form on `Hom_R(L,R)` must be stated separately. |
+| element multiplication between elements of dual toric lattices | dual evaluation pairing, identified with the identity-form pairing after the unimodular presentation is fixed | The public surface is evaluation of a dual element on a module element; through the identity Gram form this is the associated lattice bilinear pairing. |
+| `direct_sum`, `intersection`, `saturation`, `submodule`, `span`, `span_of_basis`, `quotient` | ordinary free-module direct-sum, subobject, saturation, basis, and quotient owners | Sage returns toric-flavored parents to preserve labels and prevent accidental mixing, but the mathematical operations are the standard module operations. |
+| parent `__call__`, `_coerce_map_from_`, containment, display, plotting | constructor/interop/display surfaces | Conversion barriers and labels protect parent identity. Plotting is geometry display interop, not module structure. |
 
 ### Formal Negative And Corrective Findings
 

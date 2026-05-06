@@ -52,6 +52,8 @@ Source inventory: `category_specs/lattices/docs/SAGE_INVENTORY.md`.
   - `sage/modules/torsion_quadratic_module.py`
   - `sage/modules/free_quadratic_module_integer_symmetric.py`
   - `sage/quadratic_forms/quadratic_form.py`
+  - `sage/geometry/toric_lattice.py`
+  - `sage/geometry/toric_lattice_element.pyx`
 - Source-visibility gaps from inventory tokens requiring follow-up during completeness audit:
   - `sage/categories/bilinear_modules.py`
   - `sage/categories/free_bilinear_modules.py`
@@ -109,7 +111,7 @@ ambient-vector-space lattice convention into the public semantics.
 | `FreeQuadraticModule(base_ring, rank, degree, inner_product_matrix, sparse=False)` and `FreeQuadraticModule_generic.__init__` | `free_quadratic_module.py:310` | `Modules(R).Free().FiniteRank().WithForms().Bilinear()` constructor path | Admit as an interop-backed constructor from `(R, finite rank, form matrix, selected generators)`. Do not expose Sage's `degree`, `sparse`, or ambient-space basis as public lattice data. |
 | `IntegralLattice(...)` / `FreeQuadraticModule_integer_symmetric` | `free_quadratic_module_integer_symmetric.py:625` | `Lattices(ZZ).Constructors()` and richest correct meet | Admit via named constructors from a presented integral symmetric nondegenerate bilinear form. The Sage `ambient`, `basis`, and `inner_product_matrix` triple is backend presentation evidence only; public identity is the selected generator presentation with form data. |
 | `TorsionQuadraticForm(q)` | `torsion_quadratic_module.py:20` | `Lattices(ZZ).DiscriminantGroups()` or forms-owned torsion quadratic constructor | Admit as a closed constructor from a symmetric rational quadratic Gram matrix and quotient-valued codomain. It must validate the quotient codomain (`QQ/ZZ` or `QQ/2ZZ`) explicitly instead of exposing Sage's denominator-clearing path. |
-| `TorsionQuadraticModule(V, W, modulus, modulus_qf, gens)` | `torsion_quadratic_module.py:190` | `Modules(R).WithForms().Quadratic().Torsion()`; lattice discriminant groups when built as `coker(L -> L^*)` | Preserve through two named routes: a generic torsion formed-module constructor from quotient data, and the lattice-owned discriminant descent path. `modulus` and `modulus_qf` are codomain data, not option-bag public API. |
+| `TorsionQuadraticModule(V, W, modulus, modulus_qf, gens)` | `torsion_quadratic_module.py:190` | `Modules(R).WithForms().Quadratic().Torsion()`; lattice discriminant groups when built as `coker(L -> L^#)` | Preserve through two named routes: a generic torsion formed-module constructor from quotient data, and the lattice-owned discriminant descent path. `modulus` and `modulus_qf` are codomain data, not option-bag public API. |
 | `QuadraticForm(...)`, `QuadraticForm.from_polynomial`, `change_ring`, `primitive`, `level`, `level_ideal` | `quadratic_form.py:1150`, `1190`, `1214`, `1301`, `1541`, `1586` | Quadratic-form/forms subtree, not `Lattices` as owner | Use as conversion and backend evidence for free quadratic objects. `level` is a quadratic-form invariant over a PID and is not a lattice method unless a lattice theorem explicitly owns the call. |
 | `direct_sum`, `tensor_product`, `twist` on Sage lattices | `free_quadratic_module_integer_symmetric.py:871`, `1332`, `1653` | `Free + Bilinear` or `ModulesWithForms` construction categories | Admit at the higher formed-module owners. `discard_basis` is not admitted as a public option; changing presentation must be explicit and returns a new object plus any available witness. |
 | `sublattice`, `overlattice`, `maximal_overlattice` | `free_quadratic_module_integer_symmetric.py:972`, `1008`, `1030` | subobject/overlattice construction categories | Admit as lattice construction categories using generator-defined subobjects and inclusion morphisms. Do not expose row-basis or ambient-span wording as public semantics. `maximal_overlattice(p)` stays `OverZZ`/algorithmic and evenness-hypothesis guarded. |
@@ -126,13 +128,31 @@ ambient-vector-space lattice convention into the public semantics.
 | `FGP_Element.lift`, `vector`, `additive_order` | `fgp_element.py:85`, `312`, `414` | module elements; torsion element order | `additive_order` is admitted at torsion elements. `lift` and `vector` are generic quotient-coordinate operations; discriminant-group `lift` is public only when it returns an element of the relevant dual/rational lattice, not a bare Sage vector. |
 | `cardinality`, `is_finite`, `list`, `__iter__`, `random_element` | `fgp_module.py:1755`, `1788`, `1867` | sets/modules enumeration and runtime | Preserve as set/module runtime surfaces. Enumeration of infinite lattice objects requires the separate countability/enumeration program, not ad hoc lattice-local loops. |
 
+### Toric Character-Lattice Boundary Correction
+
+Sage's `ToricLattice` source is a warning against both over-narrowing the word
+"lattice" to later Coble/Nikulin algorithms and erasing the formed structure carried by
+presented torus character lattices. It subclasses Sage PID free-module classes and adds
+named parent identity, dual-name bookkeeping, conversion barriers, and toric notation.
+For a presented coordinate torus, the coordinate characters give a selected basis and
+the identity Gram matrix gives a unimodular lattice. This does not create a separate
+toric owner; it routes Sage toric lattice surfaces through ordinary free-module,
+basis, and formed-lattice owners.
+
+| Sage toric surface | Correct owner | Reconciliation |
+| --- | --- | --- |
+| `ToricLattice(rank, name, dual_name, ...)` | finite-rank free abelian module with selected basis; unimodular formed-lattice surface when the coordinate-character presentation supplies the identity Gram form | Constructor evidence that named free abelian lattices must preserve parent identity and notation. Toric provenance alone is not a mathematical axiom, but the coordinate-character presentation supplies real basis/form data. |
+| `ToricLattice.dual()` and dual element action | module dual object, metric `dual_lattice()` for the identity form, and their canonical unimodular identification | The module dual `Hom_ZZ(L, ZZ)` and the metric dual `L^#` coincide for the identity Gram form. Sage's dual parent is implementation evidence for the compatibility, even though Sage exposes it through toric notation. For arbitrary formed lattices, the module dual and metric dual must be kept distinct unless an isomorphism is explicitly recorded. |
+| `submodule`, `span`, `span_of_basis`, `intersection`, `saturation`, `quotient`, `direct_sum` | inherited module subobject, basis, quotient, and direct-sum surfaces | Sage preserves toric-flavored parents for usability, but the method owners are ordinary module/lattice owners. |
+| same-lattice element dot product rejection | Sage implementation/interop limitation relative to the identity-formed project surface | Sage's refusal to multiply two elements of the same toric lattice reflects its toric dual-pair convention, not a negative mathematical claim for the project spec. In the presented coordinate-character lattice, the identity Gram form supplies the same-lattice bilinear form. |
+
 ### Lattice and Form Method Reconciliation
 
 | Sage surface | Source evidence | Spec owner or classification | Reconciliation |
 | --- | --- | --- | --- |
 | `ambient_module`, `ambient_vector_space`, `basis_matrix`, `inner_product_matrix`, `degree`, display `_repr_` | `free_quadratic_module.py:369`, `472`; `free_quadratic_module_integer_symmetric.py:625` | private/runtime/display/interop | Do not admit as public lattice semantics. These witness Sage's ambient implementation and may be used at backend boundaries only. Public objects expose generators, form data, and morphisms. |
 | `gram_matrix`, `determinant`, `discriminant` | `free_quadratic_module.py:390`, `408`, `439` | `Free + Bilinear` | Admit at the first free bilinear tier. Gram matrices are presentation data in selected generators, not identity of an abstract isometry class. |
-| `is_even`, `dual_lattice`, `discriminant_group` | `free_quadratic_module_integer_symmetric.py:736`, `753`, `779` | finite-rank free integral bilinear modules; `dual_lattice` and `discriminant_group` require nondegeneracy for the lattice-dual identification and finite quotient | Admit, but the project implementation must route `discriminant_group()` through `L -> L^* -> coker`, preserving quotient-valued form codomains. General Hom-duality remains a module/formed-module dual-object surface, not `dual_lattice()`. |
+| `is_even`, `dual_lattice`, `discriminant_group` | `free_quadratic_module_integer_symmetric.py:736`, `753`, `779` | finite-rank free integral bilinear modules; `dual_lattice` and `discriminant_group` require nondegeneracy for the metric-dual identification and finite quotient | Admit, but the project implementation must route `discriminant_group()` through `L -> L^# -> coker`, preserving quotient-valued form codomains. General Hom-duality remains a module dual-object surface, not `dual_lattice()`, unless a specific isomorphism with the metric dual is recorded. |
 | `signature_pair`, Sage `signature()` as `n_+ - n_-` | `free_quadratic_module_integer_symmetric.py:839`, `855` | exact free symmetric form signature data over a base with an ordered real realization; display/index interop for `p-q` | Preserve exact signature data. The scalar `p-q` is Sage interop/display data, not the owner of signature semantics. Generalizing beyond `ZZ` requires `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`; a bare integral-domain hypothesis is not enough. |
 | `orthogonal_complement`, `orthogonal_submodule_to`, element `perp` | `free_quadratic_module_integer_symmetric.py:931`; `torsion_quadratic_module.py:890` | symmetric bilinear modules and subobjects | Admit at the symmetric bilinear owner. Inputs must be subobjects/elements with parent data, not arbitrary ambient vectors. |
 | `is_primitive(M)` | `free_quadratic_module_integer_symmetric.py:901` | module subobject/inclusion predicate | Admit for subobjects via quotient torsion-freeness. Do not conflate with element divisibility unless a source-backed equivalence proof records the hypotheses. |
@@ -288,11 +308,11 @@ The table answers: at what tier is each method first universally well-defined?
 | `is_negative_definite()` | `Free + Symmetric + ordered real realization` | same |
 | `signature_pair()` | `Free + Symmetric + ordered real realization` | inertia after scalar extension to the ordered real target; see note (2) |
 | `signature()` | `Free + Symmetric + ordered real realization` | derived Sage scalar `p - q`; signature semantics are owned by `signature_pair()` |
-| `dual_lattice()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L^*={v∈L_K:β(v,L)⊆R}` uses the nondegenerate pairing to identify the scalar extension with the dual; see note (3) |
-| `discriminant_group()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L^*/L` with the descended quotient-valued form; follows from dual_lattice; see note (3) |
-| `inclusion_morphism()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `ι: L → L^*`; same lattice-dual tier |
+| `dual_lattice()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | metric dual `L^#={v in L_K: beta(v,L) subset R}` uses the nondegenerate pairing inside scalar extension; see note (3) |
+| `discriminant_group()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L^#/L` with the descended quotient-valued form; follows from `dual_lattice()`; see note (3) |
+| `inclusion_morphism()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `i: L -> L^#`; same metric-dual tier |
 | `is_even()` | `Bilinear.Integral` | `b(m,m) in 2R for all elements m`; requires integrality but not freeness |
-| `is_unimodular()` | `Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L=L^*`, i.e. `|det|=1` |
+| `is_unimodular()` | `Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L = L^#`, i.e. `|det|=1` |
 | `orthogonal_complement(S)` (parent) | `Bilinear.Symmetric` | `S^⊥` is a submodule for ANY symmetric bilinear module; see note (4) |
 | `is_primitive(M)` | `Free + OverIntegralDomain` | quotient L/M is torsion-free |
 | `direct_sum(other)` | `Free + Bilinear` | orthogonal direct sum with block-diagonal gram matrix |
@@ -326,7 +346,7 @@ The table answers: at what tier is each method first universally well-defined?
 | `lift(v)` | `Torsion` (element) | lift to dual lattice |
 | `divisibility(v)` | `Bilinear.Symmetric` (element) | pairing-image submodule `<b(v, L)> <= S`; for scalar-valued forms `S = R`, this is an ideal; see note (9) |
 | `is_primitive(v)` | `Modules` (element) | cyclic submodule primitive predicate via `v.span().inclusion().is_primitive()`; not a unit-divisibility rule without a source-grounded equivalence proof |
-| `discriminant_class(x)` | `Lattices(R).DualObjects()` (element) | quotient map `L^* -> L^*/L`; ordinary `v in L` maps to the zero class via `L -> L^*`; see note (8) |
+| `discriminant_class(x)` | `Lattices(R).DualObjects()` (element) | quotient map `L^# -> L^#/L`; ordinary `v in L` maps to the zero class via `L -> L^#`; see note (8) |
 | `reflection(v)` | `Free + Symmetric + Nondegenerate` (element) | s_v(w) = w - 2b(v,w)/b(v,v) · v |
 | `is_root(v)` | `Free + Symmetric + Integral` (element) | b(v,v) ∈ {-2, 2} |
 | `norm(v)` | `Bilinear` (element) — see note (7) | b(v,v); defined for any bilinear form |
@@ -350,14 +370,18 @@ and is not enough. Until the base-ring/refinement owner is fixed by
 `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`, the abstract owner is "free symmetric with
 ordered real realization"; the `OverIntegers` tier provides concrete Sage evidence.
 
-**(3) `dual_lattice()` placement**: `L^* = {v in L_K : beta(v,L) <= R}` where
-`L_K = L tensor_R K` and `K = Frac(R)`. This is the lattice dual inside scalar
-extension, not the general module dual `Hom_R(M,R)`. The scalar-extension
-identification uses a finite free torsion-free presentation and the nondegenerate
-pairing; for mixed or torsion modules, ordinary duality belongs to
-`Modules(R).DualObjects()` or the formed-module Hom surface. The discriminant group
-`L^*/L` is the finite quotient with descended form data in the nondegenerate integral
-lattice setting. Sage's `ZZ` implementation is one concrete algorithm for this owner.
+**(3) `dual_lattice()` placement**: `L^# = {v in L_K : beta(v,L) <= R}` where
+`L_K = L tensor_R K` and `K = Frac(R)`. This is the metric dual inside scalar
+extension, not the general module dual `L^* = Hom_R(L,R)`. The nondegenerate pairing
+gives a map from `L^#` to `Hom_R(L,R)`, and under finite projective/free hypotheses it
+can identify these modules. That identification does not by itself put an
+`R`-valued form on `Hom_R(L,R)`: the metric dual inherits the scalar-extended
+`K`-valued form, and any form transported to the module dual must name the
+identification and codomain. In the unimodular integral case, including the identity
+Gram toric-coordinate presentation, `L = L^#` and the transported form is the original
+`R`-valued form. The discriminant group `L^#/L` is the finite quotient with descended
+form data in the nondegenerate integral lattice setting. Sage's `ZZ` implementation is
+one concrete algorithm for this owner.
 
 **(4) `orthogonal_complement(S)` placement**: `S^⊥ = {v ∈ M : b(v,s) = 0 ∀s ∈ S}`.
 This is always a submodule. No assumptions needed beyond having a bilinear form.
@@ -389,9 +413,9 @@ In the spec we use `self_product` at the generic bilinear level and provide `nor
 alias at the `Lattices(ZZ)` level (where "norm" is standard terminology).
 
 **(8) `discriminant_class(x)` ownership**: The nontrivial map is the quotient
-`L^* -> L^*/L`, so the method belongs to elements of
+`L^# -> L^#/L`, so the method belongs to elements of
 `Lattices(R).DualObjects()`. The former ordinary lattice-element reading is recovered
-by first applying the inclusion `L -> L^*`; its discriminant class is necessarily the
+by first applying the inclusion `L -> L^#`; its discriminant class is necessarily the
 zero element of `L.discriminant_group()`, so it is not a separate element obligation on
 `L`.
 
@@ -416,11 +440,11 @@ standard construction categories:
 
 | Lattice surface | Relationship to standard construction vocabulary | Decision |
 | --- | --- | --- |
-| `DualObjects()` | Standard dual-object construction; objects are dual lattices `L^*`. | Canonical surface. |
+| `DualObjects()` | Standard dual-object construction; objects are metric dual lattices `L^#`, not bare module duals unless an identification is recorded. | Canonical surface. |
 | `DualLattices()` | Old lattice-specific spelling of the same `DualObjectsCategory`. | Compatibility alias. |
 | `Overlattices()` | Objects under a fixed lattice with finite-index, same-rational-span, inherited-form conditions. | Keep as lattice-specific refinement, not a replacement for `ObjectsUnder(base)`. |
 | `OrthogonalDirectSums()` | Cartesian-product construction plus the orthogonal block-sum form and summand access. | Keep as refinement below `CartesianProducts()`. |
-| `DiscriminantGroups()` | Finite torsion formed modules `L^*/L` with discriminant-form data. | Keep as lattice-specific quotient/form construction, not generic `Quotients()`. |
+| `DiscriminantGroups()` | Finite torsion formed modules `L^#/L` with discriminant-form data. | Keep as lattice-specific quotient/form construction, not generic `Quotients()`. |
 
 `Lattices(R).ObjectsOver(L)` and `Lattices(R).ObjectsUnder(L)` keep the
 lattice-specific `structure_lattice()` and lattice morphism `structure_map()`.

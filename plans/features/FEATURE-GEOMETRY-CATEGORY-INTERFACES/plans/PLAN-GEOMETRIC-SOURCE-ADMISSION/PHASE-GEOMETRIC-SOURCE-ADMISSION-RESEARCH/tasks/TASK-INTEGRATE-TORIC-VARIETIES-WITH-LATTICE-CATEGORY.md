@@ -54,11 +54,11 @@ This is a research/planning card, not an implementation card. Do not write categ
 ## Research Result
 
 Status: needs review. Toric varieties are source-grounded as normal varieties
-associated to rational polyhedral fans in ordinary finite-rank free abelian
-lattices. In toric geometry these lattices are often written as the character
-lattice `M = X^*(T)` and cocharacter lattice `N = X_*(T)` of a torus, but this
-provenance does not create a special lattice type. This card does not authorize
-implementation.
+associated to rational polyhedral fans in presented torus character or
+cocharacter lattices. For a presented coordinate torus, the coordinate characters
+give a selected basis and the identity Gram matrix gives a unimodular lattice.
+The metric dual lattice `L^#` and `Hom_ZZ(L, ZZ)` are canonically identified in that
+presentation. This card does not authorize implementation.
 
 ## Mathematical Definition
 
@@ -70,19 +70,19 @@ Source evidence:
 - Sage fan morphism documentation, https://doc.sagemath.org/html/en/reference/discrete_geometry/sage/geometry/fan_morphism.html, defines fan morphisms as lattice morphisms compatible with specified fans and notes induced morphisms between associated toric varieties.
 - OSCAR normal toric variety documentation, https://docs.oscar-system.org/v1/AlgebraicGeometry/ToricVarieties/NormalToricVarieties/, distinguishes affine normal toric varieties associated to cones from normal toric varieties associated to polyhedral fans, citing Cox-Little-Schenck notation `U_sigma` and `X_Sigma`.
 - OSCAR toric morphism documentation, https://docs.oscar-system.org/v1.4/AlgebraicGeometry/ToricVarieties/ToricMorphisms/, states that compatible `ZZ`-linear maps of fan lattices induce exactly the toric morphisms.
-- `SPEC-MAPPING-MODULES.md`, `SPEC-MAPPING-LATTICES.md`, and `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` record the current module/lattice split. The toric card uses this as a process warning: character and cocharacter groups are ordinary lattice/module objects; their duals and evaluation pairings are ordinary module-level structure, not toric-specific structure. They should not silently inherit symmetric-form methods unless a form is supplied.
+- `SPEC-MAPPING-MODULES.md`, `SPEC-MAPPING-LATTICES.md`, and `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` record the current module/lattice split. The toric card uses this as a process warning: character and cocharacter groups inherit ordinary free-module methods, while a presented coordinate-character lattice also carries the identity Gram form and is unimodular. Sage's toric dual parent witnesses both the module dual and the metric dual under that identity-form identification.
 
 Project vocabulary:
 
-- Character and cocharacter groups of algebraic tori should use the ordinary lattice/free-module vocabulary. They may be named `M = X^*(T)` and `N = X_*(T)` in toric contexts, but that naming is provenance and notation, not a new lattice subcategory.
-- Duals and evaluation pairings belong to the module/lattice vocabulary in general: for a module `M`, the dual `Hom_R(M, R)` has the usual evaluation pairing with `M`.
+- Character and cocharacter groups of presented coordinate tori should use the ordinary free-module, selected-basis, and formed-lattice vocabulary. The coordinate-character basis supplies the identity Gram matrix, so these objects lie in the unimodular lattice surface rather than in a toric-specific lattice subcategory.
+- The module dual `Hom_ZZ(L, ZZ)` and the metric dual lattice `L^#` coincide for the identity Gram form. This is a special unimodular identification: for arbitrary formed lattices, `Hom_R(L,R)` and `L^# = {v in L_K : b(v,L) subset R}` are distinct surfaces, and no form on `Hom_R(L,R)` should be asserted unless it is transported through a recorded isomorphism with a formed dual.
 - `RationalPolyhedralFans(N)` should own cones, rays, faces, subdivisions, smoothness/simplicial/completeness predicates, and fan morphism compatibility.
 - `NormalToricVarieties(k)` should be varieties over `k` constructed from fans in a cocharacter lattice, with fan and torus data retained as structure.
 - `AffineNormalToricVarieties(k)` are cone-owned affine refinements; projective, complete, smooth, simplicial, orbifold, Fano, and CPR-Fano toric varieties are stricter refinements.
 
 Boundary decisions:
 
-- Do not conflate ordinary character/cocharacter lattices with later Coble/Nikulin formed-lattice surfaces. They are all lattice/module objects, but a symmetric bilinear form is extra structure and is not supplied merely by toric provenance.
+- Do not conflate the standard identity form on a presented coordinate-character lattice with later Coble/Nikulin bilinear forms. They are all formed lattice objects, but the form and presentation data differ and must remain explicit.
 - Do not attach toric fan methods to all varieties. The fan is extra toric structure; only toric refinements own `fan()`, `rays()`, `cones()`, `orbit_closure(...)`, fan subdivision, and toric resolution surfaces.
 - Do not treat a lattice polytope, normal fan, cone, or fan as the same object as the toric variety. These are constructor or structural inputs with their own polyhedral owners.
 - Toric morphisms are not arbitrary scheme morphisms: the toric-refinement owner is compatible lattice/fan morphism data, with the induced scheme morphism as codomain evidence.
@@ -120,19 +120,19 @@ Source evidence:
 
 - `TASK-INTEGRATE-VARIETIES-CATEGORY` supplies the variety substrate.
 - `TASK-INTEGRATE-POLYTOPES-CATEGORY` and `TASK-INTEGRATE-POLYHEDRA-2D-POLYTOPES-CATEGORY` still need to admit polytope/polyhedron/fan-related vocabulary.
-- `SPEC-MAPPING-MODULES.md` supplies finite-rank free module ownership for the underlying lattice/free-abelian-group layer.
-- `SPEC-MAPPING-LATTICES.md` and the ModulesWithForms roadmap are source material for how the repo handles lattice identity, elements, morphisms, duals, and formed refinements. If their current public endpoint is too form-specific for ordinary lattices, the correct conclusion is that the lattice vocabulary needs an unformed finite-rank free abelian lattice surface, not a toric-specific lattice type.
+- `SPEC-MAPPING-MODULES.md` supplies finite-rank free module ownership for the underlying free-module operations.
+- `SPEC-MAPPING-LATTICES.md` and the ModulesWithForms roadmap are source material for how the repo handles lattice identity, elements, morphisms, duals, and formed refinements. If their current public endpoint cannot express a presented coordinate-character lattice with identity Gram form, the correct conclusion is that the lattice vocabulary needs that ordinary unimodular presentation surface, not a toric-specific lattice type.
 - `theory/references/literature/aegs_2023.md` contains downstream Coble/K3 references where toric surfaces, polytopes, and altered lattices appear as source material, but those are downstream geometry claims rather than generic toric API authority.
 
 Inference:
 
-The toric card should stabilize the lattice/fan/toric-variety boundary now and leave detailed polytope/fan constructors to polyhedral source-admission cards. It should route character/cocharacter groups through ordinary lattice/module vocabulary, while preventing symmetric-form-only methods from being inherited without extra structure.
+The toric card should stabilize the lattice/fan/toric-variety boundary now and leave detailed polytope/fan constructors to polyhedral source-admission cards. It should route character/cocharacter groups through ordinary free-module, basis, and formed-lattice vocabulary, with the identity Gram form explicit for presented coordinate-character lattices.
 
 ## Method Ownership Guidance
 
 Admit these as toric-level or toric-refinement surfaces when downstream specs are written:
 
-- `character_lattice()` and `cocharacter_lattice()`: owned by toric varieties or torus/fan data; codomains are ordinary finite-rank free `ZZ`-modules/lattices. Their duality and evaluation pairing are inherited from the general module/lattice vocabulary.
+- `character_lattice()` and `cocharacter_lattice()`: owned by toric varieties or torus/fan data; codomains are presented finite-rank free `ZZ`-modules/lattices. For coordinate-character presentations, the coordinate basis and identity Gram form make these unimodular lattices, with metric `dual_lattice()` and `Hom_ZZ(L, ZZ)` canonically identified.
 - `fan()`: owned by normal toric varieties, returning a rational polyhedral fan in the cocharacter lattice.
 - `rays()`, `cones()`, `maximal_cones()`, `faces()`, `subdivide(...)`, and `normal_fan(...)`: owned by fan/polyhedral refinements, not by all varieties.
 - `torus()`, `dense_torus()`, and `torus_action()`: owned by toric varieties with algebraic torus codomain.
@@ -149,7 +149,7 @@ This card gives source-grounded input to these sibling cards and downstream spec
 - Polytope/polyhedron source-admission cards must admit cones/fans/lattice polytopes before toric constructor specs harden.
 - Coble/K3 toric-surface references must state whether the object is a toric variety, fan, polytope, or altered free abelian lattice.
 - Backend-routing work should prefer Sage/OSCAR for toric varieties and morphisms, with polymake/Normaliz for fan/cone kernels after audit.
-- Lattice/ModulesWithForms implementation work is not a blocker for toric source admission, but toric specs must still depend on the lattice/free-module vocabulary enough to express character and cocharacter lattices, lattice points, lattice homomorphisms, duals, and evaluation pairings.
+- Lattice/ModulesWithForms implementation work is not a blocker for toric source admission, but toric specs must still depend on the lattice/free-module vocabulary enough to express character and cocharacter lattices, lattice points, lattice homomorphisms, the identity Gram form on coordinate-character presentations, duals, and evaluation pairings.
 
 ## Follow-Up Routing
 
@@ -157,18 +157,18 @@ No new card is needed from this toric source-admission pass.
 
 - Polyhedral constructor details remain in the existing polytope/polyhedron source-admission cards.
 - Backend implementation routing remains future work after source specs decide the exact toric object surfaces.
-- Do not create a public `ToricLattice` type merely because a lattice appears in toric geometry. Use the ordinary lattice/module type and attach toric structure at the torus, fan, or toric-variety level.
+- Do not create a public `ToricLattice` type merely because a lattice appears in toric geometry. Use the ordinary presented lattice/module type, with the identity Gram form when supplied by the coordinate-character presentation, and attach toric structure at the torus, fan, or toric-variety level.
 
 ## Acceptance Evidence
 
 - Mathematical convention recorded from Sage toric lattice/fan/toric variety docs, OSCAR toric variety and morphism docs, and local module/lattice ownership specs.
 - Sage surfaces surveyed for toric lattices, fans, toric varieties, orbit closures, class groups, and fan-subdivision resolution.
 - Backend surfaces surveyed for OSCAR toric varieties/morphisms and polymake/Normaliz polyhedral routing.
-- Local dependency on lattice/free-module vocabulary recorded, with a guard against inventing toric-specific lattice types or inheriting formed symmetric-bilinear methods without an added form.
+- Local dependency on lattice/free-module vocabulary recorded, with a guard against inventing toric-specific lattice types and with the identity Gram form recorded for presented coordinate-character lattices.
 - Follow-up routing records that no new card is needed because existing polytope/polyhedron and backend-routing cards own specialization.
 
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for toric varieties with lattice categories, routing character/cocharacter lattices through ordinary lattice/free-module vocabulary and toric varieties to fan-owned normal variety refinements.
-- 2026-05-06: Corrected over-narrow ownership text that falsely excluded toric lattices from the lattice category. The lattices appearing in toric geometry are ordinary lattices generated by torus characters/cocharacters; duals and evaluation pairings are module-level structure, and symmetric-form-specific methods require extra supplied form data.
+- 2026-05-06: Corrected over-narrow ownership text that falsely excluded toric lattices from the lattice category. The lattices appearing in toric geometry are generated by torus characters/cocharacters; for presented coordinate-character lattices, the coordinate basis supplies the identity Gram form, making them unimodular formed lattices with metric dual `L^#` canonically identified with `Hom_ZZ(L, ZZ)`.
