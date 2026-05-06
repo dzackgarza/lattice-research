@@ -32,13 +32,23 @@ preserved in the full task body.
 
 ## Source Provenance
 
-- `No path was parsed from the original one-line item; review git history for the migration source.`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING/tasks/TASK-1777748120751-VP7D5V-FIX-TENSOR-COMPONENT-PLACEHOLDER-METHODS-AND-TYPE-LEAKS.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS.md`
+- Sage source `sage/structure/richcmp.pyx`, which defines `__richcmp__` as Sage's
+  Python/Cython rich-comparison hook rather than a tensor-component mathematical
+  method.
 - Original migrated line: `Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from tensor component smoketest frontier`
 
 ## Context
 
 - Review the cited source references before implementation.
 - Update this task body with any new findings instead of creating a parallel process document.
+- The historical `__richcmp__` smoke frontier was a global Sage missing-method probe
+  on a refined tensor-component parent. It is not, by itself, a public
+  `TensorAlgebraComponents` method obligation. Public tensor equality/comparison must
+  be grounded separately if it is ever admitted; this card's executable target is the
+  constructor-refinement path that caused the global probe to fire while constructing
+  admitted tensor objects.
 
 ## Acceptance Criteria
 
@@ -59,8 +69,38 @@ preserved in the full task body.
 - 2026-05-06 review-ready validation: the tensor component constructor frontier was
   discharged by
   `[[TASK-01KQN9YGCN4F4M2DH9GP2A00XZ-IMPLEMENT-TENSORALGEBRACOMPONENTS-CONSTRUCTORS-FOR-MODULE-ELEMENT-MATRIC]]`,
-  which scoped tensor component refinement and normalized multiplication-tensor
-  structure constants to Sage matrices. Re-running `just --justfile
+  which scoped tensor component refinement to membership of the tensor-component
+  category and normalized multiplication-tensor structure constants to Sage matrices.
+  The original `__richcmp__` string is retained as the historical Sage missing-method
+  probe that made the smoke fail, not as an admitted public tensor method. Re-running
+  `just --justfile
   category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
   passes. Status moved to `needs-review`; this does not mark the card accepted or
   complete.
+
+## Review Log
+
+### Review 2026-05-06 (Wegener)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Finding: Definition Grounding
+
+- The card named `__richcmp__` but did not record a definition, owner category,
+  hypotheses, codomain, or replacement owner.
+- The linked tensor constructor task showed smoke was made to pass by scoping
+  `refine_category(..., test=False)`, so passing smoke alone did not prove that the
+  stated `__richcmp__` frontier was grounded, implemented, or deliberately re-owned.
+
+#### Rework
+
+- The card now records `__richcmp__` as Sage's runtime rich-comparison hook, grounded
+  in `sage/structure/richcmp.pyx`, not as a public tensor-component mathematical
+  method.
+- The card now states the actual executable target: constructor refinement should
+  preserve admitted tensor-component membership and direct tensor method frontiers
+  without treating the global missing-method probe as a public tensor API obligation.
+- The smoke pass remains evidence for the constructor-refinement path, not evidence
+  for admitting or implementing a public tensor comparison method.

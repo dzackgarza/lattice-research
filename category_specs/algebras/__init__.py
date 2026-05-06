@@ -432,7 +432,14 @@ class Algebras(Category_module):
             from sage.algebras.free_algebra import FreeAlgebra
 
             assert generators.is_finite(), "free_algebra_from_set currently requires a finite generator set"
-            algebra = FreeAlgebra(self.base_ring(), generators.cardinality(), "x")
+            generator_tuple = tuple(generators)
+            assert len(generator_tuple) == generators.cardinality(), (
+                f"finite generator set iteration must recover every generator of {generators}"
+            )
+            names = tuple(f"x{i}" for i, _ in enumerate(generator_tuple))
+            algebra = FreeAlgebra(self.base_ring(), len(generator_tuple), names=names)
+            algebra._category_specs_generator_set = generators
+            algebra._category_specs_generator_presentation = tuple(zip(generator_tuple, algebra.gens(), strict=True))
             return self._refine_constructed_algebra(algebra, [self.category().WithBasis()])
 
         @final

@@ -93,6 +93,16 @@ def abstract_method_has_name(method, name):
     return method.__name__ == name
 
 
+def free_algebra_from_set_records_generator_presentation():
+    generators = Sets().Constructors().FiniteEnumeratedSet(["x", "y"])
+    algebra = A().Constructors().free_algebra_from_set(generators)
+    return (
+        algebra in A().WithBasis()
+        and algebra._category_specs_generator_set is generators
+        and algebra._category_specs_generator_presentation == tuple(zip(tuple(generators), algebra.gens(), strict=True))
+    )
+
+
 SMOKE_STATEMENTS = (
     ("Algebras(ZZ) is an object of Cat()", lambda _: A() in Cat()),
     ("Algebras(ZZ) has base ring ZZ", lambda _: A().base_ring() is ZZ),
@@ -172,8 +182,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "Algebras(ZZ).Constructors().free_algebra_from_set({x, y}) is an algebra with basis",
-        lambda _: A().Constructors().free_algebra_from_set(Sets().Constructors().FiniteEnumeratedSet(["x", "y"]))
-        in A().WithBasis(),
+        lambda _: free_algebra_from_set_records_generator_presentation(),
     ),
     (
         "Algebras(ZZ).Constructors().free_algebra_from_magma routes to project magmatic algebras",

@@ -250,7 +250,7 @@ Concrete constructor status:
 
 | Constructor | Current route |
 | --- | --- |
-| `free_algebra_from_set(S)` | Sage `FreeAlgebra(R, |S|, names)`, refined to `Algebras(R).WithBasis()`. This is the true free associative unital algebra on generators. |
+| `free_algebra_from_set(S)` | Sage `FreeAlgebra(R, |S|, names)`, refined to `Algebras(R).WithBasis()`, with a recorded finite generator presentation `tuple(S) -> algebra.gens()`. This is the true free associative unital algebra on generators. The current Sage-backed implementation requires `S` to be finite and iterable; the chosen enumeration is presentation data for the returned object, not a claim that cardinality alone canonically determines the free algebra on `S`. |
 | `free_algebra_from_monoid(M)` | Sage `M.algebra(R, category=Monoids())`, refined to `Algebras(R).WithBasis()`. The monoid unit supplies the algebra unit. |
 | `free_algebra_from_group(G)` | Sage `G.algebra(R, category=Groups())`, refined to `Algebras(R).WithBasis()`. Group-specific Hopf structure remains a later refinement, not a separate constructor path. |
 | `free_algebra_from_additive_monoid(M)` | Sage `M.algebra(R, category=AdditiveMonoids())`, refined to `Algebras(R).WithBasis()`. The additive zero supplies the algebra unit. |

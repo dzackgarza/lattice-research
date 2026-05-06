@@ -76,3 +76,31 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   algebras/smoketest.sage` passes after the algebra constructor and tensor
   component refinement work in the linked phase. Status moved to
   `needs-review`; this does not mark the card accepted or complete.
+
+## Review Log
+
+### Review 2026-05-06 (Archimedes)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Finding: Definition Grounding
+
+- `free_algebra_from_set(S)` is specified as the free associative unital algebra on a
+  generator set `S`, and Sage inventory grounds `FreeAlgebra(R, n, names)` as a free
+  algebra on named symbols.
+- The implementation used only `S.cardinality()` and Sage names `"x"`, which lost the
+  actual generator set and recorded no bijection from elements of `S` to Sage
+  generators. Cardinality alone is not enough data for the public constructor
+  `free_algebra_from_set(S)`.
+
+#### Rework
+
+- The Sage-backed constructor now takes `tuple(S)` as the finite generator
+  presentation, constructs Sage names `x0, x1, ...`, and records the presentation
+  witness `tuple(S) -> algebra.gens()` on the returned object.
+- `SPEC-MAPPING-ALGEBRAS` now records this as presentation data, not a claim that
+  cardinality alone canonically determines the free algebra on `S`.
+- `algebras/smoketest.sage` now checks the recorded generator presentation in addition
+  to category membership.
