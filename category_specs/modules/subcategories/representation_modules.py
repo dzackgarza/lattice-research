@@ -61,7 +61,9 @@ class _RepresentationModules(Category_over_base_ring):
             action: Callable[[CategoryElement, RModuleElement], RModuleElement] = operator.mul,
             action_on_basis: Callable[[CategoryElement, CategoryElement], RModuleElement] | None = None,
             side: Literal["left", "right"] | None = None,
-        ) -> RModule: ...
+        ) -> RModule:
+            del action_on_basis
+            ...
 
         @abstract_method
         def cell_module(

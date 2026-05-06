@@ -182,6 +182,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
             The Gram matrix of ``twist(s)`` is ``s \cdot G``.
             """
+            del scalar
             ...
 
     class ElementMethods:

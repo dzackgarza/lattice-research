@@ -41,7 +41,9 @@ class _OverField(CategoryWithAxiom_over_base_ring):
             vectors: Sequence[RModuleElement],
             zeros: Literal["left", "right"] = "left",
             check: bool = True,
-        ) -> list[RModuleElement]: ...
+        ) -> list[RModuleElement]:
+            del zeros
+            ...
 
     class ElementMethods: ...
 

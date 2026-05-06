@@ -274,7 +274,9 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement: ...
+    ) -> RingElement:
+        del cunningham
+        ...
 
     @overload
     def nth_root(
@@ -285,7 +287,9 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> list[RingElement]: ...
+    ) -> list[RingElement]:
+        del cunningham
+        ...
 
     @overload
     def nth_root(
@@ -296,7 +300,9 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement | list[RingElement]: ...
+    ) -> RingElement | list[RingElement]:
+        del cunningham
+        ...
 
     @abstract_method
     def nth_root(
@@ -307,7 +313,9 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement | list[RingElement]: ...
+    ) -> RingElement | list[RingElement]:
+        del cunningham
+        ...
 
     @overload
     def sqrt(
@@ -444,7 +452,9 @@ class _RingIdealParentMethods:
         coefficient_lower_bound: Integer | None = None,
         coefficient_upper_bound: Integer | None = None,
         distribution: str | None = None,
-    ) -> RingElement: ...
+    ) -> RingElement:
+        del compute_gb, choose_degree, monic, coefficient_lower_bound, coefficient_upper_bound, distribution
+        ...
 
 
 class _RingIdealElementMethods:

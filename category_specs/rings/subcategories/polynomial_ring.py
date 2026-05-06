@@ -104,7 +104,9 @@ class _PolynomialRings(CategoryWithAxiom):
             self,
             of_degree: Integer | None = None,
             max_degree: Integer | None = None,
-        ) -> Iterable[RingElement]: ...
+        ) -> Iterable[RingElement]:
+            del of_degree, max_degree
+            ...
 
         @abstract_method
         def cyclotomic_polynomial(self, n: Integer) -> RingElement: ...
@@ -116,7 +118,9 @@ class _PolynomialRings(CategoryWithAxiom):
             q: Integer,
             sign: Integer = Integer(1),
             lead: RingElement | Sequence[RingElement] = Integer(1),
-        ) -> Sequence[RingElement]: ...
+        ) -> Sequence[RingElement]:
+            del sign, lead
+            ...
 
     class ElementMethods: ...
 

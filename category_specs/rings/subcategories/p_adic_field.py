@@ -49,7 +49,9 @@ class _Qp(Category_singleton):
 
     class ParentMethods:
         @abstract_method
-        def composite(self, subfield1: Field, subfield2: Field) -> Field: ...
+        def composite(self, subfield1: Field, subfield2: Field) -> Field:
+            del subfield1, subfield2
+            ...
 
         @abstract_method
         def subfield(self, generators: Sequence[RingElement]) -> Field: ...

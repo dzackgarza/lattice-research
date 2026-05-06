@@ -58,7 +58,9 @@ class _FiniteSetMapsSets(Category_singleton):
         def _from_list_(self, v: list[SetElement]) -> FiniteSetMap: ...
 
         @overload
-        def _element_constructor_(self, finite_map: FiniteSetMap, check: bool = True) -> FiniteSetMap: ...
+        def _element_constructor_(self, finite_map: FiniteSetMap, check: bool = True) -> FiniteSetMap:
+            del finite_map
+            ...
 
         @overload
         def _element_constructor_(
@@ -68,7 +70,9 @@ class _FiniteSetMapsSets(Category_singleton):
         ) -> FiniteSetMap: ...
 
         @overload
-        def _element_constructor_(self, images: Sequence[SetElement], check: bool = True) -> FiniteSetMap: ...
+        def _element_constructor_(self, images: Sequence[SetElement], check: bool = True) -> FiniteSetMap:
+            del images
+            ...
 
         @override
         @abstract_method

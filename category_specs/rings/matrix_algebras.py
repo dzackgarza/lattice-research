@@ -93,11 +93,13 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         @abstract_method
         def matrix_from_rows(self, rows: Sequence[Sequence[RingElement]], *, coerce: bool = True) -> RingElement:
             r"""Return the matrix whose rows are ``rows``."""
+            del rows
             ...
 
         @abstract_method
         def scalar_matrix(self, scalar: RingElement, *, coerce: bool = True) -> RingElement:
             r"""Return the scalar matrix determined by ``scalar``."""
+            del scalar
             ...
 
         @abstract_method
@@ -113,7 +115,9 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             include_zero_rows: bool = True,
             transformation: bool = False,
             D: RingElement | None = None,
-        ) -> RingElement | tuple[RingElement, RingElement]: ...
+        ) -> RingElement | tuple[RingElement, RingElement]:
+            del cutoff, height_guess, include_zero_rows
+            ...
 
         @abstract_method
         def column_space(self) -> FreeModule: ...

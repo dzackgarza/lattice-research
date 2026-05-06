@@ -185,6 +185,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   targeted unused formal parameters from those files. Remaining 100%-confidence
   category-spec findings are in other surfaces such as forms, rings, sets, and tensor
   components.
+- 2026-05-06 fourth bounded slice: the remaining 100%-confidence formal-parameter
+  findings under `category_specs/**` were cleared while preserving the public
+  signatures. This covered the remaining forms, module, ring, set, and tensor-component
+  abstract or overload stubs.
+- Validation for the fourth slice: the vulture-only diagnostic no longer reports any
+  100%-confidence findings under `category_specs/**`. The remaining category-spec
+  diagnostics are 60%-confidence public surfaces that need smoke coverage, deletion,
+  or source-grounded internalization.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -205,3 +213,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   Sage findings and recorded the remaining validation frontier.
 - 2026-05-06: Completed the third bounded cleanup slice for selected 100%-confidence
   unused formal parameters in abstract/spec method stubs.
+- 2026-05-06: Completed the fourth bounded cleanup slice for all remaining
+  100%-confidence category-spec formal-parameter findings.

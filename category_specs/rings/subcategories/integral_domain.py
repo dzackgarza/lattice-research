@@ -94,7 +94,9 @@ class _IntegralDomains(CategoryWithAxiom):
             names: str | Sequence[str] | None = None,
             normalize: bool = True,
             category: Category | None = None,
-        ) -> LocalRing: ...
+        ) -> LocalRing:
+            del additional_units, normalize
+            ...
 
     class ElementMethods:
         @abstract_method

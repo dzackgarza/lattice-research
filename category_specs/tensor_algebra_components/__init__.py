@@ -72,6 +72,7 @@ class _TensorElementMethods:
         the result is a tensor in the component with tensor type
         ``(p - 1, q - 1)`` on the same base module.
         """
+        del contravariant_position, covariant_position
         ...
 
     @abstract_method
@@ -83,6 +84,7 @@ class _TensorElementMethods:
         exactly when the remaining tensor type is ``(0, 0)``; otherwise it is a
         tensor on the same base module.
         """
+        del left_position, right_position
         ...
 
     @final
