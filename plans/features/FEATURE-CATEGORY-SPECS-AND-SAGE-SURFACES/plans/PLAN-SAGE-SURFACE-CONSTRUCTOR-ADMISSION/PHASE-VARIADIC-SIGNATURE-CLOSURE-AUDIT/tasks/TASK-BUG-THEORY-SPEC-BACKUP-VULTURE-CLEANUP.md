@@ -16,8 +16,8 @@ description: 'Resolve the QC findings in `.agents/theory/spec-backups/lattices_w
   any lattice implementation pass proceeds.'
 successCriteria:
 - Inspect the backup artifact provenance and current references.
-- Review `.agents/theory/spec-backups/lattices_written_spec_backup.py` and the related lattice-redesign
-  correction sources before speccing or implementing lattices.
+- Review `.agents/theory/spec-backups/lattices_written_spec_backup.py` and the related
+  lattice-redesign correction sources before speccing or implementing lattices.
 - Mine the file for mathematical conventions, public API restrictions, validation
   expectations, and reusable implementation logic.
 - Centralize the mined theory into durable docs or skills such as the lattice style
@@ -27,10 +27,9 @@ successCriteria:
 - Create follow-up cards for independent implementation, test, or documentation work
   discovered during mining. No separable new follow-up card was identified in the
   2026-05-05 mining pass.
-- >-
-  Record the standing retention gates: do not delete the backup until a lattice
-  implementation exists that recovers most or all of the relevant logic, and get user
-  confirmation before retiring or deleting the backup artifact.
+- 'Record the standing retention gates: do not delete the backup until a lattice implementation
+  exists that recovers most or all of the relevant logic, and get user confirmation
+  before retiring or deleting the backup artifact.'
 complexity: 78
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -204,3 +203,18 @@ semantics, reusable logic, and implementation audit criteria.
   deletion/retirement conditions out of per-card completion checkboxes into standing
   retention gates. This records the required future guard without making the completed
   mining pass impossible to review.
+
+## Review Update: File Moved to src.bak (2026-05-06)
+
+The backup file and its companion Sage transcript have been moved to
+`src.bak/spec-backups/`, with byte-identical contents. Because `src.bak/` is ignored,
+the moved files must be force-tracked if this relocation is retained; otherwise the
+change is an unreviewed deletion of source material. The global QC `_python-qc-files`
+and `_sage-qc-files` recipes now exclude `**/*.bak/**` directories, so this relocation
+keeps vulture from scanning these source artifacts without losing them from git.
+
+The mining work (2026-05-04 through 2026-05-05) centralized the mathematical
+conventions into durable docs and skills, but this card remains `needs-review` until
+the relocation and retention gate are reviewed. The retention gate stands: do not
+delete until lattice implementation recovers the relevant logic and user approves
+retirement.

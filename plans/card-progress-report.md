@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 16:56 UTC_
+_Generated: 2026-05-06 17:03 UTC_
 
 ## Overall
 
@@ -61,7 +61,7 @@ _Generated: 2026-05-06 16:56 UTC_
 
 ## Blocked Items
 
-- `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Align global vulture whitelist with category-spec public surfaces (`high`)
+- `task` `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`: Resolve category-spec vulture findings through code fixes, not whitelist entries (`high`)
 
 ## Most Recently Completed
 
