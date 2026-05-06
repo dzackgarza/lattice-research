@@ -335,7 +335,15 @@ passing through to a broken constructor path.
   `Qq(25, prec=(4, 8), type="lattice-cap", names="a")`, the analogous
   `lattice-float` pair routes, `check=False` factorization routes, and explicit
   `Zp(..., type="lattice-cap").extension(...)` /
-  `Qp(..., type="lattice-cap").extension(...)` routes.
+  `Qp(..., type="lattice-cap").extension(...)` routes. Upstream follow-up searched
+  Sage 10.8 p-adics docs for `factory`, `generic_nodes`, and `padic_base_leaves`;
+  Sage `develop` raw source for `factory.py`, `padic_extension_leaves.py`,
+  `padic_base_leaves.py`, and `generic_nodes.py`; GitHub issue/PR searches for
+  `Zq Qq lattice-cap`, `pAdicLatticeGeneric unramified extension`, `lattice precision
+  q-adic`, `pAdicRingLattice pAdicFieldLattice extension`, and `PrecisionLattice`;
+  issues `#23505`, `#24809`, `#25915`, `#28466`, `#30692`, and pull request `#34993`;
+  the stale `sagetrac-mirror` branch for `#25915`; and PR `#34993` branch
+  `roed314/sage:general-extensions`.
 - Found: Sage `Zp`/`Qp` base constructors canonicalize lattice precision pairs through
   `get_key_base`, and `pAdicLatticeGeneric` stores separate relative and absolute
   caps. Installed Sage `Zq`/`Qq` extension constructors document q-adic `prec` as an
@@ -343,17 +351,24 @@ passing through to a broken constructor path.
   calling `ExtensionFactory`. Direct q-adic pair precision fails with `TypeError:
   unable to coerce <class 'tuple'> to an integer`. Scalar lattice-cap q-adic routes
   and explicit lattice-base extension routes fail before returning a usable extension
-  parent. The installed `ext_table` has unramified extension leaves for
-  capped-relative, capped-absolute, fixed-modulus, and floating-point bases, but no
-  lattice extension leaf keyed by `pAdicRingLattice` or `pAdicFieldLattice`.
-- Conclusion: inference -- no real installed Sage construction path currently realizes
-  unramified q-adic extensions with split lattice relative/absolute precision caps.
-  These names remain deferred frontiers until Sage exposes an extension-specific
-  lattice-precision route or an upstream fix.
+  parent. The installed and `develop` `ext_table` entries have unramified extension
+  leaves for capped-relative, capped-absolute, fixed-modulus, and floating-point bases,
+  but no lattice extension leaf keyed by `pAdicRingLattice` or `pAdicFieldLattice`.
+  Issue `#23505` is the merged base p-adic lattice-precision ticket; open issues
+  `#24809` and `#30692` show remaining lattice-precision performance/API gaps. Open
+  issue `#25915` targets unramified extensions of arbitrary p-adic fields, and open
+  issue `#28466` / draft PR `#34993` target general p-adic extensions, but the searched
+  branches still do not add lattice extension leaves or a q-adic split-cap constructor.
+- Conclusion: inference -- no real installed or searched upstream Sage construction
+  path currently realizes unramified q-adic extensions with split lattice
+  relative/absolute precision caps. These names remain deferred frontiers until Sage
+  exposes an extension-specific lattice-precision route or an upstream fix.
 - Confidence: High.
-- Gaps: upstream Sage issue trackers, unreleased Sage branches, and Sage developer
-  discussion were not searched in this pass; the conclusion is limited to the installed
-  Sage source, installed written docs, and direct local runtime probes.
+- Gaps: GitHub issue comments could not be loaded through `gh issue view --comments`
+  because GitHub's classic-project GraphQL field failed, so the upstream audit used
+  issue bodies, search results, labels, source branches, and PR metadata. Private
+  branches and developer discussions outside public Sage GitHub/Sage docs were not
+  searched.
 
 ## Axiom vs. Implementation Decision
 
