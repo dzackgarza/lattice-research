@@ -6,7 +6,25 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.modules import Modules, _RModObjects
 from category_specs.modules.homsets import RModuleHomCategory, _Bilinear, _Forms, _Quadratic, _RModMorphisms
+from category_specs.modules.subcategories.constructions.objects_over import _ObjectsOver
+from category_specs.modules.subcategories.constructions.objects_under import _ObjectsUnder
 from category_specs.modules.subcategories.constructions.quotients import _Quotients as ModuleQuotients
+from category_specs.modules.subcategories.finitely_generated import _FinitelyGenerated
+from category_specs.modules.subcategories.finitely_presented import _FinitelyPresented
+from category_specs.modules.subcategories.finitely_presented_graded_modules import _FinitelyPresentedGradedModules
+from category_specs.modules.subcategories.finitely_presented_over_pid import FinitelyPresentedModulesOverPID
+from category_specs.modules.subcategories.ore_modules import _OreModules
+from category_specs.modules.subcategories.over_commutative_ring import _OverCommutativeRing
+from category_specs.modules.subcategories.over_complete_ring import _OverCompleteRing
+from category_specs.modules.subcategories.over_dedekind_domain import _OverDedekindDomain
+from category_specs.modules.subcategories.over_field import _OverField
+from category_specs.modules.subcategories.over_integral_domain import _OverIntegralDomain
+from category_specs.modules.subcategories.over_local_ring import _OverLocalRing
+from category_specs.modules.subcategories.projective import _Projective
+from category_specs.modules.subcategories.r_ideals import _RIdeals
+from category_specs.modules.subcategories.torsion import _Torsion
+from category_specs.modules.subcategories.torsionfree import _Torsionfree
+from category_specs.modules.subcategories.with_ordered_generating_set import _WithOrderedGeneratingSet
 from category_specs.modules.subcategories.with_basis import _WithBasis, _WithOrderedBasis
 from category_specs.sets import Sets
 from category_specs.utils import assert_smoke_statements, refine_category
@@ -136,6 +154,37 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(_Forms.SubcategoryMethods.NonDegenerate, "NonDegenerate")
         and _Forms.Bilinear is _Bilinear
         and _Forms.Quadratic is _Quadratic,
+    ),
+    (
+        "module axiom subcategory classes route through Modules",
+        lambda _: Modules.FinitelyGenerated is _FinitelyGenerated
+        and Modules.FinitelyPresented is _FinitelyPresented
+        and Modules.OverCommutativeRing is _OverCommutativeRing
+        and Modules.OverCompleteRing is _OverCompleteRing
+        and Modules.OverDedekindDomain is _OverDedekindDomain
+        and Modules.OverField is _OverField
+        and Modules.OverIntegralDomain is _OverIntegralDomain
+        and Modules.OverLocalRing is _OverLocalRing
+        and Modules.Projective is _Projective
+        and Modules.RIdeals is _RIdeals
+        and Modules.Torsion is _Torsion
+        and Modules.Torsionfree is _Torsionfree
+        and Modules.WithOrderedGeneratingSet is _WithOrderedGeneratingSet,
+    ),
+    (
+        "module slices own structure-module surfaces",
+        lambda _: abstract_method_has_name(_ObjectsOver.ParentMethods.structure_module, "structure_module")
+        and abstract_method_has_name(_ObjectsUnder.ParentMethods.structure_module, "structure_module"),
+    ),
+    (
+        "finite-presentation module categories own presentation and Smith surfaces",
+        lambda _: abstract_method_has_name(_FinitelyPresentedGradedModules.ParentMethods.presentation, "presentation")
+        and abstract_method_has_name(FinitelyPresentedModulesOverPID.ParentMethods.smith_form_gens, "smith_form_gens")
+        and abstract_method_has_name(FinitelyPresentedModulesOverPID.Torsion.ParentMethods.is_p_elementary, "is_p_elementary"),
+    ),
+    (
+        "Ore modules own companion-matrix surface",
+        lambda _: abstract_method_has_name(_OreModules.ParentMethods.companion_matrix, "companion_matrix"),
     ),
     ("Modules(Zmod(6)).Constructors().FreeModule(2) has rank 2", lambda _: NM6.FreeModule(2).rank() == 2),
     (

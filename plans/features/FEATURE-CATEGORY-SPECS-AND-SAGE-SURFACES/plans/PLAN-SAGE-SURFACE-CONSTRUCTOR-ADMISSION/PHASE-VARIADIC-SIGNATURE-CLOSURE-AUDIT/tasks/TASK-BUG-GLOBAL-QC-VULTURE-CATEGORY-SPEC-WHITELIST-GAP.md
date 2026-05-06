@@ -395,6 +395,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   fails on the existing module implementation-gap frontier, but the new Hom/form
   ownership assertion is not among the reported failures. The vulture-only diagnostic
   no longer reports `category_specs/modules/homsets.py` findings.
+- 2026-05-06 twenty-ninth bounded slice: module smoke coverage was extended for axiom
+  subcategory routing, module slice `structure_module()` ownership, finite-presentation
+  graded `presentation()` ownership, PID Smith-generator and p-elementary ownership,
+  and Ore-module companion-matrix ownership.
+- Validation for the twenty-ninth slice:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails on the existing module implementation-gap frontier, but the new assertions are
+  not among the reported failures. The vulture-only diagnostic no longer reports any
+  `category_specs/modules/**` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -466,3 +475,6 @@ violations to silence QC rather than addressing the issues they unearthed.
   remaining `category_specs/algebras/**` vulture findings.
 - 2026-05-06: Completed the twenty-eighth bounded cleanup slice for module Hom/form
   smoke coverage, clearing `category_specs/modules/homsets.py` vulture findings.
+- 2026-05-06: Completed the twenty-ninth bounded cleanup slice for module subcategory,
+  slice, finite-presentation, and Ore-module smoke coverage, clearing all remaining
+  `category_specs/modules/**` vulture findings.
