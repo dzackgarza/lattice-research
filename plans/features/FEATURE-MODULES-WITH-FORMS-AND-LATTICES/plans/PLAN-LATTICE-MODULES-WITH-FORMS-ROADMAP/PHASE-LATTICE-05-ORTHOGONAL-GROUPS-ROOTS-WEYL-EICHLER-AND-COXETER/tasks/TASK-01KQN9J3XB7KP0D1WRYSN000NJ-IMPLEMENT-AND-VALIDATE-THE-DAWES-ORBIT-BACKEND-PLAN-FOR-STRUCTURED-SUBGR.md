@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement and validate the Dawes orbit backend plan for structured subgroup
   orbit computations
-status: unstarted
+status: blocked
 priority: medium
 description: The Dawes backend plan targets subgroup-aware non-isotropic vector orbit
   equivalence using existing lattice/group nouns and a private backend.
@@ -60,3 +60,14 @@ using existing lattice/group nouns and a private backend.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
+  is lattice/backend implementation work under the blocked lattice implementation
+  roadmap, not current executable spec work. Do not execute it to advance smoke status
+  or downstream orbit computations before the ideal lattice/category specs, method
+  ownership, and vocabulary are settled.
+- This is a path-local phase gate, not a global blocker for the active goal. Continue
+  approved spec, source-mining, audit, and decision leaves outside this implementation
+  path.
