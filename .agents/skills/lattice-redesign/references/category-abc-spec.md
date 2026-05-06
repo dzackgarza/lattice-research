@@ -137,7 +137,7 @@ forms are important special cases, not the general definition.
 ## Presented Object Identity
 
 This section migrates the mathematical model from the opening docstring of
-`theory/spec_backups/lattices_written_spec_backup.py`.
+`src.bak/spec-backups/lattices_written_spec_backup.py`.
 
 The formal objects are modules with form data. In the bilinear branch, a
 bilinear `R`-module is a pair `(M, beta)` where `M` is a finitely generated

@@ -7,8 +7,8 @@ directives distilled from these corrections now live in
 
 Canonical related sources:
 
-- [theory/spec_backups/lattices_written_spec_backup.py](../../../../theory/spec_backups/lattices_written_spec_backup.py)
-- [src/lattices/lattices.py](../../../../src/lattices/lattices.py)
+- [src.bak/spec-backups/lattices_written_spec_backup.py](../../../../src.bak/spec-backups/lattices_written_spec_backup.py)
+- [src.bak/lattices/lattices.py](../../../../src.bak/lattices/lattices.py)
 - [lattice-interface-style-guide.md](./lattice-interface-style-guide.md) (distilled public API and audit rules)
 - [category-abc-spec.md](./category-abc-spec.md) (category contract and discriminant descent rules)
 
@@ -56,5 +56,5 @@ wholesale. The correct procedure is:
 
 When future work is done on the lattice redesign, consult
 `lattice-interface-style-guide.md`, `category-abc-spec.md`, and
-`theory/spec_backups/lattices_written_spec_backup.py` before changing the
+`src.bak/spec-backups/lattices_written_spec_backup.py` before changing the
 public interface.
