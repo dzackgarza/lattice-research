@@ -352,6 +352,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   the vulture-only diagnostic no longer reports the targeted elementary set-axis
   findings in `countable.py`, `finite.py`, `infinite.py`, `facade.py`,
   `totally_ordered.py`, or `uncountable.py`.
+- 2026-05-06 twenty-fourth bounded slice: set-family, recursively-enumerated-set, and
+  G-set smoke coverage was added for family keys, inverse-family ownership, recursive
+  children, bounded successor digraphs, naive traversal ownership, orbit/fixed-point
+  ownership, and element action ownership.
+- Validation for the twenty-fourth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `family.py`,
+  `recursively_enumerated.py`, or `group_actions.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -411,3 +419,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   smoke coverage.
 - 2026-05-06: Completed the twenty-third bounded cleanup slice for elementary set-axis
   category and predicate smoke coverage.
+- 2026-05-06: Completed the twenty-fourth bounded cleanup slice for set-family,
+  recursively-enumerated-set, and G-set smoke coverage.

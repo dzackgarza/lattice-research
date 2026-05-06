@@ -9,7 +9,9 @@ from category_specs.sets.subcategories.constructions.realizations import _Realiz
 from category_specs.sets.subcategories.constructions.with_realizations import SetsWithRealizations
 from category_specs.sets.subcategories.countable import _CountableSets, _FiniteCountableSets, _InfiniteCountableSets
 from category_specs.sets.subcategories.facade import _FacadeSets
+from category_specs.sets.subcategories.family import _FamilySets
 from category_specs.sets.subcategories.finite import _FiniteSets
+from category_specs.sets.subcategories.group_actions import _GSets
 from category_specs.sets.subcategories.graded import (
     GradedSetsCategory,
     GradedSetsElement,
@@ -22,6 +24,7 @@ from category_specs.sets.subcategories.partitioned import (
     PartitionedSetsCategory,
 )
 from category_specs.sets.subcategories.totally_ordered import _TotallyOrdered
+from category_specs.sets.subcategories.recursively_enumerated import _RecursivelyEnumeratedSets
 from category_specs.sets.subcategories.uncountable import _UncountableSets
 from category_specs.topological_spaces import TopologicalSpaces
 from category_specs.utils import assert_smoke_statements
@@ -223,6 +226,24 @@ SMOKE_STATEMENTS = (
         lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth")[3] == 3,
     ),
     (
+        "RecursivelyEnumeratedSet([0], successors) exposes children through the successor function",
+        lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth", max_depth=3).children(1)
+        == [2],
+    ),
+    (
+        "RecursivelyEnumeratedSet([0], successors) exports a bounded successor digraph",
+        lambda _: C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth", max_depth=3)
+        .to_digraph(max_depth=2)
+        .has_edge(0, 1)
+        and C.RecursivelyEnumeratedSet([0], lambda n: [n + 1], enumeration="breadth", max_depth=3)
+        .to_digraph(max_depth=2)
+        .has_edge(1, 2),
+    ),
+    (
+        "recursively enumerated sets own naive traversal as a Sage traversal surface",
+        lambda _: abstract_method_has_name(_RecursivelyEnumeratedSets.ParentMethods.naive_search_iterator, "naive_search_iterator"),
+    ),
+    (
         "DisjointUnionEnumeratedSets has finite countable category",
         lambda _: C.DisjointUnionEnumeratedSets(
             C.Family([0, 1], lambda i: C.FiniteEnumeratedSet([i, i + 1]))
@@ -355,6 +376,11 @@ SMOKE_STATEMENTS = (
     ("Family(IntegerRange(3), i^2) is a set", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2) in Sets()),
     ("Family(IntegerRange(3), i^2) maps 2 to 4", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2)[2] == 4),
     ("Family(IntegerRange(3), i^2) has cardinality 3", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2).cardinality() == 3),
+    ("Family(IntegerRange(3), i^2) has key 2", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2).has_key(2)),
+    (
+        "families own inverse_family as a bijective-indexing surface",
+        lambda _: abstract_method_has_name(_FamilySets.ParentMethods.inverse_family, "inverse_family"),
+    ),
     (
         "EnumeratedSetFromIterator([0, 1, 2]) is finite countable",
         lambda _: C.EnumeratedSetFromIterator(lambda: iter([0, 1, 2]), category=SageFiniteEnumeratedSets())
@@ -449,6 +475,12 @@ SMOKE_STATEMENTS = (
     (
         "partition refinement_set() is a finite countable set",
         lambda _: fixed_ordered_partition().refinement_set() in Sets().Countable().Finite(),
+    ),
+    (
+        "G-sets own orbit, fixed-point, and element action surfaces",
+        lambda _: abstract_method_has_name(_GSets.ParentMethods.orbit, "orbit")
+        and abstract_method_has_name(_GSets.ParentMethods.fixed_points, "fixed_points")
+        and abstract_method_has_name(_GSets.ElementMethods.act_by, "act_by"),
     ),
     (
         "partition refinement_set() contains the source partition",
