@@ -75,6 +75,13 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - Updated `category_specs/homsets/docs/MAPPING.md` to state that raw `ConditionSet` is
   private implementation backing and that public aut objects expose `end_category()`
   rather than `condition_set()`.
+- Reworked the constructor path after review: raw `SageConditionSet` construction now
+  lives in a distinct private bridge, while `_aut_object_from_end_category(...)`
+  refines that backing object into the project aut category before returning it.
+- Added homsets smoke assertions for `from_end_category` returning an Aut object and
+  for the public Aut object exposing `end_category` rather than `condition_set`.
+- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed
+  with exit code 0.
 
 ## Acceptance Criteria
 
@@ -83,3 +90,31 @@ Task: replace public condition_set vocabulary with a project-owned subobject/aut
 - [x] Public aut-object methods retain the documented `Aut_C(A)` surface.
 - [x] The homsets mapping records the private/public boundary.
 - [ ] Human review accepts the implementation and closes the card.
+
+## Review Log
+
+### Review 2026-05-06 (Noether)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Acceptance Criteria
+
+- The card and parent plan require final public returns to be project-owned
+  aut/subobject surfaces, with Sage `ConditionSet` only as localized interop backing.
+- `_aut_object_from_end_category(...)` still returned `SageConditionSet(...)`
+  directly, and public constructors returned that helper result.
+- The reviewer identified the set-subobject construction path as the model: construct
+  a condition-backed object internally, then refine the returned public object into
+  the project-owned subobject category surface.
+
+#### Rework
+
+- Split raw Sage construction into `_condition_aut_object_from_end_category(...)`.
+- Kept `_aut_object_from_end_category(...)` as the public helper used by
+  `from_end_category(...)`, but now it refines the condition-backed object into the
+  requested project aut category before returning it.
+- Added targeted homsets smoke coverage for the public Aut object surface.
+- `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed
+  with exit code 0.

@@ -77,6 +77,8 @@ Task: audit standard type-package aliases (Set, Matrix, etc.) and ensure they po
 - `python -m py_compile category_specs/types.py category_specs/cat/universal_subcategory_methods.py category_specs/cat/base_category_types.py category_specs/homsets/homsets.py category_specs/homsets/endsets.py category_specs/homsets/autsets.py` passed.
 - `rg -n "from \\.\\.?types import Category\\b|from category_specs\\.types import Category\\b|\\bCategory = CatBaseCategory\\b|Category as CatBaseCategory" category_specs -g '*.py'` shows the new alias and the two static import consumers.
 - `git diff --check` passed.
+- `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed with
+  exit code 0.
 - `just test` passed Python syntax validation and Sage syntax validation, then failed
   at the existing global mypy gate on missing Sage/pytest stubs and duplicate
   `src.lattices` module naming. This is not a phase-local blocker for this alias
@@ -91,3 +93,25 @@ Task: audit standard type-package aliases (Set, Matrix, etc.) and ensure they po
   - This is a consistency audit across the naming layer (`Set`, `Matrix`, etc.) after migration. The work is moderate because it is less about introducing new behavior and more about verifying and realigning alias mappings across the project boundary.
 - Item-specific evidence:
   - The file explicitly anchors scope to post-migration alias audit, which typically has hidden dependency impacts but a bounded surface if executed as verification-heavy pass.
+
+## Review Log
+
+### Review 2026-05-06 (Hegel)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 2 Finding: Acceptance Criteria
+
+- The parent phase requires the Cat smoke after Cat/category-object surface changes.
+- The card changed the Cat-facing `Category` alias but had not recorded
+  `cat/smoketest.sage` evidence.
+- The reviewer tried the root `just smoke-file cat/smoketest.sage` command, which does
+  not exist at the repo root. The scoped category-spec route is
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`.
+
+#### Rework
+
+- Ran the scoped Cat smoke route above from the repo root. It passed with exit code 0
+  and no output.

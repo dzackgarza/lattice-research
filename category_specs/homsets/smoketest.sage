@@ -65,6 +65,15 @@ SMOKE_STATEMENTS = (
         "Sets().AutCategory() refines its end aut category",
         lambda _: S.AutCategory().is_subcategory(S.EndCategory().AutCategory()),
     ),
+    (
+        "Sets().AutCategory().from_end_category returns an Aut object",
+        lambda _: S.AutCategory().from_end_category(S.EndCategory().Of(ZZ)) in S.AutCategory(),
+    ),
+    (
+        "generic Aut object exposes end_category instead of condition_set",
+        lambda _: hasattr(S.AutCategory().from_end_category(S.EndCategory().Of(ZZ)), "end_category")
+        and not hasattr(S.AutCategory().from_end_category(S.EndCategory().Of(ZZ)), "condition_set"),
+    ),
     ("Rings().HomCategory() is a category", lambda _: R.HomCategory() in C),
     ("Rings().EndCategory() is a category", lambda _: R.EndCategory() in C),
     ("Rings().AutCategory() is a category", lambda _: R.AutCategory() in C),

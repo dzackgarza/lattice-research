@@ -71,3 +71,29 @@ live in forms, while module and lattice paths preserve compatibility re-exports.
   `plans/category_specs/forms/docs/TRIAGE.md`.
 - Final scoped smoke: `just smoke-file forms/smoketest.sage` from `category_specs/`
   exited 0 with no output.
+
+## Review Log
+
+### Review 2026-05-06 (Laplace)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent review passed; human approval still required before
+completion
+
+#### Evidence
+
+- `FormedModules(R)` and the compatibility routes are grounded in
+  `SPEC-MAPPING-FORMS.md`.
+- The current shims and forms smoke owner checks satisfy the card criteria.
+- `just smoke-file forms/smoketest.sage` from `category_specs/` exited 0 with no
+  output.
+
+#### Residual Risks
+
+- Broad `just smoke` still fails in unrelated `posets/smoketest.sage` and
+  `rings/smoketest.sage`; the scoped forms smoke passed before those unrelated
+  failures.
+- Commit `6fb83b3` records `--no-verify` use. The reviewer treated this as a process
+  finding, not a card-scope gate failure, because current targeted smoke evidence is
+  passing.

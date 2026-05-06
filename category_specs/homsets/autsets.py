@@ -29,13 +29,21 @@ def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:
     return endomorphism.is_invertible()
 
 
-def _aut_object_from_end_category(end_category: End, aut_category: Category) -> Aut:
-    r"""Return the project aut object backed by a private Sage condition subset."""
+def _condition_aut_object_from_end_category(end_category: End, aut_category: Category) -> Aut:
+    r"""Return the private Sage condition subset backing an aut object."""
     return SageConditionSet(
         end_category,
         _is_invertible_endomorphism,
         category=aut_category,
     )
+
+
+def _aut_object_from_end_category(end_category: End, aut_category: Category) -> Aut:
+    r"""Return the project aut object backed by a private Sage condition subset."""
+    from ..utils import refine_category
+
+    aut_object = _condition_aut_object_from_end_category(end_category, aut_category)
+    return refine_category(aut_object, [aut_category])
 
 
 class UniversalAutObjectMethods:
