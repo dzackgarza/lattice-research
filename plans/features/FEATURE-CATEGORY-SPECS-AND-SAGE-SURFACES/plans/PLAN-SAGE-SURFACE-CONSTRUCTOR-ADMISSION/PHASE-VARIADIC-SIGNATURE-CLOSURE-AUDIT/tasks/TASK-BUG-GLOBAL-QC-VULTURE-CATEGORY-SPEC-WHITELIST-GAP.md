@@ -201,6 +201,16 @@ violations to silence QC rather than addressing the issues they unearthed.
   generated Sage findings under `tests/sage_spec/**` or `tests/variety_spec/**`.
   Remaining vulture output is now concentrated in `category_specs/**`
   60%-confidence public surfaces.
+- 2026-05-06 sixth bounded slice: Cat smoke coverage was extended for alias routing
+  (`Slice`, `Coslice`, `Endsets`), the Cat subobject construction class,
+  `CatEndCategory.Autset`, endofunctor/autofunctor predicates, and axiom defining
+  predicates.
+- Validation for the sixth slice:
+  `just --justfile category_specs/justfile smoke-file cat/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports the targeted Cat alias,
+  subobject-class, end/aut predicate, or base-category defining-predicate findings.
+  Remaining Cat diagnostics are concentrated in abstract construction-functor methods
+  and slice/coslice structure-category stubs.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -225,3 +235,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   100%-confidence category-spec formal-parameter findings.
 - 2026-05-06: Completed the fifth bounded cleanup slice for generated Sage test locals
   outside `category_specs/**`.
+- 2026-05-06: Completed the sixth bounded cleanup slice for Cat smoke coverage of
+  alias routing, end/aut predicates, subobject routing, and defining predicates.

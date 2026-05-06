@@ -11,6 +11,10 @@ if str(ROOT) not in sys.path:
 import category_specs as category_specs_root
 from category_specs.algebras import Algebras
 from category_specs.cat import Category, Cat
+from category_specs.cat.autsets import _CatAutofunctorMethods
+from category_specs.cat.endsets import CatEndCategory, _CatEndofunctorMethods
+from category_specs.cat.homsets import CatHomCategory
+from category_specs.cat.subcategories.constructions.subobjects import Subcategories
 from category_specs.forms import FormedModules
 from category_specs.homsets import HomCategory
 from category_specs.lattices import Lattices
@@ -48,6 +52,33 @@ class _ListHandler(logging.Handler):
 
     def emit(self, record):
         self._records.append(record.getMessage())
+
+
+class _EndofunctorWitness(_CatEndofunctorMethods):
+    def __init__(self, domain, codomain):
+        self._domain = domain
+        self._codomain = codomain
+
+    def domain(self):
+        return self._domain
+
+    def codomain(self):
+        return self._codomain
+
+
+class _AutofunctorWitness(_CatAutofunctorMethods):
+    pass
+
+
+def predicate_witness():
+    return type(
+        "_PredicateWitness",
+        (),
+        {
+            "has_form": lambda self: True,
+            "is_bilinear": lambda self: True,
+        },
+    )()
 
 
 def category_diagnostics_are_disabled_by_default_and_keyed_once():
@@ -227,6 +258,32 @@ SMOKE_STATEMENTS = (
     ("Cat().HomCategory() is a category", lambda _: C.HomCategory() in C),
     ("Cat().EndCategory() is a category", lambda _: C.EndCategory() in C),
     ("Cat().AutCategory() is a category", lambda _: C.AutCategory() in C),
+    ("Cat().Slice(Sets()) is ObjectsOver(Sets())", lambda _: C.Slice(Sets()) is C.ObjectsOver(Sets())),
+    ("Cat().Coslice(Sets()) is ObjectsUnder(Sets())", lambda _: C.Coslice(Sets()) is C.ObjectsUnder(Sets())),
+    ("Cat().Endsets() is EndCategory()", lambda _: C.Endsets() is C.EndCategory()),
+    ("Cat().Subobjects() refines the Subcategories construction", lambda _: issubclass(C.Subobjects().__class__, Subcategories)),
+    (
+        "Cat hom category exposes construction-functor method surface",
+        lambda _: CatHomCategory.ConstructionFunctorMethods.__name__ == "_CatConstructionFunctorMethods",
+    ),
+    (
+        "Cat end category exposes the Autset axiom hook",
+        lambda _: CatEndCategory.Autset(C.EndCategory()).base_category() is C.EndCategory(),
+    ),
+    (
+        "Cat endofunctor predicate detects matching domain and codomain",
+        lambda _: _EndofunctorWitness(Sets(), Sets()).is_endofunctor()
+        and not _EndofunctorWitness(Sets(), Rings()).is_endofunctor(),
+    ),
+    ("Cat autofunctor predicate is true by construction", lambda _: _AutofunctorWitness().is_autofunctor()),
+    (
+        "Modules(ZZ).WithForms() defining predicate accepts has-form witnesses",
+        lambda _: Modules(ZZ).WithForms().defining_predicate(predicate_witness()),
+    ),
+    (
+        "Modules(ZZ).WithForms().Bilinear() defining predicate accepts bilinear witnesses",
+        lambda _: Modules(ZZ).WithForms().Bilinear().defining_predicate(predicate_witness()),
+    ),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)
