@@ -535,6 +535,111 @@ torsion-form, and lattice surfaces. They are source-grounded in
 | `quadratic_form()` | parent | free symmetric formed-module presentation conversion | Converts a free symmetric bilinear presentation to a quadratic-form object/presentation. | Admitted as conversion, not a separate owner for the underlying object. Sources: lattices Sage inventory Tier 3 and Tier 4; lattices mapping. |
 | public Sage escape hatches such as `sage_lattice()`, `inner_product_matrix()` as lattice identity, ambient/inclusion/projection matrix state | implementation detail | no public lattice owner | Internal Sage/Julia objects and ambient-vector-space state are calculation engines or presentation data, not public semantics. | Rejected. Sources: lattice-redesign interface style guide and corrections spec. |
 
+## Poset Tensor And Geometry-Facing Method Rows
+
+Source task: `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`.
+
+These rows cover the first-pass admitted, rejected, or deferred poset, set-partition,
+tensor-component, and geometry-facing surfaces. They are source-grounded in
+`category_specs/posets/docs/SAGE_INVENTORY.md`,
+`category_specs/posets/docs/MAPPING.md`,
+`category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md`,
+`category_specs/tensor_algebra_components/docs/MAPPING.md`,
+`category_specs/sets/docs/SAGE_INVENTORY.md`,
+`category_specs/sets/docs/MAPPING.md`,
+`plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`, and
+`theory/backends/abstract-to-external-mapping.md`.
+
+### Posets And Finite Posets
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `le(x,y)`, `lt(x,y)`, `ge(x,y)`, `gt(x,y)`, `is_lequal`, `is_less_than`, `is_gequal`, `is_greater_than`, non-facade `__le__`, `__lt__`, `__ge__`, `__gt__` | parent/element | `Posets()` | Root order-relation predicates. Codomain is `bool`. | Admitted. Sources: posets inventory category method providers; posets mapping root methods. |
+| `upper_covers(x)`, `lower_covers(x)` | parent | `Posets()` | Covering elements above or below `x`. Codomain is a finite/lazy family of poset elements according to implementation. | Admitted. Source: posets mapping root methods. |
+| `order_ideal(gens)`, `order_filter(gens)`, `is_order_ideal(S)`, `is_order_filter(S)` | parent | `Posets()` | Order ideals and filters and their recognition predicates. Codomains are subposet/subset-like objects or `bool`. | Admitted. Source: posets mapping root methods. |
+| `is_chain_of_poset(S)`, `is_antichain_of_poset(S)`, `order_ideal_toggle`, `order_ideal_toggles` | parent | `Posets()` | Chain/antichain predicates and order-ideal toggles. | Admitted. Source: posets mapping root methods. |
+| `compare_elements`, `relations`, `relations_iterator`, `relations_number`, `number_of_relations` | parent | `Posets().Finite()` | Relation data requiring finite enumeration in current Sage semantics. Codomains are comparison results, relation iterators/lists, or `Integer` counts. | Admitted at finite owner. Source: posets mapping root/finite split. |
+| `list()`, `cardinality()` | parent | `Posets().Finite()` | Finite element listing and cardinality. | Admitted. Sources: posets inventory finite surface; posets mapping finite surface. |
+| `bottom()`, `top()`, `has_bottom()`, `has_top()`, `is_bounded()`, `minimal_elements()`, `maximal_elements()` | parent | `Posets().Finite()` | Bounds and extremal elements of a finite poset. | Admitted. Source: posets mapping finite surface. |
+| `cover_relations()`, `cover_relations_iterator()`, `cover_relations_graph()`, `hasse_diagram()`, `covers(x,y)`, `common_upper_covers`, `common_lower_covers` | parent | `Posets().Finite()` | Hasse and cover data for a finite poset. Codomains include finite relation data and graph objects. | Admitted as source constructions; graph operations stay on graph codomain. Source: posets mapping finite surface. |
+| `closed_interval(a,b)`, `open_interval(a,b)`, `interval(a,b)`, `intervals_number()`, `intervals_poset()`, `is_linear_interval(...)`, `linear_intervals_count()` | parent | `Posets().Finite()` | Finite interval subsets/posets and interval invariants. | Admitted. Source: posets mapping finite surface. |
+| `chains()`, `antichains()`, `maximal_chains()`, `maximal_antichains()`, `maximal_chain_length()`, `order_ideal_cardinality()` | parent | `Posets().Finite()` | Finite chain, antichain, and order-ideal enumeration/invariants. | Admitted. Source: posets mapping finite surface. |
+| `linear_extension()`, `linear_extensions()`, `linear_extensions_graph()`, `is_linear_extension()`, `random_linear_extension()`, `with_linear_extension()` | parent | `Posets().Finite()` | Finite linear-extension objects, recognition, graph, random construction, or relabeled poset. | Admitted. Source: posets mapping finite surface. |
+| `rank()`, `rank_function()`, `is_ranked()`, `is_graded()`, `height()`, `width()`, `level_sets()`, `dimension()`, `jump_number()`, `is_sperner()` | parent | `Posets().Finite()` | Finite rank/width/dimension invariants and predicates. | Admitted. Source: posets mapping finite surface. |
+| `height_certificate()`, `width_certificate()`, `meet_semilattice_certificate()`, `join_semilattice_certificate()` | parent | `Posets().Finite()` | Certificate-returning variants split from boolean Sage `certificate=True` option bags. | Admitted with named certificate routes. Source: posets mapping certificate split. |
+| `dual()`, `subposet()`, `canonical_label()`, `relabel()`, `disjoint_union()`, `ordinal_sum()`, `ordinal_product()`, `lexicographic_sum()`, `product()`, `rees_product()`, `star_product()`, `slant_sum()`, `with_bounds()`, `without_bounds()` | parent | `Posets().Finite()` | Finite poset constructions. Codomain is a finite poset. | Admitted. Source: posets mapping finite surface. |
+| `comparability_graph()`, `incomparability_graph()`, `frank_network()` | parent | `Posets().Finite()` | Graph/network-valued constructions from a finite poset. | Admitted as source constructions only; codomain methods belong to graph/network surfaces. Source: posets mapping deferred non-core surfaces. |
+| `order_complex()`, `order_polytope()`, `chain_polytope()` | parent | `Posets().Finite()` | Simplicial-complex or polytope-valued constructions. | Admitted as source constructions only; codomain methods belong to complex/polytope surfaces. Source: posets mapping deferred non-core surfaces. |
+| `incidence_algebra()`, `moebius_algebra()`, `quantum_moebius_algebra()`, `feichtner_yuzvinsky_ring()`, `p_partition_enumerator()` | parent | finite poset or finite lattice source according to Sage domain | Algebra/ring/generating-function constructions from poset data. | Admitted as source methods only; algebra/ring operations stay on codomain owners. Source: posets mapping deferred non-core surfaces. |
+| polynomial and matrix invariants `zeta_polynomial()`, `apozeta_polynomial()`, `chain_polynomial()`, `characteristic_polynomial()`, `f_polynomial()`, `flag_f_polynomial()`, `flag_h_polynomial()`, `h_polynomial()`, `M_triangle()`, `degree_polynomial()`, `coxeter_polynomial()`, `kazhdan_lusztig_polynomial()`, `moebius_function()`, `moebius_function_matrix()`, `coxeter_transformation()`, `coxeter_smith_form()`, `magnitude()`, `spectrum()`, `atkinson()` | parent | `Posets().Finite()` or finite lattice refinement where Sage places the method | Poset/lattice invariants with scalar, polynomial, matrix, Smith-form, list, or spectral codomains. | Admitted as invariant methods; codomain arithmetic belongs to returned objects. Source: posets mapping deferred non-core surfaces. |
+| `Poset(...)`, `MeetSemilattice(...)`, `JoinSemilattice(...)`, `LatticePoset(...)` variadic constructors | constructor | no public variadic owner | Sage constructor input cases are mapped to named constructor paths such as `from_digraph`, `from_relations`, `from_order_predicate`, and semilattice/lattice refinements. | Rejected as direct public API. Source: posets mapping constructor mapping. |
+| `graphviz_string()`, `plot(...)`, `show(...)`, `tikz(...)`, `order_ideal_plot(...)`, `unwrap()` | display / Sage interop | no mathematical owner | Display/export and raw Sage compatibility access. | Rejected as category methods. Source: posets mapping deferred non-core surfaces. |
+
+### Semilattices Finite Lattice Posets And Set Partitions
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `meet(x, y)`, `meet(elements)` | parent | `Posets().MeetSemilattice()` | Binary meet and explicit sequence fold. Codomain is a poset element. | Admitted with overload split. Source: posets mapping meet semilattice section. |
+| `join(x, y)`, `join(elements)` | parent | `Posets().JoinSemilattice()` | Binary join and explicit sequence fold. Codomain is a poset element. | Admitted with overload split. Source: posets mapping join semilattice section. |
+| Sage optional `meet(x, y=None)`, `join(x, y=None)` | parent | no public optional-argument owner | Optional aggregate spelling is Sage compatibility; public API uses binary and sequence overloads. | Rejected. Source: posets mapping meet/join sections. |
+| `atoms()`, `meet_matrix()`, `pseudocomplement()`, `submeetsemilattice()` | parent | `Posets().MeetSemilattice().Finite()` | Finite meet-semilattice element families, meet table, pseudocomplement, and substructure construction. | Admitted. Source: posets mapping finite meet-semilattice section. |
+| `coatoms()`, `join_matrix()`, `subjoinsemilattice()` | parent | `Posets().JoinSemilattice().Finite()` | Finite join-semilattice element families, join table, and substructure construction. | Admitted. Source: posets mapping finite join-semilattice section. |
+| lattice predicates `is_distributive()`, `is_modular()`, `is_atomic()`, `is_coatomic()`, `is_geometric()`, `is_complemented()`, `is_pseudocomplemented()`, `is_orthocomplemented()`, `is_supersolvable()`, `is_planar()`, `is_congruence_uniform()` | parent | `Posets().Lattice().Finite()` | Finite order-theoretic lattice predicates requiring both meet and join. Codomain is `bool`. | Admitted. Source: posets mapping finite lattice section. |
+| `double_irreducibles()`, `join_primes()`, `meet_primes()`, `complements()`, `canonical_joinands()`, `canonical_meetands()`, `join_irreducibles_poset()`, `meet_irreducibles_poset()`, `irreducibles_poset()` | parent | `Posets().Lattice().Finite()` | Finite lattice element families and derived posets. | Admitted. Source: posets mapping finite lattice section. |
+| `sublattice()`, `is_sublattice()`, `sublattices()`, `sublattices_lattice()`, `maximal_sublattices()`, `frattini_sublattice()`, `center()`, `vertical_decomposition()`, `subdirect_decomposition()` | parent | `Posets().Lattice().Finite()` | Finite order-lattice substructure and decomposition methods. | Admitted. Source: posets mapping finite lattice section. |
+| `congruence_generated_by(blocks)`, `quotient(congruence)`, `congruence_lattice()`, `is_lattice_morphism(f)` | parent / morphism check | `Posets().Lattice().Finite()` | Congruence, quotient lattice, congruence lattice, and lattice-morphism recognition. Codomains include equivalence relation/partition objects, quotient lattices, and `bool`. | Admitted. Source: posets mapping finite lattice section. |
+| `congruence(blocks)` / `congruences_lattice()` Sage names | Sage compatibility | finite lattice congruence surface | Compatibility names map to `congruence_generated_by` and `congruence_lattice`. | Interop-only spelling. Source: posets mapping finite lattice section. |
+| `base_set()`, `base_set_cardinality()`, `blocks()`, partition `cardinality()` | set-partition element | `Sets().Partitioned()` | Fixed-base partition data: base set, base-set cardinality, block family, and block count. | Admitted. Sources: sets inventory and mapping partition rows. |
+| partition `meet(other)`, `join(other)`, `strictly_refines(other)` | set-partition element | `Sets().Partitioned()` | Refinement-lattice operations and comparison for partitions of the same base set. | Admitted. Source: sets mapping partition decisions. |
+| `standard_form()`, `shape()` / `to_partition()`, `arcs()`, `openers()`, `closers()`, `standardization()`, `restriction(I)` | set-partition element | `Sets().Partitioned()` with finite base as required | Standard block data, integer partition shape, arc diagram data, standardization, and restriction. | Admitted; shape codomain waits on integer-partition owner. Sources: sets inventory and mapping. |
+| `refinement_set()`, `coarsening_set()` | set-partition element | `Sets().Partitioned()` | Finite sets of partition refinements or coarsenings. | Admitted. Source: sets mapping. |
+| `crossings()`, `nestings()`, `is_noncrossing()`, `is_nonnesting()`, `is_atomic()`, `ordered_coarsening_closure()` | set-partition element | `Sets().Partitioned().FiniteTotallyOrderedBase()` | Arc-crossing/nesting data and predicates requiring a finite totally ordered base set. | Admitted at tightened minimal owner. Source: sets mapping ordered-base hypothesis. |
+| `strict_coarsenings()` Sage name | Sage compatibility | no project owner under that spelling | Project spelling is `ordered_coarsening_closure()` because Sage's name hides reflexive closure semantics. | Rejected as public spelling. Source: sets mapping. |
+| `Sets().Partitioned().Noncrossing()`, `.Nonnesting()`, `.Atomic()` | candidate subcategory | no admitted owner yet | Potential future subclasses of finite ordered-base partitions. | Deferred. Source: sets mapping. |
+
+### Tensor Algebra Components
+
+| Literal surface | Object level | Minimal owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `TensorAlgebraComponents(R)` / `M.tensor_module(k,l)` | component parent | `TensorAlgebraComponents(R)` with module tensor/free finite-rank supercategories | Tensor component `T_R(M)[k,l]`, finite-rank free when `M` is finite-rank free. | Admitted. Sources: tensor inventory Sage objects; tensor mapping table. |
+| `Tensor` / `M.tensor((k,l), ...)` | element constructor | `TensorAlgebraComponents(R).Constructors()` and tensor element surface | Tensor element of component `T_R(M)[k,l]`. | Admitted. Sources: tensor inventory; tensor mapping. |
+| `base_module()` | component parent and tensor element | tensor component parent / `Tensor` element | Structural link from a tensor component or tensor to its base module `M`. | Admitted. Source: tensor mapping. |
+| `tensor_type()` | component parent and tensor element | tensor component parent / `Tensor` element | Pair `(k,l)` with contravariant and covariant slot counts. | Admitted as the unique public tensor-type surface. Source: tensor mapping. |
+| `tensor_rank()` | tensor element | no public tensor owner | Sage's total order `k+l` is derived as `sum(tensor_type())`; do not expose a second type/rank method. | Rejected as public surface. Source: tensor mapping. |
+| `from_matrix(base_module=M, entries=B)` | constructor | `TensorAlgebraComponents(R).Constructors()` | Matrix over `R` as scalar-valued bilinear `(0,2)` tensor. Codomain is a `Tensor` element. | Admitted. Source: tensor mapping algebra-constructor use. |
+| `from_module_element_matrix(base_module=M, entries=products)` | constructor | `TensorAlgebraComponents(R).Constructors()` | Multiplication table with entries in `M` as a `(1,2)` structure tensor. | Admitted. Source: tensor mapping. |
+| `from_matrices(...)`, `from_multidimensional_list(...)` | constructor | `TensorAlgebraComponents(R).Constructors()` | Named interop routes from coordinate arrays to tensor elements. | Admitted. Source: tensor mapping component interop. |
+| `sym=`, `antisym=` | constructor metadata | `TensorAlgebraComponents(R).Constructors()` | Symmetry/antisymmetry metadata attached at tensor or component-module construction without introducing a new public subtree. | Admitted as constructor metadata only. Source: tensor mapping deferred surface freeze. |
+| `structure_constants()` | tensor element | `Tensor` with `tensor_type() == (1,2)` | Coordinate structure constants in the preferred generating set of the base module. | Admitted with tensor-type hypothesis. Source: tensor mapping algebra-constructor use. |
+| `trace(contravariant_position, covariant_position)` | tensor element | `Tensor` | Self-contraction of one contravariant and one covariant slot. Codomain is scalar for `(1,1)`, otherwise a tensor of type `(k-1,l-1)`. | Admitted with explicit positions. Source: tensor mapping deferred surface freeze. |
+| `contract(left_position, other, right_position)` | tensor element | `Tensor` | Contraction of two tensors over the same base module along opposite-variance positions. Codomain is scalar only when remaining type is `(0,0)`, otherwise a tensor. | Admitted with one closed spelling. Source: tensor mapping deferred surface freeze. |
+| `TensorAlgebraComponents(R).DualObjects()` | construction category | tensor-component dual objects | Dual component of `T_R(M)[p,q]` is `T_R(M)[q,p]`, interpretable as `Hom_R(T_R(M)[p,q], R)`. | Admitted. Sources: tensor mapping dual objects; bilinear forms foundations. |
+| `Components`, `comp(...)`, `set_comp(...)`, `add_comp(...)`, `[:]`, indexed basis assignment | storage/interoperability | no public owner | Coordinate storage and chosen-basis assignment are interop inputs, not public tensor objects. | Rejected/private. Source: tensor mapping deferred surface freeze. |
+| `display(...)`, `display_comp(...)`, `TensorWithIndices(...)`, `t['...']`, Einstein repeated-index notation | rendering / notation interop | no public owner | Basis-dependent rendering and technical index-notation classes. | Rejected as public tensor API. Source: tensor mapping deferred surface freeze. |
+
+### Geometry-Facing Candidate Rows
+
+These geometry rows record candidate source owners and codomains so backend work does
+not invent method placement. They do not admit geometry implementation. The geometry
+feature explicitly keeps this work research-scoped until category ownership is
+source-grounded in its own cards.
+
+| Literal surface | Object level | Candidate owner | Meaning, codomain, and hypotheses | Status and source |
+| --- | --- | --- | --- | --- |
+| `blowup(center)` | parent | `Varieties()` or a projective/scheme refinement | Blowup construction. Codomain is a blown-up variety or a first-class blowup object with exceptional-divisor data. | Candidate row; codomain decision needed. Sources: backend abstract map; geometry source-admission plan. |
+| `resolve_singularities()` | parent | singular variety/scheme refinement | Resolution of singularities. Codomain is a resolution morphism or resolved variety. | Candidate row; characteristic and hypothesis policy needed. Source: backend abstract map. |
+| `picard_group()` | parent | variety/surface Picard owner | Picard group of line bundles/divisor classes. Codomain is a Picard group object, with Picard lattice only after intersection form data is admitted. | Candidate row; group-vs-lattice decision needed. Sources: backend abstract map; geometry source-admission plan. |
+| `kodaira_dimension()`, `hilbert_polynomial()`, `hodge_number(p,q)`, `holomorphic_euler_characteristic()`, `canonical_class()` | parent | proper/projective/smooth variety refinements as hypotheses require | Standard variety invariants and canonical class. Codomains are integer/sentinel, polynomial, integer, integer, and divisor/class object. | Candidate rows; owner refinements not yet fixed. Source: backend abstract map and geometry plan. |
+| `genus()`, `arithmetic_genus()`, `normalization()` | parent | `Curves()` with smooth/proper/singular refinements as required | Curve invariants and normalization construction. Codomains are integers and a normalized curve with normalization map or object. | Candidate rows; exact curve hypotheses still need geometry source admission. Sources: backend abstract map; curve-related geometry cards. |
+| `equation()`, `dual_curve()` | parent | `PlaneCurves()` | Defining polynomial and dual plane curve. | Candidate rows; plane-curve category admission needed. Source: backend abstract map. |
+| `is_nodal()`, `nodes()`, `normalization()` on rational sextics | parent | rational-sextic or singular plane-curve refinement | Nodal predicate, finite node set, and normalization. | Candidate row; subtype owner must be named before implementation. Sources: backend abstract map; Coble background theory. |
+| `birational_involution()`, `exceptional_divisor()`, `coble_lattice()` | parent | surface, blowup, and Coble-surface refinements | Birational self-map, exceptional divisor, and Coble/Picard lattice construction. | Candidate rows; morphism/blowup/Coble owners need source admission. Sources: backend abstract map; geometry feature. |
+| divisor `riemann_roch_space_dimension()`, `is_ample()`, `is_nef()`, `self_intersection()`, `intersection(other)` | parent | `Divisors()` over an admitted ambient variety/surface | Divisor cohomological dimension, positivity predicates, and intersection pairing. Codomains are integer, `bool`, and scalar/intersection object. | Candidate rows; divisor category and ambient hypotheses needed. Source: backend abstract map. |
+| `intersection_matrix()`, `underlying_picard_group()` | parent | `PicardLattices()` / Picard group-lattice bridge | Intersection/Gram matrix and underlying Picard group access. | Candidate row; public spelling and group-vs-lattice decision needed. Sources: backend abstract map; malformed backend-surface decision. |
+| sheaf `h0()`, `h1()`, `euler_characteristic()`, `rank()` | parent | `CoherentSheaves()` | Cohomology dimensions, Euler characteristic, and sheaf rank. Codomain is integer where defined. | Candidate rows; sheaf vocabulary not yet admitted. Source: backend abstract map. |
+| family `specialization()`, `monodromy()` | parent | `FamiliesOfVarieties()` | Special fiber/object and monodromy representation/operator/group data. | Candidate rows; codomain decision needed. Sources: backend abstract map; monodromy backend plan. |
+| `total_space()`, `cover_surface()`, `k3_cover()` | parent | double-cover, K3-double-cover, and Enriques quotient/surface refinements | Cover total space, covered surface, and K3 cover. | Candidate rows; cover-category admission needed. Source: backend abstract map and geometry feature cards. |
+
 ## Backend And External Software Method Rows
 
 Source task: `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
@@ -643,3 +748,5 @@ method and which mature external system should be audited or wired.
 - 2026-05-06: Added Hom/End/Aut, module-hom, formed-module, bilinear/quadratic,
   symmetric divisibility, free/torsion form, lattice, discriminant-object, orthogonal
   group, and lattice-algorithm ownership rows.
+- 2026-05-06: Added poset, finite-poset, semilattice, order-lattice, partition,
+  tensor-component, and geometry-facing candidate method ownership rows.

@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write poset tensor and geometry-facing method ownership rows
-status: unstarted
+status: needs-review
 priority: critical
 owner: Zack
 description: Mine poset, tensor-component, and geometry-facing inventories into literal
@@ -80,10 +80,10 @@ The seed rows include:
 
 ## Acceptance Criteria
 
-- [ ] The target method-inventory spec contains poset, finite-poset, semilattice, lattice poset, tensor-component, and geometry-facing method tables.
-- [ ] Poset rows distinguish root order methods from finite Hasse/enumeration methods, meet-semilattice methods, join-semilattice methods, and finite lattice methods.
-- [ ] Tensor rows distinguish public tensor element methods from constructor metadata and private component storage.
-- [ ] Geometry-facing rows identify method owners and codomains without pulling backend algorithms into category core.
+- [x] The target method-inventory spec contains poset, finite-poset, semilattice, lattice poset, tensor-component, and geometry-facing method tables.
+- [x] Poset rows distinguish root order methods from finite Hasse/enumeration methods, meet-semilattice methods, join-semilattice methods, and finite lattice methods.
+- [x] Tensor rows distinguish public tensor element methods from constructor metadata and private component storage.
+- [x] Geometry-facing rows identify method owners and codomains without pulling backend algorithms into category core.
 
 ## Dependencies And Boundaries
 
@@ -97,3 +97,8 @@ The seed rows include:
 ## Work Log
 
 - 2026-05-05: Created as the poset/tensor/geometry-facing leaf for the literal method ownership inventory phase.
+- 2026-05-06: Added poset, finite-poset, semilattice, finite lattice-poset,
+  set-partition, tensor-component, and geometry-facing candidate rows to
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Geometry rows are recorded as
+  source-admission candidates rather than implementation permission. Moved this task to
+  needs-review.
