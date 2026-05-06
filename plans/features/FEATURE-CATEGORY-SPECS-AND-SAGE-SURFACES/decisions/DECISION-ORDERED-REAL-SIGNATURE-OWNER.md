@@ -6,8 +6,8 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Decide ordered real realization owner for signature and definiteness methods
-status: unstarted
-chosen: ''
+status: decided
+chosen: Add ordered-real-realization refinement to formed modules
 options:
 - name: Add ordered-real-realization refinement to formed modules
   pros:
@@ -66,7 +66,58 @@ This decision does not block ordinary `ZZ` lattice signature interop, but it blo
 claim that signature or definiteness is owned by all free symmetric bilinear modules
 over integral domains.
 
+## Decision
+
+Choose the ordered-real-realization refinement.
+
+The owner is finite free symmetric formed modules equipped with a selected ordered real
+realization of their scalar context. Concretely, a caller must have finite free
+symmetric bilinear data and either:
+
+- a canonical ordered real realization, such as the `ZZ -> QQ -> RR` path used by
+  integral lattice interop; or
+- explicit structure naming an ordering or real embedding of the fraction field/base
+  field into an ordered real target.
+
+The no-argument methods `signature_pair()`, `signature()`, `is_positive_definite()`,
+and `is_negative_definite()` are valid only when that ordered real realization is part
+of the object/category context. For fields or domains with multiple orderings, the
+method is not owned by the bare base category; either the object must carry a chosen
+realization or a separate future surface must expose total-signature data indexed by
+orderings.
+
+The owner is not all `OverIntegralDomain` objects. A fraction field alone has no sign
+comparison, no eigenvalue ordering, and no selected real closure. The `OverZZ` Sage
+surface remains concrete implementation evidence because Sage computes
+`signature_pair()` by forming the Gram matrix over `QQ` and taking the positive and
+negative eigenvalue counts in the standard real ordering.
+
+## Source Grounding
+
+- `theory/references/literature/milnor1973symmetric.md` §2 defines ordered fields,
+  positive and negative subspaces, and the signature at an ordering `P` as
+  `rk(X^+) - rk(X^-)`; it also records that the signature at `P` is an isomorphism
+  invariant and a Witt-ring homomorphism.
+- Installed Sage source
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/modules/free_quadratic_module_integer_symmetric.py`
+  defines `signature_pair()` for integral symmetric lattices as the positive and
+  negative eigenvalue counts of the Gram matrix via `QuadraticForm(QQ,
+  self.gram_matrix()).signature_vector()[:2]`, and `signature()` as their difference.
+- `SPEC-MAPPING-LATTICES.md` already records the corrected owner as free symmetric
+  data with an ordered real realization, with `OverIntegers` as concrete Sage evidence.
+
+## Spec Updates
+
+- `SPEC-MAPPING-LATTICES.md` now treats the decision as settled: the abstract owner is
+  finite free symmetric bilinear data with a selected ordered real realization.
+- `SPEC-MAPPING-FORMS.md` now maps definite and indefinite bilinear axioms through the
+  same ordered-real-realization owner rather than leaving a pending decision.
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` now states that the no-argument
+  signature methods require a selected ordered real realization.
+
 ## Work Log
 
 - 2026-05-06: Created from the mapping mathematical-correctness audit after detecting
   the over-broad `OverIntegralDomain` owner.
+- 2026-05-06: Decided the owner as finite free symmetric formed modules with selected
+  ordered real realization; bare integral-domain ownership remains rejected.

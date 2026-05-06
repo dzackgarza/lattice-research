@@ -153,7 +153,7 @@ basis, and formed-lattice owners.
 | `ambient_module`, `ambient_vector_space`, `basis_matrix`, `inner_product_matrix`, `degree`, display `_repr_` | `free_quadratic_module.py:369`, `472`; `free_quadratic_module_integer_symmetric.py:625` | private/runtime/display/interop | Do not admit as public lattice semantics. These witness Sage's ambient implementation and may be used at backend boundaries only. Public objects expose generators, form data, and morphisms. |
 | `gram_matrix`, `determinant`, `discriminant` | `free_quadratic_module.py:390`, `408`, `439` | `Free + Bilinear` | Admit at the first free bilinear tier. Gram matrices are presentation data in selected generators, not identity of an abstract isometry class. |
 | `is_even`, `dual_lattice`, `discriminant_group` | `free_quadratic_module_integer_symmetric.py:736`, `753`, `779` | finite-rank free integral bilinear modules; `dual_lattice` and `discriminant_group` require nondegeneracy for the metric-dual identification and finite quotient | Admit, but the project implementation must route `discriminant_group()` through `L -> L^# -> coker`, preserving quotient-valued form codomains. General Hom-duality remains a module dual-object surface, not `dual_lattice()`, unless a specific isomorphism with the metric dual is recorded. |
-| `signature_pair`, Sage `signature()` as `n_+ - n_-` | `free_quadratic_module_integer_symmetric.py:839`, `855` | exact free symmetric form signature data over a base with an ordered real realization; display/index interop for `p-q` | Preserve exact signature data. The scalar `p-q` is Sage interop/display data, not the owner of signature semantics. Generalizing beyond `ZZ` requires `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`; a bare integral-domain hypothesis is not enough. |
+| `signature_pair`, Sage `signature()` as `n_+ - n_-` | `free_quadratic_module_integer_symmetric.py:839`, `855` | exact free symmetric form signature data over a base with an ordered real realization; display/index interop for `p-q` | Preserve exact signature data. The scalar `p-q` is Sage interop/display data, not the owner of signature semantics. `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` admits the selected ordered-real-realization owner; a bare integral-domain hypothesis is not enough. |
 | `orthogonal_complement`, `orthogonal_submodule_to`, element `perp` | `free_quadratic_module_integer_symmetric.py:931`; `torsion_quadratic_module.py:890` | symmetric bilinear modules and subobjects | Admit at the symmetric bilinear owner. Inputs must be subobjects/elements with parent data, not arbitrary ambient vectors. |
 | `is_primitive(M)` | `free_quadratic_module_integer_symmetric.py:901` | module subobject/inclusion predicate | Admit for subobjects via quotient torsion-freeness. Do not conflate with element divisibility unless a source-backed equivalence proof records the hypotheses. |
 | element `divisibility` | local lattice doctrine and user constraint | symmetric bilinear module elements | Required project surface. Definition is `<b(v,M)> <= S`; for scalar-valued forms it is an ideal of `R`. Sage does not supply this definition as a lattice method. |
@@ -365,10 +365,12 @@ methods at distinct tiers; do NOT merge them.
 `FreeQuadraticModule_integer_symmetric` (= ZZ). Mathematically, signature and positive
 or negative definiteness require finite free symmetric bilinear data plus a scalar
 context where signs make sense, such as `ZZ -> QQ -> RR` or another ordered real
-realization. A bare `OverIntegralDomain` hypothesis does not choose such a realization
-and is not enough. Until the base-ring/refinement owner is fixed by
-`[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]`, the abstract owner is "free symmetric with
-ordered real realization"; the `OverIntegers` tier provides concrete Sage evidence.
+realization. `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` decides that the abstract
+owner is finite free symmetric bilinear data with a selected ordered real realization.
+A bare `OverIntegralDomain` hypothesis does not choose such a realization and is not
+enough. The `OverIntegers` tier provides concrete Sage evidence through the canonical
+`ZZ -> QQ -> RR` ordered realization; fields or domains with multiple orderings need a
+chosen ordering/real embedding or a separate total-signature surface.
 
 **(3) `dual_lattice()` placement**: `L^# = {v in L_K : beta(v,L) <= R}` where
 `L_K = L tensor_R K` and `K = Frac(R)`. This is the metric dual inside scalar

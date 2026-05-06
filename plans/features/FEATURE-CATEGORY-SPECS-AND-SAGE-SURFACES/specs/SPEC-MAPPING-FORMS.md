@@ -117,7 +117,7 @@ It is the named spelling of `Modules(R, dispatch=False).WithForms()`.
 | `Modules(R).WithForms().Bilinear()` | `forms.subcategories.bilinear.BilinearModulesCategory` | Owns bilinear evaluation and generic bilinear predicates. |
 | `Modules(R).WithForms().Quadratic()` | `forms.subcategories.quadratic.QuadraticModulesCategory` | Owns quadratic evaluation. |
 | Symmetric, alternating, nondegenerate, integral, rational bilinear axioms | `forms.subcategories.*` | These are formed-module properties, not lattice-only properties. |
-| Definite and indefinite bilinear axioms | `forms.subcategories.*` after ordered real realization ownership is decided | Definiteness and signature need a signed scalar context; `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` records the missing owner decision. |
+| Definite and indefinite bilinear axioms | finite free symmetric formed modules with selected ordered real realization | Definiteness and signature need a signed scalar context; `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` rejects bare integral-domain ownership and admits the ordered-real-realization refinement. |
 | `divisibility(v)` for symmetric bilinear elements | `forms.subcategories.symmetric.SymmetricBilinearModulesCategory.ElementMethods` | The invariant definition is the pairing-image submodule `<b(v, M)>` of the form codomain `S`; for `S = R`, this is an ideal. |
 | Form-preserving morphisms between formed modules | `C.HomCategory().Of(M, N)` for `C <= FormedModules(R)` | A candidate map preserves form data exactly when it is contained in the Hom object of the formed-module category. |
 | Isometries of formed modules | `C.HomCategory().Of(M, N)` plus generic isomorphism; automorphism case `C.AutCategory().Of(M)` | Form preservation is already Hom containment. The isometry question is invertibility or isomorphism inside that category. |
@@ -206,9 +206,9 @@ they are not the mathematical definition and do not create a free-module owner.
 Lattices are integral, nondegenerate, symmetric, finite-rank free bilinear modules with
 the additional named `Lattice` axiom. Formed-module methods such as `b`, `gram_matrix`,
 and `orthogonal_group` remain owned by forms. The lattice-specific `dual_lattice()`
-surface is the nondegenerate finite-free integral realization of the general dual/Hom
-surface inside scalar extension. The quotient class map `L^* -> L^*/L` belongs to
-`Lattices(R).DualObjects().ElementMethods` because it is nontrivial on dual-lattice
-elements and zero on ordinary elements of `L`.
+surface is the metric-dual construction `L^# = {v in L_K : b(v,L) subset R}` inside
+scalar extension, not the category-theoretic Hom dual object `Hom_R(L,R)`. The quotient
+class map `L^# -> L^#/L` belongs to elements of the metric-dual lattice returned by
+`L.dual_lattice()`; ordinary elements of `L` map to zero after inclusion `L -> L^#`.
 Lattice-specific specializations such as `OverIntegers`, `Even`, `Unimodular`, and
 lattice construction categories remain owned by `lattices`.
