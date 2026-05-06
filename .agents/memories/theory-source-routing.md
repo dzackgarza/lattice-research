@@ -1,19 +1,28 @@
-# Theory Source Routing
+# Theory Stored Claim Facts
 
-Trigger: before using anything under `theory/` as mathematical authority, adding background prose, adding expected values, or turning a theory note into implementation work.
+Trigger: before writing specs/plans/prose that uses Coble, K3, Enriques, two-elementary, discriminant-form, cusp, or period-domain claims.
 
-The directory routing is defined by `theory/index.md`:
+Stored repo facts from `theory/`:
 
-- `theory/references/` is the source-authority layer: citation index, BibTeX, claim map, and extracted literature.
-- `theory/foundations/` is durable mathematical vocabulary and background used across tasks.
-- `theory/algorithms/` explains mathematical algorithms and orbit/computation methods independent of one backend.
-- `theory/backends/` records external-tool capabilities, integration boundaries, backend-specific algorithms, and the existing-software-first map.
-- `theory/moduli/` owns Coble/K3/Enriques moduli claims and period-domain background.
-- `theory/external/` is vendored or externally sourced theory/tooling material retained for reference.
-- `theory/spec_backups/` preserves source material that still needs explicit human-directed migration before rewrite or deletion.
+- `theory/` is the durable mathematical knowledge base, not a task tracker. Use its facts to implement/spec, but cite literature from `theory/references/` when writing standard claims.
+- Source authority for standard claims is `theory/references/index.md`, `theory/references/claim-map.md`, `theory/references/references.bib`, and extracted files under `theory/references/literature/`.
+- The classical Coble starting point is a rational plane sextic with ten nodes. Blow up the ten nodes to get the rational surface model; the K3 double cover and pullback of the hyperplane plus ten exceptional classes give the lattice with diagonal form `diag(2, -2, ..., -2)`.
+- Plane sextic arithmetic genus: `(d-1)(d-2)/2`; for `d = 6`, `g_a = 10`. Ten ordinary nodes have total delta `10`, so the geometric genus is `0`.
+- For generic ten points in `P^2`, a nodal sextic is not expected because ten nodes impose `30` linear conditions on the `28`-dimensional space `H^0(O_{P^2}(6))`; explicit examples need special dependent configurations.
+- The K3 lattice is `Lambda_K3 = U^3 + E_8(-1)^2`, signature `(3,19)`, rank `22`, even unimodular.
+- `T_Co` is the orthogonal complement in `Lambda_K3` of the rank-11 pullback lattice computed from the geometric pipeline; do not define it by expected notation alone.
+- Expected Coble transcendental lattice signature is `(2,9)`, rank `11`. Once that signature is established, the Type IV period domain has complex dimension `9`.
+- The 9-dimensional Coble period-domain claim is standard literature, not a repo theorem. Repo computations are supporting evidence or exact worked examples.
+- Primitive sublattice discriminant duality in a unimodular lattice: for primitive `S subset Lambda`, `rank(T) = rank(Lambda) - rank(S)`, `det(T) = det(S)` up to sign, and `q_T = -q_S`.
+- Two-elementary lattices use Nikulin invariants `(r, a, delta)`: `r` rank, `a` F2-rank of the discriminant group, `delta` coparity. For the Coble pullback lattice, the diagonal model predicts 2-elementary discriminant order `2^11`, but that is a verification target, not an input axiom.
+- For a computed discriminant group `(Z/2Z)^11`, the finite group has order `2048`; the note records `528` isotropic vectors in `A_T` including zero.
+- Isotropic lines in Baily-Borel correspond to 0-cusps; isotropic planes correspond to 1-cusps/modular curves. Incidence is containment of representatives.
+- A primitive isotropic plane `J` in rank-11 `T_Co` has `rank(J^perp) = 9` and `rank(J^perp/J) = 7`; the theory note predicts `J^perp/J = A_1^7`, but the orbit uniqueness claim is explicitly unverified computationally.
+- `Gamma_Co = Stab_{O(T_En)}(h_Co) ∩ Z_{O(T_En)}(theta)`, with `T_En` rank `10`, signature `(2,8)`, and `h_Co^2 = 2`. No explicit generators have been computed in the stored theory docs.
+- `Gamma_En,2` is the image in `O(T_En)` of K3-lattice isometries commuting with `I_En` and fixing `h = e + f in U(2)`. It is not just an arbitrary hand-generated subgroup.
+- The surgery-vector fact stored in theory: `h_Co` is orthogonal to the roots `alpha_i` in the stated setup, so `l_i = h_Co . alpha_i = 0`; the slc stability verification was not established by old scripts.
+- The old computational verification scripts were invalidated as print-theater or self-validating assertions. Treat their status claims as rejected unless rederived by source-backed code.
 
-Rule: identify the role of the theory file before citing it. Algorithm and backend notes tell future work how to compute; they do not replace literature-backed source claims.
+Source anchors for provenance: `theory/index.md`, `theory/references/index.md`, `theory/references/claim-map.md`, `theory/foundations/coble-task-background.md`, `theory/moduli/moduli-dimension-claim.md`, `theory/foundations/reflective-two-elementary-lattices.md`.
 
-For standard claims, start with `theory/references/index.md` and `theory/references/claim-map.md`. If a computation supports a standard fact, state that it is supporting evidence or an exact worked example, not the primary source.
-
-Verification: a new theory-backed claim should cite the relevant reference entry or explain why a source-mining card is needed.
+Verification: a future plan/spec should use the stored facts above directly, cite the relevant theory source when writing public prose, and mark any old-script-derived claim as unverified unless reproduced from actual lattice/geometric data.
