@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 2 ModulesWithForms core category and carrier integration
-status: unstarted
+status: blocked
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_2_CORE_OBJECTS.md`. The old `plans/` copy was removed so this tracked
@@ -574,3 +574,14 @@ assert L.zero() in first_few
 | `_first_ngens` may not work on wrapped FGP modules | Test early; patch if needed |
 | Category caching may interfere with meet-based containment checks | Use `__contains__` override, not cached category membership |
 | Torsion form evaluation depends on Phase 0 QQ/ZZ arithmetic | Verify Phase 0 is complete before starting torsion modules |
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 dependsOn: []
 title: Research and implement QQ modulo ZZ quotient codomains
-status: needs-review
+status: blocked
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.
@@ -110,12 +110,16 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
 
-## Implementation Notes
+## Premature Implementation Cleanup
 
-- 2026-05-06: Implemented `src/sage_patches/fraction_quotients.py` as a narrow
-  Sage interop adapter. Sage already owns `QQ / ZZ` and `QQ / (n*ZZ)` through
-  `sage.groups.additive_abelian.qmodnz.QmodnZ`; the patch keeps that quotient-class
-  arithmetic and refines the returned `QmodnZ` parents into `Modules(ZZ)`.
+- 2026-05-06: A premature implementation-phase adapter was created at
+  `src/sage_patches/fraction_quotients.py` during spec-phase work. It has been removed
+  by a forward cleanup commit because Sage patches are not current executable work. The
+  implementation idea remains historical evidence only, not accepted code.
+- The removed adapter had been a narrow post-processing patch over Sage's existing
+  `QQ / ZZ` and `QQ / (n*ZZ)` route through
+  `sage.groups.additive_abelian.qmodnz.QmodnZ`; it kept quotient-class arithmetic
+  native and only refined returned `QmodnZ` parents into `Modules(ZZ)`.
 - The adapter patches `RationalField.__truediv__` only to post-process native
   `QmodnZ` outputs. It does not reimplement quotient arithmetic, canonical lifts,
   equality, or coercions.
@@ -123,9 +127,9 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
   `[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]`; this card can still reach its
   codomain surface because Sage's rational-field quotient route already exists.
 
-## Validation
+## Superseded Validation
 
-- `sage -python -m py_compile src/sage_patches/fraction_quotients.py` passed.
+- Superseded premature implementation validation: `sage -python -m py_compile src/sage_patches/fraction_quotients.py` passed before the file was removed.
 - `sage -python` witness passed after `install()` and repeated `install()`:
   - `QQ / ZZ in Modules(ZZ)`,
   - `(QQ / ZZ)(1/2) == (QQ / ZZ)(3/2)`,
@@ -135,3 +139,13 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
   - `(QQ / (2*ZZ))(5/2).lift() == QQ(1)/2`.
 - Full Phase 0 smoke was not run because upstream Phase 0 module-base, ideal, module,
   and hom enrichment cards remain unresolved.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
+  is implementation-phase Sage/lattice work and must not be executed merely to make
+  current Sage objects pass smokes before the ideal specs, method ownership, and
+  vocabulary are settled.
+- This is a path-local phase gate, not a global blocker for the active goal. Continue
+  approved spec, source-mining, audit, and decision leaves outside this implementation
+  path.

@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 4 lattice meets duals and discriminant descent
-status: unstarted
+status: blocked
 priority: high
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_4_DISCRIMINANT_DESCENT.md`. The old `plans/` copy was removed so
@@ -763,3 +763,14 @@ assert E8_2.discriminant_group() == E8_2.dual() / E8_2
 | `from_string` parser is nontrivial | Use a simple recursive descent or regex; support `U(n)`, `A_n`, `E_n`, `D_n`, `+`, `^{n}` |
 | Lattice isometry backends in Sage may not handle all indefinite cases | Delegate to `pari` or `magma` for hard cases; document which methods require definite input |
 | `n * L` (scalar multiplication of elements) vs `L.twist(n)` semantic confusion | Clear docstrings; test both paths explicitly; `__mul__` and `__rmul__` dispatch based on argument type |
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.

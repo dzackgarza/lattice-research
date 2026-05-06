@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 dependsOn: []
 title: Implement orthogonal subgroups through ConditionSet composition
-status: unstarted
+status: blocked
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER`
@@ -88,3 +88,13 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Work Log
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
+  is implementation-phase Sage/lattice work and must not be executed merely to make
+  current Sage objects pass smokes before the ideal specs, method ownership, and
+  vocabulary are settled.
+- This is a path-local phase gate, not a global blocker for the active goal. Continue
+  approved spec, source-mining, audit, and decision leaves outside this implementation
+  path.

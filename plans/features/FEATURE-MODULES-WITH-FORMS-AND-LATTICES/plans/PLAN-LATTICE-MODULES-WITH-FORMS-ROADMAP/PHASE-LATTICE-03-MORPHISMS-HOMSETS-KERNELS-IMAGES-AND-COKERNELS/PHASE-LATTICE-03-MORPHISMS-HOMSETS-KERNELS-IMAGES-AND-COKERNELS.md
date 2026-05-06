@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 3 morphisms homsets kernels images and cokernels
-status: unstarted
+status: blocked
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_3_MORPHISMS.md`. The old `plans/` copy was removed so this tracked
@@ -742,3 +742,14 @@ assert pi.kernel() == M2.span([2*h1, 3*h2])
 | `__contains__` on HomSpace may be slow for large-rank modules | Isometry check reduces to `M^T G_N M == G_M`, which is O(n^3); acceptable |
 | Cokernel promotion to named discriminant objects requires source lattice metadata | Phase 3 promotes to the generic torsion bilinear meet; Phase 4 adds the named discriminant path |
 | Direct sum of morphisms requires matching summand structure | Assert domain/codomain compatibility at construction; block diagonal matrix is unambiguous |
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.

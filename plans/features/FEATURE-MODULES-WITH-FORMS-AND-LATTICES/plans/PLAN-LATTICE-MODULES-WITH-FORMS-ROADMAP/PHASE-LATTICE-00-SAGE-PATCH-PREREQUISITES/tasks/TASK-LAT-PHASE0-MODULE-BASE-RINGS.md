@@ -4,8 +4,7 @@ trackerStatus:
   type: task
 parents:
 - '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
-dependsOn:
-- '[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]'
+dependsOn: []
 title: Implement ModuleBaseRings category refinement and installation
 status: blocked
 priority: critical
@@ -63,9 +62,9 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - `Modules(R)` methods are available on all parents reached by these overrides.
 - `r * R` / `R * r` means principal ideal object with submodule semantics
   (`{r*x : x in R}`), not multiplication output.
-- `R / I` means the corresponding finitely presented `R`-module quotient parent.
-- `R / n` and `R.quotient(n*R)` are a single construction path through
-  `quotient()`.
+- Integer-ring quotient syntax is not owned by this category-refinement card. Sage's
+  concrete dispatch bypasses refined category `quotient` and `__truediv__` methods for
+  that surface, so it is owned by `TASK-LAT-PHASE0-INTEGER-QUOTIENT-COMPATIBILITY`.
 - Returned localizations/completions/fraction fields in scope stay in `ModuleBaseRings`
   so module expressions continue to route through redesigned semantics.
 
@@ -82,8 +81,8 @@ Leaf implementation card derived from the old phase plan. This card is executabl
   and required `ParentMethods`.
 - In `ParentMethods`, override:
   - `__pow__` to produce enriched `R^n`,
-  - `ideal`, `__mul__`, `__rmul__` for ideal-submodule construction,
-  - `quotient` and `__truediv__` dispatch to quotient construction,
+  - `ideal`, `__mul__`, `__rmul__` for ideal-submodule construction where Sage dispatch
+    reaches the refined category,
   - `completion` / `localization` / `fraction_field` to refine returned parents.
 - Make `_refine_category_` application idempotent in `install()`.
 - Keep module-membership checks consistent with `Modules(R)` by refining ring
@@ -91,9 +90,10 @@ Leaf implementation card derived from the old phase plan. This card is executabl
 - Wire install order via `_install.py` after module import path initialization.
 
 ### Acceptance checks
-- `[ ]` `ZZ in Modules(ZZ)`, `ZZ/2 in Modules(ZZ)`, `ZZ/(2*ZZ) == ZZ/2`,
-  `ZZ/4` is not field, `ZZ/2` is field.
-- `[ ]` `QQ in Modules(QQ)` and `QQ / ZZ` routes through patched quotient path.
+- `[ ]` `ZZ in Modules(ZZ)` after install, with `ZZ^n` and ideal construction routed
+  through the refined category where Sage dispatch supports it.
+- `[ ]` `QQ in Modules(QQ)` after install; fraction quotient codomain refinement remains
+  owned by `TASK-LAT-PHASE0-FRACTION-QUOTIENT-CODOMAINS`.
 - `[ ]` `2 * ZZ`, `ZZ * 2`, and `ZZ.ideal(2)` land in module-compatible categories.
 - `[ ]` `Zp(5)` and `GF(5)` produced by install still satisfy `Modules` membership
   expectations.
@@ -122,26 +122,23 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 
 - Created by corpus-level `plans/` migration on 2026-05-03.
 
-## Blocker
+## Decision Resolution
 
-- 2026-05-06: Path-local implementation blocker found during Sage preflight. A
-  live Sage 10.7 probe showed that refining `ZZ` with a toy `ModuleBaseRings`
-  category successfully adds ordinary category methods and intercepts `__pow__`
-  and `ideal`, but `ZZ / 2` still dispatches to Sage's existing unsupported
-  division slot and `ZZ.quotient(2*ZZ)` still uses Sage's native quotient method
-  rather than the refined category method. This contradicts the card's no-direct-
-  monkeypatch implementation model for `quotient()` and `__truediv__`.
-- Evidence commands run from repo root:
-  - `sage -python` probe with a toy `ModuleBaseRings.ParentMethods.__truediv__`
-    left `ZZ / 2` failing with `TypeError: unsupported operand type(s) for /`.
-  - `sage -python` probe with toy `ParentMethods.__pow__`, `ideal`, and
-    `quotient` printed calls for `ZZ**3` and `ZZ.ideal(2)`, but not for
-    `ZZ.quotient(2*ZZ)`.
-  - Sage 10.7 source inspection shows `Rings.ParentMethods.__truediv__` is
-    intentionally a rejecting method, while `RationalField.__truediv__` already
-    handles `QQ / ZZ` and `QQ / (n*ZZ)` through `QmodnZ`.
-- Required decision before this card can proceed: `[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]` must either approve a direct
-  Sage-class monkeypatch / wrapper route for integer-ring quotient syntax, or
-  revise the Phase 0 contract so `ModuleBaseRings` owns only category-refinable
-  methods while quotient syntax is handled by a separate explicit compatibility
-  patch.
+- 2026-05-06: `[[DECISION-LAT-PHASE0-QUOTIENT-SYNTAX-DISPATCH]]` chose a split path.
+  `ModuleBaseRings` owns category-refinable methods only; integer quotient syntax is
+  handled by `[[TASK-LAT-PHASE0-INTEGER-QUOTIENT-COMPATIBILITY]]`.
+- Evidence retained from preflight: Sage category refinement can add ordinary methods
+  and intercept `__pow__` and `ideal`, but `ZZ / 2` and `ZZ.quotient(2*ZZ)` bypass
+  refined category methods.
+- This card is unblocked for its reduced category-refinement contract. It must not
+  reintroduce quotient syntax as a `ModuleBaseRings.ParentMethods` obligation.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the current category-spec and semantic-vocabulary phase. This
+  is implementation-phase Sage/lattice work and must not be executed merely to make
+  current Sage objects pass smokes before the ideal specs, method ownership, and
+  vocabulary are settled.
+- This is a path-local phase gate, not a global blocker for the active goal. Continue
+  approved spec, source-mining, audit, and decision leaves outside this implementation
+  path.

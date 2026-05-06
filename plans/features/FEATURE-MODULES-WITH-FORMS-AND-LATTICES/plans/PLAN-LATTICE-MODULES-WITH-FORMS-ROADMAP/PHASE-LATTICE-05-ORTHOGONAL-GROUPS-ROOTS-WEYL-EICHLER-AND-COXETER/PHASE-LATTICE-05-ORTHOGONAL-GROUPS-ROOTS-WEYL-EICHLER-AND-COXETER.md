@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer
-status: unstarted
+status: blocked
 priority: high
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`. The old `plans/` copy was removed so this
@@ -1014,3 +1014,14 @@ assert O_U2.is_isomorphic_to(CyclicPermutationGroup([2, 2]))
 | Coxeter diagram construction from non-root-lattices | Only define for lattices where `L == L.root_sublattice()` or provide the root system explicitly |
 | `kernel_of_discriminant_action` requires extending isometries to the dual | Use the inclusion `L -> L*` to lift: for `f in O(L)`, define `f*` on `L*` by `f*(phi) = phi . f^{-1}` |
 | Stabilizer/centralizer predicates make enumeration lazy but slow | For finite groups, materialize the full group first then filter; for infinite groups use generators + membership test |
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.

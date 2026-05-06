@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 dependsOn: []
 title: Lattice and ModulesWithForms roadmap
-status: in-progress
+status: blocked
 priority: critical
 owner: Zack
 description: 'Organize the lattice redesign around the actual dependency chain: Sage/module
@@ -124,6 +124,17 @@ Phase 1 is gone as an active unit. It was a crosswalk from the old monolithic pl
 
 ## Work Log
 
-- 2026-05-06: Plan moved to `in-progress` because Phase 0 execution has begun under
-  the approved roadmap. This records tracker-state consistency only; it does not mark
-  any phase or task accepted.
+- 2026-05-06: Corrected roadmap status to `blocked`: Phase 0 execution was premature
+  during the spec/vocabulary phase. The roadmap remains approved as future implementation
+  structure, but implementation leaves are not current executable work.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.

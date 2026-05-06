@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 0 Sage patch prerequisites for ModulesWithForms
-status: in-progress
+status: blocked
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_0_SAGE_PATCHES.md`. The old `plans/` copy was removed so this tracked
@@ -541,4 +541,17 @@ Additionally, verify Phase 1 prerequisites:
 
 ## Work Log
 
-- 2026-05-06: Phase moved to `in-progress` because `TASK-LAT-PHASE0-FRACTION-QUOTIENT-CODOMAINS` has reached `needs-review` and `TASK-LAT-PHASE0-MODULE-BASE-RINGS` is blocked on a concrete Sage-dispatch decision.
+- 2026-05-06: Corrected phase status to `blocked`: moving this implementation phase
+  to `in-progress` during the spec/vocabulary phase was premature. The child cards
+  remain approved future implementation contracts, not current executable work.
+
+## Current Phase Gate
+
+- 2026-05-06: Blocked by the repo's current category-spec and semantic-vocabulary
+  phase. This roadmap is implementation-phase work: it exists as an approved future
+  implementation plan, but it must not be executed to make Sage pass smoke tests while
+  the ideal mathematical specs and ownership vocabulary are still being settled.
+- Smokes are gap detectors against the ideal spec, not pressure to weaken specs or add
+  Sage patches during spec work. Continue approved spec, source-mining, audit, and
+  decision leaves outside this implementation path until the phase-transition criteria
+  in `GOAL.md` and `.agents/current-goal-phase.md` are met.
