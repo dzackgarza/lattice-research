@@ -36,7 +36,12 @@ lattice-precision gaps.
 
 ## Source Provenance
 
-- `category_specs/rings/docs/MAPPING.md`
+- Canonical ring mapping:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-RINGS.md`,
+  especially `## Topological Rings`.
+- Topological ring/field recovery decision:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-01KQN9YGC3XPWZWJK8QHVE3GGM-SPECIFY-TOPOLOGICAL-RING-AND-FIELD-RECOVERY-THROUGH-TOPOLOGICAL-SPACES-I.md`.
+- Legacy source provenance: `category_specs/rings/docs/MAPPING.md`.
 - Original migrated line: `Implement topological ring and field refinements for topology-bearing ring objects without duplicating topological-space methods from category_specs/rings/docs/MAPPING.md`
 
 ## Context
@@ -117,3 +122,42 @@ lattice-precision gaps.
     deferred extension constructors, p-adic `_change_print_mode`, power-series
     `cardinality`, Laurent/Puiseux `completion`, matrix-ring module MRO, and
     quadratic-field `alternating_form`.
+
+## Smoke Output
+
+2026-05-06 targeted topological-space smoke rerun:
+
+```text
+$ just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage
+<exit 0; no stdout/stderr>
+```
+
+The broader ring smoke remains failing on the non-topological frontier list recorded in
+the work log. This card does not claim a clean full ring smoke; it preserves those
+frontiers as separate ring-surface work.
+
+## Review Log
+
+### Review 2026-05-06 (parent)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** parent review passed; human approval still required before completion
+
+#### Evidence
+
+- Gate 1: source grounding now points at `SPEC-MAPPING-RINGS` and the tracked
+  topological ring/field recovery decision, not only the legacy mapping doc.
+- Gate 2: acceptance criteria are checked in the card, and smoke output is recorded for
+  the targeted topological-space smoke while the broader ring-smoke failures remain
+  explicitly preserved.
+- Gate 3: the implementation path keeps topological-space methods owned by
+  `TopologicalSpaces()` and ring membership owned by `Rings().Topological()`.
+- Gate 4: the card records and rejects the prior weakening attempt that removed
+  topological root abstract obligations; no current spec or smoke weakening is claimed.
+- Gate 5: `just --justfile category_specs/justfile smoke-file
+  topological_spaces/smoketest.sage` exited `0`; the broader ring smoke is not used as
+  completion evidence because unrelated frontiers remain.
+- Gate 6: residual risk is the non-topological ring frontier list already recorded in
+  the work log, plus the unresolved concrete topology adapters owned by
+  `TopologicalSpaces()`.
