@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY]]'
 title: Audit method inventory gaps and create owner decisions
-status: unstarted
+status: needs-review
 priority: high
 owner: Zack
 description: Audit the assembled method ownership spec for missing owners, duplicated
@@ -59,10 +59,10 @@ codomain, or backend route is still unclear.
 
 ## Acceptance Criteria
 
-- [ ] Every `decision-needed`, `backend-gap`, or `source-needed` row has a linked decision or research card with exact sources checked.
-- [ ] The inventory has no method rows that cite only migrated TODOs, common terminology, or plausible textbook memory as authority.
-- [ ] The audit records which implementation cards are now unblocked and which paths remain blocked by real source or decision gaps.
-- [ ] The phase can be marked needs-review without relying on global QC as proof of spec completeness.
+- [x] Every `decision-needed`, `backend-gap`, or `source-needed` row has a linked decision or research card with exact sources checked.
+- [x] The inventory has no method rows that cite only migrated TODOs, common terminology, or plausible textbook memory as authority.
+- [x] The audit records which implementation cards are now unblocked and which paths remain blocked by real source or decision gaps.
+- [x] The phase can be marked needs-review without relying on global QC as proof of spec completeness.
 
 ## Dependencies And Boundaries
 
@@ -74,3 +74,8 @@ codomain, or backend route is still unclear.
 ## Work Log
 
 - 2026-05-05: Created as the gap-audit leaf for the literal method ownership inventory phase.
+- 2026-05-06: Audited the assembled inventory for `decision-needed`, `source-needed`,
+  and backend-gap rows; linked geometry gaps to existing source-admission research
+  cards, linked q-adic and backend gaps to existing specs/tasks, and created
+  `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER` for the remaining
+  Picard group/lattice owner split.

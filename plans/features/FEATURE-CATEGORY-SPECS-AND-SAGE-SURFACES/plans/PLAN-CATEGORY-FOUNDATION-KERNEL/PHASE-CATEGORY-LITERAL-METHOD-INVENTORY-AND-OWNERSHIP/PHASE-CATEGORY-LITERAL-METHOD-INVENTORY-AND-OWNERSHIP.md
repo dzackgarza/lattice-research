@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 dependsOn: []
 title: Category literal method inventory and ownership
-status: in-progress
+status: needs-review
 priority: critical
 owner: Zack
 description: Build source-grounded method ownership spec files that list every literal
@@ -65,10 +65,10 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 
 ## Acceptance Criteria
 
-- [ ] The method inventory target spec is filled or split into smaller method-owner spec cards with the required row format.
-- [ ] Sets, topology, algebra, modules, Hom/End/Aut, forms, lattices, tensors, posets, geometry, and backend-routed methods are covered by source-grounded rows.
-- [ ] External software capability maps are translated into method/backend ownership rows with explicit codomains and routing status.
-- [ ] All unresolved owner conflicts are converted into decision cards rather than left as prose or implementation guesswork.
+- [x] The method inventory target spec is filled or split into smaller method-owner spec cards with the required row format.
+- [x] Sets, topology, algebra, modules, Hom/End/Aut, forms, lattices, tensors, posets, geometry, and backend-routed methods are covered by source-grounded rows.
+- [x] External software capability maps are translated into method/backend ownership rows with explicit codomains and routing status.
+- [x] All unresolved owner conflicts are converted into decision cards rather than left as prose or implementation guesswork.
 
 ## Dependencies And Boundaries
 
@@ -85,3 +85,5 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 
 - 2026-05-05: Created phase to execute the literal method ownership inventory requested by the user.
 - 2026-05-06: Started phase execution by completing the source corpus assignment in the target spec.
+- 2026-05-06: Completed topical row assembly, gap audit, and decision/source routing;
+  marked phase needs-review pending human acceptance.

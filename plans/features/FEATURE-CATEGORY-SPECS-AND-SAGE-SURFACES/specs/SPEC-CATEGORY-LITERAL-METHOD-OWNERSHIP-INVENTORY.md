@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Specify literal method ownership inventory by minimal category
-status: in-progress
+status: needs-review
 priority: critical
 requirement: Produce source-grounded method ownership spec files that enumerate every
   literal mathematical or software-facing method expected on category-spec objects
@@ -223,9 +223,27 @@ backend or candidate geometry row needs an extra routing/status phrase:
 | Set topology and metric method rows | `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY` | `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`, `SPEC-20260505-PARTITIONED-FINITE-TOTALLY-ORDERED-BASE-OWNER` |
 | Ring algebra and module method rows | `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES` | q-adic Sage-gap rows route through existing q-adic constructor specs and implementation cards; formed divisibility is explicitly delegated to the Hom/forms/lattice section. |
 | Hom forms and lattice method rows | `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES` for malformed backend names; lattice algorithm rows point to backend-routing rows rather than local implementation permission. |
-| Poset tensor and geometry-facing method rows | `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY` | `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`, `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`, `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`, `PLAN-GEOMETRIC-SOURCE-ADMISSION`, `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` |
-| Backend and external software method rows | `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`; backend-gap rows route through `theory/backends/software-capability-map.md` and existing backend research cards. |
-| Gap audit | `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT` | Audits this assembled spec after row assembly and creates specific decision or source-mining cards for any remaining `decision-needed`, `backend-gap`, or `source-needed` rows. |
+| Poset tensor and geometry-facing method rows | `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY` | `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`, `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`, `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`, `PLAN-GEOMETRIC-SOURCE-ADMISSION`, `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` |
+| Backend and external software method rows | `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` | `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; backend-gap rows route through `theory/backends/software-capability-map.md` and existing backend research cards. |
+| Gap audit | `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT` | Records the remaining decision/source/back-end gaps below and marks the phase review-ready without relying on global QC. |
+
+## Gap Audit Routing
+
+This audit is source and owner routing only. It does not approve implementation of any
+candidate geometry or backend method.
+
+| Gap class | Searched | Found | Conclusion | Confidence | Gaps | Trackable owner |
+| --- | --- | --- | --- | --- | --- | --- |
+| Geometry candidate rows needing owners, hypotheses, or codomains: `blowup(center)`, `resolve_singularities()`, `kodaira_dimension()`, `hilbert_polynomial()`, `hodge_number(p,q)`, `holomorphic_euler_characteristic()`, `canonical_class()`, curve, surface, divisor, sheaf, cover, and family rows. | `theory/backends/abstract-to-external-mapping.md`; `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/**`; `theory/foundations/coble-task-background.md`; `theory/foundations/reflective-two-elementary-lattices.md`. | Backend-method names and local Coble/K3 source motivation are present; admitted category owners for the generic geometry nouns are delegated to source-admission cards. | Inference: these rows are useful inventory entries, but they are not implementation permission until the corresponding geometry source-admission task fixes the owner and codomain. | High | Upstream geometry/Sage/Macaulay2/Singular source mining belongs in the listed source-admission cards. | `TASK-INTEGRATE-SCHEMES-CATEGORY`, `TASK-INTEGRATE-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`, `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`, `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`, `TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES`, `TASK-RESEARCH-ORE-ALGEBRA-INTERFACE`. |
+| Picard group versus Picard lattice. | `theory/backends/abstract-to-external-mapping.md`; `theory/foundations/reflective-two-elementary-lattices.md`; `theory/foundations/coble-task-background.md`; `theory/references/literature/pieroni_2026_coble_surfaces.md`; `theory/references/literature/huybrechts_k3_lectures.md`. | Strong local source material exists for Picard lattices in Coble/K3 surface workflows, while `picard_group()` is a more general Picard group surface in the backend map and literature. | Inference: the two notions must remain separate until a decision records the bridge hypotheses and method owners. | High | Geometry source-admission tasks still need to fix the project nouns for `PicardGroup` and `PicardLattices`. | `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`; malformed spelling remains under `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`. |
+| Backend `bridge-needed` or `candidate-backend` rows. | `theory/backends/software-capability-map.md`; `theory/backends/abstract-to-external-mapping.md`; `theory/backends/oscar-lattices.md`; `theory/backends/gap-orbits.md`; `theory/backends/indefinite-jl.md`; `theory/backends/carat.md`; `theory/backends/vinberg-algorithm.md`; geometry and lattice backend tracker cards. | Each row has a mature-system route or an explicit candidate/backend-gap label; malformed names are isolated in a decision card. | Inference: these are backend-routing gaps for later implementation and support audits, not blockers for the current method-owner spec phase. | High | Each implementation card must still verify package availability, exact hypotheses, and certificates before code work. | Lattice rows route to `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER` tasks; q-adic rows route to `SPEC-01KQN9YGC4WXF1DVHNMF79ZXEM-PRESERVE-ADMITTED-ZQWITHPRECISIONCAPS-AND-QQWITHPRECISIONCAPS-NAMES-AS-D` and `TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION`; geometry rows route to `PLAN-GEOMETRIC-SOURCE-ADMISSION` and `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS`. |
+
+Unblocked current-phase paths: implementation and smoke-spec cards may use the
+admitted method-owner rows for sets/topology, rings/algebras/modules, Hom/End/Aut,
+forms, lattices, tensor components, posets, and backend routing as source-grounded
+inventory. Geometry candidate rows, Picard bridge rows, malformed backend names, and
+explicit Sage-gap frontiers remain blocked only for their own downstream implementation
+paths.
 
 ## Set Topology And Metric Method Rows
 
@@ -741,10 +759,10 @@ method and which mature external system should be audited or wired.
 
 ## Acceptance Criteria
 
-- [ ] Every admitted method row names the literal surface spelling, minimal owner category, mathematical definition or software interop meaning, hypotheses, codomain or return object, and source paths.
-- [ ] Root-set methods, finite-set protocol methods such as `len(X)`, countable/enumerated methods, subobject operations, topology/metric methods, algebra/module methods, Hom/End/Aut methods, forms/lattice methods, tensor methods, poset methods, and geometry/backend methods are all inventoried or explicitly rejected with source provenance.
-- [ ] External software mappings from Sage, Oscar/Julia, GAP, Singular, Macaulay2, CARAT, Indefinite.jl, and related local backend notes are represented as method rows or backend-routing rows rather than left in prose.
-- [ ] Unresolved method-owner conflicts become decision cards with exact sources checked and no implementation task is allowed to guess a mathematical owner.
+- [x] Every admitted method row names the literal surface spelling, minimal owner category, mathematical definition or software interop meaning, hypotheses, codomain or return object, and source paths.
+- [x] Root-set methods, finite-set protocol methods such as `len(X)`, countable/enumerated methods, subobject operations, topology/metric methods, algebra/module methods, Hom/End/Aut methods, forms/lattice methods, tensor methods, poset methods, and geometry/backend methods are all inventoried or explicitly rejected with source provenance.
+- [x] External software mappings from Sage, Oscar/Julia, GAP, Singular, Macaulay2, CARAT, Indefinite.jl, and related local backend notes are represented as method rows or backend-routing rows rather than left in prose.
+- [x] Unresolved method-owner conflicts become decision cards with exact sources checked and no implementation task is allowed to guess a mathematical owner.
 
 ## Dependencies And Boundaries
 
@@ -779,3 +797,5 @@ method and which mature external system should be audited or wired.
 - 2026-05-06: Assembled the topical rows into this single trackable spec file with a
   normalized row schema and follow-up links for decisions, backend gaps, source
   admission, and the gap-audit leaf.
+- 2026-05-06: Audited remaining decision/source/backend gaps, added the Picard
+  group/lattice owner decision, and marked the spec needs-review.
