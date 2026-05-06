@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 dependsOn: []
 title: Audit category-spec duck-type object-shape probes
-status: revision-required
+status: needs-review
 priority: critical
 description: Audit category-spec implementation code for `getattr`, `hasattr`, optional
   attribute fallbacks, and private-slot probes that infer object shape instead of
@@ -81,17 +81,45 @@ membership/subcategory predicates.
 
 - `category_specs/cat/base_category_types.py`: constructor forwarding, provider
   assembly, predicate validation, and Sage axiom descriptor interop. Classified as
-  documented Sage/project wrapper boundary or real category dispatch.
-- `category_specs/cat/subcategories/constructions/subobjects.py`: invalid
-  object-shape probes on `ambient_category` and `defining_predicates`. Replaced with
-  matching against the project `CategoryWithAxiom` wrapper classes before calling the
-  required methods.
+  documented Sage/project wrapper boundary or real category dispatch. Source grounding:
+  `CategoryWithAxiom`, `CategoryWithAxiom_singleton`, and
+  `CategoryWithAxiom_over_base_ring` define `ambient_category()` as `base_category()`
+  and `defining_predicates()` through `_declared_defining_predicates()` plus
+  `_validate_defining_predicates()`, which checks that every predicate is exposed on
+  the ambient category's parent class and on the local `ParentMethods`.
+- `category_specs/cat/subcategories/constructions/subobjects.py`:
+  `Subcategories.__contains__` is grounded as a wrapper-boundary check, not a duck-type
+  shape probe. It first requires membership in project `Cat()`, whose
+  `category_specs/cat/__init__.py` boundary accepts Sage category objects by checking
+  `candidate.category().is_subcategory(Cat())` and accepts Sage join-category objects
+  through the documented join wrapper. It then matches the three project axiom-wrapper
+  bases that expose the required `ambient_category()` and `defining_predicates()`
+  contract. The Sage source basis is
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category_with_axiom.py`:
+  `CategoryWithAxiom` is the Sage base for categories obtained by adding an axiom to a
+  base category, its `__init__` stores `_base_category`, and Sage's axiom test expects
+  the singleton and base-ring variants when the base category has those shapes.
 - `category_specs/sets/__init__.py`: root `Sets().__contains__` used optional
   `category` lookup. Replaced with the real Sage `Parent` type boundary plus Sage
-  category membership. The generic `element_class` check remains classified as Sage
-  parent interop.
+  category membership. Source grounding:
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/structure/parent.pyx`
+  defines `Parent.category()` to return the initialized Sage category, defaulting to
+  `Sets()` when missing, and `_test_category()` asserts that a parent category is a
+  subcategory of Sage `Sets()`. Sage
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/category.py`
+  defines `Category.is_subcategory(c)` as the natural-forgetful-functor relation,
+  implemented by the category supercategory set/hook. The project `Sets` docstring
+  states that objects are Sage parents lying in `SageSets()`.
 - `category_specs/sets/subcategories/image.py`: local `ImageSubobject` wrapper probes
-  Sage backing storage. Classified as documented wrapper boundary.
+  Sage backing storage. Classified as documented Sage-wrapper storage only because
+  Sage
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/sets/image_set.py`
+  defines `ImageSubobject` as the image of a map on a domain subset, stores
+  `self._domain_subset = domain_subset` in `__init__`, and uses `_domain_subset` inside
+  `_element_constructor_()` to validate inverse-image membership. The project wrapper
+  still delegates general membership to `_element_constructor_()`; the `_domain_subset`
+  read is restricted to the finite-domain enumeration shortcut and should not become a
+  general pattern for unrelated wrappers.
 - `category_specs/sets/subcategories/integer_range.py`,
   `category_specs/sets/subcategories/enumerated_from_iterator.py`, and
   `category_specs/sets/subcategories/recursively_enumerated.py`: private-slot and
@@ -121,7 +149,7 @@ membership/subcategory predicates.
 
 ## Review Findings
 
-- 2026-05-06 parent-agent review failed Gate 1, definition grounding. The audit records
+- 2026-05-06 parent-agent review failed Gate 1, definition grounding. The audit recorded
   classifications by file, but not by each probe or branch with source-grounded
   evidence.
 - The `CategoryWithAxiom` wrapper-boundary claim must cite the exact project/Sage
@@ -133,6 +161,8 @@ membership/subcategory predicates.
   and interop contract before it can be accepted as a documented wrapper boundary.
 - Recommended status is `revision-required`, not `blocked`: the failed review is
   fixable inside this leaf and does not exhaust the DAG frontier.
+- 2026-05-06 follow-up resolved the grounding gap by recording source anchors for each
+  disputed branch. The card is back in `needs-review`; it is not accepted or complete.
 
 ## Work Log
 
@@ -147,3 +177,9 @@ membership/subcategory predicates.
   No smoke assertions or spec obligations were weakened.
 - 2026-05-06: Parent review moved this card to `revision-required` because the recorded
   classifications are not yet source-grounded at probe/branch granularity.
+- 2026-05-06: Added probe/branch-level source grounding for the Cat axiom-wrapper
+  boundary, the Sage `Parent`/`Sets()` membership boundary, and Sage
+  `ImageSubobject` backing storage. Moved the card back to `needs-review` for human
+  review. Spec-weakening review: this follow-up changed only this tracker card; it did
+  not delete abstract methods, narrow smokes, remove constructor obligations, or move
+  any spec surface.
