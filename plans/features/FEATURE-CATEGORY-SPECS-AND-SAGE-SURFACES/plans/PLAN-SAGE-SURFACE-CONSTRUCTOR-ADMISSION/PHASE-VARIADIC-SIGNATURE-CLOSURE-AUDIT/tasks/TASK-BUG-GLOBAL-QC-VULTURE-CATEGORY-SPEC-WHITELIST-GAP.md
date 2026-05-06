@@ -336,6 +336,13 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports
   `category_specs/sets/subcategories/cartesian_product.py` findings.
+- 2026-05-06 twenty-second bounded slice: real-subset smoke coverage was added for
+  universe detection, disjointness, pairwise disjointness, and convex hulls of finite
+  real-subset families.
+- Validation for the twenty-second slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports
+  `category_specs/sets/subcategories/real_set.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -391,3 +398,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   parent and element smoke coverage.
 - 2026-05-06: Completed the twenty-first bounded cleanup slice for Cartesian-product
   parent and element smoke coverage.
+- 2026-05-06: Completed the twenty-second bounded cleanup slice for real-subset
+  smoke coverage.

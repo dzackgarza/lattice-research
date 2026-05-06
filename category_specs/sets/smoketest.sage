@@ -124,6 +124,24 @@ SMOKE_STATEMENTS = (
         "RealSet(open interval) has one component",
         lambda _: C.RealSetFromIntervals([SageRealSet.open(0, 1).get_interval(0)]).n_components() == 1,
     ),
+    ("RealLine() is the universe real subset", lambda _: C.RealLine().is_universe()),
+    (
+        "ClosedRealInterval(0, 1) is disjoint from OpenRealInterval(2, 3)",
+        lambda _: C.ClosedRealInterval(0, 1).is_disjoint(C.OpenRealInterval(2, 3)),
+    ),
+    (
+        "real intervals detect pairwise-disjoint families",
+        lambda _: C.ClosedRealInterval(0, 1).are_pairwise_disjoint(
+            C.OpenRealInterval(2, 3), C.OpenRealInterval(4, 5)
+        ),
+    ),
+    (
+        "real intervals compute convex hulls of finite real-subset families",
+        lambda _: C.ClosedRealInterval(0, 1).__class__.convex_hull(
+            C.ClosedRealInterval(0, 1), C.OpenRealInterval(2, 3)
+        )
+        == SageRealSet.closed_open(0, 3),
+    ),
     (
         "RealSetInterval(0, 1, open) is a connected topological subobject",
         lambda _: C.RealSetInterval(0, 1, lower_closed=False, upper_closed=False) in TopologicalSpaces().Connected().Subobjects(),
