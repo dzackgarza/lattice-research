@@ -26,6 +26,8 @@ path, but still small enough to hand to a single cheap worker in one shot.
   matters to the current turn.
 - Keep the main agent on orchestration, review, and integration work. Do not
   offload the whole problem.
+- Massively parallel bounded work is fine and encouraged when the leaves are
+  genuinely independent.
 
 ## Good use cases
 
@@ -44,6 +46,14 @@ path, but still small enough to hand to a single cheap worker in one shot.
   changes midway through execution.
 - Overscoped cards hiding multiple distinct subtasks, major design decisions, or
   missing prerequisites.
+
+## Git and acceptance hygiene
+
+- Make a careful checkpoint before dispatching a large batch of workers.
+- Review the resulting git diff carefully before accepting worker output.
+- Treat worker output as provisional until the diff and evidence look right.
+- If a worker produces noisy or mis-scoped changes, prefer discarding that run
+  over rationalizing the output into acceptance.
 
 ## Worker selection
 
@@ -93,6 +103,15 @@ Expect events like:
 - `text`
 - `step_finish`
 
+## Repeated one-shots
+
+- For atomic tasks, repeated clean one-shots are often better than trying to
+  coach the same worker through several correction rounds.
+- If the task is small enough and the contract was clear enough, use judgment:
+  it can be more effective to discard the run, tighten the prompt, and relaunch.
+- Do not do this reflexively for complex tasks that have already accumulated
+  valuable local context.
+
 ## Prompt shape
 
 Use prompts that force narrow execution:
@@ -118,6 +137,15 @@ Return: <patch/report/tests run/remaining blocker>.
 - `--attach` plus `--agent` is a known broken path in local guidance.
 - Do not use the shared user service for experiments when a repo-local server is
   required.
+
+## Worktree policy
+
+- For more complex delegated implementation tasks, consider putting the worker
+  in a dedicated git worktree so the contribution can be reviewed as a unit.
+- Once a worktree owns that task stream, it is fine to dispatch multiple worker
+  runs back into the same worktree.
+- Use good cleanup hygiene: remove stale worktrees when their task stream is
+  truly complete or intentionally abandoned.
 
 ## Review rule
 

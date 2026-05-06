@@ -7,10 +7,14 @@
 - For plan-to-execution routing, atomicity, delegation stages, and acceptance process, load `research-state-machine`. For proof, evidence, fraud detection, and audit sufficiency, load `research-proof-auditing` when relevant.
 - For any git operation, load `git-guidelines` and follow its checkpoint, staging, commit, branch, push, and PR rules. User requests to skip verification skip validation runs, not intentional staging or provenance.
 - Implementation, self-check, and adversarial audit are separate roles when `research-state-machine` requires them.
-- Delegate according to complexity. When delegation is appropriate and the task is
-  within Codex Spark's expected competence, prefer Codex Spark
-  (`gpt-5.3-codex-spark`) because usage is plentiful; reserve stronger models for
-  high-complexity, proof-heavy, architecture-heavy, or high-risk work.
+- When reviewing or starting a task, assess it for delegation, including
+  parallel delegation, against `opencode-one-shot-workers`. As a first
+  approximation, prefer cheap Opencode one-shot workers for bounded atomic
+  leaves. If that route fails or is clearly mismatched, promote to stronger
+  Codex delegation: prefer Codex Spark (`gpt-5.3-codex-spark`) when usage is
+  available, otherwise `gpt-5.4` with low or medium reasoning is usually the
+  next bet. Escalate to `gpt-5.5` only when delegation is still a net token
+  savings over doing the work directly.
 - Do not substitute a nearby task for the user's stated directive.
 - Do not mark work accepted, done, or closed without human approval.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
@@ -51,6 +55,7 @@ Load these skills when their trigger matches the task:
 
 - `research-state-machine`: plan-to-execution routing, card atomicity, preflight, execution stages, replay/attack, promotion/rejection/splitting, and `GOAL.md` discharge.
 - `research-orchestration`: delegation contracts, worktrees, self-check, adversarial audit, artifact handoff, and acceptance execution.
+- `opencode-one-shot-workers`: cheap parallel `command opencode` one-shot workers, PTY-watched progress, atomic-task suitability, git/worktree hygiene, and retry/escalation guidance.
 - `research-proof-auditing`: computational proof audit, formal proof audit, evidence sufficiency, fraud indicators, Sage/GAP/Lean/Aristotle verification, and acceptance of mathematical claims.
 - `research-project-workflow`: Nimbalyst tracker files, `.agents` plans/cards, TODO triage, retired cards, visual windows, and plan decomposition.
 - `research-scheduling`: scheduled wakeups, recurring maintenance, old schedule migration, autonomous cadence, and routing scheduled actions through `.agents` cards/plans.
