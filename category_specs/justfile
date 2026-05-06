@@ -41,6 +41,7 @@ smoke: _clean-generated-artifacts
     trap cleanup EXIT
 
     smoke_files=(
+        "types_smoketest.sage"
         "cat/smoketest.sage"
         "homsets/smoketest.sage"
         "forms/smoketest.sage"

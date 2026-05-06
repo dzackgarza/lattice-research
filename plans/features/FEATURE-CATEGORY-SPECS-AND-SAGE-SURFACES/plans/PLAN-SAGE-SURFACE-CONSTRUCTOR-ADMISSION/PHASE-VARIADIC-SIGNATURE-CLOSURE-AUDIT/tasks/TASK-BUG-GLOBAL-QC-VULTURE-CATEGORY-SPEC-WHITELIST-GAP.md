@@ -211,6 +211,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   subobject-class, end/aut predicate, or base-category defining-predicate findings.
   Remaining Cat diagnostics are concentrated in abstract construction-functor methods
   and slice/coslice structure-category stubs.
+- 2026-05-06 seventh bounded slice: a dedicated `category_specs/types_smoketest.sage`
+  was added to exercise centralized `types.py` alias packages against their intended
+  category/object/element/morphism anchors, and the category-spec smoke recipe now runs
+  that smoke file first.
+- Validation for the seventh slice:
+  `just --justfile category_specs/justfile smoke-file types_smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `category_specs/types.py` findings or
+  generated findings from the new type smoke.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -237,3 +245,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   outside `category_specs/**`.
 - 2026-05-06: Completed the sixth bounded cleanup slice for Cat smoke coverage of
   alias routing, end/aut predicates, subobject routing, and defining predicates.
+- 2026-05-06: Completed the seventh bounded cleanup slice for centralized type alias
+  smoke coverage.
