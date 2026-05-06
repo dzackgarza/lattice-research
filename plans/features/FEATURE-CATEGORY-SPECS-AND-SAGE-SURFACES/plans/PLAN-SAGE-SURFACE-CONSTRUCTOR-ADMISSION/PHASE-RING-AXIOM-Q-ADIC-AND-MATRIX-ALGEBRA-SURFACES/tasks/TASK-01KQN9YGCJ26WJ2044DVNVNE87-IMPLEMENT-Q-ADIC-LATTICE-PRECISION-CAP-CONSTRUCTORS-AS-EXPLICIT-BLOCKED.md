@@ -5,22 +5,22 @@ trackerStatus:
 parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
-title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap
-  surfaces rather than broken pass-throughs
-status: unstarted
+title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces
+  rather than broken pass-throughs
+status: needs-review
 priority: high
-description: Rings mapping records constructor namespace decisions, split p-adic and
-  q-adic precision routes, matrix-ring ownership, topological ring inheritance, and
-  deferred q-adic lattice-precision gaps.
+description: Rings mapping records constructor namespace decisions, split p-adic and q-adic
+  precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic
+  lattice-precision gaps.
 successCriteria:
-- The implementation changes only the scoped category-spec surface and does not weaken
-  smokes or mapping decisions to make failures disappear.
-- Relevant smoke output is updated in this task body or a linked tracker item, with
-  exact failing surfaces preserved when work remains.
-- The change uses project category vocabulary rather than Sage fallback helper names
-  or wrapper-only categories.
-- For q-adic precision items, preserve the five-field negative finding format when
-  updating evidence.
+- The implementation changes only the scoped category-spec surface and does not weaken smokes
+  or mapping decisions to make failures disappear.
+- Relevant smoke output is updated in this task body or a linked tracker item, with exact
+  failing surfaces preserved when work remains.
+- The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only
+  categories.
+- For q-adic precision items, preserve the five-field negative finding format when updating
+  evidence.
 - For topological ring work, check both ring and topological-space category membership.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
@@ -48,11 +48,53 @@ lattice-precision gaps.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
-- [ ] For topological ring work, check both ring and topological-space category membership.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] For q-adic precision items, preserve the five-field negative finding format when updating evidence.
+- [x] For topological ring work, check both ring and topological-space category membership.
+
+## Implementation Review
+
+Existing scoped implementation:
+
+- `category_specs/rings/__init__.py` already defines
+  `Rings().Constructors().ZqWithPrecisionCaps(...)` and
+  `Rings().Constructors().QqWithPrecisionCaps(...)` as admitted public constructor
+  names.
+- Both constructors require a lattice precision type and then raise an explicit
+  assertion explaining that installed Sage has no unramified `Zq`/`Qq` extension
+  constructor for split relative/absolute lattice precision caps.
+- The implementation uses project vocabulary: `ZqWithPrecisionCaps`,
+  `QqWithPrecisionCaps`, `relative_cap`, `absolute_cap`, `lattice relative/absolute
+  precision caps`, and `unramified extension`, rather than a Sage fallback helper name.
+
+Smoke/frontier state:
+
+- `category_specs/rings/smoketest.sage` already preserves the exact frontier labels:
+  `Constructors().ZqWithPrecisionCaps(25, 4, 8, names='a') is a deferred
+  Sage-extension frontier` and the analogous `QqWithPrecisionCaps` label.
+- The smoke statements intentionally still expose the frontier if run; this card does
+  not narrow the smoke to hide the remaining upstream Sage gap.
+- No target `just smoke-file` recipe exists in this repo-local justfile, and running
+  global `just test` would be QC/integration work rather than a phase-local smoke
+  check. No validation command was run for this review-only advancement.
+
+Source and mapping evidence:
+
+- The five-field q-adic negative finding now lives in `[[SPEC-MAPPING-RINGS]]`.
+- Upstream research is recorded in
+  `[[TASK-01KQN9YGCQA3E2Y2RAMA2EHZPR-RESEARCH-UPSTREAM-SAGE-SUPPORT-OR-ISSUES-FOR-Q-ADIC-UNRAMIFIED-EXTENSION]]`.
+- This is not topological-ring implementation work. No ring/topological-space
+  membership changed; the topological inheritance mapping remains in
+  `[[SPEC-MAPPING-RINGS]]`.
+
+Spec-weakening review:
+
+- No code, spec, or smoke file was changed in this pass.
+- The admitted q-adic split precision names were preserved.
+- The remaining Sage gap remains explicit in both implementation assertions and smoke
+  frontier labels.
 
 ## Dependencies And Boundaries
 
@@ -63,3 +105,7 @@ lattice-precision gaps.
 ## Work Log
 
 - Created by migration repair from inline tracker item to full-document Nimbalyst task.
+- 2026-05-06: Reviewed existing q-adic split-cap constructors and confirmed the
+  implementation already records explicit Sage-gap assertions rather than broken
+  pass-throughs. Advanced the stale task to review without weakening the smoke
+  frontier.
