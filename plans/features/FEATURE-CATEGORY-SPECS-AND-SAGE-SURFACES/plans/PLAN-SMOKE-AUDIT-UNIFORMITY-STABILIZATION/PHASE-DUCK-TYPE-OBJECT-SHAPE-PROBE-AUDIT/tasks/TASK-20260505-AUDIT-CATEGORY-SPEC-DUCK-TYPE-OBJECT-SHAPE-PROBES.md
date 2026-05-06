@@ -110,6 +110,20 @@ membership/subcategory predicates.
   defines `Category.is_subcategory(c)` as the natural-forgetful-functor relation,
   implemented by the category supercategory set/hook. The project `Sets` docstring
   states that objects are Sage parents lying in `SageSets()`.
+- `category_specs/sets/__init__.py`: root `_SetObjectMethods._element_constructor_`
+  uses `hasattr(self, "element_class")`. Classified as Sage element-constructor
+  interop, not mathematical object-shape dispatch. Source grounding:
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories/sets_cat.py`
+  defines Sage `Sets.ParentMethods._element_constructor_` by the same
+  `element_class` branch and routes it to
+  `_element_constructor_from_element_class`, which constructs
+  `self.element_class(self, *args, **keywords)`. Sage
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/structure/parent.pyx`
+  defines `Parent.element_class` as the dynamic parent/category element class built
+  from the parent's `Element` class and the category's abstract element class. The
+  project branch is therefore a local restatement of Sage's element-constructor
+  boundary for set parents, not an attempt to infer whether an arbitrary mathematical
+  object has some optional storage shape.
 - `category_specs/sets/subcategories/image.py`: local `ImageSubobject` wrapper probes
   Sage backing storage. Classified as documented Sage-wrapper storage only because
   Sage
@@ -163,6 +177,14 @@ membership/subcategory predicates.
   fixable inside this leaf and does not exhaust the DAG frontier.
 - 2026-05-06 follow-up resolved the grounding gap by recording source anchors for each
   disputed branch. The card is back in `needs-review`; it is not accepted or complete.
+- 2026-05-06 independent re-review failed Gate 1 again because
+  `_SetObjectMethods._element_constructor_` still had an unclassified
+  `hasattr(self, "element_class")` probe. This is fixable in-card, so the outcome is
+  `revision-required`, not `blocked`.
+- 2026-05-06 follow-up resolved the second Gate 1 finding by recording Sage
+  `Sets.ParentMethods._element_constructor_` and `Parent.element_class` as the source
+  boundary for that branch. The card is back in `needs-review`; it is not accepted or
+  complete.
 
 ## Work Log
 
@@ -183,3 +205,8 @@ membership/subcategory predicates.
   review. Spec-weakening review: this follow-up changed only this tracker card; it did
   not delete abstract methods, narrow smokes, remove constructor obligations, or move
   any spec surface.
+- 2026-05-06: Added source-grounded classification for
+  `_SetObjectMethods._element_constructor_` and its Sage `element_class` interop
+  branch after independent review caught the omission. This follow-up changed only this
+  tracker card; it did not delete abstract methods, narrow smokes, remove constructor
+  obligations, or move any spec surface.
