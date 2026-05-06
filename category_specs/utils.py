@@ -1,4 +1,5 @@
 import logging
+import os
 from collections.abc import Callable, Sequence
 from functools import wraps
 from textwrap import dedent
@@ -164,6 +165,62 @@ def refine_category(X: Parent, C: Category | Sequence[Category], test: bool = Tr
     return X
 
 
+def _format_smoke_statement_failure(message: str, exc: Exception) -> str:
+    return f"{message}: {type(exc).__name__}: {exc}"
+
+
+def _run_smoke_statement(message: str, statement: Callable[[Any], bool]) -> str | None:
+    try:
+        assert statement(None), message
+    except Exception as exc:
+        return _format_smoke_statement_failure(message, exc)
+    return None
+
+
+def _write_all(fd: int, payload: bytes) -> None:
+    view = memoryview(payload)
+    while view:
+        written = os.write(fd, view)
+        view = view[written:]
+
+
+def _run_smoke_statement_isolated(message: str, statement: Callable[[Any], bool]) -> str | None:
+    if not hasattr(os, "fork"):
+        return _run_smoke_statement(message, statement)
+
+    read_fd, write_fd = os.pipe()
+    pid = os.fork()
+    if pid == 0:
+        os.close(read_fd)
+        failure = _run_smoke_statement(message, statement)
+        payload = b"" if failure is None else failure.encode("utf-8", "backslashreplace")
+        try:
+            _write_all(write_fd, payload)
+        finally:
+            os.close(write_fd)
+        os._exit(0 if failure is None else 1)
+
+    os.close(write_fd)
+    chunks: list[bytes] = []
+    while True:
+        chunk = os.read(read_fd, 8192)
+        if not chunk:
+            break
+        chunks.append(chunk)
+    os.close(read_fd)
+    _, status = os.waitpid(pid, 0)
+
+    failure = b"".join(chunks).decode("utf-8", "replace")
+    if os.WIFEXITED(status):
+        exit_status = os.WEXITSTATUS(status)
+        if exit_status == 0:
+            return None
+        return failure or f"{message}: smoke statement child exited with status {exit_status}"
+    if os.WIFSIGNALED(status):
+        return f"{message}: smoke statement child terminated by signal {os.WTERMSIG(status)}"
+    return failure or f"{message}: smoke statement child ended with wait status {status}"
+
+
 def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]], ...]) -> None:
     failures: list[str] = []
     for message, statement in statements:
@@ -171,10 +228,9 @@ def assert_smoke_statements(statements: tuple[tuple[str, Callable[[Any], bool]],
         # frontier sensors, so one missing method must not hide the rest of the
         # missing surface.  The failures are still reported and made fatal
         # after every labeled statement has run.
-        try:
-            assert statement(None), message
-        except Exception as exc:
-            failures.append(f"{message}: {type(exc).__name__}: {exc}")
+        failure = _run_smoke_statement_isolated(message, statement)
+        if failure is not None:
+            failures.append(failure)
 
     assert not failures, _format_smoke_failure_message(failures)
 

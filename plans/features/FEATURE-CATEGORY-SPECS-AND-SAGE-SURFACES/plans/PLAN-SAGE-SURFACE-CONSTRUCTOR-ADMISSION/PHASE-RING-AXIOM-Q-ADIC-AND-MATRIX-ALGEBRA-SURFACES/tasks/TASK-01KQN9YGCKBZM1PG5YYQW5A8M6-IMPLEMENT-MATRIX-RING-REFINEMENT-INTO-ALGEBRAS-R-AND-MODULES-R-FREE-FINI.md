@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank()
   while keeping ring-only routing in rings
-status: in-progress
+status: needs-review
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the
@@ -47,11 +47,11 @@ split.
 
 ## Acceptance Criteria
 
-- [ ] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
-- [ ] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
-- [ ] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
-- [ ] Confirm failures are reduced without weakening constructor membership assertions.
+- [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
+- [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
+- [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
+- [x] Run just smoke-file rings/smoketest.sage after ring constructor or axiom changes.
+- [x] Confirm failures are reduced without weakening constructor membership assertions.
 
 ## Dependencies And Boundaries
 
@@ -89,3 +89,10 @@ split.
   minimal standalone Sage smoke of `NR.MatrixRing(ZZ, 2)` passes, so the remaining
   aggregate matrix failure is cross-statement smoke contamination rather than the
   isolated matrix constructor behavior.
+- 2026-05-06 smoke-harness stabilization slice: updated `assert_smoke_statements` so
+  each labeled smoke statement runs in a forked child process on Unix. This preserves
+  the smoke-frontier reporting behavior while preventing a failed refinement from
+  mutating shared Sage parents before later statements run. Re-running `just
+  --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails on
+  the existing non-matrix frontiers, but no longer reports `MatrixRing`, MRO, or
+  method-resolution failures.
