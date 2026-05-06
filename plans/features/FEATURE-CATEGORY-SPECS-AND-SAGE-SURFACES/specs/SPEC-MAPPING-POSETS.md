@@ -44,7 +44,12 @@ Source inventory: `category_specs/posets/docs/SAGE_INVENTORY.md`.
 - Sage environment checked: SageMath 10.7, installed source under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages`.
 - Local inventory checked: `category_specs/posets/docs/SAGE_INVENTORY.md`.
 - Installed Sage source files checked or named by the local inventory:
-  - `sage/categories`
+  - `sage/categories/posets.py`
+  - `sage/categories/finite_posets.py`
+  - `sage/categories/lattice_posets.py`
+  - `sage/categories/finite_lattice_posets.py`
+  - `sage/combinat/posets/posets.py`
+  - `sage/combinat/posets/lattices.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; method-by-method missing-surface reconciliation remains owned by `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
 
@@ -131,6 +136,9 @@ These Sage methods map to the root `Posets()` object surface:
 - `is_lequal`, `is_less_than`, `is_gequal`, `is_greater_than`;
 - `upper_covers`, `lower_covers`;
 - `order_ideal`, `order_filter`;
+- `directed_subset`;
+- `principal_order_ideal`, `principal_order_filter`, with Sage aliases
+  `principal_lower_set` and `principal_upper_set`;
 - `is_order_ideal`, `is_order_filter`;
 - `is_chain_of_poset`, `is_antichain_of_poset`;
 - `order_ideal_toggle`, `order_ideal_toggles`;
@@ -146,19 +154,23 @@ until an infinite/lazy relation surface is designed.
 The finite poset surface owns methods whose mathematics requires finite
 enumeration of a Hasse diagram, finite intervals, or finite linear extensions:
 - element listing and cardinality: `list`, `cardinality`;
+- linear-extension-aware sorting: `sorted`;
 - bounds and extremal elements: `bottom`, `top`, `has_bottom`, `has_top`,
   `is_bounded`, `minimal_elements`, `maximal_elements`;
 - Hasse data: `cover_relations`, `cover_relations_iterator`,
   `cover_relations_graph`, `hasse_diagram`, `covers`,
-  `common_upper_covers`, `common_lower_covers`;
+  `upper_covers_iterator`, `lower_covers_iterator`,
+  `common_upper_covers`, `common_lower_covers`, `lequal_matrix`;
 - intervals: `closed_interval`, `open_interval`, `interval`,
   `intervals_number`, `intervals_poset`, `is_linear_interval`,
-  `linear_intervals_count`;
+  `linear_intervals_count`, `diamonds`;
 - chains, antichains, and ideals: `chains`, `antichains`,
   `antichains_iterator`, `maximal_chains`, `maximal_chains_iterator`,
   `maximal_chain_length`, `maximal_antichains`, `is_chain`,
   `is_chain_of_poset`, `is_antichain_of_poset`,
-  `order_ideal_cardinality`;
+  `order_ideal_cardinality`, `order_ideal_generators`,
+  `order_filter_generators`, `order_ideal_complement_generators`,
+  `panyushev_complement`, `directed_subsets`;
 - linear extensions: `linear_extension`, `linear_extensions`,
   `linear_extensions_graph`, `is_linear_extension`,
   `random_linear_extension`, `with_linear_extension`;
@@ -166,12 +178,14 @@ enumeration of a Hasse diagram, finite intervals, or finite linear extensions:
   `is_graded`, `is_rank_symmetric`, `height`, `width`, `level_sets`,
   `greene_shape`, `dilworth_decomposition`, `dimension`, `jump_number`,
   `is_jump_critical`, `is_sperner`, `is_slender`,
-  `is_incomparable_chain_free`;
+  `is_incomparable_chain_free`, `is_EL_labelling`;
 - finite recognition predicates: `is_connected`, `connected_components`,
   `is_eulerian`, `is_greedy`, `is_series_parallel`, `is_d_complete`,
   `is_induced_subposet`, `is_isomorphic`, `has_isomorphic_subposet`,
   `isomorphic_subposets`, `isomorphic_subposets_iterator`,
-  `is_meet_semilattice`, `is_join_semilattice`, `is_parent_of`;
+  `is_meet_semilattice`, `is_join_semilattice`, `is_lattice`,
+  `is_self_dual`, `is_parent_of`;
+- finite morphism predicates: `is_poset_morphism`, `is_poset_isomorphism`;
 - finite poset constructions: `dual`, `subposet`, `canonical_label`,
   `relabel`, `completion_by_cuts`, `cuts`, `factor`, `disjoint_union`,
   `ordinal_sum`, `ordinal_product`, `ordinal_summands`,
@@ -179,12 +193,22 @@ enumeration of a Hasse diagram, finite intervals, or finite linear extensions:
   `slant_sum`, `with_bounds`, `without_bounds`;
 - finite dynamics and random finite objects: `promotion`, `evacuation`,
   `random_order_ideal`, `random_maximal_chain`,
-  `random_maximal_antichain`, `random_subposet`.
+  `random_maximal_antichain`, `random_subposet`, `rowmotion`,
+  `rowmotion_orbits`, `rowmotion_orbit_iter`, `panyushev_orbits`,
+  `panyushev_orbit_iter`, `toggling_orbits`, `toggling_orbit_iter`;
+- birational finite-poset dynamics: `birational_free_labelling`,
+  `birational_toggle`, `birational_toggles`, `birational_rowmotion`.
 
 Sage `certificate=True` variants are mapped to separately named certificate
 methods. `height(certificate=True)` maps to `height_certificate()`;
 `width(certificate=True)` maps to `width_certificate()`;
-`is_meet_semilattice(certificate=True)` maps to
+`dimension(certificate=True)` maps to `dimension_certificate()`;
+`jump_number(certificate=True)` maps to `jump_number_certificate()`;
+`is_jump_critical(certificate=True)` maps to
+`jump_critical_certificate()`; `is_eulerian(certificate=True)` maps to
+`eulerian_certificate()`; `is_greedy(certificate=True)` maps to
+`greedy_certificate()`; `is_slender(certificate=True)` maps to
+`slender_certificate()`; `is_meet_semilattice(certificate=True)` maps to
 `meet_semilattice_certificate()`; and
 `is_join_semilattice(certificate=True)` maps to
 `join_semilattice_certificate()`. The predicate methods themselves remain
@@ -251,7 +275,7 @@ and constructions requiring both meet and join:
   `is_sublattice_dismantlable`, `is_stone`, `is_trim`,
   `is_vertically_decomposable`, `is_simple`, `is_isoform`,
   `is_uniform`, `is_regular`, `is_subdirectly_reducible`,
-  `is_constructible_by_doublings`, `is_congruence_uniform`;
+  `is_constructible_by_doublings`, `is_congruence_uniform`, `breadth`;
 - element families: `double_irreducibles`, `join_primes`, `meet_primes`,
   `complements`, `is_modular_element`, `is_left_modular_element`,
   `neutral_elements`, `canonical_joinands`, `canonical_meetands`,
@@ -276,7 +300,19 @@ finite lattice's element set. Sage `congruences_lattice()` maps to
 Sage `certificate=True` variants map to separately named certificate methods:
 `atomic_certificate()`, `coatomic_certificate()`,
 `complemented_certificate()`, `distributive_certificate()`,
-`modular_certificate()`, and `modular_elements_certificate(elements)`.
+`modular_certificate()`, `modular_elements_certificate(elements)`,
+`join_distributive_certificate()`, `meet_distributive_certificate()`,
+`stone_certificate()`, `meet_semidistributive_certificate()`,
+`join_semidistributive_certificate()`, `trim_certificate()`,
+`cosectionally_complemented_certificate()`,
+`relatively_complemented_certificate()`,
+`sectionally_complemented_certificate()`, `breadth_certificate()`,
+`upper_semimodular_certificate()`, `lower_semimodular_certificate()`,
+`supersolvable_certificate()`, `vertically_decomposable_certificate()`,
+`dismantlable_certificate()`, `interval_dismantlable_certificate()`,
+`subdirectly_reducible_certificate()`, `isoform_certificate()`,
+`uniform_certificate()`, `regular_certificate()`, and
+`simple_certificate()`.
 Boolean predicates do not take a `certificate` argument.
 
 ## Deferred Non-Core Surfaces
@@ -300,7 +336,12 @@ target mathematical object or display/interop status.
 | `moebius_function()` | finite-poset invariant method | Return scalar Möbius values for comparable elements or the whole finite poset, following Sage's signature. |
 | `moebius_function_matrix()`, `coxeter_transformation()`, `coxeter_smith_form()` | finite-poset matrix-valued invariant methods | Return matrix or Smith-form data. Matrix algebra belongs to the matrix/ring/module codomain, not `Posets()`. |
 | `magnitude()`, `spectrum()`, `atkinson()` | finite-poset scalar/list/matrix invariant methods where Sage defines them | Keep as finite-poset invariants with scalar, list, or matrix codomains; downstream numeric or spectral operations belong to the returned object. |
+| `order_polynomial()` | finite-poset polynomial invariant | Return the order polynomial counting order-preserving maps to finite chains. Polynomial arithmetic belongs to the polynomial-ring codomain. |
 | `unwrap()` | raw Sage compatibility access only; no category method | May be used internally at the Sage boundary. Do not expose it as mathematical API. |
+| `_libgap_()`, `_macaulay2_init_(...)` | backend interop only; no category method | Keep as Sage backend serialization / initialization surface. Do not expose backend strings or handles as mathematical poset API. |
+| `_repr_()`, `_latex_()`, `_rich_repr_(...)`, `plot(...)`, `show(...)`, `tikz(...)`, `graphviz_string(...)`, `order_ideal_plot(...)`, `rowmotion_orbits_plots()`, `toggling_orbits_plots(...)` | display-only / export-only; no category method | Keep as notebook, plotting, TikZ, Graphviz, or Sage-display interop. Do not make display data part of the mathematical poset API. |
+| `__classcall__(...)`, `__init__(...)`, `__bool__()`, `__contains__(...)`, `__iter__()`, `__call__(...)`, `_element_constructor_(...)`, `_element_to_vertex(...)`, `_vertex_to_element(...)`, `_list()` | Sage parent/element runtime plumbing | Preserve at the wrapper boundary as needed; these do not define new mathematical poset operations beyond construction normalization, containment, iteration, coercion, and element conversion already owned by constructor, parent, or set infrastructure. |
+| `_kl_poly(...)` | private implementation helper for `kazhdan_lusztig_polynomial(...)` | Keep private. The public mathematical invariant is `kazhdan_lusztig_polynomial(...)`. |
 
 Order-theoretic lattice terminology here refers only to finite lattice posets in the
 `posets` subtree. It does not import module/quadratic lattice vocabulary from
@@ -313,3 +354,75 @@ Order-theoretic lattice terminology here refers only to finite lattice posets in
 `structure_domain()` and `structure_codomain()` methods now map to the Cat-owned
 universal structure-morphism surface via `structure_morphism().domain()` and
 `structure_morphism().codomain()`.
+
+## Completeness Reconciliation: Posets
+
+This pass checked the local inventory, the converted mapping body, the installed
+Sage 10.7 category providers for posets, finite posets, lattice posets, and finite
+lattice posets, plus the concrete finite poset and finite lattice implementation
+classes.
+
+- The Sage category provider `Posets.ParentMethods` is source-backed as the highest
+  owner for order comparison, covers, generated ideals/filters, principal
+  ideals/filters, directed subsets, order-ideal toggles, and chain/antichain tests.
+  These methods require only a partially ordered set structure and therefore stay on
+  `Posets()`, even when Sage's concrete implementation is finite.
+- `FinitePosets.ParentMethods` adds methods whose definitions enumerate ideals,
+  filters, antichains, or all elements of a finite poset: order/filter generators,
+  Panyushev complement, rowmotion, toggling orbits, birational rowmotion/labellings,
+  finite morphism and isomorphism checks, finite directed subsets, self-duality, and
+  finite lattice recognition. These map to `Posets().Finite()`.
+- The concrete `FinitePoset` class contributes additional finite surfaces not present
+  in the first converted mapping: linear-extension-aware `sorted`, cover iterators,
+  `lequal_matrix`, `diamonds`, `is_EL_labelling`, and `order_polynomial`. These are
+  finite-poset methods or finite-poset invariants, not codomain-owned graph/algebra
+  methods.
+- `LatticePosets.ParentMethods` requires total binary `meet` and `join`, so the
+  project keeps those methods on the meet- and join-semilattice refinements rather
+  than on arbitrary finite posets. Sage concrete `FinitePoset.meet(x,y)` and
+  `FinitePoset.join(x,y)` are treated as partial implementation evidence until the
+  recognition predicates establish the corresponding semilattice hypothesis.
+- `FiniteLatticePosets.ParentMethods` owns finite lattice irreducible-element posets
+  and `is_lattice_morphism`. Concrete finite lattice methods that require both meet
+  and join, including `breadth`, congruences, sublattices, decompositions, and
+  lattice identities, map to `Posets().Lattice().Finite()`.
+- Sage plotting, Graphviz/TikZ, GAP/Macaulay2 serialization, element conversion, and
+  private runtime helpers are routed as display, backend interop, or parent-plumbing
+  surfaces. They do not become mathematical poset methods.
+- Certificate-bearing Sage predicates are preserved by named certificate methods.
+  Boolean predicates remain boolean, avoiding Sage-style option-bag signatures while
+  preserving the evidence surfaces.
+
+Negative missing-surface finding for this Posets pass:
+
+- Searched: `category_specs/posets/docs/SAGE_INVENTORY.md`;
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-POSETS.md`;
+  installed Sage 10.7 files `sage/categories/posets.py`,
+  `sage/categories/finite_posets.py`, `sage/categories/lattice_posets.py`,
+  `sage/categories/finite_lattice_posets.py`,
+  `sage/combinat/posets/posets.py`, and `sage/combinat/posets/lattices.py`;
+  a direct source-file search under installed `sage/categories/` and
+  `sage/combinat/posets/`; and a method-name comparison between the checked source
+  files and this tracked mapping spec.
+- Found: the first comparison found unmapped provider/concrete names including
+  `principal_order_ideal`, `principal_order_filter`, `directed_subset`,
+  `directed_subsets`, `order_ideal_generators`, `order_filter_generators`,
+  `order_ideal_complement_generators`, rowmotion/Panyushev/toggling orbit methods,
+  birational rowmotion methods, `is_poset_morphism`, `is_poset_isomorphism`,
+  `is_self_dual`, `is_lattice`, `sorted`, `upper_covers_iterator`,
+  `lower_covers_iterator`, `lequal_matrix`, `diamonds`, `is_EL_labelling`,
+  `order_polynomial`, `breadth`, and backend/display/runtime hooks. Those surfaces
+  are now mapped above. I found no further public checked-source poset method surface
+  that requires a new mathematical owner beyond `Posets()`, `Posets().Finite()`,
+  `Posets().MeetSemilattice()`, `Posets().JoinSemilattice()`,
+  `Posets().Lattice().Finite()`, or the deferred interop/display table.
+- Conclusion: inference -- for the checked Sage category-provider and finite
+  poset/lattice implementation surface, the Posets mapping spec is now source-complete
+  modulo separate audits of graph, polyhedron, algebra, polynomial, backend, and
+  display codomains.
+- Confidence: Medium.
+- Gaps: this pass did not audit every named example constructor in
+  `sage/combinat/posets/poset_examples.py`, non-poset combinatorics modules such as
+  interval posets, or Sage git history. Those are constructor/example or separate
+  combinatorics surfaces, not the core category-provider and finite-poset method
+  surface checked here.
