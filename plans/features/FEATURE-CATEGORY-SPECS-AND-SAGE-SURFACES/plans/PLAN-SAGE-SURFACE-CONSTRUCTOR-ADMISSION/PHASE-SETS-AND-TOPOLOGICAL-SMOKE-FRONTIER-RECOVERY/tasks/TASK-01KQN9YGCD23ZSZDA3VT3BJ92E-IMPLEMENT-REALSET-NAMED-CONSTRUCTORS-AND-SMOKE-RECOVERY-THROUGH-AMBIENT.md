@@ -145,3 +145,25 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
   passed with the known inherited `Sets.Topological` Sage warning; `just --justfile
   category_specs/justfile smoke-file topological_spaces/smoketest.sage` passed with no
   output; `git diff --check` passed for the touched RealSet files.
+
+### Re-review 2026-05-06 (Gauss)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** None
+**Outcome:** needs-review evidence ready for human approval; card not marked complete
+
+#### Evidence
+
+- Grounding and ambient-route ownership are recorded in this card's Source Provenance
+  and in `SPEC-MAPPING-TOPOLOGICAL-SPACES.md`.
+- The implemented constructor-bound adapter and smoke assertions prove
+  `ambient().is_open`, `ambient().is_closed`, `ambient().closure`,
+  `ambient().interior`, and `ambient().boundary`.
+- Commit `b0ff1b8` strengthens the previous direct `U.is_open()` smoke into
+  ambient-route checks and does not weaken the spec surface.
+- Fresh validation passed: `just --justfile category_specs/justfile smoke-file
+  sets/smoketest.sage`, `just --justfile category_specs/justfile smoke-file
+  topological_spaces/smoketest.sage`, `just --justfile category_specs/justfile
+  check-abstract-redefinitions`, and `git diff --check`. The remaining Sets smoke
+  warning is the accepted RealSet Sage-provenance warning recorded in
+  `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING.md`.
