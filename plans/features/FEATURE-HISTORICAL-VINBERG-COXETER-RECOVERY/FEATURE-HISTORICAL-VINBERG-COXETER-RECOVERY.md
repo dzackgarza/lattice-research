@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY]]'
 plans: []
 title: Historical Vinberg and Coxeter recovery
-status: unstarted
+status: in-progress
 priority: medium
 description: Recover Vinberg algorithm, Coxeter diagram, reflection group, and fundamental chamber requirements from historical external references and old backend notes after lattice/group vocabulary is stable.
 ---
@@ -28,7 +28,10 @@ exist once the lattice and orthogonal-group layers can express them.
 - `src.bak/backends/external/vinbergs_algorithm/references/vinal/README.md`
 - `src.bak/backends/external/vinbergs_algorithm/references/AlVin/README.md`
 - `src.bak/backends/external/vinbergs_algorithm/references/sterk-peters_symmetric-quadratic-forms.md`
-- IWE `theory/backends/vinberg-algorithm`
+- `.agents/memories/theory/backends/vinberg-algorithm.md`
+- `.agents/memories/theory-backend-routing.md`
+- `.agents/memories/theory/backends/library-integration.md`
+- `theory/foundations/reflective-two-elementary-lattices.md`
 - `.agents/skills/vinberg-algorithm/SKILL.md`
 
 ## Recovery Boundary
