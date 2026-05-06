@@ -15,8 +15,8 @@ successCriteria:
 - "For underscored items: verify the item is used at least once in its own file. An underscored item with zero local callers is suspect."
 - "For public surfaces: add a smoke or test call that exercises the surface. The call proves category wiring correctness and gives vulture a cross-file usage to see."
 - "Delete genuinely dead code that is neither an intentional internal helper nor a public vocabulary item."
-- "Do not add any new entries to the global vulture whitelist."
 - "Do not add local vulture bypasses, ignore files, or QC overrides."
+- "After exhausting all code fixes, identify any remaining findings that genuinely cannot be resolved through code (e.g., Sage dynamic dispatch that cannot be expressed as a static call). Present these to the user for review before adding any whitelist entry."
 - "After cleanup, run `just test` and verify vulture passes."
 complexity: 76
 tags:
@@ -113,18 +113,32 @@ helpers. Delete them.
 
 ## Boundaries
 
-- Do not add entries to `/home/dzack/ai/quality-control/vulture_whitelist.py`.
+- Do not add entries to `/home/dzack/ai/quality-control/vulture_whitelist.py` without
+  prior user review and approval.
 - Do not add local vulture bypasses, ignore files, or QC overrides.
 - Do not delete category-spec API surfaces that are intended to be public.
 - Do not mechanically `_`-prefix without verifying the item is actually used.
 - Do not add smoke calls that are tautological (`assert Foo is not None`).
 
+## Final whitelist gate (user review)
+
+After all three buckets are exhausted, some genuine edge cases may remain: Sage
+dynamic dispatch patterns where the method cannot be expressed as a static call in
+our code. Present these to the user with:
+
+- The exact name and defining file
+- Why it cannot be resolved through underscore prefix (it is genuinely public)
+- Why it cannot be resolved through a smoke call (no statically-callable surface exists)
+- The proposed whitelist entry
+
+Do not add whitelist entries silently. Agents were previously too eager to whitelist
+violations to silence QC rather than addressing the issues they unearthed.
+
 ## Validation
 
-- After cleanup, run `just test` and verify vulture passes with zero findings.
-- If any finding remains, it must be justified in this card body -- either a
-  legitimate Sage dynamic dispatch edge case (rare after smoke calls) or an item
-  that needs splitting into a follow-up card.
+- After cleanup, run `just test` and verify vulture passes.
+- All remaining findings must either be resolved through code fixes or presented to
+  the user in the final whitelist gate.
 
 ## Work Log
 
