@@ -9,7 +9,10 @@ from sage.categories.category_singleton import Category_singleton
 from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
 from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as SageInfiniteEnumeratedSets
 from sage.misc.abstract_method import abstract_method
-from sage.sets.recursively_enumerated_set import RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest
+from sage.sets.recursively_enumerated_set import (
+    RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest,
+    RecursivelyEnumeratedSet_generic as SageRecursivelyEnumeratedSetGeneric,
+)
 
 if TYPE_CHECKING:
     from ...types import Cardinality, CategoryElement, DiGraph, InfinityElement, Integer, Set, SetElement
@@ -52,11 +55,10 @@ class _RecursivelyEnumeratedSets(Category_singleton):
                 return True
             if self.category().is_subcategory(SageInfiniteEnumeratedSets()):
                 return False
-            max_depth = getattr(self, "_max_depth", None)
-            if max_depth is not None:
+            if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
                 from sage.rings.infinity import infinity
 
-                return max_depth != float("inf") and max_depth != infinity
+                return self._max_depth != float("inf") and self._max_depth != infinity
             raise NotImplementedError("recursive set finiteness requires finite, infinite, or bounded-depth evidence")
 
         @override
@@ -111,16 +113,18 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         @final
         def roots(self) -> Set:
             r"""Return the seed set of this recursive forest."""
-            if hasattr(self, "_roots"):
-                return self._roots
-            return self._seeds
+            if isinstance(self, SageRecursivelyEnumeratedSetForest):
+                return SageRecursivelyEnumeratedSetForest.roots(self)
+            if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
+                return self.seeds()
+            raise NotImplementedError("recursive roots require generic seeds or forest roots")
 
         @final
         def children(self, x: SetElement) -> Set:
             r"""Return the recursive successors of ``x``."""
-            if hasattr(self, "successors"):
+            if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
                 return self.successors(x)
-            raise NotImplementedError("recursive children are defined only for forest-backed sets")
+            raise NotImplementedError("recursive children require a generic Sage successor function")
 
         @final
         def map_reduce(

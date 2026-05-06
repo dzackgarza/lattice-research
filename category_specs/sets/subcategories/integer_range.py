@@ -7,6 +7,12 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
+from sage.sets.integer_range import (
+    IntegerRangeEmpty as SageIntegerRangeEmpty,
+    IntegerRangeFinite as SageIntegerRangeFinite,
+    IntegerRangeFromMiddle as SageIntegerRangeFromMiddle,
+    IntegerRangeInfinite as SageIntegerRangeInfinite,
+)
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement
@@ -51,23 +57,16 @@ class _IntegerRangeSets(Category_singleton):
             except (TypeError, ValueError):
                 return False
 
-            if hasattr(self, "_middle_point"):
-                anchor = self._middle_point
-                lower = self._begin
-                upper = self._end
-                return abs(self._step).divides(elt - anchor) and (
-                    lower <= elt < upper or lower >= elt > upper
-                )
-
-            if hasattr(self, "_end"):
-                return abs(self._step).divides(elt - self._begin) and (
-                    self._begin <= elt < self._end and self._step > 0
-                    or self._begin >= elt > self._end and self._step < 0
-                )
-
-            return abs(self._step).divides(elt - self._begin) and (
-                self._step > 0 and elt >= self._begin
-                or self._step < 0 and elt <= self._begin
+            if isinstance(self, SageIntegerRangeEmpty):
+                return False
+            if isinstance(self, SageIntegerRangeFromMiddle):
+                return SageIntegerRangeFromMiddle.__contains__(self, elt)
+            if isinstance(self, SageIntegerRangeFinite):
+                return SageIntegerRangeFinite.__contains__(self, elt)
+            if isinstance(self, SageIntegerRangeInfinite):
+                return SageIntegerRangeInfinite.__contains__(self, elt)
+            raise TypeError(
+                f"unsupported Sage integer range wrapper: {type(self).__name__}"
             )
 
         @override

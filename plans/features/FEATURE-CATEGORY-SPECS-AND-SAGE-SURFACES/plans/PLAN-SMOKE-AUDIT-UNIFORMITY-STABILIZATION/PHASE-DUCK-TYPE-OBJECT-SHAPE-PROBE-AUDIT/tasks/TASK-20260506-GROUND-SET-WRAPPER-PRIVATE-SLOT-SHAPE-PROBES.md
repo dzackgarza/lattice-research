@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES]]'
 title: Ground set-wrapper private-slot shape probes
-status: unstarted
+status: needs-review
 priority: high
 description: Source-audit the remaining private-slot and optional-attribute probes
   in set-wrapper one-object categories, then either document them as Sage wrapper
@@ -70,15 +70,31 @@ wrapper accessor rather than an immediate local rewrite.
 
 ## Acceptance Criteria
 
-- [ ] Sage docs/source for integer ranges, callable-backed enumerated sets, and
+- [x] Sage docs/source for integer ranges, callable-backed enumerated sets, and
   recursively enumerated sets are read before editing implementation code.
-- [ ] Each remaining probe in `integer_range.py`, `enumerated_from_iterator.py`, and
+- [x] Each remaining probe in `integer_range.py`, `enumerated_from_iterator.py`, and
   `recursively_enumerated.py` is classified as documented Sage wrapper storage or invalid
   object-shape dispatch.
-- [ ] Invalid probes are replaced with source-backed Sage/project type checks, category
+- [x] Invalid probes are replaced with source-backed Sage/project type checks, category
   predicates, or named wrapper/accessor boundaries.
-- [ ] Public mathematical specs, smokes, and abstract obligations are not weakened to
+- [x] Public mathematical specs, smokes, and abstract obligations are not weakened to
   make the implementation pass.
+
+## Source Audit Result
+
+- `integer_range.py`: Sage source defines `IntegerRangeFinite`,
+  `IntegerRangeInfinite`, `IntegerRangeFromMiddle`, and `IntegerRangeEmpty` as concrete
+  class variants. The project wrapper now dispatches by those Sage types and delegates
+  containment to the Sage owner instead of probing `_middle_point` or `_end`.
+- `enumerated_from_iterator.py`: Sage source defines `_func`, optional `_args` and
+  `_kwds`, and optional `_cache` as storage for `EnumeratedSetFromIterator`; Sage
+  already owns `__iter__` and `clear_cache`. The project wrapper now delegates to the
+  Sage class methods instead of repeating private-slot logic.
+- `recursively_enumerated.py`: Sage source defines generic recursive sets with
+  `seeds()`, a documented `successors` attribute, and `_max_depth`; forest recursive
+  sets have a `roots()` method. The project wrapper now uses Sage generic/forest type
+  boundaries and public Sage methods where available, leaving the bounded-depth
+  evidence as a source-backed generic-wrapper boundary.
 
 ## Dependencies And Boundaries
 
@@ -95,3 +111,7 @@ wrapper accessor rather than an immediate local rewrite.
 - 2026-05-06: Created from the duck-type object-shape audit after local fixes handled
   `Sets().__contains__` and `Cat().Subobjects().__contains__`, while set-wrapper
   private-slot cases remained source-dependent.
+- 2026-05-06: Read installed Sage source for `sage.sets.integer_range`,
+  `sage.sets.set_from_iterator`, and `sage.sets.recursively_enumerated_set.pyx`. Replaced
+  local optional attribute probes with Sage type/delegate boundaries and recorded the
+  classification above. No public specs, smokes, or abstract obligations were weakened.

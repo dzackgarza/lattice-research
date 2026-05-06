@@ -13,6 +13,9 @@ from sage.categories.infinite_enumerated_sets import (
     InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
 )
 from sage.rings.infinity import infinity
+from sage.sets.set_from_iterator import (
+    EnumeratedSetFromIterator as SageEnumeratedSetFromIterator,
+)
 
 if TYPE_CHECKING:
     from ...types import Cardinality, SetElement
@@ -53,14 +56,7 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            if hasattr(self, "_cache"):
-                return iter(self._cache)
-            return iter(
-                self._func(
-                    *getattr(self, "_args", ()),
-                    **getattr(self, "_kwds", {}),
-                )
-            )
+            return SageEnumeratedSetFromIterator.__iter__(self)
 
         @override
         @final
@@ -86,17 +82,7 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @final
         def clear_cache(self) -> None:
             r"""Clear the iterator cache of this callable-backed enumerated set."""
-            if hasattr(self, "_cache"):
-                from sage.misc.lazy_list import lazy_list
-
-                self._cache = lazy_list(
-                    iter(
-                        self._func(
-                            *getattr(self, "_args", ()),
-                            **getattr(self, "_kwds", {}),
-                        )
-                    )
-                )
+            SageEnumeratedSetFromIterator.clear_cache(self)
 
     class ElementMethods: ...
 
