@@ -9,6 +9,8 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.homsets import AutCategory, EndCategory, HomCategory
+from category_specs.homsets.endsets import UniversalEndObjectMethods
+from category_specs.homsets.homsets import UniversalHomObjectMethods
 from category_specs.modules import Modules
 from category_specs.posets import Posets
 from category_specs.rings import Rings
@@ -19,6 +21,29 @@ from sage.all import ZZ
 
 
 C = Cat()
+S = Sets()
+R = Rings()
+P = Posets()
+
+
+class _HomObjectWitness(UniversalHomObjectMethods):
+    def __init__(self, domain, codomain):
+        self._domain = domain
+        self._codomain = codomain
+
+    def domain(self):
+        return self._domain
+
+    def codomain(self):
+        return self._codomain
+
+    def __call__(self, data):
+        return data
+
+
+class _EndObjectWitness(UniversalEndObjectMethods):
+    def identity(self):
+        return self
 
 SMOKE_STATEMENTS = (
     ("HomCategory() is a category", lambda _: HomCategory() in C),
@@ -29,47 +54,50 @@ SMOKE_STATEMENTS = (
     ("Cat().AutCategory() is a category", lambda _: C.AutCategory() in C),
     ("Cat().EndCategory() is Cat().HomCategory().EndCategory()", lambda _: C.EndCategory() is C.HomCategory().EndCategory()),
     ("Cat().AutCategory() is Cat().EndCategory().AutCategory()", lambda _: C.AutCategory() is C.EndCategory().AutCategory()),
-    ("Sets().HomCategory() is a category", lambda _: Sets().HomCategory() in C),
-    ("Sets().EndCategory() is a category", lambda _: Sets().EndCategory() in C),
-    ("Sets().AutCategory() is a category", lambda _: Sets().AutCategory() in C),
-    ("Sets().EndCategory() refines its hom end category", lambda _: Sets().EndCategory().is_subcategory(Sets().HomCategory().EndCategory())),
+    ("generic Hom object detects equal-domain endomorphism sets", lambda _: _HomObjectWitness(S, S).is_endomorphism_set()),
+    ("generic Hom object rejects unequal-domain endomorphism sets", lambda _: not _HomObjectWitness(S, R).is_endomorphism_set()),
+    ("generic End object reports an endomorphism set", lambda _: _EndObjectWitness().is_endomorphism_set()),
+    ("Sets().HomCategory() is a category", lambda _: S.HomCategory() in C),
+    ("Sets().EndCategory() is a category", lambda _: S.EndCategory() in C),
+    ("Sets().AutCategory() is a category", lambda _: S.AutCategory() in C),
+    ("Sets().EndCategory() refines its hom end category", lambda _: S.EndCategory().is_subcategory(S.HomCategory().EndCategory())),
     (
         "Sets().AutCategory() refines its end aut category",
-        lambda _: Sets().AutCategory().is_subcategory(Sets().EndCategory().AutCategory()),
+        lambda _: S.AutCategory().is_subcategory(S.EndCategory().AutCategory()),
     ),
-    ("Rings().HomCategory() is a category", lambda _: Rings().HomCategory() in C),
-    ("Rings().EndCategory() is a category", lambda _: Rings().EndCategory() in C),
-    ("Rings().AutCategory() is a category", lambda _: Rings().AutCategory() in C),
-    ("Rings().HomCategory() refines set hom categories", lambda _: Rings().HomCategory().is_subcategory(Sets().HomCategory())),
-    ("Rings().EndCategory() refines set end categories", lambda _: Rings().EndCategory().is_subcategory(Sets().EndCategory())),
-    ("Rings().AutCategory() refines set aut categories", lambda _: Rings().AutCategory().is_subcategory(Sets().AutCategory())),
-    ("Posets().HomCategory() is a category", lambda _: Posets().HomCategory() in C),
-    ("Posets().EndCategory() is a category", lambda _: Posets().EndCategory() in C),
-    ("Posets().AutCategory() is a category", lambda _: Posets().AutCategory() in C),
-    ("Posets().HomCategory() refines set hom categories", lambda _: Posets().HomCategory().is_subcategory(Sets().HomCategory())),
-    ("Posets().EndCategory() refines set end categories", lambda _: Posets().EndCategory().is_subcategory(Sets().EndCategory())),
-    ("Posets().AutCategory() refines set aut categories", lambda _: Posets().AutCategory().is_subcategory(Sets().AutCategory())),
+    ("Rings().HomCategory() is a category", lambda _: R.HomCategory() in C),
+    ("Rings().EndCategory() is a category", lambda _: R.EndCategory() in C),
+    ("Rings().AutCategory() is a category", lambda _: R.AutCategory() in C),
+    ("Rings().HomCategory() refines set hom categories", lambda _: R.HomCategory().is_subcategory(S.HomCategory())),
+    ("Rings().EndCategory() refines set end categories", lambda _: R.EndCategory().is_subcategory(S.EndCategory())),
+    ("Rings().AutCategory() refines set aut categories", lambda _: R.AutCategory().is_subcategory(S.AutCategory())),
+    ("Posets().HomCategory() is a category", lambda _: P.HomCategory() in C),
+    ("Posets().EndCategory() is a category", lambda _: P.EndCategory() in C),
+    ("Posets().AutCategory() is a category", lambda _: P.AutCategory() in C),
+    ("Posets().HomCategory() refines set hom categories", lambda _: P.HomCategory().is_subcategory(S.HomCategory())),
+    ("Posets().EndCategory() refines set end categories", lambda _: P.EndCategory().is_subcategory(S.EndCategory())),
+    ("Posets().AutCategory() refines set aut categories", lambda _: P.AutCategory().is_subcategory(S.AutCategory())),
     ("TopologicalSpaces().HomCategory() is a category", lambda _: TopologicalSpaces().HomCategory() in C),
     ("TopologicalSpaces().EndCategory() is a category", lambda _: TopologicalSpaces().EndCategory() in C),
     ("TopologicalSpaces().AutCategory() is a category", lambda _: TopologicalSpaces().AutCategory() in C),
     (
         "TopologicalSpaces().HomCategory() refines set hom categories",
-        lambda _: TopologicalSpaces().HomCategory().is_subcategory(Sets().HomCategory()),
+        lambda _: TopologicalSpaces().HomCategory().is_subcategory(S.HomCategory()),
     ),
     (
         "TopologicalSpaces().EndCategory() refines set end categories",
-        lambda _: TopologicalSpaces().EndCategory().is_subcategory(Sets().EndCategory()),
+        lambda _: TopologicalSpaces().EndCategory().is_subcategory(S.EndCategory()),
     ),
     (
         "TopologicalSpaces().AutCategory() refines set aut categories",
-        lambda _: TopologicalSpaces().AutCategory().is_subcategory(Sets().AutCategory()),
+        lambda _: TopologicalSpaces().AutCategory().is_subcategory(S.AutCategory()),
     ),
     ("Modules(ZZ).HomCategory() is a category", lambda _: Modules(ZZ).HomCategory() in C),
     ("Modules(ZZ).EndCategory() is a category", lambda _: Modules(ZZ).EndCategory() in C),
     ("Modules(ZZ).AutCategory() is a category", lambda _: Modules(ZZ).AutCategory() in C),
-    ("Modules(ZZ).HomCategory() refines set hom categories", lambda _: Modules(ZZ).HomCategory().is_subcategory(Sets().HomCategory())),
-    ("Modules(ZZ).EndCategory() refines set end categories", lambda _: Modules(ZZ).EndCategory().is_subcategory(Sets().EndCategory())),
-    ("Modules(ZZ).AutCategory() refines set aut categories", lambda _: Modules(ZZ).AutCategory().is_subcategory(Sets().AutCategory())),
+    ("Modules(ZZ).HomCategory() refines set hom categories", lambda _: Modules(ZZ).HomCategory().is_subcategory(S.HomCategory())),
+    ("Modules(ZZ).EndCategory() refines set end categories", lambda _: Modules(ZZ).EndCategory().is_subcategory(S.EndCategory())),
+    ("Modules(ZZ).AutCategory() refines set aut categories", lambda _: Modules(ZZ).AutCategory().is_subcategory(S.AutCategory())),
 )
 
 assert_smoke_statements(SMOKE_STATEMENTS)

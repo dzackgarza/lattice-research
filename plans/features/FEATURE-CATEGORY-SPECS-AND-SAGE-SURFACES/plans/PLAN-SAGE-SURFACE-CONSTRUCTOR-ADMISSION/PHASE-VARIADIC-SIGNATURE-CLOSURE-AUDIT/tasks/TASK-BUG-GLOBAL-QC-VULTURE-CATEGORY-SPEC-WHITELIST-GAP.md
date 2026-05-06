@@ -261,6 +261,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage`
   passed, and the vulture-only diagnostic no longer reports
   `category_specs/topological_spaces/**` findings.
+- 2026-05-06 thirteenth bounded slice: generic Hom/End smoke coverage was added for
+  the owned `is_endomorphism_set` semantics: Hom objects compute the predicate from
+  domain/codomain equality, while End objects report true by construction.
+- Validation for the thirteenth slice:
+  `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage` passed,
+  and the vulture-only diagnostic no longer reports
+  `category_specs/homsets/homsets.py` or `category_specs/homsets/endsets.py`
+  predicate findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -298,3 +306,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   smoke coverage.
 - 2026-05-06: Completed the twelfth bounded cleanup slice for topological-space smoke
   coverage.
+- 2026-05-06: Completed the thirteenth bounded cleanup slice for generic Hom/End
+  endomorphism-set predicate smoke coverage.
