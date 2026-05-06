@@ -964,12 +964,17 @@ class Modules(Category_module):
 
         @final
         def ideal_as_submodule(self, ideal: Ideal) -> SubModule:
-            return self._refine_constructed_module(ideal, [Modules(ideal.ring()).RIdeals()])
+            from sage.modules.free_module import FreeModule as SageFreeModule
+
+            R = ideal.ring()
+            M = SageFreeModule(R, 1).submodule([[generator] for generator in ideal.gens()])
+            return self._refine_constructed_module(M, [Modules(R).RIdeals()])
 
         @final
         def invertible_ideal_as_projective_submodule(self, ideal: Ideal) -> ProjectiveModule:
             R = ideal.ring()
-            return self._refine_constructed_module(ideal, [Modules(R).RIdeals(), Modules(R).Projective()])
+            M = self.ideal_as_submodule(ideal)
+            return self._refine_constructed_module(M, [Modules(R).RIdeals(), Modules(R).Projective()])
 
         @overload
         def polynomial_ring_as_module(
