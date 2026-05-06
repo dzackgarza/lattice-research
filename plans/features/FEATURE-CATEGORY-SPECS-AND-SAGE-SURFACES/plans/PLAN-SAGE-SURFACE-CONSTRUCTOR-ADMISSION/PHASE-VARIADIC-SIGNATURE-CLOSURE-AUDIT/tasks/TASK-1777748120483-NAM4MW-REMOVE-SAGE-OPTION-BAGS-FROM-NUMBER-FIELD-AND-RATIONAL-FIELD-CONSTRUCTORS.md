@@ -48,9 +48,9 @@ Task: excise Sage option bags from number-field and rational-field constructors,
 - Current rational-field construction is the fixed-object
   `Rings().Constructors().QQ()` route; there is no public project `RationalField(...)`
   option surface to clean.
-- Updated `category_specs/rings/docs/MAPPING.md` so the constructor table records the
-  explicit number-field signatures and the rational-field fixed-object route instead
-  of documenting Sage ellipses.
+- Updated `[[SPEC-MAPPING-RINGS]]` so the constructor table records the explicit
+  number-field signatures and the rational-field fixed-object route instead of
+  documenting Sage ellipses.
 
 ## Audit Evidence
 
@@ -68,6 +68,19 @@ Task: excise Sage option bags from number-field and rational-field constructors,
 - Confidence: High.
 - Gaps: this pass did not re-audit unrelated p-adic, matrix, polynomial, or series
   constructor cards.
+
+## Verification
+
+- `just --justfile category_specs/justfile smoke-file
+  rings/tests/new_spec/number_field_option_bag_split.sage` passes. This focused smoke
+  parses `category_specs/rings/__init__.py`, proves `QQ`, `NumberField`, and
+  `NumberFieldTower` have closed signatures with no `*args` or `**kwargs`, and checks
+  that `[[SPEC-MAPPING-RINGS]]` records the rational-field fixed-object route plus the
+  single-polynomial and tower number-field routes.
+- `just --justfile category_specs/justfile smoke-file
+  rings/tests/regression/number_fields.sage` currently fails at the existing
+  `hilbert_polynomial` ring-frontier gap before it can provide option-bag evidence.
+  That broader runtime frontier is not part of this constructor option-bag leaf.
 
 ## Acceptance Criteria
 
