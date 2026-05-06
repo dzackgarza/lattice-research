@@ -35,8 +35,29 @@ Task: split the mixed boolean|None and T|None return-type signatures on Category
     `map=True` returns the field with an embedding of the source field into it.
   - Algebraic `nth_root(all=False)` and `sqrt(all=False)` return one root; `all=True`
     returns the finite list of all roots.
-- Local mapping: `category_specs/rings/docs/MAPPING.md` records the overload policy for
-  these boolean-controlled return-shape methods.
+- Canonical local mapping:
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-RINGS.md`
+  records the overload policy, exact Sage source paths, owner categories, hypotheses,
+  codomains, and branch-choice obligations for these boolean-controlled return-shape
+  methods.
+- Exact Sage sources:
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/number_field/number_field.py:9177-9219`
+  for `NumberField.galois_closure(names=None, map=False)`;
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/structure/element.pyx:3263-3284`,
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/qqbar.py:4312-4329`,
+  and
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/complex_mpfr.pyx:2988-2997`
+  for `sqrt(..., all=...)`; and
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/qqbar.py:4393-4429`
+  plus
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/rings/complex_mpfr.pyx:3058-3079`
+  for `nth_root(n, all=...)`.
+- Owner/codomain contract: `galois_closure` belongs to number-field parent methods and
+  returns either the closure field or `(closure field, source embedding)`;
+  `sqrt` and `nth_root` belong to ring element methods on root-capable ring/field
+  element surfaces and return either one root or the finite list of all roots. The
+  overload split types Sage's documented branch behavior; it does not assert
+  choice-independent equality of selected roots or Galois-closure presentations.
 
 ## Result
 
@@ -48,6 +69,30 @@ Task: split the mixed boolean|None and T|None return-type signatures on Category
 - Added `map=False`/`map=True` overloads plus a non-literal `bool` fallback for
   `galois_closure` in `category_specs/rings/subcategories/number_field.py` and
   `category_specs/rings/subcategories/rational_field.py`.
+
+## Review Log
+
+### Review 2026-05-06 (Dirac)
+
+**Gates passed:** None
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope
+
+#### Gate 1 Finding: Source-Grounding For Boolean Return Shapes
+
+- The card introduced public overloads for `nth_root`/`sqrt` and `galois_closure`, but
+  grounded them only in prose behavior and the legacy `category_specs/rings/docs/MAPPING.md`
+  redirect.
+- The canonical rings spec recorded the return-shape policy but did not yet record exact
+  Sage source paths, definitions, owner categories, hypotheses, codomains, or branch
+  choice/equivalence obligations for each affected method.
+
+#### Rework
+
+- Added exact installed Sage source paths for `galois_closure`, `sqrt`, and
+  `nth_root` to this card and to `SPEC-MAPPING-RINGS.md`.
+- Recorded the owner category, hypotheses, codomain/return object, and branch-choice
+  obligation for each affected overload family.
 
 ## Out Of Scope Findings
 
