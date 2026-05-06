@@ -87,8 +87,9 @@ settled with the future geometry category spec.
 
 ## Follow-Up Consequence
 
-The next durable work should be a geometry category spec for curve/Jacobian/period-lattice
-ownership. That later spec can consume this mapping and decide whether
+The next durable work is tracked as
+`[[SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP]]`. That later spec can consume
+this mapping and decide whether
 `C.analytic_riemann_surface(...)`, `C.period_matrix(...)`,
 `C.jacobian().period_lattice(...)`, or a different public surface best expresses the
 mathematics.

@@ -62,6 +62,10 @@ Do not design a variadic or convenience wrapper. Do not implement code. Do not t
   and method mapping, public owner candidates, numerical limitations, and the
   decision not to admit wrapper implementation yet. Status moved to
   `needs-review`; this does not mark the card accepted or complete.
+- 2026-05-06: Independent Gate 2 review found that the concrete geometry
+  ownership follow-up remained inline in the mapping spec. Added
+  `[[SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP]]` and linked the mapping spec's
+  follow-up consequence to that tracked spec card.
 
 ## Research Findings
 
@@ -82,5 +86,21 @@ Do not design a variadic or convenience wrapper. Do not implement code. Do not t
   not the fundamental group of a curve complement and not family monodromy on
   cohomology.
 - Follow-up: no implementation card is warranted yet. The concrete follow-up is the
-  tracked mapping spec above; implementation should wait for curve, divisor,
-  Jacobian, homology, and period-lattice ownership specs.
+  tracked mapping spec above and
+  `[[SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP]]`; implementation should wait
+  for curve, divisor, Jacobian, homology, and period-lattice ownership specs.
+
+## Review Log
+
+### Review 2026-05-06 (Independent Explorer)
+
+**Gates passed:** Gate 1 Definition Grounding.
+**Gates failed:** Gate 2 Acceptance Criteria.
+**Outcome:** revision-required, reworked in the work log above, returned to
+`needs-review` for another independent pass.
+
+Finding:
+
+- The card required follow-up cards for concrete implementation or decision work,
+  but the produced mapping spec left the curve/Jacobian/period-lattice ownership
+  spec as inline prose rather than linking a tracked successor.
