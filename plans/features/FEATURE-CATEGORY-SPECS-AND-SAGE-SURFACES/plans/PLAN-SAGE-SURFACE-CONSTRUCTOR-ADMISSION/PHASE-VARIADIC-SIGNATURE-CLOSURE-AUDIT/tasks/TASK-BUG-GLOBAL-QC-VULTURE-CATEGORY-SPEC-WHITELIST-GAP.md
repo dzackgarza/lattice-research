@@ -386,6 +386,15 @@ violations to silence QC rather than addressing the issues they unearthed.
   `algebra_generators`, and `annihilator`), but the new ownership assertions are not
   among the reported failures. The vulture-only diagnostic no longer reports any
   `category_specs/algebras/**` findings.
+- 2026-05-06 twenty-eighth bounded slice: module Hom smoke coverage was added for
+  scalar multiplication of module morphisms and form-refinement routing through
+  `Modules(R).HomCategory().Forms()`, including bilinear, quadratic, and
+  nondegenerate form subcategory surfaces.
+- Validation for the twenty-eighth slice:
+  `just --justfile category_specs/justfile smoke-file modules/smoketest.sage` still
+  fails on the existing module implementation-gap frontier, but the new Hom/form
+  ownership assertion is not among the reported failures. The vulture-only diagnostic
+  no longer reports `category_specs/modules/homsets.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -455,3 +464,5 @@ violations to silence QC rather than addressing the issues they unearthed.
 - 2026-05-06: Completed the twenty-seventh bounded cleanup slice for algebra
   category, Hom/End, slice, quotient, ideal, and predicate smoke coverage, clearing all
   remaining `category_specs/algebras/**` vulture findings.
+- 2026-05-06: Completed the twenty-eighth bounded cleanup slice for module Hom/form
+  smoke coverage, clearing `category_specs/modules/homsets.py` vulture findings.

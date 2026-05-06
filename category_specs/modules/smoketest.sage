@@ -5,6 +5,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.modules import Modules, _RModObjects
+from category_specs.modules.homsets import RModuleHomCategory, _Bilinear, _Forms, _Quadratic, _RModMorphisms
 from category_specs.modules.subcategories.constructions.quotients import _Quotients as ModuleQuotients
 from category_specs.modules.subcategories.with_basis import _WithBasis, _WithOrderedBasis
 from category_specs.sets import Sets
@@ -128,6 +129,14 @@ SMOKE_STATEMENTS = (
         lambda _: NM6.FreeModule(2) in MR6.WithOrderedBasis(),
     ),
     ("Modules(Zmod(6)).Constructors().FreeModule(2) has base ring Zmod(6)", lambda _: NM6.FreeModule(2).base_ring() is R6),
+    (
+        "module Hom category owns scalar multiplication and form-refinement surfaces",
+        lambda _: abstract_method_has_name(_RModMorphisms.scale, "scale")
+        and RModuleHomCategory.Forms is _Forms
+        and abstract_method_has_name(_Forms.SubcategoryMethods.NonDegenerate, "NonDegenerate")
+        and _Forms.Bilinear is _Bilinear
+        and _Forms.Quadratic is _Quadratic,
+    ),
     ("Modules(Zmod(6)).Constructors().FreeModule(2) has rank 2", lambda _: NM6.FreeModule(2).rank() == 2),
     (
         "Modules(QQ).Constructors().FreeModuleWithBasisKeys({a, b}) has two basis keys",
