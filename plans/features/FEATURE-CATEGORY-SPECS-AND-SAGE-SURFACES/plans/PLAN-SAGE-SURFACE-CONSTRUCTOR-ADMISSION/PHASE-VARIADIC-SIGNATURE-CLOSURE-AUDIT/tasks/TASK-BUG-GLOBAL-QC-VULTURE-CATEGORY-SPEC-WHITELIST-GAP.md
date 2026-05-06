@@ -5,123 +5,129 @@ trackerStatus:
 parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
-title: Align global vulture whitelist with category-spec public surfaces
-status: blocked
-blocked_reason: "Requires user approval before editing /home/dzack/ai/quality-control to add category-spec whitelist entries."
+title: Resolve category-spec vulture findings through code fixes, not whitelist entries
+status: unstarted
 priority: high
-description: Prepare an explicit global QC whitelist proposal for category-spec public
-  and Sage-dynamic surfaces currently reported by vulture as dead code.
+description: 'Resolve the 762 category-spec vulture findings by fixing the code, not by
+  expanding the global vulture whitelist. The whitelist approach was the wrong framing.'
 successCriteria:
-- Produce a categorized whitelist proposal for intentional category-spec vulture findings.
-- Keep the proposal scoped to category-spec public/dynamic surfaces; do not whitelist
-  unrelated dead code.
-- Request explicit user approval before editing `/home/dzack/ai/quality-control`.
-- After approval and implementation, run `just test` and record the next blocker.
+- "Classify each vulture finding into one of three buckets: underscore-prefix for internal helpers, smoke/test call for genuinely public surfaces, or delete for actual dead code."
+- "For underscored items: verify the item is used at least once in its own file. An underscored item with zero local callers is suspect."
+- "For public surfaces: add a smoke or test call that exercises the surface. The call proves category wiring correctness and gives vulture a cross-file usage to see."
+- "Delete genuinely dead code that is neither an intentional internal helper nor a public vocabulary item."
+- "Do not add any new entries to the global vulture whitelist."
+- "Do not add local vulture bypasses, ignore files, or QC overrides."
+- "After cleanup, run `just test` and verify vulture passes."
 complexity: 76
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
 ---
-# Align global vulture whitelist with category-spec public surfaces
+# Resolve category-spec vulture findings through code fixes
 
 ## Summary
 
-Prepare an explicit global QC whitelist proposal for category-spec public and
-Sage-dynamic surfaces currently reported by vulture as dead code.
+The original framing (expand the global vulture whitelist) was wrong. The vulture
+findings are not false positives from a tool that doesn't understand our patterns.
+They are genuine signals that our code has unreferenced names. The fix is in the
+code, not in a bypass file.
 
-## Source Provenance
+This card is not blocked. It is a ready cleanup/audit task on the DAG: execute it
+only when it is selected from the ready frontier, and do not mark it blocked unless
+the selected cleanup path hits a real external prerequisite.
 
-- Split from `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-BUG-REPO-VULTURE-DEAD-CODE-VALIDATION-BLOCKER.md`.
-- Codex Spark read-only triage on 2026-05-03 found 762 category-spec vulture findings
-  after Ruff normalization passed.
-- The global QC vulture recipe reads `/home/dzack/ai/quality-control/vulture_whitelist.py`,
-  which already contains category-spec abstract interface names but does not cover the
-  current public surface.
+## Why the whitelist approach was wrong
+
+- The repo style guide explicitly forbids `__all__` exports and requires Python's
+  underscore convention for public/private distinction (`research-code-style` lines
+  230--235).
+- Vulture respects this convention: names starting with `_` are automatically
+  ignored.
+- Vulture does cross-file analysis: if `Foo` in `types.py` is imported and used in
+  `rings/subcategories/fields.py`, vulture sees the usage and does not flag it.
+- Therefore, every vulture finding means the name is genuinely unreferenced in our
+  codebase. Adding whitelist entries hides signal that the code isn't following the
+  convention we chose.
 
 ## Context
 
-Most category-spec findings are not delete candidates. They are public type aliases,
-abstract methods, package re-export variables, and Sage method-provider hooks that are
-used dynamically or intentionally exposed for downstream category-spec work. Because the
-fix likely changes global QC behavior, it needs explicit user approval before editing
-`/home/dzack/ai/quality-control`.
+The 2026-05-03 Codex Spark triage found 762 category-spec vulture findings after
+Ruff normalization passed. These include:
 
-## Complexity And Ownership
+- Public type aliases in `category_specs/types.py` with no cross-file importers.
+- Abstract methods on Sage category `ParentMethods`/`ElementMethods` classes with
+  no call sites in our code.
+- Package re-export variables in `category_specs/__init__.py` that nothing imports.
+- Private-looking helpers that lack underscore prefixes.
 
-- Owner role: global QC triage worker with category-spec parent review.
-- Complexity: 76, high band.
-- Rationale: this crosses repo-local category-spec semantics and global quality-control
-  policy. The work is not hard mechanically, but the approval and classification burden
-  is high because an overbroad whitelist can hide real dead code in other projects.
+The abstract methods are a special case. Sage dispatches them dynamically through
+category machinery that vulture cannot trace. But if e.g. `Sets().cardinality()`
+is an abstract method we specify, and no smoke test calls `cardinality()` on a set
+object, vulture correctly reports it as unused. The fix is to call it in a smoke,
+which also validates that the category graph routes correctly.
 
-## Acceptance Criteria
+## Resolution Strategy
 
-- [x] Produce a categorized whitelist proposal for intentional category-spec vulture
-  findings.
-- [x] Keep the proposal scoped to category-spec public/dynamic surfaces; do not
-  whitelist unrelated dead code.
-- [ ] Request explicit user approval before editing `/home/dzack/ai/quality-control`.
-- [ ] After approval and implementation, run `just test` and record the next blocker.
+For each of the 762 findings, classify into exactly one bucket:
 
-## Dependencies And Boundaries
+### Bucket 1: Underscore-prefix (internal)
 
-- Parent blocker: `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-BUG-REPO-VULTURE-DEAD-CODE-VALIDATION-BLOCKER.md`.
-- Do not edit global QC without explicit approval.
-- Do not delete category-spec APIs to satisfy vulture.
-- Do not add local project bypasses, local whitelist files, or local QC overrides.
+For items that are genuinely internal helpers, prefix with `_`. Vulture ignores
+`_`-prefixed names. This is the style guide's mechanism and vulture's escape hatch.
 
-## Validation Requirements
+**Subtlety:** an underscored item with zero callers even within its own defining
+file is still suspect. If an internal helper exists only to exist, it is dead code
+and belongs in Bucket 3. Do not mechanically `_`-prefix everything -- verify each
+item is actually used.
 
-- Reproduce the vulture failure before proposing the whitelist update.
-- After any approved global QC edit, run `just test`.
+### Bucket 2: Smoke/test call (public surface)
 
-## Current Global QC Evidence
+For items that are genuinely part of our public API, add a smoke or test call that
+exercises the surface. Examples:
 
-- `/home/dzack/ai/quality-control/justfile` already includes Sage-aware vulture
-  scanning in `_vulture`: it collects `*.sage` files, preparses them into a temporary
-  directory with `sage --preparse`, verifies the generated `.py` files exist, and adds
-  those generated files to the `uvx --from vulture vulture` scan surface.
-- `/home/dzack/ai/quality-control/vulture_whitelist.py` already contains a large
-  category-spec whitelist surface through `_SpecAbstractNames`, including abstract
-  method names, Sage method-provider hooks, type-surface names, constructor names, and
-  dynamic category names.
-- No repo-local vulture whitelist or bypass should be created.
+- `types.py` exports `ModuleElement` but nothing imports it -> add a smoke that
+  imports and uses it.
+- `Sets().ParentMethods.cardinality` is specified but never called -> add a smoke
+  that constructs a set object and calls `.cardinality()` on it.
+- `__init__.py` re-exports `Rings` but no downstream module imports from the
+  package -> either find the intended consumer and add the import, or determine
+  that the re-export itself is dead (Bucket 3).
 
-## Categorized Whitelist Proposal
+The call validates category wiring and gives vulture the cross-file usage chain it
+needs. It is not onerous checkboxing -- it proves the category graph routes
+correctly.
 
-If a fresh public `just test` run reaches vulture and still reports category-spec
-false positives, update `/home/dzack/ai/quality-control/vulture_whitelist.py` only
-after explicit user approval, using these categories:
+### Bucket 3: Delete (dead code)
 
-- Category-spec abstract API names: abstract methods declared on `ParentMethods`,
-  `ElementMethods`, `MorphismMethods`, `SubcategoryMethods`, Hom/End/Aut surfaces, and
-  constructor collectors that Sage binds dynamically.
-- Standard type-package and public re-export names: names in `category_specs/types.py`
-  and package `__init__.py` files that are public vocabulary for downstream specs,
-  not locally-called helpers.
-- Sage dynamic hooks and provider names: `_element_constructor_`, axiom/category
-  selectors, construction-category names, and method-provider hooks that Sage resolves
-  through category machinery.
-- Explicit non-whitelist bucket: stale backup artifacts, unreachable code,
-  non-public local helpers, and source files outside `category_specs` must remain
-  repo-local cleanup or follow-up cards, not global whitelist entries.
+Items that are not used, not intended to be public, and not justifiable as internal
+helpers. Delete them.
 
-The global whitelist change should be name-based and category-spec-scoped. It should
-not whitelist arbitrary files, directories, or all vulture findings from this repo.
+## What has already been done
 
-## Blocker
+- The global QC `_python-qc-files` and `_sage-qc-files` recipes now exclude
+  `**/*.bak/**` directories. Vulture no longer scans `src.bak/` or `tests.bak/`.
+- The spec backup files that produced 3 of the original findings were moved to
+  `src.bak/spec-backups/`. Those findings are resolved.
+- The 762 remaining findings are all in `category_specs/**`.
 
-Blocked on a fresh allowed QC path reaching vulture, or explicit user approval to run
-and act on a private vulture-only diagnostic. The current public `just test`/commit
-hook path fails earlier at repo-wide mypy on pre-existing Sage/stub/type errors, so the
-vulture finding set cannot be reproduced through the public QC workflow right now.
+## Boundaries
+
+- Do not add entries to `/home/dzack/ai/quality-control/vulture_whitelist.py`.
+- Do not add local vulture bypasses, ignore files, or QC overrides.
+- Do not delete category-spec API surfaces that are intended to be public.
+- Do not mechanically `_`-prefix without verifying the item is actually used.
+- Do not add smoke calls that are tautological (`assert Foo is not None`).
+
+## Validation
+
+- After cleanup, run `just test` and verify vulture passes with zero findings.
+- If any finding remains, it must be justified in this card body -- either a
+  legitimate Sage dynamic dispatch edge case (rare after smoke calls) or an item
+  that needs splitting into a follow-up card.
 
 ## Work Log
 
-- 2026-05-03: Created from read-only vulture triage.
-- 2026-05-06: Checked global QC. Sage preparse support for vulture is already present
-  in `/home/dzack/ai/quality-control/justfile`, and the shared whitelist already has
-  a broad `_SpecAbstractNames` category-spec surface. Recorded a scoped whitelist
-  proposal and marked the card blocked pending fresh vulture output through the public
-  QC path or explicit approval for private vulture-only diagnostics/global edits.
+- 2026-05-03: Created from read-only vulture triage (original whitelist framing).
+- 2026-05-06: Reframed as code-fix task after user identified that underscore
+  convention + smoke calls resolve findings without whitelist entries.

@@ -119,30 +119,29 @@ The blocker is split into:
 
 ## Current Status
 
-The triage work is complete and split into owner-specific paths:
+The triage work is complete. The 764 original findings have been split into two child
+tasks:
 
-- Category-spec intentional public/dynamic surfaces are routed to
-  `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP.md`.
-- The stale theory backup findings are routed to
-  `TASK-BUG-THEORY-SPEC-BACKUP-VULTURE-CLEANUP.md`.
+- **762 category-spec findings** routed to
+  `TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP.md`, reframed on 2026-05-06
+  as code fixes (underscore prefix, smoke calls, deletion) rather than whitelist
+  expansion.
+- **3 theory/spec-backups findings** routed to
+  `TASK-BUG-THEORY-SPEC-BACKUP-VULTURE-CLEANUP.md` -- resolved 2026-05-06: the backup
+  files were moved to `src.bak/spec-backups/`, and the global QC justfile now excludes
+  `**/*.bak/**` directories from all Python tool passes.
 
 No project-local vulture bypass, ignore file, whitelist, or QC override was added.
-Global QC was inspected rather than modified: `/home/dzack/ai/quality-control/justfile`
-already preparses Sage files for vulture, and
-`/home/dzack/ai/quality-control/vulture_whitelist.py` already contains a broad
-category-spec public-surface whitelist.
+The global QC mypy blocker was resolved by adding `**/*.bak/**` exclusions to the
+`_python-qc-files` and `_sage-qc-files` recipes.
 
 ## Remaining Validation Frontier
 
-Fresh vulture output still needs an allowed public QC path, or explicit user approval
-for a private vulture-only diagnostic/global-QC edit. The current public `just test`
-and commit-hook path fails earlier at repo-wide mypy on pre-existing Sage/stub/type
-errors, so the vulture stage cannot currently be refreshed without first clearing or
-explicitly bypassing that earlier validation stage.
-
-This is not a blocker for the completed triage card itself: the triage result is
-recorded above and split into owner-specific follow-up cards. It is also not a global
-blocker for current spec work outside a user-requested QC pass or phase transition.
+The code-fix child task (`TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`)
+must classify and resolve the 762 category-spec findings before `just test` can
+reach vulture and pass. This parent triage card is complete -- its work was to
+classify the findings and split them into actionable children. The children now own
+the resolution.
 
 ## Work Log
 
