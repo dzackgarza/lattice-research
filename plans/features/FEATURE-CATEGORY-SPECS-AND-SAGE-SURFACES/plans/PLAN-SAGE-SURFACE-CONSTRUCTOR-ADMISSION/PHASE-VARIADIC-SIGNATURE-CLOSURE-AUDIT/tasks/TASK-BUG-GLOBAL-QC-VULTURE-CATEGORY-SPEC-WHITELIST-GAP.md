@@ -360,6 +360,14 @@ violations to silence QC rather than addressing the issues they unearthed.
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
   the vulture-only diagnostic no longer reports `family.py`,
   `recursively_enumerated.py`, or `group_actions.py` findings.
+- 2026-05-06 twenty-fifth bounded slice: disjoint-union, finite-map, and set-quotient
+  smoke coverage was added for disjoint-union membership recognition, Sage
+  disjoint-union element-constructor hook ownership, finite-map list construction, and
+  set-quotient ambient/equivalence-class ownership.
+- Validation for the twenty-fifth slice:
+  `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed, and
+  the vulture-only diagnostic no longer reports `disjoint_union.py`,
+  `finite_set_maps.py`, or `constructions/quotients.py` findings.
 - Current public `just test` still fails before vulture at the global mypy stage with
   the existing Sage/stub/type surface. That is not a blocker for this leaf's continued
   vulture cleanup, but it means final acceptance cannot yet claim full QC success.
@@ -421,3 +429,5 @@ violations to silence QC rather than addressing the issues they unearthed.
   category and predicate smoke coverage.
 - 2026-05-06: Completed the twenty-fourth bounded cleanup slice for set-family,
   recursively-enumerated-set, and G-set smoke coverage.
+- 2026-05-06: Completed the twenty-fifth bounded cleanup slice for disjoint-union,
+  finite-map, and set-quotient smoke coverage.

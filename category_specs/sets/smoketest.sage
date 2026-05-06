@@ -5,12 +5,15 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.sets import Sets
+from category_specs.sets.subcategories.constructions.quotients import _Quotients
 from category_specs.sets.subcategories.constructions.realizations import _Realizations
 from category_specs.sets.subcategories.constructions.with_realizations import SetsWithRealizations
 from category_specs.sets.subcategories.countable import _CountableSets, _FiniteCountableSets, _InfiniteCountableSets
+from category_specs.sets.subcategories.disjoint_union import _DisjointUnionEnumeratedSets
 from category_specs.sets.subcategories.facade import _FacadeSets
 from category_specs.sets.subcategories.family import _FamilySets
 from category_specs.sets.subcategories.finite import _FiniteSets
+from category_specs.sets.subcategories.finite_set_maps import _FiniteSetMapsSets
 from category_specs.sets.subcategories.group_actions import _GSets
 from category_specs.sets.subcategories.graded import (
     GradedSetsCategory,
@@ -258,6 +261,25 @@ SMOKE_STATEMENTS = (
         == 4,
     ),
     (
+        "DisjointUnionEnumeratedSets recognizes its canonical element",
+        lambda _: C.DisjointUnionEnumeratedSets(
+            C.Family([0, 1], lambda i: C.FiniteEnumeratedSet([i, i + 1]))
+        )._is_a(
+            C.DisjointUnionEnumeratedSets(C.Family([0, 1], lambda i: C.FiniteEnumeratedSet([i, i + 1]))).an_element()
+        ),
+    ),
+    (
+        "disjoint unions own Sage element-constructor hooks",
+        lambda _: abstract_method_has_name(
+            _DisjointUnionEnumeratedSets.ParentMethods._element_constructor_default,
+            "_element_constructor_default",
+        )
+        and abstract_method_has_name(
+            _DisjointUnionEnumeratedSets.ParentMethods._element_constructor_facade,
+            "_element_constructor_facade",
+        ),
+    ),
+    (
         "CartesianProduct(IntegerRange(2), IntegerRange(3)) is finite countable",
         lambda _: C.CartesianProduct(C.IntegerRange(2), C.IntegerRange(3)) in Sets().Countable().Finite(),
     ),
@@ -320,6 +342,11 @@ SMOKE_STATEMENTS = (
         and abstract_method_has_name(_Realizations.ParentMethods.to_realization, "to_realization")
         and abstract_method_has_name(_Realizations.ElementMethods.to_realization, "to_realization"),
     ),
+    (
+        "set quotients own ambient-set and equivalence-class surfaces",
+        lambda _: abstract_method_has_name(_Quotients.ParentMethods.ambient_set, "ambient_set")
+        and abstract_method_has_name(_Quotients.ParentMethods.equivalence_class, "equivalence_class"),
+    ),
     ("even subobject of ZZ is a subobject", lambda _: Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,)) in Sets().Subobjects()),
     ("2 lies in the even subobject of ZZ", lambda _: 2 in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
     ("3 does not lie in the even subobject of ZZ", lambda _: 3 not in Sets().Subobjects().Of(ZZ, (lambda n: n % 2 == 0,))),
@@ -372,6 +399,12 @@ SMOKE_STATEMENTS = (
     (
         "FiniteSetMaps(IntegerRange(2), IntegerRange(2)) has cardinality 4",
         lambda _: C.FiniteSetMaps(C.IntegerRange(2), C.IntegerRange(2)).cardinality() == 4,
+    ),
+    (
+        "FiniteSetMaps(IntegerRange(2), IntegerRange(2))._from_list_ builds the transposition",
+        lambda _: C.FiniteSetMaps(C.IntegerRange(2), C.IntegerRange(2))._from_list_([1, 0])(0) == 1
+        and C.FiniteSetMaps(C.IntegerRange(2), C.IntegerRange(2))._from_list_([1, 0])(1) == 0
+        and abstract_method_has_name(_FiniteSetMapsSets.ParentMethods._from_list_, "_from_list_"),
     ),
     ("Family(IntegerRange(3), i^2) is a set", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2) in Sets()),
     ("Family(IntegerRange(3), i^2) maps 2 to 4", lambda _: C.Family(C.IntegerRange(3), lambda i: i**2)[2] == 4),
