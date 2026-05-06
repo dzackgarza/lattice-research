@@ -55,6 +55,9 @@ Status: needs review. Complex varieties are source-grounded as varieties over th
 Source evidence:
 
 - Stacks Project, Varieties, Definition 33.3.1, https://stacks.math.columbia.edu/tag/020C: a variety over a field `k` is an integral scheme over `k` that is separated and of finite type.
+- Stacks Project, Varieties, Definition 33.33.1, https://stacks.math.columbia.edu/tag/0BEI: coherent-sheaf Euler characteristics are defined for proper schemes over fields and provide the broad cohomological substrate for holomorphic Euler characteristic and arithmetic-genus conventions.
+- Stacks Project, Curves, Remark 53.11.2, https://stacks.math.columbia.edu/tag/0BYG: arithmetic genus and geometric genus are discussed for proper smooth varieties of arbitrary dimension over algebraically closed fields, not only for curves or surfaces.
+- Stacks Project, Varieties, Proposition 33.45.13, https://stacks.math.columbia.edu/tag/0BJ8: canonical growth/Hilbert-style asymptotics live at the proper-scheme/projective-variety level before low-dimensional specialization.
 - `TASK-INTEGRATE-VARIETIES-CATEGORY` records the repo convention `Varieties(k) = Schemes().Over(Spec(k)).FiniteType().Separated().Integral()` by default.
 - `SPEC-MAPPING-RINGS.md` records that fixed complex fields such as `CC`, `CDF`, `CIF`, and parameterized `ComplexField(...)` are field/ring constructor outputs with precision/topology refinements rather than one interchangeable object.
 
@@ -71,6 +74,7 @@ Boundary decisions:
 - Do not treat Sage's numerical `CC` precision parent as automatically identical to every mathematically complex base. Category specs should distinguish the exact algebraically closed field convention from numerical complex-field implementation anchors.
 - Analytification/GAGA-style bridges are bridge surfaces between algebraic varieties and complex analytic spaces/manifolds, not ownership justification for moving algebraic methods to `ComplexManifolds()`.
 - Hodge-theoretic methods such as `hodge_number(p, q)` are not owned by all complex varieties; they require smooth/proper/projective or otherwise source-backed cohomological hypotheses.
+- Arithmetic genus, geometric genus, Kodaira dimension, Hodge numbers, holomorphic Euler characteristic, and canonical data are not curve/surface-exclusive. Complex curve and surface cards may specialize these surfaces, but the mathematical owner is the broadest complex scheme/variety refinement satisfying the definition's hypotheses.
 
 ## Sage Surface Survey
 
@@ -120,6 +124,7 @@ Admit these as complex-variety-level or refinement surfaces when downstream spec
 - `complex_points()` or `points(CC)`: better expressed as `Hom(Spec(CC), X)` plus computational enumeration/approximation refinements.
 - `analytic_space()` or `analytification()`: a bridge from suitable complex algebraic varieties to complex analytic spaces; not a replacement for algebraic category membership.
 - `hodge_number(p, q)`: owned by smooth proper complex varieties or a stricter source-backed refinement.
+- `arithmetic_genus()`, `geometric_genus()`, `holomorphic_euler_characteristic()`, `canonical_class()` / `canonical_bundle()`, and `kodaira_dimension()`: inherited from broad proper/projective/smooth complex variety or scheme refinements with the exact convention and hypotheses recorded; curves and surfaces expose low-dimensional aliases/formulas only as specializations.
 - `period_domain()`, `period_map()`, and Hodge-structure surfaces: downstream of smooth proper/projective families or K3/surface refinements, not all complex varieties.
 - `picard_group()`: inherited as an algebraic Picard surface; analytic Picard/Brauer comparisons require separate bridge hypotheses.
 - Numerical solving and homotopy-continuation outputs: backend artifacts for presented complex varieties, not public mathematical codomains unless wrapped as certified or approximate solution objects.
@@ -149,8 +154,10 @@ No new card is needed from this complex-variety pass. Existing sibling cards own
 - Backend surfaces surveyed for Macaulay2 complex rings/numerical algebraic geometry and OSCAR affine/projective varieties.
 - Local dependencies and downstream cards listed explicitly.
 - Follow-up routing records that no new card is needed because existing sibling cards own curve, surface, family, manifold, and backend specialization.
+- Correction recorded that global invariants such as genus variants, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data belong to broad complex scheme/variety refinements before curve/surface specialization.
 
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for complex varieties, specializing the project variety convention to complex bases while keeping analytic, Hodge, and numerical-complex surfaces behind stricter refinements or bridges.
+- 2026-05-06: Corrected invariant ownership so curve/surface cards inherit arithmetic/geometric genus, Hodge, Kodaira, Euler-characteristic, and canonical surfaces from broad complex variety/scheme refinements.

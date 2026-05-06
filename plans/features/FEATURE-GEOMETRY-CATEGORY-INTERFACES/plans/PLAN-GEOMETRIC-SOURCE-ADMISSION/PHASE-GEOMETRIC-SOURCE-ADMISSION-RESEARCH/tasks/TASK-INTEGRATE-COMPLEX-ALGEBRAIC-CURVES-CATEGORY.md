@@ -56,6 +56,8 @@ Status: needs review. Complex algebraic curves are source-grounded as dimension-
 Source evidence:
 
 - Stacks Project, Curves, Definition 33.43.1, https://stacks.math.columbia.edu/tag/0A23: a curve over a field `k` is a variety of dimension `1` over `k`.
+- Stacks Project, Curves, Section 53.8, https://stacks.math.columbia.edu/tag/0BY6: the curve genus section gives a dimension-one specialization and notes arithmetic-genus conventions via `chi(O_X)` for proper curves.
+- Stacks Project, Curves, Remark 53.11.2, https://stacks.math.columbia.edu/tag/0BYG: arithmetic genus and geometric genus are discussed for proper smooth varieties of arbitrary dimension over algebraically closed fields; curve genus is a low-dimensional specialization, not the global owner of these invariant names.
 - `TASK-INTEGRATE-VARIETIES-CATEGORY` records `Varieties(k)` as integral separated finite-type schemes over `k`.
 - `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY` records complex varieties as varieties over the selected complex base field, keeping analytic and numerical-complex surfaces as bridges/backends.
 
@@ -70,7 +72,8 @@ Boundary decisions:
 
 - A complex algebraic curve is not merely a polynomial equation in two variables; that is a presentation of an affine or projective plane curve.
 - `RiemannSurface` surfaces are analytic bridges associated to suitable complex algebraic curves, not the base algebraic curve category.
-- `genus()` must distinguish geometric genus, arithmetic genus, and possibly topological genus for the associated compact Riemann surface. Do not collapse these names.
+- `genus()` on curves is a dimension-one alias/convention surface, not evidence that arithmetic genus, geometric genus, Hodge numbers, Kodaira dimension, or canonical invariants are curve-owned. Those broader invariants are inherited from proper/projective/smooth variety or scheme refinements when their hypotheses hold.
+- Curve specs must distinguish geometric genus, arithmetic genus, and topological genus for associated compact Riemann surfaces where those names appear. Do not collapse these names.
 - Normalization returns a normalized curve with a normalization morphism; it is not just a simplified equation or a raw function field.
 
 ## Sage Surface Survey
@@ -118,10 +121,9 @@ The complex algebraic curve card should stabilize the dimension-one owner and ro
 Admit these as curve-level or curve-refinement surfaces when downstream specs are written:
 
 - `dimension() == 1`: defining refinement from varieties to curves.
-- `genus()`: use only after choosing a precise public meaning; for smooth projective complex curves this can match Riemann-surface genus, while singular/nonproper/presented curves need `geometric_genus()` and `arithmetic_genus()` split.
-- `arithmetic_genus()`: owned by proper/projective curve or presented projective curve refinements with coherent cohomology/Hilbert polynomial hypotheses.
-- `geometric_genus()`: owned by integral curves through normalization; backend support may use Sage/Singular/Macaulay2.
-- `normalization()`: owned by integral curves or presented singular-curve refinements; codomain includes the normalized curve and normalization morphism.
+- `genus()`: a curve-specific public alias only after the exact convention is chosen. For smooth projective complex curves this can agree with Riemann-surface genus and the dimension of `H^1(O_X)`, but the alias must point back to the broad invariant it specializes.
+- `arithmetic_genus()` and `geometric_genus()`: inherited from proper/projective/smooth scheme or variety refinements with recorded hypotheses. Curve refinements may provide dimension-one formulas, normalization-backed computations, or backend routes, but they do not own the global invariant names.
+- `normalization()`: inherited from broader integral scheme/variety normalization surfaces where available; curve refinements own low-dimensional computation routes and codomain sharpening to a normalized curve with normalization morphism.
 - `rational_points(K)` / `complex_points()`: Hom/point surfaces inherited from varieties; enumeration/approximation is backend-specific.
 - `riemann_surface()` / `analytic_space()`: bridge from suitable smooth/projective complex curves or presented plane curves to analytic Riemann-surface objects.
 - `jacobian()`: owned by smooth projective curves, not arbitrary curves.
@@ -148,6 +150,7 @@ No new card is needed from this curve pass. Existing sibling cards own the remai
 ## Acceptance Evidence
 
 - Mathematical convention recorded from Stacks curve definition plus the already-recorded variety and complex-variety cards.
+- Corrected invariant ownership so `genus()` is only a curve alias/specialization, while arithmetic/geometric genus and similar global invariants are inherited from broad scheme/variety refinements.
 - Sage surfaces surveyed for affine/projective curves, curves over `CC` as Riemann surfaces, and Jacobians.
 - Backend surfaces surveyed for Macaulay2 plane-curve linear series, OSCAR projective plane curves, and existing Sage/Singular/Macaulay2 routing rows.
 - Local dependencies and downstream cards listed explicitly.
@@ -157,3 +160,4 @@ No new card is needed from this curve pass. Existing sibling cards own the remai
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for complex algebraic curves, recording the dimension-one complex-variety convention and routing genus, normalization, Riemann-surface, Jacobian, plane-curve, and node surfaces to proper refinements.
+- 2026-05-06: Corrected over-narrow invariant ownership: genus variants, Hodge/Kodaira-style invariants, Euler characteristics, and canonical data are broad scheme/variety-refinement surfaces before curve specialization.

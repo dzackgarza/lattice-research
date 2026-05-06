@@ -56,6 +56,9 @@ Source evidence:
 
 - Stacks Project, Varieties, Definition 33.3.1, https://stacks.math.columbia.edu/tag/020C: a variety over a field `k` is an integral scheme over `k` that is separated and of finite type.
 - Stacks Project, Schemes, Definition 26.9.1, https://stacks.math.columbia.edu/tag/01II: schemes are locally ringed spaces locally affine, so varieties should be represented as scheme refinements rather than as a separate non-scheme universe.
+- Stacks Project, Varieties, Definition 33.33.1, https://stacks.math.columbia.edu/tag/0BEI: for a proper scheme over a field, the Euler characteristic of a coherent sheaf is a finite alternating sum of cohomology dimensions. This is broad scheme/variety infrastructure, not a curve/surface-only invariant.
+- Stacks Project, Curves, Remark 53.11.2, https://stacks.math.columbia.edu/tag/0BYG: for a proper smooth variety of dimension `d` over an algebraically closed field, the arithmetic genus and geometric genus are often defined using `chi(O_X)` and top-degree differentials. The remark explicitly compares higher-dimensional varieties, so genus variants must not be owned only by curves.
+- Stacks Project, Varieties, Proposition 33.45.13, https://stacks.math.columbia.edu/tag/0BJ8: asymptotic Riemann-Roch is stated for proper schemes over fields with an ample invertible sheaf, giving a broad source for Hilbert/canonical-growth style invariants before low-dimensional specialization.
 - `TASK-INTEGRATE-SCHEMES-CATEGORY` records the repo's source-admitted scheme substrate: `Schemes()`, `Schemes().Over(S)`, `AffineSchemes()`, `ProjectiveSchemes()`, and presented algebraic-scheme refinements.
 
 Project vocabulary:
@@ -71,6 +74,7 @@ Boundary decisions:
 - Geometric integrality is a stricter refinement, not the default, because Stacks highlights that products and base change over non-algebraically closed fields can fail to preserve integrality without geometric integrality hypotheses.
 - The phrase “complex variety” should be handled by `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY` as a base-field/base-analytic refinement over this variety convention.
 - Do not map every Sage `AlgebraicScheme_subscheme` or Macaulay2/Oscar `variety(...)` object to `Varieties(k)` until integral, separated, finite-type, and base-field hypotheses are established.
+- Do not assign arithmetic genus, geometric genus, Hodge numbers, Kodaira dimension, Euler characteristics, canonical classes, or similar global invariants to curve or surface categories merely because software exposes common low-dimensional methods. Their owners are the broadest scheme/variety refinements satisfying the definition's hypotheses; curves and surfaces inherit or specialize them.
 
 ## Sage Surface Survey
 
@@ -119,6 +123,8 @@ Admit these as variety-level or variety-refinement surfaces when downstream spec
 - `canonical_class()` or `canonical_bundle()`: owned by normal/smooth/proper/projective refinements as the selected divisor/sheaf model requires.
 - `kodaira_dimension()`: owned by proper variety refinements where the canonical powers and sentinel convention are fixed.
 - `hodge_number(p, q)`: owned by smooth proper varieties over fields supporting Hodge theory; complex-specific interpretation belongs to the complex variety card.
+- `euler_characteristic(F)` and `holomorphic_euler_characteristic()`: owned by proper schemes/varieties with coherent sheaf or structure-sheaf hypotheses; low-dimensional formulas are specializations.
+- `arithmetic_genus()` and `geometric_genus()`: owned by proper/projective smooth or otherwise source-backed scheme/variety refinements with the exact convention recorded. Curve and surface cards may admit aliases or formulas only as inherited special cases.
 - `picard_group()`: owned by a variety/scheme Picard surface; Picard lattice remains a separate bridge requiring surface/intersection-form hypotheses.
 - `blowup(center)`: after the schemes card, prefer a scheme-level or noetherian/presented-scheme owner with closed-subscheme center; variety-preserving blowups are refinements when the result remains in `Varieties(k)`.
 - `rational_points(K)`: treat as `Hom(Spec(K), X)` plus computational enumeration refinements, not a raw list method on all varieties.
@@ -150,8 +156,10 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
 - Backend surfaces surveyed for Macaulay2 `Varieties` and OSCAR affine/projective varieties.
 - Local dependencies and downstream cards listed explicitly.
 - Follow-up routing records that no new card is needed because existing sibling and backend-mapping cards own specialization and reconciliation.
+- Correction recorded that global invariants such as arithmetic/geometric genus, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data must be owned by the broadest source-backed scheme/variety refinements, not by curve/surface categories by default.
 
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
 - 2026-05-06: Completed source-admission research for varieties, chose the Stacks integral separated finite-type convention for `Varieties(k)`, recorded backend evidence, and routed broader software usage to presented scheme/variety refinements.
+- 2026-05-06: Corrected invariant ownership after source review: genus variants, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data are broad scheme/variety-refinement surfaces before curve/surface specialization.
