@@ -231,3 +231,32 @@ This is a research/planning card, not an implementation card. Do not write categ
   `Polyhedra -> Polytopes -> LatticePolytopes -> ReflexivePolytopes`, Sage
   H/V-representation and backend evidence, diagnostic surprise sites, and downstream
   routing for 2D polygons, poset polytopes, lattice Voronoi cells, and toric bridges.
+
+## Review Log
+
+### Review 2026-05-06 (Confucius)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness
+**Gates failed:** Gate 6 Style and Compliance under the then-current commit-history interpretation
+**Outcome:** re-reviewed after review-kernel scope clarification
+
+#### Gate 6 Finding: Commit-History Scope
+
+- The first review found no mathematical or acceptance defect. It reported only
+  historical `User-initiated Checkpoint` commits `c827bf9` and `769c718`, already
+  ancestors of `origin/main`, as nonconforming commit messages touching this card.
+  Review-kernel commit `a38ae53` clarified that such historical human checkpoints are
+  provenance, not per-card Gate 6 failures, unless their content introduced a
+  substantive defect covered by a review gate.
+
+### Re-review 2026-05-06 (Heisenberg)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** none
+**Outcome:** independent re-review passed Gates 1-6; human approval still required before completion
+
+#### Residual Risks
+
+- This is source admission, not a final method spec. Future work still needs full
+  method signatures and codomains, exact backend availability checks, and conversion
+  into the global method inventory/spec surface.
