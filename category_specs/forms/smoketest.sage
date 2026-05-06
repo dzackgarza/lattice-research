@@ -6,6 +6,13 @@ sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.cat import Cat
 from category_specs.forms import FormedModules
+from category_specs.forms.chain import (
+    FiniteRankFreeBilinearModulesCategory,
+    FiniteRankFreeFormedModulesCategory,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+    SymmetricFiniteRankFreeBilinearModulesCategory,
+)
 from category_specs.forms.subcategories.bilinear import BilinearModulesCategory as FormsBilinearModulesCategory
 from category_specs.forms.subcategories.quadratic import QuadraticModulesCategory as FormsQuadraticModulesCategory
 from category_specs.forms.subcategories.symmetric import (
@@ -32,6 +39,57 @@ MZZ = Modules(ZZ, dispatch=False)
 FZZ = FormedModules(ZZ)
 LATTICE_AMBIENT = MZZ.Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
 
+
+class _AutCategoryWitness:
+    def Of(self, parent):
+        return ("orthogonal-group", parent)
+
+
+class _CategoryWitness:
+    def AutCategory(self):
+        return _AutCategoryWitness()
+
+
+class _FormedWitness(FiniteRankFreeFormedModulesCategory.ParentMethods):
+    def category(self):
+        return _CategoryWitness()
+
+
+class _FormWitness:
+    def b(self, v, w):
+        return (v, w)
+
+
+class _BilinearWitness(FiniteRankFreeBilinearModulesCategory.ParentMethods):
+    def form(self):
+        return _FormWitness()
+
+
+class _SymmetricWitness(SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods):
+    pass
+
+
+class _IntegralWitness(IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods):
+    pass
+
+
+def abstract_method_has_name(method, name):
+    return method.__name__ == name
+
+
+def formed_chain_concrete_methods_route():
+    formed = _FormedWitness()
+    orthogonal_group = formed.orthogonal_group()
+    return (
+        formed.has_form()
+        and orthogonal_group == ("orthogonal-group", formed)
+        and _BilinearWitness().is_bilinear()
+        and _BilinearWitness().b("v", "w") == ("v", "w")
+        and _SymmetricWitness().is_symmetric()
+        and _IntegralWitness().is_integral()
+        and _IntegralWitness().is_rational()
+    )
+
 SMOKE_STATEMENTS = (
     ("FormedModules(ZZ) is an object of Cat()", lambda _: FZZ in Cat()),
     ("FormedModules(ZZ) is Modules(ZZ).WithForms()", lambda _: FZZ == MZZ.WithForms()),
@@ -57,6 +115,35 @@ SMOKE_STATEMENTS = (
     (
         "finite-rank lattice ambient chain remains formed-module based",
         lambda _: LATTICE_AMBIENT.is_subcategory(MZZ.Free().FiniteRank().WithForms()),
+    ),
+    (
+        "formed-module chain concrete predicates and forwarding methods route correctly",
+        lambda _: formed_chain_concrete_methods_route(),
+    ),
+    (
+        "formed-module chain owns bilinear and quadratic abstract predicates",
+        lambda _: abstract_method_has_name(FiniteRankFreeFormedModulesCategory.ParentMethods.is_bilinear, "is_bilinear")
+        and abstract_method_has_name(FiniteRankFreeFormedModulesCategory.ParentMethods.is_quadratic, "is_quadratic")
+        and abstract_method_has_name(FiniteRankFreeFormedModulesCategory.ParentMethods.form, "form"),
+    ),
+    (
+        "bilinear formed-module chain owns symmetry and integrality predicates",
+        lambda _: abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_symmetric, "is_symmetric")
+        and abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_alternating, "is_alternating")
+        and abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_integral, "is_integral")
+        and abstract_method_has_name(FiniteRankFreeBilinearModulesCategory.ParentMethods.is_rational, "is_rational"),
+    ),
+    (
+        "symmetric formed-module chain owns definiteness and orthogonal-submodule surfaces",
+        lambda _: abstract_method_has_name(SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.is_definite, "is_definite")
+        and abstract_method_has_name(SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.is_positive_definite, "is_positive_definite")
+        and abstract_method_has_name(SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.is_negative_definite, "is_negative_definite")
+        and abstract_method_has_name(SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.orthogonal_submodule_to, "orthogonal_submodule_to"),
+    ),
+    (
+        "nondegenerate and integral chain owns anisotropy and dual-lattice surfaces",
+        lambda _: abstract_method_has_name(NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods.is_anisotropic, "is_anisotropic")
+        and abstract_method_has_name(IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods.dual_lattice, "dual_lattice"),
     ),
 )
 
