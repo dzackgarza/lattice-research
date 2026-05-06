@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-06 19:01 UTC_
+_Generated: 2026-05-06 19:03 UTC_
 
 ## Overall
 
@@ -19,7 +19,7 @@ _Generated: 2026-05-06 19:01 UTC_
 | phase | 18 | 0 | 10 | 2 | 0 |
 | plan | 8 | 0 | 6 | 0 | 0 |
 | spec | 54 | 0 | 0 | 51 | 0 |
-| task | 110 | 0 | 0 | 60 | 0 |
+| task | 110 | 0 | 1 | 60 | 0 |
 
 ## Feature Rollup
 
@@ -27,7 +27,7 @@ _Generated: 2026-05-06 19:01 UTC_
 | --- | --- | ---: | ---: | ---: | ---: |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 15 | 83 | 0 |
+| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 16 | 83 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
