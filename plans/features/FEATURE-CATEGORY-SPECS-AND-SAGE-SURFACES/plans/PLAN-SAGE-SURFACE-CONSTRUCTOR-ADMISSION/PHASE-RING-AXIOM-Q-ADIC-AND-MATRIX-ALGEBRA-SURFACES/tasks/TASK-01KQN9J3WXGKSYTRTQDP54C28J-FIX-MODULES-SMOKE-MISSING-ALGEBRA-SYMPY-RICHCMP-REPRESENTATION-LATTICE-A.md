@@ -93,3 +93,12 @@ wrappers.
   routing (`base must be a ring or a subcategory of Rings()`), followed by the existing
   subobject/quotient `alternating_algebra`, representation/lattice compatibility,
   graded, ideal, and ring-as-module frontiers.
+- 2026-05-06 OverPID formed-chain slice: changed
+  `Modules(R).OverPID().WithForms().Bilinear()` and `.Quadratic()` to use
+  `_with_axiom(...)`, matching the generic formed-module chain instead of
+  instantiating the axiom category with a category object as if it were a base ring.
+  Direct probes for `Modules(QQ).WithForms().Bilinear()`, `.Quadratic()`, and
+  `VectorSpaceWithInnerProductRows(...).inner_product_matrix()` now pass. Re-running
+  the modules smoke removed the vector-space inner-product and explicit
+  free/quadratic form constructor failures; the first remaining frontier is now
+  subobject/quotient refinement hitting `alternating_algebra`.

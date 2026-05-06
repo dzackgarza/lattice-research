@@ -114,17 +114,13 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def Bilinear(self) -> Category:
             r"""Select the bilinear formed-module subcategory over this PID base."""
-            from .bilinear import OverPIDBilinearModulesCategory
-
-            return OverPIDBilinearModulesCategory(self)
+            return self._with_axiom("Bilinear")
 
         @cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Select the quadratic formed-module subcategory over this PID base."""
-            from .quadratic import OverPIDQuadraticModulesCategory
-
-            return OverPIDQuadraticModulesCategory(self)
+            return self._with_axiom("Quadratic")
 
     ElementMethods = FormedModulesCategory.ElementMethods
     MorphismMethods = FormedModulesCategory.MorphismMethods
