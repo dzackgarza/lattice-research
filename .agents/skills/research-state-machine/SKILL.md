@@ -15,7 +15,7 @@ The source of truth is this skill plus `references/execution-kernel.md` and `ref
 
 Read `references/execution-kernel.md` before moving work from planning into execution, delegating implementation, judging whether a card is atomic, routing replay/attack, accepting/rejecting/splitting work, or claiming parent-plan or `GOAL.md` discharge.
 
-Read `references/review-kernel.md` before reviewing any card in `needs-review` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
+Read `references/review-kernel.md` before reviewing any card in `needs-review` or `needs-human-input` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
 
 
 ## Core model
@@ -32,7 +32,7 @@ Read `references/review-kernel.md` before reviewing any card in `needs-review` s
 - Specify card: create a tracked card with exact claim/work target, scope, provenance, dependencies, acceptance criteria, and verification plan.
 - Preflight: reject or split hidden-major-work cards before execution.
 - Execute: run scoped implementation in the required branch/worktree and update card metadata.
-- Review: apply the six ordered gates from `references/review-kernel.md`. Determine whether the card is `complete`/`done`, `revision-required` (rework needed), or `blocked` (prerequisite missing).
+- Review: apply the six ordered gates from `references/review-kernel.md`. Determine whether the card is `complete`/`done`, `needs-human-input` (human decision needed), `revision-required` (rework needed), or `blocked` (prerequisite missing).
 - Promote, reject, split, or retire: human-gated promotion; otherwise split or reject and keep active paths forward-facing.
 
 ## Hard stops

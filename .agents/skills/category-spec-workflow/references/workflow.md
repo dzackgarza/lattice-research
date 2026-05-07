@@ -483,7 +483,7 @@ During execution:
 - Use `status: blocked` on the affected leaf card when execution cannot proceed until a
   named prerequisite, decision, source, backend, or human input exists. Record the
   exact blocker and the follow-up card/decision/source needed to unblock it.
-- Use `validating` or `needs-human-review` when implementation appears complete.
+- Use `validating` or `needs-human-input` when the implementation appears complete and specifically requires human input or review.
 - Never mark work `accepted`, native items `done`, or sprint plans `closed` without
   human approval.
 

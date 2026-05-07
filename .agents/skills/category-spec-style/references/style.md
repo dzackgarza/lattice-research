@@ -111,11 +111,29 @@ spec structure. It preserves style and compliance material extracted from `AGENT
     `CategoryWithAxiom` after construction.
   - Base-ring axiom categories must use `CategoryWithAxiom_over_base_ring`; do not force
     base-ring categories through the singleton wrapper.
-- **Prefer Mathematical Type Checks Over `isinstance`**: Almost all direct
-  `isinstance` checks should be refactored into real categorical predicates or
-  containment checks when a mathematically meaningful category exists. Centralize the
-  unavoidable Python/Sage runtime check at the category boundary, then expose and use
-  mathematical prose elsewhere.
+- **`isinstance` as a Design Signal, Not a Ban**: `isinstance` checks are not banned —
+  they are diagnostic flags that the code is guessing about an object's category at
+  runtime rather than expressing membership through the category system. Each
+  occurrence triggers a specific reasoning chain (see the `anti-slop` skill,
+  `references/code-patterns.md#introspection-red-flags` for the full framework,
+  including `hasattr`, `getattr`, `type()`, `issubclass`, and `callable()`).
+
+  **Boundary vs. interior**: `isinstance` is acceptable at the typed/untyped
+  boundary — inside `__contains__` (which takes `Any`), in Sage interop wrappers
+  that receive untyped raw Sage objects, and at constructor gates that validate
+  input shapes once. Outside these boundary sites, each `isinstance` should be
+  questioned as a signal that the category system is not carrying enough information.
+
+  **Preferred replacement**: When a categorical predicate exists (e.g.,
+  `C in Cat().JoinCategories()` or `C.is_join_category()`), use it instead of
+  `isinstance(C, JoinCategory)`. When no predicate exists yet, treat repeated
+  `isinstance` checks as a design smell and add the missing category surface
+  rather than copying the runtime check through the codebase.
+
+  **Assert vs. branch**: `assert isinstance(x, T)` documents a precondition and
+  fails loudly. This is different from a branch that silently produces different
+  behavior based on type — the latter should usually be an overload, a tagged
+  union, or an explicit dispatch path.
   - Example: `isinstance(C, JoinCategory)` may be acceptable inside the implementation
     of `Cat().JoinCategories().__contains__`, but ordinary code should say
     `C in Cat().JoinCategories()` or `C.is_join_category()`.
@@ -707,12 +725,18 @@ owning layer before editing locally.
   - Audit response: find the smaller mathematical redesign that removes the need for
     the framework.
 - **Runtime checks outside categorical predicates**:
-  - What makes it a red flag: `isinstance` checks recur where the prose wants category
-    membership.
-  - Suspect: a missing predicate subcategory, such as `Cat().JoinCategories()`, or a
-    missing `is_*` predicate pattern.
-  - Audit response: centralize the Python/Sage runtime check at the category boundary
-    and use mathematical membership prose elsewhere.
+  - What makes it a red flag: `isinstance`, `hasattr`, `getattr`, `type()`, or
+    `callable()` appear in code where the prose wants category membership, typed
+    attribute access, or declared structure. Each is a signal that the code is
+    guessing about shape at runtime rather than carrying that information through
+    the type/category system.
+  - Suspect: a missing predicate subcategory, such as `Cat().JoinCategories()`; a
+    missing `is_*` predicate pattern; an undeclared optional attribute; or a
+    function signature that accepts too-broad a type.
+  - Audit response: apply the introspection red-flag reasoning chain from the
+    `anti-slop` skill (`references/code-patterns.md#introspection-red-flags`).
+    Centralize legitimate boundary checks and replace interior checks with
+    categorical membership, typed access, or explicit overloads.
 - **Reward-hacking edits**:
   - What makes it a red flag: removing `NEEDS_DECISIONS`, relaxing `@final`, deleting
     an `@abstract_method`, weakening a smoke, adding `hasattr`, or catching errors

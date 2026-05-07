@@ -65,6 +65,13 @@ _Generated: 2026-05-07 08:00 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-07 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`: Research category integration for complex algebraic curves (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`: Research category integration for complex algebraic surfaces (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-COMPLEX-MANIFOLDS-CATEGORY`: Research category integration for complex manifolds (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: Research category integration for complex varieties (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`: Research category integration for families of varieties (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-POLYHEDRA-2D-POLYTOPES-CATEGORY`: Research category integration for 2D polyhedra and polytopes (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
+- 2026-05-07 `task` `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`: Research category integration for toric varieties with lattice categories (commit `c4bca6a`: docs: gate review logs for geometry source-admission research tasks)
 - 2026-05-07 `task` `TASK-MAPPING-DOC-COMPLETENESS-RESEARCH`: Research mapping spec completeness against Sage docs and source (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
 - 2026-05-07 `task` `TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT`: Audit mapping specs for mathematical coherence and well-typed method signatures (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
 - 2026-05-07 `task` `TASK-01KQN9J3X3Y3S80FYCGEQDEJJZ-FIX-POSETS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES`: Fix Posets constructor refinement __richcmp__ failures (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
@@ -73,13 +80,6 @@ _Generated: 2026-05-07 08:00 UTC_
 - 2026-05-07 `task` `TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME`: Fix Rings category base-class identity mismatch in nested axiom refinement (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
 - 2026-05-07 `task` `TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI`: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
 - 2026-05-07 `task` `TASK-01KQN9YGCE6EHG6Q2575YQGNR8-IMPLEMENT-IMAGESETS-CONSTRUCTION-CATEGORY-AND-SMOKE-AMBIENT-LIFT-RETRACT`: Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
-- 2026-05-07 `task` `TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES`: Ground set-wrapper private-slot shape probes (commit `b215cfe`: docs: gate review logs and status for mapping, sets, posets, rings, variadic tasks)
-- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT`: Audit method inventory gaps and create owner decisions (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
-- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
-- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
-- 2026-05-07 `task` `TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS`: Ground root module abstract-method ownership before any migration (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
-- 2026-05-07 `decision` `DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER`: Decide algebra standard-involution method owner (commit `fc8de6f`: spec: decide algebra standard involution owner)
-- 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`: Research category integration for complex algebraic curves (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
 
 ## Notes
 

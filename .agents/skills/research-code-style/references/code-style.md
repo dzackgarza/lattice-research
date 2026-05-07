@@ -245,6 +245,18 @@ In most cases, it is better to split the "has X" and "does not have X" cases exp
 into separate methods or classmethods, rather than adding branching logic for missing
 values.
 
+### Introspection Red Flags
+
+`isinstance`, `hasattr`, `getattr`, `type()`, `issubclass`, and `callable()` are
+diagnostic signals that code is guessing about input shapes at runtime rather than
+asserting them through the type system. They are not banned, but each occurrence
+must survive a reasoning chain that asks: Is this a legitimate boundary? Is the
+check minimal and localized? What structured alternative would eliminate it?
+
+See the `anti-slop` skill, `references/code-patterns.md#introspection-red-flags`,
+for the full catalog of signals, the reasoning chain, and the acceptance criteria
+table.
+
 ### Semantic Checks Over Manual Implementation
 
 Use semantic checks and Sage's coercion when possible to match mathematical semantics.

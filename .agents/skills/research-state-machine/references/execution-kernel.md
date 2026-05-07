@@ -77,9 +77,41 @@ If a spec leaf can advance through source mining, writing/refining a spec, centr
 terminology, drafting audit criteria, capturing a decision, splitting work, or filing a
 prerequisite, continue there.
 
+A card in `needs-review` status is also actionable agent work. `needs-review` means the
+implementing work is done and the card is ready for the ordered gate-based protocol
+(described in `references/review-kernel.md`). Dispatch a fresh-context subagent to
+execute the review gates (never self-review inline, per the review kernel's subagent
+isolation requirement). Do not treat `needs-review` as a blocking status, a waiting
+state, or a human gate. Only `needs-human-input` and `blocked` statuses represent cards
+that cannot currently be advanced by an agent without external input or resolution of an
+external prerequisite.
+
 ### Execute
 
-Run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed.
+Two kinds of cards reach execution stage:
+
+- **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed. When implementation is complete, set the card to `needs-review` (if the review is agent-executable) or `needs-human-input` (if it specifically requires human input).
+
+- **Review cards** (`needs-review` → gate-based review → outcome): these are ready for the ordered gate protocol in `references/review-kernel.md`. The reviewer (an independent agent session, not the implementer) applies Gates 1-6 and sets the outcome. Review is execution work: it produces findings, logs, and status changes. Do not stall when the active leaf list includes `needs-review` cards.
+
+  Review must be executed by a **fresh-context subagent**, never by the coordinator
+  doing the review inline in its own session. The coordinator already has the
+  implementing state in its chat history, which contaminates independent judgment.
+  Load `subagent-delegation` and dispatch a review subagent that has never seen the
+  implementation session. The subagent prompt must include: the card body, the work
+  artifacts (or paths to them), the baseline artifacts, and the requirement to produce
+  concrete, falsifiable evidence for every gate check (see the anti-boxchecking rules
+  in `references/review-kernel.md`).
+
+  After the subagent completes, the coordinator must verify the review itself:
+  - Every gate pass has a concrete artifact (a file path read, a command run, a diff
+    inspected, a specific source consulted).
+  - The subagent did not accept vague "looks good" or "appears correct" language.
+  - Gate failures cite specific code, line numbers, or source paths.
+  - The outcome (complete / revision-required / blocked / needs-human-input) is
+    supported by the findings.
+  If the review is a box-checking exercise, reject it and re-dispatch with a
+  tightened prompt.
 
 Small administrative metadata edits can be direct when the repo workflow allows them. Production code, canonical docs, mathematical infrastructure, and agent-guiding docs require branch/PR routing according to the project workflow.
 
