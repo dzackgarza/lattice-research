@@ -179,7 +179,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             *,
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
-        ) -> RModule: ...
+        ) -> RModule:
+            del k, ell, sym, antisym
+            ...
 
         @override
         @final
