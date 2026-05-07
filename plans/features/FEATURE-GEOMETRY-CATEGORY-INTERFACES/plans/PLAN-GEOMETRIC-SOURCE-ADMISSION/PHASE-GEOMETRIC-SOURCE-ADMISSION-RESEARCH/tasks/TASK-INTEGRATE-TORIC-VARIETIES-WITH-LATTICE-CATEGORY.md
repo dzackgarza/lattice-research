@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-INTEGRATE-VARIETIES-CATEGORY]]'
 - '[[TASK-INTEGRATE-POLYTOPES-CATEGORY]]'
 title: Research category integration for toric varieties with lattice categories
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for toric varieties,
   explicitly including integration with the lattice category.
@@ -167,6 +167,22 @@ No new card is needed from this toric source-admission pass.
 - Backend surfaces surveyed for OSCAR toric varieties/morphisms and polymake/Normaliz polyhedral routing.
 - Local dependency on lattice/free-module vocabulary recorded, with a guard against inventing toric-specific lattice types and with the identity Gram form recorded for presented coordinate-character lattices.
 - Follow-up routing records that no new card is needed because existing polytope/polyhedron and backend-routing cards own specialization.
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:** Sage toric docs, OSCAR toric docs, local module/lattice ownership specs cited.
+**Gate 2 — Acceptance Criteria:** Toric lattice/fan/variety convention recorded; Sage surfaces surveyed (lattices, fans, orbit closures, class groups, subdivisions); OSCAR/polymake/Normaliz backends surveyed; dependency on lattice vocabulary guarded against toric-specific lattice type invention.
+**Gate 3-6:** No issues. Correct boundary decision: toric variety = fan-owned normal variety refinement, character lattices use ordinary lattice types with identity Gram form, not a custom ToricLattice type.
+
+---
 
 ## Work Log
 

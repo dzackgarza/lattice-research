@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY]]'
 title: Research category integration for complex algebraic curves
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for complex algebraic
   curves.
@@ -155,6 +155,47 @@ No new card is needed from this curve pass. Existing sibling cards own the remai
 - Backend surfaces surveyed for Macaulay2 plane-curve linear series, OSCAR projective plane curves, and existing Sage/Singular/Macaulay2 routing rows.
 - Local dependencies and downstream cards listed explicitly.
 - Follow-up routing records that no new card is needed because existing Riemann-surface, family, monodromy, and Coble cards own specialization.
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:**
+- Mathematical definitions cite Stacks Project (tags 0A23, 0BY6, 0BYG) for curve dimension and genus conventions.
+- Project vocabulary traces to sibling cards (INTEGRATE-VARIETIES-CATEGORY, INTEGRATE-COMPLEX-VARIETIES-CATEGORY).
+- Sage surface claims cite https://doc.sagemath.org/ documentation URLs.
+- Backend claims cite Macaulay2 and OSCAR documentation URLs.
+
+**Gate 2 — Acceptance Criteria:**
+- [x] Mathematical definition and project vocabulary identified → dimension-one complex variety convention with Stacks backing.
+- [x] Sage/backend surfaces surveyed → Sage curves, Macaulay2 PlaneCurveLinearSeries, OSCAR projective plane curves.
+- [x] Category relationships determined → schemes → varieties → complex varieties → curves chain, with plane-curve refinements as presentations.
+- [x] Downstream work listed → Riemann-surface, families, monodromy, Coble cards.
+- [x] Follow-up cards routed → no new cards needed; existing sibling cards own specialization.
+
+**Gate 3 — Spec-Weakening:**
+- No staged or unstaged diffs; this is a research card producing documentation only.
+
+**Gate 4 — Gradient:**
+- Genus convention corrected: `genus()` is a curve-level alias, not the global owner of arithmetic/geometric genus names. This sharpens the method ownership inventory, not reverses it.
+
+**Gate 5 — Mathematical Correctness:**
+- Curve = dimension-one variety is the standard definition (Stacks 0A23, Hartshorne I.6).
+- Genus conventions correctly separated (geometric genus, arithmetic genus, topological genus for Riemann surfaces).
+- Boundary decisions (normalization returns a morphism, not a simplified equation) are mathematically correct.
+
+**Gate 6 — Style and Compliance:**
+- Research card format with clear evidence/inference separation.
+- Source URLs cited inline.
+- `just plan-validate` passes.
+
+---
 
 ## Work Log
 
