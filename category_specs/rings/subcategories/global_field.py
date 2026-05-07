@@ -36,8 +36,14 @@ class _GlobalFields(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_global_field()
 
-    Archimedean = LazyImport("category_specs.rings.subcategories.archimedean_global_field", "_ArchimedeanGlobalFields")
-    NonArchimedean = LazyImport("category_specs.rings.subcategories.nonarchimedean_global_field", "_NonArchimedeanGlobalFields")
+    Archimedean = LazyImport(
+        "category_specs.rings.subcategories.archimedean_global_field",
+        "_ArchimedeanGlobalFields",
+    )
+    NonArchimedean = LazyImport(
+        "category_specs.rings.subcategories.nonarchimedean_global_field",
+        "_NonArchimedeanGlobalFields",
+    )
 
     class SubcategoryMethods:
         @cached_method
