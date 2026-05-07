@@ -305,3 +305,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/real_algebraic_field.py` and `python -m
   compileall category_specs/rings/subcategories/real_algebraic_field.py` now
   pass. Repo-wide E501 count is now 183.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/p_adic_ring.py` slice with `uvx --from
+  ruff ruff format`, preserving the p-adic method surface. `uvx --from ruff
+  ruff check --select E501 category_specs/rings/subcategories/p_adic_ring.py`
+  and `python -m compileall category_specs/rings/subcategories/p_adic_ring.py`
+  now pass. Repo-wide E501 count is now 179.
