@@ -17,7 +17,9 @@ if TYPE_CHECKING:
 
 
 class _IntegrallyClosedDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().IntegrallyClosed()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().IntegrallyClosed()``.
+    """
 
     _base_category_class_and_axiom = (_IntegralDomains, "IntegrallyClosed")
 

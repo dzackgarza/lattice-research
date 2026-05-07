@@ -32,7 +32,9 @@ class _DivisionRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageDivisionRings() or (R in self.base_category() and R.is_division_ring())
+        return R in SageDivisionRings() or (
+            R in self.base_category() and R.is_division_ring()
+        )
 
     class ParentMethods:
         @override

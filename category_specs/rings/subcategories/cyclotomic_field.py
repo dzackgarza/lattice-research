@@ -19,7 +19,9 @@ if TYPE_CHECKING:
 
 
 class _CyclotomicFields(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().Field().NumberFields().Cyclotomic()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().Field().NumberFields().Cyclotomic()``.
+    """
 
     _base_category_class_and_axiom = (_NumberFields, "Cyclotomic")
 

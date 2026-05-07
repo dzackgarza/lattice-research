@@ -39,7 +39,9 @@ class _DiscreteValuationFields(Category_singleton):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageDiscreteValuationFields() or (R in _Fields() and R.is_discrete_valuation_field())
+        return R in SageDiscreteValuationFields() or (
+            R in _Fields() and R.is_discrete_valuation_field()
+        )
 
     class ParentMethods:
         @override

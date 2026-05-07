@@ -43,7 +43,8 @@ class _LaurentSeriesRings(CategoryWithAxiom):
     @final
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and (
-            isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES) or isinstance(R, self.parent_class)
+            isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES)
+            or isinstance(R, self.parent_class)
         )
 
     class ParentMethods:

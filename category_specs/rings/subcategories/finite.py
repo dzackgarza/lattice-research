@@ -34,7 +34,9 @@ class _FiniteRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageRings().Finite() or (R in self.base_category() and R.is_finite())
+        return R in SageRings().Finite() or (
+            R in self.base_category() and R.is_finite()
+        )
 
     class ParentMethods:
         @override

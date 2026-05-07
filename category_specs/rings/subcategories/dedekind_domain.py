@@ -44,7 +44,9 @@ class _DedekindDomains(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageDedekindDomains() or (R in self.base_category() and R.is_dedekind_domain())
+        return R in SageDedekindDomains() or (
+            R in self.base_category() and R.is_dedekind_domain()
+        )
 
     class ParentMethods:
         @override

@@ -696,3 +696,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   existing canonical chains and containment predicates. `uvx --from ruff ruff
   check --select E501` and `python -m compileall` now pass on those five files.
   Repo-wide E501 count is now 40.
+- 2026-05-07: Cleared the Laurent-series-ring, integrally-closed-domain,
+  finite-field, finite-ring, Euclidean-domain, division-ring,
+  discrete-valuation-ring, discrete-valuation-field, Dedekind-domain, and
+  cyclotomic-field E501 slice with `uvx --from ruff ruff format` plus manual
+  canonical-chain docstring wrapping where needed. Preserved the existing
+  canonical chains and Sage/spec containment predicates. `uvx --from ruff ruff
+  check --select E501` and `python -m compileall` now pass on those ten files.
+  Repo-wide E501 count is now 30.

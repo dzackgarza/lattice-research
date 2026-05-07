@@ -41,7 +41,9 @@ class _DiscreteValuationRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageDiscreteValuationRings() or (R in self.base_category() and R.is_discrete_valuation_ring())
+        return R in SageDiscreteValuationRings() or (
+            R in self.base_category() and R.is_discrete_valuation_ring()
+        )
 
     class ParentMethods:
         @override
