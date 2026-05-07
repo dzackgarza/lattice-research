@@ -12,7 +12,15 @@ from ...forms.subcategories.symmetric import (
 from ...forms.subcategories.symmetric import (
     OverPIDSymmetricBilinearModulesObject as OverPIDSymmetricBilinearModulesObject,
 )
-from ...forms.subcategories.symmetric import SymmetricBilinearModulesCategory as SymmetricBilinearModulesCategory
-from ...forms.subcategories.symmetric import SymmetricBilinearModulesElement as SymmetricBilinearModulesElement
-from ...forms.subcategories.symmetric import SymmetricBilinearModulesMorphism as SymmetricBilinearModulesMorphism
-from ...forms.subcategories.symmetric import SymmetricBilinearModulesObject as SymmetricBilinearModulesObject
+from ...forms.subcategories.symmetric import (
+    SymmetricBilinearModulesCategory as SymmetricBilinearModulesCategory,
+)
+from ...forms.subcategories.symmetric import (
+    SymmetricBilinearModulesElement as SymmetricBilinearModulesElement,
+)
+from ...forms.subcategories.symmetric import (
+    SymmetricBilinearModulesMorphism as SymmetricBilinearModulesMorphism,
+)
+from ...forms.subcategories.symmetric import (
+    SymmetricBilinearModulesObject as SymmetricBilinearModulesObject,
+)
