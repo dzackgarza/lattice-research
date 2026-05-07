@@ -13,7 +13,15 @@ from ...cat import Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Algebra, CategoryElement, Group, Matrix, Monoid, RModule, RModuleElement
+    from ...types import (
+        Algebra,
+        CategoryElement,
+        Group,
+        Matrix,
+        Monoid,
+        RModule,
+        RModuleElement,
+    )
 
 
 class _RepresentationModules(Category_over_base_ring):
@@ -27,10 +35,14 @@ class _RepresentationModules(Category_over_base_ring):
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).Free(),
-            Modules(R).WithOrderedGeneratingSet(),
-        ])]
+        return [
+            Category.join(
+                [
+                    Modules(R).Free(),
+                    Modules(R).WithOrderedGeneratingSet(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @override
@@ -59,8 +71,13 @@ class _RepresentationModules(Category_over_base_ring):
         def invariant_module(
             self,
             S: Group | None = None,
-            action: Callable[[CategoryElement, RModuleElement], RModuleElement] = operator.mul,
-            action_on_basis: Callable[[CategoryElement, CategoryElement], RModuleElement] | None = None,
+            action: Callable[
+                [CategoryElement, RModuleElement], RModuleElement
+            ] = operator.mul,
+            action_on_basis: Callable[
+                [CategoryElement, CategoryElement], RModuleElement
+            ]
+            | None = None,
             side: Literal["left", "right"] | None = None,
         ) -> RModule:
             del action_on_basis
