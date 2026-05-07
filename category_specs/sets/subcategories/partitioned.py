@@ -158,7 +158,10 @@ class PartitionedSetsCategory(CategoryWithAxiom):
                 tuple[SetElement, SetElement],
             ]
         ]:
-            r"""Return crossing arc pairs when the finite base set is totally ordered."""
+            r"""Return crossing arc pairs.
+
+            The base set is assumed finite and totally ordered.
+            """
             ...
 
         @abstract_method
@@ -185,7 +188,10 @@ class PartitionedSetsCategory(CategoryWithAxiom):
 
         @abstract_method
         def is_atomic(self) -> bool:
-            r"""Return whether the nonempty ordered finite partition is pipe-indecomposable."""
+            r"""Return whether the partition is pipe-indecomposable.
+
+            The partition is assumed nonempty, ordered, and finite.
+            """
             ...
 
     class MorphismMethods: ...
@@ -213,7 +219,10 @@ class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
     a meet with ``Sets().TotallyOrdered()``.
     """
 
-    _base_category_class_and_axiom = (PartitionedSetsCategory, "FiniteTotallyOrderedBase")
+    _base_category_class_and_axiom = (
+        PartitionedSetsCategory,
+        "FiniteTotallyOrderedBase",
+    )
     _defining_predicates = ("has_finite_totally_ordered_base_set",)
 
     @override
