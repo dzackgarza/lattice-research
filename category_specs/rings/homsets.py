@@ -30,11 +30,15 @@ class _RingHomomorphisms:
 
 
 class _RingEndomorphisms:
-    r"""Ring-specific endomorphism methods; generic endomorphism methods are inherited."""
+    r"""Ring-specific endomorphism methods; generic endomorphism methods are
+    inherited.
+    """
 
 
 class _RingAutomorphisms:
-    r"""Ring-specific automorphism methods; generic automorphism methods are inherited."""
+    r"""Ring-specific automorphism methods; generic automorphism methods are
+    inherited.
+    """
 
 
 class RingHomCategory(HomCategoryOf):
