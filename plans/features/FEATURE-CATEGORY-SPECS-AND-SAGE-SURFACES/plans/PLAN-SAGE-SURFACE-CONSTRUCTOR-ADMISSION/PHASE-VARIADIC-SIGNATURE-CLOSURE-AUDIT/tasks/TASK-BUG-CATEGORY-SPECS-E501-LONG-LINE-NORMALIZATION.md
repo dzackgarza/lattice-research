@@ -618,3 +618,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/algebras/subcategories/semisimple.py` and `python -m
   compileall category_specs/algebras/subcategories/semisimple.py` now pass.
   Repo-wide E501 count is now 56.
+- 2026-05-07: Cleared the
+  `category_specs/algebras/subcategories/commutative.py` slice with `uvx --from
+  ruff ruff format`, preserving Sage commutative-algebra import and containment
+  logic. `uvx --from ruff ruff check --select E501
+  category_specs/algebras/subcategories/commutative.py` and `python -m
+  compileall category_specs/algebras/subcategories/commutative.py` now pass.
+  Repo-wide E501 count is now 54.

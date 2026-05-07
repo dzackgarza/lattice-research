@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import Any, final, override
 
-from sage.categories.commutative_algebras import CommutativeAlgebras as SageCommutativeAlgebras
+from sage.categories.commutative_algebras import (
+    CommutativeAlgebras as SageCommutativeAlgebras,
+)
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
@@ -29,7 +31,9 @@ class _CommutativeAlgebras(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is an algebra satisfying Sage commutativity."""
-        return A in self.base_category() and A in SageCommutativeAlgebras(self.base_ring())
+        return A in self.base_category() and A in SageCommutativeAlgebras(
+            self.base_ring()
+        )
 
     class ParentMethods:
         @final
