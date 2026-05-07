@@ -50,7 +50,8 @@ class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
             EXAMPLES::
 
-                sage: L = RationalLattice(matrix(QQ, [[1/2, 0], [0, 1/2]]))   # not tested
+                sage: G = matrix(QQ, [[1/2, 0], [0, 1/2]])   # not tested
+                sage: L = RationalLattice(G)                 # not tested
                 sage: L.integral_rescaling()   # not tested
                 (2, IntegralLattice(...))
             """
@@ -80,6 +81,12 @@ class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     MorphismMethods = RationalBilinearModulesCategory.MorphismMethods
 
 
-OverPIDRationalBilinearModulesObject = OverPIDRationalBilinearModulesCategory.ParentMethods
-OverPIDRationalBilinearModulesElement = OverPIDRationalBilinearModulesCategory.ElementMethods
-OverPIDRationalBilinearModulesMorphism = OverPIDRationalBilinearModulesCategory.MorphismMethods
+OverPIDRationalBilinearModulesObject = (
+    OverPIDRationalBilinearModulesCategory.ParentMethods
+)
+OverPIDRationalBilinearModulesElement = (
+    OverPIDRationalBilinearModulesCategory.ElementMethods
+)
+OverPIDRationalBilinearModulesMorphism = (
+    OverPIDRationalBilinearModulesCategory.MorphismMethods
+)

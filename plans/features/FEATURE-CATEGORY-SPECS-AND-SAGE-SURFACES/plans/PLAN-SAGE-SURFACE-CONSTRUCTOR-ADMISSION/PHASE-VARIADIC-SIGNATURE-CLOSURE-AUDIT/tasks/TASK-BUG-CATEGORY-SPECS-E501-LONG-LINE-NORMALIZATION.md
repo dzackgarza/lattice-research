@@ -375,3 +375,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/forms/subcategories/with_forms.py` and `python -m compileall
   category_specs/forms/subcategories/with_forms.py` now pass. Repo-wide E501
   count is now 139.
+- 2026-05-07: Cleared the `category_specs/forms/subcategories/rational.py`
+  slice with `uvx --from ruff ruff format` plus manual wrapping of one rational
+  lattice example. `uvx --from ruff ruff check --select E501
+  category_specs/forms/subcategories/rational.py` and `python -m compileall
+  category_specs/forms/subcategories/rational.py` now pass. Repo-wide E501 count
+  is now 135.
