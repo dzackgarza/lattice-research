@@ -1,45 +1,45 @@
 # Planning Progress Report
 
-_Generated: 2026-05-07 04:37 UTC_
+_Generated: 2026-05-07 07:59 UTC_
 
 ## Overall
 
 - Total cards: **225**
-- Completed cards: **14**
-- Overall progress: `[#-----------------------]   6.2%`
+- Completed cards: **34**
+- Overall progress: `[####--------------------]  15.1%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
 ## Counts By Type
 
-| Type | Total | Completed | In Progress | Needs Review | Blocked |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 15 | 14 | 0 | 0 | 0 |
-| feature | 15 | 0 | 10 | 0 | 0 |
-| phase | 18 | 0 | 1 | 12 | 0 |
-| plan | 8 | 0 | 1 | 6 | 0 |
-| spec | 59 | 0 | 0 | 55 | 0 |
-| task | 110 | 0 | 0 | 71 | 0 |
+| Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| decision | 15 | 14 | 0 | 0 | 0 | 0 |
+| feature | 15 | 0 | 10 | 0 | 0 | 0 |
+| phase | 18 | 0 | 1 | 12 | 0 | 0 |
+| plan | 8 | 0 | 1 | 6 | 0 | 0 |
+| spec | 59 | 0 | 0 | 55 | 0 | 0 |
+| task | 110 | 20 | 0 | 52 | 0 | 0 |
 
 ## Feature Rollup
 
-| Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |
-| --- | --- | ---: | ---: | ---: | ---: |
-| Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
-| Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[##--------------]  10.1%` | 12/119 | 3 | 102 | 0 |
-| Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
-| Geometry category interfaces | `[----------------]   0.0%` | 0/26 | 1 | 23 | 0 |
-| Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 |
-| Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 |
-| Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 0 |
+| Feature | Progress | Done/Total | In Progress | Needs Review | Needs Human Input | Blocked |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Geometry category interfaces | `[####------------]  26.9%` | 7/26 | 1 | 16 | 0 | 0 |
+| Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 | 0 |
+| Category specs and Sage surface admission | `[###-------------]  21.0%` | 25/119 | 3 | 90 | 0 | 0 |
+| Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 | 0 |
+| Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Historical discriminant and morphism recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 | 0 |
+| Historical geometry and Coble vocabulary recovery | `[----------------]   0.0%` | 0/4 | 1 | 3 | 0 | 0 |
+| Historical indefinite backend bridge recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 | 0 |
+| Historical lattice presentation method recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 | 0 |
+| Historical orthogonal group and orbit recovery | `[----------------]   0.0%` | 0/3 | 1 | 2 | 0 | 0 |
+| Modules with forms and lattices | `[----------------]   0.0%` | 0/50 | 1 | 4 | 0 | 0 |
 
 ## High-Priority Active Items
 
@@ -65,20 +65,21 @@ _Generated: 2026-05-07 04:37 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-07 `task` `TASK-01KQN9YGCPGDG2XCR55YCTXR53-IMPLEMENT-POSET-CERTIFICATE-METHODS-AS-SEPARATE-WITNESS-RETURNING-METHOD`: Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean (commit `d688112`: docs: review poset certificate split card)
+- 2026-05-07 `task` `TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI`: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings (commit `5ae5b38`: fix: repair matrix ring predicate refinement)
+- 2026-05-07 `task` `TASK-01KQN9YGCFADA7QY26RA2KSVX3-IMPLEMENT-FIXED-BASE-SETPARTITIONS-CONSTRUCTOR-REFINEMENTS-INTO-SETS-PAR`: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only (commit `a75b55f`: docs: review set partitions refinement card)
+- 2026-05-07 `task` `TASK-01KQN9J3X3Y3S80FYCGEQDEJJZ-FIX-POSETS-CONSTRUCTOR-REFINEMENT-RICHCMP-FAILURES`: Fix Posets constructor refinement __richcmp__ failures (commit `53d4590`: test: restore poset constructor smoke fixture)
+- 2026-05-07 `task` `TASK-01KQN9YGCE6EHG6Q2575YQGNR8-IMPLEMENT-IMAGESETS-CONSTRUCTION-CATEGORY-AND-SMOKE-AMBIENT-LIFT-RETRACT`: Implement ImageSets construction category and smoke ambient lift retract and image-subobject membership (commit `48a2a9d`: test: add image subobject ambient smoke evidence)
 - 2026-05-07 `decision` `DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER`: Decide algebra standard-involution method owner (commit `fc8de6f`: spec: decide algebra standard involution owner)
-- 2026-05-06 `decision` `DECISION-VINBERG-WRAPPING-STRATEGY`: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement (commit `b0cde61`: docs: normalize Coble and Vinberg tracker specs)
-- 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `d8d172a`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `d53305d`: docs: decide discriminant form orbit routing)
-- 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `b55df6c`: docs: decide Picard lattice ownership)
-- 2026-05-06 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `cd84d84`: docs: decide module sidedness surface)
-- 2026-05-06 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `22bd1b1`: docs: reject malformed backend spellings)
-- 2026-05-06 `decision` `DECISION-ORDERED-REAL-SIGNATURE-OWNER`: Decide ordered real realization owner for signature and definiteness methods (commit `d9e9842`: docs: decide ordered real signature owner)
-- 2026-05-06 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `769c718`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `769c718`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `769c718`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `769c718`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning (commit `769c718`: User-initiated Checkpoint)
-- 2026-05-06 `decision` `DECISION-DEC-PHASE-01-PLAN-APPROVAL-AND-FIRST-EXECUTION-LANE`: Decide whether to approve the phase-01 plan tree and first execution lane (commit `769c718`: User-initiated Checkpoint)
+- 2026-05-06 `task` `TASK-01KQN9J3WY0J7VF8KEY1X7496H-FIX-RINGS-CATEGORY-BASE-CLASS-IDENTITY-MISMATCH-IN-NESTED-AXIOM-REFINEME`: Fix Rings category base-class identity mismatch in nested axiom refinement (commit `42c084a`: docs: record ring and module re-review progress)
+- 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`: Research category integration for complex algebraic curves (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`: Research category integration for complex algebraic surfaces (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-MANIFOLDS-CATEGORY`: Research category integration for complex manifolds (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: Research category integration for complex varieties (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`: Research category integration for families of varieties (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-POLYHEDRA-2D-POLYTOPES-CATEGORY`: Research category integration for 2D polyhedra and polytopes (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`: Research category integration for toric varieties with lattice categories (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
+- 2026-05-06 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `312982d`: docs: repair method inventory source provenance)
 
 ## Notes
 
