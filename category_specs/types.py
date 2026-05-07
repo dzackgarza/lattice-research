@@ -7,7 +7,9 @@ This file imports those packages and chooses conventional aliases such as
 
 from collections.abc import Sequence
 
-from sage.categories.cartesian_product import CartesianProductFunctor as SageCartesianProductFunctor
+from sage.categories.cartesian_product import (
+    CartesianProductFunctor as SageCartesianProductFunctor,
+)
 from sage.categories.homset import Homset as SageHomset
 from sage.categories.morphism import Morphism as SageMorphism
 from sage.combinat.partition import Partition as SageIntegerPartition
@@ -182,7 +184,9 @@ from .modules import (
     ModulesMorphism,
     ModulesObject,
 )
-from .modules.subcategories.constructions.dual_objects import _DualObjects as ModuleDualObjects
+from .modules.subcategories.constructions.dual_objects import (
+    _DualObjects as ModuleDualObjects,
+)
 from .posets import (
     PosetsAut,
     PosetsAutCategory,

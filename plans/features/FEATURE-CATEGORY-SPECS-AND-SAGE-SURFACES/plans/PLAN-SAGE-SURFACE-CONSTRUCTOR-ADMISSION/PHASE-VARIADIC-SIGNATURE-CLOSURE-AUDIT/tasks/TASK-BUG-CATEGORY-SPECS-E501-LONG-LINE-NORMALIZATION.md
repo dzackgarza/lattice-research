@@ -457,3 +457,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/forms/subcategories/alternating.py` and `python -m compileall
   category_specs/forms/subcategories/alternating.py` now pass. Repo-wide E501
   count is now 102.
+- 2026-05-07: Cleared the `category_specs/types.py` slice with `uvx --from
+  ruff ruff format`, preserving centralized Sage and module dual-object aliases.
+  `uvx --from ruff ruff check --select E501 category_specs/types.py` and
+  `python -m compileall category_specs/types.py` now pass. Repo-wide E501 count
+  is now 100.
