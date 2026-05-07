@@ -154,3 +154,43 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
   invalid closed-overload combination from `assert` to `TypeError`; it does not
   delete overloads, narrow smokes, move ownership, or shrink the polynomial-ring
   constructor surface.
+
+## Review Log
+
+### Independent Review - 2026-05-07
+
+Reviewer: Averroes.
+
+Outcome: pass pending human acceptance. Do not mark complete without human approval.
+
+Gate results:
+
+- Gate 1, definition grounding: passed. The task records source provenance,
+  owner surfaces, and return-object intent; the ring and module mapping specs support
+  `Rings().Constructors().PolynomialRing(...)` and
+  `FinitelyPresentedModulesOverPID.from_matrix(...)` ownership.
+- Gate 2, acceptance criteria: passed. The current code preserves the closed
+  `PolynomialRing` overload family, rejects invalid closed shapes with `TypeError`,
+  and keeps the PID `matrix: Matrix` annotation with the same `coker(matrix)`
+  delegation.
+- Gate 3, spec weakening: passed. No overloads, smoke obligations, or constructor
+  surfaces were deleted or narrowed.
+- Gate 4, gradient: passed. No backsliding against the closed-overload direction was
+  found.
+- Gate 5, mathematical correctness: passed for scope. The polynomial-ring constructor
+  still returns refined polynomial rings, and the PID matrix constructor still routes
+  through elementary divisors and invariant factors.
+- Gate 6, style and compliance: passed for the touched surface. No remaining targeted
+  assertion-narrowing sites were found.
+
+Validation noted by reviewer:
+
+- `python -m py_compile category_specs/rings/__init__.py
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` passed.
+- Targeted checks of invalid and valid
+  `Rings().Constructors().PolynomialRing(...)` shapes behaved as intended.
+- `rg -n "assert n is not None|assert variable_spec_count|assert
+  isinstance\(matrix, SageMatrix\)" ...` found no remaining targeted sites.
+- `just plan-validate` passed.
+- Rings smoke still fails on the pre-existing ring smoke frontier; modules smoke
+  passed in the reviewer rerun with existing warnings.
