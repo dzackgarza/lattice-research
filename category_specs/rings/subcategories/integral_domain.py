@@ -23,6 +23,7 @@ if TYPE_CHECKING:
         RingMorphism,
     )
 
+
 class _IntegralDomains(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().IntegralDomains()``."""
 
@@ -41,16 +42,29 @@ class _IntegralDomains(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageIntegralDomains() or (R in self.base_category() and R.is_integral_domain())
+        return R in SageIntegralDomains() or (
+            R in self.base_category() and R.is_integral_domain()
+        )
 
     Gcd = LazyImport("category_specs.rings.subcategories.gcd_domain", "_GcdDomains")
     UniqueFactorization = LazyImport(
-        "category_specs.rings.subcategories.unique_factorization_domain", "_UniqueFactorizationDomains"
+        "category_specs.rings.subcategories.unique_factorization_domain",
+        "_UniqueFactorizationDomains",
     )
-    PrincipalIdeal = LazyImport("category_specs.rings.subcategories.principal_ideal_domain", "_PrincipalIdealDomains")
-    Euclidean = LazyImport("category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains")
-    IntegrallyClosed = LazyImport("category_specs.rings.subcategories.integrally_closed_domain", "_IntegrallyClosedDomains")
-    Dedekind = LazyImport("category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains")
+    PrincipalIdeal = LazyImport(
+        "category_specs.rings.subcategories.principal_ideal_domain",
+        "_PrincipalIdealDomains",
+    )
+    Euclidean = LazyImport(
+        "category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains"
+    )
+    IntegrallyClosed = LazyImport(
+        "category_specs.rings.subcategories.integrally_closed_domain",
+        "_IntegrallyClosedDomains",
+    )
+    Dedekind = LazyImport(
+        "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
+    )
 
     class SubcategoryMethods:
         @cached_method
