@@ -90,3 +90,23 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
   assertions proving `AllSetPartitions()` is not fixed-base `Partitioned`, and proved
   integer fixed-base partition constructors refine through
   `Sets().Partitioned().FiniteTotallyOrderedBase()`.
+
+## Review Log
+
+### Review - 2026-05-07
+
+Outcome: scoped review passes; card remains `needs-review` for human acceptance.
+
+- Verified `SPEC-MAPPING-SETS.md` rows for `SetPartitions(s)`,
+  `SetPartitions(s, k)`, `SetPartitions(s, part)`, and `SetPartitions()`:
+  fixed-base parents route through `Sets().Partitioned()`, integer fixed-base routes
+  also route through `Sets().Partitioned().FiniteTotallyOrderedBase()`, and
+  all-finite-partitions route only through `Sets().Countable()`.
+- Verified `category_specs/sets/__init__.py` centralizes fixed-base partition
+  constructor categories in `Sets.Constructors._set_partitions_categories(...)` and
+  distinguishes integer cardinality bases from iterable or set-object bases.
+- Verified `category_specs/sets/subcategories/partitioned.py` records
+  `FiniteTotallyOrderedBase` as an axiom on `Sets().Partitioned()`, with
+  supercategories `Sets().Partitioned()` and `Sets().Countable().Finite()`.
+- `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed
+  with the pre-existing inherited `Sets.Topological` warning.
