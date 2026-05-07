@@ -97,8 +97,13 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
 - 2026-05-06: Added explicit `@overload` declarations for
   `SetPartitions`, `SetPartitionsWithBlockCount`, and
   `SetPartitionsWithBlockSizes` for set-object, finite-iterable, and integer
-  cardinality base inputs. The runtime implementation still delegates to Sage's
-  fixed-base constructor and refines through the existing partition categories.
+  cardinality base inputs. The initial runtime implementation still delegated the
+  broad mixed union to Sage; this was corrected by the 2026-05-07 rework below.
+- 2026-05-07: Gate 2 review found that the overload declarations were still backed
+  by broad mixed-union bodies delegating directly to Sage. Reworked the runtime path
+  so fixed-base set-partition constructors first dispatch through a closed helper
+  over the three admitted cases: Sage integer cardinality, categorical set object,
+  or finite iterable materialized as a tuple.
 
 ## Validation
 
@@ -107,6 +112,12 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
 - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
   with the pre-existing Sage warning about `Sets.Topological` not subclassing
   `CategoryWithAxiom`.
+- 2026-05-07 rework validation:
+  - `python -m py_compile category_specs/sets/__init__.py` passed.
+  - `git diff --check -- category_specs/sets/__init__.py` passed.
+  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
+    with the same pre-existing Sage warning about `Sets.Topological` not subclassing
+    `CategoryWithAxiom`.
 
 ## Spec-Weakening Review
 
@@ -115,3 +126,61 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
   Sage-gap-driven interface shrinkage.
 - Result: passed. The diff preserves the `Set(X)` rejection, adds the named
   singleton surface, and adds overload declarations without removing obligations.
+
+## Review Log
+
+### Review 2026-05-07 (Popper)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 2 Finding: Mixed Union Bodies Still Delegated To Sage
+
+- The card requires closed admitted cases and no duck-typed wrapper admission.
+- The implementation had overloads, but the concrete bodies still accepted
+  `Set | Iterable[SetElement] | Integer` and delegated directly to Sage for
+  `SetPartitions`, `SetPartitionsWithBlockCount`, and
+  `SetPartitionsWithBlockSizes`.
+- This also conflicted with the parent phase criterion to audit remaining placeholder
+  union data shapes.
+
+#### Rework
+
+- Added `_set_partitions_base(...)` as the closed runtime dispatch point for the three
+  admitted shapes.
+- Integer-cardinality input is recognized by Sage's `Integer` type and adds the
+  finite-totally-ordered-base refinement.
+- Existing set-object input is recognized by Sage `CategoryObject` plus membership in
+  `Sets()`.
+- Finite iterable input is materialized as a tuple before delegation to Sage.
+- Other input shapes now raise `TypeError` instead of falling through to Sage's broad
+  constructor behavior.
+
+### Re-review 2026-05-07 (Lorentz)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Confirmed the grounding cites Sage inventory, mapping, style authority, owner, and
+  return-object data.
+- Confirmed `_set_partitions_base(...)` dispatches over the three admitted cases:
+  Sage `Integer`, Sage `CategoryObject` with membership in `Sets()`, and finite
+  iterable materialized as a tuple. Other inputs raise `TypeError`.
+- Confirmed the three public set-partition constructors call the helper before Sage
+  delegation.
+- Confirmed the rework tightens dispatch and adds review evidence without narrowing
+  smokes or weakening the `Set(X)` rejection.
+- Confirmed smoke coverage includes all three partition base shapes.
+- Confirmed no `*args`, `**kwargs`, public option bag, or generic `Set(X)` surface was
+  introduced.
+
+#### Residual Risk
+
+- Re-review relied on the local validation recorded above rather than rerunning the
+  validation commands independently.

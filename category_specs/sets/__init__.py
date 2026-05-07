@@ -518,20 +518,40 @@ class Sets(Category_singleton):
 
         @staticmethod
         def _set_partitions_categories(
-            base_set: Set | Iterable[SetElement] | Integer,
+            *, finite_totally_ordered_base: bool = False
         ) -> list[Category]:
             r"""Return project categories for fixed-base set-partition parents."""
-            from sage.rings.integer import Integer as SageInteger
-
             from .subcategories.partitioned import (
                 FiniteTotallyOrderedBasePartitionedSetsCategory,
                 PartitionedSetsCategory,
             )
 
             categories = [Sets(), PartitionedSetsCategory()]
-            if isinstance(base_set, SageInteger):
+            if finite_totally_ordered_base:
                 categories.append(FiniteTotallyOrderedBasePartitionedSetsCategory())
             return categories
+
+        @final
+        def _set_partitions_base(
+            self,
+            base_set: Set | Iterable[SetElement] | Integer,
+        ) -> tuple[Set | tuple[SetElement, ...] | Integer, list[Category]]:
+            r"""Normalize one admitted fixed-base set-partition input shape."""
+            from sage.rings.integer import Integer as SageInteger
+            from sage.structure.category_object import CategoryObject
+
+            if isinstance(base_set, SageInteger):
+                return base_set, self._set_partitions_categories(
+                    finite_totally_ordered_base=True
+                )
+            if isinstance(base_set, CategoryObject) and base_set in Sets():
+                return base_set, self._set_partitions_categories()
+            if isinstance(base_set, Iterable):
+                return tuple(base_set), self._set_partitions_categories()
+            raise TypeError(
+                "set-partition constructors require a set object, "
+                "a finite iterable of elements, or a Sage Integer cardinality"
+            )
 
         @final
         def from_iterable(self, elements: Iterable[SetElement]) -> FiniteSet:
@@ -1099,9 +1119,8 @@ class Sets(Category_singleton):
             r"""Return the set of all partitions of ``base_set``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return refine_category(
-                SageSetPartitions(base_set), self._set_partitions_categories(base_set)
-            )
+            normalized_base, categories = self._set_partitions_base(base_set)
+            return refine_category(SageSetPartitions(normalized_base), categories)
 
         @overload
         def SetPartitionsWithBlockCount(
@@ -1133,9 +1152,10 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` into ``block_count`` blocks."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
+            normalized_base, categories = self._set_partitions_base(base_set)
             return refine_category(
-                SageSetPartitions(base_set, block_count),
-                self._set_partitions_categories(base_set),
+                SageSetPartitions(normalized_base, block_count),
+                categories,
             )
 
         @overload
@@ -1168,9 +1188,10 @@ class Sets(Category_singleton):
             r"""Return partitions of ``base_set`` with block sizes."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
+            normalized_base, categories = self._set_partitions_base(base_set)
             return refine_category(
-                SageSetPartitions(base_set, block_sizes),
-                self._set_partitions_categories(base_set),
+                SageSetPartitions(normalized_base, block_sizes),
+                categories,
             )
 
         @final
