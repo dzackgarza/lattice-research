@@ -46,7 +46,10 @@ class _EnumeratedSetsFromIterator(Category_singleton):
                 return True
             if self.category().is_subcategory(SageInfiniteEnumeratedSets()):
                 return False
-            raise NotImplementedError("iterator-backed set finiteness requires finite or infinite category evidence")
+            raise NotImplementedError(
+                "iterator-backed set finiteness requires finite or infinite "
+                "category evidence"
+            )
 
         @override
         @final
@@ -64,7 +67,10 @@ class _EnumeratedSetsFromIterator(Category_singleton):
             if self.category().is_subcategory(SageInfiniteEnumeratedSets()):
                 return infinity
             if not self.category().is_subcategory(SageFiniteEnumeratedSets()):
-                raise NotImplementedError("iterator-backed cardinality requires finite or infinite category evidence")
+                raise NotImplementedError(
+                    "iterator-backed cardinality requires finite or infinite "
+                    "category evidence"
+                )
             return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
 
         @override
