@@ -68,6 +68,21 @@ package-surface risk of import hygiene or the broad mechanical footprint of `E50
 - Run `just test` after the cleanup attempt or record the remaining blocker stage if
   broader category-spec Ruff failures still prevent a full pass.
 
+## Review Log
+
+### Evidence Refresh - 2026-05-07
+
+Outcome: `needs-review`; all card-local checks pass, and human acceptance is still
+required before completion.
+
+- `uvx --from ruff ruff check --select UP047 category_specs/utils.py` passed.
+- `uvx --from ruff ruff check category_specs/utils.py` passed.
+- `python -m compileall -q category_specs/utils.py` passed.
+- Public `just test` still stops at global mypy before Ruff/Vulture; that broader QC
+  frontier is not owned by this UP047 leaf.
+- The modernized helper names and runtime helper surface are preserved:
+  `_fold_nonempty_binary_operation` and `foldable_operation`.
+
 ## Work Log
 
 - 2026-05-03: Created from Codex Spark triage of the category-specs Ruff normalization
