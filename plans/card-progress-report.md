@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-07 03:57 UTC_
+_Generated: 2026-05-07 04:00 UTC_
 
 ## Overall
 
 - Total cards: **225**
-- Completed cards: **13**
-- Overall progress: `[#-----------------------]   5.8%`
+- Completed cards: **14**
+- Overall progress: `[#-----------------------]   6.2%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -14,7 +14,7 @@ _Generated: 2026-05-07 03:57 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 15 | 13 | 0 | 0 | 0 |
+| decision | 15 | 14 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 |
 | phase | 18 | 0 | 1 | 12 | 0 |
 | plan | 8 | 0 | 1 | 6 | 0 |
@@ -27,7 +27,7 @@ _Generated: 2026-05-07 03:57 UTC_
 | --- | --- | ---: | ---: | ---: | ---: |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[#---------------]   9.2%` | 11/119 | 3 | 102 | 0 |
+| Category specs and Sage surface admission | `[##--------------]  10.1%` | 12/119 | 3 | 102 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
@@ -65,6 +65,7 @@ _Generated: 2026-05-07 03:57 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-07 `decision` `DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER`: Decide algebra standard-involution method owner (commit `ec25352`: spec: route algebra involution owner decision)
 - 2026-05-06 `decision` `DECISION-VINBERG-WRAPPING-STRATEGY`: Decide Vinberg algorithm source strategy — wrap, adapt, or reimplement (commit `b0cde61`: docs: normalize Coble and Vinberg tracker specs)
 - 2026-05-06 `decision` `DECISION-TCO-DEFINITION-AND-SIGNATURE`: Decide Coble algebraic and transcendental lattice notation (commit `d8d172a`: User-initiated Checkpoint)
 - 2026-05-06 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `d53305d`: docs: decide discriminant form orbit routing)

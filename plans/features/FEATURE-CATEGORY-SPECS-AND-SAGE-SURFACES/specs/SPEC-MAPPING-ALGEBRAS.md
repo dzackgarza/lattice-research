@@ -94,7 +94,7 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 | Sage surface | Reconciled target | Highest mathematical owner and consequence |
 | --- | --- | --- |
 | `Algebras.ParentMethods.characteristic()` | Inherited ring/base-ring characteristic, not an algebra-specific method | The value is `base_ring().characteristic()`. The algebra mapping preserves Sage behavior through `base_ring().characteristic()` and any ring-level `characteristic()` surface; `Algebras(R)` does not own a new method. |
-| `Algebras.ParentMethods.has_standard_involution()` | Unresolved algebra-specialized predicate | Sage's implementation is explicitly quaternion-specific and basis-dependent. Keep the existing interop obligation visible, but do not treat it as a generally grounded `Algebras(R)` method until a quaternion or involutive-algebra owner is source-grounded. |
+| `Algebras.ParentMethods.has_standard_involution()` | Rejected public project method for now; compatibility evidence only | Sage's implementation is explicitly quaternion-specific and basis-dependent. Do not admit this as a generally grounded `Algebras(R)` method. Future admission must go through a source-grounded algebra-with-involution category or quaternion-algebra refinement, preferably exposing the actual involution/conjugation structure rather than a generic compatibility boolean. Decision: `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]`. |
 | `Algebras.ElementMethods._div_(y)` | Runtime interop helper | The public mathematical operation is division by an invertible element in the appropriate multiplicative/ring owner. The underscored Sage helper is not a public algebra method. |
 | `Algebras.Quotients.ParentMethods.algebra_generators()` | `algebra_generators() -> AlgebraElementFamily` on algebra quotients | The quotient owner may retract generators from the ambient algebra; the returned family remains algebra elements, not a raw Sage family. |
 | `Algebras.CartesianProducts`, `TensorProducts`, `DualObjects` | `Algebras(R).CartesianProducts()`, `TensorProducts()`, `DualObjects()` | These are construction categories on algebra subcategories. Product/tensor algebra structure belongs here; generic construction mechanics stay in Cat/universal construction surfaces. |
@@ -138,11 +138,11 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 - Confidence: High.
 - Gaps: No web or Sage repository branch search was performed because the local task requested the installed source tree.
 
-- Searched: Sage sources `sage/categories/algebras.py`, `sage/categories/algebras_with_basis.py`, `sage/categories/finite_dimensional_algebras_with_basis.py`, `sage/categories/semisimple_algebras.py`, and `sage/algebras/free_algebra.py`.
-- Found: Sage implements `has_standard_involution()` on `Algebras.ParentMethods`, but its source comment says the algorithm is specific to quaternion algebras and depends on basis behavior; no general mathematical definition or project owner for "standard involution" was found in the checked Algebras sources.
-- Conclusion: inference based on limited source evidence: the project should not treat `has_standard_involution()` as fully grounded on all `Algebras(R)` until an involutive/quaternion-algebra owner is defined.
-- Confidence: Medium.
-- Gaps: Quaternion-algebra source files and algebra-with-involution references were not checked because they are outside the inventory-named Algebras source corpus.
+- Searched: Sage sources `sage/categories/algebras.py`, `sage/categories/algebras_with_basis.py`, `sage/categories/finite_dimensional_algebras_with_basis.py`, `sage/categories/semisimple_algebras.py`, `sage/algebras/free_algebra.py`, and installed quaternion-algebra sources under `sage/algebras/quatalg/`.
+- Found: Sage implements `has_standard_involution()` on `Algebras.ParentMethods`, but its source comment says the algorithm is specific to quaternion algebras and should belong there. The checked quaternion sources expose quaternion conjugation and reduced trace/norm surfaces, not a project-level algebra-with-involution owner.
+- Conclusion: inference based on installed Sage 10.7 source: reject `has_standard_involution()` as a public project method for now. Future admission requires a source-grounded algebra-with-involution category or quaternion-algebra refinement.
+- Confidence: High for rejection from general `Algebras(R)`; medium for the future owner because the project has not yet grounded quaternion or algebra-with-involution categories.
+- Gaps: Literature/source work for a durable algebra-with-involution or quaternion-algebra project category remains future work.
 
 - Searched: Sage sources named above plus `sage/categories/algebra_functor.py` for Hopf/coalgebra methods on group-algebra constructions.
 - Found: `coproduct_on_basis()` and documented antipode/counit behavior appear in the group-algebra functor discussion, but no Hopf-algebra project mapping surface exists in this Algebras spec.
