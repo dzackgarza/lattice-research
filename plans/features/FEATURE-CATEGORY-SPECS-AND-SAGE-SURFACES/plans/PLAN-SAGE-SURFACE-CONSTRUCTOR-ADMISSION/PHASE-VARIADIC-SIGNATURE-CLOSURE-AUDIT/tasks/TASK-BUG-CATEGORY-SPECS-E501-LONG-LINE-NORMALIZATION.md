@@ -325,3 +325,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   E501 category_specs/lattices/subcategories/symmetric.py` and `python -m
   compileall category_specs/lattices/subcategories/symmetric.py` now pass.
   Repo-wide E501 count is now 171.
+- 2026-05-07: Cleared the
+  `category_specs/lattices/subcategories/nondegenerate.py` compatibility
+  re-export slice with manual wrapping of long intentional re-export aliases.
+  `uvx --from ruff ruff check --select E501
+  category_specs/lattices/subcategories/nondegenerate.py` and `python -m
+  compileall category_specs/lattices/subcategories/nondegenerate.py` now pass.
+  Repo-wide E501 count is now 167.

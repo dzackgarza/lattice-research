@@ -13,14 +13,18 @@ from ...forms.subcategories.nondegenerate import (
     NondegenerateBilinearModulesObject as NondegenerateBilinearModulesObject,
 )
 from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesCategory as OverPIDNondegenerateBilinearModulesCategory,
+    OverPIDNondegenerateBilinearModulesCategory
+    as OverPIDNondegenerateBilinearModulesCategory,
 )
 from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesElement as OverPIDNondegenerateBilinearModulesElement,
+    OverPIDNondegenerateBilinearModulesElement
+    as OverPIDNondegenerateBilinearModulesElement,
 )
 from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesMorphism as OverPIDNondegenerateBilinearModulesMorphism,
+    OverPIDNondegenerateBilinearModulesMorphism
+    as OverPIDNondegenerateBilinearModulesMorphism,
 )
 from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesObject as OverPIDNondegenerateBilinearModulesObject,
+    OverPIDNondegenerateBilinearModulesObject
+    as OverPIDNondegenerateBilinearModulesObject,
 )
