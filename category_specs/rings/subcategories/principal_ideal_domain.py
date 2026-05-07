@@ -23,7 +23,9 @@ if TYPE_CHECKING:
 
 
 class _PrincipalIdealDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().PrincipalIdeal()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().PrincipalIdeal()``.
+    """
 
     _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
 
@@ -40,7 +42,9 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SagePrincipalIdealDomains() or (R in self.base_category() and R.is_pid())
+        return R in SagePrincipalIdealDomains() or (
+            R in self.base_category() and R.is_pid()
+        )
 
     class ParentMethods:
         @override
