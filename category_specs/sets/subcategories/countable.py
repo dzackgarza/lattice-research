@@ -6,8 +6,12 @@ from collections.abc import Iterator
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
-from sage.categories.finite_enumerated_sets import FiniteEnumeratedSets as SageFiniteEnumeratedSets
-from sage.categories.infinite_enumerated_sets import InfiniteEnumeratedSets as SageInfiniteEnumeratedSets
+from sage.categories.finite_enumerated_sets import (
+    FiniteEnumeratedSets as SageFiniteEnumeratedSets,
+)
+from sage.categories.infinite_enumerated_sets import (
+    InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
+)
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -85,9 +89,13 @@ class _CountableSets(CategoryWithAxiom):
             return SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
 
         @final
-        def map(self, f: SetMorphism, name: str | None = None, *, is_injective: bool = True) -> Set:
+        def map(
+            self, f: SetMorphism, name: str | None = None, *, is_injective: bool = True
+        ) -> Set:
             r"""Return the image of this enumerated set under ``f``."""
-            return SageEnumeratedSets.ParentMethods.map(self, f, name=name, is_injective=is_injective)
+            return SageEnumeratedSets.ParentMethods.map(
+                self, f, name=name, is_injective=is_injective
+            )
 
     class ElementMethods: ...
 
