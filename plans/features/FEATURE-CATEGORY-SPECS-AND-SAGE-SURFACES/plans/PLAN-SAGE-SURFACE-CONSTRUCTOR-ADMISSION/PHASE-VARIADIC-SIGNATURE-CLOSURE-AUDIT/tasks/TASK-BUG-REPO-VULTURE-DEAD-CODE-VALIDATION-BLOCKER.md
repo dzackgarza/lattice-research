@@ -132,16 +132,34 @@ tasks:
   `**/*.bak/**` directories from all Python tool passes.
 
 No project-local vulture bypass, ignore file, whitelist, or QC override was added.
-The global QC mypy blocker was resolved by adding `**/*.bak/**` exclusions to the
-`_python-qc-files` and `_sage-qc-files` recipes.
+The stale backup-file scan surface was resolved by adding `**/*.bak/**` exclusions to
+the global `_python-qc-files` and `_sage-qc-files` recipes. This did not resolve the
+separate current global mypy frontier.
 
 ## Remaining Validation Frontier
 
 The code-fix child task (`TASK-BUG-GLOBAL-QC-VULTURE-CATEGORY-SPEC-WHITELIST-GAP`)
-must classify and resolve the 762 category-spec findings before `just test` can
-reach vulture and pass. This parent triage card is complete -- its work was to
-classify the findings and split them into actionable children. The children now own
-the resolution.
+has now resolved the category-spec Vulture findings through code/smoke changes and
+repo-scoped global `_vulture` passes. Public `just test` still stops at global mypy
+before Vulture, so this parent cannot claim full-QC success; its triage scope remains
+limited to reproducing, classifying, and splitting the original Vulture failure.
+
+## Review Log
+
+### Self-Check - 2026-05-07
+
+Outcome: stale validation prose corrected; card remains `needs-review` for independent
+review and human acceptance.
+
+- Gate 2 acceptance for the parent triage scope remains plausible: the original
+  Vulture failure was reproduced, classified, and split into owner-specific child
+  cards without bypasses or whitelist edits.
+- Current validation state is not the historical Vulture blocker described at card
+  creation. Repo-scoped global `_vulture` now passes after the category child rework,
+  while public `just test` still stops at global mypy before Vulture.
+- This card should not be marked blocked merely because the public QC pipeline now has
+  an earlier mypy frontier; that is not a Vulture-triage prerequisite and there are
+  other ready DAG leaves.
 
 ## Work Log
 
@@ -153,3 +171,6 @@ the resolution.
 - 2026-05-06: Recorded triage completion, confirmed no local bypass was added, linked
   the split child cards, and marked the parent blocked on fresh vulture-stage evidence
   through public QC or explicit approval for a private vulture-only diagnostic.
+- 2026-05-07: Updated stale validation language after the category-spec Vulture child
+  passed repo-scoped global `_vulture`; public `just test` still stops at global mypy
+  before Vulture.
