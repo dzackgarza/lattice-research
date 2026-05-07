@@ -56,6 +56,13 @@ def single_block_ordered_partition():
     return C.SetPartitions(3)([[1, 2, 3]])
 
 
+def finite_image_subobject_with_ambient():
+    domain = C.IntegerRange(3)
+    codomain = C.IntegerRange(5)
+    f = Hom(domain, codomain, category=Sets())(lambda n: n + 1)
+    return C.ImageSubobject(f, domain)
+
+
 def abstract_method_has_name(method, name):
     return method.__name__ == name
 
@@ -387,6 +394,9 @@ SMOKE_STATEMENTS = (
     ("1 lies in ImageSubobject(n + 1, IntegerRange(3))", lambda _: 1 in C.ImageSubobject(lambda n: n + 1, C.IntegerRange(3))),
     ("0 does not lie in ImageSubobject(n + 1, IntegerRange(3))", lambda _: 0 not in C.ImageSubobject(lambda n: n + 1, C.IntegerRange(3))),
     ("ImageSubobject(n + 1, IntegerRange(3)) has cardinality 3", lambda _: C.ImageSubobject(lambda n: n + 1, C.IntegerRange(3)).cardinality() == 3),
+    ("ImageSubobject with codomain records its ambient", lambda _: finite_image_subobject_with_ambient().ambient() == C.IntegerRange(5)),
+    ("ImageSubobject with codomain lifts into ambient", lambda _: finite_image_subobject_with_ambient().lift(1) == C.IntegerRange(5)(1)),
+    ("ImageSubobject with codomain retracts ambient elements", lambda _: finite_image_subobject_with_ambient().retract(1) == 1),
     (
         "TotallyOrderedFiniteSet(['a', 'b', 'c']) is finite countable",
         lambda _: C.TotallyOrderedFiniteSet(["a", "b", "c"]) in Sets().Countable().Finite(),

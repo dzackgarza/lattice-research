@@ -74,3 +74,19 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
   category_specs/justfile check-abstract-redefinitions` passed; `git diff --check`
   passed. This card is moved to `in-review`; human acceptance is still required for
   closure.
+
+## Review Log
+
+### Review - 2026-05-07
+
+Outcome: review gap found and repaired; card remains `needs-review` for a fresh review
+and human acceptance.
+
+- Gate 2 initially lacked direct smoke evidence for the ambient/lift/retract part of
+  the card title. The existing smoke covered finite-image membership and cardinality
+  for a Python callable whose Sage codomain is `None`.
+- Added a focused smoke witness using a set morphism
+  `IntegerRange(3) -> IntegerRange(5)` so `ImageSubobject.ambient()` is a real
+  codomain rather than Sage's callable fallback.
+- Added smoke assertions for `ambient()`, `lift()`, and `retract()` on that codomain
+  witness while preserving the existing membership/cardinality assertions.
