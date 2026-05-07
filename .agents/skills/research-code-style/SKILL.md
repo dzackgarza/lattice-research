@@ -25,6 +25,10 @@ Read `references/code-style.md` before writing, reviewing, or refactoring mathem
 
 ## Routing
 
+- Load `anti-slop` for the general introspection red-flag framework
+  (`isinstance`, `hasattr`, `getattr`, `type()`, `issubclass`, `callable()`)
+  — see `references/code-patterns.md#introspection-red-flags`. This skill's
+  `code-style.md` sharpens the global patterns for mathematical code.
 - Load `category-spec-style` as well when the work touches `category_specs` specs, category surfaces, constructors, smoke files, or Sage mapping.
 - Load `research-orchestration` when work enters state-machine execution, delegation, self-check, or adversarial audit.
 - Load `task` or `track` when a style or correctness finding must become a Nimbalyst card.
