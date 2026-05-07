@@ -90,28 +90,36 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             return MatrixSpace.dims(self)
 
         @final
-        def matrix_from_matrix(self, matrix: Matrix, *, coerce: bool = True) -> RingElement:
+        def matrix_from_matrix(
+            self, matrix: Matrix, *, coerce: bool = True
+        ) -> RingElement:
             r"""Return the matrix-algebra element represented by ``matrix``."""
             from sage.matrix.matrix_space import MatrixSpace
 
             return MatrixSpace.matrix(self, matrix, coerce=coerce)
 
         @final
-        def matrix_from_entries(self, entries: Sequence[RingElement], *, coerce: bool = True) -> RingElement:
+        def matrix_from_entries(
+            self, entries: Sequence[RingElement], *, coerce: bool = True
+        ) -> RingElement:
             r"""Return the matrix whose entries are listed in row-major order."""
             from sage.matrix.matrix_space import MatrixSpace
 
             return MatrixSpace.matrix(self, entries, coerce=coerce)
 
         @final
-        def matrix_from_rows(self, rows: Sequence[Sequence[RingElement]], *, coerce: bool = True) -> RingElement:
+        def matrix_from_rows(
+            self, rows: Sequence[Sequence[RingElement]], *, coerce: bool = True
+        ) -> RingElement:
             r"""Return the matrix whose rows are ``rows``."""
             from sage.matrix.matrix_space import MatrixSpace
 
             return MatrixSpace.matrix(self, rows, coerce=coerce)
 
         @final
-        def scalar_matrix(self, scalar: RingElement, *, coerce: bool = True) -> RingElement:
+        def scalar_matrix(
+            self, scalar: RingElement, *, coerce: bool = True
+        ) -> RingElement:
             r"""Return the scalar matrix determined by ``scalar``."""
             from sage.matrix.matrix_space import MatrixSpace
 
@@ -174,7 +182,9 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         ) -> MatrixSpace:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix_space(self, nrows=nrows, ncols=ncols, sparse=sparse)
+            return MatrixSpace.matrix_space(
+                self, nrows=nrows, ncols=ncols, sparse=sparse
+            )
 
         @final
         def from_vector(
