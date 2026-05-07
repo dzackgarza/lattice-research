@@ -654,3 +654,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff check --select E501 category_specs/sets/subcategories/infinite.py` and
   `python -m compileall category_specs/sets/subcategories/infinite.py` now
   pass. Repo-wide E501 count is now 50.
+- 2026-05-07: Cleared the
+  `category_specs/sets/subcategories/group_actions.py` slice with `uvx --from
+  ruff ruff format`, preserving G-set constructor parameters. `uvx --from ruff
+  ruff check --select E501 category_specs/sets/subcategories/group_actions.py`
+  and `python -m compileall category_specs/sets/subcategories/group_actions.py`
+  now pass. Repo-wide E501 count is now 49.
