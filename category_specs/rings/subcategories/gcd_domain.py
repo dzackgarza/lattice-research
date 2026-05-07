@@ -36,7 +36,9 @@ class _GcdDomains(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageGcdDomains() or (R in self.base_category() and R.is_gcd_domain())
+        return R in SageGcdDomains() or (
+            R in self.base_category() and R.is_gcd_domain()
+        )
 
     class ParentMethods:
         @override
@@ -55,6 +57,8 @@ class _GcdDomains(CategoryWithAxiom):
         def lcm(self, other: RingElement) -> RingElement: ...
 
         @abstract_method
-        def xgcd(self, other: RingElement) -> tuple[RingElement, RingElement, RingElement]: ...
+        def xgcd(
+            self, other: RingElement
+        ) -> tuple[RingElement, RingElement, RingElement]: ...
 
     class MorphismMethods: ...

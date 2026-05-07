@@ -513,3 +513,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/global_field.py` and `python -m compileall
   category_specs/rings/subcategories/global_field.py` now pass. Repo-wide E501
   count is now 86.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/gcd_domain.py` slice with `uvx --from
+  ruff ruff format`, preserving GCD-domain containment and `xgcd` signature.
+  `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/gcd_domain.py` and `python -m compileall
+  category_specs/rings/subcategories/gcd_domain.py` now pass. Repo-wide E501
+  count is now 84.
