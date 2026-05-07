@@ -44,11 +44,11 @@ isometries, divisibility, discriminant objects, and algorithm routing.
 - `category_specs/forms/docs/MAPPING.md`
 - `category_specs/lattices/docs/SAGE_INVENTORY.md`
 - `category_specs/lattices/docs/MAPPING.md`
-- `theory/foundations/bilinear-forms-duals-morphisms.md`
-- `.agents/theory/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
-- `.agents/theory/spec-backups/lattices_written_spec_backup.py`
-- Lattice memories and cards that state `src/lattices/lattices.py` is written-spec
-  source material for the redesign, not a compatibility-shim target.
+- `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`
+- `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
+- `src.bak/spec-backups/lattices_written_spec_backup.py`
+- Lattice memories and cards that state `src.bak/spec-backups/*` files are written
+  source material for the redesign, not compatibility-shim targets.
 
 ## Context
 
@@ -108,3 +108,32 @@ The seed rows include:
   symmetric divisibility, free/torsion form, lattice, discriminant-object, orthogonal
   group, and algorithm-facing lattice rows to
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Moved this task to needs-review.
+- 2026-05-07: Repaired stale source-provenance paths after Gate 1 review found this
+  card still cited deleted `theory/foundations/...` and `.agents/theory/spec-backups`
+  roots. The card now matches the active target spec provenance:
+  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md` and
+  `src.bak/spec-backups/*`.
+
+## Review Log
+
+### Review 2026-05-07 (Sagan)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 1 Finding: Stale Source-Provenance Paths
+
+- This task card cited `theory/foundations/bilinear-forms-duals-morphisms.md` and
+  `.agents/theory/spec-backups/*` paths that no longer exist.
+- The target inventory spec already uses the corrected sources, so the card
+  provenance was inconsistent with the source-grounding surface.
+
+#### Rework
+
+- Updated the card source provenance to
+  `.agents/memories/theory/foundations/bilinear-forms-duals-morphisms.md`.
+- Updated the lattice spec-backup sources to
+  `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
+  and `src.bak/spec-backups/lattices_written_spec_backup.py`.
