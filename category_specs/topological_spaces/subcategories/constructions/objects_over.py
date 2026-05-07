@@ -7,7 +7,10 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
-from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
+from ....cat.subcategories.constructions.objects_over import (
+    structure_codomain,
+    structure_domain,
+)
 
 if TYPE_CHECKING:
     from ....types import Morphism, TopologicalSpace
