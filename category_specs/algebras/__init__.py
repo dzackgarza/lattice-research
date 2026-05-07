@@ -269,12 +269,6 @@ class _AlgebraParentMethods:
         del coefficients
         ...
 
-    @override
-    @abstract_method
-    def has_standard_involution(self) -> bool:
-        r"""Return whether this algebra has Sage's standard involution."""
-        ...
-
     @abstract_method
     def idempotent_lift(self, x: AlgebraElement) -> AlgebraElement:
         r"""Lift the idempotent ``x`` along the algebra's radical quotient."""

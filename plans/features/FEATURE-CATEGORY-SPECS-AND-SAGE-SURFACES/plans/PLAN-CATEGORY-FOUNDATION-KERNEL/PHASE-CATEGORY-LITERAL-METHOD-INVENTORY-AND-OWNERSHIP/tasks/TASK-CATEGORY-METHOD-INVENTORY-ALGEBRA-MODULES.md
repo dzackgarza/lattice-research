@@ -137,3 +137,25 @@ re-review still required
 - Created `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]` to decide whether the
   owner is a quaternion-algebra refinement, an algebra-with-involution refinement, or
   no public project method yet.
+
+### Re-review 2026-05-07 (Hypatia)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 1 Finding: Live Algebra Surface Still Admitted The Method
+
+- The inventory and decision card correctly stopped admitting
+  `has_standard_involution()` on general `Algebras(R)`.
+- `category_specs/algebras/__init__.py` still declared
+  `has_standard_involution()` as an abstract method on the general algebra parent
+  surface, contradicting the reworked inventory and decision.
+
+#### Rework
+
+- Removed the general `Algebras(R).ParentMethods.has_standard_involution()` abstract
+  method from `category_specs/algebras/__init__.py`.
+- Left Sage inventory and mapping references intact as source evidence for the
+  unresolved decision, not as public project admission.
