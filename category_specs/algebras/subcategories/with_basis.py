@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.categories.algebras_with_basis import AlgebrasWithBasis as SageAlgebrasWithBasis
+from sage.categories.algebras_with_basis import (
+    AlgebrasWithBasis as SageAlgebrasWithBasis,
+)
 from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
@@ -44,7 +46,9 @@ class _AlgebrasWithBasis(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is an algebra with a Sage-recognized basis."""
-        return A in self.base_category() and A in SageAlgebrasWithBasis(self.base_ring())
+        return A in self.base_category() and A in SageAlgebrasWithBasis(
+            self.base_ring()
+        )
 
     class ParentMethods:
         @abstract_method

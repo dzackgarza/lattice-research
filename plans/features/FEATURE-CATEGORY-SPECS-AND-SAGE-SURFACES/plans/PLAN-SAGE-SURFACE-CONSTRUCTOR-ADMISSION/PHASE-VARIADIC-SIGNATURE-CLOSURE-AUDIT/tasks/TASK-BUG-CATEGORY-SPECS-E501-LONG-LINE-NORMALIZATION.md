@@ -604,3 +604,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   logic. `uvx --from ruff ruff check --select E501 category_specs/axioms.py`
   and `python -m compileall category_specs/axioms.py` now pass. Repo-wide E501
   count is now 60.
+- 2026-05-07: Cleared the
+  `category_specs/algebras/subcategories/with_basis.py` slice with `uvx --from
+  ruff ruff format`, preserving Sage with-basis import and containment logic.
+  `uvx --from ruff ruff check --select E501
+  category_specs/algebras/subcategories/with_basis.py` and `python -m
+  compileall category_specs/algebras/subcategories/with_basis.py` now pass.
+  Repo-wide E501 count is now 58.
