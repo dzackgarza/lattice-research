@@ -27,7 +27,10 @@ class _CharacteristicRings(_Category_over_base_integer):
     @override
     @final
     def _repr_object_names(self):
-        return f"{self.base_category()._repr_object_names()} of characteristic {self.characteristic()}"
+        return (
+            f"{self.base_category()._repr_object_names()} "
+            f"of characteristic {self.characteristic()}"
+        )
 
     class ParentMethods:
         @abstract_method

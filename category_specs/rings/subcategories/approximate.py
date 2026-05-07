@@ -62,7 +62,9 @@ class ApproximateRingsCategory(Category_singleton):
 
     class ParentMethods:
         @abstract_method
-        def change_precision(self, precision: Integer, precision_type: str | None = None) -> Ring:
+        def change_precision(
+            self, precision: Integer, precision_type: str | None = None
+        ) -> Ring:
             r"""Return the same approximate ring with the requested precision."""
             ...
 

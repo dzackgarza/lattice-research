@@ -43,7 +43,9 @@ class _CompleteDiscreteValuationObjects(Category_singleton):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in _CompleteDiscreteValuationRings() or (R in _CompleteDiscreteValuationFields())
+        return R in _CompleteDiscreteValuationRings() or (
+            R in _CompleteDiscreteValuationFields()
+        )
 
     class ElementMethods:
         @abstract_method

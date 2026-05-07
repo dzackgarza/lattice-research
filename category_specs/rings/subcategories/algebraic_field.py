@@ -57,7 +57,10 @@ class _AlgebraicFields(Category_singleton):
 
         @abstract_method
         def polynomial_root(
-            self, poly: Polynomial, interval: RealInterval | ComplexInterval, multiplicity: Integer = 1
+            self,
+            poly: Polynomial,
+            interval: RealInterval | ComplexInterval,
+            multiplicity: Integer = 1,
         ) -> RingElement: ...
 
     class ElementMethods: ...

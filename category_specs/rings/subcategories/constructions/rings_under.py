@@ -5,7 +5,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_over_base_ring, CovariantConstructionCategory
-from ....cat.subcategories.constructions.objects_over import structure_codomain, structure_domain
+from ....cat.subcategories.constructions.objects_over import (
+    structure_codomain,
+    structure_domain,
+)
 
 if TYPE_CHECKING:
     from ....types import Ring, RingMorphism
