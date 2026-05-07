@@ -311,3 +311,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff check --select E501 category_specs/rings/subcategories/p_adic_ring.py`
   and `python -m compileall category_specs/rings/subcategories/p_adic_ring.py`
   now pass. Repo-wide E501 count is now 179.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/algebraic_closure_of_rational_field.py`
+  slice with `uvx --from ruff ruff format`, preserving the QQbar constructor and
+  root overload surfaces. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/algebraic_closure_of_rational_field.py`
+  and `python -m compileall
+  category_specs/rings/subcategories/algebraic_closure_of_rational_field.py` now
+  pass. Repo-wide E501 count is now 175.

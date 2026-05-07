@@ -52,7 +52,10 @@ class _QQbar(Category_singleton):
     class ParentMethods:
         @override
         def polynomial_root(
-            self, poly: Polynomial, interval: RealInterval | ComplexInterval, multiplicity: Integer = 1
+            self,
+            poly: Polynomial,
+            interval: RealInterval | ComplexInterval,
+            multiplicity: Integer = 1,
         ) -> RingElement: ...
 
     class ElementMethods:
@@ -60,12 +63,18 @@ class _QQbar(Category_singleton):
         def nth_root(self, n: Integer, all: Literal[False] = False) -> RingElement: ...
 
         @overload
-        def nth_root(self, n: Integer, all: Literal[True] = True) -> list[RingElement]: ...
+        def nth_root(
+            self, n: Integer, all: Literal[True] = True
+        ) -> list[RingElement]: ...
 
         @overload
-        def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
+        def nth_root(
+            self, n: Integer, all: bool = False
+        ) -> RingElement | list[RingElement]: ...
 
         @override
-        def nth_root(self, n: Integer, all: bool = False) -> RingElement | list[RingElement]: ...
+        def nth_root(
+            self, n: Integer, all: bool = False
+        ) -> RingElement | list[RingElement]: ...
 
     class MorphismMethods: ...
