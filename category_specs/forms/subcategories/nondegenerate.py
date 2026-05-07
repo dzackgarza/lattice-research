@@ -1,4 +1,6 @@
-r"""Nondegenerate bilinear modules: ``Modules(R).WithForms().Bilinear().Nondegenerate()``.
+r"""Nondegenerate bilinear modules.
+
+Canonical chain: ``Modules(R).WithForms().Bilinear().Nondegenerate()``.
 
 A bilinear form ``b`` is *nondegenerate* iff the map
 ``\phi: M \to M^* = \mathrm{Hom}_R(M, R)`` sending ``v \mapsto b(v, -)``
@@ -67,8 +69,12 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
 
 NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
-NondegenerateBilinearModulesElement = NondegenerateBilinearModulesCategory.ElementMethods
-NondegenerateBilinearModulesMorphism = NondegenerateBilinearModulesCategory.MorphismMethods
+NondegenerateBilinearModulesElement = (
+    NondegenerateBilinearModulesCategory.ElementMethods
+)
+NondegenerateBilinearModulesMorphism = (
+    NondegenerateBilinearModulesCategory.MorphismMethods
+)
 
 
 class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -85,6 +91,12 @@ class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ri
     MorphismMethods = NondegenerateBilinearModulesCategory.MorphismMethods
 
 
-OverPIDNondegenerateBilinearModulesObject = OverPIDNondegenerateBilinearModulesCategory.ParentMethods
-OverPIDNondegenerateBilinearModulesElement = OverPIDNondegenerateBilinearModulesCategory.ElementMethods
-OverPIDNondegenerateBilinearModulesMorphism = OverPIDNondegenerateBilinearModulesCategory.MorphismMethods
+OverPIDNondegenerateBilinearModulesObject = (
+    OverPIDNondegenerateBilinearModulesCategory.ParentMethods
+)
+OverPIDNondegenerateBilinearModulesElement = (
+    OverPIDNondegenerateBilinearModulesCategory.ElementMethods
+)
+OverPIDNondegenerateBilinearModulesMorphism = (
+    OverPIDNondegenerateBilinearModulesCategory.MorphismMethods
+)
