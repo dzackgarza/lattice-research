@@ -136,3 +136,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/cat/base_category_types.py` and `python -m compileall
   category_specs/cat/base_category_types.py` now pass. Repo-wide E501 count is now
   489.
+- 2026-05-06: Cleared the `category_specs/algebras/__init__.py` slice with
+  `uvx --from ruff ruff format` plus manual wrapping of algebra constructor
+  docstrings, assertion messages, and one long finite-dimensional-algebra import.
+  `uvx --from ruff ruff check --select E501 category_specs/algebras/__init__.py`
+  and `python -m compileall category_specs/algebras/__init__.py` now pass.
+  Repo-wide E501 count is now 452.

@@ -28,7 +28,9 @@ from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
-from sage.categories.associative_algebras import AssociativeAlgebras as SageAssociativeAlgebras
+from sage.categories.associative_algebras import (
+    AssociativeAlgebras as SageAssociativeAlgebras,
+)
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
@@ -157,12 +159,17 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is a Sage associative algebra over this base ring."""
-        return A in MagmaticAlgebras(self.base_ring()) and A in SageAssociativeAlgebras(self.base_ring())
+        return A in MagmaticAlgebras(self.base_ring()) and A in SageAssociativeAlgebras(
+            self.base_ring()
+        )
 
     class ParentMethods:
         @final
         def is_associative(self) -> bool:
-            r"""Return whether multiplication satisfies ``(xy)z = x(yz)`` for all elements."""
+            r"""Return whether multiplication satisfies ``(xy)z = x(yz)``.
+
+            This is required for all elements.
+            """
             return True
 
     class ElementMethods: ...
@@ -206,12 +213,18 @@ class _AlgebraParentMethods:
 
     @final
     def left_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
-        r"""Return the smallest ``R``-submodule containing ``generators`` and closed under left multiplication by ``A``."""
+        r"""Return the smallest ``R``-submodule containing ``generators``.
+
+        It is closed under left multiplication by ``A``.
+        """
         return self.ideal_submodule(generators, side="left")
 
     @final
     def right_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
-        r"""Return the smallest ``R``-submodule containing ``generators`` and closed under right multiplication by ``A``."""
+        r"""Return the smallest ``R``-submodule containing ``generators``.
+
+        It is closed under right multiplication by ``A``.
+        """
         return self.ideal_submodule(generators, side="right")
 
     @final
@@ -252,7 +265,7 @@ class _AlgebraParentMethods:
 
     @abstract_method
     def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
-        r"""Return the Hochschild chain complex with coefficients in ``coefficients``."""
+        r"""Return the Hochschild chain complex with given coefficients."""
         del coefficients
         ...
 
@@ -392,7 +405,9 @@ class Algebras(Category_module):
             return self.category().base_ring()
 
         @final
-        def _refine_constructed_algebra(self, algebra: Algebra, categories: Sequence[Category]) -> Algebra:
+        def _refine_constructed_algebra(
+            self, algebra: Algebra, categories: Sequence[Category]
+        ) -> Algebra:
             return refine_category(algebra, [self.category(), *categories], test=False)
 
         @final
@@ -401,17 +416,29 @@ class Algebras(Category_module):
             algebra: MagmaticAlgebra,
             categories: Sequence[Category],
         ) -> MagmaticAlgebra:
-            return refine_category(algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False)
+            return refine_category(
+                algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False
+            )
 
         @final
         def _sage_algebra_from_source(
             self,
-            source: Magma | Semigroup | Monoid | Group | AdditiveSemigroup | AdditiveMonoid | AdditiveGroup,
+            source: Magma
+            | Semigroup
+            | Monoid
+            | Group
+            | AdditiveSemigroup
+            | AdditiveMonoid
+            | AdditiveGroup,
             source_category: Category,
         ) -> Algebra:
-            assert source in source_category, f"Expected source in {source_category}: {source}"
+            assert source in source_category, (
+                f"Expected source in {source_category}: {source}"
+            )
             algebra = source.algebra(self.base_ring(), category=source_category)
-            return self._refine_constructed_algebra(algebra, [self.category().WithBasis()])
+            return self._refine_constructed_algebra(
+                algebra, [self.category().WithBasis()]
+            )
 
         @final
         def _sage_algebra_from_source_with_target(
@@ -421,30 +448,47 @@ class Algebras(Category_module):
             target_category: Category,
             project_target_category: Category,
         ) -> MagmaticAlgebra:
-            assert source in source_category, f"Expected source in {source_category}: {source}"
+            assert source in source_category, (
+                f"Expected source in {source_category}: {source}"
+            )
             algebra = source.algebra(self.base_ring(), category=source_category)
-            assert algebra in target_category, f"Sage constructed algebra should lie in {target_category}: {algebra.category()}"
-            return self._refine_constructed_magmatic_algebra(algebra, [project_target_category, target_category])
+            assert algebra in target_category, (
+                f"Sage constructed algebra should lie in {target_category}: "
+                f"{algebra.category()}"
+            )
+            return self._refine_constructed_magmatic_algebra(
+                algebra, [project_target_category, target_category]
+            )
 
         @final
         def free_algebra_from_set(self, generators: Set) -> Algebra:
             r"""Return the free associative unital ``R``-algebra on ``generators``."""
             from sage.algebras.free_algebra import FreeAlgebra
 
-            assert generators.is_finite(), "free_algebra_from_set currently requires a finite generator set"
+            assert generators.is_finite(), (
+                "free_algebra_from_set currently requires a finite generator set"
+            )
             generator_tuple = tuple(generators)
             assert len(generator_tuple) == generators.cardinality(), (
-                f"finite generator set iteration must recover every generator of {generators}"
+                "finite generator set iteration must recover every generator of "
+                f"{generators}"
             )
             names = tuple(f"x{i}" for i, _ in enumerate(generator_tuple))
             algebra = FreeAlgebra(self.base_ring(), len(generator_tuple), names=names)
             algebra._category_specs_generator_set = generators
-            algebra._category_specs_generator_presentation = tuple(zip(generator_tuple, algebra.gens(), strict=True))
-            return self._refine_constructed_algebra(algebra, [self.category().WithBasis()])
+            algebra._category_specs_generator_presentation = tuple(
+                zip(generator_tuple, algebra.gens(), strict=True)
+            )
+            return self._refine_constructed_algebra(
+                algebra, [self.category().WithBasis()]
+            )
 
         @final
         def free_algebra_from_magma(self, magma: Magma) -> MagmaticAlgebra:
-            r"""Return the ``R``-module with basis ``magma`` and product extended ``R``-bilinearly from the magma law."""
+            r"""Return the ``R``-module with basis ``magma``.
+
+            The product is extended ``R``-bilinearly from the magma law.
+            """
             from sage.categories.magmas import Magmas
 
             target = SageMagmaticAlgebras(self.base_ring()).WithBasis()
@@ -456,8 +500,13 @@ class Algebras(Category_module):
             )
 
         @final
-        def free_algebra_from_semigroup(self, semigroup: Semigroup) -> AssociativeAlgebra:
-            r"""Return the semigroup algebra ``R[S]`` with basis ``S`` and multiplication induced by the semigroup law."""
+        def free_algebra_from_semigroup(
+            self, semigroup: Semigroup
+        ) -> AssociativeAlgebra:
+            r"""Return the semigroup algebra ``R[S]`` with basis ``S``.
+
+            Multiplication is induced by the semigroup law.
+            """
             from sage.categories.semigroups import Semigroups
 
             target = SageAssociativeAlgebras(self.base_ring()).WithBasis()
@@ -483,8 +532,13 @@ class Algebras(Category_module):
             return self._sage_algebra_from_source(group, Groups())
 
         @final
-        def free_algebra_from_additive_semigroup(self, semigroup: AdditiveSemigroup) -> AssociativeAlgebra:
-            r"""Return the semigroup algebra with product ``[x][y] = [x + y]`` extended ``R``-bilinearly."""
+        def free_algebra_from_additive_semigroup(
+            self, semigroup: AdditiveSemigroup
+        ) -> AssociativeAlgebra:
+            r"""Return the semigroup algebra with product ``[x][y] = [x + y]``.
+
+            The product is extended ``R``-bilinearly.
+            """
             from sage.categories.additive_semigroups import AdditiveSemigroups
 
             target = SageAssociativeAlgebras(self.base_ring()).WithBasis()
@@ -497,14 +551,20 @@ class Algebras(Category_module):
 
         @final
         def free_algebra_from_additive_monoid(self, monoid: AdditiveMonoid) -> Algebra:
-            r"""Return the monoid algebra with product ``[x][y] = [x + y]`` and unit the additive identity."""
+            r"""Return the monoid algebra with product ``[x][y] = [x + y]``.
+
+            The unit is the additive identity.
+            """
             from sage.categories.additive_monoids import AdditiveMonoids
 
             return self._sage_algebra_from_source(monoid, AdditiveMonoids())
 
         @final
         def free_algebra_from_additive_group(self, group: AdditiveGroup) -> Algebra:
-            r"""Return the group algebra with product ``[x][y] = [x + y]`` and inverses from the additive group law."""
+            r"""Return the group algebra with product ``[x][y] = [x + y]``.
+
+            Inverses come from the additive group law.
+            """
             from sage.categories.additive_groups import AdditiveGroups
 
             return self._sage_algebra_from_source(group, AdditiveGroups())
@@ -517,13 +577,23 @@ class Algebras(Category_module):
         ) -> Sequence[Matrix]:
             from sage.matrix.constructor import matrix
 
-            assert all(constants.nrows() == rank and constants.ncols() == rank for constants in structure_constants), (
-                f"Each structure-constant matrix must be {rank} by {rank}: {structure_constants}"
+            assert all(
+                constants.nrows() == rank and constants.ncols() == rank
+                for constants in structure_constants
+            ), (
+                f"Each structure-constant matrix must be {rank} by {rank}: "
+                f"{structure_constants}"
             )
             return tuple(
                 matrix(
                     self.base_ring(),
-                    [[structure_constants[output][left, right] for output in range(rank)] for left in range(rank)],
+                    [
+                        [
+                            structure_constants[output][left, right]
+                            for output in range(rank)
+                        ]
+                        for left in range(rank)
+                    ],
                 )
                 for right in range(rank)
             )
@@ -539,21 +609,33 @@ class Algebras(Category_module):
             belongs in this constructor surface.
             """
             assert multiplication.tensor_type() == (1, 2), (
-                f"Algebra multiplication tensors must have type (1, 2): {multiplication.tensor_type()}"
+                "Algebra multiplication tensors must have type (1, 2): "
+                f"{multiplication.tensor_type()}"
             )
             base_module = multiplication.base_module()
             assert base_module.base_ring() is self.base_ring(), (
-                f"Multiplication tensor must be over {self.base_ring()}: {base_module.base_ring()}"
+                f"Multiplication tensor must be over {self.base_ring()}: "
+                f"{base_module.base_ring()}"
             )
             structure_constants = multiplication.structure_constants()
             assert len(structure_constants) == base_module.rank(), (
-                f"Expected one coordinate matrix for each output generator of {base_module}: {structure_constants}"
+                f"Expected one coordinate matrix for each output generator of "
+                f"{base_module}: {structure_constants}"
             )
-            from sage.algebras.finite_dimensional_algebras.finite_dimensional_algebra import FiniteDimensionalAlgebra
+            from sage.algebras.finite_dimensional_algebras import (
+                finite_dimensional_algebra,
+            )
 
             R = self.base_ring()
-            table = self._right_multiplication_table(structure_constants, base_module.rank())
-            sage_magmatic_target = SageMagmaticAlgebras(R).FiniteDimensional().WithBasis()
+            FiniteDimensionalAlgebra = (
+                finite_dimensional_algebra.FiniteDimensionalAlgebra
+            )
+            table = self._right_multiplication_table(
+                structure_constants, base_module.rank()
+            )
+            sage_magmatic_target = (
+                SageMagmaticAlgebras(R).FiniteDimensional().WithBasis()
+            )
             algebra = FiniteDimensionalAlgebra(R, table, category=sage_magmatic_target)
             categories: list[Category] = [sage_magmatic_target]
             if algebra.is_associative():
@@ -582,13 +664,19 @@ class Algebras(Category_module):
         r"""Return the named algebra constructor collector over this base ring."""
         return self.__class__._Constructors(self)
 
-    Commutative = LazyImport("category_specs.algebras.subcategories.commutative", "_CommutativeAlgebras")
-    WithBasis = LazyImport("category_specs.algebras.subcategories.with_basis", "_AlgebrasWithBasis")
+    Commutative = LazyImport(
+        "category_specs.algebras.subcategories.commutative", "_CommutativeAlgebras"
+    )
+    WithBasis = LazyImport(
+        "category_specs.algebras.subcategories.with_basis", "_AlgebrasWithBasis"
+    )
     FiniteDimensional = LazyImport(
         "category_specs.algebras.subcategories.finite_dimensional",
         "_FiniteDimensionalAlgebras",
     )
-    Semisimple = LazyImport("category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras")
+    Semisimple = LazyImport(
+        "category_specs.algebras.subcategories.semisimple", "_SemisimpleAlgebras"
+    )
 
     Subobjects = _Subobjects
     Quotients = _Quotients
