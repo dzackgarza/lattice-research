@@ -142,3 +142,40 @@ Design consequence:
   Sage sources still lack a q-adic unramified extension route with split lattice
   precision caps; preserved the deferred admitted names and linked the implementation
   gap card.
+
+## Review Log
+
+### Review 2026-05-07 (Codex)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance
+**Gates failed:** None
+**Outcome:** reviewed; leave `status: needs-review` for human acceptance rather than
+agent-side closure.
+
+- Gate 1: The card grounds the constructor names and q-adic lattice-precision gap in
+  `[[SPEC-MAPPING-RINGS]]`, Sage p-adic/q-adic docs/source, and the linked upstream
+  issue/PR evidence. The source evidence distinguishes base `Zp`/`Qp` lattice precision
+  from q-adic unramified extension constructors.
+- Gate 2: All task acceptance criteria are satisfied: exact sources are listed, the
+  negative finding uses the required five-field format, and the admitted design
+  consequence is linked to
+  `[[TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED]]`
+  plus `[[SPEC-MAPPING-RINGS]]`.
+- Gate 3: No code, spec, or smoke surface is weakened by this research result. The
+  review checked the clean staged and unstaged diffs before this log entry; the result
+  preserves the admitted `ZqWithPrecisionCaps(...)` and `QqWithPrecisionCaps(...)`
+  names as deferred Sage-gap frontiers instead of shrinking the ideal interface.
+- Gate 4: Refreshed public upstream evidence on 2026-05-07 is consistent with the
+  existing finding: Sage issues `#25915`, `#24809`, `#28466`, and `#30692` remain open,
+  PR `#34993` remains open/draft/needs-work, issue `#23505` remains the closed base
+  lattice-precision implementation ticket, and Sage `develop` still has no unramified
+  extension lattice parent route in the q-adic extension table.
+- Gate 5: The conclusion is scoped correctly as an upstream-support research finding,
+  not a theorem or implementation claim. It supports retaining mathematically meaningful
+  split q-adic lattice-cap constructor names while treating current Sage realization as
+  a deferred implementation gap.
+- Gate 6: The review prose avoids smoke-driven spec weakening, records sources and
+  inference separately, and keeps the blocker semantics path-local rather than treating
+  this deferred implementation surface as a global phase blocker.
