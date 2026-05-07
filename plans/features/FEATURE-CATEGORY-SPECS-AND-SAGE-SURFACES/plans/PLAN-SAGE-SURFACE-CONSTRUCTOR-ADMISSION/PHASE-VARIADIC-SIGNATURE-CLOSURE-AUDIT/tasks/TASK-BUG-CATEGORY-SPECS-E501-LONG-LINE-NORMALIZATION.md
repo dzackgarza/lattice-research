@@ -415,3 +415,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/polynomial_ring.py` and `python -m
   compileall category_specs/rings/subcategories/polynomial_ring.py` now pass.
   Repo-wide E501 count is now 120.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/commutative.py` slice with `uvx --from
+  ruff ruff format`, preserving commutative-ring containment and lazy
+  subcategory bindings. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/commutative.py` and `python -m compileall
+  category_specs/rings/subcategories/commutative.py` now pass. Repo-wide E501
+  count is now 117.

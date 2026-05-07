@@ -46,11 +46,17 @@ class _CommutativeRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageCommutativeRings() or (R in self.base_category() and R.is_commutative_ring())
+        return R in SageCommutativeRings() or (
+            R in self.base_category() and R.is_commutative_ring()
+        )
 
-    IntegralDomains = LazyImport("category_specs.rings.subcategories.integral_domain", "_IntegralDomains")
+    IntegralDomains = LazyImport(
+        "category_specs.rings.subcategories.integral_domain", "_IntegralDomains"
+    )
     Field = LazyImport("category_specs.rings.subcategories.field", "_Fields")
-    Noetherian = LazyImport("category_specs.rings.subcategories.noetherian", "_NoetherianRings")
+    Noetherian = LazyImport(
+        "category_specs.rings.subcategories.noetherian", "_NoetherianRings"
+    )
     Local = LazyImport("category_specs.rings.subcategories.local", "_LocalRings")
     Reduced = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
 
