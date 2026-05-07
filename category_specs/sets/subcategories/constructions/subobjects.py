@@ -72,7 +72,7 @@ class Subsets(SubobjectsCategory):
 
         @final
         def retract(self, x: SetElement) -> SetElement:
-            r"""Retract an ambient element to this subobject when it lies in the subset."""
+            r"""Retract an ambient element when it lies in the subset."""
             return self(x)
 
         @final
@@ -85,14 +85,18 @@ class Subsets(SubobjectsCategory):
         def is_finite(self) -> bool:
             if self.ambient().is_finite():
                 return True
-            raise NotImplementedError("subobject finiteness requires finite ambient or explicit cardinality")
+            raise NotImplementedError(
+                "subobject finiteness requires finite ambient or explicit cardinality"
+            )
 
         @override
         @final
         def is_empty(self) -> bool:
             if self.ambient().is_finite():
                 return all(x not in self for x in self.ambient())
-            raise NotImplementedError("subobject emptiness requires finite ambient or an explicit witness search")
+            raise NotImplementedError(
+                "subobject emptiness requires finite ambient or explicit search"
+            )
 
         @override
         @final
@@ -101,45 +105,61 @@ class Subsets(SubobjectsCategory):
                 from sage.rings.integer import Integer
 
                 return Integer(sum(1 for x in self.ambient() if x in self))
-            raise NotImplementedError("subobject cardinality requires finite ambient or an explicit implementation")
+            raise NotImplementedError(
+                "subobject cardinality requires finite ambient or implementation"
+            )
 
         @override
         @abstract_method
         def __contains__(self, x: Any) -> bool:
-            r"""Return whether ``x`` lies in ``ambient()`` and satisfies ``predicate()``."""
+            r"""Return whether ``x`` lies in ``ambient()`` and satisfies predicate."""
             ...
 
         @final
         def union(self, X: Subset) -> Subset:
-            r"""Return the condition-backed set-theoretic union of ``self`` and ``X``."""
+            r"""Return the condition-backed union of ``self`` and ``X``."""
             from ... import Sets
 
-            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self or x in X,))
+            return (
+                Sets().Subobjects().Of(self.ambient(), (lambda x: x in self or x in X,))
+            )
 
         @final
         def intersection(self, X: Subset) -> Subset:
             r"""Return the condition-backed intersection of ``self`` and ``X``."""
             from ... import Sets
 
-            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self and x in X,))
+            return (
+                Sets()
+                .Subobjects()
+                .Of(self.ambient(), (lambda x: x in self and x in X,))
+            )
 
         @final
         def difference(self, X: Subset) -> Subset:
             r"""Return the condition-backed set-theoretic difference ``self \ X``."""
             from ... import Sets
 
-            return Sets().Subobjects().Of(self.ambient(), (lambda x: x in self and x not in X,))
+            return (
+                Sets()
+                .Subobjects()
+                .Of(self.ambient(), (lambda x: x in self and x not in X,))
+            )
 
         @final
         def symmetric_difference(self, X: Subset) -> Subset:
-            r"""Return the condition-backed symmetric difference of ``self`` and ``X``."""
+            r"""Return the condition-backed symmetric difference with ``X``."""
             from ... import Sets
 
-            return Sets().Subobjects().Of(self.ambient(), (lambda x: (x in self) != (x in X),))
+            return (
+                Sets()
+                .Subobjects()
+                .Of(self.ambient(), (lambda x: (x in self) != (x in X),))
+            )
 
         @final
         def complement(self) -> Subset:
-            r"""Return the condition-backed complement of ``self`` in its ambient set."""
+            r"""Return the condition-backed complement in the ambient set."""
             from ... import Sets
 
             return Sets().Subobjects().Of(self.ambient(), (lambda x: x not in self,))

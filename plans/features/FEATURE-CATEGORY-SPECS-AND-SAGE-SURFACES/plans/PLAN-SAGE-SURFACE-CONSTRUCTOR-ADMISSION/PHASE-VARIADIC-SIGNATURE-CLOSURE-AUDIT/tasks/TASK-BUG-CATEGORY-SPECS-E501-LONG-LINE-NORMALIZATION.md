@@ -176,3 +176,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/forms/subcategories/bilinear.py` and `python -m compileall
   category_specs/forms/subcategories/bilinear.py` now pass. Repo-wide E501 count
   is now 331.
+- 2026-05-06: Cleared the
+  `category_specs/sets/subcategories/constructions/subobjects.py` slice with `uvx
+  --from ruff ruff format` plus manual wrapping of subset docstrings and
+  `NotImplementedError` messages. `uvx --from ruff ruff check --select E501
+  category_specs/sets/subcategories/constructions/subobjects.py` and `python -m
+  compileall category_specs/sets/subcategories/constructions/subobjects.py` now
+  pass. Repo-wide E501 count is now 319.
