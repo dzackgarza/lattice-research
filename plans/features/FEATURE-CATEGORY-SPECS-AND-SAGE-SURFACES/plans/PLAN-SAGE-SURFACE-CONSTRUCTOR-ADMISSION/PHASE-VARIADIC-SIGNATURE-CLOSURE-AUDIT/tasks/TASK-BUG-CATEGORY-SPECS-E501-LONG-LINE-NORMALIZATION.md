@@ -358,3 +358,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   --select E501 category_specs/lattices/subcategories/alternating.py` and
   `python -m compileall category_specs/lattices/subcategories/alternating.py`
   now pass. Repo-wide E501 count is now 151.
+- 2026-05-07: Cleared the `category_specs/lattices/homsets.py` slice with
+  manual wrapping of lattice orthogonal-group docstrings while preserving Hom,
+  End, and Aut surfaces. `uvx --from ruff ruff check --select E501
+  category_specs/lattices/homsets.py` and `python -m compileall
+  category_specs/lattices/homsets.py` now pass. Repo-wide E501 count is now
+  147.

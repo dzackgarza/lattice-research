@@ -103,17 +103,26 @@ class LatticeAutCategory(GenericAutCategory):
 
         @abstract_method
         def stable_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return the orientation-preserving subgroup of this lattice orthogonal group."""
+            r"""Return the orientation-preserving subgroup.
+
+            This subgroup is taken inside this lattice orthogonal group.
+            """
             ...
 
         @abstract_method
         def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)`` inside this lattice orthogonal group."""
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+
+            The subgroup is taken inside this lattice orthogonal group.
+            """
             ...
 
         @final
         def special_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO(L)``, the determinant-one subgroup of this orthogonal group."""
+            r"""Return ``SO(L)``.
+
+            This is the determinant-one subgroup of this orthogonal group.
+            """
             return self.special_subgroup()
 
         @final
@@ -123,7 +132,10 @@ class LatticeAutCategory(GenericAutCategory):
 
         @final
         def stable_special_orthogonal_group(self) -> LatticeOrthogonalGroup:
-            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)`` for the underlying lattice ``L``."""
+            r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
+
+            The notation refers to the underlying lattice ``L``.
+            """
             return self.stable_special_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
