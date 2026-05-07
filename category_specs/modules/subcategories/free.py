@@ -11,13 +11,23 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.modules.free_module import FreeModule as SageFreeModule
 from sage.modules.free_module import FreeModule_generic as SageFreeModuleGeneric
-from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule as SageFiniteRankFreeModule
+from sage.tensor.modules.finite_rank_free_module import (
+    FiniteRankFreeModule as SageFiniteRankFreeModule,
+)
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Algebra, Cardinality, Integer, ModuleBasis, RingMorphism, RModMorphism, RModule
+    from ...types import (
+        Algebra,
+        Cardinality,
+        Integer,
+        ModuleBasis,
+        RingMorphism,
+        RModMorphism,
+        RModule,
+    )
 
 
 class _Free(CategoryWithAxiom_over_base_ring):
@@ -68,7 +78,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
     """
 
     _base_category_class_and_axiom = (_Free, "FiniteRank")
-    WithForms = LazyImport("category_specs.forms.chain", "FiniteRankFreeFormedModulesCategory")
+    WithForms = LazyImport(
+        "category_specs.forms.chain", "FiniteRankFreeFormedModulesCategory"
+    )
 
     @override
     @final
@@ -102,7 +114,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
                 return SageFiniteRankFreeModule.set_default_basis(self, basis)
             assert isinstance(self, SageFreeModuleGeneric)
             if basis != self.basis():
-                raise NotImplementedError("ambient Sage free modules have a fixed canonical basis")
+                raise NotImplementedError(
+                    "ambient Sage free modules have a fixed canonical basis"
+                )
             return None
 
         @override
@@ -119,14 +133,18 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def symmetric_algebra(self) -> Algebra:
             from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
 
-            return PolynomialRing(self.base_ring(), names=tuple(f"x{i}" for i in range(self.rank())))
+            return PolynomialRing(
+                self.base_ring(), names=tuple(f"x{i}" for i in range(self.rank()))
+            )
 
         @override
         @final
         def alternating_algebra(self) -> Algebra:
             from sage.algebras.clifford_algebra import ExteriorAlgebra
 
-            return ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank())))
+            return ExteriorAlgebra(
+                self, names=tuple(f"e{i}" for i in range(self.rank()))
+            )
 
         @override
         @final
@@ -146,7 +164,10 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         @final
         def is_isomorphic_to(self, other: RModule) -> bool:
             if isinstance(other, (SageFiniteRankFreeModule, SageFreeModuleGeneric)):
-                return self.base_ring() == other.base_ring() and self.rank() == other.rank()
+                return (
+                    self.base_ring() == other.base_ring()
+                    and self.rank() == other.rank()
+                )
             return False
 
         @override
@@ -169,7 +190,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             from sage.algebras.clifford_algebra import ExteriorAlgebra
 
             assert isinstance(self, SageFreeModuleGeneric)
-            exterior_algebra = ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank())))
+            exterior_algebra = ExteriorAlgebra(
+                self, names=tuple(f"e{i}" for i in range(self.rank()))
+            )
             return exterior_algebra.homogeneous_component(p)
 
         @override
