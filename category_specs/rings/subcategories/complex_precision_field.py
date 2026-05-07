@@ -40,7 +40,13 @@ class _ComplexPrecisionFields(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [ApproximateRingsCategory(), _Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+        return [
+            ApproximateRingsCategory(),
+            _Fields(),
+            _CompleteRings(),
+            _LocalFields(),
+            Rings().Characteristic(0),
+        ]
 
     @override
     @final
@@ -69,7 +75,8 @@ class _ComplexPrecisionFields(Category_singleton):
                 "precision type"
             )
             if isinstance(
-                self, (SageComplexField, SageComplexDoubleField, SageComplexIntervalField)
+                self,
+                (SageComplexField, SageComplexDoubleField, SageComplexIntervalField),
             ):
                 return self.to_prec(precision)
             assert isinstance(self, SageComplexBallField)

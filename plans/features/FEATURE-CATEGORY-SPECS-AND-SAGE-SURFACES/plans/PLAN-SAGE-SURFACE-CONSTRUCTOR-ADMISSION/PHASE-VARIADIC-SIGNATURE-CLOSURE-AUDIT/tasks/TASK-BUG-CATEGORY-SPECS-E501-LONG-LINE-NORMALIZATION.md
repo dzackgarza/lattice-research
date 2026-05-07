@@ -537,3 +537,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   `python -m compileall
   category_specs/rings/subcategories/constructions/parameterized.py` now pass.
   Repo-wide E501 count is now 80.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/complex_precision_field.py` slice with
+  `uvx --from ruff ruff format`, preserving complex precision-field
+  supercategories and Sage precision-change dispatch. `uvx --from ruff ruff
+  check --select E501
+  category_specs/rings/subcategories/complex_precision_field.py` and `python -m
+  compileall category_specs/rings/subcategories/complex_precision_field.py` now
+  pass. Repo-wide E501 count is now 78.
