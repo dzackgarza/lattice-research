@@ -132,7 +132,8 @@ from .base_category_types import (
     WithRealizationsCategory as WithRealizationsCategory,
 )
 from .base_category_types import (
-    _make_named_class_with_cat_subcategory_methods as _make_named_class_with_cat_subcategory_methods,
+    _make_named_class_with_cat_subcategory_methods
+    as _make_named_class_with_cat_subcategory_methods,
 )
 from .base_category_types import (
     _SageCategory as _SageCategory,
@@ -285,11 +286,22 @@ class Cat(_SageCategorySingleton):
 
     ParentMethods = _CatObjectMethods
     ElementMethods = _CategoryElementMethods
-    Subobjects = LazyImport("category_specs.cat.subcategories.constructions.subobjects", "Subcategories")
-    Quotients = LazyImport("category_specs.cat.subcategories.constructions.quotients", "_Quotients")
-    Subquotients = LazyImport("category_specs.cat.subcategories.constructions.subquotients", "_Subquotients")
-    ObjectsOver = LazyImport("category_specs.cat.subcategories.constructions.objects_over", "SliceCategories")
-    ObjectsUnder = LazyImport("category_specs.cat.subcategories.constructions.objects_under", "CosliceCategories")
+    Subobjects = LazyImport(
+        "category_specs.cat.subcategories.constructions.subobjects", "Subcategories"
+    )
+    Quotients = LazyImport(
+        "category_specs.cat.subcategories.constructions.quotients", "_Quotients"
+    )
+    Subquotients = LazyImport(
+        "category_specs.cat.subcategories.constructions.subquotients", "_Subquotients"
+    )
+    ObjectsOver = LazyImport(
+        "category_specs.cat.subcategories.constructions.objects_over", "SliceCategories"
+    )
+    ObjectsUnder = LazyImport(
+        "category_specs.cat.subcategories.constructions.objects_under",
+        "CosliceCategories",
+    )
     CartesianProducts = LazyImport(
         "category_specs.cat.subcategories.constructions.cartesian_products",
         "_CartesianProducts",
