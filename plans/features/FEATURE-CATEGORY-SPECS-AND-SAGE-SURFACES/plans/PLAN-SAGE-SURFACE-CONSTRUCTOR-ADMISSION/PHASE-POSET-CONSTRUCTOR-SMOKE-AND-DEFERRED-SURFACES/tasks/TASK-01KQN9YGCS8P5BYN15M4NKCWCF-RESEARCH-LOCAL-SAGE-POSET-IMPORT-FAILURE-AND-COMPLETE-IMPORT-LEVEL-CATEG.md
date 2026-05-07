@@ -48,7 +48,9 @@ semilattice category introspection.
 - Meet and join expose binary operations plus sequence folds, not optional-argument aggregate signatures.
 - Lattice congruences use set-theoretic vocabulary: EquivalenceRelation and SetPartition, with congruence_generated_by(blocks).
 - certificate=True Sage paths map to separately named witness-returning certificate methods.
-- Sage semilattice category evidence remains incomplete because local Sage imports failed before category introspection.
+- Sage semilattice category evidence is local: installed Sage exposes concrete meet-
+  and join-semilattice constructors, but no dedicated semilattice category modules or
+  runtime semilattice category refinement.
 
 ## Acceptance Criteria
 
@@ -124,3 +126,75 @@ semilattice category introspection.
 - 2026-05-05 validation: `just --justfile category_specs/justfile smoke-file
   posets/smoketest.sage` passed after the linked constructor/certificate fixes
   in commit `c74860e`.
+
+- 2026-05-07: Refreshed the local Sage evidence. The historical `sage -python`
+  category-initialization import failure no longer reproduces in this environment,
+  so it should not be treated as current blocker evidence.
+
+  - Searched: local Sage category directory
+    `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories`;
+    `sage -python` `importlib.util.find_spec(...)` for
+    `sage.categories.meet_semilattices`,
+    `sage.categories.join_semilattices`,
+    `sage.categories.finite_meet_semilattices`,
+    `sage.categories.finite_join_semilattices`,
+    `sage.categories.semilattices`,
+    `sage.categories.finite_semilattices`,
+    `sage.categories.posets`,
+    `sage.categories.finite_posets`,
+    `sage.categories.lattice_posets`, and
+    `sage.categories.finite_lattice_posets`; `sage -c` imports of `Posets`,
+    `FinitePosets`, `LatticePosets`, and `FiniteLatticePosets`; `sage -c`
+    construction of `MeetSemilattice(...)` and `JoinSemilattice(...)`; and
+    `just --justfile category_specs/justfile smoke-file posets/smoketest.sage`.
+  - Found: the local category directory still contains only `posets.py`,
+    `finite_posets.py`, `lattice_posets.py`, and `finite_lattice_posets.py` among
+    relevant poset/lattice category modules. `find_spec(...)` returns `None` for all
+    searched semilattice category module names and module specs for the four
+    poset/lattice category modules. `sage -c` imports of those four categories
+    succeed. Concrete Sage `MeetSemilattice(...)` and `JoinSemilattice(...)` objects
+    still report category `Category of facade finite enumerated posets`. The poset
+    smoke passes.
+  - Conclusion: Inference: the current installed Sage environment still has concrete
+    finite meet- and join-semilattice constructors but no dedicated Sage semilattice
+    category modules or runtime semilattice category refinement. The project
+    semilattice categories remain repo-owned category surfaces grounded in
+    order-theoretic definitions and Sage concrete finite-semilattice behavior; the
+    historical `sage -python` import issue is not a current path blocker.
+  - Confidence: High for the installed Sage environment and current poset smoke.
+  - Gaps: Remote Sage documentation and unreleased Sage source were not audited because
+    this card is scoped to local import-level category evidence.
+
+## Review Log
+
+### Review 2026-05-07 (Codex)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3
+Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
+Compliance
+**Gates failed:** None
+**Outcome:** reviewed; leave `status: needs-review` for human acceptance rather than
+agent-side closure.
+
+- Gate 1: The card grounds semilattice routing in Sage's local category modules,
+  concrete `MeetSemilattice(...)` / `JoinSemilattice(...)` behavior, and the project
+  poset mapping/spec surfaces. It does not infer a Sage semilattice category that the
+  local module and runtime evidence do not expose.
+- Gate 2: All acceptance criteria are satisfied. The source searches are explicit, the
+  negative findings use the five-field format, design consequences remain linked to
+  existing constructor/certificate and semilattice surfaces, and the required poset
+  smoke was rerun after the earlier constructor/method changes.
+- Gate 3: No spec or smoke obligation was deleted, narrowed, or moved. The refreshed
+  evidence preserves project-owned semilattice categories rather than weakening them to
+  match Sage's current category refinement.
+- Gate 4: The current replay corrects one stale process fact: `sage -python` no longer
+  reproduces the historical import failure here. That correction strengthens rather
+  than reverses the card's conclusion because dedicated semilattice category modules
+  remain absent and the poset smoke passes.
+- Gate 5: The mathematical ownership claim is scoped correctly: meet- and
+  join-semilattices are order-theoretic refinements of posets, while the Sage evidence
+  only supplies concrete finite semilattice constructors and finite-poset/facade
+  category behavior.
+- Gate 6: The card keeps evidence and inference separate, avoids smoke-driven spec
+  weakening, and treats the local Sage import history as path-local evidence rather
+  than a global blocker.
