@@ -26,7 +26,9 @@ class UniversalEndObjectMethods:
     @override
     @final
     def is_endomorphism_set(self) -> bool:
-        r"""Return ``True`` because objects of this category are endomorphism objects."""
+        r"""Return ``True`` because objects of this category are endomorphism
+        objects.
+        """
         return True
 
     @abstract_method
@@ -97,7 +99,9 @@ class EndCategoryConstruction(HomCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return EndCategory()
-        return Category.join([_end_categories_of(super_category) for super_category in super_categories])
+        return Category.join(
+            [_end_categories_of(super_category) for super_category in super_categories]
+        )
 
 
 class EndCategoryOf(CategoryWithAxiom):

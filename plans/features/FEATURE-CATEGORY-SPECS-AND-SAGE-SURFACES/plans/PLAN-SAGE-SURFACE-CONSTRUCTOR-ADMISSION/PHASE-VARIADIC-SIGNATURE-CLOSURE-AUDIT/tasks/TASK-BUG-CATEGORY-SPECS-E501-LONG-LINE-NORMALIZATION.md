@@ -586,3 +586,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/lattices/subcategories/over_dedekind.py` and `python -m
   compileall category_specs/lattices/subcategories/over_dedekind.py` now pass.
   Repo-wide E501 count is now 66.
+- 2026-05-07: Cleared the `category_specs/homsets/endsets.py` slice with `uvx
+  --from ruff ruff format` plus one manual docstring wrap, preserving
+  End-category object predicates and inherited supercategory routing. `uvx
+  --from ruff ruff check --select E501 category_specs/homsets/endsets.py` and
+  `python -m compileall category_specs/homsets/endsets.py` now pass. Repo-wide
+  E501 count is now 64.
