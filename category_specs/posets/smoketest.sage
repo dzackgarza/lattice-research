@@ -37,7 +37,7 @@ def raw_diamond_poset():
     return Poset(diamond_covers)
 
 
-diamond_poset = raw_diamond_poset()
+diamond_poset = PC.from_upper_covers_dict(diamond_covers)
 diamond_lattice = PC.lattice_from_upper_covers(diamond_cover_list)
 
 

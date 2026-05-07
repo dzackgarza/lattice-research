@@ -52,7 +52,7 @@ semilattice category introspection.
 - [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
 - [x] Run just smoke-file posets/smoketest.sage after poset constructor or method changes.
-- [ ] Use the five-field negative-finding format for further Sage semilattice evidence gaps.
+- [x] Use the five-field negative-finding format for further Sage semilattice evidence gaps.
 
 ## Dependencies And Boundaries
 
@@ -82,3 +82,45 @@ semilattice category introspection.
 - 2026-05-05 validation: `just --justfile category_specs/justfile smoke-file
   posets/smoketest.sage` passed; `just --justfile category_specs/justfile
   check-abstract-redefinitions` passed; `git diff --check` passed.
+
+## Review Log
+
+### Review - 2026-05-07
+
+Outcome: review found one stale smoke fixture and repaired it; card remains
+`needs-review` for fresh review and human acceptance.
+
+- Current `posets/smoketest.sage` failed because the reusable `diamond_poset`
+  fixture was a raw Sage `Poset(...)`, so project-only
+  `height_certificate()` and semilattice certificate helpers were not mixed in.
+- Repaired the fixture to use the public project constructor
+  `Posets().Constructors().from_upper_covers_dict(diamond_covers)`. The
+  `raw_diamond_poset()` helper remains available for `from_existing(...)` smoke
+  assertions, so raw Sage constructor interop is still tested without weakening
+  the project-surface assertions.
+- Source grounding remains `category_specs/posets/docs/SAGE_INVENTORY.md` for Sage
+  finite-poset methods and
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-POSETS.md`
+  for project constructor/method ownership.
+
+Sage semilattice category evidence gap:
+
+- Searched: `category_specs/posets/docs/SAGE_INVENTORY.md`,
+  `category_specs/posets/docs/MAPPING.md`, installed Sage category files under
+  `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories`,
+  and `sage -c` imports for `sage.categories.meet_semilattices`,
+  `sage.categories.join_semilattices`,
+  `sage.categories.finite_meet_semilattices`, and
+  `sage.categories.finite_join_semilattices`.
+- Found: Sage has `sage.categories.posets`, `lattice_posets`, and
+  `finite_lattice_posets`; the four standalone semilattice category module imports
+  raise `ModuleNotFoundError`.
+- Conclusion: inference - installed Sage does not expose standalone semilattice
+  category modules matching the project `Posets().MeetSemilattice()` and
+  `Posets().JoinSemilattice()` surfaces; the project semilattice categories are
+  grounded in order-theoretic definitions plus Sage concrete finite semilattice
+  constructors/methods, not in Sage category modules.
+- Confidence: High for the installed Sage environment and local docs searched.
+- Gaps: Sage upstream documentation outside the installed docs was not web-searched
+  in this pass, because the task-local smoke defect and installed-source evidence
+  were sufficient for the current leaf.
