@@ -160,3 +160,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/rational_field.py` and `python -m
   compileall category_specs/rings/subcategories/rational_field.py` now pass.
   Repo-wide E501 count is now 380.
+- 2026-05-06: Cleared the `category_specs/forms/chain.py` slice with `uvx
+  --from ruff ruff format` plus manual wrapping of canonical-chain docstrings
+  and a long `LazyImport`. `uvx --from ruff ruff check --select E501
+  category_specs/forms/chain.py` and `python -m compileall
+  category_specs/forms/chain.py` now pass. Repo-wide E501 count is now 362.

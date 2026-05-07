@@ -17,7 +17,14 @@ from ..cat import CategoryWithAxiom_over_base_ring
 from ..modules.subcategories.free import _FreeFiniteRank
 
 if TYPE_CHECKING:
-    from ..types import DiscriminantGroup, Lattice, OrthogonalGroup, RModuleElement, RModuleMorphism, SubModule
+    from ..types import (
+        DiscriminantGroup,
+        Lattice,
+        OrthogonalGroup,
+        RModuleElement,
+        RModuleMorphism,
+        SubModule,
+    )
 
 
 class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -96,16 +103,23 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class MorphismMethods: ...
 
-    Symmetric = LazyImport(__name__, "SymmetricFiniteRankFreeBilinearModulesCategory")
+    Symmetric = LazyImport(
+        __name__, "SymmetricFiniteRankFreeBilinearModulesCategory"
+    )
 
 
 class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     r"""Finite-rank free modules equipped with a symmetric bilinear form.
 
-    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric()``.
+    Canonical chain::
+
+        Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric()
     """
 
-    _base_category_class_and_axiom = (FiniteRankFreeBilinearModulesCategory, "Symmetric")
+    _base_category_class_and_axiom = (
+        FiniteRankFreeBilinearModulesCategory,
+        "Symmetric",
+    )
     _defining_predicates = ("is_symmetric",)
 
     class ParentMethods:
@@ -132,16 +146,25 @@ class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base
 
     class MorphismMethods: ...
 
-    Nondegenerate = LazyImport(__name__, "NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory")
+    Nondegenerate = LazyImport(
+        __name__, "NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory"
+    )
 
 
-class NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+class NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
+    CategoryWithAxiom_over_base_ring
+):
     r"""Finite-rank free modules with a nondegenerate symmetric bilinear form.
 
-    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate()``.
+    Canonical chain::
+
+        Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate()
     """
 
-    _base_category_class_and_axiom = (SymmetricFiniteRankFreeBilinearModulesCategory, "Nondegenerate")
+    _base_category_class_and_axiom = (
+        SymmetricFiniteRankFreeBilinearModulesCategory,
+        "Nondegenerate",
+    )
     _defining_predicates = ("is_nondegenerate",)
 
     class ParentMethods:
@@ -158,16 +181,25 @@ class NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAx
 
     class MorphismMethods: ...
 
-    Integral = LazyImport(__name__, "IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory")
+    Integral = LazyImport(
+        __name__, "IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory"
+    )
 
 
-class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
+class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
+    CategoryWithAxiom_over_base_ring
+):
     r"""Integral nondegenerate symmetric bilinear forms on finite-rank free modules.
 
-    Canonical chain: ``Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()``.
+    Canonical chain::
+
+        Modules(R).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
     """
 
-    _base_category_class_and_axiom = (NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory, "Integral")
+    _base_category_class_and_axiom = (
+        NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+        "Integral",
+    )
     _defining_predicates = ("is_integral",)
 
     class ParentMethods:
@@ -219,15 +251,29 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(Catego
 
 FiniteRankFreeFormedModulesObject = FiniteRankFreeFormedModulesCategory.ParentMethods
 FiniteRankFreeFormedModulesElement = FiniteRankFreeFormedModulesCategory.ElementMethods
-FiniteRankFreeFormedModulesMorphism = FiniteRankFreeFormedModulesCategory.MorphismMethods
+FiniteRankFreeFormedModulesMorphism = (
+    FiniteRankFreeFormedModulesCategory.MorphismMethods
+)
 
-FiniteRankFreeBilinearModulesObject = FiniteRankFreeBilinearModulesCategory.ParentMethods
-FiniteRankFreeBilinearModulesElement = FiniteRankFreeBilinearModulesCategory.ElementMethods
-FiniteRankFreeBilinearModulesMorphism = FiniteRankFreeBilinearModulesCategory.MorphismMethods
+FiniteRankFreeBilinearModulesObject = (
+    FiniteRankFreeBilinearModulesCategory.ParentMethods
+)
+FiniteRankFreeBilinearModulesElement = (
+    FiniteRankFreeBilinearModulesCategory.ElementMethods
+)
+FiniteRankFreeBilinearModulesMorphism = (
+    FiniteRankFreeBilinearModulesCategory.MorphismMethods
+)
 
-SymmetricFiniteRankFreeBilinearModulesObject = SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
-SymmetricFiniteRankFreeBilinearModulesElement = SymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
-SymmetricFiniteRankFreeBilinearModulesMorphism = SymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+SymmetricFiniteRankFreeBilinearModulesObject = (
+    SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
+)
+SymmetricFiniteRankFreeBilinearModulesElement = (
+    SymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
+)
+SymmetricFiniteRankFreeBilinearModulesMorphism = (
+    SymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+)
 
 NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
