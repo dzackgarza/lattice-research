@@ -33,7 +33,9 @@ class _InfiniteSets(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, S: Any) -> bool:
-        return S in SageSets().Infinite() or (S in self.base_category() and not S.is_finite())
+        return S in SageSets().Infinite() or (
+            S in self.base_category() and not S.is_finite()
+        )
 
     class ParentMethods:
         @override
