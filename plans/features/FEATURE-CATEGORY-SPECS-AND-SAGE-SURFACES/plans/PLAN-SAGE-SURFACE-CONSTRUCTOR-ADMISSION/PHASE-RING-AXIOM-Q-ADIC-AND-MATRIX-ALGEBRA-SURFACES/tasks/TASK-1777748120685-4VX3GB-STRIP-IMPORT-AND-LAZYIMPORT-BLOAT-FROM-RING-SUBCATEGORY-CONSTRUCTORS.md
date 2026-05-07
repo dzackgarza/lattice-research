@@ -43,17 +43,16 @@ Task: strip import and LazyImport bloat from the ring subcategory constructors, 
 - Preserved the intentional indented `LazyImport(...)` class attributes that expose public axiom/subcategory constructors such as `Commutative().Field`, `IntegralDomains().Gcd`, and `Fields().NumberFields`.
 - Removed duplicate imports of Sage series/polynomial classes from individual subcategory modules that now consume the centralized class tuples.
 
-## Blocker (Resolved 2026-05-06)
+## Historical Commit-Gate Note
 
-- ~~The implementation cleanup is present in the working tree and passed local syntax/search/planning checks, but it is not committed.~~
-- ~~A normal non-markdown commit is blocked by the repo pre-commit hook, which runs `just test`; that currently fails during global mypy with broad existing Sage/pytest import-stub and category typing errors.~~
-- The global QC justfile `_python-qc-files` recipe now excludes `**/*.bak/**` directories (`src.bak/`, `tests.bak/`) from all Python tool passes. Retry `git commit` to verify the mypy failure is cleared.
-
-## Blocker Resolution (2026-05-06)
-
-The global QC justfile `_python-qc-files` recipe now excludes `**/*.bak/**` directories
-(`src.bak/`, `tests.bak/`) from all Python tool passes, which should clear the mypy
-failure that blocked this commit. Retry `git commit` to verify, then mark complete.
+- The implementation cleanup was once present in the working tree but not committed
+  because the repo pre-commit hook reached broad global mypy failures.
+- The cleanup is now committed in the history for the helper modules and follow-up
+  style slices, including `4904e17`, `bacb146`, and `108c00c`.
+- The `.bak` exclusion fixed stale backup-directory scan surface only. Public
+  `just test` still reaches global mypy failures, including Sage import-stub gaps
+  and category typing errors. That is public-QC phase-transition evidence, not a
+  phase-local blocker for this scoped import-cleanup leaf.
 
 ## Acceptance Notes
 
@@ -61,6 +60,30 @@ failure that blocked this commit. Retry `git commit` to verify, then mark comple
 - `rg -n "LazyImport\(" category_specs/rings/subcategories -g '!_lazy_subcategories.py'` now finds only indented axiom/subcategory constructor attributes.
 - `python -m compileall -q category_specs/rings/subcategories` passed.
 - Spec-weakening review: this diff centralizes imports and shared runtime class tuples only; it does not delete abstract methods, narrow smoke assertions, move mathematical obligations, or change category ownership.
+
+## Review Log
+
+### Review - 2026-05-07
+
+Outcome: review passes for the scoped task; card remains `needs-review` for human
+acceptance.
+
+- Verified that `category_specs/rings/subcategories/_lazy_subcategories.py` is the
+  single local home for top-level shared private `LazyImport(...)` references.
+- Verified that `category_specs/rings/subcategories/_sage_ring_classes.py` is the
+  single local home for shared Sage polynomial, power-series, Laurent-series,
+  Puiseux-series, and lazy-series class tuples.
+- `rg -n "^_[A-Za-z0-9]+ = LazyImport\(" category_specs/rings/subcategories -g
+  '!_lazy_subcategories.py'` returned no matches.
+- `rg -n "LazyImport\(" category_specs/rings/subcategories -g
+  '!_lazy_subcategories.py'` found only indented public axiom/subcategory
+  constructor attributes.
+- `python -m compileall -q category_specs/rings/subcategories` passed.
+- `just test` still fails at global mypy before later QC stages. The first current
+  failures are Sage import-stub gaps in `_sage_ring_classes.py` and
+  `_lazy_subcategories.py`, followed by broad existing Sage/pytest/category typing
+  errors across the repo. This does not invalidate the task-local syntax/search
+  acceptance criteria, but it must not be recorded as cleared.
 
 ## Complexity Justification
 
