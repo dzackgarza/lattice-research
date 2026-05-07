@@ -119,7 +119,9 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def trace_pairing_discriminant(self, elements: Sequence[RingElement]) -> RingElement:
+        def trace_pairing_discriminant(
+            self, elements: Sequence[RingElement]
+        ) -> RingElement:
             return self.as_number_field().discriminant(v=elements)
 
         @override
@@ -136,20 +138,30 @@ class _QQ(Category_singleton):
             names: str | None = None,
             gc_numbering: bool | None = None,
         ) -> Group:
-            return self.as_number_field().galois_group(type=type, algorithm=algorithm, names=names, gc_numbering=gc_numbering)
+            return self.as_number_field().galois_group(
+                type=type, algorithm=algorithm, names=names, gc_numbering=gc_numbering
+            )
 
         @overload
-        def galois_closure(self, names: str | None = None, map: Literal[False] = False) -> Field: ...
+        def galois_closure(
+            self, names: str | None = None, map: Literal[False] = False
+        ) -> Field: ...
 
         @overload
-        def galois_closure(self, names: str | None = None, map: Literal[True] = True) -> tuple[Field, RingMorphism]: ...
+        def galois_closure(
+            self, names: str | None = None, map: Literal[True] = True
+        ) -> tuple[Field, RingMorphism]: ...
 
         @overload
-        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
+        def galois_closure(
+            self, names: str | None = None, map: bool = False
+        ) -> Field | tuple[Field, RingMorphism]: ...
 
         @override
         @final
-        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]:
+        def galois_closure(
+            self, names: str | None = None, map: bool = False
+        ) -> Field | tuple[Field, RingMorphism]:
             return self.as_number_field().galois_closure(names=names, map=map)
 
         @override
@@ -164,7 +176,9 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def class_group(self, proof: bool | None = None, names: str = "c") -> AbelianGroup:
+        def class_group(
+            self, proof: bool | None = None, names: str = "c"
+        ) -> AbelianGroup:
             return self.as_number_field().class_group(proof=proof, names=names)
 
         @override
@@ -179,7 +193,9 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def integral_basis_at_primes(self, primes: Sequence[Integer]) -> tuple[RingElement, ...]:
+        def integral_basis_at_primes(
+            self, primes: Sequence[Integer]
+        ) -> tuple[RingElement, ...]:
             return self.as_number_field().integral_basis(v=primes)
 
         @override
@@ -199,7 +215,9 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def places(self, all_complex: bool = False, prec: Integer | None = None) -> tuple[RingMorphism, ...]:
+        def places(
+            self, all_complex: bool = False, prec: Integer | None = None
+        ) -> tuple[RingMorphism, ...]:
             return self.as_number_field().places(all_complex=all_complex, prec=prec)
 
         @override
@@ -239,29 +257,39 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def prime_above(self, x: RingElement, degree: Integer | None = None) -> PrimeIdeal:
+        def prime_above(
+            self, x: RingElement, degree: Integer | None = None
+        ) -> PrimeIdeal:
             return self.as_number_field().prime_above(x, degree=degree)
 
         @override
         @final
-        def primes_above(self, x: RingElement, degree: Integer | None = None) -> list[PrimeIdeal]:
+        def primes_above(
+            self, x: RingElement, degree: Integer | None = None
+        ) -> list[PrimeIdeal]:
             return self.as_number_field().primes_above(x, degree=degree)
 
         @override
         @final
-        def S_units(self, S: Sequence[PrimeIdeal], proof: bool = True) -> list[RingElement]:
+        def S_units(
+            self, S: Sequence[PrimeIdeal], proof: bool = True
+        ) -> list[RingElement]:
             return self.as_number_field().S_units(S, proof=proof)
 
         @override
         @final
-        def S_class_group(self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c") -> AbelianGroup:
+        def S_class_group(
+            self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c"
+        ) -> AbelianGroup:
             return self.as_number_field().S_class_group(S, proof=proof, names=names)
 
         @override
         @final
         def ring_of_integers(
             self,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
 
@@ -270,24 +298,34 @@ class _QQ(Category_singleton):
         def ring_of_integers_at_prime(
             self,
             prime: Integer,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(v=prime, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(
+                v=prime, assume_maximal=assume_maximal
+            )
 
         @override
         @final
         def ring_of_integers_at_primes(
             self,
             primes: Sequence[Integer],
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(v=primes, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(
+                v=primes, assume_maximal=assume_maximal
+            )
 
         @override
         @final
         def maximal_order(
             self,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
 
@@ -296,18 +334,26 @@ class _QQ(Category_singleton):
         def maximal_order_at_prime(
             self,
             prime: Integer,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(v=prime, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(
+                v=prime, assume_maximal=assume_maximal
+            )
 
         @override
         @final
         def maximal_order_at_primes(
             self,
             primes: Sequence[Integer],
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(v=primes, assume_maximal=assume_maximal)
+            return self.as_number_field().maximal_order(
+                v=primes, assume_maximal=assume_maximal
+            )
 
         @override
         @final

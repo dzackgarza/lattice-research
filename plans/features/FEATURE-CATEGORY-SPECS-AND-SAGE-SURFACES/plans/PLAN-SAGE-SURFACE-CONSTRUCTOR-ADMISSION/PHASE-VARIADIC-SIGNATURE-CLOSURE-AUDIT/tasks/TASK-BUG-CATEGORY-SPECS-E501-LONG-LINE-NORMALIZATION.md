@@ -154,3 +154,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   check --select E501 category_specs/tensor_algebra_components/__init__.py` and
   `python -m compileall category_specs/tensor_algebra_components/__init__.py`
   now pass. Repo-wide E501 count is now 403.
+- 2026-05-06: Cleared the
+  `category_specs/rings/subcategories/rational_field.py` slice with `uvx --from
+  ruff ruff format`. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/rational_field.py` and `python -m
+  compileall category_specs/rings/subcategories/rational_field.py` now pass.
+  Repo-wide E501 count is now 380.
