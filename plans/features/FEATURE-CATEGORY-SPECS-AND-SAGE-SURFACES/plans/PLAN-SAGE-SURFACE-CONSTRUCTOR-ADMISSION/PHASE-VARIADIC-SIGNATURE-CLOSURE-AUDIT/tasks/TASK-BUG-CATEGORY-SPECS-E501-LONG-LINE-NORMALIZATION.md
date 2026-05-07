@@ -668,3 +668,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   `python -m compileall
   category_specs/sets/subcategories/constructions/objects_under.py` now pass.
   Repo-wide E501 count is now 48.
+- 2026-05-07: Cleared the
+  `category_specs/sets/subcategories/constructions/objects_over.py` slice with
+  `uvx --from ruff ruff format`, preserving structure-domain and
+  structure-codomain helper imports. `uvx --from ruff ruff check --select E501
+  category_specs/sets/subcategories/constructions/objects_over.py` and
+  `python -m compileall
+  category_specs/sets/subcategories/constructions/objects_over.py` now pass.
+  Repo-wide E501 count is now 47.
