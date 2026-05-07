@@ -489,3 +489,12 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   --from ruff ruff check --select E501 category_specs/sets/homsets.py` and
   `python -m compileall category_specs/sets/homsets.py` now pass. Repo-wide
   E501 count is now 92.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/unique_factorization_domain.py` slice
+  with `uvx --from ruff ruff format` plus one manual canonical-chain docstring
+  wrap, preserving UFD containment and factorization surfaces. `uvx --from ruff
+  ruff check --select E501
+  category_specs/rings/subcategories/unique_factorization_domain.py` and
+  `python -m compileall
+  category_specs/rings/subcategories/unique_factorization_domain.py` now pass.
+  Repo-wide E501 count is now 90.

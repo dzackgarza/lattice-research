@@ -22,7 +22,9 @@ if TYPE_CHECKING:
 
 
 class _UniqueFactorizationDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().UniqueFactorization()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().UniqueFactorization()``.
+    """
 
     _base_category_class_and_axiom = (_IntegralDomains, "UniqueFactorization")
 
@@ -39,7 +41,9 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageUniqueFactorizationDomains() or (R in self.base_category() and R.is_unique_factorization_domain())
+        return R in SageUniqueFactorizationDomains() or (
+            R in self.base_category() and R.is_unique_factorization_domain()
+        )
 
     class ElementMethods:
         @abstract_method
