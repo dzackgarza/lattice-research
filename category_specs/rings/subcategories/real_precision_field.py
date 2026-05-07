@@ -42,7 +42,13 @@ class _RealPrecisionFields(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [ApproximateRingsCategory(), _Fields(), _CompleteRings(), _LocalFields(), Rings().Characteristic(0)]
+        return [
+            ApproximateRingsCategory(),
+            _Fields(),
+            _CompleteRings(),
+            _LocalFields(),
+            Rings().Characteristic(0),
+        ]
 
     @override
     @final

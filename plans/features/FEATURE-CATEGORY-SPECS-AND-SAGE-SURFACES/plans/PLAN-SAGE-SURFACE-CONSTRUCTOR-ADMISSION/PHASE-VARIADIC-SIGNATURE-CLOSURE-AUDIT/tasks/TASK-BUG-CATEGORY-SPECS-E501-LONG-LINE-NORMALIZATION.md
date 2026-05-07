@@ -682,3 +682,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   --select E501 category_specs/rings/subcategories/valued.py` and `python -m
   compileall category_specs/rings/subcategories/valued.py` now pass. Repo-wide
   E501 count is now 46.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/real_precision_field.py` slice with
+  `uvx --from ruff ruff format`, preserving the real-precision field
+  supercategory list. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/real_precision_field.py` and `python -m
+  compileall category_specs/rings/subcategories/real_precision_field.py` now
+  pass. Repo-wide E501 count is now 45.
