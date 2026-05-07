@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import Any, final, override
 
-from sage.categories.semisimple_algebras import SemisimpleAlgebras as SageSemisimpleAlgebras
+from sage.categories.semisimple_algebras import (
+    SemisimpleAlgebras as SageSemisimpleAlgebras,
+)
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring
 from .. import Algebras
@@ -29,7 +31,9 @@ class _SemisimpleAlgebras(CategoryWithAxiom_over_base_ring):
     @final
     def __contains__(self, A: Any) -> bool:
         r"""Return whether ``A`` is an algebra satisfying Sage semisimplicity."""
-        return A in self.base_category() and A in SageSemisimpleAlgebras(self.base_ring())
+        return A in self.base_category() and A in SageSemisimpleAlgebras(
+            self.base_ring()
+        )
 
     class ParentMethods:
         @final
