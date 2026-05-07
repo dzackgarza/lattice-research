@@ -161,6 +161,25 @@ review and human acceptance.
   an earlier mypy frontier; that is not a Vulture-triage prerequisite and there are
   other ready DAG leaves.
 
+### Independent Review - 2026-05-07
+
+Reviewer: Hilbert.
+
+Outcome: `needs-review as-is`.
+
+- Gate 2 is satisfied for this parent triage scope: the card reproduced the original
+  Vulture failure, classified it, avoided local bypasses, split owner-specific
+  follow-up cards, and recorded the remaining validation frontier.
+- Current validation is accurately scoped: public `just test` stops at global mypy
+  before Vulture, while repo-scoped global `_vulture` now passes after the category
+  child rework.
+- No repo-local Vulture recipe, ignore file, local whitelist, or bypass comments were
+  found in the reviewed surfaces. The only relevant exclusion is the documented global
+  `**/*.bak/**` QC filter.
+- The historical provenance text that originally framed the global whitelist as likely
+  incomplete is preserved history, not the current resolution strategy; the child card
+  now owns the corrected no-whitelist framing.
+
 ## Work Log
 
 - 2026-05-03: Created after Ruff normalization blockers were resolved and `just test`
