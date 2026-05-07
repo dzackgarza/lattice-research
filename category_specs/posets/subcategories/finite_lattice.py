@@ -5,7 +5,9 @@ from __future__ import annotations
 from collections.abc import Callable, Iterable
 from typing import TYPE_CHECKING, Literal, final, override
 
-from sage.categories.finite_lattice_posets import FiniteLatticePosets as SageFiniteLatticePosets
+from sage.categories.finite_lattice_posets import (
+    FiniteLatticePosets as SageFiniteLatticePosets,
+)
 from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
@@ -15,7 +17,13 @@ from .finite_meet_semilattice import _FiniteMeetSemilatticePosets
 from .lattice import _LatticePosets
 
 if TYPE_CHECKING:
-    from ...types import EquivalenceRelation, FiniteLatticePoset, LatticePoset, Poset, PosetElement
+    from ...types import (
+        EquivalenceRelation,
+        FiniteLatticePoset,
+        LatticePoset,
+        Poset,
+        PosetElement,
+    )
 
 
 class _FiniteLatticePosets(CategoryWithAxiom):
@@ -29,7 +37,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        r"""Return lattice, finite semilattice, and Sage finite-lattice supercategories."""
+        r"""Return lattice, semilattice, and Sage finite-lattice supercategories."""
         return [
             _LatticePosets(),
             _FiniteMeetSemilatticePosets(),
@@ -53,7 +61,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
 
         @final
         def atomic_certificate(self) -> tuple[bool, PosetElement | None]:
-            r"""Return atomicity status with a non-atomic join-irreducible when false."""
+            r"""Return atomicity and a non-atomic join-irreducible if false."""
             return self.is_atomic(certificate=True)
 
         @abstract_method
@@ -63,7 +71,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
 
         @final
         def coatomic_certificate(self) -> tuple[bool, PosetElement | None]:
-            r"""Return coatomicity status with a non-coatomic meet-irreducible when false."""
+            r"""Return coatomicity and a non-coatomic meet-irreducible if false."""
             return self.is_coatomic(certificate=True)
 
         @abstract_method
@@ -73,7 +81,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
 
         @final
         def complemented_certificate(self) -> tuple[bool, PosetElement | None]:
-            r"""Return complementedness status with an uncomplemented element when false."""
+            r"""Return complementedness and an uncomplemented element if false."""
             return self.is_complemented(certificate=True)
 
         @abstract_method
@@ -99,7 +107,9 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             return self.is_modular(list(elements))
 
         @final
-        def modular_certificate(self) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
+        def modular_certificate(
+            self,
+        ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return modularity status with a violating triple when false."""
             return self.is_modular(certificate=True)
 
@@ -108,7 +118,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             self,
             elements: Iterable[PosetElement],
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
-            r"""Return modularity status for ``elements`` with a violating triple when false."""
+            r"""Return modularity for ``elements`` and a violating triple if false."""
             return self.is_modular(list(elements), certificate=True)
 
         @abstract_method
@@ -142,9 +152,13 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             return SageFiniteLatticePosets.ParentMethods.irreducibles_poset(self)
 
         @final
-        def is_lattice_morphism(self, f: Callable[[PosetElement], PosetElement], codomain: LatticePoset) -> bool:
+        def is_lattice_morphism(
+            self, f: Callable[[PosetElement], PosetElement], codomain: LatticePoset
+        ) -> bool:
             r"""Return whether ``f`` preserves finite meets and joins."""
-            return SageFiniteLatticePosets.ParentMethods.is_lattice_morphism(self, f, codomain)
+            return SageFiniteLatticePosets.ParentMethods.is_lattice_morphism(
+                self, f, codomain
+            )
 
         @abstract_method
         def sublattice(self, elements: list[PosetElement]) -> LatticePoset:
@@ -157,7 +171,9 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             ...
 
         @final
-        def congruence_generated_by(self, blocks: Iterable[Iterable[PosetElement]]) -> EquivalenceRelation:
+        def congruence_generated_by(
+            self, blocks: Iterable[Iterable[PosetElement]]
+        ) -> EquivalenceRelation:
             r"""Return the least congruence containing each block in ``blocks``."""
             return self.congruence(blocks)
 
