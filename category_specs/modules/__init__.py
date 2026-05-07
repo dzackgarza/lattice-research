@@ -309,12 +309,25 @@ class _RModObjects:
         """
         ...
 
-    @abstract_method
     def modify_module_structure(self, sigma: ModuleStructure):
-        r"""Define a new module structure sigma': R -> End_R(M) so that
-        r.m = sigma'(r)(m), replacing the existing sigma.
+        r"""Rejected as an unqualified public root method.
+
+        Use named constructions instead:
+
+        - ``base_change(morphism)`` or ``extend_scalars(phi: R -> S)``
+          (extension of scalars / base change),
+        - ``restrict_scalars(phi: S -> R)`` (restriction of scalars),
+        - ``twist_scalar_action(sigma)`` (twist by ring endomorphism),
+        - or explicit isomorphism transport.
+
+        See ``DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES``.
         """
-        ...
+        raise NotImplementedError(
+            "modify_module_structure is not an unqualified root method. "
+            "Use base_change, restrict_scalars, twist_scalar_action, "
+            "or explicit isomorphism transport instead. "
+            "See DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES."
+        )
 
     @abstract_method
     def symmetric_algebra(self) -> RModule: ...
