@@ -351,3 +351,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   E501 category_specs/lattices/subcategories/definite.py` and `python -m
   compileall category_specs/lattices/subcategories/definite.py` now pass.
   Repo-wide E501 count is now 155.
+- 2026-05-07: Cleared the
+  `category_specs/lattices/subcategories/alternating.py` compatibility
+  re-export slice with `uvx --from ruff ruff format` plus manual wrapping of
+  long intentional OverPID re-export aliases. `uvx --from ruff ruff check
+  --select E501 category_specs/lattices/subcategories/alternating.py` and
+  `python -m compileall category_specs/lattices/subcategories/alternating.py`
+  now pass. Repo-wide E501 count is now 151.
