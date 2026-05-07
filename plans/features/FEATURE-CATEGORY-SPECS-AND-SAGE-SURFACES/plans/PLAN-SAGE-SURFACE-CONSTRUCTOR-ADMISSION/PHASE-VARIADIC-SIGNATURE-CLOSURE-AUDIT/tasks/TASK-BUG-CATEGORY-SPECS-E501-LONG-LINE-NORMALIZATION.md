@@ -469,3 +469,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/sets/subcategories/real_set.py` and `python -m compileall
   category_specs/sets/subcategories/real_set.py` now pass. Repo-wide E501 count
   is now 98.
+- 2026-05-07: Cleared the
+  `category_specs/sets/subcategories/family.py` slice with `uvx --from ruff
+  ruff format` plus one manual docstring wrap, preserving the indexed-family
+  `zip` signature. `uvx --from ruff ruff check --select E501
+  category_specs/sets/subcategories/family.py` and `python -m compileall
+  category_specs/sets/subcategories/family.py` now pass. Repo-wide E501 count is
+  now 96.

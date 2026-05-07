@@ -51,8 +51,12 @@ class _FamilySets(Category_singleton):
             ...
 
         @abstract_method
-        def zip(self, f: SetMorphism, other: SetFamily, name: str | None = None) -> SetFamily:
-            r"""Return the family obtained by applying ``f`` pointwise to two families."""
+        def zip(
+            self, f: SetMorphism, other: SetFamily, name: str | None = None
+        ) -> SetFamily:
+            r"""Return the family obtained by applying ``f`` pointwise to two
+            families.
+            """
             ...
 
         @abstract_method
