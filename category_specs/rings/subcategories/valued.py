@@ -12,8 +12,6 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
 
-from ._lazy_subcategories import _DiscreteValuationRings
-
 if TYPE_CHECKING:
     from ...types import (
         RingElement,

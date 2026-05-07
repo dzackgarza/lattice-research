@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
+from . import chain as _chain
 from .chain import (
     FiniteRankFreeBilinearModulesCategory as FiniteRankFreeBilinearModulesCategory,
 )
@@ -33,42 +34,6 @@ from .chain import (
 )
 from .chain import (
     FiniteRankFreeFormedModulesObject as FiniteRankFreeFormedModulesObject,
-)
-from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
-)
-from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
-)
-from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
-)
-from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
-)
-from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
-)
-from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
-)
-from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
-)
-from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
-)
-from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesCategory,
-)
-from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesElement,
-)
-from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesMorphism,
-)
-from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesObject,
 )
 from .subcategories.bilinear import (
     BilinearModulesCategory as BilinearModulesCategory,
@@ -117,6 +82,43 @@ from .subcategories.with_forms import (
 )
 from .subcategories.with_forms import (
     FormedModulesObject as FormedModulesObject,
+)
+
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+    _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+    _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesElement
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+    _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
+)
+NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+    _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesObject
+)
+SymmetricFiniteRankFreeBilinearModulesCategory = (
+    _chain.SymmetricFiniteRankFreeBilinearModulesCategory
+)
+SymmetricFiniteRankFreeBilinearModulesElement = (
+    _chain.SymmetricFiniteRankFreeBilinearModulesElement
+)
+SymmetricFiniteRankFreeBilinearModulesMorphism = (
+    _chain.SymmetricFiniteRankFreeBilinearModulesMorphism
+)
+SymmetricFiniteRankFreeBilinearModulesObject = (
+    _chain.SymmetricFiniteRankFreeBilinearModulesObject
 )
 
 _IntegralNondegenerateSymmetricCategory = (

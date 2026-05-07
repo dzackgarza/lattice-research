@@ -48,7 +48,7 @@ from ..cat import (
     Category_module,
     DualObjectsCategory,
     FilteredModulesCategory,
-    GradedModulesCategory,
+    GradedModulesCategory as GradedModulesCategory,
     SuperModulesCategory,
     TensorProductsCategory,
 )

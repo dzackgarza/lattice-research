@@ -14,8 +14,6 @@ from ...topological_spaces import TopologicalSpaceRuntimeGapObjectMethods
 from ...topological_spaces import TopologicalSpaces
 from .. import Rings
 
-from ._lazy_subcategories import _CompleteRings
-
 if TYPE_CHECKING:
     pass
 

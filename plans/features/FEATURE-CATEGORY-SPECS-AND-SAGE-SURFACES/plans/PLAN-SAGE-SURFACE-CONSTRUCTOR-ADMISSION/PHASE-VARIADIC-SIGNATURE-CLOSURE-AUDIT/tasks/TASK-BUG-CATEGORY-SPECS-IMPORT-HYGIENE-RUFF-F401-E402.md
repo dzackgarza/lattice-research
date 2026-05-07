@@ -105,3 +105,76 @@ placement cleanup over local Ruff bypasses.
 - 2026-05-05: Forms compatibility shims were restored with the same redundant-alias
   re-export pattern used by package aggregation surfaces. Targeted `ruff check` on
   those shim files passed, and this card is moved to in-review for human closure.
+- 2026-05-07: Review rerun of
+  `uvx --from ruff ruff check --select F401,E402,F821 category_specs` found 12
+  current `F401` findings, so the prior in-review state was stale. Fixed the
+  remaining explicit re-export/import-hygiene surface by:
+  - preserving long formed-module compatibility names via module-backed public
+    assignments in `category_specs/forms/__init__.py`;
+  - preserving `category_specs.lattices.chain.LatticesCategory` and
+    `category_specs.modules.GradedModulesCategory` with explicit redundant aliases;
+  - removing unused lazy-subcategory imports from topological and valued ring
+    subcategory files where the string-based `LazyImport` already carries the route.
+
+## Validation
+
+- 2026-05-07: `uvx --from ruff ruff check --select F401,E402,F821 category_specs`
+  passed.
+- 2026-05-07: `uvx --from ruff ruff check --select E501
+  category_specs/forms/__init__.py category_specs/lattices/chain.py
+  category_specs/modules/__init__.py category_specs/rings/subcategories/topological.py
+  category_specs/rings/subcategories/valued.py` passed.
+- 2026-05-07: `python -m py_compile category_specs/forms/__init__.py
+  category_specs/lattices/chain.py category_specs/modules/__init__.py
+  category_specs/rings/subcategories/topological.py
+  category_specs/rings/subcategories/valued.py` passed.
+- 2026-05-07: `git diff --check -- category_specs/forms/__init__.py
+  category_specs/lattices/chain.py category_specs/modules/__init__.py
+  category_specs/rings/subcategories/topological.py
+  category_specs/rings/subcategories/valued.py` passed.
+- 2026-05-07: `just test` passes Python syntax validation and Sage syntax
+  validation, then fails at global mypy before Ruff. Representative first errors
+  are missing Sage stubs in
+  `category_specs/rings/subcategories/_lazy_subcategories.py`,
+  `category_specs/rings/subcategories/_sage_ring_classes.py`, and
+  `category_specs/axioms.py`, missing `pytest` stubs in `tests/conftest.py`, and
+  broad existing annotation/type-surface errors. This matches the parent
+  Ruff-normalization card's current blocker note: the import-hygiene blocker remains
+  cleared, and the remaining full-QC failure is not an F401/E402/F821 issue.
+
+## Review Log
+
+### Self-Review - 2026-05-07
+
+Outcome: revision was required, then fixed in scope. The card remains
+`needs-review` because independent review and human acceptance are separate gates.
+
+Findings and resolution:
+
+- Gate 2 initially failed: the claimed import-hygiene validation was stale because
+  current `F401` findings remained in forms, lattices, modules, topological rings,
+  and valued rings surfaces.
+- Gate 3 passed after rework: no public aggregation surface was removed. Public
+  compatibility names are preserved by explicit aliases or module-backed public
+  assignments; the removed ring imports were unused implementation imports, not
+  public exports.
+- Gate 6 passed after rework: targeted `F401`, `E402`, `F821`, and touched-file
+  `E501` checks pass.
+
+### Independent Review - 2026-05-07
+
+Reviewer: Jason.
+
+Outcome: revision required for stale validation routing, then fixed in scope. Do not
+mark complete without human approval.
+
+Findings and resolution:
+
+- Gate 2 found stale blocker routing: this card still carried the old note that
+  `just test` stopped at global Ruff `E501`, while the parent blocker already records
+  that current full validation stops earlier at global mypy.
+- The core import-hygiene claim passed review: `uvx --from ruff ruff check --select
+  F401,E402,F821 category_specs` passed, and the reviewer found no public-surface
+  weakening in the inspected re-export files.
+- The validation note above now records the current `just test` first blocker as
+  global mypy, keeping this card aligned with the parent blocker.

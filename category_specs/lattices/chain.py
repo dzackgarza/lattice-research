@@ -8,4 +8,4 @@ module remains as a compatibility surface for existing imports such as
 
 from __future__ import annotations
 
-from . import LatticesCategory
+from . import LatticesCategory as LatticesCategory
