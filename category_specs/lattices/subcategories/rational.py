@@ -9,8 +9,18 @@ from ...forms.subcategories.rational import (
 from ...forms.subcategories.rational import (
     OverPIDRationalBilinearModulesMorphism as OverPIDRationalBilinearModulesMorphism,
 )
-from ...forms.subcategories.rational import OverPIDRationalBilinearModulesObject as OverPIDRationalBilinearModulesObject
-from ...forms.subcategories.rational import RationalBilinearModulesCategory as RationalBilinearModulesCategory
-from ...forms.subcategories.rational import RationalBilinearModulesElement as RationalBilinearModulesElement
-from ...forms.subcategories.rational import RationalBilinearModulesMorphism as RationalBilinearModulesMorphism
-from ...forms.subcategories.rational import RationalBilinearModulesObject as RationalBilinearModulesObject
+from ...forms.subcategories.rational import (
+    OverPIDRationalBilinearModulesObject as OverPIDRationalBilinearModulesObject,
+)
+from ...forms.subcategories.rational import (
+    RationalBilinearModulesCategory as RationalBilinearModulesCategory,
+)
+from ...forms.subcategories.rational import (
+    RationalBilinearModulesElement as RationalBilinearModulesElement,
+)
+from ...forms.subcategories.rational import (
+    RationalBilinearModulesMorphism as RationalBilinearModulesMorphism,
+)
+from ...forms.subcategories.rational import (
+    RationalBilinearModulesObject as RationalBilinearModulesObject,
+)
