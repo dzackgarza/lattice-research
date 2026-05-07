@@ -102,3 +102,38 @@ The seed rows include:
   matrix-parent ownership, ideals, quotient surfaces, basis and ordered-basis methods,
   Hom/tensor/dual routes, PID finite-presentation rows, graded/Ore/representation
   methods, and rejected interop surfaces. Moved this task to needs-review.
+- 2026-05-07: Reworked the algebra row for `has_standard_involution()` after Gate 1
+  review found it was unsafe to admit on all `Algebras(R)`. The literal inventory now
+  splits `characteristic()` as inherited-only from `has_standard_involution()` as
+  decision-needed, and `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]` tracks the
+  unresolved quaternion/involutive-algebra owner.
+
+## Review Log
+
+### Review 2026-05-07 (Rawls)
+
+**Gates passed:** none
+**Gates failed:** Gate 1 Definition Grounding
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 1 Finding: `has_standard_involution()` Owner Was Ungrounded
+
+- `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` admitted
+  `has_standard_involution()` as an `Algebras(R).ParentMethods` row.
+- `SPEC-MAPPING-ALGEBRAS.md` records this predicate as unresolved and warns that the
+  checked Sage implementation evidence is quaternion-specific and basis-dependent.
+- The row therefore treated a Sage compatibility predicate as generally grounded on
+  all `Algebras(R)`, which is not mathematically safe.
+
+#### Rework
+
+- Split the combined `characteristic()` / `has_standard_involution()` row in
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`.
+- Kept `characteristic()` as inherited-only from ring/base-ring behavior, not a new
+  algebra owner.
+- Changed `has_standard_involution()` to `decision-needed` and linked
+  `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]`.
+- Created `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]` to decide whether the
+  owner is a quaternion-algebra refinement, an algebra-with-involution refinement, or
+  no public project method yet.

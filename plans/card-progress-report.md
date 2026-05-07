@@ -1,10 +1,10 @@
 # Planning Progress Report
 
-_Generated: 2026-05-07 02:31 UTC_
+_Generated: 2026-05-07 02:36 UTC_
 
 ## Overall
 
-- Total cards: **224**
+- Total cards: **225**
 - Completed cards: **13**
 - Overall progress: `[#-----------------------]   5.8%`
 - Active feature trees: **15**
@@ -14,7 +14,7 @@ _Generated: 2026-05-07 02:31 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| decision | 14 | 13 | 0 | 0 | 0 |
+| decision | 15 | 13 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 |
 | phase | 18 | 0 | 1 | 12 | 0 |
 | plan | 8 | 0 | 1 | 6 | 0 |
@@ -27,7 +27,7 @@ _Generated: 2026-05-07 02:31 UTC_
 | --- | --- | ---: | ---: | ---: | ---: |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 |
-| Category specs and Sage surface admission | `[#---------------]   9.3%` | 11/118 | 3 | 102 | 0 |
+| Category specs and Sage surface admission | `[#---------------]   9.2%` | 11/119 | 3 | 102 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 |
