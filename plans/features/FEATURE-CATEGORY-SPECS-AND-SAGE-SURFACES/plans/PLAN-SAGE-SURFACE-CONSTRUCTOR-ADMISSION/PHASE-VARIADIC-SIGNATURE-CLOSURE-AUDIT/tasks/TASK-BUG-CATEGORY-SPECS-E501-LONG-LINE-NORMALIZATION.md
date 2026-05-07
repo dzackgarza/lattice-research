@@ -369,3 +369,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   Cat-supercategory routing. `uvx --from ruff ruff check --select E501
   category_specs/homsets/homsets.py` and `python -m compileall
   category_specs/homsets/homsets.py` now pass. Repo-wide E501 count is now 143.
+- 2026-05-07: Cleared the `category_specs/forms/subcategories/with_forms.py`
+  slice with `uvx --from ruff ruff format`, preserving formed-module
+  subcategory selectors. `uvx --from ruff ruff check --select E501
+  category_specs/forms/subcategories/with_forms.py` and `python -m compileall
+  category_specs/forms/subcategories/with_forms.py` now pass. Repo-wide E501
+  count is now 139.

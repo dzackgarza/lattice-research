@@ -92,8 +92,12 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class MorphismMethods: ...
 
-    Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "BilinearModulesCategory")
-    Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "QuadraticModulesCategory")
+    Bilinear = LazyImport(
+        "category_specs.forms.subcategories.bilinear", "BilinearModulesCategory"
+    )
+    Quadratic = LazyImport(
+        "category_specs.forms.subcategories.quadratic", "QuadraticModulesCategory"
+    )
 
 
 class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -125,8 +129,13 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     ElementMethods = FormedModulesCategory.ElementMethods
     MorphismMethods = FormedModulesCategory.MorphismMethods
 
-    Bilinear = LazyImport("category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory")
-    Quadratic = LazyImport("category_specs.forms.subcategories.quadratic", "OverPIDQuadraticModulesCategory")
+    Bilinear = LazyImport(
+        "category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory"
+    )
+    Quadratic = LazyImport(
+        "category_specs.forms.subcategories.quadratic",
+        "OverPIDQuadraticModulesCategory",
+    )
 
 
 FormedModulesObject = FormedModulesCategory.ParentMethods
