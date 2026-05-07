@@ -11,7 +11,14 @@ from sage.misc.abstract_method import abstract_method
 from sage.sets.cartesian_product import CartesianProduct as SageCartesianProduct
 
 if TYPE_CHECKING:
-    from ...types import CartesianProductFunctor, Integer, Set, SetElement, SetMorphism, SympySet
+    from ...types import (
+        CartesianProductFunctor,
+        Integer,
+        Set,
+        SetElement,
+        SetMorphism,
+        SympySet,
+    )
 
 from ...cat import Category
 from .. import Sets
@@ -69,7 +76,9 @@ class _CartesianProductSets(Category_singleton):
             ...
 
         @abstract_method
-        def _cartesian_product_of_elements(self, elements: Sequence[SetElement]) -> SetElement: ...
+        def _cartesian_product_of_elements(
+            self, elements: Sequence[SetElement]
+        ) -> SetElement: ...
 
         @override
         @abstract_method
@@ -83,7 +92,8 @@ class _CartesianProductSets(Category_singleton):
                 source_factors = S.cartesian_factors()
                 target_factors = self.cartesian_factors()
                 if len(source_factors) == len(target_factors) and all(
-                    target.has_coerce_map_from(source) for target, source in zip(target_factors, source_factors)
+                    target.has_coerce_map_from(source)
+                    for target, source in zip(target_factors, source_factors)
                 ):
                     return True
             return None
