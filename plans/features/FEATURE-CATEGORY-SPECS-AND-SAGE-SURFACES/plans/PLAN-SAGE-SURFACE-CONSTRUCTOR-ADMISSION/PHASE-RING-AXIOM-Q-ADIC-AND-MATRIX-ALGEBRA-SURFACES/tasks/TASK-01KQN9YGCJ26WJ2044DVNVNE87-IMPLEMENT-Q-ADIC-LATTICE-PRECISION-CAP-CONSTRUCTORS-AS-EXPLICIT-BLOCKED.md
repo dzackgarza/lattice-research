@@ -76,9 +76,10 @@ Smoke/frontier state:
   Sage-extension frontier` and the analogous `QqWithPrecisionCaps` label.
 - The smoke statements intentionally still expose the frontier if run; this card does
   not narrow the smoke to hide the remaining upstream Sage gap.
-- No target `just smoke-file` recipe exists in this repo-local justfile, and running
-  global `just test` would be QC/integration work rather than a phase-local smoke
-  check. No validation command was run for this review-only advancement.
+- `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` exists and
+  currently fails broadly on the ring smoke frontier. The output includes the exact
+  `ZqWithPrecisionCaps` and `QqWithPrecisionCaps` deferred Sage-extension labels and
+  assertion messages; this is gap evidence, not a reason to weaken the spec.
 
 Source and mapping evidence:
 
@@ -109,3 +110,28 @@ Spec-weakening review:
   implementation already records explicit Sage-gap assertions rather than broken
   pass-throughs. Advanced the stale task to review without weakening the smoke
   frontier.
+
+## Review Log
+
+### Review - 2026-05-07
+
+Outcome: scoped review passes; card remains `needs-review` for human acceptance.
+
+- Verified `category_specs/rings/__init__.py` preserves admitted public constructor
+  names `ZqWithPrecisionCaps(...)` and `QqWithPrecisionCaps(...)` under
+  `Rings().Constructors()`.
+- Focused runtime probes for both constructors raise the intended `AssertionError`
+  messages: installed Sage has no unramified `Zq`/`Qq` extension constructor for split
+  lattice relative/absolute precision caps, so the admitted names stay deferred until
+  Sage exposes a lattice-precision extension route.
+- Verified `SPEC-MAPPING-RINGS.md` contains the five-field negative finding for this
+  q-adic lattice-precision gap and that the companion spec card preserves the admitted
+  names as deferred frontiers rather than deleting or renaming them.
+- Ran `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`; it
+  fails on the current ring smoke frontier, including the exact q-adic deferred-frontier
+  labels and assertion messages. Broader ring smoke failures such as
+  `hilbert_polynomial`, `completion`, `_change_print_mode`, and `algebraic_closure`
+  remain separate frontier evidence, not blockers for this scoped q-adic leaf.
+- This card does not change topological-ring behavior. The topological membership
+  criterion is inherited parent context and is not the operative acceptance surface for
+  this q-adic deferred-constructor review.
