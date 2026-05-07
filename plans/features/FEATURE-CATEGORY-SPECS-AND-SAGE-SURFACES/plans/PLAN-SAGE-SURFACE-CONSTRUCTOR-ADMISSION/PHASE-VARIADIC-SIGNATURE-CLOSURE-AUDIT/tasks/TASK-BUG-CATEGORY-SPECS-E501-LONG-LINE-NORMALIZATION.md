@@ -197,3 +197,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/sets/subcategories/recursively_enumerated.py` and `python -m
   compileall category_specs/sets/subcategories/recursively_enumerated.py` now
   pass. Repo-wide E501 count is now 298.
+- 2026-05-07: Cleared the
+  `category_specs/modules/subcategories/constructions/quotients.py` slice with
+  `uvx --from ruff ruff format` plus manual wrapping of quotient-constructor
+  docstrings. `uvx --from ruff ruff check --select E501
+  category_specs/modules/subcategories/constructions/quotients.py` and `python
+  -m compileall category_specs/modules/subcategories/constructions/quotients.py`
+  now pass. Repo-wide E501 count is now 289.
