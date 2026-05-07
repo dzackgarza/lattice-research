@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement ImageSets construction category and smoke ambient lift retract and
   image-subobject membership
-status: needs-review
+status: complete
 priority: high
 description: Sets mapping is the source of truth for set constructors, rich comparison,
   partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut
@@ -45,6 +45,56 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 - Set rich comparison is set-theoretic inclusion and equality, not Sage wrapper comparison behavior.
 - Partitioned-set predicates such as crossings, nestings, noncrossing, nonnesting, and atomic are mapped for future axiomatic subcategory admission.
 - Primes documentation and installed source are version-skewed; congruence-class prime subsets need further evidence before admission.
+
+## Review Log
+
+### Review - 2026-05-07 (gap found and repaired; see below)
+
+#### Gate 2 Finding (from prior review)
+
+The initial smoke lacked ambient/lift/retract coverage. Fixed by adding a focused smoke witness. This finding is resolved.
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:**
+- Source provenance cites `category_specs/sets/docs/MAPPING.md` as the canonical source for image-subobject, ambient/lift/retract, and constructor routing surfaces.
+- Implementation commit `983a058` routes through typed `Sets().Constructors().ImageSubobject(f, domain_subset)` with refinement through ImageSets, subobjects, and subquotients.
+
+**Gate 2 — Acceptance Criteria:**
+- [x] Implementation changes only scoped surface and does not weaken smokes → verified: no smoke changes beyond the ambient/lift/retract additions; the prior Gate 2 gap (missing smoke for ambient/lift/retract) was repaired.
+- [x] Relevant smoke output updated → smoke passes exit 0 with ambient/lift/retract assertions.
+- [x] Project category vocabulary used → ImageSubobject, ImageSets, subobjects/subquotients are project category surfaces, not Sage fallback names.
+- [x] Exact mapping row cited → `ImageSubobject(f, domain_subset)` routes through the MAPPING.md image-subobject surface.
+- [x] No generic Sage Set(X) exposed as public constructor → verified: the constructor is the typed project route.
+
+**Gate 3 — Spec-Weakening:**
+- `git diff --cached` and `git diff` show no changes to set spec files, smoke files, or mapping docs.
+- The prior Gate 2 finding was repaired by adding smoke coverage, not by removing obligations.
+
+**Gate 4 — Gradient:**
+- No decision cards contradicted.
+- Sets smoke passes with same exit 0 as baseline.
+- The Sage `Set(X)` exclusion follows the established spec-surface hygiene rule.
+
+**Gate 5 — Mathematical Correctness:**
+- Image subobject semantics are correct: `ImageSubobject(f, domain_subset)` constructs the image of `f` restricted to a subset of its domain, with `ambient()` returning the codomain set and `lift()`/`retract()` providing the subobject morphism pair.
+- Implementation is source-grounded in the sets MAPPING.md image-subobject rows.
+
+**Gate 6 — Style and Compliance:**
+- No raw ConditionSet, variadic option bags, or AI-slop patterns.
+- `git diff --check` passed per commit evidence.
+- `just plan-validate` passes.
+
+#### Residual Risks
+- None identified in the reviewed scope.
+
+
 
 ## Acceptance Criteria
 

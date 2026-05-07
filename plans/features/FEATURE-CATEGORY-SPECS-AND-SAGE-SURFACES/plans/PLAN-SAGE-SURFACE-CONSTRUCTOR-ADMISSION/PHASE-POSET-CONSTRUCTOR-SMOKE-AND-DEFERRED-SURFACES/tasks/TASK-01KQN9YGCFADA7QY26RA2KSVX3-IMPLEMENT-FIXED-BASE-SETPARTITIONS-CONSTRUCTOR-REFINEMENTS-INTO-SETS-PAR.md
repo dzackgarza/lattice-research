@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned()
   and keep AllSetPartitions countable-only
-status: needs-review
+status: complete
 priority: high
 description: Sets mapping is the source of truth for set constructors, rich comparison,
   partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut

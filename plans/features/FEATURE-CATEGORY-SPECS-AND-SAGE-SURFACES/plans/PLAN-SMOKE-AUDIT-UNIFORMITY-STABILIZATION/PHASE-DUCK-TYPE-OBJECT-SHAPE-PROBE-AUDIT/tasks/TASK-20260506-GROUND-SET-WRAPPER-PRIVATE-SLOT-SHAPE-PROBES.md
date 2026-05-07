@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES]]'
 title: Ground set-wrapper private-slot shape probes
-status: needs-review
+status: complete
 priority: high
 description: Source-audit the remaining private-slot and optional-attribute probes
   in set-wrapper one-object categories, then either document them as Sage wrapper
@@ -105,6 +105,52 @@ wrapper accessor rather than an immediate local rewrite.
 - If Sage source shows multiple concrete object families with different semantics, split
   those families into separate owner cards rather than normalizing them through one
   broad helper.
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete/done
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:**
+- Source provenance cites the parent audit task and affects 3 implementation surfaces: `integer_range.py`, `enumerated_from_iterator.py`, `recursively_enumerated.py`.
+- Each probe classified in the source-audit result section traces to Sage source analysis:
+  - `IntegerRangeFinite`/`Infinite`/`FromMiddle`/`Empty` classes documented in Sage source.
+  - `EnumeratedSetFromIterator._func/_args/_kwds/_cache` documented Sage storage.
+  - `recursively_enumerated_set.pyx` seeds/successors/max_depth documented as generic/forest type boundaries.
+- Style policy cited from `.agents/skills/category-spec-style/references/style.md`.
+
+**Gate 2 — Acceptance Criteria:**
+- [x] Sage docs/source for integer ranges, callable-backed enumerated sets, and recursively enumerated sets are read before editing → Source Audit Result documents Sage class/type findings for all three surfaces.
+- [x] Each remaining probe classified as documented Sage wrapper storage or invalid dispatch → integer_range.py: Sage type dispatch instead of `_middle_point`/`_end` probes; enumerated_from_iterator.py: delegation to Sage class methods; recursively_enumerated.py: Sage generic/forest type boundaries with bounded-depth wrapper boundary.
+- [x] Invalid probes replaced with source-backed type checks, category predicates, or named wrapper/accessor boundaries → all three files updated with explicit Sage type dispatch or delegation.
+- [x] Public mathematical specs, smokes, and abstract obligations are not weakened → no spec or smoke changes were made; only implementation details in wrapper files.
+
+**Gate 3 — Spec-Weakening:**
+- No staged or unstaged diffs on spec files or smoke files. Changes are limited to the 3 implementation files.
+- No abstract methods, constructor obligations, or smoke assertions deleted.
+
+**Gate 4 — Gradient:**
+- No decision cards are contradicted. The duck-type-to-category-dispatch direction follows the established category-spec-style policy.
+- No previously passing smokes regressed.
+
+**Gate 5 — Mathematical Correctness:**
+- The task is implementation-hygiene, not mathematical claim verification. Replacing private-slot probes with Sage type dispatch is mechanically correct for the documented Sage class structures.
+- No mathematical claims are altered.
+
+**Gate 6 — Style and Compliance:**
+- No raw ConditionSet, variadic option bags, or AI-slop patterns.
+- Style policy rule against duck-typed private-attribute dispatch is followed.
+- `just plan-validate` passes.
+
+#### Residual Risks
+- The bounded-depth evidence in `recursively_enumerated.py` is left as a source-backed generic-wrapper boundary; future Sage version changes to recursive-set internals may require updates.
+
+---
 
 ## Work Log
 

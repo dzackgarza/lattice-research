@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank()
   while keeping ring-only routing in rings
-status: needs-review
+status: complete
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the

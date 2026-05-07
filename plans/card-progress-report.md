@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-07 07:59 UTC_
+_Generated: 2026-05-07 08:00 UTC_
 
 ## Overall
 
@@ -65,6 +65,10 @@ _Generated: 2026-05-07 07:59 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT`: Audit method inventory gaps and create owner decisions (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
+- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
+- 2026-05-07 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
+- 2026-05-07 `task` `TASK-01KQXXWCG8P47C9ZVPFBWJF640-MIGRATE-ROOT-MODULE-METHOD-OWNERS`: Ground root module abstract-method ownership before any migration (commit `abf66c1`: docs: gate review logs and status updates for method-inventory and module-phase tasks)
 - 2026-05-07 `task` `TASK-01KQN9YGCPGDG2XCR55YCTXR53-IMPLEMENT-POSET-CERTIFICATE-METHODS-AS-SEPARATE-WITNESS-RETURNING-METHOD`: Implement poset certificate methods as separate witness-returning methods while keeping boolean predicates boolean (commit `d688112`: docs: review poset certificate split card)
 - 2026-05-07 `task` `TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI`: Implement matrix-ring refinement into Algebras(R) and Modules(R).Free().FiniteRank() while keeping ring-only routing in rings (commit `5ae5b38`: fix: repair matrix ring predicate refinement)
 - 2026-05-07 `task` `TASK-01KQN9YGCFADA7QY26RA2KSVX3-IMPLEMENT-FIXED-BASE-SETPARTITIONS-CONSTRUCTOR-REFINEMENTS-INTO-SETS-PAR`: Implement fixed-base SetPartitions constructor refinements into Sets().Partitioned() and keep AllSetPartitions countable-only (commit `a75b55f`: docs: review set partitions refinement card)
@@ -76,10 +80,6 @@ _Generated: 2026-05-07 07:59 UTC_
 - 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`: Research category integration for complex algebraic surfaces (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
 - 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-MANIFOLDS-CATEGORY`: Research category integration for complex manifolds (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
 - 2026-05-06 `task` `TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`: Research category integration for complex varieties (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
-- 2026-05-06 `task` `TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`: Research category integration for families of varieties (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
-- 2026-05-06 `task` `TASK-INTEGRATE-POLYHEDRA-2D-POLYTOPES-CATEGORY`: Research category integration for 2D polyhedra and polytopes (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
-- 2026-05-06 `task` `TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY`: Research category integration for toric varieties with lattice categories (commit `61c9f9d`: docs: wire geometry source substrate dependencies)
-- 2026-05-06 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `312982d`: docs: repair method inventory source provenance)
 
 ## Notes
 

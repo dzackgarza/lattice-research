@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement poset certificate methods as separate witness-returning methods while
   keeping boolean predicates boolean
-status: needs-review
+status: complete
 priority: high
 description: Posets mapping owns constructor names, finite surface methods, certificate
   method split, deferred non-core surface ownership, and slice/coslice structure methods.

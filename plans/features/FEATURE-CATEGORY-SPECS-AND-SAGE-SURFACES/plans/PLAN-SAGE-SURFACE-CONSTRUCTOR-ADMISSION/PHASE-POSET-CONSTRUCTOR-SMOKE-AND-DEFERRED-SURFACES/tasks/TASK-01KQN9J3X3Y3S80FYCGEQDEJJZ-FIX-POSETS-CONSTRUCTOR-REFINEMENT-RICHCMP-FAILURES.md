@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 dependsOn: []
 title: Fix Posets constructor refinement __richcmp__ failures
-status: needs-review
+status: complete
 priority: high
 description: The deleted Posets triage recorded settled order-theoretic mapping items,
   a concrete design decision about equivalence relations/set partitions, and evidence
