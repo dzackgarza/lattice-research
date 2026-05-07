@@ -564,3 +564,12 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/modules/subcategories/free_graded_modules.py` and `python -m
   compileall category_specs/modules/subcategories/free_graded_modules.py` now
   pass. Repo-wide E501 count is now 72.
+- 2026-05-07: Cleared the
+  `category_specs/modules/subcategories/finitely_presented_over_pid.py` slice
+  with `uvx --from ruff ruff format` plus one manual docstring wrap,
+  preserving finitely-presented PID module invariants and Hom construction
+  signatures. `uvx --from ruff ruff check --select E501
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` and
+  `python -m compileall
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` now pass.
+  Repo-wide E501 count is now 70.
