@@ -32,7 +32,8 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     EXAMPLES::
 
         sage: A2 = Lattice.A(2)   # not tested; root lattice, negative definite
-        sage: A2 in Modules(ZZ).WithForms().Bilinear().Symmetric().Definite()   # not tested
+        sage: C = Modules(ZZ).WithForms().Bilinear().Symmetric().Definite()
+        sage: A2 in C   # not tested
         True
     """
 

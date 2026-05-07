@@ -32,7 +32,9 @@ class _LatticePosets(Category):
             r"""Return the finite lattice-poset subcategory."""
             return self._with_axiom("Finite")
 
-    Finite = LazyImport("category_specs.posets.subcategories.finite_lattice", "_FiniteLatticePosets")
+    Finite = LazyImport(
+        "category_specs.posets.subcategories.finite_lattice", "_FiniteLatticePosets"
+    )
 
     class ParentMethods: ...
 

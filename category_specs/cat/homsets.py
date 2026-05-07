@@ -89,7 +89,9 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
         self_bases: tuple[Category, ...],
         other_bases: tuple[Category, ...],
     ) -> Category:
-        r"""Return the common base category data for this construction and ``other_functor``."""
+        r"""Return the common base data for this construction and
+        ``other_functor``.
+        """
         del other_functor, self_bases, other_bases
         ...
 

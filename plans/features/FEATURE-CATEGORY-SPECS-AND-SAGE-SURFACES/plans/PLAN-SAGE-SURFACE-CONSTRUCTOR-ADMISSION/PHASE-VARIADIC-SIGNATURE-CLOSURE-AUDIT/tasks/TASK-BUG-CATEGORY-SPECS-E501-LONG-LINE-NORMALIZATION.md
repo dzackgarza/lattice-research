@@ -711,3 +711,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   signatures, and containment predicates. `uvx --from ruff ruff check --select
   E501` and `python -m compileall` now pass on those seven files. Repo-wide
   E501 count is now 23.
+- 2026-05-07: Cleared the final non-ring E501 slice covering the remaining
+  poset, module, lattice, form, cat, and algebra files. Preserved existing
+  structure-helper imports, LazyImports, examples, docstrings, type-only
+  imports, signatures, and expression semantics. `uvx --from ruff ruff check
+  --select E501 category_specs` now passes with zero findings, and `python -m
+  compileall` passes on all 23 edited files. Repo-wide E501 count is now 0.

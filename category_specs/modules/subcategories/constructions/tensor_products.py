@@ -15,7 +15,9 @@ from ....cat import Category, TensorProductsCategory
 if TYPE_CHECKING:
     from ....types import RModule, RModuleElement
 
-_TensorAlgebraComponents = LazyImport("category_specs.tensor_algebra_components", "TensorAlgebraComponents")
+_TensorAlgebraComponents = LazyImport(
+    "category_specs.tensor_algebra_components", "TensorAlgebraComponents"
+)
 
 
 class _TensorProducts(TensorProductsCategory):

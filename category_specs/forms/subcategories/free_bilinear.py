@@ -118,7 +118,8 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @final
         def discriminant(self) -> RingElement:
-            r"""Introduced here: return ``(-1)^r \det(G)`` where ``r = \mathrm{rank}(M)``.
+            r"""Introduced here: return ``(-1)^r \det(G)`` where
+            ``r = \mathrm{rank}(M)``.
 
             This is the sign convention used by Sage's
             ``FreeQuadraticModule_generic.discriminant()``.

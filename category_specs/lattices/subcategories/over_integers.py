@@ -40,7 +40,9 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
 
         @final
         def short_vectors_up_to_sign(self, bound: RingElement) -> SetFamily:
-            r"""Return representatives for the sign orbits ``{v, -v}`` in ``short_vectors(bound)``."""
+            r"""Return representatives for the sign orbits ``{v, -v}`` in
+            ``short_vectors(bound)``.
+            """
             return self.short_vectors(bound, up_to_sign_flag=True)
 
         @abstract_method

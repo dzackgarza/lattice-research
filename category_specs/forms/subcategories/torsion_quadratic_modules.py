@@ -17,17 +17,22 @@ if TYPE_CHECKING:
 class TorsionQuadraticModulesCategory(Category_over_base_ring):
     r"""Finite ``ZZ``-modules equipped with a torsion quadratic form.
 
-    Canonical chain: ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
+    Canonical chain:
+    ``FinitelyPresentedModulesOverPID(ZZ).Torsion().WithForms().Quadratic()``.
     """
 
     @final
     def super_categories(self):
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).Torsion(),
-            Modules(R).WithForms().Quadratic(),
-            Modules(R).FinitelyPresented(),
-        ])]
+        return [
+            Category.join(
+                [
+                    Modules(R).Torsion(),
+                    Modules(R).WithForms().Quadratic(),
+                    Modules(R).FinitelyPresented(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @final

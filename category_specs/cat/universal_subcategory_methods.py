@@ -12,7 +12,13 @@ from typing import TYPE_CHECKING, final
 from sage.misc.cachefunc import cached_method
 
 if TYPE_CHECKING:
-    from ..types import Category, CategoryObject, CategoryOfAutCategories, CategoryOfEndCategories, CategoryOfHomCategories
+    from ..types import (
+        Category,
+        CategoryObject,
+        CategoryOfAutCategories,
+        CategoryOfEndCategories,
+        CategoryOfHomCategories,
+    )
 
 
 class UniversalSubcategoryMethods:

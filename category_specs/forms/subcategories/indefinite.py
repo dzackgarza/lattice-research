@@ -31,7 +31,8 @@ class IndefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     EXAMPLES::
 
         sage: U = Lattice.U()   # not tested; hyperbolic plane, signature (1,1)
-        sage: U in Modules(ZZ).WithForms().Bilinear().Symmetric().Indefinite()   # not tested
+        sage: C = Modules(ZZ).WithForms().Bilinear().Symmetric().Indefinite()
+        sage: U in C   # not tested
         True
     """
 

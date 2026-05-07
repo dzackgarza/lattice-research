@@ -45,7 +45,9 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstract_method
-            def from_function(self, f: Callable[[RModuleElement], RModuleElement]) -> RModuleMorphism: ...
+            def from_function(
+                self, f: Callable[[RModuleElement], RModuleElement]
+            ) -> RModuleMorphism: ...
 
         class ElementMethods: ...
 
