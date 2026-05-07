@@ -48,7 +48,7 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 - [x] The implementation changes only the scoped category-spec surface and does not weaken smokes or mapping decisions to make failures disappear.
 - [x] Relevant smoke output is updated in this task body or a linked tracker item, with exact failing surfaces preserved when work remains.
 - [x] The change uses project category vocabulary rather than Sage fallback helper names or wrapper-only categories.
-- [ ] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
+- [x] When closing deferred surface mapping, place each method by target mathematical object or display/interop status.
 - [x] Keep order-theoretic lattice vocabulary separate from module/quadratic lattice vocabulary.
 
 ## Dependencies And Boundaries
@@ -78,3 +78,19 @@ deferred non-core surface ownership, and slice/coslice structure methods.
 - 2026-05-05 validation: `just --justfile category_specs/justfile smoke-file
   posets/smoketest.sage` passed; `just --justfile category_specs/justfile
   check-abstract-redefinitions` passed; `git diff --check` passed.
+
+## Review Log
+
+- 2026-05-07 dependency-ready leaf check: this card has no unmet `dependsOn` edges and
+  was selected from the DAG frontier; dependency-waiting tasks were not attempted or
+  marked blocked.
+- Source and mapping review: `SPEC-01KQN9YGC9K980Y33NVZSTP4Z7-MAP-POSET-DEFERRED-GRAPH-POLYTOPE-ORDER-COMPLEX-ALGEBRA-POLYNOMIAL-COXET`
+  records the deferred graph/display/polytope/order-complex/algebra/polynomial/Coxeter
+  surfaces by target mathematical object or display/interop exclusion, so the deferred
+  acceptance item is covered without adding a second mapping document.
+- Focused verification passed:
+  `just --justfile category_specs/justfile smoke-file posets/smoketest.sage` and
+  `just --justfile category_specs/justfile check-abstract-redefinitions`.
+- Spec-weakening review: certificate-bearing Sage predicates are preserved as named
+  witness-returning methods, while boolean predicates remain boolean; order-theoretic
+  lattice vocabulary remains separated from module/quadratic lattice vocabulary.
