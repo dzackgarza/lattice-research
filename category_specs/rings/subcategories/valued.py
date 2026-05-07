@@ -41,7 +41,10 @@ class _ValuedRings(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_valued_ring()
 
-    DiscretelyValued = LazyImport("category_specs.rings.subcategories.discrete_valuation_ring", "_DiscreteValuationRings")
+    DiscretelyValued = LazyImport(
+        "category_specs.rings.subcategories.discrete_valuation_ring",
+        "_DiscreteValuationRings",
+    )
 
     class SubcategoryMethods:
         @cached_method
