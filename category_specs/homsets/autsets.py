@@ -29,7 +29,9 @@ def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:
     return endomorphism.is_invertible()
 
 
-def _condition_aut_object_from_end_category(end_category: End, aut_category: Category) -> Aut:
+def _condition_aut_object_from_end_category(
+    end_category: End, aut_category: Category
+) -> Aut:
     r"""Return the private Sage condition subset backing an aut object."""
     return SageConditionSet(
         end_category,
@@ -153,7 +155,9 @@ class AutCategoryConstruction(EndCategoryConstruction):
         super_categories = category.super_categories()
         if not super_categories:
             return AutCategory()
-        return Category.join([_aut_categories_of(super_category) for super_category in super_categories])
+        return Category.join(
+            [_aut_categories_of(super_category) for super_category in super_categories]
+        )
 
 
 class AutCategoryOf(CategoryWithAxiom):
@@ -169,7 +173,9 @@ class AutCategoryOf(CategoryWithAxiom):
 
     @override
     def extra_super_categories(self) -> list[Category]:
-        r"""Return automorphism categories inherited from supercategories of the base."""
+        r"""Return automorphism categories inherited from supercategories of the
+        base.
+        """
         aut_supercategories = [
             super_category.AutCategory()
             for super_category in self.base_category().super_categories()

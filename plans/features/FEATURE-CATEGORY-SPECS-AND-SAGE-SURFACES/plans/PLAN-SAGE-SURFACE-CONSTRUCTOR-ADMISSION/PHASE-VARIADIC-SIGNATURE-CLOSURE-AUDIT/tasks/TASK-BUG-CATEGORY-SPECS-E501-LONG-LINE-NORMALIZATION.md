@@ -438,3 +438,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   -m compileall
   category_specs/modules/subcategories/constructions/subobjects.py` now pass.
   Repo-wide E501 count is now 111.
+- 2026-05-07: Cleared the `category_specs/homsets/autsets.py` slice with
+  `uvx --from ruff ruff format` plus one manual docstring wrap, preserving
+  aut-object construction and inherited aut-category routing. `uvx --from ruff
+  ruff check --select E501 category_specs/homsets/autsets.py` and `python -m
+  compileall category_specs/homsets/autsets.py` now pass. Repo-wide E501 count
+  is now 108.
