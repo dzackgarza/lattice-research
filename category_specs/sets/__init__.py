@@ -163,7 +163,7 @@ class _SetObjectMethods:
         r"""Return Sage construction data for this set, when it has one."""
         return None
 
-    @overload
+    @final
     def cartesian_product(
         self,
         other: Set,
@@ -171,40 +171,8 @@ class _SetObjectMethods:
         category: Category | None = None,
         extra_category: Category | None = None,
         flatten: bool = False,
-    ) -> Set: ...
-
-    @overload
-    def cartesian_product(
-        self,
-        factors: Sequence[Set],
-        *,
-        category: Category | None = None,
-        extra_category: Category | None = None,
-        flatten: bool = False,
-    ) -> Set: ...
-
-    @final
-    def cartesian_product(
-        self,
-        other: Set | Sequence[Set],
-        *,
-        category: Category | None = None,
-        extra_category: Category | None = None,
-        flatten: bool = False,
     ) -> Set:
-        r"""Return the binary Cartesian product or finite-factor product."""
-        if isinstance(other, Sequence):
-            parents = (self, *tuple(other))
-            return (
-                Sets()
-                .Constructors()
-                .CartesianProductFromFactors(
-                    parents,
-                    category=category,
-                    extra_category=extra_category,
-                    flatten=flatten,
-                )
-            )
+        r"""Return the binary Cartesian product of this set with ``other``."""
         return (
             Sets()
             .Constructors()
@@ -930,38 +898,16 @@ class Sets(Category_singleton):
             flatten: bool = False,
         ) -> Set: ...
 
-        @overload
-        def CartesianProduct(
-            self,
-            factors: Sequence[Set],
-            *,
-            category: Category | None = None,
-            flatten: bool = False,
-        ) -> Set: ...
-
         @final
         def CartesianProduct(
             self,
-            left: Set | Sequence[Set],
-            right: Set | None = None,
+            left: Set,
+            right: Set,
             *,
             category: Category | None = None,
             flatten: bool = False,
         ) -> Set:
-            r"""Return a binary Cartesian product, with a deprecated sequence form."""
-            if right is None:
-                if isinstance(left, Sequence):
-                    return self.CartesianProductFromFactors(
-                        left, category=category, flatten=flatten
-                    )
-                raise TypeError(
-                    "CartesianProduct requires two set factors "
-                    "or a finite sequence of factors"
-                )
-            if isinstance(left, Sequence):
-                raise TypeError(
-                    "binary CartesianProduct expects left and right set factors"
-                )
+            r"""Return the binary Cartesian product of ``left`` and ``right``."""
             return self.CartesianProductFromFactors(
                 (left, right), category=category, flatten=flatten
             )

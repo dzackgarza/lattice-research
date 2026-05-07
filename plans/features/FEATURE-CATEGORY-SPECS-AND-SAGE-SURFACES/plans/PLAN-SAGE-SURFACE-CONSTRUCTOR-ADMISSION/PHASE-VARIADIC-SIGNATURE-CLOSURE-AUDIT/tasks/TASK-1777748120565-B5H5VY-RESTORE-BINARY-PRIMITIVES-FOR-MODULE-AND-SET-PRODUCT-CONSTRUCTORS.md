@@ -94,6 +94,15 @@ Task: restore the binary-only variants of the module and set product constructor
   lists have the same length and each target factor coerces from the matching source
   factor. This mirrors Sage's criterion without calling Sage's fallback path, which
   re-enters the refined category method.
+- 2026-05-07: Pre-review audit found that `CartesianProduct` still carried a sequence
+  overload and `right=None` compatibility body even though
+  `CartesianProductFromFactors(factors)` already owns the finite-factor aggregate
+  surface. Removed the optional-argument path so `CartesianProduct(left, right)` is
+  strictly binary.
+- 2026-05-07: Independent Gate 2 review also found that set-object
+  `cartesian_product` still accepted `Set | Sequence[Set]`. Removed that sequence
+  overload so set-object product is binary; the finite-factor aggregate remains on
+  `CartesianProductFromFactors(factors)`.
 
 ## Verification
 
@@ -102,6 +111,13 @@ Task: restore the binary-only variants of the module and set product constructor
 - Passed with the existing Sage topological-axiom warning:
   `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
 - Passed: `sage category_specs/sets/tests/regression/cartesian_product.sage`
+- 2026-05-07 rework validation:
+  - `python -m py_compile category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py` passed.
+  - `uvx --from ruff ruff check category_specs/sets/__init__.py category_specs/sets/subcategories/cartesian_product.py` passed.
+  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage` passed,
+    with the same pre-existing Sage warning about `Sets.Topological` not subclassing
+    `CategoryWithAxiom`.
+  - `sage category_specs/sets/tests/regression/cartesian_product.sage` passed.
 
 ## Spec-Weakening Review
 
@@ -110,3 +126,59 @@ Task: restore the binary-only variants of the module and set product constructor
   compatibility, and strengthens smoke coverage for the binary primitive. No abstract
   method, constructor obligation, smoke assertion, or owner surface was deleted or
   narrowed to make Sage pass.
+
+## Review Log
+
+### Review 2026-05-07 (Hume)
+
+**Gates passed:** Gate 1 Definition Grounding
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 2 Finding: Same-Name Product Surfaces Still Accepted Aggregate Shapes
+
+- The card requires binary primitives and deprecated n-ary forms.
+- `Sets().Constructors().CartesianProduct` still exposed a sequence overload and a
+  concrete `right=None` compatibility body.
+- Set-object `cartesian_product` still accepted `Set | Sequence[Set]`.
+
+#### Rework
+
+- Removed the sequence overload and optional-argument body from
+  `Sets().Constructors().CartesianProduct`, leaving `CartesianProduct(left, right)` as
+  the binary primitive.
+- Removed the sequence overload from set-object `cartesian_product`, leaving
+  `X.cartesian_product(Y)` as the binary method.
+- Kept finite-factor compatibility on the explicit
+  `CartesianProductFromFactors(factors)` surface.
+
+### Re-review 2026-05-07 (Hooke)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Confirmed grounding for binary product primitives and Sage/product ownership.
+- Confirmed `Sets().Constructors().CartesianProduct(left, right)` is binary-only.
+- Confirmed set-object `cartesian_product(other)` is binary-only.
+- Confirmed finite-factor compatibility remains on
+  `CartesianProductFromFactors(factors)` and the lower-case constructor compatibility
+  surface.
+- Confirmed smoke and regression coverage exercise binary and aggregate paths.
+- Confirmed module product surfaces already expose binary primitives plus explicit
+  sequence overloads, with final construction-category methods where behavior is
+  implemented.
+- Confirmed the current diff removes same-name aggregate paths rather than weakening
+  obligations.
+
+#### Residual Risk
+
+- Re-review relied on the local validation recorded above rather than rerunning those
+  commands independently.
+- The set mapping spec still had a coarse `CartesianProduct(...)` /
+  `cartesian_product(...)` row during review; it was immediately split into binary and
+  finite-factor compatibility rows to prevent future ambiguity.
