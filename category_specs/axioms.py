@@ -144,14 +144,23 @@ HOMSET_AXIOMS = (
 # Registration Logic
 # ---------------------------------------------------------------------------
 
-ALL_AXIOMS = SHARED_AXIOMS + SET_AXIOMS + RING_AXIOMS + MODULE_AXIOMS + LATTICE_AXIOMS + HOMSET_AXIOMS
+ALL_AXIOMS = (
+    SHARED_AXIOMS
+    + SET_AXIOMS
+    + RING_AXIOMS
+    + MODULE_AXIOMS
+    + LATTICE_AXIOMS
+    + HOMSET_AXIOMS
+)
 
 
 def register_axioms(axioms: Iterable[str]) -> None:
     r"""Register a collection of custom axioms into Sage's category system."""
     from sage.categories import category_with_axiom as _category_with_axiom
 
-    missing = tuple(axiom for axiom in axioms if axiom not in _category_with_axiom.all_axioms)
+    missing = tuple(
+        axiom for axiom in axioms if axiom not in _category_with_axiom.all_axioms
+    )
     if missing:
         _category_with_axiom.all_axioms += missing
 

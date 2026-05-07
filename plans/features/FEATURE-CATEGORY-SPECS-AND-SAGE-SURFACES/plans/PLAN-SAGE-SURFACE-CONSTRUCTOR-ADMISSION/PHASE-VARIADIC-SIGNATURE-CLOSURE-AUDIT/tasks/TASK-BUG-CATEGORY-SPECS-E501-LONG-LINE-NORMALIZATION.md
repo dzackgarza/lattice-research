@@ -599,3 +599,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/cat/subcategories/constructions/subobjects.py` and `python -m
   compileall category_specs/cat/subcategories/constructions/subobjects.py` now
   pass. Repo-wide E501 count is now 62.
+- 2026-05-07: Cleared the `category_specs/axioms.py` slice with `uvx --from
+  ruff ruff format`, preserving project axiom tuple order and Sage registration
+  logic. `uvx --from ruff ruff check --select E501 category_specs/axioms.py`
+  and `python -m compileall category_specs/axioms.py` now pass. Repo-wide E501
+  count is now 60.
