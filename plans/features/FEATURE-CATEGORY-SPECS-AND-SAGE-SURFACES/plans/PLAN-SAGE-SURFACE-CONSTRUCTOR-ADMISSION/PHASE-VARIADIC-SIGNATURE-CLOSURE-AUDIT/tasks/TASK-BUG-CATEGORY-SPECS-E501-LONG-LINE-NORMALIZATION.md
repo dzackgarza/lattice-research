@@ -338,3 +338,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   E501 category_specs/lattices/subcategories/indefinite.py` and `python -m
   compileall category_specs/lattices/subcategories/indefinite.py` now pass.
   Repo-wide E501 count is now 163.
+- 2026-05-07: Cleared the
+  `category_specs/lattices/subcategories/free_bilinear.py` compatibility
+  re-export slice with `uvx --from ruff ruff format`. `uvx --from ruff ruff
+  check --select E501 category_specs/lattices/subcategories/free_bilinear.py`
+  and `python -m compileall
+  category_specs/lattices/subcategories/free_bilinear.py` now pass. Repo-wide
+  E501 count is now 159.
