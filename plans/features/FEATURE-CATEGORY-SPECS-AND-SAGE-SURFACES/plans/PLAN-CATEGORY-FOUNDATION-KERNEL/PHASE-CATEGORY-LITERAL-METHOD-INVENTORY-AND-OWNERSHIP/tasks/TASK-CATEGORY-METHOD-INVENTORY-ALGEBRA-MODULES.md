@@ -159,3 +159,30 @@ re-review still required
   method from `category_specs/algebras/__init__.py`.
 - Left Sage inventory and mapping references intact as source evidence for the
   unresolved decision, not as public project admission.
+
+### Re-review 2026-05-07 (McClintock)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Confirmed `has_standard_involution()` is not admitted on general `Algebras(R)` in
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`; the row is
+  `decision-needed`.
+- Confirmed `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]` keeps the method out of
+  general `Algebras(R)` until the owner is settled.
+- Confirmed the live Python surface no longer declares the method in
+  `_AlgebraParentMethods`.
+- Exact search `rg -n "has_standard_involution" category_specs src tests -g '*.py'
+  -S` found no live Python definition or use under `category_specs`, `src`, or
+  `tests`.
+
+#### Residual Risk
+
+- Sage inventory still records the upstream Sage method as source evidence, which is
+  intentional and not project admission.
+- `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]` remains unstarted and must be
+  resolved before any public project admission of the method.
