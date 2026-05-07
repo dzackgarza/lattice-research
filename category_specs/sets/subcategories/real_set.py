@@ -45,7 +45,11 @@ class _RealSets(Category_singleton):
     def super_categories(self) -> list[Category]:
         from ...topological_spaces import TopologicalSpaces
 
-        return [Sets().Topological(), Sets().Subobjects(), TopologicalSpaces().Subobjects()]
+        return [
+            Sets().Topological(),
+            Sets().Subobjects(),
+            TopologicalSpaces().Subobjects(),
+        ]
 
     class ParentMethods:
         @override
@@ -75,7 +79,9 @@ class _RealSets(Category_singleton):
         def is_compact(self) -> bool:
             r"""Return whether this real subset is compact in the real line."""
             return self.is_empty() or (
-                self.is_closed() and self.inf() is not minus_infinity and self.sup() is not infinity
+                self.is_closed()
+                and self.inf() is not minus_infinity
+                and self.sup() is not infinity
             )
 
         @abstract_method
