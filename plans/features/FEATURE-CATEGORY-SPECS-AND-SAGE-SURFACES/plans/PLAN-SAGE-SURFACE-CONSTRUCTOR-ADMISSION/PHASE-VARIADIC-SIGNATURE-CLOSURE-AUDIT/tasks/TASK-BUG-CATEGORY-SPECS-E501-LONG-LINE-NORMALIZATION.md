@@ -286,3 +286,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff check --select E501 category_specs/forms/subcategories/symmetric.py` and
   `python -m compileall category_specs/forms/subcategories/symmetric.py` now
   pass. Repo-wide E501 count is now 195.
+- 2026-05-07: Cleared the `category_specs/topological_spaces/__init__.py`
+  slice with `uvx --from ruff ruff format`, preserving topological and metric
+  selector/export names. `uvx --from ruff ruff check --select E501
+  category_specs/topological_spaces/__init__.py` and `python -m compileall
+  category_specs/topological_spaces/__init__.py` now pass. Repo-wide E501 count
+  is now 191.

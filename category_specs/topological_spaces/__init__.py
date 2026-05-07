@@ -183,9 +183,17 @@ class TopologicalSpaces(CategoryWithAxiom):
     ElementMethods = _TopologicalSpaceElementMethods
     MorphismMethods = _TopologicalSpaceMorphismMethods
     HomCategory = TopologicalSpaceHomCategory
-    Metric = LazyImport("category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory")
-    Connected = LazyImport("category_specs.topological_spaces.subcategories.connected", "_ConnectedTopologicalSpaces")
-    Compact = LazyImport("category_specs.topological_spaces.subcategories.compact", "_CompactTopologicalSpaces")
+    Metric = LazyImport(
+        "category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory"
+    )
+    Connected = LazyImport(
+        "category_specs.topological_spaces.subcategories.connected",
+        "_ConnectedTopologicalSpaces",
+    )
+    Compact = LazyImport(
+        "category_specs.topological_spaces.subcategories.compact",
+        "_CompactTopologicalSpaces",
+    )
 
     @override
     @final
@@ -247,7 +255,9 @@ class TopologicalSpaces(CategoryWithAxiom):
 
 
 def _load_metric_spaces_exports() -> None:
-    metric_module = import_module("category_specs.topological_spaces.subcategories.metric")
+    metric_module = import_module(
+        "category_specs.topological_spaces.subcategories.metric"
+    )
     metric_category = metric_module.MetricSpacesCategory
 
     global MetricSpacesCategory
