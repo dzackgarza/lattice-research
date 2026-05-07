@@ -224,3 +224,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   names. `uvx --from ruff ruff check --select E501 category_specs/lattices/__init__.py`
   and `python -m compileall category_specs/lattices/__init__.py` now pass.
   Repo-wide E501 count is now 257.
+- 2026-05-07: Cleared the `category_specs/modules/subcategories/with_forms.py`
+  compatibility re-export slice with `uvx --from ruff ruff format`. `uvx --from
+  ruff ruff check --select E501 category_specs/modules/subcategories/with_forms.py`
+  and `python -m compileall category_specs/modules/subcategories/with_forms.py`
+  now pass. Repo-wide E501 count is now 250.
