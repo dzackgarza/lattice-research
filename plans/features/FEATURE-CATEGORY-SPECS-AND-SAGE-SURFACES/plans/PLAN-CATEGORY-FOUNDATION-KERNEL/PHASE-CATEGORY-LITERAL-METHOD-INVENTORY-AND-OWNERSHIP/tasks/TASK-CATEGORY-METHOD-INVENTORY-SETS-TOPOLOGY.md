@@ -130,3 +130,27 @@ re-review still required
   compatibility spelling for root set membership, with `bool` codomain.
 - Added `InternalRealInterval.boundary_points()` as a real-line finite-interval
   representation surface, not a general topological boundary object.
+
+### Re-review 2026-05-07 (Avicenna)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Confirmed the prior Gate 2 gap is resolved: the target inventory now covers
+  `RealSet.contains(x)` / `InternalRealInterval.contains(x)` and
+  `InternalRealInterval.boundary_points()` with owner, codomain, status, and
+  source.
+- Confirmed the rows are grounded by `SPEC-MAPPING-SETS.md` and the topological
+  Sage inventory.
+- Spot-checked that finite `len(X)` is not root `Sets()`, set/subobject/image/
+  RealSet rows are present, topology/metric rows are present, and rejected or
+  interoperability set surfaces remain represented.
+
+#### Residual Risk
+
+- Review was against local `HEAD` after the row repair and was not a human
+  acceptance step.
