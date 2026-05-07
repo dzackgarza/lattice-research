@@ -573,3 +573,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   `python -m compileall
   category_specs/modules/subcategories/finitely_presented_over_pid.py` now pass.
   Repo-wide E501 count is now 70.
+- 2026-05-07: Cleared the `category_specs/modules/homsets.py` slice with `uvx
+  --from ruff ruff format` plus one manual docstring wrap, preserving module
+  Hom/End/Aut method surfaces and end-category supercategory routing. `uvx
+  --from ruff ruff check --select E501 category_specs/modules/homsets.py` and
+  `python -m compileall category_specs/modules/homsets.py` now pass. Repo-wide
+  E501 count is now 68.

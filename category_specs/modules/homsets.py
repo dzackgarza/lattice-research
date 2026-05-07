@@ -153,7 +153,9 @@ class _RModEndomorphisms:
 
 
 class _RModAutomorphisms:
-    r"""Module-specific automorphism methods; generic aut-category methods are inherited."""
+    r"""Module-specific automorphism methods; generic aut-category methods are
+    inherited.
+    """
 
 
 # ---------------------------------------------------------------------------
@@ -336,7 +338,12 @@ class RModuleEndCategory(GenericEndCategory):
         from . import Modules
 
         R = self.base_category().base_category().base_ring()
-        return [*super().extra_super_categories(), Algebras(R), SageMagmaticAlgebras(R), Modules(R)]
+        return [
+            *super().extra_super_categories(),
+            Algebras(R),
+            SageMagmaticAlgebras(R),
+            Modules(R),
+        ]
 
     class ParentMethods:
         @abstract_method
