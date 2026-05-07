@@ -520,3 +520,11 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/gcd_domain.py` and `python -m compileall
   category_specs/rings/subcategories/gcd_domain.py` now pass. Repo-wide E501
   count is now 84.
+- 2026-05-07: Cleared the
+  `category_specs/rings/subcategories/constructions/rings_over.py` slice with
+  `uvx --from ruff ruff format`, preserving rings-over imports and structure
+  morphism helpers. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/constructions/rings_over.py` and `python
+  -m compileall
+  category_specs/rings/subcategories/constructions/rings_over.py` now pass.
+  Repo-wide E501 count is now 82.
