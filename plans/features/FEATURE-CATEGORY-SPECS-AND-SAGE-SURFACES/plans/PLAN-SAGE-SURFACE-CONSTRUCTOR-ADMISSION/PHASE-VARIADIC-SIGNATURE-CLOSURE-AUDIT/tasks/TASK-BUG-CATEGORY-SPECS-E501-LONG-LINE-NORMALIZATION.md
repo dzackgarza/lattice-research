@@ -579,3 +579,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   --from ruff ruff check --select E501 category_specs/modules/homsets.py` and
   `python -m compileall category_specs/modules/homsets.py` now pass. Repo-wide
   E501 count is now 68.
+- 2026-05-07: Cleared the
+  `category_specs/lattices/subcategories/over_dedekind.py` slice with two
+  manual mathematical docstring wraps, preserving Dedekind-lattice index and
+  reflection formulas. `uvx --from ruff ruff check --select E501
+  category_specs/lattices/subcategories/over_dedekind.py` and `python -m
+  compileall category_specs/lattices/subcategories/over_dedekind.py` now pass.
+  Repo-wide E501 count is now 66.

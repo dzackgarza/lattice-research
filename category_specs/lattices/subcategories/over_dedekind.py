@@ -126,7 +126,8 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
         def index_in(self, other: Lattice) -> RingElement:
             r"""Return the index ``[other : self]`` assuming ``self \subseteq other``.
 
-            For lattices this is ``|\det(G_{\mathrm{other}}) / \det(G_{\mathrm{self}})|^{1/2}``
+            For lattices this is
+            ``|\det(G_{\mathrm{other}}) / \det(G_{\mathrm{self}})|^{1/2}``
             when the Gram matrices are compatible.
             """
             ...
@@ -155,7 +156,8 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
     class ElementMethods:
         @abstract_method
         def reflection(self) -> Automorphism:
-            r"""Return the orthogonal reflection ``s_v: w \mapsto w - \frac{2b(v,w)}{b(v,v)} v``.
+            r"""Return the orthogonal reflection
+            ``s_v: w \mapsto w - \frac{2b(v,w)}{b(v,v)} v``.
 
             Requires ``b(v,v)`` to be a unit (or invertible) in the base ring.
             The reflection ``s_v`` is an element of ``O(L)``.
