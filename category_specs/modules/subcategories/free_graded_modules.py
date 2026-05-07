@@ -12,7 +12,14 @@ from ...cat import Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
-    from ...types import Integer, Matrix, ModuleBasis, RModule, RModuleElement, RModuleMorphism
+    from ...types import (
+        Integer,
+        Matrix,
+        ModuleBasis,
+        RModule,
+        RModuleElement,
+        RModuleMorphism,
+    )
 
 
 class _FreeGradedModules(Category_over_base_ring):
@@ -52,7 +59,10 @@ class _FreeGradedModules(Category_over_base_ring):
         def hom(
             self,
             codomain: RModule,
-            values: RModuleMorphism | Matrix | Sequence[RModuleElement] | Mapping[RModuleElement, RModuleElement],
+            values: RModuleMorphism
+            | Matrix
+            | Sequence[RModuleElement]
+            | Mapping[RModuleElement, RModuleElement],
             check: bool = True,
         ) -> RModuleMorphism: ...
 
