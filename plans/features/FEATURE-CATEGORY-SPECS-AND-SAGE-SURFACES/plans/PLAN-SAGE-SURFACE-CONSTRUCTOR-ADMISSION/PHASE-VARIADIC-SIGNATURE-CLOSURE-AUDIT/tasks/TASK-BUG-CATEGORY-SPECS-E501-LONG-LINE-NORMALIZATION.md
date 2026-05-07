@@ -717,3 +717,29 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   imports, signatures, and expression semantics. `uvx --from ruff ruff check
   --select E501 category_specs` now passes with zero findings, and `python -m
   compileall` passes on all 23 edited files. Repo-wide E501 count is now 0.
+
+## Review Log
+
+### Review 2026-05-07 (Pasteur)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Reviewed the E501 cleanup range `23104dd..31a5e7e` plus the follow-up tracker
+  update `cab5ae8`.
+- Found only mechanical wrapping of imports, signatures, docstrings, examples, and
+  expressions. No deleted `@abstract_method`, constructor obligation, narrowed smoke
+  assertion, Ruff ignore, or semantic/API change was found.
+- `git status --short` was clean during review.
+- `uvx --from ruff ruff check --select E501 category_specs` passed.
+- Representative `python -m compileall` on touched category files passed.
+
+#### Residual Risk
+
+- Full `just test` was not rerun in this review. The parent Ruff blocker records the
+  current full-QC failure as global mypy before Ruff, not an E501 or Ruff
+  normalization failure.
