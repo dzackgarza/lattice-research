@@ -47,52 +47,65 @@ class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def is_integral(self) -> bool:
-            r"""Introduced here: decide whether the form takes values in the base ring."""
+            r"""Introduced here: decide whether values lie in the base ring."""
             ...
 
         @abstract_method
         def is_rational(self) -> bool:
-            r"""Introduced here: decide whether the form takes values in the fraction field."""
+            r"""Introduced here: decide whether values lie in the fraction field."""
             ...
 
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            r"""Introduced here: evaluate the bilinear form on two module elements."""
+            r"""Introduced here: evaluate the form on two module elements."""
             return self.form().b(v, w)
 
         @abstract_method
         def inner_product_matrix(self) -> Matrix:
-            r"""Introduced here: return the matrix encoding the ambient inner product."""
+            r"""Introduced here: return the ambient inner-product matrix."""
             ...
 
         @abstract_method
         def gram_matrix(self) -> Matrix:
-            r"""Introduced here: return the matrix of the bilinear form on generators."""
+            r"""Introduced here: return the generator Gram matrix."""
             ...
 
         @abstract_method
         def uses_ambient_inner_product(self) -> bool:
-            r"""Introduced here: decide whether the form is inherited from an ambient module."""
+            r"""Introduced here: decide whether the form is ambient-inherited."""
             ...
 
     class ElementMethods:
         @abstract_method
         def inner_product(self, other: RModuleElement) -> RingElement:
-            r"""Introduced here: pair this element with another by the parent bilinear form."""
+            r"""Introduced here: pair by the parent bilinear form."""
             ...
 
         @abstract_method
         def dot_product(self, other: RModuleElement) -> RingElement:
-            r"""Introduced here: expose Sage's dot-product convention for formed elements."""
+            r"""Introduced here: expose Sage's formed-element dot product."""
             ...
 
     class MorphismMethods: ...
 
-    Symmetric = LazyImport("category_specs.forms.subcategories.symmetric", "SymmetricBilinearModulesCategory")
-    Alternating = LazyImport("category_specs.forms.subcategories.alternating", "AlternatingBilinearModulesCategory")
-    Nondegenerate = LazyImport("category_specs.forms.subcategories.nondegenerate", "NondegenerateBilinearModulesCategory")
-    Integral = LazyImport("category_specs.forms.subcategories.integral", "IntegralBilinearModulesCategory")
-    Rational = LazyImport("category_specs.forms.subcategories.rational", "RationalBilinearModulesCategory")
+    Symmetric = LazyImport(
+        "category_specs.forms.subcategories.symmetric",
+        "SymmetricBilinearModulesCategory",
+    )
+    Alternating = LazyImport(
+        "category_specs.forms.subcategories.alternating",
+        "AlternatingBilinearModulesCategory",
+    )
+    Nondegenerate = LazyImport(
+        "category_specs.forms.subcategories.nondegenerate",
+        "NondegenerateBilinearModulesCategory",
+    )
+    Integral = LazyImport(
+        "category_specs.forms.subcategories.integral", "IntegralBilinearModulesCategory"
+    )
+    Rational = LazyImport(
+        "category_specs.forms.subcategories.rational", "RationalBilinearModulesCategory"
+    )
 
 
 class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -145,7 +158,10 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     ElementMethods = BilinearModulesCategory.ElementMethods
     MorphismMethods = BilinearModulesCategory.MorphismMethods
 
-    Symmetric = LazyImport("category_specs.forms.subcategories.symmetric", "OverPIDSymmetricBilinearModulesCategory")
+    Symmetric = LazyImport(
+        "category_specs.forms.subcategories.symmetric",
+        "OverPIDSymmetricBilinearModulesCategory",
+    )
     Alternating = LazyImport(
         "category_specs.forms.subcategories.alternating",
         "OverPIDAlternatingBilinearModulesCategory",
@@ -154,8 +170,14 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         "category_specs.forms.subcategories.nondegenerate",
         "OverPIDNondegenerateBilinearModulesCategory",
     )
-    Integral = LazyImport("category_specs.forms.subcategories.integral", "OverPIDIntegralBilinearModulesCategory")
-    Rational = LazyImport("category_specs.forms.subcategories.rational", "OverPIDRationalBilinearModulesCategory")
+    Integral = LazyImport(
+        "category_specs.forms.subcategories.integral",
+        "OverPIDIntegralBilinearModulesCategory",
+    )
+    Rational = LazyImport(
+        "category_specs.forms.subcategories.rational",
+        "OverPIDRationalBilinearModulesCategory",
+    )
 
 
 BilinearModulesObject = BilinearModulesCategory.ParentMethods
