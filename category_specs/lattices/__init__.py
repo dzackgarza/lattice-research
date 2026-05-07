@@ -65,7 +65,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
     Canonical chain: ``Lattices(R)``.
     """
 
-    _base_category_class_and_axiom = (IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory, "Lattice")
+    _base_category_class_and_axiom = (
+        IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+        "Lattice",
+    )
     _defining_predicates = ("is_lattice",)
 
     @final
@@ -148,14 +151,18 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         @cached_method
         @final
         def OrthogonalDirectSums(self) -> Category:
-            from .subcategories.constructions.orthogonal_direct_sums import OrthogonalDirectSumsCategory
+            from .subcategories.constructions.orthogonal_direct_sums import (
+                OrthogonalDirectSumsCategory,
+            )
 
             return OrthogonalDirectSumsCategory(self.base_ring())
 
         @cached_method
         @final
         def DiscriminantGroups(self) -> Category:
-            from .subcategories.constructions.discriminant_groups import LatticeDiscriminantGroupsCategory
+            from .subcategories.constructions.discriminant_groups import (
+                LatticeDiscriminantGroupsCategory,
+            )
 
             return LatticeDiscriminantGroupsCategory(self.base_ring())
 
@@ -174,10 +181,16 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         "category_specs.lattices.subcategories.over_dedekind",
         "_LatticesOverDedekindDomain",
     )
-    OverPID = LazyImport("category_specs.lattices.subcategories.over_pid", "_LatticesOverPID")
-    OverIntegers = LazyImport("category_specs.lattices.subcategories.over_integers", "_LatticesOverIntegers")
+    OverPID = LazyImport(
+        "category_specs.lattices.subcategories.over_pid", "_LatticesOverPID"
+    )
+    OverIntegers = LazyImport(
+        "category_specs.lattices.subcategories.over_integers", "_LatticesOverIntegers"
+    )
     Even = LazyImport("category_specs.lattices.subcategories.even", "_EvenLattices")
-    Unimodular = LazyImport("category_specs.lattices.subcategories.unimodular", "_UnimodularLattices")
+    Unimodular = LazyImport(
+        "category_specs.lattices.subcategories.unimodular", "_UnimodularLattices"
+    )
 
     Subobjects = _Subobjects
     Quotients = _Quotients
@@ -190,7 +203,10 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         "category_specs.lattices.subcategories.constructions.dual_lattices",
         "DualLatticesCategory",
     )
-    Overlattices = LazyImport("category_specs.lattices.subcategories.constructions.overlattices", "OverlatticesCategory")
+    Overlattices = LazyImport(
+        "category_specs.lattices.subcategories.constructions.overlattices",
+        "OverlatticesCategory",
+    )
     OrthogonalDirectSums = LazyImport(
         "category_specs.lattices.subcategories.constructions.orthogonal_direct_sums",
         "OrthogonalDirectSumsCategory",
@@ -203,7 +219,16 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
 def _lattice_chain(base_ring: Ring) -> Category:
     r"""Return the immediate ambient category for ``Lattices(base_ring)``."""
-    return Modules(base_ring, dispatch=False).Free().FiniteRank().WithForms().Bilinear().Symmetric().Nondegenerate().Integral()
+    return (
+        Modules(base_ring, dispatch=False)
+        .Free()
+        .FiniteRank()
+        .WithForms()
+        .Bilinear()
+        .Symmetric()
+        .Nondegenerate()
+        .Integral()
+    )
 
 
 def lattice_category(base_ring: Ring) -> LatticesCategory:

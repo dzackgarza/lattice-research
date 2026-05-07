@@ -219,3 +219,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff ruff check --select E501 category_specs/modules/subcategories/bilinear.py`
   and `python -m compileall category_specs/modules/subcategories/bilinear.py` now
   pass. Repo-wide E501 count is now 265.
+- 2026-05-07: Cleared the `category_specs/lattices/__init__.py` slice with `uvx
+  --from ruff ruff format`, preserving the lattice axiom chain and constructor
+  names. `uvx --from ruff ruff check --select E501 category_specs/lattices/__init__.py`
+  and `python -m compileall category_specs/lattices/__init__.py` now pass.
+  Repo-wide E501 count is now 257.
