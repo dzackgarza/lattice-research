@@ -38,9 +38,13 @@ class _TopologicalRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageRings().Topological() or (R in self.base_category() and R.is_topological_ring())
+        return R in SageRings().Topological() or (
+            R in self.base_category() and R.is_topological_ring()
+        )
 
-    Complete = LazyImport("category_specs.rings.subcategories.complete", "_CompleteRings")
+    Complete = LazyImport(
+        "category_specs.rings.subcategories.complete", "_CompleteRings"
+    )
 
     class SubcategoryMethods:
         @cached_method
@@ -49,7 +53,9 @@ class _TopologicalRings(CategoryWithAxiom):
             return self._with_axiom("Complete")
 
     class ParentMethods:
-        _missing_topology_adapter = TopologicalSpaceRuntimeGapObjectMethods._missing_topology_adapter
+        _missing_topology_adapter = (
+            TopologicalSpaceRuntimeGapObjectMethods._missing_topology_adapter
+        )
         is_connected = TopologicalSpaceRuntimeGapObjectMethods.is_connected
         closure = TopologicalSpaceRuntimeGapObjectMethods.closure
         interior = TopologicalSpaceRuntimeGapObjectMethods.interior
