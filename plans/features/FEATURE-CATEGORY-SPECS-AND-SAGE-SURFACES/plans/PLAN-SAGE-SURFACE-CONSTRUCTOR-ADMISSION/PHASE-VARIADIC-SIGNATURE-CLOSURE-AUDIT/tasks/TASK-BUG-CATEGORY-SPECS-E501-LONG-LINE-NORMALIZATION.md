@@ -387,3 +387,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/sets/subcategories/partitioned.py` and `python -m compileall
   category_specs/sets/subcategories/partitioned.py` now pass. Repo-wide E501
   count is now 132.
+- 2026-05-07: Cleared the
+  `category_specs/sets/subcategories/finite_set_maps.py` slice with `uvx --from
+  ruff ruff format`, preserving finite-map constructor overloads. `uvx --from
+  ruff ruff check --select E501
+  category_specs/sets/subcategories/finite_set_maps.py` and `python -m
+  compileall category_specs/sets/subcategories/finite_set_maps.py` now pass.
+  Repo-wide E501 count is now 129.
