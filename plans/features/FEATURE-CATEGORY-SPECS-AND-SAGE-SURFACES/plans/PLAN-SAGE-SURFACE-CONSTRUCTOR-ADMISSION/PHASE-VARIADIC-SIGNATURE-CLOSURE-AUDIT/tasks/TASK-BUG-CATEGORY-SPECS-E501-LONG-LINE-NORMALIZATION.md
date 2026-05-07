@@ -280,3 +280,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   E501 category_specs/lattices/subcategories/integral.py` and `python -m
   compileall category_specs/lattices/subcategories/integral.py` now pass.
   Repo-wide E501 count is now 200.
+- 2026-05-07: Cleared the `category_specs/forms/subcategories/symmetric.py`
+  slice with `uvx --from ruff ruff format` plus manual wrapping of two predicate
+  docstrings while preserving their owner-introduction note. `uvx --from ruff
+  ruff check --select E501 category_specs/forms/subcategories/symmetric.py` and
+  `python -m compileall category_specs/forms/subcategories/symmetric.py` now
+  pass. Repo-wide E501 count is now 195.

@@ -53,12 +53,18 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
         @abstract_method
         def is_positive_definite(self) -> bool:
-            r"""Introduced here: decide whether all nonzero self-products are positive."""
+            r"""Introduced here.
+
+            Decide whether all nonzero self-products are positive.
+            """
             ...
 
         @abstract_method
         def is_negative_definite(self) -> bool:
-            r"""Introduced here: decide whether all nonzero self-products are negative."""
+            r"""Introduced here.
+
+            Decide whether all nonzero self-products are negative.
+            """
             ...
 
         @abstract_method
@@ -124,6 +130,12 @@ class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     MorphismMethods = SymmetricBilinearModulesCategory.MorphismMethods
 
 
-OverPIDSymmetricBilinearModulesObject = OverPIDSymmetricBilinearModulesCategory.ParentMethods
-OverPIDSymmetricBilinearModulesElement = OverPIDSymmetricBilinearModulesCategory.ElementMethods
-OverPIDSymmetricBilinearModulesMorphism = OverPIDSymmetricBilinearModulesCategory.MorphismMethods
+OverPIDSymmetricBilinearModulesObject = (
+    OverPIDSymmetricBilinearModulesCategory.ParentMethods
+)
+OverPIDSymmetricBilinearModulesElement = (
+    OverPIDSymmetricBilinearModulesCategory.ElementMethods
+)
+OverPIDSymmetricBilinearModulesMorphism = (
+    OverPIDSymmetricBilinearModulesCategory.MorphismMethods
+)
