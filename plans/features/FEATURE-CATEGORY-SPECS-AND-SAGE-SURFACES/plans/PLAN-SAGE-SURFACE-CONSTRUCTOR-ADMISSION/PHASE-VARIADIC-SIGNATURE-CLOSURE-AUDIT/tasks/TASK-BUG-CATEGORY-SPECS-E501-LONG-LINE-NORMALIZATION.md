@@ -444,3 +444,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   ruff check --select E501 category_specs/homsets/autsets.py` and `python -m
   compileall category_specs/homsets/autsets.py` now pass. Repo-wide E501 count
   is now 108.
+- 2026-05-07: Cleared the
+  `category_specs/forms/subcategories/integral.py` slice with `uvx --from ruff
+  ruff format`, preserving integral-bilinear-module public aliases. `uvx --from
+  ruff ruff check --select E501 category_specs/forms/subcategories/integral.py`
+  and `python -m compileall category_specs/forms/subcategories/integral.py`
+  now pass. Repo-wide E501 count is now 105.

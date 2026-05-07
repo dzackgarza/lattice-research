@@ -172,6 +172,12 @@ class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     MorphismMethods = IntegralBilinearModulesCategory.MorphismMethods
 
 
-OverPIDIntegralBilinearModulesObject = OverPIDIntegralBilinearModulesCategory.ParentMethods
-OverPIDIntegralBilinearModulesElement = OverPIDIntegralBilinearModulesCategory.ElementMethods
-OverPIDIntegralBilinearModulesMorphism = OverPIDIntegralBilinearModulesCategory.MorphismMethods
+OverPIDIntegralBilinearModulesObject = (
+    OverPIDIntegralBilinearModulesCategory.ParentMethods
+)
+OverPIDIntegralBilinearModulesElement = (
+    OverPIDIntegralBilinearModulesCategory.ElementMethods
+)
+OverPIDIntegralBilinearModulesMorphism = (
+    OverPIDIntegralBilinearModulesCategory.MorphismMethods
+)
