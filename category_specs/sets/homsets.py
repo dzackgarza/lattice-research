@@ -61,11 +61,15 @@ class _SetMorphisms:
 
 
 class _SetEndomorphisms:
-    r"""Set-specific endomorphism methods; generic endomorphism methods are inherited."""
+    r"""Set-specific endomorphism methods; generic endomorphism methods are
+    inherited.
+    """
 
 
 class _SetAutomorphisms:
-    r"""Set-specific automorphism methods; generic automorphism methods are inherited."""
+    r"""Set-specific automorphism methods; generic automorphism methods are
+    inherited.
+    """
 
 
 class SetHomCategory(HomCategoryOf):

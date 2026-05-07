@@ -484,3 +484,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/sets/subcategories/enumerated_from_iterator.py` and `python -m
   compileall category_specs/sets/subcategories/enumerated_from_iterator.py` now
   pass. Repo-wide E501 count is now 94.
+- 2026-05-07: Cleared the `category_specs/sets/homsets.py` slice with two
+  manual docstring wraps, preserving set Hom/End/Aut method surfaces. `uvx
+  --from ruff ruff check --select E501 category_specs/sets/homsets.py` and
+  `python -m compileall category_specs/sets/homsets.py` now pass. Repo-wide
+  E501 count is now 92.
