@@ -1583,9 +1583,10 @@ class Rings(Category_singleton):
             variable_spec_count = sum(
                 spec is not None for spec in (name, names, var_array)
             )
-            assert variable_spec_count <= 1, (
-                "PolynomialRing expects at most one named variable specification"
-            )
+            if variable_spec_count > 1:
+                raise TypeError(
+                    "PolynomialRing expects at most one named variable specification"
+                )
 
             if name is not None:
                 R = (

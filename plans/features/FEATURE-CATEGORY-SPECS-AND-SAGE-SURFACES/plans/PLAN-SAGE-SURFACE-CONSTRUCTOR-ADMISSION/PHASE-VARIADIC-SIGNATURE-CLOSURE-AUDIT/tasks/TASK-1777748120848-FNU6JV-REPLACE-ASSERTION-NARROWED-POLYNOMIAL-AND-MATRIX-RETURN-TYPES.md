@@ -94,6 +94,10 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
   `FinitelyPresentedModulesOverPID.from_matrix`; the public annotation remains
   `matrix: Matrix`, and the method still returns
   `module_category.from_invariant_factors(matrix.elementary_divisors())`.
+- 2026-05-07: Review found one remaining call-shape assertion in the
+  `PolynomialRing` closed dispatch: the multiple-variable-specification branch still
+  used `assert variable_spec_count <= 1`. Replaced it with an explicit `TypeError`
+  while preserving the closed overload family.
 
 ## Validation
 
@@ -114,6 +118,29 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
   `Modules(ZZ)` does not expose `from_invariant_factors` at runtime. This is not a
   new blocker introduced by this task; the task-local diff preserves the intended
   `coker(matrix)` delegation.
+- 2026-05-07 re-validation after the review fix:
+  `python -m py_compile category_specs/rings/__init__.py
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` passed.
+- `git diff --check -- category_specs/rings/__init__.py
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` passed.
+- `rg -n "assert n is not None|assert variable_spec_count|assert
+  isinstance\(matrix, SageMatrix\)"
+  category_specs/rings/__init__.py
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` found no
+  remaining targeted assertion-narrowing sites.
+- Tiny Sage check of
+  `Rings().Constructors().PolynomialRing(QQ, name="x", names="y")`,
+  `Rings().Constructors().PolynomialRing(QQ, var_array="x")`, and
+  `Rings().Constructors().PolynomialRing(QQ, name="x")` passed: the invalid closed
+  shapes raise `TypeError`, and the valid named constructor still returns a
+  polynomial ring with variable name `x`.
+- `just plan-validate` passed on 225 root planning cards.
+- Targeted Ruff check
+  `uvx --from ruff ruff check category_specs/rings/__init__.py
+  category_specs/modules/subcategories/finitely_presented_over_pid.py` still reports
+  the pre-existing `E741` parameter-name finding at
+  `category_specs/rings/__init__.py:462`, outside this card's assertion-narrowing
+  surface.
 
 ## Spec-Weakening Review
 
@@ -123,3 +150,7 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
 - Result: passed. The diff only replaces assertion narrowing with explicit call-shape
   errors and removes a redundant runtime type check whose static `Matrix`
   annotation remains intact.
+- 2026-05-07 re-review of the follow-up diff: passed. The extra change converts an
+  invalid closed-overload combination from `assert` to `TypeError`; it does not
+  delete overloads, narrow smokes, move ownership, or shrink the polynomial-ring
+  constructor surface.
