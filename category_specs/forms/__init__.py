@@ -35,40 +35,40 @@ from .chain import (
     FiniteRankFreeFormedModulesObject as FiniteRankFreeFormedModulesObject,
 )
 from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory as _IntegralNondegenerateSymmetricCategory,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement as _IntegralNondegenerateSymmetricElement,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
 )
 from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism as _IntegralNondegenerateSymmetricMorphism,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
 )
 from .chain import (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject as _IntegralNondegenerateSymmetricObject,
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
 )
 from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory as NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesElement as NondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesElement,
 )
 from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism as NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism,
 )
 from .chain import (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesObject as NondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
+    NondegenerateSymmetricFiniteRankFreeBilinearModulesObject,
 )
 from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesCategory as SymmetricFiniteRankFreeBilinearModulesCategory,
+    SymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesElement as SymmetricFiniteRankFreeBilinearModulesElement,
+    SymmetricFiniteRankFreeBilinearModulesElement,
 )
 from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesMorphism as SymmetricFiniteRankFreeBilinearModulesMorphism,
+    SymmetricFiniteRankFreeBilinearModulesMorphism,
 )
 from .chain import (
-    SymmetricFiniteRankFreeBilinearModulesObject as SymmetricFiniteRankFreeBilinearModulesObject,
+    SymmetricFiniteRankFreeBilinearModulesObject,
 )
 from .subcategories.bilinear import (
     BilinearModulesCategory as BilinearModulesCategory,
@@ -119,10 +119,31 @@ from .subcategories.with_forms import (
     FormedModulesObject as FormedModulesObject,
 )
 
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = _IntegralNondegenerateSymmetricCategory
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = _IntegralNondegenerateSymmetricElement
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = _IntegralNondegenerateSymmetricMorphism
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = _IntegralNondegenerateSymmetricObject
+_IntegralNondegenerateSymmetricCategory = (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
+)
+_IntegralNondegenerateSymmetricElement = (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
+)
+_IntegralNondegenerateSymmetricMorphism = (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
+)
+_IntegralNondegenerateSymmetricObject = (
+    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
+)
+
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+    _IntegralNondegenerateSymmetricCategory
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+    _IntegralNondegenerateSymmetricElement
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+    _IntegralNondegenerateSymmetricMorphism
+)
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+    _IntegralNondegenerateSymmetricObject
+)
 
 if TYPE_CHECKING:
     from ..cat import Category

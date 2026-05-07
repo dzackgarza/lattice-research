@@ -165,3 +165,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   and a long `LazyImport`. `uvx --from ruff ruff check --select E501
   category_specs/forms/chain.py` and `python -m compileall
   category_specs/forms/chain.py` now pass. Repo-wide E501 count is now 362.
+- 2026-05-06: Cleared the `category_specs/forms/__init__.py` slice with `uvx
+  --from ruff ruff format` plus manual cleanup of long chain re-export aliases.
+  `uvx --from ruff ruff check --select E501 category_specs/forms/__init__.py`
+  and `python -m compileall category_specs/forms/__init__.py` now pass.
+  Repo-wide E501 count is now 346.
