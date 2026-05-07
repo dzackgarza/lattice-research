@@ -57,13 +57,16 @@ class _Category_over_base_integer(CategoryWithParameters):
 class _Category_over_base_integer_pair(CategoryWithParameters):
     r"""Base class for categories indexed by a base ring and two integers.
 
-    Canonical endpoint family: ``Rings().<base-ring-and-integer-indexed construction>()``.
+    Canonical endpoint family:
+    ``Rings().<base-ring-and-integer-indexed construction>()``.
     """
 
     parameter_name = "integer_pair"
 
     @staticmethod
-    def __classcall_private__(cls, base_ring: Ring, n: Integer, m: Integer | None = None):
+    def __classcall_private__(
+        cls, base_ring: Ring, n: Integer, m: Integer | None = None
+    ):
         if m is None:
             m = n
         return super().__classcall__(cls, base_ring, Integer(n), Integer(m))
