@@ -42,7 +42,10 @@ class _PolynomialRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in self.base_category() and (isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES) or isinstance(R, self.parent_class))
+        return R in self.base_category() and (
+            isinstance(R, _SAGE_POLYNOMIAL_RING_CLASSES)
+            or isinstance(R, self.parent_class)
+        )
 
     class ParentMethods:
         @override
@@ -79,9 +82,13 @@ class _PolynomialRings(CategoryWithAxiom):
         def completion(self, I: Ideal) -> CompleteRing:
             from sage.rings.infinity import oo
 
-            assert I.is_principal(), "polynomial ring completion expects a principal ideal"
+            assert I.is_principal(), (
+                "polynomial ring completion expects a principal ideal"
+            )
             p = I.gen()
-            assert p.is_irreducible(), "polynomial ring completion expects an irreducible generator"
+            assert p.is_irreducible(), (
+                "polynomial ring completion expects an irreducible generator"
+            )
             return super().completion(p, prec=oo)
 
         @abstract_method
