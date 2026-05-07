@@ -94,6 +94,15 @@ After resolving the long-line normalization leaf, the Ruff normalization stage p
 `just test` now fails later in global vulture dead-code detection; that is tracked
 separately in `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/tasks/TASK-BUG-REPO-VULTURE-DEAD-CODE-VALIDATION-BLOCKER.md`.
 
+Current 2026-05-07 validation after the reopened E501 cleanup: `uvx --from ruff ruff
+check --select E501 category_specs --output-format json | jq 'length'` reports `0`.
+`just test` now passes Python syntax validation and Sage syntax validation, then fails
+earlier than Ruff at the global mypy stage with broad existing Sage/pytest import-stub
+and category typing errors. The active validation blocker is therefore not a Ruff
+normalization blocker. It is a global type-checking/QC issue already noted in adjacent
+validation cards, and it does not block DAG-ready spec-phase leaves unless the user is
+attempting a QC/phase-transition gate.
+
 ## Complexity And Ownership
 
 - Owner role: audit/validation worker, with parent-agent review.
@@ -105,14 +114,14 @@ separately in `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLA
 
 ## Acceptance Criteria
 
-- [ ] Reproduce the current `just test` Ruff blocker and preserve a concise failure
+- [x] Reproduce the current `just test` Ruff blocker and preserve a concise failure
   summary in this card.
-- [ ] Classify remaining findings by owner surface and rule family without weakening
+- [x] Classify remaining findings by owner surface and rule family without weakening
   global QC.
-- [ ] Split owner-specific cards for independent cleanup surfaces that are not one
+- [x] Split owner-specific cards for independent cleanup surfaces that are not one
   coherent patch.
-- [ ] Carry forward formatter/linter auto-fixes already produced by repository tooling.
-- [ ] Either make `just test` pass or record exactly which linked cards remain
+- [x] Carry forward formatter/linter auto-fixes already produced by repository tooling.
+- [x] Either make `just test` pass or record exactly which linked cards remain
   validation blockers.
 
 ## Dependencies And Boundaries
@@ -148,3 +157,9 @@ separately in `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLA
   `just test`. Validation now advances to and fails at global vulture dead-code
   detection, so the remaining validation gate is no longer a Ruff-normalization
   blocker.
+- 2026-05-07: Re-ran validation after the reopened E501 cleanup. `uvx --from ruff
+  ruff check --select E501 category_specs --output-format json | jq 'length'` reports
+  `0`. `just test` passes Python and Sage syntax validation, then fails at global
+  mypy before Ruff with broad existing Sage/pytest import-stub and category typing
+  errors. The Ruff-normalization blocker remains cleared; the current full-QC blocker
+  is not phase-local Ruff work.
