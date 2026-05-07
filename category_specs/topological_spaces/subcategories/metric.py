@@ -62,7 +62,10 @@ class MetricSpacesCategory(CategoryWithAxiom):
     ParentMethods = _MetricSpaceObjectMethods
     ElementMethods = _MetricSpaceElementMethods
     HomCategory = MetricSpaceHomCategory
-    Complete = LazyImport("category_specs.topological_spaces.subcategories.complete", "_CompleteMetricSpaces")
+    Complete = LazyImport(
+        "category_specs.topological_spaces.subcategories.complete",
+        "_CompleteMetricSpaces",
+    )
 
     @override
     @final
