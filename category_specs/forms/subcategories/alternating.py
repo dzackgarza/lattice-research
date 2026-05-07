@@ -66,6 +66,12 @@ class OverPIDAlternatingBilinearModulesCategory(CategoryWithAxiom_over_base_ring
     MorphismMethods = AlternatingBilinearModulesCategory.MorphismMethods
 
 
-OverPIDAlternatingBilinearModulesObject = OverPIDAlternatingBilinearModulesCategory.ParentMethods
-OverPIDAlternatingBilinearModulesElement = OverPIDAlternatingBilinearModulesCategory.ElementMethods
-OverPIDAlternatingBilinearModulesMorphism = OverPIDAlternatingBilinearModulesCategory.MorphismMethods
+OverPIDAlternatingBilinearModulesObject = (
+    OverPIDAlternatingBilinearModulesCategory.ParentMethods
+)
+OverPIDAlternatingBilinearModulesElement = (
+    OverPIDAlternatingBilinearModulesCategory.ElementMethods
+)
+OverPIDAlternatingBilinearModulesMorphism = (
+    OverPIDAlternatingBilinearModulesCategory.MorphismMethods
+)
