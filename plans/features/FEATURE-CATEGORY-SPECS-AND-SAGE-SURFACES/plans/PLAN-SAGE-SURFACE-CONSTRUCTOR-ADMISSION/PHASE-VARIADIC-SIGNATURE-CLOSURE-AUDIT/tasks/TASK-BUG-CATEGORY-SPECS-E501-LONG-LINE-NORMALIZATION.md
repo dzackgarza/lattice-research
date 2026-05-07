@@ -142,3 +142,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   `uvx --from ruff ruff check --select E501 category_specs/algebras/__init__.py`
   and `python -m compileall category_specs/algebras/__init__.py` now pass.
   Repo-wide E501 count is now 452.
+- 2026-05-06: Cleared the
+  `category_specs/rings/subcategories/number_field.py` slice with `uvx --from
+  ruff ruff format`. `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/number_field.py` and `python -m compileall
+  category_specs/rings/subcategories/number_field.py` now pass. Repo-wide E501
+  count is now 427.

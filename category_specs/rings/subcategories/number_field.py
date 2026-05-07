@@ -47,11 +47,18 @@ class _NumberFields(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageNumberFields() or (R in self.base_category() and R.is_number_field())
+        return R in SageNumberFields() or (
+            R in self.base_category() and R.is_number_field()
+        )
 
-    QuadraticNumberField = LazyImport("category_specs.rings.subcategories.quadratic_number_field", "_QuadraticNumberFields")
+    QuadraticNumberField = LazyImport(
+        "category_specs.rings.subcategories.quadratic_number_field",
+        "_QuadraticNumberFields",
+    )
     Quadratic = QuadraticNumberField
-    Cyclotomic = LazyImport("category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields")
+    Cyclotomic = LazyImport(
+        "category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields"
+    )
 
     class SubcategoryMethods:
         @cached_method
@@ -94,7 +101,9 @@ class _NumberFields(CategoryWithAxiom):
         def discriminant(self) -> Integer: ...
 
         @abstract_method
-        def trace_pairing_discriminant(self, elements: Sequence[RingElement]) -> RingElement:
+        def trace_pairing_discriminant(
+            self, elements: Sequence[RingElement]
+        ) -> RingElement:
             r"""Return the determinant of the trace pairing on ``elements``."""
             ...
 
@@ -111,16 +120,24 @@ class _NumberFields(CategoryWithAxiom):
         ) -> Group: ...
 
         @overload
-        def galois_closure(self, names: str | None = None, map: Literal[False] = False) -> Field: ...
+        def galois_closure(
+            self, names: str | None = None, map: Literal[False] = False
+        ) -> Field: ...
 
         @overload
-        def galois_closure(self, names: str | None = None, map: Literal[True] = True) -> tuple[Field, RingMorphism]: ...
+        def galois_closure(
+            self, names: str | None = None, map: Literal[True] = True
+        ) -> tuple[Field, RingMorphism]: ...
 
         @overload
-        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
+        def galois_closure(
+            self, names: str | None = None, map: bool = False
+        ) -> Field | tuple[Field, RingMorphism]: ...
 
         @abstract_method
-        def galois_closure(self, names: str | None = None, map: bool = False) -> Field | tuple[Field, RingMorphism]: ...
+        def galois_closure(
+            self, names: str | None = None, map: bool = False
+        ) -> Field | tuple[Field, RingMorphism]: ...
 
         @abstract_method
         def automorphisms(self) -> list[RingMorphism]: ...
@@ -129,7 +146,9 @@ class _NumberFields(CategoryWithAxiom):
         def class_number(self, proof: bool | None = None) -> Integer: ...
 
         @abstract_method
-        def class_group(self, proof: bool | None = None, names: str = "c") -> AbelianGroup: ...
+        def class_group(
+            self, proof: bool | None = None, names: str = "c"
+        ) -> AbelianGroup: ...
 
         @abstract_method
         def integral_basis(self) -> tuple[RingElement, ...]: ...
@@ -140,7 +159,9 @@ class _NumberFields(CategoryWithAxiom):
             ...
 
         @abstract_method
-        def integral_basis_at_primes(self, primes: Sequence[Integer]) -> tuple[RingElement, ...]:
+        def integral_basis_at_primes(
+            self, primes: Sequence[Integer]
+        ) -> tuple[RingElement, ...]:
             r"""Return an integral basis for an order maximal at each listed prime."""
             ...
 
@@ -148,19 +169,25 @@ class _NumberFields(CategoryWithAxiom):
         def power_basis(self) -> tuple[RingElement, ...]: ...
 
         @abstract_method
-        def reduced_basis(self, prec: Integer | None = None) -> tuple[RingElement, ...]: ...
+        def reduced_basis(
+            self, prec: Integer | None = None
+        ) -> tuple[RingElement, ...]: ...
 
         @abstract_method
         def different(self) -> Ideal: ...
 
         @abstract_method
-        def places(self, all_complex: bool = False, prec: Integer | None = None) -> tuple[RingMorphism, ...]: ...
+        def places(
+            self, all_complex: bool = False, prec: Integer | None = None
+        ) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
         def real_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
-        def complex_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]: ...
+        def complex_embeddings(
+            self, prec: Integer = 53
+        ) -> tuple[RingMorphism, ...]: ...
 
         @abstract_method
         def roots_of_unity(self) -> list[RingElement]: ...
@@ -178,28 +205,40 @@ class _NumberFields(CategoryWithAxiom):
         def conductor(self, check_abelian: bool = True) -> Integer: ...
 
         @abstract_method
-        def prime_above(self, x: RingElement, degree: Integer | None = None) -> PrimeIdeal: ...
+        def prime_above(
+            self, x: RingElement, degree: Integer | None = None
+        ) -> PrimeIdeal: ...
 
         @abstract_method
-        def primes_above(self, x: RingElement, degree: Integer | None = None) -> list[PrimeIdeal]: ...
+        def primes_above(
+            self, x: RingElement, degree: Integer | None = None
+        ) -> list[PrimeIdeal]: ...
 
         @abstract_method
-        def S_units(self, S: Sequence[PrimeIdeal], proof: bool = True) -> list[RingElement]: ...
+        def S_units(
+            self, S: Sequence[PrimeIdeal], proof: bool = True
+        ) -> list[RingElement]: ...
 
         @abstract_method
-        def S_class_group(self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c") -> AbelianGroup: ...
+        def S_class_group(
+            self, S: Sequence[PrimeIdeal], proof: bool | None = None, names: str = "c"
+        ) -> AbelianGroup: ...
 
         @abstract_method
         def ring_of_integers(
             self,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring: ...
 
         @abstract_method
         def ring_of_integers_at_prime(
             self,
             prime: Integer,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             r"""Return an order of integers that is maximal at ``prime``."""
             ...
@@ -208,7 +247,9 @@ class _NumberFields(CategoryWithAxiom):
         def ring_of_integers_at_primes(
             self,
             primes: Sequence[Integer],
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             r"""Return an order of integers maximal at each listed prime."""
             ...
@@ -216,14 +257,18 @@ class _NumberFields(CategoryWithAxiom):
         @abstract_method
         def maximal_order(
             self,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring: ...
 
         @abstract_method
         def maximal_order_at_prime(
             self,
             prime: Integer,
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             r"""Return an order that is maximal at ``prime``."""
             ...
@@ -232,7 +277,9 @@ class _NumberFields(CategoryWithAxiom):
         def maximal_order_at_primes(
             self,
             primes: Sequence[Integer],
-            assume_maximal: bool | None | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
+            assume_maximal: bool
+            | None
+            | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
             r"""Return an order that is maximal at each listed prime."""
             ...
@@ -248,9 +295,13 @@ class _NumberFields(CategoryWithAxiom):
         def trace(self, K: Field | None = None) -> RingElement: ...
 
         @abstract_method
-        def minpoly(self, var: str = "x", algorithm: str | None = None) -> RingElement: ...
+        def minpoly(
+            self, var: str = "x", algorithm: str | None = None
+        ) -> RingElement: ...
 
         @abstract_method
-        def charpoly(self, var: str = "x", algorithm: str | None = None) -> RingElement: ...
+        def charpoly(
+            self, var: str = "x", algorithm: str | None = None
+        ) -> RingElement: ...
 
     class MorphismMethods: ...
