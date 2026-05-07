@@ -175,7 +175,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def tensor_module(
             self,
             k: Integer,
-            l: Integer,
+            ell: Integer,
             *,
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,

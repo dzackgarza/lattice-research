@@ -4,9 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, assert_never, final, override
 
-
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _CompleteDiscreteValuationRings,
     _LocalRings,
@@ -47,11 +45,11 @@ class _Zp(Category_singleton):
     class ParentMethods:
         @override
         @final
-        def completion(self, I: Ideal) -> CompleteRing:
-            match I:
-                case _ if I.is_zero():
+        def completion(self, ideal: Ideal) -> CompleteRing:
+            match ideal:
+                case _ if ideal.is_zero():
                     return self
-                case _ if not I.is_zero():
+                case _ if not ideal.is_zero():
                     return self
                 case unreachable:
                     assert_never(unreachable)

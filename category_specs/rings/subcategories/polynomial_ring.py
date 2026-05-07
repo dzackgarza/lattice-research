@@ -11,7 +11,6 @@ from sage.rings.integer import Integer
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-
 from ._sage_ring_classes import _SAGE_POLYNOMIAL_RING_CLASSES
 
 if TYPE_CHECKING:
@@ -79,13 +78,13 @@ class _PolynomialRings(CategoryWithAxiom):
 
         @override
         @final
-        def completion(self, I: Ideal) -> CompleteRing:
+        def completion(self, ideal: Ideal) -> CompleteRing:
             from sage.rings.infinity import oo
 
-            assert I.is_principal(), (
+            assert ideal.is_principal(), (
                 "polynomial ring completion expects a principal ideal"
             )
-            p = I.gen()
+            p = ideal.gen()
             assert p.is_irreducible(), (
                 "polynomial ring completion expects an irreducible generator"
             )

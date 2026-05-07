@@ -9,12 +9,11 @@ from sage.categories.dedekind_domains import DedekindDomains as SageDedekindDoma
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-from .integral_domain import _IntegralDomains as _IntegralDomains
-
 from ._lazy_subcategories import (
     _IntegrallyClosedDomains,
     _NoetherianRings,
 )
+from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass

@@ -9,8 +9,14 @@ from sage.categories.category_singleton import Category_singleton
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
 from sage.sets.integer_range import (
     IntegerRangeEmpty as SageIntegerRangeEmpty,
+)
+from sage.sets.integer_range import (
     IntegerRangeFinite as SageIntegerRangeFinite,
+)
+from sage.sets.integer_range import (
     IntegerRangeFromMiddle as SageIntegerRangeFromMiddle,
+)
+from sage.sets.integer_range import (
     IntegerRangeInfinite as SageIntegerRangeInfinite,
 )
 

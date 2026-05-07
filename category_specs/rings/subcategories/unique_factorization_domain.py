@@ -12,10 +12,8 @@ from sage.structure.factorization import Factorization
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .integral_domain import _IntegralDomains as _IntegralDomains
-
 from ._lazy_subcategories import _GcdDomains
-
+from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass

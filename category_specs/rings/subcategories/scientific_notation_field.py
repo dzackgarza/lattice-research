@@ -11,9 +11,7 @@ from sage.rings.abc import RealField as SageRealField
 from sage.rings.abc import RealIntervalField as SageRealIntervalField
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import _Fields
-
 
 if TYPE_CHECKING:
     pass

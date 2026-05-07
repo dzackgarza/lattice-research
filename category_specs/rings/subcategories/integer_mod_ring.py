@@ -9,7 +9,6 @@ from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
 from sage.structure.factorization import Factorization
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _CommutativeRings,
     _FiniteRings,

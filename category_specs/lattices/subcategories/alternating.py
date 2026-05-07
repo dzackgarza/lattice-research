@@ -1,5 +1,6 @@
 r"""Compatibility imports for the forms-owned alternating bilinear category."""
 
+from ...forms.subcategories import alternating as _alternating
 from ...forms.subcategories.alternating import (
     AlternatingBilinearModulesCategory as AlternatingBilinearModulesCategory,
 )
@@ -12,18 +13,16 @@ from ...forms.subcategories.alternating import (
 from ...forms.subcategories.alternating import (
     AlternatingBilinearModulesObject as AlternatingBilinearModulesObject,
 )
-from ...forms.subcategories.alternating import (
-    OverPIDAlternatingBilinearModulesCategory
-    as OverPIDAlternatingBilinearModulesCategory,
+
+OverPIDAlternatingBilinearModulesCategory = (
+    _alternating.OverPIDAlternatingBilinearModulesCategory
 )
-from ...forms.subcategories.alternating import (
-    OverPIDAlternatingBilinearModulesElement
-    as OverPIDAlternatingBilinearModulesElement,
+OverPIDAlternatingBilinearModulesElement = (
+    _alternating.OverPIDAlternatingBilinearModulesElement
 )
-from ...forms.subcategories.alternating import (
-    OverPIDAlternatingBilinearModulesMorphism
-    as OverPIDAlternatingBilinearModulesMorphism,
+OverPIDAlternatingBilinearModulesMorphism = (
+    _alternating.OverPIDAlternatingBilinearModulesMorphism
 )
-from ...forms.subcategories.alternating import (
-    OverPIDAlternatingBilinearModulesObject as OverPIDAlternatingBilinearModulesObject,
+OverPIDAlternatingBilinearModulesObject = (
+    _alternating.OverPIDAlternatingBilinearModulesObject
 )

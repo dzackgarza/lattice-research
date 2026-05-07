@@ -7,9 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.quotient_fields import QuotientFields as SageQuotientFields
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import _Fields
-
 
 if TYPE_CHECKING:
     pass

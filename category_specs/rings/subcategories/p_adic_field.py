@@ -9,7 +9,6 @@ from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _CompleteDiscreteValuationFields,
     _LocalFields,

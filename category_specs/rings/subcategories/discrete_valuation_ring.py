@@ -12,10 +12,8 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .valued import _ValuedRings as _ValuedRings
-
 from ._lazy_subcategories import _EuclideanDomains
-
+from .valued import _ValuedRings as _ValuedRings
 
 if TYPE_CHECKING:
     from ...types import (

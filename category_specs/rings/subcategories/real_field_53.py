@@ -4,9 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _CompleteRings,
     _Fields,

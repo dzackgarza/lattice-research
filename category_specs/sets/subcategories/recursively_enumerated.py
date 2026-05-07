@@ -15,6 +15,8 @@ from sage.categories.infinite_enumerated_sets import (
 from sage.misc.abstract_method import abstract_method
 from sage.sets.recursively_enumerated_set import (
     RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest,
+)
+from sage.sets.recursively_enumerated_set import (
     RecursivelyEnumeratedSet_generic as SageRecursivelyEnumeratedSetGeneric,
 )
 

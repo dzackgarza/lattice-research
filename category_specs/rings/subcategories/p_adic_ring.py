@@ -9,12 +9,11 @@ from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
-
-from .approximate import ApproximateRingsCategory
 from ._lazy_subcategories import (
     _CompleteRings,
     _ValuedRings,
 )
+from .approximate import ApproximateRingsCategory
 
 if TYPE_CHECKING:
     from ...types import (

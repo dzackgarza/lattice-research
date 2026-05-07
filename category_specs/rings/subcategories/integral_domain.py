@@ -7,13 +7,12 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .commutative import _CommutativeRings as _CommutativeRings
-
 
 if TYPE_CHECKING:
     from ...types import (

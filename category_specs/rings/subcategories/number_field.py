@@ -7,14 +7,13 @@ from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .field import _Fields as _Fields
-
 
 if TYPE_CHECKING:
     from ...types import (

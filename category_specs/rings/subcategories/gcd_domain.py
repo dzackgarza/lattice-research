@@ -11,7 +11,6 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .integral_domain import _IntegralDomains as _IntegralDomains
 
-
 if TYPE_CHECKING:
     from ...types import (
         RingElement,

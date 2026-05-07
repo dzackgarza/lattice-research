@@ -6,24 +6,23 @@ from typing import TYPE_CHECKING, Any, assert_never, final, override
 
 from sage.categories.fields import Fields as SageFields
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-from .commutative import _CommutativeRings as _CommutativeRings
-
 from ._lazy_subcategories import (
     _CC,
+    _QQ,
+    _RR,
     _DivisionRings,
     _EuclideanDomains,
     _IntegrallyClosedDomains,
     _NoetherianRings,
-    _QQ,
-    _RR,
     _ReducedRings,
 )
+from .commutative import _CommutativeRings as _CommutativeRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -137,12 +136,12 @@ class _Fields(CategoryWithAxiom):
 
         @override
         @final
-        def completion(self, I: Ideal) -> CompleteRing:
+        def completion(self, ideal: Ideal) -> CompleteRing:
             # Field case split: only the zero and unit ideals exist.
-            match I:
-                case _ if I.is_zero():
+            match ideal:
+                case _ if ideal.is_zero():
                     return self
-                case _ if I.is_one():
+                case _ if ideal.is_one():
                     return self
                 case unreachable:
                     assert_never(unreachable)

@@ -19,6 +19,7 @@ from collections.abc import Callable
 from functools import wraps
 from typing import TYPE_CHECKING, Any, final, overload, override
 
+from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
     CartesianProductsCategory as SageCartesianProductsCategory,
@@ -51,7 +52,6 @@ from sage.categories.covariant_functorial_construction import (
 from sage.categories.covariant_functorial_construction import (
     FunctorialConstructionCategory as SageFunctorialConstructionCategory,
 )
-from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.dual import DualObjectsCategory as SageDualObjectsCategory
 from sage.categories.filtered_modules import (
     FilteredModulesCategory as SageFilteredModulesCategory,

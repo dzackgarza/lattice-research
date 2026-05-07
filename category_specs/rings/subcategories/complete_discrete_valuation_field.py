@@ -9,7 +9,6 @@ from sage.categories.complete_discrete_valuation import (
 )
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _CompleteDiscreteValuationObjects,
     _CompleteRings,

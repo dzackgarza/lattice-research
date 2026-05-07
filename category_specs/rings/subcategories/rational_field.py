@@ -10,7 +10,6 @@ from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
 from .. import Rings
-
 from ._lazy_subcategories import (
     _Fields,
     _GlobalFields,

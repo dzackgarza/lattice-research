@@ -12,10 +12,8 @@ from sage.structure.factorization import Factorization
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .field import _Fields as _Fields
-
 from ._lazy_subcategories import _FiniteRings
-
+from .field import _Fields as _Fields
 
 if TYPE_CHECKING:
     from ...types import (

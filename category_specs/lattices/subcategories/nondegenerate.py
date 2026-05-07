@@ -1,5 +1,6 @@
 r"""Compatibility imports for the forms-owned nondegenerate bilinear category."""
 
+from ...forms.subcategories import nondegenerate as _nondegenerate
 from ...forms.subcategories.nondegenerate import (
     NondegenerateBilinearModulesCategory as NondegenerateBilinearModulesCategory,
 )
@@ -12,19 +13,16 @@ from ...forms.subcategories.nondegenerate import (
 from ...forms.subcategories.nondegenerate import (
     NondegenerateBilinearModulesObject as NondegenerateBilinearModulesObject,
 )
-from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesCategory
-    as OverPIDNondegenerateBilinearModulesCategory,
+
+OverPIDNondegenerateBilinearModulesCategory = (
+    _nondegenerate.OverPIDNondegenerateBilinearModulesCategory
 )
-from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesElement
-    as OverPIDNondegenerateBilinearModulesElement,
+OverPIDNondegenerateBilinearModulesElement = (
+    _nondegenerate.OverPIDNondegenerateBilinearModulesElement
 )
-from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesMorphism
-    as OverPIDNondegenerateBilinearModulesMorphism,
+OverPIDNondegenerateBilinearModulesMorphism = (
+    _nondegenerate.OverPIDNondegenerateBilinearModulesMorphism
 )
-from ...forms.subcategories.nondegenerate import (
-    OverPIDNondegenerateBilinearModulesObject
-    as OverPIDNondegenerateBilinearModulesObject,
+OverPIDNondegenerateBilinearModulesObject = (
+    _nondegenerate.OverPIDNondegenerateBilinearModulesObject
 )

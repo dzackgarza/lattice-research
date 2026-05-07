@@ -7,9 +7,7 @@ from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import _AlgebraicFields
-
 
 if TYPE_CHECKING:
     from ...types import (

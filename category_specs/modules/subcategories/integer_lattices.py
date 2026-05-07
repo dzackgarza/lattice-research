@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Literal, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.categories.category import Category
+from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category_over_base_ring
 from .. import Modules

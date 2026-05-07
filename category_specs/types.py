@@ -76,6 +76,8 @@ from .cat import (
     CatHomCategory,
     CatMorphism,
     CatObject,
+)
+from .cat import (
     Category as CatBaseCategory,
 )
 from .forms import (

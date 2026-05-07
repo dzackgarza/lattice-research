@@ -4,11 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .topological import _TopologicalRings as _TopologicalRings
-
 
 if TYPE_CHECKING:
     pass

@@ -8,10 +8,8 @@ from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanD
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .integral_domain import _IntegralDomains as _IntegralDomains
-
 from ._lazy_subcategories import _PrincipalIdealDomains
-
+from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass

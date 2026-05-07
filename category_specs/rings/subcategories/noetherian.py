@@ -10,7 +10,6 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .commutative import _CommutativeRings as _CommutativeRings
 
-
 if TYPE_CHECKING:
     pass
 

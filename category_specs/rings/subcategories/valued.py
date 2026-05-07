@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom

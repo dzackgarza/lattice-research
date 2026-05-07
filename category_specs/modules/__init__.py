@@ -48,9 +48,11 @@ from ..cat import (
     Category_module,
     DualObjectsCategory,
     FilteredModulesCategory,
-    GradedModulesCategory as GradedModulesCategory,
     SuperModulesCategory,
     TensorProductsCategory,
+)
+from ..cat import (
+    GradedModulesCategory as GradedModulesCategory,
 )
 from ..utils import refine_category
 from .homsets import (

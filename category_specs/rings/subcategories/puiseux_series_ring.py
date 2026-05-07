@@ -11,7 +11,6 @@ from sage.rings.integer import Integer
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-
 from ._sage_ring_classes import _SAGE_PUISEUX_SERIES_CONTAINMENT_CLASSES
 
 if TYPE_CHECKING:

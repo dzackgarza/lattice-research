@@ -13,7 +13,6 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .number_field import _NumberFields as _NumberFields
 
-
 if TYPE_CHECKING:
     pass
 

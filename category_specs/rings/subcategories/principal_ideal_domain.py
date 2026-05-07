@@ -10,10 +10,8 @@ from sage.categories.principal_ideal_domains import (
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .integral_domain import _IntegralDomains as _IntegralDomains
-
 from ._lazy_subcategories import _UniqueFactorizationDomains
-
+from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     from ...types import (
@@ -53,9 +51,9 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
             return True
 
         @final
-        def ideal_generator(self, I: Ideal) -> RingElement:
-            assert I.is_principal(), "PID ideal_generator expects a principal ideal"
-            return I.gen()
+        def ideal_generator(self, ideal: Ideal) -> RingElement:
+            assert ideal.is_principal(), "PID ideal_generator expects a principal ideal"
+            return ideal.gen()
 
         @override
         @final

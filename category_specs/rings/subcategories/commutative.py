@@ -7,14 +7,13 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
 from sage.misc.abstract_method import abstract_method
-from sage.misc.lazy_import import LazyImport
 from sage.misc.cachefunc import cached_method
+from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Rings
-
 
 if TYPE_CHECKING:
     from ...types import (
@@ -93,7 +92,7 @@ class _CommutativeRings(CategoryWithAxiom):
             return True
 
         @abstract_method
-        def completion(self, I: Ideal) -> CompleteRing: ...
+        def completion(self, ideal: Ideal) -> CompleteRing: ...
 
         @abstract_method
         # Computable via Macaulay2 (m2) backend.

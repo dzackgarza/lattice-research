@@ -8,7 +8,6 @@ from sage.misc.abstract_method import abstract_method
 from sage.rings.abc import ComplexIntervalField as SageComplexIntervalField
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _ComplexPrecisionFields,
     _ScientificNotationFields,

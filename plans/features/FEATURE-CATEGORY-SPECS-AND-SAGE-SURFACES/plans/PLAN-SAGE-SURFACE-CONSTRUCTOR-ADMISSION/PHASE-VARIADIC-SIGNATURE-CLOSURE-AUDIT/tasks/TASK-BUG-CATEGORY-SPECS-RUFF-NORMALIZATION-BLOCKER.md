@@ -103,6 +103,15 @@ normalization blocker. It is a global type-checking/QC issue already noted in ad
 validation cards, and it does not block DAG-ready spec-phase leaves unless the user is
 attempting a QC/phase-transition gate.
 
+2026-05-07 review rerun of full `uvx --from ruff ruff check category_specs` found
+that the prior Ruff-normalization claim was still stale: `I001` import-order findings,
+several compatibility-alias `E501` lines, and seven `E741` ambiguous single-letter
+parameters remained. The import-order findings were fixed with
+`uvx --from ruff ruff check --select I001 --fix category_specs`; the residual
+compatibility aliases and mathematical parameter names were fixed manually without
+removing public re-export names. Full `uvx --from ruff ruff check category_specs`
+now passes.
+
 ## Complexity And Ownership
 
 - Owner role: audit/validation worker, with parent-agent review.
@@ -163,3 +172,57 @@ attempting a QC/phase-transition gate.
   mypy before Ruff with broad existing Sage/pytest import-stub and category typing
   errors. The Ruff-normalization blocker remains cleared; the current full-QC blocker
   is not phase-local Ruff work.
+- 2026-05-07: Re-ran full `uvx --from ruff ruff check category_specs` and found 76
+  current Ruff findings. Applied the mechanical `I001` import-order fixes and
+  manually resolved the remaining `E501` compatibility-alias lines plus `E741`
+  ambiguous parameter names (`ideal` for ideals and `ell` for tensor rank). Full
+  `uvx --from ruff ruff check category_specs` now passes.
+- 2026-05-07: `python -m compileall -q category_specs` passed after the Ruff
+  normalization cleanup.
+- 2026-05-07: `git diff --check -- category_specs` passed.
+- 2026-05-07: `just test` still passes Python and Sage syntax validation, then fails
+  at global mypy before reaching Ruff. Representative first errors remain missing
+  Sage stubs in `category_specs/rings/subcategories/_sage_ring_classes.py` and
+  `_lazy_subcategories.py`, missing `pytest` stubs in `tests/conftest.py`, and broad
+  existing annotation/type-surface errors. The first full-QC blocker is therefore
+  still mypy, not Ruff normalization.
+
+## Review Log
+
+### Self-Review - 2026-05-07
+
+Outcome: revision was required, then fixed in scope. The card remains
+`needs-review`; human acceptance is still required before completion.
+
+Findings and resolution:
+
+- Gate 2 initially failed on current evidence: direct full Ruff still reported 76
+  findings, so the card's claim that Ruff normalization was cleared was stale.
+- Gate 3 passed after rework: the cleanup did not delete category obligations,
+  constructor surfaces, abstract methods, or smoke assertions. Compatibility names
+  were preserved through import-safe aliases or module-backed assignments.
+- Gate 6 passed after rework: `uvx --from ruff ruff check category_specs`,
+  `python -m compileall -q category_specs`, and `git diff --check -- category_specs`
+  pass. Full `just test` remains stopped by global mypy before Ruff.
+
+### Independent Review - 2026-05-07
+
+Reviewer: Carver.
+
+Outcome: revision required on the pre-fix working tree, then fixed in scope. Do not
+mark complete without human approval.
+
+Findings and resolution:
+
+- Gate 2 failed in the pre-fix working tree: targeted Ruff still reported live
+  `E501` failures in `category_specs/cat/__init__.py`,
+  `category_specs/lattices/subcategories/alternating.py`, and
+  `category_specs/lattices/subcategories/nondegenerate.py`, contradicting the
+  then-current claim that the Ruff-normalization blocker was cleared.
+- The reviewer also confirmed that `just test` failed before Ruff at global mypy, so
+  the first full-QC blocker was correctly non-Ruff once direct Ruff is clean.
+- The reviewer found no local QC bypasses and no evidence of spec weakening in the
+  inspected cleanup path.
+- The live post-fix check now passes the reviewer-targeted command:
+  `uvx --from ruff ruff check --select E501,F401,E402,F821,UP047 category_specs
+  --output-format concise`.

@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.rings.abc import ComplexField as SageComplexField
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import (
     _ComplexPrecisionFields,
     _ScientificNotationFields,

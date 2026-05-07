@@ -7,9 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 
 from ...cat import Category, Category_singleton
-
 from ._lazy_subcategories import _ComplexPrecisionFields
-
 
 if TYPE_CHECKING:
     pass

@@ -44,6 +44,7 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
 
+from . import base_category_types as _base_category_types
 from .base_category_types import (
     AlgebrasCategory as AlgebrasCategory,
 )
@@ -132,10 +133,6 @@ from .base_category_types import (
     WithRealizationsCategory as WithRealizationsCategory,
 )
 from .base_category_types import (
-    _make_named_class_with_cat_subcategory_methods
-    as _make_named_class_with_cat_subcategory_methods,
-)
-from .base_category_types import (
     _SageCategory as _SageCategory,
 )
 from .base_category_types import (
@@ -143,6 +140,10 @@ from .base_category_types import (
 )
 from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
+)
+
+_make_named_class_with_cat_subcategory_methods = (
+    _base_category_types._make_named_class_with_cat_subcategory_methods
 )
 
 if TYPE_CHECKING:
