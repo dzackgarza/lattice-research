@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-07 08:00 UTC_
+_Generated: 2026-05-07 08:06 UTC_
 
 ## Overall
 
-- Total cards: **225**
+- Total cards: **227**
 - Completed cards: **34**
-- Overall progress: `[####--------------------]  15.1%`
+- Overall progress: `[####--------------------]  15.0%`
 - Active feature trees: **15**
 - Completed feature trees: **0**
 
@@ -17,7 +17,7 @@ _Generated: 2026-05-07 08:00 UTC_
 | decision | 15 | 14 | 0 | 0 | 0 | 0 |
 | feature | 15 | 0 | 10 | 0 | 0 | 0 |
 | phase | 18 | 0 | 1 | 12 | 0 | 0 |
-| plan | 8 | 0 | 1 | 6 | 0 | 0 |
+| plan | 10 | 0 | 1 | 8 | 0 | 0 |
 | spec | 59 | 0 | 0 | 55 | 0 | 0 |
 | task | 110 | 20 | 0 | 52 | 0 | 0 |
 
@@ -27,7 +27,7 @@ _Generated: 2026-05-07 08:00 UTC_
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Geometry category interfaces | `[####------------]  26.9%` | 7/26 | 1 | 16 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 2 | 0 | 0 |
-| Category specs and Sage surface admission | `[###-------------]  21.0%` | 25/119 | 3 | 90 | 0 | 0 |
+| Category specs and Sage surface admission | `[###-------------]  20.7%` | 25/121 | 3 | 92 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[###-------------]  20.0%` | 1/5 | 1 | 2 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -54,10 +54,10 @@ _Generated: 2026-05-07 08:00 UTC_
 - `phase` `PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Sprint Cat category-object surface uniformization and constructor aggregation cleanup (`critical`, `needs-review`)
 - `phase` `PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Sprint module wrapper migration phase one through category graph constructor routing method coverage and deletion gates (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-FOUNDATION-KERNEL`: Category foundation kernel and method ownership (`critical`, `in-progress`)
+- `plan` `PLAN-CATEGORY-SPEC-PROGRAM`: Category spec program — spec authorship and subcategory admission workflow (`critical`, `needs-review`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category-spec source maps constructor routing and admission research (`critical`, `needs-review`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `needs-review`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (`critical`, `approved-and-unstarted`)
-- `plan` `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`: Sage surface constructor admission and concrete category families (`critical`, `needs-review`)
 
 ## Blocked Items
 
