@@ -84,6 +84,6 @@ assert A_sing.rank() == 1
 from category_specs.rings import Rings as _Rings
 
 assert M2Q in _Rings()
-assert M2Q not in _Rings().CommutativeRings()
-assert M2Q not in _Rings().Fields()
-assert M2Q not in _Rings().IntegralDomains()
+assert M2Q not in _Rings().Commutative()
+assert M2Q not in _Rings().Commutative().Field()
+assert M2Q not in _Rings().Commutative().IntegralDomains()

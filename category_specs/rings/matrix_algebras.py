@@ -72,6 +72,23 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
 
     class ParentMethods:
         @final
+        def is_commutative_ring(self) -> bool:
+            if self.nrows() == 1:
+                return bool(self.base_ring().is_commutative())
+            try:
+                return bool(self.base_ring().is_zero())
+            except NotImplementedError:
+                return False
+
+        @final
+        def is_integral_domain(self) -> bool:
+            return self.nrows() == 1 and bool(self.base_ring().is_integral_domain())
+
+        @final
+        def is_field(self) -> bool:
+            return self.nrows() == 1 and bool(self.base_ring().is_field())
+
+        @final
         def nrows(self) -> Integer:
             from sage.matrix.matrix_space import MatrixSpace
 

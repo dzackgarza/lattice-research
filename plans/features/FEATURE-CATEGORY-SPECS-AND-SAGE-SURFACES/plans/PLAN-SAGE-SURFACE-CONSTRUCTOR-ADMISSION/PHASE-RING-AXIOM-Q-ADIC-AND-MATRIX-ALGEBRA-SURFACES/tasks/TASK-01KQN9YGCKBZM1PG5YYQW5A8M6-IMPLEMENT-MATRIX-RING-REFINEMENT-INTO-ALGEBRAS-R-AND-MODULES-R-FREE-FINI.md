@@ -96,3 +96,34 @@ split.
   --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails on
   the existing non-matrix frontiers, but no longer reports `MatrixRing`, MRO, or
   method-resolution failures.
+- 2026-05-07 matrix predicate regression repair: the dependency-ready review found that
+  `category_specs/rings/tests/regression/matrix_rings.sage` still failed after the
+  matrix constructor smoke because `Rings()` makes `is_commutative_ring()` abstract and
+  the matrix-algebra refinement did not provide a matrix-specific override. Added
+  `_MatrixAlgebras.ParentMethods.is_commutative_ring()`,
+  `is_integral_domain()`, and `is_field()` so the square matrix parent answers the
+  ring predicates mathematically: `M_1(R)` inherits the relevant base-ring property,
+  higher matrix rings are not fields or integral domains, and commutativity is false
+  except for the one-by-one or zero-base-ring cases. Updated the stale regression
+  category names from legacy `CommutativeRings()`/`Fields()`/`IntegralDomains()` to the
+  current `Commutative()` chain without weakening the assertions.
+
+## Review Log
+
+- 2026-05-07 dependency-ready leaf check: this card has no unmet `dependsOn` edges and
+  was selected from the DAG frontier; dependency-waiting tasks were not attempted or
+  marked blocked.
+- Focused verification passed:
+  `just --justfile category_specs/justfile smoke-file rings/tests/regression/matrix_rings.sage`,
+  `just --justfile category_specs/justfile smoke-file rings/tests/new_spec/matrix_constructor_option_bag_split.sage`,
+  and `just --justfile category_specs/justfile check-abstract-redefinitions`.
+- Aggregate verification with
+  `just --justfile category_specs/justfile smoke-file rings/smoketest.sage` still fails
+  only on the existing non-matrix frontiers (`hilbert_polynomial`,
+  `algebraic_closure`, `completion`, `_change_print_mode`, and the explicit q-adic
+  deferred-frontier assertions). No `MatrixRing`, MRO, or matrix predicate failure is
+  present in the aggregate output.
+- Spec-weakening review: the implementation preserved
+  `Rings().Constructors().MatrixRing(...)` as the constructor owner and preserved
+  simultaneous ring/algebra/module refinement; the regression change updates stale
+  category names while keeping the negative membership claims for `M_2(QQ)`.
