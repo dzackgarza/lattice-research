@@ -101,3 +101,32 @@ The seed rows include:
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including finite `len(X)`
   ownership and rejected Sage wrapper/export surfaces. Moved this task to
   needs-review.
+- 2026-05-07: Added missing `RealSet.contains(x)` /
+  `InternalRealInterval.contains(x)` and `InternalRealInterval.boundary_points()` rows
+  to the literal inventory after Gate 2 review found those required seed/source
+  surfaces were neither admitted nor rejected/deferred.
+
+## Review Log
+
+### Review 2026-05-07 (Tesla)
+
+**Gates passed:** Gate 1 for existing rows
+**Gates failed:** Gate 2 Acceptance Criteria
+**Outcome:** revision-required, then reworked within this card's scope; independent
+re-review still required
+
+#### Gate 2 Finding: Missing Real-Subset Literal Surfaces
+
+- The task seed and target spec seed require `boundary_points` and `contains`.
+- The sets and topological inventories list `RealSet.contains` and
+  `InternalRealInterval.boundary_points` / `contains`.
+- The final method rows covered root membership, RealSet Boolean operations,
+  `n_components` / `get_interval`, and ambient-relative topology, but did not admit,
+  reject, or defer the literal `contains` and `boundary_points` surfaces.
+
+#### Rework
+
+- Added `RealSet.contains(x)` / `InternalRealInterval.contains(x)` as a
+  compatibility spelling for root set membership, with `bool` codomain.
+- Added `InternalRealInterval.boundary_points()` as a real-line finite-interval
+  representation surface, not a general topological boundary object.
