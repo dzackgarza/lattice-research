@@ -137,3 +137,27 @@ re-review still required
 - Updated the lattice spec-backup sources to
   `src.bak/spec-backups/lattice_methods_recovered_from_codex_transcript_2026_04_13.sage`
   and `src.bak/spec-backups/lattices_written_spec_backup.py`.
+
+### Re-review 2026-05-07 (Schrodinger)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent re-review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Confirmed the stale-path Gate 1 issue is repaired in the live provenance and matches
+  target-spec provenance for the bilinear-form memory and `src.bak/spec-backups`
+  lattice-source corpus.
+- Confirmed stale deleted paths remain only as historical review-log descriptions.
+- Spot-checked that Hom/Aut rows preserve categorical owners, form preservation and
+  orthogonal groups route through formed-module Hom/Aut, divisibility is
+  pairing-image rather than coordinate gcd, and metric dual/discriminant rows keep
+  `L^#` separate from Hom dual.
+- `just plan-validate` passed with 225 root planning cards.
+
+#### Residual Risk
+
+- This was a review and spot-check of the card and relevant rows, not a full re-audit
+  of every target-spec row or human acceptance.
