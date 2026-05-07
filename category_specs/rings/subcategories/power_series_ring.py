@@ -42,7 +42,10 @@ class _PowerSeriesRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in self.base_category() and (isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES) or isinstance(R, self.parent_class))
+        return R in self.base_category() and (
+            isinstance(R, _SAGE_POWER_SERIES_RING_CLASSES)
+            or isinstance(R, self.parent_class)
+        )
 
     class ParentMethods:
         @override

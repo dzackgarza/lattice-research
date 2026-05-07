@@ -15,7 +15,9 @@ if TYPE_CHECKING:
 
 
 class _NonArchimedeanGlobalFields(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().Field().GlobalFields().NonArchimedean()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().Field().GlobalFields().NonArchimedean()``.
+    """
 
     _base_category_class_and_axiom = (_GlobalFields, "NonArchimedean")
 

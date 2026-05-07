@@ -19,7 +19,9 @@ if TYPE_CHECKING:
 
 
 class _QuadraticNumberFields(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().Field().NumberFields().QuadraticNumberField()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().Field().NumberFields().QuadraticNumberField()``.
+    """
 
     _base_category_class_and_axiom = (_NumberFields, "QuadraticNumberField")
 

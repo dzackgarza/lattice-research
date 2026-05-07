@@ -689,3 +689,10 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/rings/subcategories/real_precision_field.py` and `python -m
   compileall category_specs/rings/subcategories/real_precision_field.py` now
   pass. Repo-wide E501 count is now 45.
+- 2026-05-07: Cleared the quadratic-number-field, Puiseux-series-ring,
+  power-series-ring, nonarchimedean-global-field, and noetherian-ring E501
+  slice with `uvx --from ruff ruff format` plus manual canonical-chain
+  docstring wrapping where Ruff left long strings unchanged. Preserved the
+  existing canonical chains and containment predicates. `uvx --from ruff ruff
+  check --select E501` and `python -m compileall` now pass on those five files.
+  Repo-wide E501 count is now 40.

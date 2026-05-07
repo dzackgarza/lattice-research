@@ -14,6 +14,7 @@ from .commutative import _CommutativeRings as _CommutativeRings
 if TYPE_CHECKING:
     pass
 
+
 class _NoetherianRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Noetherian()``."""
 
@@ -32,7 +33,9 @@ class _NoetherianRings(CategoryWithAxiom):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageNoetherianRings() or (R in self.base_category() and R.is_noetherian())
+        return R in SageNoetherianRings() or (
+            R in self.base_category() and R.is_noetherian()
+        )
 
     class ParentMethods: ...
 
