@@ -111,3 +111,29 @@ The seed rows include:
 - 2026-05-06: Updated source provenance to the actual backend memory root and added
   the buildings, indefinite-isometry, foliation, and backend-index files to match the
   broadened source corpus.
+
+## Review Log
+
+### Review 2026-05-07 (Euler)
+
+**Gates passed:** Gates 1-6
+**Gates failed:** none
+**Outcome:** independent review passed; human approval still required before
+completion
+
+#### Evidence
+
+- Searched this card, the parent phase, target backend rows in
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`, abstract/backend maps,
+  Picard and malformed-name decisions, and git diff/status.
+- Found that backend rows cover the abstract map with codomains and routing statuses.
+- Found malformed backend surfaces and Picard/lattice owner conflicts are routed
+  through decision cards, not implementation guesses:
+  `[[DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES]]` and
+  `[[DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER]]`.
+
+#### Residual Risk
+
+- Smoke/tests were not run for this review because this is backend-routing spec work.
+- Future implementation must re-audit `candidate-backend` rows before wiring a mature
+  system bridge.
