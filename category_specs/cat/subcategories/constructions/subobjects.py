@@ -31,11 +31,20 @@ class Subcategories(SubobjectsCategory):
 
         if candidate not in Cat():
             return False
-        if not isinstance(candidate, (CategoryWithAxiom, CategoryWithAxiom_singleton, CategoryWithAxiom_over_base_ring)):
+        if not isinstance(
+            candidate,
+            (
+                CategoryWithAxiom,
+                CategoryWithAxiom_singleton,
+                CategoryWithAxiom_over_base_ring,
+            ),
+        ):
             return False
         ambient = candidate.ambient_category()
         predicates = candidate.defining_predicates()
-        return ambient in Cat() and candidate.is_subcategory(ambient) and bool(predicates)
+        return (
+            ambient in Cat() and candidate.is_subcategory(ambient) and bool(predicates)
+        )
 
     class ParentMethods:
         @override
