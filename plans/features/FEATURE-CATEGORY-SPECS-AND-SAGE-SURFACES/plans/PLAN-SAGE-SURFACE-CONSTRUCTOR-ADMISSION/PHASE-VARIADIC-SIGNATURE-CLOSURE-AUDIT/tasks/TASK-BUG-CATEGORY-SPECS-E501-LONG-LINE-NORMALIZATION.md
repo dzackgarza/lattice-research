@@ -364,3 +364,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/lattices/homsets.py` and `python -m compileall
   category_specs/lattices/homsets.py` now pass. Repo-wide E501 count is now
   147.
+- 2026-05-07: Cleared the `category_specs/homsets/homsets.py` slice with `uvx
+  --from ruff ruff format`, preserving generic Hom construction and
+  Cat-supercategory routing. `uvx --from ruff ruff check --select E501
+  category_specs/homsets/homsets.py` and `python -m compileall
+  category_specs/homsets/homsets.py` now pass. Repo-wide E501 count is now 143.

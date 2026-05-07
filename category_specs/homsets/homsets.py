@@ -39,10 +39,14 @@ class UniversalHomObjectMethods:
     def __call__(self, morphism: Morphism) -> Morphism: ...
 
     @overload
-    def __call__(self, function: Callable[[CategoryElement], CategoryElement]) -> Morphism: ...
+    def __call__(
+        self, function: Callable[[CategoryElement], CategoryElement]
+    ) -> Morphism: ...
 
     @abstract_method
-    def __call__(self, data: Morphism | Callable[[CategoryElement], CategoryElement]) -> Morphism:
+    def __call__(
+        self, data: Morphism | Callable[[CategoryElement], CategoryElement]
+    ) -> Morphism:
         r"""Coerce morphism data into this hom object."""
         ...
 
@@ -164,7 +168,9 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     def default_super_categories(cls, category: Category) -> Category:
         r"""Lift Cat-level supercategories through the hom-category construction."""
         hom_supercategories = [
-            super_category.HomCategory() for super_category in category.super_categories() if super_category in Cat()
+            super_category.HomCategory()
+            for super_category in category.super_categories()
+            if super_category in Cat()
         ]
         if not hom_supercategories:
             return HomCategory()
@@ -190,7 +196,10 @@ class HomCategoryOf(HomCategoryConstruction):
     def _repr_object_names(self) -> str:
         base_category = self.base_category()
         if base_category in Cat().JoinCategories():
-            object_names = " and ".join(category._repr_object_names() for category in base_category.super_categories())
+            object_names = " and ".join(
+                category._repr_object_names()
+                for category in base_category.super_categories()
+            )
         else:
             object_names = base_category._repr_object_names()
         return f"hom categories of {object_names}"
