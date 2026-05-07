@@ -67,7 +67,9 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             ...
 
         @abstract_method
-        def term(self, index: CategoryElement, coeff: RingElement | None = None) -> RModuleElement:
+        def term(
+            self, index: CategoryElement, coeff: RingElement | None = None
+        ) -> RModuleElement:
             r"""Return ``coeff`` times the basis element indexed by ``index``."""
             del coeff
             ...
@@ -75,7 +77,8 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         @abstract_method
         def linear_combination_of_basis(
             self,
-            terms: dict[CategoryElement, RingElement] | Sequence[tuple[CategoryElement, RingElement]],
+            terms: dict[CategoryElement, RingElement]
+            | Sequence[tuple[CategoryElement, RingElement]],
         ) -> RModuleElement:
             r"""Return the finite linear combination of basis terms."""
             del terms
@@ -86,7 +89,9 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             self,
             elements: Sequence[RModuleElement],
             row_reduced: bool = False,
-            order: Sequence[CategoryElement] | Callable[[CategoryElement], Integer | str] | None = None,
+            order: Sequence[CategoryElement]
+            | Callable[[CategoryElement], Integer | str]
+            | None = None,
         ) -> list[RModuleElement]:
             del row_reduced
             ...
@@ -96,7 +101,9 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods:
         @abstract_method
-        def monomial_coefficients(self, copy: bool = True) -> dict[CategoryElement, RingElement]:
+        def monomial_coefficients(
+            self, copy: bool = True
+        ) -> dict[CategoryElement, RingElement]:
             r"""Return the finite coefficient map in the parent's basis."""
             ...
 
@@ -128,7 +135,9 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
             @abstract_method
-            def from_basis_map(self, f: Callable[[CategoryElement], RModuleElement]) -> RModuleMorphism:
+            def from_basis_map(
+                self, f: Callable[[CategoryElement], RModuleElement]
+            ) -> RModuleMorphism:
                 r"""Return the module morphism determined by a map on basis indices."""
                 ...
 
@@ -195,7 +204,9 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
         ) -> RModuleElement | Sequence[RingElement]: ...
 
         @abstract_method
-        def coordinates(self, v: RModuleElement | Sequence[RingElement]) -> RModuleElement | Sequence[RingElement]: ...
+        def coordinates(
+            self, v: RModuleElement | Sequence[RingElement]
+        ) -> RModuleElement | Sequence[RingElement]: ...
 
         @abstract_method
         def from_vector(
