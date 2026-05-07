@@ -9,7 +9,14 @@ from sage.misc.abstract_method import abstract_method
 from ....cat import SubobjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Cardinality, QuotientModule, RModMorphism, RModule, RModuleElement, SubModule
+    from ....types import (
+        Cardinality,
+        QuotientModule,
+        RModMorphism,
+        RModule,
+        RModuleElement,
+        SubModule,
+    )
 
 
 class _Subobjects(SubobjectsCategory):
@@ -36,7 +43,9 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def ambient_vector_space(self) -> RModule:
-            r"""Return the ambient vector space when the base category is over a field."""
+            r"""Return the ambient vector space when the base category is over a
+            field.
+            """
             return self.ambient_module()
 
         @abstract_method
@@ -72,7 +81,9 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def is_submodule_of(self, other: RModule | None = None) -> bool:
-            r"""Return whether this submodule is contained in ``other`` or its ambient."""
+            r"""Return whether this submodule is contained in ``other`` or its
+            ambient.
+            """
             return self <= (self.ambient_module() if other is None else other)
 
         @abstract_method

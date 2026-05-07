@@ -429,3 +429,12 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   category_specs/modules/subcategories/representation_modules.py` and `python
   -m compileall category_specs/modules/subcategories/representation_modules.py`
   now pass. Repo-wide E501 count is now 114.
+- 2026-05-07: Cleared the
+  `category_specs/modules/subcategories/constructions/subobjects.py` slice with
+  `uvx --from ruff ruff format` plus two manual docstring wraps, preserving
+  submodule ambient and containment surfaces. `uvx --from ruff ruff check
+  --select E501
+  category_specs/modules/subcategories/constructions/subobjects.py` and `python
+  -m compileall
+  category_specs/modules/subcategories/constructions/subobjects.py` now pass.
+  Repo-wide E501 count is now 111.
