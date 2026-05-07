@@ -234,3 +234,8 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   E501 category_specs/rings/subcategories/integral_domain.py` and `python -m
   compileall category_specs/rings/subcategories/integral_domain.py` now pass.
   Repo-wide E501 count is now 244.
+- 2026-05-07: Cleared the `category_specs/posets/subcategories/finite.py` slice
+  with `uvx --from ruff ruff format`. `uvx --from ruff ruff check --select E501
+  category_specs/posets/subcategories/finite.py` and `python -m compileall
+  category_specs/posets/subcategories/finite.py` now pass. Repo-wide E501 count
+  is now 238.

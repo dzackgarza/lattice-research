@@ -12,7 +12,14 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
-    from ...types import FiniteLatticePoset, Integer, Poset, PosetElement, PosetMorphism, PosetSubset
+    from ...types import (
+        FiniteLatticePoset,
+        Integer,
+        Poset,
+        PosetElement,
+        PosetMorphism,
+        PosetSubset,
+    )
 
 from .. import Posets
 
@@ -78,7 +85,9 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @abstract_method
-        def cover_relations_iterator(self) -> Iterable[tuple[PosetElement, PosetElement]]:
+        def cover_relations_iterator(
+            self,
+        ) -> Iterable[tuple[PosetElement, PosetElement]]:
             r"""Return an iterator over the cover relations."""
             ...
 
@@ -88,7 +97,9 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @abstract_method
-        def closed_interval(self, x: PosetElement, y: PosetElement) -> list[PosetElement]:
+        def closed_interval(
+            self, x: PosetElement, y: PosetElement
+        ) -> list[PosetElement]:
             r"""Return the closed interval ``[x, y]``."""
             ...
 
@@ -150,7 +161,9 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def order_ideals_lattice(self, facade: bool = True) -> FiniteLatticePoset:
             r"""Return the finite distributive lattice of order ideals."""
-            return SageFinitePosets.ParentMethods.order_ideals_lattice(self, as_ideals=True, facade=facade)
+            return SageFinitePosets.ParentMethods.order_ideals_lattice(
+                self, as_ideals=True, facade=facade
+            )
 
         @abstract_method
         def is_meet_semilattice(self) -> bool:
@@ -158,7 +171,9 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @final
-        def meet_semilattice_certificate(self) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
+        def meet_semilattice_certificate(
+            self,
+        ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a meet when false."""
             return self.is_meet_semilattice(certificate=True)
 
@@ -168,7 +183,9 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @final
-        def join_semilattice_certificate(self) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
+        def join_semilattice_certificate(
+            self,
+        ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a join when false."""
             return self.is_join_semilattice(certificate=True)
 
