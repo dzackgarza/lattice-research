@@ -33,6 +33,7 @@ if TYPE_CHECKING:
         RingElement,
     )
 
+
 class _Fields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field()``."""
 
@@ -62,13 +63,22 @@ class _Fields(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in SageFields() or (R in self.base_category() and R.is_field())
 
-    Finite = LazyImport("category_specs.rings.subcategories.finite_field", "_FiniteFields")
-    NumberFields = LazyImport("category_specs.rings.subcategories.number_field", "_NumberFields")
-    AlgebraicallyClosed = LazyImport(
-        "category_specs.rings.subcategories.algebraically_closed_field", "_AlgebraicallyClosedFields"
+    Finite = LazyImport(
+        "category_specs.rings.subcategories.finite_field", "_FiniteFields"
     )
-    LocalFields = LazyImport("category_specs.rings.subcategories.local_field", "_LocalFields")
-    GlobalFields = LazyImport("category_specs.rings.subcategories.global_field", "_GlobalFields")
+    NumberFields = LazyImport(
+        "category_specs.rings.subcategories.number_field", "_NumberFields"
+    )
+    AlgebraicallyClosed = LazyImport(
+        "category_specs.rings.subcategories.algebraically_closed_field",
+        "_AlgebraicallyClosedFields",
+    )
+    LocalFields = LazyImport(
+        "category_specs.rings.subcategories.local_field", "_LocalFields"
+    )
+    GlobalFields = LazyImport(
+        "category_specs.rings.subcategories.global_field", "_GlobalFields"
+    )
 
     class SubcategoryMethods:
         @cached_method

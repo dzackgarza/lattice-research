@@ -256,3 +256,9 @@ of `just test`. Keep the cleanup mechanical and avoid changing source meaning.
   import alias. `uvx --from ruff ruff check --select E501
   category_specs/cat/__init__.py` and `python -m compileall
   category_specs/cat/__init__.py` now pass. Repo-wide E501 count is now 220.
+- 2026-05-07: Cleared the `category_specs/rings/subcategories/field.py` slice
+  with `uvx --from ruff ruff format`, preserving the field subcategory selectors.
+  `uvx --from ruff ruff check --select E501
+  category_specs/rings/subcategories/field.py` and `python -m compileall
+  category_specs/rings/subcategories/field.py` now pass. Repo-wide E501 count is
+  now 215.
