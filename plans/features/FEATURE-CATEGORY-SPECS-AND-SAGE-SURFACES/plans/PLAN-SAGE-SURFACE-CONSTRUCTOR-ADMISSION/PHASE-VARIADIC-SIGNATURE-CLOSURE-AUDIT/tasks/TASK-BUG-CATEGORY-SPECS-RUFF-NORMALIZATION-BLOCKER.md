@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Triage category_specs Ruff normalization blocker for implementation validation
-status: needs-review
+status: complete
 priority: high
 description: '`just test` reaches the global quality-control Ruff normalization stage
   but fails on repo-wide `category_specs` findings. This blocks validation evidence

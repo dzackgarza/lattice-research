@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 dependsOn: []
 title: Implement orthogonal subgroups through ConditionSet composition
-status: unstarted
+status: complete
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER`

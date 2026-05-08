@@ -1,4 +1,4 @@
-r"""Axiomatic subcategory for finite set partitions."""
+r"""Axiomatic subcategory for partitioned sets and set partitions."""
 
 from __future__ import annotations
 
@@ -12,24 +12,72 @@ from sage.misc.lazy_import import LazyImport
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Sets
-from ..homsets import SetAutCategory, SetEndCategory, SetHomCategory
 
 if TYPE_CHECKING:
     from ...types import Cardinality, FiniteSet, Set, SetElement, SetPartition, Subset
 
 
+# ---------------------------------------------------------------------------
+# Partitioned axiom --- sets carrying partition data
+# ---------------------------------------------------------------------------
+
 class PartitionedSetsCategory(CategoryWithAxiom):
-    r"""Sets whose elements are partitions of a fixed base set.
+    r"""Sets whose elements are partitioned.
 
     Canonical chain: ``Sets().Partitioned()``.
 
-    A partition of ``X`` is a subset of the powerset ``P(X)`` whose blocks are
-    nonempty, pairwise disjoint, and cover ``X``.  Sage represents the parent of
-    such partitions as ``SetPartitions(X)`` and each partition as a
-    ``SetPartition`` element.
+    A partitioned set *X* carries a partition of itself, accessible
+    via ``partition()``.  The partition object itself lives in the
+    :class:`PartitionsCategory` and owns methods such as
+    ``crossings()``, ``is_noncrossing()``, and ``refines()``.
+
+    This is an axiom on ``Sets()``, so it composes with other set
+    axioms: ``Sets().Finite().TotallyOrdered().Partitioned()``
+    describes a finite, totally ordered set that carries a partition.
     """
 
     _base_category_class_and_axiom = (Sets, "Partitioned")
+
+    @override
+    @final
+    def _repr_object_names(self) -> str:
+        return "partitioned sets"
+
+    @override
+    @final
+    def super_categories(self) -> list[Category]:
+        return []
+
+    class ParentMethods:
+        @final
+        def partition(self) -> SetPartition:
+            r"""Return the partition of this set."""
+            return self.an_element()
+
+    class ElementMethods: ...
+
+    class MorphismMethods: ...
+
+
+# ---------------------------------------------------------------------------
+# Partitions subcategory --- sets whose *elements* are partitions
+# ---------------------------------------------------------------------------
+
+class PartitionsCategory(Category):
+    r"""Sets whose elements are partitions of a fixed base set.
+
+    Canonical construction: ``PartitionsCategory()``.
+
+    This is *not* an axiom --- it is a subcategory of ``Sets()``.
+    Objects in this category are the set-of-partitions parents
+    such as ``SetPartitions(3)``; their *elements* are individual
+    partition objects carrying methods like ``crossings()``,
+    ``arcs()``, ``refines()``, and ``ordered_coarsening_closure()``.
+
+    Because the elements are partitions, the parent always knows its
+    ``base_set()`` --- the underlying set being partitioned --- which
+    may carry its own axioms such as ``TotallyOrdered``.
+    """
 
     @override
     @final
@@ -85,6 +133,15 @@ class PartitionedSetsCategory(CategoryWithAxiom):
         def random_element(self) -> SetPartition:
             r"""Return a random partition in ``self``."""
             ...
+
+        @final
+        def has_finite_totally_ordered_base_set(self) -> bool:
+            r"""Return whether the base set is finite and totally ordered.
+
+            Returns ``True`` for partitions over a finite totally ordered base
+            (integer, iteration, or algebraic set with canonical enumeration).
+            """
+            return True
 
     class ElementMethods:
         @abstract_method
@@ -194,61 +251,6 @@ class PartitionedSetsCategory(CategoryWithAxiom):
             """
             ...
 
-    class MorphismMethods: ...
-
-    FiniteTotallyOrderedBase = LazyImport(
-        "category_specs.sets.subcategories.partitioned",
-        "FiniteTotallyOrderedBasePartitionedSetsCategory",
-    )
-
-    class SubcategoryMethods:
-        @cached_method
-        @final
-        def FiniteTotallyOrderedBase(self) -> Category:
-            r"""Return partitions whose fixed base set is finite and totally ordered."""
-            return self._with_axiom("FiniteTotallyOrderedBase")
-
-
-class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
-    r"""Partitions of a fixed finite totally ordered base set.
-
-    Canonical chain: ``Sets().Partitioned().FiniteTotallyOrderedBase()``.
-
-    This owner records extra structure on ``base_set()``, not on the partition
-    set itself. It is therefore an axiom on ``Sets().Partitioned()`` rather than
-    a meet with ``Sets().TotallyOrdered()``.
-    """
-
-    _base_category_class_and_axiom = (
-        PartitionedSetsCategory,
-        "FiniteTotallyOrderedBase",
-    )
-    _defining_predicates = ("has_finite_totally_ordered_base_set",)
-
-    @override
-    @final
-    def _repr_object_names(self) -> str:
-        return "sets of partitions of a fixed finite totally ordered set"
-
-    @override
-    @final
-    def super_categories(self) -> list[Category]:
-        return [Sets().Partitioned(), Sets().Countable().Finite()]
-
-    class ParentMethods:
-        @override
-        @final
-        def has_finite_totally_ordered_base_set(self) -> bool:
-            r"""Return ``True`` because ``base_set()`` is finite and totally ordered."""
-            return True
-
-        @override
-        @abstract_method
-        def base_set(self) -> Set:
-            r"""Return the fixed base set, refined into a finite totally ordered set."""
-            ...
-
-    class ElementMethods:
         @final
         def ordered_coarsening_closure(self) -> FiniteSet:
             r"""Return Sage's ordered coarsening closure, including ``self``."""
@@ -257,14 +259,41 @@ class FiniteTotallyOrderedBasePartitionedSetsCategory(CategoryWithAxiom):
     class MorphismMethods: ...
 
 
+# ---------------------------------------------------------------------------
+# TotallyOrdered axiom
+# ---------------------------------------------------------------------------
+
+class TotallyOrderedSetsCategory(CategoryWithAxiom):
+    r"""Sets whose elements are finite and totally ordered.
+
+    Canonical chain: ``Sets().Finite().TotallyOrdered()``.
+    """
+
+    _base_category_class_and_axiom = (Sets, "TotallyOrdered")
+
+    @override
+    @final
+    def _repr_object_names(self) -> str:
+        return "totally ordered sets"
+
+    @override
+    @final
+    def super_categories(self) -> list[Category]:
+        return []
+
+    class ParentMethods: ...
+
+    class ElementMethods: ...
+
+
+# ---------------------------------------------------------------------------
+# Type aliases
+# ---------------------------------------------------------------------------
+
 PartitionedSetsObject = PartitionedSetsCategory.ParentMethods
 PartitionedSetsElement = PartitionedSetsCategory.ElementMethods
 PartitionedSetsMorphism = PartitionedSetsCategory.MorphismMethods
-PartitionedSetsHomCategory = SetHomCategory
-PartitionedSetsEndCategory = SetEndCategory
-PartitionedSetsAutCategory = SetAutCategory
-PartitionedSetsHom = SetHomCategory.ParentMethods
-PartitionedSetsEnd = SetEndCategory.ParentMethods
-PartitionedSetsAut = SetAutCategory.ParentMethods
-PartitionedSetsEndomorphism = SetEndCategory.ElementMethods
-PartitionedSetsAutomorphism = SetAutCategory.ElementMethods
+
+PartitionsObject = PartitionsCategory.ParentMethods
+PartitionsElement = PartitionsCategory.ElementMethods
+PartitionsMorphism = PartitionsCategory.MorphismMethods

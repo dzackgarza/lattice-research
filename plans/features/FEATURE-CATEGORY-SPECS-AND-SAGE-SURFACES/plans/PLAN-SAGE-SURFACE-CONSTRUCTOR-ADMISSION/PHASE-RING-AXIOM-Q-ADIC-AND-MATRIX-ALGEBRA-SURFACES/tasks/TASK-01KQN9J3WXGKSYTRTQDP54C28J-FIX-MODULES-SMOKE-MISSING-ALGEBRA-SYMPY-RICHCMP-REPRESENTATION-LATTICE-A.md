@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Modules smoke missing algebra _sympy_ __richcmp__ representation lattice
   and graded base-category failures
-status: needs-review
+status: complete
 priority: high
 description: The deleted Modules triage recorded the post-wrapper-deletion smoke frontier
   and the surfaces still meant as mathematical categories rather than exact Sage implementation

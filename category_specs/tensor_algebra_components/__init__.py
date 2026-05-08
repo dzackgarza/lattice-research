@@ -224,10 +224,10 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor element in ``T_R(M)[p,q]``."""
-            component = self.component_module(
+            self.component_module(
                 base_module, tensor_type, sym=sym, antisym=antisym
             )
-            return component.tensor(
+            return base_module.tensor(
                 tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym
             )
 

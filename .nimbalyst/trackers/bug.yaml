@@ -25,8 +25,8 @@ fields:
     label: Blocked
     icon: block
     color: '#dc2626'
-  - value: done
-    label: Done
+  - value: complete
+    label: Complete
     icon: check_circle
 - name: priority
   type: select

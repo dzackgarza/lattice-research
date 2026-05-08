@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Sage Riemann surface interface integration
-status: needs-review
+status: complete
 priority: low
 description: Research how Sage Riemann surface functionality should map into the category-spec
   vocabulary and whether it warrants wrapper, constructor, or method cards.

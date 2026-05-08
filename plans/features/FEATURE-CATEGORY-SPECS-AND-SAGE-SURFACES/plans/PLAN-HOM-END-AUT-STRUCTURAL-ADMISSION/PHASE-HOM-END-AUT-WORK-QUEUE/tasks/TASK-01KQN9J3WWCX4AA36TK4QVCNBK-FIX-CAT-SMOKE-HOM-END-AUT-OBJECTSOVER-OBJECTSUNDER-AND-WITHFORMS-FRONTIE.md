@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 dependsOn: []
 title: Fix Cat smoke Hom End Aut ObjectsOver ObjectsUnder and WithForms frontier
-status: needs-review
+status: complete
 priority: critical
 description: The deleted Cat triage recorded structural Cat smoke scope and future uniformization
   work for category-object Hom behavior and functor/autofunctor modeling.

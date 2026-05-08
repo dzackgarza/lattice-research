@@ -16,6 +16,9 @@ Before auditing:
 - Read `category_specs/AGENTS.md`.
 - Load `category-spec-style` for mathematical and code/spec compliance.
 - Load `category-spec-workflow` for card, priority, decision, visual, and retirement handling.
+- Load `jerry-behaviour` when reviewing agent-produced work. The reviewer's
+  criteria must be independent of the producer's assumptions. A review that
+  would look the same if the artifact were wrong is Jerry review.
 
 ## Audit focus
 
@@ -60,6 +63,11 @@ For each occurrence, record:
 
 The red flag log is part of audit output, not a separate file. Include it
 immediately after the audit findings.
+
+A red flag log with zero entries is a Jerry signal: it means the auditor either
+did not read the code or approved without inspection. Real code has findings.
+If you produced no log, state explicitly which files you read and why none
+contained introspection red flags.
 
 Reference: see the `anti-slop` skill, `references/code-patterns.md#introspection-red-flags`
 for the full reasoning chain and acceptance criteria table.

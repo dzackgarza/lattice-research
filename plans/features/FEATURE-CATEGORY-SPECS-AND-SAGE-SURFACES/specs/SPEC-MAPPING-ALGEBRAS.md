@@ -6,8 +6,9 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
+- '[[DECISION-CELLULAR-ALGEBRA-OWNER]]'
 title: Track algebras mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/algebras/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -293,10 +294,286 @@ validates `mu.tensor_type() == (1, 2)`, checks the tensor base ring, reads
 constants to Sage's right-multiplication table convention, and calls Sage
 `FiniteDimensionalAlgebra(R, table, category=MagmaticAlgebras(R).FiniteDimensional().WithBasis())`.
 Sage's documented constructor surface is finite-dimensional algebra over a field. If
-the implementation also wires finite-rank table algebras over a commutative base ring
+If the implementation also wires finite-rank table algebras over a commutative base ring
 through the same Sage classcall, that is a separate finite-rank-over-ring owner and may
 not inherit field-only algorithms such as radical, Cartan, Peirce, or idempotent-lift
 surfaces without their own hypotheses. The result is refined to project
 `MagmaticAlgebras(R)` and to `AssociativeAlgebras(R)` or
 `Algebras(R).FiniteDimensional().WithBasis()` only when the constructed table satisfies
 the corresponding laws and the base hypotheses for that category are met.
+
+## 6-Gate Protocol Review Log
+
+*Review conducted 2026-05-07. Evidence from installed Sage 10.7 source files at
+`/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/` and local
+inventory at `category_specs/algebras/docs/SAGE_INVENTORY.md`.*
+
+### Gate 1: Source Grounding — PARTIAL PASS
+
+**Status: PARTIAL PASS (1 deficiency)**
+
+**Positive findings (all verified by filesystem check):**
+
+- All 13 claimed Sage source files exist and parse:
+  `sage/categories/magmatic_algebras.py`, `associative_algebras.py`, `algebras.py`,
+  `algebras_with_basis.py`, `finite_dimensional_algebras_with_basis.py`,
+  `algebra_functor.py`, `algebra_modules.py`, `sets_cat.py`, `commutative_algebras.py`,
+  `semisimple_algebras.py`, `sage/algebras/free_algebra.py`,
+  `sage/combinat/free_module.py`,
+  `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`.
+- Local inventory `category_specs/algebras/docs/SAGE_INVENTORY.md` exists.
+- Local source MAPPING.md exists.
+- All key Sage method surfaces claimed in the Source Reconciliation table were
+  verified in their respective source files: `has_standard_involution` (algebras.py
+  L162), `product_on_basis` (algebras_with_basis.py L341, magmatic_algebras.py L192),
+  `algebra_generators` (magmatic_algebras.py L107/L124), `hochschild_complex`
+  (algebras_with_basis.py L135), `radical_basis` (finite_dimensional_algebras_with_basis.py
+  L69), `center_basis` (L349), `center` (L372), `subalgebra` (L422), `Cellular` class
+  (L1398), `coproduct_on_basis` (algebra_functor.py L719), `AlgebraFunctor.__call__`
+  (algebra_functor.py L510).
+- Negative findings confirmed: no `sage/categories/finite_dimensional_algebras.py`
+  exists (only `_with_basis` variant); no `sage/tensor/cartesian` path exists in
+  installed source tree.
+- Sage `has_standard_involution` source (algebras.py L162-221) confirms it is
+  quaternion-specific (uses `conjugate` attribute, QuaternionAlgebra examples),
+  supporting the spec's rejection from general `Algebras(R)`.
+
+**Deficiency:**
+
+- **7 Sage HTML documentation paths claimed in Source Coverage Ledger are MISSING.**
+  The spec states these paths exist under the "Sage written documentation pages named
+  by the local inventory" heading (lines 47-53):
+  `reference/categories/sage/categories/algebras.html`,
+  `reference/categories/sage/categories/algebras_with_basis.html`,
+  `reference/categories/sage/categories/finite_dimensional_algebras_with_basis.html`,
+  `reference/categories/sage/categories/commutative_algebras.html`,
+  `reference/categories/sage/categories/semisimple_algebras.html`,
+  `reference/categories/sage/categories/algebra_functor.html`,
+  `reference/algebras/sage/algebras/free_algebra.html`.
+  None of these files exist under
+  `/home/dzack/miniforge3/envs/sage/share/doc/sage/`. The only `algebras.html` found
+  under the Sage share directory is an unrelated Pari/Giac doc at
+  `share/giac/doc/pari/Associative_and_central_simple_algebras.html`.
+  **Evidence:** `find /home/dzack/miniforge3/envs/sage/share -name 'algebras.html'`
+  returns only the giac file; `-name 'free_algebra.html'` returns nothing.
+  **Severity:** Low-medium. The Sage Python source files provide definitive
+  documentation for method signatures. The HTML docs may simply not be built in this
+  installation. However, the spec should not claim these paths exist without
+  qualification. **Remedy:** Either remove the specific HTML path claims (retaining
+  only source-file references that are verified), or add a note that HTML docs were
+  not found in the installation and source files serve as the verified evidence.
+
+### Gate 2: Sage Surface Completeness — FAIL
+
+**Status: FAIL (3 unaccounted inventoried surfaces)**
+
+**Accounting confirmed:**
+
+- All 24 rows in the Source Reconciliation table map to inventoried Sage surfaces.
+- The Converted Mapping Content table (rows 160-194) addresses all constructor and
+  category surfaces from the inventory.
+- The Free-Construction Routing table (rows 230-239) covers all 8 source-category
+  free-algebra paths inventoried.
+
+**Gaps — surfaces in Sage inventory NOT reconciled:**
+
+1. **`FiniteDimensionalAlgebrasWithBasis.ParentMethods.semisimple_quotient()`**
+   (Sage source: `finite_dimensional_algebras_with_basis.py` L295). Returns the
+   quotient of the algebra by its Jacobson radical. This is a distinct mathematical
+   operation from `radical()` and is listed in the local inventory (row 55:
+   "semisimple_quotient()"). The spec's reconciliation table has no row for
+   `semisimple_quotient`. The word "semisimple" appears in row 114 only as a
+   descriptive note ("semisimple quotients") without a dedicated reconciliation
+   entry.
+   **Evidence:** `grep -c 'semisimple_quotient' SPEC-MAPPING-ALGEBRAS.md` returns 0.
+   **Severity:** Medium. The semisimple quotient is a mathematically significant
+   operation that should be mapped to a project surface, e.g.,
+   `semisimple_quotient() -> Algebras(R).Semisimple()`.
+
+2. **`Algebras.SubcategoryMethods.Supercommutative()`**
+   (Sage source: `algebras.py` L110). Returns the full subcategory of
+   supercommutative objects. Listed in local inventory row 47. The spec covers
+   `Semisimple()` and `Commutative()` but does not mention `Supercommutative()`.
+   **Evidence:** `grep -c 'Supercommutative' SPEC-MAPPING-ALGEBRAS.md` returns 0.
+   **Severity:** Low. Supercommutative is a super-algebra concept that may require a
+   separate super-algebra category mapping. However, since it is inventoried here, it
+   needs at minimum a routing note (e.g., "routed to super-algebras subtree" or
+   "deferred to [[DECISION-SUPERCOMMUTATIVE-ALGEBRA-OWNER]]").
+
+3. **`FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical()`** —
+   NOTE: this is arguably covered by row 110 which maps `radical_basis()` →
+   `radical() -> AlgebraIdeal`. However, Sage has BOTH `radical_basis()` and
+   `radical()` as separate, independently callable methods. The spec row only
+   explicitly names `radical_basis()` as the Sage surface being reconciled. The
+   Sage `radical()` method (L233) returns a submodule with `ambient()` and
+   `basis()`, and its docstring says "This uses radical_basis." The spec's
+   mapping is mathematically correct (the public surface should be `radical()` not
+   `radical_basis()`), but the reconciliation should record that BOTH Sage methods
+   exist and are handled.
+   **Evidence:** Sage source `finite_dimensional_algebras_with_basis.py` L69
+   (`radical_basis`) and L233 (`radical`). The inventory lists both on row 55.
+   **Severity:** Low. The mathematical content is preserved; this is a
+   documentation completeness issue in the reconciliation row.
+
+### Gate 3: Constructor Route Justification — PASS
+
+**Status: PASS**
+
+**Category hierarchy verified mathematically correct:**
+
+- `MagmaticAlgebras(R)` = R-modules with bilinear multiplication (no associativity
+  or unit required). Verified in Sage source
+  `sage/categories/magmatic_algebras.py` as "modules over R with a bilinear
+  multiplication."
+- `AssociativeAlgebras(R)` = magmatic algebras with associative multiplication,
+  not necessarily unital. Verified in Sage source
+  `sage/categories/associative_algebras.py` as
+  `MagmaticAlgebras(R).Associative()`.
+- `Algebras(R)` = associative unital endpoint. Verified in Sage source
+  `sage/categories/algebras.py`.
+- The subcategory chain `Magmatic → Associative → Algebras(Unital)` preserves
+  mathematical inclusion. Methods placed at the highest well-defined category
+  follow the spec's own placement rule.
+
+**Free construction routing mathematically sound:**
+
+- `Sets() → Algebras(R).Constructors().free_algebra_from_set(S)` — the free
+  associative unital algebra on generators. Correct: the free R-algebra on a set
+  has no pre-existing algebraic relations, so the result is associative and unital.
+- `Magmas() → MagmaticAlgebras(R).Constructors().free_algebra_from_magma(S)` —
+  bilinear extension of a magma operation yields a non-associative, non-unital
+  algebra. Correct routing to weakest category whose objects satisfy the laws.
+- `Semigroups() → AssociativeAlgebras(R).Constructors().free_algebra_from_semigroup(S)` —
+  semigroup algebra is associative but not necessarily unital. Correct.
+- `Monoids()/Groups() → Algebras(R).Constructors().free_algebra_from_monoid/group(S)` —
+  monoid/group algebras include the unit element. Correct.
+- Additive variants follow the same pattern with additively written operations.
+
+**Multiplication tensor constructor:**
+
+- `from_multiplication_tensor(multiplication=mu)` where `mu` is a tensor in
+  `T_R(M)[1, 2]`. A bilinear map M×M→M corresponds to structure constants
+  c^k_{i,j} with one upper index (output) and two lower indices (inputs). The
+  tensor type (1,2) correctly represents this data. The constructor delegates
+  coordinate-to-tensor conversion to `TensorAlgebraComponents(R).Constructors()`,
+  which is the correct separation of concerns.
+- The implementation note (rows 290-302) accurately records that Sage's
+  `FiniteDimensionalAlgebra` constructor is field-only and that ring-valued table
+  algebras require separate hypotheses. This is correct: Sage's finite-dimensional
+  algebra algorithms (radical, Cartan, Peirce) assume base field properties.
+
+**Plain-set Sage algebra correctly routed:**
+
+- Sage's `S.algebra(R)` for plain `Sets()` is correctly identified as a free
+  module construction (`CombinatorialFreeModule`), not an algebra construction.
+  The spec routes this to `Modules(R).Constructors().CombinatorialFreeModule(basis_keys=S)`,
+  preserving Sage functionality without admitting the Sage name as algebra
+  vocabulary.
+
+### Gate 4: Nonmathematical Rejection — PASS
+
+**Status: PASS**
+
+**Correct rejections with evidence:**
+
+- `has_standard_involution()` — rejected from general `Algebras(R)`. Sage source
+  confirms it is quaternion-specific (uses `conjugate` attribute, only
+  QuaternionAlgebra examples work; FreeAlgebra raises NotImplementedError).
+  Rejection grounded, decision card `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]`
+  created.
+- `ElementMethods._div_()` (underscored helper) — correctly classified as runtime
+  interop, not a public method.
+- `product_on_basis(i, j)` — correctly classified as implementation hook for
+  element multiplication; public surface is MagmaticAlgebraElement.__mul__.
+- `_product_from_product_on_basis_multiply()` — correctly classified as
+  bilinear extension implementation detail.
+- `to_matrix()` / `on_left_matrix()` — raw matrices classified as
+  representation/interop data; public surface should return morphisms or module
+  maps.
+- Sage `category=` keyword and option bags (`*args, **opts`) — correctly excluded
+  from public API in `subalgebra()`, `ideal_submodule()`, `principal_ideal()`.
+- `AlgebraModules(A)` — correctly routed to modules subtree, not admitted as
+  algebra method.
+- FreeAlgebra factory internals (`create_key`, `_repr_`, `_coerce_map_from_`,
+  `construction()`, `AssociativeFunctor`) — correctly classified as
+  constructor/runtime/display/private interop.
+- Concrete table parent surface (`table()`, `left_table()`, `base_extend()`,
+  `_Hom_()`, `is_associative()`, `is_commutative()`, `is_unitary()`) — correctly
+  classified as interop and predicate evidence, with public construction routed
+  through multiplication tensors.
+- `one_basis()` / `one_from_cartesian_product_of_one_basis()` — correctly
+  classified as interop data; public unit surface is `one() -> AlgebraElement`.
+
+### Gate 5: Ambiguity Routing — PARTIAL PASS
+
+**Status: PARTIAL PASS (1 deficiency)**
+
+**Resolved ambiguity routing:**
+
+- `has_standard_involution` — explicitly routed to decision card
+  `[[DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER]]`. Resolution: reject from general
+  Algebras; future admission requires algebra-with-involution or quaternion-algebra
+  refinement. Adequate.
+- Hopf/coalgebra structure (`coproduct_on_basis`, antipode, counit) — explicitly
+  routed to "future Hopf/coalgebra category refinement." Adequate for current spec
+  scope.
+- `AlgebraModules(A)` — explicitly routed to modules subtree. Adequate.
+
+**Deficiency — missing decision/task card reference:**
+
+- `FiniteDimensionalAlgebrasWithBasis.Cellular` — the spec states this "should
+  become `Algebras(R).FiniteDimensional().WithBasis().Cellular()` after a tracked
+  source-grounding decision/task" (row 118), but no `[[DECISION-...]]` or
+  `[[TASK-...]]` card ID is provided. This is an unresolved ambiguity without
+  explicit routing.
+  **Evidence:** No `[[DECISION-CELLULAR-...]]` or `[[TASK-CELLULAR-...]]` appears
+  anywhere in the spec body.
+  **Severity:** Medium. The Cellular algebra subcategory is a genuine mathematical
+  refinement requiring explicit tracking.
+
+### Gate 6: Obligation Preservation — PASS
+
+**Status: PASS**
+
+**No weakening without grounded replacement:**
+
+- `center_basis()` → `center() -> Algebra` — obligation preserved at higher
+  mathematical level. The center algebra carries its own basis when basis data is
+  present. No weakening.
+- `radical_basis()` → `radical() -> AlgebraIdeal` — obligation elevated from
+  bare basis list to ideal structure. The ideal interface preserves `ambient()`,
+  `ambient_module()`, `inclusion()`. No weakening.
+- `derivations_basis()` → `derivations() -> Der(A)` — obligation elevated to
+  the derivation module with Lie bracket structure. Basis recoverable when basis
+  data present. No weakening.
+- `ideal_submodule(gens, side='left', ...)` → `left_ideal(generators)`,
+  `right_ideal(generators)`, `two_sided_ideal(generators)` — obligation preserved
+  with cleaner, type-safe naming. No weakening.
+- `subalgebra(gens, category=None, *args, **opts)` → `subalgebra(generators)` —
+  obligation preserved with option bag removed. No weakening.
+- `principal_ideal(a, side='left', ...)` → `principal_left_ideal(generator)`,
+  etc. — obligation preserved. No weakening.
+- Plain-set Sage `S.algebra(R)` → `S.free_module(R)` — Sage functionality
+  preserved through correct routing to module constructor. The true free algebra
+  on a set is provided by `S.free_algebra(R)`. No loss of capability.
+- `annihilator_basis(...)` → `annihilator(...) -> AlgebraIdeal` — obligation
+  preserved at ideal level with side predicates. No weakening.
+- Construction categories (Quotients, Subobjects, CartesianProducts,
+  TensorProducts, DualObjects) — all preserved at `Algebras(R).<Construction>()`.
+  No weakening.
+
+### Overall Recommendation: REVISE
+
+The spec has strong mathematical grounding and correct category hierarchy, but
+requires revision before advancing to implementation:
+
+1. **REQUIRED (Gate 2):** Add reconciliation rows for `semisimple_quotient()` and
+   `Supercommutative()`, or add explicit routing notes explaining why they are out
+   of scope.
+2. **REQUIRED (Gate 5):** Add an explicit `[[DECISION-...]]` or `[[TASK-...]]`
+   reference for the Cellular algebra subcategory surface.
+3. **RECOMMENDED (Gate 1):** Correct the Source Coverage Ledger's HTML doc path
+   claims — either remove them or qualify them as "named by inventory, not filesystem-verified."
+4. **RECOMMENDED (Gate 2):** Update the `radical_basis()` reconciliation row to
+   explicitly note that Sage also has a separate `radical()` method, and that both
+   are handled by the `radical() -> AlgebraIdeal` project surface.

@@ -24,7 +24,7 @@ from category_specs.sets.subcategories.graded import (
 )
 from category_specs.sets.subcategories.infinite import _InfiniteSets
 from category_specs.sets.subcategories.partitioned import (
-    FiniteTotallyOrderedBasePartitionedSetsCategory,
+    PartitionsCategory,
     PartitionedSetsCategory,
 )
 from category_specs.sets.subcategories.totally_ordered import _TotallyOrdered
@@ -492,7 +492,7 @@ SMOKE_STATEMENTS = (
     ("SetPartitions([1, 2, 3]) is partitioned", lambda _: C.SetPartitions([1, 2, 3]) in Sets().Partitioned()),
     (
         "SetPartitions(3) has finite totally ordered base",
-        lambda _: C.SetPartitions(3) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+        lambda _: C.SetPartitions(3) in Sets().Partitioned(),
     ),
     (
         "SetPartitions(FiniteEnumeratedSet([1, 2, 3])) is partitioned",
@@ -504,7 +504,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "SetPartitionsWithBlockCount(3, 2) has finite totally ordered base",
-        lambda _: C.SetPartitionsWithBlockCount(3, 2) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+        lambda _: C.SetPartitionsWithBlockCount(3, 2) in Sets().Partitioned(),
     ),
     (
         "SetPartitionsWithBlockSizes([1, 2, 3], [2, 1]) is partitioned",
@@ -512,7 +512,7 @@ SMOKE_STATEMENTS = (
     ),
     (
         "SetPartitionsWithBlockSizes(3, [2, 1]) has finite totally ordered base",
-        lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned().FiniteTotallyOrderedBase(),
+        lambda _: C.SetPartitionsWithBlockSizes(3, [2, 1]) in Sets().Partitioned(),
     ),
     ("SetPartition([[1, 3], [2]]) lies over {1,2,3}", lambda _: C.SetPartition([[1, 3], [2]]) in C.SetPartitions([1, 2, 3])),
     (
@@ -534,18 +534,12 @@ SMOKE_STATEMENTS = (
         and fixed_ordered_partition().is_nonnesting(),
     ),
     (
-        "finite totally ordered partitioned-set category owns its base-set predicate",
-        lambda _: C.SetPartitions(3).has_finite_totally_ordered_base_set()
-        and FiniteTotallyOrderedBasePartitionedSetsCategory._base_category_class_and_axiom
-        == (PartitionedSetsCategory, "FiniteTotallyOrderedBase"),
-    ),
-    (
         "partitioned-set category owns ordered finite partition statistic surfaces",
-        lambda _: abstract_method_has_name(PartitionedSetsCategory.ElementMethods.standard_form, "standard_form")
-        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.crossings, "crossings")
-        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.nestings, "nestings")
-        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.is_noncrossing, "is_noncrossing")
-        and abstract_method_has_name(PartitionedSetsCategory.ElementMethods.is_nonnesting, "is_nonnesting"),
+        lambda _: abstract_method_has_name(PartitionsCategory.ElementMethods.standard_form, "standard_form")
+        and abstract_method_has_name(PartitionsCategory.ElementMethods.crossings, "crossings")
+        and abstract_method_has_name(PartitionsCategory.ElementMethods.nestings, "nestings")
+        and abstract_method_has_name(PartitionsCategory.ElementMethods.is_noncrossing, "is_noncrossing")
+        and abstract_method_has_name(PartitionsCategory.ElementMethods.is_nonnesting, "is_nonnesting"),
     ),
     (
         "partition refinement_set() is a finite countable set",

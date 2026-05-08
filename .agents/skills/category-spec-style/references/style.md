@@ -737,6 +737,20 @@ owning layer before editing locally.
     `anti-slop` skill (`references/code-patterns.md#introspection-red-flags`).
     Centralize legitimate boundary checks and replace interior checks with
     categorical membership, typed access, or explicit overloads.
+- **Engineering names in mathematical contexts**:
+  - What makes it a red flag: category, axiom, or method names contain words that
+    describe code structure rather than mathematical structure: `Base`, `Abstract`,
+    `Impl`, `Concrete`, `Manager`, `Factory`, `Registry`, `Handler`.
+  - Suspect: the agent is thinking in implementation architecture terms (class
+    hierarchies, design patterns) when the task requires mathematical vocabulary
+    (axioms, predicates, categories). The name `FiniteTotallyOrderedBase` smuggles
+    "Base" (a programming concept) into what should be axioms (`finite`,
+    `totally_ordered`).
+  - Audit response: remove the engineering word and check whether the remaining
+    name still expresses a complete mathematical concept. If yes, rename. If no,
+    the concept is underspecified — the agent is using engineering structure as
+    a substitute for mathematical precision. See the `anti-slop` skill,
+    `references/code-patterns.md#engineering-names-in-mathematical-contexts`.
 - **Reward-hacking edits**:
   - What makes it a red flag: removing `NEEDS_DECISIONS`, relaxing `@final`, deleting
     an `@abstract_method`, weakening a smoke, adding `hasattr`, or catching errors
@@ -922,6 +936,33 @@ that the category has a complete implementation.
 Do not collapse axiomatic restrictions into implementation categories merely because
 some restricted cases are computable. Further restrictions such as finite generation,
 basis data, or base-ring hypotheses determine the algorithms.
+
+### Naming: Mathematics, Not Implementation
+
+Mathematical category, axiom, and method names MUST express mathematical structure,
+not implementation architecture. Words that describe code (class, base, abstract,
+impl, manager, factory, registry, handler) do not belong in category or axiom names.
+
+**The anti-pattern**: an agent thinks "I need a base category for finite totally
+ordered sets" and names it `FiniteTotallyOrderedBase`. The word "Base" describes
+the implementation artifact (a base class), not the mathematical property. The
+mathematical concept is "finite" and "totally ordered" — these are axioms, not
+class hierarchy positions.
+
+**Signal detection**: if a category, axiom, or method name contains a word that
+would appear in an object-oriented design pattern textbook but not in a
+mathematics textbook, it is an engineering name smuggled into mathematical code.
+Common smuggled words: `Base`, `Abstract`, `Impl`, `Concrete`, `Manager`,
+`Factory`, `Registry`, `Handler`, `Structured`, `Configurable`.
+
+**Correct approach**: separate the mathematical claim from the implementation
+artifact. The mathematical claim (finite, totally ordered, countable, free) is
+a category axiom or restriction. The implementation artifact (which Python class
+satisfies it in Sage's category framework) is a separate engineering decision
+that does not dictate the name.
+
+See the `anti-slop` skill, `references/code-patterns.md#engineering-names-in-mathematical-contexts`
+for the general pattern and additional signals.
 
 **Subobject types in `types.py`**: types like `Subset`, `Submodule`, `QuotientModule`
 must be defined in `types.py` and used explicitly in method signatures to express

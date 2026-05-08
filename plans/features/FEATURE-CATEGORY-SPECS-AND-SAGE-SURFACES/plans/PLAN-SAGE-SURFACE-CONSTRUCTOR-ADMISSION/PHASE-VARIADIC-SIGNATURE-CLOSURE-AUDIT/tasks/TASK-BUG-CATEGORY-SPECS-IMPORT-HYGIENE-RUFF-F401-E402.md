@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Resolve category_specs import-hygiene Ruff F401 and E402 blockers
-status: needs-review
+status: complete
 priority: high
 description: Resolve the remaining Ruff `F401` and `E402` validation blockers in package
   initialization and type-aggregation surfaces without weakening global QC or changing

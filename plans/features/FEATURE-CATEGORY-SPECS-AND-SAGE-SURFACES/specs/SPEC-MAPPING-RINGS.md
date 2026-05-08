@@ -6,8 +6,11 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
+- '[[DECISION-ROOTS-OF-UNITY-OWNER]]'
+- '[[DECISION-ORE-LOCALIZATION-OWNER]]'
+- '[[DECISION-QADIC-LATTICE-PRECISION]]'
 title: Track rings mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/rings/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -475,3 +478,114 @@ Rejected routes for this card:
   or `is_compact` into a ring-only `ParentMethods` block as second owners;
 - changing a ring or field constructor so that it returns a pure topological-space
   object detached from its algebraic category.
+
+## 6-Gate Protocol Review Log
+
+Review date: 2026-05-07
+Reviewer: Hermes Agent (subagent)
+Review type: SPEC card review (source grounding, completeness, mathematical correctness — not implementation code)
+
+### Evidence Gathered
+
+Verified existence and content of referenced source files:
+- `category_specs/rings/docs/MAPPING.md` — exists (redirect to this spec)
+- `category_specs/rings/docs/SAGE_INVENTORY.md` — exists (53 lines, source-facing inventory)
+- `category_specs/rings/subcategories/topological.py` — exists (74 lines, fixes Rings().Topological() anchor)
+- `category_specs/topological_spaces/__init__.py` — exists (296 lines, confirms abstract methods: is_open→bool, is_closed→bool, closure→Subset, interior→Subset, boundary→Subset, is_connected→bool, is_compact→bool)
+
+Verified installed Sage source files (all exist at reported paths):
+- `sage/categories/rings.py`, `rngs.py`, `semirings.py`, `domains.py`, `commutative_rings.py`, `fields.py`, `integral_domains.py`, `principal_ideal_domains.py`, `euclidean_domains.py`, `finite_fields.py`, `quotient_fields.py`
+- `sage/rings/polynomial/polynomial_ring_constructor.py`, `sage/rings/padics/factory.py`, `sage/rings/finite_rings/finite_field_constructor.py`, `sage/rings/finite_rings/integer_mod.pyx`, `sage/matrix/matrix_space.py`, `sage/rings/number_field/number_field.py`, `sage/rings/power_series_ring_element.pyx`, `sage/structure/element.pyx`, `sage/rings/qqbar.py`
+
+Verified specific Sage source line references:
+- `galois_closure(names=None, map=False)` at `number_field.py:9177-9219` — CONFIRMED; returns closure field or (closure, embedding) pair
+- `sqrt(extend=True, all=False, name=None)` at `element.pyx:3263-3284` — CONFIRMED
+- `nth_root` at `integer_mod.pyx:1367` (signature: n, extend, all, algorithm, cunningham) — CONFIRMED
+- `nth_root` at `qqbar.py:4393` (signature: n, all) — CONFIRMED
+- `nth_root` at `power_series_ring_element.pyx:1822` (signature: n, prec) — CONFIRMED
+- `krull_dimension` at `commutative_rings.py:63` (CommutativeRings.ParentMethods) — CONFIRMED
+- `frobenius_endomorphism(n=1)` at `commutative_rings.py:345` — CONFIRMED
+- `algebraic_closure()` and `prime_subfield()` at `fields.py:261,332` (Fields.ParentMethods) — CONFIRMED
+
+Verified negative findings:
+- `semirings.py`: no ParentMethods, ElementMethods, or MorphismMethods — CONFIRMED
+- `domains.py`: only `_test_zero_divisors` in ParentMethods, empty ElementMethods — CONFIRMED
+
+Verified p-adic constructor dispatch:
+- `Zp = Zp_class("Zp")` at `factory.py:2051` — CONFIRMED (UniqueFactory-based)
+- `Zq(q, prec, type, ...)` as top-level function at `factory.py:2058` — CONFIRMED
+- `Qp = Qp_class("Qp")` at `factory.py:830` — CONFIRMED
+- The spec's decomposition into scalar/lattice-cap/relaxed/prime-power-pair/factorization routes correctly reflects Sage's actual dispatch logic
+
+### Gate Results
+
+**Gate 1 (Source Grounding): PASS**
+- MAPPING.md and SAGE_INVENTORY.md exist and are correctly cross-referenced
+- 30+ installed Sage source files listed with verified paths
+- Specific line-level Sage references (galois_closure, sqrt, nth_root variants) all verified
+- Source access method documented: installed source + docstrings + Python AST
+
+**Gate 2 (Sage Surface Completeness): PASS with gaps documented**
+- Every major Sage category surface accounted for in the Source Reconciliation table
+- Constructor families fully inventoried (ZZ, QQ, PolynomialRing, NumberField, series rings, MatrixSpace, Zp/Qp/Zq/Qq, GF, IntegerModRing)
+- Explicitly acknowledged gaps: Cython-only methods on concrete element classes, optional backend methods, Ore polynomial ring constructor routes, Autsets category
+- The local inventory is correctly characterized as a source-area inventory; the spec now carries the method-level reconciliation
+
+**Gate 3 (Constructor Route Justification): PASS**
+- Zp/Qp/Zq/Qq split into named routes (scalar precision, lattice caps, relaxed) justified by Sage's actual dispatch on argument shapes
+- PolynomialRing finite variable-specification casework verified: name, names, count+name, count+names, var_array
+- Higher-dimensional `var_array` excluded with documented rationale (no finite-indexing vocabulary)
+- NumberField split into single-polynomial and tower routes verified
+- PowerSeriesRing/LaurentSeriesRing/PuiseuxSeriesRing routes verified
+- Matrix element construction split into zero/from_matrix/from_entries/from_rows/scalar constructors
+
+**Gate 4 (Nonmathematical Target Rejection): PASS**
+- Interop/Display/Runtime/Private Helper classification table is complete and correct
+- Explicitly rejected: R[...] dispatcher, operator overloads, random_element, _test_* helpers, _pseudo_fraction_field, display options
+- Rejected topological constructor duplication routes explicitly listed with rationale
+- Syntax dispatchers (quo alias, `__getitem__`) correctly classified as interop
+
+**Gate 5 (Ambiguity Routing): FAIL — decision cards missing**
+- Line 90: zeta/zeta_order for arbitrary rings needs a "RootsOfUnity or torsion-unit owner" — no corresponding decision card found in `decisions/`
+- Line 91: Noncommutative/Ore localization needs a "separate owner decision" — no corresponding decision card found
+- Deferred q-adic lattice precision (lines 378–431): thorough Sage upstream evidence collected, but no decision card for the deferred frontier names (ZqWithPrecisionCaps, QqWithPrecisionCaps)
+- The Review Gates section (lines 34–40) states that unresolved issues "route to tracked decisions or tasks before implementation proceeds" — this routing has not been executed
+
+**Gate 6 (Obligation Preservation): PASS**
+- Rngs ideal methods (ideal_monoid, principal_ideal, zero_ideal) explicitly preserved; spec forbids moving them downward to commutative rings only
+- Fields preserve inherited divisibility, ideal, fraction-field, integral-closure obligations with trivial codomains
+- Localization spec surface insists on commutative-ring localization, not weakened to domain-only (Sage's domain-only implementation characterized as implementation gap)
+- Topological section explicitly rejects copying topology methods into ring-only files — preserves single-owner responsibility
+- No abstract methods deleted, narrowed, or restricted without grounded replacement
+
+### Concrete Findings
+
+1. **Mathematical correctness**: The spec's mathematical claims are sound. Key claims verified against Sage source and standard algebra:
+   - Krull dimension is a commutative-ring invariant (line 102) ✓
+   - Frobenius endomorphism exists on positive-characteristic commutative rings (line 104) ✓
+   - PID class group is trivial, must not generalize to arbitrary integral domains (line 112) ✓
+   - Localization is defined for commutative rings at multiplicative sets, not just integral domains (line 91) ✓
+   - Characteristic returns a Sage Integer (line 96) ✓
+
+2. **Missing decision cards** (Gate 5 failure):
+   - No decision card for roots-of-unity ownership (zeta, zeta_order on non-finite-field rings)
+   - No decision card for noncommutative/Ore localization ownership
+   - No decision card for deferred q-adic lattice precision frontier
+
+3. **Ore polynomial rings**: Mentioned in bracket dispatcher (line 92) as needing explicit constructor routes, but no constructor route rows are specified in the Constructor Namespace section. This is a spec gap that should become a tracked task or decision.
+
+4. **No spec weakening detected**: The spec consistently preserves existing Sage surface obligations and insists on mathematically correct ownership even when Sage's current implementation is weaker (localization, topological methods).
+
+### Status Recommendation
+
+**Status: PASS with conditions → needs-decision-cards**
+
+The spec is mathematically sound, source-grounded, and complete for its stated purpose as a mapping surface. It can serve as normative reference for implementation planning. However, before implementation proceeds against this spec, the three missing decision cards must be created:
+
+- DECISION-ROOTS-OF-UNITY-OWNER (zeta/zeta_order owner for non-finite-field rings)
+- DECISION-ORE-LOCALIZATION-OWNER (noncommutative/Ore localization category ownership)
+- DECISION-QADIC-LATTICE-PRECISION (deferred ZqWithPrecisionCaps/QqWithPrecisionCaps frontier)
+
+Additionally, Ore polynomial ring constructor routes should be either added to the Constructor Namespace table or deferred with an explicit decision/task card.
+
+The card `status` should change from `needs-review` to `needs-decision-cards` (or remain `needs-review` until the decision cards are created and linked in `dependsOn`).

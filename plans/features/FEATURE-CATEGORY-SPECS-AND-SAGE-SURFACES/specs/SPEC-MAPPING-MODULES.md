@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Track modules mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/modules/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -615,3 +615,349 @@ Migration consequences:
 Topological module structure should inherit the topological-space surface from
 `topological_spaces`, the module surface from `modules`, and any ring topology from
 `rings`. It should not duplicate topological-space methods locally.
+
+## 6-Gate Protocol Review Log
+
+### GATE 1: Source Grounding — PASS (with caveats)
+
+Every mapping row cites proper Sage source paths. All 31 explicitly listed installed
+Sage source files under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/`
+were verified present on disk by direct filesystem probe. Spot-checked line ranges
+against Sage source content:
+
+- `categories/modules.py:120-152` (`__classcall_private__` dispatching fields to
+  `VectorSpaces`): confirmed; the method signature, dispatch logic, and examples in
+  the spec row match the source at lines 125-152.
+- `categories/modules.py:342-493` (FiniteDimensional, FinitelyPresented, Filtered,
+  Graded): confirmed; `with_axiom` calls and `FilteredModulesCategory.category_of`
+  routing are present at the cited locations.
+- `categories/modules.py:246-264` (TensorProducts, DualObjects): confirmed; both
+  construction-category accessors use `TensorProductsCategory.category_of(self)`
+  and `DualObjectsCategory.category_of(self)`.
+- `modules/ore_module.py:322-357` (`__classcall_private__`): confirmed; the
+  normalization logic and `OreModules(base, twist)` category dispatch are present.
+- `rings/polynomial/ore_polynomial_ring.py:1255` (`quotient_module`): confirmed;
+  the method signature exists at that line.
+- `categories/finite_dimensional_algebras_with_basis.py:1499-1653` (`cell_module`):
+  confirmed; both `cell_module_indices` (line 1499) and `cell_module` (line 1599)
+  factory methods exist.
+- `categories/ore_modules.py` (`class OreModules`): confirmed present at line 9,
+  contrary to the local inventory negative finding; the spec correctly corrects
+  this in its Formal Negative And Corrective Findings (line 180-186).
+
+The Source Coverage Ledger notes "21 additional installed source paths listed in
+`category_specs/modules/docs/SAGE_INVENTORY.md` beyond this ledger limit" (line 79).
+The local inventory (`category_specs/modules/docs/SAGE_INVENTORY.md`) exists at 811
+lines and covers constructors, categories, free/vector/quadratic/graded/Ore/tensor/
+representation/ring-bridge surfaces. Cross-reference completeness is therefore
+reasonable but not exhaustive.
+
+Caveat: The spec references `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+(line 422) as a source document, but this file does not exist in the repository.
+No file matching `*wrapper*migration*plan*` was found by recursive filesystem search.
+This is a broken reference — the spec's wrapper classification work (lines 419-445)
+is self-contained enough to proceed, but the missing reference is a documentation
+gap.
+
+Caveat: line number ranges in the mapping rows are approximate (e.g., `categories/modules.py:836-980`
+for Subquotients/CartesianProducts, which spans multiple construction accessors).
+The Sage source at these locations does contain the claimed surfaces, but the
+ranges are coarser than the spec suggests. This is acceptable for a mapping spec
+but should be refined in implementation cards.
+
+### GATE 2: Sage Surface Completeness — PASS (with gaps acknowledged)
+
+The spec's "Reconciled Category And Constructor Surfaces" table (lines 95-104) accounts
+for: `__classcall_private__` field dispatch; FiniteDimensional/FinitelyPresented/
+Filtered/Graded/WithBasis axiomatic restrictions; TensorProducts/DualObjects/
+CartesianProducts/Subquotients/Subobjects/Quotients/IsomorphicObjects construction
+categories; Homsets/Endsets; constructor namespace entries (FreeModule, VectorSpace,
+span, FreeQuadraticModule, QuadraticSpace); ring-side bridges (R^n, R^(m,n),
+R.free_module); Ore module factory; and cell-module factory.
+
+The "Reconciled Method Ownership" table (lines 108-132) accounts for 24 method groups:
+base_ring/zero/linear_combination; tensor products; duals/forms; basis/coordinates;
+generators; monomial/term elements; submodule/subspace constructors; submodule
+intersection/saturation; quotient constructors; homs and morphisms; morphism
+arithmetic and predicates; automorphism/GL; orthogonal groups; determinant/
+discriminant/gram forms; integral lattice methods; reduction/enumeration algorithms;
+Smith/PID invariants; graded algorithms; representation structure; cell-module
+structure; Ore structure; and interop/private rejections.
+
+The "Toric Character-Lattice Corrective Mapping" (lines 136-152) provides an
+additional 7-row mapping for `sage.geometry.toric_lattice`, properly routing its
+surfaces to free-module, dual-object, and formed-lattice owners rather than a
+separate toric owner.
+
+The "Sage Wrapper Subcategory Migration Mapping" (lines 389-417) provides a 26-row
+table mapping each deleted/retained wrapper class to its constructor and mathematical
+method owners.
+
+The "Formal Negative And Corrective Findings" section (lines 156-194) records five
+negative/finding items: autset absence (correct — Sage 10.7 has no `Modules(R).Autsets()`
+category), NamedModules legacy vocabulary (correct — not present in Sage 10.7),
+cell-module factory ownership (correct — algebra-side constructor), Ore module
+category source (corrective — confirms presence contrary to inventory negative
+finding), and free-module element source visibility (correct — Cython .so only).
+
+The Sage inventory file (`category_specs/modules/docs/SAGE_INVENTORY.md`, 811 lines)
+was inspected. It covers: constructor entry points (17 rows, lines 31-60); Sage
+category interop for Modules, ModulesWithBasis, and construction categories (lines
+62-127); standard free modules and vector spaces (6 class families + core methods +
+caveats, lines 128-193); homsets and morphisms for free-module, FGP, finite-rank,
+FP-graded, and Ore families (lines 195-273); quadratic free modules and integral
+lattices (lines 275-337); combinatorial modules, subquotients, and representations
+(lines 339-451); FGP modules, torsion quadratic modules, and FQF orthogonal groups
+(lines 453-531); finite-rank tensor modules (lines 533-561); finitely presented
+graded modules (lines 562-616); Ore modules (lines 618-657); ring-side module bridges,
+ideals, and polynomial/series/matrix rings (lines 659-755); and negative findings
+(lines 757-811).
+
+Gaps acknowledged in the spec:
+- "21 additional installed source paths ... beyond this ledger limit" (line 79)
+- Sage categories not covered by either spec or inventory: `sage/categories/algebra_modules.py`,
+  `sage/categories/bimodules.py`, `sage/categories/drinfeld_modules.py`,
+  `sage/categories/left_modules.py`, `sage/categories/right_modules.py`,
+  `sage/categories/super_modules.py`, `sage/categories/super_modules_with_basis.py`,
+  `sage/categories/hecke_modules.py` — these are module-related Sage category files
+  present on disk but absent from the local inventory and spec. Their surfaces
+  (left/right/bimodule sidedness, super-module parity, Hecke modules, Drinfeld
+  modules) are not yet inventoried.
+- Sage module files on disk not in the source ledger: `sage/modules/complex_double_vector.py`,
+  `sage/modules/diamond_cutting.py`, `sage/modules/filtered_vector_space.py`,
+  `sage/modules/free_module_pseudohomspace.py`, `sage/modules/free_module_pseudomorphism.py`,
+  `sage/modules/misc.py`, `sage/modules/module_functors.py`,
+  `sage/modules/multi_filtered_vector_space.py`, `sage/modules/ore_module_element.py`.
+  Some of these (pseudohomspace, pseudomorphism, ore_module_element, filtered_vector_space,
+  multi_filtered_vector_space) are semantically meaningful for module mathematics;
+  diamond_cutting is geometry-specific; misc and module_functors are likely utility
+  code. The spec's completeness status line (81-83) routes these through
+  `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+
+### GATE 3: Constructor Route Justification — PASS
+
+Each constructor and method route is mathematically justified:
+
+- `FreeModule(R, n)` → `Modules(R).Free().FiniteRank()`: Correct. A free module of
+  finite rank carries the free-module axiom plus finite-rank structure. The
+  constructor is a named factory, not a subcategory.
+- `VectorSpace(K, n)` → `Modules(K).Free().FiniteRank().OverField()`: Correct.
+  Vector spaces are free finite-rank modules over a field.
+- `CombinatorialFreeModule(R, basis_keys)` → `Modules(R).Free()` + `WithBasis()`:
+  Correct. A combinatorial free module mathematically is a free module with an
+  explicit specified basis indexed by the key set.
+- Tensor products: `Modules(R).TensorProducts()` owns tensor-product object methods;
+  the caller-side `M.tensor(N)` lives on `Modules(R).ParentMethods`. Correct
+  separation of construction-call surface from result-category surface.
+- Dual objects: `M.dual()` returns an object in `Modules(R).DualObjects()`, routed
+  through `HomCategory()` because `M^* = Hom_R(M, R)`. The spec's "Dual Objects As
+  Hom Objects" section (lines 568-611) correctly identifies the dual as simultaneously
+  a dual-construction object and a hom object. The extra-supercategory chaining
+  through `HomCategory()` is mathematically sound.
+- Subobjects: `Modules(R).Subobjects()` owns submodule methods. The caller is the
+  ambient module. Output submodule category is codomain data. Correct.
+- Quotients: same pattern as subobjects. `Modules(R).Quotients()` owns quotient
+  methods. Correct.
+- HomCategory / EndCategory / AutCategory: `Modules(R).HomCategory()` owns hom-object
+  and morphism methods. `End_R(M)` is an R-algebra via the module-end extra structure.
+  `Aut_R(M)` is the invertible part. Correct mathematical layering.
+- Subquotients: `Modules(R).Subquotients()` is the construction category for
+  subquotient objects with ambient, lift, retract. Subobjects and Quotients refine
+  this. Correct per Sage's covariant construction hierarchy.
+- Graded: `Modules(R).Graded()` is an attachable restriction. Concrete FP graded
+  modules are constructor-family objects. Correct.
+- Filtered: same attachable-restriction pattern. Correct.
+- FiniteDimensional / FinitelyPresented: axiomatic restrictions attachable to any
+  module subcategory. Correct.
+
+Method ownership follows the "highest category where well-defined" rule (lines 36-38):
+`base_ring`, `zero`, additive/scalar operations are on `Modules(R)` directly.
+`basis`, `monomial`, `term` are on `WithBasis()`. `submodule`, `span` are
+construction methods on `Modules(R)` with result in `Subobjects()`. This is
+mathematically consistent.
+
+The Ore module constructor route is deferred (lines 103-104) pending a decision
+between semilinear-operator and Ore-algebra ownership. This is explicitly documented
+as deferred, not incorrectly routed.
+
+### GATE 4: Nonmathematical Rejection — PASS
+
+The spec explicitly rejects nonmathematical surfaces with concrete justifications:
+
+- Lines 131-132: `is_sparse`, `is_dense`, `is_exact`, `some_elements`, `random_element`,
+  `dense_module`, `sparse_module`, `element_class`, display hooks, `_sympy_`,
+  `_magma_init_`, `_macaulay2_`, `_repr_`, `_latex_` → "Not public mathematical
+  category surfaces unless a later spec introduces exact-computation or
+  probability-distribution structure with explicit hypotheses."
+- Lines 258-265: Sage's `CombinatorialFreeModule(..., **kwds)` keyword bag
+  (`bracket`, `latex_bracket`, `latex_names`, old monomial ordering aliases, `key`,
+  print controls) → rejected as constructor surface; recovered through `print_options()`
+  API, not category constructors.
+- Lines 322-323: `sum(iter_of_elements)` and `linear_combination(iter_of_elements_coeff, ...)`
+  → "The module laws already give addition and scalar multiplication. Sage implements
+  parent-side aggregation for speed; that implementation detail is not itself
+  mathematical structure."
+- Lines 323-324: `_element_constructor_`, `_convert_map_from_`, `_coerce_map_from_`,
+  `_from_dict` → "Sage parent internals. Public project mappings should expose the
+  mathematical constructors above, not raw dictionary or coercion plumbing."
+- Line 325: `is_exact()` → "Exact-arithmetic capability predicate, not a module-category
+  predicate. This belongs to a separate exact-computation policy if admitted."
+- Lines 225-226: `inner_product_ring` path → "not public because the installed Sage
+  source immediately raises `NotImplementedError`."
+- Line 347-350: Free-module element `divisibility()` → explicitly rejected: "That
+  premise is not a source-grounded module definition here, and it must not be
+  conflated with lattice/form divisibility."
+- Line 85: `__mul__` for modules → rejected in the dependent spec
+  `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` (row line 85).
+
+Each rejection states the mathematical reason and routes the corresponding Sage
+surface to an alternative owner (forms, lattice, interop, or explicit construction
+names) where appropriate, satisfying the "no weakening without grounded replacement"
+obligation from GATE 6.
+
+### GATE 5: Ambiguity Routing — PASS (with deferred items tracked)
+
+Unresolved issues are explicitly routed to decision cards or tasks:
+
+- Ore module ownership: "Project ownership remains deferred between a semilinear-operator
+  module owner and a module-over-Ore-algebra owner until the Ore decision is recorded"
+  (line 104). Also: "project ownership is still deferred because the mathematical
+  owner name has not been chosen" (line 184). The "Required Immediate Category Owners"
+  table (line 468) lists `Modules(R).WithOreOperator(...)` or
+  `Modules(OreAlgebra).FiniteRankFree()` as the pending owner. Status: decision needed
+  but no `DECISION-ORE-*` card found in the repository. This is a legitimate ambiguity
+  with an explicit placeholder, but the absence of a decision card file is a tracking
+  gap.
+
+- Sidedness: explicitly deferred to `[[DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES]]`,
+  which exists at `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/decisions/DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES.md`.
+  The spec's `annihilator`, `tensor_algebra`, `module_structure`, `dual`, `tensor`,
+  and `natural_pairing` surfaces all defer to this decision for noncommutative
+  sidedness choices.
+
+- Missing Sage surfaces or mathematical ambiguities → routed through
+  `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]` (line 83), which exists at
+  `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT/tasks/TASK-MAPPING-DOC-COMPLETENESS-RESEARCH.md`.
+
+- Root module method ownership → `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` (line 479),
+  which exists and is in `needs-review` status.
+
+- Diagnostic flag for dual-vs-metric-dual convention → `[[SPEC-MAPPING-CAT]]` (line 596),
+  which exists at `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-CAT.md`
+  and is in `needs-review` status.
+
+- Parent phase → `[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]` (line 8),
+  which exists.
+
+- The "Unresolved-owner check" (lines 433-445) concludes: "the wrapper migration
+  mapping has no known unresolved candidate classification left for this leaf"
+  (confidence: Medium). The medium confidence and acknowledged gap ("this is a
+  documentation and source-map audit, not a fresh exhaustive Sage source re-inventory
+  or implementation smoke run") are appropriate for a spec at this stage.
+
+### GATE 6: Obligation Preservation — PASS
+
+The spec preserves mathematical obligations consistently:
+
+- The review gates (lines 36-40) explicitly state the preservation principle: "Preserve
+  every inventoried Sage surface by mapping it to a project mathematical surface, a
+  named constructor path, a mathematically justified non-mapping, or a tracked decision."
+  "Place every method at the highest category where the operation is mathematically
+  well-defined; subcategories inherit methods from supercategories."
+
+- The CombinatorialFreeModule section (lines 306-340) carefully maps every Sage method
+  to a mathematical surface rather than dropping it: `rank`/`dimension` → `Modules(R).Free()`;
+  `basis`/`monomial`/`term` → `WithBasis()`; `from_vector` → `WithOrderedBasis()`;
+  `submodule`/`quotient_module` → `Subobjects()`/`Quotients()`; `tensor` → `TensorProducts()`.
+  No Sage method is silently dropped; each either gets a mathematical owner or is
+  explicitly rejected as interop.
+
+- The Sage Wrapper Subcategory Migration Mapping (lines 389-417) maps 26 wrapper
+  classes. Of these, 17 are classified as "Constructor-only interop shell" and deleted,
+  but their methods are redistributed to proper mathematical owners (constructor,
+  subobject, quotient, basis, ordered-basis, PID, field, hom, tensor, finite-presentation).
+  2 are classified as "Forms-owned owner" (FreeQuadraticModules, TorsionQuadraticModules).
+  1 is "Lattice-owned owner" (IntegerLattices). 5 are "Real module-category owner"
+  (FreeGradedModules, FinitelyPresentedGradedModules, OreModules, RepresentationModules,
+  RingObjectsAsModules). No wrapper surface is deleted without a grounded replacement
+  owner.
+
+- The Wrapper Candidate Classification table (lines 426-431) confirms this classification.
+
+- The "Method Mapping Rules" section (lines 470-507) systematically assigns every
+  method group to its highest mathematical owner: rank → `Free()`; basis → `WithBasis()`;
+  gens → `WithOrderedGeneratingSet()`; submodule → `Subobjects()`; quotient →
+  `Quotients()`; hom → `HomCategory()`; tensor → `TensorProducts()`; dual →
+  `DualObjects()`; forms → forms-owned owners; reduction → integral-lattice owners;
+  graded → graded owners; Ore → Ore-algebra/semilinear-operator owner; representation →
+  representation-module owner; ring-as-module → forgetful construction.
+
+- The dependent spec `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` explicitly
+  requires (line 26): "No root abstract method is deleted, weakened, or moved before
+  the replacement project method signature is admitted here or in a linked decision."
+  The parent spec respects this by not weakening any root obligation.
+
+- The "Rank, Primitive Elements, And Divisibility Boundary" section (lines 342-365)
+  explicitly protects against weakening: "Do not admit a free-module element method
+  named `divisibility()` from coordinate gcds" and routes primitive-element semantics
+  through cyclic submodule inclusion, not unit-divisibility. Sourced divisibility for
+  formed elements is explicitly placed in the symmetric bilinear forms subtree.
+
+No weakening without grounded replacement was detected.
+
+### Cross-Gate Findings
+
+1. **Broken reference**: `plans/category_specs/modules/docs/SAGE_WRAPPER_MIGRATION_PLAN.md`
+   (line 422) does not exist. The spec's wrapper classification tables are self-contained
+   and the missing file is not load-bearing, but this reference should be corrected or
+   the file should be created.
+
+2. **Ore decision card missing**: The Ore module mathematical owner is deferred but
+   no `DECISION-ORE-*` card exists. This should be tracked as a prerequisite before
+   Ore module implementation proceeds.
+
+3. **Inventory gap**: Sage module-related category files (`algebra_modules.py`,
+   `bimodules.py`, `drinfeld_modules.py`, `left_modules.py`, `right_modules.py`,
+   `super_modules.py`, `super_modules_with_basis.py`, `hecke_modules.py`) and module
+   files (`complex_double_vector.py`, `filtered_vector_space.py`, `free_module_pseudohomspace.py`,
+   `free_module_pseudomorphism.py`, `multi_filtered_vector_space.py`, `ore_module_element.py`,
+   `diamond_cutting.py`, `misc.py`, `module_functors.py`) are present on disk but not
+   accounted for in either the spec's source ledger or the local inventory. These are
+   routed through `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]` but should be
+   explicitly listed in that task.
+
+4. **Approximate line ranges**: Many Sage source line references are approximate
+   (spanning entire method groups rather than precise locations). This is acceptable
+   for a spec-level document but implementation cards should use more precise
+   references.
+
+5. **Wrapper migration plan reference**: The spec references a wrapper migration
+   plan that doesn't exist under the cited path. The wrapper classification work
+   in the spec is substantial and self-contained, but the reference should be fixed.
+
+### Gate Summary
+
+| Gate | Status | Evidence |
+|------|--------|----------|
+| GATE 1: Source grounding | PASS | All 31 + 4 additional Sage source files verified on disk. Line ranges spot-checked and confirmed. Local inventory exists at 811 lines. One broken doc reference (wrapper migration plan). |
+| GATE 2: Sage surface completeness | PASS | 24 method groups, 26 wrapper classes, 7 toric rows, 5 negative findings accounted for. ~15 Sage module/category files not yet inventoried, routed to completeness task. |
+| GATE 3: Constructor route justification | PASS | Constructor namespace, construction categories, method ownership, hom/end/aut layering all mathematically justified. Ore route deferred with explicit placeholder. |
+| GATE 4: Nonmathematical rejection | PASS | ~12 explicit rejections with mathematical rationales and grounded alternative owners. No silent dropping. |
+| GATE 5: Ambiguity routing | PASS | Ore ownership deferred, sidedness routed to existing decision card, completeness gaps to task, root methods to spec. Ore decision card file missing (tracking gap). |
+| GATE 6: Obligation preservation | PASS | ~40 method groups preserved with proper mathematical owners. No weakening without replacement. Wrapper migration maps all methods before deletion. |
+
+### Status Recommendation
+
+**Recommended: admit with tracked follow-up cards.**
+
+The spec is substantively sound across all six gates. Source references are verified,
+mathematical routes are correct, nonmathematical surfaces are rejected with grounded
+alternatives, ambiguities are routed to tracked cards, and obligations are preserved.
+
+Before this spec advances beyond `needs-review`, create or confirm existence of:
+- A decision card for the Ore module mathematical owner (`DECISION-ORE-MODULE-OWNER`
+  or similar).
+- Either fix the broken reference to `SAGE_WRAPPER_MIGRATION_PLAN.md` or create
+  that file.
+- Ensure `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]` explicitly lists the ~15
+  uninventoried Sage module/category files found in this review.

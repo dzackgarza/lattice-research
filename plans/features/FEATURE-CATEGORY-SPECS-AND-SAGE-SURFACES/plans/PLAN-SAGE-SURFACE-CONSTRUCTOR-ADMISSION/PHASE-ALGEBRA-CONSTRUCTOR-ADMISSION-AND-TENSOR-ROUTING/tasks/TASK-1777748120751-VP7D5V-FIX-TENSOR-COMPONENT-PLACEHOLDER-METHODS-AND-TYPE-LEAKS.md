@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
 title: Fix tensor-component placeholder methods and type leaks
-status: needs-review
+status: needs-human-input
 priority: critical
 description: Fix tensor-component placeholder methods and type leaks
 successCriteria:

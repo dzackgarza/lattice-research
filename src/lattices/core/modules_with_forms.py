@@ -1,0 +1,41 @@
+"""ModulesWithForms(R) category — paired module + form data.
+
+Lightweight scaffolding over category_specs/forms/chain.py which defines
+the full category hierarchy. This module provides minimal Sage-registerable
+categories for Phase 2 implementation work.
+"""
+
+from __future__ import annotations
+
+from sage.categories.category import Category
+from sage.categories.category_with_axiom import CategoryWithAxiom_singleton
+from sage.categories.category_types import Category_over_base_ring
+
+
+class ModulesWithFormsCategory(Category_over_base_ring):
+    """Category of R-modules equipped with a form."""
+
+    def super_categories(self):
+        from sage.categories.modules import Modules
+        return [Modules(self.base_ring())]
+
+    class ParentMethods:
+        def form(self):
+            raise NotImplementedError
+
+    class SubcategoryMethods:
+        def Bilinear(self):
+            return self._with_axiom("Bilinear")
+
+        def Quadratic(self):
+            return self._with_axiom("Quadratic")
+
+
+class BilinearModulesCategory(CategoryWithAxiom_singleton):
+    """Bilinear formed modules."""
+    _base_category_class_and_axiom = (ModulesWithFormsCategory, "Bilinear")
+
+
+class QuadraticModulesCategory(CategoryWithAxiom_singleton):
+    """Quadratic formed modules."""
+    _base_category_class_and_axiom = (ModulesWithFormsCategory, "Quadratic")

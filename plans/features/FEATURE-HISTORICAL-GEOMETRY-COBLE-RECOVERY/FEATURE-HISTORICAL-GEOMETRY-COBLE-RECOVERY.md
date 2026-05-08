@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY]]'
 plans: []
 title: Historical geometry and Coble vocabulary recovery
-status: in-progress
+status: complete
 priority: medium
 description: Recover geometry, Coble surface, K3 cover, divisor, Picard, family, and monodromy vocabulary visible in historical src.bak as future specs after geometry and lattice categories can express the constructions.
 ---

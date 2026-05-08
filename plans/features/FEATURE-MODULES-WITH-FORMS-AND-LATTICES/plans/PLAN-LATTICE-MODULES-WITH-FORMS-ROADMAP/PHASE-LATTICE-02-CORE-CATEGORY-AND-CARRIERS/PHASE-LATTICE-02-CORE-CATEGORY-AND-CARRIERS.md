@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 2 ModulesWithForms core category and carrier integration
-status: unstarted
+status: complete
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_2_CORE_OBJECTS.md`. The old `plans/` copy was removed so this tracked

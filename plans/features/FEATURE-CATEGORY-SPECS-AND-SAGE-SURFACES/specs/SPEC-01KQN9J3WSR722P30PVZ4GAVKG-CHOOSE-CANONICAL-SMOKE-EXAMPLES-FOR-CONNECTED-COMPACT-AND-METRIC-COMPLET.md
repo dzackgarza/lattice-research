@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 title: Choose canonical smoke examples for Connected Compact and Metric Complete topological
   subcategories
-status: needs-review
+status: complete
 priority: critical
 requirement: The deleted Topological Spaces triage recorded settled topological constructor
   placement and remaining smoke design work for RealSet ambient recovery and metric
@@ -156,3 +156,131 @@ skip-verification workflow.
   `RR`/`Sets().Constructors().RR()` as the connected, compact, and complete-metric
   smoke examples. Recorded the complete-metric implementation dependency on
   topological ring/field recovery.
+
+## 6-Gate Protocol Review Log
+
+**Review date:** 2026-05-07
+**Reviewer:** Hermes Agent (independent subagent)
+**Protocol version:** 6-gate spec review (G1-G6)
+**Subject:** SPEC-01KQN9J3WSR722P30PVZ4GAVKG — Choose canonical smoke examples for Connected, Compact, and Metric Complete
+
+### G1 — Source Grounding
+
+**Referenced documents verified present on disk:**
+
+| Claimed source | Actual path | Exists | Content match |
+|---|---|---|---|
+| `category_specs/topological_spaces/docs/TRIAGE.md` recovered via `git show 8d1c21c^:...` (spec line 37) | Recoverable via git | Yes (git command valid) | Provenance anchor confirmed |
+| MAPPING.md rows for Connected/Compact/Complete (spec lines 61-63) | `category_specs/topological_spaces/docs/MAPPING.md` is a redirect stub (7 lines) pointing to `SPEC-MAPPING-TOPOLOGICAL-SPACES.md` | Yes — redirect | Actual rows live in tracked spec lines 111-113 |
+| MAPPING.md rows for `is_open`, `is_closed`, `closure`, `interior`, `boundary` (spec lines 64-65) | Ambiguous: not in redirect stub | Redirect | Actual data in tracked spec lines 137-141 |
+| MAPPING.md constructor-routing rows (spec line 66) | Redirect stub | Redirect | Actual data in tracked spec lines 168-193 |
+| `SAGE_INVENTORY.md` rows for `RealSet.__init__`, named constructors, category surfaces (spec lines 67-71) | `category_specs/topological_spaces/docs/SAGE_INVENTORY.md` (87 lines) | Yes | Verified: `RealSet.__init__` at line 38; `RealSet.open` at line 40; `RealSet.closed` at line 41; `RealSet.point` at line 42; `RealSet.real_line` at line 49; Connected at line 20; Compact at line 21; Complete at line 29 |
+| `sets/docs/MAPPING.md` for RealSet constructor-routing (spec lines 72-74) | `category_specs/sets/docs/MAPPING.md` is a redirect stub (7 lines) pointing to `SPEC-MAPPING-SETS.md` | Yes — redirect | Actual constructor routing in tracked topological-space mapping spec lines 179-190 |
+| Dependency: topological ring/field recovery spec (spec line 136) | `SPEC-01KQN9YGC3XPWZWJK8QHVE3GGM-SPECIFY-TOPOLOGICAL-RING-AND-FIELD-RECOVERY...` | Yes — 150 lines, status: needs-review | Verified: exists and depends on same phase |
+| Dependency: implementation task (spec line 138) | `TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS...` | Yes — confirmed by filesystem search | Dependency chain intact |
+
+**G1 finding — Minor documentation imprecision (non-blocking):** The spec's Source-Mining Contract (lines 60-74) lists `MAPPING.md` as the primary source anchor for Connected/Compact/Complete routing rows. Both `category_specs/topological_spaces/docs/MAPPING.md` and `category_specs/sets/docs/MAPPING.md` are redirect stubs whose bodies say they have been "converted into the tracked spec file." The actual content lives in `SPEC-MAPPING-TOPOLOGICAL-SPACES.md` (lines 111-113 for subcategory routing, lines 137-141 for ambient-relative methods, lines 179-190 for constructor routing). The `SAGE_INVENTORY.md` is the only non-redirect durable document cited. This does not break grounding — all claimed data exists and is findable through the redirect chain — but the source locator is imprecise. No action required for this pass; the spec could optionally cite the tracked spec file path alongside or instead of the redirect stub.
+
+**G1 Verdict: PASS (with documented imprecision).** All referenced data is findable and verified on disk. The git recovery provenance anchor is valid. Both dependency cards exist.
+
+### G2 — Sage Surface Completeness
+
+This spec's scope is decision capture for three smoke targets, not a full mapping spec. The Sage surface completeness gate applies to whether the decision uses admitted surfaces and excludes non-admitted ones.
+
+| Smoke target | Surface used | Admitted in mapping spec? | Evidence |
+|---|---|---|---|
+| `TopologicalSpaces().Connected()` | `Sets().Constructors().OpenRealInterval(0, 1)` via `RealSet.open(0, 1)` | Yes — tracked spec line 181 | `RealSet.open` is admitted as `Sets().Constructors().OpenRealInterval` |
+| `TopologicalSpaces().Compact()` | `Sets().Constructors().ClosedRealInterval(0, 1)` via `RealSet.closed(0, 1)` | Yes — tracked spec line 182 | `RealSet.closed` is admitted as `Sets().Constructors().ClosedRealInterval` |
+| `TopologicalSpaces().Metric().Complete()` | `Sets().Constructors().RR()` / Sage `RR` | Yes — tracked spec line 179 | `RR` is admitted as `Sets().Constructors().RR()` refining into topological spaces |
+
+**Exclusion audit — surfaces correctly rejected or deferred:**
+
+| Surface | Spec disposition | Assessment |
+|---|---|---|
+| Variadic `RealSet(*args)` | Rejected per spec line 99-101 | Correct — admitted mapping spec rejects variadic constructor (line 191) |
+| Manifold-producing `RealSet` paths | Excluded per spec line 44 | Correct — admitted mapping spec routes to manifolds (line 192) |
+| Real/complex ball fields | Excluded per spec lines 45 and 139-140 | Correct — inventory records `RBF.category()` as `Category of infinite fields`, `RBF in Sets().Metric()` is `False` |
+| Ring/field topology not yet grounded | Complete metric smoke deferred to ring/field recovery (spec lines 134-140) | Correct — dependency chain verified |
+
+**G2 Verdict: PASS.** All three canonical objects use admitted mapping surfaces. All excluded surfaces have explicit, mathematically grounded rationale matching the topological spaces mapping spec.
+
+### G3 — Mathematical Correctness
+
+**Claim 1: `RealSet.open(0, 1)` lies in Sage connected topological spaces and not compact spaces (spec lines 124-125).**
+- Mathematical truth: The open interval (0,1) in ℝ with the standard topology is connected (no separation into disjoint nonempty open sets) and is not compact (it is not closed in ℝ, so Heine-Borel says it's not compact; alternatively, the open cover {(1/n, 1-1/n)} has no finite subcover).
+- Sage source: `RealSet.__init__` category assignment at `real_set.py` lines 891-1010 refines into `Connected` for open intervals and `Compact` only for closed bounded intervals. Confirmed by inventory line 38.
+- **Verdict: CORRECT.**
+
+**Claim 2: `RealSet.closed(0, 1)` lies in Sage connected and compact topological spaces (spec line 125).**
+- Mathematical truth: The closed interval [0,1] in ℝ is compact (Heine-Borel: closed and bounded in ℝⁿ) and connected.
+- Sage source: Same `__init__` category assignment refines closed bounded intervals into both `Connected` and `Compact`.
+- **Verdict: CORRECT.**
+
+**Claim 3: `RR.category()` is a join containing complete metric spaces; `RR in Sets().Metric().Complete()` is true in local Sage (spec line 126).**
+- Mathematical truth: ℝ with the standard metric d(x,y)=|x−y| is a complete metric space (every Cauchy sequence converges in ℝ).
+- Sage source: `metric_spaces.py` line 26-28 states `MetricSpacesCategory.default_super_categories` joins `category.Topological()` with default metric supercategories. The spec reports a local Sage observation confirming `RR in Sets().Metric().Complete()` is `True`.
+- **Verdict: CORRECT** — mathematically sound and Sage-confirmed.
+
+**Claim 4: `RealSet` examples are not Sage metric spaces, so they are not complete-metric smoke candidates (spec lines 127-128).**
+- Mathematical context: RealSet objects refine into `TopologicalSpaces()` but not into `MetricSpaces()` in Sage's current category graph (inventory line 38 lists `TopologicalSpaces()`, `Connected`, `Compact`, `Subobjects`, `Finite`, `Infinite` — no `Metric`). This is a Sage implementation fact: the metric is not registered on RealSet objects.
+- **Verdict: CORRECT** as a Sage implementation observation. The spec correctly excludes RealSet from complete-metric smoke.
+
+**Claim 5: Connected and compact are topological-space axioms; completeness is a metric-space axiom (implicit in routing, spec lines 54-56).**
+- Mathematical justification: Connectedness depends only on the topology (no separation into disjoint nonempty open sets). Compactness depends only on open covers. Completeness requires a metric (Cauchy sequences). This is standard mathematical taxonomy.
+- **Verdict: CORRECT.**
+
+**Category hierarchy consistency check:**
+- Connected and Compact smoke use `TopologicalSpaces()` — the root topological category
+- Complete smoke uses `TopologicalSpaces().Metric().Complete()` — correctly nested under metric subcategory
+- This matches the mapping spec hierarchy: Connected/Compact are direct subcategories of `TopologicalSpaces()` (tracked spec lines 111-112); Complete is under `TopologicalSpaces().Metric()` (tracked spec line 113)
+- **Verdict: Hierarchy is consistent.**
+
+**G3 Verdict: PASS.** All five mathematical claims are correct. The constructors, ambient-relative topology, and Sage category assignments match the mathematical facts. The complete-metric deferral to ring/field recovery is mathematically prudent.
+
+### G4 — Nonmathematical Rejection
+
+| Item | Spec disposition | Assessment |
+|---|---|---|
+| "Run just smoke-file topological_spaces/smoketest.sage" (acceptance criteria line 24) | Unchecked — pending implementation (spec line 143) | This is a procedural acceptance criterion, not a mathematical claim. It's correctly gated behind implementation. |
+| "No new subtree-local TRIAGE or process document" (acceptance criteria line 19) | Tracked as gated acceptance criterion | Correct — process hygiene, not mathematical content |
+| Rejection condition: retire or rewrite if only candidates depend on excluded paths (spec lines 99-101) | Safety valve | Correct — procedural guard, not mathematical |
+
+**G4 Verdict: PASS.** The spec contains no nonmathematical content that masquerades as mathematical. Procedural acceptance criteria are clearly separated from mathematical claims.
+
+### G5 — Ambiguity Routing
+
+| Ambiguity / Gap | Routed to | Assessment |
+|---|---|---|
+| Complete metric smoke not implementable until ring/field recovery (spec lines 134-140) | Two tracked dependency cards: `SPEC-01KQN9YGC3...` (spec) and `TASK-01KQN9YGCHD...` (implementation task) | **Adequate.** Both verified on disk. Chain: this spec → topological ring/field recovery spec → implementation task. |
+| Sage observation used for source confirmation; smoke file not run (spec lines 142-143) | Documented as "skip-verification workflow" | **Acceptable.** The spec is a decision capture card, not an implementation card. Running the smoke file is an acceptance criterion for later implementation, not a pre-condition for this spec review. |
+| Migration consequence timing (spec lines 132-133) | Connected/compact smoke can be added when smoke file is updated; complete metric smoke held for ring/field recovery | **Adequate.** Timing split is explicit. |
+
+**G5 Verdict: PASS.** Ambiguities are documented and routed. The complete-metric smoke dependency chain is intact with both spec and implementation cards on disk.
+
+### G6 — Obligation Preservation
+
+| Obligation | Preserved? | Evidence |
+|---|---|---|
+| Connected smoke example | Yes — `Sets().Constructors().OpenRealInterval(0, 1)` | Spec lines 116-118; matches tracked spec line 260 |
+| Compact smoke example | Yes — `Sets().Constructors().ClosedRealInterval(0, 1)` | Spec lines 116-119; matches tracked spec line 261 |
+| Complete metric smoke example | Yes — obligation preserved via dependency routing | Spec lines 116-120 with explicit routing to ring/field recovery cards (lines 134-140); matches tracked spec line 262 |
+| Constructor ownership | Preserved under `Sets().Constructors()` | Spec line 118: "Constructor owner is `Sets().Constructors()`" |
+| Ambient-relative method recovery | Preserved | Acceptance criterion line 25: "Prove RealSet method recovery through the ambient-relative route, not by adding pure topological constructors" — checked complete |
+| Rejection safety valve | Preserved | Spec lines 99-101: retire/rewrite condition if candidates depend on excluded paths |
+
+**Anti-weakening check:** The spec does not delete, weaken, or move any obligation without a grounded replacement. The complete-metric smoke is explicitly routed with tracked dependency cards rather than silently dropped or replaced with an invalid candidate (like a ball field).
+
+**G6 Verdict: PASS.** All three smoke obligations are preserved. Constructor ownership is correctly placed. The complete-metric obligation is routed through a verified dependency chain, not lost.
+
+### Summary
+
+| Gate | Description | Verdict | Key findings |
+|---|---|---|---|
+| G1 | Source grounding | PASS (minor imprecision) | All referenced data findable; MAPPING.md redirect stubs are imprecise locators but data exists in tracked specs |
+| G2 | Sage surface completeness | PASS | All 3 canonical objects use admitted surfaces; exclusions match mapping spec |
+| G3 | Mathematical correctness | PASS | 5/5 claims verified correct; category hierarchy consistent |
+| G4 | Nonmathematical rejection | PASS | Procedural criteria separated from mathematical claims |
+| G5 | Ambiguity routing | PASS | Complete-metric deferral chain intact; smoke-running deferred to implementation |
+| G6 | Obligation preservation | PASS | All 3 smoke obligations preserved with correct ownership |
+
+**Overall: 6/6 gates PASS.** The spec selects mathematically correct canonical examples, uses admitted mapping surfaces, excludes non-admitted surfaces with grounded rationale, and routes the complete-metric obligation through a verified dependency chain. The source-locator imprecision (citing redirect stubs instead of tracked spec files) is a documentation note, not a grounding failure.

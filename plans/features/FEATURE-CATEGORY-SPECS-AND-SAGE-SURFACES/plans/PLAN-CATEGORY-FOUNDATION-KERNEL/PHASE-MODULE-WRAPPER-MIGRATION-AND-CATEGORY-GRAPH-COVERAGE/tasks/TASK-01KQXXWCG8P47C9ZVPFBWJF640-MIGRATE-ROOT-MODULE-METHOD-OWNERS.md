@@ -265,3 +265,22 @@ blocked task.
   `KeyError: (256, 229)`, graded-module Sage/project base-category mismatch,
   integer-lattice and torsion-quadratic `KeyError: (256, 260)`, ideal submodule
   `_refine_category_` absence, and ring-as-module missing ring abstract methods.
+
+## Review Log
+
+### Independent Review - 2026-05-07 (fresh-context subagent)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+
+**Gates failed:** none
+
+**Outcome:** complete. All six gates pass.
+
+- Gate 1: SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING has 22 rows with explicit columns. DECISION-MODULE-SIDEDNESS resolves ambiguous surfaces.
+- Gate 2: All 10 ACs satisfied. is_submodule_of moved to Subobjects().ParentMethods. modify_module_structure rejected. Finite-rank-free implementations added.
+- Gate 3: Only modify_module_structure removed from abstract, grounded in decision. is_submodule_of relocated, not deleted.
+- Gate 4: Decision cards respected. Smoke passes exit 0.
+- Gate 5: All 22 method rows mathematically correct with explicit owners.
+- Gate 6: No ConditionSet. Type annotations. Conventional Commits.
+
+Verification: just --justfile category_specs/justfile smoke-file modules/smoketest.sage passes.

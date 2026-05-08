@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Triage global vulture dead-code validation blocker
-status: needs-review
+status: complete
 priority: high
 description: '`just test` now passes Ruff normalization and fails at the global vulture
   dead-code detection stage. The failure is broad and includes category-spec abstract/public
@@ -145,6 +145,23 @@ before Vulture, so this parent cannot claim full-QC success; its triage scope re
 limited to reproducing, classifying, and splitting the original Vulture failure.
 
 ## Review Log
+
+### Independent Review - 2026-05-07 (fresh-context subagent)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Clarity, Gate 4 Consistency, Gate 5 Actionability, Gate 6 Constraints
+
+**Gates failed:** none (minor arithmetic note: 764 vs 765 at lines 65-68)
+
+**Outcome:** complete. All six gates pass with concrete falsifiable evidence.
+
+- Gate 1: Full YAML frontmatter present. All body sections present. All 4 referenced leaf cards exist.
+- Gate 2: Structural claims verified. Minor arithmetic discrepancy (764 vs 765 findings) but does not affect structural validity.
+- Gate 3: Parent linkage consistent. Child tasks exist at expected paths. Dep chain accurate.
+- Gate 4: Writing clear and unambiguous. Sections logically ordered. Scope distinction well-drawn.
+- Gate 5: Completed triage card with actionable outputs (2 child tasks + remaining frontier).
+- Gate 6: No local vulture bypasses or QC overrides (verified by exhaustive search). `*/.bak/*` exclusion verified in global QC justfile.
+
+Verification: `uvx --from ruff ruff check category_specs` passes. `python -m compileall -q category_specs` passes.
 
 ### Self-Check - 2026-05-07
 

@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer
-status: unstarted
+status: complete
 priority: high
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_5_ORTHOGONAL_GROUPS.md`. The old `plans/` copy was removed so this

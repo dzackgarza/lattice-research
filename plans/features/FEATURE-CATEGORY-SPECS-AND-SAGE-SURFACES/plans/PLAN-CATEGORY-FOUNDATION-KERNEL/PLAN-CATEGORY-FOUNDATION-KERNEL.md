@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Category foundation kernel and method ownership
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
 description: 'Establish the foundational category vocabulary before downstream implementation:
@@ -783,3 +783,165 @@ class Category_over_base_ring(Category_over_base):
         x._refine_category_(_Fields)
     return result
 ```
+
+## 6-Gate Protocol Review Log
+
+### Review 2026-05-07 (Plan-Card Review)
+
+**Reviewer:** Hermes Agent (subagent, delegated review)
+**Scope:** Plan card `PLAN-CATEGORY-FOUNDATION-KERNEL`; child phase/task existence verified but not re-reviewed.
+**Gates passed:** G4, G6
+**Gates conditional:** G1, G2, G3, G5
+**Gates failed:** None that block plan execution
+
+---
+
+#### G1 — Source Paths Grounded: CONDITIONAL PASS
+
+**Findings:**
+
+- The "Admitted Definitions" section (lines 70-90) grounds four key definitions in specific, verifiable source documents:
+  - `category_specs/cat/docs/MAPPING.md` — **exists** ✓
+  - `category_specs/homsets/docs/MAPPING.md` — **exists** ✓
+  - `category_specs/modules/docs/MAPPING.md` — **exists** ✓
+- The "Migrated Source Bodies" section (lines 130-785) contains extensive Sage source code references with exact file paths and line numbers, all verifiable in the Sage codebase ✓
+- The `theory/references/index.md` path cited in the Definition Grounding Requirements (line 66) references a theory corpus outside the immediate plan tree; not verified but consistent with project conventions ✓
+
+**Conditions:**
+
+1. **Source corpus ambiguity (lines 94-99):** The plan lists five files under "Source corpus" (`plans/CATEGORY_ABC_SPEC.md`, `plans/CATEGORY_REFINEMENT_PHASES.md`, `plans/axioms_with_generators_finitely_presented.md`, `plans/category_creation_notes.md`, `plans/homsets_structural_core.md`). None of these files exist as standalone documents — their content has been migrated inline into this plan's "Migrated Source Bodies" section. The `category_creation_notes.md` and `axioms_with_generators_finitely_presented.md` bodies are explicitly labeled as "Former" documents in the migrated section (lines 132-133, 367). However, the other three (`CATEGORY_ABC_SPEC.md`, `CATEGORY_REFINEMENT_PHASES.md`, `homsets_structural_core.md`) are listed in the source corpus without corresponding inline migrated bodies. **Recommendation:** Either add inline migrated bodies for these three files, or annotate them as "migrated to `<target>`" with the actual migration destinations. The "Deleted source holder" annotation on `plans/todo.md` (line 99) is the correct pattern to follow.
+
+2. **Minor:** The Definition Grounding Requirements section (line 66) references `theory/references/index.md` without specifying whether this is a repo-relative or absolute path. In practice the project root is `/home/dzack/research`, so the full path would be `/home/dzack/research/theory/references/index.md`.
+
+**G1 verdict:** PASS with documentation cleanup recommended. The plan has strong grounding for its admitted definitions; the source corpus section needs migration-status annotations.
+
+---
+
+#### G2 — Exit Criteria Checkable: CONDITIONAL PASS
+
+**Findings:**
+
+All six success criteria (YAML `successCriteria`, lines 15-21) and six acceptance criteria checkboxes (lines 121-127) are evaluated for measurability:
+
+| # | Criterion | Verdict | Notes |
+|---|-----------|---------|-------|
+| 1 | Dual objects reconciled with Homset routing before discriminant work | **Conditional** | "Reconciled" is vague. What artifact signals completion? A spec update? A test? A decision card? No reconciliation standard is defined. |
+| 2 | Method ownership moved to most general mathematically valid category | **Conditional** | No measurable end-state. Is the inventory spec completion the signal? The phase PHASE-CATEGORY-LITERAL-METHOD-INVENTORY is complete, but the criterion doesn't reference it. |
+| 3 | Method ownership changes preserve ideal mathematical surface; smoke failure not treated as negative evidence | **Partially checkable** | The policy portion is checkable as a gate during review. The "preserve ideal surface" part requires a reference surface to compare against. |
+| 4 | Standard type aliases live in one canonical package | **Checkable** ✓ | Can verify by checking that all type aliases route through a single package. |
+| 5 | TwistedForms admitted or rejected by decision card | **Checkable** ✓ | Binary: decision card exists or it doesn't. |
+| 6 | Constructor-interception work does not precede static hierarchy and method-surface review | **Checkable** ✓ | Ordering constraint verifiable from status fields. |
+
+**Conditions:**
+
+1. Criteria 1 and 2 need concrete completion artifacts specified. For criterion 1, the plan should state what "reconciled" means (e.g., "dual-object routing passes Homset shadowing smoke test" or "dual-object spec row is filled in SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY"). For criterion 2, the plan should link to the inventory spec as the measurable completion signal.
+
+2. The YAML `successCriteria` (5 items) and body "Acceptance Criteria" checkboxes (6 items) overlap but are not identical. The YAML has: dual-object reconciliation, method-ownership movement, type aliases, TwistedForms, and constructor-interception ordering (5 items). The body adds criterion 3 about preserving the ideal mathematical surface (not in YAML) and splits method-ownership into two criteria (movement + preservation). The body also drops the explicit "TwistedForms" criterion from its checklist — it appears in YAML but not in the checkbox list. **Recommendation:** Align the YAML and body checklists for consistency.
+
+**G2 verdict:** PASS with documentation refinements needed. Four of six criteria are clearly checkable; two need measurable completion signals defined.
+
+---
+
+#### G3 — Phase Inventory Complete: CONDITIONAL PASS
+
+**Findings:**
+
+The YAML `phases` field (lines 23-25) declares three child phases:
+
+| # | Phase ID | Status | Exists |
+|---|----------|--------|--------|
+| 1 | PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION | `complete` | ✓ |
+| 2 | PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE | `in-progress` | ✓ |
+| 3 | PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP | `complete` | ✓ |
+
+All three phase cards exist at expected paths and correctly reference this plan as parent ✓.
+
+The "Subplans" section (lines 101-108) references three additional plans:
+
+| # | Plan ID | Location | Status |
+|---|---------|----------|--------|
+| 1 | PLAN-STATIC-CATEGORY-REFINEMENT-ORDER | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-review` |
+| 2 | PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-review` |
+| 3 | PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP | Under FEATURE-MODULES-WITH-FORMS-AND-LATTICES | `approved-and-unstarted` |
+
+**Coverage gaps identified:**
+
+1. **Standard type aliases canonical package (exit criterion 4):** No top-level phase in this plan explicitly owns type alias consolidation. The work is partially covered by TASK-1777748120881 under PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION, but the plan does not declare a phase that delivers "one canonical package" as a completion artifact. The criterion is orphaned at the plan level.
+
+2. **Module axioms (WithGenerators, FinitelyPresented, etc.):** Extensively described in the migrated source body (lines 134-365), but no phase card explicitly owns axiom registration, implementation, or verification against the spec. This work may be implicitly covered by PHASE-MODULE-WRAPPER-MIGRATION (which handles "category graph constructor routing") but the phase's description and success criteria do not mention axioms.
+
+3. **TwistedForms admission/rejection (exit criterion 5):** The plan exit criteria require a decision on TwistedForms, but no phase or subplan owns this decision. It's unclear whether this is a blocking prerequisite for the kernel or a deferred downstream item.
+
+4. **Phase ordering not specified:** The phases have no declared ordering or dependency. PHASE 1 and PHASE 3 are `complete` while PHASE 2 is `in-progress`, suggesting they can run in parallel, but the plan doesn't state this explicitly.
+
+**G3 verdict:** PASS with three coverage gaps. The phase inventory covers the core work (Cat surface, module wrappers, method inventory) but leaves three exit criteria (type aliases, module axioms, TwistedForms) without explicit phase-level owners.
+
+---
+
+#### G4 — Scope Containment: PASS
+
+**Findings:**
+
+- The plan's stated objective (line 33) matches the declared phases and subplans: "category refinement order, module axioms, Hom/End/Aut structure, dual-object routing, standard type aliases, and method ownership" ✓
+- The "Dependency rule" (lines 115-117) correctly gates this plan as a blocker for downstream implementation, consistent with its "foundation kernel" role ✓
+- The "Definition Grounding Requirements" (lines 36-68) and "Admitted Definitions" (lines 70-90) properly constrain child work to stay within grounded mathematical territory ✓
+- The "Leaf ownership" section (lines 110-113) correctly routes executable work to leaf subplans, preventing scope expansion at the plan level ✓
+- The migrated source bodies (lines 130-785) are long but provide necessary definitional grounding for the axioms and category creation patterns that child phases will implement. They do not constitute implementation themselves — they are reference material ✓
+- The plan explicitly blocks construction-interception and discriminant work until vocabulary is settled (success criteria 6), reinforcing scope gating ✓
+- No implementation work is authorized by this plan directly; it only coordinates spec and review work ✓
+
+**G4 verdict:** PASS. The plan is well-contained within its foundation-kernel scope and properly gates downstream work.
+
+---
+
+#### G5 — Dependency Correctness: CONDITIONAL PASS
+
+**Findings:**
+
+- **Parent relationship:** `parents: ['[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]']` — **correct** ✓. The feature card's `plans` list includes this plan ✓.
+- **dependsOn:** `[]` — **correct** for a foundation kernel that should block others, not be blocked ✓.
+- **Phase parent references:** All three child phases correctly set `parents: ['[[PLAN-CATEGORY-FOUNDATION-KERNEL]]']` ✓.
+- **No circular dependencies detected** ✓.
+
+**Conditions:**
+
+1. **Subplan parent inconsistency:** PLAN-STATIC-CATEGORY-REFINEMENT-ORDER and PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION are listed as subplans in this card's body (lines 103-104), but their YAML `parents` field points directly to `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, not to this plan. This creates ambiguity:
+   - If they are children of this plan, their `parents` should include `PLAN-CATEGORY-FOUNDATION-KERNEL`.
+   - If they are siblings under the feature (as their YAML declares), they should not be listed as subplans here. They should instead be referenced as sibling plans that this kernel coordinates with.
+   - **Recommendation:** Decide on the containment relationship and make the YAML and body references consistent. The "Leaf ownership" section (which routes Hom/End/Aut work to PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION) suggests a sibling/coordination relationship rather than strict containment.
+
+2. **Cross-feature reference:** PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP lives under a different feature (`FEATURE-MODULES-WITH-FORMS-AND-LATTICES`), which is appropriate since it's a dependent downstream plan consuming the kernel's vocabulary. Its success criteria explicitly cite this plan as a prerequisite ("Category vocabulary and method ownership from PLAN-CATEGORY-FOUNDATION-KERNEL are settled before dependent implementation") ✓.
+
+3. **Phase dependency declaration missing:** The plan does not declare whether the three phases must run sequentially or can run in parallel. Current status shows PHASE 1 (complete), PHASE 2 (in-progress), PHASE 3 (complete) — suggesting they are independent. If any ordering constraints exist, the plan should state them.
+
+**G5 verdict:** PASS with one structural inconsistency to resolve (subplan parent references).
+
+---
+
+#### G6 — Preservation: PASS
+
+**Findings:**
+
+- **Spec-weakening review gate (lines 52-56):** Every child phase must include a gate that reviews staged/unstaged diffs and commits for deleted abstract methods, removed constructor/category obligations, narrowed smokes, or obligation moves without replacement owners. Smoke improvement paired with interface shrinkage fails the gate ✓. This is a strong preservation mechanism.
+- **Mathematical review gate (lines 58-62):** Every child phase must include a gate for method-owner rows written as coherent mathematical claims before implementation work changes ownership or surfaces ✓.
+- **Sage interop as design constraint (lines 44-47):** The plan explicitly states that Sage interop is a design constraint where mathematically appropriate, and that Sage inventory is implementation evidence and a feasibility witness ✓.
+- **No destructive operations:** The plan coordinates spec work and method ownership; it does not authorize deletion of existing functionality. The preservation gates ensure that any changes maintain or improve the mathematical surface ✓.
+- **Source corpus preservation:** The plan preserves content from five deleted/migrated source documents (axioms, category creation notes, etc.) by inlining their bodies rather than losing them ✓.
+- **Category spec philosophy alignment:** The plan aligns with `category_specs/AGENTS.md` directives: ideal mathematical interface is the standard, Sage coverage is not the adequacy standard, smoke failures are implementation evidence not spec-weakening evidence ✓.
+
+**G6 verdict:** PASS. The plan has strong preservation mechanisms through mandatory review gates and explicit non-destructive policies.
+
+---
+
+### Summary
+
+| Gate | Verdict | Issues |
+|------|---------|--------|
+| G1 — Source Grounding | CONDITIONAL PASS | Source corpus files need migration-status annotations; 3 of 5 lack inline migrated bodies |
+| G2 — Exit Criteria | CONDITIONAL PASS | Criteria 1 and 2 need measurable completion signals; YAML/body checklist misaligned |
+| G3 — Phase Inventory | CONDITIONAL PASS | Type aliases, module axioms, and TwistedForms lack explicit phase owners |
+| G4 — Scope | PASS | Well-contained foundation kernel |
+| G5 — Dependencies | CONDITIONAL PASS | Subplan parent references inconsistent with YAML; phase ordering undeclared |
+| G6 — Preservation | PASS | Strong review gates and non-destructive policies |
+
+**Overall assessment:** The plan is structurally sound and ready to coordinate child work. The four conditional gates reflect documentation precision issues, not plan design flaws. Recommended actions: (1) annotate source corpus files with migration status, (2) define measurable completion signals for vague exit criteria, (3) assign explicit phase owners to orphaned criteria (type aliases, axioms, TwistedForms), and (4) resolve the subplan parent inconsistency.

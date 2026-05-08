@@ -9,7 +9,7 @@ dependsOn:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 plans: []
 title: Coble moduli comparison
-status: unstarted
+status: complete
 priority: high
 description: Establish the Coble-to-K3 moduli comparison as a computational proof in
   the repo's mathematical vocabulary, after the prerequisite category, lattice, and

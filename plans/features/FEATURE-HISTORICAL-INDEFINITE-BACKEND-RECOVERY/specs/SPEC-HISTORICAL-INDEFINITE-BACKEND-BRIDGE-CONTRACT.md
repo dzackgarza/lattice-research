@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 title: Recover exact indefinite form backend bridge contract
-status: needs-review
+status: complete
 priority: high
 requirement: Historical Indefinite and polyhedral_common wrappers must be recovered
   as exact backend bridges with normalized matrix conventions and witness verification.
@@ -189,3 +189,154 @@ finite-window search, random search, or local bespoke matrix enumeration.
   exposing it.
 - [x] The spec requires unsupported or unavailable backend states to fail loudly at the
   bridge boundary.
+
+## 6-Gate Protocol Review Log
+
+### Review 2026-05-07 (6-Gate Spec Review)
+
+**Gates passed:** G1, G2, G3, G4, G5, G6
+**Outcome:** PASS with one notation
+
+---
+
+### Gate 1: Source Grounding
+
+| Source Claimed | Exists? | Content Verified? | Notes |
+|---|---|---|---|
+| `src.bak/backends/external/README.md` | NO | N/A | `src.bak/` directory is absent from the repo. This path cannot be verified. |
+| `src.bak/backends/external/py_polyhedral/binaries.py` | NO | N/A | Same — `src.bak/` directory absent. The claimed binaries (`INDEF_FORM_TestEquivalence`, `INDEF_FORM_AutomorphismGroup`, `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_StabilizerVector`, `INDEF_FORM_StabilizerIsotropicPlane`) cannot be verified at this path. |
+| `src.bak/backends/isometry_backend.py` | NO | N/A | Same — `src.bak/` directory absent. Historical obstruction ladder referenced in the spec cannot be verified at this location. |
+| `.agents/memories/theory/backends/software-capability-map.md` | YES | YES | Line 43 confirms Indefinite.jl as preferred system for indefinite lattice isometry/orbit computations. Line 44 confirms CARAT positive-definite limitation. All spec claims about backend routing domain match this source. |
+| `.agents/memories/theory-backend-routing.md` | YES | YES | Lines 14-15 confirm exact Indefinite.jl calls (`INDEF_FORM_AutomorphismGroup`, `INDEF_FORM_TestEquivalence`, `INDEF_FORM_GetOrbitRepresentative`, `INDEF_FORM_GetOrbit_IsotropicKplane`, `INDEF_FORM_GetOrbit_IsotropicKflag`). Line 57 confirms Julia 1.6.7 + isolated HOME requirement. Line 58 confirms direct GAP-in-Sage loading is not a drop-in route. All spec routing claims match. |
+| `.agents/memories/theory/backends/indefinite-isometry.md` | YES | YES | Lines 117-150 confirm the working local route (Julia 1.6.7, isolated HOME, isolated `~/.gap`). Lines 97-114 confirm the GAP collision failure with `~/.gap/pkg/JuliaInterface`. Lines 166-184 confirm C++ backend exists but does not build locally. All spec environment claims verified. |
+| `.agents/memories/theory/backends/indefinite-jl.md` | YES | YES | Lines 28-29 confirm `g^T * eGram * g == eGram` for automorphism. Line 57 confirms `T^T * eGram1 * T == eGram2` for isometry. Lines 175-179 confirm function reference table listing all five backend calls with exact signatures. |
+| `.agents/memories/backend-environment-notes.md` | YES | YES | Lines 3-7 confirm HOME isolation is required to prevent `~/.gap/pkg/JuliaInterface` collision. Matches spec lines 160-162 exactly. |
+
+**Gate 1 Verdict:** PASS with notation. 3 of 8 source references point to nonexistent `src.bak/` paths. These are historical provenance claims — the spec's mathematical contracts do not depend on being able to read the original `src.bak/` code, because the operation contracts are verified against the 5 existing memory files. The three dead paths are archival provenance, not current verification dependencies. The spec body's Operation Contracts, Backend Routing Contract, and Boundary Failures sections are all independently grounded in the verified sources. Notation: the `src.bak/` paths should be marked as historical/unavailable in the source provenance section to avoid misleading future reviewers.
+
+---
+
+### Gate 2: Contract Completeness
+
+Each declared operation family has a documented contract with explicit input types, output types, and verification obligations:
+
+| Operation Family | Input Specified | Output Specified | Verification Rule | Completeness |
+|---|---|---|---|---|
+| Isometry Witness (lines 100-115) | Yes — two public indefinite integral formed objects with exact Gram presentations over ZZ | Yes — public Hom element with normalized matrix | Yes — `f.T * gram(L) * f == gram(M)` via Hom containment | Complete |
+| Automorphism Generators (lines 117-124) | Yes — public nondegenerate indefinite integral formed object | Yes — generators of subgroup of Aut(L) | Yes — integrality, invertibility, rank, form preservation per generator | Complete |
+| Norm Orbit Representatives (lines 126-135) | Yes — indefinite integral lattice + exact norm value | Yes — typed elements of L or metric-dual | Yes — parent-constructed, norm-verified, completeness claim required | Complete |
+| Isotropic Subspaces and Flags (lines 137-144) | Yes — lattice, integer k, optional subobjects/flags | Yes — isotropic subobjects/flags with inclusion data | Yes — rank k, isotropy, parent containment, nested inclusions for flags | Complete |
+| Stabilizers (lines 146-153) | Yes — group action by Aut(L) on element/subobject | Yes — subgroup with generators in Aut(L) | Yes — pointwise/setwise distinction verified | Complete |
+
+The Backend Routing Table (lines 84-90) maps each operation family to preferred route (Indefinite.jl), historical local route (py_polyhedral binary), and public owner (formed-module/lattice noun).
+
+**Gate 2 Verdict:** PASS. All five operation families have complete input/output/verification contracts. No TBDs or unresolved parameters.
+
+---
+
+### Gate 3: Mathematical Correctness
+
+**Contract semantics checked:**
+
+- **Isometry convention (lines 67-70):** Public automorphism `g in O(L)` verifies `g.T * gram(L) * g == gram(L)`. Public isometry `f: L -> M` verifies `f.T * gram(L) * f == gram(M)`. These are correct left-action form-preservation equations. The transpose-gram-transpose pattern matches the standard definition of orthogonal transformations.
+
+- **Backend convention (lines 71-73):** Indefinite.jl matrices satisfy `T^T Q1 T = Q2`. Verified at `indefinite-jl.md` line 57. This is the same left-action convention, so normalization is straightforward. The spec correctly notes that historical `py_polyhedral` wrappers may use row/right-action conventions requiring conversion.
+
+- **Completeness claim (lines 74-78):** Correctly distinguishes between mathematical evidence (verified witness) and environmental failure (missing binary, unsupported signature, etc.). This is mathematically sound: a failure to execute a backend call is not evidence of non-isometry.
+
+- **Historical obstruction ladder (lines 109-115):** The spec admits early exact checks (rank, signature, determinant, discriminant group, rational isometry, local isometry, genus) as fast-reject evidence but requires witness verification before positive isometry is accepted. This is correct — those invariants are necessary but not sufficient for integral isometry of indefinite forms.
+
+- **Oscar/Hecke routing (lines 92-96):** Correctly routes lattice invariants, genera, local conditions, discriminant groups, and primitive embeddings to Oscar/Hecke, consistent with `theory-backend-routing.md` lines 13 and 55-56.
+
+- **CARAT limitation (lines 95-97):** Correctly restricts CARAT to positive-definite or finite-matrix-group auxiliary work, consistent with `software-capability-map.md` line 44 and `theory-backend-routing.md` line 15.
+
+- **Pointwise vs setwise stabilizers (lines 151-153):** The spec correctly distinguishes these as distinct surfaces. This is mathematically correct — pointwise and setwise stabilizers are different subgroups.
+
+**Gate 3 Verdict:** PASS. All mathematical claims are correct when verified against the sourced definitions.
+
+---
+
+### Gate 4: Backend Routing Integrity
+
+Checked the Backend Routing Contract table (lines 84-90) against all verified sources:
+
+| Operation | Spec Claimed Preferred Route | Verified in Source? | Evidence |
+|---|---|---|---|
+| Indefinite form isometry | Indefinite.jl `INDEF_FORM_TestEquivalence` | YES | `theory-backend-routing.md` line 14, `indefinite-jl.md` lines 33-59 |
+| Indefinite automorphism generators | Indefinite.jl `INDEF_FORM_AutomorphismGroup` | YES | `theory-backend-routing.md` line 14, `indefinite-jl.md` lines 11-29 |
+| Norm-level orbit representatives | Indefinite.jl `INDEF_FORM_GetOrbitRepresentative` | YES | `theory-backend-routing.md` line 14, `indefinite-jl.md` lines 63-79 |
+| Isotropic k-plane and k-flag representatives | Indefinite.jl `INDEF_FORM_GetOrbit_IsotropicKplane` and `INDEF_FORM_GetOrbit_IsotropicKflag` | YES | `theory-backend-routing.md` line 14, `indefinite-jl.md` lines 83-121 |
+| Vector and isotropic-subspace stabilizers | bridge-needed exact Indefinite/polyhedral route | PARTIAL | `indefinite-jl.md` does not list `INDEF_FORM_StabilizerVector` or `INDEF_FORM_StabilizerIsotropicPlane` in its function reference (lines 171-179). These are claimed in the historical `py_polyhedral` binaries (dead path). The routing status is correctly marked as "bridge-needed" — the spec does not overclaim. |
+
+Oscar/Hecke routing for lattice invariants confirmed at `theory-backend-routing.md` line 13. CARAT limitation confirmed at `software-capability-map.md` line 44.
+
+**Gate 4 Verdict:** PASS. All routing claims with verified sources are accurate. The stabilizer routes are correctly marked as bridge-needed, not preferred-backend. No routing is claimed for unsupported backends.
+
+---
+
+### Gate 5: Boundary and Failure Handling
+
+**Failure modes assessed (lines 157-166):**
+
+| Failure Mode | Sound? | Evidence |
+|---|---|---|
+| Missing binary or Julia package | YES | `indefinite-isometry.md` lines 65-79 document dependency resolution failure on Julia 1.12 |
+| Julia/GAP environment collision | YES | `indefinite-isometry.md` lines 97-114 document exact collision with `~/.gap/pkg/JuliaInterface`. `backend-environment-notes.md` lines 3-7 confirm |
+| Unsupported base ring, non-integral input, degenerate input | YES | Standard mathematical domain restriction; backend requires nondegenerate integral forms |
+| Parser failure, malformed matrix shape, rational entries where integral required | YES | Bridge should not silently coerce or truncate; correct discipline |
+| Backend nonzero exit, timeout, stderr | YES | Standard process-failure boundary; correctly treated as bridge failure, not mathematical evidence |
+
+**Non-Preservation Boundaries (lines 172-181):**
+
+| Rule | Assessment |
+|---|---|
+| Do not expose `run_and_check`, temp files, parser details | Valid encapsulation — bridge internals are not public API |
+| Normalize `M G M^T = G` vs `G^T M G = M` at bridge | Critical correctness — dual conventions must not leak |
+| Do not replace exact witness calls with finite-window enumeration | Prevents cheapest-available-evidence poisoning |
+| Do not mark operation supported based on wrapper name alone | Prevents phantom capability claims |
+| Do not preserve `assert`-only validation from py_polyhedral | Requires typed backend errors + public containment verification |
+
+**Gate 5 Verdict:** PASS. All failure modes are concrete and sourced. Non-preservation boundaries are sound architectural guardrails. The spec does not silently substitute weaker evidence.
+
+---
+
+### Gate 6: Acceptance Criteria and Self-Consistency
+
+**Acceptance criteria status (lines 185-191):**
+
+| Criterion | Status | Assessment |
+|---|---|---|
+| Each backend operation records domain, output, completeness claim | [x] | Backend Routing Contract table (lines 84-90) + Operation Contracts (lines 98-153) satisfy this |
+| Raw output conversion centralized and tested against public convention | [x] | Spec requires this at lines 58-60 (bridge owns conventions) and lines 71-73 (normalize at bridge) |
+| Public methods verify returned witness/generator data before exposing | [x] | Each Operation Contract (lines 100-153) includes explicit verification rules |
+| Unsupported/unavailable backend states fail loudly at bridge boundary | [x] | Boundary Failures section (lines 155-168) enumerates failure modes |
+
+All four criteria are substantively satisfied by the spec body. The `[x]` marks are appropriate.
+
+**Internal consistency checks:**
+
+- **Constructor ↔ Invariant alignment:** Not applicable — this is a bridge contract spec, not a lattice constructor spec.
+- **dependsOn consistency:** YAML `dependsOn` lists `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`. This is correct — the bridge receives formed-module/lattice objects from that feature's public API.
+- **parents consistency:** YAML `parents` lists `FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY`. This is correct — the spec is a child of that feature card.
+- **Parent acceptance criteria alignment:** Parent feature requires (1) explicit mathematical input/output contracts, (2) matrix action convention normalization, (3) returned data verified by public layer. The spec satisfies all three.
+- **No contradictory claims:** The spec does not claim CARAT can handle indefinite forms, does not claim direct GAP loading works, and does not claim stabilizer binaries are verified — consistent with all evidence.
+- **No circular definitions:** Contract definitions are grounded in independent mathematical objects (Gram presentation, orthogonal group, Hom containment).
+
+**Gate 6 Verdict:** PASS. Acceptance criteria are met. The spec is internally consistent with no contradictions or circular dependencies.
+
+---
+
+### Overall Assessment
+
+| Gate | Status |
+|---|---|
+| Gate 1: Source Grounding | PASS (notation: 3/8 src.bak/ paths dead, but 5/8 verified and contracts independently grounded) |
+| Gate 2: Contract Completeness | PASS |
+| Gate 3: Mathematical Correctness | PASS |
+| Gate 4: Backend Routing Integrity | PASS |
+| Gate 5: Boundary and Failure Handling | PASS |
+| Gate 6: Acceptance Criteria and Self-Consistency | PASS |
+
+**Notation:** The three `src.bak/` paths in Source Provenance (lines 31-33) are dead — the `src.bak/` directory does not exist in the current repo. This does not affect the spec's validity because all operational contracts, backend routes, and failure modes are independently grounded in the five verified memory files. Recommendation: add a note to the Source Provenance section marking the `src.bak/` references as "historical, not currently available in repo" to prevent future reviewers from flagging this repeatedly.
+
+**Recommendation:** Approve. The spec is ready for plan authoring. The bridge contract is complete, mathematically correct, and properly scoped.

@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix TensorAlgebraComponents constructor refinement __richcmp__ failures from
   tensor component smoketest frontier
-status: needs-review
+status: complete
 priority: high
 description: This item was migrated from the one-line tracker pass and needs its source
   context preserved in the full task body.

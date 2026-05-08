@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 title: Admit lattice constructors through Lattices(R).Constructors after Sage constructor
   inventory mapping
-status: unstarted
+status: complete
 priority: critical
 requirement: The deleted Lattices triage recorded the top-level lattice subtree admission,
   current smoke coverage, constructor admission boundary, and DiscriminantGroupAut

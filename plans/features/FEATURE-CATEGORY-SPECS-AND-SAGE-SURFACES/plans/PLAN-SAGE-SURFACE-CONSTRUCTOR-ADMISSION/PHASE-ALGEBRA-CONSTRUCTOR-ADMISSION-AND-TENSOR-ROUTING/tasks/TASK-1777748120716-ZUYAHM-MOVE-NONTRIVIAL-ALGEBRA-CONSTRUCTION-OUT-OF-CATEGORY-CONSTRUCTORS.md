@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
 title: Move nontrivial algebra construction out of category constructors
-status: needs-review
+status: needs-human-input
 priority: high
 description: Move nontrivial algebra construction out of category constructors
 successCriteria:

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 dependsOn: []
 title: Remove strict-supercategory leaks from image-set and schematic-set constructors
-status: needs-review
+status: complete
 priority: critical
 description: Remove strict-supercategory leaks from image-set and schematic-set constructors
 successCriteria:

@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write ring algebra and module method ownership rows
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Mine ring, algebra, and module inventories into literal method-owner

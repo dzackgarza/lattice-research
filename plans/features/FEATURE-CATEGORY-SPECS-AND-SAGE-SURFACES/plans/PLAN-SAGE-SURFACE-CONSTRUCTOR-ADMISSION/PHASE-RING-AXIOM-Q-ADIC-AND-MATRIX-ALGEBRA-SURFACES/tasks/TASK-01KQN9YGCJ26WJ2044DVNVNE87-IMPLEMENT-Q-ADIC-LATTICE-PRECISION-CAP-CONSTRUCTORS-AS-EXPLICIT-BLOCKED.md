@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement q-adic lattice precision-cap constructors as explicit blocked Sage-gap surfaces
   rather than broken pass-throughs
-status: needs-review
+status: complete
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and q-adic
   precision routes, matrix-ring ownership, topological ring inheritance, and deferred q-adic

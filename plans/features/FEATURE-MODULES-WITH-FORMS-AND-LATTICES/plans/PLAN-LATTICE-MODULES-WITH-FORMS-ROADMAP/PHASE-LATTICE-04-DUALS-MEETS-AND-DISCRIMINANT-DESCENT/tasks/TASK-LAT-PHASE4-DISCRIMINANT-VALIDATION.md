@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 dependsOn: []
 title: Implement discriminant descent validation models
-status: unstarted
+status: complete
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT` is

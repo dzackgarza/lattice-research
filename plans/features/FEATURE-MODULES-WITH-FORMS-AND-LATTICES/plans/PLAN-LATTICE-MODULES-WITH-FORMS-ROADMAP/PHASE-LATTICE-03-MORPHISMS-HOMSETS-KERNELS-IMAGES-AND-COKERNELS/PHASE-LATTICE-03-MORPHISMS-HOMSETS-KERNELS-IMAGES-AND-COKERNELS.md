@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 3 morphisms homsets kernels images and cokernels
-status: unstarted
+status: complete
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_3_MORPHISMS.md`. The old `plans/` copy was removed so this tracked

@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Track lattices mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/lattices/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -646,6 +646,210 @@ in the global category diagnostic system specified in `[[SPEC-MAPPING-CAT]]`:
   category owns this name.
 - `hom_dual()` is the unambiguous name for the module-theoretic Hom dual on
   formed-module categories.
+
+## 6-Gate Protocol Review Log
+
+**Review date:** 2026-05-07
+**Reviewer:** Hermes Agent (fresh-context subagent)
+**Scope:** Core mathematical correctness — tier table, forms/lattice boundary, discriminant group. Less exhaustive than full Sage file scan; prioritizes mathematical reasoning.
+
+---
+
+### G1 — Source Grounding: PASS
+
+Every mathematical claim in the spec traces to a canonical source. Verified source references:
+
+| Claim | Source checked | Result |
+|-------|---------------|--------|
+| Source Coverage Ledger (lines 44-63) | 13 installed Sage files probed via `search_files` on `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/` | All 11 named files confirmed present. Two visibility-gap entries (categories/bilinear_modules.py etc.) correctly flagged as requiring follow-up via TASK-MAPPING-DOC-COMPLETENESS-RESEARCH. |
+| Constructor reconciliation table Sage line references (lines 109-117) | `free_quadratic_module.py:310`, `free_quadratic_module_integer_symmetric.py:625`, `torsion_quadratic_module.py:20/190`, `quadratic_form.py:1150+` | Line ranges verified against Sage 10.7 source. The `__init__` signatures match the spec's descriptions. |
+| LatticesCategory chain (lines 247-281) | `/home/dzack/research/category_specs/lattices/__init__.py:68-71` — `_base_category_class_and_axiom = (IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory, "Lattice")` | Confirmed. The lattice endpoint sits at the end of the forms chain. |
+| Forms chain (lines 247-281) | `/home/dzack/research/category_specs/forms/chain.py:30-296` — `FiniteRankFreeFormedModulesCategory` → `Bilinear` → `Symmetric` → `Nondegenerate` → `Integral` | Confirmed. Each link's `_base_category_class_and_axiom` matches. |
+| TorsionQuadraticModulesCategory | `/home/dzack/research/category_specs/forms/subcategories/torsion_quadratic_modules.py:17-60` — `super_categories()` joins Torsion, Quadratic(WithForms), FinitelyPresented | Confirmed. Abstract methods `gram_matrix_quadratic`, `gram_matrix_bilinear`, `brown_invariant` present. |
+| DECISION-ORDERED-REAL-SIGNATURE-OWNER | `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/decisions/DECISION-ORDERED-REAL-SIGNATURE-OWNER.md` — status: `decided`, chosen: "Add ordered-real-realization refinement" | Confirmed. The spec's `signature_pair()` tier assignment reflects this decision. |
+| SPEC-MAPPING-CAT cross-reference | `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-CAT.md` — exists at 528+ lines | Confirmed. Diagnostic flag gating documented there. |
+| Formal Negative findings (lines 180-238) | `.agents/theory/spec-backups/lattices_written_spec_backup.py` — confirmed present; no active `src/lattices/categories/` — confirmed absent | Both findings verified. The docstring model and stale-path conclusions are correct. |
+
+**G1 finding (advisory):** The hierarchy overview diagram (lines 249-255) omits `.Free().FiniteRank()` from the canonical chain. The actual chain in `chain.py` starts at `Modules(R).Free().FiniteRank().WithForms()`. The method placement table correctly prefixes tiers with `Free +` where needed (e.g., `Free + Bilinear` for `gram_matrix()`), so the tier assignments are internally consistent. The diagram is simplified for readability; this is acceptable for a mapping spec but may confuse readers comparing against the Python source.
+
+**G1 verdict: PASS.** All sources resolve on disk. One advisory on diagram simplification.
+
+---
+
+### G2 — Sage Surface Completeness: PASS
+
+The spec accounts for every inventoried Sage lattice surface through four reconciliation tables plus the method placement table:
+
+| Inventory section | Coverage | Check |
+|------------------|----------|-------|
+| `FreeQuadraticModule` / `IntegralLattice` constructors (lines 109-117) | 8 Sage surfaces mapped | All 8 have owner classification + reconciliation rows |
+| Inherited Module and Hom Surfaces (lines 119-130) | 11 surface groups (FGP_Module, FGP_Morphism, FGP_Element, enumeration) | All admitted or routed to correct owners |
+| Toric Character-Lattice Boundary (lines 131-147) | 4 surface groups | Correctly routed to free-module/formed-lattice owners; toric-dual convention flagged as interop limitation, not negative claim |
+| Lattice and Form Method Reconciliation (lines 149-163) | 18 surface groups | All have correct owner classification |
+| Torsion and Discriminant-Form Reconciliation (lines 165-178) | 11 surface groups | All admitted with codomain/hypothesis precision |
+| Method Placement Table (lines 285-362) | 60 method rows | Covers free, bilinear, quadratic, torsion, discriminant-group, and aut-group methods |
+
+**Cross-reference check:** The method placement table rows are consistent with the reconciliation tables. Specifically verified:
+- `gram_matrix()` at `Free + Bilinear` ↔ reconciliation says "Admit at the first free bilinear tier" (line 154) ✓
+- `dual_lattice()` at `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` ↔ reconciliation lines 155-156 ✓
+- `discriminant_group()` at same tier ↔ reconciliation lines 155-156 ✓
+- `is_even()` at `Bilinear.Integral` ↔ reconciliation lines 155 ✓
+- `orthogonal_group()` at `Modules(R).WithForms().AutCategory()` ↔ reconciliation lines 160 ✓
+
+**G2 finding 1 (advisory):** Inherited module surfaces from the FGP reconciliation table (cardinality, is_finite, list, __iter__, random_element — line 129) are not represented in the method placement table. The spec's note says "Preserve as set/module runtime surfaces," which is correct inheritance from `Modules(R).Finite()` or `Sets().Finite()`, but a row in the method placement table confirming they're inherited (not lattice-owned) would close the audit loop.
+
+**G2 finding 2 (advisory):** The `cokernel` gap flagged in line 127 ("cokernel remains a required project-owned gap") is correctly identified as a spec obligation not covered by Sage. The method placement table has no `cokernel()` row — this is a genuine spec gap that should become a tracked task, not a spec defect. The obligation is preserved (Gate 6).
+
+**G2 verdict: PASS.** All inventoried Sage surfaces accounted. Two advisory findings on documentation completeness.
+
+---
+
+### G3 — Mathematical Correctness: PASS with ADVISORY NOTES
+
+This gate focuses on the tier table, forms/lattice boundary, and discriminant group.
+
+#### 3a. Tier Table Correctness
+
+Verified the mathematical justification for 12 key tier assignments:
+
+| Method | Claimed tier | Mathematical check | Result |
+|--------|-------------|-------------------|--------|
+| `b(v,w)` | `Bilinear` | Bilinear evaluation defined once form is bilinear | CORRECT |
+| `gram_matrix()` | `Free + Bilinear` | Requires basis; entries `b(e_i,e_j)` in R | CORRECT |
+| `determinant()` | `Free + Bilinear` | `det(gram_matrix)`; basis-dependent | CORRECT |
+| `dual_lattice()` | `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | Metric dual `L^# = {v in L_K : beta(v,L) subset R}` requires free (for scalar extension), symmetric, nondegenerate (for finite index), integral (for L subset L^#), over integral domain (for Frac(R)) | CORRECT. Each hypothesis is necessary. |
+| `discriminant_group()` | same as `dual_lattice()` | `L^#/L` follows from `dual_lattice()` | CORRECT |
+| `signature_pair()` | `Free + Symmetric + ordered real realization` | Inertia after extension to ordered real target; bare integral domain insufficient | CORRECT. Reflects DECISION-ORDERED-REAL-SIGNATURE-OWNER. |
+| `is_even()` | `Bilinear.Integral` | `b(m,m) in 2R` requires integrality, not freeness | CORRECT |
+| `is_unimodular()` | `Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` | `L = L^#` depends on `dual_lattice()` | CORRECT |
+| `orthogonal_group()` | `Modules(R).WithForms().AutCategory()` | `O(M,b) = Aut(M,b)`; no freeness/nondegeneracy needed for definition | CORRECT. Verified against `chain.py:54-60` where `orthogonal_group()` is defined at `FiniteRankFreeFormedModulesCategory.ParentMethods`. Note: the Python implementation is at the finite-rank-free tier, but the spec correctly places the mathematical definition higher (at generic WithForms). The implementation's lower placement is a runtime convenience; the spec's tier is the correct mathematical owner. |
+| `divisibility(v)` | `Bilinear.Symmetric` (element) | `<b(v,w) : w in M>` as submodule; symmetry needed so `b(v,w)` and `b(w,v)` generate same ideal | CORRECT. Note 9 (lines 449-454) provides rigorous justification. |
+| `reflection(v)` | `Free + Symmetric + Nondegenerate` (element) | `s_v(w) = w - 2b(v,w)/b(v,v) · v` | CORRECT as a mathematical formula, but see advisory G3-a below. |
+| `brown_invariant()` | `Torsion + Bilinear + Symmetric` | Global torsion QF invariant | CORRECT. The spec correctly notes the QQ/2ZZ codomain requirement. |
+
+**Advisory G3-a (reflection tier):** The reflection formula requires `b(v,v)` to be a unit in the coefficient ring. Nondegeneracy guarantees the radical is zero but does NOT guarantee `b(v,v)` is invertible (e.g., `b(v,v) = 2` is not a unit in Z). For ZZ-lattices, reflections are only well-defined as automorphisms when `b(v,v) ∈ {±1, ±2}`. The spec's placement at `Free + Symmetric + Nondegenerate` is correct for the mathematical formula in the scalar extension, but the result may not be an automorphism of the original lattice. This tension is inherent in the mathematics (reflections of an integral lattice typically live in the rational span), and the spec's tier assignment is acceptable for a mapping surface — implementation cards will need to handle the unit-check precondition.
+
+**Advisory G3-b (form_degree convention):** The spec defines `form_degree() -> (p,q)` at `WithForms` with values `(1,1)` for bilinear and `(1,0)` for linear (line 293). In standard multilinear algebra, a bilinear form `M × M → R` has tensor type `(0,2)`, and a linear form has type `(0,1)`. The spec's convention `(1,1)` appears to count "inputs per slot" rather than covariant/contravariant degree. This is nonstandard and should either be explicitly defined as a project-specific convention or corrected to the standard (0,2)/(0,1) notation. **Not blocking** — the concept is clear regardless of convention — but implementers coming from multilinear algebra will be confused.
+
+**Advisory G3-c (discriminant sign convention):** The spec defines `discriminant()` as `(-1)^r * det` (line 309). The standard discriminant of a quadratic form in r variables uses factor `(-1)^{r(r-1)/2}`. Sage's `FreeQuadraticModule_generic.discriminant()` uses `(-1)^{rank} * det` (confirmed at `free_quadratic_module.py:439`). The spec faithfully maps Sage's convention, but the sign convention should be explicitly noted as "following Sage's convention" to avoid confusion for readers who expect the quadratic-form discriminant. **Not blocking** — the spec's role is to map Sage surfaces, and it maps this one correctly.
+
+#### 3b. Forms/Lattice Boundary Correctness
+
+The boundary is clean and mathematically justified:
+
+- **forms/** owns: FormedModules, Bilinear, Quadratic, Symmetric, Alternating, Nondegenerate, Definite, Indefinite, Integral, Rational, FreeBilinear, TorsionQuadraticModules (lines 522-537)
+- **lattices/subcategories/** owns: OverDedekindDomain, OverPID, OverIntegers, Even, Unimodular (lines 539-547)
+- **lattices/subcategories/constructions/** owns: DualObjects, DualLattices, Overlattices, OrthogonalDirectSums, DiscriminantGroups (lines 249-280)
+
+**Verification:**
+- The lattice category at `lattices/__init__.py:68` extends `IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory` with axiom `"Lattice"`. This means the lattice endpoint adds only the `Lattice` axiom name — all formed-module axioms (Bilinear, Symmetric, Nondegenerate, Integral) are owned by forms. Mathematically correct: a lattice is an integral nondegenerate symmetric bilinear module that happens to be free of finite rank, and the "Lattice" axiom is the named endpoint.
+- The `Even` and `Unimodular` subcategories are lattice-specific (nonstandard outside lattice theory). Correct ownership.
+- The `DualLattices()` construction is correctly distinguished from `DualObjects()` (Hom-dual) — the degenerate case `<e> ⊂ U` (lines 586-594) provides a rigorous counterexample proving the two duals differ. This is strong mathematical evidence.
+
+**Advisory G3-d (dual_lattice tier gap):** The spec places `dual_lattice()` at `Free + Bilinear.Symmetric.Nondegenerate.Integral + OverIntegralDomain` (line 314), but the Python chain in `chain.py` does not include `OverIntegralDomain` as a separate axiom — the `Integral` axiom in the chain sits on top of `Free().FiniteRank()`, which already provides the fraction field via the base ring's `fraction_field()` method. The spec's tier description is mathematically precise (it names the hypotheses) but the project's actual category graph may not have a separate `OverIntegralDomain` refinement. This is a spec/implementation alignment detail for the implementation phase, not a mathematical error.
+
+#### 3c. Discriminant Group Correctness
+
+The discriminant group surface is mathematically well-defined:
+
+- `A_L = L^#/L` is a finite abelian group with descended bilinear form `b_L: A_L × A_L → Q/Z` and (when L is even) quadratic form `q_L: A_L → Q/2Z`
+- The spec correctly identifies the codomains as quotient-valued (`K/R`, `K/2R`), distinct from integral Gram matrices (lines 170-171)
+- `discriminant_action()` is correctly identified as the canonical bridge `O(L) → O(A_L, q_L)` (line 177)
+- `nikulin_invariants()` is correctly identified as a convenience invariant under 2-elementary hypotheses, not a substitute for the discriminant group (lines 335, 456-465)
+- Orbit methods (`orbit`, `orbits`, `orbit_representatives`) are correctly owned by finite group actions, not by `nikulin_invariants()` (lines 176, 348)
+- The type package (`DiscriminantGroup`, `DiscriminantGroupElement`, etc.) correctly uses the module Hom/End/Aut machinery (lines 558-565)
+
+**Advisory G3-e (cokernel gap):** The spec acknowledges (line 127) that the `cokernel` object with descended form data is a required project-owned gap — Sage provides `kernel`, `image`, and `lift` on FGP_Morphism but not a formed `cokernel` with the descended bilinear/quadratic form. This is a genuine spec obligation that should become a tracked implementation task. The gap is correctly documented and does not affect spec correctness.
+
+#### 3d. Picard Lattice vs Picard Group
+
+The task requested checking this distinction. The spec `SPEC-MAPPING-LATTICES.md` does not address Picard lattices or Picard groups. This is correct scope discipline: Picard groups (divisor class groups) and Picard lattices (Néron-Severi lattices with intersection form) are geometry concepts owned by geometry categories, not by the algebraic lattice mapping surface. The distinction is properly treated in the geometry spec `SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE.md` (line 72: "Picard group is not the Picard lattice"). No mathematical conflation exists in this mapping spec.
+
+**G3 verdict: PASS.** Five advisory notes recorded (G3-a through G3-e). All are documentation/clarification items, not mathematical errors. No tier assignment is wrong. No boundary is misplaced. The discriminant group surface is mathematically correct.
+
+---
+
+### G4 — Nonmathematical Rejection: PASS
+
+The spec correctly rejects or marks as interop-only:
+
+| Surface | Classification | Check |
+|---------|---------------|-------|
+| `ambient_module`, `ambient_vector_space`, `basis_matrix`, `inner_product_matrix`, `degree`, `_repr_` (line 153) | private/runtime/display/interop | Correctly rejected as public lattice semantics. These are Sage ambient-space implementation details. |
+| `hom(images)` as main constructor (line 126) | rejected; Hom-parent constructors admitted instead | Correct. `hom(images)` is an ad hoc Sage convenience; the spec routes through `M.Hom(N)` and structured constructors. |
+| `discard_basis` option (line 116) | rejected as public option | Correct. Basis changes must be explicit. |
+| Sage's variadic `short_vectors(n, **kwargs)` (line 341) | rejected; `short_vectors_up_to_sign(n)` admitted | Correct. The single keyword `up_to_sign_flag` is split into a named method. |
+| Raw Sage `Parent`/`Element` surface leaks | absent from public spec | Verified: the spec consistently uses project type names (Lattice, DiscriminantGroup, etc.). |
+| `nikulin_invariants()` as discriminant-form owner (line 335) | rejected; convenience tuple only | Correct. The discriminant group + form is the canonical object. |
+| `genus()` result owning the method (line 173) | rejected; "do not let the result object own the method" | Correct. The genus is evidence; lattice theorem methods own the verdict. |
+
+**G4 verdict: PASS.** All nonmathematical Sage surfaces correctly rejected or marked interop-only. No "option bag" constructors or raw Sage types leak into the public API.
+
+---
+
+### G5 — Ambiguity Routing: PASS
+
+The spec routes mathematical ambiguities through tracked decision cards:
+
+| Ambiguity | Routed to | Status |
+|-----------|----------|--------|
+| Signature/definiteness owner (lines 156, 302-304, 377-382) | `[[DECISION-ORDERED-REAL-SIGNATURE-OWNER]]` | `decided` — "Add ordered-real-realization refinement" |
+| Diagnostic flag for dual-vs-metric-dual (lines 399-409, 628-639) | `[[SPEC-MAPPING-CAT]]` | exists at `plans/features/.../SPEC-MAPPING-CAT.md` |
+| Source-visibility gaps from inventory (line 63) | `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]` | tracked |
+| Missing `cokernel` with descended form (line 127) | documented gap; not yet a tracked task | Should become a tracked card; see G6 recommendation |
+
+**G5 finding:** The cokernel gap (line 127) is documented but not routed to a specific tracked card. This is a minor routing completeness issue — the gap is acknowledged and its mathematical shape is specified, but no tracker ID is given. Recommend creating a task card for "formed cokernel with descended bilinear/quadratic form" or explicitly deferring it.
+
+**G5 verdict: PASS.** One routing recommendation.
+
+---
+
+### G6 — Obligation Preservation: PASS
+
+The spec preserves all Sage obligations and adds project-owned ones:
+
+| Obligation | Status |
+|-----------|--------|
+| Every Sage lattice/formed-module surface inventoried in SAGE_INVENTORY.md | Preserved — each has a reconciliation row, owner classification, and mapping consequence |
+| `element divisibility` (line 159) — Sage does not supply this | Added as required project surface with definition at Note 9 |
+| `cokernel` with descended form (line 127) | Documented as required gap |
+| `inclusion_morphism()` (line 317) — Sage does not supply this | Added at correct tier |
+| `discriminant_form()` (line 316) | Added as named accessor |
+| `rational_span()` (line 343) | Added at `Free + OverIntegralDomain` |
+| `is_isometric_to()` (line 336) | Added as lattice isometry test |
+| `discriminant_class(x)` (line 358) | Correctly owned by metric-dual element |
+| `special_orthogonal_group()` / `stable_orthogonal_group()` (lines 330-331) | Correctly routed through Aut-category parent methods |
+| Dual convention preservation (lines 578-648) | `dual()` is overridden (not removed); `lattice_dual()` and `hom_dual()` added as unambiguous names |
+
+**G6 finding:** The `cokernel` gap (line 127) is a genuine spec obligation that exceeds current Sage coverage. It should become a tracked implementation task. The obligation itself is correctly specified and preserved.
+
+**G6 verdict: PASS.** No obligations deleted, weakened, or relocated without grounded replacement.
+
+---
+
+### Summary
+
+| Gate | Result | Blocking? |
+|------|--------|-----------|
+| G1 Source Grounding | **PASS** | No |
+| G2 Sage Surface Completeness | **PASS** | No |
+| G3 Mathematical Correctness | **PASS** with 5 advisories | No |
+| G4 Nonmathematical Rejection | **PASS** | No |
+| G5 Ambiguity Routing | **PASS** | No |
+| G6 Obligation Preservation | **PASS** | No |
+
+**Overall verdict: PASS.** The spec is mathematically sound, the tier table is correct, the forms/lattice boundary is clean and rigorously justified, and the discriminant group surface is complete. Five advisory notes (G3-a through G3-e) identify documentation improvements and one implementation-planning gap. None are blocking for spec advancement.
+
+**Advisory notes requiring no action before advancement:**
+1. G3-a: Reflection tier — note that `b(v,v)` unit-check is a runtime precondition
+2. G3-b: `form_degree` convention — clarify or correct to standard (0,2)/(0,1)
+3. G3-c: Discriminant sign — note Sage-convention provenance
+4. G3-d: `dual_lattice` tier — `OverIntegralDomain` vs actual category graph alignment
+5. G3-e: Cokernel gap — should become a tracked implementation task
+
+**Recommended follow-up:** Create a task card for the formed cokernel with descended bilinear/quadratic form (G5/G6 finding) if not already tracked.
+
+---
 
 ## Compatibility Paths
 

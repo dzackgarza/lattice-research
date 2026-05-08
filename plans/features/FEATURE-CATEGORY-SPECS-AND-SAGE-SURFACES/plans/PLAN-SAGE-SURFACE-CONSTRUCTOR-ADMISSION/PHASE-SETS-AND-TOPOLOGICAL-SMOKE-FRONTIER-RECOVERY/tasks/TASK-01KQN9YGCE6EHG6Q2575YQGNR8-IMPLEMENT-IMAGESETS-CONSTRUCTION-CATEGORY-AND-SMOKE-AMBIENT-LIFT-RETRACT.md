@@ -140,3 +140,22 @@ and human acceptance.
   codomain rather than Sage's callable fallback.
 - Added smoke assertions for `ambient()`, `lift()`, and `retract()` on that codomain
   witness while preserving the existing membership/cardinality assertions.
+
+## Review Log
+
+### Independent Review - 2026-05-07 (fresh-context subagent)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+
+**Gates failed:** none
+
+**Outcome:** complete. All six gates pass.
+
+- Gate 1: SPEC-MAPPING-SETS.md lines 304-325 document ImageSubobject admission. Implementation follows spec exactly.
+- Gate 2: All 5 ACs satisfied. Project vocabulary used (ImageSubobject, ImageSets).
+- Gate 3: Zero changes to spec files. No abstract methods removed. Prior gap repaired by adding assertions.
+- Gate 4: Set(X) exclusion preserved. Smoke passes.
+- Gate 5: ImageSubobject = {f(x) | x in domain_subset} correct. Fixed Sage __eq__ identity bug.
+- Gate 6: @override/@final used. Type annotations.
+
+Verification: just smoke-file sets/smoketest.sage passes.

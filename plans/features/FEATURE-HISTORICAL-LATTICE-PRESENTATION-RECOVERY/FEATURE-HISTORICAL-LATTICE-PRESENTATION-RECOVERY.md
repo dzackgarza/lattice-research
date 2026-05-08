@@ -7,7 +7,7 @@ dependsOn:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 plans: []
 title: Historical lattice presentation method recovery
-status: in-progress
+status: complete
 priority: high
 description: Recover the useful presented-lattice constructors, invariants, and comparison methods visible in historical src.bak after the ModulesWithForms and lattice vocabulary is stable.
 ---

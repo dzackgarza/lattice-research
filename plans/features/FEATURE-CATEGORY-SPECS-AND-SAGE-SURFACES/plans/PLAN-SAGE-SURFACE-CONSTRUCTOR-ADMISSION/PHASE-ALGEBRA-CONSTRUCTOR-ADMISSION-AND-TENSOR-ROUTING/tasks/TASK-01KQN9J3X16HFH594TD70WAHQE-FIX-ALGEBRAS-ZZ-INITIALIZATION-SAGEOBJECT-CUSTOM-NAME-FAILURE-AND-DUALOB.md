@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Algebras(ZZ) initialization _SageObject__custom_name failure and DualObjects
   forms-axiom blocker
-status: needs-review
+status: complete
 priority: high
 description: The deleted Algebras triage recorded an initialization blocker for Algebras(ZZ),
   a module hom-category/forms blocker for DualObjects, and constructor admission gaps.

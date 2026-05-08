@@ -218,10 +218,19 @@ Inspect with a patch view. Flag:
 - Weakened acceptance criteria in any touched card body
 - Moved obligations to a card/phase/plan without a source-grounded replacement owner
 - Sage-gap-driven interface shrinkage (the smoke got quieter but the spec got smaller)
+- **Orthogonal changes**: modifications to code, comments, or configuration outside the
+  stated task scope. An agent asked to fix one method's owner may silently "clean up"
+  unrelated imports, reformat adjacent functions, or remove comments it considers stale.
+  These are spec-weakening because they change surfaces the reviewer is not expecting
+  to audit. Flag any change to a file that was not in the task's declared scope.
+  The Karpathy observation: "They still sometimes change/remove comments and code they
+  don't like or don't sufficiently understand as side effects, even if it is orthogonal
+  to the task at hand."
 
 **Failure modes:**
 - **Any of the above** → `revision-required`. Document the exact deletion/weakening and the missing replacement owner. The rework must either restore the obligation verbatim or provide a grounded replacement card.
 - **Smoke improvement paired with interface shrinkage** → `revision-required`. This is a spec-regression task failure regardless of command output.
+- **Orthogonal changes** → `revision-required`. Any diff outside the task's declared scope must be reverted unless the change is justified in a separate task or the card body documents why it was necessary for the scoped work. The test: every changed line should trace directly to the task's stated objective. If a line was changed because the agent "thought it looked better" or "was cleaning up," it's orthogonal.
 
 ### Gate 4: Gradient (Backsliding Detection)
 
@@ -362,6 +371,11 @@ completes:
    d. The outcome is supported by the findings (a list of passed gates with no
       failures should not produce revision-required; a gate failure should not
       produce complete/done).
+   e. Status-only diff check: if the only change to the card file is the `status`
+      line (e.g., `needs-review` → `complete`), the review is fraudulent. A real
+      review writes its findings into the card body under ## Review Log. Cards are
+      evidence containers, not checklists. If the card body grew no review content,
+      no review happened. Reject and demand specific evidence.
 3. If the review is substantive → apply the status change (or prepare it for human
    approval if the final gate requires it).
 4. If the review is a box-checking exercise → reject it. Document the specific
@@ -424,10 +438,12 @@ Do not set `status: blocked` for planned upstream dependencies already expressed
 ## What this kernel does not govern
 
 - **Plan approval** -- Plans are human-gated before decomposition; the review kernel applies to their child cards after execution.
+- **Feature, spec, and plan gating** -- These cards are approved through the upstream gate protocol in `upstream-gates.md`, not the task review kernel. Features, specs, and plans are synchronous human+agent artifacts; they gate into each other (feature → spec → plan) before autonomous task execution begins.
 - **Feature approval** -- Features are always human-gated.
 - **GOAL.md discharge** -- Requires the full composed-goal audit described in the execution kernel; the review kernel handles card-level review, not program-level discharge.
 - **QC transition gate** -- QC is phase-transition evidence, not a per-card review step. QC failures during review should be recorded but do not by themselves block a spec card during spec-phase work.
 - **Adversarial audit** -- The review kernel's reviewer is independent but focused on gate compliance. Full adversarial attack (trying to break the strongest claim by any means) is a separate state-machine stage following card-level review, governed by `research-proof-auditing`.
+- **Completed-card meta-review** -- After cards pass gate review and reach `complete`/`done`, a post-hoc scan checks whether the gate review was substantive or performative (Jerry-behaviour). Governed by `research-planning-cleanup`. This is a separate, periodic pass, not part of the per-card gate protocol.
 
 ## Load with
 
@@ -435,3 +451,4 @@ Do not set `status: blocked` for planned upstream dependencies already expressed
 - Load `category-spec-style` for style and compliance checks within Gate 6.
 - Load `category-spec-audit` for mathematical ownership, spec surface, and downstream-poisoning checks across Gates 3-5.
 - Load `research-orchestration` for delegation of review to independent agent sessions.
+- Load `jerry-behaviour` before performing any review. The anti-boxchecking rules are necessary but not sufficient — an agent who has internalized Jerry patterns will recognize when its own output is becoming paraphrase-as-review or checklist theater.

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS]]'
 dependsOn: []
 title: Implement validation for morphism construction and containment
-status: unstarted
+status: complete
 priority: high
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Ore algebra interface integration
-status: needs-review
+status: complete
 priority: low
 description: Research whether `ore_algebra` should be integrated and how its differential/operator
   surfaces relate to planned category-spec work.

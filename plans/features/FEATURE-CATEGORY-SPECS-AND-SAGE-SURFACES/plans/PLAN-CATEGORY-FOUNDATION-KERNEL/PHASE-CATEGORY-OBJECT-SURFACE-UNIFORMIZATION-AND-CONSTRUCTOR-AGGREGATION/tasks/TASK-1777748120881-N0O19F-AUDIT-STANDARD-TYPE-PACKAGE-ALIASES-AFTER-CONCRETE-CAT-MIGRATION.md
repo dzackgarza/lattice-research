@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Audit standard type-package aliases after concrete Cat migration
-status: needs-review
+status: complete
 priority: critical
 description: Audit standard type-package aliases after concrete Cat migration
 successCriteria:

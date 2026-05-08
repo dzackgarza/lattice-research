@@ -40,10 +40,8 @@ SET_AXIOMS = (
     "TotallyOrdered",
     "Graded",
     "Partitioned",
-    "FiniteTotallyOrderedBase",
     "Metric",
 )
-
 
 # ---------------------------------------------------------------------------
 # Rings Axioms

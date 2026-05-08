@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
 title: Implement missing _sympy_ surface for refined ring constructor outputs
-status: needs-review
+status: complete
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the

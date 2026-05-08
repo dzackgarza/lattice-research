@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-HOM-END-AUT-WORK-QUEUE]]'
 dependsOn: []
 title: Remove raw ConditionSet from public Aut-category surface
-status: needs-review
+status: complete
 priority: critical
 description: Remove raw ConditionSet from public Aut-category surface
 successCriteria:

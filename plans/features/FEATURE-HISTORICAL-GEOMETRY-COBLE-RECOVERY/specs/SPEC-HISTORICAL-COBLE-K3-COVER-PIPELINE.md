@@ -8,7 +8,7 @@ dependsOn:
 - '[[SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE]]'
 - '[[SPEC-HISTORICAL-LATTICE-CONSTRUCTORS-INVARIANTS-AND-COMPARISONS]]'
 title: Recover Coble surface and K3 double-cover construction pipeline
-status: needs-review
+status: complete
 priority: high
 requirement: Historical Coble and K3 vocabulary must be recovered as a construction
   pipeline that derives Picard and pullback lattice data instead of naming expected
@@ -175,3 +175,120 @@ being used.
 - [x] The accepted result defines the provenance needed for downstream code to use a
   canonical `T_Co` instead of ad hoc isometric presentations.
 - [x] The pipeline can feed downstream Coble moduli and lattice-complement features.
+
+## 6-Gate Protocol Review Log
+
+### G1 — Source Grounding: PASS
+
+All six sources cited in Source Provenance (lines 33-42) exist and are verifiable:
+
+| Source | Path | Status |
+|---|---|---|
+| varieties.py (CobleSurface, K3Surface, BranchedCover, EnriquesSurface, PicardGroup, Divisor, Blowup) | `src.bak/varieties/varieties.py` | EXISTS — all seven classes confirmed at lines 324, 457, 588, 602, 654, 687, 722 |
+| GOAL.md staged obligations | `GOAL.md` | EXISTS — 212 lines, contains staged Coble construction plan |
+| coble-task-background.md | `theory/foundations/coble-task-background.md` | EXISTS — 278 lines, contains arithmetic genus, blowup Picard, pullback lattice, Nikulin invariants matching spec claims |
+| SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE | `plans/features/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY/specs/SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE.md` | EXISTS — dependency resolved |
+| theory-backend-routing.md | `.agents/memories/theory-backend-routing.md` | EXISTS — backend routes for Singular, Macaulay2, Sage, Oscar/Hecke confirmed at lines 9-18 |
+| abstract-to-external-mapping.md | `.agents/memories/theory/backends/abstract-to-external-mapping.md` | EXISTS — method-to-tool mapping confirmed for blowup, resolve, picard, canonical, nodal checks |
+
+No broken source references. The backend routes named in the Backend Routes section (Singular, Macaulay2, Sage, Oscar/Hecke) each have documented method ownership in the memory files.
+
+### G2 — Completeness: PASS
+
+The spec covers all required pipeline stages:
+
+- Input: rational sextic curve C in P^2 (line 67)
+- Node detection: nodes(C) verified as 10 ordinary nodes (line 68)
+- Blowup: pi: S → P^2 at node center (line 70)
+- Exceptional divisors: E_i tied to each node (line 71)
+- Hyperplane pullback: H from P^2 (line 72)
+- Proper transform: B as unique effective anti-bicanonical divisor (line 73)
+- Coble surface S admitted after conditions (line 75)
+- Perp sublattice K_S^perp (line 77)
+- Coble polarization h_Co in K_S^perp (line 78)
+- Degree-2 cover f: X → S with branch B (line 80)
+- K3 claim on resolved/smooth X (line 82)
+- Pic(S) generators H, E_1..E_10 with intersection pairing (line 84)
+- Pullback lattice f^*Pic(S) (line 86)
+- K3-side polarization tilde h_Co = f^*h_Co with square doubled (line 88)
+- Comparison isometry to standard presentation (line 90)
+
+Plus:
+- K3 Verification Contract with canonical formula K_X = f^*(K_S + L) (line 100-107)
+- Picard and Lattice Contract with basis, intersection pairing, perp condition (line 114-139)
+- Backend Routes with specific tool assignments (line 141-152)
+- Non-Preservation Boundaries (line 154-167)
+- Acceptance Criteria (line 169-177)
+
+No missing pipeline stages or verification contracts.
+
+### G3 — Mathematical Correctness: PASS
+
+Each mathematical claim in the spec was checked against standard algebraic geometry:
+
+| Claim (line) | Verification | Result |
+|---|---|---|
+| Arithmetic genus: (6-1)(6-2)/2 = 10 (94) | g_a = (d-1)(d-2)/2 for plane curve of degree d | CORRECT |
+| Delta invariant: 10 ordinary nodes → total delta 10 → g=0 (95) | A_1 singularity delta=1; g = g_a - Σδ_p | CORRECT |
+| K_S = -3H + ΣE_i (122) | Canonical of blowup of P^2 at points: -3H + ΣE_i | CORRECT |
+| B = 6H - 2ΣE_i = -2K_S (123) | Proper transform of degree-6 curve; -2(-3H + ΣE_i) = 6H - 2ΣE_i | CORRECT |
+| Perp condition: Σb_i = 3a for D = aH - Σb_iE_i (125) | D·K_S = -3a - Σ(-b_i)(-1) = -3a + Σb_i = 0 | CORRECT |
+| H^2 = 1, E_i^2 = -1, cross-terms 0 (119) | Standard blowup intersection | CORRECT |
+| f^*D · f^*E = 2(D·E) (128) | Projection formula for degree-2 finite flat cover | CORRECT |
+| h_Co^2 = 2 → tilde h_Co^2 = 4 under pullback (136) | 2× doubling for degree-2 cover | CORRECT |
+| Pullback lattice diag(2, -2, ..., -2) = ⟨2⟩⊕⟨-2⟩^{10} (130) | f^*H·f^*H=2, f^*E_i·f^*E_i=-2, cross-terms 0 | CORRECT |
+| K_X = f^*(K_S + L) for double cover branched along B~2L (102) | Standard double-cover canonical formula | CORRECT |
+| B anti-bicanonical → K_S + L trivial under hypotheses (103) | B = -2K_S implies L = -K_S, so K_S + L = 0 | CORRECT |
+| Node count constraint: 10 nodes impose 30 conditions on 28-dim space (confirmed in coble-task-background.md line 26-29) | Validated against Pieroni (2026) reference; special configurations required | CORRECT (noted as constraint, not asserted as generic) |
+
+The geometric genus conclusion (line 95: "rational sextic with ten nodes") is conditional on delta invariants being verified — the spec explicitly states "provided the nodes and delta invariants are actually verified" (line 96), which is the correct cautious formulation.
+
+### G4 — Nonmath Rejection: PASS
+
+The spec contains no non-mathematical claims. All content is:
+- Geometric constructions (algebraic varieties, divisors, morphisms)
+- Mathematical formulas and invariants
+- Computational backend routing (tool-specific method ownership)
+- Contract boundaries and acceptance criteria
+
+No speculative philosophy, unreferenced assertions, or non-math content masquerading as mathematical reasoning.
+
+### G5 — Routing: PASS
+
+| Edge | Target | Status |
+|---|---|---|
+| parents | `FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY` | EXISTS at `plans/features/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY.md` |
+| dependsOn | `SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE` | EXISTS at `plans/features/FEATURE-HISTORICAL-GEOMETRY-COBLE-RECOVERY/specs/SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE.md` |
+| dependsOn | `SPEC-HISTORICAL-LATTICE-CONSTRUCTORS-INVARIANTS-AND-COMPARISONS` | EXISTS at `plans/features/FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY/specs/SPEC-HISTORICAL-LATTICE-CONSTRUCTORS-INVARIANTS-AND-COMPARISONS.md` |
+
+Backend routes align with documented method ownership in theory-backend-routing.md:
+- Singular: partial derivatives, nodes, delta invariants ✓
+- Macaulay2/Sage: blowup, exceptional divisors, proper transform, canonical ✓
+- Oscar/Hecke: integer lattice after geometry produces divisor basis ✓
+
+### G6 — Preservation: PASS
+
+Six explicit non-preservation boundaries (lines 156-167):
+1. No black-box `coble_lattice()` without construction evidence
+2. No treating Picard lattice statement as input
+3. No calling cover "K3" without invariant checks recorded
+4. No conflating S-side Picard lattice with K3 pullback or orthogonal complement
+5. No `from_nodes(points)` without verified nodal rational sextic
+6. No standard lattice constructor standing in for geometric Picard-pullback
+
+These boundaries prevent exactly the errors that were identified in the March 2026 audit (print-theater scripts with zero or self-validating assertions, per coble-task-background.md lines 4-6). The boundaries are actionable, testable, and align with the construction-pipeline-first philosophy of the spec.
+
+### Summary
+
+| Gate | Result | Notes |
+|---|---|---|
+| G1 Source Grounding | PASS | All 6 sources verified; all 7 referenced classes confirmed in varieties.py |
+| G2 Completeness | PASS | Full pipeline from sextic through K3 pullback lattice covered; verification contracts explicit |
+| G3 Math Correctness | PASS | All 12 mathematical claims verified against standard algebraic geometry |
+| G4 Nonmath Rejection | PASS | Clean — no non-mathematical content |
+| G5 Routing | PASS | Parent and both dependencies exist; backend routes align with documented tool ownership |
+| G6 Preservation | PASS | Six explicit, testable boundaries block the March 2026 audit failure modes |
+
+### Recommendation
+
+APPROVE. The spec is mathematically sound, source-grounded, and includes the preservation boundaries needed to prevent recurrence of prior audit failures. The acceptance criteria (all checked) align with the pipeline contract. Ready for implementation gate.

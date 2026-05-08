@@ -11,11 +11,13 @@ This skill is the canonical execution-state authority for the research repo.
 
 ## Canonical source
 
-The source of truth is this skill plus `references/execution-kernel.md` and `references/review-kernel.md`.
+The source of truth is this skill plus `references/execution-kernel.md`, `references/review-kernel.md`, and `references/upstream-gates.md`.
 
 Read `references/execution-kernel.md` before moving work from planning into execution, delegating implementation, judging whether a card is atomic, routing replay/attack, accepting/rejecting/splitting work, or claiming parent-plan or `GOAL.md` discharge.
 
 Read `references/review-kernel.md` before reviewing any card in `needs-review` or `needs-human-input` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
+
+Read `references/upstream-gates.md` before approving a feature, spec, or plan. These gates ensure each card is complete enough to unambiguously drive the next stage: feature → spec → plan → autonomous task execution.
 
 
 ## Core model
@@ -65,3 +67,4 @@ spec work.
 - Load `research-proof-auditing` for proof, evidence, formal verification, and fraud checks within the review kernel's Gate 5.
 - Load `research-orchestration` for subagent contracts, worktrees, self-check, adversarial audit, and durable artifact handoff.
 - Load `research-math-boundary` when preflight reveals missing foundational mathematical nouns, methods, conventions, or backend bridges.
+- Load `research-planning-cleanup` for post-hoc meta-review of completed cards — scanning for shallow work, confabulation, and Jerry-behaviour that survived gate review.

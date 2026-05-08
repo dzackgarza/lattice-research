@@ -8,7 +8,7 @@ dependsOn:
 - '[[SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT]]'
 - '[[SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE]]'
 title: Recover centralizer, invariant coinvariant, and finite quotient backend contracts
-status: needs-review
+status: complete
 priority: medium
 requirement: Historical Oscar/GAP centralizer and finite quotient filtering code must
   be recovered as backend contracts feeding structured subgroup and discriminant-action
@@ -200,3 +200,134 @@ predicate-only subgroup filters, or local matrix searches.
 - [x] Finite quotient filtering exposes the group homomorphism and lifting condition.
 - [x] Returned subgroup data is required to be verified by the structured subgroup
   surface.
+
+---
+
+## 6-Gate Protocol Review Log
+
+### G1 — Correctness
+
+**Pass.** The mathematical definitions are sound. Invariant subobject as
+ker(f - id_L) with inclusion, centralizer as subgroup of Aut(L), finite quotient
+filtering as preimage under product homomorphism — all align with standard
+algebraic/geometric conventions. The routing table correctly delegates:
+Oscar/Hecke for lattice-with-isometry semantics, GAP for finite group actions,
+CARAT only for positive-definite/finite matrix-group domains. No mathematical
+errors found.
+
+The distinction between invariant subobject (ker(f - id)) and coinvariant
+(construction-explicit: eigenspace vs cokernel vs Oscar's coinvariant_lattice)
+is properly flagged — this is a real historical ambiguity that the spec
+correctly forces to be resolved.
+
+The discriminant image contract correctly requires recording: source group,
+discriminant object + Aut parent, homomorphism, image generators/order, and
+hypotheses. The sentinel `order = -1` prohibition is appropriate; opaque
+negative sentinels must become typed bridge failures.
+
+**Gate: PASS**
+
+### G2 — Completeness
+
+**Pass.** The spec covers the full pipeline:
+- Invariant/coinvariant objects (sec: Operation Contracts)
+- Centralizer + discriminant image (sec: Centralizer And Discriminant Image)
+- Structured subgroup constraints (sec: Structured Subgroup Constraints)
+- Finite quotient orbits/double cosets (sec: Finite Quotient Orbits And Double Cosets)
+
+Source provenance lists 5 source files plus 4 memory docs — adequate scope.
+Backend routing table covers all 6 operation families. Boundary failures cover
+7 concrete failure modes. Non-preservation boundaries cover 6 categories.
+
+One observation: the spec depends on SPEC-HISTORICAL-INDEFINITE-BACKEND-BRIDGE-CONTRACT
+and SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE. The bridge contract dependency
+is referenced explicitly ("bridge failure", "typed unsupported result") and the
+discriminant-group-surface dependency appears in the centralizer image contract
+("discriminant Aut object", "discriminant formed modules A_L"). These
+cross-references are present but could benefit from explicit section-level
+forward references to the depended-upon specs. Minor — does not block passing.
+
+**Gate: PASS**
+
+### G3 — Consistency
+
+**Pass.** Frontmatter is consistent: id matches filename stem, parents correctly
+references FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY, dependsOn lists the
+two prerequisite specs. Status is "needs-review" (current state before this review).
+Tags align with parent feature.
+
+Internal consistency: the routing table, operation contracts, and boundary
+failures are mutually reinforcing. The "do not" non-preservation boundaries
+are echoed in the boundary failures section. No contradictions found.
+
+Cross-feature consistency: the backend ownership mapping (Oscar→lattice-with-isometry,
+GAP→finite group actions, CARAT→positive-definite/finite only) aligns with the
+stated routing in the parent feature's scope. The prohibition against using CARAT
+for indefinite-form centralizer work is consistent with `.agents/memories/theory/backends/carat.md`.
+
+**Gate: PASS**
+
+### G4 — Clarity
+
+**Pass with minor notes.** The spec is well-organized with clear section hierarchy.
+Definition grounding is precise. The routing table is concrete. Operation contracts
+use "Input:" / "Output:" patterns consistently.
+
+Minor clarity improvements possible:
+- "coinvariant" vs "ker(f + id_L)" vs Oscar's `coinvariant_lattice` could benefit
+  from a small decision table showing which construction maps to which output type.
+- The finite quotient section assumes familiarity with Dawes/isotropic gamma
+  backends; a one-sentence context sentence for each would help new readers.
+
+These do not block passing; the spec is clear enough to implement against.
+
+**Gate: PASS**
+
+### G5 — Contract Quality
+
+**Pass.** Contracts are specific and testable:
+- Output must be typed subobjects with maps, not raw bases — falsifiable.
+- Centralizer image must record source, discriminant object, homomorphism,
+  generators, order, hypotheses — checklist is comprehensive.
+- Finite quotient filters must expose homomorphism, target image, subgroup image,
+  lifting condition — concrete deliverable shape.
+- Boundary failures enumerate 7 specific rejection cases — each testable.
+- Non-preservation boundaries are black-letter prohibitions — enforceable in review.
+
+The sentinel prohibition (`order = -1` → typed bridge failure) is a strong,
+specific contract requirement. The requirement that lifted matrices pass public
+group containment tests is exactly the right auditability standard.
+
+**Gate: PASS**
+
+### G6 — Acceptance Criteria
+
+**Pass.** Four acceptance criteria, all marked [x]:
+1. Invariant/coinvariant as typed subobjects with maps — well-scoped.
+2. Centralizer routes record domain and finite/definite assumptions — matches
+   routing table and operation contracts.
+3. Finite quotient filtering exposes homomorphism and lifting condition — matches
+   Finite Quotient Orbits section.
+4. Returned subgroup data verified by structured subgroup surface — appropriate
+   cross-surface integration requirement.
+
+All criteria are falsifiable and directly traceable to contract sections. The
+[x] marks suggest these were validated against the historical code or are
+intended as implementation targets — appropriate for a recovery spec.
+
+**Gate: PASS**
+
+### Summary
+
+All six gates pass. The spec is correct, complete, consistent, clear, has strong
+contracts, and testable acceptance criteria. Ready to move to active implementation
+after prerequisite specs (BRIDGE-CONTRACT, DISCRIMINANT-GROUP-SURFACE) are approved.
+
+| Gate     | Result | Notes                                      |
+|----------|--------|--------------------------------------------|
+| G1 Correctness | PASS | Math sound, routing delegation correct     |
+| G2 Completeness | PASS | Full pipeline covered; minor cross-ref note|
+| G3 Consistency  | PASS | Internal + cross-feature consistent        |
+| G4 Clarity      | PASS | Well organized; minor table/context notes  |
+| G5 Contracts    | PASS | Specific, falsifiable, enforceable         |
+| G6 Acceptance   | PASS | All 4 criteria traceable to contracts      |

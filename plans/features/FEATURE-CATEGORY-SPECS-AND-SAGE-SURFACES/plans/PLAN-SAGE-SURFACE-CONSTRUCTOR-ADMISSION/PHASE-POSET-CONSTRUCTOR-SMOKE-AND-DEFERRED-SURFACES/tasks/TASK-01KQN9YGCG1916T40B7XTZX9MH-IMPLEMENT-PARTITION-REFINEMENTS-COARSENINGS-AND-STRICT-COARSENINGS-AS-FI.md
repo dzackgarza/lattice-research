@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement partition refinements coarsenings and strict coarsenings as finite-set
   constructor outputs
-status: needs-review
+status: complete
 priority: high
 description: Sets mapping is the source of truth for set constructors, rich comparison,
   partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut

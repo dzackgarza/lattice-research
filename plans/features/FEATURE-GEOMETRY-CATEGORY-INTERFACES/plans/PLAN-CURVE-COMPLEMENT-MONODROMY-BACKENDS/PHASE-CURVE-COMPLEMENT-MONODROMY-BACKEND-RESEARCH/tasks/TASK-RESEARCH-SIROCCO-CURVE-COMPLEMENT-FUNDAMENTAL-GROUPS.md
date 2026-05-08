@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Sirocco integration for curve-complement fundamental groups
-status: needs-review
+status: complete
 priority: low
 description: Research whether and how `sirocco2` should be integrated for computing
   or representing fundamental groups of curve complements.

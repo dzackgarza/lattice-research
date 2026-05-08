@@ -54,7 +54,9 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
             from sage.combinat.posets.lattices import (
                 MeetSemilattice as SageMeetSemilattice,
             )
+
             from ....utils import refine_category
+            from .. import Posets
 
             generators = set(elements)
             closure: set[PosetElement] = set()

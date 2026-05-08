@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Research local Sage poset import failure and complete import-level category
   introspection for semilattice evidence
-status: needs-review
+status: complete
 priority: high
 description: The deleted Posets triage recorded settled order-theoretic mapping items,
   a concrete design decision about equivalence relations/set partitions, and evidence
@@ -128,8 +128,10 @@ semilattice category introspection.
   in commit `c74860e`.
 
 - 2026-05-07: Refreshed the local Sage evidence. The historical `sage -python`
-  category-initialization import failure no longer reproduces in this environment,
-  so it should not be treated as current blocker evidence.
+  category-initialization import failure still reproduces (confirms the 2026-05-05
+  finding); `importlib.util.find_spec(...)` bypasses module loading and therefore
+  does not trigger the error, so the earlier 2026-05-07 claim that the failure
+  had stopped reproducing was incorrect.
 
   - Searched: local Sage category directory
     `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/categories`;

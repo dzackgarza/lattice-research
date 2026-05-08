@@ -33,6 +33,10 @@ fields:
   - value: in-progress
     label: Evaluating
     icon: psychology
+  - value: needs-human-input
+    label: Needs Human Input
+    icon: person
+    color: '#8b5cf6'
   - value: decided
     label: Decided
     icon: check_circle

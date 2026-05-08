@@ -46,3 +46,4 @@ retiring, or interpreting root `plans/` tracker files.
 - Load `category-spec-workflow` for category-spec-specific planning, triage, priority, visuals, or retirement.
 - Load `research-state-machine` when planned work moves into execution, preflight, replay/attack, promotion, rejection, splitting, or `GOAL.md` discharge. Load `research-orchestration` for delegation, worktrees, self-check, adversarial audit, and artifact handoff.
 - Load `research-scheduling` when a plan or card needs a delayed wakeup, recurring maintenance, autonomous cadence, or migration from fixed schedule thinking.
+- Load `research-planning-cleanup` when scanning completed cards for shallow work, cleaning up planning debt, or auditing review quality across cards.
