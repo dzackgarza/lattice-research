@@ -1142,15 +1142,21 @@ these technical requirements:
 
 1.  **Direct Extension**: Every implementation must extend a class that exists as a
     spec file in the `subcategories/` hierarchy.
-2.  **Completeness**: Implement ALL `@abstract_method` declarations from the spec
+2.  **Completeness**: Implement ALL `@abstractmethod` declarations from the spec
     and any parent specs.
-3.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
+3.  **No Sage abstract_method**: `@abstractmethod` from `abc` is the only acceptable
+    abstract method decorator. `from sage.misc.abstract_method import abstract_method`
+    is banned — it was cargo-culted from Sage's category code and provides no
+    functionality that `abc.abstractmethod` doesn't. `category_specs/utils.py` is the
+    sole file that imports `AbstractMethod` (the class, for isinstance checks in the
+    validation machinery) — do not touch that import.
+4.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
     `dataclasses`, raw classes, or other modeling libraries are banned.
-4.  **Classmethod Constructors**: Use `classmethod` constructors for all object
+5.  **Classmethod Constructors**: Use `classmethod` constructors for all object
     creation (e.g., `MyImpl.from_data(...)`).
-5.  **Post-init Validation**: Use a **single post-init validator**
+6.  **Post-init Validation**: Use a **single post-init validator**
     (`model_post_init` in Pydantic v2) for all state validation after construction.
-6.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
+7.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
     selected category surfaces. It is not a category, not a functorial construction,
     and not a refinement target. The declaration is the existence of an explicit
     nested `Constructors` class on a category object; do not add a separate public
@@ -1159,7 +1165,7 @@ these technical requirements:
     and readability, rather than on deeply nested subcategories. Do not add assertion
     guards or other runtime enforcement whose only purpose is to prove that a
     constructor collector is top-level.
-7.  **Constructor Collection**: The intended public surface is the canonical collection
+8.  **Constructor Collection**: The intended public surface is the canonical collection
     exposed directly from `Cat().Constructors()`: Cat backend code observes category
     objects, collects methods under each explicit `C.Constructors`, and exposes
     prefixed forwarding methods such as `C_x_y_z`. There is no public
@@ -1167,7 +1173,7 @@ these technical requirements:
     generic constructor names: prefer `C.Constructors().from_xyz(...)`, which Cat
     exposes as `cat_prefix_from_xyz(...)`, rather than
     `C.Constructors().category_from_xyz(...)`.
-8.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
+9.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
     method owners, not constructor namespaces. Do not add or propose constructor paths
     such as `Algebras(k).FiniteDimensional().WithBasis().Constructors()` merely because
     Sage has a constructor family or because an implementation can refine into that

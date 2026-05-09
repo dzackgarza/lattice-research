@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -31,12 +31,12 @@ class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
         return [_JoinSemilatticePosets(), Posets().Finite()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def coatoms(self) -> list[PosetElement]:
             r"""Return the elements covered by the top element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def join_matrix(self) -> Matrix:
             r"""Return the matrix of pairwise joins."""
             ...

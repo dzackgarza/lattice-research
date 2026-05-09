@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.tensor import TensorProductFunctor
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -39,10 +39,10 @@ class _TensorProducts(TensorProductsCategory):
             factors = self.tensor_factors()
             return (TensorProductFunctor(), factors)
 
-        @abstract_method
+        @abstractmethod
         def tensor_factors(self) -> list[RModule]: ...
 
-        @abstract_method
+        @abstractmethod
         def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
             r"""Lift a product element to the tensor product."""
             ...

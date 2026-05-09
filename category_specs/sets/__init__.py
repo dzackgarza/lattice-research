@@ -62,10 +62,10 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
 from types import MethodType
-from typing import TYPE_CHECKING, Any, final, overload, override
+from typing import TYPE_CHECKING, Any, final, overload, override, TypeAlias
 
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity, minus_infinity
@@ -111,7 +111,7 @@ class _SetObjectMethods:
     r"""Methods on objects of the root category ``Sets()``."""
 
     @override
-    @abstract_method
+    @abstractmethod
     def __contains__(self, x: Any) -> bool:
         r"""Return ``True`` if ``x`` is an element of ``self``."""
         ...
@@ -131,7 +131,7 @@ class _SetObjectMethods:
 
         return parent(element) == self
 
-    @abstract_method
+    @abstractmethod
     def an_element(self) -> SetElement:
         r"""Return a distinguished element of this set."""
         ...
@@ -143,17 +143,17 @@ class _SetObjectMethods:
 
         return SageSets.ParentMethods.some_elements(self)
 
-    @abstract_method
+    @abstractmethod
     def cardinality(self) -> Cardinality:
         r"""Return the cardinality of this set."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_empty(self) -> bool:
         r"""Return whether this set has no elements."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite(self) -> bool:
         r"""Return whether this set has finite cardinality."""
         ...
@@ -303,13 +303,13 @@ class _SetObjectMethods:
 class _SetElementMethods:
     r"""Methods on elements of objects in ``Sets()``."""
 
-    @abstract_method
+    @abstractmethod
     def __eq__(self, other: SetElement) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def __hash__(self) -> Integer: ...
 
-    @abstract_method
+    @abstractmethod
     def cartesian_product(self, elements: Sequence[SetElement]) -> SetElement:
         r"""Return the Cartesian product element with these coordinates."""
         ...
@@ -1303,15 +1303,15 @@ class Sets(Category_singleton):
     MorphismMethods = SetHomCategory.ElementMethods
 
 
-SetsCategory = Sets
-SetsObject = Sets.ParentMethods
-SetsElement = Sets.ElementMethods
-SetsMorphism = Sets.MorphismMethods
-SetsHomCategory = SetHomCategory
-SetsEndCategory = SetEndCategory
-SetsAutCategory = SetAutCategory
-SetsHom = SetHomCategory.ParentMethods
-SetsEnd = SetEndCategory.ParentMethods
-SetsAut = SetAutCategory.ParentMethods
-SetsEndomorphism = SetEndCategory.ElementMethods
-SetsAutomorphism = SetAutCategory.ElementMethods
+SetsCategory: TypeAlias = Sets
+SetsObject: TypeAlias = Sets.ParentMethods
+SetsElement: TypeAlias = Sets.ElementMethods
+SetsMorphism: TypeAlias = Sets.MorphismMethods
+SetsHomCategory: TypeAlias = SetHomCategory
+SetsEndCategory: TypeAlias = SetEndCategory
+SetsAutCategory: TypeAlias = SetAutCategory
+SetsHom: TypeAlias = SetHomCategory.ParentMethods
+SetsEnd: TypeAlias = SetEndCategory.ParentMethods
+SetsAut: TypeAlias = SetAutCategory.ParentMethods
+SetsEndomorphism: TypeAlias = SetEndCategory.ElementMethods
+SetsAutomorphism: TypeAlias = SetAutCategory.ElementMethods

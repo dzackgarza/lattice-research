@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.modules.free_module import FreeModule as SageFreeModule
@@ -61,7 +61,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
         def is_free(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def rank(self) -> Cardinality:
             r"""Return the cardinality of a basis."""
             ...
@@ -88,7 +88,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         return [self.base_category().FinitelyGenerated()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def basis(self) -> ModuleBasis: ...
 
         @override
@@ -171,7 +171,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             return False
 
         @override
-        @abstract_method
+        @abstractmethod
         def tensor_module(
             self,
             k: Integer,

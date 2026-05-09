@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -31,13 +31,13 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
         def has_form(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_bilinear(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_quadratic(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def form(self) -> RModuleMorphism: ...
 
         @final

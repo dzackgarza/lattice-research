@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -97,10 +97,10 @@ class _IntegralDomains(CategoryWithAxiom):
             return self._with_axiom("Dedekind")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def fraction_field(self) -> Field: ...
 
-        @abstract_method
+        @abstractmethod
         def localization(
             self,
             additional_units: RingElement | Sequence[RingElement],
@@ -112,9 +112,9 @@ class _IntegralDomains(CategoryWithAxiom):
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def divides(self, other: RingElement) -> bool: ...
 
     class MorphismMethods:
-        @abstract_method
+        @abstractmethod
         def extend_to_fraction_field(self) -> RingMorphism: ...

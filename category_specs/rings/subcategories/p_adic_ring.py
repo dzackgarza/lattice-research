@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
@@ -52,92 +52,92 @@ class _PAdicRings(Category_singleton):
         return isinstance(R, (pAdicFieldGeneric, pAdicRingGeneric))
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def prime(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def precision_cap(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def teichmuller(
             self, x: RingElement | Integer, prec: Integer | None = None
         ) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def teichmuller_system(self) -> list[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def inertia_subring(self) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def residue_ring(self, n: Integer) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def residue_system(self) -> list[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def ground_ring(self) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def ground_ring_of_tower(self) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def ramification_index(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def e(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def inertia_degree(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def f(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def absolute_e(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def absolute_f(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def absolute_ramification_index(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def absolute_inertia_degree(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def relative_degree(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def relative_e(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def relative_f(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def relative_ramification_index(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def relative_inertia_degree(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def print_mode(self) -> str: ...
 
-        @abstract_method
+        @abstractmethod
         def change_precision(
             self, precision: Integer, precision_type: str | None = None
         ) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def change_prime(self, p: Integer) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def fraction_field(self) -> Field: ...
 
-        @abstract_method
+        @abstractmethod
         def _change_print_mode(self, print_mode: str) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def ext(
             self,
             modulus: Polynomial,
@@ -147,58 +147,58 @@ class _PAdicRings(Category_singleton):
             implementation: str = "FLINT",
         ) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def frobenius_endomorphism(self, n: Integer = 1) -> RingMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def maximal_unramified_subextension(self) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def defining_polynomial(
             self, var: str | None = None, exact: bool = False
         ) -> RingElement:
             del exact
             ...
 
-        @abstract_method
+        @abstractmethod
         def integer_ring(self) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         def exact_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def metric(self) -> Callable[[RingElement, RingElement], RealNumber]: ...
 
-        @abstract_method
+        @abstractmethod
         def metric_function(
             self,
         ) -> Callable[[RingElement, RingElement], RealNumber]: ...
 
-        @abstract_method
+        @abstractmethod
         def dist(self, x: RingElement, y: RingElement) -> RealNumber: ...
 
-        @abstract_method
+        @abstractmethod
         def is_capped_absolute(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_capped_relative(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_fixed_mod(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_floating_point(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_relaxed(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_lattice_prec(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def has_pth_root(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def has_root_of_unity(self, n: Integer) -> bool: ...
 
     class ElementMethods: ...

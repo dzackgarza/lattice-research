@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import RealizationsCategory
 
@@ -19,24 +19,24 @@ class _Realizations(RealizationsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def parent_with_realization(self) -> SetWithRealizations:
             r"""Return the abstract parent represented by this realization."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def realization_of(self) -> SetWithRealizations:
             r"""Return the abstract parent represented by this realization."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def to_realization(self, realization: SetWithRealizations) -> SetMorphism:
             r"""Return the change-of-realization morphism to ``realization``."""
             del realization
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def to_realization(self, realization: SetWithRealizations) -> SetElement:
             r"""Return this element represented in ``realization``."""
             del realization

@@ -30,7 +30,7 @@ from __future__ import annotations
 
 from typing import final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...types import (
@@ -75,7 +75,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
         def is_torsionfree(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def rank(self) -> Integer:
             r"""Return the rank of ``L`` as an ``R``-module.
 
@@ -84,7 +84,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_primitive(self, S: SubModule) -> bool:
             r"""Return ``True`` iff ``S`` is a primitive submodule of ``L``:
             the quotient ``L/S`` is torsion-free.
@@ -94,7 +94,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def signature_pair(self) -> SignaturePair:
             r"""Return the signature ``(n_+, n_-)`` of the form over ``\mathbb{R}``.
 
@@ -122,7 +122,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             p, q = self.signature_pair()
             return p - q
 
-        @abstract_method
+        @abstractmethod
         def index_in(self, other: Lattice) -> RingElement:
             r"""Return the index ``[other : self]`` assuming ``self \subseteq other``.
 
@@ -132,7 +132,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def overlattice(self, gens: SetFamily) -> Lattice:
             r"""Return the lattice spanned by ``self`` and ``gens``.
 
@@ -141,7 +141,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def rational_span(self) -> RModule:
             r"""Return ``L \otimes_R K`` as a bilinear module over ``K``.
 
@@ -154,7 +154,7 @@ class _LatticesOverDedekindDomain(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def reflection(self) -> Automorphism:
             r"""Return the orthogonal reflection
             ``s_v: w \mapsto w - \frac{2b(v,w)}{b(v,v)} v``.

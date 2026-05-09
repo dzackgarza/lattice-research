@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.discrete_valuation import (
     DiscreteValuationRings as SageDiscreteValuationRings,
 )
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -49,10 +49,10 @@ class _DiscreteValuationRings(CategoryWithAxiom):
         def is_discrete_valuation_ring(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def uniformizer_pow(self, n: Integer) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def residue_characteristic(self) -> Integer: ...
 
     class ElementMethods: ...

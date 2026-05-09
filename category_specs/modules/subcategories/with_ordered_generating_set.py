@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -31,7 +31,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
         def has_ordered_generating_set(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> Sequence[RModuleElement]: ...
 
         @final
@@ -44,7 +44,7 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
 
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
             def from_function(
                 self, f: Callable[[RModuleElement], RModuleElement]
             ) -> RModuleMorphism: ...
@@ -56,5 +56,5 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
     class ElementMethods: ...
 
     class MorphismMethods:
-        @abstract_method
+        @abstractmethod
         def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...

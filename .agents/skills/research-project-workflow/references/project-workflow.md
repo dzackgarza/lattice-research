@@ -30,6 +30,11 @@ layer.
 
 A plan is not a task container. A plan defines high-level phases and milestones. Each
 execution item must exist as its own dedicated tracked file under a phase directory.
+The path `plans/features/FEATURE-ID/plans/PLAN-ID/tasks/TASK-ID.md` is forbidden. If a
+plan-level `tasks/` directory exists, treat it as a process failure: do not add more
+cards there, and do not merely move the symptom without checking the workflow rule that
+allowed it. First repair the phase breakdown and process guidance, then migrate cards
+with provenance.
 
 ## Source order and local choices
 
@@ -90,6 +95,56 @@ filename stems. Use `parents` for containment and `dependsOn` for blocking relat
 Metadata fields should stay compact. Put complex explanations, full acceptance
 criteria, gates, tables, diagrams, examples, and other structured markdown in the body.
 
+For substantial research plans, treat intake, workstream, paper, agent-organization,
+and uncertainty metadata as part of the contract, not as decoration. A plan that opens
+a new research direction, changes the active mathematical strategy, or coordinates
+multiple agents must record:
+
+- `intakeStatus`: whether the human-approved research question and goals are settled.
+- `onboardingArtifact`: the durable intake artifact that records the refined question,
+  goals, non-goals, source context, and hard constraints.
+- `workingPaper`: the LaTeX paper path that receives synthesized claims and margin
+  notes.
+- `workstreamPolicy`: how branches divide the work, such as literature/theory,
+  prove/disprove, computation/implementation, review, or synthesis.
+- `agentOrganization`: which repo-local agent roles may be delegated and what they own.
+- `uncertaintyPolicy`: how disputed claims, failed branches, stalled reviews, and
+  human-escalation points will be surfaced.
+
+For workstream phases, set `phaseKind: workstream` and record:
+
+- `branchType`: the branch's primary mode, such as prove, disprove, literature,
+  theory, computation, implementation, formalization, synthesis, audit, or exploration.
+- `agentRoster`: the specialist roles assigned to the branch.
+- `reportArtifact`: the workstream report path.
+- `paperSections`: paper sections this branch may update.
+- `uncertaintySummary`: the branch's current rigor state.
+- `failedExplorations`: negative results worth preserving.
+
+For substantial research tasks, record the task's role in the workstream and the
+status of its claims:
+
+- `activityType`: the kind of mathematical work being done, including intent
+  refinement, literature search, source mining, brainstorming, conjecture generation,
+  counterexample search, proof attempt, proof repair, formalization, computation,
+  numerical experiment, simulation, implementation, validation, citation check,
+  synthesis, exposition, review, failure analysis, or user escalation.
+- `workstreamRole`: the task's function in the branch structure.
+- `claimStatus`: the strongest claim currently supported by the task's evidence.
+- `uncertaintyState`: the current uncertainty lifecycle state.
+- `paperAnchors`: paper labels, sections, or margin notes affected by the task.
+- `claimRefs`: claim identifiers or local theorem/lemma labels affected by the task.
+- `uncertaintyNotes`: specific disputed assumptions, review concerns, missing sources,
+  or human questions.
+- `reportArtifacts`: durable write-ups, notebooks, proof logs, source maps, or other
+  native mathematical artifacts produced by the task.
+- `failedExplorations`: failed approaches worth preserving because they constrain the
+  next attempt or prevent repeated work.
+
+These fields are forward process requirements for new substantial research work. Do
+not omit them merely because older cards predate the schema. Small administrative
+cards may mark the fields not applicable in the body when the reason is obvious.
+
 When an active card cannot proceed, set `status: blocked` if its tracker schema
 supports that value, record the exact blocker in the body, and link or create the
 prerequisite task, research item, or decision. A blocked card remains active until it is
@@ -124,6 +179,12 @@ Build and approve cards top-down. Approval is local to the layer being approved.
   phase's `tasks/` directory. A task is the executable contract: exact objective,
   allowed scope, dependencies, acceptance checks, and verification command or proof
   artifact.
+
+Task creation has a mandatory phase-owner preflight. Before writing the file, name the
+owning feature, owning plan, owning phase, and exact destination path. Confirm the
+phase card exists and has `trackerStatus.type: phase`. If that check fails, stop at the
+phase gate and create or repair the phase card; do not create a task directly under the
+plan.
 
 Execution order is constrained by the DAG. Do not start a task while any declared
 dependency remains incomplete. Downstream tasks wait in `unstarted` status until their
@@ -189,11 +250,24 @@ Write each card for its own level:
   dependencies, validation expectations, risks, and drill-down shape. They may mention
   representative task shapes, but they must not author task cards.
 - Phase cards own local task design, task links, ordering constraints, phase
-  acceptance gates, and audit checks. They must not manually track child task status,
-  owner, completion percentage, or review state.
+  acceptance gates, and audit checks. A phase may also be a workstream; in that case it
+  owns branch type, report artifact, agent roster, uncertainty summary, and paper
+  section links. It must not manually track child task completion percentage.
 - Task cards own executable implementation or research work. They must be specific
   enough that an agent can act without deciding product behavior, mathematical
   definitions, architecture, scope, sequencing, or acceptance criteria.
+
+Use workstreams to keep progressive disclosure real. The project coordinator or plan
+card owns the high-level question, goals, branch structure, and escalation policy. A
+workstream task owns one linear investigation path and writes a concise report artifact
+with internal links to sources, computations, proof attempts, and review notes. Do not
+mix low-level agent execution logs into plan prose; link the artifact and summarize the
+current claim state.
+
+Failed workstreams are outcomes. If a branch finds a false conjecture, an exhausted
+strategy, an unfixable proof gap, or a computational bottleneck, preserve the reason in
+`failedExplorations` or a dedicated failure-record task. Do not silently restart a new
+branch with the same assumptions.
 
 Avoid inline task markers. Use `.agents/TODO.md` only as a scratchpad inbox for
 tangential discoveries that need investigation before they can become real cards.
@@ -207,23 +281,31 @@ documented trigger.
 ## Validation and generated planning data
 
 Run `just plan-validate` from the repo root after editing planning cards, local tracker
-schemas, `plans/AGENTS.md`, or `.agents/current-goal-phase.md`.
+schemas, `plans/AGENTS.md`, or `.agents/current-goal-phase.md`. That recipe must
+delegate to `/home/dzack/ai/planning/justfile validate`; the centralized validator is
+the only planning validation authority. Do not add repo-local relaxed validators,
+alternate pass/fail definitions, or warning-only schema checks.
 
-For substantial hierarchy, schema, generated tag, or DAG work, also run the reusable
-framework recipe explicitly with absolute repo paths. The reusable justfile executes
-from `/home/dzack/ai/planning`, so relative project paths will not resolve correctly.
+If validation reports task cards placed directly under a plan-level `tasks/` directory,
+treat that as a broken phase-gate process, not as ordinary card cleanup. Repair the
+process rule or decomposition gap first, then move the task cards under real phase
+owners.
+
+For diagnosis, you may run the reusable framework recipe explicitly with absolute repo
+paths. The reusable justfile executes from `/home/dzack/ai/planning`, so relative
+project paths will not resolve correctly.
 
 ```bash
 just --justfile /home/dzack/ai/planning/justfile validate /home/dzack/research/plans/features /home/dzack/research/.nimbalyst/trackers /home/dzack/research/plans/plan-dag.md
 ```
 
-The reusable recipe derives structural tags, checks schemas, and regenerates
+The centralized recipe derives structural tags, checks schemas, and regenerates
 `plans/plan-dag.md`. The local planning workflow also generates
 `plans/card-progress-report.md` as a user-facing Markdown summary of current card
 state. During manual validation or report-generation runs, inspect generated tag, DAG,
 and report changes before staging them. During commit hooks, generated planning
 artifacts are hook-managed and automatically staged into the commit. Do not replace
-validation failures with warnings or fallback groups.
+validation failures with warnings, fallback groups, or project-local quick checks.
 
 Do not add timestamp metadata such as `created` or `updated` to card frontmatter unless
 the installed schema declares those fields. Strict validation treats undeclared metadata

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (
@@ -30,12 +30,12 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         return f"posets over {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_poset(self) -> Poset:
             r"""Return the target poset of this object-over structure."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> PosetMorphism:
             r"""Return the order-preserving map from this poset to the target."""
             ...

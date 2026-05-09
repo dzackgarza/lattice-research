@@ -12,7 +12,7 @@ from sage.categories.finite_enumerated_sets import (
 from sage.categories.infinite_enumerated_sets import (
     InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
 )
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.sets.recursively_enumerated_set import (
     RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest,
 )
@@ -51,15 +51,15 @@ class _RecursivelyEnumeratedSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def __len__(self) -> Integer: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, elt: Any) -> bool: ...
 
         @override
@@ -90,17 +90,17 @@ class _RecursivelyEnumeratedSets(Category_singleton):
                 "recursive cardinality requires finite or infinite category evidence"
             )
 
-        @abstract_method
+        @abstractmethod
         def graded_component_iterator(self) -> Iterator[Set]:
             r"""Return the iterator over recursive-enumeration graded components."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def elements_of_depth_iterator(self, depth: Integer) -> Iterator[SetElement]:
             r"""Return the elements reached at recursive depth ``depth``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def breadth_first_search_iterator(
             self,
             max_depth: Integer | InfinityElement | None = None,
@@ -108,17 +108,17 @@ class _RecursivelyEnumeratedSets(Category_singleton):
             r"""Return the breadth-first traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def naive_search_iterator(self) -> Iterator[SetElement]:
             r"""Return Sage's naive traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def depth_first_search_iterator(self) -> Iterator[SetElement]:
             r"""Return the depth-first traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def to_digraph(
             self,
             max_depth: Integer | InfinityElement | None = None,

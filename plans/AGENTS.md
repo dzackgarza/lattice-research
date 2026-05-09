@@ -25,8 +25,12 @@ records the active phase gate.
 ## Local Feature Buckets
 
 - `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: category specs, Sage-compatible constructors, Hom/End/Aut surfaces, source maps, and smoke/audit stabilization.
+- `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: Sage-backed owned objects, wrappers, coercions, validators, and backend bridges satisfying approved category specs.
+- `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: inheritable algorithms for countability, enumeration, products, free modules, and other categorical surfaces that must not be lattice-local loops.
 - `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: ModulesWithForms and lattice objects, including duals, discriminant descent, morphisms, and orthogonal-group surfaces.
 - `FEATURE-GEOMETRY-CATEGORY-INTERFACES`: geometry-facing category interfaces and backend research for schemes, varieties, manifolds, curves, surfaces, families, and monodromy.
+- `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`: Coble curve, blowup, K3 cover, Picard pullback lattice, discriminant/complement, and primitive embedding foundation from `GOAL.md` Tasks 1.1-1.3.
+- `FEATURE-COBLE-*`: downstream Coble verification feature roots for `GOAL.md` Tasks 2-6; these remain ordinary feature cards gated by the prerequisite semantic substrate and geometric lattice foundation.
 
 ## Rules
 
@@ -44,6 +48,16 @@ records the active phase gate.
 - Specs live under the owning feature's `specs/` directory.
 - Decisions live under the owning feature's `decisions/` directory.
 - Executable implementation, research, bug, and audit work uses `trackerStatus.type: task` and lives under a phase's `tasks/` directory.
+- A phase can be a milestone or a co-mathematician workstream. Use `phaseKind:
+  workstream` when the phase owns a branch type, agent roster, report artifact,
+  paper-section links, uncertainty summary, and failed-exploration records.
+- Before creating any task card, identify the owning feature, plan, phase, and exact
+  phase `tasks/` path. If the phase card does not exist, fix the phase breakdown first.
+  A plan-level `tasks/` directory is invalid and indicates a skipped phase gate; do not
+  add to it or treat moving its cards as a complete process fix.
+- New substantial research tasks must classify `activityType`, `workstreamRole`,
+  `claimStatus`, and `uncertaintyState`, and must link report artifacts or paper
+  anchors when they affect the mathematical narrative.
 - Do not create new active cards under `.agents/plans`, `.agents/tasks`, or `.agents/decisions`.
 - Keep metadata compact; put detailed grounding, acceptance criteria, source evidence, and work logs in the body.
 - For constructor and method-owner cards, distinguish the mathematical owner, the
@@ -60,3 +74,7 @@ just plan-validate
 just plan-progress-report
 git diff --check -- plans .nimbalyst/trackers AGENTS.md .agents/current-goal-phase.md
 ```
+
+`just plan-validate` delegates to the centralized planning validator in
+`/home/dzack/ai/planning/justfile`. Do not add or use a repo-local relaxed validator;
+planning validation has one pass/fail authority.

@@ -4,11 +4,10 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
-- '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
-- '[[FEATURE-COBLE-MODULI-COMPARISON]]'
+- '[[FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION]]'
 plans: []
 title: Coble K3 folding involution
-status: complete
+status: unstarted
 priority: high
 description: Construct the horizontal folding involution on the K3 lattice and verify
   its eigenspace lattices from primitive embedding and gluing data.

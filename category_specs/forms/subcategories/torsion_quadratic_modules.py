@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from ...modules import Modules
@@ -39,16 +39,16 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
         def is_torsion_quadratic_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_quadratic(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def invariants(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def brown_invariant(self) -> RingElement: ...
 
     class ElementMethods: ...

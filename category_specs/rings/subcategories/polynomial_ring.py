@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -90,22 +90,22 @@ class _PolynomialRings(CategoryWithAxiom):
             )
             return super().completion(p, prec=oo)
 
-        @abstract_method
+        @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def change_ring(self, R: Ring) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def change_var(self, var: str) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def monomials_of_degree(self, n: Integer) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def monics(
             self,
             of_degree: Integer | None = None,
@@ -114,10 +114,10 @@ class _PolynomialRings(CategoryWithAxiom):
             del of_degree, max_degree
             ...
 
-        @abstract_method
+        @abstractmethod
         def cyclotomic_polynomial(self, n: Integer) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def weil_polynomials(
             self,
             d: Integer,

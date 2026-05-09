@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
@@ -41,17 +41,17 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         def is_symmetric(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_definite(self) -> bool:
             r"""Introduced here: decide whether the symmetric form has one sign."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_indefinite(self) -> bool:
             r"""Introduced here: decide whether the symmetric form has both signs."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_positive_definite(self) -> bool:
             r"""Introduced here.
 
@@ -59,7 +59,7 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_negative_definite(self) -> bool:
             r"""Introduced here.
 
@@ -67,7 +67,7 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def orthogonal_submodule_to(self, S: SubModule) -> SubModule:
             r"""Return ``S^\perp = \{v \in M : b(v, s) = 0 \,\forall s \in S\}``.
 
@@ -77,7 +77,7 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def divisibility(self) -> SubModule:
             r"""Return the divisibility submodule ``\langle b(v, M) \rangle``.
 
@@ -92,7 +92,7 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def perp(self) -> SubModule:
             r"""Return the orthogonal complement ``v^\perp`` of this element.
 

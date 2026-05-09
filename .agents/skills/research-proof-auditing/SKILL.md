@@ -54,6 +54,9 @@ that smuggle in assumptions.
 ## Required audit stance
 
 - Check the exact `GOAL.md` obligation before judging evidence.
+- Check the claim's visible status in the card, workstream report, and living paper.
+  Reject polished prose whose margin notes or report links do not expose provenance,
+  contentiousness, computation dependence, or human-review needs.
 - Reject substitute computations, sampled evidence, bounded search without a proof of exhaustiveness, and prose claims presented as certificates.
 - Reject authority chains, conclusion-smuggling names, and "standard" claims that do not
   state the standard theorem, hypotheses, and exact role in the argument.
@@ -70,6 +73,10 @@ that smuggle in assumptions.
 - Require every assertion's expected value to trace to `GOAL.md`, literature, independent computation, or a cited derivation.
 - Reject proof computations with zero assertions, self-computed expected values, hardcoded boolean verification, print-statement theater, or exception-swallowing verification.
 - Formal proofs must have precise theorem statements, no `sorry`, and successful project build/check evidence.
+- Treat reviewer consensus as evidence, not proof. If review appears to converge by
+  weakening, obscuring, or restyling the claim instead of fixing it, flag false
+  consensus. If review cycles do not reduce a precise disputed assertion, stop the loop
+  and require escalation.
 
 ## Load with
 

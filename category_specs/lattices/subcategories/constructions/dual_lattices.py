@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_module
 
@@ -38,14 +38,14 @@ class DualLatticesCategory(Category_module):
         return [Lattices(self.base_ring()).Rational()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def primal_lattice(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion_morphism(self) -> LatticeMorphism: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def discriminant_class(self) -> DiscriminantGroupElement:
             r"""Return the image of this metric-dual element in ``L^\#/L``."""
             ...

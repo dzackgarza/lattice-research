@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -32,19 +32,19 @@ class _OreModules(Category_over_base_ring):
         def is_ore_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def ore_polynomial_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def pseudomorphism(self) -> RModMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def companion_matrix(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def characteristic_polynomial(self) -> Polynomial: ...
 
-        @abstract_method
+        @abstractmethod
         def cyclic_vector(self) -> RModuleElement: ...
 
     class ElementMethods: ...

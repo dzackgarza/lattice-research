@@ -35,11 +35,11 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, final, overload, override
+from typing import TYPE_CHECKING, final, overload, override, TypeAlias
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -88,7 +88,7 @@ _OreModules = LazyImport(
 _IntegerLattices = LazyImport(
     "category_specs.modules.subcategories.integer_lattices", "_IntegerLattices"
 )
-TorsionQuadraticModulesCategory = LazyImport(
+TorsionQuadraticModulesCategory: TypeAlias = LazyImport(
     "category_specs.forms.subcategories.torsion_quadratic_modules",
     "TorsionQuadraticModulesCategory",
 )
@@ -275,31 +275,31 @@ class _RModObjects:
         assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
         return tensor([self.tensor_power(p), self.dual().tensor_power(q)])
 
-    @abstract_method
+    @abstractmethod
     def annihilator(self) -> Ideal: ...
 
     @final
     def __truediv__(self, N: SubModule) -> QuotientModule:
         return self.quotient(N)
 
-    @abstract_method
+    @abstractmethod
     def torsion_submodule(self) -> SubModule:
         r"""M_tors := <{m in M | r*m = 0 for some r in R}>
         = <{m in M | Ann_R(m) != 0}>.
         """
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_algebra(self) -> RModule:
         r"""Return T_R(M) := \bigoplus_n \bigoplus_{p+q=n} T_R(M)[p,q]."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def base_change(self, morphism: RingMorphism) -> RModule:
         r"""Return a representation of M_S := S \otimes_R M in S-Mod."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def module_structure(self) -> ModuleStructure:
         r"""The map sigma: R x M -> M such that r.m := sigma(r, m).
 
@@ -329,13 +329,13 @@ class _RModObjects:
             "See DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES."
         )
 
-    @abstract_method
+    @abstractmethod
     def symmetric_algebra(self) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def alternating_algebra(self) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def dual(self) -> DualModule:
         r"""Return the Hom-dual module ``Hom_R(M, R)``.
 
@@ -347,15 +347,15 @@ class _RModObjects:
         """
         ...
 
-    @abstract_method
+    @abstractmethod
     def determinant_module(self) -> RModule:
         r"""Return \Lambda^n_R(M), the top exterior power of M."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def cardinality(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def is_isomorphic_to(self, other: RModule) -> bool: ...
 
     @overload
@@ -364,7 +364,7 @@ class _RModObjects:
     @overload
     def direct_sum(self, modules: Sequence[RModule]) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def direct_sum(self, other: RModule) -> RModule: ...
 
     @overload
@@ -373,13 +373,13 @@ class _RModObjects:
     @overload
     def tensor(self, modules: Sequence[RModule]) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def tensor(self, other: RModule) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def intersection(self, other: SubModule) -> SubModule: ...
 
-    @abstract_method
+    @abstractmethod
     def span(
         self,
         gens: RModuleElement | Sequence[RModuleElement],
@@ -391,7 +391,7 @@ class _RModObjects:
     def __add__(self, other: RModule) -> RModule:
         return self.direct_sum(other)
 
-    @abstract_method
+    @abstractmethod
     def __mul__(self, other: RingElement | RModule) -> RModule:
         r"""``r * M`` = submodule spanned by ``{r*m | m in M}``;
         ``N * M`` = the tensor product ``M \otimes_R N``.
@@ -407,14 +407,14 @@ class _RModObjects:
     ) -> SubModule:
         return self.span(gens, check=check, already_echelonized=already_echelonized)
 
-    @abstract_method
+    @abstractmethod
     def quotient_module(
         self, submodule: SubModule, check: bool = True
     ) -> QuotientModule: ...
 
     # Do not define: _mul_, _rmul_, _lmul_
 
-    @abstract_method
+    @abstractmethod
     def natural_pairing(self) -> RModuleForm:
         r"""The (1,1) form b: M \otimes_R M^* -> R defined by b(v, w^*) := w^*(v)."""
         ...
@@ -438,17 +438,17 @@ class _RModElements:
     def annihilator(self) -> Ideal:
         return self.span().annihilator()
 
-    @abstract_method
+    @abstractmethod
     def cyclic_submodule(self) -> SubModule: ...
 
     @final
     def is_primitive(self) -> bool:
         return self.span().inclusion().is_primitive()
 
-    @abstract_method
+    @abstractmethod
     def __add__(self, m: RModuleElement) -> RModuleElement: ...
 
-    @abstract_method
+    @abstractmethod
     def __mul__(self, r: RingElement) -> RModuleElement: ...
 
     @final
@@ -456,10 +456,10 @@ class _RModElements:
         R = self.base_ring()
         return R(-1) * self
 
-    @abstract_method
+    @abstractmethod
     def _lmul_(self, r: RingElement) -> RModuleElement: ...
 
-    @abstract_method
+    @abstractmethod
     def _rmul_(self, r: RingElement) -> RModuleElement: ...
 
     # TODO: define R*m := m.span() when R == m.base_ring(), or base-change.
@@ -1403,15 +1403,15 @@ class Modules(Category_module):
         r"""Return the Sage module constructor collector over ``self.base_ring()``."""
         return self.__class__._Constructors(self)
 
-    @abstract_method
+    @abstractmethod
     def zero_module(self) -> RModule: ...
 
-    @abstract_method
+    @abstractmethod
     def R(self) -> FreeModule:
         r"""Return R as a rank 1 free R-module."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def torsion_module(self, r: RingElement) -> TorsionModule:
         r"""Return R/r.  Asserts R != 0."""
         ...
@@ -1796,15 +1796,15 @@ class Modules(Category_module):
 # surface usable until the meet class is wired with a non-recursive base.
 
 
-ModulesCategory = Modules
-ModulesObject = Modules.ParentMethods
-ModulesElement = Modules.ElementMethods
-ModulesMorphism = Modules.MorphismMethods
-ModulesHomCategory = RModuleHomCategory
-ModulesEndCategory = RModuleEndCategory
-ModulesAutCategory = RModuleAutCategory
-ModulesHom = RModuleHomCategory.ParentMethods
-ModulesEnd = RModuleEndCategory.ParentMethods
-ModulesAut = RModuleAutCategory.ParentMethods
-ModulesEndomorphism = RModuleEndCategory.ElementMethods
-ModulesAutomorphism = RModuleAutCategory.ElementMethods
+ModulesCategory: TypeAlias = Modules
+ModulesObject: TypeAlias = Modules.ParentMethods
+ModulesElement: TypeAlias = Modules.ElementMethods
+ModulesMorphism: TypeAlias = Modules.MorphismMethods
+ModulesHomCategory: TypeAlias = RModuleHomCategory
+ModulesEndCategory: TypeAlias = RModuleEndCategory
+ModulesAutCategory: TypeAlias = RModuleAutCategory
+ModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
+ModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
+ModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
+ModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+ModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods

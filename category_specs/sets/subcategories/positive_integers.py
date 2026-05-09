@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import SetElement, SympySet
@@ -30,11 +30,11 @@ class _PositiveIntegersSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def an_element(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _sympy_(self) -> SympySet: ...
 
     class ElementMethods: ...

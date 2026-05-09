@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_module
 
@@ -29,10 +29,10 @@ class OrthogonalDirectSumsCategory(Category_module):
         return [Lattices(self.base_ring()).CartesianProducts()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def summands(self) -> SetFamily: ...
 
-        @abstract_method
+        @abstractmethod
         def summand(self, i) -> Lattice: ...
 
     class ElementMethods: ...

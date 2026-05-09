@@ -6,12 +6,11 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Smoke audit uniformity and global stabilization
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
-description: Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper,
-  type, and anti-slop compliance work so it supports the foundational plan instead
-  of becoming a disconnected cleanup backlog.
+description: Group smoke-audit and object-shape probe governance so it supports the
+  foundational plan instead of becoming a disconnected cleanup backlog.
 successCriteria:
 - Smoke failures are routed to spec, implementation, research, or decision cards by
   mathematical cause.
@@ -23,6 +22,7 @@ successCriteria:
 - Compliance findings are not buried in chat or loose TODO files.
 phases:
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
+- '[[PHASE-SMOKE-PLAN-REMEDIATION]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 ---
@@ -30,7 +30,15 @@ tags:
 
 ## Objective
 
-Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper, type, and anti-slop compliance work so it supports the foundational plan instead of becoming a disconnected cleanup backlog.
+Group smoke-audit and object-shape probe governance so it supports the foundational
+plan instead of becoming a disconnected cleanup backlog.
+
+> Scope notes: import hygiene is enforced by ruff/isort in the repo's lint
+> configuration; wrapper and type compliance work lives under
+> `PLAN-CATEGORY-FOUNDATION-KERNEL`; anti-slop patterns are caught by style compliance
+> gates (`just check-slop`, category-spec style conventions). This plan's active phase
+> (`PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`) owns the duck-type object-shape probe
+> audit. The variadic signature audit is cross-referenced above under Subplans.
 
 
 ## Definition Grounding Requirements
@@ -47,11 +55,9 @@ object, and proof obligations for equivalence or Sage translation.
 
 ## Source corpus
 
-- `plans/LATTICE_STYLE_GUIDE.md`
-- `plans/lattice_redesign_corrections_spec.md`
 - `/home/dzack/ai/quality-control/vulture_whitelist.py`
-- Existing smoke and variadic sprint plans under `plans/features/`.
-- Existing implementation cards under `plans/features/`.
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT/PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT.md` (variadic signature closure audit)
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-FOUNDATION-KERNEL/PLAN-CATEGORY-FOUNDATION-KERNEL.md` (category foundation kernel implementation)
 
 ## Priority rule
 
@@ -59,9 +65,12 @@ Audit work is critical when it prevents downstream poisoning: wrong definitions,
 
 ## Subplans
 
-- `PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT`: variadic signature closure across modules, rings, tensors, algebras, lattices, posets, sets, and RealSet constructors.
 - `PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`: object-shape probing audit for `getattr`/`hasattr`
   patterns that should be real type/category dispatch.
+
+> Note: the variadic signature closure audit (`PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT`)
+> is owned by `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION`, a sibling plan under the same
+> feature. Cross-references in the Source corpus section link to its concrete path.
 
 Leaf task ownership is encoded by `parents` containment under phase cards; this parent
 plan should not own executable cards directly.

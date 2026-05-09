@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (
@@ -30,12 +30,12 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         return f"objects under {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_object(self) -> CategoryObject:
             r"""Return the base set object of this object-under structure."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> Morphism:
             r"""Return the structure map from the base set object."""
             ...

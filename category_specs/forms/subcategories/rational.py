@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
@@ -43,7 +43,7 @@ class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         def is_rational(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def integral_rescaling(self) -> IntegralRescaling:
             r"""Return the smallest positive integer ``n`` such that ``n \cdot b``
             is integral, together with the rescaled module.

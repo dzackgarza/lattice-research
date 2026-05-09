@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
@@ -15,7 +15,7 @@ class _TopologicalHomCategoryObjectMethods:
 
 
 class _ContinuousMaps:
-    @abstract_method
+    @abstractmethod
     def is_continuous(self) -> bool:
         r"""Return whether this map is continuous."""
         ...

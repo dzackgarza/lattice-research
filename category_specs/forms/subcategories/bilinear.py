@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -30,27 +30,27 @@ class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         def is_bilinear(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_symmetric(self) -> bool:
             r"""Introduced here: decide whether the bilinear form is symmetric."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_alternating(self) -> bool:
             r"""Introduced here: decide whether the bilinear form is alternating."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_nondegenerate(self) -> bool:
             r"""Introduced here: decide whether the bilinear form has zero radical."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_integral(self) -> bool:
             r"""Introduced here: decide whether values lie in the base ring."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_rational(self) -> bool:
             r"""Introduced here: decide whether values lie in the fraction field."""
             ...
@@ -60,28 +60,28 @@ class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Introduced here: evaluate the form on two module elements."""
             return self.form().b(v, w)
 
-        @abstract_method
+        @abstractmethod
         def inner_product_matrix(self) -> Matrix:
             r"""Introduced here: return the ambient inner-product matrix."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix(self) -> Matrix:
             r"""Introduced here: return the generator Gram matrix."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def uses_ambient_inner_product(self) -> bool:
             r"""Introduced here: decide whether the form is ambient-inherited."""
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def inner_product(self, other: RModuleElement) -> RingElement:
             r"""Introduced here: pair by the parent bilinear form."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def dot_product(self, other: RModuleElement) -> RingElement:
             r"""Introduced here: expose Sage's formed-element dot product."""
             ...

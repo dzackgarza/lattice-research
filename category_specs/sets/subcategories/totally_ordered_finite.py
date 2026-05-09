@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import EmptySetError
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement
@@ -32,28 +32,28 @@ class _TotallyOrderedFiniteSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(self, data: SetElement) -> SetElement: ...
 
-        @abstract_method
+        @abstractmethod
         def le(self, x: SetElement, y: SetElement) -> bool:
             r"""Return whether ``x`` is at most ``y`` in the finite total order."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def rank(self, x: SetElement) -> Integer: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @override
@@ -77,26 +77,26 @@ class _TotallyOrderedFiniteSets(Category_singleton):
 
     class ElementMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def __eq__(self, other: SetElement) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def __ne__(self, other: SetElement) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __lt__(self, other: SetElement) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __le__(self, other: SetElement) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __gt__(self, other: SetElement) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __ge__(self, other: SetElement) -> bool: ...
 
     class MorphismMethods: ...

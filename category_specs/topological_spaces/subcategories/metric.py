@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -27,17 +27,17 @@ class _MetricSpaceObjectMethods:
         r"""Return ``True`` because this object lies in metric spaces."""
         return True
 
-    @abstract_method
+    @abstractmethod
     def metric(self) -> SetMorphism:
         r"""Return the metric map ``d: X x X -> RR``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def ball(self, center: SetElement, radius: RealNumber) -> MetricBall:
         r"""Return the open metric ball with given ``center`` and ``radius``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def dist(self, x: SetElement, y: SetElement) -> RealNumber:
         r"""Return the metric distance between ``x`` and ``y``."""
         ...

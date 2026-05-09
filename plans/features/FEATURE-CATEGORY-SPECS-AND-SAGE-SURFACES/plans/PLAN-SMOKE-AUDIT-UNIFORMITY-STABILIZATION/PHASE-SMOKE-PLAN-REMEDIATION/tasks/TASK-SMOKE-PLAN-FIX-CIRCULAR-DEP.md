@@ -3,20 +3,21 @@ id: TASK-SMOKE-PLAN-FIX-CIRCULAR-DEP
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
+- '[[PHASE-SMOKE-PLAN-REMEDIATION]]'
 dependsOn: []
 title: Remove circular self-dependency from wrapup task
-status: unstarted
+status: complete
 priority: medium
 description: 'Fix G5 inherited circular dependency: TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT
   lists itself in its own dependsOn array.'
 successCriteria:
-- TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT no longer lists itself in
-  its dependsOn array.
+- TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT no longer lists itself in its
+  dependsOn array.
 - Wrapup task dependsOn now correctly lists only the sibling work tasks in its phase.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
+- PHASE-SMOKE-PLAN-REMEDIATION
 ---
 # Remove circular self-dependency from wrapup task
 

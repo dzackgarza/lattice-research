@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -35,7 +35,7 @@ class _OverField(CategoryWithAxiom_over_base_ring):
         def is_over_field(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def linear_dependence(
             self,
             vectors: Sequence[RModuleElement],

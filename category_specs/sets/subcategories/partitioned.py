@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -90,12 +90,12 @@ class PartitionsCategory(Category):
         return [Sets().Countable(), Sets().Subobjects()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_set(self) -> Set:
             r"""Return the base set whose partitions are elements of ``self``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def base_set_cardinality(self) -> Cardinality:
             r"""Return the cardinality of ``base_set()``."""
             ...
@@ -107,7 +107,7 @@ class PartitionsCategory(Category):
             return self.base_set().subsets().subsets()
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(
             self,
             blocks: Sequence[Sequence[SetElement]],
@@ -117,19 +117,19 @@ class PartitionsCategory(Category):
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool:
             r"""Return whether ``x`` is a partition of ``base_set()``."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality:
             r"""Return the number of partitions in ``self``."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def random_element(self) -> SetPartition:
             r"""Return a random partition in ``self``."""
             ...
@@ -144,12 +144,12 @@ class PartitionsCategory(Category):
             return True
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def base_set(self) -> Set:
             r"""Return the base set covered by the blocks of this partition."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def base_set_cardinality(self) -> Cardinality:
             r"""Return the cardinality of ``base_set()``."""
             ...
@@ -196,17 +196,17 @@ class PartitionsCategory(Category):
             r"""Return the finite set of partition coarsenings, including ``self``."""
             return Sets().Constructors().from_iterable(self.coarsenings())
 
-        @abstract_method
+        @abstractmethod
         def standard_form(self) -> list[list[SetElement]]:
             r"""Return the blocks as sorted lists when the base set is ordered."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def arcs(self) -> list[tuple[SetElement, SetElement]]:
             r"""Return the arcs between consecutive elements in each ordered block."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def crossings(
             self,
         ) -> list[
@@ -221,7 +221,7 @@ class PartitionsCategory(Category):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def nestings(
             self,
         ) -> list[
@@ -233,17 +233,17 @@ class PartitionsCategory(Category):
             r"""Return nesting arc pairs when the finite base set is totally ordered."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_noncrossing(self) -> bool:
             r"""Return whether the ordered finite partition has no crossing arcs."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_nonnesting(self) -> bool:
             r"""Return whether the ordered finite partition has no nesting arcs."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_atomic(self) -> bool:
             r"""Return whether the partition is pipe-indecomposable.
 

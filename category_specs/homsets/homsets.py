@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TYPE_CHECKING, final, overload, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
 
@@ -19,12 +19,12 @@ if TYPE_CHECKING:
 class UniversalHomObjectMethods:
     r"""Methods on objects ``Hom_C(A, B)`` of a hom category."""
 
-    @abstract_method
+    @abstractmethod
     def domain(self) -> CategoryObject:
         r"""Return the source object ``A`` of this hom object."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def codomain(self) -> CategoryObject:
         r"""Return the target object ``B`` of this hom object."""
         ...
@@ -43,7 +43,7 @@ class UniversalHomObjectMethods:
         self, function: Callable[[CategoryElement], CategoryElement]
     ) -> Morphism: ...
 
-    @abstract_method
+    @abstractmethod
     def __call__(
         self, data: Morphism | Callable[[CategoryElement], CategoryElement]
     ) -> Morphism:
@@ -64,22 +64,22 @@ class UniversalHomElementMethods:
         r"""Return the codomain of this morphism."""
         return self.parent().codomain()
 
-    @abstract_method
+    @abstractmethod
     def __call__(self, x: CategoryElement) -> CategoryElement:
         r"""Evaluate this morphism at ``x``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def image(self, domain_subset: CategoryObject | None = None) -> CategoryObject:
         r"""Return the image of ``domain_subset`` under this morphism."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def pre_compose(self, other: Morphism) -> Morphism:
         r"""Return ``self`` after precomposition by ``other``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def post_compose(self, other: Morphism) -> Morphism:
         r"""Return ``self`` after postcomposition by ``other``."""
         ...
@@ -96,12 +96,12 @@ class UniversalHomElementMethods:
         r"""Return whether this morphism is the identity endomorphism."""
         return self.is_endomorphism() and self == self.parent().identity()
 
-    @abstract_method
+    @abstractmethod
     def is_invertible(self) -> bool:
         r"""Return whether this morphism has a two-sided inverse."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_isomorphism(self) -> bool:
         r"""Return whether this morphism is an isomorphism in its category."""
         ...

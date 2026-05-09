@@ -3,23 +3,23 @@ id: TASK-SMOKE-PLAN-FIX-PHASE-INVENTORY
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
+- '[[PHASE-SMOKE-PLAN-REMEDIATION]]'
 dependsOn: []
 title: Fix phase inventory mismatch in smoke plan
-status: unstarted
+status: complete
 priority: high
 description: 'Resolve G3 phase inventory failure: PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT
   is listed as a subplan in the body but lives under a sibling plan, not this one.'
 successCriteria:
 - PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT removed from the Subplans section of the
   plan body.
-- A cross-reference note added: the variadic audit is owned by
-  PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.
-- The Subplans section now matches what this plan actually owns:
-  PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT only.
+- 'A cross-reference note added: the variadic audit is owned by PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.'
+- 'The Subplans section now matches what this plan actually owns: PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT
+  only.'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
+- PHASE-SMOKE-PLAN-REMEDIATION
 ---
 # Fix phase inventory mismatch
 

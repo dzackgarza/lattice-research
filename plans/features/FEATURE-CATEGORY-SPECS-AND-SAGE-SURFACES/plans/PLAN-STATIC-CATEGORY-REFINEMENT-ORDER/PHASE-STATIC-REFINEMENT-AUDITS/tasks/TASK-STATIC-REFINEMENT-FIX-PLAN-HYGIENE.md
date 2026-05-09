@@ -3,10 +3,10 @@ id: TASK-STATIC-REFINEMENT-FIX-PLAN-HYGIENE
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
+- '[[PHASE-STATIC-REFINEMENT-AUDITS]]'
 dependsOn: []
 title: Fix plan hygiene issues from 6-gate review
-status: unstarted
+status: complete
 priority: high
 description: 'Apply the non-audit fixes recommended by the 6-gate review: remove dead
   source reference, deduplicate criteria, clarify scope statement, declare soft dependency.'
@@ -15,14 +15,14 @@ successCriteria:
   is removed from the source corpus section.
 - The duplicate between frontmatter successCriteria and body acceptance criteria is
   resolved (keep one, remove the other, or give them distinct roles).
-- The scope statement clarifies whether the admitted-edges table is exhaustive or a
-  designated subset, with the remainder explicitly deferred to decision cards.
-- A `dependsOn` edge to `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` is added if
-  constructor-interception enforcement requires it, or the body explains why the
-  implicit dependency is sufficient.
+- The scope statement clarifies whether the admitted-edges table is exhaustive or
+  a designated subset, with the remainder explicitly deferred to decision cards.
+- A `dependsOn` edge to `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` is added if constructor-interception
+  enforcement requires it, or the body explains why the implicit dependency is sufficient.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-STATIC-CATEGORY-REFINEMENT-ORDER
+- PHASE-STATIC-REFINEMENT-AUDITS
 ---
 # Fix plan hygiene issues from 6-gate review
 

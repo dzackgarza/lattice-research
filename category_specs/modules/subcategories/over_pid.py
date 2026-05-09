@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -35,7 +35,7 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
         def is_over_pid(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def index_in(self, other: RModule) -> Cardinality: ...
 
     class ElementMethods: ...

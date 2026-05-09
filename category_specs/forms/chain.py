@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -41,13 +41,13 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
         def has_form(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_bilinear(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_quadratic(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def form(self) -> RModuleMorphism: ...
 
         @final
@@ -80,19 +80,19 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         def is_bilinear(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_symmetric(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_alternating(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_nondegenerate(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_integral(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_rational(self) -> bool: ...
 
         @final
@@ -127,19 +127,19 @@ class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base
         def is_symmetric(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_indefinite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_positive_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_negative_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def orthogonal_submodule_to(self, S: SubModule) -> SubModule: ...
 
     class ElementMethods: ...
@@ -172,11 +172,11 @@ class NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
         def is_nondegenerate(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def radical(self) -> SubModule: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def is_anisotropic(self) -> bool: ...
 
     class MorphismMethods: ...
@@ -211,7 +211,7 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
         def is_rational(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def dual_lattice(self) -> Lattice:
             r"""Return the metric-dual lattice ``L^\#``.
 
@@ -223,17 +223,17 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion_morphism(self) -> RModuleMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def discriminant_group(self) -> DiscriminantGroup: ...
 
         @final
         def is_unimodular(self) -> bool:
             return self.discriminant_group().is_trivial()
 
-        @abstract_method
+        @abstractmethod
         def is_even(self) -> bool: ...
 
     class ElementMethods: ...

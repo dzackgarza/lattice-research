@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ..algebras import Algebras
@@ -146,7 +146,7 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def rank(self) -> Integer:
             return Integer(self.nrows() * self.ncols())
 
-        @abstract_method
+        @abstractmethod
         def echelon_form(
             self,
             algorithm: str | None = "default",

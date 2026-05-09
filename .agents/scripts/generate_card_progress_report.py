@@ -41,6 +41,9 @@ class Card:
     priority: str | None
     tags: tuple[str, ...]
     is_completed_tree: bool
+    activity_type: str | None
+    phase_kind: str | None
+    branch_type: str | None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -189,6 +192,21 @@ def load_cards() -> dict[str, Card]:
                 else ()
             ),
             is_completed_tree=COMPLETED_ROOT in path.parents,
+            activity_type=(
+                str(frontmatter["activityType"])
+                if "activityType" in frontmatter and frontmatter["activityType"] is not None
+                else None
+            ),
+            phase_kind=(
+                str(frontmatter["phaseKind"])
+                if "phaseKind" in frontmatter and frontmatter["phaseKind"] is not None
+                else None
+            ),
+            branch_type=(
+                str(frontmatter["branchType"])
+                if "branchType" in frontmatter and frontmatter["branchType"] is not None
+                else None
+            ),
         )
     return cards
 
@@ -365,6 +383,17 @@ def active_vs_completed_feature_trees(
     return active, completed
 
 
+def workflow_counts(cards: dict[str, Card]) -> tuple[collections.Counter[str], collections.Counter[str]]:
+    activity_counts: collections.Counter[str] = collections.Counter()
+    workstream_counts: collections.Counter[str] = collections.Counter()
+    for card in cards.values():
+        if card.kind == "task" and card.activity_type:
+            activity_counts[card.activity_type] += 1
+        if card.kind == "phase" and card.phase_kind == "workstream":
+            workstream_counts[card.branch_type or "unspecified"] += 1
+    return activity_counts, workstream_counts
+
+
 def render_report(
     cards: dict[str, Card],
     completed_statuses: dict[str, set[str]],
@@ -380,6 +409,7 @@ def render_report(
     active_features, completed_features = active_vs_completed_feature_trees(
         cards, completed_statuses
     )
+    activity_counts, workstream_counts = workflow_counts(cards)
 
     all_cards = list(cards.values())
     done_cards = sum(1 for card in all_cards if is_complete(card, completed_statuses))
@@ -426,6 +456,24 @@ def render_report(
             )
             + " |"
         )
+    lines.append("")
+    lines.append("## Co-Mathematician Workflow")
+    lines.append("")
+    lines.append("### Workstream Phases")
+    lines.append("")
+    if not workstream_counts:
+        lines.append("- None recorded.")
+    else:
+        for branch_type, count in sorted(workstream_counts.items()):
+            lines.append(f"- `{branch_type}`: **{count}**")
+    lines.append("")
+    lines.append("### Task Activity Types")
+    lines.append("")
+    if not activity_counts:
+        lines.append("- None recorded.")
+    else:
+        for activity_type, count in sorted(activity_counts.items()):
+            lines.append(f"- `{activity_type}`: **{count}**")
     lines.append("")
     lines.append("## Feature Rollup")
     lines.append("")

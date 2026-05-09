@@ -37,9 +37,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from importlib import import_module
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, final, override, TypeAlias
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
@@ -154,7 +154,7 @@ class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
     @override
-    @abstract_method
+    @abstractmethod
     def Hom(self, codomain: Category) -> Hom:
         r"""Return the functor hom object owned by ``Cat()``."""
         ...
@@ -333,16 +333,16 @@ _cat_autsets = import_module("category_specs.cat.autsets")
 _cat_endsets = import_module("category_specs.cat.endsets")
 _cat_homsets = import_module("category_specs.cat.homsets")
 
-CatAutCategory = _cat_autsets.CatAutCategory
-CatEndCategory = _cat_endsets.CatEndCategory
-CatHomCategory = _cat_homsets.CatHomCategory
+CatAutCategory: TypeAlias = _cat_autsets.CatAutCategory
+CatEndCategory: TypeAlias = _cat_endsets.CatEndCategory
+CatHomCategory: TypeAlias = _cat_homsets.CatHomCategory
 
-CatCategory = Cat
-CatObject = Cat.ParentMethods
-CatElement = Cat.ElementMethods
-CatMorphism = CatHomCategory.ElementMethods
-CatHom = CatHomCategory.ParentMethods
-CatEnd = CatEndCategory.ParentMethods
-CatAut = CatAutCategory.ParentMethods
-CatEndomorphism = CatEndCategory.ElementMethods
-CatAutomorphism = CatAutCategory.ElementMethods
+CatCategory: TypeAlias = Cat
+CatObject: TypeAlias = Cat.ParentMethods
+CatElement: TypeAlias = Cat.ElementMethods
+CatMorphism: TypeAlias = CatHomCategory.ElementMethods
+CatHom: TypeAlias = CatHomCategory.ParentMethods
+CatEnd: TypeAlias = CatEndCategory.ParentMethods
+CatAut: TypeAlias = CatAutCategory.ParentMethods
+CatEndomorphism: TypeAlias = CatEndCategory.ElementMethods
+CatAutomorphism: TypeAlias = CatAutCategory.ElementMethods

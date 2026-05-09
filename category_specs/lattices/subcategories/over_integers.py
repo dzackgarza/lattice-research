@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID
@@ -27,13 +27,13 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
         def is_over_integers(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def genus(self): ...
 
-        @abstract_method
+        @abstractmethod
         def minimum(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def short_vectors(self, bound: RingElement) -> SetFamily:
             r"""Return vectors ``v`` whose norm ``b(v, v)`` is at most ``bound``."""
             ...
@@ -45,7 +45,7 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             """
             return self.short_vectors(bound, up_to_sign_flag=True)
 
-        @abstract_method
+        @abstractmethod
         def LLL(
             self,
             delta: RingElement | None = None,

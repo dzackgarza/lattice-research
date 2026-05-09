@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
@@ -19,13 +19,13 @@ class _RingHomCategoryObjectMethods:
 
 
 class _RingHomomorphisms:
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def kernel(self) -> Ideal: ...
 
-    @abstract_method
+    @abstractmethod
     def section(self) -> RingMorphism: ...
 
 
@@ -80,7 +80,7 @@ class RingEndCategory(GenericEndCategory):
         return refine_category(end, Rings().EndCategory())
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_ring(self) -> Ring:
             """If this is End(R), return R."""
             ...

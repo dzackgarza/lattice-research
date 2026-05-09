@@ -4,11 +4,11 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
-- '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
+- '[[FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION]]'
 - '[[FEATURE-COBLE-MODULI-COMPARISON]]'
 plans: []
 title: Coble stable model slc verification
-status: complete
+status: unstarted
 priority: high
 description: Verify the Coble stable-model and slc conditions using geometric arguments
   and semantic surface/pair vocabulary rather than hardcoded booleans.

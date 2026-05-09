@@ -10,7 +10,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category, SubobjectsCategory
 
@@ -53,7 +53,7 @@ class Subsets(SubobjectsCategory):
         return refine_category(subset, [Sets(), self])
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient(self) -> Set:
             r"""Return the ambient set of which ``self`` is a subset."""
             ...
@@ -110,7 +110,7 @@ class Subsets(SubobjectsCategory):
             )
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool:
             r"""Return whether ``x`` lies in ``ambient()`` and satisfies predicate."""
             ...

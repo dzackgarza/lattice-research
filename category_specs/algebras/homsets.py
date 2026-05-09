@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
@@ -19,7 +19,7 @@ class _AlgebraHomCategoryObjectMethods:
 
 
 class _AlgebraHomomorphisms:
-    @abstract_method
+    @abstractmethod
     def kernel(self) -> Algebra:
         r"""Return the kernel algebra of this algebra homomorphism."""
         ...
@@ -54,7 +54,7 @@ class AlgebraEndCategory(GenericEndCategory):
     Autset = LazyImport(__name__, "AlgebraAutCategory")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_algebra(self) -> Algebra:
             r"""Return the algebra whose endomorphisms this object contains."""
             ...

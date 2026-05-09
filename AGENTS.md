@@ -4,7 +4,12 @@
 
 ## Always-active invariants
 
-- For plan-to-execution routing, atomicity, delegation stages, and acceptance process, load `research-state-machine`. For proof, evidence, fraud detection, and audit sufficiency, load `research-proof-auditing` when relevant.
+- For substantial mathematical research directions, onboarding, workstream coordination,
+  living-paper maintenance, uncertainty surfacing, and failed-path preservation, load
+  `research-co-mathematician-workflow`. For plan-to-execution routing, atomicity,
+  delegation stages, and acceptance process, load `research-state-machine`. For proof,
+  evidence, fraud detection, and audit sufficiency, load `research-proof-auditing`
+  when relevant.
 - For any git operation, load `git-guidelines` and follow its checkpoint, staging, commit, branch, push, and PR rules. User requests to skip verification skip validation runs, not intentional staging or provenance.
 - Implementation, self-check, and adversarial audit are separate roles when `research-state-machine` requires them.
 - When reviewing or starting a task, assess it for delegation, including
@@ -18,7 +23,9 @@
 - Do not substitute a nearby task for the user's stated directive.
 - Do not mark work accepted, done, or closed without human approval.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
-- Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. Any QC relaxation must be explicitly user-approved and implemented in the global QC system under `~/ai/quality-control`, not hidden in this repo.
+- Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. QC fixes go to the global QC system under `~/ai/quality-control`; local relaxation is not an option.
+- Tracker schemas, QC validation, and plan-validate authority are global, not repo-local. The schemas under `.nimbalyst/trackers/` are symlinks to `~/ai/planning/schemas/`. Schema edits go to that repo with a git commit; local schema forks are never correct — if a schema is too restrictive, add the field to the canonical schema. `just plan-validate` delegates to the centralized validator. Never write repo-local relaxed validators, warning-only schema checks, skip-gate justfile recipes, or inline Python validators that bypass the global validator.
+- QC findings are mandatory, not advisory. A static analysis error — mypy, ruff, semgrep, vulture, etc. — is a defect in the repo, not a defect in the tool. The correct response to a QC finding is to fix the code or fix the tool configuration at the global level. Never dismiss findings as "expected for this phase," "just spec work," "just stubs," "mypy can't handle metaclasses," or any other rationalization that ends with the finding unaddressed. If the tool is misconfigured, fix the global config. If the code has missing types, add the types. The only acceptable outcomes are zero findings or a global config change committed to the tool repo.
 - Resist the urge to silence QC or treat it as an obstacle to work around in phase transitions. QC findings are signals that something is underspecified, unreferenced, or broken -- fix the code, don't expand the whitelist to hide the signal. If a whitelist entry is truly the last resort after code fixes are exhausted, it must be raised as an explicit human-gated request with justification.
 - Periodically reflect: review the last 3-5 git commits and self-assess for meta-process churn -- fiddling with card statuses, commenting on task bodies, rearranging bookkeeping, or producing planning artifacts without contributing real work toward the project's mathematical goals. This kind of managerial work is sometimes needed, especially during interactive user sessions where the human is shaping policy, but in autonomous or goal-driven sessions it is often a sign of drift.
 - Specs, review files, theory notes, TODO files, and durable design artifacts are source material. Do not rewrite, shorten, modernize, delete, or align them to current implementation unless the user explicitly asks for that exact edit.
@@ -57,6 +64,9 @@
 Load these skills when their trigger matches the task:
 
 - `research-state-machine`: plan-to-execution routing, card atomicity, preflight, execution stages, replay/attack, promotion/rejection/splitting, and `GOAL.md` discharge.
+- `research-co-mathematician-workflow`: AI co-mathematician-inspired onboarding,
+  workstream organization, repo-local agent roles, living LaTeX working papers,
+  uncertainty lifecycle, and failed exploration preservation.
 - `research-orchestration`: delegation contracts, worktrees, self-check, adversarial audit, artifact handoff, and acceptance execution.
 - `opencode-one-shot-workers`: cheap parallel `command opencode` one-shot workers, PTY-watched progress, atomic-task suitability, git/worktree hygiene, and retry/escalation guidance.
 - `research-proof-auditing`: computational proof audit, formal proof audit, evidence sufficiency, fraud indicators, Sage/GAP/Lean/Aristotle verification, and acceptance of mathematical claims.
@@ -119,19 +129,26 @@ probably belongs in `plans/`, a decision card, or git history rather than memory
 
 All active repo-local planning and work tracking lives under root `plans/`. Use
 `plans/AGENTS.md` and registered standard tracker types from
-`.nimbalyst/trackers/*.yaml`. There is no separate backlog; active cards under
+`.nimbalyst/trackers/*.yaml` (symlinks to `~/ai/planning/schemas/`; schema edits
+go to that repo). There is no separate backlog; active cards under
 `plans/features/` are the outstanding work set, while completed feature trees should be
 moved under `plans/features/completed/`. Plans are human + LLM collaborative
 artifacts and must be approved before decomposition or execution. `GOAL.md` remains the
 staged-program source; do not recreate staged phases as active tracker features.
+
+Validate planning edits with `just plan-validate`, which delegates to the centralized
+planning validator. Do not add repo-local relaxed validators, warning-only schema
+checks, or bypass recipes.
 
 ## Repo structure shortcut
 
 Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`.
 Executable plans and cards go in `plans/`; produced artifacts go in their natural
 durable roots. Exploratory drafts go in gitignored `scratch/`. Mathematical notes and
-source-backed theory live in `theory/`. Agent skills, TODO scratchpad, retirement
-holding, and phase marker files remain under `.agents/`.
+source-backed theory live in `theory/`. The living LaTeX working paper lives in
+`paper/`, reviewed workstream reports live in `reports/workstreams/`, and repo-local
+delegation role prompts live in `.agents/agent-roles/`. Agent skills, TODO scratchpad,
+retirement holding, and phase marker files remain under `.agents/`.
 
 `src.bak/` and `tests.bak/` are a temporary quarantine for stale implementation code
 and implementation tests while phase-one category/spec work is active. Do not treat

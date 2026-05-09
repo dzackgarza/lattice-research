@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
@@ -31,7 +31,7 @@ class UniversalEndObjectMethods:
         """
         return True
 
-    @abstract_method
+    @abstractmethod
     def identity(self) -> Endomorphism:
         r"""Return the identity endomorphism of this end object."""
         ...

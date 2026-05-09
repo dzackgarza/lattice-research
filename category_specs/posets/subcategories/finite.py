@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -39,91 +39,91 @@ class _FinitePosets(CategoryWithAxiom):
         return [Posets(), SageFinitePosets()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def list(self) -> list[PosetElement]:
             r"""Return the elements in the distinguished linear extension order."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def bottom(self) -> PosetElement:
             r"""Return the bottom element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def top(self) -> PosetElement:
             r"""Return the top element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def has_bottom(self) -> bool:
             r"""Return whether the poset has a bottom element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def has_top(self) -> bool:
             r"""Return whether the poset has a top element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_bounded(self) -> bool:
             r"""Return whether the poset has both top and bottom elements."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def minimal_elements(self) -> list[PosetElement]:
             r"""Return the minimal elements."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def maximal_elements(self) -> list[PosetElement]:
             r"""Return the maximal elements."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def cover_relations(self) -> list[tuple[PosetElement, PosetElement]]:
             r"""Return the cover relations."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def cover_relations_iterator(
             self,
         ) -> Iterable[tuple[PosetElement, PosetElement]]:
             r"""Return an iterator over the cover relations."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def covers(self, x: PosetElement, y: PosetElement) -> bool:
             r"""Return whether ``y`` covers ``x``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def closed_interval(
             self, x: PosetElement, y: PosetElement
         ) -> list[PosetElement]:
             r"""Return the closed interval ``[x, y]``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def open_interval(self, x: PosetElement, y: PosetElement) -> list[PosetElement]:
             r"""Return the open interval ``(x, y)``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def interval(self, x: PosetElement, y: PosetElement) -> list[PosetElement]:
             r"""Return the closed interval ``[x, y]``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def dual(self) -> Poset:
             r"""Return the dual poset."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def subposet(self, elements: Iterable[PosetElement]) -> Poset:
             r"""Return the induced subposet on ``elements``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def height(self) -> Integer:
             r"""Return the height of the poset."""
             ...
@@ -133,7 +133,7 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return the height with a maximum-cardinality chain."""
             return self.height(certificate=True)
 
-        @abstract_method
+        @abstractmethod
         def width(self) -> Integer:
             r"""Return the width of the poset."""
             ...
@@ -143,12 +143,12 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return the width with a maximum-cardinality antichain."""
             return self.width(certificate=True)
 
-        @abstract_method
+        @abstractmethod
         def is_ranked(self) -> bool:
             r"""Return whether every maximal chain has the same length."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def rank(self, element: PosetElement | None = None) -> Integer:
             r"""Return the rank of ``element`` or the rank of the poset."""
             ...
@@ -165,7 +165,7 @@ class _FinitePosets(CategoryWithAxiom):
                 self, as_ideals=True, facade=facade
             )
 
-        @abstract_method
+        @abstractmethod
         def is_meet_semilattice(self) -> bool:
             r"""Return whether every pair has a meet."""
             ...
@@ -177,7 +177,7 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return semilattice status with a pair lacking a meet when false."""
             return self.is_meet_semilattice(certificate=True)
 
-        @abstract_method
+        @abstractmethod
         def is_join_semilattice(self) -> bool:
             r"""Return whether every pair has a join."""
             ...
@@ -189,17 +189,17 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return semilattice status with a pair lacking a join when false."""
             return self.is_join_semilattice(certificate=True)
 
-        @abstract_method
+        @abstractmethod
         def chains(self) -> Iterable[PosetSubset]:
             r"""Return the chains of this finite poset."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def antichains(self) -> Iterable[PosetSubset]:
             r"""Return the antichains of this finite poset."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def linear_extensions(self) -> Iterable[list[PosetElement]]:
             r"""Return the linear extensions of this finite poset."""
             ...

@@ -4,11 +4,10 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
-- '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
-- '[[FEATURE-COBLE-MODULI-COMPARISON]]'
+- '[[FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION]]'
 plans: []
 title: Coble Coxeter parabolic classification
-status: complete
+status: unstarted
 priority: high
 description: Construct the Coble Coxeter diagram from the lattice and classify maximal
   parabolic subdiagrams without hand-coded adjacency data.

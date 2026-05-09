@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -91,30 +91,30 @@ class _CommutativeRings(CategoryWithAxiom):
         def is_commutative_ring(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def completion(self, ideal: Ideal) -> CompleteRing: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def ngens(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def characteristic(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def krull_dimension(self) -> Cardinality: ...
 
-        @abstract_method
+        @abstractmethod
         # Computable via Macaulay2 (m2) backend.
         def hilbert_polynomial(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def extension(
             self,
             poly: RingElement,

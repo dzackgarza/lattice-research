@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import IsomorphicObjectsCategory
 
@@ -19,22 +19,22 @@ class _IsomorphicObjects(IsomorphicObjectsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient(self) -> Set:
             r"""Return the set from which structure is transported."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def lift(self, x: SetElement) -> SetElement:
             r"""Apply the inverse isomorphism into the ambient set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def retract(self, x: SetElement) -> SetElement:
             r"""Apply the distinguished isomorphism from the ambient set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def isomorphism(self) -> SetMorphism:
             r"""Return the distinguished isomorphism defining this object."""
             ...

@@ -27,7 +27,7 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -75,19 +75,19 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     # ------------------------------------------------------------------
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def order(self) -> RingElement:
             r"""Generator of ``Ann_R(M)``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def invariant_factors(self) -> Sequence[RingElement]:
             r"""Return ``[0, ..., 0, r_1, ..., r_n]`` with the leading zeros
             encoding the free summands ``R^n``.
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def invariants(self, include_ones: bool = False) -> tuple[RingElement, ...]:
             r"""Return the nonzero invariant factors, optionally including unit
             factors.
@@ -95,17 +95,17 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             del include_ones
             ...
 
-        @abstract_method
+        @abstractmethod
         def smith_form_gens(self) -> tuple[RModuleElement, ...]:
             r"""Return generators compatible with the Smith decomposition."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def free_part(self) -> RModule:
             r"""Free summand ``R^k`` of ``M = R^k \oplus T``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def torsion_part(self) -> RModule:
             r"""Torsion summand ``T`` of ``M = R^k \oplus T``."""
             ...
@@ -114,21 +114,21 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         def free_rank(self) -> Integer:
             return sum(1 for r in self.invariant_factors() if r.is_zero())
 
-        @abstract_method
+        @abstractmethod
         def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement:
             del vec
             ...
 
-        @abstract_method
+        @abstractmethod
         def V(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def W(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def optimized(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism:
             del images
             ...
@@ -138,10 +138,10 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
     # ------------------------------------------------------------------
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def to_vector(self) -> Sequence[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def order(self) -> RingElement:
             r"""Generator of ``Ann_R(m) = Ann_R(<m>)``."""
             ...
@@ -154,35 +154,35 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
             def from_dict(
                 self, mapping: dict[RModuleElement, RModuleElement]
             ) -> RModMorphism:
                 del mapping
                 ...
 
-            @abstract_method
+            @abstractmethod
             def from_matrix(self, M: Matrix) -> RModMorphism: ...
 
-            @abstract_method
+            @abstractmethod
             def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism:
                 del images
                 ...
 
         class ElementMethods:
-            @abstract_method
+            @abstractmethod
             def to_dict(self) -> dict[RModuleElement, RModuleElement]: ...
 
-            @abstract_method
+            @abstractmethod
             def to_matrix(self) -> Matrix: ...
 
-            @abstract_method
+            @abstractmethod
             def to_list(self) -> list[RModuleElement]: ...
 
-            @abstract_method
+            @abstractmethod
             def to_tuple(self) -> tuple[RModuleElement, ...]: ...
 
-            @abstract_method
+            @abstractmethod
             def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
         class MorphismMethods: ...
@@ -195,7 +195,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         r"""Finitely presented torsion modules over a PID."""
 
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
             def p_part(self, p: RingElement) -> RModule:
                 r"""Factor ``(R/p)^n`` of ``T`` in the decomposition
                 ``M = F + T``.
@@ -221,10 +221,10 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
         """
 
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
             def determinant(self) -> RingElement: ...
 
-            @abstract_method
+            @abstractmethod
             def discriminant_group(self) -> DiscriminantGroup: ...
 
         class ElementMethods: ...

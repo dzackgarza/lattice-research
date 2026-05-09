@@ -7,7 +7,7 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -50,16 +50,16 @@ class _RepresentationModules(Category_over_base_ring):
         def is_representation_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def semigroup(self) -> Group | Monoid: ...
 
-        @abstract_method
+        @abstractmethod
         def side(self) -> Literal["left", "right", "twosided"]: ...
 
-        @abstract_method
+        @abstractmethod
         def algebra(self) -> Algebra: ...
 
-        @abstract_method
+        @abstractmethod
         def representation_matrix(
             self,
             g: CategoryElement,
@@ -67,7 +67,7 @@ class _RepresentationModules(Category_over_base_ring):
             sparse: bool = False,
         ) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def invariant_module(
             self,
             S: Group | None = None,
@@ -83,7 +83,7 @@ class _RepresentationModules(Category_over_base_ring):
             del action_on_basis
             ...
 
-        @abstract_method
+        @abstractmethod
         def cell_module(
             self,
             index: CategoryElement,

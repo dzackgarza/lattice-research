@@ -6,7 +6,7 @@ from collections.abc import Callable, Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import (
@@ -39,22 +39,22 @@ class _FiniteSetMapsSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def an_element(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[FiniteSetMap]: ...
 
-        @abstract_method
+        @abstractmethod
         def _from_list_(self, v: list[SetElement]) -> FiniteSetMap: ...
 
         @overload
@@ -79,7 +79,7 @@ class _FiniteSetMapsSets(Category_singleton):
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(
             self,
             data: FiniteSetMap
@@ -88,7 +88,7 @@ class _FiniteSetMapsSets(Category_singleton):
             check: bool = True,
         ) -> FiniteSetMap: ...
 
-        @abstract_method
+        @abstractmethod
         def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap:
             r"""Construct the finite map represented by the finite association ``d``."""
             ...

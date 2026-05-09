@@ -13,6 +13,10 @@ This skill is the canonical execution-state authority for the research repo.
 
 The source of truth is this skill plus `references/execution-kernel.md`, `references/review-kernel.md`, and `references/upstream-gates.md`.
 
+For substantial mathematical research directions, interpret this state machine through
+`research-co-mathematician-workflow`: intake, workstreams, living-paper artifacts,
+uncertainty lifecycle, and failed-exploration records are part of execution state.
+
 Read `references/execution-kernel.md` before moving work from planning into execution, delegating implementation, judging whether a card is atomic, routing replay/attack, accepting/rejecting/splitting work, or claiming parent-plan or `GOAL.md` discharge.
 
 Read `references/review-kernel.md` before reviewing any card in `needs-review` or `needs-human-input` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
@@ -31,11 +35,19 @@ Read `references/upstream-gates.md` before approving a feature, spec, or plan. T
 ## Live stages
 
 - Plan: collaborate with the human and approve complex plans before decomposition.
+- Intake: for substantial research directions, settle the user's question, goals,
+  non-goals, success criteria, hard constraints, branch structure, and uncertainty
+  policy before opening workstreams.
 - Specify card: create a tracked card with exact claim/work target, scope, provenance, dependencies, acceptance criteria, and verification plan.
 - Preflight: reject or split hidden-major-work cards before execution.
-- Execute: run scoped implementation in the required branch/worktree and update card metadata.
+- Execute: run scoped implementation or one linear research workstream in the required
+  branch/worktree, produce native artifacts, and update card metadata.
 - Review: apply the six ordered gates from `references/review-kernel.md`. Determine whether the card is `complete`/`done`, `needs-human-input` (human decision needed), `revision-required` (rework needed), or `blocked` (prerequisite missing).
 - Promote, reject, split, or retire: human-gated promotion; otherwise split or reject and keep active paths forward-facing.
+
+Failed branches are outcomes. Preserve failed proof strategies, false conjectures,
+exhausted searches, missing-source dead ends, and reviewer non-termination in the card,
+workstream report, or living paper instead of silently restarting.
 
 ## Hard stops
 
@@ -64,6 +76,8 @@ spec work.
 ## Load with
 
 - Load `research-project-workflow` for Nimbalyst plan/card mechanics.
+- Load `research-co-mathematician-workflow` before opening or reshaping substantial
+  mathematical research workstreams.
 - Load `research-proof-auditing` for proof, evidence, formal verification, and fraud checks within the review kernel's Gate 5.
 - Load `research-orchestration` for subagent contracts, worktrees, self-check, adversarial audit, and durable artifact handoff.
 - Load `research-math-boundary` when preflight reveals missing foundational mathematical nouns, methods, conventions, or backend bridges.

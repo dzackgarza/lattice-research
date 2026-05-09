@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -74,22 +74,22 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
             )
             return self.change_ring(base_ext)
 
-        @abstract_method
+        @abstractmethod
         def change_ring(self, R: Ring) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def ngens(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def laurent_series_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def default_prec(self) -> Integer: ...
 
     class ElementMethods: ...

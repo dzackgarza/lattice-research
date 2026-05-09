@@ -4,12 +4,11 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
-- '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
-- '[[FEATURE-COBLE-MODULI-COMPARISON]]'
+- '[[FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION]]'
 - '[[FEATURE-COBLE-K3-FOLDING-INVOLUTION]]'
 plans: []
 title: Coble arithmetic group generators
-status: complete
+status: unstarted
 priority: high
 description: Construct Gamma_Co as a stabilizer-centralizer arithmetic subgroup and
   compute explicit generators with exact lattice-group verification.

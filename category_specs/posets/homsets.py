@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
@@ -19,12 +19,12 @@ class _PosetHomCategoryObjectMethods:
 
 
 class _OrderPreservingMaps:
-    @abstract_method
+    @abstractmethod
     def is_order_preserving(self) -> bool:
         r"""Return whether this map preserves the partial order."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_order_embedding(self) -> bool:
         r"""Return whether this order-preserving map reflects the order."""
         ...
@@ -70,7 +70,7 @@ class PosetEndCategory(GenericEndCategory):
     Autset = LazyImport(__name__, "PosetAutCategory")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_poset(self) -> Poset:
             r"""Return the poset whose endomorphisms this object contains."""
             ...

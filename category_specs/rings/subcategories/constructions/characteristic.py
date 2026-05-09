@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from .parameterized import _Category_over_base_integer
@@ -33,7 +33,7 @@ class _CharacteristicRings(_Category_over_base_integer):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def characteristic(self) -> Integer: ...
 
     class ElementMethods: ...

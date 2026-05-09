@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.abc import RealBallField as SageRealBallField
 from sage.rings.abc import RealDoubleField as SageRealDoubleField
 from sage.rings.abc import RealField as SageRealField
@@ -63,7 +63,7 @@ class _RealPrecisionFields(Category_singleton):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def precision(self) -> Integer: ...
 
         @override
@@ -82,7 +82,7 @@ class _RealPrecisionFields(Category_singleton):
             assert isinstance(self, SageRealBallField)
             return self.__class__(precision)
 
-        @abstract_method
+        @abstractmethod
         def complex_field(self) -> Field: ...
 
     class ElementMethods: ...

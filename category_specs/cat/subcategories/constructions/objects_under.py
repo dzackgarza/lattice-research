@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import final, override
 
 from sage.categories.functor import Functor
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
 from .objects_over import structure_codomain, structure_domain
@@ -25,12 +25,12 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
         return f"categories under {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_category(self) -> Category:
             r"""Return the base category ``C`` of this coslice object."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def structure_functor(self) -> Functor:
             r"""Return the structure functor from ``C`` to this category."""
             ...

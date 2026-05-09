@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import SubquotientsCategory
 
@@ -24,23 +24,23 @@ class _Subquotients(SubquotientsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient(self) -> Set:
             r"""Return the ambient set in which this subquotient is represented."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def lift(self, x: SetElement) -> SetElement:
             r"""Lift an element to the ambient set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def retract(self, x: SetElement) -> SetElement:
             r"""Retract an ambient element to this set."""
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def lift(self) -> SetElement:
             r"""Lift this element to the ambient set of its parent."""
             ...

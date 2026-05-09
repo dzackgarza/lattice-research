@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -41,7 +41,7 @@ class _ReducedRings(CategoryWithAxiom):
         def is_reduced(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def integral_closure(self) -> Ring: ...
 
     class ElementMethods: ...

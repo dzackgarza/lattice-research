@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
@@ -26,7 +26,7 @@ class _LatticeHomCategoryObjectMethods:
 class _LatticeMorphisms:
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
-    @abstract_method
+    @abstractmethod
     def to_matrix(self) -> Matrix: ...
 
     def is_isometry(self) -> bool:
@@ -79,7 +79,7 @@ class LatticeEndCategory(GenericEndCategory):
     Autset = LazyImport(__name__, "LatticeAutCategory")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
     ElementMethods = _LatticeMorphisms
@@ -96,12 +96,12 @@ class LatticeAutCategory(GenericAutCategory):
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the determinant-one subgroup of this lattice orthogonal group."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the orientation-preserving subgroup.
 
@@ -109,7 +109,7 @@ class LatticeAutCategory(GenericAutCategory):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
 

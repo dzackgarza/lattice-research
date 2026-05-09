@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
 from sage.structure.factorization import Factorization
 
@@ -43,16 +43,16 @@ class _IntegerModRings(Category_singleton):
         return isinstance(R, IntegerModRing_generic)
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def modulus(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def factored_order(self) -> Factorization: ...
 
-        @abstract_method
+        @abstractmethod
         def unit_gens(self, algorithm: str = "sage") -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def multiplicative_generator(self) -> RingElement: ...
 
     class ElementMethods: ...

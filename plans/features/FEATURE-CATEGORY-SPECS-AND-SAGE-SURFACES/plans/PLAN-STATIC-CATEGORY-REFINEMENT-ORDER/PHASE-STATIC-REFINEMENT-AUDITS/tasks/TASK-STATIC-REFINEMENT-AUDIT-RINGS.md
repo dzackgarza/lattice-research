@@ -3,22 +3,27 @@ id: TASK-STATIC-REFINEMENT-AUDIT-RINGS
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
+- '[[PHASE-STATIC-REFINEMENT-AUDITS]]'
 dependsOn: []
 title: Audit super_categories() returns in category_specs/rings/
-status: unstarted
+status: complete
 priority: critical
-description: 'Grep all super_categories() calls in category_specs/rings/, extract each
+description: Grep all super_categories() calls in category_specs/rings/, extract each
   returned list, cross-reference against the admitted-edges table in the plan, write
-  findings into the plan body.'
+  findings into the plan body.
 successCriteria:
-- Every super_categories() return in category_specs/rings/ is inventoried.
-- Each hit is classified as: in table, missing from table, or exempt.
-- Findings are written as a new section '## Rings super_categories() inventory' in the plan body.
-- Contradictions between table and code are flagged with exact file:line evidence.
+- >-
+  Every super_categories() return in category_specs/rings/ is inventoried.
+- >-
+  Each hit is classified as in table, missing from table, or exempt.
+- >-
+  Findings are written as '## Rings super_categories() inventory' in the plan body.
+- >-
+  Contradictions between table and code are flagged with exact file:line evidence.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-STATIC-CATEGORY-REFINEMENT-ORDER
+- PHASE-STATIC-REFINEMENT-AUDITS
 ---
 # Audit super_categories() returns in rings
 

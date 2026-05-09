@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_module
 
@@ -29,13 +29,13 @@ class OverlatticesCategory(Category_module):
         return [Lattices(self.base_ring()).Rational()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def base_inclusion(self) -> LatticeMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def index(self) -> Cardinality: ...
 
     class ElementMethods: ...

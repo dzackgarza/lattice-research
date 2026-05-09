@@ -3,18 +3,18 @@ id: TASK-STATIC-REFINEMENT-FILL-TABLE
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
+- '[[PHASE-STATIC-REFINEMENT-AUDITS]]'
 dependsOn:
 - '[[TASK-STATIC-REFINEMENT-AUDIT-RINGS]]'
 - '[[TASK-STATIC-REFINEMENT-AUDIT-SETS-MODULES]]'
 - '[[TASK-STATIC-REFINEMENT-AUDIT-REMAINING]]'
 title: Fill admitted-edges table from audit results and add source citations
-status: unstarted
+status: complete
 priority: critical
-description: 'Using the 3 audit inventory sections now in the plan body, add every
-  undocumented super_categories() edge to the admitted-edges table, add source
-  citations (MAPPING.md or Sage source) to every row, resolve the PartitionedSets
-  contradiction, and remove or decision-card unsettled edges.'
+description: Using the 3 audit inventory sections now in the plan body, add every
+  undocumented super_categories() edge to the admitted-edges table, add source citations
+  (MAPPING.md or Sage source) to every row, resolve the PartitionedSets contradiction,
+  and remove or decision-card unsettled edges.
 successCriteria:
 - Every documented edge has a traceable source citation.
 - PartitionedSets contradiction resolved (fix code or fix table, with justification).
@@ -23,6 +23,7 @@ successCriteria:
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-STATIC-CATEGORY-REFINEMENT-ORDER
+- PHASE-STATIC-REFINEMENT-AUDITS
 ---
 # Fill admitted-edges table from audit results
 

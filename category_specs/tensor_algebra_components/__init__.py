@@ -8,9 +8,9 @@ are tensors in those component modules.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final, override, TypeAlias
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
@@ -35,17 +35,17 @@ if TYPE_CHECKING:
 class _TensorAlgebraComponentParentMethods:
     r"""Methods on tensor component modules ``T_R(M)[p,q]``."""
 
-    @abstract_method
+    @abstractmethod
     def base_module(self) -> RModule:
         r"""Return ``M`` for ``T_R(M)[p,q]``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
         r"""Lift pure-product data into this tensor component."""
         ...
@@ -54,17 +54,17 @@ class _TensorAlgebraComponentParentMethods:
 class _TensorElementMethods:
     r"""Methods on tensors."""
 
-    @abstract_method
+    @abstractmethod
     def base_module(self) -> RModule:
         r"""Return the module ``M`` on which this tensor is defined."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def trace(
         self, contravariant_position: Integer, covariant_position: Integer
     ) -> Tensor | RingElement:
@@ -77,7 +77,7 @@ class _TensorElementMethods:
         del contravariant_position, covariant_position
         ...
 
-    @abstract_method
+    @abstractmethod
     def contract(
         self, left_position: Integer, other: Tensor, right_position: Integer
     ) -> Tensor | RingElement:
@@ -374,15 +374,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
     HomCategory = RModuleHomCategory
 
 
-TensorAlgebraComponentsCategory = TensorAlgebraComponents
-TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
-TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
-TensorAlgebraComponentsMorphism = TensorAlgebraComponents.MorphismMethods
-TensorAlgebraComponentsHomCategory = RModuleHomCategory
-TensorAlgebraComponentsEndCategory = RModuleEndCategory
-TensorAlgebraComponentsAutCategory = RModuleAutCategory
-TensorAlgebraComponentsHom = RModuleHomCategory.ParentMethods
-TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
-TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
-TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
-TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods
+TensorAlgebraComponentsCategory: TypeAlias = TensorAlgebraComponents
+TensorAlgebraComponentsObject: TypeAlias = TensorAlgebraComponents.ParentMethods
+TensorAlgebraComponentsElement: TypeAlias = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsMorphism: TypeAlias = TensorAlgebraComponents.MorphismMethods
+TensorAlgebraComponentsHomCategory: TypeAlias = RModuleHomCategory
+TensorAlgebraComponentsEndCategory: TypeAlias = RModuleEndCategory
+TensorAlgebraComponentsAutCategory: TypeAlias = RModuleAutCategory
+TensorAlgebraComponentsHom: TypeAlias = RModuleHomCategory.ParentMethods
+TensorAlgebraComponentsEnd: TypeAlias = RModuleEndCategory.ParentMethods
+TensorAlgebraComponentsAut: TypeAlias = RModuleAutCategory.ParentMethods
+TensorAlgebraComponentsEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+TensorAlgebraComponentsAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods

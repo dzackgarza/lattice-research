@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (
@@ -30,12 +30,12 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         return f"algebras over {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_algebra(self) -> Algebra:
             r"""Return the target algebra of this object-over structure."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> AlgebraMorphism:
             r"""Return the algebra morphism from this algebra to the target."""
             ...

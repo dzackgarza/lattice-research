@@ -6,7 +6,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -54,16 +54,16 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
         def is_finitely_presented_graded_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def generator_degrees(self) -> tuple[Integer, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def relations(self) -> tuple[RModuleElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def presentation(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def free_resolution(
             self,
             name: str = "S",
@@ -76,7 +76,7 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             del graded, degrees, shifts
             ...
 
-        @abstract_method
+        @abstractmethod
         def module_morphism(
             self,
             on_basis: Callable[[CategoryElement], RModuleElement] | None = None,

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.rings import Rings as SageRings
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -44,10 +44,10 @@ class _FiniteRings(CategoryWithAxiom):
         def is_finite(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def order(self) -> Integer: ...
 
     class ElementMethods: ...

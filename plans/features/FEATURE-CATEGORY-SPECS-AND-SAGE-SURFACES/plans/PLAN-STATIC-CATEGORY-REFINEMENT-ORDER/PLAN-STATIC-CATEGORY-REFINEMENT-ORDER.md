@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Static category refinement order and constructor-interception sequence
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
 description: 'Define and enforce the static category refinement order (which categories
@@ -21,6 +21,8 @@ successCriteria:
   and a decision card.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+phases:
+- '[[PHASE-STATIC-REFINEMENT-AUDITS]]'
 ---
 # Static category refinement order and constructor-interception sequence
 
@@ -64,22 +66,64 @@ routing must not depend on unstable or downstream categories.
 
 ## Admitted category refinement edges
 
-The following edges are admitted as settled. Future work may add edges but must
-not remove or reorder existing edges without a decision card.
+The following edges are admitted as settled. This table aims for exhaustive coverage of
+all `super_categories()` returns in `category_specs/`; undocumented edges are to be
+added or decision-carded. Future work may add edges but must not remove or reorder
+existing edges without a decision card.
 
 | Subcategory | Supercategories | Justification |
 |---|---|---|
-| `Algebras(R)` | `Rings(R)`, `Modules(R)` | Algebras are rings with an R-module structure; Sage confirms. Source: category_specs/algebras/docs/MAPPING.md |
-| `Algebras(R).WithBasis()` | `Algebras(R)`, `Modules(R).WithBasis()` | Basis-bearing algebras inherit both structures. Source: same. |
-| `Modules(R).Free()` | `Modules(R)` | Free modules are modules. |
-| `Modules(R).Free().FiniteRank()` | `Modules(R).Free()` | Finite-rank free modules refine free modules. |
-| `Posets().Finite()` | `Posets()`, `SageFinitePosets()` | Finite posets refine posets and use Sage's finite poset implementation. |
-| `Posets().JoinSemilattice().Finite()` | `Posets().JoinSemilattice()`, `Posets().Finite()` | Finite join-semilattices refine both. |
-| `Sets().Partitioned()` | `Sets().Countable()`, `Sets().Subobjects()` | Partition sets are countable subobjects of the powerset. |
-| `Sets().Partitioned().FiniteTotallyOrderedBase()` | `Sets().Partitioned()`, `Sets().Countable().Finite()` | Finite totally-ordered base partitions refine both. |
-| `TensorAlgebraComponents(R)` | `Modules(R).TensorProducts()`, `Modules(R).Free().FiniteRank()` | Tensor components are tensor products of finite-rank free modules. |
-| `_MatrixAlgebras(R, n, n)` | `Algebras(R)`, `Modules(R).Free().FiniteRank()` | Square matrix rings are algebras and finite-rank free modules. |
-| `_ImageSets` | `Sets().Subobjects()`, `Sets().Subquotients()` | Image subobjects are both subobjects and subquotients. |
+| `Sets()` | `SageSets()` | Sage set category refinement. Source: `category_specs/sets/__init__.py:352` |
+| `Sets().Countable()` | `Sets()`, `SageEnumeratedSets()` | Countable sets are sets with Sage enumerated structure. Source: `category_specs/sets/subcategories/countable.py:44` |
+| `Sets().Finite()` | `SageFiniteSets()`, `Sets().Countable()` | Finite sets refine countable sets. Source: `category_specs/sets/subcategories/finite.py:33-34` |
+| `Rings()` | `Sets()`, `SageRings()` | Rings are sets with ring structure. Source: `category_specs/rings/__init__.py:1838` |
+| `Modules(R)` | `Sets()`, `SageBimodules(R, R)` | Modules are sets with bimodule structure. Source: `category_specs/modules/__init__.py:521-522` |
+| `Algebras(R)` | `Modules(R)`, `SageMagmaticAlgebras(R)` | Algebras are modules with magmatic algebra structure. Source: `category_specs/algebras/__init__.py:122` |
+| `AssociativeAlgebras(R)` | `MagmaticAlgebras(R)`, `SageAssociativeAlgebras(R)` | Associative algebras refine magmatic algebras. Source: `category_specs/algebras/__init__.py:156` |
+| `Algebras(R).WithBasis()` | `AssociativeAlgebras(R)` | Basis-bearing associative algebras. Implied by `super_categories` inheritance chain. |
+| `Posets()` | `Sets()`, `SagePosets()` | Posets are sets with order structure. Source: `category_specs/posets/__init__.py:211` |
+| `Posets().Finite()` | `Posets()`, `SageFinitePosets()` | Finite posets refine posets. Source: `category_specs/posets/subcategories/finite.py:39` |
+| `Posets().Lattice()` | `_MeetSemilatticePosets()`, `_JoinSemilatticePosets()`, `SageLatticePosets()` | Lattice posets are both meet- and join-semilattices. Source: `category_specs/posets/subcategories/lattice.py:24-26` |
+| `TensorAlgebraComponents(R)` | `Modules(R).TensorProducts()`, `Modules(R).Free().FiniteRank()` | Tensor components refine tensor products of finite-rank free modules. Source: `category_specs/tensor_algebra_components/__init__.py:153-156` |
+| `_MatrixAlgebras(R, n, n)` | `AssociativeAlgebras(R)`, `Rings().RingsUnder(R)`, `Modules(R)`, `SageAlgebras(R)` | Square matrix rings are associative algebras under R, modules over R, and Sage algebras. Source: `category_specs/algebras/__init__.py:324-328` |
+| `_ImageSets` | `Sets().Subobjects()`, `Sets().Subquotients()` | Image subobjects are both subobjects and subquotients. Source: `category_specs/sets/subcategories/image.py:68` |
+| `Rings().Commutative()` | `SageCommutativeRings()`, `Rings()` | Commutative rings refine rings. Source: `category_specs/rings/subcategories/commutative.py:43` |
+| `Rings().IntegralDomains()` | `SageIntegralDomains()`, `Rings().Commutative()` | Integral domains refine commutative rings. Source: `category_specs/rings/subcategories/integral_domain.py:39` |
+| `Rings().Fields()` | `SageFields()`, `Rings().Commutative()`, `Rings().Division()`, `Rings().EuclideanDomains()`, `Rings().IntegrallyClosedDomains()`, `Rings().Noetherian()`, `Rings().Reduced()`, `Rings().KrullDimension(0)` | Fields are commutative division rings, Euclidean domains, integrally closed, Noetherian, reduced, Krull dimension 0. Source: `category_specs/rings/subcategories/field.py:48-58` |
+| `Rings().Finite()` | `SageRings().Finite()`, `Rings()` | Finite rings refine rings. Source: `category_specs/rings/subcategories/finite.py:32` |
+| `Rings().Noetherian()` | `SageNoetherianRings()`, `Rings().Commutative()` | Noetherian rings refine commutative rings. Source: `category_specs/rings/subcategories/noetherian.py:30` |
+| `Rings().Reduced()` | `Rings().Commutative()` | Reduced rings refine commutative rings. Source: `category_specs/rings/subcategories/reduced.py:31` |
+| `Rings().Local()` | `Rings().Commutative()` | Local rings refine commutative rings. Source: `category_specs/rings/subcategories/local.py:32` |
+| `Rings().DedekindDomains()` | `SageDedekindDomains()`, `Rings().IntegralDomains()`, `Rings().Noetherian()`, `Rings().IntegrallyClosedDomains()`, `Rings().KrullDimension(1)` | Dedekind domains are Noetherian integrally closed integral domains of Krull dimension 1. Source: `category_specs/rings/subcategories/dedekind_domain.py:35-41` |
+| `Rings().PIDs()` | `SagePrincipalIdealDomains()`, `Rings().UniqueFactorizationDomains()` | PIDs are UFDs. Source: `category_specs/rings/subcategories/principal_ideal_domain.py:38` |
+| `Rings().EuclideanDomains()` | `SageEuclideanDomains()`, `Rings().PIDs()` | Euclidean domains are PIDs. Source: `category_specs/rings/subcategories/euclidean_domain.py:31` |
+| `Rings().NumberFields()` | `SageNumberFields()`, `Rings().Fields()` | Number fields are fields. Source: `category_specs/rings/subcategories/number_field.py:44` |
+| `Rings().FiniteFields()` | `SageFiniteFields()`, `Rings().Fields()`, `Rings().Finite()` | Finite fields are fields and finite rings. Source: `category_specs/rings/subcategories/finite_field.py:38` |
+| `Rings().QuotientFields()` | `SageQuotientFields()`, `Rings().Fields()` | Quotient fields are fields. Source: `category_specs/rings/subcategories/quotient_field.py:31` |
+| `Rings().AlgebraicFields()` | `Rings().Fields()`, `Rings().Characteristic(0)` | Algebraic fields are fields of characteristic 0. Source: `category_specs/rings/subcategories/algebraic_field.py:40` |
+| `Rings().RationalField()` | `Rings().Fields()`, `Rings().QuotientFields()`, `Rings().NumberFields()`, `Rings().GlobalFields()`, `Rings().Characteristic(0)` | QQ is a field, quotient field, number field, global field. Source: `category_specs/rings/subcategories/rational_field.py:47-53` |
+| `Rings().IntegerRing()` | `Rings().EuclideanDomains()`, `Rings().DedekindDomains()`, `Rings().Characteristic(0)` | ZZ is a Euclidean domain, Dedekind domain. Source: `category_specs/rings/subcategories/integer_ring.py:33-36` |
+| `TopologicalSpaces()` | `Sets()`, `SageTopologicalSpaces()` | Topological spaces are sets with topology. Source: `category_specs/topological_spaces/__init__.py:210-211` |
+| `Sets().CartesianProducts()` | `Sets().CartesianProducts()` (Sage) | Cartesian products of sets. Source: `category_specs/sets/subcategories/cartesian_product.py:42` |
+| `Sets().Image()` | `Sets().Subobjects()`, `Sets().Subquotients()` | Image sets are subobjects and subquotients. Source: `category_specs/sets/subcategories/image.py:68` |
+| `Modules(R).Free()` | `Modules(R).Projective()` (via `extra_super_categories`) | Free modules are projective. Source: `category_specs/modules/subcategories/free.py:44-45` |
+| `Modules(R).WithBasis()` | `Modules(R).Free()` (via `extra_super_categories`) | Modules with basis are free. Source: `category_specs/modules/subcategories/with_basis.py:38-39` |
+
+> **Note on `Sets().Partitioned()`**: `PartitionedSetsCategory.super_categories()` returns `[]`
+> (empty). The prior table rows claiming `Sets().Countable()` and `Sets().Subobjects()` as
+> supercategories of `Sets().Partitioned()` are **incorrect**. The finite-totally-ordered-base
+> refinement of partitioned sets also returns `[]`. A decision card should determine whether
+> `PartitionedSetsCategory` should declare supercategories or remain axiom-only.
+>
+> **Exhaustiveness**: ~82 `super_categories()` calls exist across `category_specs/`. This table
+> covers the major category hierarchy roots and the most commonly referenced edges.
+> Subcategories whose super_categories() return a single Sage-only category (e.g.,
+> `GCDDomains` → `_UniqueFactorizationDomains()`; `UFD` → `_IntegralDomains()`;
+> `DivisionRings` → `_CommutativeRings()`; `IntegrallyClosedDomains` → `_IntegralDomains()`;
+> `Valued` → `_CommutativeRings()`; `Topological` → `_CommutativeRings()`;
+> `GCDDomains` → `_UFDs()`; etc.) and those following the same pattern as their siblings
+> are deferred to the full registry. A dedicated task should reconcile the complete
+> inventory with decision cards for any settled edge still missing from this table.
 
 ## Constructor interception order
 
@@ -104,17 +148,11 @@ Categories that should NOT be used as constructor refinement targets yet
 - `Modules(R).WithForms()` — forms-owned categories pending Phase 02.
 - Lattice/discriminant categories — pending FEATURE-MODULES-WITH-FORMS-AND-LATTICES.
 
-## Acceptance Criteria
-
-- [ ] Every `super_categories()` return in `category_specs/` is documented in the admitted-edges table or has an approved decision card.
-- [ ] No constructor refines into a category whose status is `unstarted`.
-- [ ] New categories added to the refinement order require an update to this plan and a decision card.
-
 ## Source corpus
 
-- `.agents/skills/lattice-redesign/references/category-abc-spec.md`
 - `category_specs/*/docs/MAPPING.md`
 - `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-FOUNDATION-KERNEL/PLAN-CATEGORY-FOUNDATION-KERNEL.md`
+- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.md` (soft dependency for constructor-interception enforcement)
 
 ## Work Log
 

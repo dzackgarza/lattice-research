@@ -30,9 +30,9 @@ not for every named set with a topology.
 from __future__ import annotations
 
 from importlib import import_module
-from typing import TYPE_CHECKING, NoReturn, final, override
+from typing import TYPE_CHECKING, NoReturn, final, override, TypeAlias
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -67,37 +67,37 @@ class _TopologicalSpaceObjectMethods:
         r"""Return ``True`` because this object lies in ``TopologicalSpaces()``."""
         return True
 
-    @abstract_method
+    @abstractmethod
     def is_connected(self) -> bool:
         r"""Return whether this topological space is connected."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def closure(self, U: Subset) -> Subset:
         r"""Return the closure of ``U`` in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def interior(self, U: Subset) -> Subset:
         r"""Return the interior of ``U`` in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def boundary(self, U: Subset) -> Subset:
         r"""Return the boundary of ``U`` in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_open(self, U: Subset) -> bool:
         r"""Return whether ``U`` is open in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_closed(self, U: Subset) -> bool:
         r"""Return whether ``U`` is closed in this topological space."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_compact(self) -> bool:
         r"""Return whether this topological space is compact."""
         ...
@@ -282,15 +282,15 @@ def _load_metric_spaces_exports() -> None:
 _load_metric_spaces_exports()
 
 
-TopologicalSpacesCategory = TopologicalSpaces
-TopologicalSpacesObject = TopologicalSpaces.ParentMethods
-TopologicalSpacesElement = TopologicalSpaces.ElementMethods
-TopologicalSpacesMorphism = TopologicalSpaces.MorphismMethods
-TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
-TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
-TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
-TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
-TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
-TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
-TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
-TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods
+TopologicalSpacesCategory: TypeAlias = TopologicalSpaces
+TopologicalSpacesObject: TypeAlias = TopologicalSpaces.ParentMethods
+TopologicalSpacesElement: TypeAlias = TopologicalSpaces.ElementMethods
+TopologicalSpacesMorphism: TypeAlias = TopologicalSpaces.MorphismMethods
+TopologicalSpacesHomCategory: TypeAlias = TopologicalSpaceHomCategory
+TopologicalSpacesEndCategory: TypeAlias = TopologicalSpaceEndCategory
+TopologicalSpacesAutCategory: TypeAlias = TopologicalSpaceAutCategory
+TopologicalSpacesHom: TypeAlias = TopologicalSpaceHomCategory.ParentMethods
+TopologicalSpacesEnd: TypeAlias = TopologicalSpaceEndCategory.ParentMethods
+TopologicalSpacesAut: TypeAlias = TopologicalSpaceAutCategory.ParentMethods
+TopologicalSpacesEndomorphism: TypeAlias = TopologicalSpaceEndCategory.ElementMethods
+TopologicalSpacesAutomorphism: TypeAlias = TopologicalSpaceAutCategory.ElementMethods

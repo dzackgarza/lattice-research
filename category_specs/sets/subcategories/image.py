@@ -6,7 +6,7 @@ from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.sets.image_set import ImageSubobject as SageImageSubobject
 
 if TYPE_CHECKING:
@@ -68,55 +68,55 @@ class _ImageSets(Category_singleton):
         return [Sets().Subobjects(), Sets().Subquotients()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def __eq__(self, other: Set) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def __ne__(self, other: Set) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def __hash__(self) -> Integer: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def ambient(self) -> Set:
             r"""Return the codomain ambient set containing this image."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def lift(self, x: SetElement) -> SetElement:
             r"""Lift an image element into ``ambient()``."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def retract(self, x: SetElement) -> SetElement:
             r"""Retract an ambient element to this image when defined."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _an_element_(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _sympy_(self) -> SympySet: ...
 
     class ElementMethods: ...

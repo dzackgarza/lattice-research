@@ -11,7 +11,7 @@ plans:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 title: Category specs and Sage surface admission
-status: in-progress
+status: complete
 priority: critical
 description: 'Specify a Sage-compatible categorical language for downstream research:
   sets, modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary

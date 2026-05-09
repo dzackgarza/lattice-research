@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, assert_never, final, override
 
 from sage.categories.fields import Fields as SageFields
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -116,10 +116,10 @@ class _Fields(CategoryWithAxiom):
         return _CC()
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def is_algebraically_closed(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def algebraic_closure(self) -> Field: ...
 
         @override
@@ -147,7 +147,7 @@ class _Fields(CategoryWithAxiom):
                     assert_never(unreachable)
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def inverse(self) -> RingElement: ...
 
     class MorphismMethods: ...

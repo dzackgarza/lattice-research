@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.functor import Functor
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
 
@@ -39,12 +39,12 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
         return f"categories over {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_category(self) -> Category:
             r"""Return the base category ``C`` of this slice object."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def structure_functor(self) -> Functor:
             r"""Return the structure functor from this category to ``C``."""
             ...

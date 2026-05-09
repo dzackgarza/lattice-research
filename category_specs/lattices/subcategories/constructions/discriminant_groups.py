@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category_module
 from ....modules import (
@@ -44,31 +44,31 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         ]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def invariants(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_quadratic(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def brown_invariant(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def primary_part(
             self, p: RingElement
         ) -> LatticeDiscriminantGroupsCategory.ParentMethods: ...
 
-        @abstract_method
+        @abstractmethod
         def all_submodules(self) -> SetFamily: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def additive_order(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def lift(self) -> RModuleElement: ...
 
     class MorphismMethods: ...

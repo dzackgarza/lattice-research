@@ -3,25 +3,26 @@ id: TASK-SMOKE-PLAN-FIX-SCOPE
 trackerStatus:
   type: task
 parents:
-- '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
+- '[[PHASE-SMOKE-PLAN-REMEDIATION]]'
 dependsOn: []
 title: Narrow plan description to match actual phase inventory
-status: unstarted
+status: complete
 priority: high
 description: 'Resolve G4 scope gap: the plan description promises "import hygiene,
-  wrapper, type, and anti-slop compliance" but no phases exist for these areas.
-  Narrow the description to reflect only what is actually planned.'
+  wrapper, type, and anti-slop compliance" but no phases exist for these areas.  Narrow
+  the description to reflect only what is actually planned.'
 successCriteria:
 - Plan description narrowed from "smoke-frontier, audit, variadic-signature, import
   hygiene, wrapper, type, and anti-slop compliance" to "smoke-audit and object-shape
   probe governance."
-- Body adds a note: import hygiene is handled by ruff/isort enforcement; wrapper/type
-  compliance lives under PLAN-CATEGORY-FOUNDATION-KERNEL; anti-slop patterns are
-  caught by style compliance gates.
+- 'Body adds a note: import hygiene is handled by ruff/isort enforcement; wrapper/type
+  compliance lives under PLAN-CATEGORY-FOUNDATION-KERNEL; anti-slop patterns are caught
+  by style compliance gates.'
 - Objective sentence updated to match narrowed scope.
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION
+- PHASE-SMOKE-PLAN-REMEDIATION
 ---
 # Narrow plan description to match actual phase inventory
 

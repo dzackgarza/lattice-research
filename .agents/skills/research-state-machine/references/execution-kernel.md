@@ -8,10 +8,16 @@ No process label creates mathematical trust. Trust comes only from the artifacts
 
 ## Canonical objects
 
-Use five objects only:
+Use these canonical objects:
 
 - `GOAL.md`: the read-only research objective spine.
 - `plans/features/**`: active feature, spec, plan, phase, task, and decision cards.
+- `paper/**`: the living LaTeX working paper that rebuilds the mathematical narrative
+  with provenance and margin-note style uncertainty annotations.
+- `reports/workstreams/**`: workstream reports and attachments, including failed
+  branches that teach future work.
+- `.agents/agent-roles/**`: repo-local delegation prompts for the project coordinator
+  and specialist research agents.
 - `.agents/current-goal-phase.md`, `.agents/TODO.md`, and `.agents/retired/**`: phase marker, scratchpad inbox, and short-term retired legacy cards.
 - Git branches, PRs, commits, and worktrees: provenance, review, and merge gates.
 - Produced artifacts in their natural durable roots: `src/`, `tests/`, `notes/`, `theory/`, `lean/`, and linked proof/computation outputs.
@@ -26,11 +32,36 @@ Use planning only when work is complex, architectural, mathematically foundation
 
 A plan records goal links, phases, dependencies, risks, acceptance strategy, and high-level task inventory. It does not replace task cards.
 
+For substantial research directions, planning starts with intake. The coordinator must
+separate the user's question, approved goals, non-goals, success criteria, and hard
+constraints into a durable onboarding artifact before opening workstreams. If the user
+has not approved that framing, the plan stays in intake rather than drifting into
+execution.
+
+Plans that coordinate multiple paths must describe the branch structure explicitly.
+Useful branch pairs include prove/disprove, literature/computation, theory/implementation,
+source-mining/review, and synthesis/audit. A branch may fail; failure is a reportable
+outcome when it rules out a strategy, exposes a missing hypothesis, finds a false
+claim, or identifies a computation that cannot currently be made rigorous.
+
+For this repo, a `phase` card may be a milestone or a workstream. Use `phaseKind:
+workstream` when the phase represents a single branch with its own report artifact,
+agent roster, branch type, uncertainty summary, and failed-exploration list.
+
 ### Specify card
 
 Each executable unit becomes a tracked `task` card under `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The card must define the exact claim or work target, source provenance, plan or `GOAL.md` link, accepted scope, owner/role if known, complexity, dependencies, acceptance criteria, verification plan, and branch/PR policy when relevant.
 
 For mathematical claims, the card must state whether it is exploratory, preparatory, local-claim promotion, or `GOAL.md` discharge.
+
+For substantial research work, the task card must also state its `activityType`,
+workstream role, claim status, uncertainty state, paper anchors, report artifacts, and
+failed explorations using the tracker fields when present. This is the forward card
+contract: future agents should be able to tell whether a task is intent refinement,
+literature search, source mining, brainstorming, conjecture generation,
+counterexample search, proof repair, computation, formalization, implementation,
+review, synthesis, exposition, failure analysis, or user escalation without
+reconstructing a chat transcript.
 
 ### Preflight
 
@@ -91,6 +122,20 @@ external prerequisite.
 Two kinds of cards reach execution stage:
 
 - **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed. When implementation is complete, set the card to `needs-review` (if the review is agent-executable) or `needs-human-input` (if it specifically requires human input).
+
+- **Research workstream cards** (`unstarted` or `revision-required` → `in-progress`):
+  pursue one linear branch and produce a native mathematical artifact, such as a
+  source-backed note, proof attempt, computation log, notebook, report, or reviewable
+  theorem statement. The artifact must link claims to sources, computations, or review
+  evidence. If the branch fails, preserve the failure as evidence in the card or a
+  linked failure-record task instead of silently restarting from the same assumptions.
+  Escalate to `needs-human-input` when the next step depends on mathematical taste,
+  area expertise, or a human choice of direction.
+
+- **Working-paper synthesis**: when a workstream changes the mathematical narrative,
+  update `paper/` or create a task that does so. The paper must distinguish theorem,
+  conjecture, computation-supported claim, source-backed claim, disputed lemma, failed
+  path, and human-review point in the prose or margin notes.
 
 - **Review cards** (`needs-review` → gate-based review → outcome): these are ready for the ordered gate protocol in `references/review-kernel.md`. The reviewer (an independent agent session, not the implementer) applies Gates 1-6 and sets the outcome. Review is execution work: it produces findings, logs, and status changes. Do not stall when the active leaf list includes `needs-review` cards.
 
@@ -153,6 +198,17 @@ During work, discoveries route through the lightest safe mechanism:
 - Create a decision card for naming, ownership, mathematical, or organizational choices.
 
 Do not bury follow-up obligations in chat, implementation comments, or PR summaries as the only durable record.
+
+Preserve negative results with the same discipline. A failed proof strategy, false
+conjecture, exhausted search path, missing source, or intractable reviewer disagreement
+belongs in `failedExplorations`, a report artifact, or a dedicated failure-record task.
+Do not erase a failed branch merely because a different branch may now be more
+promising.
+
+Reviewer disagreement has two failure modes: false consensus and non-termination. If
+reviewers converge only by weakening the claim, record the weakened claim explicitly and
+send the card to `revision-required` or `needs-human-input`. If review cycles continue
+without progress, stop the loop, record the exact disputed assertion, and escalate.
 
 ## Replan rule
 

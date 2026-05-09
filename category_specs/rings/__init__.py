@@ -9,12 +9,12 @@ existing Sage ring categories where Sage provides them.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Literal, final, overload, override
+from typing import TYPE_CHECKING, Literal, final, overload, override, TypeAlias
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.matrix.matrix_space import MatrixSpace
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -73,7 +73,7 @@ _IntegrallyClosedDomains = LazyImport(
 _DedekindDomains = LazyImport(
     "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
 )
-ApproximateRingsCategory = LazyImport(
+ApproximateRingsCategory: TypeAlias = LazyImport(
     "category_specs.rings.subcategories.approximate", "ApproximateRingsCategory"
 )
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
@@ -224,100 +224,100 @@ if TYPE_CHECKING:
 class _RingObjectMethods:
     r"""Abstract parent methods for all objects in ``Rings``."""
 
-    @abstract_method
+    @abstractmethod
     def is_exact(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_commutative_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_division_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_topological_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_valued_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_discrete_valuation_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_discrete_valuation_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_discrete_valuation_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_discrete_valuation_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_pid(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_gcd_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_unique_factorization_domain(self, proof: bool = True) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_euclidean_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_reduced(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_dedekind_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_number_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_quotient_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_local_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_polynomial_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_power_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_laurent_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_puiseux_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_local_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_archimedean_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_nonarchimedean_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_quadratic_number_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_cyclotomic_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def ideal_monoid(self) -> Monoid: ...
 
     @final
@@ -333,29 +333,29 @@ class _RingObjectMethods:
 class _RingElementMethods:
     r"""Abstract element methods present on all ring elements."""
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_one(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_nilpotent(self) -> bool: ...
 
     @final
     def is_idempotent(self) -> bool:
         return self * self == self
 
-    @abstract_method
+    @abstractmethod
     def additive_order(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def multiplicative_order(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def is_square(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def abs(self) -> RingElement: ...
 
     @overload
@@ -397,7 +397,7 @@ class _RingElementMethods:
         del cunningham
         ...
 
-    @abstract_method
+    @abstractmethod
     def nth_root(
         self,
         n: Integer,
@@ -434,7 +434,7 @@ class _RingElementMethods:
         name: str | None = None,
     ) -> RingElement | list[RingElement]: ...
 
-    @abstract_method
+    @abstractmethod
     def sqrt(
         self,
         extend: bool = True,
@@ -442,7 +442,7 @@ class _RingElementMethods:
         name: str | None = None,
     ) -> RingElement | list[RingElement]: ...
 
-    @abstract_method
+    @abstractmethod
     def powers(self, n: Integer) -> list[RingElement]: ...
 
     @final
@@ -458,16 +458,16 @@ class _RingElementMethods:
 class _RingMorphismMethods:
     r"""Abstract morphism methods present on all ring homomorphisms."""
 
-    @abstract_method
+    @abstractmethod
     def image(self, ideal: Ideal | None = None) -> Ideal: ...
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def kernel(self) -> Ideal: ...
 
-    @abstract_method
+    @abstractmethod
     def section(self) -> RingMorphism: ...
 
 
@@ -483,58 +483,58 @@ class _RingIdealParentMethods:
     def is_ideal(self) -> bool:
         return True
 
-    @abstract_method
+    @abstractmethod
     def ring(self) -> Ring: ...
 
-    @abstract_method
+    @abstractmethod
     def gen(self, i: Integer = 0) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def gens(self) -> tuple[RingElement, ...]: ...
 
-    @abstract_method
+    @abstractmethod
     def ngens(self) -> Integer: ...
 
-    @abstract_method
+    @abstractmethod
     def gens_reduced(self) -> tuple[RingElement, ...]: ...
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_one(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_trivial(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_prime(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_maximal(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_primary(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_principal(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_idempotent(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def divides(self, other: RingElement) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def norm(self) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def radical(self) -> Ideal: ...
 
-    @abstract_method
+    @abstractmethod
     def reduce(self, f: RingElement) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def random_element(
         self,
         degree: Integer | tuple[Integer, Integer] | None = None,
@@ -560,10 +560,10 @@ class _RingIdealParentMethods:
 class _RingIdealElementMethods:
     r"""Abstract element methods for elements of ring ideals."""
 
-    @abstract_method
+    @abstractmethod
     def is_unit(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
 
@@ -2034,15 +2034,15 @@ class Rings(Category_singleton):
     MorphismMethods = _RingMorphismMethods
 
 
-RingsCategory = Rings
-RingsObject = Rings.ParentMethods
-RingsElement = Rings.ElementMethods
-RingsMorphism = Rings.MorphismMethods
-RingsHomCategory = RingHomCategory
-RingsEndCategory = RingEndCategory
-RingsAutCategory = RingAutCategory
-RingsHom = RingHomCategory.ParentMethods
-RingsEnd = RingEndCategory.ParentMethods
-RingsAut = RingAutCategory.ParentMethods
-RingsEndomorphism = RingEndCategory.ElementMethods
-RingsAutomorphism = RingAutCategory.ElementMethods
+RingsCategory: TypeAlias = Rings
+RingsObject: TypeAlias = Rings.ParentMethods
+RingsElement: TypeAlias = Rings.ElementMethods
+RingsMorphism: TypeAlias = Rings.MorphismMethods
+RingsHomCategory: TypeAlias = RingHomCategory
+RingsEndCategory: TypeAlias = RingEndCategory
+RingsAutCategory: TypeAlias = RingAutCategory
+RingsHom: TypeAlias = RingHomCategory.ParentMethods
+RingsEnd: TypeAlias = RingEndCategory.ParentMethods
+RingsAut: TypeAlias = RingAutCategory.ParentMethods
+RingsEndomorphism: TypeAlias = RingEndCategory.ElementMethods
+RingsAutomorphism: TypeAlias = RingAutCategory.ElementMethods

@@ -12,10 +12,10 @@ standard types and tags.
 Read `.nimbalyst/trackers/*.yaml` before creating an item. Use one of the registered
 planning types: `feature`, `spec`, `plan`, `phase`, `decision`, or `task`.
 
-Use tags and containment for workflow dimensions such as category-specs, implementation,
-research, sprint, smoke, validation, docs-migration, and theme groups. Do not create or
-use derivative tracker types such as `spec-work`, `implementation-work`,
-`research-work`, `sprint-work`, `task-work`, or `agent-work`.
+Use schema fields, not tags, for co-mathematician workflow dimensions. Substantial
+research tasks classify `activityType`, `workstreamRole`, `claimStatus`,
+`uncertaintyState`, `paperAnchors`, and `reportArtifacts`. Use tags only for feature,
+plan, phase, and theme ancestry.
 
 ## Destination Rules
 
@@ -25,6 +25,16 @@ use derivative tracker types such as `spec-work`, `implementation-work`,
 - `plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md`: plan cards.
 - `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md`: phase cards.
 - `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md`: executable task cards.
+
+Use phase cards with `phaseKind: workstream` for co-mathematician workstreams. Do not
+create a separate plan-level `workstreams/` hierarchy unless the validator and schema
+are migrated first.
+
+Before creating a task, explicitly identify the owning feature, plan, and phase. The
+phase card must already exist at the phase path and declare `trackerStatus.type: phase`.
+If no phase owner exists, stop and create or repair the phase card first. Never create
+`plans/features/FEATURE-ID/plans/PLAN-ID/tasks/TASK-ID.md`; a plan-level `tasks/`
+directory is evidence that the phase gate was skipped.
 
 Do not create aggregate tracker indexes. The GUI is the index. There is no separate
 backlog; active tracked cards under `plans/features/` are the outstanding work set.
@@ -45,6 +55,10 @@ title: Brief executable description
 status: unstarted
 priority: medium
 description: Brief executable description.
+activityType: source-mining
+workstreamRole: literature
+claimStatus: source-backed
+uncertaintyState: ordinary-open
 successCriteria:
 - Observable acceptance criterion.
 complexity: 40
@@ -80,10 +94,14 @@ ready for assignment or execution into a full markdown file under `plans/feature
 2. Select a registered standard type.
 3. Convert workflow words such as spec, implementation, research, or sprint into tags
    and destination path.
-4. Generate the item file under `plans/features/` with `trackerStatus` frontmatter.
-5. Preserve source provenance and enough execution context in the body.
-6. Confirm the destination file.
-7. Update `.agents/memories/current-goal-handoff.md` — the new task altered the
+4. For `task` cards, confirm the owning phase exists and that the destination is the
+   phase's `tasks/` directory.
+5. For substantial research tasks, choose the `activityType`, `workstreamRole`,
+   `claimStatus`, and `uncertaintyState` from the task schema.
+6. Generate the item file under `plans/features/` with `trackerStatus` frontmatter.
+7. Preserve source provenance and enough execution context in the body.
+8. Confirm the destination file.
+9. Update `.agents/memories/current-goal-handoff.md` — the new task altered the
    resumption path. Handoff update is not optional; do it before reporting in chat.
 
 ## Hard Constraint

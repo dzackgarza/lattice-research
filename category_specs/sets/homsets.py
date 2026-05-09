@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
@@ -27,22 +27,22 @@ class _SetHomCategoryObjectMethods:
 
 
 class _SetMorphisms:
-    @abstract_method
+    @abstractmethod
     def pre_image(self, y: SetElement) -> Subset:
         r"""Return the inverse image of ``y`` under this set morphism."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def preimage(self, subset: Subset) -> Subset:
         r"""Return the inverse image of ``subset`` under this set morphism."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_injective(self) -> bool:
         r"""Return whether this set morphism is injective."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_surjective(self) -> bool:
         r"""Return whether this set morphism is surjective."""
         ...

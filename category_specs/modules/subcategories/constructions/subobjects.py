@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import SubobjectsCategory
 
@@ -25,13 +25,13 @@ class _Subobjects(SubobjectsCategory):
     Canonical chain: ``Modules(R).Subobjects()``.
     """
 
-    @abstract_method
+    @abstractmethod
     def as_subobject_of_self(self, M: RModule) -> SubModule:
         r"""Regard M as a submodule of itself via the identity."""
         ...
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient_module(self) -> RModule:
             r"""The ambient R-module of which ``self`` is a submodule."""
             ...
@@ -48,10 +48,10 @@ class _Subobjects(SubobjectsCategory):
             """
             return self.ambient_module()
 
-        @abstract_method
+        @abstractmethod
         def inclusion(self) -> RModMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def intersect(self, N: SubModule) -> SubModule: ...
 
         @final
@@ -70,13 +70,13 @@ class _Subobjects(SubobjectsCategory):
         def lift(self, m: RModuleElement) -> RModuleElement:
             return self.inclusion()(m)
 
-        @abstract_method
+        @abstractmethod
         def saturation(self) -> SubModule: ...
 
-        @abstract_method
+        @abstractmethod
         def complement(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def is_subspace(self, other: RModule) -> bool: ...
 
         @final
@@ -86,7 +86,7 @@ class _Subobjects(SubobjectsCategory):
             """
             return self <= (self.ambient_module() if other is None else other)
 
-        @abstract_method
+        @abstractmethod
         def __le__(self, other: RModule) -> bool: ...
 
         @override

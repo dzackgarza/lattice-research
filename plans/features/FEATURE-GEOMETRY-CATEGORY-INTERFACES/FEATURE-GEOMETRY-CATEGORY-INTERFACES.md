@@ -3,7 +3,8 @@ id: FEATURE-GEOMETRY-CATEGORY-INTERFACES
 trackerStatus:
   type: feature
 parents: []
-dependsOn: []
+dependsOn:
+- '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 plans:
 - '[[PLAN-GEOMETRIC-SOURCE-ADMISSION]]'
 - '[[PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS]]'
@@ -25,3 +26,7 @@ Collect geometry-facing category interface research for schemes, varieties, mani
 - [ ] Geometry source-admission work records exact source and backend evidence.
 - [ ] Curve-complement and monodromy backend work stays research-scoped until category ownership is explicit.
 - [ ] No downstream Coble computation is treated as phase-local geometry category work.
+
+## Dependencies And Boundaries
+
+This feature is downstream of the root category-spec and Sage-surface vocabulary. It records geometry-facing category surfaces and backend admission requirements, but does not authorize Coble construction, moduli comparison, or stable-model research before the implementation and lattice gates are complete.

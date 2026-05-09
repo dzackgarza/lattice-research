@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import Category, Category_module
 from ....modules import Modules
@@ -41,12 +41,12 @@ class AlgebraIdealsCategory(Category_module):
         return [Modules(self.base_ring()).Subobjects()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def is_left_ideal(self) -> bool:
             r"""Return whether this ideal is closed under left multiplication."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_right_ideal(self) -> bool:
             r"""Return whether this ideal is closed under right multiplication."""
             ...

@@ -2,13 +2,13 @@
 
 ## Environment and sacred files
 
-The Sage path is `/home/dzack/miniforge3/envs/sage/bin/sage`. Use `uv venv` for dependencies, never system packages. All computation runs go through the `justfile`.
+The Sage path is `/home/dzack/miniforge3/envs/sage/bin/sage`. Use `uv venv` for dependencies, never system packages. All computation, validation, and paper builds run through the `justfile`.
 
 `GOAL.md` is the read-only research specification. `theory/references/index.md` is the append-only literature spine.
 
 ## Directory organization
 
-Subdirectories of durable content roots are automatically allowed. The baseline durable roots are `src/`, `tests/`, `notes/`, `theory/`, `theory/references/literature/`, `lean/`, `tasks/`, `.agents/`, and `scratch/`.
+Subdirectories of durable content roots are automatically allowed. The baseline durable roots are `src/`, `tests/`, `notes/`, `theory/`, `theory/references/literature/`, `paper/`, `reports/`, `lean/`, `tasks/`, `.agents/`, and `scratch/`.
 
 Root-level additions are allowed only when they create a clearly valuable durable category of research material, tooling, or shared documentation that does not fit cleanly inside an existing root. Process-sprawl directories are forbidden.
 
@@ -36,6 +36,8 @@ Use this routing:
 - Mathematical observations go in `notes/`.
 - Proof sketches go in `notes/proofs/`.
 - Lean formalizations go in `lean/`.
+- The living LaTeX working paper goes in `paper/`.
+- Reviewed workstream reports and attachments go in `reports/workstreams/`.
 - Papers go in `theory/references/literature/`.
 - State-machine task artifacts go in `tasks/`.
 - Durable shared theory/reference/tooling documentation goes in `theory/` or another coherent shared root.
@@ -46,7 +48,10 @@ There is no `computations/` directory. Exploratory work goes in `scratch/`, veri
 
 There is no `scripts/` root. `src/` is the trusted shared code surface, `tests/` is the verified computation surface, and task-linked computation artifacts should live in their natural durable roots and be linked from the `.agents` card; legacy `tasks/T-XXXX/computations/` paths are not the model for new work.
 
-Git history and agent memories are the log. If an approach failed, remember what was tried and why. Do not write a file preserving the failed approach.
+Git history and agent memories are not enough for mathematically informative failure.
+If an approach failed in a way that constrains future research, preserve the
+mathematical lesson in the relevant card, workstream report, or living paper. Do not
+preserve broken code, dead scripts, or raw failed artifacts.
 
 ## Automatic pruning
 
@@ -60,7 +65,11 @@ Before deleting a directory, check whether it contains uncommitted work that tra
 
 Broken computations get fixed or deleted. Never document and preserve them.
 
-If a script fails, fix it in the same worktree or delete the worktree and start over. Do not write a markdown file describing the failure. Do not merge broken code with a companion status or issue document. Do not archive broken code for reference. Do not preserve broken work by renaming it `_old` or `_broken`.
+If a script fails, fix it in the same worktree or delete the broken code and start
+over. Do not merge broken code with a companion status or issue document. Do not
+archive broken code for reference. Preserve only the mathematical information learned
+from the failure, such as a false conjecture, exact proof gap, exhausted search range,
+or missing-source result.
 
 ## Spec and durable artifact preservation
 

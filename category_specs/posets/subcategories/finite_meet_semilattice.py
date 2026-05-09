@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -31,17 +31,17 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
         return [_MeetSemilatticePosets(), Posets().Finite()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def atoms(self) -> list[PosetElement]:
             r"""Return the elements covering the bottom element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def meet_matrix(self) -> Matrix:
             r"""Return the matrix of pairwise meets."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def pseudocomplement(self, element: PosetElement) -> PosetElement:
             r"""Return the meet-pseudocomplement of ``element``."""
             ...

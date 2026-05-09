@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.sets.cartesian_product import CartesianProduct as SageCartesianProduct
 
 if TYPE_CHECKING:
@@ -55,33 +55,33 @@ class _CartesianProductSets(Category_singleton):
             return SageSets.CartesianProducts.ParentMethods.is_finite(self)
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(self, x: SetElement) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def cartesian_factors(self) -> Sequence[Set]:
             r"""Return the factor sets of this Cartesian product."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def _sets_keys(self) -> Sequence[Set]: ...
 
-        @abstract_method
+        @abstractmethod
         def cartesian_projection(self, i: Integer) -> Set:
             r"""Return the ``i``-th factor projection of this product set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def _cartesian_product_of_elements(
             self, elements: Sequence[SetElement]
         ) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def construction(self) -> tuple[CartesianProductFunctor, Sequence[Set]]: ...
 
         @override
@@ -104,18 +104,18 @@ class _CartesianProductSets(Category_singleton):
             return SageSets.CartesianProducts.ParentMethods._sympy_(self)
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def cartesian_projection(self, i: Integer) -> SetElement:
             r"""Return the ``i``-th coordinate of this product element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def __len__(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def cartesian_factors(self) -> Sequence[SetElement]:
             r"""Return this Cartesian product element as ordered coordinates."""
             ...

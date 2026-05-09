@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, final, overload, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -48,7 +48,7 @@ class _MeetSemilatticePosets(Category):
         @overload
         def meet(self, elements: Sequence[PosetElement]) -> PosetElement: ...
 
-        @abstract_method
+        @abstractmethod
         @foldable_operation
         def meet(self, x: PosetElement, y: PosetElement) -> PosetElement:
             r"""Return the greatest lower bound of ``x`` and ``y``.

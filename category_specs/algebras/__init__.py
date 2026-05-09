@@ -25,14 +25,14 @@ Subcategory hierarchy::
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, final, override, TypeAlias
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
     AssociativeAlgebras as SageAssociativeAlgebras,
 )
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -88,7 +88,7 @@ class _MagmaticAlgebraParentMethods:
 class _MagmaticAlgebraElementMethods:
     r"""Methods on elements of magmatic algebras."""
 
-    @abstract_method
+    @abstractmethod
     def __mul__(self, other: AlgebraElement) -> AlgebraElement:
         r"""Return the bilinear product of this element with ``other``."""
         ...
@@ -178,32 +178,32 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
 
 
 class _AlgebraParentMethods:
-    @abstract_method
+    @abstractmethod
     def base_ring(self) -> Ring:
         r"""Return the scalar ring over which this algebra is defined."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def change_ring(self, R: Ring) -> Algebra:
         r"""Return the scalar extension or base change of this algebra to ``R``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def algebra_generators(self) -> SetFamily:
         r"""Return algebra generators for this algebra as an ``R``-algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def center(self) -> Algebra:
         r"""Return the center of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def radical(self) -> AlgebraIdeal:
         r"""Return the Jacobson radical of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def subalgebra(
         self,
         generators: Sequence[AlgebraElement],
@@ -248,12 +248,12 @@ class _AlgebraParentMethods:
         r"""Return the principal two-sided ideal ``A * generator * A``."""
         return self.principal_ideal(generator, side="twosided")
 
-    @abstract_method
+    @abstractmethod
     def derivations(self) -> RModule:
         r"""Return the module of derivations of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def annihilator(self, elements: Iterable[AlgebraElement]) -> AlgebraIdeal:
         r"""Return the ideal annihilating every element in ``elements``."""
         ...
@@ -263,18 +263,18 @@ class _AlgebraParentMethods:
         r"""Return the ideal construction category owned by this algebra."""
         return self.category().Ideals(self)
 
-    @abstract_method
+    @abstractmethod
     def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
         r"""Return the Hochschild chain complex with given coefficients."""
         del coefficients
         ...
 
-    @abstract_method
+    @abstractmethod
     def idempotent_lift(self, x: AlgebraElement) -> AlgebraElement:
         r"""Lift the idempotent ``x`` along the algebra's radical quotient."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def peirce_decomposition(
         self,
         idempotents: Sequence[AlgebraElement] | None = None,
@@ -284,7 +284,7 @@ class _AlgebraParentMethods:
         del idempotents
         ...
 
-    @abstract_method
+    @abstractmethod
     def semisimple_quotient(self) -> Algebra:
         r"""Return the quotient of this algebra by its Jacobson radical."""
         ...
@@ -683,24 +683,24 @@ class Algebras(Category_module):
     DualObjects = _DualObjects
 
 
-AlgebrasCategory = Algebras
-AlgebrasObject = Algebras.ParentMethods
-AlgebrasElement = Algebras.ElementMethods
-AlgebrasMorphism = Algebras.MorphismMethods
-AlgebrasHomCategory = AlgebraHomCategory
-AlgebrasEndCategory = AlgebraEndCategory
-AlgebrasAutCategory = AlgebraAutCategory
-AlgebrasHom = AlgebraHomCategory.ParentMethods
-AlgebrasEnd = AlgebraEndCategory.ParentMethods
-AlgebrasAut = AlgebraAutCategory.ParentMethods
-AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
-AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
+AlgebrasCategory: TypeAlias = Algebras
+AlgebrasObject: TypeAlias = Algebras.ParentMethods
+AlgebrasElement: TypeAlias = Algebras.ElementMethods
+AlgebrasMorphism: TypeAlias = Algebras.MorphismMethods
+AlgebrasHomCategory: TypeAlias = AlgebraHomCategory
+AlgebrasEndCategory: TypeAlias = AlgebraEndCategory
+AlgebrasAutCategory: TypeAlias = AlgebraAutCategory
+AlgebrasHom: TypeAlias = AlgebraHomCategory.ParentMethods
+AlgebrasEnd: TypeAlias = AlgebraEndCategory.ParentMethods
+AlgebrasAut: TypeAlias = AlgebraAutCategory.ParentMethods
+AlgebrasEndomorphism: TypeAlias = AlgebraEndCategory.ElementMethods
+AlgebrasAutomorphism: TypeAlias = AlgebraAutCategory.ElementMethods
 
-MagmaticAlgebrasCategory = MagmaticAlgebras
-MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
-MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
-MagmaticAlgebrasMorphism = MagmaticAlgebras.MorphismMethods
-AssociativeAlgebrasCategory = AssociativeAlgebras
-AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
-AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
-AssociativeAlgebrasMorphism = AssociativeAlgebras.MorphismMethods
+MagmaticAlgebrasCategory: TypeAlias = MagmaticAlgebras
+MagmaticAlgebrasObject: TypeAlias = MagmaticAlgebras.ParentMethods
+MagmaticAlgebrasElement: TypeAlias = MagmaticAlgebras.ElementMethods
+MagmaticAlgebrasMorphism: TypeAlias = MagmaticAlgebras.MorphismMethods
+AssociativeAlgebrasCategory: TypeAlias = AssociativeAlgebras
+AssociativeAlgebrasObject: TypeAlias = AssociativeAlgebras.ParentMethods
+AssociativeAlgebrasElement: TypeAlias = AssociativeAlgebras.ElementMethods
+AssociativeAlgebrasMorphism: TypeAlias = AssociativeAlgebras.MorphismMethods

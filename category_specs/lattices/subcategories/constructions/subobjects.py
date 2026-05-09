@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import SubobjectsCategory
 
@@ -18,19 +18,19 @@ class _Subobjects(SubobjectsCategory):
     Canonical chain: ``Lattices(R).Subobjects()``.
     """
 
-    @abstract_method
+    @abstractmethod
     def as_subobject_of_self(self, L: Lattice) -> Lattice:
         r"""Regard ``L`` as a sublattice of itself via the identity."""
         ...
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient_lattice(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion(self) -> LatticeMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def intersect(self, M: Lattice) -> Lattice: ...
 
         @final
@@ -45,10 +45,10 @@ class _Subobjects(SubobjectsCategory):
         def lift(self, v: LatticeElement) -> LatticeElement:
             return self.inclusion()(v)
 
-        @abstract_method
+        @abstractmethod
         def saturation(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def orthogonal_complement(self) -> Lattice: ...
 
     class ElementMethods: ...

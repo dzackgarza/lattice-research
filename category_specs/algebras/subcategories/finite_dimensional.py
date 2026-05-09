@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.infinity import infinity
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring
@@ -35,25 +35,25 @@ class _FiniteDimensionalAlgebras(CategoryWithAxiom_over_base_ring):
         return A in self.base_category() and A.dimension() < infinity
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def dimension(self) -> Integer:
             r"""Return the dimension of this algebra as a module over its base ring."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def radical(self) -> AlgebraIdeal:
             r"""Return the Jacobson radical of this finite-dimensional algebra."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def semisimple_quotient(self) -> Algebra:
             r"""Return the semisimple quotient by the Jacobson radical."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def idempotent_lift(self, x: AlgebraElement) -> AlgebraElement:
             r"""Lift the idempotent ``x`` from the semisimple quotient."""
             ...

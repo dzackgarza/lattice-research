@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import QuotientsCategory
 
@@ -19,7 +19,7 @@ class _Quotients(QuotientsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def projection(self) -> LatticeMorphism: ...
 
     class ElementMethods:

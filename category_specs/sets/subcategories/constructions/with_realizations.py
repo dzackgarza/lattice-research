@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ....cat import WithRealizationsCategory
 
@@ -21,22 +21,22 @@ class SetsWithRealizations(WithRealizationsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def a_realization(self) -> SetRealization:
             r"""Return the distinguished default realization."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def realizations(self) -> Sequence[SetRealization]:
             r"""Return the concrete realization parents of this set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def inject_shorthands(self) -> None:
             r"""Expose named realization parents in the caller's namespace."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def Realizations(self) -> Category:
             r"""Return the category of realizations of this parent."""
             ...

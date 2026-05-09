@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -58,7 +58,7 @@ class _RModHomCategoryObjectMethods:
 
         return self(ConstantFunction(self.codomain().zero()))
 
-    @abstract_method
+    @abstractmethod
     def natural_morphism(self) -> RModMorphism:
         r"""The morphism in Hom_R(M, N) sending e_i -> f_i for all
         generators e_i of M and f_i of N.  As a matrix this is ``[Id | 0]``
@@ -77,33 +77,33 @@ class _RModMorphisms:
 
     # ``parent`` is a Sage ``Element`` intrinsic and is not restated here.
 
-    @abstract_method
+    @abstractmethod
     def kernel(self) -> SubModule: ...
 
-    @abstract_method
+    @abstractmethod
     def cokernel(self) -> QuotientModule: ...
 
-    @abstract_method
+    @abstractmethod
     def coimage(self) -> SubModule: ...
 
-    @abstract_method
+    @abstractmethod
     def evaluate(self, m: RModuleElement) -> RModuleElement: ...
 
-    @abstract_method
+    @abstractmethod
     def index(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def direct_sum(self, f: Self) -> Self: ...
 
-    @abstract_method
+    @abstractmethod
     def tensor(self, f: Self) -> Self: ...
 
-    @abstract_method
+    @abstractmethod
     def scale(self, r: RingElement) -> Self:
         r"""``(r*f)(m) := r * f(m) = f(r.m)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def _mul_(self, data: RingElement | Self) -> Self:
         r"""Concrete impls dispatch on ``RingElement`` (-> ``scale``)
         vs another ``RModMorphism`` (-> ``tensor``).
@@ -115,12 +115,12 @@ class _RModMorphisms:
         r"""``f: M -> N`` is primitive iff coker(f) is torsionfree."""
         return self.cokernel().is_torsionfree()
 
-    @abstract_method
+    @abstractmethod
     def lift(self, m: RModuleElement) -> RModuleElement:
         r"""Return any element ``m'`` such that ``f(m') = m``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def dual(self) -> Self:
         r"""Given f in Hom_R(A, B), return f^* in Hom_R(B^*, A^*) where
         f^*(\phi) := \phi \circ f.  (Also called the adjoint or transpose.)
@@ -143,7 +143,7 @@ class _RModMorphisms:
 
 
 class _RModEndomorphisms:
-    @abstract_method
+    @abstractmethod
     def __pow__(self, n: Integer) -> Self: ...
 
 
@@ -213,10 +213,10 @@ class _Forms(CategoryWithAxiom):
     _base_category_class_and_axiom = (RModuleHomCategory, "Forms")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def is_integral(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_rational(self) -> bool:
             r"""True if it takes a non-integral value."""
             ...
@@ -284,11 +284,11 @@ class _Bilinear(CategoryWithAxiom):
     _base_category_class_and_axiom = (_Forms, "Bilinear")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def associated_quadratic_forms(self) -> QuadraticFormsModule: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def associated_quadratic_form(self) -> QuadraticForm: ...
 
         @final
@@ -304,11 +304,11 @@ class _Quadratic(CategoryWithAxiom):
     _base_category_class_and_axiom = (_Forms, "Quadratic")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def associated_bilinear_forms(self) -> BilinearFormsModule: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def associated_bilinear_form(self) -> BilinearForm: ...
 
         @final
@@ -346,12 +346,12 @@ class RModuleEndCategory(GenericEndCategory):
         ]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_module(self) -> RModule:
             r"""If this is End_R(M), return M."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def unit_group(self) -> RModAut: ...
 
         # Do not define ``as_automorphism`` -- promotion of invertible

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -36,26 +36,26 @@ class _TotallyOrdered(CategoryWithAxiom):
         def is_totally_ordered(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def rank(self, x: SetElement) -> Integer:
             r"""Return the order rank of ``x`` in this totally ordered set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def min(self) -> SetElement:
             r"""Return the least element of this totally ordered set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def max(self) -> SetElement:
             r"""Return the greatest element of this totally ordered set."""
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def __lt__(self, other: SetElement) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def __le__(self, other: SetElement) -> bool: ...
 
         @override

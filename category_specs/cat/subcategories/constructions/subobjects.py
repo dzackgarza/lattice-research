@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ... import (
     CategoryWithAxiom,
@@ -48,19 +48,19 @@ class Subcategories(SubobjectsCategory):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def ambient_category(self) -> Category:
             r"""Return the category in which this subcategory is defined."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def defining_predicates(self) -> tuple[str, ...]:
             r"""Return the object predicates defining this full subcategory."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def defining_predicate(self, candidate: CategoryObject) -> bool:
             r"""Return whether ``candidate`` satisfies all defining predicates."""
             ...

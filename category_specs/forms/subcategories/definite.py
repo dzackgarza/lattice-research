@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .symmetric import SymmetricBilinearModulesCategory
@@ -57,12 +57,12 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Definite implies nondegenerate."""
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_positive_definite(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) > 0`` for all nonzero ``v``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_negative_definite(self) -> bool:
             r"""Return ``True`` iff ``b(v, v) < 0`` for all nonzero ``v``."""
             ...

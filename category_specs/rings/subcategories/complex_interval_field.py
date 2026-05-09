@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
 from sage.rings.abc import ComplexIntervalField as SageComplexIntervalField
 
 from ...cat import Category, Category_singleton
@@ -42,10 +42,10 @@ class _ComplexIntervalFields(Category_singleton):
         return isinstance(R, SageComplexIntervalField)
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def real_field(self) -> Field: ...
 
-        @abstract_method
+        @abstractmethod
         def middle_field(self) -> Field: ...
 
     class ElementMethods: ...

@@ -7,7 +7,7 @@ It is the forms-subtree owner for the existing Sage-compatible spelling
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, final, TypeAlias
 
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from . import chain as _chain
@@ -84,40 +84,40 @@ from .subcategories.with_forms import (
     FormedModulesObject as FormedModulesObject,
 )
 
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory: TypeAlias = (
     _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement: TypeAlias = (
     _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism: TypeAlias = (
     _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject: TypeAlias = (
     _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
-NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory: TypeAlias = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
 )
-NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesElement: TypeAlias = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesElement
 )
-NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism: TypeAlias = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
 )
-NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesObject: TypeAlias = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
-SymmetricFiniteRankFreeBilinearModulesCategory = (
+SymmetricFiniteRankFreeBilinearModulesCategory: TypeAlias = (
     _chain.SymmetricFiniteRankFreeBilinearModulesCategory
 )
-SymmetricFiniteRankFreeBilinearModulesElement = (
+SymmetricFiniteRankFreeBilinearModulesElement: TypeAlias = (
     _chain.SymmetricFiniteRankFreeBilinearModulesElement
 )
-SymmetricFiniteRankFreeBilinearModulesMorphism = (
+SymmetricFiniteRankFreeBilinearModulesMorphism: TypeAlias = (
     _chain.SymmetricFiniteRankFreeBilinearModulesMorphism
 )
-SymmetricFiniteRankFreeBilinearModulesObject = (
+SymmetricFiniteRankFreeBilinearModulesObject: TypeAlias = (
     _chain.SymmetricFiniteRankFreeBilinearModulesObject
 )
 
@@ -134,16 +134,16 @@ _IntegralNondegenerateSymmetricObject = (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
 
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory: TypeAlias = (
     _IntegralNondegenerateSymmetricCategory
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement: TypeAlias = (
     _IntegralNondegenerateSymmetricElement
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism: TypeAlias = (
     _IntegralNondegenerateSymmetricMorphism
 )
-IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject: TypeAlias = (
     _IntegralNondegenerateSymmetricObject
 )
 
@@ -160,38 +160,38 @@ def FormedModules(base_ring: Ring) -> Category:
     return Modules(base_ring, dispatch=False).WithForms()
 
 
-FormedModulesHomCategory = RModuleHomCategory
-FormedModulesEndCategory = RModuleEndCategory
-FormedModulesAutCategory = RModuleAutCategory
-FormedModulesHom = RModuleHomCategory.ParentMethods
-FormedModulesEnd = RModuleEndCategory.ParentMethods
-FormedModulesAut = RModuleAutCategory.ParentMethods
-FormedModulesEndomorphism = RModuleEndCategory.ElementMethods
-FormedModulesAutomorphism = RModuleAutCategory.ElementMethods
+FormedModulesHomCategory: TypeAlias = RModuleHomCategory
+FormedModulesEndCategory: TypeAlias = RModuleEndCategory
+FormedModulesAutCategory: TypeAlias = RModuleAutCategory
+FormedModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
+FormedModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
+FormedModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
+FormedModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+FormedModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
 
-BilinearModulesHomCategory = RModuleHomCategory
-BilinearModulesEndCategory = RModuleEndCategory
-BilinearModulesAutCategory = RModuleAutCategory
-BilinearModulesHom = RModuleHomCategory.ParentMethods
-BilinearModulesEnd = RModuleEndCategory.ParentMethods
-BilinearModulesAut = RModuleAutCategory.ParentMethods
-BilinearModulesEndomorphism = RModuleEndCategory.ElementMethods
-BilinearModulesAutomorphism = RModuleAutCategory.ElementMethods
+BilinearModulesHomCategory: TypeAlias = RModuleHomCategory
+BilinearModulesEndCategory: TypeAlias = RModuleEndCategory
+BilinearModulesAutCategory: TypeAlias = RModuleAutCategory
+BilinearModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
+BilinearModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
+BilinearModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
+BilinearModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+BilinearModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
 
-QuadraticModulesHomCategory = RModuleHomCategory
-QuadraticModulesEndCategory = RModuleEndCategory
-QuadraticModulesAutCategory = RModuleAutCategory
-QuadraticModulesHom = RModuleHomCategory.ParentMethods
-QuadraticModulesEnd = RModuleEndCategory.ParentMethods
-QuadraticModulesAut = RModuleAutCategory.ParentMethods
-QuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
-QuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods
+QuadraticModulesHomCategory: TypeAlias = RModuleHomCategory
+QuadraticModulesEndCategory: TypeAlias = RModuleEndCategory
+QuadraticModulesAutCategory: TypeAlias = RModuleAutCategory
+QuadraticModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
+QuadraticModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
+QuadraticModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
+QuadraticModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+QuadraticModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
 
-TorsionQuadraticModulesHomCategory = RModuleHomCategory
-TorsionQuadraticModulesEndCategory = RModuleEndCategory
-TorsionQuadraticModulesAutCategory = RModuleAutCategory
-TorsionQuadraticModulesHom = RModuleHomCategory.ParentMethods
-TorsionQuadraticModulesEnd = RModuleEndCategory.ParentMethods
-TorsionQuadraticModulesAut = RModuleAutCategory.ParentMethods
-TorsionQuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
-TorsionQuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods
+TorsionQuadraticModulesHomCategory: TypeAlias = RModuleHomCategory
+TorsionQuadraticModulesEndCategory: TypeAlias = RModuleEndCategory
+TorsionQuadraticModulesAutCategory: TypeAlias = RModuleAutCategory
+TorsionQuadraticModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
+TorsionQuadraticModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
+TorsionQuadraticModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
+TorsionQuadraticModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
+TorsionQuadraticModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
