@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Research Sage Primes documentation and installed-source version skew before
   admitting congruence-class prime subset vocabulary
-status: needs-review
+status: complete
 priority: high
 description: Sets mapping is the source of truth for set constructors, rich comparison,
   partitioned sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut

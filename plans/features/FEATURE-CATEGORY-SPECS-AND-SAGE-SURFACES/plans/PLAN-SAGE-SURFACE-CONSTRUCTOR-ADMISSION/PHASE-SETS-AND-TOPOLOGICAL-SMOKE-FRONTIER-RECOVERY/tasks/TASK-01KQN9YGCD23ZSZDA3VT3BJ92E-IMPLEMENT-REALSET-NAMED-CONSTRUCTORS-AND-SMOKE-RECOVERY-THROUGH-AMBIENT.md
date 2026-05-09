@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement RealSet named constructors and smoke recovery through ambient-relative
   topological methods
-status: needs-review
+status: complete
 priority: high
 description: The deleted Topological Spaces triage recorded settled topological constructor
   placement and remaining smoke design work for RealSet ambient recovery and metric
@@ -167,3 +167,22 @@ and remaining smoke design work for RealSet ambient recovery and metric examples
   check-abstract-redefinitions`, and `git diff --check`. The remaining Sets smoke
   warning is the accepted RealSet Sage-provenance warning recorded in
   `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING.md`.
+
+## Review Log
+
+### Independent Review - 2026-05-07 (fresh-context subagent)
+
+**Gates passed:** Gate 1 Source Provenance, Gate 2 Acceptance Criteria, Gate 3 Spec Weakening, Gate 4 Scope Fidelity, Gate 5 Ambient-Route Proof, Gate 6 Validation
+
+**Gates failed:** none
+
+**Outcome:** complete. All six gates pass.
+
+- Gate 1: All source provenances verified.
+- Gate 2: All 5 ACs satisfied. Ambient-route recovery working via adapter.
+- Gate 3: No methods removed. is_compact() added. Smoke strengthened.
+- Gate 4: Only Sets subtree touched. topological_spaces constructors empty as specified.
+- Gate 5: Ambient adapter proves 5 topological routes.
+- Gate 6: All smoke commands pass.
+
+Verification: just smoke-file sets/smoketest.sage passes.

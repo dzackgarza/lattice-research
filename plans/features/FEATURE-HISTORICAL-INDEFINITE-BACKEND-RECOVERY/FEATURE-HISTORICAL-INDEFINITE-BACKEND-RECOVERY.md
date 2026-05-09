@@ -7,7 +7,7 @@ dependsOn:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 plans: []
 title: Historical indefinite backend bridge recovery
-status: in-progress
+status: complete
 priority: high
 description: Recover exact backend bridge contracts for indefinite isometry, automorphism, vector orbit, isotropic subspace, centralizer, and finite quotient computations exposed by historical src.bak.
 ---

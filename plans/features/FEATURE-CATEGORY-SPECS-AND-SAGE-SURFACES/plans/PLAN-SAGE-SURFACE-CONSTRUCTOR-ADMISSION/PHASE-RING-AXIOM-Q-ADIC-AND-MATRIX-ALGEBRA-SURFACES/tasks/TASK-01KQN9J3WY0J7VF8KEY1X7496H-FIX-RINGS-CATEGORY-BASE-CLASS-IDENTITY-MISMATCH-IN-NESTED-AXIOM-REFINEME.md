@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 dependsOn: []
 title: Fix Rings category base-class identity mismatch in nested axiom refinement
-status: needs-review
+status: complete
 priority: high
 description: 'The deleted Rings triage recorded ring smoke blockers: nested axiom
   category identity mismatches, missing _sympy_ methods on refined parents, and the

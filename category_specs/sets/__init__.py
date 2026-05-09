@@ -485,19 +485,14 @@ class Sets(Category_singleton):
             return "Sets constructors"
 
         @staticmethod
-        def _set_partitions_categories(
-            *, finite_totally_ordered_base: bool = False
-        ) -> list[Category]:
+        def _set_partitions_categories() -> list[Category]:
             r"""Return project categories for fixed-base set-partition parents."""
             from .subcategories.partitioned import (
-                FiniteTotallyOrderedBasePartitionedSetsCategory,
+                PartitionsCategory,
                 PartitionedSetsCategory,
             )
 
-            categories = [Sets(), PartitionedSetsCategory()]
-            if finite_totally_ordered_base:
-                categories.append(FiniteTotallyOrderedBasePartitionedSetsCategory())
-            return categories
+            return [Sets(), PartitionsCategory(), PartitionedSetsCategory()]
 
         @final
         def _set_partitions_base(
@@ -509,9 +504,7 @@ class Sets(Category_singleton):
             from sage.structure.category_object import CategoryObject
 
             if isinstance(base_set, SageInteger):
-                return base_set, self._set_partitions_categories(
-                    finite_totally_ordered_base=True
-                )
+                return base_set, self._set_partitions_categories()
             if isinstance(base_set, CategoryObject) and base_set in Sets():
                 return base_set, self._set_partitions_categories()
             if isinstance(base_set, Iterable):

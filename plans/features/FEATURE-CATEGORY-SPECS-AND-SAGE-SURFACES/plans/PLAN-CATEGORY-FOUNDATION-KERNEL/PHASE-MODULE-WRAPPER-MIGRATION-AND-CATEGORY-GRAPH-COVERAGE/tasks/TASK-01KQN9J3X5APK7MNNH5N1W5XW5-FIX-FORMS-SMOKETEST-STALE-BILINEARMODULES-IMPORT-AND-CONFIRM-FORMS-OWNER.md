@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix forms smoketest stale _BilinearModules import and confirm forms owner identity
   through compatibility paths
-status: needs-review
+status: complete
 priority: high
 description: 'The deleted Forms triage recorded ownership separation: formed-module
   category classes live in forms, while module and lattice paths preserve compatibility

@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 title: Audit the variadic signature scoping result and open owner-specific follow-ups
   for any public surface still using placeholder collapsed Sage casework
-status: needs-review
+status: complete
 priority: critical
 requirement: The deleted variadic inventory records the scoping pass for public surfaces
   that had collapsed Sage casework or raw coordinate interop into broad signatures.
@@ -139,3 +139,76 @@ Remaining public-variadic check:
 - Audited the recovered inventory against current module, ring, tensor, algebra, lattice, poset, set, topological-space, and Cat mapping/code surfaces.
 - Added Cat mapping for generated constructor aggregation forwarders so future audits do not mistake private dispatch glue for a public variadic constructor.
 - Skipped subtree smokes and global QC intentionally; this was a documentation/source-map audit, not implementation integration or phase transition.
+
+## 6-Gate Protocol Review Log
+
+**Reviewer:** Hermes Agent subagent
+**Date:** 2026-05-07
+
+### G1 — Source Grounding
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Deleted inventory file recoverable | PASS | `git show 8d1c21c^:plans/category_specs/docs/VARIADIC_SIGNATURE_INVENTORY.md` returns 406 lines of inventory content. Commit `8d1c21c` exists in repo. |
+| Stale-path correction accurate | PASS | The card correctly identifies the migrated `category_specs/...` path as stale and provides the correct `plans/`-prefixed recovery command. |
+| Primary source anchors valid | PASS | `.agents/skills/category-spec-style/references/style.md` lines 52-92 contain the exact "No Variadic Signatures" rule (line 57) and "Sage Interop Uses Overloads, Not Variadics" rule (line 76). All referenced MAPPING.md files exist (as redirects to tracked spec files). |
+| Reference chain intact | PASS | `style.md` → MAPPING redirects → tracked SPEC-MAPPING-*.md files form a verifiable source chain. SPEC-MAPPING-MODULES.md lines 217-242 document the explicit constructor split from variadic to named forms. |
+
+**G1 Verdict: PASS.** Source grounding is verifiable, correct, and the stale-path remediation is properly documented.
+
+### G2 — Sage Surface Completeness
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| All 8 surface families covered | PASS | The audit table covers modules, rings, tensors, algebras, lattices, posets, sets, topological-spaces, plus Cat constructor aggregation. This matches the recovered inventory scope exactly. |
+| Each surface mapped to owner | PASS | Every row names a `category_specs/.../docs/MAPPING.md` (or its tracked spec successor) as the owning document. |
+| Cat private dispatch documented | PASS | `category_specs/cat/docs/MAPPING.md` redirects to SPEC-MAPPING-CAT.md, which records that generated Cat constructor forwarding hooks are private aggregation plumbing. |
+
+**G2 Verdict: PASS.** No Sage surface family from the recovered inventory is unaccounted for.
+
+### G3 — Mathematical Correctness
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| No public `*args`/`**kwargs` remaining | PASS | `rg "def .*\*args\|def .*\*\*kw" category_specs -g '*.py'` returns hits only in `cat/base_category_types.py`. |
+| Cat hits are private infrastructure | PASS | Lines 204-209: `_cat_constructor_forwarder` (underscore prefix, `_cat_constructor_generated_forwarder = True`). Lines 411-424: `__init_subclass__` metaclass hook and `initialize_and_register` wrapper (underscore-prefixed private `__init__` wrapper). All three are category framework plumbing, not public mathematical surfaces. |
+| No placeholder unions found | PASS | The recovered inventory's replacement surfaces use named constructors (`FreeModuleWithBasisKeys`, `FPModuleFromCokernelMap`, `short_vectors(bound)`, `short_vectors_up_to_sign(bound)`, etc.) — all mathematically grounded types, not software-engineering shortcuts. |
+| Overload rule compliance | PASS | The constructor splits follow the style reference's overload rule (lines 65-71): finite input patterns are split into explicit `@overload` cases; `*args`/`**kwargs` catch-all forwarding is absent from public surfaces. |
+
+**G3 Verdict: PASS.** The central mathematical claim — no remaining public variadic surface from the recovered inventory — is verified by code search and the documented private nature of the only code hits.
+
+### G4 — Nonmathematical Rejection
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Variadics rejected from public spec | PASS | The card enforces the style rule: variadic signatures, option bags, and placeholder unions are kept out of public specs. |
+| No engineering-only data shapes | PASS | All replacement constructors use mathematically meaningful types (Matrix, Sequence[RingElement], etc.), not shortcut wrapper types. |
+| Sage implementation containers rejected | PASS | The mapping specs explicitly reject nonmathematical targets and raw Sage implementation containers (per Review Gates in SPEC-MAPPING-MODULES.md line 39). |
+
+**G4 Verdict: PASS.** The audit does not introduce or preserve nonmathematical constructs.
+
+### G5 — Ambiguity Routing
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Confidence stated with caveats | PASS | Card states "Confidence: Medium" with explicit gap: "this audit covers the recovered inventory plus current textual signature searches; it is not a fresh exhaustive semantic review of every finite union." |
+| Unresolved ownership routed properly | PASS | Ore module ownership is deferred to tracked decisions rather than resolved in-place (SPEC-MAPPING-MODULES.md line 131). |
+| No papering-over detected | PASS | The gap is acknowledged transparently; no attempt to inflate confidence or claim exhaustive coverage. |
+
+**G5 Verdict: PASS.** Ambiguity is properly acknowledged and routed, not hidden.
+
+### G6 — Obligation Preservation
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Acceptance criteria met | PASS | All 5 acceptance criteria are marked `[x]` with verifiable evidence in the body. |
+| No subtree-local TRIAGE created | PASS | Card body and work log confirm no new process documents were created. |
+| Source provenance preserved | PASS | Card preserves the stale source path alongside the corrected recovery path for future traceability. |
+| Cat mapping added preventively | PASS | Work log records that Cat constructor aggregation forwarders were mapped to prevent future audits from misclassifying them. |
+| No implementation blocker | PASS | Card explicitly states no blocker was discovered. |
+
+**G6 Verdict: PASS.** All obligations from the audit contract are preserved and satisfied.
+
+### Overall 6-Gate Verdict
+
+**ALL GATES PASS.** The VARIADIC-SIGNATURE-SCOPING spec is source-grounded, Sage-surface-complete, mathematically correct, free of nonmathematical constructs, appropriately routes ambiguity, and preserves all obligations. The one caveat — that this is a textual signature audit rather than an exhaustive semantic review of every typed collection — is transparently acknowledged with Medium confidence, and is properly scoped to the card's stated purpose (documentation/source-map audit, not implementation integration).

@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 dependsOn: []
 title: Category literal method inventory and ownership
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Build source-grounded method ownership spec files that list every literal
@@ -90,3 +90,77 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 - 2026-05-06: Repaired the lattice spec-backup source root after child-card review
   found the stale `.agents/theory/spec-backups/` path. The current mineable source
   files live under `src.bak/spec-backups/`.
+
+## 6-Gate Protocol Review Log
+
+### Review 2026-05-07 (6-Gate Phase Card Review)
+
+**Gates passed:** Gate 1, Gate 2, Gate 3 (with open item), Gate 4, Gate 5, Gate 6
+**Gates failed:** None that block phase completion
+**Outcome:** phase is review-ready; one open scope item noted below
+
+---
+
+#### Gate 1 — Source Paths Grounded
+
+**PASS.** The phase card's Source Provenance section (lines 47-56) cites:
+- Parent plan `PLAN-CATEGORY-FOUNDATION-KERNEL` (exists at expected path)
+- Target spec `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` (exists at `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/`, 917 lines, 145KB)
+- Category spec inventory/mapping roots under `category_specs/*/docs/`
+- Backend memory roots under `.agents/memories/theory/backends/`
+- Lattice spec-backup roots under `src.bak/spec-backups/`
+
+All source paths cited in the phase were verified as existing. The target spec itself went through 3 rounds of Gate 1 repair (stale `.agents/theory/spec-backups/` → `src.bak/spec-backups/`, missing foundation paths, imprecise file references), all now resolved. Every child task has a Source Provenance section grounded in the same corpus.
+
+#### Gate 2 — Exit Criteria Checkable
+
+**PASS.** All four success criteria are concrete and verifiable:
+
+1. *Spec filled or split* — Verifiable: `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` exists as a single trackable file with 917 lines covering all topics.
+2. *All 11 method domains covered* — Verifiable: sections for sets/topology, rings/algebras/modules, Hom/forms/lattices, posets/tensors/geometry, and backend mapping all present with source-grounded rows.
+3. *External software maps translated* — Verifiable: backend section covers Sage, Oscar/Julia, GAP, Singular, Macaulay2, CARAT, Indefinite.jl with explicit codomains and routing statuses.
+4. *Owner conflicts → decision cards* — Verifiable: at least 5 decision cards created (`DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`, `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`, `DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER`, `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`, and several poset/partition decisions).
+
+All four acceptance criteria checkboxes are `[x]` in the phase card body.
+
+#### Gate 3 — Task Inventory Complete
+
+**PASS with open item.** The phase declares 8 child tasks:
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | SOURCE-CORPUS | needs-human-input |
+| 2 | SETS-TOPOLOGY | complete |
+| 3 | ALGEBRA-MODULES | needs-human-input |
+| 4 | HOM-FORMS-LATTICES | needs-human-input |
+| 5 | POSETS-TENSORS-GEOMETRY | complete |
+| 6 | BACKEND-MAPPING | complete |
+| 7 | SPEC-ASSEMBLY | complete |
+| 8 | GAP-AUDIT | complete |
+
+All 8 child tasks exist at their expected paths and have substantive bodies. The 3 tasks still in `needs-human-input` have all passed independent Gate 1-6 re-reviews — they are blocked only on human approval, not on missing work.
+
+**Open item:** A 9th task file exists in the tasks directory that is NOT declared in the phase's `tasks:` array: `TASK-CATEGORY-METHOD-INVENTORY-TREE-VISUALIZATION` (status: `unstarted`). This task proposes Mermaid category-hierarchy diagrams. It is scope-adjacent (user-facing documentation derived from the inventory) but was never integrated into the phase task list and was never started. This does not block phase completion since the phase's declared tasks are complete, but it is a stray artifact in the phase directory that should either be formally added as a phase task or removed/moved to a follow-up plan.
+
+#### Gate 4 — No Scope Creep
+
+**PASS with note.** The phase stays within its stated boundary: "spec work, not implementation" (Dependencies And Boundaries, line 76). The output is a single spec file with method-owner rows. No child task edits category implementation files (except ALGEBRA-MODULES which removed `has_standard_involution()` from the live Python surface as a corrective action — this was a Gate 1 rework, not scope creep). The TREE-VISUALIZATION task (unstarted, undeclared) is noted above but doesn't contaminate the completed phase deliverables.
+
+#### Gate 5 — Dependencies Correctly Declared
+
+**PASS.** Phase-level `dependsOn: []` is correct — this is an early phase with no phase predecessors. Child task dependency graph:
+
+- SOURCE-CORPUS (leaf, no deps) → feeds all 5 topical tasks
+- SETS-TOPOLOGY, ALGEBRA-MODULES, HOM-FORMS-LATTICES, POSETS-TENSORS-GEOMETRY, BACKEND-MAPPING all depend on SOURCE-CORPUS
+- SPEC-ASSEMBLY depends on all 5 topical tasks
+- GAP-AUDIT depends on SPEC-ASSEMBLY
+
+No circular dependencies. No missing deps. The assembly task correctly gates on all topical outputs. The gap audit correctly gates on assembly.
+
+#### Gate 6 — No Weakening of Feature-Level Acceptance Criteria
+
+**PASS.** The feature `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES` requires source-grounded method ownership specs. The phase delivers exactly that through `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. The spec card's own acceptance criteria (lines 813-816) are all `[x]`. No feature-level requirement was dropped, narrowed, or deferred. Geometry-facing rows are explicitly marked as candidate entries blocked on geometry source-admission tasks, which is honest gating rather than weakening.
+
+#### Summary
+
+The phase is structurally sound. All 8 declared tasks exist and have substantive output. The target spec is a 145KB file with exhaustive method rows across all required domains. Remaining work is limited to human sign-off on 3 child tasks and disposition of the undeclared TREE-VISUALIZATION stray task. The phase can proceed to human acceptance.

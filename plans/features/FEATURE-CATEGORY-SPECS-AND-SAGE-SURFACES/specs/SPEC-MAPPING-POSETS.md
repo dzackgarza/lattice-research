@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Track posets mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/posets/docs/MAPPING.md into a tracked spec surface
   and audit it for Sage-source completeness, mathematical correctness, and well-typed
@@ -433,3 +433,283 @@ Negative missing-surface finding for this Posets pass:
   interval posets, or Sage git history. Those are constructor/example or separate
   combinatorics surfaces, not the core category-provider and finite-poset method
   surface checked here.
+
+## 6-Gate Protocol Review Log
+
+**Review date:** 2026-05-07
+**Reviewer:** Automated 6-gate subagent
+**Overall outcome:** All 6 gates PASS. No blocking issues found.
+
+### G1 — Source Files Exist
+
+**Verdict: PASS**
+
+Evidence — all six installed Sage source files and both local inventory/mapping
+documents verified present on disk:
+
+| Source | Path | Exists |
+|--------|------|--------|
+| Sage category posets | `sage/categories/posets.py` | ✓ (722 lines) |
+| Sage finite posets | `sage/categories/finite_posets.py` | ✓ (1994 lines) |
+| Sage lattice posets | `sage/categories/lattice_posets.py` | ✓ (89 lines) |
+| Sage finite lattice posets | `sage/categories/finite_lattice_posets.py` | ✓ (242 lines) |
+| Sage concrete posets | `sage/combinat/posets/posets.py` | ✓ |
+| Sage concrete lattices | `sage/combinat/posets/lattices.py` | ✓ |
+| Local inventory | `category_specs/posets/docs/SAGE_INVENTORY.md` | ✓ (179 lines) |
+| Local mapping redirect | `category_specs/posets/docs/MAPPING.md` | ✓ (7 lines, redirect to this spec) |
+
+Paths resolved under `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/`
+(SageMath 10.7 environment) and `/home/dzack/research/category_specs/posets/docs/`.
+
+Minor note: SAGE_INVENTORY.md self-reports Sage 10.8; the spec coverage ledger reports
+Sage 10.7. This is a version-skew documentation inconsistency, not a source-missing
+issue. The installed source files are what the spec actually audits.
+
+### G2 — Sage Surface Completeness
+
+**Verdict: PASS**
+
+The spec's Completeness Reconciliation section (lines 365–435) documents a thorough
+two-pass method reconciliation:
+
+- **Pass 1 (initial mapping):** Converted the original MAPPING.md into Category
+  Hierarchy, Constructor Mapping, and per-category method lists (Posets, Finite,
+  MeetSemilattice, JoinSemilattice, Lattice.Finite, Deferred Surfaces).
+- **Pass 2 (negative finding):** Cross-referenced every Sage category-provider method
+  and concrete-class method against the mapped surface. Found unmapped names
+  (`principal_order_ideal`, `directed_subset`, `directed_subsets`,
+  `order_ideal_generators`, rowmotion/Panyushev/toggling orbit methods, birational
+  methods, `is_poset_morphism`, `is_self_dual`, `is_lattice`, `sorted`,
+  `upper_covers_iterator`, `lequal_matrix`, `diamonds`, `is_EL_labelling`,
+  `order_polynomial`, `breadth`, backend/display/runtime hooks) — all now mapped.
+
+Cross-verification of Sage category-provider methods against the spec:
+
+- **Posets.ParentMethods** (17 methods): `le`, `lt`, `ge`, `gt`, `upper_covers`,
+  `lower_covers`, `order_ideal`, `order_filter`, `directed_subset`,
+  `principal_order_ideal`, `principal_order_filter`, `order_ideal_toggle`,
+  `order_ideal_toggles`, `is_order_ideal`, `is_order_filter`, `is_chain_of_poset`,
+  `is_antichain_of_poset`. All mapped to `Posets()` root surface (lines 139–151). ✓
+- **FiniteLatticePosets.ParentMethods** (6 methods): `join_irreducibles`,
+  `join_irreducibles_poset`, `meet_irreducibles`, `meet_irreducibles_poset`,
+  `irreducibles_poset`, `is_lattice_morphism`. All mapped to
+  `Posets().Lattice().Finite()` (lines 268–299). ✓
+- **Concrete FinitePoset methods:** Verified against SAGE_INVENTORY.md (lines 67–125)
+  and mapped to `Posets().Finite()` or deferred surfaces. ✓
+- **Concrete FiniteLatticePoset methods:** Verified against SAGE_INVENTORY.md
+  (lines 147–179) and mapped to `Posets().Lattice().Finite()` or deferred. ✓
+- **Deferred surfaces table** (lines 325–355): accounts for graph, polyhedron,
+  algebra, polynomial, display, backend-interop, and runtime-plumbing surfaces. ✓
+
+Confidence is Medium per the spec's own assessment. Acknowledged gaps (constructor
+examples, interval posets, git history) are explicitly scoped out as non-core
+surfaces and do not affect category-provider method completeness.
+
+### G3 — Constructor Routes Mathematically Valid
+
+**Verdict: PASS**
+
+The poset category hierarchy in the spec (lines 77–91):
+
+```text
+Posets()
+|-- Finite()
+|-- MeetSemilattice()
+|   `-- Finite()
+|-- JoinSemilattice()
+|   `-- Finite()
+`-- Lattice()
+    `-- Finite()
+```
+
+Verified against mathematical definitions and Sage source hierarchy:
+
+- **Posets()** — Sage `Posets(Category)` with `super_categories() -> [Sets]`. Mathematically,
+  a poset is a set with a reflexive, antisymmetric, transitive relation. The spec
+  correctly places order-comparison methods (`le`, `lt`, `ge`, `gt`), cover methods,
+  ideal/filter methods, and toggle methods here — none require finiteness or
+  semilattice structure. ✓
+
+- **Posets().Finite()** — Sage `FinitePosets(CategoryWithAxiom)` with
+  `super_categories() -> [Posets, FiniteSets]`. The spec correctly places all methods
+  requiring finite enumeration (Hasse diagrams, interval enumeration, chain/antichain
+  enumeration, linear extensions, rank/width invariants, finite recognition
+  predicates, finite constructions) here. ✓
+
+- **Posets().MeetSemilattice()** — This is a project design refinement. Sage has no
+  separate meet-semilattice category; `LatticePosets` inherits directly from `Posets`
+  and declares both `meet` and `join` as abstract methods. The spec's decomposition
+  is mathematically sound: a meet-semilattice is a poset where every pair of elements
+  has a greatest lower bound. The `meet` operation is well-defined at this level and
+  placing it on `MeetSemilattice()` rather than `Lattice()` is the correct minimal
+  owner. ✓
+
+- **Posets().JoinSemilattice()** — Same reasoning as above. The `join` operation is
+  well-defined at the join-semilattice level. ✓
+
+- **Posets().Lattice()** — The spec states this is "the common order-theoretic
+  refinement of `Posets().MeetSemilattice()` and `Posets().JoinSemilattice()`." This
+  is mathematically precise: a lattice is exactly a poset that is both a
+  meet-semilattice and a join-semilattice. Sage `LatticePosets.super_categories() ->
+  [Posets]`. The spec's two-parent refinement is a proper mathematical strengthening
+  over Sage's flatter hierarchy. ✓
+
+- **Posets().Lattice().Finite()** — Sage `FiniteLatticePosets(CategoryWithAxiom)` with
+  `super_categories() -> [LatticePosets, FinitePosets]`. The spec correctly places
+  lattice-specific finite methods (distributive/modular predicates, irreducibles,
+  congruences, sublattice constructions, lattice morphisms) here. ✓
+
+Constructor mapping (lines 93–136):
+
+- Sage variadic `Poset(data, ...)` is decomposed into named constructor paths
+  (`from_hasse_digraph`, `from_relation_digraph`, `from_relations`,
+  `from_order_predicate`, `from_cover_predicate`, `from_upper_covers_dict`,
+  `from_upper_covers`, `from_existing`). This is a mathematically valid refinement:
+  each named path has a well-defined input type and hypothesis.
+- The distinction between `from_hasse_digraph` (edges are cover relations) and
+  `from_relation_digraph` (edges are order relations, transitive reduction applied)
+  is correctly stated. ✓
+- `FinitePosets_n(n)` is correctly routed to an enumerated-set constructor, not a
+  poset subcategory. ✓
+- `is_poset(dig)` correctly routed to constructor validation. ✓
+
+The `subjoinsemilattice` routing (spec lines 255–257) is mathematically correct:
+a method that constructs join-subsemilattices belongs to `JoinSemilattice().Finite()`,
+even though Sage places it on `FiniteMeetSemilattice`. The spec correctly overrides
+Sage's placement based on mathematical ownership.
+
+### G4 — Nonmathematical Targets Rejected
+
+**Verdict: PASS**
+
+The spec systematically identifies and rejects nonmathematical surfaces:
+
+- **Display/export surfaces** (lines 335, 349): `graphviz_string()`, `plot(...)`,
+  `show(...)`, `tikz(...)`, `order_ideal_plot(...)`, `rowmotion_orbits_plots()`,
+  `toggling_orbits_plots(...)`, `_repr_()`, `_latex_()`, `_rich_repr_(...)` —
+  all marked "display-only / export-only; no category method." ✓
+
+- **Backend interop** (lines 348): `_libgap_()`, `_macaulay2_init_(...)` — marked
+  "backend interop only; no category method." ✓
+
+- **Raw Sage compatibility** (line 347): `unwrap()` — marked "raw Sage compatibility
+  access only; no category method." ✓
+
+- **Runtime plumbing** (line 350): `__classcall__`, `__init__`, `__bool__`,
+  `__contains__`, `__iter__`, `__call__`, `_element_constructor_`,
+  `_element_to_vertex`, `_vertex_to_element`, `_list` — marked as "Sage parent/element
+  runtime plumbing" preserved only at the wrapper boundary. ✓
+
+- **Private helpers** (line 351): `_kl_poly(...)` — marked as private implementation
+  helper, not public API. ✓
+
+- **Sage option-bag patterns** (lines 209–222, 307–323): `certificate=True` variants
+  are decomposed into separately named `_certificate()` methods. Boolean predicates
+  remain boolean. This is interface strengthening that avoids variadic option bags. ✓
+
+- **Codomain-owned surfaces** (lines 331–343): Graph methods (`comparability_graph`,
+  `frank_network`), polyhedron methods (`order_polytope`, `chain_polytope`),
+  simplicial complex (`order_complex`), algebra methods (`incidence_algebra`,
+  `moebius_algebra`), ring methods (`feichtner_yuzvinsky_ring`), generating functions
+  (`p_partition_enumerator`), and polynomial invariants (zeta, chain, characteristic,
+  Kazhdan-Lusztig, etc.) are correctly identified as poset-source constructions whose
+  return objects belong to other codomain categories. The spec preserves the poset
+  source method while correctly routing downstream operations to their proper
+  categories. ✓
+
+No evidence of nonmathematical targets being admitted as mathematical poset methods.
+
+### G5 — Ambiguities Routed to Decision Cards
+
+**Verdict: PASS**
+
+The spec routes unresolved work to tracked cards:
+
+- **Completeness gaps** (line 56): "remaining gaps routed through
+  `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`." This task exists at
+  `/home/dzack/research/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT/tasks/TASK-MAPPING-DOC-COMPLETENESS-RESEARCH.md`,
+  is `status: complete`, and documents its reconciliation across all 11 mapping specs
+  including Posets. ✓
+
+- **Deferred codomain surfaces** (lines 331–343): Graph, polyhedron, simplicial
+  complex, algebra, polynomial, and ring-valued methods are explicitly deferred as
+  codomain-owned. These are not dropped — they are routed to their respective
+  category subtrees for future admission. ✓
+
+- **Parent dependency** (frontmatter line 6): references
+  `[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]` — the owning feature card exists. ✓
+
+- **Phase dependency** (frontmatter line 8): references
+  `[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]` — the phase card
+  exists and this spec lives under it. ✓
+
+- **Explicitly scoped-out gaps** (lines 431–435): "this pass did not audit every
+  named example constructor in `sage/combinat/posets/poset_examples.py`, non-poset
+  combinatorics modules such as interval posets, or Sage git history." These are
+  acknowledged as non-core surfaces; no evidence they hide unmapped category-provider
+  methods. ✓
+
+No hanging ambiguities found. Every deferred, gapped, or non-core surface has an
+explicit status and routing.
+
+### G6 — No Obligation Weakening
+
+**Verdict: PASS**
+
+The spec does not delete, weaken, or silently drop any Sage surface. Every
+inventoried method is accounted for through one of four dispositions:
+
+1. **Mathematical owner mapping** — every category-provider and concrete-class method
+   is placed at its mathematically minimal category (Posets, Finite, MeetSemilattice,
+   JoinSemilattice, Lattice.Finite). ✓
+
+2. **Constructor decomposition** — Sage's variadic `Poset(data, ...)` is
+   strengthened into named, well-typed constructor paths. Each input case is
+   preserved; none are lost. ✓
+
+3. **Certificate decomposition** — Sage's `certificate=True` boolean flags are
+   strengthened into separately named `_certificate()` methods. The underlying
+   mathematical capability is preserved; the interface is made more precise. ✓
+
+4. **Codomain routing** — Graph, polyhedron, algebra, polynomial, and display methods
+   are preserved as poset-source methods with codomain-owned return objects. No
+   mathematical capability is removed; downstream operations are correctly routed. ✓
+
+5. **Nonmathematical rejection** — Backend serialization, runtime plumbing, and
+   display rendering are excluded from the mathematical API but preserved at the
+   wrapper boundary as needed. This is interface purification, not weakening. ✓
+
+Specific checks:
+
+- No abstract methods are deleted from the spec.
+- No constructor obligations are narrowed or removed.
+- No smoke assertions are weakened.
+- No obligations are moved without a source-grounded replacement owner.
+- The spec explicitly states (line 28): "This tracked spec is the canonical mapping
+  surface converted from `category_specs/posets/docs/MAPPING.md`" — the original
+  MAPPING.md now redirects to this spec, preserving the provenance chain. ✓
+
+The Sage version-skew (inventory claims 10.8, spec ledger claims 10.7) does not
+constitute obligation weakening — the spec's completeness pass was done against the
+installed 10.7 source, and the inventory is a separately maintained document.
+
+### Summary
+
+| Gate | Description | Result |
+|------|-------------|--------|
+| G1 | Source files exist | PASS |
+| G2 | Sage surface completeness | PASS |
+| G3 | Constructor routes mathematically valid | PASS |
+| G4 | Nonmathematical targets rejected | PASS |
+| G5 | Ambiguities routed to decision cards | PASS |
+| G6 | No obligation weakening | PASS |
+
+**Residual notes:**
+- Sage version skew (10.7 vs 10.8) between spec coverage ledger and local inventory;
+  not blocking but should be harmonized.
+- `MeetSemilattice()` and `JoinSemilattice()` are project design refinements not
+  present in Sage's category hierarchy — this is a deliberate and mathematically
+  justified strengthening.
+- The spec's Confidence rating of Medium is honest; the acknowledged gaps
+  (constructor examples, interval posets, git history) are scoped as non-core and do
+  not undermine the category-provider method mapping.

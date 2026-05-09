@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-VARIETIES-CATEGORY]]'
 title: Research category integration for complex varieties
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for complex varieties.
 successCriteria:
@@ -155,6 +155,35 @@ No new card is needed from this complex-variety pass. Existing sibling cards own
 - Local dependencies and downstream cards listed explicitly.
 - Follow-up routing records that no new card is needed because existing sibling cards own curve, surface, family, manifold, and backend specialization.
 - Correction recorded that global invariants such as genus variants, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data belong to broad complex scheme/variety refinements before curve/surface specialization.
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:**
+- Mathematical definition cites Stacks Project (tag 0A23 curves, tag 0BY6 genus, tag 0BYG) and sibling variety card.
+- Sage scheme surface cites doc.sagemath.org URLs.
+- Backend survey cites Macaulay2, Singular, and OSCAR documentation.
+
+**Gate 2 — Acceptance Criteria:**
+- Mathematical definition recorded by specializing the project variety definition with additional base-field conventions (smooth/proper/projective refinements).
+- Sage surfaces surveyed for complex base-object schemes.
+- Backend surfaces surveyed for Macaulay2 complex rings and OSCAR varieties.
+- Local dependencies and downstream cards listed (curves, surfaces, Coble).
+- Follow-up routing tracks that sibling cards own specialization.
+
+**Gate 3 — Spec-Weakening:** No staged or unstaged diffs; research documentation only.
+**Gate 4 — Gradient:** Genus/Hodge/Kodaira invariant ownership corrected to broad scheme/variety refinements, sharpening the inventory.
+**Gate 5 — Mathematical Correctness:** Complex variety = variety over complex base field is the standard definition.
+**Gate 6 — Style and Compliance:** Research card format with evidence/inference separation; source URLs cited inline.
+
+---
 
 ## Work Log
 

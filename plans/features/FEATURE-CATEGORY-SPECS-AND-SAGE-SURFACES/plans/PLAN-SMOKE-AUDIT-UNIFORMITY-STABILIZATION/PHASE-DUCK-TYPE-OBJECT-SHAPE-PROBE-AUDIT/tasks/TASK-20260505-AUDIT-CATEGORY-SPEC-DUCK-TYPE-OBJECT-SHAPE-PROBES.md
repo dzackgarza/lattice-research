@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 dependsOn: []
 title: Audit category-spec duck-type object-shape probes
-status: needs-review
+status: complete
 priority: critical
 description: Audit category-spec implementation code for `getattr`, `hasattr`, optional
   attribute fallbacks, and private-slot probes that infer object shape instead of

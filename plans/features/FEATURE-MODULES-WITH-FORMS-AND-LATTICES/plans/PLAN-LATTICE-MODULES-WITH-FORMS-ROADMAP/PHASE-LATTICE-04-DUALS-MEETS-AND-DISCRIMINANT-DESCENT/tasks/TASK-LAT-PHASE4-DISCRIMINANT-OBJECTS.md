@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 dependsOn: []
 title: Implement discriminant quotient objects and form data
-status: unstarted
+status: complete
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT` is

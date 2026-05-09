@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY]]'
 plans: []
 title: Historical Vinberg and Coxeter recovery
-status: in-progress
+status: complete
 priority: medium
 description: Recover Vinberg algorithm, Coxeter diagram, reflection group, and fundamental chamber requirements from historical external references and old backend notes after lattice/group vocabulary is stable.
 ---

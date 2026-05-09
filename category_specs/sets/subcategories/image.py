@@ -22,13 +22,32 @@ class ImageSubobject(SageImageSubobject):
 
     @override
     @final
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, ImageSubobject):
+            return NotImplemented
+        return list(self) == list(other)
+
+    @override
+    @final
+    def __ne__(self, other: object) -> bool:
+        if not isinstance(other, ImageSubobject):
+            return NotImplemented
+        return not self.__eq__(other)
+
+    @override
+    @final
+    def __hash__(self) -> int:
+        return hash(tuple(self))
+
+    @override
+    @final
     def __contains__(self, x: Any) -> bool:
         domain_subset = getattr(self, "_domain_subset", None)
         if domain_subset is not None and domain_subset.is_finite():
             return any(y == x for y in self)
         try:
             self._element_constructor_(x)
-        except ValueError:
+        except (ValueError, TypeError):
             return False
         return True
 

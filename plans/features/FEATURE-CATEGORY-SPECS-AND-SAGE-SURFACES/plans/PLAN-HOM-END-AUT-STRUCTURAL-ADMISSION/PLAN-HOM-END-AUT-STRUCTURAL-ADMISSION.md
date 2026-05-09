@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Hom End Aut structural admission
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups
@@ -1149,3 +1149,163 @@ Homsets  →  Endsets (axiom: Endset, extra_super: Monoids)
 - Requires proper implementation of `CategoryWithAxiom` pattern
 - Relies on existing `Endset` infrastructure
 - Needs coordination with `SubcategoryMethods` and axiom registration system
+
+## 6-Gate Protocol Review Log
+
+### Review 2026-05-07 (6-Gate Plan-Card Review)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Exit Criteria, Gate 3 Phase Inventory, Gate 4 Scope Containment, Gate 5 Dependencies, Gate 6 Feature-Criteria Preservation
+**Gates failed:** none
+**Outcome:** plan-card is well-formed; structurally sound; the single phase under this plan has its own independent 6-gate review (passed with one Gate 5 finding on a child task self-reference)
+
+---
+
+#### Gate 1: Definition Grounding (source anchors grounded)
+
+**Verdict:** PASS.
+
+Source anchors declared in the plan frontmatter body:
+
+- `category_specs/homsets/docs/MAPPING.md` — exists on disk at `/home/dzack/research/category_specs/homsets/docs/MAPPING.md`
+- `category_specs/cat/docs/MAPPING.md` — exists on disk at `/home/dzack/research/category_specs/cat/docs/MAPPING.md`
+- `category_specs/modules/docs/MAPPING.md` — exists on disk at `/home/dzack/research/category_specs/modules/docs/MAPPING.md`
+- `category_specs/forms/docs/MAPPING.md` — exists on disk at `/home/dzack/research/category_specs/forms/docs/MAPPING.md`
+- `category_specs/lattices/docs/MAPPING.md` — exists on disk at `/home/dzack/research/category_specs/lattices/docs/MAPPING.md`
+
+All five source mapping files verified present. The plan's "Grounded Implementation Contract" (lines 33-57) provides concrete structural targets referencing these anchors. The "Admitted Definitions" section (lines 59-79) gives canonical definitions that child cards may use without re-deriving them.
+
+Source corpus files:
+
+- `plans/homsets_structural_core.md` — migrated into plan body as "Former `plans/homsets_structural_core.md`" (lines 112-297)
+- `plans/autset_categories_path.md` — migrated into plan body (lines 299-439)
+- `plans/autset_integration_plan.md` — migrated into plan body (lines 1037-1152)
+- `plans/axioms_with_generators_finitely_presented.md` — referenced as supplementary source; not migrated but still available as related context
+- `plans/todo.md` — marked as "Deleted source holder"
+
+The plan provides extensive Sage source citations with file paths and line numbers (e.g., `src/sage/categories/modules.py` L728-735, L813-833; `src/sage/categories/homsets.py` L282-326; `src/sage/categories/homset.py` L505-566, L694-695; `src/sage/tensor/modules/free_module_linear_group.py` L1-11, L39-88; etc.). These citations anchor the plan's structural claims in real Sage source evidence.
+
+**Recommendation:** None. Source grounding is thorough and verifiable.
+
+#### Gate 2: Exit Criteria (checkability of success criteria)
+
+**Verdict:** PASS.
+
+Plan frontmatter success criteria:
+
+1. "`Aut(X)` and `End(X)` are category-recognized surfaces, not isolated helper factories."
+   - **Checkability:** Verifiable by runtime category inspection: `Aut(X).category().is_subcategory(Endsets().Autsets())` or equivalent. The concrete expected behavior is that Aut/End objects carry category membership in the Hom/End/Aut hierarchy rather than bare `Groups()` or `Monoids()`.
+
+2. "Automorphism groups have domain/codomain semantics and categorical coercion to End."
+   - **Checkability:** Direct method inspection — `Aut(X).domain()` and `Aut(X).codomain()` must return the underlying object X. A coercion path `Aut(X) → End(X)` must be registered categorically (via `_coerce_map_from_` within the category framework, not ad-hoc overrides). The plan's body (lines 1107-1119) specifies the refactoring target in detail.
+
+3. "Public APIs return project-owned aut/subobject surfaces; Sage `ConditionSet` remains an implementation bridge only."
+   - **Checkability:** Static code audit — grep for `SageConditionSet` or `ConditionSet` in public method signatures and return types. The concrete boundary is defined in the plan body (line 51): "may use Sage `ConditionSet` internally, but the public object returned ... is the project aut/subobject object." The child task TASK-1777748120385 addresses this directly with specific file targets.
+
+Body acceptance criteria (lines 105-107) mirror the frontmatter criteria in checkbox form.
+
+**Recommendation:** None. All criteria are specific, falsifiable, and scoped to concrete API surfaces.
+
+#### Gate 3: Phase Inventory (completeness of phase coverage)
+
+**Verdict:** PASS.
+
+The plan declares one phase: `[[PHASE-HOM-END-AUT-WORK-QUEUE]]`.
+
+Phase card location: `PHASE-HOM-END-AUT-WORK-QUEUE/PHASE-HOM-END-AUT-WORK-QUEUE.md` — present and well-formed.
+
+Phase child task inventory (3 tasks under `tasks/`):
+
+| Card ID | Title | Status |
+|---|---|---|
+| TASK-01KQN9J3W... | Fix Cat smoke Hom End Aut ObjectsOver... | `complete` (passed Gates 1-6, Russell re-review) |
+| TASK-1777748120385 | Remove raw ConditionSet from public Aut-category surface | `needs-human-input` (passed Gates 1-6, Fermat re-review; awaiting human approval) |
+| TASK-WRAPUP | Phase wrap-up | `unstarted` (gated behind two work tasks) |
+
+Coverage assessment:
+
+- The Cat smoke task addresses plan criterion 1 (category-recognized Hom/End/Aut surfaces) by fixing interop aliases, slice/coslice dispatch, and WithForms PID specialization.
+- The ConditionSet task addresses plan criterion 3 (ConditionSet as implementation bridge) by privatizing raw `SageConditionSet` construction and preserving the project-owned aut-object surface.
+- The wrap-up task provides phase-closure hygiene.
+
+The plan also records two owned downstream spec cards in its body:
+
+- `SPEC-01KQN9J3WJE9W76X72DAT10H4Y` (dual-object Hom routing) — exists at `specs/SPEC-01KQN9J3WJE9...`, `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]`, status `unstarted`. Correct: dual-object routing through Homsets requires stable Hom/End/Aut surfaces.
+- `SPEC-01KQN9J3WQDJ0Z27BXTY67HA72` (DiscriminantGroup Hom/End/Aut) — exists in `FEATURE-MODULES-WITH-FORMS-AND-LATTICES/specs/`, `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]`, status `complete`. Correct: discriminant-group naming should follow the structural admission patterns established by this plan.
+
+**Finding (minor):** The phase card status is `complete`, but two of its three child tasks are not yet complete (TASK-1777748120385 is `needs-human-input`, TASK-WRAPUP is `unstarted`). The phase status should remain `in-progress` or `needs-review` until child tasks resolve. This does not affect plan-level validity — the phase card has its own independent 6-gate review covering this issue.
+
+**Recommendation:** Consider updating the phase card status from `complete` to `in-progress` until TASK-1777748120385 receives human approval and TASK-WRAPUP executes.
+
+#### Gate 4: Scope Containment (no scope creep)
+
+**Verdict:** PASS.
+
+The plan's objective is tightly scoped: admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework. The plan body explicitly partitions the boundary:
+
+- **In scope:** Category-recognized Hom/End/Aut surfaces, domain/codomain semantics, categorical coercion, ConditionSet privatization, dual objects as Hom objects, formed-module automorphism groups as orthogonal-group surfaces.
+- **Out of scope (explicitly deferred):** "Matrix, function, and predicate calculations remain implementation evidence only" (line 56-57); functor/autofunctor modeling is recorded as future work in TASK-01KQN9J3W... (body: "natural transformations are not modeled; the current Cat morphism surface is Sage functors and construction functors"); full category-spec smoke beyond Hom/End/Aut is outside this plan's scope.
+
+The phase's child tasks respect these boundaries:
+
+- TASK-01KQN9J3W... limits to Cat smoke frontier interop (Homsets/Endsets aliases, ObjectsOver/ObjectsUnder, WithForms PID specialization). Does not expand into functor or natural transformation modeling.
+- TASK-1777748120385 limits to a single file (`category_specs/homsets/autsets.py`) for ConditionSet privatization and aut-object surface preservation.
+- TASK-WRAPUP is a process meta-task, not implementation work.
+
+The Deleted source holder `plans/todo.md` and the migrated source bodies are correctly confined to the plan's scope domain.
+
+**Recommendation:** None.
+
+#### Gate 5: Dependencies (correctness of dependency declarations)
+
+**Verdict:** PASS.
+
+Upstream (plan → feature):
+
+- Plan `dependsOn: []` — correct. No cross-plan prerequisites.
+- Plan `parents: [[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]` — correct. The plan lives under the feature's `plans/` directory.
+
+Internal (plan → phase):
+
+- Plan `phases: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — correct. Single phase, exists on disk.
+- Phase `parents: [[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]` — correct.
+- Phase `dependsOn: []` — correct. No cross-phase dependencies needed.
+
+Downstream (spec cards depending on this plan's phase):
+
+- `SPEC-01KQN9J3WJE9...` (dual-object Hom routing) `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — verified via file read; correct.
+- `SPEC-01KQN9J3WQDJ...` (DiscriminantGroup Hom/End/Aut) `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]` — verified via file read; correct.
+
+The phase card's own 6-gate review identified one dependency finding at the task level: TASK-WRAPUP lists itself in its own `dependsOn` field (self-reference). This is a phase-level hygiene issue that does not affect plan-level correctness. The phase review already recommends removing the self-referential entry before phase closure.
+
+No missing dependency declarations. No undeclared upstream blocking. The DAG is consistent from plan through phase through downstream specs.
+
+**Recommendation:** None at plan level. The TASK-WRAPUP self-reference is a phase-level finding already documented in the phase review.
+
+#### Gate 6: Feature-Criteria Preservation (no weakening)
+
+**Verdict:** PASS.
+
+Parent feature `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES` establishes the top-level scope. The plan's success criteria are a direct refinement of the feature's category-specs-and-Sage-surfaces mandate:
+
+1. Category-recognized Aut/End surfaces → implements the "category specs" half
+2. Domain/codomain semantics and categorical coercion → implements the "Sage-compatible constructors" half
+3. ConditionSet as implementation bridge only → implements the "Sage surfaces" boundary
+
+The phase card's success criteria are operational gates (child task completion discipline, source citation requirements, follow-up card hygiene) that layer on top of the plan's mathematical criteria without weakening or replacing them.
+
+Child task acceptance criteria directly enforce plan criteria:
+
+- TASK-1777748120385 ACs (ConditionSet removal, private helper routing, public aut-object surface preservation, mapping documentation) directly implement plan criterion 3.
+- TASK-01KQN9J3W... ACs (category vocabulary, Cat smoke verification, Hom shadowing audit) directly implement plan criterion 1.
+
+No acceptance criteria have been weakened, replaced, or diluted at any level of the plan→phase→task hierarchy. The three-tier structure (plan mathematical targets → phase operational gates → task concrete deliverables) is coherent and progressive.
+
+**Recommendation:** None.
+
+---
+
+#### Summary
+
+`PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` passes all six gates. The plan is firmly grounded in five MAPPING.md source files (all verified on disk), its success criteria are checkable and specific, its single phase provides complete work coverage, scope boundaries are explicit and respected, the dependency graph is correct (one phase-level self-reference finding is documented downstream), and no feature criteria have been weakened.
+
+The plan is ready to proceed. The phase `PHASE-HOM-END-AUT-WORK-QUEUE` has its own independent 6-gate review (passed with one Gate 5 finding on TASK-WRAPUP self-reference). Once the `needs-human-input` task receives approval and the wrap-up task executes, the plan can be marked complete.

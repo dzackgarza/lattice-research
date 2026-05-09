@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 dependsOn: []
 title: Research Picard-Fuchs and monodromy JNF computations for families
-status: needs-review
+status: complete
 priority: low
 description: Research how to compute Jordan normal forms of monodromy operators for
   families of curves and surfaces, including Picard-Fuchs operator routes.

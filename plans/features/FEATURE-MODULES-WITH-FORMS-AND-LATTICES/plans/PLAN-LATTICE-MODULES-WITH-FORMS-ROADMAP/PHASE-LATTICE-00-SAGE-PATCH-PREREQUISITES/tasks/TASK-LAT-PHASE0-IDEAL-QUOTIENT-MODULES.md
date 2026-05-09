@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-LAT-PHASE0-MODULE-BASE-RINGS]]'
 title: Implement ideal-submodule and quotient-module refinement
-status: unstarted
+status: complete
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES` is approved.

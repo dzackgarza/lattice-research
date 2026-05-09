@@ -111,11 +111,29 @@ spec structure. It preserves style and compliance material extracted from `AGENT
     `CategoryWithAxiom` after construction.
   - Base-ring axiom categories must use `CategoryWithAxiom_over_base_ring`; do not force
     base-ring categories through the singleton wrapper.
-- **Prefer Mathematical Type Checks Over `isinstance`**: Almost all direct
-  `isinstance` checks should be refactored into real categorical predicates or
-  containment checks when a mathematically meaningful category exists. Centralize the
-  unavoidable Python/Sage runtime check at the category boundary, then expose and use
-  mathematical prose elsewhere.
+- **`isinstance` as a Design Signal, Not a Ban**: `isinstance` checks are not banned —
+  they are diagnostic flags that the code is guessing about an object's category at
+  runtime rather than expressing membership through the category system. Each
+  occurrence triggers a specific reasoning chain (see the `anti-slop` skill,
+  `references/code-patterns.md#introspection-red-flags` for the full framework,
+  including `hasattr`, `getattr`, `type()`, `issubclass`, and `callable()`).
+
+  **Boundary vs. interior**: `isinstance` is acceptable at the typed/untyped
+  boundary — inside `__contains__` (which takes `Any`), in Sage interop wrappers
+  that receive untyped raw Sage objects, and at constructor gates that validate
+  input shapes once. Outside these boundary sites, each `isinstance` should be
+  questioned as a signal that the category system is not carrying enough information.
+
+  **Preferred replacement**: When a categorical predicate exists (e.g.,
+  `C in Cat().JoinCategories()` or `C.is_join_category()`), use it instead of
+  `isinstance(C, JoinCategory)`. When no predicate exists yet, treat repeated
+  `isinstance` checks as a design smell and add the missing category surface
+  rather than copying the runtime check through the codebase.
+
+  **Assert vs. branch**: `assert isinstance(x, T)` documents a precondition and
+  fails loudly. This is different from a branch that silently produces different
+  behavior based on type — the latter should usually be an overload, a tagged
+  union, or an explicit dispatch path.
   - Example: `isinstance(C, JoinCategory)` may be acceptable inside the implementation
     of `Cat().JoinCategories().__contains__`, but ordinary code should say
     `C in Cat().JoinCategories()` or `C.is_join_category()`.
@@ -707,12 +725,32 @@ owning layer before editing locally.
   - Audit response: find the smaller mathematical redesign that removes the need for
     the framework.
 - **Runtime checks outside categorical predicates**:
-  - What makes it a red flag: `isinstance` checks recur where the prose wants category
-    membership.
-  - Suspect: a missing predicate subcategory, such as `Cat().JoinCategories()`, or a
-    missing `is_*` predicate pattern.
-  - Audit response: centralize the Python/Sage runtime check at the category boundary
-    and use mathematical membership prose elsewhere.
+  - What makes it a red flag: `isinstance`, `hasattr`, `getattr`, `type()`, or
+    `callable()` appear in code where the prose wants category membership, typed
+    attribute access, or declared structure. Each is a signal that the code is
+    guessing about shape at runtime rather than carrying that information through
+    the type/category system.
+  - Suspect: a missing predicate subcategory, such as `Cat().JoinCategories()`; a
+    missing `is_*` predicate pattern; an undeclared optional attribute; or a
+    function signature that accepts too-broad a type.
+  - Audit response: apply the introspection red-flag reasoning chain from the
+    `anti-slop` skill (`references/code-patterns.md#introspection-red-flags`).
+    Centralize legitimate boundary checks and replace interior checks with
+    categorical membership, typed access, or explicit overloads.
+- **Engineering names in mathematical contexts**:
+  - What makes it a red flag: category, axiom, or method names contain words that
+    describe code structure rather than mathematical structure: `Base`, `Abstract`,
+    `Impl`, `Concrete`, `Manager`, `Factory`, `Registry`, `Handler`.
+  - Suspect: the agent is thinking in implementation architecture terms (class
+    hierarchies, design patterns) when the task requires mathematical vocabulary
+    (axioms, predicates, categories). The name `FiniteTotallyOrderedBase` smuggles
+    "Base" (a programming concept) into what should be axioms (`finite`,
+    `totally_ordered`).
+  - Audit response: remove the engineering word and check whether the remaining
+    name still expresses a complete mathematical concept. If yes, rename. If no,
+    the concept is underspecified — the agent is using engineering structure as
+    a substitute for mathematical precision. See the `anti-slop` skill,
+    `references/code-patterns.md#engineering-names-in-mathematical-contexts`.
 - **Reward-hacking edits**:
   - What makes it a red flag: removing `NEEDS_DECISIONS`, relaxing `@final`, deleting
     an `@abstract_method`, weakening a smoke, adding `hasattr`, or catching errors
@@ -898,6 +936,33 @@ that the category has a complete implementation.
 Do not collapse axiomatic restrictions into implementation categories merely because
 some restricted cases are computable. Further restrictions such as finite generation,
 basis data, or base-ring hypotheses determine the algorithms.
+
+### Naming: Mathematics, Not Implementation
+
+Mathematical category, axiom, and method names MUST express mathematical structure,
+not implementation architecture. Words that describe code (class, base, abstract,
+impl, manager, factory, registry, handler) do not belong in category or axiom names.
+
+**The anti-pattern**: an agent thinks "I need a base category for finite totally
+ordered sets" and names it `FiniteTotallyOrderedBase`. The word "Base" describes
+the implementation artifact (a base class), not the mathematical property. The
+mathematical concept is "finite" and "totally ordered" — these are axioms, not
+class hierarchy positions.
+
+**Signal detection**: if a category, axiom, or method name contains a word that
+would appear in an object-oriented design pattern textbook but not in a
+mathematics textbook, it is an engineering name smuggled into mathematical code.
+Common smuggled words: `Base`, `Abstract`, `Impl`, `Concrete`, `Manager`,
+`Factory`, `Registry`, `Handler`, `Structured`, `Configurable`.
+
+**Correct approach**: separate the mathematical claim from the implementation
+artifact. The mathematical claim (finite, totally ordered, countable, free) is
+a category axiom or restriction. The implementation artifact (which Python class
+satisfies it in Sage's category framework) is a separate engineering decision
+that does not dictate the name.
+
+See the `anti-slop` skill, `references/code-patterns.md#engineering-names-in-mathematical-contexts`
+for the general pattern and additional signals.
 
 **Subobject types in `types.py`**: types like `Subset`, `Submodule`, `QuotientModule`
 must be defined in `types.py` and used explicitly in method signatures to express

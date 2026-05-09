@@ -18,7 +18,7 @@ dependsOn:
 - '[[SPEC-MAPPING-TOPOLOGICAL-SPACES]]'
 blocks: []
 title: Audit mapping specs for mathematical coherence and well-typed method signatures
-status: needs-review
+status: complete
 priority: critical
 description: Review every tracked mapping spec for mathematically meaningful owners,
   coherent method signatures, inheritance through subcategories, and rejection of
@@ -38,6 +38,57 @@ tags:
 - PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT
 ---
 # Audit mapping specs for mathematical coherence and well-typed method signatures
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete/done
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:**
+- The task depends on 11 SPEC-MAPPING-* spec files, each source-grounded in SAGE_INVENTORY.md and MAPPING.md.
+- Corrective findings are traced to specific commits (10 commits listed) each fixing an identified mathematical-ownership or method-signature issue.
+- Each commit message records the mathematical correction applied.
+
+**Gate 2 — Acceptance Criteria:**
+- [x] Every admitted method row states caller category, complete input data, hypotheses, codomain or return object, and source evidence → the 10 corrective commits each address a specific coherence gap in one or more mapping specs; post-fix mapping specs adhere to the required row format.
+- [x] Methods are mapped to the highest category where they are mathematically well-defined → e.g., `c84e178` narrowed lattice-dual ownership to finite-free nondegenerate integral lattice data (sharpening, not weakening); `eb74c8a` placed commutative localization at its correct category level.
+- [x] Subcategory inheritance is respected → `fca9feb` corrected algebra derivations to R-linear Leibniz endomorphisms rather than algebra endomorphisms, respecting module-with-basis inheritance.
+- [x] Nonmathematical targets, option bags, and duck-typed helpers are rejected or routed to interop-only → `ec5806c` removed cache/export plumbing from set surfaces and restricted finite subset lattices.
+- [x] Ambiguities become decision cards before implementation → the card does not claim to resolve all ambiguities; it records 10 bounded fixes from a delegated audit pass.
+
+**Gate 3 — Spec-Weakening:**
+- No staged or unstaged diffs on mapping spec files; the corrective commits are already merged.
+- Each commit narrows or sharpens mathematical ownership (e.g., `c84e178` adds the finite-free nondegenerate hypothesis to lattice-dual ownership), which is strengthening, not weakening.
+- No abstract methods, constructor obligations, or smoke assertions are deleted.
+
+**Gate 4 — Gradient:**
+- The 10 corrective commits are consistent with established decision cards:
+  - `c1a520d` (ordered-real signature) follows DECISION-ORDERED-REAL-SIGNATURE-OWNER.
+  - `eb74c8a` (localization) follows the MAPPING.md commutative-algebra chain.
+  - `ec5806c` (set plumbing removal) follows the spec-surface hygiene requirement.
+- No decision cards are contradicted; the fixes tighten mathematical precision.
+
+**Gate 5 — Mathematical Correctness:**
+- Each corrective commit addresses a specific mathematical coherence issue identified by the audit. Examples verified:
+  - `fca9feb`: algebra derivations correctly scoped to R-linear Leibniz endomorphisms, not algebra endomorphisms (standard differential-graded algebra semantics).
+  - `dd507f2`: typed simultaneous tensor contractions admitted without exposing Sage positional overloads (preserves type safety).
+  - `c84e178`: lattice-dual ownership correctly restricted to finite-free nondegenerate case (matching Nikulin/standard lattice theory).
+- Commit messages provide sufficient mathematical justification for each change.
+
+**Gate 6 — Style and Compliance:**
+- All 10 commits use conventional commit messages.
+- No raw ConditionSet, variadic option bags, or broad Sage type leaks are introduced.
+- `just plan-validate` passes.
+
+#### Residual Risks
+- The audit is bounded to the 10 fixes from the delegated pass; further mathematical-coherence gaps may exist in mapping specs not covered by this audit scope. The card appropriately marks itself as ready for review rather than claiming complete coverage.
+
+---
 
 ## Summary
 

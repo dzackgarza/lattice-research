@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement TensorAlgebraComponents constructors for module-element matrices
   structure constants and multiplication-tensor handoff to Algebras(R)
-status: needs-review
+status: complete
 priority: high
 description: Tensor mapping fixes tensor component ownership, coordinate interop constructors,
   dual- object interpretation, and the algebra multiplication-tensor handoff.

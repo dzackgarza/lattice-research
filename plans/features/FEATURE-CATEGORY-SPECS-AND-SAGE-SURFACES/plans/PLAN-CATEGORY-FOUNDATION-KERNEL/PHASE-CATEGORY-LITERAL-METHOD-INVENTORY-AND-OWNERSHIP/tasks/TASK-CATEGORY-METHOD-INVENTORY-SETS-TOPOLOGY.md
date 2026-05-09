@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write set topology and metric method ownership rows
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Mine set, finite-set, enumerated-set, subobject, image-set, topological,

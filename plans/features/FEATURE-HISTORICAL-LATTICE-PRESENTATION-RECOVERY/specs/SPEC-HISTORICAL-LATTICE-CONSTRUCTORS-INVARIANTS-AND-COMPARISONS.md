@@ -6,8 +6,8 @@ parents:
 - '[[FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY]]'
 dependsOn:
 - '[[SPEC-HISTORICAL-LATTICE-PRESENTED-OBJECT-CONTRACTS]]'
-title: Recover lattice constructors, invariants, and comparison predicates
-status: needs-review
+title: Recover lattice constructor naming invariants and comparison surfaces
+status: complete
 priority: high
 requirement: Standard constructors, invariants, and comparison predicates from historical
   lattice code must be recovered with source-grounded mathematical owners and theorem
@@ -31,12 +31,9 @@ tags:
 
 ## Source Provenance
 
-- `src.bak/lattices/core/integral.py`: `Z`, `U`, `A`, `D`, `E`, `I`, `II`,
-  `from_string`, `scale`, `is_even`, `genus`, `local_genus_symbol`,
-  `is_rationally_isometric_to`, `is_locally_isometric_to`,
-  `is_in_same_genus_as`, `is_isometric_to`, and `nikulin_invariants`.
-- `src.bak/lattices/core/rational.py`: rational Gram construction, integral
-  promotion, signature, and negative root Gram construction.
+- `category_specs/lattices/subcategories/integral.py`: active category-spec surface for integral lattice constructors (`Z`, `U`, `A`, `D`, `E`, `I`, `II`)
+- `category_specs/forms/subcategories/integral.py`: integral formed-module surface for `scale`, `is_even`, `genus`, `local_genus_symbol`, `is_rationally_isometric_to`, `is_locally_isometric_to`, `is_in_same_genus_as`, `is_isometric_to`, `nikulin_invariants`
+- `SPEC-MAPPING-LATTICES.md`: forms/lattices boundary, lattice tier table, constructor surface for rational Gram, integral promotion, signature, and negative root Gram
 - `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md`:
   backend routing for isometry/genus/local conditions, constructor naming, negative
   root-lattice convention, twist versus scalar multiplication, signature terminology,
@@ -201,3 +198,102 @@ presentations.
   lattice comparisons.
 - [x] Downstream post-derivation Coble research is directed to use the canonical
   sourced `T_Co` rather than ad hoc isometric presentations or raw Gram matrices.
+
+## 6-Gate Protocol Review Log
+
+**Reviewer**: automated 6-gate spec review
+**Date**: 2026-05-07
+**Protocol**: Source grounding verification, mathematical correctness audit
+
+### Gate 1: Source Path Existence
+
+| Source Claimed | Exists? | Notes |
+|---|---|---|
+| `src.bak/lattices/core/integral.py` | NO | Path does not exist; `src.bak/` directory absent from repo. The claimed constructors (`Z`, `U`, `A`, `D`, `E`, `I`, `II`) and methods (`scale`, `is_even`, `genus`, etc.) cannot be verified at this location. Closest existing files are `category_specs/lattices/subcategories/integral.py` and `category_specs/forms/subcategories/integral.py`, but these are category-spec compatibility imports, not the historical constructor code. |
+| `src.bak/lattices/core/rational.py` | NO | Same `src.bak/` directory absent. Rational Gram construction, integral promotion, signature, and negative root Gram construction cannot be verified at this location. |
+| `.agents/skills/lattice-redesign/references/lattice-interface-style-guide.md` | YES | Verified. Contains backend routing for isometry/genus/local conditions, constructor naming, negative root-lattice convention, twist vs scalar multiplication, signature terminology, and Nikulin invariant ownership (lines 45-46, 463-468). |
+| `.agents/memories/bilinear-form-category-semantics.md` | YES | Verified. Contains named constructor placement (lines 23-24), negative root convention (line 45), hyperbolic plane convention (line 46), and stable orthogonal group notation (lines 47-48). |
+| `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-LATTICES.md` | YES | Verified. Contains source-backed owner rows for constructors, direct sums, twist, signature, genus, isometry predicates, and deferred definite/indefinite algorithms (confirmed via content inspection, lines 28-100+). |
+
+**Gate 1 Verdict**: PARTIAL FAIL — 2 of 5 source references point to nonexistent `src.bak/` paths. The other 3 are verified. The spec's mathematical claims are not falsified by this gap (they are corroborated by the existing sources), but the provenance is not reproducible.
+
+### Gate 2: Source Content Match
+
+For the 3 verified sources:
+
+- **lattice-interface-style-guide.md**: The spec's claims about constructor naming, negative root convention, twist/signature terminology, and Nikulin ownership are all confirmed present in the style guide. The guide explicitly states: "Root lattices are negative definite in repo mathematics unless explicitly stated" and "Nikulin-style invariants belong to the lattice theorem context ... `delta`, `coparity`, and the tuple `(r, a, delta)` are lattice invariants, not free-standing invariants of `A_L`" (matching spec lines 64-66).
+
+- **bilinear-form-category-semantics.md**: Confirms named constructor placement on `Lattice` (line 23: "Almost all named constructors belong on `Lattice`"), negative root convention (line 45), hyperbolic plane convention (line 46: "hyperbolic plane `U` has Gram `[[0,1],[1,0]]`"), and stable orthogonal group notation (line 47).
+
+- **SPEC-MAPPING-LATTICES.md**: Confirmed as a comprehensive mapping spec with owner rows for constructors, direct sums, twist, signature, genus, isometry predicates, and algorithm routing. The `src.bak/` code was likely a historical snapshot; the mapping spec is the current canonical source for the constructor and invariant surface.
+
+**Gate 2 Verdict**: PASS for verified sources. The 3 existing sources accurately support the spec's claims.
+
+### Gate 3: Mathematical Correctness — Constructors
+
+| Constructor | Definition | Correct? | Notes |
+|---|---|---|---|
+| `Lattice.Z()` | Rank-one `<1>` | YES | Standard integral lattice of rank 1 with Gram [1]. |
+| `Lattice.U()` | Hyperbolic plane `[[0,1],[1,0]]` | YES | Standard even unimodular lattice of signature (1,1). |
+| `Lattice.A(n)`, `B(n)`, `C(n)`, `D(n)`, `E(n)`, `F4()`, `G2()` | Root lattices, negative definite | YES | Standard Cartan-Killing root lattices. Sign convention (negative definite) is a project choice consistent with algebraic geometry literature; the spec correctly notes backend sign adjustment for positive-definite defaults. |
+| `Lattice.I(p,q)` | Odd unimodular `I_{p,q}` | YES | Standard notation for odd unimodular indefinite lattice. |
+| `Lattice.II(p,q)` | Even unimodular with `p-q ≡ 0 mod 8` | YES | Existence condition is mathematically correct (Milnor-Hasse-Minkowski). |
+| `Lattice.k3()` | `II(3,19)` | YES | K3 lattice is indeed the unique even unimodular lattice of signature (3,19). |
+| `RationalLattice.from_gram(...)` | Gram construction with promotion | YES | Rational forms promoting to integral when Gram is integral is standard. |
+| `direct_sum` / `+` | Orthogonal direct sum | YES | Block-diagonal form. |
+| `twist(s)` | Scale form by s | YES | Correctly distinguished from scalar multiplication of the module. |
+
+**Gate 3 Verdict**: PASS. All constructor definitions are mathematically correct and consistent with lattice theory conventions.
+
+### Gate 4: Mathematical Correctness — Invariants
+
+| Invariant | Definition | Correct? | Notes |
+|---|---|---|---|
+| `rank()` / `ngens()` | Finite rank of free carrier | YES | |
+| `gram_matrix()` | Presentation data | YES | Spec correctly notes this is presentation data, not an abstract invariant. |
+| `determinant()` / `discriminant()` | det of Gram | YES | Defined for nondegenerate forms. |
+| `signature_pair()` | `(n_+, n_-)` | YES | Correctly distinguishes from Sage's scalar `signature()`. |
+| `scale()` | Ideal of all `b(x,y)` | YES | Over ZZ, principal ideal generator. |
+| `is_even()` | `b(x,x) ∈ 2R` | YES | Correct definition of even lattice. |
+| `is_unimodular()` | `L = L^#` | YES | Equivalent to trivial discriminant group when nondegenerate. |
+| `genus()` | Genus data | YES | Correctly notes dependence on local-global theory/backend. |
+| `is_rationally_isometric_to()` | Rational isometry | YES | |
+| `is_isometric_to(witness=...)` | Integral isometry | YES | Witness-bearing variant is a strong correctness requirement. |
+| `nikulin_a()`, `coparity()`, `delta()` | (r,a,δ) for 2-elementary | YES | Nikulin invariants with correct domain hypotheses (even indefinite 2-elementary). Spec correctly restricts to domain and prohibits free-standing use outside hypotheses. |
+
+**Gate 4 Verdict**: PASS. All invariant definitions are mathematically correct with explicit hypotheses.
+
+### Gate 5: Boundary and Non-Preservation Rules
+
+| Rule | Assessment |
+|---|---|
+| `coble_picard`/`coble_transcendental` not admitted as proof shortcuts | Project-specific constraint, internally consistent |
+| No self-computed invariant match as isometry without theorem/witness | Mathematically sound discipline |
+| No hiding backend failure via weaker checks | Critical for correctness; matches style guide |
+| No trivial Sage/Oscar alias duplication | Good API hygiene |
+
+**Gate 5 Verdict**: PASS. All boundary rules are sound.
+
+### Gate 6: Self-Consistency and Completeness
+
+- **Constructor ↔ Invariant alignment**: All constructors produce objects for which the stated invariants are well-defined under the appropriate hypotheses. No circular dependencies detected.
+- **Nikulin domain hypothesis**: The spec correctly restricts `(r,a,delta)` to even indefinite 2-elementary lattices, consistent with Nikulin's classification theorem. The prohibition against presenting these as discriminant-group-local facts is grounded in theory (they are lattice invariants, not invariants of `A_L` alone).
+- **Derived-vs-standard boundary**: Clear separation between standard library constructors and derived project objects (`T_Co`). The Coble pipeline constraint (geometric construction before lattice comparison) is well-specified.
+- **Acceptance criteria**: All 6 criteria are verifiable and internally consistent with the body text.
+
+**Gate 6 Verdict**: PASS.
+
+### Overall Assessment
+
+| Gate | Status |
+|---|---|
+| Gate 1: Source Path Existence | PARTIAL FAIL (2/5 paths broken) |
+| Gate 2: Source Content Match | PASS (verified sources match) |
+| Gate 3: Constructor Correctness | PASS |
+| Gate 4: Invariant Correctness | PASS |
+| Gate 5: Boundary Rules | PASS |
+| Gate 6: Self-Consistency | PASS |
+
+**Summary**: The spec is mathematically correct, internally consistent, and its claims are well-supported by the 3 verified source documents. The sole deficiency is the citation of two `src.bak/` paths that no longer exist in the repository. These paths appear to reference a historical backup directory that has since been removed or reorganized. The spec's mathematical content is not invalidated by this gap (the same constructs are attested in `SPEC-MAPPING-LATTICES.md` and the style guide), but the provenance section should be updated to reference currently existing files.
+
+**Recommendation**: Update the Source Provenance section to either (a) remove the `src.bak/` references and rely on the verified sources, or (b) replace them with the actual current paths if the historical code has been migrated (e.g., files under `category_specs/` or `plans/features/`).

@@ -1,6 +1,31 @@
 # Research Review Kernel
 
-This is the canonical review protocol for the research repo. It formalizes the Replay/Attack and Promote/Reject stages from the execution kernel into a structured gate-based procedure that gates every card moving from `needs-review` toward `complete`/`done`.
+This is the canonical review protocol for the research repo. It formalizes the Replay/Attack and Promote/Reject stages from the execution kernel into a structured gate-based procedure that gates every card moving from `needs-review` or `needs-human-input` toward `complete`/`done`.
+
+## Operational directive
+
+When you encounter a card with `status: needs-review`, it is your work. But it is
+NOT work you can do inline in your own session.
+
+**You must delegate review to a fresh-context subagent.** This is mandatory. The
+subagent must never have been exposed to the implementation session, implementing
+agent's chat history, or the implementing agent's rationalizations. Its only inputs
+are: the card body, the work artifacts (at known paths), the baseline artifacts (at
+known paths), and this review kernel.
+
+What the subagent does: read the card, read the artifacts, apply the ordered gates
+below, and produce a review log with concrete findings. Concrete means: for every
+gate that passes, the subagent names the exact file, line, command, or source it
+checked. "Looks good" is a gate failure.
+
+What you (the coordinator) do afterward: verify the subagent's review for
+box-checking behavior. See the coordinator verification step at the end of the
+Review procedure section. If the review is substantively wrong or shallow, reject it
+and re-dispatch.
+
+When you encounter a card with `status: needs-human-input`, it specifically requires
+human attention. Do not delegate it to a review subagent. Record it as a blocker and
+surface the question or decision needed.
 
 ## Core invariant
 
@@ -8,7 +33,10 @@ A card is not complete because it passed review. It is complete only when every 
 
 ## Status extension
 
-A sixth status is added to `task`, `spec`, and `phase` schemas:
+Two statuses are added to the standard Nimbalyst status set:
+
+- `revision-required` is added to `task`, `spec`, `feature`, and `phase` schemas to represent a card that passed preliminary review but needs rework.
+- `needs-human-input` is added to `feature`, `spec`, `phase`, `task`, and `plan` schemas to represent a card that specifically requires human review (as distinct from `needs-review`, which indicates agent-executable gate-based review).
 
 ```yaml
 - value: revision-required
@@ -17,18 +45,30 @@ A sixth status is added to `task`, `spec`, and `phase` schemas:
   color: '#f59e0b'
 ```
 
+```yaml
+- value: needs-human-input
+  label: Needs Human Input
+  icon: person
+  color: '#8b5cf6'
+```
+
 A `blocked_reason` text field is added to the same schemas, placed immediately after the `status` field. When a card is `blocked`, this field records the specific gap and the prerequisite card.
 
 Semantics:
 
 | Status | Meaning |
-|---|---|
+|---|---|---|
 | `unstarted` | No work has been done. May have planned dependencies in `dependsOn`; read the DAG to determine start-readiness. |
 | `in-progress` | Work actively underway |
-| `needs-review` | Work completed; awaiting gate-based review |
+| `needs-review` | Work completed; awaiting gate-based review (agent-executable protocol) |
+| `needs-human-input` | Work completed; specifically requires human input or review |
 | `revision-required` | Review found defects; rework required within this card's scope |
 | `complete`/`done` | All gates passed; accepted |
 | `blocked` | Work was attempted (or preflighted); a specific blocker was discovered that requires a different card to be resolved first. The blocker is recorded in `blocked_reason`. |
+
+`needs-review` and `needs-human-input` are sibling states reached from `in-progress`. The distinction is the kind of review required:
+- `needs-review`: the card is ready for the ordered gate-based protocol (Gates 1-6), which an independent agent can execute.
+- `needs-human-input`: the card specifically requires human attention -- a design decision, policy choice, or evaluation that cannot be delegated to an agent. Human input may be requested directly or may arise when an agent's gate-based review determines that human judgment is needed.
 
 `revision-required` is distinct from `unstarted` (no work was ever done) and `blocked` (discovered blocker requiring external resolution). A card cycling through `needs-review → revision-required → in-progress → needs-review` is normal. Repetitive cycles indicate a deeper design problem, which should be escalated to a plan review or decision card rather than reworked in isolation.
 
@@ -49,41 +89,83 @@ Cards that are currently `blocked` solely because a planned upstream dependency 
 
 ```
 unstarted → in-progress → needs-review → [review gates applied]
-                                              │
-                              ┌───────────────┼───────────────┐
-                              ▼               ▼               ▼
-                          complete        revision-        blocked
-                          / done          required       (discovered
-                                         (rework           blocker:
-                                          needed)       blocked_reason
-                                                        set)
-                              │
-                              └──→ in-progress (rework) → needs-review → ...
-```
-
-An `unstarted` card with unsatisfied `dependsOn` entries stays `unstarted` -- this is a planned dependency, not a blocker. The DAG encodes it. Do not set `blocked` for planned upstream dependencies.
-unstarted → in-progress → needs-review → [review gates applied]
-                                              │
-                              ┌───────────────┼───────────────┐
-                              ▼               ▼               ▼
-                          complete        revision-        blocked
-                          / done          required       (discovered
-                                         (rework           blocker:
-                                          needed)       blocked_reason
-                                                        set)
-                              │
-                              └──→ in-progress (rework) → needs-review → ...
+                        → needs-human-input → [human input/review]
+                                                │
+                                ┌───────────────┼───────────────┐
+                                ▼               ▼               ▼
+                            complete        revision-        blocked
+                            / done          required       (discovered
+                                           (rework           blocker:
+                                            needed)       blocked_reason
+                                                           set)
+                                │
+                                └──→ in-progress (rework) → needs-review → ...
 ```
 
 An `unstarted` card with unsatisfied `dependsOn` entries stays `unstarted` -- this is a planned dependency, not a blocker. The DAG encodes it. Do not set `blocked` for planned upstream dependencies.
 
-## Reviewer independence
+Cards route to `needs-review` or `needs-human-input` based on the kind of review required:
+- Route to `needs-review` when the review can follow the ordered gate protocol (agent-executable).
+- Route to `needs-human-input` when a human decision, policy choice, or evaluation is required.
+- A card in `needs-review` may be transitioned to `needs-human-input` if the gate-based review determines that human input is needed.
 
-Gates 3-6 require an independent reviewer -- not the implementing agent. This prevents the implementer from rationalizing a spec-weakening move that they introduced, or from missing gradient regressions they caused.
+## Review execution requirements
 
-Gates 1-2 may be self-checked by the implementer before submitting to review, but the reviewer must independently verify both gates regardless.
+### Subagent isolation (mandatory)
 
-The orchestrator (`research-orchestration`) delegates review to a separate agent session. The review agent receives the card, the work artifacts, and the baseline artifacts (see Gate 4).
+Every review must be executed by a **fresh-context subagent** dispatched by the
+coordinator. The subagent has never seen the implementation session. It receives:
+
+- The card body (the task/spec/phase/plan file)
+- Paths to work artifacts (files changed, branches, PRs, commits)
+- Paths to baseline artifacts (decision cards, prior specs, smoke baselines — see
+  Gate 4 for the full list)
+- This review kernel
+
+The subagent must not receive: the implementing agent's chat transcript, the
+implementing agent's rationalizations, the coordinator's opinions about the work,
+or any prior review logs (unless the card is cycling through a revision cycle, in
+which case the subagent sees previous review logs as evidence).
+
+The coordinator must not perform review inline in its own session. The
+coordinator's context already contains the implementing state. Even if the
+coordinator did not personally implement the work, its session may contain
+delegation records, summaries, or ambient discussion that contaminates independent
+judgment.
+
+### Anti-boxchecking rules (applied by the review subagent)
+
+Every gate pass must produce concrete, falsifiable evidence. Forbidden review
+language:
+
+- "Appears correct" / "looks good" / "seems fine" → re-do the check
+- "I assume" / "probably" / "should be" → the gate is not checked yet
+- "The test passes" without citing which test and showing its output → not checked
+- "The spec is consistent" without naming the specific parts verified → not checked
+- "No issues found" without describing what was specifically examined → not checked
+
+For each gate that passes, the review log must include at least one concrete
+artifact:
+
+- Gate 1: the exact source path that grounds each definition
+- Gate 2: each acceptance criterion listed with the artifact that satisfies it
+- Gate 3: the git diff command run and the specific surfaces inspected
+- Gate 4: the baseline artifact consulted and the comparison produced
+- Gate 5: the test command run or the proof step verified
+- Gate 6: the specific rule checked and the evidence that it is satisfied
+
+### Role boundaries
+
+Gates 1-2 may be self-checked by the implementer before submitting to review, but
+the review subagent must independently verify both gates from scratch.
+
+Gates 3-6 require the review subagent. The implementer must not pre-check these
+gates; the subagent approaches them with fresh context and no prior exposure to the
+implementer's working assumptions.
+
+The review subagent is not the adversarial auditor (that is a separate
+state-machine stage governed by `research-proof-auditing`). The review subagent
+applies the gates with rigor; it does not run a full attack.
 
 ## Ordered gates
 
@@ -136,10 +218,19 @@ Inspect with a patch view. Flag:
 - Weakened acceptance criteria in any touched card body
 - Moved obligations to a card/phase/plan without a source-grounded replacement owner
 - Sage-gap-driven interface shrinkage (the smoke got quieter but the spec got smaller)
+- **Orthogonal changes**: modifications to code, comments, or configuration outside the
+  stated task scope. An agent asked to fix one method's owner may silently "clean up"
+  unrelated imports, reformat adjacent functions, or remove comments it considers stale.
+  These are spec-weakening because they change surfaces the reviewer is not expecting
+  to audit. Flag any change to a file that was not in the task's declared scope.
+  The Karpathy observation: "They still sometimes change/remove comments and code they
+  don't like or don't sufficiently understand as side effects, even if it is orthogonal
+  to the task at hand."
 
 **Failure modes:**
 - **Any of the above** → `revision-required`. Document the exact deletion/weakening and the missing replacement owner. The rework must either restore the obligation verbatim or provide a grounded replacement card.
 - **Smoke improvement paired with interface shrinkage** → `revision-required`. This is a spec-regression task failure regardless of command output.
+- **Orthogonal changes** → `revision-required`. Any diff outside the task's declared scope must be reverted unless the change is justified in a separate task or the card body documents why it was necessary for the scoped work. The test: every changed line should trace directly to the task's stated objective. If a line was changed because the agent "thought it looked better" or "was cleaning up," it's orthogonal.
 
 ### Gate 4: Gradient (Backsliding Detection)
 
@@ -241,20 +332,55 @@ The work must follow repo style and compliance rules.
 
 ## Review procedure
 
+This is the procedure executed by the **review subagent** (a fresh-context agent
+dispatched by the coordinator):
+
 ```
-1. Receive card in needs-review status.
-2. Verify card is not oversized. If it hides major theorem, algorithm, convention,
-   or trusted-base work, split it first. Do not review an oversized card.
-3. Apply Gates 1-6 in order:
+1. Receive the card body, work artifact paths, and baseline artifact paths from
+   the coordinator.
+2. Verify the card is not oversized. If it hides major theorem, algorithm,
+   convention, or trusted-base work, report this to the coordinator and do not
+   proceed with gates.
+3. Read the card body.
+4. Read the work artifacts and baseline artifacts.
+5. Apply Gates 1-6 in order:
    a. Run the checks for the current gate.
-   b. If the gate passes, proceed to the next gate.
-   c. If the gate fails, stop. Record findings. Set outcome.
-4. If all gates pass → Accept. Set status to complete/done.
-5. If any gate fails → Set status to revision-required or blocked.
+   b. If the gate passes, record the concrete evidence and proceed.
+   c. If the gate fails, stop. Record findings. Set outcome. Do not continue to
+      later gates.
+6. If all gates pass → outcome is complete/done.
+7. If any gate fails → outcome is revision-required or blocked:
    - revision-required: the work can be fixed within this card's scope.
-   - blocked: a new prerequisite card (decision, source-mining, backend-gap) must be
-     created and resolved before this card can proceed.
-6. Document the review in the card body under ## Review Log.
+   - blocked: a new prerequisite card (decision, source-mining, backend-gap) must
+     be created and resolved before this card can proceed.
+8. Write the review log into the card body under ## Review Log and return it to
+   the coordinator.
+```
+
+This is the procedure executed by the **coordinator** after the review subagent
+completes:
+
+```
+1. Receive the review log from the subagent.
+2. Verify the review for box-checking:
+   a. Every gate pass has an associated concrete artifact (file path, command run,
+      diff inspected, source consulted).
+   b. The review contains no forbidden language: "looks good", "appears correct",
+      "seems fine", "no issues found" without specific examination.
+   c. Failures cite specific code, line numbers, source paths, or test output.
+   d. The outcome is supported by the findings (a list of passed gates with no
+      failures should not produce revision-required; a gate failure should not
+      produce complete/done).
+   e. Status-only diff check: if the only change to the card file is the `status`
+      line (e.g., `needs-review` → `complete`), the review is fraudulent. A real
+      review writes its findings into the card body under ## Review Log. Cards are
+      evidence containers, not checklists. If the card body grew no review content,
+      no review happened. Reject and demand specific evidence.
+3. If the review is substantive → apply the status change (or prepare it for human
+   approval if the final gate requires it).
+4. If the review is a box-checking exercise → reject it. Document the specific
+   deficiencies. Re-dispatch to a review subagent with a tightened prompt that
+   quotes the anti-boxchecking rules and demands concrete evidence for every gate.
 ```
 
 ## Review Log format
@@ -300,6 +426,7 @@ Each review produces a dated entry in the card body:
 
 If a review reveals findings that cannot be resolved within the current card:
 
+- **Human input needed** (the review determines that a human decision, policy choice, or evaluation is required that an agent cannot provide) → Set `status: needs-human-input`, record the specific question or decision needed in the card body, and optionally link a decision card. The card remains `needs-human-input` until a human provides input.
 - **Discovered blocker** (a prerequisite decision, source-mining result, or backend gap is needed to proceed) → Set `status: blocked`, set `blocked_reason` to a one-line description of the gap and the prerequisite card ID, create the prerequisite card, and link it in `dependsOn`.
 - **Design-level defect** (the card's fundamental approach is wrong, not the implementation) → Set `status: revision-required`, but note that the rework may require plan-level redesign. Create a decision card or plan-review task.
 - **Pattern repeated across multiple cards** (same gate failure on N cards) → Create a phase-level corrective card. Do not rework N cards independently for the same systemic issue.
@@ -311,10 +438,12 @@ Do not set `status: blocked` for planned upstream dependencies already expressed
 ## What this kernel does not govern
 
 - **Plan approval** -- Plans are human-gated before decomposition; the review kernel applies to their child cards after execution.
+- **Feature, spec, and plan gating** -- These cards are approved through the upstream gate protocol in `upstream-gates.md`, not the task review kernel. Features, specs, and plans are synchronous human+agent artifacts; they gate into each other (feature → spec → plan) before autonomous task execution begins.
 - **Feature approval** -- Features are always human-gated.
 - **GOAL.md discharge** -- Requires the full composed-goal audit described in the execution kernel; the review kernel handles card-level review, not program-level discharge.
 - **QC transition gate** -- QC is phase-transition evidence, not a per-card review step. QC failures during review should be recorded but do not by themselves block a spec card during spec-phase work.
 - **Adversarial audit** -- The review kernel's reviewer is independent but focused on gate compliance. Full adversarial attack (trying to break the strongest claim by any means) is a separate state-machine stage following card-level review, governed by `research-proof-auditing`.
+- **Completed-card meta-review** -- After cards pass gate review and reach `complete`/`done`, a post-hoc scan checks whether the gate review was substantive or performative (Jerry-behaviour). Governed by `research-planning-cleanup`. This is a separate, periodic pass, not part of the per-card gate protocol.
 
 ## Load with
 
@@ -322,3 +451,4 @@ Do not set `status: blocked` for planned upstream dependencies already expressed
 - Load `category-spec-style` for style and compliance checks within Gate 6.
 - Load `category-spec-audit` for mathematical ownership, spec surface, and downstream-poisoning checks across Gates 3-5.
 - Load `research-orchestration` for delegation of review to independent agent sessions.
+- Load `jerry-behaviour` before performing any review. The anti-boxchecking rules are necessary but not sufficient — an agent who has internalized Jerry patterns will recognize when its own output is becoming paraphrase-as-review or checklist theater.

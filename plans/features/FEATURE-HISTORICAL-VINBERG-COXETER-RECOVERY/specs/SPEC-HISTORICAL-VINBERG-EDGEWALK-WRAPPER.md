@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-LAT-PHASE5-ORTHOGONAL-GROUP]]'
 - '[[SPEC-HISTORICAL-VINBERG-ALGORITHM-CONTRACT]]'
 title: Wrap polyhedral_common Lorentzian edgewalk for Vinberg algorithm
-status: unstarted
+status: complete
 priority: medium
 requirement: The Vinberg recovery feature must specify how a polyhedral_common Lorentzian edgewalk backend would be wrapped behind the typed Vinberg result contract.
 acceptanceCriteria:

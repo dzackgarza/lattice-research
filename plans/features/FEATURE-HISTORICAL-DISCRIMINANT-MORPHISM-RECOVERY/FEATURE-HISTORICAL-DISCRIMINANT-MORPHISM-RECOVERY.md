@@ -7,7 +7,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-LATTICE-PRESENTATION-RECOVERY]]'
 plans: []
 title: Historical discriminant and morphism recovery
-status: in-progress
+status: complete
 priority: high
 description: Recover discriminant-group, quotient-valued form, Hom, End, Aut, kernel, image, cokernel, and discriminant-descent behavior from historical src.bak under the current ModulesWithForms contract.
 ---

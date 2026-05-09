@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Add missing final markers and return annotations on Cat methods
-status: needs-review
+status: complete
 priority: critical
 description: Add missing `@final` markers and explicit return annotations on concrete `Cat`
   method surfaces, and remove public Sage option-bag exposure from the affected Cat API surface.

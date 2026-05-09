@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-COBLE-MODULI-COMPARISON]]'
 plans: []
 title: Coble K3 folding involution
-status: unstarted
+status: complete
 priority: high
 description: Construct the horizontal folding involution on the K3 lattice and verify
   its eigenspace lattices from primitive embedding and gluing data.

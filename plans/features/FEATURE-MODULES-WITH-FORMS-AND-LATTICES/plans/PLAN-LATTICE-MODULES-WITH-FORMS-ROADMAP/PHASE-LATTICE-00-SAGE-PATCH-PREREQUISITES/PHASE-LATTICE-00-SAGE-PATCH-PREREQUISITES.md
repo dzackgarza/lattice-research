@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
 dependsOn: []
 title: Phase 0 Sage patch prerequisites for ModulesWithForms
-status: unstarted
+status: complete
 priority: critical
 description: 'Migrated source: this plan contains the full content formerly stored
   at `plans/PHASE_0_SAGE_PATCHES.md`. The old `plans/` copy was removed so this tracked

@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-POLYTOPES-CATEGORY]]'
 title: Research category integration for 2D polyhedra and polytopes
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for polyhedra, specifically
   2D polyhedra, polygons, and lattice polygon refinements.
@@ -207,6 +207,22 @@ Spec docstrings should identify diagnostic-warning sites for:
 ## Dependencies And Boundaries
 
 This is a research/planning card, not an implementation card. Do not write category code or specs until the vocabulary, ownership boundaries, and dependencies are clear or an approved plan delegates that work.
+
+## Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
+**Gates failed:** None
+**Outcome:** complete
+
+#### Evidence
+
+**Gate 1 — Definition Grounding:** Sage polyhedra docs, OSCAR polymake/Normaliz backend docs, local category-spec dependencies.
+**Gate 2 — Acceptance Criteria:** [x] All 5 ACs checked. Definition, survey, relationships, downstream list, and follow-up cards completed.
+**Gate 3-6:** No issues. Correctly distinguishes 2D polytope refinements from general polyhedra. Correct caveats for degenerate polygons, polar-dual conventions, and Newton polygons.
+
+---
 
 ## Work Log
 

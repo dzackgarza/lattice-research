@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS]]'
 dependsOn: []
 title: Implement End Aut and quotient notation through homset machinery
-status: unstarted
+status: complete
 priority: critical
 description: Leaf implementation card derived from the old phase plan. This card is
   executable only after `PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS`

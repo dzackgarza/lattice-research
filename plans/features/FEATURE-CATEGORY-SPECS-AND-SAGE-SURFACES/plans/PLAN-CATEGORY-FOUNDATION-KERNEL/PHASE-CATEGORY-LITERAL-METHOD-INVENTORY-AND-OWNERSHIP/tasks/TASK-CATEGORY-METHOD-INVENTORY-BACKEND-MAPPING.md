@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Translate external software mappings into method ownership rows
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Convert theory backend and external software maps into method/backend

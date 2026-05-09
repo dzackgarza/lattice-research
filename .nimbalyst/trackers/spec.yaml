@@ -37,8 +37,12 @@ fields:
     label: Needs Review
     icon: rate_review
     color: '#3b82f6'
-  - value: done
-    label: Done
+  - value: needs-human-input
+    label: Needs Human Input
+    icon: person
+    color: '#8b5cf6'
+  - value: complete
+    label: Complete
     icon: check_circle
   - value: revision-required
     label: Revision Required
@@ -62,11 +66,6 @@ fields:
     label: High
   - value: critical
     label: Critical
-- name: requirement
-  type: text
-- name: acceptanceCriteria
-  type: array
-  itemType: string
 - name: complexity
   type: number
   min: 0

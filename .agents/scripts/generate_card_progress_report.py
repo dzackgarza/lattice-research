@@ -121,7 +121,14 @@ def load_status_completion_map() -> dict[str, set[str]]:
                 normalized_label = label.casefold()
                 if any(
                     token in normalized_label
-                    for token in ("done", "complete", "completed", "implemented", "decided", "accepted")
+                    for token in (
+                        "done",
+                        "complete",
+                        "completed",
+                        "implemented",
+                        "decided",
+                        "accepted",
+                    )
                 ):
                     completed.add(value)
         completion_map[kind] = completed
@@ -141,7 +148,12 @@ def infer_kind(path: Path, card_id: str) -> str | None:
         return "decision"
     if len(parts) == 4 and parts[1] == "plans" and parts[2] == card_id:
         return "plan"
-    if len(parts) == 5 and parts[1] == "plans" and parts[3] == card_id and parts[4] == f"{card_id}.md":
+    if (
+        len(parts) == 5
+        and parts[1] == "plans"
+        and parts[3] == card_id
+        and parts[4] == f"{card_id}.md"
+    ):
         return "phase"
     if len(parts) == 6 and parts[1] == "plans" and parts[4] == "tasks":
         return "task"
@@ -155,7 +167,9 @@ def load_cards() -> dict[str, Card]:
         card_id = frontmatter.get("id")
         if not isinstance(card_id, str):
             continue
-        kind = infer_kind(path, card_id) or str(frontmatter.get("trackerStatus", {}).get("type", "unknown"))
+        kind = infer_kind(path, card_id) or str(
+            frontmatter.get("trackerStatus", {}).get("type", "unknown")
+        )
         cards[card_id] = Card(
             card_id=card_id,
             kind=kind,
@@ -164,8 +178,16 @@ def load_cards() -> dict[str, Card]:
             path=path,
             parents=normalize_refs(frontmatter.get("parents")),
             depends_on=normalize_refs(frontmatter.get("dependsOn")),
-            priority=(str(frontmatter["priority"]) if "priority" in frontmatter and frontmatter["priority"] is not None else None),
-            tags=tuple(frontmatter.get("tags", []) if isinstance(frontmatter.get("tags"), list) else ()),
+            priority=(
+                str(frontmatter["priority"])
+                if "priority" in frontmatter and frontmatter["priority"] is not None
+                else None
+            ),
+            tags=tuple(
+                frontmatter.get("tags", [])
+                if isinstance(frontmatter.get("tags"), list)
+                else ()
+            ),
             is_completed_tree=COMPLETED_ROOT in path.parents,
         )
     return cards
@@ -180,7 +202,9 @@ def bar(ratio: float, width: int = 24) -> str:
     return f"[{'#' * filled}{'-' * (width - filled)}] {ratio * 100:5.1f}%"
 
 
-def summarize_counts(cards: dict[str, Card], completed_statuses: dict[str, set[str]]) -> dict[str, collections.Counter[str]]:
+def summarize_counts(
+    cards: dict[str, Card], completed_statuses: dict[str, set[str]]
+) -> dict[str, collections.Counter[str]]:
     counts: dict[str, collections.Counter[str]] = {}
     for card in cards.values():
         counts.setdefault(card.kind, collections.Counter())[card.status] += 1
@@ -273,6 +297,9 @@ def feature_rollups(
         blocked = sum(1 for item in relevant if item.status == "blocked")
         in_progress = sum(1 for item in relevant if item.status == "in-progress")
         needs_review = sum(1 for item in relevant if item.status == "needs-review")
+        needs_human_input = sum(
+            1 for item in relevant if item.status == "needs-human-input"
+        )
         rows.append(
             {
                 "card": card,
@@ -281,6 +308,7 @@ def feature_rollups(
                 "blocked": blocked,
                 "in_progress": in_progress,
                 "needs_review": needs_review,
+                "needs_human_input": needs_human_input,
                 "ratio": completion_ratio(done, total),
             }
         )
@@ -291,11 +319,19 @@ def feature_rollups(
 def most_blocked_items(cards: dict[str, Card]) -> list[Card]:
     blocked = [card for card in cards.values() if card.status == "blocked"]
     priority_order = {"critical": 0, "high": 1, "medium": 2, "low": 3, None: 4}
-    blocked.sort(key=lambda card: (priority_order.get(card.priority, 5), card.kind, card.title.casefold()))
+    blocked.sort(
+        key=lambda card: (
+            priority_order.get(card.priority, 5),
+            card.kind,
+            card.title.casefold(),
+        )
+    )
     return blocked[:15]
 
 
-def high_priority_active(cards: dict[str, Card], completed_statuses: dict[str, set[str]]) -> list[Card]:
+def high_priority_active(
+    cards: dict[str, Card], completed_statuses: dict[str, set[str]]
+) -> list[Card]:
     items = [
         card
         for card in cards.values()
@@ -304,11 +340,19 @@ def high_priority_active(cards: dict[str, Card], completed_statuses: dict[str, s
         and card.status != "blocked"
     ]
     priority_order = {"critical": 0, "high": 1}
-    items.sort(key=lambda card: (priority_order.get(card.priority, 2), card.kind, card.title.casefold()))
+    items.sort(
+        key=lambda card: (
+            priority_order.get(card.priority, 2),
+            card.kind,
+            card.title.casefold(),
+        )
+    )
     return items[:15]
 
 
-def active_vs_completed_feature_trees(cards: dict[str, Card], completed_statuses: dict[str, set[str]]) -> tuple[int, int]:
+def active_vs_completed_feature_trees(
+    cards: dict[str, Card], completed_statuses: dict[str, set[str]]
+) -> tuple[int, int]:
     active = 0
     completed = 0
     for card in cards.values():
@@ -333,7 +377,9 @@ def render_report(
     recent = recent_completed_cards(cards, completed_statuses, recent_limit)
     blocked = most_blocked_items(cards)
     priority = high_priority_active(cards, completed_statuses)
-    active_features, completed_features = active_vs_completed_feature_trees(cards, completed_statuses)
+    active_features, completed_features = active_vs_completed_feature_trees(
+        cards, completed_statuses
+    )
 
     all_cards = list(cards.values())
     done_cards = sum(1 for card in all_cards if is_complete(card, completed_statuses))
@@ -355,12 +401,16 @@ def render_report(
     lines.append("")
     lines.append("## Counts By Type")
     lines.append("")
-    lines.append("| Type | Total | Completed | In Progress | Needs Review | Blocked |")
-    lines.append("| --- | ---: | ---: | ---: | ---: | ---: |")
+    lines.append(
+        "| Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |"
+    )
+    lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for kind in sorted(counts):
         counter = counts[kind]
         total = sum(counter.values())
-        completed = sum(counter[status] for status in completed_statuses.get(kind, set()))
+        completed = sum(
+            counter[status] for status in completed_statuses.get(kind, set())
+        )
         lines.append(
             "| "
             + " | ".join(
@@ -370,6 +420,7 @@ def render_report(
                     str(completed),
                     str(counter.get("in-progress", 0)),
                     str(counter.get("needs-review", 0)),
+                    str(counter.get("needs-human-input", 0)),
                     str(counter.get("blocked", 0)),
                 ]
             )
@@ -378,8 +429,10 @@ def render_report(
     lines.append("")
     lines.append("## Feature Rollup")
     lines.append("")
-    lines.append("| Feature | Progress | Done/Total | In Progress | Needs Review | Blocked |")
-    lines.append("| --- | --- | ---: | ---: | ---: | ---: |")
+    lines.append(
+        "| Feature | Progress | Done/Total | In Progress | Needs Review | Needs Human Input | Blocked |"
+    )
+    lines.append("| --- | --- | ---: | ---: | ---: | ---: | ---: |")
     for row in rollups:
         feature = row["card"]
         lines.append(
@@ -391,6 +444,7 @@ def render_report(
                     f"{row['done']}/{row['total']}",
                     str(row["in_progress"]),
                     str(row["needs_review"]),
+                    str(row["needs_human_input"]),
                     str(row["blocked"]),
                 ]
             )
@@ -416,8 +470,7 @@ def render_report(
         for card in blocked:
             priority_label = card.priority or "unspecified"
             lines.append(
-                f"- `{card.kind}` `{card.card_id}`: {card.title} "
-                f"(`{priority_label}`)"
+                f"- `{card.kind}` `{card.card_id}`: {card.title} (`{priority_label}`)"
             )
     lines.append("")
     lines.append("## Most Recently Completed")

@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Specify literal method ownership inventory by minimal category
-status: needs-review
+status: complete
 priority: critical
 requirement: Produce source-grounded method ownership spec files that enumerate every
   literal mathematical or software-facing method expected on category-spec objects

@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
 dependsOn: []
 title: Research category integration for polytopes
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for polytopes.
 successCriteria:

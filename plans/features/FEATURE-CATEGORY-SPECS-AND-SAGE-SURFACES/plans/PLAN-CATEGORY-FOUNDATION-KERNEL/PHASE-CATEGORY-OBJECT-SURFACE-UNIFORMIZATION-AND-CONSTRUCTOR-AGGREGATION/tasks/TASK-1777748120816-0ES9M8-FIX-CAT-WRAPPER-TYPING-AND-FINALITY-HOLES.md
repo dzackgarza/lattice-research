@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 dependsOn: []
 title: Fix Cat wrapper typing and finality holes
-status: needs-review
+status: complete
 priority: critical
 description: Fix Cat wrapper typing and finality holes
 successCriteria:

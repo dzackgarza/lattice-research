@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
 title: Write Hom End Aut forms and lattice method ownership rows
-status: needs-review
+status: complete
 priority: critical
 owner: Zack
 description: Mine Hom/End/Aut, forms, and lattice inventories into literal method-owner

@@ -8,7 +8,7 @@ dependsOn:
 - '[[FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY]]'
 plans: []
 title: Historical orthogonal group and orbit recovery
-status: in-progress
+status: complete
 priority: high
 description: Recover orthogonal group, subgroup, action, stabilizer, centralizer, isotropic orbit, and discriminant-kernel behavior from historical src.bak with category-correct Aut and subgroup semantics.
 ---

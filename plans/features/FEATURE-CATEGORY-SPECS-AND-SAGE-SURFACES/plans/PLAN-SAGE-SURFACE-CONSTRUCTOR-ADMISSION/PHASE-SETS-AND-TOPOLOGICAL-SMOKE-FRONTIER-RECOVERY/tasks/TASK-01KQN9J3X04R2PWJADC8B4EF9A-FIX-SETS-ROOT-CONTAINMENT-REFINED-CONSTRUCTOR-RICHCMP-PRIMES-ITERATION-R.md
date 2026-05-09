@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Fix Sets root containment refined-constructor __richcmp__ Primes iteration
   RealSet element-constructor and topological axiom warning
-status: needs-review
+status: complete
 priority: high
 description: The deleted Sets triage recorded the mapped enumeration smoke surface
   and current failures for containment, rich comparison, Primes iteration, RealSet

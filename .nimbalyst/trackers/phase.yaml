@@ -40,6 +40,10 @@ fields:
   - value: needs-review
     label: Needs Review
     icon: build
+  - value: needs-human-input
+    label: Needs Human Input
+    icon: person
+    color: '#8b5cf6'
   - value: complete
     label: Complete
     color: '#22c55e'

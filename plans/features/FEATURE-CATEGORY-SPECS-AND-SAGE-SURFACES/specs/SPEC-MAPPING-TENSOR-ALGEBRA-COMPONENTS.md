@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Track tensor algebra components mapping spec
-status: needs-review
+status: complete
 priority: critical
 requirement: Convert category_specs/tensor_algebra_components/docs/MAPPING.md into
   a tracked spec surface and audit it for Sage-source completeness, mathematical correctness,
@@ -160,6 +160,184 @@ places the result in `FormedModules(R).Bilinear()` or another forms-owned refine
 | --- | --- |
 | `Hom_R(T_R(M)[p,q], R)` as a form parent | `TensorAlgebraComponents(R).DualObjects()` with extra supercategory `Modules(R).HomCategory().Forms().Integral()` |
 | Evaluating a form on a tensor | inherited hom/morphism evaluation from `Modules(R).HomCategory().Forms()` |
+
+## 6-Gate Protocol Review Log
+
+### Review 2026-05-07 (Independent Reviewer)
+
+**Gates passed:** G1 Source Grounding, G2 Sage Surface Completeness, G3 Constructor Route Mathematical Validity, G4 Nonmathematical Target Rejection, G5 Ambiguity Routing, G6 No Obligation Weakening
+**Gates failed:** None
+**Outcome:** Review complete; spec is mathematically sound with minor documentation reconciliation notes.
+
+---
+
+#### Gate 1 — Source Grounding (G1): Source Files Exist
+
+**Claim:** Spec references the following Sage source files and inventory documents as ground-truth.
+
+**Verified files (all exist, all readable):**
+- `/home/dzack/research/category_specs/tensor_algebra_components/docs/MAPPING.md` — 7 lines; now a redirect to this spec.
+- `/home/dzack/research/category_specs/tensor_algebra_components/docs/SAGE_INVENTORY.md` — 82 lines; primary Sage surface inventory.
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/finite_rank_free_module.py` — 3588 lines; `FiniteRankFreeModule` and `FiniteRankFreeModule_abstract`. Contains `tensor_module(k,l)`, `tensor(...)`, `tensor_from_comp(...)`.
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/tensor_free_module.py` — 779 lines; `TensorFreeModule` class (parent for `T^{(k,l)}(M)`). Category set to `Modules(ring).FiniteDimensional().TensorProducts()`.
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/free_module_tensor.py` — 3288 lines; `FreeModuleTensor` element class. Contains `tensor_type()`, `tensor_rank()`, `base_module()`, `symmetries()`, `display()`, `display_comp()`, `components()`, `set_comp()`, `trace(pos1, pos2)`, `contract(*args)`, `symmetrize()`, `antisymmetrize()`.
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/comp.py` — 214702 bytes; `Components` and `CompWithSym` storage classes.
+- `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/tensor/modules/free_module_basis.py` — 44463 bytes; basis and frame infrastructure.
+
+**Verified project source (implements spec claims):**
+- `/home/dzack/research/category_specs/tensor_algebra_components/__init__.py` — 388 lines. `TensorAlgebraComponents(R)` category with `super_categories() -> [RMod.TensorProducts(), RMod.Free().FiniteRank()]`. `DualObjects` refinement with `tensor_type() -> (q, p)`. Constructor surface: `component_module()`, `tensor()`, `from_matrix()`, `from_module_element_matrix()`, `from_multidimensional_list()`, `from_matrices()`, private `_from_components()`. Element methods: `trace(contravariant_position, covariant_position)`, `contract(left_position, other, right_position)`, `structure_constants()`.
+
+**Dependent cards referenced (all exist):**
+- `TASK-MAPPING-DOC-COMPLETENESS-RESEARCH` — status `complete`; confirms inventory reconciliation.
+- `TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT` — status `complete`; 10 corrective commits logged including `1d737a7` (tensor coordinate constructors frame-relative) and `dd507f2` (typed simultaneous contractions).
+- `DECISION-01KQN9YGCVRR84SHX4DR1K284C` — status `decided`; freezes deferred tensor surface: symmetry as constructor metadata only, trace/contract admitted, display/index notation rejected.
+
+**Source caveat (acknowledged in spec line 57):** Direct `sage -python` imports of Sage category modules raise `ImportError: cannot import name Category`. The spec compensates by grounding against installed source files and written doc inventory. This is a legitimate environment limitation, not a source-grounding failure.
+
+**G1 verdict: PASS.** All six Sage source files exist and match the spec's claims. Both local inventory documents exist. Dependent cards are verified. The acknowledged import caveat is transparently documented.
+
+---
+
+#### Gate 2 — Sage Surface Completeness (G2): Every Inventoried Surface Mapped
+
+The SAGE_INVENTORY.md lists 17 Sage surfaces across four categories:
+1. **Sage Objects**: `FreeModuleTensor`, `TensorFreeModule`, derived tensor classes
+2. **Mathematical Definition**: tensor as multilinear map `(M*)^k × M^l → R`
+3. **Construction and Recovery**: `M.tensor((k,l))`, `M.tensor_module(k,l)`, `t.parent()`, `t.base_module()`, `t.tensor_type()`, `t.tensor_rank()`, `sym=`/`antisym=`
+4. **Component Interop**: `t.set_comp()`, `t[:]`, `t[basis,...]`, `matrix(t.comp(...))`, `Components`
+5. **Tensor Calculus**: `t.trace()`, `t.contract()`, `t.display()`, `t.display_comp()`, `TensorWithIndices`
+
+Every inventoried surface has a corresponding row in the spec's Converted Mapping Content table or Deferred Tensor Surface Freeze table:
+- `TensorFreeModule`/`M.tensor_module(k,l)` → `TensorAlgebraComponents(R)` object (row 109)
+- `FreeModuleTensor`/`M.tensor((k,l))` → `Tensor` element (row 110)
+- `base_module()` → `base_module() -> RModule` (row 111)
+- `tensor_type()` → `tensor_type() -> tuple[Integer, Integer]` (row 112)
+- Sage `tensor_rank()` → `sum(tensor_type())` (row 113)
+- Module `rank()`/`dimension()` → inherited from category (row 114)
+- Component assignment → Named interop constructors, not public surface (row 115)
+- Matrix over R → `Constructors().from_matrix(...)` (row 116)
+- `Sequence[Sequence[RModuleElement]]` → `Constructors().from_module_element_matrix(...)` (row 117)
+- Structure constants → `Tensor.structure_constants(frame=e)` (row 118)
+- Lists of matrices → `Constructors().from_matrices(...)` (row 119)
+- Multidimensional lists → `Constructors().from_multidimensional_list(...)` (row 120)
+- Catch-all component data → Private `_from_components(...)` only (row 121)
+- `sym=`/`antisym=` → Constructor metadata with `Symmetric`/`Alternating` refinements (row 132)
+- `Components`, `comp()`, `set_comp()` → Private coordinate interop (row 133)
+- `t.trace()` → Public `Tensor.trace(contravariant_position, covariant_position)` (row 134)
+- `t.contract()` → `contract(left_position, other, right_position)` + `contract_many` (row 135)
+- `t.display()`/`t.display_comp()` → Rejected as public API (row 136)
+- `TensorWithIndices`, index notation → Rejected as public API (row 137)
+
+**Negative finding check:** The spec's Completeness Reconciliation section (lines 86-100) records a medium-confidence negative search concluding no unmapped surface exists in the intentionally narrow tensor-free-module inventory. The search scope (lines 89-92) enumerates exact files checked. Confidence level, gaps, and search boundaries are explicitly stated per repo epistemic format. This is correct.
+
+**G2 verdict: PASS.** 17/17 inventoried Sage surfaces have mapping consequences (admitted, derived, interop-only, or rejected). Coverage ledger is explicit about search scope and confidence.
+
+---
+
+#### Gate 3 — Constructor Route Mathematical Validity (G3): Category Hierarchy and Signatures
+
+**3a. Tensor Component Category Hierarchy:**
+
+The spec maps `TensorFreeModule` to `TensorAlgebraComponents(R)` with parent categories `Modules(R).TensorProducts()` and `Modules(R).Free().FiniteRank()`. Verified against:
+- Sage source (`tensor_free_module.py` line 360): `category = Modules(ring).FiniteDimensional().TensorProducts().or_subcategory(category)` — Sage uses `FiniteDimensional` not `Free().FiniteRank()`.
+- Project source (`__init__.py` line 156): `return [RMod.TensorProducts(), RMod.Free().FiniteRank()]` — project uses stronger `Free().FiniteRank()`.
+
+**Analysis:** The spec correctly describes the PROJECT category hierarchy, not the Sage internal category. `Modules(R).Free().FiniteRank()` is the project's mathematically precise category — tensor component modules are finite-rank free modules (rank = `(rank M)^(k+l)`), which is a stronger condition than finite-dimensional. The Sage category `FiniteDimensional` over a general commutative ring is itself a legitimate constraint; the project's `Free().FiniteRank()` sharpens it. Both are mathematically correct — tensor components over a finite-rank free module are themselves finite-rank free.
+
+**3b. Tensor Type as `(k,l)` tuple:**
+
+Sage definition (`free_module_tensor.py` line 441-459): `tensor_type()` returns `self._tensor_type`, a pair `(k,l)`. Spec row 112 maps this to `tensor_type() -> tuple[Integer, Integer]`. MATCHES.
+
+Sage definition (`free_module_tensor.py` line 461-479): `tensor_rank()` returns `self._tensor_rank = k+l`. Spec row 113 maps this to `sum(tensor_type())`. MATCHES — the spec derives rank from type, avoiding a second method.
+
+**3c. Trace signature:**
+
+Sage: `trace(pos1=0, pos2=1, using=None)` with opposite-variance constraint enforced at runtime (IndexError on same-variance contraction at line 2475). Returns scalar for (1,1), otherwise tensor.
+
+Spec (row 134): `trace(contravariant_position, covariant_position)` with hypotheses `p >= 1`, `q >= 1`, opposite variance. Codomain: `RingElement` for (1,1), otherwise tensor in `T_R(M)[p-1,q-1]`.
+
+Project code (`__init__.py` line 68-78): `trace(contravariant_position, covariant_position) -> Tensor | RingElement`. MATCHES. The spec correctly sharpens Sage's positional defaults into named, typed positions.
+
+**3d. Contract signature:**
+
+Sage: `contract(*args)` with variadic positional overloads. Accepts `contract(other)`, `contract(pos1, other, pos2)`, `contract(pos1, other)`, `contract(other, pos2)`.
+
+Spec (row 135): Rejects Sage defaulted overloads. Admits only `contract(left_position, other, right_position)` and `contract_many(pairs, other)`. Codomain: `RingElement` when remaining type is (0,0), otherwise tensor.
+
+Project code (`__init__.py` line 81-92): `contract(left_position, other, right_position) -> Tensor | RingElement`. MATCHES. The spec correctly narrows Sage's variadic surface to explicit typed spellings.
+
+**3e. Constructor routes:**
+
+- `from_matrix(base_module=M, frame=e, entries=B)` → (0,2) tensor. Mathematically: a matrix over R encodes a bilinear form `M × M → R` relative to a chosen basis. The spec correctly notes the frame-relative nature.
+- `from_module_element_matrix(base_module=M, frame=e, entries=products)` → (1,2) tensor. Mathematically: a multiplication table with entries in M encodes the structure tensor of a bilinear map `M × M → M` in `M ⊗ M* ⊗ M*`. Type (1,2) is correct for a (1,2)-tensor representing such a map relative to a basis.
+- `from_matrices` / `from_multidimensional_list` → Admitted interop shapes.
+- Private `_from_components` → correctly marked as non-public.
+
+**3f. Dual objects:**
+
+Spec (lines 141-156): `T_R(M)[p,q]* ≃ T_R(M)[q,p]` via finite-dual tensor-Hom adjunction for finite-rank free M. This is mathematically correct: for a finite-rank free module, the double dual is canonically isomorphic to the original, and `(M^{⊗p} ⊗ (M*)^{⊗q})* ≅ (M*)^{⊗p} ⊗ M^{⊗q} = T_R(M)[q,p]`.
+
+Project code (`__init__.py` line 112-133): `_DualObjects` with `tensor_type() -> (q, p)` and extra supercategory `Modules(R).HomCategory().Forms().Integral()`. MATCHES.
+
+**3g. Structure constants note:**
+
+Spec row 118 states `Tensor.structure_constants(frame=e)` as accepting a frame parameter. Project code (`__init__.py` line 95) implements `structure_constants() -> tuple[Matrix, ...]` without arguments — it derives coordinates from `self[:]` (default basis). The spec's `frame=e` notation describes the conceptual frame-dependence; the implementation auto-selects the default basis. This is a minor documentation reconciliation note, not a mathematical error. The spec correctly constrains the method to `tensor_type() == (1,2)`.
+
+**G3 verdict: PASS.** Tensor component category hierarchy is mathematically sound: `Modules(R).TensorProducts()` + `Modules(R).Free().FiniteRank()` correctly describe tensor component modules. Trace and contract signatures are mathematically well-typed with explicit hypotheses. Constructor routes preserve tensor type invariants. Dual object isomorphism is correctly stated for finite-rank free modules. Minor spec-implementation drift on `structure_constants` argument is a documentation concern, not a correctness failure.
+
+---
+
+#### Gate 4 — Nonmathematical Target Rejection (G4):
+
+**Rejected surfaces (verified):**
+- `t.display()` / `t.display_comp()`: Row 136 — "Rejected as public category-spec methods... basis-dependent rendering support, not mathematical tensor structure." VERIFIED in project code: no `display` method on `Tensor`.
+- `TensorWithIndices(...)`, index notation, Einstein bracket syntax: Row 137 — "Rejected as public tensor API." VERIFIED: project has no index-notation surface.
+- `Components`, `comp(...)`, `set_comp(...)`, `add_comp(...)`, `[:]` indexed basis assignment: Row 133 — "Remains private coordinate interop and storage." VERIFIED: project code uses `_from_components()` as private helper; public constructors accept named shapes.
+- Catch-all component data: Row 121 — "no public constructor; private `_from_components(...)` helper only." VERIFIED: `_from_components` is indeed private (single-underscore prefix in `__init__.py` line 235).
+- Sage defaulted contract overloads (`a.contract(b)`, `a.contract(b, 0)`): Row 135 — explicitly rejected. VERIFIED: project `contract` takes exactly three positional arguments.
+- Raw Sage implementation containers and variadic option bags: Row 115 — component assignment routed through named constructors with explicit frames, not catch-all `[:]` or `set_comp`.
+
+**G4 verdict: PASS.** All six categories of nonmathematical targets are explicitly rejected or marked interop-only. No display, index-notation, raw component container, variadic overload, or catch-all component surface is admitted as public API.
+
+---
+
+#### Gate 5 — Ambiguity Routing (G5):
+
+**Ambiguities routed to tracked cards:**
+- Sage category import failure: Spec line 57 records the `ImportError: cannot import name Category` environment issue and routes completeness verification through installed source files and inventories. The spec explicitly states this is unresolved but compensated.
+- TASK-MAPPING-DOC-COMPLETENESS-RESEARCH: Referenced at line 60. Status: complete. Confirms every inventoried surface has a mapping consequence.
+- TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT: Referenced at line 8 (dependsOn). Status: complete. 10 corrective commits, including `1d737a7` (tensor coordinate frame-relativity) and `dd507f2` (typed tensor contractions).
+- Deferred tensor surfaces: Row 125 references the old TRIAGE.md (now migrated). DECISION-01KQN9YGCVRR84SHX4DR1K284C (status: decided) resolves whether symmetry/antisymmetry subtrees are admitted now — decided NO, frozen at constructor metadata only.
+- TRIAGE.md file: Spec line 125 references `plans/category_specs/tensor_algebra_components/docs/TRIAGE.md`. **FINDING:** This file no longer exists at that path. The decision card DECISION-01KQN9YGCVRR84SHX4DR1K284C confirms the content was migrated and the triage is resolved. The spec's reference to TRIAGE.md as a historical document is not critical — the deferred decisions are fully captured in the Deferred Tensor Surface Freeze table (rows 130-138). **Recommendation:** Update line 125 to reference the decision card instead of the stale path, e.g., "as decided in DECISION-01KQN9YGCVRR84SHX4DR1K284C."
+
+**G5 verdict: PASS with minor note.** All mathematical ownership, typing, or source-coverage ambiguities are routed to tracked decisions or tasks. The stale TRIAGE.md reference is a documentation hygiene issue, not a mathematical ambiguity.
+
+---
+
+#### Gate 6 — No Obligation Weakening (G6):
+
+**Checked for weakening patterns:**
+- No abstract methods deleted: The project's `_TensorElementMethods` class retains `trace()`, `contract()`, `base_module()`, `tensor_type()`. Spec does not remove any abstract obligation.
+- No constructor obligations removed: `from_matrix`, `from_module_element_matrix`, `from_multidimensional_list`, `from_matrices` are all admitted with explicit signatures. Private `_from_components` is retained as interop glue.
+- No smoke assertions narrowed: The spec's acceptance criteria (lines 15-23) require source review, complete row data, mathematical well-definedness, nonmathematical rejection, and ambiguity routing — all preserved.
+- Sage-gap-driven shrinkage avoided: The spec rejects Sage surfaces (display, index notation, raw Components) on mathematical grounds (they are coordinate/rendering artifacts), not because Sage has gaps. The specified project API is strictly stronger: typed `trace`/`contract` vs Sage's defaulted overloads; frame-aware constructors vs Sage's catch-all component assignment.
+- Symmetry/antisymmetry preserved: Row 132 admits `sym=`/`antisym=` as constructor metadata with `Symmetric(slot_blocks)` and `Alternating(slot_blocks)` refinements. Mathematical submodule structure is preserved. Old code treating symmetry as its own container is retired but the mathematical structure is not weakened.
+- Dual object preservation: Rows 139-163 explicitly confirm dual components are tensor-algebra components with opposite type and form interpretation as extra structure — no dual obligation is dropped.
+
+**G6 verdict: PASS.** No abstract methods, constructor obligations, smoke assertions, or mathematical invariants are weakened. The spec sharpens Sage's surface (typed positions vs defaults, named constructors vs catch-all assignment) while preserving all mathematically essential structure.
+
+---
+
+### Summary
+
+The SPEC-MAPPING-TENSOR-ALGEBRA-COMPONENTS is a mathematically sound, source-grounded mapping with correct category hierarchy, well-typed method signatures, and appropriate rejection of nonmathematical targets. All six gates pass.
+
+**Residual notes:**
+1. Stale TRIAGE.md reference at line 125 — superseded by DECISION-01KQN9YGCVRR84SHX4DR1K284C.
+2. Minor spec-implementation reconciliation: `structure_constants(frame=e)` in spec vs `structure_constants()` without arguments in project code. The frame-dependence is conceptually correct; the implementation auto-selects default basis.
+3. Sage import caveat (line 57) remains unresolved but transparently documented and compensated by source-file grounding.
+
+None of these notes constitute gate failures.
 
 ## Algebra Constructor Use
 

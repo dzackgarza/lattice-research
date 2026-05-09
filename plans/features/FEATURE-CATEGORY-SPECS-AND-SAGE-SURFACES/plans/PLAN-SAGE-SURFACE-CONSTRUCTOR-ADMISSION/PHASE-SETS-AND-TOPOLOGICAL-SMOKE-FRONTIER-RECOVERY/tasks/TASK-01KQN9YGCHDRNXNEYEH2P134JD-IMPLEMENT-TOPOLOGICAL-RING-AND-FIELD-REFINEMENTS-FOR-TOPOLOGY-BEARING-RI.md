@@ -7,7 +7,7 @@ parents:
 dependsOn: []
 title: Implement topological ring and field refinements for topology-bearing ring
   objects without duplicating topological-space methods
-status: needs-review
+status: complete
 priority: high
 description: Rings mapping records constructor namespace decisions, split p-adic and
   q-adic precision routes, matrix-ring ownership, topological ring inheritance, and

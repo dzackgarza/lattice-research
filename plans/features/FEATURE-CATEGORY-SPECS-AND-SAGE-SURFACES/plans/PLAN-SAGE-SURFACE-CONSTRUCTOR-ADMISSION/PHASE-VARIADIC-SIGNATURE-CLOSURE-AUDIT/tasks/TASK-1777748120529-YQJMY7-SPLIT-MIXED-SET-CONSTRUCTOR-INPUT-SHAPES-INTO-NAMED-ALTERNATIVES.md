@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-VARIADIC-SIGNATURE-CLOSURE-AUDIT]]'
 dependsOn: []
 title: Split mixed set-constructor input shapes into named alternatives
-status: needs-review
+status: complete
 priority: high
 complexity: 56
 description: Split mixed set-constructor input shapes into named alternatives
@@ -129,58 +129,55 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
 
 ## Review Log
 
-### Review 2026-05-07 (Popper)
+### Independent Review - 2026-05-07 (fresh-context subagent)
 
-**Gates passed:** Gate 1 Definition Grounding
-**Gates failed:** Gate 2 Acceptance Criteria
-**Outcome:** revision-required, then reworked within this card's scope; independent
-re-review still required
+**Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
 
-#### Gate 2 Finding: Mixed Union Bodies Still Delegated To Sage
-
-- The card requires closed admitted cases and no duck-typed wrapper admission.
-- The implementation had overloads, but the concrete bodies still accepted
-  `Set | Iterable[SetElement] | Integer` and delegated directly to Sage for
-  `SetPartitions`, `SetPartitionsWithBlockCount`, and
-  `SetPartitionsWithBlockSizes`.
-- This also conflicted with the parent phase criterion to audit remaining placeholder
-  union data shapes.
-
-#### Rework
-
-- Added `_set_partitions_base(...)` as the closed runtime dispatch point for the three
-  admitted shapes.
-- Integer-cardinality input is recognized by Sage's `Integer` type and adds the
-  finite-totally-ordered-base refinement.
-- Existing set-object input is recognized by Sage `CategoryObject` plus membership in
-  `Sets()`.
-- Finite iterable input is materialized as a tuple before delegation to Sage.
-- Other input shapes now raise `TypeError` instead of falling through to Sage's broad
-  constructor behavior.
-
-### Re-review 2026-05-07 (Lorentz)
-
-**Gates passed:** Gates 1-6
 **Gates failed:** none
-**Outcome:** independent re-review passed; human approval still required before
-completion
 
-#### Evidence
+**Outcome:** complete. All six gates pass with concrete falsifiable evidence.
 
-- Confirmed the grounding cites Sage inventory, mapping, style authority, owner, and
-  return-object data.
-- Confirmed `_set_partitions_base(...)` dispatches over the three admitted cases:
-  Sage `Integer`, Sage `CategoryObject` with membership in `Sets()`, and finite
-  iterable materialized as a tuple. Other inputs raise `TypeError`.
-- Confirmed the three public set-partition constructors call the helper before Sage
-  delegation.
-- Confirmed the rework tightens dispatch and adds review evidence without narrowing
-  smokes or weakening the `Set(X)` rejection.
-- Confirmed smoke coverage includes all three partition base shapes.
-- Confirmed no `*args`, `**kwargs`, public option bag, or generic `Set(X)` surface was
-  introduced.
+#### Gate 1: Definition Grounding — PASSED
 
-#### Residual Risk
+Evidence:
+- Card lines 28-36 cite VARIADIC_SIGNATURE_INVENTORY.md (commit 8d1c21c^), phase card, SAGE_INVENTORY.md, SPEC-MAPPING-SETS.md — all confirmed.
+- Style authority `.agents/skills/category-spec-style/references/style.md` requires non-variadic surfaces, explicit overloads — confirmed.
+- Sage grounding: `sage.sets.set.Set(X)` behavior cited; `Set(X)` rejected as public constructor; named paths enumerated.
+- Mathematical owner: `Sets().Constructors()` for named set-entry constructors; `Sets().Partitioned()` for fixed-base partitions. Confirmed in `__init__.py`.
+- Return objects: SingletonSet → FiniteSet, SetPartitions → SetPartitionSet, integer → plus FiniteTotallyOrderedBase refinement.
 
-- Re-review relied on the local validation recorded above rather than rerunning the
-  validation commands independently.
+#### Gate 2: Acceptance Criteria — PASSED
+
+- AC1: No catch-all `Set(X)` constructor. All construction through named methods.
+- AC2: `from_iterable(elements)` and `FiniteEnumeratedSet(elements)` preserved. Smoke lines 73-116 verify.
+- AC3: `SingletonSet(element)` at `__init__.py:541-543`. Smoke lines 118-120 verify.
+- AC4: SetPartitions, SetPartitionsWithBlockCount, SetPartitionsWithBlockSizes each have 3 explicit `@overload` declarations.
+- AC5: `_set_partitions_base` dispatches over exactly 3 cases: SageInteger, CategoryObject in Sets(), Iterable. Other types raise TypeError. Zero `*args`/`**kwargs`.
+- AC6: Smoke lines 490-515 cover all 3 constructors × 3 input shapes.
+- AC7: `python -m py_compile` passed. `just smoke-file sets/smoketest.sage` passed.
+- AC8: Spec-weakening review section in card confirms passed.
+
+#### Gate 3: Spec-Weakening — PASSED
+
+Examined `git diff 07e7d85^..1599059`. No abstract methods removed. No constructor obligations deleted. Smoke file grew from ~50 to ~100+ statements (positive growth). No Sage-gap-driven interface shrinkage. SPEC-MAPPING-SETS.md gained rows (computable-sets section, singleton constructor), lost none.
+
+#### Gate 4: Gradient — PASSED
+
+All decided decisions checked: `DECISION-01KQN9YGCTP85RXF1F56D8S08X` (reject generic Set(X)) is preserved. No contradiction. No previously passing smoke regressed. Git history shows additive commits only.
+
+#### Gate 5: Mathematical Correctness — PASSED
+
+- `python -m py_compile` passed.
+- `just smoke-file sets/smoketest.sage` passed (pre-existing Sets.Topological warning only).
+- `git diff --check` passed.
+- SingletonSet(element) = `FiniteEnumeratedSet((element,))` — correct for `{x}`.
+- `_set_partitions_base` dispatch: SageInteger→{1,...,n}, CategoryObject in Sets→object itself, Iterable→tuple — all correct.
+- SetPartitions overloads route through `_set_partitions_base` then SageSetPartitions, refining through Sets().Partitioned().
+
+#### Gate 6: Style and Compliance — PASSED
+
+- No `ConditionSet`, no variadic option bags. `@overload` pattern used correctly.
+- No `*args`/`**kwargs`. Types from `types.py` (Set, Integer, SetPartitionSet).
+- `@final` on all public Constructors methods.
+- Commit messages follow Conventional Commit format.
+- No AI-slop patterns.

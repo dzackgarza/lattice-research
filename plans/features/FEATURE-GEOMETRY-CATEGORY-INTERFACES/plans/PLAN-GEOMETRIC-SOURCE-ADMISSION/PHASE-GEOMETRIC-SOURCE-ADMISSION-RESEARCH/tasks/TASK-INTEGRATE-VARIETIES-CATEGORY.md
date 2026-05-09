@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-SCHEMES-CATEGORY]]'
 title: Research category integration for varieties
-status: needs-review
+status: needs-human-input
 priority: high
 description: Research and prepare the category-spec integration path for varieties.
 successCriteria:

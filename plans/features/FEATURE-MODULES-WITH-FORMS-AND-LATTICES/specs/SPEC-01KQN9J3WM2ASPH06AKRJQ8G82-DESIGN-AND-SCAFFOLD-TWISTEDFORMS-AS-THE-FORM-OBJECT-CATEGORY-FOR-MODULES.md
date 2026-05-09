@@ -8,7 +8,7 @@ dependsOn:
 - '[[PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
 title: Design and scaffold TwistedForms as the form-object category for modules with
   forms
-status: needs-review
+status: complete
 priority: critical
 requirement: The source backlog identifies category-spec design work around dual objects
   as Hom objects, method ownership generalization, centralized type aliases, and a
