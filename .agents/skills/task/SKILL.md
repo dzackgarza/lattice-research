@@ -98,10 +98,10 @@ making classification decisions, or synthesizing cross-subtree findings.
 Before creating a task, ask: can the subagent start work immediately after
 reading the card? Or does it first need to figure out what to do?
 
-**Not atomic:** "Audit all super_categories() in category_specs/" — the
-subagent must discover which files exist, understand the category hierarchy,
-decide what counts as "documented," and synthesize a cross-subtree report.
-That's a research project.
+**Not atomic:** "Audit all super_categories() in category_specs/" — this is a
+plan-level objective (it's the purpose of the entire PLAN-STATIC-CATEGORY-
+REFINEMENT-ORDER). A task card that restates the plan's objective as a single
+task is a category error — the task is pretending to be the plan.
 
 **Atomic:** "Grep category_specs/rings/ for super_categories(, extract each
 returned list, write a table into the plan body" — the subagent reads the card,
