@@ -7,8 +7,12 @@ parents:
 dependsOn:
 - '[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]'
 - '[[SPEC-COBLE-ISOTROPIC-ORBIT-ENUMERATION]]'
+- '[[DECISION-TCO-DEFINITION-AND-SIGNATURE]]'
+- '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
+- '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
+- '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 title: Verify Nikulin 1.5.2 and Eichler criterion for lattice T_Co
-status: needs-human-input
+status: unstarted
 priority: medium
 requirement: The Coble cusp workflow must verify the theorem hypotheses needed to lift discriminant-form isotropic orbits to primitive isotropic vector orbits in T_Co.
 acceptanceCriteria:
@@ -66,6 +70,14 @@ A theory note under `theory/foundations/` recording:
 - The relevant theorem statements
 - The verification (or blocking issues) for T_Co
 - The orbit-count prediction and its theoretical basis
+
+## Dependency Status
+
+This is not a human deferral decision. The theorem-verification work cannot proceed
+until the Coble lattice, discriminant-form orbit surface, orbit-enumeration input, and
+active mathematical vocabulary are available through the repo's typed category/lattice
+surface. Keep this spec `unstarted` under its declared dependencies rather than asking
+for human input to bypass the phase order.
 
 ## 6-Gate Protocol Review Log
 

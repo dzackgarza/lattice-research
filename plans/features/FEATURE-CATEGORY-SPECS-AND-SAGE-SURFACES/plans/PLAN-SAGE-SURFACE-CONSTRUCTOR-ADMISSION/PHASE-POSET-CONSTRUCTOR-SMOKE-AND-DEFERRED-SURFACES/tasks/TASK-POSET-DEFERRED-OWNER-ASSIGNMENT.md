@@ -3,7 +3,7 @@ id: TASK-POSET-DEFERRED-OWNER-ASSIGNMENT
 trackerStatus:
   type: task
 parents:
-- '[[SPEC-01KQN9YGC9K980Y33NVZSTP4Z7-MAP-POSET-DEFERRED-GRAPH-POLYTOPE-ORDER-COMPLEX-ALGEBRA-POLYNOMIAL-COXET]]'
+- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 dependsOn: []
 title: Assign per-method owners for poset deferred non-core surfaces
 status: complete
@@ -11,7 +11,7 @@ priority: medium
 description: Complete the source-mining contract from the deferred poset surfaces spec
   by assigning each deferred method to a specific category owner with hypotheses and
   codomain.
-acceptanceCriteria:
+successCriteria:
 - Each of the 5 deferred surface groups (graph, polytope, order-complex, algebra/polynomial,
   Coxeter) has per-method owner assignments recorded in the parent spec
 - Per-method rows state literal surface, minimal owner, hypotheses, and codomain

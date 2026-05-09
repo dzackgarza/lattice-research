@@ -1,5 +1,8 @@
 # Agent Memories
 
+- [Current Goal Handoff](current-goal-handoff)
+- [Hermes Shared Memory](hermes/MEMORY)
+- [Hermes User Memory](hermes/USER)
 - [Theory Memory System](theory/index)
 - [Backend Environment Notes](backend-environment-notes)
 - [Lattice Redesign Rules](lattice-redesign-rules)

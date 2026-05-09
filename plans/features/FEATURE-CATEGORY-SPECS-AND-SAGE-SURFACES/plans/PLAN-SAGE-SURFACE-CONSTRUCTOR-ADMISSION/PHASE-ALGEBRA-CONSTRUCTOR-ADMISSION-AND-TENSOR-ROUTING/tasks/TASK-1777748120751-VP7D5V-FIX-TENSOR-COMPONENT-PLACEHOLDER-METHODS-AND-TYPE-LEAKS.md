@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
 title: Fix tensor-component placeholder methods and type leaks
-status: needs-human-input
+status: needs-review
 priority: critical
 description: Fix tensor-component placeholder methods and type leaks
 successCriteria:
@@ -113,3 +113,12 @@ Task: fix tensor-component placeholder methods that incorrectly return self or r
 - Replaced the tautological success criterion with concrete criteria for placeholder
   handling, inherited owner routing, slice/option-bag cleanup, and non-weakening
   validation.
+
+### Status correction 2026-05-09
+
+Human feedback reclassified this from a decision to source-forced tensor-product
+vocabulary. For `M = M1 \otimes_R M2`, the pure-product lifting map is part of the
+tensor-product parent structure. Tensor algebra components inherit that obligation
+only insofar as they refine tensor products; component coordinate storage remains a
+constructor/private-storage concern. The card is ready for agent-executable review,
+not human decision.

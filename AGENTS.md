@@ -39,6 +39,7 @@
   familiar special case.
 - Mathematical implementation work must prefer wiring mature open-source mathematical software over bespoke algorithms. Load `research-software-wiring` before writing or delegating mathematical implementation code.
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan. The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are blocked until prerequisite vocabulary and specs exist.
+- Human-facing reports, Plannotator plans, and status briefs are forward-facing artifacts. Do not back-explain prior agent failures, include proof-of-work dumps, or tell the user how to answer; state the current source-grounded classification, the consequence, and the next action.
 - QC is phase-transition evidence, not the control loop for spec work. During churn-heavy spec work, do not treat QC failures, hook noise, or unrelated implementation validation failures as blockers for approved spec-plan execution. QC blocks only a claimed phase transition or a user-requested QC/implementation integration pass; otherwise record the finding and continue the approved spec work.
 - Blockers are phase-local and path-local unless proven otherwise. A downstream-phase guard, implementation-only gate, QC failure outside a transition/integration pass, oversized card, missing vocabulary, or missing backend bridge is not a reason to exit the active goal while approved phase-local spec, research, decision, or decomposition cards remain. Stop only the affected card/path, create or update the prerequisite card/decision/research item, and continue another approved active leaf.
 - Follow the planning DAG literally. Do not even attempt a task whose declared
@@ -46,6 +47,8 @@
   `blocked`. Reserve `blocked` for a ready current-phase leaf that cannot proceed
   because it needs an external decision, source, credential, missing theory, or other
   prerequisite that is not currently satisfiable through the DAG.
+- Reserve `needs-human-input` for genuine human judgment that remains after source review, mathematical grounding, repo policy, and `dependsOn` have been checked. Source-forced facts, routine plan/card cleanup, and planned downstream dependency order are agent work, not user decisions.
+- Constructor placement reports must separate mathematical owner, human naming convention, and code-maintenance owner. Constructors are Sage-backed entry points for building objects in categories; a specific object can carry many structures, while aggregate surfaces such as `Cat().Constructors()` can provide the canonical user entry point independent of the implementation owner.
 - Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.
 - Never roll back, undo, or reverse auto-fixes produced by hooks, formatters, linters, or other repository tooling. Carry them forward and report unexpected touched paths.
 
@@ -72,16 +75,15 @@ Load these skills when their trigger matches the task:
 
 ## Session startup
 
-Every new session must read `GOAL.md`, `.agents/current-goal-phase.md`, and this file. Verify active tasks and Nimbalyst meta artifacts are synced with `origin/main` before declaring progress. Run project memories. Load `research-repo-structure` before startup pruning or cleanup. State which `GOAL.md` phase and task will be worked on and why. Do not start by reading every file in the repo.
+Every new session must read `GOAL.md`, `.agents/current-goal-phase.md`, and this file. Verify active tasks and Nimbalyst meta artifacts are synced with `origin/main` before declaring progress. Use `iwe` as the repo markdown query and resume layer before broad file scanning: from `.agents/memories`, retrieve or search `current-goal-handoff`, relevant memories, and the current cards named there; from the repo root, use IWE to discover plans, cards, specs, and policy files. Load `research-repo-structure` before startup pruning or cleanup. State which `GOAL.md` phase and task will be worked on and why. Do not start by reading every file in the repo.
 
-## Memory practice
+## IWE and memory practice
 
-Use `iwe` as the memory interface for this repo. The memory library lives under
-`.agents/memories` through `.iwe/config.toml`, so read and search it with `iwe`
-when starting a new task, when resuming related work, when receiving a
-compaction/summary, and when taking over after context loss or session handoff.
-Do not rely on the summary alone when durable repo memory may already exist. Add
-or update notes there when durable context would otherwise be lost.
+Use `iwe` as the central markdown management, query, and resume interface for this repo. The managed memory library is `.agents/memories` through `.iwe/config.toml`; run IWE from that directory for memory keys such as `current-goal-handoff` and `hermes/MEMORY`. Run IWE from the repo root to discover non-hidden repo markdown such as plans, cards, specs, and policy files. Search with IWE before manually scanning broad subtrees, especially when starting a new task, resuming related work, receiving a compaction/summary, or taking over after context loss or session handoff. Do not rely on chat summaries alone when durable repo markdown or memory may already exist. Add or update notes there when durable context would otherwise be lost.
+
+Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a symlink to `.agents/memories/hermes`, so Hermes, Ralph loops, and IWE-backed agents share one operational memory namespace instead of copying notes between systems.
+
+The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by replacement only when the resumption path changes: current phase, recent decision delta, next pickup cards, non-goals, and validation state. It is a routing aid, not an authoritative tracker. Cards and plans remain authoritative for statuses, dependencies, source grounding, and acceptance.
 
 Store short, opinionated, durable notes:
 

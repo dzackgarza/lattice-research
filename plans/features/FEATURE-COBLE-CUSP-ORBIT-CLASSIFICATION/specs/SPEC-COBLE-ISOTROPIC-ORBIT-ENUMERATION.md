@@ -6,8 +6,12 @@ parents:
 - '[[FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION]]'
 dependsOn:
 - '[[SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES]]'
+- '[[DECISION-TCO-DEFINITION-AND-SIGNATURE]]'
+- '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
+- '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
+- '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 title: Research isotropic orbit enumeration in finite discriminant groups
-status: needs-human-input
+status: unstarted
 priority: medium
 requirement: The Coble cusp workflow must have an exact route for enumerating isotropic discriminant-form orbits in the relevant 2-elementary finite quadratic group.
 acceptanceCriteria:
@@ -52,6 +56,14 @@ A brief report (theory note or decision card body) recording:
 - Which backends handle this computation for the specific discriminant group
 - Feasibility (can we compute all orbits directly, or do we need theory)
 - Recommended implementation route
+
+## Dependency Status
+
+This is not a human decision or an optional deferral. The work is downstream because it
+must consume the category, lattice/discriminant, geometry, and `T_Co` vocabulary rather
+than rebuilding the computation from raw matrices or ad hoc finite quadratic forms.
+Keep this spec `unstarted` until the declared dependencies and active phase gate allow
+the Coble orbit survey to run.
 
 ---
 

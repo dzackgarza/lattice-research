@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Smoke audit uniformity and global stabilization
-status: needs-human-input
+status: in-progress
 priority: critical
 owner: Zack
 description: Group smoke-frontier, audit, variadic-signature, import hygiene, wrapper,
@@ -193,3 +193,11 @@ The child phase's review log confirms no spec/smoke weakening occurred in its ta
 3. **Address scope gaps:** Either add phases for import hygiene and anti-slop compliance, or narrow the description/objective to reflect only what is actually planned.
 4. **Fix inherited G5 circular dependency:** Remove `TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT` from its own `dependsOn` list (child phase issue, but blocks this plan's completion).
 5. After fixes, re-validate G1, G3, G5.
+
+### Status correction 2026-05-09
+
+Human feedback reclassified these findings as agent-owned plan maintenance. Dead
+source links, mismatched phase inventory, and circular dependencies are not user
+decisions. Keep this plan `in-progress` while the concrete remediation above is
+performed; return to human review only if cleanup exposes a real audit-governance
+choice that is not determined by the existing workflow.

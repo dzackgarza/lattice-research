@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Static category refinement order and constructor-interception sequence
-status: needs-human-input
+status: in-progress
 priority: critical
 owner: Zack
 description: 'Define and enforce the static category refinement order (which categories
@@ -121,6 +121,11 @@ Categories that should NOT be used as constructor refinement targets yet
 - 2026-05-07: Created as missing skeleton plan referenced in current-goal-phase.md.
   Sources category refinement edges from existing super_categories() returns in
   the implementation files under category_specs/.
+- 2026-05-09: Reclassified from `needs-human-input` to agent-owned remediation.
+  `super_categories()` edges are mathematically determined by source-grounded
+  specialization or construction relationships; dead links, missing citations,
+  incomplete edge inventory, and the `Sets().Partitioned()` contradiction are plan/spec
+  cleanup work, not owner decisions.
 
 ## 6-Gate Protocol Review Log
 

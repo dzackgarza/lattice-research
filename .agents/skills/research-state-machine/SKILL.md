@@ -22,7 +22,7 @@ Read `references/upstream-gates.md` before approving a feature, spec, or plan. T
 
 ## Core model
 
-- Nimbalyst plans and cards are the task specs.
+- Nimbalyst plans and cards are the task specs. IWE is the markdown query and resume layer over those specs, memories, and handoff notes; it is not a replacement tracker.
 - Git branches, PRs, commits, and worktrees are the provenance and review layer.
 - Produced proof/computation/code artifacts live in their natural durable roots.
 - Proof and evidence sufficiency is governed by `research-proof-auditing`.

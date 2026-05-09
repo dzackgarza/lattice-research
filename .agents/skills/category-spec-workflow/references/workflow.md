@@ -67,6 +67,21 @@ definition, hypotheses, return object/codomain, and any invariance or equivalenc
 obligation. If that record is missing, the correct action is source mining, decision
 capture, or card splitting, not speculative spec writing.
 
+Human input is reserved for decisions that remain after this grounding work. Do not
+mark a card `needs-human-input` because the implementing agent is unsure, because a
+plan has dead links, because a review found fixable structural debris, or because a
+downstream task depends on incomplete vocabulary. Source-forced facts become agent
+action. Planned prerequisites become `dependsOn` plus `unstarted`. Fixable review
+findings become `in-progress`, `needs-review`, or `revision-required` where the schema
+supports it.
+
+If a trivial mathematical fact, obvious category edge, or already sourced owner reaches
+the user as a decision, treat that as workflow breakage. Inspect why the escalation
+happened: missing owner row, unrecorded subcategory relation, stale migrated status,
+weak review rubric, missing `dependsOn`, or a report that listed paths without the
+source content that controls the conclusion. Patch the workflow artifact so the same
+non-decision is not surfaced again.
+
 Tracker items that touch category specs must carry the project purpose into the local
 work surface. Do not rely on a distant global reminder when the task is likely to see
 Sage failures. Plan, phase, and task bodies should state the applicable ideal-interface
@@ -82,7 +97,23 @@ rule in their acceptance or grounding section:
 - smokes expose gaps between current Sage/refined objects and the ideal spec;
 - a smoke failure is not evidence for deleting, weakening, or moving a spec obligation;
 - an obligation may move only when the replacement owner is source-grounded and the
-  replacement path preserves the mathematical surface.
+replacement path preserves the mathematical surface.
+
+Constructor admission cards must distinguish three layers before creating a decision:
+
+- mathematical owner: the category or object whose structure defines the constructor;
+- human convention: where a named object is expected to be available when several
+  structures apply;
+- code-maintenance owner: where implementation should live for readability,
+  aggregation, and duplicate avoidance.
+
+Constructors are Sage-backed entry points for constructing objects in categories. A
+specific named object may naturally carry several structures: for example, a finite
+field is a field, ring, module, and algebra in different contexts. Human decisions are
+appropriate when choosing the public convention for such names. They are not needed
+when sources already determine the mathematical owner, or when an aggregate surface
+such as `Cat().Constructors()` will collect constructors into a canonical user-facing
+entry point and only the implementation location remains.
 
 For smoke-frontier and wrapper-migration cards, local acceptance must explicitly reject
 smoke-driven spec weakening. The allowed result of a Sage gap is an implementation,

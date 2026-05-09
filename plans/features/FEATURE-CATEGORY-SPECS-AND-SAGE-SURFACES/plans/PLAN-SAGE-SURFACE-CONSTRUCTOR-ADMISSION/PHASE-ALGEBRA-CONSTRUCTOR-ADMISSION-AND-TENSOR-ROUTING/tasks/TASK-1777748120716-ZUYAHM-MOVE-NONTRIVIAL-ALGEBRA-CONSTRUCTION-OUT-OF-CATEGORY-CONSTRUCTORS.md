@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 dependsOn: []
 title: Move nontrivial algebra construction out of category constructors
-status: needs-human-input
+status: needs-review
 priority: high
 description: Move nontrivial algebra construction out of category constructors
 successCriteria:
@@ -140,3 +140,13 @@ Admitted algebra constructor routes are therefore:
   algebra routes, tensor-component handoff, and non-weakening validation.
 - Recorded the grounded executable boundary so future review can check the actual
   implementation against named mathematical owners rather than backlog wording.
+
+### Status correction 2026-05-09
+
+Human feedback clarified that constructor cards must distinguish mathematical owner,
+human-facing named-constructor convention, and code-maintenance owner. `Zmod`,
+cyclotomic fields, and number fields are conventionally ring/field constructor names,
+while aggregate surfaces such as `Cat().Constructors()` may expose the total user
+entry point. This card's algebra-subtree finding is agent-reviewable; any broader
+named-constructor convention question should be a separate decision, not a reason to
+hold this card in `needs-human-input`.

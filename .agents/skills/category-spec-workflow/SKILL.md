@@ -49,6 +49,16 @@ Read `references/workflow.md` before changing workflow state.
   non-transition QC failures, implementation-only gates, oversized cards that can be
   split, and missing prerequisites that can be carded do not justify exiting while
   approved spec leaves remain.
+- `needs-human-input` is not a parking status for agent uncertainty. Use it only after
+  source review, math grounding, repo policy, and `dependsOn` show that a real human
+  convention or scope decision remains.
+- If an obvious mathematical fact or source-forced category edge is surfaced as a
+  human decision, fix the process artifact that let it escalate: missing owner row,
+  missing subcategory relationship, stale status, incomplete dependency, or weak
+  review rubric.
+- Constructor cards must separate mathematical owner, human-facing named-constructor
+  convention, and code-maintenance owner. Aggregate constructor surfaces can expose
+  canonical entry points even when implementation lives on a more specific owner.
 - Priority and complexity are metadata, not tags.
 - Load `category-spec-priority-rubric` and `category-spec-complexity-rubric` before
   scoring cards.

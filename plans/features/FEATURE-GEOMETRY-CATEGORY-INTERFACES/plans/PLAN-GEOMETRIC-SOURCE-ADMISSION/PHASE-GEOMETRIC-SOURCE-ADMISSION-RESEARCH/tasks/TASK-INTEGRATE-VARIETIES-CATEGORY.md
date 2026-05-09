@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-SCHEMES-CATEGORY]]'
 title: Research category integration for varieties
-status: needs-human-input
+status: needs-review
 priority: high
 description: Research and prepare the category-spec integration path for varieties.
 successCriteria:
@@ -190,3 +190,7 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
   after independent review caught that this card relies on an unaccepted scheme
   substrate. The card remains `needs-review`, but the DAG should treat it as
   dependency-waiting until schemes is accepted.
+- 2026-05-09: Reclassified from human input to agent-executable review. The Stacks
+  convention recorded here, a variety over `k` as an integral separated finite-type
+  scheme over `k`, is the repo's source-grounded scheme-theoretic convention rather
+  than a pending user choice. Backend naming drift remains an adapter warning.

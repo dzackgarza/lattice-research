@@ -20,7 +20,7 @@ retiring, or interpreting root `plans/` tracker files.
 
 ## Core policy
 
-- Root `plans/` is the active repo-local tracker workspace.
+- Root `plans/` is the active repo-local tracker workspace. Use IWE as the query layer over this markdown before broad manual scans; do not create a separate aggregate status surface.
 - The GUI is the index; do not create aggregate tracker indexes.
 - Use only registered standard tracker types from `.nimbalyst/trackers/*.yaml`.
 - Use the root feature/plan/phase/task hierarchy for workflow dimensions. Tags are secondary grouping aids.

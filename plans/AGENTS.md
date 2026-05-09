@@ -1,6 +1,6 @@
 # Research Planning Workspace
 
-This directory is the active Nimbalyst-backed planning workspace for the research repo.
+This directory is the active Nimbalyst-backed planning workspace for the research repo. IWE is the preferred query layer over this markdown: use it to find cards, dependencies, and recent handoff context before broad manual scans.
 
 ## Hierarchy
 
@@ -35,6 +35,10 @@ records the active phase gate.
 - Execution follows the DAG. If a card's declared `dependsOn` prerequisites are not
   complete, leave it `unstarted`; do not mark it `blocked` unless it was otherwise
   ready and hit a real external prerequisite outside the satisfiable DAG.
+- Do not use `needs-human-input` for source-forced facts, routine cleanup, or ordinary
+  dependency order. If work cannot proceed until prerequisite vocabulary or surfaces
+  exist, encode the prerequisite in `dependsOn` and leave the downstream card
+  `unstarted`.
 - Completed feature trees live under `plans/features/completed/`, not beside active
   feature roots.
 - Specs live under the owning feature's `specs/` directory.
@@ -42,6 +46,10 @@ records the active phase gate.
 - Executable implementation, research, bug, and audit work uses `trackerStatus.type: task` and lives under a phase's `tasks/` directory.
 - Do not create new active cards under `.agents/plans`, `.agents/tasks`, or `.agents/decisions`.
 - Keep metadata compact; put detailed grounding, acceptance criteria, source evidence, and work logs in the body.
+- For constructor and method-owner cards, distinguish the mathematical owner, the
+  human-facing constructor convention, and the code-maintenance implementation owner.
+  A category can expose an aggregate constructor entry point even when the named
+  constructor implementation lives on the most maintainable source category.
 
 ## Validation
 
