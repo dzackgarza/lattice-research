@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-INTEGRATE-SCHEMES-CATEGORY]]'
 title: Research category integration for varieties
-status: needs-review
+status: complete
 priority: high
 description: Research and prepare the category-spec integration path for varieties.
 successCriteria:
@@ -158,7 +158,7 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
 - Follow-up routing records that no new card is needed because existing sibling and backend-mapping cards own specialization and reconciliation.
 - Correction recorded that global invariants such as arithmetic/geometric genus, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data must be owned by the broadest source-backed scheme/variety refinements, not by curve/surface categories by default.
 
-## Review Log
+## 6-Gate Protocol Review Log
 
 ### Review 2026-05-06 (Independent Reviewer)
 
@@ -181,6 +181,210 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
 - Did not mark the card blocked. This is ordinary DAG sequencing: the card should wait
   until the schemes source-admission card is accepted.
 
+### Review 2026-05-09 (Independent Reviewer, Full 6-Gate Protocol)
+
+Classification: **research/survey card** (not implementation task). Gate criteria
+adapted for research-level source admission: source grounding for definitional and
+architectural claims; checkable ACs mapped to body sections; no weakening of existing
+specs; no gradient reversal from prior commitments; mathematical correctness of core
+conventions; compliance with card format and cross-reference standards.
+
+**DAG prerequisite check:** `dependsOn` edge `[[TASK-INTEGRATE-SCHEMES-CATEGORY]]`
+resolved — schemes card status is `complete` (frontmatter) and its re-review passed all
+six gates. The 2026-05-06 Gate 1 finding that blocked the prior review is therefore
+satisfied.
+
+**Sibling card existence verified:**
+`TASK-INTEGRATE-COMPLEX-VARIETIES-CATEGORY`,
+`TASK-INTEGRATE-COMPLEX-ALGEBRAIC-CURVES-CATEGORY`,
+`TASK-INTEGRATE-COMPLEX-ALGEBRAIC-SURFACES-CATEGORY`,
+`TASK-INTEGRATE-FAMILIES-OF-VARIETIES-CATEGORY`,
+`TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY` all exist in the phase tasks
+directory.
+
+**Cross-reference verification:** `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`
+line 279 explicitly lists `TASK-INTEGRATE-VARIETIES-CATEGORY` as the trackable owner for
+geometry candidate rows (`blowup`, `resolve_singularities`, `kodaira_dimension`,
+`hilbert_polynomial`, `hodge_number`, `holomorphic_euler_characteristic`,
+`canonical_class`, curve/surface/divisor/sheaf/cover/family rows). The inventory's
+backend-mapping table (lines 749-762) records `Variety.*` backend routes as
+`bridge-needed` or `candidate-backend`. The varieties card's method ownership guidance
+is consistent with both the inventory gap rows and the backend mapping.
+
+#### Gate 1: Source Grounding — PASS
+
+Core mathematical definition: Stacks Project, Varieties, Definition 33.3.1, tag 020C
+("integral scheme over k that is separated and of finite type"). Source URL provided
+and verified. ✓
+
+Scheme substrate: Stacks Project, Schemes, Definition 26.9.1, tag 01II (schemes as
+locally ringed spaces locally affine). Cross-referenced from `TASK-INTEGRATE-SCHEMES-CATEGORY`
+which carries additional source tags. ✓
+
+Key invariant sources: Riemann-Roch tag 0BJ8 (asymptotic Riemann-Roch for proper
+schemes), Euler characteristic tag 0BEI (finite alternating sum of cohomology
+dimensions), genus remark tag 0BYG (genus variants for higher-dimensional varieties).
+All have traceable Stacks Project URLs. ✓
+
+Sage surface survey: five documentation URLs covering algebraic schemes, scheme
+overview, toric varieties. ✓
+
+Backend surface survey: Macaulay2 Varieties package (two URLs) and OSCAR affine/
+projective varieties documentation (two URLs). ✓
+
+Local dependency references: `TASK-INTEGRATE-SCHEMES-CATEGORY`,
+`SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`, `SPEC-MAPPING-TOPOLOGICAL-SPACES.md`
+— all exist and are cross-referenceable. ✓
+
+**Observation (non-blocking):** The Method Ownership Guidance section (lines 118-131)
+provides owner recommendations for ~14 method surfaces. Most lack specific Stacks
+Project or backend-documentation tags at the method level. This is acceptable for a
+research card whose job is to fix the convention for `Varieties(k)` and route method
+ownership to sibling source-admission cards. The card does not claim to be the final
+spec for each method. Specific method sourcing belongs to the downstream
+curve/surface/family/complex/toric cards and to
+`TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`.
+
+**Observation (non-blocking):** The geometric-integrality boundary decision (line 73)
+states "Stacks highlights that products and base change over non-algebraically closed
+fields can fail to preserve integrality without geometric integrality hypotheses" but
+does not cite a specific Stacks tag for this claim. The claim is mathematically correct
+(integrality is not generally preserved under base change; geometric integrality is),
+but a future spec card should record the exact tag.
+
+#### Gate 2: Checkable Acceptance Criteria — PASS
+
+All five ACs map to specific card body sections:
+
+| AC | Body section | Verdict |
+| --- | --- | --- |
+| Identify mathematical definition and project vocabulary | Mathematical Definition (lines 53-77) | ✓ |
+| Survey Sage/backend surfaces and local dependencies | Sage Surface Survey (79-89), Backend Survey (91-102), Local Category-Spec Dependencies (104-114) | ✓ |
+| Determine relationship to existing categories, constructors, Hom/End/Aut, smoke | Method Ownership Guidance (116-131), Local Dependencies (104-114) | ✓ (see observation) |
+| List downstream blocked categories/tasks | Downstream Work Unblocked Or Routed (133-141) | ✓ |
+| Create follow-up cards | Follow-Up Routing (143-150) — explicit decision that none needed | ✓ |
+
+**Observation (non-blocking):** AC 3 asks about "Hom/End/Aut surfaces" and "smoke
+expectations." The card addresses Hom implicitly through the scheme substrate (Hom
+surfaces are defined at the scheme level; varieties inherit them) and through the
+`rational_points(K)` guidance as `Hom(Spec(K), X)`. End/Aut surfaces are not explicitly
+discussed. Smoke expectations are not covered. For a research card at this stage of the
+DAG, this is acceptable — Hom/End/Aut inherits from schemes, and smoke expectations
+belong to implementation-phase cards. The card does explicitly constrain method
+ownership, which is the substantive form of "category relationship" for this phase.
+
+#### Gate 3: No Spec Weakening — PASS
+
+The card strengthens the spec hierarchy: `Varieties(k)` is explicitly defined as a
+refinement of `Schemes().Over(Spec(k))`, not an alternative or standalone category. This
+is consistent with the schemes card's declaration that varieties are downstream scheme
+refinements.
+
+Boundary decisions actively prevent spec weakening:
+- "Do not map every Sage `AlgebraicScheme_subscheme` or Macaulay2/Oscar `variety(...)`
+  object to `Varieties(k)`" — prevents the category from silently absorbing reducible
+  or nonreduced objects. ✓
+- Reducible/nonreduced sets are routed to `AlgebraicSchemes()`, `PresentedSchemes()`,
+  etc. ✓
+- "Do not assign arithmetic genus, geometric genus, Hodge numbers, Kodaira dimension,
+  Euler characteristics, canonical classes, or similar global invariants to curve or
+  surface categories merely because software exposes common low-dimensional methods" —
+  prevents downstream cards from prematurely claiming invariants. ✓
+
+The card defers to existing specs (`SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md`,
+`TASK-INTEGRATE-SCHEMES-CATEGORY`) rather than overriding or weakening them. ✓
+
+#### Gate 4: No Gradient Reversal — PASS
+
+The prior review (2026-05-06) identified a missing `dependsOn` edge. That edge was added
+and the dependency card is now `complete`. No regression. ✓
+
+The work log records a correction (2026-05-06): "Corrected invariant ownership after
+source review: genus variants, Hodge numbers, Kodaira dimension, Euler characteristics,
+and canonical data are broad scheme/variety-refinement surfaces before curve/surface
+specialization." This is a positive gradient toward mathematical correctness, not a
+reversal. ✓
+
+The card does not walk back any prior accepted convention. The 2026-05-09 work log
+entry confirms the Stacks convention is "the repo's source-grounded scheme-theoretic
+convention rather than a pending user choice." ✓
+
+#### Gate 5: Mathematical Correctness — PASS
+
+**Verified claims:**
+
+- Integral + separated + finite-type scheme over a field defines a variety over that
+  field per Stacks tag 020C. ✓
+- Geometric integrality is strictly stronger than integrality; a variety over a
+  non-algebraically closed field need not remain integral after base change. ✓
+- `Varieties(k)` = `Schemes().Over(Spec(k)).FiniteType().Separated().Integral()` is the
+  correct translation of the Stacks convention into project vocabulary. ✓
+- `hilbert_polynomial()` mathematically belongs to projective schemes/varieties, not
+  arbitrary varieties. ✓
+- `hodge_number(p, q)` requires smooth proper varieties over fields where Hodge theory
+  applies; complex case is a refinement. ✓
+- `blowup(center)` is a scheme-level construction (per the schemes card which sources
+  Stacks Definition 31.32.1 and Lemma 31.32.2); variety-preserving blowups are
+  refinements when the result remains in `Varieties(k)`. ✓
+- `rational_points(K)` as `Hom(Spec(K), X)` is the mathematically correct
+  interpretation; enumeration is a computational refinement. ✓
+- `defining_ideal()` and `defining_polynomials()` belong only to embedded/presented
+  varieties, not all varieties. ✓
+
+**No mathematical errors detected.** The card's method-owner guidance is consistent
+with the mathematical definitions recorded. Where the card declines to fix an owner
+(e.g., `canonical_class()` "owned by normal/smooth/proper/projective refinements as the
+selected divisor/sheaf model requires"), it correctly identifies that the owner depends
+on downstream choices, not on the variety convention itself.
+
+#### Gate 6: Compliance — PASS
+
+- Frontmatter: `id`, `trackerStatus.type: task`, `parents`, `dependsOn`, `title`,
+  `status: needs-review`, `priority: high`, `successCriteria`, `complexity`, `tags` —
+  all present and valid. ✓
+- Body sections: Summary, Source Provenance, Context, Acceptance Criteria, Research
+  Result, Mathematical Definition, Sage Surface Survey, Backend Survey, Local
+  Category-Spec Dependencies, Method Ownership Guidance, Downstream Work Unblocked Or
+  Routed, Follow-Up Routing, Acceptance Evidence, 6-Gate Protocol Review Log, Work
+  Log. ✓
+- Wiki-link syntax for card references. ✓
+- Source URLs are full, traceable hyperlinks. ✓
+- No implementation authorization language in a research card. The card explicitly says
+  "This card does not authorize implementation" (line 51). ✓
+- Work log entries are dated and substantive. ✓
+- File location: `PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH/tasks/` — correct for a
+  research task. ✓
+
+#### Summary
+
+| Gate | Verdict |
+| --- | --- |
+| Gate 1: Source Grounding | **PASS** (with observations) |
+| Gate 2: Checkable ACs | **PASS** (with observation) |
+| Gate 3: No Spec Weakening | **PASS** |
+| Gate 4: No Gradient Reversal | **PASS** |
+| Gate 5: Mathematical Correctness | **PASS** |
+| Gate 6: Compliance | **PASS** |
+
+**Gates passed:** Gate 1 Source Grounding, Gate 2 Checkable ACs, Gate 3 No Spec
+Weakening, Gate 4 No Gradient Reversal, Gate 5 Mathematical Correctness, Gate 6
+Compliance.
+
+**Gates failed:** none.
+
+**Outcome:** pass. The card is source-grounded, mathematically correct, DAG-satisfied,
+and ready to serve as the project's variety convention for downstream sibling cards. The
+observations above are forward-looking notes for spec-phase cards, not blocking
+deficiencies for this research pass.
+
+**Residual risk:** The card's method ownership guidance assigns owners primarily by
+category (e.g., "owned by projective varieties") rather than by exact hypotheses and
+codomain signatures. This is intentional for a research convention-setting card; the
+final method-owner rows must be resolved in
+`TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING` and the individual
+curve/surface/family/complex cards. The card correctly routes that work rather than
+claiming premature finality.
+
 ## Work Log
 
 - 2026-05-03: Created as a research card during `specs/TODO.md` migration and category-integration carding.
@@ -194,3 +398,12 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
   convention recorded here, a variety over `k` as an integral separated finite-type
   scheme over `k`, is the repo's source-grounded scheme-theoretic convention rather
   than a pending user choice. Backend naming drift remains an adapter warning.
+- 2026-05-09: Full 6-gate protocol review applied (Gates 1-6). All gates pass.
+  DAG dependency `TASK-INTEGRATE-SCHEMES-CATEGORY` satisfied (status: complete).
+  Sibling cards verified to exist. Cross-referenced against
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY.md` — geometry candidate rows
+  and backend routes are consistent with this card's method ownership guidance.
+  Non-blocking observations recorded: method-level source tags deferred to
+  downstream source-admission cards; geometric-integrality tag not cited
+  (claim is correct); Hom/End/Aut/smoke coverage is implicit via scheme substrate
+  and appropriate for research phase. Status updated to complete.

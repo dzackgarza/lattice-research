@@ -8,9 +8,9 @@ dependsOn: []
 title: Assign per-method owners for poset deferred non-core surfaces
 status: complete
 priority: medium
-description: Complete the source-mining contract from the deferred poset surfaces spec
-  by assigning each deferred method to a specific category owner with hypotheses and
-  codomain.
+description: Complete the source-mining contract from the deferred poset surfaces
+  spec by assigning each deferred method to a specific category owner with hypotheses
+  and codomain.
 successCriteria:
 - Each of the 5 deferred surface groups (graph, polytope, order-complex, algebra/polynomial,
   Coxeter) has per-method owner assignments recorded in the parent spec
@@ -18,6 +18,8 @@ successCriteria:
 - No method remains in summary-grouping-only form
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
+- PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION
+- PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES
 ---
 # Assign per-method owners for poset deferred non-core surfaces
 
