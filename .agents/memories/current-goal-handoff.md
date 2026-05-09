@@ -15,20 +15,28 @@ Category-spec and semantic-vocabulary. `.agents/current-goal-phase.md`, `GOAL.md
 
 ## Next pickup
 
-9 atomic tasks ready for execution, all `unstarted`:
+Start here. Execute in this order:
 
-PLAN-STATIC-CATEGORY-REFINEMENT-ORDER (5 tasks):
-- TASK-AUDIT-RINGS — grep rings/ for super_categories(, write inventory into plan body
+### Phase 1 — smoke plan fixes (4 tasks, all independent, dispatch in parallel)
+Path: plans/features/.../PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/tasks/
+- TASK-FIX-DEAD-LINKS — one edit to plan body: remove 2 dead source paths, replace 2 vague refs
+- TASK-FIX-PHASE-INVENTORY — one edit: remove variadic phase from body subplans
+- TASK-FIX-SCOPE — one edit: narrow description to match actual phase inventory
+- TASK-FIX-CIRCULAR-DEP — one edit to wrapup task: remove self-reference from dependsOn
+
+### Phase 2 — static refinement audits (3 tasks, independent, dispatch in parallel)
+Path: plans/features/.../PLAN-STATIC-CATEGORY-REFINEMENT-ORDER/tasks/
+- TASK-AUDIT-RINGS — grep category_specs/rings/ for super_categories(, write inventory into plan body
 - TASK-AUDIT-SETS-MODULES — grep sets/ + modules/, write inventory
 - TASK-AUDIT-REMAINING — grep 8 remaining subtrees, write inventory
-- TASK-FILL-TABLE — depends on all 3 audits. Fill admitted-edges table from inventories, add source citations, fix PartitionedSets contradiction
+
+### Phase 3 — static refinement fill (1 task, depends on all 3 audits)
+- TASK-FILL-TABLE — read the 3 inventory sections now in the plan body, fill the admitted-edges table, add source citations, fix PartitionedSets contradiction
+
+### Phase 4 — static refinement hygiene (1 task, independent)
 - TASK-FIX-PLAN-HYGIENE — remove dead source ref, deduplicate criteria, clarify scope, declare soft dep
 
-PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION (4 tasks):
-- TASK-FIX-DEAD-LINKS — remove 2 dead source paths, replace 2 vague refs
-- TASK-FIX-PHASE-INVENTORY — remove variadic phase from body subplans (it lives under sibling plan)
-- TASK-FIX-SCOPE — narrow description to match actual phase inventory
-- TASK-FIX-CIRCULAR-DEP — remove self-reference from wrapup task dependsOn
+After all 9 tasks complete: both plans cascade to complete → FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES → complete. Phase is done.
 
 ## Non-goals
 
