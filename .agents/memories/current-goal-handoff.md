@@ -4,38 +4,37 @@ This is the rolling IWE-visible pickup note for the active goal. It is a routing
 
 ## Current phase
 
-The active phase is category-spec and semantic-vocabulary work. Use `.agents/current-goal-phase.md`, `GOAL.md`, and `plans/card-progress-report.md` for the current phase surface and card rollup.
+Category-spec and semantic-vocabulary. `.agents/current-goal-phase.md`, `GOAL.md`, `plans/card-progress-report.md` for phase surface and card rollup.
 
 ## Recent decision delta
 
-`STATUS.md` was retired because it framed routine cleanup, source-forced facts, and downstream dependency order as human decisions. The current policy is:
-
-- `needs-human-input` is only for genuine human judgment after source review, mathematical grounding, repo policy, and declared `dependsOn` edges have been checked.
-- A phase gate means a literal dependency path declared in cards; unmet dependencies keep downstream cards `unstarted`.
-- IWE is the repo markdown query and resume layer. Use it to locate memories, plans, cards, specs, and recent handoff context before scanning broadly.
-
-Former `STATUS.md` items were normalized as follows:
-
-- Tensor-component placeholder/type-leak cleanup, algebra constructor boundary, and varieties category integration are agent-reviewable work, not open human decisions.
-- Static category refinement order and smoke/audit stabilization are agent-owned plan remediation.
-- Coble isotropic orbit enumeration and lifting theorem verification are downstream `unstarted` work with explicit dependencies; do not pull them forward without a declared dependency update or explicit human override.
+- STATUS.md retired. `needs-human-input` reserved for genuine human judgment only.
+- 3 cards passed 6-gate review → complete: tensor placeholder fixes, algebra constructor boundary, varieties integration.
+- FEATURE-GEOMETRY-CATEGORY-INTERFACES promoted → complete.
+- Both plans decomposed into atomic tasks (see Next pickup).
 
 ## Next pickup
 
-Resume with agent-owned review/remediation on the category-spec phase cards, especially:
+9 atomic tasks ready for execution, all `unstarted`:
 
-- `PLAN-STATIC-CATEGORY-REFINEMENT-ORDER`
-- `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`
-- `TASK-1777748120751-VP7D5V-FIX-TENSOR-COMPONENT-PLACEHOLDER-METHODS-AND-TYPE-LEAKS`
-- `TASK-1777748120716-ZUYAHM-MOVE-NONTRIVIAL-ALGEBRA-CONSTRUCTION-OUT-OF-CATEGORY-CONSTRUCTORS`
-- `TASK-INTEGRATE-VARIETIES-CATEGORY`
+PLAN-STATIC-CATEGORY-REFINEMENT-ORDER (5 tasks):
+- TASK-AUDIT-RINGS — grep rings/ for super_categories(, write inventory into plan body
+- TASK-AUDIT-SETS-MODULES — grep sets/ + modules/, write inventory
+- TASK-AUDIT-REMAINING — grep 8 remaining subtrees, write inventory
+- TASK-FILL-TABLE — depends on all 3 audits. Fill admitted-edges table from inventories, add source citations, fix PartitionedSets contradiction
+- TASK-FIX-PLAN-HYGIENE — remove dead source ref, deduplicate criteria, clarify scope, declare soft dep
 
-Before executing a card, inspect its declared `dependsOn` edges and current frontmatter status. Do not infer blockers from phase prose if the dependency is missing; repair the card dependency instead.
+PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION (4 tasks):
+- TASK-FIX-DEAD-LINKS — remove 2 dead source paths, replace 2 vague refs
+- TASK-FIX-PHASE-INVENTORY — remove variadic phase from body subplans (it lives under sibling plan)
+- TASK-FIX-SCOPE — narrow description to match actual phase inventory
+- TASK-FIX-CIRCULAR-DEP — remove self-reference from wrapup task dependsOn
+
+## Non-goals
+
+- Coble specs (SPEC-COBLE-ISOTROPIC-ORBIT-ENUMERATION, SPEC-COBLE-LIFTING-THEOREM-VERIFICATION) remain `unstarted` — downstream phase, correct per DAG.
+- Lattice roadmap (PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP) remains `approved-and-unstarted` — gated behind spec→implementation phase transition.
 
 ## Validation state
 
-`just plan-validate` passed after this reclassification and IWE/Hermes memory reorganization, validating 251 root planning cards.
-
-## Handoff discipline
-
-Update this note by replacement only when the resumption path changes. Do not append a session log or duplicate tracker state here.
+`just plan-validate` reports 63 pre-existing schema violations (spec cards with unexpected fields, missing dependsOn refs). Not blocking current work.
