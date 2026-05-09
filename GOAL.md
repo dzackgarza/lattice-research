@@ -210,3 +210,33 @@ The stability of the slc pair $(Z, \epsilon C)$ for specific surgery vectors $\e
 ### 8.3. Orbits and Stabilizers
 - **Sterk Orbit Lift**: For the 2-elementary lattice $T$, the orbits are uniquely determined by the tuple $(\operatorname{div}(v), \bar{v} \in A_T, v^2=0)$. The search reduces to checking $\mathbb{F}_2$-vector space orbits under the orthogonal group of the quadratic form $q_T$.
 - **$\Gamma_{\mathrm{Co}}$ Generators**: Computation involves finding the intersection of the group of reflections $W(T)$ with the centralizer $Z(\theta)$ and the stabilizer of the primitive vector $h$.
+
+## Autonomous execution entry point
+
+The repo process is distributed across skills loaded at startup (`AGENTS.md`,
+`research-state-machine`, `research-project-workflow`, etc.). A `/goal` prompt
+does not need to encode the process — it needs to encode what "done" means and
+where to start reading. The process loads progressively from the files the agent
+hits as it advances: you can't review without the review kernel, can't promote
+without ACs, can't jump the DAG without unmet dependencies blocking you.
+
+Use goalcraft (load `goalcraft` skill) to refine the entry point, then set it
+with `/goal`. A compact starting template:
+
+```
+Destination: ./plans/card-progress-report.md shows all cards complete,
+needs-human-input, or phase-gated.
+
+Starting point: Read .agents/memories/current-goal-handoff.md for
+checkpoint, AGENTS.md for routing rules, then follow the DAG.
+
+Done when: No executable cards remain — every card is complete, decided,
+needs-human-input, or blocked by phase gate.
+
+Stop conditions: A card in needs-human-input with no further
+agent-executable path. Do not pivot to unrelated features.
+```
+
+The goal should be short enough to survive compaction. Everything else — the
+6-gate review, the DAG, the handoff rhythm — lives in the skills and card bodies
+the agent loads on demand.
