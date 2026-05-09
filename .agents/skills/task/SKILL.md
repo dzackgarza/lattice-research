@@ -91,14 +91,24 @@ calling a tracker tool creates duplicates.
 
 ## Sizing
 
-A task is one mechanical operation a subagent completes in a single pass without
-timing out. Concrete bounds:
+A task is atomic when a subagent with zero repo context, given only the card
+body and artifact paths, can complete it in one pass without discovering scope,
+making classification decisions, or synthesizing cross-subtree findings.
 
-- **Files touched:** at most ~10 files read, at most ~3 files edited.
-- **Scope:** one subtree (e.g., `category_specs/rings/`), not "all of category_specs/."
-- **Operation:** grep-and-extract, write-one-section, fix-one-contradiction — not
-  "audit everything" or "fill the entire table."
+Before creating a task, ask: can the subagent start work immediately after
+reading the card? Or does it first need to figure out what to do?
 
-If a task description starts with "audit all ... across" or "fill the ... with all
-results," it's a survey — split by subtree. Three 5-minute greps are better than
-one 20-minute file-reading marathon that times out.
+**Not atomic:** "Audit all super_categories() in category_specs/" — the
+subagent must discover which files exist, understand the category hierarchy,
+decide what counts as "documented," and synthesize a cross-subtree report.
+That's a research project.
+
+**Atomic:** "Grep category_specs/rings/ for super_categories(, extract each
+returned list, write a table into the plan body" — the subagent reads the card,
+runs the grep, writes the table. No discovery, no classification, no synthesis.
+
+**Concrete test:** if the card body contains the word "all" followed by a
+directory path spanning multiple subtrees, it's a survey. Split by subtree.
+If the card asks the subagent to "determine," "classify," "decide whether,"
+or "cross-reference," those are coordinator-level judgments — the coordinator
+does that work, the subagent executes the mechanical step.
