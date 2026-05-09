@@ -88,3 +88,17 @@ ready for assignment or execution into a full markdown file under `plans/feature
 
 Never call `tracker_create` or `create_task`. The markdown file is the source of truth;
 calling a tracker tool creates duplicates.
+
+## Sizing
+
+A task is one mechanical operation a subagent completes in a single pass without
+timing out. Concrete bounds:
+
+- **Files touched:** at most ~10 files read, at most ~3 files edited.
+- **Scope:** one subtree (e.g., `category_specs/rings/`), not "all of category_specs/."
+- **Operation:** grep-and-extract, write-one-section, fix-one-contradiction — not
+  "audit everything" or "fill the entire table."
+
+If a task description starts with "audit all ... across" or "fill the ... with all
+results," it's a survey — split by subtree. Three 5-minute greps are better than
+one 20-minute file-reading marathon that times out.
