@@ -83,6 +83,8 @@ ready for assignment or execution into a full markdown file under `plans/feature
 4. Generate the item file under `plans/features/` with `trackerStatus` frontmatter.
 5. Preserve source provenance and enough execution context in the body.
 6. Confirm the destination file.
+7. Update `.agents/memories/current-goal-handoff.md` — the new task altered the
+   resumption path. Handoff update is not optional; do it before reporting in chat.
 
 ## Hard Constraint
 
