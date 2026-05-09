@@ -83,7 +83,16 @@ Use `iwe` as the central markdown management, query, and resume interface for th
 
 Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a symlink to `.agents/memories/hermes`, so Hermes, Ralph loops, and IWE-backed agents share one operational memory namespace instead of copying notes between systems.
 
-The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by replacement only when the resumption path changes: current phase, recent decision delta, next pickup cards, non-goals, and validation state. It is a routing aid, not an authoritative tracker. Cards and plans remain authoritative for statuses, dependencies, source grounding, and acceptance.
+The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by replacement whenever the resumption path changes: current phase, recent decision delta, next pickup cards, non-goals, and validation state. It is a routing aid, not an authoritative tracker. Cards and plans remain authoritative for statuses, dependencies, source grounding, and acceptance.
+
+**This is not optional.** After any of the following, update the handoff note immediately — before reporting the result in chat:
+- Creating, promoting, or splitting task cards
+- Completing a review pass (cards moving to complete/revision-required)
+- Resolving a blocker or discovering a new one
+- Decomposing a plan into tasks
+- Any state change that alters what the next session should pick up
+
+Chat is the delivery channel; the handoff note is the durable checkpoint. If the handoff is stale, the process has failed.
 
 Store short, opinionated, durable notes:
 
