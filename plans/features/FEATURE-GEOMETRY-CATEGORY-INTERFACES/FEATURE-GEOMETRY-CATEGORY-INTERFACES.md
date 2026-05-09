@@ -8,7 +8,7 @@ plans:
 - '[[PLAN-GEOMETRIC-SOURCE-ADMISSION]]'
 - '[[PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS]]'
 title: Geometry category interfaces
-status: in-progress
+status: complete
 priority: high
 description: Collect geometry-facing category interface research for schemes, varieties,
   manifolds, curves, surfaces, families, toric interfaces, curve complements, monodromy,
