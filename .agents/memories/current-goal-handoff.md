@@ -32,6 +32,10 @@ Resume with agent-owned review/remediation on the category-spec phase cards, esp
 
 Before executing a card, inspect its declared `dependsOn` edges and current frontmatter status. Do not infer blockers from phase prose if the dependency is missing; repair the card dependency instead.
 
+## Validation state
+
+`just plan-validate` passed after this reclassification and IWE/Hermes memory reorganization, validating 251 root planning cards.
+
 ## Handoff discipline
 
 Update this note by replacement only when the resumption path changes. Do not append a session log or duplicate tracker state here.
