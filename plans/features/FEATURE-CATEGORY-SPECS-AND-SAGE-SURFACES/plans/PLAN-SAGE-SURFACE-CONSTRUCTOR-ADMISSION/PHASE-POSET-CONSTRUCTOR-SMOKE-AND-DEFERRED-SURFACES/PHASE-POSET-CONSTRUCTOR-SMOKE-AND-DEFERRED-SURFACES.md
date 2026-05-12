@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING]]'
 title: Sprint poset constructor smoke and deferred surface ownership pass for graph
   polytope algebra polynomial and Coxeter surfaces
 status: complete

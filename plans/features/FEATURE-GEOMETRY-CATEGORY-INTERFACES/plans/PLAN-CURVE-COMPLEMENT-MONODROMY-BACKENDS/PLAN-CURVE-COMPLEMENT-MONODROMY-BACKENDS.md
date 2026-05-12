@@ -6,6 +6,7 @@ parents:
 - '[[FEATURE-GEOMETRY-CATEGORY-INTERFACES]]'
 dependsOn:
 - '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
+- '[[PLAN-GEOMETRIC-SOURCE-ADMISSION]]'
 title: Curve complement and monodromy backend research
 status: complete
 priority: high

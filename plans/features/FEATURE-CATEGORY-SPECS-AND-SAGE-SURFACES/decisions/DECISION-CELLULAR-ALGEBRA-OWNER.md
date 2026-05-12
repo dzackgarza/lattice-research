@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[SPEC-MAPPING-ALGEBRAS]]'
+- '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Route Cellular algebra subcategory to Algebras(R).FiniteDimensional().WithBasis().Cellular()
 status: decided
 priority: low

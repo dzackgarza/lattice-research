@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 title: Smoke audit uniformity and global stabilization
 status: complete
 priority: critical

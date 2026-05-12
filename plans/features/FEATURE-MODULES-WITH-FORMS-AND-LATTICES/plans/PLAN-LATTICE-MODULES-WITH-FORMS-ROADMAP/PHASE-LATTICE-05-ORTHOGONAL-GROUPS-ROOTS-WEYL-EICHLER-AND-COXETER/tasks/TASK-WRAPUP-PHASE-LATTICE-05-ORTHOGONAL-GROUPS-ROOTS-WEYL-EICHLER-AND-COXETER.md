@@ -17,7 +17,6 @@ dependsOn:
   - '[[TASK-LAT-PHASE5-ORTHOGONAL-SUBGROUPS]]'
   - '[[TASK-LAT-PHASE5-ROOTS-REFLECTIONS]]'
   - '[[TASK-LAT-PHASE5-WEYL-GROUPS]]'
-  - '[[TASK-WRAPUP-PHASE-LATTICE-05-ORTHOGONAL-GROUPS-ROOTS-WEYL-EICHLER-AND-COXETER]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

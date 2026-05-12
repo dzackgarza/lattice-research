@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[SPEC-MAPPING-RINGS]]'
+- '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Decide noncommutative Ore localization category ownership
 status: decided
 priority: medium

@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[SPEC-MAPPING-RINGS]]'
+- '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Decide disposition of deferred q-adic lattice precision constructors
 status: decided
 priority: medium

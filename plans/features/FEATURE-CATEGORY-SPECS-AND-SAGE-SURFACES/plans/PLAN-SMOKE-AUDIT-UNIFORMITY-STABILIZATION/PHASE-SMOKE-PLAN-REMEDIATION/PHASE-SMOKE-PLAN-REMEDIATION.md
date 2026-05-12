@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'
 title: Smoke plan remediation — G1/G3/G4/G5 fixes
 status: complete
 priority: critical

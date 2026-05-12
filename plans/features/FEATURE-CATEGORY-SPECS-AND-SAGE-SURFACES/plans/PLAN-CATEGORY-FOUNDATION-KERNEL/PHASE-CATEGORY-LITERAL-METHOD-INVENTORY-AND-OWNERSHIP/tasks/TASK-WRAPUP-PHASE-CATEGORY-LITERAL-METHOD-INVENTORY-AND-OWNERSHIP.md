@@ -14,7 +14,6 @@ dependsOn:
   - '[[TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS]]'
   - '[[TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY]]'
   - '[[TASK-CATEGORY-METHOD-INVENTORY-TREE-VISUALIZATION]]'
-  - '[[TASK-WRAPUP-PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

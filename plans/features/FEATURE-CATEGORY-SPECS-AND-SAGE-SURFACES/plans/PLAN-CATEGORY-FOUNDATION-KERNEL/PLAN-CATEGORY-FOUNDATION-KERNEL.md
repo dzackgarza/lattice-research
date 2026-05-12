@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
 title: Category foundation kernel and method ownership
 status: complete
 priority: critical

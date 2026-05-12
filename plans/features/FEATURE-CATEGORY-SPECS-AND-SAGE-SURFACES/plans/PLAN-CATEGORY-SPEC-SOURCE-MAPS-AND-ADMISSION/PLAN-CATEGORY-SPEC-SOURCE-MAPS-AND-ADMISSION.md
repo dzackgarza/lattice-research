@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 title: Category spec source maps and admission
 status: in-progress
 priority: critical

@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]'
 title: Sprint variadic signature closure audit across modules rings tensors algebras
   lattices posets sets and real-set constructors
 status: complete

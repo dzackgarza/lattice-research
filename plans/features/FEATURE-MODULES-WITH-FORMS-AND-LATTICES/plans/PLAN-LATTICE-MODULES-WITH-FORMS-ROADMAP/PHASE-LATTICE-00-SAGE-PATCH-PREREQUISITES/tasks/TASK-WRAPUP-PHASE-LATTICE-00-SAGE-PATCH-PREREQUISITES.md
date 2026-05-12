@@ -12,7 +12,6 @@ dependsOn:
   - '[[TASK-LAT-PHASE0-MODULE-BASE-RINGS]]'
   - '[[TASK-LAT-PHASE0-MODULE-ENRICHMENT]]'
   - '[[TASK-LAT-PHASE0-MODULE-OPERATIONS]]'
-  - '[[TASK-WRAPUP-PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

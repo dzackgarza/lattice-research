@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
 title: Hom End Aut structural admission
 status: in-progress
 priority: critical

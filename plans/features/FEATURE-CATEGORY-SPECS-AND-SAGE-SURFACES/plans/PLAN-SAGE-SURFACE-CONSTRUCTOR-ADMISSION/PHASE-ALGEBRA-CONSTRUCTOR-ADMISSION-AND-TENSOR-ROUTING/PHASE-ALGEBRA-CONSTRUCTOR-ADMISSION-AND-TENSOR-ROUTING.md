@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-RING-AXIOM-Q-ADIC-AND-MATRIX-ALGEBRA-SURFACES]]'
 title: Sprint algebra constructor admission and tensor multiplication routing
 status: complete
 priority: high

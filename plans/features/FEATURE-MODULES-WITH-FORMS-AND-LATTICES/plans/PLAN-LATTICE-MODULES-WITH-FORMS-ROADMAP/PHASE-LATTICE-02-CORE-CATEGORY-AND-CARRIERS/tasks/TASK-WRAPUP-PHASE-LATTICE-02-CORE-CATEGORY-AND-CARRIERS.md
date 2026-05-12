@@ -12,7 +12,6 @@ dependsOn:
   - '[[TASK-LAT-PHASE2-MODULES-WITH-FORMS-CATEGORY]]'
   - '[[TASK-LAT-PHASE2-PYDANTIC-VALIDATION]]'
   - '[[TASK-LAT-PHASE2-THIN-CARRIERS-PROMOTION]]'
-  - '[[TASK-WRAPUP-PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

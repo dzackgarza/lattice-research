@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
 title: Static category refinement order and constructor-interception sequence
 status: complete
 priority: critical

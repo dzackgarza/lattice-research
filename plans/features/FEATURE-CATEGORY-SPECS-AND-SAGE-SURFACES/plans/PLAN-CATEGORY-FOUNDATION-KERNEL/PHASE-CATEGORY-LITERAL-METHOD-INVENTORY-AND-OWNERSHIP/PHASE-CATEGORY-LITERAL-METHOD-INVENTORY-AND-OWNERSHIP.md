@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]'
 title: Category literal method inventory and ownership
 status: complete
 priority: critical

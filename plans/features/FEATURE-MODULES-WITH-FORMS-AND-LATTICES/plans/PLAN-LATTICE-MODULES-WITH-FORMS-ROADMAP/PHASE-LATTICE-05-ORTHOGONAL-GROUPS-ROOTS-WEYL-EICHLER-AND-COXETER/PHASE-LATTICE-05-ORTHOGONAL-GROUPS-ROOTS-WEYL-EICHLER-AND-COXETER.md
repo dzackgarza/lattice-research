@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 title: Phase 5 orthogonal groups roots Weyl Eichler and Coxeter layer
 status: complete
 priority: high

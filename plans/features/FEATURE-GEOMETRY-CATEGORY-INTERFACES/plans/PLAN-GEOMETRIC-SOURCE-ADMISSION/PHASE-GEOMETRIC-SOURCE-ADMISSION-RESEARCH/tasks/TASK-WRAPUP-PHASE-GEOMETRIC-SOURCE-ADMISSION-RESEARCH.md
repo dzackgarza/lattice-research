@@ -16,7 +16,6 @@ dependsOn:
   - '[[TASK-INTEGRATE-SMOOTH-MANIFOLDS-CATEGORY]]'
   - '[[TASK-INTEGRATE-TORIC-VARIETIES-WITH-LATTICE-CATEGORY]]'
   - '[[TASK-INTEGRATE-VARIETIES-CATEGORY]]'
-  - '[[TASK-WRAPUP-PHASE-GEOMETRIC-SOURCE-ADMISSION-RESEARCH]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

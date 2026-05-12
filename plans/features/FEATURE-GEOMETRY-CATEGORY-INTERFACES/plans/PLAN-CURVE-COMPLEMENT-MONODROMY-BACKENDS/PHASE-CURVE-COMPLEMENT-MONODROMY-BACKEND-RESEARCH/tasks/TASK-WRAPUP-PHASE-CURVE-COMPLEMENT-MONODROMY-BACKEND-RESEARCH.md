@@ -9,7 +9,6 @@ dependsOn:
   - '[[TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES]]'
   - '[[TASK-RESEARCH-SAGE-RIEMANN-SURFACE-INTERFACE]]'
   - '[[TASK-RESEARCH-SIROCCO-CURVE-COMPLEMENT-FUNDAMENTAL-GROUPS]]'
-  - '[[TASK-WRAPUP-PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

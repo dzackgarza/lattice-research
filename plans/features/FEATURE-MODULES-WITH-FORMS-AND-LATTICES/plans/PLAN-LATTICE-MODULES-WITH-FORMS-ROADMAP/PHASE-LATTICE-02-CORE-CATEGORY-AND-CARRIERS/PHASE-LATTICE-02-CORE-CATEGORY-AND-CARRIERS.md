@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-LATTICE-00-SAGE-PATCH-PREREQUISITES]]'
 title: Phase 2 ModulesWithForms core category and carrier integration
 status: complete
 priority: critical

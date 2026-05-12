@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS]]'
 title: Phase 4 lattice meets duals and discriminant descent
 status: complete
 priority: high

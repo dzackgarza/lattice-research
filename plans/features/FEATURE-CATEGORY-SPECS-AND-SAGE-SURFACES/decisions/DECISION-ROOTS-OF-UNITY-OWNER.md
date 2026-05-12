@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[SPEC-MAPPING-RINGS]]'
+- '[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Decide roots-of-unity ownership for zeta and zeta_order on non-finite-field rings
 status: decided
 priority: medium

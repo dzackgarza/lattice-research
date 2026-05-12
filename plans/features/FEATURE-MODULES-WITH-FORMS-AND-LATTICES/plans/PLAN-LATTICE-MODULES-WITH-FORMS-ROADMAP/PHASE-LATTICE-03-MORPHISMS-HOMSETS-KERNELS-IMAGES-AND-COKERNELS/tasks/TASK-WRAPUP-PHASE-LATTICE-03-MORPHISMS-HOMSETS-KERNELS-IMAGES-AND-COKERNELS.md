@@ -12,7 +12,6 @@ dependsOn:
   - '[[TASK-LAT-PHASE3-KERNEL-IMAGE]]'
   - '[[TASK-LAT-PHASE3-MORPHISM-VALIDATION]]'
   - '[[TASK-LAT-PHASE3-MORPHISM-WRAPPERS]]'
-  - '[[TASK-WRAPUP-PHASE-LATTICE-03-MORPHISMS-HOMSETS-KERNELS-IMAGES-AND-COKERNELS]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

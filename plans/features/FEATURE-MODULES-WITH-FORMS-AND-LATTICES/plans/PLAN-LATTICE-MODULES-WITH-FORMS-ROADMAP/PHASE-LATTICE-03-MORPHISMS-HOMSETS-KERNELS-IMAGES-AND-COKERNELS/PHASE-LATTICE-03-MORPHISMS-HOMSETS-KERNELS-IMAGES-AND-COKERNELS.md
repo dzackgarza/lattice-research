@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-LATTICE-02-CORE-CATEGORY-AND-CARRIERS]]'
 title: Phase 3 morphisms homsets kernels images and cokernels
 status: complete
 priority: critical

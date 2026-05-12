@@ -55,9 +55,18 @@ Repo-visible root state at this handoff refresh:
 - The card progress report generator now enforces this rule: `plans/card-progress-report.md`
   renders high-priority work as `High-Priority DAG Frontier` plus `High-Priority
   DAG-Gated Items`, and inherited parent dependencies gate child plans/tasks.
-- Execute `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` to update the
-  generic Hom/End/Aut owner story, then work through the reopened subtree mapping
-  audit tasks under `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`.
+- The centralized plan validator now rejects non-acyclic `dependsOn` graphs, requires
+  feature siblings with multiple plans to declare a linear `plans` order and adjacent
+  plan dependencies, and requires plan siblings with multiple phases to declare a
+  linear `phases` order and adjacent phase dependencies.
+- Current frontier after the 2026-05-12 DAG repair is the source-map lane:
+  `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES` ->
+  `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` ->
+  `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`.
+- `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` and
+  `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` are now correctly
+  DAG-gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`; do not treat them as
+  selectable until that predecessor is complete.
 - The next homset/plugin pass should split remaining mypy findings into:
   1. live plugin misses on runtime-real overrides (`endsets.py`,
      `autsets.py`, and `sets/homsets.py:is_isomorphism`), and
@@ -127,6 +136,10 @@ Repo-visible root state at this handoff refresh:
   - final class-attribute override
   - final + incompatible-signature override (`Of`-shaped)
 - `just plan-validate` passes after the new decision/task and status updates.
+- 2026-05-12 DAG repair: `just plan-validate` fails on cyclic `dependsOn` graphs and
+  sibling ordering gaps, then passes after the cycle removals and sibling dependency
+  repair. `just plan-progress-report` now shows Hom/End/Aut as DAG-gated by
+  `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`.
 - 2026-05-12 state audit: `git fetch origin` left the current branch even with
   `origin/dzack/reviews-bugfixes-and-phase-completion-2026-05-07`; `just
   plan-validate` passed with all schemas valid and rewrote `plans/plan-dag.md`; `just

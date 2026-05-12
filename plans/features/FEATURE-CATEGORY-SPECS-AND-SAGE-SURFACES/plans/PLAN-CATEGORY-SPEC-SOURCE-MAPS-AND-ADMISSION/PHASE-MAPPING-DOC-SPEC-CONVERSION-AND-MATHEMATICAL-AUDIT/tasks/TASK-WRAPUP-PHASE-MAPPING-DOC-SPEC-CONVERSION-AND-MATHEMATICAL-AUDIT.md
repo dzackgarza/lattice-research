@@ -7,7 +7,6 @@ parents:
 dependsOn:
   - '[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]'
   - '[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]'
-  - '[[TASK-WRAPUP-PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

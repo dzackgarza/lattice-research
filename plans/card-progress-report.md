@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-12 11:17 UTC_
+_Generated: 2026-05-12 11:45 UTC_
 
 ## Overall
 
@@ -63,8 +63,6 @@ _Generated: 2026-05-12 11:17 UTC_
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (`critical`, `in-progress`)
-- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (`critical`, `in-progress`)
-- `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (`critical`, `unstarted`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-review`)
 - `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-review`)
@@ -78,16 +76,16 @@ _Generated: 2026-05-12 11:17 UTC_
 - `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `feature` `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: gated by `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
+- `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
 - `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `unstarted`)
+- `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `unstarted`)
 - `feature` `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`: gated by `FEATURE-COBLE-K3-FOLDING-INVOLUTION`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-COXETER-PARABOLIC-CLASSIFICATION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `in-progress`)
 - `feature` `FEATURE-COBLE-K3-FOLDING-INVOLUTION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-MODULI-COMPARISON`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-STABLE-MODEL-SLC`: gated by `FEATURE-COBLE-MODULI-COMPARISON`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
-- `phase` `PHASE-MYPY-SIDE-HARNESS`: gated by `PHASE-SAGE-SIDE-API` (`high`, `needs-review`)
-- `phase` `PHASE-TEST-VERIFICATION`: gated by `PHASE-MYPY-SIDE-HARNESS` (`high`, `needs-review`)
 
 ## Blocked Items
 
@@ -95,6 +93,7 @@ _Generated: 2026-05-12 11:17 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-12 `decision` `DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION`: Decide HomCategory semantic base and Sage homset mirroring route (commit `6d3754b`: checkpoint: capture DAG-frontier planning state)
 - 2026-05-09 `decision` `DECISION-CELLULAR-ALGEBRA-OWNER`: Route Cellular algebra subcategory to Algebras(R).FiniteDimensional().WithBasis().Cellular() (commit `a3abdc4`: User-initiated Checkpoint)
 - 2026-05-09 `decision` `DECISION-QADIC-LATTICE-PRECISION`: Decide disposition of deferred q-adic lattice precision constructors (commit `a3abdc4`: User-initiated Checkpoint)
 - 2026-05-09 `task` `TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `a3abdc4`: User-initiated Checkpoint)
@@ -109,7 +108,6 @@ _Generated: 2026-05-12 11:17 UTC_
 - 2026-05-09 `task` `TASK-STATIC-REFINEMENT-AUDIT-RINGS`: Audit super_categories() returns in category_specs/rings/ (commit `a3abdc4`: User-initiated Checkpoint)
 - 2026-05-09 `task` `TASK-STATIC-REFINEMENT-AUDIT-SETS-MODULES`: Audit super_categories() returns in category_specs/sets/ and modules/ (commit `a3abdc4`: User-initiated Checkpoint)
 - 2026-05-09 `task` `TASK-STATIC-REFINEMENT-FILL-TABLE`: Fill admitted-edges table from audit results and add source citations (commit `a3abdc4`: User-initiated Checkpoint)
-- 2026-05-09 `task` `TASK-STATIC-REFINEMENT-FIX-PLAN-HYGIENE`: Fix plan hygiene issues from 6-gate review (commit `a3abdc4`: User-initiated Checkpoint)
 
 ## Notes
 

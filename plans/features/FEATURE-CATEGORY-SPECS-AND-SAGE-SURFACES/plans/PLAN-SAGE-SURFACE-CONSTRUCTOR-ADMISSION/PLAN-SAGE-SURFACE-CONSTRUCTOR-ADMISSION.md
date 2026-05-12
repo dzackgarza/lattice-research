@@ -4,7 +4,8 @@ trackerStatus:
   type: plan
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
-dependsOn: []
+dependsOn:
+- '[[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]'
 title: Sage surface constructor admission
 status: complete
 priority: critical

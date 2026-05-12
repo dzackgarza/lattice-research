@@ -5,7 +5,7 @@ trackerStatus:
 parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
-- '[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]'
+- '[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]'
 title: Decide module sidedness structure transport and overload surfaces
 status: decided
 chosen: Commutative/symmetric-bimodule root surface; reject ambiguous overloads as public API

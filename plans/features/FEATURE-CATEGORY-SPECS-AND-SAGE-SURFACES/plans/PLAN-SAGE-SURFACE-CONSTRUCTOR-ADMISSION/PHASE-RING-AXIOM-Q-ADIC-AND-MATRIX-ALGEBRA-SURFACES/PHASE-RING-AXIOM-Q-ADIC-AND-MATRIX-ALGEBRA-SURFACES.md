@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-SETS-AND-TOPOLOGICAL-SMOKE-FRONTIER-RECOVERY]]'
 title: Sprint ring axiom identity mismatch q-adic precision frontier and matrix algebra
   surface split
 status: complete

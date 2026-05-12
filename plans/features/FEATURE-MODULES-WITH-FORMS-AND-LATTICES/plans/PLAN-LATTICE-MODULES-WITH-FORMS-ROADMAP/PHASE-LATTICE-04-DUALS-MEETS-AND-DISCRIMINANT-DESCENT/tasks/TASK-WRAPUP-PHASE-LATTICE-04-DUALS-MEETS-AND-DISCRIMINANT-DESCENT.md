@@ -10,7 +10,6 @@ dependsOn:
   - '[[TASK-LAT-PHASE4-DUAL-LATTICE-OBJECTS]]'
   - '[[TASK-LAT-PHASE4-LATTICE-CONSTRUCTORS]]'
   - '[[TASK-LAT-PHASE4-RATIONAL-LATTICE-MEET]]'
-  - '[[TASK-WRAPUP-PHASE-LATTICE-04-DUALS-MEETS-AND-DISCRIMINANT-DESCENT]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

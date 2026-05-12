@@ -7,7 +7,6 @@ parents:
 dependsOn:
   - '[[TASK-01KQN9J3WWCX4AA36TK4QVCNBK-FIX-CAT-SMOKE-HOM-END-AUT-OBJECTSOVER-OBJECTSUNDER-AND-WITHFORMS-FRONTIE]]'
   - '[[TASK-1777748120385-RRVDIG-REMOVE-RAW-CONDITIONSET-FROM-PUBLIC-AUT-CATEGORY-SURFACE]]'
-  - '[[TASK-WRAPUP-PHASE-HOM-END-AUT-WORK-QUEUE]]'
 title: Phase wrap-up — planning cleanup, skill updates, and card status audit
 status: complete
 priority: high

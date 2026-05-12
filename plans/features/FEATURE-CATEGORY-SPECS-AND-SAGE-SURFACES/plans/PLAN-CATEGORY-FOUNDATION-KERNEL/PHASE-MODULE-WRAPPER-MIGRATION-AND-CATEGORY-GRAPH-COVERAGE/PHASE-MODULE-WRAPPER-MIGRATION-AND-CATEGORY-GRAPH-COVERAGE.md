@@ -4,7 +4,8 @@ trackerStatus:
   type: phase
 parents:
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
-dependsOn: []
+dependsOn:
+- '[[PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION]]'
 title: Sprint module wrapper migration phase one through category graph constructor
   routing method coverage and deletion gates
 status: complete
