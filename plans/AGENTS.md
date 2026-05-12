@@ -39,6 +39,10 @@ records the active phase gate.
 - Execution follows the DAG. If a card's declared `dependsOn` prerequisites are not
   complete, leave it `unstarted`; do not mark it `blocked` unless it was otherwise
   ready and hit a real external prerequisite outside the satisfiable DAG.
+- Priority and continuation analysis follows the first incomplete dependency frontier.
+  If `B dependsOn A` and `A` is incomplete, ignore `B`'s internal completion, child
+  status, and review state when choosing or describing priority. `B` is simply
+  DAG-gated by `A` until all incoming prerequisite paths are complete.
 - Do not use `needs-human-input` for source-forced facts, routine cleanup, or ordinary
   dependency order. If work cannot proceed until prerequisite vocabulary or surfaces
   exist, encode the prerequisite in `dependsOn` and leave the downstream card

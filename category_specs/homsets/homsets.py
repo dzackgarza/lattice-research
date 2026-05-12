@@ -29,7 +29,6 @@ class UniversalHomObjectMethods:
         r"""Return the target object ``B`` of this hom object."""
         ...
 
-    @override
     @final
     def is_endomorphism_set(self) -> bool:
         r"""Return whether this hom object is an endomorphism object."""
@@ -84,13 +83,11 @@ class UniversalHomElementMethods:
         r"""Return ``self`` after postcomposition by ``other``."""
         ...
 
-    @override
     @final
     def is_endomorphism(self) -> bool:
         r"""Return whether this morphism has equal domain and codomain."""
         return self.domain() == self.codomain()
 
-    @override
     @final
     def is_identity(self) -> bool:
         r"""Return whether this morphism is the identity endomorphism."""
@@ -106,7 +103,6 @@ class UniversalHomElementMethods:
         r"""Return whether this morphism is an isomorphism in its category."""
         ...
 
-    @override
     @final
     def is_automorphism(self) -> bool:
         r"""Return whether this morphism is an invertible endomorphism."""

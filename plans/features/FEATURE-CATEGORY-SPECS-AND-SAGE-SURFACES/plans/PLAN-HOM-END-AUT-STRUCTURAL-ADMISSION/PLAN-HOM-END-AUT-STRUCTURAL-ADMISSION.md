@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Hom End Aut structural admission
-status: complete
+status: in-progress
 priority: critical
 owner: Zack
 description: Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups
@@ -26,6 +26,13 @@ tags:
 ## Objective
 
 Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through the category framework instead of ad hoc group or ConditionSet surfaces.
+
+This plan was reopened on 2026-05-10 after a runtime ownership audit during QC
+triage showed that `category_specs.homsets.homsets.HomCategory.parent_class` does
+not currently inherit Sage's concrete `sage.categories.homset.Homset` surface. The
+generic Hom/End/Aut mapping spec already records those upstream owners, so the
+remaining work is to align implementation, override claims, and QC diagnosis with
+that source-grounded owner map.
 
 
 ## Grounded Implementation Contract

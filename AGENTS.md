@@ -54,6 +54,11 @@
   `blocked`. Reserve `blocked` for a ready current-phase leaf that cannot proceed
   because it needs an external decision, source, credential, missing theory, or other
   prerequisite that is not currently satisfiable through the DAG.
+- Priority reports must cut the graph at the earliest incomplete dependency frontier.
+  If `B dependsOn A` and `A` is incomplete, then `B`'s status, partial progress, child
+  cards, review state, and apparent readiness are irrelevant for priority. Do not rank,
+  discuss, or select work inside `B` until every prerequisite on every incoming
+  dependency path is complete; mention it only as DAG-gated by the incomplete root.
 - Reserve `needs-human-input` for genuine human judgment that remains after source review, mathematical grounding, repo policy, and `dependsOn` have been checked. Source-forced facts, routine plan/card cleanup, and planned downstream dependency order are agent work, not user decisions.
 - Constructor placement reports must separate mathematical owner, human naming convention, and code-maintenance owner. Constructors are Sage-backed entry points for building objects in categories; a specific object can carry many structures, while aggregate surfaces such as `Cat().Constructors()` can provide the canonical user entry point independent of the implementation owner.
 - Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.

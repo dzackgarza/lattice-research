@@ -22,7 +22,6 @@ class _ContinuousMaps:
 
 
 class _Homeomorphisms:
-    @override
     @final
     def is_homeomorphism(self) -> bool:
         r"""Return ``True`` because this element is a homeomorphism."""
@@ -30,7 +29,6 @@ class _Homeomorphisms:
 
 
 class _ShortMaps(_ContinuousMaps):
-    @override
     @final
     def is_short(self) -> bool:
         r"""Return ``True`` because this element is a short map."""
@@ -38,7 +36,6 @@ class _ShortMaps(_ContinuousMaps):
 
 
 class _Isometries:
-    @override
     @final
     def is_isometry(self) -> bool:
         r"""Return ``True`` because this element is an isometry."""

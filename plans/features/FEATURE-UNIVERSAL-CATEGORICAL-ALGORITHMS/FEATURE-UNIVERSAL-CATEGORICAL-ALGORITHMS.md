@@ -4,6 +4,7 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
+- '[[FEATURE-QC-WARNINGS-ZERO]]'
 - '[[FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER]]'
 plans: []
 title: Universal categorical algorithms

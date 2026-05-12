@@ -4,6 +4,7 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
+- '[[FEATURE-QC-WARNINGS-ZERO]]'
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 plans:
 - '[[PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP]]'

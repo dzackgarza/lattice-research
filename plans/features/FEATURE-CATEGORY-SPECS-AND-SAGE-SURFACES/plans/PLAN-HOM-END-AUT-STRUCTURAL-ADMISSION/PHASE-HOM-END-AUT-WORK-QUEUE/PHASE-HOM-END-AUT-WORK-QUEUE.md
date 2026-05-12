@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION]]'
 dependsOn: []
 title: Hom End Aut work queue
-status: complete
+status: in-progress
 description: 'This phase groups current cards that were previously attached directly
   to `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` or to the corresponding legacy `.agents`
   work queue. It is a routing phase: executable work remains in child task cards,
@@ -27,6 +27,12 @@ tags:
 ## Summary
 
 This phase groups current cards that were previously attached directly to `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` or to the corresponding legacy `.agents` work queue. It is a routing phase: executable work remains in child task cards, while definition-heavy work remains in feature-level spec cards.
+
+Reopened 2026-05-10 after QC/runtime tracing established that the generic
+`HomCategory` parent-method owner chain is not currently aligned with the
+source-grounded Sage `Homset` / `Homsets.ParentMethods` surface recorded in
+`SPEC-MAPPING-HOMSETS`. The new follow-up card fixes that owner mismatch before any
+remaining Hom/End/Aut override failures are attributed to plugin debt.
 
 ## Acceptance Criteria
 

@@ -47,7 +47,6 @@ class _SetMorphisms:
         r"""Return whether this set morphism is surjective."""
         ...
 
-    @override
     @final
     def is_bijective(self) -> bool:
         r"""Return whether this set morphism is both injective and surjective."""

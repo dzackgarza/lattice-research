@@ -11,7 +11,7 @@ plans:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 title: Category specs and Sage surface admission
-status: complete
+status: in-progress
 priority: critical
 description: 'Specify a Sage-compatible categorical language for downstream research:
   sets, modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary
@@ -53,6 +53,13 @@ affected leaf; it does not block other approved phase-01 spec leaves.
 - `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP` and the geometry feature plans: cross-feature spec-phase dependencies.
 
 The connected plan spine is `GOAL.md` -> `.agents/current-goal-phase.md` -> active feature plans; active phase-01 tasks are contained by phase cards under their owning plans.
+
+Reopened 2026-05-10 on the Hom/End/Aut path after runtime auditing showed that the
+current generic `HomCategory.parent_class` chain does not inherit Sage's concrete
+`sage.categories.homset.Homset` parent surface even though `SPEC-MAPPING-HOMSETS`
+records `domain()`, `codomain()`, `identity()`, and `is_endomorphism_set()` as
+Sage-backed generic homset behavior. Follow-up now lives under the Hom/End/Aut plan
+and the linked ownership decision.
 
 ## Exit criteria
 

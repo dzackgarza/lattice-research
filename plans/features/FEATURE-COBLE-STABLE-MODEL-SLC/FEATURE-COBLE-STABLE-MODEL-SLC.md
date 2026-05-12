@@ -4,6 +4,7 @@ trackerStatus:
   type: feature
 parents: []
 dependsOn:
+- '[[FEATURE-QC-WARNINGS-ZERO]]'
 - '[[FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION]]'
 - '[[FEATURE-COBLE-MODULI-COMPARISON]]'
 plans: []

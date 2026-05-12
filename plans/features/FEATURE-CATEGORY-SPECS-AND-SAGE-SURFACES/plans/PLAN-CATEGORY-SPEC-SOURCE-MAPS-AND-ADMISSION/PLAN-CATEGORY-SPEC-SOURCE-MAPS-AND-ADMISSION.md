@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn: []
 title: Category spec source maps and admission
-status: complete
+status: in-progress
 priority: critical
 owner: Zack
 description: Preserve and route the non-lattice root `plans` source maps into an approved
@@ -49,6 +49,12 @@ object, and proof obligations for equivalence or Sage translation.
 ## Current State
 
 Several root plan files are source maps or design notes rather than executable implementation plans. They are valuable, but they should not remain free-floating planning authorities outside Nimbalyst.
+
+Reopened 2026-05-10 on the homset-mirroring path. The current follow-up is no
+longer "repair generic Sage homset inheritance"; it is a renewed mapping audit
+for every subtree with a `homsets.py` surface so Sage homset/container methods
+kept by the project are explicitly mirrored on the corresponding project Hom
+specs.
 
 ## Source Provenance
 

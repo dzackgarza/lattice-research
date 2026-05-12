@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
 dependsOn: []
 title: Mapping doc spec conversion and mathematical audit
-status: complete
+status: in-progress
 priority: critical
 description: Convert every category-spec mapping document into a tracked spec surface
   and audit those specs for Sage-source completeness, mathematical correctness,
@@ -19,6 +19,17 @@ successCriteria:
 - Mathematical review rejects incoherent ownership, nonmathematical targets, ill-typed
   signatures, and mappings that confuse method definition location with output type.
 - Unresolved mathematical choices become decision cards before implementation proceeds.
+tasks:
+- '[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]'
+- '[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]'
+- '[[TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-RINGS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-ALGEBRAS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 tasks:
 - '[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]'
 - '[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]'
@@ -57,6 +68,11 @@ Both phase tasks are now in `needs-review`:
   owner, codomain, and type-signature corrections from the audit pass.
 
 This phase is ready for human/spec review. It is not accepted or closed.
+
+Reopened 2026-05-10 after the homset ownership decision changed. The new active
+leaf work is a per-subtree hom-mapping mirror audit: each subtree with a
+`homsets.py` file must explicitly account for the Sage homset/container methods
+it keeps, routes elsewhere, or rejects as interop-only.
 
 ---
 

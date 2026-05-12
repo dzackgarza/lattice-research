@@ -347,10 +347,56 @@ def most_blocked_items(cards: dict[str, Card]) -> list[Card]:
     return blocked[:15]
 
 
-def high_priority_active(
+def unmet_dependency_ids(
+    card: Card,
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+) -> tuple[str, ...]:
+    unmet: list[str] = []
+    seen: set[str] = set()
+    stack = list(dependency_frontier_ids(card, cards))
+    while stack:
+        dependency_id = stack.pop()
+        if dependency_id in seen:
+            continue
+        seen.add(dependency_id)
+        dependency = cards.get(dependency_id)
+        if dependency is None or not is_complete(dependency, completed_statuses):
+            unmet.append(dependency_id)
+            continue
+        stack.extend(dependency.depends_on)
+    return tuple(dict.fromkeys(unmet))
+
+
+def dependency_frontier_ids(card: Card, cards: dict[str, Card]) -> tuple[str, ...]:
+    dependency_ids: list[str] = []
+    seen_cards: set[str] = set()
+    stack = [card.card_id]
+    while stack:
+        card_id = stack.pop()
+        if card_id in seen_cards:
+            continue
+        seen_cards.add(card_id)
+        current = cards.get(card_id)
+        if current is None:
+            continue
+        dependency_ids.extend(current.depends_on)
+        stack.extend(parent for parent in current.parents if parent in cards)
+    return tuple(dict.fromkeys(dependency_ids))
+
+
+def has_unmet_dependency_path(
+    card: Card,
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+) -> bool:
+    return bool(unmet_dependency_ids(card, cards, completed_statuses))
+
+
+def high_priority_frontier(
     cards: dict[str, Card], completed_statuses: dict[str, set[str]]
-) -> list[Card]:
-    items = [
+) -> tuple[list[Card], list[tuple[Card, tuple[str, ...]]]]:
+    candidates = [
         card
         for card in cards.values()
         if not is_complete(card, completed_statuses)
@@ -358,14 +404,21 @@ def high_priority_active(
         and card.status != "blocked"
     ]
     priority_order = {"critical": 0, "high": 1}
-    items.sort(
+    candidates.sort(
         key=lambda card: (
             priority_order.get(card.priority, 2),
             card.kind,
             card.title.casefold(),
         )
     )
-    return items[:15]
+    frontier: list[Card] = []
+    gated: list[tuple[Card, tuple[str, ...]]] = []
+    for card in candidates:
+        if has_unmet_dependency_path(card, cards, completed_statuses):
+            gated.append((card, unmet_dependency_ids(card, cards, completed_statuses)))
+        else:
+            frontier.append(card)
+    return frontier[:15], gated[:15]
 
 
 def active_vs_completed_feature_trees(
@@ -405,7 +458,7 @@ def render_report(
     rollups = feature_rollups(cards, completed_statuses, child_map)
     recent = recent_completed_cards(cards, completed_statuses, recent_limit)
     blocked = most_blocked_items(cards)
-    priority = high_priority_active(cards, completed_statuses)
+    priority, gated_priority = high_priority_frontier(cards, completed_statuses)
     active_features, completed_features = active_vs_completed_feature_trees(
         cards, completed_statuses
     )
@@ -499,7 +552,7 @@ def render_report(
             + " |"
         )
     lines.append("")
-    lines.append("## High-Priority Active Items")
+    lines.append("## High-Priority DAG Frontier")
     lines.append("")
     if not priority:
         lines.append("- None.")
@@ -507,6 +560,20 @@ def render_report(
         for card in priority:
             lines.append(
                 f"- `{card.kind}` `{card.card_id}`: {card.title} "
+                f"(`{card.priority}`, `{card.status}`)"
+            )
+    lines.append("")
+    lines.append("## High-Priority DAG-Gated Items")
+    lines.append("")
+    if not gated_priority:
+        lines.append("- None.")
+    else:
+        for card, unmet_dependencies in gated_priority:
+            unmet_text = ", ".join(f"`{dependency}`" for dependency in unmet_dependencies)
+            if not unmet_text:
+                unmet_text = "an incomplete transitive prerequisite"
+            lines.append(
+                f"- `{card.kind}` `{card.card_id}`: gated by {unmet_text} "
                 f"(`{card.priority}`, `{card.status}`)"
             )
     lines.append("")
@@ -546,6 +613,11 @@ def render_report(
     lines.append(
         "- Completed feature trees may live under `plans/features/completed/`; "
         "this report includes them in totals."
+    )
+    lines.append(
+        "- High-priority DAG frontier items exclude cards with incomplete direct or "
+        "transitive `dependsOn` prerequisites. Gated items are shown only by their "
+        "unmet prerequisite frontier."
     )
     lines.append("")
     return "\n".join(lines)
