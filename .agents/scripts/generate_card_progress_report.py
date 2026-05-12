@@ -71,6 +71,14 @@ def parse_args() -> argparse.Namespace:
         default=15,
         help="Number of recently completed cards to include. Default: 15.",
     )
+    parser.add_argument(
+        "--next-outstanding-tasks",
+        type=int,
+        help=(
+            "Print the next N outstanding task cards whose declared and inherited "
+            "DAG prerequisites are complete, then exit."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -421,6 +429,102 @@ def high_priority_frontier(
     return frontier[:15], gated[:15]
 
 
+def topological_card_order(cards: dict[str, Card]) -> dict[str, int]:
+    dependents: dict[str, set[str]] = collections.defaultdict(set)
+    indegree: dict[str, int] = {card_id: 0 for card_id in cards}
+    for card in cards.values():
+        for dependency_id in card.depends_on:
+            if dependency_id not in cards:
+                continue
+            dependents[dependency_id].add(card.card_id)
+            indegree[card.card_id] += 1
+
+    priority_order = {"critical": 0, "high": 1, "medium": 2, "low": 3, None: 4}
+    kind_order = {
+        "feature": 0,
+        "spec": 1,
+        "decision": 2,
+        "plan": 3,
+        "phase": 4,
+        "task": 5,
+    }
+
+    ready = sorted(
+        (card_id for card_id, count in indegree.items() if count == 0),
+        key=lambda card_id: (
+            priority_order.get(cards[card_id].priority, 5),
+            kind_order.get(cards[card_id].kind, 99),
+            str(cards[card_id].path.relative_to(ROOT)),
+        ),
+    )
+    order: dict[str, int] = {}
+    while ready:
+        card_id = ready.pop(0)
+        order[card_id] = len(order)
+        for dependent_id in sorted(
+            dependents.get(card_id, ()),
+            key=lambda item: (
+                priority_order.get(cards[item].priority, 5),
+                kind_order.get(cards[item].kind, 99),
+                str(cards[item].path.relative_to(ROOT)),
+            ),
+        ):
+            indegree[dependent_id] -= 1
+            if indegree[dependent_id] == 0:
+                ready.append(dependent_id)
+        ready.sort(
+            key=lambda item: (
+                priority_order.get(cards[item].priority, 5),
+                kind_order.get(cards[item].kind, 99),
+                str(cards[item].path.relative_to(ROOT)),
+            )
+        )
+
+    if len(order) != len(cards):
+        unresolved = sorted(set(cards) - set(order))
+        raise ValueError(f"dependsOn cycle leaves unresolved cards: {', '.join(unresolved)}")
+    return order
+
+
+def next_outstanding_tasks(
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+    limit: int,
+) -> list[Card]:
+    order = topological_card_order(cards)
+    candidates = [
+        card
+        for card in cards.values()
+        if card.kind == "task"
+        and not card.is_completed_tree
+        and not is_complete(card, completed_statuses)
+        and card.status != "blocked"
+        and not has_unmet_dependency_path(card, cards, completed_statuses)
+    ]
+    candidates.sort(key=lambda card: order[card.card_id])
+    return candidates[:limit]
+
+
+def render_next_outstanding_tasks(
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+    limit: int,
+) -> str:
+    tasks = next_outstanding_tasks(cards, completed_statuses, max(1, limit))
+    if not tasks:
+        return "No outstanding DAG-ready tasks found.\n"
+
+    lines: list[str] = []
+    for task in tasks:
+        relative_path = task.path.relative_to(ROOT)
+        priority = task.priority or "unspecified"
+        lines.append(
+            f"- `{task.card_id}`: {task.title} "
+            f"(`{priority}`, `{task.status}`) {relative_path}"
+        )
+    return "\n".join(lines) + "\n"
+
+
 def active_vs_completed_feature_trees(
     cards: dict[str, Card], completed_statuses: dict[str, set[str]]
 ) -> tuple[int, int]:
@@ -627,6 +731,15 @@ def main() -> int:
     args = parse_args()
     cards = load_cards()
     completed_statuses = load_status_completion_map()
+    if args.next_outstanding_tasks is not None:
+        sys.stdout.write(
+            render_next_outstanding_tasks(
+                cards,
+                completed_statuses,
+                args.next_outstanding_tasks,
+            )
+        )
+        return 0
     report = render_report(cards, completed_statuses, max(1, args.recent_limit))
     if args.output is not None:
         args.output.parent.mkdir(parents=True, exist_ok=True)

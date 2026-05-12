@@ -119,6 +119,13 @@ plan-progress-report:
     cd {{justfile_directory()}}
     uv run .agents/scripts/generate_card_progress_report.py --output plans/card-progress-report.md
 
+next-tasks n="1":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    just --justfile {{justfile()}} plan-validate >/dev/null
+    uv run .agents/scripts/generate_card_progress_report.py --next-outstanding-tasks "{{n}}"
+
 paper-build:
     #!/usr/bin/env bash
     set -euo pipefail
