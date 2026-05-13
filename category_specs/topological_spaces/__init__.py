@@ -30,7 +30,6 @@ not for every named set with a topology.
 from __future__ import annotations
 
 from abc import abstractmethod
-from importlib import import_module
 from typing import TYPE_CHECKING, NoReturn, final, override
 
 from sage.misc.cachefunc import cached_method
@@ -56,6 +55,7 @@ from .subcategories.constructions.subquotients import _Subquotients
 
 if TYPE_CHECKING:
     from ..types import Subset
+    from .subcategories.metric import MetricSpacesCategory
 
 
 class _TopologicalSpaceObjectMethods:
@@ -254,32 +254,17 @@ class TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-def _load_metric_spaces_exports() -> None:
-    metric_module = import_module(
-        "category_specs.topological_spaces.subcategories.metric"
-    )
-    metric_category = metric_module.MetricSpacesCategory
-
-    global MetricSpacesCategory
-    MetricSpacesCategory = metric_category
-    globals().update(
-        {
-            "MetricSpacesObject": MetricSpacesCategory.ParentMethods,
-            "MetricSpacesElement": MetricSpacesCategory.ElementMethods,
-            "MetricSpacesMorphism": MetricSpacesCategory.MorphismMethods,
-            "MetricSpacesHomCategory": MetricSpaceHomCategory,
-            "MetricSpacesEndCategory": MetricSpaceEndCategory,
-            "MetricSpacesAutCategory": MetricSpaceAutCategory,
-            "MetricSpacesHom": MetricSpaceHomCategory.ParentMethods,
-            "MetricSpacesEnd": MetricSpaceEndCategory.ParentMethods,
-            "MetricSpacesAut": MetricSpaceAutCategory.ParentMethods,
-            "MetricSpacesEndomorphism": MetricSpaceEndCategory.ElementMethods,
-            "MetricSpacesAutomorphism": MetricSpaceAutCategory.ElementMethods,
-        }
-    )
-
-
-_load_metric_spaces_exports()
+type MetricSpacesObject = MetricSpacesCategory.ParentMethods
+type MetricSpacesElement = MetricSpacesCategory.ElementMethods
+type MetricSpacesMorphism = MetricSpacesCategory.MorphismMethods
+type MetricSpacesHomCategory = MetricSpaceHomCategory
+type MetricSpacesEndCategory = MetricSpaceEndCategory
+type MetricSpacesAutCategory = MetricSpaceAutCategory
+type MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
+type MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
+type MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
+type MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
+type MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 
 
 type TopologicalSpacesCategory = TopologicalSpaces
