@@ -42,6 +42,17 @@ subtree, not only code filed under upstream `sage.categories.*`.
 
 ## Requirements
 
+### Error-Bucket Boundary
+
+This spec covers only Sage dynamic method-container inheritance as seen by mypy:
+`@override`, `@final`, `@abstractmethod`, method-container MRO projection, static
+base injection, and plugin-loaded QC config behavior.
+
+It does not cover missing annotations, `Any` leakage, untyped pytest fixtures,
+Sage/pytest stub generation, `.pyi` material, `TypeAlias` surfacing, constructor
+call cleanup, or downstream category-specific typing repairs. Those belong to
+`PLAN-QC-MYPY-FOUNDATION-ORDER` phases outside this plugin spec.
+
 ### Core Override Semantics
 
 A method in `C.ParentMethods` decorated with `@override` (standard

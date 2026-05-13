@@ -12,6 +12,12 @@ Repo-visible root state at this handoff refresh:
   Hom/End/Aut path by the generic homset owner mismatch)
 - `FEATURE-GEOMETRY-CATEGORY-INTERFACES`: `complete`
 - `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: `in-progress`, but DAG-gated by `FEATURE-QC-WARNINGS-ZERO` and the already-complete category-spec root
+- `FEATURE-QC-WARNINGS-ZERO`: `unstarted`, now owns
+  `PLAN-QC-MYPY-FOUNDATION-ORDER`. The current mypy/QC queue begins at
+  `PHASE-QC-BASIC-TYPING-HYGIENE` and
+  `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`.
+- `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: `needs-review`, but repo-side
+  selection is now DAG-gated by `PHASE-QC-BASIC-TYPING-HYGIENE`.
 
 ## Recent decision delta
 
@@ -77,6 +83,24 @@ Repo-visible root state at this handoff refresh:
 - The plugin feature tree itself remains review-ready; do not reopen it unless the
   post-cleanup runtime-inherited cases still fail statically.
 - `FEATURE-MODULES-WITH-FORMS-AND-LATTICES` is the next mathematical feature root, but it is not the current pickup while the QC/plugin prerequisite chain remains open in the tracker DAG.
+- User clarified on 2026-05-13 that aggregate mypy output is not a usable queue:
+  basic annotations, `Any`, untyped fixtures, and ordinary hygiene are the first
+  QC frontier; dynamic-inheritance failures (`@override`, `@final`,
+  `@abstractmethod`, MRO/base injection) are the narrow plugin lane; stub
+  generation is a separate downstream phase; ordinary downstream type cleanup
+  comes last.
+- `PLAN-QC-MYPY-FOUNDATION-ORDER` encodes that order:
+  `PHASE-QC-BASIC-TYPING-HYGIENE` ->
+  `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` ->
+  `PHASE-QC-STUB-GENERATION` ->
+  `PHASE-QC-DOWNSTREAM-TYPE-CLEANUP`.
+- The next selectable QC task is
+  `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`. It must extract and split only the
+  basic-hygiene subset before any plugin, stub, or downstream category typing
+  task is selected.
+- There was no pre-existing full stub-generation task in the QC/plugin DAG; the
+  explicit task is now `TASK-QC-GENERATE-TYPE-STUBS`, gated by the
+  dynamic-inheritance plugin review phase.
 
 ## Non-goals
 
@@ -85,11 +109,21 @@ Repo-visible root state at this handoff refresh:
 - Do not treat every remaining Hom/End/Aut `misc: override` error as plugin debt, and
   do not treat backend Sage container reuse as semantic inheritance.
 - Do not start ModulesWithForms/lattices implementation or downstream Coble features while the QC/plugin prerequisite chain remains unresolved in the tracker graph.
+- Do not discuss or select dynamic-inheritance plugin review, stub generation, or
+  downstream type cleanup while `PHASE-QC-BASIC-TYPING-HYGIENE` is incomplete,
+  except to state that they are DAG-gated.
 
 ## Validation state
 
-- In `~/sage-mypy-plugin`, `just test` passes (`27 passed, 3 warnings`).
-- Third-party subtree integration coverage passes in `tests/test_mypy_integration.py`.
+- In `~/sage-mypy-plugin`, the dirty 2026-05-13 plugin update passes `just test`
+  (`121 passed, 3 warnings`). The update adds helper-alias, assigned-member,
+  post-bind, final, abstract, and parameterized third-party fixture coverage in
+  `tests/test_mypy_integration.py` and `tests/fixtures/third_party_pkg/`.
+- The previously failing helper-alias reproductions under
+  `tests/fixtures/third_party_pkg/categories/mypy_test_fixtures/` now pass in the
+  plugin-local suite. This resolves the plugin-local helper-alias red set, but it is
+  not sufficient to close the research plugin feature because repo-side QC still has
+  category-spec override failures.
 - The repo-local reproduction `test_override.py` passes under a plugin-enabled mypy config.
 - Under `/home/dzack/ai/quality-control/mypy-global.ini`, `test_override.py` no longer reports the override error, which is the config-path proof that the plugin now loads on that validation path.
 - Sage runtime MRO probes still show that `category_specs.homsets.homsets.HomCategory.parent_class`
@@ -113,21 +147,14 @@ Repo-visible root state at this handoff refresh:
     earlier with `ParameterizedCategoryError` because alias resolution maps it to
     `SetHomCategory.ElementMethods`, and `instantiate_category_from_source_path`
     cannot build `SetHomCategory` without a `base_category`.
-- Plugin repo TDD reproductions now exist in `~/sage-mypy-plugin` and fail live:
-  - `test_third_party_helper_alias_parent_methods_override`
-  - `test_third_party_helper_alias_element_methods_override`
-  - `test_third_party_helper_alias_parameterized_override`
-  - `test_third_party_helper_alias_parent_methods_transitive_override`
-  - `test_third_party_helper_alias_element_methods_transitive_override`
-  - `test_third_party_helper_alias_parameterized_parent_methods_override`
-  with real third-party fixtures under
-  `tests/fixtures/third_party_pkg/categories/mypy_test_fixtures/`.
-  A focused run of the helper-alias red set now reports `6 failed`, and each failure
-  message includes the plugin's own projection summary:
-  dynamic class, dynamic bases, static bases, and unmapped dynamic bases. The
-  crucial observation is that the plugin often reports the expected static base
-  (for example `_AliasBaseParentMethods`) while mypy still emits
-  `no base method was found`.
+- 2026-05-13 repo-side validation with the dirty plugin checkout still fails:
+  `just test` stops at global mypy with `1701 errors in 196 files`. A focused mypy
+  run on `category_specs/homsets/endsets.py`, `category_specs/homsets/autsets.py`,
+  `category_specs/sets/homsets.py`, `category_specs/cat/endsets.py`, and
+  `category_specs/cat/autsets.py` still reports `misc: override`, final-override,
+  construction-signature, and type-alias/attribute failures. Do not mark the plugin
+  feature, plan, phases, or tasks complete until an independent review distinguishes
+  remaining plugin misses from real category-spec defects.
 - The remaining observed non-plugin failure shapes are now also covered in the plugin
   repo by passing rejection tests:
   - helper-alias first-definition misuse of `@override`
@@ -145,3 +172,5 @@ Repo-visible root state at this handoff refresh:
   plan-validate` passed with all schemas valid and rewrote `plans/plan-dag.md`; `just
   plan-progress-report` regenerated `plans/card-progress-report.md` at
   `2026-05-12 10:55 UTC`.
+- 2026-05-13 card repair created `PLAN-QC-MYPY-FOUNDATION-ORDER` and its four
+  ordered phases/tasks. Validation still needs to be rerun after this edit.

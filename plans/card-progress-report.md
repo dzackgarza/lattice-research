@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-12 11:53 UTC_
+_Generated: 2026-05-13 08:33 UTC_
 
 ## Overall
 
-- Total cards: **294**
+- Total cards: **303**
 - Completed cards: **248**
-- Overall progress: `[####################----]  84.4%`
+- Overall progress: `[####################----]  81.8%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -16,10 +16,10 @@ _Generated: 2026-05-12 11:53 UTC_
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 20 | 20 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 3 | 1 | 0 | 0 |
-| phase | 23 | 18 | 2 | 3 | 0 | 0 |
-| plan | 11 | 7 | 3 | 1 | 0 | 0 |
+| phase | 27 | 18 | 2 | 3 | 0 | 0 |
+| plan | 12 | 7 | 3 | 1 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 160 | 139 | 0 | 11 | 0 | 0 |
+| task | 164 | 139 | 0 | 11 | 0 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -29,9 +29,9 @@ _Generated: 2026-05-12 11:53 UTC_
 
 ### Task Activity Types
 
-- `implementation`: **11**
+- `implementation`: **13**
 - `source-mining`: **8**
-- `validation`: **2**
+- `validation`: **4**
 
 ## Feature Rollup
 
@@ -56,18 +56,17 @@ _Generated: 2026-05-12 11:53 UTC_
 | Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 17 | 0 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Zero QC warnings — repo-wide QC gate | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
+| Zero QC warnings — repo-wide QC gate | `[----------------]   0.0%` | 0/10 | 0 | 0 | 0 | 0 |
 
 ## High-Priority DAG Frontier
 
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
+- `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `unstarted`)
+- `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (`critical`, `unstarted`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (`critical`, `in-progress`)
-- `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-review`)
-- `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-review`)
-- `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-review`)
-- `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-review`)
-- `task` `TASK-MYPY-PARSER`: Implement parse_method_container_fullname and is_sage_method_container (`high`, `needs-review`)
+- `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `approved-and-unstarted`)
+- `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Inventory basic mypy hygiene findings (`critical`, `unstarted`)
 
 ## High-Priority DAG-Gated Items
 
@@ -75,17 +74,17 @@ _Generated: 2026-05-12 11:53 UTC_
 - `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
 - `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `feature` `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: gated by `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
-- `feature` `FEATURE-QC-WARNINGS-ZERO`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
+- `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE` (`critical`, `unstarted`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
 - `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `unstarted`)
+- `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` (`critical`, `unstarted`)
 - `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `unstarted`)
 - `feature` `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`: gated by `FEATURE-COBLE-K3-FOLDING-INVOLUTION`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-COXETER-PARABOLIC-CLASSIFICATION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `in-progress`)
 - `feature` `FEATURE-COBLE-K3-FOLDING-INVOLUTION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-MODULI-COMPARISON`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
-- `feature` `FEATURE-COBLE-STABLE-MODEL-SLC`: gated by `FEATURE-COBLE-MODULI-COMPARISON`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 
 ## Blocked Items
 

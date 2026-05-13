@@ -3,7 +3,8 @@ id: FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN
 trackerStatus:
   type: feature
 parents: []
-dependsOn: []
+dependsOn:
+- '[[PHASE-QC-BASIC-TYPING-HYGIENE]]'
 plans:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 title: Mypy plugin for Sage category method override checking
@@ -38,6 +39,11 @@ inherited-method enumeration, or source-level inheritance declarations.
 
 ## Scope
 
+This feature is a narrow dynamic-inheritance plugin. It is not the root of the
+repo's mypy/QC cleanup queue. Repo-side selection of this feature is DAG-gated
+by `PHASE-QC-BASIC-TYPING-HYGIENE`, because missing annotations, `Any`, untyped
+fixtures, and ordinary local code hygiene are the first QC frontier.
+
 - **In scope**: Mypy plugin that hooks `get_customize_class_mro_hook` to inject
   static bases for Sage category method-container classes (`ParentMethods`,
   `ElementMethods`, `MorphismMethods`, and later `Homsets.ParentMethods`,
@@ -54,6 +60,9 @@ inherited-method enumeration, or source-level inheritance declarations.
   generation, downstream public typing. This is strictly about making
   `@override` type-check correctly for Sage category implementations, whether
   they live in Sage's tree or an external package.
+- **Out of scope**: basic repo typing hygiene such as missing return annotations,
+  missing parameter annotations, untyped pytest fixtures, ordinary `Any`
+  cleanup, and post-stub downstream category/type repairs.
 
 ## Design Summary
 
@@ -121,3 +130,7 @@ containers, the test suite includes non-`sage.categories.*` fixtures with
 matching pass/fail behavior, and `/home/dzack/ai/quality-control/mypy-global.ini`
 now loads `sage_mypy_category_plugin.plugin`. Human/independent review is still
 required before this feature can be accepted.
+
+Repo-side QC work must still follow `PLAN-QC-MYPY-FOUNDATION-ORDER`: complete
+basic typing hygiene first, then review this dynamic-inheritance lane, then stub
+generation, then downstream type cleanup.

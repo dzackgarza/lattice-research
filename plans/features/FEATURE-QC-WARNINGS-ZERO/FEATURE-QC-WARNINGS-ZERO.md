@@ -3,17 +3,17 @@ id: FEATURE-QC-WARNINGS-ZERO
 trackerStatus:
   type: feature
 parents: []
-dependsOn:
-- '[[FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN]]'
-plans: []
+dependsOn: []
+plans:
+- '[[PLAN-QC-MYPY-FOUNDATION-ORDER]]'
 title: Zero QC warnings — repo-wide QC gate
 status: unstarted
 priority: critical
 description: 'Eliminate all blocking QC findings across the repo so that `just test`
   from the global QC authority passes cleanly. This is a mandatory gate: no further
-  feature work (spec, implementation, research, Coble) proceeds until QC is clean.
-  Depends on the Sage mypy category override plugin to resolve ~500 false-positive
-  mypy errors from Sage''s dynamic dispatch system.
+  feature work (spec, implementation, research, Coble) proceeds until QC is clean. The
+  mypy cleanup order is basic typing hygiene first, dynamic-inheritance plugin review
+  second, stub generation third, and downstream type cleanup last.
 
   '
 ---
@@ -28,9 +28,11 @@ errors), ruff (612 errors), black (13 files), and semgrep (14 findings). Per
 defects in the repo.
 
 This feature gates all further work (spec, implementation, research, Coble) until
-`just test` passes with zero findings. It depends on the Sage mypy category
-override plugin (`FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`) to resolve ~500
-false-positive mypy errors before the remaining genuine issues can be addressed.
+`just test` passes with zero findings. Its mypy work is ordered by
+`PLAN-QC-MYPY-FOUNDATION-ORDER`; do not treat aggregate mypy output as one queue.
+The first selectable work is basic annotation, `Any`, fixture, and ordinary code
+hygiene. The Sage mypy plugin is a later dynamic-inheritance lane, and stub
+generation is later still.
 
 ## Source Provenance
 
@@ -54,10 +56,26 @@ false-positive mypy errors before the remaining genuine issues can be addressed.
 
 ## Dependencies And Boundaries
 
-Depends on `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` for the ~500 Sage
-dispatch false positives. The remaining ~1,200 mypy errors, 612 ruff errors, 13
-black files, and 14 semgrep findings are actionable in the current tree with or
-without the plugin.
+The mypy queue is not a flat list. Its declared order is:
+
+- `PHASE-QC-BASIC-TYPING-HYGIENE`: first frontier. Missing annotations,
+  `Any` leakage, untyped fixtures, and ordinary local code hygiene are real
+  current-tree defects. Nothing downstream in the mypy cleanup queue is
+  selectable until this phase is complete.
+- `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: second frontier. This is the
+  narrow plugin lane for Sage dynamic method-container inheritance: `@override`,
+  `@final`, `@abstractmethod`, and related MRO/base-injection behavior.
+- `PHASE-QC-STUB-GENERATION`: third frontier. Sage, pytest, `.pyi`,
+  `TypeAlias`, and generated static surface issues belong here and strictly
+  depend on the dynamic-inheritance plugin lane.
+- `PHASE-QC-DOWNSTREAM-TYPE-CLEANUP`: final mypy frontier. Only after the
+  preceding phases are complete should remaining incompatible signatures,
+  constructor calls, `attr-defined`, and category-specific typing defects be
+  classified as ordinary downstream fixes.
+
+The remaining 612 ruff errors, 13 black files, and 14 semgrep findings are also
+part of this QC feature, but they do not license skipping the mypy dependency
+order above.
 
 Every non-complete feature in the repo depends on this gate. No spec,
 implementation, research, or Coble work proceeds until QC is clean.
@@ -210,9 +228,9 @@ them in type annotations is architecturally correct, but mypy cannot validate
 them without a `TypeAlias` intermediary or a `.pyi` stub layer that flattens
 the dynamic hierarchy into static types.
 
-**Resolution**: May be partially resolved by the plugin (if `self` typing is
-improved). Remaining cases may need `TypeAlias` intermediaries. Assessment
-deferred until plugin is operational.
+**Resolution**: Route through `PHASE-QC-STUB-GENERATION` after the basic hygiene
+and dynamic-inheritance plugin frontiers are complete. Do not fold this into the
+plugin lane unless the failure is first proven to be a base-injection/MRO problem.
 
 #### A3. Missing attributes on dynamically-assembled classes (`attr-defined`)
 
@@ -225,7 +243,12 @@ that inherits this method via category join. Mypy sees `self` typed as
 `ParentMethods` (the mixin class) and knows nothing about the concrete object's
 attributes.
 
-**Resolution**: Same as A1/A2 — blocked on plugin.
+**Resolution**: Not a single bucket. If the missing attribute is caused by
+method-container MRO/base injection, route it through
+`PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`. If it requires a static `.pyi`,
+`TypeAlias`, or generated surface, route it through
+`PHASE-QC-STUB-GENERATION`. Otherwise defer it to
+`PHASE-QC-DOWNSTREAM-TYPE-CLEANUP`.
 
 ### Category B: Genuinely Missing Type Annotations (est. ~800 errors, ~47%)
 
