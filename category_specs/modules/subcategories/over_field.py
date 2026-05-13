@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, final, override
 
 from abc import abstractmethod
+from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -21,7 +22,7 @@ class _OverField(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().OverPID()]
 
     @override

@@ -42,7 +42,7 @@ class _ModuleBaseRings(CategoryWithAxiom):
     class ParentMethods:
         """Methods available on ring parents after ModuleBaseRings refinement."""
 
-        def __pow__(self, n):
+        def __pow__(self: Any, n: Any) -> object:
             """Return R^n as an enriched free module.
 
             For a module base ring R, R^n is an enriched free R-module parent.
@@ -53,7 +53,7 @@ class _ModuleBaseRings(CategoryWithAxiom):
                 return VectorSpace(self, n)
             raise TypeError(f"exponent {n} must be a nonnegative integer")
 
-        def ideal(self, *args, **kwds):
+        def ideal(self: Any, *args: Any, **kwds: Any) -> object:
             """Construct an ideal-submodule of this ring.
 
             Delegates to the native Sage ideal constructor, then refines
@@ -72,7 +72,7 @@ class _ModuleBaseRings(CategoryWithAxiom):
         ...
 
 
-def _install_module_base_rings():
+def _install_module_base_rings() -> None:
     """Install ModuleBaseRings refinement into target PID ring parents.
 
     Idempotent: calling this multiple times is safe.
@@ -108,4 +108,3 @@ def _install_module_base_rings():
 
 # Automatically install on import
 _install_module_base_rings()
-

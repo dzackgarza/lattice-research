@@ -2,7 +2,7 @@ r"""Finite meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 
@@ -69,7 +69,10 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
                 closure.add(generator)
 
             raw = SageMeetSemilattice(self.subposet(closure))
-            return refine_category(raw, [Posets().MeetSemilattice().Finite()])
+            return cast(
+                FiniteMeetSemilatticePoset,
+                refine_category(raw, [Posets().MeetSemilattice().Finite()]),
+            )
 
     class ElementMethods: ...
 

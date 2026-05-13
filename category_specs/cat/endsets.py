@@ -15,7 +15,7 @@ class _CatEndofunctorMethods(_CatFunctorMethods):
     @final
     def is_endofunctor(self) -> bool:
         r"""Return whether this Cat morphism is an endofunctor."""
-        return self.domain() == self.codomain()
+        return bool(self.domain() == self.codomain())
 
 
 class CatEndCategory(EndCategoryOf):

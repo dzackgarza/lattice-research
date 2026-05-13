@@ -3,7 +3,7 @@ r"""Tensor products of modules."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, TypeVar, Callable, cast, final, override
 
 from sage.categories.tensor import TensorProductFunctor
 from abc import abstractmethod
@@ -19,6 +19,9 @@ _TensorAlgebraComponents = LazyImport(
     "category_specs.tensor_algebra_components", "TensorAlgebraComponents"
 )
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 
 class _TensorProducts(TensorProductsCategory):
     r"""Tensor products of R-modules.
@@ -26,10 +29,10 @@ class _TensorProducts(TensorProductsCategory):
     Canonical chain: ``Modules(R).TensorProducts()``.
     """
 
-    @cached_method
+    @_cached_method
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Declare that M tensor_R N is again an R-module."""
         return [self.base_category()]
 
@@ -48,7 +51,7 @@ class _TensorProducts(TensorProductsCategory):
             ...
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def TensorAlgebraComponents(self) -> Category:
             r"""Return the category of graded pieces ``T_R(M)[p,q]``."""

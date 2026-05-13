@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
+from sage.categories.category import Category
+from typing import cast
 
 from abc import abstractmethod
 
@@ -35,7 +37,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().Free()]
 
     @override
@@ -45,7 +47,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @final
-        def WithOrderedBasis(self):
+        def WithOrderedBasis(self) -> Category:
             return self.base_category().WithOrderedBasis()
 
     class ParentMethods:
@@ -58,8 +60,8 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         def basis(self) -> ModuleBasis: ...
 
         @final
-        def basis_index_set(self):
-            return self.basis().keys()
+        def basis_index_set(self) -> Sequence[CategoryElement]:
+            return cast(Sequence[CategoryElement], self.basis().keys())
 
         @abstractmethod
         def monomial(self, index: CategoryElement) -> RModuleElement:
@@ -162,7 +164,7 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [
             self.base_category().WithBasis(),
             self.base_category().WithOrderedGeneratingSet(),

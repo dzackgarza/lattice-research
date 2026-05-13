@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import final, override
 
+from ..cat import Category
+
 from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
@@ -50,7 +52,7 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Return the generic hom-category surface refined by continuous maps."""
         return [HomCategoryOf(self.base_category())]
 
@@ -97,7 +99,7 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Return the continuous-map hom category refined by short maps."""
         return [TopologicalSpaceHomCategory(self.base_category())]
 

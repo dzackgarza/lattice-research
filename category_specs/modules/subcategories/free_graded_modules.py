@@ -31,7 +31,7 @@ class _FreeGradedModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Category.join([Modules(R).Free(), Modules(R).Graded()])]
 

@@ -2,7 +2,7 @@ r"""Finite join-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 
@@ -64,7 +64,10 @@ class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
                 closure.add(generator)
 
             raw = SageJoinSemilattice(self.subposet(closure))
-            return refine_category(raw, [Posets().JoinSemilattice().Finite()])
+            return cast(
+                FiniteJoinSemilatticePoset,
+                refine_category(raw, [Posets().JoinSemilattice().Finite()]),
+            )
 
     class ElementMethods: ...
 

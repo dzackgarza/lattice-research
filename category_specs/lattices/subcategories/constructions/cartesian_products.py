@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import final
 
+from ... import LatticesCategory
+
 from ....cat import CartesianProductsCategory
 
 
@@ -14,7 +16,7 @@ class _CartesianProducts(CartesianProductsCategory):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[LatticesCategory]:
         return [self.base_category()]
 
     class ParentMethods: ...

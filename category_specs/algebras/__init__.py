@@ -25,7 +25,7 @@ Subcategory hierarchy::
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final, override, TypeAlias
+from typing import TYPE_CHECKING, Any, cast, final, override, TypeAlias
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
@@ -123,7 +123,7 @@ class MagmaticAlgebras(Category_over_base_ring):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> None:
         r"""Return ``None`` because the multiplication is already morphism data."""
         return None
 
@@ -217,7 +217,8 @@ class _AlgebraParentMethods:
 
         It is closed under left multiplication by ``A``.
         """
-        return self.ideal_submodule(generators, side="left")
+        algebra_parent = cast(Any, self)
+        return cast(AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="left"))
 
     @final
     def right_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
@@ -225,28 +226,37 @@ class _AlgebraParentMethods:
 
         It is closed under right multiplication by ``A``.
         """
-        return self.ideal_submodule(generators, side="right")
+        algebra_parent = cast(Any, self)
+        return cast(AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="right"))
 
     @final
     def two_sided_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
         r"""Return the smallest ``R``-submodule containing ``generators`` and
         closed under left and right multiplication by ``A``."""
-        return self.ideal_submodule(generators, side="twosided")
+        algebra_parent = cast(Any, self)
+        return cast(
+            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="twosided")
+        )
 
     @final
     def principal_left_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal left ideal ``A * generator``."""
-        return self.principal_ideal(generator, side="left")
+        algebra_parent = cast(Any, self)
+        return cast(AlgebraIdeal, algebra_parent.principal_ideal(generator, side="left"))
 
     @final
     def principal_right_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal right ideal ``generator * A``."""
-        return self.principal_ideal(generator, side="right")
+        algebra_parent = cast(Any, self)
+        return cast(AlgebraIdeal, algebra_parent.principal_ideal(generator, side="right"))
 
     @final
     def principal_two_sided_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal two-sided ideal ``A * generator * A``."""
-        return self.principal_ideal(generator, side="twosided")
+        algebra_parent = cast(Any, self)
+        return cast(
+            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="twosided")
+        )
 
     @abstractmethod
     def derivations(self) -> RModule:
@@ -396,13 +406,16 @@ class Algebras(Category_module):
         @final
         def base_ring(self) -> Ring:
             r"""Return the base ring of the constructed algebras."""
-            return self.category().base_ring()
+            return cast(Ring, self.category().base_ring())
 
         @final
         def _refine_constructed_algebra(
             self, algebra: Algebra, categories: Sequence[Category]
         ) -> Algebra:
-            return refine_category(algebra, [self.category(), *categories], test=False)
+            return cast(
+                Algebra,
+                refine_category(algebra, [self.category(), *categories], test=False),
+            )
 
         @final
         def _refine_constructed_magmatic_algebra(
@@ -410,8 +423,11 @@ class Algebras(Category_module):
             algebra: MagmaticAlgebra,
             categories: Sequence[Category],
         ) -> MagmaticAlgebra:
-            return refine_category(
-                algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False
+            return cast(
+                MagmaticAlgebra,
+                refine_category(
+                    algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False
+                ),
             )
 
         @final
@@ -654,7 +670,7 @@ class Algebras(Category_module):
 
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> "Algebras.Constructors":
         r"""Return the named algebra constructor collector over this base ring."""
         return self.__class__._Constructors(self)
 

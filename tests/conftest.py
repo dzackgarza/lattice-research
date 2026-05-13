@@ -3,12 +3,13 @@ import os
 import time
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 
 _TIMING_ENV_VAR = "COBLE_RESEARCH_TEST_TIMING_DIR"
 _SESSION_STARTED_AT = 0.0
-_SESSION_REPORTS: dict[str, dict[str, object]] = {}
+_SESSION_REPORTS: dict[str, dict[str, Any]] = {}
 _SESSION_DESELECTED = 0
 _SESSION_COLLECTED = 0
 _SESSION_SELECTED = 0
@@ -32,15 +33,15 @@ def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
         handle.write("\n")
 
 
-def pytest_addoption(parser):
+def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption("--run-slow", action="store_true", default=False, help="run slow tests (>2 min)")
 
 
-def pytest_configure(config):
+def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line("markers", "slow: marks tests that take more than 2 minutes")
 
 
-def pytest_sessionstart(session):
+def pytest_sessionstart(session: pytest.Session) -> None:
     global _SESSION_STARTED_AT, _SESSION_REPORTS, _SESSION_DESELECTED
     global _SESSION_COLLECTED, _SESSION_SELECTED
     _SESSION_STARTED_AT = time.time()
@@ -50,18 +51,18 @@ def pytest_sessionstart(session):
     _SESSION_SELECTED = 0
 
 
-def pytest_collection_finish(session):
+def pytest_collection_finish(session: pytest.Session) -> None:
     global _SESSION_COLLECTED, _SESSION_SELECTED
     _SESSION_COLLECTED = session.testscollected
     _SESSION_SELECTED = len(session.items)
 
 
-def pytest_deselected(items):
+def pytest_deselected(items: list[pytest.Item]) -> None:
     global _SESSION_DESELECTED
     _SESSION_DESELECTED += len(items)
 
 
-def pytest_collection_modifyitems(config, items):
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
     if config.getoption("--run-slow"):
         return
     skip_slow = pytest.mark.skip(reason="skipped by default; use --run-slow to enable")
@@ -70,7 +71,7 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(skip_slow)
 
 
-def pytest_runtest_logreport(report):
+def pytest_runtest_logreport(report: pytest.TestReport) -> None:
     node_report = _SESSION_REPORTS.setdefault(report.nodeid, {"nodeid": report.nodeid})
     node_report[f"{report.when}_seconds"] = report.duration
     phase_outcomes = node_report.setdefault("phase_outcomes", {})
@@ -83,9 +84,9 @@ def pytest_runtest_logreport(report):
         node_report["outcome"] = report.outcome
 
 
-def pytest_sessionfinish(session, exitstatus):
+def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     finished_at = time.time()
-    records = []
+    records: list[dict[str, Any]] = []
     for report in _SESSION_REPORTS.values():
         setup_seconds = float(report.get("setup_seconds", 0.0))
         call_seconds = float(report.get("call_seconds", 0.0))
@@ -150,13 +151,15 @@ def pytest_sessionfinish(session, exitstatus):
     }
     history_path = timing_root / "history.jsonl"
     _append_jsonl(history_path, history_entry)
-    session.config._timing_session_path = session_path
-    session.config._timing_history_path = history_path
+    config_storage = cast(Any, session.config)
+    config_storage._timing_session_path = session_path
+    config_storage._timing_history_path = history_path
 
 
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
-    session_path = getattr(config, "_timing_session_path", None)
-    history_path = getattr(config, "_timing_history_path", None)
+def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter, exitstatus: int, config: pytest.Config) -> None:
+    config_storage = cast(Any, config)
+    session_path = getattr(config_storage, "_timing_session_path", None)
+    history_path = getattr(config_storage, "_timing_history_path", None)
     if session_path is not None and history_path is not None:
         terminalreporter.write_sep(
             "-",

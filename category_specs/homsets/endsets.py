@@ -2,7 +2,7 @@ r"""End categories and endomorphism method surfaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
@@ -88,7 +88,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
     @final
     def Of(self, domain: CategoryObject) -> End:
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
-        return self.base_category().HomCategory().Of(domain, domain)
+        return cast("End", self.base_category().HomCategory().Of(domain, domain))
 
     @override
     @classmethod
@@ -128,7 +128,7 @@ class EndCategoryOf(CategoryWithAxiom):
     @final
     def Of(self, domain: CategoryObject) -> End:
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
-        return self.base_category().Of(domain, domain)
+        return cast("End", self.base_category().Of(domain, domain))
 
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods

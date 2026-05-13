@@ -223,7 +223,7 @@ class TopologicalSpaces(CategoryWithAxiom):
 
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Constructors:
         r"""Return the topological-space constructor collector."""
         return self.__class__._Constructors()
 

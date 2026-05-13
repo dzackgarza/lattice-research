@@ -3,7 +3,7 @@ r"""Quotient modules."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 
@@ -134,6 +134,6 @@ class _Quotients(QuotientsCategory):
     class ElementMethods:
         @final
         def lift(self) -> RModuleElement:
-            return self.projection().lift(self)
+            return cast("RModuleElement", self.projection().lift(self))
 
     class MorphismMethods: ...

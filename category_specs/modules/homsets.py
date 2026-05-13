@@ -15,7 +15,7 @@ generic Sage group wrapper.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, TypeVar, Callable, cast, final, override
 
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
 from abc import abstractmethod
@@ -44,6 +44,9 @@ if TYPE_CHECKING:
         SubModule,
     )
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 
 # ---------------------------------------------------------------------------
 # Hom-level parent methods
@@ -51,12 +54,12 @@ if TYPE_CHECKING:
 
 
 class _RModHomCategoryObjectMethods:
-    @cached_method
+    @_cached_method
     @final
-    def zero(self):
+    def zero(self) -> RModMorphism:
         from sage.misc.constant_function import ConstantFunction
 
-        return self(ConstantFunction(self.codomain().zero()))
+        return cast(RModMorphism, self(ConstantFunction(self.codomain().zero())))
 
     @abstractmethod
     def natural_morphism(self) -> RModMorphism:
@@ -113,7 +116,7 @@ class _RModMorphisms:
     @final
     def is_primitive(self) -> bool:
         r"""``f: M -> N`` is primitive iff coker(f) is torsionfree."""
-        return self.cokernel().is_torsionfree()
+        return bool(self.cokernel().is_torsionfree())
 
     @abstractmethod
     def lift(self, m: RModuleElement) -> RModuleElement:
@@ -134,7 +137,10 @@ class _RModMorphisms:
         Sat_B(im(f)) and return ``h := g \circ f`` in Hom_R(A, B) so that
         im(h) is saturated.
         """
-        return self.image().saturation().inclusion().pre_compose(self)
+        return cast(
+            Self,
+            self.image().saturation().inclusion().pre_compose(self),
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -173,12 +179,12 @@ class RModuleHomCategory(HomCategoryOf):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""``Hom_R(M, N)`` is again an R-module for any M, N."""
         return [HomCategoryOf(self.base_category()), self.base_category()]
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Forms(self) -> Category:
             return self._with_axiom("Forms")
@@ -222,49 +228,49 @@ class _Forms(CategoryWithAxiom):
             ...
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Rational(self) -> Category:
             r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return self._with_axiom("Rational")
 
-        @cached_method
+        @_cached_method
         @final
         def Integral(self) -> Category:
             r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
             return self._with_axiom("Integral")
 
-        @cached_method
+        @_cached_method
         @final
         def Linear(self) -> Category:
             r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
             return self._with_axiom("Linear")
 
-        @cached_method
+        @_cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
             return self._with_axiom("Bilinear")
 
-        @cached_method
+        @_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Quadratic forms on ``M``."""
             return self._with_axiom("Quadratic")
 
-        @cached_method
+        @_cached_method
         @final
         def NonDegenerate(self) -> Category:
             r"""Forms with trivial kernels."""
             return self._with_axiom("NonDegenerate")
 
-        @cached_method
+        @_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Symmetric forms: represented type ``(0,n)``."""
             return self._with_axiom("Symmetric")
 
-        @cached_method
+        @_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Alternating forms: represented type ``(0,n)``."""
@@ -293,7 +299,7 @@ class _Bilinear(CategoryWithAxiom):
 
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return self.evaluate(v.tensor(w))
+            return cast(RModuleElement, self.evaluate(v.tensor(w)))
 
     class MorphismMethods: ...
 
@@ -313,7 +319,7 @@ class _Quadratic(CategoryWithAxiom):
 
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
-            return self.evaluate(v)
+            return cast(RModuleElement, self.evaluate(v))
 
     class MorphismMethods: ...
 
@@ -332,7 +338,7 @@ class RModuleEndCategory(GenericEndCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""End_R(M) is an R-algebra."""
         from ..algebras import Algebras
         from . import Modules
@@ -377,9 +383,9 @@ class RModuleAutCategory(GenericAutCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
-        return super().extra_super_categories()
+        return cast(list[Category], super().extra_super_categories())
 
     class ParentMethods:
         r"""Module-specific aut parent methods; generic aut methods are inherited."""

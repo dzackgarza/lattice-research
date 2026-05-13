@@ -3,7 +3,7 @@ r"""Finite order-theoretic lattice poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable
-from typing import TYPE_CHECKING, Literal, final, override
+from typing import TYPE_CHECKING, Literal, cast, final, override
 
 from sage.categories.finite_lattice_posets import (
     FiniteLatticePosets as SageFiniteLatticePosets,
@@ -62,7 +62,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def atomic_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return atomicity and a non-atomic join-irreducible if false."""
-            return self.is_atomic(certificate=True)
+            return cast(
+                tuple[bool, PosetElement | None],
+                self.is_atomic(certificate=True),
+            )
 
         @abstractmethod
         def is_coatomic(self) -> bool:
@@ -72,7 +75,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def coatomic_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return coatomicity and a non-coatomic meet-irreducible if false."""
-            return self.is_coatomic(certificate=True)
+            return cast(
+                tuple[bool, PosetElement | None],
+                self.is_coatomic(certificate=True),
+            )
 
         @abstractmethod
         def is_complemented(self) -> bool:
@@ -82,7 +88,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def complemented_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return complementedness and an uncomplemented element if false."""
-            return self.is_complemented(certificate=True)
+            return cast(
+                tuple[bool, PosetElement | None],
+                self.is_complemented(certificate=True),
+            )
 
         @abstractmethod
         def is_distributive(self) -> bool:
@@ -94,7 +103,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             self,
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return distributivity status with a violating triple when false."""
-            return self.is_distributive(certificate=True)
+            return cast(
+                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                self.is_distributive(certificate=True),
+            )
 
         @abstractmethod
         def is_modular(self) -> bool:
@@ -104,14 +116,17 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def are_modular_elements(self, elements: Iterable[PosetElement]) -> bool:
             r"""Return whether every element in ``elements`` is modular."""
-            return self.is_modular(list(elements))
+            return cast(bool, self.is_modular(list(elements)))
 
         @final
         def modular_certificate(
             self,
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return modularity status with a violating triple when false."""
-            return self.is_modular(certificate=True)
+            return cast(
+                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                self.is_modular(certificate=True),
+            )
 
         @final
         def modular_elements_certificate(
@@ -119,7 +134,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             elements: Iterable[PosetElement],
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return modularity for ``elements`` and a violating triple if false."""
-            return self.is_modular(list(elements), certificate=True)
+            return cast(
+                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                self.is_modular(list(elements), certificate=True),
+            )
 
         @abstractmethod
         def is_semidistributive(self) -> bool:
@@ -129,7 +147,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def join_irreducibles(self) -> list[PosetElement]:
             r"""Return the join-irreducible elements."""
-            return SageFiniteLatticePosets.ParentMethods.join_irreducibles(self)
+            return cast(
+                list[PosetElement],
+                SageFiniteLatticePosets.ParentMethods.join_irreducibles(self),
+            )
 
         @final
         def join_irreducibles_poset(self) -> Poset:
@@ -139,7 +160,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def meet_irreducibles(self) -> list[PosetElement]:
             r"""Return the meet-irreducible elements."""
-            return SageFiniteLatticePosets.ParentMethods.meet_irreducibles(self)
+            return cast(
+                list[PosetElement],
+                SageFiniteLatticePosets.ParentMethods.meet_irreducibles(self),
+            )
 
         @final
         def meet_irreducibles_poset(self) -> Poset:
@@ -149,15 +173,20 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def irreducibles_poset(self) -> Poset:
             r"""Return the poset of meet- and join-irreducible elements."""
-            return SageFiniteLatticePosets.ParentMethods.irreducibles_poset(self)
+            return cast(
+                Poset, SageFiniteLatticePosets.ParentMethods.irreducibles_poset(self)
+            )
 
         @final
         def is_lattice_morphism(
             self, f: Callable[[PosetElement], PosetElement], codomain: LatticePoset
         ) -> bool:
             r"""Return whether ``f`` preserves finite meets and joins."""
-            return SageFiniteLatticePosets.ParentMethods.is_lattice_morphism(
+            return cast(
+                bool,
+                SageFiniteLatticePosets.ParentMethods.is_lattice_morphism(
                 self, f, codomain
+                ),
             )
 
         @abstractmethod
@@ -192,7 +221,10 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             labels: Literal["congruence", "integer"] = "congruence",
         ) -> FiniteLatticePoset:
             r"""Return the lattice of congruences ordered by refinement."""
-            return self.congruences_lattice(labels=labels)
+            return cast(
+                FiniteLatticePoset,
+                self.congruences_lattice(labels=labels),
+            )
 
     class ElementMethods: ...
 

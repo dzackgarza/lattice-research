@@ -21,7 +21,9 @@ class _Category_over_base_integer(CategoryWithParameters):
     parameter_name = "integer"
 
     @staticmethod
-    def __classcall_private__(cls, category: Category, base_integer: Integer):
+    def __classcall_private__(
+        cls, category: Category, base_integer: Integer
+    ) -> "_Category_over_base_integer":
         return super().__classcall__(cls, category, Integer(base_integer))
 
     def __init__(self, category: Category, base_integer: Integer) -> None:
@@ -44,7 +46,7 @@ class _Category_over_base_integer(CategoryWithParameters):
 
     @override
     @final
-    def _make_named_class_key(self, name: str):
+    def _make_named_class_key(self, name: str) -> tuple[Category, Integer]:
         return (self.base_category(), self.base_integer())
 
     class ParentMethods: ...
@@ -66,12 +68,12 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
     @staticmethod
     def __classcall_private__(
         cls, base_ring: Ring, n: Integer, m: Integer | None = None
-    ):
+    ) -> "_Category_over_base_integer_pair":
         if m is None:
             m = n
         return super().__classcall__(cls, base_ring, Integer(n), Integer(m))
 
-    def __init__(self, base_ring: Ring, n: Integer, m: Integer):
+    def __init__(self, base_ring: Ring, n: Integer, m: Integer) -> None:
         self._base_ring = base_ring
         self._n = Integer(n)
         self._m = Integer(m)
@@ -91,7 +93,7 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
 
     @override
     @final
-    def _make_named_class_key(self, name: str):
+    def _make_named_class_key(self, name: str) -> tuple[Ring, Integer, Integer]:
         return (self._base_ring, self._n, self._m)
 
     @override

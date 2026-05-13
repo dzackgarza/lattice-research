@@ -2,7 +2,7 @@ r"""Totally ordered set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 
@@ -61,11 +61,11 @@ class _TotallyOrdered(CategoryWithAxiom):
         @override
         @final
         def __gt__(self, other: SetElement) -> bool:
-            return other.__lt__(self)
+            return cast(bool, other.__lt__(self))
 
         @override
         @final
         def __ge__(self, other: SetElement) -> bool:
-            return other.__le__(self)
+            return cast(bool, other.__le__(self))
 
     class MorphismMethods: ...

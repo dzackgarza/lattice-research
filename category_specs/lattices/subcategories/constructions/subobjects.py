@@ -2,7 +2,7 @@ r"""Subobject construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, cast, final
 
 from abc import abstractmethod
 
@@ -43,7 +43,7 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def lift(self, v: LatticeElement) -> LatticeElement:
-            return self.inclusion()(v)
+            return cast("LatticeElement", self.inclusion()(v))
 
         @abstractmethod
         def saturation(self) -> Lattice: ...

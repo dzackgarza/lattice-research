@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final, override
 
 from abc import abstractmethod
+from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -22,7 +23,7 @@ class _OreModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Modules(R).Free().FiniteRank()]
 

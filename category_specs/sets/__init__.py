@@ -62,11 +62,10 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
 from types import MethodType
-from typing import TYPE_CHECKING, Any, final, overload, override, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, overload, override, TypeAlias
 
 from sage.categories.sets_cat import Sets as SageSets
 from abc import abstractmethod
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity, minus_infinity
 from sage.structure.richcmp import op_EQ, op_GE, op_GT, op_LE, op_LT, op_NE
@@ -100,6 +99,15 @@ if TYPE_CHECKING:
         Subset,
         SympySet,
     )
+    SetPartitionType: TypeAlias = SetPartition
+
+if TYPE_CHECKING:
+    MethodT = TypeVar("MethodT", bound=Callable[..., object])
+
+    def cached_method(method: MethodT) -> MethodT:
+        ...
+else:
+    from sage.misc.cachefunc import cached_method
 
 
 # ---------------------------------------------------------------------------
@@ -119,7 +127,7 @@ class _SetObjectMethods:
     @final
     def _element_constructor_(self, x: SetElement) -> SetElement:
         if hasattr(self, "element_class"):
-            return self.element_class(self, x)
+            return cast(SetElement, self.element_class(self, x))
         raise NotImplementedError(
             "generic set element construction requires an element class"
         )
@@ -129,7 +137,7 @@ class _SetObjectMethods:
         r"""Return whether this set is the parent of ``element``."""
         from sage.structure.element import parent
 
-        return parent(element) == self
+        return cast(bool, parent(element) == self)
 
     @abstractmethod
     def an_element(self) -> SetElement:
@@ -141,7 +149,7 @@ class _SetObjectMethods:
         r"""Return sample elements of this set."""
         from sage.categories.sets_cat import Sets as SageSets
 
-        return SageSets.ParentMethods.some_elements(self)
+        return cast(list[SetElement], SageSets.ParentMethods.some_elements(self))
 
     @abstractmethod
     def cardinality(self) -> Cardinality:
@@ -159,7 +167,7 @@ class _SetObjectMethods:
         ...
 
     @final
-    def construction(self):
+    def construction(self) -> None:
         r"""Return Sage construction data for this set, when it has one."""
         return None
 
@@ -187,9 +195,9 @@ class _SetObjectMethods:
     @final
     def union(self, other: Set) -> Set:
         r"""Return the set-theoretic union of ``self`` and ``other``."""
-        from sage.sets.set import Set
+        from sage.sets.set import Set as SageSet
 
-        return Set(self).union(Set(other))
+        return cast(Set, SageSet(self).union(SageSet(other)))
 
     @final
     def __or__(self, other: Set) -> Set:
@@ -220,13 +228,13 @@ class _SetObjectMethods:
     @final
     def is_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subset."""
-        return other.is_subset(self)
+        return cast(bool, other.is_subset(self))
 
     @override
     @final
     def is_proper_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` properly contains ``other``."""
-        return other.is_proper_subset(self)
+        return cast(bool, other.is_proper_subset(self))
 
     @final
     def __richcmp__(self, other: Set, op: Integer) -> bool:
@@ -267,13 +275,13 @@ class _SetObjectMethods:
         from sage.combinat.subset import Subsets
 
         if size is None:
-            return Subsets(self)
-        return Subsets(self, size)
+            return cast(Set, Subsets(self))
+        return cast(Set, Subsets(self, size))
 
     @final
     def subsets_lattice(self) -> Set:
         r"""Return the lattice of subsets ordered by inclusion."""
-        return self.subsets().lattice()
+        return cast(Set, self.subsets().lattice())
 
     @final
     def free_module(self, base_ring: Ring) -> RModule:
@@ -353,7 +361,7 @@ class Sets(Category_singleton):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> Category | None:
         r"""Return Sage's additional-structure marker for plain sets."""
         return None
 
@@ -636,7 +644,7 @@ class Sets(Category_singleton):
             sage_interior = real_set.interior
             sage_boundary = real_set.boundary
 
-            def is_real_line(X):
+            def is_real_line(X: RealSubset) -> bool:
                 if X.n_components() != 1:
                     return False
                 interval = X.get_interval(0)
@@ -644,36 +652,36 @@ class Sets(Category_singleton):
                     interval.lower() is minus_infinity and interval.upper() is infinity
                 )
 
-            def ambient(U):
+            def ambient(U: RealSubset) -> RealSubset:
                 return (
                     U if is_real_line(U) else self._refine_real_subset(sage_ambient())
                 )
 
-            def is_open(X, U=None):
+            def is_open(X: RealSubset, U: RealSubset | None = None) -> bool:
                 if U is None:
-                    return sage_is_open()
-                return U.is_subset(X) and U.is_open()
+                    return cast(bool, sage_is_open())
+                return cast(bool, U.is_subset(X)) and U.is_open()
 
-            def is_closed(X, U=None):
+            def is_closed(X: RealSubset, U: RealSubset | None = None) -> bool:
                 if U is None:
-                    return sage_is_closed()
-                return U.is_subset(X) and U.is_closed()
+                    return cast(bool, sage_is_closed())
+                return cast(bool, U.is_subset(X)) and U.is_closed()
 
-            def closure(X, U=None):
+            def closure(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_closure())
                 if not U.is_subset(X):
                     raise ValueError("closure subset must lie in its ambient real set")
                 return self._refine_real_subset(U.closure())
 
-            def interior(X, U=None):
+            def interior(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_interior())
                 if not U.is_subset(X):
                     raise ValueError("interior subset must lie in its ambient real set")
                 return self._refine_real_subset(U.interior())
 
-            def boundary(X, U=None):
+            def boundary(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_boundary())
                 if not U.is_subset(X):
@@ -693,7 +701,10 @@ class Sets(Category_singleton):
             r"""Return Sage ``RR`` refined as a topological set object."""
             from sage.rings.real_mpfr import RealField
 
-            return refine_category(RealField(), [Sets(), Sets().Topological()])
+            return cast(
+                Set,
+                refine_category(RealField(), [Sets(), Sets().Topological()]),
+            )
 
         @final
         def RealSetFromIntervals(self, intervals: Sequence[RealInterval]) -> RealSubset:
@@ -930,7 +941,7 @@ class Sets(Category_singleton):
                 else:
                     product_category = product_category & extra_category
             S = SageCP(parents, category=product_category, flatten=flatten)
-            return refine_category(S, [Sets(), _CartesianProductSets()])
+            return cast(Set, refine_category(S, [Sets(), _CartesianProductSets()]))
 
         @final
         def ImageSubobject(
@@ -942,9 +953,12 @@ class Sets(Category_singleton):
             from .subcategories.image import ImageSubobject as ProjectImageSubobject
             from .subcategories.image import _ImageSets
 
-            return refine_category(
-                ProjectImageSubobject(f, domain_subset),
-                [Sets(), _ImageSets()],
+            return cast(
+                Subset,
+                refine_category(
+                    ProjectImageSubobject(f, domain_subset),
+                    [Sets(), _ImageSets()],
+                ),
             )
 
         @final
@@ -1059,7 +1073,10 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(SageSetPartitions(normalized_base), categories)
+            return cast(
+                SetPartitionSet,
+                refine_category(SageSetPartitions(normalized_base), categories),
+            )
 
         @overload
         def SetPartitionsWithBlockCount(
@@ -1092,9 +1109,9 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(
-                SageSetPartitions(normalized_base, block_count),
-                categories,
+            return cast(
+                SetPartitionSet,
+                refine_category(SageSetPartitions(normalized_base, block_count), categories),
             )
 
         @overload
@@ -1128,9 +1145,9 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(
-                SageSetPartitions(normalized_base, block_sizes),
-                categories,
+            return cast(
+                SetPartitionSet,
+                refine_category(SageSetPartitions(normalized_base, block_sizes), categories),
             )
 
         @final
@@ -1143,48 +1160,60 @@ class Sets(Category_singleton):
             r"""Return the partition whose blocks are ``blocks``."""
             from sage.combinat.set_partition import SetPartition as SageSetPartition
 
-            return SageSetPartition(blocks, check=check)
+            return cast(SetPartition, SageSetPartition(blocks, check=check))
 
         @final
         def SetPartitionFromRestrictedGrowthWordBlocks(
             self, word: Sequence[Integer]
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by block-convention ``word``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_restricted_growth_word_blocks(word)
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_restricted_growth_word_blocks(word),
+            )
 
         @final
         def SetPartitionFromRestrictedGrowthWordIntertwining(
             self, word: Sequence[Integer]
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by intertwining ``word``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_restricted_growth_word_intertwining(word)
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_restricted_growth_word_intertwining(word),
+            )
 
         @final
         def SetPartitionFromArcs(
             self,
             arcs: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the coarsest partition of ``{1, ..., n}`` containing ``arcs``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_arcs(arcs, base_set_cardinality)
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_arcs(arcs, base_set_cardinality),
+            )
 
         @final
         def SetPartitionFromRookPlacementArcs(
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer | None = None,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by a rook placement through arcs."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement(
-                rooks, "arcs", base_set_cardinality
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_rook_placement(
+                    rooks, "arcs", base_set_cardinality
+                ),
             )
 
         @final
@@ -1192,12 +1221,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by the Wachs-White gamma bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_gamma(
-                rooks, base_set_cardinality
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_rook_placement_gamma(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1205,12 +1237,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by the Wachs-White rho bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_rho(
-                rooks, base_set_cardinality
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_rook_placement_rho(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1218,12 +1253,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by Yip's psi bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_psi(
-                rooks, base_set_cardinality
+            return cast(
+                SetPartitionType,
+                SageSetPartitions().from_rook_placement_psi(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1235,7 +1273,7 @@ class Sets(Category_singleton):
 
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Constructors:
         r"""Return the named Sage set constructor collector."""
         return self.__class__._Constructors(self)
 

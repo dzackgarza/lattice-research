@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, final, override
 
 from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
+from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -21,7 +22,7 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().OverDedekindDomain()]
 
     @override

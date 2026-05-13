@@ -37,7 +37,8 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from importlib import import_module
-from typing import TYPE_CHECKING, Any, final, override, TypeAlias
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeAlias, cast, final, override, TypeVar
 
 from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
@@ -150,6 +151,13 @@ if TYPE_CHECKING:
     from ..types import Hom
 
 
+_CatCachedMethod = TypeVar("_CatCachedMethod", bound=Callable[..., object])
+
+
+def _cat_cached_method(method: _CatCachedMethod) -> _CatCachedMethod:
+    return cast(_CatCachedMethod, cached_method(method))
+
+
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
@@ -165,17 +173,17 @@ class _CatObjectMethods:
         r"""Return whether this category object is a join object in ``Cat()``."""
         from .join_categories import is_join_category
 
-        return is_join_category(self)
+        return bool(is_join_category(self))
 
     @final
     def leq(self, other: Category) -> bool:
         r"""Return whether ``self`` is a subcategory of ``other``."""
-        return self.is_subcategory(other)
+        return bool(cast("Category", self).is_subcategory(other))
 
     @final
     def geq(self, other: Category) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subcategory."""
-        return other.is_subcategory(self)
+        return bool(cast("Category", other).is_subcategory(cast("Category", self)))
 
     __le__ = leq
     __ge__ = geq
@@ -206,8 +214,8 @@ class Cat(_SageCategorySingleton):
     @final
     def _make_named_class(
         self,
-        name,
-        method_provider,
+        name: str,
+        method_provider: str,
         cache: bool = False,
         picklable: bool = True,
     ) -> type:
@@ -238,7 +246,8 @@ class Cat(_SageCategorySingleton):
         if is_join_category(candidate):
             return True
         if isinstance(candidate, SageCategoryObject):
-            return candidate.category().is_subcategory(self)
+            category = cast("Category", cast("Category", candidate).category())
+            return bool(category.is_subcategory(cast("Category", self)))
         return False
 
     @final
@@ -277,7 +286,7 @@ class Cat(_SageCategorySingleton):
     class SubcategoryMethods:
         r"""Category-level construction methods supplied by Sage's machinery."""
 
-        @cached_method
+        @_cat_cached_method
         @final
         def JoinCategories(self) -> Category:
             r"""Return the subcategory of join objects in ``Cat()``."""

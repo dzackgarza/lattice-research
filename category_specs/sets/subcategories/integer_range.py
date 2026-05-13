@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage ``IntegerRange`` parents."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
@@ -49,8 +49,8 @@ class _IntegerRangeSets(Category_singleton):
                 from sage.rings.integer import Integer
 
                 if not isinstance(el, Integer):
-                    return Integer(el)
-                return el
+                    return cast(SetElement, Integer(el))
+                return cast(SetElement, el)
             raise ValueError(f"{el} not in {self}")
 
         @override
@@ -64,13 +64,15 @@ class _IntegerRangeSets(Category_singleton):
                 return False
 
             if isinstance(self, SageIntegerRangeEmpty):
-                return False
+                return cast(bool, False)
             if isinstance(self, SageIntegerRangeFromMiddle):
-                return SageIntegerRangeFromMiddle.__contains__(self, elt)
+                return cast(
+                    bool, SageIntegerRangeFromMiddle.__contains__(self, elt)
+                )
             if isinstance(self, SageIntegerRangeFinite):
-                return SageIntegerRangeFinite.__contains__(self, elt)
+                return cast(bool, SageIntegerRangeFinite.__contains__(self, elt))
             if isinstance(self, SageIntegerRangeInfinite):
-                return SageIntegerRangeInfinite.__contains__(self, elt)
+                return cast(bool, SageIntegerRangeInfinite.__contains__(self, elt))
             raise TypeError(
                 f"unsupported Sage integer range wrapper: {type(self).__name__}"
             )
@@ -97,17 +99,17 @@ class _IntegerRangeSets(Category_singleton):
         @override
         @final
         def __getitem__(self, i: Integer) -> SetElement:
-            return SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+            return cast(SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i))
 
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            return SageEnumeratedSets.ParentMethods.__iter__(self)
+            return cast(Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self))
 
         @override
         @final
         def _an_element_(self) -> SetElement:
-            return SageEnumeratedSets.ParentMethods._an_element_(self)
+            return cast(SetElement, SageEnumeratedSets.ParentMethods._an_element_(self))
 
     class ElementMethods: ...
 

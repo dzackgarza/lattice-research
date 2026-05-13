@@ -18,8 +18,8 @@ branchType: implementation
 tasks:
 - '[[TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY]]'
 successCriteria:
-- Current basic typing hygiene failures are inventoried from repo validation output.
-- Missing annotations, Any leakage, and untyped fixture failures are fixed or split into executable child tasks.
+- Current basic typing hygiene failures are collected by running mypy through the approved repo path.
+- Missing annotations, Any leakage, and untyped fixture failures are fixed directly by disjoint path slices.
 - No dynamic-inheritance, stub-generation, or downstream category-typing work is selected before this phase completes.
 tags:
 - FEATURE-QC-WARNINGS-ZERO
@@ -42,10 +42,8 @@ fixtures, avoidable `Any` leakage, and ordinary code hygiene.
 
 ## Acceptance Criteria
 
-- Basic hygiene findings from current mypy output are separated from plugin,
-  stub, and downstream buckets.
-- The resulting basic findings are either fixed or split into concrete child
-  tasks under this phase.
+- Basic hygiene findings from current mypy output are fixed directly by
+  disjoint path slices.
 - Downstream phases remain `unstarted` until this phase is complete.
 
 ## Dependencies And Boundaries

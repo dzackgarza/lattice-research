@@ -2,7 +2,8 @@ r"""Fields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, assert_never, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeVar, assert_never, cast, final, override
 
 from sage.categories.fields import Fields as SageFields
 from abc import abstractmethod
@@ -31,6 +32,13 @@ if TYPE_CHECKING:
         Ideal,
         RingElement,
     )
+
+
+_FieldCachedMethod = TypeVar("_FieldCachedMethod", bound=Callable[..., object])
+
+
+def _field_cached_method(method: _FieldCachedMethod) -> _FieldCachedMethod:
+    return cast(_FieldCachedMethod, cached_method(method))
 
 
 class _Fields(CategoryWithAxiom):
@@ -80,39 +88,39 @@ class _Fields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_field_cached_method
         @final
         def NumberFields(self) -> Category:
-            return self._with_axiom("NumberFields")
+            return cast(Category, self._with_axiom("NumberFields"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def AlgebraicallyClosed(self) -> Category:
-            return self._with_axiom("AlgebraicallyClosed")
+            return cast(Category, self._with_axiom("AlgebraicallyClosed"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def LocalFields(self) -> Category:
-            return self._with_axiom("LocalFields")
+            return cast(Category, self._with_axiom("LocalFields"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def GlobalFields(self) -> Category:
-            return self._with_axiom("GlobalFields")
+            return cast(Category, self._with_axiom("GlobalFields"))
 
-    @cached_method
+    @_field_cached_method
     @final
-    def QQ(self):
+    def QQ(self) -> Any:
         return _QQ()
 
-    @cached_method
+    @_field_cached_method
     @final
-    def RR(self):
+    def RR(self) -> Any:
         return _RR()
 
-    @cached_method
+    @_field_cached_method
     @final
-    def CC(self):
+    def CC(self) -> Any:
         return _CC()
 
     class ParentMethods:

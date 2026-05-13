@@ -2,13 +2,16 @@ r"""Coslice construction category for categories under a fixed category."""
 
 from __future__ import annotations
 
-from typing import final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.functor import Functor
 from abc import abstractmethod
 
 from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
 from .objects_over import structure_codomain, structure_domain
+
+if TYPE_CHECKING:
+    from ....types import CategoryObject
 
 
 class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_base):

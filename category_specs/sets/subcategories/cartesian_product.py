@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage Cartesian products of sets."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import Sets as SageSets
@@ -13,6 +13,7 @@ from sage.sets.cartesian_product import CartesianProduct as SageCartesianProduct
 if TYPE_CHECKING:
     from ...types import (
         CartesianProductFunctor,
+        Cardinality,
         Integer,
         Set,
         SetElement,
@@ -44,15 +45,18 @@ class _CartesianProductSets(Category_singleton):
     class ParentMethods:
         @override
         @final
-        def cardinality(self):
+        def cardinality(self) -> Cardinality:
             r"""Return the product cardinality of the factor sets."""
-            return SageSets.CartesianProducts.ParentMethods.cardinality(self)
+            return cast(
+                Cardinality,
+                SageSets.CartesianProducts.ParentMethods.cardinality(self),
+            )
 
         @override
         @final
         def is_finite(self) -> bool:
             r"""Return whether this product set is finite."""
-            return SageSets.CartesianProducts.ParentMethods.is_finite(self)
+            return cast(bool, SageSets.CartesianProducts.ParentMethods.is_finite(self))
 
         @override
         @abstractmethod

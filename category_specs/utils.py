@@ -12,7 +12,7 @@ from sage.structure.parent import Parent
 PROJECT_MODULE_PREFIX = "category_specs."
 CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 
-_FoldParent = TypeVar("_FoldParent")
+_FoldParent = TypeVar("_FoldParent", contravariant=True)
 _FoldElement = TypeVar("_FoldElement")
 _CATEGORY_DIAGNOSTICS_ENABLED = False
 _CATEGORY_DIAGNOSTIC_LOGGER = logging.getLogger(CATEGORY_DIAGNOSTIC_LOGGER_NAME)
@@ -121,10 +121,11 @@ def foldable_operation[FoldParent, FoldElement](
             assert isinstance(left_or_elements, Sequence), (
                 "sequence overload requires a finite sequence"
             )
+            sequence = cast(Sequence[FoldElement], left_or_elements)
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
-                left_or_elements,
+                sequence,
             )
         return operation(
             parent,

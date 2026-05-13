@@ -15,7 +15,7 @@ class _Subobjects(SubobjectsCategory):
 
     @override
     @final
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return f"subobjects of {self.base_category()._repr_object_names()}"
 
     class ParentMethods: ...

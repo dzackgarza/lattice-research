@@ -2,7 +2,8 @@ r"""ValuedRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
@@ -17,6 +18,13 @@ if TYPE_CHECKING:
         RingElement,
         Valuation,
     )
+
+
+_ValuedCachedMethod = TypeVar("_ValuedCachedMethod", bound=Callable[..., object])
+
+
+def _valued_cached_method(method: _ValuedCachedMethod) -> _ValuedCachedMethod:
+    return cast(_ValuedCachedMethod, cached_method(method))
 
 
 class _ValuedRings(CategoryWithAxiom):
@@ -45,10 +53,10 @@ class _ValuedRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_valued_cached_method
         @final
         def DiscretelyValued(self) -> Category:
-            return self._with_axiom("DiscretelyValued")
+            return cast(Category, self._with_axiom("DiscretelyValued"))
 
     class ParentMethods:
         @override

@@ -7,75 +7,76 @@ semantics to ModulesWithForms category ElementMethods.
 
 from __future__ import annotations
 
-from sage.structure.element import Element, ModuleElement
+from sage.structure.element import ModuleElement
+from typing import Any
 
 
 class BilinearModuleElement(ModuleElement):
     """Element of a formed module — thin wrapper backed by category mixins."""
 
-    def __init__(self, parent, vector):
+    def __init__(self, parent: object, vector: Any) -> None:
         self._vector = vector
         ModuleElement.__init__(self, parent)
 
-    def to_vector(self):
+    def to_vector(self) -> Any:
         return self._vector
 
-    def to_coordinates(self):
+    def to_coordinates(self) -> list[Any]:
         return list(self._vector)
 
-    def _add_(self, other):
+    def _add_(self, other: "BilinearModuleElement") -> "BilinearModuleElement":
         return self.__class__(self.parent(), self._vector + other._vector)
 
-    def _sub_(self, other):
+    def _sub_(self, other: "BilinearModuleElement") -> "BilinearModuleElement":
         return self.__class__(self.parent(), self._vector - other._vector)
 
-    def _neg_(self):
+    def _neg_(self) -> "BilinearModuleElement":
         return self.__class__(self.parent(), -self._vector)
 
-    def _rmul_(self, scalar):
+    def _rmul_(self, scalar: Any) -> "BilinearModuleElement":
         return self.__class__(self.parent(), scalar * self._vector)
 
-    def _lmul_(self, scalar):
+    def _lmul_(self, scalar: Any) -> "BilinearModuleElement":
         return self.__class__(self.parent(), scalar * self._vector)
 
-    def _mul_(self, other):
+    def _mul_(self, other: Any) -> Any:
         """Dispatch to parent form for bilinear evaluation."""
         parent = self.parent()
         if hasattr(parent, 'form') and parent.form() is not None:
             return parent.form().evaluate(self, other)
         raise NotImplementedError("no form data on parent")
 
-    def is_isotropic(self):
+    def is_isotropic(self) -> bool:
         try:
-            return self._mul_(self) == 0
+            return bool(self._mul_(self) == 0)
         except Exception:
             return False
 
-    def _hash_(self):
+    def _hash_(self) -> int:
         return hash((self.parent(), tuple(self._vector)))
 
-    def _richcmp_(self, other, op):
+    def _richcmp_(self, other: Any, op: int) -> object:
         from sage.structure.richcmp import richcmp
         if not isinstance(other, BilinearModuleElement):
             return NotImplemented
         return richcmp(self._vector, other._vector, op)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"element({list(self._vector)}) in {self.parent()}"
 
 
 class FreeBilinearModuleElement(BilinearModuleElement):
     """Element of a free bilinear module."""
 
-    def additive_order(self):
+    def additive_order(self) -> int:
         return 0  # torsion-free
 
 
 class TorsionBilinearModuleElement(BilinearModuleElement):
     """Element of a torsion bilinear module."""
 
-    def additive_order(self):
+    def additive_order(self) -> int:
         parent = self.parent()
         if hasattr(parent, 'invariants'):
-            return parent.invariants()[0]  # simplified
+            return int(parent.invariants()[0])  # simplified
         return 1

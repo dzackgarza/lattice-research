@@ -9,12 +9,14 @@ Gate: only active on rings installed with ModuleBaseRings.
 
 from __future__ import annotations
 
+from typing import Any
+
 from sage.all import ZZ, QQ
 
 _installed = False
 
 
-def _refine_returned_ring(result, base_ring):
+def _refine_returned_ring(result: Any, base_ring: Any) -> Any:
     """Refine a returned ring parent into ModuleBaseRings scope."""
     try:
         if hasattr(result, '_refine_category_'):
@@ -25,19 +27,19 @@ def _refine_returned_ring(result, base_ring):
     return result
 
 
-def _module_base_complete(self, *args, **kwds):
+def _module_base_complete(self: Any, *args: Any, **kwds: Any) -> Any:
     """Completion of this ring at a prime/ideal, with ModuleBaseRings refinement."""
     result = self.completion(*args, **kwds)
     return _refine_returned_ring(result, self)
 
 
-def _module_base_localize(self, *args, **kwds):
+def _module_base_localize(self: Any, *args: Any, **kwds: Any) -> Any:
     """Localization of this ring, with ModuleBaseRings refinement."""
     result = self.localization(*args, **kwds)
     return _refine_returned_ring(result, self)
 
 
-def _module_base_fraction_field(self, *args, **kwds):
+def _module_base_fraction_field(self: Any, *args: Any, **kwds: Any) -> Any:
     """Fraction field of this ring, with ModuleBaseRings refinement."""
     result = self.fraction_field(*args, **kwds)
     return _refine_returned_ring(result, self)

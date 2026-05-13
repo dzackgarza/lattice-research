@@ -3,7 +3,7 @@ r"""One-object subcategory for Sage recursively enumerated sets."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.finite_enumerated_sets import (
@@ -72,7 +72,9 @@ class _RecursivelyEnumeratedSets(Category_singleton):
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
                 from sage.rings.infinity import infinity
 
-                return self._max_depth != float("inf") and self._max_depth != infinity
+                return cast(
+                    bool, self._max_depth != float("inf") and self._max_depth != infinity
+                )
             raise NotImplementedError(
                 "recursive set finiteness requires category or depth evidence"
             )
@@ -133,9 +135,9 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def roots(self) -> Set:
             r"""Return the seed set of this recursive forest."""
             if isinstance(self, SageRecursivelyEnumeratedSetForest):
-                return SageRecursivelyEnumeratedSetForest.roots(self)
+                return cast(Set, SageRecursivelyEnumeratedSetForest.roots(self))
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return self.seeds()
+                return cast(Set, self.seeds())
             raise NotImplementedError(
                 "recursive roots require generic seeds or forest roots"
             )
@@ -144,7 +146,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def children(self, x: SetElement) -> Set:
             r"""Return the recursive successors of ``x``."""
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return self.successors(x)
+                return cast(Set, self.successors(x))
             raise NotImplementedError(
                 "recursive children require a generic Sage successor function"
             )

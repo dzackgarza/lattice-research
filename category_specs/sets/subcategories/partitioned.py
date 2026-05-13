@@ -3,7 +3,7 @@ r"""Axiomatic subcategory for partitioned sets and set partitions."""
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
@@ -104,7 +104,7 @@ class PartitionsCategory(Category):
         @final
         def ambient(self) -> Set:
             r"""Return the powerset-of-powerset ambient set containing ``self``."""
-            return self.base_set().subsets().subsets()
+            return cast(Set, self.base_set().subsets().subsets())
 
         @override
         @abstractmethod
@@ -159,7 +159,7 @@ class PartitionsCategory(Category):
             r"""Return this partition as a subset of ``P(base_set())``."""
             from sage.sets.set import Set as SageSet
 
-            return SageSet([SageSet(block) for block in self])
+            return cast(Subset, SageSet([SageSet(block) for block in self]))
 
         @final
         def as_subset_of_powerset(self) -> Subset:
@@ -179,12 +179,12 @@ class PartitionsCategory(Category):
         @final
         def refines(self, other: SetPartition) -> bool:
             r"""Return whether ``self`` refines ``other``."""
-            return self == other or self.parent().is_less_than(self, other)
+            return cast(bool, self == other or self.parent().is_less_than(self, other))
 
         @final
         def strictly_refines(self, other: SetPartition) -> bool:
             r"""Return whether ``self`` is strictly finer than ``other``."""
-            return self.parent().is_less_than(self, other)
+            return cast(bool, self.parent().is_less_than(self, other))
 
         @final
         def refinement_set(self) -> FiniteSet:

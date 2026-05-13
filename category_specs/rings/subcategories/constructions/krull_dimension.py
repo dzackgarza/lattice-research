@@ -26,7 +26,7 @@ class _KrullDimension(_Category_over_base_integer):
 
     @override
     @final
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return (
             f"{self.base_category()._repr_object_names()} "
             f"of Krull dimension {self.dimension()}"

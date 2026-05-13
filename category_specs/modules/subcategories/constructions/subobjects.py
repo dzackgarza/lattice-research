@@ -2,7 +2,7 @@ r"""Submodules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from abc import abstractmethod
 
@@ -64,11 +64,11 @@ class _Subobjects(SubobjectsCategory):
 
         @final
         def is_primitive(self) -> bool:
-            return self.inclusion().is_primitive()
+            return bool(self.inclusion().is_primitive())
 
         @final
         def lift(self, m: RModuleElement) -> RModuleElement:
-            return self.inclusion()(m)
+            return cast("RModuleElement", self.inclusion()(m))
 
         @abstractmethod
         def saturation(self) -> SubModule: ...
@@ -84,7 +84,7 @@ class _Subobjects(SubobjectsCategory):
             r"""Return whether this submodule is contained in ``other`` or its
             ambient.
             """
-            return self <= (self.ambient_module() if other is None else other)
+            return bool(self <= (self.ambient_module() if other is None else other))
 
         @abstractmethod
         def __le__(self, other: RModule) -> bool: ...

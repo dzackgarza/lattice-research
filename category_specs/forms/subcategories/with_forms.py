@@ -2,7 +2,8 @@ r"""Modules equipped with forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.category import Category
 from abc import abstractmethod
@@ -14,6 +15,13 @@ from ...modules import Modules
 
 if TYPE_CHECKING:
     from ...types import OrthogonalGroup, RModuleMorphism
+
+
+_FormCachedMethod = TypeVar("_FormCachedMethod", bound=Callable[..., object])
+
+
+def _form_cached_method(method: _FormCachedMethod) -> _FormCachedMethod:
+    return cast(_FormCachedMethod, cached_method(method))
 
 
 class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -43,50 +51,50 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def orthogonal_group(self) -> OrthogonalGroup:
             r"""Return ``Aut_C(M)`` for this formed-module category ``C``."""
-            return self.category().AutCategory().Of(self)
+            return cast("OrthogonalGroup", self.category().AutCategory().Of(self))
 
     class SubcategoryMethods:
-        @cached_method
+        @_form_cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Introduced here: select the bilinear-formed subcategory."""
-            return self._with_axiom("Bilinear")
+            return cast(Category, self._with_axiom("Bilinear"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Introduced here: select the quadratic-formed subcategory."""
-            return self._with_axiom("Quadratic")
+            return cast(Category, self._with_axiom("Quadratic"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Introduced here: select the symmetric-bilinear subcategory."""
-            return self._with_axiom("Symmetric")
+            return cast(Category, self._with_axiom("Symmetric"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Introduced here: select the alternating-bilinear subcategory."""
-            return self._with_axiom("Alternating")
+            return cast(Category, self._with_axiom("Alternating"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Nondegenerate(self) -> Category:
             r"""Introduced here: select the nondegenerate-bilinear subcategory."""
-            return self._with_axiom("Nondegenerate")
+            return cast(Category, self._with_axiom("Nondegenerate"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Integral(self) -> Category:
             r"""Introduced here: select the integral-bilinear subcategory."""
-            return self._with_axiom("Integral")
+            return cast(Category, self._with_axiom("Integral"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Rational(self) -> Category:
             r"""Introduced here: select the rational-bilinear subcategory."""
-            return self._with_axiom("Rational")
+            return cast(Category, self._with_axiom("Rational"))
 
     class ElementMethods: ...
 
@@ -114,17 +122,17 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     ParentMethods = FormedModulesCategory.ParentMethods
 
     class SubcategoryMethods(FormedModulesCategory.SubcategoryMethods):
-        @cached_method
+        @_form_cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Select the bilinear formed-module subcategory over this PID base."""
-            return self._with_axiom("Bilinear")
+            return cast(Category, self._with_axiom("Bilinear"))
 
-        @cached_method
+        @_form_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Select the quadratic formed-module subcategory over this PID base."""
-            return self._with_axiom("Quadratic")
+            return cast(Category, self._with_axiom("Quadratic"))
 
     ElementMethods = FormedModulesCategory.ElementMethods
     MorphismMethods = FormedModulesCategory.MorphismMethods

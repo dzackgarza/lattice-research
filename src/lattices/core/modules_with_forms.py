@@ -15,19 +15,19 @@ from sage.categories.category_types import Category_over_base_ring
 class ModulesWithFormsCategory(Category_over_base_ring):
     """Category of R-modules equipped with a form."""
 
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from sage.categories.modules import Modules
         return [Modules(self.base_ring())]
 
     class ParentMethods:
-        def form(self):
+        def form(self) -> object:
             raise NotImplementedError
 
     class SubcategoryMethods:
-        def Bilinear(self):
+        def Bilinear(self) -> Category:
             return self._with_axiom("Bilinear")
 
-        def Quadratic(self):
+        def Quadratic(self) -> Category:
             return self._with_axiom("Quadratic")
 
 

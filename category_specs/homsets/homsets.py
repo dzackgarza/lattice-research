@@ -3,7 +3,7 @@ r"""Hom categories and morphism method surfaces."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, final, overload, override
+from typing import TYPE_CHECKING, cast, final, overload, override
 
 from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
@@ -32,7 +32,7 @@ class UniversalHomObjectMethods:
     @final
     def is_endomorphism_set(self) -> bool:
         r"""Return whether this hom object is an endomorphism object."""
-        return self.domain() == self.codomain()
+        return bool(self.domain() == self.codomain())
 
     @overload
     def __call__(self, morphism: Morphism) -> Morphism: ...
@@ -86,7 +86,7 @@ class UniversalHomElementMethods:
     @final
     def is_endomorphism(self) -> bool:
         r"""Return whether this morphism has equal domain and codomain."""
-        return self.domain() == self.codomain()
+        return bool(self.domain() == self.codomain())
 
     @final
     def is_identity(self) -> bool:
@@ -118,7 +118,7 @@ class HomCategory(SageHomsetsBase):
     @override
     def super_categories(self) -> list[Category]:
         r"""Return Sage's base hom-category supercategories."""
-        return super().super_categories()
+        return cast(list[Category], super().super_categories())
 
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
@@ -156,7 +156,7 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
         category = self.base_category()
         assert domain in category, "domain must be an object of the base category"
         assert codomain in category, "codomain must be an object of the base category"
-        return Parent.Hom(domain, codomain, category=category)
+        return cast("Hom", Parent.Hom(domain, codomain, category=category))
 
     @override
     @classmethod

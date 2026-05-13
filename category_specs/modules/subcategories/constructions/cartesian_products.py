@@ -2,7 +2,8 @@ r"""Cartesian products of modules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
+from sage.categories.category import Category
 
 from ....cat import CartesianProductsCategory
 
@@ -15,7 +16,7 @@ class _CartesianProducts(CartesianProductsCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Declare that M x N is again an R-module."""
         return [self.base_category()]
 
@@ -33,8 +34,11 @@ class _CartesianProducts(CartesianProductsCategory):
         @override
         @final
         def _lmul_(self, x: RingElement) -> RModuleElement:
-            return self.parent()._cartesian_product_of_elements(
-                x * y for y in self.cartesian_factors()
+            return cast(
+                "RModuleElement",
+                self.parent()._cartesian_product_of_elements(
+                    x * y for y in self.cartesian_factors()
+                ),
             )
 
     class MorphismMethods: ...

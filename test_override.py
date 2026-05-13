@@ -5,11 +5,11 @@ from sage.categories.category import Category
 
 
 class _A(Category):
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         return []
 
     @classmethod
-    def an_instance(cls):
+    def an_instance(cls) -> "_A":
         return cls()
 
     class ParentMethods:
@@ -19,11 +19,11 @@ class _A(Category):
 
 
 class _B(Category):
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         return [_A.an_instance()]
 
     @classmethod
-    def an_instance(cls):
+    def an_instance(cls) -> "_B":
         return cls()
 
     class ParentMethods:

@@ -29,8 +29,7 @@ class _CatHomCategoryObjectMethods:
     @abstractmethod
     def __contains__(self, functor: Any) -> bool:
         r"""Return whether ``functor`` is an element of this functor hom object."""
-        del functor
-        ...
+        raise NotImplementedError
 
 
 class _CatFunctorMethods:
@@ -121,7 +120,7 @@ class CatHomCategory(HomCategoryOf):
     @override
     @final
     def extra_super_categories(self) -> list[Category]:
-        r"""Return the generic hom-category surface refined by Cat functors."""
+        r"""Return Sage's supercategories refined by Cat functor semantics."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _CatHomCategoryObjectMethods

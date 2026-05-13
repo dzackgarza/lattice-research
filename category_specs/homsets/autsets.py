@@ -2,7 +2,7 @@ r"""Aut categories and automorphism method surfaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
@@ -21,22 +21,25 @@ def _aut_categories_of(category: Category) -> Category:
         end_category = category.EndCategory()
     else:
         end_category = category.HomCategory().EndCategory()
-    return end_category.AutCategory()
+    return cast("Category", end_category.AutCategory())
 
 
 def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:
     r"""Return whether an endomorphism lies in the corresponding aut category."""
-    return endomorphism.is_invertible()
+    return bool(endomorphism.is_invertible())
 
 
 def _condition_aut_object_from_end_category(
     end_category: End, aut_category: Category
 ) -> Aut:
     r"""Return the private Sage condition subset backing an aut object."""
-    return SageConditionSet(
-        end_category,
-        _is_invertible_endomorphism,
-        category=aut_category,
+    return cast(
+        "Aut",
+        SageConditionSet(
+            end_category,
+            _is_invertible_endomorphism,
+            category=aut_category,
+        ),
     )
 
 
@@ -45,7 +48,7 @@ def _aut_object_from_end_category(end_category: End, aut_category: Category) -> 
     from ..utils import refine_category
 
     aut_object = _condition_aut_object_from_end_category(end_category, aut_category)
-    return refine_category(aut_object, [aut_category])
+    return cast("Aut", refine_category(aut_object, [aut_category]))
 
 
 class UniversalAutObjectMethods:
@@ -54,7 +57,7 @@ class UniversalAutObjectMethods:
     @final
     def end_category(self) -> End:
         r"""Return the ambient endomorphism object whose units form this object."""
-        return self.ambient()
+        return cast("End", self.ambient())
 
     @override
     @final

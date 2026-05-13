@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from sage.categories.modules import Modules as ModulesCategory
 from sage.all import Modules
+from typing import Any
 
 _installed = False
 
@@ -23,12 +24,12 @@ def install() -> None:
         return
 
     if not hasattr(ModulesCategory.ParentMethods, 'End'):
-        def _end(self):
+        def _end(self: Any) -> Any:
             return self._Hom_(self, category=Modules(self.base_ring()))
         ModulesCategory.ParentMethods.End = _end
 
     if not hasattr(ModulesCategory.ParentMethods, 'Aut'):
-        def _aut(self):
+        def _aut(self: Any) -> Any:
             from sage.categories.modules import Modules
             return self.End()
         ModulesCategory.ParentMethods.Aut = _aut

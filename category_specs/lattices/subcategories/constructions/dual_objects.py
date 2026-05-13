@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import final
 
+from ... import LatticesCategory
+
 from ....cat import DualObjectsCategory
 
 
@@ -24,7 +26,7 @@ class LatticeDualObjectsCategory(DualObjectsCategory):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[LatticesCategory]:
         return [self.base_category().Rational()]
 
     class ParentMethods: ...

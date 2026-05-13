@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-13 08:33 UTC_
+_Generated: 2026-05-13 10:09 UTC_
 
 ## Overall
 
@@ -29,9 +29,9 @@ _Generated: 2026-05-13 08:33 UTC_
 
 ### Task Activity Types
 
-- `implementation`: **13**
+- `implementation`: **14**
 - `source-mining`: **8**
-- `validation`: **4**
+- `validation`: **3**
 
 ## Feature Rollup
 
@@ -66,7 +66,7 @@ _Generated: 2026-05-13 08:33 UTC_
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `approved-and-unstarted`)
-- `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Inventory basic mypy hygiene findings (`critical`, `unstarted`)
+- `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (`critical`, `unstarted`)
 
 ## High-Priority DAG-Gated Items
 

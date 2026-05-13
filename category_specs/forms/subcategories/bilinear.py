@@ -2,7 +2,8 @@ r"""Modules equipped with bilinear forms."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
@@ -13,6 +14,15 @@ from .with_forms import FormedModulesCategory, OverPIDFormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import Category, Matrix, RingElement, RModuleElement
+
+
+_BilinearCachedMethod = TypeVar(
+    "_BilinearCachedMethod", bound=Callable[..., object]
+)
+
+
+def _bilinear_cached_method(method: _BilinearCachedMethod) -> _BilinearCachedMethod:
+    return cast(_BilinearCachedMethod, cached_method(method))
 
 
 class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -58,7 +68,7 @@ class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
             r"""Introduced here: evaluate the form on two module elements."""
-            return self.form().b(v, w)
+            return cast("RModuleElement", self.form().b(v, w))
 
         @abstractmethod
         def inner_product_matrix(self) -> Matrix:
@@ -120,35 +130,35 @@ class OverPIDBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     ParentMethods = BilinearModulesCategory.ParentMethods
 
     class SubcategoryMethods:
-        @cached_method
+        @_bilinear_cached_method
         @final
         def Symmetric(self) -> Category:
             from .symmetric import OverPIDSymmetricBilinearModulesCategory
 
             return OverPIDSymmetricBilinearModulesCategory(self)
 
-        @cached_method
+        @_bilinear_cached_method
         @final
         def Alternating(self) -> Category:
             from .alternating import OverPIDAlternatingBilinearModulesCategory
 
             return OverPIDAlternatingBilinearModulesCategory(self)
 
-        @cached_method
+        @_bilinear_cached_method
         @final
         def Nondegenerate(self) -> Category:
             from .nondegenerate import OverPIDNondegenerateBilinearModulesCategory
 
             return OverPIDNondegenerateBilinearModulesCategory(self)
 
-        @cached_method
+        @_bilinear_cached_method
         @final
         def Integral(self) -> Category:
             from .integral import OverPIDIntegralBilinearModulesCategory
 
             return OverPIDIntegralBilinearModulesCategory(self)
 
-        @cached_method
+        @_bilinear_cached_method
         @final
         def Rational(self) -> Category:
             from .rational import OverPIDRationalBilinearModulesCategory

@@ -9,11 +9,12 @@ from __future__ import annotations
 from sage.all import ZZ
 from sage.modules.fg_pid.fgp_module import FGP_Module_class
 from sage.modules.free_module import FreeModule
+from typing import Any
 
 _installed = False
 
 
-def _fgp_free_part(self):
+def _fgp_free_part(self: Any) -> Any:
     """Return the free part of this FGP module as a free module over the base ring.
 
     Uses Smith normal form invariants: zero invariants correspond to free generators.
@@ -24,7 +25,7 @@ def _fgp_free_part(self):
     return FreeModule(R, free_rank)
 
 
-def _fgp_torsion_part(self):
+def _fgp_torsion_part(self: Any) -> Any:
     """Return the torsion part of this FGP module as an FGP module."""
     invs = self.invariants()
     torsion_invs = tuple(x for x in invs if x != 0)

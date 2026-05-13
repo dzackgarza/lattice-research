@@ -35,13 +35,16 @@ Canonical type aliases used throughout this package:
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, final, overload, override, TypeAlias
+from typing import TYPE_CHECKING, TypeVar, final, overload, override, TypeAlias, cast
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
 from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 from ..cat import (
     Category,
@@ -104,7 +107,7 @@ if TYPE_CHECKING:
         Cardinality,
         CategoryElement,
         DualModule,
-        FreeModule,
+        FreeModule as FreeModuleType,
         Ideal,
         Integer,
         Matrix,
@@ -253,27 +256,27 @@ class _RModObjects:
     def is_ring_object_as_module(self) -> bool:
         return False
 
-    @cached_method
+    @_cached_method
     @final
-    def tensor_square(self):
+    def tensor_square(self) -> RModule | Ring:
         return self.tensor_power(2)
 
     @final
-    def tensor_power(self, n: Integer):
+    def tensor_power(self, n: Integer) -> RModule | Ring:
         match n:
             case 0:
-                return self.base_ring()
+                return cast(Ring, self.base_ring())
             case _ if n >= 1:
-                return tensor(n * [self])
+                return cast(RModule, tensor(n * [self]))
             case _ if n <= -1:
-                return tensor((-n) * [self.dual()])
+                return cast(RModule, tensor((-n) * [self.dual()]))
             case _:
                 assert False, f"Unsupported tensor power: {n}"
 
     @final
-    def tensor_module(self, p: Integer, q: Integer):
+    def tensor_module(self, p: Integer, q: Integer) -> RModule:
         assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
-        return tensor([self.tensor_power(p), self.dual().tensor_power(q)])
+        return cast(RModule, tensor([self.tensor_power(p), self.dual().tensor_power(q)]))
 
     @abstractmethod
     def annihilator(self) -> Ideal: ...
@@ -309,7 +312,7 @@ class _RModObjects:
         """
         ...
 
-    def modify_module_structure(self, sigma: ModuleStructure):
+    def modify_module_structure(self, sigma: ModuleStructure) -> None:
         r"""Rejected as an unqualified public root method.
 
         Use named constructions instead:
@@ -432,18 +435,18 @@ class _RModElements:
         Rm = self.span()
         f = Rm.inclusion()
         assert f in Rm.Hom(self.parent())
-        return f
+        return cast(RModMorphism, f)
 
     @final
     def annihilator(self) -> Ideal:
-        return self.span().annihilator()
+        return cast(Ideal, self.span().annihilator())
 
     @abstractmethod
     def cyclic_submodule(self) -> SubModule: ...
 
     @final
     def is_primitive(self) -> bool:
-        return self.span().inclusion().is_primitive()
+        return bool(self.span().inclusion().is_primitive())
 
     @abstractmethod
     def __add__(self, m: RModuleElement) -> RModuleElement: ...
@@ -454,7 +457,7 @@ class _RModElements:
     @final
     def __neg__(self) -> RModuleElement:
         R = self.base_ring()
-        return R(-1) * self
+        return cast(RModuleElement, R(-1) * self)
 
     @abstractmethod
     def _lmul_(self, r: RingElement) -> RModuleElement: ...
@@ -480,7 +483,9 @@ class Modules(Category_module):
 
     @staticmethod
     @final
-    def __classcall_private__(cls, base_ring, dispatch=True):
+    def __classcall_private__(
+        cls: type[Modules], base_ring: Ring, dispatch: bool = True
+    ) -> Modules:
         from sage.categories.commutative_rings import (
             CommutativeRings as SageCommutativeRings,
         )
@@ -497,25 +502,25 @@ class Modules(Category_module):
 
         result = super().__classcall__(cls, base_ring)
         if not dispatch:
-            return result
+            return cast(Modules, result)
         # Cascade from most structure to least.
         if base_ring in SageFields():
-            return result._with_axiom("OverField")
+            return cast(Modules, result._with_axiom("OverField"))
         if base_ring in SagePrincipalIdealDomains():
-            return result._with_axiom("OverPID")
+            return cast(Modules, result._with_axiom("OverPID"))
         if base_ring in SageDedekindDomains():
-            return result._with_axiom("OverDedekindDomain")
+            return cast(Modules, result._with_axiom("OverDedekindDomain"))
         if base_ring in SageIntegralDomains():
-            return result._with_axiom("OverIntegralDomain")
+            return cast(Modules, result._with_axiom("OverIntegralDomain"))
         if base_ring in SageCommutativeRings():
-            return result._with_axiom("OverCommutativeRing")
+            return cast(Modules, result._with_axiom("OverCommutativeRing"))
         # TODO: full ring dispatching. -- [needs approach]
         # TODO: handle Noetherian non-commutative rings. -- [needs approach]
-        return result
+        return cast(Modules, result)
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ..sets import Sets
 
         R = self.base_ring()
@@ -523,7 +528,7 @@ class Modules(Category_module):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> None:
         r"""Return ``None`` because R-Mod morphisms are exactly bimodule morphisms."""
         return None
 
@@ -553,13 +558,16 @@ class Modules(Category_module):
 
         @final
         def base_ring(self) -> Ring:
-            return self.category().base_ring()
+            return cast(Ring, self.category().base_ring())
 
         @final
         def _refine_constructed_module(
             self, M: RModule, categories: Sequence[Category]
         ) -> RModule:
-            return refine_category(M, [Modules(M.base_ring()), *categories], test=False)
+            return cast(
+                RModule,
+                refine_category(M, [Modules(M.base_ring()), *categories], test=False),
+            )
 
         @final
         def _standard_free_module_categories(self) -> list[Category]:
@@ -922,7 +930,7 @@ class Modules(Category_module):
             output_formatter: Callable[[RingElement], str]
             | Callable[[RingElement, str], str]
             | None = None,
-        ) -> FreeModule:
+        ) -> FreeModuleType:
             from sage.tensor.modules.finite_rank_free_module import FiniteRankFreeModule
 
             M = FiniteRankFreeModule(
@@ -933,13 +941,14 @@ class Modules(Category_module):
                 start_index=start_index,
                 output_formatter=output_formatter,
             )
-            return self._refine_constructed_module(
+            refined: RModule = self._refine_constructed_module(
                 M, self._finite_rank_free_module_categories()
             )
+            return cast(FreeModuleType, refined)
 
         @final
         def quotient_of_free_modules(
-            self, V: FreeModule, W: SubModule
+            self, V: FreeModuleType, W: SubModule
         ) -> QuotientModule:
             M = V / W
             return self._refine_constructed_module(
@@ -1106,12 +1115,15 @@ class Modules(Category_module):
             return self.TorsionQuadraticForm(matrix(QQ, q_rows))
 
         @final
-        def ring_as_rank_one_module(self, ring: Ring | None = None) -> FreeModule:
+        def ring_as_rank_one_module(
+            self, ring: Ring | None = None
+        ) -> FreeModuleType:
             R = self.base_ring() if ring is None else ring
             M = Modules(R).Constructors().FreeModule(rank=1)
-            return self._refine_constructed_module(
+            refined: RModule = self._refine_constructed_module(
                 M, [self.category().Free().FiniteRank().WithOrderedBasis()]
             )
+            return cast(FreeModuleType, refined)
 
         @final
         def ideal_as_submodule(self, ideal: Ideal) -> SubModule:
@@ -1397,9 +1409,9 @@ class Modules(Category_module):
 
     _Constructors = Constructors
 
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Modules.Constructors:
         r"""Return the Sage module constructor collector over ``self.base_ring()``."""
         return self.__class__._Constructors(self)
 
@@ -1407,7 +1419,7 @@ class Modules(Category_module):
     def zero_module(self) -> RModule: ...
 
     @abstractmethod
-    def R(self) -> FreeModule:
+    def R(self) -> FreeModuleType:
         r"""Return R as a rank 1 free R-module."""
         ...
 
@@ -1417,7 +1429,7 @@ class Modules(Category_module):
         ...
 
     @final
-    def free_module(self, n: Integer) -> FreeModule:
+    def free_module(self, n: Integer) -> FreeModuleType:
         from sage.rings.semirings.non_negative_integer_semiring import NN
 
         assert n in NN, f"Negative integers are not well-defined ranks: {n}"
@@ -1445,7 +1457,7 @@ class Modules(Category_module):
         rs = [r for r in elts if not r.is_zero()]
         F = self.free_module(len(zs))
         T = sum(self.torsion_module(r) for r in rs)
-        return F + T
+        return cast(RModule, F + T)
 
     @final
     def from_invariant_factors(self, elts: Sequence[RingElement]) -> RModule:
@@ -1467,109 +1479,109 @@ class Modules(Category_module):
     # ------------------------------------------------------------------
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
-        def Constructors(self):
+        def Constructors(self) -> Modules._Constructors:
             r"""Return the module constructor collector for this module category."""
             return Modules._Constructors(self)
 
-        @cached_method
+        @_cached_method
         @final
         def base_ring(self) -> Ring:
-            return self.base_category().base_ring()
+            return cast(Ring, self.base_category().base_ring())
 
         ## Ring properties
 
-        @cached_method
+        @_cached_method
         @final
         def OverIntegralDomain(self) -> Category:
             return self._with_axiom("OverIntegralDomain")
 
-        @cached_method
+        @_cached_method
         @final
         def OverDedekindDomain(self) -> Category:
             return self._with_axiom("OverDedekindDomain")
 
-        @cached_method
+        @_cached_method
         @final
         def OverPID(self) -> Category:
             return self._with_axiom("OverPID")
 
-        @cached_method
+        @_cached_method
         @final
         def OverCommutativeRing(self) -> Category:
             return self._with_axiom("OverCommutativeRing")
 
-        @cached_method
+        @_cached_method
         @final
         def OverField(self) -> Category:
             return self._with_axiom("OverField")
 
-        @cached_method
+        @_cached_method
         @final
         def OverLocalRing(self) -> Category:
             return self._with_axiom("OverLocalRing")
 
-        @cached_method
+        @_cached_method
         @final
         def OverCompleteRing(self) -> Category:
             return self._with_axiom("OverCompleteRing")
 
         ## Homological properties
 
-        @cached_method
+        @_cached_method
         @final
         def Free(self) -> Category:
             return self._with_axiom("Free")
 
-        @cached_method
+        @_cached_method
         @final
         def Torsion(self) -> Category:
             return self._with_axiom("Torsion")
 
-        @cached_method
+        @_cached_method
         @final
         def Torsionfree(self) -> Category:
             return self._with_axiom("Torsionfree")
 
-        @cached_method
+        @_cached_method
         @final
         def Projective(self) -> Category:
             return self._with_axiom("Projective")
 
         ## Generation properties
 
-        @cached_method
+        @_cached_method
         @final
         def WithBasis(self) -> Category:
             return self._with_axiom("WithBasis")
 
-        @cached_method
+        @_cached_method
         @final
         def WithOrderedBasis(self) -> Category:
             return self._with_axiom("WithOrderedBasis")
 
-        @cached_method
+        @_cached_method
         @final
         def WithOrderedGeneratingSet(self) -> Category:
             return self._with_axiom("WithOrderedGeneratingSet")
 
-        @cached_method
+        @_cached_method
         @final
         def FinitelyGenerated(self) -> Category:
             return self._with_axiom("FinitelyGenerated")
 
-        @cached_method
+        @_cached_method
         @final
         def FinitelyPresented(self) -> Category:
             return self._with_axiom("FinitelyPresented")
 
-        @cached_method
+        @_cached_method
         @final
         def TensorProducts(self) -> Category:
             return TensorProductsCategory.category_of(self)
 
-        @cached_method
+        @_cached_method
         @final
         def DualObjects(self) -> Category:
             return DualObjectsCategory.category_of(self)
@@ -1578,64 +1590,64 @@ class Modules(Category_module):
 
         ## Extra structure
 
-        @cached_method
+        @_cached_method
         @final
         def Filtered(self) -> Category:
             return FilteredModulesCategory.category_of(self)
 
-        @cached_method
+        @_cached_method
         @final
         def Graded(self) -> Category:
             return self._with_axiom("Graded")
 
-        @cached_method
+        @_cached_method
         @final
         def Super(self) -> Category:
             return SuperModulesCategory.category_of(self)
 
         ## Forms
 
-        @cached_method
+        @_cached_method
         @final
         def WithForms(self) -> Category:
             return self._with_axiom("WithForms")
 
-        @cached_method
+        @_cached_method
         @final
         def RIdeals(self) -> Category:
             return self._with_axiom("RIdeals")
 
-        @cached_method
+        @_cached_method
         @final
         def RepresentationModules(self) -> Category:
             return _RepresentationModules(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def FreeGradedModules(self) -> Category:
             return _FreeGradedModules(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def FinitelyPresentedGradedModules(self) -> Category:
             return _FinitelyPresentedGradedModules(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def OreModules(self) -> Category:
             return _OreModules(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def IntegerLattices(self) -> Category:
             return _IntegerLattices(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def TorsionQuadraticModules(self) -> Category:
             return TorsionQuadraticModulesCategory(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def RingObjectsAsModules(self) -> Category:
             return _RingObjectsAsModules(self.base_ring())

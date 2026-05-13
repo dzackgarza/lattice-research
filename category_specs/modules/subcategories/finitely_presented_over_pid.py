@@ -28,6 +28,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final, override
 
 from abc import abstractmethod
+from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -36,6 +37,7 @@ if TYPE_CHECKING:
     from ...types import (
         DiscriminantGroup,
         Integer,
+        RMod,
         Matrix,
         RingElement,
         RModMorphism,
@@ -58,7 +60,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [
             self.base_category().FinitelyPresented(),
             self.base_category().OverPID(),
@@ -66,7 +68,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
     @classmethod
     @final
-    def from_matrix(cls, module_category, matrix: Matrix) -> RModule:
+    def from_matrix(cls, module_category: RMod, matrix: Matrix) -> RModule:
         r"""Return the finitely presented module ``coker(matrix)`` over a PID."""
         return module_category.from_invariant_factors(matrix.elementary_divisors())
 
@@ -205,7 +207,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             @final
             def is_p_elementary(self, p: RingElement) -> bool:
                 r"""``M`` is p-elementary iff ``M == M.p_part(p)``."""
-                return self == self.p_part(p)
+                return bool(self == self.p_part(p))
 
         class ElementMethods: ...
 

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, final, overload, override
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, overload, override
 
 from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
@@ -114,6 +114,12 @@ _SageHomsets = SageHomsets
 _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
 
+_CatCachedMethod = TypeVar("_CatCachedMethod", bound=Callable[..., object])
+
+
+def _cat_cached_method(method: _CatCachedMethod) -> _CatCachedMethod:
+    return cast(_CatCachedMethod, cached_method(method))
+
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset({"base_ring", "category", "names"})
 _CAT_CONSTRUCTOR_CLASS: type | None = None
@@ -123,8 +129,8 @@ _CAT_CONSTRUCTOR_OWNERS: dict[str, SageCategory] = {}
 def _static_category_class(category: SageCategory) -> type:
     cls = category.__class__
     if isinstance(cls, DynamicMetaclass):
-        return cls.__base__
-    return cls
+        return cast(type, cls.__base__)
+    return cast(type, cls)
 
 
 def _identifier_fragment(text: str) -> str:
@@ -204,7 +210,9 @@ def _cat_constructor_method_names(prefix: str, provider: type) -> tuple[str, ...
 def _cat_constructor_forwarder(
     prefix: str, constructor_name: str
 ) -> Callable[..., Any]:
-    def forwarded_constructor(self, *args: Any, **kwargs: Any) -> Any:
+    def forwarded_constructor(
+        self: SageCategory, *args: Any, **kwargs: Any
+    ) -> Any:
         constructors = _CAT_CONSTRUCTOR_OWNERS[prefix].Constructors()
         return getattr(constructors, constructor_name)(*args, **kwargs)
 
@@ -213,7 +221,7 @@ def _cat_constructor_forwarder(
     forwarded_constructor.__doc__ = (
         f"Forward to ``{prefix}.Constructors().{constructor_name}``."
     )
-    forwarded_constructor._cat_constructor_generated_forwarder = True
+    cast(Any, forwarded_constructor)._cat_constructor_generated_forwarder = True
     return forwarded_constructor
 
 
@@ -308,10 +316,10 @@ def _validate_defining_predicates(
     )
 
 
-def _cat_category():
+def _cat_category() -> SageCategory:
     from . import Cat
 
-    return Cat()
+    return cast(SageCategory, Cat())
 
 
 def _copy_method_provider_namespace(provider: type, namespace: dict[str, Any]) -> None:
@@ -343,12 +351,12 @@ def _combined_subcategory_methods(local_provider: type | None) -> type:
 
 def _make_named_class_with_cat_subcategory_methods(
     category: SageCategory,
-    delegate,
-    name,
-    method_provider,
-    cache=False,
+    delegate: Callable[..., type],
+    name: str,
+    method_provider: str,
+    cache: bool = False,
     picklable: bool = True,
-):
+) -> type:
     r"""Delegate Sage named-class construction with Cat's universal methods.
 
     Sage consumes a single flat method-provider class when building generated
@@ -413,15 +421,19 @@ class _CatObjectMixin:
         initializer = cls.__dict__.get("__init__")
         if initializer is None:
             return
-        if getattr(initializer, "_cat_constructor_registration_wrapper", False):
+        initializer_any = cast(Any, initializer)
+        if getattr(initializer_any, "_cat_constructor_registration_wrapper", False):
             return
 
         @wraps(initializer)
-        def initialize_and_register(self, *args: Any, **kwargs: Any) -> None:
+        def initialize_and_register(
+            self: SageCategory, *args: Any, **kwargs: Any
+        ) -> None:
             initializer(self, *args, **kwargs)
             _register_cat_constructor_owner(self)
 
-        initialize_and_register._cat_constructor_registration_wrapper = True
+        initialize_and_register_any = cast(Any, initialize_and_register)
+        initialize_and_register_any._cat_constructor_registration_wrapper = True
         cls.__init__ = initialize_and_register
 
     @final
@@ -483,7 +495,7 @@ class _CatObjectMixin:
     def Hom(self, codomain: SageCategory) -> Hom:
         r"""Return ``Hom_{Cat}(self, codomain)``."""
         assert codomain in self.category(), "codomain must be an object of Cat()"
-        return Parent.Hom(self, codomain)
+        return cast("Hom", Parent.Hom(self, codomain))
 
     @override
     @final
@@ -758,7 +770,7 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         self._init_cat_object()
         SageHomsets.__init__(self)
 
-    @cached_method
+    @_cat_cached_method
     @final
     def Endset(self) -> SageCategory:
         r"""Return Sage's existing root category of endomorphism sets.

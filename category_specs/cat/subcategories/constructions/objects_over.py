@@ -14,13 +14,13 @@ if TYPE_CHECKING:
 
 
 @final
-def structure_domain(self) -> CategoryObject:
+def structure_domain(self: CategoryObject) -> CategoryObject:
     r"""Return the domain of the structure morphism."""
     return self.structure_morphism().domain()
 
 
 @final
-def structure_codomain(self) -> CategoryObject:
+def structure_codomain(self: CategoryObject) -> CategoryObject:
     r"""Return the codomain of the structure morphism."""
     return self.structure_morphism().codomain()
 

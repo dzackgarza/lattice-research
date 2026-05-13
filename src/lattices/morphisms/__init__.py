@@ -7,45 +7,45 @@ form-awareness for kernel/image/cokernel computation.
 
 from __future__ import annotations
 
-from sage.structure.element import Element
 from sage.categories.morphism import Morphism
+from typing import Any
 
 
 class BilinearMorphism(Morphism):
     """Morphism between formed modules — linear map with form preservation."""
 
-    def __init__(self, parent, underlying):
+    def __init__(self, parent: object, underlying: Any) -> None:
         self._underlying = underlying
         Morphism.__init__(self, parent)
 
-    def _call_(self, x):
+    def _call_(self, x: Any) -> Any:
         return self._underlying(x)
 
-    def domain(self):
+    def domain(self) -> Any:
         return self._underlying.domain()
 
-    def codomain(self):
+    def codomain(self) -> Any:
         return self._underlying.codomain()
 
-    def is_injective(self):
-        return self._underlying.is_injective()
+    def is_injective(self) -> bool:
+        return bool(self._underlying.is_injective())
 
-    def is_surjective(self):
-        return self._underlying.is_surjective()
+    def is_surjective(self) -> bool:
+        return bool(self._underlying.is_surjective())
 
-    def kernel(self):
+    def kernel(self) -> Any:
         return self._underlying.kernel()
 
-    def image(self):
+    def image(self) -> Any:
         return self._underlying.image()
 
-    def cokernel(self):
+    def cokernel(self) -> Any:
         return self._underlying.cokernel()
 
-    def matrix(self):
+    def matrix(self) -> Any:
         if hasattr(self._underlying, 'matrix'):
             return self._underlying.matrix()
         raise NotImplementedError
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"morphism({self.domain()} -> {self.codomain()})"
