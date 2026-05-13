@@ -60,7 +60,7 @@ class _IntegerRangeSets(Category_singleton):
 
             try:
                 elt = Integer(elt)
-            except TypeError, ValueError:
+            except (TypeError, ValueError):
                 return False
 
             if isinstance(self, SageIntegerRangeEmpty):

@@ -47,7 +47,7 @@ class ImageSubobject(SageImageSubobject):
             return any(y == x for y in self)
         try:
             self._element_constructor_(x)
-        except ValueError, TypeError:
+        except (ValueError, TypeError):
             return False
         return True
 
