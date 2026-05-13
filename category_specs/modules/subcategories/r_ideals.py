@@ -3,6 +3,7 @@ r"""Ideals of the base ring as modules."""
 from __future__ import annotations
 
 from typing import Any, final, override
+
 from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring

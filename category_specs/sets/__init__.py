@@ -60,12 +60,21 @@ finite-enumerated set objects.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from types import MethodType
-from typing import TYPE_CHECKING, Any, TypeVar, cast, final, overload, override, TypeAlias
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeAlias,
+    TypeVar,
+    cast,
+    final,
+    overload,
+    override,
+)
 
 from sage.categories.sets_cat import Sets as SageSets
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity, minus_infinity
 from sage.structure.richcmp import op_EQ, op_GE, op_GT, op_LE, op_LT, op_NE
@@ -99,13 +108,13 @@ if TYPE_CHECKING:
         Subset,
         SympySet,
     )
+
     SetPartitionType: TypeAlias = SetPartition
 
 if TYPE_CHECKING:
     MethodT = TypeVar("MethodT", bound=Callable[..., object])
 
-    def cached_method(method: MethodT) -> MethodT:
-        ...
+    def cached_method(method: MethodT) -> MethodT: ...
 else:
     from sage.misc.cachefunc import cached_method
 
@@ -496,8 +505,8 @@ class Sets(Category_singleton):
         def _set_partitions_categories() -> list[Category]:
             r"""Return project categories for fixed-base set-partition parents."""
             from .subcategories.partitioned import (
-                PartitionsCategory,
                 PartitionedSetsCategory,
+                PartitionsCategory,
             )
 
             return [Sets(), PartitionsCategory(), PartitionedSetsCategory()]
@@ -1111,7 +1120,9 @@ class Sets(Category_singleton):
             normalized_base, categories = self._set_partitions_base(base_set)
             return cast(
                 SetPartitionSet,
-                refine_category(SageSetPartitions(normalized_base, block_count), categories),
+                refine_category(
+                    SageSetPartitions(normalized_base, block_count), categories
+                ),
             )
 
         @overload
@@ -1147,7 +1158,9 @@ class Sets(Category_singleton):
             normalized_base, categories = self._set_partitions_base(base_set)
             return cast(
                 SetPartitionSet,
-                refine_category(SageSetPartitions(normalized_base, block_sizes), categories),
+                refine_category(
+                    SageSetPartitions(normalized_base, block_sizes), categories
+                ),
             )
 
         @final

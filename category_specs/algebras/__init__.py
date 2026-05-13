@@ -24,15 +24,15 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, cast, final, override, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias, cast, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
     AssociativeAlgebras as SageAssociativeAlgebras,
 )
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -218,7 +218,9 @@ class _AlgebraParentMethods:
         It is closed under left multiplication by ``A``.
         """
         algebra_parent = cast(Any, self)
-        return cast(AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="left"))
+        return cast(
+            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="left")
+        )
 
     @final
     def right_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
@@ -227,7 +229,9 @@ class _AlgebraParentMethods:
         It is closed under right multiplication by ``A``.
         """
         algebra_parent = cast(Any, self)
-        return cast(AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="right"))
+        return cast(
+            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="right")
+        )
 
     @final
     def two_sided_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
@@ -242,13 +246,17 @@ class _AlgebraParentMethods:
     def principal_left_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal left ideal ``A * generator``."""
         algebra_parent = cast(Any, self)
-        return cast(AlgebraIdeal, algebra_parent.principal_ideal(generator, side="left"))
+        return cast(
+            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="left")
+        )
 
     @final
     def principal_right_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal right ideal ``generator * A``."""
         algebra_parent = cast(Any, self)
-        return cast(AlgebraIdeal, algebra_parent.principal_ideal(generator, side="right"))
+        return cast(
+            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="right")
+        )
 
     @final
     def principal_two_sided_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
@@ -426,7 +434,9 @@ class Algebras(Category_module):
             return cast(
                 MagmaticAlgebra,
                 refine_category(
-                    algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False
+                    algebra,
+                    [MagmaticAlgebras(self.base_ring()), *categories],
+                    test=False,
                 ),
             )
 
@@ -670,7 +680,7 @@ class Algebras(Category_module):
 
     @cached_method
     @final
-    def Constructors(self) -> "Algebras.Constructors":
+    def Constructors(self) -> Algebras.Constructors:
         r"""Return the named algebra constructor collector over this base ring."""
         return self.__class__._Constructors(self)
 

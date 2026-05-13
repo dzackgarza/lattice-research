@@ -2,11 +2,11 @@ r"""CommutativeRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer

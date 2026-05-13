@@ -52,13 +52,17 @@ class _CountableSets(CategoryWithAxiom):
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            return cast(Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self))
+            return cast(
+                Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self)
+            )
 
         @override
         @final
         def __getitem__(self, i: Integer) -> SetElement:
             r"""Return the ``i``-th element in the chosen enumeration."""
-            return cast(SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i))
+            return cast(
+                SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+            )
 
         @override
         @final
@@ -141,7 +145,9 @@ class _FiniteCountableSets(CategoryWithAxiom):
         @override
         @final
         def random_element(self) -> SetElement:
-            return cast(SetElement, SageFiniteEnumeratedSets.ParentMethods.random_element(self))
+            return cast(
+                SetElement, SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            )
 
     class ElementMethods: ...
 
@@ -171,7 +177,8 @@ class _InfiniteCountableSets(CategoryWithAxiom):
         @final
         def random_element(self) -> SetElement:
             return cast(
-                SetElement, SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
+                SetElement,
+                SageInfiniteEnumeratedSets.ParentMethods.random_element(self),
             )
 
     class ElementMethods: ...

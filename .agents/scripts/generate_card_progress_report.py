@@ -202,7 +202,8 @@ def load_cards() -> dict[str, Card]:
             is_completed_tree=COMPLETED_ROOT in path.parents,
             activity_type=(
                 str(frontmatter["activityType"])
-                if "activityType" in frontmatter and frontmatter["activityType"] is not None
+                if "activityType" in frontmatter
+                and frontmatter["activityType"] is not None
                 else None
             ),
             phase_kind=(
@@ -482,7 +483,9 @@ def topological_card_order(cards: dict[str, Card]) -> dict[str, int]:
 
     if len(order) != len(cards):
         unresolved = sorted(set(cards) - set(order))
-        raise ValueError(f"dependsOn cycle leaves unresolved cards: {', '.join(unresolved)}")
+        raise ValueError(
+            f"dependsOn cycle leaves unresolved cards: {', '.join(unresolved)}"
+        )
     return order
 
 
@@ -540,7 +543,9 @@ def active_vs_completed_feature_trees(
     return active, completed
 
 
-def workflow_counts(cards: dict[str, Card]) -> tuple[collections.Counter[str], collections.Counter[str]]:
+def workflow_counts(
+    cards: dict[str, Card],
+) -> tuple[collections.Counter[str], collections.Counter[str]]:
     activity_counts: collections.Counter[str] = collections.Counter()
     workstream_counts: collections.Counter[str] = collections.Counter()
     for card in cards.values():
@@ -673,7 +678,9 @@ def render_report(
         lines.append("- None.")
     else:
         for card, unmet_dependencies in gated_priority:
-            unmet_text = ", ".join(f"`{dependency}`" for dependency in unmet_dependencies)
+            unmet_text = ", ".join(
+                f"`{dependency}`" for dependency in unmet_dependencies
+            )
             if not unmet_text:
                 unmet_text = "an incomplete transitive prerequisite"
             lines.append(

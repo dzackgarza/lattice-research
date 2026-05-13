@@ -2,11 +2,11 @@ r"""Free modules."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Callable, TypeVar, cast, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.modules.free_module import FreeModule as SageFreeModule
@@ -31,6 +31,7 @@ if TYPE_CHECKING:
 
 _F = TypeVar("_F", bound=Callable[..., object])
 _cached_method = cast(Callable[[_F], _F], cached_method)
+
 
 class _Free(CategoryWithAxiom_over_base_ring):
     r"""Free modules over the base ring.
@@ -151,9 +152,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
             return cast(
                 "Algebra",
-                ExteriorAlgebra(
-                    self, names=tuple(f"e{i}" for i in range(self.rank()))
-                ),
+                ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank()))),
             )
 
         @override

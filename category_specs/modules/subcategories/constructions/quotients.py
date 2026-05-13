@@ -2,10 +2,9 @@ r"""Quotient modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, cast, final, override
-
-from abc import abstractmethod
 
 from ....cat import QuotientsCategory
 

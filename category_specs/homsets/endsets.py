@@ -2,9 +2,9 @@ r"""End categories and endomorphism method surfaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, cast, final, override
 
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton

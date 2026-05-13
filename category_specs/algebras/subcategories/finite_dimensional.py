@@ -2,9 +2,9 @@ r"""Finite-dimensional algebras."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
 from sage.rings.infinity import infinity
 
 from ...cat import Category, CategoryWithAxiom_over_base_ring

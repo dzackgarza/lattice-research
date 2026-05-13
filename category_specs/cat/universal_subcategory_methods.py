@@ -46,7 +46,7 @@ class UniversalSubcategoryMethods:
     """
 
     @final
-    def _category_self(self) -> "Category":
+    def _category_self(self) -> Category:
         return cast("Category", self)
 
     @_cat_cached_method
@@ -107,6 +107,7 @@ class UniversalSubcategoryMethods:
     def HomCategory(self) -> CategoryOfHomCategories:
         r"""Return the hom-category construction over this category."""
         from ..homsets import HomCategoryConstruction
+
         return cast(
             "CategoryOfHomCategories",
             HomCategoryConstruction.category_of(self._category_self()),

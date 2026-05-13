@@ -2,9 +2,9 @@ r"""Rings of fixed characteristic."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import Any, final, override
 
-from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from .parameterized import _Category_over_base_integer

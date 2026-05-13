@@ -2,9 +2,9 @@ r"""Approximate rings with explicit precision control."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
 from sage.rings.abc import ComplexField as SageComplexField

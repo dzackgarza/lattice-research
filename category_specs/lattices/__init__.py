@@ -35,7 +35,7 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, TypeAlias
+from typing import TYPE_CHECKING, TypeAlias, final
 
 from sage.categories.category import Category
 from sage.misc.cachefunc import cached_method

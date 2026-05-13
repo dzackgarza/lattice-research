@@ -2,11 +2,11 @@ r"""Finitely presented graded modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -38,10 +38,14 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
     @final
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).FinitelyPresented(),
-            Modules(R).Graded(),
-        ])]
+        return [
+            Category.join(
+                [
+                    Modules(R).FinitelyPresented(),
+                    Modules(R).Graded(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @override

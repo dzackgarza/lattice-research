@@ -24,10 +24,10 @@ it.  Concretely, to compute ``coker(f: M -> N)``:
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final, override
 
-from abc import abstractmethod
 from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
@@ -37,9 +37,9 @@ if TYPE_CHECKING:
     from ...types import (
         DiscriminantGroup,
         Integer,
-        RMod,
         Matrix,
         RingElement,
+        RMod,
         RModMorphism,
         RModule,
         RModuleElement,

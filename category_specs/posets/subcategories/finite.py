@@ -2,11 +2,11 @@ r"""Finite poset subcategory."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterable
 from typing import TYPE_CHECKING, cast, final, override
 
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
-from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -131,7 +131,9 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def height_certificate(self) -> tuple[Integer, list[PosetElement]]:
             r"""Return the height with a maximum-cardinality chain."""
-            return cast(tuple[Integer, list[PosetElement]], self.height(certificate=True))
+            return cast(
+                tuple[Integer, list[PosetElement]], self.height(certificate=True)
+            )
 
         @abstractmethod
         def width(self) -> Integer:
@@ -141,7 +143,9 @@ class _FinitePosets(CategoryWithAxiom):
         @final
         def width_certificate(self) -> tuple[Integer, list[PosetElement]]:
             r"""Return the width with a maximum-cardinality antichain."""
-            return cast(tuple[Integer, list[PosetElement]], self.width(certificate=True))
+            return cast(
+                tuple[Integer, list[PosetElement]], self.width(certificate=True)
+            )
 
         @abstractmethod
         def is_ranked(self) -> bool:
@@ -167,7 +171,7 @@ class _FinitePosets(CategoryWithAxiom):
             return cast(
                 FiniteLatticePoset,
                 SageFinitePosets.ParentMethods.order_ideals_lattice(
-                self, as_ideals=True, facade=facade
+                    self, as_ideals=True, facade=facade
                 ),
             )
 

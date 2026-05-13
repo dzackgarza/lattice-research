@@ -2,7 +2,8 @@ r"""Axiomatic subcategory of graded sets."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, TypeVar, final, override, overload
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, final, overload, override
 
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 
@@ -11,19 +12,18 @@ from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
     from ...types import Set, SetElement, SetGeneratingSeries
+
     MethodT = TypeVar("MethodT", bound=Callable[..., object])
 
     @overload
     def abstractmethod(function: MethodT, /) -> MethodT: ...
 
     @overload
-    def abstractmethod(*, optional: bool = False) -> Callable[[MethodT], MethodT]:
-        ...
+    def abstractmethod(*, optional: bool = False) -> Callable[[MethodT], MethodT]: ...
 
     def abstractmethod(
         function: MethodT | None = None, *, optional: bool = False
-    ) -> MethodT | Callable[[MethodT], MethodT]:
-        ...
+    ) -> MethodT | Callable[[MethodT], MethodT]: ...
 else:
     from abc import abstractmethod
 

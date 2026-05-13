@@ -2,11 +2,11 @@ r"""One-object subcategories for images of sets under maps."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from abc import abstractmethod
 from sage.sets.image_set import ImageSubobject as SageImageSubobject
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ class ImageSubobject(SageImageSubobject):
             return any(y == x for y in self)
         try:
             self._element_constructor_(x)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             return False
         return True
 

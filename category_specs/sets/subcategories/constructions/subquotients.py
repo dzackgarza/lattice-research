@@ -7,9 +7,8 @@ quotients are special cases of this construction.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING
 
 from ....cat import SubquotientsCategory
 

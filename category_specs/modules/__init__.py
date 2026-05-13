@@ -34,12 +34,12 @@ Canonical type aliases used throughout this package:
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, TypeVar, final, overload, override, TypeAlias, cast
+from typing import TYPE_CHECKING, TypeAlias, TypeVar, cast, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -107,7 +107,6 @@ if TYPE_CHECKING:
         Cardinality,
         CategoryElement,
         DualModule,
-        FreeModule as FreeModuleType,
         Ideal,
         Integer,
         Matrix,
@@ -127,6 +126,9 @@ if TYPE_CHECKING:
         SubModule,
         TermOrder,
         TorsionModule,
+    )
+    from ..types import (
+        FreeModule as FreeModuleType,
     )
 
 
@@ -276,7 +278,9 @@ class _RModObjects:
     @final
     def tensor_module(self, p: Integer, q: Integer) -> RModule:
         assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
-        return cast(RModule, tensor([self.tensor_power(p), self.dual().tensor_power(q)]))
+        return cast(
+            RModule, tensor([self.tensor_power(p), self.dual().tensor_power(q)])
+        )
 
     @abstractmethod
     def annihilator(self) -> Ideal: ...
@@ -1115,9 +1119,7 @@ class Modules(Category_module):
             return self.TorsionQuadraticForm(matrix(QQ, q_rows))
 
         @final
-        def ring_as_rank_one_module(
-            self, ring: Ring | None = None
-        ) -> FreeModuleType:
+        def ring_as_rank_one_module(self, ring: Ring | None = None) -> FreeModuleType:
             R = self.base_ring() if ring is None else ring
             M = Modules(R).Constructors().FreeModule(rank=1)
             refined: RModule = self._refine_constructed_module(

@@ -3,6 +3,7 @@ r"""Dual modules."""
 from __future__ import annotations
 
 from typing import final, override
+
 from sage.categories.category import Category
 
 from ....cat import DualObjectsCategory

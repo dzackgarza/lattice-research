@@ -2,10 +2,10 @@ r"""One-object subcategory for Sage ``Primes()``."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import SetElement

@@ -2,9 +2,8 @@ r"""Totally ordered set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom

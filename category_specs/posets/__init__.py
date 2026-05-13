@@ -21,7 +21,17 @@ are order-theoretic meet/join lattices, not module lattices.
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, Callable as TypingCallable, TypeAlias, TypeVar, cast, final, override, overload
+from collections.abc import Callable as TypingCallable
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeAlias,
+    TypeVar,
+    cast,
+    final,
+    overload,
+    override,
+)
 
 from sage.categories.posets import Posets as SagePosets
 from sage.misc.lazy_import import LazyImport
@@ -47,20 +57,21 @@ if TYPE_CHECKING:
     MethodT = TypeVar("MethodT", bound=TypingCallable[..., object])
 
     @overload
-    def abstractmethod(function: MethodT, /) -> MethodT:
-        ...
+    def abstractmethod(function: MethodT, /) -> MethodT: ...
 
     @overload
-    def abstractmethod(*, optional: bool = False) -> TypingCallable[[MethodT], MethodT]:
-        ...
+    def abstractmethod(
+        *, optional: bool = False
+    ) -> TypingCallable[[MethodT], MethodT]: ...
 
-    def abstractmethod(function: MethodT | None = None, *, optional: bool = False) -> MethodT | TypingCallable[[MethodT], MethodT]:
-        ...
+    def abstractmethod(
+        function: MethodT | None = None, *, optional: bool = False
+    ) -> MethodT | TypingCallable[[MethodT], MethodT]: ...
 
-    def cached_method(method: MethodT) -> MethodT:
-        ...
+    def cached_method(method: MethodT) -> MethodT: ...
 else:
     from abc import abstractmethod
+
     from sage.misc.cachefunc import cached_method
 
 

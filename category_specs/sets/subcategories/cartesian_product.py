@@ -2,18 +2,18 @@ r"""One-object subcategory for Sage Cartesian products of sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator, Sequence
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import Sets as SageSets
-from abc import abstractmethod
 from sage.sets.cartesian_product import CartesianProduct as SageCartesianProduct
 
 if TYPE_CHECKING:
     from ...types import (
-        CartesianProductFunctor,
         Cardinality,
+        CartesianProductFunctor,
         Integer,
         Set,
         SetElement,

@@ -2,9 +2,8 @@ r"""LocalRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
         Field,
         MaximalIdeal,
     )
+
 
 class _LocalRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Local()``."""

@@ -6,8 +6,10 @@ TorsionBilinearModule: finite torsion module with bilinear form.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+from typing import Any
+
 from sage.structure.parent import Parent
-from typing import Any, Iterable
 
 
 class FreeBilinearModule(Parent):
@@ -82,5 +84,5 @@ class TorsionBilinearModule(Parent):
         invariants: Iterable[object],
         gram: Any,
         codomain: Any | None = None,
-    ) -> "TorsionBilinearModule":
+    ) -> TorsionBilinearModule:
         return cls(base_ring, invariants, gram_matrix=gram, codomain=codomain)

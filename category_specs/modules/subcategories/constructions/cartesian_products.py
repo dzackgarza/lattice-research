@@ -3,6 +3,7 @@ r"""Cartesian products of modules."""
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast, final, override
+
 from sage.categories.category import Category
 
 from ....cat import CartesianProductsCategory

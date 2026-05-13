@@ -2,9 +2,8 @@ r"""Subobject construction category for categories."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, final, override
 
 from ... import (
     CategoryWithAxiom,

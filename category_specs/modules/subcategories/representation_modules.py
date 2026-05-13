@@ -3,11 +3,11 @@ r"""Modules equipped with a specified semigroup or group action."""
 from __future__ import annotations
 
 import operator
+from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules

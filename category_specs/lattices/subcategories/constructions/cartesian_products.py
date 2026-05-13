@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from typing import final
 
-from ... import LatticesCategory
-
 from ....cat import CartesianProductsCategory
+from ... import LatticesCategory
 
 
 class _CartesianProducts(CartesianProductsCategory):

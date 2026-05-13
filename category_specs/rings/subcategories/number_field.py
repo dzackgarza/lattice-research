@@ -2,11 +2,11 @@ r"""NumberFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, final, overload, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer

@@ -2,10 +2,10 @@ r"""Slice construction category for categories over a fixed category."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.functor import Functor
-from abc import abstractmethod
 
 from ... import Category, Category_over_base, RegressiveCovariantConstructionCategory
 

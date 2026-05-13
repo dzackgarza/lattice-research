@@ -2,11 +2,11 @@ r"""Tensor products of modules."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, TypeVar, Callable, cast, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.tensor import TensorProductFunctor
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 

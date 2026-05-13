@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, cast, final, override
 
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
@@ -87,7 +87,9 @@ class RingEndCategory(GenericEndCategory):
 
         @final
         def unit_group(self) -> RingAut:
-            return cast("RingAut", self.category().AutCategory().from_end_category(self))
+            return cast(
+                "RingAut", self.category().AutCategory().from_end_category(self)
+            )
 
     ElementMethods = _RingEndomorphisms
 

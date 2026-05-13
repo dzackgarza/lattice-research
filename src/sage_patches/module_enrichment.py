@@ -11,10 +11,10 @@ metadata and enriched constructor routing.
 
 from __future__ import annotations
 
-from sage.all import ZZ, Modules
-from sage.categories.modules import Modules as ModulesCategory
-from sage.modules.free_module import FreeModule_ambient_pid
 from typing import Any
+
+from sage.all import Modules
+from sage.modules.free_module import FreeModule_ambient_pid
 
 _installed = False
 
@@ -22,7 +22,7 @@ _installed = False
 def _ensure_module_refinement(M: Any) -> Any:
     """Refine a module parent into Modules(R)."""
     try:
-        if hasattr(M, '_refine_category_'):
+        if hasattr(M, "_refine_category_"):
             M._refine_category_(Modules(M.base_ring()))
     except Exception:
         pass

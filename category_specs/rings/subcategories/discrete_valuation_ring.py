@@ -2,12 +2,12 @@ r"""DiscreteValuationRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.discrete_valuation import (
     DiscreteValuationRings as SageDiscreteValuationRings,
 )
-from abc import abstractmethod
 from sage.rings.integer import Integer
 
 from ...cat import Category

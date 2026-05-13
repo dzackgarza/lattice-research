@@ -2,11 +2,11 @@ r"""FiniteFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.finite_fields import FiniteFields as SageFiniteFields
-from abc import abstractmethod
 from sage.rings.integer import Integer
 from sage.structure.factorization import Factorization
 

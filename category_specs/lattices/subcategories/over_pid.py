@@ -2,9 +2,8 @@ r"""Lattices over principal ideal domains."""
 
 from __future__ import annotations
 
-from typing import final
-
 from abc import abstractmethod
+from typing import final
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_dedekind import _LatticesOverDedekindDomain

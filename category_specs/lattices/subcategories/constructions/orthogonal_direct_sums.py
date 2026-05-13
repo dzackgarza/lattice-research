@@ -2,9 +2,8 @@ r"""Orthogonal direct-sum construction category."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, final
 
 from ....cat import Category_module
 

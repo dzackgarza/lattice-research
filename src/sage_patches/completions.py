@@ -11,16 +11,15 @@ from __future__ import annotations
 
 from typing import Any
 
-from sage.all import ZZ, QQ
-
 _installed = False
 
 
 def _refine_returned_ring(result: Any, base_ring: Any) -> Any:
     """Refine a returned ring parent into ModuleBaseRings scope."""
     try:
-        if hasattr(result, '_refine_category_'):
+        if hasattr(result, "_refine_category_"):
             import src.sage_patches.ring_base_category as mbr
+
             result._refine_category_(mbr._ModuleBaseRings())
     except Exception:
         pass
@@ -55,14 +54,15 @@ def install() -> None:
         return
 
     import src.sage_patches.ring_base_category as mbr
+
     cat = mbr._ModuleBaseRings()
 
     # Add aliases to ModuleBaseRings.ParentMethods
-    if not hasattr(cat.ParentMethods, 'complete'):
+    if not hasattr(cat.ParentMethods, "complete"):
         cat.ParentMethods.complete = _module_base_complete
-    if not hasattr(cat.ParentMethods, 'localize'):
+    if not hasattr(cat.ParentMethods, "localize"):
         cat.ParentMethods.localize = _module_base_localize
-    if not hasattr(cat.ParentMethods, 'fraction_field'):
+    if not hasattr(cat.ParentMethods, "fraction_field"):
         cat.ParentMethods.fraction_field = _module_base_fraction_field
 
     _installed = True

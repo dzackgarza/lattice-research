@@ -2,9 +2,8 @@ r"""Lattices over the integer ring."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, final
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID

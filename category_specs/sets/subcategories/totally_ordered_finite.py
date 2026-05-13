@@ -2,12 +2,12 @@ r"""One-object subcategory for Sage ``TotallyOrderedFiniteSet`` parents."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import EmptySetError
-from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import Cardinality, Integer, SetElement

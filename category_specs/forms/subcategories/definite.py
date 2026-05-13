@@ -8,9 +8,8 @@ A symmetric bilinear form is *definite* iff it is either positive-definite
 
 from __future__ import annotations
 
-from typing import final, override
-
 from abc import abstractmethod
+from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .symmetric import SymmetricBilinearModulesCategory

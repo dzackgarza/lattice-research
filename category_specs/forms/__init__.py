@@ -7,7 +7,7 @@ It is the forms-subtree owner for the existing Sage-compatible spelling
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, TypeAlias
+from typing import TYPE_CHECKING, TypeAlias, final
 
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from . import chain as _chain

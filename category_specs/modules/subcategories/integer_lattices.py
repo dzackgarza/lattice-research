@@ -2,10 +2,10 @@ r"""Integral lattices."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -25,12 +25,16 @@ class _IntegerLattices(Category_over_base_ring):
     @final
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).Subobjects(),
-            Modules(R).WithOrderedGeneratingSet(),
-            Modules(R).OverPID(),
-            Modules(R).WithForms().Bilinear(),
-        ])]
+        return [
+            Category.join(
+                [
+                    Modules(R).Subobjects(),
+                    Modules(R).WithOrderedGeneratingSet(),
+                    Modules(R).OverPID(),
+                    Modules(R).WithForms().Bilinear(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @override

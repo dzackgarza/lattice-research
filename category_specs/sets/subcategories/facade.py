@@ -42,7 +42,8 @@ class _FacadeSets(CategoryWithAxiom):
         def _element_constructor_(self, element: SetElement) -> SetElement:
             r"""Coerce ``element`` from any facade parent."""
             return cast(
-                SetElement, SageFacadeSets.ParentMethods._element_constructor_(self, element)
+                SetElement,
+                SageFacadeSets.ParentMethods._element_constructor_(self, element),
             )
 
         @override

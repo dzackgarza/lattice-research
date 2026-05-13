@@ -2,10 +2,10 @@ r"""Hom categories and morphism method surfaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, cast, final, overload, override
 
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
 

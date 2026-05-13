@@ -2,9 +2,8 @@ r"""Slice construction category of algebras over a fixed algebra."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (

@@ -2,9 +2,9 @@ r"""IntegerModRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
 from sage.rings.finite_rings.integer_mod_ring import IntegerModRing_generic
 from sage.structure.factorization import Factorization
 

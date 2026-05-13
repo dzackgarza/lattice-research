@@ -2,9 +2,8 @@ r"""Algebra ideals as module subobjects."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import Category, Category_module
 from ....modules import Modules

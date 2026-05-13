@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from typing import final
 
-from ... import LatticesCategory
-
 from ....cat import DualObjectsCategory
+from ... import LatticesCategory
 
 
 class LatticeDualObjectsCategory(DualObjectsCategory):

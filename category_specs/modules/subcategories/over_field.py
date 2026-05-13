@@ -2,10 +2,10 @@ r"""Vector spaces and modules over fields."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, final, override
 
-from abc import abstractmethod
 from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring

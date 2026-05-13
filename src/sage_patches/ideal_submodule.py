@@ -11,11 +11,11 @@ category metadata.
 
 from __future__ import annotations
 
-from sage.all import ZZ, QQ, Modules
+from typing import Any
+
+from sage.all import ZZ, Modules
 from sage.categories.rings import Rings
 from sage.rings.ideal import Ideal_generic
-from sage.rings.ring import PrincipalIdealDomain
-from typing import Any
 
 _installed = False
 
@@ -28,7 +28,7 @@ def _refine_ideal_as_module(ideal: Any) -> Any:
     """Refine a Sage ideal as a module subobject of the ring-as-module."""
     try:
         ring = ideal.ring()
-        if ring in ZZ.parent_category or hasattr(ring, '_refine_category_'):
+        if ring in ZZ.parent_category or hasattr(ring, "_refine_category_"):
             ideal._refine_category_(Modules(ring))
     except Exception:
         pass

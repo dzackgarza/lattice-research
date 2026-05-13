@@ -1,4 +1,5 @@
 """Test file matching the fixture pattern exactly"""
+
 from typing import override as _override
 
 from sage.categories.category import Category
@@ -9,7 +10,7 @@ class _A(Category):
         return []
 
     @classmethod
-    def an_instance(cls) -> "_A":
+    def an_instance(cls) -> _A:
         return cls()
 
     class ParentMethods:
@@ -23,7 +24,7 @@ class _B(Category):
         return [_A.an_instance()]
 
     @classmethod
-    def an_instance(cls) -> "_B":
+    def an_instance(cls) -> _B:
         return cls()
 
     class ParentMethods:

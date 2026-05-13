@@ -2,11 +2,11 @@ r"""Modules over principal ideal domains."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
-from sage.misc.lazy_import import LazyImport
 from sage.categories.category import Category
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules

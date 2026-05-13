@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage finite sets of maps."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
-from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import (

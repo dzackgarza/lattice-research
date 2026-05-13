@@ -2,9 +2,8 @@ r"""Construction category for concrete realizations of a set."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING
 
 from ....cat import RealizationsCategory
 

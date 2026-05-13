@@ -2,6 +2,7 @@ r"""One-object subcategory for Sage recursively enumerated sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterator
 from typing import TYPE_CHECKING, Any, cast, final, override
 
@@ -12,7 +13,6 @@ from sage.categories.finite_enumerated_sets import (
 from sage.categories.infinite_enumerated_sets import (
     InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
 )
-from abc import abstractmethod
 from sage.sets.recursively_enumerated_set import (
     RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest,
 )
@@ -73,7 +73,8 @@ class _RecursivelyEnumeratedSets(Category_singleton):
                 from sage.rings.infinity import infinity
 
                 return cast(
-                    bool, self._max_depth != float("inf") and self._max_depth != infinity
+                    bool,
+                    self._max_depth != float("inf") and self._max_depth != infinity,
                 )
             raise NotImplementedError(
                 "recursive set finiteness requires category or depth evidence"

@@ -6,10 +6,10 @@ starts only at the named `Lattice` endpoint.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -103,9 +103,7 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class MorphismMethods: ...
 
-    Symmetric = LazyImport(
-        __name__, "SymmetricFiniteRankFreeBilinearModulesCategory"
-    )
+    Symmetric = LazyImport(__name__, "SymmetricFiniteRankFreeBilinearModulesCategory")
 
 
 class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):

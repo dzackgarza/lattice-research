@@ -2,9 +2,8 @@ r"""Subobject construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast, final
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final
 
 from ....cat import SubobjectsCategory
 

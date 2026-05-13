@@ -60,15 +60,13 @@ class _IntegerRangeSets(Category_singleton):
 
             try:
                 elt = Integer(elt)
-            except (TypeError, ValueError):
+            except TypeError, ValueError:
                 return False
 
             if isinstance(self, SageIntegerRangeEmpty):
                 return cast(bool, False)
             if isinstance(self, SageIntegerRangeFromMiddle):
-                return cast(
-                    bool, SageIntegerRangeFromMiddle.__contains__(self, elt)
-                )
+                return cast(bool, SageIntegerRangeFromMiddle.__contains__(self, elt))
             if isinstance(self, SageIntegerRangeFinite):
                 return cast(bool, SageIntegerRangeFinite.__contains__(self, elt))
             if isinstance(self, SageIntegerRangeInfinite):
@@ -99,12 +97,16 @@ class _IntegerRangeSets(Category_singleton):
         @override
         @final
         def __getitem__(self, i: Integer) -> SetElement:
-            return cast(SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i))
+            return cast(
+                SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+            )
 
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            return cast(Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self))
+            return cast(
+                Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self)
+            )
 
         @override
         @final

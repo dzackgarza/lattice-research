@@ -2,9 +2,8 @@ r"""Modules over integral domains."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules

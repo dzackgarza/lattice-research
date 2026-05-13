@@ -2,11 +2,11 @@ r"""Free graded modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from .. import Modules

@@ -7,11 +7,11 @@ declares the category-spec surface that will wrap that machinery.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import Any, final, override
 
 from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import HomCategoryOf

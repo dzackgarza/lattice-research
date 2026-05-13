@@ -2,9 +2,8 @@ r"""Subalgebras."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING
 
 from ....cat import SubobjectsCategory
 

@@ -2,10 +2,10 @@ r"""Order-theoretic meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Callable, TypeVar, final, overload, override
-
 from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, TypeVar, final, overload, override
+
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
@@ -17,14 +17,13 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     MethodT = TypeVar("MethodT", bound=Callable[..., object])
 
-    def foldable_operation(function: MethodT) -> MethodT:
-        ...
+    def foldable_operation(function: MethodT) -> MethodT: ...
 
-    def cached_method(method: MethodT) -> MethodT:
-        ...
+    def cached_method(method: MethodT) -> MethodT: ...
 else:
-    from ...utils import foldable_operation
     from sage.misc.cachefunc import cached_method
+
+    from ...utils import foldable_operation
 
 
 class _MeetSemilatticePosets(Category):

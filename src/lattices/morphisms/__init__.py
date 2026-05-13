@@ -7,8 +7,9 @@ form-awareness for kernel/image/cokernel computation.
 
 from __future__ import annotations
 
-from sage.categories.morphism import Morphism
 from typing import Any
+
+from sage.categories.morphism import Morphism
 
 
 class BilinearMorphism(Morphism):
@@ -43,7 +44,7 @@ class BilinearMorphism(Morphism):
         return self._underlying.cokernel()
 
     def matrix(self) -> Any:
-        if hasattr(self._underlying, 'matrix'):
+        if hasattr(self._underlying, "matrix"):
             return self._underlying.matrix()
         raise NotImplementedError
 

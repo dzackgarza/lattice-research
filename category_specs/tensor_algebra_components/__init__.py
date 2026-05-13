@@ -7,10 +7,10 @@ are tensors in those component modules.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override, TypeAlias
-
 from abc import abstractmethod
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, TypeAlias, final, override
+
 from sage.misc.cachefunc import cached_method
 
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
@@ -224,9 +224,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor element in ``T_R(M)[p,q]``."""
-            self.component_module(
-                base_module, tensor_type, sym=sym, antisym=antisym
-            )
+            self.component_module(base_module, tensor_type, sym=sym, antisym=antisym)
             return base_module.tensor(
                 tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym
             )

@@ -2,9 +2,9 @@ r"""RealIntervalFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
 from sage.rings.abc import RealIntervalField as SageRealIntervalField
 
 from ...cat import Category, Category_singleton

@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage ``RealSet`` parents."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
-from abc import abstractmethod
 from sage.rings.infinity import infinity, minus_infinity
 
 if TYPE_CHECKING:

@@ -2,13 +2,13 @@ r"""Finite order-theoretic lattice poset subcategory."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import TYPE_CHECKING, Literal, cast, final, override
 
 from sage.categories.finite_lattice_posets import (
     FiniteLatticePosets as SageFiniteLatticePosets,
 )
-from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -185,7 +185,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
             return cast(
                 bool,
                 SageFiniteLatticePosets.ParentMethods.is_lattice_morphism(
-                self, f, codomain
+                    self, f, codomain
                 ),
             )
 

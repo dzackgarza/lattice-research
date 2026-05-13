@@ -2,11 +2,11 @@ r"""Parameterized category of G-sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 from sage.categories.g_sets import GSets as SageGSets
-from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import Group, GroupElement, Set, SetElement, Subset

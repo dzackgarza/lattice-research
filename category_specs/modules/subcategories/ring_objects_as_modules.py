@@ -2,9 +2,9 @@ r"""Ring objects regarded as modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from abc import abstractmethod
 from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring

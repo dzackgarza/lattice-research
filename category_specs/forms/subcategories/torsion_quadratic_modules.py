@@ -2,10 +2,10 @@ r"""Finite torsion modules with quadratic forms."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ...cat import Category_over_base_ring
 from ...modules import Modules

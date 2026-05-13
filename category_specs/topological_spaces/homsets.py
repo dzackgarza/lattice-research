@@ -2,13 +2,12 @@ r"""Hom, end, and aut categories for topological spaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import final, override
 
-from ..cat import Category
-
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
+from ..cat import Category
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 

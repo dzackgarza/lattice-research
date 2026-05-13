@@ -8,8 +8,8 @@ categories for Phase 2 implementation work.
 from __future__ import annotations
 
 from sage.categories.category import Category
-from sage.categories.category_with_axiom import CategoryWithAxiom_singleton
 from sage.categories.category_types import Category_over_base_ring
+from sage.categories.category_with_axiom import CategoryWithAxiom_singleton
 
 
 class ModulesWithFormsCategory(Category_over_base_ring):
@@ -17,6 +17,7 @@ class ModulesWithFormsCategory(Category_over_base_ring):
 
     def super_categories(self) -> list[Category]:
         from sage.categories.modules import Modules
+
         return [Modules(self.base_ring())]
 
     class ParentMethods:
@@ -33,9 +34,11 @@ class ModulesWithFormsCategory(Category_over_base_ring):
 
 class BilinearModulesCategory(CategoryWithAxiom_singleton):
     """Bilinear formed modules."""
+
     _base_category_class_and_axiom = (ModulesWithFormsCategory, "Bilinear")
 
 
 class QuadraticModulesCategory(CategoryWithAxiom_singleton):
     """Quadratic formed modules."""
+
     _base_category_class_and_axiom = (ModulesWithFormsCategory, "Quadratic")

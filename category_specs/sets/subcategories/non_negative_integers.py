@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage ``NonNegativeIntegers()``."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.category_singleton import Category_singleton
-from abc import abstractmethod
 
 if TYPE_CHECKING:
     from ...types import SetElement, SympySet

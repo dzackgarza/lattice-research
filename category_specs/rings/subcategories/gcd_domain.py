@@ -2,10 +2,10 @@ r"""GcdDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
-from abc import abstractmethod
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom

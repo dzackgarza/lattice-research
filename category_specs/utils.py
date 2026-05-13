@@ -216,9 +216,7 @@ def _run_smoke_statement_isolated(
         os.close(read_fd)
         failure = _run_smoke_statement(message, statement)
         payload = (
-            b""
-            if failure is None
-            else failure.encode("utf-8", "backslashreplace")
+            b"" if failure is None else failure.encode("utf-8", "backslashreplace")
         )
         try:
             _write_all(write_fd, payload)
@@ -251,8 +249,7 @@ def _run_smoke_statement_isolated(
             f"by signal {os.WTERMSIG(status)}"
         )
     return (
-        failure
-        or f"{message}: smoke statement child ended with wait status {status}"
+        failure or f"{message}: smoke statement child ended with wait status {status}"
     )
 
 

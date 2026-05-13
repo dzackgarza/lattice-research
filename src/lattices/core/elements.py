@@ -7,8 +7,9 @@ semantics to ModulesWithForms category ElementMethods.
 
 from __future__ import annotations
 
-from sage.structure.element import ModuleElement
 from typing import Any
+
+from sage.structure.element import ModuleElement
 
 
 class BilinearModuleElement(ModuleElement):
@@ -24,25 +25,25 @@ class BilinearModuleElement(ModuleElement):
     def to_coordinates(self) -> list[Any]:
         return list(self._vector)
 
-    def _add_(self, other: "BilinearModuleElement") -> "BilinearModuleElement":
+    def _add_(self, other: BilinearModuleElement) -> BilinearModuleElement:
         return self.__class__(self.parent(), self._vector + other._vector)
 
-    def _sub_(self, other: "BilinearModuleElement") -> "BilinearModuleElement":
+    def _sub_(self, other: BilinearModuleElement) -> BilinearModuleElement:
         return self.__class__(self.parent(), self._vector - other._vector)
 
-    def _neg_(self) -> "BilinearModuleElement":
+    def _neg_(self) -> BilinearModuleElement:
         return self.__class__(self.parent(), -self._vector)
 
-    def _rmul_(self, scalar: Any) -> "BilinearModuleElement":
+    def _rmul_(self, scalar: Any) -> BilinearModuleElement:
         return self.__class__(self.parent(), scalar * self._vector)
 
-    def _lmul_(self, scalar: Any) -> "BilinearModuleElement":
+    def _lmul_(self, scalar: Any) -> BilinearModuleElement:
         return self.__class__(self.parent(), scalar * self._vector)
 
     def _mul_(self, other: Any) -> Any:
         """Dispatch to parent form for bilinear evaluation."""
         parent = self.parent()
-        if hasattr(parent, 'form') and parent.form() is not None:
+        if hasattr(parent, "form") and parent.form() is not None:
             return parent.form().evaluate(self, other)
         raise NotImplementedError("no form data on parent")
 
@@ -57,6 +58,7 @@ class BilinearModuleElement(ModuleElement):
 
     def _richcmp_(self, other: Any, op: int) -> object:
         from sage.structure.richcmp import richcmp
+
         if not isinstance(other, BilinearModuleElement):
             return NotImplemented
         return richcmp(self._vector, other._vector, op)
@@ -77,6 +79,6 @@ class TorsionBilinearModuleElement(BilinearModuleElement):
 
     def additive_order(self) -> int:
         parent = self.parent()
-        if hasattr(parent, 'invariants'):
+        if hasattr(parent, "invariants"):
             return int(parent.invariants()[0])  # simplified
         return 1

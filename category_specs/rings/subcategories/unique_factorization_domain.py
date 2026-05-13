@@ -2,12 +2,12 @@ r"""UniqueFactorizationDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
 )
-from abc import abstractmethod
 from sage.structure.factorization import Factorization
 
 from ...cat import Category

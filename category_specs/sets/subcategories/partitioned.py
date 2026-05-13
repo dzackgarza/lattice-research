@@ -2,12 +2,9 @@ r"""Axiomatic subcategory for partitioned sets and set partitions."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, cast, final, override
-
-from abc import abstractmethod
-from sage.misc.cachefunc import cached_method
-from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -20,6 +17,7 @@ if TYPE_CHECKING:
 # ---------------------------------------------------------------------------
 # Partitioned axiom --- sets carrying partition data
 # ---------------------------------------------------------------------------
+
 
 class PartitionedSetsCategory(CategoryWithAxiom):
     r"""Sets whose elements are partitioned.
@@ -62,6 +60,7 @@ class PartitionedSetsCategory(CategoryWithAxiom):
 # ---------------------------------------------------------------------------
 # Partitions subcategory --- sets whose *elements* are partitions
 # ---------------------------------------------------------------------------
+
 
 class PartitionsCategory(Category):
     r"""Sets whose elements are partitions of a fixed base set.
@@ -262,6 +261,7 @@ class PartitionsCategory(Category):
 # ---------------------------------------------------------------------------
 # TotallyOrdered axiom
 # ---------------------------------------------------------------------------
+
 
 class TotallyOrderedSetsCategory(CategoryWithAxiom):
     r"""Sets whose elements are finite and totally ordered.

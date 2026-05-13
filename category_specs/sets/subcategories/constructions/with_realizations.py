@@ -2,11 +2,11 @@ r"""Construction category for sets with multiple realizations."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
 from sage.categories.category import Category
-from abc import abstractmethod
 
 from ....cat import WithRealizationsCategory
 

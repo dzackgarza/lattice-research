@@ -120,6 +120,7 @@ _CatCachedMethod = TypeVar("_CatCachedMethod", bound=Callable[..., object])
 def _cat_cached_method(method: _CatCachedMethod) -> _CatCachedMethod:
     return cast(_CatCachedMethod, cached_method(method))
 
+
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset({"base_ring", "category", "names"})
 _CAT_CONSTRUCTOR_CLASS: type | None = None
@@ -210,9 +211,7 @@ def _cat_constructor_method_names(prefix: str, provider: type) -> tuple[str, ...
 def _cat_constructor_forwarder(
     prefix: str, constructor_name: str
 ) -> Callable[..., Any]:
-    def forwarded_constructor(
-        self: SageCategory, *args: Any, **kwargs: Any
-    ) -> Any:
+    def forwarded_constructor(self: SageCategory, *args: Any, **kwargs: Any) -> Any:
         constructors = _CAT_CONSTRUCTOR_OWNERS[prefix].Constructors()
         return getattr(constructors, constructor_name)(*args, **kwargs)
 

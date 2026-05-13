@@ -2,9 +2,8 @@ r"""Quotient construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
-
 from abc import abstractmethod
+from typing import TYPE_CHECKING, final
 
 from ....cat import QuotientsCategory
 

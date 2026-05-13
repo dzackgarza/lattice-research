@@ -28,9 +28,8 @@ This is the tier at which the following become well-defined:
 
 from __future__ import annotations
 
-from typing import final
-
 from abc import abstractmethod
+from typing import final
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...types import (

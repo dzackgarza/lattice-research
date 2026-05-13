@@ -106,7 +106,9 @@ class TestConstructorPromotion:
         assert M.rank() == 3
         assert M in Modules(ZZ).Free().FinitelyPresented()
 
-    def test_vector_space_constructor_promotes_to_free_finitely_presented_over_field(self) -> None:
+    def test_vector_space_constructor_promotes_to_free_finitely_presented_over_field(
+        self,
+    ) -> None:
         from sage.modules.free_module import VectorSpace
 
         V = VectorSpace(QQ, 4)
@@ -135,7 +137,9 @@ class TestConstructorPromotion:
         R = PolynomialRing(QQ, "x")
         assert R in Rings()
 
-    def test_multivariate_polynomial_ring_over_field_is_not_promoted_to_pid(self) -> None:
+    def test_multivariate_polynomial_ring_over_field_is_not_promoted_to_pid(
+        self,
+    ) -> None:
         from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
 
         R = PolynomialRing(QQ, ("x", "y"))
@@ -159,14 +163,18 @@ class TestConstructorPromotion:
         R = PowerSeriesRing(QQ, "t")
         assert R in Rings()
 
-    def test_integer_mod_ring_constructor_promotes_to_finitely_presented_zz_module(self) -> None:
+    def test_integer_mod_ring_constructor_promotes_to_finitely_presented_zz_module(
+        self,
+    ) -> None:
         from sage.rings.finite_rings.integer_mod_ring import IntegerModRing
 
         R = IntegerModRing(9)
         assert R.order() == 9
         assert R in Modules(ZZ).FinitelyPresented()
 
-    def test_number_field_constructor_promotes_field_and_preserves_integer_ring(self) -> None:
+    def test_number_field_constructor_promotes_field_and_preserves_integer_ring(
+        self,
+    ) -> None:
         from sage.all import QuadraticField
         from sage.categories.dedekind_domains import DedekindDomains
 

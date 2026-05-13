@@ -2,10 +2,10 @@ r"""Modules equipped with bilinear forms."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -16,9 +16,7 @@ if TYPE_CHECKING:
     from ...types import Category, Matrix, RingElement, RModuleElement
 
 
-_BilinearCachedMethod = TypeVar(
-    "_BilinearCachedMethod", bound=Callable[..., object]
-)
+_BilinearCachedMethod = TypeVar("_BilinearCachedMethod", bound=Callable[..., object])
 
 
 def _bilinear_cached_method(method: _BilinearCachedMethod) -> _BilinearCachedMethod:

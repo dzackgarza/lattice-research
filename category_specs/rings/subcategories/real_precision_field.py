@@ -2,9 +2,9 @@ r"""RealPrecisionFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from abc import abstractmethod
 from sage.rings.abc import RealBallField as SageRealBallField
 from sage.rings.abc import RealDoubleField as SageRealDoubleField
 from sage.rings.abc import RealField as SageRealField

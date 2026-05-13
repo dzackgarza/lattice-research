@@ -2,10 +2,9 @@ r"""Modules with an ordered generating set."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
-
-from abc import abstractmethod
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction

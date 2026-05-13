@@ -2,10 +2,10 @@ r"""Metric spaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 

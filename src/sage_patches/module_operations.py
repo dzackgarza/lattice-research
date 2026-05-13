@@ -6,10 +6,10 @@ Sage's existing Smith normal form invariants.
 
 from __future__ import annotations
 
-from sage.all import ZZ
+from typing import Any
+
 from sage.modules.fg_pid.fgp_module import FGP_Module_class
 from sage.modules.free_module import FreeModule
-from typing import Any
 
 _installed = False
 
@@ -35,7 +35,6 @@ def _fgp_torsion_part(self: Any) -> Any:
         return V.quotient(V)
     R = self.base_ring()
     V = FreeModule(R, len(torsion_invs))
-    from sage.modules.fg_pid.fgp_module import FGP_Module
     sub = V.submodule([V.gen(i) * torsion_invs[i] for i in range(len(torsion_invs))])
     return V.quotient(sub)
 

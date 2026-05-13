@@ -8,9 +8,9 @@ modules-with-forms aut surface.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from abc import abstractmethod
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf

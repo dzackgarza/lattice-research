@@ -12,11 +12,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sage.categories.category_with_axiom import CategoryWithAxiom_singleton as CategoryWithAxiom
+from sage.categories.category_with_axiom import (
+    CategoryWithAxiom_singleton as CategoryWithAxiom,
+)
 from sage.categories.principal_ideal_domains import PrincipalIdealDomains as SagePIDs
-from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
-from sage.misc.cachefunc import cached_method
-
 from sage.categories.rings import Rings as SageRings
 
 if TYPE_CHECKING:
@@ -49,6 +48,7 @@ class _ModuleBaseRings(CategoryWithAxiom):
             """
             from sage.modules.free_module import VectorSpace
             from sage.rings.integer_ring import ZZ
+
             if n in ZZ and n >= 0:
                 return VectorSpace(self, n)
             raise TypeError(f"exponent {n} must be a nonnegative integer")
@@ -60,15 +60,18 @@ class _ModuleBaseRings(CategoryWithAxiom):
             the result into the module category where possible.
             """
             from sage.categories.rings import Rings
+
             I = Rings().parent_class.ideal(self, *args, **kwds)
             return I
 
     class ElementMethods:
         """Element methods for module base ring elements."""
+
         ...
 
     class MorphismMethods:
         """Morphism methods for module base ring homomorphisms."""
+
         ...
 
 
@@ -77,7 +80,7 @@ def _install_module_base_rings() -> None:
 
     Idempotent: calling this multiple times is safe.
     """
-    from sage.all import ZZ, QQ, RR, CC, QQbar, Zp, GF
+    from sage.all import CC, GF, QQ, RR, ZZ, QQbar, Zp
 
     target_rings = [ZZ, QQ, RR, CC, QQbar]
 
@@ -99,7 +102,7 @@ def _install_module_base_rings() -> None:
 
     for ring in target_rings:
         try:
-            if not hasattr(ring, '_refine_category_'):
+            if not hasattr(ring, "_refine_category_"):
                 continue
             ring._refine_category_(category)
         except Exception:

@@ -6,8 +6,9 @@ constructors. Uses Phase 0 Sage patches for QQ/ZZ and QQ/2ZZ quotient modules.
 
 from __future__ import annotations
 
-from sage.all import ZZ, QQ
 from typing import Any
+
+from sage.all import QQ, ZZ
 
 
 class FormCodomain:
@@ -30,27 +31,29 @@ class FormCodomain:
         return f"FormCodomain({self._base_ring} -> {self._codomain})"
 
     @staticmethod
-    def integral(R: Any) -> "FormCodomain":
+    def integral(R: Any) -> FormCodomain:
         return FormCodomain(R, R)
 
     @staticmethod
-    def rational(R: Any) -> "FormCodomain":
+    def rational(R: Any) -> FormCodomain:
         if R is ZZ:
             return FormCodomain(R, QQ)
         return FormCodomain(R, R.fraction_field())
 
     @staticmethod
-    def torsion_bilinear(R: Any) -> "FormCodomain":
+    def torsion_bilinear(R: Any) -> FormCodomain:
         if R is ZZ:
             import src.sage_patches.fraction_quotients as fq
+
             fq.install()
             return FormCodomain(R, QQ / ZZ)
         raise NotImplementedError(f"torsion_bilinear not implemented for {R}")
 
     @staticmethod
-    def torsion_quadratic(R: Any) -> "FormCodomain":
+    def torsion_quadratic(R: Any) -> FormCodomain:
         if R is ZZ:
             import src.sage_patches.fraction_quotients as fq
+
             fq.install()
             return FormCodomain(R, QQ / (2 * ZZ))
         raise NotImplementedError(f"torsion_quadratic not implemented for {R}")

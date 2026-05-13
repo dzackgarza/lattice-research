@@ -2,11 +2,11 @@ r"""Modules equipped with forms."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.category import Category
-from abc import abstractmethod
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 

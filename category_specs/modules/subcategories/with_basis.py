@@ -2,12 +2,11 @@ r"""Modules with a specified basis."""
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final, override
-from sage.categories.category import Category
-from typing import cast
-
 from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, cast, final, override
+
+from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction

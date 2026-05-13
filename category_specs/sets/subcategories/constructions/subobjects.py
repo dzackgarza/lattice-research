@@ -6,11 +6,11 @@ category so it can attach to arbitrary subcategories via ``category_of``.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.sets_cat import Sets as SageSets
-from abc import abstractmethod
 
 from ....cat import Category, SubobjectsCategory
 

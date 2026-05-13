@@ -35,12 +35,11 @@ Cat()
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-from importlib import import_module
-from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, TypeAlias, cast, final, override, TypeVar
-
 from abc import abstractmethod
+from collections.abc import Callable, Iterable
+from importlib import import_module
+from typing import TYPE_CHECKING, Any, TypeAlias, TypeVar, cast, final, override
+
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject

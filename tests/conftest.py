@@ -23,7 +23,11 @@ def _timing_root() -> Path:
 
 
 def _utc_timestamp(epoch_seconds: float) -> str:
-    return datetime.fromtimestamp(epoch_seconds, tz=UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return (
+        datetime.fromtimestamp(epoch_seconds, tz=UTC)
+        .isoformat(timespec="seconds")
+        .replace("+00:00", "Z")
+    )
 
 
 def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
@@ -34,11 +38,15 @@ def _append_jsonl(path: Path, payload: dict[str, object]) -> None:
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
-    parser.addoption("--run-slow", action="store_true", default=False, help="run slow tests (>2 min)")
+    parser.addoption(
+        "--run-slow", action="store_true", default=False, help="run slow tests (>2 min)"
+    )
 
 
 def pytest_configure(config: pytest.Config) -> None:
-    config.addinivalue_line("markers", "slow: marks tests that take more than 2 minutes")
+    config.addinivalue_line(
+        "markers", "slow: marks tests that take more than 2 minutes"
+    )
 
 
 def pytest_sessionstart(session: pytest.Session) -> None:
@@ -62,7 +70,9 @@ def pytest_deselected(items: list[pytest.Item]) -> None:
     _SESSION_DESELECTED += len(items)
 
 
-def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+def pytest_collection_modifyitems(
+    config: pytest.Config, items: list[pytest.Item]
+) -> None:
     if config.getoption("--run-slow"):
         return
     skip_slow = pytest.mark.skip(reason="skipped by default; use --run-slow to enable")
@@ -147,7 +157,10 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
         "deselected_count": _SESSION_DESELECTED,
         "slow_enabled": session_payload["slow_enabled"],
         "session_file": str(session_path),
-        "slowest": [{"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]} for record in records[:20]],
+        "slowest": [
+            {"nodeid": record["nodeid"], "total_seconds": record["total_seconds"]}
+            for record in records[:20]
+        ],
     }
     history_path = timing_root / "history.jsonl"
     _append_jsonl(history_path, history_entry)
@@ -156,7 +169,9 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     config_storage._timing_history_path = history_path
 
 
-def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter, exitstatus: int, config: pytest.Config) -> None:
+def pytest_terminal_summary(
+    terminalreporter: pytest.TerminalReporter, exitstatus: int, config: pytest.Config
+) -> None:
     config_storage = cast(Any, config)
     session_path = getattr(config_storage, "_timing_session_path", None)
     history_path = getattr(config_storage, "_timing_history_path", None)
