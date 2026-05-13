@@ -96,7 +96,6 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             position: Integer = 0,
             side: Literal["left", "right"] = "left",
         ) -> RModuleMorphism:
-            del on_basis, triangular, unitriangular, position
             ...
 
     class ElementMethods: ...

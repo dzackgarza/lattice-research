@@ -86,7 +86,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
     class MorphismMethods: ...
 
     @final
-    def Of(self, domain: CategoryObject) -> End:
+    def Of(self, domain: CategoryObject) -> End:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         return cast("End", self.base_category().HomCategory().Of(domain, domain))
 

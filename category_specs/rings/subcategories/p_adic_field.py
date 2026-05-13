@@ -49,7 +49,6 @@ class _Qp(Category_singleton):
     class ParentMethods:
         @abstractmethod
         def composite(self, subfield1: Field, subfield2: Field) -> Field:
-            del subfield1, subfield2
             ...
 
         @abstractmethod

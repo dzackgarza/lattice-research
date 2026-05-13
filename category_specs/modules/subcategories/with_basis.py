@@ -72,7 +72,6 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             self, index: CategoryElement, coeff: RingElement | None = None
         ) -> RModuleElement:
             r"""Return ``coeff`` times the basis element indexed by ``index``."""
-            del coeff
             ...
 
         @abstractmethod
@@ -82,7 +81,6 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             | Sequence[tuple[CategoryElement, RingElement]],
         ) -> RModuleElement:
             r"""Return the finite linear combination of basis terms."""
-            del terms
             ...
 
         @abstractmethod
@@ -94,7 +92,6 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             | Callable[[CategoryElement], Integer | str]
             | None = None,
         ) -> list[RModuleElement]:
-            del row_reduced
             ...
 
         @abstractmethod
@@ -216,7 +213,6 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
             order: Sequence[CategoryElement] | None = None,
             coerce: bool = True,
         ) -> RModuleElement:
-            del coerce
             ...
 
         @abstractmethod

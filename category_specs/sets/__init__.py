@@ -693,12 +693,12 @@ class Sets(Category_singleton):
                     raise ValueError("boundary subset must lie in its ambient real set")
                 return self._refine_real_subset(U.boundary())
 
-            real_set.ambient = MethodType(ambient, real_set)
-            real_set.is_open = MethodType(is_open, real_set)
-            real_set.is_closed = MethodType(is_closed, real_set)
-            real_set.closure = MethodType(closure, real_set)
-            real_set.interior = MethodType(interior, real_set)
-            real_set.boundary = MethodType(boundary, real_set)
+            setattr(real_set, "ambient", MethodType(ambient, real_set))
+            setattr(real_set, "is_open", MethodType(is_open, real_set))
+            setattr(real_set, "is_closed", MethodType(is_closed, real_set))
+            setattr(real_set, "closure", MethodType(closure, real_set))
+            setattr(real_set, "interior", MethodType(interior, real_set))
+            setattr(real_set, "boundary", MethodType(boundary, real_set))
             return real_set
 
         @final

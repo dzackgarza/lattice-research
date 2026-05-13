@@ -82,7 +82,6 @@ class _IntegerLattices(Category_over_base_ring):
             update_reduced_basis: bool = True,
             algorithm: Literal["fplll", "pari"] = "fplll",
         ) -> RModuleElement:
-            del update_reduced_basis
             ...
 
         @abstractmethod

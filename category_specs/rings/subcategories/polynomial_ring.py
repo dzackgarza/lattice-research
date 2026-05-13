@@ -111,7 +111,6 @@ class _PolynomialRings(CategoryWithAxiom):
             of_degree: Integer | None = None,
             max_degree: Integer | None = None,
         ) -> Iterable[RingElement]:
-            del of_degree, max_degree
             ...
 
         @abstractmethod
@@ -125,7 +124,6 @@ class _PolynomialRings(CategoryWithAxiom):
             sign: Integer = Integer(1),
             lead: RingElement | Sequence[RingElement] = Integer(1),
         ) -> Sequence[RingElement]:
-            del sign, lead
             ...
 
     class ElementMethods: ...

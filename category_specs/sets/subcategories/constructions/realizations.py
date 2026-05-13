@@ -31,14 +31,12 @@ class _Realizations(RealizationsCategory):
         @abstractmethod
         def to_realization(self, realization: SetWithRealizations) -> SetMorphism:
             r"""Return the change-of-realization morphism to ``realization``."""
-            del realization
             ...
 
     class ElementMethods:
         @abstractmethod
         def to_realization(self, realization: SetWithRealizations) -> SetElement:
             r"""Return this element represented in ``realization``."""
-            del realization
             ...
 
     class MorphismMethods: ...

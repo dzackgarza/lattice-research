@@ -157,7 +157,6 @@ class _PAdicRings(Category_singleton):
         def defining_polynomial(
             self, var: str | None = None, exact: bool = False
         ) -> RingElement:
-            del exact
             ...
 
         @abstractmethod

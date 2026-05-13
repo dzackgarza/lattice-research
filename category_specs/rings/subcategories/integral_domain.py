@@ -108,7 +108,6 @@ class _IntegralDomains(CategoryWithAxiom):
             normalize: bool = True,
             category: Category | None = None,
         ) -> LocalRing:
-            del additional_units, normalize
             ...
 
     class ElementMethods:

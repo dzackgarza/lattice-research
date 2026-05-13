@@ -80,7 +80,6 @@ class _RepresentationModules(Category_over_base_ring):
             | None = None,
             side: Literal["left", "right"] | None = None,
         ) -> RModule:
-            del action_on_basis
             ...
 
         @abstractmethod

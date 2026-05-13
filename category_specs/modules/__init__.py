@@ -91,7 +91,7 @@ _OreModules = LazyImport(
 _IntegerLattices = LazyImport(
     "category_specs.modules.subcategories.integer_lattices", "_IntegerLattices"
 )
-type TorsionQuadraticModulesCategory = LazyImport(
+TorsionQuadraticModulesCategory = LazyImport(
     "category_specs.forms.subcategories.torsion_quadratic_modules",
     "TorsionQuadraticModulesCategory",
 )

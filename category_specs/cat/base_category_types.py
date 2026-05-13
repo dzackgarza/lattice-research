@@ -432,7 +432,7 @@ class _CatObjectMixin:
 
         initialize_and_register_any = cast(Any, initialize_and_register)
         initialize_and_register_any._cat_constructor_registration_wrapper = True
-        cls.__init__ = initialize_and_register
+        setattr(cls, "__init__", initialize_and_register)
 
     @final
     def _init_cat_object(self) -> None:

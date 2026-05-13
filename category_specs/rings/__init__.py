@@ -73,7 +73,7 @@ _IntegrallyClosedDomains = LazyImport(
 _DedekindDomains = LazyImport(
     "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
 )
-type ApproximateRingsCategory = LazyImport(
+ApproximateRingsCategory = LazyImport(
     "category_specs.rings.subcategories.approximate", "ApproximateRingsCategory"
 )
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
@@ -368,7 +368,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement:
-        del cunningham
         ...
 
     @overload
@@ -381,7 +380,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> list[RingElement]:
-        del cunningham
         ...
 
     @overload
@@ -394,7 +392,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement | list[RingElement]:
-        del cunningham
         ...
 
     @abstractmethod
@@ -407,7 +404,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement | list[RingElement]:
-        del cunningham
         ...
 
     @overload
@@ -546,14 +542,6 @@ class _RingIdealParentMethods:
         coefficient_upper_bound: Integer | None = None,
         distribution: str | None = None,
     ) -> RingElement:
-        del (
-            compute_gb,
-            choose_degree,
-            monic,
-            coefficient_lower_bound,
-            coefficient_upper_bound,
-            distribution,
-        )
         ...
 
 

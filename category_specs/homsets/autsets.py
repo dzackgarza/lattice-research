@@ -144,7 +144,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
         return _aut_object_from_end_category(end_category, self)
 
     @final
-    def Of(self, domain: CategoryObject) -> Aut:
+    def Of(self, domain: CategoryObject) -> Aut:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``Aut_C(domain)`` for ``C = self.base_category()``."""
         end_category = self.base_category().EndCategory().Of(domain)
         return self.from_end_category(end_category)

@@ -43,7 +43,6 @@ class _OverField(CategoryWithAxiom_over_base_ring):
             zeros: Literal["left", "right"] = "left",
             check: bool = True,
         ) -> list[RModuleElement]:
-            del zeros
             ...
 
     class ElementMethods: ...

@@ -7,7 +7,7 @@ dependsOn: []
 plans:
 - '[[PLAN-QC-MYPY-FOUNDATION-ORDER]]'
 title: Zero QC warnings — repo-wide QC gate
-status: unstarted
+status: in-progress
 priority: critical
 description: 'Eliminate all blocking QC findings across the repo so that `just test`
   from the global QC authority passes cleanly. This is a mandatory gate: no further

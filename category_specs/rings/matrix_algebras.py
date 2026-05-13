@@ -157,7 +157,6 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             transformation: bool = False,
             D: RingElement | None = None,
         ) -> RingElement | tuple[RingElement, RingElement]:
-            del cutoff, height_guess, include_zero_rows
             ...
 
         @final

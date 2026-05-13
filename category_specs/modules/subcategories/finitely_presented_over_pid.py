@@ -94,7 +94,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Return the nonzero invariant factors, optionally including unit
             factors.
             """
-            del include_ones
             ...
 
         @abstractmethod
@@ -118,7 +117,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         @abstractmethod
         def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement:
-            del vec
             ...
 
         @abstractmethod
@@ -132,7 +130,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         @abstractmethod
         def hom(self, images: Sequence[RModuleElement] | Matrix) -> RModMorphism:
-            del images
             ...
 
     # ------------------------------------------------------------------
@@ -160,7 +157,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def from_dict(
                 self, mapping: dict[RModuleElement, RModuleElement]
             ) -> RModMorphism:
-                del mapping
                 ...
 
             @abstractmethod
@@ -168,7 +164,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
             @abstractmethod
             def from_images(self, images: Sequence[RModuleElement]) -> RModMorphism:
-                del images
                 ...
 
         class ElementMethods:

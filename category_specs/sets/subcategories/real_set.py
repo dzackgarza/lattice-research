@@ -94,7 +94,6 @@ class _RealSets(Category_singleton):
 
         @overload
         def union(self, real_set_collection: Sequence[RealSubset]) -> RealSubset:
-            del real_set_collection
             ...
 
         @override
@@ -111,7 +110,6 @@ class _RealSets(Category_singleton):
 
         @overload
         def intersection(self, real_set_collection: Sequence[RealSubset]) -> RealSubset:
-            del real_set_collection
             ...
 
         @override
@@ -164,7 +162,6 @@ class _RealSets(Category_singleton):
         @abstractmethod
         def convex_hull(real_set_collection: Sequence[RealSubset]) -> RealSubset:
             r"""Return the least real interval containing the given real subsets."""
-            del real_set_collection
             ...
 
         @abstractmethod
@@ -176,7 +173,6 @@ class _RealSets(Category_singleton):
         @abstractmethod
         def are_pairwise_disjoint(real_set_collection: Sequence[RealSubset]) -> bool:
             r"""Return whether the real subsets are pairwise disjoint."""
-            del real_set_collection
             ...
 
         @override

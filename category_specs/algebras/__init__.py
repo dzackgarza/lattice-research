@@ -76,6 +76,7 @@ if TYPE_CHECKING:
         RModule,
         Semigroup,
         Set,
+        SetElement,
         SetFamily,
         Tensor,
     )
@@ -299,7 +300,6 @@ class _AlgebraParentMethods:
         check: bool = True,
     ) -> Sequence[Sequence[Algebra]]:
         r"""Return the Peirce decomposition determined by ``idempotents``."""
-        del idempotents
         ...
 
     @abstractmethod
@@ -488,7 +488,7 @@ class Algebras(Category_module):
             assert generators.is_finite(), (
                 "free_algebra_from_set currently requires a finite generator set"
             )
-            generator_tuple = tuple(generators)
+            generator_tuple: tuple[SetElement, ...] = tuple(generators)
             assert len(generator_tuple) == generators.cardinality(), (
                 "finite generator set iteration must recover every generator of "
                 f"{generators}"

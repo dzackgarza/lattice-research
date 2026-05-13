@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-13 10:28 UTC_
+_Generated: 2026-05-13 15:15 UTC_
 
 ## Overall
 
-- Total cards: **303**
-- Completed cards: **248**
-- Overall progress: `[####################----]  81.8%`
+- Total cards: **304**
+- Completed cards: **249**
+- Overall progress: `[####################----]  81.9%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -14,8 +14,8 @@ _Generated: 2026-05-13 10:28 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| decision | 20 | 20 | 0 | 0 | 0 | 0 |
-| feature | 20 | 7 | 3 | 1 | 0 | 0 |
+| decision | 21 | 21 | 0 | 0 | 0 | 0 |
+| feature | 20 | 7 | 4 | 1 | 0 | 0 |
 | phase | 27 | 18 | 2 | 3 | 0 | 0 |
 | plan | 12 | 7 | 3 | 1 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
@@ -47,6 +47,7 @@ _Generated: 2026-05-13 10:28 UTC_
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
 | Category specs and Sage surface admission | `[###############-]  91.2%` | 145/159 | 5 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
+| Zero QC warnings — repo-wide QC gate | `[#---------------]   9.1%` | 1/11 | 1 | 0 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble geometric lattice foundation | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -56,12 +57,11 @@ _Generated: 2026-05-13 10:28 UTC_
 | Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 17 | 0 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Zero QC warnings — repo-wide QC gate | `[----------------]   0.0%` | 0/10 | 0 | 0 | 0 | 0 |
 
 ## High-Priority DAG Frontier
 
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
-- `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `unstarted`)
+- `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (`critical`, `unstarted`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (`critical`, `in-progress`)

@@ -59,13 +59,11 @@ class GradedSetsCategory(CategoryWithAxiom):
         @abstractmethod(optional=True)
         def subset(self, grade: SetElement) -> Set:
             r"""Return the subset of elements with grade ``grade``."""
-            del grade
             ...
 
         @abstractmethod
         def graded_component(self, grade: SetElement) -> Set:
             r"""Return the component of elements of grade ``grade``."""
-            del grade
             ...
 
         @abstractmethod
