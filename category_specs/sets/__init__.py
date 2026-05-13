@@ -66,8 +66,6 @@ from types import MethodType
 from typing import (
     TYPE_CHECKING,
     Any,
-    TypeAlias,
-    TypeVar,
     cast,
     final,
     overload,
@@ -109,12 +107,10 @@ if TYPE_CHECKING:
         SympySet,
     )
 
-    SetPartitionType: TypeAlias = SetPartition
+    type SetPartitionType = SetPartition
 
 if TYPE_CHECKING:
-    MethodT = TypeVar("MethodT", bound=Callable[..., object])
-
-    def cached_method(method: MethodT) -> MethodT: ...
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
 else:
     from sage.misc.cachefunc import cached_method
 
@@ -1354,15 +1350,15 @@ class Sets(Category_singleton):
     MorphismMethods = SetHomCategory.ElementMethods
 
 
-SetsCategory: TypeAlias = Sets
-SetsObject: TypeAlias = Sets.ParentMethods
-SetsElement: TypeAlias = Sets.ElementMethods
-SetsMorphism: TypeAlias = Sets.MorphismMethods
-SetsHomCategory: TypeAlias = SetHomCategory
-SetsEndCategory: TypeAlias = SetEndCategory
-SetsAutCategory: TypeAlias = SetAutCategory
-SetsHom: TypeAlias = SetHomCategory.ParentMethods
-SetsEnd: TypeAlias = SetEndCategory.ParentMethods
-SetsAut: TypeAlias = SetAutCategory.ParentMethods
-SetsEndomorphism: TypeAlias = SetEndCategory.ElementMethods
-SetsAutomorphism: TypeAlias = SetAutCategory.ElementMethods
+type SetsCategory = Sets
+type SetsObject = Sets.ParentMethods
+type SetsElement = Sets.ElementMethods
+type SetsMorphism = Sets.MorphismMethods
+type SetsHomCategory = SetHomCategory
+type SetsEndCategory = SetEndCategory
+type SetsAutCategory = SetAutCategory
+type SetsHom = SetHomCategory.ParentMethods
+type SetsEnd = SetEndCategory.ParentMethods
+type SetsAut = SetAutCategory.ParentMethods
+type SetsEndomorphism = SetEndCategory.ElementMethods
+type SetsAutomorphism = SetAutCategory.ElementMethods

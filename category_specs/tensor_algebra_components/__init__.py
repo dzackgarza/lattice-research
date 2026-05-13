@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, TypeAlias, final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.misc.cachefunc import cached_method
 
@@ -372,15 +372,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
     HomCategory = RModuleHomCategory
 
 
-TensorAlgebraComponentsCategory: TypeAlias = TensorAlgebraComponents
-TensorAlgebraComponentsObject: TypeAlias = TensorAlgebraComponents.ParentMethods
-TensorAlgebraComponentsElement: TypeAlias = TensorAlgebraComponents.ElementMethods
-TensorAlgebraComponentsMorphism: TypeAlias = TensorAlgebraComponents.MorphismMethods
-TensorAlgebraComponentsHomCategory: TypeAlias = RModuleHomCategory
-TensorAlgebraComponentsEndCategory: TypeAlias = RModuleEndCategory
-TensorAlgebraComponentsAutCategory: TypeAlias = RModuleAutCategory
-TensorAlgebraComponentsHom: TypeAlias = RModuleHomCategory.ParentMethods
-TensorAlgebraComponentsEnd: TypeAlias = RModuleEndCategory.ParentMethods
-TensorAlgebraComponentsAut: TypeAlias = RModuleAutCategory.ParentMethods
-TensorAlgebraComponentsEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
-TensorAlgebraComponentsAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
+type TensorAlgebraComponentsCategory = TensorAlgebraComponents
+type TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
+type TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
+type TensorAlgebraComponentsMorphism = TensorAlgebraComponents.MorphismMethods
+type TensorAlgebraComponentsHomCategory = RModuleHomCategory
+type TensorAlgebraComponentsEndCategory = RModuleEndCategory
+type TensorAlgebraComponentsAutCategory = RModuleAutCategory
+type TensorAlgebraComponentsHom = RModuleHomCategory.ParentMethods
+type TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
+type TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
+type TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
+type TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods

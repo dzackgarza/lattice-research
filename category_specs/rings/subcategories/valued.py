@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -20,10 +20,9 @@ if TYPE_CHECKING:
     )
 
 
-_ValuedCachedMethod = TypeVar("_ValuedCachedMethod", bound=Callable[..., object])
-
-
-def _valued_cached_method(method: _ValuedCachedMethod) -> _ValuedCachedMethod:
+def _valued_cached_method[_ValuedCachedMethod: Callable[..., object]](
+    method: _ValuedCachedMethod,
+) -> _ValuedCachedMethod:
     return cast(_ValuedCachedMethod, cached_method(method))
 
 

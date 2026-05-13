@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, TypeVar, assert_never, cast, final, override
+from typing import TYPE_CHECKING, Any, assert_never, cast, final, override
 
 from sage.categories.fields import Fields as SageFields
 from sage.misc.cachefunc import cached_method
@@ -34,10 +34,9 @@ if TYPE_CHECKING:
     )
 
 
-_FieldCachedMethod = TypeVar("_FieldCachedMethod", bound=Callable[..., object])
-
-
-def _field_cached_method(method: _FieldCachedMethod) -> _FieldCachedMethod:
+def _field_cached_method[_FieldCachedMethod: Callable[..., object]](
+    method: _FieldCachedMethod,
+) -> _FieldCachedMethod:
     return cast(_FieldCachedMethod, cached_method(method))
 
 

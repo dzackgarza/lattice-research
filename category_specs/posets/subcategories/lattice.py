@@ -3,7 +3,7 @@ r"""Order-theoretic lattice poset subcategory."""
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, final, override
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.lattice_posets import LatticePosets as SageLatticePosets
 from sage.misc.lazy_import import LazyImport
@@ -13,9 +13,7 @@ from .join_semilattice import _JoinSemilatticePosets
 from .meet_semilattice import _MeetSemilatticePosets
 
 if TYPE_CHECKING:
-    MethodT = TypeVar("MethodT", bound=Callable[..., object])
-
-    def cached_method(method: MethodT) -> MethodT: ...
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
 else:
     from sage.misc.cachefunc import cached_method
 

@@ -8,7 +8,7 @@ receive through their ``SubcategoryMethods`` provider.
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final
+from typing import TYPE_CHECKING, cast, final
 
 from sage.misc.cachefunc import cached_method
 
@@ -22,10 +22,9 @@ if TYPE_CHECKING:
     )
 
 
-_SubcategoryMethod = TypeVar("_SubcategoryMethod", bound=Callable[..., object])
-
-
-def _cat_cached_method(method: _SubcategoryMethod) -> _SubcategoryMethod:
+def _cat_cached_method[_SubcategoryMethod: Callable[..., object]](
+    method: _SubcategoryMethod,
+) -> _SubcategoryMethod:
     return cast(_SubcategoryMethod, cached_method(method))
 
 

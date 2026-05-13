@@ -25,8 +25,6 @@ from collections.abc import Callable as TypingCallable
 from typing import (
     TYPE_CHECKING,
     Any,
-    TypeAlias,
-    TypeVar,
     cast,
     final,
     overload,
@@ -54,21 +52,23 @@ if TYPE_CHECKING:
     )
 
 if TYPE_CHECKING:
-    MethodT = TypeVar("MethodT", bound=TypingCallable[..., object])
+    @overload
+    def abstractmethod[_MethodT: TypingCallable[..., object]](
+        function: _MethodT, /
+    ) -> _MethodT: ...
 
     @overload
-    def abstractmethod(function: MethodT, /) -> MethodT: ...
-
-    @overload
-    def abstractmethod(
+    def abstractmethod[_MethodT: TypingCallable[..., object]](
         *, optional: bool = False
-    ) -> TypingCallable[[MethodT], MethodT]: ...
+    ) -> TypingCallable[[_MethodT], _MethodT]: ...
 
-    def abstractmethod(
-        function: MethodT | None = None, *, optional: bool = False
-    ) -> MethodT | TypingCallable[[MethodT], MethodT]: ...
+    def abstractmethod[_MethodT: TypingCallable[..., object]](
+        function: _MethodT | None = None, *, optional: bool = False
+    ) -> _MethodT | TypingCallable[[_MethodT], _MethodT]: ...
 
-    def cached_method(method: MethodT) -> MethodT: ...
+    def cached_method[_MethodT: TypingCallable[..., object]](
+        method: _MethodT,
+    ) -> _MethodT: ...
 else:
     from abc import abstractmethod
 
@@ -791,15 +791,15 @@ class Posets(Category):
     MorphismMethods = _PosetMorphismMethods
 
 
-PosetsCategory: TypeAlias = Posets
-PosetsObject: TypeAlias = Posets.ParentMethods
-PosetsElement: TypeAlias = Posets.ElementMethods
-PosetsMorphism: TypeAlias = Posets.MorphismMethods
-PosetsHomCategory: TypeAlias = PosetHomCategory
-PosetsEndCategory: TypeAlias = PosetEndCategory
-PosetsAutCategory: TypeAlias = PosetAutCategory
-PosetsHom: TypeAlias = PosetHomCategory.ParentMethods
-PosetsEnd: TypeAlias = PosetEndCategory.ParentMethods
-PosetsAut: TypeAlias = PosetAutCategory.ParentMethods
-PosetsEndomorphism: TypeAlias = PosetEndCategory.ElementMethods
-PosetsAutomorphism: TypeAlias = PosetAutCategory.ElementMethods
+type PosetsCategory = Posets
+type PosetsObject = Posets.ParentMethods
+type PosetsElement = Posets.ElementMethods
+type PosetsMorphism = Posets.MorphismMethods
+type PosetsHomCategory = PosetHomCategory
+type PosetsEndCategory = PosetEndCategory
+type PosetsAutCategory = PosetAutCategory
+type PosetsHom = PosetHomCategory.ParentMethods
+type PosetsEnd = PosetEndCategory.ParentMethods
+type PosetsAut = PosetAutCategory.ParentMethods
+type PosetsEndomorphism = PosetEndCategory.ElementMethods
+type PosetsAutomorphism = PosetAutCategory.ElementMethods

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, Any, cast, final, overload, override
 
 from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
@@ -114,10 +114,9 @@ _SageHomsets = SageHomsets
 _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
 
-_CatCachedMethod = TypeVar("_CatCachedMethod", bound=Callable[..., object])
-
-
-def _cat_cached_method(method: _CatCachedMethod) -> _CatCachedMethod:
+def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
+    method: _CatCachedMethod,
+) -> _CatCachedMethod:
     return cast(_CatCachedMethod, cached_method(method))
 
 

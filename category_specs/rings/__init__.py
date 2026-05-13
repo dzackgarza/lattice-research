@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Literal, TypeAlias, final, overload, override
+from typing import TYPE_CHECKING, Literal, final, overload, override
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
@@ -73,7 +73,7 @@ _IntegrallyClosedDomains = LazyImport(
 _DedekindDomains = LazyImport(
     "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
 )
-ApproximateRingsCategory: TypeAlias = LazyImport(
+type ApproximateRingsCategory = LazyImport(
     "category_specs.rings.subcategories.approximate", "ApproximateRingsCategory"
 )
 _ValuedRings = LazyImport("category_specs.rings.subcategories.valued", "_ValuedRings")
@@ -2034,15 +2034,15 @@ class Rings(Category_singleton):
     MorphismMethods = _RingMorphismMethods
 
 
-RingsCategory: TypeAlias = Rings
-RingsObject: TypeAlias = Rings.ParentMethods
-RingsElement: TypeAlias = Rings.ElementMethods
-RingsMorphism: TypeAlias = Rings.MorphismMethods
-RingsHomCategory: TypeAlias = RingHomCategory
-RingsEndCategory: TypeAlias = RingEndCategory
-RingsAutCategory: TypeAlias = RingAutCategory
-RingsHom: TypeAlias = RingHomCategory.ParentMethods
-RingsEnd: TypeAlias = RingEndCategory.ParentMethods
-RingsAut: TypeAlias = RingAutCategory.ParentMethods
-RingsEndomorphism: TypeAlias = RingEndCategory.ElementMethods
-RingsAutomorphism: TypeAlias = RingAutCategory.ElementMethods
+type RingsCategory = Rings
+type RingsObject = Rings.ParentMethods
+type RingsElement = Rings.ElementMethods
+type RingsMorphism = Rings.MorphismMethods
+type RingsHomCategory = RingHomCategory
+type RingsEndCategory = RingEndCategory
+type RingsAutCategory = RingAutCategory
+type RingsHom = RingHomCategory.ParentMethods
+type RingsEnd = RingEndCategory.ParentMethods
+type RingsAut = RingAutCategory.ParentMethods
+type RingsEndomorphism = RingEndCategory.ElementMethods
+type RingsAutomorphism = RingAutCategory.ElementMethods

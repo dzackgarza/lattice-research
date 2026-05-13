@@ -35,7 +35,7 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeAlias, final
+from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 from sage.misc.cachefunc import cached_method
@@ -242,14 +242,14 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
     return lattice_category(base_ring)
 
 
-LatticesObject: TypeAlias = LatticesCategory.ParentMethods
-LatticesElement: TypeAlias = LatticesCategory.ElementMethods
-LatticesMorphism: TypeAlias = LatticesCategory.MorphismMethods
-LatticesHomCategory: TypeAlias = LatticeHomCategory
-LatticesEndCategory: TypeAlias = LatticeEndCategory
-LatticesAutCategory: TypeAlias = LatticeAutCategory
-LatticesHom: TypeAlias = LatticeHomCategory.ParentMethods
-LatticesEnd: TypeAlias = LatticeEndCategory.ParentMethods
-LatticesAut: TypeAlias = LatticeAutCategory.ParentMethods
-LatticesEndomorphism: TypeAlias = LatticeEndCategory.ElementMethods
-LatticesAutomorphism: TypeAlias = LatticeAutCategory.ElementMethods
+type LatticesObject = LatticesCategory.ParentMethods
+type LatticesElement = LatticesCategory.ElementMethods
+type LatticesMorphism = LatticesCategory.MorphismMethods
+type LatticesHomCategory = LatticeHomCategory
+type LatticesEndCategory = LatticeEndCategory
+type LatticesAutCategory = LatticeAutCategory
+type LatticesHom = LatticeHomCategory.ParentMethods
+type LatticesEnd = LatticeEndCategory.ParentMethods
+type LatticesAut = LatticeAutCategory.ParentMethods
+type LatticesEndomorphism = LatticeEndCategory.ElementMethods
+type LatticesAutomorphism = LatticeAutCategory.ElementMethods

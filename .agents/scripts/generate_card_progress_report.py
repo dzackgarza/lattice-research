@@ -11,7 +11,6 @@ import argparse
 import collections
 import dataclasses
 import datetime as dt
-import math
 import re
 import subprocess
 import sys
@@ -19,7 +18,6 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_ROOT = ROOT / "plans" / "features"
@@ -561,7 +559,7 @@ def render_report(
     completed_statuses: dict[str, set[str]],
     recent_limit: int,
 ) -> str:
-    now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    now = dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M UTC")
     counts = summarize_counts(cards, completed_statuses)
     child_map = children_map(cards)
     rollups = feature_rollups(cards, completed_statuses, child_map)
@@ -594,7 +592,8 @@ def render_report(
     lines.append("## Counts By Type")
     lines.append("")
     lines.append(
-        "| Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |"
+        "| Type | Total | Completed | In Progress"
+        " | Needs Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for kind in sorted(counts):
@@ -640,7 +639,8 @@ def render_report(
     lines.append("## Feature Rollup")
     lines.append("")
     lines.append(
-        "| Feature | Progress | Done/Total | In Progress | Needs Review | Needs Human Input | Blocked |"
+        "| Feature | Progress | Done/Total | In Progress"
+        " | Needs Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | --- | ---: | ---: | ---: | ---: | ---: |")
     for row in rollups:
@@ -705,7 +705,7 @@ def render_report(
         lines.append("- No completed cards with recorded git history were found.")
     else:
         for card, commit in recent:
-            date_text = commit.date.astimezone(dt.timezone.utc).strftime("%Y-%m-%d")
+            date_text = commit.date.astimezone(dt.UTC).strftime("%Y-%m-%d")
             lines.append(
                 f"- {date_text} `{card.kind}` `{card.card_id}`: {card.title} "
                 f"(commit `{commit.sha[:7]}`: {commit.subject})"

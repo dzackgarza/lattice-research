@@ -38,7 +38,7 @@ from __future__ import annotations
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from importlib import import_module
-from typing import TYPE_CHECKING, Any, TypeAlias, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -150,10 +150,9 @@ if TYPE_CHECKING:
     from ..types import Hom
 
 
-_CatCachedMethod = TypeVar("_CatCachedMethod", bound=Callable[..., object])
-
-
-def _cat_cached_method(method: _CatCachedMethod) -> _CatCachedMethod:
+def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
+    method: _CatCachedMethod,
+) -> _CatCachedMethod:
     return cast(_CatCachedMethod, cached_method(method))
 
 
@@ -341,16 +340,16 @@ _cat_autsets = import_module("category_specs.cat.autsets")
 _cat_endsets = import_module("category_specs.cat.endsets")
 _cat_homsets = import_module("category_specs.cat.homsets")
 
-CatAutCategory: TypeAlias = _cat_autsets.CatAutCategory
-CatEndCategory: TypeAlias = _cat_endsets.CatEndCategory
-CatHomCategory: TypeAlias = _cat_homsets.CatHomCategory
+type CatAutCategory = _cat_autsets.CatAutCategory
+type CatEndCategory = _cat_endsets.CatEndCategory
+type CatHomCategory = _cat_homsets.CatHomCategory
 
-CatCategory: TypeAlias = Cat
-CatObject: TypeAlias = Cat.ParentMethods
-CatElement: TypeAlias = Cat.ElementMethods
-CatMorphism: TypeAlias = CatHomCategory.ElementMethods
-CatHom: TypeAlias = CatHomCategory.ParentMethods
-CatEnd: TypeAlias = CatEndCategory.ParentMethods
-CatAut: TypeAlias = CatAutCategory.ParentMethods
-CatEndomorphism: TypeAlias = CatEndCategory.ElementMethods
-CatAutomorphism: TypeAlias = CatAutCategory.ElementMethods
+type CatCategory = Cat
+type CatObject = Cat.ParentMethods
+type CatElement = Cat.ElementMethods
+type CatMorphism = CatHomCategory.ElementMethods
+type CatHom = CatHomCategory.ParentMethods
+type CatEnd = CatEndCategory.ParentMethods
+type CatAut = CatAutCategory.ParentMethods
+type CatEndomorphism = CatEndCategory.ElementMethods
+type CatAutomorphism = CatAutCategory.ElementMethods

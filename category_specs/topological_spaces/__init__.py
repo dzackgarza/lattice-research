@@ -31,7 +31,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from importlib import import_module
-from typing import TYPE_CHECKING, NoReturn, TypeAlias, final, override
+from typing import TYPE_CHECKING, NoReturn, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -282,15 +282,15 @@ def _load_metric_spaces_exports() -> None:
 _load_metric_spaces_exports()
 
 
-TopologicalSpacesCategory: TypeAlias = TopologicalSpaces
-TopologicalSpacesObject: TypeAlias = TopologicalSpaces.ParentMethods
-TopologicalSpacesElement: TypeAlias = TopologicalSpaces.ElementMethods
-TopologicalSpacesMorphism: TypeAlias = TopologicalSpaces.MorphismMethods
-TopologicalSpacesHomCategory: TypeAlias = TopologicalSpaceHomCategory
-TopologicalSpacesEndCategory: TypeAlias = TopologicalSpaceEndCategory
-TopologicalSpacesAutCategory: TypeAlias = TopologicalSpaceAutCategory
-TopologicalSpacesHom: TypeAlias = TopologicalSpaceHomCategory.ParentMethods
-TopologicalSpacesEnd: TypeAlias = TopologicalSpaceEndCategory.ParentMethods
-TopologicalSpacesAut: TypeAlias = TopologicalSpaceAutCategory.ParentMethods
-TopologicalSpacesEndomorphism: TypeAlias = TopologicalSpaceEndCategory.ElementMethods
-TopologicalSpacesAutomorphism: TypeAlias = TopologicalSpaceAutCategory.ElementMethods
+type TopologicalSpacesCategory = TopologicalSpaces
+type TopologicalSpacesObject = TopologicalSpaces.ParentMethods
+type TopologicalSpacesElement = TopologicalSpaces.ElementMethods
+type TopologicalSpacesMorphism = TopologicalSpaces.MorphismMethods
+type TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
+type TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
+type TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
+type TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
+type TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
+type TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
+type TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
+type TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods

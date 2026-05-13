@@ -36,15 +36,12 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, TypeAlias, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
-
-_F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 from ..cat import (
     Category,
@@ -73,6 +70,9 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 _RepresentationModules = LazyImport(
     "category_specs.modules.subcategories.representation_modules",
     "_RepresentationModules",
@@ -91,7 +91,7 @@ _OreModules = LazyImport(
 _IntegerLattices = LazyImport(
     "category_specs.modules.subcategories.integer_lattices", "_IntegerLattices"
 )
-TorsionQuadraticModulesCategory: TypeAlias = LazyImport(
+type TorsionQuadraticModulesCategory = LazyImport(
     "category_specs.forms.subcategories.torsion_quadratic_modules",
     "TorsionQuadraticModulesCategory",
 )
@@ -1810,15 +1810,15 @@ class Modules(Category_module):
 # surface usable until the meet class is wired with a non-recursive base.
 
 
-ModulesCategory: TypeAlias = Modules
-ModulesObject: TypeAlias = Modules.ParentMethods
-ModulesElement: TypeAlias = Modules.ElementMethods
-ModulesMorphism: TypeAlias = Modules.MorphismMethods
-ModulesHomCategory: TypeAlias = RModuleHomCategory
-ModulesEndCategory: TypeAlias = RModuleEndCategory
-ModulesAutCategory: TypeAlias = RModuleAutCategory
-ModulesHom: TypeAlias = RModuleHomCategory.ParentMethods
-ModulesEnd: TypeAlias = RModuleEndCategory.ParentMethods
-ModulesAut: TypeAlias = RModuleAutCategory.ParentMethods
-ModulesEndomorphism: TypeAlias = RModuleEndCategory.ElementMethods
-ModulesAutomorphism: TypeAlias = RModuleAutCategory.ElementMethods
+type ModulesCategory = Modules
+type ModulesObject = Modules.ParentMethods
+type ModulesElement = Modules.ElementMethods
+type ModulesMorphism = Modules.MorphismMethods
+type ModulesHomCategory = RModuleHomCategory
+type ModulesEndCategory = RModuleEndCategory
+type ModulesAutCategory = RModuleAutCategory
+type ModulesHom = RModuleHomCategory.ParentMethods
+type ModulesEnd = RModuleEndCategory.ParentMethods
+type ModulesAut = RModuleAutCategory.ParentMethods
+type ModulesEndomorphism = RModuleEndCategory.ElementMethods
+type ModulesAutomorphism = RModuleAutCategory.ElementMethods

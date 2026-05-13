@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, TypeAlias, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
@@ -709,24 +709,24 @@ class Algebras(Category_module):
     DualObjects = _DualObjects
 
 
-AlgebrasCategory: TypeAlias = Algebras
-AlgebrasObject: TypeAlias = Algebras.ParentMethods
-AlgebrasElement: TypeAlias = Algebras.ElementMethods
-AlgebrasMorphism: TypeAlias = Algebras.MorphismMethods
-AlgebrasHomCategory: TypeAlias = AlgebraHomCategory
-AlgebrasEndCategory: TypeAlias = AlgebraEndCategory
-AlgebrasAutCategory: TypeAlias = AlgebraAutCategory
-AlgebrasHom: TypeAlias = AlgebraHomCategory.ParentMethods
-AlgebrasEnd: TypeAlias = AlgebraEndCategory.ParentMethods
-AlgebrasAut: TypeAlias = AlgebraAutCategory.ParentMethods
-AlgebrasEndomorphism: TypeAlias = AlgebraEndCategory.ElementMethods
-AlgebrasAutomorphism: TypeAlias = AlgebraAutCategory.ElementMethods
+type AlgebrasCategory = Algebras
+type AlgebrasObject = Algebras.ParentMethods
+type AlgebrasElement = Algebras.ElementMethods
+type AlgebrasMorphism = Algebras.MorphismMethods
+type AlgebrasHomCategory = AlgebraHomCategory
+type AlgebrasEndCategory = AlgebraEndCategory
+type AlgebrasAutCategory = AlgebraAutCategory
+type AlgebrasHom = AlgebraHomCategory.ParentMethods
+type AlgebrasEnd = AlgebraEndCategory.ParentMethods
+type AlgebrasAut = AlgebraAutCategory.ParentMethods
+type AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
+type AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 
-MagmaticAlgebrasCategory: TypeAlias = MagmaticAlgebras
-MagmaticAlgebrasObject: TypeAlias = MagmaticAlgebras.ParentMethods
-MagmaticAlgebrasElement: TypeAlias = MagmaticAlgebras.ElementMethods
-MagmaticAlgebrasMorphism: TypeAlias = MagmaticAlgebras.MorphismMethods
-AssociativeAlgebrasCategory: TypeAlias = AssociativeAlgebras
-AssociativeAlgebrasObject: TypeAlias = AssociativeAlgebras.ParentMethods
-AssociativeAlgebrasElement: TypeAlias = AssociativeAlgebras.ElementMethods
-AssociativeAlgebrasMorphism: TypeAlias = AssociativeAlgebras.MorphismMethods
+type MagmaticAlgebrasCategory = MagmaticAlgebras
+type MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
+type MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
+type MagmaticAlgebrasMorphism = MagmaticAlgebras.MorphismMethods
+type AssociativeAlgebrasCategory = AssociativeAlgebras
+type AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
+type AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
+type AssociativeAlgebrasMorphism = AssociativeAlgebras.MorphismMethods

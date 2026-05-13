@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, TypeVar, final, overload, override
+from typing import TYPE_CHECKING, final, overload, override
 
 from sage.misc.lazy_import import LazyImport
 
@@ -15,11 +15,11 @@ if TYPE_CHECKING:
     from ...types import PosetElement
 
 if TYPE_CHECKING:
-    MethodT = TypeVar("MethodT", bound=Callable[..., object])
+    def foldable_operation[MethodT: Callable[..., object]](
+        function: MethodT,
+    ) -> MethodT: ...
 
-    def foldable_operation(function: MethodT) -> MethodT: ...
-
-    def cached_method(method: MethodT) -> MethodT: ...
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
 else:
     from sage.misc.cachefunc import cached_method
 
