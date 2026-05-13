@@ -37,7 +37,6 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
-from importlib import import_module
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.misc.cachefunc import cached_method
@@ -45,6 +44,7 @@ from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
 
 from . import base_category_types as _base_category_types
+from .autsets import CatAutCategory
 from .base_category_types import (
     AlgebrasCategory as AlgebrasCategory,
 )
@@ -141,6 +141,8 @@ from .base_category_types import (
 from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
 )
+from .endsets import CatEndCategory
+from .homsets import CatHomCategory
 
 _make_named_class_with_cat_subcategory_methods = (
     _base_category_types._make_named_class_with_cat_subcategory_methods
@@ -335,14 +337,6 @@ class Cat(_SageCategorySingleton):
 
 register_cat_constructor_class(Cat.Constructors, Cat())
 
-
-_cat_autsets = import_module("category_specs.cat.autsets")
-_cat_endsets = import_module("category_specs.cat.endsets")
-_cat_homsets = import_module("category_specs.cat.homsets")
-
-type CatAutCategory = _cat_autsets.CatAutCategory
-type CatEndCategory = _cat_endsets.CatEndCategory
-type CatHomCategory = _cat_homsets.CatHomCategory
 
 type CatCategory = Cat
 type CatObject = Cat.ParentMethods

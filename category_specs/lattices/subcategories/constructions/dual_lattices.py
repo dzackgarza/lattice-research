@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, final
 from ....cat import Category_module
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import DiscriminantGroupElement, Lattice, LatticeMorphism
 
 
@@ -31,7 +32,7 @@ class DualLatticesCategory(Category_module):
         return f"metric-dual lattices over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ... import Lattices
 
         return [Lattices(self.base_ring()).Rational()]

@@ -21,7 +21,7 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
 
     @classmethod
     @final
-    def default_super_categories(cls, category: Category, base: Ring):
+    def default_super_categories(cls, category: Category, base: Ring) -> list[Category]:
         from ... import Rings
 
         return Category.join(

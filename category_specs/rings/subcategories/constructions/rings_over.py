@@ -25,7 +25,9 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
 
     @classmethod
     @final
-    def default_super_categories(cls, category: Category, ambient: Ring):
+    def default_super_categories(
+        cls, category: Category, ambient: Ring
+    ) -> list[Category]:
         from ... import Rings
 
         return Category.join(

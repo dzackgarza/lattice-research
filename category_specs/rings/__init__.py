@@ -1821,7 +1821,7 @@ class Rings(Category_singleton):
 
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Constructors:
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 

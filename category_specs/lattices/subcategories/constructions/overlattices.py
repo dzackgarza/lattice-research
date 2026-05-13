@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, final
 from ....cat import Category_module
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import Cardinality, Lattice, LatticeMorphism
 
 
@@ -22,7 +23,7 @@ class OverlatticesCategory(Category_module):
         return f"overlattices over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ... import Lattices
 
         return [Lattices(self.base_ring()).Rational()]

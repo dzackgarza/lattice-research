@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from ...types import (
         Polynomial,
         RealInterval,
+        Ring,
         RingElement,
     )
 
@@ -41,7 +42,7 @@ class _AA(Category_singleton):
         return x is AA
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import AA
 
         return AA

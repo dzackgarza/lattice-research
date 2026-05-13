@@ -19,6 +19,7 @@ from ....modules import (
 )
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import Matrix, RingElement, RModuleElement, SetFamily
 
 
@@ -33,7 +34,7 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         return f"discriminant groups over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
             Modules(R).Torsion(),

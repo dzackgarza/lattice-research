@@ -15,7 +15,7 @@ from sage.categories.pushout import ConstructionFunctor
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import HomCategoryOf
-from . import Category
+from .base_category_types import Category
 
 
 class _CatHomCategoryObjectMethods:

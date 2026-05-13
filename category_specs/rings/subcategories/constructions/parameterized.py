@@ -22,7 +22,9 @@ class _Category_over_base_integer(CategoryWithParameters):
 
     @staticmethod
     def __classcall_private__(
-        cls, category: Category, base_integer: Integer
+        cls: type[_Category_over_base_integer],
+        category: Category,
+        base_integer: Integer,
     ) -> _Category_over_base_integer:
         return super().__classcall__(cls, category, Integer(base_integer))
 
@@ -67,7 +69,10 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
 
     @staticmethod
     def __classcall_private__(
-        cls, base_ring: Ring, n: Integer, m: Integer | None = None
+        cls: type[_Category_over_base_integer_pair],
+        base_ring: Ring,
+        n: Integer,
+        m: Integer | None = None,
     ) -> _Category_over_base_integer_pair:
         if m is None:
             m = n

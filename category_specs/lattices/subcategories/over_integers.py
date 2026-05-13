@@ -9,6 +9,8 @@ from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID
 
 if TYPE_CHECKING:
+    from sage.quadratic_forms.genera.genus import GenusSymbol_global_ring
+
     from ...types import Integer, Matrix, RingElement, SetFamily
 
 
@@ -27,7 +29,7 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             return True
 
         @abstractmethod
-        def genus(self): ...
+        def genus(self) -> GenusSymbol_global_ring: ...
 
         @abstractmethod
         def minimum(self) -> RingElement: ...

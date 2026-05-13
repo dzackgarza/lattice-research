@@ -14,6 +14,7 @@ from ._lazy_subcategories import (
 )
 
 if TYPE_CHECKING:
+    from ...types import Ring
     pass
 
 
@@ -49,7 +50,7 @@ class _CC(Category_singleton):
         return x is CC
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import CC
 
         return CC

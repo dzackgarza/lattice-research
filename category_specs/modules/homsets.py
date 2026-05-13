@@ -386,7 +386,7 @@ class RModuleAutCategory(GenericAutCategory):
     @final
     def extra_super_categories(self) -> list[Category]:
         r"""Aut_R(M) := End_R(M)^* is the group of units of End_R(M)."""
-        return cast(list[Category], super().extra_super_categories())
+        return super().extra_super_categories()
 
     class ParentMethods:
         r"""Module-specific aut parent methods; generic aut methods are inherited."""

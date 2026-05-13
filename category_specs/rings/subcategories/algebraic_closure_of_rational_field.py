@@ -14,6 +14,7 @@ if TYPE_CHECKING:
         ComplexInterval,
         Polynomial,
         RealInterval,
+        Ring,
         RingElement,
     )
 
@@ -42,7 +43,7 @@ class _QQbar(Category_singleton):
         return x is QQbar
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import QQbar
 
         return QQbar

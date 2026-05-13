@@ -116,7 +116,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         @final
         def are_modular_elements(self, elements: Iterable[PosetElement]) -> bool:
             r"""Return whether every element in ``elements`` is modular."""
-            return cast(bool, self.is_modular(list(elements)))
+            return self.is_modular(list(elements))
 
         @final
         def modular_certificate(

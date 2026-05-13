@@ -22,7 +22,7 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     """
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
             Category.join(

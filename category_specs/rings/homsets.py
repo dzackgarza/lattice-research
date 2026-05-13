@@ -108,7 +108,7 @@ class RingAutCategory(GenericAutCategory):
 
         @final
         def unit_group(self) -> RingAut:
-            return cast("RingAut", self)
+            return self
 
     ElementMethods = _RingAutomorphisms
 

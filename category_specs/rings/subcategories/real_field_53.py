@@ -13,6 +13,7 @@ from ._lazy_subcategories import (
 )
 
 if TYPE_CHECKING:
+    from ...types import Ring
     pass
 
 
@@ -42,7 +43,7 @@ class _RR(Category_singleton):
         return x is RR
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import RR
 
         return RR

@@ -16,6 +16,7 @@ from sage.misc.lazy_import import LazyImport
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 
 if TYPE_CHECKING:
+    from ...cat import Category
     from ..types import Lattice, LatticeOrthogonalGroup, Matrix
 
 
@@ -55,7 +56,7 @@ class LatticeHomCategory(HomCategoryOf):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         from ..modules import Modules
 
         R = self.base_category().base_ring()

@@ -64,7 +64,7 @@ class _IntegerRangeSets(Category_singleton):
                 return False
 
             if isinstance(self, SageIntegerRangeEmpty):
-                return cast(bool, False)
+                return False
             if isinstance(self, SageIntegerRangeFromMiddle):
                 return cast(bool, SageIntegerRangeFromMiddle.__contains__(self, elt))
             if isinstance(self, SageIntegerRangeFinite):

@@ -60,7 +60,7 @@ class _QQ(Category_singleton):
         return x is QQ
 
     @final
-    def object(self):
+    def object(self) -> Ring:
         from sage.all import QQ
 
         return QQ

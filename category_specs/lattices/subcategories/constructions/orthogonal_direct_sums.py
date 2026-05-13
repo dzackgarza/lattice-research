@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, final
 from ....cat import Category_module
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import Lattice, SetFamily
 
 
@@ -22,7 +23,7 @@ class OrthogonalDirectSumsCategory(Category_module):
         return f"orthogonal direct sums of lattices over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ... import Lattices
 
         return [Lattices(self.base_ring()).CartesianProducts()]
@@ -32,7 +33,7 @@ class OrthogonalDirectSumsCategory(Category_module):
         def summands(self) -> SetFamily: ...
 
         @abstractmethod
-        def summand(self, i) -> Lattice: ...
+        def summand(self, i: int) -> Lattice: ...
 
     class ElementMethods: ...
 
