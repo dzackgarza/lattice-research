@@ -584,13 +584,13 @@ type IntegralRescaling = tuple[Integer, Lattice]
 
 
 class CatTypes:
-    Category = staticmethod(CatCategory)
+    Category = CatCategory
     Object = CatObject
     Element = CatElement
     Morphism = CatMorphism
-    HomCategory = staticmethod(CatHomCategory)
-    EndCategory = staticmethod(CatEndCategory)
-    AutCategory = staticmethod(CatAutCategory)
+    HomCategory = CatHomCategory
+    EndCategory = CatEndCategory
+    AutCategory = CatAutCategory
     Hom = CatHom
     End = CatEnd
     Aut = CatAut
@@ -599,34 +599,34 @@ class CatTypes:
 
 
 class HomCategoryTypes:
-    Category = staticmethod(HomCategoriesCategory)
+    Category = HomCategoriesCategory
     Object = HomCategoriesObject
     Element = HomCategoriesElement
     Morphism = HomCategoriesMorphism
 
 
 class EndCategoryTypes:
-    Category = staticmethod(EndCategoriesCategory)
+    Category = EndCategoriesCategory
     Object = EndCategoriesObject
     Element = EndCategoriesElement
     Morphism = EndCategoriesMorphism
 
 
 class AutCategoryTypes:
-    Category = staticmethod(AutCategoriesCategory)
+    Category = AutCategoriesCategory
     Object = AutCategoriesObject
     Element = AutCategoriesElement
     Morphism = AutCategoriesMorphism
 
 
 class SetTypes:
-    Category = staticmethod(SetsCategory)
+    Category = SetsCategory
     Object = SetsObject
     Element = SetsElement
     Morphism = SetsMorphism
-    HomCategory = staticmethod(SetsHomCategory)
-    EndCategory = staticmethod(SetsEndCategory)
-    AutCategory = staticmethod(SetsAutCategory)
+    HomCategory = SetsHomCategory
+    EndCategory = SetsEndCategory
+    AutCategory = SetsAutCategory
     Hom = SetsHom
     End = SetsEnd
     Aut = SetsAut
@@ -635,13 +635,13 @@ class SetTypes:
 
 
 class RingTypes:
-    Category = staticmethod(RingsCategory)
+    Category = RingsCategory
     Object = RingsObject
     Element = RingsElement
     Morphism = RingsMorphism
-    HomCategory = staticmethod(RingsHomCategory)
-    EndCategory = staticmethod(RingsEndCategory)
-    AutCategory = staticmethod(RingsAutCategory)
+    HomCategory = RingsHomCategory
+    EndCategory = RingsEndCategory
+    AutCategory = RingsAutCategory
     Hom = RingsHom
     End = RingsEnd
     Aut = RingsAut
@@ -650,13 +650,13 @@ class RingTypes:
 
 
 class RModuleTypes:
-    Category = staticmethod(ModulesCategory)
+    Category = ModulesCategory
     Object = ModulesObject
     Element = ModulesElement
     Morphism = ModulesMorphism
-    HomCategory = staticmethod(ModulesHomCategory)
-    EndCategory = staticmethod(ModulesEndCategory)
-    AutCategory = staticmethod(ModulesAutCategory)
+    HomCategory = ModulesHomCategory
+    EndCategory = ModulesEndCategory
+    AutCategory = ModulesAutCategory
     Hom = ModulesHom
     End = ModulesEnd
     Aut = ModulesAut
@@ -665,13 +665,13 @@ class RModuleTypes:
 
 
 class FormedModuleTypes:
-    Category = staticmethod(FormedModulesCategory)
+    Category = FormedModulesCategory
     Object = FormedModulesObject
     Element = FormedModulesElement
     Morphism = FormedModulesMorphism
-    HomCategory = staticmethod(FormedModulesHomCategory)
-    EndCategory = staticmethod(FormedModulesEndCategory)
-    AutCategory = staticmethod(FormedModulesAutCategory)
+    HomCategory = FormedModulesHomCategory
+    EndCategory = FormedModulesEndCategory
+    AutCategory = FormedModulesAutCategory
     Hom = FormedModulesHom
     End = FormedModulesEnd
     Aut = FormedModulesAut
@@ -680,13 +680,13 @@ class FormedModuleTypes:
 
 
 class BilinearModuleTypes:
-    Category = staticmethod(BilinearModulesCategory)
+    Category = BilinearModulesCategory
     Object = BilinearModulesObject
     Element = BilinearModulesElement
     Morphism = BilinearModulesMorphism
-    HomCategory = staticmethod(BilinearModulesHomCategory)
-    EndCategory = staticmethod(BilinearModulesEndCategory)
-    AutCategory = staticmethod(BilinearModulesAutCategory)
+    HomCategory = BilinearModulesHomCategory
+    EndCategory = BilinearModulesEndCategory
+    AutCategory = BilinearModulesAutCategory
     Hom = BilinearModulesHom
     End = BilinearModulesEnd
     Aut = BilinearModulesAut
@@ -695,13 +695,13 @@ class BilinearModuleTypes:
 
 
 class QuadraticModuleTypes:
-    Category = staticmethod(QuadraticModulesCategory)
+    Category = QuadraticModulesCategory
     Object = QuadraticModulesObject
     Element = QuadraticModulesElement
     Morphism = QuadraticModulesMorphism
-    HomCategory = staticmethod(QuadraticModulesHomCategory)
-    EndCategory = staticmethod(QuadraticModulesEndCategory)
-    AutCategory = staticmethod(QuadraticModulesAutCategory)
+    HomCategory = QuadraticModulesHomCategory
+    EndCategory = QuadraticModulesEndCategory
+    AutCategory = QuadraticModulesAutCategory
     Hom = QuadraticModulesHom
     End = QuadraticModulesEnd
     Aut = QuadraticModulesAut
@@ -710,13 +710,13 @@ class QuadraticModuleTypes:
 
 
 class TorsionQuadraticModuleTypes:
-    Category = staticmethod(TorsionQuadraticModulesCategory)
+    Category = TorsionQuadraticModulesCategory
     Object = TorsionQuadraticModulesObject
     Element = TorsionQuadraticModulesElement
     Morphism = TorsionQuadraticModulesMorphism
-    HomCategory = staticmethod(TorsionQuadraticModulesHomCategory)
-    EndCategory = staticmethod(TorsionQuadraticModulesEndCategory)
-    AutCategory = staticmethod(TorsionQuadraticModulesAutCategory)
+    HomCategory = TorsionQuadraticModulesHomCategory
+    EndCategory = TorsionQuadraticModulesEndCategory
+    AutCategory = TorsionQuadraticModulesAutCategory
     Hom = TorsionQuadraticModulesHom
     End = TorsionQuadraticModulesEnd
     Aut = TorsionQuadraticModulesAut
@@ -725,13 +725,13 @@ class TorsionQuadraticModuleTypes:
 
 
 class AlgebraTypes:
-    Category = staticmethod(AlgebrasCategory)
+    Category = AlgebrasCategory
     Object = AlgebrasObject
     Element = AlgebrasElement
     Morphism = AlgebrasMorphism
-    HomCategory = staticmethod(AlgebrasHomCategory)
-    EndCategory = staticmethod(AlgebrasEndCategory)
-    AutCategory = staticmethod(AlgebrasAutCategory)
+    HomCategory = AlgebrasHomCategory
+    EndCategory = AlgebrasEndCategory
+    AutCategory = AlgebrasAutCategory
     Hom = AlgebrasHom
     End = AlgebrasEnd
     Aut = AlgebrasAut
@@ -740,27 +740,27 @@ class AlgebraTypes:
 
 
 class MagmaticAlgebraTypes:
-    Category = staticmethod(MagmaticAlgebrasCategory)
+    Category = MagmaticAlgebrasCategory
     Object = MagmaticAlgebrasObject
     Element = MagmaticAlgebrasElement
     Morphism = MagmaticAlgebrasMorphism
 
 
 class AssociativeAlgebraTypes:
-    Category = staticmethod(AssociativeAlgebrasCategory)
+    Category = AssociativeAlgebrasCategory
     Object = AssociativeAlgebrasObject
     Element = AssociativeAlgebrasElement
     Morphism = AssociativeAlgebrasMorphism
 
 
 class PosetTypes:
-    Category = staticmethod(PosetsCategory)
+    Category = PosetsCategory
     Object = PosetsObject
     Element = PosetsElement
     Morphism = PosetsMorphism
-    HomCategory = staticmethod(PosetsHomCategory)
-    EndCategory = staticmethod(PosetsEndCategory)
-    AutCategory = staticmethod(PosetsAutCategory)
+    HomCategory = PosetsHomCategory
+    EndCategory = PosetsEndCategory
+    AutCategory = PosetsAutCategory
     Hom = PosetsHom
     End = PosetsEnd
     Aut = PosetsAut
@@ -769,13 +769,13 @@ class PosetTypes:
 
 
 class TopologicalSpaceTypes:
-    Category = staticmethod(TopologicalSpacesCategory)
+    Category = TopologicalSpacesCategory
     Object = TopologicalSpacesObject
     Element = TopologicalSpacesElement
     Morphism = TopologicalSpacesMorphism
-    HomCategory = staticmethod(TopologicalSpacesHomCategory)
-    EndCategory = staticmethod(TopologicalSpacesEndCategory)
-    AutCategory = staticmethod(TopologicalSpacesAutCategory)
+    HomCategory = TopologicalSpacesHomCategory
+    EndCategory = TopologicalSpacesEndCategory
+    AutCategory = TopologicalSpacesAutCategory
     Hom = TopologicalSpacesHom
     End = TopologicalSpacesEnd
     Aut = TopologicalSpacesAut
@@ -784,13 +784,13 @@ class TopologicalSpaceTypes:
 
 
 class MetricSpaceTypes:
-    Category = staticmethod(MetricSpacesCategory)
+    Category = MetricSpacesCategory
     Object = MetricSpacesObject
     Element = MetricSpacesElement
     Morphism = MetricSpacesMorphism
-    HomCategory = staticmethod(MetricSpacesHomCategory)
-    EndCategory = staticmethod(MetricSpacesEndCategory)
-    AutCategory = staticmethod(MetricSpacesAutCategory)
+    HomCategory = MetricSpacesHomCategory
+    EndCategory = MetricSpacesEndCategory
+    AutCategory = MetricSpacesAutCategory
     Hom = MetricSpacesHom
     End = MetricSpacesEnd
     Aut = MetricSpacesAut
@@ -799,13 +799,13 @@ class MetricSpaceTypes:
 
 
 class TensorAlgebraComponentTypes:
-    Category = staticmethod(TensorAlgebraComponentsCategory)
+    Category = TensorAlgebraComponentsCategory
     Object = TensorAlgebraComponentsObject
     Element = TensorAlgebraComponentsElement
     Morphism = TensorAlgebraComponentsMorphism
-    HomCategory = staticmethod(TensorAlgebraComponentsHomCategory)
-    EndCategory = staticmethod(TensorAlgebraComponentsEndCategory)
-    AutCategory = staticmethod(TensorAlgebraComponentsAutCategory)
+    HomCategory = TensorAlgebraComponentsHomCategory
+    EndCategory = TensorAlgebraComponentsEndCategory
+    AutCategory = TensorAlgebraComponentsAutCategory
     Hom = TensorAlgebraComponentsHom
     End = TensorAlgebraComponentsEnd
     Aut = TensorAlgebraComponentsAut
@@ -814,13 +814,13 @@ class TensorAlgebraComponentTypes:
 
 
 class LatticeTypes:
-    Category = staticmethod(LatticesCategory)
+    Category = LatticesCategory
     Object = LatticesObject
     Element = LatticesElement
     Morphism = LatticesMorphism
-    HomCategory = staticmethod(LatticesHomCategory)
-    EndCategory = staticmethod(LatticesEndCategory)
-    AutCategory = staticmethod(LatticesAutCategory)
+    HomCategory = LatticesHomCategory
+    EndCategory = LatticesEndCategory
+    AutCategory = LatticesAutCategory
     Hom = LatticesHom
     End = LatticesEnd
     Aut = LatticesAut
@@ -829,13 +829,13 @@ class LatticeTypes:
 
 
 class DiscriminantGroupTypes:
-    Category = staticmethod(LatticeDiscriminantGroupsCategory)
+    Category = LatticeDiscriminantGroupsCategory
     Object = LatticeDiscriminantGroupsObject
     Element = LatticeDiscriminantGroupsElement
     Morphism = LatticeDiscriminantGroupsMorphism
-    HomCategory = staticmethod(LatticeDiscriminantGroupsHomCategory)
-    EndCategory = staticmethod(LatticeDiscriminantGroupsEndCategory)
-    AutCategory = staticmethod(LatticeDiscriminantGroupsAutCategory)
+    HomCategory = LatticeDiscriminantGroupsHomCategory
+    EndCategory = LatticeDiscriminantGroupsEndCategory
+    AutCategory = LatticeDiscriminantGroupsAutCategory
     Hom = LatticeDiscriminantGroupsHom
     End = LatticeDiscriminantGroupsEnd
     Aut = LatticeDiscriminantGroupsAut
