@@ -1,6 +1,6 @@
 # Planning Progress Report
 
-_Generated: 2026-05-14 08:09 UTC_
+_Generated: 2026-05-14 08:17 UTC_
 
 ## Overall
 
@@ -92,6 +92,7 @@ _Generated: 2026-05-14 08:09 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-14 `decision` `DECISION-20260514-MYPY-ERROR-TRIAGE-CODE-GAP-VS-PLUGIN-GAP`: Mypy error triage — code gaps vs plugin gaps across all remaining error groups (commit `6ec2d83`: docs(qc): record full mypy error triage decision card)
 - 2026-05-13 `decision` `DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY`: Resolve signature incompatibility between HomCategoryConstruction.Of and End/AutCategoryConstruction.Of (commit `53dc00c`: fix(qc): resolve [return], [method-assign], [override], [var-annotated], semgrep findings)
 - 2026-05-12 `decision` `DECISION-CELLULAR-ALGEBRA-OWNER`: Route Cellular algebra subcategory to Algebras(R).FiniteDimensional().WithBasis().Cellular() (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `89981b7`: Repair planning DAG dependency order)
@@ -106,7 +107,6 @@ _Generated: 2026-05-14 08:09 UTC_
 - 2026-05-12 `plan` `PLAN-CATEGORY-FOUNDATION-KERNEL`: Category foundation kernel and method ownership (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `task` `TASK-WRAPUP-PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `task` `TASK-WRAPUP-PHASE-HOM-END-AUT-WORK-QUEUE`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `89981b7`: Repair planning DAG dependency order)
-- 2026-05-12 `phase` `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: Sprint algebra constructor admission and tensor multiplication routing (commit `89981b7`: Repair planning DAG dependency order)
 
 ## Notes
 

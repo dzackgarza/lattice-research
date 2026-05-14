@@ -519,9 +519,3 @@ and the `_ConstructorsClass` rename is completed.
 - `category_specs/modules/subcategories/with_basis.py`
 - `category_specs/modules/subcategories/integer_lattices.py` (re-examine after rename)
 
-## Plugin Tasks Required
-
-- `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES` (already filed) — extend to cover `SubcategoryMethods.__contains__` and `[return-value]` on `return self` in ParentMethods
-- `TASK-TEACH-PLUGIN-MORPHISMMETHODS-CALLABLE` — new; MorphismMethods inner classes are callable via Sage Morphism.__call__
-- `TASK-TEACH-PLUGIN-FUNCTORIAL-CONSTRUCTION-ZERO-ARG` — new; parallel to CATEGORY-WITH-AXIOM task for FunctorialConstructionCategory hierarchy
-- `TASK-TEACH-PLUGIN-CLASSCALL-PRIVATE-KWARGS` — new; @classcall_private params are valid public constructor kwargs
