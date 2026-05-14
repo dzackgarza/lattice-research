@@ -1,12 +1,12 @@
 # Planning Progress Report
 
-_Generated: 2026-05-13 15:15 UTC_
+_Generated: 2026-05-14 08:09 UTC_
 
 ## Overall
 
-- Total cards: **304**
-- Completed cards: **249**
-- Overall progress: `[####################----]  81.9%`
+- Total cards: **305**
+- Completed cards: **250**
+- Overall progress: `[####################----]  82.0%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -14,7 +14,7 @@ _Generated: 2026-05-13 15:15 UTC_
 
 | Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| decision | 21 | 21 | 0 | 0 | 0 | 0 |
+| decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 4 | 1 | 0 | 0 |
 | phase | 27 | 18 | 2 | 3 | 0 | 0 |
 | plan | 12 | 7 | 3 | 1 | 0 | 0 |
@@ -47,7 +47,7 @@ _Generated: 2026-05-13 15:15 UTC_
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
 | Category specs and Sage surface admission | `[###############-]  91.2%` | 145/159 | 5 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
-| Zero QC warnings — repo-wide QC gate | `[#---------------]   9.1%` | 1/11 | 1 | 0 | 0 | 0 |
+| Zero QC warnings — repo-wide QC gate | `[###-------------]  16.7%` | 2/12 | 1 | 0 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble geometric lattice foundation | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -92,6 +92,7 @@ _Generated: 2026-05-13 15:15 UTC_
 
 ## Most Recently Completed
 
+- 2026-05-13 `decision` `DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY`: Resolve signature incompatibility between HomCategoryConstruction.Of and End/AutCategoryConstruction.Of (commit `53dc00c`: fix(qc): resolve [return], [method-assign], [override], [var-annotated], semgrep findings)
 - 2026-05-12 `decision` `DECISION-CELLULAR-ALGEBRA-OWNER`: Route Cellular algebra subcategory to Algebras(R).FiniteDimensional().WithBasis().Cellular() (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `decision` `DECISION-ORE-LOCALIZATION-OWNER`: Decide noncommutative Ore localization category ownership (commit `89981b7`: Repair planning DAG dependency order)
@@ -106,7 +107,6 @@ _Generated: 2026-05-13 15:15 UTC_
 - 2026-05-12 `task` `TASK-WRAPUP-PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `task` `TASK-WRAPUP-PHASE-HOM-END-AUT-WORK-QUEUE`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `89981b7`: Repair planning DAG dependency order)
 - 2026-05-12 `phase` `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: Sprint algebra constructor admission and tensor multiplication routing (commit `89981b7`: Repair planning DAG dependency order)
-- 2026-05-12 `task` `TASK-WRAPUP-PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `89981b7`: Repair planning DAG dependency order)
 
 ## Notes
 
