@@ -2,9 +2,10 @@ r"""Zp ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, assert_never, final, override
+from typing import TYPE_CHECKING, Any, final, override
 
 from ...cat import Category, Category_singleton
+from .. import Rings
 from ._lazy_subcategories import (
     _CompleteDiscreteValuationRings,
     _LocalRings,
@@ -46,14 +47,8 @@ class _Zp(Category_singleton):
         @override
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
-            match ideal:
-                case _ if ideal.is_zero():
-                    return self
-                case _ if not ideal.is_zero():
-                    return self
-                case unreachable:
-                    assert_never(unreachable)
+            if ideal.is_one():
+                return Rings().Constructors().ZeroRing()
+            return self
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -213,6 +213,7 @@ if TYPE_CHECKING:
         RingElement,
         RingMorphism,
         TermOrder,
+        CompleteRing,
     )
 
 
@@ -621,6 +622,15 @@ class Rings(Category_singleton):
             from sage.all import QQ
 
             return refine_category(QQ, [Rings(), _QQ()])
+
+        @final
+        def ZeroRing(self) -> CompleteRing:
+            from sage.all import Integers
+
+            return refine_category(
+                Integers(1),
+                [Rings(), _IntegerModRings(), _CompleteRings()],
+            )
 
         @final
         def QQbar(self) -> Ring:

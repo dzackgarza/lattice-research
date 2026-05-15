@@ -124,6 +124,12 @@ class _Fields(CategoryWithAxiom):
 
     class ParentMethods:
         @abstractmethod
+        def zero(self) -> RingElement: ...
+
+        @abstractmethod
+        def one(self) -> RingElement: ...
+
+        @abstractmethod
         def is_algebraically_closed(self) -> bool: ...
 
         @abstractmethod
@@ -145,16 +151,10 @@ class _Fields(CategoryWithAxiom):
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
             # Field case split: only the zero and unit ideals exist.
-            match ideal:
-                case _ if ideal.is_zero():
-                    return self
-                case _ if ideal.is_one():
-                    return self
-                case unreachable:
-                    assert_never(unreachable)
+            if ideal.is_zero():
+                return self
+            return Rings().Constructors().ZeroRing()
 
     class ElementMethods:
         @abstractmethod
         def inverse(self) -> RingElement: ...
-
-    class MorphismMethods: ...
