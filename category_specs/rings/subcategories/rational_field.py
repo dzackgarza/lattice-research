@@ -2,8 +2,8 @@ r"""QQ ring subcategory spec."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
 
 from sage.misc.cachefunc import cached_method
 from sage.rings.integer import Integer
@@ -17,6 +17,9 @@ from ._lazy_subcategories import (
     _QuotientFields,
 )
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 if TYPE_CHECKING:
     from ...types import (
         AbelianGroup,
@@ -27,6 +30,7 @@ if TYPE_CHECKING:
         Ring,
         RingElement,
         RingMorphism,
+        NumberField,
     )
 
 
@@ -63,7 +67,7 @@ class _QQ(Category_singleton):
     def object(self) -> Ring:
         from sage.all import QQ
 
-        return QQ
+        return cast("Ring", QQ)
 
     class ParentMethods:
         @override
@@ -76,15 +80,15 @@ class _QQ(Category_singleton):
         def algebraic_closure(self) -> Field:
             from sage.all import QQbar
 
-            return QQbar
+            return cast("Field", QQbar)
 
-        @cached_method
+        @_cached_method
         @final
-        def as_number_field(self) -> Field:
-            from sage.all import ZZ, NumberField, PolynomialRing
+        def as_number_field(self) -> NumberField:
+            from sage.all import ZZ, NumberField as SageNumberField, PolynomialRing
 
             R = PolynomialRing(ZZ, "x")
-            return NumberField(R.gen(), "a")
+            return cast("NumberField", SageNumberField(R.gen(), "a"))
 
         @override
         @final
@@ -121,7 +125,7 @@ class _QQ(Category_singleton):
         def trace_pairing_discriminant(
             self, elements: Sequence[RingElement]
         ) -> RingElement:
-            return self.as_number_field().discriminant(v=elements)
+            return self.as_number_field().trace_pairing_discriminant(elements)
 
         @override
         @final
@@ -188,14 +192,14 @@ class _QQ(Category_singleton):
         @override
         @final
         def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis(v=prime)
+            return self.as_number_field().integral_basis_at_prime(prime)
 
         @override
         @final
         def integral_basis_at_primes(
             self, primes: Sequence[Integer]
         ) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis(v=primes)
+            return self.as_number_field().integral_basis_at_primes(primes)
 
         @override
         @final
@@ -301,8 +305,8 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=prime, assume_maximal=assume_maximal
+            return self.as_number_field().maximal_order_at_prime(
+                prime, assume_maximal=assume_maximal
             )
 
         @override
@@ -314,8 +318,8 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=primes, assume_maximal=assume_maximal
+            return self.as_number_field().maximal_order_at_primes(
+                primes, assume_maximal=assume_maximal
             )
 
         @override
@@ -337,8 +341,8 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=prime, assume_maximal=assume_maximal
+            return self.as_number_field().maximal_order_at_prime(
+                prime, assume_maximal=assume_maximal
             )
 
         @override
@@ -350,8 +354,8 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(
-                v=primes, assume_maximal=assume_maximal
+            return self.as_number_field().maximal_order_at_primes(
+                primes, assume_maximal=assume_maximal
             )
 
         @override
@@ -360,5 +364,3 @@ class _QQ(Category_singleton):
             return self.as_number_field().absolute_field(names)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...
