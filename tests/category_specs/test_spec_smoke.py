@@ -66,12 +66,11 @@ class TestSeedEnrollment:
 
         assert Zp(5) in Rings()
 
-    def test_install_is_idempotent(self) -> None:
-        from category_specs import refinement
+    def test_static_axiom_registration_is_idempotent(self) -> None:
+        from category_specs.axioms import register_all
 
-        # Calling install() a second time must be a no-op.
-        refinement.install()
-        refinement.install()
+        register_all()
+        register_all()
         assert ZZ in Rings()
 
 
