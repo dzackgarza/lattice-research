@@ -38,7 +38,6 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
             r"""Return the structure functor from ``C`` to this category."""
             ...
 
-        @override
         @final
         def structure_morphism(self) -> Functor:
             r"""Return the structure functor as the structure morphism in ``Cat()``."""
@@ -49,7 +48,6 @@ class CosliceCategories(RegressiveCovariantConstructionCategory, Category_over_b
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 _ObjectsUnder = CosliceCategories
