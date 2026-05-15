@@ -44,7 +44,6 @@ from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
 
 from . import base_category_types as _base_category_types
-from .autsets import CatAutCategory
 from .base_category_types import (
     AlgebrasCategory as AlgebrasCategory,
 )
@@ -141,8 +140,6 @@ from .base_category_types import (
 from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
 )
-from .endsets import CatEndCategory
-from .homsets import CatHomCategory
 
 _make_named_class_with_cat_subcategory_methods = (
     _base_category_types._make_named_class_with_cat_subcategory_methods
@@ -336,6 +333,11 @@ class Cat(_SageCategorySingleton):
 
 
 register_cat_constructor_class(Cat.Constructors, Cat())
+
+
+from .autsets import CatAutCategory
+from .endsets import CatEndCategory
+from .homsets import CatHomCategory
 
 
 type CatCategory = Cat
