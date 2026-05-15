@@ -28,6 +28,9 @@ from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
 from sage.rings.polynomial.polynomial_element import Polynomial as SagePolynomial
+from sage.rings.polynomial.ore_polynomial_ring import (
+    OrePolynomialRing as SageOrePolynomialRing,
+)
 from sage.rings.polynomial.term_order import TermOrder as SageTermOrder
 from sage.rings.qqbar import AlgebraicPolynomialTracker
 from sage.rings.real_mpfi import RealIntervalFieldElement
@@ -189,6 +192,18 @@ from .modules import (
 from .modules.subcategories.constructions.dual_objects import (
     _DualObjects as ModuleDualObjects,
 )
+from .modules.subcategories.constructions.quotients import (
+    _Quotients as ModuleQuotients,
+)
+from .modules.subcategories.constructions.subobjects import (
+    _Subobjects as ModuleSubobjects,
+)
+from .modules.subcategories.constructions.tensor_products import (
+    _TensorProducts as ModuleTensorProducts,
+)
+from .modules.subcategories.free import _Free
+from .modules.subcategories.projective import _Projective
+from .modules.subcategories.torsion import _Torsion
 from .posets import (
     PosetsAut,
     PosetsAutCategory,
@@ -222,7 +237,7 @@ from .rings import (
     RingsHomCategory,
     RingsMorphism,
     RingsObject,
-    _RingIdeals,
+    _RingIdealParentMethods,
 )
 from .rings.subcategories.approximate import (
     ApproximateRingsCategory,
@@ -233,6 +248,7 @@ from .rings.subcategories.approximate import (
 from .rings.subcategories.complete import _CompleteRings
 from .rings.subcategories.field import _Fields
 from .rings.subcategories.local import _LocalRings
+from .rings.subcategories.number_field import _NumberFields
 from .sets import (
     SetsAut,
     SetsAutCategory,
@@ -261,8 +277,11 @@ from .sets.subcategories.constructions.subquotients import (
 from .sets.subcategories.constructions.with_realizations import (
     SetsWithRealizations as SetWithRealizationsCategory,
 )
+from .sets.subcategories.countable import _CountableSets
+from .sets.subcategories.finite import _FiniteSets
 from .sets.subcategories.graded import GradedSetsCategory
 from .sets.subcategories.group_actions import _GSets
+from .sets.subcategories.infinite import _InfiniteSets
 from .sets.subcategories.partitioned import (
     PartitionedSetsAut,
     PartitionedSetsAutCategory,
@@ -277,6 +296,8 @@ from .sets.subcategories.partitioned import (
     PartitionedSetsMorphism,
     PartitionedSetsObject,
 )
+from .sets.subcategories.real_set import _RealSets
+from .sets.subcategories.uncountable import _UncountableSets
 from .tensor_algebra_components import (
     TensorAlgebraComponentsAut,
     TensorAlgebraComponentsAutCategory,
@@ -337,6 +358,7 @@ type Endomorphism = SageMorphism
 type Automorphism = SageMorphism
 type Ring = RingsObject
 type Field = _Fields.ParentMethods
+type NumberField = _NumberFields.ParentMethods
 type RingElement = RingsElement
 type RingMorphism = RingsMorphism
 type RingHom = RingsHom
@@ -357,6 +379,7 @@ type AdditiveSemigroup = CategoryObject
 type AdditiveMonoid = CategoryObject
 type AdditiveGroup = CategoryObject
 type Polynomial = SagePolynomial
+type OrePolynomialRing = SageOrePolynomialRing
 type AlgebraicPolynomial = AlgebraicPolynomialTracker
 type TermOrder = SageTermOrder
 type RealNumberInterval = RealIntervalFieldElement
@@ -374,17 +397,17 @@ type RModule = ModulesObject
 type RModuleElement = ModulesElement
 type RModMorphism = ModulesMorphism
 type RModuleMorphism = RModMorphism
-type FreeModule = ModulesCategory.Free.ParentMethods
-type TorsionModule = ModulesCategory.Torsion.ParentMethods
-type ProjectiveModule = ModulesCategory.Projective.ParentMethods
-type SubModule = ModulesCategory.Subobjects.ParentMethods
+type FreeModule = _Free.ParentMethods
+type TorsionModule = _Torsion.ParentMethods
+type ProjectiveModule = _Projective.ParentMethods
+type SubModule = ModuleSubobjects.ParentMethods
 type Submodule = SubModule
-type QuotientModule = ModulesCategory.Quotients.ParentMethods
-type TensorProductRModule = ModulesCategory.TensorProducts.ParentMethods
+type QuotientModule = ModuleQuotients.ParentMethods
+type TensorProductRModule = ModuleTensorProducts.ParentMethods
 type TensorAlgebraComponent = TensorAlgebraComponentsObject
 type Tensor = TensorAlgebraComponentsElement
 
-type Ideal = _RingIdeals.ParentMethods
+type Ideal = _RingIdealParentMethods
 type PrimeIdeal = Ideal
 type MaximalIdeal = PrimeIdeal
 
@@ -399,7 +422,7 @@ type RModuleEndomorphism = RModEndomorphism
 type RModuleAutomorphism = RModAutomorphism
 type DualModule = ModuleDualObjects.ParentMethods
 type DualModuleElement = ModuleDualObjects.ElementMethods
-type DualModuleMorphism = ModuleDualObjects.MorphismMethods
+type DualModuleMorphism = RModMorphism
 type RModDual = DualModule
 type RModuleDual = DualModule
 type RModDualElement = DualModuleElement
@@ -482,10 +505,10 @@ type HochschildChainComplex = HochschildComplex
 # Sets
 
 type Set = SetsObject
-type FiniteSet = SetsCategory.Finite.ParentMethods
-type CountableSet = SetsCategory.Countable.ParentMethods
-type InfiniteSet = SetsCategory.Infinite.ParentMethods
-type UncountableSet = SetsCategory.Uncountable.ParentMethods
+type FiniteSet = _FiniteSets.ParentMethods
+type CountableSet = _CountableSets.ParentMethods
+type InfiniteSet = _InfiniteSets.ParentMethods
+type UncountableSet = _UncountableSets.ParentMethods
 type GradedSet = GradedSetsCategory.ParentMethods
 type GSet = _GSets.ParentMethods
 type Subset = SetSubobjects.ParentMethods
@@ -530,8 +553,8 @@ type RealNumber = SageRealNumber
 type TopologicalSpace = TopologicalSpacesObject
 type MetricSpace = MetricSpacesObject
 type TopologicalSpaceMorphism = TopologicalSpacesMorphism
-type RealSubset = Subset
-type RealOpenSet = OpenSubset
+type RealSubset = _RealSets.ParentMethods
+type RealOpenSet = RealSubset
 type RealInterval = InternalRealInterval
 type MetricBall = OpenSubset
 type PrimeSubset = Subset
