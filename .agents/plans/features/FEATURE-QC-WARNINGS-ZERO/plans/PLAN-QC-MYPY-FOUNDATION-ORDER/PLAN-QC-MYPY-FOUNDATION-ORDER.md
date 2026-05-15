@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-QC-WARNINGS-ZERO]]'
 dependsOn: []
 title: QC mypy foundation dependency order
-status: approved-and-unstarted
+status: needs-review
 priority: critical
 description: 'Encode the mypy cleanup queue as a dependency-ordered plan: basic typing
   hygiene first, dynamic-inheritance plugin review second, stub generation third, and
@@ -59,6 +59,40 @@ annotations, missing parameter annotations, untyped pytest fixtures, ordinary
 `Any` leakage, and basic local code hygiene that does not depend on Sage dynamic
 method-container inheritance.
 
+Before a finding may be selected in this phase, it must pass a directionality
+check: the proposed fix must make the mathematical type surface more explicit and
+must preserve the smallest readable category/spec expression. A local cast that
+only narrows a correct Sage/category expression from `Any` to its declared return
+type is not basic hygiene. If mypy reports `Any` because it does not understand
+Sage dynamic inheritance, method-container projection, `_with_axiom`,
+`category_of`, `refine_category`, `LazyImport`, or `@classcall_private`, the
+finding belongs to the dynamic-inheritance, static-surface, stub, plugin, or
+global QC lane. The correct work is to teach the checker the valid Sage
+mathematics, not to silence the checker at every call site.
+
+This classification must also account for intentional mathematical variance and
+dynamic provider inheritance. Subcategories can inherit upstream obligations while
+refining a method to accept more structured inputs and return more structured outputs;
+that may violate ordinary software method-subtype rules without being mathematically
+wrong. The long-term design also expects new subcategories to receive upstream specs,
+tests, and eventually registered canonical implementations through the category graph
+and constructor/provider surfaces, not through explicit trivial wrappers or local
+subclassing added for mypy. Findings with that shape belong to the checker-education
+lanes unless they reveal a genuine missing owner, codomain, hypothesis, or constructor
+boundary in the source. Checker-education is an enforcement path: create or route a
+dedicated plugin, generated-stub, static-surface, global-QC, or focused-reproducer task
+whose acceptance makes QC recognize the convention. Do not leave these as ignored,
+silenced, or merely tolerated errors, and do not force warning counts down by
+brutalizing valid category code into checker-shaped boilerplate.
+
+Casts are review triggers in this plan. A cast may be justified at a narrow interop or
+override-and-promote boundary, but repeated or non-isolated casts usually indicate that
+the work is silencing QC instead of solving the source problem. For each cast-shaped
+fix, decide whether the implementation belongs in the spec at all, whether the real
+implementation boundary should own the type refinement, or whether a QC-tooling task
+should teach the checker that inherited specs are maximally promoted to the current
+category. Do not count a cast pattern as basic progress without that decision.
+
 `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` depends on the basic phase. It owns
 only failures whose shape is about Sage dynamic inheritance: `@override`,
 `@final`, `@abstractmethod`, method-container MRO projection, base injection, and
@@ -79,14 +113,17 @@ ordinary type defects after the prior frontiers have removed their noise.
 - Every mypy error discussion cites one of the four phases above before claiming
   an error is a plugin issue, stub issue, or downstream defect.
 
+## Work Log
+
+- 2026-05-14: Opened by the callable-grounding source patch in
+  `PHASE-QC-BASIC-TYPING-HYGIENE`.
+- 2026-05-15: Corrected the false permission blocker.
+  `PHASE-QC-BASIC-TYPING-HYGIENE` has review-ready children; the review kernel
+  requires scoped fresh-context subagent review, which is agent-executable under
+  the approved repo workflow. Later phases remain unstarted and DAG-gated.
+
 ## Dependencies And Boundaries
 
 This plan does not complete mypy work and does not close the plugin feature. It
 only encodes the queue so future work cannot select stubs, plugin review, or
 downstream cleanup before the basic typing frontier is finished.
-
-## Work Log
-
-- Created 2026-05-13 to record the corrected mypy/QC dependency order after the
-  aggregate plugin review blurred basic hygiene, plugin, stub, and downstream
-  categories.

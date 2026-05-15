@@ -18,10 +18,16 @@ phaseKind: milestone
 branchType: audit
 tasks:
 - '[[TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW]]'
+- '[[TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES]]'
+- '[[TASK-QC-PLUGIN-FUNCTORIAL-CONSTRUCTION-CONSTRUCTORS]]'
+- '[[TASK-QC-PLUGIN-CLASSCALL-PRIVATE-KWARGS]]'
+- '[[TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS]]'
 successCriteria:
 - Basic typing hygiene is complete before this phase is selected.
 - The Sage mypy plugin feature is complete before repo-side plugin review is selected.
 - Remaining override/final/abstractmethod failures are classified as plugin misses or real source defects using focused reproductions.
+- Category selector and constructor return promotion failures are handled without local
+  cast-only patches.
 tags:
 - FEATURE-QC-WARNINGS-ZERO
 - PLAN-QC-MYPY-FOUNDATION-ORDER

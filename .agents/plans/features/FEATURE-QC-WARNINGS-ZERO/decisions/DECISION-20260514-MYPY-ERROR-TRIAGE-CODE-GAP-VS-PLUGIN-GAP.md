@@ -19,11 +19,54 @@ Full triage of all remaining mypy errors in `category_specs/` after the
 reading the call sites, the relevant SPEC-MAPPING-*.md canonical sources, and (where
 needed) Sage source via DeepWiki. Every error was classified as either a **code gap**
 (the spec is wrong and must be fixed in `category_specs/`) or a **plugin gap**
-(mypy lacks knowledge of Sage's runtime dispatch and requires either a plugin fix or
-an approved `# type: ignore`).
+(mypy lacks knowledge of Sage's runtime dispatch and requires a plugin or global QC
+fix).
 
 The canonical mapping sources consulted are the SPEC-MAPPING-*.md files under
 `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/`.
+
+## Compliance correction — 2026-05-14
+
+This decision is amended by user direction on 2026-05-14 to satisfy the repo style
+rules and banned-pattern policy:
+
+- No local `# type: ignore`, `# noqa`, repo-local QC override, warning-only path, or
+  equivalent suppression is approved by this card.
+- No `Any` may be added to method signatures except `__contains__`.
+- The nested `Constructors` class is a style-required constructor collector. Do not
+  rename it to a private helper class solely to appease mypy unless the style rule is
+  explicitly changed or a source-grounded replacement owner is approved.
+- Plugin gaps must become plugin/global-QC tasks or focused reproductions. If a
+  finding proves to be a real source defect, fix the source instead of suppressing it.
+- Cast examples in this card are narrow exceptions, not a reusable tactic. Before
+  applying any cast or return-type narrowing, classify the finding by design
+  direction: does the edit make a mathematical owner, codomain, constructor input, or
+  backend boundary more explicit, or does it merely assert what the category framework
+  already expresses? If mypy reports `Any` because it cannot see Sage dynamic
+  inheritance, method-container projection, `_with_axiom`, `category_of`,
+  `refine_category`, `LazyImport`, or `@classcall_private`, the code is not thereby
+  wrong. The required follow-up is a plugin, stub, global-QC, static-surface, or
+  focused-reproducer task that teaches the checker the correct Sage mathematics.
+  Local casts around already valid category selectors, constructor collectors, or
+  refinement calls are proof-erasing workarounds and are not approved by this
+  decision.
+- Type-checker conflicts are expected when mathematical category obligations do not
+  match ordinary software method-subtype rules. Subcategories may inherit upstream
+  obligations while refining operations to more structured domains and codomains, and
+  the project intentionally wants dynamic spec and implementation inheritance through
+  the category graph and provider/constructor registration. If a finding has that
+  shape, classify it as checker-education or static-model work unless it proves a real
+  source defect. The zero-warning goal must be met by source-correct fixes or QC
+  tooling that enforces these conventions, not by contorting valid category code into
+  warning-free boilerplate.
+- Casting is itself a red flag for this decision. A narrow cast can be justified at a
+  true untyped boundary or at a documented override-and-promote point where inherited
+  mathematical contracts guarantee the refined category result. Repeated casts,
+  cast-only patches, or casts around ordinary category selectors require a separate
+  decision: either move the type obligation to the real downstream implementation
+  boundary, retain a narrow promotion exception with proof obligations, or create
+  QC-tooling/static-model work that teaches the checker inherited specs are promoted to
+  the current category.
 
 ---
 
@@ -56,13 +99,12 @@ def Constructors(self) -> Constructors:   # [no-redef] fires here
 mypy sees both `class Constructors` and `def Constructors` as top-level names in the
 same class body and fires `[no-redef]` on the method definition.
 
-**Fix:** Rename the nested class body from `class Constructors` to `class
-_ConstructorsClass` (or similar private name) in all 8 files. Update the
-`_Constructors = Constructors` alias line and any return-type annotations that reference
-the nested class by name. The public `@cached_method def Constructors` method is
-unchanged — it is the public API surface.
-
-This is a purely mechanical rename. No mathematical content changes.
+**Compliant resolution:** Preserve the nested `Constructors` class and public
+`Constructors()` surface. The originally proposed private-class rename is not
+permitted because constructor collectors are declared by an explicit nested
+`Constructors` class in the category-spec style rules. Route the static `no-redef`
+problem through `TASK-QC-STATIC-CONSTRUCTORS-COLLECTOR-NO-REDEF`, which must solve
+the static surface without local suppressions or constructor-surface weakening.
 
 ---
 
@@ -122,10 +164,11 @@ This is a genuine abstract interface of hom-set parents — every hom-set in Sag
 accepts a callable and returns the corresponding morphism via `__call__`. The method
 is simply absent from `_RModHomCategoryObjectMethods`.
 
-**Fix:** Add `@abstractmethod def __call__(self, f: Any) -> RModMorphism: ...` to
-`_RModHomCategoryObjectMethods`. This is a missing abstract interface declaration.
-SPEC-MAPPING-MODULES line 152 acknowledges parent `__call__` as part of the
-constructor/interop surface admitted under `HomCategory()`.
+**Compliant resolution:** Do not add an `Any` method signature. `__call__` is an
+admitted hom-object constructor/evaluation surface, but its accepted input shape must
+be grounded as named mathematical vocabulary. Route this through
+`TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`; only after that task identifies the
+named input type or approved overload set should the source be edited.
 
 ---
 
@@ -141,9 +184,10 @@ element-constructor entry point on all Sage parent objects. This is missing from
 base `ParentMethods` mixin. SPEC-MAPPING-SETS line 283 acknowledges element
 construction as part of the parent interface.
 
-**Fix:** Add `def __call__(self, x: Any) -> Any: ...` to the base `ParentMethods`
-in `category_specs/cat/base_category_types.py` (or the appropriate shared base).
-This affects all subclasses of `ParentMethods`.
+**Compliant resolution:** Do not add an `Any` method signature. Base parent
+construction needs a source-grounded typed surface, likely in terms of category
+objects/elements or an explicit overload set. Route this through
+`TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES` before editing the shared base.
 
 ---
 
@@ -256,12 +300,13 @@ return cast(Sequence[CategoryElement], self.basis().keys())
 `ModuleBasis` (in `types.py`) is `AbstractFamily | Sequence[RModuleElement]`.
 `Sequence` has no `.keys()`, so mypy fires `[union-attr]` on the `Sequence` branch.
 
-SPEC-MAPPING-MODULES confirms `basis().keys()` is an admitted surface, meaning
-`basis()` always returns a key-indexed `AbstractFamily`, not a raw `Sequence`.
-The `Sequence` branch in the union is a defensive over-broadening.
+SPEC-MAPPING-MODULES confirms `basis().keys()` is an admitted surface for
+key-indexed bases. The canonical `ModuleBasis` type also admits sequence-backed
+bases, so callers cannot assume every basis has a `.keys()` surface.
 
-**Fix:** Narrow `ModuleBasis` in `types.py` from `AbstractFamily | Sequence[RModuleElement]`
-to `AbstractFamily` only.
+**Fix:** keep `ModuleBasis` as `AbstractFamily | Sequence[RModuleElement]` and
+branch in `_WithBasis.ParentMethods.basis_index_set()`: use family keys for an
+`AbstractFamily`, and ordinal sequence indices for a sequence-backed basis.
 
 ---
 
@@ -314,7 +359,7 @@ This is the pattern the overload declarations already imply.
 
 ---
 
-## Plugin Gaps — require plugin tasks or approved `type: ignore`
+## Plugin Gaps — require plugin or global QC tasks
 
 ### [assignment] `_base_category_class_and_axiom` tuple narrowing (`cat/endsets.py:27`)
 
@@ -333,32 +378,59 @@ This is the same class of false positive as the `[assignment]` errors on
 `ParentMethods`/`ElementMethods` refinements (task
 `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES`).
 
-**Resolution:** `# type: ignore[assignment]` on line 27 of `cat/endsets.py` with
-reference to this card.
+**Resolution:** No local suppression. Route through
+`TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`, which must either teach the
+plugin/global QC path to model this covariant category-surface refinement or prove the
+source declaration is wrong and send it to source repair.
 
 ---
 
-### [return-value] Covariant `ParentMethods` return narrowing (5 sites)
+### [return-value] Idempotent `ParentMethods` self returns and completion defects
 
 **Files and lines:**
-- `rings/subcategories/field.py:150,152` — `return self` typed as `_Fields.ParentMethods`, expected `_CompleteRings.ParentMethods`
+- `rings/subcategories/field.py:150` — `return self` typed as `_Fields.ParentMethods`, expected `_CompleteRings.ParentMethods`
 - `rings/subcategories/algebraically_closed_field.py:44` — `return self` typed as `_AlgebraicallyClosedFields.ParentMethods`, expected `_Fields.ParentMethods`
-- `rings/subcategories/p_adic_integer_ring.py:51,53` — `return self` typed as `_Zp.ParentMethods`, expected `_CompleteRings.ParentMethods`
+- `rings/subcategories/p_adic_integer_ring.py:54,56` — `return self` typed as `_Zp.ParentMethods`, expected `_CompleteRings.ParentMethods`
 
-All five are `return self` inside `ParentMethods` subclasses that override an
-abstract method declared on a parent category's `ParentMethods`. mypy types `self`
-as the inner `ParentMethods` class rather than the runtime parent ring object —
-because in Sage's dynamic system, `self` inside `ParentMethods` is always the actual
-ring parent, not an instance of the nested class. The annotations and mathematics
-are correct in all cases:
-- A field is its own completion at any place (field.py).
-- An algebraically closed field is its own algebraic closure (algebraically_closed_field.py).
-- `Z_p` is complete (p_adic_integer_ring.py).
+These are `return self` inside `ParentMethods` subclasses that override an abstract
+method declared on a parent category's `ParentMethods`. mypy types `self` as the
+inner `ParentMethods` class rather than the runtime parent ring object. In Sage's
+dynamic system, `self` inside `ParentMethods` is the actual parent object after
+category refinement, not an instance of the nested method-container class.
 
-Same root cause as `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES`.
+The mathematical split is essential:
+- `algebraically_closed_field.py:44` is a checker-model gap: an algebraically closed
+  field is its own algebraic closure.
+- `field.py:150` is a checker-model gap only for the zero-ideal branch: the
+  zero-ideal completion of a field is the field itself.
+- `p_adic_integer_ring.py:54,56` are checker-model gaps only after the unit ideal is
+  excluded: `Z_p` is complete, and every nonzero proper ideal defines the same
+  p-adic topology.
+- The former unit-ideal `return self` branches were source defects. Completion at the
+  unit ideal is the zero ring, not the original ring, and must route through the
+  category-level zero-ring constructor.
 
-**Resolution:** `# type: ignore[return-value]` on each `return self` line with
-reference to `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES`.
+Project zero-ring surface check:
+
+- Searched: `category_specs/rings/docs/SAGE_INVENTORY.md`,
+  `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-RINGS.md`,
+  `category_specs/rings/__init__.py`, `category_specs/rings/subcategories/*.py`,
+  and installed Sage `sage/categories/rings.py` for zero-ring, quotient, and unit
+  ideal surfaces.
+- Found: Sage documents `Integers(1).is_zero()` and `R.quo(1).is_zero()`; the
+  project mapping preserves quotient-ring surfaces and ring constructor aggregation
+  under `Rings().Constructors()`.
+- Conclusion: inference -- source must not return `self` for unit-ideal completion;
+  `Rings().Constructors().ZeroRing()` is the correct category-level constructor
+  route for the current source fix.
+- Confidence: High.
+- Gaps: quotient-specific constructors may later refine this further, but unit-ideal
+  completion no longer needs a plugin row or an error branch.
+
+**Resolution:** No local suppression. Route only the valid idempotent self-return
+branches through `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`. The unit-ideal
+completion branches are source defects and now return the category-level zero-ring
+constructor instead of `self`.
 
 ---
 
@@ -369,16 +441,17 @@ reference to `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES`.
 return cast("LatticeElement", self.inclusion()(v))
 ```
 
-`self.inclusion()` returns `LatticesMorphism` = `LatticesCategory.MorphismMethods`.
-The inner `MorphismMethods` class has an empty body and no `__call__`. At runtime,
-Sage's `Morphism` base provides `__call__` via MRO injection (every Sage morphism is
-callable as a function). The spec class correctly models the abstract contract but
-mypy cannot see the injected `__call__`.
+`self.inclusion()` was typed as `LatticesMorphism`, and `LatticesMorphism` was
+incorrectly aliased to `LatticesCategory.MorphismMethods`.
 
-**Resolution:** New plugin task needed —
-`TASK-TEACH-PLUGIN-MORPHISMMETHODS-CALLABLE`. The plugin must recognise that
-`MorphismMethods` inner classes have a `__call__` method injected at runtime via
-Sage's `Morphism` base. Interim: `# type: ignore[operator]` on line 45.
+Corrected classification: source model gap, not plugin gap. A `MorphismMethods`
+container is not a morphism object and must not be made callable. Morphism behavior
+belongs on the relevant Hom-category element surface, e.g.
+`Lattices(R).HomCategory().ElementMethods`.
+
+**Resolution:** Ban `MorphismMethods` in `category_specs`, route morphism aliases to
+Hom-category `ElementMethods`, and move any real morphism methods onto the corresponding
+Hom-category element surface.
 
 ---
 
@@ -393,9 +466,10 @@ assert algebra in self, ...
 at runtime via MRO injection (same mechanism as `ParentMethods`/`ElementMethods`).
 SPEC-MAPPING-ALGEBRAS confirms `algebra in category` is a valid predicate.
 
-**Resolution:** Extend `TASK-ADD-LSP-DISABLE-FLAG-FOR-PARENTMETHODS-SURFACES` to
-cover `SubcategoryMethods` in addition to `ParentMethods`/`ElementMethods`/
-`MorphismMethods`. Interim: `# type: ignore[operator]` on line 394.
+**Resolution:** No local suppression. Route through
+`TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`, extending the dynamic method-container
+model to `SubcategoryMethods` in addition to object-category `ParentMethods` and
+`ElementMethods`.
 
 ---
 
@@ -404,23 +478,16 @@ cover `SubcategoryMethods` in addition to `ParentMethods`/`ElementMethods`/
 **Sites:** `sets/__init__.py:190,297,305`, `sets/subcategories/partitioned.py:191,196,256`,
 `modules/__init__.py:1124`, `rings/__init__.py:325`
 
-After the rename of the inner class to `_ConstructorsClass` (see code gap fix above),
-mypy will resolve `Constructors` as the `@cached_method def Constructors` method.
-Calling it as `Constructors()` (zero args, treating it as a constructor) will then
-fail because mypy sees the method's return type annotation rather than the class's
-`__init__`. This is a consequence of the Sage pattern: the public API is the method,
-not the class, but call sites that need a fresh `Constructors` instance currently
-call it via `self.Constructors()` — which mypy resolves correctly. Sites that call
-`Constructors()` directly (without `self.`) are calling the inner class before the
-rename.
+With the style-required nested `Constructors` class preserved, these sites must be
+checked without assuming a private-class rename. Some direct `Constructors()` calls may
+be local constructor-collector calls that need a static-surface representation; others
+may reflect the deeper pattern of `FunctorialConstructionCategory.__classcall__`
+dispatch (see next item).
 
-**Investigation note:** After the rename, these sites will be resolved if they are
-updated to `self.Constructors()`. Some may also reflect the deeper pattern of
-`FunctorialConstructionCategory.__classcall__` dispatch (see next item).
-
-**Resolution:** Re-examine each site after the `_ConstructorsClass` rename to
-determine which sites resolve naturally and which still need the
-`TASK-TEACH-PLUGIN-FUNCTORIAL-CONSTRUCTION-ZERO-ARG` fix.
+**Resolution:** Re-examine each site under
+`TASK-QC-STATIC-CONSTRUCTORS-COLLECTOR-NO-REDEF` without renaming away the nested
+`Constructors` collector. Any remaining functorial-construction constructor issue
+routes to `TASK-QC-PLUGIN-FUNCTORIAL-CONSTRUCTION-CONSTRUCTORS`.
 
 ---
 
@@ -438,7 +505,8 @@ Calls like `HomCategoryOf(self.base_category())`, `Subobjects(category)`,
 intercepts construction and routes arguments — `base_category` / `category` are
 handled internally.
 
-**Resolution:** New plugin task: `TASK-TEACH-PLUGIN-FUNCTORIAL-CONSTRUCTION-ZERO-ARG`.
+**Resolution:** Route through
+`TASK-QC-PLUGIN-FUNCTORIAL-CONSTRUCTION-CONSTRUCTORS`.
 The plugin must recognise that `FunctorialConstructionCategory` subclasses
 (Subobjects, Quotients, CartesianProducts, TensorProducts, HomCategory, etc.) have
 valid zero- or single-argument public constructors regardless of `__init__` declarations.
@@ -462,9 +530,9 @@ to the public constructor signature, so `dispatch=False` is rejected as an unexp
 keyword argument. SPEC-MAPPING-LATTICES line 250 confirms `Modules(R, dispatch=False)`
 is the canonical form for obtaining undecorated module categories.
 
-**Resolution:** New plugin task: `TASK-TEACH-PLUGIN-CLASSCALL-PRIVATE-KWARGS`. The
-plugin must recognise that `__classcall_private__` parameters are valid public
-constructor keyword arguments.
+**Resolution:** Route through `TASK-QC-PLUGIN-CLASSCALL-PRIVATE-KWARGS`. The plugin
+must recognise that `__classcall_private__` parameters are valid public constructor
+keyword arguments, or prove a source-side constructor signature is wrong.
 
 ---
 
@@ -475,21 +543,19 @@ All classifications above are **decided** as of 2026-05-14 based on:
 2. Canonical SPEC-MAPPING-*.md sources
 3. DeepWiki Sage source verification where needed
 
-**Code gaps** (15 distinct fixes, ~40 error sites): must be fixed in `category_specs/`
-without any `# type: ignore`.
+**Direct code gaps** remain source fixes in `category_specs/`, but they must be fixed
+without local suppressions and without adding `Any` to method signatures. The
+callable-constructor entries require `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`
+before source edits.
 
-**Plugin gaps with approved interim suppression** (7 groups, ~26 error sites):
-each requires either a filed plugin task or an extension of an existing task, plus
-an approved `# type: ignore` with reference to this card until the plugin fix lands.
+**Static-surface and plugin gaps** require filed tasks. This card approves no interim
+suppression. The follow-up task set is:
 
-Approved interim suppressions under this card:
-- `# type: ignore[assignment]` — `cat/endsets.py:27`
-- `# type: ignore[return-value]` — `rings/subcategories/field.py:150,152`, `algebraically_closed_field.py:44`, `p_adic_integer_ring.py:51,53`
-- `# type: ignore[operator]` — `lattices/.../subobjects.py:45`, `algebras/__init__.py:394`
-
-All other plugin-gap sites (`Constructors` zero-arg, FunctorialConstruction zero-arg,
-`dispatch=` kwarg) must be re-examined after the corresponding plugin tasks are filed
-and the `_ConstructorsClass` rename is completed.
+- `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`
+- `TASK-QC-STATIC-CONSTRUCTORS-COLLECTOR-NO-REDEF`
+- `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`
+- `TASK-QC-PLUGIN-FUNCTORIAL-CONSTRUCTION-CONSTRUCTORS`
+- `TASK-QC-PLUGIN-CLASSCALL-PRIVATE-KWARGS`
 
 ## Work Log
 
@@ -518,4 +584,3 @@ and the `_ConstructorsClass` rename is completed.
 - `category_specs/tensor_algebra_components/__init__.py`
 - `category_specs/modules/subcategories/with_basis.py`
 - `category_specs/modules/subcategories/integer_lattices.py` (re-examine after rename)
-

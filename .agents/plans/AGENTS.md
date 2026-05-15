@@ -76,7 +76,7 @@ Run from the repo root:
 ```bash
 just plan-validate
 just plan-progress-report
-git diff --check -- plans .nimbalyst/trackers AGENTS.md .agents/current-goal-phase.md
+git diff --check -- .agents/plans .nimbalyst/trackers AGENTS.md .agents/current-goal-phase.md
 ```
 
 `just plan-validate` delegates to the centralized planning validator in

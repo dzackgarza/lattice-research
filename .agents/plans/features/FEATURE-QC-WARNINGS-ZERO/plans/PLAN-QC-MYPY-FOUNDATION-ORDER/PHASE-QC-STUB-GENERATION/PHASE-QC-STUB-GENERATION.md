@@ -18,6 +18,7 @@ phaseKind: milestone
 branchType: implementation
 tasks:
 - '[[TASK-QC-GENERATE-TYPE-STUBS]]'
+- '[[TASK-QC-STATIC-CONSTRUCTORS-COLLECTOR-NO-REDEF]]'
 successCriteria:
 - Dynamic-inheritance plugin review is complete before stub-generation work starts.
 - Stub-generation scope excludes plugin/base-injection defects.

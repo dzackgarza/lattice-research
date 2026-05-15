@@ -187,6 +187,7 @@ category-spec hierarchy. It is not a history of deleted files.
 | --- | --- | --- |
 | `Rings().NamedRings()` | `Rings().Constructors()` | Constructors are entry points into Sage objects, not mathematical subcategories. The target surface is an inner `Constructors` class on `Rings`. |
 | Root shortcuts such as `Rings().ZZ()` | `Rings().Constructors().ZZ()` | Constructor shortcuts do not belong on the category root. The category root documents mathematics; `Constructors()` owns Sage entry points. |
+| `Integers(1)` / `IntegerModRing(1)` as zero ring | `Rings().Constructors().ZeroRing()` | The zero ring is a named ring object and the completion of a ring at the unit ideal. The public route is a category-level constructor backed by Sage's integer-mod-ring singleton of order one, refined into the complete ring surface. |
 | `RationalField()` / `QQ` | `Rings().Constructors().QQ()` | The rational field is a fixed object constructor with no Sage option bag on the public project surface. Rational elements are constructed by the returned field object, not by extra rational-field constructor options. |
 | Parameterized families such as `RealField(prec)` and `Zp(p)` | Constructor methods returning objects refined into precision, valuation, or local-field subcategories | The parameterized family is not a one-object category; fixed objects such as `RR` and `CC` may have singleton refinements. |
 

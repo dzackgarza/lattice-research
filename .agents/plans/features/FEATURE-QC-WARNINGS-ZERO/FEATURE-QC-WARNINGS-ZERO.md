@@ -214,7 +214,7 @@ is not valid as a type`.
 
 Root cause:
 - Category objects expose surface classes (`ParentMethods`, `ElementMethods`,
-  `MorphismMethods`) as module-level instances, not as type aliases.
+  Hom-category `ElementMethods`) as module-level instances, not as type aliases.
 - Code uses these in type annotations (e.g., `-> RModuleHomCategory.ParentMethods`),
   which is correct at runtime but mypy sees them as variable expressions, not
   valid types.
@@ -222,11 +222,11 @@ Root cause:
   explicitly defines these surface class patterns. This is the intended
   architecture.
 
-Conflict with docs: The category-spec style reference defines `ParentMethods` /
-`ElementMethods` / `MorphismMethods` as standard method-surface classes. Using
-them in type annotations is architecturally correct, but mypy cannot validate
-them without a `TypeAlias` intermediary or a `.pyi` stub layer that flattens
-the dynamic hierarchy into static types.
+Conflict with docs: The category-spec style reference defines `ParentMethods`,
+`ElementMethods`, and Hom-category `ElementMethods` as standard method-surface
+classes. Using them in type annotations is architecturally correct, but mypy
+cannot validate them without a `TypeAlias` intermediary or a `.pyi` stub layer
+that flattens the dynamic hierarchy into static types.
 
 **Resolution**: Route through `PHASE-QC-STUB-GENERATION` after the basic hygiene
 and dynamic-inheritance plugin frontiers are complete. Do not fold this into the
