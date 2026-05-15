@@ -20,7 +20,7 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-PLANS_ROOT = ROOT / "plans" / "features"
+PLANS_ROOT = ROOT / ".agents" / "plans" / "features"
 SCHEMA_ROOT = ROOT / ".nimbalyst" / "trackers"
 ACTIVE_ROOT = PLANS_ROOT
 COMPLETED_ROOT = PLANS_ROOT / "completed"
@@ -55,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Generate a Markdown report summarizing current planning-card progress "
-            "from plans/features and local tracker schemas."
+            "from .agents/plans/features and local tracker schemas."
         )
     )
     parser.add_argument(
@@ -559,7 +559,6 @@ def render_report(
     completed_statuses: dict[str, set[str]],
     recent_limit: int,
 ) -> str:
-    now = dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M UTC")
     counts = summarize_counts(cards, completed_statuses)
     child_map = children_map(cards)
     rollups = feature_rollups(cards, completed_statuses, child_map)
@@ -578,8 +577,6 @@ def render_report(
 
     lines: list[str] = []
     lines.append("# Planning Progress Report")
-    lines.append("")
-    lines.append(f"_Generated: {now}_")
     lines.append("")
     lines.append("## Overall")
     lines.append("")
@@ -722,7 +719,7 @@ def render_report(
         "sorted by the most recent git commit touching that card file."
     )
     lines.append(
-        "- Completed feature trees may live under `plans/features/completed/`; "
+        "- Completed feature trees may live under `.agents/plans/features/completed/`; "
         "this report includes them in totals."
     )
     lines.append(

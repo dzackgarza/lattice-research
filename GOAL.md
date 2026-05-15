@@ -224,7 +224,7 @@ Use goalcraft (load `goalcraft` skill) to refine the entry point, then set it
 with `/goal`. A compact starting template:
 
 ```
-Destination: ./plans/card-progress-report.md shows all cards complete,
+Destination: ./.agents/plans/card-progress-report.md shows all cards complete,
 needs-human-input, or phase-gated.
 
 Starting point: Read .agents/memories/current-goal-handoff.md for

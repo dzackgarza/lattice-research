@@ -109,15 +109,15 @@ plan-validate:
     set -euo pipefail
     cd {{justfile_directory()}}
     just --justfile /home/dzack/ai/planning/justfile validate \
-        {{justfile_directory()}}/plans/features \
+        {{justfile_directory()}}/.agents/plans/features \
         {{justfile_directory()}}/.nimbalyst/trackers \
-        {{justfile_directory()}}/plans/plan-dag.md
+        {{justfile_directory()}}/.agents/plans/plan-dag.md
 
 plan-progress-report:
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
-    uv run .agents/scripts/generate_card_progress_report.py --output plans/card-progress-report.md
+    uv run .agents/scripts/generate_card_progress_report.py --output .agents/plans/card-progress-report.md
 
 next-tasks n="1":
     #!/usr/bin/env bash
