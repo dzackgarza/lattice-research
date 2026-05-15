@@ -39,7 +39,6 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
             r"""Return the structure map from the base topological space."""
             ...
 
-        @override
         @final
         def structure_morphism(self) -> Morphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -49,5 +48,3 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

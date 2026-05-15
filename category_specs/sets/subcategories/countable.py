@@ -115,7 +115,6 @@ class _CountableSets(CategoryWithAxiom):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _FiniteCountableSets(CategoryWithAxiom):
@@ -151,7 +150,6 @@ class _FiniteCountableSets(CategoryWithAxiom):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _InfiniteCountableSets(CategoryWithAxiom):
@@ -182,5 +180,3 @@ class _InfiniteCountableSets(CategoryWithAxiom):
             )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

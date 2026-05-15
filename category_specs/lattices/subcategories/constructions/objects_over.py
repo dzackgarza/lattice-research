@@ -34,7 +34,6 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         @abstractmethod
         def structure_map(self) -> LatticeMorphism: ...
 
-        @override
         @final
         def structure_morphism(self) -> LatticeMorphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -44,5 +43,3 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

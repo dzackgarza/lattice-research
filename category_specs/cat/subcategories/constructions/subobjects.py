@@ -46,24 +46,19 @@ class Subcategories(SubobjectsCategory):
         )
 
     class ParentMethods:
-        @override
         @abstractmethod
         def ambient_category(self) -> Category:
             r"""Return the category in which this subcategory is defined."""
             ...
 
-        @override
         @abstractmethod
         def defining_predicates(self) -> tuple[str, ...]:
             r"""Return the object predicates defining this full subcategory."""
             ...
 
-        @override
         @abstractmethod
         def defining_predicate(self, candidate: CategoryObject) -> bool:
             r"""Return whether ``candidate`` satisfies all defining predicates."""
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

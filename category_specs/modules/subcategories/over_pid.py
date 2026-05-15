@@ -41,7 +41,6 @@ class _OverPID(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     WithForms = LazyImport(
         "category_specs.forms.subcategories.with_forms", "OverPIDFormedModulesCategory"

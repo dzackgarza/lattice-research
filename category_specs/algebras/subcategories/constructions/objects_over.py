@@ -39,7 +39,6 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
             r"""Return the algebra morphism from this algebra to the target."""
             ...
 
-        @override
         @final
         def structure_morphism(self) -> AlgebraMorphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -49,5 +48,3 @@ class _ObjectsOver(RegressiveCovariantConstructionCategory, Category_over_base):
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

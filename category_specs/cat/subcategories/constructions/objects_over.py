@@ -13,13 +13,11 @@ if TYPE_CHECKING:
     from ....types import CategoryObject
 
 
-@final
 def structure_domain(self: CategoryObject) -> CategoryObject:
     r"""Return the domain of the structure morphism."""
     return self.structure_morphism().domain()
 
 
-@final
 def structure_codomain(self: CategoryObject) -> CategoryObject:
     r"""Return the codomain of the structure morphism."""
     return self.structure_morphism().codomain()
@@ -49,7 +47,6 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
             r"""Return the structure functor from this category to ``C``."""
             ...
 
-        @override
         @final
         def structure_morphism(self) -> Functor:
             r"""Return the structure functor as the structure morphism in ``Cat()``."""
@@ -60,7 +57,6 @@ class SliceCategories(RegressiveCovariantConstructionCategory, Category_over_bas
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 _ObjectsOver = SliceCategories
