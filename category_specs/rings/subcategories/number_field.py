@@ -3,8 +3,8 @@ r"""NumberFields ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast, final, overload, override
 
 from sage.categories.number_fields import NumberFields as SageNumberFields
 from sage.misc.cachefunc import cached_method
@@ -13,7 +13,11 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .field import _Fields as _Fields
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -60,20 +64,20 @@ class _NumberFields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def QuadraticNumberField(self) -> Category:
-            return self._with_axiom("QuadraticNumberField")
+            return with_axiom(self, "QuadraticNumberField")
 
-        @cached_method
+        @_cached_method
         @final
         def Quadratic(self) -> Category:
             return self.QuadraticNumberField()
 
-        @cached_method
+        @_cached_method
         @final
         def Cyclotomic(self) -> Category:
-            return self._with_axiom("Cyclotomic")
+            return with_axiom(self, "Cyclotomic")
 
     class ParentMethods:
         @override
@@ -302,5 +306,3 @@ class _NumberFields(CategoryWithAxiom):
         def charpoly(
             self, var: str = "x", algorithm: str | None = None
         ) -> RingElement: ...
-
-    class MorphismMethods: ...
