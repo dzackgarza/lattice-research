@@ -29,11 +29,15 @@ authorities for status, evidence, and completed work.
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
 - Plugin repo `/home/dzack/sage-mypy-plugin` has source committed through
-  `6878771`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
+  `c329ae6`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
   remains dirty after tests.
 - `category_specs/sets/__init__.py:646` `TopologicalSpaces().Subobjects()`
   is handled by plugin fixture `test_construction_selector_class_attribute.py`;
   do not replace construction selectors with local casts in source.
+- `category_specs/modules/subcategories/constructions/cartesian_products.py`
+  override errors for `__init_extra__` and `_lmul_` are routed to plugin
+  fixture `test_construction_extra_super_category_methods.py`; do not delete
+  the overrides or add local casts in source.
 - The p-adic `return self` false positive is routed through the plugin's
   transitive method-container return fixture and should not be reworked in
   source. The field zero-ideal completion `return self` false positive is routed
