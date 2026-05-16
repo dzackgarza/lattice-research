@@ -5,7 +5,7 @@ description: Use when designing or reviewing category refinement order, Sage cat
 
 # Category Framework Design
 
-This skill owns Sage category-framework design references migrated from the retired `plans/` directory.
+This skill owns Sage category-framework design references migrated from the retired `.agents/plans/` directory.
 
 ## Load references by task
 
@@ -22,3 +22,12 @@ This skill owns Sage category-framework design references migrated from the reti
 - Runtime inspection may inform the source map but must not become generic runtime discovery in the spec.
 - Autsets are structural category objects below Endsets, not ad hoc group wrappers.
 - Dual-object routing must reflect the mathematical Hom object when applicable.
+- Dynamic inheritance of specs and implementation providers is intentional. Do not
+  replace it with explicit subclassing, trivial re-call wrappers, local casts, or
+  provider-splicing merely because a static checker cannot see the category graph.
+  Route those conflicts to the static-model/plugin/stub/QC lane unless they expose a
+  real mathematical owner, codomain, hypothesis, or constructor-boundary defect.
+- Repeated casts around inherited category results are evidence that the framework
+  design needs review. Decide whether the spec implementation belongs at a downstream
+  ABC implementation boundary or whether QC tooling must model inherited category
+  promotion; do not normalize local cast patterns as framework glue.

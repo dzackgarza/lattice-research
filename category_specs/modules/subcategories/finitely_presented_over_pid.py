@@ -29,6 +29,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
+from sage.rings.integer import Integer as SageInteger
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -113,7 +114,7 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         @final
         def free_rank(self) -> Integer:
-            return sum(1 for r in self.invariant_factors() if r.is_zero())
+            return SageInteger(sum(r.is_zero() for r in self.invariant_factors()))
 
         @abstractmethod
         def element_from_vector(self, vec: Sequence[RingElement]) -> RModuleElement:
@@ -145,7 +146,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             r"""Generator of ``Ann_R(m) = Ann_R(<m>)``."""
             ...
 
-    class MorphismMethods: ...
 
     # ------------------------------------------------------------------
     # Hom category
@@ -182,7 +182,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             @abstractmethod
             def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
-        class MorphismMethods: ...
 
     # ------------------------------------------------------------------
     # Torsion subcategory
@@ -206,7 +205,6 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
 
         class ElementMethods: ...
 
-        class MorphismMethods: ...
 
     # ------------------------------------------------------------------
     # Lattices subcategory
@@ -225,5 +223,3 @@ class FinitelyPresentedModulesOverPID(CategoryWithAxiom_over_base_ring):
             def discriminant_group(self) -> DiscriminantGroup: ...
 
         class ElementMethods: ...
-
-        class MorphismMethods: ...

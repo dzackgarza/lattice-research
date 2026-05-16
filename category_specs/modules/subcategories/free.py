@@ -16,6 +16,7 @@ from sage.tensor.modules.finite_rank_free_module import (
 )
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...utils import with_axiom
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -56,7 +57,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
         @_cached_method
         @final
         def FiniteRank(self) -> Category:
-            return self._with_axiom("FiniteRank")
+            return with_axiom(self, "FiniteRank")
 
     class ParentMethods:
         @override
@@ -71,7 +72,6 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
@@ -227,5 +227,3 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             return cast("RModule", self.change_ring(morphism.codomain()))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -2,11 +2,13 @@ r"""Finite poset subcategory."""
 
 from __future__ import annotations
 
+import builtins
 from abc import abstractmethod
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.finite_posets import FinitePosets as SageFinitePosets
+from sage.combinat.posets.posets import FinitePoset as SageFinitePoset
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -40,7 +42,7 @@ class _FinitePosets(CategoryWithAxiom):
 
     class ParentMethods:
         @abstractmethod
-        def list(self) -> list[PosetElement]:
+        def list(self) -> builtins.list[PosetElement]:
             r"""Return the elements in the distinguished linear extension order."""
             ...
 
@@ -70,17 +72,19 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @abstractmethod
-        def minimal_elements(self) -> list[PosetElement]:
+        def minimal_elements(self) -> builtins.list[PosetElement]:
             r"""Return the minimal elements."""
             ...
 
         @abstractmethod
-        def maximal_elements(self) -> list[PosetElement]:
+        def maximal_elements(self) -> builtins.list[PosetElement]:
             r"""Return the maximal elements."""
             ...
 
         @abstractmethod
-        def cover_relations(self) -> list[tuple[PosetElement, PosetElement]]:
+        def cover_relations(
+            self,
+        ) -> builtins.list[tuple[PosetElement, PosetElement]]:
             r"""Return the cover relations."""
             ...
 
@@ -99,17 +103,21 @@ class _FinitePosets(CategoryWithAxiom):
         @abstractmethod
         def closed_interval(
             self, x: PosetElement, y: PosetElement
-        ) -> list[PosetElement]:
+        ) -> builtins.list[PosetElement]:
             r"""Return the closed interval ``[x, y]``."""
             ...
 
         @abstractmethod
-        def open_interval(self, x: PosetElement, y: PosetElement) -> list[PosetElement]:
+        def open_interval(
+            self, x: PosetElement, y: PosetElement
+        ) -> builtins.list[PosetElement]:
             r"""Return the open interval ``(x, y)``."""
             ...
 
         @abstractmethod
-        def interval(self, x: PosetElement, y: PosetElement) -> list[PosetElement]:
+        def interval(
+            self, x: PosetElement, y: PosetElement
+        ) -> builtins.list[PosetElement]:
             r"""Return the closed interval ``[x, y]``."""
             ...
 
@@ -129,10 +137,11 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @final
-        def height_certificate(self) -> tuple[Integer, list[PosetElement]]:
+        def height_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the height with a maximum-cardinality chain."""
             return cast(
-                tuple[Integer, list[PosetElement]], self.height(certificate=True)
+                tuple[Integer, builtins.list[PosetElement]],
+                SageFinitePoset.height(cast(Any, self), certificate=True),
             )
 
         @abstractmethod
@@ -141,10 +150,11 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @final
-        def width_certificate(self) -> tuple[Integer, list[PosetElement]]:
+        def width_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the width with a maximum-cardinality antichain."""
             return cast(
-                tuple[Integer, list[PosetElement]], self.width(certificate=True)
+                tuple[Integer, builtins.list[PosetElement]],
+                SageFinitePoset.width(cast(Any, self), certificate=True),
             )
 
         @abstractmethod
@@ -187,7 +197,9 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return semilattice status with a pair lacking a meet when false."""
             return cast(
                 tuple[bool, tuple[PosetElement, PosetElement] | None],
-                self.is_meet_semilattice(certificate=True),
+                SageFinitePoset.is_meet_semilattice(
+                    cast(Any, self), certificate=True
+                ),
             )
 
         @abstractmethod
@@ -202,7 +214,9 @@ class _FinitePosets(CategoryWithAxiom):
             r"""Return semilattice status with a pair lacking a join when false."""
             return cast(
                 tuple[bool, tuple[PosetElement, PosetElement] | None],
-                self.is_join_semilattice(certificate=True),
+                SageFinitePoset.is_join_semilattice(
+                    cast(Any, self), certificate=True
+                ),
             )
 
         @abstractmethod
@@ -216,10 +230,8 @@ class _FinitePosets(CategoryWithAxiom):
             ...
 
         @abstractmethod
-        def linear_extensions(self) -> Iterable[list[PosetElement]]:
+        def linear_extensions(self) -> Iterable[builtins.list[PosetElement]]:
             r"""Return the linear extensions of this finite poset."""
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

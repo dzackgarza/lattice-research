@@ -6,6 +6,7 @@ from typing import final
 
 from ....cat import DualObjectsCategory
 from ... import LatticesCategory
+from ...homsets import LatticeHomCategory
 
 
 class LatticeDualObjectsCategory(DualObjectsCategory):
@@ -32,9 +33,8 @@ class LatticeDualObjectsCategory(DualObjectsCategory):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 LatticeDualObjectsObject = LatticeDualObjectsCategory.ParentMethods
 LatticeDualObjectsElement = LatticeDualObjectsCategory.ElementMethods
-LatticeDualObjectsMorphism = LatticeDualObjectsCategory.MorphismMethods
+LatticeDualObjectsMorphism = LatticeHomCategory.ElementMethods

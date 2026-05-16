@@ -30,7 +30,8 @@ not for every named set with a topology.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, NoReturn, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, NoReturn, TypeVar, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -38,6 +39,7 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import Category
 from ..cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ..sets import Sets
+from ..utils import with_axiom
 from .homsets import (
     MetricSpaceAutCategory,
     MetricSpaceEndCategory,
@@ -53,6 +55,9 @@ from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 if TYPE_CHECKING:
     from ..types import Subset
     from .subcategories.metric import MetricSpacesCategory
@@ -61,7 +66,6 @@ if TYPE_CHECKING:
 class _TopologicalSpaceObjectMethods:
     r"""Methods on objects in the category of topological spaces."""
 
-    @override
     @final
     def is_topological(self) -> bool:
         r"""Return ``True`` because this object lies in ``TopologicalSpaces()``."""
@@ -107,11 +111,7 @@ class _TopologicalSpaceElementMethods:
     r"""Methods on points of topological spaces."""
 
 
-class _TopologicalSpaceMorphismMethods:
-    r"""Methods on morphisms of topological spaces."""
-
-
-class TopologicalSpaceRuntimeGapObjectMethods:
+class TopologicalSpaceRuntimeGapObjectMethods(_TopologicalSpaceObjectMethods):
     r"""Concrete topological-space methods for carriers without topology adapters.
 
     This mixin is not the root spec.  ``TopologicalSpaces().ParentMethods`` remains
@@ -181,7 +181,6 @@ class TopologicalSpaces(CategoryWithAxiom):
     _base_category_class_and_axiom = (Sets, "Topological")
     ParentMethods = _TopologicalSpaceObjectMethods
     ElementMethods = _TopologicalSpaceElementMethods
-    MorphismMethods = _TopologicalSpaceMorphismMethods
     HomCategory = TopologicalSpaceHomCategory
     Metric = LazyImport(
         "category_specs.topological_spaces.subcategories.metric", "MetricSpacesCategory"
@@ -211,7 +210,7 @@ class TopologicalSpaces(CategoryWithAxiom):
         r"""Return the set-theoretic supercategories of topological spaces."""
         return [Sets()]
 
-    class Constructors:
+    class _Constructors:
         r"""Topological-space constructors.
 
         No standalone Sage topological-space constructor has been admitted. Named sets
@@ -219,32 +218,30 @@ class TopologicalSpaces(CategoryWithAxiom):
         refined into this subtree.
         """
 
-    _Constructors = Constructors
-
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self) -> Constructors:
+    def Constructors(self) -> TopologicalSpaces._Constructors:
         r"""Return the topological-space constructor collector."""
         return self.__class__._Constructors()
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Connected(self) -> Category:
             r"""Return the connected-space subcategory."""
-            return self._with_axiom("Connected")
+            return cast(Category, with_axiom(self, "Connected"))
 
-        @cached_method
+        @_cached_method
         @final
         def Compact(self) -> Category:
             r"""Return the compact-space subcategory."""
-            return self._with_axiom("Compact")
+            return cast(Category, with_axiom(self, "Compact"))
 
-        @cached_method
+        @_cached_method
         @final
         def Metric(self) -> Category:
             r"""Return the metric-space subcategory."""
-            return self._with_axiom("Metric")
+            return cast(Category, with_axiom(self, "Metric"))
 
     Subobjects = _Subobjects
     Quotients = _Quotients
@@ -256,7 +253,7 @@ class TopologicalSpaces(CategoryWithAxiom):
 
 type MetricSpacesObject = MetricSpacesCategory.ParentMethods
 type MetricSpacesElement = MetricSpacesCategory.ElementMethods
-type MetricSpacesMorphism = MetricSpacesCategory.MorphismMethods
+type MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods
 type MetricSpacesHomCategory = MetricSpaceHomCategory
 type MetricSpacesEndCategory = MetricSpaceEndCategory
 type MetricSpacesAutCategory = MetricSpaceAutCategory
@@ -270,7 +267,7 @@ type MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 type TopologicalSpacesCategory = TopologicalSpaces
 type TopologicalSpacesObject = TopologicalSpaces.ParentMethods
 type TopologicalSpacesElement = TopologicalSpaces.ElementMethods
-type TopologicalSpacesMorphism = TopologicalSpaces.MorphismMethods
+type TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
 type TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
 type TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
 type TopologicalSpacesAutCategory = TopologicalSpaceAutCategory

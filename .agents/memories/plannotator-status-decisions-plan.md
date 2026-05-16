@@ -49,7 +49,7 @@ vocabulary can express it without ad hoc raw computations.
 
 `just plan-validate` now validates 251 root planning cards.
 
-`just plan-progress-report` regenerated `plans/card-progress-report.md` after the
+`just plan-progress-report` regenerated `.agents/plans/card-progress-report.md` after the
 state changes.
 
 `STATUS.md` has been retired. The active source of truth is now the policy surface,

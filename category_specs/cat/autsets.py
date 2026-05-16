@@ -4,12 +4,11 @@ from __future__ import annotations
 
 from typing import final, override
 
-from ..homsets import AutCategoryOf
+from ..homsets import AutCategoryOf, UniversalAutElementMethods
 from .endsets import CatEndCategory, _CatEndofunctorMethods
 
 
-class _CatAutofunctorMethods(_CatEndofunctorMethods):
-    @override
+class _CatAutofunctorMethods(_CatEndofunctorMethods, UniversalAutElementMethods):
     @final
     def is_autofunctor(self) -> bool:
         r"""Return ``True`` because this element is an automorphism in ``Cat()``."""
@@ -32,5 +31,3 @@ class CatAutCategory(AutCategoryOf):
     ElementMethods = _CatAutofunctorMethods
 
     class ParentMethods: ...
-
-    class MorphismMethods: ...

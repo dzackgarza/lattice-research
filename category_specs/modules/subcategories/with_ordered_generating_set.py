@@ -6,6 +6,8 @@ from abc import abstractmethod
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.rings.integer import Integer as SageInteger
+
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
 from .. import Modules
@@ -35,11 +37,11 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
 
         @final
         def ngens(self) -> Cardinality:
-            return self.gens().cardinality()
+            return SageInteger(len(self.gens()))
 
         @final
         def gen(self, i: Integer) -> RModuleElement:
-            return self.gens()[i]
+            return self.gens()[int(i)]
 
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
@@ -48,12 +50,8 @@ class _WithOrderedGeneratingSet(CategoryWithAxiom_over_base_ring):
                 self, f: Callable[[RModuleElement], RModuleElement]
             ) -> RModuleMorphism: ...
 
-        class ElementMethods: ...
-
-        class MorphismMethods: ...
+        class ElementMethods:
+            @abstractmethod
+            def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods:
-        @abstractmethod
-        def to_function(self) -> Callable[[RModuleElement], RModuleElement]: ...

@@ -13,7 +13,7 @@ from ..modules import Modules
 from .subcategories.constructions.parameterized import _Category_over_base_integer_pair
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Callable, Sequence
 
     from ..types import FreeModule, Matrix, MatrixSpace, Ring, RingElement
 
@@ -42,8 +42,9 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
     def __contains__(self, R: Any) -> bool:
         from sage.matrix.matrix_space import MatrixSpace
 
+        matrix_space_type: type[Any] = MatrixSpace
         return (
-            isinstance(R, MatrixSpace)
+            isinstance(R, matrix_space_type)
             and R.base_ring() == self.base_ring()
             and Integer(R.nrows()) == self.nrows()
             and Integer(R.ncols()) == self.ncols()
@@ -53,7 +54,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
     def object(self) -> Ring:
         from sage.matrix.matrix_space import MatrixSpace
 
-        return MatrixSpace(self.base_ring(), self.nrows(), self.ncols())
+        matrix_space_factory: Callable[[Ring, Integer, Integer], Ring] = MatrixSpace
+        return matrix_space_factory(self.base_ring(), self.nrows(), self.ncols())
 
     @override
     @final
@@ -104,7 +106,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def dims(self) -> tuple[Integer, Integer]:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.dims(self)
+            dims_method: Callable[[Any], tuple[Integer, Integer]] = MatrixSpace.dims
+            return dims_method(self)
 
         @final
         def matrix_from_matrix(
@@ -113,7 +116,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             r"""Return the matrix-algebra element represented by ``matrix``."""
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, matrix, coerce=coerce)
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, matrix, coerce=coerce)
 
         @final
         def matrix_from_entries(
@@ -122,7 +126,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             r"""Return the matrix whose entries are listed in row-major order."""
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, entries, coerce=coerce)
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, entries, coerce=coerce)
 
         @final
         def matrix_from_rows(
@@ -131,7 +136,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             r"""Return the matrix whose rows are ``rows``."""
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, rows, coerce=coerce)
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, rows, coerce=coerce)
 
         @final
         def scalar_matrix(
@@ -140,7 +146,8 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
             r"""Return the scalar matrix determined by ``scalar``."""
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, scalar, coerce=coerce)
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, scalar, coerce=coerce)
 
         @final
         def rank(self) -> Integer:
@@ -163,31 +170,38 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         def column_space(self) -> FreeModule:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.column_space(self)
+            column_space_method: Callable[[Any], FreeModule] = MatrixSpace.column_space
+            return column_space_method(self)
 
         @final
         def row_space(self) -> FreeModule:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.row_space(self)
+            row_space_method: Callable[[Any], FreeModule] = MatrixSpace.row_space
+            return row_space_method(self)
 
         @final
         def diagonal_matrix(self, entries: Sequence[RingElement]) -> RingElement:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.diagonal_matrix(self, entries)
+            diagonal_method: Callable[[Any, Sequence[RingElement]], RingElement] = (
+                MatrixSpace.diagonal_matrix
+            )
+            return diagonal_method(self, entries)
 
         @final
         def identity_matrix(self) -> RingElement:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, self.base_ring().one())
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, self.base_ring().one())
 
         @final
         def zero_matrix(self) -> RingElement:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.matrix(self, self.base_ring().zero())
+            matrix_method: Callable[..., RingElement] = MatrixSpace.matrix
+            return matrix_method(self, self.base_ring().zero())
 
         @final
         def matrix_space(
@@ -211,20 +225,21 @@ class _MatrixAlgebras(_Category_over_base_integer_pair):
         ) -> RingElement:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.from_vector(self, vector, order=order, coerce=coerce)
+            from_vector_method: Callable[..., RingElement] = MatrixSpace.from_vector
+            return from_vector_method(self, vector, order=order, coerce=coerce)
 
         @final
         def is_dense(self) -> bool:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.is_dense(self)
+            is_dense_method: Callable[[Any], bool] = MatrixSpace.is_dense
+            return is_dense_method(self)
 
         @final
         def is_sparse(self) -> bool:
             from sage.matrix.matrix_space import MatrixSpace
 
-            return MatrixSpace.is_sparse(self)
+            is_sparse_method: Callable[[Any], bool] = MatrixSpace.is_sparse
+            return is_sparse_method(self)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

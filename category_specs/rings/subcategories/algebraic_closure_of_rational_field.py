@@ -2,7 +2,8 @@ r"""QQbar ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, Literal, cast, final, overload, override
 
 from sage.rings.integer import Integer
 
@@ -46,10 +47,11 @@ class _QQbar(Category_singleton):
     def object(self) -> Ring:
         from sage.all import QQbar
 
-        return QQbar
+        return cast("Ring", QQbar)
 
     class ParentMethods:
         @override
+        @abstractmethod
         def polynomial_root(
             self,
             poly: Polynomial,
@@ -72,8 +74,7 @@ class _QQbar(Category_singleton):
         ) -> RingElement | list[RingElement]: ...
 
         @override
+        @abstractmethod
         def nth_root(
             self, n: Integer, all: bool = False
         ) -> RingElement | list[RingElement]: ...
-
-    class MorphismMethods: ...

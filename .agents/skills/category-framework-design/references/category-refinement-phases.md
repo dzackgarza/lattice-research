@@ -23,7 +23,7 @@ but the resulting method lists are recorded explicitly in the spec.
 
 Define the full ring and module subcategory hierarchy first.  For each
 subcategory, statically enumerate the relevant existing Sage method names on
-`ParentMethods`, `ElementMethods`, or `MorphismMethods`.
+`ParentMethods`, `ElementMethods`, or Hom-category `ElementMethods`.
 
 Runtime examples may be inspected only as source material.  Once selected, each
 method is written into the appropriate subcategory by name.  Methods remain

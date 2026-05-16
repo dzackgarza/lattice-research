@@ -12,6 +12,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .. import Rings
 from ._lazy_subcategories import (
     _CC,
@@ -90,22 +91,22 @@ class _Fields(CategoryWithAxiom):
         @_field_cached_method
         @final
         def NumberFields(self) -> Category:
-            return cast(Category, self._with_axiom("NumberFields"))
+            return cast(Category, with_axiom(self, "NumberFields"))
 
         @_field_cached_method
         @final
         def AlgebraicallyClosed(self) -> Category:
-            return cast(Category, self._with_axiom("AlgebraicallyClosed"))
+            return cast(Category, with_axiom(self, "AlgebraicallyClosed"))
 
         @_field_cached_method
         @final
         def LocalFields(self) -> Category:
-            return cast(Category, self._with_axiom("LocalFields"))
+            return cast(Category, with_axiom(self, "LocalFields"))
 
         @_field_cached_method
         @final
         def GlobalFields(self) -> Category:
-            return cast(Category, self._with_axiom("GlobalFields"))
+            return cast(Category, with_axiom(self, "GlobalFields"))
 
     @_field_cached_method
     @final

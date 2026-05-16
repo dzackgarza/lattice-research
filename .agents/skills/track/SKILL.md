@@ -1,11 +1,11 @@
 ---
 name: track
-description: Use when creating tracking items from `/track` commands. Map requests to central planning tracker types and write markdown under root `plans/`.
+description: Use when creating tracking items from `/track` commands. Map requests to central planning tracker types and write markdown under root `.agents/plans/`.
 ---
 
 # /track Command
 
-Create a tracking item in the correct `plans/` location.
+Create a tracking item in the correct `.agents/plans/` location.
 
 ## Usage
 
@@ -26,15 +26,15 @@ planning types: `feature`, `spec`, `plan`, `phase`, `decision`, or `task`.
 
 ## Destination Rules
 
-- Feature cards go under `plans/features/FEATURE-ID/`.
-- Specs go under `plans/features/FEATURE-ID/specs/`.
-- Decisions go under `plans/features/FEATURE-ID/decisions/`.
-- Plans go under `plans/features/FEATURE-ID/plans/PLAN-ID/`.
+- Feature cards go under `.agents/plans/features/FEATURE-ID/`.
+- Specs go under `.agents/plans/features/FEATURE-ID/specs/`.
+- Decisions go under `.agents/plans/features/FEATURE-ID/decisions/`.
+- Plans go under `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/`.
 - Phases go under the owning plan directory.
 - Tasks go under the owning phase directory.
 
 Do not create aggregate index files. The GUI is the index. There is no separate
-backlog. Active tracked cards under `plans/features/` are the outstanding work set.
+backlog. Active tracked cards under `.agents/plans/features/` are the outstanding work set.
 
 ## Frontmatter
 
@@ -75,7 +75,7 @@ chat recovery. Use at least:
 - `Work Log`
 
 Inline tracker syntax is only for temporary discovery placeholders. Convert anything
-ready for assignment or execution into a full markdown file under `plans/features/`.
+ready for assignment or execution into a full markdown file under `.agents/plans/features/`.
 
 ## Execution Steps
 
@@ -83,7 +83,7 @@ ready for assignment or execution into a full markdown file under `plans/feature
 2. Map the requested type to a registered standard type.
 3. Convert workflow words such as spec, implementation, research, or sprint into tags
    and destination path, not tracker types.
-4. Generate the item file under `plans/features/` with `trackerStatus` frontmatter.
+4. Generate the item file under `.agents/plans/features/` with `trackerStatus` frontmatter.
 5. Preserve source provenance and enough execution context in the body.
 6. Confirm the destination file.
 

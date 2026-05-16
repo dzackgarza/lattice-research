@@ -2,7 +2,7 @@ r"""RR ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category, Category_singleton
 from ._lazy_subcategories import (
@@ -46,10 +46,8 @@ class _RR(Category_singleton):
     def object(self) -> Ring:
         from sage.all import RR
 
-        return RR
+        return cast("Ring", RR)
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

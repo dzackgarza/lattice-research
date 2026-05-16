@@ -51,6 +51,13 @@ Read `references/style.md` before acting on category-spec content, code, specs, 
 - Complexity belongs behind mathematical nouns, not helper sprawl.
 - Do not weaken specs to make current code pass. A smoke failure usually records an
   implementation or wrapper gap against the ideal spec.
+- A typing fix is a proof obligation, not a way to quiet mypy. Before changing an
+  annotation, adding a cast, or narrowing a return, ask whether the change makes the
+  mathematical surface more explicit. If the code already expresses the correct Sage
+  category structure and the checker only fails to see dynamic inheritance,
+  `category_of`, `_with_axiom`, `refine_category`, or method-container projection,
+  the fix belongs in the static model, plugin, stub, or QC tooling lane, not as a
+  local cast-only patch.
 - Do not rewrite specs unless the user explicitly requests that exact edit.
 
 ## Required output behavior

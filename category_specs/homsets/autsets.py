@@ -2,12 +2,19 @@ r"""Aut categories and automorphism method surfaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, cast, final, override
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf
+from .endsets import (
+    EndCategory,
+    EndCategoryConstruction,
+    EndCategoryOf,
+    UniversalEndElementMethods,
+    UniversalEndObjectMethods,
+)
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
@@ -48,16 +55,21 @@ def _aut_object_from_end_category(end_category: End, aut_category: Category) -> 
     from ..utils import refine_category
 
     aut_object = _condition_aut_object_from_end_category(end_category, aut_category)
-    return cast("Aut", refine_category(aut_object, [aut_category]))
+    return refine_category(aut_object, [aut_category])
 
 
-class UniversalAutObjectMethods:
+class UniversalAutObjectMethods(UniversalEndObjectMethods):
     r"""Methods on objects ``Aut_C(A)`` of an aut category."""
 
-    @final
-    def end_category(self) -> End:
+    @abstractmethod
+    def ambient(self) -> UniversalEndObjectMethods:
         r"""Return the ambient endomorphism object whose units form this object."""
-        return cast("End", self.ambient())
+        ...
+
+    @final
+    def end_category(self) -> UniversalEndObjectMethods:
+        r"""Return the ambient endomorphism object whose units form this object."""
+        return self.ambient()
 
     @override
     @final
@@ -78,7 +90,7 @@ class UniversalAutObjectMethods:
         return self.end_category().identity()
 
 
-class UniversalAutElementMethods:
+class UniversalAutElementMethods(UniversalEndElementMethods):
     r"""Methods on elements of aut categories."""
 
     @override
@@ -121,7 +133,6 @@ class AutCategory(CategoryWithAxiom_singleton):
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
 
-    class MorphismMethods: ...
 
 
 class AutCategoryConstruction(EndCategoryConstruction):
@@ -136,7 +147,6 @@ class AutCategoryConstruction(EndCategoryConstruction):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     @final
     def from_end_category(self, end_category: End) -> Aut:
@@ -199,5 +209,3 @@ class AutCategoryOf(CategoryWithAxiom):
 
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
-
-    class MorphismMethods: ...

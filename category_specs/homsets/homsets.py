@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, cast, final, overload, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.misc.lazy_import import LazyImport
 from sage.structure.parent import Parent
@@ -29,18 +29,9 @@ class UniversalHomObjectMethods:
         r"""Return the target object ``B`` of this hom object."""
         ...
 
-    @final
     def is_endomorphism_set(self) -> bool:
         r"""Return whether this hom object is an endomorphism object."""
         return bool(self.domain() == self.codomain())
-
-    @overload
-    def __call__(self, morphism: Morphism) -> Morphism: ...
-
-    @overload
-    def __call__(
-        self, function: Callable[[CategoryElement], CategoryElement]
-    ) -> Morphism: ...
 
     @abstractmethod
     def __call__(
@@ -52,6 +43,11 @@ class UniversalHomObjectMethods:
 
 class UniversalHomElementMethods:
     r"""Methods on elements ``f`` of hom categories."""
+
+    @abstractmethod
+    def parent(self) -> UniversalHomObjectMethods:
+        r"""Return the hom object containing this morphism."""
+        ...
 
     @final
     def domain(self) -> CategoryObject:
@@ -83,15 +79,14 @@ class UniversalHomElementMethods:
         r"""Return ``self`` after postcomposition by ``other``."""
         ...
 
-    @final
     def is_endomorphism(self) -> bool:
         r"""Return whether this morphism has equal domain and codomain."""
         return bool(self.domain() == self.codomain())
 
-    @final
+    @abstractmethod
     def is_identity(self) -> bool:
-        r"""Return whether this morphism is the identity endomorphism."""
-        return self.is_endomorphism() and self == self.parent().identity()
+        r"""Return whether this morphism is an identity morphism."""
+        ...
 
     @abstractmethod
     def is_invertible(self) -> bool:
@@ -103,7 +98,6 @@ class UniversalHomElementMethods:
         r"""Return whether this morphism is an isomorphism in its category."""
         ...
 
-    @final
     def is_automorphism(self) -> bool:
         r"""Return whether this morphism is an invertible endomorphism."""
         return self.is_endomorphism() and self.is_invertible()
@@ -123,7 +117,6 @@ class HomCategory(SageHomsetsBase):
     ParentMethods = UniversalHomObjectMethods
     ElementMethods = UniversalHomElementMethods
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport("category_specs.homsets.endsets", "EndCategory")
@@ -144,13 +137,10 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
     _functor_category = "HomCategory"
     _base_category_class = (_SageCategory,)
 
-    class ParentMethods: ...
+    ParentMethods = UniversalHomObjectMethods
+    ElementMethods = UniversalHomElementMethods
 
-    class ElementMethods: ...
 
-    class MorphismMethods: ...
-
-    @final
     def Of(self, domain: CategoryObject, codomain: CategoryObject) -> Hom:
         r"""Return ``Hom_C(domain, codomain)`` for ``C = self.base_category()``."""
         category = self.base_category()
@@ -160,7 +150,6 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
 
     @override
     @classmethod
-    @final
     def default_super_categories(cls, category: Category) -> Category:
         r"""Lift Cat-level supercategories through the hom-category construction."""
         hom_supercategories = [
@@ -200,8 +189,5 @@ class HomCategoryOf(HomCategoryConstruction):
             object_names = base_category._repr_object_names()
         return f"hom categories of {object_names}"
 
-    class ParentMethods: ...
-
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
+    ParentMethods = UniversalHomObjectMethods
+    ElementMethods = UniversalHomElementMethods

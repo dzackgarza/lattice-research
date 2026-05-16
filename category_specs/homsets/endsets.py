@@ -3,12 +3,18 @@ r"""End categories and endomorphism method surfaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, ClassVar, cast, final, override
 
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .homsets import HomCategory, HomCategoryConstruction, HomCategoryOf
+from .homsets import (
+    HomCategory,
+    HomCategoryConstruction,
+    HomCategoryOf,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
     from ..types import CategoryObject, End, Endomorphism
@@ -16,11 +22,11 @@ if TYPE_CHECKING:
 
 def _end_categories_of(category: Category) -> Category:
     if category.is_subcategory(HomCategory()):
-        return category.EndCategory()
-    return category.HomCategory().EndCategory()
+        return cast("Category", category.EndCategory())
+    return cast("Category", category.HomCategory().EndCategory())
 
 
-class UniversalEndObjectMethods:
+class UniversalEndObjectMethods(UniversalHomObjectMethods):
     r"""Methods on objects ``End_C(A)`` of an end category."""
 
     @override
@@ -37,14 +43,26 @@ class UniversalEndObjectMethods:
         ...
 
 
-class UniversalEndElementMethods:
+class UniversalEndElementMethods(UniversalHomElementMethods):
     r"""Methods on elements of end categories."""
+
+    @override
+    @abstractmethod
+    def parent(self) -> UniversalEndObjectMethods:
+        r"""Return the end object containing this endomorphism."""
+        ...
 
     @override
     @final
     def is_endomorphism(self) -> bool:
         r"""Return ``True`` because elements of this category are endomorphisms."""
         return True
+
+    @override
+    @final
+    def is_identity(self) -> bool:
+        r"""Return whether this endomorphism is the identity endomorphism."""
+        return bool(self == self.parent().identity())
 
 
 class EndCategory(CategoryWithAxiom_singleton):
@@ -65,7 +83,6 @@ class EndCategory(CategoryWithAxiom_singleton):
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategory")
@@ -83,9 +100,7 @@ class EndCategoryConstruction(HomCategoryConstruction):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
-    @final
     def Of(self, domain: CategoryObject) -> End:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``End_C(domain)`` for ``C = self.base_category()``."""
         return cast("End", self.base_category().HomCategory().Of(domain, domain))
@@ -110,7 +125,10 @@ class EndCategoryOf(CategoryWithAxiom):
     Canonical chain: ``C.EndCategory()``.
     """
 
-    _base_category_class_and_axiom = (HomCategoryOf, "Endset")
+    _base_category_class_and_axiom: ClassVar[tuple[type[HomCategoryOf], str]] = (
+        HomCategoryOf,
+        "Endset",
+    )
 
     # Category-level construction: C.EndCategory() has objects End_C(A).
     # Its Of(A) constructor evaluates the construction at A.
@@ -133,7 +151,6 @@ class EndCategoryOf(CategoryWithAxiom):
     ParentMethods = UniversalEndObjectMethods
     ElementMethods = UniversalEndElementMethods
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Autset").
     Autset = LazyImport("category_specs.homsets.autsets", "AutCategoryOf")

@@ -14,7 +14,12 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import SubModule
@@ -64,7 +69,6 @@ class NondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-    class MorphismMethods: ...
 
 
 NondegenerateBilinearModulesObject = NondegenerateBilinearModulesCategory.ParentMethods
@@ -72,7 +76,7 @@ NondegenerateBilinearModulesElement = (
     NondegenerateBilinearModulesCategory.ElementMethods
 )
 NondegenerateBilinearModulesMorphism = (
-    NondegenerateBilinearModulesCategory.MorphismMethods
+    BilinearModulesMorphism
 )
 
 
@@ -87,7 +91,6 @@ class OverPIDNondegenerateBilinearModulesCategory(CategoryWithAxiom_over_base_ri
 
     ParentMethods = NondegenerateBilinearModulesCategory.ParentMethods
     ElementMethods = NondegenerateBilinearModulesCategory.ElementMethods
-    MorphismMethods = NondegenerateBilinearModulesCategory.MorphismMethods
 
 
 OverPIDNondegenerateBilinearModulesObject = (
@@ -97,5 +100,5 @@ OverPIDNondegenerateBilinearModulesElement = (
     OverPIDNondegenerateBilinearModulesCategory.ElementMethods
 )
 OverPIDNondegenerateBilinearModulesMorphism = (
-    OverPIDNondegenerateBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

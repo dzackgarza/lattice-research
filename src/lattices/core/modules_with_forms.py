@@ -11,6 +11,8 @@ from sage.categories.category import Category
 from sage.categories.category_types import Category_over_base_ring
 from sage.categories.category_with_axiom import CategoryWithAxiom_singleton
 
+from category_specs.utils import with_axiom
+
 
 class ModulesWithFormsCategory(Category_over_base_ring):
     """Category of R-modules equipped with a form."""
@@ -26,10 +28,10 @@ class ModulesWithFormsCategory(Category_over_base_ring):
 
     class SubcategoryMethods:
         def Bilinear(self) -> Category:
-            return self._with_axiom("Bilinear")
+            return with_axiom(self, "Bilinear")
 
         def Quadratic(self) -> Category:
-            return self._with_axiom("Quadratic")
+            return with_axiom(self, "Quadratic")
 
 
 class BilinearModulesCategory(CategoryWithAxiom_singleton):

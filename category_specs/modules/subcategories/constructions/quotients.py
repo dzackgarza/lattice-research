@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import QuotientsCategory
 
@@ -35,6 +35,11 @@ class _Quotients(QuotientsCategory):
         @abstractmethod
         def relations(self) -> RModule:
             r"""Return the submodule of relations defining this quotient."""
+            ...
+
+        @abstractmethod
+        def is_torsionfree(self) -> bool:
+            r"""Return whether this quotient module is torsion-free."""
             ...
 
         @final
@@ -131,8 +136,11 @@ class _Quotients(QuotientsCategory):
             )
 
     class ElementMethods:
+        @abstractmethod
+        def parent(self) -> _Quotients.ParentMethods:
+            r"""Return the quotient module containing this element."""
+            ...
+
         @final
         def lift(self) -> RModuleElement:
-            return cast("RModuleElement", self.projection().lift(self))
-
-    class MorphismMethods: ...
+            return self.parent().projection().lift(self)

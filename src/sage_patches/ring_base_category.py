@@ -10,7 +10,7 @@ Phase 0 Sage patch — does NOT touch src/lattices/.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, final
 
 from sage.categories.category_with_axiom import (
     CategoryWithAxiom_singleton as CategoryWithAxiom,
@@ -64,15 +64,28 @@ class _ModuleBaseRings(CategoryWithAxiom):
             I = Rings().parent_class.ideal(self, *args, **kwds)
             return I
 
+        @final
+        def complete(self: Any, *args: Any, **kwds: Any) -> object:
+            """Return the native completion refined as a module base ring."""
+            result = self.completion(*args, **kwds)
+            return _refine_module_base_ring(result)
+
+        @final
+        def localize(self: Any, *args: Any, **kwds: Any) -> object:
+            """Return the native localization refined as a module base ring."""
+            result = self.localization(*args, **kwds)
+            return _refine_module_base_ring(result)
+
     class ElementMethods:
         """Element methods for module base ring elements."""
 
         ...
 
-    class MorphismMethods:
-        """Morphism methods for module base ring homomorphisms."""
 
-        ...
+def _refine_module_base_ring(result: Any) -> Any:
+    """Refine a Sage ring result back into ModuleBaseRings."""
+    result._refine_category_(_ModuleBaseRings())
+    return result
 
 
 def _install_module_base_rings() -> None:

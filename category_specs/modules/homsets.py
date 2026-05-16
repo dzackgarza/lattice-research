@@ -24,7 +24,16 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category, CategoryWithAxiom
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
+from ..utils import with_axiom
 
 if TYPE_CHECKING:
     from typing import Self
@@ -54,13 +63,35 @@ _cached_method = cast(Callable[[_F], _F], cached_method)
 # ---------------------------------------------------------------------------
 
 
-class _RModHomCategoryObjectMethods:
+class _RModHomCategoryObjectMethods(UniversalHomObjectMethods):
+    @abstractmethod
+    def domain(self) -> RModule:
+        r"""Return the source module of this hom object."""
+        ...
+
+    @abstractmethod
+    def codomain(self) -> RModule:
+        r"""Return the target module of this hom object."""
+        ...
+
+    @abstractmethod
+    def __call__(
+        self,
+        data: RModMorphism | Callable[[RModuleElement], RModuleElement],
+    ) -> RModMorphism:
+        r"""Coerce module-morphism data into this hom object."""
+        ...
+
     @_cached_method
     @final
     def zero(self) -> RModMorphism:
         from sage.misc.constant_function import ConstantFunction
 
-        return cast(RModMorphism, self(ConstantFunction(self.codomain().zero())))
+        zero_function = cast(
+            Callable[[RModuleElement], RModuleElement],
+            ConstantFunction(self.codomain().zero()),
+        )
+        return self(zero_function)
 
     @abstractmethod
     def natural_morphism(self) -> RModMorphism:
@@ -76,7 +107,7 @@ class _RModHomCategoryObjectMethods:
 # ---------------------------------------------------------------------------
 
 
-class _RModMorphisms:
+class _RModMorphisms(UniversalHomElementMethods):
     r"""ElementMethods introduced by ``Modules(R).HomCategory()`` for R-linear maps."""
 
     # ``parent`` is a Sage ``Element`` intrinsic and is not restated here.
@@ -149,7 +180,7 @@ class _RModMorphisms:
 # ---------------------------------------------------------------------------
 
 
-class _RModEndomorphisms:
+class _RModEndomorphisms(UniversalEndElementMethods):
     @abstractmethod
     def __pow__(self, n: Integer) -> Self: ...
 
@@ -159,7 +190,7 @@ class _RModEndomorphisms:
 # ---------------------------------------------------------------------------
 
 
-class _RModAutomorphisms:
+class _RModAutomorphisms(UniversalAutElementMethods):
     r"""Module-specific automorphism methods; generic aut-category methods are
     inherited.
     """
@@ -188,12 +219,11 @@ class RModuleHomCategory(HomCategoryOf):
         @_cached_method
         @final
         def Forms(self) -> Category:
-            return self._with_axiom("Forms")
+            return cast(Category, with_axiom(self, "Forms"))
 
     ParentMethods = _RModHomCategoryObjectMethods
     ElementMethods = _RModMorphisms
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "RModuleEndCategory")
@@ -233,56 +263,55 @@ class _Forms(CategoryWithAxiom):
         @final
         def Rational(self) -> Category:
             r"""Forms with target ``S = K`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return self._with_axiom("Rational")
+            return cast(Category, with_axiom(self, "Rational"))
 
         @_cached_method
         @final
         def Integral(self) -> Category:
             r"""Forms with target ``S = R`` in ``Hom_R(T_R(M)[p,q], S)``."""
-            return self._with_axiom("Integral")
+            return cast(Category, with_axiom(self, "Integral"))
 
         @_cached_method
         @final
         def Linear(self) -> Category:
             r"""Linear forms: domain ``T_R(M)[1,0]=M``, represented type ``(0,1)``."""
-            return self._with_axiom("Linear")
+            return cast(Category, with_axiom(self, "Linear"))
 
         @_cached_method
         @final
         def Bilinear(self) -> Category:
             r"""Bilinear forms: domain ``T_R(M)[2,0]``, represented type ``(0,2)``."""
-            return self._with_axiom("Bilinear")
+            return cast(Category, with_axiom(self, "Bilinear"))
 
         @_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Quadratic forms on ``M``."""
-            return self._with_axiom("Quadratic")
+            return cast(Category, with_axiom(self, "Quadratic"))
 
         @_cached_method
         @final
         def NonDegenerate(self) -> Category:
             r"""Forms with trivial kernels."""
-            return self._with_axiom("NonDegenerate")
+            return cast(Category, with_axiom(self, "NonDegenerate"))
 
         @_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Symmetric forms: represented type ``(0,n)``."""
-            return self._with_axiom("Symmetric")
+            return cast(Category, with_axiom(self, "Symmetric"))
 
         @_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Alternating forms: represented type ``(0,n)``."""
-            return self._with_axiom("Alternating")
+            return cast(Category, with_axiom(self, "Alternating"))
 
     Bilinear = LazyImport(__name__, "_Bilinear")
     Quadratic = LazyImport(__name__, "_Quadratic")
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _Bilinear(CategoryWithAxiom):
@@ -296,13 +325,15 @@ class _Bilinear(CategoryWithAxiom):
 
     class ElementMethods:
         @abstractmethod
+        def evaluate(self, m: RModuleElement) -> RModuleElement: ...
+
+        @abstractmethod
         def associated_quadratic_form(self) -> QuadraticForm: ...
 
         @final
         def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement:
-            return cast(RModuleElement, self.evaluate(v.tensor(w)))
+            return self.evaluate(v.tensor(w))
 
-    class MorphismMethods: ...
 
 
 class _Quadratic(CategoryWithAxiom):
@@ -316,13 +347,15 @@ class _Quadratic(CategoryWithAxiom):
 
     class ElementMethods:
         @abstractmethod
+        def evaluate(self, m: RModuleElement) -> RModuleElement: ...
+
+        @abstractmethod
         def associated_bilinear_form(self) -> BilinearForm: ...
 
         @final
         def q(self, v: RModuleElement) -> RModuleElement:
-            return cast(RModuleElement, self.evaluate(v))
+            return self.evaluate(v)
 
-    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -366,7 +399,6 @@ class RModuleEndCategory(GenericEndCategory):
 
     ElementMethods = _RModEndomorphisms
 
-    class MorphismMethods: ...
 
 
 class RModuleAutCategory(GenericAutCategory):
@@ -392,5 +424,3 @@ class RModuleAutCategory(GenericAutCategory):
         r"""Module-specific aut parent methods; generic aut methods are inherited."""
 
     ElementMethods = _RModAutomorphisms
-
-    class MorphismMethods: ...

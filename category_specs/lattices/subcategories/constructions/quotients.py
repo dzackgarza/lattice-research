@@ -21,9 +21,13 @@ class _Quotients(QuotientsCategory):
         @abstractmethod
         def projection(self) -> LatticeMorphism: ...
 
+        @abstractmethod
+        def lift(self, x: _Quotients.ElementMethods) -> LatticeElement: ...
+
     class ElementMethods:
+        @abstractmethod
+        def parent(self) -> _Quotients.ParentMethods: ...
+
         @final
         def lift(self) -> LatticeElement:
-            return self.parent().projection().lift(self)
-
-    class MorphismMethods: ...
+            return self.parent().lift(self)

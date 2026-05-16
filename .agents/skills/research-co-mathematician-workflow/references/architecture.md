@@ -8,7 +8,7 @@ This reference adapts the workflow architecture from Zheng et al.,
 
 Preserve only these substrate choices:
 
-- durable markdown cards under `plans/`;
+- durable markdown cards under `.agents/plans/`;
 - schema validation through `.nimbalyst/trackers/` and `just`;
 - IWE/bash-indexable text;
 - git provenance;
@@ -20,7 +20,7 @@ Everything above that substrate can evolve.
 
 The repo is a mathematical workspace with five coordinated surfaces:
 
-- `plans/`: indexable state, dependencies, workstream structure, and review gates.
+- `.agents/plans/`: indexable state, dependencies, workstream structure, and review gates.
 - `paper/`: the living LaTeX working paper with margin-note style claim status.
 - `reports/workstreams/`: workstream reports and attachments that feed the paper.
 - `.agents/agent-roles/`: repo-local prompts and delegation contracts for specialist

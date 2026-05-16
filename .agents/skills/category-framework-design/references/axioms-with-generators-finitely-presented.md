@@ -175,8 +175,8 @@ the key structural fact.
 It makes `Hom_R(M, N)` a parent in `MyFGModules(R).FinitelyPresented()`. The framework
 then builds a dynamic element class that inherits from both `Morphism` and
 `MyFGModules(R).FinitelyPresented().element_class` — so every morphism `f: M → N`
-simultaneously has `MorphismMethods` (kernel, image, cokernel) and `ElementMethods` from
-`MyFGModules(R)` (lmul, rmul).
+simultaneously has Hom-category `ElementMethods` (kernel, image, cokernel) and
+`ElementMethods` from `MyFGModules(R)` (lmul, rmul).
 This is automatic, no extra code needed.
 
 The existing `Modules.Homsets.extra_super_categories` and
@@ -197,7 +197,7 @@ MyFGModules(R)                    [R ∈ DedekindDomains()]
 ├── is_abelian: True (inherited from Category_module → AbelianCategory)
 ├── additional_structure: None
 │
-├── MorphismMethods: kernel(), image(), cokernel()
+├── HomCategory.ElementMethods: kernel(), image(), cokernel()
 │
 ├── Homsets:
 │   ├── extra_super_categories → [MyFGModules(R).FinitelyPresented()]

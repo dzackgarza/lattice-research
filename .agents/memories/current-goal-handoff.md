@@ -72,3 +72,49 @@ authorities for status, evidence, and completed work.
   final-override error; focused mypy on `category_specs/sets/__init__.py`
   no longer reports the local construction-selector `[call-arg]`; many
   unrelated active QC findings remain.
+
+## Interrupted Session State (codex 019e2a36, start 2026-05-15 05:57)
+
+The last session was implementing the plugin model for construction categories
+whose method containers inherit through `extra_super_categories() ->
+[base_category()]`. It was interrupted mid-mypy-run. Both repos have unstaged
+WIP.
+
+### sage-mypy-plugin
+
+- `sage_mypy_category_plugin/plugin.py` — has unstaged work-in-progress adding
+  `_construction_owner_method_container_bases()`. The implementation probes
+  construction_bases via a debug `ctx.api.fail(...)` call on line 158 that
+  dumps the computed bases as a mypy error. This debug line is the evidence
+  trail — do not remove until the fix is verified.
+- `tests/fixtures/local_wrapper_pkg/category_specs_like/mypy_test_fixtures/
+  test_construction_extra_super_category_methods.py` — reorganized fixture.
+  `_CartesianProducts` now declares `@override` methods and `_Modules` has
+  `CartesianProducts = _CartesianProducts` as a class attribute.
+- Latest commit: `c329ae6` (test: spec construction extra-super method gap)
+- `__pycache__/plugin.cpython-312.pyc` is stale, ignore.
+
+### Research repo
+
+- Dirty tree (~130+ files across .agents/skills/, category_specs/, src/).
+  Intentional QC edits from the session — described by the agent as "heavily
+  mixed." Do not broad-stage; prefer narrow commits.
+- Last commit: `a59695d` (chore: route cartesian product override QC gap)
+- CartesianProducts override errors are routed to plugin spec but the fix is
+  not yet implemented.
+
+### Next action
+
+Implement the plugin model so construction categories with
+`extra_super_categories() == [base_category()]` contribute the base category's
+ParentMethods and ElementMethods to the MRO. Then prove the exact
+CartesianProducts errors move by running focused mypy on
+`category_specs/modules/subcategories/constructions/cartesian_products.py`.
+Work in the plugin repo first — a trial source edit at the research level did
+not remove the errors.
+
+### Non-goals
+
+- Do not remove the debug probe until implementation is verified.
+- Do not add new process/planning artifacts.
+- Do not touch the old routing constraints or phase structure.

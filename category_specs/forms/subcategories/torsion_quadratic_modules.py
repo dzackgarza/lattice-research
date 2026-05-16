@@ -9,6 +9,7 @@ from sage.categories.category import Category
 
 from ...cat import Category_over_base_ring
 from ...modules import Modules
+from .quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
     from ...types import Matrix, RingElement
@@ -53,9 +54,8 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 TorsionQuadraticModulesObject = TorsionQuadraticModulesCategory.ParentMethods
 TorsionQuadraticModulesElement = TorsionQuadraticModulesCategory.ElementMethods
-TorsionQuadraticModulesMorphism = TorsionQuadraticModulesCategory.MorphismMethods
+TorsionQuadraticModulesMorphism = QuadraticModulesMorphism

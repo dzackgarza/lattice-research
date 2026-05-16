@@ -11,6 +11,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .. import Rings
 
 if TYPE_CHECKING:
@@ -55,7 +56,7 @@ class _ValuedRings(CategoryWithAxiom):
         @_valued_cached_method
         @final
         def DiscretelyValued(self) -> Category:
-            return cast(Category, self._with_axiom("DiscretelyValued"))
+            return cast(Category, with_axiom(self, "DiscretelyValued"))
 
     class ParentMethods:
         @override
@@ -70,5 +71,3 @@ class _ValuedRings(CategoryWithAxiom):
         def roots_of_unity(self) -> list[RingElement]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

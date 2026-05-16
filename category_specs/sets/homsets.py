@@ -13,7 +13,15 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -22,11 +30,11 @@ if TYPE_CHECKING:
     )
 
 
-class _SetHomCategoryObjectMethods:
+class _SetHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Set-specific hom parent methods; generic hom methods are inherited."""
 
 
-class _SetMorphisms:
+class _SetMorphisms(UniversalHomElementMethods):
     @abstractmethod
     def pre_image(self, y: SetElement) -> Subset:
         r"""Return the inverse image of ``y`` under this set morphism."""
@@ -59,13 +67,13 @@ class _SetMorphisms:
         return self.is_bijective()
 
 
-class _SetEndomorphisms:
+class _SetEndomorphisms(UniversalEndElementMethods):
     r"""Set-specific endomorphism methods; generic endomorphism methods are
     inherited.
     """
 
 
-class _SetAutomorphisms:
+class _SetAutomorphisms(UniversalAutElementMethods):
     r"""Set-specific automorphism methods; generic automorphism methods are
     inherited.
     """
@@ -91,7 +99,6 @@ class SetHomCategory(HomCategoryOf):
     ParentMethods = _SetHomCategoryObjectMethods
     ElementMethods = _SetMorphisms
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "SetEndCategory")
@@ -110,7 +117,6 @@ class SetEndCategory(GenericEndCategory):
 
     ElementMethods = _SetEndomorphisms
 
-    class MorphismMethods: ...
 
 
 class SetAutCategory(GenericAutCategory):
@@ -124,5 +130,3 @@ class SetAutCategory(GenericAutCategory):
     class ParentMethods: ...
 
     ElementMethods = _SetAutomorphisms
-
-    class MorphismMethods: ...

@@ -3,7 +3,8 @@ r"""Metric spaces."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.metric_spaces import MetricSpaces as SageMetricSpaces
 from sage.misc.cachefunc import cached_method
@@ -11,8 +12,13 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...sets import _SetElementMethods
+from ...utils import with_axiom
 from .. import TopologicalSpaces
 from ..homsets import MetricSpaceHomCategory
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import MetricBall, RealNumber, SetElement, SetMorphism
@@ -43,8 +49,13 @@ class _MetricSpaceObjectMethods:
         ...
 
 
-class _MetricSpaceElementMethods:
+class _MetricSpaceElementMethods(_SetElementMethods):
     r"""Methods on points of metric spaces."""
+
+    @abstractmethod
+    def parent(self) -> _MetricSpaceObjectMethods:
+        r"""Return the metric space containing this point."""
+        ...
 
     @final
     def dist(self, other: SetElement) -> RealNumber:
@@ -79,10 +90,8 @@ class MetricSpacesCategory(CategoryWithAxiom):
         return [SageMetricSpaces(), TopologicalSpaces()]
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Complete(self) -> Category:
             r"""Return the complete metric-space subcategory."""
-            return self._with_axiom("Complete")
-
-    class MorphismMethods: ...
+            return cast(Category, with_axiom(self, "Complete"))

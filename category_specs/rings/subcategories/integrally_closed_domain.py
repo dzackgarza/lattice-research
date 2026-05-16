@@ -2,7 +2,7 @@ r"""IntegrallyClosedDomains ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -43,8 +43,6 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
 
         @final
         def integral_closure(self) -> Ring:
-            return self
+            return cast("Ring", self)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

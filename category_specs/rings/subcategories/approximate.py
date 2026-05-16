@@ -16,6 +16,7 @@ from sage.rings.abc import RealIntervalField as SageRealIntervalField
 from sage.rings.padics.generic_nodes import pAdicFieldGeneric, pAdicRingGeneric
 
 from ...cat import Category, Category_singleton
+from ..homsets import _RingHomomorphisms
 
 if TYPE_CHECKING:
     from ...types import Integer, Ring
@@ -70,9 +71,8 @@ class ApproximateRingsCategory(Category_singleton):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 ApproximateRingsObject = ApproximateRingsCategory.ParentMethods
 ApproximateRingsElement = ApproximateRingsCategory.ElementMethods
-ApproximateRingsMorphism = ApproximateRingsCategory.MorphismMethods
+ApproximateRingsMorphism = _RingHomomorphisms

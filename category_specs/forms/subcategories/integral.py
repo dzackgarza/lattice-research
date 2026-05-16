@@ -19,7 +19,12 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import DiscriminantGroup, Lattice, RModuleMorphism
@@ -149,12 +154,11 @@ class IntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 IntegralBilinearModulesObject = IntegralBilinearModulesCategory.ParentMethods
 IntegralBilinearModulesElement = IntegralBilinearModulesCategory.ElementMethods
-IntegralBilinearModulesMorphism = IntegralBilinearModulesCategory.MorphismMethods
+IntegralBilinearModulesMorphism = BilinearModulesMorphism
 
 
 class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -168,7 +172,6 @@ class OverPIDIntegralBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = IntegralBilinearModulesCategory.ParentMethods
     ElementMethods = IntegralBilinearModulesCategory.ElementMethods
-    MorphismMethods = IntegralBilinearModulesCategory.MorphismMethods
 
 
 OverPIDIntegralBilinearModulesObject = (
@@ -178,5 +181,5 @@ OverPIDIntegralBilinearModulesElement = (
     OverPIDIntegralBilinearModulesCategory.ElementMethods
 )
 OverPIDIntegralBilinearModulesMorphism = (
-    OverPIDIntegralBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

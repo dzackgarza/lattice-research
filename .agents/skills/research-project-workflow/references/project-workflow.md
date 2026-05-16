@@ -3,10 +3,10 @@
 ## Nimbalyst tracker workspace
 
 All active planning, spec, task, and decision documents for this repo live under root
-`plans/` and follow the central planning hierarchy:
+`.agents/plans/` and follow the central planning hierarchy:
 
 ```text
-plans/features/FEATURE-ID/
+.agents/plans/features/FEATURE-ID/
 ├── FEATURE-ID.md
 ├── specs/SPEC-ID.md
 ├── decisions/DECISION-ID.md
@@ -21,16 +21,16 @@ Use `.agents/current-goal-phase.md` to identify the active staged-program phase.
 `.agents/retired/` only for short-lived retired legacy cards. Do not create
 `nimbalyst-local/tracker` indexes or parallel task inventories. The GUI is the index.
 
-There is no separate backlog. The active tracked cards under `plans/features/` are the
+There is no separate backlog. The active tracked cards under `.agents/plans/features/` are the
 outstanding work set. Completed feature trees should be moved under
-`plans/features/completed/` rather than left beside active feature roots. When work is
+`.agents/plans/features/completed/` rather than left beside active feature roots. When work is
 implemented, resolved, rejected, or superseded, move the card out of active paths and
 retire, archive, or delete it according to the retired-card policy for that tracker
 layer.
 
 A plan is not a task container. A plan defines high-level phases and milestones. Each
 execution item must exist as its own dedicated tracked file under a phase directory.
-The path `plans/features/FEATURE-ID/plans/PLAN-ID/tasks/TASK-ID.md` is forbidden. If a
+The path `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/tasks/TASK-ID.md` is forbidden. If a
 plan-level `tasks/` directory exists, treat it as a process failure: do not add more
 cards there, and do not merely move the symptom without checking the workflow rule that
 allowed it. First repair the phase breakdown and process guidance, then migrate cards
@@ -43,7 +43,7 @@ Use these sources in order when interpreting or editing planning cards:
 - `/home/dzack/ai/planning/AGENTS.md` defines the reusable card framework:
   hierarchy, layer gates, decision-card discipline, generated tags, no-fallback
   validation, and card responsibilities.
-- `plans/AGENTS.md` defines this repo's local feature buckets, active root, and
+- `.agents/plans/AGENTS.md` defines this repo's local feature buckets, active root, and
   validation command.
 - `.nimbalyst/trackers/*.yaml` defines the installed schema fields and allowed status
   values.
@@ -203,7 +203,7 @@ feature-level decision card.
 
 Use a decision card only when work cannot continue because the answer does not follow
 from approved cards, repo policy, existing contracts, or canonical mathematical
-sources. Place it under `plans/features/FEATURE-ID/decisions/`, parent it to the
+sources. Place it under `.agents/plans/features/FEATURE-ID/decisions/`, parent it to the
 feature, link blocked cards with `dependsOn`, and mark only the actually blocked cards
 `blocked`.
 
@@ -218,26 +218,26 @@ a broader task is being discovered and a full tracker file is being prepared.
 
 Inline items define a task but provide little context by construction. Any inline item
 that is ready to be solved, assigned, or actively worked on must be converted into a
-full markdown file under `plans/features/.../tasks/` before execution.
+full markdown file under `.agents/plans/features/.../tasks/` before execution.
 
 Do not call `create_task` or `tracker_create` for inline items. That creates a
 database-only entry with no backing file and produces a duplicate.
 
 ## Card responsibilities and progressive disclosure
 
-Use root `plans/` for Nimbalyst-backed planning documents. Plans are strictly human +
+Use root `.agents/plans/` for Nimbalyst-backed planning documents. Plans are strictly human +
 LLM collaborative artifacts. To create or materially revise a plan, switch to planning
 mode, use the planning tools, iterate with the user until approval, then decompose the
 approved plan into tracked phase and task files. Do not enact a chat-only,
 harness-local, scratch, or unapproved plan.
 
-Plan placement follows the hierarchy in `plans/AGENTS.md`. Root features own sibling
+Plan placement follows the hierarchy in `.agents/plans/AGENTS.md`. Root features own sibling
 plans. Plans own phases. Phases own tasks. Specs live under the owning feature's
 `specs/` directory, and decisions live under the owning feature's `decisions/`
 directory.
 
 The staged program remains explicit in `GOAL.md` and `.agents/current-goal-phase.md`,
-while the active planning corpus lives under `plans/features/`.
+while the active planning corpus lives under `.agents/plans/features/`.
 
 Write each card for its own level:
 
@@ -281,7 +281,7 @@ documented trigger.
 ## Validation and generated planning data
 
 Run `just plan-validate` from the repo root after editing planning cards, local tracker
-schemas, `plans/AGENTS.md`, or `.agents/current-goal-phase.md`. That recipe must
+schemas, `.agents/plans/AGENTS.md`, or `.agents/current-goal-phase.md`. That recipe must
 delegate to `/home/dzack/ai/planning/justfile validate`; the centralized validator is
 the only planning validation authority. Do not add repo-local relaxed validators,
 alternate pass/fail definitions, or warning-only schema checks.
@@ -296,12 +296,12 @@ paths. The reusable justfile executes from `/home/dzack/ai/planning`, so relativ
 project paths will not resolve correctly.
 
 ```bash
-just --justfile /home/dzack/ai/planning/justfile validate /home/dzack/research/plans/features /home/dzack/research/.nimbalyst/trackers /home/dzack/research/plans/plan-dag.md
+just --justfile /home/dzack/ai/planning/justfile validate /home/dzack/research/.agents/plans/features /home/dzack/research/.nimbalyst/trackers /home/dzack/research/.agents/plans/plan-dag.md
 ```
 
 The centralized recipe derives structural tags, checks schemas, and regenerates
-`plans/plan-dag.md`. The local planning workflow also generates
-`plans/card-progress-report.md` as a user-facing Markdown summary of current card
+`.agents/plans/plan-dag.md`. The local planning workflow also generates
+`.agents/plans/card-progress-report.md` as a user-facing Markdown summary of current card
 state. During manual validation or report-generation runs, inspect generated tag, DAG,
 and report changes before staging them. During commit hooks, generated planning
 artifacts are hook-managed and automatically staged into the commit. Do not replace
@@ -314,10 +314,10 @@ accidental metadata.
 
 Recommended local hook behavior: run the reusable validation recipe from pre-commit
 when staged planning cards or tracker schemas change, and from post-merge/post-checkout
-when the changed paths include `plans/features/`, `plans/AGENTS.md`,
-`plans/plan-dag.md`, `.nimbalyst/trackers/`, or `.agents/current-goal-phase.md`. Hooks
-should fail on validation errors. If a hook regenerates tags, `plans/plan-dag.md`, or
-`plans/card-progress-report.md`, it should automatically stage those generated changes
+when the changed paths include `.agents/plans/features/`, `.agents/plans/AGENTS.md`,
+`.agents/plans/plan-dag.md`, `.nimbalyst/trackers/`, or `.agents/current-goal-phase.md`. Hooks
+should fail on validation errors. If a hook regenerates tags, `.agents/plans/plan-dag.md`, or
+`.agents/plans/card-progress-report.md`, it should automatically stage those generated changes
 so the commit records the canonical planning state.
 
 ## Quick card queries
@@ -328,30 +328,30 @@ not new source-of-truth scripts.
 List every card as status, type, id, title, path:
 
 ```bash
-uvx --with pyyaml python -c 'from pathlib import Path; import re,yaml; rows=[(fm.get("status",""),fm.get("trackerStatus",{}).get("type",""),fm.get("id",""),fm.get("title",""),str(p)) for p in sorted(Path("plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}]]; print("\n".join("\t".join(map(str,row)) for row in rows))'
+uvx --with pyyaml python -c 'from pathlib import Path; import re,yaml; rows=[(fm.get("status",""),fm.get("trackerStatus",{}).get("type",""),fm.get("id",""),fm.get("title",""),str(p)) for p in sorted(Path(".agents/plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}]]; print("\n".join("\t".join(map(str,row)) for row in rows))'
 ```
 
 List cards with a specific status; change the `status` literal as needed:
 
 ```bash
-uvx --with pyyaml python -c 'from pathlib import Path; import re,yaml; status="blocked"; rows=[(fm.get("trackerStatus",{}).get("type",""),fm.get("id",""),fm.get("title",""),str(p)) for p in sorted(Path("plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}] if fm.get("status")==status]; print("\n".join("\t".join(map(str,row)) for row in rows))'
+uvx --with pyyaml python -c 'from pathlib import Path; import re,yaml; status="blocked"; rows=[(fm.get("trackerStatus",{}).get("type",""),fm.get("id",""),fm.get("title",""),str(p)) for p in sorted(Path(".agents/plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}] if fm.get("status")==status]; print("\n".join("\t".join(map(str,row)) for row in rows))'
 ```
 
 Count cards by type and status:
 
 ```bash
-uvx --with pyyaml python -c 'from pathlib import Path; import collections,re,yaml; counts=collections.Counter((fm.get("trackerStatus",{}).get("type",""),fm.get("status","")) for p in sorted(Path("plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}]); print("\n".join(f"{kind}\t{status}\t{count}" for (kind,status),count in sorted(counts.items())))'
+uvx --with pyyaml python -c 'from pathlib import Path; import collections,re,yaml; counts=collections.Counter((fm.get("trackerStatus",{}).get("type",""),fm.get("status","")) for p in sorted(Path(".agents/plans/features").rglob("*.md")) for m in [re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?", p.read_text(encoding="utf-8"), re.S)] if m for fm in [yaml.safe_load(m.group(1)) or {}]); print("\n".join(f"{kind}\t{status}\t{count}" for (kind,status),count in sorted(counts.items())))'
 ```
 
 List active leaf cards, meaning cards with no child containment references and status
 not in a completion status:
 
 ```bash
-uvx --with pyyaml python -c 'exec("from pathlib import Path\nimport re,yaml\ncomplete={\"complete\",\"done\",\"decided\",\"implemented\"}\nrecords={}\nchildren=set()\ndef ref(v):\n    if isinstance(v,str): vals=[v]\n    elif isinstance(v,list): vals=v\n    else: vals=[]\n    return [x[2:-2] if isinstance(x,str) and x.startswith(\"[[\") and x.endswith(\"]]\") else x for x in vals if isinstance(x,str)]\nfor p in sorted(Path(\"plans/features\").rglob(\"*.md\")):\n    m=re.match(r\"^---\\r?\\n(.*?)\\r?\\n---\\r?\\n?\", p.read_text(encoding=\"utf-8\"), re.S)\n    if not m: continue\n    fm=yaml.safe_load(m.group(1)) or {}\n    cid=fm.get(\"id\")\n    if cid: records[cid]=(p,fm)\nfor cid,(p,fm) in records.items():\n    children.update(parent for parent in ref(fm.get(\"parents\")) if parent in records)\nrows=[]\nfor cid,(p,fm) in records.items():\n    if cid not in children and fm.get(\"status\") not in complete:\n        rows.append((fm.get(\"status\",\"\"),fm.get(\"trackerStatus\",{}).get(\"type\",\"\"),str(fm.get(\"complexity\",\"\")),fm.get(\"priority\",\"\"),cid,fm.get(\"title\",\"\"),str(p)))\nprint(\"\\n\".join(\"\\t\".join(map(str,row)) for row in rows))")'
+uvx --with pyyaml python -c 'exec("from pathlib import Path\nimport re,yaml\ncomplete={\"complete\",\"done\",\"decided\",\"implemented\"}\nrecords={}\nchildren=set()\ndef ref(v):\n    if isinstance(v,str): vals=[v]\n    elif isinstance(v,list): vals=v\n    else: vals=[]\n    return [x[2:-2] if isinstance(x,str) and x.startswith(\"[[\") and x.endswith(\"]]\") else x for x in vals if isinstance(x,str)]\nfor p in sorted(Path(\".agents/plans/features\").rglob(\"*.md\")):\n    m=re.match(r\"^---\\r?\\n(.*?)\\r?\\n---\\r?\\n?\", p.read_text(encoding=\"utf-8\"), re.S)\n    if not m: continue\n    fm=yaml.safe_load(m.group(1)) or {}\n    cid=fm.get(\"id\")\n    if cid: records[cid]=(p,fm)\nfor cid,(p,fm) in records.items():\n    children.update(parent for parent in ref(fm.get(\"parents\")) if parent in records)\nrows=[]\nfor cid,(p,fm) in records.items():\n    if cid not in children and fm.get(\"status\") not in complete:\n        rows.append((fm.get(\"status\",\"\"),fm.get(\"trackerStatus\",{}).get(\"type\",\"\"),str(fm.get(\"complexity\",\"\")),fm.get(\"priority\",\"\"),cid,fm.get(\"title\",\"\"),str(p)))\nprint(\"\\n\".join(\"\\t\".join(map(str,row)) for row in rows))")'
 ```
 
 ## Visual windows
 
 Use `.agents/visuals/` for optional human-facing windows into complex systems. Visuals
 are supporting material only; the operative state remains in tracked feature, spec,
-plan, phase, task, and decision files under `plans/features/`.
+plan, phase, task, and decision files under `.agents/plans/features/`.

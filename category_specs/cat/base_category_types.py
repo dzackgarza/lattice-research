@@ -15,11 +15,11 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from abc import abstractmethod
+from collections.abc import Callable, Iterable
 from functools import wraps
 from typing import TYPE_CHECKING, Any, cast, final, overload, override
 
-from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
     CartesianProductsCategory as SageCartesianProductsCategory,
@@ -51,6 +51,9 @@ from sage.categories.covariant_functorial_construction import (
 )
 from sage.categories.covariant_functorial_construction import (
     FunctorialConstructionCategory as SageFunctorialConstructionCategory,
+)
+from sage.categories.covariant_functorial_construction import (
+    RegressiveCovariantConstructionCategory as SageRegressiveCovariantConstructionCategory,
 )
 from sage.categories.dual import DualObjectsCategory as SageDualObjectsCategory
 from sage.categories.filtered_modules import (
@@ -88,12 +91,8 @@ from sage.structure.parent import Parent
 
 from .universal_subcategory_methods import UniversalSubcategoryMethods
 
-SageRegressiveCovariantConstructionCategory = (
-    sage_covariant.RegressiveCovariantConstructionCategory
-)
-
 if TYPE_CHECKING:
-    from ..types import Category, Hom
+    from ..types import CategoryElement, Hom, Morphism
 
 _SageCategory = SageCategory
 _SageCategoryWithParameters = SageCategoryWithParameters
@@ -473,29 +472,26 @@ class _CatObjectMixin:
         Parent.__init__(self, category=None)
         CategoryObject._init_category_(self, _cat_category())
 
-    @override
     @final
-    def category(self) -> Category:
+    def category(self) -> SageCategory:
         r"""Return ``Cat()`` as the category of this category object.
 
         This is the only direct semantic override in the mixin.  Without it,
         Sage's ``Category.category`` reports ``Objects()`` for category
         objects, so ``Sets().category()`` would not be ``Cat()`` and ordinary
         Sage membership ``Sets() in Cat()`` would not express that categories
-        are objects of the category of categories.  The value returned here is
-        not recomputed: it is the ``_category`` stored by
+        are objects of the category of categories.  The returned value is the
+        same singleton stored by
         ``CategoryObject._init_category_`` during initialization.
         """
-        return CategoryObject.category(self)
+        return _cat_category()
 
-    @override
     @final
     def Hom(self, codomain: SageCategory) -> Hom:
         r"""Return ``Hom_{Cat}(self, codomain)``."""
         assert codomain in self.category(), "codomain must be an object of Cat()"
         return cast("Hom", Parent.Hom(self, codomain))
 
-    @override
     @final
     def _make_named_class(
         self,
@@ -511,7 +507,7 @@ class _CatObjectMixin:
         """
         return _make_named_class_with_cat_subcategory_methods(
             self,
-            super()._make_named_class,
+            cast(Any, super())._make_named_class,
             name,
             method_provider,
             cache=cache,
@@ -548,7 +544,7 @@ class _SingletonClasscallMixin:
     def __classcall__(cls: type[SageCategorySingleton]) -> SageCategory:
         if isinstance(cls, DynamicMetaclass):
             cls = cls.__base__
-        obj = super(SageCategorySingleton, cls).__classcall__(cls)
+        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(cls)
         cls._set_classcall(ConstantFunction(obj))
         obj.__class__._set_classcall(ConstantFunction(obj))
         return obj
@@ -581,7 +577,9 @@ class _SingletonAxiomClasscallMixin:
             cls = cls.__base__
         if base_category is None:
             return SageCategoryWithAxiom.__classcall__(cls)
-        obj = super(SageCategorySingleton, cls).__classcall__(cls, base_category)
+        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(
+            cls, base_category
+        )
         cls._set_classcall(ConstantFunction(obj))
         obj.__class__._set_classcall(ConstantFunction(obj))
         return obj
@@ -596,6 +594,12 @@ class Category(_CatObjectMixin, SageCategory, Parent):
     def __init__(self) -> None:
         self._init_cat_object()
         SageCategory.__init__(self)
+
+    @staticmethod
+    @final
+    def join(categories: Iterable[Category]) -> Category:
+        r"""Return Sage's category-lattice join as a project category object."""
+        return cast("Category", SageCategory.join(categories))
 
 
 class CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent):
@@ -654,7 +658,10 @@ class CategoryWithAxiom_singleton(
 ):
     r"""Parent-backed re-export of Sage's singleton axiom category base."""
 
-    def __init__(self, base_category: SageCategory) -> None:
+    def __init__(self, base_category: SageCategory | None = None) -> None:
+        assert base_category is not None, (
+            "singleton axiom initialization requires a resolved base category"
+        )
         self._init_cat_object()
         SageCategoryWithAxiomSingleton.__init__(self, base_category)
 
@@ -876,6 +883,22 @@ class SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
     def __init__(self, category: SageCategory) -> None:
         self._init_cat_object()
         SageSubobjectsCategory.__init__(self, category)
+
+    class ParentMethods:
+        @abstractmethod
+        def ambient(self) -> CategoryObject:
+            r"""Return the ambient object of which ``self`` is a subobject."""
+            ...
+
+        @abstractmethod
+        def inclusion(self) -> Morphism:
+            r"""Return the inclusion morphism from this subobject to its ambient."""
+            ...
+
+        @final
+        def lift(self, x: CategoryElement) -> CategoryElement:
+            r"""Include an element of this subobject into its ambient object."""
+            return self.inclusion()(x)
 
 
 class QuotientsCategory(_CatObjectMixin, SageQuotientsCategory, Parent):

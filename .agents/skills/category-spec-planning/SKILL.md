@@ -16,7 +16,7 @@ Before implementation:
 
 - Switch to planning mode when creating or materially revising a plan.
 - Iterate with the user until the plan is explicitly approved.
-- Store the approved plan under root `plans/features/FEATURE-ID/plans/PLAN-ID/`.
+- Store the approved plan under root `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/`.
 - Decompose the approved plan into concrete tracked cards.
 
 ## Decomposition rules

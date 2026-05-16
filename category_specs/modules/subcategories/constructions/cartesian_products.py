@@ -2,13 +2,16 @@ r"""Cartesian products of modules."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast, final, override
+from abc import abstractmethod
+from collections.abc import Iterable, Sequence
+from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 
 from ....cat import CartesianProductsCategory
 
 if TYPE_CHECKING:
+    from ... import _RModElements, _RModObjects
     from ....types import RingElement, RModuleElement
 
 
@@ -22,6 +25,13 @@ class _CartesianProducts(CartesianProductsCategory):
         return [self.base_category()]
 
     class ParentMethods:
+        _sets: Sequence[_RModObjects]
+
+        @abstractmethod
+        def _cartesian_product_of_elements(
+            self, elements: Iterable[RModuleElement]
+        ) -> RModuleElement: ...
+
         @override
         @final
         def __init_extra__(self) -> None:
@@ -32,14 +42,15 @@ class _CartesianProducts(CartesianProductsCategory):
             self._base = R
 
     class ElementMethods:
+        @abstractmethod
+        def parent(self) -> _CartesianProducts.ParentMethods: ...
+
+        @abstractmethod
+        def cartesian_factors(self) -> Sequence[_RModElements]: ...
+
         @override
         @final
         def _lmul_(self, x: RingElement) -> RModuleElement:
-            return cast(
-                "RModuleElement",
-                self.parent()._cartesian_product_of_elements(
-                    x * y for y in self.cartesian_factors()
-                ),
+            return self.parent()._cartesian_product_of_elements(
+                y._lmul_(x) for y in self.cartesian_factors()
             )
-
-    class MorphismMethods: ...

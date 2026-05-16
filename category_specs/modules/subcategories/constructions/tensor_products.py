@@ -13,7 +13,7 @@ from sage.misc.lazy_import import LazyImport
 from ....cat import Category, TensorProductsCategory
 
 if TYPE_CHECKING:
-    from ....types import RModule, RModuleElement
+    from ....types import RMod, RModule, RModuleElement
 
 _TensorAlgebraComponents = LazyImport(
     "category_specs.tensor_algebra_components", "TensorAlgebraComponents"
@@ -51,12 +51,15 @@ class _TensorProducts(TensorProductsCategory):
             ...
 
     class SubcategoryMethods:
+        @abstractmethod
+        def base_category(self) -> RMod: ...
+
         @_cached_method
         @final
         def TensorAlgebraComponents(self) -> Category:
             r"""Return the category of graded pieces ``T_R(M)[p,q]``."""
-            return _TensorAlgebraComponents(self.base_category().base_ring())
+            return cast(
+                Category, _TensorAlgebraComponents(self.base_category().base_ring())
+            )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

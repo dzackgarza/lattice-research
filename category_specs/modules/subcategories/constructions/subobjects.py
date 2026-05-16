@@ -3,7 +3,7 @@ r"""Submodules."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from ....cat import SubobjectsCategory
 
@@ -13,7 +13,6 @@ if TYPE_CHECKING:
         QuotientModule,
         RModMorphism,
         RModule,
-        RModuleElement,
         SubModule,
     )
 
@@ -65,10 +64,6 @@ class _Subobjects(SubobjectsCategory):
         def is_primitive(self) -> bool:
             return bool(self.inclusion().is_primitive())
 
-        @final
-        def lift(self, m: RModuleElement) -> RModuleElement:
-            return cast("RModuleElement", self.inclusion()(m))
-
         @abstractmethod
         def saturation(self) -> SubModule: ...
 
@@ -88,11 +83,8 @@ class _Subobjects(SubobjectsCategory):
         @abstractmethod
         def __le__(self, other: RModule) -> bool: ...
 
-        @override
         @final
         def quotient_module(self) -> QuotientModule:
             return self.inclusion().cokernel()
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

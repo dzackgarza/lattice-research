@@ -11,7 +11,9 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction, UniversalHomElementMethods
 from ...modules import Modules
+from ...utils import with_axiom
 
 if TYPE_CHECKING:
     from ...types import OrthogonalGroup, RModuleMorphism
@@ -57,47 +59,51 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def Bilinear(self) -> Category:
             r"""Introduced here: select the bilinear-formed subcategory."""
-            return cast(Category, self._with_axiom("Bilinear"))
+            return cast(Category, with_axiom(self, "Bilinear"))
 
         @_form_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Introduced here: select the quadratic-formed subcategory."""
-            return cast(Category, self._with_axiom("Quadratic"))
+            return cast(Category, with_axiom(self, "Quadratic"))
 
         @_form_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Introduced here: select the symmetric-bilinear subcategory."""
-            return cast(Category, self._with_axiom("Symmetric"))
+            return cast(Category, with_axiom(self, "Symmetric"))
 
         @_form_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Introduced here: select the alternating-bilinear subcategory."""
-            return cast(Category, self._with_axiom("Alternating"))
+            return cast(Category, with_axiom(self, "Alternating"))
 
         @_form_cached_method
         @final
         def Nondegenerate(self) -> Category:
             r"""Introduced here: select the nondegenerate-bilinear subcategory."""
-            return cast(Category, self._with_axiom("Nondegenerate"))
+            return cast(Category, with_axiom(self, "Nondegenerate"))
 
         @_form_cached_method
         @final
         def Integral(self) -> Category:
             r"""Introduced here: select the integral-bilinear subcategory."""
-            return cast(Category, self._with_axiom("Integral"))
+            return cast(Category, with_axiom(self, "Integral"))
 
         @_form_cached_method
         @final
         def Rational(self) -> Category:
             r"""Introduced here: select the rational-bilinear subcategory."""
-            return cast(Category, self._with_axiom("Rational"))
+            return cast(Category, with_axiom(self, "Rational"))
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(UniversalHomElementMethods):
+            def is_isometry(self) -> bool:
+                r"""Return whether this form-preserving morphism is an isomorphism."""
+                return self.is_isomorphism()
 
     Bilinear = LazyImport(
         "category_specs.forms.subcategories.bilinear", "BilinearModulesCategory"
@@ -120,21 +126,10 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = FormedModulesCategory.ParentMethods
 
-    class SubcategoryMethods(FormedModulesCategory.SubcategoryMethods):
-        @_form_cached_method
-        @final
-        def Bilinear(self) -> Category:
-            r"""Select the bilinear formed-module subcategory over this PID base."""
-            return cast(Category, self._with_axiom("Bilinear"))
-
-        @_form_cached_method
-        @final
-        def Quadratic(self) -> Category:
-            r"""Select the quadratic formed-module subcategory over this PID base."""
-            return cast(Category, self._with_axiom("Quadratic"))
+    SubcategoryMethods = FormedModulesCategory.SubcategoryMethods
 
     ElementMethods = FormedModulesCategory.ElementMethods
-    MorphismMethods = FormedModulesCategory.MorphismMethods
+    HomCategory = FormedModulesCategory.HomCategory
 
     Bilinear = LazyImport(
         "category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory"
@@ -147,7 +142,7 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
 
 FormedModulesObject = FormedModulesCategory.ParentMethods
 FormedModulesElement = FormedModulesCategory.ElementMethods
-FormedModulesMorphism = FormedModulesCategory.MorphismMethods
+FormedModulesMorphism = FormedModulesCategory.HomCategory.ElementMethods
 OverPIDFormedModulesObject = OverPIDFormedModulesCategory.ParentMethods
 OverPIDFormedModulesElement = OverPIDFormedModulesCategory.ElementMethods
-OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.MorphismMethods
+OverPIDFormedModulesMorphism = OverPIDFormedModulesCategory.HomCategory.ElementMethods

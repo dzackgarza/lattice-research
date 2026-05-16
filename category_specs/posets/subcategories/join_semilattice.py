@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, final, overload, override
+from typing import TYPE_CHECKING, cast, final, overload, override
 
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
+from ...utils import with_axiom
 from .. import Posets
 
 if TYPE_CHECKING:
@@ -43,7 +44,7 @@ class _JoinSemilatticePosets(Category):
         @final
         def Finite(self) -> Category:
             r"""Return the finite join-semilattice subcategory."""
-            return self._with_axiom("Finite")
+            return cast(Category, with_axiom(self, "Finite"))
 
     Finite = LazyImport(
         "category_specs.posets.subcategories.finite_join_semilattice",
@@ -68,5 +69,3 @@ class _JoinSemilatticePosets(Category):
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

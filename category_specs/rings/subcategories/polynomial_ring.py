@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ...types import (
         CompleteRing,
         Ideal,
+        Polynomial,
         Ring,
         RingElement,
         RingMorphism,
@@ -84,11 +85,12 @@ class _PolynomialRings(CategoryWithAxiom):
             assert ideal.is_principal(), (
                 "polynomial ring completion expects a principal ideal"
             )
-            p = ideal.gen()
+            p: Polynomial = ideal.gen()
             assert p.is_irreducible(), (
                 "polynomial ring completion expects an irreducible generator"
             )
-            return super().completion(p, prec=oo)
+            completion: CompleteRing = super().completion(p, prec=oo)
+            return completion
 
         @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
@@ -127,5 +129,3 @@ class _PolynomialRings(CategoryWithAxiom):
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

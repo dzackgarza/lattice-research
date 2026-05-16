@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from ....cat import Category_module
+from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
     from ....cat import Category
@@ -50,9 +51,8 @@ class DualLatticesCategory(Category_module):
             r"""Return the image of this metric-dual element in ``L^\#/L``."""
             ...
 
-    class MorphismMethods: ...
 
 
 DualLatticesObject = DualLatticesCategory.ParentMethods
 DualLatticesElement = DualLatticesCategory.ElementMethods
-DualLatticesMorphism = DualLatticesCategory.MorphismMethods
+DualLatticesMorphism = LatticeHomCategory.ElementMethods

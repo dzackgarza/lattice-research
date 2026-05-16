@@ -3,7 +3,11 @@ r"""Lattices over the integer ring."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, Any, cast, final
+
+from sage.modules.free_quadratic_module_integer_symmetric import (
+    FreeQuadraticModule_integer_symmetric as SageIntegerSymmetricLattice,
+)
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_pid import _LatticesOverPID
@@ -44,7 +48,9 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             r"""Return representatives for the sign orbits ``{v, -v}`` in
             ``short_vectors(bound)``.
             """
-            return self.short_vectors(bound, up_to_sign_flag=True)
+            return SageIntegerSymmetricLattice.short_vectors(
+                cast(Any, self), bound, up_to_sign_flag=True
+            )
 
         @abstractmethod
         def LLL(
@@ -63,5 +69,3 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

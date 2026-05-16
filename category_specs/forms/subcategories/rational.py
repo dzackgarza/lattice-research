@@ -14,7 +14,12 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import IntegralRescaling
@@ -58,12 +63,11 @@ class RationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 RationalBilinearModulesObject = RationalBilinearModulesCategory.ParentMethods
 RationalBilinearModulesElement = RationalBilinearModulesCategory.ElementMethods
-RationalBilinearModulesMorphism = RationalBilinearModulesCategory.MorphismMethods
+RationalBilinearModulesMorphism = BilinearModulesMorphism
 
 
 class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -77,7 +81,6 @@ class OverPIDRationalBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = RationalBilinearModulesCategory.ParentMethods
     ElementMethods = RationalBilinearModulesCategory.ElementMethods
-    MorphismMethods = RationalBilinearModulesCategory.MorphismMethods
 
 
 OverPIDRationalBilinearModulesObject = (
@@ -87,5 +90,5 @@ OverPIDRationalBilinearModulesElement = (
     OverPIDRationalBilinearModulesCategory.ElementMethods
 )
 OverPIDRationalBilinearModulesMorphism = (
-    OverPIDRationalBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

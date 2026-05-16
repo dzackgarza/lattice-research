@@ -2,7 +2,8 @@ r"""TopologicalRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.rings import Rings as SageRings
 from sage.misc.cachefunc import cached_method
@@ -14,7 +15,11 @@ from ...topological_spaces import (
     TopologicalSpaceRuntimeGapObjectMethods,
     TopologicalSpaces,
 )
+from ...utils import with_axiom
 from .. import Rings
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     pass
@@ -47,10 +52,10 @@ class _TopologicalRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Complete(self) -> Category:
-            return self._with_axiom("Complete")
+            return cast(Category, with_axiom(self, "Complete"))
 
     class ParentMethods:
         _missing_topology_adapter = (
@@ -70,5 +75,3 @@ class _TopologicalRings(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

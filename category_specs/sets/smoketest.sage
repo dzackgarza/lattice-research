@@ -27,6 +27,7 @@ from category_specs.sets.subcategories.partitioned import (
     PartitionsCategory,
     PartitionedSetsCategory,
 )
+from category_specs.sets.homsets import SetHomCategory
 from category_specs.sets.subcategories.totally_ordered import _TotallyOrdered
 from category_specs.sets.subcategories.recursively_enumerated import _RecursivelyEnumeratedSets
 from category_specs.sets.subcategories.uncountable import _UncountableSets
@@ -479,7 +480,7 @@ SMOKE_STATEMENTS = (
         lambda _: GradedSetsCategory._base_category_class_and_axiom == (Sets, "Graded")
         and GradedSetsObject is GradedSetsCategory.ParentMethods
         and GradedSetsElement is GradedSetsCategory.ElementMethods
-        and GradedSetsMorphism is GradedSetsCategory.MorphismMethods,
+        and GradedSetsMorphism is SetHomCategory.ElementMethods,
     ),
     (
         "graded-set category owns grade component and generating-series surfaces",

@@ -16,11 +16,13 @@ implementation.
 - A failed quick search is not evidence that all mature software lacks the capability.
 - If no preferred wiring is documented, mark implementation blocked and create source-backed research work.
 - Do not depend on proprietary systems such as Magma, Mathematica/Wolfram, MATLAB, or closed hosted services unless the user explicitly asks for non-repo exploratory comparison.
+- Before any nontrivial implementation or audit, check [EasyBuild's supported software list](https://docs.easybuild.io/version-specific/supported-software/) as a general-purpose discovery step. Many open-source libraries across mathematics, science, and HPC are packaged there.
 
 ## Mandatory preflight
 
 Before writing or delegating mathematical implementation work:
 
+- Check [EasyBuild's supported software list](https://docs.easybuild.io/version-specific/supported-software/) for existing packaged implementations of the functionality you need.
 - Read `theory/backends/software-capability-map.md`.
 - Read any backend note named by that map for the requested domain.
 - Check whether the desired operation should be a thin bridge to Sage, GAP, Singular, Macaulay2, Oscar/Hecke/Nemo/AbstractAlgebra, Julia packages, CARAT, PARI/GP, polymake, Normaliz, or another open-source exact system.
@@ -55,6 +57,7 @@ A backend-gap research card must include:
 - Creating wrappers that only rename an upstream method without adding repo semantics or hiding an interop boundary.
 - Treating Sage as a black box when the appropriate lower-level backend is GAP, Singular, PARI/GP, or another system Sage can call.
 - Treating generated code as acceptable mathematics without primary-source and backend evidence.
+- Auditing or reviewing code without considering whether complex implementations can be offloaded to a packaged tool from the [EasyBuild supported software list](https://docs.easybuild.io/version-specific/supported-software/).
 
 ## Handoff requirement
 

@@ -3,7 +3,7 @@ r"""ComplexPrecisionFields ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
@@ -77,10 +77,8 @@ class _ComplexPrecisionFields(Category_singleton):
                 self,
                 (SageComplexField, SageComplexDoubleField, SageComplexIntervalField),
             ):
-                return self.to_prec(precision)
+                return cast("Field", self.to_prec(precision))
             assert isinstance(self, SageComplexBallField)
-            return self.__class__(precision)
+            return cast("Field", self.__class__(precision))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

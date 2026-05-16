@@ -14,33 +14,22 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...cat import Category
-    from ..types import Lattice, LatticeOrthogonalGroup, Matrix
+    from ..types import Lattice, LatticeOrthogonalGroup
 
 
 class _LatticeHomCategoryObjectMethods:
     r"""Lattice hom parent methods; generic hom methods are inherited."""
 
 
-class _LatticeMorphisms:
+class _LatticeMorphisms(FreeBilinearModulesCategory.HomCategory.ElementMethods):
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
-    @abstractmethod
-    def to_matrix(self) -> Matrix: ...
 
-    def is_isometry(self) -> bool:
-        r"""Return whether this lattice morphism is an isomorphism.
-
-        Form preservation is owned by containment in the lattice Hom object, which
-        refines the formed-module Hom object.  Thus the remaining isometry condition
-        for a lattice morphism is categorical isomorphism.
-        """
-        return self.is_isomorphism()
-
-
-class _LatticeAutomorphisms:
+class _LatticeAutomorphisms(_LatticeMorphisms):
     r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
     @override
@@ -65,7 +54,6 @@ class LatticeHomCategory(HomCategoryOf):
     ParentMethods = _LatticeHomCategoryObjectMethods
     ElementMethods = _LatticeMorphisms
 
-    class MorphismMethods: ...
 
     Endset = LazyImport(__name__, "LatticeEndCategory")
 
@@ -85,7 +73,6 @@ class LatticeEndCategory(GenericEndCategory):
 
     ElementMethods = _LatticeMorphisms
 
-    class MorphismMethods: ...
 
 
 class LatticeAutCategory(GenericAutCategory):
@@ -140,5 +127,3 @@ class LatticeAutCategory(GenericAutCategory):
             return self.stable_special_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
-
-    class MorphismMethods: ...

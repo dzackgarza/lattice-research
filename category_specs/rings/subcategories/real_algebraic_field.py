@@ -2,7 +2,8 @@ r"""AA ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal, final, overload, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, Any, Literal, cast, final, overload, override
 
 from sage.rings.integer import Integer
 
@@ -45,10 +46,11 @@ class _AA(Category_singleton):
     def object(self) -> Ring:
         from sage.all import AA
 
-        return AA
+        return cast("Ring", AA)
 
     class ParentMethods:
         @override
+        @abstractmethod
         def polynomial_root(
             self, poly: Polynomial, interval: RealInterval, multiplicity: Integer = 1
         ) -> RingElement: ...
@@ -68,8 +70,7 @@ class _AA(Category_singleton):
         ) -> RingElement | list[RingElement]: ...
 
         @override
+        @abstractmethod
         def nth_root(
             self, n: Integer, all: bool = False
         ) -> RingElement | list[RingElement]: ...
-
-    class MorphismMethods: ...

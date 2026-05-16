@@ -3,8 +3,8 @@ r"""IntegralDomains ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.integral_domains import IntegralDomains as SageIntegralDomains
 from sage.misc.cachefunc import cached_method
@@ -12,7 +12,11 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .commutative import _CommutativeRings as _CommutativeRings
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -66,35 +70,35 @@ class _IntegralDomains(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Gcd(self) -> Category:
-            return self._with_axiom("Gcd")
+            return cast(Category, with_axiom(self, "Gcd"))
 
-        @cached_method
+        @_cached_method
         @final
         def UniqueFactorization(self) -> Category:
-            return self._with_axiom("UniqueFactorization")
+            return cast(Category, with_axiom(self, "UniqueFactorization"))
 
-        @cached_method
+        @_cached_method
         @final
         def PrincipalIdeal(self) -> Category:
-            return self._with_axiom("PrincipalIdeal")
+            return cast(Category, with_axiom(self, "PrincipalIdeal"))
 
-        @cached_method
+        @_cached_method
         @final
         def Euclidean(self) -> Category:
-            return self._with_axiom("Euclidean")
+            return cast(Category, with_axiom(self, "Euclidean"))
 
-        @cached_method
+        @_cached_method
         @final
         def IntegrallyClosed(self) -> Category:
-            return self._with_axiom("IntegrallyClosed")
+            return cast(Category, with_axiom(self, "IntegrallyClosed"))
 
-        @cached_method
+        @_cached_method
         @final
         def Dedekind(self) -> Category:
-            return self._with_axiom("Dedekind")
+            return cast(Category, with_axiom(self, "Dedekind"))
 
     class ParentMethods:
         @abstractmethod
@@ -113,7 +117,3 @@ class _IntegralDomains(CategoryWithAxiom):
     class ElementMethods:
         @abstractmethod
         def divides(self, other: RingElement) -> bool: ...
-
-    class MorphismMethods:
-        @abstractmethod
-        def extend_to_fraction_field(self) -> RingMorphism: ...

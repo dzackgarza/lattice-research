@@ -7,6 +7,7 @@ from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category import Category
+from sage.sets.family import AbstractFamily
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -60,7 +61,10 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
         @final
         def basis_index_set(self) -> Sequence[CategoryElement]:
-            return cast(Sequence[CategoryElement], self.basis().keys())
+            basis = self.basis()
+            if isinstance(basis, AbstractFamily):
+                return cast(Sequence[CategoryElement], basis.keys())
+            return cast(Sequence[CategoryElement], tuple(range(len(basis))))
 
         @abstractmethod
         def monomial(self, index: CategoryElement) -> RModuleElement:
@@ -145,9 +149,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
                 r"""Return the basis-index map determining this morphism."""
                 ...
 
-        class MorphismMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
@@ -230,5 +232,3 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
         @abstractmethod
         def degree(self) -> Integer: ...
-
-    class MorphismMethods: ...

@@ -12,7 +12,7 @@ from abc import abstractmethod
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import SymmetricBilinearModulesCategory
+from .symmetric import SymmetricBilinearModulesCategory, SymmetricBilinearModulesMorphism
 
 
 class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -73,9 +73,8 @@ class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Every nonzero element of a definite module is anisotropic."""
             return not self.is_zero()
 
-    class MorphismMethods: ...
 
 
 DefiniteBilinearModulesObject = DefiniteBilinearModulesCategory.ParentMethods
 DefiniteBilinearModulesElement = DefiniteBilinearModulesCategory.ElementMethods
-DefiniteBilinearModulesMorphism = DefiniteBilinearModulesCategory.MorphismMethods
+DefiniteBilinearModulesMorphism = SymmetricBilinearModulesMorphism

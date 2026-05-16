@@ -40,8 +40,10 @@ class _QuadraticNumberFields(CategoryWithAxiom):
         if isinstance(R, NumberField_quadratic):
             return True
         if R in SageNumberFields():
-            return R.degree() == 2
-        return R in self.base_category() and R.is_quadratic_number_field()
+            return bool(R.degree() == 2)
+        if R not in self.base_category():
+            return False
+        return bool(R.is_quadratic_number_field())
 
     class ParentMethods:
         @final
@@ -54,5 +56,3 @@ class _QuadraticNumberFields(CategoryWithAxiom):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

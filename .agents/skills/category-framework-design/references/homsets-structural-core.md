@@ -91,7 +91,7 @@ class that inherits from both `Morphism` and `MyFGModules(R).element_class`.
 
 So every morphism `f: M → N` simultaneously has:
 
-- `MorphismMethods` (`kernel`, `image`, `cokernel`)
+- Hom-category `ElementMethods` (`kernel`, `image`, `cokernel`)
 - `ElementMethods` from `MyFGModules(R)` (`lmul`, `rmul`, `additive_order`)
 
 This is automatic — no extra code needed.

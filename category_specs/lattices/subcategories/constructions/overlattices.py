@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from ....cat import Category_module
+from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
     from ....cat import Category
@@ -40,9 +41,8 @@ class OverlatticesCategory(Category_module):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 OverlatticesObject = OverlatticesCategory.ParentMethods
 OverlatticesElement = OverlatticesCategory.ElementMethods
-OverlatticesMorphism = OverlatticesCategory.MorphismMethods
+OverlatticesMorphism = LatticeHomCategory.ElementMethods

@@ -52,14 +52,11 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
 
         @final
         def ideal_generator(self, ideal: Ideal) -> RingElement:
-            assert ideal.is_principal(), "PID ideal_generator expects a principal ideal"
             return ideal.gen()
 
         @override
         @final
         def gcd(self, r: RingElement, s: RingElement) -> RingElement:
-            return self.ideal_generator(self.ideal(r, s))
+            return self.ideal_generator(self.ideal([r, s]))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

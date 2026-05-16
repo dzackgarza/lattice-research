@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from ....cat import Category_module
+from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
     from ....cat import Category
@@ -37,9 +38,8 @@ class OrthogonalDirectSumsCategory(Category_module):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 OrthogonalDirectSumsObject = OrthogonalDirectSumsCategory.ParentMethods
 OrthogonalDirectSumsElement = OrthogonalDirectSumsCategory.ElementMethods
-OrthogonalDirectSumsMorphism = OrthogonalDirectSumsCategory.MorphismMethods
+OrthogonalDirectSumsMorphism = LatticeHomCategory.ElementMethods

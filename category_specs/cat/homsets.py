@@ -14,25 +14,28 @@ from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import HomCategoryOf
+from ..homsets import (
+    HomCategoryOf,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 from .base_category_types import Category
 
 
-class _CatHomCategoryObjectMethods:
+class _CatHomCategoryObjectMethods(UniversalHomObjectMethods):
     @abstractmethod
     def __call__(self, functor: Functor) -> Functor:
         r"""Coerce a Sage functor into this ``Cat()`` hom object."""
         del functor
         ...
 
-    @override
     @abstractmethod
     def __contains__(self, functor: Any) -> bool:
         r"""Return whether ``functor`` is an element of this functor hom object."""
-        raise NotImplementedError
+        ...
 
 
-class _CatFunctorMethods:
+class _CatFunctorMethods(UniversalHomElementMethods):
     @abstractmethod
     def __call__(self, category: Category) -> Category:
         r"""Evaluate this functor on an object of its domain category."""
@@ -46,7 +49,6 @@ class _CatFunctorMethods:
 
     @abstractmethod
     def _apply_functor_to_morphism(self, functor: Functor) -> Functor:
-        del functor
         ...
 
 
@@ -91,7 +93,6 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
         r"""Return the common base data for this construction and
         ``other_functor``.
         """
-        del other_functor, self_bases, other_bases
         ...
 
 
@@ -126,7 +127,6 @@ class CatHomCategory(HomCategoryOf):
     ParentMethods = _CatHomCategoryObjectMethods
     ElementMethods = _CatFunctorMethods
 
-    class MorphismMethods: ...
 
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
     # Sage axiom interop hook for _with_axiom("Endset").

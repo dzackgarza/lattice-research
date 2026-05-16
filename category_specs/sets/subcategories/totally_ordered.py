@@ -3,7 +3,7 @@ r"""Totally ordered set subcategory."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final, override
+from typing import TYPE_CHECKING, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -30,7 +30,6 @@ class _TotallyOrdered(CategoryWithAxiom):
         return [Sets()]
 
     class ParentMethods:
-        @override
         @final
         def is_totally_ordered(self) -> bool:
             return True
@@ -52,19 +51,15 @@ class _TotallyOrdered(CategoryWithAxiom):
 
     class ElementMethods:
         @abstractmethod
-        def __lt__(self, other: SetElement) -> bool: ...
+        def __lt__(self, other: _TotallyOrdered.ElementMethods) -> bool: ...
 
         @abstractmethod
-        def __le__(self, other: SetElement) -> bool: ...
+        def __le__(self, other: _TotallyOrdered.ElementMethods) -> bool: ...
 
-        @override
         @final
-        def __gt__(self, other: SetElement) -> bool:
-            return cast(bool, other.__lt__(self))
+        def __gt__(self, other: _TotallyOrdered.ElementMethods) -> bool:
+            return other.__lt__(self)
 
-        @override
         @final
-        def __ge__(self, other: SetElement) -> bool:
-            return cast(bool, other.__le__(self))
-
-    class MorphismMethods: ...
+        def __ge__(self, other: _TotallyOrdered.ElementMethods) -> bool:
+            return other.__le__(self)

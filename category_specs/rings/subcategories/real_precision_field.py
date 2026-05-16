@@ -3,7 +3,7 @@ r"""RealPrecisionFields ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.rings.abc import RealBallField as SageRealBallField
 from sage.rings.abc import RealDoubleField as SageRealDoubleField
@@ -78,13 +78,11 @@ class _RealPrecisionFields(Category_singleton):
             if isinstance(
                 self, (SageRealField, SageRealDoubleField, SageRealIntervalField)
             ):
-                return self.to_prec(precision)
+                return cast("Field", self.to_prec(precision))
             assert isinstance(self, SageRealBallField)
-            return self.__class__(precision)
+            return cast("Field", self.__class__(precision))
 
         @abstractmethod
         def complex_field(self) -> Field: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

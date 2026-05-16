@@ -62,20 +62,20 @@ from .homsets import (
     UniversalHomObjectMethods as UniversalHomObjectMethods,
 )
 
-type GenericEndCategory = EndCategoryOf
-type GenericAutCategory = AutCategoryOf
+GenericEndCategory = EndCategoryOf
+GenericAutCategory = AutCategoryOf
 
 type HomCategoriesCategory = HomCategory
-type HomCategoriesObject = HomCategory.ParentMethods
-type HomCategoriesElement = HomCategory.ElementMethods
-type HomCategoriesMorphism = HomCategory.MorphismMethods
+type HomCategoriesObject = UniversalHomObjectMethods
+type HomCategoriesElement = UniversalHomElementMethods
+type HomCategoriesMorphism = UniversalHomElementMethods
 
 type EndCategoriesCategory = EndCategory
-type EndCategoriesObject = EndCategory.ParentMethods
-type EndCategoriesElement = EndCategory.ElementMethods
-type EndCategoriesMorphism = EndCategory.MorphismMethods
+type EndCategoriesObject = UniversalEndObjectMethods
+type EndCategoriesElement = UniversalEndElementMethods
+type EndCategoriesMorphism = UniversalEndElementMethods
 
 type AutCategoriesCategory = AutCategory
-type AutCategoriesObject = AutCategory.ParentMethods
-type AutCategoriesElement = AutCategory.ElementMethods
-type AutCategoriesMorphism = AutCategory.MorphismMethods
+type AutCategoriesObject = UniversalAutObjectMethods
+type AutCategoriesElement = UniversalAutElementMethods
+type AutCategoriesMorphism = UniversalAutElementMethods

@@ -59,23 +59,23 @@ class _FiniteSetMapsSets(Category_singleton):
 
         @overload
         def _element_constructor_(
-            self, finite_map: FiniteSetMap, check: bool = True
-        ) -> FiniteSetMap:
-            del finite_map
-            ...
-
-        @overload
-        def _element_constructor_(
             self,
-            function: Callable[[SetElement], SetElement],
+            data: Callable[[SetElement], SetElement],
             check: bool = True,
         ) -> FiniteSetMap: ...
 
         @overload
         def _element_constructor_(
-            self, images: Sequence[SetElement], check: bool = True
+            self, data: Sequence[SetElement], check: bool = True
         ) -> FiniteSetMap:
-            del images
+            del data
+            ...
+
+        @overload
+        def _element_constructor_(
+            self, data: FiniteSetMap, check: bool = True
+        ) -> FiniteSetMap:
+            del data
             ...
 
         @override
@@ -94,5 +94,3 @@ class _FiniteSetMapsSets(Category_singleton):
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

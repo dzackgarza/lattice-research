@@ -8,17 +8,25 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
     from ..types import Poset
 
 
-class _PosetHomCategoryObjectMethods:
+class _PosetHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Poset-specific hom parent methods; generic hom methods are inherited."""
 
 
-class _OrderPreservingMaps:
+class _OrderPreservingMaps(UniversalHomElementMethods):
     @abstractmethod
     def is_order_preserving(self) -> bool:
         r"""Return whether this map preserves the partial order."""
@@ -30,11 +38,11 @@ class _OrderPreservingMaps:
         ...
 
 
-class _PosetEndomorphisms:
+class _PosetEndomorphisms(UniversalEndElementMethods):
     r"""Endomorphisms of posets; generic endomorphism methods are inherited."""
 
 
-class _PosetAutomorphisms:
+class _PosetAutomorphisms(UniversalAutElementMethods):
     @final
     def is_order_automorphism(self) -> bool:
         r"""Return ``True`` because this morphism is an automorphism of posets."""
@@ -56,7 +64,6 @@ class PosetHomCategory(HomCategoryOf):
     ParentMethods = _PosetHomCategoryObjectMethods
     ElementMethods = _OrderPreservingMaps
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "PosetEndCategory")
@@ -77,7 +84,6 @@ class PosetEndCategory(GenericEndCategory):
 
     ElementMethods = _PosetEndomorphisms
 
-    class MorphismMethods: ...
 
 
 class PosetAutCategory(GenericAutCategory):
@@ -88,5 +94,3 @@ class PosetAutCategory(GenericAutCategory):
     class ParentMethods: ...
 
     ElementMethods = _PosetAutomorphisms
-
-    class MorphismMethods: ...

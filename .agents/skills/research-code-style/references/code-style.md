@@ -452,6 +452,27 @@ Everything must have a type, either defined in Sage, or defined in our branch.
 
 Use explicit union types to express allowed inputs.
 
+Typing work must improve the proof surface of the code. A type annotation says what
+mathematical object, morphism, constructor, or backend value the expression denotes.
+It is not acceptable to add a cast, wrapper, helper protocol, or narrower annotation
+only because a QC tool reports `Any` or cannot follow dynamic library behavior.
+
+Before any typing fix, ask whether the static checker is exposing a real defect that
+downstream implementers should see. Real defects include missing obligations, wrong
+owners, broad or unsourced public signatures, untyped boundary data that should have a
+named mathematical type, and mismatched constructor inputs. If the code already states
+the intended mathematical operation clearly and the checker is missing knowledge of
+Sage, category method containers, dynamic inheritance, classcall behavior, or other
+trusted backend semantics, the repair is not to silence the checker locally. File or
+advance the plugin, stub, global QC, or static-surface task that teaches the checker
+the correct mathematics.
+
+Local casts are last-resort boundary documentation. They are appropriate only at a
+specific untyped external API boundary or a narrow mathematical refinement whose
+hypotheses are already asserted in the code. They are not appropriate around correct
+category selectors, constructor collectors, or backend calls merely to make a mypy
+count decrease.
+
 ### Error Handling (String Matching)
 
 No raising errors.

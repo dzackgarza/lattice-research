@@ -1,6 +1,6 @@
 ---
 name: research-project-workflow
-description: Use when handling research repo planning, root `plans/` Nimbalyst
+description: Use when handling research repo planning, root `.agents/plans/` Nimbalyst
   tracker files, layer-gated plan decomposition, TODO triage, retired cards,
   visual windows, or card metadata.
 ---
@@ -16,11 +16,11 @@ against the reusable framework in `/home/dzack/ai/planning/AGENTS.md` and the
 installed local schemas in `.nimbalyst/trackers/`.
 
 Read `references/project-workflow.md` before creating, migrating, normalizing,
-retiring, or interpreting root `plans/` tracker files.
+retiring, or interpreting root `.agents/plans/` tracker files.
 
 ## Core policy
 
-- Root `plans/` is the active repo-local tracker workspace. Use IWE as the query layer over this markdown before broad manual scans; do not create a separate aggregate status surface.
+- Root `.agents/plans/` is the active repo-local tracker workspace. Use IWE as the query layer over this markdown before broad manual scans; do not create a separate aggregate status surface.
 - Substantial research coordination follows `research-co-mathematician-workflow`: cards
   route workstreams, but reports and the living LaTeX paper carry the mathematical
   narrative.
@@ -28,7 +28,7 @@ retiring, or interpreting root `plans/` tracker files.
 - Use only registered standard tracker types from `.nimbalyst/trackers/*.yaml`.
 - Use the root feature/plan/phase/task hierarchy for workflow dimensions. Tags are secondary grouping aids.
 - There is no separate backlog; active cards are the outstanding work set.
-- Completed feature trees should be moved under `plans/features/completed/` rather
+- Completed feature trees should be moved under `.agents/plans/features/completed/` rather
   than left alongside active feature roots.
 - Execute according to the DAG. Unmet declared dependencies mean a card remains
   `unstarted`; `blocked` is reserved for ready leaves stopped by a prerequisite that is

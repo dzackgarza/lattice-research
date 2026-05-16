@@ -35,7 +35,8 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from collections.abc import Callable
+from typing import TYPE_CHECKING, TypeVar, cast, final
 
 from sage.categories.category import Category
 from sage.misc.cachefunc import cached_method
@@ -46,7 +47,12 @@ from ..forms.chain import (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory,
 )
 from ..modules import Modules
-from .homsets import LatticeAutCategory, LatticeEndCategory, LatticeHomCategory
+from ..utils import with_axiom
+from .homsets import (
+    LatticeAutCategory,
+    LatticeEndCategory,
+    LatticeHomCategory,
+)
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import LatticeDualObjectsCategory
 from .subcategories.constructions.objects_over import _ObjectsOver
@@ -54,6 +60,9 @@ from .subcategories.constructions.objects_under import _ObjectsUnder
 from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import Ring
@@ -75,7 +84,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
     def _repr_object_names(self) -> str:
         return f"lattices over {self.base_ring()}"
 
-    class Constructors:
+    class _Constructors:
         r"""Lattice constructor entry points over ``self.base_ring()``."""
 
         @final
@@ -92,48 +101,47 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
         @final
         def base_ring(self) -> Ring:
-            return self.category().base_ring()
+            base_ring: Ring = self.category().base_ring()
+            return base_ring
 
-    _Constructors = Constructors
-
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self) -> LatticesCategory.Constructors:
+    def Constructors(self) -> LatticesCategory._Constructors:
         r"""Return the lattice constructor collector over ``self.base_ring()``."""
         return self.__class__._Constructors(self)
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def OverDedekindDomain(self) -> Category:
-            return self._with_axiom("OverDedekindDomain")
+            return cast(Category, with_axiom(self, "OverDedekindDomain"))
 
-        @cached_method
+        @_cached_method
         @final
         def OverPID(self) -> Category:
-            return self._with_axiom("OverPID")
+            return cast(Category, with_axiom(self, "OverPID"))
 
-        @cached_method
+        @_cached_method
         @final
         def OverIntegers(self) -> Category:
-            return self._with_axiom("OverIntegers")
+            return cast(Category, with_axiom(self, "OverIntegers"))
 
-        @cached_method
+        @_cached_method
         @final
         def Even(self) -> Category:
-            return self._with_axiom("Even")
+            return cast(Category, with_axiom(self, "Even"))
 
-        @cached_method
+        @_cached_method
         @final
         def Unimodular(self) -> Category:
-            return self._with_axiom("Unimodular")
+            return cast(Category, with_axiom(self, "Unimodular"))
 
-        @cached_method
+        @_cached_method
         @final
         def DualObjects(self) -> Category:
-            return LatticeDualObjectsCategory.category_of(self)
+            return cast(Category, LatticeDualObjectsCategory.category_of(self))
 
-        @cached_method
+        @_cached_method
         @final
         def DualLattices(self) -> Category:
             r"""Return the metric-dual lattice construction category."""
@@ -141,14 +149,14 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
             return DualLatticesCategory(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def Overlattices(self) -> Category:
             from .subcategories.constructions.overlattices import OverlatticesCategory
 
             return OverlatticesCategory(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def OrthogonalDirectSums(self) -> Category:
             from .subcategories.constructions.orthogonal_direct_sums import (
@@ -157,7 +165,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
 
             return OrthogonalDirectSumsCategory(self.base_ring())
 
-        @cached_method
+        @_cached_method
         @final
         def DiscriminantGroups(self) -> Category:
             from .subcategories.constructions.discriminant_groups import (
@@ -172,8 +180,6 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...
 
     HomCategory = LatticeHomCategory
 
@@ -233,10 +239,9 @@ def _lattice_chain(base_ring: Ring) -> Category:
 
 def lattice_category(base_ring: Ring) -> LatticesCategory:
     r"""Return ``Lattices(base_ring)`` as the named lattice axiom endpoint."""
-    return _lattice_chain(base_ring).Lattice()
+    return cast(LatticesCategory, _lattice_chain(base_ring).Lattice())
 
 
-@final
 def Lattices(base_ring: Ring) -> LatticesCategory:
     r"""Return the named lattice axiom category over ``base_ring``."""
     return lattice_category(base_ring)
@@ -244,7 +249,7 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
 
 type LatticesObject = LatticesCategory.ParentMethods
 type LatticesElement = LatticesCategory.ElementMethods
-type LatticesMorphism = LatticesCategory.MorphismMethods
+type LatticesMorphism = LatticeHomCategory.ElementMethods
 type LatticesHomCategory = LatticeHomCategory
 type LatticesEndCategory = LatticeEndCategory
 type LatticesAutCategory = LatticeAutCategory

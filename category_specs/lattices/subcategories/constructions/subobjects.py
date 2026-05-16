@@ -3,12 +3,12 @@ r"""Subobject construction category for lattices."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, cast, final
+from typing import TYPE_CHECKING, final
 
 from ....cat import SubobjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Cardinality, Lattice, LatticeElement, LatticeMorphism
+    from ....types import Lattice, LatticeMorphism
 
 
 class _Subobjects(SubobjectsCategory):
@@ -24,7 +24,7 @@ class _Subobjects(SubobjectsCategory):
 
     class ParentMethods:
         @abstractmethod
-        def ambient_lattice(self) -> Lattice: ...
+        def ambient(self) -> Lattice: ...
 
         @abstractmethod
         def inclusion(self) -> LatticeMorphism: ...
@@ -36,14 +36,6 @@ class _Subobjects(SubobjectsCategory):
         def __and__(self, M: Lattice) -> Lattice:
             return self.intersect(M)
 
-        @final
-        def index(self) -> Cardinality:
-            return self.inclusion().index()
-
-        @final
-        def lift(self, v: LatticeElement) -> LatticeElement:
-            return cast("LatticeElement", self.inclusion()(v))
-
         @abstractmethod
         def saturation(self) -> Lattice: ...
 
@@ -51,5 +43,3 @@ class _Subobjects(SubobjectsCategory):
         def orthogonal_complement(self) -> Lattice: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

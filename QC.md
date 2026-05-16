@@ -225,3 +225,33 @@ Vulture found dead code only in `.venv/` (setuptools/distutils internals). No re
 **13 black files**: All formatting-only, no semantic change. The `image.py` file has a tooling version mismatch.
 
 **14 semgrep findings**: Need individual review — likely include security patterns (hardcoded secrets, unsafe deserialization, etc.) common in scientific Python code.
+
+---
+
+## Addendum: Explicit Python Inheritance Audit (`category_specs/`)
+
+Category specs should declare mathematical relationships via `super_categories()` / `_base_category_class_and_axiom`, not Python class inheritance. The following are possible violations — cases where a spec class inherits from another spec-internal class in a way that may encode mathematical hierarchy statically.
+
+### Possible violations
+
+**`forms/subcategories/with_forms.py`** — `OverPIDFormedModulesCategory`:
+- Line 121: `ParentMethods = FormedModulesCategory.ParentMethods` — alias makes the two containers the same object; PID-specific refinements are impossible without removing it
+- Line 123: `class SubcategoryMethods(FormedModulesCategory.SubcategoryMethods)` — explicit Python inheritance for a mathematical subcategory relationship already declared via `_base_category_class_and_axiom = (_OverPID, "WithForms")`
+- Line 136: `ElementMethods = FormedModulesCategory.ElementMethods` — same alias issue as line 121
+
+**`HomCategory(HomCategoryConstruction)` nested inside spec classes**:
+- `modules/subcategories/with_basis.py:133`
+- `modules/subcategories/finitely_presented_over_pid.py:153`
+- `modules/subcategories/with_ordered_generating_set.py:44`
+- `forms/subcategories/free_bilinear.py:210`
+
+`HomCategoryConstruction` is defined in `category_specs/homsets/homsets.py` (a project-internal class). Whether functorial construction dispatch requires this Python inheritance or whether it could be expressed via `extra_super_categories()` is unverified.
+
+**`rings/subcategories/constructions/` — parametric spec classes inheriting from internal helpers**:
+- `characteristic.py:13`: `_CharacteristicRings(_Category_over_base_integer)`
+- `krull_dimension.py:13`: `_KrullDimension(_Category_over_base_integer)`
+- `rings/matrix_algebras.py:21`: `_MatrixAlgebras(_Category_over_base_integer_pair)`
+
+`_Category_over_base_integer` is itself a spec class with method containers. Downstream authors adding new integer-parametric ring constructions must know to inherit from this internal class.
+
+**`homsets/autsets.py:126`**: `AutCategoryConstruction(EndCategoryConstruction)` — one construction category inheriting from another project-internal construction category.

@@ -2,7 +2,7 @@ r"""Parameterized ring construction category helpers."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.rings.integer import Integer
 
@@ -26,7 +26,10 @@ class _Category_over_base_integer(CategoryWithParameters):
         category: Category,
         base_integer: Integer,
     ) -> _Category_over_base_integer:
-        return super().__classcall__(cls, category, Integer(base_integer))
+        return cast(
+            _Category_over_base_integer,
+            super().__classcall__(cls, category, Integer(base_integer)),
+        )
 
     def __init__(self, category: Category, base_integer: Integer) -> None:
         self._base_category = category
@@ -55,7 +58,6 @@ class _Category_over_base_integer(CategoryWithParameters):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _Category_over_base_integer_pair(CategoryWithParameters):
@@ -76,7 +78,10 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
     ) -> _Category_over_base_integer_pair:
         if m is None:
             m = n
-        return super().__classcall__(cls, base_ring, Integer(n), Integer(m))
+        return cast(
+            _Category_over_base_integer_pair,
+            super().__classcall__(cls, base_ring, Integer(n), Integer(m)),
+        )
 
     def __init__(self, base_ring: Ring, n: Integer, m: Integer) -> None:
         self._base_ring = base_ring
@@ -102,7 +107,6 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
         return (self._base_ring, self._n, self._m)
 
     @override
-    @final
     def super_categories(self) -> list[Category]:
         from ... import Rings
 
@@ -111,5 +115,3 @@ class _Category_over_base_integer_pair(CategoryWithParameters):
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

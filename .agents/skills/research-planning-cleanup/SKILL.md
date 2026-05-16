@@ -40,6 +40,15 @@ Do NOT use this skill for:
 Agents give their best effort. We are not requiring every line to be proved.
 We are looking for POSSIBLE positives for:
 
+- **Task value blindness**: a review spends model judgment on checking receipts
+  the user did not need a model for: file existence, checked boxes, row counts,
+  or whether a worker reported doing the work. This is economically incoherent
+  when the hard part is deciding whether the work is mathematically,
+  technically, or strategically sound.
+- **Self-certification**: the worker's own report is treated as evidence that
+  the work happened correctly. In this failure mode, self-report is biased
+  toward approval: the agent knows what a good report should say, whether or
+  not it performed the underlying inspection.
 - **Reward-hacking**: work that satisfies the formal shape of a task (status
   updated, gates marked, review log present) without the substance.
 - **Brainless adherence**: a subagent given a task card follows the letter of
@@ -99,6 +108,17 @@ For each selected card, check the Jerry structural invariants (see
 | Convergent language | Do multiple cards share nearly identical review language? |
 | Fluency-biased praise | Does the review evaluate presentation ("well-structured") rather than correctness? |
 | Status-only card diff | Does `git diff` of the card file change only the `status` line? A real review adds evidence to the card body under ## Review Log — the card grows content. A status line change with no body growth is a box check, not a review. |
+
+### 2.5. Demand Synthesis
+
+Before spot-checking details, ask what synthesis the review produced. A
+substantive review should change the reader's understanding of the source,
+mathematical owner, implementation boundary, QC-tooling obligation, or failure
+mode. It should state that change directly.
+
+If the review only inventories files, confirms rows, quotes worker reports, or
+restates the card's acceptance criteria, classify it as shallow even if every
+listed item is true. Inventories may support synthesis; they do not replace it.
 
 ### 3. Spot-Check Evidence
 

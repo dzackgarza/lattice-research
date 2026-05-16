@@ -17,6 +17,7 @@ from ....modules import (
     ModulesHom,
     ModulesHomCategory,
 )
+from ....forms.subcategories.quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
     from ....cat import Category
@@ -57,6 +58,9 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         def brown_invariant(self) -> RingElement: ...
 
         @abstractmethod
+        def is_trivial(self) -> bool: ...
+
+        @abstractmethod
         def primary_part(
             self, p: RingElement
         ) -> LatticeDiscriminantGroupsCategory.ParentMethods: ...
@@ -71,12 +75,11 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         @abstractmethod
         def lift(self) -> RModuleElement: ...
 
-    class MorphismMethods: ...
 
 
 LatticeDiscriminantGroupsObject = LatticeDiscriminantGroupsCategory.ParentMethods
 LatticeDiscriminantGroupsElement = LatticeDiscriminantGroupsCategory.ElementMethods
-LatticeDiscriminantGroupsMorphism = LatticeDiscriminantGroupsCategory.MorphismMethods
+LatticeDiscriminantGroupsMorphism = QuadraticModulesMorphism
 LatticeDiscriminantGroupsHomCategory = ModulesHomCategory
 LatticeDiscriminantGroupsEndCategory = ModulesEndCategory
 LatticeDiscriminantGroupsAutCategory = ModulesAutCategory

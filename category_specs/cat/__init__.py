@@ -39,6 +39,7 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import TYPE_CHECKING, Any, cast, final, override
 
+from sage.categories.category_singleton import Category_singleton as SageCategorySingleton
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
@@ -135,9 +136,6 @@ from .base_category_types import (
     _SageCategory as _SageCategory,
 )
 from .base_category_types import (
-    _SageCategorySingleton as _SageCategorySingleton,
-)
-from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
 )
 
@@ -158,13 +156,11 @@ def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
-    @override
     @abstractmethod
     def Hom(self, codomain: Category) -> Hom:
         r"""Return the functor hom object owned by ``Cat()``."""
         ...
 
-    @override
     @final
     def is_join_category(self) -> bool:
         r"""Return whether this category object is a join object in ``Cat()``."""
@@ -180,7 +176,7 @@ class _CatObjectMethods:
     @final
     def geq(self, other: Category) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subcategory."""
-        return bool(cast("Category", other).is_subcategory(cast("Category", self)))
+        return bool(other.is_subcategory(cast("Category", self)))
 
     __le__ = leq
     __ge__ = geq
@@ -190,7 +186,7 @@ class _CategoryElementMethods:
     r"""Baseline element methods for objects internal to a category object."""
 
 
-class Cat(_SageCategorySingleton):
+class Cat(SageCategorySingleton):
     r"""Root category whose objects are project category objects.
 
     Canonical chain: ``Cat()``.
@@ -243,14 +239,14 @@ class Cat(_SageCategorySingleton):
         if is_join_category(candidate):
             return True
         if isinstance(candidate, SageCategoryObject):
-            category = cast("Category", cast("Category", candidate).category())
+            category = cast("Category", candidate.category())
             return bool(category.is_subcategory(cast("Category", self)))
         return False
 
     @final
     def join(self, categories: Iterable[Category]) -> Category:
         r"""Return Sage's category-lattice join of ``categories``."""
-        return _SageCategory.join(categories)
+        return cast("Category", _SageCategory.join(categories))
 
     @final
     def meet(self, categories: Iterable[Category]) -> Category:
@@ -263,7 +259,7 @@ class Cat(_SageCategorySingleton):
         categories = tuple(categories)
         if not categories:
             return self.Constructors().EmptyCategory()
-        meet_category = _SageCategory.meet(categories)
+        meet_category = cast("Category", _SageCategory.meet(categories))
         if all(meet_category.is_subcategory(category) for category in categories):
             return meet_category
         return self.Constructors().EmptyCategory()
@@ -335,17 +331,17 @@ class Cat(_SageCategorySingleton):
 register_cat_constructor_class(Cat.Constructors, Cat())
 
 
-from .autsets import CatAutCategory
-from .endsets import CatEndCategory
-from .homsets import CatHomCategory
+from .autsets import CatAutCategory, _CatAutofunctorMethods
+from .endsets import CatEndCategory, _CatEndofunctorMethods
+from .homsets import CatHomCategory, _CatFunctorMethods, _CatHomCategoryObjectMethods
 
 
 type CatCategory = Cat
-type CatObject = Cat.ParentMethods
-type CatElement = Cat.ElementMethods
-type CatMorphism = CatHomCategory.ElementMethods
-type CatHom = CatHomCategory.ParentMethods
+type CatObject = _CatObjectMethods
+type CatElement = _CategoryElementMethods
+type CatMorphism = _CatFunctorMethods
+type CatHom = _CatHomCategoryObjectMethods
 type CatEnd = CatEndCategory.ParentMethods
 type CatAut = CatAutCategory.ParentMethods
-type CatEndomorphism = CatEndCategory.ElementMethods
-type CatAutomorphism = CatAutCategory.ElementMethods
+type CatEndomorphism = _CatEndofunctorMethods
+type CatAutomorphism = _CatAutofunctorMethods

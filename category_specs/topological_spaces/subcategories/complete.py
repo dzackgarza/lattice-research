@@ -28,15 +28,12 @@ class _CompleteMetricSpaces(CategoryWithAxiom):
     @final
     def super_categories(self) -> list[Category]:
         r"""Return Sage complete metric spaces and local metric spaces."""
-        return [SageSets().Metric().Complete(), MetricSpacesCategory()]
+        return [SageSets().Metric().Complete(), self.base_category()]
 
     class ParentMethods:
-        @override
         @final
         def is_complete(self) -> bool:
             r"""Return ``True`` because this object lies in complete metric spaces."""
             return True
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

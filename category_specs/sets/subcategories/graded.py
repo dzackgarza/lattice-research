@@ -2,10 +2,12 @@ r"""Axiomatic subcategory of graded sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, final, overload, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, overload, override
 
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
+from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -13,23 +15,15 @@ from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 if TYPE_CHECKING:
     from ...types import Set, SetElement, SetGeneratingSeries
 
-    @overload
-    def abstractmethod[_MethodT: Callable[..., object]](
-        function: _MethodT, /
-    ) -> _MethodT: ...
+_MethodT = TypeVar("_MethodT", bound=Callable[..., object])
 
-    @overload
-    def abstractmethod[_MethodT: Callable[..., object]](
-        *, optional: bool = False
-    ) -> Callable[[_MethodT], _MethodT]: ...
 
-    def abstractmethod[_MethodT: Callable[..., object]](
-        function: _MethodT | None = None, *, optional: bool = False
-    ) -> _MethodT | Callable[[_MethodT], _MethodT]: ...
-else:
-    from abc import abstractmethod
+def _optional_abstractmethod(method: _MethodT) -> _MethodT:
+    return cast(_MethodT, abstract_method(optional=True)(method))
+
 
 from .. import Sets
+from ..homsets import SetHomCategory
 
 
 class GradedSetsCategory(CategoryWithAxiom):
@@ -56,7 +50,8 @@ class GradedSetsCategory(CategoryWithAxiom):
             r"""Return the set of grades indexing the graded components."""
             ...
 
-        @abstractmethod(optional=True)
+        @_optional_abstractmethod
+        @abstractmethod
         def subset(self, grade: SetElement) -> Set:
             r"""Return the subset of elements with grade ``grade``."""
             ...
@@ -78,9 +73,8 @@ class GradedSetsCategory(CategoryWithAxiom):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 GradedSetsObject = GradedSetsCategory.ParentMethods
 GradedSetsElement = GradedSetsCategory.ElementMethods
-GradedSetsMorphism = GradedSetsCategory.MorphismMethods
+GradedSetsMorphism = SetHomCategory.ElementMethods

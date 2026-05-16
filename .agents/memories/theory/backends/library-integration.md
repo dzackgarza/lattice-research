@@ -15,6 +15,7 @@
 - Enumerate isotropic planes by brute force
 
 **DO:**
+- Check [EasyBuild's supported software list](https://docs.easybuild.io/version-specific/supported-software/) before any nontrivial computation
 - Use `primitive_embeddings` from Oscar.jl (already implements Nikulin theory)
 - Use `Orbit`/`Stabilizer` from GAP (optimized for finite group actions)
 - Use `building()` from buildings.sage (designed for isotropic plane orbits)
@@ -29,10 +30,11 @@
 - **buildings.sage:** `theory/backends/buildings`
 
 **Before starting ANY computation task:**
-1. Read the relevant documentation above
-2. Identify the existing function that does what you need
-3. Use that function with correct syntax
-4. Only if NO existing function exists, then consider custom implementation
+1. Check [EasyBuild's supported software list](https://docs.easybuild.io/version-specific/supported-software/) for existing packaged implementations
+2. Read the relevant documentation above
+3. Identify the existing function that does what you need
+4. Use that function with correct syntax
+5. Only if NO existing function exists, then consider custom implementation
 
 ---
 

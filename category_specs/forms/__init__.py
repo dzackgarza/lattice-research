@@ -7,7 +7,7 @@ It is the forms-subtree owner for the existing Sage-compatible spelling
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from typing import TYPE_CHECKING, cast
 
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from . import chain as _chain
@@ -84,18 +84,6 @@ from .subcategories.with_forms import (
     FormedModulesObject as FormedModulesObject,
 )
 
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
-    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
-)
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
-    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
-)
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
-    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
-)
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
-    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
-)
 type NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
 )
@@ -122,16 +110,16 @@ type SymmetricFiniteRankFreeBilinearModulesObject = (
 )
 
 _IntegralNondegenerateSymmetricCategory = (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
 )
 _IntegralNondegenerateSymmetricElement = (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement
 )
 _IntegralNondegenerateSymmetricMorphism = (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
 )
 _IntegralNondegenerateSymmetricObject = (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
+    _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
 
 type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
@@ -152,12 +140,11 @@ if TYPE_CHECKING:
     from ..types import Ring
 
 
-@final
 def FormedModules(base_ring: Ring) -> Category:
     r"""Return the category of ``R``-modules equipped with a form."""
     from ..modules import Modules
 
-    return Modules(base_ring, dispatch=False).WithForms()
+    return cast(Category, Modules(base_ring, dispatch=False).WithForms())
 
 
 type FormedModulesHomCategory = RModuleHomCategory

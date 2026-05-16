@@ -3,15 +3,31 @@ r"""Axiomatic subcategory for partitioned sets and set partitions."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from .. import Sets
+from ..homsets import (
+    SetAutCategory,
+    SetEndCategory,
+    SetHomCategory,
+    _SetAutomorphisms,
+    _SetEndomorphisms,
+    _SetHomCategoryObjectMethods,
+    _SetMorphisms,
+)
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, FiniteSet, Set, SetElement, SetPartition, Subset
+    from ...types import (
+        Cardinality,
+        FiniteSet,
+        Set,
+        SetElement,
+        SetPartition,
+        Subset,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -54,7 +70,6 @@ class PartitionedSetsCategory(CategoryWithAxiom):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 # ---------------------------------------------------------------------------
@@ -99,11 +114,16 @@ class PartitionsCategory(Category):
             r"""Return the cardinality of ``base_set()``."""
             ...
 
+        @abstractmethod
+        def is_less_than(self, x: SetPartition, y: SetPartition) -> bool:
+            r"""Return whether ``x`` is strictly finer than ``y``."""
+            ...
+
         @override
         @final
         def ambient(self) -> Set:
             r"""Return the powerset-of-powerset ambient set containing ``self``."""
-            return cast(Set, self.base_set().subsets().subsets())
+            return self.base_set().subsets().subsets()
 
         @override
         @abstractmethod
@@ -144,6 +164,16 @@ class PartitionsCategory(Category):
 
     class ElementMethods:
         @abstractmethod
+        def __iter__(self) -> Iterator[SetElement]:
+            r"""Iterate over the blocks of this partition."""
+            ...
+
+        @abstractmethod
+        def parent(self) -> PartitionsCategory.ParentMethods:
+            r"""Return the fixed-base partition parent of this partition."""
+            ...
+
+        @abstractmethod
         def base_set(self) -> Set:
             r"""Return the base set covered by the blocks of this partition."""
             ...
@@ -175,6 +205,11 @@ class PartitionsCategory(Category):
             r"""Return the supremum in the refinement lattice."""
             return self.sup(other)
 
+        @abstractmethod
+        def sup(self, other: SetPartition) -> SetPartition:
+            r"""Return Sage's supremum operation for set partitions."""
+            ...
+
         @final
         def refines(self, other: SetPartition) -> bool:
             r"""Return whether ``self`` refines ``other``."""
@@ -183,7 +218,7 @@ class PartitionsCategory(Category):
         @final
         def strictly_refines(self, other: SetPartition) -> bool:
             r"""Return whether ``self`` is strictly finer than ``other``."""
-            return cast(bool, self.parent().is_less_than(self, other))
+            return self.parent().is_less_than(self, other)
 
         @final
         def refinement_set(self) -> FiniteSet:
@@ -194,6 +229,16 @@ class PartitionsCategory(Category):
         def coarsening_set(self) -> FiniteSet:
             r"""Return the finite set of partition coarsenings, including ``self``."""
             return Sets().Constructors().from_iterable(self.coarsenings())
+
+        @abstractmethod
+        def refinements(self) -> list[SetPartition]:
+            r"""Return Sage's list of refinements, including ``self``."""
+            ...
+
+        @abstractmethod
+        def coarsenings(self) -> list[SetPartition]:
+            r"""Return Sage's list of coarsenings, including ``self``."""
+            ...
 
         @abstractmethod
         def standard_form(self) -> list[list[SetElement]]:
@@ -255,7 +300,11 @@ class PartitionsCategory(Category):
             r"""Return Sage's ordered coarsening closure, including ``self``."""
             return Sets().Constructors().from_iterable(self.strict_coarsenings())
 
-    class MorphismMethods: ...
+        @abstractmethod
+        def strict_coarsenings(self) -> list[SetPartition]:
+            r"""Return Sage's ordered coarsening closure list, including ``self``."""
+            ...
+
 
 
 # ---------------------------------------------------------------------------
@@ -292,8 +341,16 @@ class TotallyOrderedSetsCategory(CategoryWithAxiom):
 
 PartitionedSetsObject = PartitionedSetsCategory.ParentMethods
 PartitionedSetsElement = PartitionedSetsCategory.ElementMethods
-PartitionedSetsMorphism = PartitionedSetsCategory.MorphismMethods
+PartitionedSetsMorphism = _SetMorphisms
+PartitionedSetsHomCategory = SetHomCategory
+PartitionedSetsEndCategory = SetEndCategory
+PartitionedSetsAutCategory = SetAutCategory
+PartitionedSetsHom = _SetHomCategoryObjectMethods
+PartitionedSetsEnd = SetEndCategory.ParentMethods
+PartitionedSetsAut = SetAutCategory.ParentMethods
+PartitionedSetsEndomorphism = _SetEndomorphisms
+PartitionedSetsAutomorphism = _SetAutomorphisms
 
 PartitionsObject = PartitionsCategory.ParentMethods
 PartitionsElement = PartitionsCategory.ElementMethods
-PartitionsMorphism = PartitionsCategory.MorphismMethods
+PartitionsMorphism = _SetMorphisms

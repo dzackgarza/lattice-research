@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.sets_cat import EmptySetError
@@ -73,15 +73,15 @@ class _TotallyOrderedFiniteSets(Category_singleton):
                 pass
             if last is missing:
                 raise EmptySetError
-            return last
+            return cast("SetElement", last)
 
     class ElementMethods:
         @override
         @abstractmethod
-        def __eq__(self, other: SetElement) -> bool: ...
+        def __eq__(self, other: object) -> bool: ...
 
         @abstractmethod
-        def __ne__(self, other: SetElement) -> bool: ...
+        def __ne__(self, other: object) -> bool: ...
 
         @override
         @abstractmethod
@@ -98,5 +98,3 @@ class _TotallyOrderedFiniteSets(Category_singleton):
         @override
         @abstractmethod
         def __ge__(self, other: SetElement) -> bool: ...
-
-    class MorphismMethods: ...

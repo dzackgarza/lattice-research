@@ -3,8 +3,8 @@ r"""CommutativeRings ring subcategory spec."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.commutative_rings import CommutativeRings as SageCommutativeRings
 from sage.misc.cachefunc import cached_method
@@ -13,7 +13,11 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .. import Rings
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -60,30 +64,30 @@ class _CommutativeRings(CategoryWithAxiom):
     Reduced = LazyImport("category_specs.rings.subcategories.reduced", "_ReducedRings")
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def IntegralDomains(self) -> Category:
-            return self._with_axiom("IntegralDomains")
+            return cast(Category, with_axiom(self, "IntegralDomains"))
 
-        @cached_method
+        @_cached_method
         @final
         def Field(self) -> Category:
-            return self._with_axiom("Field")
+            return cast(Category, with_axiom(self, "Field"))
 
-        @cached_method
+        @_cached_method
         @final
         def Noetherian(self) -> Category:
-            return self._with_axiom("Noetherian")
+            return cast(Category, with_axiom(self, "Noetherian"))
 
-        @cached_method
+        @_cached_method
         @final
         def Local(self) -> Category:
-            return self._with_axiom("Local")
+            return cast(Category, with_axiom(self, "Local"))
 
-        @cached_method
+        @_cached_method
         @final
         def Reduced(self) -> Category:
-            return self._with_axiom("Reduced")
+            return cast(Category, with_axiom(self, "Reduced"))
 
     class ParentMethods:
         @override
@@ -131,5 +135,3 @@ class _CommutativeRings(CategoryWithAxiom):
         ) -> Ring: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

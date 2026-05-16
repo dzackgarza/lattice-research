@@ -54,7 +54,10 @@ class UniversalSubcategoryMethods:
         r"""Return the subobject construction category of this category."""
         from .base_category_types import SubobjectsCategory
 
-        return SubobjectsCategory.category_of(self._category_self())
+        return cast(
+            "Category",
+            SubobjectsCategory.category_of(self._category_self()),
+        )
 
     Subsets = Subobjects
 
@@ -64,7 +67,10 @@ class UniversalSubcategoryMethods:
         r"""Return the quotient-object construction category of this category."""
         from .base_category_types import QuotientsCategory
 
-        return QuotientsCategory.category_of(self._category_self())
+        return cast(
+            "Category",
+            QuotientsCategory.category_of(self._category_self()),
+        )
 
     @_cat_cached_method
     @final
@@ -72,7 +78,10 @@ class UniversalSubcategoryMethods:
         r"""Return the subquotient construction category of this category."""
         from .base_category_types import SubquotientsCategory
 
-        return SubquotientsCategory.category_of(self._category_self())
+        return cast(
+            "Category",
+            SubquotientsCategory.category_of(self._category_self()),
+        )
 
     @_cat_cached_method
     @final
@@ -80,7 +89,10 @@ class UniversalSubcategoryMethods:
         r"""Return the category of objects over ``structure_object``."""
         from .subcategories.constructions.objects_over import _ObjectsOver
 
-        return _ObjectsOver.category_of(self._category_self(), structure_object)
+        return cast(
+            "Category",
+            _ObjectsOver.category_of(self._category_self(), structure_object),
+        )
 
     @_cat_cached_method
     @final
@@ -88,7 +100,10 @@ class UniversalSubcategoryMethods:
         r"""Return the category of objects under ``structure_object``."""
         from .subcategories.constructions.objects_under import _ObjectsUnder
 
-        return _ObjectsUnder.category_of(self._category_self(), structure_object)
+        return cast(
+            "Category",
+            _ObjectsUnder.category_of(self._category_self(), structure_object),
+        )
 
     Slice = ObjectsOver
     Coslice = ObjectsUnder
@@ -99,7 +114,10 @@ class UniversalSubcategoryMethods:
         r"""Return the Cartesian-product construction category of this category."""
         from .base_category_types import CartesianProductsCategory
 
-        return CartesianProductsCategory.category_of(self._category_self())
+        return cast(
+            "Category",
+            CartesianProductsCategory.category_of(self._category_self()),
+        )
 
     @_cat_cached_method
     @final

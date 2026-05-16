@@ -8,17 +8,25 @@ from typing import TYPE_CHECKING, final, override
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import Category
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 if TYPE_CHECKING:
     from ..types import Algebra
 
 
-class _AlgebraHomCategoryObjectMethods:
+class _AlgebraHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Algebra-specific hom parent methods; generic hom methods are inherited."""
 
 
-class _AlgebraHomomorphisms:
+class _AlgebraHomomorphisms(UniversalHomElementMethods):
     @abstractmethod
     def kernel(self) -> Algebra:
         r"""Return the kernel algebra of this algebra homomorphism."""
@@ -40,7 +48,6 @@ class AlgebraHomCategory(HomCategoryOf):
     ParentMethods = _AlgebraHomCategoryObjectMethods
     ElementMethods = _AlgebraHomomorphisms
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "AlgebraEndCategory")
@@ -59,9 +66,8 @@ class AlgebraEndCategory(GenericEndCategory):
             r"""Return the algebra whose endomorphisms this object contains."""
             ...
 
-    class ElementMethods: ...
+    class ElementMethods(UniversalEndElementMethods): ...
 
-    class MorphismMethods: ...
 
 
 class AlgebraAutCategory(GenericAutCategory):
@@ -71,6 +77,4 @@ class AlgebraAutCategory(GenericAutCategory):
 
     class ParentMethods: ...
 
-    class ElementMethods: ...
-
-    class MorphismMethods: ...
+    class ElementMethods(UniversalAutElementMethods): ...

@@ -12,10 +12,12 @@ genuine matrix (entries in ``S``), and the first tier at which
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction
 from .bilinear import BilinearModulesCategory
+from .with_forms import FormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import (
@@ -102,6 +104,20 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
+        @abstractmethod
+        def rank(self) -> int:
+            r"""Return the finite rank of this free module."""
+            ...
+
+        @abstractmethod
+        def b(
+            self,
+            v: FreeBilinearModulesCategory.ElementMethods,
+            w: FreeBilinearModulesCategory.ElementMethods,
+        ) -> RingElement:
+            r"""Evaluate the bilinear form on two elements."""
+            ...
+
         @final
         def determinant(self) -> RingElement:
             r"""Introduced here: return ``\det(G)``, the determinant of the Gram matrix.
@@ -113,7 +129,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
                 sage: Lattice.A(2).determinant()   # not tested
                 3
             """
-            return self.gram_matrix().determinant()
+            return cast(RingElement, self.gram_matrix().determinant())
 
         @final
         def discriminant(self) -> RingElement:
@@ -124,7 +140,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ``FreeQuadraticModule_generic.discriminant()``.
             """
             r = self.rank()
-            return (-1) ** r * self.determinant()
+            return cast(RingElement, (-1) ** r * self.determinant())
 
         @abstractmethod
         def direct_sum(self, other: RModule) -> RModule:
@@ -186,6 +202,11 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods:
         @abstractmethod
+        def parent(self) -> FreeBilinearModulesCategory.ParentMethods:
+            r"""Return the parent free bilinear module."""
+            ...
+
+        @abstractmethod
         def perp(self) -> SubModule:
             r"""Return the orthogonal complement ``v^\perp = \{w \in M : b(v,w) = 0\}``.
 
@@ -206,23 +227,15 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Introduced here: return ``b(v, v)``."""
             return self.parent().b(self, self)
 
-    class MorphismMethods:
-        @abstractmethod
-        def to_matrix(self) -> Matrix:
-            r"""Return the matrix of this morphism with respect to canonical
-            generators of domain and codomain."""
-            ...
-
-        def is_isometry(self) -> bool:
-            r"""Return whether this formed-module morphism is an isomorphism.
-
-            Preservation of the bilinear form is owned by containment in the
-            formed-module Hom object.  This compatibility query therefore asks
-            only whether the already form-preserving morphism is an isomorphism.
-            """
-            return self.is_isomorphism()
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(FormedModulesCategory.HomCategory.ElementMethods):
+            @abstractmethod
+            def to_matrix(self) -> Matrix:
+                r"""Return the matrix of this morphism with respect to canonical
+                generators of domain and codomain."""
+                ...
 
 
 FreeBilinearModulesObject = FreeBilinearModulesCategory.ParentMethods
 FreeBilinearModulesElement = FreeBilinearModulesCategory.ElementMethods
-FreeBilinearModulesMorphism = FreeBilinearModulesCategory.MorphismMethods
+FreeBilinearModulesMorphism = FreeBilinearModulesCategory.HomCategory.ElementMethods

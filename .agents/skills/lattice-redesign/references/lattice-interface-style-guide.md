@@ -73,10 +73,11 @@ without changing any public-facing method.
 
 ## Category Interface vs. Concrete Implementation
 
-The Sage category framework (`Category`, `ParentMethods`,
-`ElementMethods`, `MorphismMethods`, etc.) defines the **minimum interface
-any implementation of a category must provide**. Everything else belongs
-on the concrete classes.
+The Sage category framework (`Category`, `ParentMethods`, `ElementMethods`,
+Hom-category `ElementMethods`, etc.) defines the **minimum interface any
+implementation of a category must provide**. Everything else belongs on the
+concrete classes. Do not add repo-local `MorphismMethods`; morphism behavior
+belongs on Hom-category elements.
 
 **Rule: put something in the category only if someone implementing
 `ModulesWithForms` from scratch with completely different internals would

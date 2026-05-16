@@ -9,7 +9,12 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .bilinear import BilinearModulesCategory, OverPIDBilinearModulesCategory
+from .bilinear import (
+    BilinearModulesCategory,
+    BilinearModulesMorphism,
+    OverPIDBilinearModulesCategory,
+    OverPIDBilinearModulesMorphism,
+)
 
 if TYPE_CHECKING:
     from ...types import SubModule
@@ -107,12 +112,11 @@ class SymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-    class MorphismMethods: ...
 
 
 SymmetricBilinearModulesObject = SymmetricBilinearModulesCategory.ParentMethods
 SymmetricBilinearModulesElement = SymmetricBilinearModulesCategory.ElementMethods
-SymmetricBilinearModulesMorphism = SymmetricBilinearModulesCategory.MorphismMethods
+SymmetricBilinearModulesMorphism = BilinearModulesMorphism
 
 
 class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -126,7 +130,6 @@ class OverPIDSymmetricBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     ParentMethods = SymmetricBilinearModulesCategory.ParentMethods
     ElementMethods = SymmetricBilinearModulesCategory.ElementMethods
-    MorphismMethods = SymmetricBilinearModulesCategory.MorphismMethods
 
 
 OverPIDSymmetricBilinearModulesObject = (
@@ -136,5 +139,5 @@ OverPIDSymmetricBilinearModulesElement = (
     OverPIDSymmetricBilinearModulesCategory.ElementMethods
 )
 OverPIDSymmetricBilinearModulesMorphism = (
-    OverPIDSymmetricBilinearModulesCategory.MorphismMethods
+    OverPIDBilinearModulesMorphism
 )

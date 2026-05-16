@@ -2,7 +2,7 @@ r"""CC ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from ...cat import Category, Category_singleton
 from ._lazy_subcategories import (
@@ -53,10 +53,8 @@ class _CC(Category_singleton):
     def object(self) -> Ring:
         from sage.all import CC
 
-        return CC
+        return cast("Ring", CC)
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

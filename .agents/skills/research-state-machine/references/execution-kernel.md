@@ -11,7 +11,7 @@ No process label creates mathematical trust. Trust comes only from the artifacts
 Use these canonical objects:
 
 - `GOAL.md`: the read-only research objective spine.
-- `plans/features/**`: active feature, spec, plan, phase, task, and decision cards.
+- `.agents/plans/features/**`: active feature, spec, plan, phase, task, and decision cards.
 - `paper/**`: the living LaTeX working paper that rebuilds the mathematical narrative
   with provenance and margin-note style uncertainty annotations.
 - `reports/workstreams/**`: workstream reports and attachments, including failed
@@ -50,7 +50,7 @@ agent roster, branch type, uncertainty summary, and failed-exploration list.
 
 ### Specify card
 
-Each executable unit becomes a tracked `task` card under `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The card must define the exact claim or work target, source provenance, plan or `GOAL.md` link, accepted scope, owner/role if known, complexity, dependencies, acceptance criteria, verification plan, and branch/PR policy when relevant.
+Each executable unit becomes a tracked `task` card under `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The card must define the exact claim or work target, source provenance, plan or `GOAL.md` link, accepted scope, owner/role if known, complexity, dependencies, acceptance criteria, verification plan, and branch/PR policy when relevant.
 
 For mathematical claims, the card must state whether it is exploratory, preparatory, local-claim promotion, or `GOAL.md` discharge.
 
