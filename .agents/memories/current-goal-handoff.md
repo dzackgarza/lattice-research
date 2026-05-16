@@ -14,6 +14,9 @@ authorities for status, evidence, and completed work.
 
 - Remaining research repo dirty tree is still large; prefer more narrow commits
   or patch artifacts over broad staging.
+- Recent source fix: `6252e88` removed `_Fields.ParentMethods.gcd` because
+  fields inherit the final principal-ideal-domain `gcd`; focused research mypy
+  no longer reports `category_specs/rings/subcategories/field.py:141`.
 - The first source boundary to inspect is the remaining mixed `category_specs/rings/__init__.py`
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
@@ -47,5 +50,5 @@ authorities for status, evidence, and completed work.
   completion signal.
 - Plugin `just test` passes in `/home/dzack/sage-mypy-plugin`. Focused research
   mypy no longer reports the p-adic or field-completion `return self` errors.
-  It still reports `category_specs/rings/subcategories/field.py:141` plus many
-  unrelated active QC findings.
+  It also no longer reports `category_specs/rings/subcategories/field.py:141`;
+  many unrelated active QC findings remain.
