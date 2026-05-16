@@ -18,8 +18,14 @@ authorities for status, evidence, and completed work.
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
 - Plugin repo `/home/dzack/sage-mypy-plugin` has source committed through
-  `4ffb11f`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
+  `515d7ea`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
   remains dirty after tests.
+- The p-adic `return self` false positive is routed through the plugin's
+  transitive method-container return fixture and should not be reworked in
+  source. The remaining `return self` class observed in focused mypy is
+  `category_specs/rings/subcategories/field.py:156`; classify it separately
+  because it is value-dependent completion, not the same transitive-supercategory
+  gap.
 
 ## Routing Constraints
 
@@ -38,8 +44,8 @@ authorities for status, evidence, and completed work.
 ## Validation State
 
 - `just plan-validate` passed after the planning tree moved under `.agents/plans`.
-- `just test` still fails at mypy with 429 errors; this is the active QC frontier,
-  not a completion signal.
-- Plugin targeted fixtures passed for cached methods, constructors, functorial
-  constructors, classcall kwargs, operator surfaces, `_with_axiom`, final binding,
-  abstract binding, and a focused final-binding rerun after removing debug output.
+- `just test` still fails at mypy; this is the active QC frontier, not a
+  completion signal.
+- Plugin `just test` passes in `/home/dzack/sage-mypy-plugin`. Focused research
+  mypy no longer reports the p-adic `return self` error, but still reports
+  `field.py:156` plus many unrelated active QC findings.
