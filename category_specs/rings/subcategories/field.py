@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, assert_never, cast, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.fields import Fields as SageFields
 from sage.misc.cachefunc import cached_method
@@ -134,18 +134,6 @@ class _Fields(CategoryWithAxiom):
 
         @abstractmethod
         def algebraic_closure(self) -> Field: ...
-
-        @override
-        @final
-        def gcd(self, r: RingElement, s: RingElement) -> RingElement:
-            match r.is_zero() and s.is_zero():
-                case True:
-                    return self.zero()
-                case False:
-                    assert not r.is_zero() or not s.is_zero()
-                    return self.one()
-                case unreachable:
-                    assert_never(unreachable)
 
         @override
         @final
