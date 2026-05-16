@@ -1855,16 +1855,6 @@ class Rings(Category_singleton):
 
         @cached_method
         @final
-        def Finite(self) -> Category:
-            return self._with_axiom("Finite")
-
-        @cached_method
-        @final
-        def Topological(self) -> Category:
-            return self._with_axiom("Topological")
-
-        @cached_method
-        @final
         def Approximate(self) -> Category:
             return ApproximateRingsCategory()
 
