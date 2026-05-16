@@ -769,7 +769,6 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         SageHomsets.__init__(self)
 
     @_cat_cached_method
-    @final
     def Endset(self) -> SageCategory:
         r"""Return Sage's existing root category of endomorphism sets.
 
