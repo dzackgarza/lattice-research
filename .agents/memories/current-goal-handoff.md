@@ -21,6 +21,10 @@ authorities for status, evidence, and completed work.
   `Finite`/`Topological` selectors because those final selectors are inherited
   from `Sets.SubcategoryMethods`; focused research mypy no longer reports the
   two `category_specs/rings/__init__.py` final-override errors.
+- Recent source fix: `428c936` removed `@final` from the wrapped
+  `Homsets.Endset` bridge because its documented purpose is to let project
+  subclasses declare `Endset` axiom classes; focused research mypy no longer
+  reports `category_specs/homsets/homsets.py:122`.
 - The first source boundary to inspect is the remaining mixed `category_specs/rings/__init__.py`
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
@@ -56,5 +60,6 @@ authorities for status, evidence, and completed work.
   mypy no longer reports the p-adic or field-completion `return self` errors.
   It also no longer reports `category_specs/rings/subcategories/field.py:141`;
   focused mypy on `category_specs/rings/__init__.py` no longer reports local
-  `Finite`/`Topological` final-override errors; many unrelated active QC
-  findings remain.
+  `Finite`/`Topological` final-override errors; focused mypy on
+  `category_specs/homsets/homsets.py` no longer reports the local `Endset`
+  final-override error; many unrelated active QC findings remain.
