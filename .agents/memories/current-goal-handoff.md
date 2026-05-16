@@ -17,6 +17,10 @@ authorities for status, evidence, and completed work.
 - Recent source fix: `6252e88` removed `_Fields.ParentMethods.gcd` because
   fields inherit the final principal-ideal-domain `gcd`; focused research mypy
   no longer reports `category_specs/rings/subcategories/field.py:141`.
+- Recent source fix: `3309ce3` removed duplicate `Rings.SubcategoryMethods`
+  `Finite`/`Topological` selectors because those final selectors are inherited
+  from `Sets.SubcategoryMethods`; focused research mypy no longer reports the
+  two `category_specs/rings/__init__.py` final-override errors.
 - The first source boundary to inspect is the remaining mixed `category_specs/rings/__init__.py`
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
@@ -51,4 +55,6 @@ authorities for status, evidence, and completed work.
 - Plugin `just test` passes in `/home/dzack/sage-mypy-plugin`. Focused research
   mypy no longer reports the p-adic or field-completion `return self` errors.
   It also no longer reports `category_specs/rings/subcategories/field.py:141`;
-  many unrelated active QC findings remain.
+  focused mypy on `category_specs/rings/__init__.py` no longer reports local
+  `Finite`/`Topological` final-override errors; many unrelated active QC
+  findings remain.
