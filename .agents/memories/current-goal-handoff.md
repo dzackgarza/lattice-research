@@ -29,8 +29,11 @@ authorities for status, evidence, and completed work.
   diff. It combines real constructor/API corrections with many selector casts.
   Split source defects from checker-model gaps before staging anything there.
 - Plugin repo `/home/dzack/sage-mypy-plugin` has source committed through
-  `518743f`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
+  `5aaf1c1`; only the tracked generated `__pycache__/plugin.cpython-312.pyc`
   remains dirty after tests.
+- `category_specs/sets/__init__.py:646` `TopologicalSpaces().Subobjects()`
+  is routed to plugin fixture `test_construction_selector_class_attribute.py`;
+  do not replace it with a local cast in source.
 - The p-adic `return self` false positive is routed through the plugin's
   transitive method-container return fixture and should not be reworked in
   source. The field zero-ideal completion `return self` false positive is routed
@@ -62,4 +65,6 @@ authorities for status, evidence, and completed work.
   focused mypy on `category_specs/rings/__init__.py` no longer reports local
   `Finite`/`Topological` final-override errors; focused mypy on
   `category_specs/homsets/homsets.py` no longer reports the local `Endset`
-  final-override error; many unrelated active QC findings remain.
+  final-override error; focused mypy on `category_specs/sets/__init__.py`
+  still reports the routed construction-selector `[call-arg]` until the plugin
+  implements `5aaf1c1`; many unrelated active QC findings remain.
