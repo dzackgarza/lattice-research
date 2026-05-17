@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-MODULES]]'
 title: Audit Modules hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-review
 priority: critical
 description: Audit `category_specs/modules/homsets.py` and the Modules mapping/spec
   surface so retained Sage module-hom container methods such as `zero()`,
@@ -54,9 +54,9 @@ are merely backend convenience.
 
 ## Acceptance Criteria
 
-- [ ] The Modules mapping/spec identifies Sage homset/container methods relevant to module hom objects, constructors, and endomorphism structure.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] The Modules mapping/spec identifies Sage homset/container methods relevant to module hom objects, constructors, and endomorphism structure.
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -67,3 +67,10 @@ are merely backend convenience.
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the Modules homset mirroring audit to `[[SPEC-MAPPING-MODULES]]`,
+  covering Sage `Modules(R).Homsets()` parent methods, concrete free-module
+  homspace constructors, finite/free matrix-space and basis operations, identity
+  and generic Hom infrastructure routing, module endset algebra structure,
+  morphism element methods, and automorphism witness routing. No new follow-up
+  card was required beyond existing generic Hom/End/Aut and downstream subtree
+  audit cards.

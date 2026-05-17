@@ -103,6 +103,26 @@ codomain data and does not by itself own the method.
 | `OrePolynomialRing(...).quotient_module(P)` and `OreModule.__classcall_private__` | `rings/polynomial/ore_polynomial_ring.py:1255`, `modules/ore_module.py:322-357`, `categories/ore_modules.py:9-174` | Constructor route into Sage's `OreModules(base, twist)` category. Project ownership remains deferred between a semilinear-operator module owner and a module-over-Ore-algebra owner until the Ore decision is recorded. |
 | `FiniteDimensionalAlgebrasWithBasis.ParentMethods.cell_module(mu, **kwds)` | `categories/finite_dimensional_algebras_with_basis.py:1499-1653`, `modules/with_basis/cell_module.py:23-393` | Algebra-side constructor for a cell module. The module object maps to representation/cellular-module owners; the constructor is not owned by generic `Modules(R)`. |
 
+### Modules Homset Mirroring Audit
+
+The module subtree does not inherit Sage's generic homset surface as an
+unexamined contract. Sage homset and concrete homspace methods are retained only
+where the method belongs to a module hom object, module morphism element,
+endomorphism object, or automorphism object in the project-owned Hom/End/Aut
+vocabulary.
+
+| Sage source surface | Source evidence | Project owner and outcome |
+| --- | --- | --- |
+| `Modules(R).Homsets().base_ring()` and homset parent `base_ring()` | `sage/categories/modules.py:724-785` | Retained on `Modules(R).HomCategory()` objects. The base ring is part of the `R`-linear hom object structure, not a separate constructor family. |
+| `Modules(R).Homsets().ParentMethods.zero()` | `sage/categories/modules.py:786-818`; `sage/modules/free_module_homspace.py:230-275` | Retained on `Modules(R).HomCategory().ParentMethods.zero()`. The result is the zero `R`-linear morphism `M -> N`; concrete free homspaces may realize it by a zero matrix or constant-zero function. |
+| Concrete homspace `__call__` from matrices, generator images, or callables | `sage/modules/free_module_homspace.py:132-229`; inventory `category_specs/modules/docs/SAGE_INVENTORY.md` homspaces section | Retained as hom-object constructors under `Modules(R).HomCategory()`, with basis-defined cases refined through `Modules(R).WithBasis().HomCategory()`. Coercion convenience is backend interop unless the source data states an `R`-linear map under the required base-ring/coercion hypotheses. |
+| Concrete homspace `_matrix_space()` and `basis()` | `sage/modules/free_module_homspace.py:276-341`; finite/free homspace inventory rows | Retained only under finite-rank free or basis-bearing hom objects. They are not generic `Modules(R).HomCategory()` methods unless a finite presented basis or matrix-space hypothesis is part of the object. |
+| Concrete homspace `identity()` and generic homset `identity()` / `one()` | `sage/modules/free_module_homspace.py:342-368`; `sage/categories/homset.py:1161-1204` | Routed through endomorphism ownership: `Modules(R).EndCategory().ParentMethods` for identity of `End_R(M)`, with generic Hom identity/one inherited only through the project root Hom/End vocabulary. For non-end hom objects, Sage's `natural_map()` remains generic homset interop, not a module-specific method. |
+| Generic homset `domain()`, `codomain()`, `reversed()`, `natural_map()` and homset-category `is_endomorphism_set()` | `sage/categories/homset.py:1136-1249`; `sage/categories/homsets.py:330-355` | Routed to the generic project homset semantic base and the generic endset predicate. The Modules mapping relies on these only as Hom/End infrastructure, not as evidence for module-specific methods. |
+| `Modules(R).Homsets().Endset.extra_super_categories()` | `sage/categories/modules.py:819-848` | Retained on `Modules(R).EndCategory()`: `End_R(M)` is an `R`-algebra, with Sage's magmatic-algebra supercategory preserved as implementation compatibility evidence. |
+| Morphism matrix/rank/kernel/image/inverse/restriction and injective/surjective/bijective predicates | `sage/modules/matrix_morphism.py:312-339`, `:863-1076`, `:1322-1677`; `sage/modules/free_module_morphism.py:247-693` | Retained on `Modules(R).HomCategory().ElementMethods` or end/aut refinements under the source hypotheses. Kernel, image, and inverse-image outputs are subobjects/codomain data; they do not own the caller method. |
+| Automorphism construction and recognition through invertible endomorphisms, `general_linear_group()`, and form/lattice `orthogonal_group()` methods | `category_specs/modules/docs/SAGE_INVENTORY.md`; negative finding below for absent `Modules(R).Autsets()` | Routed to `Modules(R).AutCategory().Of(M)` or `C.AutCategory().Of(M)` for form-preserving categories `C`. Sage automorphism classes and groups are implementation witnesses; they are not a separate module-category construction surface. |
+
 ### Reconciled Method Ownership
 
 | Sage method or inherited surface | Highest correct owner | Classification and notes |

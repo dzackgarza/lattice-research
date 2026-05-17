@@ -17,7 +17,7 @@
 | phase | 27 | 18 | 2 | 3 | 0 | 0 |
 | plan | 12 | 7 | 3 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 171 | 139 | 0 | 11 | 3 | 0 |
+| task | 171 | 139 | 0 | 12 | 3 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[###############-]  91.2%` | 145/159 | 5 | 0 | 0 | 0 |
+| Category specs and Sage surface admission | `[###############-]  91.2%` | 145/159 | 5 | 1 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -82,7 +82,7 @@
 - `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE` (`critical`, `unstarted`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
-- `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `unstarted`)
+- `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `needs-review`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` (`critical`, `unstarted`)
 - `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
