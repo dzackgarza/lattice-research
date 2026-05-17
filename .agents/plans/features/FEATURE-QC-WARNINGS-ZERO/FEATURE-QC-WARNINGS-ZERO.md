@@ -203,6 +203,15 @@ still do inherit from real runtime ancestors. Those owner-mismatch cases are tra
 by `[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]` and
 `[[TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME]]`.
 
+Update 2026-05-17: the generic Hom/End/Aut owner split is a source issue only where a
+method surface claims Sage inheritance or an `@override` that the project runtime
+owner chain does not actually provide. Backend reuse of Sage `Hom(...)`,
+`HomsetsCategory`, concrete homset containers, or `Homsets().Endset()` does not make the
+generic project Hom layer a Sage `Homset` method-container subclass. Plugin work still
+owns dynamic Sage/category inheritance failures in ordinary subcategory method
+containers, but generic Hom/End/Aut owner mismatches must be fixed in the project
+Hom/End/Aut source or docs instead of recorded as plugin false positives.
+
 **Resolution**: Mostly blocked on `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, with
 the generic Hom/End/Aut owner-mismatch cases routed through
 `[[TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME]]`.

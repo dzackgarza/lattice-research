@@ -85,8 +85,8 @@ split these rows into concrete category files.
 | `Rngs.ParentMethods.ideal_monoid`, `principal_ideal`, `zero_ideal` | `Rngs()` / nonunital ring-side ideal vocabulary | Ideal construction starts before unital rings. `Rings()` must preserve these obligations and may refine unit-ideal and quotient behavior, but must not move zero/principal ideals downward to commutative rings only. |
 | `Rngs.ParentMethods._ideal_class_` and commutative/PID overrides | private Sage ideal-class interop | Not public project API. It witnesses that ideals must stay constructible for noncommutative, commutative, and PID rings through the public ideal constructors. |
 | `Domains` and `IntegralDomains` containment/predicate methods | `Rings().NoZeroDivisors()` and `Rings().Commutative().NoZeroDivisors()` | `Domains` is the noncommutative no-zero-divisor owner; `IntegralDomains` is the commutative specialization. Field and finite-domain shortcuts are implementation evidence, not owner changes. |
-| `Rings.MorphismMethods.is_injective` | `Rings().HomCategory().MorphismMethods` | Ring-homomorphism injectivity belongs on ring morphisms. Field-domain, characteristic, kernel, cardinality, and fraction-field cases are implementation criteria for that morphism predicate. |
-| `Rings.MorphismMethods.extend_to_fraction_field` | ring morphisms between integral domains, with field codomains by identity | The source morphism must be injective when extension is nontrivial. Codomain is a morphism between fraction fields. |
+| `Rings.MorphismMethods.is_injective` | `Rings().HomCategory().ElementMethods` | Ring-homomorphism injectivity belongs on ring morphisms. Field-domain, characteristic, kernel, cardinality, and fraction-field cases are implementation criteria for that morphism predicate. |
+| `Rings.MorphismMethods.extend_to_fraction_field` | `Rings().HomCategory().ElementMethods` for morphisms between integral domains, with field codomains by identity | The source morphism must be injective when extension is nontrivial. Codomain is a morphism between fraction fields. |
 | `Rings.MorphismMethods._is_nonzero` | private ring-hom compatibility helper | Keep as interop evidence only. Public zero/nonzero morphism predicates belong to generic Hom/End surfaces and ring morphism refinements. |
 | `Rings.ParentMethods.is_ring`, `is_commutative`, `is_integral_domain`, `is_field`, `is_zero` | ring object predicates, refined by subcategory overrides | These are predicates on ring objects. Lower categories may return trivial values, but the method owner remains the highest category where the question is meaningful. |
 | `Rings.ParentMethods.is_subring` | ring-object relation / subobject vocabulary | The mathematical content is injectivity of the canonical map from one ring into another. Public mapping should phrase this through subring/subobject and structure-morphism surfaces. |
@@ -163,6 +163,26 @@ split these rows into concrete category files.
 - Confidence: High.
 - Gaps: concrete ring-family automorphism methods outside the checked category files
   were not exhaustively listed; those remain family-specific method evidence.
+
+- Searched: `category_specs/rings/homsets.py`; installed Sage
+  `sage/categories/map.pyx`, `sage/categories/morphism.pyx`,
+  `sage/categories/homset.py`, `sage/categories/homsets.py`,
+  `sage/categories/rings.py`, `sage/rings/homset.py`, `sage/rings/morphism.pyx`,
+  and ring-family sources matching `def section(` under `sage/rings/`.
+- Found: Sage implements generic map sections on `Map` and composite maps, identity
+  and set-isomorphism sections on generic morphism wrappers, and family-specific
+  sections for fraction-field inclusions, finite/residue/number-field maps, p-adic
+  conversions, and Ore/skew polynomial/function-field maps. The checked core ring
+  homset and ring morphism files do not define a ring-generic `section()` method.
+- Conclusion: inference -- `section()` is not source-grounded as a generic
+  `Rings().HomCategory().ElementMethods` obligation. Project surfaces should keep
+  generic map sections, quotient/subquotient lifts, invertible-map inverses, split
+  injections, and family-specific coercion sections under their separate owners.
+- Confidence: High for the checked installed Sage 10.7 core ring homset/morphism
+  files and listed family sources.
+- Gaps: optional external backends and Sage development branches were not searched;
+  newly admitted ring-family subtrees should re-check their own concrete `section()`
+  implementations before exposing family-specific section vocabulary.
 
 - Searched: installed Sage `sage/categories/semirings.py` and
   `sage/categories/domains.py`.
@@ -378,6 +398,31 @@ refinement checks with a single-owner shortcut.
 `structure_domain()` and `structure_codomain()` methods now map to the Cat-owned
 universal structure-morphism surface through `structure_morphism().domain()` and
 `structure_morphism().codomain()`.
+
+## Rings Homset Mirroring Audit
+
+The Rings subtree does not treat Sage generic homset inheritance or concrete
+`RingHomset` containers as an implicit public contract. Sage ring homset,
+endomorphism, and automorphism behavior is retained only where it belongs to
+project-owned ring Hom/End/Aut vocabulary, a more specific ring-family owner, or a
+separate quotient/subobject construction owner.
+
+| Sage source surface | Source evidence | Project owner and outcome |
+| --- | --- | --- |
+| Generic homset `domain()`, `codomain()`, `natural_map()`, `identity()`, `one()`, and `reversed()` | `sage/categories/homset.py:1136-1249` | Routed to the generic project homset semantic base. Rings uses these as Hom/End infrastructure; they are not ring-specific methods. |
+| Homset-category `Endset()` / `is_endomorphism_set()` and generic endset monoid structure | `sage/categories/homsets.py:285-355` | Routed through `Rings().EndCategory()` and the generic `EndCategory`. Ring-specific refinements add ring-map predicates and ideal/image behavior, not a second owner for the generic end predicate. |
+| `Rings.ParentMethods._Hom_(Y, category)` and Sage `RingHomset(R, S, category=None)` | `sage/categories/rings.py:756-796`; `sage/rings/homset.py:46-269` | Retained as construction evidence for `Rings().HomCategory().Of(domain, codomain)` and the ring hom-object constructor. `is_RingHomset`, `_repr_`, restrictive homset coercion, and raw `category` plumbing remain Sage interop. |
+| `RingHomset_generic.natural_map()` | `sage/rings/homset.py:204-222` | Retained as the natural ring homomorphism induced by coercion when it exists; the owner is the ring hom object. Failure to find a coercion is construction failure, not a separate category predicate. |
+| `RingHomset_generic.zero()` | `sage/rings/homset.py:224-269` | Rejected as a total ring-hom obligation. A unital ring hom can be the zero morphism only when the codomain is the zero ring, so Sage's method is retained as zero-codomain interop evidence rather than a generic `Rings().HomCategory()` method. |
+| `Rings.MorphismMethods.is_injective()` and `extend_to_fraction_field()` | `sage/categories/rings.py:68-259` | Retained on `Rings().HomCategory().ElementMethods`. Injectivity is a predicate on ring morphisms; extension to fraction fields requires an injective morphism between integral domains and returns the induced morphism between fraction fields. |
+| `Rings.MorphismMethods._is_nonzero()` | `sage/categories/rings.py:195-212` | Private compatibility helper only. Public zero/nonzero behavior is expressed by the ring-hom element predicate surface and the zero-codomain `RingHomset.zero()` interop case above. |
+| Ring morphism `pushforward(I)`, `inverse_image(I_or_b)`, `kernel()`, `lift(x=None)`, `inverse()`, `is_surjective()`, and `is_invertible()` | `sage/rings/morphism.pyx:885-1465`, `:1718-1759`; quotient cover specialization at `:2627-2707` | Retained on ring hom element/end/aut refinements with codomain data routed outward: kernels and inverse images land in ring ideal/subobject owners, pushforwards construct ideals in the codomain, inverses promote invertible endomorphisms through `Rings().AutCategory()`, and quotient-cover kernels/lifts specialize the quotient/subquotient construction. |
+| Ring-map `section()` surfaces | Generic Sage map/morphism methods at `sage/categories/map.pyx:1281-1314`, `:2051-2119` and `sage/categories/morphism.pyx:534-550`, `:857-874`; ring-family specializations in fraction fields, finite fields, number fields, residue fields, p-adics, and Ore/skew polynomial/function-field code; formal negative finding above for core ring homset/morphism files | Rejected as a generic `Rings().HomCategory().ElementMethods` obligation. The project declaration in `category_specs/rings/homsets.py` is removed from the generic ring-hom surface. Generic map sections, quotient/subquotient lifts, invertible-map inverses, split injections, and family-specific coercion sections remain separate owners and must not be merged under one ring-generic method without a source-backed equivalence. |
+| Generator-image and base-map data: `RingHomomorphism_im_gens.im_gens()`, `base_map()`, and `RingHomomorphism_from_base.underlying_map()` | `sage/rings/morphism.pyx:1762-1875`, `:2076-2214`; `sage/rings/homset.py:118-202` | Retained as constructor/provenance evidence for hom objects built from generator images or a base-ring morphism. These accessors are not admitted as generic ring-map methods unless a later presented-ring or base-change owner needs them explicitly. |
+| Fraction-field and quotient-map specializations: `RingHomomorphism_from_fraction_field.inverse()`, `RingHomomorphism_cover.kernel()`, quotient `cover()`, `lifting_map()`, and `lift(x=None)` | `sage/rings/morphism.pyx:2398-2536`, `:2547-2707`; `sage/rings/quotient_ring.py:654-790` | Routed to fraction-field hom refinements and quotient/subquotient ring construction. The public mathematical surfaces are quotient maps, sections/lifts, and induced fraction-field morphisms, not raw Sage subclass names. |
+| Positive-characteristic Frobenius endomorphisms | `sage/categories/commutative_rings.py:345-377`; `sage/rings/morphism.pyx:2957-3035`; finite-field and p-adic family methods at `sage/rings/finite_rings/finite_field_base.pyx:1893` and `sage/rings/padics/padic_generic.py:1098` | Retained as commutative-ring or field-family endomorphism constructors with positive-characteristic hypotheses. When the Frobenius is invertible for a family, automorphism membership is recovered through the ring Aut category rather than a separate Sage ring-autset class. |
+| Number-field and finite-field `embeddings(...)`, `automorphisms()`, and family automorphism witnesses | `sage/rings/number_field/number_field.py:9249-9354`; `sage/rings/number_field/number_field_rel.py:2025-2109`; `sage/rings/finite_rings/finite_field_base.pyx:1859-1941` | Routed to field-family hom and aut constructors. Lists or tuples of embeddings are finite families of ring morphisms; the owner of individual maps remains `Rings().HomCategory().ElementMethods` and automorphism objects are recovered through `Rings().AutCategory()`. |
+| Absence of an installed ring-specific `Autsets` category | existing formal negative finding above; checked Sage category files and concrete ring-family sources named in this audit | No new generic ring-autset wrapper is admitted. Project `Rings().AutCategory()` remains local top-level Hom/End/Aut wiring with ring specializations and family witnesses. |
 
 ## Deferred Q-Adic Lattice Precision
 

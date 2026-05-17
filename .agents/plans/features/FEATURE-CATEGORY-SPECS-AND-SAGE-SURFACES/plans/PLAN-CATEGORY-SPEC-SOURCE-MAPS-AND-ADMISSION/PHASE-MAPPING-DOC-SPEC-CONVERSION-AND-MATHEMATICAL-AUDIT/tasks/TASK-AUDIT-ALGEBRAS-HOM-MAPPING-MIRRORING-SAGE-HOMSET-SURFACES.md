@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-ALGEBRAS]]'
 title: Audit Algebras hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-human-input
 priority: high
 description: Audit `category_specs/algebras/homsets.py` and the Algebras mapping/spec
   surface so retained Sage algebra-hom container methods are explicitly mirrored,
@@ -52,9 +52,9 @@ explicit in the project mapping.
 
 ## Acceptance Criteria
 
-- [ ] The Algebras mapping/spec identifies Sage homset/container methods relevant to algebra hom objects and their constructors.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] The Algebras mapping/spec identifies Sage homset/container methods relevant to algebra hom objects and their constructors.
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -66,3 +66,17 @@ explicit in the project mapping.
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the Algebras homset mirroring audit to
+  `[[SPEC-MAPPING-ALGEBRAS]]`, covering generic Hom/End routing, absence of a base
+  Sage algebra homset class, finite-dimensional algebra homset construction and
+  validation, graded commutative algebra homsets, functorial constructor interop, and
+  the `has_standard_involution()` non-homset rejection. Corrected
+  `category_specs/algebras/homsets.py` so algebra hom kernels return
+  `AlgebraIdeal` rather than `Algebra`.
+- 2026-05-17: Review required revision for unresolved inherited mapping-spec gaps;
+  reconciled `semisimple_quotient()`, `Supercommutative()`, the separate Sage
+  `radical()` callable, and the Cellular decision reference in
+  `[[SPEC-MAPPING-ALGEBRAS]]`.
+- 2026-05-17: Fresh-context review verified the revised `semisimple_quotient()`,
+  `Supercommutative()`, Cellular handoff, and `kernel() -> AlgebraIdeal` rows
+  against Sage sources and project decisions; no remaining blocker found.

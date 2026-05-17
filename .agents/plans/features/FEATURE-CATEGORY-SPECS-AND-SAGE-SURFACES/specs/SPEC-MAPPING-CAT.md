@@ -274,7 +274,7 @@ selector such as `C.HomCategory()` evaluates the corresponding construction func
 | Local coslice construction | `C.ObjectsUnder(T)` | `subcategories/constructions/objects_under.py` |
 | `HomsetsCategory` | `C.HomCategory()` | `homsets.py` |
 | `HomsetsCategory.Endset()` | `C.EndCategory()` | `endsets.py` |
-| `HomsetsCategory.Autset()` | `C.AutCategory()` | `autsets.py` |
+| Project Aut-category construction; no generic Sage `HomsetsCategory.Autset` class was found in the checked source | `C.AutCategory()` | `autsets.py` |
 | `JoinCategory` | `Cat().JoinCategories()` containment | `join_categories.py` |
 
 The universal selectors for `Subobjects`, `Quotients`, `Subquotients`,
@@ -362,6 +362,57 @@ The repository-level `homsets/` subtree owns generic hom/end/aut vocabulary such
 functor-specific element surface and the `CatHomCategory`, `CatEndCategory`, and
 `CatAutCategory` refinements. These live in separate files:
 `cat/homsets.py`, `cat/endsets.py`, and `cat/autsets.py`.
+
+## Cat Homset Mirroring Audit
+
+This audit makes the Sage container and functor surfaces explicit instead of treating
+them as inherited semantic owners.
+
+| Sage or project source surface | Cat mapping route | Consequence |
+| --- | --- | --- |
+| `Objects.SubcategoryMethods.Homsets()` | `C.HomCategory()` | Sage's plural `Homsets()` selector is the upstream generated-category entry point. The project name is `HomCategory()` because the returned value is a category object whose objects are hom objects. |
+| `Objects.SubcategoryMethods.Endsets()` | `C.EndCategory()` | Sage constructs endset categories by applying the `Endset` axiom to `Homsets()`. The project mirrors this through `EndCategory()` and `CatEndCategory`, not by adding a second Cat method. |
+| `A.Hom(B)` for `A, B in Cat()` | Cat object-level functor hom parent `Hom_{Cat}(A, B)` | This direct `Hom` method stays on category objects because it constructs functor hom objects in `Cat`. Lower subtrees must not redefine direct category-object `Hom` for specialized element maps. |
+| `sage.categories.homset.Hom(A, B, category=Cat())` and `Parent.Hom(A, B, category=Cat())` | Backend constructor for `A.Hom(B)` and `Cat().HomCategory().Of(A, B)` | Retained as Sage runtime/container evidence. The project semantic owner remains the Cat hom-category surface. |
+| `Homset.__init__(..., category=C)` choosing `category.Endsets()` when the domain and codomain are identical | Generic Hom/End parent ownership refined by Cat | This is Sage backend evidence for endset category assignment; it does not make `CatEndCategory` a raw Sage `Homset` subclass obligation. |
+| `Homset.domain()`, `Homset.codomain()`, and `Homsets.ParentMethods.is_endomorphism_set()` | Generic project hom/end object methods | Routed to `UniversalHomObjectMethods` and `UniversalEndObjectMethods`. Cat does not duplicate these container methods. |
+| `Homset.identity()` and `Homset.one()` | Generic project end object identity vocabulary | Retained through `EndCategory`/`CatEndCategory`; `one()` is only the Sage monoid spelling for identity on endomorphism objects. |
+| `Homset.natural_map()` | Generic homset/coercion interop | Not a Cat-specific natural-transformation surface. If a category-to-category canonical functor is needed, it must be represented as a functor element with source grounding. |
+| `Homset.reversed()` | Generic homset parent navigation to `Hom(B, A)` | Not an opposite-category, adjoint, inverse, or dual functor surface. It only reverses the hom object domain and codomain. |
+| `Homset.__contains__` and `_element_constructor_` for callable or morphism data | Cat hom parent membership/coercion for Sage `Functor` instances | Cat admits functor morphisms through `_CatHomCategoryObjectMethods.__contains__` and `__call__`. Plain callable set-map wrapping remains Sage set-morphism interop, not a Cat functor constructor. |
+| `Functor.__call__`, `_coerce_into_domain`, `_apply_functor`, and `_apply_functor_to_morphism` | `Cat().HomCategory().ElementMethods` | Mirrored as Cat functor element behavior. Domain and codomain are the generic morphism domain/codomain surface specialized to category objects. |
+| `ConstructionFunctor.pushout`, `merge`, `commutes`, `expand`, `common_base`, and `coercion_reversed` | `CatHomCategory.ConstructionFunctorMethods` | Mirrored only for actual Sage construction functor elements. These are not methods on functorial-construction category objects such as `C.Subobjects()`. |
+| `HomsetsCategory.default_super_categories(...)`, `HomsetsOf`, `Homset.homset_category()`, repr/equality/hash/pickling helpers, and generated class keys | Sage backend/container interop | Inventory evidence only. These do not add public Cat mathematical methods beyond the mapped Hom/End/Aut and functor surfaces. |
+| Generic Sage `Autset` | No Sage owner found; project `AutCategory()` owner | The project `AutCategory`/`CatAutCategory` surface is an invertible-endomorphism refinement over the project End layer. It is not inherited from a checked generic Sage `Autset` class. |
+
+Negative Cat homset surface finding:
+
+- Searched: `category_specs/cat/docs/SAGE_INVENTORY.md`,
+  `category_specs/cat/docs/MAPPING.md`, `category_specs/cat/homsets.py`,
+  `category_specs/cat/endsets.py`, `category_specs/cat/autsets.py`,
+  `category_specs/cat/base_category_types.py`,
+  `category_specs/homsets/homsets.py`, `category_specs/homsets/endsets.py`,
+  `category_specs/homsets/autsets.py`, installed Sage `objects.py`,
+  `homsets.py`, `homset.py`, `functor.pyx`, and `pushout.py`, plus local/source
+  searches for `Homsets`, `Endsets`, `Autset`, `Homset`, `Functor`,
+  `ConstructionFunctor`, `natural_map`, `identity`, `one`, and `reversed`.
+- Found: Sage provides category-object `Homsets()` and `Endsets()` selectors,
+  generic `Hom`/`End` constructors, generic homset container methods, Sage
+  functor and construction-functor method surfaces, and the `Endset` axiom layer.
+  The checked corpus did not expose a generic Sage `HomsetsCategory.Autset` class
+  or any additional Cat-specific homset/container method that needs a new Cat
+  public owner beyond `A.Hom(B)`, `C.HomCategory()`, `C.EndCategory()`,
+  `C.AutCategory()`, Cat functor element methods, and Cat construction-functor
+  element methods.
+- Conclusion: inference -- the Cat hom mapping is source-complete for the checked
+  category-object, generic homset, functor, and construction-functor corpus once
+  generic container methods are routed to the shared Hom/End layer and `AutCategory`
+  is kept project-owned.
+- Confidence: High for the checked installed Sage and local Cat/homsets corpus.
+- Gaps: this pass does not enumerate every mathematical category module under
+  Sage; domain-specific homset classes remain owned by their subtree mapping
+  audits. It also does not search Sage git history, third-party Sage extensions,
+  or higher-categorical libraries outside this repo.
 
 ## Constructors
 

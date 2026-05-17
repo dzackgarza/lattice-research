@@ -48,8 +48,11 @@ Source inventory: `category_specs/posets/docs/SAGE_INVENTORY.md`.
   - `sage/categories/finite_posets.py`
   - `sage/categories/lattice_posets.py`
   - `sage/categories/finite_lattice_posets.py`
+  - `sage/categories/homset.py`
+  - `sage/categories/homsets.py`
   - `sage/combinat/posets/posets.py`
   - `sage/combinat/posets/lattices.py`
+  - `sage/combinat/posets/hasse_diagram.py`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; the Posets
   method reconciliation is recorded in `Completeness Reconciliation: Posets` below,
@@ -362,12 +365,59 @@ Order-theoretic lattice terminology here refers only to finite lattice posets in
 universal structure-morphism surface via `structure_morphism().domain()` and
 `structure_morphism().codomain()`.
 
+## Posets Homset Mirroring Audit
+
+The Posets subtree owns order-preserving map vocabulary, but Sage does not provide a
+dedicated poset homset class. Project `Posets().HomCategory()`,
+`Posets().EndCategory()`, and `Posets().AutCategory()` are therefore semantic
+refinements over Sage's generic homset machinery. Finite Sage predicates remain
+validation evidence for candidate functions, not replacements for project Hom/End/Aut
+objects.
+
+| Sage source surface | Source evidence | Project owner and outcome |
+| --- | --- | --- |
+| Generic `Hom(X, Y, category)` / `End(X, category)` construction | `sage/categories/homset.py:87-495`, `:498-520` | Routed to the generic Hom/End semantic base. `Posets().HomCategory().Of(P, Q)` specializes the element law to order preservation; it does not expose Sage's raw `Hom(...)` constructor spelling as a poset-specific constructor. |
+| Generic homset object methods `natural_map()`, `identity()`, `one()`, `domain()`, `codomain()`, and `reversed()` | `sage/categories/homset.py:1136-1263` | Inherited from the generic project homset base. Posets add order-preserving element predicates only; they do not re-own generic domain, codomain, identity, or reversal behavior. |
+| Sage fallback homsets for `Posets()` | `sage/categories/homsets.py:95-102`, `:175-236` | Sage has no nested `Posets.Homsets` provider and falls back to `HomsetsOf`. Project `PosetHomCategory` is an owned spec refinement recording the missing order-map semantics. |
+| Generic `Endset` and `is_endomorphism_set()` | `sage/categories/homsets.py:285-360` | Routed through `Posets().EndCategory()` and generic `EndCategory`. `base_poset()` is project vocabulary for the endomorphism object's unique source/target poset, not a Sage method mirror. |
+| Callable homset elements becoming `SetMorphism` | `sage/categories/homset.py:969-1076` | Interop boundary only. Project `is_order_preserving()` and `is_order_embedding()` belong on Posets Hom element methods; a raw callable is admissible only after it satisfies the order-map law for its source and target. |
+| `FinitePosets.ParentMethods.is_poset_morphism(f, codomain)` | `sage/categories/finite_posets.py:201-272` | Finite validation evidence for `is_order_preserving()` on candidate maps. It remains callable-check evidence on `Posets().Finite()` and does not replace Hom object construction. |
+| `FinitePosets.ParentMethods.is_poset_isomorphism(f, codomain)` | `sage/categories/finite_posets.py:135-199` | Finite validation evidence for isomorphism of candidate functions. It is stronger than order embedding when the image is the whole codomain, and should not be collapsed into `is_order_embedding()` without separate finite-image hypotheses. |
+| `FiniteLatticePosets.ParentMethods.is_lattice_morphism(f, codomain)` | `sage/categories/finite_lattice_posets.py:172-242` | Retained on `Posets().Lattice().Finite()` as finite meet-and-join preservation evidence. It is not a plain poset Hom method because a lattice morphism preserves more structure than order. |
+| `FinitePoset.order_polynomial()` counting order-preserving maps to finite chains | `sage/combinat/posets/posets.py:7817-7824` | Finite-poset polynomial invariant evidence only. The returned polynomial is not a Hom object enumeration surface for this audit. |
+| Hasse-diagram automorphism-group helper use | `sage/combinat/posets/hasse_diagram.py:2103` | Backend graph evidence only. Do not expose Hasse-diagram automorphism groups as the Posets AutCategory API in this audit; executable finite automorphism-group enumeration is routed to `[[TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION]]` before admission. |
+
+Formal negative finding for Sage poset-specific homsets:
+
+- Searched: `category_specs/posets/docs/SAGE_INVENTORY.md`;
+  `category_specs/posets/homsets.py`; this mapping spec; installed Sage 10.7 files
+  `sage/categories/posets.py`, `sage/categories/finite_posets.py`,
+  `sage/categories/lattice_posets.py`, `sage/categories/finite_lattice_posets.py`,
+  `sage/categories/homset.py`, `sage/categories/homsets.py`,
+  `sage/combinat/posets/posets.py`, `sage/combinat/posets/lattices.py`, and
+  `sage/combinat/posets/hasse_diagram.py`; source searches for `class Homsets`,
+  `Autset`, `is_order_preserving`, `is_order_embedding`, `is_poset_morphism`,
+  and `is_lattice_morphism`.
+- Found: no Sage `Posets.Homsets` nested class, no poset-specific `Homset` class,
+  no Sage `Autset` category surface, and no Sage `is_order_preserving` or
+  `is_order_embedding` hom-element methods. Sage provides generic Hom/End
+  machinery plus finite parent-level predicates for candidate functions.
+- Conclusion: inference based on installed Sage 10.7 source -- project
+  `Posets().HomCategory()`, `Posets().EndCategory()`, and
+  `Posets().AutCategory()` are local semantic owners for order-map vocabulary over
+  Sage's generic homset fallback, while finite predicate methods are source-backed
+  validation evidence.
+- Confidence: High for the checked installed source corpus.
+- Gaps: Sage git history, every combinatorics example module, and downstream
+  executable automorphism-group enumeration were not searched; those are outside
+  the current category-provider and homset-mirroring audit.
+
 ## Completeness Reconciliation: Posets
 
 This pass checked the local inventory, the converted mapping body, the installed
 Sage 10.7 category providers for posets, finite posets, lattice posets, and finite
-lattice posets, plus the concrete finite poset and finite lattice implementation
-classes.
+lattice posets, the generic homset machinery, plus the concrete finite poset and
+finite lattice implementation classes.
 
 - The Sage category provider `Posets.ParentMethods` is source-backed as the highest
   owner for order comparison, covers, generated ideals/filters, principal

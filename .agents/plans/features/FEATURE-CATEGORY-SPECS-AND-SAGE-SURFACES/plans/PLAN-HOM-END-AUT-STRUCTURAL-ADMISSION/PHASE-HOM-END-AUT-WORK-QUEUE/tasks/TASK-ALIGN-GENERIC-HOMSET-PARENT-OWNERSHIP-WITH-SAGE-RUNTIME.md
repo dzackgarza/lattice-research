@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 title: Rewrite generic homset ownership for project HomCategory mirroring
-status: unstarted
+status: needs-human-input
 priority: critical
 description: Rewrite the generic Hom/End/Aut owner story around project
   HomCategory mirroring rather than Sage generic homset inheritance, then update
@@ -71,14 +71,14 @@ That still leaves a QC consequence:
 
 ## Acceptance Criteria
 
-- [ ] `SPEC-MAPPING-HOMSETS.md` states that project Hom/End/Aut are redefined and
+- [x] `SPEC-MAPPING-HOMSETS.md` states that project Hom/End/Aut are redefined and
       mirrored through `HomCategoryConstruction` rather than inherited from Sage
       generic homsets.
-- [ ] `plans/visuals/homsets-category-hierarchy.md` and any directly affected
+- [x] `plans/visuals/homsets-category-hierarchy.md` and any directly affected
       homsets docstrings/comments reflect the project-owned semantic base.
-- [ ] `FEATURE-QC-WARNINGS-ZERO.md` no longer frames the generic hom-layer residuals
+- [x] `FEATURE-QC-WARNINGS-ZERO.md` no longer frames the generic hom-layer residuals
       as a Sage inheritance repair.
-- [ ] The card body points the subtree method-coverage work to the reopened mapping
+- [x] The card body points the subtree method-coverage work to the reopened mapping
       audit tasks instead of collapsing it into this generic card.
 
 ## Dependencies And Boundaries
@@ -110,3 +110,34 @@ That still leaves a QC consequence:
 - 2026-05-10: Reframed after user direction: the repo redefines/mirrors Sage homset
   behavior through `HomCategoryConstruction`; subtree method coverage moved to
   dedicated mapping-audit tasks.
+- 2026-05-17: Updated `SPEC-MAPPING-HOMSETS.md`,
+  `plans/visuals/homsets-category-hierarchy.md`, and `FEATURE-QC-WARNINGS-ZERO.md`
+  so generic Hom/End/Aut ownership is project-owned semantic mirroring of Sage
+  inventory/backend surfaces, not inherited Sage `Homset` method-container ownership.
+- 2026-05-17: Reviewed generic Hom/End/Aut `@override` sites in
+  `category_specs/homsets/{homsets,endsets,autsets}.py`; retained annotations are
+  project-chain overrides, Sage `Endset` axiom hooks, or intentional signature
+  quarantines rather than claims of inherited Sage generic homset ownership.
+- 2026-05-17: Fresh-context review returned `clean-to-route-needs-human-input` with
+  no findings; remaining runtime MRO and full-suite checks are blocked or
+  non-diagnostic until the Sage import/plugin lane is resolved.
+
+## Validation Notes
+
+- Focused syntax validation: `python -m compileall -q category_specs/homsets/homsets.py
+  category_specs/homsets/endsets.py category_specs/homsets/autsets.py` passed.
+- Full `just test` was not run for this card because the mypy-plugin work is active in
+  parallel and the available repo recipe would not distinguish remaining plugin-owned
+  checker failures from source defects in this Hom/End/Aut owner split.
+- Runtime MRO probe:
+  - Searched: direct imports of `category_specs.homsets` under
+    `/home/dzack/miniforge3/envs/sage/bin/python` and `sage -python`.
+  - Found: both import paths fail while loading Sage internals with
+    `ImportError: cannot import name Category`, before project Hom/End/Aut MRO can be
+    queried.
+  - Conclusion: inference — runtime-MRO validation remains unavailable in the current
+    Sage environment, so this card is ready for fresh-context review on source/doc
+    evidence and the recorded validation gap rather than full runtime acceptance.
+  - Confidence: High.
+  - Gaps: rerun the Hom/End/Aut MRO probe after the Sage import failure or plugin
+    integration work is resolved.

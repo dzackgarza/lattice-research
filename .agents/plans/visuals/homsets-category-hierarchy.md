@@ -3,9 +3,13 @@
 ```mermaid
 graph TD
     Cat["Cat"]
-    Cat --> HomCategory["C.HomCategory()<br/>Hom_C(A,B) objects, domain, codomain"]
+    SageHomsets["Sage Homsets/Homset<br/>inventory and backend containers"]
+    SageEndset["Sage Homsets().Endset()<br/>endomorphism-set interop evidence"]
+    Cat --> HomCategory["C.HomCategory()<br/>project semantic base for Hom_C(A,B)"]
+    SageHomsets -. mirrors retained surfaces .-> HomCategory
     HomCategory --> EndCategory["C.EndCategory()<br/>End_C(A) = Hom_C(A,A), identity, is_endomorphism_set"]
-    EndCategory --> AutCategory["C.AutCategory()<br/>Aut_C(A), is_invertible, is_isomorphism, inverse, order"]
+    SageEndset -. interop axiom hook .-> EndCategory
+    EndCategory --> AutCategory["C.AutCategory()<br/>project Aut_C(A), units of End_C(A)"]
     
     HomCategory --> SetHom["Sets().HomCategory()<br/>function hom objects, injectivity, image subobjects"]
     SetHom --> SetEnd["Sets().EndCategory()<br/>endofunction monoid"]
@@ -16,7 +20,7 @@ graph TD
     ModuleEnd --> ModuleAut["Modules(R).AutCategory()<br/>GL(R), general linear group"]
     
     HomCategory --> FormHom["FormedModules.HomCategory()<br/>form-preserving morphisms"]
-    FormHom --> LatticeHom["Lattices.HomCategory()<br/>isometries"]
+    FormHom --> LatticeHom["Lattices.HomCategory()<br/>lattice morphisms"]
     LatticeHom --> LatticeAut["Lattices.AutCategory()<br/>O(L), orthogonal group"]
     
     HomCategory --> RingHom["Rings().HomCategory()<br/>ring homomorphisms"]

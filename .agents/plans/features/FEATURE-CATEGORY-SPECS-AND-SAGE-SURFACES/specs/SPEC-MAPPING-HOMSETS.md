@@ -105,6 +105,29 @@ project hom/end/aut category hierarchy.
 | Sage has no independent `EndsetsCategory` functorial construction | `EndCategoryConstruction` and `C.EndCategory()` | The project adds this construction layer so `C.EndCategory()` has the same uniform shape as `C.HomCategory()`. |
 | Sage has no generic `Autset` axiom in the audited file | `AutCategoryConstruction` and `C.AutCategory()` | The project adds the missing automorphism construction once, as the invertible part of an end category. |
 
+## Owner Alignment Note
+
+The generic project Hom/End/Aut layer is a semantic mirror of the Sage homset
+inventory, not a promise that project method containers inherit Sage's concrete
+`sage.categories.homset.Homset` parent surface. The current owner split is:
+
+- `HomCategoryConstruction`, `HomCategoryOf`, and `UniversalHom*Methods` own the
+  generic project Hom vocabulary: `domain`, `codomain`, hom-object coercion, and
+  morphism domain/codomain forwarding.
+- `EndCategory`, `EndCategoryConstruction`, `EndCategoryOf`, and
+  `UniversalEnd*Methods` own the endomorphism refinement: identity and
+  `is_endomorphism_set() == True`, with Sage `Homsets().Endset()` retained as
+  endset-axiom interop evidence.
+- `AutCategory`, `AutCategoryConstruction`, `AutCategoryOf`, and
+  `UniversalAut*Methods` own the project automorphism refinement because the checked
+  Sage generic corpus has no corresponding `Autset` class.
+
+Backend reuse of `Hom(...)`, Sage homset containers, `HomsetsCategory`, `Endset`
+axiom hooks, or private `ConditionSet` construction does not move method ownership out
+of the project Hom/End/Aut hierarchy. Subtree mapping specs remain responsible for
+deciding which Sage homset/container methods are mirrored, routed to a more specific
+owner, or rejected as interop-only.
+
 ## Project Extension Surface
 
 | Project surface | Mathematical meaning | Method surface to represent |

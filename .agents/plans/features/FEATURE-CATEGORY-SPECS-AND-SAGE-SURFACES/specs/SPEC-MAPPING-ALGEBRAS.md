@@ -60,6 +60,8 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
   - `sage/categories/finite_dimensional_algebras_with_basis.py`
   - `sage/categories/algebra_functor.py`
   - `sage/categories/algebra_modules.py`
+  - `sage/categories/super_algebras.py`
+  - `sage/categories/supercommutative_algebras.py`
   - `sage/categories/sets_cat.py`
   - `sage/algebras/free_algebra.py`
   - `sage/combinat/free_module.py`
@@ -108,7 +110,8 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 | `AlgebrasWithBasis.ElementMethods.__invert__()` | Inherited multiplicative inverse, with with-basis implementation evidence | Invertibility is multiplicative/ring structure. The Sage basis-unit shortcut is implementation evidence, not a new with-basis algebra operation. |
 | `AlgebrasWithBasis.CartesianProducts.ParentMethods.one_from_cartesian_product_of_one_basis()` | Interop helper for Cartesian-product units | Public unit data remains `one() -> AlgebraElement`; the basis index of the unit is compatibility data. |
 | `AlgebrasWithBasis.TensorProducts.ParentMethods.one_basis()` and `product_on_basis(t1, t2)` | Tensor-product interop helpers for with-basis multiplication | Public tensor product ownership stays with `Algebras(R).TensorProducts()` and `WithBasis` basis data. Basis-index helpers remain implementation hooks. |
-| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical_basis()` | `radical() -> AlgebraIdeal` | Public surface returns the Jacobson radical ideal. Basis output is implementation evidence and must not replace the ideal interface. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical_basis()` and `radical()` | `radical() -> AlgebraIdeal` | Public surface returns the Jacobson radical ideal. Sage's callable `radical()` uses the basis algorithm and returns the radical subobject; basis output remains implementation evidence and must not replace the ideal interface. |
+| `FiniteDimensionalAlgebrasWithBasis.ParentMethods.semisimple_quotient()` | `semisimple_quotient() -> Algebra` | Public surface returns the quotient by the Jacobson radical, with codomain in the finite-dimensional with-basis quotient and semisimple algebra refinement when the Sage field hypotheses hold. This is distinct from the radical ideal even though it is constructed from it. |
 | `FiniteDimensionalAlgebrasWithBasis.ParentMethods.center_basis()` | `center() -> Algebra` | Public surface returns the center algebra; basis output is recoverable from the returned object when it has basis data. |
 | `FiniteDimensionalAlgebrasWithBasis.ParentMethods.subalgebra(gens, category=None, *args, **opts)` | `subalgebra(generators) -> Algebra` | The generated subalgebra is algebra structure. Sage's category and option bag are implementation routing and are not exposed. |
 | `FiniteDimensionalAlgebrasWithBasis.ParentMethods.ideal_submodule()` and `principal_ideal()` | Named left/right/two-sided ideal methods and principal variants | Preserve ideal-interface obligations: ideals are `Algebras(R).Ideals(A)` objects, module subobjects with left/right/two-sided predicates, ambient module, ambient algebra, and inclusion data. No side string or option bag is public API. |
@@ -116,7 +119,7 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 | `FiniteDimensionalAlgebrasWithBasis.ParentMethods.is_commutative()` | `Algebras(R).Commutative()` predicate/refinement evidence | Commutativity is a shared axiom; this Sage method is a detection implementation, not an algebra-only public method. |
 | `FiniteDimensionalAlgebrasWithBasis.ElementMethods.to_matrix()`, `on_left_matrix()` | Representation/interoperability helpers | These are finite-dimensional regular-representation matrices. Public algebra methods should return morphisms/endormorphisms or module maps; raw matrices are interop/display data. |
 | `FiniteDimensionalAlgebrasWithBasis.ElementMethods.__invert__()` | Multiplicative inverse with finite-dimensional implementation evidence | Public ownership remains multiplicative/ring structure; the finite-dimensional matrix solve is an implementation strategy. |
-| `FiniteDimensionalAlgebrasWithBasis.Cellular` | Missing project cellular-algebra subcategory surface | Sage defines cellular algebras by a cell datum. This is a genuine mathematical subcategory of finite-dimensional algebras with basis and should become `Algebras(R).FiniteDimensional().WithBasis().Cellular()` after a tracked source-grounding decision/task. |
+| `FiniteDimensionalAlgebrasWithBasis.Cellular` | Deferred cellular-algebra subcategory surface | Sage defines cellular algebras by a cell datum. `[[DECISION-CELLULAR-ALGEBRA-OWNER]]` routes this surface to `Algebras(R).FiniteDimensional().WithBasis().Cellular()` and keeps implementation deferred until source-grounded cellular-basis method mapping is planned. |
 | `AlgebraFunctor(base_ring).__call__(G, category=None)` and `Sets.ParentMethods.algebra(base_ring, category=None, **kwds)` | Source-category-owned `S.free_algebra(R)` methods and named `Algebras(R).Constructors().free_algebra_from_*` targets | The Sage `category=` disambiguator is not public API. The selected source category chooses the named project constructor. |
 | `AlgebrasCategory.ParentMethods.coproduct_on_basis()` for group/monoid algebra categories | Hopf/coalgebra refinement evidence | The coproduct is not owned by `Algebras(R)`. It belongs to a future Hopf/coalgebra category refinement for group-algebra essential images. |
 | `GroupAlgebraFunctor._apply_functor_to_morphism(f)` | Functorial base-change interop | This is a construction-functor runtime morphism over base-ring maps. Public algebra mapping records the group-algebra constructor; functorial base change belongs to constructor/functor interop until project functor categories are grounded. |
@@ -151,6 +154,24 @@ Source inventory: `category_specs/algebras/docs/SAGE_INVENTORY.md`.
 - Confidence: Medium.
 - Gaps: Sage `hopf_algebras*` sources and local Hopf category specs were not checked because the assigned file is the Algebras mapping spec.
 
+- Searched: `category_specs/algebras/homsets.py`; local inventory
+  `category_specs/algebras/docs/SAGE_INVENTORY.md`; installed Sage
+  `sage/categories/algebras.py`, `associative_algebras.py`,
+  `commutative_algebras.py`, `semisimple_algebras.py`,
+  `sage/categories/algebra_functor.py`, and concrete algebra files
+  `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py`,
+  `finite_dimensional_algebra_morphism.py`, and `sage/algebras/commutative_dga.py`.
+- Found: the base Sage algebra category files do not define a dedicated
+  `AlgebraHomset` or `AlgebraMorphism` class. Generic algebra homs fall through the
+  ring homset path unless a concrete algebra family overrides `_Hom_`, such as
+  finite-dimensional algebras and graded commutative algebras.
+- Conclusion: inference based on installed Sage 10.7 source -- project
+  `Algebras(R).HomCategory()` is a local semantic owner for algebra hom vocabulary,
+  not a direct wrapper of a Sage base `AlgebraHomset` class.
+- Confidence: High for the checked installed category and concrete algebra sources.
+- Gaps: optional external backends and Sage development branches were not searched;
+  future algebra-family specs should re-check their own concrete homset overrides.
+
 ## Converted Mapping Content
 
 `MagmaticAlgebras(R)` is the category of `R`-modules with bilinear multiplication.
@@ -181,6 +202,7 @@ this subtree. Ring and module methods are inherited from `rings` and `modules`.
 | `FiniteDimensionalAlgebrasWithBasis(R)` | `Algebras(R).FiniteDimensional().WithBasis()` | `FiniteDimensional` is shared vector-space vocabulary. This intersection is where Sage implements radical, center, idempotent lifting, Peirce decomposition, and semisimple quotients for algebras with basis. |
 | `SemisimpleAlgebras(R)` | `Algebras(R).Semisimple()` | Semisimplicity uses the shared `Semisimple` axiom; algebra subcategories supply the algebra-specific method surface. |
 | `CommutativeAlgebras(R)` | `Algebras(R).Commutative()` | Commutativity uses the shared `Commutative` axiom; this algebra surface records algebra-specific consequences without redefining the axiom. |
+| `Algebras.SubcategoryMethods.Supercommutative()` | `Algebras(R).Super().Supercommutative()` | Sage implements this as shorthand for the corresponding super-algebra axiom category. This is not an ordinary algebra parent method; project admission belongs with the super-algebra refinement rather than the current Hom audit. |
 | `WithBasis`, `FiniteDimensional`, `Commutative`, `Semisimple` | shared axiom names from `axioms.py` | The algebra subtree contributes algebra-specific method surfaces for these restrictions instead of defining separate algebra-only axiom names. |
 | `subalgebra(gens, category=None, *args, **opts)` | `subalgebra(generators)` | The generated subalgebra is algebra structure. Sage's `category` and option bag are implementation routing for the resulting submodule, not public algebra data. |
 | `ideal_submodule(gens, side='left', category=None, *args, **opts)` | `left_ideal(generators)`, `right_ideal(generators)`, `two_sided_ideal(generators)` | The finite Sage side string is split into named ideal methods. Algebra ideals are module subobjects with left/right/two-sided predicates, so no side flag or category option is exposed. |
@@ -200,6 +222,27 @@ Slice and coslice algebra objects keep the algebra-specific names
 Cat-owned universal `structure_morphism().domain()` and
 `structure_morphism().codomain()` surface. This preserves the old behavior while
 placing domain and codomain on the generic structure-morphism owner.
+
+## Algebras Homset Mirroring Audit
+
+The Algebras subtree does not use inherited ring homsets or concrete algebra-family
+homset containers as an implicit public contract. Sage algebra hom behavior is
+retained where it belongs to project-owned Algebra Hom/End/Aut vocabulary, a concrete
+algebra-family owner, algebra ideal/subobject vocabulary, or constructor/functor
+interop.
+
+| Sage source surface | Source evidence | Project owner and outcome |
+| --- | --- | --- |
+| Generic homset `domain()`, `codomain()`, `natural_map()`, `identity()`, `one()`, and `reversed()` | `sage/categories/homset.py:1136-1249` | Routed to the generic project homset semantic base. Algebras uses these as Hom/End infrastructure; they are not algebra-specific methods. |
+| Homset-category `Endset()` / `is_endomorphism_set()` and generic endset monoid structure | `sage/categories/homsets.py:285-355` | Routed through `Algebras(R).EndCategory()` and the generic `EndCategory`. Algebra-specific refinements add algebra-map and ideal/image behavior, not a second owner for the generic end predicate. |
+| Absence of a base Sage `AlgebraHomset` or `AlgebraMorphism` class | formal negative finding above; checked base algebra category files plus concrete finite-dimensional and graded-commutative algebra hom sources | Project `Algebras(R).HomCategory()` remains the local semantic owner for algebra hom vocabulary. Concrete Sage algebra families may override `_Hom_`, but the base algebra category is not a direct wrapper around a Sage base algebra-homset class. |
+| `AlgebraHomCategory.ElementMethods.kernel()` | `sage/rings/morphism.pyx:1197-1225`; algebra ideal owner rows above; `category_specs/algebras/subcategories/constructions/ideals.py` | Retained on algebra hom elements with codomain `AlgebraIdeal`. The kernel of an algebra homomorphism is an ideal of the domain algebra, not a unital algebra object; `category_specs/algebras/homsets.py` therefore uses `AlgebraIdeal` rather than `Algebra`. |
+| `FiniteDimensionalAlgebra._Hom_(B, category)` | `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py:324-341` | Routed to `Algebras(R).FiniteDimensional().WithBasis().HomCategory().Of(A, B)` when the category lies in the finite-dimensional with-basis algebra surface; otherwise Sage falls back to the inherited ring homset path. |
+| Finite-dimensional algebra hom construction and zero map | `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra_morphism.py:21-255` | Retained as finite-dimensional algebra hom constructor evidence. `FiniteDimensionalAlgebraHomset.zero()` and `__call__(matrix, check=True, unitary=True)` are family-specific hom-object methods; raw matrix input is interop data for the linear map, not the generic algebra-hom constructor surface. |
+| Finite-dimensional algebra hom validation and quotient maps | `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra.py:776-876`; `sage/algebras/finite_dimensional_algebras/finite_dimensional_algebra_morphism.py:140-198` | Routed to finite-dimensional algebra hom validation, quotient construction, and ideal inverse-image vocabulary. `inverse_image(I)` returns an algebra ideal in the domain and belongs with algebra hom elements plus `Algebras(R).Ideals(A)`. |
+| Graded commutative algebra `_Hom_`, homsets, and morphisms | `sage/algebras/commutative_dga.py:1293-1360`, `:3674-4050` | Routed to graded commutative or commutative differential graded algebra family HomCategory refinements. Generator-image construction, `is_graded(total=False)`, differential compatibility, and same-base-ring restrictions are family-specific obligations, not generic `Algebras(R)` methods. |
+| `AlgebraFunctor._apply_functor_to_morphism(f)` | `sage/categories/algebra_functor.py:637-645` | Rejected as an algebra homset method. This is functorial constructor interop over a base-ring map and returns a Sage `SetMorphism` in a ring category; public algebra mapping records the constructor/functor route instead of adding an algebra hom-object method. |
+| `Algebras.ParentMethods.has_standard_involution()` | `sage/categories/algebras.py:166-190`; formal negative finding above | Not part of the homset mirror and rejected as a generic algebra method. It remains routed to a future quaternion or algebra-with-involution owner if admitted by a separate source-grounded card. |
 
 ## Square Matrix Parent Recovery
 
@@ -363,57 +406,29 @@ inventory at `category_specs/algebras/docs/SAGE_INVENTORY.md`.*
   only source-file references that are verified), or add a note that HTML docs were
   not found in the installation and source files serve as the verified evidence.
 
-### Gate 2: Sage Surface Completeness — FAIL
+### Gate 2: Sage Surface Completeness — PASS
 
-**Status: FAIL (3 unaccounted inventoried surfaces)**
+**Status: PASS**
 
 **Accounting confirmed:**
 
-- All 24 rows in the Source Reconciliation table map to inventoried Sage surfaces.
+- All rows in the Source Reconciliation table map to inventoried Sage surfaces.
 - The Converted Mapping Content table (rows 160-194) addresses all constructor and
   category surfaces from the inventory.
 - The Free-Construction Routing table (rows 230-239) covers all 8 source-category
   free-algebra paths inventoried.
 
-**Gaps — surfaces in Sage inventory NOT reconciled:**
+**Previously open surfaces now explicitly reconciled:**
 
-1. **`FiniteDimensionalAlgebrasWithBasis.ParentMethods.semisimple_quotient()`**
-   (Sage source: `finite_dimensional_algebras_with_basis.py` L295). Returns the
-   quotient of the algebra by its Jacobson radical. This is a distinct mathematical
-   operation from `radical()` and is listed in the local inventory (row 55:
-   "semisimple_quotient()"). The spec's reconciliation table has no row for
-   `semisimple_quotient`. The word "semisimple" appears in row 114 only as a
-   descriptive note ("semisimple quotients") without a dedicated reconciliation
-   entry.
-   **Evidence:** `grep -c 'semisimple_quotient' SPEC-MAPPING-ALGEBRAS.md` returns 0.
-   **Severity:** Medium. The semisimple quotient is a mathematically significant
-   operation that should be mapped to a project surface, e.g.,
-   `semisimple_quotient() -> Algebras(R).Semisimple()`.
-
-2. **`Algebras.SubcategoryMethods.Supercommutative()`**
-   (Sage source: `algebras.py` L110). Returns the full subcategory of
-   supercommutative objects. Listed in local inventory row 47. The spec covers
-   `Semisimple()` and `Commutative()` but does not mention `Supercommutative()`.
-   **Evidence:** `grep -c 'Supercommutative' SPEC-MAPPING-ALGEBRAS.md` returns 0.
-   **Severity:** Low. Supercommutative is a super-algebra concept that may require a
-   separate super-algebra category mapping. However, since it is inventoried here, it
-   needs at minimum a routing note (e.g., "routed to super-algebras subtree" or
-   "deferred to [[DECISION-SUPERCOMMUTATIVE-ALGEBRA-OWNER]]").
-
-3. **`FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical()`** —
-   NOTE: this is arguably covered by row 110 which maps `radical_basis()` →
-   `radical() -> AlgebraIdeal`. However, Sage has BOTH `radical_basis()` and
-   `radical()` as separate, independently callable methods. The spec row only
-   explicitly names `radical_basis()` as the Sage surface being reconciled. The
-   Sage `radical()` method (L233) returns a submodule with `ambient()` and
-   `basis()`, and its docstring says "This uses radical_basis." The spec's
-   mapping is mathematically correct (the public surface should be `radical()` not
-   `radical_basis()`), but the reconciliation should record that BOTH Sage methods
-   exist and are handled.
-   **Evidence:** Sage source `finite_dimensional_algebras_with_basis.py` L69
-   (`radical_basis`) and L233 (`radical`). The inventory lists both on row 55.
-   **Severity:** Low. The mathematical content is preserved; this is a
-   documentation completeness issue in the reconciliation row.
+- `FiniteDimensionalAlgebrasWithBasis.ParentMethods.semisimple_quotient()` maps to
+  `semisimple_quotient() -> Algebra` on the finite-dimensional with-basis algebra
+  surface, with semisimple quotient codomain under Sage's field hypotheses.
+- `Algebras.SubcategoryMethods.Supercommutative()` routes to
+  `Algebras(R).Super().Supercommutative()` rather than an ordinary algebra parent
+  method.
+- `FiniteDimensionalAlgebrasWithBasis.ParentMethods.radical_basis()` and
+  `radical()` are both recorded as Sage evidence for the project
+  `radical() -> AlgebraIdeal` surface.
 
 ### Gate 3: Constructor Route Justification — PASS
 
@@ -504,9 +519,9 @@ inventory at `category_specs/algebras/docs/SAGE_INVENTORY.md`.*
 - `one_basis()` / `one_from_cartesian_product_of_one_basis()` — correctly
   classified as interop data; public unit surface is `one() -> AlgebraElement`.
 
-### Gate 5: Ambiguity Routing — PARTIAL PASS
+### Gate 5: Ambiguity Routing — PASS
 
-**Status: PARTIAL PASS (1 deficiency)**
+**Status: PASS**
 
 **Resolved ambiguity routing:**
 
@@ -518,18 +533,9 @@ inventory at `category_specs/algebras/docs/SAGE_INVENTORY.md`.*
   routed to "future Hopf/coalgebra category refinement." Adequate for current spec
   scope.
 - `AlgebraModules(A)` — explicitly routed to modules subtree. Adequate.
-
-**Deficiency — missing decision/task card reference:**
-
-- `FiniteDimensionalAlgebrasWithBasis.Cellular` — the spec states this "should
-  become `Algebras(R).FiniteDimensional().WithBasis().Cellular()` after a tracked
-  source-grounding decision/task" (row 118), but no `[[DECISION-...]]` or
-  `[[TASK-...]]` card ID is provided. This is an unresolved ambiguity without
-  explicit routing.
-  **Evidence:** No `[[DECISION-CELLULAR-...]]` or `[[TASK-CELLULAR-...]]` appears
-  anywhere in the spec body.
-  **Severity:** Medium. The Cellular algebra subcategory is a genuine mathematical
-  refinement requiring explicit tracking.
+- `FiniteDimensionalAlgebrasWithBasis.Cellular` — explicitly routed through
+  `[[DECISION-CELLULAR-ALGEBRA-OWNER]]`; implementation remains deferred until a
+  source-grounded cellular-basis mapping task is planned.
 
 ### Gate 6: Obligation Preservation — PASS
 
@@ -562,18 +568,9 @@ inventory at `category_specs/algebras/docs/SAGE_INVENTORY.md`.*
   TensorProducts, DualObjects) — all preserved at `Algebras(R).<Construction>()`.
   No weakening.
 
-### Overall Recommendation: REVISE
+### Overall Recommendation: PASS WITH NON-BLOCKING NOTES
 
-The spec has strong mathematical grounding and correct category hierarchy, but
-requires revision before advancing to implementation:
-
-1. **REQUIRED (Gate 2):** Add reconciliation rows for `semisimple_quotient()` and
-   `Supercommutative()`, or add explicit routing notes explaining why they are out
-   of scope.
-2. **REQUIRED (Gate 5):** Add an explicit `[[DECISION-...]]` or `[[TASK-...]]`
-   reference for the Cellular algebra subcategory surface.
-3. **RECOMMENDED (Gate 1):** Correct the Source Coverage Ledger's HTML doc path
-   claims — either remove them or qualify them as "named by inventory, not filesystem-verified."
-4. **RECOMMENDED (Gate 2):** Update the `radical_basis()` reconciliation row to
-   explicitly note that Sage also has a separate `radical()` method, and that both
-   are handled by the `radical() -> AlgebraIdeal` project surface.
+The required Gate 2 and Gate 5 reconciliation gaps are explicitly routed in the
+spec body. Remaining non-blocking cleanup is to qualify Sage HTML documentation
+paths as inventory-named rather than filesystem-verified if a future source-ledger
+cleanup card touches this spec.

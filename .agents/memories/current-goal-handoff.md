@@ -27,17 +27,64 @@ authorities for status, evidence, and completed work.
 - `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`
 - `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`
 - Per-subtree homset mirroring audits:
-  - Review `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
-    if it is still `needs-review`; otherwise continue with:
-  - `TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
+  - Leave `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
+    for human approval if it is still `needs-human-input`; autonomous work
+    should continue with:
+  - Leave `TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
+    for human approval if it is still `needs-human-input`; autonomous work
+    should continue with:
   - `TASK-AUDIT-RINGS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
+    Leave it and `TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING`
+    for human approval if they are still `needs-human-input`; autonomous work should
+    continue with ALGEBRAS.
   - `TASK-AUDIT-ALGEBRAS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
+    Leave it for human approval if it is still `needs-human-input`; autonomous work
+    should continue with POSETS.
   - `TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
-  - `TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
-  - `TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
-  - `TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`
-- `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`
-- Then wrap or review the affected Hom/End/Aut and source-map plans.
+    Leave it for human approval if it is still `needs-human-input`; autonomous work
+    should continue with TOPOLOGICAL-SPACES. Treat
+    `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION` as
+    downstream of the POSETS audit, not the next frontier leaf.
+  - Leave `TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES` for human approval if it is still `needs-human-input`; autonomous work should continue with CAT.
+  - Leave `TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES` for human approval if it is still `needs-human-input`; autonomous work should continue with LATTICES.
+  - Leave `TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES` for human approval if it is still `needs-human-input`; autonomous work should continue with:
+- Leave `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` for human
+  approval if it is still `needs-human-input`. Rerun runtime MRO after the Sage
+  `ImportError: cannot import name Category` gap is resolved, and do not run full
+  `just test` while parallel mypy-plugin work makes that recipe non-diagnostic for
+  this leaf.
+- The affected Hom/End/Aut and source-map wrappers should only need routing review
+  unless human approval changes a child status. Do not start
+  `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION` until
+  `TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES` leaves the human
+  gate; while the Posets audit remains `needs-human-input`, that source-grounding card
+  is ordinary DAG-gated `unstarted` work, not the next autonomous leaf.
+- If the audit/generic cards above still need human input and the Posets
+  source-grounding card is still dependency-gated, this handoff frontier has no
+  autonomous leaf remaining. Do not substitute QC/plugin work or downstream
+  ModulesWithForms/lattice implementation unless a new user directive changes the
+  frontier.
+
+## Current Human Decisions Needed
+
+- Decide whether to approve or send back each `needs-human-input` per-subtree homset
+  mirroring audit: MODULES, SETS, RINGS, ALGEBRAS, POSETS, TOPOLOGICAL-SPACES, CAT,
+  and LATTICES.
+- Decide whether to approve or send back
+  `TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING`.
+- Decide whether to approve or send back
+  `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`, accepting that the
+  current evidence is source/doc/review based and runtime MRO validation must wait
+  until the Sage `ImportError: cannot import name Category` gap is resolved.
+- Decide the Posets branch next step after the Posets audit review. If approved,
+  `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION` becomes the
+  next autonomous source-grounding leaf; if not approved, follow the review feedback on
+  the Posets audit first.
+- Decide whether the Sage runtime import gap should be repaired now as environment/QC
+  work or left gated until the active plugin lane reaches this repo frontier.
+- Decide whether to redirect into QC/plugin work. Without that direction, keep treating
+  `/home/dzack/sage-mypy-plugin` as occupied parallel work and do not use full
+  `just test` as evidence for this handoff frontier.
 
 ## Collision Boundaries
 

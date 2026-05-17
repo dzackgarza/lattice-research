@@ -18,6 +18,11 @@ successCriteria:
 - Any mathematical spec changes cite their source grounding before implementation
   proceeds.
 - Follow-up work is filed as tracked cards under root `plans/features/`.
+tasks:
+- '[[TASK-01KQN9J3WWCX4AA36TK4QVCNBK-FIX-CAT-SMOKE-HOM-END-AUT-OBJECTSOVER-OBJECTSUNDER-AND-WITHFORMS-FRONTIE]]'
+- '[[TASK-1777748120385-RRVDIG-REMOVE-RAW-CONDITIONSET-FROM-PUBLIC-AUT-CATEGORY-SURFACE]]'
+- '[[TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME]]'
+- '[[TASK-WRAPUP-PHASE-HOM-END-AUT-WORK-QUEUE]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION
@@ -33,6 +38,11 @@ Reopened 2026-05-10 after QC/runtime tracing established that the generic
 source-grounded Sage `Homset` / `Homsets.ParentMethods` surface recorded in
 `SPEC-MAPPING-HOMSETS`. The new follow-up card fixes that owner mismatch before any
 remaining Hom/End/Aut override failures are attributed to plugin debt.
+
+Current routing: `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` is
+human-gated after source/doc review. Runtime MRO validation must be rerun after the
+Sage `ImportError: cannot import name Category` gap is resolved; full `just test`
+remains non-diagnostic for this leaf while parallel mypy-plugin work is active.
 
 ## Acceptance Criteria
 

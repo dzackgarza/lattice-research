@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-CAT]]'
 title: Audit Cat hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-human-input
 priority: high
 description: Audit `category_specs/cat/homsets.py` and the Cat mapping/spec surface so
   any retained Sage homset/container methods are explicitly mirrored, routed, or
@@ -52,11 +52,11 @@ explicitly in the mapping rather than treated as inherited generic Homset owners
 
 ## Acceptance Criteria
 
-- [ ] The Cat mapping/spec identifies the Sage homset/container methods relevant to
+- [x] The Cat mapping/spec identifies the Sage homset/container methods relevant to
       category-object hom surfaces.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as
       interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -69,3 +69,28 @@ explicitly in the mapping rather than treated as inherited generic Homset owners
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the Cat homset mirroring audit to `[[SPEC-MAPPING-CAT]]`.
+  The audit routes Sage `Homsets()` and `Endsets()` selectors through project
+  `HomCategory()` and `EndCategory()`, keeps direct `A.Hom(B)` as the Cat-owned
+  functor hom parent, routes generic container methods such as `domain`,
+  `codomain`, `identity`, `one`, `natural_map`, and `reversed` to the shared
+  Hom/End layer or interop-only status, mirrors Sage `Functor` and
+  `ConstructionFunctor` methods onto Cat element owners, and reconciles the
+  missing generic Sage `Autset` class by keeping `AutCategory()` project-owned.
+- 2026-05-17: Fresh-context review found no blockers or required edits. The card
+  is ready for human approval rather than autonomous rework.
+
+## Review Log
+
+### Fresh-Context Agent Review - 2026-05-17
+
+Recommendation: route to human approval.
+
+- Blocking findings: none.
+- Review checked that the stale `HomsetsCategory.Autset` row was replaced by a
+  project-owned `AutCategory()` route, that generic Sage Homset container
+  methods are explicitly routed to shared Hom/End or interop-only owners, and
+  that the bounded negative finding does not make an unsupported global absence
+  claim.
+- Routing: this card is human-gated; continue autonomous work at
+  `[[TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]`.

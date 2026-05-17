@@ -32,9 +32,6 @@ class _RingHomomorphisms(UniversalHomElementMethods):
     def kernel(self) -> Ideal: ...
 
     @abstractmethod
-    def section(self) -> RingMorphism: ...
-
-    @abstractmethod
     def extend_to_fraction_field(self) -> RingMorphism: ...
 
 

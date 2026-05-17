@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-LATTICES]]'
 title: Audit Lattices hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-human-input
 priority: high
 description: Audit `category_specs/lattices/homsets.py` and the Lattices mapping/spec
   surface so retained Sage homset/container methods are explicitly mirrored,
@@ -52,9 +52,9 @@ in the lattice mapping surface.
 
 ## Acceptance Criteria
 
-- [ ] The Lattices mapping/spec identifies Sage homset/container methods relevant to lattice hom objects and their constructors.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] The Lattices mapping/spec identifies Sage homset/container methods relevant to lattice hom objects and their constructors.
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -65,3 +65,16 @@ in the lattice mapping surface.
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the Lattices homset mirroring audit to
+  `[[SPEC-MAPPING-LATTICES]]`. The audit routes generic Homset container methods to
+  the shared Hom/End base, free/FGP construction mechanics to module Hom owners,
+  formed-module isometry semantics to the forms Hom/Aut layers, and lattice-specific
+  subgroup/discriminant bridge surfaces to `Lattices(R).AutCategory()`. Existing
+  downstream lattice cards cover formed cokernel and discriminant-kernel implementation
+  gaps; this card is ready for fresh-context review.
+- 2026-05-17: Fresh-context review found no blockers. It checked that generic
+  Homset containers are routed to generic Hom/End ownership, FGP/free-module Hom
+  mechanics route to module/form owners, discriminant bridge names route to downstream
+  tracked cards rather than nonexistent Sage methods, and no `MorphismMethods`, local
+  casts, or Sage ambient-lattice public API were introduced. Routed to
+  `needs-human-input` for human approval.

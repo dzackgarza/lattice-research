@@ -22,17 +22,17 @@ successCriteria:
 tasks:
 - '[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]'
 - '[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]'
-- '[[TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
-- '[[TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
-- '[[TASK-AUDIT-RINGS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 - '[[TASK-AUDIT-ALGEBRAS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 - '[[TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 - '[[TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-RINGS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
+- '[[TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING]]'
+- '[[TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 - '[[TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
-- '[[TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
-tasks:
-- '[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]'
-- '[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]'
+- '[[TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION]]'
+- '[[TASK-WRAPUP-PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]'
 tags:
 - FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES
 - PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION
@@ -60,19 +60,21 @@ signature is mathematically meaningful.
 
 ## Review Handoff
 
-Both phase tasks are now in `needs-review`:
+The original mapping-doc conversion and mathematical-correctness tasks are complete.
+After the 2026-05-10 Hom/End/Aut ownership decision, this phase reopened for the
+per-subtree hom-mapping mirror audit: each subtree with a `homsets.py` file must
+explicitly account for Sage homset/container methods it keeps, routes elsewhere, or
+rejects as interop-only.
 
-- `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]` records the Sage-doc/source
-  reconciliation pass.
-- `[[TASK-MAPPING-DOC-MATHEMATICAL-CORRECTNESS-AUDIT]]` records the mathematical
-  owner, codomain, and type-signature corrections from the audit pass.
+Current routing:
 
-This phase is ready for human/spec review. It is not accepted or closed.
-
-Reopened 2026-05-10 after the homset ownership decision changed. The new active
-leaf work is a per-subtree hom-mapping mirror audit: each subtree with a
-`homsets.py` file must explicitly account for the Sage homset/container methods
-it keeps, routes elsewhere, or rejects as interop-only.
+- The per-subtree homset mirroring audits and the Rings ownership follow-up are
+  human-gated at `needs-human-input`.
+- `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION` remains
+  `unstarted` because it depends on human approval of the Posets audit; it is a
+  downstream source-grounding leaf, not the next autonomous frontier item.
+- This phase remains `in-progress` until the human-gated audit cards and the downstream
+  Posets source-grounding leaf are resolved.
 
 ---
 

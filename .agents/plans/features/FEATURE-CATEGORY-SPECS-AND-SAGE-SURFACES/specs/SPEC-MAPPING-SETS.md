@@ -273,6 +273,25 @@ subcategory boundaries.
 | `Posets()` | top-level `posets/` subtree, cross-linked from `sets` | A poset is a set with a partial order. Sage's required parent method is `le`; it also exposes `lt`, `ge`, `gt`, covers, order ideals, filters, chains, and antichains. | Do not bury this under ordinary set subcategories. The promoted subtree owns order methods and its own finite/lattice refinements. |
 | `LatticePosets()` / `FiniteLatticePosets()` | `posets/subcategories/lattice.py` and `posets/subcategories/finite_lattice.py` | These are order-theoretic lattices: posets in which every pair has a meet and join. | Keep separate from module/quadratic-form lattice vocabulary; finite lattice posets add irreducibles and lattice-morphism checks. |
 
+## Sets Homset Mirroring Audit
+
+The Sets subtree does not treat Sage generic homset inheritance as an implicit
+public contract. Sage homset, set-morphism, image, and finite-map surfaces are
+retained only where they belong to project-owned set Hom/End/Aut vocabulary or to a
+separate finite-map/image-set construction owner.
+
+| Sage source surface | Source evidence | Project owner and outcome |
+| --- | --- | --- |
+| Generic homset `domain()`, `codomain()`, `natural_map()`, `identity()`, `one()`, and `reversed()` | `sage/categories/homset.py:1136-1249` | Routed to the generic project homset semantic base. Sets uses these as Hom/End infrastructure; they are not set-specific methods. |
+| Homset-category `is_endomorphism_set()` and generic endset monoid structure | `sage/categories/homsets.py:330-355`; inventory rows for `Sets().Endsets()` | Routed through `Sets().EndCategory()` and the generic `EndCategory`. The endomap monoid law belongs to the generic end layer; set-specific refinements add function predicates, not a new monoid owner. |
+| `Sets.MorphismMethods.__invert__()` | `sage/categories/sets_cat.py:1781-1828`; `sage/categories/morphism.pyx:509-569`, `:779-884` | Retained as generic inverse/isomorphism behavior on invertible morphisms, with set automorphisms routed to `Sets().AutCategory()`. It is not reintroduced as `MorphismMethods` in the project set object category. |
+| `Sets.MorphismMethods.is_injective()` and Sage morphism `is_surjective()` | `sage/categories/sets_cat.py:1829-1847`; `sage/categories/morphism.pyx:546-569`, `:871-884` | Retained on `Sets().HomCategory().ElementMethods` as set-map predicates. `is_bijective()` is the project derived predicate and promotes automorphism membership through `Sets().AutCategory()`. |
+| `Sets.MorphismMethods.image(domain_subset=None)` | `sage/categories/sets_cat.py:1848-1885`; `sage/sets/image_set.py:90-320` | Routed to image-subobject construction: the set map element owns the operation, while the result lies in `Sets().Subobjects()` / `Sets().Subquotients()`. Sage callable wrapping, `PoorManMap`, and arbitrary `Set(X)` fallback are interop-only constructor plumbing. |
+| `ImageSubobject.ambient()`, `lift()`, and `retract()` | `sage/sets/image_set.py:242-320`; existing ImageSubobject admission section below | Retained on the image/subquotient object owner, not on the hom object. These methods describe the constructed image object after the set-map operation has produced it. |
+| `FiniteSetMaps(domain, codomain)` domain/codomain, cardinality, iteration, `from_dict`, `_from_list_`, and element construction from callables | `sage/sets/finite_set_maps.py:38-202`, `:240-476`; `sage/sets/finite_set_map_cy.pyx:1-180`, `:450-510` | Split ownership: finite enumeration and finite constructor surfaces belong to `FiniteSetMapSets`; Hom object data `domain()`/`codomain()` belongs to the set hom layer; callable/dict/list element construction is retained only as finite set-map constructor evidence with explicit finite-domain/codomain hypotheses. Private `_from_list_` stays interop/internal. |
+| Finite endomap `one()` and composition/power operations | `sage/sets/finite_set_maps.py:479-587`; `sage/sets/finite_set_map_cy.pyx:600-690` | Routed to `Sets().EndCategory()` for identity and generic endomorphism composition, with finite enumeration retained by `FiniteSetMapSets`. Sage's `one()` spelling is implementation evidence for end identity, not a finite-set-only category method. |
+| Finite map element `image_set()` and `fibers()` | `sage/sets/finite_set_map_cy.pyx:287-330`, `:490-510` | `image_set()` refines the same image-subobject result for finite maps. `fibers()` is not admitted as generic set-hom surface here; it requires a separately named finite-fiber/preimage-family owner if later work needs it. |
+
 ## Constructor Mapping Decisions
 
 | Sage constructor | Project subcategory | Notes |

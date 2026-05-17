@@ -57,6 +57,11 @@ for every subtree with a `homsets.py` surface so Sage homset/container methods
 kept by the project are explicitly mirrored on the corresponding project Hom
 specs.
 
+The reopened per-subtree homset mirroring audits are currently human-gated after
+source-backed review. The only child leaf left unstarted in that reopened branch is
+the finite-Posets automorphism source-grounding card, which waits on human approval of
+the Posets audit before it becomes an executable DAG frontier item.
+
 ## Source Provenance
 
 - `plans/CATEGORY_REFINEMENT_PHASES.md`

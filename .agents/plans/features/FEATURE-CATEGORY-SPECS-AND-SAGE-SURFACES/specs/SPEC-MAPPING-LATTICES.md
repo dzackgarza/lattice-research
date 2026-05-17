@@ -49,6 +49,9 @@ Source inventory: `category_specs/lattices/docs/SAGE_INVENTORY.md`.
   - `sage/modules/fg_pid/fgp_module.py`
   - `sage/modules/fg_pid/fgp_element.py`
   - `sage/modules/fg_pid/fgp_morphism.py`
+  - `sage/modules/free_module_homspace.py`
+  - `sage/categories/homset.py`
+  - `sage/categories/homsets.py`
   - `sage/modules/torsion_quadratic_module.py`
   - `sage/modules/free_quadratic_module_integer_symmetric.py`
   - `sage/quadratic_forms/quadratic_form.py`
@@ -174,8 +177,57 @@ basis, and formed-lattice owners.
 | `orthogonal_group(gens=None, check=False)` on torsion quadratic modules | `torsion_quadratic_module.py:816` | `Lattices(R).DiscriminantGroups().AutCategory()` via module Hom/Aut machinery | Admit as finite torsion formed-module Aut. Raw matrices and abelian-group automorphisms are constructor inputs to the Aut parent, not elements before containment succeeds. |
 | finite `isotropic_elements()` on torsion quadratic/discriminant forms | `torsion_quadratic_module.py:154`; theory/foundations/coble-task-background.md Task 2.1 | finite torsion formed-module enumeration surface; discriminant groups inherit generic formed-module isotropic predicates | Admit as enumeration of finite carrier elements satisfying the already-generic isotropic predicate, e.g. `q(x)=0` in the quadratic codomain. Use "elements", not "vectors", unless a separate finite-vector-space structure has been constructed. This is finite-set enumeration, not a lattice-vector enumeration. |
 | finite action `orbit(x)`, `orbits(S)`, `orbit_representatives(S)` for discriminant-form automorphism groups | `torsion_quadratic_module.py:816`; `groups/fqf_orthogonal.py`; theory/foundations/coble-task-background.md Task 2.1 | `DiscriminantGroupAut` and finite group-action categories | Admit on the group/action object, not as a method owned by `nikulin_invariants()` or by the underlying abelian group alone. The acted-on set must be a typed subset of the discriminant group, such as isotropic elements. |
-| `discriminant_action()`, `image_in_discriminant_orthogonal_group()`, `kernel_of_discriminant_action()` | `torsion_quadratic_module.py:856`; theory/foundations/coble-task-background.md Tasks 2.1-2.2 | `Lattices(R).AutCategory()` for nondegenerate integral lattices with `discriminant_group()` | Admit as the canonical bridge `O(L) -> O(A_L,q_L)`. The kernel is the stable orthogonal group acting trivially on the discriminant form; subgroup names and orbit-lifting methods must route through this homomorphism. |
+| `discriminant_action()`, `image_in_discriminant_orthogonal_group()`, `kernel_of_discriminant_action()` | Sage example `torsion_quadratic_module.py:852-864` builds the induced finite action by `D.orthogonal_group(O.gens())` and `O.hom(Obar.gens()).kernel()`; theory/foundations/coble-task-background.md Tasks 2.1-2.2 | `Lattices(R).AutCategory()` for nondegenerate integral lattices with `discriminant_group()` | Admit as the canonical project bridge `O(L) -> O(A_L,q_L)`. Sage supplies backend evidence for the finite discriminant-form action, not direct methods with these names. The kernel is the stable orthogonal group acting trivially on the discriminant form; subgroup names and orbit-lifting methods must route through this homomorphism. |
 | `twist(s)` on torsion quadratic modules | `torsion_quadratic_module.py:1207` | forms-owned form scaling | Admit as formed-module twist/rescale of the form codomain, with explicit codomain update. |
+
+### Lattices Homset Mirroring Audit
+
+The lattice homset surface is intentionally thin: it mirrors Sage homset behavior by
+routing generic containers through the shared Hom/End base, module morphism mechanics
+through the module and formed-module layers, and only lattice-specific orthogonal-group
+refinements through `Lattices(R).AutCategory()`.
+
+| Sage or project surface | Source evidence | Spec owner or classification | Reconciliation |
+| --- | --- | --- | --- |
+| Generic `Homset` container methods: `__contains__`, `natural_map`, `identity`, `one`, `domain`, `codomain`, `reversed` | `sage/categories/homset.py:1130-1263` | generic Hom/End semantic base | Do not duplicate these in `Lattices`. `domain`, `codomain`, and `reversed` are hom-parent navigation; `identity` and `one` are generic End identity vocabulary; `natural_map` is coercion interop, not a lattice-theoretic natural transformation. |
+| `FreeModuleHomspace.__call__(A, **kwds)`, `zero(side='left')`, `identity(side='left')` | `free_module_homspace.py:132-273`, `342-368` | module Hom parent constructors and backend interop | Preserve the matrix/images/callable construction paths through module Hom parent constructors such as `from_matrix`, `from_images`, and callable conversion. The `side` option is backend matrix-orientation data, not a public lattice option bag. |
+| `FGP_Module_class.hom(im_gens, codomain=None, check=True)` | `fgp_module.py:1480-1606` | finitely presented PID-module convenience constructor | Keep as module interop. It constructs a morphism element from generator images and must not become the main lattice public constructor. Lattice and formed-module code should expose `M.Hom(N)` plus structured Hom-parent constructors. |
+| `FGP_Module_class._Hom_`, `FGP_Homset`, `FGP_Homset_class` | `fgp_module.py:1690-1731`; `fgp_morphism.py:462-515` | module Hom backend | These are Sage plumbing for finitely presented module Hom parents. Lattice homsets refine the generic/module Hom category instead of wrapping or copying this class. |
+| `FGP_Morphism.im_gens`, `__call__`, `kernel`, `inverse_image`, `image`, `lift` | `fgp_morphism.py:137-152`, `226-456` | module and formed-module Hom element methods | Preserve as categorical morphism operations inherited through module/form layers. `cokernel` remains routed to the existing downstream formed-cokernel cards rather than solved by this mapping audit. |
+| `FormedModulesCategory.ParentMethods.orthogonal_group()` and `FormedModulesCategory.HomCategory.ElementMethods.is_isometry()` | `category_specs/forms/subcategories/with_forms.py:52-55`, `102-106` | formed-module Aut and Hom element owner | `O(M,b) = Aut_C(M)` is formed-module vocabulary. Lattices specialize this through `Lattices(R).AutCategory()`; they do not own the generic definition of isometry. |
+| `FreeBilinearModulesCategory.HomCategory.ElementMethods.to_matrix()` | `category_specs/forms/subcategories/free_bilinear.py:230-236` | free bilinear Hom element owner | Matrix realization is available for free bilinear morphisms and inherited by lattice morphisms. It is a representation of a typed Hom element, not a replacement for the Hom element. |
+| `LatticeHomCategory.extra_super_categories()` and `ElementMethods` | `category_specs/lattices/homsets.py:41-55` | lattice HomCategory shell over formed/module Hom | Keep the shell thin: it refines the base category and `Modules(R).HomCategory()` but adds no duplicate generic Hom logic. |
+| `LatticeEndCategory.ParentMethods.base_lattice()` | `category_specs/lattices/homsets.py:61-74` | lattice End parent surface | Lattice End objects may expose their structure lattice, but generic `domain()` remains generic Hom/End navigation. |
+| `LatticeAutCategory.ParentMethods.special_subgroup`, `stable_subgroup`, `stable_special_subgroup`, and aliases | `category_specs/lattices/homsets.py:78-127` | lattice Aut parent refinement | These are lattice orthogonal-group subgroup constructors. Former object-level calls route through the aut object, e.g. `L.orthogonal_group().stable_orthogonal_group()`. |
+| `LatticeAutCategory.ElementMethods.is_isometry()` | `category_specs/lattices/homsets.py:32-38` | lattice Aut element fact | Lattice automorphisms are isometries by category membership. This mirrors the formed-module `is_isometry()` definition without creating a separate morphism container. |
+| `FreeQuadraticModule_integer_symmetric.orthogonal_group(gens=None, is_finite=None)` and `automorphisms` | `free_quadratic_module_integer_symmetric.py:1155-1313`; `groups/matrix_gps/isometries.py:45-123` | formed/lattice Aut backend evidence | Sage returns a `GroupOfIsometries` matrix group, with definite-generator computation and right-action behavior as implementation details. Project `gens` admission is subgroup construction after each candidate is promoted to an automorphism object and checked by Aut containment. |
+| `TorsionQuadraticModule.orthogonal_group(gens=None, check=False)` | `torsion_quadratic_module.py:816-867` | discriminant-form Aut category | Route to `Lattices(R).DiscriminantGroups().AutCategory()` through finite torsion formed-module Hom/Aut machinery. Raw matrices, abelian-group automorphisms, and `check` are constructor/backend inputs, not public lattice automorphisms before containment succeeds. |
+| `discriminant_action()`, `image_in_discriminant_orthogonal_group()`, `kernel_of_discriminant_action()` | Sage example `torsion_quadratic_module.py:852-864`; downstream cards `[[TASK-LAT-PHASE5-DISCRIMINANT-KERNEL]]` and `[[TASK-LAT-PHASE5-ORTHOGONAL-SUBGROUPS]]` | project lattice Aut bridge | No direct Sage methods with these names were found in the checked corpus. Keep them as project methods on lattice orthogonal/aut objects, backed by the quotient action `O(L) -> O(A_L,q_L)` and downstream phase cards. |
+
+- Searched: `category_specs/lattices/homsets.py`, `category_specs/forms/subcategories/with_forms.py`,
+  `category_specs/forms/subcategories/free_bilinear.py`,
+  `category_specs/modules/subcategories/finitely_presented_over_pid.py`,
+  Sage `sage/categories/homset.py`, `sage/categories/homsets.py`,
+  `sage/modules/free_module_homspace.py`, `sage/modules/fg_pid/fgp_module.py`,
+  `sage/modules/fg_pid/fgp_morphism.py`,
+  `sage/modules/free_quadratic_module_integer_symmetric.py`,
+  `sage/modules/torsion_quadratic_module.py`, `sage/groups/matrix_gps/isometries.py`,
+  and targeted `rg` searches for `discriminant_action`,
+  `image_in_discriminant_orthogonal_group`, `kernel_of_discriminant_action`, and
+  `def cokernel(`, plus `Autset` across the checked generic/module Hom sources.
+- Found: Sage supplies generic Homset containers, free/FGP module Hom backends,
+  matrix-group isometry backends, and torsion-form orthogonal-group examples. No
+  dedicated Sage lattice Homset class, generic Sage `Autset`, direct Sage
+  discriminant-action method names, or `FGP_Morphism.cokernel` implementation was found
+  in the checked corpus.
+- Conclusion: inference -- lattice Hom/End/Aut should remain a project shell over
+  generic Hom/End, module Hom, and formed-module Aut semantics. Lattice-specific work is
+  the Aut subgroup/discriminant bridge and downstream formed-cokernel implementation,
+  not a new lattice-local homset hierarchy.
+- Confidence: High.
+- Gaps: Deleted historical implementation files and lazy-imported Sage modules outside
+  the checked installed-source corpus were not exhaustively searched because the active
+  spec source and downstream cards already own the required project surfaces.
 
 ### Formal Negative and Corrective Findings
 

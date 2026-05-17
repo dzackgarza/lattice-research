@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-TOPOLOGICAL-SPACES]]'
 title: Audit TopologicalSpaces hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-human-input
 priority: high
 description: Audit `category_specs/topological_spaces/homsets.py` and the TopologicalSpaces
   mapping/spec surface so retained Sage continuous-map container methods are
@@ -51,9 +51,9 @@ audit makes the retained Sage container methods explicit in the project mapping.
 
 ## Acceptance Criteria
 
-- [ ] The TopologicalSpaces mapping/spec identifies Sage homset/container methods relevant to topological hom objects and their constructors.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] The TopologicalSpaces mapping/spec identifies Sage homset/container methods relevant to topological hom objects and their constructors.
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -64,3 +64,26 @@ audit makes the retained Sage container methods explicit in the project mapping.
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the homset mirroring audit to `[[SPEC-MAPPING-TOPOLOGICAL-SPACES]]`.
+  The audit routes Sage generic `Hom`/`Homsets`/`Endset` plumbing to the generic
+  semantic base, records `MetricSpaces.Homsets` as the Sage-backed short-map source,
+  keeps continuous maps/homeomorphisms/isometries on the project topological and
+  metric Hom/Aut owners, and records a five-field negative finding for missing
+  pure `TopologicalSpaces.Homsets` owners in the checked Sage source corpus.
+- 2026-05-17: Fresh-context review recommended `needs-human-input` with no
+  missing-owner follow-up required in the reviewed Topological/Metric hom scope.
+
+## Review Log
+
+### Fresh-Context Agent Review - 2026-05-17
+
+Recommendation: `needs-human-input`.
+
+- Blocking findings: none.
+- Review checked source grounding for the absence of a checked Sage
+  `TopologicalSpaces.Homsets` owner, the Sage-backed `MetricSpaces.Homsets`
+  short-map obligation, project ownership for continuous maps, homeomorphisms,
+  and isometries, generic `Hom`/`Homsets`/`Endset` routing, and the five-field
+  negative finding.
+- Routing: this card is human-gated; continue autonomous work at
+  `[[TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]`.

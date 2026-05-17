@@ -47,13 +47,15 @@ Source inventory: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`.
 - Installed Sage source files checked or named by the local inventory:
   - `sage/categories/topological_spaces.py`
   - `sage/categories/metric_spaces.py`
+  - `sage/categories/homset.py`
+  - `sage/categories/homsets.py`
   - `sage/sets/real_set.py`
 - Runtime observation route checked by the local inventory:
   - `/home/dzack/miniforge3/envs/sage/bin/sage -c`
 - Import probe caveat: direct `sage -python` imports of several `sage.categories.*` modules raised `ImportError: cannot import name Category`; completeness work therefore uses installed source files and inventories as the durable source surface unless that environment issue is separately resolved.
 - Completeness status: this ledger records the checked source corpus; the topological
-  and metric method reconciliation is recorded below, with remaining gaps routed
-  through `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
+  and metric method reconciliation and homset mirroring audit are recorded below,
+  with remaining gaps routed through `[[TASK-MAPPING-DOC-COMPLETENESS-RESEARCH]]`.
 
 ## Completeness Reconciliation: Topological And Metric Surface
 
@@ -125,6 +127,51 @@ not by a second topological-only `preimage` obligation. Endomorphism objects use
 generic end-domain vocabulary: `End_Top(X).domain()` names the underlying space, so
 `base_space()` is not a separate abstract method on topological or metric end
 categories.
+
+## Topological Spaces Homset Mirroring Audit
+
+This audit separates Sage generic homset container plumbing from topological and
+metric semantic owners.
+
+| Sage source surface | Target project owner | Routing |
+| --- | --- | --- |
+| `sage.categories.homset.Hom(X, Y, category)` and the `_Hom_` hook | Generic `HomCategoryConstruction` plus the selected subtree hom category | Backend constructor and interop evidence, not a topological-specific method. Topological hom objects are owned by `TopologicalSpaces().HomCategory()` when the category is topological. |
+| Sage generic `Homset.domain()`, `codomain()`, `identity()`, `one()`, `natural_map()`, and `reversed()` | Generic Hom/End semantic base | Retain as generic homset container vocabulary. The topological subtree does not duplicate these methods. |
+| `HomsetsCategory.default_super_categories(...)` and fallback `HomsetsOf` | Generic homsets mapping | Sage supplies fallback homsets for categories without nested `Homsets`. Since checked `TopologicalSpaces` source has no nested `Homsets`, continuous-map ownership is project-local. |
+| `Homsets().Endset()` | Generic `EndCategory` base refined by `TopologicalSpaces().EndCategory()` and `TopologicalSpaces().Metric().EndCategory()` | The Endset axiom is mirrored through project End categories. `base_space()` remains rejected as a duplicate of generic `domain()`. |
+| `MetricSpaces.Homsets` | `TopologicalSpaces().Metric().HomCategory()` | Sage's metric homsets are metric maps, described in the checked source as Lipschitz maps with constant 1. The project owns these as short maps refining continuous maps. |
+| `MetricSpaces.Homsets.ElementMethods._test_metric_map` | Validation evidence for `_ShortMaps.is_short()` | Interop/test-only Sage method. Do not expose `_test_*` names as public topological methods. |
+| Project `_ContinuousMaps.is_continuous()` | `TopologicalSpaces().HomCategory().ElementMethods` | Project semantic predicate for topological hom elements. No checked Sage `TopologicalSpaces.Homsets` checker supplies this method. |
+| Project `_Homeomorphisms.is_homeomorphism()` | `TopologicalSpaces().AutCategory().ElementMethods` | A topological automorphism is an invertible continuous map with continuous inverse, so the Aut category is the homeomorphism owner. |
+| Project `_ShortMaps.is_short()` | `TopologicalSpaces().Metric().HomCategory().ElementMethods` | Metric hom elements refine continuous maps by the Sage-backed short-map obligation. |
+| Project `_Isometries.is_isometry()` | `TopologicalSpaces().Metric().AutCategory().ElementMethods` | An automorphism in the category of short maps has a short inverse; this is the metric isometry surface. |
+| Sage `SetMorphism` examples used in metric homset doctests | Generic set-map/Sage callable interop | Callable wrapping remains constructor evidence for Sage runtime tests, not a topological constructor surface. |
+
+Negative homset surface finding:
+
+- Searched: `category_specs/topological_spaces/docs/SAGE_INVENTORY.md`,
+  `category_specs/topological_spaces/homsets.py`,
+  `category_specs/topological_spaces/smoketest.sage`, installed Sage
+  `sage/categories/topological_spaces.py`, `sage/categories/metric_spaces.py`,
+  `sage/categories/homset.py`, `sage/categories/homsets.py`,
+  `sage/sets/real_set.py`, and local source searches for `Homsets`,
+  `Endset`, `Autset`, `is_continuous`, `homeomorphism`, `isometry`, and
+  `_test_metric_map`.
+- Found: checked Sage `TopologicalSpaces` source records topological structure and
+  subcategory/product edges but no nested `Homsets` class or continuous-map checker;
+  checked Sage `MetricSpaces` source records `MetricSpaces.Homsets` and
+  `_test_metric_map`; checked generic homset sources provide generic `Hom`,
+  fallback `HomsetsOf`, and Endset machinery rather than topological
+  continuous-map, homeomorphism, or isometry owners.
+- Conclusion: inference -- the topological continuous/homeomorphism/isometry
+  Hom/Aut predicates are project semantic owners over Sage generic homset
+  plumbing, while the metric short-map obligation is directly Sage-backed by
+  `MetricSpaces.Homsets`.
+- Confidence: High for the checked topological, metric, generic homset, and
+  project source corpus.
+- Gaps: broader Sage manifold, geometry, scheme, polyhedral, and simplicial
+  categories may define their own structured continuous-map or isomorphism
+  surfaces outside this pure topological-spaces subtree pass.
 
 ## Root Topological Method Mapping
 

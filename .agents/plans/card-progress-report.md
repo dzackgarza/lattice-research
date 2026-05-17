@@ -2,9 +2,9 @@
 
 ## Overall
 
-- Total cards: **312**
+- Total cards: **314**
 - Completed cards: **250**
-- Overall progress: `[###################-----]  80.1%`
+- Overall progress: `[###################-----]  79.6%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -17,7 +17,7 @@
 | phase | 27 | 18 | 2 | 3 | 0 | 0 |
 | plan | 12 | 7 | 3 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 171 | 139 | 0 | 12 | 3 | 0 |
+| task | 173 | 139 | 0 | 11 | 13 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -28,7 +28,7 @@
 ### Task Activity Types
 
 - `implementation`: **19**
-- `source-mining`: **10**
+- `source-mining`: **12**
 - `validation`: **3**
 
 ## Feature Rollup
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[###############-]  91.2%` | 145/159 | 5 | 1 | 0 | 0 |
+| Category specs and Sage surface admission | `[##############--]  90.1%` | 145/161 | 5 | 0 | 10 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -82,9 +82,9 @@
 - `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE` (`critical`, `unstarted`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
-- `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `needs-review`)
+- `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `needs-human-input`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` (`critical`, `unstarted`)
-- `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `unstarted`)
+- `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `needs-human-input`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `feature` `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`: gated by `FEATURE-COBLE-K3-FOLDING-INVOLUTION`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
@@ -97,6 +97,7 @@
 
 ## Most Recently Completed
 
+- 2026-05-17 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `50d2e97`: docs: audit modules homset mirroring)
 - 2026-05-15 `spec` `SPEC-MAPPING-RINGS`: Track rings mapping spec (commit `5c13e1c`: docs(qc): separate mypy foundation routing)
 - 2026-05-15 `decision` `DECISION-20260514-MYPY-ERROR-TRIAGE-CODE-GAP-VS-PLUGIN-GAP`: Mypy error triage — code gaps vs plugin gaps across all remaining error groups (commit `5c13e1c`: docs(qc): separate mypy foundation routing)
 - 2026-05-15 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `582e200`: chore: relocate planning workspace under agents)
@@ -111,7 +112,6 @@
 - 2026-05-15 `decision` `DECISION-DEC-PHASE-01-PLAN-APPROVAL-AND-FIRST-EXECUTION-LANE`: Decide whether to approve the phase-01 plan tree and first execution lane (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION`: Decide HomCategory semantic base and Sage homset mirroring route (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-NIKULIN-INVARIANTS-DISCRIMINANT-FORM-RESEARCH-GAP`: Nikulin invariants discriminant-form research gap (commit `582e200`: chore: relocate planning workspace under agents)
 
 ## Notes
 

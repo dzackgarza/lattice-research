@@ -19,7 +19,7 @@ from ..homsets import (
 )
 
 if TYPE_CHECKING:
-    from ..types import Algebra
+    from ..types import Algebra, AlgebraIdeal
 
 
 class _AlgebraHomCategoryObjectMethods(UniversalHomObjectMethods):
@@ -28,8 +28,8 @@ class _AlgebraHomCategoryObjectMethods(UniversalHomObjectMethods):
 
 class _AlgebraHomomorphisms(UniversalHomElementMethods):
     @abstractmethod
-    def kernel(self) -> Algebra:
-        r"""Return the kernel algebra of this algebra homomorphism."""
+    def kernel(self) -> AlgebraIdeal:
+        r"""Return the kernel ideal of this algebra homomorphism."""
         ...
 
 

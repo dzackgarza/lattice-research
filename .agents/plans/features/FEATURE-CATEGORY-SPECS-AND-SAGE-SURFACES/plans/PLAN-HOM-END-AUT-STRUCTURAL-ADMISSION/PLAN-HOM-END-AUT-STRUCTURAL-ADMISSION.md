@@ -31,9 +31,11 @@ Admit Homsets, Endsets, Autsets, dual objects, and automorphism groups through t
 This plan was reopened on 2026-05-10 after a runtime ownership audit during QC
 triage showed that `category_specs.homsets.homsets.HomCategory.parent_class` does
 not currently inherit Sage's concrete `sage.categories.homset.Homset` surface. The
-generic Hom/End/Aut mapping spec already records those upstream owners, so the
-remaining work is to align implementation, override claims, and QC diagnosis with
-that source-grounded owner map.
+generic Hom/End/Aut mapping spec records those upstream owners as source inventory.
+`TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` now carries the
+project-owned semantic-owner split and is human-gated after fresh-context review.
+Remaining runtime MRO proof waits on the Sage import gap; do not treat full-suite mypy
+output as evidence for or against this plan while the plugin lane is active.
 
 
 ## Grounded Implementation Contract

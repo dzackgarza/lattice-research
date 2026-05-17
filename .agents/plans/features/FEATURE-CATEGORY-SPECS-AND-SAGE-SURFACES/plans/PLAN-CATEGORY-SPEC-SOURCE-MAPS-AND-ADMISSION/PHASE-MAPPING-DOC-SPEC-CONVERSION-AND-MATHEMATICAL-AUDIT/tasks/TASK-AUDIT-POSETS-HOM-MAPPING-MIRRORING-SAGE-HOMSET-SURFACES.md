@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-POSETS]]'
 title: Audit Posets hom mapping for mirrored Sage homset surfaces
-status: unstarted
+status: needs-human-input
 priority: high
 description: Audit `category_specs/posets/homsets.py` and the Posets mapping/spec
   surface so retained Sage order-map container methods are explicitly mirrored,
@@ -51,9 +51,9 @@ the retained Sage container methods explicit in the project mapping.
 
 ## Acceptance Criteria
 
-- [ ] The Posets mapping/spec identifies Sage homset/container methods relevant to poset hom objects and their constructors.
-- [ ] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
-- [ ] Any missing owner or constructor consequence becomes a tracked follow-up card.
+- [x] The Posets mapping/spec identifies Sage homset/container methods relevant to poset hom objects and their constructors.
+- [x] Each method is mirrored onto a project owner, routed elsewhere, or rejected as interop-only with source grounding.
+- [x] Any missing owner or constructor consequence becomes a tracked follow-up card.
 
 ## Dependencies And Boundaries
 
@@ -64,3 +64,14 @@ the retained Sage container methods explicit in the project mapping.
 
 - 2026-05-10: Created after the homset semantic-base decision shifted from generic
   inheritance repair to explicit subtree mirroring audits.
+- 2026-05-17: Added the Posets homset mirroring audit to `[[SPEC-MAPPING-POSETS]]`,
+  covering Sage generic Hom/End mechanics, absence of poset-specific Sage homset
+  classes, finite order-map/isomorphism/lattice-morphism validation predicates,
+  order-polynomial evidence, and Hasse-diagram automorphism backend routing. Created
+  `[[TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION]]` for
+  executable finite automorphism enumeration before any AutCategory API admission.
+- 2026-05-17: Fresh-context review found the Posets homset mirroring audit
+  source-grounded: it treats Sage Posets homsets as generic `HomsetsOf` fallback,
+  routes finite `is_poset_morphism` and `is_poset_isomorphism` as finite validation
+  evidence, keeps finite `is_lattice_morphism` on `Posets().Lattice().Finite()`,
+  and DAG-gates finite automorphism enumeration through the source-grounding task.
