@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL]]'
 title: Add free finite-rank module construction witnesses
-status: needs-agent-review
+status: complete
 priority: critical
 description: Add the module-owned witness layer that reports free finite-rank modules
   as cartesian powers of their base carrier for the finite `GF(5)^3` and countable
@@ -139,4 +139,4 @@ finite/countable free finite-rank module slice.
   `tests/category_specs/test_spec_core_reports.py`.
 - Gate 6 pass: local set/module mappings and installed Sage source for free-module
   cardinality/iteration and Cartesian-product cardinality/iteration were checked.
-- Outcome: PASS; frontmatter remains `needs-agent-review` for the repo acceptance gate.
+- Outcome: PASS; PR #4 was merged on 2026-05-18, satisfying the repo acceptance gate.

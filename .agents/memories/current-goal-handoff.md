@@ -35,14 +35,12 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The current autonomous leaf is `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`
-  on branch `dzack/free-module-construction-witnesses`; its status is
-  `needs-agent-review`, not `needs-human-input`. Fresh-context agent review passed,
-  but final completion/closure still requires human approval under repo policy.
-- Do not mark the witness card complete or start its DAG-dependent
-  `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE` successor until the witness card is actually
-  accepted/complete; do not treat final acceptance as a human-input blocker for
-  unrelated autonomous work.
+- The current autonomous leaf is `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`; the
+  predecessor `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` was accepted
+  through merged PR #4.
+- Validate the slice through focused report evidence for `GF(5)^3`, `ZZ^2`, and the
+  missing-obligation claimant. Add a focused `just` recipe if no existing recipe
+  answers this exact validation contract.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.

@@ -3,8 +3,8 @@
 ## Overall
 
 - Total cards: **319**
-- Completed cards: **251**
-- Overall progress: `[###################-----]  78.7%`
+- Completed cards: **252**
+- Overall progress: `[###################-----]  79.0%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
@@ -17,7 +17,7 @@
 | phase | 28 | 18 | 3 | 3 | 0 | 0 |
 | plan | 13 | 7 | 4 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 140 | 0 | 12 | 13 | 0 |
+| task | 176 | 141 | 1 | 11 | 13 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[##############--]  88.0%` | 146/166 | 7 | 1 | 10 | 0 |
+| Category specs and Sage surface admission | `[##############--]  88.6%` | 147/166 | 8 | 0 | 10 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -64,10 +64,10 @@
 - `phase` `PHASE-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `needs-agent-review`)
 - `plan` `PLAN-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
-- `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (`critical`, `needs-agent-review`)
 - `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (`critical`, `needs-human-input`)
 - `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (`critical`, `needs-human-input`)
 - `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (`critical`, `needs-human-input`)
+- `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: Validate the spec report vertical slice (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
 - `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-agent-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
@@ -90,7 +90,7 @@
 - `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `needs-human-input`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
-- `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: gated by `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` (`critical`, `unstarted`)
+- `feature` `FEATURE-COBLE-ARITHMETIC-GROUP-GENERATORS`: gated by `FEATURE-COBLE-K3-FOLDING-INVOLUTION`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 
 ## Blocked Items
 
@@ -98,6 +98,8 @@
 
 ## Most Recently Completed
 
+- 2026-05-18 `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (commit `ee3b509`: docs: align registry review outcome with complete status)
+- 2026-05-18 `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (commit `a298a2b`: fix: address free module witness review findings)
 - 2026-05-18 `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES`: Write ring algebra and module method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
@@ -111,8 +113,6 @@
 - 2026-05-18 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-1777748120816-0ES9M8-FIX-CAT-WRAPPER-TYPING-AND-FINALITY-HOLES`: Fix Cat wrapper typing and finality holes (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-WRAPUP-PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
-- 2026-05-18 `task` `TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z-IMPLEMENT-MODULE-CATEGORY-GRAPH-PHASE-FOR-AMBIENT-FREE-VECTOR-SUBOBJECT`: Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces (commit `2b8a3e9`: feat: add free module witness reports)
-- 2026-05-18 `task` `TASK-WRAPUP-PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
 
 ## Notes
 

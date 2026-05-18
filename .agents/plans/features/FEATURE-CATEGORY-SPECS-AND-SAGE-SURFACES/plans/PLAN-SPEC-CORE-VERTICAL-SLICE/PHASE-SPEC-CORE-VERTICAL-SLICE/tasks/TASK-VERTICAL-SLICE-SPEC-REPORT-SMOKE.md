@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES]]'
 title: Validate the spec report vertical slice
-status: unstarted
+status: in-progress
 priority: critical
 description: Add focused validation proving the finite `GF(5)^3`, countable `ZZ^2`,
   and missing-obligation report behavior for the spec-core vertical slice.
@@ -77,3 +77,5 @@ falsifiable.
 ## Work Log
 
 - Created as the validation leaf of the pivot plan.
+- Started after `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` was accepted
+  through merged PR #4.
