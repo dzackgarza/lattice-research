@@ -16,9 +16,9 @@ authorities for status, evidence, dependencies, and completed work.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
-- Continue from branch `dzack/complete-constructor-provenance-spec-core` if it is still
-  checked out. Its first milestone commit makes constructor provenance queryable for
-  every admitted `Constructors()` collector and adds `category_specs/spec_core/README.md`.
+- `main` now includes the constructor-provenance source-truth milestone: every
+  admitted `Constructors()` collector is queryable through spec-core provenance and
+  `category_specs/spec_core/README.md` documents the extension query workflow.
 - Use `just next-tasks 10` before selecting the next leaf; do not restart the completed
   vertical-slice branch sequence.
 - Use IWE to retrieve the selected card before reading broad plan history.
