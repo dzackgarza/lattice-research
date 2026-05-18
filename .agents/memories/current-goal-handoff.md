@@ -34,9 +34,13 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The research repo has no open PRs or non-main branches. `main` contains the
-  completed vertical-slice validation work, and the pre-pivot side branches have
-  been removed so future work starts from the pivot state.
+- Active integration branch: `dzack/spec-core-source-truth-lanes`. It carries the
+  vault-pivot source-truth work after the completed vertical slice: report query
+  helpers, reusable free-module witness helpers, generated-law tests, constructor
+  provenance evidence, and an expanded `just test-spec-core-vertical-slice` target.
+- `main` remains the consolidated pivot baseline. Do not open a PR unless the user
+  explicitly asks; finish validation on the integration branch, then merge or push only
+  under the user's current branch policy.
 - `just next-tasks 10` currently surfaces QC/mypy human-gated items and
   `TASK-MYPY-PARSER` in the Sage mypy-plugin lane. Do not start that lane unless the
   user explicitly redirects there or confirms that the parallel plugin work is clear.
@@ -62,8 +66,9 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Validation Routing
 
-- The slice success metric is the focused spec report, not broad category-smoke
-  recovery.
+- The slice success metric is the focused spec report plus generated-law and
+  constructor-provenance checks, not broad category-smoke recovery. Use
+  `just test-spec-core-vertical-slice` for the focused validation target.
 - Treat the q-adic split lattice-cap constructor failure as already routed through
   `TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED`
   and its linked Sage-support research card. Do not invent a local q-adic
