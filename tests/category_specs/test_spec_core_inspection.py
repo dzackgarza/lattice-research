@@ -21,8 +21,8 @@ def test_gf5_rank3_facade_reports_cardinality_and_discoverable_evidence() -> Non
     assert spec.declared_category == "Modules(GF(5)).Free().FiniteRank()"
     assert spec.value("cardinality").value == "125"
     assert tuple(obligation.id for obligation in spec.obligations) == (
-        "modules.free_finite_rank.cartesian_power_carrier",
         "sets.cartesian_product.cardinality",
+        "modules.free_finite_rank.cartesian_power_carrier",
     )
     assert tuple(provider.id for provider in spec.providers) == (
         "sets.cartesian_product.cardinality",
@@ -49,8 +49,8 @@ def test_zz_rank2_facade_records_missing_deterministic_enumeration() -> None:
     )
     assert result.status == "missing"
     assert tuple(obligation.id for obligation in spec.obligations) == (
-        "modules.free_finite_rank.cartesian_power_carrier",
         "sets.cartesian_product.cardinality",
+        "modules.free_finite_rank.cartesian_power_carrier",
         "sets.cartesian_product.countability",
         "sets.cartesian_product.deterministic_enumeration",
     )

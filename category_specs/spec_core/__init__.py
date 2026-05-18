@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+from .categories import (
+    CategorySpec,
+    CategorySpecRegistry,
+)
 from .constructors import (
     ConstructorRegistry,
     ConstructorSpec,

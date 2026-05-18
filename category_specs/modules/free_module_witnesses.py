@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Final
 
 from category_specs.spec_core import (
+    CategorySpec,
+    CategorySpecRegistry,
     ComputedValue,
     ConstructionWitness,
     SpecObligation,
@@ -161,6 +163,56 @@ def _build_registry(
     )
 
 
+def _slice_category_registry() -> CategorySpecRegistry:
+    """Return the source-truth category graph for this vertical slice."""
+    return CategorySpecRegistry(
+        categories=(
+            CategorySpec(id="Sets()", name="Sets()"),
+            CategorySpec(
+                id="Sets().CartesianProducts()",
+                name="Sets().CartesianProducts()",
+                direct_obligation_ids=(_PRODUCT_CARDINALITY_OBLIGATION_ID,),
+                super_category_ids=("Sets()",),
+            ),
+            CategorySpec(
+                id="Sets().CartesianProducts().CountableFinitePowers()",
+                name="Sets().CartesianProducts().CountableFinitePowers()",
+                direct_obligation_ids=(
+                    _PRODUCT_COUNTABILITY_OBLIGATION_ID,
+                    _PRODUCT_ENUMERATION_OBLIGATION_ID,
+                ),
+                super_category_ids=("Sets().CartesianProducts()",),
+            ),
+            CategorySpec(
+                id="Modules(R).Free().FiniteRank()",
+                name="Modules(R).Free().FiniteRank()",
+                direct_obligation_ids=(_CARRIER_OBLIGATION_ID,),
+                super_category_ids=("Sets().CartesianProducts()",),
+            ),
+            CategorySpec(
+                id="Modules(R).Free().FiniteRank().CountableCarrier()",
+                name="Modules(R).Free().FiniteRank().CountableCarrier()",
+                super_category_ids=(
+                    "Modules(R).Free().FiniteRank()",
+                    "Sets().CartesianProducts().CountableFinitePowers()",
+                ),
+            ),
+        ),
+        obligation_ids=(
+            _CARRIER_OBLIGATION_ID,
+            _PRODUCT_CARDINALITY_OBLIGATION_ID,
+            _PRODUCT_COUNTABILITY_OBLIGATION_ID,
+            _PRODUCT_ENUMERATION_OBLIGATION_ID,
+        ),
+    )
+
+
+def _source_category_id(*, base_is_countable: bool, product_is_infinite: bool) -> str:
+    if base_is_countable and product_is_infinite:
+        return "Modules(R).Free().FiniteRank().CountableCarrier()"
+    return "Modules(R).Free().FiniteRank()"
+
+
 def _module_and_product_obligations() -> tuple[SpecObligation, ...]:
     """Return obligations shared by all free finite-rank module slice subjects."""
     return (
@@ -206,18 +258,12 @@ def _select_inherited_obligation_ids(
     *, base_is_countable: bool, product_is_infinite: bool
 ) -> tuple[str, ...]:
     """Return inherited obligations that this subject is expected to satisfy."""
-    inherited_obligation_ids: list[str] = [
-        _CARRIER_OBLIGATION_ID,
-        _PRODUCT_CARDINALITY_OBLIGATION_ID,
-    ]
-    if base_is_countable and product_is_infinite:
-        inherited_obligation_ids.extend(
-            (
-                _PRODUCT_COUNTABILITY_OBLIGATION_ID,
-                _PRODUCT_ENUMERATION_OBLIGATION_ID,
-            )
+    return _slice_category_registry().inherited_obligation_ids(
+        _source_category_id(
+            base_is_countable=base_is_countable,
+            product_is_infinite=product_is_infinite,
         )
-    return tuple(inherited_obligation_ids)
+    )
 
 
 def _build_computed_values(
