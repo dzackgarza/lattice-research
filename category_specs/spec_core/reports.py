@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from functools import cached_property
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class SpecObligation(BaseModel):
@@ -65,6 +65,18 @@ class SpecCheckResult(BaseModel):
     obligation: SpecObligation
     provider: SpecProvider | None = None
     witness: ConstructionWitness | None = None
+
+    @model_validator(mode="after")
+    def provider_witness_matches_status(self) -> Self:
+        if self.status == "satisfied_by_provider":
+            if self.provider is None or self.witness is not None:
+                raise ValueError("provider result requires exactly one provider")
+        elif self.status == "satisfied_by_witness":
+            if self.witness is None or self.provider is not None:
+                raise ValueError("witness result requires exactly one witness")
+        elif self.provider is not None or self.witness is not None:
+            raise ValueError("missing result cannot include provider or witness")
+        return self
 
 
 class SpecReport(BaseModel):

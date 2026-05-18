@@ -2,34 +2,18 @@
 
 from __future__ import annotations
 
-import sys
-from importlib.machinery import SourceFileLoader
-from importlib.util import module_from_spec, spec_from_loader
-from pathlib import Path
-from types import ModuleType
+import importlib
 
 import pytest
 
-
-def _load_reports_module() -> ModuleType:
-    repo_root = Path(__file__).resolve().parents[2]
-    reports_path = repo_root / "category_specs" / "spec_core" / "reports.py"
-    loader = SourceFileLoader("spec_core_reports_under_test", str(reports_path))
-    spec = spec_from_loader(loader.name, loader)
-    if spec is None:
-        raise RuntimeError("could not build import spec for spec-core reports")
-    module = module_from_spec(spec)
-    sys.modules[loader.name] = module
-    loader.exec_module(module)
-    return module
-
-
-reports = _load_reports_module()
-SpecObligation = getattr(reports, "SpecObligation")
-SpecProvider = getattr(reports, "SpecProvider")
-ConstructionWitness = getattr(reports, "ConstructionWitness")
-ComputedValue = getattr(reports, "ComputedValue")
-SpecRegistry = getattr(reports, "SpecRegistry")
+importlib.import_module("sage.all")
+spec_core = importlib.import_module("category_specs.spec_core")
+ComputedValue = spec_core.ComputedValue
+ConstructionWitness = spec_core.ConstructionWitness
+SpecCheckResult = spec_core.SpecCheckResult
+SpecObligation = spec_core.SpecObligation
+SpecProvider = spec_core.SpecProvider
+SpecRegistry = spec_core.SpecRegistry
 
 
 def test_registry_report_partitions_provider_witness_and_missing_obligations() -> None:
@@ -200,4 +184,61 @@ def test_registry_rejects_duplicate_obligation_providers_and_witnesses() -> None
             subject="GF(5)^3",
             declared_category="Modules(GF(5)).Free().FinitelyPresented()",
             inherited_obligation_ids=("finite-cardinality",),
+        )
+
+
+def test_check_result_requires_status_evidence_to_match() -> None:
+    obligation = SpecObligation(
+        id="finite-cardinality",
+        title="Finite objects expose their cardinality",
+        source="category_specs/sets/subcategories/finite.py",
+    )
+    provider = SpecProvider(
+        id="finite-cardinality-methods",
+        category="Sets().Finite()",
+        provides=("finite-cardinality",),
+        source="category_specs/sets/subcategories/finite.py",
+    )
+    witness = ConstructionWitness(
+        id="finite-product-witness",
+        construction="cartesian_power",
+        source_category="Sets().Finite()",
+        target_category="Sets().Finite()",
+        provides=("finite-cardinality",),
+        source="category_specs/sets/subcategories/constructions/cartesian_product.py",
+    )
+
+    provider_result = SpecCheckResult(
+        status="satisfied_by_provider",
+        obligation=obligation,
+        provider=provider,
+    )
+    witness_result = SpecCheckResult(
+        status="satisfied_by_witness",
+        obligation=obligation,
+        witness=witness,
+    )
+    missing_result = SpecCheckResult(status="missing", obligation=obligation)
+
+    assert provider_result.provider.id == "finite-cardinality-methods"
+    assert provider_result.witness is None
+    assert witness_result.witness.id == "finite-product-witness"
+    assert witness_result.provider is None
+    assert missing_result.status == "missing"
+    assert missing_result.provider is None
+    assert missing_result.witness is None
+
+    with pytest.raises(ValueError):
+        SpecCheckResult(status="satisfied_by_provider", obligation=obligation)
+    with pytest.raises(ValueError):
+        SpecCheckResult(
+            status="satisfied_by_witness",
+            obligation=obligation,
+            provider=provider,
+        )
+    with pytest.raises(ValueError):
+        SpecCheckResult(
+            status="missing",
+            obligation=obligation,
+            witness=witness,
         )

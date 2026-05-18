@@ -96,6 +96,15 @@ to a new package and should not change existing category behavior.
   - Addressed Gemini review comments by caching registry indices, raising `ValueError`
     for unknown inherited obligation IDs, and rejecting duplicate provider or witness
     claims for one obligation.
+  - Removed the direct file-loader test bypass; the focused test now imports
+    `category_specs.spec_core` through the normal package path after initializing
+    `sage.all`.
+  - Added `SpecCheckResult` validation so status, provider, and witness fields cannot
+    encode contradictory report results.
+  - Review placement decision: the Qodo `src/` placement comment conflicts with this
+    card's explicit acceptance path, `category_specs/spec_core/`. Moving the package
+    would fail the approved slice task and should be a separate repo-structure decision
+    if the project wants to migrate category-spec code into `src/`.
 
 ## Review Log
 
