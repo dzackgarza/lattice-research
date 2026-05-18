@@ -139,4 +139,4 @@ finite/countable free finite-rank module slice.
   `tests/category_specs/test_spec_core_reports.py`.
 - Gate 6 pass: local set/module mappings and installed Sage source for free-module
   cardinality/iteration and Cartesian-product cardinality/iteration were checked.
-- Outcome: PASS; status remains `needs-agent-review` pending human acceptance.
+- Outcome: PASS; frontmatter remains `needs-agent-review` for the repo acceptance gate.

@@ -25,18 +25,9 @@ _MODULE_OWNERSHIP_SOURCE: Final = (
     ".agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/"
     "SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING.md"
 )
-_SAGE_FREE_MODULE_SOURCE: Final = (
-    "/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/"
-    "sage/modules/free_module.py"
-)
-_SAGE_SETS_SOURCE: Final = (
-    "/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/"
-    "sage/categories/sets_cat.py"
-)
-_SAGE_ENUMERATED_SETS_SOURCE: Final = (
-    "/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/"
-    "sage/categories/enumerated_sets.py"
-)
+_SAGE_FREE_MODULE_SOURCE: Final = "sage.modules.free_module"
+_SAGE_SETS_SOURCE: Final = "sage.categories.sets_cat"
+_SAGE_ENUMERATED_SETS_SOURCE: Final = "sage.categories.enumerated_sets"
 
 _CARRIER_OBLIGATION_ID: Final = "modules.free_finite_rank.cartesian_power_carrier"
 _PRODUCT_CARDINALITY_OBLIGATION_ID: Final = "sets.cartesian_product.cardinality"
@@ -123,7 +114,8 @@ def free_finite_rank_module_report(
     base_ring: object, rank: int, *, base_label: str | None = None
 ) -> SpecReport:
     """Build a spec-core report for the free module ``base_ring^rank``."""
-    assert rank >= 0
+    if rank < 0:
+        raise ValueError("rank must be nonnegative")
     label = base_label or str(base_ring)
     carrier_label = f"CartesianPower({label}, {rank})"
     declared_category = f"Modules({label}).Free().FiniteRank()"

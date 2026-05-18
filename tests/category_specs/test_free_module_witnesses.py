@@ -4,12 +4,18 @@ from __future__ import annotations
 
 import importlib
 
+import pytest
+
 importlib.import_module("sage.all")
 witnesses = importlib.import_module("category_specs.modules.free_module_witnesses")
 
 
 def _computed_values(report):
     return {value.name: value.value for value in report.computed_values}
+
+
+def _computed_sources(report):
+    return {value.name: value.source for value in report.computed_values}
 
 
 def test_gf5_rank3_report_uses_cartesian_power_cardinality_provider() -> None:
@@ -40,6 +46,7 @@ def test_gf5_rank3_report_uses_cartesian_power_cardinality_provider() -> None:
 def test_zz_rank2_report_records_countability_and_missing_enumeration_provider() -> None:
     report = witnesses.zz_rank2_report()
     values = _computed_values(report)
+    sources = _computed_sources(report)
 
     assert report.subject == "ZZ^2"
     assert report.declared_category == "Modules(ZZ).Free().FiniteRank()"
@@ -60,6 +67,7 @@ def test_zz_rank2_report_records_countability_and_missing_enumeration_provider()
     missing = report.missing_obligations[0].obligation
     assert "Owner: Sets().CartesianProducts()" in missing.description
     assert "not satisfied by module-local iteration" in missing.description
+    assert sources["countability"].endswith("sage.modules.free_module")
 
 
 def test_uncountable_infinite_base_does_not_claim_countability_provider() -> None:
@@ -75,3 +83,22 @@ def test_uncountable_infinite_base_does_not_claim_countability_provider() -> Non
         "sets.cartesian_product.cardinality"
     ]
     assert report.missing_obligations == ()
+
+
+def test_report_sources_use_stable_sage_module_identifiers() -> None:
+    report = witnesses.zz_rank2_report()
+    sources = _computed_sources(report)
+
+    assert sources["cardinality"].startswith("sage.categories.sets_cat")
+    assert [result.provider.source for result in report.satisfied_by_provider] == [
+        "category_specs/sets/subcategories/cartesian_product.py",
+        "sage.categories.enumerated_sets",
+    ]
+    assert all(not source.startswith("/") for source in sources.values())
+
+
+def test_negative_rank_is_rejected_with_deterministic_api_error() -> None:
+    sage_all = importlib.import_module("sage.all")
+
+    with pytest.raises(ValueError):
+        witnesses.free_finite_rank_module_report(sage_all.ZZ, -1, base_label="ZZ")
