@@ -108,10 +108,13 @@ test-spec-core-vertical-slice: _clean
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean
+    }
+    trap cleanup EXIT
     sage -python -m pytest \
         tests/category_specs/test_spec_core_reports.py \
         tests/category_specs/test_free_module_witnesses.py
-    just _clean
 
 plan-validate:
     #!/usr/bin/env bash
