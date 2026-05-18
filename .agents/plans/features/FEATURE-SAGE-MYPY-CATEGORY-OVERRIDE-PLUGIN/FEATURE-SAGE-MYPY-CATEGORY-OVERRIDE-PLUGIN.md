@@ -129,8 +129,8 @@ Sage's source tree. It imports Sage as a dependency.
 Needs agent review. On 2026-05-18 the plugin branch is the invariant-core rewrite:
 resolver/oracle/manifest projection replaces the obsolete `introspection.py`
 parser surface, manifest source-module coverage is validated, and
-`/home/dzack/sage-mypy-plugin` commit `58f4e7b` passes `just test -q` with
-`61 passed`. Human/independent review is still required before this feature can
+`/home/dzack/sage-mypy-plugin` commit `bd656d2` passes `just test -q` with
+`73 passed`. Human/independent review is still required before this feature can
 be accepted.
 
 Repo-side QC work must still follow `PLAN-QC-MYPY-FOUNDATION-ORDER`: complete

@@ -91,11 +91,11 @@ MROs from that manifest. No Sage source files are modified.
 - Pivoted 2026-05-18: `/home/dzack/sage-mypy-plugin` is now on the
   `rewrite/invariant-core` architecture. Legacy `introspection.py` parser cards are
   superseded by resolver/oracle/manifest projection work.
-- Validated 2026-05-18: plugin commit `58f4e7b` passes `just test -q` with
-  `61 passed`.
+- Validated 2026-05-18: plugin commit `bd656d2` passes `just test -q` with
+  `73 passed`.
 
 ## Current Status
 
 Needs agent review against the invariant-core architecture. The current plugin branch
 uses resolver/oracle/manifest projection, not `introspection.py`, and the full local
-plugin suite passed at commit `58f4e7b`.
+plugin suite passed at commit `bd656d2`.

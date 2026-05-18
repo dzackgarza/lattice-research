@@ -93,8 +93,8 @@ to Sage category semantics.
 - Pivoted 2026-05-18: `/home/dzack/sage-mypy-plugin` intentionally replaced the
   legacy `introspection.py` architecture with the invariant-core
   resolver/oracle/manifest projection plan.
-- Validated 2026-05-18: plugin commit `58f4e7b` passes `just test -q` with
-  `61 passed`.
+- Validated 2026-05-18: plugin commit `bd656d2` passes `just test -q` with
+  `73 passed`.
 
 ## Current Status
 
@@ -102,4 +102,4 @@ Needs agent review against the invariant-core architecture. The plan no longer
 routes through the obsolete parser/introspection helper surface; review should
 check resolver/oracle/manifest projection, source-module coverage, plugin MRO
 mutation, dependency tracking, and namespace-agnostic fixtures at plugin commit
-`58f4e7b`.
+`bd656d2`.

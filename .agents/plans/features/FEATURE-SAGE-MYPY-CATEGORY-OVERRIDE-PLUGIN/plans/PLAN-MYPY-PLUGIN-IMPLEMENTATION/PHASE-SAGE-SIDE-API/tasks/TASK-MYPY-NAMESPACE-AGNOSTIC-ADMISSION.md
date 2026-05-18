@@ -81,8 +81,8 @@ instead of proving the structural projection invariant.
 - Pivoted 2026-05-18: current plugin branch uses invariant-core
   resolver/oracle/manifest projection instead of the legacy parser/admission
   helpers.
-- Validated 2026-05-18: plugin commit `58f4e7b` passes `just test -q` with
-  `61 passed`.
+- Validated 2026-05-18: plugin commit `bd656d2` passes `just test -q` with
+  `73 passed`.
 
 ## Current Status
 

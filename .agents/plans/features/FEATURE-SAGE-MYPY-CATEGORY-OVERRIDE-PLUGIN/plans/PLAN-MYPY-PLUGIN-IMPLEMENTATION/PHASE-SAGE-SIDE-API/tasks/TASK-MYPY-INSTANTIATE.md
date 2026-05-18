@@ -63,4 +63,4 @@ runtime category objects as the source of truth.
 
 Needs agent review against the invariant-core resolver/oracle path. The current
 plugin branch no longer exposes `instantiate_category_from_source_path`; plugin
-commit `58f4e7b` passes `just test -q` with `61 passed`.
+commit `bd656d2` passes `just test -q` with `73 passed`.

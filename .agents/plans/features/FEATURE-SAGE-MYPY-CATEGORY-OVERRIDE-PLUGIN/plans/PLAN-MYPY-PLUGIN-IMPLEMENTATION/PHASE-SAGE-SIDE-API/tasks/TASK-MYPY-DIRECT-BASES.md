@@ -65,4 +65,4 @@ MROs from the manifest.
 ## Current Status
 
 Needs agent review against the invariant-core projection path. Plugin commit
-`58f4e7b` passes `just test -q` with `61 passed`.
+`bd656d2` passes `just test -q` with `73 passed`.

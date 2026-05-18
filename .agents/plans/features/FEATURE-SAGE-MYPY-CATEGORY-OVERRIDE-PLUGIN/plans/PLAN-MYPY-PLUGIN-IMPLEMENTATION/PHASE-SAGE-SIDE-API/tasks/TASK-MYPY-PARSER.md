@@ -83,14 +83,15 @@ the invariant-core pivot.
   parses successfully while `some.random.ParentMethods` still returns `None`.
 - Pivoted 2026-05-18: current plugin branch intentionally removed the legacy
   parser surface in favor of invariant-core resolver/oracle/manifest projection.
-- Implemented 2026-05-18: plugin commit `58f4e7b` validates source-module
-  coverage and passes `just test -q` with `61 passed`.
+- Implemented 2026-05-18: plugin commit `bd656d2` validates source-module
+  coverage and passes `just test -q` with `73 passed`.
 
 ## Current Status
 
-Agent review passed. Human approval is required before marking this task complete.
-The reviewed target is `/home/dzack/sage-mypy-plugin` commit `58f4e7b`, not the
-obsolete `introspection.py` parser surface.
+Agent review passed for the invariant-core source-module coverage task. Human
+approval is required before marking this task complete. The current validated
+plugin head is `/home/dzack/sage-mypy-plugin` commit `bd656d2`, not the obsolete
+`introspection.py` parser surface.
 
 ## Review Log
 
@@ -157,7 +158,7 @@ stub-generation scope ambiguity.
 - Resolver/source-module emission is implemented in
   `/home/dzack/sage-mypy-plugin/sage_mypy_category_plugin/resolver.py`.
 - Current validation in `/home/dzack/sage-mypy-plugin` passes `just test -q` with
-  `61 passed` at commit `58f4e7b`.
+  `73 passed` at commit `bd656d2`.
 - The stale review section above still described the old parser card as if it were
   current.
 - The feature-level out-of-scope text needed to distinguish product stub generation
@@ -194,8 +195,9 @@ validation scaffolding.
 - Manifest rejection, resolver source-module recording, projected provider MROs,
   nested provider behavior, and test-scaffolding visible modules are covered by the
   plugin test suite.
-- Pinned validation at `/home/dzack/sage-mypy-plugin` commit `58f4e7b` passed
-  `just test -q` with `61 passed`.
+- Pinned review validation covered the source-module coverage implementation; after
+  the follow-up projection-graph validation commit, current plugin head `bd656d2`
+  passed `just test -q` with `73 passed`.
 
 #### Required Fixes
 
