@@ -9,7 +9,8 @@ if str(ROOT) not in sys.path:
 
 from category_specs.cat import Cat
 from category_specs.lattices import Lattices, LatticesCategory
-from category_specs.lattices.homsets import LatticeEndCategory
+from category_specs.forms.subcategories.quadratic import QuadraticModulesMorphism
+from category_specs.lattices.homsets import LatticeEndCategory, LatticeHomCategory
 from category_specs.lattices.subcategories.constructions.discriminant_groups import (
     LatticeDiscriminantGroupsCategory,
     LatticeDiscriminantGroupsElement,
@@ -119,14 +120,14 @@ SMOKE_STATEMENTS = (
     ),
     (
         "lattice subobjects own ambient and orthogonal-complement surfaces",
-        lambda _: abstract_method_has_name(_Subobjects.ParentMethods.ambient_lattice, "ambient_lattice")
+        lambda _: abstract_method_has_name(_Subobjects.ParentMethods.ambient, "ambient")
         and abstract_method_has_name(_Subobjects.ParentMethods.orthogonal_complement, "orthogonal_complement"),
     ),
     (
         "metric-dual lattice construction owns primal and discriminant-class surfaces",
         lambda _: DualLatticesObject is DualLatticesCategory.ParentMethods
         and DualLatticesElement is DualLatticesCategory.ElementMethods
-        and DualLatticesMorphism is DualLatticesCategory.MorphismMethods
+        and DualLatticesMorphism is LatticeHomCategory.ElementMethods
         and abstract_method_has_name(DualLatticesCategory.ParentMethods.primal_lattice, "primal_lattice")
         and abstract_method_has_name(DualLatticesCategory.ElementMethods.discriminant_class, "discriminant_class"),
     ),
@@ -134,13 +135,13 @@ SMOKE_STATEMENTS = (
         "Hom-dual lattice construction exposes standard type-package aliases",
         lambda _: LatticeDualObjectsObject is LZZ.DualObjects().ParentMethods
         and LatticeDualObjectsElement is LZZ.DualObjects().ElementMethods
-        and LatticeDualObjectsMorphism is LZZ.DualObjects().MorphismMethods,
+        and LatticeDualObjectsMorphism is LatticeHomCategory.ElementMethods,
     ),
     (
         "overlattice construction owns base inclusion and standard type-package aliases",
         lambda _: OverlatticesObject is OverlatticesCategory.ParentMethods
         and OverlatticesElement is OverlatticesCategory.ElementMethods
-        and OverlatticesMorphism is OverlatticesCategory.MorphismMethods
+        and OverlatticesMorphism is LatticeHomCategory.ElementMethods
         and abstract_method_has_name(OverlatticesCategory.ParentMethods.base_lattice, "base_lattice")
         and abstract_method_has_name(OverlatticesCategory.ParentMethods.base_inclusion, "base_inclusion"),
     ),
@@ -148,14 +149,14 @@ SMOKE_STATEMENTS = (
         "orthogonal direct sums own summand surfaces and standard type-package aliases",
         lambda _: OrthogonalDirectSumsObject is OrthogonalDirectSumsCategory.ParentMethods
         and OrthogonalDirectSumsElement is OrthogonalDirectSumsCategory.ElementMethods
-        and OrthogonalDirectSumsMorphism is OrthogonalDirectSumsCategory.MorphismMethods
+        and OrthogonalDirectSumsMorphism is LatticeHomCategory.ElementMethods
         and abstract_method_has_name(OrthogonalDirectSumsCategory.ParentMethods.summand, "summand"),
     ),
     (
         "discriminant groups own primary decomposition and standard type-package aliases",
         lambda _: LatticeDiscriminantGroupsObject is LatticeDiscriminantGroupsCategory.ParentMethods
         and LatticeDiscriminantGroupsElement is LatticeDiscriminantGroupsCategory.ElementMethods
-        and LatticeDiscriminantGroupsMorphism is LatticeDiscriminantGroupsCategory.MorphismMethods
+        and LatticeDiscriminantGroupsMorphism is QuadraticModulesMorphism
         and abstract_method_has_name(LatticeDiscriminantGroupsCategory.ParentMethods.primary_part, "primary_part")
         and abstract_method_has_name(LatticeDiscriminantGroupsCategory.ParentMethods.all_submodules, "all_submodules"),
     ),

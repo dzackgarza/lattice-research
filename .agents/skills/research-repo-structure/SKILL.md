@@ -29,6 +29,8 @@ Read `references/repo-structure.md` before creating root-level directories, movi
 - Reusable trusted code goes in `src/`.
 - Verified mathematical tests go in `tests/`.
 - Executable plans and cards go in `.agents`; produced artifacts go in their natural durable roots.
+- The living mathematical paper goes in `paper/`.
+- Workstream reports and attachments go in `reports/workstreams/`.
 - Exploratory drafts go in gitignored `scratch/`.
 - Mathematical notes go in `notes/`.
 - Shared theory, reference, and tooling docs go in `theory/`.

@@ -2,10 +2,11 @@ r"""Vector spaces and modules over fields."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .. import Modules
@@ -21,7 +22,7 @@ class _OverField(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().OverPID()]
 
     @override
@@ -35,16 +36,13 @@ class _OverField(CategoryWithAxiom_over_base_ring):
         def is_over_field(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def linear_dependence(
             self,
             vectors: Sequence[RModuleElement],
             zeros: Literal["left", "right"] = "left",
             check: bool = True,
         ) -> list[RModuleElement]:
-            del zeros
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

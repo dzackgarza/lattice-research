@@ -2,13 +2,14 @@ r"""Orthogonal direct-sum construction category."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
-from sage.misc.abstract_method import abstract_method
-
 from ....cat import Category_module
+from ...homsets import LatticeHomCategory
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import Lattice, SetFamily
 
 
@@ -23,23 +24,22 @@ class OrthogonalDirectSumsCategory(Category_module):
         return f"orthogonal direct sums of lattices over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         from ... import Lattices
 
         return [Lattices(self.base_ring()).CartesianProducts()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def summands(self) -> SetFamily: ...
 
-        @abstract_method
-        def summand(self, i) -> Lattice: ...
+        @abstractmethod
+        def summand(self, i: int) -> Lattice: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 OrthogonalDirectSumsObject = OrthogonalDirectSumsCategory.ParentMethods
 OrthogonalDirectSumsElement = OrthogonalDirectSumsCategory.ElementMethods
-OrthogonalDirectSumsMorphism = OrthogonalDirectSumsCategory.MorphismMethods
+OrthogonalDirectSumsMorphism = LatticeHomCategory.ElementMethods

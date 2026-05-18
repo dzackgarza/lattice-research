@@ -115,7 +115,8 @@ Ring tests must use `Rings().Constructors()`. `NamedRings()` is not part of the 
 Tasks:
 
 - Ensure all named module constructors appear as methods on `Modules(R).Constructors()`.
-- Map known Sage module types to specific subcategories that spec their `ParentMethods`, `ElementMethods`, and `MorphismMethods`.
+- Map known Sage module types to specific subcategories that spec their object,
+  element, and Hom-category element method surfaces.
 - Include constructions regarding rings as rank-one free modules, fractional ideals as submodules, invertible ideals as projective submodules, polynomial rings as modules, power series rings, matrix rings, and related constructions.
 - Collect Sage constructions here by calling existing Sage constructors and refining the result category.
 - Interoperate explicitly with the new Rings subcategories without bypassing native Sage categories.
@@ -143,7 +144,9 @@ Lattice rules:
 
 - Keep generic form evaluation in `modules/`; lattice files only refine lattice-theoretic vocabulary.
 - Preserve mathematical nouns in public names: `Lattice`, `LatticeMorphism`, `LatticeHomCategory`, `DiscriminantGroup`, `Overlattice`, and `DualLattice`.
-- Every subcategory file must expose explicit `ParentMethods`, `ElementMethods`, and `MorphismMethods` classes, even when the current body is only `...`.
+- Every subcategory file must expose explicit `ParentMethods` and `ElementMethods`
+  classes when those surfaces apply. Morphism behavior belongs on Hom-category
+  `ElementMethods`, usually in `homsets.py` or a nested `HomCategory` refinement.
 - Hom, end, and aut refinements live in `homsets.py` and use `HomCategory`, `EndCategory`, and `AutCategory` vocabulary.
 - Construction categories live under `subcategories/constructions/`.
 - Concrete constructors are admitted only through `Lattices(R).Constructors()` after Sage constructor inventory has been mapped.

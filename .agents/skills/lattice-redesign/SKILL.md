@@ -5,7 +5,7 @@ description: Use when working on the lattice redesign, ModulesWithForms, lattice
 
 # Lattice Redesign
 
-This skill owns the canonical lattice-redesign source doctrine migrated from the retired `plans/` directory.
+This skill owns the canonical lattice-redesign source doctrine migrated from the retired `.agents/plans/` directory.
 
 ## Load references by task
 

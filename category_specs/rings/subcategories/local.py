@@ -2,9 +2,8 @@ r"""LocalRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
         Field,
         MaximalIdeal,
     )
+
 
 class _LocalRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Local()``."""
@@ -42,12 +42,10 @@ class _LocalRings(CategoryWithAxiom):
         def is_local_ring(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def maximal_ideal(self) -> MaximalIdeal: ...
 
-        @abstract_method
+        @abstractmethod
         def residue_field(self) -> Field: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

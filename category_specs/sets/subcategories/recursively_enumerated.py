@@ -2,8 +2,9 @@ r"""One-object subcategory for Sage recursively enumerated sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterator
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category_singleton import Category_singleton
 from sage.categories.finite_enumerated_sets import (
@@ -12,7 +13,6 @@ from sage.categories.finite_enumerated_sets import (
 from sage.categories.infinite_enumerated_sets import (
     InfiniteEnumeratedSets as SageInfiniteEnumeratedSets,
 )
-from sage.misc.abstract_method import abstract_method
 from sage.sets.recursively_enumerated_set import (
     RecursivelyEnumeratedSet_forest as SageRecursivelyEnumeratedSetForest,
 )
@@ -51,15 +51,15 @@ class _RecursivelyEnumeratedSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def __len__(self) -> Integer: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[SetElement]: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, elt: Any) -> bool: ...
 
         @override
@@ -72,7 +72,10 @@ class _RecursivelyEnumeratedSets(Category_singleton):
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
                 from sage.rings.infinity import infinity
 
-                return self._max_depth != float("inf") and self._max_depth != infinity
+                return cast(
+                    bool,
+                    self._max_depth != float("inf") and self._max_depth != infinity,
+                )
             raise NotImplementedError(
                 "recursive set finiteness requires category or depth evidence"
             )
@@ -90,17 +93,17 @@ class _RecursivelyEnumeratedSets(Category_singleton):
                 "recursive cardinality requires finite or infinite category evidence"
             )
 
-        @abstract_method
+        @abstractmethod
         def graded_component_iterator(self) -> Iterator[Set]:
             r"""Return the iterator over recursive-enumeration graded components."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def elements_of_depth_iterator(self, depth: Integer) -> Iterator[SetElement]:
             r"""Return the elements reached at recursive depth ``depth``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def breadth_first_search_iterator(
             self,
             max_depth: Integer | InfinityElement | None = None,
@@ -108,17 +111,17 @@ class _RecursivelyEnumeratedSets(Category_singleton):
             r"""Return the breadth-first traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def naive_search_iterator(self) -> Iterator[SetElement]:
             r"""Return Sage's naive traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def depth_first_search_iterator(self) -> Iterator[SetElement]:
             r"""Return the depth-first traversal of this recursive enumeration."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def to_digraph(
             self,
             max_depth: Integer | InfinityElement | None = None,
@@ -133,9 +136,9 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def roots(self) -> Set:
             r"""Return the seed set of this recursive forest."""
             if isinstance(self, SageRecursivelyEnumeratedSetForest):
-                return SageRecursivelyEnumeratedSetForest.roots(self)
+                return cast("Set", SageRecursivelyEnumeratedSetForest.roots(self))
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return self.seeds()
+                return cast("Set", self.seeds())
             raise NotImplementedError(
                 "recursive roots require generic seeds or forest roots"
             )
@@ -144,7 +147,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def children(self, x: SetElement) -> Set:
             r"""Return the recursive successors of ``x``."""
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return self.successors(x)
+                return cast("Set", self.successors(x))
             raise NotImplementedError(
                 "recursive children require a generic Sage successor function"
             )
@@ -172,5 +175,3 @@ class _RecursivelyEnumeratedSets(Category_singleton):
             )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -2,7 +2,7 @@ r"""Finite set subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.finite_enumerated_sets import (
     FiniteEnumeratedSets as SageFiniteEnumeratedSets,
@@ -57,8 +57,8 @@ class _FiniteSets(CategoryWithAxiom):
         @final
         def random_element(self) -> SetElement:
             r"""Return a random element of this finite set."""
-            return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            return cast(
+                "SetElement", SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

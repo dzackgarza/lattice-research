@@ -17,6 +17,9 @@ This is the canonical detailed contribution and code-style reference for the res
   - [No Optional Arguments](#no-optional-arguments)
   - [No `__all__` Exports](#no-all-exports)
   - [No Optional Types](#no-optional-types)
+  - [Introspection Red Flags](#introspection-red-flags)
+  - [No `del` in Abstract or Overload Bodies](#no-del-in-abstract-or-overload-bodies)
+  - [No `globals()` Manipulation or `importlib` Imports](#no-globals-manipulation-or-importlib-imports)
   - [Semantic Checks Over Manual Implementation](#semantic-checks-over-manual-implementation)
   - [Backend Encapsulation](#backend-encapsulation)
   - [Code Structure](#code-structure)
@@ -257,6 +260,96 @@ See the `anti-slop` skill, `references/code-patterns.md#introspection-red-flags`
 for the full catalog of signals, the reasoning chain, and the acceptance criteria
 table.
 
+### No `del` in Abstract or Overload Bodies
+
+Using `del param` (or `del (param1, param2, ...)`) inside `@abstractmethod` or
+`@overload` bodies to suppress unused-parameter lint is **banned**.
+
+```python
+# BAD — silences lint by injecting a real statement into a body that should be `...`
+@abstractmethod
+def foo(self, x: int, y: str) -> bool:
+    del x, y   # or: del (x, y,)
+    ...
+
+# GOOD
+@abstractmethod
+def foo(self, x: int, y: str) -> bool:
+    ...
+```
+
+**Why it is banned:**
+
+- `@abstractmethod` and `@overload` bodies are **never executed**. Suppressing
+  "unused parameter" warnings in them is meaningless noise.
+- `del X` is a real statement. Adding it to an otherwise-`...` body turns the
+  body non-trivial: mypy now sees a function with statements but no `return`,
+  and correctly fires `[return]` — a false positive caused entirely by the
+  suppression idiom.
+- The correct fix for "unused parameter" in a *concrete* method body is to
+  prefix the parameter with `_` in the signature, or restructure the method.
+  In abstract/overload stubs the parameter name is documentation; the warning
+  is irrelevant.
+- If the lint rule that fires on unused parameters is not in the project's
+  selected rule set (e.g. `ARG` is not selected in ruff), then `del` is doubly
+  pointless: it suppresses a warning that was never enabled.
+
+The rule generalises: **never introduce code whose sole purpose is to silence a
+QC tool**. Fix the code or fix the QC config (with documented justification).
+Inline silencing — whether `del`, `# noqa`, `# type: ignore`, or equivalent —
+is always banned.
+
+### No `globals()` Manipulation or `importlib` Imports
+
+`globals().update({...})`, `global X` inside functions, and
+`importlib.import_module()` are banned. Each is a code smell signaling that a
+module is breaking rank with the established category export pattern.
+
+**Why `globals()` manipulation is banned:**
+
+```python
+# BAD — name injected at runtime; invisible to mypy and all static analysis
+def _load_exports():
+    global MetricSpacesCategory
+    globals().update({"MetricSpacesObject": ..., "MetricSpacesMorphism": ...})
+_load_exports()
+```
+
+Any name injected via `globals()` does not exist in the module's static scope.
+mypy cannot see it, IDEs cannot autocomplete it, and `grep` will not find its
+definition. The module's public surface is then inconsistent between static
+analysis time and runtime — a hidden contract.
+
+**Why `importlib.import_module()` is banned:**
+
+```python
+# BAD — deferred loading to mask a circular import
+_cat_autsets = import_module("category_specs.cat.autsets")
+type CatAutCategory = _cat_autsets.CatAutCategory
+```
+
+`import_module()` used to load a sibling submodule is a symptom of an unresolved
+circular import. The correct fix is structural:
+
+- Move the shared definition to a base module that neither side imports
+  (e.g., `base_category_types.py`)
+- Or guard the import under `TYPE_CHECKING` if only type annotations need it
+
+Dynamic loading does not fix the dependency cycle — it hides it while
+simultaneously defeating static analysis.
+
+**The canonical export pattern** for `category_specs` modules is:
+
+```python
+# At module scope — visible to mypy, grep, and importers
+type MetricSpacesObject = MetricSpacesCategory.ParentMethods
+type MetricSpacesHomCategory = MetricSpaceHomCategory
+```
+
+All public names must be bound at module scope by ordinary `import` statements
+or `type` aliases. If a name cannot be bound this way, the import structure needs
+to be fixed, not bypassed.
+
 ### Semantic Checks Over Manual Implementation
 
 Use semantic checks and Sage's coercion when possible to match mathematical semantics.
@@ -358,6 +451,27 @@ Everything must have a type, either defined in Sage, or defined in our branch.
   user
 
 Use explicit union types to express allowed inputs.
+
+Typing work must improve the proof surface of the code. A type annotation says what
+mathematical object, morphism, constructor, or backend value the expression denotes.
+It is not acceptable to add a cast, wrapper, helper protocol, or narrower annotation
+only because a QC tool reports `Any` or cannot follow dynamic library behavior.
+
+Before any typing fix, ask whether the static checker is exposing a real defect that
+downstream implementers should see. Real defects include missing obligations, wrong
+owners, broad or unsourced public signatures, untyped boundary data that should have a
+named mathematical type, and mismatched constructor inputs. If the code already states
+the intended mathematical operation clearly and the checker is missing knowledge of
+Sage, category method containers, dynamic inheritance, classcall behavior, or other
+trusted backend semantics, the repair is not to silence the checker locally. File or
+advance the plugin, stub, global QC, or static-surface task that teaches the checker
+the correct mathematics.
+
+Local casts are last-resort boundary documentation. They are appropriate only at a
+specific untyped external API boundary or a narrow mathematical refinement whose
+hypotheses are already asserted in the code. They are not appropriate around correct
+category selectors, constructor collectors, or backend calls merely to make a mypy
+count decrease.
 
 ### Error Handling (String Matching)
 

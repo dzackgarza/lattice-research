@@ -2,9 +2,8 @@ r"""Discriminant-group construction category."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_module
 from ....modules import (
@@ -18,8 +17,10 @@ from ....modules import (
     ModulesHom,
     ModulesHomCategory,
 )
+from ....forms.subcategories.quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
+    from ....cat import Category
     from ....types import Matrix, RingElement, RModuleElement, SetFamily
 
 
@@ -34,7 +35,7 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         return f"discriminant groups over {self.base_ring()}"
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
             Modules(R).Torsion(),
@@ -44,39 +45,41 @@ class LatticeDiscriminantGroupsCategory(Category_module):
         ]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def invariants(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_quadratic(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def brown_invariant(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
+        def is_trivial(self) -> bool: ...
+
+        @abstractmethod
         def primary_part(
             self, p: RingElement
         ) -> LatticeDiscriminantGroupsCategory.ParentMethods: ...
 
-        @abstract_method
+        @abstractmethod
         def all_submodules(self) -> SetFamily: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def additive_order(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def lift(self) -> RModuleElement: ...
 
-    class MorphismMethods: ...
 
 
 LatticeDiscriminantGroupsObject = LatticeDiscriminantGroupsCategory.ParentMethods
 LatticeDiscriminantGroupsElement = LatticeDiscriminantGroupsCategory.ElementMethods
-LatticeDiscriminantGroupsMorphism = LatticeDiscriminantGroupsCategory.MorphismMethods
+LatticeDiscriminantGroupsMorphism = QuadraticModulesMorphism
 LatticeDiscriminantGroupsHomCategory = ModulesHomCategory
 LatticeDiscriminantGroupsEndCategory = ModulesEndCategory
 LatticeDiscriminantGroupsAutCategory = ModulesAutCategory

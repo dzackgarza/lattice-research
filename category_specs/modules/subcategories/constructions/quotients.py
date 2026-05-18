@@ -2,10 +2,9 @@ r"""Quotient modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import QuotientsCategory
 
@@ -28,14 +27,19 @@ class _Quotients(QuotientsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def cover(self) -> RModule:
             r"""Return the module being quotiented."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def relations(self) -> RModule:
             r"""Return the submodule of relations defining this quotient."""
+            ...
+
+        @abstractmethod
+        def is_torsionfree(self) -> bool:
+            r"""Return whether this quotient module is torsion-free."""
             ...
 
         @final
@@ -43,7 +47,7 @@ class _Quotients(QuotientsCategory):
             r"""Return the module being quotiented."""
             return self.cover()
 
-        @abstract_method
+        @abstractmethod
         def projection(self) -> RModMorphism: ...
 
         @final
@@ -51,28 +55,28 @@ class _Quotients(QuotientsCategory):
             r"""Return the quotient projection."""
             return self.projection()
 
-        @abstract_method
+        @abstractmethod
         def lift_map(self) -> RModMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def lift(self, x: RModuleElement) -> RModuleElement: ...
 
-        @abstract_method
+        @abstractmethod
         def free_cover(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def free_relations(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def retract(self, x: RModuleElement) -> RModuleElement: ...
 
-        @abstract_method
+        @abstractmethod
         def cokernel_basis_indices(self) -> tuple[CategoryElement, ...]:
             r"""Return the basis indices surviving in this quotient normal form."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def quotient_module(
             self, submodule: SubModule, check: bool = True
         ) -> RModule: ...
@@ -132,8 +136,11 @@ class _Quotients(QuotientsCategory):
             )
 
     class ElementMethods:
+        @abstractmethod
+        def parent(self) -> _Quotients.ParentMethods:
+            r"""Return the quotient module containing this element."""
+            ...
+
         @final
         def lift(self) -> RModuleElement:
-            return self.projection().lift(self)
-
-    class MorphismMethods: ...
+            return self.parent().projection().lift(self)

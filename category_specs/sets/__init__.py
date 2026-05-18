@@ -60,20 +60,35 @@ finite-enumerated set objects.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Iterable, Sequence
+from abc import abstractmethod
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from types import MethodType
-from typing import TYPE_CHECKING, Any, final, overload, override
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Protocol,
+    cast,
+    final,
+    overload,
+    override,
+)
 
 from sage.categories.sets_cat import Sets as SageSets
-from sage.misc.abstract_method import abstract_method
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.infinity import infinity, minus_infinity
 from sage.structure.richcmp import op_EQ, op_GE, op_GT, op_LE, op_LT, op_NE
 
 from ..cat import Category, Category_singleton
-from ..utils import refine_category
-from .homsets import SetAutCategory, SetEndCategory, SetHomCategory
+from ..utils import refine_category, with_axiom
+from .homsets import (
+    SetAutCategory,
+    SetEndCategory,
+    SetHomCategory,
+    _SetAutomorphisms,
+    _SetEndomorphisms,
+    _SetHomCategoryObjectMethods,
+    _SetMorphisms,
+)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -101,6 +116,16 @@ if TYPE_CHECKING:
         SympySet,
     )
 
+    SetPartitionType = SetPartition
+
+    class _SubsetLatticeSource(Protocol):
+        def lattice(self) -> Set: ...
+
+if TYPE_CHECKING:
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
+else:
+    from sage.misc.cachefunc import cached_method
+
 
 # ---------------------------------------------------------------------------
 # Method surfaces for the root category
@@ -110,8 +135,7 @@ if TYPE_CHECKING:
 class _SetObjectMethods:
     r"""Methods on objects of the root category ``Sets()``."""
 
-    @override
-    @abstract_method
+    @abstractmethod
     def __contains__(self, x: Any) -> bool:
         r"""Return ``True`` if ``x`` is an element of ``self``."""
         ...
@@ -119,19 +143,30 @@ class _SetObjectMethods:
     @final
     def _element_constructor_(self, x: SetElement) -> SetElement:
         if hasattr(self, "element_class"):
-            return self.element_class(self, x)
+            return cast("SetElement", self.element_class(self, x))
         raise NotImplementedError(
             "generic set element construction requires an element class"
         )
+
+    @abstractmethod
+    def __call__(self, x: SetElement) -> SetElement:
+        r"""Construct the corresponding element of this set."""
+        ...
+
+    @abstractmethod
+    def __iter__(self) -> Iterator[SetElement]: ...
+
+    @abstractmethod
+    def has_coerce_map_from(self, source: Set) -> bool: ...
 
     @final
     def is_parent_of(self, element: Any) -> bool:
         r"""Return whether this set is the parent of ``element``."""
         from sage.structure.element import parent
 
-        return parent(element) == self
+        return cast(bool, parent(element) == self)
 
-    @abstract_method
+    @abstractmethod
     def an_element(self) -> SetElement:
         r"""Return a distinguished element of this set."""
         ...
@@ -141,25 +176,25 @@ class _SetObjectMethods:
         r"""Return sample elements of this set."""
         from sage.categories.sets_cat import Sets as SageSets
 
-        return SageSets.ParentMethods.some_elements(self)
+        return cast("list[SetElement]", SageSets.ParentMethods.some_elements(self))
 
-    @abstract_method
+    @abstractmethod
     def cardinality(self) -> Cardinality:
         r"""Return the cardinality of this set."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_empty(self) -> bool:
         r"""Return whether this set has no elements."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite(self) -> bool:
         r"""Return whether this set has finite cardinality."""
         ...
 
     @final
-    def construction(self):
+    def construction(self) -> None:
         r"""Return Sage construction data for this set, when it has one."""
         return None
 
@@ -187,9 +222,9 @@ class _SetObjectMethods:
     @final
     def union(self, other: Set) -> Set:
         r"""Return the set-theoretic union of ``self`` and ``other``."""
-        from sage.sets.set import Set
+        from sage.sets.set import Set as SageSet
 
-        return Set(self).union(Set(other))
+        return cast("Set", SageSet(self).union(SageSet(other)))
 
     @final
     def __or__(self, other: Set) -> Set:
@@ -210,19 +245,16 @@ class _SetObjectMethods:
             "generic subset testing requires a finite enumerable set"
         )
 
-    @override
     @final
     def is_proper_subset(self, other: Set) -> bool:
         r"""Return whether ``self`` is a proper subset of ``other``."""
         return self.is_subset(other) and not other.is_subset(self)
 
-    @override
     @final
     def is_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subset."""
         return other.is_subset(self)
 
-    @override
     @final
     def is_proper_superset(self, other: Set) -> bool:
         r"""Return whether ``self`` properly contains ``other``."""
@@ -267,13 +299,13 @@ class _SetObjectMethods:
         from sage.combinat.subset import Subsets
 
         if size is None:
-            return Subsets(self)
-        return Subsets(self, size)
+            return cast("Set", Subsets(self))
+        return cast("Set", Subsets(self, size))
 
     @final
     def subsets_lattice(self) -> Set:
         r"""Return the lattice of subsets ordered by inclusion."""
-        return self.subsets().lattice()
+        return cast("_SubsetLatticeSource", self.subsets()).lattice()
 
     @final
     def free_module(self, base_ring: Ring) -> RModule:
@@ -303,13 +335,13 @@ class _SetObjectMethods:
 class _SetElementMethods:
     r"""Methods on elements of objects in ``Sets()``."""
 
-    @abstract_method
-    def __eq__(self, other: SetElement) -> bool: ...
+    @abstractmethod
+    def __eq__(self, other: object) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def __hash__(self) -> Integer: ...
 
-    @abstract_method
+    @abstractmethod
     def cartesian_product(self, elements: Sequence[SetElement]) -> SetElement:
         r"""Return the Cartesian product element with these coordinates."""
         ...
@@ -353,7 +385,7 @@ class Sets(Category_singleton):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> Category | None:
         r"""Return Sage's additional-structure marker for plain sets."""
         return None
 
@@ -366,61 +398,61 @@ class Sets(Category_singleton):
         @final
         def Finite(self) -> Category:
             r"""Return the finite-set subcategory of this set category."""
-            return self._with_axiom("Finite")
+            return cast(Category, with_axiom(self, "Finite"))
 
         @cached_method
         @final
         def Infinite(self) -> Category:
             r"""Return the infinite-set subcategory of this set category."""
-            return self._with_axiom("Infinite")
+            return cast(Category, with_axiom(self, "Infinite"))
 
         @cached_method
         @final
         def Countable(self) -> Category:
             r"""Return the countable-set subcategory of this set category."""
-            return self._with_axiom("Countable")
+            return cast(Category, with_axiom(self, "Countable"))
 
         @cached_method
         @final
         def Uncountable(self) -> Category:
             r"""Return the uncountable-set subcategory of this set category."""
-            return self._with_axiom("Uncountable")
+            return cast(Category, with_axiom(self, "Uncountable"))
 
         @cached_method
         @final
         def Facade(self) -> Category:
             r"""Return the facade-set subcategory of this set category."""
-            return self._with_axiom("Facade")
+            return cast(Category, with_axiom(self, "Facade"))
 
         @cached_method
         @final
         def Topological(self) -> Category:
             r"""Return the topological-set subcategory of this set category."""
-            return self._with_axiom("Topological")
+            return cast(Category, with_axiom(self, "Topological"))
 
         @cached_method
         @final
         def Metric(self) -> Category:
             r"""Return the metric-set subcategory of this set category."""
-            return self._with_axiom("Metric")
+            return cast(Category, with_axiom(self, "Metric"))
 
         @cached_method
         @final
         def TotallyOrdered(self) -> Category:
             r"""Return the totally ordered set subcategory of this set category."""
-            return self._with_axiom("TotallyOrdered")
+            return cast(Category, with_axiom(self, "TotallyOrdered"))
 
         @cached_method
         @final
         def Graded(self) -> Category:
             r"""Return the graded-set subcategory of this set category."""
-            return self._with_axiom("Graded")
+            return cast(Category, with_axiom(self, "Graded"))
 
         @cached_method
         @final
         def Partitioned(self) -> Category:
             r"""Return the partitioned-set subcategory of this set category."""
-            return self._with_axiom("Partitioned")
+            return cast(Category, with_axiom(self, "Partitioned"))
 
         @cached_method
         @final
@@ -438,7 +470,7 @@ class Sets(Category_singleton):
                 _IsomorphicObjects,
             )
 
-            return _IsomorphicObjects.category_of(self)
+            return cast(Category, _IsomorphicObjects.category_of(self))
 
         @cached_method
         @final
@@ -448,7 +480,7 @@ class Sets(Category_singleton):
                 SetsWithRealizations,
             )
 
-            return SetsWithRealizations.category_of(self)
+            return cast(Category, SetsWithRealizations.category_of(self))
 
         @cached_method
         @final
@@ -456,13 +488,13 @@ class Sets(Category_singleton):
             r"""Return the category of realizations of objects in this set category."""
             from .subcategories.constructions.realizations import _Realizations
 
-            return _Realizations.category_of(self)
+            return cast(Category, _Realizations.category_of(self))
 
     # ------------------------------------------------------------------
     # Constructors -- named Sage set entry points
     # ------------------------------------------------------------------
 
-    class Constructors:
+    class _Constructors:
         r"""Named Sage set constructor entry points.
 
         Every method calls the canonical Sage constructor, then refines
@@ -488,8 +520,8 @@ class Sets(Category_singleton):
         def _set_partitions_categories() -> list[Category]:
             r"""Return project categories for fixed-base set-partition parents."""
             from .subcategories.partitioned import (
-                PartitionsCategory,
                 PartitionedSetsCategory,
+                PartitionsCategory,
             )
 
             return [Sets(), PartitionsCategory(), PartitionedSetsCategory()]
@@ -526,8 +558,11 @@ class Sets(Category_singleton):
 
             from .subcategories.finite_enumerated_set import _FiniteEnumeratedSetObjects
 
-            return refine_category(
-                SageFES(elements), [Sets(), _FiniteEnumeratedSetObjects()]
+            return cast(
+                "FiniteSet",
+                refine_category(
+                    SageFES(elements), [Sets(), _FiniteEnumeratedSetObjects()]
+                ),
             )
 
         @final
@@ -548,8 +583,12 @@ class Sets(Category_singleton):
 
             from .subcategories.integer_range import _IntegerRangeSets
 
-            return refine_category(
-                SageIR(begin, end, step, middle_point), [Sets(), _IntegerRangeSets()]
+            return cast(
+                "CountableSet",
+                refine_category(
+                    SageIR(begin, end, step, middle_point),
+                    [Sets(), _IntegerRangeSets()],
+                ),
             )
 
         @final
@@ -559,7 +598,10 @@ class Sets(Category_singleton):
 
             from .subcategories.non_negative_integers import _NonNegativeIntegersSets
 
-            return refine_category(SageNN(), [Sets(), _NonNegativeIntegersSets()])
+            return cast(
+                "CountableSet",
+                refine_category(SageNN(), [Sets(), _NonNegativeIntegersSets()]),
+            )
 
         @final
         def PositiveIntegers(self) -> CountableSet:
@@ -568,7 +610,10 @@ class Sets(Category_singleton):
 
             from .subcategories.positive_integers import _PositiveIntegersSets
 
-            return refine_category(SagePP(), [Sets(), _PositiveIntegersSets()])
+            return cast(
+                "CountableSet",
+                refine_category(SagePP(), [Sets(), _PositiveIntegersSets()]),
+            )
 
         @final
         def Primes(self, proof: bool = True) -> CountableSet:
@@ -577,7 +622,10 @@ class Sets(Category_singleton):
 
             from .subcategories.primes import _PrimesSets
 
-            return refine_category(SagePrimes(proof), [Sets(), _PrimesSets()])
+            return cast(
+                "CountableSet",
+                refine_category(SagePrimes(proof), [Sets(), _PrimesSets()]),
+            )
 
         @final
         def _real_subset_categories(self, real_set: RealSubset) -> list[Category]:
@@ -636,7 +684,7 @@ class Sets(Category_singleton):
             sage_interior = real_set.interior
             sage_boundary = real_set.boundary
 
-            def is_real_line(X):
+            def is_real_line(X: RealSubset) -> bool:
                 if X.n_components() != 1:
                     return False
                 interval = X.get_interval(0)
@@ -644,48 +692,48 @@ class Sets(Category_singleton):
                     interval.lower() is minus_infinity and interval.upper() is infinity
                 )
 
-            def ambient(U):
+            def ambient(U: RealSubset) -> RealSubset:
                 return (
                     U if is_real_line(U) else self._refine_real_subset(sage_ambient())
                 )
 
-            def is_open(X, U=None):
+            def is_open(X: RealSubset, U: RealSubset | None = None) -> bool:
                 if U is None:
                     return sage_is_open()
                 return U.is_subset(X) and U.is_open()
 
-            def is_closed(X, U=None):
+            def is_closed(X: RealSubset, U: RealSubset | None = None) -> bool:
                 if U is None:
                     return sage_is_closed()
                 return U.is_subset(X) and U.is_closed()
 
-            def closure(X, U=None):
+            def closure(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_closure())
                 if not U.is_subset(X):
                     raise ValueError("closure subset must lie in its ambient real set")
                 return self._refine_real_subset(U.closure())
 
-            def interior(X, U=None):
+            def interior(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_interior())
                 if not U.is_subset(X):
                     raise ValueError("interior subset must lie in its ambient real set")
                 return self._refine_real_subset(U.interior())
 
-            def boundary(X, U=None):
+            def boundary(X: RealSubset, U: RealSubset | None = None) -> RealSubset:
                 if U is None:
                     return self._refine_real_subset(sage_boundary())
                 if not U.is_subset(X):
                     raise ValueError("boundary subset must lie in its ambient real set")
                 return self._refine_real_subset(U.boundary())
 
-            real_set.ambient = MethodType(ambient, real_set)
-            real_set.is_open = MethodType(is_open, real_set)
-            real_set.is_closed = MethodType(is_closed, real_set)
-            real_set.closure = MethodType(closure, real_set)
-            real_set.interior = MethodType(interior, real_set)
-            real_set.boundary = MethodType(boundary, real_set)
+            setattr(real_set, "ambient", MethodType(ambient, real_set))
+            setattr(real_set, "is_open", MethodType(is_open, real_set))
+            setattr(real_set, "is_closed", MethodType(is_closed, real_set))
+            setattr(real_set, "closure", MethodType(closure, real_set))
+            setattr(real_set, "interior", MethodType(interior, real_set))
+            setattr(real_set, "boundary", MethodType(boundary, real_set))
             return real_set
 
         @final
@@ -693,7 +741,10 @@ class Sets(Category_singleton):
             r"""Return Sage ``RR`` refined as a topological set object."""
             from sage.rings.real_mpfr import RealField
 
-            return refine_category(RealField(), [Sets(), Sets().Topological()])
+            return cast(
+                "Set",
+                refine_category(RealField(), [Sets(), Sets().Topological()]),
+            )
 
         @final
         def RealSetFromIntervals(self, intervals: Sequence[RealInterval]) -> RealSubset:
@@ -860,7 +911,10 @@ class Sets(Category_singleton):
                 facade=facade,
                 category=category,
             )
-            return refine_category(S, [Sets(), _RecursivelyEnumeratedSets()])
+            return cast(
+                "CountableSet",
+                refine_category(S, [Sets(), _RecursivelyEnumeratedSets()]),
+            )
 
         @final
         def DisjointUnionEnumeratedSets(
@@ -879,17 +933,10 @@ class Sets(Category_singleton):
             from .subcategories.disjoint_union import _DisjointUnionEnumeratedSets
 
             S = SageDUES(family, facade=facade, keepkey=keepkey, category=category)
-            return refine_category(S, [Sets(), _DisjointUnionEnumeratedSets()])
-
-        @overload
-        def CartesianProduct(
-            self,
-            left: Set,
-            right: Set,
-            *,
-            category: Category | None = None,
-            flatten: bool = False,
-        ) -> Set: ...
+            return cast(
+                "CountableSet",
+                refine_category(S, [Sets(), _DisjointUnionEnumeratedSets()]),
+            )
 
         @final
         def CartesianProduct(
@@ -930,7 +977,7 @@ class Sets(Category_singleton):
                 else:
                     product_category = product_category & extra_category
             S = SageCP(parents, category=product_category, flatten=flatten)
-            return refine_category(S, [Sets(), _CartesianProductSets()])
+            return cast("Set", refine_category(S, [Sets(), _CartesianProductSets()]))
 
         @final
         def ImageSubobject(
@@ -942,9 +989,12 @@ class Sets(Category_singleton):
             from .subcategories.image import ImageSubobject as ProjectImageSubobject
             from .subcategories.image import _ImageSets
 
-            return refine_category(
-                ProjectImageSubobject(f, domain_subset),
-                [Sets(), _ImageSets()],
+            return cast(
+                "Subset",
+                refine_category(
+                    ProjectImageSubobject(f, domain_subset),
+                    [Sets(), _ImageSets()],
+                ),
             )
 
         @final
@@ -959,7 +1009,10 @@ class Sets(Category_singleton):
             from .subcategories.totally_ordered_finite import _TotallyOrderedFiniteSets
 
             S = SageTOFS(elements, facade=facade)
-            return refine_category(S, [Sets(), _TotallyOrderedFiniteSets()])
+            return cast(
+                "FiniteSet",
+                refine_category(S, [Sets(), _TotallyOrderedFiniteSets()]),
+            )
 
         @final
         def FiniteSetMaps(
@@ -984,7 +1037,7 @@ class Sets(Category_singleton):
                 S = SageFSM(domain, action=action, category=category)
             else:
                 S = SageFSM(domain, codomain, action=action, category=category)
-            return refine_category(S, [Sets(), _FiniteSetMapsSets()])
+            return cast("FiniteSet", refine_category(S, [Sets(), _FiniteSetMapsSets()]))
 
         @final
         def Family(
@@ -1010,7 +1063,7 @@ class Sets(Category_singleton):
                 lazy=lazy,
                 name=name,
             )
-            return refine_category(S, [Sets(), _FamilySets()])
+            return cast("SetFamily", refine_category(S, [Sets(), _FamilySets()]))
 
         @final
         def EnumeratedSetFromIterator(
@@ -1030,9 +1083,17 @@ class Sets(Category_singleton):
                 _EnumeratedSetsFromIterator,
             )
 
-            return refine_category(
-                SageESFI(iterator_factory, name=name, category=category, cache=cache),
-                [Sets(), _EnumeratedSetsFromIterator()],
+            return cast(
+                "CountableSet",
+                refine_category(
+                    SageESFI(
+                        iterator_factory,
+                        name=name,
+                        category=category,
+                        cache=cache,
+                    ),
+                    [Sets(), _EnumeratedSetsFromIterator()],
+                ),
             )
 
         @final
@@ -1040,16 +1101,19 @@ class Sets(Category_singleton):
             r"""Return Sage's countable set of all finite set partitions."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return refine_category(SageSetPartitions(), [Sets(), Sets().Countable()])
+            return cast(
+                "CountableSet",
+                refine_category(SageSetPartitions(), [Sets(), Sets().Countable()]),
+            )
 
         @overload
         def SetPartitions(self, base_set: Set) -> SetPartitionSet: ...
 
         @overload
-        def SetPartitions(self, elements: Iterable[SetElement]) -> SetPartitionSet: ...
+        def SetPartitions(self, base_set: Iterable[SetElement]) -> SetPartitionSet: ...
 
         @overload
-        def SetPartitions(self, base_set_cardinality: Integer) -> SetPartitionSet: ...
+        def SetPartitions(self, base_set: Integer) -> SetPartitionSet: ...
 
         @final
         def SetPartitions(
@@ -1059,7 +1123,10 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(SageSetPartitions(normalized_base), categories)
+            return cast(
+                "SetPartitionSet",
+                refine_category(SageSetPartitions(normalized_base), categories),
+            )
 
         @overload
         def SetPartitionsWithBlockCount(
@@ -1071,14 +1138,14 @@ class Sets(Category_singleton):
         @overload
         def SetPartitionsWithBlockCount(
             self,
-            elements: Iterable[SetElement],
+            base_set: Iterable[SetElement],
             block_count: Integer,
         ) -> SetPartitionSet: ...
 
         @overload
         def SetPartitionsWithBlockCount(
             self,
-            base_set_cardinality: Integer,
+            base_set: Integer,
             block_count: Integer,
         ) -> SetPartitionSet: ...
 
@@ -1092,9 +1159,11 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(
-                SageSetPartitions(normalized_base, block_count),
-                categories,
+            return cast(
+                "SetPartitionSet",
+                refine_category(
+                    SageSetPartitions(normalized_base, block_count), categories
+                ),
             )
 
         @overload
@@ -1107,14 +1176,14 @@ class Sets(Category_singleton):
         @overload
         def SetPartitionsWithBlockSizes(
             self,
-            elements: Iterable[SetElement],
+            base_set: Iterable[SetElement],
             block_sizes: IntegerPartition | Sequence[Integer],
         ) -> SetPartitionSet: ...
 
         @overload
         def SetPartitionsWithBlockSizes(
             self,
-            base_set_cardinality: Integer,
+            base_set: Integer,
             block_sizes: IntegerPartition | Sequence[Integer],
         ) -> SetPartitionSet: ...
 
@@ -1128,9 +1197,11 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             normalized_base, categories = self._set_partitions_base(base_set)
-            return refine_category(
-                SageSetPartitions(normalized_base, block_sizes),
-                categories,
+            return cast(
+                "SetPartitionSet",
+                refine_category(
+                    SageSetPartitions(normalized_base, block_sizes), categories
+                ),
             )
 
         @final
@@ -1143,48 +1214,60 @@ class Sets(Category_singleton):
             r"""Return the partition whose blocks are ``blocks``."""
             from sage.combinat.set_partition import SetPartition as SageSetPartition
 
-            return SageSetPartition(blocks, check=check)
+            return cast("SetPartition", SageSetPartition(blocks, check=check))
 
         @final
         def SetPartitionFromRestrictedGrowthWordBlocks(
             self, word: Sequence[Integer]
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by block-convention ``word``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_restricted_growth_word_blocks(word)
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_restricted_growth_word_blocks(word),
+            )
 
         @final
         def SetPartitionFromRestrictedGrowthWordIntertwining(
             self, word: Sequence[Integer]
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by intertwining ``word``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_restricted_growth_word_intertwining(word)
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_restricted_growth_word_intertwining(word),
+            )
 
         @final
         def SetPartitionFromArcs(
             self,
             arcs: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the coarsest partition of ``{1, ..., n}`` containing ``arcs``."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_arcs(arcs, base_set_cardinality)
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_arcs(arcs, base_set_cardinality),
+            )
 
         @final
         def SetPartitionFromRookPlacementArcs(
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer | None = None,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by a rook placement through arcs."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement(
-                rooks, "arcs", base_set_cardinality
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_rook_placement(
+                    rooks, "arcs", base_set_cardinality
+                ),
             )
 
         @final
@@ -1192,12 +1275,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by the Wachs-White gamma bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_gamma(
-                rooks, base_set_cardinality
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_rook_placement_gamma(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1205,12 +1291,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by the Wachs-White rho bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_rho(
-                rooks, base_set_cardinality
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_rook_placement_rho(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1218,12 +1307,15 @@ class Sets(Category_singleton):
             self,
             rooks: Sequence[tuple[Integer, Integer]],
             base_set_cardinality: Integer,
-        ) -> SetPartition:
+        ) -> SetPartitionType:
             r"""Return the set partition encoded by Yip's psi bijection."""
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
-            return SageSetPartitions().from_rook_placement_psi(
-                rooks, base_set_cardinality
+            return cast(
+                "SetPartitionType",
+                SageSetPartitions().from_rook_placement_psi(
+                    rooks, base_set_cardinality
+                ),
             )
 
         @final
@@ -1231,11 +1323,9 @@ class Sets(Category_singleton):
             r"""Return Sage's sequence-style Cartesian product."""
             return self.CartesianProductFromFactors(factors)
 
-    _Constructors = Constructors
-
     @cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Sets._Constructors:
         r"""Return the named Sage set constructor collector."""
         return self.__class__._Constructors(self)
 
@@ -1300,18 +1390,17 @@ class Sets(Category_singleton):
 
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
-    MorphismMethods = SetHomCategory.ElementMethods
 
 
 SetsCategory = Sets
-SetsObject = Sets.ParentMethods
-SetsElement = Sets.ElementMethods
-SetsMorphism = Sets.MorphismMethods
+SetsObject = _SetObjectMethods
+SetsElement = _SetElementMethods
+SetsMorphism = _SetMorphisms
 SetsHomCategory = SetHomCategory
 SetsEndCategory = SetEndCategory
 SetsAutCategory = SetAutCategory
-SetsHom = SetHomCategory.ParentMethods
+SetsHom = _SetHomCategoryObjectMethods
 SetsEnd = SetEndCategory.ParentMethods
 SetsAut = SetAutCategory.ParentMethods
-SetsEndomorphism = SetEndCategory.ElementMethods
-SetsAutomorphism = SetAutCategory.ElementMethods
+SetsEndomorphism = _SetEndomorphisms
+SetsAutomorphism = _SetAutomorphisms

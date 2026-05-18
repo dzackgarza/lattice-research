@@ -8,38 +8,28 @@ modules-with-forms aut surface.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
 from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 
 if TYPE_CHECKING:
-    from ..types import Lattice, LatticeOrthogonalGroup, Matrix
+    from ...cat import Category
+    from ..types import Lattice, LatticeOrthogonalGroup
 
 
 class _LatticeHomCategoryObjectMethods:
     r"""Lattice hom parent methods; generic hom methods are inherited."""
 
 
-class _LatticeMorphisms:
+class _LatticeMorphisms(FreeBilinearModulesCategory.HomCategory.ElementMethods):
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
-    @abstract_method
-    def to_matrix(self) -> Matrix: ...
 
-    def is_isometry(self) -> bool:
-        r"""Return whether this lattice morphism is an isomorphism.
-
-        Form preservation is owned by containment in the lattice Hom object, which
-        refines the formed-module Hom object.  Thus the remaining isometry condition
-        for a lattice morphism is categorical isomorphism.
-        """
-        return self.is_isomorphism()
-
-
-class _LatticeAutomorphisms:
+class _LatticeAutomorphisms(_LatticeMorphisms):
     r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
     @override
@@ -55,7 +45,7 @@ class LatticeHomCategory(HomCategoryOf):
     """
 
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         from ..modules import Modules
 
         R = self.base_category().base_ring()
@@ -64,7 +54,6 @@ class LatticeHomCategory(HomCategoryOf):
     ParentMethods = _LatticeHomCategoryObjectMethods
     ElementMethods = _LatticeMorphisms
 
-    class MorphismMethods: ...
 
     Endset = LazyImport(__name__, "LatticeEndCategory")
 
@@ -79,12 +68,11 @@ class LatticeEndCategory(GenericEndCategory):
     Autset = LazyImport(__name__, "LatticeAutCategory")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
     ElementMethods = _LatticeMorphisms
 
-    class MorphismMethods: ...
 
 
 class LatticeAutCategory(GenericAutCategory):
@@ -96,12 +84,12 @@ class LatticeAutCategory(GenericAutCategory):
     _base_category_class_and_axiom = (LatticeEndCategory, "Autset")
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the determinant-one subgroup of this lattice orthogonal group."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return the orientation-preserving subgroup.
 
@@ -109,7 +97,7 @@ class LatticeAutCategory(GenericAutCategory):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def stable_special_subgroup(self) -> LatticeOrthogonalGroup:
             r"""Return ``SO^+(L) = SO(L) \cap O^+(L)``.
 
@@ -139,5 +127,3 @@ class LatticeAutCategory(GenericAutCategory):
             return self.stable_special_subgroup()
 
     ElementMethods = _LatticeAutomorphisms
-
-    class MorphismMethods: ...

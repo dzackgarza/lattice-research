@@ -2,11 +2,11 @@ r"""Free modules."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.modules.free_module import FreeModule as SageFreeModule
@@ -16,6 +16,7 @@ from sage.tensor.modules.finite_rank_free_module import (
 )
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...utils import with_axiom
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -29,6 +30,9 @@ if TYPE_CHECKING:
         RModule,
     )
 
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
+
 
 class _Free(CategoryWithAxiom_over_base_ring):
     r"""Free modules over the base ring.
@@ -41,7 +45,7 @@ class _Free(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().Projective()]
 
     @override
@@ -50,10 +54,10 @@ class _Free(CategoryWithAxiom_over_base_ring):
         return M in self.base_category() and M.is_free()
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def FiniteRank(self) -> Category:
-            return self._with_axiom("FiniteRank")
+            return with_axiom(self, "FiniteRank")
 
     class ParentMethods:
         @override
@@ -61,14 +65,13 @@ class _Free(CategoryWithAxiom_over_base_ring):
         def is_free(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def rank(self) -> Cardinality:
             r"""Return the cardinality of a basis."""
             ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
@@ -84,18 +87,18 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().FinitelyGenerated()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def basis(self) -> ModuleBasis: ...
 
         @override
         @final
         def bases(self) -> list[ModuleBasis]:
             if isinstance(self, SageFiniteRankFreeModule):
-                return SageFiniteRankFreeModule.bases(self)
+                return cast(list[ModuleBasis], SageFiniteRankFreeModule.bases(self))
             assert isinstance(self, SageFreeModuleGeneric)
             return [self.basis()]
 
@@ -111,7 +114,8 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         @final
         def set_default_basis(self, basis: ModuleBasis) -> None:
             if isinstance(self, SageFiniteRankFreeModule):
-                return SageFiniteRankFreeModule.set_default_basis(self, basis)
+                SageFiniteRankFreeModule.set_default_basis(self, basis)
+                return None
             assert isinstance(self, SageFreeModuleGeneric)
             if basis != self.basis():
                 raise NotImplementedError(
@@ -133,8 +137,12 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def symmetric_algebra(self) -> Algebra:
             from sage.rings.polynomial.polynomial_ring_constructor import PolynomialRing
 
-            return PolynomialRing(
-                self.base_ring(), names=tuple(f"x{i}" for i in range(self.rank()))
+            return cast(
+                "Algebra",
+                PolynomialRing(
+                    self.base_ring(),
+                    names=tuple(f"x{i}" for i in range(self.rank())),
+                ),
             )
 
         @override
@@ -142,8 +150,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         def alternating_algebra(self) -> Algebra:
             from sage.algebras.clifford_algebra import ExteriorAlgebra
 
-            return ExteriorAlgebra(
-                self, names=tuple(f"e{i}" for i in range(self.rank()))
+            return cast(
+                "Algebra",
+                ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank()))),
             )
 
         @override
@@ -155,23 +164,23 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         @final
         def dual(self) -> RModule:
             if isinstance(self, SageFiniteRankFreeModule):
-                return SageFiniteRankFreeModule.dual(self)
+                return cast("RModule", SageFiniteRankFreeModule.dual(self))
 
             assert isinstance(self, SageFreeModuleGeneric)
-            return self.Hom(SageFreeModule(self.base_ring(), 1))
+            return cast("RModule", self.Hom(SageFreeModule(self.base_ring(), 1)))
 
         @override
         @final
         def is_isomorphic_to(self, other: RModule) -> bool:
             if isinstance(other, (SageFiniteRankFreeModule, SageFreeModuleGeneric)):
-                return (
+                return bool(
                     self.base_ring() == other.base_ring()
                     and self.rank() == other.rank()
                 )
             return False
 
         @override
-        @abstract_method
+        @abstractmethod
         def tensor_module(
             self,
             k: Integer,
@@ -180,14 +189,13 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> RModule:
-            del k, ell, sym, antisym
             ...
 
         @override
         @final
         def exterior_power(self, p: Integer) -> RModule:
             if isinstance(self, SageFiniteRankFreeModule):
-                return SageFiniteRankFreeModule.exterior_power(self, p)
+                return cast("RModule", SageFiniteRankFreeModule.exterior_power(self, p))
 
             from sage.algebras.clifford_algebra import ExteriorAlgebra
 
@@ -195,7 +203,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             exterior_algebra = ExteriorAlgebra(
                 self, names=tuple(f"e{i}" for i in range(self.rank()))
             )
-            return exterior_algebra.homogeneous_component(p)
+            return cast("RModule", exterior_algebra.homogeneous_component(p))
 
         @override
         @final
@@ -205,16 +213,17 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
             name: str | None = None,
             latex_name: str | None = None,
         ) -> RModMorphism:
-            return SageFiniteRankFreeModule.alternating_form(
-                self, degree, name=name, latex_name=latex_name
+            return cast(
+                "RModMorphism",
+                SageFiniteRankFreeModule.alternating_form(
+                    self, degree, name=name, latex_name=latex_name
+                ),
             )
 
         @override
         @final
         def base_change(self, morphism: RingMorphism) -> RModule:
             assert morphism.domain() == self.base_ring()
-            return self.change_ring(morphism.codomain())
+            return cast("RModule", self.change_ring(morphism.codomain()))
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -11,7 +11,6 @@ import argparse
 import collections
 import dataclasses
 import datetime as dt
-import math
 import re
 import subprocess
 import sys
@@ -20,9 +19,8 @@ from typing import Any
 
 import yaml
 
-
 ROOT = Path(__file__).resolve().parents[2]
-PLANS_ROOT = ROOT / "plans" / "features"
+PLANS_ROOT = ROOT / ".agents" / "plans" / "features"
 SCHEMA_ROOT = ROOT / ".nimbalyst" / "trackers"
 ACTIVE_ROOT = PLANS_ROOT
 COMPLETED_ROOT = PLANS_ROOT / "completed"
@@ -41,6 +39,9 @@ class Card:
     priority: str | None
     tags: tuple[str, ...]
     is_completed_tree: bool
+    activity_type: str | None
+    phase_kind: str | None
+    branch_type: str | None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -54,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Generate a Markdown report summarizing current planning-card progress "
-            "from plans/features and local tracker schemas."
+            "from .agents/plans/features and local tracker schemas."
         )
     )
     parser.add_argument(
@@ -67,6 +68,14 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=15,
         help="Number of recently completed cards to include. Default: 15.",
+    )
+    parser.add_argument(
+        "--next-outstanding-tasks",
+        type=int,
+        help=(
+            "Print the next N outstanding task cards whose declared and inherited "
+            "DAG prerequisites are complete, then exit."
+        ),
     )
     return parser.parse_args()
 
@@ -189,6 +198,22 @@ def load_cards() -> dict[str, Card]:
                 else ()
             ),
             is_completed_tree=COMPLETED_ROOT in path.parents,
+            activity_type=(
+                str(frontmatter["activityType"])
+                if "activityType" in frontmatter
+                and frontmatter["activityType"] is not None
+                else None
+            ),
+            phase_kind=(
+                str(frontmatter["phaseKind"])
+                if "phaseKind" in frontmatter and frontmatter["phaseKind"] is not None
+                else None
+            ),
+            branch_type=(
+                str(frontmatter["branchType"])
+                if "branchType" in frontmatter and frontmatter["branchType"] is not None
+                else None
+            ),
         )
     return cards
 
@@ -329,10 +354,56 @@ def most_blocked_items(cards: dict[str, Card]) -> list[Card]:
     return blocked[:15]
 
 
-def high_priority_active(
+def unmet_dependency_ids(
+    card: Card,
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+) -> tuple[str, ...]:
+    unmet: list[str] = []
+    seen: set[str] = set()
+    stack = list(dependency_frontier_ids(card, cards))
+    while stack:
+        dependency_id = stack.pop()
+        if dependency_id in seen:
+            continue
+        seen.add(dependency_id)
+        dependency = cards.get(dependency_id)
+        if dependency is None or not is_complete(dependency, completed_statuses):
+            unmet.append(dependency_id)
+            continue
+        stack.extend(dependency.depends_on)
+    return tuple(dict.fromkeys(unmet))
+
+
+def dependency_frontier_ids(card: Card, cards: dict[str, Card]) -> tuple[str, ...]:
+    dependency_ids: list[str] = []
+    seen_cards: set[str] = set()
+    stack = [card.card_id]
+    while stack:
+        card_id = stack.pop()
+        if card_id in seen_cards:
+            continue
+        seen_cards.add(card_id)
+        current = cards.get(card_id)
+        if current is None:
+            continue
+        dependency_ids.extend(current.depends_on)
+        stack.extend(parent for parent in current.parents if parent in cards)
+    return tuple(dict.fromkeys(dependency_ids))
+
+
+def has_unmet_dependency_path(
+    card: Card,
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+) -> bool:
+    return bool(unmet_dependency_ids(card, cards, completed_statuses))
+
+
+def high_priority_frontier(
     cards: dict[str, Card], completed_statuses: dict[str, set[str]]
-) -> list[Card]:
-    items = [
+) -> tuple[list[Card], list[tuple[Card, tuple[str, ...]]]]:
+    candidates = [
         card
         for card in cards.values()
         if not is_complete(card, completed_statuses)
@@ -340,14 +411,119 @@ def high_priority_active(
         and card.status != "blocked"
     ]
     priority_order = {"critical": 0, "high": 1}
-    items.sort(
+    candidates.sort(
         key=lambda card: (
             priority_order.get(card.priority, 2),
             card.kind,
             card.title.casefold(),
         )
     )
-    return items[:15]
+    frontier: list[Card] = []
+    gated: list[tuple[Card, tuple[str, ...]]] = []
+    for card in candidates:
+        if has_unmet_dependency_path(card, cards, completed_statuses):
+            gated.append((card, unmet_dependency_ids(card, cards, completed_statuses)))
+        else:
+            frontier.append(card)
+    return frontier[:15], gated[:15]
+
+
+def topological_card_order(cards: dict[str, Card]) -> dict[str, int]:
+    dependents: dict[str, set[str]] = collections.defaultdict(set)
+    indegree: dict[str, int] = {card_id: 0 for card_id in cards}
+    for card in cards.values():
+        for dependency_id in card.depends_on:
+            if dependency_id not in cards:
+                continue
+            dependents[dependency_id].add(card.card_id)
+            indegree[card.card_id] += 1
+
+    priority_order = {"critical": 0, "high": 1, "medium": 2, "low": 3, None: 4}
+    kind_order = {
+        "feature": 0,
+        "spec": 1,
+        "decision": 2,
+        "plan": 3,
+        "phase": 4,
+        "task": 5,
+    }
+
+    ready = sorted(
+        (card_id for card_id, count in indegree.items() if count == 0),
+        key=lambda card_id: (
+            priority_order.get(cards[card_id].priority, 5),
+            kind_order.get(cards[card_id].kind, 99),
+            str(cards[card_id].path.relative_to(ROOT)),
+        ),
+    )
+    order: dict[str, int] = {}
+    while ready:
+        card_id = ready.pop(0)
+        order[card_id] = len(order)
+        for dependent_id in sorted(
+            dependents.get(card_id, ()),
+            key=lambda item: (
+                priority_order.get(cards[item].priority, 5),
+                kind_order.get(cards[item].kind, 99),
+                str(cards[item].path.relative_to(ROOT)),
+            ),
+        ):
+            indegree[dependent_id] -= 1
+            if indegree[dependent_id] == 0:
+                ready.append(dependent_id)
+        ready.sort(
+            key=lambda item: (
+                priority_order.get(cards[item].priority, 5),
+                kind_order.get(cards[item].kind, 99),
+                str(cards[item].path.relative_to(ROOT)),
+            )
+        )
+
+    if len(order) != len(cards):
+        unresolved = sorted(set(cards) - set(order))
+        raise ValueError(
+            f"dependsOn cycle leaves unresolved cards: {', '.join(unresolved)}"
+        )
+    return order
+
+
+def next_outstanding_tasks(
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+    limit: int,
+) -> list[Card]:
+    order = topological_card_order(cards)
+    candidates = [
+        card
+        for card in cards.values()
+        if card.kind == "task"
+        and not card.is_completed_tree
+        and not is_complete(card, completed_statuses)
+        and card.status != "blocked"
+        and not has_unmet_dependency_path(card, cards, completed_statuses)
+    ]
+    candidates.sort(key=lambda card: order[card.card_id])
+    return candidates[:limit]
+
+
+def render_next_outstanding_tasks(
+    cards: dict[str, Card],
+    completed_statuses: dict[str, set[str]],
+    limit: int,
+) -> str:
+    tasks = next_outstanding_tasks(cards, completed_statuses, max(1, limit))
+    if not tasks:
+        return "No outstanding DAG-ready tasks found.\n"
+
+    lines: list[str] = []
+    for task in tasks:
+        relative_path = task.path.relative_to(ROOT)
+        priority = task.priority or "unspecified"
+        lines.append(
+            f"- `{task.card_id}`: {task.title} "
+            f"(`{priority}`, `{task.status}`) {relative_path}"
+        )
+    return "\n".join(lines) + "\n"
 
 
 def active_vs_completed_feature_trees(
@@ -365,21 +541,34 @@ def active_vs_completed_feature_trees(
     return active, completed
 
 
+def workflow_counts(
+    cards: dict[str, Card],
+) -> tuple[collections.Counter[str], collections.Counter[str]]:
+    activity_counts: collections.Counter[str] = collections.Counter()
+    workstream_counts: collections.Counter[str] = collections.Counter()
+    for card in cards.values():
+        if card.kind == "task" and card.activity_type:
+            activity_counts[card.activity_type] += 1
+        if card.kind == "phase" and card.phase_kind == "workstream":
+            workstream_counts[card.branch_type or "unspecified"] += 1
+    return activity_counts, workstream_counts
+
+
 def render_report(
     cards: dict[str, Card],
     completed_statuses: dict[str, set[str]],
     recent_limit: int,
 ) -> str:
-    now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     counts = summarize_counts(cards, completed_statuses)
     child_map = children_map(cards)
     rollups = feature_rollups(cards, completed_statuses, child_map)
     recent = recent_completed_cards(cards, completed_statuses, recent_limit)
     blocked = most_blocked_items(cards)
-    priority = high_priority_active(cards, completed_statuses)
+    priority, gated_priority = high_priority_frontier(cards, completed_statuses)
     active_features, completed_features = active_vs_completed_feature_trees(
         cards, completed_statuses
     )
+    activity_counts, workstream_counts = workflow_counts(cards)
 
     all_cards = list(cards.values())
     done_cards = sum(1 for card in all_cards if is_complete(card, completed_statuses))
@@ -388,8 +577,6 @@ def render_report(
 
     lines: list[str] = []
     lines.append("# Planning Progress Report")
-    lines.append("")
-    lines.append(f"_Generated: {now}_")
     lines.append("")
     lines.append("## Overall")
     lines.append("")
@@ -402,7 +589,8 @@ def render_report(
     lines.append("## Counts By Type")
     lines.append("")
     lines.append(
-        "| Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |"
+        "| Type | Total | Completed | In Progress"
+        " | Needs Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for kind in sorted(counts):
@@ -427,10 +615,29 @@ def render_report(
             + " |"
         )
     lines.append("")
+    lines.append("## Co-Mathematician Workflow")
+    lines.append("")
+    lines.append("### Workstream Phases")
+    lines.append("")
+    if not workstream_counts:
+        lines.append("- None recorded.")
+    else:
+        for branch_type, count in sorted(workstream_counts.items()):
+            lines.append(f"- `{branch_type}`: **{count}**")
+    lines.append("")
+    lines.append("### Task Activity Types")
+    lines.append("")
+    if not activity_counts:
+        lines.append("- None recorded.")
+    else:
+        for activity_type, count in sorted(activity_counts.items()):
+            lines.append(f"- `{activity_type}`: **{count}**")
+    lines.append("")
     lines.append("## Feature Rollup")
     lines.append("")
     lines.append(
-        "| Feature | Progress | Done/Total | In Progress | Needs Review | Needs Human Input | Blocked |"
+        "| Feature | Progress | Done/Total | In Progress"
+        " | Needs Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | --- | ---: | ---: | ---: | ---: | ---: |")
     for row in rollups:
@@ -451,7 +658,7 @@ def render_report(
             + " |"
         )
     lines.append("")
-    lines.append("## High-Priority Active Items")
+    lines.append("## High-Priority DAG Frontier")
     lines.append("")
     if not priority:
         lines.append("- None.")
@@ -459,6 +666,22 @@ def render_report(
         for card in priority:
             lines.append(
                 f"- `{card.kind}` `{card.card_id}`: {card.title} "
+                f"(`{card.priority}`, `{card.status}`)"
+            )
+    lines.append("")
+    lines.append("## High-Priority DAG-Gated Items")
+    lines.append("")
+    if not gated_priority:
+        lines.append("- None.")
+    else:
+        for card, unmet_dependencies in gated_priority:
+            unmet_text = ", ".join(
+                f"`{dependency}`" for dependency in unmet_dependencies
+            )
+            if not unmet_text:
+                unmet_text = "an incomplete transitive prerequisite"
+            lines.append(
+                f"- `{card.kind}` `{card.card_id}`: gated by {unmet_text} "
                 f"(`{card.priority}`, `{card.status}`)"
             )
     lines.append("")
@@ -479,7 +702,7 @@ def render_report(
         lines.append("- No completed cards with recorded git history were found.")
     else:
         for card, commit in recent:
-            date_text = commit.date.astimezone(dt.timezone.utc).strftime("%Y-%m-%d")
+            date_text = commit.date.astimezone(dt.UTC).strftime("%Y-%m-%d")
             lines.append(
                 f"- {date_text} `{card.kind}` `{card.card_id}`: {card.title} "
                 f"(commit `{commit.sha[:7]}`: {commit.subject})"
@@ -496,8 +719,13 @@ def render_report(
         "sorted by the most recent git commit touching that card file."
     )
     lines.append(
-        "- Completed feature trees may live under `plans/features/completed/`; "
+        "- Completed feature trees may live under `.agents/plans/features/completed/`; "
         "this report includes them in totals."
+    )
+    lines.append(
+        "- High-priority DAG frontier items exclude cards with incomplete direct or "
+        "transitive `dependsOn` prerequisites. Gated items are shown only by their "
+        "unmet prerequisite frontier."
     )
     lines.append("")
     return "\n".join(lines)
@@ -507,6 +735,15 @@ def main() -> int:
     args = parse_args()
     cards = load_cards()
     completed_statuses = load_status_completion_map()
+    if args.next_outstanding_tasks is not None:
+        sys.stdout.write(
+            render_next_outstanding_tasks(
+                cards,
+                completed_statuses,
+                args.next_outstanding_tasks,
+            )
+        )
+        return 0
     report = render_report(cards, completed_statuses, max(1, args.recent_limit))
     if args.output is not None:
         args.output.parent.mkdir(parents=True, exist_ok=True)

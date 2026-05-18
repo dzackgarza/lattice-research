@@ -35,6 +35,13 @@ Before auditing:
 - Staged changes, unstaged changes, and task-local commits do not weaken specs by
   deleting obligations, narrowing smokes, or moving method surfaces without a
   source-grounded replacement owner.
+- Type definitions are centralized, not scattered. `category_specs/types.py` is the
+  single authority for project-wide mathematical type aliases. A `TypeAlias` or type
+  definition appearing in a subpackage `__init__.py` is suspicious: it hides a
+  mathematical noun where downstream code cannot import it uniformly. Subpackages
+  should import types from `types.py`, not define them. If a type is only needed
+  locally, question whether it is a real mathematical type or an implementation
+  detail that should remain private.
 
 ## Output routing
 

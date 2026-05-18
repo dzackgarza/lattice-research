@@ -2,15 +2,21 @@ r"""Order-theoretic lattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import final, override
+from collections.abc import Callable
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.categories.lattice_posets import LatticePosets as SageLatticePosets
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
+from ...utils import with_axiom
 from .join_semilattice import _JoinSemilatticePosets
 from .meet_semilattice import _MeetSemilatticePosets
+
+if TYPE_CHECKING:
+    def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
+else:
+    from sage.misc.cachefunc import cached_method
 
 
 class _LatticePosets(Category):
@@ -30,7 +36,7 @@ class _LatticePosets(Category):
         @final
         def Finite(self) -> Category:
             r"""Return the finite lattice-poset subcategory."""
-            return self._with_axiom("Finite")
+            return cast(Category, with_axiom(self, "Finite"))
 
     Finite = LazyImport(
         "category_specs.posets.subcategories.finite_lattice", "_FiniteLatticePosets"
@@ -39,5 +45,3 @@ class _LatticePosets(Category):
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

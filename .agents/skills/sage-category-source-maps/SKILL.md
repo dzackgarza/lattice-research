@@ -5,7 +5,7 @@ description: Use when researching Sage ring, set, polynomial, p-adic, localizati
 
 # Sage Category Source Maps
 
-This skill owns Sage source maps migrated from the retired `plans/` directory.
+This skill owns Sage source maps migrated from the retired `.agents/plans/` directory.
 
 ## Load references by task
 

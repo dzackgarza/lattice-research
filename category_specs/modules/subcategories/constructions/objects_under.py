@@ -2,9 +2,8 @@ r"""Slice construction category of modules under a fixed module."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (
@@ -30,13 +29,12 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         return f"modules under {self.base()}"
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def structure_module(self) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def structure_map(self) -> RModMorphism: ...
 
-        @override
         @final
         def structure_morphism(self) -> RModMorphism:
             r"""Return the structure map as the universal structure morphism."""
@@ -46,5 +44,3 @@ class _ObjectsUnder(RegressiveCovariantConstructionCategory, Category_over_base)
         structure_codomain = structure_codomain
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -15,11 +15,9 @@ class _Subquotients(SubquotientsCategory):
 
     @override
     @final
-    def _repr_object_names(self):
+    def _repr_object_names(self) -> str:
         return f"subquotients of {self.base_category()._repr_object_names()}"
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

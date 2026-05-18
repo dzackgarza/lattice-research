@@ -2,12 +2,12 @@ r"""UniqueFactorizationDomains ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
 )
-from sage.misc.abstract_method import abstract_method
 from sage.structure.factorization import Factorization
 
 from ...cat import Category
@@ -44,15 +44,13 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
         )
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def factor(self) -> Factorization: ...
 
-        @abstract_method
+        @abstractmethod
         def is_irreducible(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_prime(self) -> bool: ...
 
     class ParentMethods: ...
-
-    class MorphismMethods: ...

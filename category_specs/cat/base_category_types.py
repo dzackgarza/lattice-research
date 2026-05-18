@@ -15,11 +15,11 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from abc import abstractmethod
+from collections.abc import Callable, Iterable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, final, overload, override
+from typing import TYPE_CHECKING, Any, cast, final, overload, override
 
-from sage.categories import covariant_functorial_construction as sage_covariant
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
     CartesianProductsCategory as SageCartesianProductsCategory,
@@ -51,6 +51,9 @@ from sage.categories.covariant_functorial_construction import (
 )
 from sage.categories.covariant_functorial_construction import (
     FunctorialConstructionCategory as SageFunctorialConstructionCategory,
+)
+from sage.categories.covariant_functorial_construction import (
+    RegressiveCovariantConstructionCategory as SageRegressiveCovariantConstructionCategory,
 )
 from sage.categories.dual import DualObjectsCategory as SageDualObjectsCategory
 from sage.categories.filtered_modules import (
@@ -88,12 +91,8 @@ from sage.structure.parent import Parent
 
 from .universal_subcategory_methods import UniversalSubcategoryMethods
 
-SageRegressiveCovariantConstructionCategory = (
-    sage_covariant.RegressiveCovariantConstructionCategory
-)
-
 if TYPE_CHECKING:
-    from ..types import Category, Hom
+    from ..types import CategoryElement, Hom, Morphism
 
 _SageCategory = SageCategory
 _SageCategoryWithParameters = SageCategoryWithParameters
@@ -114,6 +113,12 @@ _SageHomsets = SageHomsets
 _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
 
+def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
+    method: _CatCachedMethod,
+) -> _CatCachedMethod:
+    return cast(_CatCachedMethod, cached_method(method))
+
+
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset({"base_ring", "category", "names"})
 _CAT_CONSTRUCTOR_CLASS: type | None = None
@@ -123,8 +128,8 @@ _CAT_CONSTRUCTOR_OWNERS: dict[str, SageCategory] = {}
 def _static_category_class(category: SageCategory) -> type:
     cls = category.__class__
     if isinstance(cls, DynamicMetaclass):
-        return cls.__base__
-    return cls
+        return cast(type, cls.__base__)
+    return cast(type, cls)
 
 
 def _identifier_fragment(text: str) -> str:
@@ -204,7 +209,7 @@ def _cat_constructor_method_names(prefix: str, provider: type) -> tuple[str, ...
 def _cat_constructor_forwarder(
     prefix: str, constructor_name: str
 ) -> Callable[..., Any]:
-    def forwarded_constructor(self, *args: Any, **kwargs: Any) -> Any:
+    def forwarded_constructor(self: SageCategory, *args: Any, **kwargs: Any) -> Any:
         constructors = _CAT_CONSTRUCTOR_OWNERS[prefix].Constructors()
         return getattr(constructors, constructor_name)(*args, **kwargs)
 
@@ -213,7 +218,7 @@ def _cat_constructor_forwarder(
     forwarded_constructor.__doc__ = (
         f"Forward to ``{prefix}.Constructors().{constructor_name}``."
     )
-    forwarded_constructor._cat_constructor_generated_forwarder = True
+    cast(Any, forwarded_constructor)._cat_constructor_generated_forwarder = True
     return forwarded_constructor
 
 
@@ -308,10 +313,10 @@ def _validate_defining_predicates(
     )
 
 
-def _cat_category():
+def _cat_category() -> SageCategory:
     from . import Cat
 
-    return Cat()
+    return cast(SageCategory, Cat())
 
 
 def _copy_method_provider_namespace(provider: type, namespace: dict[str, Any]) -> None:
@@ -343,12 +348,12 @@ def _combined_subcategory_methods(local_provider: type | None) -> type:
 
 def _make_named_class_with_cat_subcategory_methods(
     category: SageCategory,
-    delegate,
-    name,
-    method_provider,
-    cache=False,
+    delegate: Callable[..., type],
+    name: str,
+    method_provider: str,
+    cache: bool = False,
     picklable: bool = True,
-):
+) -> type:
     r"""Delegate Sage named-class construction with Cat's universal methods.
 
     Sage consumes a single flat method-provider class when building generated
@@ -413,16 +418,20 @@ class _CatObjectMixin:
         initializer = cls.__dict__.get("__init__")
         if initializer is None:
             return
-        if getattr(initializer, "_cat_constructor_registration_wrapper", False):
+        initializer_any = cast(Any, initializer)
+        if getattr(initializer_any, "_cat_constructor_registration_wrapper", False):
             return
 
         @wraps(initializer)
-        def initialize_and_register(self, *args: Any, **kwargs: Any) -> None:
+        def initialize_and_register(
+            self: SageCategory, *args: Any, **kwargs: Any
+        ) -> None:
             initializer(self, *args, **kwargs)
             _register_cat_constructor_owner(self)
 
-        initialize_and_register._cat_constructor_registration_wrapper = True
-        cls.__init__ = initialize_and_register
+        initialize_and_register_any = cast(Any, initialize_and_register)
+        initialize_and_register_any._cat_constructor_registration_wrapper = True
+        setattr(cls, "__init__", initialize_and_register)
 
     @final
     def _init_cat_object(self) -> None:
@@ -463,29 +472,26 @@ class _CatObjectMixin:
         Parent.__init__(self, category=None)
         CategoryObject._init_category_(self, _cat_category())
 
-    @override
     @final
-    def category(self) -> Category:
+    def category(self) -> SageCategory:
         r"""Return ``Cat()`` as the category of this category object.
 
         This is the only direct semantic override in the mixin.  Without it,
         Sage's ``Category.category`` reports ``Objects()`` for category
         objects, so ``Sets().category()`` would not be ``Cat()`` and ordinary
         Sage membership ``Sets() in Cat()`` would not express that categories
-        are objects of the category of categories.  The value returned here is
-        not recomputed: it is the ``_category`` stored by
+        are objects of the category of categories.  The returned value is the
+        same singleton stored by
         ``CategoryObject._init_category_`` during initialization.
         """
-        return CategoryObject.category(self)
+        return _cat_category()
 
-    @override
     @final
     def Hom(self, codomain: SageCategory) -> Hom:
         r"""Return ``Hom_{Cat}(self, codomain)``."""
         assert codomain in self.category(), "codomain must be an object of Cat()"
-        return Parent.Hom(self, codomain)
+        return cast("Hom", Parent.Hom(self, codomain))
 
-    @override
     @final
     def _make_named_class(
         self,
@@ -501,7 +507,7 @@ class _CatObjectMixin:
         """
         return _make_named_class_with_cat_subcategory_methods(
             self,
-            super()._make_named_class,
+            cast(Any, super())._make_named_class,
             name,
             method_provider,
             cache=cache,
@@ -538,7 +544,7 @@ class _SingletonClasscallMixin:
     def __classcall__(cls: type[SageCategorySingleton]) -> SageCategory:
         if isinstance(cls, DynamicMetaclass):
             cls = cls.__base__
-        obj = super(SageCategorySingleton, cls).__classcall__(cls)
+        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(cls)
         cls._set_classcall(ConstantFunction(obj))
         obj.__class__._set_classcall(ConstantFunction(obj))
         return obj
@@ -571,7 +577,9 @@ class _SingletonAxiomClasscallMixin:
             cls = cls.__base__
         if base_category is None:
             return SageCategoryWithAxiom.__classcall__(cls)
-        obj = super(SageCategorySingleton, cls).__classcall__(cls, base_category)
+        obj = cast(Any, super(SageCategorySingleton, cls)).__classcall__(
+            cls, base_category
+        )
         cls._set_classcall(ConstantFunction(obj))
         obj.__class__._set_classcall(ConstantFunction(obj))
         return obj
@@ -586,6 +594,12 @@ class Category(_CatObjectMixin, SageCategory, Parent):
     def __init__(self) -> None:
         self._init_cat_object()
         SageCategory.__init__(self)
+
+    @staticmethod
+    @final
+    def join(categories: Iterable[Category]) -> Category:
+        r"""Return Sage's category-lattice join as a project category object."""
+        return cast("Category", SageCategory.join(categories))
 
 
 class CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent):
@@ -644,7 +658,10 @@ class CategoryWithAxiom_singleton(
 ):
     r"""Parent-backed re-export of Sage's singleton axiom category base."""
 
-    def __init__(self, base_category: SageCategory) -> None:
+    def __init__(self, base_category: SageCategory | None = None) -> None:
+        assert base_category is not None, (
+            "singleton axiom initialization requires a resolved base category"
+        )
         self._init_cat_object()
         SageCategoryWithAxiomSingleton.__init__(self, base_category)
 
@@ -758,8 +775,7 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
         self._init_cat_object()
         SageHomsets.__init__(self)
 
-    @cached_method
-    @final
+    @_cat_cached_method
     def Endset(self) -> SageCategory:
         r"""Return Sage's existing root category of endomorphism sets.
 
@@ -867,6 +883,22 @@ class SubobjectsCategory(_CatObjectMixin, SageSubobjectsCategory, Parent):
     def __init__(self, category: SageCategory) -> None:
         self._init_cat_object()
         SageSubobjectsCategory.__init__(self, category)
+
+    class ParentMethods:
+        @abstractmethod
+        def ambient(self) -> CategoryObject:
+            r"""Return the ambient object of which ``self`` is a subobject."""
+            ...
+
+        @abstractmethod
+        def inclusion(self) -> Morphism:
+            r"""Return the inclusion morphism from this subobject to its ambient."""
+            ...
+
+        @final
+        def lift(self, x: CategoryElement) -> CategoryElement:
+            r"""Include an element of this subobject into its ambient object."""
+            return self.inclusion()(x)
 
 
 class QuotientsCategory(_CatObjectMixin, SageQuotientsCategory, Parent):

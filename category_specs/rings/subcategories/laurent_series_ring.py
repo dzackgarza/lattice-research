@@ -2,10 +2,10 @@ r"""LaurentSeriesRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -75,24 +75,22 @@ class _LaurentSeriesRings(CategoryWithAxiom):
             )
             return self.change_ring(base_ext)
 
-        @abstract_method
+        @abstractmethod
         def default_prec(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def gen(self, n: Integer = 0) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def gens(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def ngens(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def power_series_ring(self) -> Ring: ...
 
-        @abstract_method
+        @abstractmethod
         def change_ring(self, R: Ring) -> Ring: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

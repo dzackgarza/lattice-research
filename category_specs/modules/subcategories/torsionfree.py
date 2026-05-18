@@ -32,8 +32,7 @@ class _Torsionfree(CategoryWithAxiom_over_base_ring):
         def annihilator(self) -> Ideal:
             r"""Return ``Ann_R(M) = (0)``."""
             R = self.base_ring()
-            return R.ideal(R.zero())
+            zero_ideal: Ideal = R.ideal(R.zero())
+            return zero_ideal
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

@@ -2,10 +2,10 @@ r"""Integral lattices."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -23,14 +23,18 @@ class _IntegerLattices(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
-        return [Category.join([
-            Modules(R).Subobjects(),
-            Modules(R).WithOrderedGeneratingSet(),
-            Modules(R).OverPID(),
-            Modules(R).WithForms().Bilinear(),
-        ])]
+        return [
+            Category.join(
+                [
+                    Modules(R).Subobjects(),
+                    Modules(R).WithOrderedGeneratingSet(),
+                    Modules(R).OverPID(),
+                    Modules(R).WithForms().Bilinear(),
+                ]
+            )
+        ]
 
     class ParentMethods:
         @override
@@ -38,10 +42,10 @@ class _IntegerLattices(Category_over_base_ring):
         def is_lattice(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def LLL(
             self,
             delta: RealNumber | None = None,
@@ -57,7 +61,7 @@ class _IntegerLattices(Category_over_base_ring):
             del delta, eta, early_red, use_givens, use_siegel, transformation
             ...
 
-        @abstract_method
+        @abstractmethod
         def BKZ(
             self,
             delta: RealNumber | None = None,
@@ -72,18 +76,15 @@ class _IntegerLattices(Category_over_base_ring):
             del delta, block_size, prune, use_givens
             ...
 
-        @abstract_method
+        @abstractmethod
         def shortest_vector(
             self,
             update_reduced_basis: bool = True,
             algorithm: Literal["fplll", "pari"] = "fplll",
         ) -> RModuleElement:
-            del update_reduced_basis
             ...
 
-        @abstract_method
+        @abstractmethod
         def voronoi_cell(self, radius: RealNumber | None = None) -> Polyhedron: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

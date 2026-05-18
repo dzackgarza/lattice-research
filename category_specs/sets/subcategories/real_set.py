@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage ``RealSet`` parents."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
 from sage.rings.infinity import infinity, minus_infinity
 
 if TYPE_CHECKING:
@@ -53,26 +53,38 @@ class _RealSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[RealInterval]: ...
 
-        @abstract_method
+        @abstractmethod
         def n_components(self) -> Integer:
             r"""Return the number of interval components of this real subset."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def is_empty(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_universe(self) -> bool:
             r"""Return whether this real subset is the whole real line."""
             ...
+
+        @abstractmethod
+        def category(self) -> Category: ...
+
+        @abstractmethod
+        def is_connected(self) -> bool: ...
+
+        @abstractmethod
+        def is_open(self) -> bool: ...
+
+        @abstractmethod
+        def is_closed(self) -> bool: ...
 
         @override
         @final
@@ -84,21 +96,31 @@ class _RealSets(Category_singleton):
                 and self.sup() is not infinity
             )
 
-        @abstract_method
+        @abstractmethod
         def get_interval(self, i: Integer) -> RealInterval:
             r"""Return the ``i``-th interval component of this real subset."""
             ...
+
+        @abstractmethod
+        def ambient(self) -> RealSubset: ...
+
+        @abstractmethod
+        def closure(self) -> RealSubset: ...
+
+        @abstractmethod
+        def interior(self) -> RealSubset: ...
+
+        @abstractmethod
+        def boundary(self) -> RealSubset: ...
 
         @overload
         def union(self, other: RealSubset) -> RealSubset: ...
 
         @overload
-        def union(self, real_set_collection: Sequence[RealSubset]) -> RealSubset:
-            del real_set_collection
-            ...
+        def union(self, other: Sequence[RealSubset]) -> RealSubset: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def union(
             self,
             other: RealSubset | Sequence[RealSubset],
@@ -110,12 +132,10 @@ class _RealSets(Category_singleton):
         def intersection(self, other: RealSubset) -> RealSubset: ...
 
         @overload
-        def intersection(self, real_set_collection: Sequence[RealSubset]) -> RealSubset:
-            del real_set_collection
-            ...
+        def intersection(self, other: Sequence[RealSubset]) -> RealSubset: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def intersection(
             self,
             other: RealSubset | Sequence[RealSubset],
@@ -123,70 +143,69 @@ class _RealSets(Category_singleton):
             r"""Return the finite-interval-normalized intersection."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def inf(self) -> RealNumber:
             r"""Return the infimum of this subset of the real line."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def sup(self) -> RealNumber:
             r"""Return the supremum of this subset of the real line."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def complement(self) -> RealSubset:
             r"""Return the finite-interval-normalized complement in the real line."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def difference(self, other: RealSubset) -> RealSubset:
             r"""Return the finite-interval-normalized set difference."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def symmetric_difference(self, other: RealSubset) -> RealSubset:
             r"""Return the finite-interval-normalized symmetric difference."""
             ...
 
-        @abstract_method
+        @abstractmethod
+        def is_subset(self, other: RealSubset) -> bool: ...
+
+        @abstractmethod
         def contains(self, x: SetElement) -> bool:
             r"""Return whether the real point ``x`` lies in this real subset."""
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @staticmethod
-        @abstract_method
+        @abstractmethod
         def convex_hull(real_set_collection: Sequence[RealSubset]) -> RealSubset:
             r"""Return the least real interval containing the given real subsets."""
-            del real_set_collection
             ...
 
-        @abstract_method
+        @abstractmethod
         def is_disjoint(self, other: RealSubset) -> bool:
             r"""Return whether this real subset is disjoint from ``other``."""
             ...
 
         @staticmethod
-        @abstract_method
+        @abstractmethod
         def are_pairwise_disjoint(real_set_collection: Sequence[RealSubset]) -> bool:
             r"""Return whether the real subsets are pairwise disjoint."""
-            del real_set_collection
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _an_element_(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _sympy_(self) -> SympySet: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

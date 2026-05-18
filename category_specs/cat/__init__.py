@@ -35,11 +35,11 @@ Cat()
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-from importlib import import_module
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Iterable
+from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category_singleton import Category_singleton as SageCategorySingleton
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
@@ -136,9 +136,6 @@ from .base_category_types import (
     _SageCategory as _SageCategory,
 )
 from .base_category_types import (
-    _SageCategorySingleton as _SageCategorySingleton,
-)
-from .base_category_types import (
     register_cat_constructor_class as register_cat_constructor_class,
 )
 
@@ -150,32 +147,36 @@ if TYPE_CHECKING:
     from ..types import Hom
 
 
+def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
+    method: _CatCachedMethod,
+) -> _CatCachedMethod:
+    return cast(_CatCachedMethod, cached_method(method))
+
+
 class _CatObjectMethods:
     r"""Methods on objects of ``Cat()``, i.e. category objects."""
 
-    @override
-    @abstract_method
+    @abstractmethod
     def Hom(self, codomain: Category) -> Hom:
         r"""Return the functor hom object owned by ``Cat()``."""
         ...
 
-    @override
     @final
     def is_join_category(self) -> bool:
         r"""Return whether this category object is a join object in ``Cat()``."""
         from .join_categories import is_join_category
 
-        return is_join_category(self)
+        return bool(is_join_category(self))
 
     @final
     def leq(self, other: Category) -> bool:
         r"""Return whether ``self`` is a subcategory of ``other``."""
-        return self.is_subcategory(other)
+        return bool(cast("Category", self).is_subcategory(other))
 
     @final
     def geq(self, other: Category) -> bool:
         r"""Return whether ``self`` contains ``other`` as a subcategory."""
-        return other.is_subcategory(self)
+        return bool(other.is_subcategory(cast("Category", self)))
 
     __le__ = leq
     __ge__ = geq
@@ -185,7 +186,7 @@ class _CategoryElementMethods:
     r"""Baseline element methods for objects internal to a category object."""
 
 
-class Cat(_SageCategorySingleton):
+class Cat(SageCategorySingleton):
     r"""Root category whose objects are project category objects.
 
     Canonical chain: ``Cat()``.
@@ -206,8 +207,8 @@ class Cat(_SageCategorySingleton):
     @final
     def _make_named_class(
         self,
-        name,
-        method_provider,
+        name: str,
+        method_provider: str,
         cache: bool = False,
         picklable: bool = True,
     ) -> type:
@@ -238,13 +239,14 @@ class Cat(_SageCategorySingleton):
         if is_join_category(candidate):
             return True
         if isinstance(candidate, SageCategoryObject):
-            return candidate.category().is_subcategory(self)
+            category = cast("Category", candidate.category())
+            return bool(category.is_subcategory(cast("Category", self)))
         return False
 
     @final
     def join(self, categories: Iterable[Category]) -> Category:
         r"""Return Sage's category-lattice join of ``categories``."""
-        return _SageCategory.join(categories)
+        return cast("Category", _SageCategory.join(categories))
 
     @final
     def meet(self, categories: Iterable[Category]) -> Category:
@@ -257,7 +259,7 @@ class Cat(_SageCategorySingleton):
         categories = tuple(categories)
         if not categories:
             return self.Constructors().EmptyCategory()
-        meet_category = _SageCategory.meet(categories)
+        meet_category = cast("Category", _SageCategory.meet(categories))
         if all(meet_category.is_subcategory(category) for category in categories):
             return meet_category
         return self.Constructors().EmptyCategory()
@@ -277,7 +279,7 @@ class Cat(_SageCategorySingleton):
     class SubcategoryMethods:
         r"""Category-level construction methods supplied by Sage's machinery."""
 
-        @cached_method
+        @_cat_cached_method
         @final
         def JoinCategories(self) -> Category:
             r"""Return the subcategory of join objects in ``Cat()``."""
@@ -329,20 +331,17 @@ class Cat(_SageCategorySingleton):
 register_cat_constructor_class(Cat.Constructors, Cat())
 
 
-_cat_autsets = import_module("category_specs.cat.autsets")
-_cat_endsets = import_module("category_specs.cat.endsets")
-_cat_homsets = import_module("category_specs.cat.homsets")
+from .autsets import CatAutCategory, _CatAutofunctorMethods
+from .endsets import CatEndCategory, _CatEndofunctorMethods
+from .homsets import CatHomCategory, _CatFunctorMethods, _CatHomCategoryObjectMethods
 
-CatAutCategory = _cat_autsets.CatAutCategory
-CatEndCategory = _cat_endsets.CatEndCategory
-CatHomCategory = _cat_homsets.CatHomCategory
 
 CatCategory = Cat
-CatObject = Cat.ParentMethods
-CatElement = Cat.ElementMethods
-CatMorphism = CatHomCategory.ElementMethods
-CatHom = CatHomCategory.ParentMethods
+CatObject = _CatObjectMethods
+CatElement = _CategoryElementMethods
+CatMorphism = _CatFunctorMethods
+CatHom = _CatHomCategoryObjectMethods
 CatEnd = CatEndCategory.ParentMethods
 CatAut = CatAutCategory.ParentMethods
-CatEndomorphism = CatEndCategory.ElementMethods
-CatAutomorphism = CatAutCategory.ElementMethods
+CatEndomorphism = _CatEndofunctorMethods
+CatAutomorphism = _CatAutofunctorMethods

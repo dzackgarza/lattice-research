@@ -3,6 +3,15 @@
 This is the routing map for mathematical implementation work. It answers one question:
 before writing new code, what mature open-source system should we wire?
 
+## General software discovery
+
+Before any nontrivial implementation — whether code or audit — check
+[EasyBuild's supported software list](https://docs.easybuild.io/version-specific/supported-software/)
+to see if the needed functionality already exists as a packaged open-source tool.
+Many mathematical, scientific, and HPC libraries are listed there. If it's on that page,
+you can likely wire it rather than build it. In audits, flag complex implementations
+that could be offloaded to a tool from this list; consider replacing them.
+
 ## Invariant
 
 Do not implement mathematical algorithms locally when a mature open-source exact system

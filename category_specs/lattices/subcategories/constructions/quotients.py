@@ -2,9 +2,8 @@ r"""Quotient construction category for lattices."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import QuotientsCategory
 
@@ -19,12 +18,16 @@ class _Quotients(QuotientsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def projection(self) -> LatticeMorphism: ...
 
+        @abstractmethod
+        def lift(self, x: _Quotients.ElementMethods) -> LatticeElement: ...
+
     class ElementMethods:
+        @abstractmethod
+        def parent(self) -> _Quotients.ParentMethods: ...
+
         @final
         def lift(self) -> LatticeElement:
-            return self.parent().projection().lift(self)
-
-    class MorphismMethods: ...
+            return self.parent().lift(self)

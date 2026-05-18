@@ -4,9 +4,28 @@
 
 ## Always-active invariants
 
-- For plan-to-execution routing, atomicity, delegation stages, and acceptance process, load `research-state-machine`. For proof, evidence, fraud detection, and audit sufficiency, load `research-proof-auditing` when relevant.
+- For substantial mathematical research directions, onboarding, workstream coordination,
+  living-paper maintenance, uncertainty surfacing, and failed-path preservation, load
+  `research-co-mathematician-workflow`. For plan-to-execution routing, atomicity,
+  delegation stages, and acceptance process, load `research-state-machine`. For proof,
+  evidence, fraud detection, and audit sufficiency, load `research-proof-auditing`
+  when relevant.
 - For any git operation, load `git-guidelines` and follow its checkpoint, staging, commit, branch, push, and PR rules. User requests to skip verification skip validation runs, not intentional staging or provenance.
+- Before any nontrivial edit, load every skill whose trigger matches the file, domain,
+  and operation, then read the canonical reference files named by those skills before
+  checkpointing or editing. "Nontrivial" includes changes to method ownership,
+  mathematical definitions, type surfaces, inheritance, decorators, constructors,
+  category/Hom/End/Aut structure, tests, smokes, specs, mapping docs, tracker state, or
+  agent-facing policy. If the relevant skill or reference is not in context, stop and
+  load it; do not patch from memory.
 - Implementation, self-check, and adversarial audit are separate roles when `research-state-machine` requires them.
+- If an approved repo workflow, task card, review kernel, plan, or user-provided
+  objective explicitly requires subagent review or delegation, that requirement is
+  already the user's explicit request for the scoped subagent use. Do not demand a
+  second live-chat authorization, do not mark the card `blocked` or
+  `needs-human-input` for permission to spawn the required review/delegation
+  subagent, and do not repeat a permission blocker. Execute the documented
+  subagent step under the workflow's isolation and evidence rules.
 - When reviewing or starting a task, assess it for delegation, including
   parallel delegation, against `opencode-one-shot-workers`. As a first
   approximation, prefer cheap Opencode one-shot workers for bounded atomic
@@ -18,7 +37,9 @@
 - Do not substitute a nearby task for the user's stated directive.
 - Do not mark work accepted, done, or closed without human approval.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
-- Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. Any QC relaxation must be explicitly user-approved and implemented in the global QC system under `~/ai/quality-control`, not hidden in this repo.
+- Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. QC fixes go to the global QC system under `~/ai/quality-control`; local relaxation is not an option.
+- Tracker schemas, QC validation, and plan-validate authority are global, not repo-local. The schemas under `.nimbalyst/trackers/` are symlinks to `~/ai/planning/schemas/`. Schema edits go to that repo with a git commit; local schema forks are never correct — if a schema is too restrictive, add the field to the canonical schema. `just plan-validate` delegates to the centralized validator. Never write repo-local relaxed validators, warning-only schema checks, skip-gate justfile recipes, or inline Python validators that bypass the global validator.
+- QC findings are mandatory, not advisory. A static analysis error — mypy, ruff, semgrep, vulture, etc. — is a defect in the repo, not a defect in the tool. The correct response to a QC finding is to fix the code or fix the tool configuration at the global level. Never dismiss findings as "expected for this phase," "just spec work," "just stubs," "mypy can't handle metaclasses," or any other rationalization that ends with the finding unaddressed. If the tool is misconfigured, fix the global config. If the code has missing types, add the types. The only acceptable outcomes are zero findings or a global config change committed to the tool repo.
 - Resist the urge to silence QC or treat it as an obstacle to work around in phase transitions. QC findings are signals that something is underspecified, unreferenced, or broken -- fix the code, don't expand the whitelist to hide the signal. If a whitelist entry is truly the last resort after code fixes are exhausted, it must be raised as an explicit human-gated request with justification.
 - Periodically reflect: review the last 3-5 git commits and self-assess for meta-process churn -- fiddling with card statuses, commenting on task bodies, rearranging bookkeeping, or producing planning artifacts without contributing real work toward the project's mathematical goals. This kind of managerial work is sometimes needed, especially during interactive user sessions where the human is shaping policy, but in autonomous or goal-driven sessions it is often a sign of drift.
 - Specs, review files, theory notes, TODO files, and durable design artifacts are source material. Do not rewrite, shorten, modernize, delete, or align them to current implementation unless the user explicitly asks for that exact edit.
@@ -38,6 +59,14 @@
   surfaces or block on a decision; do not assume they coincide because they do in a
   familiar special case.
 - Mathematical implementation work must prefer wiring mature open-source mathematical software over bespoke algorithms. Load `research-software-wiring` before writing or delegating mathematical implementation code.
+- In `category_specs`, resolve circular imports by separating type surfaces from
+  runtime wiring. Mathematical type names and aliases belong in
+  `category_specs/types.py` as the single source of truth; annotation-only imports use
+  `TYPE_CHECKING` and import those names from `types.py`. Runtime category,
+  subcategory, Hom/End/Aut, and constructor wiring must avoid importing from a package
+  `__init__` while that package is initializing; use local imports or Sage
+  `LazyImport` for real runtime dependencies instead of moving the cycle to
+  `types.py`.
 - Use `GOAL.md` to situate work in the repo's staged mathematical plan. The current phase is tracked in `.agents/current-goal-phase.md`; downstream phases are blocked until prerequisite vocabulary and specs exist.
 - Human-facing reports, Plannotator plans, and status briefs are forward-facing artifacts. Do not back-explain prior agent failures, include proof-of-work dumps, or tell the user how to answer; state the current source-grounded classification, the consequence, and the next action.
 - QC is phase-transition evidence, not the control loop for spec work. During churn-heavy spec work, do not treat QC failures, hook noise, or unrelated implementation validation failures as blockers for approved spec-plan execution. QC blocks only a claimed phase transition or a user-requested QC/implementation integration pass; otherwise record the finding and continue the approved spec work.
@@ -47,6 +76,11 @@
   `blocked`. Reserve `blocked` for a ready current-phase leaf that cannot proceed
   because it needs an external decision, source, credential, missing theory, or other
   prerequisite that is not currently satisfiable through the DAG.
+- Priority reports must cut the graph at the earliest incomplete dependency frontier.
+  If `B dependsOn A` and `A` is incomplete, then `B`'s status, partial progress, child
+  cards, review state, and apparent readiness are irrelevant for priority. Do not rank,
+  discuss, or select work inside `B` until every prerequisite on every incoming
+  dependency path is complete; mention it only as DAG-gated by the incomplete root.
 - Reserve `needs-human-input` for genuine human judgment that remains after source review, mathematical grounding, repo policy, and `dependsOn` have been checked. Source-forced facts, routine plan/card cleanup, and planned downstream dependency order are agent work, not user decisions.
 - Constructor placement reports must separate mathematical owner, human naming convention, and code-maintenance owner. Constructors are Sage-backed entry points for building objects in categories; a specific object can carry many structures, while aggregate surfaces such as `Cat().Constructors()` can provide the canonical user entry point independent of the implementation owner.
 - Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.
@@ -57,6 +91,9 @@
 Load these skills when their trigger matches the task:
 
 - `research-state-machine`: plan-to-execution routing, card atomicity, preflight, execution stages, replay/attack, promotion/rejection/splitting, and `GOAL.md` discharge.
+- `research-co-mathematician-workflow`: AI co-mathematician-inspired onboarding,
+  workstream organization, repo-local agent roles, living LaTeX working papers,
+  uncertainty lifecycle, and failed exploration preservation.
 - `research-orchestration`: delegation contracts, worktrees, self-check, adversarial audit, artifact handoff, and acceptance execution.
 - `opencode-one-shot-workers`: cheap parallel `command opencode` one-shot workers, PTY-watched progress, atomic-task suitability, git/worktree hygiene, and retry/escalation guidance.
 - `research-proof-auditing`: computational proof audit, formal proof audit, evidence sufficiency, fraud indicators, Sage/GAP/Lean/Aristotle verification, and acceptance of mathematical claims.
@@ -83,9 +120,28 @@ Use `iwe` as the central markdown management, query, and resume interface for th
 
 Hermes memory is part of the same corpus: `/home/dzack/.hermes/memories` is a symlink to `.agents/memories/hermes`, so Hermes, Ralph loops, and IWE-backed agents share one operational memory namespace instead of copying notes between systems.
 
-The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by replacement only when the resumption path changes: current phase, recent decision delta, next pickup cards, non-goals, and validation state. It is a routing aid, not an authoritative tracker. Cards and plans remain authoritative for statuses, dependencies, source grounding, and acceptance.
+The rolling handoff note is `.agents/memories/current-goal-handoff.md`. Update it by replacement whenever the resumption path changes: current phase, recent decision delta, next pickup cards, non-goals, and validation state. **It is a routing aid, nothing more.** It exists for exactly one purpose: to tell the next session where to start and what to avoid. It is NOT a status report, NOT a changelog, NOT a tracker, and NOT an audit log. Cards, plans, and git history are the sole authorities for status, dependencies, source grounding, acceptance, and completed work. If the information describes what was done rather than what to do next, it does not belong here.
 
-Store short, opinionated, durable notes:
+**This is not optional.** After any of the following, update the handoff note immediately — before reporting the result in chat:
+- Creating, promoting, or splitting task cards
+- Completing a review pass (cards moving to complete/revision-required)
+- Resolving a blocker or discovering a new one
+- Decomposing a plan into tasks
+- Any state change that alters what the next session should pick up
+
+Chat is the delivery channel; the handoff note is the durable checkpoint. If the handoff is stale, the process has failed.
+
+Store short, opinionated, forward-facing notes only. **Never store:**
+- summaries of completed work (belongs in commit messages)
+- changelogs, diff histories, or "what happened" narratives (git history is the sole record)
+- descriptions of past agent actions, decisions already captured in cards, or
+  lengthy retrospective writeups
+- anything that describes what was done instead of what to do next
+
+The handoff is meant to be read in 30 seconds by a cold-start agent. If it takes longer,
+it contains something that should be in a card, plan, decision, or git history instead.
+
+Appropriate handoff content:
 
 - important decisions that were too small for a decision card but would still
   affect future agent choices;
@@ -100,29 +156,82 @@ Review memories periodically with `iwe` and prune by replacement rather than
 letting stale guidance accumulate silently. If a memory is superseded, update the
 IWE note that owns that topic instead of scattering a new contradictory note.
 
+### IWE command reference
+
+Documents live in `.agents/memories/`; the key for a file is its path relative to
+that directory without the `.md` extension (e.g. `theory/backends/vinberg-algorithm`).
+Run `iwe` from the repo root for non-memory repo markdown; run it from
+`.agents/memories/` for memory keys.
+
+**Discover**
+
+```
+iwe find                          # all docs sorted by incoming references
+iwe find "keyword"                # fuzzy match on title and key
+iwe find -f keys                  # bare key list (for scripting)
+iwe find -f json                  # full graph metadata
+iwe tree                          # document hierarchy
+iwe stats                         # graph overview (doc count, top docs, etc.)
+```
+
+**Filter**
+
+```
+iwe find --filter 'status: draft'          # frontmatter predicate
+iwe find --referenced-by KEY              # docs that link to KEY
+iwe find --references KEY                 # docs that KEY links to
+iwe find --included-by KEY               # docs block-included by KEY
+iwe find --includes KEY                  # docs that KEY block-includes
+```
+
+**Retrieve**
+
+```
+iwe retrieve -k KEY               # document content with default context
+iwe retrieve -k KEY -d 2          # follow inclusion edges 2 levels deep
+iwe retrieve -k KEY -c 2          # include 2 levels of parent context
+iwe retrieve -k KEY -l            # also follow inline markdown links
+iwe retrieve -k KEY -b            # also show backlinks (incoming references)
+```
+
+**Navigation patterns**
+
+- Start at `index` (agent memories root) or `theory/index` (theory subtree root).
+- Use `iwe find "topic"` to locate a doc before reading it.
+- Use `iwe retrieve -k current-goal-handoff` to resume after context loss.
+- Use `iwe find --referenced-by KEY` to find everything that cites a doc.
+- `iwe find -f keys | grep pattern` for fast key lookup by path fragment.
+
 Do not turn memories into a second tracker or metadata database. Avoid complex
 manual state, exhaustive status matrices, cross-linked bookkeeping layers, or
 anything else that creates combinatorial sync work across plans, decisions,
 commits, and memories. If the information wants structured workflow state, it
-probably belongs in `plans/`, a decision card, or git history rather than memory.
+probably belongs in `.agents/plans/`, a decision card, or git history rather than memory.
 
 ## Tracker and planning shortcut
 
-All active repo-local planning and work tracking lives under root `plans/`. Use
-`plans/AGENTS.md` and registered standard tracker types from
-`.nimbalyst/trackers/*.yaml`. There is no separate backlog; active cards under
-`plans/features/` are the outstanding work set, while completed feature trees should be
-moved under `plans/features/completed/`. Plans are human + LLM collaborative
+All active repo-local planning and work tracking lives under `.agents/plans/`. Use
+`.agents/plans/AGENTS.md` and registered standard tracker types from
+`.nimbalyst/trackers/*.yaml` (symlinks to `~/ai/planning/schemas/`; schema edits
+go to that repo). There is no separate backlog; active cards under
+`.agents/plans/features/` are the outstanding work set, while completed feature trees should be
+moved under `.agents/plans/features/completed/`. Plans are human + LLM collaborative
 artifacts and must be approved before decomposition or execution. `GOAL.md` remains the
 staged-program source; do not recreate staged phases as active tracker features.
+
+Validate planning edits with `just plan-validate`, which delegates to the centralized
+planning validator. Do not add repo-local relaxed validators, warning-only schema
+checks, or bypass recipes.
 
 ## Repo structure shortcut
 
 Reusable trusted code goes in `src/`. Verified mathematical tests go in `tests/`.
-Executable plans and cards go in `plans/`; produced artifacts go in their natural
+Executable plans and cards go in `.agents/plans/`; produced artifacts go in their natural
 durable roots. Exploratory drafts go in gitignored `scratch/`. Mathematical notes and
-source-backed theory live in `theory/`. Agent skills, TODO scratchpad, retirement
-holding, and phase marker files remain under `.agents/`.
+source-backed theory live in `theory/`. The living LaTeX working paper lives in
+`paper/`, reviewed workstream reports live in `reports/workstreams/`, and repo-local
+delegation role prompts live in `.agents/agent-roles/`. Agent skills, TODO scratchpad,
+retirement holding, and phase marker files remain under `.agents/`.
 
 `src.bak/` and `tests.bak/` are a temporary quarantine for stale implementation code
 and implementation tests while phase-one category/spec work is active. Do not treat

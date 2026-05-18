@@ -527,47 +527,49 @@ Uniform diagonal syntax:
 - In `Quadratic()`, it means evaluation of the quadratic form.
 
 
-## `ModulesWithForms.MorphismMethods`
+## `ModulesWithForms.HomCategory.ElementMethods`
 
 ```python
 class ModulesWithForms(Category_module):
 
-    class MorphismMethods(ABC):
+    class HomCategory(RModuleHomCategory):
 
-        @abstractmethod
-        def domain(self) -> ModuleWithForm: ...
+        class ElementMethods(RModuleHomCategory.ElementMethods):
 
-        @abstractmethod
-        def codomain(self) -> ModuleWithForm: ...
+            @abstractmethod
+            def domain(self) -> ModuleWithForm: ...
 
-        @abstractmethod
-        def __call__(self, v: ModuleWithFormElement) -> ModuleWithFormElement: ...
+            @abstractmethod
+            def codomain(self) -> ModuleWithForm: ...
 
-        @abstractmethod
-        def to_matrix(self) -> Matrix: ...
-        """Matrix with respect to canonical generators."""
+            @abstractmethod
+            def __call__(self, v: ModuleWithFormElement) -> ModuleWithFormElement: ...
 
-        @abstractmethod
-        def kernel(self) -> ModuleWithForm: ...
+            @abstractmethod
+            def to_matrix(self) -> Matrix: ...
+            """Matrix with respect to canonical generators."""
 
-        @abstractmethod
-        def image(self) -> ModuleWithForm: ...
+            @abstractmethod
+            def kernel(self) -> ModuleWithForm: ...
 
-        @abstractmethod
-        def cokernel(self) -> ModuleWithForm: ...
-        """The actual cokernel object with descended form data."""
+            @abstractmethod
+            def image(self) -> ModuleWithForm: ...
 
-        # Form preservation is owned by Hom-space containment, not by a standalone
-        # predicate on already-promoted formed-module morphisms.
+            @abstractmethod
+            def cokernel(self) -> ModuleWithForm: ...
+            """The actual cokernel object with descended form data."""
 
-        def is_injective(self) -> bool:
-            ...
+            # Form preservation is owned by Hom-space containment, not by a standalone
+            # predicate on already-promoted formed-module morphisms.
 
-        def is_surjective(self) -> bool:
-            ...
+            def is_injective(self) -> bool:
+                ...
 
-        def is_bijective(self) -> bool:
-            return self.is_injective() and self.is_surjective()
+            def is_surjective(self) -> bool:
+                ...
+
+            def is_bijective(self) -> bool:
+                return self.is_injective() and self.is_surjective()
 ```
 
 Important negative constraints from the corrections:
@@ -714,10 +716,12 @@ class ModulesWithForms(Category_module):
             def is_isotropic(self) -> bool:
                 return self.q() == 0
 
-        class MorphismMethods(ABC):
+        class HomCategory(RModuleHomCategory):
 
-            def is_isometry(self) -> bool:
-                return self.is_isomorphism()
+            class ElementMethods(RModuleHomCategory.ElementMethods):
+
+                def is_isometry(self) -> bool:
+                    return self.is_isomorphism()
 ```
 
 This is the layer used for lattices, rational lattices, duals, and the

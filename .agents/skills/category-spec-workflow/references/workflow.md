@@ -99,6 +99,32 @@ rule in their acceptance or grounding section:
 - an obligation may move only when the replacement owner is source-grounded and the
 replacement path preserves the mathematical surface.
 
+Tracker items that touch type checking, method inheritance, constructor collectors, or
+implementation providers must also include a design-direction check. Mathematical
+subcategory obligations are not ordinary software substitutability obligations:
+subcategories inherit upstream specs, but their refined operations may take more
+structured inputs and return more structured outputs. Static checkers can object to
+that covariance or to dynamic Sage/category inheritance even when the spec is
+mathematically aligned. The workflow response is to classify the finding: source
+defect when an owner, codomain, hypothesis, constructor boundary, or named type is
+actually missing; checker-education work when the code already expresses the intended
+category structure and the tool lacks the provider model. The latter must be routed to
+dedicated plugin, generated-stub, static-surface, global-QC, or focused-reproducer work
+whose acceptance teaches QC to enforce the convention. Do not file these as ignorable
+expected failures, and do not convert them into local casts, trivial re-call wrappers,
+explicit subclassing, or provider-splicing in the mathematical surface. Zero warnings
+is an enforcement target, not permission to distort the codebase into a form the
+checker happens to understand.
+
+Casts are review triggers in tracker work. A single cast may be justified at a true
+untyped interop boundary, validated constructor gate, or documented promotion point,
+but non-isolated casts and repeated cast patterns normally indicate QC-silencing or
+code-contortion behavior. Tracker acceptance must force a decision: keep a narrow
+promotion exception with proof obligations, move the type refinement to the downstream
+implementation boundary that actually implements the ABC contract, or create dedicated
+QC-tooling/static-model work that teaches the checker to enforce inherited-category
+promotion globally.
+
 Constructor admission cards must distinguish three layers before creating a decision:
 
 - mathematical owner: the category or object whose structure defines the constructor;
@@ -142,14 +168,14 @@ Use containment, `dependsOn`, priority, and complexity as primary workflow metad
 Tags such as `category-specs`, `spec`, `implementation`, `research`, `smoke`,
 `validation`, and `docs-migration` are secondary grouping aids.
 
-All active Nimbalyst-backed planning and work files live under root `plans/`:
+All active Nimbalyst-backed planning and work files live under root `.agents/plans/`:
 
-- `plans/features/FEATURE-ID/FEATURE-ID.md` for feature roots.
-- `plans/features/FEATURE-ID/specs/SPEC-ID.md` for feature-owned specs.
-- `plans/features/FEATURE-ID/decisions/DECISION-ID.md` for durable decisions.
-- `plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md` for approved plans.
-- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md` for plan phases.
-- `plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md` for executable
+- `.agents/plans/features/FEATURE-ID/FEATURE-ID.md` for feature roots.
+- `.agents/plans/features/FEATURE-ID/specs/SPEC-ID.md` for feature-owned specs.
+- `.agents/plans/features/FEATURE-ID/decisions/DECISION-ID.md` for durable decisions.
+- `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PLAN-ID.md` for approved plans.
+- `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/PHASE-ID.md` for plan phases.
+- `.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/TASK-ID.md` for executable
   tasks, including implementation, research, bug-fix, smoke-triage, and audit work.
 - `.agents/retired/` only for completed or retired legacy cards kept temporarily before
   deletion.
@@ -249,12 +275,12 @@ chat-local plan into implementation.
 Creating or materially revising a plan requires this sequence:
 
 - Switch to planning mode.
-- Use the project planning tools and root `plans/` hierarchy.
+- Use the project planning tools and root `.agents/plans/` hierarchy.
 - Draft the plan with objective, scope, phases, risks, validation strategy, and known
   task boundaries.
 - Iterate with the user until the user explicitly approves the plan.
 - Store the approved plan as a tracked `plan` file under the owning feature's
-  `plans/PLAN-ID/` directory.
+  `.agents/plans/PLAN-ID/` directory.
 - Decompose the approved plan into concrete tracked `phase`, `task`, `spec`, and
   `decision` files.
 - Move implementation to a separate execution stage, usually delegated for complex
@@ -268,7 +294,7 @@ and independently executable.
 
 Trackable plan files are the project planning documents. If an agent harness creates or
 stores a plan internally, copy the plan into the project planning system under root
-`plans/`, register it with the plan tracker, and get user approval before enacting it.
+`.agents/plans/`, register it with the plan tracker, and get user approval before enacting it.
 
 Use the built-in `plan` tracker schema for durable initiatives and sprint plans. Keep
 plan metadata aligned with `.nimbalyst/trackers/plan.yaml`.
@@ -363,7 +389,7 @@ provenance over inline markers.
 Periodically triage `.agents/TODO.md`:
 
 - Convert clear, bounded work into `task`, `spec`, or `decision` files under
-  `plans/features/`.
+  `.agents/plans/features/`.
 - Promote multi-phase or ambiguous work into a human-approved plan.
 - Keep unresolved observations only when they still need investigation.
 - Delete resolved or invalid observations through normal git-reviewed edits.
@@ -394,7 +420,7 @@ Before retiring a card:
 
 Do not retire durable decisions that still prevent backsliding. Keep active policy,
 architecture, naming, workflow, and mathematical-ownership decisions in
-`plans/features/*/decisions/` or promote them into canonical docs. Retire only
+`.agents/plans/features/*/decisions/` or promote them into canonical docs. Retire only
 decisions whose usefulness is historical and whose effect is already preserved
 elsewhere.
 
@@ -404,7 +430,7 @@ question. Git history is the archive.
 ## Full task card requirements
 
 A real executable item must be a full `task` markdown file under
-`plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The file must include enough
+`.agents/plans/features/FEATURE-ID/plans/PLAN-ID/PHASE-ID/tasks/`. The file must include enough
 context for a subagent to execute the work without recovering chat history or guessing
 hidden assumptions.
 
@@ -663,7 +689,7 @@ Before merge:
 - Move historical docs to archive paths when they should no longer guide new work.
 - Add `supersededBy` pointers when preserving history.
 - Delete duplicate drafts when they have no archival value.
-- Update root `plans/` and relevant navigation surfaces.
+- Update root `.agents/plans/` and relevant navigation surfaces.
 - Update root `AGENTS.md`, subtree `AGENTS.md`, or the relevant category-spec skill if agent
   behavior changed.
 - Update tracker files with final PR and merge metadata.

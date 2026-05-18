@@ -18,6 +18,14 @@ below, and produce a review log with concrete findings. Concrete means: for ever
 gate that passes, the subagent names the exact file, line, command, or source it
 checked. "Looks good" is a gate failure.
 
+The gates are a review scaffold, not the review. The subagent must use them to
+make a judgment about the work. A finding is not valid merely because a literal
+line changed or an artifact is absent; the subagent must reconcile the card,
+current repo policy, baseline artifacts, and actual diff before deciding whether
+the issue is material. If a lower-level artifact appears to violate a gate but a
+higher-priority policy explicitly requires that change, the review must cite the
+policy and not report the required change as a defect.
+
 What you (the coordinator) do afterward: verify the subagent's review for
 box-checking behavior. See the coordinator verification step at the end of the
 Review procedure section. If the review is substantively wrong or shallow, reject it
@@ -154,6 +162,154 @@ artifact:
 - Gate 5: the test command run or the proof step verified
 - Gate 6: the specific rule checked and the evidence that it is satisfied
 
+### Synthesis requirement (applied by the review subagent)
+
+Review exists because the user needs judgment, not receipt checking. File
+existence, completed checklist rows, command names, and worker self-reports are
+not evidence that the work is correct. They are only pointers to what the
+reviewer must inspect.
+
+Self-report is structurally biased toward approval in this repo's failure modes:
+an implementing agent usually knows what a convincing report should say. Treat
+the implementer's reported diligence as a claim to verify, not as evidence.
+
+Every substantive review must state the synthesis produced by reading the card,
+sources, artifacts, and diff. The synthesis must answer what understanding
+changed and why that change matters for this card. Examples:
+
+- "This patch is acceptable because source X makes Y the owner, while the
+  apparent conflict at Z is only a checker-modeling gap."
+- "This patch fails because the source says X under hypothesis H, but the card
+  implements the broader claim Y."
+- "This QC finding belongs to the plugin spec, not local source cleanup, because
+  the code already expresses the category construction and mypy lacks model M."
+
+Inventories, tables, and checklists can support a review, but they cannot be the
+review. If the reviewer cannot produce a synthesis that would be hard to fake
+without reading the sources and artifacts, the outcome is an evidence gap:
+`revision-required` for fixable review insufficiency, or `blocked` if the
+missing understanding requires a prerequisite source, decision, or executable
+experiment.
+
+### Judgment contract (applied by the review subagent)
+
+Concrete evidence is necessary, but it is not sufficient. The reviewer is not a
+schema validator, grep wrapper, or diff-presence script. It must use the gates to
+make a judgment about the work.
+
+Coordinator prompts for review subagents must include this contract:
+
+- Decide whether each apparent issue is material for this card after reconciling
+  the card objective, current repo policy, baseline artifacts, and actual diff.
+- Identify the highest-priority applicable policy before treating a deletion,
+  signature change, or missing artifact as a defect.
+- Classify findings as one of: material defect, evidence gap, policy-required
+  change, orthogonal change, or needs-human-input.
+- Explain why a failed gate cannot be resolved by a higher policy, existing
+  source grounding, or a narrower interpretation of the card.
+- Do not emit findings that are only "line X changed" or "artifact Y is absent"
+  unless the review also states why that fact matters for the card's
+  mathematical or engineering acceptance.
+- Name at least one plausible pass condition for each failed gate. If the
+  reviewer cannot state what would make the work acceptable, it has not
+  understood the defect.
+- Start from synthesis, not inventory: explain what the reviewer's understanding
+  of the mathematical, code, or QC-tooling situation is after reading the
+  artifacts, then use concrete evidence to support that judgment.
+- Treat worker self-reports as claims under review. Do not cite them as proof
+  that a source was read, a test was meaningful, or a diff is scoped.
+
+Do not prompt a review subagent merely to "apply the gates." That wording
+produces checklist-shaped reports instead of review.
+
+### Review subagent dispatch template
+
+Use this shape for review prompts. Fill the path lists narrowly; do not paste
+implementation rationale or coordinator opinions.
+
+```markdown
+## Identity
+You are a fresh-context research review agent in /home/dzack/research.
+Do not edit files unless this prompt explicitly says to write the review log.
+
+## Mission
+Review [CARD_PATH] for acceptance under the research review kernel.
+
+## Required Background
+Read before judging:
+- AGENTS.md
+- Any nested AGENTS.md for changed paths
+- .agents/skills/research-state-machine/references/review-kernel.md
+- Domain skills/references required by the card
+
+## Work Artifacts
+Inspect actual staged and unstaged diffs for:
+- [CHANGED_PATHS]
+
+Inspect baseline/source artifacts as needed:
+- [BASELINE_PATHS]
+
+## Judgment Contract
+You are not a validator, grep wrapper, or diff-presence script. Use the gates as
+a scaffold to make a judgment about the work.
+
+Begin with synthesis: state what you now understand about the mathematical,
+code, or QC-tooling issue after reading the card, sources, artifacts, and diff.
+If you cannot produce that synthesis, report an evidence gap instead of filling
+an inventory.
+
+For each apparent issue, classify it as one of: material defect, evidence gap,
+policy-required change, orthogonal change, or needs-human-input.
+
+Before treating a deletion, cast, signature change, or missing artifact as a
+defect, identify the highest-priority applicable policy and reconcile it with
+the card objective and actual diff.
+
+Do not report a finding that is only "line X changed" or "artifact Y is absent"
+unless you explain why that fact matters for this card's mathematical or
+engineering acceptance.
+
+For every failed gate, name at least one plausible pass condition. If you cannot
+state what would make the work acceptable, do not call it a defect.
+
+Treat implementer self-reports, work logs, and checklist rows as claims to
+verify, not as evidence of correctness.
+
+## Output
+If this is a dry run: return only the judgment table in chat and do not write.
+If this is production review: write the review log into [CARD_PATH] and return
+the changed path plus the highest-signal findings.
+```
+
+### Review-prompt evaluation loop
+
+Changes to review-subagent instructions are not accepted because they sound
+better. Evaluate them with live dry-run review trials before using them for
+production status changes.
+
+Use this loop when revising review prompts or this kernel:
+
+1. Pick at least two representative cards with known review difficulty:
+   - one containing an apparent diff violation that a higher-priority policy may
+     require;
+   - one containing a real material defect plus an evidence gap.
+2. Dispatch fresh-context dry-run reviewers. They must not edit files or change
+   statuses.
+3. Read each subagent transcript with `reading-transcripts`; do not rely on the
+   terminal summary.
+4. Accept the prompt change only if transcripts show the reviewer:
+   - reconciled policy hierarchy before reporting defects;
+   - classified findings by materiality;
+   - distinguished evidence gaps from code/design defects;
+   - named plausible pass conditions;
+   - produced at least one judgment that could not be generated by grep, schema
+     validation, or diff-presence checks alone.
+5. If a trial still produces checklist-shaped analysis, revise one instruction
+   narrowly to address the observed failure and repeat the loop.
+
+Do not promote a review prompt or kernel revision based only on a clean artifact
+diff, a subagent final summary, or a single easy trial.
+
 ### Role boundaries
 
 Gates 1-2 may be self-checked by the implementer before submitting to review, but
@@ -238,7 +394,7 @@ The work must not reverse, weaken, or contradict any previously established trut
 
 **Baseline artifacts (in priority order):**
 
-1. **Decided decision cards** -- Scan `plans/features/*/decisions/` for cards with `status: decided` or `status: implemented`. Does the work reverse the chosen outcome? Does it reintroduce a rejected alternative?
+1. **Decided decision cards** -- Scan `.agents/plans/features/*/decisions/` for cards with `status: decided` or `status: implemented`. Does the work reverse the chosen outcome? Does it reintroduce a rejected alternative?
 2. **Previously approved specs** -- Are `specs/*.md` files modified? Does `git diff` show removal of accepted requirements?
 3. **Previously passing smokes** -- Does `just smoke` produce new failures on assertions that previously passed? Compute against the last known-good smoke baseline.
 4. **Previously resolved TODO entries** -- Has a resolved observation from `.agents/TODO.md` history been reintroduced?
@@ -345,8 +501,12 @@ dispatched by the coordinator):
 4. Read the work artifacts and baseline artifacts.
 5. Apply Gates 1-6 in order:
    a. Run the checks for the current gate.
-   b. If the gate passes, record the concrete evidence and proceed.
-   c. If the gate fails, stop. Record findings. Set outcome. Do not continue to
+   b. Interpret the evidence against the current repo policy hierarchy and the
+      card's actual objective. Separate policy-required changes, evidence gaps,
+      material defects, and unrelated cleanup.
+   c. If the gate passes, record the concrete evidence and the reason it is
+      sufficient for this card; then proceed.
+   d. If the gate fails, stop. Record findings. Set outcome. Do not continue to
       later gates.
 6. If all gates pass → outcome is complete/done.
 7. If any gate fails → outcome is revision-required or blocked:
@@ -362,7 +522,11 @@ completes:
 
 ```
 1. Receive the review log from the subagent.
-2. Verify the review for box-checking:
+2. Read the subagent transcript before accepting, routing, or summarizing the
+   review. Do not rely on the terminal summary. Use the transcript tooling
+   required by the active subagent harness, and compare the transcript to the
+   review log and actual git diff.
+3. Verify the review for box-checking:
    a. Every gate pass has an associated concrete artifact (file path, command run,
       diff inspected, source consulted).
    b. The review contains no forbidden language: "looks good", "appears correct",
@@ -371,16 +535,31 @@ completes:
    d. The outcome is supported by the findings (a list of passed gates with no
       failures should not produce revision-required; a gate failure should not
       produce complete/done).
-   e. Status-only diff check: if the only change to the card file is the `status`
+   e. The review reconciles apparent conflicts instead of reporting literal
+      mismatches blindly. It must not flag a change as weakening when a
+      higher-priority repo policy explicitly requires that change.
+   f. Evidence gaps are labeled as evidence gaps, not automatically promoted to
+      code or design defects.
+   g. Findings distinguish material defects from merely automatable checks. A
+      review that could have been produced by a schema validator, grep, or
+      diff-presence script is not substantive.
+   h. At least one finding or pass rationale contains a non-automatable judgment:
+      it reconciles two sources of authority, explains why a plausible defect is
+      not a defect, or changes the apparent severity after reading the source.
+      If every finding is only a missing file, changed line, schema mismatch, or
+      command result, reject the review as insufficiently intelligent.
+   i. Status-only diff check: if the only change to the card file is the `status`
       line (e.g., `needs-review` → `complete`), the review is fraudulent. A real
       review writes its findings into the card body under ## Review Log. Cards are
       evidence containers, not checklists. If the card body grew no review content,
       no review happened. Reject and demand specific evidence.
-3. If the review is substantive → apply the status change (or prepare it for human
+4. If the review is substantive → apply the status change (or prepare it for human
    approval if the final gate requires it).
-4. If the review is a box-checking exercise → reject it. Document the specific
-   deficiencies. Re-dispatch to a review subagent with a tightened prompt that
-   quotes the anti-boxchecking rules and demands concrete evidence for every gate.
+5. If the review is a box-checking exercise → reject it. Document the specific
+   deficiencies. Re-dispatch to the same review subagent when possible with a
+   tightened prompt that quotes the anti-boxchecking rules, names the shallow or
+   invalid findings, and demands a judgment-level review rather than another
+   checklist pass.
 ```
 
 ## Review Log format

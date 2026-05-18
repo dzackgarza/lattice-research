@@ -11,12 +11,13 @@ genuine matrix (entries in ``S``), and the first tier at which
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
+from ...homsets import HomCategoryConstruction
 from .bilinear import BilinearModulesCategory
+from .with_forms import FormedModulesCategory
 
 if TYPE_CHECKING:
     from ...types import (
@@ -77,7 +78,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             return True
 
         @override
-        @abstract_method
+        @abstractmethod
         def gram_matrix(self) -> Matrix:
             r"""Return the Gram matrix ``G`` with ``G_{ij} = b(e_i, e_j)``.
 
@@ -93,7 +94,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def inner_product_matrix(self) -> Matrix:
             r"""Return the inner product matrix (alias / alternative encoding).
 
@@ -101,6 +102,20 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             convention (Gram matrix ``G_{ij} = b(e_i, e_j)`` vs. inner
             product matrix used by Sage's ``FreeQuadraticModule``).
             """
+            ...
+
+        @abstractmethod
+        def rank(self) -> int:
+            r"""Return the finite rank of this free module."""
+            ...
+
+        @abstractmethod
+        def b(
+            self,
+            v: FreeBilinearModulesCategory.ElementMethods,
+            w: FreeBilinearModulesCategory.ElementMethods,
+        ) -> RingElement:
+            r"""Evaluate the bilinear form on two elements."""
             ...
 
         @final
@@ -114,7 +129,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
                 sage: Lattice.A(2).determinant()   # not tested
                 3
             """
-            return self.gram_matrix().determinant()
+            return cast(RingElement, self.gram_matrix().determinant())
 
         @final
         def discriminant(self) -> RingElement:
@@ -125,9 +140,9 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ``FreeQuadraticModule_generic.discriminant()``.
             """
             r = self.rank()
-            return (-1) ** r * self.determinant()
+            return cast(RingElement, (-1) ** r * self.determinant())
 
-        @abstract_method
+        @abstractmethod
         def direct_sum(self, other: RModule) -> RModule:
             r"""Return the orthogonal direct sum ``M \oplus N``.
 
@@ -145,7 +160,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def tensor_product(self, other: RModule) -> RModule:
             r"""Return the tensor product ``M \otimes_R N`` with the form
             ``b_{M \otimes N}(v_1 \otimes v_2, w_1 \otimes w_2)``
@@ -155,7 +170,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def span(self, gens: SetFamily) -> RModule:
             r"""Return the sub-bilinear-module spanned by ``gens``.
 
@@ -164,7 +179,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def base_change_to(self, ring: Ring) -> RModule:
             r"""Return the free bilinear module over ``ring`` obtained by
             extending (or restricting) scalars.
@@ -177,17 +192,21 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def twist(self, scalar: RingElement) -> RModule:
             r"""Return the free bilinear module with the form scaled by ``scalar``.
 
             The Gram matrix of ``twist(s)`` is ``s \cdot G``.
             """
-            del scalar
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
+        def parent(self) -> FreeBilinearModulesCategory.ParentMethods:
+            r"""Return the parent free bilinear module."""
+            ...
+
+        @abstractmethod
         def perp(self) -> SubModule:
             r"""Return the orthogonal complement ``v^\perp = \{w \in M : b(v,w) = 0\}``.
 
@@ -208,23 +227,15 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             r"""Introduced here: return ``b(v, v)``."""
             return self.parent().b(self, self)
 
-    class MorphismMethods:
-        @abstract_method
-        def to_matrix(self) -> Matrix:
-            r"""Return the matrix of this morphism with respect to canonical
-            generators of domain and codomain."""
-            ...
-
-        def is_isometry(self) -> bool:
-            r"""Return whether this formed-module morphism is an isomorphism.
-
-            Preservation of the bilinear form is owned by containment in the
-            formed-module Hom object.  This compatibility query therefore asks
-            only whether the already form-preserving morphism is an isomorphism.
-            """
-            return self.is_isomorphism()
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(FormedModulesCategory.HomCategory.ElementMethods):
+            @abstractmethod
+            def to_matrix(self) -> Matrix:
+                r"""Return the matrix of this morphism with respect to canonical
+                generators of domain and codomain."""
+                ...
 
 
 FreeBilinearModulesObject = FreeBilinearModulesCategory.ParentMethods
 FreeBilinearModulesElement = FreeBilinearModulesCategory.ElementMethods
-FreeBilinearModulesMorphism = FreeBilinearModulesCategory.MorphismMethods
+FreeBilinearModulesMorphism = FreeBilinearModulesCategory.HomCategory.ElementMethods

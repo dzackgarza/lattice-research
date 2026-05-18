@@ -2,9 +2,8 @@ r"""Lattices over principal ideal domains."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import final
-
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from .over_dedekind import _LatticesOverDedekindDomain
@@ -24,9 +23,7 @@ class _LatticesOverPID(CategoryWithAxiom_over_base_ring):
         def is_over_pid(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_over_integers(self) -> bool: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

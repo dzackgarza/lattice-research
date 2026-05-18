@@ -2,9 +2,8 @@ r"""Finite meet-semilattice poset subcategory."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
-
-from sage.misc.abstract_method import abstract_method
+from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final, override
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -31,17 +30,17 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
         return [_MeetSemilatticePosets(), Posets().Finite()]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def atoms(self) -> list[PosetElement]:
             r"""Return the elements covering the bottom element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def meet_matrix(self) -> Matrix:
             r"""Return the matrix of pairwise meets."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def pseudocomplement(self, element: PosetElement) -> PosetElement:
             r"""Return the meet-pseudocomplement of ``element``."""
             ...
@@ -69,8 +68,9 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
                 closure.add(generator)
 
             raw = SageMeetSemilattice(self.subposet(closure))
-            return refine_category(raw, [Posets().MeetSemilattice().Finite()])
+            return cast(
+                FiniteMeetSemilatticePoset,
+                refine_category(raw, [Posets().MeetSemilattice().Finite()]),
+            )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

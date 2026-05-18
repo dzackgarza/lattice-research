@@ -2,14 +2,16 @@ r"""ValuedRings ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .. import Rings
 
 if TYPE_CHECKING:
@@ -17,6 +19,12 @@ if TYPE_CHECKING:
         RingElement,
         Valuation,
     )
+
+
+def _valued_cached_method[_ValuedCachedMethod: Callable[..., object]](
+    method: _ValuedCachedMethod,
+) -> _ValuedCachedMethod:
+    return cast(_ValuedCachedMethod, cached_method(method))
 
 
 class _ValuedRings(CategoryWithAxiom):
@@ -45,10 +53,10 @@ class _ValuedRings(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_valued_cached_method
         @final
         def DiscretelyValued(self) -> Category:
-            return self._with_axiom("DiscretelyValued")
+            return cast(Category, with_axiom(self, "DiscretelyValued"))
 
     class ParentMethods:
         @override
@@ -56,12 +64,10 @@ class _ValuedRings(CategoryWithAxiom):
         def is_valued_ring(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def valuation(self) -> Valuation: ...
 
-        @abstract_method
+        @abstractmethod
         def roots_of_unity(self) -> list[RingElement]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

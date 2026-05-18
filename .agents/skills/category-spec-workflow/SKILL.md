@@ -38,6 +38,21 @@ Read `references/workflow.md` before changing workflow state.
   constraint where mathematically appropriate, smokes expose current implementation
   gaps, and spec obligations are preserved unless a grounded replacement owner carries
   them.
+- Plans, phases, and tasks that touch type checking, implementation inheritance, or
+  category constructors must also ask whether each "fix" directionally aligns with the
+  framework design. Mathematical subcategories may refine operations beyond ordinary
+  software method-subtype rules, and dynamic provider inheritance is intentional. Do not
+  accept local casts, trivial wrappers, explicit subclassing, or provider-splicing when
+  the real issue is that QC tooling lacks the Sage/category static model. Create or
+  route a dedicated QC-tooling task that teaches the checker to enforce the convention;
+  do not mark the finding as ignorable or silence it in the local code. QC-zero must
+  not be achieved by contorting the mathematical surface into warning-free but
+  conceptually worse code.
+- Casting in category-spec work is a review trigger. Non-isolated casts or cast
+  patterns must not be accepted as ordinary hygiene; route a decision about whether the
+  spec is doing too much implementation work, whether the type obligation belongs at a
+  downstream implementation boundary, or whether QC tooling must learn the inherited
+  category-promotion convention.
 - Plans, phases, and tasks that touch category specs must also include a spec-weakening
   review gate before advancement: inspect staged changes, unstaged changes, and any
   task-local commits for deleted obligations, narrowed smokes, or moved spec surfaces

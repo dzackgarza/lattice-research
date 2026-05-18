@@ -2,9 +2,8 @@ r"""Quotient construction category for sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import QuotientsCategory
 
@@ -23,25 +22,23 @@ class _Quotients(QuotientsCategory):
     """
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def ambient_set(self) -> Set:
             r"""Return the set being quotiented."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def projection(self) -> SetMorphism:
             r"""Return the quotient projection from the ambient set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def equivalence_class(self, x: SetElement) -> QuotientSet:
             r"""Return the equivalence class of ``x``."""
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def representative(self) -> SetElement:
             r"""Return a representative of this equivalence class."""
             ...
-
-    class MorphismMethods: ...

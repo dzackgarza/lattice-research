@@ -7,64 +7,101 @@ are tensors in those component modules.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, Protocol, TypeVar, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 
 from ..cat import Category, Category_over_base_ring, DualObjectsCategory
 from ..modules import Modules
-from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
+from ..modules.homsets import (
+    RModuleAutCategory,
+    RModuleEndCategory,
+    RModuleHomCategory,
+    _RModMorphisms,
+)
 from ..utils import refine_category
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import (
-        FreeModule,
         Integer,
         Matrix,
         Ring,
         RingElement,
-        RModule,
         RModuleElement,
         Tensor,
         TensorAlgebraComponent,
     )
 
+    class _TensorBaseModule(Protocol):
+        r"""Finite-rank free module surface used by tensor constructors."""
+
+        def base_ring(self) -> Ring: ...
+
+        def rank(self) -> Integer: ...
+
+        def tensor_module(
+            self,
+            p: Integer,
+            q: Integer,
+            *,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> TensorAlgebraComponent: ...
+
+        def tensor(
+            self,
+            tensor_type: tuple[Integer, Integer],
+            *,
+            name: str | None = None,
+            latex_name: str | None = None,
+            sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+            antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
+        ) -> Tensor: ...
+
 
 class _TensorAlgebraComponentParentMethods:
     r"""Methods on tensor component modules ``T_R(M)[p,q]``."""
 
-    @abstract_method
-    def base_module(self) -> RModule:
+    @abstractmethod
+    def base_module(self) -> _TensorBaseModule:
         r"""Return ``M`` for ``T_R(M)[p,q]``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def lift_from_product(self, elts: Sequence[RModuleElement]) -> RModuleElement:
         r"""Lift pure-product data into this tensor component."""
+        ...
+
+    @abstractmethod
+    def dual(self) -> _TensorAlgebraComponentParentMethods:
+        r"""Return the dual tensor component ``T_R(M)[q,p]``."""
         ...
 
 
 class _TensorElementMethods:
     r"""Methods on tensors."""
 
-    @abstract_method
-    def base_module(self) -> RModule:
+    @abstractmethod
+    def base_module(self) -> _TensorBaseModule:
         r"""Return the module ``M`` on which this tensor is defined."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def tensor_type(self) -> tuple[Integer, Integer]:
         r"""Return the standard tensor type ``(p, q)``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def trace(
         self, contravariant_position: Integer, covariant_position: Integer
     ) -> Tensor | RingElement:
@@ -74,10 +111,9 @@ class _TensorElementMethods:
         the result is a tensor in the component with tensor type
         ``(p - 1, q - 1)`` on the same base module.
         """
-        del contravariant_position, covariant_position
         ...
 
-    @abstract_method
+    @abstractmethod
     def contract(
         self, left_position: Integer, other: Tensor, right_position: Integer
     ) -> Tensor | RingElement:
@@ -88,7 +124,6 @@ class _TensorElementMethods:
         exactly when the remaining tensor type is ``(0, 0)``; otherwise it is a
         tensor on the same base module.
         """
-        del left_position, right_position
         ...
 
     @final
@@ -101,12 +136,9 @@ class _TensorElementMethods:
         from sage.matrix.constructor import matrix
 
         return tuple(
-            matrix(self.base_module().base_ring(), entries) for entries in self[:]
+            matrix(self.base_module().base_ring(), entries)
+            for entries in cast(Any, self)[:]
         )
-
-
-class _TensorMorphismMethods:
-    r"""Morphisms between tensor component modules."""
 
 
 class _DualObjects(DualObjectsCategory):
@@ -125,7 +157,7 @@ class _DualObjects(DualObjectsCategory):
         R = base.base_ring()
         return [base, Modules(R).HomCategory().Forms().Integral()]
 
-    class ParentMethods:
+    class ParentMethods(_TensorAlgebraComponentParentMethods):
         @final
         def tensor_type(self) -> tuple[Integer, Integer]:
             r"""Return the tensor type opposite to the original component's type."""
@@ -133,8 +165,6 @@ class _DualObjects(DualObjectsCategory):
             return (q, p)
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...
 
 
 class TensorAlgebraComponents(Category_over_base_ring):
@@ -155,15 +185,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
         RMod = Modules(self.base_ring())
         return [RMod.TensorProducts(), RMod.Free().FiniteRank()]
 
-    @cached_method
+    @_cached_method
     @final
     def DualObjects(self) -> Category:
         r"""Return dual tensor components, equivalently integral forms."""
-        return _DualObjects.category_of(self)
+        return cast(Category, _DualObjects.category_of(self))
 
     dual = DualObjects
 
-    class Constructors:
+    class _Constructors:
         r"""Construct tensor component modules and tensor elements."""
 
         @final
@@ -174,7 +204,6 @@ class TensorAlgebraComponents(Category_over_base_ring):
         def __repr__(self) -> str:
             return f"tensor algebra component constructors over {self.base_ring()}"
 
-        @override
         @final
         def category(self) -> TensorAlgebraComponents:
             r"""Return the tensor-component category that owns these constructors."""
@@ -183,7 +212,8 @@ class TensorAlgebraComponents(Category_over_base_ring):
         @final
         def base_ring(self) -> Ring:
             r"""Return the base ring of the owning tensor-component category."""
-            return self.category().base_ring()
+            base_ring: Ring = self.category().base_ring()
+            return base_ring
 
         @final
         def _check_tensor_type(
@@ -198,7 +228,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
         @final
         def component_module(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
             sym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
@@ -210,12 +240,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
             )
             p, q = self._check_tensor_type(tensor_type)
             T = base_module.tensor_module(p, q, sym=sym, antisym=antisym)
-            return refine_category(T, self.category(), test=False)
+            component: TensorAlgebraComponent = refine_category(
+                T, self.category(), test=False
+            )
+            return component
 
         @final
         def tensor(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             *,
             name: str | None = None,
@@ -224,17 +257,16 @@ class TensorAlgebraComponents(Category_over_base_ring):
             antisym: tuple[Integer, ...] | Sequence[tuple[Integer, ...]] | None = None,
         ) -> Tensor:
             r"""Construct a tensor element in ``T_R(M)[p,q]``."""
-            self.component_module(
-                base_module, tensor_type, sym=sym, antisym=antisym
-            )
-            return base_module.tensor(
+            self.component_module(base_module, tensor_type, sym=sym, antisym=antisym)
+            tensor: Tensor = base_module.tensor(
                 tensor_type, name=name, latex_name=latex_name, sym=sym, antisym=antisym
             )
+            return tensor
 
         @final
         def _from_components(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             components: Matrix
             | Sequence[RingElement]
@@ -249,13 +281,13 @@ class TensorAlgebraComponents(Category_over_base_ring):
             tensor = self.tensor(
                 base_module, tensor_type, name=name, latex_name=latex_name
             )
-            tensor[:] = components
+            cast(Any, tensor)[:] = components
             return tensor
 
         @final
         def from_matrix(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             entries: Matrix,
             *,
             name: str | None = None,
@@ -276,17 +308,17 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
         @final
         def _module_element_coordinates(
-            self, base_module: FreeModule, element: RModuleElement
+            self, base_module: _TensorBaseModule, element: RModuleElement
         ) -> tuple[RingElement, ...]:
-            assert element.parent() is base_module, (
+            assert cast(Any, element).parent() is base_module, (
                 f"Tensor output element must lie in {base_module}: {element}"
             )
-            return tuple(element[:])
+            return tuple(cast(Any, element)[:])
 
         @final
         def from_module_element_matrix(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             entries: Sequence[Sequence[RModuleElement]],
             *,
             name: str | None = None,
@@ -331,7 +363,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
         @final
         def from_multidimensional_list(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             entries: Sequence[RingElement]
             | Sequence[Sequence[RingElement]]
@@ -348,7 +380,7 @@ class TensorAlgebraComponents(Category_over_base_ring):
         @final
         def from_matrices(
             self,
-            base_module: FreeModule,
+            base_module: _TensorBaseModule,
             tensor_type: tuple[Integer, Integer],
             matrices: Sequence[Matrix],
             *,
@@ -360,24 +392,21 @@ class TensorAlgebraComponents(Category_over_base_ring):
                 base_module, tensor_type, matrices, name=name, latex_name=latex_name
             )
 
-    _Constructors = Constructors
-
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self) -> Constructors:
+    def Constructors(self) -> TensorAlgebraComponents._Constructors:
         r"""Return the tensor-component constructor collector."""
         return self.__class__._Constructors(self)
 
     ParentMethods = _TensorAlgebraComponentParentMethods
     ElementMethods = _TensorElementMethods
-    MorphismMethods = _TensorMorphismMethods
     HomCategory = RModuleHomCategory
 
 
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
 TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
 TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
-TensorAlgebraComponentsMorphism = TensorAlgebraComponents.MorphismMethods
+TensorAlgebraComponentsMorphism = _RModMorphisms
 TensorAlgebraComponentsHomCategory = RModuleHomCategory
 TensorAlgebraComponentsEndCategory = RModuleEndCategory
 TensorAlgebraComponentsAutCategory = RModuleAutCategory

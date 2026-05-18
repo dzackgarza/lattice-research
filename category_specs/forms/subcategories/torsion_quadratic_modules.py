@@ -2,13 +2,14 @@ r"""Finite torsion modules with quadratic forms."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category_over_base_ring
 from ...modules import Modules
+from .quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
     from ...types import Matrix, RingElement
@@ -22,7 +23,7 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     """
 
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
             Category.join(
@@ -39,23 +40,22 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
         def is_torsion_quadratic_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_quadratic(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def gram_matrix_bilinear(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def invariants(self) -> tuple[RingElement, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def brown_invariant(self) -> RingElement: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 TorsionQuadraticModulesObject = TorsionQuadraticModulesCategory.ParentMethods
 TorsionQuadraticModulesElement = TorsionQuadraticModulesCategory.ElementMethods
-TorsionQuadraticModulesMorphism = TorsionQuadraticModulesCategory.MorphismMethods
+TorsionQuadraticModulesMorphism = QuadraticModulesMorphism

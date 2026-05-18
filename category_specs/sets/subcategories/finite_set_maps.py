@@ -2,11 +2,11 @@ r"""One-object subcategory for Sage finite sets of maps."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Callable, Iterator, Sequence
 from typing import TYPE_CHECKING, Any, final, overload, override
 
 from sage.categories.category_singleton import Category_singleton
-from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
     from ...types import (
@@ -39,47 +39,47 @@ class _FiniteSetMapsSets(Category_singleton):
 
     class ParentMethods:
         @override
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Cardinality: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __contains__(self, x: Any) -> bool: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def an_element(self) -> SetElement: ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def __iter__(self) -> Iterator[FiniteSetMap]: ...
 
-        @abstract_method
+        @abstractmethod
         def _from_list_(self, v: list[SetElement]) -> FiniteSetMap: ...
 
         @overload
         def _element_constructor_(
-            self, finite_map: FiniteSetMap, check: bool = True
-        ) -> FiniteSetMap:
-            del finite_map
-            ...
-
-        @overload
-        def _element_constructor_(
             self,
-            function: Callable[[SetElement], SetElement],
+            data: Callable[[SetElement], SetElement],
             check: bool = True,
         ) -> FiniteSetMap: ...
 
         @overload
         def _element_constructor_(
-            self, images: Sequence[SetElement], check: bool = True
+            self, data: Sequence[SetElement], check: bool = True
         ) -> FiniteSetMap:
-            del images
+            del data
+            ...
+
+        @overload
+        def _element_constructor_(
+            self, data: FiniteSetMap, check: bool = True
+        ) -> FiniteSetMap:
+            del data
             ...
 
         @override
-        @abstract_method
+        @abstractmethod
         def _element_constructor_(
             self,
             data: FiniteSetMap
@@ -88,11 +88,9 @@ class _FiniteSetMapsSets(Category_singleton):
             check: bool = True,
         ) -> FiniteSetMap: ...
 
-        @abstract_method
+        @abstractmethod
         def from_dict(self, d: dict[SetElement, SetElement]) -> FiniteSetMap:
             r"""Construct the finite map represented by the finite association ``d``."""
             ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

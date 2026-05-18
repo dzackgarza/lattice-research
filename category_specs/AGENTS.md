@@ -40,6 +40,9 @@ Before acting, confirm the user's stated directive, the action you plan, and why
   approved decision card. Vague migrated cards and old TODO bullets are not enough.
   If the definition is unclear, create or update a decision/source-mining card and
   stop that leaf.
+- Do not use `MorphismMethods` in category specs. Morphism behavior belongs on the
+  relevant Hom-category element surface, e.g. `C.HomCategory().ElementMethods`, not
+  on the object category itself or a nested `MorphismMethods` method-container.
 - For domain-specific terms with multiple plausible meanings, keep the meanings
   separate unless a source-backed proof records exactly when they coincide. Do not
   write a spec surface by normalizing to the most familiar interpretation of a word.
@@ -47,7 +50,21 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 ## Canonical skills
 
 - Load `category-spec-style` before any task that touches category-spec content or compliance: specs, category surfaces, method surfaces, constructors, morphisms, Hom/End/Aut surfaces, Sage wrappers, type annotations, test files, smoke files, implementations, Sage inventory, or mapping documents.
+- For nontrivial edits, loading the skill stub is not enough: keep the canonical
+  references named by the matching skills in context before editing. Any change to
+  method ownership, inherited method surfaces, `@abstractmethod`/`@override`/`@final`,
+  type aliases, construction categories, Hom/End/Aut categories, smokes, specs, or
+  mapping rows is nontrivial. If the needed reference is not already in context, stop
+  and read it before checkpointing or editing.
 - Load `category-spec-subtrees` before editing a specific category subtree or deciding where a method, constructor, Hom/End/Aut rule, or subtree test belongs.
+- Load `category-framework-design` and its relevant references before editing or
+  reviewing Hom/End/Aut structure, autsets, construction categories, refinement order,
+  or constructor interception. For Hom/End/Aut surfaces, `homsets-structural-core.md`
+  is mandatory context.
+- Load `lattice-redesign` and its relevant references before editing forms, formed
+  modules, lattices, lattice morphisms, orthogonal groups, discriminant objects, or
+  lattice-backed Hom/End/Aut surfaces. For these edits, `category-abc-spec.md` and
+  `lattice-interface-style-guide.md` are mandatory context.
 - Load `category-spec-workflow` before any task that touches execution mechanics: tracker item creation or migration, Nimbalyst plans, sprint metadata, tracked work metadata, delegation contracts, subagent instructions, branch/PR policy, smoke triage, validation handoff, stale-document migration, or status changes.
 - Load narrower category-spec skills when their descriptions match the task: audit, planning, retirement, Sage mapping, smoke triage, triage, and visuals.
 

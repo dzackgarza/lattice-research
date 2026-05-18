@@ -2,27 +2,35 @@ r"""Hom, end, and aut categories for topological spaces."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..cat import Category
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
 
 
-class _TopologicalHomCategoryObjectMethods:
+class _TopologicalHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Topological hom parent methods; generic hom methods are inherited."""
 
 
-class _ContinuousMaps:
-    @abstract_method
+class _ContinuousMaps(UniversalHomElementMethods):
+    @abstractmethod
     def is_continuous(self) -> bool:
         r"""Return whether this map is continuous."""
         ...
 
 
-class _Homeomorphisms:
-    @override
+class _Homeomorphisms(_ContinuousMaps, UniversalAutElementMethods):
     @final
     def is_homeomorphism(self) -> bool:
         r"""Return ``True`` because this element is a homeomorphism."""
@@ -30,15 +38,13 @@ class _Homeomorphisms:
 
 
 class _ShortMaps(_ContinuousMaps):
-    @override
     @final
     def is_short(self) -> bool:
         r"""Return ``True`` because this element is a short map."""
         return True
 
 
-class _Isometries:
-    @override
+class _Isometries(_ShortMaps, UniversalAutElementMethods):
     @final
     def is_isometry(self) -> bool:
         r"""Return ``True`` because this element is an isometry."""
@@ -52,15 +58,13 @@ class TopologicalSpaceHomCategory(HomCategoryOf):
     """
 
     @override
-    @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Return the generic hom-category surface refined by continuous maps."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _TopologicalHomCategoryObjectMethods
     ElementMethods = _ContinuousMaps
 
-    class MorphismMethods: ...
 
     # Sage axiom interop hook for _with_axiom("Endset").
     Endset = LazyImport(__name__, "TopologicalSpaceEndCategory")
@@ -75,9 +79,8 @@ class TopologicalSpaceEndCategory(GenericEndCategory):
 
     class ParentMethods: ...
 
-    class ElementMethods: ...
+    class ElementMethods(UniversalEndElementMethods): ...
 
-    class MorphismMethods: ...
 
 
 class TopologicalSpaceAutCategory(GenericAutCategory):
@@ -89,7 +92,6 @@ class TopologicalSpaceAutCategory(GenericAutCategory):
 
     ElementMethods = _Homeomorphisms
 
-    class MorphismMethods: ...
 
 
 class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
@@ -100,7 +102,7 @@ class MetricSpaceHomCategory(TopologicalSpaceHomCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""Return the continuous-map hom category refined by short maps."""
         return [TopologicalSpaceHomCategory(self.base_category())]
 
@@ -119,9 +121,8 @@ class MetricSpaceEndCategory(GenericEndCategory):
 
     class ParentMethods: ...
 
-    class ElementMethods: ...
+    class ElementMethods(UniversalEndElementMethods): ...
 
-    class MorphismMethods: ...
 
 
 class MetricSpaceAutCategory(GenericAutCategory):
@@ -132,5 +133,3 @@ class MetricSpaceAutCategory(GenericAutCategory):
     class ParentMethods: ...
 
     ElementMethods = _Isometries
-
-    class MorphismMethods: ...

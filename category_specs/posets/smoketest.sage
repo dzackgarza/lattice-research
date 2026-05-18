@@ -5,7 +5,7 @@ THIS_FILE = Path(__file__).resolve()
 sys.path.insert(0, str(THIS_FILE.parent.parent.parent))
 
 from category_specs.cat import Cat
-from category_specs.posets import Posets, _PosetMorphismMethods
+from category_specs.posets import Posets
 from category_specs.posets.homsets import PosetAutCategory, PosetEndCategory, PosetHomCategory
 from category_specs.posets.subcategories.constructions.objects_over import _ObjectsOver
 from category_specs.posets.subcategories.constructions.objects_under import _ObjectsUnder
@@ -217,8 +217,7 @@ SMOKE_STATEMENTS = (
     (
         "poset Hom and morphism surfaces own order-preserving predicates",
         lambda _: abstract_method_has_name(PosetHomCategory.ElementMethods.is_order_preserving, "is_order_preserving")
-        and abstract_method_has_name(PosetHomCategory.ElementMethods.is_order_embedding, "is_order_embedding")
-        and abstract_method_has_name(_PosetMorphismMethods.is_order_preserving, "is_order_preserving"),
+        and abstract_method_has_name(PosetHomCategory.ElementMethods.is_order_embedding, "is_order_embedding"),
     ),
     (
         "poset End and Aut surfaces own base-poset and automorphism predicates",

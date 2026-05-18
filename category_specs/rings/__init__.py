@@ -8,13 +8,13 @@ existing Sage ring categories where Sage provides them.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Literal, final, overload, override
+from abc import abstractmethod
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Literal, TypeVar, cast, final, overload, override
 
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.matrix.matrix_space import MatrixSpace
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
@@ -22,8 +22,16 @@ from sage.rings.number_field.number_field import NumberField_cyclotomic
 
 from ..cat import Category, Category_ideal, Category_singleton
 from ..modules import Modules
-from ..utils import refine_category
-from .homsets import RingAutCategory, RingEndCategory, RingHomCategory
+from ..utils import refine_category, with_axiom
+from .homsets import (
+    RingAutCategory,
+    RingEndCategory,
+    RingHomCategory,
+    _RingAutomorphisms,
+    _RingEndomorphisms,
+    _RingHomCategoryObjectMethods,
+    _RingHomomorphisms,
+)
 from .matrix_algebras import (
     _MatrixAlgebras,
 )
@@ -33,6 +41,9 @@ from .subcategories.constructions.rings_over import _RingsOver
 from .subcategories.constructions.rings_under import _RingsUnder
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 _CommutativeRings = LazyImport(
     "category_specs.rings.subcategories.commutative", "_CommutativeRings"
@@ -213,6 +224,7 @@ if TYPE_CHECKING:
         RingElement,
         RingMorphism,
         TermOrder,
+        CompleteRing,
     )
 
 
@@ -224,100 +236,121 @@ if TYPE_CHECKING:
 class _RingObjectMethods:
     r"""Abstract parent methods for all objects in ``Rings``."""
 
-    @abstract_method
+    @abstractmethod
+    def __call__(self, x: RingElement | Integer | int = 0) -> RingElement: ...
+
+    @abstractmethod
+    def base_ring(self) -> Ring: ...
+
+    @abstractmethod
+    def coerce_map_from(self, other: Ring) -> RingMorphism: ...
+
+    @abstractmethod
+    def zero(self) -> RingElement: ...
+
+    @abstractmethod
+    def one(self) -> RingElement: ...
+
+    @abstractmethod
+    def principal_ideal(self, generator: RingElement) -> Ideal: ...
+
+    @abstractmethod
+    def ideal(self, generators: RingElement | Sequence[RingElement]) -> Ideal: ...
+
+    @abstractmethod
     def is_exact(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_commutative_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_division_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_topological_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_valued_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_discrete_valuation_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_discrete_valuation_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_discrete_valuation_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_discrete_valuation_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_pid(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_gcd_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_unique_factorization_domain(self, proof: bool = True) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_euclidean_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_reduced(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_dedekind_domain(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_finite_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_number_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_quotient_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_local_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_complete_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_polynomial_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_power_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_laurent_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_puiseux_series_ring(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_local_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_archimedean_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_nonarchimedean_global_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_quadratic_number_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_cyclotomic_field(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def ideal_monoid(self) -> Monoid: ...
 
     @final
@@ -333,29 +366,35 @@ class _RingObjectMethods:
 class _RingElementMethods:
     r"""Abstract element methods present on all ring elements."""
 
-    @abstract_method
+    @abstractmethod
+    def parent(self) -> Ring: ...
+
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_one(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
+    def __mul__(self, other: RingElement) -> RingElement: ...
+
+    @abstractmethod
     def is_nilpotent(self) -> bool: ...
 
     @final
     def is_idempotent(self) -> bool:
         return self * self == self
 
-    @abstract_method
+    @abstractmethod
     def additive_order(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def multiplicative_order(self) -> Cardinality: ...
 
-    @abstract_method
+    @abstractmethod
     def is_square(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def abs(self) -> RingElement: ...
 
     @overload
@@ -368,7 +407,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement:
-        del cunningham
         ...
 
     @overload
@@ -381,7 +419,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> list[RingElement]:
-        del cunningham
         ...
 
     @overload
@@ -394,10 +431,9 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement | list[RingElement]:
-        del cunningham
         ...
 
-    @abstract_method
+    @abstractmethod
     def nth_root(
         self,
         n: Integer,
@@ -407,7 +443,6 @@ class _RingElementMethods:
         cunningham: bool = False,
         prec: Integer | None = None,
     ) -> RingElement | list[RingElement]:
-        del cunningham
         ...
 
     @overload
@@ -434,7 +469,7 @@ class _RingElementMethods:
         name: str | None = None,
     ) -> RingElement | list[RingElement]: ...
 
-    @abstract_method
+    @abstractmethod
     def sqrt(
         self,
         extend: bool = True,
@@ -442,7 +477,7 @@ class _RingElementMethods:
         name: str | None = None,
     ) -> RingElement | list[RingElement]: ...
 
-    @abstract_method
+    @abstractmethod
     def powers(self, n: Integer) -> list[RingElement]: ...
 
     @final
@@ -451,28 +486,7 @@ class _RingElementMethods:
 
 
 # ---------------------------------------------------------------------------
-# Ring morphism method surface — universal ring homomorphism abstract interface
-# ---------------------------------------------------------------------------
-
-
-class _RingMorphismMethods:
-    r"""Abstract morphism methods present on all ring homomorphisms."""
-
-    @abstract_method
-    def image(self, ideal: Ideal | None = None) -> Ideal: ...
-
-    @abstract_method
-    def is_zero(self) -> bool: ...
-
-    @abstract_method
-    def kernel(self) -> Ideal: ...
-
-    @abstract_method
-    def section(self) -> RingMorphism: ...
-
-
-# ---------------------------------------------------------------------------
-# Ideal category — parent/element/morphism surfaces
+# Ideal category — parent/element surfaces
 # ---------------------------------------------------------------------------
 
 
@@ -483,58 +497,61 @@ class _RingIdealParentMethods:
     def is_ideal(self) -> bool:
         return True
 
-    @abstract_method
+    @abstractmethod
     def ring(self) -> Ring: ...
 
-    @abstract_method
+    @abstractmethod
+    def parent(self) -> Category: ...
+
+    @abstractmethod
     def gen(self, i: Integer = 0) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def gens(self) -> tuple[RingElement, ...]: ...
 
-    @abstract_method
+    @abstractmethod
     def ngens(self) -> Integer: ...
 
-    @abstract_method
+    @abstractmethod
     def gens_reduced(self) -> tuple[RingElement, ...]: ...
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_one(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_trivial(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_prime(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_maximal(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_primary(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_principal(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_idempotent(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def divides(self, other: RingElement) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def norm(self) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def radical(self) -> Ideal: ...
 
-    @abstract_method
+    @abstractmethod
     def reduce(self, f: RingElement) -> RingElement: ...
 
-    @abstract_method
+    @abstractmethod
     def random_element(
         self,
         degree: Integer | tuple[Integer, Integer] | None = None,
@@ -546,29 +563,17 @@ class _RingIdealParentMethods:
         coefficient_upper_bound: Integer | None = None,
         distribution: str | None = None,
     ) -> RingElement:
-        del (
-            compute_gb,
-            choose_degree,
-            monic,
-            coefficient_lower_bound,
-            coefficient_upper_bound,
-            distribution,
-        )
         ...
 
 
 class _RingIdealElementMethods:
     r"""Abstract element methods for elements of ring ideals."""
 
-    @abstract_method
+    @abstractmethod
     def is_unit(self) -> bool: ...
 
-    @abstract_method
+    @abstractmethod
     def is_zero(self) -> bool: ...
-
-
-class _RingIdealMorphismMethods:
-    r"""Ring-ideal-specific morphism methods; generic morphism methods are inherited."""
 
 
 class _RingIdeals(Category_ideal):
@@ -582,6 +587,9 @@ class _RingIdeals(Category_ideal):
     def _repr_object_names(self) -> str:
         return "ring ideals"
 
+    @abstractmethod
+    def ring(self) -> Ring: ...
+
     @override
     @final
     def super_categories(self) -> list[Category]:
@@ -590,13 +598,17 @@ class _RingIdeals(Category_ideal):
 
     @classmethod
     @final
-    def from_sage_ideal(cls, sage_ideal: Ideal) -> Ideal:
+    def from_sage_ideal(
+        cls, sage_ideal: _RingIdealParentMethods
+    ) -> _RingIdealParentMethods:
         R = sage_ideal.ring()
-        return refine_category(sage_ideal.parent(), [cls(R), Modules(R).RIdeals()])
+        return cast(
+            "_RingIdealParentMethods",
+            refine_category(sage_ideal.parent(), [cls(R), Modules(R).RIdeals()]),
+        )
 
     ParentMethods = _RingIdealParentMethods
     ElementMethods = _RingIdealElementMethods
-    MorphismMethods = _RingIdealMorphismMethods
 
 
 # ---------------------------------------------------------------------------
@@ -610,7 +622,7 @@ class Rings(Category_singleton):
     Canonical chain: ``Rings()``.
     """
 
-    class Constructors:
+    class _Constructors:
         r"""Constructor collector for Sage ring entry points.
 
         This helper owns constructor provenance: each method names a Sage
@@ -626,61 +638,73 @@ class Rings(Category_singleton):
         def ZZ(self) -> Ring:
             from sage.all import ZZ
 
-            return refine_category(ZZ, [Rings(), _ZZ()])
+            return cast("Ring", refine_category(ZZ, [Rings(), _ZZ()]))
 
         @final
         def QQ(self) -> Ring:
             from sage.all import QQ
 
-            return refine_category(QQ, [Rings(), _QQ()])
+            return cast("Ring", refine_category(QQ, [Rings(), _QQ()]))
+
+        @final
+        def ZeroRing(self) -> CompleteRing:
+            from sage.all import Integers
+
+            return cast(
+                "CompleteRing",
+                refine_category(
+                    Integers(1),
+                    [Rings(), _IntegerModRings(), _CompleteRings()],
+                ),
+            )
 
         @final
         def QQbar(self) -> Ring:
             from sage.all import QQbar
 
-            return refine_category(QQbar, [Rings(), _QQbar()])
+            return cast("Ring", refine_category(QQbar, [Rings(), _QQbar()]))
 
         @final
         def AA(self) -> Ring:
             from sage.all import AA
 
-            return refine_category(AA, [Rings(), _AA()])
+            return cast("Ring", refine_category(AA, [Rings(), _AA()]))
 
         @final
         def RR(self) -> Ring:
             from sage.all import RR
 
-            return refine_category(RR, [Rings(), _RR()])
+            return cast("Ring", refine_category(RR, [Rings(), _RR()]))
 
         @final
         def CC(self) -> Ring:
             from sage.all import CC
 
-            return refine_category(CC, [Rings(), _CC()])
+            return cast("Ring", refine_category(CC, [Rings(), _CC()]))
 
         @final
         def RDF(self) -> Ring:
             from sage.all import RDF
 
-            return refine_category(RDF, [Rings(), _RealDoubleFields()])
+            return cast("Ring", refine_category(RDF, [Rings(), _RealDoubleFields()]))
 
         @final
         def CDF(self) -> Ring:
             from sage.all import CDF
 
-            return refine_category(CDF, [Rings(), _ComplexDoubleFields()])
+            return cast("Ring", refine_category(CDF, [Rings(), _ComplexDoubleFields()]))
 
         @final
         def RIF(self) -> Ring:
             from sage.all import RIF
 
-            return refine_category(RIF, [Rings(), _RealIntervalFields()])
+            return cast("Ring", refine_category(RIF, [Rings(), _RealIntervalFields()]))
 
         @final
         def CIF(self) -> Ring:
             from sage.all import CIF
 
-            return refine_category(CIF, [Rings(), _ComplexIntervalFields()])
+            return cast("Ring", refine_category(CIF, [Rings(), _ComplexIntervalFields()]))
 
         @final
         def RealField(
@@ -692,7 +716,7 @@ class Rings(Category_singleton):
             categories = [_RealFields()]
             if R is RR:
                 categories.append(_RR())
-            return refine_category(R, [Rings(), *categories])
+            return cast("Ring", refine_category(R, [Rings(), *categories]))
 
         @final
         def ComplexField(self, prec: Integer = 53, names: str | None = None) -> Ring:
@@ -702,20 +726,23 @@ class Rings(Category_singleton):
             categories = [_ComplexFields()]
             if R is CC:
                 categories.append(_CC())
-            return refine_category(R, [Rings(), *categories])
+            return cast("Ring", refine_category(R, [Rings(), *categories]))
 
         @final
         def RealBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import RealBallField
 
-            return refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
+            return cast(
+                "Ring", refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
+            )
 
         @final
         def ComplexBallField(self, prec: Integer = 53) -> Ring:
             from sage.all import ComplexBallField
 
-            return refine_category(
-                ComplexBallField(prec), [Rings(), _ComplexBallFields()]
+            return cast(
+                "Ring",
+                refine_category(ComplexBallField(prec), [Rings(), _ComplexBallFields()]),
             )
 
         @final
@@ -727,9 +754,12 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import IntegerModRing
 
-            return refine_category(
-                IntegerModRing(order, is_field=is_field, category=category),
-                [Rings(), _IntegerModRings()],
+            return cast(
+                "Ring",
+                refine_category(
+                    IntegerModRing(order, is_field=is_field, category=category),
+                    [Rings(), _IntegerModRings()],
+                ),
             )
 
         @final
@@ -741,9 +771,12 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zmod
 
-            return refine_category(
-                Zmod(order, is_field=is_field, category=category),
-                [Rings(), _IntegerModRings()],
+            return cast(
+                "Ring",
+                refine_category(
+                    Zmod(order, is_field=is_field, category=category),
+                    [Rings(), _IntegerModRings()],
+                ),
             )
 
         @final
@@ -755,9 +788,12 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Integers
 
-            return refine_category(
-                Integers(order, is_field=is_field, category=category),
-                [Rings(), _IntegerModRings()],
+            return cast(
+                "Ring",
+                refine_category(
+                    Integers(order, is_field=is_field, category=category),
+                    [Rings(), _IntegerModRings()],
+                ),
             )
 
         @final
@@ -777,21 +813,24 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import GF
 
-            return refine_category(
-                GF(
-                    order,
-                    name=name,
-                    modulus=modulus,
-                    names=names,
-                    impl=impl,
-                    proof=proof,
-                    check_prime=check_prime,
-                    check_irreducible=check_irreducible,
-                    prefix=prefix,
-                    repr=repr,
-                    elem_cache=elem_cache,
+            return cast(
+                "Ring",
+                refine_category(
+                    GF(
+                        order,
+                        name=name,
+                        modulus=modulus,
+                        names=names,
+                        impl=impl,
+                        proof=proof,
+                        check_prime=check_prime,
+                        check_irreducible=check_irreducible,
+                        prefix=prefix,
+                        repr=repr,
+                        elem_cache=elem_cache,
+                    ),
+                    [Rings(), _FiniteFields()],
                 ),
-                [Rings(), _FiniteFields()],
             )
 
         @final
@@ -811,21 +850,24 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import FiniteField
 
-            return refine_category(
-                FiniteField(
-                    order,
-                    name=name,
-                    modulus=modulus,
-                    names=names,
-                    impl=impl,
-                    proof=proof,
-                    check_prime=check_prime,
-                    check_irreducible=check_irreducible,
-                    prefix=prefix,
-                    repr=repr,
-                    elem_cache=elem_cache,
+            return cast(
+                "Ring",
+                refine_category(
+                    FiniteField(
+                        order,
+                        name=name,
+                        modulus=modulus,
+                        names=names,
+                        impl=impl,
+                        proof=proof,
+                        check_prime=check_prime,
+                        check_irreducible=check_irreducible,
+                        prefix=prefix,
+                        repr=repr,
+                        elem_cache=elem_cache,
+                    ),
+                    [Rings(), _FiniteFields()],
                 ),
-                [Rings(), _FiniteFields()],
             )
 
         @final
@@ -862,7 +904,7 @@ class Rings(Category_singleton):
                 categories.append(_QuadraticNumberFields())
             if isinstance(R, NumberField_cyclotomic):
                 categories.append(_CyclotomicFields())
-            return refine_category(R, [Rings(), *categories])
+            return cast("Ring", refine_category(R, [Rings(), *categories]))
 
         @final
         def NumberFieldTower(
@@ -888,7 +930,7 @@ class Rings(Category_singleton):
                 maximize_at_primes=maximize_at_primes,
                 structures=structures,
             )
-            return refine_category(R, [Rings(), _NumberFields()])
+            return cast("Ring", refine_category(R, [Rings(), _NumberFields()]))
 
         @final
         def QuadraticField(
@@ -901,15 +943,18 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import QuadraticField
 
-            return refine_category(
-                QuadraticField(
-                    D,
-                    name=name,
-                    check=check,
-                    embedding=embedding,
-                    latex_name=latex_name,
+            return cast(
+                "Ring",
+                refine_category(
+                    QuadraticField(
+                        D,
+                        name=name,
+                        check=check,
+                        embedding=embedding,
+                        latex_name=latex_name,
+                    ),
+                    [Rings(), _QuadraticNumberFields()],
                 ),
-                [Rings(), _QuadraticNumberFields()],
             )
 
         @final
@@ -921,9 +966,12 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import CyclotomicField
 
-            return refine_category(
-                CyclotomicField(n, names=names, embedding=embedding),
-                [Rings(), _CyclotomicFields()],
+            return cast(
+                "Ring",
+                refine_category(
+                    CyclotomicField(n, names=names, embedding=embedding),
+                    [Rings(), _CyclotomicFields()],
+                ),
             )
 
         @final
@@ -945,23 +993,26 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zp
 
-            return refine_category(
-                Zp(
-                    p,
-                    prec=prec,
-                    type=type,
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    label=label,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zp(
+                        p,
+                        prec=prec,
+                        type=type,
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        label=label,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -987,23 +1038,26 @@ class Rings(Category_singleton):
             )
             from sage.all import Zp
 
-            return refine_category(
-                Zp(
-                    p,
-                    prec=(relative_cap, absolute_cap),
-                    type=type,
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    label=label,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zp(
+                        p,
+                        prec=(relative_cap, absolute_cap),
+                        type=type,
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        label=label,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -1025,22 +1079,25 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zp
 
-            return refine_category(
-                Zp(
-                    p,
-                    prec=(default_prec, halting_prec, secure),
-                    type="relaxed",
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zp(
+                        p,
+                        prec=(default_prec, halting_prec, secure),
+                        type="relaxed",
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -1062,23 +1119,26 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qp
 
-            return refine_category(
-                Qp(
-                    p,
-                    prec=prec,
-                    type=type,
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    label=label,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qp(
+                        p,
+                        prec=prec,
+                        type=type,
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        label=label,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1104,23 +1164,26 @@ class Rings(Category_singleton):
             )
             from sage.all import Qp
 
-            return refine_category(
-                Qp(
-                    p,
-                    prec=(relative_cap, absolute_cap),
-                    type=type,
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    label=label,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qp(
+                        p,
+                        prec=(relative_cap, absolute_cap),
+                        type=type,
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        label=label,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1142,22 +1205,25 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qp
 
-            return refine_category(
-                Qp(
-                    p,
-                    prec=(default_prec, halting_prec, secure),
-                    type="relaxed",
-                    print_mode=print_mode,
-                    names=names,
-                    ram_name=ram_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_alphabet=print_alphabet,
-                    print_max_terms=print_max_terms,
-                    show_prec=show_prec,
-                    check=check,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qp(
+                        p,
+                        prec=(default_prec, halting_prec, secure),
+                        type="relaxed",
+                        print_mode=print_mode,
+                        names=names,
+                        ram_name=ram_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_alphabet=print_alphabet,
+                        print_max_terms=print_max_terms,
+                        show_prec=show_prec,
+                        check=check,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1182,26 +1248,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zq
 
-            return refine_category(
-                Zq(
-                    q,
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zq(
+                        q,
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -1227,26 +1296,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zq
 
-            return refine_category(
-                Zq(
-                    (p, degree),
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zq(
+                        (p, degree),
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -1271,26 +1343,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Zq
 
-            return refine_category(
-                Zq(
-                    factorization,
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Zq(
+                        factorization,
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Zp()],
                 ),
-                [Rings(), _Zp()],
             )
 
         @final
@@ -1350,26 +1425,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qq
 
-            return refine_category(
-                Qq(
-                    q,
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qq(
+                        q,
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1395,26 +1473,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qq
 
-            return refine_category(
-                Qq(
-                    (p, degree),
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qq(
+                        (p, degree),
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1439,26 +1520,29 @@ class Rings(Category_singleton):
         ) -> Ring:
             from sage.all import Qq
 
-            return refine_category(
-                Qq(
-                    factorization,
-                    prec=prec,
-                    type=type,
-                    modulus=modulus,
-                    names=names,
-                    print_mode=print_mode,
-                    ram_name=ram_name,
-                    res_name=res_name,
-                    print_pos=print_pos,
-                    print_sep=print_sep,
-                    print_max_ram_terms=print_max_ram_terms,
-                    print_max_unram_terms=print_max_unram_terms,
-                    print_max_terse_terms=print_max_terse_terms,
-                    show_prec=show_prec,
-                    check=check,
-                    implementation=implementation,
+            return cast(
+                "Ring",
+                refine_category(
+                    Qq(
+                        factorization,
+                        prec=prec,
+                        type=type,
+                        modulus=modulus,
+                        names=names,
+                        print_mode=print_mode,
+                        ram_name=ram_name,
+                        res_name=res_name,
+                        print_pos=print_pos,
+                        print_sep=print_sep,
+                        print_max_ram_terms=print_max_ram_terms,
+                        print_max_unram_terms=print_max_unram_terms,
+                        print_max_terse_terms=print_max_terse_terms,
+                        show_prec=show_prec,
+                        check=check,
+                        implementation=implementation,
+                    ),
+                    [Rings(), _Qp()],
                 ),
-                [Rings(), _Qp()],
             )
 
         @final
@@ -1649,8 +1733,13 @@ class Rings(Category_singleton):
                     order=order,
                     implementation=implementation,
                 )
-            return refine_category(
-                R, [Rings(), _PolynomialRings().RingsUnder(R.base_ring())], test=False
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PolynomialRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1672,8 +1761,13 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(
-                R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1697,8 +1791,13 @@ class Rings(Category_singleton):
                 order=order,
                 num_gens=num_gens,
             )
-            return refine_category(
-                R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1722,8 +1821,13 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 order=order,
             )
-            return refine_category(
-                R, [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())], test=False
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PowerSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1745,10 +1849,13 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(
-                R,
-                [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
-                test=False,
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1756,10 +1863,13 @@ class Rings(Category_singleton):
             from sage.all import LaurentSeriesRing
 
             R = LaurentSeriesRing(power_series_ring)
-            return refine_category(
-                R,
-                [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
-                test=False,
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _LaurentSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1781,10 +1891,13 @@ class Rings(Category_singleton):
                 default_prec=default_prec,
                 implementation=implementation,
             )
-            return refine_category(
-                R,
-                [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
-                test=False,
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1794,10 +1907,13 @@ class Rings(Category_singleton):
             from sage.all import PuiseuxSeriesRing
 
             R = PuiseuxSeriesRing(laurent_series_ring)
-            return refine_category(
-                R,
-                [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
-                test=False,
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _PuiseuxSeriesRings().RingsUnder(R.base_ring())],
+                    test=False,
+                ),
             )
 
         @final
@@ -1811,17 +1927,18 @@ class Rings(Category_singleton):
             R = MatrixSpace(
                 base_ring, n, n, sparse=sparse, implementation=implementation
             )
-            return refine_category(
-                R,
-                [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())],
-                test=False,
+            return cast(
+                "Ring",
+                refine_category(
+                    R,
+                    [Rings(), _MatrixAlgebras(R.base_ring(), R.nrows(), R.ncols())],
+                    test=False,
+                ),
             )
 
-    _Constructors = Constructors
-
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Rings._Constructors:
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
@@ -1845,165 +1962,159 @@ class Rings(Category_singleton):
     class SubcategoryMethods:
         r"""Mixin providing ``SubcategoryMethods`` axiom and functorial selectors."""
 
-        @cached_method
+        @_cached_method
         @final
         def Commutative(self) -> Category:
-            return self._with_axiom("Commutative")
+            return cast(Category, with_axiom(self, "Commutative"))
 
-        @cached_method
+        @_cached_method
         @final
         def Division(self) -> Category:
-            return self._with_axiom("Division")
+            return cast(Category, with_axiom(self, "Division"))
 
-        @cached_method
-        @final
-        def Finite(self) -> Category:
-            return self._with_axiom("Finite")
-
-        @cached_method
-        @final
-        def Topological(self) -> Category:
-            return self._with_axiom("Topological")
-
-        @cached_method
+        @_cached_method
         @final
         def Approximate(self) -> Category:
-            return ApproximateRingsCategory()
+            return cast(Category, ApproximateRingsCategory())
 
-        @cached_method
+        @_cached_method
         @final
         def WithValuation(self) -> Category:
-            return self._with_axiom("WithValuation")
+            return cast(Category, with_axiom(self, "WithValuation"))
 
-        @cached_method
+        @_cached_method
         @final
         def Characteristic(self, p: Integer) -> Category:
             from .subcategories.constructions.characteristic import _CharacteristicRings
 
-            return _CharacteristicRings(self, p)
+            return cast(Category, _CharacteristicRings(cast(Category, self), p))
 
-        @cached_method
+        @_cached_method
         @final
         def KrullDimension(self, n: Integer) -> Category:
             from .subcategories.constructions.krull_dimension import _KrullDimension
 
-            return _KrullDimension(self, n)
+            return cast(Category, _KrullDimension(cast(Category, self), n))
 
-        @cached_method
+        @_cached_method
         @final
         def Polynomial(self) -> Category:
-            return self._with_axiom("Polynomial")
+            return cast(Category, with_axiom(self, "Polynomial"))
 
-        @cached_method
+        @_cached_method
         @final
         def PowerSeries(self) -> Category:
-            return self._with_axiom("PowerSeries")
+            return cast(Category, with_axiom(self, "PowerSeries"))
 
-        @cached_method
+        @_cached_method
         @final
         def LaurentSeries(self) -> Category:
-            return self._with_axiom("LaurentSeries")
+            return cast(Category, with_axiom(self, "LaurentSeries"))
 
-        @cached_method
+        @_cached_method
         @final
         def PuiseuxSeries(self) -> Category:
-            return self._with_axiom("PuiseuxSeries")
+            return cast(Category, with_axiom(self, "PuiseuxSeries"))
 
-        @cached_method
+        @_cached_method
         @final
         def RingsUnder(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_under import _RingsUnder
 
-            return _RingsUnder.category_of(self, structure_ring)
+            return cast(Category, _RingsUnder.category_of(self, structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def RingsOver(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_over import _RingsOver
 
-            return _RingsOver.category_of(self, structure_ring)
+            return cast(Category, _RingsOver.category_of(self, structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def AlgebrasOver(self, structure_ring: Ring) -> Category:
             from ..algebras import Algebras
 
-            return Algebras(structure_ring)
+            return cast(Category, Algebras(structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def PolynomialRings(self) -> Category:
             return self.Polynomial()
 
-        @cached_method
+        @_cached_method
         @final
         def PolynomialRingsOver(self, structure_ring: Ring) -> Category:
-            return self.Polynomial().RingsUnder(structure_ring)
+            return cast(Category, self.Polynomial().RingsUnder(structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def PolynomialOver(self, structure_ring: Ring) -> Category:
             return self.PolynomialRingsOver(structure_ring)
 
-        @cached_method
+        @_cached_method
         @final
         def PowerSeriesRings(self) -> Category:
             return self.PowerSeries()
 
-        @cached_method
+        @_cached_method
         @final
         def PowerSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return self.PowerSeries().RingsUnder(structure_ring)
+            return cast(Category, self.PowerSeries().RingsUnder(structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def PowerSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeriesRingsOver(structure_ring)
 
-        @cached_method
+        @_cached_method
         @final
         def LaurentSeriesRings(self) -> Category:
             return self.LaurentSeries()
 
-        @cached_method
+        @_cached_method
         @final
         def LaurentSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return self.LaurentSeries().RingsUnder(structure_ring)
+            return cast(Category, self.LaurentSeries().RingsUnder(structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def LaurentSeriesOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeriesRingsOver(structure_ring)
 
-        @cached_method
+        @_cached_method
         @final
         def PuiseuxSeriesRings(self) -> Category:
             return self.PuiseuxSeries()
 
-        @cached_method
+        @_cached_method
         @final
         def PuiseuxSeriesRingsOver(self, structure_ring: Ring) -> Category:
-            return self.PuiseuxSeries().RingsUnder(structure_ring)
+            return cast(Category, self.PuiseuxSeries().RingsUnder(structure_ring))
 
-        @cached_method
+        @_cached_method
         @final
         def PuiseuxSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeriesRingsOver(structure_ring)
 
-        @cached_method
+        @_cached_method
         @final
         def QuotientRingsOf(self, structure_ring: Ring) -> Category:
-            return self.Quotients().RingsUnder(structure_ring)
+            return cast(
+                Category, cast(Category, self).Quotients().RingsUnder(structure_ring)
+            )
 
-        @cached_method
+        @_cached_method
         @final
         def QuotientsOf(self, structure_ring: Ring) -> Category:
             return self.QuotientRingsOf(structure_ring)
 
-        @cached_method
+        @_cached_method
         @final
         def SubringsOf(self, structure_ring: Ring) -> Category:
-            return self.Subobjects().RingsOver(structure_ring)
+            return cast(
+                Category, cast(Category, self).Subobjects().RingsOver(structure_ring)
+            )
 
     # ----- Axiomatic subcategories -----------------------------------------
 
@@ -2031,18 +2142,17 @@ class Rings(Category_singleton):
 
     ParentMethods = _RingObjectMethods
     ElementMethods = _RingElementMethods
-    MorphismMethods = _RingMorphismMethods
 
 
 RingsCategory = Rings
-RingsObject = Rings.ParentMethods
-RingsElement = Rings.ElementMethods
-RingsMorphism = Rings.MorphismMethods
+RingsObject = _RingObjectMethods
+RingsElement = _RingElementMethods
+RingsMorphism = _RingHomomorphisms
 RingsHomCategory = RingHomCategory
 RingsEndCategory = RingEndCategory
 RingsAutCategory = RingAutCategory
-RingsHom = RingHomCategory.ParentMethods
+RingsHom = _RingHomCategoryObjectMethods
 RingsEnd = RingEndCategory.ParentMethods
 RingsAut = RingAutCategory.ParentMethods
-RingsEndomorphism = RingEndCategory.ElementMethods
-RingsAutomorphism = RingAutCategory.ElementMethods
+RingsEndomorphism = _RingEndomorphisms
+RingsAutomorphism = _RingAutomorphisms

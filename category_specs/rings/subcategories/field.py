@@ -2,15 +2,17 @@ r"""Fields ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, assert_never, final, override
+from abc import abstractmethod
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.fields import Fields as SageFields
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .. import Rings
 from ._lazy_subcategories import (
     _CC,
@@ -31,6 +33,12 @@ if TYPE_CHECKING:
         Ideal,
         RingElement,
     )
+
+
+def _field_cached_method[_FieldCachedMethod: Callable[..., object]](
+    method: _FieldCachedMethod,
+) -> _FieldCachedMethod:
+    return cast(_FieldCachedMethod, cached_method(method))
 
 
 class _Fields(CategoryWithAxiom):
@@ -80,74 +88,62 @@ class _Fields(CategoryWithAxiom):
     )
 
     class SubcategoryMethods:
-        @cached_method
+        @_field_cached_method
         @final
         def NumberFields(self) -> Category:
-            return self._with_axiom("NumberFields")
+            return cast(Category, with_axiom(self, "NumberFields"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def AlgebraicallyClosed(self) -> Category:
-            return self._with_axiom("AlgebraicallyClosed")
+            return cast(Category, with_axiom(self, "AlgebraicallyClosed"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def LocalFields(self) -> Category:
-            return self._with_axiom("LocalFields")
+            return cast(Category, with_axiom(self, "LocalFields"))
 
-        @cached_method
+        @_field_cached_method
         @final
         def GlobalFields(self) -> Category:
-            return self._with_axiom("GlobalFields")
+            return cast(Category, with_axiom(self, "GlobalFields"))
 
-    @cached_method
+    @_field_cached_method
     @final
-    def QQ(self):
+    def QQ(self) -> Any:
         return _QQ()
 
-    @cached_method
+    @_field_cached_method
     @final
-    def RR(self):
+    def RR(self) -> Any:
         return _RR()
 
-    @cached_method
+    @_field_cached_method
     @final
-    def CC(self):
+    def CC(self) -> Any:
         return _CC()
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
+        def zero(self) -> RingElement: ...
+
+        @abstractmethod
+        def one(self) -> RingElement: ...
+
+        @abstractmethod
         def is_algebraically_closed(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def algebraic_closure(self) -> Field: ...
-
-        @override
-        @final
-        def gcd(self, r: RingElement, s: RingElement) -> RingElement:
-            match r.is_zero() and s.is_zero():
-                case True:
-                    return self.zero()
-                case False:
-                    assert not r.is_zero() or not s.is_zero()
-                    return self.one()
-                case unreachable:
-                    assert_never(unreachable)
 
         @override
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
             # Field case split: only the zero and unit ideals exist.
-            match ideal:
-                case _ if ideal.is_zero():
-                    return self
-                case _ if ideal.is_one():
-                    return self
-                case unreachable:
-                    assert_never(unreachable)
+            if ideal.is_zero():
+                return self
+            return Rings().Constructors().ZeroRing()
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def inverse(self) -> RingElement: ...
-
-    class MorphismMethods: ...

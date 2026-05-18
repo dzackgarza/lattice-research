@@ -2,9 +2,8 @@ r"""ReducedRings ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
-
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -14,6 +13,7 @@ if TYPE_CHECKING:
     from ...types import (
         Ring,
     )
+
 
 class _ReducedRings(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Reduced()``."""
@@ -41,9 +41,7 @@ class _ReducedRings(CategoryWithAxiom):
         def is_reduced(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def integral_closure(self) -> Ring: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

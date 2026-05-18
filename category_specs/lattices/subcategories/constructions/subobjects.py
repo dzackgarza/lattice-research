@@ -2,14 +2,13 @@ r"""Subobject construction category for lattices."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final
-
-from sage.misc.abstract_method import abstract_method
 
 from ....cat import SubobjectsCategory
 
 if TYPE_CHECKING:
-    from ....types import Cardinality, Lattice, LatticeElement, LatticeMorphism
+    from ....types import Lattice, LatticeMorphism
 
 
 class _Subobjects(SubobjectsCategory):
@@ -18,39 +17,29 @@ class _Subobjects(SubobjectsCategory):
     Canonical chain: ``Lattices(R).Subobjects()``.
     """
 
-    @abstract_method
+    @abstractmethod
     def as_subobject_of_self(self, L: Lattice) -> Lattice:
         r"""Regard ``L`` as a sublattice of itself via the identity."""
         ...
 
     class ParentMethods:
-        @abstract_method
-        def ambient_lattice(self) -> Lattice: ...
+        @abstractmethod
+        def ambient(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion(self) -> LatticeMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def intersect(self, M: Lattice) -> Lattice: ...
 
         @final
         def __and__(self, M: Lattice) -> Lattice:
             return self.intersect(M)
 
-        @final
-        def index(self) -> Cardinality:
-            return self.inclusion().index()
-
-        @final
-        def lift(self, v: LatticeElement) -> LatticeElement:
-            return self.inclusion()(v)
-
-        @abstract_method
+        @abstractmethod
         def saturation(self) -> Lattice: ...
 
-        @abstract_method
+        @abstractmethod
         def orthogonal_complement(self) -> Lattice: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

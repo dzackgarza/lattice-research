@@ -2,12 +2,19 @@ r"""Aut categories and automorphism method surfaces."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final, override
+from abc import abstractmethod
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.sets.condition_set import ConditionSet as SageConditionSet
 
 from ..cat import Cat, Category, CategoryWithAxiom, CategoryWithAxiom_singleton
-from .endsets import EndCategory, EndCategoryConstruction, EndCategoryOf
+from .endsets import (
+    EndCategory,
+    EndCategoryConstruction,
+    EndCategoryOf,
+    UniversalEndElementMethods,
+    UniversalEndObjectMethods,
+)
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
@@ -21,22 +28,25 @@ def _aut_categories_of(category: Category) -> Category:
         end_category = category.EndCategory()
     else:
         end_category = category.HomCategory().EndCategory()
-    return end_category.AutCategory()
+    return cast("Category", end_category.AutCategory())
 
 
 def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:
     r"""Return whether an endomorphism lies in the corresponding aut category."""
-    return endomorphism.is_invertible()
+    return bool(endomorphism.is_invertible())
 
 
 def _condition_aut_object_from_end_category(
     end_category: End, aut_category: Category
 ) -> Aut:
     r"""Return the private Sage condition subset backing an aut object."""
-    return SageConditionSet(
-        end_category,
-        _is_invertible_endomorphism,
-        category=aut_category,
+    return cast(
+        "Aut",
+        SageConditionSet(
+            end_category,
+            _is_invertible_endomorphism,
+            category=aut_category,
+        ),
     )
 
 
@@ -48,11 +58,16 @@ def _aut_object_from_end_category(end_category: End, aut_category: Category) -> 
     return refine_category(aut_object, [aut_category])
 
 
-class UniversalAutObjectMethods:
+class UniversalAutObjectMethods(UniversalEndObjectMethods):
     r"""Methods on objects ``Aut_C(A)`` of an aut category."""
 
+    @abstractmethod
+    def ambient(self) -> UniversalEndObjectMethods:
+        r"""Return the ambient endomorphism object whose units form this object."""
+        ...
+
     @final
-    def end_category(self) -> End:
+    def end_category(self) -> UniversalEndObjectMethods:
         r"""Return the ambient endomorphism object whose units form this object."""
         return self.ambient()
 
@@ -75,7 +90,7 @@ class UniversalAutObjectMethods:
         return self.end_category().identity()
 
 
-class UniversalAutElementMethods:
+class UniversalAutElementMethods(UniversalEndElementMethods):
     r"""Methods on elements of aut categories."""
 
     @override
@@ -118,7 +133,6 @@ class AutCategory(CategoryWithAxiom_singleton):
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
 
-    class MorphismMethods: ...
 
 
 class AutCategoryConstruction(EndCategoryConstruction):
@@ -133,7 +147,6 @@ class AutCategoryConstruction(EndCategoryConstruction):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     @final
     def from_end_category(self, end_category: End) -> Aut:
@@ -141,7 +154,7 @@ class AutCategoryConstruction(EndCategoryConstruction):
         return _aut_object_from_end_category(end_category, self)
 
     @final
-    def Of(self, domain: CategoryObject) -> Aut:
+    def Of(self, domain: CategoryObject) -> Aut:  # type: ignore[override]  # DECISION-20260513-HOMCATEGORY-OF-SIGNATURE-OVERRIDE-INCOMPATIBILITY
         r"""Return ``Aut_C(domain)`` for ``C = self.base_category()``."""
         end_category = self.base_category().EndCategory().Of(domain)
         return self.from_end_category(end_category)
@@ -196,5 +209,3 @@ class AutCategoryOf(CategoryWithAxiom):
 
     ParentMethods = UniversalAutObjectMethods
     ElementMethods = UniversalAutElementMethods
-
-    class MorphismMethods: ...

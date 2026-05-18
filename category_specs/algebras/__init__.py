@@ -24,15 +24,15 @@ Subcategory hierarchy::
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Iterable, Sequence
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
     AssociativeAlgebras as SageAssociativeAlgebras,
 )
 from sage.categories.magmatic_algebras import MagmaticAlgebras as SageMagmaticAlgebras
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
@@ -43,7 +43,7 @@ from ..cat import (
     CategoryWithAxiom_over_base_ring,
 )
 from ..modules import Modules
-from ..utils import refine_category
+from ..utils import refine_category, with_axiom
 from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
@@ -54,6 +54,9 @@ from .subcategories.constructions.quotients import _Quotients
 from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 from .subcategories.constructions.tensor_products import _TensorProducts
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -76,6 +79,7 @@ if TYPE_CHECKING:
         RModule,
         Semigroup,
         Set,
+        SetElement,
         SetFamily,
         Tensor,
     )
@@ -88,14 +92,10 @@ class _MagmaticAlgebraParentMethods:
 class _MagmaticAlgebraElementMethods:
     r"""Methods on elements of magmatic algebras."""
 
-    @abstract_method
+    @abstractmethod
     def __mul__(self, other: AlgebraElement) -> AlgebraElement:
         r"""Return the bilinear product of this element with ``other``."""
         ...
-
-
-class _MagmaticAlgebraMorphismMethods:
-    r"""Methods on magmatic algebra morphisms."""
 
 
 class MagmaticAlgebras(Category_over_base_ring):
@@ -123,7 +123,7 @@ class MagmaticAlgebras(Category_over_base_ring):
 
     @override
     @final
-    def additional_structure(self):
+    def additional_structure(self) -> None:
         r"""Return ``None`` because the multiplication is already morphism data."""
         return None
 
@@ -135,7 +135,6 @@ class MagmaticAlgebras(Category_over_base_ring):
 
     ParentMethods = _MagmaticAlgebraParentMethods
     ElementMethods = _MagmaticAlgebraElementMethods
-    MorphismMethods = _MagmaticAlgebraMorphismMethods
 
     Associative = LazyImport("category_specs.algebras", "AssociativeAlgebras")
 
@@ -174,36 +173,34 @@ class AssociativeAlgebras(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
-
 
 class _AlgebraParentMethods:
-    @abstract_method
+    @abstractmethod
     def base_ring(self) -> Ring:
         r"""Return the scalar ring over which this algebra is defined."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def change_ring(self, R: Ring) -> Algebra:
         r"""Return the scalar extension or base change of this algebra to ``R``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def algebra_generators(self) -> SetFamily:
         r"""Return algebra generators for this algebra as an ``R``-algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def center(self) -> Algebra:
         r"""Return the center of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def radical(self) -> AlgebraIdeal:
         r"""Return the Jacobson radical of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def subalgebra(
         self,
         generators: Sequence[AlgebraElement],
@@ -217,7 +214,10 @@ class _AlgebraParentMethods:
 
         It is closed under left multiplication by ``A``.
         """
-        return self.ideal_submodule(generators, side="left")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="left")
+        )
 
     @final
     def right_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
@@ -225,35 +225,50 @@ class _AlgebraParentMethods:
 
         It is closed under right multiplication by ``A``.
         """
-        return self.ideal_submodule(generators, side="right")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="right")
+        )
 
     @final
     def two_sided_ideal(self, generators: Sequence[AlgebraElement]) -> AlgebraIdeal:
         r"""Return the smallest ``R``-submodule containing ``generators`` and
         closed under left and right multiplication by ``A``."""
-        return self.ideal_submodule(generators, side="twosided")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="twosided")
+        )
 
     @final
     def principal_left_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal left ideal ``A * generator``."""
-        return self.principal_ideal(generator, side="left")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="left")
+        )
 
     @final
     def principal_right_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal right ideal ``generator * A``."""
-        return self.principal_ideal(generator, side="right")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="right")
+        )
 
     @final
     def principal_two_sided_ideal(self, generator: AlgebraElement) -> AlgebraIdeal:
         r"""Return the principal two-sided ideal ``A * generator * A``."""
-        return self.principal_ideal(generator, side="twosided")
+        algebra_parent = cast(Any, self)
+        return cast(
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="twosided")
+        )
 
-    @abstract_method
+    @abstractmethod
     def derivations(self) -> RModule:
         r"""Return the module of derivations of this algebra."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def annihilator(self, elements: Iterable[AlgebraElement]) -> AlgebraIdeal:
         r"""Return the ideal annihilating every element in ``elements``."""
         ...
@@ -261,30 +276,29 @@ class _AlgebraParentMethods:
     @final
     def ideals(self) -> Category:
         r"""Return the ideal construction category owned by this algebra."""
-        return self.category().Ideals(self)
+        return cast(Category, self.category().Ideals(self))
 
-    @abstract_method
+    @abstractmethod
     def hochschild_complex(self, coefficients: RModule) -> HochschildChainComplex:
         r"""Return the Hochschild chain complex with given coefficients."""
         del coefficients
         ...
 
-    @abstract_method
+    @abstractmethod
     def idempotent_lift(self, x: AlgebraElement) -> AlgebraElement:
         r"""Lift the idempotent ``x`` along the algebra's radical quotient."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def peirce_decomposition(
         self,
         idempotents: Sequence[AlgebraElement] | None = None,
         check: bool = True,
     ) -> Sequence[Sequence[Algebra]]:
         r"""Return the Peirce decomposition determined by ``idempotents``."""
-        del idempotents
         ...
 
-    @abstract_method
+    @abstractmethod
     def semisimple_quotient(self) -> Algebra:
         r"""Return the quotient of this algebra by its Jacobson radical."""
         ...
@@ -292,10 +306,6 @@ class _AlgebraParentMethods:
 
 class _AlgebraElementMethods:
     r"""Methods on elements of algebras."""
-
-
-class _AlgebraMorphismMethods:
-    r"""Methods on algebra morphisms."""
 
 
 class Algebras(Category_module):
@@ -330,45 +340,44 @@ class Algebras(Category_module):
 
     ParentMethods = _AlgebraParentMethods
     ElementMethods = _AlgebraElementMethods
-    MorphismMethods = _AlgebraMorphismMethods
     HomCategory = AlgebraHomCategory
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Commutative(self) -> Category:
             r"""Return the subcategory of commutative algebras."""
-            return self._with_axiom("Commutative")
+            return cast(Category, with_axiom(self, "Commutative"))
 
-        @cached_method
+        @_cached_method
         @final
         def WithBasis(self) -> Category:
             r"""Return the subcategory of algebras with a distinguished basis."""
-            return self._with_axiom("WithBasis")
+            return cast(Category, with_axiom(self, "WithBasis"))
 
-        @cached_method
+        @_cached_method
         @final
         def FiniteDimensional(self) -> Category:
             r"""Return the subcategory of finite-dimensional algebras."""
-            return self._with_axiom("FiniteDimensional")
+            return cast(Category, with_axiom(self, "FiniteDimensional"))
 
-        @cached_method
+        @_cached_method
         @final
         def Semisimple(self) -> Category:
             r"""Return the subcategory of semisimple algebras."""
-            return self._with_axiom("Semisimple")
+            return cast(Category, with_axiom(self, "Semisimple"))
 
-        @cached_method
+        @_cached_method
         @final
         def TensorProducts(self) -> Category:
             r"""Return the tensor-product construction category of algebras."""
-            return _TensorProducts.category_of(self)
+            return cast(Category, _TensorProducts.category_of(self))
 
-        @cached_method
+        @_cached_method
         @final
         def DualObjects(self) -> Category:
             r"""Return the dual-object construction category of algebras."""
-            return _DualObjects.category_of(self)
+            return cast(Category, _DualObjects.category_of(self))
 
         @final
         def Ideals(self, algebra: Algebra) -> Category:
@@ -376,7 +385,7 @@ class Algebras(Category_module):
             assert algebra in self, f"Ideals expects an algebra in {self}: {algebra}"
             return AlgebraIdealsCategory(algebra)
 
-    class Constructors:
+    class _Constructors:
         r"""Algebra constructors over a fixed base ring.
 
         These constructors name the free functors from specific source
@@ -396,7 +405,7 @@ class Algebras(Category_module):
         @final
         def base_ring(self) -> Ring:
             r"""Return the base ring of the constructed algebras."""
-            return self.category().base_ring()
+            return cast("Ring", self.category().base_ring())
 
         @final
         def _refine_constructed_algebra(
@@ -411,7 +420,9 @@ class Algebras(Category_module):
             categories: Sequence[Category],
         ) -> MagmaticAlgebra:
             return refine_category(
-                algebra, [MagmaticAlgebras(self.base_ring()), *categories], test=False
+                algebra,
+                [MagmaticAlgebras(self.base_ring()), *categories],
+                test=False,
             )
 
         @final
@@ -462,7 +473,7 @@ class Algebras(Category_module):
             assert generators.is_finite(), (
                 "free_algebra_from_set currently requires a finite generator set"
             )
-            generator_tuple = tuple(generators)
+            generator_tuple: tuple[SetElement, ...] = tuple(generators)
             assert len(generator_tuple) == generators.cardinality(), (
                 "finite generator set iteration must recover every generator of "
                 f"{generators}"
@@ -650,11 +661,9 @@ class Algebras(Category_module):
                     )
             return self._refine_constructed_magmatic_algebra(algebra, categories)
 
-    _Constructors = Constructors
-
-    @cached_method
+    @_cached_method
     @final
-    def Constructors(self):
+    def Constructors(self) -> Algebras._Constructors:
         r"""Return the named algebra constructor collector over this base ring."""
         return self.__class__._Constructors(self)
 
@@ -686,7 +695,7 @@ class Algebras(Category_module):
 AlgebrasCategory = Algebras
 AlgebrasObject = Algebras.ParentMethods
 AlgebrasElement = Algebras.ElementMethods
-AlgebrasMorphism = Algebras.MorphismMethods
+AlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AlgebrasHomCategory = AlgebraHomCategory
 AlgebrasEndCategory = AlgebraEndCategory
 AlgebrasAutCategory = AlgebraAutCategory
@@ -699,8 +708,8 @@ AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 MagmaticAlgebrasCategory = MagmaticAlgebras
 MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
 MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
-MagmaticAlgebrasMorphism = MagmaticAlgebras.MorphismMethods
+MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AssociativeAlgebrasCategory = AssociativeAlgebras
 AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
 AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
-AssociativeAlgebrasMorphism = AssociativeAlgebras.MorphismMethods
+AssociativeAlgebrasMorphism = AlgebraHomCategory.ElementMethods

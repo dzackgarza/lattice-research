@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import final, override
 
+from sage.categories.category import Category
+
 from ....cat import DualObjectsCategory
 
 
@@ -15,12 +17,10 @@ class _DualObjects(DualObjectsCategory):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         r"""The dual M^* is an integral linear form."""
         return [self.base_category().HomCategory().Forms().Linear().Integral()]
 
     class ParentMethods: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

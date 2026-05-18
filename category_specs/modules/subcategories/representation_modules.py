@@ -3,11 +3,11 @@ r"""Modules equipped with a specified semigroup or group action."""
 from __future__ import annotations
 
 import operator
+from abc import abstractmethod
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -33,7 +33,7 @@ class _RepresentationModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
             Category.join(
@@ -50,16 +50,16 @@ class _RepresentationModules(Category_over_base_ring):
         def is_representation_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def semigroup(self) -> Group | Monoid: ...
 
-        @abstract_method
+        @abstractmethod
         def side(self) -> Literal["left", "right", "twosided"]: ...
 
-        @abstract_method
+        @abstractmethod
         def algebra(self) -> Algebra: ...
 
-        @abstract_method
+        @abstractmethod
         def representation_matrix(
             self,
             g: CategoryElement,
@@ -67,7 +67,7 @@ class _RepresentationModules(Category_over_base_ring):
             sparse: bool = False,
         ) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def invariant_module(
             self,
             S: Group | None = None,
@@ -80,10 +80,9 @@ class _RepresentationModules(Category_over_base_ring):
             | None = None,
             side: Literal["left", "right"] | None = None,
         ) -> RModule:
-            del action_on_basis
             ...
 
-        @abstract_method
+        @abstractmethod
         def cell_module(
             self,
             index: CategoryElement,
@@ -92,5 +91,3 @@ class _RepresentationModules(Category_over_base_ring):
         ) -> RModule: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

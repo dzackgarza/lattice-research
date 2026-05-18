@@ -2,11 +2,11 @@ r"""FiniteFields ring subcategory spec."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.finite_fields import FiniteFields as SageFiniteFields
-from sage.misc.abstract_method import abstract_method
 from sage.rings.integer import Integer
 from sage.structure.factorization import Factorization
 
@@ -50,28 +50,28 @@ class _FiniteFields(CategoryWithAxiom):
         def is_finite_field(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def cardinality(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def order(self) -> Integer: ...
 
-        @abstract_method
+        @abstractmethod
         def multiplicative_generator(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def primitive_element(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def modulus(self) -> RingElement: ...
 
-        @abstract_method
+        @abstractmethod
         def factored_order(self) -> Factorization: ...
 
-        @abstract_method
+        @abstractmethod
         def galois_group(self) -> Group: ...
 
-        @abstract_method
+        @abstractmethod
         def dual_basis(
             self,
             basis: Sequence[RingElement] | None = None,
@@ -79,5 +79,3 @@ class _FiniteFields(CategoryWithAxiom):
         ) -> tuple[RingElement, ...]: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

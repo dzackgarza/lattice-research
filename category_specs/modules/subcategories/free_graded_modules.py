@@ -2,11 +2,11 @@ r"""Free graded modules."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 
 from ...cat import Category_over_base_ring
 from .. import Modules
@@ -31,7 +31,7 @@ class _FreeGradedModules(Category_over_base_ring):
 
     @override
     @final
-    def super_categories(self):
+    def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [Category.join([Modules(R).Free(), Modules(R).Graded()])]
 
@@ -46,16 +46,16 @@ class _FreeGradedModules(Category_over_base_ring):
         def is_free_graded_module(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def generator_degrees(self) -> tuple[Integer, ...]: ...
 
-        @abstract_method
+        @abstractmethod
         def basis(self, degree: Integer | None = None) -> ModuleBasis: ...
 
-        @abstract_method
+        @abstractmethod
         def suspension(self, t: Integer = 1) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def hom(
             self,
             codomain: RModule,
@@ -67,5 +67,3 @@ class _FreeGradedModules(Category_over_base_ring):
         ) -> RModuleMorphism: ...
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...

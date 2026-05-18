@@ -8,7 +8,7 @@ exists.
 
 The operative staged-program source is `GOAL.md`. Do not mirror the staged program as a
 tracker feature; active tracker cards start at concrete deliverable features under
-`plans/features/`.
+`.agents/plans/features/`.
 
 ## Active phase
 
@@ -16,25 +16,30 @@ The repo is currently in the spec phase.
 
 Current phase plan:
 
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-PROGRAM/PLAN-CATEGORY-SPEC-PROGRAM.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-FOUNDATION-KERNEL/PLAN-CATEGORY-FOUNDATION-KERNEL.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.md`
-- `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION.md`
-- `plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md`
-- `plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SPEC-CORE-VERTICAL-SLICE/PLAN-SPEC-CORE-VERTICAL-SLICE.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-PROGRAM/PLAN-CATEGORY-SPEC-PROGRAM.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-FOUNDATION-KERNEL/PLAN-CATEGORY-FOUNDATION-KERNEL.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER/PLAN-STATIC-CATEGORY-REFINEMENT-ORDER.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION/PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION/PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION.md`
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION/PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION.md`
+- `.agents/plans/features/FEATURE-MODULES-WITH-FORMS-AND-LATTICES/FEATURE-MODULES-WITH-FORMS-AND-LATTICES.md`
+- `.agents/plans/features/FEATURE-GEOMETRY-CATEGORY-INTERFACES/FEATURE-GEOMETRY-CATEGORY-INTERFACES.md`
 
 Primary work:
 
+- Execute the approved spec-core vertical slice: typed obligation/provider/witness
+  reports for `GF(5)^3`, `ZZ^2`, and a missing-obligation claimant.
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
   with forms, lattices, and later scheme/variety interfaces.
 - Research Sage and open-source backend capabilities needed to support those specs.
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
+- Treat broad category expansion, global QC cleanup, and broad smoke recovery as
+  non-goals unless they directly change the active slice reports.
 
 Blocked by default:
 

@@ -4,7 +4,7 @@ This file is a non-authoritative inbox for tangential discoveries that need
 investigation before they can become real Nimbalyst cards.
 
 Do not use this file as an outstanding-work inventory, kanban lane, sprint plan, or
-execution queue. Convert clear work into tracked files under `plans/features/`.
+execution queue. Convert clear work into tracked files under `.agents/plans/features/`.
 
 ## Inbox
 

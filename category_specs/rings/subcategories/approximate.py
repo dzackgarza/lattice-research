@@ -2,9 +2,9 @@ r"""Approximate rings with explicit precision control."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
-from sage.misc.abstract_method import abstract_method
 from sage.rings.abc import ComplexBallField as SageComplexBallField
 from sage.rings.abc import ComplexDoubleField as SageComplexDoubleField
 from sage.rings.abc import ComplexField as SageComplexField
@@ -16,6 +16,7 @@ from sage.rings.abc import RealIntervalField as SageRealIntervalField
 from sage.rings.padics.generic_nodes import pAdicFieldGeneric, pAdicRingGeneric
 
 from ...cat import Category, Category_singleton
+from ..homsets import _RingHomomorphisms
 
 if TYPE_CHECKING:
     from ...types import Integer, Ring
@@ -61,7 +62,7 @@ class ApproximateRingsCategory(Category_singleton):
         )
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def change_precision(
             self, precision: Integer, precision_type: str | None = None
         ) -> Ring:
@@ -70,9 +71,8 @@ class ApproximateRingsCategory(Category_singleton):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 ApproximateRingsObject = ApproximateRingsCategory.ParentMethods
 ApproximateRingsElement = ApproximateRingsCategory.ElementMethods
-ApproximateRingsMorphism = ApproximateRingsCategory.MorphismMethods
+ApproximateRingsMorphism = _RingHomomorphisms

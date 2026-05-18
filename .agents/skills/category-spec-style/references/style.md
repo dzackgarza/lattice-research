@@ -49,6 +49,83 @@ spec structure. It preserves style and compliance material extracted from `AGENT
 
 ## Type System Rules
 
+- **Type Signatures Are Proof Obligations**: A type annotation, type alias, overload,
+  or cast is a claim about the mathematical object being expressed. It is not a
+  comment for mypy and not a local escape hatch. Every typing change must be checked
+  against the design philosophy before editing:
+  - Does this make the mathematical structure, owner, codomain, or hypothesis more
+    explicit?
+  - Does this preserve the smallest readable mathematical surface, without adding
+    software-engineering boilerplate around a correct category expression?
+  - Is the type checker surfacing a real source defect that implementers downstream
+    should see, such as a missing abstract obligation, wrong owner, missing named
+    mathematical type, invalid constructor input, or unsourced broad codomain?
+  - Or is the code conceptually right while the checker lacks Sage/category knowledge,
+    such as dynamic inheritance, method-container projection, `_with_axiom`,
+    `category_of`, `refine_category`, `LazyImport`, or `@classcall_private`?
+
+  If the error is caused by missing static knowledge of correct Sage mathematics, the
+  required fix is to teach the checker through the plugin, global QC config, generated
+  stubs, or a tracked static-surface task. Do not scatter `cast(Category, ...)`,
+  `cast(Ring, ...)`, `cast(Any, ...)`, or equivalent local assertions around already
+  valid category selectors merely to reduce a mypy count. A local cast is allowed only
+  at a genuinely untyped interop boundary or a documented narrow refinement where the
+  code needs a stricter mathematical type than the source API can express, and the
+  task card must state the exact checker error, why the code is mathematically correct,
+  and why no plugin/static-surface fix is the right owner.
+- **Casting Is a Red Flag**: Treat casts as evidence requiring review, not as routine
+  typing hygiene. A single isolated cast can be valid at a true Sage interop boundary,
+  at a constructor gate that has just validated raw data, or at a narrow
+  override-and-promote point where spec-level code combines inherited methods whose
+  mathematical contracts guarantee a more structured result. Non-isolated casts, a
+  repeated casting pattern, or casts around ordinary category selectors usually signal
+  QC-silencing or code contortion.
+
+  Before accepting a cast inside a spec implementation, decide whether the spec is
+  doing too much implementation work. If the operation is a trivial combination of
+  methods/properties guaranteed by the subcategory hierarchy, the better design may be
+  to leave the implementation to the downstream object that must override the relevant
+  ABCs anyway, so the type work lives at the real implementation boundary. Another
+  possible owner is QC tooling: the checker may need to learn that inherited specs are
+  promoted to objects in the current category, rather than forcing every local spec
+  body to restate that promotion by cast. These are decision points. Record the choice
+  as source-correct implementation placement, a narrow documented promotion exception,
+  or a dedicated QC-tooling/static-model task.
+- **Type-Checker Tension Is Expected**: Static type checkers encode ordinary software
+  subtype rules, while this project is specifying mathematical categories and
+  dynamically inherited implementations. Mathematical obligations are not identical to
+  software substitutability obligations. A square is a rectangle, a group is a set, and
+  a subcategory object must satisfy upstream obligations; any method that works on the
+  underlying set should be available to a group when the hypotheses are met. But a
+  refined method in a subcategory may intentionally restrict inputs and strengthen
+  outputs: if `A' <= A`, `B' <= B`, and `F: A -> B`, a mathematically correct
+  restriction may have type `F': A' -> B'`. That can conflict with ordinary function
+  variance or Liskov-style method interchangeability even when it is the correct
+  category-theoretic surface. Treat those conflicts as classification points, not as
+  automatic permission to cast.
+
+  The intended architecture also depends on dynamic inheritance of specs and, later,
+  implementations. A new subcategory should be able to declare its position in the
+  category graph and receive upstream obligations, tests, and canonical implementations
+  where applicable without explicit subclassing, trivial re-call wrappers, or knowledge
+  of the implementation source tree. Aggregate surfaces such as `Cat` and category
+  `Constructors()` should provide discoverable, opinionated entry points and
+  implementation-provider registration. For example, a module `R^n` has an underlying
+  set recognized as `R x ... x R`; if `R` is countable and has an enumeration, an
+  upstream provider should eventually be able to construct product enumeration once
+  and make `R^n` enumerable when the registered implementations integrate correctly.
+
+  Therefore, when mypy or another checker objects to a category method, ask first
+  whether the objection exposes a real mathematical/spec defect or whether the checker
+  lacks the project's category/provider model. In the second case, the tracked fix is
+  a dedicated plugin, generated-stub, static-surface, global-QC, or focused-reproducer
+  task that teaches the checker the intended Sage mathematics and makes future QC
+  enforce the convention. Do not record these as "expected" failures to ignore, and do
+  not silence them locally. Replacing the mathematical surface with explicit wrappers,
+  local casts, or provider subclassing merely to satisfy software subtype rules is
+  design drift. QC-zero is not a license to brutalize the codebase into warning-free
+  shape; it is a requirement that either the source expresses the mathematics correctly
+  or the QC tools are improved until they can enforce the correct convention.
 - **No Duck-Typing**: We do not "believe" in duck-typing in mathematical code, or
   variadic signatures, including Sage-interop surfaces.
   Prefer explicit types and signatures everywhere. Duck-typing is a runtime concern:
@@ -314,7 +391,7 @@ The grounding record must name:
   independent of choices or equal to another notion;
 - the migration consequence for any old Sage/project surface.
 
-Migrations from old `plans/todo.md`, deleted triage files, smoke output, inline cards,
+Migrations from old `.agents/plans/todo.md`, deleted triage files, smoke output, inline cards,
 or user-chat summaries preserve provenance, but they are not definition authority. A
 source line saying "move divisibility to X" is not enough to specify what
 `divisibility` means, whether it is choice-independent, what object it returns, or
@@ -637,7 +714,7 @@ owning layer before editing locally.
     before accepting any class manipulation.
 - **Explicit provider subclassing inside category specs**:
   - What makes it a red flag: a nested `ParentMethods`, `ElementMethods`,
-    `MorphismMethods`, `SubcategoryMethods`, or construction-specific method provider
+    Hom-category `ElementMethods`, `SubcategoryMethods`, or construction-specific method provider
     explicitly subclasses another provider class, helper class, or mixin. Sage treats
     these nested classes as flat method providers and builds the actual generated-class
     inheritance from `super_categories()` through `_make_named_class`.
@@ -761,7 +838,7 @@ owning layer before editing locally.
 
 **Explicit Method Surfaces**:
 Each subcategory MUST explicitly state its `ParentMethods`, `ElementMethods`,
-`MorphismMethods`, and `SubcategoryMethods` classes (as applicable).
+Hom-category refinements, and `SubcategoryMethods` classes (as applicable).
 To document the full surface inherited from supercategories and facilitate future
 refactoring, every subcategory must list **ALL methods inherited that it can
 override**.
@@ -811,8 +888,8 @@ Permitted concrete bodies on category and subcategory surfaces include:
 Each top-level category (`Sets`, `Rings`, `Modules`, etc.)
 is defined in its subtree's `__init__.py`. That file defines exactly:
 
-- Private method surface classes: `_XParentMethods`, `_XElementMethods`,
-  `_XMorphismMethods`
+- Private method surface classes: `_XParentMethods`, `_XElementMethods`, and
+  `_XHomElementMethods` when a Hom-category element surface is needed.
 - The category class itself, which must include:
   - A `__contains__` predicate implemented with `match/case`
   - A `Constructors` inner class (see below)
@@ -1083,7 +1160,7 @@ category_specs/
 └── <subtree>/            # e.g. sets/, rings/, modules/, algebras/, posets/, topological_spaces/
     ├── AGENTS.md         # subtree goals and task list
     ├── __init__.py       # defines category, ParentMethods, ElementMethods,
-    │                     # MorphismMethods, Constructors; imports from subcategories/
+    │                     # Constructors; imports from subcategories/
     ├── homsets.py        # subtree-specific HomCategory/EndCategory/AutCategory refinements
     ├── subcategories/    # one .py file per mathematical subcategory (no __init__.py)
     │   ├── finite.py
@@ -1130,7 +1207,7 @@ category_specs/
   still places the category surface by mathematical notion.
 
 - If a subcategory introduces a genuinely independent and complex method surface (new
-  `ParentMethods`, `ElementMethods`, `MorphismMethods`), promote it to its own top-level
+  `ParentMethods`, `ElementMethods`, or Hom-category element methods), promote it to its own top-level
   subtree rather than burying it.
   E.g. `lattices/` and `algebras/` are top-level, not nested inside
   `modules/subcategories/`.
@@ -1142,15 +1219,21 @@ these technical requirements:
 
 1.  **Direct Extension**: Every implementation must extend a class that exists as a
     spec file in the `subcategories/` hierarchy.
-2.  **Completeness**: Implement ALL `@abstract_method` declarations from the spec
+2.  **Completeness**: Implement ALL `@abstractmethod` declarations from the spec
     and any parent specs.
-3.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
+3.  **No Sage abstract_method**: `@abstractmethod` from `abc` is the only acceptable
+    abstract method decorator. `from sage.misc.abstract_method import abstract_method`
+    is banned — it was cargo-culted from Sage's category code and provides no
+    functionality that `abc.abstractmethod` doesn't. `category_specs/utils.py` is the
+    sole file that imports `AbstractMethod` (the class, for isinstance checks in the
+    validation machinery) — do not touch that import.
+4.  **Pydantic Only**: Use **Pydantic ONLY** for data modeling and state management.
     `dataclasses`, raw classes, or other modeling libraries are banned.
-4.  **Classmethod Constructors**: Use `classmethod` constructors for all object
+5.  **Classmethod Constructors**: Use `classmethod` constructors for all object
     creation (e.g., `MyImpl.from_data(...)`).
-5.  **Post-init Validation**: Use a **single post-init validator**
+6.  **Post-init Validation**: Use a **single post-init validator**
     (`model_post_init` in Pydantic v2) for all state validation after construction.
-6.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
+7.  **Constructor Collectors**: `Constructors` is a simple opt-in collection class on
     selected category surfaces. It is not a category, not a functorial construction,
     and not a refinement target. The declaration is the existence of an explicit
     nested `Constructors` class on a category object; do not add a separate public
@@ -1159,7 +1242,7 @@ these technical requirements:
     and readability, rather than on deeply nested subcategories. Do not add assertion
     guards or other runtime enforcement whose only purpose is to prove that a
     constructor collector is top-level.
-7.  **Constructor Collection**: The intended public surface is the canonical collection
+8.  **Constructor Collection**: The intended public surface is the canonical collection
     exposed directly from `Cat().Constructors()`: Cat backend code observes category
     objects, collects methods under each explicit `C.Constructors`, and exposes
     prefixed forwarding methods such as `C_x_y_z`. There is no public
@@ -1167,7 +1250,7 @@ these technical requirements:
     generic constructor names: prefer `C.Constructors().from_xyz(...)`, which Cat
     exposes as `cat_prefix_from_xyz(...)`, rather than
     `C.Constructors().category_from_xyz(...)`.
-8.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
+9.  **No Subcategory Constructor Namespaces**: Subcategories are refinement targets and
     method owners, not constructor namespaces. Do not add or propose constructor paths
     such as `Algebras(k).FiniteDimensional().WithBasis().Constructors()` merely because
     Sage has a constructor family or because an implementation can refine into that
@@ -1212,8 +1295,9 @@ Never destructively replace or monkey-patch Sage internals.
 
 ## Category Structure
 
-- Every category exposes method surfaces via inner classes: `ParentMethods`,
-  `ElementMethods`, `MorphismMethods`. All abstract methods belong in one of these.
+- Every object category exposes object and element method surfaces via inner classes:
+  `ParentMethods` and `ElementMethods`. Morphism abstract methods belong on the
+  relevant Hom-category `ElementMethods`.
 - Every category exposes a `Constructors()` sub-namespace
   (e.g. `Sets().Constructors()`, `Rings().Constructors()`,
   `Modules(R).Constructors()`) for all Sage constructor entry points known to that
@@ -1268,19 +1352,20 @@ Each subtree maintains a `docs/` folder with two canonical files:
 
 ## Method Surface Classes
 
-For top-level categories, `ParentMethods`, `ElementMethods`, and `MorphismMethods` must
-be factored into named private classes and assigned, not defined inline.
+For top-level categories, `ParentMethods` and `ElementMethods` must be factored into
+named private classes and assigned, not defined inline.
 The names must be mathematically explicit:
 - `_SetObjectMethods` (not `ParentMethods`) — methods on objects in `Sets()`
 - `_SetElementMethods` (not `ElementMethods`) — methods on elements of sets
-- `_SetMorphismMethods` (not `MorphismMethods`) — methods on morphisms between sets
+- `_SetMorphismMethods` is banned. Methods on morphisms between objects of `Sets()`
+  belong on `Sets().HomCategory().ElementMethods`, because morphisms are elements of
+  Hom objects, not elements or morphisms of the object category itself.
 
 These are then assigned inside the category:
 ```python
 class Sets:
     ParentMethods = _SetObjectMethods
     ElementMethods = _SetElementMethods
-    MorphismMethods = _SetMorphismMethods
 ```
 
 This is self-documenting: the class name explicitly states what the methods are for.
@@ -1326,9 +1411,10 @@ splicing.
 
 - All methods must be defined at the **highest category** for which they are universally
   well-defined.
-- Every subcategory should declare the method-surface entry points it owns:
-  `ParentMethods`, `ElementMethods`, `MorphismMethods`, and the Hom/End/Aut
-  subcategory overrides when those surfaces exist.
+- Every subcategory should declare the object and element method-surface entry points
+  it owns: `ParentMethods`, `ElementMethods`, and the Hom/End/Aut subcategory
+  overrides when those surfaces exist. Do not declare `MorphismMethods`; true morphism
+  methods are Hom-category element methods.
 - A lower category may override a universal method surface to specialize the
   mathematics, refine codomains, expose enriched structure, or declare extra
   supercategories. For example, an `R`-module hom category may record that the category

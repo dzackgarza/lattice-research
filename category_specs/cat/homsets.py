@@ -7,47 +7,48 @@ declares the category-spec surface that will wrap that machinery.
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import Any, final, override
 
 from sage.categories.functor import Functor
 from sage.categories.pushout import ConstructionFunctor
-from sage.misc.abstract_method import abstract_method
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import HomCategoryOf
-from . import Category
+from ..homsets import (
+    HomCategoryOf,
+    UniversalHomElementMethods,
+    UniversalHomObjectMethods,
+)
+from .base_category_types import Category
 
 
-class _CatHomCategoryObjectMethods:
-    @abstract_method
+class _CatHomCategoryObjectMethods(UniversalHomObjectMethods):
+    @abstractmethod
     def __call__(self, functor: Functor) -> Functor:
         r"""Coerce a Sage functor into this ``Cat()`` hom object."""
         del functor
         ...
 
-    @override
-    @abstract_method
+    @abstractmethod
     def __contains__(self, functor: Any) -> bool:
         r"""Return whether ``functor`` is an element of this functor hom object."""
-        del functor
         ...
 
 
-class _CatFunctorMethods:
-    @abstract_method
+class _CatFunctorMethods(UniversalHomElementMethods):
+    @abstractmethod
     def __call__(self, category: Category) -> Category:
         r"""Evaluate this functor on an object of its domain category."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def _coerce_into_domain(self, category: Category) -> Category: ...
 
-    @abstract_method
+    @abstractmethod
     def _apply_functor(self, category: Category) -> Category: ...
 
-    @abstract_method
+    @abstractmethod
     def _apply_functor_to_morphism(self, functor: Functor) -> Functor:
-        del functor
         ...
 
 
@@ -62,27 +63,27 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
 
     coercion_reversed: bool = False
 
-    @abstract_method
+    @abstractmethod
     def pushout(self, other: ConstructionFunctor) -> ConstructionFunctor:
         r"""Return the pushout construction functor with ``other`` in ``Cat()``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def merge(self, other: ConstructionFunctor) -> ConstructionFunctor | None:
         r"""Return the merged construction functor with ``other`` in ``Cat()``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def commutes(self, other: ConstructionFunctor) -> bool:
         r"""Return whether this construction functor commutes with ``other``."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def expand(self) -> list[ConstructionFunctor]:
         r"""Return the component construction functors represented by this functor."""
         ...
 
-    @abstract_method
+    @abstractmethod
     def common_base(
         self,
         other_functor: ConstructionFunctor,
@@ -92,7 +93,6 @@ class _CatConstructionFunctorMethods(_CatFunctorMethods):
         r"""Return the common base data for this construction and
         ``other_functor``.
         """
-        del other_functor, self_bases, other_bases
         ...
 
 
@@ -121,13 +121,12 @@ class CatHomCategory(HomCategoryOf):
     @override
     @final
     def extra_super_categories(self) -> list[Category]:
-        r"""Return the generic hom-category surface refined by Cat functors."""
+        r"""Return Sage's supercategories refined by Cat functor semantics."""
         return [HomCategoryOf(self.base_category())]
 
     ParentMethods = _CatHomCategoryObjectMethods
     ElementMethods = _CatFunctorMethods
 
-    class MorphismMethods: ...
 
     ConstructionFunctorMethods = _CatConstructionFunctorMethods
     # Sage axiom interop hook for _with_axiom("Endset").

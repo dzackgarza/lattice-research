@@ -2,10 +2,12 @@ r"""Modules with a specified basis."""
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, final, override
+from abc import abstractmethod
+from collections.abc import Callable, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.misc.abstract_method import abstract_method
+from sage.categories.category import Category
+from sage.sets.family import AbstractFamily
 
 from ...cat import CategoryWithAxiom_over_base_ring
 from ...homsets import HomCategoryConstruction
@@ -35,7 +37,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [self.base_category().Free()]
 
     @override
@@ -45,7 +47,7 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
 
     class SubcategoryMethods:
         @final
-        def WithOrderedBasis(self):
+        def WithOrderedBasis(self) -> Category:
             return self.base_category().WithOrderedBasis()
 
     class ParentMethods:
@@ -54,37 +56,40 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         def has_basis(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def basis(self) -> ModuleBasis: ...
 
         @final
-        def basis_index_set(self):
-            return self.basis().keys()
+        def basis_index_set(self) -> Sequence[CategoryElement]:
+            basis = self.basis()
+            if isinstance(basis, AbstractFamily):
+                return cast("Sequence[CategoryElement]", basis.keys())
+            if isinstance(basis, Mapping):
+                return cast("Sequence[CategoryElement]", tuple(basis.keys()))
+            return cast("Sequence[CategoryElement]", tuple(range(len(basis))))
 
-        @abstract_method
+        @abstractmethod
         def monomial(self, index: CategoryElement) -> RModuleElement:
             r"""Return the basis element indexed by ``index``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def term(
             self, index: CategoryElement, coeff: RingElement | None = None
         ) -> RModuleElement:
             r"""Return ``coeff`` times the basis element indexed by ``index``."""
-            del coeff
             ...
 
-        @abstract_method
+        @abstractmethod
         def linear_combination_of_basis(
             self,
             terms: dict[CategoryElement, RingElement]
             | Sequence[tuple[CategoryElement, RingElement]],
         ) -> RModuleElement:
             r"""Return the finite linear combination of basis terms."""
-            del terms
             ...
 
-        @abstract_method
+        @abstractmethod
         def echelon_form(
             self,
             elements: Sequence[RModuleElement],
@@ -93,48 +98,47 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
             | Callable[[CategoryElement], Integer | str]
             | None = None,
         ) -> list[RModuleElement]:
-            del row_reduced
             ...
 
-        @abstract_method
+        @abstractmethod
         def reduce(self, x: RModuleElement) -> RModuleElement: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def monomial_coefficients(
             self, copy: bool = True
         ) -> dict[CategoryElement, RingElement]:
             r"""Return the finite coefficient map in the parent's basis."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def coefficient(self, index: CategoryElement) -> RingElement:
             r"""Return the coefficient of the basis element indexed by ``index``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def support(self) -> list[CategoryElement]:
             r"""Return the finite basis support of this element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def monomials(self) -> list[RModuleElement]:
             r"""Return the basis monomials appearing with nonzero coefficient."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def terms(self) -> list[RModuleElement]:
             r"""Return the nonzero scalar basis terms of this element."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def coefficients(self) -> list[RingElement]:
             r"""Return the nonzero coefficients in the basis expansion."""
             ...
 
     class HomCategory(HomCategoryConstruction):
         class ParentMethods:
-            @abstract_method
+            @abstractmethod
             def from_basis_map(
                 self, f: Callable[[CategoryElement], RModuleElement]
             ) -> RModuleMorphism:
@@ -142,14 +146,12 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
                 ...
 
         class ElementMethods:
-            @abstract_method
+            @abstractmethod
             def on_basis(self) -> Callable[[CategoryElement], RModuleElement]:
                 r"""Return the basis-index map determining this morphism."""
                 ...
 
-        class MorphismMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
@@ -162,7 +164,7 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
     @override
     @final
-    def extra_super_categories(self):
+    def extra_super_categories(self) -> list[Category]:
         return [
             self.base_category().WithBasis(),
             self.base_category().WithOrderedGeneratingSet(),
@@ -187,51 +189,48 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
         def user_basis(self) -> ModuleBasis:
             return self.basis()
 
-        @abstract_method
+        @abstractmethod
         def basis_matrix(self, ring: Ring | None = None) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def echelonized_basis(self) -> ModuleBasis: ...
 
-        @abstract_method
+        @abstractmethod
         def echelonized_basis_matrix(self) -> Matrix: ...
 
-        @abstract_method
+        @abstractmethod
         def coordinate_vector(
             self,
             v: RModuleElement | Sequence[RingElement],
             check: bool = True,
         ) -> RModuleElement | Sequence[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def coordinates(
             self, v: RModuleElement | Sequence[RingElement]
         ) -> RModuleElement | Sequence[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def from_vector(
             self,
             vector: RModuleElement | Sequence[RingElement],
             order: Sequence[CategoryElement] | None = None,
             coerce: bool = True,
         ) -> RModuleElement:
-            del coerce
             ...
 
-        @abstract_method
+        @abstractmethod
         def coordinate_module(self, V: RModule) -> RModule: ...
 
-        @abstract_method
+        @abstractmethod
         def matrix(self) -> Matrix: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def list(self) -> list[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def vector(self) -> RModuleElement | Sequence[RingElement]: ...
 
-        @abstract_method
+        @abstractmethod
         def degree(self) -> Integer: ...
-
-    class MorphismMethods: ...

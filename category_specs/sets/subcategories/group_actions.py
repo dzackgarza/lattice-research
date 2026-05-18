@@ -2,11 +2,11 @@ r"""Parameterized category of G-sets."""
 
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 from sage.categories.g_sets import GSets as SageGSets
-from sage.misc.abstract_method import abstract_method
 
 if TYPE_CHECKING:
     from ...types import Group, GroupElement, Set, SetElement, Subset
@@ -45,35 +45,33 @@ class _GSets(Category):
         return [self._base_category, SageGSets(self._acting_group)]
 
     class ParentMethods:
-        @abstract_method
+        @abstractmethod
         def acting_group(self) -> Group:
             r"""Return the group acting on this set."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def action(self, g: GroupElement, x: SetElement) -> SetElement:
             r"""Return the action of ``g`` on ``x``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def orbit(self, x: SetElement) -> Set:
             r"""Return the orbit of ``x`` under the acting group."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def stabilizer(self, x: SetElement) -> Group:
             r"""Return the stabilizer subgroup of ``x``."""
             ...
 
-        @abstract_method
+        @abstractmethod
         def fixed_points(self, subgroup: Group | None = None) -> Subset:
             r"""Return elements fixed by ``subgroup`` or by the full acting group."""
             ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def act_by(self, g: GroupElement) -> SetElement:
             r"""Return the result of acting on this element by ``g``."""
             ...
-
-    class MorphismMethods: ...

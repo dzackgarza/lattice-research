@@ -12,8 +12,9 @@ from sage.structure.parent import Parent
 PROJECT_MODULE_PREFIX = "category_specs."
 CATEGORY_DIAGNOSTIC_LOGGER_NAME = "category_specs.diagnostics"
 
-_FoldParent = TypeVar("_FoldParent")
+_FoldParent = TypeVar("_FoldParent", contravariant=True)
 _FoldElement = TypeVar("_FoldElement")
+_ParentT = TypeVar("_ParentT", bound=Parent)
 _CATEGORY_DIAGNOSTICS_ENABLED = False
 _CATEGORY_DIAGNOSTIC_LOGGER = logging.getLogger(CATEGORY_DIAGNOSTIC_LOGGER_NAME)
 _EMITTED_CATEGORY_DIAGNOSTICS: set[str] = set()
@@ -94,6 +95,15 @@ class _MissingFoldArgument: ...
 _MISSING_FOLD_ARGUMENT = _MissingFoldArgument()
 
 
+class _CategoryAxiomRefiner(Protocol):
+    def _with_axiom(self, axiom: str) -> Category: ...
+
+
+def with_axiom(category: object, axiom: str) -> Category:
+    r"""Return Sage's dynamic axiom refinement for ``category``."""
+    return cast(Category, cast(_CategoryAxiomRefiner, category)._with_axiom(axiom))
+
+
 def _fold_nonempty_binary_operation[FoldParent, FoldElement](
     operation: Callable[[FoldParent, FoldElement, FoldElement], FoldElement],
     parent: FoldParent,
@@ -121,10 +131,11 @@ def foldable_operation[FoldParent, FoldElement](
             assert isinstance(left_or_elements, Sequence), (
                 "sequence overload requires a finite sequence"
             )
+            sequence = cast(Sequence[FoldElement], left_or_elements)
             return _fold_nonempty_binary_operation(
                 operation,
                 parent,
-                left_or_elements,
+                sequence,
             )
         return operation(
             parent,
@@ -172,10 +183,10 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
 
 
 def refine_category(
-    X: Parent,
+    X: _ParentT,
     C: Category | Sequence[Category],
     test: bool = True,
-) -> Parent:
+) -> _ParentT:
     X._refine_category_(C)
     _validate_no_missing_abc_methods(X)
     if test:
@@ -215,9 +226,7 @@ def _run_smoke_statement_isolated(
         os.close(read_fd)
         failure = _run_smoke_statement(message, statement)
         payload = (
-            b""
-            if failure is None
-            else failure.encode("utf-8", "backslashreplace")
+            b"" if failure is None else failure.encode("utf-8", "backslashreplace")
         )
         try:
             _write_all(write_fd, payload)
@@ -250,8 +259,7 @@ def _run_smoke_statement_isolated(
             f"by signal {os.WTERMSIG(status)}"
         )
     return (
-        failure
-        or f"{message}: smoke statement child ended with wait status {status}"
+        failure or f"{message}: smoke statement child ended with wait status {status}"
     )
 
 

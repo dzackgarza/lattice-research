@@ -6,18 +6,26 @@ starts only at the named `Lattice` endpoint.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, final
+from abc import abstractmethod
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Protocol, TypeVar, cast, final
 
 from sage.categories.category import Category
-from sage.misc.abstract_method import abstract_method
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
+from ..utils import with_axiom
 from ..modules.subcategories.free import _FreeFiniteRank
+from .subcategories.free_bilinear import FreeBilinearModulesMorphism
+from .subcategories.with_forms import FormedModulesMorphism
+
+_F = TypeVar("_F", bound=Callable[..., object])
+_cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import (
+        Category as CategoryType,
         DiscriminantGroup,
         Lattice,
         OrthogonalGroup,
@@ -25,6 +33,10 @@ if TYPE_CHECKING:
         RModuleMorphism,
         SubModule,
     )
+
+
+class _BilinearForm(Protocol):
+    def b(self, v: RModuleElement, w: RModuleElement) -> RModuleElement: ...
 
 
 class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -37,17 +49,20 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("has_form",)
 
     class ParentMethods:
+        @abstractmethod
+        def category(self) -> CategoryType: ...
+
         @final
         def has_form(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_bilinear(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_quadratic(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def form(self) -> RModuleMorphism: ...
 
         @final
@@ -57,11 +72,10 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
             For ``M`` in a formed-module category ``C``, this is
             ``Aut_C(M) = {g in Aut_R(M) : form(gv, gw) = form(v, w)}``.
             """
-            return self.category().AutCategory().Of(self)
+            return cast("OrthogonalGroup", self.category().AutCategory().Of(self))
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     Bilinear = LazyImport(__name__, "FiniteRankFreeBilinearModulesCategory")
 
@@ -76,23 +90,26 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
     _defining_predicates = ("is_bilinear",)
 
     class ParentMethods:
+        @abstractmethod
+        def form(self) -> _BilinearForm: ...
+
         @final
         def is_bilinear(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_symmetric(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_alternating(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_nondegenerate(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_integral(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_rational(self) -> bool: ...
 
         @final
@@ -101,11 +118,8 @@ class FiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
-    Symmetric = LazyImport(
-        __name__, "SymmetricFiniteRankFreeBilinearModulesCategory"
-    )
+    Symmetric = LazyImport(__name__, "SymmetricFiniteRankFreeBilinearModulesCategory")
 
 
 class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -127,24 +141,23 @@ class SymmetricFiniteRankFreeBilinearModulesCategory(CategoryWithAxiom_over_base
         def is_symmetric(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def is_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_indefinite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_positive_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def is_negative_definite(self) -> bool: ...
 
-        @abstract_method
+        @abstractmethod
         def orthogonal_submodule_to(self, S: SubModule) -> SubModule: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     Nondegenerate = LazyImport(
         __name__, "NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory"
@@ -172,14 +185,13 @@ class NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
         def is_nondegenerate(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def radical(self) -> SubModule: ...
 
     class ElementMethods:
-        @abstract_method
+        @abstractmethod
         def is_anisotropic(self) -> bool: ...
 
-    class MorphismMethods: ...
 
     Integral = LazyImport(
         __name__, "IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory"
@@ -211,7 +223,7 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
         def is_rational(self) -> bool:
             return True
 
-        @abstract_method
+        @abstractmethod
         def dual_lattice(self) -> Lattice:
             r"""Return the metric-dual lattice ``L^\#``.
 
@@ -223,37 +235,34 @@ class IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory(
             """
             ...
 
-        @abstract_method
+        @abstractmethod
         def inclusion_morphism(self) -> RModuleMorphism: ...
 
-        @abstract_method
+        @abstractmethod
         def discriminant_group(self) -> DiscriminantGroup: ...
 
         @final
         def is_unimodular(self) -> bool:
             return self.discriminant_group().is_trivial()
 
-        @abstract_method
+        @abstractmethod
         def is_even(self) -> bool: ...
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
     class SubcategoryMethods:
-        @cached_method
+        @_cached_method
         @final
         def Lattice(self) -> Category:
-            return self._with_axiom("Lattice")
+            return with_axiom(self, "Lattice")
 
     Lattice = LazyImport("category_specs.lattices.chain", "LatticesCategory")
 
 
 FiniteRankFreeFormedModulesObject = FiniteRankFreeFormedModulesCategory.ParentMethods
 FiniteRankFreeFormedModulesElement = FiniteRankFreeFormedModulesCategory.ElementMethods
-FiniteRankFreeFormedModulesMorphism = (
-    FiniteRankFreeFormedModulesCategory.MorphismMethods
-)
+FiniteRankFreeFormedModulesMorphism = FormedModulesMorphism
 
 FiniteRankFreeBilinearModulesObject = (
     FiniteRankFreeBilinearModulesCategory.ParentMethods
@@ -261,9 +270,7 @@ FiniteRankFreeBilinearModulesObject = (
 FiniteRankFreeBilinearModulesElement = (
     FiniteRankFreeBilinearModulesCategory.ElementMethods
 )
-FiniteRankFreeBilinearModulesMorphism = (
-    FiniteRankFreeBilinearModulesCategory.MorphismMethods
-)
+FiniteRankFreeBilinearModulesMorphism = FreeBilinearModulesMorphism
 
 SymmetricFiniteRankFreeBilinearModulesObject = (
     SymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
@@ -271,9 +278,7 @@ SymmetricFiniteRankFreeBilinearModulesObject = (
 SymmetricFiniteRankFreeBilinearModulesElement = (
     SymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
 )
-SymmetricFiniteRankFreeBilinearModulesMorphism = (
-    SymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
-)
+SymmetricFiniteRankFreeBilinearModulesMorphism = FreeBilinearModulesMorphism
 
 NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ParentMethods
@@ -282,7 +287,7 @@ NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
     NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
 )
 NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
-    NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+    FreeBilinearModulesMorphism
 )
 
 IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
@@ -292,5 +297,5 @@ IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
     IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.ElementMethods
 )
 IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
-    IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory.MorphismMethods
+    FreeBilinearModulesMorphism
 )

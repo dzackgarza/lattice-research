@@ -3,7 +3,7 @@ r"""Countable set subcategories (countable, and finite/infinite countable)."""
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, cast, final, override
 
 from sage.categories.enumerated_sets import EnumeratedSets as SageEnumeratedSets
 from sage.categories.finite_enumerated_sets import (
@@ -52,13 +52,17 @@ class _CountableSets(CategoryWithAxiom):
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
-            return SageEnumeratedSets.ParentMethods.__iter__(self)
+            return cast(
+                "Iterator[SetElement]", SageEnumeratedSets.ParentMethods.__iter__(self)
+            )
 
         @override
         @final
         def __getitem__(self, i: Integer) -> SetElement:
             r"""Return the ``i``-th element in the chosen enumeration."""
-            return SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+            return cast(
+                "SetElement", SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+            )
 
         @override
         @final
@@ -70,7 +74,10 @@ class _CountableSets(CategoryWithAxiom):
         @final
         def cardinality(self) -> Cardinality:
             if self.is_finite():
-                return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
+                return cast(
+                    "Cardinality",
+                    SageFiniteEnumeratedSets.ParentMethods.cardinality(self),
+                )
 
             from sage.rings.infinity import infinity
 
@@ -79,27 +86,35 @@ class _CountableSets(CategoryWithAxiom):
         @override
         @final
         def is_empty(self) -> bool:
-            return SageEnumeratedSets.ParentMethods.is_empty(self)
+            return cast(bool, SageEnumeratedSets.ParentMethods.is_empty(self))
 
         @override
         @final
         def random_element(self) -> SetElement:
             if self.is_finite():
-                return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
-            return SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
+                return cast(
+                    "SetElement",
+                    SageFiniteEnumeratedSets.ParentMethods.random_element(self),
+                )
+            return cast(
+                "SetElement",
+                SageInfiniteEnumeratedSets.ParentMethods.random_element(self),
+            )
 
         @final
         def map(
             self, f: SetMorphism, name: str | None = None, *, is_injective: bool = True
         ) -> Set:
             r"""Return the image of this enumerated set under ``f``."""
-            return SageEnumeratedSets.ParentMethods.map(
-                self, f, name=name, is_injective=is_injective
+            return cast(
+                "Set",
+                SageEnumeratedSets.ParentMethods.map(
+                    self, f, name=name, is_injective=is_injective
+                ),
             )
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _FiniteCountableSets(CategoryWithAxiom):
@@ -129,11 +144,12 @@ class _FiniteCountableSets(CategoryWithAxiom):
         @override
         @final
         def random_element(self) -> SetElement:
-            return SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            return cast(
+                "SetElement", SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+            )
 
     class ElementMethods: ...
 
-    class MorphismMethods: ...
 
 
 class _InfiniteCountableSets(CategoryWithAxiom):
@@ -158,8 +174,9 @@ class _InfiniteCountableSets(CategoryWithAxiom):
         @override
         @final
         def random_element(self) -> SetElement:
-            return SageInfiniteEnumeratedSets.ParentMethods.random_element(self)
+            return cast(
+                "SetElement",
+                SageInfiniteEnumeratedSets.ParentMethods.random_element(self),
+            )
 
     class ElementMethods: ...
-
-    class MorphismMethods: ...
