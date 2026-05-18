@@ -291,6 +291,15 @@ class Posets(Category):
         """
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for poset constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                Posets(), owner_category="Posets()", id_prefix="posets"
+            )
+
+        @final
         def _raw_poset(
             self,
             data: Any,

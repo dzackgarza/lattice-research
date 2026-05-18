@@ -205,6 +205,17 @@ class TensorAlgebraComponents(Category_over_base_ring):
             return f"tensor algebra component constructors over {self.base_ring()}"
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for tensor-component constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self.category(),
+                owner_category=f"TensorAlgebraComponents({self.base_ring()})",
+                id_prefix="tensor_algebra_components",
+            )
+
+        @final
         def category(self) -> TensorAlgebraComponents:
             r"""Return the tensor-component category that owns these constructors."""
             return self._category

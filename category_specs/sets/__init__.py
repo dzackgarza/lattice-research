@@ -516,6 +516,15 @@ class Sets(Category_singleton):
         def __repr__(self) -> str:
             return "Sets constructors"
 
+        @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for set constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self._category, owner_category="Sets()", id_prefix="sets"
+            )
+
         @staticmethod
         def _set_partitions_categories() -> list[Category]:
             r"""Return project categories for fixed-base set-partition parents."""

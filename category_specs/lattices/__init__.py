@@ -96,6 +96,17 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return f"lattice constructors over {self.base_ring()}"
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for lattice constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self.category(),
+                owner_category=f"Lattices({self.base_ring()})",
+                id_prefix="lattices",
+            )
+
+        @final
         def category(self) -> LatticesCategory:
             return self._category
 

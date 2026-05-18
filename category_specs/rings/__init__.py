@@ -630,6 +630,17 @@ class Rings(Category_singleton):
         subcategories.
         """
 
+        _deferred_constructor_reasons = {
+            "ZqWithPrecisionCaps": (
+                "Installed Sage has no unramified Zq extension constructor for "
+                "split lattice relative/absolute precision caps."
+            ),
+            "QqWithPrecisionCaps": (
+                "Installed Sage has no unramified Qq extension constructor for "
+                "split lattice relative/absolute precision caps."
+            ),
+        }
+
         @final
         def __repr__(self) -> str:
             return "Sage ring constructors"

@@ -12,10 +12,21 @@ importlib.import_module("sage.all")
 importlib.import_module("category_specs")
 
 from category_specs.cat import Cat
+from category_specs.algebras import Algebras
+from category_specs.lattices import Lattices
 from category_specs.modules import Modules
+from category_specs.posets import Posets
 from category_specs.rings import Rings
+from category_specs.sets import Sets
 from category_specs.spec_core import ConstructorRegistry
-from sage.all import QQ
+from category_specs.tensor_algebra_components import TensorAlgebraComponents
+from category_specs.topological_spaces import TopologicalSpaces
+from sage.all import QQ, ZZ
+
+
+_CONSTRUCTOR_METADATA_NAMES = frozenset(
+    {"base_ring", "category", "names", "provenance"}
+)
 
 
 def _constructor_names(collector_type: type) -> list[str]:
@@ -25,6 +36,18 @@ def _constructor_names(collector_type: type) -> list[str]:
         if not name.startswith("_")
         and callable(getattr(collector_type, name, None))
         and name[0].isupper()
+    )
+
+
+def _public_constructor_methods(collector_type: type) -> tuple[str, ...]:
+    return tuple(
+        name
+        for name, value in collector_type.__dict__.items()
+        if not name.startswith("_")
+        and name not in _CONSTRUCTOR_METADATA_NAMES
+        and name.isidentifier()
+        and callable(value)
+        and not getattr(value, "_cat_constructor_generated_forwarder", False)
     )
 
 
@@ -69,10 +92,22 @@ def test_cat_constructor_forwarders_expose_rings_owner_route() -> None:
 def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     ring_registry = Rings().Constructors().provenance()
     module_registry = Modules(QQ).Constructors().provenance()
+    set_registry = Sets().Constructors().provenance()
+    algebra_registry = Algebras(QQ).Constructors().provenance()
+    poset_registry = Posets().Constructors().provenance()
+    topology_registry = TopologicalSpaces().Constructors().provenance()
+    tensor_registry = TensorAlgebraComponents(QQ).Constructors().provenance()
+    lattice_registry = Lattices(ZZ).Constructors().provenance()
     cat_registry = Cat().Constructors().provenance()
 
     assert isinstance(ring_registry, ConstructorRegistry)
     assert isinstance(module_registry, ConstructorRegistry)
+    assert isinstance(set_registry, ConstructorRegistry)
+    assert isinstance(algebra_registry, ConstructorRegistry)
+    assert isinstance(poset_registry, ConstructorRegistry)
+    assert isinstance(topology_registry, ConstructorRegistry)
+    assert isinstance(tensor_registry, ConstructorRegistry)
+    assert isinstance(lattice_registry, ConstructorRegistry)
     assert isinstance(cat_registry, ConstructorRegistry)
 
     ring_zz = ring_registry.constructor("rings.ZZ")
@@ -90,6 +125,37 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert free_module.method_name == "FreeModule"
     assert free_module.sage_entry_point.endswith("Modules._Constructors.FreeModule")
 
+    finite_set = set_registry.constructor("sets.FiniteEnumeratedSet")
+    assert finite_set.owner_category == "Sets()"
+    assert finite_set.method_name == "FiniteEnumeratedSet"
+
+    free_algebra = algebra_registry.constructor("algebras.free_algebra_from_set")
+    assert free_algebra.owner_category == f"Algebras({QQ})"
+    assert free_algebra.sage_source.endswith(
+        "Algebras._Constructors.free_algebra_from_set"
+    )
+
+    poset = poset_registry.constructor("posets.from_digraph")
+    assert poset.owner_category == "Posets()"
+    assert poset.method_name == "from_digraph"
+
+    tensor = tensor_registry.constructor("tensor_algebra_components.component_module")
+    assert tensor.owner_category == f"TensorAlgebraComponents({QQ})"
+    assert tensor.method_name == "component_module"
+
+    assert topology_registry.constructors == ()
+    assert lattice_registry.constructors == ()
+
+    assert [constructor.id for constructor in ring_registry.deferred()] == [
+        "rings.ZqWithPrecisionCaps",
+        "rings.QqWithPrecisionCaps",
+    ]
+    assert all(
+        "split lattice relative/absolute precision caps"
+        in constructor.deferred_reason
+        for constructor in ring_registry.deferred()
+    )
+
     cat_ring_zz = cat_registry.constructor("cat.rings.ZZ")
     assert cat_ring_zz.owner_category == "Rings()"
     assert cat_ring_zz.method_name == "rings_ZZ"
@@ -99,4 +165,50 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     )
     cat_free_module = cat_registry.constructor("cat.modules_rational_field.FreeModule")
     assert cat_free_module.method_name == "modules_rational_field_FreeModule"
+    assert cat_registry.constructor("cat.sets.FiniteEnumeratedSet").method_name == (
+        "sets_FiniteEnumeratedSet"
+    )
+    cat_free_algebra = cat_registry.constructor(
+        "cat.algebras_rational_field.free_algebra_from_set"
+    )
+    assert (
+        cat_free_algebra.method_name
+        == "algebras_rational_field_free_algebra_from_set"
+    )
+    assert cat_registry.constructor("cat.posets.from_digraph").method_name == (
+        "posets_from_digraph"
+    )
+    assert cat_registry.constructor(
+        "cat.tensor_algebra_components_rational_field.component_module"
+    ).method_name == "tensor_algebra_components_rational_field_component_module"
+    assert "cat.rings.QqWithPrecisionCaps" in [
+        constructor.id for constructor in cat_registry.deferred()
+    ]
     assert not cat_registry.has_constructor("cat.rings.provenance")
+
+
+def test_constructor_registries_cover_every_public_collector_method() -> None:
+    collectors = (
+        ("rings", Rings().Constructors()),
+        ("modules", Modules(QQ).Constructors()),
+        ("sets", Sets().Constructors()),
+        ("algebras", Algebras(QQ).Constructors()),
+        ("posets", Posets().Constructors()),
+        ("topological_spaces", TopologicalSpaces().Constructors()),
+        ("tensor_algebra_components", TensorAlgebraComponents(QQ).Constructors()),
+        ("lattices", Lattices(ZZ).Constructors()),
+    )
+
+    for prefix, collector in collectors:
+        registry = collector.provenance()
+        expected_ids = {
+            f"{prefix}.{method_name}"
+            for method_name in _public_constructor_methods(type(collector))
+        }
+        registry_ids = set(registry.constructor_ids)
+
+        assert registry_ids == expected_ids
+        assert all(
+            hasattr(type(collector), constructor.method_name)
+            for constructor in registry.constructors
+        )

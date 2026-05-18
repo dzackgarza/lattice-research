@@ -128,6 +128,40 @@ def test_constructor_registry_filters_by_obligation() -> None:
     )
 
 
+def test_constructor_registry_filters_deferred_constructor_records() -> None:
+    deferred = ConstructorSpec(
+        id="rings-q-adic-extension-lattice-cap",
+        owner_category="Rings()",
+        method_name="QqWithPrecisionCaps",
+        sage_entry_point="Rings._Constructors.QqWithPrecisionCaps",
+        sage_source="category_specs.rings.__init__",
+        target_category="Rings().CompleteDiscreteValuationField()",
+        target_refinement_route=("Rings()",),
+        status="deferred",
+        deferred_reason="Sage has no split lattice-cap extension route.",
+    )
+    registry = ConstructorRegistry(constructors=(_RING_ZZ, deferred))
+
+    assert registry.admitted() == (_RING_ZZ,)
+    assert registry.deferred() == (deferred,)
+    assert registry.constructor("rings-q-adic-extension-lattice-cap").status == (
+        "deferred"
+    )
+
+
+def test_constructor_spec_rejects_deferred_records_without_reasons() -> None:
+    with pytest.raises(ValueError):
+        ConstructorSpec(
+            id="rings-q-adic-extension-lattice-cap",
+            owner_category="Rings()",
+            method_name="QqWithPrecisionCaps",
+            sage_entry_point="Rings._Constructors.QqWithPrecisionCaps",
+            sage_source="category_specs.rings.__init__",
+            target_category="Rings().CompleteDiscreteValuationField()",
+            status="deferred",
+        )
+
+
 def test_constructor_registry_rejects_duplicate_ids() -> None:
     duplicate = ConstructorSpec(
         id="rings-zz",

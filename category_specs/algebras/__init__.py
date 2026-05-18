@@ -398,6 +398,17 @@ class Algebras(Category_module):
             self._category = category
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for algebra constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self.category(),
+                owner_category=f"Algebras({self.base_ring()})",
+                id_prefix="algebras",
+            )
+
+        @final
         def category(self) -> RAlgebra:
             r"""Return the algebra category whose constructors this object names."""
             return self._category

@@ -217,6 +217,17 @@ class TopologicalSpaces(CategoryWithAxiom):
         refined into this subtree.
         """
 
+        @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for topological-space constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                TopologicalSpaces(),
+                owner_category="TopologicalSpaces()",
+                id_prefix="topological_spaces",
+            )
+
     @_cached_method
     @final
     def Constructors(self) -> TopologicalSpaces._Constructors:
