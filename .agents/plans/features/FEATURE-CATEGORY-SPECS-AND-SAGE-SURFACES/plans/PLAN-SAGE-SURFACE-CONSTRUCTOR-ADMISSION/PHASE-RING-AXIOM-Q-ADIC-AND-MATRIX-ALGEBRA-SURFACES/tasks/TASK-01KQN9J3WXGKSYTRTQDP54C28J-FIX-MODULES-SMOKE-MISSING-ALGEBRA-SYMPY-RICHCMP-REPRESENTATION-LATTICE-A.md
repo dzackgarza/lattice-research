@@ -144,7 +144,7 @@ wrappers.
   `Modules` base class. `FreeGradedModules()` and `FinitelyPresentedGradedModules()`
   now report `is_graded()`. Re-running `just --justfile category_specs/justfile
   smoke-file modules/smoketest.sage` passes with no modules smoke failures. Status
-  moved to `needs-review`; this does not mark the card accepted or complete.
+  moved to `needs-agent-review`; this does not mark the card accepted or complete.
 
 ## Definition Grounding Rework
 

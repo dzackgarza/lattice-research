@@ -88,7 +88,7 @@ semilattice category introspection.
 ### Review - 2026-05-07
 
 Outcome: review found one stale smoke fixture and repaired it; card remains
-`needs-review` for fresh review and human acceptance.
+`needs-agent-review` for fresh review and human acceptance.
 
 - Current `posets/smoketest.sage` failed because the reusable `diamond_poset`
   fixture was a raw Sage `Poset(...)`, so project-only

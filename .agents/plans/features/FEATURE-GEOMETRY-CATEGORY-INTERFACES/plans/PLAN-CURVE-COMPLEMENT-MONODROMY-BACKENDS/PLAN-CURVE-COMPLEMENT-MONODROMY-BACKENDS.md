@@ -171,7 +171,7 @@ Otherwise:
 
 PASS.
 
-- Plan status is `needs-review` — appropriate; not prematurely accepted.
+- Plan status is `needs-agent-review` — appropriate; not prematurely accepted.
 - No exit criterion was relaxed, deleted, or replaced with weaker language compared to related plans in the repository.
 - The phase card has been independently 6-gate reviewed and passed — evidence of gatekeeping discipline.
 - The plan's metadata conforms to repository conventions (id matches filename, `trackerStatus.type: plan`, `parents` uses wiki-link syntax, `status` is a valid value).

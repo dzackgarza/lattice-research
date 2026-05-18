@@ -31,7 +31,7 @@ Use this skill for:
 
 Do NOT use this skill for:
 
-- Initial gate review of a `needs-review` card. That is the review kernel's job.
+- Initial gate review of a `needs-agent-review` card. That is the review kernel's job.
 - Plan approval. Plans are human-gated.
 - Proving mathematical correctness. That is `research-proof-auditing`.
 

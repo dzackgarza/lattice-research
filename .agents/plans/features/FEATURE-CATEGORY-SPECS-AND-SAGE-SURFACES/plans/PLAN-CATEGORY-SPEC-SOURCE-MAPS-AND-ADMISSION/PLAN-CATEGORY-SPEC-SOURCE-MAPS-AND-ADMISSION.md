@@ -190,7 +190,7 @@ No circular references detected in the DAG (plan → phase → tasks → specs, 
 
 #### G6 — No Weakening: PASS
 
-- Plan status is `needs-review` — not prematurely accepted.
+- Plan status is `needs-agent-review` — not prematurely accepted.
 - Success criteria use strong language: "must," "reject," "become," "every."
 - Acceptance criteria are in checkbox format — properly trackable.
 - No criterion has been relaxed, deleted, or replaced with weaker language.
@@ -204,6 +204,6 @@ No circular references detected in the DAG (plan → phase → tasks → specs, 
 
 #### Non-blocking Observations
 
-- The phase card status is `complete` while the plan card status is `needs-review`. The phase card's own 6-gate review log (2026-05-07) notes that both child tasks are complete but awaiting review. No inconsistency — the phase can be execution-complete while awaiting approval of the plan that owns it.
+- The phase card status is `complete` while the plan card status is `needs-agent-review`. The phase card's own 6-gate review log (2026-05-07) notes that both child tasks are complete but awaiting review. No inconsistency — the phase can be execution-complete while awaiting approval of the plan that owns it.
 - The plan's acceptance criteria checkbox 6 is slightly more detailed than the corresponding YAML success criterion. This is a clarification, not a weakening.
 - Recommendation: resolve the two blocking issues, then re-run gates. The plan's structure, scope, and criteria are otherwise sound.

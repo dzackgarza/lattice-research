@@ -57,7 +57,7 @@ This phase groups current cards that were previously attached directly to `PLAN-
 
 PASS.
 
-- Parent plan `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` exists at the expected path, is status `needs-review`, and lists this phase in its `phases` array (line 24).
+- Parent plan `PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS` exists at the expected path, is status `needs-agent-review`, and lists this phase in its `phases` array (line 24).
 - All five child tasks reference `PHASE-CURVE-COMPLEMENT-MONODROMY-BACKEND-RESEARCH` as their sole parent in `parents:`.
 - Each research task cites specific upstream sources (Sage RiemannSurface source at `/home/dzack/miniforge3/envs/sage/lib/python3.12/site-packages/sage/schemes/riemann_surfaces/riemann_surface.py`, ore_algebra clone at `/tmp/tmp.EtH8Hu3zIu/ore_algebra`, Noether-Lefschetz `foliation.lib`, Sirocco upstream README/source).
 - Each research task produced a tracked follow-up spec or decision card. All five referenced follow-up cards confirmed present:
@@ -121,11 +121,11 @@ PASS (with one noted self-reference).
 
 PASS WITH FINDINGS.
 
-- Phase status is `needs-review` — appropriate; not prematurely accepted.
+- Phase status is `needs-agent-review` — appropriate; not prematurely accepted.
 - No exit criterion was relaxed, deleted, or replaced with weaker language.
 - Three research tasks are in `needs-human-input` (not `complete`), which is correct — their review logs explicitly state "human approval remains required before marking the card complete."
-- The wrap-up task is `unstarted`, which is correct — its body states "Do NOT execute this task while sibling tasks are still in-progress or needs-review."
-- **Finding 1 (G6):** Three of four research tasks are in `needs-human-input` status. The wrap-up task gates on `in-progress` or `needs-review` statuses; `needs-human-input` is technically neither, but semantically these tasks are not complete. The wrap-up's gating language should explicitly include `needs-human-input` as a blocking status, or the research tasks should be normalized to `needs-review` to match the phase's convention.
+- The wrap-up task is `unstarted`, which is correct — its body states "Do NOT execute this task while sibling tasks are still in-progress or needs-agent-review."
+- **Finding 1 (G6):** Three of four research tasks are in `needs-human-input` status. The wrap-up task gates on `in-progress` or `needs-agent-review` statuses; `needs-human-input` is technically neither, but semantically these tasks are not complete. The wrap-up's gating language should explicitly include `needs-human-input` as a blocking status, or the research tasks should be normalized to `needs-agent-review` to match the phase's convention.
 - **Finding 2 (G3/G6):** The phase card lacks a `tasks:` array in its YAML frontmatter. Other phase cards in the repository (e.g., `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`) include this for machine enumeration. This is not a breaking defect but reduces DAG machine-readability.
 
 ---

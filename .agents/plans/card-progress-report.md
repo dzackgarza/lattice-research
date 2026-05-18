@@ -3,21 +3,21 @@
 ## Overall
 
 - Total cards: **319**
-- Completed cards: **250**
-- Overall progress: `[###################-----]  78.4%`
+- Completed cards: **251**
+- Overall progress: `[###################-----]  78.7%`
 - Active feature trees: **13**
 - Completed feature trees: **7**
 
 ## Counts By Type
 
-| Type | Total | Completed | In Progress | Needs Review | Needs Human Input | Blocked |
+| Type | Total | Completed | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 4 | 1 | 0 | 0 |
 | phase | 28 | 18 | 3 | 3 | 0 | 0 |
 | plan | 13 | 7 | 4 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 139 | 0 | 12 | 13 | 0 |
+| task | 176 | 140 | 0 | 12 | 13 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -33,7 +33,7 @@
 
 ## Feature Rollup
 
-| Feature | Progress | Done/Total | In Progress | Needs Review | Needs Human Input | Blocked |
+| Feature | Progress | Done/Total | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Geometry category interfaces | `[################] 100.0%` | 28/28 | 0 | 0 | 0 | 0 |
 | Historical discriminant and morphism recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[##############--]  87.3%` | 145/166 | 7 | 1 | 10 | 0 |
+| Category specs and Sage surface admission | `[##############--]  88.0%` | 146/166 | 7 | 1 | 10 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -62,17 +62,17 @@
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (`critical`, `revision-required`)
 - `phase` `PHASE-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
-- `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `needs-review`)
+- `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `needs-agent-review`)
 - `plan` `PLAN-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
-- `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (`critical`, `needs-review`)
+- `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (`critical`, `needs-agent-review`)
 - `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (`critical`, `needs-human-input`)
 - `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (`critical`, `needs-human-input`)
 - `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (`critical`, `needs-human-input`)
-- `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-review`)
-- `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-review`)
-- `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-review`)
-- `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-review`)
-- `task` `TASK-MYPY-PARSER`: Implement parse_method_container_fullname and is_sage_method_container (`high`, `needs-review`)
+- `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
+- `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-agent-review`)
+- `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
+- `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
+- `task` `TASK-MYPY-PARSER`: Implement parse_method_container_fullname and is_sage_method_container (`high`, `needs-agent-review`)
 
 ## High-Priority DAG-Gated Items
 
@@ -85,12 +85,12 @@
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: gated by `PLAN-SPEC-CORE-VERTICAL-SLICE` (`critical`, `in-progress`)
 - `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `in-progress`)
 - `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
-- `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: gated by `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL` (`critical`, `unstarted`)
 - `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: gated by `PLAN-SPEC-CORE-VERTICAL-SLICE`, `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT` (`critical`, `needs-human-input`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` (`critical`, `unstarted`)
 - `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: gated by `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION` (`critical`, `needs-human-input`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `PHASE-QC-BASIC-TYPING-HYGIENE`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
+- `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: gated by `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` (`critical`, `unstarted`)
 
 ## Blocked Items
 
@@ -98,6 +98,7 @@
 
 ## Most Recently Completed
 
+- 2026-05-18 `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (commit `8aca535`: fix: validate spec core report states)
 - 2026-05-17 `spec` `SPEC-MAPPING-ALGEBRAS`: Track algebras mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
 - 2026-05-17 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
 - 2026-05-17 `spec` `SPEC-MAPPING-HOMSETS`: Track homsets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
@@ -112,7 +113,6 @@
 - 2026-05-15 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning (commit `582e200`: chore: relocate planning workspace under agents)
 
 ## Notes
 

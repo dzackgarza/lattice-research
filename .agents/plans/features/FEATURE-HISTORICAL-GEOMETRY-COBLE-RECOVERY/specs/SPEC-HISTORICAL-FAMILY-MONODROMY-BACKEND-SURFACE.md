@@ -282,7 +282,7 @@ These boundaries are mathematically precise, actionable, and address the error m
 | Backend calls isolated and validated | `[x]` | The Backend Routes section (lines 104-123) isolates backend calls behind the result object, and the Verification Contract (lines 126-137) requires input/output validation. **PASS** |
 | Downstream Coble use records map from family to claim | `[x]` | Explicitly stated in lines 139-140: "Monodromy outputs are not Coble evidence until a downstream card names the family, map, degeneration, theorem, and object." **PASS** |
 
-Note: All four acceptance criteria are checked `[x]` while card status is `needs-review`. This follows the same pattern observed in `SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE` (which this spec depends on). The checks indicate the spec's own criteria are defined and internally consistent; the review itself is what gates the transition from `needs-review` to `complete`.
+Note: All four acceptance criteria are checked `[x]` while card status is `needs-agent-review`. This follows the same pattern observed in `SPEC-HISTORICAL-GEOMETRY-NOUN-SURFACE` (which this spec depends on). The checks indicate the spec's own criteria are defined and internally consistent; the review itself is what gates the transition from `needs-agent-review` to `complete`.
 
 ### Summary
 

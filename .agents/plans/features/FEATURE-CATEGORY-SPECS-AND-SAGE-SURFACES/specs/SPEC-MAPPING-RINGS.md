@@ -634,4 +634,4 @@ The spec is mathematically sound, source-grounded, and complete for its stated p
 
 Additionally, Ore polynomial ring constructor routes should be either added to the Constructor Namespace table or deferred with an explicit decision/task card.
 
-The card `status` should change from `needs-review` to `needs-decision-cards` (or remain `needs-review` until the decision cards are created and linked in `dependsOn`).
+The card `status` should change from `needs-agent-review` to `needs-decision-cards` (or remain `needs-agent-review` until the decision cards are created and linked in `dependsOn`).

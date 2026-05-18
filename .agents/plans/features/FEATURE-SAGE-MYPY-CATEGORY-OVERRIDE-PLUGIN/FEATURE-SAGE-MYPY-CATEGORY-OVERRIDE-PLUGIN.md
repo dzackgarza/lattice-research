@@ -7,7 +7,7 @@ dependsOn: []
 plans:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 title: Mypy plugin for Sage category method override checking
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build a Sage-specific mypy plugin that makes @override work for Sage''s dynamic
   category method system (ParentMethods, ElementMethods, MorphismMethods) without requiring

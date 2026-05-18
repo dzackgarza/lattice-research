@@ -72,7 +72,7 @@ package-surface risk of import hygiene or the broad mechanical footprint of `E50
 
 ### Evidence Refresh - 2026-05-07
 
-Outcome: `needs-review`; all card-local checks pass, and human acceptance is still
+Outcome: `needs-agent-review`; all card-local checks pass, and human acceptance is still
 required before completion.
 
 - `uvx --from ruff ruff check --select UP047 category_specs/utils.py` passed.

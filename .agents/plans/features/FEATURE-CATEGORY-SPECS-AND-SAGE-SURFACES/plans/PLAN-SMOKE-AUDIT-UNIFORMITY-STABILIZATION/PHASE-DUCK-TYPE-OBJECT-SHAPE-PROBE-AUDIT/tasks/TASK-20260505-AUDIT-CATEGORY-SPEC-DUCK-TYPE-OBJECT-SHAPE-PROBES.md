@@ -176,14 +176,14 @@ membership/subcategory predicates.
 - Recommended status is `revision-required`, not `blocked`: the failed review is
   fixable inside this leaf and does not exhaust the DAG frontier.
 - 2026-05-06 follow-up resolved the grounding gap by recording source anchors for each
-  disputed branch. The card is back in `needs-review`; it is not accepted or complete.
+  disputed branch. The card is back in `needs-agent-review`; it is not accepted or complete.
 - 2026-05-06 independent re-review failed Gate 1 again because
   `_SetObjectMethods._element_constructor_` still had an unclassified
   `hasattr(self, "element_class")` probe. This is fixable in-card, so the outcome is
   `revision-required`, not `blocked`.
 - 2026-05-06 follow-up resolved the second Gate 1 finding by recording Sage
   `Sets.ParentMethods._element_constructor_` and `Parent.element_class` as the source
-  boundary for that branch. The card is back in `needs-review`; it is not accepted or
+  boundary for that branch. The card is back in `needs-agent-review`; it is not accepted or
   complete.
 - 2026-05-06 independent re-review passed Gates 1-6. The reviewer confirmed that all
   known `getattr`/`hasattr`/private-slot probes are now classified or routed, including
@@ -238,7 +238,7 @@ membership/subcategory predicates.
   classifications are not yet source-grounded at probe/branch granularity.
 - 2026-05-06: Added probe/branch-level source grounding for the Cat axiom-wrapper
   boundary, the Sage `Parent`/`Sets()` membership boundary, and Sage
-  `ImageSubobject` backing storage. Moved the card back to `needs-review` for human
+  `ImageSubobject` backing storage. Moved the card back to `needs-agent-review` for human
   review. Spec-weakening review: this follow-up changed only this tracker card; it did
   not delete abstract methods, narrow smokes, remove constructor obligations, or move
   any spec surface.
@@ -248,4 +248,4 @@ membership/subcategory predicates.
   tracker card; it did not delete abstract methods, narrow smokes, remove constructor
   obligations, or move any spec surface.
 - 2026-05-06: Recorded the independent re-review pass. The card remains
-  `needs-review` pending human acceptance; it is not marked complete.
+  `needs-agent-review` pending human acceptance; it is not marked complete.

@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 dependsOn: []
 title: Sage introspection API
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build the introspection module that maps source-level method-container fullnames
   to Sage category instances, queries their dynamic parent_class/element_class/morphism_class

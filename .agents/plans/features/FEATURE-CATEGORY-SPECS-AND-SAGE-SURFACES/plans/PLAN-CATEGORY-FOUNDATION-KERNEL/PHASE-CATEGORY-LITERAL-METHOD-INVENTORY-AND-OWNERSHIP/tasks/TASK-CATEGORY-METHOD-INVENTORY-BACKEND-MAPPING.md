@@ -107,7 +107,7 @@ The seed rows include:
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including all abstract method
   rows from `.agents/memories/theory/backends/abstract-to-external-mapping.md`, additional group-action
   rows from the backend map, and a decision card for malformed source surfaces.
-  Moved this task to needs-review.
+  Moved this task to needs-agent-review.
 - 2026-05-06: Updated source provenance to the actual backend memory root and added
   the buildings, indefinite-isometry, foliation, and backend-index files to match the
   broadened source corpus.

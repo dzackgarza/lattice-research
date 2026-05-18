@@ -124,7 +124,7 @@ Do not execute before the parent phase plan is approved and prerequisite phase c
 ## Blocker
 
 - 2026-05-06: Path-local dependency blocker recorded from the Phase 0 dependency order.
-  This card depends on ModuleBaseRings, ideal-submodule refinement, and fraction quotient codomains. The fraction codomain path is in `needs-review`, while the ModuleBaseRings and ideal-submodule paths are blocked by the quotient-dispatch decision.
+  This card depends on ModuleBaseRings, ideal-submodule refinement, and fraction quotient codomains. The fraction codomain path is in `needs-agent-review`, while the ModuleBaseRings and ideal-submodule paths are blocked by the quotient-dispatch decision.
 - This is not a global blocker for the active goal; continue another approved active leaf
   outside this dependency chain while the prerequisite decision or prerequisite cards
   remain unresolved.

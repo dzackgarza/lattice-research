@@ -131,7 +131,7 @@ Phase scope: convert mapping docs → tracked specs; audit for completeness and 
 
 #### G6 — No Weakening
 
-- Phase status is `needs-review` — not prematurely accepted.
+- Phase status is `needs-agent-review` — not prematurely accepted.
 - Child tasks are both `complete` but explicitly marked "ready for review rather than acceptance."
 - No exit criterion was relaxed, deleted, or replaced with weaker language.
 - Success criteria are strongly worded ("every," "must," "reject," "become") — no hedging.

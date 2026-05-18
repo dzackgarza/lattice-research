@@ -214,7 +214,7 @@ and `_sage-qc-files` recipes now exclude `**/*.bak/**` directories, so this relo
 keeps vulture from scanning these source artifacts without losing them from git.
 
 The mining work (2026-05-04 through 2026-05-05) centralized the mathematical
-conventions into durable docs and skills, but this card remains `needs-review` until
+conventions into durable docs and skills, but this card remains `needs-agent-review` until
 the relocation and retention gate are reviewed. The retention gate stands: do not
 delete until lattice implementation recovers the relevant logic and user approves
 retirement.
@@ -242,7 +242,7 @@ Standing retention gate recorded: "Do not delete backup until lattice implementa
 
 **Gates passed:** Gates 1-6
 **Gates failed:** None
-**Outcome:** needs-review evidence ready for human approval; card not marked complete
+**Outcome:** needs-agent-review evidence ready for human approval; card not marked complete
 
 #### Evidence
 

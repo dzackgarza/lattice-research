@@ -147,7 +147,7 @@ placement cleanup over local Ruff bypasses.
 ### Self-Review - 2026-05-07
 
 Outcome: revision was required, then fixed in scope. The card remains
-`needs-review` because independent review and human acceptance are separate gates.
+`needs-agent-review` because independent review and human acceptance are separate gates.
 
 Findings and resolution:
 

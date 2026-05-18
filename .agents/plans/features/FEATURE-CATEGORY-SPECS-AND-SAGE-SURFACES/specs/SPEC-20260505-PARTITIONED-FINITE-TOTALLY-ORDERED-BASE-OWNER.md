@@ -285,7 +285,7 @@ The SPEC-20260505-PARTITIONED-FINITE-TOTALLY-ORDERED-BASE-OWNER documents a math
 **Finding — Implementation incomplete:**
 The spec's Grounded Decision (lines 108-109) claims the owner is "implemented in `category_specs/sets/subcategories/partitioned.py` as `FiniteTotallyOrderedBasePartitionedSetsCategory`." This class does not exist in the current codebase. The `has_finite_totally_ordered_base_set()` method on `PartitionedSetsCategory.ParentMethods` is a stub that unconditionally returns `True`. The canonical mapping document (SPEC-MAPPING-SETS.md line 260) correctly documents the intended owner, but the implementation class and proper axiom refinement are pending. This is a downstream implementation task, not a spec defect. Acceptance criterion 3 states "The decision states whether this owner is an axiom... or a predicate-defined subobject route" — the spec correctly states the decision. The claim of *implementation* completeness in the work log (line 140-141) slightly overstates the actual code state.
 
-**All six gates pass.** The spec can advance from `needs-review` to a follow-up implementation task for the `FiniteTotallyOrderedBasePartitionedSetsCategory` class.
+**All six gates pass.** The spec can advance from `needs-agent-review` to a follow-up implementation task for the `FiniteTotallyOrderedBasePartitionedSetsCategory` class.
 
 ### Evidence Registry
 

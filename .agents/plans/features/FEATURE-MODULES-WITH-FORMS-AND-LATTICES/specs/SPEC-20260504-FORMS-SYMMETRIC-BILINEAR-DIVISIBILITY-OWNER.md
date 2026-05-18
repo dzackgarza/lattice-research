@@ -349,15 +349,15 @@ Unresolved issues are explicitly routed:
 | Issue | Routed to | Status |
 | --- | --- | --- |
 | Type alias fallout from divisibility relocation | `SPEC-01KQN9J3WKCASMD9XVMGT6JP8K-CENTRALIZE-REMAINING-CATEGORY-HIERARCHY-TYPE-ALIASES-IN-TYPES-PY` | Exists, status `complete` |
-| Hom/End/Aut work boundary | `PHASE-HOM-END-AUT-WORK-QUEUE` (dependsOn) | Exists, status `needs-review` |
+| Hom/End/Aut work boundary | `PHASE-HOM-END-AUT-WORK-QUEUE` (dependsOn) | Exists, status `needs-agent-review` |
 | Dual-object, TwistedForms work | Explicitly excluded from this card (lines 98-100) | Preserved as future scope |
 | Proof obligations for gcd/principal equivalences | Explicitly noted as requiring separate cards (lines 89-90) | Preserved as separate proof obligations |
 | Coordinate content = pairing-image equivalence | "Not admitted without a separate source-grounded card" (line 122-123) | Deferred to future proof card |
 
 **G5 Finding 1 (advisory):** The `PHASE-HOM-END-AUT-WORK-QUEUE` dependency
-card is a routing phase with status `needs-review`. It does not block this
+card is a routing phase with status `needs-agent-review`. It does not block this
 spec card from advancing to complete, but the spec card's status is also
-`needs-review`. The dependency is satisfied for spec purposes — this card
+`needs-agent-review`. The dependency is satisfied for spec purposes — this card
 corrects an ownership boundary that the Hom/End/Aut phase needs, not the
 other way around.
 

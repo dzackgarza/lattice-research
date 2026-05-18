@@ -128,7 +128,7 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
 
 **Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
 **Gates failed:** none
-**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-review`; human approval still required before completion
+**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-agent-review`; human approval still required before completion
 
 #### Gate 6 Resolution
 

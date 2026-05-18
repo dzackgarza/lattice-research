@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN]]'
 dependsOn: []
 title: Acceptance criteria for Sage mypy category override plugin
-status: needs-review
+status: needs-agent-review
 priority: high
 complexity: 80
 acceptanceCriteria:

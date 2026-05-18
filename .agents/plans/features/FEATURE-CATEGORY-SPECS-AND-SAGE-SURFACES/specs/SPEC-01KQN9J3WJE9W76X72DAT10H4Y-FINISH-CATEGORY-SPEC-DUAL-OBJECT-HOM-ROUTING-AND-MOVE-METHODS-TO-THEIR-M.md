@@ -155,7 +155,7 @@ Source provenance is documented:
   `[[PHASE-HOM-END-AUT-WORK-QUEUE]]` both verified present on disk.
 
 - Child leaf citations: 4 leaves listed in Split Outcome. Two verified present:
-  `SPEC-01KQN9J3WKCASMD9XVMGT6JP8K-centralize-...types.py` (needs-review, 130 lines)
+  `SPEC-01KQN9J3WKCASMD9XVMGT6JP8K-centralize-...types.py` (needs-agent-review, 130 lines)
   and `SPEC-01KQN9J3WM2ASPH06AKRJQ8G82-design...TwistedForms...` (unstarted, 139
   lines). Two are **missing from the filesystem**:
   - `spec_20260504_forms_symmetric_bilinear_divisibility_owner.md`
@@ -252,7 +252,7 @@ deleted, the Work Log should record the deletion and route the work to a new
 tracked card.
 
 The other two child leaves ARE present and well-formed:
-- `SPEC-01KQN9J3WKCASMD9XVMGT6JP8K` (type aliases, status: needs-review)
+- `SPEC-01KQN9J3WKCASMD9XVMGT6JP8K` (type aliases, status: needs-agent-review)
 - `SPEC-01KQN9J3WM2ASPH06AKRJQ8G82` (TwistedForms, status: unstarted)
 
 The card's dependsOn references `[[PHASE-HOM-END-AUT-WORK-QUEUE]]` which exists.

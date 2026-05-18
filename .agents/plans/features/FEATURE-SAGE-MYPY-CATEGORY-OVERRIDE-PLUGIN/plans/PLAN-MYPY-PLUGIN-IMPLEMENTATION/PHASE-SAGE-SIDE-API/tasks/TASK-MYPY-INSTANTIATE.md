@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-PARSER]]'
 title: Implement instantiate_category_from_source_path
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Given a parsed CategoryMethodContainer, instantiate the corresponding Sage category
   using an_instance() chaining. Handles singleton, nested (Homsets), and axiom (Finite) paths.

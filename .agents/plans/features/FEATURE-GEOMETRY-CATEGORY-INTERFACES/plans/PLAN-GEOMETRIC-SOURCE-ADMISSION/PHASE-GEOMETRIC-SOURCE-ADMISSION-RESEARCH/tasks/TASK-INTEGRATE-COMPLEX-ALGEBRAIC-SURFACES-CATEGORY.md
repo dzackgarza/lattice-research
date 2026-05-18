@@ -49,7 +49,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 ## Research Result
 
-Status: needs review. Complex algebraic surfaces are source-grounded as dimension-two complex varieties, with surface-specific divisor, Picard, Hodge, K3, Enriques, Coble, and period surfaces routed to stricter refinements. This card does not authorize implementation.
+Status: needs-agent-review. Complex algebraic surfaces are source-grounded as dimension-two complex varieties, with surface-specific divisor, Picard, Hodge, K3, Enriques, Coble, and period surfaces routed to stricter refinements. This card does not authorize implementation.
 
 ## Mathematical Definition
 

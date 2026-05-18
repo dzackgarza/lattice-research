@@ -132,7 +132,7 @@ deletion.
 ---
 
 ### G2 — Completeness: PASS
-- Full Nimbalyst tracker structure present: id, trackerStatus (type: spec), parents, dependsOn, title, status (`needs-review`), priority (`critical`), requirement, 5 acceptance criteria (all checked `[x]`), and tags.
+- Full Nimbalyst tracker structure present: id, trackerStatus (type: spec), parents, dependsOn, title, status (`needs-agent-review`), priority (`critical`), requirement, 5 acceptance criteria (all checked `[x]`), and tags.
 - Context section covers all five items required by the migration contract: (1) wrapper classification before deletion, (2) category graph ordering, (3) constructor routing discipline, (4) method ownership with hypothesis preservation, (5) deletion-as-last-step.
 - Source-Mining Contract provides 5 precise operational rules for the mapping pass: classification per wrapper, per-method signature recording, cross-subtree boundary respect, deletability criterion.
 - Dependencies And Boundaries section defines what to preserve and when to split new tracker items.
@@ -170,7 +170,7 @@ deletion.
 - `dependsOn`: `[[PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE]]` — correct prerequisite; the phase is `in-progress` and contains the scope from which this spec was migrated.
 - Plan DAG confirms both edges: `PHASE_MODULE_WRAPPER_MIGRATION_AND_CATEGORY_GRAPH_COVERAGE --> SPEC_01KQN9J3WNN6TDRX3X15GGJ3PN...` and `FEATURE_CATEGORY_SPECS_AND_SAGE_SURFACES --> SPEC_01KQN9J3WNN6TDRX3X15GGJ3PN...`.
 - The `category_specs/modules/docs/MAPPING.md` file correctly redirects to `SPEC-MAPPING-MODULES.md` (a separate spec for the mapping surface); this spec is about the wrapper migration mapping process, not the mapping surface itself — correct separation of concerns.
-- Status `needs-review` matches DAG representation.
+- Status `needs-agent-review` matches DAG representation.
 - Tags `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES` consistent with parent feature.
 - **Routing is correct.**
 
@@ -198,4 +198,4 @@ deletion.
 | G5 — Routing | PASS | Correct parent/dependsOn, DAG edges verified, separation from mapping-surface spec |
 | G6 — Preservation | PASS | Source path, validation commands, wrapper-name references preserved |
 
-**Overall verdict: PASS.** The spec is well-grounded, complete, mathematically sound, properly scoped, correctly routed, and preserves all necessary provenance. The `needs-review` status is appropriate for a human sign-off on the mapping completeness claim; the spec itself is ready for downstream consumption.
+**Overall verdict: PASS.** The spec is well-grounded, complete, mathematically sound, properly scoped, correctly routed, and preserves all necessary provenance. The `needs-agent-review` status is appropriate for a human sign-off on the mapping completeness claim; the spec itself is ready for downstream consumption.

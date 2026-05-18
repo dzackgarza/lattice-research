@@ -145,4 +145,4 @@ The seed rows include:
   set-partition, tensor-component, and geometry-facing candidate rows to
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Geometry rows are recorded as
   source-admission candidates rather than implementation permission. Moved this task to
-  needs-review.
+  needs-agent-review.

@@ -103,6 +103,6 @@ and category-specific downstream type defects. Those are later phases.
 - 2026-05-14: Opened by the callable-grounding source patch for
   `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`.
 - 2026-05-15: Corrected the false permission blocker. The three current
-  basic-phase children are `needs-review`; dispatch fresh-context review
+  basic-phase children are `needs-agent-review`; dispatch fresh-context review
   subagents under the review kernel before advancing this phase. This does not
   claim the phase is accepted or complete.

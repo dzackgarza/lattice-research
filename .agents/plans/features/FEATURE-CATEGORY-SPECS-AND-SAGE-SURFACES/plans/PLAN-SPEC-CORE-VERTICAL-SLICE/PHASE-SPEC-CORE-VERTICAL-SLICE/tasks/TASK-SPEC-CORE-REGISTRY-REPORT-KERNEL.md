@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-SPEC-CORE-VERTICAL-SLICE]]'
 dependsOn: []
 title: Create typed spec registry and report kernel
-status: needs-review
+status: complete
 priority: critical
 description: Add the minimal typed spec-core data layer for obligations, providers,
   construction witnesses, and reports needed by the vertical slice.
@@ -78,7 +78,7 @@ to a new package and should not change existing category behavior.
 - Created as the first executable leaf of the pivot plan.
 - Started implementation on branch `dzack/spec-core-vertical-slice-kernel`.
 - Added the spec-core report kernel and focused test, then moved the card to
-  `needs-review`.
+  `needs-agent-review`.
 - Validation evidence:
   - `python -m py_compile category_specs/spec_core/__init__.py
     category_specs/spec_core/reports.py tests/category_specs/test_spec_core_reports.py`
@@ -105,6 +105,8 @@ to a new package and should not change existing category behavior.
     card's explicit acceptance path, `category_specs/spec_core/`. Moving the package
     would fail the approved slice task and should be a separate repo-structure decision
     if the project wants to migrate category-spec code into `src/`.
+- Accepted after PR #3 was merged on 2026-05-18; the merged PR is the human gate for
+  this card, so its dependent vertical-slice task can start.
 
 ## Review Log
 
@@ -149,5 +151,5 @@ Reviewed in fresh context under the research review kernel.
   - Pass condition: restore plugin configuration and run focused typing check for
     `category_specs/spec_core/`.
 
-- Outcome: PASS, no blocking defects; status remains `needs-review` (complete pending human
+- Outcome: PASS, no blocking defects; status remains `needs-agent-review` (complete pending human
   acceptance).

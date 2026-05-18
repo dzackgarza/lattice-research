@@ -62,7 +62,7 @@ routing must not depend on unstable or downstream categories.
   does not include categories with unstarted or in-review status for their
   foundational specs.
 - Before a constructor refines into a target category, verify that the target
-  category's method surface is settled (status is at least needs-review with
+  category's method surface is settled (status is at least needs-agent-review with
   checked acceptance criteria).
 
 ## Admitted category refinement edges

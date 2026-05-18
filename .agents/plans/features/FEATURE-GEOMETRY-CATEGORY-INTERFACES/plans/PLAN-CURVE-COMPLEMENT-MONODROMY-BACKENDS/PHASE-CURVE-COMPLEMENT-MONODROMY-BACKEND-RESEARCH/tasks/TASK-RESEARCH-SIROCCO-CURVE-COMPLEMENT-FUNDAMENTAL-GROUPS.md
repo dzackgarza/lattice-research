@@ -94,7 +94,7 @@ presented groups.
 **Gates passed:** Gate 1 Definition Grounding.
 **Gates failed:** Gate 2 Acceptance Criteria.
 **Outcome:** revision-required, reworked in the work log above, returned to
-`needs-review` for another independent pass.
+`needs-agent-review` for another independent pass.
 
 Finding:
 

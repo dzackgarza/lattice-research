@@ -311,7 +311,7 @@ PASS.
 - `dependsOn: [[TASK-RESEARCH-ORE-ALGEBRA-INTERFACE]]` — the authorizing research task
   is correctly declared ✓
 - The research task's work log (line 57-60) confirms this spec was created from it and
-  that the task status was moved to `needs-review` upon spec creation ✓
+  that the task status was moved to `needs-agent-review` upon spec creation ✓
 - The research task's `successCriteria` are all satisfied by this spec: upstream
   docs/sources cited ✓, project nouns mapped ✓, Picard-Fuchs/monodromy relevance stated
   without overclaim ✓, negative findings in five-field format ✓

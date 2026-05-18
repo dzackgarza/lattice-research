@@ -77,7 +77,7 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
   where tensor component refinement and matrix-valued `structure_constants()` were
   fixed. Validation: `python -m py_compile category_specs/algebras/__init__.py`,
   `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`, and
-  the tensor component smoke all pass. Status moved to `needs-review`; this does not
+  the tensor component smoke all pass. Status moved to `needs-agent-review`; this does not
   mark the card accepted or complete.
 
 ## Review Log

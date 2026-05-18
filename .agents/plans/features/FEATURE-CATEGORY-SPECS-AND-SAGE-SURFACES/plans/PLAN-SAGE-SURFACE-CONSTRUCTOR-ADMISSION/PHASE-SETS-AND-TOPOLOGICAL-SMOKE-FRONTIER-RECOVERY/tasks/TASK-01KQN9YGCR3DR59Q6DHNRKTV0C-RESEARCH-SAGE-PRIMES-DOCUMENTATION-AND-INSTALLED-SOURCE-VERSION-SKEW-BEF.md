@@ -126,7 +126,7 @@ Inference:
 
 **Gates passed:** Gates 1-6
 **Gates failed:** None
-**Outcome:** needs-review evidence ready for human approval; card not marked complete
+**Outcome:** needs-agent-review evidence ready for human approval; card not marked complete
 
 #### Evidence
 

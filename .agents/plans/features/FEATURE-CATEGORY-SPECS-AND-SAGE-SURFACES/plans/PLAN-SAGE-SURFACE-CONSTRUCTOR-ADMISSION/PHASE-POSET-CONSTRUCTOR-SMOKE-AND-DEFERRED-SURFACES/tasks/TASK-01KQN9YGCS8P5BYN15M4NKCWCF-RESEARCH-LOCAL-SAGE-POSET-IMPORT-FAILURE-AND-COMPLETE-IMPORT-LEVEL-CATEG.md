@@ -175,7 +175,7 @@ semilattice category introspection.
 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
 Compliance
 **Gates failed:** None
-**Outcome:** reviewed; leave `status: needs-review` for human acceptance rather than
+**Outcome:** reviewed; leave `status: needs-agent-review` for human acceptance rather than
 agent-side closure.
 
 - Gate 1: The card grounds semilattice routing in Sage's local category modules,

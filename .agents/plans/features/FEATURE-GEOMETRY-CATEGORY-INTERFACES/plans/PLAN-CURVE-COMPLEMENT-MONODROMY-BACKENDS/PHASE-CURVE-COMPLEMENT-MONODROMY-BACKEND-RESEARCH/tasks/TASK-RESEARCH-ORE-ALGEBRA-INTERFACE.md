@@ -56,7 +56,7 @@ Do not vendor or wrap `ore_algebra` in this card. Do not invent project operator
   `/tmp/tmp.EtH8Hu3zIu/ore_algebra`; checked local `sage -python` import; and read
   local memory `theory-graph-monodromy-hodge-methods`. Created
   `[[SPEC-ORE-ALGEBRA-BACKEND-MAPPING]]` with capability mapping, Picard-Fuchs
-  boundary, and local import negative finding. Status moved to `needs-review`;
+  boundary, and local import negative finding. Status moved to `needs-agent-review`;
   this does not mark the card accepted or complete.
 
 ## Research Findings

@@ -115,7 +115,7 @@ Spec-weakening review:
 
 ### Review - 2026-05-07
 
-Outcome: scoped review passes; card remains `needs-review` for human acceptance.
+Outcome: scoped review passes; card remains `needs-agent-review` for human acceptance.
 
 - Verified `category_specs/rings/__init__.py` preserves admitted public constructor
   names `ZqWithPrecisionCaps(...)` and `QqWithPrecisionCaps(...)` under

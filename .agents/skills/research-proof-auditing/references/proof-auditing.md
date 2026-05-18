@@ -206,7 +206,7 @@ Reject any script exhibiting:
   chat or transient notes but never recorded in a durable mathematical report memory
   with source URLs
 - **Status-only card diffs**: a git diff that changes only the `status` line of a card
-  file (e.g., `needs-review` → `complete` or `in-progress` → `done`) with no new review
+  file (e.g., `needs-agent-review` → `complete` or `in-progress` → `done`) with no new review
   content added to the card body. Cards are evidence containers — a real review writes
   its gate findings into the card under ## Review Log. A status change without body
   growth is an empty box check, not a review. This applies equally to human and agent

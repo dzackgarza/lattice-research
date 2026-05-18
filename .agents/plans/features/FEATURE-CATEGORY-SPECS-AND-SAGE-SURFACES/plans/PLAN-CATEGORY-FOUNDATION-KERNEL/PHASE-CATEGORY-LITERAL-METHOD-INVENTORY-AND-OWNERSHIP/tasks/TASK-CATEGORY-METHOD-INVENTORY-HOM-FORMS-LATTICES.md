@@ -107,7 +107,7 @@ The seed rows include:
 - 2026-05-06: Added Hom/End/Aut, module-hom, formed-module, bilinear/quadratic,
   symmetric divisibility, free/torsion form, lattice, discriminant-object, orthogonal
   group, and algorithm-facing lattice rows to
-  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Moved this task to needs-review.
+  `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`. Moved this task to needs-agent-review.
 - 2026-05-07: Repaired stale source-provenance paths after Gate 1 review found this
   card still cited deleted `theory/foundations/...` and `.agents/theory/spec-backups`
   roots. The card now matches the active target spec provenance:

@@ -93,7 +93,7 @@ Admitted algebra constructor routes are therefore:
   This matches the boundary in `SPEC-MAPPING-ALGEBRAS` that nontrivial raw
   constructor shapes are not public algebra category constructors.
 - 2026-05-06 validation: `just --justfile category_specs/justfile smoke-file
-  algebras/smoketest.sage` passes. Status moved to `needs-review`; this does
+  algebras/smoketest.sage` passes. Status moved to `needs-agent-review`; this does
   not mark the card accepted or complete.
 - 2026-05-06 Gate 1 rework: after independent review found that the card remained
   backlog-shaped, added source provenance, the grounded algebra-constructor boundary,

@@ -118,7 +118,7 @@ Additionally, `TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT` has a **cir
 
 | Task | Status | Review State |
 |------|--------|-------------|
-| TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES | `needs-review` | Independent re-review passed G1-G6; pending human acceptance |
+| TASK-20260505-AUDIT-CATEGORY-SPEC-DUCK-TYPE-OBJECT-SHAPE-PROBES | `needs-agent-review` | Independent re-review passed G1-G6; pending human acceptance |
 | TASK-20260506-GROUND-SET-WRAPPER-PRIVATE-SLOT-SHAPE-PROBES | `complete` | Review passed G1-G6 |
 | TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT | `unstarted` | Not yet executed; has circular self-dep |
 
@@ -137,7 +137,7 @@ No evidence of scope expansion during implementation.
 
 **Finding 1:** `TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT` has a circular self-dependency. Its `dependsOn` includes `'[[TASK-WRAPUP-PHASE-DUCK-TYPE-OBJECT-SHAPE-PROBE-AUDIT]]'` (line 10). This must be removed.
 
-**Finding 2:** The phase card's `dependsOn: []` is correct — this phase has no upstream dependencies beyond its parent plan. However, the phase card's `status: needs-review` is ambiguous while child tasks are in mixed states (one `needs-review`, one `complete`, one `unstarted`). The phase cannot close until all children are resolved.
+**Finding 2:** The phase card's `dependsOn: []` is correct — this phase has no upstream dependencies beyond its parent plan. However, the phase card's `status: needs-agent-review` is ambiguous while child tasks are in mixed states (one `needs-agent-review`, one `complete`, one `unstarted`). The phase cannot close until all children are resolved.
 
 Otherwise, dependency edges are correct:
 - Parent plan → Phase: correct (phase listed in plan's `phases` array).
@@ -153,7 +153,7 @@ The phase adds audit coverage and does not delete, relax, or bypass any existing
 
 #### Residual Risks
 
-- The wrapup task's procedure includes meta-review of completed child cards. Since TASK-20260505 is still `needs-review` (not `complete`/`done`), the wrapup's meta-review section would legitimately skip it — but if the phase is closed with TASK-20260505 still pending human acceptance, the wrapup may need to note that as an open item.
+- The wrapup task's procedure includes meta-review of completed child cards. Since TASK-20260505 is still `needs-agent-review` (not `complete`/`done`), the wrapup's meta-review section would legitimately skip it — but if the phase is closed with TASK-20260505 still pending human acceptance, the wrapup may need to note that as an open item.
 - `TASK-20260506` review log claims `just plan-validate` passes, but the parent audit task notes that full `just test` still lacks a clean signal due to pre-existing Sage/stub/type errors. This is a known residual, not a new finding.
 
 ---

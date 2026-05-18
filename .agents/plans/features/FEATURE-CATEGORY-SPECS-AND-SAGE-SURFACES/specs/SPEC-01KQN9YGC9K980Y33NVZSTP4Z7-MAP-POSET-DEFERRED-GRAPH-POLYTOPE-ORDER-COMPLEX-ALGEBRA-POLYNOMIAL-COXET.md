@@ -155,7 +155,7 @@ order-theoretic lattice vocabulary separate from module/quadratic lattice vocabu
 - `id: SPEC-01KQN9YGC9K980Y33NVZSTP4Z7-MAP-POSET-DEFERRED-...` matches filename stem ✓
 - `parents: [[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]` — parent exists ✓
 - `dependsOn: [[PHASE-POSET-CONSTRUCTOR-SMOKE-AND-DEFERRED-SURFACES]]` — dependency exists and references this spec ✓
-- `status: needs-review` — appropriate for a spec awaiting review ✓
+- `status: needs-agent-review` — appropriate for a spec awaiting review ✓
 
 **G1 Verdict**: PARTIAL PASS. The critical anchoring claim — that these Sage surfaces are deferred non-core methods needing final placement — is supported by `SAGE_INVENTORY.md` and the canonical parent spec `SPEC-MAPPING-POSETS.md`. However, two source references are broken: the `MAPPING.md:232-253` line numbers point to a now-deleted block (the file is a 7-line redirect stub), and the `style.md` path does not resolve to any file on disk. These stale references should be updated to point to `SPEC-MAPPING-POSETS.md` lines ~325-355 and `category_specs/AGENTS.md` respectively.
 

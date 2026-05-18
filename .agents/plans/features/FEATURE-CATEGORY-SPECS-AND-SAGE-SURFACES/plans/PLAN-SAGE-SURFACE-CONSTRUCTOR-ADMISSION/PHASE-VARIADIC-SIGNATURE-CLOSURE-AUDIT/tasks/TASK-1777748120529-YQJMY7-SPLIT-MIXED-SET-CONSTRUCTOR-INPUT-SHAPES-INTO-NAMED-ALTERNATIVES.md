@@ -69,7 +69,7 @@ Task: split the mixed input shapes on set constructors (objects, collection, and
 - [x] Add smoke or regression coverage using small finite examples.
 - [x] Run syntax/smoke validation, or record the exact phase-local blocker.
 - [x] Run and record a spec-weakening review before moving the card to
-  `needs-review`.
+  `needs-agent-review`.
 
 ## Complexity And Ownership
 

@@ -19,7 +19,7 @@ uncertainty lifecycle, and failed-exploration records are part of execution stat
 
 Read `references/execution-kernel.md` before moving work from planning into execution, delegating implementation, judging whether a card is atomic, routing replay/attack, accepting/rejecting/splitting work, or claiming parent-plan or `GOAL.md` discharge.
 
-Read `references/review-kernel.md` before reviewing any card in `needs-review` or `needs-human-input` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
+Read `references/review-kernel.md` before reviewing any card in `needs-agent-review` or `needs-human-input` status, applying the ordered gate protocol, or moving a card to `revision-required`, `complete`/`done`, or `blocked`.
 
 Read `references/upstream-gates.md` before approving a feature, spec, or plan. These gates ensure each card is complete enough to unambiguously drive the next stage: feature → spec → plan → autonomous task execution.
 

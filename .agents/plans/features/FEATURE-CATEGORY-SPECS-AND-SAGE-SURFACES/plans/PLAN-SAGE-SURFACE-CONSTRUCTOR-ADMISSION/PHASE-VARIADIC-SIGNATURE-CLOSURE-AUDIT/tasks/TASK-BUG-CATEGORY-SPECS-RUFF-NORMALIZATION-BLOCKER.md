@@ -192,7 +192,7 @@ now passes.
 ### Self-Review - 2026-05-07
 
 Outcome: revision was required, then fixed in scope. The card remains
-`needs-review`; human acceptance is still required before completion.
+`needs-agent-review`; human acceptance is still required before completion.
 
 Findings and resolution:
 

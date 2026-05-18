@@ -54,7 +54,7 @@ This is a research/planning card, not an implementation card. Do not write categ
 
 ## Research Result
 
-Status: needs review. Toric varieties are source-grounded as normal varieties
+Status: needs-agent-review. Toric varieties are source-grounded as normal varieties
 associated to rational polyhedral fans in presented torus character or
 cocharacter lattices. For a presented coordinate torus, the coordinate characters
 give a selected basis and the identity Gram matrix gives a unimodular lattice.

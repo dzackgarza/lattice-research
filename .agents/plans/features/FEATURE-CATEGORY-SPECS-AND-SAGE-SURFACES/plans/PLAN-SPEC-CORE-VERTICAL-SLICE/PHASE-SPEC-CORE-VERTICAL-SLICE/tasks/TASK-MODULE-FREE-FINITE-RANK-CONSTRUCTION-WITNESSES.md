@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL]]'
 title: Add free finite-rank module construction witnesses
-status: unstarted
+status: needs-agent-review
 priority: critical
 description: Add the module-owned witness layer that reports free finite-rank modules
   as cartesian powers of their base carrier for the finite `GF(5)^3` and countable
@@ -62,19 +62,19 @@ countable R and finite n -> M is countable with product enumeration obligations
 
 ## Acceptance Criteria
 
-- [ ] `GF(5)^3` report:
+- [x] `GF(5)^3` report:
   - declared category includes free finite-rank modules over `GF(5)`;
   - witness names the cartesian power of `GF(5)` with rank `3`;
   - computed cardinality is `125`;
   - no module-local cardinality implementation is the provider.
-- [ ] `ZZ^2` report:
+- [x] `ZZ^2` report:
   - declared category includes free finite-rank modules over `ZZ`;
   - witness names the cartesian power of `ZZ` with rank `2`;
   - cardinality is infinite and countability is explicit;
   - deterministic enumeration is recorded as an inherited provider obligation.
-- [ ] The witness layer uses the spec-core data/report model from the prerequisite
+- [x] The witness layer uses the spec-core data/report model from the prerequisite
   task.
-- [ ] Any missing provider is surfaced as a precise missing obligation with owner and
+- [x] Any missing provider is surfaced as a precise missing obligation with owner and
   prerequisite.
 
 ## Dependencies And Boundaries
@@ -93,3 +93,50 @@ finite/countable free finite-rank module slice.
 ## Work Log
 
 - Created as the second executable leaf of the pivot plan.
+- Started on branch `dzack/free-module-construction-witnesses` after the prerequisite
+  registry/report kernel was accepted through merged PR #3.
+- Added `category_specs/modules/free_module_witnesses.py` and focused report tests.
+  `GF(5)^3` gets its cardinality from the set Cartesian-product provider, not a
+  module-local provider. `ZZ^2` records countability and leaves deterministic
+  countable-product enumeration as a missing `Sets().CartesianProducts()` obligation
+  instead of filling it from Sage's module-local iterator.
+- Fresh-context review found and resolved one breadth gap: the generic helper now
+  requires Sage `EnumeratedSets()` evidence before it reports countability, and the
+  focused RR regression checks that uncountable infinite bases do not inherit the
+  `ZZ^2` countability path.
+- Validation evidence:
+  - `python -m py_compile category_specs/modules/free_module_witnesses.py
+    tests/category_specs/test_free_module_witnesses.py` passed.
+  - `sage -python -m pytest tests/category_specs/test_free_module_witnesses.py
+    tests/category_specs/test_spec_core_reports.py` passed.
+  - `git diff --check -- category_specs/modules/free_module_witnesses.py
+    tests/category_specs/test_free_module_witnesses.py` passed.
+- Validation gap:
+  - Broad `just test` was not used as slice evidence because the active handoff marks
+    it non-diagnostic while parallel mypy-plugin work is active.
+
+## Review Log
+
+### Review 2026-05-18 (Fresh-context Spark review)
+
+- Synthesis: the implementation satisfies the card's two-slice report contract.
+  `GF(5)^3` and `ZZ^2` are reported as free finite-rank module constructions with
+  Cartesian-power carriers; cardinality is supplied by the set Cartesian-product
+  provider; `ZZ^2` records countability and leaves deterministic countable-product
+  enumeration as a missing `Sets().CartesianProducts()` obligation.
+- Gate 1 pass: scope matches the task objective and does not broaden into lattice,
+  Hom/End/Aut, q-adic, broad smoke, or global QC work.
+- Gate 2 pass: baseline mapping sources are used for module construction and set
+  product/cardinality ownership.
+- Gate 3 pass: the witness layer uses the spec-core `SpecRegistry`/`SpecReport`
+  partitioning model.
+- Gate 4 pass after recheck: the initial generic-countability evidence gap was fixed
+  by requiring Sage `EnumeratedSets()` membership before countability is reported;
+  the RR regression proves cardinality `+Infinity` alone no longer claims
+  countability.
+- Gate 5 pass: focused Sage pytest passed for
+  `tests/category_specs/test_free_module_witnesses.py` and
+  `tests/category_specs/test_spec_core_reports.py`.
+- Gate 6 pass: local set/module mappings and installed Sage source for free-module
+  cardinality/iteration and Cartesian-product cardinality/iteration were checked.
+- Outcome: PASS; status remains `needs-agent-review` pending human acceptance.

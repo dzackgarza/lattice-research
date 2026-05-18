@@ -129,7 +129,7 @@ The initial smoke lacked ambient/lift/retract coverage. Fixed by adding a focuse
 
 ### Review - 2026-05-07
 
-Outcome: review gap found and repaired; card remains `needs-review` for a fresh review
+Outcome: review gap found and repaired; card remains `needs-agent-review` for a fresh review
 and human acceptance.
 
 - Gate 2 initially lacked direct smoke evidence for the ambient/lift/retract part of

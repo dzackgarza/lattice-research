@@ -186,7 +186,7 @@ Picard pullback before comparing a resulting lattice to a standard presentation.
 
 ### Gate 4: Acceptance Criteria Status
 
-The four acceptance criteria are marked `[x]` (complete), but the card status is `needs-review`. This is inconsistent:
+The four acceptance criteria are marked `[x]` (complete), but the card status is `needs-agent-review`. This is inconsistent:
 - `[x] Each recovered noun has owner, definition source, and backend route.` — The Owner Surface table is comprehensive. **PASS**.
 - `[x] Divisor and Picard operations are maps and objects, not detached matrices.` — The source code shows `Divisor.pullback()`, `Divisor.pushforward()`, `PicardGroup.as_lattice()`. **PASS**.
 - `[x] Blowup-induced Picard behavior is specified in a reusable form.` — The Blowup class has `center()` and `exceptional_divisor()`. The Owner Surface says "induced Picard maps." No explicit `induced_picard_map()` method exists in the source, but the spec requirement is met at the specification level. **PASS**.

@@ -72,7 +72,7 @@ mark a card `needs-human-input` because the implementing agent is unsure, becaus
 plan has dead links, because a review found fixable structural debris, or because a
 downstream task depends on incomplete vocabulary. Source-forced facts become agent
 action. Planned prerequisites become `dependsOn` plus `unstarted`. Fixable review
-findings become `in-progress`, `needs-review`, or `revision-required` where the schema
+findings become `in-progress`, `needs-agent-review`, or `revision-required` where the schema
 supports it.
 
 If a trivial mathematical fact, obvious category edge, or already sourced owner reaches

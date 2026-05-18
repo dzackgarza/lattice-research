@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-MYPY-PARSER]]'
 - '[[TASK-MYPY-INSTANTIATE]]'
 title: Rewrite method-container admission to be namespace-agnostic
-status: needs-review
+status: needs-agent-review
 priority: high
 description: Separate semantic Sage-category validation from `sage.categories.*`
   prefix assumptions so valid third-party category subtrees are admissible.
