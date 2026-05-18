@@ -13,17 +13,16 @@ authorities for status, evidence, dependencies, and completed work.
 ## Start Here
 
 - Active phase: category-spec and semantic-vocabulary.
-- Start with `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]`; it is the approved pivot gate.
-- Next executable order: `[[TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL]]`, then
-  `[[TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES]]`, then
-  `[[TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE]]`.
-- Use IWE to retrieve those cards before reading broad plan history.
+- The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
+- Use `just next-tasks 10` before selecting the next leaf; do not restart the completed
+  vertical-slice branch sequence.
+- Use IWE to retrieve the selected card before reading broad plan history.
 
 ## Milestone Order
 
-- Prove the spec-core vertical slice before resuming broad category expansion:
-  `GF(5)^3` must report finite cartesian-power cardinality `125`; `ZZ^2` must report
-  countable cartesian-power provenance and inherited enumeration obligations.
+- The spec-core vertical slice has focused validation: `GF(5)^3` reports finite
+  cartesian-power cardinality `125`; `ZZ^2` reports countable cartesian-power
+  provenance and the product/countable-set enumeration obligation.
 - Resume Hom/End/Aut human-gated cards only if the user explicitly returns to that
   lane.
 - Resolve the QC/mypy gate only at the approved frontier; do not chase plugin
@@ -35,12 +34,12 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The current autonomous leaf is `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`, now in
-  `needs-agent-review` after focused validation passed.
-- Dispatch fresh-context review for the validation leaf before marking it complete.
-  Review the new `just test-spec-core-vertical-slice` recipe and the existing
-  `tests/category_specs/test_spec_core_reports.py` and
-  `tests/category_specs/test_free_module_witnesses.py` evidence.
+- The research repo has no open PRs. `main` contains the completed vertical-slice
+  validation work; ordinary merged branches were pruned. The local
+  `safety/accidental-wide-commit-29aee56` branch remains as recovery provenance.
+- `just next-tasks 10` currently surfaces QC/mypy human-gated items and
+  `TASK-MYPY-PARSER` in the Sage mypy-plugin lane. Do not start that lane unless the
+  user explicitly redirects there or confirms that the parallel plugin work is clear.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.

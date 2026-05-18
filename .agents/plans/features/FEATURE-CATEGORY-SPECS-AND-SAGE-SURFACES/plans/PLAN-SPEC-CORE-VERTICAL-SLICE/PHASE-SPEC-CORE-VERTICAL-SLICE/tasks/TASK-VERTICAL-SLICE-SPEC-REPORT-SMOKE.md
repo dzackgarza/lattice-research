@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES]]'
 title: Validate the spec report vertical slice
-status: needs-agent-review
+status: complete
 priority: critical
 description: Add focused validation proving the finite `GF(5)^3`, countable `ZZ^2`,
   and missing-obligation report behavior for the spec-core vertical slice.
@@ -108,4 +108,4 @@ falsifiable.
   deterministic-enumeration obligation.
 - Gate 6 pass: the new recipe follows the repo `justfile` convention and keeps broad
   suite execution out of the slice evidence.
-- Outcome: PASS; frontmatter remains `needs-agent-review` for the repo acceptance gate.
+- Outcome: PASS; the validation leaf is accepted after direct integration on `main`.

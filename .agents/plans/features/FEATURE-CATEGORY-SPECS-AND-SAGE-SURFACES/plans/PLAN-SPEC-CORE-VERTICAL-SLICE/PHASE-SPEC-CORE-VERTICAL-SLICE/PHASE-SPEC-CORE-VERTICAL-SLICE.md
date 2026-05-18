@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 dependsOn: []
 title: Spec core vertical slice
-status: in-progress
+status: complete
 priority: critical
 phaseKind: milestone
 description: Build and validate the declarative spec-core and construction-witness
@@ -43,10 +43,10 @@ new broad category-expansion phase.
 
 ## Acceptance Criteria
 
-- [ ] The three child tasks are executable without choosing new feature scope.
-- [ ] The child task dependency order is linear and blocks broad validation until the
+- [x] The three child tasks are executable without choosing new feature scope.
+- [x] The child task dependency order is linear and blocks broad validation until the
   typed report kernel and witness layer exist.
-- [ ] Every child task rejects broad category expansion, full-suite QC cleanup, or local
+- [x] Every child task rejects broad category expansion, full-suite QC cleanup, or local
   obligation duplication as success evidence.
 
 ## Dependencies And Boundaries
@@ -58,3 +58,5 @@ kernel and module witness tasks have produced inspectable artifacts.
 
 - Created with the pivot plan to keep implementation work atomic and reviewable.
 - Activated for the spec-core registry/report kernel implementation leaf.
+- Completed after all three child tasks reached `complete` and the focused
+  `just test-spec-core-vertical-slice` validation passed.

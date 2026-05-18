@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 title: Spec core vertical slice
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
 description: Establish the narrow typed spec-core, construction-witness, and report
@@ -87,19 +87,19 @@ Non-goals:
 
 ## Acceptance Criteria
 
-- [ ] `GF(5)^3` has a spec report showing finite cartesian-power provenance and
+- [x] `GF(5)^3` has a spec report showing finite cartesian-power provenance and
   cardinality `125`.
-- [ ] `ZZ^2` has a spec report showing countable cartesian-power provenance, infinite
+- [x] `ZZ^2` has a spec report showing countable cartesian-power provenance, infinite
   cardinality, and a deterministic enumeration obligation owned by product/countable
   set providers.
-- [ ] The module implementation does not satisfy those set-level obligations by
+- [x] The module implementation does not satisfy those set-level obligations by
   duplicating cardinality or enumeration logic inside the free-module surface.
-- [ ] A dummy or deliberately incomplete object claiming the slice category produces a
+- [x] A dummy or deliberately incomplete object claiming the slice category produces a
   precise missing-obligations report rather than a silent pass or unrelated smoke
   failure.
-- [ ] Constructor-discovery surfaces still expose available constructors with
+- [x] Constructor-discovery surfaces still expose available constructors with
   provenance, and the slice report can name the constructor route used.
-- [ ] Focused validation covers only the slice reports and directly owned smokes/tests.
+- [x] Focused validation covers only the slice reports and directly owned smokes/tests.
 
 ## Dependencies And Boundaries
 
@@ -113,3 +113,5 @@ new source-mining or decision card and continue any other ready slice task.
 - Created as the pivot plan after review feedback identified broad category expansion
   and mypy/QC routing as poor success metrics without a decisive vertical slice.
 - Activated for the spec-core registry/report kernel implementation leaf.
+- Completed after the typed report kernel, free finite-rank witness reports, and
+  focused validation leaf all reached `complete`.
