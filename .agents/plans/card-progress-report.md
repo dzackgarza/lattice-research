@@ -14,10 +14,10 @@
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 4 | 1 | 0 | 0 |
-| phase | 28 | 18 | 2 | 3 | 0 | 0 |
-| plan | 13 | 7 | 3 | 2 | 0 | 0 |
+| phase | 28 | 18 | 3 | 3 | 0 | 0 |
+| plan | 13 | 7 | 4 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 139 | 0 | 11 | 13 | 0 |
+| task | 176 | 139 | 0 | 12 | 13 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[##############--]  87.3%` | 145/166 | 5 | 0 | 10 | 0 |
+| Category specs and Sage surface admission | `[##############--]  87.3%` | 145/166 | 7 | 1 | 10 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -61,10 +61,10 @@
 - `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (`critical`, `revision-required`)
-- `phase` `PHASE-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `unstarted`)
+- `phase` `PHASE-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `needs-review`)
-- `plan` `PLAN-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `approved-and-unstarted`)
-- `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (`critical`, `unstarted`)
+- `plan` `PLAN-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (`critical`, `in-progress`)
+- `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (`critical`, `needs-review`)
 - `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (`critical`, `needs-human-input`)
 - `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (`critical`, `needs-human-input`)
 - `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (`critical`, `needs-human-input`)

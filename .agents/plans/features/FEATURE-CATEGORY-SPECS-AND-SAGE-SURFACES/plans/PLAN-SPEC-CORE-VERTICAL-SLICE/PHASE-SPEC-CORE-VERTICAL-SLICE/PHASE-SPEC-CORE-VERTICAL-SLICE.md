@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 dependsOn: []
 title: Spec core vertical slice
-status: unstarted
+status: in-progress
 priority: critical
 phaseKind: milestone
 description: Build and validate the declarative spec-core and construction-witness
@@ -57,3 +57,4 @@ kernel and module witness tasks have produced inspectable artifacts.
 ## Work Log
 
 - Created with the pivot plan to keep implementation work atomic and reviewable.
+- Activated for the spec-core registry/report kernel implementation leaf.

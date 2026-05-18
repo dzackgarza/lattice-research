@@ -35,7 +35,11 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The current autonomous leaf is `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`.
+- The current autonomous leaf is `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`; implementation
+  has fresh-context review evidence on branch `dzack/spec-core-vertical-slice-kernel`
+  and its visible PR review follow-up has been addressed on PR #3.
+- Do not start `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` until the kernel
+  card's `dependsOn` role is resolved by human acceptance or an explicit override.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.
