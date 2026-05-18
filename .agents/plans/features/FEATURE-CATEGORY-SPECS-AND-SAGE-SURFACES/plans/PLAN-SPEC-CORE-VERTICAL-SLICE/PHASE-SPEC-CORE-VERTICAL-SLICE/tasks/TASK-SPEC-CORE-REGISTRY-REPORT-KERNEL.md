@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-SPEC-CORE-VERTICAL-SLICE]]'
 dependsOn: []
 title: Create typed spec registry and report kernel
-status: unstarted
+status: needs-review
 priority: critical
 description: Add the minimal typed spec-core data layer for obligations, providers,
   construction witnesses, and reports needed by the vertical slice.
@@ -52,14 +52,14 @@ leaving existing category wrapper behavior intact.
 
 ## Acceptance Criteria
 
-- [ ] `category_specs/spec_core/` contains typed definitions for obligations,
+- [x] `category_specs/spec_core/` contains typed definitions for obligations,
   providers, construction witnesses, check results, and reports.
-- [ ] The report shape can express `declared_category`, `inherited_obligations`,
+- [x] The report shape can express `declared_category`, `inherited_obligations`,
   `satisfied_by_provider`, `satisfied_by_witness`, `computed_values`, and
   `missing_obligations`.
-- [ ] The kernel has focused validation that does not require importing every
+- [x] The kernel has focused validation that does not require importing every
   category-spec subtree.
-- [ ] No broad category expansion, mypy-plugin work, or global QC routing is counted as
+- [x] No broad category expansion, mypy-plugin work, or global QC routing is counted as
   completion evidence.
 
 ## Dependencies And Boundaries
@@ -76,3 +76,19 @@ to a new package and should not change existing category behavior.
 ## Work Log
 
 - Created as the first executable leaf of the pivot plan.
+- Started implementation on branch `dzack/spec-core-vertical-slice-kernel`.
+- Added the spec-core report kernel and focused test, then moved the card to
+  `needs-review`.
+- Validation evidence:
+  - `python -m py_compile category_specs/spec_core/__init__.py
+    category_specs/spec_core/reports.py tests/category_specs/test_spec_core_reports.py`
+    passed.
+  - `sage -python -m pytest tests/category_specs/test_spec_core_reports.py` passed.
+  - `just plan-validate` passed after activating the parent plan and phase.
+- Validation gaps:
+  - Focused mypy is blocked by the local Sage mypy plugin config: mypy reports missing
+    `[sage-mypy-category-plugin]` in `/home/dzack/.config/mypy/config`.
+  - Normal `category_specs.spec_core` import still executes the eager parent package and
+    reaches the existing Sage category import failure, `cannot import name Category`.
+    Focused validation loads `category_specs/spec_core/reports.py` directly to test the
+    new kernel without importing every category-spec subtree.

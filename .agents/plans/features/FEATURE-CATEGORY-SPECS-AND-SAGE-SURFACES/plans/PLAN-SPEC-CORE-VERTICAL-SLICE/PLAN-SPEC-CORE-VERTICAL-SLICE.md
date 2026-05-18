@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 title: Spec core vertical slice
-status: approved-and-unstarted
+status: in-progress
 priority: critical
 owner: Zack
 description: Establish the narrow typed spec-core, construction-witness, and report
@@ -112,3 +112,4 @@ new source-mining or decision card and continue any other ready slice task.
 
 - Created as the pivot plan after review feedback identified broad category expansion
   and mypy/QC routing as poor success metrics without a decisive vertical slice.
+- Activated for the spec-core registry/report kernel implementation leaf.
