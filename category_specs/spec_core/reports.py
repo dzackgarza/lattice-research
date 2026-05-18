@@ -92,6 +92,58 @@ class SpecReport(BaseModel):
     computed_values: tuple[ComputedValue, ...] = ()
     missing_obligations: tuple[SpecCheckResult, ...] = ()
 
+    @cached_property
+    def computed_values_by_name(self) -> dict[str, ComputedValue]:
+        return _computed_values_by_name(self.computed_values)
+
+    @cached_property
+    def obligations_by_id(self) -> dict[str, SpecCheckResult]:
+        return _obligation_results_by_id(self.all_results())
+
+    def computed_value(self, name: str) -> ComputedValue:
+        value = self.computed_values_by_name.get(name)
+        if value is None:
+            raise KeyError(f"unknown computed value name: {name}")
+        return value
+
+    def obligation_result_by_id(self, obligation_id: str) -> SpecCheckResult:
+        result = self.obligations_by_id.get(obligation_id)
+        if result is None:
+            raise KeyError(f"unknown obligation id: {obligation_id}")
+        return result
+
+    def missing_obligation_ids(self) -> tuple[str, ...]:
+        return tuple(result.obligation.id for result in self.missing_obligations)
+
+    def provider_ids(self) -> tuple[str, ...]:
+        return tuple(
+            result.provider.id
+            for result in self.satisfied_by_provider
+            if result.provider is not None
+        )
+
+    def witness_ids(self) -> tuple[str, ...]:
+        return tuple(
+            result.witness.id
+            for result in self.satisfied_by_witness
+            if result.witness is not None
+        )
+
+    def completion_evidence(
+        self,
+    ) -> tuple[SpecProvider | ConstructionWitness | ComputedValue, ...]:
+        provider_evidence = tuple(
+            result.provider
+            for result in self.satisfied_by_provider
+            if result.provider is not None
+        )
+        witness_evidence = tuple(
+            result.witness
+            for result in self.satisfied_by_witness
+            if result.witness is not None
+        )
+        return (*provider_evidence, *witness_evidence, *self.computed_values)
+
     def all_results(self) -> tuple[SpecCheckResult, ...]:
         return (
             *self.satisfied_by_provider,
@@ -124,6 +176,39 @@ class SpecRegistry(BaseModel):
     def witnesses_by_obligation(self) -> dict[str, ConstructionWitness]:
         return _witnesses_by_obligation(self.witnesses)
 
+    @cached_property
+    def provider_ids(self) -> tuple[str, ...]:
+        return tuple(provider.id for provider in self.providers)
+
+    @cached_property
+    def witness_ids(self) -> tuple[str, ...]:
+        return tuple(witness.id for witness in self.witnesses)
+
+    def obligation(self, obligation_id: str) -> SpecObligation:
+        obligation = self.obligations_by_id.get(obligation_id)
+        if obligation is None:
+            raise KeyError(f"unknown obligation id: {obligation_id}")
+        return obligation
+
+    def provider(self, obligation_id: str) -> SpecProvider | None:
+        return self.providers_by_obligation.get(obligation_id)
+
+    def witness(self, obligation_id: str) -> ConstructionWitness | None:
+        return self.witnesses_by_obligation.get(obligation_id)
+
+    def missing_obligation_ids(
+        self, inherited_obligation_ids: Sequence[str]
+    ) -> tuple[str, ...]:
+        missing: list[str] = []
+        for obligation_id in inherited_obligation_ids:
+            self.obligation(obligation_id)
+            if (
+                self.provider(obligation_id) is None
+                and self.witness(obligation_id) is None
+            ):
+                missing.append(obligation_id)
+        return tuple(missing)
+
     def report(
         self,
         *,
@@ -138,7 +223,7 @@ class SpecRegistry(BaseModel):
         missing_obligations: list[SpecCheckResult] = []
 
         for obligation in inherited_obligations:
-            provider = self.providers_by_obligation.get(obligation.id)
+            provider = self.provider(obligation.id)
             if provider is not None:
                 satisfied_by_provider.append(
                     SpecCheckResult(
@@ -149,7 +234,7 @@ class SpecRegistry(BaseModel):
                 )
                 continue
 
-            witness = self.witnesses_by_obligation.get(obligation.id)
+            witness = self.witness(obligation.id)
             if witness is not None:
                 satisfied_by_witness.append(
                     SpecCheckResult(
@@ -218,4 +303,27 @@ def _witnesses_by_obligation(
             if obligation_id in indexed:
                 raise ValueError(f"duplicate witness for obligation: {obligation_id}")
             indexed[obligation_id] = witness
+    return indexed
+
+
+def _computed_values_by_name(
+    values: Sequence[ComputedValue],
+) -> dict[str, ComputedValue]:
+    indexed: dict[str, ComputedValue] = {}
+    for value in values:
+        if value.name in indexed:
+            raise ValueError(f"duplicate computed value name: {value.name}")
+        indexed[value.name] = value
+    return indexed
+
+
+def _obligation_results_by_id(
+    results: Sequence[SpecCheckResult],
+) -> dict[str, SpecCheckResult]:
+    indexed: dict[str, SpecCheckResult] = {}
+    for result in results:
+        obligation_id = result.obligation.id
+        if obligation_id in indexed:
+            raise ValueError(f"duplicate obligation result id: {obligation_id}")
+        indexed[obligation_id] = result
     return indexed

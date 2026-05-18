@@ -78,6 +78,38 @@ def test_registry_report_partitions_provider_witness_and_missing_obligations() -
     )
 
     assert report.declared_category == "Modules(GF(5)).Free().FinitelyPresented()"
+    assert report.computed_value("cardinality") == ComputedValue(
+        name="cardinality",
+        value="125",
+        source="Sage GF(5)^3 cardinality",
+    )
+    assert report.obligation_result_by_id("finite-cardinality").provider.id == (
+        "finite-set-cardinality-methods"
+    )
+    assert report.obligation_result_by_id("free-rank").witness.id == (
+        "cartesian-power-free-module-witness"
+    )
+    assert report.obligation_result_by_id("enumerability").status == "missing"
+    assert report.missing_obligation_ids() == ("enumerability",)
+    assert report.provider_ids() == ("finite-set-cardinality-methods",)
+    assert report.witness_ids() == ("cartesian-power-free-module-witness",)
+    assert tuple(type(item).__name__ for item in report.completion_evidence()) == (
+        "SpecProvider",
+        "ConstructionWitness",
+        "ComputedValue",
+    )
+    assert registry.obligation("finite-cardinality").title == (
+        "Finite objects expose their cardinality"
+    )
+    assert registry.provider("finite-cardinality").id == (
+        "finite-set-cardinality-methods"
+    )
+    assert registry.witness("free-rank").id == "cartesian-power-free-module-witness"
+    assert registry.missing_obligation_ids(
+        ("finite-cardinality", "free-rank", "enumerability")
+    ) == ("enumerability",)
+    assert registry.provider_ids == ("finite-set-cardinality-methods",)
+    assert registry.witness_ids == ("cartesian-power-free-module-witness",)
     assert [result.obligation.id for result in report.satisfied_by_provider] == [
         "finite-cardinality"
     ]
@@ -104,6 +136,29 @@ def test_registry_report_partitions_provider_witness_and_missing_obligations() -
         "satisfied_by_witness",
         "missing",
     ]
+
+
+def test_report_query_helpers_raise_for_unknown_keys() -> None:
+    finite_cardinality = SpecObligation(
+        id="finite-cardinality",
+        title="Finite objects expose their cardinality",
+        source="category_specs/sets/subcategories/finite.py",
+    )
+    registry = SpecRegistry(
+        obligations=(finite_cardinality,),
+    )
+    report = registry.report(
+        subject="GF(5)^3",
+        declared_category="Modules(GF(5)).Free().FinitelyPresented()",
+        inherited_obligation_ids=("finite-cardinality",),
+    )
+
+    with pytest.raises(KeyError):
+        report.obligation_result_by_id("not-an-obligation")
+    with pytest.raises(KeyError):
+        report.computed_value("cardinality")
+    with pytest.raises(KeyError):
+        registry.obligation("not-an-obligation")
 
 
 def test_registry_rejects_unregistered_inherited_obligation() -> None:

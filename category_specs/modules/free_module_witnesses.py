@@ -116,8 +116,9 @@ def free_finite_rank_module_report(
     """Build a spec-core report for the free module ``base_ring^rank``."""
     if rank < 0:
         raise ValueError("rank must be nonnegative")
+
     label = base_label or str(base_ring)
-    carrier_label = f"CartesianPower({label}, {rank})"
+    carrier_label = _cartesian_power_label(label=label, rank=rank)
     declared_category = f"Modules({label}).Free().FiniteRank()"
 
     from sage.all import cartesian_product
@@ -125,12 +126,108 @@ def free_finite_rank_module_report(
 
     carrier = cartesian_product([base_ring] * rank)
     cardinality = carrier.cardinality()
+    base_is_countable = _base_carrier_is_countable(base_ring)
+    countable_product = cardinality == infinity and base_is_countable
 
-    inherited_obligation_ids = [
+    inherited_obligation_ids = _select_inherited_obligation_ids(
+        base_is_countable=base_is_countable, product_is_infinite=countable_product
+    )
+    registry = _build_registry(
+        declared_category=declared_category,
+        base_label=label,
+        rank=rank,
+    )
+
+    return registry.report(
+        subject=f"{label}^{rank}",
+        declared_category=declared_category,
+        inherited_obligation_ids=inherited_obligation_ids,
+        computed_values=_build_computed_values(
+            carrier_label=carrier_label,
+            cardinality=cardinality,
+            include_countability=countable_product,
+        ),
+    )
+
+
+def _build_registry(
+    *, declared_category: str, base_label: str, rank: int
+) -> SpecRegistry:
+    """Build the reusable free-finite-rank witness registry."""
+    return SpecRegistry(
+        obligations=_module_and_product_obligations(),
+        providers=_set_product_providers(),
+        witnesses=(_build_cartesian_power_witness(base_label, rank, declared_category),),
+    )
+
+
+def _module_and_product_obligations() -> tuple[SpecObligation, ...]:
+    """Return obligations shared by all free finite-rank module slice subjects."""
+    return (
+        _CARRIER_OBLIGATION,
+        _PRODUCT_CARDINALITY_OBLIGATION,
+        _PRODUCT_COUNTABILITY_OBLIGATION,
+        _PRODUCT_ENUMERATION_OBLIGATION,
+    )
+
+
+def _set_product_providers() -> tuple[SpecProvider, ...]:
+    """Return product-related set providers shared by this registry."""
+    return (
+        _PRODUCT_CARDINALITY_PROVIDER,
+        _PRODUCT_COUNTABILITY_PROVIDER,
+    )
+
+
+def _cartesian_power_label(*, label: str, rank: int) -> str:
+    """Create the canonical free-module carrier label."""
+    return f"CartesianPower({label}, {rank})"
+
+
+def _build_cartesian_power_witness(
+    base_label: str, rank: int, declared_category: str
+) -> ConstructionWitness:
+    """Create the cartesian-power carrier witness for one module subject."""
+    return ConstructionWitness(
+        id=f"modules.free_finite_rank.cartesian_power.{base_label}.{rank}",
+        construction=_cartesian_power_label(label=base_label, rank=rank),
+        source_category=declared_category,
+        target_category="Sets().CartesianProducts()",
+        provides=(_CARRIER_OBLIGATION_ID,),
+        source=_MODULE_MAPPING_SOURCE,
+        description=(
+            "Witnesses the underlying set of a free finite-rank module "
+            "as the finite Cartesian power of its base carrier."
+        ),
+    )
+
+
+def _select_inherited_obligation_ids(
+    *, base_is_countable: bool, product_is_infinite: bool
+) -> tuple[str, ...]:
+    """Return inherited obligations that this subject is expected to satisfy."""
+    inherited_obligation_ids: list[str] = [
         _CARRIER_OBLIGATION_ID,
         _PRODUCT_CARDINALITY_OBLIGATION_ID,
     ]
-    computed_values = [
+    if base_is_countable and product_is_infinite:
+        inherited_obligation_ids.extend(
+            (
+                _PRODUCT_COUNTABILITY_OBLIGATION_ID,
+                _PRODUCT_ENUMERATION_OBLIGATION_ID,
+            )
+        )
+    return tuple(inherited_obligation_ids)
+
+
+def _build_computed_values(
+    *,
+    carrier_label: str,
+    cardinality: object,
+    include_countability: bool,
+) -> tuple[ComputedValue, ...]:
+    """Build computed evidence values for a slice report."""
+    values = (
         ComputedValue(
             name="carrier",
             value=carrier_label,
@@ -141,52 +238,17 @@ def free_finite_rank_module_report(
             value=str(cardinality),
             source=f"{_SAGE_SETS_SOURCE}; {_MODULE_OWNERSHIP_SOURCE}",
         ),
-    ]
-
-    if cardinality == infinity and _base_carrier_is_countable(base_ring):
-        inherited_obligation_ids.extend(
-            [
-                _PRODUCT_COUNTABILITY_OBLIGATION_ID,
-                _PRODUCT_ENUMERATION_OBLIGATION_ID,
-            ]
-        )
-        computed_values.append(
-            ComputedValue(
-                name="countability",
-                value="countably infinite",
-                source=f"{_SET_MAPPING_SOURCE}; {_SAGE_FREE_MODULE_SOURCE}",
-            )
-        )
-
-    registry = SpecRegistry(
-        obligations=(
-            _CARRIER_OBLIGATION,
-            _PRODUCT_CARDINALITY_OBLIGATION,
-            _PRODUCT_COUNTABILITY_OBLIGATION,
-            _PRODUCT_ENUMERATION_OBLIGATION,
-        ),
-        providers=(_PRODUCT_CARDINALITY_PROVIDER, _PRODUCT_COUNTABILITY_PROVIDER),
-        witnesses=(
-            ConstructionWitness(
-                id=f"modules.free_finite_rank.cartesian_power.{label}.{rank}",
-                construction=carrier_label,
-                source_category=declared_category,
-                target_category="Sets().CartesianProducts()",
-                provides=(_CARRIER_OBLIGATION_ID,),
-                source=_MODULE_MAPPING_SOURCE,
-                description=(
-                    "Witnesses the underlying set of a free finite-rank module "
-                    "as the finite Cartesian power of its base carrier."
-                ),
-            ),
-        ),
     )
+    if not include_countability:
+        return values
 
-    return registry.report(
-        subject=f"{label}^{rank}",
-        declared_category=declared_category,
-        inherited_obligation_ids=tuple(inherited_obligation_ids),
-        computed_values=tuple(computed_values),
+    return (
+        *values,
+        ComputedValue(
+            name="countability",
+            value="countably infinite",
+            source=f"{_SET_MAPPING_SOURCE}; {_SAGE_FREE_MODULE_SOURCE}",
+        ),
     )
 
 
