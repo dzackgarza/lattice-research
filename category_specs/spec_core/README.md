@@ -45,7 +45,9 @@ Cat().Constructors().provenance().deferred()
 
 Constructor records expose the mathematical owner, public method name, Sage entry
 point, source route, target category, refinement route, and optional provider,
-witness, obligation, or deferred-gap metadata.
+witness, obligation, or deferred-gap metadata. The generic adapter derives the target
+route from explicit constructor metadata when present and otherwise from the public
+return annotation, so the record remains tied to the declared constructor surface.
 
 ## Constructor Coverage
 

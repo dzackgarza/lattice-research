@@ -114,20 +114,23 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert ring_zz.owner_category == "Rings()"
     assert ring_zz.method_name == "ZZ"
     assert ring_zz.sage_entry_point.endswith("Rings._Constructors.ZZ")
-    assert ring_zz.target_refinement_route == ("Rings()",)
+    assert ring_zz.target_refinement_route == ("Rings()", "Ring")
 
     polynomial_ring = ring_registry.constructor("rings.PolynomialRing")
     assert polynomial_ring.method_name == "PolynomialRing"
     assert polynomial_ring.sage_source.endswith("Rings._Constructors.PolynomialRing")
+    assert polynomial_ring.target_category == "Ring"
 
     free_module = module_registry.constructor("modules.FreeModule")
     assert free_module.owner_category == f"Modules({QQ})"
     assert free_module.method_name == "FreeModule"
     assert free_module.sage_entry_point.endswith("Modules._Constructors.FreeModule")
+    assert free_module.target_refinement_route == (f"Modules({QQ})", "RModule")
 
     finite_set = set_registry.constructor("sets.FiniteEnumeratedSet")
     assert finite_set.owner_category == "Sets()"
     assert finite_set.method_name == "FiniteEnumeratedSet"
+    assert finite_set.target_category == "FiniteSet"
 
     free_algebra = algebra_registry.constructor("algebras.free_algebra_from_set")
     assert free_algebra.owner_category == f"Algebras({QQ})"
@@ -138,10 +141,12 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     poset = poset_registry.constructor("posets.from_digraph")
     assert poset.owner_category == "Posets()"
     assert poset.method_name == "from_digraph"
+    assert poset.target_category == "Poset"
 
     tensor = tensor_registry.constructor("tensor_algebra_components.component_module")
     assert tensor.owner_category == f"TensorAlgebraComponents({QQ})"
     assert tensor.method_name == "component_module"
+    assert tensor.target_category == "TensorAlgebraComponent"
 
     assert topology_registry.constructors == ()
     assert lattice_registry.constructors == ()
@@ -162,6 +167,7 @@ def test_constructor_surfaces_expose_typed_provenance_records() -> None:
     assert cat_ring_zz.target_refinement_route == (
         "Cat().Constructors()",
         "Rings().Constructors()",
+        "Ring",
     )
     cat_free_module = cat_registry.constructor("cat.modules_rational_field.FreeModule")
     assert cat_free_module.method_name == "modules_rational_field_FreeModule"
@@ -210,5 +216,9 @@ def test_constructor_registries_cover_every_public_collector_method() -> None:
         assert registry_ids == expected_ids
         assert all(
             hasattr(type(collector), constructor.method_name)
+            for constructor in registry.constructors
+        )
+        assert all(
+            constructor.target_refinement_route != (constructor.owner_category,)
             for constructor in registry.constructors
         )

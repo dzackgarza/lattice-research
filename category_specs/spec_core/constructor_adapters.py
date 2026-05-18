@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from inspect import Signature, signature
 from typing import Any, Literal
 
 from .constructors import ConstructorRegistry, ConstructorSpec
@@ -39,8 +40,12 @@ def constructor_registry_for_category(
                 sage_entry_point=(
                     f"{provider.__module__}.{provider.__qualname__}.{constructor_name}"
                 ),
-                target_category=owner,
-                target_refinement_route=(owner,),
+                target_category=_constructor_target_category(
+                    provider, constructor_name, owner
+                ),
+                target_refinement_route=_constructor_target_refinement_route(
+                    provider, constructor_name, owner
+                ),
                 status=_constructor_status(provider, constructor_name),
                 deferred_reason=_constructor_deferred_reason(
                     provider, constructor_name
@@ -66,6 +71,9 @@ def cat_constructor_registry() -> ConstructorRegistry:
             prefix, provider
         ):
             method_name = f"{prefix}_{constructor_name}"
+            target_category = _constructor_target_category(
+                provider, constructor_name, owner
+            )
             specs.append(
                 _constructor_spec(
                     constructor_id=f"cat.{prefix}.{constructor_name}",
@@ -74,10 +82,11 @@ def cat_constructor_registry() -> ConstructorRegistry:
                     provider=provider,
                     constructor_name=constructor_name,
                     sage_entry_point=f"Cat.Constructors.{method_name}",
-                    target_category=owner,
+                    target_category=target_category,
                     target_refinement_route=(
                         "Cat().Constructors()",
                         f"{owner}.Constructors()",
+                        target_category,
                     ),
                     status=_constructor_status(provider, constructor_name),
                     deferred_reason=_constructor_deferred_reason(
@@ -131,6 +140,47 @@ def _constructor_status(
     if _constructor_deferred_reason(provider, constructor_name):
         return "deferred"
     return "admitted"
+
+
+def _constructor_return_label(provider: type, constructor_name: str) -> str:
+    method = getattr(provider, constructor_name)
+    annotation = signature(method).return_annotation
+    if annotation is Signature.empty:
+        return ""
+    if isinstance(annotation, str):
+        return annotation.strip("'\"")
+    name = getattr(annotation, "__name__", "")
+    if name:
+        return str(name)
+    return str(annotation)
+
+
+def _constructor_target_category(
+    provider: type, constructor_name: str, owner: str
+) -> str:
+    target_categories = getattr(provider, "_constructor_target_categories", {})
+    target_category = target_categories.get(constructor_name)
+    if target_category is not None:
+        return str(target_category)
+
+    return_label = _constructor_return_label(provider, constructor_name)
+    if return_label:
+        return return_label
+    return owner
+
+
+def _constructor_target_refinement_route(
+    provider: type, constructor_name: str, owner: str
+) -> tuple[str, ...]:
+    target_routes = getattr(provider, "_constructor_target_refinement_routes", {})
+    target_route = target_routes.get(constructor_name)
+    if target_route is not None:
+        return tuple(str(route) for route in target_route)
+
+    target_category = _constructor_target_category(provider, constructor_name, owner)
+    if target_category == owner:
+        return (owner,)
+    return (owner, target_category)
 
 
 def _category_owner_label(category: object) -> str:
