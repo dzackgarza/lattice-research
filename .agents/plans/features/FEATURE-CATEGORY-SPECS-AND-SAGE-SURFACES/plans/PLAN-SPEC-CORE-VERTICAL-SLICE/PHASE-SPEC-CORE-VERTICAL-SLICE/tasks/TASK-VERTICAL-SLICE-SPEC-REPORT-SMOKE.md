@@ -85,3 +85,27 @@ falsifiable.
   - `just test-spec-core-vertical-slice` passed: 9 tests passed.
 - Broad `just test` remains non-diagnostic for this slice while parallel mypy-plugin
   work is active; the focused recipe is the slice acceptance command.
+
+## Review Log
+
+### Review 2026-05-18 (Fresh-context Spark review)
+
+- Synthesis: the validation leaf is a narrow completion step. It adds the focused
+  `just test-spec-core-vertical-slice` command and records evidence for the existing
+  report tests without changing the spec-core or witness implementation surfaces.
+- Gate 1 pass: the task introduces no new mathematical definitions; it validates the
+  existing spec-core report and free finite-rank module witness machinery.
+- Gate 2 pass: the card's acceptance criteria are supported by the focused just recipe
+  and the 9 passing tests in `tests/category_specs/test_spec_core_reports.py` and
+  `tests/category_specs/test_free_module_witnesses.py`.
+- Gate 3 pass: `git show ddeb37e` changes only the task card, `justfile`, generated
+  planning artifacts, and the handoff; no spec obligations, methods, or smoke
+  assertions were deleted or weakened.
+- Gate 4 pass: `just plan-validate` passed after the status transition, and the
+  acceptance direction is forward from `in-progress` to `needs-agent-review`.
+- Gate 5 pass: `just test-spec-core-vertical-slice` passed with 9 tests, covering the
+  `GF(5)^3` cardinality report, `ZZ^2` countability report, and the missing
+  deterministic-enumeration obligation.
+- Gate 6 pass: the new recipe follows the repo `justfile` convention and keeps broad
+  suite execution out of the slice evidence.
+- Outcome: PASS; frontmatter remains `needs-agent-review` for the repo acceptance gate.
