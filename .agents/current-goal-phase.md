@@ -16,6 +16,7 @@ The repo is currently in the spec phase.
 
 Current phase plan:
 
+- `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-SPEC-CORE-VERTICAL-SLICE/PLAN-SPEC-CORE-VERTICAL-SLICE.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-PROGRAM/PLAN-CATEGORY-SPEC-PROGRAM.md`
 - `.agents/plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION.md`
@@ -29,12 +30,16 @@ Current phase plan:
 
 Primary work:
 
+- Execute the approved spec-core vertical slice: typed obligation/provider/witness
+  reports for `GF(5)^3`, `ZZ^2`, and a missing-obligation claimant.
 - Create and audit category specs extending Sage's category layer.
 - Establish uniform semantic vocabulary for sets, modules, Hom/End/Aut objects, modules
   with forms, lattices, and later scheme/variety interfaces.
 - Research Sage and open-source backend capabilities needed to support those specs.
 - Create plans and cards for implementation gaps discovered during spec work.
 - Preserve mathematical intent in docs that can be reviewed by mathematicians.
+- Treat broad category expansion, global QC cleanup, and broad smoke recovery as
+  non-goals unless they directly change the active slice reports.
 
 Blocked by default:
 

@@ -6,6 +6,7 @@ parents:
 - '[[FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES]]'
 dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
+- '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 title: Category spec source maps and admission
 status: in-progress
 priority: critical

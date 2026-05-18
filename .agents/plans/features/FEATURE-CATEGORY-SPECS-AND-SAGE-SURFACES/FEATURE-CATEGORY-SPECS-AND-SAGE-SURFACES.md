@@ -6,6 +6,7 @@ parents: []
 dependsOn: []
 plans:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
+- '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 - '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
 - '[[PLAN-STATIC-CATEGORY-REFINEMENT-ORDER]]'
 - '[[PLAN-CATEGORY-FOUNDATION-KERNEL]]'
@@ -30,6 +31,15 @@ Hom/End/Aut objects, modules with forms, lattices, and preliminary geometry inte
 The goal is a constrained mathematical DSL where later code constructs typed objects and
 morphisms rather than manipulating raw matrices, vectors, and equations directly.
 
+## Current Pivot Gate
+
+The active success metric is `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]`: a narrow typed
+spec-core and construction-witness slice proving that finite/countable cartesian
+products satisfy inherited set obligations for free finite-rank modules. Broad category
+expansion, broad smoke recovery, or mypy/QC routing is not progress for the current
+pivot unless it directly changes the slice reports for `GF(5)^3`, `ZZ^2`, or a
+missing-obligation claimant.
+
 ## Definition Grounding Control
 
 Approved plans and migrated cards are routing artifacts, not mathematical definition
@@ -49,6 +59,9 @@ affected leaf; it does not block other approved phase-01 spec leaves.
 
 ## Current Plan Groups
 
+- `PLAN-SPEC-CORE-VERTICAL-SLICE`: current pivot gate and next executable success
+  metric; proves the spec-core, provider, witness, and report contract on the
+  finite/countable free finite-rank module slice.
 - `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Sage/source mapping and admission discipline.
 - `PLAN-CATEGORY-FOUNDATION-KERNEL` and `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: core category vocabulary and ownership; static refinement-order policy lives in the `category-framework-design` skill and source-backed child cards.
 - `PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION` and `PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION`: constructor admission, smoke triage, and audit stabilization.
@@ -65,6 +78,9 @@ and the linked ownership decision.
 
 ## Exit criteria
 
+- [ ] The spec-core vertical slice reports `GF(5)^3` through a finite
+  cartesian-power witness with cardinality `125` and `ZZ^2` through a countable
+  cartesian-power witness with inherited enumeration obligations.
 - [ ] Core categorical vocabulary is specified enough to express later implementation cards.
 - [ ] Lattice specs can state Picard, discriminant, isometry, Hom, End, Aut, base-change, and morphism semantics without raw matrix fallbacks.
 - [ ] Active mathematical spec leaves either contain a definition-grounding record or

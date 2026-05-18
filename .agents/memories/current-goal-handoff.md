@@ -13,38 +13,41 @@ authorities for status, evidence, dependencies, and completed work.
 ## Start Here
 
 - Active phase: category-spec and semantic-vocabulary.
-- Read `.agents/current-goal-phase.md`, then inspect the active `.agents/plans/`
-  frontier with IWE before selecting work.
-- Use the earliest incomplete dependency frontier. Do not rank or select downstream
-  work whose incoming `dependsOn` paths are incomplete.
+- Start with `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]`; it is the approved pivot gate.
+- Next executable order: `[[TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL]]`, then
+  `[[TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES]]`, then
+  `[[TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE]]`.
+- Use IWE to retrieve those cards before reading broad plan history.
 
 ## Milestone Order
 
-- Finish active category-spec vocabulary first, especially Hom/End/Aut and subtree
-  homset mirroring.
+- Prove the spec-core vertical slice before resuming broad category expansion:
+  `GF(5)^3` must report finite cartesian-power cardinality `125`; `ZZ^2` must report
+  countable cartesian-power provenance and inherited enumeration obligations.
+- Resume Hom/End/Aut human-gated cards only if the user explicitly returns to that
+  lane.
 - Resolve the QC/mypy gate only at the approved frontier; do not chase plugin
   implementation while parallel plugin work is active.
-- Finish ModulesWithForms and lattice vocabulary after category-spec dependencies are
-  settled.
+- Finish ModulesWithForms and lattice vocabulary after the slice and category-spec
+  dependencies are settled.
 - Only then consider categorical implementation, universal categorical algorithms, and
   downstream Coble work.
 
 ## Current Frontier
 
-- No autonomous leaf remains in the scoped handoff frontier after fresh-context review
-  of `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`.
-- That Hom runtime card is now `needs-human-input`; ask the human to approve it or
-  send it back.
-- The prior Sage `Category` import blocker is not a blocker for this card. Focused
-  validation now reaches the Hom runtime path; the remaining full category-smoke
-  failure is the separately tracked q-adic split lattice-cap constructor gap.
-- Do not run `just test` as evidence while parallel mypy-plugin work makes the result
-  non-diagnostic. Use focused checks that answer the selected leaf's question.
+- The current autonomous leaf is `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`.
+- Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
+  or mypy-plugin work as blockers for the spec-core slice unless the selected slice
+  task proves a direct dependency.
+- Do not run `just test` as evidence for the slice while parallel mypy-plugin work
+  makes the result non-diagnostic. Use focused checks that answer the selected leaf's
+  question.
 
 ## Human Gates
 
 - `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` is currently
-  human-gated after clean fresh-context review.
+  human-gated after clean fresh-context review, but it is no longer the active
+  autonomous frontier.
 - The per-subtree homset mirroring audits are currently human-gated:
   `MODULES`, `SETS`, `RINGS`, `ALGEBRAS`, `POSETS`, `TOPOLOGICAL-SPACES`, `CAT`, and
   `LATTICES`.
@@ -55,6 +58,8 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Validation Routing
 
+- The slice success metric is the focused spec report, not broad category-smoke
+  recovery.
 - Treat the q-adic split lattice-cap constructor failure as already routed through
   `TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED`
   and its linked Sage-support research card. Do not invent a local q-adic
