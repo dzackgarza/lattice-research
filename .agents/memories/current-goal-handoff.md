@@ -36,10 +36,10 @@ authorities for status, evidence, dependencies, and completed work.
 ## Current Frontier
 
 - The current autonomous leaf is `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`; implementation
-  is ready for gate review on branch `dzack/spec-core-vertical-slice-kernel`.
-- The review should decide whether direct-file focused validation is sufficient for this
-  leaf while eager `category_specs` package import still reaches the Sage category
-  import failure.
+  has fresh-context review evidence on branch `dzack/spec-core-vertical-slice-kernel`
+  and remains `needs-review` pending human acceptance.
+- Do not start `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` until the kernel
+  card's `dependsOn` role is resolved by human acceptance or an explicit override.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.

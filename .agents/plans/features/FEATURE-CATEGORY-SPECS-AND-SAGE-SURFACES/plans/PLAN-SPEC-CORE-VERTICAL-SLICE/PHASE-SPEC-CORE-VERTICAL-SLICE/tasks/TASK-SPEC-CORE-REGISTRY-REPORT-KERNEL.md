@@ -92,3 +92,49 @@ to a new package and should not change existing category behavior.
     reaches the existing Sage category import failure, `cannot import name Category`.
     Focused validation loads `category_specs/spec_core/reports.py` directly to test the
     new kernel without importing every category-spec subtree.
+
+## Review Log
+
+### Review 2026-05-18 (Fresh-context Spark review)
+
+Reviewed in fresh context under the research review kernel.
+
+- Synthesis: the work adds a minimal, isolated declarative core (`SpecObligation`,
+  `SpecProvider`, `ConstructionWitness`, `SpecReport`, `SpecRegistry`) that models the
+  pivot goal from `Spec Enforcement in Sage.md`: obligation inheritance, construction
+  witnesses, and an explicit report surface (`category hierarchy = obligation
+  inheritance`, `construction witnesses = implementation by composition`, `Spec registry =
+  inspectable, testable, generatable truth`).
+
+- Gate 1 pass: model-level definitions are scoped to the declared card objective and
+  grounded by task provenance plus pivot text lines 66-69 and 108-125 of
+  `Spec Enforcement in Sage.md`.
+
+- Gate 2 pass: all card acceptance criteria are satisfied; the leaf does not claim to
+  satisfy module-specific GF(5)/ZZ witness obligations.
+
+- Gate 3 pass: no `spec`/`smoke` weakening or scope drift was introduced in this
+  patch; all changed code files are within `category_specs/spec_core/` and the dedicated
+  focused test path.
+
+- Gate 4 pass: no decided card reversal or prior source-map/phase requirement change
+  was detected in this commit.
+
+- Gate 5 pass: `python -m py_compile ...`, `sage -python -m pytest tests/category_specs/test_spec_core_reports.py`,
+  and `just plan-validate` were re-run successfully.
+
+- Gate 6 pass: no style or compliance rule violations are introduced by this minimal
+  kernel package and test, and there are no orthogonal cleanup edits.
+
+- Evidence gap (non-blocking): package-level import of `category_specs.spec_core` is still
+  coupled to eager parent imports and not yet validated end-to-end.
+  - Pass condition: once upstream eager import issue is fixed, execute the same focused test
+    by importing from `category_specs.spec_core` and confirm identical results.
+
+- Evidence gap (non-blocking): focused mypy remains blocked by missing
+  `[sage-mypy-category-plugin]` in `/home/dzack/.config/mypy/config`.
+  - Pass condition: restore plugin configuration and run focused typing check for
+    `category_specs/spec_core/`.
+
+- Outcome: PASS, no blocking defects; status remains `needs-review` (complete pending human
+  acceptance).
