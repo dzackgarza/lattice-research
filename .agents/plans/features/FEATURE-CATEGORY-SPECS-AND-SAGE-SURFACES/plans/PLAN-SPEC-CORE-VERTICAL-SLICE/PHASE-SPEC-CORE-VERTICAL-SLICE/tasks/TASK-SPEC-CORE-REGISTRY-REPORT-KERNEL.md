@@ -151,5 +151,4 @@ Reviewed in fresh context under the research review kernel.
   - Pass condition: restore plugin configuration and run focused typing check for
     `category_specs/spec_core/`.
 
-- Outcome: PASS, no blocking defects; status remains `needs-agent-review` (complete pending human
-  acceptance).
+- Outcome: PASS, no blocking defects; frontmatter status is `complete`.
