@@ -92,6 +92,10 @@ to a new package and should not change existing category behavior.
     reaches the existing Sage category import failure, `cannot import name Category`.
     Focused validation loads `category_specs/spec_core/reports.py` directly to test the
     new kernel without importing every category-spec subtree.
+- PR review follow-up:
+  - Addressed Gemini review comments by caching registry indices, raising `ValueError`
+    for unknown inherited obligation IDs, and rejecting duplicate provider or witness
+    claims for one obligation.
 
 ## Review Log
 

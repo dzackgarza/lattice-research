@@ -8,6 +8,8 @@ from importlib.util import module_from_spec, spec_from_loader
 from pathlib import Path
 from types import ModuleType
 
+import pytest
+
 
 def _load_reports_module() -> ModuleType:
     repo_root = Path(__file__).resolve().parents[2]
@@ -118,3 +120,84 @@ def test_registry_report_partitions_provider_witness_and_missing_obligations() -
         "satisfied_by_witness",
         "missing",
     ]
+
+
+def test_registry_rejects_unregistered_inherited_obligation() -> None:
+    registry = SpecRegistry(
+        obligations=(
+            SpecObligation(
+                id="finite-cardinality",
+                title="Finite objects expose their cardinality",
+                source="category_specs/sets/subcategories/finite.py",
+            ),
+        ),
+    )
+
+    with pytest.raises(ValueError):
+        registry.report(
+            subject="GF(5)^3",
+            declared_category="Modules(GF(5)).Free().FinitelyPresented()",
+            inherited_obligation_ids=("finite-cardinality", "enumerability"),
+        )
+
+
+def test_registry_rejects_duplicate_obligation_providers_and_witnesses() -> None:
+    finite_cardinality = SpecObligation(
+        id="finite-cardinality",
+        title="Finite objects expose their cardinality",
+        source="category_specs/sets/subcategories/finite.py",
+    )
+    first_provider = SpecProvider(
+        id="finite-cardinality-methods",
+        category="Sets().Finite()",
+        provides=("finite-cardinality",),
+        source="category_specs/sets/subcategories/finite.py",
+    )
+    second_provider = SpecProvider(
+        id="cartesian-product-cardinality-methods",
+        category="Sets().CartesianProducts()",
+        provides=("finite-cardinality",),
+        source="category_specs/sets/subcategories/constructions/cartesian_product.py",
+    )
+    first_witness = ConstructionWitness(
+        id="finite-product-witness",
+        construction="cartesian_power",
+        source_category="Sets().Finite()",
+        target_category="Sets().Finite()",
+        provides=("finite-cardinality",),
+        source="category_specs/sets/subcategories/constructions/cartesian_product.py",
+    )
+    second_witness = ConstructionWitness(
+        id="module-carrier-witness",
+        construction="free_module_carrier",
+        source_category="Modules(GF(5)).Free()",
+        target_category="Sets().Finite()",
+        provides=("finite-cardinality",),
+        source=(
+            ".agents/plans/features/"
+            "FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/"
+            "PLAN-SPEC-CORE-VERTICAL-SLICE"
+        ),
+    )
+
+    provider_registry = SpecRegistry(
+        obligations=(finite_cardinality,),
+        providers=(first_provider, second_provider),
+    )
+    witness_registry = SpecRegistry(
+        obligations=(finite_cardinality,),
+        witnesses=(first_witness, second_witness),
+    )
+
+    with pytest.raises(ValueError):
+        provider_registry.report(
+            subject="GF(5)^3",
+            declared_category="Modules(GF(5)).Free().FinitelyPresented()",
+            inherited_obligation_ids=("finite-cardinality",),
+        )
+    with pytest.raises(ValueError):
+        witness_registry.report(
+            subject="GF(5)^3",
+            declared_category="Modules(GF(5)).Free().FinitelyPresented()",
+            inherited_obligation_ids=("finite-cardinality",),
+        )

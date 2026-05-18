@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from functools import cached_property
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -99,6 +100,18 @@ class SpecRegistry(BaseModel):
     providers: tuple[SpecProvider, ...] = ()
     witnesses: tuple[ConstructionWitness, ...] = ()
 
+    @cached_property
+    def obligations_by_id(self) -> dict[str, SpecObligation]:
+        return _obligations_by_id(self.obligations)
+
+    @cached_property
+    def providers_by_obligation(self) -> dict[str, SpecProvider]:
+        return _providers_by_obligation(self.providers)
+
+    @cached_property
+    def witnesses_by_obligation(self) -> dict[str, ConstructionWitness]:
+        return _witnesses_by_obligation(self.witnesses)
+
     def report(
         self,
         *,
@@ -107,20 +120,13 @@ class SpecRegistry(BaseModel):
         inherited_obligation_ids: Sequence[str],
         computed_values: Sequence[ComputedValue] = (),
     ) -> SpecReport:
-        obligations_by_id = _obligations_by_id(self.obligations)
-        providers_by_obligation = _providers_by_obligation(self.providers)
-        witnesses_by_obligation = _witnesses_by_obligation(self.witnesses)
-
-        inherited_obligations = tuple(
-            obligations_by_id[obligation_id]
-            for obligation_id in inherited_obligation_ids
-        )
+        inherited_obligations = self._inherited_obligations(inherited_obligation_ids)
         satisfied_by_provider: list[SpecCheckResult] = []
         satisfied_by_witness: list[SpecCheckResult] = []
         missing_obligations: list[SpecCheckResult] = []
 
         for obligation in inherited_obligations:
-            provider = providers_by_obligation.get(obligation.id)
+            provider = self.providers_by_obligation.get(obligation.id)
             if provider is not None:
                 satisfied_by_provider.append(
                     SpecCheckResult(
@@ -131,7 +137,7 @@ class SpecRegistry(BaseModel):
                 )
                 continue
 
-            witness = witnesses_by_obligation.get(obligation.id)
+            witness = self.witnesses_by_obligation.get(obligation.id)
             if witness is not None:
                 satisfied_by_witness.append(
                     SpecCheckResult(
@@ -156,6 +162,17 @@ class SpecRegistry(BaseModel):
             missing_obligations=tuple(missing_obligations),
         )
 
+    def _inherited_obligations(
+        self, inherited_obligation_ids: Sequence[str]
+    ) -> tuple[SpecObligation, ...]:
+        obligations: list[SpecObligation] = []
+        for obligation_id in inherited_obligation_ids:
+            obligation = self.obligations_by_id.get(obligation_id)
+            if obligation is None:
+                raise ValueError(f"unknown inherited obligation id: {obligation_id}")
+            obligations.append(obligation)
+        return tuple(obligations)
+
 
 def _obligations_by_id(
     obligations: Sequence[SpecObligation],
@@ -174,7 +191,9 @@ def _providers_by_obligation(
     indexed: dict[str, SpecProvider] = {}
     for provider in providers:
         for obligation_id in provider.provides:
-            indexed.setdefault(obligation_id, provider)
+            if obligation_id in indexed:
+                raise ValueError(f"duplicate provider for obligation: {obligation_id}")
+            indexed[obligation_id] = provider
     return indexed
 
 
@@ -184,5 +203,7 @@ def _witnesses_by_obligation(
     indexed: dict[str, ConstructionWitness] = {}
     for witness in witnesses:
         for obligation_id in witness.provides:
-            indexed.setdefault(obligation_id, witness)
+            if obligation_id in indexed:
+                raise ValueError(f"duplicate witness for obligation: {obligation_id}")
+            indexed[obligation_id] = witness
     return indexed
