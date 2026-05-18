@@ -5,7 +5,8 @@ This file imports those packages and chooses conventional aliases such as
 ``Ring = RingsObject`` or ``RModule = ModulesObject``.
 """
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
+from types import SimpleNamespace
 
 from sage.categories.cartesian_product import (
     CartesianProductFunctor as SageCartesianProductFunctor,
@@ -340,527 +341,530 @@ from .topological_spaces import (
 )
 
 # Generic / Support
-type Category = CatBaseCategory
-type CategoryObject = SageParent
-type CategoryElement = SageElement
-type Matrix = SageMatrix
-type MatrixSpace = SageMatrixSpace
-type DiGraph = SageDiGraph
-type CartesianProductFunctor = SageCartesianProductFunctor
-type CategoryOfHomCategories = HomCategoriesCategory
-type CategoryOfEndCategories = EndCategoriesCategory
-type CategoryOfAutCategories = AutCategoriesCategory
-type Hom = HomCategoriesObject
-type End = EndCategoriesObject
-type Aut = AutCategoriesObject
-type Morphism = SageMorphism
-type Endomorphism = SageMorphism
-type Automorphism = SageMorphism
-type Ring = RingsObject
-type Field = _Fields.ParentMethods
-type NumberField = _NumberFields.ParentMethods
-type RingElement = RingsElement
-type RingMorphism = RingsMorphism
-type RingHom = RingsHom
-type RingEnd = RingsEnd
-type RingAut = RingsAut
-type RingEndomorphism = RingsEndomorphism
-type RingAutomorphism = RingsAutomorphism
-type ApproximateRing = ApproximateRingsObject
-type ApproximateRingElement = ApproximateRingsElement
-type ApproximateRingMorphism = ApproximateRingsMorphism
-type ApproximateRingCategory = ApproximateRingsCategory
-type Group = SageGroup
-type AbelianGroup = AbelianGroup_class
-type Magma = CategoryObject
-type Semigroup = CategoryObject
-type Monoid = Monoid_class
-type AdditiveSemigroup = CategoryObject
-type AdditiveMonoid = CategoryObject
-type AdditiveGroup = CategoryObject
-type Polynomial = SagePolynomial
-type OrePolynomialRing = SageOrePolynomialRing
-type AlgebraicPolynomial = AlgebraicPolynomialTracker
-type TermOrder = SageTermOrder
-type RealNumberInterval = RealIntervalFieldElement
-type ComplexInterval = ComplexIntervalFieldElement
-type Valuation = DiscretePseudoValuation
+Category = CatBaseCategory
+CategoryObject = SageParent
+CategoryElement = SageElement
+Matrix = SageMatrix
+MatrixSpace = SageMatrixSpace
+DiGraph = SageDiGraph
+CartesianProductFunctor = SageCartesianProductFunctor
+CategoryOfHomCategories = HomCategoriesCategory
+CategoryOfEndCategories = EndCategoriesCategory
+CategoryOfAutCategories = AutCategoriesCategory
+Hom = HomCategoriesObject
+End = EndCategoriesObject
+Aut = AutCategoriesObject
+Morphism = SageMorphism
+Endomorphism = SageMorphism
+Automorphism = SageMorphism
+Ring = RingsObject
+Field = _Fields.ParentMethods
+NumberField = _NumberFields.ParentMethods
+RingElement = RingsElement
+RingMorphism = RingsMorphism
+RingHom = RingsHom
+RingEnd = RingsEnd
+RingAut = RingsAut
+RingEndomorphism = RingsEndomorphism
+RingAutomorphism = RingsAutomorphism
+ApproximateRing = ApproximateRingsObject
+ApproximateRingElement = ApproximateRingsElement
+ApproximateRingMorphism = ApproximateRingsMorphism
+ApproximateRingCategory = ApproximateRingsCategory
+Group = SageGroup
+AbelianGroup = AbelianGroup_class
+Magma = CategoryObject
+Semigroup = CategoryObject
+Monoid = Monoid_class
+AdditiveSemigroup = CategoryObject
+AdditiveMonoid = CategoryObject
+AdditiveGroup = CategoryObject
+Polynomial = SagePolynomial
+OrePolynomialRing = SageOrePolynomialRing
+AlgebraicPolynomial = AlgebraicPolynomialTracker
+TermOrder = SageTermOrder
+RealNumberInterval = RealIntervalFieldElement
+ComplexInterval = ComplexIntervalFieldElement
+Valuation = DiscretePseudoValuation
 
-type LocalRing = _LocalRings.ParentMethods
-type CompleteRing = _CompleteRings.ParentMethods
+LocalRing = _LocalRings.ParentMethods
+CompleteRing = _CompleteRings.ParentMethods
 
-type Cardinality = Integer | InfinityElement
-type FreeResolution = SageFreeResolution
+Cardinality = Integer | InfinityElement
+FreeResolution = SageFreeResolution
 
-type RMod = ModulesCategory
-type RModule = ModulesObject
-type RModuleElement = ModulesElement
-type RModMorphism = ModulesMorphism
-type RModuleMorphism = RModMorphism
-type FreeModule = _Free.ParentMethods
-type TorsionModule = _Torsion.ParentMethods
-type ProjectiveModule = _Projective.ParentMethods
-type SubModule = ModuleSubobjects.ParentMethods
-type Submodule = SubModule
-type QuotientModule = ModuleQuotients.ParentMethods
-type TensorProductRModule = ModuleTensorProducts.ParentMethods
-type TensorAlgebraComponent = TensorAlgebraComponentsObject
-type Tensor = TensorAlgebraComponentsElement
+RMod = ModulesCategory
+RModule = ModulesObject
+RModuleElement = ModulesElement
+RModMorphism = ModulesMorphism
+RModuleMorphism = RModMorphism
+FreeModule = _Free.ParentMethods
+TorsionModule = _Torsion.ParentMethods
+ProjectiveModule = _Projective.ParentMethods
+SubModule = ModuleSubobjects.ParentMethods
+Submodule = SubModule
+QuotientModule = ModuleQuotients.ParentMethods
+TensorProductRModule = ModuleTensorProducts.ParentMethods
+TensorAlgebraComponent = TensorAlgebraComponentsObject
+Tensor = TensorAlgebraComponentsElement
 
-type Ideal = _RingIdealParentMethods
-type PrimeIdeal = Ideal
-type MaximalIdeal = PrimeIdeal
+Ideal = _RingIdealParentMethods
+PrimeIdeal = Ideal
+MaximalIdeal = PrimeIdeal
 
-type RModHom = ModulesHom
-type RModEnd = ModulesEnd
-type RModAut = ModulesAut
-type RModuleEnd = RModEnd
-type RModuleAut = RModAut
-type RModEndomorphism = ModulesEndomorphism
-type RModAutomorphism = ModulesAutomorphism
-type RModuleEndomorphism = RModEndomorphism
-type RModuleAutomorphism = RModAutomorphism
-type DualModule = ModuleDualObjects.ParentMethods
-type DualModuleElement = ModuleDualObjects.ElementMethods
-type DualModuleMorphism = RModMorphism
-type RModDual = DualModule
-type RModuleDual = DualModule
-type RModDualElement = DualModuleElement
-type RModuleDualElement = DualModuleElement
-type RModDualMorphism = DualModuleMorphism
-type RModuleDualMorphism = DualModuleMorphism
-type RModuleForm = RModMorphism
-type ModuleStructure = RModMorphism
-type ModuleBasis = AbstractFamily | Sequence[RModuleElement]
-type Polyhedron = SageParent
-type FormedModuleCategory = FormedModulesCategory
-type FormedModule = FormedModulesObject
-type FormedModuleElement = FormedModulesElement
-type FormedModuleMorphism = FormedModulesMorphism
-type FormedModuleHom = FormedModulesHom
-type FormedModuleEnd = FormedModulesEnd
-type FormedModuleAut = FormedModulesAut
-type FormedModuleHomCategory = FormedModulesHomCategory
-type FormedModuleEndCategory = FormedModulesEndCategory
-type FormedModuleAutCategory = FormedModulesAutCategory
-type FormedModuleEndomorphism = FormedModulesEndomorphism
-type FormedModuleAutomorphism = FormedModulesAutomorphism
-type BilinearModuleCategory = BilinearModulesCategory
-type BilinearModule = BilinearModulesObject
-type BilinearModuleElement = BilinearModulesElement
-type BilinearModuleMorphism = BilinearModulesMorphism
-type BilinearModuleHom = BilinearModulesHom
-type BilinearModuleEnd = BilinearModulesEnd
-type BilinearModuleAut = BilinearModulesAut
-type BilinearModuleHomCategory = BilinearModulesHomCategory
-type BilinearModuleEndCategory = BilinearModulesEndCategory
-type BilinearModuleAutCategory = BilinearModulesAutCategory
-type BilinearModuleEndomorphism = BilinearModulesEndomorphism
-type BilinearModuleAutomorphism = BilinearModulesAutomorphism
-type QuadraticModuleCategory = QuadraticModulesCategory
-type QuadraticModule = QuadraticModulesObject
-type QuadraticModuleElement = QuadraticModulesElement
-type QuadraticModuleMorphism = QuadraticModulesMorphism
-type QuadraticModuleHom = QuadraticModulesHom
-type QuadraticModuleEnd = QuadraticModulesEnd
-type QuadraticModuleAut = QuadraticModulesAut
-type QuadraticModuleHomCategory = QuadraticModulesHomCategory
-type QuadraticModuleEndCategory = QuadraticModulesEndCategory
-type QuadraticModuleAutCategory = QuadraticModulesAutCategory
-type QuadraticModuleEndomorphism = QuadraticModulesEndomorphism
-type QuadraticModuleAutomorphism = QuadraticModulesAutomorphism
-type TorsionQuadraticModuleCategory = TorsionQuadraticModulesCategory
-type TorsionQuadraticModule = TorsionQuadraticModulesObject
-type TorsionQuadraticModuleElement = TorsionQuadraticModulesElement
-type TorsionQuadraticModuleMorphism = TorsionQuadraticModulesMorphism
-type TorsionQuadraticModuleHom = TorsionQuadraticModulesHom
-type TorsionQuadraticModuleEnd = TorsionQuadraticModulesEnd
-type TorsionQuadraticModuleAut = TorsionQuadraticModulesAut
-type TorsionQuadraticModuleHomCategory = TorsionQuadraticModulesHomCategory
-type TorsionQuadraticModuleEndCategory = TorsionQuadraticModulesEndCategory
-type TorsionQuadraticModuleAutCategory = TorsionQuadraticModulesAutCategory
-type TorsionQuadraticModuleEndomorphism = TorsionQuadraticModulesEndomorphism
-type TorsionQuadraticModuleAutomorphism = TorsionQuadraticModulesAutomorphism
-type BilinearFormsModule = SageHomset
-type BilinearForm = SageMorphism
-type QuadraticFormsModule = SageHomset
-type QuadraticForm = SageMorphism
+RModHom = ModulesHom
+RModEnd = ModulesEnd
+RModAut = ModulesAut
+RModuleEnd = RModEnd
+RModuleAut = RModAut
+RModEndomorphism = ModulesEndomorphism
+RModAutomorphism = ModulesAutomorphism
+RModuleEndomorphism = RModEndomorphism
+RModuleAutomorphism = RModAutomorphism
+DualModule = ModuleDualObjects.ParentMethods
+DualModuleElement = ModuleDualObjects.ElementMethods
+DualModuleMorphism = RModMorphism
+RModDual = DualModule
+RModuleDual = DualModule
+RModDualElement = DualModuleElement
+RModuleDualElement = DualModuleElement
+RModDualMorphism = DualModuleMorphism
+RModuleDualMorphism = DualModuleMorphism
+RModuleForm = RModMorphism
+ModuleStructure = RModMorphism
+ModuleBasis = (
+    AbstractFamily | Mapping[CategoryElement, RModuleElement] | Sequence[RModuleElement]
+)
+Polyhedron = SageParent
+FormedModuleCategory = FormedModulesCategory
+FormedModule = FormedModulesObject
+FormedModuleElement = FormedModulesElement
+FormedModuleMorphism = FormedModulesMorphism
+FormedModuleHom = FormedModulesHom
+FormedModuleEnd = FormedModulesEnd
+FormedModuleAut = FormedModulesAut
+FormedModuleHomCategory = FormedModulesHomCategory
+FormedModuleEndCategory = FormedModulesEndCategory
+FormedModuleAutCategory = FormedModulesAutCategory
+FormedModuleEndomorphism = FormedModulesEndomorphism
+FormedModuleAutomorphism = FormedModulesAutomorphism
+BilinearModuleCategory = BilinearModulesCategory
+BilinearModule = BilinearModulesObject
+BilinearModuleElement = BilinearModulesElement
+BilinearModuleMorphism = BilinearModulesMorphism
+BilinearModuleHom = BilinearModulesHom
+BilinearModuleEnd = BilinearModulesEnd
+BilinearModuleAut = BilinearModulesAut
+BilinearModuleHomCategory = BilinearModulesHomCategory
+BilinearModuleEndCategory = BilinearModulesEndCategory
+BilinearModuleAutCategory = BilinearModulesAutCategory
+BilinearModuleEndomorphism = BilinearModulesEndomorphism
+BilinearModuleAutomorphism = BilinearModulesAutomorphism
+QuadraticModuleCategory = QuadraticModulesCategory
+QuadraticModule = QuadraticModulesObject
+QuadraticModuleElement = QuadraticModulesElement
+QuadraticModuleMorphism = QuadraticModulesMorphism
+QuadraticModuleHom = QuadraticModulesHom
+QuadraticModuleEnd = QuadraticModulesEnd
+QuadraticModuleAut = QuadraticModulesAut
+QuadraticModuleHomCategory = QuadraticModulesHomCategory
+QuadraticModuleEndCategory = QuadraticModulesEndCategory
+QuadraticModuleAutCategory = QuadraticModulesAutCategory
+QuadraticModuleEndomorphism = QuadraticModulesEndomorphism
+QuadraticModuleAutomorphism = QuadraticModulesAutomorphism
+TorsionQuadraticModuleCategory = TorsionQuadraticModulesCategory
+TorsionQuadraticModule = TorsionQuadraticModulesObject
+TorsionQuadraticModuleElement = TorsionQuadraticModulesElement
+TorsionQuadraticModuleMorphism = TorsionQuadraticModulesMorphism
+TorsionQuadraticModuleHom = TorsionQuadraticModulesHom
+TorsionQuadraticModuleEnd = TorsionQuadraticModulesEnd
+TorsionQuadraticModuleAut = TorsionQuadraticModulesAut
+TorsionQuadraticModuleHomCategory = TorsionQuadraticModulesHomCategory
+TorsionQuadraticModuleEndCategory = TorsionQuadraticModulesEndCategory
+TorsionQuadraticModuleAutCategory = TorsionQuadraticModulesAutCategory
+TorsionQuadraticModuleEndomorphism = TorsionQuadraticModulesEndomorphism
+TorsionQuadraticModuleAutomorphism = TorsionQuadraticModulesAutomorphism
+BilinearFormsModule = SageHomset
+BilinearForm = SageMorphism
+QuadraticFormsModule = SageHomset
+QuadraticForm = SageMorphism
 
-type RAlgebra = AlgebrasCategory
-type Algebra = AlgebrasObject
-type AlgebraElement = AlgebrasElement
-type AlgebraMorphism = AlgebrasMorphism
-type MagmaticAlgebraCategory = MagmaticAlgebrasCategory
-type MagmaticAlgebra = MagmaticAlgebrasObject
-type MagmaticAlgebraElement = MagmaticAlgebrasElement
-type MagmaticAlgebraMorphism = MagmaticAlgebrasMorphism
-type AssociativeAlgebraCategory = AssociativeAlgebrasCategory
-type AssociativeAlgebra = AssociativeAlgebrasObject
-type AssociativeAlgebraElement = AssociativeAlgebrasElement
-type AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
-type AlgebraBasis = AbstractFamily
-type AlgebraIdeal = AlgebraIdealsObject
-type HochschildChainComplex = HochschildComplex
+RAlgebra = AlgebrasCategory
+Algebra = AlgebrasObject
+AlgebraElement = AlgebrasElement
+AlgebraMorphism = AlgebrasMorphism
+MagmaticAlgebraCategory = MagmaticAlgebrasCategory
+MagmaticAlgebra = MagmaticAlgebrasObject
+MagmaticAlgebraElement = MagmaticAlgebrasElement
+MagmaticAlgebraMorphism = MagmaticAlgebrasMorphism
+AssociativeAlgebraCategory = AssociativeAlgebrasCategory
+AssociativeAlgebra = AssociativeAlgebrasObject
+AssociativeAlgebraElement = AssociativeAlgebrasElement
+AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
+AlgebraBasis = AbstractFamily
+AlgebraIdeal = AlgebraIdealsObject
+HochschildChainComplex = HochschildComplex
 
 # Sets
 
-type Set = SetsObject
-type FiniteSet = _FiniteSets.ParentMethods
-type CountableSet = _CountableSets.ParentMethods
-type InfiniteSet = _InfiniteSets.ParentMethods
-type UncountableSet = _UncountableSets.ParentMethods
-type GradedSet = GradedSetsCategory.ParentMethods
-type GSet = _GSets.ParentMethods
-type Subset = SetSubobjects.ParentMethods
-type OpenSubset = Subset
-type ClosedSubset = Subset
-type SetSubquotient = SetSubquotients.ParentMethods
-type QuotientSet = SetQuotients.ParentMethods
-type IsomorphicSetObject = SetIsomorphicObjects.ParentMethods
-type SetWithRealizations = SetWithRealizationsCategory.ParentMethods
-type SetRealization = SetRealizations.ParentMethods
-type SetElement = SetsElement
-type SetMorphism = SetsMorphism
-type SetHom = SetsHom
-type SetEnd = SetsEnd
-type SetAut = SetsAut
-type SetEndomorphism = SetsEndomorphism
-type SetAutomorphism = SetsAutomorphism
-type FiniteSetMap = FiniteSetMap_MN
-type SetFamily = AbstractFamily
-type SetGeneratingSeries = SageParent
-type IntegerPartition = SageIntegerPartition
-type SetPartition = SageSetPartition
-type SetPartitionsParent = SageSetPartitions
-type PartitionedSet = PartitionedSetsObject
-type PartitionedSetElement = PartitionedSetsElement
-type PartitionedSetMorphism = PartitionedSetsMorphism
-type PartitionedSetHom = PartitionedSetsHom
-type PartitionedSetEnd = PartitionedSetsEnd
-type PartitionedSetAut = PartitionedSetsAut
-type PartitionedSetEndomorphism = PartitionedSetsEndomorphism
-type PartitionedSetAutomorphism = PartitionedSetsAutomorphism
-type PartitionedSetHomCategory = PartitionedSetsHomCategory
-type PartitionedSetEndCategory = PartitionedSetsEndCategory
-type PartitionedSetAutCategory = PartitionedSetsAutCategory
-type PartitionedSetCategory = PartitionedSetsCategory
-type SetPartitionSet = PartitionedSet
-type EquivalenceRelation = SetPartition
-type GroupElement = SageElement
-type GroupAction = SageMorphism
+Set = SetsObject
+FiniteSet = _FiniteSets.ParentMethods
+CountableSet = _CountableSets.ParentMethods
+InfiniteSet = _InfiniteSets.ParentMethods
+UncountableSet = _UncountableSets.ParentMethods
+GradedSet = GradedSetsCategory.ParentMethods
+GSet = _GSets.ParentMethods
+Subset = SetSubobjects.ParentMethods
+OpenSubset = Subset
+ClosedSubset = Subset
+SetSubquotient = SetSubquotients.ParentMethods
+QuotientSet = SetQuotients.ParentMethods
+IsomorphicSetObject = SetIsomorphicObjects.ParentMethods
+SetWithRealizations = SetWithRealizationsCategory.ParentMethods
+SetRealization = SetRealizations.ParentMethods
+SetElement = SetsElement
+SetMorphism = SetsMorphism
+SetHom = SetsHom
+SetEnd = SetsEnd
+SetAut = SetsAut
+SetEndomorphism = SetsEndomorphism
+SetAutomorphism = SetsAutomorphism
+FiniteSetMap = FiniteSetMap_MN
+SetFamily = AbstractFamily
+SetGeneratingSeries = SageParent
+IntegerPartition = SageIntegerPartition
+SetPartition = SageSetPartition
+SetPartitionsParent = SageSetPartitions
+PartitionedSet = PartitionedSetsObject
+PartitionedSetElement = PartitionedSetsElement
+PartitionedSetMorphism = PartitionedSetsMorphism
+PartitionedSetHom = PartitionedSetsHom
+PartitionedSetEnd = PartitionedSetsEnd
+PartitionedSetAut = PartitionedSetsAut
+PartitionedSetEndomorphism = PartitionedSetsEndomorphism
+PartitionedSetAutomorphism = PartitionedSetsAutomorphism
+PartitionedSetHomCategory = PartitionedSetsHomCategory
+PartitionedSetEndCategory = PartitionedSetsEndCategory
+PartitionedSetAutCategory = PartitionedSetsAutCategory
+PartitionedSetCategory = PartitionedSetsCategory
+SetPartitionSet = PartitionedSet
+EquivalenceRelation = SetPartition
+GroupElement = SageElement
+GroupAction = SageMorphism
 
-type RealNumber = SageRealNumber
-type TopologicalSpace = TopologicalSpacesObject
-type MetricSpace = MetricSpacesObject
-type TopologicalSpaceMorphism = TopologicalSpacesMorphism
-type RealSubset = _RealSets.ParentMethods
-type RealOpenSet = RealSubset
-type RealInterval = InternalRealInterval
-type MetricBall = OpenSubset
-type PrimeSubset = Subset
-type PrimesInArithmeticProgressions = PrimeSubset
-type SympySet = SageSympySet
-type Poset = PosetsObject
-type PosetElement = PosetsElement
-type PosetMorphism = PosetsMorphism
-type PosetHom = PosetsHom
-type PosetEnd = PosetsEnd
-type PosetAut = PosetsAut
-type PosetSubset = Subset
-type MeetSemilatticePoset = _MeetSemilatticePosets.ParentMethods
-type JoinSemilatticePoset = _JoinSemilatticePosets.ParentMethods
-type LatticePoset = _LatticePosets.ParentMethods
-type FiniteMeetSemilatticePoset = _FiniteMeetSemilatticePosets.ParentMethods
-type FiniteJoinSemilatticePoset = _FiniteJoinSemilatticePosets.ParentMethods
-type FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
-type SageFinitePoset = SagePoset
-type LatticeCategory = LatticesCategory
-type Lattice = LatticesObject
-type LatticeElement = LatticesElement
-type LatticeMorphism = LatticesMorphism
-type LatticeHom = LatticesHom
-type LatticeEnd = LatticesEnd
-type LatticeAut = LatticesAut
-type LatticeHomCategory = LatticesHomCategory
-type LatticeEndCategory = LatticesEndCategory
-type LatticeAutCategory = LatticesAutCategory
-type LatticeEndomorphism = LatticesEndomorphism
-type LatticeAutomorphism = LatticesAutomorphism
-type DiscriminantGroupCategory = LatticeDiscriminantGroupsCategory
-type DiscriminantGroup = LatticeDiscriminantGroupsObject
-type DiscriminantGroupElement = LatticeDiscriminantGroupsElement
-type DiscriminantGroupMorphism = LatticeDiscriminantGroupsMorphism
-type DiscriminantGroupHom = LatticeDiscriminantGroupsHom
-type DiscriminantGroupEnd = LatticeDiscriminantGroupsEnd
-type DiscriminantGroupAut = LatticeDiscriminantGroupsAut
-type DiscriminantGroupHomCategory = LatticeDiscriminantGroupsHomCategory
-type DiscriminantGroupEndCategory = LatticeDiscriminantGroupsEndCategory
-type DiscriminantGroupAutCategory = LatticeDiscriminantGroupsAutCategory
-type DiscriminantGroupEndomorphism = LatticeDiscriminantGroupsEndomorphism
-type DiscriminantGroupAutomorphism = LatticeDiscriminantGroupsAutomorphism
-type OrthogonalGroup = RModAut
-type OrthogonalAutomorphism = RModAutomorphism
-type LatticeOrthogonalGroup = LatticeAut
-type LatticeIsometry = LatticeAutomorphism
-type SignaturePair = tuple[Integer, Integer]
-type IntegralRescaling = tuple[Integer, Lattice]
-
-
-class CatTypes:
-    Category = CatCategory
-    Object = CatObject
-    Element = CatElement
-    Morphism = CatMorphism
-    HomCategory = CatHomCategory
-    EndCategory = CatEndCategory
-    AutCategory = CatAutCategory
-    Hom = CatHom
-    End = CatEnd
-    Aut = CatAut
-    Endomorphism = CatEndomorphism
-    Automorphism = CatAutomorphism
+RealNumber = SageRealNumber
+TopologicalSpace = TopologicalSpacesObject
+MetricSpace = MetricSpacesObject
+TopologicalSpaceMorphism = TopologicalSpacesMorphism
+RealSubset = _RealSets.ParentMethods
+RealOpenSet = RealSubset
+RealInterval = InternalRealInterval
+MetricBall = OpenSubset
+PrimeSubset = Subset
+PrimesInArithmeticProgressions = PrimeSubset
+SympySet = SageSympySet
+Poset = PosetsObject
+PosetElement = PosetsElement
+PosetMorphism = PosetsMorphism
+PosetHom = PosetsHom
+PosetEnd = PosetsEnd
+PosetAut = PosetsAut
+PosetSubset = Subset
+MeetSemilatticePoset = _MeetSemilatticePosets.ParentMethods
+JoinSemilatticePoset = _JoinSemilatticePosets.ParentMethods
+LatticePoset = _LatticePosets.ParentMethods
+FiniteMeetSemilatticePoset = _FiniteMeetSemilatticePosets.ParentMethods
+FiniteJoinSemilatticePoset = _FiniteJoinSemilatticePosets.ParentMethods
+FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
+SageFinitePoset = SagePoset
+LatticeCategory = LatticesCategory
+Lattice = LatticesObject
+LatticeElement = LatticesElement
+LatticeMorphism = LatticesMorphism
+LatticeHom = LatticesHom
+LatticeEnd = LatticesEnd
+LatticeAut = LatticesAut
+LatticeHomCategory = LatticesHomCategory
+LatticeEndCategory = LatticesEndCategory
+LatticeAutCategory = LatticesAutCategory
+LatticeEndomorphism = LatticesEndomorphism
+LatticeAutomorphism = LatticesAutomorphism
+DiscriminantGroupCategory = LatticeDiscriminantGroupsCategory
+DiscriminantGroup = LatticeDiscriminantGroupsObject
+DiscriminantGroupElement = LatticeDiscriminantGroupsElement
+DiscriminantGroupMorphism = LatticeDiscriminantGroupsMorphism
+DiscriminantGroupHom = LatticeDiscriminantGroupsHom
+DiscriminantGroupEnd = LatticeDiscriminantGroupsEnd
+DiscriminantGroupAut = LatticeDiscriminantGroupsAut
+DiscriminantGroupHomCategory = LatticeDiscriminantGroupsHomCategory
+DiscriminantGroupEndCategory = LatticeDiscriminantGroupsEndCategory
+DiscriminantGroupAutCategory = LatticeDiscriminantGroupsAutCategory
+DiscriminantGroupEndomorphism = LatticeDiscriminantGroupsEndomorphism
+DiscriminantGroupAutomorphism = LatticeDiscriminantGroupsAutomorphism
+OrthogonalGroup = RModAut
+OrthogonalAutomorphism = RModAutomorphism
+LatticeOrthogonalGroup = LatticeAut
+LatticeIsometry = LatticeAutomorphism
+SignaturePair = tuple[Integer, Integer]
+IntegralRescaling = tuple[Integer, Lattice]
 
 
-class HomCategoryTypes:
-    Category = HomCategoriesCategory
-    Object = HomCategoriesObject
-    Element = HomCategoriesElement
-    Morphism = HomCategoriesMorphism
+CatTypes = SimpleNamespace(
+    Category=CatCategory,
+    Object=CatObject,
+    Element=CatElement,
+    Morphism=CatMorphism,
+    HomCategory=CatHomCategory,
+    EndCategory=CatEndCategory,
+    AutCategory=CatAutCategory,
+    Hom=CatHom,
+    End=CatEnd,
+    Aut=CatAut,
+    Endomorphism=CatEndomorphism,
+    Automorphism=CatAutomorphism,
+)
 
+HomCategoryTypes = SimpleNamespace(
+    Category=HomCategoriesCategory,
+    Object=HomCategoriesObject,
+    Element=HomCategoriesElement,
+    Morphism=HomCategoriesMorphism,
+)
 
-class EndCategoryTypes:
-    Category = EndCategoriesCategory
-    Object = EndCategoriesObject
-    Element = EndCategoriesElement
-    Morphism = EndCategoriesMorphism
+EndCategoryTypes = SimpleNamespace(
+    Category=EndCategoriesCategory,
+    Object=EndCategoriesObject,
+    Element=EndCategoriesElement,
+    Morphism=EndCategoriesMorphism,
+)
 
+AutCategoryTypes = SimpleNamespace(
+    Category=AutCategoriesCategory,
+    Object=AutCategoriesObject,
+    Element=AutCategoriesElement,
+    Morphism=AutCategoriesMorphism,
+)
 
-class AutCategoryTypes:
-    Category = AutCategoriesCategory
-    Object = AutCategoriesObject
-    Element = AutCategoriesElement
-    Morphism = AutCategoriesMorphism
+SetTypes = SimpleNamespace(
+    Category=SetsCategory,
+    Object=SetsObject,
+    Element=SetsElement,
+    Morphism=SetsMorphism,
+    HomCategory=SetsHomCategory,
+    EndCategory=SetsEndCategory,
+    AutCategory=SetsAutCategory,
+    Hom=SetsHom,
+    End=SetsEnd,
+    Aut=SetsAut,
+    Endomorphism=SetsEndomorphism,
+    Automorphism=SetsAutomorphism,
+)
 
+RingTypes = SimpleNamespace(
+    Category=RingsCategory,
+    Object=RingsObject,
+    Element=RingsElement,
+    Morphism=RingsMorphism,
+    HomCategory=RingsHomCategory,
+    EndCategory=RingsEndCategory,
+    AutCategory=RingsAutCategory,
+    Hom=RingsHom,
+    End=RingsEnd,
+    Aut=RingsAut,
+    Endomorphism=RingsEndomorphism,
+    Automorphism=RingsAutomorphism,
+)
 
-class SetTypes:
-    Category = SetsCategory
-    Object = SetsObject
-    Element = SetsElement
-    Morphism = SetsMorphism
-    HomCategory = SetsHomCategory
-    EndCategory = SetsEndCategory
-    AutCategory = SetsAutCategory
-    Hom = SetsHom
-    End = SetsEnd
-    Aut = SetsAut
-    Endomorphism = SetsEndomorphism
-    Automorphism = SetsAutomorphism
+RModuleTypes = SimpleNamespace(
+    Category=ModulesCategory,
+    Object=ModulesObject,
+    Element=ModulesElement,
+    Morphism=ModulesMorphism,
+    HomCategory=ModulesHomCategory,
+    EndCategory=ModulesEndCategory,
+    AutCategory=ModulesAutCategory,
+    Hom=ModulesHom,
+    End=ModulesEnd,
+    Aut=ModulesAut,
+    Endomorphism=ModulesEndomorphism,
+    Automorphism=ModulesAutomorphism,
+)
 
+FormedModuleTypes = SimpleNamespace(
+    Category=FormedModulesCategory,
+    Object=FormedModulesObject,
+    Element=FormedModulesElement,
+    Morphism=FormedModulesMorphism,
+    HomCategory=FormedModulesHomCategory,
+    EndCategory=FormedModulesEndCategory,
+    AutCategory=FormedModulesAutCategory,
+    Hom=FormedModulesHom,
+    End=FormedModulesEnd,
+    Aut=FormedModulesAut,
+    Endomorphism=FormedModulesEndomorphism,
+    Automorphism=FormedModulesAutomorphism,
+)
 
-class RingTypes:
-    Category = RingsCategory
-    Object = RingsObject
-    Element = RingsElement
-    Morphism = RingsMorphism
-    HomCategory = RingsHomCategory
-    EndCategory = RingsEndCategory
-    AutCategory = RingsAutCategory
-    Hom = RingsHom
-    End = RingsEnd
-    Aut = RingsAut
-    Endomorphism = RingsEndomorphism
-    Automorphism = RingsAutomorphism
+BilinearModuleTypes = SimpleNamespace(
+    Category=BilinearModulesCategory,
+    Object=BilinearModulesObject,
+    Element=BilinearModulesElement,
+    Morphism=BilinearModulesMorphism,
+    HomCategory=BilinearModulesHomCategory,
+    EndCategory=BilinearModulesEndCategory,
+    AutCategory=BilinearModulesAutCategory,
+    Hom=BilinearModulesHom,
+    End=BilinearModulesEnd,
+    Aut=BilinearModulesAut,
+    Endomorphism=BilinearModulesEndomorphism,
+    Automorphism=BilinearModulesAutomorphism,
+)
 
+QuadraticModuleTypes = SimpleNamespace(
+    Category=QuadraticModulesCategory,
+    Object=QuadraticModulesObject,
+    Element=QuadraticModulesElement,
+    Morphism=QuadraticModulesMorphism,
+    HomCategory=QuadraticModulesHomCategory,
+    EndCategory=QuadraticModulesEndCategory,
+    AutCategory=QuadraticModulesAutCategory,
+    Hom=QuadraticModulesHom,
+    End=QuadraticModulesEnd,
+    Aut=QuadraticModulesAut,
+    Endomorphism=QuadraticModulesEndomorphism,
+    Automorphism=QuadraticModulesAutomorphism,
+)
 
-class RModuleTypes:
-    Category = ModulesCategory
-    Object = ModulesObject
-    Element = ModulesElement
-    Morphism = ModulesMorphism
-    HomCategory = ModulesHomCategory
-    EndCategory = ModulesEndCategory
-    AutCategory = ModulesAutCategory
-    Hom = ModulesHom
-    End = ModulesEnd
-    Aut = ModulesAut
-    Endomorphism = ModulesEndomorphism
-    Automorphism = ModulesAutomorphism
+TorsionQuadraticModuleTypes = SimpleNamespace(
+    Category=TorsionQuadraticModulesCategory,
+    Object=TorsionQuadraticModulesObject,
+    Element=TorsionQuadraticModulesElement,
+    Morphism=TorsionQuadraticModulesMorphism,
+    HomCategory=TorsionQuadraticModulesHomCategory,
+    EndCategory=TorsionQuadraticModulesEndCategory,
+    AutCategory=TorsionQuadraticModulesAutCategory,
+    Hom=TorsionQuadraticModulesHom,
+    End=TorsionQuadraticModulesEnd,
+    Aut=TorsionQuadraticModulesAut,
+    Endomorphism=TorsionQuadraticModulesEndomorphism,
+    Automorphism=TorsionQuadraticModulesAutomorphism,
+)
 
+AlgebraTypes = SimpleNamespace(
+    Category=AlgebrasCategory,
+    Object=AlgebrasObject,
+    Element=AlgebrasElement,
+    Morphism=AlgebrasMorphism,
+    HomCategory=AlgebrasHomCategory,
+    EndCategory=AlgebrasEndCategory,
+    AutCategory=AlgebrasAutCategory,
+    Hom=AlgebrasHom,
+    End=AlgebrasEnd,
+    Aut=AlgebrasAut,
+    Endomorphism=AlgebrasEndomorphism,
+    Automorphism=AlgebrasAutomorphism,
+)
 
-class FormedModuleTypes:
-    Category = FormedModulesCategory
-    Object = FormedModulesObject
-    Element = FormedModulesElement
-    Morphism = FormedModulesMorphism
-    HomCategory = FormedModulesHomCategory
-    EndCategory = FormedModulesEndCategory
-    AutCategory = FormedModulesAutCategory
-    Hom = FormedModulesHom
-    End = FormedModulesEnd
-    Aut = FormedModulesAut
-    Endomorphism = FormedModulesEndomorphism
-    Automorphism = FormedModulesAutomorphism
+MagmaticAlgebraTypes = SimpleNamespace(
+    Category=MagmaticAlgebrasCategory,
+    Object=MagmaticAlgebrasObject,
+    Element=MagmaticAlgebrasElement,
+    Morphism=MagmaticAlgebrasMorphism,
+)
 
+AssociativeAlgebraTypes = SimpleNamespace(
+    Category=AssociativeAlgebrasCategory,
+    Object=AssociativeAlgebrasObject,
+    Element=AssociativeAlgebrasElement,
+    Morphism=AssociativeAlgebrasMorphism,
+)
 
-class BilinearModuleTypes:
-    Category = BilinearModulesCategory
-    Object = BilinearModulesObject
-    Element = BilinearModulesElement
-    Morphism = BilinearModulesMorphism
-    HomCategory = BilinearModulesHomCategory
-    EndCategory = BilinearModulesEndCategory
-    AutCategory = BilinearModulesAutCategory
-    Hom = BilinearModulesHom
-    End = BilinearModulesEnd
-    Aut = BilinearModulesAut
-    Endomorphism = BilinearModulesEndomorphism
-    Automorphism = BilinearModulesAutomorphism
+PosetTypes = SimpleNamespace(
+    Category=PosetsCategory,
+    Object=PosetsObject,
+    Element=PosetsElement,
+    Morphism=PosetsMorphism,
+    HomCategory=PosetsHomCategory,
+    EndCategory=PosetsEndCategory,
+    AutCategory=PosetsAutCategory,
+    Hom=PosetsHom,
+    End=PosetsEnd,
+    Aut=PosetsAut,
+    Endomorphism=PosetsEndomorphism,
+    Automorphism=PosetsAutomorphism,
+)
 
+TopologicalSpaceTypes = SimpleNamespace(
+    Category=TopologicalSpacesCategory,
+    Object=TopologicalSpacesObject,
+    Element=TopologicalSpacesElement,
+    Morphism=TopologicalSpacesMorphism,
+    HomCategory=TopologicalSpacesHomCategory,
+    EndCategory=TopologicalSpacesEndCategory,
+    AutCategory=TopologicalSpacesAutCategory,
+    Hom=TopologicalSpacesHom,
+    End=TopologicalSpacesEnd,
+    Aut=TopologicalSpacesAut,
+    Endomorphism=TopologicalSpacesEndomorphism,
+    Automorphism=TopologicalSpacesAutomorphism,
+)
 
-class QuadraticModuleTypes:
-    Category = QuadraticModulesCategory
-    Object = QuadraticModulesObject
-    Element = QuadraticModulesElement
-    Morphism = QuadraticModulesMorphism
-    HomCategory = QuadraticModulesHomCategory
-    EndCategory = QuadraticModulesEndCategory
-    AutCategory = QuadraticModulesAutCategory
-    Hom = QuadraticModulesHom
-    End = QuadraticModulesEnd
-    Aut = QuadraticModulesAut
-    Endomorphism = QuadraticModulesEndomorphism
-    Automorphism = QuadraticModulesAutomorphism
+MetricSpaceTypes = SimpleNamespace(
+    Category=MetricSpacesCategory,
+    Object=MetricSpacesObject,
+    Element=MetricSpacesElement,
+    Morphism=MetricSpacesMorphism,
+    HomCategory=MetricSpacesHomCategory,
+    EndCategory=MetricSpacesEndCategory,
+    AutCategory=MetricSpacesAutCategory,
+    Hom=MetricSpacesHom,
+    End=MetricSpacesEnd,
+    Aut=MetricSpacesAut,
+    Endomorphism=MetricSpacesEndomorphism,
+    Automorphism=MetricSpacesAutomorphism,
+)
 
+TensorAlgebraComponentTypes = SimpleNamespace(
+    Category=TensorAlgebraComponentsCategory,
+    Object=TensorAlgebraComponentsObject,
+    Element=TensorAlgebraComponentsElement,
+    Morphism=TensorAlgebraComponentsMorphism,
+    HomCategory=TensorAlgebraComponentsHomCategory,
+    EndCategory=TensorAlgebraComponentsEndCategory,
+    AutCategory=TensorAlgebraComponentsAutCategory,
+    Hom=TensorAlgebraComponentsHom,
+    End=TensorAlgebraComponentsEnd,
+    Aut=TensorAlgebraComponentsAut,
+    Endomorphism=TensorAlgebraComponentsEndomorphism,
+    Automorphism=TensorAlgebraComponentsAutomorphism,
+)
 
-class TorsionQuadraticModuleTypes:
-    Category = TorsionQuadraticModulesCategory
-    Object = TorsionQuadraticModulesObject
-    Element = TorsionQuadraticModulesElement
-    Morphism = TorsionQuadraticModulesMorphism
-    HomCategory = TorsionQuadraticModulesHomCategory
-    EndCategory = TorsionQuadraticModulesEndCategory
-    AutCategory = TorsionQuadraticModulesAutCategory
-    Hom = TorsionQuadraticModulesHom
-    End = TorsionQuadraticModulesEnd
-    Aut = TorsionQuadraticModulesAut
-    Endomorphism = TorsionQuadraticModulesEndomorphism
-    Automorphism = TorsionQuadraticModulesAutomorphism
+LatticeTypes = SimpleNamespace(
+    Category=LatticesCategory,
+    Object=LatticesObject,
+    Element=LatticesElement,
+    Morphism=LatticesMorphism,
+    HomCategory=LatticesHomCategory,
+    EndCategory=LatticesEndCategory,
+    AutCategory=LatticesAutCategory,
+    Hom=LatticesHom,
+    End=LatticesEnd,
+    Aut=LatticesAut,
+    Endomorphism=LatticesEndomorphism,
+    Automorphism=LatticesAutomorphism,
+)
 
-
-class AlgebraTypes:
-    Category = AlgebrasCategory
-    Object = AlgebrasObject
-    Element = AlgebrasElement
-    Morphism = AlgebrasMorphism
-    HomCategory = AlgebrasHomCategory
-    EndCategory = AlgebrasEndCategory
-    AutCategory = AlgebrasAutCategory
-    Hom = AlgebrasHom
-    End = AlgebrasEnd
-    Aut = AlgebrasAut
-    Endomorphism = AlgebrasEndomorphism
-    Automorphism = AlgebrasAutomorphism
-
-
-class MagmaticAlgebraTypes:
-    Category = MagmaticAlgebrasCategory
-    Object = MagmaticAlgebrasObject
-    Element = MagmaticAlgebrasElement
-    Morphism = MagmaticAlgebrasMorphism
-
-
-class AssociativeAlgebraTypes:
-    Category = AssociativeAlgebrasCategory
-    Object = AssociativeAlgebrasObject
-    Element = AssociativeAlgebrasElement
-    Morphism = AssociativeAlgebrasMorphism
-
-
-class PosetTypes:
-    Category = PosetsCategory
-    Object = PosetsObject
-    Element = PosetsElement
-    Morphism = PosetsMorphism
-    HomCategory = PosetsHomCategory
-    EndCategory = PosetsEndCategory
-    AutCategory = PosetsAutCategory
-    Hom = PosetsHom
-    End = PosetsEnd
-    Aut = PosetsAut
-    Endomorphism = PosetsEndomorphism
-    Automorphism = PosetsAutomorphism
-
-
-class TopologicalSpaceTypes:
-    Category = TopologicalSpacesCategory
-    Object = TopologicalSpacesObject
-    Element = TopologicalSpacesElement
-    Morphism = TopologicalSpacesMorphism
-    HomCategory = TopologicalSpacesHomCategory
-    EndCategory = TopologicalSpacesEndCategory
-    AutCategory = TopologicalSpacesAutCategory
-    Hom = TopologicalSpacesHom
-    End = TopologicalSpacesEnd
-    Aut = TopologicalSpacesAut
-    Endomorphism = TopologicalSpacesEndomorphism
-    Automorphism = TopologicalSpacesAutomorphism
-
-
-class MetricSpaceTypes:
-    Category = MetricSpacesCategory
-    Object = MetricSpacesObject
-    Element = MetricSpacesElement
-    Morphism = MetricSpacesMorphism
-    HomCategory = MetricSpacesHomCategory
-    EndCategory = MetricSpacesEndCategory
-    AutCategory = MetricSpacesAutCategory
-    Hom = MetricSpacesHom
-    End = MetricSpacesEnd
-    Aut = MetricSpacesAut
-    Endomorphism = MetricSpacesEndomorphism
-    Automorphism = MetricSpacesAutomorphism
-
-
-class TensorAlgebraComponentTypes:
-    Category = TensorAlgebraComponentsCategory
-    Object = TensorAlgebraComponentsObject
-    Element = TensorAlgebraComponentsElement
-    Morphism = TensorAlgebraComponentsMorphism
-    HomCategory = TensorAlgebraComponentsHomCategory
-    EndCategory = TensorAlgebraComponentsEndCategory
-    AutCategory = TensorAlgebraComponentsAutCategory
-    Hom = TensorAlgebraComponentsHom
-    End = TensorAlgebraComponentsEnd
-    Aut = TensorAlgebraComponentsAut
-    Endomorphism = TensorAlgebraComponentsEndomorphism
-    Automorphism = TensorAlgebraComponentsAutomorphism
-
-
-class LatticeTypes:
-    Category = LatticesCategory
-    Object = LatticesObject
-    Element = LatticesElement
-    Morphism = LatticesMorphism
-    HomCategory = LatticesHomCategory
-    EndCategory = LatticesEndCategory
-    AutCategory = LatticesAutCategory
-    Hom = LatticesHom
-    End = LatticesEnd
-    Aut = LatticesAut
-    Endomorphism = LatticesEndomorphism
-    Automorphism = LatticesAutomorphism
-
-
-class DiscriminantGroupTypes:
-    Category = LatticeDiscriminantGroupsCategory
-    Object = LatticeDiscriminantGroupsObject
-    Element = LatticeDiscriminantGroupsElement
-    Morphism = LatticeDiscriminantGroupsMorphism
-    HomCategory = LatticeDiscriminantGroupsHomCategory
-    EndCategory = LatticeDiscriminantGroupsEndCategory
-    AutCategory = LatticeDiscriminantGroupsAutCategory
-    Hom = LatticeDiscriminantGroupsHom
-    End = LatticeDiscriminantGroupsEnd
-    Aut = LatticeDiscriminantGroupsAut
-    Endomorphism = LatticeDiscriminantGroupsEndomorphism
-    Automorphism = LatticeDiscriminantGroupsAutomorphism
+DiscriminantGroupTypes = SimpleNamespace(
+    Category=LatticeDiscriminantGroupsCategory,
+    Object=LatticeDiscriminantGroupsObject,
+    Element=LatticeDiscriminantGroupsElement,
+    Morphism=LatticeDiscriminantGroupsMorphism,
+    HomCategory=LatticeDiscriminantGroupsHomCategory,
+    EndCategory=LatticeDiscriminantGroupsEndCategory,
+    AutCategory=LatticeDiscriminantGroupsAutCategory,
+    Hom=LatticeDiscriminantGroupsHom,
+    End=LatticeDiscriminantGroupsEnd,
+    Aut=LatticeDiscriminantGroupsAut,
+    Endomorphism=LatticeDiscriminantGroupsEndomorphism,
+    Automorphism=LatticeDiscriminantGroupsAutomorphism,
+)

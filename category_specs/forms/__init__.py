@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast
 
+from ..cat import Category
 from ..modules.homsets import RModuleAutCategory, RModuleEndCategory, RModuleHomCategory
 from . import chain as _chain
 from .chain import (
@@ -84,28 +85,28 @@ from .subcategories.with_forms import (
     FormedModulesObject as FormedModulesObject,
 )
 
-type NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesCategory
 )
-type NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesElement
 )
-type NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism
 )
-type NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+NondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     _chain.NondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
-type SymmetricFiniteRankFreeBilinearModulesCategory = (
+SymmetricFiniteRankFreeBilinearModulesCategory = (
     _chain.SymmetricFiniteRankFreeBilinearModulesCategory
 )
-type SymmetricFiniteRankFreeBilinearModulesElement = (
+SymmetricFiniteRankFreeBilinearModulesElement = (
     _chain.SymmetricFiniteRankFreeBilinearModulesElement
 )
-type SymmetricFiniteRankFreeBilinearModulesMorphism = (
+SymmetricFiniteRankFreeBilinearModulesMorphism = (
     _chain.SymmetricFiniteRankFreeBilinearModulesMorphism
 )
-type SymmetricFiniteRankFreeBilinearModulesObject = (
+SymmetricFiniteRankFreeBilinearModulesObject = (
     _chain.SymmetricFiniteRankFreeBilinearModulesObject
 )
 
@@ -122,21 +123,20 @@ _IntegralNondegenerateSymmetricObject = (
     _chain.IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject
 )
 
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesCategory = (
     _IntegralNondegenerateSymmetricCategory
 )
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesElement = (
     _IntegralNondegenerateSymmetricElement
 )
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesMorphism = (
     _IntegralNondegenerateSymmetricMorphism
 )
-type IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
+IntegralNondegenerateSymmetricFiniteRankFreeBilinearModulesObject = (
     _IntegralNondegenerateSymmetricObject
 )
 
 if TYPE_CHECKING:
-    from ..cat import Category
     from ..types import Ring
 
 
@@ -147,38 +147,38 @@ def FormedModules(base_ring: Ring) -> Category:
     return cast(Category, Modules(base_ring, dispatch=False).WithForms())
 
 
-type FormedModulesHomCategory = RModuleHomCategory
-type FormedModulesEndCategory = RModuleEndCategory
-type FormedModulesAutCategory = RModuleAutCategory
-type FormedModulesHom = RModuleHomCategory.ParentMethods
-type FormedModulesEnd = RModuleEndCategory.ParentMethods
-type FormedModulesAut = RModuleAutCategory.ParentMethods
-type FormedModulesEndomorphism = RModuleEndCategory.ElementMethods
-type FormedModulesAutomorphism = RModuleAutCategory.ElementMethods
+FormedModulesHomCategory = RModuleHomCategory
+FormedModulesEndCategory = RModuleEndCategory
+FormedModulesAutCategory = RModuleAutCategory
+FormedModulesHom = RModuleHomCategory.ParentMethods
+FormedModulesEnd = RModuleEndCategory.ParentMethods
+FormedModulesAut = RModuleAutCategory.ParentMethods
+FormedModulesEndomorphism = RModuleEndCategory.ElementMethods
+FormedModulesAutomorphism = RModuleAutCategory.ElementMethods
 
-type BilinearModulesHomCategory = RModuleHomCategory
-type BilinearModulesEndCategory = RModuleEndCategory
-type BilinearModulesAutCategory = RModuleAutCategory
-type BilinearModulesHom = RModuleHomCategory.ParentMethods
-type BilinearModulesEnd = RModuleEndCategory.ParentMethods
-type BilinearModulesAut = RModuleAutCategory.ParentMethods
-type BilinearModulesEndomorphism = RModuleEndCategory.ElementMethods
-type BilinearModulesAutomorphism = RModuleAutCategory.ElementMethods
+BilinearModulesHomCategory = RModuleHomCategory
+BilinearModulesEndCategory = RModuleEndCategory
+BilinearModulesAutCategory = RModuleAutCategory
+BilinearModulesHom = RModuleHomCategory.ParentMethods
+BilinearModulesEnd = RModuleEndCategory.ParentMethods
+BilinearModulesAut = RModuleAutCategory.ParentMethods
+BilinearModulesEndomorphism = RModuleEndCategory.ElementMethods
+BilinearModulesAutomorphism = RModuleAutCategory.ElementMethods
 
-type QuadraticModulesHomCategory = RModuleHomCategory
-type QuadraticModulesEndCategory = RModuleEndCategory
-type QuadraticModulesAutCategory = RModuleAutCategory
-type QuadraticModulesHom = RModuleHomCategory.ParentMethods
-type QuadraticModulesEnd = RModuleEndCategory.ParentMethods
-type QuadraticModulesAut = RModuleAutCategory.ParentMethods
-type QuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
-type QuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods
+QuadraticModulesHomCategory = RModuleHomCategory
+QuadraticModulesEndCategory = RModuleEndCategory
+QuadraticModulesAutCategory = RModuleAutCategory
+QuadraticModulesHom = RModuleHomCategory.ParentMethods
+QuadraticModulesEnd = RModuleEndCategory.ParentMethods
+QuadraticModulesAut = RModuleAutCategory.ParentMethods
+QuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
+QuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods
 
-type TorsionQuadraticModulesHomCategory = RModuleHomCategory
-type TorsionQuadraticModulesEndCategory = RModuleEndCategory
-type TorsionQuadraticModulesAutCategory = RModuleAutCategory
-type TorsionQuadraticModulesHom = RModuleHomCategory.ParentMethods
-type TorsionQuadraticModulesEnd = RModuleEndCategory.ParentMethods
-type TorsionQuadraticModulesAut = RModuleAutCategory.ParentMethods
-type TorsionQuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
-type TorsionQuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods
+TorsionQuadraticModulesHomCategory = RModuleHomCategory
+TorsionQuadraticModulesEndCategory = RModuleEndCategory
+TorsionQuadraticModulesAutCategory = RModuleAutCategory
+TorsionQuadraticModulesHom = RModuleHomCategory.ParentMethods
+TorsionQuadraticModulesEnd = RModuleEndCategory.ParentMethods
+TorsionQuadraticModulesAut = RModuleAutCategory.ParentMethods
+TorsionQuadraticModulesEndomorphism = RModuleEndCategory.ElementMethods
+TorsionQuadraticModulesAutomorphism = RModuleAutCategory.ElementMethods

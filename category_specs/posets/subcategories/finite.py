@@ -140,7 +140,7 @@ class _FinitePosets(CategoryWithAxiom):
         def height_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the height with a maximum-cardinality chain."""
             return cast(
-                tuple[Integer, builtins.list[PosetElement]],
+                "tuple[Integer, builtins.list[PosetElement]]",
                 SageFinitePoset.height(cast(Any, self), certificate=True),
             )
 
@@ -153,7 +153,7 @@ class _FinitePosets(CategoryWithAxiom):
         def width_certificate(self) -> tuple[Integer, builtins.list[PosetElement]]:
             r"""Return the width with a maximum-cardinality antichain."""
             return cast(
-                tuple[Integer, builtins.list[PosetElement]],
+                "tuple[Integer, builtins.list[PosetElement]]",
                 SageFinitePoset.width(cast(Any, self), certificate=True),
             )
 
@@ -179,7 +179,7 @@ class _FinitePosets(CategoryWithAxiom):
         def order_ideals_lattice(self, facade: bool = True) -> FiniteLatticePoset:
             r"""Return the finite distributive lattice of order ideals."""
             return cast(
-                FiniteLatticePoset,
+                "FiniteLatticePoset",
                 SageFinitePosets.ParentMethods.order_ideals_lattice(
                     self, as_ideals=True, facade=facade
                 ),
@@ -196,7 +196,7 @@ class _FinitePosets(CategoryWithAxiom):
         ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a meet when false."""
             return cast(
-                tuple[bool, tuple[PosetElement, PosetElement] | None],
+                "tuple[bool, tuple[PosetElement, PosetElement] | None]",
                 SageFinitePoset.is_meet_semilattice(
                     cast(Any, self), certificate=True
                 ),
@@ -213,7 +213,7 @@ class _FinitePosets(CategoryWithAxiom):
         ) -> tuple[bool, tuple[PosetElement, PosetElement] | None]:
             r"""Return semilattice status with a pair lacking a join when false."""
             return cast(
-                tuple[bool, tuple[PosetElement, PosetElement] | None],
+                "tuple[bool, tuple[PosetElement, PosetElement] | None]",
                 SageFinitePoset.is_join_semilattice(
                     cast(Any, self), certificate=True
                 ),

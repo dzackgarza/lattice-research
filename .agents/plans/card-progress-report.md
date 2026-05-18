@@ -97,21 +97,21 @@
 
 ## Most Recently Completed
 
+- 2026-05-17 `spec` `SPEC-MAPPING-ALGEBRAS`: Track algebras mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-HOMSETS`: Track homsets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-POSETS`: Track posets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-RINGS`: Track rings mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-SETS`: Track sets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
+- 2026-05-17 `spec` `SPEC-MAPPING-TOPOLOGICAL-SPACES`: Track topological spaces mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
 - 2026-05-17 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `50d2e97`: docs: audit modules homset mirroring)
-- 2026-05-15 `spec` `SPEC-MAPPING-RINGS`: Track rings mapping spec (commit `5c13e1c`: docs(qc): separate mypy foundation routing)
 - 2026-05-15 `decision` `DECISION-20260514-MYPY-ERROR-TRIAGE-CODE-GAP-VS-PLUGIN-GAP`: Mypy error triage — code gaps vs plugin gaps across all remaining error groups (commit `5c13e1c`: docs(qc): separate mypy foundation routing)
 - 2026-05-15 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `582e200`: chore: relocate planning workspace under agents)
 - 2026-05-15 `decision` `DECISION-20260505-REALSET-SAGE-TOPOLOGICAL-AXIOM-WARNING`: Decide how to handle Sage RealSet inherited Sets.Topological axiom warning (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-ALGEBRA-STANDARD-INVOLUTION-OWNER`: Decide algebra standard-involution method owner (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-MALFORMED-BACKEND-SURFACES`: Decide public names for malformed backend-mapping source surfaces (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-CATEGORY-METHOD-INVENTORY-PICARD-GROUP-LATTICE-OWNER`: Decide Picard group and Picard lattice method ownership (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-CELLULAR-ALGEBRA-OWNER`: Route Cellular algebra subcategory to Algebras(R).FiniteDimensional().WithBasis().Cellular() (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-DEC-PHASE-01-PLAN-APPROVAL-AND-FIRST-EXECUTION-LANE`: Decide whether to approve the phase-01 plan tree and first execution lane (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION`: Decide HomCategory semantic base and Sage homset mirroring route (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-MODULE-SIDEDNESS-STRUCTURE-AND-OVERLOAD-SURFACES`: Decide module sidedness structure transport and overload surfaces (commit `582e200`: chore: relocate planning workspace under agents)
 
 ## Notes
 

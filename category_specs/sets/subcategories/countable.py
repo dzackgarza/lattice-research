@@ -47,13 +47,13 @@ class _CountableSets(CategoryWithAxiom):
         @override
         @final
         def is_countable(self) -> bool:
-            return cast(bool, SageEnumeratedSets.ParentMethods.is_countable(self))
+            return True
 
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
             return cast(
-                Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self)
+                "Iterator[SetElement]", SageEnumeratedSets.ParentMethods.__iter__(self)
             )
 
         @override
@@ -61,7 +61,7 @@ class _CountableSets(CategoryWithAxiom):
         def __getitem__(self, i: Integer) -> SetElement:
             r"""Return the ``i``-th element in the chosen enumeration."""
             return cast(
-                SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+                "SetElement", SageEnumeratedSets.ParentMethods.__getitem__(self, i)
             )
 
         @override
@@ -75,7 +75,7 @@ class _CountableSets(CategoryWithAxiom):
         def cardinality(self) -> Cardinality:
             if self.is_finite():
                 return cast(
-                    Cardinality,
+                    "Cardinality",
                     SageFiniteEnumeratedSets.ParentMethods.cardinality(self),
                 )
 
@@ -93,11 +93,11 @@ class _CountableSets(CategoryWithAxiom):
         def random_element(self) -> SetElement:
             if self.is_finite():
                 return cast(
-                    SetElement,
+                    "SetElement",
                     SageFiniteEnumeratedSets.ParentMethods.random_element(self),
                 )
             return cast(
-                SetElement,
+                "SetElement",
                 SageInfiniteEnumeratedSets.ParentMethods.random_element(self),
             )
 
@@ -107,7 +107,7 @@ class _CountableSets(CategoryWithAxiom):
         ) -> Set:
             r"""Return the image of this enumerated set under ``f``."""
             return cast(
-                Set,
+                "Set",
                 SageEnumeratedSets.ParentMethods.map(
                     self, f, name=name, is_injective=is_injective
                 ),
@@ -145,7 +145,7 @@ class _FiniteCountableSets(CategoryWithAxiom):
         @final
         def random_element(self) -> SetElement:
             return cast(
-                SetElement, SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+                "SetElement", SageFiniteEnumeratedSets.ParentMethods.random_element(self)
             )
 
     class ElementMethods: ...
@@ -175,7 +175,7 @@ class _InfiniteCountableSets(CategoryWithAxiom):
         @final
         def random_element(self) -> SetElement:
             return cast(
-                SetElement,
+                "SetElement",
                 SageInfiniteEnumeratedSets.ParentMethods.random_element(self),
             )
 

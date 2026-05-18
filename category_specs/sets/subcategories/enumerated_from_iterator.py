@@ -60,7 +60,7 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @final
         def __iter__(self) -> Iterator[SetElement]:
             return cast(
-                Iterator[SetElement], SageEnumeratedSetFromIterator.__iter__(self)
+                "Iterator[SetElement]", SageEnumeratedSetFromIterator.__iter__(self)
             )
 
         @override
@@ -78,7 +78,7 @@ class _EnumeratedSetsFromIterator(Category_singleton):
         @override
         @final
         def an_element(self) -> SetElement:
-            return cast(SetElement, self._an_element_())
+            return cast("SetElement", self._an_element_())
 
         @override
         @final

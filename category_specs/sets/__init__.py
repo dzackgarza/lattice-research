@@ -116,7 +116,7 @@ if TYPE_CHECKING:
         SympySet,
     )
 
-    type SetPartitionType = SetPartition
+    SetPartitionType = SetPartition
 
     class _SubsetLatticeSource(Protocol):
         def lattice(self) -> Set: ...
@@ -143,7 +143,7 @@ class _SetObjectMethods:
     @final
     def _element_constructor_(self, x: SetElement) -> SetElement:
         if hasattr(self, "element_class"):
-            return cast(SetElement, self.element_class(self, x))
+            return cast("SetElement", self.element_class(self, x))
         raise NotImplementedError(
             "generic set element construction requires an element class"
         )
@@ -176,7 +176,7 @@ class _SetObjectMethods:
         r"""Return sample elements of this set."""
         from sage.categories.sets_cat import Sets as SageSets
 
-        return cast(list[SetElement], SageSets.ParentMethods.some_elements(self))
+        return cast("list[SetElement]", SageSets.ParentMethods.some_elements(self))
 
     @abstractmethod
     def cardinality(self) -> Cardinality:
@@ -224,7 +224,7 @@ class _SetObjectMethods:
         r"""Return the set-theoretic union of ``self`` and ``other``."""
         from sage.sets.set import Set as SageSet
 
-        return cast(Set, SageSet(self).union(SageSet(other)))
+        return cast("Set", SageSet(self).union(SageSet(other)))
 
     @final
     def __or__(self, other: Set) -> Set:
@@ -299,8 +299,8 @@ class _SetObjectMethods:
         from sage.combinat.subset import Subsets
 
         if size is None:
-            return cast(Set, Subsets(self))
-        return cast(Set, Subsets(self, size))
+            return cast("Set", Subsets(self))
+        return cast("Set", Subsets(self, size))
 
     @final
     def subsets_lattice(self) -> Set:
@@ -559,7 +559,7 @@ class Sets(Category_singleton):
             from .subcategories.finite_enumerated_set import _FiniteEnumeratedSetObjects
 
             return cast(
-                FiniteSet,
+                "FiniteSet",
                 refine_category(
                     SageFES(elements), [Sets(), _FiniteEnumeratedSetObjects()]
                 ),
@@ -584,7 +584,7 @@ class Sets(Category_singleton):
             from .subcategories.integer_range import _IntegerRangeSets
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(
                     SageIR(begin, end, step, middle_point),
                     [Sets(), _IntegerRangeSets()],
@@ -599,7 +599,7 @@ class Sets(Category_singleton):
             from .subcategories.non_negative_integers import _NonNegativeIntegersSets
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(SageNN(), [Sets(), _NonNegativeIntegersSets()]),
             )
 
@@ -611,7 +611,7 @@ class Sets(Category_singleton):
             from .subcategories.positive_integers import _PositiveIntegersSets
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(SagePP(), [Sets(), _PositiveIntegersSets()]),
             )
 
@@ -623,7 +623,7 @@ class Sets(Category_singleton):
             from .subcategories.primes import _PrimesSets
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(SagePrimes(proof), [Sets(), _PrimesSets()]),
             )
 
@@ -742,7 +742,7 @@ class Sets(Category_singleton):
             from sage.rings.real_mpfr import RealField
 
             return cast(
-                Set,
+                "Set",
                 refine_category(RealField(), [Sets(), Sets().Topological()]),
             )
 
@@ -912,7 +912,7 @@ class Sets(Category_singleton):
                 category=category,
             )
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(S, [Sets(), _RecursivelyEnumeratedSets()]),
             )
 
@@ -934,7 +934,7 @@ class Sets(Category_singleton):
 
             S = SageDUES(family, facade=facade, keepkey=keepkey, category=category)
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(S, [Sets(), _DisjointUnionEnumeratedSets()]),
             )
 
@@ -977,7 +977,7 @@ class Sets(Category_singleton):
                 else:
                     product_category = product_category & extra_category
             S = SageCP(parents, category=product_category, flatten=flatten)
-            return cast(Set, refine_category(S, [Sets(), _CartesianProductSets()]))
+            return cast("Set", refine_category(S, [Sets(), _CartesianProductSets()]))
 
         @final
         def ImageSubobject(
@@ -990,7 +990,7 @@ class Sets(Category_singleton):
             from .subcategories.image import _ImageSets
 
             return cast(
-                Subset,
+                "Subset",
                 refine_category(
                     ProjectImageSubobject(f, domain_subset),
                     [Sets(), _ImageSets()],
@@ -1010,7 +1010,7 @@ class Sets(Category_singleton):
 
             S = SageTOFS(elements, facade=facade)
             return cast(
-                FiniteSet,
+                "FiniteSet",
                 refine_category(S, [Sets(), _TotallyOrderedFiniteSets()]),
             )
 
@@ -1037,7 +1037,7 @@ class Sets(Category_singleton):
                 S = SageFSM(domain, action=action, category=category)
             else:
                 S = SageFSM(domain, codomain, action=action, category=category)
-            return cast(FiniteSet, refine_category(S, [Sets(), _FiniteSetMapsSets()]))
+            return cast("FiniteSet", refine_category(S, [Sets(), _FiniteSetMapsSets()]))
 
         @final
         def Family(
@@ -1063,7 +1063,7 @@ class Sets(Category_singleton):
                 lazy=lazy,
                 name=name,
             )
-            return cast(SetFamily, refine_category(S, [Sets(), _FamilySets()]))
+            return cast("SetFamily", refine_category(S, [Sets(), _FamilySets()]))
 
         @final
         def EnumeratedSetFromIterator(
@@ -1084,7 +1084,7 @@ class Sets(Category_singleton):
             )
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(
                     SageESFI(
                         iterator_factory,
@@ -1102,7 +1102,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                CountableSet,
+                "CountableSet",
                 refine_category(SageSetPartitions(), [Sets(), Sets().Countable()]),
             )
 
@@ -1124,7 +1124,7 @@ class Sets(Category_singleton):
 
             normalized_base, categories = self._set_partitions_base(base_set)
             return cast(
-                SetPartitionSet,
+                "SetPartitionSet",
                 refine_category(SageSetPartitions(normalized_base), categories),
             )
 
@@ -1160,7 +1160,7 @@ class Sets(Category_singleton):
 
             normalized_base, categories = self._set_partitions_base(base_set)
             return cast(
-                SetPartitionSet,
+                "SetPartitionSet",
                 refine_category(
                     SageSetPartitions(normalized_base, block_count), categories
                 ),
@@ -1198,7 +1198,7 @@ class Sets(Category_singleton):
 
             normalized_base, categories = self._set_partitions_base(base_set)
             return cast(
-                SetPartitionSet,
+                "SetPartitionSet",
                 refine_category(
                     SageSetPartitions(normalized_base, block_sizes), categories
                 ),
@@ -1214,7 +1214,7 @@ class Sets(Category_singleton):
             r"""Return the partition whose blocks are ``blocks``."""
             from sage.combinat.set_partition import SetPartition as SageSetPartition
 
-            return cast(SetPartition, SageSetPartition(blocks, check=check))
+            return cast("SetPartition", SageSetPartition(blocks, check=check))
 
         @final
         def SetPartitionFromRestrictedGrowthWordBlocks(
@@ -1224,7 +1224,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_restricted_growth_word_blocks(word),
             )
 
@@ -1236,7 +1236,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_restricted_growth_word_intertwining(word),
             )
 
@@ -1250,7 +1250,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_arcs(arcs, base_set_cardinality),
             )
 
@@ -1264,7 +1264,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_rook_placement(
                     rooks, "arcs", base_set_cardinality
                 ),
@@ -1280,7 +1280,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_rook_placement_gamma(
                     rooks, base_set_cardinality
                 ),
@@ -1296,7 +1296,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_rook_placement_rho(
                     rooks, base_set_cardinality
                 ),
@@ -1312,7 +1312,7 @@ class Sets(Category_singleton):
             from sage.combinat.set_partition import SetPartitions as SageSetPartitions
 
             return cast(
-                SetPartitionType,
+                "SetPartitionType",
                 SageSetPartitions().from_rook_placement_psi(
                     rooks, base_set_cardinality
                 ),
@@ -1392,15 +1392,15 @@ class Sets(Category_singleton):
     ElementMethods = _SetElementMethods
 
 
-type SetsCategory = Sets
-type SetsObject = _SetObjectMethods
-type SetsElement = _SetElementMethods
-type SetsMorphism = _SetMorphisms
-type SetsHomCategory = SetHomCategory
-type SetsEndCategory = SetEndCategory
-type SetsAutCategory = SetAutCategory
-type SetsHom = _SetHomCategoryObjectMethods
-type SetsEnd = SetEndCategory.ParentMethods
-type SetsAut = SetAutCategory.ParentMethods
-type SetsEndomorphism = _SetEndomorphisms
-type SetsAutomorphism = _SetAutomorphisms
+SetsCategory = Sets
+SetsObject = _SetObjectMethods
+SetsElement = _SetElementMethods
+SetsMorphism = _SetMorphisms
+SetsHomCategory = SetHomCategory
+SetsEndCategory = SetEndCategory
+SetsAutCategory = SetAutCategory
+SetsHom = _SetHomCategoryObjectMethods
+SetsEnd = SetEndCategory.ParentMethods
+SetsAut = SetAutCategory.ParentMethods
+SetsEndomorphism = _SetEndomorphisms
+SetsAutomorphism = _SetAutomorphisms

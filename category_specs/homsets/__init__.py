@@ -65,17 +65,17 @@ from .homsets import (
 GenericEndCategory = EndCategoryOf
 GenericAutCategory = AutCategoryOf
 
-type HomCategoriesCategory = HomCategory
-type HomCategoriesObject = UniversalHomObjectMethods
-type HomCategoriesElement = UniversalHomElementMethods
-type HomCategoriesMorphism = UniversalHomElementMethods
+HomCategoriesCategory = HomCategory
+HomCategoriesObject = UniversalHomObjectMethods
+HomCategoriesElement = UniversalHomElementMethods
+HomCategoriesMorphism = UniversalHomElementMethods
 
-type EndCategoriesCategory = EndCategory
-type EndCategoriesObject = UniversalEndObjectMethods
-type EndCategoriesElement = UniversalEndElementMethods
-type EndCategoriesMorphism = UniversalEndElementMethods
+EndCategoriesCategory = EndCategory
+EndCategoriesObject = UniversalEndObjectMethods
+EndCategoriesElement = UniversalEndElementMethods
+EndCategoriesMorphism = UniversalEndElementMethods
 
-type AutCategoriesCategory = AutCategory
-type AutCategoriesObject = UniversalAutObjectMethods
-type AutCategoriesElement = UniversalAutElementMethods
-type AutCategoriesMorphism = UniversalAutElementMethods
+AutCategoriesCategory = AutCategory
+AutCategoriesObject = UniversalAutObjectMethods
+AutCategoriesElement = UniversalAutElementMethods
+AutCategoriesMorphism = UniversalAutElementMethods

@@ -49,8 +49,8 @@ class _IntegerRangeSets(Category_singleton):
                 from sage.rings.integer import Integer
 
                 if not isinstance(el, Integer):
-                    return cast(SetElement, Integer(el))
-                return cast(SetElement, el)
+                    return cast("SetElement", Integer(el))
+                return cast("SetElement", el)
             raise ValueError(f"{el} not in {self}")
 
         @override
@@ -98,19 +98,19 @@ class _IntegerRangeSets(Category_singleton):
         @final
         def __getitem__(self, i: Integer) -> SetElement:
             return cast(
-                SetElement, SageEnumeratedSets.ParentMethods.__getitem__(self, i)
+                "SetElement", SageEnumeratedSets.ParentMethods.__getitem__(self, i)
             )
 
         @override
         @final
         def __iter__(self) -> Iterator[SetElement]:
             return cast(
-                Iterator[SetElement], SageEnumeratedSets.ParentMethods.__iter__(self)
+                "Iterator[SetElement]", SageEnumeratedSets.ParentMethods.__iter__(self)
             )
 
         @override
         @final
         def _an_element_(self) -> SetElement:
-            return cast(SetElement, SageEnumeratedSets.ParentMethods._an_element_(self))
+            return cast("SetElement", SageEnumeratedSets.ParentMethods._an_element_(self))
 
     class ElementMethods: ...

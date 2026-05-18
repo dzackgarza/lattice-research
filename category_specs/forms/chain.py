@@ -72,7 +72,7 @@ class FiniteRankFreeFormedModulesCategory(CategoryWithAxiom_over_base_ring):
             For ``M`` in a formed-module category ``C``, this is
             ``Aut_C(M) = {g in Aut_R(M) : form(gv, gw) = form(v, w)}``.
             """
-            return cast(OrthogonalGroup, self.category().AutCategory().Of(self))
+            return cast("OrthogonalGroup", self.category().AutCategory().Of(self))
 
     class ElementMethods: ...
 

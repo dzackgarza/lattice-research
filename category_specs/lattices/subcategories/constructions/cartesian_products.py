@@ -2,10 +2,12 @@ r"""Cartesian-product construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import TYPE_CHECKING, final
 
 from ....cat import CartesianProductsCategory
-from ... import LatticesCategory
+
+if TYPE_CHECKING:
+    from ... import LatticesCategory
 
 
 class _CartesianProducts(CartesianProductsCategory):

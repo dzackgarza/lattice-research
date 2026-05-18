@@ -2144,15 +2144,15 @@ class Rings(Category_singleton):
     ElementMethods = _RingElementMethods
 
 
-type RingsCategory = Rings
-type RingsObject = _RingObjectMethods
-type RingsElement = _RingElementMethods
-type RingsMorphism = _RingHomomorphisms
-type RingsHomCategory = RingHomCategory
-type RingsEndCategory = RingEndCategory
-type RingsAutCategory = RingAutCategory
-type RingsHom = _RingHomCategoryObjectMethods
-type RingsEnd = RingEndCategory.ParentMethods
-type RingsAut = RingAutCategory.ParentMethods
-type RingsEndomorphism = _RingEndomorphisms
-type RingsAutomorphism = _RingAutomorphisms
+RingsCategory = Rings
+RingsObject = _RingObjectMethods
+RingsElement = _RingElementMethods
+RingsMorphism = _RingHomomorphisms
+RingsHomCategory = RingHomCategory
+RingsEndCategory = RingEndCategory
+RingsAutCategory = RingAutCategory
+RingsHom = _RingHomCategoryObjectMethods
+RingsEnd = RingEndCategory.ParentMethods
+RingsAut = RingAutCategory.ParentMethods
+RingsEndomorphism = _RingEndomorphisms
+RingsAutomorphism = _RingAutomorphisms

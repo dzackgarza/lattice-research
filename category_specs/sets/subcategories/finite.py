@@ -58,7 +58,7 @@ class _FiniteSets(CategoryWithAxiom):
         def random_element(self) -> SetElement:
             r"""Return a random element of this finite set."""
             return cast(
-                SetElement, SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+                "SetElement", SageFiniteEnumeratedSets.ParentMethods.random_element(self)
             )
 
     class ElementMethods: ...

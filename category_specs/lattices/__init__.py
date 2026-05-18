@@ -247,14 +247,14 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
     return lattice_category(base_ring)
 
 
-type LatticesObject = LatticesCategory.ParentMethods
-type LatticesElement = LatticesCategory.ElementMethods
-type LatticesMorphism = LatticeHomCategory.ElementMethods
-type LatticesHomCategory = LatticeHomCategory
-type LatticesEndCategory = LatticeEndCategory
-type LatticesAutCategory = LatticeAutCategory
-type LatticesHom = LatticeHomCategory.ParentMethods
-type LatticesEnd = LatticeEndCategory.ParentMethods
-type LatticesAut = LatticeAutCategory.ParentMethods
-type LatticesEndomorphism = LatticeEndCategory.ElementMethods
-type LatticesAutomorphism = LatticeAutCategory.ElementMethods
+LatticesObject = LatticesCategory.ParentMethods
+LatticesElement = LatticesCategory.ElementMethods
+LatticesMorphism = LatticeHomCategory.ElementMethods
+LatticesHomCategory = LatticeHomCategory
+LatticesEndCategory = LatticeEndCategory
+LatticesAutCategory = LatticeAutCategory
+LatticesHom = LatticeHomCategory.ParentMethods
+LatticesEnd = LatticeEndCategory.ParentMethods
+LatticesAut = LatticeAutCategory.ParentMethods
+LatticesEndomorphism = LatticeEndCategory.ElementMethods
+LatticesAutomorphism = LatticeAutCategory.ElementMethods

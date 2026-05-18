@@ -216,7 +216,7 @@ class _AlgebraParentMethods:
         """
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="left")
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="left")
         )
 
     @final
@@ -227,7 +227,7 @@ class _AlgebraParentMethods:
         """
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="right")
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="right")
         )
 
     @final
@@ -236,7 +236,7 @@ class _AlgebraParentMethods:
         closed under left and right multiplication by ``A``."""
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.ideal_submodule(generators, side="twosided")
+            "AlgebraIdeal", algebra_parent.ideal_submodule(generators, side="twosided")
         )
 
     @final
@@ -244,7 +244,7 @@ class _AlgebraParentMethods:
         r"""Return the principal left ideal ``A * generator``."""
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="left")
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="left")
         )
 
     @final
@@ -252,7 +252,7 @@ class _AlgebraParentMethods:
         r"""Return the principal right ideal ``generator * A``."""
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="right")
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="right")
         )
 
     @final
@@ -260,7 +260,7 @@ class _AlgebraParentMethods:
         r"""Return the principal two-sided ideal ``A * generator * A``."""
         algebra_parent = cast(Any, self)
         return cast(
-            AlgebraIdeal, algebra_parent.principal_ideal(generator, side="twosided")
+            "AlgebraIdeal", algebra_parent.principal_ideal(generator, side="twosided")
         )
 
     @abstractmethod
@@ -405,7 +405,7 @@ class Algebras(Category_module):
         @final
         def base_ring(self) -> Ring:
             r"""Return the base ring of the constructed algebras."""
-            return cast(Ring, self.category().base_ring())
+            return cast("Ring", self.category().base_ring())
 
         @final
         def _refine_constructed_algebra(
@@ -692,24 +692,24 @@ class Algebras(Category_module):
     DualObjects = _DualObjects
 
 
-type AlgebrasCategory = Algebras
-type AlgebrasObject = Algebras.ParentMethods
-type AlgebrasElement = Algebras.ElementMethods
-type AlgebrasMorphism = AlgebraHomCategory.ElementMethods
-type AlgebrasHomCategory = AlgebraHomCategory
-type AlgebrasEndCategory = AlgebraEndCategory
-type AlgebrasAutCategory = AlgebraAutCategory
-type AlgebrasHom = AlgebraHomCategory.ParentMethods
-type AlgebrasEnd = AlgebraEndCategory.ParentMethods
-type AlgebrasAut = AlgebraAutCategory.ParentMethods
-type AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
-type AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
+AlgebrasCategory = Algebras
+AlgebrasObject = Algebras.ParentMethods
+AlgebrasElement = Algebras.ElementMethods
+AlgebrasMorphism = AlgebraHomCategory.ElementMethods
+AlgebrasHomCategory = AlgebraHomCategory
+AlgebrasEndCategory = AlgebraEndCategory
+AlgebrasAutCategory = AlgebraAutCategory
+AlgebrasHom = AlgebraHomCategory.ParentMethods
+AlgebrasEnd = AlgebraEndCategory.ParentMethods
+AlgebrasAut = AlgebraAutCategory.ParentMethods
+AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
+AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 
-type MagmaticAlgebrasCategory = MagmaticAlgebras
-type MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
-type MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
-type MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
-type AssociativeAlgebrasCategory = AssociativeAlgebras
-type AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
-type AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
-type AssociativeAlgebrasMorphism = AlgebraHomCategory.ElementMethods
+MagmaticAlgebrasCategory = MagmaticAlgebras
+MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
+MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
+MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
+AssociativeAlgebrasCategory = AssociativeAlgebras
+AssociativeAlgebrasObject = AssociativeAlgebras.ParentMethods
+AssociativeAlgebrasElement = AssociativeAlgebras.ElementMethods
+AssociativeAlgebrasMorphism = AlgebraHomCategory.ElementMethods

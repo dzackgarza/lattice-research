@@ -276,9 +276,9 @@ class _RModObjects:
             case 0:
                 return self.base_ring()
             case _ if n >= 1:
-                return cast(RModule, tensor(n * [self]))
+                return cast("RModule", tensor(n * [self]))
             case _ if n <= -1:
-                return cast(RModule, tensor((-n) * [self.dual()]))
+                return cast("RModule", tensor((-n) * [self.dual()]))
             case _:
                 assert False, f"Unsupported tensor power: {n}"
 
@@ -286,7 +286,7 @@ class _RModObjects:
     def tensor_module(self, p: Integer, q: Integer) -> RModule:
         assert p >= 0 and q >= 0, "T_R(M) is NN^2-graded."
         return cast(
-            RModule, tensor([self.tensor_power(p), self.dual().tensor_power(q)])
+            "RModule", tensor([self.tensor_power(p), self.dual().tensor_power(q)])
         )
 
     @abstractmethod
@@ -459,7 +459,7 @@ class _RModElements:
 
     @final
     def annihilator(self) -> Ideal:
-        return cast(Ideal, self.span().annihilator())
+        return cast("Ideal", self.span().annihilator())
 
     @abstractmethod
     def cyclic_submodule(self) -> SubModule: ...
@@ -581,7 +581,7 @@ class Modules(Category_module):
 
         @final
         def base_ring(self) -> Ring:
-            return cast(Ring, self.category().base_ring())
+            return cast("Ring", self.category().base_ring())
 
         @final
         def _refine_constructed_module(
@@ -964,7 +964,7 @@ class Modules(Category_module):
             refined: RModule = self._refine_constructed_module(
                 M, self._finite_rank_free_module_categories()
             )
-            return cast(FreeModuleType, refined)
+            return cast("FreeModuleType", refined)
 
         @final
         def quotient_of_free_modules(
@@ -1141,7 +1141,7 @@ class Modules(Category_module):
             refined: RModule = self._refine_constructed_module(
                 M, [self.category().Free().FiniteRank().WithOrderedBasis()]
             )
-            return cast(FreeModuleType, refined)
+            return cast("FreeModuleType", refined)
 
         @final
         def ideal_as_submodule(self, ideal: Ideal) -> SubModule:
@@ -1496,7 +1496,7 @@ class Modules(Category_module):
         assert n in NN, f"Negative integers are not well-defined ranks: {n}"
         if n == 0:
             return self.zero_module()
-        return cast(FreeModuleType, sum(n * [self.R()]))
+        return cast("FreeModuleType", sum(n * [self.R()]))
 
     @final
     def from_ring_elements(self, elts: Sequence[RingElement]) -> RModule:
@@ -1523,7 +1523,7 @@ class Modules(Category_module):
             if not torsion_summands
             else torsion_summands[0].direct_sum(torsion_summands[1:])
         )
-        return cast(RModule, F + T)
+        return cast("RModule", F + T)
 
     @final
     def from_invariant_factors(self, elts: Sequence[RingElement]) -> RModule:
@@ -1554,7 +1554,7 @@ class Modules(Category_module):
         @_cached_method
         @final
         def base_ring(self) -> Ring:
-            return cast(Ring, self.base_category().base_ring())
+            return cast("Ring", self.base_category().base_ring())
 
         ## Ring properties
 
@@ -1873,15 +1873,15 @@ class Modules(Category_module):
 # surface usable until the meet class is wired with a non-recursive base.
 
 
-type ModulesCategory = Modules
-type ModulesObject = Modules.ParentMethods
-type ModulesElement = Modules.ElementMethods
-type ModulesMorphism = _RModMorphisms
-type ModulesHomCategory = RModuleHomCategory
-type ModulesEndCategory = RModuleEndCategory
-type ModulesAutCategory = RModuleAutCategory
-type ModulesHom = RModuleHomCategory.ParentMethods
-type ModulesEnd = RModuleEndCategory.ParentMethods
-type ModulesAut = RModuleAutCategory.ParentMethods
-type ModulesEndomorphism = RModuleEndCategory.ElementMethods
-type ModulesAutomorphism = RModuleAutCategory.ElementMethods
+ModulesCategory = Modules
+ModulesObject = Modules.ParentMethods
+ModulesElement = Modules.ElementMethods
+ModulesMorphism = _RModMorphisms
+ModulesHomCategory = RModuleHomCategory
+ModulesEndCategory = RModuleEndCategory
+ModulesAutCategory = RModuleAutCategory
+ModulesHom = RModuleHomCategory.ParentMethods
+ModulesEnd = RModuleEndCategory.ParentMethods
+ModulesAut = RModuleAutCategory.ParentMethods
+ModulesEndomorphism = RModuleEndCategory.ElementMethods
+ModulesAutomorphism = RModuleAutCategory.ElementMethods

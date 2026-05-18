@@ -136,9 +136,9 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def roots(self) -> Set:
             r"""Return the seed set of this recursive forest."""
             if isinstance(self, SageRecursivelyEnumeratedSetForest):
-                return cast(Set, SageRecursivelyEnumeratedSetForest.roots(self))
+                return cast("Set", SageRecursivelyEnumeratedSetForest.roots(self))
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return cast(Set, self.seeds())
+                return cast("Set", self.seeds())
             raise NotImplementedError(
                 "recursive roots require generic seeds or forest roots"
             )
@@ -147,7 +147,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
         def children(self, x: SetElement) -> Set:
             r"""Return the recursive successors of ``x``."""
             if isinstance(self, SageRecursivelyEnumeratedSetGeneric):
-                return cast(Set, self.successors(x))
+                return cast("Set", self.successors(x))
             raise NotImplementedError(
                 "recursive children require a generic Sage successor function"
             )

@@ -64,7 +64,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def atomic_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return atomicity and a non-atomic join-irreducible if false."""
             return cast(
-                tuple[bool, PosetElement | None],
+                "tuple[bool, PosetElement | None]",
                 SageFiniteLatticePoset.is_atomic(cast(Any, self), certificate=True),
             )
 
@@ -77,7 +77,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def coatomic_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return coatomicity and a non-coatomic meet-irreducible if false."""
             return cast(
-                tuple[bool, PosetElement | None],
+                "tuple[bool, PosetElement | None]",
                 SageFiniteLatticePoset.is_coatomic(cast(Any, self), certificate=True),
             )
 
@@ -90,7 +90,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def complemented_certificate(self) -> tuple[bool, PosetElement | None]:
             r"""Return complementedness and an uncomplemented element if false."""
             return cast(
-                tuple[bool, PosetElement | None],
+                "tuple[bool, PosetElement | None]",
                 SageFiniteLatticePoset.is_complemented(
                     cast(Any, self), certificate=True
                 ),
@@ -107,7 +107,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return distributivity status with a violating triple when false."""
             return cast(
-                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                "tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]",
                 SageFiniteLatticePoset.is_distributive(
                     cast(Any, self), certificate=True
                 ),
@@ -132,7 +132,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return modularity status with a violating triple when false."""
             return cast(
-                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                "tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]",
                 SageFiniteLatticePoset.is_modular(
                     cast(Any, self), certificate=True
                 ),
@@ -145,7 +145,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         ) -> tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]:
             r"""Return modularity for ``elements`` and a violating triple if false."""
             return cast(
-                tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None],
+                "tuple[bool, tuple[PosetElement, PosetElement, PosetElement] | None]",
                 SageFiniteLatticePoset.is_modular(
                     cast(Any, self), list(elements), certificate=True
                 ),
@@ -160,7 +160,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def join_irreducibles(self) -> list[PosetElement]:
             r"""Return the join-irreducible elements."""
             return cast(
-                list[PosetElement],
+                "list[PosetElement]",
                 SageFiniteLatticePosets.ParentMethods.join_irreducibles(self),
             )
 
@@ -168,7 +168,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def join_irreducibles_poset(self) -> Poset:
             r"""Return the poset of join-irreducible elements."""
             return cast(
-                Poset,
+                "Poset",
                 SageFiniteLatticePosets.ParentMethods.join_irreducibles_poset(self),
             )
 
@@ -176,7 +176,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def meet_irreducibles(self) -> list[PosetElement]:
             r"""Return the meet-irreducible elements."""
             return cast(
-                list[PosetElement],
+                "list[PosetElement]",
                 SageFiniteLatticePosets.ParentMethods.meet_irreducibles(self),
             )
 
@@ -184,7 +184,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def meet_irreducibles_poset(self) -> Poset:
             r"""Return the poset of meet-irreducible elements."""
             return cast(
-                Poset,
+                "Poset",
                 SageFiniteLatticePosets.ParentMethods.meet_irreducibles_poset(self),
             )
 
@@ -192,7 +192,7 @@ class _FiniteLatticePosets(CategoryWithAxiom):
         def irreducibles_poset(self) -> Poset:
             r"""Return the poset of meet- and join-irreducible elements."""
             return cast(
-                Poset, SageFiniteLatticePosets.ParentMethods.irreducibles_poset(self)
+                "Poset", SageFiniteLatticePosets.ParentMethods.irreducibles_poset(self)
             )
 
         @final

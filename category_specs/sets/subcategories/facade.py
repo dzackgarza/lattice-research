@@ -42,7 +42,7 @@ class _FacadeSets(CategoryWithAxiom):
         def _element_constructor_(self, element: SetElement) -> SetElement:
             r"""Coerce ``element`` from any facade parent."""
             return cast(
-                SetElement,
+                "SetElement",
                 SageFacadeSets.ParentMethods._element_constructor_(self, element),
             )
 
@@ -51,7 +51,7 @@ class _FacadeSets(CategoryWithAxiom):
         def facade_for(self) -> tuple[Set, ...] | bool:
             r"""Return the tuple of parents this set is a facade for."""
             return cast(
-                tuple[Set, ...] | bool, SageFacadeSets.ParentMethods.facade_for(self)
+                "tuple[Set, ...] | bool", SageFacadeSets.ParentMethods.facade_for(self)
             )
 
         @override
@@ -67,6 +67,6 @@ class _FacadeSets(CategoryWithAxiom):
         @override
         @final
         def _an_element_(self) -> SetElement:
-            return cast(SetElement, SageFacadeSets.ParentMethods._an_element_(self))
+            return cast("SetElement", SageFacadeSets.ParentMethods._an_element_(self))
 
     class ElementMethods: ...

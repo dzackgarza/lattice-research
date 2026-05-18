@@ -403,15 +403,15 @@ class TensorAlgebraComponents(Category_over_base_ring):
     HomCategory = RModuleHomCategory
 
 
-type TensorAlgebraComponentsCategory = TensorAlgebraComponents
-type TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
-type TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
-type TensorAlgebraComponentsMorphism = _RModMorphisms
-type TensorAlgebraComponentsHomCategory = RModuleHomCategory
-type TensorAlgebraComponentsEndCategory = RModuleEndCategory
-type TensorAlgebraComponentsAutCategory = RModuleAutCategory
-type TensorAlgebraComponentsHom = RModuleHomCategory.ParentMethods
-type TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
-type TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
-type TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
-type TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods
+TensorAlgebraComponentsCategory = TensorAlgebraComponents
+TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
+TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsMorphism = _RModMorphisms
+TensorAlgebraComponentsHomCategory = RModuleHomCategory
+TensorAlgebraComponentsEndCategory = RModuleEndCategory
+TensorAlgebraComponentsAutCategory = RModuleAutCategory
+TensorAlgebraComponentsHom = RModuleHomCategory.ParentMethods
+TensorAlgebraComponentsEnd = RModuleEndCategory.ParentMethods
+TensorAlgebraComponentsAut = RModuleAutCategory.ParentMethods
+TensorAlgebraComponentsEndomorphism = RModuleEndCategory.ElementMethods
+TensorAlgebraComponentsAutomorphism = RModuleAutCategory.ElementMethods

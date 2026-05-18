@@ -3,7 +3,7 @@ r"""Modules with a specified basis."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import TYPE_CHECKING, Any, cast, final, override
 
 from sage.categories.category import Category
@@ -63,8 +63,10 @@ class _WithBasis(CategoryWithAxiom_over_base_ring):
         def basis_index_set(self) -> Sequence[CategoryElement]:
             basis = self.basis()
             if isinstance(basis, AbstractFamily):
-                return cast(Sequence[CategoryElement], basis.keys())
-            return cast(Sequence[CategoryElement], tuple(range(len(basis))))
+                return cast("Sequence[CategoryElement]", basis.keys())
+            if isinstance(basis, Mapping):
+                return cast("Sequence[CategoryElement]", tuple(basis.keys()))
+            return cast("Sequence[CategoryElement]", tuple(range(len(basis))))
 
         @abstractmethod
         def monomial(self, index: CategoryElement) -> RModuleElement:

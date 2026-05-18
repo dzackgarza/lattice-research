@@ -60,7 +60,6 @@ _cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
     from ..types import Subset
-    from .subcategories.metric import MetricSpacesCategory
 
 
 class _TopologicalSpaceObjectMethods:
@@ -251,28 +250,31 @@ class TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-type MetricSpacesObject = MetricSpacesCategory.ParentMethods
-type MetricSpacesElement = MetricSpacesCategory.ElementMethods
-type MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods
-type MetricSpacesHomCategory = MetricSpaceHomCategory
-type MetricSpacesEndCategory = MetricSpaceEndCategory
-type MetricSpacesAutCategory = MetricSpaceAutCategory
-type MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
-type MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
-type MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
-type MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
-type MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
+from .subcategories.metric import MetricSpacesCategory
 
 
-type TopologicalSpacesCategory = TopologicalSpaces
-type TopologicalSpacesObject = TopologicalSpaces.ParentMethods
-type TopologicalSpacesElement = TopologicalSpaces.ElementMethods
-type TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
-type TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
-type TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
-type TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
-type TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
-type TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
-type TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
-type TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
-type TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods
+MetricSpacesObject = MetricSpacesCategory.ParentMethods
+MetricSpacesElement = MetricSpacesCategory.ElementMethods
+MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods
+MetricSpacesHomCategory = MetricSpaceHomCategory
+MetricSpacesEndCategory = MetricSpaceEndCategory
+MetricSpacesAutCategory = MetricSpaceAutCategory
+MetricSpacesHom = MetricSpaceHomCategory.ParentMethods
+MetricSpacesEnd = MetricSpaceEndCategory.ParentMethods
+MetricSpacesAut = MetricSpaceAutCategory.ParentMethods
+MetricSpacesEndomorphism = MetricSpaceEndCategory.ElementMethods
+MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
+
+
+TopologicalSpacesCategory = TopologicalSpaces
+TopologicalSpacesObject = TopologicalSpaces.ParentMethods
+TopologicalSpacesElement = TopologicalSpaces.ElementMethods
+TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
+TopologicalSpacesHomCategory = TopologicalSpaceHomCategory
+TopologicalSpacesEndCategory = TopologicalSpaceEndCategory
+TopologicalSpacesAutCategory = TopologicalSpaceAutCategory
+TopologicalSpacesHom = TopologicalSpaceHomCategory.ParentMethods
+TopologicalSpacesEnd = TopologicalSpaceEndCategory.ParentMethods
+TopologicalSpacesAut = TopologicalSpaceAutCategory.ParentMethods
+TopologicalSpacesEndomorphism = TopologicalSpaceEndCategory.ElementMethods
+TopologicalSpacesAutomorphism = TopologicalSpaceAutCategory.ElementMethods

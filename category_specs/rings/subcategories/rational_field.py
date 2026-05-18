@@ -125,7 +125,13 @@ class _QQ(Category_singleton):
         def trace_pairing_discriminant(
             self, elements: Sequence[RingElement]
         ) -> RingElement:
-            return self.as_number_field().trace_pairing_discriminant(elements)
+            from sage.all import QQ, matrix
+
+            trace_matrix = matrix(
+                QQ,
+                [[QQ(left) * QQ(right) for right in elements] for left in elements],
+            )
+            return cast("RingElement", trace_matrix.det())
 
         @override
         @final
@@ -192,14 +198,14 @@ class _QQ(Category_singleton):
         @override
         @final
         def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis_at_prime(prime)
+            return (cast("RingElement", self(1)),)
 
         @override
         @final
         def integral_basis_at_primes(
             self, primes: Sequence[Integer]
         ) -> tuple[RingElement, ...]:
-            return self.as_number_field().integral_basis_at_primes(primes)
+            return (cast("RingElement", self(1)),)
 
         @override
         @final
@@ -294,7 +300,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -305,9 +313,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order_at_prime(
-                prime, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -318,9 +326,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order_at_primes(
-                primes, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -330,7 +338,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order(assume_maximal=assume_maximal)
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -341,9 +351,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order_at_prime(
-                prime, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final
@@ -354,9 +364,9 @@ class _QQ(Category_singleton):
             | None
             | Literal["non-maximal-non-unique"] = "non-maximal-non-unique",
         ) -> Ring:
-            return self.as_number_field().maximal_order_at_primes(
-                primes, assume_maximal=assume_maximal
-            )
+            from sage.all import ZZ
+
+            return cast("Ring", ZZ)
 
         @override
         @final

@@ -129,7 +129,9 @@ class OverPIDFormedModulesCategory(CategoryWithAxiom_over_base_ring):
     SubcategoryMethods = FormedModulesCategory.SubcategoryMethods
 
     ElementMethods = FormedModulesCategory.ElementMethods
-    HomCategory = FormedModulesCategory.HomCategory
+
+    class HomCategory(HomCategoryConstruction):
+        class ElementMethods(FormedModulesCategory.HomCategory.ElementMethods): ...
 
     Bilinear = LazyImport(
         "category_specs.forms.subcategories.bilinear", "OverPIDBilinearModulesCategory"

@@ -2,11 +2,13 @@ r"""Dual-object construction category for lattices."""
 
 from __future__ import annotations
 
-from typing import final
+from typing import TYPE_CHECKING, final
 
 from ....cat import DualObjectsCategory
-from ... import LatticesCategory
 from ...homsets import LatticeHomCategory
+
+if TYPE_CHECKING:
+    from ... import LatticesCategory
 
 
 class LatticeDualObjectsCategory(DualObjectsCategory):

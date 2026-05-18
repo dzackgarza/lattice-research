@@ -8,11 +8,12 @@ from typing import TYPE_CHECKING, Any, Literal, cast, final, overload, override
 from sage.rings.integer import Integer
 
 from ...cat import Category, Category_singleton
-from ._lazy_subcategories import _AlgebraicFields
+from ._lazy_subcategories import _AlgebraicFields, _AlgebraicallyClosedFields
 
 if TYPE_CHECKING:
     from ...types import (
         ComplexInterval,
+        Field,
         Polynomial,
         RealInterval,
         Ring,
@@ -34,7 +35,7 @@ class _QQbar(Category_singleton):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [_AlgebraicFields()]
+        return [_AlgebraicFields(), _AlgebraicallyClosedFields()]
 
     @override
     @final
@@ -50,6 +51,16 @@ class _QQbar(Category_singleton):
         return cast("Ring", QQbar)
 
     class ParentMethods:
+        @override
+        @final
+        def is_algebraically_closed(self) -> bool:
+            return True
+
+        @override
+        @final
+        def algebraic_closure(self) -> Field:
+            return self
+
         @override
         @abstractmethod
         def polynomial_root(

@@ -121,6 +121,46 @@ That still leaves a QC consequence:
 - 2026-05-17: Fresh-context review returned `clean-to-route-needs-human-input` with
   no findings; remaining runtime MRO and full-suite checks are blocked or
   non-diagnostic until the Sage import/plugin lane is resolved.
+- 2026-05-17: Reopened the runtime-MRO validation gap after user correction that
+  repairable runtime failures are autonomous work, not human decisions. `sage -c`
+  imports Sage `Category` successfully, so the prior `sage -python` failure is not a
+  blocker for this leaf. Fixed the repo import blockers exposed by the Sage runtime
+  path:
+  - `OverPIDFormedModulesCategory` now owns its own nested `HomCategory` instead of
+    rebinding `FormedModulesCategory.HomCategory` against the wrong Sage base class.
+  - Lattice construction files now keep annotation-only `LatticesCategory` imports
+    behind `TYPE_CHECKING`, avoiding package-initialization cycles.
+  - `category_specs.forms` exports the runtime `Category` name used by
+    `FormedModules(...)`.
+  - The finite-rank formed-module `orthogonal_group()` cast no longer evaluates the
+    type-only `OrthogonalGroup` alias at runtime.
+  - `topological_spaces` now exports `MetricSpacesCategory` at runtime for the shared
+    type package.
+  This card needs fresh-context review of the reopened runtime repair before it can
+  return to a human approval gate.
+- 2026-05-18: Extended validation past the original Hom runtime import blockers. The
+  centralized type package now uses Python-3.12-compatible aliases and namespace
+  containers so category package imports reach runtime Hom/End/Aut surfaces under
+  Python 3.12.
+- 2026-05-18: Repaired non-Hom smoke blockers only where they sat on the import/runtime
+  path for reviewing the Hom owner split:
+  - Sets: `is_countable()` now records the Countable axiom directly instead of
+    forwarding to a missing Sage enumerated-set method.
+  - Posets: type-only casts no longer evaluate finite-poset aliases at runtime.
+  - Modules: mapping-valued basis data is admitted in `ModuleBasis` and
+    `basis_index_set()` so basis keys are preserved rather than replaced by positional
+    indices.
+  - Rings: rational-field and algebraic-closure singleton methods now answer the
+    source-forced surfaces needed by rings smoke; q-adic split lattice-cap
+    constructors remain a separately tracked Sage gap.
+  This card returns to the human approval gate after fresh-context review of the
+  runtime repair and validation boundary.
+- 2026-05-18: Fresh-context review found the Hom owner repair coherent but required
+  two revisions: ground mapping-valued module basis data in `ModuleBasis`, and
+  enumerate why non-Hom smoke repairs belong to this runtime review boundary. After
+  those revisions and focused validation, re-review returned
+  `clean-to-route-human-input` with no remaining findings or non-human autonomous work
+  in scope.
 
 ## Validation Notes
 
@@ -130,14 +170,57 @@ That still leaves a QC consequence:
   parallel and the available repo recipe would not distinguish remaining plugin-owned
   checker failures from source defects in this Hom/End/Aut owner split.
 - Runtime MRO probe:
-  - Searched: direct imports of `category_specs.homsets` under
-    `/home/dzack/miniforge3/envs/sage/bin/python` and `sage -python`.
-  - Found: both import paths fail while loading Sage internals with
-    `ImportError: cannot import name Category`, before project Hom/End/Aut MRO can be
-    queried.
-  - Conclusion: inference — runtime-MRO validation remains unavailable in the current
-    Sage environment, so this card is ready for fresh-context review on source/doc
-    evidence and the recorded validation gap rather than full runtime acceptance.
-  - Confidence: High.
-  - Gaps: rerun the Hom/End/Aut MRO probe after the Sage import failure or plugin
-    integration work is resolved.
+  - Searched: `sage -c` imports of Sage `Category`, `category_specs.homsets`, formed
+    module HomCategory base-class metadata, and `Modules(ZZ).HomCategory()`,
+    `.EndCategory()`, and `.AutCategory()` MROs.
+  - Found: Sage `Category` imports under `sage -c`; `OverPIDFormedModulesCategory`
+    binds its nested `HomCategory` to `OverPIDFormedModulesCategory`; and
+    `Modules(ZZ)` runtime Hom/End/Aut categories have project-owned MRO chains through
+    `RModuleHomCategory -> HomCategoryOf -> HomCategoryConstruction`,
+    `RModuleEndCategory -> EndCategoryOf`, and
+    `RModuleAutCategory -> AutCategoryOf`. Their element surfaces subclass the
+    corresponding universal Hom/End/Aut element methods.
+  - Conclusion: inference — the generic runtime MRO evidence now supports the
+    project-owned Hom/End/Aut owner split for the probed module category path.
+  - Confidence: High for the probed module path; Medium for every subtree-specific
+    path until each subtree audit is human-approved or sent back.
+  - Gaps: subtree-specific Hom/End/Aut method coverage remains governed by the
+    per-subtree audit cards; this generic runtime card now needs human approval or
+    send-back after clean fresh-context review.
+- Focused validation after runtime repair:
+  - `python -m compileall -q category_specs` passed.
+  - `just --justfile category_specs/justfile smoke-file homsets/smoketest.sage`
+    exited 0, with Sage method-provider superclass warnings.
+  - `just --justfile category_specs/justfile smoke-file types_smoketest.sage`
+    exited 0 after the centralized type-package alias repair.
+  - `just --justfile category_specs/justfile smoke-file forms/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file sets/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file posets/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file modules/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file rings/smoketest.sage`
+    still reaches the already tracked q-adic split lattice-cap constructor gap.
+  - `just --justfile category_specs/justfile smoke-file algebras/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file lattices/chain_smoketest.sage`
+    exited 0.
+  - `just --justfile category_specs/justfile smoke-file lattices/smoketest.sage`
+    exited 0, with Sage method-provider superclass warnings.
+  - `just --justfile category_specs/justfile smoke-file topological_spaces/smoketest.sage`
+    exited 0, with Sage method-provider superclass warnings.
+  - `just --justfile category_specs/justfile smoke` fails only on
+    `rings/smoketest.sage` at the q-adic split lattice-cap constructors already
+    tracked by
+    `TASK-01KQN9YGCJ26WJ2044DVNVNE87-IMPLEMENT-Q-ADIC-LATTICE-PRECISION-CAP-CONSTRUCTORS-AS-EXPLICIT-BLOCKED`.
+- Fresh-context review:
+  - Initial verdict: `revision-required` for the ungrounded mapping-valued
+    `ModuleBasis` branch and broad non-Hom repair evidence.
+  - Re-review verdict after revisions: `clean-to-route-human-input`, with no remaining
+    findings and no non-human autonomous work in the reviewed scope.

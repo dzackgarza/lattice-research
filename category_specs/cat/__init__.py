@@ -336,12 +336,12 @@ from .endsets import CatEndCategory, _CatEndofunctorMethods
 from .homsets import CatHomCategory, _CatFunctorMethods, _CatHomCategoryObjectMethods
 
 
-type CatCategory = Cat
-type CatObject = _CatObjectMethods
-type CatElement = _CategoryElementMethods
-type CatMorphism = _CatFunctorMethods
-type CatHom = _CatHomCategoryObjectMethods
-type CatEnd = CatEndCategory.ParentMethods
-type CatAut = CatAutCategory.ParentMethods
-type CatEndomorphism = _CatEndofunctorMethods
-type CatAutomorphism = _CatAutofunctorMethods
+CatCategory = Cat
+CatObject = _CatObjectMethods
+CatElement = _CategoryElementMethods
+CatMorphism = _CatFunctorMethods
+CatHom = _CatHomCategoryObjectMethods
+CatEnd = CatEndCategory.ParentMethods
+CatAut = CatAutCategory.ParentMethods
+CatEndomorphism = _CatEndofunctorMethods
+CatAutomorphism = _CatAutofunctorMethods
