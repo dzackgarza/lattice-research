@@ -91,11 +91,11 @@ it touches foundational type vocabulary and must avoid broadening the public spe
     `.agents/skills/category-spec-workflow/references/workflow.md` "Tracking and
     planning", and
     `.agents/skills/research-state-machine/references/review-kernel.md`
-    "Operational directive" and "Status extension"; rule: `needs-review` is
+    "Operational directive" and "Status extension"; rule: `needs-agent-review` is
     agent-executable fresh-context review, and a documented review-kernel
     subagent requirement is already scoped user authorization for that
     subagent use.
-  - Routing: this card is `needs-review`. Dispatch a fresh-context review
+  - Routing: this card is `needs-agent-review`. Dispatch a fresh-context review
     subagent with only the card body, work artifact paths, baseline artifact
     paths, and review kernel.
 - 2026-05-15: Revision repair after review failure:

@@ -172,7 +172,7 @@ surface:
 **Review Date:** 2026-05-07
 **Reviewer:** Hermes Agent (subagent, 6-gate protocol)
 **Spec ID:** SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE
-**Spec Status Before Review:** needs-review
+**Spec Status Before Review:** needs-agent-review
 **Spec Status After Review:** needs-revision (G1 source-grounding gap; G4 false-positive risk)
 
 ---

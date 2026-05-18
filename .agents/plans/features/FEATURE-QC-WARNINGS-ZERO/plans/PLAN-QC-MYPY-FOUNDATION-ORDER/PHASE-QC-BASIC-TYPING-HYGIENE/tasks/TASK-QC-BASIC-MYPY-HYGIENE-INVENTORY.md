@@ -1147,7 +1147,7 @@ No dependencies. This is the first mypy/QC task.
     `.agents/skills/research-state-machine/references/review-kernel.md`,
     `.agents/skills/track/SKILL.md`, and `.nimbalyst/trackers/task.yaml`;
     rule: cards that have met their executable acceptance route to
-    `needs-review`, but independent review remains a separate gated state.
+    `needs-agent-review`, but independent review remains a separate gated state.
   - Live validation:
     `sage -python -m mypy --config-file /home/dzack/ai/quality-control/mypy-global.ini --ignore-missing-imports --explicit-package-bases category_specs tests src`
     wrote `/tmp/research-current-mypy-live.log`, exited 1, and reported 1141
@@ -1161,7 +1161,7 @@ No dependencies. This is the first mypy/QC task.
     `[redundant-cast]` findings. The two basic leaf tasks split from this
     inventory, `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES` and
     `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`, are already in
-    `needs-review`.
+    `needs-agent-review`.
   - Remaining-frontier routing: the eight `Constructors` `[no-redef]` findings
     are owned by `TASK-QC-STATIC-CONSTRUCTORS-COLLECTOR-NO-REDEF`; the
     `arg-type` findings in `rings/__init__.py` and the `operator` finding in
@@ -1207,11 +1207,11 @@ No dependencies. This is the first mypy/QC task.
     `.agents/skills/category-spec-workflow/references/workflow.md` "Tracking and
     planning", and
     `.agents/skills/research-state-machine/references/review-kernel.md`
-    "Operational directive" and "Status extension"; rule: `needs-review` is
+    "Operational directive" and "Status extension"; rule: `needs-agent-review` is
     agent-executable fresh-context review, and a documented review-kernel
     subagent requirement is already scoped user authorization for that
     subagent use.
-  - Routing: this card is `needs-review`. Dispatch a fresh-context review
+  - Routing: this card is `needs-agent-review`. Dispatch a fresh-context review
     subagent with only the card body, work artifact paths, baseline artifact
     paths, and review kernel.
 - 2026-05-15: Revision repair after review failure:

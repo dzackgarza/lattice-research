@@ -72,7 +72,7 @@ object interpretation, and the algebra multiplication-tensor handoff.
   lists. Validation: `python -m py_compile
   category_specs/tensor_algebra_components/__init__.py`, `just --justfile
   category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`, and
-  the algebra smoke all pass. Status moved to `needs-review`; this does not mark the
+  the algebra smoke all pass. Status moved to `needs-agent-review`; this does not mark the
   card accepted or complete.
 
 ## Smoke Output
@@ -107,4 +107,4 @@ $ just --justfile category_specs/justfile smoke-file algebras/smoketest.sage
 - Added the exact targeted smoke commands, exit status, and empty-output artifact under
   `Smoke Output`.
 - Preserved the distinction between agent review evidence and human acceptance; status
-  remains `needs-review`.
+  remains `needs-agent-review`.

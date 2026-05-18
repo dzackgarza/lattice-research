@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MYPY-SIDE-HARNESS]]'
 title: Test and verification
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build the test matrix: artificial Sage categories for valid/invalid overrides,
   diamond hierarchies, element/morphism/homset/axiom containers, parameterized categories,
@@ -86,7 +86,7 @@ oracle.
 
 ## Current Status
 
-Needs review. The suite covers the original Sage-prefixed matrix plus
+Needs agent review. The suite covers the original Sage-prefixed matrix plus
 green-contributor fixtures, configured parameterized representatives, strict
 diagnostics, incremental determinism, ancestor-change reactivity, and the
 clarified third-party subtree contract.

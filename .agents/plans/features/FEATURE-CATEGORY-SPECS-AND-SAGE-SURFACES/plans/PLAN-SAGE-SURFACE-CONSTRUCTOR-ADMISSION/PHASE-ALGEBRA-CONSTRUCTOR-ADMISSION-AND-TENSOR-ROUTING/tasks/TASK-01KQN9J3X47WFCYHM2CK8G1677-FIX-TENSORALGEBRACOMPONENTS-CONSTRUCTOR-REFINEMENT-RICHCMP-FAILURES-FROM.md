@@ -75,7 +75,7 @@ preserved in the full task body.
   probe that made the smoke fail, not as an admitted public tensor method. Re-running
   `just --justfile
   category_specs/justfile smoke-file tensor_algebra_components/smoketest.sage`
-  passes. Status moved to `needs-review`; this does not mark the card accepted or
+  passes. Status moved to `needs-agent-review`; this does not mark the card accepted or
   complete.
 
 ## Review Log

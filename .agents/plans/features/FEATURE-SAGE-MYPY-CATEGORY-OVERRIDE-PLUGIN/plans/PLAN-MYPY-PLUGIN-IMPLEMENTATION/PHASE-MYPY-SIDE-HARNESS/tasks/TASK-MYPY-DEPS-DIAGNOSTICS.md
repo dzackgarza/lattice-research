@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-PLUGIN-CLASS]]'
 title: Implement dependency tracking and diagnostic error codes
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Implement get_additional_deps via module_method_container_dependencies. Register
   four Sage-specific mypy error codes for failure diagnostics.

@@ -194,7 +194,7 @@ Anti-weakening safeguards in the phase card:
 
 ### Phase Status Assessment
 
-**Current phase status**: `needs-review`
+**Current phase status**: `needs-agent-review`
 
 **Assessment**: This status is premature. Only 2 of 6 substantive child tasks are `complete` (Tasks 5 and 6, independently reviewed 2026-05-07). The other 4 are `needs-human-input` — they have passed technical 6-gate review but await human signoff. The wrapup task is `unstarted` and depends on all substantive tasks being done.
 
@@ -218,5 +218,5 @@ Anti-weakening safeguards in the phase card:
 **Recommended actions**:
 1. Add child task enumeration to phase frontmatter (dependsOn or children field).
 2. Remove self-reference from TASK-WRAPUP dependsOn list.
-3. Change phase status from `needs-review` to `in-progress` until children complete.
+3. Change phase status from `needs-agent-review` to `in-progress` until children complete.
 4. After all 6 substantive tasks complete, execute wrapup task, then mark phase `complete`.

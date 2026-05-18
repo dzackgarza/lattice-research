@@ -54,7 +54,7 @@ then delete wrappers.
 
 **Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance (self-check; needs independent re-review due to implementer/reviewer overlap)
 **Gates failed:** None
-**Outcome:** needs-review (pending independent re-review)
+**Outcome:** needs-agent-review (pending independent re-review)
 
 #### Evidence
 

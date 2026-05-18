@@ -65,7 +65,7 @@ Task: strip import and LazyImport bloat from the ring subcategory constructors, 
 
 ### Review - 2026-05-07
 
-Outcome: review passes for the scoped task; card remains `needs-review` for human
+Outcome: review passes for the scoped task; card remains `needs-agent-review` for human
 acceptance.
 
 - Verified that `category_specs/rings/subcategories/_lazy_subcategories.py` is the

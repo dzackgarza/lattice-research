@@ -49,7 +49,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 ## Research Result
 
-Status: needs review. Complex algebraic curves are source-grounded as dimension-one complex varieties, with smooth/proper/projective/Riemann-surface surfaces routed to stricter refinements. This card does not authorize implementation.
+Status: needs-agent-review. Complex algebraic curves are source-grounded as dimension-one complex varieties, with smooth/proper/projective/Riemann-surface surfaces routed to stricter refinements. This card does not authorize implementation.
 
 ## Mathematical Definition
 

@@ -98,7 +98,7 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
   but it does not record the required Cat smoke recipe even though the recipe exists.
 - 2026-05-06 follow-up resolved the revision requirement by running
   `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`, which passed.
-  The card is back in `needs-review`; it is not accepted or complete.
+  The card is back in `needs-agent-review`; it is not accepted or complete.
 
 ## Work Log
 
@@ -130,7 +130,7 @@ Sage option-bag vocabulary from the public surface when it is only interop detai
   smoke recipe has not been recorded after the Cat/category-object surface changes.
 - 2026-05-06: Ran the required Cat smoke recipe:
   `just --justfile category_specs/justfile smoke-file cat/smoketest.sage`. It passed
-  with exit code 0. Moved the card back to `needs-review` for human review.
+  with exit code 0. Moved the card back to `needs-agent-review` for human review.
 
 ## Review Log
 
@@ -165,7 +165,7 @@ Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness.
 
 **Gates passed:** Gate 1 Definition Grounding, Gate 2 Acceptance Criteria, Gate 3 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and Compliance
 **Gates failed:** none
-**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-review`; human approval still required before completion
+**Outcome:** independent re-review passed Gates 1-6; moved from stale `blocked` back to `needs-agent-review`; human approval still required before completion
 
 #### Gate 6 Resolution
 

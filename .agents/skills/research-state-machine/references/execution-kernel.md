@@ -108,11 +108,11 @@ If a spec leaf can advance through source mining, writing/refining a spec, centr
 terminology, drafting audit criteria, capturing a decision, splitting work, or filing a
 prerequisite, continue there.
 
-A card in `needs-review` status is also actionable agent work. `needs-review` means the
+A card in `needs-agent-review` status is also actionable agent work. `needs-agent-review` means the
 implementing work is done and the card is ready for the ordered gate-based protocol
 (described in `references/review-kernel.md`). Dispatch a fresh-context subagent to
 execute the review gates (never self-review inline, per the review kernel's subagent
-isolation requirement). Do not treat `needs-review` as a blocking status, a waiting
+isolation requirement). Do not treat `needs-agent-review` as a blocking status, a waiting
 state, or a human gate. Only `needs-human-input` and `blocked` statuses represent cards
 that cannot currently be advanced by an agent without external input or resolution of an
 external prerequisite.
@@ -121,7 +121,7 @@ external prerequisite.
 
 Two kinds of cards reach execution stage:
 
-- **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed. When implementation is complete, set the card to `needs-review` (if the review is agent-executable) or `needs-human-input` (if it specifically requires human input).
+- **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed. When implementation is complete, set the card to `needs-agent-review` (if the review is agent-executable) or `needs-human-input` (if it specifically requires human input).
 
 - **Research workstream cards** (`unstarted` or `revision-required` → `in-progress`):
   pursue one linear branch and produce a native mathematical artifact, such as a
@@ -137,7 +137,7 @@ Two kinds of cards reach execution stage:
   conjecture, computation-supported claim, source-backed claim, disputed lemma, failed
   path, and human-review point in the prose or margin notes.
 
-- **Review cards** (`needs-review` → gate-based review → outcome): these are ready for the ordered gate protocol in `references/review-kernel.md`. The reviewer (an independent agent session, not the implementer) applies Gates 1-6 and sets the outcome. Review is execution work: it produces findings, logs, and status changes. Do not stall when the active leaf list includes `needs-review` cards.
+- **Review cards** (`needs-agent-review` → gate-based review → outcome): these are ready for the ordered gate protocol in `references/review-kernel.md`. The reviewer (an independent agent session, not the implementer) applies Gates 1-6 and sets the outcome. Review is execution work: it produces findings, logs, and status changes. Do not stall when the active leaf list includes `needs-agent-review` cards.
 
   Review must be executed by a **fresh-context subagent**, never by the coordinator
   doing the review inline in its own session. The coordinator already has the

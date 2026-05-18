@@ -1,10 +1,10 @@
 # Research Review Kernel
 
-This is the canonical review protocol for the research repo. It formalizes the Replay/Attack and Promote/Reject stages from the execution kernel into a structured gate-based procedure that gates every card moving from `needs-review` or `needs-human-input` toward `complete`/`done`.
+This is the canonical review protocol for the research repo. It formalizes the Replay/Attack and Promote/Reject stages from the execution kernel into a structured gate-based procedure that gates every card moving from `needs-agent-review` or `needs-human-input` toward `complete`/`done`.
 
 ## Operational directive
 
-When you encounter a card with `status: needs-review`, it is your work. But it is
+When you encounter a card with `status: needs-agent-review`, it is your work. But it is
 NOT work you can do inline in your own session.
 
 **You must delegate review to a fresh-context subagent.** This is mandatory. The
@@ -44,7 +44,7 @@ A card is not complete because it passed review. It is complete only when every 
 Two statuses are added to the standard Nimbalyst status set:
 
 - `revision-required` is added to `task`, `spec`, `feature`, and `phase` schemas to represent a card that passed preliminary review but needs rework.
-- `needs-human-input` is added to `feature`, `spec`, `phase`, `task`, and `plan` schemas to represent a card that specifically requires human review (as distinct from `needs-review`, which indicates agent-executable gate-based review).
+- `needs-human-input` is added to `feature`, `spec`, `phase`, `task`, and `plan` schemas to represent a card that specifically requires human review (as distinct from `needs-agent-review`, which indicates agent-executable gate-based review).
 
 ```yaml
 - value: revision-required
@@ -68,17 +68,17 @@ Semantics:
 |---|---|---|
 | `unstarted` | No work has been done. May have planned dependencies in `dependsOn`; read the DAG to determine start-readiness. |
 | `in-progress` | Work actively underway |
-| `needs-review` | Work completed; awaiting gate-based review (agent-executable protocol) |
+| `needs-agent-review` | Work completed; awaiting gate-based review (agent-executable protocol) |
 | `needs-human-input` | Work completed; specifically requires human input or review |
 | `revision-required` | Review found defects; rework required within this card's scope |
 | `complete`/`done` | All gates passed; accepted |
 | `blocked` | Work was attempted (or preflighted); a specific blocker was discovered that requires a different card to be resolved first. The blocker is recorded in `blocked_reason`. |
 
-`needs-review` and `needs-human-input` are sibling states reached from `in-progress`. The distinction is the kind of review required:
-- `needs-review`: the card is ready for the ordered gate-based protocol (Gates 1-6), which an independent agent can execute.
+`needs-agent-review` and `needs-human-input` are sibling states reached from `in-progress`. The distinction is the kind of review required:
+- `needs-agent-review`: the card is ready for the ordered gate-based protocol (Gates 1-6), which an independent agent can execute.
 - `needs-human-input`: the card specifically requires human attention -- a design decision, policy choice, or evaluation that cannot be delegated to an agent. Human input may be requested directly or may arise when an agent's gate-based review determines that human judgment is needed.
 
-`revision-required` is distinct from `unstarted` (no work was ever done) and `blocked` (discovered blocker requiring external resolution). A card cycling through `needs-review → revision-required → in-progress → needs-review` is normal. Repetitive cycles indicate a deeper design problem, which should be escalated to a plan review or decision card rather than reworked in isolation.
+`revision-required` is distinct from `unstarted` (no work was ever done) and `blocked` (discovered blocker requiring external resolution). A card cycling through `needs-agent-review → revision-required → in-progress → needs-agent-review` is normal. Repetitive cycles indicate a deeper design problem, which should be escalated to a plan review or decision card rather than reworked in isolation.
 
 ### Blocked vs. unstarted vs. dependsOn
 
@@ -96,7 +96,7 @@ Cards that are currently `blocked` solely because a planned upstream dependency 
 ## Review state slice
 
 ```
-unstarted → in-progress → needs-review → [review gates applied]
+unstarted → in-progress → needs-agent-review → [review gates applied]
                         → needs-human-input → [human input/review]
                                                 │
                                 ┌───────────────┼───────────────┐
@@ -107,15 +107,15 @@ unstarted → in-progress → needs-review → [review gates applied]
                                             needed)       blocked_reason
                                                            set)
                                 │
-                                └──→ in-progress (rework) → needs-review → ...
+                                └──→ in-progress (rework) → needs-agent-review → ...
 ```
 
 An `unstarted` card with unsatisfied `dependsOn` entries stays `unstarted` -- this is a planned dependency, not a blocker. The DAG encodes it. Do not set `blocked` for planned upstream dependencies.
 
-Cards route to `needs-review` or `needs-human-input` based on the kind of review required:
-- Route to `needs-review` when the review can follow the ordered gate protocol (agent-executable).
+Cards route to `needs-agent-review` or `needs-human-input` based on the kind of review required:
+- Route to `needs-agent-review` when the review can follow the ordered gate protocol (agent-executable).
 - Route to `needs-human-input` when a human decision, policy choice, or evaluation is required.
-- A card in `needs-review` may be transitioned to `needs-human-input` if the gate-based review determines that human input is needed.
+- A card in `needs-agent-review` may be transitioned to `needs-human-input` if the gate-based review determines that human input is needed.
 
 ## Review execution requirements
 
@@ -549,7 +549,7 @@ completes:
       If every finding is only a missing file, changed line, schema mismatch, or
       command result, reject the review as insufficiently intelligent.
    i. Status-only diff check: if the only change to the card file is the `status`
-      line (e.g., `needs-review` → `complete`), the review is fraudulent. A real
+      line (e.g., `needs-agent-review` → `complete`), the review is fraudulent. A real
       review writes its findings into the card body under ## Review Log. Cards are
       evidence containers, not checklists. If the card body grew no review content,
       no review happened. Reject and demand specific evidence.

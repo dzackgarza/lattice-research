@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-QC-WARNINGS-ZERO]]'
 dependsOn: []
 title: QC mypy foundation dependency order
-status: needs-review
+status: needs-agent-review
 priority: critical
 description: 'Encode the mypy cleanup queue as a dependency-ordered plan: basic typing
   hygiene first, dynamic-inheritance plugin review second, stub generation third, and

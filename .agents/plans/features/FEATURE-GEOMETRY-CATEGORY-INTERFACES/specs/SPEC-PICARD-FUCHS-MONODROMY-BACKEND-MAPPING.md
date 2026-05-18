@@ -248,7 +248,7 @@ Frontmatter validation:
 - `parents` correctly lists `FEATURE-GEOMETRY-CATEGORY-INTERFACES` ✓
 - `dependsOn` correctly lists `TASK-RESEARCH-PICARD-FUCHS-MONODROMY-JNF-FAMILIES` ✓
 - The dependency task's work log (line 58-59) confirms this spec was created as its research output ✓
-- `status: needs-review` is appropriate for a spec awaiting gate review ✓
+- `status: needs-agent-review` is appropriate for a spec awaiting gate review ✓
 - `priority: medium` is consistent with sibling backend-mapping specs ✓
 
 The local theory spec `monodromy_foliation_backend.md` was read in full. It explicitly documents
@@ -463,7 +463,7 @@ PASS.
   that authorized this spec is correctly declared ✓
 - The research task's work log (lines 58-59) confirms this spec was created from it:
   "Recorded the backend boundary in SPEC-PICARD-FUCHS-MONODROMY-BACKEND-MAPPING.md" ✓
-- The task's `status: needs-human-input` is consistent with the spec's `status: needs-review`
+- The task's `status: needs-human-input` is consistent with the spec's `status: needs-agent-review`
   — the spec is the task's output artifact awaiting review ✓
 - No downstream implementation tasks declare a `dependsOn` on this spec (correct — the spec
   explicitly blocks implementation until owner specs exist) ✓

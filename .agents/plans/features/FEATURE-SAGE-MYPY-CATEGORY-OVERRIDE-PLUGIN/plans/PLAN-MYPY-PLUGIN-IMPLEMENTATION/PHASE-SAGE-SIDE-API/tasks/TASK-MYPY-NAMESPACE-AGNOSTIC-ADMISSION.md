@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-MYPY-PARSER]]'
 - '[[TASK-MYPY-INSTANTIATE]]'
 title: Rewrite method-container admission to be namespace-agnostic
-status: needs-review
+status: needs-agent-review
 priority: high
 description: Separate semantic Sage-category validation from `sage.categories.*`
   prefix assumptions so valid third-party category subtrees are admissible.
@@ -91,5 +91,5 @@ This task owns the rewrite of the parser/admission contract in
 
 ## Current Status
 
-Needs review. The admission rewrite is implemented in
+Needs agent review. The admission rewrite is implemented in
 `~/sage-mypy-plugin/sage_mypy_category_plugin/introspection.py`.

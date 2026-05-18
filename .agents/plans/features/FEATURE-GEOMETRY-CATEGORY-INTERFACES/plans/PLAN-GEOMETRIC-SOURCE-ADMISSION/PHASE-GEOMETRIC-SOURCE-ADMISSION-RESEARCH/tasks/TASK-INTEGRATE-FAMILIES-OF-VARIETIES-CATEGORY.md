@@ -53,7 +53,7 @@ This is a research/planning card, not an implementation card. Do not write categ
 
 ## Research Result
 
-Status: needs review. Families of varieties are source-grounded as morphisms whose
+Status: needs-agent-review. Families of varieties are source-grounded as morphisms whose
 fibers satisfy variety hypotheses, with flat/proper/finite-presentation/polarized
 families routed to stricter morphism refinements. This card does not authorize
 implementation.

@@ -9,7 +9,7 @@ dependsOn:
 - '[[TASK-MYPY-TEST-MYPY-INTEGRATION]]'
 - '[[TASK-MYPY-NAMESPACE-AGNOSTIC-HOOK-MATCHING]]'
 title: Add third-party subtree and config-covered integration tests
-status: needs-review
+status: needs-agent-review
 priority: high
 description: Prove the rewritten plugin against fixtures mounted outside
   `sage.categories.*` and against a config path that actually loads the plugin.
@@ -90,5 +90,5 @@ cannot quietly return.
 
 ## Current Status
 
-Needs review. The external-subtree and config-covered verification work is
+Needs agent review. The external-subtree and config-covered verification work is
 implemented and validated.

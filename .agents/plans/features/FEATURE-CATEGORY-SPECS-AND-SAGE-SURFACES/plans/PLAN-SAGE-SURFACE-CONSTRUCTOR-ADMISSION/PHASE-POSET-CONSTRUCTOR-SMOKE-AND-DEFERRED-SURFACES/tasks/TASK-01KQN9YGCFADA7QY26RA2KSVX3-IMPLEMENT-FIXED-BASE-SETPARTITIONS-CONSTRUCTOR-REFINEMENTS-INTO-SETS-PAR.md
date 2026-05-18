@@ -95,7 +95,7 @@ sets, ImageSets, Primes version skew, RealSet routing, and set/hom/end/aut owner
 
 ### Review - 2026-05-07
 
-Outcome: scoped review passes; card remains `needs-review` for human acceptance.
+Outcome: scoped review passes; card remains `needs-agent-review` for human acceptance.
 
 - Verified `SPEC-MAPPING-SETS.md` rows for `SetPartitions(s)`,
   `SetPartitions(s, k)`, `SetPartitions(s, part)`, and `SetPartitions()`:

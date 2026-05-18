@@ -861,8 +861,8 @@ The "Subplans" section (lines 101-108) references three additional plans:
 
 | # | Plan ID | Location | Status |
 |---|---------|----------|--------|
-| 1 | PLAN-STATIC-CATEGORY-REFINEMENT-ORDER | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-review` |
-| 2 | PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-review` |
+| 1 | PLAN-STATIC-CATEGORY-REFINEMENT-ORDER | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-agent-review` |
+| 2 | PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION | Under FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES | `needs-agent-review` |
 | 3 | PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP | Under FEATURE-MODULES-WITH-FORMS-AND-LATTICES | `approved-and-unstarted` |
 
 **Coverage gaps identified:**

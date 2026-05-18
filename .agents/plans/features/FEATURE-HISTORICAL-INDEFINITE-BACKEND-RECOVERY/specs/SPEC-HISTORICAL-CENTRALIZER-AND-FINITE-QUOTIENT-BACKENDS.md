@@ -253,7 +253,7 @@ forward references to the depended-upon specs. Minor — does not block passing.
 
 **Pass.** Frontmatter is consistent: id matches filename stem, parents correctly
 references FEATURE-HISTORICAL-INDEFINITE-BACKEND-RECOVERY, dependsOn lists the
-two prerequisite specs. Status is "needs-review" (current state before this review).
+two prerequisite specs. Status is "needs-agent-review" (current state before this review).
 Tags align with parent feature.
 
 Internal consistency: the routing table, operation contracts, and boundary

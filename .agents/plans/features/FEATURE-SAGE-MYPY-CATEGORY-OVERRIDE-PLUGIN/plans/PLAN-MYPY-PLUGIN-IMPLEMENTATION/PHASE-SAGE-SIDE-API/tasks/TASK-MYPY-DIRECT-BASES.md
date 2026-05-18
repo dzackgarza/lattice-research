@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-INSTANTIATE]]'
 title: Implement method_container_direct_bases, dependencies, and debug oracle
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Implement the core projection: given a method container fullname, instantiate
   the Sage category, read its dynamic class __bases__, map each base back to a source container,

@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-MYPY-PLUGIN-CLASS]]'
 - '[[TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION]]'
 title: Remove Sage-prefix-only hook gating
-status: needs-review
+status: needs-agent-review
 priority: high
 description: Rewrite plugin-side hook admission so valid third-party Sage
   category method containers reach the MRO hook even when their fullnames are
@@ -81,5 +81,5 @@ admission logic.
 
 ## Current Status
 
-Needs review. The hook-matching rewrite is implemented in
+Needs agent review. The hook-matching rewrite is implemented in
 `~/sage-mypy-plugin/sage_mypy_category_plugin/plugin.py`.

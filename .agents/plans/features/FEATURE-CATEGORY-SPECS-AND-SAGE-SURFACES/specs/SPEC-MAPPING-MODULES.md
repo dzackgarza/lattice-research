@@ -860,11 +860,11 @@ Unresolved issues are explicitly routed to decision cards or tasks:
   `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/plans/PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION/PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT/tasks/TASK-MAPPING-DOC-COMPLETENESS-RESEARCH.md`.
 
 - Root module method ownership → `[[SPEC-MODULE-ROOT-METHOD-OWNERSHIP-MAPPING]]` (line 479),
-  which exists and is in `needs-review` status.
+  which exists and is in `needs-agent-review` status.
 
 - Diagnostic flag for dual-vs-metric-dual convention → `[[SPEC-MAPPING-CAT]]` (line 596),
   which exists at `plans/features/FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES/specs/SPEC-MAPPING-CAT.md`
-  and is in `needs-review` status.
+  and is in `needs-agent-review` status.
 
 - Parent phase → `[[PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT]]` (line 8),
   which exists.
@@ -974,7 +974,7 @@ The spec is substantively sound across all six gates. Source references are veri
 mathematical routes are correct, nonmathematical surfaces are rejected with grounded
 alternatives, ambiguities are routed to tracked cards, and obligations are preserved.
 
-Before this spec advances beyond `needs-review`, create or confirm existence of:
+Before this spec advances beyond `needs-agent-review`, create or confirm existence of:
 - A decision card for the Ore module mathematical owner (`DECISION-ORE-MODULE-OWNER`
   or similar).
 - Either fix the broken reference to `SAGE_WRAPPER_MIGRATION_PLAN.md` or create

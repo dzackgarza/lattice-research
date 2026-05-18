@@ -100,7 +100,7 @@ The seed rows include:
 - 2026-05-06: Wrote the set/topology/metric method rows into
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, including finite `len(X)`
   ownership and rejected Sage wrapper/export surfaces. Moved this task to
-  needs-review.
+  needs-agent-review.
 - 2026-05-07: Added missing `RealSet.contains(x)` /
   `InternalRealInterval.contains(x)` and `InternalRealInterval.boundary_points()` rows
   to the literal inventory after Gate 2 review found those required seed/source

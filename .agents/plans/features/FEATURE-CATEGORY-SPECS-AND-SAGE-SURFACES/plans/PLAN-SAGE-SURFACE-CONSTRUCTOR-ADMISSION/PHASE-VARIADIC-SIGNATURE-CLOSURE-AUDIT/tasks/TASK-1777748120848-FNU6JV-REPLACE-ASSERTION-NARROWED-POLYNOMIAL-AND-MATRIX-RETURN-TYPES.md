@@ -64,7 +64,7 @@ Task: replace assertion-narrowed polynomial and matrix return types (via result 
 - [x] Run syntax validation and a targeted regression/smoke check, or record the
   exact phase-local blocker.
 - [x] Run and record a spec-weakening review before moving the card to
-  `needs-review`.
+  `needs-agent-review`.
 
 ## Complexity And Ownership
 
@@ -268,7 +268,7 @@ exact phase-local blocker."
     pre-existing failures, `from_matrix` runtime blocked by `from_invariant_factors`
     exposure gap — all pre-existing, none introduced by this task.
 
-AC6: "Run and record a spec-weakening review before moving the card to needs-review."
+AC6: "Run and record a spec-weakening review before moving the card to needs-agent-review."
   - Card body lines 145-156 contain the Spec-Weakening Review section with result
     "passed" for both the original and follow-up diff.
 

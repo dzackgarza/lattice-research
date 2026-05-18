@@ -270,4 +270,4 @@ The card preserves future obligations:
 | G5 — Ambiguity Routing | PASS | Four open items routed to decision card (not yet created) |
 | G6 — Obligation Preservation | PASS | Future obligations, limitations, and gaps recorded |
 
-**Overall: PASS.** The spec is source-grounded, mathematically correct, properly scoped to backend mapping (not implementation), and routes ambiguity to the appropriate decision card. One advisory: the referenced decision card does not yet exist; this is normal for a spec at `needs-review` status and becomes actionable when the decision card is created.
+**Overall: PASS.** The spec is source-grounded, mathematically correct, properly scoped to backend mapping (not implementation), and routes ambiguity to the appropriate decision card. One advisory: the referenced decision card does not yet exist; this is normal for a spec at `needs-agent-review` status and becomes actionable when the decision card is created.

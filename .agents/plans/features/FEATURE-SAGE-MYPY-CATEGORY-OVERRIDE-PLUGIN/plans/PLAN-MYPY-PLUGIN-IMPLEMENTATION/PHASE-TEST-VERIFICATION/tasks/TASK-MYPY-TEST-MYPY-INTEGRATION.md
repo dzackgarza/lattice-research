@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-TEST-ARTIFICIAL]]'
 title: Write mypy integration tests for plugin behavior
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Write pytest tests that invoke mypy programmatically on the artificial fixture
   files, assert expected pass/fail per test case, verify incremental mode determinism, and
@@ -78,5 +78,5 @@ recheck behavior.
 
 ## Current Status
 
-Needs review. The integration suite now encodes the clarified external-subtree
+Needs agent review. The integration suite now encodes the clarified external-subtree
 contract and retains the config-file-driven plugin path used by the test matrix.

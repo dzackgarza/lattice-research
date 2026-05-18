@@ -5,7 +5,7 @@
 During the Phase 01 gate review pass on 2026-05-07, the following was accomplished:
 
 ### Tasks reviewed and accepted
-- 20+ task cards across FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and FEATURE-GEOMETRY-CATEGORY-INTERFACES promoted from needs-review to complete after passing the 6-gate review protocol.
+- 20+ task cards across FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and FEATURE-GEOMETRY-CATEGORY-INTERFACES promoted from needs-agent-review to complete after passing the 6-gate review protocol.
 
 ### Real bugs found and fixed
 1. ImageSubobject.__eq__: Sage uses identity-based equality, returning False for equal objects. Fixed with elementwise comparison.

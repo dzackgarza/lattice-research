@@ -112,7 +112,7 @@ path is not acceptable.
 - 2026-05-06: Enumerated 22 category-spec inventory/mapping docs, 12 backend notes,
   and two lattice spec-backup files. Added the corpus assignment to
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` and moved this task to
-  needs-review.
+  needs-agent-review.
 - 2026-05-06: Gate 1 review found stale source roots from the old `theory/backends/`
   and `theory/spec_backups/` paths. Updated this card and the target spec to point to
   the visible `.agents/memories/theory/backends/` and `src.bak/spec-backups/`

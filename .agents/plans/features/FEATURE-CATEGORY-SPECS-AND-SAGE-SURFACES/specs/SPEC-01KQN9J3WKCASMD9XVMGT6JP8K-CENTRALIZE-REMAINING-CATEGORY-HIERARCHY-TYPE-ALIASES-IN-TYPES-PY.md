@@ -288,4 +288,4 @@ Verification chain:
 
 **Notes:**
 - One minor gap: `.agents/skills/lattice-redesign/references/category-abc-spec.md` was not found at the stated path; the lattices MAPPING.md redirect to SPEC-MAPPING-LATTICES.md covers the owner split. No impact on core claims.
-- The spec's status should advance from `needs-review` to `complete` upon human approval.
+- The spec's status should advance from `needs-agent-review` to `complete` upon human approval.

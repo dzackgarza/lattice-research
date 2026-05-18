@@ -165,7 +165,7 @@ Verification: `uvx --from ruff ruff check category_specs` passes. `python -m com
 
 ### Self-Check - 2026-05-07
 
-Outcome: stale validation prose corrected; card remains `needs-review` for independent
+Outcome: stale validation prose corrected; card remains `needs-agent-review` for independent
 review and human acceptance.
 
 - Gate 2 acceptance for the parent triage scope remains plausible: the original
@@ -182,7 +182,7 @@ review and human acceptance.
 
 Reviewer: Hilbert.
 
-Outcome: `needs-review as-is`.
+Outcome: `needs-agent-review as-is`.
 
 - Gate 2 is satisfied for this parent triage scope: the card reproduced the original
   Vulture failure, classified it, avoided local bypasses, split owner-specific

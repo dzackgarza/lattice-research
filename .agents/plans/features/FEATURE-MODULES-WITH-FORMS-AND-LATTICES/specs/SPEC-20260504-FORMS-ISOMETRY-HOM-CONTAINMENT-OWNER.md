@@ -331,7 +331,7 @@ The spec is self-contained and internally consistent.  Identified boundaries:
    This is a precision improvement, not an ambiguity.  PASS.
 
 3. **Dependency on `PHASE-HOM-END-AUT-WORK-QUEUE`** — the phase exists and
-   is active (status: `needs-review`).  The dependency is satisfiable.  PASS.
+   is active (status: `needs-agent-review`).  The dependency is satisfiable.  PASS.
 
 4. **Compatibility alias status** — `is_isometry()` is documented as a
    compatibility query for isomorphism inside the Hom object (free_bilinear.py

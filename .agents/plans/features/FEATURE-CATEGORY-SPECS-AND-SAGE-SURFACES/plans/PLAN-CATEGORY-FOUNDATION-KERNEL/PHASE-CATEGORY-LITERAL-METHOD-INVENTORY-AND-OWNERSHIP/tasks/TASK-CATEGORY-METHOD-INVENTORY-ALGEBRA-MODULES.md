@@ -101,7 +101,7 @@ The seed rows include:
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY`, covering constructor splits,
   matrix-parent ownership, ideals, quotient surfaces, basis and ordered-basis methods,
   Hom/tensor/dual routes, PID finite-presentation rows, graded/Ore/representation
-  methods, and rejected interop surfaces. Moved this task to needs-review.
+  methods, and rejected interop surfaces. Moved this task to needs-agent-review.
 - 2026-05-07: Reworked the algebra row for `has_standard_involution()` after Gate 1
   review found it was unsafe to admit on all `Algebras(R)`. The literal inventory now
   splits `characteristic()` as inherited-only from `has_standard_involution()` as

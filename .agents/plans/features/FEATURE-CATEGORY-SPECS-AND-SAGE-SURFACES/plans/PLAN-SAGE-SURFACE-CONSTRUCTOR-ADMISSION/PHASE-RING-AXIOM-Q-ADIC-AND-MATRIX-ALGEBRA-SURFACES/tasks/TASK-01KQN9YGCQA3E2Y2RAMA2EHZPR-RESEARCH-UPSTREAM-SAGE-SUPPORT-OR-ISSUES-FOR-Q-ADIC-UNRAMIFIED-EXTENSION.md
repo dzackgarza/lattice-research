@@ -151,7 +151,7 @@ Design consequence:
 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
 Compliance
 **Gates failed:** None
-**Outcome:** reviewed; leave `status: needs-review` for human acceptance rather than
+**Outcome:** reviewed; leave `status: needs-agent-review` for human acceptance rather than
 agent-side closure.
 
 - Gate 1: The card grounds the constructor names and q-adic lattice-precision gap in
@@ -186,7 +186,7 @@ agent-side closure.
 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
 Compliance
 **Gates failed:** None
-**Outcome:** all gates pass; leave `status: needs-review` for human acceptance per
+**Outcome:** all gates pass; leave `status: needs-agent-review` for human acceptance per
 category-spec policy (never mark native items done without human approval).
 
 - **Gate 1 (Definition Grounding):** Checked each definition against canonical

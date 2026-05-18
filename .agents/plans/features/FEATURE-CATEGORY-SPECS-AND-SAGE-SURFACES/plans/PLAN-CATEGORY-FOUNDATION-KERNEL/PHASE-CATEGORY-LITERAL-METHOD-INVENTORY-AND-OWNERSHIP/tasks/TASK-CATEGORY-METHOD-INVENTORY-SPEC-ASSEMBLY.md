@@ -131,5 +131,5 @@ real spec surface with method rows.
 - 2026-05-06: Kept the method inventory assembled in
   `SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY` as one trackable spec file,
   added an assembly index with the normalized row schema and follow-up links, and moved
-  this task to needs-review. The separate gap-audit leaf remains responsible for
+  this task to needs-agent-review. The separate gap-audit leaf remains responsible for
   auditing decision-needed, backend-gap, and source-needed rows.

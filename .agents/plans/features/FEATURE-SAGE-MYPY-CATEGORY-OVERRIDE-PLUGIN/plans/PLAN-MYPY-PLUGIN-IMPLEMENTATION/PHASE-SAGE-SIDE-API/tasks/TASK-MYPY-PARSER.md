@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-SAGE-SIDE-API]]'
 dependsOn: []
 title: Implement parse_method_container_fullname and is_sage_method_container
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Implement the fullname parser in ~/sage-mypy-plugin/sage_mypy_category_plugin/introspection.py
   that splits a dotted fullname into module + category path + method kind.
@@ -80,5 +80,5 @@ None. This is the first task in the phase.
 
 ## Current Status
 
-Needs review. The parser now supports namespace-agnostic structural admission and
+Needs agent review. The parser now supports namespace-agnostic structural admission and
 preserves the semantic boundary for unrelated non-category fullnames.

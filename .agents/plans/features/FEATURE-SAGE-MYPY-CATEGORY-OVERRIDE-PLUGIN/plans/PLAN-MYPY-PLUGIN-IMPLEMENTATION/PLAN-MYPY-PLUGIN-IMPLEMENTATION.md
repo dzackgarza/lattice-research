@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN]]'
 dependsOn: []
 title: Mypy plugin implementation plan
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Implement the Sage mypy category override plugin in three sequential phases:
   Sage-side introspection API, mypy-side plugin harness, and test verification. This is a
@@ -92,7 +92,7 @@ to Sage category semantics.
 
 ## Current Status
 
-Needs review. The implementation now covers Sage-side projection, mypy MRO
+Needs agent review. The implementation now covers Sage-side projection, mypy MRO
 injection, dependency tracking, configured representative loading from
 `[sage-mypy-category-plugin]`, strict diagnostics, the Sage-prefixed
 verification matrix, and the clarified namespace-agnostic third-party subtree

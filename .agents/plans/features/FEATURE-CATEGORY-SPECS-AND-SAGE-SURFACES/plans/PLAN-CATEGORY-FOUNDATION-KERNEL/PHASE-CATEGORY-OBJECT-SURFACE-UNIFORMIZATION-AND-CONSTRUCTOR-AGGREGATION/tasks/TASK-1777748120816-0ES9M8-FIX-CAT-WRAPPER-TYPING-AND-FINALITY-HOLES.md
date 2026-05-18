@@ -93,10 +93,10 @@ Variance-specific search:
 - The card's final acceptance criterion requires human review to accept the
   consolidation and close or retire the duplicate card.
 - That criterion is intentionally still unchecked, and the sibling Cat hardening card
-  remains active in `needs-review`.
+  remains active in `needs-agent-review`.
 
 #### Routing Note
 
 - This is not an ordinary DAG dependency blocker and does not justify attempting
-  downstream work. The card remains in `needs-review` awaiting human acceptance or
+  downstream work. The card remains in `needs-agent-review` awaiting human acceptance or
   retirement direction.

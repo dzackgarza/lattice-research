@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-SAGE-SIDE-API]]'
 title: Mypy-side plugin harness
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build the mypy plugin class that hooks get_customize_class_mro_hook to inject
   Sage semantic bases, get_additional_deps for incremental dependency tracking, and diagnostic
@@ -93,7 +93,7 @@ injects resolved bases into mypy's internal class graph.
 
 ## Current Status
 
-Needs review. Hook/base injection, dependency tracking, `report_config_data()`,
+Needs agent review. Hook/base injection, dependency tracking, `report_config_data()`,
 configured representatives, and strict diagnostics remain in place, and the
 harness now reaches them for semantically valid third-party fullnames as well as
 the Sage-prefixed fixtures.

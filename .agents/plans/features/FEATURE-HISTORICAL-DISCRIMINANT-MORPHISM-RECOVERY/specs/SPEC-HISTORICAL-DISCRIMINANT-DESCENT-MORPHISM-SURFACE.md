@@ -181,7 +181,7 @@ Morphism predicates are derived from the returned objects:
 **Reviewer**: automated 6-gate spec review
 **Date**: 2026-05-07
 **Spec ID**: SPEC-HISTORICAL-DISCRIMINANT-DESCENT-MORPHISM-SURFACE
-**Spec status before review**: needs-review
+**Spec status before review**: needs-agent-review
 **Review status**: PASS (all 6 gates)
 
 ---
@@ -307,4 +307,4 @@ The dependency spec `SPEC-HISTORICAL-DISCRIMINANT-GROUP-SURFACE` exists and its 
 | G5 | Ambiguity Routing | PASS | Precise terms, concrete anti-patterns |
 | G6 | Obligation Preservation | PASS | Feature/dependency/source obligations preserved |
 
-**Recommendation**: Advance status from `needs-review` to `reviewed`. The spec is mathematically sound, well-grounded in sources, and provides a complete Sage surface contract for morphism recovery.
+**Recommendation**: Advance status from `needs-agent-review` to `reviewed`. The spec is mathematically sound, well-grounded in sources, and provides a complete Sage surface contract for morphism recovery.

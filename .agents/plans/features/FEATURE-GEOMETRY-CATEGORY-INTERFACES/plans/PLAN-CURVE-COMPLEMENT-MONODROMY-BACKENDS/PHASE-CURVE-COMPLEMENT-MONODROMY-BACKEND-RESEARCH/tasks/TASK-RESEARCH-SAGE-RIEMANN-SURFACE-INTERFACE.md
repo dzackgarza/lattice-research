@@ -61,7 +61,7 @@ Do not design a variadic or convenience wrapper. Do not implement code. Do not t
   Created `[[SPEC-SAGE-RIEMANN-SURFACE-BACKEND-MAPPING]]` to record constructor
   and method mapping, public owner candidates, numerical limitations, and the
   decision not to admit wrapper implementation yet. Status moved to
-  `needs-review`; this does not mark the card accepted or complete.
+  `needs-agent-review`; this does not mark the card accepted or complete.
 - 2026-05-06: Independent Gate 2 review found that the concrete geometry
   ownership follow-up remained inline in the mapping spec. Added
   `[[SPEC-CURVE-JACOBIAN-PERIOD-LATTICE-OWNERSHIP]]` and linked the mapping spec's
@@ -97,7 +97,7 @@ Do not design a variadic or convenience wrapper. Do not implement code. Do not t
 **Gates passed:** Gate 1 Definition Grounding.
 **Gates failed:** Gate 2 Acceptance Criteria.
 **Outcome:** revision-required, reworked in the work log above, returned to
-`needs-review` for another independent pass.
+`needs-agent-review` for another independent pass.
 
 Finding:
 

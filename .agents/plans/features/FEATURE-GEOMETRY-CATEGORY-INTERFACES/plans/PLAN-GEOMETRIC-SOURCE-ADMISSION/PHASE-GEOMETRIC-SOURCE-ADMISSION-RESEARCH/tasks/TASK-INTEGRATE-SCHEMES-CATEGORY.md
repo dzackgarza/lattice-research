@@ -48,7 +48,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 ## Research Result
 
-Status: needs review. The scheme category is source-grounded enough to proceed to downstream vocabulary/spec work, but this card itself does not authorize geometry implementation.
+Status: needs-agent-review. The scheme category is source-grounded enough to proceed to downstream vocabulary/spec work, but this card itself does not authorize geometry implementation.
 
 ## Mathematical Definition
 
@@ -217,7 +217,7 @@ No new card is needed from this scheme pass. Existing sibling cards own the rema
 Spec-Weakening, Gate 4 Gradient, Gate 5 Mathematical Correctness, Gate 6 Style and
 Compliance.
 **Gates failed:** none.
-**Outcome:** pass; card remains `needs-review` pending human acceptance.
+**Outcome:** pass; card remains `needs-agent-review` pending human acceptance.
 
 #### Residual Risk
 
@@ -232,6 +232,6 @@ Compliance.
 - 2026-05-06: Completed source-admission research for schemes, recorded mathematical owner guidance, backend evidence, downstream routing, and the visible-backend-map negative finding.
 - 2026-05-06: Reworked the Gate 1 blowup finding by adding Stacks Project blowup
   sources and making the center/return-object hypotheses explicit. The card remains
-  `needs-review` pending re-review; it is not marked complete.
-- 2026-05-06: Recorded independent re-review pass. The card remains `needs-review`
+  `needs-agent-review` pending re-review; it is not marked complete.
+- 2026-05-06: Recorded independent re-review pass. The card remains `needs-agent-review`
   pending human acceptance; it is not marked complete.

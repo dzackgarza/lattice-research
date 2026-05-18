@@ -48,7 +48,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 ## Research Result
 
-Status: needs review. The variety category has a source-grounded convention and backend surface map sufficient for downstream geometry cards. This card does not authorize implementation.
+Status: needs-agent-review. The variety category has a source-grounded convention and backend surface map sufficient for downstream geometry cards. This card does not authorize implementation.
 
 ## Mathematical Definition
 
@@ -170,7 +170,7 @@ No new card is needed from this variety pass. Existing sibling cards own the rem
 
 - This card treats `TASK-INTEGRATE-SCHEMES-CATEGORY` as the source-admitted scheme
   substrate for `Varieties(k)` and related method-owner guidance, but the schemes card
-  is still `needs-review` rather than human-accepted.
+  is still `needs-agent-review` rather than human-accepted.
 - The card therefore must not be reviewed as independent of schemes; it needs a
   `dependsOn` edge to `TASK-INTEGRATE-SCHEMES-CATEGORY` so the DAG prevents premature
   review or execution.
@@ -340,7 +340,7 @@ on downstream choices, not on the variety convention itself.
 #### Gate 6: Compliance — PASS
 
 - Frontmatter: `id`, `trackerStatus.type: task`, `parents`, `dependsOn`, `title`,
-  `status: needs-review`, `priority: high`, `successCriteria`, `complexity`, `tags` —
+  `status: needs-agent-review`, `priority: high`, `successCriteria`, `complexity`, `tags` —
   all present and valid. ✓
 - Body sections: Summary, Source Provenance, Context, Acceptance Criteria, Research
   Result, Mathematical Definition, Sage Surface Survey, Backend Survey, Local
@@ -392,7 +392,7 @@ claiming premature finality.
 - 2026-05-06: Corrected invariant ownership after source review: genus variants, Hodge numbers, Kodaira dimension, Euler characteristics, and canonical data are broad scheme/variety-refinement surfaces before curve/surface specialization.
 - 2026-05-06: Added the missing DAG dependency on the schemes source-admission card
   after independent review caught that this card relies on an unaccepted scheme
-  substrate. The card remains `needs-review`, but the DAG should treat it as
+  substrate. The card remains `needs-agent-review`, but the DAG should treat it as
   dependency-waiting until schemes is accepted.
 - 2026-05-09: Reclassified from human input to agent-executable review. The Stacks
   convention recorded here, a variety over `k` as an integral separated finite-type

@@ -380,7 +380,7 @@ source grounding, correct mathematics, proper nonmathematical rejection, clear
 routing, and full obligation preservation. All acceptance criteria are satisfied.
 No deficiencies found in any gate.
 
-The spec can advance from `needs-review` to `needs-human-input` (or equivalent
+The spec can advance from `needs-agent-review` to `needs-human-input` (or equivalent
 gatekeeping status) for final human confirmation.
 
 ### Evidence Registry

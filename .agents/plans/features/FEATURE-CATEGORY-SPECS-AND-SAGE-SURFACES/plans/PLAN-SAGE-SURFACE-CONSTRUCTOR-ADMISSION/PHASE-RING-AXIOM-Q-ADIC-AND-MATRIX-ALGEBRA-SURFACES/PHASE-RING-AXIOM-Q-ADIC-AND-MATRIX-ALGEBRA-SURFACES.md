@@ -81,7 +81,7 @@ split.
 
 **Gates passed:** Gate 1 Source Paths, Gate 2 Exit Criteria Checkability, Gate 3 Task Inventory Complete, Gate 4 Scope Containment, Gate 5 Dependencies Correct, Gate 6 No Weakening
 **Gates failed:** none
-**Outcome:** phase card passes all 6 gates; status remains `needs-review` pending human acceptance and child task closure.
+**Outcome:** phase card passes all 6 gates; status remains `needs-agent-review` pending human acceptance and child task closure.
 
 ---
 
@@ -195,4 +195,4 @@ The phase is not yet closable because:
 2. The wrapup task (task 8) is `unstarted` and blocks on sibling completion
 3. Human approval is required per category-spec policy for all `needs-human-input` items
 
-No structural defects found in the phase card itself. Recommend keeping `status: needs-review` until human acceptance of remaining `needs-human-input` leaves and wrapup execution.
+No structural defects found in the phase card itself. Recommend keeping `status: needs-agent-review` until human acceptance of remaining `needs-human-input` leaves and wrapup execution.

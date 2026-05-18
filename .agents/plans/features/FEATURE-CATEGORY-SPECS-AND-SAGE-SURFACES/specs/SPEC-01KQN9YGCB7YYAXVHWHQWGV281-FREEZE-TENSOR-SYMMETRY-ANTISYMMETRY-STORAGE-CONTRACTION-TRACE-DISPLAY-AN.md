@@ -112,7 +112,7 @@ Rejection/retirement condition:
 - **trackerStatus.type** is `spec` — correct for a specification leaf under a feature's `specs/` directory.
 - **parents** correctly declares containment under `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`. Parent feature exists and is active.
 - **dependsOn** declares `PHASE-ALGEBRA-CONSTRUCTOR-ADMISSION-AND-TENSOR-ROUTING`. Edge is valid: the freeze decisions require the algebra constructor phase to be stable before mapping can be frozen.
-- **Metadata**: title, status (`needs-review`), priority (`critical`), requirement, acceptanceCriteria, and tags are all present and well-formed. No missing required fields.
+- **Metadata**: title, status (`needs-agent-review`), priority (`critical`), requirement, acceptanceCriteria, and tags are all present and well-formed. No missing required fields.
 - **Verdict**: PASS. Structural metadata is complete, self-consistent, and obeys the workspace hierarchy rules.
 
 ### G2 — Scope Clarity

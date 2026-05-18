@@ -87,7 +87,7 @@ or letting Sage implementation inheritance masquerade as mathematical ownership.
 - 2026-05-05: Created phase to execute the literal method ownership inventory requested by the user.
 - 2026-05-06: Started phase execution by completing the source corpus assignment in the target spec.
 - 2026-05-06: Completed topical row assembly, gap audit, and decision/source routing;
-  marked phase needs-review pending human acceptance.
+  marked phase needs-agent-review pending human acceptance.
 - 2026-05-06: Repaired the lattice spec-backup source root after child-card review
   found the stale `.agents/theory/spec-backups/` path. The current mineable source
   files live under `src.bak/spec-backups/`.

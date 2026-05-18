@@ -499,7 +499,7 @@ Verification: `just --justfile category_specs/justfile _vulture category_specs` 
 
 Reviewer: Banach.
 
-Outcome: revision finding addressed; card remains `needs-review` for fresh review and
+Outcome: revision finding addressed; card remains `needs-agent-review` for fresh review and
 human acceptance.
 
 Gate 2 finding:

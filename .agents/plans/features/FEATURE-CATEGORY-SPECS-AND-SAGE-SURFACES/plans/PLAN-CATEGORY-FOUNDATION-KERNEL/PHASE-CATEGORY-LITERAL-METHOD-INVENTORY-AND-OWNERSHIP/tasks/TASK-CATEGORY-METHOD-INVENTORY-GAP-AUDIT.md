@@ -19,7 +19,7 @@ successCriteria:
   or plausible textbook memory as authority.
 - The audit records which implementation cards are now unblocked and which paths remain
   blocked by real source or decision gaps.
-- The phase can be marked needs-review without relying on global QC as proof of spec
+- The phase can be marked needs-agent-review without relying on global QC as proof of spec
   completeness.
 complexity: 58
 tags:
@@ -62,7 +62,7 @@ codomain, or backend route is still unclear.
 - [x] Every `decision-needed`, `backend-gap`, or `source-needed` row has a linked decision or research card with exact sources checked.
 - [x] The inventory has no method rows that cite only migrated TODOs, common terminology, or plausible textbook memory as authority.
 - [x] The audit records which implementation cards are now unblocked and which paths remain blocked by real source or decision gaps.
-- [x] The phase can be marked needs-review without relying on global QC as proof of spec completeness.
+- [x] The phase can be marked needs-agent-review without relying on global QC as proof of spec completeness.
 
 ## Dependencies And Boundaries
 
@@ -89,7 +89,7 @@ codomain, or backend route is still unclear.
 - [x] Every `decision-needed`, `backend-gap`, or `source-needed` row has a linked decision or research card → the gap-audit routing table in SPEC-CATEGORY-LITERAL-METHOD-OWNERSHIP-INVENTORY links each gap class (geometry candidate rows, Picard group vs lattice, q-adic backends, backend-method spelling) to specific decision cards, source-admission tasks, and research cards.
 - [x] No method rows cite only migrated TODOs, common terminology, or plausible textbook memory → verified by scanning the assembled spec for rows that cite only common terminology without source paths; all rows cite SAGE_INVENTORY.md, MAPPING.md, or an approved decision card as source authority.
 - [x] Audit records unblocked and blocked paths → spec gap-audit table lists resolution status and exact follow-up cards for each gap class.
-- [x] Phase can be marked needs-review without relying on global QC → gap audit is source and owner routing only, not QC.
+- [x] Phase can be marked needs-agent-review without relying on global QC → gap audit is source and owner routing only, not QC.
 
 **Gate 3 — Spec-Weakening:**
 - No staged or unstaged diffs on any spec files affected by the gap audit.

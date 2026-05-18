@@ -1242,7 +1242,7 @@ The plan also records two owned downstream spec cards in its body:
 - `SPEC-01KQN9J3WJE9W76X72DAT10H4Y` (dual-object Hom routing) — exists at `specs/SPEC-01KQN9J3WJE9...`, `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]`, status `unstarted`. Correct: dual-object routing through Homsets requires stable Hom/End/Aut surfaces.
 - `SPEC-01KQN9J3WQDJ0Z27BXTY67HA72` (DiscriminantGroup Hom/End/Aut) — exists in `FEATURE-MODULES-WITH-FORMS-AND-LATTICES/specs/`, `dependsOn: [[PHASE-HOM-END-AUT-WORK-QUEUE]]`, status `complete`. Correct: discriminant-group naming should follow the structural admission patterns established by this plan.
 
-**Finding (minor):** The phase card status is `complete`, but two of its three child tasks are not yet complete (TASK-1777748120385 is `needs-human-input`, TASK-WRAPUP is `unstarted`). The phase status should remain `in-progress` or `needs-review` until child tasks resolve. This does not affect plan-level validity — the phase card has its own independent 6-gate review covering this issue.
+**Finding (minor):** The phase card status is `complete`, but two of its three child tasks are not yet complete (TASK-1777748120385 is `needs-human-input`, TASK-WRAPUP is `unstarted`). The phase status should remain `in-progress` or `needs-agent-review` until child tasks resolve. This does not affect plan-level validity — the phase card has its own independent 6-gate review covering this issue.
 
 **Recommendation:** Consider updating the phase card status from `complete` to `in-progress` until TASK-1777748120385 receives human approval and TASK-WRAPUP executes.
 

@@ -190,7 +190,7 @@ Additional findings:
 
 #### G6 — No Weakening / Preservation: PASS
 
-- Plan status is `needs-review` — not prematurely accepted or executed.
+- Plan status is `needs-agent-review` — not prematurely accepted or executed.
 - Success criteria use strong, obligation-heavy language: "must cite," "admitted only
   after," "records its dependency before."
 - Acceptance criteria are in checkbox format — properly trackable and auditable.
@@ -215,12 +215,12 @@ Additional findings:
 - **Transitive risk**: The dependency target `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-
   ADMISSION` has its own G1 and G5 blocking failures (8 missing source maps, 1 dangling
   subplan). If the geometric source admission plan truly depends on it, those failures
-  must be resolved before this plan can exit `needs-review`.
+  must be resolved before this plan can exit `needs-agent-review`.
 - **Phase already reviewed**: The phase card `PHASE-GEOMETRIC-SOURCE-ADMISSION-
   RESEARCH` has its own 6-gate review (2026-05-07) with all gates passing but 4 of 12
   child cards still `needs-human-input`. The plan-level review does not need to
   re-audit those child cards; the phase review covers them.
-- **Status alignment**: Plan status is `needs-review`, phase status is `complete`.
+- **Status alignment**: Plan status is `needs-agent-review`, phase status is `complete`.
   This is correct — the phase can be execution-complete while the plan awaits review
   approval. No inconsistency.
 - **Leaf plan confirmation**: The plan self-describes as a leaf plan, which is correct

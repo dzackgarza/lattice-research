@@ -112,7 +112,7 @@ Additional clarity from the spec body:
 
 | Dependency | Status | Impact |
 |---|---|---|
-| `SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES` | `needs-review` (DAG shows `needs-review`) | BLOCKER — this spec specifies the missing method surfaces (`orthogonal_group()`, `isotropic_orbits()`, `lift_orbit_to_lattice()`) on `DiscriminantGroup` that the Coble orbit enumeration research depends on. Until Phase 4 discriminant-group methods are specified and the orbit surface spec is approved, a backend survey cannot determine whether the required methods exist or need new implementation. |
+| `SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES` | `needs-agent-review` (DAG shows `needs-agent-review`) | BLOCKER — this spec specifies the missing method surfaces (`orthogonal_group()`, `isotropic_orbits()`, `lift_orbit_to_lattice()`) on `DiscriminantGroup` that the Coble orbit enumeration research depends on. Until Phase 4 discriminant-group methods are specified and the orbit surface spec is approved, a backend survey cannot determine whether the required methods exist or need new implementation. |
 | `FEATURE-COBLE-CUSP-ORBIT-CLASSIFICATION` (parent) | `in-progress` | Informational — parent feature is active and this spec is one of its children |
 | `FEATURE-MODULES-WITH-FORMS-AND-LATTICES` (transitive via feature) | in-progress | The lattice/discriminant-form infrastructure this spec surveys against is still under construction |
 
@@ -165,7 +165,7 @@ The 528 isotropic-element count is stated without derivation or verification. Th
 | Criterion | Status |
 |---|---|
 | Acceptance criteria met | NO — no backend report, no feasibility statement, no recommended route |
-| Dependency resolved | NO — `SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES` still `needs-review` |
+| Dependency resolved | NO — `SPEC-DISCRIMINANT-FORM-ORBIT-SURFACES` still `needs-agent-review` |
 | No blockers from lower gates | NO — Gates 3, 4, 5 all have unresolved issues |
 | Card internal consistency | YES — the spec is internally consistent (questions flow from input to output logically) |
 | No contradictory claims | N/A — no claims made (research not done) |

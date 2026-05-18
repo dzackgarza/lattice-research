@@ -7,7 +7,7 @@ dependsOn: []
 plans:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 title: Mypy plugin for Sage category method override checking
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build a Sage-specific mypy plugin that makes @override work for Sage''s dynamic
   category method system (ParentMethods, ElementMethods, MorphismMethods) without requiring
@@ -125,7 +125,7 @@ Sage's source tree. It imports Sage as a dependency.
 
 ## Current Status
 
-Needs review. On 2026-05-10 the plugin repo was rewritten so namespace-agnostic
+Needs agent review. On 2026-05-10 the plugin repo was rewritten so namespace-agnostic
 admission and hook matching now accept valid third-party subtree method
 containers, the test suite includes non-`sage.categories.*` fixtures with
 matching pass/fail behavior, and `/home/dzack/ai/quality-control/mypy-global.ini`

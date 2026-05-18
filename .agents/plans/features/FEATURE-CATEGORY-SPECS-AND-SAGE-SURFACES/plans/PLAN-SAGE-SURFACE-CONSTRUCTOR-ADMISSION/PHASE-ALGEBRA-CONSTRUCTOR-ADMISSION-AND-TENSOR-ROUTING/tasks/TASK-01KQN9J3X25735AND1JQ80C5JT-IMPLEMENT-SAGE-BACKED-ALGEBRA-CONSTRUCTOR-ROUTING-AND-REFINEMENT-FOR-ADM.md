@@ -75,7 +75,7 @@ module hom-category/forms blocker for DualObjects, and constructor admission gap
 - 2026-05-06 validation: `just --justfile category_specs/justfile smoke-file
   algebras/smoketest.sage` passes after the algebra constructor and tensor
   component refinement work in the linked phase. Status moved to
-  `needs-review`; this does not mark the card accepted or complete.
+  `needs-agent-review`; this does not mark the card accepted or complete.
 
 ## Review Log
 

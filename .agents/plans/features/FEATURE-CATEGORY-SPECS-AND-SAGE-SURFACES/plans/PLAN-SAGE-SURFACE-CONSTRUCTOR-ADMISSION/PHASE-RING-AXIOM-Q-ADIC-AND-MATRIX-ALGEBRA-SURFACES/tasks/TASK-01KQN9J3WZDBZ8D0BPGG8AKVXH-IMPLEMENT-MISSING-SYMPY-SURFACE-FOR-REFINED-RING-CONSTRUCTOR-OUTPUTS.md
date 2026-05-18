@@ -82,7 +82,7 @@ split.
   `[[TASK-01KQN9YGCKBZM1PG5YYQW5A8M6-IMPLEMENT-MATRIX-RING-REFINEMENT-INTO-ALGEBRAS-R-AND-MODULES-R-FREE-FINI]]`,
   and
   `[[TASK-01KQN9YGCHDRNXNEYEH2P134JD-IMPLEMENT-TOPOLOGICAL-RING-AND-FIELD-REFINEMENTS-FOR-TOPOLOGY-BEARING-RI]]`.
-  Moved to `needs-review` so a reviewer can decide whether to retire or merge the
+  Moved to `needs-agent-review` so a reviewer can decide whether to retire or merge the
   stale migrated card into those successor items.
 - 2026-05-06: Reworked the archived triage provenance after Gate 1 review found that
   the recoverable source path is `plans/category_specs/rings/docs/TRIAGE.md` in

@@ -321,7 +321,7 @@ def feature_rollups(
         done = sum(1 for item in relevant if is_complete(item, completed_statuses))
         blocked = sum(1 for item in relevant if item.status == "blocked")
         in_progress = sum(1 for item in relevant if item.status == "in-progress")
-        needs_review = sum(1 for item in relevant if item.status == "needs-review")
+        needs_agent_review = sum(1 for item in relevant if item.status == "needs-agent-review")
         needs_human_input = sum(
             1 for item in relevant if item.status == "needs-human-input"
         )
@@ -332,7 +332,7 @@ def feature_rollups(
                 "done": done,
                 "blocked": blocked,
                 "in_progress": in_progress,
-                "needs_review": needs_review,
+                "needs_agent_review": needs_agent_review,
                 "needs_human_input": needs_human_input,
                 "ratio": completion_ratio(done, total),
             }
@@ -590,7 +590,7 @@ def render_report(
     lines.append("")
     lines.append(
         "| Type | Total | Completed | In Progress"
-        " | Needs Review | Needs Human Input | Blocked |"
+        " | Needs Agent Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for kind in sorted(counts):
@@ -607,7 +607,7 @@ def render_report(
                     str(total),
                     str(completed),
                     str(counter.get("in-progress", 0)),
-                    str(counter.get("needs-review", 0)),
+                    str(counter.get("needs-agent-review", 0)),
                     str(counter.get("needs-human-input", 0)),
                     str(counter.get("blocked", 0)),
                 ]
@@ -637,7 +637,7 @@ def render_report(
     lines.append("")
     lines.append(
         "| Feature | Progress | Done/Total | In Progress"
-        " | Needs Review | Needs Human Input | Blocked |"
+        " | Needs Agent Review | Needs Human Input | Blocked |"
     )
     lines.append("| --- | --- | ---: | ---: | ---: | ---: | ---: |")
     for row in rollups:
@@ -650,7 +650,7 @@ def render_report(
                     f"`{bar(row['ratio'], width=16)}`",
                     f"{row['done']}/{row['total']}",
                     str(row["in_progress"]),
-                    str(row["needs_review"]),
+                    str(row["needs_agent_review"]),
                     str(row["needs_human_input"]),
                     str(row["blocked"]),
                 ]

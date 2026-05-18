@@ -48,7 +48,7 @@ This is high-priority because specced vocabulary and mathematically correct foun
 
 ## Research Result
 
-Status: needs review. Complex varieties are source-grounded as varieties over the complex field, with analytic/Hodge surfaces routed to stricter smooth/proper/projective refinements. This card does not authorize implementation.
+Status: needs-agent-review. Complex varieties are source-grounded as varieties over the complex field, with analytic/Hodge surfaces routed to stricter smooth/proper/projective refinements. This card does not authorize implementation.
 
 ## Mathematical Definition
 

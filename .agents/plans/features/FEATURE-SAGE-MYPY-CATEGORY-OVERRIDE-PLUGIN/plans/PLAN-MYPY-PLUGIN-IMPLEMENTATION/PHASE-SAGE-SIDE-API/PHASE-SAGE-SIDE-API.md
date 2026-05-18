@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 dependsOn: []
 title: Sage introspection API
-status: needs-review
+status: needs-agent-review
 priority: high
 description: 'Build the introspection module that maps source-level method-container fullnames
   to Sage category instances, queries their dynamic parent_class/element_class/morphism_class
@@ -87,7 +87,7 @@ Uses Sage's existing `an_instance()`, `parent_class`, `element_class`,
 
 ## Current Status
 
-Needs review. The introspection API now keeps namespace and semantic validation
+Needs agent review. The introspection API now keeps namespace and semantic validation
 separate, accepts valid importable third-party subtrees, and still rejects
 unrelated `ParentMethods`-shaped classes that do not resolve to Sage category
 semantics.

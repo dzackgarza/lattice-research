@@ -36,7 +36,7 @@ the phase closes cleanly: card statuses are accurate, completed work has been
 meta-reviewed for quality, and process improvements are captured.
 
 Do NOT execute this task while sibling tasks are still `in-progress` or
-`needs-review`. This is a gatekeeper task — it verifies that work claimed as
+`needs-agent-review`. This is a gatekeeper task — it verifies that work claimed as
 complete was substantively done.
 
 ## Procedure
@@ -46,7 +46,7 @@ complete was substantively done.
 - [ ] List all cards in this phase and verify each has the correct status.
 - [ ] Cards marked `complete` or `done` must have a Review Log with concrete
   evidence (file paths, line numbers, test output, source cross-checks).
-- [ ] Cards still in `needs-review` or `in-progress` must be accurate — if a
+- [ ] Cards still in `needs-agent-review` or `in-progress` must be accurate — if a
   card was abandoned, set it to `blocked` with a `blocked_reason`.
 - [ ] Cards in `unstarted` with unmet `dependsOn` edges should stay `unstarted`;
   do not mark them `blocked` for planned upstream dependencies.

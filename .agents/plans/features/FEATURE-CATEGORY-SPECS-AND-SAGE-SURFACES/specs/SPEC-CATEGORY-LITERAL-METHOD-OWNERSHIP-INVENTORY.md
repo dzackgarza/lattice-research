@@ -849,7 +849,7 @@ method and which mature external system should be audited or wired.
   normalized row schema and follow-up links for decisions, backend gaps, source
   admission, and the gap-audit leaf.
 - 2026-05-06: Audited remaining decision/source/backend gaps, added the Picard
-  group/lattice owner decision, and marked the spec needs-review.
+  group/lattice owner decision, and marked the spec needs-agent-review.
 - 2026-05-06: Independent Gate 1 review found three stale or imprecise source
   references. Replaced the old `.agents/theory/spec-backups/` paths with the current
   `src.bak/spec-backups/` paths, replaced the missing bilinear-foundations path with
@@ -862,7 +862,7 @@ method and which mature external system should be audited or wired.
   `category_specs/homsets/autsets.py`, and the lattice corrections source to
   `.agents/skills/lattice-redesign/references/lattice-redesign-corrections-spec.md`.
 - 2026-05-06: Third independent review passed Gates 1-6 after the source-path
-  repairs; the spec remains `needs-review` pending human acceptance.
+  repairs; the spec remains `needs-agent-review` pending human acceptance.
 
 ## Review Log
 
@@ -871,7 +871,7 @@ method and which mature external system should be audited or wired.
 **Gates passed:** None.
 **Gates failed:** Gate 1 Definition Grounding.
 **Outcome:** revision-required, reworked in the work log above, returned to
-`needs-review` for another independent pass.
+`needs-agent-review` for another independent pass.
 
 Findings:
 
@@ -889,7 +889,7 @@ Findings:
 **Gates passed:** None.
 **Gates failed:** Gate 1 Definition Grounding.
 **Outcome:** revision-required, reworked in the work log above, returned to
-`needs-review` for another independent pass.
+`needs-agent-review` for another independent pass.
 
 Findings:
 

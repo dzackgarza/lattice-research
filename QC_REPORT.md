@@ -49,7 +49,7 @@
 
 | Task | Status | Covers |
 |---|---|---|
-| `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES` | **needs-review** | `[valid-type]` 86 errors — inner classes as type annotations |
+| `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES` | **needs-agent-review** | `[valid-type]` 86 errors — inner classes as type annotations |
 | `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` | **unstarted** | `[no-any-return]` 267, `[empty-body]` 10, `[name-defined]` 10, `[no-redef]` 8 |
 | `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES` | **unstarted** (gated) | `[attr-defined]` `base_ring`/`category`/`parent` surfaces |
 | `TASK-QC-PLUGIN-MORPHISMMETHODS-CALLABLE` | **unstarted** (gated) | `[operator]` MorphismMethods not callable |
@@ -64,7 +64,7 @@ Gates: all plugin tasks are gated on `PHASE-QC-BASIC-TYPING-HYGIENE` completing 
 ### Sprint Priorities (Recommended Order)
 
 **Now (unblocked):**
-1. **Close `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`** (needs-review → done). This is the prerequisite before `PHASE-QC-BASIC-TYPING-HYGIENE` can mark complete. Covers 86 `[valid-type]` errors.
+1. **Close `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`** (needs-agent-review → done). This is the prerequisite before `PHASE-QC-BASIC-TYPING-HYGIENE` can mark complete. Covers 86 `[valid-type]` errors.
 2. **Start `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`** — largest unblocked code-gap bucket. Priority sub-items:
    - `[no-any-return]` 267 errors: concentrated in `rings/` (integral\_domain, rational\_field, real\_precision). Sage call sites return `Any`; need cast or typed wrapper.
    - `[name-defined]` 10: axiom subcategory `ParentMethods` not wired (Sets, Modules axioms).
