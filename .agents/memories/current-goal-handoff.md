@@ -16,6 +16,9 @@ authorities for status, evidence, dependencies, and completed work.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
+- Continue from branch `dzack/complete-constructor-provenance-spec-core` if it is still
+  checked out. Its first milestone commit makes constructor provenance queryable for
+  every admitted `Constructors()` collector and adds `category_specs/spec_core/README.md`.
 - Use `just next-tasks 10` before selecting the next leaf; do not restart the completed
   vertical-slice branch sequence.
 - Use IWE to retrieve the selected card before reading broad plan history.
@@ -25,6 +28,9 @@ authorities for status, evidence, dependencies, and completed work.
 - The spec-core vertical slice has focused validation: `GF(5)^3` reports finite
   cartesian-power cardinality `125`; `ZZ^2` reports countable cartesian-power
   provenance and the product/countable-set enumeration obligation.
+- Constructor provenance coverage is now the active source-truth lane: all admitted
+  collectors should expose `.provenance()`, including empty `TopologicalSpaces` and
+  `Lattices` registries and deferred q-adic extension precision-cap records.
 - Resume Hom/End/Aut human-gated cards only if the user explicitly returns to that
   lane.
 - Resolve the QC/mypy gate only at the approved frontier; do not chase plugin
