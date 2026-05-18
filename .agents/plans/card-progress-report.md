@@ -17,7 +17,7 @@
 | phase | 28 | 18 | 3 | 3 | 0 | 0 |
 | plan | 13 | 7 | 4 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 141 | 1 | 11 | 13 | 0 |
+| task | 176 | 141 | 0 | 12 | 13 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -43,7 +43,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[##############--]  88.6%` | 147/166 | 8 | 0 | 10 | 0 |
+| Category specs and Sage surface admission | `[##############--]  88.6%` | 147/166 | 7 | 1 | 10 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[##--------------]  10.5%` | 2/19 | 1 | 1 | 3 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -67,7 +67,7 @@
 - `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (`critical`, `needs-human-input`)
 - `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (`critical`, `needs-human-input`)
 - `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (`critical`, `needs-human-input`)
-- `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: Validate the spec report vertical slice (`critical`, `in-progress`)
+- `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: Validate the spec report vertical slice (`critical`, `needs-agent-review`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
 - `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-agent-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
@@ -98,8 +98,8 @@
 
 ## Most Recently Completed
 
+- 2026-05-18 `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (commit `c8b34ce`: docs: advance spec report validation frontier)
 - 2026-05-18 `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (commit `ee3b509`: docs: align registry review outcome with complete status)
-- 2026-05-18 `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (commit `a298a2b`: fix: address free module witness review findings)
 - 2026-05-18 `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES`: Write ring algebra and module method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)

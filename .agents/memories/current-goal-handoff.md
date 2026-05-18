@@ -35,12 +35,12 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The current autonomous leaf is `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`; the
-  predecessor `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES` was accepted
-  through merged PR #4.
-- Validate the slice through focused report evidence for `GF(5)^3`, `ZZ^2`, and the
-  missing-obligation claimant. Add a focused `just` recipe if no existing recipe
-  answers this exact validation contract.
+- The current autonomous leaf is `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`, now in
+  `needs-agent-review` after focused validation passed.
+- Dispatch fresh-context review for the validation leaf before marking it complete.
+  Review the new `just test-spec-core-vertical-slice` recipe and the existing
+  `tests/category_specs/test_spec_core_reports.py` and
+  `tests/category_specs/test_free_module_witnesses.py` evidence.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.
