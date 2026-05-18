@@ -5,12 +5,11 @@ trackerStatus:
 parents:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 dependsOn: []
-title: Sage introspection API
+title: Sage invariant-core resolver and manifest API
 status: needs-agent-review
 priority: high
-description: 'Build the introspection module that maps source-level method-container fullnames
-  to Sage category instances, queries their dynamic parent_class/element_class/morphism_class
-  bases, and projects those back to source-level container fullnames for the mypy plugin.
+description: 'Build the resolver/oracle/manifest layer that records Sage runtime named-class
+  MROs, validates source-module coverage, and projects provider classes into the mypy plugin.
   Admission must work for importable Sage category subtrees outside `sage.categories.*`.
   Lives in the standalone `~/sage-mypy-plugin/` repo.
 
@@ -23,55 +22,60 @@ tasks:
 - '[[TASK-MYPY-DIRECT-BASES]]'
 - '[[TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION]]'
 successCriteria:
-- parser correctly extracts category path and method kind from fullnames
-- instantiation succeeds for singleton categories via an_instance()
-- "direct_bases returns correct source container fullnames for a representative category (e.g.,\
-  \ Rings.ParentMethods \u2192 [Rngs.ParentMethods, Semirings.ParentMethods])"
-- debug_projection produces expected output shape
-- parser/admission does not reject a valid third-party subtree solely because
-  its fullname is outside `sage.categories.*`
+- resolver records source-module metadata for every source-backed semantic symbol
+- oracle projections make provider MROs match Sage runtime named-class MROs
+- manifest validation rejects stale or incomplete source-module coverage
+- mypy projection uses manifest source modules for dependency tracking
+- namespace-agnostic fixtures pass only when the structural projection invariant holds
 tags:
 - FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN
 - PLAN-MYPY-PLUGIN-IMPLEMENTATION
 ---
-# Phase: Sage Introspection API
+# Phase: Sage Invariant-Core Resolver And Manifest API
 
 ## Summary
 
-Build the introspection layer that the mypy plugin calls at type-checking time.
-Uses Sage's existing `an_instance()`, `parent_class`, `element_class`,
-`morphism_class`, and `all_super_categories()` — no Sage source modification.
+Build the invariant-core layer that the mypy plugin consumes at type-checking
+time. Sage remains the oracle: the resolver traces runtime named classes, the
+manifest records source and projection evidence, and the plugin projects provider
+MROs from that manifest. No Sage source files are modified.
 
 ## Source Provenance
 
-- `~/ai/quality-control/planning/override-sage-categories.md`, sections:
-  "Sage-Side Helper: Direct Dynamic-Base Projection",
-  "Category Instantiation Rule",
-  "Debug Oracle",
-  "Minimal Implementation Surface"
+- `~/ai/quality-control/planning/override-sage-categories.md`
+- `/home/dzack/sage-mypy-plugin/README.md`
+- `/home/dzack/sage-mypy-plugin/.serena/plans/invariant-core-rewrite.md`
 
 ## Location
 
 - Repo: `~/sage-mypy-plugin/`
-- Module: `sage_mypy_category_plugin/introspection.py`
-- Imports Sage at runtime; no files placed inside Sage's source tree.
+- Modules: `sage_mypy_category_plugin/resolver.py`,
+  `sage_mypy_category_plugin/oracle.py`,
+  `sage_mypy_category_plugin/manifest.py`,
+  `sage_mypy_category_plugin/plugin.py`
+- Imports Sage in resolver/oracle paths; no files placed inside Sage's source
+  tree.
 
 ## Task Cards
 
-- `TASK-MYPY-PARSER`: Implement `parse_method_container_fullname` and
-  `is_sage_method_container`
-- `TASK-MYPY-INSTANTIATE`: Implement `instantiate_category_from_source_path`
-- `TASK-MYPY-DIRECT-BASES`: Implement `method_container_direct_bases`,
-  `module_method_container_dependencies`, and `debug_projection`
-- `TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION`: Separate semantic validation from
-  `sage.categories.*` namespace assumptions so third-party subtrees are admissible
+- `TASK-MYPY-PARSER`: Validate manifest source-module coverage for every
+  source-backed semantic symbol
+- `TASK-MYPY-INSTANTIATE`: Resolve configured category factories through Sage
+  runtime category instances
+- `TASK-MYPY-DIRECT-BASES`: Project Sage runtime named-class MROs back to provider
+  classes and manifest dependencies
+- `TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION`: Prove namespace-agnostic admission
+  through third-party/category_specs-like fixtures
 
 ## Exit Criteria
 
-- `method_container_direct_bases("sage.categories.rings.Rings.ParentMethods")`
-  returns correct ancestor list
-- Debug oracle command produces valid output
-- All three sub-functions have docstrings and type annotations
+- `just test -q` passes in `/home/dzack/sage-mypy-plugin/`
+- Manifest validation fails when a source-backed projection lacks source-module
+  coverage
+- Plugin dependency tracking uses manifest source modules, including nested axiom
+  providers
+- Third-party/category_specs-like fixtures are admitted by semantic projection, not
+  by a `sage.categories.*` prefix
 
 ## Work Log
 
@@ -84,10 +88,14 @@ Uses Sage's existing `an_instance()`, `parent_class`, `element_class`,
   namespace-agnostic, the introspection path preserves semantic validation for
   unrelated classes, and repo-local `category_specs.*` reproduction now passes
   through projection when the plugin is enabled.
+- Pivoted 2026-05-18: `/home/dzack/sage-mypy-plugin` is now on the
+  `rewrite/invariant-core` architecture. Legacy `introspection.py` parser cards are
+  superseded by resolver/oracle/manifest projection work.
+- Validated 2026-05-18: plugin commit `58f4e7b` passes `just test -q` with
+  `61 passed`.
 
 ## Current Status
 
-Needs agent review. The introspection API now keeps namespace and semantic validation
-separate, accepts valid importable third-party subtrees, and still rejects
-unrelated `ParentMethods`-shaped classes that do not resolve to Sage category
-semantics.
+Needs agent review against the invariant-core architecture. The current plugin branch
+uses resolver/oracle/manifest projection, not `introspection.py`, and the full local
+plugin suite passed at commit `58f4e7b`.

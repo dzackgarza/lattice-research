@@ -52,9 +52,13 @@ authorities for status, evidence, dependencies, and completed work.
 - Do not open a PR unless the user explicitly asks. Continue substantial new
   source-truth work on a clean branch if it needs multiple commits; otherwise keep
   small integration edits on `main` with focused commits.
-- `just next-tasks 10` currently surfaces QC/mypy human-gated items and
-  `TASK-MYPY-PARSER` in the Sage mypy-plugin lane. Do not start that lane unless the
-  user explicitly redirects there or confirms that the parallel plugin work is clear.
+- `TASK-MYPY-PARSER` has passed fresh-context agent review for the invariant-core
+  manifest source-module coverage pivot and is now human-gated. Continue the Sage
+  mypy-plugin lane only through `just next-tasks`; the next executable leaf should be
+  the next phase-one review card, not the obsolete parser surface.
+- `/home/dzack/sage-mypy-plugin` has committed plugin evidence at `58f4e7b`
+  (`just test -q`: `61 passed`). Treat later uncommitted plugin changes as occupied
+  parallel work unless the selected card explicitly owns them.
 - Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
   or mypy-plugin work as blockers for the spec-core slice unless the selected slice
   task proves a direct dependency.

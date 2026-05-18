@@ -49,18 +49,19 @@ the first repo-local QC frontier.
   static bases for Sage category method-container classes (`ParentMethods`,
   `ElementMethods`, `MorphismMethods`, and later `Homsets.ParentMethods`,
   axiom methods, etc.)
-- **In scope**: Sage-side introspection API
-  (`sage.categories.mypy_support.method_container_bases()`) that maps a category
-  class to its source-level ancestor method containers
+- **In scope**: Sage-side invariant-core resolver/oracle/manifest API that maps
+  Sage runtime named-class MROs to source-level provider class projections
 - **In scope**: Singleton categories (parameter-free, e.g., `Groups()`, `Sets()`)
 - **In scope**: Configured representatives for parameterized categories
 - **In scope**: namespace-agnostic admission. A category subtree hand-rolled in
   any importable package path must be eligible if it resolves to Sage category
   semantics; source namespace is not the criterion.
 - **Out of scope**: `.pyi` generation, protocol generation, IDE completion, stub
-  generation, downstream public typing. This is strictly about making
-  `@override` type-check correctly for Sage category implementations, whether
-  they live in Sage's tree or an external package.
+  generation as a product surface, and downstream public typing. Test-only visible
+  provider stubs used to make manifest projection fixtures importable are validation
+  scaffolding, not the delivered mechanism. This feature is strictly about making
+  `@override` type-check correctly for Sage category implementations, whether they
+  live in Sage's tree or an external package.
 - **Out of scope**: basic repo typing hygiene such as missing return annotations,
   missing parameter annotations, untyped pytest fixtures, ordinary `Any`
   cleanup, and post-stub downstream category/type repairs.
@@ -119,18 +120,18 @@ This is a standalone project on this system, not embedded in the research repo o
 Sage's source tree. It imports Sage as a dependency.
 
 - Repo: `~/sage-mypy-plugin/`
-- Plugin module: `sage_mypy_category_plugin.py` (importable via mypy config)
+- Plugin package: `sage_mypy_category_plugin` (importable via mypy config)
 - Registered via: `[mypy] plugins = path.to.plugin` in global mypy config
 - QC planning artifact: `~/ai/quality-control/planning/override-sage-categories.md`
 
 ## Current Status
 
-Needs agent review. On 2026-05-10 the plugin repo was rewritten so namespace-agnostic
-admission and hook matching now accept valid third-party subtree method
-containers, the test suite includes non-`sage.categories.*` fixtures with
-matching pass/fail behavior, and `/home/dzack/ai/quality-control/mypy-global.ini`
-now loads `sage_mypy_category_plugin.plugin`. Human/independent review is still
-required before this feature can be accepted.
+Needs agent review. On 2026-05-18 the plugin branch is the invariant-core rewrite:
+resolver/oracle/manifest projection replaces the obsolete `introspection.py`
+parser surface, manifest source-module coverage is validated, and
+`/home/dzack/sage-mypy-plugin` commit `58f4e7b` passes `just test -q` with
+`61 passed`. Human/independent review is still required before this feature can
+be accepted.
 
 Repo-side QC work must still follow `PLAN-QC-MYPY-FOUNDATION-ORDER`: complete
 basic typing hygiene first, then apply/review this dynamic-inheritance lane in

@@ -747,9 +747,9 @@ graph LR
     TASK_MYPY_DIRECT_BASES["TASK-MYPY-DIRECT-BASES [needs-agent-review]"]
     class TASK_MYPY_DIRECT_BASES internal-link
     class TASK_MYPY_DIRECT_BASES status_needs_agent_review
-    TASK_MYPY_PARSER["TASK-MYPY-PARSER [needs-agent-review]"]
+    TASK_MYPY_PARSER["TASK-MYPY-PARSER [needs-human-input]"]
     class TASK_MYPY_PARSER internal-link
-    class TASK_MYPY_PARSER status_needs_agent_review
+    class TASK_MYPY_PARSER status_needs_human_input
     TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION["TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION [needs-agent-review]"]
     class TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION internal-link
     class TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION status_needs_agent_review
@@ -2105,9 +2105,9 @@ graph LR
     TASK_MYPY_DIRECT_BASES["TASK-MYPY-DIRECT-BASES [needs-agent-review]"]
     class TASK_MYPY_DIRECT_BASES internal-link
     class TASK_MYPY_DIRECT_BASES status_needs_agent_review
-    TASK_MYPY_PARSER["TASK-MYPY-PARSER [needs-agent-review]"]
+    TASK_MYPY_PARSER["TASK-MYPY-PARSER [needs-human-input]"]
     class TASK_MYPY_PARSER internal-link
-    class TASK_MYPY_PARSER status_needs_agent_review
+    class TASK_MYPY_PARSER status_needs_human_input
     TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION["TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION [needs-agent-review]"]
     class TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION internal-link
     class TASK_MYPY_NAMESPACE_AGNOSTIC_ADMISSION status_needs_agent_review

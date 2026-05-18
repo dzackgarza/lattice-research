@@ -17,7 +17,7 @@
 | phase | 28 | 19 | 2 | 3 | 0 | 0 |
 | plan | 13 | 8 | 3 | 2 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 142 | 0 | 11 | 13 | 0 |
+| task | 176 | 142 | 0 | 10 | 14 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -52,7 +52,7 @@
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 17 | 0 | 0 |
+| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 16 | 1 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 
@@ -68,10 +68,10 @@
 - `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (`critical`, `needs-human-input`)
 - `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (`critical`, `needs-human-input`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
-- `phase` `PHASE-SAGE-SIDE-API`: Sage introspection API (`high`, `needs-agent-review`)
+- `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (`high`, `needs-agent-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
-- `task` `TASK-MYPY-PARSER`: Implement parse_method_container_fullname and is_sage_method_container (`high`, `needs-agent-review`)
+- `task` `TASK-MYPY-PARSER`: Validate manifest source-module coverage for invariant-core projections (`high`, `needs-human-input`)
 
 ## High-Priority DAG-Gated Items
 
@@ -97,7 +97,9 @@
 
 ## Most Recently Completed
 
-- 2026-05-18 `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: Validate the spec report vertical slice (commit `ffee3de`: docs: record validation slice agent review)
+- 2026-05-18 `phase` `PHASE-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (commit `c652471`: docs: close spec core vertical slice plan)
+- 2026-05-18 `task` `TASK-VERTICAL-SLICE-SPEC-REPORT-SMOKE`: Validate the spec report vertical slice (commit `c652471`: docs: close spec core vertical slice plan)
+- 2026-05-18 `plan` `PLAN-SPEC-CORE-VERTICAL-SLICE`: Spec core vertical slice (commit `c652471`: docs: close spec core vertical slice plan)
 - 2026-05-18 `task` `TASK-MODULE-FREE-FINITE-RANK-CONSTRUCTION-WITNESSES`: Add free finite-rank module construction witnesses (commit `c8b34ce`: docs: advance spec report validation frontier)
 - 2026-05-18 `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (commit `ee3b509`: docs: align registry review outcome with complete status)
 - 2026-05-18 `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (commit `2b8a3e9`: feat: add free module witness reports)
@@ -110,8 +112,6 @@
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS`: Build source corpus for literal method ownership inventory (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-WRAPUP-PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
-- 2026-05-18 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `2b8a3e9`: feat: add free module witness reports)
-- 2026-05-18 `task` `TASK-1777748120816-0ES9M8-FIX-CAT-WRAPPER-TYPING-AND-FINALITY-HOLES`: Fix Cat wrapper typing and finality holes (commit `2b8a3e9`: feat: add free module witness reports)
 
 ## Notes
 

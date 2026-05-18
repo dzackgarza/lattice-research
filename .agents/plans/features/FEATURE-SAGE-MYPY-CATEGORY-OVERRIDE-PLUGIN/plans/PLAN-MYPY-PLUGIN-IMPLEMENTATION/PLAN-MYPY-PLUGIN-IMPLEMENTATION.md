@@ -9,7 +9,7 @@ title: Mypy plugin implementation plan
 status: needs-agent-review
 priority: high
 description: 'Implement the Sage mypy category override plugin in three sequential phases:
-  Sage-side introspection API, mypy-side plugin harness, and test verification. This is a
+  Sage-side invariant-core resolver/manifest API, mypy-side plugin harness, and test verification. This is a
   standalone plugin for Sage category users, not just code living in upstream
   `sage.categories.*`.
 
@@ -45,11 +45,12 @@ including repo-local and third-party namespaces.
 
 ## Phases
 
-### Phase 1: Sage-Side Introspection API
+### Phase 1: Sage-Side Invariant-Core Resolver And Manifest API
 
-Build the introspection module that maps source-level method containers to Sage
-runtime category classes and their dynamic base edges. Lives locally as an
-importable module, not inside Sage's source tree.
+Build the resolver/oracle/manifest layer that records Sage runtime named-class
+MROs, validates source-module coverage, and projects provider classes back to
+the mypy plugin. Lives locally as an importable module, not inside Sage's source
+tree.
 
 ### Phase 2: Mypy-Side Plugin Harness
 
@@ -67,8 +68,8 @@ reactivity. Verify the debug oracle produces correct output.
 ## Dependencies And Boundaries
 
 All three phases are sequential. Phase 2 depends on Phase 1 (the mypy plugin
-calls the introspection API). Phase 3 depends on Phase 2 (tests exercise the
-plugin).
+consumes the resolver/oracle/manifest contract). Phase 3 depends on Phase 2
+(tests exercise the plugin).
 
 This plugin lives in local tooling, not in Sage's source tree. It imports Sage
 as a dependency and calls Sage's existing category introspection methods
@@ -89,11 +90,16 @@ to Sage category semantics.
 - Updated 2026-05-10: namespace-agnostic admission and hook matching are now
   implemented, third-party subtree fixtures/tests were added, the global QC mypy
   config now loads the plugin, and the plan is back in review-ready state.
+- Pivoted 2026-05-18: `/home/dzack/sage-mypy-plugin` intentionally replaced the
+  legacy `introspection.py` architecture with the invariant-core
+  resolver/oracle/manifest projection plan.
+- Validated 2026-05-18: plugin commit `58f4e7b` passes `just test -q` with
+  `61 passed`.
 
 ## Current Status
 
-Needs agent review. The implementation now covers Sage-side projection, mypy MRO
-injection, dependency tracking, configured representative loading from
-`[sage-mypy-category-plugin]`, strict diagnostics, the Sage-prefixed
-verification matrix, and the clarified namespace-agnostic third-party subtree
-contract. Independent review is the next step.
+Needs agent review against the invariant-core architecture. The plan no longer
+routes through the obsolete parser/introspection helper surface; review should
+check resolver/oracle/manifest projection, source-module coverage, plugin MRO
+mutation, dependency tracking, and namespace-agnostic fixtures at plugin commit
+`58f4e7b`.

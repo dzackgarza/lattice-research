@@ -6,12 +6,12 @@ parents:
 - '[[PHASE-SAGE-SIDE-API]]'
 dependsOn:
 - '[[TASK-MYPY-INSTANTIATE]]'
-title: Implement method_container_direct_bases, dependencies, and debug oracle
+title: Project Sage runtime named-class MROs into manifest provider MROs
 status: needs-agent-review
 priority: high
-description: 'Implement the core projection: given a method container fullname, instantiate
-  the Sage category, read its dynamic class __bases__, map each base back to a source container,
-  return the ordered list. Also implement module_method_container_dependencies and debug_projection.
+description: 'Implement the invariant-core projection: trace Sage runtime named classes,
+  record runtime bases/MROs, project them back to provider classes, and expose dependency
+  modules from manifest source-module records.
 
   '
 activityType: implementation
@@ -19,50 +19,50 @@ workstreamRole: implementation
 claimStatus: unexamined
 uncertaintyState: none-recorded
 successCriteria:
-- method_container_direct_bases returns correct list for a known Sage category
-- uses __bases__ not mro()
-- module_method_container_dependencies returns correct ancestor modules
-- debug_projection prints expected output shape
+- oracle projections make provider MROs equal Sage runtime named-class MROs projected
+  back to provider classes
+- manifest records runtime bases, runtime MROs, provider bases, provider MROs, and
+  unprojected runtime classes
+- plugin dependency hooks use manifest source modules for ancestor dependencies
+- full plugin test suite passes through `just test -q`
 complexity: 30
 tags:
 - FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN
 - PLAN-MYPY-PLUGIN-IMPLEMENTATION
 - PHASE-SAGE-SIDE-API
 ---
-# Task: Implement Direct Bases Projection
+# Task: Project Runtime Named-Class MROs Into Provider MROs
 
 ## Summary
 
-Implement the three remaining functions in the introspection module:
-`method_container_direct_bases`, `module_method_container_dependencies`,
-and `debug_projection`.
+Validate the core invariant projection in `~/sage-mypy-plugin`: Sage runtime
+named-class MROs are traced by the oracle/resolver, recorded in the manifest, and
+projected into mypy TypeInfo MROs by the plugin.
 
 ## Context
 
-The algorithm from the technical addendum:
-1. Parse fullname → module, category_path, method_kind
-2. Instantiate category
-3. Get dynamic class (parent_class / element_class / morphism_class / subcategory_class)
-4. Read `dynamic_class.__bases__`
-5. Map each base back to source container via `all_super_categories()` lookup table
-6. Return `type(D).method_kind` fullnames in order
-
-Critical: uses `__bases__` not `mro()`. Mypy computes transitive MRO from the injected direct bases.
+The legacy helper returned direct base fullnames from an `introspection.py` call.
+The active invariant-core architecture records both direct bases and full runtime
+MRO evidence in manifest projections, then lets the mypy plugin mutate TypeInfo
+MROs from the manifest.
 
 ## Source Provenance
 
 - `~/ai/quality-control/planning/override-sage-categories.md`:
   "Sage-Side Helper: Direct Dynamic-Base Projection" (full algorithm),
   "Debug Oracle"
+- `/home/dzack/sage-mypy-plugin/.serena/plans/invariant-core-rewrite.md`
 
 ## Acceptance Criteria
 
-- `method_container_direct_bases("sage.categories.rings.Rings.ParentMethods")` returns non-empty list
-- Uses `__bases__` (verify with code review)
-- Non-category runtime bases (object, etc.) are skipped
-- Bases without source containers are skipped (optionally diagnosed)
-- `debug_projection` prints: source fullname, dynamic class, dynamic bases, injected static bases
+- Provider projections record direct runtime bases and provider bases.
+- Provider projections record runtime MRO and provider MRO.
+- Plugin tests assert TypeInfo MRO equals manifest provider MRO plus
+  `builtins.object`.
+- Dependency-module tests use manifest source modules, including nested axiom
+  providers.
 
 ## Current Status
 
-Ready for review. This card's implementation is exercised by the full Sage mypy category plugin suite, verified on 2026-05-10 with `just test`: `24 passed, 3 warnings`, no skipped tests.
+Needs agent review against the invariant-core projection path. Plugin commit
+`58f4e7b` passes `just test -q` with `61 passed`.

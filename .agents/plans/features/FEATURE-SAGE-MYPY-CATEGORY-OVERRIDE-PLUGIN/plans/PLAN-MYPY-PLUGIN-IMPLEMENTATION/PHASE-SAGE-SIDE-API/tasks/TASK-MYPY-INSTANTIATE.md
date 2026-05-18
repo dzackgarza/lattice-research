@@ -6,11 +6,12 @@ parents:
 - '[[PHASE-SAGE-SIDE-API]]'
 dependsOn:
 - '[[TASK-MYPY-PARSER]]'
-title: Implement instantiate_category_from_source_path
+title: Resolve configured category factories through Sage runtime instances
 status: needs-agent-review
 priority: high
-description: 'Given a parsed CategoryMethodContainer, instantiate the corresponding Sage category
-  using an_instance() chaining. Handles singleton, nested (Homsets), and axiom (Finite) paths.
+description: 'Resolve configured category factories through Sage runtime category instances
+  for invariant-core projection. This replaces the obsolete parsed CategoryMethodContainer
+  instantiation path.
 
   '
 activityType: implementation
@@ -18,40 +19,48 @@ workstreamRole: implementation
 claimStatus: unexamined
 uncertaintyState: none-recorded
 successCriteria:
-- "Rings \u2192 an_instance() returns Rings()"
-- "Objects.Homsets \u2192 Objects.an_instance().Homsets() returns category"
-- "Monoids.Finite \u2192 Monoids.an_instance().Finite() returns axiom category"
-- Fails cleanly with diagnostic for unresolvable paths
+- resolver/oracle obtains live Sage category instances from configured category
+  fullnames
+- singleton, functorial/nested, axiom, and parameterized representative categories
+  appear in invariant-core projection tests
+- failures are surfaced by resolver/oracle assertions or strict plugin diagnostics
+- full plugin test suite passes through `just test -q`
 complexity: 20
 tags:
 - FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN
 - PLAN-MYPY-PLUGIN-IMPLEMENTATION
 - PHASE-SAGE-SIDE-API
 ---
-# Task: Implement Category Instantiation
+# Task: Resolve Category Factories Through Sage Runtime Instances
 
 ## Summary
 
-Implement `instantiate_category_from_source_path` that takes the module and
-category path from the parser and returns a live Sage category instance.
+Validate the invariant-core category resolution path in `~/sage-mypy-plugin`.
+The active implementation imports configured category factory fullnames, calls
+Sage runtime construction, and records provider projections from the resulting
+category instances.
 
 ## Context
 
-Uses `Category.an_instance()` (not `Category()`) as the preferred instantiation
-method per Sage convention. Chains attribute access for nested/axiom paths.
+The legacy parser fed module/category-path tuples into an instantiation helper.
+The current resolver/oracle path instead treats configured fullnames and Sage
+runtime category objects as the source of truth.
 
 ## Source Provenance
 
+- `/home/dzack/sage-mypy-plugin/README.md`
+- `/home/dzack/sage-mypy-plugin/.serena/plans/invariant-core-rewrite.md`
 - `~/ai/quality-control/planning/override-sage-categories.md`: "Category Instantiation Rule"
 
 ## Acceptance Criteria
 
-- Singleton: import module, get class, call `an_instance()`, return category
-- Nested: chain `.Homsets()`, `.CartesianProducts()`, etc.
-- Axiom: chain `.Finite()`, `.WithBasis()`, etc.
-- Parameterized: `an_instance()` may return a default; documented as best-effort
-- Import errors caught and surfaced as diagnostics
+- Resolver/oracle projection tests cover singleton, nested/functorial, axiom, and
+  parameterized category representatives.
+- Manifest records enough source metadata for the resulting projection graph.
+- Mypy plugin tests pass from manifest evidence without a legacy parser helper.
 
 ## Current Status
 
-Ready for review. This card's implementation is exercised by the full Sage mypy category plugin suite, verified on 2026-05-10 with `just test`: `24 passed, 3 warnings`, no skipped tests.
+Needs agent review against the invariant-core resolver/oracle path. The current
+plugin branch no longer exposes `instantiate_category_from_source_path`; plugin
+commit `58f4e7b` passes `just test -q` with `61 passed`.
