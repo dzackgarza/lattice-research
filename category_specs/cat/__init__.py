@@ -327,6 +327,13 @@ class Cat(SageCategorySingleton):
 
             return EmptyCategory()
 
+        @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for constructors surfaced by ``Cat``."""
+            from category_specs.spec_core import cat_constructor_registry
+
+            return cat_constructor_registry()
+
 
 register_cat_constructor_class(Cat.Constructors, Cat())
 

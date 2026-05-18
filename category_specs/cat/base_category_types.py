@@ -120,7 +120,9 @@ def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
 
 
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
-_CAT_CONSTRUCTOR_METADATA_NAMES = frozenset({"base_ring", "category", "names"})
+_CAT_CONSTRUCTOR_METADATA_NAMES = frozenset(
+    {"base_ring", "category", "names", "provenance"}
+)
 _CAT_CONSTRUCTOR_CLASS: type | None = None
 _CAT_CONSTRUCTOR_OWNERS: dict[str, SageCategory] = {}
 

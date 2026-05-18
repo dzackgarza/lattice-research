@@ -576,6 +576,17 @@ class Modules(Category_module):
             return f"Sage module constructors over {self.base_ring()}"
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for module constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                self.category(),
+                owner_category=f"Modules({self.base_ring()})",
+                id_prefix="modules",
+            )
+
+        @final
         def category(self) -> RMod:
             return self._category
 

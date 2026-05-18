@@ -12,7 +12,10 @@ importlib.import_module("sage.all")
 importlib.import_module("category_specs")
 
 from category_specs.cat import Cat
+from category_specs.modules import Modules
 from category_specs.rings import Rings
+from category_specs.spec_core import ConstructorRegistry
+from sage.all import QQ
 
 
 def _constructor_names(collector_type: type) -> list[str]:
@@ -60,3 +63,40 @@ def test_cat_constructor_forwarders_expose_rings_owner_route() -> None:
 
     # At least all registered ring constructors are discoverable through Cat.
     assert all(f"rings_{name}" in cat_rings_methods for name in ring_constructor_methods)
+    assert "rings_provenance" not in cat_rings_methods
+
+
+def test_constructor_surfaces_expose_typed_provenance_records() -> None:
+    ring_registry = Rings().Constructors().provenance()
+    module_registry = Modules(QQ).Constructors().provenance()
+    cat_registry = Cat().Constructors().provenance()
+
+    assert isinstance(ring_registry, ConstructorRegistry)
+    assert isinstance(module_registry, ConstructorRegistry)
+    assert isinstance(cat_registry, ConstructorRegistry)
+
+    ring_zz = ring_registry.constructor("rings.ZZ")
+    assert ring_zz.owner_category == "Rings()"
+    assert ring_zz.method_name == "ZZ"
+    assert ring_zz.sage_entry_point.endswith("Rings._Constructors.ZZ")
+    assert ring_zz.target_refinement_route == ("Rings()",)
+
+    polynomial_ring = ring_registry.constructor("rings.PolynomialRing")
+    assert polynomial_ring.method_name == "PolynomialRing"
+    assert polynomial_ring.sage_source.endswith("Rings._Constructors.PolynomialRing")
+
+    free_module = module_registry.constructor("modules.FreeModule")
+    assert free_module.owner_category == f"Modules({QQ})"
+    assert free_module.method_name == "FreeModule"
+    assert free_module.sage_entry_point.endswith("Modules._Constructors.FreeModule")
+
+    cat_ring_zz = cat_registry.constructor("cat.rings.ZZ")
+    assert cat_ring_zz.owner_category == "Rings()"
+    assert cat_ring_zz.method_name == "rings_ZZ"
+    assert cat_ring_zz.target_refinement_route == (
+        "Cat().Constructors()",
+        "Rings().Constructors()",
+    )
+    cat_free_module = cat_registry.constructor("cat.modules_rational_field.FreeModule")
+    assert cat_free_module.method_name == "modules_rational_field_FreeModule"
+    assert not cat_registry.has_constructor("cat.rings.provenance")

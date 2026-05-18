@@ -635,6 +635,15 @@ class Rings(Category_singleton):
             return "Sage ring constructors"
 
         @final
+        def provenance(self) -> object:
+            r"""Return typed provenance records for ring constructors."""
+            from category_specs.spec_core import constructor_registry_for_category
+
+            return constructor_registry_for_category(
+                Rings(), owner_category="Rings()", id_prefix="rings"
+            )
+
+        @final
         def ZZ(self) -> Ring:
             from sage.all import ZZ
 
