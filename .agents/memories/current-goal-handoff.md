@@ -34,9 +34,9 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- The research repo has no open PRs. `main` contains the completed vertical-slice
-  validation work; ordinary merged branches were pruned. The local
-  `safety/accidental-wide-commit-29aee56` branch remains as recovery provenance.
+- The research repo has no open PRs or non-main branches. `main` contains the
+  completed vertical-slice validation work, and the pre-pivot side branches have
+  been removed so future work starts from the pivot state.
 - `just next-tasks 10` currently surfaces QC/mypy human-gated items and
   `TASK-MYPY-PARSER` in the Sage mypy-plugin lane. Do not start that lane unless the
   user explicitly redirects there or confirms that the parallel plugin work is clear.
