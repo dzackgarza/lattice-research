@@ -18,7 +18,9 @@ authorities for status, evidence, dependencies, and completed work.
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
 - `main` now includes the constructor-provenance source-truth milestone: every
   admitted `Constructors()` collector is queryable through spec-core provenance and
-  `category_specs/spec_core/README.md` documents the extension query workflow.
+  `category_specs/spec_core/README.md` documents the extension query workflow. The
+  generic adapter now derives per-method target routes from constructor return
+  annotations unless explicit metadata overrides them.
 - Use `just next-tasks 10` before selecting the next leaf; do not restart the completed
   vertical-slice branch sequence.
 - Use IWE to retrieve the selected card before reading broad plan history.
@@ -30,7 +32,8 @@ authorities for status, evidence, dependencies, and completed work.
   provenance and the product/countable-set enumeration obligation.
 - Constructor provenance coverage is now the active source-truth lane: all admitted
   collectors should expose `.provenance()`, including empty `TopologicalSpaces` and
-  `Lattices` registries and deferred q-adic extension precision-cap records.
+  `Lattices` registries, deferred q-adic extension precision-cap records, and no
+  owner-only target routes for non-empty registries.
 - Resume Hom/End/Aut human-gated cards only if the user explicitly returns to that
   lane.
 - Resolve the QC/mypy gate only at the approved frontier; do not chase plugin
