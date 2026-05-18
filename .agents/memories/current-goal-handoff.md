@@ -14,6 +14,8 @@ authorities for status, evidence, dependencies, and completed work.
 
 - Active phase: category-spec and semantic-vocabulary.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
+- `main` now contains the source-truth follow-through milestones from
+  `dzack/spec-core-source-truth-lanes`; do not restart that branch.
 - Use `just next-tasks 10` before selecting the next leaf; do not restart the completed
   vertical-slice branch sequence.
 - Use IWE to retrieve the selected card before reading broad plan history.
@@ -34,13 +36,13 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Current Frontier
 
-- Active integration branch: `dzack/spec-core-source-truth-lanes`. It carries the
-  vault-pivot source-truth work after the completed vertical slice: report query
-  helpers, reusable free-module witness helpers, generated-law tests, constructor
-  provenance evidence, and an expanded `just test-spec-core-vertical-slice` target.
-- `main` remains the consolidated pivot baseline. Do not open a PR unless the user
-  explicitly asks; finish validation on the integration branch, then merge or push only
-  under the user's current branch policy.
+- `main` is ahead of `origin/main` with the integrated source-truth work: report query
+  helpers, reusable free-module witness helpers, `Spec.of` inspection, constructor
+  provenance models/adapters, category-spec obligation closure, generated-law tests,
+  and an expanded `just test-spec-core-vertical-slice` target.
+- Do not open a PR unless the user explicitly asks. Continue substantial new
+  source-truth work on a clean branch if it needs multiple commits; otherwise keep
+  small integration edits on `main` with focused commits.
 - `just next-tasks 10` currently surfaces QC/mypy human-gated items and
   `TASK-MYPY-PARSER` in the Sage mypy-plugin lane. Do not start that lane unless the
   user explicitly redirects there or confirms that the parallel plugin work is clear.
