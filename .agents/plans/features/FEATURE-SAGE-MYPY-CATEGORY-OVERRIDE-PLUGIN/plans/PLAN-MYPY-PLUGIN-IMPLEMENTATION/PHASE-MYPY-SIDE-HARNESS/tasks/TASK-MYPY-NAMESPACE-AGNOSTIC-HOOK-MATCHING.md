@@ -81,5 +81,5 @@ admission logic.
 
 ## Current Status
 
-Needs review. The hook-matching rewrite is implemented in
+Needs agent review. The hook-matching rewrite is implemented in
 `~/sage-mypy-plugin/sage_mypy_category_plugin/plugin.py`.

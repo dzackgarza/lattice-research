@@ -28,6 +28,6 @@ This skill owns Sage category-framework design references migrated from the reti
   Route those conflicts to the static-model/plugin/stub/QC lane unless they expose a
   real mathematical owner, codomain, hypothesis, or constructor-boundary defect.
 - Repeated casts around inherited category results are evidence that the framework
-  design needs review. Decide whether the spec implementation belongs at a downstream
+  design needs agent review. Decide whether the spec implementation belongs at a downstream
   ABC implementation boundary or whether QC tooling must model inherited category
   promotion; do not normalize local cast patterns as framework glue.

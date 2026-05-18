@@ -91,5 +91,5 @@ This task owns the rewrite of the parser/admission contract in
 
 ## Current Status
 
-Needs review. The admission rewrite is implemented in
+Needs agent review. The admission rewrite is implemented in
 `~/sage-mypy-plugin/sage_mypy_category_plugin/introspection.py`.

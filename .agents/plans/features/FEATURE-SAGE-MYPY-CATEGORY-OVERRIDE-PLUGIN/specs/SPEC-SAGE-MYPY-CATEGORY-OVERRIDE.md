@@ -604,7 +604,7 @@ Minimal tests required:
 
 ## Current Status
 
-Needs review. The 2026-05-10 rewrite removes namespace as the decisive admission
+Needs agent review. The 2026-05-10 rewrite removes namespace as the decisive admission
 criterion, adds non-Sage fixture coverage alongside the Sage-prefixed matrix,
 and wires `sage_mypy_category_plugin.plugin` into the global QC mypy config
 path. The spec is back to review-ready pending independent verification of the

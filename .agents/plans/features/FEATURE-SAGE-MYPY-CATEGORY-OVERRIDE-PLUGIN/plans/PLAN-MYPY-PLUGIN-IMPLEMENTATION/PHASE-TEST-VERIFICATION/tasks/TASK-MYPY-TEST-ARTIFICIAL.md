@@ -70,5 +70,5 @@ categories.
 
 ## Current Status
 
-Needs review. The fixture set now includes explicit non-Sage subtree coverage in
+Needs agent review. The fixture set now includes explicit non-Sage subtree coverage in
 addition to the Sage-prefixed matrix.

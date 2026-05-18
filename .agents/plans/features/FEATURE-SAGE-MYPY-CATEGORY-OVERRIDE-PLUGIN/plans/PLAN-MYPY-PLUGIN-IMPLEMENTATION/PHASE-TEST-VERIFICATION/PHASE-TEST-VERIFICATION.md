@@ -86,7 +86,7 @@ oracle.
 
 ## Current Status
 
-Needs review. The suite covers the original Sage-prefixed matrix plus
+Needs agent review. The suite covers the original Sage-prefixed matrix plus
 green-contributor fixtures, configured parameterized representatives, strict
 diagnostics, incremental determinism, ancestor-change reactivity, and the
 clarified third-party subtree contract.

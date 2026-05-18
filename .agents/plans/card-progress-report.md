@@ -98,21 +98,21 @@
 
 ## Most Recently Completed
 
-- 2026-05-18 `task` `TASK-SPEC-CORE-REGISTRY-REPORT-KERNEL`: Create typed spec registry and report kernel (commit `8aca535`: fix: validate spec core report states)
-- 2026-05-17 `spec` `SPEC-MAPPING-ALGEBRAS`: Track algebras mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-CAT`: Track cat mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-HOMSETS`: Track homsets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-LATTICES`: Track lattices mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-POSETS`: Track posets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-RINGS`: Track rings mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-SETS`: Track sets mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-TOPOLOGICAL-SPACES`: Track topological spaces mapping spec (commit `6576567`: checkpoint: record homset frontier human gates)
-- 2026-05-17 `spec` `SPEC-MAPPING-MODULES`: Track modules mapping spec (commit `50d2e97`: docs: audit modules homset mirroring)
-- 2026-05-15 `decision` `DECISION-20260514-MYPY-ERROR-TRIAGE-CODE-GAP-VS-PLUGIN-GAP`: Mypy error triage — code gaps vs plugin gaps across all remaining error groups (commit `5c13e1c`: docs(qc): separate mypy foundation routing)
-- 2026-05-15 `decision` `DECISION-01KQN9J3XCYW748M5V0K2SGJGK-DECIDE-WHETHER-EQUIVALENCE-RELATIONS-AND-SET-PARTITIONS-NEED-A-FIRST-CLA`: Decide whether equivalence relations and set partitions need a first-class set subtree or remain centralized Sage-backed type aliases (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-01KQN9YGCTP85RXF1F56D8S08X-DECIDE-WHETHER-PARTITIONED-SET-COMBINATORIAL-SUBCLASSES-SUCH-AS-NONCROSS`: Decide whether partitioned-set combinatorial subclasses such as noncrossing and atomic become axiomatic subcategories in the current set-partition pass or a later pass (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-01KQN9YGCVRR84SHX4DR1K284C-DECIDE-WHETHER-TENSOR-SYMMETRY-ANTISYMMETRY-AND-CONTRACTION-NEED-ADMITTE`: Decide whether tensor symmetry antisymmetry and contraction need admitted subtrees before full tensor-calculus method mapping (commit `582e200`: chore: relocate planning workspace under agents)
-- 2026-05-15 `decision` `DECISION-20260505-PARTITION-ELEMENT-METHOD-SHADOWING`: Decide how partition element methods override Sage list-returning methods (commit `582e200`: chore: relocate planning workspace under agents)
+- 2026-05-18 `phase` `PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Category literal method inventory and ownership (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-ALGEBRA-MODULES`: Write ring algebra and module method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-BACKEND-MAPPING`: Translate external software mappings into method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT`: Audit method inventory gaps and create owner decisions (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES`: Write Hom End Aut forms and lattice method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY`: Write set topology and metric method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SOURCE-CORPUS`: Build source corpus for literal method ownership inventory (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SPEC-ASSEMBLY`: Assemble trackable method ownership spec files (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-WRAPUP-PHASE-CATEGORY-LITERAL-METHOD-INVENTORY-AND-OWNERSHIP`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-1777748120649-EQPN1A-ADD-MISSING-FINAL-MARKERS-AND-RETURN-ANNOTATIONS-ON-CAT-METHODS`: Add missing final markers and return annotations on Cat methods (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-1777748120816-0ES9M8-FIX-CAT-WRAPPER-TYPING-AND-FINALITY-HOLES`: Fix Cat wrapper typing and finality holes (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-WRAPUP-PHASE-CATEGORY-OBJECT-SURFACE-UNIFORMIZATION-AND-CONSTRUCTOR-AGGREGATION`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-01KQN9YGCMD0K84CK3BKZH0Z8Z-IMPLEMENT-MODULE-CATEGORY-GRAPH-PHASE-FOR-AMBIENT-FREE-VECTOR-SUBOBJECT`: Implement module category graph phase for ambient free vector subobject quotient form graded Ore and representation surfaces (commit `2b8a3e9`: feat: add free module witness reports)
+- 2026-05-18 `task` `TASK-WRAPUP-PHASE-MODULE-WRAPPER-MIGRATION-AND-CATEGORY-GRAPH-COVERAGE`: Phase wrap-up — planning cleanup, skill updates, and card status audit (commit `2b8a3e9`: feat: add free module witness reports)
 
 ## Notes
 

@@ -60,5 +60,5 @@ and the `plugin(version)` entry point.
 
 ## Current Status
 
-Needs review. The plugin class registers correctly and now routes semantically
+Needs agent review. The plugin class registers correctly and now routes semantically
 valid third-party subtree fullnames into the hook path before projection.

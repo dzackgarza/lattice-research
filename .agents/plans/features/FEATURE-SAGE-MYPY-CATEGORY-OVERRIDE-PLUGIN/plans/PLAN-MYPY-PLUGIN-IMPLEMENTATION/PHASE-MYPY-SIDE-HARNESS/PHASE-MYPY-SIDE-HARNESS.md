@@ -93,7 +93,7 @@ injects resolved bases into mypy's internal class graph.
 
 ## Current Status
 
-Needs review. Hook/base injection, dependency tracking, `report_config_data()`,
+Needs agent review. Hook/base injection, dependency tracking, `report_config_data()`,
 configured representatives, and strict diagnostics remain in place, and the
 harness now reaches them for semantically valid third-party fullnames as well as
 the Sage-prefixed fixtures.

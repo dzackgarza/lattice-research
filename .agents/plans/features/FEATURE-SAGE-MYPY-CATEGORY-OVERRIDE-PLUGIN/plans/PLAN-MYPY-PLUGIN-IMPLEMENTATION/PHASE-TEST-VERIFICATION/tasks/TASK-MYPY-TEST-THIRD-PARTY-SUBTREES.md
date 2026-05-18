@@ -90,5 +90,5 @@ cannot quietly return.
 
 ## Current Status
 
-Needs review. The external-subtree and config-covered verification work is
+Needs agent review. The external-subtree and config-covered verification work is
 implemented and validated.

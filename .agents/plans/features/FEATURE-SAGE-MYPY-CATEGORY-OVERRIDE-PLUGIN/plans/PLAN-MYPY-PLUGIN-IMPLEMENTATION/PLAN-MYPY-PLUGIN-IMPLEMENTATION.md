@@ -92,7 +92,7 @@ to Sage category semantics.
 
 ## Current Status
 
-Needs review. The implementation now covers Sage-side projection, mypy MRO
+Needs agent review. The implementation now covers Sage-side projection, mypy MRO
 injection, dependency tracking, configured representative loading from
 `[sage-mypy-category-plugin]`, strict diagnostics, the Sage-prefixed
 verification matrix, and the clarified namespace-agnostic third-party subtree

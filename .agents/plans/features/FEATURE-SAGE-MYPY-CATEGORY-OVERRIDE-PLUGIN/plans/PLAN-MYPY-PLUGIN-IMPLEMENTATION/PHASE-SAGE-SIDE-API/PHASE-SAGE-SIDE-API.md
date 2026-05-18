@@ -87,7 +87,7 @@ Uses Sage's existing `an_instance()`, `parent_class`, `element_class`,
 
 ## Current Status
 
-Needs review. The introspection API now keeps namespace and semantic validation
+Needs agent review. The introspection API now keeps namespace and semantic validation
 separate, accepts valid importable third-party subtrees, and still rejects
 unrelated `ParentMethods`-shaped classes that do not resolve to Sage category
 semantics.

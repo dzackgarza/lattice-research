@@ -125,7 +125,7 @@ Sage's source tree. It imports Sage as a dependency.
 
 ## Current Status
 
-Needs review. On 2026-05-10 the plugin repo was rewritten so namespace-agnostic
+Needs agent review. On 2026-05-10 the plugin repo was rewritten so namespace-agnostic
 admission and hook matching now accept valid third-party subtree method
 containers, the test suite includes non-`sage.categories.*` fixtures with
 matching pass/fail behavior, and `/home/dzack/ai/quality-control/mypy-global.ini`

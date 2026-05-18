@@ -80,5 +80,5 @@ None. This is the first task in the phase.
 
 ## Current Status
 
-Needs review. The parser now supports namespace-agnostic structural admission and
+Needs agent review. The parser now supports namespace-agnostic structural admission and
 preserves the semantic boundary for unrelated non-category fullnames.
