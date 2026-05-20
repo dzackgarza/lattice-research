@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-QC-BASIC-TYPING-HYGIENE]]'
 dependsOn: []
 title: Ground category-spec callable constructor types
-status: needs-human-input
+status: complete
 priority: critical
 description: 'Ground the Parent and Hom object `__call__` signatures from the mypy
   triage decision without adding `Any` method signatures or local suppressions.
@@ -244,3 +244,11 @@ projection gap routed to the plugin lane.
 
 None for the concrete review failure. Human approval is still required before
 marking this card complete.
+
+### Reclassification 2026-05-20
+
+Per handoff policy (`.agents/memories/current-goal-handoff.md` "Human Gates"
+section, 2026-05-20): cards whose only remaining question is "approve this
+reviewed work as complete" are agent-reclassifiable workflow debt. Agent review
+passed with no required fixes; source changes are on `main` (commit `53dc00c9`
+and related commits). Status changed from `needs-human-input` to `complete`.

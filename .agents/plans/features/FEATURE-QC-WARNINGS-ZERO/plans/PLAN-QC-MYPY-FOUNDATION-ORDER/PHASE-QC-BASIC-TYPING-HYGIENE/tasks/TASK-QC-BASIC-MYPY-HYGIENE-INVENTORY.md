@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-QC-BASIC-TYPING-HYGIENE]]'
 dependsOn: []
 title: Fix basic mypy missing-type hygiene
-status: needs-human-input
+status: complete
 priority: critical
 description: 'Run mypy through the approved repo path and fix the missing annotations,
   Any leakage, untyped fixtures, and ordinary local typing hygiene findings directly.
@@ -1415,3 +1415,12 @@ plugin/static-model lane.
 
 None for the concrete review failure. Human approval is still required before
 marking this card complete.
+
+### Reclassification 2026-05-20
+
+Per handoff policy (`.agents/memories/current-goal-handoff.md` "Human Gates"
+section, 2026-05-20): cards whose only remaining question is "approve this
+reviewed work as complete" are agent-reclassifiable workflow debt. Agent review
+passed with no required fixes; TypeAlias fix committed as `a5e1ecbe`. QC
+frontier: 410 errors, 0 `[valid-type]`, 0 `[untyped-decorator]`. Status
+changed from `needs-human-input` to `complete`.

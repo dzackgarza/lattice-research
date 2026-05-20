@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-QC-BASIC-TYPING-HYGIENE]]'
 dependsOn: []
 title: Ground rational-field parent-method typing
-status: needs-human-input
+status: complete
 priority: critical
 description: 'Resolve the rational-field `as_number_field` cached-method typing
   finding by grounding the surrounding number-field parent-method surface instead
@@ -303,3 +303,11 @@ into the basic-hygiene slice, and validation artifacts are reviewable under
 
 None for the concrete review failure. Human approval is still required before
 marking this card complete.
+
+### Reclassification 2026-05-20
+
+Per handoff policy (`.agents/memories/current-goal-handoff.md` "Human Gates"
+section, 2026-05-20): cards whose only remaining question is "approve this
+reviewed work as complete" are agent-reclassifiable workflow debt. Agent review
+passed with no required fixes; source changes are on `main` (commit `a58a4ab4`
+and related commits). Status changed from `needs-human-input` to `complete`.
