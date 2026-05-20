@@ -61,11 +61,14 @@ authorities for status, evidence, dependencies, and completed work.
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
-  files. QC frontier: `Found 410 errors in 117 files` (down from 1152 on 2026-05-15).
+  files. Additional hygiene fixes 2026-05-20: `[no-untyped-def]` in
+  `test_free_module_witnesses.py` (commit `6e1ba481`), `[assignment]` in
+  `test_spec_core_generated_laws.py` (commit `838db94b`). QC frontier:
+  `Found 407 errors in 115 files` (down from 1152 on 2026-05-15).
   Error breakdown: `misc` 295, `attr-defined` 62, `call-arg` 14, `arg-type` 14,
-  `return-value` 13, `operator` 4, `assignment` 4, `no-untyped-def` 2,
-  `no-any-return` 2. No `[valid-type]`, `[untyped-decorator]`, `[redundant-cast]`,
-  or `[return]` findings remain. The 295 `[misc]` are `@override` without base
+  `return-value` 13, `operator` 4, `assignment` 3, `no-any-return` 2. No
+  `[valid-type]`, `[untyped-decorator]`, `[redundant-cast]`, `[return]`, or
+  `[no-untyped-def]` findings remain. The 295 `[misc]` are `@override` without base
   method — requires the Sage category MRO plugin to inject inheritance. All remaining
   groups are dynamic-inheritance, Hom/End/Aut, or plugin-shaped; they are gated on
   the plugin review completing and entering the downstream cleanup phases.
