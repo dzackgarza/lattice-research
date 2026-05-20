@@ -13,7 +13,14 @@ from typing import TYPE_CHECKING, final, override
 
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
+from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
+    UniversalAutElementMethods,
+    UniversalEndElementMethods,
+    UniversalHomObjectMethods,
+)
 from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 
 if TYPE_CHECKING:
@@ -21,7 +28,7 @@ if TYPE_CHECKING:
     from ..types import Lattice, LatticeOrthogonalGroup
 
 
-class _LatticeHomCategoryObjectMethods:
+class _LatticeHomCategoryObjectMethods(UniversalHomObjectMethods):
     r"""Lattice hom parent methods; generic hom methods are inherited."""
 
 
@@ -29,7 +36,11 @@ class _LatticeMorphisms(FreeBilinearModulesCategory.HomCategory.ElementMethods):
     r"""Morphisms of lattices: formed-module morphisms preserving the bilinear form."""
 
 
-class _LatticeAutomorphisms(_LatticeMorphisms):
+class _LatticeEndomorphisms(_LatticeMorphisms, UniversalEndElementMethods):
+    r"""Endomorphisms (self-maps) in the lattice category."""
+
+
+class _LatticeAutomorphisms(_LatticeEndomorphisms, UniversalAutElementMethods):
     r"""Lattice isometries, i.e. automorphisms in the lattice category."""
 
     @override
@@ -71,7 +82,7 @@ class LatticeEndCategory(GenericEndCategory):
         @abstractmethod
         def base_lattice(self) -> Lattice: ...
 
-    ElementMethods = _LatticeMorphisms
+    ElementMethods = _LatticeEndomorphisms
 
 
 
