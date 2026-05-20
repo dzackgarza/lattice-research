@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-RINGS]]'
 title: Source-ground Rings hom section ownership
-status: needs-human-input
+status: complete
 priority: high
 description: Audit whether `section()` belongs on generic project ring homomorphisms,
   generic map sections, quotient/subquotient lifts, split injection refinements, or

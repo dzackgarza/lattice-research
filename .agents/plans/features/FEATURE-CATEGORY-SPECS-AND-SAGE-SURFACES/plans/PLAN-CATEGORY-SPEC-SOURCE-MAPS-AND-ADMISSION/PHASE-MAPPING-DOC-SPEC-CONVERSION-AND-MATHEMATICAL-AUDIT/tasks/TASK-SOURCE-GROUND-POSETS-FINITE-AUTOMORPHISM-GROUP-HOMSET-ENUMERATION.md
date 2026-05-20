@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES]]'
 - '[[SPEC-MAPPING-POSETS]]'
 title: Source-ground finite poset automorphism group enumeration before AutCategory admission
-status: unstarted
+status: complete
 priority: medium
 description: Determine whether Sage Hasse-diagram automorphism machinery can ground
   an executable finite Posets AutCategory enumeration surface, or whether it must
@@ -52,9 +52,9 @@ the correct project owner and return object.
 
 ## Acceptance Criteria
 
-- [ ] The Sage source path from finite posets to Hasse-diagram automorphism groups is documented with line-level evidence.
-- [ ] The mathematical owner and return object for finite poset automorphism enumeration are specified or the surface is rejected from public API.
-- [ ] The result is reflected in the Posets mapping spec or in a follow-up decision card.
+- [x] The Sage source path from finite posets to Hasse-diagram automorphism groups is documented with line-level evidence.
+- [x] The mathematical owner and return object for finite poset automorphism enumeration are specified or the surface is rejected from public API.
+- [x] The result is reflected in the Posets mapping spec or in a follow-up decision card.
 
 ## Dependencies And Boundaries
 
@@ -66,3 +66,46 @@ the correct project owner and return object.
 - 2026-05-17: Created from the Posets homset mirroring audit to track finite
   automorphism-group enumeration separately from generic order-preserving map
   vocabulary.
+- 2026-05-20: Source-mining complete. Findings below; SPEC-MAPPING-POSETS updated.
+
+## Source Findings
+
+**Sage source path:**
+
+1. `FinitePoset` has NO public `automorphism_group()` method — confirmed via installed
+   Sage 10.7 `sage/combinat/posets/posets.py`. No such method appears in
+   `FinitePoset`, `FinitePosets.ParentMethods`, `FinitePosets.ElementMethods`, or
+   `FiniteLatticePosets`.
+
+2. `HasseDiagram(DiGraph)` at `sage/combinat/posets/hasse_diagram.py:74` inherits
+   `automorphism_group()` from `GenericGraph` at
+   `sage/graphs/generic_graph.py:24596`.
+
+3. Return object (`sage/graphs/generic_graph.py:24965`):
+   ```python
+   return PermutationGroup(gens=gens, domain=int_to_vertex.values())
+   ```
+   Domain is vertex labels of the Hasse diagram graph — integer indices 0..n-1, NOT
+   poset elements. Converting to poset elements requires `FinitePoset._list[index]`,
+   which is a private API.
+
+4. Internal use of `HasseDiagram.automorphism_group()` is at
+   `sage/combinat/posets/hasse_diagram.py:2103` in orthocomplement computation —
+   called as `self.automorphism_group(return_group=False, orbits=True)`. This is
+   backend graph machinery, not a public poset-automorphism surface.
+
+**Mathematical correctness note:** Graph automorphisms of the Hasse diagram equal
+order automorphisms of the poset (the covering relation determines the partial order),
+so the mathematical identity holds. However, the Sage API is graph-backend only.
+
+**Decision — surface rejected from public API:**
+
+- No public `FinitePoset.automorphism_group()` exists in Sage.
+- The private route `P._hasse_diagram.automorphism_group()` returns an index-based
+  `PermutationGroup`, not poset-element automorphisms.
+- Admitting this as a project `Posets().AutCategory()` enumeration surface would
+  require a poset-element wrapper over private Sage graph internals; that wrapper is
+  not yet source-grounded and belongs to a separate implementation card if pursued.
+- This surface remains **graph-backend interop only**; do not admit finite poset
+  automorphism-group enumeration to the public AutCategory API without a separate
+  source-grounded implementation card.

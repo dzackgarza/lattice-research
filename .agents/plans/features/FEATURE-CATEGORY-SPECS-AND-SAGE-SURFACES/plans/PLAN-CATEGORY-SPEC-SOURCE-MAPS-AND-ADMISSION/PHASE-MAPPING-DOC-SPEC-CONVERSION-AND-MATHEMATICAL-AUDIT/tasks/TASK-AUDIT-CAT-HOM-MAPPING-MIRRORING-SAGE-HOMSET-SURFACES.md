@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-CAT]]'
 title: Audit Cat hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/cat/homsets.py` and the Cat mapping/spec surface so
   any retained Sage homset/container methods are explicitly mirrored, routed, or

@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-RINGS]]'
 title: Audit Rings hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/rings/homsets.py` and the Rings mapping/spec surface so
   retained Sage ring-hom container methods are explicitly mirrored, rerouted, or

@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-POSETS]]'
 title: Audit Posets hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/posets/homsets.py` and the Posets mapping/spec
   surface so retained Sage order-map container methods are explicitly mirrored,

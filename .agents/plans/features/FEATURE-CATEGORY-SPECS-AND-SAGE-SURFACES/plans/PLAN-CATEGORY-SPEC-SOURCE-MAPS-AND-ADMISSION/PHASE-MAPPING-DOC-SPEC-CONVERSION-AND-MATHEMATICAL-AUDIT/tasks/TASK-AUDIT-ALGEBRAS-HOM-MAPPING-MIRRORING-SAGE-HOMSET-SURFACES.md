@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-ALGEBRAS]]'
 title: Audit Algebras hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/algebras/homsets.py` and the Algebras mapping/spec
   surface so retained Sage algebra-hom container methods are explicitly mirrored,

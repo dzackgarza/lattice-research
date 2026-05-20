@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-TOPOLOGICAL-SPACES]]'
 title: Audit TopologicalSpaces hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/topological_spaces/homsets.py` and the TopologicalSpaces
   mapping/spec surface so retained Sage continuous-map container methods are

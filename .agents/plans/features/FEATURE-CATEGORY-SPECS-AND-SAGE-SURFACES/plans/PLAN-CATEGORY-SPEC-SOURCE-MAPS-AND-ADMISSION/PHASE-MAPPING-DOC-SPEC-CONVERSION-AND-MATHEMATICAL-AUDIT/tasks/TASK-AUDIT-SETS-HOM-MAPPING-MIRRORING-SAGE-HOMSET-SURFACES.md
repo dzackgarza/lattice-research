@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-SETS]]'
 title: Audit Sets hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/sets/homsets.py` and the Sets mapping/spec surface so
   retained Sage homset/container methods such as identity, zero-like constructors,

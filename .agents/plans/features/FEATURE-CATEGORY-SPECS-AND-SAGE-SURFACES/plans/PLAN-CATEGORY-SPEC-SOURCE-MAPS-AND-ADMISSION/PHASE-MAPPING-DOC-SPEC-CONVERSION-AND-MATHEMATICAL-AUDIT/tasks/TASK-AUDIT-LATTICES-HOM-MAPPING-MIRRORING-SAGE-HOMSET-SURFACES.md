@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-LATTICES]]'
 title: Audit Lattices hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: high
 description: Audit `category_specs/lattices/homsets.py` and the Lattices mapping/spec
   surface so retained Sage homset/container methods are explicitly mirrored,

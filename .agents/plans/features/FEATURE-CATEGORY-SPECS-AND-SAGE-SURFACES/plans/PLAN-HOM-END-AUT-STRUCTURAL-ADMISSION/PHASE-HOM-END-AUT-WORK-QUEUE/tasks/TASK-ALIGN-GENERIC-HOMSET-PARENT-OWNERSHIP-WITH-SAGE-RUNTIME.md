@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 title: Rewrite generic homset ownership for project HomCategory mirroring
-status: needs-human-input
+status: complete
 priority: critical
 description: Rewrite the generic Hom/End/Aut owner story around project
   HomCategory mirroring rather than Sage generic homset inheritance, then update

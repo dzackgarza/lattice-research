@@ -8,7 +8,7 @@ dependsOn:
 - '[[DECISION-GENERIC-HOMSET-PARENT-OWNERSHIP-AND-SAGE-INTEGRATION]]'
 - '[[SPEC-MAPPING-MODULES]]'
 title: Audit Modules hom mapping for mirrored Sage homset surfaces
-status: needs-human-input
+status: complete
 priority: critical
 description: Audit `category_specs/modules/homsets.py` and the Modules mapping/spec
   surface so retained Sage module-hom container methods such as `zero()`,
