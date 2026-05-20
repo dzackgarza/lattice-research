@@ -264,7 +264,6 @@ class TopologicalSpaces(CategoryWithAxiom):
 
 from .subcategories.metric import MetricSpacesCategory
 
-
 MetricSpacesObject = MetricSpacesCategory.ParentMethods
 MetricSpacesElement = MetricSpacesCategory.ElementMethods
 MetricSpacesMorphism = MetricSpaceHomCategory.ElementMethods

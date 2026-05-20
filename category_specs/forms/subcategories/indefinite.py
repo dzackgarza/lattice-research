@@ -12,7 +12,10 @@ from __future__ import annotations
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import SymmetricBilinearModulesCategory, SymmetricBilinearModulesMorphism
+from .symmetric import (
+    SymmetricBilinearModulesCategory,
+    SymmetricBilinearModulesMorphism,
+)
 
 
 class IndefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):

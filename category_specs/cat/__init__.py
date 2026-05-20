@@ -39,7 +39,9 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import TYPE_CHECKING, Any, cast, final, override
 
-from sage.categories.category_singleton import Category_singleton as SageCategorySingleton
+from sage.categories.category_singleton import (
+    Category_singleton as SageCategorySingleton,
+)
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.structure.category_object import CategoryObject as SageCategoryObject
@@ -342,7 +344,6 @@ register_cat_constructor_class(Cat.Constructors, Cat())
 from .autsets import CatAutCategory, _CatAutofunctorMethods
 from .endsets import CatEndCategory, _CatEndofunctorMethods
 from .homsets import CatHomCategory, _CatFunctorMethods, _CatHomCategoryObjectMethods
-
 
 CatCategory = Cat
 CatObject = _CatObjectMethods

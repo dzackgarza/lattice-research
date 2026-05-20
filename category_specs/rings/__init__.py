@@ -216,6 +216,7 @@ if TYPE_CHECKING:
     from ..spec_core import ConstructorRegistry
     from ..types import (
         Cardinality,
+        CompleteRing,
         FreeModule,
         Ideal,
         Matrix,
@@ -225,7 +226,6 @@ if TYPE_CHECKING:
         RingElement,
         RingMorphism,
         TermOrder,
-        CompleteRing,
     )
 
 

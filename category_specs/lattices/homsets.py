@@ -13,6 +13,7 @@ from typing import TYPE_CHECKING, final, override
 
 from sage.misc.lazy_import import LazyImport
 
+from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 from ..homsets import (
     GenericAutCategory,
     GenericEndCategory,
@@ -21,7 +22,6 @@ from ..homsets import (
     UniversalEndElementMethods,
     UniversalHomObjectMethods,
 )
-from ..forms.subcategories.free_bilinear import FreeBilinearModulesCategory
 
 if TYPE_CHECKING:
     from ...cat import Category

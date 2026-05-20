@@ -7,8 +7,10 @@ from typing import TYPE_CHECKING, cast, final, override
 
 from sage.misc.lazy_import import LazyImport
 
-from ..homsets import GenericAutCategory, GenericEndCategory, HomCategoryOf
 from ..homsets import (
+    GenericAutCategory,
+    GenericEndCategory,
+    HomCategoryOf,
     UniversalAutElementMethods,
     UniversalEndElementMethods,
     UniversalHomElementMethods,

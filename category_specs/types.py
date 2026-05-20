@@ -29,10 +29,10 @@ from sage.monoids.monoid import Monoid_class
 from sage.rings.complex_interval import ComplexIntervalFieldElement
 from sage.rings.infinity import InfinityElement
 from sage.rings.integer import Integer
-from sage.rings.polynomial.polynomial_element import Polynomial as SagePolynomial
 from sage.rings.polynomial.ore_polynomial_ring import (
     OrePolynomialRing as SageOrePolynomialRing,
 )
+from sage.rings.polynomial.polynomial_element import Polynomial as SagePolynomial
 from sage.rings.polynomial.term_order import TermOrder as SageTermOrder
 from sage.rings.qqbar import AlgebraicPolynomialTracker
 from sage.rings.real_mpfi import RealIntervalFieldElement

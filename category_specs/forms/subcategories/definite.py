@@ -12,7 +12,10 @@ from abc import abstractmethod
 from typing import final, override
 
 from ...cat import CategoryWithAxiom_over_base_ring
-from .symmetric import SymmetricBilinearModulesCategory, SymmetricBilinearModulesMorphism
+from .symmetric import (
+    SymmetricBilinearModulesCategory,
+    SymmetricBilinearModulesMorphism,
+)
 
 
 class DefiniteBilinearModulesCategory(CategoryWithAxiom_over_base_ring):

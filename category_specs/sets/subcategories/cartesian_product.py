@@ -45,7 +45,7 @@ class _CartesianProductSets(Category_singleton):
     class ParentMethods:
         @override
         @final
-        def cardinality(self) -> "Cardinality":
+        def cardinality(self) -> Cardinality:
             r"""Return the product cardinality of the factor sets."""
             return cast(
                 "Cardinality",

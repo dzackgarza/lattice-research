@@ -9,7 +9,16 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, Protocol, TypeAlias, TypeVar, cast, final, override
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Protocol,
+    TypeAlias,
+    TypeVar,
+    cast,
+    final,
+    override,
+)
 
 from sage.misc.cachefunc import cached_method
 

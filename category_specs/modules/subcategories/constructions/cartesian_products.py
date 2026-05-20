@@ -11,8 +11,8 @@ from sage.categories.category import Category
 from ....cat import CartesianProductsCategory
 
 if TYPE_CHECKING:
-    from ... import _RModElements, _RModObjects
     from ....types import RingElement, RModuleElement
+    from ... import _RModElements, _RModObjects
 
 
 class _CartesianProducts(CartesianProductsCategory):

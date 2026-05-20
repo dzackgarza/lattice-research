@@ -15,8 +15,8 @@ from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 
 from ..cat import CategoryWithAxiom_over_base_ring
-from ..utils import with_axiom
 from ..modules.subcategories.free import _FreeFiniteRank
+from ..utils import with_axiom
 from .subcategories.free_bilinear import FreeBilinearModulesMorphism
 from .subcategories.with_forms import FormedModulesMorphism
 
@@ -26,6 +26,8 @@ _cached_method = cast(Callable[[_F], _F], cached_method)
 if TYPE_CHECKING:
     from ..types import (
         Category as CategoryType,
+    )
+    from ..types import (
         DiscriminantGroup,
         Lattice,
         OrthogonalGroup,

@@ -26,11 +26,11 @@ if TYPE_CHECKING:
         Field,
         Group,
         Ideal,
+        NumberField,
         PrimeIdeal,
         Ring,
         RingElement,
         RingMorphism,
-        NumberField,
     )
 
 
@@ -85,7 +85,8 @@ class _QQ(Category_singleton):
         @_cached_method
         @final
         def as_number_field(self) -> NumberField:
-            from sage.all import ZZ, NumberField as SageNumberField, PolynomialRing
+            from sage.all import ZZ, PolynomialRing
+            from sage.all import NumberField as SageNumberField
 
             R = PolynomialRing(ZZ, "x")
             return cast("NumberField", SageNumberField(R.gen(), "a"))

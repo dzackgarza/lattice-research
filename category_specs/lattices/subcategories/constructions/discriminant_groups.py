@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final
 
 from ....cat import Category_module
+from ....forms.subcategories.quadratic import QuadraticModulesMorphism
 from ....modules import (
     Modules,
     ModulesAut,
@@ -17,7 +18,6 @@ from ....modules import (
     ModulesHom,
     ModulesHomCategory,
 )
-from ....forms.subcategories.quadratic import QuadraticModulesMorphism
 
 if TYPE_CHECKING:
     from ....cat import Category
