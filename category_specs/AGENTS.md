@@ -31,7 +31,11 @@ Before acting, confirm the user's stated directive, the action you plan, and why
 - Use Nimbalyst tracker files for planning, follow-ups, blockers, decisions, deferred compliance findings, smoke triage, and outstanding work. Do not create ad hoc planning, status, audit, or TODO markdown files when a tracked file is the right durable artifact.
 - Use only standard registered tracker types. Classify category-spec work with tags and `.agents` paths, not custom `x-work` types.
 - Never call `tracker_create` or `create_task` for markdown-backed tracker items.
-- Never mark work `accepted`, native items `done`, or sprint plans `closed` without human approval.
+- Never mark parent work `accepted`, native items `done`, sprint plans `closed`, or
+  broader phase/feature acceptance without human approval. Do not translate that rule
+  into `needs-human-input` for ordinary category-spec task cards whose routing is
+  already determined by source grounding, repo policy, the DAG, or agent-executable
+  review.
 - If a category-spec rule is relevant but not in context, load the matching category-spec skill before acting. Do not guess from memory.
 - Before editing a spec, mapping, method surface, constructor, Hom/End/Aut rule,
   invariant, or predicate, perform the definition-grounding gate from

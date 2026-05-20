@@ -47,6 +47,11 @@ records the active phase gate.
   dependency order. If work cannot proceed until prerequisite vocabulary or surfaces
   exist, encode the prerequisite in `dependsOn` and leave the downstream card
   `unstarted`.
+- Do not use `needs-human-input` for clean agent-reviewed task closure. If review
+  evidence, repo policy, source grounding, and the DAG already determine the outcome,
+  the card is not a human decision even if parent-plan or feature acceptance later
+  requires human approval. Record the review outcome and continue the earliest
+  executable frontier.
 - Completed feature trees live under `plans/features/completed/`, not beside active
   feature roots.
 - Specs live under the owning feature's `specs/` directory.

@@ -101,8 +101,9 @@ The following are not global blockers during approved spec-phase work:
 - Overscoped cards that can be split, promoted to an approved plan, or decomposed.
 - Missing vocabulary or backend bridges when a prerequisite spec, decision, research,
   or implementation-gap card can be filed.
-- Human approval gates for acceptance, closure, or phase transition when ordinary
-  approved leaf execution remains.
+- Human approval gates for parent acceptance, closure, or phase transition when
+  ordinary approved leaf execution remains. Do not convert those gates into
+  `needs-human-input` blockers for ordinary task cards.
 
 If a spec leaf can advance through source mining, writing/refining a spec, centralizing
 terminology, drafting audit criteria, capturing a decision, splitting work, or filing a
@@ -121,7 +122,7 @@ external prerequisite.
 
 Two kinds of cards reach execution stage:
 
-- **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark accepted/done/closed. When implementation is complete, set the card to `needs-agent-review` (if the review is agent-executable) or `needs-human-input` (if it specifically requires human input).
+- **Implementation cards** (`unstarted` or `revision-required` → `in-progress`): run nontrivial implementation in the required branch/worktree and within the card's allowed scope. The implementing agent updates the card with files touched, branch, PR, validation notes, blockers, and follow-up findings. The implementing agent does not mark parent work accepted/done/closed. When implementation is complete, set the card to `needs-agent-review` if the next check is agent-executable. Set `needs-human-input` only if the card records an exact human-only decision that source review, repo policy, and the DAG cannot answer.
 
 - **Research workstream cards** (`unstarted` or `revision-required` → `in-progress`):
   pursue one linear branch and produce a native mathematical artifact, such as a
@@ -130,7 +131,8 @@ Two kinds of cards reach execution stage:
   evidence. If the branch fails, preserve the failure as evidence in the card or a
   linked failure-record task instead of silently restarting from the same assumptions.
   Escalate to `needs-human-input` when the next step depends on mathematical taste,
-  area expertise, or a human choice of direction.
+  area expertise, or a human choice of direction. Do not escalate merely because the
+  work passed review or because final parent acceptance is human-gated.
 
 - **Working-paper synthesis**: when a workstream changes the mathematical narrative,
   update `paper/` or create a task that does so. The paper must distinguish theorem,
@@ -170,7 +172,11 @@ Attack the strongest claim made anywhere: title, card body, plan, PR, filenames,
 
 ### Promote, reject, split, or retire
 
-Promotion means the linked artifacts support the exact claim and the human gate has approved the result. Otherwise reject, split, or send back to planning.
+Promotion of parent plans, features, or program-level claims means the linked
+artifacts support the exact claim and the applicable human gate has approved that
+promotion. Ordinary task-card review does not acquire a human gate merely because its
+result may later feed a human-approved parent promotion. Otherwise reject, split, or
+send back to planning.
 
 Resolved cards leave active paths and move to `.agents/retired/` only while short-term reference is useful. Durable history belongs in git commits, PR bodies, plan history, canonical decisions, and durable docs.
 

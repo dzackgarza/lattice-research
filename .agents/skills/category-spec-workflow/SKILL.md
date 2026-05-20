@@ -67,6 +67,10 @@ Read `references/workflow.md` before changing workflow state.
 - `needs-human-input` is not a parking status for agent uncertainty. Use it only after
   source review, math grounding, repo policy, and `dependsOn` show that a real human
   convention or scope decision remains.
+- `needs-human-input` is also not a completion shortcut. A clean review awaiting
+  closure, ordinary parent approval, or an approval-shaped yes/no on policy-forced
+  routing is not a human decision. Route agent-executable work through
+  `needs-agent-review`, `revision-required`, or ordinary completion instead.
 - If an obvious mathematical fact or source-forced category edge is surfaced as a
   human decision, fix the process artifact that let it escalate: missing owner row,
   missing subcategory relationship, stale status, incomplete dependency, or weak

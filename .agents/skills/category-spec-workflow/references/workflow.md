@@ -75,6 +75,12 @@ action. Planned prerequisites become `dependsOn` plus `unstarted`. Fixable revie
 findings become `in-progress`, `needs-agent-review`, or `revision-required` where the schema
 supports it.
 
+Do not mark a card `needs-human-input` merely because clean reviewed work has not been
+human-accepted yet. Parent-plan acceptance, feature approval, or phase transition
+approval is a separate promotion gate; it is not a task-level blocker and must not be
+used as an early-exit condition. If the only question is "approve this reviewed work,"
+the card needs agent-owned closure or continued frontier execution, not human input.
+
 If a trivial mathematical fact, obvious category edge, or already sourced owner reaches
 the user as a decision, treat that as workflow breakage. Inspect why the escalation
 happened: missing owner row, unrecorded subcategory relation, stale migrated status,
@@ -540,7 +546,10 @@ During execution:
 - Use `status: blocked` on the affected leaf card when execution cannot proceed until a
   named prerequisite, decision, source, backend, or human input exists. Record the
   exact blocker and the follow-up card/decision/source needed to unblock it.
-- Use `validating` or `needs-human-input` when the implementation appears complete and specifically requires human input or review.
+- Use `validating` or `needs-agent-review` when the implementation appears complete and
+  the remaining check is agent-executable. Use `needs-human-input` only when the card
+  records an exact human-only decision that remains after source grounding, repo
+  policy, and DAG checks.
 - Never mark work `accepted`, native items `done`, or sprint plans `closed` without
   human approval.
 

@@ -35,7 +35,11 @@
   next bet. Escalate to `gpt-5.5` only when delegation is still a net token
   savings over doing the work directly.
 - Do not substitute a nearby task for the user's stated directive.
-- Do not mark work accepted, done, or closed without human approval.
+- Do not mark parent plans, features, native items, sprint plans, or `GOAL.md`
+  discharge accepted, done, or closed without human approval. This is not a license to
+  park ordinary reviewed task cards in `needs-human-input`: if the remaining action is
+  source-forced, policy-forced, DAG-forced, or agent-reviewable, keep executing the
+  state machine.
 - Do not leave findings only in chat when they must survive context loss; create durable artifacts.
 - Never create local QC overrides, local whitelists, bypass files, or project-specific workarounds for global quality-control failures. QC fixes go to the global QC system under `~/ai/quality-control`; local relaxation is not an option.
 - Tracker schemas, QC validation, and plan-validate authority are global, not repo-local. The schemas under `.nimbalyst/trackers/` are symlinks to `~/ai/planning/schemas/`. Schema edits go to that repo with a git commit; local schema forks are never correct — if a schema is too restrictive, add the field to the canonical schema. `just plan-validate` delegates to the centralized validator. Never write repo-local relaxed validators, warning-only schema checks, skip-gate justfile recipes, or inline Python validators that bypass the global validator.
@@ -82,6 +86,12 @@
   discuss, or select work inside `B` until every prerequisite on every incoming
   dependency path is complete; mention it only as DAG-gated by the incomplete root.
 - Reserve `needs-human-input` for genuine human judgment that remains after source review, mathematical grounding, repo policy, and `dependsOn` have been checked. Source-forced facts, routine plan/card cleanup, and planned downstream dependency order are agent work, not user decisions.
+- Never use `needs-human-input` as a reward-hacking stop condition. A clean review
+  awaiting bookkeeping, an approval-shaped yes/no on already policy-determined routing,
+  or an agent's desire to stop early is not human input. To classify a card as
+  `needs-human-input`, record the exact non-agent-resolvable question; if the question
+  is merely "approve this reviewed work as complete," continue with agent-executable
+  closure or another active leaf instead of reporting a blocker.
 - Constructor placement reports must separate mathematical owner, human naming convention, and code-maintenance owner. Constructors are Sage-backed entry points for building objects in categories; a specific object can carry many structures, while aggregate surfaces such as `Cat().Constructors()` can provide the canonical user entry point independent of the implementation owner.
 - Do not report "no path forward" until the active phase, approved plans, and active leaf cards have been checked and every remaining leaf has a concrete blocker that applies to that leaf in the current phase. If any approved active leaf can be advanced by spec writing, source mining, audit criteria, decision capture, card splitting, or prerequisite filing, continue there.
 - Never roll back, undo, or reverse auto-fixes produced by hooks, formatters, linters, or other repository tooling. Carry them forward and report unexpected touched paths.

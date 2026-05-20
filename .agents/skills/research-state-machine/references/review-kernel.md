@@ -31,13 +31,20 @@ box-checking behavior. See the coordinator verification step at the end of the
 Review procedure section. If the review is substantively wrong or shallow, reject it
 and re-dispatch.
 
-When you encounter a card with `status: needs-human-input`, it specifically requires
-human attention. Do not delegate it to a review subagent. Record it as a blocker and
-surface the question or decision needed.
+When you encounter a card with `status: needs-human-input`, first verify that the card
+contains an exact question that repo policy, source grounding, the DAG, and the review
+kernel cannot answer. If the status merely means "clean review is awaiting approval,"
+"an agent is unsure," or "closing this would feel like a human signoff," it is
+misclassified workflow debt, not a blocker. Reclassify or route it through the
+agent-executable state machine instead of surfacing it as a human decision.
 
 ## Core invariant
 
-A card is not complete because it passed review. It is complete only when every gate in the ordered protocol was checked, every finding was resolved, and the human gate has approved the result.
+A card is not complete because the implementing agent says so. It is complete only
+when every required gate in the ordered protocol was checked and every finding was
+resolved. Human approval is a separate requirement for parent-plan, feature,
+program-level, or explicitly human-gated promotion; do not invent a universal final
+human gate for ordinary source-grounded task cards.
 
 ## Status extension
 
@@ -69,14 +76,14 @@ Semantics:
 | `unstarted` | No work has been done. May have planned dependencies in `dependsOn`; read the DAG to determine start-readiness. |
 | `in-progress` | Work actively underway |
 | `needs-agent-review` | Work completed; awaiting gate-based review (agent-executable protocol) |
-| `needs-human-input` | Work completed; specifically requires human input or review |
+| `needs-human-input` | Work cannot proceed because a specific human-only decision, policy choice, or evaluation remains |
 | `revision-required` | Review found defects; rework required within this card's scope |
 | `complete`/`done` | All gates passed; accepted |
 | `blocked` | Work was attempted (or preflighted); a specific blocker was discovered that requires a different card to be resolved first. The blocker is recorded in `blocked_reason`. |
 
 `needs-agent-review` and `needs-human-input` are sibling states reached from `in-progress`. The distinction is the kind of review required:
 - `needs-agent-review`: the card is ready for the ordered gate-based protocol (Gates 1-6), which an independent agent can execute.
-- `needs-human-input`: the card specifically requires human attention -- a design decision, policy choice, or evaluation that cannot be delegated to an agent. Human input may be requested directly or may arise when an agent's gate-based review determines that human judgment is needed.
+- `needs-human-input`: the card specifically requires human attention -- a design decision, policy choice, or evaluation that cannot be delegated to an agent. A clean review awaiting closure, parent acceptance, or an approval-shaped yes/no on policy-determined work is not human input.
 
 `revision-required` is distinct from `unstarted` (no work was ever done) and `blocked` (discovered blocker requiring external resolution). A card cycling through `needs-agent-review → revision-required → in-progress → needs-agent-review` is normal. Repetitive cycles indicate a deeper design problem, which should be escalated to a plan review or decision card rather than reworked in isolation.
 
@@ -114,8 +121,12 @@ An `unstarted` card with unsatisfied `dependsOn` entries stays `unstarted` -- th
 
 Cards route to `needs-agent-review` or `needs-human-input` based on the kind of review required:
 - Route to `needs-agent-review` when the review can follow the ordered gate protocol (agent-executable).
-- Route to `needs-human-input` when a human decision, policy choice, or evaluation is required.
-- A card in `needs-agent-review` may be transitioned to `needs-human-input` if the gate-based review determines that human input is needed.
+- Route to `needs-human-input` only when a named human decision, policy choice, or
+  evaluation is required and cannot be resolved by source review, mathematical
+  grounding, repo policy, or the DAG.
+- A card in `needs-agent-review` may be transitioned to `needs-human-input` only if
+  the gate-based review records the exact non-agent-resolvable question. Passing Gates
+  1-6 with no findings is not itself a reason to ask for human input.
 
 ## Review execution requirements
 
@@ -605,7 +616,12 @@ Each review produces a dated entry in the card body:
 
 If a review reveals findings that cannot be resolved within the current card:
 
-- **Human input needed** (the review determines that a human decision, policy choice, or evaluation is required that an agent cannot provide) → Set `status: needs-human-input`, record the specific question or decision needed in the card body, and optionally link a decision card. The card remains `needs-human-input` until a human provides input.
+- **Human input needed** (the review determines that a human decision, policy choice,
+  or evaluation is required that an agent cannot provide) → Set
+  `status: needs-human-input`, record the specific question or decision needed in the
+  card body, and optionally link a decision card. The question must be substantive:
+  "approve this reviewed work," "may I stop," "should policy-forced routing be
+  accepted," and other closure-shaped prompts are not valid human-input blockers.
 - **Discovered blocker** (a prerequisite decision, source-mining result, or backend gap is needed to proceed) → Set `status: blocked`, set `blocked_reason` to a one-line description of the gap and the prerequisite card ID, create the prerequisite card, and link it in `dependsOn`.
 - **Design-level defect** (the card's fundamental approach is wrong, not the implementation) → Set `status: revision-required`, but note that the rework may require plan-level redesign. Create a decision card or plan-review task.
 - **Pattern repeated across multiple cards** (same gate failure on N cards) → Create a phase-level corrective card. Do not rework N cards independently for the same systemic issue.

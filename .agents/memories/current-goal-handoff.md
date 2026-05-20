@@ -69,16 +69,20 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Human Gates
 
-- `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME` is currently
-  human-gated after clean fresh-context review, but it is no longer the active
-  autonomous frontier.
-- The per-subtree homset mirroring audits are currently human-gated:
-  `MODULES`, `SETS`, `RINGS`, `ALGEBRAS`, `POSETS`, `TOPOLOGICAL-SPACES`, `CAT`, and
-  `LATTICES`.
-- `TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING` is also
-  human-gated.
-- `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION` is
-  `unstarted` and DAG-gated by the POSETS audit, not blocked.
+Do not present the existing `needs-human-input` frontier as human decisions merely
+because clean reviews await closure. Root policy now treats that as workflow debt:
+source-forced facts, policy-forced routing, DAG order, and clean agent reviews are
+agent work, not human input.
+
+Next pickup should audit the current `needs-human-input` cards and reclassify any card
+whose only question is "approve this reviewed work as complete." A card should remain
+`needs-human-input` only if its body records a specific human-only decision that source
+review, mathematical grounding, repo policy, and the DAG cannot answer.
+
+The Hom/End/Aut cards should not be reopened as design questions if they merely apply
+the existing owner policy: generic Hom/End/Aut containers route through the project
+Hom-category framework, while concrete object-family behavior stays with the relevant
+Sage-backed category, subcategory, or method owner.
 
 ## Validation Routing
 
