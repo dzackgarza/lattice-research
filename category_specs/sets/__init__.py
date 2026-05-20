@@ -92,6 +92,7 @@ from .homsets import (
 )
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
         Algebra,
         Cardinality,
@@ -518,7 +519,7 @@ class Sets(Category_singleton):
             return "Sets constructors"
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for set constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 

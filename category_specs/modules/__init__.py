@@ -101,6 +101,7 @@ _RingObjectsAsModules = LazyImport(
 )
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
         Algebra,
         AlgebraElement,
@@ -576,7 +577,7 @@ class Modules(Category_module):
             return f"Sage module constructors over {self.base_ring()}"
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for module constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 

@@ -46,6 +46,7 @@ from .homsets import (
 )
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
         DiGraph,
         FiniteJoinSemilatticePoset,
@@ -297,7 +298,7 @@ class Posets(Category):
         """
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for poset constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 

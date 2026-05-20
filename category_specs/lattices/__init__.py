@@ -66,6 +66,7 @@ _F = TypeVar("_F", bound=Callable[..., object])
 _cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import Ring
 
 
@@ -97,7 +98,7 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
             return f"lattice constructors over {self.base_ring()}"
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for lattice constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 

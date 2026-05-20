@@ -144,6 +144,7 @@ _make_named_class_with_cat_subcategory_methods = (
 )
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import Hom
 
 
@@ -328,7 +329,7 @@ class Cat(SageCategorySingleton):
             return EmptyCategory()
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for constructors surfaced by ``Cat``."""
             from category_specs.spec_core import cat_constructor_registry
 

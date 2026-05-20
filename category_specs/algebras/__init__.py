@@ -64,6 +64,7 @@ _F = TypeVar("_F", bound=Callable[..., object])
 _cached_method = cast(Callable[[_F], _F], cached_method)
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
         AdditiveGroup,
         AdditiveMonoid,
@@ -403,7 +404,7 @@ class Algebras(Category_module):
             self._category = category
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for algebra constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 

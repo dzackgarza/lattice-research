@@ -213,6 +213,7 @@ _PowerSeriesRings = LazyImport(
 )
 
 if TYPE_CHECKING:
+    from ..spec_core import ConstructorRegistry
     from ..types import (
         Cardinality,
         FreeModule,
@@ -646,7 +647,7 @@ class Rings(Category_singleton):
             return "Sage ring constructors"
 
         @final
-        def provenance(self) -> object:
+        def provenance(self) -> ConstructorRegistry:
             r"""Return typed provenance records for ring constructors."""
             from category_specs.spec_core import constructor_registry_for_category
 
