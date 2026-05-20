@@ -8,7 +8,7 @@ dependsOn:
 - '[[PLAN-CATEGORY-SPEC-PROGRAM]]'
 - '[[PLAN-SPEC-CORE-VERTICAL-SLICE]]'
 title: Category spec source maps and admission
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
 description: Preserve and route the non-lattice root `plans` source maps into an approved

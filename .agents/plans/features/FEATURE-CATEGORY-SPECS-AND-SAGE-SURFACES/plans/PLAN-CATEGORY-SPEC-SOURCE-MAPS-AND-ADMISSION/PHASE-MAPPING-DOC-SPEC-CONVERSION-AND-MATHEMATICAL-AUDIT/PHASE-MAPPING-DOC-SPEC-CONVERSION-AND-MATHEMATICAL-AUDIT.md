@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION]]'
 dependsOn: []
 title: Mapping doc spec conversion and mathematical audit
-status: in-progress
+status: complete
 priority: critical
 description: Convert every category-spec mapping document into a tracked spec surface
   and audit those specs for Sage-source completeness, mathematical correctness,
