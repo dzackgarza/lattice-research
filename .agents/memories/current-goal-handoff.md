@@ -54,7 +54,7 @@ authorities for status, evidence, dependencies, and completed work.
   small integration edits on `main` with focused commits.
 - `TASK-MYPY-PARSER` has passed fresh-context agent review and is now human-gated.
   The plugin rewrite completed all phases 0–9 (2026-05-19 through 2026-05-20).
-  Current plugin HEAD is `e8382ce` on `rewrite/invariant-core` (PR open:
+  Current plugin HEAD is `357bca5` on `rewrite/invariant-core` (PR open:
   `rewrite/invariant-core → main`). `just test -q`: `187 passed` (7 suites) as of
   2026-05-20. All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM
   review comments addressed. Codex bot review: "No Issues Found | Recommendation: Merge."
