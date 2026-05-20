@@ -3,19 +3,19 @@
 ## Overall
 
 - Total cards: **319**
-- Completed cards: **274**
-- Overall progress: `[#####################---]  85.9%`
-- Active feature trees: **13**
-- Completed feature trees: **7**
+- Completed cards: **276**
+- Overall progress: `[#####################---]  86.5%`
+- Active feature trees: **12**
+- Completed feature trees: **8**
 
 ## Counts By Type
 
 | Type | Total | Completed | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
-| feature | 20 | 7 | 4 | 1 | 0 | 0 |
+| feature | 20 | 8 | 3 | 1 | 0 | 0 |
 | phase | 28 | 22 | 0 | 3 | 0 | 0 |
-| plan | 13 | 10 | 2 | 1 | 0 | 0 |
+| plan | 13 | 11 | 1 | 1 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
 | task | 176 | 156 | 0 | 11 | 1 | 0 |
 
@@ -35,6 +35,7 @@
 
 | Feature | Progress | Done/Total | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Category specs and Sage surface admission | `[################] 100.0%` | 166/166 | 0 | 0 | 0 | 0 |
 | Geometry category interfaces | `[################] 100.0%` | 28/28 | 0 | 0 | 0 | 0 |
 | Historical discriminant and morphism recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical geometry and Coble vocabulary recovery | `[################] 100.0%` | 4/4 | 0 | 0 | 0 | 0 |
@@ -42,8 +43,7 @@
 | Historical lattice presentation method recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
-| Category specs and Sage surface admission | `[################]  99.4%` | 165/166 | 1 | 0 | 0 | 0 |
-| Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
+| Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -58,7 +58,6 @@
 
 ## High-Priority DAG Frontier
 
-- `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (`critical`, `in-progress`)
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
@@ -69,12 +68,11 @@
 
 ## High-Priority DAG-Gated Items
 
-- `feature` `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`, `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
-- `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
-- `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
+- `feature` `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`: gated by `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`, `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
+- `feature` `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`: gated by `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
+- `feature` `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`: gated by `FEATURE-MODULES-WITH-FORMS-AND-LATTICES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `feature` `FEATURE-UNIVERSAL-CATEGORICAL-ALGORITHMS`: gated by `FEATURE-CATEGORICAL-IMPLEMENTATION-LAYER`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `unstarted`)
 - `phase` `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
-- `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: gated by `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`, `FEATURE-QC-WARNINGS-ZERO` (`critical`, `in-progress`)
 - `task` `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-METHOD-CONTAINER-SELF-SURFACES`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
 - `task` `TASK-QC-PLUGIN-CATEGORY-PROMOTION-RETURNS`: gated by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`, `TASK-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` (`critical`, `unstarted`)
@@ -84,6 +82,7 @@
 - `feature` `FEATURE-COBLE-K3-FOLDING-INVOLUTION`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-MODULI-COMPARISON`: gated by `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
 - `feature` `FEATURE-COBLE-STABLE-MODEL-SLC`: gated by `FEATURE-COBLE-MODULI-COMPARISON`, `FEATURE-COBLE-GEOMETRIC-LATTICE-FOUNDATION`, `FEATURE-QC-WARNINGS-ZERO` (`high`, `unstarted`)
+- `phase` `PHASE-QC-DOWNSTREAM-TYPE-CLEANUP`: gated by `PHASE-QC-STUB-GENERATION` (`high`, `unstarted`)
 
 ## Blocked Items
 
@@ -91,6 +90,10 @@
 
 ## Most Recently Completed
 
+- 2026-05-20 `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
+- 2026-05-20 `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
+- 2026-05-20 `phase` `PHASE-HOM-END-AUT-WORK-QUEUE`: Hom End Aut work queue (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
+- 2026-05-20 `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
 - 2026-05-20 `task` `TASK-AUDIT-ALGEBRAS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Algebras hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Cat hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Lattices hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
@@ -102,10 +105,6 @@
 - 2026-05-20 `task` `TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit TopologicalSpaces hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION`: Source-ground finite poset automorphism group enumeration before AutCategory admission (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `spec` `SPEC-MAPPING-POSETS`: Track posets mapping spec (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (commit `63c7c7e`: chore: advance PHASE-QC-BASIC-TYPING-HYGIENE to complete)
-- 2026-05-20 `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (commit `f901b32`: chore: reclassify three basic-hygiene QC tasks from needs-human-input to complete)
-- 2026-05-20 `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (commit `f901b32`: chore: reclassify three basic-hygiene QC tasks from needs-human-input to complete)
 
 ## Notes
 

@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-MODULES-WITH-FORMS-AND-LATTICES]]'
 dependsOn: []
 title: Lattice and ModulesWithForms roadmap
-status: in-progress
+status: complete
 priority: critical
 owner: Zack
 description: 'Organize the lattice redesign around the actual dependency chain: Sage/module

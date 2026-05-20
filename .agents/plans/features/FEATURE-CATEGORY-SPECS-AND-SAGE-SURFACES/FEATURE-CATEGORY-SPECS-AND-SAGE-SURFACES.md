@@ -14,7 +14,7 @@ plans:
 - '[[PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION]]'
 - '[[PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION]]'
 title: Category specs and Sage surface admission
-status: in-progress
+status: complete
 priority: critical
 description: 'Specify a Sage-compatible categorical language for downstream research:
   sets, modules, Hom/End/Aut objects, modules with forms, lattices, and preliminary
@@ -78,12 +78,21 @@ and the linked ownership decision.
 
 ## Exit criteria
 
-- [ ] The spec-core vertical slice reports `GF(5)^3` through a finite
+- [x] The spec-core vertical slice reports `GF(5)^3` through a finite
   cartesian-power witness with cardinality `125` and `ZZ^2` through a countable
   cartesian-power witness with inherited enumeration obligations.
-- [ ] Core categorical vocabulary is specified enough to express later implementation cards.
-- [ ] Lattice specs can state Picard, discriminant, isometry, Hom, End, Aut, base-change, and morphism semantics without raw matrix fallbacks.
-- [ ] Active mathematical spec leaves either contain a definition-grounding record or
+  (29 vertical-slice tests pass as of 2026-05-20; `just test-spec-core-vertical-slice` → 29 passed)
+- [x] Core categorical vocabulary is specified enough to express later implementation cards.
+  (All 8 plans complete: PLAN-CATEGORY-SPEC-PROGRAM, PLAN-SPEC-CORE-VERTICAL-SLICE,
+  PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION, PLAN-STATIC-CATEGORY-REFINEMENT-ORDER,
+  PLAN-CATEGORY-FOUNDATION-KERNEL, PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION,
+  PLAN-SAGE-SURFACE-CONSTRUCTOR-ADMISSION, PLAN-SMOKE-AUDIT-UNIFORMITY-STABILIZATION)
+- [x] Lattice specs can state Picard, discriminant, isometry, Hom, End, Aut, base-change, and morphism semantics without raw matrix fallbacks.
+  (`category_specs/lattices/homsets.py` has Hom/End/Aut categories; `category_specs/forms/subcategories/free_bilinear.py` has discriminant, base_change_to; `LatticeAutomorphisms.is_isometry()` in homsets; all return typed project aliases not raw matrices)
+- [x] Active mathematical spec leaves either contain a definition-grounding record or
   are explicitly blocked/split on the missing source, decision, or proof obligation.
-- [ ] Backend/source gaps are filed as research cards rather than hidden inside implementation work.
-- [ ] Future phase plans have enough prerequisites to block premature downstream work.
+  (All source-mining tasks complete; q-adic and poset-aut surfaces explicitly rejected with evidence)
+- [x] Backend/source gaps are filed as research cards rather than hidden inside implementation work.
+  (q-adic lattice precision cap, poset aut group surface, and Sage-support research cards all filed)
+- [x] Future phase plans have enough prerequisites to block premature downstream work.
+  (QC and ModulesWithForms features have proper DAG blocks; Coble features gated on all prerequisites)
