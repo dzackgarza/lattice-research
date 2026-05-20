@@ -25,6 +25,7 @@ from collections.abc import Callable, Iterable, Sequence
 from typing import (
     TYPE_CHECKING,
     Any,
+    TypeAlias,
     cast,
     final,
     overload,
@@ -37,7 +38,12 @@ from sage.misc.lazy_import import LazyImport
 from ..cat import Category
 from ..sets import Sets
 from ..utils import refine_category, with_axiom
-from .homsets import PosetAutCategory, PosetEndCategory, PosetHomCategory
+from .homsets import (
+    PosetAutCategory,
+    PosetEndCategory,
+    PosetHomCategory,
+    _OrderPreservingMaps,
+)
 
 if TYPE_CHECKING:
     from ..types import (
@@ -789,9 +795,9 @@ class Posets(Category):
 
 
 PosetsCategory = Posets
-PosetsObject = Posets.ParentMethods
-PosetsElement = Posets.ElementMethods
-PosetsMorphism = PosetHomCategory.ElementMethods
+PosetsObject: TypeAlias = _PosetParentMethods
+PosetsElement: TypeAlias = _PosetElementMethods
+PosetsMorphism: TypeAlias = _OrderPreservingMaps
 PosetsHomCategory = PosetHomCategory
 PosetsEndCategory = PosetEndCategory
 PosetsAutCategory = PosetAutCategory

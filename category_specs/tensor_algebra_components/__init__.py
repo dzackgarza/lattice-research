@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any, Protocol, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, Any, Protocol, TypeAlias, TypeVar, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 
@@ -415,8 +415,8 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
 
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
-TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
-TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsObject: TypeAlias = _TensorAlgebraComponentParentMethods
+TensorAlgebraComponentsElement: TypeAlias = _TensorElementMethods
 TensorAlgebraComponentsMorphism = _RModMorphisms
 TensorAlgebraComponentsHomCategory = RModuleHomCategory
 TensorAlgebraComponentsEndCategory = RModuleEndCategory

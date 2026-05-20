@@ -67,6 +67,7 @@ from typing import (
     TYPE_CHECKING,
     Any,
     Protocol,
+    TypeAlias,
     cast,
     final,
     overload,
@@ -116,7 +117,7 @@ if TYPE_CHECKING:
         SympySet,
     )
 
-    SetPartitionType = SetPartition
+    SetPartitionType: TypeAlias = SetPartition
 
     class _SubsetLatticeSource(Protocol):
         def lattice(self) -> Set: ...

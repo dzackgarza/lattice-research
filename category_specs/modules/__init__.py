@@ -36,7 +36,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, TypeAlias, TypeVar, cast, final, overload, override
 
 from sage.categories.bimodules import Bimodules as SageBimodules
 from sage.categories.tensor import tensor
@@ -1885,8 +1885,8 @@ class Modules(Category_module):
 
 
 ModulesCategory = Modules
-ModulesObject = Modules.ParentMethods
-ModulesElement = Modules.ElementMethods
+ModulesObject: TypeAlias = _RModObjects
+ModulesElement: TypeAlias = _RModElements
 ModulesMorphism = _RModMorphisms
 ModulesHomCategory = RModuleHomCategory
 ModulesEndCategory = RModuleEndCategory

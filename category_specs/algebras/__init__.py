@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, Any, TypeAlias, TypeVar, cast, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
@@ -44,7 +44,12 @@ from ..cat import (
 )
 from ..modules import Modules
 from ..utils import refine_category, with_axiom
-from .homsets import AlgebraAutCategory, AlgebraEndCategory, AlgebraHomCategory
+from .homsets import (
+    AlgebraAutCategory,
+    AlgebraEndCategory,
+    AlgebraHomCategory,
+    _AlgebraHomomorphisms,
+)
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
 from .subcategories.constructions.ideals import AlgebraIdealsCategory
@@ -704,9 +709,9 @@ class Algebras(Category_module):
 
 
 AlgebrasCategory = Algebras
-AlgebrasObject = Algebras.ParentMethods
-AlgebrasElement = Algebras.ElementMethods
-AlgebrasMorphism = AlgebraHomCategory.ElementMethods
+AlgebrasObject: TypeAlias = _AlgebraParentMethods
+AlgebrasElement: TypeAlias = _AlgebraElementMethods
+AlgebrasMorphism: TypeAlias = _AlgebraHomomorphisms
 AlgebrasHomCategory = AlgebraHomCategory
 AlgebrasEndCategory = AlgebraEndCategory
 AlgebrasAutCategory = AlgebraAutCategory
@@ -717,7 +722,7 @@ AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
 AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 
 MagmaticAlgebrasCategory = MagmaticAlgebras
-MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
+MagmaticAlgebrasObject: TypeAlias = _MagmaticAlgebraParentMethods
 MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
 MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AssociativeAlgebrasCategory = AssociativeAlgebras

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from math import prod
+from typing import TYPE_CHECKING
 
 import importlib
 
@@ -13,9 +14,12 @@ importlib.import_module("sage.all")
 spec_core = importlib.import_module("category_specs.spec_core")
 witnesses = importlib.import_module("category_specs.modules.free_module_witnesses")
 
-SpecReport = spec_core.SpecReport
-SpecCheckResult = spec_core.SpecCheckResult
-Spec = spec_core.Spec
+if TYPE_CHECKING:
+    from category_specs.spec_core import Spec, SpecCheckResult, SpecReport
+else:
+    SpecReport = spec_core.SpecReport
+    SpecCheckResult = spec_core.SpecCheckResult
+    Spec = spec_core.Spec
 
 
 _PRODUCT_CARDINALITY_OBLIGATION_ID: str = "sets.cartesian_product.cardinality"

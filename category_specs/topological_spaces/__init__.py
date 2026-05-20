@@ -31,7 +31,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, NoReturn, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, NoReturn, TypeAlias, TypeVar, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -278,7 +278,7 @@ MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 
 
 TopologicalSpacesCategory = TopologicalSpaces
-TopologicalSpacesObject = TopologicalSpaces.ParentMethods
+TopologicalSpacesObject: TypeAlias = _TopologicalSpaceObjectMethods
 TopologicalSpacesElement = TopologicalSpaces.ElementMethods
 TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
 TopologicalSpacesHomCategory = TopologicalSpaceHomCategory

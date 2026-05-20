@@ -7,6 +7,7 @@ This file imports those packages and chooses conventional aliases such as
 
 from collections.abc import Mapping, Sequence
 from types import SimpleNamespace
+from typing import TypeAlias
 
 from sage.categories.cartesian_product import (
     CartesianProductFunctor as SageCartesianProductFunctor,
@@ -342,21 +343,21 @@ from .topological_spaces import (
 
 # Generic / Support
 Category = CatBaseCategory
-CategoryObject = SageParent
-CategoryElement = SageElement
-Matrix = SageMatrix
-MatrixSpace = SageMatrixSpace
-DiGraph = SageDiGraph
-CartesianProductFunctor = SageCartesianProductFunctor
+CategoryObject: TypeAlias = SageParent
+CategoryElement: TypeAlias = SageElement
+Matrix: TypeAlias = SageMatrix
+MatrixSpace: TypeAlias = SageMatrixSpace
+DiGraph: TypeAlias = SageDiGraph
+CartesianProductFunctor: TypeAlias = SageCartesianProductFunctor
 CategoryOfHomCategories = HomCategoriesCategory
 CategoryOfEndCategories = EndCategoriesCategory
 CategoryOfAutCategories = AutCategoriesCategory
 Hom = HomCategoriesObject
 End = EndCategoriesObject
 Aut = AutCategoriesObject
-Morphism = SageMorphism
-Endomorphism = SageMorphism
-Automorphism = SageMorphism
+Morphism: TypeAlias = SageMorphism
+Endomorphism: TypeAlias = SageMorphism
+Automorphism: TypeAlias = SageMorphism
 Ring = RingsObject
 Field = _Fields.ParentMethods
 NumberField = _NumberFields.ParentMethods
@@ -371,18 +372,18 @@ ApproximateRing = ApproximateRingsObject
 ApproximateRingElement = ApproximateRingsElement
 ApproximateRingMorphism = ApproximateRingsMorphism
 ApproximateRingCategory = ApproximateRingsCategory
-Group = SageGroup
-AbelianGroup = AbelianGroup_class
-Magma = CategoryObject
-Semigroup = CategoryObject
-Monoid = Monoid_class
-AdditiveSemigroup = CategoryObject
-AdditiveMonoid = CategoryObject
-AdditiveGroup = CategoryObject
-Polynomial = SagePolynomial
-OrePolynomialRing = SageOrePolynomialRing
+Group: TypeAlias = SageGroup
+AbelianGroup: TypeAlias = AbelianGroup_class
+Magma: TypeAlias = CategoryObject
+Semigroup: TypeAlias = CategoryObject
+Monoid: TypeAlias = Monoid_class
+AdditiveSemigroup: TypeAlias = CategoryObject
+AdditiveMonoid: TypeAlias = CategoryObject
+AdditiveGroup: TypeAlias = CategoryObject
+Polynomial: TypeAlias = SagePolynomial
+OrePolynomialRing: TypeAlias = SageOrePolynomialRing
 AlgebraicPolynomial = AlgebraicPolynomialTracker
-TermOrder = SageTermOrder
+TermOrder: TypeAlias = SageTermOrder
 RealNumberInterval = RealIntervalFieldElement
 ComplexInterval = ComplexIntervalFieldElement
 Valuation = DiscretePseudoValuation
@@ -390,12 +391,12 @@ Valuation = DiscretePseudoValuation
 LocalRing = _LocalRings.ParentMethods
 CompleteRing = _CompleteRings.ParentMethods
 
-Cardinality = Integer | InfinityElement
+Cardinality: TypeAlias = Integer | InfinityElement
 FreeResolution = SageFreeResolution
 
 RMod = ModulesCategory
-RModule = ModulesObject
-RModuleElement = ModulesElement
+RModule: TypeAlias = ModulesObject
+RModuleElement: TypeAlias = ModulesElement
 RModMorphism = ModulesMorphism
 RModuleMorphism = RModMorphism
 FreeModule = _Free.ParentMethods
@@ -405,8 +406,8 @@ SubModule = ModuleSubobjects.ParentMethods
 Submodule = SubModule
 QuotientModule = ModuleQuotients.ParentMethods
 TensorProductRModule = ModuleTensorProducts.ParentMethods
-TensorAlgebraComponent = TensorAlgebraComponentsObject
-Tensor = TensorAlgebraComponentsElement
+TensorAlgebraComponent: TypeAlias = TensorAlgebraComponentsObject
+Tensor: TypeAlias = TensorAlgebraComponentsElement
 
 Ideal = _RingIdealParentMethods
 PrimeIdeal = Ideal
@@ -432,7 +433,7 @@ RModDualMorphism = DualModuleMorphism
 RModuleDualMorphism = DualModuleMorphism
 RModuleForm = RModMorphism
 ModuleStructure = RModMorphism
-ModuleBasis = (
+ModuleBasis: TypeAlias = (
     AbstractFamily | Mapping[CategoryElement, RModuleElement] | Sequence[RModuleElement]
 )
 Polyhedron = SageParent
@@ -484,17 +485,17 @@ TorsionQuadraticModuleEndCategory = TorsionQuadraticModulesEndCategory
 TorsionQuadraticModuleAutCategory = TorsionQuadraticModulesAutCategory
 TorsionQuadraticModuleEndomorphism = TorsionQuadraticModulesEndomorphism
 TorsionQuadraticModuleAutomorphism = TorsionQuadraticModulesAutomorphism
-BilinearFormsModule = SageHomset
-BilinearForm = SageMorphism
-QuadraticFormsModule = SageHomset
-QuadraticForm = SageMorphism
+BilinearFormsModule: TypeAlias = SageHomset
+BilinearForm: TypeAlias = SageMorphism
+QuadraticFormsModule: TypeAlias = SageHomset
+QuadraticForm: TypeAlias = SageMorphism
 
 RAlgebra = AlgebrasCategory
-Algebra = AlgebrasObject
-AlgebraElement = AlgebrasElement
-AlgebraMorphism = AlgebrasMorphism
+Algebra: TypeAlias = AlgebrasObject
+AlgebraElement: TypeAlias = AlgebrasElement
+AlgebraMorphism: TypeAlias = AlgebrasMorphism
 MagmaticAlgebraCategory = MagmaticAlgebrasCategory
-MagmaticAlgebra = MagmaticAlgebrasObject
+MagmaticAlgebra: TypeAlias = MagmaticAlgebrasObject
 MagmaticAlgebraElement = MagmaticAlgebrasElement
 MagmaticAlgebraMorphism = MagmaticAlgebrasMorphism
 AssociativeAlgebraCategory = AssociativeAlgebrasCategory
@@ -503,7 +504,7 @@ AssociativeAlgebraElement = AssociativeAlgebrasElement
 AssociativeAlgebraMorphism = AssociativeAlgebrasMorphism
 AlgebraBasis = AbstractFamily
 AlgebraIdeal = AlgebraIdealsObject
-HochschildChainComplex = HochschildComplex
+HochschildChainComplex: TypeAlias = HochschildComplex
 
 # Sets
 
@@ -529,11 +530,11 @@ SetEnd = SetsEnd
 SetAut = SetsAut
 SetEndomorphism = SetsEndomorphism
 SetAutomorphism = SetsAutomorphism
-FiniteSetMap = FiniteSetMap_MN
-SetFamily = AbstractFamily
-SetGeneratingSeries = SageParent
-IntegerPartition = SageIntegerPartition
-SetPartition = SageSetPartition
+FiniteSetMap: TypeAlias = FiniteSetMap_MN
+SetFamily: TypeAlias = AbstractFamily
+SetGeneratingSeries: TypeAlias = SageParent
+IntegerPartition: TypeAlias = SageIntegerPartition
+SetPartition: TypeAlias = SageSetPartition
 SetPartitionsParent = SageSetPartitions
 PartitionedSet = PartitionedSetsObject
 PartitionedSetElement = PartitionedSetsElement
@@ -548,24 +549,24 @@ PartitionedSetEndCategory = PartitionedSetsEndCategory
 PartitionedSetAutCategory = PartitionedSetsAutCategory
 PartitionedSetCategory = PartitionedSetsCategory
 SetPartitionSet = PartitionedSet
-EquivalenceRelation = SetPartition
-GroupElement = SageElement
+EquivalenceRelation: TypeAlias = SetPartition
+GroupElement: TypeAlias = SageElement
 GroupAction = SageMorphism
 
-RealNumber = SageRealNumber
-TopologicalSpace = TopologicalSpacesObject
+RealNumber: TypeAlias = SageRealNumber
+TopologicalSpace: TypeAlias = TopologicalSpacesObject
 MetricSpace = MetricSpacesObject
 TopologicalSpaceMorphism = TopologicalSpacesMorphism
 RealSubset = _RealSets.ParentMethods
 RealOpenSet = RealSubset
-RealInterval = InternalRealInterval
+RealInterval: TypeAlias = InternalRealInterval
 MetricBall = OpenSubset
 PrimeSubset = Subset
 PrimesInArithmeticProgressions = PrimeSubset
-SympySet = SageSympySet
-Poset = PosetsObject
-PosetElement = PosetsElement
-PosetMorphism = PosetsMorphism
+SympySet: TypeAlias = SageSympySet
+Poset: TypeAlias = PosetsObject
+PosetElement: TypeAlias = PosetsElement
+PosetMorphism: TypeAlias = PosetsMorphism
 PosetHom = PosetsHom
 PosetEnd = PosetsEnd
 PosetAut = PosetsAut
@@ -576,11 +577,11 @@ LatticePoset = _LatticePosets.ParentMethods
 FiniteMeetSemilatticePoset = _FiniteMeetSemilatticePosets.ParentMethods
 FiniteJoinSemilatticePoset = _FiniteJoinSemilatticePosets.ParentMethods
 FiniteLatticePoset = _FiniteLatticePosets.ParentMethods
-SageFinitePoset = SagePoset
+SageFinitePoset: TypeAlias = SagePoset
 LatticeCategory = LatticesCategory
 Lattice = LatticesObject
 LatticeElement = LatticesElement
-LatticeMorphism = LatticesMorphism
+LatticeMorphism: TypeAlias = LatticesMorphism
 LatticeHom = LatticesHom
 LatticeEnd = LatticesEnd
 LatticeAut = LatticesAut
