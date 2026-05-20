@@ -58,6 +58,17 @@ authorities for status, evidence, dependencies, and completed work.
   `rewrite/invariant-core → main`). `just test -q`: `186 passed` (7 suites).
   All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM review
   comments addressed. Plugin parallel work is no longer active; QC gate is unblocked.
+- `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
+  TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
+  by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
+  files. QC frontier: `Found 410 errors in 117 files` (down from 1152 on 2026-05-15).
+  Error breakdown: `misc` 295, `attr-defined` 62, `call-arg` 14, `arg-type` 14,
+  `return-value` 13, `operator` 4, `assignment` 4, `no-untyped-def` 2,
+  `no-any-return` 2. No `[valid-type]`, `[untyped-decorator]`, `[redundant-cast]`,
+  or `[return]` findings remain. The 295 `[misc]` are `@override` without base
+  method — requires the Sage category MRO plugin to inject inheritance. All remaining
+  groups are dynamic-inheritance, Hom/End/Aut, or plugin-shaped; they are gated on
+  the plugin review completing and entering the downstream cleanup phases.
 - Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.

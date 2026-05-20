@@ -1251,6 +1251,71 @@ No dependencies. This is the first mypy/QC task.
     reproductions, so later implementation work does not learn to silence
     dynamic Sage typing through local casts.
 
+- 2026-05-20: TypeAlias annotations added to eliminate 735 `[valid-type]` errors:
+  - Doc Gate: reread `AGENTS.md` sections "Always-active invariants" and "Tracker
+    and planning shortcut"; rule: follow the QC DAG and record validation evidence
+    before progress claims.
+  - Doc Gate: reread `category_specs/AGENTS.md` sections "Always-active rules"
+    and "Canonical skills"; rule: type-alias annotations must not weaken category
+    interfaces or spec obligations.
+  - Doc Gate: reread `.agents/skills/category-spec-style/SKILL.md` and
+    `.agents/skills/category-spec-style/references/style.md` sections "Type System
+    Rules" and "Type Annotations"; rule: `TypeAlias` is the correct annotation for
+    any top-level variable used as a type in annotations.
+  - Root cause: `category_specs/types.py` defined ~51 type aliases (e.g.
+    `CategoryObject = SageParent`, `Tensor = TensorAlgebraComponentsElement`) as
+    plain assignments without `TypeAlias` annotations. Mypy therefore treated each
+    such variable as a value, not a valid type, and fired `[valid-type]` on every
+    downstream use site.
+  - Constraint: `TypeAlias = SomeCategory.ParentMethods` fails when the RHS is an
+    attribute access and mypy cannot verify the attribute's type from the class
+    definition (Sage metaclass magic). The fix uses actual module-level class names
+    directly (`_RModObjects`, `_PosetParentMethods`, etc.) and imports private
+    classes from homset submodules when needed
+    (`_AlgebraHomomorphisms`, `_OrderPreservingMaps`, `_LatticeMorphisms`).
+  - Files edited:
+    - `category_specs/types.py`: added `from typing import TypeAlias`; annotated
+      ~51 aliases, substituting attribute-access RHS with equivalent module-level
+      class names where required.
+    - `category_specs/sets/__init__.py`: added `TypeAlias` to `from typing import`
+      block; annotated `SetPartitionType: TypeAlias = SetPartition` inside the
+      `TYPE_CHECKING` guard.
+    - `category_specs/modules/__init__.py`: added `TypeAlias` to imports; changed
+      `ModulesObject: TypeAlias = _RModObjects` and
+      `ModulesElement: TypeAlias = _RModElements`.
+    - `category_specs/algebras/__init__.py`: imported `_AlgebraHomomorphisms` from
+      `.homsets`; annotated `AlgebrasObject`, `AlgebrasElement`,
+      `AlgebrasMorphism`, `MagmaticAlgebrasObject` with `TypeAlias`.
+    - `category_specs/posets/__init__.py`: imported `_OrderPreservingMaps` from
+      `.homsets`; annotated `PosetsObject`, `PosetsElement`, `PosetsMorphism` with
+      `TypeAlias`.
+    - `category_specs/tensor_algebra_components/__init__.py`: annotated
+      `TensorAlgebraComponentsObject` and `TensorAlgebraComponentsElement` with
+      `TypeAlias`.
+    - `category_specs/lattices/__init__.py`: imported `_LatticeMorphisms` from
+      `.homsets`; annotated `LatticesMorphism: TypeAlias = _LatticeMorphisms`.
+    - `category_specs/topological_spaces/__init__.py`: annotated
+      `TopologicalSpacesObject: TypeAlias = _TopologicalSpaceObjectMethods`.
+    - `tests/category_specs/test_spec_core_generated_laws.py`: wrapped
+      `SpecReport`, `SpecCheckResult`, `Spec` imports in a `TYPE_CHECKING` guard
+      to prevent `importlib.import_module(...)` return type (`ModuleType`) from
+      triggering `[valid-type]` at annotation sites.
+  - Focused validation:
+    `just --justfile /home/dzack/ai/quality-control/justfile -d /home/dzack/research _mypy`
+    exited 1 and reported `Found 410 errors in 117 files (checked 285 source files)`.
+  - Error-code audit (2026-05-20):
+    `misc` 295, `attr-defined` 62, `call-arg` 14, `arg-type` 14,
+    `return-value` 13, `operator` 4, `assignment` 4, `no-untyped-def` 2,
+    `no-any-return` 2. No `[valid-type]` findings remain.
+  - Basic-hygiene regression check:
+    `rg -n "\[(untyped-decorator|no-untyped-def|return|redundant-cast)\]" /tmp/research-current-mypy-live.log`
+    returned no matches.
+  - Spec-weakening review: the edits add `TypeAlias` annotations and substitute
+    equivalent class references; no abstract method, constructor collector,
+    category obligation, smoke assertion, method owner, Hom/End/Aut surface,
+    acceptance criterion, or public signature was deleted or weakened.
+  - Commit `a5e1ecbe` on `main`.
+
 ## Review Log
 
 ### Review 2026-05-15 (fresh-context review subagent)
