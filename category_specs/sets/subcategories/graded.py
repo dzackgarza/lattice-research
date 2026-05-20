@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeVar, cast, final, overload, override
+from typing import TYPE_CHECKING, TypeVar, cast, final, override
 
 from sage.categories.sets_with_grading import SetsWithGrading as SageSetsWithGrading
 from sage.misc.abstract_method import abstract_method

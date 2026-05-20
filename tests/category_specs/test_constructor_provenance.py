@@ -11,8 +11,10 @@ import importlib
 importlib.import_module("sage.all")
 importlib.import_module("category_specs")
 
-from category_specs.cat import Cat
+from sage.all import QQ, ZZ
+
 from category_specs.algebras import Algebras
+from category_specs.cat import Cat
 from category_specs.lattices import Lattices
 from category_specs.modules import Modules
 from category_specs.posets import Posets
@@ -21,8 +23,6 @@ from category_specs.sets import Sets
 from category_specs.spec_core import ConstructorRegistry
 from category_specs.tensor_algebra_components import TensorAlgebraComponents
 from category_specs.topological_spaces import TopologicalSpaces
-from sage.all import QQ, ZZ
-
 
 _CONSTRUCTOR_METADATA_NAMES = frozenset(
     {"base_ring", "category", "names", "provenance"}

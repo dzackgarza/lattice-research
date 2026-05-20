@@ -23,7 +23,6 @@ if TYPE_CHECKING:
         Field,
         LocalRing,
         RingElement,
-        RingMorphism,
     )
 
 

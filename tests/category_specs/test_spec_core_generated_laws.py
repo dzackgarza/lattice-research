@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
+import importlib
 from collections.abc import Callable
 from math import prod
 from typing import TYPE_CHECKING, cast
-
-import importlib
 
 import pytest
 

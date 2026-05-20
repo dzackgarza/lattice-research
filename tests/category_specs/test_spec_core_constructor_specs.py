@@ -11,7 +11,6 @@ import pytest
 
 from category_specs.spec_core import ConstructorRegistry, ConstructorSpec
 
-
 _RING_ZZ = ConstructorSpec(
     id="rings-zz",
     owner_category="Rings()",

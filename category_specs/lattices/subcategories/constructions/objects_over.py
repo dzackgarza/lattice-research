@@ -3,7 +3,7 @@ r"""Slice construction category of lattices over a fixed lattice."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, final
 
 from ....cat import Category_over_base, RegressiveCovariantConstructionCategory
 from ....cat.subcategories.constructions.objects_over import (

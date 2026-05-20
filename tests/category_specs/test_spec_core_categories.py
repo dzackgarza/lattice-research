@@ -10,7 +10,6 @@ importlib.import_module("sage.all")
 
 from category_specs.spec_core import CategorySpec, CategorySpecRegistry
 
-
 _SETS_BASE_OBLIGATION = "sets.category"
 _SETS_COUNTABLE_OBLIGATION = "sets.countable"
 _SETS_CARTESIAN_PRODUCT_OBLIGATION = "sets.cartesian_product.cardinality"
