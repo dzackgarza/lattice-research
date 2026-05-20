@@ -12,7 +12,7 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Start Here
 
-- Active phase: category-spec and semantic-vocabulary.
+- Active phase: QC/mypy cleanup (gated on plugin PR merge by human).
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
@@ -89,8 +89,14 @@ authorities for status, evidence, dependencies, and completed work.
   updated. `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`,
   `PHASE-HOM-END-AUT-WORK-QUEUE`, `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`, and
   `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` closed (all tasks complete, commit `2fbda470`).
-  DAG now has only `TASK-MYPY-PARSER` (human-gated) as the next leaf; all other work is
-  blocked by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` completing.
+  `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES` closed 2026-05-20 (all 8 plans complete,
+  all 6 exit criteria verified and checked, commit `dccd451b`).
+  `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP` closed (all 5 phases complete).
+  `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` advanced from `needs-agent-review` to
+  `needs-human-input` (phase 9 correctness proof in SPEC.md complete, HANDOFF.md updated
+  to include phase 9, plugin HEAD now `af5c9be`, commit `60bbf10f`).
+  DAG has only `TASK-MYPY-PARSER` (human-gated) as the next leaf; all other work is
+  blocked by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` being merged to main.
 - Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.
