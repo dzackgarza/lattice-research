@@ -6,7 +6,7 @@ parents:
 - '[[FEATURE-QC-WARNINGS-ZERO]]'
 dependsOn: []
 title: QC mypy foundation dependency order
-status: needs-agent-review
+status: in-progress
 priority: critical
 description: 'Encode the mypy cleanup queue as a dependency-ordered plan: basic typing
   hygiene first, dynamic-inheritance plugin review second, stub generation third, and
@@ -121,6 +121,15 @@ ordinary type defects after the prior frontiers have removed their noise.
   `PHASE-QC-BASIC-TYPING-HYGIENE` has review-ready children; the review kernel
   requires scoped fresh-context subagent review, which is agent-executable under
   the approved repo workflow. Later phases remain unstarted and DAG-gated.
+- 2026-05-20: `PHASE-QC-BASIC-TYPING-HYGIENE` advanced to `complete`. QC
+  frontier moved from 1152 → 407 errors. Zero `[valid-type]`, `[untyped-decorator]`,
+  `[redundant-cast]`, `[return]`, or `[no-untyped-def]` findings remain. Remaining
+  407 errors are all plugin/dynamic-inheritance shaped (295 `[misc]` from `@override`
+  without base method, 62 `[attr-defined]`, 14 `[call-arg]`, 14 `[arg-type]`, 13
+  `[return-value]`, 4 `[operator]`, 3 `[assignment]`, 2 `[no-any-return]`). Plan
+  advanced to `in-progress`; `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` remains
+  `unstarted` pending `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` completion (PR
+  `rewrite/invariant-core → main` open, all tests passing).
 
 ## Dependencies And Boundaries
 

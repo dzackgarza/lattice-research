@@ -126,15 +126,19 @@ Sage's source tree. It imports Sage as a dependency.
 
 ## Current Status
 
-Needs agent review. On 2026-05-18 the plugin branch is the invariant-core rewrite:
-resolver/oracle/manifest projection replaces the obsolete `introspection.py`
-parser surface, manifest source-module coverage is validated, and
-`/home/dzack/sage-mypy-plugin` commit `bd656d2` passes `just test -q` with
-`73 passed`. Human/independent review is still required before this feature can
-be accepted.
+All phases 0–9 of the invariant-core rewrite are complete. Plugin HEAD is `8b127fa`
+on branch `rewrite/invariant-core` (PR `rewrite/invariant-core → main` open in
+`~/sage-mypy-plugin/`). `just test -q` passes with 187 tests across 7 suites:
+structural MRO proof, manifest validation, plugin projection, resolver CLI, stubs,
+behavior matrix, and automation contract. All Phase 7 cache lifecycle acceptance tests
+(E1–E6: fresh/cached/stale-source/negative injection/renamed/corrupt-recovery) pass.
+All Gemini HIGH/MEDIUM review comments addressed.
+
+The feature is awaiting the PR merge (human gate via `TASK-MYPY-PARSER`). Once the
+PR merges to `main`, `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` in
+`PLAN-QC-MYPY-FOUNDATION-ORDER` becomes selectable.
 
 Repo-side QC work must still follow `PLAN-QC-MYPY-FOUNDATION-ORDER`: complete
-basic typing hygiene first, then apply/review this dynamic-inheritance lane in
-the research repo, then stub generation, then downstream type cleanup. That
-repo-local ordering does not block this standalone plugin feature from being
-specified, reviewed, or implemented.
+basic typing hygiene first (now done: 407 errors, all plugin-shaped), then apply/
+review this dynamic-inheritance lane, then stub generation, then downstream type
+cleanup. That repo-local ordering does not block this standalone plugin feature.

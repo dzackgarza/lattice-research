@@ -279,9 +279,9 @@ graph LR
     PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS["PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS [complete]"]
     class PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS internal-link
     class PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS status_complete
-    PLAN_QC_MYPY_FOUNDATION_ORDER["PLAN-QC-MYPY-FOUNDATION-ORDER [needs-agent-review]"]
+    PLAN_QC_MYPY_FOUNDATION_ORDER["PLAN-QC-MYPY-FOUNDATION-ORDER [in-progress]"]
     class PLAN_QC_MYPY_FOUNDATION_ORDER internal-link
-    class PLAN_QC_MYPY_FOUNDATION_ORDER status_needs_agent_review
+    class PLAN_QC_MYPY_FOUNDATION_ORDER status_in_progress
     PLAN_MYPY_PLUGIN_IMPLEMENTATION["PLAN-MYPY-PLUGIN-IMPLEMENTATION [needs-agent-review]"]
     class PLAN_MYPY_PLUGIN_IMPLEMENTATION internal-link
     class PLAN_MYPY_PLUGIN_IMPLEMENTATION status_needs_agent_review
@@ -765,9 +765,9 @@ graph LR
     TASK_MYPY_TEST_MYPY_INTEGRATION["TASK-MYPY-TEST-MYPY-INTEGRATION [needs-agent-review]"]
     class TASK_MYPY_TEST_MYPY_INTEGRATION internal-link
     class TASK_MYPY_TEST_MYPY_INTEGRATION status_needs_agent_review
-    TASK_MYPY_HOOK_CALLBACK["TASK-MYPY-HOOK-CALLBACK [revision-required]"]
+    TASK_MYPY_HOOK_CALLBACK["TASK-MYPY-HOOK-CALLBACK [needs-agent-review]"]
     class TASK_MYPY_HOOK_CALLBACK internal-link
-    class TASK_MYPY_HOOK_CALLBACK status_revision_required
+    class TASK_MYPY_HOOK_CALLBACK status_needs_agent_review
     TASK_MYPY_DEPS_DIAGNOSTICS["TASK-MYPY-DEPS-DIAGNOSTICS [needs-agent-review]"]
     class TASK_MYPY_DEPS_DIAGNOSTICS internal-link
     class TASK_MYPY_DEPS_DIAGNOSTICS status_needs_agent_review
@@ -1352,7 +1352,6 @@ graph LR
   classDef status_in_progress fill:#d7f3ff,stroke:#0284c7,color:#0f172a
   classDef status_needs_agent_review fill:#fff1c2,stroke:#d97706,color:#7c2d12
   classDef status_needs_human_input fill:#ede9fe,stroke:#8b5cf6,color:#312e81
-  classDef status_revision_required fill:#fff7ed,stroke:#f59e0b,color:#7c2d12
   classDef status_unstarted fill:#eef2f7,stroke:#64748b,color:#334155
 ```
 
@@ -1637,9 +1636,9 @@ graph LR
     PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS["PLAN-CURVE-COMPLEMENT-MONODROMY-BACKENDS [complete]"]
     class PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS internal-link
     class PLAN_CURVE_COMPLEMENT_MONODROMY_BACKENDS status_complete
-    PLAN_QC_MYPY_FOUNDATION_ORDER["PLAN-QC-MYPY-FOUNDATION-ORDER [needs-agent-review]"]
+    PLAN_QC_MYPY_FOUNDATION_ORDER["PLAN-QC-MYPY-FOUNDATION-ORDER [in-progress]"]
     class PLAN_QC_MYPY_FOUNDATION_ORDER internal-link
-    class PLAN_QC_MYPY_FOUNDATION_ORDER status_needs_agent_review
+    class PLAN_QC_MYPY_FOUNDATION_ORDER status_in_progress
     PLAN_MYPY_PLUGIN_IMPLEMENTATION["PLAN-MYPY-PLUGIN-IMPLEMENTATION [needs-agent-review]"]
     class PLAN_MYPY_PLUGIN_IMPLEMENTATION internal-link
     class PLAN_MYPY_PLUGIN_IMPLEMENTATION status_needs_agent_review
@@ -2123,9 +2122,9 @@ graph LR
     TASK_MYPY_TEST_MYPY_INTEGRATION["TASK-MYPY-TEST-MYPY-INTEGRATION [needs-agent-review]"]
     class TASK_MYPY_TEST_MYPY_INTEGRATION internal-link
     class TASK_MYPY_TEST_MYPY_INTEGRATION status_needs_agent_review
-    TASK_MYPY_HOOK_CALLBACK["TASK-MYPY-HOOK-CALLBACK [revision-required]"]
+    TASK_MYPY_HOOK_CALLBACK["TASK-MYPY-HOOK-CALLBACK [needs-agent-review]"]
     class TASK_MYPY_HOOK_CALLBACK internal-link
-    class TASK_MYPY_HOOK_CALLBACK status_revision_required
+    class TASK_MYPY_HOOK_CALLBACK status_needs_agent_review
     TASK_MYPY_DEPS_DIAGNOSTICS["TASK-MYPY-DEPS-DIAGNOSTICS [needs-agent-review]"]
     class TASK_MYPY_DEPS_DIAGNOSTICS internal-link
     class TASK_MYPY_DEPS_DIAGNOSTICS status_needs_agent_review
@@ -2639,6 +2638,5 @@ graph LR
   classDef status_in_progress fill:#d7f3ff,stroke:#0284c7,color:#0f172a
   classDef status_needs_agent_review fill:#fff1c2,stroke:#d97706,color:#7c2d12
   classDef status_needs_human_input fill:#ede9fe,stroke:#8b5cf6,color:#312e81
-  classDef status_revision_required fill:#fff7ed,stroke:#f59e0b,color:#7c2d12
   classDef status_unstarted fill:#eef2f7,stroke:#64748b,color:#334155
 ```

@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-PLUGIN-CLASS]]'
 title: Implement MRO hook callback for base injection
-status: revision-required
+status: needs-agent-review
 priority: high
 description: 'Implement sage_method_container_mro_hook: calls method_container_direct_bases,
   resolves each to a mypy TypeInfo, injects into the class MRO. Handles deferral when TypeInfo
@@ -66,8 +66,23 @@ Pseudo-procedure from the technical addendum:
 - Reopened 2026-05-10 after confirming that the current callback path is not
   actually reached for repo-local `category_specs.*` containers because the
   plugin's prefix gate filters them out first.
+- Resolved 2026-05-20 by invariant-core rewrite (plugin HEAD `8b127fa`):
+  `get_customize_class_mro_hook` now performs a pure manifest dictionary
+  lookup (`fullname in self._projection_by_provider`) with no prefix filtering.
+  Any class whose fullname appears in the pre-computed manifest projection table
+  receives the hook — namespace-agnostic by construction. Third-party subtrees
+  (`tests.fixtures.invariant_core.category_specs_like.rings.*`) are exercised in
+  `test_plugin_projection.py`. The "deferral" criterion from the original
+  pseudo-procedure was updated to "diagnostic error" under the invariant-core
+  contract (I4: no silent fallback); missing TypeInfos produce `ctx.api.fail()`
+  diagnostics rather than `ctx.api.defer()`. This is correct behavior since
+  manifest projections are pre-computed — a missing TypeInfo is a stale projection
+  error, not a temporary ordering issue.
 
 ## Current Status
 
-Revision required. Base injection logic exists, but the clarified external-subtree
-contract is not satisfied until valid non-Sage namespaces can reach the callback.
+Needs agent review. The namespace-agnostic admission revision requirement is
+addressed by the invariant-core rewrite (manifest-lookup-based hook dispatch,
+no prefix gate). All six acceptance criteria are met under the updated
+design (deferral → diagnostic error per I4). Plugin HEAD `8b127fa` on branch
+`rewrite/invariant-core` (PR open), 187 tests passing.

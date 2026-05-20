@@ -15,9 +15,9 @@
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 7 | 4 | 1 | 0 | 0 |
 | phase | 28 | 20 | 2 | 3 | 0 | 0 |
-| plan | 13 | 8 | 3 | 2 | 0 | 0 |
+| plan | 13 | 8 | 4 | 1 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 145 | 0 | 10 | 11 | 0 |
+| task | 176 | 145 | 0 | 11 | 11 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -44,7 +44,7 @@
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[###############-]  96.4%` | 53/55 | 2 | 0 | 0 | 0 |
 | Category specs and Sage surface admission | `[##############--]  90.4%` | 150/166 | 5 | 0 | 10 | 0 |
-| Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 1 | 1 | 0 | 0 |
+| Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble Coxeter parabolic classification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -52,7 +52,7 @@
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 16 | 1 | 0 |
+| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 17 | 1 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 
@@ -62,7 +62,7 @@
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (`critical`, `in-progress`)
 - `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (`critical`, `in-progress`)
-- `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `needs-agent-review`)
+- `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
 - `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (`high`, `needs-agent-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
@@ -93,6 +93,7 @@
 
 ## Most Recently Completed
 
+- 2026-05-20 `phase` `PHASE-QC-BASIC-TYPING-HYGIENE`: Basic mypy typing hygiene (commit `63c7c7e`: chore: advance PHASE-QC-BASIC-TYPING-HYGIENE to complete)
 - 2026-05-20 `task` `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY`: Fix basic mypy missing-type hygiene (commit `f901b32`: chore: reclassify three basic-hygiene QC tasks from needs-human-input to complete)
 - 2026-05-20 `task` `TASK-QC-GROUND-CATEGORY-SPEC-CALLABLE-TYPES`: Ground category-spec callable constructor types (commit `f901b32`: chore: reclassify three basic-hygiene QC tasks from needs-human-input to complete)
 - 2026-05-20 `task` `TASK-QC-RATIONAL-FIELD-PARENT-SURFACE-TYPING`: Ground rational-field parent-method typing (commit `f901b32`: chore: reclassify three basic-hygiene QC tasks from needs-human-input to complete)
@@ -107,7 +108,6 @@
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-GAP-AUDIT`: Audit method inventory gaps and create owner decisions (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-HOM-FORMS-LATTICES`: Write Hom End Aut forms and lattice method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
 - 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-POSETS-TENSORS-GEOMETRY`: Write poset tensor and geometry-facing method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
-- 2026-05-18 `task` `TASK-CATEGORY-METHOD-INVENTORY-SETS-TOPOLOGY`: Write set topology and metric method ownership rows (commit `2b8a3e9`: feat: add free module witness reports)
 
 ## Notes
 
