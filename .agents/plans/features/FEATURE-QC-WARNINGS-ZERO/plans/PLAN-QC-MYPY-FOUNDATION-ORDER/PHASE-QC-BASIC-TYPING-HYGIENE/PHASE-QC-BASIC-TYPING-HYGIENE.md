@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-QC-MYPY-FOUNDATION-ORDER]]'
 dependsOn: []
 title: Basic mypy typing hygiene
-status: revision-required
+status: complete
 priority: critical
 description: 'First mypy frontier for missing annotations, Any leakage, untyped fixtures,
   and ordinary local typing hygiene. Downstream plugin, stub, and type-cleanup phases are
