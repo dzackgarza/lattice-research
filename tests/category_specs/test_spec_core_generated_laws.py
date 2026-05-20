@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from math import prod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 import importlib
 
@@ -104,15 +104,16 @@ def _law_countable_product_enumeration_is_missing(report: SpecReport) -> None:
 
 _GENERATED_LAWS: tuple[
     tuple[str, Callable[[], SpecReport], tuple[Callable[[SpecReport], None], ...]],
+    ...
 ] = (
     (
         "gf5_rank3_cardinality_matches_factor_product",
-        witnesses.gf5_rank3_report,
+        cast(Callable[[], SpecReport], witnesses.gf5_rank3_report),
         (_law_finite_product_cardinality_factors,),
     ),
     (
         "zz2_missing_countable_product_enumeration",
-        witnesses.zz_rank2_report,
+        cast(Callable[[], SpecReport], witnesses.zz_rank2_report),
         (_law_countable_product_enumeration_is_missing,),
     ),
 )
