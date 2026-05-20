@@ -18,12 +18,12 @@ if TYPE_CHECKING:
 _MethodT = TypeVar("_MethodT", bound=Callable[..., object])
 
 
-def _optional_abstractmethod(method: _MethodT) -> _MethodT:
+def _optional_abstractmethod[_MethodT: Callable[..., object]](method: _MethodT) -> _MethodT:  # noqa: E501
     return cast(_MethodT, abstract_method(optional=True)(method))
 
 
-from .. import Sets
-from ..homsets import SetHomCategory
+from .. import Sets  # noqa: E402
+from ..homsets import SetHomCategory  # noqa: E402
 
 
 class GradedSetsCategory(CategoryWithAxiom):

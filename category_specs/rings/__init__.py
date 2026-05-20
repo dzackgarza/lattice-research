@@ -725,7 +725,9 @@ class Rings(Category_singleton):
         def CIF(self) -> Ring:
             from sage.all import CIF
 
-            return cast("Ring", refine_category(CIF, [Rings(), _ComplexIntervalFields()]))
+            return cast(
+                "Ring", refine_category(CIF, [Rings(), _ComplexIntervalFields()])
+            )
 
         @final
         def RealField(
@@ -754,7 +756,8 @@ class Rings(Category_singleton):
             from sage.all import RealBallField
 
             return cast(
-                "Ring", refine_category(RealBallField(prec), [Rings(), _RealBallFields()])
+                "Ring",
+                refine_category(RealBallField(prec), [Rings(), _RealBallFields()]),
             )
 
         @final
@@ -763,7 +766,9 @@ class Rings(Category_singleton):
 
             return cast(
                 "Ring",
-                refine_category(ComplexBallField(prec), [Rings(), _ComplexBallFields()]),
+                refine_category(
+                    ComplexBallField(prec), [Rings(), _ComplexBallFields()]
+                ),
             )
 
         @final

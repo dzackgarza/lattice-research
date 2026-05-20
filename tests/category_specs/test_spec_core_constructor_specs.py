@@ -21,7 +21,9 @@ _RING_ZZ = ConstructorSpec(
     target_refinement_route=("Rings()",),
     obligation_ids=("rings.has_zero_element", "rings.has_one_element"),
     provider_ids=("rings.provider.base_ring",),
-    description="Refine Sage ZZ into project ring root with integral-domain owner route.",
+    description=(
+        "Refine Sage ZZ into project ring root with integral-domain owner route."
+    ),
 )
 
 

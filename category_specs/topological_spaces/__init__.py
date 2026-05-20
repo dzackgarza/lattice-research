@@ -31,7 +31,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, NoReturn, TypeAlias, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, NoReturn, TypeVar, cast, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -262,7 +262,7 @@ class TopologicalSpaces(CategoryWithAxiom):
     CartesianProducts = _CartesianProducts
 
 
-from .subcategories.metric import MetricSpacesCategory
+from .subcategories.metric import MetricSpacesCategory  # noqa: E402
 
 MetricSpacesObject = MetricSpacesCategory.ParentMethods
 MetricSpacesElement = MetricSpacesCategory.ElementMethods
@@ -278,7 +278,7 @@ MetricSpacesAutomorphism = MetricSpaceAutCategory.ElementMethods
 
 
 TopologicalSpacesCategory = TopologicalSpaces
-TopologicalSpacesObject: TypeAlias = _TopologicalSpaceObjectMethods
+type TopologicalSpacesObject = _TopologicalSpaceObjectMethods
 TopologicalSpacesElement = TopologicalSpaces.ElementMethods
 TopologicalSpacesMorphism = TopologicalSpaceHomCategory.ElementMethods
 TopologicalSpacesHomCategory = TopologicalSpaceHomCategory

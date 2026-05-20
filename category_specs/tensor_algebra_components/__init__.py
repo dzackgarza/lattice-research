@@ -13,7 +13,6 @@ from typing import (
     TYPE_CHECKING,
     Any,
     Protocol,
-    TypeAlias,
     TypeVar,
     cast,
     final,
@@ -425,8 +424,8 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
 
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
-TensorAlgebraComponentsObject: TypeAlias = _TensorAlgebraComponentParentMethods
-TensorAlgebraComponentsElement: TypeAlias = _TensorElementMethods
+type TensorAlgebraComponentsObject = _TensorAlgebraComponentParentMethods
+type TensorAlgebraComponentsElement = _TensorElementMethods
 TensorAlgebraComponentsMorphism = _RModMorphisms
 TensorAlgebraComponentsHomCategory = RModuleHomCategory
 TensorAlgebraComponentsEndCategory = RModuleEndCategory

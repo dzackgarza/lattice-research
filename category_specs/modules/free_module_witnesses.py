@@ -159,7 +159,9 @@ def _build_registry(
     return SpecRegistry(
         obligations=_module_and_product_obligations(),
         providers=_set_product_providers(),
-        witnesses=(_build_cartesian_power_witness(base_label, rank, declared_category),),
+        witnesses=(
+            _build_cartesian_power_witness(base_label, rank, declared_category),
+        ),
     )
 
 

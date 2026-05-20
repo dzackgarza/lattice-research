@@ -25,7 +25,6 @@ from collections.abc import Callable, Iterable, Sequence
 from typing import (
     TYPE_CHECKING,
     Any,
-    TypeAlias,
     cast,
     final,
     overload,
@@ -796,9 +795,9 @@ class Posets(Category):
 
 
 PosetsCategory = Posets
-PosetsObject: TypeAlias = _PosetParentMethods
-PosetsElement: TypeAlias = _PosetElementMethods
-PosetsMorphism: TypeAlias = _OrderPreservingMaps
+type PosetsObject = _PosetParentMethods
+type PosetsElement = _PosetElementMethods
+type PosetsMorphism = _OrderPreservingMaps
 PosetsHomCategory = PosetHomCategory
 PosetsEndCategory = PosetEndCategory
 PosetsAutCategory = PosetAutCategory

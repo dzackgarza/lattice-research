@@ -182,7 +182,7 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
     )
 
 
-def refine_category(
+def refine_category[_ParentT: Parent](
     X: _ParentT,
     C: Category | Sequence[Category],
     test: bool = True,

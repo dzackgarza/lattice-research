@@ -47,7 +47,8 @@ def test_gf5_rank3_report_uses_cartesian_power_cardinality_provider() -> None:
     assert report.missing_obligations == ()
 
 
-def test_zz_rank2_report_records_countability_and_missing_enumeration_provider() -> None:
+def test_zz_rank2_report_records_countability_and_missing_enumeration_provider(  # noqa: E501
+) -> None:
     report = witnesses.zz_rank2_report()
     values = _computed_values(report)
     sources = _computed_sources(report)

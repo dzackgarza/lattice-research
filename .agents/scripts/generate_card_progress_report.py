@@ -321,7 +321,9 @@ def feature_rollups(
         done = sum(1 for item in relevant if is_complete(item, completed_statuses))
         blocked = sum(1 for item in relevant if item.status == "blocked")
         in_progress = sum(1 for item in relevant if item.status == "in-progress")
-        needs_agent_review = sum(1 for item in relevant if item.status == "needs-agent-review")
+        needs_agent_review = sum(
+            1 for item in relevant if item.status == "needs-agent-review"
+        )
         needs_human_input = sum(
             1 for item in relevant if item.status == "needs-human-input"
         )

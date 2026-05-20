@@ -11,18 +11,20 @@ import importlib
 importlib.import_module("sage.all")
 importlib.import_module("category_specs")
 
-from sage.all import QQ, ZZ
+from sage.all import QQ, ZZ  # noqa: E402
 
-from category_specs.algebras import Algebras
-from category_specs.cat import Cat
-from category_specs.lattices import Lattices
-from category_specs.modules import Modules
-from category_specs.posets import Posets
-from category_specs.rings import Rings
-from category_specs.sets import Sets
-from category_specs.spec_core import ConstructorRegistry
-from category_specs.tensor_algebra_components import TensorAlgebraComponents
-from category_specs.topological_spaces import TopologicalSpaces
+from category_specs.algebras import Algebras  # noqa: E402
+from category_specs.cat import Cat  # noqa: E402
+from category_specs.lattices import Lattices  # noqa: E402
+from category_specs.modules import Modules  # noqa: E402
+from category_specs.posets import Posets  # noqa: E402
+from category_specs.rings import Rings  # noqa: E402
+from category_specs.sets import Sets  # noqa: E402
+from category_specs.spec_core import ConstructorRegistry  # noqa: E402
+from category_specs.tensor_algebra_components import (  # noqa: E402
+    TensorAlgebraComponents,
+)
+from category_specs.topological_spaces import TopologicalSpaces  # noqa: E402
 
 _CONSTRUCTOR_METADATA_NAMES = frozenset(
     {"base_ring", "category", "names", "provenance"}
@@ -85,7 +87,9 @@ def test_cat_constructor_forwarders_expose_rings_owner_route() -> None:
     )
 
     # At least all registered ring constructors are discoverable through Cat.
-    assert all(f"rings_{name}" in cat_rings_methods for name in ring_constructor_methods)
+    assert all(
+        f"rings_{name}" in cat_rings_methods for name in ring_constructor_methods
+    )
     assert "rings_provenance" not in cat_rings_methods
 
 

@@ -8,7 +8,7 @@ import pytest
 
 importlib.import_module("sage.all")
 
-from category_specs.spec_core import CategorySpec, CategorySpecRegistry
+from category_specs.spec_core import CategorySpec, CategorySpecRegistry  # noqa: E402
 
 _SETS_BASE_OBLIGATION = "sets.category"
 _SETS_COUNTABLE_OBLIGATION = "sets.countable"

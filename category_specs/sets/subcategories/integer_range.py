@@ -111,6 +111,8 @@ class _IntegerRangeSets(Category_singleton):
         @override
         @final
         def _an_element_(self) -> SetElement:
-            return cast("SetElement", SageEnumeratedSets.ParentMethods._an_element_(self))
+            return cast(
+                "SetElement", SageEnumeratedSets.ParentMethods._an_element_(self)
+            )
 
     class ElementMethods: ...

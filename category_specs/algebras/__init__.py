@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Sequence
-from typing import TYPE_CHECKING, Any, TypeAlias, TypeVar, cast, final, override
+from typing import TYPE_CHECKING, Any, TypeVar, cast, final, override
 
 from sage.categories.algebras import Algebras as SageAlgebras
 from sage.categories.associative_algebras import (
@@ -710,9 +710,9 @@ class Algebras(Category_module):
 
 
 AlgebrasCategory = Algebras
-AlgebrasObject: TypeAlias = _AlgebraParentMethods
-AlgebrasElement: TypeAlias = _AlgebraElementMethods
-AlgebrasMorphism: TypeAlias = _AlgebraHomomorphisms
+type AlgebrasObject = _AlgebraParentMethods
+type AlgebrasElement = _AlgebraElementMethods
+type AlgebrasMorphism = _AlgebraHomomorphisms
 AlgebrasHomCategory = AlgebraHomCategory
 AlgebrasEndCategory = AlgebraEndCategory
 AlgebrasAutCategory = AlgebraAutCategory
@@ -723,7 +723,7 @@ AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
 AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 
 MagmaticAlgebrasCategory = MagmaticAlgebras
-MagmaticAlgebrasObject: TypeAlias = _MagmaticAlgebraParentMethods
+type MagmaticAlgebrasObject = _MagmaticAlgebraParentMethods
 MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
 MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AssociativeAlgebrasCategory = AssociativeAlgebras

@@ -36,7 +36,7 @@ Subcategory hierarchy::
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, TypeAlias, TypeVar, cast, final
+from typing import TYPE_CHECKING, TypeVar, cast, final
 
 from sage.categories.category import Category
 from sage.misc.cachefunc import cached_method
@@ -260,9 +260,9 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
     return lattice_category(base_ring)
 
 
-LatticesObject: TypeAlias = LatticesCategory.ParentMethods
-LatticesElement: TypeAlias = LatticesCategory.ElementMethods
-LatticesMorphism: TypeAlias = _LatticeMorphisms
+type LatticesObject = LatticesCategory.ParentMethods
+type LatticesElement = LatticesCategory.ElementMethods
+type LatticesMorphism = _LatticeMorphisms
 LatticesHomCategory = LatticeHomCategory
 LatticesEndCategory = LatticeEndCategory
 LatticesAutCategory = LatticeAutCategory

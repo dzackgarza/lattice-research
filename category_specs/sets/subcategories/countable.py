@@ -145,7 +145,8 @@ class _FiniteCountableSets(CategoryWithAxiom):
         @final
         def random_element(self) -> SetElement:
             return cast(
-                "SetElement", SageFiniteEnumeratedSets.ParentMethods.random_element(self)
+                "SetElement",
+                SageFiniteEnumeratedSets.ParentMethods.random_element(self),
             )
 
     class ElementMethods: ...

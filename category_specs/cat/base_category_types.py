@@ -53,7 +53,7 @@ from sage.categories.covariant_functorial_construction import (
     FunctorialConstructionCategory as SageFunctorialConstructionCategory,
 )
 from sage.categories.covariant_functorial_construction import (
-    RegressiveCovariantConstructionCategory as SageRegressiveCovariantConstructionCategory,
+    RegressiveCovariantConstructionCategory as SageRegressiveCovariantConstructionCategory,  # noqa: E501
 )
 from sage.categories.dual import DualObjectsCategory as SageDualObjectsCategory
 from sage.categories.filtered_modules import (

@@ -341,9 +341,10 @@ class Cat(SageCategorySingleton):
 register_cat_constructor_class(Cat.Constructors, Cat())
 
 
-from .autsets import CatAutCategory, _CatAutofunctorMethods
-from .endsets import CatEndCategory, _CatEndofunctorMethods
-from .homsets import CatHomCategory, _CatFunctorMethods, _CatHomCategoryObjectMethods
+from .autsets import CatAutCategory, _CatAutofunctorMethods  # noqa: E402
+from .endsets import CatEndCategory, _CatEndofunctorMethods  # noqa: E402
+from .homsets import CatHomCategory as CatHomCategory  # noqa: E402
+from .homsets import _CatFunctorMethods, _CatHomCategoryObjectMethods  # noqa: E402
 
 CatCategory = Cat
 CatObject = _CatObjectMethods
