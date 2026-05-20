@@ -170,7 +170,7 @@ class _RModMorphisms(UniversalHomElementMethods):
         im(h) is saturated.
         """
         return cast(
-            Self,
+            "Self",
             self.image().saturation().inclusion().pre_compose(self),
         )
 

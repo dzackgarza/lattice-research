@@ -64,7 +64,7 @@ class _FiniteJoinSemilatticePosets(CategoryWithAxiom):
 
             raw = SageJoinSemilattice(self.subposet(closure))
             return cast(
-                FiniteJoinSemilatticePoset,
+                "FiniteJoinSemilatticePoset",
                 refine_category(raw, [Posets().JoinSemilattice().Finite()]),
             )
 

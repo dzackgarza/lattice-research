@@ -69,7 +69,7 @@ class _FiniteMeetSemilatticePosets(CategoryWithAxiom):
 
             raw = SageMeetSemilattice(self.subposet(closure))
             return cast(
-                FiniteMeetSemilatticePoset,
+                "FiniteMeetSemilatticePoset",
                 refine_category(raw, [Posets().MeetSemilattice().Finite()]),
             )
 

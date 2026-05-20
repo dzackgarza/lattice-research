@@ -129,7 +129,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
                 sage: Lattice.A(2).determinant()   # not tested
                 3
             """
-            return cast(RingElement, self.gram_matrix().determinant())
+            return cast("RingElement",self.gram_matrix().determinant())
 
         @final
         def discriminant(self) -> RingElement:
@@ -140,7 +140,7 @@ class FreeBilinearModulesCategory(CategoryWithAxiom_over_base_ring):
             ``FreeQuadraticModule_generic.discriminant()``.
             """
             r = self.rank()
-            return cast(RingElement, (-1) ** r * self.determinant())
+            return cast("RingElement",(-1) ** r * self.determinant())
 
         @abstractmethod
         def direct_sum(self, other: RModule) -> RModule:
