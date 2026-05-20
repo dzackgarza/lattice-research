@@ -82,7 +82,10 @@ authorities for status, evidence, dependencies, and completed work.
   `@override` without base method — requires the Sage category MRO plugin to inject
   inheritance. All remaining groups are dynamic-inheritance, Hom/End/Aut, or
   plugin-shaped; they are gated on the plugin review completing and entering the
-  downstream cleanup phases.
+  downstream cleanup phases. Ruff gate cleared 2026-05-20 (commit `624c5fab`): 114
+  ruff normalization errors resolved across 23 files (UP040/UP047 TypeAlias→type
+  keyword, F401 re-export aliases, E402 noqa for post-sage-init imports, E501 line
+  wrapping). Ruff now passes: 0 errors.
 - Tracker debt cleared 2026-05-20: 10 hom-audit `needs-human-input` cards reclassified
   to `complete` (commit `c6a5ef00`). `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION`
   completed with source evidence (no public `FinitePoset.automorphism_group()`; private
