@@ -67,7 +67,7 @@ class _NumberFields(CategoryWithAxiom):
         @_cached_method
         @final
         def QuadraticNumberField(self) -> Category:
-            return with_axiom(self, "QuadraticNumberField")
+            return cast(Category, with_axiom(self, "QuadraticNumberField"))
 
         @_cached_method
         @final
@@ -77,7 +77,7 @@ class _NumberFields(CategoryWithAxiom):
         @_cached_method
         @final
         def Cyclotomic(self) -> Category:
-            return with_axiom(self, "Cyclotomic")
+            return cast(Category, with_axiom(self, "Cyclotomic"))
 
     class ParentMethods:
         @override
