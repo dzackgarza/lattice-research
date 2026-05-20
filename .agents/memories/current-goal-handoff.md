@@ -63,15 +63,22 @@ authorities for status, evidence, dependencies, and completed work.
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
   files. Additional hygiene fixes 2026-05-20: `[no-untyped-def]` in
   `test_free_module_witnesses.py` (commit `6e1ba481`), `[assignment]` in
-  `test_spec_core_generated_laws.py` (commit `838db94b`). QC frontier:
-  `Found 407 errors in 115 files` (down from 1152 on 2026-05-15).
-  Error breakdown: `misc` 295, `attr-defined` 62, `call-arg` 14, `arg-type` 14,
-  `return-value` 13, `operator` 4, `assignment` 3, `no-any-return` 2. No
-  `[valid-type]`, `[untyped-decorator]`, `[redundant-cast]`, `[return]`, or
-  `[no-untyped-def]` findings remain. The 295 `[misc]` are `@override` without base
-  method — requires the Sage category MRO plugin to inject inheritance. All remaining
-  groups are dynamic-inheritance, Hom/End/Aut, or plugin-shaped; they are gated on
-  the plugin review completing and entering the downstream cleanup phases.
+  `test_spec_core_generated_laws.py` (commit `838db94b`). Additional fixes 2026-05-20:
+  `provenance()` return type annotations in 9 `_Constructors` classes
+  (commit `3fbc96eb`, 3 `[attr-defined]` cleared); `cast(Category, with_axiom(...))` in
+  `number_field.py` (commit `85aa2110`, 2 `[no-any-return]` cleared); proper
+  Universal* base class inheritance in `lattices/homsets.py` for
+  `_LatticeHomCategoryObjectMethods`, `_LatticeEndomorphisms`, `_LatticeAutomorphisms`
+  (commit `03dc3d05`, 3 `[assignment]` cleared). QC frontier:
+  `Found 399 errors in 115 files` (down from 1152 on 2026-05-15, down from 407 at
+  session start). Error breakdown: `misc` 295, `attr-defined` 59, `call-arg` 14,
+  `arg-type` 14, `return-value` 13, `operator` 4. No `[valid-type]`,
+  `[untyped-decorator]`, `[redundant-cast]`, `[return]`, `[no-untyped-def]`,
+  `[assignment]`, or `[no-any-return]` findings remain. The 295 `[misc]` are
+  `@override` without base method — requires the Sage category MRO plugin to inject
+  inheritance. All remaining groups are dynamic-inheritance, Hom/End/Aut, or
+  plugin-shaped; they are gated on the plugin review completing and entering the
+  downstream cleanup phases.
 - Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.
