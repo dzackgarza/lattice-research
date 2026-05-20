@@ -54,12 +54,14 @@ authorities for status, evidence, dependencies, and completed work.
   small integration edits on `main` with focused commits.
 - `TASK-MYPY-PARSER` has passed fresh-context agent review and is now human-gated.
   The plugin rewrite completed all phases 0–9 (2026-05-19 through 2026-05-20).
-  Current plugin HEAD is `357bca5` on `rewrite/invariant-core` (PR open:
+  Current plugin HEAD is `0a49db1` on `rewrite/invariant-core` (PR open:
   `rewrite/invariant-core → main`). `just test -q`: `187 passed` (7 suites) as of
   2026-05-20. All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM
-  review comments addressed. Codex bot review: "No Issues Found | Recommendation: Merge."
-  Plugin parallel work is no longer active; QC gate is unblocked. Remaining blocker:
-  human merge of `rewrite/invariant-core → main` PR.
+  review comments addressed. Kilo review on `357bca5` flagged dead `params` field (4
+  warnings); reverted in `0a49db1` — field was never populated (zero Sage ParentMethods
+  methods are Self-returning FunctionType with non-trivial params). Awaiting fresh Kilo
+  review on `0a49db1` to confirm clean. Plugin parallel work is no longer active; QC
+  gate is unblocked. Remaining blocker: human merge of `rewrite/invariant-core → main` PR.
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
