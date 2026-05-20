@@ -10,13 +10,13 @@ import importlib
 
 import pytest
 from sage.all import QQ, ZZ
+from sage.categories.ring_ideals import RingIdeals
 
 importlib.import_module("category_specs")
 
 rings = importlib.import_module("category_specs.rings")
-sage_modules = importlib.import_module("category_specs.sage_modules")
+sage_modules = importlib.import_module("category_specs.modules")
 
-RingIdeals = rings.RingIdeals
 Rings = rings.Rings
 Modules = sage_modules.Modules
 
