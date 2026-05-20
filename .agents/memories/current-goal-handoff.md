@@ -54,10 +54,12 @@ authorities for status, evidence, dependencies, and completed work.
   small integration edits on `main` with focused commits.
 - `TASK-MYPY-PARSER` has passed fresh-context agent review and is now human-gated.
   The plugin rewrite completed all phases 0–9 (2026-05-19 through 2026-05-20).
-  Current plugin HEAD is `8b127fa` on `rewrite/invariant-core` (PR open:
-  `rewrite/invariant-core → main`). `just test -q`: `186 passed` (7 suites).
-  All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM review
-  comments addressed. Plugin parallel work is no longer active; QC gate is unblocked.
+  Current plugin HEAD is `e8382ce` on `rewrite/invariant-core` (PR open:
+  `rewrite/invariant-core → main`). `just test -q`: `187 passed` (7 suites) as of
+  2026-05-20. All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM
+  review comments addressed. Codex bot review: "No Issues Found | Recommendation: Merge."
+  Plugin parallel work is no longer active; QC gate is unblocked. Remaining blocker:
+  human merge of `rewrite/invariant-core → main` PR.
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
@@ -79,6 +81,16 @@ authorities for status, evidence, dependencies, and completed work.
   inheritance. All remaining groups are dynamic-inheritance, Hom/End/Aut, or
   plugin-shaped; they are gated on the plugin review completing and entering the
   downstream cleanup phases.
+- Tracker debt cleared 2026-05-20: 10 hom-audit `needs-human-input` cards reclassified
+  to `complete` (commit `c6a5ef00`). `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION`
+  completed with source evidence (no public `FinitePoset.automorphism_group()`; private
+  route via `_hasse_diagram` returns index-based PermutationGroup, not poset-element
+  automorphisms; surface rejected from public API). `SPEC-MAPPING-POSETS` row 388
+  updated. `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`,
+  `PHASE-HOM-END-AUT-WORK-QUEUE`, `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`, and
+  `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION` closed (all tasks complete, commit `2fbda470`).
+  DAG now has only `TASK-MYPY-PARSER` (human-gated) as the next leaf; all other work is
+  blocked by `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN` completing.
 - Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.
