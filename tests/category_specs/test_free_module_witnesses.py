@@ -3,18 +3,22 @@
 from __future__ import annotations
 
 import importlib
+from typing import TYPE_CHECKING
 
 import pytest
+
+if TYPE_CHECKING:
+    from category_specs.spec_core import SpecReport
 
 importlib.import_module("sage.all")
 witnesses = importlib.import_module("category_specs.modules.free_module_witnesses")
 
 
-def _computed_values(report):
+def _computed_values(report: SpecReport) -> dict[str, str]:
     return {value.name: value.value for value in report.computed_values}
 
 
-def _computed_sources(report):
+def _computed_sources(report: SpecReport) -> dict[str, str]:
     return {value.name: value.source for value in report.computed_values}
 
 
