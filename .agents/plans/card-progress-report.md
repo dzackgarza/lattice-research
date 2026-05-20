@@ -13,7 +13,7 @@
 | Type | Total | Completed | In Progress | Needs Agent Review | Needs Human Input | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
-| feature | 20 | 8 | 3 | 1 | 0 | 0 |
+| feature | 20 | 8 | 3 | 0 | 1 | 0 |
 | phase | 28 | 22 | 0 | 3 | 0 | 0 |
 | plan | 13 | 11 | 1 | 1 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
@@ -52,7 +52,7 @@
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 17 | 1 | 0 |
+| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 16 | 2 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 
@@ -60,7 +60,7 @@
 
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
-- `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-agent-review`)
+- `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
 - `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (`high`, `needs-agent-review`)
 - `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
@@ -90,6 +90,8 @@
 
 ## Most Recently Completed
 
+- 2026-05-20 `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (commit `dccd451`: tracker: close FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP)
+- 2026-05-20 `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (commit `dccd451`: tracker: close FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP)
 - 2026-05-20 `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
 - 2026-05-20 `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
 - 2026-05-20 `phase` `PHASE-HOM-END-AUT-WORK-QUEUE`: Hom End Aut work queue (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
@@ -103,8 +105,6 @@
 - 2026-05-20 `task` `TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING`: Source-ground Rings hom section ownership (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Sets hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 - 2026-05-20 `task` `TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit TopologicalSpaces hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-SOURCE-GROUND-POSETS-FINITE-AUTOMORPHISM-GROUP-HOMSET-ENUMERATION`: Source-ground finite poset automorphism group enumeration before AutCategory admission (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-ALIGN-GENERIC-HOMSET-PARENT-OWNERSHIP-WITH-SAGE-RUNTIME`: Rewrite generic homset ownership for project HomCategory mirroring (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
 
 ## Notes
 
