@@ -52,20 +52,15 @@ authorities for status, evidence, dependencies, and completed work.
 - Do not open a PR unless the user explicitly asks. Continue substantial new
   source-truth work on a clean branch if it needs multiple commits; otherwise keep
   small integration edits on `main` with focused commits.
-- `TASK-MYPY-PARSER` has passed fresh-context agent review for the invariant-core
-  manifest source-module coverage pivot and is now human-gated. Continue the Sage
-  mypy-plugin lane only through `just next-tasks`; the next executable leaf should be
-  the next phase-one review card, not the obsolete parser surface.
-- `/home/dzack/sage-mypy-plugin` has committed plugin evidence at `bd656d2`
-  (`just test -q`: `73 passed`) and the plugin worktree is clean. Treat later
-  uncommitted plugin changes as occupied parallel work unless the selected card
-  explicitly owns them.
-- Do not treat broad smoke failures, q-adic constructor gaps, Hom runtime human gates,
-  or mypy-plugin work as blockers for the spec-core slice unless the selected slice
-  task proves a direct dependency.
-- Do not run `just test` as evidence for the slice while parallel mypy-plugin work
-  makes the result non-diagnostic. Use focused checks that answer the selected leaf's
-  question.
+- `TASK-MYPY-PARSER` has passed fresh-context agent review and is now human-gated.
+  The plugin rewrite completed all phases 0–9 (2026-05-19 through 2026-05-20).
+  Current plugin HEAD is `8b127fa` on `rewrite/invariant-core` (PR open:
+  `rewrite/invariant-core → main`). `just test -q`: `186 passed` (7 suites).
+  All Phase 7 E1–E6 cache lifecycle tests pass. All Gemini HIGH/MEDIUM review
+  comments addressed. Plugin parallel work is no longer active; QC gate is unblocked.
+- Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
+  gates as blockers for the spec-core slice unless the selected slice task proves a
+  direct dependency.
 
 ## Human Gates
 

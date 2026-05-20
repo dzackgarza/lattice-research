@@ -85,13 +85,22 @@ the invariant-core pivot.
   parser surface in favor of invariant-core resolver/oracle/manifest projection.
 - Implemented 2026-05-18: plugin commit `bd656d2` validates source-module
   coverage and passes `just test -q` with `73 passed`.
+- Extended 2026-05-19 through 2026-05-20: invariant-core rewrite completed all
+  phases 0–9. Plugin HEAD is now `8b127fa` on branch `rewrite/invariant-core`
+  (PR open: `rewrite/invariant-core → main`). `just test -q` passes with
+  `186 passed` across 7 suites (structural, manifest, plugin_projection,
+  resolver_cli, stubs, behavior, automation). All Phase 7 cache lifecycle
+  acceptance tests (E1–E6: fresh/cached/stale-source/negative/renamed/corrupt-recovery)
+  pass. All Gemini HIGH/MEDIUM review comments addressed.
 
 ## Current Status
 
 Agent review passed for the invariant-core source-module coverage task. Human
 approval is required before marking this task complete. The current validated
-plugin head is `/home/dzack/sage-mypy-plugin` commit `bd656d2`, not the obsolete
-`introspection.py` parser surface.
+plugin head is `/home/dzack/sage-mypy-plugin` commit `8b127fa` (branch
+`rewrite/invariant-core`, PR open), not the obsolete `introspection.py` parser
+surface. The plugin has expanded from 73 to 186 passing tests since the last
+review; all acceptance criteria from the task's success criteria are met.
 
 ## Review Log
 
