@@ -68,6 +68,18 @@ authorities for status, evidence, dependencies, and completed work.
   QC justfile heredoc bug fixed in `dzackgarza/ai` (commit `4cf232c`) — `just test`
   now runs correctly in research repo (confirmed: 401 passthrough mypy errors, 34/52
   category_specs tests pass in full suite; vertical slice 29/29 still passes).
+- Research repo fix 2026-05-21: `_prime_method_cache_before_refinement` added to
+  `category_specs/utils.py` (commit `50769a06`). Root cause: for Cython extension
+  types (ZZ, QQ, etc.), `_refine_category_` updates `_category` without replacing
+  `__class__` or clearing `_cached_methods`. When the incoming categories include
+  category_specs `ParentMethods` stubs (e.g. `_RingObjectMethods.ideal_monoid` at
+  MRO position 20 vs `Rngs.ParentMethods.ideal_monoid` at position 24), the first
+  uncached `__getattr__` lookup after refinement caches the stub (returning None)
+  instead of Sage's real implementation. The fix pre-populates `_cached_methods` from
+  the current (pre-refinement) `_category` for all method names defined in project-
+  owned stubs within the incoming categories, so subsequent lookups hit the primed
+  cache regardless of MRO order. Full suite now 40/52 (up from 34/52); vertical slice
+  29/29; remaining 12 failures are known test_spec_smoke gated on plugin PR merge.
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
