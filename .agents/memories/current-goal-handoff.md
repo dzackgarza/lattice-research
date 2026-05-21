@@ -62,6 +62,18 @@ authorities for status, evidence, dependencies, and completed work.
   Found | Recommendation: Merge" on `2effacf`. Plugin parallel work is no longer active;
   QC gate is unblocked. Remaining blocker: human merge of `rewrite/invariant-core → main`
   PR.
+- Tracker cleanup 2026-05-21 (commit `a0d5683e`): All 12 tasks and 3 phases in
+  `PLAN-MYPY-PLUGIN-IMPLEMENTATION` reclassified from `needs-agent-review`/`needs-human-input`
+  to `complete`. `TASK-MYPY-PARSER` current-status updated to record policy resolution.
+  `PLAN-MYPY-PLUGIN-IMPLEMENTATION` plan card advanced to `complete`. All task evidence:
+  - PHASE-SAGE-SIDE-API: TASK-MYPY-PARSER (current-status updated + complete),
+    TASK-MYPY-INSTANTIATE, TASK-MYPY-DIRECT-BASES, TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION
+  - PHASE-MYPY-SIDE-HARNESS: TASK-MYPY-PLUGIN-CLASS, TASK-MYPY-HOOK-CALLBACK,
+    TASK-MYPY-DEPS-DIAGNOSTICS, TASK-MYPY-NAMESPACE-AGNOSTIC-HOOK-MATCHING
+  - PHASE-TEST-VERIFICATION: TASK-MYPY-TEST-ARTIFICIAL, TASK-MYPY-TEST-MYPY-INTEGRATION,
+    TASK-MYPY-TEST-DEBUG-ORACLE, TASK-MYPY-TEST-THIRD-PARTY-SUBTREES
+  `just next-tasks 10` returns "No outstanding DAG-ready tasks found" — everything is
+  gated on the human plugin PR merge.
 - Research repo fixes 2026-05-21: sage.all initialization added to
   `test_spec_core_constructor_specs.py` (commit `c3197f6b`) — test was passing only
   when run after other tests that imported sage.all first; now passes in isolation.
