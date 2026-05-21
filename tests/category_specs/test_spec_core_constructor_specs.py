@@ -7,9 +7,13 @@ rejection.
 
 from __future__ import annotations
 
+import importlib
+
 import pytest
 
-from category_specs.spec_core import ConstructorRegistry, ConstructorSpec
+importlib.import_module("sage.all")
+
+from category_specs.spec_core import ConstructorRegistry, ConstructorSpec  # noqa: E402
 
 _RING_ZZ = ConstructorSpec(
     id="rings-zz",
