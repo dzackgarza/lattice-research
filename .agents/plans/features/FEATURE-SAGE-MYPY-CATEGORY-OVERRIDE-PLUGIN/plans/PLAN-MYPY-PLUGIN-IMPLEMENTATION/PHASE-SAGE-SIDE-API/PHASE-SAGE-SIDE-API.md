@@ -6,7 +6,7 @@ parents:
 - '[[PLAN-MYPY-PLUGIN-IMPLEMENTATION]]'
 dependsOn: []
 title: Sage invariant-core resolver and manifest API
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Build the resolver/oracle/manifest layer that records Sage runtime named-class
   MROs, validates source-module coverage, and projects provider classes into the mypy plugin.
@@ -96,6 +96,10 @@ MROs from that manifest. No Sage source files are modified.
 
 ## Current Status
 
-Needs agent review against the invariant-core architecture. The current plugin branch
-uses resolver/oracle/manifest projection, not `introspection.py`, and the full local
-plugin suite passed at commit `bd656d2`.
+Complete. All 4 tasks complete as of 2026-05-21. Plugin HEAD `2effacf` on branch
+`rewrite/invariant-core` passes `just test -q` with `187 passed` across 7 suites.
+Kilo confirmed "No New Issues Found | Recommendation: Merge" on `2effacf`. All exit
+criteria met: source-module coverage enforced, provider MROs match Sage runtime MROs,
+dependency tracking uses manifest source modules, namespace-agnostic fixtures (including
+`category_specs_like`) pass by semantic projection without any `sage.categories.*`
+prefix filter. PR open awaiting human merge.

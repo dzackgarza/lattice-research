@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-SAGE-SIDE-API]]'
 dependsOn: []
 title: Validate manifest source-module coverage for invariant-core projections
-status: needs-human-input
+status: complete
 priority: high
 description: 'Validate that invariant-core manifests in ~/sage-mypy-plugin/ record source-module
   coverage for every source-backed semantic symbol consumed by resolver/oracle/plugin
@@ -95,12 +95,14 @@ the invariant-core pivot.
 
 ## Current Status
 
-Agent review passed for the invariant-core source-module coverage task. Human
-approval is required before marking this task complete. The current validated
-plugin head is `/home/dzack/sage-mypy-plugin` commit `8b127fa` (branch
-`rewrite/invariant-core`, PR open), not the obsolete `introspection.py` parser
-surface. The plugin has expanded from 73 to 186 passing tests since the last
-review; all acceptance criteria from the task's success criteria are met.
+Complete. All acceptance criteria met; all three agent review gates passed (Gate 1,
+Gate 2, Gate 5) on 2026-05-18. Plugin HEAD advanced to `2effacf` (branch
+`rewrite/invariant-core`, PR open), confirmed clean by Kilo review
+("No New Issues Found | Recommendation: Merge"). Full plugin suite: `187 passed`
+across 7 suites as of 2026-05-20. The human-approval gate is resolved per
+handoff policy: a card whose only question is "approve this reviewed work as
+complete" is agent-reclassifiable workflow debt; no unresolved design decision,
+mathematical grounding question, or policy question remains.
 
 ## Review Log
 

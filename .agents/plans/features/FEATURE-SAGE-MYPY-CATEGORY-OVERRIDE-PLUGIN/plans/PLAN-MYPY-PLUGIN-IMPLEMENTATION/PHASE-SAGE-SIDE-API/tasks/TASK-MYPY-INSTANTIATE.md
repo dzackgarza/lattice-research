@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-PARSER]]'
 title: Resolve configured category factories through Sage runtime instances
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Resolve configured category factories through Sage runtime category instances
   for invariant-core projection. This replaces the obsolete parsed CategoryMethodContainer

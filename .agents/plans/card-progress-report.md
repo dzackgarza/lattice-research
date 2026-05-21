@@ -3,8 +3,8 @@
 ## Overall
 
 - Total cards: **319**
-- Completed cards: **276**
-- Overall progress: `[#####################---]  86.5%`
+- Completed cards: **292**
+- Overall progress: `[######################--]  91.5%`
 - Active feature trees: **12**
 - Completed feature trees: **8**
 
@@ -14,10 +14,10 @@
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | decision | 22 | 22 | 0 | 0 | 0 | 0 |
 | feature | 20 | 8 | 3 | 0 | 1 | 0 |
-| phase | 28 | 22 | 0 | 3 | 0 | 0 |
-| plan | 13 | 11 | 1 | 1 | 0 | 0 |
+| phase | 28 | 25 | 0 | 0 | 0 | 0 |
+| plan | 13 | 12 | 1 | 0 | 0 | 0 |
 | spec | 60 | 57 | 0 | 1 | 0 | 0 |
-| task | 176 | 156 | 0 | 11 | 1 | 0 |
+| task | 176 | 168 | 0 | 0 | 0 | 0 |
 
 ## Co-Mathematician Workflow
 
@@ -44,6 +44,7 @@
 | Historical orthogonal group and orbit recovery | `[################] 100.0%` | 3/3 | 0 | 0 | 0 | 0 |
 | Historical Vinberg and Coxeter recovery | `[################] 100.0%` | 5/5 | 0 | 0 | 0 | 0 |
 | Modules with forms and lattices | `[################]  98.2%` | 54/55 | 1 | 0 | 0 | 0 |
+| Mypy plugin for Sage category method override checking | `[##############--]  88.9%` | 16/18 | 0 | 1 | 1 | 0 |
 | Zero QC warnings — repo-wide QC gate | `[#####-----------]  31.6%` | 6/19 | 2 | 0 | 0 | 0 |
 | Coble cusp orbit classification | `[####------------]  25.0%` | 1/4 | 1 | 0 | 0 | 0 |
 | Coble arithmetic group generators | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
@@ -52,7 +53,6 @@
 | Coble K3 folding involution | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble moduli comparison | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Coble stable model slc verification | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
-| Mypy plugin for Sage category method override checking | `[----------------]   0.0%` | 0/18 | 0 | 16 | 2 | 0 |
 | Sage-backed categorical implementation layer | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 | Universal categorical algorithms | `[----------------]   0.0%` | 0/1 | 0 | 0 | 0 | 0 |
 
@@ -61,10 +61,7 @@
 - `feature` `FEATURE-QC-WARNINGS-ZERO`: Zero QC warnings — repo-wide QC gate (`critical`, `in-progress`)
 - `plan` `PLAN-QC-MYPY-FOUNDATION-ORDER`: QC mypy foundation dependency order (`critical`, `in-progress`)
 - `feature` `FEATURE-SAGE-MYPY-CATEGORY-OVERRIDE-PLUGIN`: Mypy plugin for Sage category method override checking (`high`, `needs-human-input`)
-- `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (`high`, `needs-agent-review`)
-- `plan` `PLAN-MYPY-PLUGIN-IMPLEMENTATION`: Mypy plugin implementation plan (`high`, `needs-agent-review`)
 - `spec` `SPEC-SAGE-MYPY-CATEGORY-OVERRIDE`: Acceptance criteria for Sage mypy category override plugin (`high`, `needs-agent-review`)
-- `task` `TASK-MYPY-PARSER`: Validate manifest source-module coverage for invariant-core projections (`high`, `needs-human-input`)
 
 ## High-Priority DAG-Gated Items
 

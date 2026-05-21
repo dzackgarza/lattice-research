@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-INSTANTIATE]]'
 title: Project Sage runtime named-class MROs into manifest provider MROs
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Implement the invariant-core projection: trace Sage runtime named classes,
   record runtime bases/MROs, project them back to provider classes, and expose dependency

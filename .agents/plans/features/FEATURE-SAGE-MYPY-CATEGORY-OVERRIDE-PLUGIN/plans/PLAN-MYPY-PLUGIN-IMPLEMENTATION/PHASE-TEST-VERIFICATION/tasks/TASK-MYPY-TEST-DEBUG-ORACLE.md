@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-TEST-MYPY-INTEGRATION]]'
 title: Test debug oracle against real Sage categories
-status: needs-agent-review
+status: complete
 priority: medium
 description: 'Test debug_projection against representative real Sage categories (Rings, Sets)
   and verify output shape matches spec. Also test that the debug oracle produces identical

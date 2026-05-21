@@ -8,7 +8,7 @@ dependsOn:
 - '[[TASK-MYPY-PARSER]]'
 - '[[TASK-MYPY-INSTANTIATE]]'
 title: Prove namespace-agnostic admission through invariant-core projections
-status: needs-agent-review
+status: complete
 priority: high
 description: Prove that invariant-core resolver/oracle/manifest projection admits valid
   third-party/category_specs-like provider namespaces by semantic projection, not by

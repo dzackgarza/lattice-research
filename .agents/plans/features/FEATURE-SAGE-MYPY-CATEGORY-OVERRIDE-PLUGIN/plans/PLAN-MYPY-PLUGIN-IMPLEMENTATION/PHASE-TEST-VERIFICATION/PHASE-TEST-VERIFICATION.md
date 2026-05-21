@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[PHASE-MYPY-SIDE-HARNESS]]'
 title: Test and verification
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Build the test matrix: artificial Sage categories for valid/invalid overrides,
   diamond hierarchies, element/morphism/homset/axiom containers, parameterized categories,

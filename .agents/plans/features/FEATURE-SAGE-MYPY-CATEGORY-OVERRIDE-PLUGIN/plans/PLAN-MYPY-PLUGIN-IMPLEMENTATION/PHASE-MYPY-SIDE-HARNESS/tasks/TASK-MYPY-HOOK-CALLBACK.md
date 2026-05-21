@@ -7,7 +7,7 @@ parents:
 dependsOn:
 - '[[TASK-MYPY-PLUGIN-CLASS]]'
 title: Implement MRO hook callback for base injection
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Implement sage_method_container_mro_hook: calls method_container_direct_bases,
   resolves each to a mypy TypeInfo, injects into the class MRO. Handles deferral when TypeInfo

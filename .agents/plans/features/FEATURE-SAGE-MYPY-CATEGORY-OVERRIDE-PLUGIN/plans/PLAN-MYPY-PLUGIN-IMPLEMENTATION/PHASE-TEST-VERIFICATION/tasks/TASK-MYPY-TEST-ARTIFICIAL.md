@@ -6,7 +6,7 @@ parents:
 - '[[PHASE-TEST-VERIFICATION]]'
 dependsOn: []
 title: Create artificial Sage category test fixtures
-status: needs-agent-review
+status: complete
 priority: high
 description: 'Create artificial Sage category hierarchy files implementing all 11 test cases
   from the spec test matrix. Self-contained, no dependency on specific Sage version behavior.
