@@ -62,6 +62,12 @@ authorities for status, evidence, dependencies, and completed work.
   Found | Recommendation: Merge" on `2effacf`. Plugin parallel work is no longer active;
   QC gate is unblocked. Remaining blocker: human merge of `rewrite/invariant-core → main`
   PR.
+- Research repo fixes 2026-05-21: sage.all initialization added to
+  `test_spec_core_constructor_specs.py` (commit `c3197f6b`) — test was passing only
+  when run after other tests that imported sage.all first; now passes in isolation.
+  QC justfile heredoc bug fixed in `dzackgarza/ai` (commit `4cf232c`) — `just test`
+  now runs correctly in research repo (confirmed: 401 passthrough mypy errors, 34/52
+  category_specs tests pass in full suite; vertical slice 29/29 still passes).
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
@@ -106,9 +112,12 @@ authorities for status, evidence, dependencies, and completed work.
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.
 - Post-merge plugin activation workflow (all pre-work done 2026-05-21, commit
-  `a798aaa` on `dzackgarza/ai` main): the global QC justfile `_mypy` recipe now
-  detects a project-root `sage-mypy-plugin.ini` and merges it with the global config
-  via ConfigParser before invoking mypy. After the plugin PR is merged, create
+  `4cf232c` on `dzackgarza/ai` main — supersedes `a798aaa` which had a just 1.46
+  parse bug: heredoc body at column 0 caused just to tokenize `.` in `sys.argv[1]`
+  as an expression operator; fix moved the ConfigParser merge script to
+  `quality-control/scripts/merge_ini.py`): the global QC justfile `_mypy` recipe
+  now detects a project-root `sage-mypy-plugin.ini` and merges it with the global
+  config via ConfigParser before invoking mypy. After the plugin PR is merged, create
   `/home/dzack/research/sage-mypy-plugin.ini` with the following content and commit
   it to the research repo:
   ```ini
