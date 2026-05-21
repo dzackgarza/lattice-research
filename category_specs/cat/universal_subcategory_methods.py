@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 def _cat_cached_method[_SubcategoryMethod: Callable[..., object]](
     method: _SubcategoryMethod,
 ) -> _SubcategoryMethod:
-    return cast(_SubcategoryMethod, cached_method(method))
+    return cached_method(method)
 
 
 class UniversalSubcategoryMethods:

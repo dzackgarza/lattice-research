@@ -153,7 +153,7 @@ if TYPE_CHECKING:
 def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
     method: _CatCachedMethod,
 ) -> _CatCachedMethod:
-    return cast(_CatCachedMethod, cached_method(method))
+    return cached_method(method)
 
 
 class _CatObjectMethods:

@@ -101,7 +101,7 @@ class _CategoryAxiomRefiner(Protocol):
 
 def with_axiom(category: object, axiom: str) -> Category:
     r"""Return Sage's dynamic axiom refinement for ``category``."""
-    return cast(Category, cast(_CategoryAxiomRefiner, category)._with_axiom(axiom))
+    return cast(_CategoryAxiomRefiner, category)._with_axiom(axiom)
 
 
 def _fold_nonempty_binary_operation[FoldParent, FoldElement](

@@ -199,14 +199,14 @@ class _QQ(Category_singleton):
         @override
         @final
         def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
-            return (cast("RingElement", self(1)),)
+            return (self(1),)
 
         @override
         @final
         def integral_basis_at_primes(
             self, primes: Sequence[Integer]
         ) -> tuple[RingElement, ...]:
-            return (cast("RingElement", self(1)),)
+            return (self(1),)
 
         @override
         @final

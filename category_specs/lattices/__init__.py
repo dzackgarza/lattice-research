@@ -127,27 +127,27 @@ class LatticesCategory(CategoryWithAxiom_over_base_ring):
         @_cached_method
         @final
         def OverDedekindDomain(self) -> Category:
-            return cast(Category, with_axiom(self, "OverDedekindDomain"))
+            return with_axiom(self, "OverDedekindDomain")
 
         @_cached_method
         @final
         def OverPID(self) -> Category:
-            return cast(Category, with_axiom(self, "OverPID"))
+            return with_axiom(self, "OverPID")
 
         @_cached_method
         @final
         def OverIntegers(self) -> Category:
-            return cast(Category, with_axiom(self, "OverIntegers"))
+            return with_axiom(self, "OverIntegers")
 
         @_cached_method
         @final
         def Even(self) -> Category:
-            return cast(Category, with_axiom(self, "Even"))
+            return with_axiom(self, "Even")
 
         @_cached_method
         @final
         def Unimodular(self) -> Category:
-            return cast(Category, with_axiom(self, "Unimodular"))
+            return with_axiom(self, "Unimodular")
 
         @_cached_method
         @final

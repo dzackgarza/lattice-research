@@ -38,7 +38,7 @@ if TYPE_CHECKING:
 def _field_cached_method[_FieldCachedMethod: Callable[..., object]](
     method: _FieldCachedMethod,
 ) -> _FieldCachedMethod:
-    return cast(_FieldCachedMethod, cached_method(method))
+    return cached_method(method)
 
 
 class _Fields(CategoryWithAxiom):

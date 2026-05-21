@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 def _form_cached_method[_FormCachedMethod: Callable[..., object]](
     method: _FormCachedMethod,
 ) -> _FormCachedMethod:
-    return cast(_FormCachedMethod, cached_method(method))
+    return cached_method(method)
 
 
 class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
@@ -59,43 +59,43 @@ class FormedModulesCategory(CategoryWithAxiom_over_base_ring):
         @final
         def Bilinear(self) -> Category:
             r"""Introduced here: select the bilinear-formed subcategory."""
-            return cast(Category, with_axiom(self, "Bilinear"))
+            return with_axiom(self, "Bilinear")
 
         @_form_cached_method
         @final
         def Quadratic(self) -> Category:
             r"""Introduced here: select the quadratic-formed subcategory."""
-            return cast(Category, with_axiom(self, "Quadratic"))
+            return with_axiom(self, "Quadratic")
 
         @_form_cached_method
         @final
         def Symmetric(self) -> Category:
             r"""Introduced here: select the symmetric-bilinear subcategory."""
-            return cast(Category, with_axiom(self, "Symmetric"))
+            return with_axiom(self, "Symmetric")
 
         @_form_cached_method
         @final
         def Alternating(self) -> Category:
             r"""Introduced here: select the alternating-bilinear subcategory."""
-            return cast(Category, with_axiom(self, "Alternating"))
+            return with_axiom(self, "Alternating")
 
         @_form_cached_method
         @final
         def Nondegenerate(self) -> Category:
             r"""Introduced here: select the nondegenerate-bilinear subcategory."""
-            return cast(Category, with_axiom(self, "Nondegenerate"))
+            return with_axiom(self, "Nondegenerate")
 
         @_form_cached_method
         @final
         def Integral(self) -> Category:
             r"""Introduced here: select the integral-bilinear subcategory."""
-            return cast(Category, with_axiom(self, "Integral"))
+            return with_axiom(self, "Integral")
 
         @_form_cached_method
         @final
         def Rational(self) -> Category:
             r"""Introduced here: select the rational-bilinear subcategory."""
-            return cast(Category, with_axiom(self, "Rational"))
+            return with_axiom(self, "Rational")
 
     class ElementMethods: ...
 

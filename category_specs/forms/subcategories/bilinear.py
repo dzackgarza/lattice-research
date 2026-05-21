@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Protocol, cast, final, override
+from typing import TYPE_CHECKING, Protocol, final, override
 
 from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 def _bilinear_cached_method[_BilinearCachedMethod: Callable[..., object]](
     method: _BilinearCachedMethod,
 ) -> _BilinearCachedMethod:
-    return cast(_BilinearCachedMethod, cached_method(method))
+    return cached_method(method)
 
 
 class BilinearModulesCategory(CategoryWithAxiom_over_base_ring):

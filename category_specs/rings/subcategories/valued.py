@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 def _valued_cached_method[_ValuedCachedMethod: Callable[..., object]](
     method: _ValuedCachedMethod,
 ) -> _ValuedCachedMethod:
-    return cast(_ValuedCachedMethod, cached_method(method))
+    return cached_method(method)
 
 
 class _ValuedRings(CategoryWithAxiom):
