@@ -92,6 +92,13 @@ authorities for status, evidence, dependencies, and completed work.
   owned stubs within the incoming categories, so subsequent lookups hit the primed
   cache regardless of MRO order. Full suite now 40/52 (up from 34/52); vertical slice
   29/29; remaining 12 failures are known test_spec_smoke gated on plugin PR merge.
+  NOTE (2026-05-21): the 40/52 count is inflated by cross-test state contamination.
+  `test_core_ring_is_refined` and `test_static_axiom_registration_is_idempotent`
+  pass in the full suite only because earlier tests call `Rings().Constructors().ZZ()`
+  first, which refines ZZ. In isolation, `tests/category_specs/test_spec_smoke.py`
+  has 17/23 fail (not 12/23). True isolation-clean count: ~35/52. Phase 3 seed
+  enrollment (eager `refine_category` at import for ZZ/QQ; constructor patching for
+  GF/Zp) is the correct fix — gated on plugin PR merge per handoff policy.
 - `TASK-QC-BASIC-MYPY-HYGIENE-INVENTORY` work log updated 2026-05-20 with the
   TypeAlias fix milestone (commit `a5e1ecbe`): 735 `[valid-type]` errors eliminated
   by adding `TypeAlias` annotations across `types.py` and six category `__init__.py`
