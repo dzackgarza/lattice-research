@@ -21,6 +21,14 @@ authorities for status, evidence, dependencies, and completed work.
   `reports/workstreams/category-specs-mypy-ledger/latest.{json,md}`. The current
   full gate has zero mismatched providers, zero missing loaded provider TypeInfos, and
   zero missing projected ancestor TypeInfos; ordinary diagnostics remain the work.
+- Current source-backed sidecar pickup: `sage.combinat.set_partition.SetPartitions`
+  is absent from the sidecar and accounts for a bounded `attr-defined` family in
+  `category_specs/sets/__init__.py` and `category_specs/types.py`. Source-check
+  `sage-src/src/sage/combinat/set_partition.py` before editing the sidecar; do not
+  suppress the research imports.
+- Latest known artifact frontier after the infinity sidecar batch: full structural
+  pass over all modules; ordinary diagnostics `1582`; sidecar SHA
+  `1dadbbfb4a3f33574e10c782faee4a04229404c1`; runtime vertical slice 29/29.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.

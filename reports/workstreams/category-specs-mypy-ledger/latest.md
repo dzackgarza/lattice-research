@@ -6,34 +6,34 @@
 - full_structural_mismatches: 0
 - full_structural_missing_typeinfos: 0
 - full_structural_projected_ancestor_missing_typeinfos: 0
-- ordinary_error_count: 1592
+- ordinary_error_count: 1582
 - ignored_negative_control_count: 1
 
 ## Toolchain
 
-- research_sha: `9053e38744ec1e07d1f2b675fed20fdcf7fc48e4`
+- research_sha: `3d13848d3ff7d4d0a00f2de7dafddfbb5067ee4f`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
-- sidecar_sha: `3640ab5e2a8a810cb0394a4a5d18408ab06978b2`
+- sidecar_sha: `1dadbbfb4a3f33574e10c782faee4a04229404c1`
 
 ## Counts By Owner
 
 - research typing/design: 1152
-- mathematical/category-interface question: 311
-- missing sidecar ordinary signature: 129
+- mathematical/category-interface question: 314
+- missing sidecar ordinary signature: 116
 
 ## Counts By Code
 
 - misc: 457
 - override: 281
-- operator: 242
-- arg-type: 193
-- attr-defined: 133
+- operator: 245
+- arg-type: 191
 - list-item: 132
+- attr-defined: 120
 - assignment: 54
-- return-value: 38
+- return-value: 37
 - call-arg: 33
+- call-overload: 11
 - type-var: 10
-- call-overload: 8
 - return: 5
 - abstract: 3
 - index: 2
@@ -42,9 +42,9 @@
 ## Counts By Root Area
 
 - rings: 419
-- sets: 320
+- sets: 312
 - modules: 263
-- algebras: 148
+- algebras: 147
 - cat: 130
 - posets: 94
 - forms: 58
@@ -53,7 +53,7 @@
 - homsets: 33
 - tensor_algebra_components: 21
 - spec_core: 3
-- types.py: 3
+- types.py: 2
 
 ## Representative Examples
 
@@ -72,6 +72,6 @@
 - mathematical/category-interface question / attr-defined / modules: `category_specs/modules/subcategories/finitely_presented_over_pid.py:66: error: "Category" has no attribute "FinitelyPresented"  [attr-defined]`
 - mathematical/category-interface question / call-arg / modules: `category_specs/modules/subcategories/finitely_presented_over_pid.py:117: error: Too many arguments for "Integer"  [call-arg]`
 - mathematical/category-interface question / index / sets: `category_specs/sets/subcategories/countable.py:64: error: Invalid index type "Integer" for "type[ParentMethods]"; expected type "int | slice[Any, Any, Any]"  [index]`
+- mathematical/category-interface question / call-overload / sets: `category_specs/sets/subcategories/finite.py:55: error: No overload variant of "int" matches argument type "InfinityElement"  [call-overload]`
 - mathematical/category-interface question / abstract / modules: `category_specs/modules/__init__.py:621: error: Cannot instantiate abstract class "_Subobjects" with abstract attribute "as_subobject_of_self"  [abstract]`
-- mathematical/category-interface question / call-overload / algebras: `category_specs/algebras/__init__.py:342: error: No overload variant matches argument type "Ring"  [call-overload]`
 - mathematical/category-interface question / union-attr / modules: `category_specs/modules/subcategories/with_basis.py:186: error: Item "Sequence[_RModElements]" of "Any | Mapping[Element, _RModElements] | Sequence[_RModElements]" has no attribute "keys"  [union-attr]`

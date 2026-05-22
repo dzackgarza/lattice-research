@@ -311,8 +311,6 @@ None.
 - `category_specs/topological_spaces/subcategories/constructions/cartesian_products.py:18: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/topological_spaces/subcategories/constructions/cartesian_products.py:22: error: List item 0 has incompatible type "sage.categories.category.Category"; expected "category_specs.cat.base_category_types.Category"  [list-item]`
 - `category_specs/topological_spaces/subcategories/constructions/cartesian_products.py:22: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:78: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
-- `category_specs/sets/__init__.py:78: error: Module "sage.rings.infinity" has no attribute "minus_infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/__init__.py:145: error: Argument 1 of "_element_constructor_" is incompatible with supertype "sage.categories.sets_cat.Sets.ParentMethods"; supertype defines the argument type as "object"  [override]`
 - `category_specs/sets/__init__.py:145: note: This violates the Liskov substitution principle`
 - `category_specs/sets/__init__.py:145: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
@@ -349,6 +347,9 @@ None.
 - `category_specs/sets/__init__.py:700: error: Argument 1 to "get_interval" of "ParentMethods" has incompatible type "int"; expected "Integer"  [arg-type]`
 - `category_specs/sets/__init__.py:752: error: Module "sage.rings.real_mpfr" does not explicitly export attribute "RealField"  [attr-defined]`
 - `category_specs/sets/__init__.py:756: error: "LazyImport" not callable  [operator]`
+- `category_specs/sets/__init__.py:850: error: Unsupported operand type for unary - ("PlusInfinity")  [operator]`
+- `category_specs/sets/__init__.py:860: error: Unsupported operand type for unary - ("PlusInfinity")  [operator]`
+- `category_specs/sets/__init__.py:890: error: Unsupported operand type for unary - ("PlusInfinity")  [operator]`
 - `category_specs/sets/__init__.py:982: error: Argument 1 to "category_from_parents" of "_CartesianProductCallable" has incompatible type "tuple[_SetObjectMethods, ...]"; expected "Iterable[Category]"  [arg-type]`
 - `category_specs/sets/__init__.py:986: error: Incompatible types in assignment (expression has type "tuple[Any, ...]", variable has type "Category")  [assignment]`
 - `category_specs/sets/__init__.py:988: error: Unsupported left operand type for & ("Category")  [operator]`
@@ -430,7 +431,6 @@ None.
 - `category_specs/sets/subcategories/infinite.py:31: error: List item 0 has incompatible type "Infinite"; expected "Category"  [list-item]`
 - `category_specs/sets/subcategories/infinite.py:31: error: List item 1 has incompatible type "Sets"; expected "Category"  [list-item]`
 - `category_specs/sets/subcategories/infinite.py:36: error: Unsupported right operand type for in ("Infinite")  [operator]`
-- `category_specs/sets/subcategories/infinite.py:49: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/facade.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/facade.py:32: error: List item 0 has incompatible type "Facade"; expected "Category"  [list-item]`
 - `category_specs/sets/subcategories/facade.py:32: error: List item 1 has incompatible type "Sets"; expected "Category"  [list-item]`
@@ -456,7 +456,6 @@ None.
 - `category_specs/sets/subcategories/countable.py:69: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
 - `category_specs/sets/subcategories/countable.py:71: error: Incompatible return value type (got "int | None", expected "Integer")  [return-value]`
 - `category_specs/sets/subcategories/countable.py:79: error: Argument 1 to "cardinality" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.countable._CountableSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
-- `category_specs/sets/subcategories/countable.py:82: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/countable.py:97: error: Argument 1 to "random_element" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.countable._CountableSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
 - `category_specs/sets/subcategories/countable.py:105: error: Return type "_SetObjectMethods" of "map" incompatible with return type "Parent" in supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"  [override]`
 - `category_specs/sets/subcategories/countable.py:106: error: Argument 1 of "map" is incompatible with supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"; supertype defines the argument type as "Callable[[object], object]"  [override]`
@@ -487,12 +486,10 @@ None.
 - `category_specs/sets/subcategories/recursively_enumerated.py:57: error: Cannot override final attribute "__iter__" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:68: error: "ParentMethods" has no attribute "category"  [attr-defined]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:70: error: "ParentMethods" has no attribute "category"  [attr-defined]`
-- `category_specs/sets/subcategories/recursively_enumerated.py:73: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:83: error: Cannot override final attribute "cardinality" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:86: error: "ParentMethods" has no attribute "category"  [attr-defined]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:87: error: Argument 1 to "cardinality" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.recursively_enumerated._RecursivelyEnumeratedSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:88: error: "ParentMethods" has no attribute "category"  [attr-defined]`
-- `category_specs/sets/subcategories/recursively_enumerated.py:89: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/recursively_enumerated.py:125: error: Missing return statement  [return]`
 - `category_specs/sets/subcategories/primes.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/primes.py:32: error: "LazyImport" not callable  [operator]`
@@ -530,7 +527,6 @@ None.
 - `category_specs/sets/subcategories/integer_range.py:62: error: Too many arguments for "Integer"  [call-arg]`
 - `category_specs/sets/subcategories/integer_range.py:78: error: Cannot override final attribute "cardinality" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/integer_range.py:86: error: Argument 1 to "cardinality" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.integer_range._IntegerRangeSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
-- `category_specs/sets/subcategories/integer_range.py:88: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/integer_range.py:92: error: Cannot override final attribute "rank" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/integer_range.py:94: error: Return type "Integer" of "rank" incompatible with return type "int | None" in supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"  [override]`
 - `category_specs/sets/subcategories/integer_range.py:94: error: Argument 1 of "rank" is incompatible with supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"; supertype defines the argument type as "object"  [override]`
@@ -551,8 +547,10 @@ None.
 - `category_specs/sets/subcategories/finite.py:47: error: Cannot override final attribute "cardinality" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/finite.py:50: error: Argument 1 to "cardinality" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.finite._FiniteSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
 - `category_specs/sets/subcategories/finite.py:53: error: Return type "Integer" of "__len__" incompatible with return type "int" in supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"  [override]`
-- `category_specs/sets/subcategories/finite.py:55: error: Incompatible return value type (got "int", expected "Integer")  [return-value]`
-- `category_specs/sets/subcategories/finite.py:55: error: Argument 1 to "int" has incompatible type "Integer | Any"; expected "str | Buffer | SupportsInt | SupportsIndex | SupportsTrunc"  [arg-type]`
+- `category_specs/sets/subcategories/finite.py:55: error: No overload variant of "int" matches argument type "InfinityElement"  [call-overload]`
+- `category_specs/sets/subcategories/finite.py:55: note: Possible overload variants:`
+- `category_specs/sets/subcategories/finite.py:55: note:     def int(str | Buffer | SupportsInt | SupportsIndex | SupportsTrunc = ..., /) -> int`
+- `category_specs/sets/subcategories/finite.py:55: note:     def int(str | bytes | bytearray, /, base: SupportsIndex) -> int`
 - `category_specs/sets/subcategories/finite.py:57: error: Cannot override final attribute "random_element" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/finite.py:62: error: Argument 1 to "random_element" of "ParentMethods" has incompatible type "category_specs.sets.subcategories.finite._FiniteSets.ParentMethods"; expected "sage.categories.finite_enumerated_sets.FiniteEnumeratedSets.ParentMethods"  [arg-type]`
 - `category_specs/sets/subcategories/family.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -576,7 +574,6 @@ None.
 - `category_specs/sets/subcategories/family.py:95: note: This violates the Liskov substitution principle`
 - `category_specs/sets/subcategories/family.py:95: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
 - `category_specs/sets/subcategories/family.py:95: error: Argument 1 of "__getitem__" is incompatible with supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"; supertype defines the argument type as "int | slice[Any, Any, Any]"  [override]`
-- `category_specs/sets/subcategories/enumerated_from_iterator.py:15: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/enumerated_from_iterator.py:38: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/enumerated_from_iterator.py:39: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/subcategories/enumerated_from_iterator.py:45: error: "ParentMethods" has no attribute "category"  [attr-defined]`
@@ -648,7 +645,7 @@ None.
 - `category_specs/sets/subcategories/totally_ordered_finite.py:49: note:      Superclass:`
 - `category_specs/sets/subcategories/totally_ordered_finite.py:49: note:          def cardinality(self, *ignored_args: object, **ignored_kwds: object) -> int`
 - `category_specs/sets/subcategories/totally_ordered_finite.py:49: note:      Subclass:`
-- `category_specs/sets/subcategories/totally_ordered_finite.py:49: note:          def cardinality(self) -> Integer | Any`
+- `category_specs/sets/subcategories/totally_ordered_finite.py:49: note:          def cardinality(self) -> Integer | InfinityElement`
 - `category_specs/sets/subcategories/totally_ordered_finite.py:51: error: Cannot override final attribute "rank" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/totally_ordered_finite.py:53: error: Return type "Integer" of "rank" incompatible with return type "int | None" in supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"  [override]`
 - `category_specs/sets/subcategories/totally_ordered_finite.py:53: error: Argument 1 of "rank" is incompatible with supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"; supertype defines the argument type as "object"  [override]`
@@ -704,7 +701,7 @@ None.
 - `category_specs/sets/subcategories/finite_set_maps.py:43: note:      Superclass:`
 - `category_specs/sets/subcategories/finite_set_maps.py:43: note:          def cardinality(self, *ignored_args: object, **ignored_kwds: object) -> int`
 - `category_specs/sets/subcategories/finite_set_maps.py:43: note:      Subclass:`
-- `category_specs/sets/subcategories/finite_set_maps.py:43: note:          def cardinality(self) -> Integer | Any`
+- `category_specs/sets/subcategories/finite_set_maps.py:43: note:          def cardinality(self) -> Integer | InfinityElement`
 - `category_specs/sets/subcategories/finite_set_maps.py:53: error: Cannot override final attribute "__iter__" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/finite_set_maps.py:60: error: Cannot override final attribute "_element_constructor_" (previously declared in base class "_SetObjectMethods")  [misc]`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -720,7 +717,7 @@ None.
 - `category_specs/sets/subcategories/finite_enumerated_set.py:54: note:      Superclass:`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:54: note:          def cardinality(self, *ignored_args: object, **ignored_kwds: object) -> int`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:54: note:      Subclass:`
-- `category_specs/sets/subcategories/finite_enumerated_set.py:54: note:          def cardinality(self) -> Integer | Any`
+- `category_specs/sets/subcategories/finite_enumerated_set.py:54: note:          def cardinality(self) -> Integer | InfinityElement`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:56: error: Cannot override final attribute "rank" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:58: error: Return type "Integer" of "rank" incompatible with return type "int | None" in supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"  [override]`
 - `category_specs/sets/subcategories/finite_enumerated_set.py:58: error: Argument 1 of "rank" is incompatible with supertype "sage.categories.enumerated_sets.EnumeratedSets.ParentMethods"; supertype defines the argument type as "object"  [override]`
@@ -891,8 +888,6 @@ None.
 - `category_specs/modules/__init__.py:1721: error: "LazyImport" not callable  [operator]`
 - `category_specs/modules/__init__.py:1726: error: "LazyImport" not callable  [operator]`
 - `category_specs/modules/__init__.py:1731: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/subcategories/real_set.py:10: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
-- `category_specs/sets/subcategories/real_set.py:10: error: Module "sage.rings.infinity" has no attribute "minus_infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/sets/subcategories/real_set.py:45: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/real_set.py:49: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/subcategories/real_set.py:50: error: "LazyImport" not callable  [operator]`
@@ -1466,9 +1461,16 @@ None.
 - `category_specs/modules/subcategories/free.py:107: error: Method "default_basis" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/modules/subcategories/free.py:115: error: Method "set_default_basis" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/modules/subcategories/free.py:128: error: Method "dimension" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/modules/subcategories/free.py:144: error: Argument 1 to "range" has incompatible type "Integer | Any"; expected "SupportsIndex"  [arg-type]`
+- `category_specs/modules/subcategories/free.py:144: error: No overload variant of "range" matches argument type "InfinityElement"  [call-overload]`
+- `category_specs/modules/subcategories/free.py:144: note: Possible overload variants:`
+- `category_specs/modules/subcategories/free.py:144: note:     def range(SupportsIndex, /) -> range`
+- `category_specs/modules/subcategories/free.py:144: note:     def range(SupportsIndex, SupportsIndex, SupportsIndex = ..., /) -> range`
 - `category_specs/modules/subcategories/free.py:151: error: Module "sage.algebras.clifford_algebra" has no attribute "ExteriorAlgebra"  [attr-defined]`
-- `category_specs/modules/subcategories/free.py:155: error: Argument 1 to "range" has incompatible type "Integer | Any"; expected "SupportsIndex"  [arg-type]`
+- `category_specs/modules/subcategories/free.py:155: error: No overload variant of "range" matches argument type "InfinityElement"  [call-overload]`
+- `category_specs/modules/subcategories/free.py:155: note: Possible overload variants:`
+- `category_specs/modules/subcategories/free.py:155: note:     def range(SupportsIndex, /) -> range`
+- `category_specs/modules/subcategories/free.py:155: note:     def range(SupportsIndex, SupportsIndex, SupportsIndex = ..., /) -> range`
+- `category_specs/modules/subcategories/free.py:161: error: Argument 1 to "exterior_power" of "ParentMethods" has incompatible type "InfinityElement"; expected "Integer"  [arg-type]`
 - `category_specs/modules/subcategories/free.py:165: error: Return type "_RModObjects" of "dual" incompatible with return type "ParentMethods" in supertype "category_specs.modules._RModObjects"  [override]`
 - `category_specs/modules/subcategories/free.py:182: error: Cannot override final attribute "tensor_module" (previously declared in base class "_RModObjects")  [misc]`
 - `category_specs/modules/subcategories/free.py:196: error: Method "exterior_power" is marked as an override, but no base method was found with this name  [misc]`
@@ -1560,7 +1562,6 @@ None.
 - `category_specs/lattices/__init__.py:242: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
 - `category_specs/lattices/__init__.py:255: error: "Category" has no attribute "Lattice"  [attr-defined]`
 - `category_specs/types.py:19: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/types.py:29: error: Module "sage.rings.infinity" has no attribute "InfinityElement"  [attr-defined]`
 - `category_specs/types.py:36: error: Module "sage.rings.qqbar" has no attribute "AlgebraicPolynomialTracker"  [attr-defined]`
 - `.cache/sage-mypy-plugin/consumer-structural-full/negative_consumer_probe.py:5: error: Incompatible types in assignment (expression has type "int", variable has type "_SetObjectMethods")  [assignment]`
 - `category_specs/topological_spaces/subcategories/connected.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -1691,7 +1692,6 @@ None.
 - `category_specs/modules/subcategories/finitely_presented_graded_modules.py:96: error: Incompatible default for parameter "position" (default has type "int", parameter has type "Integer")  [assignment]`
 - `category_specs/modules/subcategories/finitely_presented.py:24: error: "Category" has no attribute "FinitelyGenerated"  [attr-defined]`
 - `category_specs/modules/subcategories/finitely_presented.py:32: error: Cannot override final attribute "is_finitely_presented" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/modules/free_module_witnesses.py:127: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/modules/free_module_witnesses.py:306: error: Unsupported right operand type for in ("EnumeratedSets")  [operator]`
 - `category_specs/forms/subcategories/indefinite.py:48: error: Method "is_indefinite" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/indefinite.py:53: error: Method "is_definite" is marked as an override, but no base method was found with this name  [misc]`
@@ -1729,7 +1729,6 @@ None.
 - `category_specs/algebras/subcategories/semisimple.py:38: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
 - `category_specs/algebras/subcategories/semisimple.py:38: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
 - `category_specs/algebras/subcategories/semisimple.py:38: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional.py:8: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
 - `category_specs/algebras/subcategories/finite_dimensional.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/algebras/subcategories/finite_dimensional.py:39: error: Return type "Integer" of "dimension" incompatible with return type "int" in supertype "sage.categories.vector_spaces.VectorSpaces.ParentMethods"  [override]`
 - `category_specs/algebras/subcategories/commutative.py:25: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
