@@ -24,10 +24,11 @@ authorities for status, evidence, dependencies, and completed work.
 - Latest known artifact frontier after the infinity, SetPartitions, Laurent, and
   PolynomialRing_generic sidecar batches: full structural pass over all modules;
   ordinary diagnostics `1573`; missing sidecar ordinary signatures `102`; sidecar
-  SHA `dfe86e3f9a23d96369eb04302fea427f35d326cd`; runtime vertical slice 29/29.
+  SHA `c966661e41f55e9e73f9611cb63e40a01769904b`; runtime vertical slice 29/29.
 - Current pickup: choose the next bounded source-backed family from the committed
-  ledger. The leading sidecar example is now
-  `sage.categories.category_types.Category_module`; source-check before editing.
+  ledger. Do not retry `sage.categories.category_types.Category_module` as a simple
+  sidecar class exposure: that was source-backed but regressed the ledger by making
+  mypy analyze Sage dynamic category bases as ordinary abstract static bases.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.

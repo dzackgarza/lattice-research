@@ -14387,7 +14387,7 @@
   },
   "toolchain": {
     "plugin_sha": "c231ac89da769434380dd95e499f5b64680636ae",
-    "research_sha": "60ec474c050b06f90ff665487e66d6e42a855713",
-    "sidecar_sha": "dfe86e3f9a23d96369eb04302fea427f35d326cd"
+    "research_sha": "be8a3bec5bbd702ad378410656ffb5333317a689",
+    "sidecar_sha": "c966661e41f55e9e73f9611cb63e40a01769904b"
   }
 }
