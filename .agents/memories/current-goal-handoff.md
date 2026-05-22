@@ -12,7 +12,15 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Start Here
 
-- Active phase: QC/mypy cleanup (gated on plugin PR merge by human).
+- Active phase: category_specs QC/mypy cleanup after plugin/stubs structural gate.
+- Start from the committed full structural artifact and mypy ledger, not the old
+  representative canary: `just category-specs-mypy-structural-report-full` is green
+  with all modules, and `just category-specs-mypy-ledger` records the ordinary
+  diagnostic frontier.
+- Current pickup: fix or route the ledger families in
+  `reports/workstreams/category-specs-mypy-ledger/latest.{json,md}`. The current
+  full gate has zero mismatched providers, zero missing loaded provider TypeInfos, and
+  zero missing projected ancestor TypeInfos; ordinary diagnostics remain the work.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
