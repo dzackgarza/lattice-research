@@ -199,14 +199,18 @@ class _QQ(Category_singleton):
         @override
         @final
         def integral_basis_at_prime(self, prime: Integer) -> tuple[RingElement, ...]:
-            return (self(1),)
+            from sage.all import QQ
+
+            return (cast("RingElement", QQ(1)),)
 
         @override
         @final
         def integral_basis_at_primes(
             self, primes: Sequence[Integer]
         ) -> tuple[RingElement, ...]:
-            return (self(1),)
+            from sage.all import QQ
+
+            return (cast("RingElement", QQ(1)),)
 
         @override
         @final

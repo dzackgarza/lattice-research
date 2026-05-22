@@ -26,8 +26,8 @@ authorities for status, evidence, dependencies, and completed work.
   artifacts under `reports/workstreams/category-specs-sage-stub-backlog/`. Rows are
   runtime-verification candidates for dedicated sidecar agents, not proof that a stub
   edit is correct.
-- Current stub backlog split from the 1565-diagnostic ledger: 1147 stub candidates and
-  418 non-candidates, grouped by bundle as category core/dynamic constructors,
+- Current stub backlog split from the 1611-diagnostic ledger: 1201 stub candidates and
+  410 non-candidates, grouped by bundle as category core/dynamic constructors,
   homsets/morphisms/endsets/autsets, rings/polynomial constructors, modules/vector
   spaces/matrix spaces/subobjects, sets/infinity/numeric protocols, and smaller
   families. Stub agents may edit only `sage-stubs` and stub tests after checking real
@@ -43,11 +43,11 @@ authorities for status, evidence, dependencies, and completed work.
   routes through the existing Laurent-series category surface; audit this before
   expanding that path. The constructor layer now has zero ledger diagnostics after
   centralizing Sage constructor lookup and category-refinement boundary casts.
-- Current ledger frontier after constructor/spec-core cleanup: ordinary diagnostics
-  `1640`; owner split `research typing/design=1160`,
-  `mathematical/category-interface question=330`, and
+- Current ledger frontier after constructor/spec-core/module-predicate cleanup:
+  ordinary diagnostics `1611`; owner split `research typing/design=1158`,
+  `mathematical/category-interface question=303`, and
   `missing sidecar ordinary signature=150`. The stub backlog artifact has been
-  refreshed and sage-stubs issue #4 has a current-baseline comment.
+  refreshed; sage-stubs issue #4 still points to the packet location.
 - Next pathway target: audit the remaining real category-spec smoke/pathway gaps and
   improve constructor/refinement semantics where they affect actual runtime behavior.
   Do not seed arbitrary example values merely to make smoke tests pass.

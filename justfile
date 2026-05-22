@@ -160,6 +160,12 @@ category-specs-mypy-ledger:
     cd {{justfile_directory()}}
     uv run --no-project python .agents/scripts/category_specs_mypy_error_ledger.py
 
+category-specs-sage-stub-backlog:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    uv run --no-project python .agents/scripts/category_specs_sage_stub_backlog.py
+
 plan-validate:
     #!/usr/bin/env bash
     set -euo pipefail

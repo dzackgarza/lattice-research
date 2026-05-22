@@ -8,8 +8,8 @@
     "call-overload": 11,
     "index": 2,
     "list-item": 132,
-    "misc": 505,
-    "operator": 248,
+    "misc": 478,
+    "operator": 246,
     "override": 280,
     "return": 5,
     "return-value": 37,
@@ -17,19 +17,19 @@
     "union-attr": 1
   },
   "counts_by_owner": {
-    "mathematical/category-interface question": 330,
+    "mathematical/category-interface question": 303,
     "missing sidecar ordinary signature": 150,
-    "research typing/design": 1160
+    "research typing/design": 1158
   },
   "counts_by_root_area": {
-    "algebras": 157,
+    "algebras": 152,
     "cat": 127,
-    "forms": 58,
+    "forms": 54,
     "homsets": 33,
     "lattices": 50,
-    "modules": 262,
+    "modules": 244,
     "posets": 93,
-    "rings": 486,
+    "rings": 484,
     "sets": 303,
     "tensor_algebra_components": 21,
     "topological_spaces": 49,
@@ -5078,1181 +5078,1181 @@
     },
     {
       "code": "arg-type",
-      "line": 272,
+      "line": 243,
       "message": "Argument 1 to \"tensor_power\" of \"_RModObjects\" has incompatible type \"int\"; expected \"Integer\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:272: error: Argument 1 to \"tensor_power\" of \"_RModObjects\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:243: error: Argument 1 to \"tensor_power\" of \"_RModObjects\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 279,
+      "line": 250,
       "message": "Unsupported operand types for <= (\"int\" and \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:279: error: Unsupported operand types for <= (\"int\" and \"Integer\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:250: error: Unsupported operand types for <= (\"int\" and \"Integer\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 280,
+      "line": 251,
       "message": "\"TensorProductFunctor\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:280: error: \"TensorProductFunctor\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:251: error: \"TensorProductFunctor\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 280,
+      "line": 251,
       "message": "Unsupported operand types for * (\"Integer\" and \"list[_RModObjects]\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:280: error: Unsupported operand types for * (\"Integer\" and \"list[_RModObjects]\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:251: error: Unsupported operand types for * (\"Integer\" and \"list[_RModObjects]\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 281,
+      "line": 252,
       "message": "Unsupported operand types for >= (\"int\" and \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:281: error: Unsupported operand types for >= (\"int\" and \"Integer\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:252: error: Unsupported operand types for >= (\"int\" and \"Integer\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 282,
+      "line": 253,
       "message": "\"TensorProductFunctor\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:282: error: \"TensorProductFunctor\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:253: error: \"TensorProductFunctor\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 282,
+      "line": 253,
       "message": "Unsupported operand type for unary - (\"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:282: error: Unsupported operand type for unary - (\"Integer\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:253: error: Unsupported operand type for unary - (\"Integer\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 288,
+      "line": 259,
       "message": "Unsupported operand types for <= (\"int\" and \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:288: error: Unsupported operand types for <= (\"int\" and \"Integer\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:259: error: Unsupported operand types for <= (\"int\" and \"Integer\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 290,
+      "line": 261,
       "message": "\"TensorProductFunctor\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:290: error: \"TensorProductFunctor\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:261: error: \"TensorProductFunctor\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "attr-defined",
-      "line": 290,
+      "line": 261,
       "message": "\"ParentMethods\" has no attribute \"tensor_power\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:290: error: \"ParentMethods\" has no attribute \"tensor_power\"  [attr-defined]",
+      "raw": "category_specs/modules/__init__.py:261: error: \"ParentMethods\" has no attribute \"tensor_power\"  [attr-defined]",
       "root_area": "modules"
     },
     {
       "code": "misc",
-      "line": 405,
+      "line": 376,
       "message": "Cannot override final attribute \"__add__\" (previously declared in base class \"_SetObjectMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:405: error: Cannot override final attribute \"__add__\" (previously declared in base class \"_SetObjectMethods\")  [misc]",
+      "raw": "category_specs/modules/__init__.py:376: error: Cannot override final attribute \"__add__\" (previously declared in base class \"_SetObjectMethods\")  [misc]",
       "root_area": "modules"
     },
     {
       "code": "override",
-      "line": 406,
+      "line": 377,
       "message": "Argument 1 of \"__add__\" is incompatible with supertype \"category_specs.sets._SetObjectMethods\"; supertype defines the argument type as \"_SetObjectMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:406: error: Argument 1 of \"__add__\" is incompatible with supertype \"category_specs.sets._SetObjectMethods\"; supertype defines the argument type as \"_SetObjectMethods\"  [override]",
+      "raw": "category_specs/modules/__init__.py:377: error: Argument 1 of \"__add__\" is incompatible with supertype \"category_specs.sets._SetObjectMethods\"; supertype defines the argument type as \"_SetObjectMethods\"  [override]",
       "root_area": "modules"
     },
     {
       "code": "attr-defined",
-      "line": 458,
+      "line": 429,
       "message": "\"ParentMethods\" has no attribute \"Hom\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:458: error: \"ParentMethods\" has no attribute \"Hom\"  [attr-defined]",
+      "raw": "category_specs/modules/__init__.py:429: error: \"ParentMethods\" has no attribute \"Hom\"  [attr-defined]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 506,
+      "line": 477,
       "message": "Incompatible return value type (got \"tuple[Bimodules]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:506: error: Incompatible return value type (got \"tuple[Bimodules]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:477: error: Incompatible return value type (got \"tuple[Bimodules]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 533,
+      "line": 504,
       "message": "Unsupported right operand type for in (\"PrincipalIdealDomains\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:533: error: Unsupported right operand type for in (\"PrincipalIdealDomains\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:504: error: Unsupported right operand type for in (\"PrincipalIdealDomains\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 535,
+      "line": 506,
       "message": "Unsupported right operand type for in (\"DedekindDomains\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:535: error: Unsupported right operand type for in (\"DedekindDomains\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:506: error: Unsupported right operand type for in (\"DedekindDomains\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 539,
+      "line": 510,
       "message": "Unsupported right operand type for in (\"CommutativeRings\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:539: error: Unsupported right operand type for in (\"CommutativeRings\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:510: error: Unsupported right operand type for in (\"CommutativeRings\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "list-item",
-      "line": 551,
+      "line": 522,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:551: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/modules/__init__.py:522: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "modules"
     },
     {
       "code": "list-item",
-      "line": 551,
+      "line": 522,
       "message": "List item 1 has incompatible type \"Bimodules\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:551: error: List item 1 has incompatible type \"Bimodules\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/modules/__init__.py:522: error: List item 1 has incompatible type \"Bimodules\"; expected \"Category\"  [list-item]",
       "root_area": "modules"
     },
     {
       "code": "type-var",
-      "line": 602,
+      "line": 573,
       "message": "Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:602: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_RModObjects\"  [type-var]",
+      "raw": "category_specs/modules/__init__.py:573: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_RModObjects\"  [type-var]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 602,
+      "line": 573,
       "message": "Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:602: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:573: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 607,
+      "line": 578,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:607: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:578: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 612,
+      "line": 583,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:612: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:583: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 620,
+      "line": 591,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:620: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:591: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "abstract",
-      "line": 621,
+      "line": 592,
       "message": "Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:621: error: Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"  [abstract]",
+      "raw": "category_specs/modules/__init__.py:592: error: Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"  [abstract]",
       "root_area": "modules"
     },
     {
       "code": "call-arg",
-      "line": 621,
+      "line": 592,
       "message": "Too few arguments",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:621: error: Too few arguments  [call-arg]",
+      "raw": "category_specs/modules/__init__.py:592: error: Too few arguments  [call-arg]",
       "root_area": "modules"
     },
     {
       "code": "list-item",
-      "line": 621,
+      "line": 592,
       "message": "List item 0 has incompatible type \"_Subobjects\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:621: error: List item 0 has incompatible type \"_Subobjects\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/modules/__init__.py:592: error: List item 0 has incompatible type \"_Subobjects\"; expected \"Category\"  [list-item]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 629,
+      "line": 600,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:629: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:600: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "call-arg",
-      "line": 630,
+      "line": 601,
       "message": "Too few arguments",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:630: error: Too few arguments  [call-arg]",
+      "raw": "category_specs/modules/__init__.py:601: error: Too few arguments  [call-arg]",
       "root_area": "modules"
     },
     {
       "code": "list-item",
-      "line": 630,
+      "line": 601,
       "message": "List item 0 has incompatible type \"_Quotients\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:630: error: List item 0 has incompatible type \"_Quotients\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/modules/__init__.py:601: error: List item 0 has incompatible type \"_Quotients\"; expected \"Category\"  [list-item]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 650,
+      "line": 621,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:650: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:621: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 651,
+      "line": 622,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:651: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:622: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 696,
+      "line": 667,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:696: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:667: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 711,
+      "line": 682,
       "message": "Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:711: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:682: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 712,
+      "line": 683,
       "message": "Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:712: error: Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:683: error: Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 714,
+      "line": 685,
       "message": "Argument 4 to \"FreeModule\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:714: error: Argument 4 to \"FreeModule\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:685: error: Argument 4 to \"FreeModule\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 716,
+      "line": 687,
       "message": "Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:716: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:687: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 717,
+      "line": 688,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:717: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:688: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 729,
+      "line": 700,
       "message": "Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:729: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:700: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 735,
+      "line": 706,
       "message": "Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:735: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:706: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 736,
+      "line": 707,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:736: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:707: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 748,
+      "line": 719,
       "message": "Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:748: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:719: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 748,
+      "line": 719,
       "message": "Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:748: error: Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:719: error: Argument 2 to \"FreeModule\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 748,
+      "line": 719,
       "message": "Argument \"with_basis\" to \"FreeModule\" has incompatible type \"None\"; expected \"str\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:748: error: Argument \"with_basis\" to \"FreeModule\" has incompatible type \"None\"; expected \"str\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:719: error: Argument \"with_basis\" to \"FreeModule\" has incompatible type \"None\"; expected \"str\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 750,
+      "line": 721,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:750: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:721: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 766,
+      "line": 737,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:766: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:737: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 766,
+      "line": 737,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:766: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:737: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 783,
+      "line": 754,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:783: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:754: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 783,
+      "line": 754,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:783: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:754: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 783,
+      "line": 754,
       "message": "Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:783: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:754: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 800,
+      "line": 771,
       "message": "Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:800: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:771: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 801,
+      "line": 772,
       "message": "Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:801: error: Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:772: error: Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 803,
+      "line": 774,
       "message": "Argument 4 to \"VectorSpace\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:803: error: Argument 4 to \"VectorSpace\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:774: error: Argument 4 to \"VectorSpace\" has incompatible type \"sage.matrix.matrix2.Matrix | None\"; expected \"sage.matrix.matrix.Matrix | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 806,
+      "line": 777,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:806: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:777: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 806,
+      "line": 777,
       "message": "Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:806: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:777: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 819,
+      "line": 790,
       "message": "Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:819: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:790: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 821,
+      "line": 792,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:821: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:792: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 834,
+      "line": 805,
       "message": "Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:834: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:805: error: Argument 1 to \"VectorSpace\" has incompatible type \"_RingObjectMethods\"; expected \"Field\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 834,
+      "line": 805,
       "message": "Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:834: error: Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:805: error: Argument 2 to \"VectorSpace\" has incompatible type \"Integer\"; expected \"int | Iterable[object] | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 834,
+      "line": 805,
       "message": "Argument \"with_basis\" to \"VectorSpace\" has incompatible type \"None\"; expected \"str\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:834: error: Argument \"with_basis\" to \"VectorSpace\" has incompatible type \"None\"; expected \"str\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:805: error: Argument \"with_basis\" to \"VectorSpace\" has incompatible type \"None\"; expected \"str\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 836,
+      "line": 807,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:836: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:807: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic_field\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 852,
+      "line": 823,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:852: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:823: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 852,
+      "line": 823,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:852: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:823: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 869,
+      "line": 840,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:869: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:840: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 869,
+      "line": 840,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:869: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:840: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 869,
+      "line": 840,
       "message": "Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:869: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:840: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
+      "line": 863,
+      "message": "\"LazyImport\" not callable",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:863: error: \"LazyImport\" not callable  [operator]",
+      "root_area": "modules"
+    },
+    {
+      "code": "operator",
+      "line": 864,
+      "message": "\"LazyImport\" not callable",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:864: error: \"LazyImport\" not callable  [operator]",
+      "root_area": "modules"
+    },
+    {
+      "code": "arg-type",
+      "line": 878,
+      "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:878: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "root_area": "modules"
+    },
+    {
+      "code": "arg-type",
+      "line": 878,
+      "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:878: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
+      "root_area": "modules"
+    },
+    {
+      "code": "arg-type",
       "line": 892,
-      "message": "\"LazyImport\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:892: error: \"LazyImport\" not callable  [operator]",
-      "root_area": "modules"
-    },
-    {
-      "code": "operator",
-      "line": 893,
-      "message": "\"LazyImport\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:893: error: \"LazyImport\" not callable  [operator]",
-      "root_area": "modules"
-    },
-    {
-      "code": "arg-type",
-      "line": 907,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:907: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:892: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 907,
-      "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:907: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
-      "root_area": "modules"
-    },
-    {
-      "code": "arg-type",
-      "line": 921,
-      "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:921: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
-      "root_area": "modules"
-    },
-    {
-      "code": "arg-type",
-      "line": 921,
+      "line": 892,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:921: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:892: error: Argument 2 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 921,
+      "line": 892,
       "message": "Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:921: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:892: error: Argument 3 to \"matrix\" has incompatible type \"Integer\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 935,
+      "line": 906,
       "message": "Argument 1 to \"span\" has incompatible type \"Sequence[_RModElements] | Matrix\"; expected \"Iterable[object]\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:935: error: Argument 1 to \"span\" has incompatible type \"Sequence[_RModElements] | Matrix\"; expected \"Iterable[object]\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:906: error: Argument 1 to \"span\" has incompatible type \"Sequence[_RModElements] | Matrix\"; expected \"Iterable[object]\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 936,
+      "line": 907,
       "message": "Argument 2 to \"span\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:936: error: Argument 2 to \"span\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:907: error: Argument 2 to \"span\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 940,
+      "line": 911,
       "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:940: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:911: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 941,
+      "line": 912,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:941: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:912: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 941,
+      "line": 912,
       "message": "Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:941: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:912: error: Argument 1 to \"_categories_for_free_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "misc",
-      "line": 955,
+      "line": 926,
       "message": "\"CombinatorialFreeModule\" gets multiple values for keyword argument \"prefix\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:955: error: \"CombinatorialFreeModule\" gets multiple values for keyword argument \"prefix\"  [misc]",
+      "raw": "category_specs/modules/__init__.py:926: error: \"CombinatorialFreeModule\" gets multiple values for keyword argument \"prefix\"  [misc]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 957,
+      "line": 928,
       "message": "Argument 2 to \"CombinatorialFreeModule\" has incompatible type \"_SetObjectMethods | Any\"; expected \"str\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:957: error: Argument 2 to \"CombinatorialFreeModule\" has incompatible type \"_SetObjectMethods | Any\"; expected \"str\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:928: error: Argument 2 to \"CombinatorialFreeModule\" has incompatible type \"_SetObjectMethods | Any\"; expected \"str\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 960,
+      "line": 931,
       "message": "Argument \"prefix\" to \"CombinatorialFreeModule\" has incompatible type \"str | None\"; expected \"str\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:960: error: Argument \"prefix\" to \"CombinatorialFreeModule\" has incompatible type \"str | None\"; expected \"str\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:931: error: Argument \"prefix\" to \"CombinatorialFreeModule\" has incompatible type \"str | None\"; expected \"str\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "assignment",
-      "line": 973,
+      "line": 944,
       "message": "Incompatible default for parameter \"start_index\" (default has type \"int\", parameter has type \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:973: error: Incompatible default for parameter \"start_index\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
+      "raw": "category_specs/modules/__init__.py:944: error: Incompatible default for parameter \"start_index\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 998,
+      "line": 969,
       "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:998: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:969: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 999,
+      "line": 970,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:999: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:970: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 999,
+      "line": 970,
       "message": "Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:999: error: Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:970: error: Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 1007,
+      "line": 978,
       "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1007: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:978: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1008,
+      "line": 979,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1008: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:979: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1008,
+      "line": 979,
       "message": "Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1008: error: Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:979: error: Argument 1 to \"_categories_for_quotient_module\" of \"_Constructors\" has incompatible type \"ParentMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1096,
+      "line": 1067,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1096: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1067: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1121,
+      "line": 1092,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1121: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1092: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1159,
+      "line": 1130,
       "message": "Argument 1 to \"matrix\" has incompatible type \"RationalField\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1159: error: Argument 1 to \"matrix\" has incompatible type \"RationalField\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1130: error: Argument 1 to \"matrix\" has incompatible type \"RationalField\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1159,
+      "line": 1130,
       "message": "Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1159: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1130: error: Argument 2 to \"matrix\" has incompatible type \"Sequence[Sequence[_RingElementMethods]]\"; expected \"int | None\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1164,
+      "line": 1135,
       "message": "Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1164: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1135: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1164,
+      "line": 1135,
       "message": "Argument \"rank\" to \"FreeModule\" of \"_Constructors\" has incompatible type \"int\"; expected \"Integer\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1164: error: Argument \"rank\" to \"FreeModule\" of \"_Constructors\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1135: error: Argument \"rank\" to \"FreeModule\" of \"_Constructors\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1166,
+      "line": 1137,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1166: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1137: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1177,
+      "line": 1148,
       "message": "Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1177: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1148: error: Argument 1 to \"FreeModule\" has incompatible type \"_RingObjectMethods\"; expected \"Ring\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "misc",
-      "line": 1178,
+      "line": 1149,
       "message": "List comprehension has incompatible type List[list[_RingElementMethods]]; expected List[FreeModuleElement]",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1178: error: List comprehension has incompatible type List[list[_RingElementMethods]]; expected List[FreeModuleElement]  [misc]",
+      "raw": "category_specs/modules/__init__.py:1149: error: List comprehension has incompatible type List[list[_RingElementMethods]]; expected List[FreeModuleElement]  [misc]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 1180,
+      "line": 1151,
       "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1180: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:1151: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1180,
+      "line": 1151,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1180: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1151: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"FreeModule_generic\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1180,
+      "line": 1151,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1180: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1151: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1180,
+      "line": 1151,
       "message": "Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1180: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1151: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "return-value",
-      "line": 1188,
+      "line": 1159,
       "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1188: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/modules/__init__.py:1159: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1189,
+      "line": 1160,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1189: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1160: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1189,
+      "line": 1160,
       "message": "Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1189: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1160: error: Argument 1 to \"Modules\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1309,
+      "line": 1280,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1309: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1280: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1335,
+      "line": 1306,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1335: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1306: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1363,
+      "line": 1334,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1363: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1334: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1391,
+      "line": 1362,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1391: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1362: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1417,
+      "line": 1388,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1417: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1388: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1432,
+      "line": 1403,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1432: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1403: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1458,
+      "line": 1429,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1458: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1429: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1473,
+      "line": 1444,
       "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1473: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1444: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "root_area": "modules"
+    },
+    {
+      "code": "arg-type",
+      "line": 1467,
+      "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:1467: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
+      "root_area": "modules"
+    },
+    {
+      "code": "return-value",
+      "line": 1495,
+      "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:1495: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
+      "root_area": "modules"
+    },
+    {
+      "code": "operator",
+      "line": 1496,
+      "message": "Unsupported operand types for * (\"Integer\" and \"list[ParentMethods]\")",
+      "owner": "research typing/design",
+      "path": "category_specs/modules/__init__.py",
+      "raw": "category_specs/modules/__init__.py:1496: error: Unsupported operand types for * (\"Integer\" and \"list[ParentMethods]\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
       "line": 1496,
-      "message": "Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1496: error: Argument 1 to \"_refine_constructed_module\" of \"_Constructors\" has incompatible type \"_RingObjectMethods\"; expected \"_RModObjects\"  [arg-type]",
-      "root_area": "modules"
-    },
-    {
-      "code": "return-value",
-      "line": 1524,
-      "message": "Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1524: error: Incompatible return value type (got \"_RModObjects\", expected \"ParentMethods\")  [return-value]",
-      "root_area": "modules"
-    },
-    {
-      "code": "operator",
-      "line": 1525,
-      "message": "Unsupported operand types for * (\"Integer\" and \"list[ParentMethods]\")",
-      "owner": "research typing/design",
-      "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1525: error: Unsupported operand types for * (\"Integer\" and \"list[ParentMethods]\")  [operator]",
-      "root_area": "modules"
-    },
-    {
-      "code": "arg-type",
-      "line": 1525,
       "message": "Argument 1 to \"sum\" has incompatible type \"list[ParentMethods]\"; expected \"Iterable[bool]\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1525: error: Argument 1 to \"sum\" has incompatible type \"list[ParentMethods]\"; expected \"Iterable[bool]\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1496: error: Argument 1 to \"sum\" has incompatible type \"list[ParentMethods]\"; expected \"Iterable[bool]\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1536,
+      "line": 1507,
       "message": "Unsupported right operand type for in (\"Rings\")",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1536: error: Unsupported right operand type for in (\"Rings\")  [operator]",
+      "raw": "category_specs/modules/__init__.py:1507: error: Unsupported right operand type for in (\"Rings\")  [operator]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1545,
+      "line": 1516,
       "message": "Argument 1 to \"free_module\" of \"Modules\" has incompatible type \"int\"; expected \"Integer\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1545: error: Argument 1 to \"free_module\" of \"Modules\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1516: error: Argument 1 to \"free_module\" of \"Modules\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "attr-defined",
-      "line": 1583,
+      "line": 1554,
       "message": "\"SubcategoryMethods\" has no attribute \"base_category\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1583: error: \"SubcategoryMethods\" has no attribute \"base_category\"  [attr-defined]",
+      "raw": "category_specs/modules/__init__.py:1554: error: \"SubcategoryMethods\" has no attribute \"base_category\"  [attr-defined]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1674,
+      "line": 1645,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1674: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1645: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1679,
+      "line": 1650,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1679: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1650: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1688,
+      "line": 1659,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1688: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1659: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "misc",
-      "line": 1690,
+      "line": 1661,
       "message": "Cannot override final attribute \"Graded\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1690: error: Cannot override final attribute \"Graded\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/modules/__init__.py:1661: error: Cannot override final attribute \"Graded\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "modules"
     },
     {
       "code": "arg-type",
-      "line": 1698,
+      "line": 1669,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1698: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/modules/__init__.py:1669: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1715,
+      "line": 1686,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1715: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1686: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1720,
+      "line": 1691,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1720: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1691: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1725,
+      "line": 1696,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1725: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1696: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1730,
+      "line": 1701,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1730: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1701: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1735,
+      "line": 1706,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1735: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1706: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1740,
+      "line": 1711,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1740: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1711: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
       "code": "operator",
-      "line": 1745,
+      "line": 1716,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:1745: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/modules/__init__.py:1716: error: \"LazyImport\" not callable  [operator]",
       "root_area": "modules"
     },
     {
@@ -6508,15 +6508,6 @@
       "root_area": "sets"
     },
     {
-      "code": "misc",
-      "line": 26,
-      "message": "Cannot override final attribute \"is_over_integral_domain\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_integral_domain.py",
-      "raw": "category_specs/modules/subcategories/over_integral_domain.py:26: error: Cannot override final attribute \"is_over_integral_domain\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "arg-type",
       "line": 25,
       "message": "Argument 2 to \"__init__\" of \"Category_module\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
@@ -6607,15 +6598,6 @@
       "root_area": "modules"
     },
     {
-      "code": "misc",
-      "line": 29,
-      "message": "Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_dedekind_domain.py",
-      "raw": "category_specs/modules/subcategories/over_dedekind_domain.py:29: error: Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "attr-defined",
       "line": 26,
       "message": "\"Category\" has no attribute \"OverDedekindDomain\"",
@@ -6625,30 +6607,12 @@
       "root_area": "modules"
     },
     {
-      "code": "misc",
-      "line": 34,
-      "message": "Cannot override final attribute \"is_over_pid\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_pid.py",
-      "raw": "category_specs/modules/subcategories/over_pid.py:34: error: Cannot override final attribute \"is_over_pid\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "attr-defined",
       "line": 26,
       "message": "\"Category\" has no attribute \"OverPID\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/over_field.py",
       "raw": "category_specs/modules/subcategories/over_field.py:26: error: \"Category\" has no attribute \"OverPID\"  [attr-defined]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 34,
-      "message": "Cannot override final attribute \"is_over_field\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_field.py",
-      "raw": "category_specs/modules/subcategories/over_field.py:34: error: Cannot override final attribute \"is_over_field\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -6802,15 +6766,6 @@
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
       "raw": "category_specs/algebras/__init__.py:159: error: List item 1 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 181,
-      "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:181: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "algebras"
     },
     {
@@ -10387,15 +10342,6 @@
       "root_area": "posets"
     },
     {
-      "code": "misc",
-      "line": 30,
-      "message": "Cannot override final attribute \"has_ordered_generating_set\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/with_ordered_generating_set.py",
-      "raw": "category_specs/modules/subcategories/with_ordered_generating_set.py:30: error: Cannot override final attribute \"has_ordered_generating_set\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "call-arg",
       "line": 40,
       "message": "Too many arguments for \"Integer\"",
@@ -10411,24 +10357,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/with_ordered_generating_set.py",
       "raw": "category_specs/modules/subcategories/with_ordered_generating_set.py:44: error: No overload variant of \"int\" matches argument type \"Integer\"  [call-overload]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 22,
-      "message": "Cannot override final attribute \"is_torsion\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/torsion.py",
-      "raw": "category_specs/modules/subcategories/torsion.py:22: error: Cannot override final attribute \"is_torsion\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 22,
-      "message": "Cannot override final attribute \"is_projective\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/projective.py",
-      "raw": "category_specs/modules/subcategories/projective.py:22: error: Cannot override final attribute \"is_projective\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -10546,15 +10474,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/finitely_generated.py",
       "raw": "category_specs/modules/subcategories/finitely_generated.py:24: error: \"Category\" has no attribute \"WithOrderedGeneratingSet\"  [attr-defined]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 32,
-      "message": "Cannot override final attribute \"is_finitely_generated\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/finitely_generated.py",
-      "raw": "category_specs/modules/subcategories/finitely_generated.py:32: error: Cannot override final attribute \"is_finitely_generated\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -10843,15 +10762,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/free.py",
       "raw": "category_specs/modules/subcategories/free.py:49: error: \"Category\" has no attribute \"Projective\"  [attr-defined]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 63,
-      "message": "Cannot override final attribute \"is_free\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/free.py",
-      "raw": "category_specs/modules/subcategories/free.py:63: error: Cannot override final attribute \"is_free\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -11315,33 +11225,6 @@
     },
     {
       "code": "misc",
-      "line": 57,
-      "message": "Cannot override final attribute \"has_form\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/forms/chain.py",
-      "raw": "category_specs/forms/chain.py:57: error: Cannot override final attribute \"has_form\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "forms"
-    },
-    {
-      "code": "misc",
-      "line": 61,
-      "message": "Cannot override final attribute \"is_bilinear\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/forms/chain.py",
-      "raw": "category_specs/forms/chain.py:61: error: Cannot override final attribute \"is_bilinear\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "forms"
-    },
-    {
-      "code": "misc",
-      "line": 64,
-      "message": "Cannot override final attribute \"is_quadratic\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/forms/chain.py",
-      "raw": "category_specs/forms/chain.py:64: error: Cannot override final attribute \"is_quadratic\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "forms"
-    },
-    {
-      "code": "misc",
       "line": 70,
       "message": "Cannot override final attribute \"orthogonal_group\" (previously declared in base class \"ParentMethods\")",
       "owner": "mathematical/category-interface question",
@@ -11374,15 +11257,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/forms/chain.py",
       "raw": "category_specs/forms/chain.py:98: error: Cannot override final attribute \"is_bilinear\" (previously declared in base class \"ParentMethods\")  [misc]",
-      "root_area": "forms"
-    },
-    {
-      "code": "misc",
-      "line": 98,
-      "message": "Cannot override final attribute \"is_bilinear\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/forms/chain.py",
-      "raw": "category_specs/forms/chain.py:98: error: Cannot override final attribute \"is_bilinear\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "forms"
     },
     {
@@ -11617,15 +11491,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/lattices/__init__.py",
       "raw": "category_specs/lattices/__init__.py:188: error: \"SubcategoryMethods\" has no attribute \"base_ring\"  [attr-defined]",
-      "root_area": "lattices"
-    },
-    {
-      "code": "misc",
-      "line": 191,
-      "message": "Cannot override final attribute \"is_lattice\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/lattices/__init__.py",
-      "raw": "category_specs/lattices/__init__.py:191: error: Cannot override final attribute \"is_lattice\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "lattices"
     },
     {
@@ -12701,15 +12566,6 @@
     },
     {
       "code": "misc",
-      "line": 54,
-      "message": "Cannot override final attribute \"has_basis\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/with_basis.py",
-      "raw": "category_specs/modules/subcategories/with_basis.py:54: error: Cannot override final attribute \"has_basis\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
       "line": 140,
       "message": "Definition of \"__call__\" in base class \"_RModHomCategoryObjectMethods\" is incompatible with definition in base class \"_SetObjectMethods\"",
       "owner": "research typing/design",
@@ -12781,30 +12637,12 @@
       "root_area": "modules"
     },
     {
-      "code": "misc",
-      "line": 179,
-      "message": "Cannot override final attribute \"has_ordered_basis\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/with_basis.py",
-      "raw": "category_specs/modules/subcategories/with_basis.py:179: error: Cannot override final attribute \"has_ordered_basis\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "union-attr",
       "line": 186,
       "message": "Item \"Sequence[_RModElements]\" of \"Any | Mapping[Element, _RModElements] | Sequence[_RModElements]\" has no attribute \"keys\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/with_basis.py",
       "raw": "category_specs/modules/subcategories/with_basis.py:186: error: Item \"Sequence[_RModElements]\" of \"Any | Mapping[Element, _RModElements] | Sequence[_RModElements]\" has no attribute \"keys\"  [union-attr]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 25,
-      "message": "Cannot override final attribute \"is_torsionfree\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/torsionfree.py",
-      "raw": "category_specs/modules/subcategories/torsionfree.py:25: error: Cannot override final attribute \"is_torsionfree\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -12850,42 +12688,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/r_ideals.py",
       "raw": "category_specs/modules/subcategories/r_ideals.py:24: error: \"Category\" has no attribute \"Subobjects\"  [attr-defined]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 32,
-      "message": "Cannot override final attribute \"is_ideal\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/r_ideals.py",
-      "raw": "category_specs/modules/subcategories/r_ideals.py:32: error: Cannot override final attribute \"is_ideal\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 22,
-      "message": "Cannot override final attribute \"is_over_local_ring\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_local_ring.py",
-      "raw": "category_specs/modules/subcategories/over_local_ring.py:22: error: Cannot override final attribute \"is_over_local_ring\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 22,
-      "message": "Cannot override final attribute \"is_over_complete_ring\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_complete_ring.py",
-      "raw": "category_specs/modules/subcategories/over_complete_ring.py:22: error: Cannot override final attribute \"is_over_complete_ring\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 22,
-      "message": "Cannot override final attribute \"is_over_commutative_ring\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/over_commutative_ring.py",
-      "raw": "category_specs/modules/subcategories/over_commutative_ring.py:22: error: Cannot override final attribute \"is_over_commutative_ring\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -13015,15 +12817,6 @@
       "root_area": "modules"
     },
     {
-      "code": "misc",
-      "line": 25,
-      "message": "Cannot override final attribute \"is_graded\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/graded.py",
-      "raw": "category_specs/modules/subcategories/graded.py:25: error: Cannot override final attribute \"is_graded\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "modules"
-    },
-    {
       "code": "operator",
       "line": 36,
       "message": "\"LazyImport\" not callable",
@@ -13111,15 +12904,6 @@
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/subcategories/finitely_presented.py",
       "raw": "category_specs/modules/subcategories/finitely_presented.py:24: error: \"Category\" has no attribute \"FinitelyGenerated\"  [attr-defined]",
-      "root_area": "modules"
-    },
-    {
-      "code": "misc",
-      "line": 32,
-      "message": "Cannot override final attribute \"is_finitely_presented\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/modules/subcategories/finitely_presented.py",
-      "raw": "category_specs/modules/subcategories/finitely_presented.py:32: error: Cannot override final attribute \"is_finitely_presented\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "modules"
     },
     {
@@ -13246,15 +13030,6 @@
       "owner": "research typing/design",
       "path": "category_specs/algebras/subcategories/with_basis.py",
       "raw": "category_specs/algebras/subcategories/with_basis.py:53: error: Definition of \"intersection\" in base class \"ParentMethods\" is incompatible with definition in base class \"_RModObjects\"  [misc]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 53,
-      "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/subcategories/with_basis.py",
-      "raw": "category_specs/algebras/subcategories/with_basis.py:53: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "algebras"
     },
     {
@@ -13404,15 +13179,6 @@
     {
       "code": "misc",
       "line": 38,
-      "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/subcategories/semisimple.py",
-      "raw": "category_specs/algebras/subcategories/semisimple.py:38: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 38,
       "message": "Cannot override final attribute \"tensor_square\" (previously declared in base class \"_RModObjects\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/subcategories/semisimple.py",
@@ -13471,15 +13237,6 @@
       "owner": "research typing/design",
       "path": "category_specs/algebras/subcategories/commutative.py",
       "raw": "category_specs/algebras/subcategories/commutative.py:28: error: List item 1 has incompatible type \"CommutativeAlgebras\"; expected \"Category\"  [list-item]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 38,
-      "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/subcategories/commutative.py",
-      "raw": "category_specs/algebras/subcategories/commutative.py:38: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "algebras"
     },
     {
@@ -13879,246 +13636,228 @@
       "root_area": "rings"
     },
     {
-      "code": "operator",
-      "line": 202,
-      "message": "\"ParentMethods\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:202: error: \"ParentMethods\" not callable  [operator]",
-      "root_area": "rings"
-    },
-    {
       "code": "misc",
-      "line": 206,
+      "line": 208,
       "message": "Method \"integral_basis_at_primes\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:206: error: Method \"integral_basis_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "rings"
-    },
-    {
-      "code": "operator",
-      "line": 209,
-      "message": "\"ParentMethods\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:209: error: \"ParentMethods\" not callable  [operator]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:208: error: Method \"integral_basis_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 213,
+      "line": 217,
       "message": "Method \"power_basis\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:213: error: Method \"power_basis\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:217: error: Method \"power_basis\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 218,
+      "line": 222,
       "message": "Method \"reduced_basis\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:218: error: Method \"reduced_basis\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:222: error: Method \"reduced_basis\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 223,
+      "line": 227,
       "message": "Method \"different\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:223: error: Method \"different\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:227: error: Method \"different\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 228,
+      "line": 232,
       "message": "Method \"places\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:228: error: Method \"places\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:232: error: Method \"places\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 235,
+      "line": 239,
       "message": "Method \"real_embeddings\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:235: error: Method \"real_embeddings\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:239: error: Method \"real_embeddings\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "assignment",
-      "line": 235,
+      "line": 239,
       "message": "Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:235: error: Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:239: error: Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 240,
+      "line": 244,
       "message": "Method \"complex_embeddings\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:240: error: Method \"complex_embeddings\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:244: error: Method \"complex_embeddings\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "assignment",
-      "line": 240,
+      "line": 244,
       "message": "Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:240: error: Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:244: error: Incompatible default for parameter \"prec\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 245,
+      "line": 249,
       "message": "Method \"roots_of_unity\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:245: error: Method \"roots_of_unity\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:249: error: Method \"roots_of_unity\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 250,
+      "line": 254,
       "message": "Method \"regulator\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:250: error: Method \"regulator\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:254: error: Method \"regulator\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 255,
+      "line": 259,
       "message": "Method \"units\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:255: error: Method \"units\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:259: error: Method \"units\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 260,
+      "line": 264,
       "message": "Method \"unit_group\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:260: error: Method \"unit_group\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:264: error: Method \"unit_group\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 265,
+      "line": 269,
       "message": "Method \"conductor\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:265: error: Method \"conductor\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:269: error: Method \"conductor\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 270,
+      "line": 274,
       "message": "Method \"prime_above\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:270: error: Method \"prime_above\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:274: error: Method \"prime_above\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 277,
+      "line": 281,
       "message": "Method \"primes_above\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:277: error: Method \"primes_above\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:281: error: Method \"primes_above\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 284,
+      "line": 288,
       "message": "Method \"S_units\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:284: error: Method \"S_units\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:288: error: Method \"S_units\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 291,
+      "line": 295,
       "message": "Method \"S_class_group\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:291: error: Method \"S_class_group\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:295: error: Method \"S_class_group\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 298,
+      "line": 302,
       "message": "Method \"ring_of_integers\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:298: error: Method \"ring_of_integers\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:302: error: Method \"ring_of_integers\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 310,
+      "line": 314,
       "message": "Method \"ring_of_integers_at_prime\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:310: error: Method \"ring_of_integers_at_prime\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:314: error: Method \"ring_of_integers_at_prime\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 323,
+      "line": 327,
       "message": "Method \"ring_of_integers_at_primes\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:323: error: Method \"ring_of_integers_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:327: error: Method \"ring_of_integers_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 336,
+      "line": 340,
       "message": "Method \"maximal_order\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:336: error: Method \"maximal_order\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:340: error: Method \"maximal_order\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 348,
+      "line": 352,
       "message": "Method \"maximal_order_at_prime\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:348: error: Method \"maximal_order_at_prime\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:352: error: Method \"maximal_order_at_prime\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 361,
+      "line": 365,
       "message": "Method \"maximal_order_at_primes\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:361: error: Method \"maximal_order_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:365: error: Method \"maximal_order_at_primes\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 374,
+      "line": 378,
       "message": "Method \"absolute_field\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/rings/subcategories/rational_field.py",
-      "raw": "category_specs/rings/subcategories/rational_field.py:374: error: Method \"absolute_field\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/rings/subcategories/rational_field.py:378: error: Method \"absolute_field\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "rings"
     },
     {
@@ -14293,6 +14032,15 @@
       "root_area": "rings"
     },
     {
+      "code": "misc",
+      "line": 69,
+      "message": "Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"ParentMethods\")",
+      "owner": "mathematical/category-interface question",
+      "path": "category_specs/lattices/subcategories/over_dedekind.py",
+      "raw": "category_specs/lattices/subcategories/over_dedekind.py:69: error: Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"ParentMethods\")  [misc]",
+      "root_area": "lattices"
+    },
+    {
       "code": "operator",
       "line": 122,
       "message": "Unsupported left operand type for - (\"Integer\")",
@@ -14389,15 +14137,6 @@
       "owner": "research typing/design",
       "path": "category_specs/algebras/subcategories/finite_dimensional_with_basis.py",
       "raw": "category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of \"intersection\" in base class \"ParentMethods\" is incompatible with definition in base class \"_RModObjects\"  [misc]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 35,
-      "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/subcategories/finite_dimensional_with_basis.py",
-      "raw": "category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "algebras"
     },
     {
@@ -14944,11 +14683,11 @@
     },
     {
       "code": "abstract",
-      "line": 621,
+      "line": 592,
       "message": "Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/modules/__init__.py",
-      "raw": "category_specs/modules/__init__.py:621: error: Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"  [abstract]",
+      "raw": "category_specs/modules/__init__.py:592: error: Cannot instantiate abstract class \"_Subobjects\" with abstract attribute \"as_subobject_of_self\"  [abstract]",
       "root_area": "modules"
     },
     {
@@ -14972,24 +14711,24 @@
       "root_area": ".cache"
     }
   ],
-  "ordinary_error_count": 1640,
-  "parsed_error_count": 1641,
-  "raw_diagnostic_count": 1973,
+  "ordinary_error_count": 1611,
+  "parsed_error_count": 1612,
+  "raw_diagnostic_count": 1944,
   "source_artifact": "reports/workstreams/category-specs-mypy-structural-full/latest.json",
   "structural": {
-    "checked_provider_count": 308,
+    "checked_provider_count": 309,
     "graph_absent_provider_count": 0,
     "mismatched_provider_count": 0,
     "missing_typeinfo_count": 0,
     "projected_ancestor_missing_typeinfo_count": 0,
-    "projection_count": 434,
+    "projection_count": 435,
     "source_mode": "all",
     "source_module_count": 262,
     "status": "pass"
   },
   "toolchain": {
     "plugin_sha": "c231ac89da769434380dd95e499f5b64680636ae",
-    "research_sha": "333028d57c50653bb81d4eb3e2679def79a3ff10",
+    "research_sha": "0fb25eec5d84aed9a7e1be655254625a2268b09a",
     "sidecar_sha": "62379f8e70b9c8c5d74601325a220f4868d1f69f"
   }
 }
