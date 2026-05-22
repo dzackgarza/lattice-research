@@ -6,29 +6,29 @@
 - full_structural_mismatches: 0
 - full_structural_missing_typeinfos: 0
 - full_structural_projected_ancestor_missing_typeinfos: 0
-- ordinary_error_count: 1565
+- ordinary_error_count: 1643
 - ignored_negative_control_count: 1
 
 ## Toolchain
 
-- research_sha: `d5c6f9100eec5310a333f51b30180b8f8a0efd58`
+- research_sha: `94c3e08c5a61c61383324c65d84f8c5130163197`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
-- sidecar_sha: `c966661e41f55e9e73f9611cb63e40a01769904b`
+- sidecar_sha: `62379f8e70b9c8c5d74601325a220f4868d1f69f`
 
 ## Counts By Owner
 
-- research typing/design: 1157
-- mathematical/category-interface question: 317
-- missing sidecar ordinary signature: 91
+- research typing/design: 1163
+- mathematical/category-interface question: 330
+- missing sidecar ordinary signature: 150
 
 ## Counts By Code
 
-- misc: 449
-- override: 282
-- operator: 246
-- arg-type: 194
+- misc: 505
+- override: 280
+- operator: 248
+- arg-type: 195
 - list-item: 132
-- attr-defined: 106
+- attr-defined: 127
 - assignment: 54
 - return-value: 37
 - call-arg: 33
@@ -41,14 +41,14 @@
 
 ## Counts By Root Area
 
-- rings: 415
-- sets: 304
-- modules: 263
-- algebras: 145
+- rings: 486
+- sets: 303
+- modules: 262
+- algebras: 157
 - cat: 127
 - posets: 93
 - forms: 58
-- lattices: 53
+- lattices: 50
 - topological_spaces: 49
 - homsets: 33
 - tensor_algebra_components: 21

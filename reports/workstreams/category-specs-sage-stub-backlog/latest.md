@@ -5,41 +5,42 @@ a claim that the sidecar is wrong; it is a Sage-shaped diagnostic that should
 be checked against actual Sage behavior before editing `sage-stubs`.
 
 - source_ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
-- ordinary_error_count: 1565
-- stub_candidate_count: 1147
-- non_candidate_count: 418
+- ordinary_error_count: 1643
+- stub_candidate_count: 1204
+- non_candidate_count: 439
 
 ## Toolchain
 
-- research_sha: `0ec468c3618ef3424da2b2c19c45371f6b9fbcce`
+- research_sha: `94c3e08c5a61c61383324c65d84f8c5130163197`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
 - sidecar_sha: `62379f8e70b9c8c5d74601325a220f4868d1f69f`
 
 ## Counts By Failure Kind
 
 - dynamic category attribute missing: 356
-- incorrect final/override declaration: 267
+- incorrect final/override declaration: 265
 - callable LazyImport / lazy factory surface: 206
-- generic inheritance/protocol missing: 123
-- missing base method in provider stub: 65
+- generic inheritance/protocol missing: 122
+- missing base method in provider stub: 103
+- missing sage module member: 43
 - missing sage class member: 36
 - factory return type too narrow: 32
 - constructor signature too narrow: 31
-- missing sage module member: 21
 - Sage numeric/operator protocol missing: 10
 
 ## Counts By Agent Bundle
 
 - category core and dynamic category constructors: 380
-- homsets, morphisms, endsets, autsets: 325
-- rings and polynomial-family constructors: 212
-- modules, vector spaces, matrix spaces, subobjects: 134
-- sets, infinity/cardinality, numeric protocols: 55
+- homsets, morphisms, endsets, autsets: 361
+- rings and polynomial-family constructors: 236
+- modules, vector spaces, matrix spaces, subobjects: 132
+- sets, infinity/cardinality, numeric protocols: 54
 - smaller families: algebras/forms/posets/lattices/topological spaces: 41
 
 ## Counts By Suggested Sidecar File
 
-- runtime probe must identify Sage module before editing: 1122
+- runtime probe must identify Sage module before editing: 1158
+- sage/rings/abc.pyi: 24
 - sage/rings/padics/generic_nodes.pyi: 6
 - sage/combinat/posets/lattices.pyi: 4
 - sage/rings/number_field/number_field.pyi: 4
@@ -48,10 +49,7 @@ be checked against actual Sage behavior before editing `sage-stubs`.
 - sage/algebras/free_algebra.pyi: 1
 - sage/combinat/posets/posets.pyi: 1
 - sage/rings/infinity.pyi: 1
-- sage/rings/integer_ring.pyi: 1
 - sage/rings/qqbar.pyi: 1
-- sage/rings/rational_field.pyi: 1
-- sage/rings/real_mpfr.pyi: 1
 
 ## Representative Rows
 

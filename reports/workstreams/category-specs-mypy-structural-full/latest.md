@@ -3,9 +3,9 @@
 - status: pass
 - source_mode: all
 - source_module_count: 261
-- projection_count: 445
-- unsupported_provider_count: 69
-- checked_provider_count: 319
+- projection_count: 434
+- unsupported_provider_count: 63
+- checked_provider_count: 308
 - graph_absent_provider_count: 0
 - missing_typeinfo_count: 0
 - projected_ancestor_missing_typeinfo_count: 0
@@ -338,7 +338,6 @@ None.
 - `category_specs/sets/__init__.py:670: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/__init__.py:680: error: Value of type variable "_ParentT" of "refine_category" cannot be "ParentMethods"  [type-var]`
 - `category_specs/sets/__init__.py:698: error: Argument 1 to "get_interval" of "ParentMethods" has incompatible type "int"; expected "Integer"  [arg-type]`
-- `category_specs/sets/__init__.py:750: error: Module "sage.rings.real_mpfr" does not explicitly export attribute "RealField"  [attr-defined]`
 - `category_specs/sets/__init__.py:754: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/__init__.py:848: error: Unsupported operand type for unary - ("PlusInfinity")  [operator]`
 - `category_specs/sets/__init__.py:858: error: Unsupported operand type for unary - ("PlusInfinity")  [operator]`
@@ -831,9 +830,8 @@ None.
 - `category_specs/modules/__init__.py:996: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
 - `category_specs/modules/__init__.py:996: error: Argument 1 to "_categories_for_quotient_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
 - `category_specs/modules/__init__.py:1084: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "Parent"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1106: error: Module "sage.rings.integer_ring" has no attribute "ZZ"  [attr-defined]`
 - `category_specs/modules/__init__.py:1109: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:1145: error: Module "sage.rings.rational_field" has no attribute "QQ"  [attr-defined]`
+- `category_specs/modules/__init__.py:1147: error: Argument 1 to "matrix" has incompatible type "RationalField"; expected "Ring | None"  [arg-type]`
 - `category_specs/modules/__init__.py:1147: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
 - `category_specs/modules/__init__.py:1152: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
 - `category_specs/modules/__init__.py:1152: error: Argument "rank" to "FreeModule" of "_Constructors" has incompatible type "int"; expected "Integer"  [arg-type]`
@@ -982,7 +980,8 @@ None.
 - `category_specs/rings/subcategories/constructions/rings_under.py:28: error: Incompatible return value type (got "Category", expected "list[Category]")  [return-value]`
 - `category_specs/rings/subcategories/constructions/rings_under.py:31: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/constructions/rings_under.py:32: error: List item 2 has incompatible type "sage.categories.category.Category"; expected "category_specs.cat.base_category_types.Category"  [list-item]`
-- `category_specs/algebras/__init__.py:94: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/__init__.py:94: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/__init__.py:94: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/__init__.py:102: error: Argument 1 of "__mul__" is incompatible with supertype "category_specs.modules._RModElements"; supertype defines the argument type as "_RingElementMethods"  [override]`
 - `category_specs/algebras/__init__.py:102: note: This violates the Liskov substitution principle`
 - `category_specs/algebras/__init__.py:102: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
@@ -994,7 +993,8 @@ None.
 - `category_specs/algebras/__init__.py:159: error: List item 0 has incompatible type "MagmaticAlgebras"; expected "Category"  [list-item]`
 - `category_specs/algebras/__init__.py:159: error: List item 1 has incompatible type "AssociativeAlgebras"; expected "Category"  [list-item]`
 - `category_specs/algebras/__init__.py:181: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/algebras/__init__.py:181: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/__init__.py:181: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/__init__.py:181: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/__init__.py:181: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/__init__.py:276: error: Signature of "annihilator" incompatible with supertype "category_specs.modules._RModObjects"  [override]`
 - `category_specs/algebras/__init__.py:276: note:      Superclass:`
@@ -1265,11 +1265,28 @@ None.
 - `category_specs/rings/subcategories/topological.py:54: error: Cannot override final attribute "Metric" (previously declared in base class "SubcategoryMethods")  [misc]`
 - `category_specs/rings/subcategories/topological.py:54: error: Cannot override final attribute "Topological" (previously declared in base class "SubcategoryMethods")  [misc]`
 - `category_specs/rings/subcategories/topological.py:54: error: Definition of "Topological" in base class "SubcategoryMethods" is incompatible with definition in base class "SubcategoryMethods"  [misc]`
+- `category_specs/rings/subcategories/reduced.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/reduced.py:31: error: List item 0 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/noetherian.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/noetherian.py:30: error: List item 0 has incompatible type "NoetherianRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/noetherian.py:30: error: List item 1 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/noetherian.py:35: error: Unsupported right operand type for in ("NoetherianRings")  [operator]`
 - `category_specs/rings/subcategories/local.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/local.py:32: error: List item 0 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/integral_domain.py:41: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/integral_domain.py:42: error: List item 0 has incompatible type "IntegralDomains"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/integral_domain.py:42: error: List item 1 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/division.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/division.py:30: error: List item 0 has incompatible type "DivisionRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/division.py:30: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/division.py:35: error: Unsupported right operand type for in ("DivisionRings")  [operator]`
+- `category_specs/rings/subcategories/approximate.py:8: error: Module "sage.rings.abc" has no attribute "ComplexBallField"  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:9: error: Module "sage.rings.abc" has no attribute "ComplexDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:10: error: Module "sage.rings.abc" has no attribute "ComplexField"  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:11: error: Module "sage.rings.abc" has no attribute "ComplexIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:12: error: Module "sage.rings.abc" has no attribute "RealBallField"; maybe "RealField"?  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:13: error: Module "sage.rings.abc" has no attribute "RealDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/approximate.py:15: error: Module "sage.rings.abc" has no attribute "RealIntervalField"  [attr-defined]`
 - `category_specs/rings/subcategories/approximate.py:16: error: Module "sage.rings.padics.generic_nodes" has no attribute "pAdicFieldGeneric"; maybe "pAdicBaseGeneric", "pAdicRingGeneric", or "pAdicRingBaseGeneric"?  [attr-defined]`
 - `category_specs/rings/subcategories/approximate.py:16: error: Module "sage.rings.padics.generic_nodes" does not explicitly export attribute "pAdicRingGeneric"  [attr-defined]`
 - `category_specs/rings/subcategories/approximate.py:40: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -1362,20 +1379,12 @@ None.
 - `category_specs/modules/subcategories/projective.py:22: error: Cannot override final attribute "is_projective" (previously declared in base class "_RModObjects")  [misc]`
 - `category_specs/forms/subcategories/with_forms.py:40: error: Method "has_form" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/with_forms.py:55: error: "ParentMethods" has no attribute "category"  [attr-defined]`
-- `category_specs/rings/subcategories/field.py:56: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/field.py:58: error: List item 0 has incompatible type "Fields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/field.py:59: error: List item 1 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/field.py:60: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:61: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:62: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:63: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:64: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:65: error: "Rings" has no attribute "KrullDimension"  [attr-defined]`
-- `category_specs/rings/subcategories/field.py:114: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:119: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:124: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/field.py:141: error: Method "completion" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/subcategories/field.py:144: error: Incompatible return value type (got "category_specs.rings.subcategories.field._Fields.ParentMethods", expected "category_specs.rings.subcategories.complete._CompleteRings.ParentMethods")  [return-value]`
+- `category_specs/rings/subcategories/integrally_closed_domain.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/integrally_closed_domain.py:32: error: List item 0 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/gcd_domain.py:32: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/gcd_domain.py:33: error: List item 0 has incompatible type "GcdDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/gcd_domain.py:33: error: List item 1 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/gcd_domain.py:38: error: Unsupported right operand type for in ("GcdDomains")  [operator]`
 - `category_specs/rings/subcategories/complete.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/complete.py:28: error: List item 0 has incompatible type "_TopologicalRings"; expected "Category"  [list-item]`
 - `category_specs/posets/subcategories/finite.py:39: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -1421,12 +1430,9 @@ None.
 - `category_specs/forms/subcategories/integral.py:66: error: Method "is_integral" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/integral.py:71: error: Method "is_rational" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/alternating.py:42: error: Method "is_alternating" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/subcategories/number_field.py:47: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/number_field.py:48: error: List item 0 has incompatible type "NumberFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/number_field.py:48: error: List item 1 has incompatible type "_Fields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/number_field.py:85: error: Method "is_number_field" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/subcategories/number_field.py:188: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/number_field.py:192: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/unique_factorization_domain.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/unique_factorization_domain.py:37: error: List item 0 has incompatible type "UniqueFactorizationDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/unique_factorization_domain.py:37: error: "LazyImport" not callable  [operator]`
 - `category_specs/posets/subcategories/finite_meet_semilattice.py:26: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/posets/subcategories/finite_meet_semilattice.py:30: error: "LazyImport" not callable  [operator]`
 - `category_specs/posets/subcategories/finite_meet_semilattice.py:53: error: Module "sage.combinat.posets.lattices" has no attribute "MeetSemilattice"; maybe "FiniteMeetSemilattice"?  [attr-defined]`
@@ -1468,6 +1474,10 @@ None.
 - `category_specs/forms/subcategories/free_bilinear.py:77: error: Method "is_free" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/free_bilinear.py:82: error: Method "gram_matrix" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/forms/subcategories/free_bilinear.py:98: error: Method "inner_product_matrix" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/principal_ideal_domain.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/principal_ideal_domain.py:38: error: List item 0 has incompatible type "PrincipalIdealDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/principal_ideal_domain.py:38: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/principal_ideal_domain.py:43: error: Unsupported right operand type for in ("PrincipalIdealDomains")  [operator]`
 - `category_specs/posets/subcategories/finite_lattice.py:40: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/posets/subcategories/finite_lattice.py:44: error: List item 1 has incompatible type "_FiniteMeetSemilatticePosets"; expected "Category"  [list-item]`
 - `category_specs/posets/subcategories/finite_lattice.py:45: error: List item 2 has incompatible type "_FiniteJoinSemilatticePosets"; expected "Category"  [list-item]`
@@ -1510,12 +1520,29 @@ None.
 - `category_specs/forms/chain.py:220: error: Cannot override final attribute "is_integral" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/forms/chain.py:224: error: Cannot override final attribute "is_rational" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/forms/chain.py:246: error: Cannot override final attribute "is_unimodular" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/euclidean_domain.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/euclidean_domain.py:31: error: List item 0 has incompatible type "EuclideanDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/euclidean_domain.py:31: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/euclidean_domain.py:36: error: Unsupported right operand type for in ("EuclideanDomains")  [operator]`
 - `category_specs/lattices/subcategories/constructions/dual_objects.py:31: error: Return type "list[LatticesCategory]" of "extra_super_categories" incompatible with return type "list[Category]" in supertype "sage.categories.covariant_functorial_construction.FunctorialConstructionCategory"  [override]`
 - `category_specs/lattices/subcategories/constructions/dual_objects.py:32: error: "Category" has no attribute "Rational"  [attr-defined]`
 - `category_specs/forms/__init__.py:147: error: Unexpected keyword argument "dispatch" for "Modules"  [call-arg]`
 - `category_specs/forms/__init__.py:147: note: "Modules" defined in "category_specs.cat.base_category_types"`
 - `category_specs/forms/__init__.py:147: error: "LazyImport" not callable  [operator]`
 - `category_specs/forms/__init__.py:147: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/rings/subcategories/field.py:56: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/field.py:58: error: List item 0 has incompatible type "Fields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/field.py:59: error: List item 1 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/field.py:60: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:61: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:62: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:63: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:64: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:65: error: "Rings" has no attribute "KrullDimension"  [attr-defined]`
+- `category_specs/rings/subcategories/field.py:114: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:119: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:124: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/field.py:144: error: Incompatible return value type (got "category_specs.rings.subcategories.field._Fields.ParentMethods", expected "category_specs.rings.subcategories.complete._CompleteRings.ParentMethods")  [return-value]`
 - `category_specs/lattices/subcategories/constructions/overlattices.py:30: error: "LatticesCategory" has no attribute "Rational"  [attr-defined]`
 - `category_specs/lattices/subcategories/constructions/overlattices.py:30: error: Argument 1 to "Lattices" has incompatible type "Ring"; expected "_RingObjectMethods"  [arg-type]`
 - `category_specs/lattices/subcategories/constructions/orthogonal_direct_sums.py:30: error: Too few arguments  [call-arg]`
@@ -1542,6 +1569,11 @@ None.
 - `category_specs/lattices/__init__.py:242: error: "LazyImport" not callable  [operator]`
 - `category_specs/lattices/__init__.py:242: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
 - `category_specs/lattices/__init__.py:255: error: "Category" has no attribute "Lattice"  [attr-defined]`
+- `category_specs/rings/subcategories/number_field.py:47: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/number_field.py:48: error: List item 0 has incompatible type "NumberFields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/number_field.py:48: error: List item 1 has incompatible type "_Fields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/number_field.py:188: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/number_field.py:192: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
 - `category_specs/types.py:36: error: Module "sage.rings.qqbar" has no attribute "AlgebraicPolynomialTracker"  [attr-defined]`
 - `.cache/sage-mypy-plugin/consumer-structural-full/negative_consumer_probe.py:5: error: Incompatible types in assignment (expression has type "int", variable has type "_SetObjectMethods")  [assignment]`
 - `category_specs/topological_spaces/subcategories/connected.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -1559,10 +1591,42 @@ None.
 - `category_specs/sets/subcategories/constructions/objects_over.py:18: error: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"  [misc]`
 - `category_specs/rings/subcategories/valued.py:42: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/valued.py:43: error: List item 0 has incompatible type "Rings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/scientific_notation_field.py:8: error: Module "sage.rings.abc" has no attribute "ComplexField"  [attr-defined]`
+- `category_specs/rings/subcategories/scientific_notation_field.py:9: error: Module "sage.rings.abc" has no attribute "ComplexIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/scientific_notation_field.py:11: error: Module "sage.rings.abc" has no attribute "RealIntervalField"  [attr-defined]`
 - `category_specs/rings/subcategories/scientific_notation_field.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/scientific_notation_field.py:35: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/reduced.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/reduced.py:31: error: List item 0 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/real_precision_field.py:8: error: Module "sage.rings.abc" has no attribute "RealBallField"; maybe "RealField"?  [attr-defined]`
+- `category_specs/rings/subcategories/real_precision_field.py:9: error: Module "sage.rings.abc" has no attribute "RealDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/real_precision_field.py:11: error: Module "sage.rings.abc" has no attribute "RealIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/real_precision_field.py:43: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_precision_field.py:45: error: List item 0 has incompatible type "ApproximateRingsCategory"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/real_precision_field.py:46: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_precision_field.py:47: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_precision_field.py:48: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_precision_field.py:49: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
+- `category_specs/rings/subcategories/real_precision_field.py:71: error: Method "change_precision" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/real_interval_field.py:8: error: Module "sage.rings.abc" has no attribute "RealIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/real_interval_field.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_interval_field.py:37: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_field_53.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_field_53.py:36: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_field.py:33: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_field.py:34: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_double_field.py:7: error: Module "sage.rings.abc" has no attribute "RealDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/real_double_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_double_field.py:30: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/real_ball_field.py:7: error: Module "sage.rings.abc" has no attribute "RealBallField"; maybe "RealField"?  [attr-defined]`
+- `category_specs/rings/subcategories/real_ball_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/real_ball_field.py:31: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/quotient_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/quotient_field.py:31: error: List item 0 has incompatible type "QuotientFields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/quotient_field.py:31: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/quotient_field.py:36: error: Unsupported right operand type for in ("QuotientFields")  [operator]`
+- `category_specs/rings/subcategories/quotient_field.py:36: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/quadratic_number_field.py:8: error: Module "sage.rings.number_field.number_field" has no attribute "NumberField_quadratic"  [attr-defined]`
+- `category_specs/rings/subcategories/quadratic_number_field.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/quadratic_number_field.py:35: error: List item 0 has incompatible type "_NumberFields"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/puiseux_series_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/puiseux_series_ring.py:37: error: List item 0 has incompatible type "Rings"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/puiseux_series_ring.py:55: error: Method "extension" is marked as an override, but no base method was found with this name  [misc]`
@@ -1583,30 +1647,26 @@ None.
 - `category_specs/rings/subcategories/p_adic_field.py:39: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/p_adic_field.py:40: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/p_adic_field.py:45: error: Module "sage.rings.padics.generic_nodes" has no attribute "pAdicFieldGeneric"; maybe "pAdicBaseGeneric", "pAdicRingGeneric", or "pAdicRingBaseGeneric"?  [attr-defined]`
-- `category_specs/rings/subcategories/noetherian.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/noetherian.py:30: error: List item 0 has incompatible type "NoetherianRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/noetherian.py:30: error: List item 1 has incompatible type "_CommutativeRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/noetherian.py:35: error: Unsupported right operand type for in ("NoetherianRings")  [operator]`
 - `category_specs/rings/subcategories/local_field.py:28: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/local_field.py:29: error: List item 0 has incompatible type "_Fields"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/local_field.py:29: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/local_field.py:39: error: Method "is_local_field" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/subcategories/integrally_closed_domain.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/integrally_closed_domain.py:32: error: List item 0 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/global_field.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/global_field.py:36: error: List item 0 has incompatible type "_Fields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/global_field.py:66: error: Method "is_global_field" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/subcategories/gcd_domain.py:32: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/gcd_domain.py:33: error: List item 0 has incompatible type "GcdDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/gcd_domain.py:33: error: List item 1 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/gcd_domain.py:38: error: Unsupported right operand type for in ("GcdDomains")  [operator]`
 - `category_specs/rings/subcategories/finite.py:31: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/finite.py:32: error: List item 0 has incompatible type "Finite"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/finite.py:32: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/division.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/division.py:30: error: List item 0 has incompatible type "DivisionRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/division.py:30: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/division.py:35: error: Unsupported right operand type for in ("DivisionRings")  [operator]`
+- `category_specs/rings/subcategories/dedekind_domain.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/dedekind_domain.py:36: error: List item 0 has incompatible type "DedekindDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/dedekind_domain.py:37: error: List item 1 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/dedekind_domain.py:38: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/dedekind_domain.py:39: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/dedekind_domain.py:40: error: "Rings" has no attribute "KrullDimension"  [attr-defined]`
+- `category_specs/rings/subcategories/dedekind_domain.py:46: error: Unsupported right operand type for in ("DedekindDomains")  [operator]`
+- `category_specs/rings/subcategories/dedekind_domain.py:50: error: Definition of "integral_closure" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/rings/subcategories/cyclotomic_field.py:8: error: Module "sage.rings.number_field.number_field" has no attribute "NumberField_cyclotomic"  [attr-defined]`
+- `category_specs/rings/subcategories/cyclotomic_field.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/cyclotomic_field.py:35: error: List item 0 has incompatible type "_NumberFields"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:38: error: List item 0 has incompatible type "CompleteDiscreteValuationFields"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:39: error: "LazyImport" not callable  [operator]`
@@ -1615,6 +1675,12 @@ None.
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:47: error: Unsupported right operand type for in ("CompleteDiscreteValuationFields")  [operator]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:48: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_field.py:54: error: Method "is_complete_discrete_valuation_field" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/algebraically_closed_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/algebraically_closed_field.py:30: error: List item 0 has incompatible type "_Fields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/algebraic_field.py:39: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/algebraic_field.py:40: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/algebraic_field.py:40: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
+- `category_specs/rings/subcategories/algebraic_field.py:61: error: Incompatible default for parameter "multiplicity" (default has type "int", parameter has type "Integer")  [assignment]`
 - `category_specs/posets/subcategories/constructions/objects_under.py:18: error: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"  [misc]`
 - `category_specs/posets/subcategories/constructions/objects_under.py:18: error: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"  [misc]`
 - `category_specs/posets/subcategories/constructions/objects_under.py:18: error: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"  [misc]`
@@ -1692,7 +1758,8 @@ None.
 - `category_specs/algebras/subcategories/with_basis.py:53: error: Cannot override final attribute "submodule" (previously declared in base class "_RModObjects")  [misc]`
 - `category_specs/algebras/subcategories/with_basis.py:53: error: Definition of "submodule" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/subcategories/with_basis.py:53: error: Definition of "tensor" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/with_basis.py:53: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/with_basis.py:53: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/with_basis.py:53: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/subcategories/with_basis.py:53: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/subcategories/with_basis.py:67: error: Signature of "hochschild_complex" incompatible with supertype "sage.categories.algebras_with_basis.AlgebrasWithBasis.ParentMethods"  [override]`
 - `category_specs/algebras/subcategories/with_basis.py:67: note:      Superclass:`
@@ -1707,18 +1774,32 @@ None.
 - `category_specs/algebras/subcategories/semisimple.py:28: error: List item 1 has incompatible type "SemisimpleAlgebras"; expected "Category"  [list-item]`
 - `category_specs/algebras/subcategories/semisimple.py:34: error: Unsupported right operand type for in ("SemisimpleAlgebras")  [operator]`
 - `category_specs/algebras/subcategories/semisimple.py:38: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/algebras/subcategories/semisimple.py:38: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/semisimple.py:38: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/semisimple.py:38: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/subcategories/semisimple.py:38: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
 - `category_specs/algebras/subcategories/finite_dimensional.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/algebras/subcategories/finite_dimensional.py:39: error: Return type "Integer" of "dimension" incompatible with return type "int" in supertype "sage.categories.vector_spaces.VectorSpaces.ParentMethods"  [override]`
 - `category_specs/algebras/subcategories/commutative.py:25: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/algebras/subcategories/commutative.py:28: error: List item 1 has incompatible type "CommutativeAlgebras"; expected "Category"  [list-item]`
+- `category_specs/algebras/subcategories/commutative.py:38: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:38: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:38: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:38: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:44: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_MagmaticAlgebraElementMethods"  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:44: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
+- `category_specs/algebras/subcategories/commutative.py:44: error: Definition of "parent" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
 - `category_specs/rings/subcategories/p_adic_ring.py:44: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/p_adic_ring.py:45: error: List item 0 has incompatible type "ApproximateRingsCategory"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/p_adic_ring.py:45: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/p_adic_ring.py:50: error: Module "sage.rings.padics.generic_nodes" has no attribute "pAdicFieldGeneric"; maybe "pAdicBaseGeneric", "pAdicRingGeneric", or "pAdicRingBaseGeneric"?  [attr-defined]`
 - `category_specs/rings/subcategories/p_adic_ring.py:50: error: Module "sage.rings.padics.generic_nodes" does not explicitly export attribute "pAdicRingGeneric"  [attr-defined]`
 - `category_specs/rings/subcategories/p_adic_ring.py:151: error: Incompatible default for parameter "n" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: List item 0 has incompatible type "DiscreteValuationRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: List item 2 has incompatible type "_ValuedRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:42: error: Unsupported right operand type for in ("DiscreteValuationRings")  [operator]`
+- `category_specs/rings/subcategories/discrete_valuation_ring.py:46: error: Cannot override final attribute "is_valued_ring" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_object.py:39: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_object.py:40: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complete_discrete_valuation_object.py:45: error: "LazyImport" not callable  [operator]`
@@ -1728,89 +1809,72 @@ None.
 - `category_specs/rings/subcategories/laurent_series_ring.py:54: error: Cannot override final attribute "extension" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/rings/subcategories/laurent_series_ring.py:67: error: "_RingObjectMethods" has no attribute "extension"  [attr-defined]`
 - `category_specs/rings/subcategories/laurent_series_ring.py:82: error: Incompatible default for parameter "n" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/dedekind_domain.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/dedekind_domain.py:36: error: List item 0 has incompatible type "DedekindDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/dedekind_domain.py:37: error: List item 1 has incompatible type "_IntegralDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/dedekind_domain.py:38: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/dedekind_domain.py:39: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/dedekind_domain.py:40: error: "Rings" has no attribute "KrullDimension"  [attr-defined]`
-- `category_specs/rings/subcategories/dedekind_domain.py:46: error: Unsupported right operand type for in ("DedekindDomains")  [operator]`
-- `category_specs/rings/subcategories/dedekind_domain.py:50: error: Definition of "integral_closure" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/rings/subcategories/unique_factorization_domain.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/unique_factorization_domain.py:37: error: List item 0 has incompatible type "UniqueFactorizationDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/unique_factorization_domain.py:37: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/integer_mod_ring.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/integer_mod_ring.py:38: error: "LazyImport" not callable  [operator]`
-- `category_specs/lattices/subcategories/over_dedekind.py:69: error: Cannot override final attribute "is_over_dedekind_domain" (previously declared in base class "ParentMethods")  [misc]`
-- `category_specs/lattices/subcategories/over_dedekind.py:69: error: Cannot override final attribute "is_over_dedekind_domain" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/lattices/subcategories/over_dedekind.py:73: error: Cannot override final attribute "is_torsionfree" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/lattices/subcategories/over_dedekind.py:122: error: Unsupported left operand type for - ("Integer")  [operator]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:26: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:30: error: "LazyImport" not callable  [operator]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:31: error: "LazyImport" not callable  [operator]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:32: error: List item 2 has incompatible type "FiniteDimensionalAlgebrasWithBasis"; expected "Category"  [list-item]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "annihilator" in base class "_AlgebraParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "center" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "dimension" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "idempotent_lift" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "idempotent_lift" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "intersection" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "peirce_decomposition" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "principal_ideal" in base class "ParentMethods" is incompatible with definition in base class "_RingObjectMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "quotient_module" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "radical" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "radical" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "random_element" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "semisimple_quotient" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "semisimple_quotient" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "subalgebra" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute "submodule" (previously declared in base class "_RModObjects")  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "submodule" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "tensor" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "tensor_square" in base class "_RModObjects" is incompatible with definition in base class "ParentMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_MagmaticAlgebraElementMethods"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "parent" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
-- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "tensor" in base class "ElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
-- `category_specs/rings/subcategories/power_series_ring.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/power_series_ring.py:38: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/power_series_ring.py:54: error: Cannot override final attribute "extension" (previously declared in base class "ParentMethods")  [misc]`
-- `category_specs/rings/subcategories/power_series_ring.py:67: error: "_RingObjectMethods" has no attribute "extension"  [attr-defined]`
-- `category_specs/rings/subcategories/power_series_ring.py:82: error: Incompatible default for parameter "n" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/principal_ideal_domain.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/principal_ideal_domain.py:38: error: List item 0 has incompatible type "PrincipalIdealDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/principal_ideal_domain.py:38: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/principal_ideal_domain.py:43: error: Unsupported right operand type for in ("PrincipalIdealDomains")  [operator]`
-- `category_specs/rings/subcategories/euclidean_domain.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/euclidean_domain.py:31: error: List item 0 has incompatible type "EuclideanDomains"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/euclidean_domain.py:31: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/euclidean_domain.py:36: error: Unsupported right operand type for in ("EuclideanDomains")  [operator]`
-- `category_specs/lattices/subcategories/over_integers.py:56: error: Missing return statement  [return]`
-- `category_specs/lattices/subcategories/over_integers.py:62: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/real_precision_field.py:43: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_precision_field.py:45: error: List item 0 has incompatible type "ApproximateRingsCategory"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/real_precision_field.py:46: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_precision_field.py:47: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_precision_field.py:48: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_precision_field.py:49: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
-- `category_specs/rings/subcategories/real_precision_field.py:71: error: Return type "ParentMethods" of "change_precision" incompatible with return type "_RingObjectMethods" in supertype "category_specs.rings.subcategories.approximate.ApproximateRingsCategory.ParentMethods"  [override]`
-- `category_specs/rings/subcategories/quotient_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/quotient_field.py:31: error: List item 0 has incompatible type "QuotientFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/quotient_field.py:31: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/quotient_field.py:36: error: Unsupported right operand type for in ("QuotientFields")  [operator]`
-- `category_specs/rings/subcategories/quotient_field.py:36: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/quadratic_number_field.py:8: error: Module "sage.rings.number_field.number_field" has no attribute "NumberField_quadratic"  [attr-defined]`
-- `category_specs/rings/subcategories/quadratic_number_field.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/quadratic_number_field.py:35: error: List item 0 has incompatible type "_NumberFields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/complex_precision_field.py:8: error: Module "sage.rings.abc" has no attribute "ComplexBallField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_precision_field.py:9: error: Module "sage.rings.abc" has no attribute "ComplexDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_precision_field.py:10: error: Module "sage.rings.abc" has no attribute "ComplexField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_precision_field.py:11: error: Module "sage.rings.abc" has no attribute "ComplexIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_precision_field.py:41: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complex_precision_field.py:43: error: List item 0 has incompatible type "ApproximateRingsCategory"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/complex_precision_field.py:44: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_precision_field.py:45: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_precision_field.py:46: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_precision_field.py:47: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
+- `category_specs/rings/subcategories/rational_field.py:50: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/rational_field.py:52: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:53: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:54: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:55: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:56: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
+- `category_specs/rings/subcategories/rational_field.py:75: error: Method "is_algebraically_closed" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:80: error: Method "algebraic_closure" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:96: error: Method "is_quadratic" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:101: error: Method "is_cyclotomic" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:106: error: Method "degree" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:111: error: Method "absolute_degree" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:116: error: Method "signature" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:121: error: Method "discriminant" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:126: error: Method "trace_pairing_discriminant" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:139: error: Method "absolute_discriminant" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:144: error: Method "galois_group" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:155: error: Method "galois_closure" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:179: error: Method "automorphisms" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:184: error: Method "class_number" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:189: error: Method "class_group" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:196: error: Method "integral_basis" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:201: error: Method "integral_basis_at_prime" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:202: error: "ParentMethods" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:206: error: Method "integral_basis_at_primes" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:209: error: "ParentMethods" not callable  [operator]`
+- `category_specs/rings/subcategories/rational_field.py:213: error: Method "power_basis" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:218: error: Method "reduced_basis" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:223: error: Method "different" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:228: error: Method "places" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:235: error: Method "real_embeddings" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:235: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/rational_field.py:240: error: Method "complex_embeddings" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:240: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/rational_field.py:245: error: Method "roots_of_unity" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:250: error: Method "regulator" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:255: error: Method "units" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:260: error: Method "unit_group" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:265: error: Method "conductor" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:270: error: Method "prime_above" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:277: error: Method "primes_above" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:284: error: Method "S_units" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:291: error: Method "S_class_group" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:298: error: Method "ring_of_integers" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:310: error: Method "ring_of_integers_at_prime" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:323: error: Method "ring_of_integers_at_primes" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:336: error: Method "maximal_order" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:348: error: Method "maximal_order_at_prime" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:361: error: Method "maximal_order_at_primes" is marked as an override, but no base method was found with this name  [misc]`
+- `category_specs/rings/subcategories/rational_field.py:374: error: Method "absolute_field" is marked as an override, but no base method was found with this name  [misc]`
 - `category_specs/rings/subcategories/nonarchimedean_global_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/nonarchimedean_global_field.py:30: error: List item 0 has incompatible type "_GlobalFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/integer_ring.py:32: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/integer_ring.py:34: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/integer_ring.py:35: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/integer_ring.py:36: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
-- `category_specs/rings/subcategories/integer_ring.py:52: error: Definition of "integral_closure" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/rings/subcategories/archimedean_global_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/archimedean_global_field.py:30: error: List item 0 has incompatible type "_GlobalFields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/integer_mod_ring.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/integer_mod_ring.py:38: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/finite_field.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/finite_field.py:38: error: List item 0 has incompatible type "FiniteFields"; expected "Category"  [list-item]`
 - `category_specs/rings/subcategories/finite_field.py:38: error: List item 1 has incompatible type "_Fields"; expected "Category"  [list-item]`
@@ -1821,65 +1885,11 @@ None.
 - `category_specs/rings/subcategories/finite_field.py:54: note:          def cardinality(self, *ignored_args: object, **ignored_kwds: object) -> int`
 - `category_specs/rings/subcategories/finite_field.py:54: note:      Subclass:`
 - `category_specs/rings/subcategories/finite_field.py:54: note:          def cardinality(self) -> Integer`
-- `category_specs/rings/subcategories/discrete_valuation_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: List item 0 has incompatible type "DiscreteValuationRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/discrete_valuation_ring.py:37: error: List item 2 has incompatible type "_ValuedRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/discrete_valuation_ring.py:42: error: Unsupported right operand type for in ("DiscreteValuationRings")  [operator]`
-- `category_specs/rings/subcategories/cyclotomic_field.py:8: error: Module "sage.rings.number_field.number_field" has no attribute "NumberField_cyclotomic"  [attr-defined]`
-- `category_specs/rings/subcategories/cyclotomic_field.py:34: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/cyclotomic_field.py:35: error: List item 0 has incompatible type "_NumberFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/complex_precision_field.py:41: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complex_precision_field.py:43: error: List item 0 has incompatible type "ApproximateRingsCategory"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/complex_precision_field.py:44: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_precision_field.py:45: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_precision_field.py:46: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_precision_field.py:47: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
-- `category_specs/rings/subcategories/complex_precision_field.py:69: error: Return type "ParentMethods" of "change_precision" incompatible with return type "_RingObjectMethods" in supertype "category_specs.rings.subcategories.approximate.ApproximateRingsCategory.ParentMethods"  [override]`
-- `category_specs/rings/subcategories/archimedean_global_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/archimedean_global_field.py:30: error: List item 0 has incompatible type "_GlobalFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/algebraically_closed_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/algebraically_closed_field.py:30: error: List item 0 has incompatible type "_Fields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/algebraic_field.py:39: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/algebraic_field.py:40: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/algebraic_field.py:40: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
-- `category_specs/rings/subcategories/algebraic_field.py:61: error: Incompatible default for parameter "multiplicity" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/real_interval_field.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_interval_field.py:37: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_field.py:33: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_field.py:34: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_double_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_double_field.py:30: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/real_ball_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_ball_field.py:31: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/rational_field.py:50: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/rational_field.py:52: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/rational_field.py:53: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/rational_field.py:54: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/rational_field.py:55: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/rational_field.py:56: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
-- `category_specs/rings/subcategories/rational_field.py:235: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/rational_field.py:240: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/subcategories/discrete_valuation_field.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/discrete_valuation_field.py:36: error: List item 0 has incompatible type "DiscreteValuationFields"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/discrete_valuation_field.py:36: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/discrete_valuation_field.py:41: error: Unsupported right operand type for in ("DiscreteValuationFields")  [operator]`
-- `category_specs/rings/subcategories/discrete_valuation_field.py:42: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:38: error: List item 0 has incompatible type "CompleteDiscreteValuationRings"; expected "Category"  [list-item]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:39: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:40: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:41: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:47: error: Unsupported right operand type for in ("CompleteDiscreteValuationRings")  [operator]`
-- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:48: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_interval_field.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complex_interval_field.py:37: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_field.py:33: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complex_field.py:34: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_double_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complex_double_field.py:30: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/subcategories/complex_ball_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/complex_ball_field.py:31: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/integer_ring.py:32: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/integer_ring.py:34: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/integer_ring.py:35: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/integer_ring.py:36: error: "Rings" has no attribute "Characteristic"  [attr-defined]`
+- `category_specs/rings/subcategories/integer_ring.py:52: error: Definition of "integral_closure" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
 - `category_specs/rings/subcategories/real_algebraic_field.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/real_algebraic_field.py:36: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/real_algebraic_field.py:55: error: Incompatible default for parameter "multiplicity" (default has type "int", parameter has type "Integer")  [assignment]`
@@ -1918,17 +1928,85 @@ None.
 - `category_specs/rings/subcategories/algebraic_closure_of_rational_field.py:74: note:          def nth_root(self, n: Integer, all: Literal[True] = ...) -> list[_RingElementMethods]`
 - `category_specs/rings/subcategories/algebraic_closure_of_rational_field.py:74: note:          @overload`
 - `category_specs/rings/subcategories/algebraic_closure_of_rational_field.py:74: note:          def nth_root(self, n: Integer, all: bool = ...) -> _RingElementMethods | list[_RingElementMethods]`
-- `category_specs/rings/subcategories/real_field_53.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/subcategories/real_field_53.py:36: error: "LazyImport" not callable  [operator]`
+- `category_specs/lattices/subcategories/over_dedekind.py:122: error: Unsupported left operand type for - ("Integer")  [operator]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:26: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:30: error: "LazyImport" not callable  [operator]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:31: error: "LazyImport" not callable  [operator]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:32: error: List item 2 has incompatible type "FiniteDimensionalAlgebrasWithBasis"; expected "Category"  [list-item]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "annihilator" in base class "_AlgebraParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "center" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "dimension" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "idempotent_lift" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "idempotent_lift" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "intersection" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute "is_finite" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "peirce_decomposition" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "principal_ideal" in base class "ParentMethods" is incompatible with definition in base class "_RingObjectMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "quotient_module" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "radical" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "radical" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "random_element" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "semisimple_quotient" in base class "ParentMethods" is incompatible with definition in base class "ParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "semisimple_quotient" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "subalgebra" in base class "ParentMethods" is incompatible with definition in base class "_AlgebraParentMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute "submodule" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "submodule" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "tensor" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Cannot override final attribute "tensor_square" (previously declared in base class "_RModObjects")  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "tensor_square" in base class "ParentMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:35: error: Definition of "zero" in base class "_RingObjectMethods" is incompatible with definition in base class "_RModObjects"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_MagmaticAlgebraElementMethods"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "__mul__" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "parent" in base class "_RingElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
+- `category_specs/algebras/subcategories/finite_dimensional_with_basis.py:37: error: Definition of "tensor" in base class "ElementMethods" is incompatible with definition in base class "_RModElements"  [misc]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:35: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:36: error: List item 0 has incompatible type "DiscreteValuationFields"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:36: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:41: error: Unsupported right operand type for in ("DiscreteValuationFields")  [operator]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:42: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/discrete_valuation_field.py:45: error: Cannot override final attribute "is_valued_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:38: error: List item 0 has incompatible type "CompleteDiscreteValuationRings"; expected "Category"  [list-item]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:39: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:40: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:41: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:47: error: Unsupported right operand type for in ("CompleteDiscreteValuationRings")  [operator]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:48: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:51: error: Cannot override final attribute "is_complete_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:51: error: Cannot override final attribute "is_topological_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/complete_discrete_valuation_ring.py:51: error: Cannot override final attribute "is_valued_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/power_series_ring.py:37: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/power_series_ring.py:38: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/power_series_ring.py:54: error: Cannot override final attribute "extension" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/power_series_ring.py:67: error: "_RingObjectMethods" has no attribute "extension"  [attr-defined]`
+- `category_specs/rings/subcategories/power_series_ring.py:82: error: Incompatible default for parameter "n" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/rings/subcategories/complex_interval_field.py:8: error: Module "sage.rings.abc" has no attribute "ComplexIntervalField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_interval_field.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complex_interval_field.py:37: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_field.py:7: error: Module "sage.rings.abc" has no attribute "ComplexField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_field.py:33: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complex_field.py:34: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_double_field.py:7: error: Module "sage.rings.abc" has no attribute "ComplexDoubleField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_double_field.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complex_double_field.py:30: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/subcategories/complex_ball_field.py:7: error: Module "sage.rings.abc" has no attribute "ComplexBallField"  [attr-defined]`
+- `category_specs/rings/subcategories/complex_ball_field.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/subcategories/complex_ball_field.py:31: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/p_adic_integer_ring.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/p_adic_integer_ring.py:37: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/p_adic_integer_ring.py:42: error: Module "sage.rings.padics.generic_nodes" does not explicitly export attribute "pAdicRingGeneric"  [attr-defined]`
+- `category_specs/rings/subcategories/p_adic_integer_ring.py:46: error: Cannot override final attribute "is_complete_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/p_adic_integer_ring.py:46: error: Cannot override final attribute "is_local_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/p_adic_integer_ring.py:46: error: Cannot override final attribute "is_topological_ring" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/rings/subcategories/p_adic_integer_ring.py:46: error: Cannot override final attribute "is_valued_ring" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/rings/subcategories/complex_field_53.py:36: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/subcategories/complex_field_53.py:38: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complex_field_53.py:39: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complex_field_53.py:40: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complex_field_53.py:41: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/subcategories/complex_field_53.py:42: error: "LazyImport" not callable  [operator]`
+- `category_specs/lattices/subcategories/over_integers.py:56: error: Missing return statement  [return]`
+- `category_specs/lattices/subcategories/over_integers.py:62: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
 
 ## Projection Hook Trace
 
