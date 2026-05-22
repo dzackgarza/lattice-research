@@ -31,9 +31,6 @@ None.
 
 ## Mypy Errors
 
-- `category_specs/spec_core/constructor_adapters.py:20: error: Argument 1 to "_explicit_constructors_provider" has incompatible type "object"; expected "Category"  [arg-type]`
-- `category_specs/spec_core/constructor_adapters.py:27: error: Argument 1 to "_cat_constructor_prefix" has incompatible type "object"; expected "Category"  [arg-type]`
-- `category_specs/spec_core/constructor_adapters.py:189: error: Argument 1 to "_static_category_class" has incompatible type "object"; expected "Category"  [arg-type]`
 - `category_specs/cat/base_category_types.py:35: error: Module "sage.categories.category_types" has no attribute "Category_module"; maybe "Category_ideal"?  [attr-defined]`
 - `category_specs/cat/base_category_types.py:36: error: Module "sage.categories.category_types" has no attribute "Category_over_base"; maybe "Category_over_base_ring"?  [attr-defined]`
 - `category_specs/cat/base_category_types.py:474: error: Argument 1 to "__init__" of "Parent" has incompatible type "_CatObjectMixin"; expected "Parent"  [arg-type]`

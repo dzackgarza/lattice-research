@@ -6,18 +6,18 @@
 - full_structural_mismatches: 0
 - full_structural_missing_typeinfos: 0
 - full_structural_projected_ancestor_missing_typeinfos: 0
-- ordinary_error_count: 1643
+- ordinary_error_count: 1640
 - ignored_negative_control_count: 1
 
 ## Toolchain
 
-- research_sha: `c699fd0b93880e6364d877389f77d14e124253e9`
+- research_sha: `333028d57c50653bb81d4eb3e2679def79a3ff10`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
 - sidecar_sha: `62379f8e70b9c8c5d74601325a220f4868d1f69f`
 
 ## Counts By Owner
 
-- research typing/design: 1163
+- research typing/design: 1160
 - mathematical/category-interface question: 330
 - missing sidecar ordinary signature: 150
 
@@ -26,7 +26,7 @@
 - misc: 505
 - override: 280
 - operator: 248
-- arg-type: 195
+- arg-type: 192
 - list-item: 132
 - attr-defined: 127
 - assignment: 54
@@ -52,13 +52,12 @@
 - topological_spaces: 49
 - homsets: 33
 - tensor_algebra_components: 21
-- spec_core: 3
 - types.py: 1
 
 ## Representative Examples
 
-- research typing/design / arg-type / spec_core: `category_specs/spec_core/constructor_adapters.py:20: error: Argument 1 to "_explicit_constructors_provider" has incompatible type "object"; expected "Category"  [arg-type]`
 - missing sidecar ordinary signature / attr-defined / cat: `category_specs/cat/base_category_types.py:35: error: Module "sage.categories.category_types" has no attribute "Category_module"; maybe "Category_ideal"?  [attr-defined]`
+- research typing/design / arg-type / cat: `category_specs/cat/base_category_types.py:474: error: Argument 1 to "__init__" of "Parent" has incompatible type "_CatObjectMixin"; expected "Parent"  [arg-type]`
 - research typing/design / assignment / cat: `category_specs/cat/base_category_types.py:548: error: Incompatible types in assignment (expression has type "type | None", variable has type "type[Category_singleton]")  [assignment]`
 - research typing/design / misc / cat: `category_specs/cat/base_category_types.py:593: error: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"  [misc]`
 - research typing/design / override / cat: `category_specs/cat/base_category_types.py:602: error: Argument 1 of "join" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "list[Category]"  [override]`

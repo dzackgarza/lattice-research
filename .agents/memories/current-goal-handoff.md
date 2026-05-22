@@ -43,11 +43,11 @@ authorities for status, evidence, dependencies, and completed work.
   routes through the existing Laurent-series category surface; audit this before
   expanding that path. The constructor layer now has zero ledger diagnostics after
   centralizing Sage constructor lookup and category-refinement boundary casts.
-- Current ledger frontier after the constructor cleanup: ordinary diagnostics `1643`;
-  owner split `research typing/design=1163`, `mathematical/category-interface question=330`,
-  and `missing sidecar ordinary signature=150`. The stub backlog artifact still reflects
-  the earlier `15b88e2b` packet and should be regenerated before updating sage-stubs
-  issue #4.
+- Current ledger frontier after constructor/spec-core cleanup: ordinary diagnostics
+  `1640`; owner split `research typing/design=1160`,
+  `mathematical/category-interface question=330`, and
+  `missing sidecar ordinary signature=150`. The stub backlog artifact has been
+  refreshed and sage-stubs issue #4 has a current-baseline comment.
 - Next pathway target: audit the remaining real category-spec smoke/pathway gaps and
   improve constructor/refinement semantics where they affect actual runtime behavior.
   Do not seed arbitrary example values merely to make smoke tests pass.

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from inspect import Signature, signature
-from typing import Any, Literal
+from typing import Any, Literal, cast
+
+from sage.categories.category import Category as SageCategory
 
 from .constructors import ConstructorRegistry, ConstructorSpec
 
@@ -17,14 +19,15 @@ def constructor_registry_for_category(
     """Return constructor provenance records for one category constructor surface."""
     from category_specs.cat import base_category_types as cat_base
 
-    provider = cat_base._explicit_constructors_provider(category)  # noqa: SLF001
+    sage_category = cast(SageCategory, category)
+    provider = cat_base._explicit_constructors_provider(sage_category)  # noqa: SLF001
     if provider is None:
         constructors = getattr(category, "Constructors", None)
         if not callable(constructors):
             return ConstructorRegistry()
         provider = type(constructors())
 
-    prefix = id_prefix or cat_base._cat_constructor_prefix(category)  # noqa: SLF001
+    prefix = id_prefix or cat_base._cat_constructor_prefix(sage_category)  # noqa: SLF001
     owner = owner_category or _category_owner_label(category)
     constructor_names = cat_base._cat_constructor_method_names(  # noqa: SLF001
         prefix, provider
@@ -186,7 +189,8 @@ def _constructor_target_refinement_route(
 def _category_owner_label(category: object) -> str:
     from category_specs.cat import base_category_types as cat_base
 
-    category_class = cat_base._static_category_class(category)  # noqa: SLF001
+    sage_category = cast(SageCategory, category)
+    category_class = cat_base._static_category_class(sage_category)  # noqa: SLF001
     base_ring = _base_ring_or_none(category)
     if base_ring is None:
         return f"{category_class.__name__}()"
