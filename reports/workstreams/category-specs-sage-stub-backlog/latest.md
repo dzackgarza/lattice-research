@@ -11,7 +11,7 @@ be checked against actual Sage behavior before editing `sage-stubs`.
 
 ## Toolchain
 
-- research_sha: `94c3e08c5a61c61383324c65d84f8c5130163197`
+- research_sha: `f4a4b362a5d2b504aca353bc3254b95558422acc`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
 - sidecar_sha: `62379f8e70b9c8c5d74601325a220f4868d1f69f`
 
