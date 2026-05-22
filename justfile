@@ -121,6 +121,17 @@ test-spec-core-vertical-slice: _clean
         tests/category_specs/test_spec_core_constructor_specs.py \
         tests/category_specs/test_constructor_provenance.py
 
+category-specs-mypy-structural-report:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    plugin_root="${SAGE_MYPY_PLUGIN_ROOT:-/home/dzack/sage-mypy-plugin}"
+    export PYTHONPATH="${plugin_root}:{{justfile_directory()}}${PYTHONPATH:+:${PYTHONPATH}}"
+    sage -python "${plugin_root}/devtools/consumer_structural_canary.py" \
+        --consumer-root "{{justfile_directory()}}" \
+        --work-dir "{{justfile_directory()}}/.cache/sage-mypy-plugin/consumer-structural" \
+        --artifact-dir "{{justfile_directory()}}/reports/workstreams/category-specs-mypy-structural"
+
 plan-validate:
     #!/usr/bin/env bash
     set -euo pipefail
