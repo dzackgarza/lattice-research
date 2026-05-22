@@ -604,7 +604,7 @@ class Modules(Category_module):
         @final
         def _standard_free_module_categories(self) -> list[Category]:
             C = self.category()
-            return [C.Free().FiniteRank().WithOrderedBasis()]
+            return [C.Free().FinitelyPresented().FiniteRank().WithOrderedBasis()]
 
         @final
         def _finite_rank_free_module_categories(self) -> list[Category]:
@@ -703,7 +703,9 @@ class Modules(Category_module):
             *,
             inner_product_matrix: Matrix | None = None,
         ) -> RModule:
-            from sage.modules.free_module import FreeModule as SageFreeModule
+            from category_specs.constructor_redefinitions import (
+                _SageFreeModule as SageFreeModule,
+            )
 
             M = SageFreeModule(
                 self.base_ring(),
@@ -720,7 +722,9 @@ class Modules(Category_module):
             basis_keys: Set | SetFamily,
             sparse: bool = False,
         ) -> RModule:
-            from sage.modules.free_module import FreeModule as SageFreeModule
+            from category_specs.constructor_redefinitions import (
+                _SageFreeModule as SageFreeModule,
+            )
 
             M = SageFreeModule(self.base_ring(), basis_keys, sparse)
             from sage.combinat.free_module import CombinatorialFreeModule
@@ -737,7 +741,9 @@ class Modules(Category_module):
             rank: Integer,
             sparse: bool = False,
         ) -> RModule:
-            from sage.modules.free_module import FreeModule as SageFreeModule
+            from category_specs.constructor_redefinitions import (
+                _SageFreeModule as SageFreeModule,
+            )
 
             M = SageFreeModule(self.base_ring(), rank, sparse, with_basis=None)
             return self._refine_constructed_module(
@@ -786,7 +792,9 @@ class Modules(Category_module):
             *,
             inner_product_matrix: Matrix | None = None,
         ) -> RModule:
-            from sage.modules.free_module import VectorSpace as SageVectorSpace
+            from category_specs.constructor_redefinitions import (
+                _SageVectorSpace as SageVectorSpace,
+            )
 
             M = SageVectorSpace(
                 self.base_ring(),
@@ -804,7 +812,9 @@ class Modules(Category_module):
             basis_keys: Set | SetFamily,
             sparse: bool = False,
         ) -> RModule:
-            from sage.modules.free_module import VectorSpace as SageVectorSpace
+            from category_specs.constructor_redefinitions import (
+                _SageVectorSpace as SageVectorSpace,
+            )
 
             M = SageVectorSpace(self.base_ring(), basis_keys, sparse)
             return self._refine_constructed_module(
@@ -817,7 +827,9 @@ class Modules(Category_module):
             dimension: Integer,
             sparse: bool = False,
         ) -> RModule:
-            from sage.modules.free_module import VectorSpace as SageVectorSpace
+            from category_specs.constructor_redefinitions import (
+                _SageVectorSpace as SageVectorSpace,
+            )
 
             M = SageVectorSpace(self.base_ring(), dimension, sparse, with_basis=None)
             return self._refine_constructed_module(
@@ -1157,7 +1169,9 @@ class Modules(Category_module):
 
         @final
         def ideal_as_submodule(self, ideal: Ideal) -> SubModule:
-            from sage.modules.free_module import FreeModule as SageFreeModule
+            from category_specs.constructor_redefinitions import (
+                _SageFreeModule as SageFreeModule,
+            )
 
             R = ideal.ring()
             M = SageFreeModule(R, 1).submodule(

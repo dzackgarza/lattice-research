@@ -12,15 +12,15 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Start Here
 
-- Active phase: category_specs QC/mypy cleanup after plugin/stubs structural gate.
+- Active phase: category_specs runtime pathway cleanup after plugin/stubs structural gate.
 - Start from the committed full structural artifact and mypy ledger, not the old
   representative canary: `just category-specs-mypy-structural-report-full` is green
   with all modules, and `just category-specs-mypy-ledger` records the ordinary
   diagnostic frontier.
-- Current pickup: prioritize runtime category-spec smoke pathways over further
-  ledger-only cleanup. `just test-category-specs-smoke` is the focused isolated smoke
-  gate; it currently passes canonical ZZ/QQ seed enrollment but still has constructor
-  interception/promotion failures.
+- Current pickup: continue runtime category-spec pathways, not ledger-only cleanup.
+  The constructor-refinement milestone makes `just test-category-specs-smoke` pass
+  in isolation (`23 passed`) and keeps `just test-spec-core-vertical-slice` green
+  (`29 passed`).
 - Sidecar ownership split: the research agent must not opportunistically patch
   `sage-stubs`. Sage-shaped diagnostics now route through the committed stub backlog
   artifacts under `reports/workstreams/category-specs-sage-stub-backlog/`. Rows are
@@ -32,18 +32,20 @@ authorities for status, evidence, dependencies, and completed work.
   spaces/matrix spaces/subobjects, sets/infinity/numeric protocols, and smaller
   families. Stub agents may edit only `sage-stubs` and stub tests after checking real
   Sage runtime behavior.
-- Latest known artifact frontier after removing local-only `@override` markers from
-  root category hook methods: full structural pass over all modules; ordinary
-  diagnostics `1565`; missing sidecar ordinary signatures `91`; sidecar SHA
-  `c966661e41f55e9e73f9611cb63e40a01769904b`; runtime vertical slice 29/29.
-- Current pickup: choose the next bounded source-backed family from the committed
-  ledger. Do not retry `sage.categories.category_types.Category_module` as a simple
-  sidecar class exposure: that was source-backed but regressed the ledger by making
-  mypy analyze Sage dynamic category bases as ordinary abstract static bases.
-- Next pathway target: constructor interception/promotion for finite fields, p-adics,
-  free modules, vector spaces, matrix spaces, polynomial/Laurent/power series rings,
-  integer mod rings, and quadratic fields. Do not seed arbitrary example values merely
-  to make smoke tests pass; fix the constructor/refinement path.
+- Latest known structural artifact: full structural pass over all modules with
+  `source_module_count=262`, `graph_absent_provider_count=0`,
+  `missing_typeinfo_count=0`, `projected_ancestor_missing_typeinfo_count=0`, and
+  `mismatched_provider_count=0`.
+- Constructor pathway caveats for the next agent: `category_specs/constructor_redefinitions.py`
+  is intentionally a research-owned refinement layer, not a sidecar patch. It keeps
+  `sage.matrix.matrix_space.MatrixSpace` unpatched because Sage uses that module name
+  as a class in `isinstance` checks. The Laurent polynomial constructor currently
+  routes through the existing Laurent-series category surface; audit this before
+  expanding that path. The constructor layer also adds static noise, so do not claim
+  type-clean progress from this milestone.
+- Next pathway target: audit the remaining real category-spec smoke/pathway gaps and
+  improve constructor/refinement semantics where they affect actual runtime behavior.
+  Do not seed arbitrary example values merely to make smoke tests pass.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.

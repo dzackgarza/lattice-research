@@ -203,7 +203,7 @@ class _SetObjectMethods:
     def cartesian_product(
         self,
         other: Set,
-        *,
+        *additional_factors: Set,
         category: Category | None = None,
         extra_category: Category | None = None,
         flatten: bool = False,
@@ -213,7 +213,7 @@ class _SetObjectMethods:
             Sets()
             .Constructors()
             .CartesianProductFromFactors(
-                (self, other),
+                (self, other, *additional_factors),
                 category=category,
                 extra_category=extra_category,
                 flatten=flatten,

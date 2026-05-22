@@ -2,7 +2,7 @@
 
 - status: pass
 - source_mode: all
-- source_module_count: 261
+- source_module_count: 262
 - projection_count: 434
 - unsupported_provider_count: 63
 - checked_provider_count: 308
@@ -406,6 +406,60 @@ None.
 - `category_specs/modules/homsets.py:216: error: List item 1 has incompatible type "sage.categories.category.Category"; expected "category_specs.cat.base_category_types.Category"  [list-item]`
 - `category_specs/modules/homsets.py:380: error: "Category" has no attribute "base_ring"  [attr-defined]`
 - `category_specs/modules/homsets.py:384: error: List item 2 has incompatible type "MagmaticAlgebras"; expected "Category"  [list-item]`
+- `category_specs/constructor_redefinitions.py:14: error: Module "sage.rings.finite_rings.finite_field_constructor" does not explicitly export attribute "FiniteField"  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:17: error: Module "sage.rings.finite_rings.integer_mod_ring" has no attribute "IntegerModRing"; maybe "IntegerModRing_generic"?  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:20: error: Module "sage.rings.number_field.number_field" has no attribute "QuadraticField"  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:28: error: Module "sage.rings.power_series_ring" has no attribute "PowerSeriesRing"; maybe "PowerSeriesRing_generic"?  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:46: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:46: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:46: error: Argument 4 to "FreeModule" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:51: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:51: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:67: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:67: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:67: error: Argument 4 to "FreeModule" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:73: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:73: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:74: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:74: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:94: error: Argument 1 to "MatrixSpace" has incompatible type "_RingObjectMethods"; expected "CommutativeRing"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:95: error: Argument 2 to "MatrixSpace" has incompatible type "Integer"; expected "int"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:96: error: Argument 3 to "MatrixSpace" has incompatible type "Integer"; expected "int"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:98: error: Argument "implementation" to "MatrixSpace" has incompatible type "str | type[Any] | None"; expected "type"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:102: error: Value of type variable "_ParentT" of "refine_category" cannot be "MatrixSpace"  [type-var]`
+- `category_specs/constructor_redefinitions.py:104: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:104: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:121: error: "CombinatorialFreeModule" gets multiple values for keyword argument "prefix"  [misc]`
+- `category_specs/constructor_redefinitions.py:126: error: Argument "prefix" to "CombinatorialFreeModule" has incompatible type "str | None"; expected "str"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:134: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:134: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:135: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:135: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:136: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:136: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:161: error: Argument "name" to "GF" has incompatible type "str | None"; expected "str"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:165: error: Argument "proof" to "GF" has incompatible type "bool | None"; expected "bool"  [arg-type]`
+- `category_specs/constructor_redefinitions.py:172: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:204: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:208: error: Incompatible default for parameter "order" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/constructor_redefinitions.py:220: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:243: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:289: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:308: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:336: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:363: error: "LazyImport" not callable  [operator]`
+- `category_specs/constructor_redefinitions.py:366: error: List item 0 has incompatible type "DedekindDomains"; expected "Category"  [list-item]`
+- `category_specs/constructor_redefinitions.py:394: error: Incompatible types in assignment (expression has type "def FreeModule(base_ring: _RingObjectMethods, rank: Integer, sparse: bool = ..., *, inner_product_matrix: Matrix | None = ...) -> _RModObjects", variable has type "def FreeModule(base_ring: Ring, rank: int | Iterable[object] | None = ..., sparse: bool = ..., inner_product_matrix: Matrix | None = ..., *, with_basis: str = ..., basis_keys: object = ..., **args: object) -> FreeModule_generic")  [assignment]`
+- `category_specs/constructor_redefinitions.py:395: error: Incompatible types in assignment (expression has type "def VectorSpace(base_ring: _RingObjectMethods, dimension: Integer, sparse: bool = ..., *, inner_product_matrix: Matrix | None = ...) -> _RModObjects", variable has type "def VectorSpace(K: Field, dimension_or_basis_keys: int | Iterable[object] | None = ..., sparse: bool = ..., inner_product_matrix: Matrix | None = ..., *, with_basis: str = ..., dimension: int | None = ..., basis_keys: object = ..., **args: object) -> FreeModule_generic_field")  [assignment]`
+- `category_specs/constructor_redefinitions.py:396: error: Cannot assign to a type  [misc]`
+- `category_specs/constructor_redefinitions.py:396: error: Incompatible types in assignment (expression has type "Callable[[_RingObjectMethods, Any, type[Any] | None, Any | None, str | None, str | tuple[str, ...] | None], _RModObjects]", variable has type "type[CombinatorialFreeModule]")  [assignment]`
+- `category_specs/constructor_redefinitions.py:397: error: Incompatible types in assignment (expression has type "Callable[[Integer, str | None, Polynomial | str | None, str | None, str | None, bool | None, bool, bool, str | None, str | None, bool | None], _RingObjectMethods]", variable has type "def GF(q: Integer, name: str = ..., modulus: object = ..., proof: bool = ..., **kwds: object) -> FiniteField")  [assignment]`
+- `category_specs/constructor_redefinitions.py:398: error: Module "sage.rings.finite_rings.finite_field_constructor" does not explicitly export attribute "FiniteField"  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:398: error: Incompatible types in assignment (expression has type "Callable[[Integer, str | None, Polynomial | str | None, str | None, str | None, bool | None, bool, bool, str | None, str | None, bool | None], _RingObjectMethods]", variable has type "type[FiniteField]")  [assignment]`
+- `category_specs/constructor_redefinitions.py:399: error: Module has no attribute "IntegerModRing"; maybe "IntegerModRing_generic"?  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:401: error: Incompatible types in assignment (expression has type "def PolynomialRing(base_ring: _RingObjectMethods, name: str | tuple[str, ...] | None = ..., *, n: Integer | None = ..., names: str | tuple[str, ...] | None = ..., sparse: bool | None = ..., order: str = ..., implementation: str | None = ...) -> _RingObjectMethods", variable has type "def PolynomialRing(base_ring: object, *args: object, **kwds: object) -> Parent")  [assignment]`
+- `category_specs/constructor_redefinitions.py:403: error: Module has no attribute "PowerSeriesRing"; maybe "PowerSeriesRing_generic"?  [attr-defined]`
+- `category_specs/constructor_redefinitions.py:404: error: Module has no attribute "QuadraticField"  [attr-defined]`
 - `category_specs/sets/subcategories/totally_ordered.py:29: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/totally_ordered.py:30: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
 - `category_specs/sets/subcategories/infinite.py:30: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
@@ -774,104 +828,104 @@ None.
 - `category_specs/modules/__init__.py:650: error: "LazyImport" not callable  [operator]`
 - `category_specs/modules/__init__.py:651: error: "LazyImport" not callable  [operator]`
 - `category_specs/modules/__init__.py:696: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:709: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
-- `category_specs/modules/__init__.py:710: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
-- `category_specs/modules/__init__.py:712: error: Argument 4 to "FreeModule" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
-- `category_specs/modules/__init__.py:714: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:715: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:725: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
-- `category_specs/modules/__init__.py:731: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:732: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:742: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
-- `category_specs/modules/__init__.py:742: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
-- `category_specs/modules/__init__.py:742: error: Argument "with_basis" to "FreeModule" has incompatible type "None"; expected "str"  [arg-type]`
-- `category_specs/modules/__init__.py:744: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:760: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:760: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:777: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:777: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:777: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:792: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
-- `category_specs/modules/__init__.py:793: error: Argument 2 to "VectorSpace" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
-- `category_specs/modules/__init__.py:795: error: Argument 4 to "VectorSpace" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
-- `category_specs/modules/__init__.py:798: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:798: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:809: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
-- `category_specs/modules/__init__.py:811: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:822: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
-- `category_specs/modules/__init__.py:822: error: Argument 2 to "VectorSpace" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
-- `category_specs/modules/__init__.py:822: error: Argument "with_basis" to "VectorSpace" has incompatible type "None"; expected "str"  [arg-type]`
-- `category_specs/modules/__init__.py:824: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:840: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:840: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:857: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:857: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:857: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:880: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:881: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:895: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:895: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:909: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:909: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:909: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:923: error: Argument 1 to "span" has incompatible type "Sequence[_RModElements] | Matrix"; expected "Iterable[object]"  [arg-type]`
-- `category_specs/modules/__init__.py:924: error: Argument 2 to "span" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:928: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:929: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:929: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:943: error: "CombinatorialFreeModule" gets multiple values for keyword argument "prefix"  [misc]`
-- `category_specs/modules/__init__.py:945: error: Argument 2 to "CombinatorialFreeModule" has incompatible type "_SetObjectMethods | Any"; expected "str"  [arg-type]`
-- `category_specs/modules/__init__.py:948: error: Argument "prefix" to "CombinatorialFreeModule" has incompatible type "str | None"; expected "str"  [arg-type]`
-- `category_specs/modules/__init__.py:961: error: Incompatible default for parameter "start_index" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/modules/__init__.py:986: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:987: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:987: error: Argument 1 to "_categories_for_quotient_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:995: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:996: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:996: error: Argument 1 to "_categories_for_quotient_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1084: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "Parent"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1109: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:1147: error: Argument 1 to "matrix" has incompatible type "RationalField"; expected "Ring | None"  [arg-type]`
-- `category_specs/modules/__init__.py:1147: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
-- `category_specs/modules/__init__.py:1152: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/modules/__init__.py:1152: error: Argument "rank" to "FreeModule" of "_Constructors" has incompatible type "int"; expected "Integer"  [arg-type]`
-- `category_specs/modules/__init__.py:1154: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1163: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
-- `category_specs/modules/__init__.py:1164: error: List comprehension has incompatible type List[list[_RingElementMethods]]; expected List[FreeModuleElement]  [misc]`
-- `category_specs/modules/__init__.py:1166: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:1166: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:711: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/modules/__init__.py:712: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/modules/__init__.py:714: error: Argument 4 to "FreeModule" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
+- `category_specs/modules/__init__.py:716: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:717: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:729: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/modules/__init__.py:735: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:736: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:748: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/modules/__init__.py:748: error: Argument 2 to "FreeModule" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/modules/__init__.py:748: error: Argument "with_basis" to "FreeModule" has incompatible type "None"; expected "str"  [arg-type]`
+- `category_specs/modules/__init__.py:750: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:766: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:766: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:783: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:783: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:783: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:800: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
+- `category_specs/modules/__init__.py:801: error: Argument 2 to "VectorSpace" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/modules/__init__.py:803: error: Argument 4 to "VectorSpace" has incompatible type "sage.matrix.matrix2.Matrix | None"; expected "sage.matrix.matrix.Matrix | None"  [arg-type]`
+- `category_specs/modules/__init__.py:806: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:806: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:819: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
+- `category_specs/modules/__init__.py:821: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:834: error: Argument 1 to "VectorSpace" has incompatible type "_RingObjectMethods"; expected "Field"  [arg-type]`
+- `category_specs/modules/__init__.py:834: error: Argument 2 to "VectorSpace" has incompatible type "Integer"; expected "int | Iterable[object] | None"  [arg-type]`
+- `category_specs/modules/__init__.py:834: error: Argument "with_basis" to "VectorSpace" has incompatible type "None"; expected "str"  [arg-type]`
+- `category_specs/modules/__init__.py:836: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic_field"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:852: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:852: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:869: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:869: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:869: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:892: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:893: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:907: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:907: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:921: error: Argument 1 to "matrix" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:921: error: Argument 2 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:921: error: Argument 3 to "matrix" has incompatible type "Integer"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:935: error: Argument 1 to "span" has incompatible type "Sequence[_RModElements] | Matrix"; expected "Iterable[object]"  [arg-type]`
+- `category_specs/modules/__init__.py:936: error: Argument 2 to "span" has incompatible type "_RingObjectMethods"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:940: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:941: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:941: error: Argument 1 to "_categories_for_free_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:955: error: "CombinatorialFreeModule" gets multiple values for keyword argument "prefix"  [misc]`
+- `category_specs/modules/__init__.py:957: error: Argument 2 to "CombinatorialFreeModule" has incompatible type "_SetObjectMethods | Any"; expected "str"  [arg-type]`
+- `category_specs/modules/__init__.py:960: error: Argument "prefix" to "CombinatorialFreeModule" has incompatible type "str | None"; expected "str"  [arg-type]`
+- `category_specs/modules/__init__.py:973: error: Incompatible default for parameter "start_index" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/modules/__init__.py:998: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:999: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:999: error: Argument 1 to "_categories_for_quotient_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1007: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:1008: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1008: error: Argument 1 to "_categories_for_quotient_module" of "_Constructors" has incompatible type "ParentMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1096: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "Parent"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1121: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:1159: error: Argument 1 to "matrix" has incompatible type "RationalField"; expected "Ring | None"  [arg-type]`
+- `category_specs/modules/__init__.py:1159: error: Argument 2 to "matrix" has incompatible type "Sequence[Sequence[_RingElementMethods]]"; expected "int | None"  [arg-type]`
+- `category_specs/modules/__init__.py:1164: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/modules/__init__.py:1164: error: Argument "rank" to "FreeModule" of "_Constructors" has incompatible type "int"; expected "Integer"  [arg-type]`
 - `category_specs/modules/__init__.py:1166: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1166: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/modules/__init__.py:1174: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:1175: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1175: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/modules/__init__.py:1295: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1321: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1349: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1377: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1403: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1418: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1444: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1459: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1482: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
-- `category_specs/modules/__init__.py:1510: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/modules/__init__.py:1511: error: Unsupported operand types for * ("Integer" and "list[ParentMethods]")  [operator]`
-- `category_specs/modules/__init__.py:1511: error: Argument 1 to "sum" has incompatible type "list[ParentMethods]"; expected "Iterable[bool]"  [arg-type]`
-- `category_specs/modules/__init__.py:1522: error: Unsupported right operand type for in ("Rings")  [operator]`
-- `category_specs/modules/__init__.py:1531: error: Argument 1 to "free_module" of "Modules" has incompatible type "int"; expected "Integer"  [arg-type]`
-- `category_specs/modules/__init__.py:1569: error: "SubcategoryMethods" has no attribute "base_category"  [attr-defined]`
-- `category_specs/modules/__init__.py:1660: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/modules/__init__.py:1665: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
+- `category_specs/modules/__init__.py:1177: error: Argument 1 to "FreeModule" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/modules/__init__.py:1178: error: List comprehension has incompatible type List[list[_RingElementMethods]]; expected List[FreeModuleElement]  [misc]`
+- `category_specs/modules/__init__.py:1180: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:1180: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "FreeModule_generic"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1180: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1180: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/modules/__init__.py:1188: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:1189: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1189: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/modules/__init__.py:1309: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1335: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1363: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1391: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1417: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1432: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1458: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1473: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1496: error: Argument 1 to "_refine_constructed_module" of "_Constructors" has incompatible type "_RingObjectMethods"; expected "_RModObjects"  [arg-type]`
+- `category_specs/modules/__init__.py:1524: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
+- `category_specs/modules/__init__.py:1525: error: Unsupported operand types for * ("Integer" and "list[ParentMethods]")  [operator]`
+- `category_specs/modules/__init__.py:1525: error: Argument 1 to "sum" has incompatible type "list[ParentMethods]"; expected "Iterable[bool]"  [arg-type]`
+- `category_specs/modules/__init__.py:1536: error: Unsupported right operand type for in ("Rings")  [operator]`
+- `category_specs/modules/__init__.py:1545: error: Argument 1 to "free_module" of "Modules" has incompatible type "int"; expected "Integer"  [arg-type]`
+- `category_specs/modules/__init__.py:1583: error: "SubcategoryMethods" has no attribute "base_category"  [attr-defined]`
 - `category_specs/modules/__init__.py:1674: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/modules/__init__.py:1676: error: Cannot override final attribute "Graded" (previously declared in base class "SubcategoryMethods")  [misc]`
-- `category_specs/modules/__init__.py:1684: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/modules/__init__.py:1701: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1706: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1711: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1716: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1721: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1726: error: "LazyImport" not callable  [operator]`
-- `category_specs/modules/__init__.py:1731: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1679: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
+- `category_specs/modules/__init__.py:1688: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
+- `category_specs/modules/__init__.py:1690: error: Cannot override final attribute "Graded" (previously declared in base class "SubcategoryMethods")  [misc]`
+- `category_specs/modules/__init__.py:1698: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
+- `category_specs/modules/__init__.py:1715: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1720: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1725: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1730: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1735: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1740: error: "LazyImport" not callable  [operator]`
+- `category_specs/modules/__init__.py:1745: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/subcategories/real_set.py:45: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/real_set.py:49: error: "LazyImport" not callable  [operator]`
 - `category_specs/sets/subcategories/real_set.py:50: error: "LazyImport" not callable  [operator]`
