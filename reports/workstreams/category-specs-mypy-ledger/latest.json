@@ -1,13 +1,13 @@
 {
   "counts_by_code": {
     "abstract": 3,
-    "arg-type": 194,
+    "arg-type": 193,
     "assignment": 54,
     "attr-defined": 133,
     "call-arg": 33,
     "call-overload": 8,
     "index": 2,
-    "list-item": 133,
+    "list-item": 132,
     "misc": 457,
     "operator": 242,
     "override": 281,
@@ -19,7 +19,7 @@
   "counts_by_owner": {
     "mathematical/category-interface question": 311,
     "missing sidecar ordinary signature": 129,
-    "research typing/design": 1154
+    "research typing/design": 1152
   },
   "counts_by_root_area": {
     "algebras": 148,
@@ -34,28 +34,9 @@
     "spec_core": 3,
     "tensor_algebra_components": 21,
     "topological_spaces": 50,
-    "types.py": 3,
-    "utils.py": 2
+    "types.py": 3
   },
   "errors": [
-    {
-      "code": "list-item",
-      "line": 247,
-      "message": "List item 0 has incompatible type \"Category | Sequence[Category]\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/utils.py",
-      "raw": "category_specs/utils.py:247: error: List item 0 has incompatible type \"Category | Sequence[Category]\"; expected \"Category\"  [list-item]",
-      "root_area": "utils.py"
-    },
-    {
-      "code": "arg-type",
-      "line": 249,
-      "message": "Argument 1 to \"_refine_category_\" of \"Parent\" has incompatible type \"list[Category] | list[Any] | tuple[Any, ...]\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/utils.py",
-      "raw": "category_specs/utils.py:249: error: Argument 1 to \"_refine_category_\" of \"Parent\" has incompatible type \"list[Category] | list[Any] | tuple[Any, ...]\"; expected \"Category\"  [arg-type]",
-      "root_area": "utils.py"
-    },
     {
       "code": "attr-defined",
       "line": 5,
@@ -14387,24 +14368,6 @@
   ],
   "examples": [
     {
-      "code": "list-item",
-      "line": 247,
-      "message": "List item 0 has incompatible type \"Category | Sequence[Category]\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/utils.py",
-      "raw": "category_specs/utils.py:247: error: List item 0 has incompatible type \"Category | Sequence[Category]\"; expected \"Category\"  [list-item]",
-      "root_area": "utils.py"
-    },
-    {
-      "code": "arg-type",
-      "line": 249,
-      "message": "Argument 1 to \"_refine_category_\" of \"Parent\" has incompatible type \"list[Category] | list[Any] | tuple[Any, ...]\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/utils.py",
-      "raw": "category_specs/utils.py:249: error: Argument 1 to \"_refine_category_\" of \"Parent\" has incompatible type \"list[Category] | list[Any] | tuple[Any, ...]\"; expected \"Category\"  [arg-type]",
-      "root_area": "utils.py"
-    },
-    {
       "code": "attr-defined",
       "line": 5,
       "message": "Module \"sage.rings.laurent_series_ring\" has no attribute \"LaurentSeriesRing\"; maybe \"LaurentSeries\" or \"LaurentSeriesRing_generic\"?",
@@ -14412,6 +14375,15 @@
       "path": "category_specs/rings/subcategories/_sage_ring_classes.py",
       "raw": "category_specs/rings/subcategories/_sage_ring_classes.py:5: error: Module \"sage.rings.laurent_series_ring\" has no attribute \"LaurentSeriesRing\"; maybe \"LaurentSeries\" or \"LaurentSeriesRing_generic\"?  [attr-defined]",
       "root_area": "rings"
+    },
+    {
+      "code": "arg-type",
+      "line": 20,
+      "message": "Argument 1 to \"_explicit_constructors_provider\" has incompatible type \"object\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/spec_core/constructor_adapters.py",
+      "raw": "category_specs/spec_core/constructor_adapters.py:20: error: Argument 1 to \"_explicit_constructors_provider\" has incompatible type \"object\"; expected \"Category\"  [arg-type]",
+      "root_area": "spec_core"
     },
     {
       "code": "assignment",
@@ -14438,6 +14410,15 @@
       "owner": "research typing/design",
       "path": "category_specs/cat/base_category_types.py",
       "raw": "category_specs/cat/base_category_types.py:602: error: Argument 1 of \"join\" is incompatible with supertype \"sage.categories.category.Category\"; supertype defines the argument type as \"list[Category]\"  [override]",
+      "root_area": "cat"
+    },
+    {
+      "code": "list-item",
+      "line": 34,
+      "message": "List item 0 has incompatible type \"Cat\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/cat/join_categories.py",
+      "raw": "category_specs/cat/join_categories.py:34: error: List item 0 has incompatible type \"Cat\"; expected \"Category\"  [list-item]",
       "root_area": "cat"
     },
     {
@@ -14560,9 +14541,9 @@
       "root_area": ".cache"
     }
   ],
-  "ordinary_error_count": 1594,
-  "parsed_error_count": 1595,
-  "raw_diagnostic_count": 1918,
+  "ordinary_error_count": 1592,
+  "parsed_error_count": 1593,
+  "raw_diagnostic_count": 1916,
   "source_artifact": "reports/workstreams/category-specs-mypy-structural-full/latest.json",
   "structural": {
     "checked_provider_count": 318,
@@ -14577,7 +14558,7 @@
   },
   "toolchain": {
     "plugin_sha": "c231ac89da769434380dd95e499f5b64680636ae",
-    "research_sha": "9796748a07fa9628b2a476c33fbaef465df6a3e0",
-    "sidecar_sha": "089fb8cfdb5ac413038f12c0717f69428a228297"
+    "research_sha": "9053e38744ec1e07d1f2b675fed20fdcf7fc48e4",
+    "sidecar_sha": "3640ab5e2a8a810cb0394a4a5d18408ab06978b2"
   }
 }

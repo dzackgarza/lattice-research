@@ -31,8 +31,6 @@ None.
 
 ## Mypy Errors
 
-- `category_specs/utils.py:247: error: List item 0 has incompatible type "Category | Sequence[Category]"; expected "Category"  [list-item]`
-- `category_specs/utils.py:249: error: Argument 1 to "_refine_category_" of "Parent" has incompatible type "list[Category] | list[Any] | tuple[Any, ...]"; expected "Category"  [arg-type]`
 - `category_specs/rings/subcategories/_sage_ring_classes.py:5: error: Module "sage.rings.laurent_series_ring" has no attribute "LaurentSeriesRing"; maybe "LaurentSeries" or "LaurentSeriesRing_generic"?  [attr-defined]`
 - `category_specs/rings/subcategories/_sage_ring_classes.py:9: error: Module "sage.rings.polynomial.polynomial_ring" has no attribute "PolynomialRing_generic"; maybe "PolynomialRing_general"?  [attr-defined]`
 - `category_specs/spec_core/constructor_adapters.py:20: error: Argument 1 to "_explicit_constructors_provider" has incompatible type "object"; expected "Category"  [arg-type]`

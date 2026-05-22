@@ -243,10 +243,9 @@ def refine_category[_ParentT: Parent](
     C: Category | Sequence[Category],
     test: bool = True,
 ) -> _ParentT:
-    if not isinstance(C, (list, tuple)):
-        C = [C]
-    _prime_method_cache_before_refinement(X, C)
-    X._refine_category_(C)
+    categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
+    _prime_method_cache_before_refinement(X, categories)
+    X._refine_category_(categories)
     _validate_no_missing_abc_methods(X)
     if test:
         X._test_not_implemented_methods()
