@@ -330,9 +330,8 @@
   "mismatches": [],
   "missing_typeinfo_count": 0,
   "missing_typeinfos": [],
-  "mypy_error_count": 1907,
+  "mypy_error_count": 1906,
   "mypy_errors": [
-    "category_specs/rings/subcategories/_sage_ring_classes.py:9: error: Module \"sage.rings.polynomial.polynomial_ring\" has no attribute \"PolynomialRing_generic\"; maybe \"PolynomialRing_general\"?  [attr-defined]",
     "category_specs/spec_core/constructor_adapters.py:20: error: Argument 1 to \"_explicit_constructors_provider\" has incompatible type \"object\"; expected \"Category\"  [arg-type]",
     "category_specs/spec_core/constructor_adapters.py:27: error: Argument 1 to \"_cat_constructor_prefix\" has incompatible type \"object\"; expected \"Category\"  [arg-type]",
     "category_specs/spec_core/constructor_adapters.py:189: error: Argument 1 to \"_static_category_class\" has incompatible type \"object\"; expected \"Category\"  [arg-type]",

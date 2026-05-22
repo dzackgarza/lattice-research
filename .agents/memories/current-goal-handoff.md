@@ -21,14 +21,13 @@ authorities for status, evidence, dependencies, and completed work.
   `reports/workstreams/category-specs-mypy-ledger/latest.{json,md}`. The current
   full gate has zero mismatched providers, zero missing loaded provider TypeInfos, and
   zero missing projected ancestor TypeInfos; ordinary diagnostics remain the work.
-- Latest known artifact frontier after the infinity, SetPartitions, and Laurent
-  sidecar batches: full structural pass over all modules; ordinary diagnostics
-  `1574`; missing sidecar ordinary signatures `103`; sidecar SHA
-  `e74d1f9f3fe55ded04147ecc9cc7f3a3944a9e5f`; runtime vertical slice 29/29.
+- Latest known artifact frontier after the infinity, SetPartitions, Laurent, and
+  PolynomialRing_generic sidecar batches: full structural pass over all modules;
+  ordinary diagnostics `1573`; missing sidecar ordinary signatures `102`; sidecar
+  SHA `dfe86e3f9a23d96369eb04302fea427f35d326cd`; runtime vertical slice 29/29.
 - Current pickup: choose the next bounded source-backed family from the committed
   ledger. The leading sidecar example is now
-  `sage.rings.polynomial.polynomial_ring.PolynomialRing_generic`; source-check
-  before editing.
+  `sage.categories.category_types.Category_module`; source-check before editing.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
