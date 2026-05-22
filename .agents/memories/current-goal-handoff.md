@@ -21,6 +21,17 @@ authorities for status, evidence, dependencies, and completed work.
   ledger-only cleanup. `just test-category-specs-smoke` is the focused isolated smoke
   gate; it currently passes canonical ZZ/QQ seed enrollment but still has constructor
   interception/promotion failures.
+- Sidecar ownership split: the research agent must not opportunistically patch
+  `sage-stubs`. Sage-shaped diagnostics now route through the committed stub backlog
+  artifacts under `reports/workstreams/category-specs-sage-stub-backlog/`. Rows are
+  runtime-verification candidates for dedicated sidecar agents, not proof that a stub
+  edit is correct.
+- Current stub backlog split from the 1565-diagnostic ledger: 1147 stub candidates and
+  418 non-candidates, grouped by bundle as category core/dynamic constructors,
+  homsets/morphisms/endsets/autsets, rings/polynomial constructors, modules/vector
+  spaces/matrix spaces/subobjects, sets/infinity/numeric protocols, and smaller
+  families. Stub agents may edit only `sage-stubs` and stub tests after checking real
+  Sage runtime behavior.
 - Latest known artifact frontier after removing local-only `@override` markers from
   root category hook methods: full structural pass over all modules; ordinary
   diagnostics `1565`; missing sidecar ordinary signatures `91`; sidecar SHA
