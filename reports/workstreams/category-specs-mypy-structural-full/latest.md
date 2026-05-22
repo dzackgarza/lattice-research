@@ -353,20 +353,9 @@ None.
 - `category_specs/sets/__init__.py:982: error: Argument 1 to "category_from_parents" of "_CartesianProductCallable" has incompatible type "tuple[_SetObjectMethods, ...]"; expected "Iterable[Category]"  [arg-type]`
 - `category_specs/sets/__init__.py:986: error: Incompatible types in assignment (expression has type "tuple[Any, ...]", variable has type "Category")  [assignment]`
 - `category_specs/sets/__init__.py:988: error: Unsupported left operand type for & ("Category")  [operator]`
-- `category_specs/sets/__init__.py:1112: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
 - `category_specs/sets/__init__.py:1116: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:1133: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1169: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1207: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
 - `category_specs/sets/__init__.py:1227: error: Missing positional argument "s" in call to "SetPartition"  [call-arg]`
 - `category_specs/sets/__init__.py:1227: error: Argument 1 to "SetPartition" has incompatible type "Iterable[Iterable[_SetElementMethods]]"; expected "Parent"  [arg-type]`
-- `category_specs/sets/__init__.py:1234: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1246: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1260: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1274: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1290: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1306: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1322: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
 - `category_specs/sets/__init__.py:1336: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
 - `category_specs/sets/__init__.py:1338: error: Signature of "Constructors" incompatible with supertype "Category"  [override]`
 - `category_specs/sets/__init__.py:1338: note:      Superclass:`
@@ -677,8 +666,13 @@ None.
 - `category_specs/sets/subcategories/partitioned.py:130: note:          def _element_constructor_(self, blocks: Sequence[Sequence[_SetElementMethods]], check: bool = ...) -> SetPartition`
 - `category_specs/sets/subcategories/partitioned.py:144: error: Cannot override final attribute "cardinality" (previously declared in base class "ParentMethods")  [misc]`
 - `category_specs/sets/subcategories/partitioned.py:150: error: Cannot override final attribute "random_element" (previously declared in base class "ParentMethods")  [misc]`
+- `category_specs/sets/subcategories/partitioned.py:152: error: Return type "SetPartition" of "random_element" incompatible with return type "_SetElementMethods" in supertype "category_specs.sets.subcategories.countable._CountableSets.ParentMethods"  [override]`
+- `category_specs/sets/subcategories/partitioned.py:201: error: Unsupported left operand type for * ("ElementMethods")  [operator]`
 - `category_specs/sets/subcategories/partitioned.py:216: error: Argument 1 to "is_less_than" of "ParentMethods" has incompatible type "ElementMethods"; expected "SetPartition"  [arg-type]`
 - `category_specs/sets/subcategories/partitioned.py:221: error: Argument 1 to "is_less_than" of "ParentMethods" has incompatible type "ElementMethods"; expected "SetPartition"  [arg-type]`
+- `category_specs/sets/subcategories/partitioned.py:226: error: Argument 1 to "from_iterable" of "_Constructors" has incompatible type "list[SetPartition]"; expected "Iterable[_SetElementMethods]"  [arg-type]`
+- `category_specs/sets/subcategories/partitioned.py:231: error: Argument 1 to "from_iterable" of "_Constructors" has incompatible type "list[SetPartition]"; expected "Iterable[_SetElementMethods]"  [arg-type]`
+- `category_specs/sets/subcategories/partitioned.py:301: error: Argument 1 to "from_iterable" of "_Constructors" has incompatible type "list[SetPartition]"; expected "Iterable[_SetElementMethods]"  [arg-type]`
 - `category_specs/sets/subcategories/partitioned.py:330: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/image.py:67: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/sets/subcategories/image.py:68: error: "LazyImport" not callable  [operator]`
@@ -1561,7 +1555,6 @@ None.
 - `category_specs/lattices/__init__.py:242: error: "LazyImport" not callable  [operator]`
 - `category_specs/lattices/__init__.py:242: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
 - `category_specs/lattices/__init__.py:255: error: "Category" has no attribute "Lattice"  [attr-defined]`
-- `category_specs/types.py:19: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
 - `category_specs/types.py:36: error: Module "sage.rings.qqbar" has no attribute "AlgebraicPolynomialTracker"  [attr-defined]`
 - `.cache/sage-mypy-plugin/consumer-structural-full/negative_consumer_probe.py:5: error: Incompatible types in assignment (expression has type "int", variable has type "_SetObjectMethods")  [assignment]`
 - `category_specs/topological_spaces/subcategories/connected.py:27: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`

@@ -1,16 +1,16 @@
 {
   "counts_by_code": {
     "abstract": 3,
-    "arg-type": 191,
+    "arg-type": 194,
     "assignment": 54,
-    "attr-defined": 120,
+    "attr-defined": 108,
     "call-arg": 33,
     "call-overload": 11,
     "index": 2,
     "list-item": 132,
     "misc": 457,
-    "operator": 245,
-    "override": 281,
+    "operator": 246,
+    "override": 282,
     "return": 5,
     "return-value": 37,
     "type-var": 10,
@@ -18,8 +18,8 @@
   },
   "counts_by_owner": {
     "mathematical/category-interface question": 314,
-    "missing sidecar ordinary signature": 116,
-    "research typing/design": 1152
+    "missing sidecar ordinary signature": 104,
+    "research typing/design": 1157
   },
   "counts_by_root_area": {
     "algebras": 147,
@@ -30,11 +30,11 @@
     "modules": 263,
     "posets": 94,
     "rings": 419,
-    "sets": 312,
+    "sets": 306,
     "spec_core": 3,
     "tensor_algebra_components": 21,
     "topological_spaces": 50,
-    "types.py": 2
+    "types.py": 1
   },
   "errors": [
     {
@@ -2540,48 +2540,12 @@
       "root_area": "sets"
     },
     {
-      "code": "attr-defined",
-      "line": 1112,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1112: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
       "code": "operator",
       "line": 1116,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
       "raw": "category_specs/sets/__init__.py:1116: error: \"LazyImport\" not callable  [operator]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1133,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1133: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1169,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1169: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1207,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1207: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
       "root_area": "sets"
     },
     {
@@ -2600,69 +2564,6 @@
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
       "raw": "category_specs/sets/__init__.py:1227: error: Argument 1 to \"SetPartition\" has incompatible type \"Iterable[Iterable[_SetElementMethods]]\"; expected \"Parent\"  [arg-type]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1234,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1234: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1246,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1246: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1260,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1260: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1274,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1274: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1290,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1290: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1306,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1306: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "sets"
-    },
-    {
-      "code": "attr-defined",
-      "line": 1322,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1322: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
       "root_area": "sets"
     },
     {
@@ -4745,6 +4646,24 @@
       "root_area": "sets"
     },
     {
+      "code": "override",
+      "line": 152,
+      "message": "Return type \"SetPartition\" of \"random_element\" incompatible with return type \"_SetElementMethods\" in supertype \"category_specs.sets.subcategories.countable._CountableSets.ParentMethods\"",
+      "owner": "research typing/design",
+      "path": "category_specs/sets/subcategories/partitioned.py",
+      "raw": "category_specs/sets/subcategories/partitioned.py:152: error: Return type \"SetPartition\" of \"random_element\" incompatible with return type \"_SetElementMethods\" in supertype \"category_specs.sets.subcategories.countable._CountableSets.ParentMethods\"  [override]",
+      "root_area": "sets"
+    },
+    {
+      "code": "operator",
+      "line": 201,
+      "message": "Unsupported left operand type for * (\"ElementMethods\")",
+      "owner": "research typing/design",
+      "path": "category_specs/sets/subcategories/partitioned.py",
+      "raw": "category_specs/sets/subcategories/partitioned.py:201: error: Unsupported left operand type for * (\"ElementMethods\")  [operator]",
+      "root_area": "sets"
+    },
+    {
       "code": "arg-type",
       "line": 216,
       "message": "Argument 1 to \"is_less_than\" of \"ParentMethods\" has incompatible type \"ElementMethods\"; expected \"SetPartition\"",
@@ -4760,6 +4679,33 @@
       "owner": "research typing/design",
       "path": "category_specs/sets/subcategories/partitioned.py",
       "raw": "category_specs/sets/subcategories/partitioned.py:221: error: Argument 1 to \"is_less_than\" of \"ParentMethods\" has incompatible type \"ElementMethods\"; expected \"SetPartition\"  [arg-type]",
+      "root_area": "sets"
+    },
+    {
+      "code": "arg-type",
+      "line": 226,
+      "message": "Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"",
+      "owner": "research typing/design",
+      "path": "category_specs/sets/subcategories/partitioned.py",
+      "raw": "category_specs/sets/subcategories/partitioned.py:226: error: Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"  [arg-type]",
+      "root_area": "sets"
+    },
+    {
+      "code": "arg-type",
+      "line": 231,
+      "message": "Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"",
+      "owner": "research typing/design",
+      "path": "category_specs/sets/subcategories/partitioned.py",
+      "raw": "category_specs/sets/subcategories/partitioned.py:231: error: Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"  [arg-type]",
+      "root_area": "sets"
+    },
+    {
+      "code": "arg-type",
+      "line": 301,
+      "message": "Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"",
+      "owner": "research typing/design",
+      "path": "category_specs/sets/subcategories/partitioned.py",
+      "raw": "category_specs/sets/subcategories/partitioned.py:301: error: Argument 1 to \"from_iterable\" of \"_Constructors\" has incompatible type \"list[SetPartition]\"; expected \"Iterable[_SetElementMethods]\"  [arg-type]",
       "root_area": "sets"
     },
     {
@@ -11145,15 +11091,6 @@
     },
     {
       "code": "attr-defined",
-      "line": 19,
-      "message": "Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/types.py",
-      "raw": "category_specs/types.py:19: error: Module \"sage.combinat.set_partition\" has no attribute \"SetPartitions\"; maybe \"SetPartition\" or \"Partition\"?  [attr-defined]",
-      "root_area": "types.py"
-    },
-    {
-      "code": "attr-defined",
       "line": 36,
       "message": "Module \"sage.rings.qqbar\" has no attribute \"AlgebraicPolynomialTracker\"",
       "owner": "missing sidecar ordinary signature",
@@ -14451,9 +14388,9 @@
       "root_area": ".cache"
     }
   ],
-  "ordinary_error_count": 1582,
-  "parsed_error_count": 1583,
-  "raw_diagnostic_count": 1915,
+  "ordinary_error_count": 1575,
+  "parsed_error_count": 1576,
+  "raw_diagnostic_count": 1908,
   "source_artifact": "reports/workstreams/category-specs-mypy-structural-full/latest.json",
   "structural": {
     "checked_provider_count": 318,
@@ -14468,7 +14405,7 @@
   },
   "toolchain": {
     "plugin_sha": "c231ac89da769434380dd95e499f5b64680636ae",
-    "research_sha": "3d13848d3ff7d4d0a00f2de7dafddfbb5067ee4f",
-    "sidecar_sha": "1dadbbfb4a3f33574e10c782faee4a04229404c1"
+    "research_sha": "25e88b24c8d807702fca76c92710bbff986d81fa",
+    "sidecar_sha": "e8fcbcd99e10b99eeb094c5f397886d9b9da469e"
   }
 }

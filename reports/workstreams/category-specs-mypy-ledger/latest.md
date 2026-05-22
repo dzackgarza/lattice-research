@@ -6,29 +6,29 @@
 - full_structural_mismatches: 0
 - full_structural_missing_typeinfos: 0
 - full_structural_projected_ancestor_missing_typeinfos: 0
-- ordinary_error_count: 1582
+- ordinary_error_count: 1575
 - ignored_negative_control_count: 1
 
 ## Toolchain
 
-- research_sha: `3d13848d3ff7d4d0a00f2de7dafddfbb5067ee4f`
+- research_sha: `25e88b24c8d807702fca76c92710bbff986d81fa`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
-- sidecar_sha: `1dadbbfb4a3f33574e10c782faee4a04229404c1`
+- sidecar_sha: `e8fcbcd99e10b99eeb094c5f397886d9b9da469e`
 
 ## Counts By Owner
 
-- research typing/design: 1152
+- research typing/design: 1157
 - mathematical/category-interface question: 314
-- missing sidecar ordinary signature: 116
+- missing sidecar ordinary signature: 104
 
 ## Counts By Code
 
 - misc: 457
-- override: 281
-- operator: 245
-- arg-type: 191
+- override: 282
+- operator: 246
+- arg-type: 194
 - list-item: 132
-- attr-defined: 120
+- attr-defined: 108
 - assignment: 54
 - return-value: 37
 - call-arg: 33
@@ -42,7 +42,7 @@
 ## Counts By Root Area
 
 - rings: 419
-- sets: 312
+- sets: 306
 - modules: 263
 - algebras: 147
 - cat: 130
@@ -53,7 +53,7 @@
 - homsets: 33
 - tensor_algebra_components: 21
 - spec_core: 3
-- types.py: 2
+- types.py: 1
 
 ## Representative Examples
 
