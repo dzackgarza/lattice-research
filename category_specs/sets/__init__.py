@@ -373,7 +373,6 @@ class Sets(Category_singleton):
             SageSets()
         )
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageSets(),)
@@ -384,7 +383,6 @@ class Sets(Category_singleton):
         r"""Return Sage's set category refined by this spec."""
         return [SageSets()]
 
-    @override
     @final
     def additional_structure(self) -> Category | None:
         r"""Return Sage's additional-structure marker for plain sets."""

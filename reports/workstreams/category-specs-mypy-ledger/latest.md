@@ -6,24 +6,24 @@
 - full_structural_mismatches: 0
 - full_structural_missing_typeinfos: 0
 - full_structural_projected_ancestor_missing_typeinfos: 0
-- ordinary_error_count: 1573
+- ordinary_error_count: 1565
 - ignored_negative_control_count: 1
 
 ## Toolchain
 
-- research_sha: `be8a3bec5bbd702ad378410656ffb5333317a689`
+- research_sha: `d5c6f9100eec5310a333f51b30180b8f8a0efd58`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
 - sidecar_sha: `c966661e41f55e9e73f9611cb63e40a01769904b`
 
 ## Counts By Owner
 
 - research typing/design: 1157
-- mathematical/category-interface question: 314
-- missing sidecar ordinary signature: 102
+- mathematical/category-interface question: 317
+- missing sidecar ordinary signature: 91
 
 ## Counts By Code
 
-- misc: 457
+- misc: 449
 - override: 282
 - operator: 246
 - arg-type: 194
@@ -41,15 +41,15 @@
 
 ## Counts By Root Area
 
-- rings: 417
-- sets: 306
+- rings: 415
+- sets: 304
 - modules: 263
-- algebras: 147
-- cat: 130
-- posets: 94
+- algebras: 145
+- cat: 127
+- posets: 93
 - forms: 58
-- lattices: 50
-- topological_spaces: 50
+- lattices: 53
+- topological_spaces: 49
 - homsets: 33
 - tensor_algebra_components: 21
 - spec_core: 3
@@ -63,7 +63,7 @@
 - research typing/design / misc / cat: `category_specs/cat/base_category_types.py:593: error: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"  [misc]`
 - research typing/design / override / cat: `category_specs/cat/base_category_types.py:602: error: Argument 1 of "join" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "list[Category]"  [override]`
 - research typing/design / list-item / cat: `category_specs/cat/join_categories.py:34: error: List item 0 has incompatible type "Cat"; expected "Category"  [list-item]`
-- missing sidecar ordinary signature / misc / cat: `category_specs/cat/join_categories.py:38: error: Method "additional_structure" is marked as an override, but no base method was found with this name  [misc]`
+- missing sidecar ordinary signature / misc / homsets: `category_specs/homsets/homsets.py:153: error: Method "default_super_categories" is marked as an override, but no base method was found with this name  [misc]`
 - research typing/design / return-value / homsets: `category_specs/homsets/homsets.py:161: error: Incompatible return value type (got "HomCategory", expected "Category")  [return-value]`
 - research typing/design / operator / homsets: `category_specs/homsets/homsets.py:183: error: "LazyImport" not callable  [operator]`
 - research typing/design / type-var / homsets: `category_specs/homsets/autsets.py:58: error: Value of type variable "_ParentT" of "refine_category" cannot be "UniversalAutObjectMethods"  [type-var]`

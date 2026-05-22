@@ -33,7 +33,6 @@ class JoinCategories(Category_singleton):
 
         return [Cat()]
 
-    @override
     @final
     def additional_structure(self) -> None:
         r"""Return Sage's additional-structure marker for join categories."""

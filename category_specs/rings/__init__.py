@@ -1968,7 +1968,6 @@ class Rings(Category_singleton):
         r"""Return the Sage ring constructor collector."""
         return self.__class__._Constructors()
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageRings(),)
@@ -1980,7 +1979,6 @@ class Rings(Category_singleton):
 
         return [Sets(), SageRings()]
 
-    @override
     @final
     def additional_structure(self) -> Category | None:
         return None

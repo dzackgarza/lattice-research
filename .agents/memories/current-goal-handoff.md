@@ -21,10 +21,10 @@ authorities for status, evidence, dependencies, and completed work.
   `reports/workstreams/category-specs-mypy-ledger/latest.{json,md}`. The current
   full gate has zero mismatched providers, zero missing loaded provider TypeInfos, and
   zero missing projected ancestor TypeInfos; ordinary diagnostics remain the work.
-- Latest known artifact frontier after the infinity, SetPartitions, Laurent, and
-  PolynomialRing_generic sidecar batches: full structural pass over all modules;
-  ordinary diagnostics `1573`; missing sidecar ordinary signatures `102`; sidecar
-  SHA `c966661e41f55e9e73f9611cb63e40a01769904b`; runtime vertical slice 29/29.
+- Latest known artifact frontier after removing local-only `@override` markers from
+  root category hook methods: full structural pass over all modules; ordinary
+  diagnostics `1565`; missing sidecar ordinary signatures `91`; sidecar SHA
+  `c966661e41f55e9e73f9611cb63e40a01769904b`; runtime vertical slice 29/29.
 - Current pickup: choose the next bounded source-backed family from the committed
   ledger. Do not retry `sage.categories.category_types.Category_module` as a simple
   sidecar class exposure: that was source-backed but regressed the ledger by making

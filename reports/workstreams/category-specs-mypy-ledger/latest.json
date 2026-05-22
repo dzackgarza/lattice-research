@@ -8,7 +8,7 @@
     "call-overload": 11,
     "index": 2,
     "list-item": 132,
-    "misc": 457,
+    "misc": 449,
     "operator": 246,
     "override": 282,
     "return": 5,
@@ -17,23 +17,23 @@
     "union-attr": 1
   },
   "counts_by_owner": {
-    "mathematical/category-interface question": 314,
-    "missing sidecar ordinary signature": 102,
+    "mathematical/category-interface question": 317,
+    "missing sidecar ordinary signature": 91,
     "research typing/design": 1157
   },
   "counts_by_root_area": {
-    "algebras": 147,
-    "cat": 130,
+    "algebras": 145,
+    "cat": 127,
     "forms": 58,
     "homsets": 33,
-    "lattices": 50,
+    "lattices": 53,
     "modules": 263,
-    "posets": 94,
-    "rings": 417,
-    "sets": 306,
+    "posets": 93,
+    "rings": 415,
+    "sets": 304,
     "spec_core": 3,
     "tensor_algebra_components": 21,
-    "topological_spaces": 50,
+    "topological_spaces": 49,
     "types.py": 1
   },
   "errors": [
@@ -983,15 +983,6 @@
       "root_area": "cat"
     },
     {
-      "code": "misc",
-      "line": 38,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/cat/join_categories.py",
-      "raw": "category_specs/cat/join_categories.py:38: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "cat"
-    },
-    {
       "code": "override",
       "line": 23,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
@@ -1010,21 +1001,12 @@
       "root_area": "cat"
     },
     {
-      "code": "misc",
-      "line": 31,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/cat/empty_category.py",
-      "raw": "category_specs/cat/empty_category.py:31: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "cat"
-    },
-    {
       "code": "override",
-      "line": 43,
+      "line": 42,
       "message": "Argument 1 of \"is_subcategory\" is incompatible with supertype \"sage.categories.category.Category\"; supertype defines the argument type as \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/cat/empty_category.py",
-      "raw": "category_specs/cat/empty_category.py:43: error: Argument 1 of \"is_subcategory\" is incompatible with supertype \"sage.categories.category.Category\"; supertype defines the argument type as \"Category\"  [override]",
+      "raw": "category_specs/cat/empty_category.py:42: error: Argument 1 of \"is_subcategory\" is incompatible with supertype \"sage.categories.category.Category\"; supertype defines the argument type as \"Category\"  [override]",
       "root_area": "cat"
     },
     {
@@ -1442,39 +1424,30 @@
       "root_area": "cat"
     },
     {
-      "code": "misc",
-      "line": 278,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/cat/__init__.py",
-      "raw": "category_specs/cat/__init__.py:278: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "cat"
-    },
-    {
       "code": "return-value",
-      "line": 291,
+      "line": 290,
       "message": "Incompatible return value type (got \"JoinCategories\", expected \"Category\")",
       "owner": "research typing/design",
       "path": "category_specs/cat/__init__.py",
-      "raw": "category_specs/cat/__init__.py:291: error: Incompatible return value type (got \"JoinCategories\", expected \"Category\")  [return-value]",
+      "raw": "category_specs/cat/__init__.py:290: error: Incompatible return value type (got \"JoinCategories\", expected \"Category\")  [return-value]",
       "root_area": "cat"
     },
     {
       "code": "assignment",
-      "line": 315,
+      "line": 314,
       "message": "Incompatible types in assignment (expression has type \"LazyImport\", base class \"Category\" defined the type as \"Callable[[], Category]\")",
       "owner": "research typing/design",
       "path": "category_specs/cat/__init__.py",
-      "raw": "category_specs/cat/__init__.py:315: error: Incompatible types in assignment (expression has type \"LazyImport\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
+      "raw": "category_specs/cat/__init__.py:314: error: Incompatible types in assignment (expression has type \"LazyImport\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
       "root_area": "cat"
     },
     {
       "code": "return-value",
-      "line": 331,
+      "line": 330,
       "message": "Incompatible return value type (got \"EmptyCategory\", expected \"Category\")",
       "owner": "research typing/design",
       "path": "category_specs/cat/__init__.py",
-      "raw": "category_specs/cat/__init__.py:331: error: Incompatible return value type (got \"EmptyCategory\", expected \"Category\")  [return-value]",
+      "raw": "category_specs/cat/__init__.py:330: error: Incompatible return value type (got \"EmptyCategory\", expected \"Category\")  [return-value]",
       "root_area": "cat"
     },
     {
@@ -2216,363 +2189,345 @@
       "root_area": "sets"
     },
     {
-      "code": "misc",
-      "line": 378,
-      "message": "Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:378: error: Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "sets"
-    },
-    {
       "code": "return-value",
-      "line": 379,
+      "line": 378,
       "message": "Incompatible return value type (got \"tuple[Sets]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:379: error: Incompatible return value type (got \"tuple[Sets]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/sets/__init__.py:378: error: Incompatible return value type (got \"tuple[Sets]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 383,
+      "line": 382,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:383: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/sets/__init__.py:382: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "list-item",
-      "line": 385,
+      "line": 384,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:385: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
-      "root_area": "sets"
-    },
-    {
-      "code": "misc",
-      "line": 389,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:389: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/sets/__init__.py:384: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 400,
+      "line": 398,
       "message": "Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:400: error: Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/sets/__init__.py:398: error: Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 406,
+      "line": 404,
       "message": "Return type \"Category\" of \"Infinite\" incompatible with return type \"CategoryWithAxiom\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:406: error: Return type \"Category\" of \"Infinite\" incompatible with return type \"CategoryWithAxiom\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/sets/__init__.py:404: error: Return type \"Category\" of \"Infinite\" incompatible with return type \"CategoryWithAxiom\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 424,
+      "line": 422,
       "message": "Return type \"Category\" of \"Facade\" incompatible with return type \"FacadeSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:424: error: Return type \"Category\" of \"Facade\" incompatible with return type \"FacadeSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/sets/__init__.py:422: error: Return type \"Category\" of \"Facade\" incompatible with return type \"FacadeSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 430,
+      "line": 428,
       "message": "Return type \"Category\" of \"Topological\" incompatible with return type \"TopologicalSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:430: error: Return type \"Category\" of \"Topological\" incompatible with return type \"TopologicalSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/sets/__init__.py:428: error: Return type \"Category\" of \"Topological\" incompatible with return type \"TopologicalSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 436,
+      "line": 434,
       "message": "Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:436: error: Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/sets/__init__.py:434: error: Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "return-value",
-      "line": 464,
+      "line": 462,
       "message": "Incompatible return value type (got \"_GSets\", expected \"Category\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:464: error: Incompatible return value type (got \"_GSets\", expected \"Category\")  [return-value]",
+      "raw": "category_specs/sets/__init__.py:462: error: Incompatible return value type (got \"_GSets\", expected \"Category\")  [return-value]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 464,
+      "line": 462,
       "message": "Argument 2 to \"_GSets\" has incompatible type \"SubcategoryMethods\"; expected \"Category | None\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:464: error: Argument 2 to \"_GSets\" has incompatible type \"SubcategoryMethods\"; expected \"Category | None\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:462: error: Argument 2 to \"_GSets\" has incompatible type \"SubcategoryMethods\"; expected \"Category | None\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 474,
+      "line": 472,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:474: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:472: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 484,
+      "line": 482,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:484: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:482: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 492,
+      "line": 490,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:492: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:490: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "list-item",
-      "line": 537,
+      "line": 535,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:537: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/sets/__init__.py:535: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "sets"
     },
     {
       "code": "list-item",
-      "line": 537,
+      "line": 535,
       "message": "List item 2 has incompatible type \"PartitionedSetsCategory\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:537: error: List item 2 has incompatible type \"PartitionedSetsCategory\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/sets/__init__.py:535: error: List item 2 has incompatible type \"PartitionedSetsCategory\"; expected \"Category\"  [list-item]",
       "root_area": "sets"
     },
     {
       "code": "return-value",
-      "line": 551,
+      "line": 549,
       "message": "Incompatible return value type (got \"tuple[<subclass of \"typing.Iterable[category_specs.sets._SetElementMethods]\" and \"sage.structure.category_object.CategoryObject\">, list[Category]]\", expected \"tuple[_SetObjectMethods | tuple[_SetElementMethods, ...] | Integer, list[Category]]\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:551: error: Incompatible return value type (got \"tuple[<subclass of \"typing.Iterable[category_specs.sets._SetElementMethods]\" and \"sage.structure.category_object.CategoryObject\">, list[Category]]\", expected \"tuple[_SetObjectMethods | tuple[_SetElementMethods, ...] | Integer, list[Category]]\")  [return-value]",
+      "raw": "category_specs/sets/__init__.py:549: error: Incompatible return value type (got \"tuple[<subclass of \"typing.Iterable[category_specs.sets._SetElementMethods]\" and \"sage.structure.category_object.CategoryObject\">, list[Category]]\", expected \"tuple[_SetObjectMethods | tuple[_SetElementMethods, ...] | Integer, list[Category]]\")  [return-value]",
       "root_area": "sets"
     },
     {
       "code": "assignment",
-      "line": 588,
+      "line": 586,
       "message": "Incompatible default for parameter \"step\" (default has type \"int\", parameter has type \"Integer\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:588: error: Incompatible default for parameter \"step\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
+      "raw": "category_specs/sets/__init__.py:586: error: Incompatible default for parameter \"step\" (default has type \"int\", parameter has type \"Integer\")  [assignment]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 653,
+      "line": 651,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:653: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:651: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 654,
+      "line": 652,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:654: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:652: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "call-arg",
-      "line": 656,
+      "line": 654,
       "message": "Too few arguments",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:656: error: Too few arguments  [call-arg]",
+      "raw": "category_specs/sets/__init__.py:654: error: Too few arguments  [call-arg]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 659,
+      "line": 657,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:659: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:657: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 672,
+      "line": 670,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:672: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:670: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "type-var",
-      "line": 682,
+      "line": 680,
       "message": "Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"ParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:682: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"ParentMethods\"  [type-var]",
+      "raw": "category_specs/sets/__init__.py:680: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"ParentMethods\"  [type-var]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 700,
+      "line": 698,
       "message": "Argument 1 to \"get_interval\" of \"ParentMethods\" has incompatible type \"int\"; expected \"Integer\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:700: error: Argument 1 to \"get_interval\" of \"ParentMethods\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:698: error: Argument 1 to \"get_interval\" of \"ParentMethods\" has incompatible type \"int\"; expected \"Integer\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "attr-defined",
-      "line": 752,
+      "line": 750,
       "message": "Module \"sage.rings.real_mpfr\" does not explicitly export attribute \"RealField\"",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:752: error: Module \"sage.rings.real_mpfr\" does not explicitly export attribute \"RealField\"  [attr-defined]",
+      "raw": "category_specs/sets/__init__.py:750: error: Module \"sage.rings.real_mpfr\" does not explicitly export attribute \"RealField\"  [attr-defined]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 756,
+      "line": 754,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:756: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:754: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 850,
+      "line": 848,
       "message": "Unsupported operand type for unary - (\"PlusInfinity\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:850: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
+      "raw": "category_specs/sets/__init__.py:848: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 860,
+      "line": 858,
       "message": "Unsupported operand type for unary - (\"PlusInfinity\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:860: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
+      "raw": "category_specs/sets/__init__.py:858: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 890,
+      "line": 888,
       "message": "Unsupported operand type for unary - (\"PlusInfinity\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:890: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
+      "raw": "category_specs/sets/__init__.py:888: error: Unsupported operand type for unary - (\"PlusInfinity\")  [operator]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 982,
+      "line": 980,
       "message": "Argument 1 to \"category_from_parents\" of \"_CartesianProductCallable\" has incompatible type \"tuple[_SetObjectMethods, ...]\"; expected \"Iterable[Category]\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:982: error: Argument 1 to \"category_from_parents\" of \"_CartesianProductCallable\" has incompatible type \"tuple[_SetObjectMethods, ...]\"; expected \"Iterable[Category]\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:980: error: Argument 1 to \"category_from_parents\" of \"_CartesianProductCallable\" has incompatible type \"tuple[_SetObjectMethods, ...]\"; expected \"Iterable[Category]\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "assignment",
-      "line": 986,
+      "line": 984,
       "message": "Incompatible types in assignment (expression has type \"tuple[Any, ...]\", variable has type \"Category\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:986: error: Incompatible types in assignment (expression has type \"tuple[Any, ...]\", variable has type \"Category\")  [assignment]",
+      "raw": "category_specs/sets/__init__.py:984: error: Incompatible types in assignment (expression has type \"tuple[Any, ...]\", variable has type \"Category\")  [assignment]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 988,
+      "line": 986,
       "message": "Unsupported left operand type for & (\"Category\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:988: error: Unsupported left operand type for & (\"Category\")  [operator]",
+      "raw": "category_specs/sets/__init__.py:986: error: Unsupported left operand type for & (\"Category\")  [operator]",
       "root_area": "sets"
     },
     {
       "code": "operator",
-      "line": 1116,
+      "line": 1114,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1116: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/sets/__init__.py:1114: error: \"LazyImport\" not callable  [operator]",
       "root_area": "sets"
     },
     {
       "code": "call-arg",
-      "line": 1227,
+      "line": 1225,
       "message": "Missing positional argument \"s\" in call to \"SetPartition\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1227: error: Missing positional argument \"s\" in call to \"SetPartition\"  [call-arg]",
+      "raw": "category_specs/sets/__init__.py:1225: error: Missing positional argument \"s\" in call to \"SetPartition\"  [call-arg]",
       "root_area": "sets"
     },
     {
       "code": "arg-type",
-      "line": 1227,
+      "line": 1225,
       "message": "Argument 1 to \"SetPartition\" has incompatible type \"Iterable[Iterable[_SetElementMethods]]\"; expected \"Parent\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1227: error: Argument 1 to \"SetPartition\" has incompatible type \"Iterable[Iterable[_SetElementMethods]]\"; expected \"Parent\"  [arg-type]",
+      "raw": "category_specs/sets/__init__.py:1225: error: Argument 1 to \"SetPartition\" has incompatible type \"Iterable[Iterable[_SetElementMethods]]\"; expected \"Parent\"  [arg-type]",
       "root_area": "sets"
     },
     {
       "code": "misc",
-      "line": 1336,
+      "line": 1334,
       "message": "Cannot override writable attribute \"Constructors\" with a final one",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1336: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
+      "raw": "category_specs/sets/__init__.py:1334: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
       "root_area": "sets"
     },
     {
       "code": "override",
-      "line": 1338,
+      "line": 1336,
       "message": "Signature of \"Constructors\" incompatible with supertype \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1338: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
+      "raw": "category_specs/sets/__init__.py:1336: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
       "root_area": "sets"
     },
     {
       "code": "assignment",
-      "line": 1342,
+      "line": 1340,
       "message": "Incompatible types in assignment (expression has type \"type[SetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")",
       "owner": "research typing/design",
       "path": "category_specs/sets/__init__.py",
-      "raw": "category_specs/sets/__init__.py:1342: error: Incompatible types in assignment (expression has type \"type[SetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
+      "raw": "category_specs/sets/__init__.py:1340: error: Incompatible types in assignment (expression has type \"type[SetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
       "root_area": "sets"
     },
     {
@@ -4304,66 +4259,57 @@
       "root_area": "topological_spaces"
     },
     {
-      "code": "misc",
-      "line": 199,
-      "message": "Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:199: error: Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "topological_spaces"
-    },
-    {
       "code": "override",
-      "line": 209,
+      "line": 208,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:209: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/topological_spaces/__init__.py:208: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "topological_spaces"
     },
     {
       "code": "list-item",
-      "line": 211,
+      "line": 210,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:211: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/topological_spaces/__init__.py:210: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "topological_spaces"
     },
     {
       "code": "misc",
-      "line": 232,
+      "line": 231,
       "message": "Cannot override writable attribute \"Constructors\" with a final one",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:232: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
+      "raw": "category_specs/topological_spaces/__init__.py:231: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
       "root_area": "topological_spaces"
     },
     {
       "code": "override",
-      "line": 234,
+      "line": 233,
       "message": "Signature of \"Constructors\" incompatible with supertype \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:234: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
+      "raw": "category_specs/topological_spaces/__init__.py:233: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
       "root_area": "topological_spaces"
     },
     {
       "code": "misc",
-      "line": 251,
+      "line": 250,
       "message": "Cannot override final attribute \"Metric\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:251: error: Cannot override final attribute \"Metric\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/topological_spaces/__init__.py:250: error: Cannot override final attribute \"Metric\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "topological_spaces"
     },
     {
       "code": "override",
-      "line": 253,
+      "line": 252,
       "message": "Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/topological_spaces/__init__.py",
-      "raw": "category_specs/topological_spaces/__init__.py:253: error: Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/topological_spaces/__init__.py:252: error: Return type \"Category\" of \"Metric\" incompatible with return type \"MetricSpaces\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "topological_spaces"
     },
     {
@@ -6833,525 +6779,516 @@
       "root_area": "algebras"
     },
     {
-      "code": "misc",
-      "line": 115,
-      "message": "Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:115: error: Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "algebras"
-    },
-    {
       "code": "return-value",
-      "line": 116,
+      "line": 115,
       "message": "Incompatible return value type (got \"tuple[MagmaticAlgebras]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:116: error: Incompatible return value type (got \"tuple[MagmaticAlgebras]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/algebras/__init__.py:115: error: Incompatible return value type (got \"tuple[MagmaticAlgebras]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "algebras"
     },
     {
       "code": "override",
-      "line": 125,
+      "line": 124,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:125: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/algebras/__init__.py:124: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 128,
+      "line": 127,
       "message": "List item 1 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:128: error: List item 1 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [list-item]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "misc",
-      "line": 132,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:132: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
+      "raw": "category_specs/algebras/__init__.py:127: error: List item 1 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "operator",
-      "line": 140,
+      "line": 138,
       "message": "Unsupported right operand type for in (\"MagmaticAlgebras\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:140: error: Unsupported right operand type for in (\"MagmaticAlgebras\")  [operator]",
+      "raw": "category_specs/algebras/__init__.py:138: error: Unsupported right operand type for in (\"MagmaticAlgebras\")  [operator]",
       "root_area": "algebras"
     },
     {
       "code": "override",
-      "line": 158,
+      "line": 156,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:158: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/algebras/__init__.py:156: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 161,
+      "line": 159,
       "message": "List item 0 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:161: error: List item 0 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/algebras/__init__.py:159: error: List item 0 has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 161,
+      "line": 159,
       "message": "List item 1 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:161: error: List item 1 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/algebras/__init__.py:159: error: List item 1 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 183,
+      "line": 181,
       "message": "Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:183: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
+      "raw": "category_specs/algebras/__init__.py:181: error: Cannot override final attribute \"is_finite\" (previously declared in base class \"_RModObjects\")  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 183,
+      "line": 181,
       "message": "Definition of \"tensor_square\" in base class \"_RModObjects\" is incompatible with definition in base class \"ParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:183: error: Definition of \"tensor_square\" in base class \"_RModObjects\" is incompatible with definition in base class \"ParentMethods\"  [misc]",
+      "raw": "category_specs/algebras/__init__.py:181: error: Definition of \"tensor_square\" in base class \"_RModObjects\" is incompatible with definition in base class \"ParentMethods\"  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 183,
+      "line": 181,
       "message": "Definition of \"zero\" in base class \"_RingObjectMethods\" is incompatible with definition in base class \"_RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:183: error: Definition of \"zero\" in base class \"_RingObjectMethods\" is incompatible with definition in base class \"_RModObjects\"  [misc]",
+      "raw": "category_specs/algebras/__init__.py:181: error: Definition of \"zero\" in base class \"_RingObjectMethods\" is incompatible with definition in base class \"_RModObjects\"  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "override",
-      "line": 278,
+      "line": 276,
       "message": "Signature of \"annihilator\" incompatible with supertype \"category_specs.modules._RModObjects\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:278: error: Signature of \"annihilator\" incompatible with supertype \"category_specs.modules._RModObjects\"  [override]",
+      "raw": "category_specs/algebras/__init__.py:276: error: Signature of \"annihilator\" incompatible with supertype \"category_specs.modules._RModObjects\"  [override]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 285,
+      "line": 283,
       "message": "\"_AlgebraParentMethods\" has no attribute \"category\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:285: error: \"_AlgebraParentMethods\" has no attribute \"category\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:283: error: \"_AlgebraParentMethods\" has no attribute \"category\"  [attr-defined]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 313,
+      "line": 311,
       "message": "Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_MagmaticAlgebraElementMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:313: error: Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_MagmaticAlgebraElementMethods\"  [misc]",
+      "raw": "category_specs/algebras/__init__.py:311: error: Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_MagmaticAlgebraElementMethods\"  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 313,
+      "line": 311,
       "message": "Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:313: error: Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"  [misc]",
+      "raw": "category_specs/algebras/__init__.py:311: error: Definition of \"__mul__\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 313,
+      "line": 311,
       "message": "Definition of \"parent\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:313: error: Definition of \"parent\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"  [misc]",
+      "raw": "category_specs/algebras/__init__.py:311: error: Definition of \"parent\" in base class \"_RingElementMethods\" is incompatible with definition in base class \"_RModElements\"  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "return-value",
-      "line": 326,
+      "line": 324,
       "message": "Incompatible return value type (got \"tuple[Algebras]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:326: error: Incompatible return value type (got \"tuple[Algebras]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/algebras/__init__.py:324: error: Incompatible return value type (got \"tuple[Algebras]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 341,
+      "line": 339,
       "message": "List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:341: error: List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/algebras/__init__.py:339: error: List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 341,
+      "line": 339,
       "message": "Argument 1 to \"AssociativeAlgebras\" has incompatible type \"Ring\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:341: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"Ring\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:339: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"Ring\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "call-overload",
-      "line": 342,
+      "line": 340,
       "message": "No overload variant matches argument type \"Ring\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:342: error: No overload variant matches argument type \"Ring\"  [call-overload]",
+      "raw": "category_specs/algebras/__init__.py:340: error: No overload variant matches argument type \"Ring\"  [call-overload]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 344,
+      "line": 342,
       "message": "List item 3 has incompatible type \"Algebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:344: error: List item 3 has incompatible type \"Algebras\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/algebras/__init__.py:342: error: List item 3 has incompatible type \"Algebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 352,
+      "line": 350,
       "message": "Cannot override final attribute \"Commutative\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:352: error: Cannot override final attribute \"Commutative\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/algebras/__init__.py:350: error: Cannot override final attribute \"Commutative\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 358,
+      "line": 356,
       "message": "Cannot override final attribute \"WithBasis\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:358: error: Cannot override final attribute \"WithBasis\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/algebras/__init__.py:356: error: Cannot override final attribute \"WithBasis\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 376,
+      "line": 374,
       "message": "Cannot override final attribute \"TensorProducts\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:376: error: Cannot override final attribute \"TensorProducts\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/algebras/__init__.py:374: error: Cannot override final attribute \"TensorProducts\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 380,
+      "line": 378,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:380: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:378: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "misc",
-      "line": 382,
+      "line": 380,
       "message": "Cannot override final attribute \"DualObjects\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:382: error: Cannot override final attribute \"DualObjects\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/algebras/__init__.py:380: error: Cannot override final attribute \"DualObjects\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 386,
+      "line": 384,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:386: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:384: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "operator",
-      "line": 391,
+      "line": 389,
       "message": "Unsupported right operand type for in (\"SubcategoryMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:391: error: Unsupported right operand type for in (\"SubcategoryMethods\")  [operator]",
+      "raw": "category_specs/algebras/__init__.py:389: error: Unsupported right operand type for in (\"SubcategoryMethods\")  [operator]",
       "root_area": "algebras"
     },
     {
       "code": "type-var",
-      "line": 431,
+      "line": 429,
       "message": "Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_AlgebraParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:431: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_AlgebraParentMethods\"  [type-var]",
+      "raw": "category_specs/algebras/__init__.py:429: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_AlgebraParentMethods\"  [type-var]",
       "root_area": "algebras"
     },
     {
       "code": "type-var",
-      "line": 439,
+      "line": 437,
       "message": "Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_MagmaticAlgebraParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:439: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_MagmaticAlgebraParentMethods\"  [type-var]",
+      "raw": "category_specs/algebras/__init__.py:437: error: Value of type variable \"_ParentT\" of \"refine_category\" cannot be \"_MagmaticAlgebraParentMethods\"  [type-var]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 441,
+      "line": 439,
       "message": "Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:441: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:439: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 462,
+      "line": 460,
       "message": "Argument 1 to \"_refine_constructed_algebra\" of \"_Constructors\" has incompatible type \"Parent | Any\"; expected \"_AlgebraParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:462: error: Argument 1 to \"_refine_constructed_algebra\" of \"_Constructors\" has incompatible type \"Parent | Any\"; expected \"_AlgebraParentMethods\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:460: error: Argument 1 to \"_refine_constructed_algebra\" of \"_Constructors\" has incompatible type \"Parent | Any\"; expected \"_AlgebraParentMethods\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "operator",
-      "line": 462,
+      "line": 460,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:462: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/algebras/__init__.py:460: error: \"LazyImport\" not callable  [operator]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 482,
+      "line": 480,
       "message": "Argument 1 to \"_refine_constructed_magmatic_algebra\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_MagmaticAlgebraParentMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:482: error: Argument 1 to \"_refine_constructed_magmatic_algebra\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_MagmaticAlgebraParentMethods\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:480: error: Argument 1 to \"_refine_constructed_magmatic_algebra\" of \"_Constructors\" has incompatible type \"Parent\"; expected \"_MagmaticAlgebraParentMethods\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 488,
+      "line": 486,
       "message": "Module \"sage.algebras.free_algebra\" has no attribute \"FreeAlgebra\"",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:488: error: Module \"sage.algebras.free_algebra\" has no attribute \"FreeAlgebra\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:486: error: Module \"sage.algebras.free_algebra\" has no attribute \"FreeAlgebra\"  [attr-defined]",
       "root_area": "algebras"
     },
     {
       "code": "operator",
-      "line": 505,
+      "line": 503,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:505: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/algebras/__init__.py:503: error: \"LazyImport\" not callable  [operator]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 516,
+      "line": 514,
       "message": "Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:516: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:514: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"  [arg-type]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "arg-type",
+      "line": 517,
+      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Magmas\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:517: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Magmas\"; expected \"Category\"  [arg-type]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "arg-type",
+      "line": 518,
+      "message": "Argument 3 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"WithBasis\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:518: error: Argument 3 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"WithBasis\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
       "line": 519,
-      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Magmas\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:519: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Magmas\"; expected \"Category\"  [arg-type]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "arg-type",
-      "line": 520,
-      "message": "Argument 3 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"WithBasis\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:520: error: Argument 3 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"WithBasis\"; expected \"Category\"  [arg-type]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "arg-type",
-      "line": 521,
       "message": "Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"MagmaticAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:521: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:519: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"MagmaticAlgebras\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 521,
+      "line": 519,
       "message": "Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:521: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:519: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 534,
+      "line": 532,
       "message": "\"AssociativeAlgebras\" has no attribute \"WithBasis\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:534: error: \"AssociativeAlgebras\" has no attribute \"WithBasis\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:532: error: \"AssociativeAlgebras\" has no attribute \"WithBasis\"  [attr-defined]",
       "root_area": "algebras"
     },
     {
       "code": "return-value",
-      "line": 535,
+      "line": 533,
       "message": "Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:535: error: Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/algebras/__init__.py:533: error: Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")  [return-value]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "arg-type",
+      "line": 535,
+      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Semigroups\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:535: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Semigroups\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
       "line": 537,
-      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Semigroups\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:537: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"Semigroups\"; expected \"Category\"  [arg-type]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "arg-type",
-      "line": 539,
       "message": "Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:539: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:537: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 539,
+      "line": 537,
       "message": "Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:539: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:537: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 547,
+      "line": 545,
       "message": "Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Monoids\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:547: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Monoids\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:545: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Monoids\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 554,
+      "line": 552,
       "message": "Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Groups\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:554: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Groups\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:552: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"Groups\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 566,
+      "line": 564,
       "message": "\"AssociativeAlgebras\" has no attribute \"WithBasis\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:566: error: \"AssociativeAlgebras\" has no attribute \"WithBasis\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:564: error: \"AssociativeAlgebras\" has no attribute \"WithBasis\"  [attr-defined]",
       "root_area": "algebras"
     },
     {
       "code": "return-value",
-      "line": 567,
+      "line": 565,
       "message": "Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:567: error: Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")  [return-value]",
+      "raw": "category_specs/algebras/__init__.py:565: error: Incompatible return value type (got \"_MagmaticAlgebraParentMethods\", expected \"ParentMethods\")  [return-value]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "arg-type",
+      "line": 567,
+      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AdditiveSemigroups\"; expected \"Category\"",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:567: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AdditiveSemigroups\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
       "line": 569,
-      "message": "Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AdditiveSemigroups\"; expected \"Category\"",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:569: error: Argument 2 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AdditiveSemigroups\"; expected \"Category\"  [arg-type]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "arg-type",
-      "line": 571,
       "message": "Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:571: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:569: error: Argument 4 to \"_sage_algebra_from_source_with_target\" of \"_Constructors\" has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 571,
+      "line": 569,
       "message": "Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:571: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:569: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 582,
+      "line": 580,
       "message": "Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveMonoids\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:582: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveMonoids\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:580: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveMonoids\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 592,
+      "line": 590,
       "message": "Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveGroups\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:592: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveGroups\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:590: error: Argument 2 to \"_sage_algebra_from_source\" of \"_Constructors\" has incompatible type \"AdditiveGroups\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 611,
+      "line": 609,
       "message": "Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:611: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:609: error: Argument 1 to \"matrix\" has incompatible type \"_RingObjectMethods\"; expected \"Ring | None\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 612,
+      "line": 610,
       "message": "Argument 2 to \"matrix\" has incompatible type \"list[list[Any]]\"; expected \"int | None\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:612: error: Argument 2 to \"matrix\" has incompatible type \"list[list[Any]]\"; expected \"int | None\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:610: error: Argument 2 to \"matrix\" has incompatible type \"list[list[Any]]\"; expected \"int | None\"  [arg-type]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "call-overload",
+      "line": 613,
+      "message": "No overload variant of \"range\" matches argument type \"Integer\"",
+      "owner": "mathematical/category-interface question",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:613: error: No overload variant of \"range\" matches argument type \"Integer\"  [call-overload]",
       "root_area": "algebras"
     },
     {
@@ -7365,65 +7302,74 @@
     },
     {
       "code": "call-overload",
-      "line": 617,
+      "line": 618,
       "message": "No overload variant of \"range\" matches argument type \"Integer\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:617: error: No overload variant of \"range\" matches argument type \"Integer\"  [call-overload]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "call-overload",
-      "line": 620,
-      "message": "No overload variant of \"range\" matches argument type \"Integer\"",
-      "owner": "mathematical/category-interface question",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:620: error: No overload variant of \"range\" matches argument type \"Integer\"  [call-overload]",
+      "raw": "category_specs/algebras/__init__.py:618: error: No overload variant of \"range\" matches argument type \"Integer\"  [call-overload]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 659,
+      "line": 657,
       "message": "\"MagmaticAlgebras\" has no attribute \"FiniteDimensional\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:659: error: \"MagmaticAlgebras\" has no attribute \"FiniteDimensional\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:657: error: \"MagmaticAlgebras\" has no attribute \"FiniteDimensional\"  [attr-defined]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 659,
+      "line": 657,
       "message": "Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:659: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:657: error: Argument 1 to \"MagmaticAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Parent | Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "list-item",
-      "line": 666,
+      "line": 664,
       "message": "List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:666: error: List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/algebras/__init__.py:664: error: List item 0 has incompatible type \"AssociativeAlgebras\"; expected \"Category\"  [list-item]",
       "root_area": "algebras"
     },
     {
       "code": "arg-type",
-      "line": 666,
+      "line": 664,
       "message": "Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:666: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/algebras/__init__.py:664: error: Argument 1 to \"AssociativeAlgebras\" has incompatible type \"_RingObjectMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "algebras"
     },
     {
       "code": "attr-defined",
-      "line": 667,
+      "line": 665,
       "message": "\"AssociativeAlgebras\" has no attribute \"FiniteDimensional\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:667: error: \"AssociativeAlgebras\" has no attribute \"FiniteDimensional\"  [attr-defined]",
+      "raw": "category_specs/algebras/__init__.py:665: error: \"AssociativeAlgebras\" has no attribute \"FiniteDimensional\"  [attr-defined]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "operator",
+      "line": 672,
+      "message": "\"LazyImport\" not callable",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:672: error: \"LazyImport\" not callable  [operator]",
+      "root_area": "algebras"
+    },
+    {
+      "code": "operator",
+      "line": 673,
+      "message": "\"LazyImport\" not callable",
+      "owner": "research typing/design",
+      "path": "category_specs/algebras/__init__.py",
+      "raw": "category_specs/algebras/__init__.py:673: error: \"LazyImport\" not callable  [operator]",
       "root_area": "algebras"
     },
     {
@@ -7433,24 +7379,6 @@
       "owner": "research typing/design",
       "path": "category_specs/algebras/__init__.py",
       "raw": "category_specs/algebras/__init__.py:674: error: \"LazyImport\" not callable  [operator]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "operator",
-      "line": 675,
-      "message": "\"LazyImport\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:675: error: \"LazyImport\" not callable  [operator]",
-      "root_area": "algebras"
-    },
-    {
-      "code": "operator",
-      "line": 676,
-      "message": "\"LazyImport\" not callable",
-      "owner": "research typing/design",
-      "path": "category_specs/algebras/__init__.py",
-      "raw": "category_specs/algebras/__init__.py:676: error: \"LazyImport\" not callable  [operator]",
       "root_area": "algebras"
     },
     {
@@ -8435,192 +8363,174 @@
       "root_area": "rings"
     },
     {
-      "code": "misc",
-      "line": 1973,
-      "message": "Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1973: error: Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "rings"
-    },
-    {
       "code": "return-value",
-      "line": 1974,
+      "line": 1973,
       "message": "Incompatible return value type (got \"tuple[Rings]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1974: error: Incompatible return value type (got \"tuple[Rings]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/rings/__init__.py:1973: error: Incompatible return value type (got \"tuple[Rings]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "rings"
     },
     {
       "code": "override",
-      "line": 1978,
+      "line": 1977,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1978: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/rings/__init__.py:1977: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "rings"
     },
     {
       "code": "list-item",
-      "line": 1981,
+      "line": 1980,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1981: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/rings/__init__.py:1980: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "rings"
     },
     {
       "code": "list-item",
-      "line": 1981,
+      "line": 1980,
       "message": "List item 1 has incompatible type \"Rings\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1981: error: List item 1 has incompatible type \"Rings\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/rings/__init__.py:1980: error: List item 1 has incompatible type \"Rings\"; expected \"Category\"  [list-item]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 1985,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1985: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "rings"
-    },
-    {
-      "code": "misc",
-      "line": 1988,
+      "line": 1986,
       "message": "Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1988: error: Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/rings/__init__.py:1986: error: Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 1988,
+      "line": 1986,
       "message": "Definition of \"Finite\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1988: error: Definition of \"Finite\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"  [misc]",
+      "raw": "category_specs/rings/__init__.py:1986: error: Definition of \"Finite\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 1988,
+      "line": 1986,
       "message": "Cannot override final attribute \"Topological\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1988: error: Cannot override final attribute \"Topological\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/rings/__init__.py:1986: error: Cannot override final attribute \"Topological\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "rings"
     },
     {
       "code": "misc",
-      "line": 1988,
+      "line": 1986,
       "message": "Definition of \"Topological\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:1988: error: Definition of \"Topological\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"  [misc]",
+      "raw": "category_specs/rings/__init__.py:1986: error: Definition of \"Topological\" in base class \"SubcategoryMethods\" is incompatible with definition in base class \"SubcategoryMethods\"  [misc]",
       "root_area": "rings"
     },
     {
       "code": "operator",
-      "line": 2004,
+      "line": 2002,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2004: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/rings/__init__.py:2002: error: \"LazyImport\" not callable  [operator]",
       "root_area": "rings"
     },
     {
       "code": "arg-type",
-      "line": 2050,
+      "line": 2048,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2050: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/rings/__init__.py:2048: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "rings"
     },
     {
       "code": "arg-type",
-      "line": 2057,
+      "line": 2055,
       "message": "Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2057: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
+      "raw": "category_specs/rings/__init__.py:2055: error: Argument 1 to \"category_of\" of \"FunctorialConstructionCategory\" has incompatible type \"SubcategoryMethods\"; expected \"Category\"  [arg-type]",
       "root_area": "rings"
     },
     {
       "code": "arg-type",
-      "line": 2064,
+      "line": 2062,
       "message": "Argument 1 to \"Algebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2064: error: Argument 1 to \"Algebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
+      "raw": "category_specs/rings/__init__.py:2062: error: Argument 1 to \"Algebras\" has incompatible type \"_RingObjectMethods\"; expected \"CategoryObject\"  [arg-type]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2074,
+      "line": 2072,
       "message": "\"Category\" has no attribute \"RingsUnder\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2074: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2072: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2089,
+      "line": 2087,
       "message": "\"Category\" has no attribute \"RingsUnder\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2089: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2087: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2104,
+      "line": 2102,
       "message": "\"Category\" has no attribute \"RingsUnder\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2104: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2102: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2119,
+      "line": 2117,
       "message": "\"Category\" has no attribute \"RingsUnder\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2119: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2117: error: \"Category\" has no attribute \"RingsUnder\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2130,
+      "line": 2128,
       "message": "\"Category\" has no attribute \"Quotients\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2130: error: \"Category\" has no attribute \"Quotients\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2128: error: \"Category\" has no attribute \"Quotients\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "attr-defined",
-      "line": 2142,
+      "line": 2140,
       "message": "\"Category\" has no attribute \"Subobjects\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2142: error: \"Category\" has no attribute \"Subobjects\"  [attr-defined]",
+      "raw": "category_specs/rings/__init__.py:2140: error: \"Category\" has no attribute \"Subobjects\"  [attr-defined]",
       "root_area": "rings"
     },
     {
       "code": "assignment",
-      "line": 2167,
+      "line": 2165,
       "message": "Incompatible types in assignment (expression has type \"type[RingHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")",
       "owner": "research typing/design",
       "path": "category_specs/rings/__init__.py",
-      "raw": "category_specs/rings/__init__.py:2167: error: Incompatible types in assignment (expression has type \"type[RingHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
+      "raw": "category_specs/rings/__init__.py:2165: error: Incompatible types in assignment (expression has type \"type[RingHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
       "root_area": "rings"
     },
     {
@@ -9290,192 +9200,183 @@
       "root_area": "posets"
     },
     {
-      "code": "misc",
-      "line": 251,
-      "message": "Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:251: error: Method \"_sage_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "posets"
-    },
-    {
       "code": "return-value",
-      "line": 252,
+      "line": 251,
       "message": "Incompatible return value type (got \"tuple[Posets]\", expected \"tuple[Category, ...]\")",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:252: error: Incompatible return value type (got \"tuple[Posets]\", expected \"tuple[Category, ...]\")  [return-value]",
+      "raw": "category_specs/posets/__init__.py:251: error: Incompatible return value type (got \"tuple[Posets]\", expected \"tuple[Category, ...]\")  [return-value]",
       "root_area": "posets"
     },
     {
       "code": "override",
-      "line": 256,
+      "line": 255,
       "message": "Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:256: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
+      "raw": "category_specs/posets/__init__.py:255: error: Return type \"list[category_specs.cat.base_category_types.Category]\" of \"super_categories\" incompatible with return type \"list[sage.categories.category.Category]\" in supertype \"sage.categories.category.Category\"  [override]",
       "root_area": "posets"
     },
     {
       "code": "list-item",
-      "line": 258,
+      "line": 257,
       "message": "List item 0 has incompatible type \"Sets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:258: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/posets/__init__.py:257: error: List item 0 has incompatible type \"Sets\"; expected \"Category\"  [list-item]",
       "root_area": "posets"
     },
     {
       "code": "list-item",
-      "line": 258,
+      "line": 257,
       "message": "List item 1 has incompatible type \"Posets\"; expected \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:258: error: List item 1 has incompatible type \"Posets\"; expected \"Category\"  [list-item]",
+      "raw": "category_specs/posets/__init__.py:257: error: List item 1 has incompatible type \"Posets\"; expected \"Category\"  [list-item]",
       "root_area": "posets"
     },
     {
       "code": "misc",
-      "line": 261,
+      "line": 260,
       "message": "Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:261: error: Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
+      "raw": "category_specs/posets/__init__.py:260: error: Cannot override final attribute \"Finite\" (previously declared in base class \"SubcategoryMethods\")  [misc]",
       "root_area": "posets"
     },
     {
       "code": "override",
-      "line": 263,
+      "line": 262,
       "message": "Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:263: error: Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
+      "raw": "category_specs/posets/__init__.py:262: error: Return type \"Category\" of \"Finite\" incompatible with return type \"FiniteSets\" in supertype \"sage.categories.sets_cat.Sets.SubcategoryMethods\"  [override]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 321,
+      "line": 320,
       "message": "Module \"sage.combinat.posets.posets\" has no attribute \"Poset\"",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:321: error: Module \"sage.combinat.posets.posets\" has no attribute \"Poset\"  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:320: error: Module \"sage.combinat.posets.posets\" has no attribute \"Poset\"  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "operator",
-      "line": 338,
+      "line": 337,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:338: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/posets/__init__.py:337: error: \"LazyImport\" not callable  [operator]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 345,
+      "line": 344,
       "message": "Module \"sage.combinat.posets.lattices\" has no attribute \"MeetSemilattice\"; maybe \"FiniteMeetSemilattice\"?",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:345: error: Module \"sage.combinat.posets.lattices\" has no attribute \"MeetSemilattice\"; maybe \"FiniteMeetSemilattice\"?  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:344: error: Module \"sage.combinat.posets.lattices\" has no attribute \"MeetSemilattice\"; maybe \"FiniteMeetSemilattice\"?  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 349,
+      "line": 348,
       "message": "\"FinitePoset\" has no attribute \"is_meet_semilattice\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:349: error: \"FinitePoset\" has no attribute \"is_meet_semilattice\"  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:348: error: \"FinitePoset\" has no attribute \"is_meet_semilattice\"  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "operator",
-      "line": 356,
+      "line": 355,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:356: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/posets/__init__.py:355: error: \"LazyImport\" not callable  [operator]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 364,
+      "line": 363,
       "message": "Module \"sage.combinat.posets.lattices\" has no attribute \"JoinSemilattice\"; maybe \"FiniteJoinSemilattice\"?",
       "owner": "missing sidecar ordinary signature",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:364: error: Module \"sage.combinat.posets.lattices\" has no attribute \"JoinSemilattice\"; maybe \"FiniteJoinSemilattice\"?  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:363: error: Module \"sage.combinat.posets.lattices\" has no attribute \"JoinSemilattice\"; maybe \"FiniteJoinSemilattice\"?  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 368,
+      "line": 367,
       "message": "\"FinitePoset\" has no attribute \"is_join_semilattice\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:368: error: \"FinitePoset\" has no attribute \"is_join_semilattice\"  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:367: error: \"FinitePoset\" has no attribute \"is_join_semilattice\"  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "operator",
-      "line": 375,
+      "line": 374,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:375: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/posets/__init__.py:374: error: \"LazyImport\" not callable  [operator]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 383,
+      "line": 382,
       "message": "\"FinitePoset\" has no attribute \"is_meet_semilattice\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:383: error: \"FinitePoset\" has no attribute \"is_meet_semilattice\"  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:382: error: \"FinitePoset\" has no attribute \"is_meet_semilattice\"  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "attr-defined",
-      "line": 386,
+      "line": 385,
       "message": "\"FinitePoset\" has no attribute \"is_join_semilattice\"",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:386: error: \"FinitePoset\" has no attribute \"is_join_semilattice\"  [attr-defined]",
+      "raw": "category_specs/posets/__init__.py:385: error: \"FinitePoset\" has no attribute \"is_join_semilattice\"  [attr-defined]",
       "root_area": "posets"
     },
     {
       "code": "operator",
-      "line": 393,
+      "line": 392,
       "message": "\"LazyImport\" not callable",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:393: error: \"LazyImport\" not callable  [operator]",
+      "raw": "category_specs/posets/__init__.py:392: error: \"LazyImport\" not callable  [operator]",
       "root_area": "posets"
     },
     {
       "code": "misc",
-      "line": 754,
+      "line": 753,
       "message": "Cannot override writable attribute \"Constructors\" with a final one",
       "owner": "mathematical/category-interface question",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:754: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
+      "raw": "category_specs/posets/__init__.py:753: error: Cannot override writable attribute \"Constructors\" with a final one  [misc]",
       "root_area": "posets"
     },
     {
       "code": "override",
-      "line": 756,
+      "line": 755,
       "message": "Signature of \"Constructors\" incompatible with supertype \"Category\"",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:756: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
+      "raw": "category_specs/posets/__init__.py:755: error: Signature of \"Constructors\" incompatible with supertype \"Category\"  [override]",
       "root_area": "posets"
     },
     {
       "code": "assignment",
-      "line": 791,
+      "line": 790,
       "message": "Incompatible types in assignment (expression has type \"type[PosetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")",
       "owner": "research typing/design",
       "path": "category_specs/posets/__init__.py",
-      "raw": "category_specs/posets/__init__.py:791: error: Incompatible types in assignment (expression has type \"type[PosetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
+      "raw": "category_specs/posets/__init__.py:790: error: Incompatible types in assignment (expression has type \"type[PosetHomCategory]\", base class \"Category\" defined the type as \"Callable[[], Category]\")  [assignment]",
       "root_area": "posets"
     },
     {
@@ -12818,6 +12719,33 @@
       "root_area": "rings"
     },
     {
+      "code": "misc",
+      "line": 69,
+      "message": "Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"ParentMethods\")",
+      "owner": "mathematical/category-interface question",
+      "path": "category_specs/lattices/subcategories/over_dedekind.py",
+      "raw": "category_specs/lattices/subcategories/over_dedekind.py:69: error: Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"ParentMethods\")  [misc]",
+      "root_area": "lattices"
+    },
+    {
+      "code": "misc",
+      "line": 69,
+      "message": "Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"_RModObjects\")",
+      "owner": "mathematical/category-interface question",
+      "path": "category_specs/lattices/subcategories/over_dedekind.py",
+      "raw": "category_specs/lattices/subcategories/over_dedekind.py:69: error: Cannot override final attribute \"is_over_dedekind_domain\" (previously declared in base class \"_RModObjects\")  [misc]",
+      "root_area": "lattices"
+    },
+    {
+      "code": "misc",
+      "line": 73,
+      "message": "Cannot override final attribute \"is_torsionfree\" (previously declared in base class \"_RModObjects\")",
+      "owner": "mathematical/category-interface question",
+      "path": "category_specs/lattices/subcategories/over_dedekind.py",
+      "raw": "category_specs/lattices/subcategories/over_dedekind.py:73: error: Cannot override final attribute \"is_torsionfree\" (previously declared in base class \"_RModObjects\")  [misc]",
+      "root_area": "lattices"
+    },
+    {
       "code": "operator",
       "line": 122,
       "message": "Unsupported left operand type for - (\"Integer\")",
@@ -14252,12 +14180,12 @@
     },
     {
       "code": "misc",
-      "line": 38,
-      "message": "Method \"additional_structure\" is marked as an override, but no base method was found with this name",
+      "line": 153,
+      "message": "Method \"default_super_categories\" is marked as an override, but no base method was found with this name",
       "owner": "missing sidecar ordinary signature",
-      "path": "category_specs/cat/join_categories.py",
-      "raw": "category_specs/cat/join_categories.py:38: error: Method \"additional_structure\" is marked as an override, but no base method was found with this name  [misc]",
-      "root_area": "cat"
+      "path": "category_specs/homsets/homsets.py",
+      "raw": "category_specs/homsets/homsets.py:153: error: Method \"default_super_categories\" is marked as an override, but no base method was found with this name  [misc]",
+      "root_area": "homsets"
     },
     {
       "code": "return-value",
@@ -14370,24 +14298,24 @@
       "root_area": ".cache"
     }
   ],
-  "ordinary_error_count": 1573,
-  "parsed_error_count": 1574,
-  "raw_diagnostic_count": 1906,
+  "ordinary_error_count": 1565,
+  "parsed_error_count": 1566,
+  "raw_diagnostic_count": 1898,
   "source_artifact": "reports/workstreams/category-specs-mypy-structural-full/latest.json",
   "structural": {
-    "checked_provider_count": 318,
+    "checked_provider_count": 319,
     "graph_absent_provider_count": 0,
     "mismatched_provider_count": 0,
     "missing_typeinfo_count": 0,
     "projected_ancestor_missing_typeinfo_count": 0,
-    "projection_count": 444,
+    "projection_count": 445,
     "source_mode": "all",
     "source_module_count": 261,
     "status": "pass"
   },
   "toolchain": {
     "plugin_sha": "c231ac89da769434380dd95e499f5b64680636ae",
-    "research_sha": "be8a3bec5bbd702ad378410656ffb5333317a689",
+    "research_sha": "d5c6f9100eec5310a333f51b30180b8f8a0efd58",
     "sidecar_sha": "c966661e41f55e9e73f9611cb63e40a01769904b"
   }
 }

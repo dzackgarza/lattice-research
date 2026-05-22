@@ -194,7 +194,6 @@ class TopologicalSpaces(CategoryWithAxiom):
         "_CompactTopologicalSpaces",
     )
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return ()

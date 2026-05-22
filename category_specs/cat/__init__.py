@@ -273,7 +273,6 @@ class Cat(SageCategorySingleton):
         r"""Return the supercategories of the root category ``Cat()``."""
         return []
 
-    @override
     @final
     def additional_structure(self) -> None:
         r"""Return Sage's additional-structure marker for ``Cat()``."""

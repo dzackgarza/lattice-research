@@ -110,7 +110,6 @@ class MagmaticAlgebras(Category_over_base_ring):
     Canonical chain: ``MagmaticAlgebras(R)``.
     """
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SageMagmaticAlgebras(self.base_ring()),)
@@ -127,7 +126,6 @@ class MagmaticAlgebras(Category_over_base_ring):
         R = self.base_ring()
         return [Modules(R), SageMagmaticAlgebras(R)]
 
-    @override
     @final
     def additional_structure(self) -> None:
         r"""Return ``None`` because the multiplication is already morphism data."""

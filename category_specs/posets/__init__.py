@@ -246,7 +246,6 @@ class Posets(Category):
     Canonical chain: ``Posets()``.
     """
 
-    @override
     @final
     def _sage_super_categories(self) -> tuple[Category, ...]:
         return (SagePosets(),)
