@@ -121,6 +121,16 @@ test-spec-core-vertical-slice: _clean
         tests/category_specs/test_spec_core_constructor_specs.py \
         tests/category_specs/test_constructor_provenance.py
 
+test-category-specs-smoke: _clean
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    cleanup() {
+        just --justfile {{justfile()}} _clean
+    }
+    trap cleanup EXIT
+    sage -python -m pytest tests/category_specs/test_spec_smoke.py
+
 category-specs-mypy-structural-report:
     #!/usr/bin/env bash
     set -euo pipefail

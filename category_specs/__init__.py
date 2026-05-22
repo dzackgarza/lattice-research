@@ -21,3 +21,6 @@ posets = import_module("category_specs.posets")
 rings = import_module("category_specs.rings")
 sets = import_module("category_specs.sets")
 topological_spaces = import_module("category_specs.topological_spaces")
+
+rings.Rings().Constructors().ZZ()
+rings.Rings().Constructors().QQ()

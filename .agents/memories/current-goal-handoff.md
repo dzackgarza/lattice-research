@@ -17,10 +17,10 @@ authorities for status, evidence, dependencies, and completed work.
   representative canary: `just category-specs-mypy-structural-report-full` is green
   with all modules, and `just category-specs-mypy-ledger` records the ordinary
   diagnostic frontier.
-- Current pickup: fix or route the ledger families in
-  `reports/workstreams/category-specs-mypy-ledger/latest.{json,md}`. The current
-  full gate has zero mismatched providers, zero missing loaded provider TypeInfos, and
-  zero missing projected ancestor TypeInfos; ordinary diagnostics remain the work.
+- Current pickup: prioritize runtime category-spec smoke pathways over further
+  ledger-only cleanup. `just test-category-specs-smoke` is the focused isolated smoke
+  gate; it currently passes canonical ZZ/QQ seed enrollment but still has constructor
+  interception/promotion failures.
 - Latest known artifact frontier after removing local-only `@override` markers from
   root category hook methods: full structural pass over all modules; ordinary
   diagnostics `1565`; missing sidecar ordinary signatures `91`; sidecar SHA
@@ -29,6 +29,10 @@ authorities for status, evidence, dependencies, and completed work.
   ledger. Do not retry `sage.categories.category_types.Category_module` as a simple
   sidecar class exposure: that was source-backed but regressed the ledger by making
   mypy analyze Sage dynamic category bases as ordinary abstract static bases.
+- Next pathway target: constructor interception/promotion for finite fields, p-adics,
+  free modules, vector spaces, matrix spaces, polynomial/Laurent/power series rings,
+  integer mod rings, and quadratic fields. Do not seed arbitrary example values merely
+  to make smoke tests pass; fix the constructor/refinement path.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.
