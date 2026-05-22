@@ -142,19 +142,11 @@ authorities for status, evidence, dependencies, and completed work.
 - Do not treat broad smoke failures, q-adic constructor gaps, or Hom runtime human
   gates as blockers for the spec-core slice unless the selected slice task proves a
   direct dependency.
-- Post-merge plugin activation workflow (all pre-work done 2026-05-21, commit
-  `4cf232c` on `dzackgarza/ai` main — supersedes `a798aaa` which had a just 1.46
-  parse bug: heredoc body at column 0 caused just to tokenize `.` in `sys.argv[1]`
-  as an expression operator; fix moved the ConfigParser merge script to
-  `quality-control/scripts/merge_ini.py`): the global QC justfile `_mypy` recipe
-  now detects a project-root `sage-mypy-plugin.ini` and merges it with the global
-  config via ConfigParser before invoking mypy. After the plugin PR is merged, create
-  `/home/dzack/research/sage-mypy-plugin.ini` with the following content and commit
-  it to the research repo:
+- Current mypy/QC frontier uses the completed Sage category MRO plugin plus installed
+  Sage-10.7 `sage-stubs` sidecar visibility. Do not restore the old generated-stub
+  cache path or `mypy_path = /home/dzack/research/.cache/sage-mypy-plugin/stubs`.
+  The project-local plugin config should contain only the plugin section:
   ```ini
-  [mypy]
-  mypy_path = /home/dzack/research/.cache/sage-mypy-plugin/stubs
-
   [sage-mypy-category-plugin]
   packages =
       category_specs
@@ -167,17 +159,13 @@ authorities for status, evidence, dependencies, and completed work.
       homset_element
   cache_dir = /home/dzack/research/.cache/sage-mypy-plugin
   ```
-  IMPORTANT: `mypy_path` must be in the config file (not set by the plugin at runtime)
-  because mypyc-compiled mypy 2.0 runs `compute_search_paths()` before `Plugin.__init__`,
-  so runtime mutation of `options.mypy_path` has no effect on the search path. The stubs
-  root is `/home/dzack/research/.cache/sage-mypy-plugin/stubs/` (generated on first run).
-  Expected first-run error count with plugin: ~620 errors (up from 401 passthrough).
-  The increase is correct — the plugin injects real MROs and mypy finds previously-masked
-  type errors. Error breakdown: 225 `[misc]`, 139 `[attr-defined]`, 57 `[arg-type]`,
-  43 `[list-item]`, 31 `[operator]`, 28 `[override]`, 27 `[return-value]`, 22
-  `[redundant-cast]`, 19 `[call-arg]`, 10 `[type-var]`, 9 `[no-any-return]`, 5
-  `[assignment]`, 4 `[return]`, 1 `[index]`. These are the
-  `PHASE-QC-DYNAMIC-INHERITANCE-PLUGIN-REVIEW` tasks.
+  Latest logged `just test` with sidecar-only visibility reaches the mypy frontier and
+  fails with 738 errors in 157 files. Leading error codes are `[misc]`, `[override]`,
+  `[arg-type]`, `[attr-defined]`, and `[list-item]`. Treat missing projected provider
+  `TypeInfo` as sidecar work, MRO projection mismatches as plugin work, and ordinary
+  call/attr/operator or source-type mismatches as research-repo or sidecar-backlog
+  work. The next local work should classify and reduce this frontier; do not chase
+  plugin internals unless a structural canary mismatch is reproduced.
 
 ## Human Gates
 
