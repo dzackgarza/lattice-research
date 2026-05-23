@@ -236,12 +236,12 @@ class _QQ(Category_singleton):
 
         @override
         @final
-        def real_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]:
+        def real_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]:
             return self.as_number_field().real_embeddings(prec=prec)
 
         @override
         @final
-        def complex_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]:
+        def complex_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]:
             return self.as_number_field().complex_embeddings(prec=prec)
 
         @override

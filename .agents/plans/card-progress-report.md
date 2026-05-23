@@ -87,21 +87,21 @@
 
 ## Most Recently Completed
 
-- 2026-05-20 `feature` `FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES`: Category specs and Sage surface admission (commit `dccd451`: tracker: close FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP)
-- 2026-05-20 `plan` `PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP`: Lattice and ModulesWithForms roadmap (commit `dccd451`: tracker: close FEATURE-CATEGORY-SPECS-AND-SAGE-SURFACES and PLAN-LATTICE-MODULES-WITH-FORMS-ROADMAP)
-- 2026-05-20 `phase` `PHASE-MAPPING-DOC-SPEC-CONVERSION-AND-MATHEMATICAL-AUDIT`: Mapping doc spec conversion and mathematical audit (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
-- 2026-05-20 `plan` `PLAN-CATEGORY-SPEC-SOURCE-MAPS-AND-ADMISSION`: Category spec source maps and admission (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
-- 2026-05-20 `phase` `PHASE-HOM-END-AUT-WORK-QUEUE`: Hom End Aut work queue (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
-- 2026-05-20 `plan` `PLAN-HOM-END-AUT-STRUCTURAL-ADMISSION`: Hom End Aut structural admission (commit `2fbda47`: tracker: close hom-aut and source-maps phases/plans after all leaf tasks complete)
-- 2026-05-20 `task` `TASK-AUDIT-ALGEBRAS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Algebras hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-CAT-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Cat hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-LATTICES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Lattices hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-MODULES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Modules hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-POSETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Posets hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-RINGS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Rings hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-RINGS-HOM-SECTION-OWNERSHIP-AND-SAGE-SOURCE-GROUNDING`: Source-ground Rings hom section ownership (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-SETS-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit Sets hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
-- 2026-05-20 `task` `TASK-AUDIT-TOPOLOGICAL-SPACES-HOM-MAPPING-MIRRORING-SAGE-HOMSET-SURFACES`: Audit TopologicalSpaces hom mapping for mirrored Sage homset surfaces (commit `c6a5ef0`: tracker: close 10 needs-human-input hom-audit cards; complete poset aut source-grounding)
+- 2026-05-21 `phase` `PHASE-MYPY-SIDE-HARNESS`: Mypy-side plugin harness (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-DEPS-DIAGNOSTICS`: Implement dependency tracking and diagnostic error codes (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-HOOK-CALLBACK`: Implement MRO hook callback for base injection (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-NAMESPACE-AGNOSTIC-HOOK-MATCHING`: Remove Sage-prefix-only hook gating (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-PLUGIN-CLASS`: Implement SageCategoryPlugin class and plugin entry point (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `phase` `PHASE-SAGE-SIDE-API`: Sage invariant-core resolver and manifest API (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-DIRECT-BASES`: Project Sage runtime named-class MROs into manifest provider MROs (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-INSTANTIATE`: Resolve configured category factories through Sage runtime instances (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-NAMESPACE-AGNOSTIC-ADMISSION`: Prove namespace-agnostic admission through invariant-core projections (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-PARSER`: Validate manifest source-module coverage for invariant-core projections (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `phase` `PHASE-TEST-VERIFICATION`: Test and verification (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-TEST-ARTIFICIAL`: Create artificial Sage category test fixtures (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-TEST-DEBUG-ORACLE`: Test debug oracle against real Sage categories (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-TEST-MYPY-INTEGRATION`: Write mypy integration tests for plugin behavior (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
+- 2026-05-21 `task` `TASK-MYPY-TEST-THIRD-PARTY-SUBTREES`: Add third-party subtree and config-covered integration tests (commit `a0d5683`: docs: advance all PLAN-MYPY-PLUGIN-IMPLEMENTATION tracker cards to complete)
 
 ## Notes
 

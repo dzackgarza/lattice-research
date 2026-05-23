@@ -10,28 +10,94 @@ referencedBy:
 Purpose: route the next session only. Cards, plans, and git history remain the
 authorities for status, evidence, dependencies, and completed work.
 
+## Active Goal Override
+
+- Current goal is exhaustive blocker ownership decomposition for the refreshed
+  `category_specs` QC frontier, not runtime pathway cleanup or issue prose.
+- Do not update plugin#2 or stubs#5 until every raw diagnostic is covered exactly
+  once by an evidence-backed, falsifiable family recorded in the correct owner
+  location.
+- Current pickup: the classification pass has now covered every current
+  ordinary diagnostic code slice from
+  `reports/workstreams/category-specs-mypy-ledger/latest.json`: `abstract`
+  (41/41), `arg-type` (243/243), `assignment` (59/59), `attr-defined`
+  (106/106), `call-arg` (35/35), `call-overload` (10/10), `index` (2/2),
+  `list-item` (143/143), `misc` (505/505), `operator` (246/246),
+  `override` (339/339), `return` (5/5), `return-value` (42/42), `type-var`
+  (10/10), and `union-attr` (5/5). Run only a final cross-family audit/commit
+  pass; do not reopen broad classification.
+- GitHub issues updated from the classified external subset:
+  `dzackgarza/sagemath-mypy-plugin#2` updated at 2026-05-23T15:20:11Z and
+  `dzackgarza/sage-stubs#5` updated at 2026-05-23T15:21:20Z. The issue bodies
+  explicitly state they are the full current plugin-owned and sage-stubs-owned
+  external subsets after classification.
+- Subagent state: stale threads were closed. Spark delegation worked for three
+  slices, but further Spark spawning now fails with a usage limit until
+  2026-05-28 14:19. Do not retry Spark in this window; continue locally unless
+  the user explicitly authorizes a non-Spark paid model.
+- Preserve the user constraints: never weaken/degrade types, never remove stub
+  data, never revert autofixes, never use `Any`/`object` opacity as an escape,
+  and never ask external repos to classify research-repo uncertainty.
+
 ## Start Here
 
-- Active phase: category_specs runtime pathway cleanup after plugin/stubs structural gate.
-- Start from the committed full structural artifact and mypy ledger, not the old
-  representative canary: `just category-specs-mypy-structural-report-full` is green
-  with all modules, and `just category-specs-mypy-ledger` records the ordinary
-  diagnostic frontier.
-- Current pickup: continue runtime category-spec pathways, not ledger-only cleanup.
-  The constructor-refinement milestone makes `just test-category-specs-smoke` pass
-  in isolation (`23 passed`) and keeps `just test-spec-core-vertical-slice` green
-  (`29 passed`).
+- Active phase for this goal: exhaustive current `category_specs` QC blocker
+  ownership decomposition, not runtime pathway implementation.
+- Start from the current full structural artifact and mypy ledger, not old issue
+  bodies, stale chat, or representative canaries. The current ledger has 1791
+  ordinary diagnostics; the full structural pass reports zero graph-absent
+  providers, zero missing TypeInfos, zero projected-ancestor gaps, and zero
+  mismatched providers.
+- The recent accepted additions are:
+  `PLUGIN-CLASSCALL-PRIVATE-KEYWORD-PROPAGATION`;
+  `PLUGIN-PROVIDER-OVERRIDE-BASE-VISIBILITY-MISC`;
+  `PLUGIN-PARENTMETHODS-FREE-MODULE-BASE-VISIBILITY`;
+  `STUB-CATEGORY-BASE-ADDITIONAL-STRUCTURE`;
+  `STUB-FINITE-RANK-FREE-MODULE-METHODS`;
+  `STUB-COMMUTATIVE-RING-EXTENSION-AND-POLYNOMIAL-COMPLETION`;
+  `RESEARCH-CATEGORY-RETURN-CONTRACT-BOUNDARIES`;
+  `RESEARCH-SETPARTITION-BASE-NORMALIZATION-UNION`;
+  `RESEARCH-FIELD-COMPLETION-ZERO-IDEAL-BRANCH`;
+  `RESEARCH-HOMCATEGORY-CLASS-ATTRIBUTE-CONTRACT`;
+  `RESEARCH-LOCAL-BOUNDARY-ASSIGNMENT-LEAKS`;
+  `RESEARCH-LOCAL-CATEGORY-HOOK-MARKERS`;
+  `RESEARCH-IDEAL-GENERATORS-AS-FREE-MODULE-ELEMENTS`;
+  `RESEARCH-FOLDABLE-OPERATION-TYPE-SIGNATURE`;
+  `RESEARCH-REAL-PRECISION-CHANGE-METHOD`;
+  `RESEARCH-PUISEUX-SERIES-EXTENSION-CONTRACT`;
+  `RESEARCH-CAT-WRAPPER-OVERRIDE-BOUNDARIES`;
+  `RESEARCH-HOMSET-SPECIALIZATION-OVERRIDE-CONTRACTS`;
+  `RESEARCH-CONSTRUCTION-CATEGORY-OVERRIDE-BOUNDARIES`;
+  `RESEARCH-SETS-PARENTMETHODS-OVERRIDE-REFINEMENTS`;
+  `RESEARCH-POSETS-PARENTMETHODS-OVERRIDE-REFINEMENTS`;
+  `RESEARCH-MODULE-RING-ALGEBRA-FORM-OVERRIDE-REFINEMENTS`;
+  `PLUGIN-SUBCATEGORYMETHODS-CATEGORY-SELF-ARG`;
+  `RESEARCH-CAT-ARGTYPE-WRAPPER-BOUNDARIES`;
+  `RESEARCH-LOCAL-CATEGORY-AND-BASE-RING-CONSTRUCTOR-ARGS`;
+  `RESEARCH-CONSTRUCTED-MODULE-REFINEMENT-ARGTYPES`;
+  `RESEARCH-SETS-POSETS-PARTITION-ARGTYPES`;
+  `RESEARCH-HOM-END-AUT-ARGTYPE-BOUNDARIES`;
+  `RESEARCH-RING-NUMBERFIELD-TENSOR-ARGTYPE-NORMALIZATION`;
+  `RESEARCH-LOCAL-ALGEBRA-RING-ARGTYPE-REFINEMENTS`;
+  `RESEARCH-PARTITIONED-SET-ELEMENT-MEET-OPERATOR`;
+  `RESEARCH-WITH-BASIS-SEQUENCE-KEYS-BRANCH`;
+  `RESEARCH-LOCAL-PARENT-ELEMENT-PROTOCOL-ATTRS`;
+  `RESEARCH-INFINITY-OO-IMPORT-SURFACE`;
+  `PLUGIN-CATEGORY-SUBCATEGORY-ATTR-PROJECTION-SECONDARY`;
+  `PLUGIN-SUBCATEGORYMETHODS-CATEGORY-SELF-ATTR`; and an expanded
+  `RESEARCH-CONSTRUCTORS-METHOD-CONFLICT` covering all 16 current constructor
+  collector conflict rows.
 - Sidecar ownership split: the research agent must not opportunistically patch
-  `sage-stubs`. Sage-shaped diagnostics now route through the committed stub backlog
-  artifacts under `reports/workstreams/category-specs-sage-stub-backlog/`. Rows are
-  runtime-verification candidates for dedicated sidecar agents, not proof that a stub
-  edit is correct.
-- Current stub backlog split from the 1611-diagnostic ledger: 1201 stub candidates and
-  410 non-candidates, grouped by bundle as category core/dynamic constructors,
-  homsets/morphisms/endsets/autsets, rings/polynomial constructors, modules/vector
-  spaces/matrix spaces/subobjects, sets/infinity/numeric protocols, and smaller
-  families. Stub agents may edit only `sage-stubs` and stub tests after checking real
-  Sage runtime behavior.
+  `sage-stubs`. The committed artifact
+  `reports/workstreams/category-specs-sage-stub-backlog/latest.md` is now the
+  classified `sage-stubs`-owned external subset, not an unclassified discovery
+  queue or a request for `sage-stubs` to analyze research-owned uncertainty.
+- Current ownership reconciliation for the 1791-diagnostic ledger: plugin-owned
+  external rows are fully filed in `dzackgarza/sagemath-mypy-plugin#2` (105
+  rows), `sage-stubs`-owned external rows are fully filed in
+  `dzackgarza/sage-stubs#5` and mirrored in the stub external blocker report
+  (370 rows), and the remaining 1316 rows are recorded in the local/math/stale
+  families in the QC cleanup task cards under `.agents/plans/features/`.
 - Latest known structural artifact: full structural pass over all modules with
   `source_module_count=262`, `graph_absent_provider_count=0`,
   `missing_typeinfo_count=0`, `projected_ancestor_missing_typeinfo_count=0`, and
@@ -43,14 +109,12 @@ authorities for status, evidence, dependencies, and completed work.
   routes through the existing Laurent-series category surface; audit this before
   expanding that path. The constructor layer now has zero ledger diagnostics after
   centralizing Sage constructor lookup and category-refinement boundary casts.
-- Current ledger frontier after constructor/spec-core/module-predicate cleanup:
-  ordinary diagnostics `1611`; owner split `research typing/design=1158`,
-  `mathematical/category-interface question=303`, and
-  `missing sidecar ordinary signature=150`. The stub backlog artifact has been
-  refreshed; sage-stubs issue #4 still points to the packet location.
-- Next pathway target: audit the remaining real category-spec smoke/pathway gaps and
-  improve constructor/refinement semantics where they affect actual runtime behavior.
-  Do not seed arbitrary example values merely to make smoke tests pass.
+- The superseded handoff about an older frontier and old issue number is stale.
+  Do not use it to choose work or describe current blocker ownership.
+- Next pathway target after this classification evidence is committed: resume
+  real category-spec smoke/pathway work that is not blocked by plugin#2 or
+  stubs#5, using the local/math families in the QC cleanup cards as the owned
+  local backlog.
 - The approved `[[PLAN-SPEC-CORE-VERTICAL-SLICE]]` pivot gate is complete.
 - `main` now contains the source-truth follow-through milestones from
   `dzack/spec-core-source-truth-lanes`; do not restart that branch.

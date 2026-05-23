@@ -1,115 +1,272 @@
-# Category Specs Sage Stub Backlog
+# Category Specs Sage Stub External Blockers
 
-This backlog is a runtime-verification queue for Sage-stub agents. A row is not
-a claim that the sidecar is wrong; it is a Sage-shaped diagnostic that should
-be checked against actual Sage behavior before editing `sage-stubs`.
+This report is the classified `sage-stubs`-owned external subset for the
+current `category_specs` QC frontier. It is not an unclassified
+discovery queue, not a request for `sage-stubs` to analyze
+the research ledger, and not a claim about local wrappers.
 
 - source_ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
-- ordinary_error_count: 1611
-- stub_candidate_count: 1201
-- non_candidate_count: 410
+- ordinary_error_count: 1791
+- sage_stubs_owned_row_count: 370
+- non_sage_stubs_row_count: 1421
+- external_issue: `dzackgarza/sage-stubs#5`
+- local_and_math_records: existing QC task cards under
+  `.agents/plans/features/FEATURE-QC-WARNINGS-ZERO/`
 
 ## Toolchain
 
-- research_sha: `0fb25eec5d84aed9a7e1be655254625a2268b09a`
+- research_sha: `076f669f81694770e28b4bd332e4375aca1a8524`
 - plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
-- sidecar_sha: `62379f8e70b9c8c5d74601325a220f4868d1f69f`
+- sidecar_sha: `72e6cf8b2bf131df5cb44ae1713e304a4a5f7a67`
 
-## Counts By Failure Kind
+## Families
 
-- dynamic category attribute missing: 353
-- incorrect final/override declaration: 265
-- callable LazyImport / lazy factory surface: 206
-- generic inheritance/protocol missing: 122
-- missing base method in provider stub: 103
-- missing sage module member: 43
-- missing sage class member: 36
-- factory return type too narrow: 32
-- constructor signature too narrow: 31
-- Sage numeric/operator protocol missing: 10
+### STUB-LAZYIMPORT-CALLABLE
 
-## Counts By Agent Bundle
+- rows: 208
+- surface: LazyImport callable factory behavior
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
 
-- category core and dynamic category constructors: 377
-- homsets, morphisms, endsets, autsets: 361
-- rings and polynomial-family constructors: 236
-- modules, vector spaces, matrix spaces, subobjects: 132
-- sets, infinity/cardinality, numeric protocols: 54
-- smaller families: algebras/forms/posets/lattices/topological spaces: 41
+### STUB-RECURSIVELY-ENUMERATED-EXPORTS
 
-## Counts By Suggested Sidecar File
+- rows: 2
+- surface: recursively enumerated set exports
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
 
-- runtime probe must identify Sage module before editing: 1155
-- sage/rings/abc.pyi: 24
-- sage/rings/padics/generic_nodes.pyi: 6
-- sage/combinat/posets/lattices.pyi: 4
-- sage/rings/number_field/number_field.pyi: 4
-- sage/algebras/clifford_algebra.pyi: 2
-- sage/categories/category_types.pyi: 2
-- sage/algebras/free_algebra.pyi: 1
-- sage/combinat/posets/posets.pyi: 1
-- sage/rings/infinity.pyi: 1
-- sage/rings/qqbar.pyi: 1
+### STUB-SUBSETS-INTEGER-K
 
-## Representative Rows
+- rows: 1
+- surface: Subsets accepts Sage Integer for k
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
 
-- sage-stub-0001 / missing sage module member / high / `category_specs/cat/base_category_types.py:35` / sage/categories/category_types.pyi: Module "sage.categories.category_types" has no attribute "Category_module"; maybe "Category_ideal"?
-- sage-stub-0002 / missing sage module member / high / `category_specs/cat/base_category_types.py:36` / sage/categories/category_types.pyi: Module "sage.categories.category_types" has no attribute "Category_over_base"; maybe "Category_over_base_ring"?
-- sage-stub-0004 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:475` / runtime probe must identify Sage module before editing: Argument 1 to "_init_category_" of "CategoryObject" has incompatible type "_CatObjectMixin"; expected "CategoryObject"
-- sage-stub-0005 / generic inheritance/protocol missing / low / `category_specs/cat/base_category_types.py:495` / runtime probe must identify Sage module before editing: Argument 1 to "Hom" of "Parent" has incompatible type "_CatObjectMixin"; expected "Parent"
-- sage-stub-0006 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:511` / runtime probe must identify Sage module before editing: Argument 1 to "_make_named_class_with_cat_subcategory_methods" has incompatible type "_CatObjectMixin"; expected "Category"
-- sage-stub-0007 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:548` / runtime probe must identify Sage module before editing: Incompatible types in assignment (expression has type "type | None", variable has type "type[Category_singleton]")
-- sage-stub-0008 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:579` / runtime probe must identify Sage module before editing: Incompatible types in assignment (expression has type "type | None", variable has type "type[CategoryWithAxiom_singleton]")
-- sage-stub-0009 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:593` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0010 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:593` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0011 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:593` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0012 / incorrect final/override declaration / low / `category_specs/cat/base_category_types.py:602` / runtime probe must identify Sage module before editing: Argument 1 of "join" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "list[Category]"
-- sage-stub-0013 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:604` / runtime probe must identify Sage module before editing: Argument 1 to "join" of "Category" has incompatible type "Iterable[category_specs.cat.base_category_types.Category]"; expected "list[sage.categories.category.Category]"
-- sage-stub-0014 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:607` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0015 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:607` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0016 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:607` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0017 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:615` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0018 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:615` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0019 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:615` / runtime probe must identify Sage module before editing: Definition of "__classcall__" in base class "_SingletonClasscallMixin" is incompatible with definition in base class "Category"
-- sage-stub-0020 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:615` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0021 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:625` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0022 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:625` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0023 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:625` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0024 / incorrect final/override declaration / low / `category_specs/cat/base_category_types.py:648` / runtime probe must identify Sage module before editing: Argument 1 of "defining_predicate" is incompatible with supertype "sage.categories.category_with_axiom.CategoryWithAxiom"; supertype defines the argument type as "object"
-- sage-stub-0025 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:655` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0026 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:655` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0027 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:655` / runtime probe must identify Sage module before editing: Definition of "__classcall__" in base class "_SingletonAxiomClasscallMixin" is incompatible with definition in base class "Category"
-- sage-stub-0028 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:655` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0029 / incorrect final/override declaration / low / `category_specs/cat/base_category_types.py:686` / runtime probe must identify Sage module before editing: Argument 1 of "defining_predicate" is incompatible with supertype "sage.categories.category_with_axiom.CategoryWithAxiom"; supertype defines the argument type as "object"
-- sage-stub-0030 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:693` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0031 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:693` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0032 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:693` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0033 / incorrect final/override declaration / low / `category_specs/cat/base_category_types.py:718` / runtime probe must identify Sage module before editing: Argument 1 of "defining_predicate" is incompatible with supertype "sage.categories.category_with_axiom.CategoryWithAxiom"; supertype defines the argument type as "object"
-- sage-stub-0034 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:725` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0035 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:733` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0036 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:733` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0037 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:733` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0038 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:741` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0039 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:749` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0040 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:749` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0041 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:749` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0042 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:757` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0043 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:757` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0044 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:757` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0045 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:765` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0046 / generic inheritance/protocol missing / low / `category_specs/cat/base_category_types.py:765` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0047 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:765` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0048 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:773` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0049 / generic inheritance/protocol missing / low / `category_specs/cat/base_category_types.py:773` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0050 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:773` / runtime probe must identify Sage module before editing: Definition of "__classcall__" in base class "_SingletonClasscallMixin" is incompatible with definition in base class "Category"
-- sage-stub-0051 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:773` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0052 / incorrect final/override declaration / low / `category_specs/cat/base_category_types.py:781` / runtime probe must identify Sage module before editing: Signature of "Endset" incompatible with supertype "sage.categories.homsets.Homsets"
-- sage-stub-0053 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:805` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0054 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:805` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0055 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:805` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0056 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:832` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0057 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:832` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0058 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:832` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0059 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:855` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
-- sage-stub-0060 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:855` / runtime probe must identify Sage module before editing: Definition of "Hom" in base class "_CatObjectMixin" is incompatible with definition in base class "Parent"
-- sage-stub-0061 / dynamic category attribute missing / low / `category_specs/cat/base_category_types.py:855` / runtime probe must identify Sage module before editing: Definition of "_make_named_class" in base class "_CatObjectMixin" is incompatible with definition in base class "Category"
+### STUB-ABSTRACTFAMILY-KEYS
+
+- rows: 2
+- surface: AbstractFamily.keys
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-CATEGORY-JOIN-MEET-AND
+
+- rows: 7
+- surface: Category join, meet, and operator surface
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-CATEGORY-TYPES-BASE-OBJECTS
+
+- rows: 4
+- surface: category_types base-object initializers
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-COMBINATORIAL-FREE-MODULE-CONSTRUCTOR
+
+- rows: 3
+- surface: CombinatorialFreeModule constructor
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-MATRIXSPACE-IMPLEMENTATION
+
+- rows: 1
+- surface: MatrixSpace implementation argument
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-POSETS-PARENTMETHODS-ORDER
+
+- rows: 8
+- surface: Posets.ParentMethods order methods
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-INTEGER-CONSTRUCTOR-AND-PROTOCOL
+
+- rows: 26
+- surface: Integer constructor and numeric protocol
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-MATRIX-CONSTRUCTOR-AND-BASE-TYPE
+
+- rows: 30
+- surface: matrix constructor and runtime base type
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-FREEMODULE-VECTORSPACE-CONSTRUCTORS
+
+- rows: 6
+- surface: FreeModule and VectorSpace constructors
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-CONDITIONSET-UNIVERSE-PREDICATES
+
+- rows: 4
+- surface: ConditionSet universe and predicates
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-MATRIXSPACE-MATRIX-SPACE-INTEGER-DIMS
+
+- rows: 4
+- surface: MatrixSpace Integer dimensions
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-FINITEPOSETS-SEMILATTICE-AND-CERTIFICATES
+
+- rows: 8
+- surface: FinitePoset semilattice and certificates
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-INFINITY-NEGATION
+
+- rows: 3
+- surface: infinity singleton negation
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-SETPARTITION-DIRECT-CLASSCALL
+
+- rows: 2
+- surface: SetPartition direct classcall
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-RATIONALFIELD-MISSING-PUBLIC-METHODS
+
+- rows: 10
+- surface: RationalField public methods
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-REALSET-PARENT-AN-ELEMENT
+
+- rows: 1
+- surface: RealSet._an_element_
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-IMAGESUBOBJECT-PARENT-AN-ELEMENT
+
+- rows: 1
+- surface: ImageSubobject._an_element_
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-REAL-ABC-TO-PREC
+
+- rows: 3
+- surface: real-field to_prec protocol
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-MATRIXSPACE-PARENT-BASE
+
+- rows: 1
+- surface: MatrixSpace inherits Parent
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-SAGE-CATEGORY-MEMBERSHIP-SURFACES
+
+- rows: 23
+- surface: Sage category membership
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-TENSORPRODUCTFUNCTOR-CALLABLE
+
+- rows: 3
+- surface: TensorProductFunctor callable surface
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-CATEGORY-BASE-ADDITIONAL-STRUCTURE
+
+- rows: 1
+- surface: Category.additional_structure
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-FINITE-RANK-FREE-MODULE-METHODS
+
+- rows: 5
+- surface: finite-rank free-module methods
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-COMMUTATIVE-RING-EXTENSION-AND-POLYNOMIAL-COMPLETION
+
+- rows: 3
+- surface: ring extension and polynomial completion
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+## Explicit Non-Goals
+
+- Do not add local wrapper concepts to `sage-stubs`.
+- Do not ask `sage-stubs` to analyze research-owned uncertainty.
+- Do not turn local research typing/design rows into stub requests.
+- Do not use `Any`, opaque `object`, or fake surfaces.

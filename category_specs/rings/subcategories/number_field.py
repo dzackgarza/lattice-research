@@ -185,11 +185,11 @@ class _NumberFields(CategoryWithAxiom):
         ) -> tuple[RingMorphism, ...]: ...
 
         @abstractmethod
-        def real_embeddings(self, prec: Integer = 53) -> tuple[RingMorphism, ...]: ...
+        def real_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstractmethod
         def complex_embeddings(
-            self, prec: Integer = 53
+            self, prec: int = 53
         ) -> tuple[RingMorphism, ...]: ...
 
         @abstractmethod
