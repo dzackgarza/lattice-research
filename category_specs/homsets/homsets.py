@@ -148,7 +148,6 @@ class HomCategoryConstruction(FunctorialConstructionCategory):
         assert codomain in category, "codomain must be an object of the base category"
         return cast("Hom", Parent.Hom(domain, codomain, category=category))
 
-    @override
     @classmethod
     def default_super_categories(cls, category: Category) -> Category:
         r"""Lift Cat-level supercategories through the hom-category construction."""

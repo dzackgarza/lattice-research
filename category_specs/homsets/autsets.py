@@ -18,7 +18,7 @@ from .endsets import (
 from .homsets import HomCategory
 
 if TYPE_CHECKING:
-    from ..types import Aut, Automorphism, CategoryObject, End, Endomorphism
+    from ..types import Aut, Automorphism, CategoryObject, End
 
 
 def _aut_categories_of(category: Category) -> Category:
@@ -31,7 +31,7 @@ def _aut_categories_of(category: Category) -> Category:
     return cast("Category", end_category.AutCategory())
 
 
-def _is_invertible_endomorphism(endomorphism: Endomorphism) -> bool:
+def _is_invertible_endomorphism(endomorphism: UniversalEndElementMethods) -> bool:
     r"""Return whether an endomorphism lies in the corresponding aut category."""
     return bool(endomorphism.is_invertible())
 
