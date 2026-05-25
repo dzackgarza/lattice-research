@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from ...types import (
         Algebra,
         Cardinality,
+        DualModule,
         Integer,
         ModuleBasis,
         RingMorphism,
@@ -91,6 +92,12 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
         return [self.base_category().FinitelyGenerated()]
 
     class ParentMethods:
+        @override
+        @abstractmethod
+        def rank(self) -> Integer:
+            r"""Return the finite rank of this free module."""
+            ...
+
         @abstractmethod
         def basis(self) -> ModuleBasis: ...
 
@@ -141,7 +148,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
                 "Algebra",
                 PolynomialRing(
                     self.base_ring(),
-                    names=tuple(f"x{i}" for i in range(self.rank())),
+                    names=tuple(f"x{i}" for i in range(int(self.rank()))),
                 ),
             )
 
@@ -152,7 +159,9 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
             return cast(
                 "Algebra",
-                ExteriorAlgebra(self, names=tuple(f"e{i}" for i in range(self.rank()))),
+                ExteriorAlgebra(
+                    self, names=tuple(f"e{i}" for i in range(int(self.rank())))
+                ),
             )
 
         @override
@@ -162,12 +171,12 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
         @override
         @final
-        def dual(self) -> RModule:
+        def dual(self) -> DualModule:
             if isinstance(self, SageFiniteRankFreeModule):
-                return cast("RModule", SageFiniteRankFreeModule.dual(self))
+                return cast("DualModule", SageFiniteRankFreeModule.dual(self))
 
             assert isinstance(self, SageFreeModuleGeneric)
-            return cast("RModule", self.Hom(SageFreeModule(self.base_ring(), 1)))
+            return cast("DualModule", self.Hom(SageFreeModule(self.base_ring(), 1)))
 
         @override
         @final
@@ -201,7 +210,7 @@ class _FreeFiniteRank(CategoryWithAxiom_over_base_ring):
 
             assert isinstance(self, SageFreeModuleGeneric)
             exterior_algebra = ExteriorAlgebra(
-                self, names=tuple(f"e{i}" for i in range(self.rank()))
+                self, names=tuple(f"e{i}" for i in range(int(self.rank())))
             )
             return cast("RModule", exterior_algebra.homogeneous_component(p))
 

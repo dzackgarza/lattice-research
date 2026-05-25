@@ -3,7 +3,7 @@ r"""Lattices over the integer ring."""
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, cast, final
+from typing import TYPE_CHECKING, cast, final
 
 from sage.modules.free_quadratic_module_integer_symmetric import (
     FreeQuadraticModule_integer_symmetric as SageIntegerSymmetricLattice,
@@ -15,7 +15,7 @@ from .over_pid import _LatticesOverPID
 if TYPE_CHECKING:
     from sage.quadratic_forms.genera.genus import GenusSymbol_global_ring
 
-    from ...types import Integer, Matrix, RingElement, SetFamily
+    from ...types import Lattice, RingElement, SetFamily
 
 
 class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
@@ -49,23 +49,10 @@ class _LatticesOverIntegers(CategoryWithAxiom_over_base_ring):
             ``short_vectors(bound)``.
             """
             return SageIntegerSymmetricLattice.short_vectors(
-                cast(Any, self), bound, up_to_sign_flag=True
+                cast(SageIntegerSymmetricLattice, self), bound, up_to_sign_flag=True
             )
 
         @abstractmethod
-        def LLL(
-            self,
-            delta: RingElement | None = None,
-            eta: RingElement | None = None,
-            algorithm: str = "fpLLL:wrapper",
-            fp: str | None = None,
-            prec: Integer = 0,
-            early_red: bool = False,
-            use_givens: bool = False,
-            use_siegel: bool = False,
-            transformation: bool = False,
-        ) -> Matrix:
-            del delta, eta, early_red, use_givens, use_siegel, transformation
-            ...
+        def LLL(self) -> Lattice: ...
 
     class ElementMethods: ...

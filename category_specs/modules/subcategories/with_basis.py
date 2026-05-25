@@ -183,7 +183,7 @@ class _WithOrderedBasis(CategoryWithAxiom_over_base_ring):
 
         @final
         def basis_order(self) -> tuple[CategoryElement, ...]:
-            return tuple(self.basis().keys())
+            return tuple(self.basis_index_set())
 
         @final
         def user_basis(self) -> ModuleBasis:

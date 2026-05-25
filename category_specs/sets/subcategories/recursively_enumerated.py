@@ -52,7 +52,7 @@ class _RecursivelyEnumeratedSets(Category_singleton):
     class ParentMethods:
         @override
         @abstractmethod
-        def __len__(self) -> Integer: ...
+        def __len__(self) -> int: ...
 
         @override
         @abstractmethod

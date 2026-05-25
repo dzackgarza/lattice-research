@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.category_singleton import Category_singleton
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, Set, SetElement, SetFamily, SetMorphism
+    from ...types import Cardinality, Set, SetElement, SetFamily, SetMorphism
 
 
 from ...cat import Category
@@ -80,7 +80,7 @@ class _FamilySets(Category_singleton):
 
         @override
         @abstractmethod
-        def __len__(self) -> Integer: ...
+        def __len__(self) -> int: ...
 
         @override
         @abstractmethod

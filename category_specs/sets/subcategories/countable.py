@@ -138,7 +138,7 @@ class _FiniteCountableSets(CategoryWithAxiom):
     class ParentMethods:
         @override
         @final
-        def __len__(self) -> Integer:
+        def __len__(self) -> int:
             return SageFiniteEnumeratedSets.ParentMethods.__len__(self)
 
         @override

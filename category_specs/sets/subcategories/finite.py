@@ -13,7 +13,7 @@ from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, SetElement
+    from ...types import Cardinality, SetElement
 
 from .. import Sets
 
@@ -50,7 +50,7 @@ class _FiniteSets(CategoryWithAxiom):
             return SageFiniteEnumeratedSets.ParentMethods.cardinality(self)
 
         @final
-        def __len__(self) -> Integer:
+        def __len__(self) -> int:
             r"""Return the finite cardinality as a Python length."""
             return int(self.cardinality())
 

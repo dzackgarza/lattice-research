@@ -80,7 +80,7 @@ class _PolynomialRings(CategoryWithAxiom):
         @override
         @final
         def completion(self, ideal: Ideal) -> CompleteRing:
-            from sage.rings.infinity import oo
+            from sage.rings.infinity import infinity
 
             assert ideal.is_principal(), (
                 "polynomial ring completion expects a principal ideal"
@@ -89,7 +89,7 @@ class _PolynomialRings(CategoryWithAxiom):
             assert p.is_irreducible(), (
                 "polynomial ring completion expects an irreducible generator"
             )
-            completion: CompleteRing = super().completion(p, prec=oo)
+            completion: CompleteRing = super().completion(p, prec=infinity)
             return completion
 
         @abstractmethod

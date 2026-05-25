@@ -10,7 +10,7 @@ from sage.categories.category_singleton import Category_singleton
 from sage.sets.image_set import ImageSubobject as SageImageSubobject
 
 if TYPE_CHECKING:
-    from ...types import Cardinality, Integer, Set, SetElement, SympySet
+    from ...types import Cardinality, Set, SetElement, SympySet
 
 
 from ...cat import Category
@@ -75,7 +75,7 @@ class _ImageSets(Category_singleton):
         def __ne__(self, other: object) -> bool: ...
 
         @abstractmethod
-        def __hash__(self) -> Integer: ...
+        def __hash__(self) -> int: ...
 
         @override
         @abstractmethod
