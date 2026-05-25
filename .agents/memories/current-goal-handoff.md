@@ -12,10 +12,9 @@ authorities for status, evidence, dependencies, and completed work.
 
 ## Active Goal Override
 
-- Current history has been reset to the pre-ledger-gaming frontier plus the
-  aligned Hom/Aut ownership cleanup. Treat the purged commits as rejected unless
-  the user explicitly asks to mine one for a narrowly source-grounded research
-  change.
+- Current history has been reset to the pre-ledger-gaming frontier plus clean
+  salvage commits. Treat the old purged commits as rejected; mine only through
+  source-grounded replacement commits, not by replaying their ledger-driven units.
 - The active QC frontier is again the 1791 ordinary diagnostic ledger with the
   370-row `sage-stubs` external subset visible in
   `reports/workstreams/category-specs-sage-stub-backlog/latest.md`.
@@ -42,9 +41,10 @@ authorities for status, evidence, dependencies, and completed work.
   `safety/pre-purge-20260525-category-spec-ledger-gaming`.
 - Do not use the purged `ordinary_error_count: 1166` ledger or any "no
   sage-stubs owner bucket" report as project evidence.
-- The branch-local aligned source delta after the purge is the Hom/Aut ownership
-  cleanup only. It rejects fake `Morphism.is_invertible` stubbing and keeps the
-  automorphism predicate on the local End/Aut mathematical surface.
+- The branch-local aligned source deltas after the purge are `dbcc98bb`
+  (Hom/Aut ownership), `1440c8ff` (source-grounded salvage hunks), and
+  `758451c3` (durable purge audit). The audit is
+  `reports/workstreams/category-specs-purge-audit/latest.md`.
 
 ## Milestone Order
 
