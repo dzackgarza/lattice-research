@@ -29,6 +29,13 @@ authorities for status, evidence, dependencies, and completed work.
 
 - Continue from the current category-spec and semantic-vocabulary phase in
   `.agents/current-goal-phase.md`.
+- Active purge goal pickup: continue the per-hunk salvage audit in
+  `reports/workstreams/category-specs-purge-audit/latest.md`. The current
+  post-purge hunk audit has explicitly dispositioned the
+  `category_specs/forms/subcategories` decorator-removal family and the
+  `category_specs/rings/subcategories/rational_field.py` family as rejected.
+  Next inspect another undischarged hunk family from
+  `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
   rerun downstream reports only after reinstalling that branch. Do not make
   consumer edits in `category_specs` as proof of stub completion.

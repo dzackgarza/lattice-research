@@ -26,6 +26,16 @@ source state.
 | --- | --- | --- |
 | `4f1b1da` | `dbcc98bb` | Kept. It rejects fake `Morphism.is_invertible` stubbing and keeps invertibility on the local End/Aut mathematical surface. |
 
+## Per-Hunk Source Audit Progress
+
+The audit below is the post-purge hunk-level salvage pass. It is not a replay of the
+old commit units.
+
+| Hunk family | Old diff inspected | Current salvage state | Disposition |
+| --- | --- | --- | --- |
+| Formed-module and bilinear-form subcategory decorator removals | `git diff --no-ext-diff 9769adf2..origin/main -- category_specs/forms/subcategories` | `git diff --no-ext-diff 9769adf2..HEAD -- category_specs/forms/subcategories` is empty. | Reject all hunks in this family. The old tail only removed `@override` and/or `@final` from predicate witnesses and inherited formed-module method surfaces in `alternating.py`, `bilinear.py`, `definite.py`, `free_bilinear.py`, `indefinite.py`, `integral.py`, `nondegenerate.py`, `quadratic.py`, `rational.py`, `symmetric.py`, and `with_forms.py`. No hunk changes a mathematical owner, codomain, or implementation in a source-grounded way. The controlling sources are `category_specs/AGENTS.md`, `category-spec-style`, `SPEC-MAPPING-FORMS.md`, and `SPEC-MAPPING-MODULES.md`: forms owns `FormedModules(R)`, bilinear/quadratic axioms, form-preserving Hom/Aut surfaces, and integral/nondegenerate/symmetric refinements. Removing decorators to make downstream override/finality diagnostics disappear weakens obligation evidence without recording a replacement owner. |
+| RationalField singleton and public-method overrides | `git diff --no-ext-diff 9769adf2..origin/main -- category_specs/rings/subcategories/rational_field.py` | `git diff --no-ext-diff 9769adf2..HEAD -- category_specs/rings/subcategories/rational_field.py` is empty. | Reject all hunks in this file. The `Rings().Characteristic(Integer(0))` rewrite is a local scalar-coercion/type-checker accommodation; existing category specs use `Rings().Characteristic(0)` for characteristic-zero singleton chains, and the style rule permits Sage-style literal scalar notation. The remaining hunks only remove `@override` from `QQ` method surfaces such as `algebraic_closure`, number-field delegation methods, embeddings, units, orders, and discriminants. Sage source exposes real `RationalField` public methods in `sage/rings/rational_field.py`, and `sage-stubs` PR #6 names RationalField as a remaining issue-5 family. If these methods are missing from static sidecars, the aligned fix is in `sage-stubs`; deleting consumer override markers is reclassification-only closure. |
+
 ## Rejected Commits
 
 | Commit | Disposition |
