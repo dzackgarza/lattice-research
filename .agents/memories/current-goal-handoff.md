@@ -42,7 +42,10 @@ authorities for status, evidence, dependencies, and completed work.
   polynomial/series extension-signature family is also dispositioned: keep only
   the accepted polynomial completion `infinity` spelling, reject the receiver
   casts, option suppression, broad keyword surface, and literal `Integer(0)`
-  rewrites.
+  rewrites. The sets family is dispositioned: keep only Python protocol return
+  fixes for `__len__`/`__hash__`, reject `SageCategory` cast churn, widened
+  `object`/Sage-atom inputs, cardinality narrowing, decorator removals, and
+  deleted `ImageSubobject` obligations.
   Next inspect another undischarged hunk family from
   `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
