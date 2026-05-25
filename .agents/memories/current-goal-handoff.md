@@ -38,7 +38,11 @@ authorities for status, evidence, dependencies, and completed work.
   `category_specs/algebras`, `category_specs/topological_spaces`, and
   `category_specs/posets`, and the module constructor/cast/decorator-removal
   family in `category_specs/modules` except for the already accepted
-  finite-rank and ordered-basis hunks.
+  finite-rank and ordered-basis hunks. The commutative-ring extension and
+  polynomial/series extension-signature family is also dispositioned: keep only
+  the accepted polynomial completion `infinity` spelling, reject the receiver
+  casts, option suppression, broad keyword surface, and literal `Integer(0)`
+  rewrites.
   Next inspect another undischarged hunk family from
   `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
