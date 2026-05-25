@@ -45,7 +45,12 @@ authorities for status, evidence, dependencies, and completed work.
   rewrites. The sets family is dispositioned: keep only Python protocol return
   fixes for `__len__`/`__hash__`, reject `SageCategory` cast churn, widened
   `object`/Sage-atom inputs, cardinality narrowing, decorator removals, and
-  deleted `ImageSubobject` obligations.
+  deleted `ImageSubobject` obligations. The Hom/Aut and lattice family is
+  dispositioned: keep the generic Hom/Aut ownership fix and cleaned
+  integral-lattice `LLL`/precise-cast salvage, reject the lattice Hom
+  inheritance rewrite, lattice construction `SageCategory` annotations,
+  over-Dedekind rank broadening/predicate deletion, and coupled `types.py`
+  opacity changes.
   Next inspect another undischarged hunk family from
   `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
