@@ -15,10 +15,10 @@ authorities for status, evidence, dependencies, and completed work.
 - Current history has been reset to the pre-ledger-gaming frontier plus clean
   salvage commits. Treat the old purged commits as rejected; mine only through
   source-grounded replacement commits, not by replaying their ledger-driven units.
-- The last committed ledger artifact is still the 1791 ordinary diagnostic
-  pre-salvage frontier with the 370-row `sage-stubs` external subset visible in
-  `reports/workstreams/category-specs-sage-stub-backlog/latest.md`; rerun reports
-  before using a post-salvage ordinary-error count.
+- The post-salvage reports should show `ordinary_error_count: 1717` and preserve
+  the 370-row `sage-stubs` external subset in
+  `reports/workstreams/category-specs-sage-stub-backlog/latest.md`; use them as
+  diagnostics for the accepted source state, not as stub completion evidence.
 - Do not claim `sage-stubs` issue #5 progress from consumer-side
   `category_specs` edits. Completion requires source-backed stub work in
   `sage-stubs`, no reclassification-only closure, no local casts, no
@@ -55,9 +55,9 @@ authorities for status, evidence, dependencies, and completed work.
   `infinity` spelling, reject `Integer(0/1)` default rewrites and ring
   predicate/precision `@override` removals. The purge audit now records a
   source coverage checkpoint for all 99 changed `category_specs` source files
-  in `9769adf2..origin/main`; next inspect/resolve the modified generated report
-  files in the worktree and run the remaining validation/cleanup needed before
-  any completion claim.
+  in `9769adf2..origin/main`; next verify the regenerated report artifacts,
+  commit the final refresh if clean, and finish validation/cleanup before any
+  completion claim.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
   rerun downstream reports only after reinstalling that branch. Do not make
   consumer edits in `category_specs` as proof of stub completion.

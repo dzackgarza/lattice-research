@@ -3,11 +3,12 @@
 - status: pass
 - source_mode: representative
 - source_module_count: 5
-- projection_count: 444
-- unsupported_provider_count: 69
-- checked_provider_count: 187
-- graph_absent_provider_count: 131
+- projection_count: 435
+- unsupported_provider_count: 63
+- checked_provider_count: 205
+- graph_absent_provider_count: 104
 - missing_typeinfo_count: 0
+- projected_ancestor_missing_typeinfo_count: 0
 - mismatched_provider_count: 0
 - negative_injected_error_count: 1
 - projection_trace_event_count: 0
@@ -17,6 +18,10 @@
 None.
 
 ## Missing TypeInfos
+
+None.
+
+## Missing Projected Ancestor TypeInfos
 
 None.
 
@@ -66,27 +71,18 @@ None.
 - `category_specs.rings.subcategories.discrete_valuation_field._DiscreteValuationFields.ElementMethods`
 - `category_specs.rings.subcategories.discrete_valuation_ring._DiscreteValuationRings.ParentMethods`
 - `category_specs.rings.subcategories.discrete_valuation_ring._DiscreteValuationRings.ElementMethods`
-- `category_specs.rings.subcategories.division._DivisionRings.ParentMethods`
-- `category_specs.rings.subcategories.division._DivisionRings.ElementMethods`
-- `category_specs.rings.subcategories.euclidean_domain._EuclideanDomains.ParentMethods`
-- `category_specs.rings.subcategories.euclidean_domain._EuclideanDomains.ElementMethods`
 - `category_specs.rings.subcategories.finite._FiniteRings.ParentMethods`
 - `category_specs.rings.subcategories.finite._FiniteRings.ElementMethods`
 - `category_specs.rings.subcategories.finite_field._FiniteFields.ParentMethods`
 - `category_specs.rings.subcategories.finite_field._FiniteFields.ElementMethods`
-- `category_specs.rings.subcategories.gcd_domain._GcdDomains.ParentMethods`
-- `category_specs.rings.subcategories.gcd_domain._GcdDomains.ElementMethods`
+- `category_specs.rings.subcategories.global_field._GlobalFields.ParentMethods`
 - `category_specs.rings.subcategories.global_field._GlobalFields.SubcategoryMethods`
 - `category_specs.rings.subcategories.integer_mod_ring._IntegerModRings.ParentMethods`
 - `category_specs.rings.subcategories.integer_mod_ring._IntegerModRings.ElementMethods`
 - `category_specs.rings.subcategories.integer_ring._ZZ.ParentMethods`
 - `category_specs.rings.subcategories.integer_ring._ZZ.ElementMethods`
-- `category_specs.rings.subcategories.integrally_closed_domain._IntegrallyClosedDomains.ParentMethods`
-- `category_specs.rings.subcategories.integrally_closed_domain._IntegrallyClosedDomains.ElementMethods`
 - `category_specs.rings.subcategories.laurent_series_ring._LaurentSeriesRings.ParentMethods`
 - `category_specs.rings.subcategories.laurent_series_ring._LaurentSeriesRings.ElementMethods`
-- `category_specs.rings.subcategories.noetherian._NoetherianRings.ParentMethods`
-- `category_specs.rings.subcategories.noetherian._NoetherianRings.ElementMethods`
 - `category_specs.rings.subcategories.nonarchimedean_global_field._NonArchimedeanGlobalFields.ParentMethods`
 - `category_specs.rings.subcategories.nonarchimedean_global_field._NonArchimedeanGlobalFields.ElementMethods`
 - `category_specs.rings.subcategories.p_adic_integer_ring._Zp.ParentMethods`
@@ -97,34 +93,15 @@ None.
 - `category_specs.rings.subcategories.polynomial_ring._PolynomialRings.ElementMethods`
 - `category_specs.rings.subcategories.power_series_ring._PowerSeriesRings.ParentMethods`
 - `category_specs.rings.subcategories.power_series_ring._PowerSeriesRings.ElementMethods`
-- `category_specs.rings.subcategories.principal_ideal_domain._PrincipalIdealDomains.ParentMethods`
-- `category_specs.rings.subcategories.principal_ideal_domain._PrincipalIdealDomains.ElementMethods`
 - `category_specs.rings.subcategories.puiseux_series_ring._PuiseuxSeriesRings.ParentMethods`
 - `category_specs.rings.subcategories.puiseux_series_ring._PuiseuxSeriesRings.ElementMethods`
 - `category_specs.rings.subcategories.quadratic_number_field._QuadraticNumberFields.ParentMethods`
 - `category_specs.rings.subcategories.quadratic_number_field._QuadraticNumberFields.ElementMethods`
 - `category_specs.rings.subcategories.quotient_field._QuotientFields.ParentMethods`
 - `category_specs.rings.subcategories.quotient_field._QuotientFields.ElementMethods`
-- `category_specs.rings.subcategories.rational_field._QQ.ParentMethods`
 - `category_specs.rings.subcategories.rational_field._QQ.ElementMethods`
 - `category_specs.rings.subcategories.real_algebraic_field._AA.ParentMethods`
 - `category_specs.rings.subcategories.real_algebraic_field._AA.ElementMethods`
-- `category_specs.rings.subcategories.real_ball_field._RealBallFields.ParentMethods`
-- `category_specs.rings.subcategories.real_ball_field._RealBallFields.ElementMethods`
-- `category_specs.rings.subcategories.real_double_field._RealDoubleFields.ParentMethods`
-- `category_specs.rings.subcategories.real_double_field._RealDoubleFields.ElementMethods`
-- `category_specs.rings.subcategories.real_field._RealFields.ParentMethods`
-- `category_specs.rings.subcategories.real_field._RealFields.ElementMethods`
-- `category_specs.rings.subcategories.real_field_53._RR.ParentMethods`
-- `category_specs.rings.subcategories.real_field_53._RR.ElementMethods`
-- `category_specs.rings.subcategories.real_interval_field._RealIntervalFields.ParentMethods`
-- `category_specs.rings.subcategories.real_interval_field._RealIntervalFields.ElementMethods`
-- `category_specs.rings.subcategories.real_precision_field._RealPrecisionFields.ParentMethods`
-- `category_specs.rings.subcategories.real_precision_field._RealPrecisionFields.ElementMethods`
-- `category_specs.rings.subcategories.reduced._ReducedRings.ParentMethods`
-- `category_specs.rings.subcategories.reduced._ReducedRings.ElementMethods`
-- `category_specs.rings.subcategories.unique_factorization_domain._UniqueFactorizationDomains.ParentMethods`
-- `category_specs.rings.subcategories.unique_factorization_domain._UniqueFactorizationDomains.ElementMethods`
 - `category_specs.rings.subcategories.valued._ValuedRings.ParentMethods`
 - `category_specs.rings.subcategories.valued._ValuedRings.ElementMethods`
 - `category_specs.rings.subcategories.valued._ValuedRings.SubcategoryMethods`
@@ -134,6 +111,7 @@ None.
 - `category_specs.topological_spaces.subcategories.complete._CompleteMetricSpaces.ElementMethods`
 - `category_specs.topological_spaces.subcategories.connected._ConnectedTopologicalSpaces.ParentMethods`
 - `category_specs.topological_spaces.subcategories.connected._ConnectedTopologicalSpaces.ElementMethods`
+- `category_specs.lattices.subcategories.over_dedekind._LatticesOverDedekindDomain.ParentMethods`
 - `category_specs.modules.subcategories.finitely_presented._FinitelyPresented.ParentMethods`
 - `category_specs.modules.subcategories.finitely_presented._FinitelyPresented.ElementMethods`
 - `category_specs.modules.subcategories.graded._Graded.ParentMethods`
@@ -156,176 +134,120 @@ None.
 
 ## Mypy Errors
 
+- `category_specs/cat/__init__.py:162: error: Name "Hom" already defined (possibly by an import)  [no-redef]`
+- `category_specs/cat/__init__.py:163: error: Function "sage.structure.parent.Parent.Hom" is not valid as a type  [valid-type]`
+- `category_specs/cat/__init__.py:163: note: Perhaps you need "Callable[...]" or a callback protocol?`
 - `category_specs/cat/__init__.py:214: error: Argument 2 of "_make_named_class" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "type"  [override]`
 - `category_specs/cat/__init__.py:214: note: This violates the Liskov substitution principle`
 - `category_specs/cat/__init__.py:214: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
-- `category_specs/cat/__init__.py:250: error: Argument 1 of "join" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "list[Category]"  [override]`
-- `category_specs/cat/__init__.py:250: note: This violates the Liskov substitution principle`
-- `category_specs/cat/__init__.py:250: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
-- `category_specs/cat/__init__.py:252: error: Argument 1 to "join" of "Category" has incompatible type "Iterable[category_specs.cat.base_category_types.Category]"; expected "list[sage.categories.category.Category]"  [arg-type]`
-- `category_specs/cat/__init__.py:255: error: Argument 1 of "meet" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "list[Category]"  [override]`
+- `category_specs/cat/__init__.py:250: error: Signature of "join" incompatible with supertype "sage.categories.category.Category"  [override]`
+- `category_specs/cat/__init__.py:250: note:      Superclass:`
+- `category_specs/cat/__init__.py:250: note:          @overload`
+- `category_specs/cat/__init__.py:250: note:          @staticmethod`
+- `category_specs/cat/__init__.py:250: note:          def join(categories: Iterable[Category]) -> Category`
+- `category_specs/cat/__init__.py:250: note:          @overload`
+- `category_specs/cat/__init__.py:250: note:          @staticmethod`
+- `category_specs/cat/__init__.py:250: note:          def join(categories: Iterable[Category], as_list: bool) -> Category | list[Category]`
+- `category_specs/cat/__init__.py:250: note:          @overload`
+- `category_specs/cat/__init__.py:250: note:          @staticmethod`
+- `category_specs/cat/__init__.py:250: note:          def join(categories: Iterable[Category], as_list: bool = ..., ignore_axioms: tuple[str, ...] = ..., axioms: tuple[str, ...] = ...) -> Category | list[Category]`
+- `category_specs/cat/__init__.py:250: note:      Subclass:`
+- `category_specs/cat/__init__.py:250: note:          def join(self, categories: Iterable[Category]) -> Category`
+- `category_specs/cat/__init__.py:255: error: Argument 1 of "meet" is incompatible with supertype "sage.categories.category.Category"; supertype defines the argument type as "Iterable[Category]"  [override]`
 - `category_specs/cat/__init__.py:255: note: This violates the Liskov substitution principle`
 - `category_specs/cat/__init__.py:255: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
-- `category_specs/cat/__init__.py:265: error: Argument 1 to "meet" of "Category" has incompatible type "tuple[category_specs.cat.base_category_types.Category, ...]"; expected "list[sage.categories.category.Category]"  [arg-type]`
 - `category_specs/cat/__init__.py:272: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/cat/__init__.py:278: error: Method "additional_structure" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/cat/__init__.py:291: error: Incompatible return value type (got "JoinCategories", expected "Category")  [return-value]`
-- `category_specs/cat/__init__.py:315: error: Incompatible types in assignment (expression has type "LazyImport", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
-- `category_specs/cat/__init__.py:331: error: Incompatible return value type (got "EmptyCategory", expected "Category")  [return-value]`
-- `category_specs/sets/__init__.py:78: error: Module "sage.rings.infinity" has no attribute "infinity"; maybe "MinusInfinity"?  [attr-defined]`
-- `category_specs/sets/__init__.py:78: error: Module "sage.rings.infinity" has no attribute "minus_infinity"; maybe "MinusInfinity"?  [attr-defined]`
+- `category_specs/cat/__init__.py:290: error: Incompatible return value type (got "JoinCategories", expected "Category")  [return-value]`
+- `category_specs/cat/__init__.py:330: error: Incompatible return value type (got "EmptyCategory", expected "Category")  [return-value]`
+- `category_specs/sets/__init__.py:145: error: Return type "_SetElementMethods" of "_element_constructor_" incompatible with return type "Element" in supertype "sage.categories.sets_cat.Sets.ParentMethods"  [override]`
 - `category_specs/sets/__init__.py:145: error: Argument 1 of "_element_constructor_" is incompatible with supertype "sage.categories.sets_cat.Sets.ParentMethods"; supertype defines the argument type as "object"  [override]`
 - `category_specs/sets/__init__.py:145: note: This violates the Liskov substitution principle`
 - `category_specs/sets/__init__.py:145: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides`
-- `category_specs/sets/__init__.py:304: error: Argument 2 to "Subsets" has incompatible type "Integer"; expected "int | None"  [arg-type]`
-- `category_specs/sets/__init__.py:317: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/sets/__init__.py:325: error: Argument 1 to "Algebras" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
+- `category_specs/sets/__init__.py:171: error: Return type "_SetElementMethods" of "an_element" incompatible with return type "Element" in supertype "sage.categories.sets_cat.Sets.ParentMethods"  [override]`
+- `category_specs/sets/__init__.py:176: error: Return type "list[_SetElementMethods]" of "some_elements" incompatible with return type "Sequence[Element]" in supertype "sage.categories.sets_cat.Sets.ParentMethods"  [override]`
+- `category_specs/sets/__init__.py:317: error: Cannot instantiate abstract class "Modules" with abstract attributes "R", "torsion_module" and "zero_module"  [abstract]`
 - `category_specs/sets/__init__.py:343: error: Return type "Integer" of "__hash__" incompatible with return type "int" in supertype "builtins.object"  [override]`
 - `category_specs/sets/__init__.py:373: error: Argument 1 to "is_subcategory" of "Category" has incompatible type "Sets"; expected "Category"  [arg-type]`
-- `category_specs/sets/__init__.py:378: error: Method "_sage_super_categories" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/sets/__init__.py:379: error: Incompatible return value type (got "tuple[Sets]", expected "tuple[Category, ...]")  [return-value]`
-- `category_specs/sets/__init__.py:383: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/sets/__init__.py:385: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
-- `category_specs/sets/__init__.py:389: error: Method "additional_structure" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/sets/__init__.py:400: error: Return type "Category" of "Finite" incompatible with return type "FiniteSets" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/sets/__init__.py:406: error: Return type "Category" of "Infinite" incompatible with return type "CategoryWithAxiom" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/sets/__init__.py:424: error: Return type "Category" of "Facade" incompatible with return type "FacadeSets" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/sets/__init__.py:430: error: Return type "Category" of "Topological" incompatible with return type "TopologicalSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/sets/__init__.py:436: error: Return type "Category" of "Metric" incompatible with return type "MetricSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/sets/__init__.py:464: error: Incompatible return value type (got "_GSets", expected "Category")  [return-value]`
-- `category_specs/sets/__init__.py:464: error: Argument 2 to "_GSets" has incompatible type "SubcategoryMethods"; expected "Category | None"  [arg-type]`
-- `category_specs/sets/__init__.py:474: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/sets/__init__.py:484: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/sets/__init__.py:492: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/sets/__init__.py:537: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
-- `category_specs/sets/__init__.py:537: error: List item 2 has incompatible type "PartitionedSetsCategory"; expected "Category"  [list-item]`
-- `category_specs/sets/__init__.py:551: error: Incompatible return value type (got "tuple[<subclass of "typing.Iterable[category_specs.sets._SetElementMethods]" and "sage.structure.category_object.CategoryObject">, list[Category]]", expected "tuple[_SetObjectMethods | tuple[_SetElementMethods, ...] | Integer, list[Category]]")  [return-value]`
-- `category_specs/sets/__init__.py:588: error: Incompatible default for parameter "step" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/sets/__init__.py:653: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:654: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:656: error: Too few arguments  [call-arg]`
-- `category_specs/sets/__init__.py:659: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:672: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:682: error: Value of type variable "_ParentT" of "refine_category" cannot be "ParentMethods"  [type-var]`
-- `category_specs/sets/__init__.py:700: error: Argument 1 to "get_interval" of "ParentMethods" has incompatible type "int"; expected "Integer"  [arg-type]`
-- `category_specs/sets/__init__.py:752: error: Module "sage.rings.real_mpfr" does not explicitly export attribute "RealField"  [attr-defined]`
-- `category_specs/sets/__init__.py:756: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:982: error: Argument 1 to "category_from_parents" of "_CartesianProductCallable" has incompatible type "tuple[_SetObjectMethods, ...]"; expected "Iterable[Category]"  [arg-type]`
-- `category_specs/sets/__init__.py:986: error: Incompatible types in assignment (expression has type "tuple[Any, ...]", variable has type "Category")  [assignment]`
-- `category_specs/sets/__init__.py:988: error: Unsupported left operand type for & ("Category")  [operator]`
-- `category_specs/sets/__init__.py:1112: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1116: error: "LazyImport" not callable  [operator]`
-- `category_specs/sets/__init__.py:1133: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1169: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1207: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1227: error: Missing positional argument "s" in call to "SetPartition"  [call-arg]`
-- `category_specs/sets/__init__.py:1227: error: Argument 1 to "SetPartition" has incompatible type "Iterable[Iterable[_SetElementMethods]]"; expected "Parent"  [arg-type]`
-- `category_specs/sets/__init__.py:1234: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1246: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1260: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1274: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1290: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1306: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1322: error: Module "sage.combinat.set_partition" has no attribute "SetPartitions"; maybe "SetPartition" or "Partition"?  [attr-defined]`
-- `category_specs/sets/__init__.py:1336: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
-- `category_specs/sets/__init__.py:1338: error: Signature of "Constructors" incompatible with supertype "Category"  [override]`
-- `category_specs/sets/__init__.py:1338: note:      Superclass:`
-- `category_specs/sets/__init__.py:1338: note:          type`
-- `category_specs/sets/__init__.py:1338: note:      Subclass:`
-- `category_specs/sets/__init__.py:1338: note:          def Constructors(self) -> _Constructors`
-- `category_specs/sets/__init__.py:1342: error: Incompatible types in assignment (expression has type "type[SetHomCategory]", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
+- `category_specs/sets/__init__.py:378: error: Incompatible return value type (got "tuple[Sets]", expected "tuple[Category, ...]")  [return-value]`
+- `category_specs/sets/__init__.py:382: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/sets/__init__.py:384: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
+- `category_specs/sets/__init__.py:398: error: Return type "Category" of "Finite" incompatible with return type "FiniteSets" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
+- `category_specs/sets/__init__.py:404: error: Return type "Category" of "Infinite" incompatible with return type "CategoryWithAxiom" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
+- `category_specs/sets/__init__.py:422: error: Return type "Category" of "Facade" incompatible with return type "FacadeSets" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
+- `category_specs/sets/__init__.py:428: error: Return type "Category" of "Topological" incompatible with return type "TopologicalSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
+- `category_specs/sets/__init__.py:434: error: Return type "Category" of "Metric" incompatible with return type "MetricSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
+- `category_specs/sets/__init__.py:462: error: Incompatible return value type (got "_GSets", expected "Category")  [return-value]`
+- `category_specs/sets/__init__.py:535: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
+- `category_specs/sets/__init__.py:535: error: List item 2 has incompatible type "PartitionedSetsCategory"; expected "Category"  [list-item]`
+- `category_specs/sets/__init__.py:549: error: Incompatible return value type (got "tuple[<subclass of "typing.Iterable[category_specs.sets._SetElementMethods]" and "sage.structure.category_object.CategoryObject">, list[Category]]", expected "tuple[_SetObjectMethods | tuple[_SetElementMethods, ...] | Integer, list[Category]]")  [return-value]`
+- `category_specs/sets/__init__.py:586: error: Incompatible default for parameter "step" (default has type "int", parameter has type "Integer")  [assignment]`
+- `category_specs/sets/__init__.py:654: error: Too few arguments  [call-arg]`
+- `category_specs/sets/__init__.py:658: error: "Category" has no attribute "Subobjects"  [attr-defined]`
+- `category_specs/sets/__init__.py:671: error: "Category" has no attribute "Subobjects"  [attr-defined]`
+- `category_specs/sets/__init__.py:673: error: "Category" has no attribute "Connected"  [attr-defined]`
+- `category_specs/sets/__init__.py:674: error: Incompatible return value type (got "list[sage.categories.category.Category]", expected "list[category_specs.cat.base_category_types.Category]")  [return-value]`
+- `category_specs/sets/__init__.py:698: error: Argument 1 to "get_interval" of "ParentMethods" has incompatible type "int"; expected "Integer"  [arg-type]`
+- `category_specs/sets/__init__.py:762: error: Argument 1 to "_refine_real_subset" of "_Constructors" has incompatible type "RealSet"; expected "ParentMethods"  [arg-type]`
+- `category_specs/sets/__init__.py:782: error: Argument 1 to "_refine_real_subset" of "_Constructors" has incompatible type "RealSet"; expected "ParentMethods"  [arg-type]`
+- `category_specs/sets/__init__.py:914: error: Argument 1 to "RecursivelyEnumeratedSet" has incompatible type "Iterable[_SetElementMethods]"; expected "Iterable[Element | Hashable]"  [arg-type]`
+- `category_specs/sets/__init__.py:915: error: Argument 2 to "RecursivelyEnumeratedSet" has incompatible type "Callable[[_SetElementMethods], Iterable[_SetElementMethods]]"; expected "Callable[[Element | Hashable], Iterable[Element | Hashable]]"  [arg-type]`
+- `category_specs/sets/__init__.py:918: error: Argument "post_process" to "RecursivelyEnumeratedSet" has incompatible type "Callable[[_SetElementMethods], _SetElementMethods] | None"; expected "Callable[[Element | Hashable], Element | Hashable | None] | None"  [arg-type]`
+- `category_specs/sets/__init__.py:984: error: Incompatible types in assignment (expression has type "tuple[Any, ...]", variable has type "Category")  [assignment]`
+- `category_specs/sets/__init__.py:1003: error: Argument 1 to "ImageSubobject" has incompatible type "_SetMorphisms"; expected "Map | Callable[[Element | Hashable], Element | Hashable | list[Hashable]]"  [arg-type]`
+- `category_specs/sets/__init__.py:1334: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
+- `category_specs/sets/__init__.py:1336: error: Signature of "Constructors" incompatible with supertype "Category"  [override]`
+- `category_specs/sets/__init__.py:1336: note:      Superclass:`
+- `category_specs/sets/__init__.py:1336: note:          type`
+- `category_specs/sets/__init__.py:1336: note:      Subclass:`
+- `category_specs/sets/__init__.py:1336: note:          def Constructors(self) -> _Constructors`
+- `category_specs/sets/__init__.py:1340: error: Incompatible types in assignment (expression has type "type[SetHomCategory]", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
 - `category_specs/topological_spaces/__init__.py:184: error: Incompatible types in assignment (expression has type "type[TopologicalSpaceHomCategory]", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
-- `category_specs/topological_spaces/__init__.py:199: error: Method "_sage_super_categories" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/topological_spaces/__init__.py:209: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/topological_spaces/__init__.py:211: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
-- `category_specs/topological_spaces/__init__.py:232: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
-- `category_specs/topological_spaces/__init__.py:234: error: Signature of "Constructors" incompatible with supertype "Category"  [override]`
-- `category_specs/topological_spaces/__init__.py:234: note:      Superclass:`
-- `category_specs/topological_spaces/__init__.py:234: note:          type`
-- `category_specs/topological_spaces/__init__.py:234: note:      Subclass:`
-- `category_specs/topological_spaces/__init__.py:234: note:          def Constructors(self) -> _Constructors`
-- `category_specs/topological_spaces/__init__.py:251: error: Cannot override final attribute "Metric" (previously declared in base class "SubcategoryMethods")  [misc]`
-- `category_specs/topological_spaces/__init__.py:253: error: Return type "Category" of "Metric" incompatible with return type "MetricSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
-- `category_specs/rings/__init__.py:21: error: Module "sage.rings.number_field.number_field" has no attribute "NumberField_cyclotomic"  [attr-defined]`
+- `category_specs/topological_spaces/__init__.py:208: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/topological_spaces/__init__.py:210: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
+- `category_specs/topological_spaces/__init__.py:231: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
+- `category_specs/topological_spaces/__init__.py:233: error: Signature of "Constructors" incompatible with supertype "Category"  [override]`
+- `category_specs/topological_spaces/__init__.py:233: note:      Superclass:`
+- `category_specs/topological_spaces/__init__.py:233: note:          type`
+- `category_specs/topological_spaces/__init__.py:233: note:      Subclass:`
+- `category_specs/topological_spaces/__init__.py:233: note:          def Constructors(self) -> _Constructors`
+- `category_specs/topological_spaces/__init__.py:250: error: Cannot override final attribute "Metric" (previously declared in base class "SubcategoryMethods")  [misc]`
+- `category_specs/topological_spaces/__init__.py:252: error: Return type "Category" of "Metric" incompatible with return type "MetricSpaces" in supertype "sage.categories.sets_cat.Sets.SubcategoryMethods"  [override]`
 - `category_specs/rings/__init__.py:241: error: Signature of "__call__" incompatible with supertype "category_specs.sets._SetObjectMethods"  [override]`
 - `category_specs/rings/__init__.py:241: note:      Superclass:`
 - `category_specs/rings/__init__.py:241: note:          def __call__(self, x: _SetElementMethods) -> _SetElementMethods`
 - `category_specs/rings/__init__.py:241: note:      Subclass:`
 - `category_specs/rings/__init__.py:241: note:          def __call__(self, x: _RingElementMethods | Integer | int = ...) -> _RingElementMethods`
+- `category_specs/rings/__init__.py:243: error: Name "base_ring" already defined (possibly by an import)  [no-redef]`
+- `category_specs/rings/__init__.py:249: error: Name "zero" already defined (possibly by an import)  [no-redef]`
+- `category_specs/rings/__init__.py:359: error: Cannot instantiate abstract class "Modules" with abstract attributes "R", "torsion_module" and "zero_module"  [abstract]`
 - `category_specs/rings/__init__.py:359: error: Incompatible return value type (got "_RModObjects", expected "ParentMethods")  [return-value]`
-- `category_specs/rings/__init__.py:359: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
 - `category_specs/rings/__init__.py:508: error: Incompatible default for parameter "i" (default has type "int", parameter has type "Integer")  [assignment]`
 - `category_specs/rings/__init__.py:596: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
 - `category_specs/rings/__init__.py:598: error: List item 0 has incompatible type "CommutativeRingIdeals"; expected "Category"  [list-item]`
-- `category_specs/rings/__init__.py:598: error: Argument 1 to "CommutativeRingIdeals" has incompatible type "_RingObjectMethods"; expected "Parent"  [arg-type]`
-- `category_specs/rings/__init__.py:598: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:598: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/rings/__init__.py:608: error: Argument 1 to "_RingIdeals" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/rings/__init__.py:608: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:608: error: Argument 1 to "Modules" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/rings/__init__.py:662: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:668: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:678: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:686: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:692: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:698: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:704: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:710: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:716: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:722: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:729: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/__init__.py:598: error: Cannot instantiate abstract class "Modules" with abstract attributes "R", "torsion_module" and "zero_module"  [abstract]`
+- `category_specs/rings/__init__.py:598: error: List item 1 has incompatible type "sage.categories.category.Category"; expected "category_specs.cat.base_category_types.Category"  [list-item]`
+- `category_specs/rings/__init__.py:608: error: Cannot instantiate abstract class "Modules" with abstract attributes "R", "torsion_module" and "zero_module"  [abstract]`
 - `category_specs/rings/__init__.py:734: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:739: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:741: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:745: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:749: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:751: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:755: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:760: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:764: error: Incompatible default for parameter "prec" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:770: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:777: error: Incompatible default for parameter "order" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:787: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:794: error: Incompatible default for parameter "order" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:804: error: "LazyImport" not callable  [operator]`
 - `category_specs/rings/__init__.py:811: error: Incompatible default for parameter "order" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:821: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:858: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:895: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:928: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:930: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:932: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:947: error: Module "sage.rings.number_field.number_field" has no attribute "NumberFieldTower"; maybe "NumberField" or "NumberFieldOrder"?  [attr-defined]`
-- `category_specs/rings/__init__.py:959: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:982: error: "LazyImport" not callable  [operator]`
+- `category_specs/rings/__init__.py:950: error: Argument 1 to "NumberFieldTower" has incompatible type "Sequence[Polynomial]"; expected "list[Polynomial] | tuple[Polynomial, ...]"  [arg-type]`
+- `category_specs/rings/__init__.py:953: error: Argument "embeddings" to "NumberFieldTower" has incompatible type "Sequence[_RingElementMethods] | None"; expected "Sequence[RingElement | None] | None"  [arg-type]`
+- `category_specs/rings/__init__.py:957: error: Argument "structures" to "NumberFieldTower" has incompatible type "Sequence[_RingHomomorphisms] | None"; expected "Sequence[NumberFieldStructure | None] | None"  [arg-type]`
 - `category_specs/rings/__init__.py:989: error: Incompatible default for parameter "n" (default has type "int", parameter has type "Integer")  [assignment]`
-- `category_specs/rings/__init__.py:999: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1040: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1085: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1125: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1166: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1211: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1251: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1298: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1346: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1393: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1475: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1523: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1570: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1766: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1794: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1824: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1854: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1882: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1896: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1924: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1940: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:1954: error: Argument 1 to "MatrixSpace" has incompatible type "_RingObjectMethods"; expected "CommutativeRing"  [arg-type]`
-- `category_specs/rings/__init__.py:1954: error: Argument 2 to "MatrixSpace" has incompatible type "Integer"; expected "int"  [arg-type]`
-- `category_specs/rings/__init__.py:1954: error: Argument 3 to "MatrixSpace" has incompatible type "Integer"; expected "int"  [arg-type]`
-- `category_specs/rings/__init__.py:1954: error: Argument "implementation" to "MatrixSpace" has incompatible type "str | type[Matrix] | None"; expected "type"  [arg-type]`
-- `category_specs/rings/__init__.py:1958: error: Value of type variable "_ParentT" of "refine_category" cannot be "MatrixSpace"  [type-var]`
-- `category_specs/rings/__init__.py:1960: error: Argument 1 to "_MatrixAlgebras" has incompatible type "CommutativeRing"; expected "_RingObjectMethods"  [arg-type]`
+- `category_specs/rings/__init__.py:1766: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1794: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1824: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1854: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1882: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1896: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1924: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1940: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:1954: error: Argument 1 to "MatrixSpace" has incompatible type "_RingObjectMethods"; expected "Ring"  [arg-type]`
+- `category_specs/rings/__init__.py:1960: error: Argument 1 to "_MatrixAlgebras" has incompatible type "Ring"; expected "_RingObjectMethods"  [arg-type]`
 - `category_specs/rings/__init__.py:1960: error: Argument 2 to "_MatrixAlgebras" has incompatible type "int"; expected "Integer"  [arg-type]`
 - `category_specs/rings/__init__.py:1960: error: Argument 3 to "_MatrixAlgebras" has incompatible type "int"; expected "Integer"  [arg-type]`
 - `category_specs/rings/__init__.py:1965: error: Cannot override writable attribute "Constructors" with a final one  [misc]`
@@ -334,27 +256,18 @@ None.
 - `category_specs/rings/__init__.py:1967: note:          type`
 - `category_specs/rings/__init__.py:1967: note:      Subclass:`
 - `category_specs/rings/__init__.py:1967: note:          def Constructors(self) -> _Constructors`
-- `category_specs/rings/__init__.py:1973: error: Method "_sage_super_categories" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/__init__.py:1974: error: Incompatible return value type (got "tuple[Rings]", expected "tuple[Category, ...]")  [return-value]`
-- `category_specs/rings/__init__.py:1978: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
-- `category_specs/rings/__init__.py:1981: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
-- `category_specs/rings/__init__.py:1981: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
-- `category_specs/rings/__init__.py:1985: error: Method "additional_structure" is marked as an override, but no base method was found with this name  [misc]`
-- `category_specs/rings/__init__.py:1988: error: Cannot override final attribute "Finite" (previously declared in base class "SubcategoryMethods")  [misc]`
-- `category_specs/rings/__init__.py:1988: error: Definition of "Finite" in base class "SubcategoryMethods" is incompatible with definition in base class "SubcategoryMethods"  [misc]`
-- `category_specs/rings/__init__.py:1988: error: Cannot override final attribute "Topological" (previously declared in base class "SubcategoryMethods")  [misc]`
-- `category_specs/rings/__init__.py:1988: error: Definition of "Topological" in base class "SubcategoryMethods" is incompatible with definition in base class "SubcategoryMethods"  [misc]`
-- `category_specs/rings/__init__.py:2004: error: "LazyImport" not callable  [operator]`
-- `category_specs/rings/__init__.py:2050: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/rings/__init__.py:2057: error: Argument 1 to "category_of" of "FunctorialConstructionCategory" has incompatible type "SubcategoryMethods"; expected "Category"  [arg-type]`
-- `category_specs/rings/__init__.py:2064: error: Argument 1 to "Algebras" has incompatible type "_RingObjectMethods"; expected "CategoryObject"  [arg-type]`
-- `category_specs/rings/__init__.py:2074: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
-- `category_specs/rings/__init__.py:2089: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
-- `category_specs/rings/__init__.py:2104: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
-- `category_specs/rings/__init__.py:2119: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
-- `category_specs/rings/__init__.py:2130: error: "Category" has no attribute "Quotients"  [attr-defined]`
-- `category_specs/rings/__init__.py:2142: error: "Category" has no attribute "Subobjects"  [attr-defined]`
-- `category_specs/rings/__init__.py:2167: error: Incompatible types in assignment (expression has type "type[RingHomCategory]", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
+- `category_specs/rings/__init__.py:1973: error: Incompatible return value type (got "tuple[Rings]", expected "tuple[Category, ...]")  [return-value]`
+- `category_specs/rings/__init__.py:1977: error: Return type "list[category_specs.cat.base_category_types.Category]" of "super_categories" incompatible with return type "list[sage.categories.category.Category]" in supertype "sage.categories.category.Category"  [override]`
+- `category_specs/rings/__init__.py:1980: error: List item 0 has incompatible type "Sets"; expected "Category"  [list-item]`
+- `category_specs/rings/__init__.py:1980: error: List item 1 has incompatible type "Rings"; expected "Category"  [list-item]`
+- `category_specs/rings/__init__.py:1991: error: Return type "Category" of "Commutative" incompatible with return type "Commutative" in supertype "sage.categories.magmas.Magmas.SubcategoryMethods"  [override]`
+- `category_specs/rings/__init__.py:2072: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:2087: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:2102: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:2117: error: "Category" has no attribute "RingsUnder"  [attr-defined]`
+- `category_specs/rings/__init__.py:2128: error: "Category" has no attribute "Quotients"  [attr-defined]`
+- `category_specs/rings/__init__.py:2140: error: "Category" has no attribute "Subobjects"  [attr-defined]`
+- `category_specs/rings/__init__.py:2165: error: Incompatible types in assignment (expression has type "type[RingHomCategory]", base class "Category" defined the type as "Callable[[], Category]")  [assignment]`
 - `.cache/sage-mypy-plugin/consumer-structural/negative_consumer_probe.py:5: error: Incompatible types in assignment (expression has type "int", variable has type "_SetObjectMethods")  [assignment]`
 
 ## Projection Hook Trace

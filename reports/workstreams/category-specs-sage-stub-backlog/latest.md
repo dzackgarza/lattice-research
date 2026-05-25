@@ -6,18 +6,18 @@ discovery queue, not a request for `sage-stubs` to analyze
 the research ledger, and not a claim about local wrappers.
 
 - source_ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
-- ordinary_error_count: 1791
+- ordinary_error_count: 1717
 - sage_stubs_owned_row_count: 370
-- non_sage_stubs_row_count: 1421
+- non_sage_stubs_row_count: 1347
 - external_issue: `dzackgarza/sage-stubs#5`
 - local_and_math_records: existing QC task cards under
   `.agents/plans/features/FEATURE-QC-WARNINGS-ZERO/`
 
 ## Toolchain
 
-- research_sha: `076f669f81694770e28b4bd332e4375aca1a8524`
-- plugin_sha: `c231ac89da769434380dd95e499f5b64680636ae`
-- sidecar_sha: `72e6cf8b2bf131df5cb44ae1713e304a4a5f7a67`
+- research_sha: `f4463040cde2a44ff83266a5e0887750f6ae42e6`
+- plugin_sha: `322c1eb9174ca779c8d833ea855e6305d19cff04`
+- sidecar_sha: `1bd762a0227ca87eb863c266eb59679c45fdf2e4`
 
 ## Families
 

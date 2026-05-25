@@ -7,9 +7,9 @@ correctness, not downstream ledger reduction.
 Accepted salvage is in `1440c8ff`. The old rejected history remains reachable at
 `safety/pre-purge-20260525-category-spec-ledger-gaming`.
 
-No post-salvage ledger refresh is committed here. The existing mypy ledger remains
-the pre-salvage artifact until the report recipes are rerun from the accepted
-source state.
+The post-salvage report refresh records `ordinary_error_count: 1717` and preserves
+the 370-row `sage-stubs` external subset. Treat that ledger as diagnostic evidence
+of the accepted source state, not as completion of `sage-stubs` issue #5.
 
 ## Accepted Source-Grounded Hunks
 
