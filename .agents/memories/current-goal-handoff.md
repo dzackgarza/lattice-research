@@ -53,9 +53,11 @@ authorities for status, evidence, dependencies, and completed work.
   opacity changes. The residual ring singleton/precision/valuation/default
   family is dispositioned: keep only the already accepted polynomial-completion
   `infinity` spelling, reject `Integer(0/1)` default rewrites and ring
-  predicate/precision `@override` removals.
-  Next inspect another undischarged hunk family from
-  `git diff --unified=0 9769adf2..origin/main -- category_specs`.
+  predicate/precision `@override` removals. The purge audit now records a
+  source coverage checkpoint for all 99 changed `category_specs` source files
+  in `9769adf2..origin/main`; next inspect/resolve the modified generated report
+  files in the worktree and run the remaining validation/cleanup needed before
+  any completion claim.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
   rerun downstream reports only after reinstalling that branch. Do not make
   consumer edits in `category_specs` as proof of stub completion.
