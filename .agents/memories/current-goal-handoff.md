@@ -33,7 +33,10 @@ authorities for status, evidence, dependencies, and completed work.
   `reports/workstreams/category-specs-purge-audit/latest.md`. The current
   post-purge hunk audit has explicitly dispositioned the
   `category_specs/forms/subcategories` decorator-removal family and the
-  `category_specs/rings/subcategories/rational_field.py` family as rejected.
+  `category_specs/rings/subcategories/rational_field.py` family as rejected,
+  plus the `SageCategory` return/cast and selector-weakening family across
+  `category_specs/algebras`, `category_specs/topological_spaces`, and
+  `category_specs/posets`.
   Next inspect another undischarged hunk family from
   `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
