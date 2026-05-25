@@ -15,9 +15,10 @@ authorities for status, evidence, dependencies, and completed work.
 - Current history has been reset to the pre-ledger-gaming frontier plus clean
   salvage commits. Treat the old purged commits as rejected; mine only through
   source-grounded replacement commits, not by replaying their ledger-driven units.
-- The active QC frontier is again the 1791 ordinary diagnostic ledger with the
-  370-row `sage-stubs` external subset visible in
-  `reports/workstreams/category-specs-sage-stub-backlog/latest.md`.
+- The last committed ledger artifact is still the 1791 ordinary diagnostic
+  pre-salvage frontier with the 370-row `sage-stubs` external subset visible in
+  `reports/workstreams/category-specs-sage-stub-backlog/latest.md`; rerun reports
+  before using a post-salvage ordinary-error count.
 - Do not claim `sage-stubs` issue #5 progress from consumer-side
   `category_specs` edits. Completion requires source-backed stub work in
   `sage-stubs`, no reclassification-only closure, no local casts, no

@@ -7,6 +7,10 @@ correctness, not downstream ledger reduction.
 Accepted salvage is in `1440c8ff`. The old rejected history remains reachable at
 `safety/pre-purge-20260525-category-spec-ledger-gaming`.
 
+No post-salvage ledger refresh is committed here. The existing mypy ledger remains
+the pre-salvage artifact until the report recipes are rerun from the accepted
+source state.
+
 ## Accepted Source-Grounded Hunks
 
 | Source commits | Kept in `1440c8ff` | Source basis |
