@@ -36,7 +36,9 @@ authorities for status, evidence, dependencies, and completed work.
   `category_specs/rings/subcategories/rational_field.py` family as rejected,
   plus the `SageCategory` return/cast and selector-weakening family across
   `category_specs/algebras`, `category_specs/topological_spaces`, and
-  `category_specs/posets`.
+  `category_specs/posets`, and the module constructor/cast/decorator-removal
+  family in `category_specs/modules` except for the already accepted
+  finite-rank and ordered-basis hunks.
   Next inspect another undischarged hunk family from
   `git diff --unified=0 9769adf2..origin/main -- category_specs`.
 - If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and
