@@ -150,92 +150,92 @@ class _RModObjects:
     @abstractmethod
     def base_ring(self) -> Ring: ...
 
-    def is_over_integral_domain(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_integral_domain(self) -> bool: ...
 
-    def is_over_dedekind_domain(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_dedekind_domain(self) -> bool: ...
 
-    def is_over_pid(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_pid(self) -> bool: ...
 
-    def is_over_commutative_ring(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_commutative_ring(self) -> bool: ...
 
-    def is_over_field(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_field(self) -> bool: ...
 
-    def is_over_local_ring(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_local_ring(self) -> bool: ...
 
-    def is_over_complete_ring(self) -> bool:
-        return False
+    @abstractmethod
+    def is_over_complete_ring(self) -> bool: ...
 
-    def is_free(self) -> bool:
-        return False
+    @abstractmethod
+    def is_free(self) -> bool: ...
 
-    def is_torsion(self) -> bool:
-        return False
+    @abstractmethod
+    def is_torsion(self) -> bool: ...
 
-    def is_torsionfree(self) -> bool:
-        return False
+    @abstractmethod
+    def is_torsionfree(self) -> bool: ...
 
-    def is_projective(self) -> bool:
-        return False
+    @abstractmethod
+    def is_projective(self) -> bool: ...
 
-    def is_finite(self) -> bool:
-        return False
+    @abstractmethod
+    def is_finite(self) -> bool: ...
 
-    def has_ordered_generating_set(self) -> bool:
-        return False
+    @abstractmethod
+    def has_ordered_generating_set(self) -> bool: ...
 
-    def has_basis(self) -> bool:
-        return False
+    @abstractmethod
+    def has_basis(self) -> bool: ...
 
-    def has_ordered_basis(self) -> bool:
-        return False
+    @abstractmethod
+    def has_ordered_basis(self) -> bool: ...
 
-    def is_finitely_generated(self) -> bool:
-        return False
+    @abstractmethod
+    def is_finitely_generated(self) -> bool: ...
 
-    def is_finitely_presented(self) -> bool:
-        return False
+    @abstractmethod
+    def is_finitely_presented(self) -> bool: ...
 
-    def is_ideal(self) -> bool:
-        return False
+    @abstractmethod
+    def is_ideal(self) -> bool: ...
 
-    def has_form(self) -> bool:
-        return False
+    @abstractmethod
+    def has_form(self) -> bool: ...
 
-    def is_bilinear(self) -> bool:
-        return False
+    @abstractmethod
+    def is_bilinear(self) -> bool: ...
 
-    def is_quadratic(self) -> bool:
-        return False
+    @abstractmethod
+    def is_quadratic(self) -> bool: ...
 
-    def is_lattice(self) -> bool:
-        return False
+    @abstractmethod
+    def is_lattice(self) -> bool: ...
 
-    def is_representation_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_representation_module(self) -> bool: ...
 
-    def is_free_graded_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_free_graded_module(self) -> bool: ...
 
-    def is_finitely_presented_graded_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_finitely_presented_graded_module(self) -> bool: ...
 
-    def is_graded(self) -> bool:
-        return False
+    @abstractmethod
+    def is_graded(self) -> bool: ...
 
-    def is_ore_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_ore_module(self) -> bool: ...
 
-    def is_torsion_quadratic_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_torsion_quadratic_module(self) -> bool: ...
 
-    def is_ring_object_as_module(self) -> bool:
-        return False
+    @abstractmethod
+    def is_ring_object_as_module(self) -> bool: ...
 
     @_cached_method
     @final
