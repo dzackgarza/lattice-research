@@ -1,4 +1,4 @@
-r"""QuotientFields ring subcategory spec."""
+r"""FractionFields ring subcategory spec."""
 
 from __future__ import annotations
 
@@ -13,8 +13,8 @@ if TYPE_CHECKING:
     pass
 
 
-class _QuotientFields(Category_singleton):
-    r"""Quotient fields.
+class _FractionFields(Category_singleton):
+    r"""Fraction fields.
 
     Constructor target: field constructors whose objects are fraction fields,
     including ``QQ``, refine through this category.
@@ -23,7 +23,7 @@ class _QuotientFields(Category_singleton):
     @override
     @final
     def _repr_object_names(self) -> str:
-        return "quotient fields"
+        return "fraction fields"
 
     @override
     @final
@@ -33,12 +33,12 @@ class _QuotientFields(Category_singleton):
     @override
     @final
     def __contains__(self, R: Any) -> bool:
-        return R in SageQuotientFields() or (R in _Fields() and R.is_quotient_field())
+        return R in SageQuotientFields() or (R in _Fields() and R.is_fraction_field())
 
     class ParentMethods:
         @override
         @final
-        def is_quotient_field(self) -> bool:
+        def is_fraction_field(self) -> bool:
             return True
 
     class ElementMethods: ...

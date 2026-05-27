@@ -143,8 +143,8 @@ _QuadraticNumberFields = LazyImport(
 _CyclotomicFields = LazyImport(
     "category_specs.rings.subcategories.cyclotomic_field", "_CyclotomicFields"
 )
-_QuotientFields = LazyImport(
-    "category_specs.rings.subcategories.quotient_field", "_QuotientFields"
+_FractionFields = LazyImport(
+    "category_specs.rings.subcategories.fraction_field", "_FractionFields"
 )
 _PAdicRings = LazyImport(
     "category_specs.rings.subcategories.p_adic_ring", "_PAdicRings"
@@ -313,7 +313,7 @@ class _RingObjectMethods:
     def is_number_field(self) -> bool: ...
 
     @abstractmethod
-    def is_quotient_field(self) -> bool: ...
+    def is_fraction_field(self) -> bool: ...
 
     @abstractmethod
     def is_local_ring(self) -> bool: ...
@@ -407,8 +407,7 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement:
-        ...
+    ) -> RingElement: ...
 
     @overload
     def nth_root(
@@ -419,8 +418,7 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> list[RingElement]:
-        ...
+    ) -> list[RingElement]: ...
 
     @overload
     def nth_root(
@@ -431,8 +429,7 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement | list[RingElement]:
-        ...
+    ) -> RingElement | list[RingElement]: ...
 
     @abstractmethod
     def nth_root(
@@ -443,8 +440,7 @@ class _RingElementMethods:
         algorithm: str | None = None,
         cunningham: bool = False,
         prec: Integer | None = None,
-    ) -> RingElement | list[RingElement]:
-        ...
+    ) -> RingElement | list[RingElement]: ...
 
     @overload
     def sqrt(
@@ -563,8 +559,7 @@ class _RingIdealParentMethods:
         coefficient_lower_bound: Integer | None = None,
         coefficient_upper_bound: Integer | None = None,
         distribution: str | None = None,
-    ) -> RingElement:
-        ...
+    ) -> RingElement: ...
 
 
 class _RingIdealElementMethods:

@@ -12,9 +12,8 @@ from ...cat import Category, Category_singleton
 from .. import Rings
 from ._lazy_subcategories import (
     _Fields,
-    _GlobalFields,
+    _FractionFields,
     _NumberFields,
-    _QuotientFields,
 )
 
 _F = TypeVar("_F", bound=Callable[..., object])
@@ -50,9 +49,8 @@ class _QQ(Category_singleton):
     def super_categories(self) -> list[Category]:
         return [
             _Fields(),
-            _QuotientFields(),
+            _FractionFields(),
             _NumberFields(),
-            _GlobalFields(),
             Rings().Characteristic(0),
         ]
 

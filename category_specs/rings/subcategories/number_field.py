@@ -45,7 +45,7 @@ class _NumberFields(CategoryWithAxiom):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [SageNumberFields(), _Fields()]
+        return [SageNumberFields(), _GlobalFields(), _Fields()]
 
     @override
     @final
@@ -188,9 +188,7 @@ class _NumberFields(CategoryWithAxiom):
         def real_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstractmethod
-        def complex_embeddings(
-            self, prec: int = 53
-        ) -> tuple[RingMorphism, ...]: ...
+        def complex_embeddings(self, prec: int = 53) -> tuple[RingMorphism, ...]: ...
 
         @abstractmethod
         def roots_of_unity(self) -> list[RingElement]: ...
