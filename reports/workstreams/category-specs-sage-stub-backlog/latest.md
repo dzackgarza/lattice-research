@@ -1,14 +1,14 @@
 # Category Specs Sage Stub External Blockers
 
-This report is the classified `sage-stubs`-owned external subset for the current
-`category_specs` QC frontier.
-It is not an unclassified discovery queue, not a request for `sage-stubs` to analyze the
-research ledger, and not a claim about local wrappers.
+This report is the classified `sage-stubs`-owned external subset for the
+current `category_specs` QC frontier. It is not an unclassified
+discovery queue, not a request for `sage-stubs` to analyze
+the research ledger, and not a claim about local wrappers.
 
 - source_ledger: `reports/workstreams/category-specs-mypy-ledger/latest.json`
 - ordinary_error_count: 1717
-- sage_stubs_owned_row_count: 337
-- non_sage_stubs_row_count: 1380
+- sage_stubs_owned_row_count: 370
+- non_sage_stubs_row_count: 1347
 - external_issue: `dzackgarza/sage-stubs#5`
 - local_and_math_records: existing QC task cards under
   `.agents/plans/features/FEATURE-QC-WARNINGS-ZERO/`
@@ -18,29 +18,6 @@ research ledger, and not a claim about local wrappers.
 - research_sha: `f4463040cde2a44ff83266a5e0887750f6ae42e6`
 - plugin_sha: `322c1eb9174ca779c8d833ea855e6305d19cff04`
 - sidecar_sha: `1bd762a0227ca87eb863c266eb59679c45fdf2e4`
-
-## Purge History
-
-On 2026-05-27, the following 6 families were removed after per-row audit confirmed they
-are internal `ParentMethods`/`ElementMethods` diagnostics, not external stub work:
-
-- `STUB-POSETS-PARENTMETHODS-ORDER` (8 rows) — `ParentMethods` methods are abstract
-  specifications, not Sage calls.
-- `STUB-FINITEPOSETS-SEMILATTICE-AND-CERTIFICATES` (8 rows) — `ParentMethods` methods
-  are abstract specifications, not Sage calls.
-- `STUB-RATIONALFIELD-MISSING-PUBLIC-METHODS` (10 rows) — internal override chain
-  (`_QQ.ParentMethods` overriding `_NumberFields.ParentMethods`), not missing Sage stub.
-- `STUB-REALSET-PARENT-AN-ELEMENT` (1 row) — `ParentMethods._an_element_` is an abstract
-  specification, not a direct Sage call.
-- `STUB-IMAGESUBOBJECT-PARENT-AN-ELEMENT` (1 row) — `ParentMethods._an_element_` is an
-  abstract specification, not a direct Sage call.
-- `STUB-FINITE-RANK-FREE-MODULE-METHODS` (5 rows) — `ParentMethods` methods are abstract
-  specifications, not Sage calls.
-
-These families violated the rule: methods in `ParentMethods`, `ElementMethods`, or
-`SubcategoryMethods` are abstract specifications, not implementations that call Sage
-runtime code. They do not need external stubs.
-See memory `category-spec-methods-are-abstract.md`.
 
 ## Families
 
@@ -116,6 +93,15 @@ See memory `category-spec-methods-are-abstract.md`.
 - acceptance: Covered rows disappear after the stub surface is fixed.
 - falsifier: The task card states the family-specific falsifier.
 
+### STUB-POSETS-PARENTMETHODS-ORDER
+
+- rows: 8
+- surface: Posets.ParentMethods order methods
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
 ### STUB-INTEGER-CONSTRUCTOR-AND-PROTOCOL
 
 - rows: 26
@@ -161,6 +147,15 @@ See memory `category-spec-methods-are-abstract.md`.
 - acceptance: Covered rows disappear after the stub surface is fixed.
 - falsifier: The task card states the family-specific falsifier.
 
+### STUB-FINITEPOSETS-SEMILATTICE-AND-CERTIFICATES
+
+- rows: 8
+- surface: FinitePoset semilattice and certificates
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
 ### STUB-INFINITY-NEGATION
 
 - rows: 3
@@ -179,10 +174,55 @@ See memory `category-spec-methods-are-abstract.md`.
 - acceptance: Covered rows disappear after the stub surface is fixed.
 - falsifier: The task card states the family-specific falsifier.
 
+### STUB-RATIONALFIELD-MISSING-PUBLIC-METHODS
+
+- rows: 10
+- surface: RationalField public methods
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-REALSET-PARENT-AN-ELEMENT
+
+- rows: 1
+- surface: RealSet._an_element_
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-IMAGESUBOBJECT-PARENT-AN-ELEMENT
+
+- rows: 1
+- surface: ImageSubobject._an_element_
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
 ### STUB-REAL-ABC-TO-PREC
 
 - rows: 3
 - surface: real-field to_prec protocol
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-MATRIXSPACE-PARENT-BASE
+
+- rows: 1
+- surface: MatrixSpace inherits Parent
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-SAGE-CATEGORY-MEMBERSHIP-SURFACES
+
+- rows: 23
+- surface: Sage category membership
 - selector: Exact selector is recorded in the stub task card.
 - evidence: Source/runtime evidence is recorded in the task card.
 - acceptance: Covered rows disappear after the stub surface is fixed.
@@ -201,6 +241,15 @@ See memory `category-spec-methods-are-abstract.md`.
 
 - rows: 1
 - surface: Category.additional_structure
+- selector: Exact selector is recorded in the stub task card.
+- evidence: Source/runtime evidence is recorded in the task card.
+- acceptance: Covered rows disappear after the stub surface is fixed.
+- falsifier: The task card states the family-specific falsifier.
+
+### STUB-FINITE-RANK-FREE-MODULE-METHODS
+
+- rows: 5
+- surface: finite-rank free-module methods
 - selector: Exact selector is recorded in the stub task card.
 - evidence: Source/runtime evidence is recorded in the task card.
 - acceptance: Covered rows disappear after the stub surface is fixed.
