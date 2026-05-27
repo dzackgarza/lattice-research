@@ -11,7 +11,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = (
-    ROOT / "reports" / "workstreams" / "category-specs-mypy-structural-full" / "latest.json"
+    ROOT
+    / "reports"
+    / "workstreams"
+    / "category-specs-mypy-structural-full"
+    / "latest.json"
 )
 DEFAULT_OUTPUT_DIR = ROOT / "reports" / "workstreams" / "category-specs-mypy-ledger"
 ERROR_RE = re.compile(
@@ -34,12 +38,27 @@ def classify_owner(path: str, code: str, message: str) -> str:
     if path.startswith(".cache/"):
         return "plugin projection"
     if "no base method was found" in message:
+        # These are @override errors where mypy cannot see the base method.
+        # If the file is inside category_specs, the base method is almost always
+        # an internal ParentMethods/ElementMethods/SubcategoryMethods method
+        # that exists in the spec but is invisible to the plugin because of
+        # dynamic method-container inheritance or graph incompleteness.
+        # It is a plugin/category-graph issue, not a missing external stub.
+        if path.startswith("category_specs/"):
+            return "mypy-plugin dynamic method-container inheritance"
         return "missing sidecar ordinary signature"
     if 'Module "sage.' in message and "has no attribute" in message:
         return "missing sidecar ordinary signature"
     if code == "attr-defined" and ("sage." in message or "Morphism" in message):
         return "missing sidecar ordinary signature"
-    if code in {"arg-type", "return-value", "assignment", "list-item", "type-var", "operator"}:
+    if code in {
+        "arg-type",
+        "return-value",
+        "assignment",
+        "list-item",
+        "type-var",
+        "operator",
+    }:
         return "research typing/design"
     if code == "override":
         return "research typing/design"
@@ -83,9 +102,9 @@ def parse_errors(lines: list[str]) -> list[dict[str, Any]]:
 
 
 def is_canary_negative_control(entry: dict[str, Any]) -> bool:
-    return str(entry["path"]).startswith(".cache/") and "negative_consumer_probe.py" in str(
-        entry["path"]
-    )
+    return str(entry["path"]).startswith(
+        ".cache/"
+    ) and "negative_consumer_probe.py" in str(entry["path"])
 
 
 def counts(entries: list[dict[str, Any]], key: str) -> dict[str, int]:
@@ -93,7 +112,9 @@ def counts(entries: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(sorted(counter.items(), key=lambda item: (-item[1], item[0])))
 
 
-def top_examples(entries: list[dict[str, Any]], limit: int = 30) -> list[dict[str, Any]]:
+def top_examples(
+    entries: list[dict[str, Any]], limit: int = 30
+) -> list[dict[str, Any]]:
     seen: set[tuple[str, str]] = set()
     examples: list[dict[str, Any]] = []
     for entry in entries:
@@ -145,7 +166,9 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Group category_specs mypy diagnostics.")
+    parser = argparse.ArgumentParser(
+        description="Group category_specs mypy diagnostics."
+    )
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args()
@@ -153,10 +176,16 @@ def main() -> int:
     source = args.input
     data = json.loads(source.read_text(encoding="utf-8"))
     parsed_entries = parse_errors(data.get("mypy_errors", []))
-    ignored_entries = [entry for entry in parsed_entries if is_canary_negative_control(entry)]
-    entries = [entry for entry in parsed_entries if not is_canary_negative_control(entry)]
+    ignored_entries = [
+        entry for entry in parsed_entries if is_canary_negative_control(entry)
+    ]
+    entries = [
+        entry for entry in parsed_entries if not is_canary_negative_control(entry)
+    ]
     payload = {
-        "source_artifact": str(source.relative_to(ROOT) if source.is_relative_to(ROOT) else source),
+        "source_artifact": str(
+            source.relative_to(ROOT) if source.is_relative_to(ROOT) else source
+        ),
         "toolchain": {
             "research_sha": git_sha(ROOT),
             "plugin_sha": git_sha(Path("/home/dzack/sage-mypy-plugin")),
@@ -189,7 +218,9 @@ def main() -> int:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / "latest.json"
     md_path = args.output_dir / "latest.md"
-    json_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    json_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     write_markdown(payload, md_path)
     print(f"wrote {json_path}")
     print(f"wrote {md_path}")

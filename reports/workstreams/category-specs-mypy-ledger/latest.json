@@ -1,39 +1,39 @@
 {
   "counts_by_code": {
+    "abstract": 41,
     "arg-type": 235,
     "assignment": 57,
-    "misc": 529,
-    "override": 423,
+    "attr-defined": 98,
+    "call-arg": 13,
+    "call-overload": 3,
     "list-item": 256,
+    "misc": 529,
+    "no-redef": 11,
+    "operator": 22,
+    "override": 423,
+    "return": 4,
     "return-value": 45,
     "type-var": 2,
-    "return": 4,
-    "no-redef": 11,
-    "valid-type": 1,
-    "attr-defined": 98,
-    "abstract": 41,
-    "call-arg": 13,
-    "operator": 22,
-    "call-overload": 3
+    "valid-type": 1
   },
   "counts_by_owner": {
-    "research typing/design": 1275,
     "mathematical/category-interface question": 369,
-    "mypy-plugin dynamic method-container inheritance": 96
+    "mypy-plugin dynamic method-container inheritance": 96,
+    "research typing/design": 1275
   },
   "counts_by_root_area": {
-    "cat": 134,
-    "homsets": 35,
-    "topological_spaces": 50,
-    "sets": 347,
-    "modules": 277,
-    "lattices": 62,
     "algebras": 223,
+    "cat": 134,
+    "constructor_redefinitions.py": 2,
+    "forms": 54,
+    "homsets": 35,
+    "lattices": 62,
+    "modules": 277,
     "posets": 97,
     "rings": 439,
-    "constructor_redefinitions.py": 2,
+    "sets": 347,
     "tensor_algebra_components": 20,
-    "forms": 54
+    "topological_spaces": 50
   },
   "errors": [
     {
@@ -15810,7 +15810,7 @@
       "code": "misc",
       "line": 80,
       "message": "Method \"quotient_module\" is marked as an override, but no base method was found with this name",
-      "owner": "missing sidecar ordinary signature",
+      "owner": "mypy-plugin dynamic method-container inheritance",
       "path": "category_specs/modules/subcategories/constructions/quotients.py",
       "raw": "category_specs/modules/subcategories/constructions/quotients.py:80: error: Method \"quotient_module\" is marked as an override, but no base method was found with this name  [misc]",
       "root_area": "modules"
@@ -15880,7 +15880,7 @@
   },
   "toolchain": {
     "plugin_sha": "322c1eb9174ca779c8d833ea855e6305d19cff04",
-    "research_sha": "32719f30046767479f97cb3931b3c095c8201d87",
-    "sidecar_sha": "6cf690b75a8d1afed14df8b6535c05141e9ac29d"
+    "research_sha": "c3e276ba41168191a146c5a3fa8dc922f74a4307",
+    "sidecar_sha": "97ae58f07a403b650be8f62d0c4a1208925285d4"
   }
 }
