@@ -2023,12 +2023,12 @@ class Rings(Category_singleton):
         @_cached_method
         @final
         def PowerSeries(self) -> Category:
-            return cast(Category, with_axiom(self, "PowerSeries"))
+            return self.PuiseuxSeries().LaurentSeries().PowerSeries()
 
         @_cached_method
         @final
         def LaurentSeries(self) -> Category:
-            return cast(Category, with_axiom(self, "LaurentSeries"))
+            return self.PuiseuxSeries().LaurentSeries()
 
         @_cached_method
         @final

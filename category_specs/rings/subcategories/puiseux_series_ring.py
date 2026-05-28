@@ -44,6 +44,16 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
             or isinstance(R, self.parent_class)
         )
 
+    LaurentSeriesRings = LazyImport(
+        "category_specs.rings.subcategories.laurent_series_ring",
+        "_LaurentSeriesRings",
+    )
+
+    class SubcategoryMethods:
+        @final
+        def LaurentSeries(self) -> Category:
+            return cast(Any, with_axiom(self, "LaurentSeries"))
+
     class ParentMethods:
         @override
         @final

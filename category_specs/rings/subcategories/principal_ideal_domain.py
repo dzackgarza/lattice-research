@@ -11,7 +11,6 @@ from sage.categories.principal_ideal_domains import (
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ._lazy_subcategories import _UniqueFactorizationDomains
-from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     from ...types import (
@@ -22,10 +21,10 @@ if TYPE_CHECKING:
 
 class _PrincipalIdealDomains(CategoryWithAxiom):
     r"""Canonical chain:
-    ``Rings().Commutative().IntegralDomains().PrincipalIdeal()``.
+    ``Rings().Commutative().IntegralDomains().Gcd().UniqueFactorization().PrincipalIdeal()``.
     """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "PrincipalIdeal")
+    _base_category_class_and_axiom = (_UniqueFactorizationDomains, "PrincipalIdeal")
 
     @override
     @final
@@ -43,6 +42,15 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
         return R in SagePrincipalIdealDomains() or (
             R in self.base_category() and R.is_pid()
         )
+
+    EuclideanDomains = LazyImport(
+        "category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains"
+    )
+
+    class SubcategoryMethods:
+        @final
+        def Euclidean(self) -> Category:
+            return cast(Any, with_axiom(self, "Euclidean"))
 
     class ParentMethods:
         @override

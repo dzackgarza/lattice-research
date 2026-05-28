@@ -6,9 +6,11 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.gcd_domains import GcdDomains as SageGcdDomains
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
+from ...utils import with_axiom
 from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
@@ -38,6 +40,16 @@ class _GcdDomains(CategoryWithAxiom):
         return R in SageGcdDomains() or (
             R in self.base_category() and R.is_gcd_domain()
         )
+
+    UniqueFactorizationDomains = LazyImport(
+        "category_specs.rings.subcategories.unique_factorization_domain",
+        "_UniqueFactorizationDomains",
+    )
+
+    class SubcategoryMethods:
+        @final
+        def UniqueFactorization(self) -> Category:
+            return cast(Any, with_axiom(self, "UniqueFactorization"))
 
     class ParentMethods:
         @override

@@ -77,17 +77,17 @@ class _IntegralDomains(CategoryWithAxiom):
         @_cached_method
         @final
         def UniqueFactorization(self) -> Category:
-            return cast(Category, with_axiom(self, "UniqueFactorization"))
+            return self.Gcd().UniqueFactorization()
 
         @_cached_method
         @final
         def PrincipalIdeal(self) -> Category:
-            return cast(Category, with_axiom(self, "PrincipalIdeal"))
+            return self.Gcd().UniqueFactorization().PrincipalIdeal()
 
         @_cached_method
         @final
         def Euclidean(self) -> Category:
-            return cast(Category, with_axiom(self, "Euclidean"))
+            return self.Gcd().UniqueFactorization().PrincipalIdeal().Euclidean()
 
         @_cached_method
         @final
@@ -97,7 +97,7 @@ class _IntegralDomains(CategoryWithAxiom):
         @_cached_method
         @final
         def Dedekind(self) -> Category:
-            return cast(Category, with_axiom(self, "Dedekind"))
+            return self.IntegrallyClosed().Dedekind()
 
     class ParentMethods:
         @abstractmethod
@@ -110,8 +110,7 @@ class _IntegralDomains(CategoryWithAxiom):
             names: str | Sequence[str] | None = None,
             normalize: bool = True,
             category: Category | None = None,
-        ) -> LocalRing:
-            ...
+        ) -> LocalRing: ...
 
     class ElementMethods:
         @abstractmethod

@@ -13,16 +13,17 @@ from ._lazy_subcategories import (
     _IntegrallyClosedDomains,
     _NoetherianRings,
 )
-from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass
 
 
 class _DedekindDomains(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().IntegralDomains().Dedekind()``."""
+    r"""Canonical chain:
+    ``Rings().Commutative().IntegralDomains().IntegrallyClosed().Dedekind()``.
+    """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "Dedekind")
+    _base_category_class_and_axiom = (_IntegrallyClosedDomains, "Dedekind")
 
     @override
     @final

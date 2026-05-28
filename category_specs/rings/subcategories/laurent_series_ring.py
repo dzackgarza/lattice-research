@@ -10,7 +10,6 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import Rings
 from ._lazy_subcategories import _PuiseuxSeriesRings
 from ._sage_ring_classes import _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
 
@@ -23,9 +22,9 @@ if TYPE_CHECKING:
 
 
 class _LaurentSeriesRings(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().LaurentSeries()``."""
+    r"""Canonical chain: ``Rings().PuiseuxSeries().LaurentSeries()``."""
 
-    _base_category_class_and_axiom = (Rings, "LaurentSeries")
+    _base_category_class_and_axiom = (_PuiseuxSeriesRings, "LaurentSeries")
 
     @override
     @final
@@ -44,6 +43,15 @@ class _LaurentSeriesRings(CategoryWithAxiom):
             isinstance(R, _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES)
             or isinstance(R, self.parent_class)
         )
+
+    PowerSeriesRings = LazyImport(
+        "category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings"
+    )
+
+    class SubcategoryMethods:
+        @final
+        def PowerSeries(self) -> Category:
+            return cast(Any, with_axiom(self, "PowerSeries"))
 
     class ParentMethods:
         @override

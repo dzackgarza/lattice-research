@@ -36,6 +36,15 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_integrally_closed()
 
+    DedekindDomains = LazyImport(
+        "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
+    )
+
+    class SubcategoryMethods:
+        @final
+        def Dedekind(self) -> Category:
+            return cast(Any, with_axiom(self, "Dedekind"))
+
     class ParentMethods:
         @final
         def is_integrally_closed(self) -> bool:

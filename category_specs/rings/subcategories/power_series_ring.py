@@ -10,7 +10,6 @@ from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from .. import Rings
 from ._lazy_subcategories import _LaurentSeriesRings
 from ._sage_ring_classes import _SAGE_POWER_SERIES_RING_CLASSES
 
@@ -23,9 +22,9 @@ if TYPE_CHECKING:
 
 
 class _PowerSeriesRings(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().PowerSeries()``."""
+    r"""Canonical chain: ``Rings().PuiseuxSeries().LaurentSeries().PowerSeries()``."""
 
-    _base_category_class_and_axiom = (Rings, "PowerSeries")
+    _base_category_class_and_axiom = (_LaurentSeriesRings, "PowerSeries")
 
     @override
     @final

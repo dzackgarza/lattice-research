@@ -13,7 +13,6 @@ from sage.structure.factorization import Factorization
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ._lazy_subcategories import _GcdDomains
-from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
     pass
@@ -21,10 +20,10 @@ if TYPE_CHECKING:
 
 class _UniqueFactorizationDomains(CategoryWithAxiom):
     r"""Canonical chain:
-    ``Rings().Commutative().IntegralDomains().UniqueFactorization()``.
+    ``Rings().Commutative().IntegralDomains().Gcd().UniqueFactorization()``.
     """
 
-    _base_category_class_and_axiom = (_IntegralDomains, "UniqueFactorization")
+    _base_category_class_and_axiom = (_GcdDomains, "UniqueFactorization")
 
     @override
     @final
@@ -42,6 +41,16 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
         return R in SageUniqueFactorizationDomains() or (
             R in self.base_category() and R.is_unique_factorization_domain()
         )
+
+    PrincipalIdealDomains = LazyImport(
+        "category_specs.rings.subcategories.principal_ideal_domain",
+        "_PrincipalIdealDomains",
+    )
+
+    class SubcategoryMethods:
+        @final
+        def PrincipalIdeal(self) -> Category:
+            return cast(Any, with_axiom(self, "PrincipalIdeal"))
 
     class ElementMethods:
         @abstractmethod

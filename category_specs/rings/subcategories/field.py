@@ -24,7 +24,6 @@ from ._lazy_subcategories import (
     _NoetherianRings,
     _ReducedRings,
 )
-from .commutative import _CommutativeRings as _CommutativeRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -44,7 +43,7 @@ def _field_cached_method[_FieldCachedMethod: Callable[..., object]](
 class _Fields(CategoryWithAxiom):
     r"""Canonical chain: ``Rings().Commutative().Field()``."""
 
-    _base_category_class_and_axiom = (_CommutativeRings, "Field")
+    _base_category_class_and_axiom = (_EuclideanDomains, "Field")
 
     @override
     @final

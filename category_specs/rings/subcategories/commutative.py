@@ -72,7 +72,14 @@ class _CommutativeRings(CategoryWithAxiom):
         @_cached_method
         @final
         def Field(self) -> Category:
-            return cast(Category, with_axiom(self, "Field"))
+            return (
+                self.IntegralDomains()
+                .Gcd()
+                .UniqueFactorization()
+                .PrincipalIdeal()
+                .Euclidean()
+                .Field()
+            )
 
         @_cached_method
         @final
