@@ -1,106 +1,74 @@
 ---
 title: Current Goal Handoff
-referencedBy:
-- key: index
-  title: Agent Memories
+description: >
+  Routing checkpoint for lattice-research#6.
+  Last updated: 2026-05-28.
 ---
 # Current Goal Handoff
 
-Purpose: route the next session only.
-Cards, plans, and git history remain the authorities for status, evidence, dependencies,
-and completed work.
+## Goal
 
-## Active Goal Override
+`lattice-research#6`: Reclassify category_specs diagnostics before further sage-stubs
+offload.
 
-- Current history has been reset to the pre-ledger-gaming frontier plus clean salvage
-  commits. Treat the old purged commits as rejected; mine only through source-grounded
-  replacement commits, not by replaying their ledger-driven units.
-- The post-salvage reports should show `ordinary_error_count: 1717` and preserve the
-  370-row `sage-stubs` external subset in
-  `reports/workstreams/category-specs-sage-stub-backlog/latest.md`; use them as
-  diagnostics for the accepted source state, not as stub completion evidence.
-- Do not claim `sage-stubs` issue #5 progress from consumer-side `category_specs` edits.
-  Completion requires source-backed stub work in `sage-stubs`, no reclassification-only
-  closure, no local casts, no `Any`/`object` opacity, and no deleted
-  `@override`/`@final` obligations just to move ledger buckets.
+## Binding specification
 
-## Start Here
+Read in current session:
+- `.agents/current-goal-phase.md` — repo in spec phase.
+- `GOAL.md` — staged program; category-spec phase is prerequisite for downstream Coble
+  goals.
+- Issue #6 body and all comments via REST API (since `gh issue view` fails with GraphQL
+  deprecation).
 
-- Issue #6 (Reclassify category_specs diagnostics) is closed.
-  The ledger script now permanently classifies internal @override errors as 'mypy-plugin
-  dynamic method-container inheritance', not stub work.
-  Forward-facing code fixes from the issue are committed:
-  - _NumberFields.super_categories() now includes _GlobalFields() (NumberFields <=
-    GlobalFields <= Fields)
-  - _QuotientFields renamed to _FractionFields, is_quotient_field to is_fraction_field
-  - _QQ.super_categories() deduplicated (removed redundant _GlobalFields())
-  - All commits pushed to origin/main.
-- Continue from the current category-spec and semantic-vocabulary phase in
-  `.agents/current-goal-phase.md`.
-- Active purge goal pickup: continue the per-hunk salvage audit in
-  `reports/workstreams/category-specs-purge-audit/latest.md`. The current post-purge
-  hunk audit has explicitly dispositioned the `category_specs/forms/subcategories`
-  decorator-removal family and the
-  `category_specs/rings/subcategories/rational_field.py` family as rejected, plus the
-  `SageCategory` return/cast and selector-weakening family across
-  `category_specs/algebras`, `category_specs/topological_spaces`, and
-  `category_specs/posets`, and the module constructor/cast/decorator-removal family in
-  `category_specs/modules` except for the already accepted finite-rank and ordered-basis
-  hunks. The commutative-ring extension and polynomial/series extension-signature family
-  is also dispositioned: keep only the accepted polynomial completion `infinity`
-  spelling, reject the receiver casts, option suppression, broad keyword surface, and
-  literal `Integer(0)` rewrites.
-  The sets family is dispositioned: keep only Python protocol return fixes for
-  `__len__`/`__hash__`, reject `SageCategory` cast churn, widened `object`/Sage-atom
-  inputs, cardinality narrowing, decorator removals, and deleted `ImageSubobject`
-  obligations. The Hom/Aut and lattice family is dispositioned: keep the generic Hom/Aut
-  ownership fix and cleaned integral-lattice `LLL`/precise-cast salvage, reject the
-  lattice Hom inheritance rewrite, lattice construction `SageCategory` annotations,
-  over-Dedekind rank broadening/predicate deletion, and coupled `types.py` opacity
-  changes. The residual ring singleton/precision/valuation/default family is
-  dispositioned: keep only the already accepted polynomial-completion `infinity`
-  spelling, reject `Integer(0/1)` default rewrites and ring predicate/precision
-  `@override` removals.
-  The purge audit now records a source coverage checkpoint for all 99 changed
-  `category_specs` source files in `9769adf2..origin/main`; next verify the regenerated
-  report artifacts, commit the final refresh if clean, and finish validation/cleanup
-  before any completion claim.
-- If doing `sage-stubs` issue #5 work, work in the `sage-stubs` repo/branch and rerun
-  downstream reports only after reinstalling that branch.
-  Do not make consumer edits in `category_specs` as proof of stub completion.
-- If doing research-side category-spec work, pick an approved active leaf with
-  `just next-tasks 10` and IWE retrieval.
-  Source-ground the mathematical owner, public surface, hypotheses, and codomain before
-  editing.
+Issue acceptance criteria (Products A–E) are the blocking tasks.
+No further sage-stubs work is permitted until these products are committed.
 
-## Current Frontier
+## What is in progress
 
-- Safety reference for the rejected history:
-  `safety/pre-purge-20260525-category-spec-ledger-gaming`.
-- Do not use the purged `ordinary_error_count: 1166` ledger or any "no sage-stubs owner
-  bucket" report as project evidence.
-- The branch-local aligned source deltas after the purge are `dbcc98bb` (Hom/Aut
-  ownership), `1440c8ff` (source-grounded salvage hunks), and `758451c3` (durable purge
-  audit). The audit is `reports/workstreams/category-specs-purge-audit/latest.md`.
+- ~~Gathering repo context (ledger, structural reports, category graph code).~~
+- ~~Next: load required skills, then start Products A–B in parallel when possible.~~
 
-## Milestone Order
+**Product A complete** (commits `6124b0ce`, `1103e7ce`):
+- All 69 multi-parent categories transitive-reduced to immediate parents only.
+- All 10 axiom-base transitives rewired: UFD/PID/Euclidean/Field/Dedekind ring tower now
+  nested (not siblings), series tower (Power⊂Laurent⊂Puiseux) now nested.
+- Validator at `category_specs/validators/super_categories_validator.py` reports 0
+  explicit and 0 axiom-base transitives across all 207 categories.
+- `just validate-super-categories` exits 0, `just plan-validate` passes.
+- Pre-commit hook runs validator on `category_specs/**/*.py` changes.
+- `just test` (in `category_specs/justfile`) now gates on validator before Sage tests.
 
-- Resume real category-spec smoke/pathway work only after separating research-owned
-  mathematical obligations from stub/plugin obligations.
-- Finish ModulesWithForms and lattice vocabulary after the slice and category-spec
-  dependencies are settled.
-- Only then consider categorical implementation, universal categorical algorithms, and
-  downstream Coble work.
+Remaining products to start: B (override ownership audit), C (Sage boundary audit), D
+(corrected ledger), E (minimal plugin fixtures).
 
-## Collision Boundaries
+## What the next session should pick up
 
-- Treat `/home/dzack/sage-mypy-plugin` and its `sage-stubs` checkout as separate
-  source-stub work. Do not patch it opportunistically from the research repo.
-- Do not add local casts around `_with_axiom`, `category_of`, `refine_category`,
-  Hom/End/Aut selectors, callable parent projection, method-container aliases,
-  construction selectors, or provider assignment specialization unless the executing
-  card proves a source defect.
-- Do not replace construction selectors such as `TopologicalSpaces().Subobjects()` or
-  category return surfaces with Sage-category casts merely to satisfy mypy.
-- `MorphismMethods` is banned in category specs; morphism behavior belongs on the
-  relevant Hom-category `ElementMethods`.
+Product B — override ownership audit.
+Product A delivered the corrected category graph; B needs the graph to classify each
+`@override` diagnostic's ownership.
+
+## Non-goals for this session
+
+- Do NOT start writing stubs for sage-stubs.
+- Do NOT patch individual graph bugs without the full audit.
+- Do NOT export any internal @override row to sage-stubs scope.
+- Do NOT proceed to downstream Coble research or fixture creation until the
+  reclassification is committed.
+
+## Blockers that remain unchanged
+
+1. Minimal stub inventory — still needs constructor-boundary enumeration.
+2. Patch the process — still needs category graph inspection tooling.
+3. Crystallize mypy plugin failures — still needs minimal fixtures for plugin-red tests.
+
+## Verification gate
+
+Reviewer must answer from committed repo artifacts:
+1. Which exact Sage boundary calls require stubs?
+   (Product C)
+2. Which category edges are immediate and mathematically justified?
+   (Product A)
+3. Which @override errors are plugin failures needing fixtures?
+   (Product B / E)
+
+If answers require agent summaries or issue comments, work is not done.

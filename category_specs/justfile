@@ -337,7 +337,7 @@ check-abstract-redefinitions:
         f"across {len(provider_classes)} project method-provider classes."
     )
 
-test: smoke _clean-generated-artifacts
+test: validate-super-categories smoke _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
