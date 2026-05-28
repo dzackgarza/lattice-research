@@ -91,7 +91,38 @@ class ClassExtractor(ast.NodeVisitor):
                             self.entries[key] = existing
 
     def _extract_return_list(self, func: ast.FunctionDef) -> tuple[list[str], bool]:
-        """Extract parent names from a return statement containing a list literal."""
+        """Extract parent names from a return statement.
+
+        Handles two patterns:
+        1. return [A, B, ...]   (simple list literal)
+        2. cats = [A, B, ...]; if cond: cats.append(C); return cats  (constructed list)
+        """
+        # Pattern 2: look for a list assignment whose variable is later returned
+        for stmt in func.body:
+            if isinstance(stmt, (ast.Assign, ast.AnnAssign)):
+                # AnnAssign: cats: list[Category] = [A, B]
+                target = (
+                    stmt.target
+                    if isinstance(stmt, ast.AnnAssign)
+                    else stmt.targets[0]
+                    if stmt.targets
+                    else None
+                )
+                value = stmt.value
+                if isinstance(target, ast.Name) and isinstance(value, ast.List):
+                    var_name = target.id
+                    for later_stmt in func.body[func.body.index(stmt) + 1 :]:
+                        if isinstance(later_stmt, ast.Return):
+                            if (
+                                isinstance(later_stmt.value, ast.Name)
+                                and later_stmt.value.id == var_name
+                            ):
+                                parents, _ = self._extract_list_value(value)
+                                return parents, False
+                        elif isinstance(later_stmt, ast.Return):
+                            break
+
+        # Pattern 1: direct return list
         for stmt in func.body:
             if isinstance(stmt, ast.Return):
                 return self._extract_list_value(stmt.value)
