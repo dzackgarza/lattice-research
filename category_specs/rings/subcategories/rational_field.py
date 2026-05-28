@@ -11,7 +11,6 @@ from sage.rings.integer import Integer
 from ...cat import Category, Category_singleton
 from .. import Rings
 from ._lazy_subcategories import (
-    _Fields,
     _FractionFields,
     _NumberFields,
 )
@@ -48,7 +47,6 @@ class _QQ(Category_singleton):
     @final
     def super_categories(self) -> list[Category]:
         return [
-            _Fields(),
             _FractionFields(),
             _NumberFields(),
             Rings().Characteristic(0),

@@ -368,3 +368,9 @@ test: smoke _clean-generated-artifacts
             ! -name 'smoketest.sage' \
             | sort
     )
+
+validate-super-categories:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}
+    python3 validators/super_categories_validator.py

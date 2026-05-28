@@ -34,7 +34,6 @@ class _DedekindDomains(CategoryWithAxiom):
     def super_categories(self) -> list[Category]:
         return [
             SageDedekindDomains(),
-            _IntegralDomains(),
             _NoetherianRings(),
             _IntegrallyClosedDomains(),
             Rings().KrullDimension(1),

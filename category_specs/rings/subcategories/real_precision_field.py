@@ -15,7 +15,6 @@ from ...cat import Category, Category_singleton
 from .. import Rings
 from ._lazy_subcategories import (
     _CompleteRings,
-    _Fields,
     _LocalFields,
 )
 from .approximate import ApproximateRingsCategory
@@ -43,7 +42,6 @@ class _RealPrecisionFields(Category_singleton):
     def super_categories(self) -> list[Category]:
         return [
             ApproximateRingsCategory(),
-            _Fields(),
             _CompleteRings(),
             _LocalFields(),
             Rings().Characteristic(0),

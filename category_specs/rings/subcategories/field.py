@@ -56,7 +56,6 @@ class _Fields(CategoryWithAxiom):
     def super_categories(self) -> list[Category]:
         return [
             SageFields(),
-            _CommutativeRings(),
             _DivisionRings(),
             _EuclideanDomains(),
             _IntegrallyClosedDomains(),
@@ -91,7 +90,7 @@ class _Fields(CategoryWithAxiom):
         @_field_cached_method
         @final
         def NumberFields(self) -> Category:
-            return cast(Category, with_axiom(self, "NumberFields"))
+            return self.GlobalFields().NumberFields()
 
         @_field_cached_method
         @final

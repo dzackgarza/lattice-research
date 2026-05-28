@@ -338,7 +338,6 @@ class Algebras(Category_module):
         return [
             AssociativeAlgebras(R),
             Rings().RingsUnder(R),
-            Modules(R),
             SageAlgebras(R),
         ]
 

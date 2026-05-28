@@ -14,7 +14,7 @@ from sage.rings.integer import Integer
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
 from ...utils import with_axiom
-from .field import _Fields as _Fields
+from .global_field import _GlobalFields as _GlobalFields
 
 _F = TypeVar("_F", bound=Callable[..., object])
 _cached_method = cast(Callable[[_F], _F], cached_method)
@@ -33,9 +33,9 @@ if TYPE_CHECKING:
 
 
 class _NumberFields(CategoryWithAxiom):
-    r"""Canonical chain: ``Rings().Commutative().Field().NumberFields()``."""
+    r"""Canonical chain: ``Rings().Commutative().Field().GlobalFields().NumberFields()``."""
 
-    _base_category_class_and_axiom = (_Fields, "NumberFields")
+    _base_category_class_and_axiom = (_GlobalFields, "NumberFields")
 
     @override
     @final
@@ -45,7 +45,7 @@ class _NumberFields(CategoryWithAxiom):
     @override
     @final
     def super_categories(self) -> list[Category]:
-        return [SageNumberFields(), _GlobalFields(), _Fields()]
+        return [SageNumberFields(), _GlobalFields()]
 
     @override
     @final
