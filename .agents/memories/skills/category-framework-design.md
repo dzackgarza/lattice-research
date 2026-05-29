@@ -10,20 +10,19 @@ This skill owns Sage category-framework design references migrated from the reti
 
 ## Load references by task
 
-- `mem:skills/category-framework-design/category-refinement-phases`: load before staging
-  category hierarchy, concrete interceptors, or top-level constructor redefinitions.
-- `mem:skills/category-framework-design/category-creation-notes`: load for
-  `_refine_category_`, `Category_singleton`, `Category_over_base_ring`, and category
-  cache behavior.
-- `mem:skills/category-framework-design/axioms-with-generators-finitely-presented`: load
-  for WithGenerators, FinitelyPresented, Dedekind/PID module categories, Homsets,
-  Endsets, Autsets, and corrected axiom hierarchy.
-- `mem:skills/category-framework-design/homsets-structural-core`: load for Homsets as
-  module objects, dual modules, Endset algebra structure, and rank semantics.
-- `mem:skills/category-framework-design/autset-categories-path`: load for source-backed
-  Autset admission and Endset construction path.
-- `mem:skills/category-framework-design/autset-integration-plan`: load when decomposing
-  Autset implementation cards.
+- `references/category-refinement-phases.md`: load before staging category hierarchy,
+  concrete interceptors, or top-level constructor redefinitions.
+- `references/category-creation-notes.md`: load for `_refine_category_`,
+  `Category_singleton`, `Category_over_base_ring`, and category cache behavior.
+- `references/axioms-with-generators-finitely-presented.md`: load for WithGenerators,
+  FinitelyPresented, Dedekind/PID module categories, Homsets, Endsets, Autsets, and
+  corrected axiom hierarchy.
+- `references/homsets-structural-core.md`: load for Homsets as module objects, dual
+  modules, Endset algebra structure, and rank semantics.
+- `references/autset-categories-path.md`: load for source-backed Autset admission and
+  Endset construction path.
+- `references/autset-integration-plan.md`: load when decomposing Autset implementation
+  cards.
 
 ## Hard rules
 
@@ -35,5 +34,10 @@ This skill owns Sage category-framework design references migrated from the reti
 - Dynamic inheritance of specs and implementation providers is intentional.
   Do not replace it with explicit subclassing, trivial re-call wrappers, local casts, or
   provider-splicing merely because a static checker cannot see the category graph.
+  Route those conflicts to the static-model/plugin/stub/QC lane unless they expose a
+  real mathematical owner, codomain, hypothesis, or constructor-boundary defect.
 - Repeated casts around inherited category results are evidence that the framework
   design needs agent review.
+  Decide whether the spec implementation belongs at a downstream ABC implementation
+  boundary or whether QC tooling must model inherited category promotion; do not
+  normalize local cast patterns as framework glue.
