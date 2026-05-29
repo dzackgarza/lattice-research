@@ -1,74 +1,83 @@
 ---
 title: Current Goal Handoff
-description: >
-  Routing checkpoint for lattice-research#6.
-  Last updated: 2026-05-28.
 ---
-# Current Goal Handoff
+# Handoff
 
-## Goal
+## Anchor
 
-`lattice-research#6`: Reclassify category_specs diagnostics before further sage-stubs
-offload.
+Read `mem:repo-purpose-mathematical-research-machine` before any card or plan.
 
-## Binding specification
+## Current phase
 
-Read in current session:
-- `.agents/current-goal-phase.md` — repo in spec phase.
-- `GOAL.md` — staged program; category-spec phase is prerequisite for downstream Coble
-  goals.
-- Issue #6 body and all comments via REST API (since `gh issue view` fails with GraphQL
-  deprecation).
+Category-spec vocabulary: building the semantic substrate so downstream lattice/Coble
+work has named objects, morphisms, and invariants, not raw matrices.
 
-Issue acceptance criteria (Products A–E) are the blocking tasks.
-No further sage-stubs work is permitted until these products are committed.
+## Keystone preflight for this next action
 
-## What is in progress
+Before the current next action, load:
+- `mem:category-spec-epistemic-foundation`
+- `category_specs/AGENTS.md`
+- `category-spec-style`
+- `research-state-machine`
+- `research-state-machine/references/review-kernel.md`
 
-- ~~Gathering repo context (ledger, structural reports, category graph code).~~
-- ~~Next: load required skills, then start Products A–B in parallel when possible.~~
+The object is method-ownership classification, not diagnostic-row cleanup.
 
-**Product A complete** (commits `6124b0ce`, `1103e7ce`):
-- All 69 multi-parent categories transitive-reduced to immediate parents only.
-- All 10 axiom-base transitives rewired: UFD/PID/Euclidean/Field/Dedekind ring tower now
-  nested (not siblings), series tower (Power⊂Laurent⊂Puiseux) now nested.
-- Validator at `category_specs/validators/super_categories_validator.py` reports 0
-  explicit and 0 axiom-base transitives across all 207 categories.
-- `just validate-super-categories` exits 0, `just plan-validate` passes.
-- Pre-commit hook runs validator on `category_specs/**/*.py` changes.
-- `just test` (in `category_specs/justfile`) now gates on validator before Sage tests.
+## Next action
 
-Remaining products to start: B (override ownership audit), C (Sage boundary audit), D
-(corrected ledger), E (minimal plugin fixtures).
+1. **Verify fixes via mypy structural report.** Run:
+   `just category-specs-mypy-structural-report` The 31+ private-stub type-alias fixes
+   and 11 RealSet collision fixes are uncommitted in the working tree.
+   Run the report through Sage to confirm the errors are resolved.
 
-## What the next session should pick up
+2. **Clean up unused private-stub imports.** Several files still import private stubs
+   that are no longer used at module level after the alias fixes:
+   - `sets/__init__.py`: `_SetMorphisms`, `_SetEndomorphisms`, `_SetAutomorphisms`,
+     `_SetHomCategoryObjectMethods` (only used in class bodies now)
+   - `rings/__init__.py`: `_RingHomomorphisms`, `_RingEndomorphisms`,
+     `_RingAutomorphisms`, `_RingHomCategoryObjectMethods`
+   - `modules/__init__.py`: `_RModMorphisms` Remove these imports.
+     Do NOT remove private names used inside class bodies (e.g.,
+     `ParentMethods = _RingObjectMethods` inside `class Rings`).
 
-Product B — override ownership audit.
-Product A delivered the corrected category graph; B needs the graph to classify each
-`@override` diagnostic's ownership.
+3. **Address `complement` collision.** `_Subobjects.ParentMethods.complement` is still
+   `@final`, and `_RealSets.ParentMethods.complement` is now `@abstractmethod` without
+   `@override`. Sage's dynamic mixing may handle this differently from standard Python
+   MRO — verify with the mypy report.
 
-## Non-goals for this session
+4. **Smoke tests.** If mypy report is clean, run relevant smoke tests to ensure the
+   type-alias changes don't break runtime behavior.
 
-- Do NOT start writing stubs for sage-stubs.
-- Do NOT patch individual graph bugs without the full audit.
-- Do NOT export any internal @override row to sage-stubs scope.
-- Do NOT proceed to downstream Coble research or fixture creation until the
-  reclassification is committed.
+## Migration completed: skills → memories
 
-## Blockers that remain unchanged
+26 former local skills migrated to `mem:skills/` under `.agents/memories/skills/`. 9
+skills remain for always-in-context dynamic triggering.
+AGENTS.md and onboarding updated.
 
-1. Minimal stub inventory — still needs constructor-boundary enumeration.
-2. Patch the process — still needs category graph inspection tooling.
-3. Crystallize mypy plugin failures — still needs minimal fixtures for plugin-red tests.
+## What was done
 
-## Verification gate
+- **Private-stub type aliases fixed** (~31 occurrences across 10 files): All
+  module-level type aliases now use public names (e.g.,
+  `RingsObject = Rings.ParentMethods` instead of `_RingObjectMethods`). Fixed in: rings,
+  sets, modules, algebras, lattices, topological_spaces, and subcategory files (ideals,
+  approximate, partitioned, tensor_algebra_components).
 
-Reviewer must answer from committed repo artifacts:
-1. Which exact Sage boundary calls require stubs?
-   (Product C)
-2. Which category edges are immediate and mathematically justified?
-   (Product A)
-3. Which @override errors are plugin failures needing fixtures?
-   (Product B / E)
+- **RealSet set-operation collisions fixed** (11 changes):
+  - Removed `@final` from `union`, `intersection`, `difference`, `symmetric_difference`
+    in `_Subobjects.ParentMethods` (subobjects.py)
+  - Removed `@final` from `union` and `is_subset` in `_SetObjectMethods`
+    (sets/**init**.py)
+  - Removed invalid `@override` from `union`, `intersection`, `difference`,
+    `symmetric_difference`, `complement` in `_RealSets.ParentMethods` (real_set.py)
 
-If answers require agent summaries or issue comments, work is not done.
+## Constraints
+
+- No sage-stubs writing.
+- No downstream Coble work.
+- No `# type: ignore`.
+- `NotImplementedError` rejected by pre-commit hook.
+
+## Non-goals
+
+- Ledger classification, card creation, handoff expansion, memory writing before source
+  reading.

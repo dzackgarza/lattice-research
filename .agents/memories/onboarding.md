@@ -185,6 +185,26 @@ Read these when their situation arises:
 | Unsure about stub vs. plugin vs. internal work | `mem:category-spec-architectural-boundary` |
 | Drifting from mathematical purpose | `mem:repo-purpose-mathematical-research-machine` |
 | Writing specs or type annotations | `mem:category-spec-style` (skill) |
+| Any category-spec workflow, audit, planning, triage, or retirement operation | `mem:skills/category-spec-*` |
+| Mathematical proof or computation audit | `mem:skills/research-proof-auditing` |
+| Fixture creation or source acquisition | `mem:skills/creating-fixtures` or `mem:skills/research-source-acquisition` |
+| Lattice redesign or module boundary work | `mem:skills/lattice-redesign` or `mem:skills/research-math-boundary` |
+| Subagent delegation, one-shot workers, or orchestration | `mem:skills/opencode-one-shot-workers` |
+| Planning cleanup, meta-review, or completed-card quality scan | `mem:skills/research-planning-cleanup` |
+| Scheduling, cadence, or wakeup design | `mem:skills/research-scheduling` |
+| Repo structure, cleanup, or file placement | `mem:skills/research-repo-structure` |
+| Research intake, workstream setup, or co-mathematician workflow | `mem:skills/research-co-mathematician-workflow` |
+| Tracker mechanics and plan decomposition | `mem:skills/research-project-workflow` |
+| Vinberg's algorithm | `mem:skills/vinberg-algorithm` |
+| Sage category source maps | `mem:skills/sage-category-source-maps` |
+| Plannotator CLI workflow | `plannotator-workflow` |
+
+Most former local skills now live under `mem:skills/`. Use `iwe find skills/` to
+discover the full tree.
+Remaining always-in-context skills are: `research-software-wiring`,
+`research-relevance-check`, `handling-corrections`, `research-state-machine`,
+`research-orchestration`, `research-code-style`, `category-spec-style`, `task`, and
+`track`.
 
 ## Do not
 
