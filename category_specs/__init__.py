@@ -22,9 +22,6 @@ rings = import_module("category_specs.rings")
 sets = import_module("category_specs.sets")
 topological_spaces = import_module("category_specs.topological_spaces")
 
-rings.Rings().Constructors().ZZ()
-rings.Rings().Constructors().QQ()
-
 from .constructor_redefinitions import install_constructor_redefinitions
 
 install_constructor_redefinitions()

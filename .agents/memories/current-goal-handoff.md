@@ -14,21 +14,29 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-The provider-satisfaction/object-method-resolution repair is not complete.
-Commit `ecac9da8` is the current red-test proof: missing `ParentMethods` obligations
-still pass through `refine_category`, and optimized Python strips the generated
-`assert False` method body so the missing method call returns silently.
+The provider-satisfaction/object-method-resolution repair has a targeted ABC-boundary
+patch in the working tree. It computes `__abstractmethods__` on Sage dynamic
+`parent_class` construction, propagates joined abstract sets, removes the generated
+`assert False` missing-method body, and makes `refine_category` reject missing
+obligations without relying on `assert`.
 
-Before source repair, explain the red proof and wait for user approval. After approval,
-repair the class/refinement boundary itself: compute or propagate
-`__abstractmethods__` on the actual Sage dynamic `X.category().parent_class`, and have
-`refine_category` reject nonempty category-parent abstract sets. Existing Sage parents
-such as `ZZ` remain `IntegerRing_class`, so checking `type(X).__abstractmethods__` is
-insufficient.
+The targeted regression now passes:
 
-The `ideal_monoid` shadowing symptom remains positively fixed by `75cfa0c7`, but that
-is only a partial interop fix. Do not preserve the generated assertion-body missing
-method as enforcement; it is the current slop surface.
+```bash
+just -f category_specs/justfile smoke-file rings/tests/regression/object_method_resolution.sage
+```
+
+Do not claim the larger provider-satisfaction goal complete yet. Strict ABC enforcement
+exposes a separate root ring-surface debt: `Rings().Constructors().ZZ()` now correctly
+raises on unresolved abstract obligations such as
+`hilbert_polynomial`, `is_number_field`, `is_complete_ring`, and related root predicate
+methods. `category_specs/__init__.py` no longer eagerly refines `ZZ`/`QQ` at import
+time, because import-time construction of abstract parents hid the invalid surface.
+
+Next pickup: commit or review the current ABC-boundary patch, then source-ground the
+root `Rings().Constructors().ZZ()`/`QQ()` abstract obligations or split that as the next
+explicit ring-surface repair. Do not reintroduce generated assertion-body enforcement or
+skip the refinement guard to make those constructors pass.
 
 Before further category-spec edits, run
 `just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only

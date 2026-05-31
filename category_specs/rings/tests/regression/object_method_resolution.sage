@@ -11,7 +11,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from sage.all import ZZ as SageZZ
 from sage.categories.rings import Rings as SageRings
 from category_specs.cat import Category_singleton
-from category_specs.rings import Rings
+from category_specs.utils import refine_category
 
 
 class _IncompleteRingObjects(Category_singleton):
@@ -192,7 +192,20 @@ incomplete_abstracts = getattr(
 )
 assert 'required_regression_operation' in incomplete_abstracts
 
-ZZ = Rings().Constructors().ZZ()
+class _IdealMonoidRequirement(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    class ParentMethods:
+        @abstractmethod
+        def ideal_monoid(self):
+            ...
+
+
+ZZ = refine_category(SageZZ, [_IdealMonoidRequirement()])
 ideal_monoid = ZZ.ideal_monoid()
 
 assert ZZ is SageZZ

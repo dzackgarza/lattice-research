@@ -15,10 +15,11 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 
 from __future__ import annotations
 
+import inspect
 from abc import abstractmethod
 from collections.abc import Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, NoReturn, cast, final, overload, override
+from typing import TYPE_CHECKING, Any, cast, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
@@ -115,7 +116,7 @@ _SageHomsetsOf = SageHomsetsOf
 
 
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
-_OBJECT_METHOD_SURFACE_CACHE: dict[tuple[type, frozenset[str], frozenset[str]], type] = {}
+_OBJECT_METHOD_SURFACE_CACHE: dict[tuple[type, frozenset[str]], type] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset(
     {"base_ring", "category", "names", "provenance"}
 )
@@ -358,40 +359,34 @@ def _object_method_requirement_names(method_surface: type) -> frozenset[str]:
     )
 
 
-def _unrealized_object_method_requirement(
-    method_surface: type,
-    method_name: str,
-) -> Callable[..., NoReturn]:
-    def object_method_requirement(self: Any, *_args: Any, **_kwargs: Any) -> NoReturn:
-        assert False, (
-            f"{method_surface.__qualname__}.{method_name} remains an abstract "
-            f"object-method requirement for {type(self).__name__}"
-        )
+def _abc_abstract_method_names(named_class: type) -> frozenset[str]:
+    abstract_names = {
+        name
+        for name, value in named_class.__dict__.items()
+        if is_object_method_requirement(value)
+    }
+    for base in named_class.__bases__:
+        for name in getattr(base, "__abstractmethods__", frozenset()):
+            value = inspect.getattr_static(named_class, name, None)
+            if is_object_method_requirement(value):
+                abstract_names.add(name)
+    return frozenset(abstract_names)
 
-    object_method_requirement.__name__ = method_name
-    object_method_requirement.__qualname__ = (
-        f"{method_surface.__qualname__}.{method_name}"
-    )
-    object_method_requirement.__doc__ = getattr(
-        method_surface.__dict__[method_name],
-        "__doc__",
-        None,
-    )
-    object_method_requirement.__isabstractmethod__ = True
-    return object_method_requirement
+
+def _install_abc_abstractmethods(named_class: type) -> type:
+    named_class.__abstractmethods__ = _abc_abstract_method_names(named_class)
+    return named_class
 
 
 def _object_method_surface(
     method_surface: type,
     realized_requirements: frozenset[str],
-    missing_requirements: frozenset[str],
 ) -> type:
-    cache_key = (method_surface, realized_requirements, missing_requirements)
+    cache_key = (method_surface, realized_requirements)
     cached_surface = _OBJECT_METHOD_SURFACE_CACHE.get(cache_key)
     if cached_surface is not None:
         return cached_surface
 
-    abstract_requirements = realized_requirements | missing_requirements
     namespace: dict[str, Any] = {
         "__doc__": getattr(method_surface, "__doc__", None),
         "__module__": method_surface.__module__,
@@ -399,15 +394,8 @@ def _object_method_surface(
     _copy_method_provider_namespace(
         method_surface,
         namespace,
-        excluded_names=abstract_requirements,
+        excluded_names=realized_requirements,
     )
-    for method_name in sorted(missing_requirements):
-        namespace[method_name] = _unrealized_object_method_requirement(
-            method_surface,
-            method_name,
-        )
-    if missing_requirements:
-        namespace["__abstractmethods__"] = missing_requirements
 
     surface = type(
         f"{method_surface.__qualname__}ObjectMethodSurface",
@@ -464,7 +452,6 @@ def _make_named_parent_class_with_object_methods(
     probe_surface = _object_method_surface(
         method_surface,
         realized_requirements=requirement_names,
-        missing_requirements=frozenset(),
     )
     temporary_probe = "_cat_object_method_surface_probe"
     setattr(category, temporary_probe, probe_surface)
@@ -475,11 +462,9 @@ def _make_named_parent_class_with_object_methods(
         probe_class,
         requirement_names,
     )
-    missing_requirements = requirement_names - realized_requirements
     final_surface = _object_method_surface(
         method_surface,
         realized_requirements=realized_requirements,
-        missing_requirements=missing_requirements,
     )
     temporary_surface = "_cat_object_method_surface"
     setattr(category, temporary_surface, final_surface)
@@ -537,6 +522,40 @@ def _make_named_class_with_cat_subcategory_methods(
     )
     delattr(category, temporary_provider)
     return generated_class
+
+
+def _install_sage_parent_class_abstracts_patch() -> None:
+    current_make_named_class = SageCategory._make_named_class
+    if getattr(
+        current_make_named_class,
+        "_category_specs_parent_class_abstracts_patch",
+        False,
+    ):
+        return
+
+    def make_named_class_with_parent_abstracts(
+        self: SageCategory,
+        name: str,
+        method_provider: str,
+        cache: bool = False,
+        picklable: bool = True,
+    ) -> type:
+        named_class = current_make_named_class(
+            self,
+            name,
+            method_provider,
+            cache=cache,
+            picklable=picklable,
+        )
+        if name == "parent_class":
+            _install_abc_abstractmethods(named_class)
+        return named_class
+
+    make_named_class_with_parent_abstracts._category_specs_parent_class_abstracts_patch = True  # type: ignore[attr-defined]
+    SageCategory._make_named_class = make_named_class_with_parent_abstracts
+
+
+_install_sage_parent_class_abstracts_patch()
 
 
 class _CatObjectMixin:

@@ -1,5 +1,6 @@
 import logging
 import os
+import inspect
 from collections.abc import Callable, Sequence
 from functools import wraps
 from textwrap import dedent
@@ -167,28 +168,54 @@ def _abstract_method_owner(cls: type, name: str) -> type | None:
         attr = base.__dict__.get(name)
         if (
             attr is not None
-            and isinstance(attr, AbstractMethod)
+            and is_object_method_requirement(attr)
             and _is_project_method_provider(base)
         ):
             return base
     return None
 
 
+def _abstract_method_classes(X: Parent) -> tuple[type, ...]:
+    category_parent_class = X.category().parent_class
+    if category_parent_class is type(X):
+        return (type(X),)
+    return (type(X), category_parent_class)
+
+
+def _has_concrete_parent_type_method(X: Parent, name: str) -> bool:
+    return is_concrete_object_method(inspect.getattr_static(type(X), name, None))
+
+
 def _validate_no_missing_abc_methods(X: Parent) -> None:
-    missing = sorted(getattr(type(X), "__abstractmethods__", ()))
+    abstract_classes = _abstract_method_classes(X)
+    missing = sorted(
+        {
+            name
+            for cls in abstract_classes
+            for name in getattr(cls, "__abstractmethods__", frozenset())
+            if not _has_concrete_parent_type_method(X, name)
+        }
+    )
     if not missing:
         return
 
     details = []
     for name in missing:
-        owner = _abstract_method_owner(type(X), name)
+        owner = next(
+            (
+                abstract_owner
+                for cls in abstract_classes
+                if (abstract_owner := _abstract_method_owner(cls, name)) is not None
+            ),
+            None,
+        )
         if owner is None:
             details.append(name)
         else:
             details.append(f"{name} ({owner.__name__})")
 
     detail_str = ", ".join(details)
-    assert not missing, (
+    raise TypeError(
         f"Can't refine category of {type(X).__name__}: "
         f"unimplemented abstract methods: {detail_str}"
     )
