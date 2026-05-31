@@ -14,21 +14,21 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-The provider-satisfaction/object-method-resolution repair has passed targeted
-state-machine review. Do not continue source reconstruction for that contract unless a
-new live Sage/refinement witness contradicts `mem:provider-satisfaction-goal-contract`
-and `mem:provider-satisfaction-goal-state`.
+The provider-satisfaction/object-method-resolution repair is not complete.
+Commit `ecac9da8` is the current red-test proof: missing `ParentMethods` obligations
+still pass through `refine_category`, and optimized Python strips the generated
+`assert False` method body so the missing method call returns silently.
 
-The next category-spec pickup should return to the earliest incomplete approved DAG
-leaf. If the chosen leaf is structural typing verification, the known residue is that
-`just category-specs-mypy-structural-report` fails before mypy with a conflicting
-provider projection for
-`category_specs.modules.homsets._RModHomCategoryObjectMethods`.
+Before source repair, explain the red proof and wait for user approval. After approval,
+repair the class/refinement boundary itself: compute or propagate
+`__abstractmethods__` on the actual Sage dynamic `X.category().parent_class`, and have
+`refine_category` reject nonempty category-parent abstract sets. Existing Sage parents
+such as `ZZ` remain `IntegerRing_class`, so checking `type(X).__abstractmethods__` is
+insufficient.
 
-Do not commit structural-report output from the object-method verification attempt.
-The report generation was run in a noisy worktree and its generated files were cleaned
-back to the committed baseline. Rerun that report only inside the structural-typing leaf
-that owns the provider-projection conflict.
+The `ideal_monoid` shadowing symptom remains positively fixed by `75cfa0c7`, but that
+is only a partial interop fix. Do not preserve the generated assertion-body missing
+method as enforcement; it is the current slop surface.
 
 Before further category-spec edits, run
 `just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only
