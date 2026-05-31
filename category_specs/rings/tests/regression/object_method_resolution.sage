@@ -158,6 +158,54 @@ if 'required_regression_operation' not in abstracts:
     text=True,
 )
 
+failed_refinement_preserves_category = subprocess.run(
+    [
+        sys.executable,
+        '-c',
+        """
+from abc import abstractmethod
+import sys
+
+from sage.all import *
+
+sys.path.insert(0, '/home/dzack/research')
+
+from sage.all import ZZ
+from sage.categories.rings import Rings as SageRings
+from category_specs.cat import Category_singleton
+from category_specs.utils import refine_category
+
+
+class _IncompleteRingObjects(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    class ParentMethods:
+        @abstractmethod
+        def required_regression_operation(self):
+            ...
+
+
+original_category = ZZ.category()
+try:
+    refine_category(ZZ, [_IncompleteRingObjects()], test=False)
+except TypeError:
+    pass
+else:
+    raise AssertionError('missing obligation did not fail refinement')
+if ZZ.category() is not original_category:
+    raise AssertionError('failed refinement mutated the parent category')
+print('failed-refinement-preserved-category', flush=True)
+""",
+    ],
+    cwd=REPO_ROOT,
+    capture_output=True,
+    text=True,
+)
+
 failures = []
 if 'reached-incomplete-refinement' not in default_incomplete_refinement.stdout:
     failures.append('default subprocess did not reach refine_category')
@@ -182,6 +230,8 @@ if joined_abstracts_after_low_level_refinement.returncode != 0:
     failures.append(
         'joined parent_class did not retain missing ParentMethods obligation'
     )
+if failed_refinement_preserves_category.returncode != 0:
+    failures.append('failed refine_category mutated the parent category')
 
 assert not failures, '\n'.join(failures)
 
