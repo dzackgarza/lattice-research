@@ -15,16 +15,17 @@ work has named objects, morphisms, and invariants, not raw matrices.
 ## Current next action
 
 The provider-satisfaction/object-method-resolution repair has targeted ABC-boundary
-commits through `2e457c43`. The patch computes `__abstractmethods__` on Sage dynamic
+commits through `29ecc149`. The patch computes `__abstractmethods__` on Sage dynamic
 `parent_class` construction, propagates joined abstract sets, removes the generated
 `assert False` missing-method body, and makes `refine_category` reject missing
 obligations before mutating the parent category.
 
-Treat `2e457c43` as the adversarial-test guard for this contract. It expands
-`rings/tests/regression/object_method_resolution.sage` so future repairs must satisfy
-standalone and joined parent-class abstractness, multiple missing obligations, concrete
-Sage parent-type realization, mixed realized/missing rejection, concrete project
-category overrides, and optimized-mode failed-refinement atomicity.
+Treat `2e457c43` and `29ecc149` as the adversarial-test guards for this contract. They
+expand `rings/tests/regression/object_method_resolution.sage` so future repairs must
+satisfy standalone and joined parent-class abstractness, multiple missing obligations,
+concrete Sage parent-type realization, mixed realized/missing rejection, concrete project
+category overrides, dynamically generated obligation names, and optimized-mode
+failed-refinement atomicity.
 
 The targeted regression now passes:
 
