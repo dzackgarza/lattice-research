@@ -16,9 +16,9 @@ re-exports in this file instead of raw ``sage.categories.*`` bases.
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, cast, final, overload, override
+from typing import TYPE_CHECKING, Any, NoReturn, cast, final, overload, override
 
 from sage.categories.algebra_functor import AlgebrasCategory as SageAlgebrasCategory
 from sage.categories.cartesian_product import (
@@ -83,13 +83,13 @@ from sage.categories.tensor import TensorProductsCategory as SageTensorProductsC
 from sage.categories.with_realizations import (
     WithRealizationsCategory as SageWithRealizationsCategory,
 )
-from sage.misc.cachefunc import cached_method
 from sage.misc.constant_function import ConstantFunction
 from sage.structure.category_object import CategoryObject
 from sage.structure.dynamic_class import DynamicMetaclass
 from sage.structure.parent import Parent
 
 from .universal_subcategory_methods import UniversalSubcategoryMethods
+from ..utils import is_concrete_object_method, is_object_method_requirement
 
 if TYPE_CHECKING:
     from ..types import CategoryElement, Hom, Morphism
@@ -113,13 +113,9 @@ _SageHomsets = SageHomsets
 _SageHomsetsCategory = SageHomsetsCategory
 _SageHomsetsOf = SageHomsetsOf
 
-def _cat_cached_method[_CatCachedMethod: Callable[..., object]](
-    method: _CatCachedMethod,
-) -> _CatCachedMethod:
-    return cached_method(method)
-
 
 _COMBINED_SUBCATEGORY_METHODS_CACHE: dict[type | None, type] = {}
+_OBJECT_METHOD_SURFACE_CACHE: dict[tuple[type, frozenset[str], frozenset[str]], type] = {}
 _CAT_CONSTRUCTOR_METADATA_NAMES = frozenset(
     {"base_ring", "category", "names", "provenance"}
 )
@@ -321,8 +317,14 @@ def _cat_category() -> SageCategory:
     return cast(SageCategory, Cat())
 
 
-def _copy_method_provider_namespace(provider: type, namespace: dict[str, Any]) -> None:
+def _copy_method_provider_namespace(
+    provider: type,
+    namespace: dict[str, Any],
+    excluded_names: frozenset[str] = frozenset(),
+) -> None:
     for name, value in provider.__dict__.items():
+        if name in excluded_names:
+            continue
         if name in {"__dict__", "__module__", "__weakref__"}:
             continue
         if name.startswith("__") and name.endswith("__"):
@@ -348,6 +350,149 @@ def _combined_subcategory_methods(local_provider: type | None) -> type:
     return provider
 
 
+def _object_method_requirement_names(method_surface: type) -> frozenset[str]:
+    return frozenset(
+        name
+        for name, value in method_surface.__dict__.items()
+        if is_object_method_requirement(value)
+    )
+
+
+def _unrealized_object_method_requirement(
+    method_surface: type,
+    method_name: str,
+) -> Callable[..., NoReturn]:
+    def object_method_requirement(self: Any, *_args: Any, **_kwargs: Any) -> NoReturn:
+        assert False, (
+            f"{method_surface.__qualname__}.{method_name} remains an abstract "
+            f"object-method requirement for {type(self).__name__}"
+        )
+
+    object_method_requirement.__name__ = method_name
+    object_method_requirement.__qualname__ = (
+        f"{method_surface.__qualname__}.{method_name}"
+    )
+    object_method_requirement.__doc__ = getattr(
+        method_surface.__dict__[method_name],
+        "__doc__",
+        None,
+    )
+    object_method_requirement.__isabstractmethod__ = True
+    return object_method_requirement
+
+
+def _object_method_surface(
+    method_surface: type,
+    realized_requirements: frozenset[str],
+    missing_requirements: frozenset[str],
+) -> type:
+    cache_key = (method_surface, realized_requirements, missing_requirements)
+    cached_surface = _OBJECT_METHOD_SURFACE_CACHE.get(cache_key)
+    if cached_surface is not None:
+        return cached_surface
+
+    abstract_requirements = realized_requirements | missing_requirements
+    namespace: dict[str, Any] = {
+        "__doc__": getattr(method_surface, "__doc__", None),
+        "__module__": method_surface.__module__,
+    }
+    _copy_method_provider_namespace(
+        method_surface,
+        namespace,
+        excluded_names=abstract_requirements,
+    )
+    for method_name in sorted(missing_requirements):
+        namespace[method_name] = _unrealized_object_method_requirement(
+            method_surface,
+            method_name,
+        )
+    if missing_requirements:
+        namespace["__abstractmethods__"] = missing_requirements
+
+    surface = type(
+        f"{method_surface.__qualname__}ObjectMethodSurface",
+        (),
+        namespace,
+    )
+    _OBJECT_METHOD_SURFACE_CACHE[cache_key] = surface
+    return surface
+
+
+def _first_object_method_in_resolution_order(
+    named_class: type,
+    method_name: str,
+) -> object | None:
+    for cls in named_class.__mro__:
+        method = cls.__dict__.get(method_name)
+        if method is not None:
+            return method
+    return None
+
+
+def _concrete_object_methods_inherited_by(
+    named_class: type,
+    requirement_names: frozenset[str],
+) -> frozenset[str]:
+    return frozenset(
+        method_name
+        for method_name in requirement_names
+        if is_concrete_object_method(
+            _first_object_method_in_resolution_order(named_class, method_name)
+        )
+    )
+
+
+def _make_named_parent_class_with_object_methods(
+    category: SageCategory,
+    delegate: Callable[..., type],
+    name: str,
+    method_provider: str,
+    cache: bool = False,
+    picklable: bool = True,
+) -> type:
+    method_surface = getattr(category, method_provider, None)
+    if method_surface is None:
+        return delegate(name, method_provider, cache=cache, picklable=picklable)
+
+    assert isinstance(method_surface, type), (
+        f"{type(category).__name__}.{method_provider} should be a class"
+    )
+    requirement_names = _object_method_requirement_names(method_surface)
+    if not requirement_names:
+        return delegate(name, method_provider, cache=cache, picklable=picklable)
+
+    probe_surface = _object_method_surface(
+        method_surface,
+        realized_requirements=requirement_names,
+        missing_requirements=frozenset(),
+    )
+    temporary_probe = "_cat_object_method_surface_probe"
+    setattr(category, temporary_probe, probe_surface)
+    probe_class = delegate(name, temporary_probe, cache=False, picklable=False)
+    delattr(category, temporary_probe)
+
+    realized_requirements = _concrete_object_methods_inherited_by(
+        probe_class,
+        requirement_names,
+    )
+    missing_requirements = requirement_names - realized_requirements
+    final_surface = _object_method_surface(
+        method_surface,
+        realized_requirements=realized_requirements,
+        missing_requirements=missing_requirements,
+    )
+    temporary_surface = "_cat_object_method_surface"
+    setattr(category, temporary_surface, final_surface)
+    named_class = delegate(
+        name,
+        temporary_surface,
+        cache=cache,
+        picklable=picklable,
+    )
+    delattr(category, temporary_surface)
+    return named_class
+
+
 def _make_named_class_with_cat_subcategory_methods(
     category: SageCategory,
     delegate: Callable[..., type],
@@ -370,6 +515,16 @@ def _make_named_class_with_cat_subcategory_methods(
     same helper explicitly because it deliberately does not inherit from the
     wrapped bases.
     """
+    if name == "parent_class" and method_provider == "ParentMethods":
+        return _make_named_parent_class_with_object_methods(
+            category,
+            delegate,
+            name,
+            method_provider,
+            cache=cache,
+            picklable=picklable,
+        )
+
     if name != "subcategory_class" or method_provider != "SubcategoryMethods":
         return delegate(name, method_provider, cache=cache, picklable=picklable)
 
@@ -597,12 +752,6 @@ class Category(_CatObjectMixin, SageCategory, Parent):
         self._init_cat_object()
         SageCategory.__init__(self)
 
-    @staticmethod
-    @final
-    def join(categories: Iterable[Category]) -> Category:
-        r"""Return Sage's category-lattice join as a project category object."""
-        return cast("Category", SageCategory.join(categories))
-
 
 class CategoryWithParameters(_CatObjectMixin, SageCategoryWithParameters, Parent):
     r"""Parent-backed re-export of Sage's parameterized category base."""
@@ -776,8 +925,6 @@ class Homsets(_SingletonClasscallMixin, _CatObjectMixin, SageHomsets, Parent):
     def __init__(self) -> None:
         self._init_cat_object()
         SageHomsets.__init__(self)
-
-    @_cat_cached_method
     def Endset(self) -> SageCategory:
         r"""Return Sage's existing root category of endomorphism sets.
 

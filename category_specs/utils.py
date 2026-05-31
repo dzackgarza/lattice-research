@@ -150,6 +150,18 @@ def _is_project_method_provider(cls: type) -> bool:
     return getattr(cls, "__module__", "").startswith(PROJECT_MODULE_PREFIX)
 
 
+def is_object_method_requirement(method: object) -> bool:
+    r"""Return whether ``method`` is an abstract object-method requirement."""
+    return isinstance(method, AbstractMethod) or bool(
+        getattr(method, "__isabstractmethod__", False)
+    )
+
+
+def is_concrete_object_method(method: object) -> bool:
+    r"""Return whether ``method`` is a concrete object method."""
+    return callable(method) and not is_object_method_requirement(method)
+
+
 def _abstract_method_owner(cls: type, name: str) -> type | None:
     for base in cls.__mro__:
         attr = base.__dict__.get(name)
@@ -182,69 +194,12 @@ def _validate_no_missing_abc_methods(X: Parent) -> None:
     )
 
 
-def _prime_method_cache_before_refinement(
-    X: Parent,
-    categories: Sequence[Category],
-) -> None:
-    r"""Pre-populate ``_cached_methods`` for Cython types before category refinement.
-
-    For Cython extension types (where ``__class__`` cannot be reassigned),
-    ``_refine_category_`` updates ``_category`` but does not change the class
-    or clear ``_cached_methods``.  When the new categories include project-owned
-    ``ParentMethods`` stubs, those stubs occupy earlier MRO positions than the
-    real Sage implementations in the joined ``parent_class``.  If a method has
-    not yet been cached before refinement, a subsequent ``__getattr__`` lookup
-    uses the new ``_category.parent_class`` and caches the stub instead of the
-    real implementation.
-
-    This function pre-populates ``_cached_methods`` from the *current* (pre-
-    refinement) category for every method name defined in project-owned stubs
-    within the incoming categories.  Once cached, ``getattr_from_category``
-    returns the cached entry regardless of the new ``parent_class`` MRO order.
-
-    Only applied when the type cannot be reassigned (Cython types).  For heap
-    types, ``_refine_category_`` replaces ``__class__`` directly, so the MRO
-    is controlled by the new class and this pre-priming is not needed.
-    """
-    from sage.cpython.type import can_assign_class
-
-    if can_assign_class(X):
-        return  # Heap type: __class__ replacement makes pre-priming unnecessary.
-
-    cached: dict[str, object] = getattr(X, "_cached_methods", {})
-
-    shadowed_names: set[str] = set()
-    for cat in categories:
-        try:
-            parent_class = cat.parent_class
-        except Exception:  # noqa: BLE001
-            continue
-        for cls in parent_class.__mro__:
-            if not _is_project_method_provider(cls):
-                continue
-            for name, val in vars(cls).items():
-                if not name.startswith("_") and callable(val):
-                    shadowed_names.add(name)
-
-    for name in shadowed_names:
-        if name in cached:
-            continue
-        try:
-            # Attribute access (not call) populates _cached_methods via
-            # __getattr__ -> getattr_from_category using the CURRENT _category.
-            getattr(X, name)
-        except (AttributeError, NotImplementedError, TypeError):
-            # Method genuinely absent or not yet available on this object.
-            pass
-
-
 def refine_category[_ParentT: Parent](
     X: _ParentT,
     C: Category | Sequence[Category],
     test: bool = True,
 ) -> _ParentT:
     categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
-    _prime_method_cache_before_refinement(X, categories)
     X._refine_category_(categories)
     _validate_no_missing_abc_methods(X)
     if test:
