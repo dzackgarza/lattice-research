@@ -75,8 +75,9 @@ AssertionError: Conflicting provider projections for category_specs.modules.homs
 
 That structural-report failure is not the object-method-resolution repair, but it is the
 next category-spec verification residue if the active DAG selects structural typing
-work. Its regenerated `reports/workstreams/category-specs-mypy-structural/latest.*`
-files may be dirty in the working tree.
+work. Structural-report output from the object-method verification attempt was cleaned
+back to the committed baseline because it was generated from a noisy worktree, not from
+a structural-typing leaf that owns the provider-projection conflict.
 
 ## Next Pickup
 

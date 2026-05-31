@@ -25,11 +25,10 @@ leaf. If the chosen leaf is structural typing verification, the known residue is
 provider projection for
 `category_specs.modules.homsets._RModHomCategoryObjectMethods`.
 
-The generated structural-report files
-`reports/workstreams/category-specs-mypy-structural/latest.json` and
-`reports/workstreams/category-specs-mypy-structural/latest.md` may be dirty from the
-verification attempt. Treat them as report output, not evidence that the object-method
-repair failed.
+Do not commit structural-report output from the object-method verification attempt.
+The report generation was run in a noisy worktree and its generated files were cleaned
+back to the committed baseline. Rerun that report only inside the structural-typing leaf
+that owns the provider-projection conflict.
 
 Before further category-spec edits, run
 `just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only
