@@ -27,7 +27,7 @@ class _IncompleteRingObjects(Category_singleton):
             ...
 
 
-incomplete_refinement = subprocess.run(
+default_incomplete_refinement = subprocess.run(
     [
         sys.executable,
         '-c',
@@ -59,8 +59,50 @@ class _IncompleteRingObjects(Category_singleton):
 
 
 print('reached-incomplete-refinement', flush=True)
+refine_category(ZZ, [_IncompleteRingObjects()])
+print('default-refinement-returned', flush=True)
+""",
+    ],
+    cwd=REPO_ROOT,
+    capture_output=True,
+    text=True,
+)
+
+optimized_incomplete_refinement = subprocess.run(
+    [
+        sys.executable,
+        '-O',
+        '-c',
+        """
+from abc import abstractmethod
+import sys
+
+from sage.all import *
+
+sys.path.insert(0, '/home/dzack/research')
+
+from sage.all import ZZ
+from sage.categories.rings import Rings as SageRings
+from category_specs.cat import Category_singleton
+from category_specs.utils import refine_category
+
+
+class _IncompleteRingObjects(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    class ParentMethods:
+        @abstractmethod
+        def required_regression_operation(self):
+            ...
+
+
+print('reached-optimized-incomplete-refinement', flush=True)
 refined = refine_category(ZZ, [_IncompleteRingObjects()], test=False)
-print('refinement-returned', flush=True)
+print('optimized-refinement-returned', flush=True)
 refined.required_regression_operation()
 print('silent-call-returned', flush=True)
 """,
@@ -69,9 +111,28 @@ print('silent-call-returned', flush=True)
     capture_output=True,
     text=True,
 )
-assert 'reached-incomplete-refinement' in incomplete_refinement.stdout
-assert incomplete_refinement.returncode != 0
-assert 'silent-call-returned' not in incomplete_refinement.stdout
+
+failures = []
+if 'reached-incomplete-refinement' not in default_incomplete_refinement.stdout:
+    failures.append('default subprocess did not reach refine_category')
+if default_incomplete_refinement.returncode == 0:
+    failures.append('default refine_category accepted missing ParentMethods obligation')
+if 'default-refinement-returned' in default_incomplete_refinement.stdout:
+    failures.append('default refine_category returned after missing obligation')
+
+if (
+    'reached-optimized-incomplete-refinement'
+    not in optimized_incomplete_refinement.stdout
+):
+    failures.append('optimized subprocess did not reach refine_category')
+if optimized_incomplete_refinement.returncode == 0:
+    failures.append('optimized refine/call accepted missing ParentMethods obligation')
+if 'optimized-refinement-returned' in optimized_incomplete_refinement.stdout:
+    failures.append('optimized refine_category returned after missing obligation')
+if 'silent-call-returned' in optimized_incomplete_refinement.stdout:
+    failures.append('optimized missing object method call returned silently')
+
+assert not failures, '\n'.join(failures)
 
 incomplete_abstracts = getattr(
     _IncompleteRingObjects().parent_class,
