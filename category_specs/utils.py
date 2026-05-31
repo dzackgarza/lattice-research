@@ -175,8 +175,11 @@ def _abstract_method_owner(cls: type, name: str) -> type | None:
     return None
 
 
-def _abstract_method_classes(X: Parent) -> tuple[type, ...]:
-    category_parent_class = X.category().parent_class
+def _abstract_method_classes(
+    X: Parent,
+    category: Category | None = None,
+) -> tuple[type, ...]:
+    category_parent_class = (category or X.category()).parent_class
     if category_parent_class is type(X):
         return (type(X),)
     return (type(X), category_parent_class)
@@ -186,8 +189,11 @@ def _has_concrete_parent_type_method(X: Parent, name: str) -> bool:
     return is_concrete_object_method(inspect.getattr_static(type(X), name, None))
 
 
-def _validate_no_missing_abc_methods(X: Parent) -> None:
-    abstract_classes = _abstract_method_classes(X)
+def _validate_no_missing_abc_methods(
+    X: Parent,
+    category: Category | None = None,
+) -> None:
+    abstract_classes = _abstract_method_classes(X, category)
     missing = sorted(
         {
             name
@@ -227,8 +233,9 @@ def refine_category[_ParentT: Parent](
     test: bool = True,
 ) -> _ParentT:
     categories = tuple(C) if isinstance(C, (list, tuple)) else (C,)
+    refined_category = Category.join((X.category(), *categories))
+    _validate_no_missing_abc_methods(X, refined_category)
     X._refine_category_(categories)
-    _validate_no_missing_abc_methods(X)
     if test:
         X._test_not_implemented_methods()
     return X
