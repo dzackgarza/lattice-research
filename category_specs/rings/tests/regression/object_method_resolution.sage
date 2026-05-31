@@ -537,6 +537,124 @@ print('optimized-failed-refinement-preserved-category', flush=True)
 """
 )
 
+dynamic_obligation_names_contract = run_sage_python(
+    """
+from abc import abstractmethod
+import inspect
+import sys
+import uuid
+
+from sage.all import *
+
+sys.path.insert(0, '/home/dzack/research')
+
+from sage.all import QQ, ZZ
+from sage.categories.rings import Rings as SageRings
+from category_specs.cat import Category_singleton
+from category_specs.utils import refine_category
+
+
+def abstract_method_named(name):
+    def requirement(self):
+        ...
+
+    requirement.__name__ = name
+    return abstractmethod(requirement)
+
+
+def concrete_method_named(name):
+    def implementation(self):
+        return name
+
+    implementation.__name__ = name
+    return implementation
+
+
+missing_names = {
+    f'category_specs_dynamic_missing_{uuid.uuid4().hex}',
+    f'category_specs_dynamic_missing_{uuid.uuid4().hex}',
+}
+_DynamicMissingMethods = type(
+    'ParentMethods',
+    (),
+    {name: abstract_method_named(name) for name in missing_names},
+)
+
+
+class _DynamicMissingRequirements(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    ParentMethods = _DynamicMissingMethods
+
+
+original_category = ZZ.category()
+try:
+    refine_category(ZZ, [_DynamicMissingRequirements()], test=False)
+except TypeError:
+    pass
+else:
+    raise AssertionError('dynamic missing obligations passed public refinement')
+if ZZ.category() is not original_category:
+    raise AssertionError('dynamic missing refinement mutated the parent category')
+
+ZZ._refine_category_([_DynamicMissingRequirements()])
+dynamic_abstracts = getattr(ZZ.category().parent_class, '__abstractmethods__', frozenset())
+if not missing_names <= set(dynamic_abstracts):
+    raise AssertionError('dynamic missing obligations were not retained')
+if not inspect.isabstract(ZZ.category().parent_class):
+    raise AssertionError('dynamic missing parent_class is not abstract')
+
+concrete_name = f'category_specs_dynamic_concrete_{uuid.uuid4().hex}'
+_DynamicAbstractMethods = type(
+    'ParentMethods',
+    (),
+    {concrete_name: abstract_method_named(concrete_name)},
+)
+_DynamicConcreteMethods = type(
+    'ParentMethods',
+    (),
+    {concrete_name: concrete_method_named(concrete_name)},
+)
+
+
+class _DynamicAbstractRequirement(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    ParentMethods = _DynamicAbstractMethods
+
+
+class _DynamicConcreteRequirement(Category_singleton):
+    def super_categories(self):
+        return [_DynamicAbstractRequirement()]
+
+    def additional_structure(self):
+        return None
+
+    ParentMethods = _DynamicConcreteMethods
+
+
+refined = refine_category(QQ, [_DynamicConcreteRequirement()], test=False)
+if getattr(refined, concrete_name)() != concrete_name:
+    raise AssertionError('dynamic concrete category method did not resolve')
+concrete_abstracts = getattr(
+    refined.category().parent_class,
+    '__abstractmethods__',
+    frozenset(),
+)
+if concrete_name in concrete_abstracts:
+    raise AssertionError('dynamic concrete method remained abstract')
+print('dynamic-obligation-names-contract', sorted(missing_names), concrete_name, flush=True)
+"""
+)
+
 failures = []
 if 'reached-incomplete-refinement' not in default_incomplete_refinement.stdout:
     failures.append('default subprocess did not reach refine_category')
@@ -575,6 +693,8 @@ if concrete_category_override_contract.returncode != 0:
     failures.append('concrete category override contract failed')
 if optimized_failed_refinement_preserves_category.returncode != 0:
     failures.append('optimized failed refine_category mutated the parent category')
+if dynamic_obligation_names_contract.returncode != 0:
+    failures.append('dynamic obligation names contract failed')
 
 assert not failures, '\n'.join(failures)
 
