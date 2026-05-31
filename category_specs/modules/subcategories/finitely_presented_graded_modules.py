@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -39,7 +39,7 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Category.join(
+            Cat().join(
                 [
                     Modules(R).FinitelyPresented(),
                     Modules(R).Graded(),
@@ -95,7 +95,6 @@ class _FinitelyPresentedGradedModules(Category_over_base_ring):
             zero: RModuleElement | RingElement | None = None,
             position: Integer = 0,
             side: Literal["left", "right"] = "left",
-        ) -> RModuleMorphism:
-            ...
+        ) -> RModuleMorphism: ...
 
     class ElementMethods: ...

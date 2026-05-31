@@ -40,7 +40,6 @@ class _JoinSemilatticePosets(Category):
         return [Posets()]
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Finite(self) -> Category:
             r"""Return the finite join-semilattice subcategory."""

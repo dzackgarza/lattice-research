@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -26,7 +26,7 @@ class _IntegerLattices(Category_over_base_ring):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Category.join(
+            Cat().join(
                 [
                     Modules(R).Subobjects(),
                     Modules(R).WithOrderedGeneratingSet(),
@@ -81,8 +81,7 @@ class _IntegerLattices(Category_over_base_ring):
             self,
             update_reduced_basis: bool = True,
             algorithm: Literal["fplll", "pari"] = "fplll",
-        ) -> RModuleElement:
-            ...
+        ) -> RModuleElement: ...
 
         @abstractmethod
         def voronoi_cell(self, radius: RealNumber | None = None) -> Polyhedron: ...

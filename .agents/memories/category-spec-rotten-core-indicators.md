@@ -185,8 +185,124 @@ the repo's actual code and documentation.
 If the agent cannot explain the problem in one sentence using plain language, it does
 not understand the problem.
 
+## Red flag: Engineering-shaped patches in a mathematical phase
+
+**Symptom:** A commit in category-spec work is mostly about engineering machinery:
+caches, lookup internals, test order, mypy behavior, report counts, hook output,
+plugin conveniences, local casts, or runtime state. The code introduces awareness of
+an implementation concern into spec code, and the commit message explains why the
+machinery makes failures disappear rather than naming the mathematical object,
+operation, owner category, or missing spec method that became correct.
+
+**What it means:** The patch is likely laundering a mathematical/spec defect through
+an engineering surface. The author almost certainly believed it was aligned; that is
+not evidence. In this repo, agents regularly rationalize hacks as preserving Sage
+compatibility, improving QC output, or unblocking tests. A critical review must assume
+the author's self-assessment is worthless and instead ask whether the patch changes a
+mathematical statement or only changes what the tools can observe.
+
+**Case study:** A commit that primed Sage `_cached_methods` before category refinement
+looked like a careful compatibility fix. The obvious outlier was simpler: category
+spec refinement code was thinking about caches at all. Caching is a runtime
+performance/lookup concern; it is not a mathematical category, operation, object, or
+obligation, and it is not part of declaring category membership. Refinement should say
+that an existing Sage object is viewed as an object of a project subcategory. The
+existing implementation then partially satisfies the spec, and smokes expose the
+missing parts. The cache patch made the repo appear more correct by hiding that gap
+behind runtime lookup state.
+
+**What to do:** Before reading the green test result, identify the most
+engineering-flavored noun in the patch and ask what mathematical fact it expresses.
+If the answer is "none" or "it makes Sage/mypy/tests behave", stop the review and
+restate the plain category declaration or method-ownership claim from source. Do not
+polish the engineering patch, add docs justifying it, create follow-up work that
+preserves the workaround, or reintroduce the same mechanism under more respectable
+engineering vocabulary. The durable object to preserve is the mathematical
+specification the patch should expose, not the local mechanism that hid its failure.
+
+## Red flag: Alignment claims without mathematical delta
+
+**Symptom:** A patch, commit message, report, or review comment says it preserves
+compatibility, unblocks QC, stabilizes smokes, fixes typing, improves reporting, or
+follows repo process, but it does not name the mathematical object, operation, owner,
+spec method, or recovery formula that changed.
+
+**What it means:** The agent has optimized for an artifact that looks more correct.
+This is especially dangerous because the writing agent almost always believes its own
+patch is aligned. A future reviewer must assume the author thought they were helping;
+that assumption is precisely why generic guidance such as "avoid mistakes" or "ensure
+alignment" is useless.
+
+**What to do:** Read the relevant code and recent commits as a hostile reviewer of
+mathematical content. Ask what mathematical statement the patch makes truer. If the
+answer is only "the checker passes", "the report is clearer", "Sage still works", or
+"the failure is gone", treat the patch as suspect until the hidden object-level defect
+is reconstructed and either fixed or queued explicitly.
+
+## Red flag: Case study becomes the task
+
+**Symptom:** A concrete witness such as a failing lookup, cache patch, cast, hook
+warning, or smoke failure becomes the next task by inertia, even though the user or
+repo evidence asked for transcript mining, guideline repair, review heuristics, or
+reorientation.
+
+**What it means:** The agent substituted an executable local fix for the actual
+epistemic task. This is the same failure mode as producing strategy documents instead
+of deliverables, only in the opposite direction: doing source work when the required
+object was durable guidance.
+
+**What to do:** Restate the user's current directive as the object being preserved.
+Use the concrete witness only as evidence. If the task is to mine corrections into
+durable doctrine, do that before touching source. If the task is to fix source, do not
+stop at doctrine.
+
+## Red flag: Reviewer guidance that the original author would still endorse
+
+**Symptom:** A proposed rule says things like "make sure the patch is aligned",
+"avoid engineering hacks", "think deeply", or "do the correct thing", but gives no
+trigger that would have caught the actual bad commit.
+
+**What it means:** The guidance has no theory of mind. It assumes the future agent
+knows it is misaligned, when the observed failure is that the agent fully believed a
+bad patch was correct.
+
+**What to do:** Rewrite the rule around externally visible signals: dominant nouns in
+the commit message, whether the diff changes mathematical statements, whether spec
+code knows about runtime/tooling concepts, whether QC output improves without a
+mathematical delta, whether the patch responds to a failure instead of naming the
+source-grounded object that should have been true all along.
+
+## Red flag: Hooks treated as proof instead of tripwires
+
+**Symptom:** A hook or validator is added for an obvious slop pattern, then the agent
+reports the hook instead of deleting the violating pattern and fixing the mathematical
+relation it hid. Or the hook only scans staged diffs, so inherited violations remain
+unknown.
+
+**What it means:** The agent converted a known bad behavior into a monitoring artifact.
+The repo becomes better at producing warnings while the spec remains wrong.
+
+**What to do:** Use simple hooks for simple banned patterns, but treat them as
+whole-tree tripwires. They should produce an actionable dynamic report over the
+tracked spec code, including counts, files, exact findings, staged impact, and repair
+actions. Warning-only mode is acceptable while inherited debt remains, but the
+follow-through is still to remove the violations and make the mathematical relation
+correct. A hook is not completion.
+
 ## The core principle
 
 **If an artifact is incomprehensible, it is probably wrong.** Clarity is the first test
 of correctness. An agent that truly understands a problem can explain it simply.
 An agent that cannot explain it simply is either confused or hiding something.
+
+## Related
+
+- `specs-do-not-contain-runtime-notimplemented-gaps`: red flag 6 instance —
+  `TopologicalSpaceRuntimeGapObjectMethods` hid abstract obligations behind concrete
+  `NotImplementedError`.
+- `category-spec-interface-collisions-are-code-problems`: red flags 1, 8 in action —
+  jargon invented for a simple method name collision.
+- `subobjects-have-ambient-semantics`: the mathematical principle that would have
+  prevented the degradation the agent nearly introduced.
+- `private-method-containers-are-not-return-types`: red flag 8 instance — confusing
+  implementation containers with public types.

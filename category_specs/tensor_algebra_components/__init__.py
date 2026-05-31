@@ -424,9 +424,9 @@ class TensorAlgebraComponents(Category_over_base_ring):
 
 
 TensorAlgebraComponentsCategory = TensorAlgebraComponents
-type TensorAlgebraComponentsObject = _TensorAlgebraComponentParentMethods
-type TensorAlgebraComponentsElement = _TensorElementMethods
-TensorAlgebraComponentsMorphism = _RModMorphisms
+type TensorAlgebraComponentsObject = TensorAlgebraComponents.ParentMethods
+type TensorAlgebraComponentsElement = TensorAlgebraComponents.ElementMethods
+TensorAlgebraComponentsMorphism = RModuleHomCategory.ElementMethods
 TensorAlgebraComponentsHomCategory = RModuleHomCategory
 TensorAlgebraComponentsEndCategory = RModuleEndCategory
 TensorAlgebraComponentsAutCategory = RModuleAutCategory

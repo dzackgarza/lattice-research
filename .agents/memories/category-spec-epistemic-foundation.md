@@ -169,6 +169,13 @@ In general: if the initial frame is artifact-shaped, code-shaped, tool-shaped, o
 user-response-shaped, reject it.
 Reconstruct the task from the underlying mathematical or epistemic object.
 
+If a correction yields repo-wide doctrine, place it where future agents naturally
+encounter it during ordinary work. Review posture belongs in red-flag memories;
+refinement semantics belongs in refinement guidance; artifact drift belongs in
+paperwork guidance; repo purpose belongs in the purpose memory. A durable rule that
+only surfaces when an agent already knows to look for a historical conversation has
+failed its purpose.
+
 ## Social-response management is the same error
 
 Social-response management is artifact manipulation in conversational form.

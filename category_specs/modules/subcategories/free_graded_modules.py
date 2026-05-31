@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, final, override
 
 from sage.categories.category import Category
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -33,7 +33,7 @@ class _FreeGradedModules(Category_over_base_ring):
     @final
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
-        return [Category.join([Modules(R).Free(), Modules(R).Graded()])]
+        return [Cat().join([Modules(R).Free(), Modules(R).Graded()])]
 
     class ParentMethods:
         @override

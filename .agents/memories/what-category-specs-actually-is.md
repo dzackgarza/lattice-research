@@ -38,6 +38,14 @@ The only place where Sage runtime API matters is in **constructors**:
 After the constructor boundary, the object lives in the internal spec surface.
 Its method obligations are owned by the internal category graph, not by Sage stubs.
 
+Refinement at that boundary is a declaration that an existing Sage object is being
+viewed inside the local category universe as an object of a more specific project
+category. It imports the Sage object as a partial implementation of the project spec:
+concrete Sage providers may satisfy declared abstract obligations, while missing
+obligations must remain visible through instantiation or smoke failure. Refinement is
+not the implementation phase and must not hide the gap between current Sage behavior
+and the ideal spec.
+
 ### The plugin exists to bridge static and dynamic inheritance
 
 Sage's runtime method-container inheritance (`C.ParentMethods` injected dynamically) is
@@ -105,3 +113,17 @@ it.**
 The mathematical structure is the foundation.
 The plugin and stubs are implementation details.
 Never optimize implementation details while ignoring mathematical incoherence.
+
+## Category specs must converge toward usable mathematical vocabulary
+
+`category_specs` is not complete because many cards exist or many abstract classes
+type-check. It is complete only insofar as it gives downstream research code the
+correct nouns, operations, coercions, morphisms, and obligations.
+
+Do not expand `category_specs` horizontally unless the expansion supports a concrete
+mathematical vocabulary needed by the current research phase.
+
+Specs may declare operations that Sage already implements. The spec obligation records
+the mathematical contract; the Sage method is only a possible concrete provider for
+refined Sage objects. Do not remove, weaken, or move an abstract obligation merely
+because an existing Sage category or parent has a method with the same name.

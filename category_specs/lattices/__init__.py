@@ -262,7 +262,7 @@ def Lattices(base_ring: Ring) -> LatticesCategory:
 
 type LatticesObject = LatticesCategory.ParentMethods
 type LatticesElement = LatticesCategory.ElementMethods
-type LatticesMorphism = _LatticeMorphisms
+type LatticesMorphism = LatticeHomCategory.ElementMethods
 LatticesHomCategory = LatticeHomCategory
 LatticesEndCategory = LatticeEndCategory
 LatticesAutCategory = LatticeAutCategory

@@ -5,7 +5,12 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
-from ....cat import Category, Category_over_base_ring, CovariantConstructionCategory
+from ....cat import (
+    Cat,
+    Category,
+    Category_over_base_ring,
+    CovariantConstructionCategory,
+)
 from ....cat.subcategories.constructions.objects_over import (
     structure_codomain,
     structure_domain,
@@ -25,7 +30,7 @@ class _RingsUnder(CovariantConstructionCategory, Category_over_base_ring):
     def default_super_categories(cls, category: Category, base: Ring) -> list[Category]:
         from ... import Rings
 
-        return Category.join(
+        return Cat().join(
             [
                 category,
                 Rings(),

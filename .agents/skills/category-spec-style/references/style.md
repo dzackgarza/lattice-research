@@ -347,12 +347,57 @@ methods Sage already provides.
 Subcategory definitions focus on categorical declaration; non-trivial software
 engineering belongs in `utils.py`.
 
+Refinement is also categorical declaration. It takes an existing Sage object and says
+that the object is now viewed as lying in a project subcategory of its Sage-backed
+category. The existing Sage object is a partial implementation of the project spec:
+some specified methods are already present, and smoke tests should expose the missing
+ones.
+
+Do not turn refinement into method-search repair. If a refinement task starts with
+method search, cache state, dynamic class mutation, type-checker appeasement, smoke
+ordering, hook output, or any other programming mechanism before it names the category
+and its mathematical specification, stop and restate the ordinary category declaration.
+Concrete examples include `MRO`, `getattr_from_category`, `_cached_methods`,
+`cached_method`, Cython class assignment, and `can_assign_class`:
+
+> Existing Sage object ___ is declared to belong to project category ___; Sage already
+> realizes spec methods ___; spec methods ___ remain missing.
+
+Those terms are examples of the wrong layer, not an exhaustive list and not invented
+jargon to preserve as the refinement model. A source-backed Sage-framework task may
+discuss the runtime mechanism separately, but that discussion must remain outside the
+mathematical specification.
+
 Method-ownership rows must be mathematical sentences, not software-routing guesses.
 For a method, first identify the object it is called on, the mathematical data it
 requires, the object or morphism it constructs or observes, and the hypotheses under
 which that operation is well-defined. The owner is the category where that sentence is
 first true. Sage inventory can then witness implementation feasibility or existing
 interop, but it cannot replace the mathematical sentence.
+
+`ParentMethods` is the method surface of mathematical objects in a category. Do not
+describe it primarily as a method-provider class, dispatch layer, integration hook, or
+implementation hook. Those are implementation witnesses after the mathematical sentence
+has been stated.
+
+Every added helper, test, smoke, task title, and guidance phrase touching category
+methods must read like a mathematical fact, proposition, operation, requirement, or
+counterexample. Names that describe appeasing code machinery instead of the
+mathematical operation are hard slop signals in category-spec work. Do not launder them
+by adding caveats, quotes, or surrounding mathematical prose. Stop, discard the
+phrasing, and reconstruct the task from the object/category sentence:
+
+> For object ___ in category ___, method ___ expresses mathematical operation/fact/
+> requirement ___ under hypotheses ___.
+
+Only after that sentence is true may programming details be used as implementation
+evidence. A helper name should expose the mathematical relation it computes or checks.
+
+This is not an optics rule. Strange Python class manipulation inside mathematical spec
+code is itself presumptive evidence of slop. It usually means the agent is trying to
+force a runtime shape instead of stating the category fact. Stop unless source
+reconstruction proves that the mathematical object cannot be expressed without the
+mechanism.
 
 **Mathematical Specification, Not Generic Software Engineering**:
 Switch mentalities before auditing this subtree. These files are mathematical

@@ -40,7 +40,6 @@ class _MeetSemilatticePosets(Category):
         return [Posets()]
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Finite(self) -> Category:
             r"""Return the finite meet-semilattice subcategory."""

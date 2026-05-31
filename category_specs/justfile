@@ -337,7 +337,7 @@ check-abstract-redefinitions:
         f"across {len(provider_classes)} project method-provider classes."
     )
 
-test: validate-super-categories smoke _clean-generated-artifacts
+test: check-banned-spec-patterns validate-super-categories smoke _clean-generated-artifacts
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}
@@ -369,7 +369,13 @@ test: validate-super-categories smoke _clean-generated-artifacts
             | sort
     )
 
-validate-super-categories:
+check-banned-spec-patterns:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{justfile_directory()}}/..
+    python3 category_specs/validators/banned_spec_patterns.py
+
+validate-super-categories: check-banned-spec-patterns
     #!/usr/bin/env bash
     set -euo pipefail
     cd {{justfile_directory()}}

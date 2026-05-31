@@ -36,7 +36,18 @@ Before acting, confirm the user's stated directive, the action you plan, and why
   into `needs-human-input` for ordinary category-spec task cards whose routing is
   already determined by source grounding, repo policy, the DAG, or agent-executable
   review.
-- If a category-spec rule is relevant but not in context, load the matching category-spec skill before acting. Do not guess from memory.
+- If a category-spec rule is relevant but not in context, load the matching category-spec skill or memory before acting. Do not guess from memory.
+- Before reviewing recent category-spec commits, suspicious engineering-shaped patches,
+  cache/lookup/cast/hook/QC work, or prior agent output, retrieve the ordinary governing
+  memories by topic: `mem:repo-purpose-mathematical-research-machine`,
+  `mem:category-spec-rotten-core-indicators`, `mem:mathematical-sanity-check`,
+  `mem:analysis-must-be-grounded`, `mem:paperwork-is-a-routing-layer-not-progress`,
+  and `mem:corrections-update-the-model-not-the-artifact`.
+  If the work touches refinement, provider ordering, constructor refinement, or
+  abstract-method satisfaction, also retrieve
+  `mem:category-spec-refinement-purpose-and-provider-satisfaction` and
+  `mem:what-category-specs-actually-is`.
+  Use `iwe find` with the relevant topic words if the exact memory key is not known.
 - Before editing a spec, mapping, method surface, constructor, Hom/End/Aut rule,
   invariant, or predicate, perform the definition-grounding gate from
   `category-spec-style`: locate the exact mathematical definition and hypotheses in

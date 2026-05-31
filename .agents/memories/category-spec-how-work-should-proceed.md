@@ -101,6 +101,10 @@ Every mypy error should be classified against the three problem types above.
 - Inventing jargon to obscure simple truths.
 - Producing strategy documents instead of concrete audits.
 - Treating the ledger as a scoreboard rather than a diagnostic signal.
+- Treating engineering-shaped machinery as category-spec progress before it names a
+  mathematical delta.
+- Polishing a slop-produced surface instead of redoing the underlying method owner,
+  category edge, obligation, or provider relation correctly.
 
 ## The core principle
 
@@ -110,3 +114,55 @@ If it does not, fix the graph.
 Do not add a workaround.
 Do not suppress the error.
 Do not write a document explaining why the absurdity is acceptable.
+
+## Ledgers are symptoms, not the task
+
+A ledger row is smoke. It is not the fire.
+
+Do not "work on the ledger" unless the requested deliverable is explicitly a ledger
+classification. In ordinary category-spec work, a ledger row only points to a possible
+source-level inconsistency. The task is to identify and repair the source-level
+mathematical/spec/code problem.
+
+Before touching a ledger, answer:
+
+- What source definitions does this diagnostic point to?
+- What mathematical operation, object, category, or interface is actually in conflict?
+- Does the apparent engineering problem disappear once the mathematical semantics are
+  named correctly?
+
+If the issue is source-level, fix the source. Do not improve the ledger description,
+create a goal, or open a decision card as a substitute.
+
+## Do not convert a 5-minute code conflict into artifacts
+
+When the code conflict is local and both sides are controlled by `category_specs`, fix
+the code. Do not create a goalcraft goal, decision card, handoff update, memory patch,
+or plan bundle before reading the relevant definitions.
+
+Artifact production is allowed only after one of these is true:
+
+1. The relevant code has been read and the conflict is still genuinely undecidable.
+2. A human decision is required because multiple mathematically coherent interfaces
+   remain.
+3. The code fix has been made and the memory records a durable anti-pattern.
+
+Otherwise, artifacts are evasion.
+
+If a discovered lesson affects ordinary category-spec work, update the memory or doc
+that ordinary agents already load. Do not create a standalone lesson dump that future
+agents will only read if they know the historical conversation exists.
+
+## Category specs are a research foundation, not a paperwork sink
+
+The category-spec layer exists to make mathematical implementations auditable and
+transferable to research. It is not a separate engineering deliverable to optimize
+indefinitely.
+
+Do not treat mypy ledgers, feature cards, or category coverage reports as the object
+of work. They are smoke. The fire is always a mathematical/source-level inconsistency,
+missing operation, wrong owner category, or unsafe bridge boundary.
+
+If a category-spec task does not clarify mathematical ownership, expose a real
+operation, place an obligation correctly, or unblock downstream research vocabulary,
+stop and reassess.

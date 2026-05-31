@@ -84,10 +84,6 @@ from .homsets import (
     SetAutCategory,
     SetEndCategory,
     SetHomCategory,
-    _SetAutomorphisms,
-    _SetEndomorphisms,
-    _SetHomCategoryObjectMethods,
-    _SetMorphisms,
 )
 
 if TYPE_CHECKING:
@@ -122,7 +118,9 @@ if TYPE_CHECKING:
     class _SubsetLatticeSource(Protocol):
         def lattice(self) -> Set: ...
 
+
 if TYPE_CHECKING:
+
     def cached_method[MethodT: Callable[..., object]](method: MethodT) -> MethodT: ...
 else:
     from sage.misc.cachefunc import cached_method
@@ -220,7 +218,6 @@ class _SetObjectMethods:
             )
         )
 
-    @final
     def union(self, other: Set) -> Set:
         r"""Return the set-theoretic union of ``self`` and ``other``."""
         from sage.sets.set import Set as SageSet
@@ -235,7 +232,6 @@ class _SetObjectMethods:
     def __add__(self, other: Set) -> Set:
         return self.union(other)
 
-    @final
     def is_subset(self, other: Set) -> bool:
         r"""Return whether ``self`` is a subset of ``other``."""
         if self is other:
@@ -1401,14 +1397,14 @@ class Sets(Category_singleton):
 
 
 SetsCategory = Sets
-SetsObject = _SetObjectMethods
-SetsElement = _SetElementMethods
-SetsMorphism = _SetMorphisms
+SetsObject = Sets.ParentMethods
+SetsElement = Sets.ElementMethods
+SetsMorphism = SetHomCategory.ElementMethods
 SetsHomCategory = SetHomCategory
 SetsEndCategory = SetEndCategory
 SetsAutCategory = SetAutCategory
-SetsHom = _SetHomCategoryObjectMethods
+SetsHom = SetHomCategory.ParentMethods
 SetsEnd = SetEndCategory.ParentMethods
 SetsAut = SetAutCategory.ParentMethods
-SetsEndomorphism = _SetEndomorphisms
-SetsAutomorphism = _SetAutomorphisms
+SetsEndomorphism = SetEndCategory.ElementMethods
+SetsAutomorphism = SetAutCategory.ElementMethods

@@ -707,9 +707,9 @@ class Algebras(Category_module):
 
 
 AlgebrasCategory = Algebras
-type AlgebrasObject = _AlgebraParentMethods
-type AlgebrasElement = _AlgebraElementMethods
-type AlgebrasMorphism = _AlgebraHomomorphisms
+type AlgebrasObject = Algebras.ParentMethods
+type AlgebrasElement = Algebras.ElementMethods
+type AlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AlgebrasHomCategory = AlgebraHomCategory
 AlgebrasEndCategory = AlgebraEndCategory
 AlgebrasAutCategory = AlgebraAutCategory
@@ -720,7 +720,7 @@ AlgebrasEndomorphism = AlgebraEndCategory.ElementMethods
 AlgebrasAutomorphism = AlgebraAutCategory.ElementMethods
 
 MagmaticAlgebrasCategory = MagmaticAlgebras
-type MagmaticAlgebrasObject = _MagmaticAlgebraParentMethods
+type MagmaticAlgebrasObject = MagmaticAlgebras.ParentMethods
 MagmaticAlgebrasElement = MagmaticAlgebras.ElementMethods
 MagmaticAlgebrasMorphism = AlgebraHomCategory.ElementMethods
 AssociativeAlgebrasCategory = AssociativeAlgebras

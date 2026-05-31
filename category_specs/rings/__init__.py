@@ -15,7 +15,6 @@ from typing import TYPE_CHECKING, Literal, TypeVar, cast, final, overload, overr
 from sage.categories.commutative_ring_ideals import CommutativeRingIdeals
 from sage.categories.rings import Rings as SageRings
 from sage.matrix.matrix_space import MatrixSpace
-from sage.misc.cachefunc import cached_method
 from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 from sage.rings.number_field.number_field import NumberField_cyclotomic
@@ -27,10 +26,6 @@ from .homsets import (
     RingAutCategory,
     RingEndCategory,
     RingHomCategory,
-    _RingAutomorphisms,
-    _RingEndomorphisms,
-    _RingHomCategoryObjectMethods,
-    _RingHomomorphisms,
 )
 from .matrix_algebras import (
     _MatrixAlgebras,
@@ -43,7 +38,6 @@ from .subcategories.constructions.subobjects import _Subobjects
 from .subcategories.constructions.subquotients import _Subquotients
 
 _F = TypeVar("_F", bound=Callable[..., object])
-_cached_method = cast(Callable[[_F], _F], cached_method)
 
 _CommutativeRings = LazyImport(
     "category_specs.rings.subcategories.commutative", "_CommutativeRings"
@@ -1956,8 +1950,6 @@ class Rings(Category_singleton):
                     test=False,
                 ),
             )
-
-    @_cached_method
     @final
     def Constructors(self) -> Rings._Constructors:
         r"""Return the Sage ring constructor collector."""
@@ -1980,155 +1972,99 @@ class Rings(Category_singleton):
 
     class SubcategoryMethods:
         r"""Mixin providing ``SubcategoryMethods`` axiom and functorial selectors."""
-
-        @_cached_method
         @final
         def Commutative(self) -> Category:
-            return cast(Category, with_axiom(self, "Commutative"))
-
-        @_cached_method
+            return self._with_axiom("Commutative")
         @final
         def Division(self) -> Category:
-            return cast(Category, with_axiom(self, "Division"))
-
-        @_cached_method
+            return self._with_axiom("Division")
         @final
         def Approximate(self) -> Category:
             return cast(Category, ApproximateRingsCategory())
-
-        @_cached_method
         @final
         def WithValuation(self) -> Category:
-            return cast(Category, with_axiom(self, "WithValuation"))
-
-        @_cached_method
+            return self._with_axiom("WithValuation")
         @final
         def Characteristic(self, p: Integer) -> Category:
             from .subcategories.constructions.characteristic import _CharacteristicRings
 
             return cast(Category, _CharacteristicRings(cast(Category, self), p))
-
-        @_cached_method
         @final
         def KrullDimension(self, n: Integer) -> Category:
             from .subcategories.constructions.krull_dimension import _KrullDimension
 
             return cast(Category, _KrullDimension(cast(Category, self), n))
-
-        @_cached_method
         @final
         def Polynomial(self) -> Category:
-            return cast(Category, with_axiom(self, "Polynomial"))
-
-        @_cached_method
+            return self._with_axiom("Polynomial")
         @final
         def PowerSeries(self) -> Category:
             return self.PuiseuxSeries().LaurentSeries().PowerSeries()
-
-        @_cached_method
         @final
         def LaurentSeries(self) -> Category:
             return self.PuiseuxSeries().LaurentSeries()
-
-        @_cached_method
         @final
         def PuiseuxSeries(self) -> Category:
-            return cast(Category, with_axiom(self, "PuiseuxSeries"))
-
-        @_cached_method
+            return self._with_axiom("PuiseuxSeries")
         @final
         def RingsUnder(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_under import _RingsUnder
 
             return cast(Category, _RingsUnder.category_of(self, structure_ring))
-
-        @_cached_method
         @final
         def RingsOver(self, structure_ring: Ring) -> Category:
             from .subcategories.constructions.rings_over import _RingsOver
 
             return cast(Category, _RingsOver.category_of(self, structure_ring))
-
-        @_cached_method
         @final
         def AlgebrasOver(self, structure_ring: Ring) -> Category:
             from ..algebras import Algebras
 
             return cast(Category, Algebras(structure_ring))
-
-        @_cached_method
         @final
         def PolynomialRings(self) -> Category:
             return self.Polynomial()
-
-        @_cached_method
         @final
         def PolynomialRingsOver(self, structure_ring: Ring) -> Category:
             return cast(Category, self.Polynomial().RingsUnder(structure_ring))
-
-        @_cached_method
         @final
         def PolynomialOver(self, structure_ring: Ring) -> Category:
             return self.PolynomialRingsOver(structure_ring)
-
-        @_cached_method
         @final
         def PowerSeriesRings(self) -> Category:
             return self.PowerSeries()
-
-        @_cached_method
         @final
         def PowerSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return cast(Category, self.PowerSeries().RingsUnder(structure_ring))
-
-        @_cached_method
         @final
         def PowerSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PowerSeriesRingsOver(structure_ring)
-
-        @_cached_method
         @final
         def LaurentSeriesRings(self) -> Category:
             return self.LaurentSeries()
-
-        @_cached_method
         @final
         def LaurentSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return cast(Category, self.LaurentSeries().RingsUnder(structure_ring))
-
-        @_cached_method
         @final
         def LaurentSeriesOver(self, structure_ring: Ring) -> Category:
             return self.LaurentSeriesRingsOver(structure_ring)
-
-        @_cached_method
         @final
         def PuiseuxSeriesRings(self) -> Category:
             return self.PuiseuxSeries()
-
-        @_cached_method
         @final
         def PuiseuxSeriesRingsOver(self, structure_ring: Ring) -> Category:
             return cast(Category, self.PuiseuxSeries().RingsUnder(structure_ring))
-
-        @_cached_method
         @final
         def PuiseuxSeriesOver(self, structure_ring: Ring) -> Category:
             return self.PuiseuxSeriesRingsOver(structure_ring)
-
-        @_cached_method
         @final
         def QuotientRingsOf(self, structure_ring: Ring) -> Category:
             return cast(
                 Category, cast(Category, self).Quotients().RingsUnder(structure_ring)
             )
-
-        @_cached_method
         @final
         def QuotientsOf(self, structure_ring: Ring) -> Category:
             return self.QuotientRingsOf(structure_ring)
-
-        @_cached_method
         @final
         def SubringsOf(self, structure_ring: Ring) -> Category:
             return cast(
@@ -2143,8 +2079,6 @@ class Rings(Category_singleton):
     Topological = _TopologicalRings
     WithValuation = _ValuedRings
     Polynomial = _PolynomialRings
-    PowerSeries = _PowerSeriesRings
-    LaurentSeries = _LaurentSeriesRings
     PuiseuxSeries = _PuiseuxSeriesRings
 
     # ----- Functorial constructions ----------------------------------------
@@ -2164,14 +2098,14 @@ class Rings(Category_singleton):
 
 
 RingsCategory = Rings
-RingsObject = _RingObjectMethods
-RingsElement = _RingElementMethods
-RingsMorphism = _RingHomomorphisms
+RingsObject = Rings.ParentMethods
+RingsElement = Rings.ElementMethods
+RingsMorphism = RingHomCategory.ElementMethods
 RingsHomCategory = RingHomCategory
 RingsEndCategory = RingEndCategory
 RingsAutCategory = RingAutCategory
-RingsHom = _RingHomCategoryObjectMethods
+RingsHom = RingHomCategory.ParentMethods
 RingsEnd = RingEndCategory.ParentMethods
 RingsAut = RingAutCategory.ParentMethods
-RingsEndomorphism = _RingEndomorphisms
-RingsAutomorphism = _RingAutomorphisms
+RingsEndomorphism = RingEndCategory.ElementMethods
+RingsAutomorphism = RingAutCategory.ElementMethods

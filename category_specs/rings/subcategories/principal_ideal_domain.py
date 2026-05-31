@@ -7,10 +7,13 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.principal_ideal_domains import (
     PrincipalIdealDomains as SagePrincipalIdealDomains,
 )
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _UniqueFactorizationDomains
+from .unique_factorization_domain import (
+    _UniqueFactorizationDomains as _UniqueFactorizationDomains,
+)
 
 if TYPE_CHECKING:
     from ...types import (
@@ -43,14 +46,14 @@ class _PrincipalIdealDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_pid()
         )
 
-    EuclideanDomains = LazyImport(
+    Euclidean = LazyImport(
         "category_specs.rings.subcategories.euclidean_domain", "_EuclideanDomains"
     )
 
     class SubcategoryMethods:
         @final
         def Euclidean(self) -> Category:
-            return cast(Any, with_axiom(self, "Euclidean"))
+            return self._with_axiom("Euclidean")
 
     class ParentMethods:
         @override

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, final
 
 from sage.categories.category import Category
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from ...modules import Modules
 from .quadratic import QuadraticModulesMorphism
 
@@ -26,7 +26,7 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Category.join(
+            Cat().join(
                 [
                     Modules(R).Torsion(),
                     Modules(R).WithForms().Quadratic(),
@@ -53,7 +53,6 @@ class TorsionQuadraticModulesCategory(Category_over_base_ring):
         def brown_invariant(self) -> RingElement: ...
 
     class ElementMethods: ...
-
 
 
 TorsionQuadraticModulesObject = TorsionQuadraticModulesCategory.ParentMethods

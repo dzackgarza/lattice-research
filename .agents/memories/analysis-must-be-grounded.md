@@ -24,6 +24,8 @@ Agents frequently produce analyses based on:
   requested.
 - **Delegation to future agents:** writing a comment or issue that tells someone else
   what to do, rather than doing the analysis now.
+- **Transcript sampling:** extracting a few obvious correction clusters and calling it
+  transcript mining when the full conversation is the source.
 
 ## The requirement
 
@@ -76,3 +78,68 @@ strategy document, an issue comment, or a set of acceptance criteria.
 These are not the work.
 They are containers for the work.
 The user asked for the work.
+
+## Category-spec gate: read code before classifying override errors
+
+Before classifying any `category_specs` mypy error, the agent must read:
+
+1. The failing method definition.
+2. The supertype/base method definition named in the error.
+3. The relevant `super_categories()` chain.
+4. Any local file-level comments/docstrings near the method.
+
+For override/signature errors, the first output should be the concrete pair of
+signatures, not a classification label. For the RealSet/topological-space incident, the
+required first observation was simply:
+
+```python
+# ambient/topological-space interface
+is_open(self, U: Subset) -> bool
+
+# subspace/self interface
+is_open(self) -> bool
+```
+
+and similarly for `is_closed`, `closure`, `interior`, and `boundary`. The failure was
+that the agent invented categories like "variance," "Liskov audit," and "interface
+design question" before displaying the two definitions.
+
+If you cannot quote both conflicting definitions from code, you are not allowed to
+classify the error.
+
+## Source-of-truth hierarchy
+
+When a report, ledger, handoff, or plan conflicts with source code or mathematics, the
+artifact loses.
+
+Use this order:
+
+1. Abstract mathematics.
+2. Repo source code and category graph.
+3. Repo design memories/docs.
+4. Tests and type errors as diagnostics.
+5. Ledgers, handoffs, plans, and decision cards.
+
+A ledger can show where to look. It cannot decide what the operation means.
+A handoff can preserve context. It cannot replace reading the code.
+A decision card is only valid after the source and mathematics leave a real undecided
+choice.
+
+## Artifact-grounded analysis is not grounded analysis
+
+A plan, ledger, handoff, or report is not a source of truth about the mathematics. It
+is at most a pointer.
+
+Grounding order:
+
+1. abstract mathematics;
+2. repo source code and category graph;
+3. canonical source references / papers / Sage docs;
+4. tests and type errors as diagnostics;
+5. cards, ledgers, handoffs, and plans.
+
+If analysis begins and ends in artifacts, it is not grounded.
+
+When the relevant source is a conversation, read the whole substantive user corpus, not
+just recent turns or search hits. Then distribute stable rules into the normal repo
+guidance path instead of leaving them in a conversation-specific artifact.

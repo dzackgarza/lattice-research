@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Literal, final, override
 
 from sage.categories.category import Category
 
-from ...cat import Category_over_base_ring
+from ...cat import Cat, Category_over_base_ring
 from .. import Modules
 
 if TYPE_CHECKING:
@@ -36,7 +36,7 @@ class _RepresentationModules(Category_over_base_ring):
     def super_categories(self) -> list[Category]:
         R = self.base_ring()
         return [
-            Category.join(
+            Cat().join(
                 [
                     Modules(R).Free(),
                     Modules(R).WithOrderedGeneratingSet(),
@@ -79,8 +79,7 @@ class _RepresentationModules(Category_over_base_ring):
             ]
             | None = None,
             side: Literal["left", "right"] | None = None,
-        ) -> RModule:
-            ...
+        ) -> RModule: ...
 
         @abstractmethod
         def cell_module(

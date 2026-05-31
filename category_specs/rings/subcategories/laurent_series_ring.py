@@ -6,12 +6,13 @@ from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _PuiseuxSeriesRings
 from ._sage_ring_classes import _SAGE_LAURENT_SERIES_CONTAINMENT_CLASSES
+from .puiseux_series_ring import _PuiseuxSeriesRings as _PuiseuxSeriesRings
 
 if TYPE_CHECKING:
     from ...types import (
@@ -44,14 +45,14 @@ class _LaurentSeriesRings(CategoryWithAxiom):
             or isinstance(R, self.parent_class)
         )
 
-    PowerSeriesRings = LazyImport(
+    PowerSeries = LazyImport(
         "category_specs.rings.subcategories.power_series_ring", "_PowerSeriesRings"
     )
 
     class SubcategoryMethods:
         @final
         def PowerSeries(self) -> Category:
-            return cast(Any, with_axiom(self, "PowerSeries"))
+            return self._with_axiom("PowerSeries")
 
     class ParentMethods:
         @override

@@ -8,11 +8,12 @@ from typing import TYPE_CHECKING, Any, final, override
 from sage.categories.unique_factorization_domains import (
     UniqueFactorizationDomains as SageUniqueFactorizationDomains,
 )
+from sage.misc.lazy_import import LazyImport
 from sage.structure.factorization import Factorization
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _GcdDomains
+from .gcd_domain import _GcdDomains as _GcdDomains
 
 if TYPE_CHECKING:
     pass
@@ -42,7 +43,7 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_unique_factorization_domain()
         )
 
-    PrincipalIdealDomains = LazyImport(
+    PrincipalIdeal = LazyImport(
         "category_specs.rings.subcategories.principal_ideal_domain",
         "_PrincipalIdealDomains",
     )
@@ -50,7 +51,7 @@ class _UniqueFactorizationDomains(CategoryWithAxiom):
     class SubcategoryMethods:
         @final
         def PrincipalIdeal(self) -> Category:
-            return cast(Any, with_axiom(self, "PrincipalIdeal"))
+            return self._with_axiom("PrincipalIdeal")
 
     class ElementMethods:
         @abstractmethod

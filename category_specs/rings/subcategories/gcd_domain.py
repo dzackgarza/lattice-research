@@ -10,7 +10,6 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ...utils import with_axiom
 from .integral_domain import _IntegralDomains as _IntegralDomains
 
 if TYPE_CHECKING:
@@ -41,7 +40,7 @@ class _GcdDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_gcd_domain()
         )
 
-    UniqueFactorizationDomains = LazyImport(
+    UniqueFactorization = LazyImport(
         "category_specs.rings.subcategories.unique_factorization_domain",
         "_UniqueFactorizationDomains",
     )
@@ -49,7 +48,7 @@ class _GcdDomains(CategoryWithAxiom):
     class SubcategoryMethods:
         @final
         def UniqueFactorization(self) -> Category:
-            return cast(Any, with_axiom(self, "UniqueFactorization"))
+            return self._with_axiom("UniqueFactorization")
 
     class ParentMethods:
         @override

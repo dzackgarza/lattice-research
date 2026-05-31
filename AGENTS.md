@@ -320,6 +320,14 @@ Every new session must:
    Load `research-repo-structure` before startup pruning or cleanup.
    State which `GOAL.md` phase and task will be worked on and why.
    Do not start by reading every file in the repo.
+4. Before category-spec work, review, or source repair, use IWE to surface normal
+   governing memories by topic, not by historical session.
+   Start from the handoff's named memories, then use `iwe find` for the actual work
+   shape: `purpose`, `category specs`, `red flags`, `sanity`, `grounded analysis`,
+   `paperwork`, `corrections`, `refinement`, `provider`, `hooks`, or the concrete
+   method/category names involved.
+   The goal is that repo-purpose, review, artifact-drift, correction, and refinement
+   rules surface during ordinary work; do not rely on remembering any past transcript.
 
 ## IWE and memory practice
 
@@ -429,11 +437,33 @@ iwe retrieve -k KEY -b            # also show backlinks (incoming references)
 
 **Navigation patterns**
 
-- Start at `index` (agent memories root) or `theory/index` (theory subtree root).
-- Use `iwe find "topic"` to locate a doc before reading it.
-- Use `iwe retrieve -k current-goal-handoff` to resume after context loss.
-- Use `iwe find --referenced-by KEY` to find everything that cites a doc.
-- `iwe find -f keys | grep pattern` for fast key lookup by path fragment.
+Never dump the full tree into a session.
+Start broad, then drill.
+
+```
+# Top-level structure; expand one more level when you know which area
+iwe tree --depth 1
+iwe tree --depth 2
+
+# Retrieve a doc plus its children (depth controls how many inclusion levels)
+iwe retrieve -k <key> -d 1
+iwe retrieve -k <key> -d 2
+
+# Retrieve a doc plus its parent context
+iwe retrieve -k <key> -c 1
+```
+
+```
+# Fuzzy search to locate a doc before reading it
+iwe find "keyword"
+
+# Find which docs include a given doc (its parents) or it includes (its children)
+iwe find --included-by <key>
+iwe find --includes <key>
+
+# Fast key lookup by path fragment
+iwe find -f keys | grep <pattern>
+```
 
 Do not turn memories into a second tracker or metadata database.
 Avoid complex manual state, exhaustive status matrices, cross-linked bookkeeping layers,

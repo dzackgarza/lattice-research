@@ -11,10 +11,7 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ...topological_spaces import (
-    TopologicalSpaceRuntimeGapObjectMethods,
-    TopologicalSpaces,
-)
+from ...topological_spaces import TopologicalSpaces
 from ...utils import with_axiom
 from .. import Rings
 
@@ -58,17 +55,6 @@ class _TopologicalRings(CategoryWithAxiom):
             return cast(Category, with_axiom(self, "Complete"))
 
     class ParentMethods:
-        _missing_topology_adapter = (
-            TopologicalSpaceRuntimeGapObjectMethods._missing_topology_adapter
-        )
-        is_connected = TopologicalSpaceRuntimeGapObjectMethods.is_connected
-        closure = TopologicalSpaceRuntimeGapObjectMethods.closure
-        interior = TopologicalSpaceRuntimeGapObjectMethods.interior
-        boundary = TopologicalSpaceRuntimeGapObjectMethods.boundary
-        is_open = TopologicalSpaceRuntimeGapObjectMethods.is_open
-        is_closed = TopologicalSpaceRuntimeGapObjectMethods.is_closed
-        is_compact = TopologicalSpaceRuntimeGapObjectMethods.is_compact
-
         @override
         @final
         def is_topological_ring(self) -> bool:

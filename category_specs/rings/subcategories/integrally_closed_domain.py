@@ -2,7 +2,9 @@ r"""IntegrallyClosedDomains ring subcategory spec."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, cast, final, override
+from typing import TYPE_CHECKING, Any, final, override
+
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
@@ -36,14 +38,14 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
     def __contains__(self, R: Any) -> bool:
         return R in self.base_category() and R.is_integrally_closed()
 
-    DedekindDomains = LazyImport(
+    Dedekind = LazyImport(
         "category_specs.rings.subcategories.dedekind_domain", "_DedekindDomains"
     )
 
     class SubcategoryMethods:
         @final
         def Dedekind(self) -> Category:
-            return cast(Any, with_axiom(self, "Dedekind"))
+            return self._with_axiom("Dedekind")
 
     class ParentMethods:
         @final
@@ -51,7 +53,7 @@ class _IntegrallyClosedDomains(CategoryWithAxiom):
             return True
 
         @final
-        def integral_closure(self) -> Ring:
-            return cast("Ring", self)
+        def integral_closure(self: Ring) -> Ring:
+            return self
 
     class ElementMethods: ...

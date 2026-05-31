@@ -175,10 +175,15 @@ Read these when their situation arises:
 
 | Situation | Memory |
 | --- | --- |
+| Learning what the repo is for | `mem:repo-purpose-mathematical-research-machine` and `mem:what-category-specs-actually-is` |
+| Reviewing recent commits, prior agent output, or suspicious category-spec work | `mem:category-spec-rotten-core-indicators` and `mem:mathematical-sanity-check` |
 | Before any surface edit, decorator change, or mapping | `mem:category-spec-epistemic-foundation` |
 | Writing, editing, or retrieving a memory | `mem:memory-management-discipline` |
 | About to write a return type for a method | `mem:private-stubs-are-not-types` |
 | About to classify a mypy override error | `mem:analysis-must-be-grounded` |
+| About to produce or polish cards, ledgers, reports, plans, handoffs, or notes | `mem:paperwork-is-a-routing-layer-not-progress` |
+| User correction affected repo purpose, architecture, or mathematical claims | `mem:corrections-update-the-model-not-the-artifact` |
+| Refinement, provider ordering, constructor refinement, or abstract-method satisfaction | `mem:category-spec-refinement-purpose-and-provider-satisfaction` |
 | Two methods with the same name collide | `mem:mathematics-first-not-engineering-options` |
 | Found an embarrassing category-graph bug | `mem:process-before-patches-policy` |
 | About to produce a strategy doc instead of code | `mem:foundation-serves-research-not-itself` |

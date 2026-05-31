@@ -257,29 +257,22 @@ class Posets(Category):
         return [Sets(), SagePosets()]
 
     class SubcategoryMethods:
-        @cached_method
         @final
         def Finite(self) -> Category:
             r"""Return the finite-poset subcategory."""
             return cast(Category, with_axiom(self, "Finite"))
-
-        @cached_method
         @final
         def MeetSemilattice(self) -> Category:
             r"""Return the meet-semilattice subcategory of posets."""
             from .subcategories.meet_semilattice import _MeetSemilatticePosets
 
             return _MeetSemilatticePosets()
-
-        @cached_method
         @final
         def JoinSemilattice(self) -> Category:
             r"""Return the join-semilattice subcategory of posets."""
             from .subcategories.join_semilattice import _JoinSemilatticePosets
 
             return _JoinSemilatticePosets()
-
-        @cached_method
         @final
         def Lattice(self) -> Category:
             r"""Return the order-theoretic lattice subcategory of posets."""
@@ -749,8 +742,6 @@ class Posets(Category):
         def lattice_from_existing(self, poset: Poset) -> FiniteLatticePoset:
             r"""Return ``poset`` refined as a finite lattice."""
             return self._refine_lattice(self._raw_poset(poset))
-
-    @cached_method
     @final
     def Constructors(self) -> Posets._Constructors:
         r"""Return the named Sage poset constructor collector."""

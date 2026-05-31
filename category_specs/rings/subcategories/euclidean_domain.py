@@ -5,10 +5,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.euclidean_domains import EuclideanDomains as SageEuclideanDomains
+from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ._lazy_subcategories import _PrincipalIdealDomains
+from .principal_ideal_domain import _PrincipalIdealDomains as _PrincipalIdealDomains
 
 if TYPE_CHECKING:
     pass
@@ -38,12 +39,12 @@ class _EuclideanDomains(CategoryWithAxiom):
             R in self.base_category() and R.is_euclidean_domain()
         )
 
-    Fields = LazyImport("category_specs.rings.subcategories.field", "_Fields")
+    Field = LazyImport("category_specs.rings.subcategories.field", "_Fields")
 
     class SubcategoryMethods:
         @final
         def Field(self) -> Category:
-            return cast(Any, with_axiom(self, "Field"))
+            return self._with_axiom("Field")
 
     class ParentMethods: ...
 

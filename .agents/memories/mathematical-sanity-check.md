@@ -89,3 +89,82 @@ record in the commit message or a brief note:
 - Why the naming is accurate.
 
 If you cannot write this in one or two sentences, you have not thought about it enough.
+
+## Operation ownership gate
+
+Before changing signatures, parents, inheritance, method names, or category placement,
+answer:
+
+- What mathematical operation is this?
+- What object owns the operation?
+- Is `self` the object being studied, the ambient object, a subobject, an element, or a
+  morphism?
+- Is an argument being used because the operation is relative to an ambient object?
+- Is a zero-argument method meaningful, or only meaningful when `self` carries
+  ambient/subobject structure?
+- Would the proposed fix erase a true mathematical fact?
+
+If the code conflict is between two meanings of one name, do not solve it by weakening
+the category graph. Separate the meanings.
+
+## Engineering skepticism gate
+
+Before doing detailed engineering, ask whether the engineering preserves, clarifies, or
+distorts the mathematics.
+
+Reject fixes that:
+
+- weaken a true mathematical inheritance because typing is inconvenient;
+- rename or move operations without identifying their mathematical owner;
+- satisfy a checker by erasing semantics;
+- introduce adapters, facades, or runtime gaps instead of correct abstract obligations;
+- produce architecture that cannot be explained in ordinary mathematical language.
+
+The mathematical abstraction is the authority. The code is inspected and corrected until
+it expresses that abstraction.
+
+The RealSet/topological-space incident: the correct response was not to remove topology
+from real subsets, but to distinguish ambient-relative operations from subobject
+self-predicates. The drift came from treating a mathematical design issue as
+ledger/typing work and from proposing degradation before understanding the object
+structure.
+
+## Commit-history review gate
+
+When reviewing recent category-spec commits, do not start from whether the author
+claimed alignment or whether QC improved. The writing agent almost always believed the
+patch was aligned.
+
+Start from the shape of the patch. In the category-spec phase, most legitimate changes
+should look mathematical: categories, methods, owners, constructors, morphisms,
+abstract obligations, source-grounded definitions, or tests that expose those
+relations. A commit whose dominant nouns are engineering nouns, such as cache, lookup,
+plugin, stub, cast, hook, report, ledger, test order, or runtime state, is suspicious
+until it names the mathematical deficiency it repaired.
+
+This is not a ban on engineering code. It is a sanity test for placement. If spec code
+knows about a runtime/tooling concern and the commit does not explain the
+corresponding mathematical object-level defect, presume the patch is making the repo
+look more correct rather than making the mathematics more correct.
+
+Case study: cache priming before category refinement should have looked out of place
+immediately. Caching is not a mathematical structure. The right question was not "does
+this fix the failing smoke?" but "why is category-spec refinement reasoning about
+caches at all?" That question leads to the actual defect: concrete providers and
+abstract obligations were being ordered/classified incorrectly during refinement.
+
+## Mathematical delta gate
+
+For category-spec work, a patch is not substantively aligned merely because it makes a
+tool, smoke, hook, report, or ledger look better. It must have a visible mathematical
+delta: a category edge becomes correct, an operation owner is fixed, an abstract
+obligation is represented faithfully, a concrete provider is allowed to satisfy the
+right contract, a missing obligation is exposed instead of hidden, or a recovery
+formula/representation split is made explicit.
+
+If the only visible delta is engineering-shaped, stop before polishing. The review
+question is: "What mathematical statement would be false without this patch, and where
+is that statement visible in the diff or its tracked work item?" If that cannot be
+answered, reconstruct the hidden defect from transcript/source/commit evidence or
+queue that reconstruction explicitly. Do not add casts, decorators, caches, local
+validators, reports, or hook exceptions as substitutes for the mathematical delta.

@@ -59,7 +59,6 @@ from .homsets import (
     RModuleAutCategory,
     RModuleEndCategory,
     RModuleHomCategory,
-    _RModMorphisms,
 )
 from .subcategories.constructions.cartesian_products import _CartesianProducts
 from .subcategories.constructions.dual_objects import _DualObjects
@@ -1871,9 +1870,9 @@ class Modules(Category_module):
 
 
 ModulesCategory = Modules
-type ModulesObject = _RModObjects
-type ModulesElement = _RModElements
-ModulesMorphism = _RModMorphisms
+type ModulesObject = Modules.ParentMethods
+type ModulesElement = Modules.ElementMethods
+ModulesMorphism = RModuleHomCategory.ElementMethods
 ModulesHomCategory = RModuleHomCategory
 ModulesEndCategory = RModuleEndCategory
 ModulesAutCategory = RModuleAutCategory

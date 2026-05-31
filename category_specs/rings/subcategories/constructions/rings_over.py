@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, final, override
 
 from ....cat import (
+    Cat,
     Category,
     Category_over_base_ring,
     RegressiveCovariantConstructionCategory,
@@ -31,7 +32,7 @@ class _RingsOver(RegressiveCovariantConstructionCategory, Category_over_base_rin
     ) -> list[Category]:
         from ... import Rings
 
-        return Category.join(
+        return Cat().join(
             [
                 Rings(),
                 super().default_super_categories(category, ambient),

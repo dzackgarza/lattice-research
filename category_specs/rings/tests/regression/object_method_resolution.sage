@@ -112,6 +112,52 @@ print('silent-call-returned', flush=True)
     text=True,
 )
 
+joined_abstracts_after_low_level_refinement = subprocess.run(
+    [
+        sys.executable,
+        '-c',
+        """
+from abc import abstractmethod
+import sys
+
+from sage.all import *
+
+sys.path.insert(0, '/home/dzack/research')
+
+from sage.all import ZZ
+from sage.categories.rings import Rings as SageRings
+from category_specs.cat import Category_singleton
+
+
+class _IncompleteRingObjects(Category_singleton):
+    def super_categories(self):
+        return [SageRings()]
+
+    def additional_structure(self):
+        return None
+
+    class ParentMethods:
+        @abstractmethod
+        def required_regression_operation(self):
+            ...
+
+
+ZZ._refine_category_([_IncompleteRingObjects()])
+abstracts = getattr(
+    ZZ.category().parent_class,
+    '__abstractmethods__',
+    frozenset(),
+)
+print('joined-abstracts', sorted(abstracts), flush=True)
+if 'required_regression_operation' not in abstracts:
+    raise AssertionError('joined parent_class lost missing ParentMethods obligation')
+""",
+    ],
+    cwd=REPO_ROOT,
+    capture_output=True,
+    text=True,
+)
+
 failures = []
 if 'reached-incomplete-refinement' not in default_incomplete_refinement.stdout:
     failures.append('default subprocess did not reach refine_category')
@@ -131,6 +177,11 @@ if 'optimized-refinement-returned' in optimized_incomplete_refinement.stdout:
     failures.append('optimized refine_category returned after missing obligation')
 if 'silent-call-returned' in optimized_incomplete_refinement.stdout:
     failures.append('optimized missing object method call returned silently')
+
+if joined_abstracts_after_low_level_refinement.returncode != 0:
+    failures.append(
+        'joined parent_class did not retain missing ParentMethods obligation'
+    )
 
 assert not failures, '\n'.join(failures)
 

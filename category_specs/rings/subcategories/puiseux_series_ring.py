@@ -6,6 +6,7 @@ from abc import abstractmethod
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, final, override
 
+from sage.misc.lazy_import import LazyImport
 from sage.rings.integer import Integer
 
 from ...cat import Category
@@ -44,7 +45,7 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
             or isinstance(R, self.parent_class)
         )
 
-    LaurentSeriesRings = LazyImport(
+    LaurentSeries = LazyImport(
         "category_specs.rings.subcategories.laurent_series_ring",
         "_LaurentSeriesRings",
     )
@@ -52,7 +53,7 @@ class _PuiseuxSeriesRings(CategoryWithAxiom):
     class SubcategoryMethods:
         @final
         def LaurentSeries(self) -> Category:
-            return cast(Any, with_axiom(self, "LaurentSeries"))
+            return self._with_axiom("LaurentSeries")
 
     class ParentMethods:
         @override

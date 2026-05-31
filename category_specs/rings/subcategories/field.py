@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any, cast, final, override
+from typing import TYPE_CHECKING, Any, final, override
 
 from sage.categories.fields import Fields as SageFields
 from sage.misc.cachefunc import cached_method
@@ -12,18 +12,17 @@ from sage.misc.lazy_import import LazyImport
 
 from ...cat import Category
 from ...cat import CategoryWithAxiom_singleton as CategoryWithAxiom
-from ...utils import with_axiom
 from .. import Rings
 from ._lazy_subcategories import (
     _CC,
     _QQ,
     _RR,
     _DivisionRings,
-    _EuclideanDomains,
     _IntegrallyClosedDomains,
     _NoetherianRings,
     _ReducedRings,
 )
+from .euclidean_domain import _EuclideanDomains as _EuclideanDomains
 
 if TYPE_CHECKING:
     from ...types import (
@@ -94,17 +93,17 @@ class _Fields(CategoryWithAxiom):
         @_field_cached_method
         @final
         def AlgebraicallyClosed(self) -> Category:
-            return cast(Category, with_axiom(self, "AlgebraicallyClosed"))
+            return self._with_axiom("AlgebraicallyClosed")
 
         @_field_cached_method
         @final
         def LocalFields(self) -> Category:
-            return cast(Category, with_axiom(self, "LocalFields"))
+            return self._with_axiom("LocalFields")
 
         @_field_cached_method
         @final
         def GlobalFields(self) -> Category:
-            return cast(Category, with_axiom(self, "GlobalFields"))
+            return self._with_axiom("GlobalFields")
 
     @_field_cached_method
     @final
