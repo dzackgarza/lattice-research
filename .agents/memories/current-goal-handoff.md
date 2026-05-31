@@ -34,8 +34,8 @@ just -f category_specs/justfile smoke-file rings/tests/regression/object_method_
 ```
 
 Do not claim the larger provider-satisfaction goal complete yet. Strict ABC enforcement
-exposes a separate root ring-surface debt: `Rings().Constructors().ZZ()` now correctly
-raises on unresolved abstract obligations such as
+exposes unsatisfied required root ring-surface propositions: `Rings().Constructors().ZZ()`
+now correctly raises on unresolved abstract obligations such as
 `hilbert_polynomial`, `is_number_field`, `is_complete_ring`, and related root predicate
 methods. `category_specs/__init__.py` no longer eagerly refines `ZZ`/`QQ` at import
 time, because import-time construction of abstract parents hid the invalid surface.
@@ -47,7 +47,7 @@ skip the refinement guard to make those constructors pass.
 
 Before further category-spec edits, run
 `just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only
-while inherited debt remains, but new `typing.cast`, `with_axiom(self, ...)`,
+while inherited repo-wide findings remain, but new `typing.cast`, `with_axiom(self, ...)`,
 cache-priming, or post-hoc object mutation would be a fresh defect.
 
 ## Required context
