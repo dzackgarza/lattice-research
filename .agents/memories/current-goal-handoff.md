@@ -14,11 +14,11 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-The provider-satisfaction/object-method-resolution repair has a targeted ABC-boundary
-patch in the working tree. It computes `__abstractmethods__` on Sage dynamic
+The provider-satisfaction/object-method-resolution repair has targeted ABC-boundary
+commits through `3734d409`. The patch computes `__abstractmethods__` on Sage dynamic
 `parent_class` construction, propagates joined abstract sets, removes the generated
 `assert False` missing-method body, and makes `refine_category` reject missing
-obligations without relying on `assert`.
+obligations before mutating the parent category.
 
 The targeted regression now passes:
 
@@ -33,8 +33,8 @@ raises on unresolved abstract obligations such as
 methods. `category_specs/__init__.py` no longer eagerly refines `ZZ`/`QQ` at import
 time, because import-time construction of abstract parents hid the invalid surface.
 
-Next pickup: commit or review the current ABC-boundary patch, then source-ground the
-root `Rings().Constructors().ZZ()`/`QQ()` abstract obligations or split that as the next
+Next pickup: review the ABC-boundary commits, then source-ground the root
+`Rings().Constructors().ZZ()`/`QQ()` abstract obligations or split that as the next
 explicit ring-surface repair. Do not reintroduce generated assertion-body enforcement or
 skip the refinement guard to make those constructors pass.
 

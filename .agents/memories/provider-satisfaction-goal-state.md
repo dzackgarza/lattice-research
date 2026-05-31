@@ -16,7 +16,8 @@ boundary.
 
 ## Current Mode
 
-`RECONCILE` with a targeted ABC-boundary patch. Do not claim this goal complete.
+`RECONCILE` with targeted ABC-boundary commits through `3734d409`. Do not claim this
+goal complete.
 Do not treat `bac2ab28` or `1c6f3b65` as acceptance evidence; they recorded a false
 completion state before the missing-obligation leak was tested at the right boundary.
 
@@ -32,6 +33,8 @@ Authoritative adversarial-test commits:
   `category_specs/rings/tests/regression/object_method_resolution.sage`.
 - `5f3cd1cd` adds the joined-parent-class abstract propagation guard in
   `category_specs/rings/tests/regression/object_method_resolution.sage`.
+- `ce1ed355` adds the failed-refinement atomicity guard: rejection must not leave the
+  parent in the rejected category.
 
 Run:
 
@@ -69,7 +72,7 @@ resolved for `Rings().Constructors().ZZ()`/`QQ()`.
 
 ## Required Source Direction
 
-The ABC-boundary patch should make these relation claims true:
+The ABC-boundary patch makes these relation claims true in the targeted regression:
 
 - the actual Sage dynamic `X.category().parent_class` has a computed
   `__abstractmethods__` set after category joins/refinement;
@@ -82,9 +85,10 @@ The ABC-boundary patch should make these relation claims true:
 - no generated missing-obligation method body may rely on `assert`.
 
 The low-level implementation path applies ABCMeta's abstract-set algorithm to Sage's
-preferred dynamic parent class and rejects unresolved obligations in `refine_category`.
-For existing Sage/Cython parents, concrete methods on the actual parent type are
-accepted as realizations; unresolved names remain refinement blockers.
+preferred dynamic parent class and rejects unresolved obligations in `refine_category`
+before mutating the parent. For existing Sage/Cython parents, concrete methods on the
+actual parent type are accepted as realizations; unresolved names remain refinement
+blockers.
 
 ## Next Pickup
 
