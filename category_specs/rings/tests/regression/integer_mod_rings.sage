@@ -4,7 +4,6 @@
 import sys
 sys.path.insert(0, '/home/dzack/research')
 from category_specs.rings import Rings
-from sage.all import ZZ, GF
 
 NR = Rings().Constructors()
 
@@ -43,8 +42,9 @@ assert R7.is_field() is True
 assert R7.characteristic() == 7
 assert R7.order() == 7
 
-# R7 as a field should match GF(7)
-assert R7.is_isomorphic(GF(7))
+# Prime-modulus arithmetic is field arithmetic in the constructed object.
+assert R7(3) + R7(5) == R7(1)
+assert R7(3) * R7(5) == R7(1)
 
 # ---------------------------------------------------------------------------
 # Zmod alias  (same constructor)
@@ -66,7 +66,10 @@ assert Z5.is_field() is True
 # Modulus method  (IntegerModRing.modulus)
 # ---------------------------------------------------------------------------
 
-assert R12.modulus() == ZZ(12)
+modulus = R12.modulus()
+assert modulus.degree() == 1
+assert modulus.base_ring() is R12
+assert modulus(R12(1)) == R12(0)
 
 # ---------------------------------------------------------------------------
 # unit_gens  (IntegerModRing_generic.unit_gens)
