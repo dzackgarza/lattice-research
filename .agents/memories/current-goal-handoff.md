@@ -14,36 +14,63 @@ work has named objects, morphisms, and invariants, not raw matrices.
 
 ## Current next action
 
-The provider-satisfaction/object-method-resolution repair has targeted ABC-boundary
-commits through `29ecc149`. The patch computes `__abstractmethods__` on Sage dynamic
-`parent_class` construction, propagates joined abstract sets, removes the generated
-`assert False` missing-method body, and makes `refine_category` reject missing
-obligations before mutating the parent category.
+The provider-satisfaction/object-method-resolution branch must be reconciled with the
+corrected category-spec model in `mem:category-spec-repo-model-corrections`.
+Prior ABC-boundary commits and tests that require refinement-time rejection, failed
+refinement atomicity, or "invalid refined objects cannot enter project categories" are
+not acceptance criteria.
 
-Treat `2e457c43` and `29ecc149` as the adversarial-test guards for this contract. They
-expand `rings/tests/regression/object_method_resolution.sage` so future repairs must
-satisfy standalone and joined parent-class abstractness, multiple missing obligations,
-concrete Sage parent-type realization, mixed realized/missing rejection, concrete project
-category overrides, dynamically generated obligation names, and optimized-mode
-failed-refinement atomicity.
+Next pickup: continue from committed bridge repair `6c7e6648`, not from old summaries.
+That commit removes a local subclass-filter from `_abc_parent_class_bases`, so the
+project bridge uses Sage's `_super_categories_for_classes` base sequence instead of
+recomputing a smaller MRO base set. That clears the finite ring/finite-field
+parent-class MRO layer while preserving the corrected model: refinement declares
+category view, and Python/Sage MRO handles concrete parent methods without method-name
+satisfaction logic.
 
-The targeted regression now passes:
+Current hard core: the parent-class MRO layer is no longer the first failure, but the
+goal is not complete. `rings/tests/regression/finite_fields.sage` now reaches
+`F7(3).inverse()` and fails because project `ElementMethods.inverse` is still installed
+as an ellipsis body that shadows Sage's concrete element inverse path. A trial
+generalization of the ABC bridge to `element_class` made that inverse witness pass but
+broke `sets/smoketest.sage`: Sage later builds concrete element classes with upstream
+`dynamic_class`, which cannot compose with an ABCMeta category `element_class`. Do not
+resume that blanket element-class route.
 
-```bash
-just -f category_specs/justfile smoke-file rings/tests/regression/object_method_resolution.sage
-```
+`rings/tests/regression/integer_mod_rings.sage` now reaches later constructor behavior
+and fails in the Hom/coercion path: `JoinCategory_with_category` lacks `HomCategory`.
+This is a separate category/Hom join-surface gap, not evidence for reintroducing
+abstract-name filtering or refinement validation.
 
-Do not claim the larger provider-satisfaction goal complete yet. Strict ABC enforcement
-exposes unsatisfied required root ring-surface propositions: `Rings().Constructors().ZZ()`
-now correctly raises on unresolved abstract obligations such as
-`hilbert_polynomial`, `is_number_field`, `is_complete_ring`, and related root predicate
-methods. `category_specs/__init__.py` no longer eagerly refines `ZZ`/`QQ` at import
-time, because import-time construction of abstract parents hid the invalid surface.
+Current verification frontier:
 
-Next pickup: review the ABC-boundary commits, then source-ground the root
-`Rings().Constructors().ZZ()`/`QQ()` abstract obligations or split that as the next
-explicit ring-surface repair. Do not reintroduce generated assertion-body enforcement or
-skip the refinement guard to make those constructors pass.
+- `rings/tests/regression/object_method_resolution.sage` passes.
+- `sets/tests/regression/set_partitions.sage` passes.
+- `sets/smoketest.sage` passes, with existing Sage warning noise about topological-set
+  axiom binding and set-hom element-provider superclass shape.
+- `posets/smoketest.sage` passes.
+- `python3 -m py_compile category_specs/cat/base_category_types.py` passes.
+- `just --justfile category_specs/justfile check-banned-spec-patterns` reports 442
+  inherited repo-wide findings and zero staged findings.
+- `rings/tests/regression/finite_fields.sage` fails at `F7(3).inverse() == F7(5)`.
+- `rings/tests/regression/integer_mod_rings.sage` fails later at
+  `R7.multiplicative_generator()` through the Hom/coercion path.
+- Full `just --justfile category_specs/justfile test` is not clean. The latest broad
+  run still failed in `types_smoketest.sage`, `tensor_algebra_components`,
+  `algebras`, `rings`, `modules`, and `lattices`; rerun only after deciding whether
+  the remaining element/Hom failures are in the current bridge boundary or separate
+  source-grounded implementation cards.
+
+Do not widen this into a Sage hook, method-only parallel hierarchy, or refinement
+validator. The next code change should preserve the intended model: extend Sage's
+dynamic classes with ABC-compatible metaclasses and use those dynamic classes in this
+category hierarchy; refinement declares category view; ordinary lookup may reach
+concrete Sage/project methods; missing project obligations remain visible to smokes and
+later implementation work.
+
+Do not claim the larger provider-satisfaction goal complete. Root
+`Rings().Constructors().ZZ()`/`QQ()` obligations remain visible implementation gaps
+unless separate source-grounded work supplies those methods.
 
 Before further category-spec edits, run
 `just --justfile category_specs/justfile check-banned-spec-patterns`. It is warning-only
@@ -55,7 +82,9 @@ cache-priming, or post-hoc object mutation would be a fresh defect.
 Before the next source edit, load:
 
 - `mem:category-spec-epistemic-foundation`
+- `mem:category-spec-repo-model-corrections`
 - `mem:category-spec-refinement-category-declaration`
+- `mem:category-spec-methods-are-abstract`
 - `mem:provider-satisfaction-goal-contract`
 - `mem:provider-satisfaction-goal-state`
 - `mem:category-spec-rotten-core-indicators`
@@ -71,6 +100,8 @@ Before the next source edit, load:
 - No downstream Coble work.
 - No `# type: ignore`.
 - No `typing.cast` additions in category-spec code.
+- No refinement-time abstract-method satisfaction checks.
+- No generated failure bodies for missing spec obligations.
 - No `with_axiom(self, "...")`; use Sage's direct `self._with_axiom("...")`
   idiom where the descriptor binding is correct.
 - `NotImplementedError` remains rejected by pre-commit hook.
